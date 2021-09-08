@@ -8,9 +8,7 @@ weight: 30
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
-Using `kubeadm`, you can create a minimum viable Kubernetes cluster that conforms to best practices.
-In fact, you can use `kubeadm` to set up a cluster that will pass the
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Using `kubeadm`, you can create a minimum viable Kubernetes cluster that conforms to best practices. In fact, you can use `kubeadm` to set up a cluster that will pass the
 [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
 `kubeadm` also supports other cluster lifecycle functions, such as
 [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
@@ -26,8 +24,6 @@ You can install and use `kubeadm` on various machines: your laptop, a set
 of cloud servers, a Raspberry Pi, and more. Whether you're deploying into the
 cloud or on-premises, you can integrate `kubeadm` into provisioning systems such
 as Ansible or Terraform.
-
-
 
 ## {{% heading "prerequisites" %}}
 
@@ -45,8 +41,7 @@ To follow this guide, you need:
 You also need to use a version of `kubeadm` that can deploy the version
 of Kubernetes that you want to use in your new cluster.
 
-[Kubernetes' version and version skew support policy](/docs/setup/release/version-skew-policy/#supported-versions)
-applies to `kubeadm` as well as to Kubernetes overall.
+[Kubernetes' version and version skew support policy](/docs/setup/release/version-skew-policy/#supported-versions) applies to `kubeadm` as well as to Kubernetes overall.
 Check that policy to learn about what versions of Kubernetes and `kubeadm`
 are supported. This page is written for Kubernetes {{< param "version" >}}.
 
@@ -101,8 +96,7 @@ a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 1. (Optional) Since version 1.14, `kubeadm` tries to detect the container runtime on Linux
 by using a list of well known domain socket paths. To use different container runtime or
 if there are more than one installed on the provisioned node, specify the `--cri-socket`
-argument to `kubeadm init`. See
-[Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
+argument to `kubeadm init`. See [Installing runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
 with the default gateway to set the advertise address for this particular control-plane node's API server.
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
@@ -144,12 +138,9 @@ is not supported by kubeadm.
 
 For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/).
 
-To configure `kubeadm init` with a configuration file see
-[Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
+To configure `kubeadm init` with a configuration file see [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
 
-To customize control plane components, including optional IPv6 assignment to liveness probe
-for control plane components and etcd server, provide extra arguments to each component as documented in
-[custom arguments](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/).
+To customize control plane components, including optional IPv6 assignment to liveness probe for control plane components and etcd server, provide extra arguments to each component as documented in [custom arguments](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/).
 
 To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
 
@@ -300,13 +291,11 @@ The nodes are where your workloads (containers and Pods, etc) run. To add new no
 
 * SSH to the machine
 * Become root (e.g. `sudo su -`)
-* [Install a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)
-  if needed
 * Run the command that was output by `kubeadm init`. For example:
 
-  ```bash
-  kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
-  ```
+```bash
+kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
+```
 
 If you do not have the token, you can get it by running the following command on the control-plane node:
 
