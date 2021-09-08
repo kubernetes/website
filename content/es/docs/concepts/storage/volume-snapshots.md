@@ -2,6 +2,7 @@
 reviewers:
 - edithturn
 - raelga
+- electrocucaracha
 title: Snapshots de Volúmenes
 content_type: concept
 weight: 20
@@ -32,7 +33,7 @@ Cuando utilicen esta función los usuarios deben tener en cuenta lo siguiente:
 
 * Los objetos de API `VolumeSnapshot`, `VolumeSnapshotContent`, y `VolumeSnapshotClass` son {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}, y no forman parte de la API principal.
 * La compatibilidad con `VolumeSnapshot` solo está disponible para controladores CSI.
-* Como parte del proceso de implementación de `VolumeSnapshot`,  el equipo de Kubernetes proporciona un controlador de Snapshot para implementar en el plano de control y un sidecar auxiliar llamado csi-snapshotter para implementar junto con el controlador CSI. El controlador de Snapshot observa los objetos `VolumeSnapshot` y `VolumeSnapshotContent` y es responsable de la creación y eliminación del objeto `VolumeSnapshotContent`.  El sidecar csi-snapshotter observa los objetos `VolumeSnapshotContent` y activa las operaciones `CreateSnapshot` y `DeleteSnapshot` en un punto final CSI.
+* Como parte del proceso de implementación de `VolumeSnapshot`, el equipo de Kubernetes proporciona un controlador de Snapshot para implementar en el plano de control y un sidecar auxiliar llamado csi-snapshotter para implementar junto con el controlador CSI. El controlador de Snapshot observa los objetos `VolumeSnapshot` y `VolumeSnapshotContent` y es responsable de la creación y eliminación del objeto `VolumeSnapshotContent`. El sidecar csi-snapshotter observa los objetos `VolumeSnapshotContent` y activa las operaciones `CreateSnapshot` y `DeleteSnapshot` en un punto final CSI.
 * También hay un servidor webhook de validación que proporciona una validación más estricta en los objetos Snapshot. Esto debe ser instalado por las distribuciones de Kubernetes junto con el controlador de Snapshots y los CRDs, no los controladores CSI. Debe instalarse en todos los clústeres de Kubernetes que tengan habilitada la función de Snapshot.
 * Los controladores CSI pueden haber implementado o no la funcionalidad de Snapshot de volumen. Los controladores CSI que han proporcionado soporte para Snapshot de volumen probablemente usarán csi-snapshotter. Consulte [CSI Driver documentation](https://kubernetes-csi.github.io/docs/) para obtener más detalles.
 * Los CRDs y las instalaciones del controlador de Snapshot son responsabilidad de la distribución de Kubernetes.
@@ -43,10 +44,10 @@ Cuando utilicen esta función los usuarios deben tener en cuenta lo siguiente:
 
 ### Snapshot del volumen de aprovisionamiento
 
-Hay dos formas de aprovisionar las instantáneas: aprovisionadas previamente o aprovisionadas dinámicamente.
+Hay dos formas de aprovisionar los Snapshots: aprovisionadas previamente o aprovisionadas dinámicamente.
 
 #### Pre-aprovisionado {#static}
-Un administrador de clúster crea una serie de `VolumeSnapshotContents`. Llevan los detalles de la instantánea del volumen real en el sistema de almacenamiento que está disponible para que lo utilicen los usuarios del clúster. Existen en la API de Kubernetes y están disponibles para su consumo.
+Un administrador de clúster crea una serie de `VolumeSnapshotContents`. Llevan los detalles del Snapshot del volumen real en el sistema de almacenamiento que está disponible para que lo utilicen los usuarios del clúster. Existen en la API de Kubernetes y están disponibles para su consumo.
 
 #### Dinámica
 En lugar de utilizar un Snapshot preexistente, puede solicitar que se tome una Snapshot dinámicamente de un PersistentVolumeClaim. El [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) especifica los parámetros específicos del proveedor de almacenamiento para usar al tomar una Snapshot.
@@ -84,7 +85,7 @@ spec:
     persistentVolumeClaimName: pvc-test
 ```
 
-`persistentVolumeClaimName`  es el nombre de la fuente de datos PersistentVolumeClaim para el Snapshot. Este campo es obligatorio para aprovisionar dinámicamente un Snapshot.
+`persistentVolumeClaimName` es el nombre de la fuente de datos PersistentVolumeClaim para el Snapshot. Este campo es obligatorio para aprovisionar dinámicamente un Snapshot.
 
 Un Snapshot de volumen puede solicitar una clase particular especificando el nombre de un [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/)
 utilizando el atributo `volumeSnapshotClassName`. Si no se establece nada, se usa la clase predeterminada si está disponible.
