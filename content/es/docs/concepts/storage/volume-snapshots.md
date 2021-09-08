@@ -9,7 +9,7 @@ weight: 20
 
 <!-- overview -->
 
-En Kubernetes, un _VolumeSnapshot_ representa un Snapshot de un volumen en un sistema de almacenamiento. Este documento asume que ya está familiarizado con Kubernetes [persistent volumes](/docs/concepts/storage/persistent-volumes/).
+En Kubernetes, un _VolumeSnapshot_ representa un Snapshot de un volumen en un sistema de almacenamiento. Este documento asume que está familiarizado con [volúmenes persistentes](/docs/concepts/storage/persistent-volumes/) de Kubernetes.
 
 
 
