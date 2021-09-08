@@ -232,7 +232,7 @@ To overcome this situation, you can either increase the `maxSkew` or modify one 
 
 ### Interaction With Node Affinity and Node Selectors
 
-If the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined, nodes not matching them will be bypassed. 
+The scheduler will skip the non-matching nodes from the skew calculations if the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined.
 
     Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 
@@ -272,7 +272,7 @@ If the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defi
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
-Since the topology domains are determined from the nodes that satisfy `spec.nodeSelector` or `spec.affinity.nodeAffinity`, topology domains that have zero nodes are excluded from calculations. This could lead to a problem when a node pool (or node group) is scaled to zero nodes and the user is expecting them to scale up, because, those topology domains won't be considered until there is at least one node in them.
+The scheduler doesn't have prior knowledge of all the zones or other topology domains that a cluster has. They are determined from the existing nodes in the cluster. This could lead to a problem in autoscaled clusters, when a node pool (or node group) is scaled to zero nodes and the user is expecting them to scale up, because, in this case, those topology domains won't be considered until there is at least one node in them.
 
 ### Other Conventions
 
