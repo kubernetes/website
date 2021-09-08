@@ -1,5 +1,4 @@
 .SandboxRoot.env-bp-430 .timeline-Tweet-text {
-
   font-size: 13pt !important;
 }
 
@@ -13,7 +12,6 @@ html {
 
 .tablet {
   display: none;
-
 }
 
 .desktop {
@@ -28,37 +26,35 @@ html {
   width: 60%;
   margin-left: 20%;
   float: left;
-  padding: 2%
+  padding: 2%;
 }
 
 code {
   font-size: 90%;
   opacity: 0.95;
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace !important;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace !important;
 }
 
 .fa {
   font-size: 25px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .panel-title {
   font-size: 25px;
-  color: #FFFFFF;
-  font-family: 'Open Sans', sans-serif;
+  color: #ffffff;
+  font-family: "Open Sans", sans-serif;
 }
 
 .panel-heading {
   background-color: #1da1f2 !important;
-  ;
   color: #1da1f2 !important;
-  ;
 }
 
 .panel {
   margin-top: 25px;
 }
-
 
 footer {
   float: left !important;
@@ -69,14 +65,11 @@ p {
 }
 
 .mobile {
-
   display: none;
-
 }
 
 .desktop {
   display: block;
-
 }
 
 body {
@@ -86,17 +79,14 @@ body {
   /* letter-spacing:0.03em; */
   /* font-size:15px; */
   margin: 0 auto;
-
 }
 
 .banner1 {
-  position:relative;
-  float:left;
-  width:100%;
+  position: relative;
+  float: left;
+  width: 100%;
   padding-left: 0 !important;
 }
-
-
 
 .intro {
   float: left;
@@ -108,7 +98,6 @@ body {
   margin-top: 3%;
   font-weight: 300;
   letter-spacing: 0.04em;
-
 }
 
 .community__navbar {
@@ -135,7 +124,6 @@ a {
   color: #303030;
 }
 
-
 .imagecols {
   text-align: center;
   margin: 0 auto;
@@ -143,23 +131,19 @@ a {
   margin-left: 10%;
   float: left;
   margin-bottom: 2%;
-
 }
 
 .imagecol {
   margin-right: 1%;
   float: left;
   width: 32%;
-
 }
 
-
 .events {
-  background-image: url('/images/community/event-bg.jpg');
+  background-image: url("/images/community/event-bg.jpg");
   float: left;
   width: 100%;
   margin-top: 3%;
-
 }
 
 .eventcontainer {
@@ -181,7 +165,6 @@ a {
 }
 
 .event a {
-
   color: white !important;
   font-weight: bold !important;
   display: block;
@@ -202,7 +185,7 @@ a {
 }
 
 .meetups {
-  background: url('/images/community/kubernetes-community-final.jpg');
+  background: url("/images/community/kubernetes-community-final.jpg");
   background-size: 100% auto;
   float: left;
   background-position: center;
@@ -221,11 +204,10 @@ a {
 .meetuptext {
   color: white;
   margin-bottom: 7%;
-
 }
 
 .button {
-  background-color: #0662EE;
+  background-color: #0662ee;
   color: white;
   font-size: 18px;
   padding-top: 3%;
@@ -237,22 +219,19 @@ a {
   float: left;
   letter-spacing: 0.07em;
   font-weight: bold;
-
 }
 
 .fullbutton {
   display: inline-block;
   margin: auto;
   margin-top: 2rem;
-  background-color: #0662EE;
+  background-color: #0662ee;
   color: white;
   font-size: 18px;
   padding: 2% 2.5%;
   letter-spacing: 0.07em;
   font-weight: bold;
-
 }
-
 
 .newcommunitywrapper h1 {
   font-size: 42px;
@@ -261,7 +240,6 @@ a {
   line-height: 1.1em;
   margin-bottom: 3%;
   text-align: center;
-
 }
 
 .videos {
@@ -270,36 +248,30 @@ a {
   padding-top: 5%;
   padding-bottom: 5%;
   background-color: #eeeeee;
-
 }
 
 .videocontainer {
   float: left;
   margin-left: 10%;
   width: 80%;
-
 }
-
 
 .video {
   margin-right: 2%;
   float: left;
   width: 31%;
-
 }
-
 
 .videotext {
   margin-top: 3%;
   text-align: center;
   padding-top: 4%;
-
 }
 
 .videocta {
   text-align: center;
   padding: 3%;
-  color: #0662EE;
+  color: #0662ee;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 0.05em;
@@ -307,66 +279,58 @@ a {
   padding-top: 5%;
 }
 
-
-
 .resources {
   width: 100%;
-  margin-top;
-  5%;
+  margin-top: 5%;
   margin-bottom: 3%;
   float: left;
 }
 
-
 .resourcecontainer {
   width: 90%;
-  margin-top: 3%;
-  margin-left: 10%;
+  margin: 3% auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 14px;
+  grid-column-gap: 40px;
 }
-
 
 .resourcebox {
-  float: left;
-  margin: 1%;
   border: 1px solid grey;
   padding: 2%;
+  margin: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-size: 1em;
-  color: #0662EE;
-  height: 100%;
-  vertical-align: middle;
+  color: #0662ee;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   font-weight: bold;
-  line-height: 1.3em;
-  letter-spacing: 0.05em;
-  width: 20%;
-  min-height: 330px;
-  text-align: center;
-
+  height: 100%;
+  width: 100% !important;
 }
-
 
 .contributor {
   float: left;
   width: 100%;
-  background: url('/images/community/kubernetes-community-contributor.jpg');
+  background: url("/images/community/kubernetes-community-contributor.jpg");
   background-size: 100% auto;
   float: left;
   background-position: center;
-
 }
 
-.contributortext {
-  color: white;
-  margin-left: 0%;
-  margin-right: 6%;
-  padding: 4%;
-  float: right;
-  width: 40%;
-  text-align: left;
-  margin-bottom: 3%;
-
+.resourceboxtext {
+  color: #333333;
+  width: 90% !important;
+  margin-left: 5% !important;
+  font-weight: 400 !important;
+  margin-top: 5% !important;
+  padding: 3%;
+  font-size: 0.7em !important;
+  text-align: center;
 }
-
 
 .contributorimage {
   margin-left: 4%;
@@ -375,7 +339,6 @@ a {
   float: left;
   width: 40%;
   text-align: left;
-
 }
 
 .conduct {
@@ -395,7 +358,6 @@ a {
   text-align: center;
   font-weight: 300;
 }
-
 
 h2 {
   overflow: hidden;
@@ -426,7 +388,6 @@ h2:after {
   margin-right: -50%;
 }
 
-
 .news {
   float: left;
   width: 80%;
@@ -434,7 +395,6 @@ h2:after {
   padding-bottom: 3%;
   margin-left: 10%;
   text-align: center;
-
 }
 
 .newscol {
@@ -444,42 +404,31 @@ h2:after {
 }
 
 .resourcebox {
-
   height: 100%;
   min-height: 370px;
 }
 
-
-@media (max-width:1500px) and (min-width:1100px) {
-
-
+@media (max-width: 1500px) and (min-width: 1100px) {
   .resourcebox {
     min-height: 320px;
     height: 100%;
-
   }
 }
 
-@media (max-width:1500px) and (min-width:800px) {
-
-
+@media (max-width: 1500px) and (min-width: 800px) {
   .tablet {
     display: block;
-
   }
 }
 
-@media (max-width:1100px) {
-
-
+@media (max-width: 1100px) {
   .resourcebox {
     min-height: 270px;
     height: 100%;
-
   }
 
   .button {
-    background-color: #0662EE;
+    background-color: #0662ee;
     color: white;
     font-size: 16px;
     padding: 4% !important;
@@ -489,18 +438,10 @@ h2:after {
     margin-bottom: 5%;
     letter-spacing: 0.07em;
     font-weight: bold;
-
   }
-
-  /* .fullbutton {
-
-    padding: 3% !important;
-
-
-  } */
 }
 
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
   .desktop {
     display: none;
   }
@@ -510,83 +451,18 @@ h2:after {
   }
 }
 
-
-@media (min-width:600px) and (max-width:750px) {
-
-  .resourcebox {
-    float: left;
-    margin: 3%;
-    border: 1px solid grey;
-    padding: 1%;
-    font-size: 1.4em;
-    color: #0662EE;
-    vertical-align: middle;
-    text-transform: uppercase;
-    font-weight: bold;
-    min-height: 375px;
-    letter-spacing: 0.01em;
-    width: 43% !important;
-    line-height: 1.5em;
-    text-align: center;
-
+@media screen and (max-width: 972px) {
+  .resourcecontainer {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px !important;
   }
 }
 
-@media (min-width:450px) and (max-width:600px) {
-
-  .resourcebox {
-    float: left;
-    margin: 3%;
-    border: 1px solid grey;
-    padding: 1%;
-    font-size: 1.1em;
-    ;
-    color: #0662EE;
-    vertical-align: middle;
-    text-transform: uppercase;
-    font-weight: bold;
-    min-height: 280px;
-    letter-spacing: 0.01em;
-    width: 43% !important;
-    line-height: 1.5em;
-    text-align: center;
-
-  }
-
-
-}
-
-
-@media (max-width:450px) {
-
-  .resourcebox {
-    float: left;
-    margin: 3%;
-    border: 1px solid grey;
-    padding: 1%;
-    font-size: 1.1em;
-    color: #0662EE;
-    vertical-align: middle;
-    text-transform: uppercase;
-    font-weight: bold;
-    height: 100% !important;
-    letter-spacing: 0.01em;
-    width: 43% !important;
-    line-height: 1.5em;
-    text-align: center;
-
-  }
-
-
-}
-
-@media (max-width:750px) {
-
-
+@media (max-width: 750px) {
   .twittercol1 {
     width: 95%;
     float: left;
-    padding: 2%
+    padding: 2%;
   }
 
   .conducttextnobutton {
@@ -603,28 +479,20 @@ h2:after {
     margin-top: 7%;
     margin-bottom: 7%;
     letter-spacing: 0.04em;
-
   }
 
   .banner1 {
     position: relative;
     height: 300%;
     float: left;
-
-
   }
 
   .mobile {
-
     display: block;
-
-
   }
 
   .desktop {
-
     display: none;
-
   }
 
   h1 {
@@ -641,9 +509,7 @@ h2:after {
     letter-spacing: 0.03em;
     /* font-size: 13px; */
     margin: 0 auto;
-
   }
-
 
   .community__navbar {
     display: none;
@@ -655,7 +521,6 @@ h2:after {
     background-color: #eeeeee;
     margin-top: 3%;
     padding-bottom: 5%;
-
   }
 
   .eventcontainer {
@@ -666,7 +531,6 @@ h2:after {
   }
 
   .event {
-
     width: 80%;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -698,11 +562,10 @@ h2:after {
   .meetuptext {
     color: white;
     margin-bottom: 7%;
-
   }
 
   .button {
-    background-color: #0662EE;
+    background-color: #0662ee;
     color: white;
     font-size: 16px;
     padding: 4%;
@@ -711,7 +574,6 @@ h2:after {
     margin-bottom: 5%;
     letter-spacing: 0.07em;
     font-weight: bold;
-
   }
 
   .videos {
@@ -720,31 +582,25 @@ h2:after {
     padding-top: 5%;
     padding-bottom: 5%;
     background-color: #eeeeee;
-
   }
 
   .videocontainer {
     float: left;
     width: 90%;
-
   }
-
 
   .video {
     margin-right: 2%;
     margin-left: 0%;
     float: left;
     width: 90%;
-
   }
-
 
   .videotext {
     margin-top: 3%;
     text-align: center;
     padding-top: 4%;
     padding-bottom: 2%;
-
   }
 
   .videocta {
@@ -752,7 +608,7 @@ h2:after {
     padding: 3%;
     padding-top: 5%;
     line-height: 1.3em;
-    color: #0662EE;
+    color: #0662ee;
     text-transform: uppercase;
     font-weight: bold;
     padding-bottom: 8%;
@@ -762,12 +618,10 @@ h2:after {
 
   .resources {
     width: 100%;
-    margin-top;
-    8%;
+    margin-top: 8%;
     margin-bottom: 8%;
     float: left;
   }
-
 
   .resourcecontainer {
     width: 90%;
@@ -776,29 +630,21 @@ h2:after {
     margin-left: 5%;
   }
 
-
-
-
-
   .contributor {
     float: left;
     width: 100%;
-    background: url('/images/community/kubernetes-community-contributor.jpg');
+    background: url("/images/community/kubernetes-community-contributor.jpg");
     background-size: 100% auto;
     float: left;
     background-position: center;
-
   }
 
   .contributortext {
     color: white;
-    margin-left: 5%;
-    float: left;
+    margin: auto 5%;
     text-align: center !important;
     width: 80%;
-    text-align: left;
     margin-bottom: 3%;
-
   }
 
   .conduct {
@@ -819,7 +665,7 @@ h2:after {
   }
 
   .fullbutton {
-    background-color: #0662EE;
+    background-color: #0662ee;
     color: white;
     font-size: 16px;
     padding: 4%;
@@ -829,8 +675,6 @@ h2:after {
     margin-bottom: 9%;
     letter-spacing: 0.07em;
     font-weight: bold;
-
-
   }
 
   .searchbar {
@@ -854,8 +698,4 @@ h2:after {
     padding: 3%;
     font-size: 0.7em !important;
   }
-
-
-
-
 }
