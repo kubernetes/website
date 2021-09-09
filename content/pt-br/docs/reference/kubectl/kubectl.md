@@ -224,8 +224,7 @@ Exige versão do servidor para corresponder à versão do client
 <td colspan="2">--one-output</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-If true, only write logs to their native severity level (vs also writing to each lower severity level</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"> Se true, escreve logs apenas para seus níveis de gravidade (enquanto também escreve para cada nível de gravidade menor)</td>
 </tr>
 
 <tr>
@@ -391,48 +390,49 @@ Quando configurado para false, desativa cabeçalhos HTTP detalhando comando kube
 </tbody>
 </table>
 
-## {{% heading "seealso" %}}
+## Veja também
 
-* [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Update the annotations on a resource
-* [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Print the supported API resources on the server
-* [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply)	 - Apply a configuration to a resource by filename or stdin
-* [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands#attach)	 - Attach to a running container
-* [kubectl auth](/docs/reference/generated/kubectl/kubectl-commands#auth)	 - Inspect authorization
-* [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale)	 - Auto-scale a Deployment, ReplicaSet, or ReplicationController
-* [kubectl certificate](/docs/reference/generated/kubectl/kubectl-commands#certificate)	 - Modify certificate resources.
-* [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands#cluster-info)	 - Display cluster info
-* [kubectl completion](/docs/reference/generated/kubectl/kubectl-commands#completion)	 - Output shell completion code for the specified shell (bash or zsh)
-* [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)	 - Modify kubeconfig files
-* [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	 - Mark node as unschedulable
-* [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - Copy files and directories to and from containers.
-* [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - Create a resource from a file or from stdin.
-* [kubectl debug](/docs/reference/generated/kubectl/kubectl-commands#debug)	 - Create debugging sessions for troubleshooting workloads and nodes
-* [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - Delete resources by filenames, stdin, resources and names, or by resources and label selector
-* [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - Show details of a specific resource or group of resources
-* [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Diff live version against would-be applied version
-* [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	 - Drain node in preparation for maintenance
-* [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	 - Edit a resource on the server
-* [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - Execute a command in a container
-* [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - Documentation of resources
-* [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service
-* [kubectl get](/docs/reference/generated/kubectl/kubectl-commands#get)	 - Display one or many resources
-* [kubectl kustomize](/docs/reference/generated/kubectl/kubectl-commands#kustomize)	 - Build a kustomization target from a directory or a remote url.
-* [kubectl label](/docs/reference/generated/kubectl/kubectl-commands#label)	 - Update the labels on a resource
-* [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - Print the logs for a container in a pod
-* [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	 - Print the list of flags inherited by all commands
-* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - Update field(s) of a resource
-* [kubectl plugin](/docs/reference/generated/kubectl/kubectl-commands#plugin)	 - Provides utilities for interacting with plugins.
-* [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	 - Forward one or more local ports to a pod
-* [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](/docs/reference/generated/kubectl/kubectl-commands#replace)	 - Replace a resource by filename or stdin
-* [kubectl rollout](/docs/reference/generated/kubectl/kubectl-commands#rollout)	 - Manage the rollout of a resource
-* [kubectl run](/docs/reference/generated/kubectl/kubectl-commands#run)	 - Run a particular image on the cluster
-* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - Set a new size for a Deployment, ReplicaSet or Replication Controller
-* [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	 - Set specific features on objects
-* [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)	 - Update the taints on one or more nodes
-* [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	 - Display Resource (CPU/Memory/Storage) usage.
-* [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	 - Mark node as schedulable
-* [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Print the client and server version information
-* [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Experimental: Wait for a specific condition on one or many resources.
+* [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Atualizar as anotações em um recurso
+* [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Imprimir os recursos suportados da API no servidor
+* [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - Imprimir as versões suportadas da API no servidor em forma de "grupo/versão"
+* [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply)	 - Aplicar uma configuração a um recurso pelo nome do arquivo ou stdin
+* [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands#attach)	 - Vincular a um container em execução
+* [kubectl auth](/docs/reference/generated/kubectl/kubectl-commands#auth)	 - Inspecionar a autorização
+* [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale)	 - Escalar automaticamente um Deployment, ReplicaSet ou ReplicationController
+* [kubectl certificate](/docs/reference/generated/kubectl/kubectl-commands#certificate)	 - Modificar recursos de certificado
+* [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands#cluster-info)	 - Exibir informações de cluster
+* [kubectl completion](/docs/reference/generated/kubectl/kubectl-commands#completion)	 - Exibir código de compleção do shell para o shell especificado (bash ou zsh)
+* [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)	 - Modificar arquivos kubeconfig
+* [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	 - Marcar nó como não programável
+* [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - Copiar arquivos e diretórios de e para contêineres
+* [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - Criar um recurso de um arquivo ou de stdin
+* [kubectl debug](/docs/reference/generated/kubectl/kubectl-commands#debug)	 - Criar sessões de debugging para solução de problemas de workloads e nós
+* [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - Excluir recursos por nomes de arquivos, stdin, recursos e nomes, ou por recursos e seletor de labels
+* [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - Mostrar detalhes de um recurso específico ou grupo de recursos
+* [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Diferenciar versão live da versão que seria aplicada
+* [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	 - Drenar nó em preparação para manutenção
+* [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	 - Editar um recurso no servidor
+* [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - Executar um comando em um contêiner
+* [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - Documentação de recursos
+* [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - Pegue um replication controller, service, deployment ou pod e exponha como um novo Kubernetes Service
+* [kubectl get](/docs/reference/generated/kubectl/kubectl-commands#get)	 - Exibir um ou muitos recursos
+* [kubectl kustomize](/docs/reference/generated/kubectl/kubectl-commands#kustomize)	 - Construa um alvo de kustomization de um diretório ou um URL remoto.
+* [kubectl label](/docs/reference/generated/kubectl/kubectl-commands#label)	 - Atualizar as labels em um recurso
+* [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - Imprimir os logs para um contêiner em um pod
+* [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	 - Imprimir a lista de flags herdadas por todos os comandos
+* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - Atualizar campos de um recurso
+* [kubectl plugin](/docs/reference/generated/kubectl/kubectl-commands#plugin)	 - Prover serviços de utilidade para interação com plugins
+* [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	 - Encaminhar uma ou mais portas a um pod
+* [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy)	 - Executar um proxy para o servidor do Kubernetes API
+Run a proxy to the Kubernetes API server
+* [kubectl replace](/docs/reference/generated/kubectl/kubectl-commands#replace)	 - Substitua um recurso por nome de arquivo ou stdin
+* [kubectl rollout](/docs/reference/generated/kubectl/kubectl-commands#rollout)	 - Gerenciar o lançamento de um recurso
+* [kubectl run](/docs/reference/generated/kubectl/kubectl-commands#run)	 - Executar uma imagem específica no cluster
+* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - Definir um novo tamanho para um Deployment, ReplicaSet ou ReplicationController
+* [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	 - Definir funcionalidades específicas em objetos
+* [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)	 - Atualizar as manchas em um ou mais nós
+* [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	 - Exibir uso do recurso (CPU / Memória / Armazenamento)
+* [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	 - Marcar o nó como programável
+* [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Imprima as informações da versão do client e do servidor
+* [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Experimental: Aguardar por uma condição específica em um ou mais recursos
 
