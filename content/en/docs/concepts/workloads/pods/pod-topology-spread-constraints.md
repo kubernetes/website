@@ -274,13 +274,13 @@ The scheduler will skip the non-matching nodes from the skew calculations if the
 
 The scheduler doesn't have prior knowledge of all the zones or other topology domains that a cluster has. They are determined from the existing nodes in the cluster. This could lead to a problem in autoscaled clusters, when a node pool (or node group) is scaled to zero nodes and the user is expecting them to scale up, because, in this case, those topology domains won't be considered until there is at least one node in them.
 
-### Other Conventions
+### Other Noticeable Semantics
 
 There are some implicit conventions worth noting here:
 
 - Only the Pods holding the same namespace as the incoming Pod can be matching candidates.
 
-- Nodes without `topologySpreadConstraints[*].topologyKey` present will be bypassed. It implies that:
+- The scheduler will bypass the nodes without `topologySpreadConstraints[*].topologyKey` present. This implies that:
 
   1. the Pods located on those nodes do not impact `maxSkew` calculation - in the above example, suppose "node1" does not have label "zone", then the 2 Pods will be disregarded, hence the incoming Pod will be scheduled into "zoneA".
   2. the incoming Pod has no chances to be scheduled onto this kind of nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
