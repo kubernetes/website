@@ -138,10 +138,10 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.22"
+latest = "v1.23"
 
-fullversion = "v1.22.0"
-version = "v1.22"
+fullversion = "v1.23.0"
+version = "v1.23"
 githubbranch = "main"
 docsbranch = "main"
 deprecated = false
@@ -178,11 +178,18 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.22.0"
-version = "v1.22"
-githubbranch = "v1.22.0"
+fullversion = "v1.23.0"
+version = "v1.23"
+githubbranch = "v1.23.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.22.1"
+version = "v1.22"
+githubbranch = "v1.22.1"
+docsbranch = "release-1.22"
+url = "https://v1-22.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.21.4"
@@ -204,13 +211,6 @@ version = "v1.19"
 githubbranch = "v1.19.14"
 docsbranch = "release-1.19"
 url = "https://v1-19.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.18.20"
-version = "v1.18"
-githubbranch = "v1.18.20"
-docsbranch = "release-1.18"
-url = "https://v1-18.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
