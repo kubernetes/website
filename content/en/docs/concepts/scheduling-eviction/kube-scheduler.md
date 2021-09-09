@@ -47,7 +47,7 @@ functions to score the feasible Nodes and picks a Node with the highest
 score among the feasible ones to run the Pod. The scheduler then notifies
 the API server about this decision in a process called _binding_.
 
-Factors that need taken into account for scheduling decisions include
+Factors that need to be taken into account for scheduling decisions include
 individual and collective resource requirements, hardware / software /
 policy constraints, affinity and anti-affinity specifications, data
 locality, inter-workload interference, and so on.

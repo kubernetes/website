@@ -19,8 +19,9 @@ is that they have been superseded by a newer, stable (“GA”) API.
 
 Kubernetes 1.22, due for release in August 2021, will remove a number of deprecated
 APIs.
-[Kubernetes 1.22 Release Information](https://www.kubernetes.dev/resources/release/)
-has details on the schedule for the v1.22 release.
+_Update_:
+[Kubernetes 1.22: Reaching New Peaks](/blog/2021/08/04/kubernetes-1-22-release-announcement/)
+has details on the v1.22 release.
 
 ## API removals for Kubernetes v1.22 {#api-changes}
 

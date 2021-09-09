@@ -99,11 +99,11 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 <!--
 ## Clusters
 
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
+* [seccomp](/docs/tutorials/clusters/seccomp/)
 -->
 ## 集群
 
-* [AppArmor](/zh/docs/tutorials/clusters/apparmor/)
+* [seccomp](/zh/docs/tutorials/clusters/seccomp/)
 
 <!--
 ## Services

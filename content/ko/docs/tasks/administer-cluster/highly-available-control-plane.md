@@ -10,7 +10,7 @@ content_type: task
 
 {{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
-구글 컴퓨트 엔진(Google Compute Engine, 이하 GCE)의 `kube-up`이나 `kube-down` 스크립트에 쿠버네티스 컨트롤 플레인 노드를 복제할 수 있다.
+구글 컴퓨트 엔진(Google Compute Engine, 이하 GCE)의 `kube-up`이나 `kube-down` 스크립트에 쿠버네티스 컨트롤 플레인 노드를 복제할 수 있다. 하지만 이러한 스크립트들은 프로덕션 용도로 사용하기에 적합하지 않으며, 프로젝트의 CI에서만 주로 사용된다.
 이 문서는 kube-up/down 스크립트를 사용하여 고가용(HA) 컨트롤 플레인을 관리하는 방법과 GCE와 함께 사용하기 위해 HA 컨트롤 플레인을 구현하는 방법에 관해 설명한다.
 
 

@@ -127,7 +127,7 @@ up the verbosity:
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"group": "system:unauthenticated", "readonly": true, "nonResourcePath": "*"}}
     ```
 
-[Complete file example](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
+[Complete file example](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## A quick note on service accounts
 

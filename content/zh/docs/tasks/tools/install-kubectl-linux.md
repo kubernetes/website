@@ -44,12 +44,10 @@ The following methods exist for installing kubectl on Linux:
 - [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
 - [Install using native package management](#install-using-native-package-management)
 - [Install using other package management](#install-using-other-package-management)
-- [Install on Linux as part of the Google Cloud SDK](#install-on-linux-as-part-of-the-google-cloud-sdk)
 -->
 - [用 curl 在 Linux 系统中安装 kubectl](#install-kubectl-binary-with-curl-on-linux)
 - [用原生包管理工具安装](#install-using-native-package-management)
 - [用其他包管理工具安装](#install-using-other-package-management)
-- [作为谷歌云 SDK 的一部分，在 Linux 中安装](#install-on-linux-as-part-of-the-google-cloud-sdk)
 
 <!-- 
 ### Install kubectl binary with curl on Linux
@@ -145,6 +143,7 @@ The following methods exist for installing kubectl on Linux:
    即使你没有目标系统的 root 权限，仍然可以将 kubectl 安装到目录 `~/.local/bin` 中：
 
    ```bash
+   chmod +x kubectl
    mkdir -p ~/.local/bin/kubectl
    mv ./kubectl ~/.local/bin/kubectl
    # 之后将 ~/.local/bin/kubectl 添加到 $PATH
@@ -261,13 +260,6 @@ kubectl version --client
 {{< /tabs >}}
 
 <!-- 
-### Install on Linux as part of the Google Cloud SDK
--->
-### 作为谷歌云 SDK 的一部分，在 Linux 上安装 {#install-on-linux-as-part-of-the-google-cloud-sdk}
-
-{{< include "included/install-kubectl-gcloud.md" >}}
-
-<!-- 
 ## Verify kubectl configuration
 -->
 ## 验证 kubectl 配置 {#verify-kubectl-configration}
@@ -275,11 +267,11 @@ kubectl version --client
 {{< include "included/verify-kubectl.md" >}}
 
 <!--
-## Optional kubectl configurations
+## Optional kubectl configurations and plugins
 
 ### Enable shell autocompletion
 -->
-## kubectl 的可选配置 {#optional-kubectl-configurations}
+## kubectl 的可选配置和插件 {#optional-kubectl-configurations}
 
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
@@ -296,6 +288,91 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的�
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
+
+<!--
+### Install `kubectl convert` plugin
+-->
+### 安装 `kubectl convert` 插件
+
+{{< include "included/kubectl-convert-overview.md" >}}
+
+<!--
+1. Download the latest release with the command:
+-->
+1. 用以下命令下载最新发行版：
+
+   ```bash
+   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   ```
+<!--
+1. Validate the binary (optional)
+
+   Download the kubectl-convert checksum file:
+-->
+1. 验证该可执行文件（可选步骤）
+   
+   下载 kubectl-convert 校验和文件：
+   
+   ```bash
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   ```
+
+   <!--
+   Validate the kubectl-convert binary against the checksum file:
+   -->
+   基于校验和，验证 kubectl-convert 的可执行文件：
+
+   ```bash
+   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   ```
+
+   <!--
+   If valid, the output is:
+   -->
+   验证通过时，输出为：
+   
+   ```console
+   kubectl-convert: OK
+   ```
+
+   <!--
+   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+   -->
+   验证失败时，`sha256` 将以非零值退出，并打印输出类似于：
+
+   ```bash
+   kubectl-convert: FAILED
+   sha256sum: WARNING: 1 computed checksum did NOT match
+   ```
+   {{< note >}}
+   <!--
+   Download the same version of the binary and checksum.
+   -->
+   下载相同版本的可执行文件和校验和。
+   {{< /note >}}
+
+<!--
+1. Install kubectl-convert
+-->
+1. 安装 kubectl-convert
+
+   ```bash
+   sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
+   ```
+
+<!--
+1. Verify plugin is successfully installed
+-->
+1. 验证插件是否安装成功
+
+   ```shell
+   kubectl convert --help
+   ```
+
+   <!--
+   If you do not see an error, it means the plugin is successfully installed.
+   -->
+   如果你没有看到任何错误就代表插件安装成功了。
 
 ## {{% heading "whatsnext" %}}
 

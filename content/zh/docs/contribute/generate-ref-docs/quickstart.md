@@ -12,11 +12,11 @@ weight: 40
 <!-- overview -->
 
 <!--
-This page shows how to use the `update-imported-docs` script to generate
+This page shows how to use the `update-imported-docs.py` script to generate
 the Kubernetes reference documentation. The script automates
 the build setup and generates the reference documentation for a release.
 -->
-本页讨论如何使用 `update-imported-docs` 脚本来生成 Kubernetes 参考文档。
+本页讨论如何使用 `update-imported-docs.py` 脚本来生成 Kubernetes 参考文档。
 此脚本将构建的配置过程自动化，并为某个发行版本生成参考文档。
 
 ## {{% heading "prerequisites" %}}
@@ -27,13 +27,13 @@ the build setup and generates the reference documentation for a release.
 <!--
 ## Getting the docs repository
 
-Make sure your `website` fork is up-to-date with the `kubernetes/website` master and clone
-your `website` fork.
+Make sure your `website` fork is up-to-date with the `kubernetes/website` remote on
+GitHub (`main` branch), and clone your `website` fork.
 -->
 ## 获取文档仓库 {#getting-the-docs-repository}
 
-确保你的 `website` 派生仓库与 `kubernetes/website` 主分支一致，并克隆
-你的派生仓库。
+确保你的 `website` 派生仓库与 GitHub 上的 `kubernetes/website` 远程仓库（`main` 分支）保持同步，
+并克隆你的派生仓库。
 
 ```shell
 mkdir github.com
@@ -63,7 +63,7 @@ see the [contributing upstream guide](/docs/contribute/generate-ref-docs/contrib
 <!--
 ## Overview of update-imported-docs
 
-The `update-imported-docs` script is located in the `<web-base>/update-imported-docs/`
+The `update-imported-docs.py` script is located in the `<web-base>/update-imported-docs/`
 directory.
 
 The script builds the following references:
@@ -74,7 +74,7 @@ The script builds the following references:
 -->
 ## update-imported-docs 的概述
 
-脚本 `update-imported-docs` 位于 `<web-base>/update-imported-docs/` 目录下，
+脚本 `update-imported-docs.py` 位于 `<web-base>/update-imported-docs/` 目录下，
 能够生成以下参考文档：
 
 * Kubernetes 组件和工具的参考页面
@@ -82,7 +82,7 @@ The script builds the following references:
 * Kubernetes API 参考文档
 
 <!--
-The `update-imported-docs` script generates the Kubernetes reference documentation
+The `update-imported-docs.py` script generates the Kubernetes reference documentation
 from the Kubernetes source code. The script creates a temporary directory
 under `/tmp` on your machine and clones the required repositories: `kubernetes/kubernetes` and
 `kubernetes-sigs/reference-docs` into this directory.
@@ -93,7 +93,7 @@ Three additional environment variables are set:
 * `K8S_ROOT`
 * `K8S_WEBROOT`
 -->
-脚本 `update-imported-docs` 基于 Kubernetes 源代码生成参考文档。
+脚本 `update-imported-docs.py` 基于 Kubernetes 源代码生成参考文档。
 过程中会在你的机器的 `/tmp` 目录下创建临时目录，克隆所需要的仓库
 `kubernetes/kubernetes` 和 `kubernetes-sigs/reference-docs` 到此临时目录。
 脚本会将 `GOPATH` 环境变量设置为指向此临时目录。
@@ -124,7 +124,7 @@ determines the version of the release.
 变量 `K8S_RELEASE` 用来确定所针对的发行版本。
 
 <!--
-The `update-imported-docs` script performs the following steps:
+The `update-imported-docs.py` script performs the following steps:
 
 1. Clones the related repositories specified in a configuration file. For the
    purpose of generating reference docs, the repository that is cloned by
@@ -136,7 +136,7 @@ The `update-imported-docs` script performs the following steps:
 1. Updates `kubectl` command links from `kubectl`.md to the refer to
    the sections in the `kubectl` command reference.
 -->
-脚本 `update-imported-docs` 执行以下步骤：
+脚本 `update-imported-docs.py` 执行以下步骤：
 
 1. 克隆配置文件中所指定的相关仓库。就生成参考文档这一目的而言，要克隆的
    仓库默认为 `kubernetes-sigs/reference-docs`。
@@ -260,22 +260,22 @@ For example:
 <!--
 ## Running the update-imported-docs tool
 
-You can run the `update-imported-docs` tool as follows:
+You can run the `update-imported-docs.py` tool as follows:
 -->
 ## 运行 update-imported-docs 工具
 
-你可以用如下方式运行 `update-imported-docs` 工具：
+你可以用如下方式运行 `update-imported-docs.py` 工具：
 
 ```shell
 cd <web-base>/update-imported-docs
-./update-imported-docs <configuration-file.yml> <release-version>
+./update-imported-docs.py <configuration-file.yml> <release-version>
 ```
 
 <!-- For example: -->
 例如：
 
 ```shell
-./update-imported-docs reference.yml 1.17
+./update-imported-docs.py reference.yml 1.17
 ```
 
 <!-- Revisit: is the release configuration used -->
@@ -284,13 +284,13 @@ cd <web-base>/update-imported-docs
 The `release.yml` configuration file contains instructions to fix relative links.
 To fix relative links within your imported files, set the`gen-absolute-links`
 property to `true`. You can find an example of this in
-[`release.yml`](https://github.com/kubernetes/website/blob/master/update-imported-docs/release.yml).
+[`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml).
 -->
 ## 修复链接
 
 配置文件 `release.yml` 中包含用来修复相对链接的指令。
 若要修复导入文件中的相对链接，将 `gen-absolute-links` 属性设置为 `true`。
-你可以在 [`release.yml`](https://github.com/kubernetes/website/blob/master/update-imported-docs/release.yml)
+你可以在 [`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml)
 文件中找到示例。
 
 <!--

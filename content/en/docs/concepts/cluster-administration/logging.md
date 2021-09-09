@@ -81,7 +81,7 @@ rotate an application's logs automatically.
 
 As an example, you can find detailed information about how `kube-up.sh` sets
 up logging for COS image on GCP in the corresponding
-[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh).
+[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh).
 
 When using a **CRI container runtime**, the kubelet is responsible for rotating the logs and managing the logging directory structure.
 The kubelet sends this information to the CRI container runtime and the runtime writes the container logs to the given location.

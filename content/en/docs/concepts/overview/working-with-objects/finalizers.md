@@ -47,7 +47,7 @@ and the controller deletes the volume.
 Like {{<glossary_tooltip text="labels" term_id="label">}}, [owner references](/concepts/overview/working-with-objects/owners-dependents/)
 describe the relationships between objects in Kubernetes, but are used for a
 different purpose. When a
-{{<glossary_tooltip text="controllers" term_id="controller">}} manages objects
+{{<glossary_tooltip text="controller" term_id="controller">}} manages objects
 like Pods, it uses labels to track changes to groups of related objects. For
 example, when a {{<glossary_tooltip text="Job" term_id="job">}} creates one or
 more Pods, the Job controller applies labels to those pods and tracks changes to

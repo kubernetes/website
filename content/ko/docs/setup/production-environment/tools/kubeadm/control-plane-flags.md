@@ -23,7 +23,7 @@ kubeadm의 `ClusterConfiguration` 오브젝트는 API 서버, 컨트롤러매니
 3.  `kubeadm init`에 `--config <CONFIG YAML 파일>` 파라미터를 추가해서 실행한다.
 
 각 필드의 구성에서 자세한 정보를 보려면,
-[API 참고 문서](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)에서 확인해 볼 수 있다.
+[API 참고 문서](/docs/reference/config-api/kubeadm-config.v1beta2/)에서 확인해 볼 수 있다.
 
 {{< note >}}
 `kubeadm config print init-defaults`를 실행하고 원하는 파일에 출력을 저장하여 기본값인 `ClusterConfiguration` 오브젝트를 생성할 수 있다.

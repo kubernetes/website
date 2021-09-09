@@ -139,7 +139,7 @@ Removing an old version:
    If this occurs, switch back to using `served:true` on the old version, migrate the 
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
-    1. Verify that the `stored` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
+    1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
     1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
 1. Remove the old version from the CustomResourceDefinition `spec.versions` list.
 1. Drop conversion support for the old version in conversion webhooks.
@@ -156,7 +156,7 @@ Removing an old version:
 1. 确保已完成[将现有对象升级到新存储版本](#upgrade-existing-objects-to-a-new-stored-version)
    的步骤。
    1. 在 CustomResourceDefinition 的 `spec.versions` 列表中，确认新版本的
-      `stored` 已被设置为 `true`。
+      `storage` 已被设置为 `true`。
    2. 确认旧版本不在 CustomResourceDefinition `status.storedVersions` 中。
 1. 从 CustomResourceDefinition `spec.versions` 列表中删除旧版本。
 1. 在转换 Webhooks 中放弃对旧版本的转换支持。
@@ -302,7 +302,7 @@ spec:
     plural: crontabs
     # 名称的单数形式，用于在命令行接口和显示时作为其别名
     singular: crontab
-    # kind 通常是驼峰编码（CamelCased）的单数形式，用于资源清单中
+    # kind 通常是大驼峰编码（PascalCased）的单数形式，用于资源清单中
     kind: CronTab
     # shortNames 允许你在命令行接口中使用更短的字符串来匹配你的资源
     shortNames:
@@ -1244,8 +1244,8 @@ If conversion fails, a webhook should return a `response` stanza containing the 
 -->
 如果转换失败，则 Webhook 应该返回包含以下字段的 `response` 节：
 
-*`uid`，从发送到 Webhook 的 `request.uid` 复制而来
-*`result`，设置为 `{"status": "Failed"}`
+* `uid`，从发送到 Webhook 的 `request.uid` 复制而来
+* `result`，设置为 `{"status": "Failed"}`
 
 {{< warning >}}
 <!--
