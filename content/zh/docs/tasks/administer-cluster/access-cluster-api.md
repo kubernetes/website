@@ -55,11 +55,11 @@ kubectl config view
 ```
 
 <!--
-Many of the [examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/) provide an introduction to using
+Many of the [examples](https://github.com/kubernetes/examples/tree/master/) provide an introduction to using
 kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/overview/).
 -->
 
-许多[样例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)
+许多[样例](https://github.com/kubernetes/examples/tree/master/)
 提供了使用 kubectl 的介绍。完整文档请见 [kubectl 手册](/zh/docs/reference/kubectl/overview/)。
 
 <!--
@@ -300,10 +300,10 @@ func main() {
 ```
 
 <!--
-If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod).
+If the application is deployed as a Pod in the cluster, see [Accessing the API from within a Pod](/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod).
 -->
 如果该应用程序部署为集群中的一个
-Pod，请参阅[下一节](#accessing-the-api-from-within-accessing-the-api-from-within-a-pod)。
+Pod，请参阅[从 Pod 内访问 API](/zh/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod)。
 
 <!-- #### Python client -->
 #### Python 客户端 {#python-client}

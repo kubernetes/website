@@ -61,6 +61,11 @@ You can write a Pod `spec` that refers to a ConfigMap and configures the contain
 in that Pod based on the data in the ConfigMap. The Pod and the ConfigMap must be in
 the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 
+{{< note >}}
+The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a ConfigMap
+or any other API objects.
+{{< /note >}}
+
 Here's an example ConfigMap that has some keys with single values,
 and other keys where the value looks like a fragment of a configuration
 format.

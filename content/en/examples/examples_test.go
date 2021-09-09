@@ -149,8 +149,11 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	podValidationOptions := validation.PodValidationOptions{
-		AllowMultipleHugePageResources: true,
-		AllowDownwardAPIHugePages:      true,
+		AllowDownwardAPIHugePages:       true,
+		AllowInvalidPodDeletionCost:     false,
+		AllowIndivisibleHugePagesValues: true,
+		AllowWindowsHostProcessField:    true,
+		AllowExpandedDNSConfig:          true,
 	}
 
 	quotaValidationOptions := validation.ResourceQuotaValidationOptions{
@@ -182,20 +185,23 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	case *api.Namespace:
 		errors = validation.ValidateNamespace(t)
 	case *api.PersistentVolume:
-		errors = validation.ValidatePersistentVolume(t)
+		opts := validation.PersistentVolumeSpecValidationOptions{
+			AllowReadWriteOncePod: true,
+		}
+		errors = validation.ValidatePersistentVolume(t, opts)
 	case *api.PersistentVolumeClaim:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidatePersistentVolumeClaim(t)
+		opts := validation.PersistentVolumeClaimSpecValidationOptions{
+			AllowReadWriteOncePod: true,
+		}
+		errors = validation.ValidatePersistentVolumeClaim(t, opts)
 	case *api.Pod:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		opts := validation.PodValidationOptions{
-			AllowMultipleHugePageResources: true,
-		}
-		errors = validation.ValidatePodCreate(t, opts)
+		errors = validation.ValidatePodCreate(t, podValidationOptions)
 	case *api.PodList:
 		for i := range t.Items {
 			errors = append(errors, validateObject(&t.Items[i])...)

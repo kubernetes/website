@@ -17,7 +17,7 @@ Print configuration
 
 
 This command prints configurations for subcommands provided.
-For details, see: https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2
+For details, see: https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories
 
 ```
 kubeadm config print [flags]

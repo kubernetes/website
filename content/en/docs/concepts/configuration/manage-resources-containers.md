@@ -181,8 +181,9 @@ When using Docker:
   flag in the `docker run` command.
 
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
-  multiplied by 100. The resulting value is the total amount of CPU time that a container can use
-  every 100ms. A container cannot use more than its share of CPU time during this interval.
+  multiplied by 100. The resulting value is the total amount of CPU time in microseconds
+  that a container can use every 100ms. A container cannot use more than its share of
+  CPU time during this interval.
 
   {{< note >}}
   The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
@@ -337,6 +338,9 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+    - name: ephemeral
+      mountPath: "/tmp"
   - name: log-aggregator
     image: images.my-company.example/log-aggregator:v6
     resources:
@@ -344,6 +348,12 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+    - name: ephemeral
+      mountPath: "/tmp"
+  volumes:
+    - name: ephemeral
+      emptyDir: {}
 ```
 
 ### How Pods with ephemeral-storage requests are scheduled

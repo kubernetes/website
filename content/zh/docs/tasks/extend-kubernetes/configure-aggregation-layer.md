@@ -27,12 +27,12 @@ Kubernetes API 的一部分。
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA.
+There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the Kubernetes general CA.
 -->
 {{< note >}}
 要使聚合层在你的环境中正常工作以支持代理服务器和扩展 apiserver 之间的相互 TLS 身份验证，
 需要满足一些设置要求。Kubernetes 和 kube-apiserver 具有多个 CA，
-因此请确保代理是由聚合层 CA 签名的，而不是由主 CA 签名的。
+因此请确保代理是由聚合层 CA 签名的，而不是由 Kubernetes 通用 CA 签名的。
 {{< /note >}}
 
 <!--

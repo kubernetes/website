@@ -110,30 +110,27 @@ kubectl exec -it cassandra -- sh
 <!--
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
-{{< feature-state state="alpha" for_k8s_version="v1.18" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
 
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
 are useful for interactive troubleshooting when `kubectl exec` is insufficient
 because a container has crashed or a container image doesn't include debugging
 utilities, such as with [distroless images](
-https://github.com/GoogleContainerTools/distroless). `kubectl` has an alpha
-command that can create ephemeral containers for debugging beginning with version
-`v1.18`.
+https://github.com/GoogleContainerTools/distroless).
 -->
 ## 使用临时调试容器来进行调试 {#ephemeral-container}
 
-{{< feature-state state="alpha" for_k8s_version="v1.18" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
 
 当由于容器崩溃或容器镜像不包含调试程序（例如[无发行版镜像](https://github.com/GoogleContainerTools/distroless)等）
 而导致 `kubectl exec` 无法运行时，{{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}对于排除交互式故障很有用。
-从 'v1.18' 版本开始，'kubectl' 有一个可以创建用于调试的临时容器的 alpha 命令。
 
 <!--
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
 
 The examples in this section require the `EphemeralContainers` [feature gate](
 /docs/reference/command-line-tools-reference/feature-gates/) enabled in your
-cluster and `kubectl` version v1.18 or later.
+cluster and `kubectl` version v1.22 or later.
 
 You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
@@ -151,7 +148,7 @@ images.
 {{< note >}}
 本示例需要你的集群已经开启 `EphemeralContainers`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
-`kubectl` 版本为 v1.18 或者更高。
+`kubectl` 版本为 v1.22 或者更高。
 {{< /note >}}
 
 你可以使用 `kubectl debug` 命令来给正在运行中的 Pod 增加一个临时容器。
@@ -224,7 +221,7 @@ creates.
 The `--target` parameter must be supported by the {{< glossary_tooltip
 text="Container Runtime" term_id="container-runtime" >}}. When not supported,
 the Ephemeral Container may not be started, or it may be started with an
-isolated process namespace.
+isolated process namespace so that `ps` does not reveal processes in other containers.
 
 You can view the state of the newly created ephemeral container using `kubectl describe`:
 -->
@@ -234,7 +231,8 @@ You can view the state of the newly created ephemeral container using `kubectl d
 
 {{< note >}}
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}必须支持`--target`参数。
-如果不支持，则临时容器可能不会启动，或者可能使用隔离的进程命名空间启动。
+如果不支持，则临时容器可能不会启动，或者可能使用隔离的进程命名空间启动，
+以便 `ps` 不显示其他容器内的进程。
 {{< /note >}}
 
 你可以使用 `kubectl describe` 查看新创建的临时容器的状态：
