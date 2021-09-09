@@ -6,16 +6,16 @@ weight: 40
 
 <!-- overview -->
 <!--
-Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
+[_Node affinity_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
-hard requirement). Taints are the opposite -they allow a node to repel a set of pods.
+hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 -->
-节点亲和性（详见[这里](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)）
+[_节点亲和性_](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 是 {{< glossary_tooltip text="Pod" term_id="pod" >}} 的一种属性，它使 Pod
-被吸引到一类特定的{{< glossary_tooltip text="节点" term_id="node" >}}。
-这可能出于一种偏好，也可能是硬性要求。
-Taint（污点）则相反，它使节点能够排斥一类特定的 Pod。
+被吸引到一类特定的{{< glossary_tooltip text="节点" term_id="node" >}}
+（这可能出于一种偏好，也可能是硬性要求）。
+_污点_（Taint）则相反——它使节点能够排斥一类特定的 Pod。
 
 <!--
 _Tolerations_ are applied to pods, and allow (but do not require) the pods to schedule
@@ -25,7 +25,7 @@ Taints and tolerations work together to ensure that pods are not scheduled
 onto inappropriate nodes. One or more taints are applied to a node; this
 marks that the node should not accept any pods that do not tolerate the taints.
 -->
-容忍度（Tolerations）是应用于 Pod 上的，允许（但并不要求）Pod
+容忍度（Toleration）是应用于 Pod 上的，允许（但并不要求）Pod
 调度到带有与之匹配的污点的节点上。
 
 污点和容忍度（Toleration）相互配合，可以用来避免 Pod 被分配到不合适的节点上。
@@ -312,7 +312,7 @@ manually add tolerations to your pods.
   来表示特殊硬件，给配置了特殊硬件的节点添加污点时包含扩展资源名称，
   然后运行一个 [ExtendedResourceToleration](/zh/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
   准入控制器。此时，因为节点已经被设置污点了，没有对应容忍度的 Pod
-  会被调度到这些节点。但当你创建一个使用了扩展资源的 Pod 时，
+  不会被调度到这些节点。但当你创建一个使用了扩展资源的 Pod 时，
   `ExtendedResourceToleration` 准入控制器会自动给 Pod 加上正确的容忍度，
   这样 Pod 就会被自动调度到这些配置了特殊硬件件的节点上。
   这样就能够确保这些配置了特殊硬件的节点专门用于运行需要使用这些硬件的 Pod，
@@ -476,10 +476,43 @@ This ensures that DaemonSet pods are never evicted due to these problems.
 ## 基于节点状态添加污点
 
 <!--
-The node lifecycle controller automatically creates taints corresponding to
-Node conditions with `NoSchedule` effect.
-Similarly the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
+The control plane, using the node {{<glossary_tooltip text="controller" term_id="controller">}},
+automatically creates taints with a `NoSchedule` effect for [node conditions](/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions).
 
+The scheduler checks taints, not node conditions, when it makes scheduling
+decisions. This ensures that node conditions don't directly affect scheduling.
+For example, if the `DiskPressure` node condition is active, the control plane
+adds the `node.kubernetes.io/disk-pressure` taint and does not schedule new pods
+onto the affected node. If the `MemoryPressure` node condition is active, the
+control plane adds the `node.kubernetes.io/memory-pressure` taint. 
+-->
+
+控制平面使用节点{{<glossary_tooltip text="控制器" term_id="controller">}}自动创建
+与[节点状况](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions)对应的带有 `NoSchedule` 效应的污点。
+
+调度器在进行调度时检查污点，而不是检查节点状况。这确保节点状况不会直接影响调度。
+例如，如果 `DiskPressure` 节点状况处于活跃状态，则控制平面
+添加 `node.kubernetes.io/disk-pressure` 污点并且不会调度新的 pod
+到受影响的节点。如果 `MemoryPressure` 节点状况处于活跃状态，则
+控制平面添加 `node.kubernetes.io/memory-pressure` 污点。
+
+<!--
+You can ignore node conditions for newly created pods by adding the corresponding
+Pod tolerations. The control plane also adds the `node.kubernetes.io/memory-pressure` 
+toleration on pods that have a {{< glossary_tooltip text="QoS class" term_id="qos-class" >}} 
+other than `BestEffort`. This is because Kubernetes treats pods in the `Guaranteed` 
+or `Burstable` QoS classes (even pods with no memory request set) as if they are
+able to cope with memory pressure, while new `BestEffort` pods are not scheduled
+onto the affected node. 
+-->
+
+对于新创建的 Pod，可以通过添加相应的 Pod 容忍度来忽略节点状况。
+控制平面还在具有除 `BestEffort` 之外的 {{<glossary_tooltip text="QoS 类" term_id="qos-class" >}}的 pod 上
+添加 `node.kubernetes.io/memory-pressure` 容忍度。
+这是因为 Kubernetes 将 `Guaranteed` 或 `Burstable` QoS 类中的 Pod（甚至没有设置内存请求的 Pod）
+视为能够应对内存压力，而新创建的 `BestEffort` Pod 不会被调度到受影响的节点上。
+
+<!--
 The DaemonSet controller automatically adds the
 following `NoSchedule` tolerations to all daemons, to prevent DaemonSets from
 breaking.
@@ -490,9 +523,6 @@ breaking.
   * `node.kubernetes.io/unschedulable` (1.10 or later)
   * `node.kubernetes.io/network-unavailable` (*host network only*)
 -->
-Node 生命周期控制器会自动创建与 Node 条件相对应的带有 `NoSchedule` 效应的污点。
-同样，调度器不检查节点条件，而是检查节点污点。这确保了节点条件不会影响调度到节点上的内容。
-用户可以通过添加适当的 Pod 容忍度来选择忽略某些 Node 的问题(表示为 Node 的调度条件)。
 
 DaemonSet 控制器自动为所有守护进程添加如下 `NoSchedule` 容忍度以防 DaemonSet 崩溃：
 
@@ -512,8 +542,8 @@ arbitrary tolerations to DaemonSets.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read about [out of resource handling](/docs/tasks/administer-cluster/out-of-resource/) and how you can configure it
-* Read about [pod priority](/docs/concepts/configuration/pod-priority-preemption/)
+* Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) and how you can configure it
+* Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 -->
-* 阅读[资源耗尽的处理](/zh/docs/tasks/administer-cluster/out-of-resource/)，以及如何配置其行为
-* 阅读 [Pod 优先级](/zh/docs/concepts/configuration/pod-priority-preemption/)
+* 阅读[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)，以及如何配置其行为
+* 阅读 [Pod 优先级](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)

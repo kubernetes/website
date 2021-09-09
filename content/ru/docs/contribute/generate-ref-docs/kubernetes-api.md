@@ -82,8 +82,8 @@ git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
 Примеры:
 
 ```shell
-export K8S_WEBROOT=$(GOPATH)/src/github.com/<your-username>/website
-export K8S_ROOT=$(GOPATH)/src/k8s.io/kubernetes
+export K8S_WEBROOT=${GOPATH}/src/github.com/<your-username>/website
+export K8S_ROOT=${GOPATH}/src/k8s.io/kubernetes
 export K8S_RELEASE=1.17.0
 ```
 

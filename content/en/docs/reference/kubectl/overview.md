@@ -71,6 +71,32 @@ Flags that you specify from the command line override default values and any cor
 
 If you need help, run `kubectl help` from the terminal window.
 
+## In-cluster authentication and namespace overrides
+
+By default `kubectl` will first determine if it is running within a pod, and thus in a cluster. It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`. If all three are found in-cluster authentication is assumed.
+
+To maintain backwards compatibility, if the `POD_NAMESPACE` environment variable is set during in-cluster authentication it will override the default namespace from the from the service account token. Any manifests or tools relying on namespace defaulting will be affected by this.
+
+**`POD_NAMESPACE` environment variable**
+
+If the `POD_NAMESPACE` environment variable is set, cli operations on namespaced resources will default to the variable value. For example, if the variable is set to `seattle`, `kubectl get pods` would return pods in the `seattle` namespace. This is because pods are a namespaced resource, and no namespace was provided in the command. Review the output of `kubectl api-resources` to determine if a resource is namespaced. 
+
+Explicit use of `--namespace <value>` overrides this behavior. 
+
+**How kubectl handles ServiceAccount tokens**
+
+If:
+* there is Kubernetes service account token file mounted at
+  `/var/run/secrets/kubernetes.io/serviceaccount/token`, and
+* the `KUBERNETES_SERVICE_HOST` environment variable is set, and
+* the `KUBERNETES_SERVICE_PORT` environment variable is set, and
+* you don't explicitly specify a namespace on the kubectl command line
+then kubectl assumes it is running in your cluster. The kubectl tool looks up the
+namespace of that ServiceAccount (this is the same as the namespace of the Pod)
+and acts against that namespace. This is different from what happens outside of a
+cluster; when kubectl runs outside a cluster and you don't specify a namespace,
+the kubectl command acts against the `default` namespace.
+
 ## Operations
 
 The following table includes short descriptions and the general syntax for all of the `kubectl` operations:
@@ -89,7 +115,7 @@ Operation       | Syntax    |       Description
 `cluster-info`    | `kubectl cluster-info [flags]` | Display endpoint information about the master and services in the cluster.
 `completion`    | `kubectl completion SHELL [options]` | Output shell completion code for the specified shell (bash or zsh).
 `config`        | `kubectl config SUBCOMMAND [flags]` | Modifies kubeconfig files. See the individual subcommands for details.
-`convert`    | `kubectl convert -f FILENAME [options]` | Convert config files between different API versions. Both YAML and JSON formats are accepted.
+`convert`    | `kubectl convert -f FILENAME [options]` | Convert config files between different API versions. Both YAML and JSON formats are accepted. Note - requires `kubectl-convert` plugin to be installed.
 `cordon`    | `kubectl cordon NODE [options]` | Mark node as unschedulable.
 `cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | Copy files and directories to and from containers.
 `create`        | `kubectl create -f FILENAME [flags]` | Create one or more resources from a file or stdin.

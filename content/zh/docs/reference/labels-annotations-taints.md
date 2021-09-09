@@ -46,6 +46,26 @@ The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be han
 -->
 Kubelet 用 Go 定义的 `runtime.GOOS` 生成该标签的键值。在混合使用异构操作系统场景下（例如：混合使用 Linux 和 Windows 节点），此键值可以带来极大便利。
 
+## kubernetes.io/metadata.name
+
+示例：`kubernetes.io/metadata.name=mynamespace`
+
+用于：Namespaces
+
+<!--
+When the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+the Kubernetes API server sets this label on all namespaces. The label value is set to
+the name of the namespace.
+
+This is useful if you want to target a specific namespace with a label
+{{< glossary_tooltip text="selector" term_id="selector" >}}.
+-->
+当 `NamespaceDefaultLabelName` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+被启用时，Kubernetes API 服务器会在所有命名空间上设置此标签。标签值被设置为命名空间的名称。
+
+如果你想使用标签 {{< glossary_tooltip text="选择器" term_id="selector" >}} 来指向特定的命名空间，这很有用。
+
 ## beta.kubernetes.io/arch (deprecated)
 
 <!-- 
@@ -74,6 +94,19 @@ This label is also used as part of the topology hierarchy.  See [topology.kubern
 Kubelet 用主机名生成此标签。需要注意的是主机名可修改，这是把“实际的”主机名通过参数 `--hostname-override` 传给 `kubelet` 实现的。
 
 此标签也可用做拓扑层次的一个部分。更多信息参见[topology.kubernetes.io/zone](#topologykubernetesiozone)。
+
+## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
+
+示例：`controller.kubernetes.io/pod-deletion-cost=10`
+
+用于：Pod
+
+<!--
+This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
+-->
+该注解用于设置 [Pod 删除开销](/zh/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)，
+允许用户影响 ReplicaSet 的缩减顺序。该注解解析为 `int32` 类型。
 
 ## beta.kubernetes.io/instance-type (deprecated)
 
@@ -123,6 +156,22 @@ Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/
 -->
 从 v1.17 开始，此标签被弃用，取而代之的是 [topology.kubernetes.io/zone](#topologykubernetesiozone). 
 {{< /note >}}
+
+## statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
+
+示例：`statefulset.kubernetes.io/pod-name=mystatefulset-7`
+
+<!--
+When a StatefulSet controller creates a Pod for the StatefulSet, the control plane
+sets this label on that Pod. The value of the label is the name of the Pod being created.
+
+See [Pod Name Label](/docs/concepts/workloads/controllers/statefulset/#pod-name-label) in the
+StatefulSet topic for more details.
+-->
+当 StatefulSet 控制器为 StatefulSet 创建 Pod 时，控制平面会在该 Pod 上设置此标签。
+标签的值是正在创建的 Pod 的名称。
+
+更多细节请参见 StatefulSet 文章中的 [Pod 名称标签](/zh/docs/concepts/workloads/controllers/statefulset/#pod-name-label)。
 
 ## topology.kubernetes.io/region {#topologykubernetesioregion}
 
@@ -316,6 +365,17 @@ Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassN
 从 v1.18 开始，此注解被弃用，取而代之的是 `spec.ingressClassName`。
 {{< /note >}}
 
+## storageclass.kubernetes.io/is-default-class
+
+示例：`storageclass.kubernetes.io/is-default-class=true`
+
+用于：StorageClass
+
+<!--
+When a single StorageClass resource has this annotation set to `"true"`, new Physical Volume Claim resource without a class specified will be assigned this default class.
+-->
+当单个的 StorageClass 资源将这个注解设置为 `"true"` 时，新的持久卷申领（PVC）
+资源若未指定类别，将被设定为此默认类别。
 
 ## alpha.kubernetes.io/provided-node-ip
 
@@ -327,13 +387,49 @@ Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassN
 The kubelet can set this annotation on a Node to denote its configured IPv4 address.
 
 When kubelet is started with the "external" cloud provider, it sets this annotation on the Node to denote an IP address set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid by the cloud-controller-manager.
-
-**The taints listed below are always used on Nodes**
 -->
 kubectl 在 Node 上设置此注解，表示它的 IPv4 地址。
 
 当 kubectl 由外部的云供应商启动时，在 Node 上设置此注解，表示由命令行标记(`--node-ip`)设置的 IP 地址。
 cloud-controller-manager 向云供应商验证此 IP 是否有效。
+
+## batch.kubernetes.io/job-completion-index
+
+示例：`batch.kubernetes.io/job-completion-index: "3"`
+
+用于：Pod
+
+<!--
+The Job controller in the kube-controller-manager sets this annotation for Pods
+created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
+-->
+kube-controller-manager 中的 Job 控制器给创建使用索引
+[完成模式](/zh/docs/concepts/workloads/controllers/job/#completion-mode)
+的 Pod 设置此注解。
+
+## kubectl.kubernetes.io/default-container
+
+示例：`kubectl.kubernetes.io/default-container: "front-end-app"`
+
+<!--
+The value of the annotation is the container name that is default for this Pod. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
+-->
+注解的值是此 Pod 的默认容器名称。
+例如，`kubectl logs` 或 `kubectl exec` 没有 `-c` 或 `--container` 参数时，将使用这个默认的容器。
+
+## endpoints.kubernetes.io/over-capacity
+
+示例：`endpoints.kubernetes.io/over-capacity:warning`
+
+用于：Endpoints
+
+<!-- 
+In Kubernetes clusters v1.21 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity.
+
+**The taints listed below are always used on Nodes**
+-->
+在 Kubernetes 集群 v1.21（或更高版本）中，如果 Endpoint 超过 1000 个，Endpoint 控制器
+就会向其添加这个注解。该注解表示 Endpoint 资源已超过容量。
 
 **以下列出的污点只能用于 Node**
 

@@ -10,7 +10,7 @@ content_type: task
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.21" >}}
+{{< feature-state state="beta" for_k8s_version="v1.22" >}}
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="The cloud-controller-manager is">}}
 
@@ -20,21 +20,21 @@ As part of the [cloud provider extraction effort](https://kubernetes.io/blog/201
 
 Leader Migration provides a mechanism in which HA clusters can safely migrate "cloud specific" controllers between the `kube-controller-manager` and the `cloud-controller-manager` via a shared resource lock between the two components while upgrading the replicated control plane. For a single-node control plane, or if unavailability of controller managers can be tolerated during the upgrade, Leader Migration is not needed and this guide can be ignored.
 
-Leader Migration is an alpha feature that is disabled by default and it requires `--enable-leader-migration` to be set on controller managers. It can be enabled by setting the feature gate `ControllerManagerLeaderMigration` plus `--enable-leader-migration` on `kube-controller-manager` or `cloud-controller-manager`. Leader Migration only applies during the upgrade and can be safely disabled or left enabled after the upgrade is complete.
+Leader Migration can be enabled by setting `--enable-leader-migration` on `kube-controller-manager` or `cloud-controller-manager`. Leader Migration only applies during the upgrade and can be safely disabled or left enabled after the upgrade is complete.
 
 This guide walks you through the manual process of upgrading the control plane from `kube-controller-manager` with built-in cloud provider to running both `kube-controller-manager` and `cloud-controller-manager`. If you use a tool to administrator the cluster, please refer to the documentation of the tool and the cloud provider for more details.
 
 ## {{% heading "prerequisites" %}}
 
-It is assumed that the control plane is running Kubernetes version N and to be upgraded to version N + 1. Although it is possible to migrate within the same version, ideally the migration should be performed as part of a upgrade so that changes of configuration can be aligned to releases. The exact versions of N and N + 1 depend on each cloud provider. For example, if a cloud provider builds a `cloud-controller-manager` to work with Kubernetes 1.22, then N can be 1.21 and N + 1 can be 1.22.
+It is assumed that the control plane is running Kubernetes version N and to be upgraded to version N + 1. Although it is possible to migrate within the same version, ideally the migration should be performed as part of an upgrade so that changes of configuration can be aligned to each release. The exact versions of N and N + 1 depend on each cloud provider. For example, if a cloud provider builds a `cloud-controller-manager` to work with Kubernetes 1.22, then N can be 1.21 and N + 1 can be 1.22.
 
 The control plane nodes should run `kube-controller-manager` with Leader Election enabled through `--leader-elect=true`. As of version N, an in-tree cloud privider must be set with `--cloud-provider` flag and `cloud-controller-manager` should not yet be deployed.
 
-The out-of-tree cloud provider must have built a `cloud-controller-manager` with Leader Migration implmentation. If the cloud provider imports `k8s.io/cloud-provider` and `k8s.io/controller-manager` of version v0.21.0 or later, Leader Migration will be avaliable.
+The out-of-tree cloud provider must have built a `cloud-controller-manager` with Leader Migration implementation. If the cloud provider imports `k8s.io/cloud-provider` and `k8s.io/controller-manager` of version v0.21.0 or later, Leader Migration will be available. However, for version before v0.22.0, Leader Migration is alpha and requires feature gate `ControllerManagerLeaderMigration` to be enabled.
 
 This guide assumes that kubelet of each control plane node starts `kube-controller-manager` and `cloud-controller-manager` as static pods defined by their manifests. If the components run in a different setting, please adjust the steps accordingly.
 
-For authorization, this guide assumes that the cluser uses RBAC. If another authorization mode grants permissions to `kube-controller-manager` and `cloud-controller-manager` components, please grant the needed access in a way that matches the mode.
+For authorization, this guide assumes that the cluster uses RBAC. If another authorization mode grants permissions to `kube-controller-manager` and `cloud-controller-manager` components, please grant the needed access in a way that matches the mode.
 
 <!-- steps -->
 
@@ -52,11 +52,13 @@ Do the same to the `system::leader-locking-cloud-controller-manager` role.
 
 ### Initial Leader Migration configuration
 
-Leader Migration requires a configuration file representing the state of controller-to-manager assignment. At this moment, with in-tree cloud provider, `kube-controller-manager` runs `route`, `service`, and `cloud-node-lifecycle`. The following example configuration shows the assignment.
+Leader Migration optionally takes a configuration file representing the state of controller-to-manager assignment. At this moment, with in-tree cloud provider, `kube-controller-manager` runs `route`, `service`, and `cloud-node-lifecycle`. The following example configuration shows the assignment.
+
+Leader Migration can be enabled without a configuration. Please see [Default Configuration](#default-configuration) for details.
 
 ```yaml
 kind: LeaderMigrationConfiguration
-apiVersion: controllermanager.config.k8s.io/v1alpha1
+apiVersion: controllermanager.config.k8s.io/v1beta1
 leaderName: cloud-provider-extraction-migration
 resourceLock: leases
 controllerLeaders:
@@ -70,7 +72,6 @@ controllerLeaders:
 
 On each control plane node, save the content to `/etc/leadermigration.conf`, and update the manifest of `kube-controller-manager` so that the file is mounted inside the container at the same location. Also, update the same manifest to add the following arguments:
 
-- `--feature-gates=ControllerManagerLeaderMigration=true` to enable Leader Migration which is an alpha feature
 - `--enable-leader-migration` to enable Leader Migration on the controller manager
 - `--leader-migration-config=/etc/leadermigration.conf` to set configuration file
 
@@ -82,7 +83,7 @@ In version N + 1, the desired state of controller-to-manager assignment can be r
 
 ```yaml
 kind: LeaderMigrationConfiguration
-apiVersion: controllermanager.config.k8s.io/v1alpha1
+apiVersion: controllermanager.config.k8s.io/v1beta1
 leaderName: cloud-provider-extraction-migration
 resourceLock: leases
 controllerLeaders:
@@ -112,6 +113,13 @@ If a rollback from version N + 1 to N is required, add nodes of version N with L
 Now that the control plane has been upgraded to run both `kube-controller-manager` and `cloud-controller-manager` of version N + 1, Leader Migration has finished its job and can be safely disabled to save one Lease resource. It is safe to re-enable Leader Migration for the rollback in the future.
 
 In a rolling manager, update manifest of `cloud-controller-manager` to unset both `--enable-leader-migration` and `--leader-migration-config=` flag, also remove the mount of `/etc/leadermigration.conf`, and finally remove `/etc/leadermigration.conf`. To re-enable Leader Migration, recreate the configuration file and add its mount and the flags that enable Leader Migration back to `cloud-controller-manager`.
+
+### Default Configuration
+
+Starting Kubernetes 1.22, Leader Migration provides a default configuration suitable for the default controller-to-manager assignment.
+The default configuration can be enabled by setting `--enable-leader-migration` but without `--leader-migration-config=`.
+
+For `kube-controller-manager` and `cloud-controller-manager`, if there are no flags that enable any in-tree cloud provider or change ownership of controllers, the default configuration can be used to avoid manual creation of the configuration file.
 
 ## {{% heading "whatsnext" %}}
 

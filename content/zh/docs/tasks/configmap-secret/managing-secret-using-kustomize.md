@@ -5,7 +5,7 @@ weight: 30
 description: 使用 kustomization.yaml 文件创建 Secret 对象。
 ---
 <!-- 
-title: Managing Secret using Kustomize
+title: Managing Secrets using Kustomize
 content_type: task
 weight: 30
 description: Creating Secret objects using kustomization.yaml file.
@@ -184,8 +184,8 @@ kubectl delete secret db-user-pass-96mffmfh4k
 
 <!-- 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secret with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/) 
+- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/) 
 -->
 - 进一步阅读 [Secret 概念](/zh/docs/concepts/configuration/secret/)
 - 了解如何[使用 `kubectl` 命令管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/)

@@ -67,7 +67,7 @@ single quotes (`'`). For example, if your password is `S!B\*d$zDsb=`,
 run the following command:
 
 ```shell
-kubectl create secret generic dev-db-secret \
+kubectl create secret generic db-user-pass \
   --from-literal=username=devuser \
   --from-literal=password='S!B\*d$zDsb='
 ```

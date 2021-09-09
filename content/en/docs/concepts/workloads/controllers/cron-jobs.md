@@ -17,6 +17,8 @@ A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repe
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
+In addition, the CronJob schedule supports timezone handling, you can specify the timezone by adding "CRON_TZ=<time zone>" at the beginning of the CronJob schedule, and it is recommended to always set `CRON_TZ`.
+
 {{< caution >}}
 All **CronJob** `schedule:` times are based on the timezone of the
 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
@@ -36,9 +38,10 @@ maximum length of a Job name is no more than 63 characters.
 
 ## CronJob
 
-CronJobs are useful for creating periodic and recurring tasks, like running backups or
-sending emails. CronJobs can also schedule individual tasks for a specific time, such as
-scheduling a Job for when your cluster is likely to be idle.
+CronJobs are meant for performing regular scheduled actions such as backups,
+report generation, and so on. Each of those tasks should be configured to recur
+indefinitely (for example: once a day / week / month); you can define the point
+in time within that interval when the job should start.
 
 ### Example
 
@@ -52,15 +55,16 @@ takes you through this example in more detail).
 ### Cron schedule syntax
 
 ```
-# ┌───────────── minute (0 - 59)
-# │ ┌───────────── hour (0 - 23)
-# │ │ ┌───────────── day of the month (1 - 31)
-# │ │ │ ┌───────────── month (1 - 12)
-# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
-# │ │ │ │ │                                   7 is also Sunday on some systems)
-# │ │ │ │ │
-# │ │ │ │ │
-# * * * * *
+#      ┌────────────────── timezone (optional)
+#      |      ┌───────────── minute (0 - 59)
+#      |      │ ┌───────────── hour (0 - 23)
+#      |      │ │ ┌───────────── day of the month (1 - 31)
+#      |      │ │ │ ┌───────────── month (1 - 12)
+#      |      │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+#      |      │ │ │ │ │                                   7 is also Sunday on some systems)
+#      |      │ │ │ │ │
+#      |      │ │ │ │ │
+# CRON_TZ=UTC * * * * *
 ```
 
 
@@ -74,9 +78,9 @@ takes you through this example in more detail).
 
 
 
-For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight(in UTC):
 
-`0 0 13 * 5`
+`CRON_TZ=UTC 0 0 13 * 5`
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 

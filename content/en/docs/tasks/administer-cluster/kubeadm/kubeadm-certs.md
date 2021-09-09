@@ -85,7 +85,11 @@ Additionally, kubeadm informs the user if the certificate is externally managed;
 {{< /warning >}}
 
 {{< note >}}
-`kubelet.conf` is not included in the list above because kubeadm configures kubelet for automatic certificate renewal.
+`kubelet.conf` is not included in the list above because kubeadm configures kubelet
+for [automatic certificate renewal](/docs/tasks/tls/certificate-rotation/)
+with rotatable certificates under `/var/lib/kubelet/pki`.
+To repair an expired kubelet client certificate see
+[Kubelet client certificate rotation fails](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#kubelet-client-cert).
 {{< /note >}}
 
 {{< warning >}}
@@ -122,7 +126,17 @@ command. In that case, you should explicitly set `--certificate-renewal=true`.
 
 You can renew your certificates manually at any time with the `kubeadm certs renew` command.
 
-This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
+This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`. 
+
+After running the command you should restart the control plane Pods. This is required since
+dynamic certificate reload is currently not supported for all components and certificates.
+[Static Pods](/docs/tasks/configure-pod-container/static-pod/) are managed by the local kubelet
+and not by the API Server, thus kubectl cannot be used to delete and restart them.
+To restart a static Pod you can temporarily remove its manifest file from `/etc/kubernetes/manifests/` 
+and wait for 20 seconds (see the `fileCheckFrequency` value in [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
+The kubelet will terminate the Pod if it's no longer in the manifest directory.
+You can then move the file back and after another `fileCheckFrequency` period, the kubelet will recreate
+the Pod and the certificate renewal for the component can complete.
 
 {{< warning >}}
 If you are running an HA cluster, this command needs to be executed on all the control-plane nodes.
@@ -142,7 +156,7 @@ The Kubernetes certificates normally reach their expiration date after one year.
 
 ## Renew certificates with the Kubernetes certificates API
 
-This section provide more details about how to execute manual certificate renewal using the Kubernetes certificates API.
+This section provides more details about how to execute manual certificate renewal using the Kubernetes certificates API.
 
 {{< caution >}}
 These are advanced topics for users who need to integrate their organization's certificate infrastructure into a kubeadm-built cluster. If the default kubeadm configuration satisfies your needs, you should let kubeadm manage certificates instead.
@@ -157,10 +171,10 @@ The built-in signer is part of [`kube-controller-manager`](/docs/reference/comma
 
 To activate the built-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
 
-If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2):
+If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3):
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
@@ -219,7 +233,7 @@ To configure the kubelets in a new kubeadm cluster to obtain properly signed ser
 certificates you must pass the following minimal configuration to `kubeadm init`:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1

@@ -10,12 +10,12 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Remove this node from the ClusterStatus object.
+Remove this node from the ClusterStatus object (DEPRECATED).
 
 ### Synopsis
 
 
-Remove this node from the ClusterStatus object if the node is a control plane node.
+Remove this node from the ClusterStatus object (DEPRECATED).
 
 ```
 kubeadm reset phase update-cluster-status [flags]

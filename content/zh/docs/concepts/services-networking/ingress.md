@@ -421,7 +421,7 @@ IngressClass 资源包含一个可选的 `parameters` 字段，可用于为该�
 -->
 #### 名字空间域的参数
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!--
 `Parameters` field has a `scope` and `namespace` field that can be used to
@@ -429,12 +429,20 @@ reference a namespace-specific resource for configuration of an Ingress class.
 `Scope` field defaults to `Cluster`, meaning, the default is cluster-scoped
 resource. Setting `Scope` to `Namespace` and setting the `Namespace` field
 will reference a parameters resource in a specific namespace:
+
+Namespace-scoped parameters avoid the need for a cluster-scoped CustomResourceDefinition
+for a parameters resource. This further avoids RBAC-related resources
+that would otherwise be required to grant permissions to cluster-scoped
+resources.
 -->
 `parameters` 字段有一个 `scope` 和 `namespace` 字段，可用来引用特定
 于名字空间的资源，对 Ingress 类进行配置。
 `scope` 字段默认为 `Cluster`，表示默认是集群作用域的资源。
 将 `scope` 设置为 `Namespace` 并设置 `namespace` 字段就可以引用某特定
 名字空间中的参数资源。
+
+有了名字空间域的参数，就不再需要为一个参数资源配置集群范围的 CustomResourceDefinition。
+除此之外，之前对访问集群范围的资源进行授权，需要用到 RBAC 相关的资源，现在也不再需要了。
 
 {{< codenew file="service/networking/namespaced-params.yaml" >}}
 

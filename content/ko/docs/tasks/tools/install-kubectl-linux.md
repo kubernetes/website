@@ -22,7 +22,6 @@ card:
 - [리눅스에 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-linux)
 - [기본 패키지 관리 도구를 사용하여 설치](#install-using-native-package-management)
 - [다른 패키지 관리 도구를 사용하여 설치](#install-using-other-package-management)
-- [리눅스에 Google Cloud SDK를 사용하여 설치](#install-on-linux-as-part-of-the-google-cloud-sdk)
 
 ### 리눅스에서 curl을 사용하여 kubectl 바이너리 설치 {#install-kubectl-binary-with-curl-on-linux}
 
@@ -83,6 +82,7 @@ card:
    대상 시스템에 root 접근 권한을 가지고 있지 않더라도, `~/.local/bin` 디렉터리에 kubectl을 설치할 수 있다.
 
    ```bash
+   chmod +x kubectl
    mkdir -p ~/.local/bin/kubectl
    mv ./kubectl ~/.local/bin/kubectl
    # 그리고 ~/.local/bin/kubectl을 $PATH에 추가
@@ -168,15 +168,11 @@ kubectl version --client
 
 {{< /tabs >}}
 
-### 리눅스에 Google Cloud SDK를 사용하여 설치 {#install-on-linux-as-part-of-the-google-cloud-sdk}
-
-{{< include "included/install-kubectl-gcloud.md" >}}
-
 ## kubectl 구성 확인
 
 {{< include "included/verify-kubectl.md" >}}
 
-## 선택적 kubectl 구성
+## 선택적 kubectl 구성 및 플러그인
 
 ### 셸 자동 완성 활성화
 
@@ -188,6 +184,61 @@ kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
+
+### `kubectl convert` 플러그인 설치
+
+{{< include "included/kubectl-convert-overview.md" >}}
+
+1. 다음 명령으로 최신 릴리스를 다운로드한다.
+
+   ```bash
+   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   ```
+
+1. 바이너리를 검증한다. (선택 사항)
+
+   kubectl-convert 체크섬(checksum) 파일을 다운로드한다.
+
+   ```bash
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   ```
+
+   kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
+
+   ```bash
+   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   ```
+
+   검증이 성공한다면, 출력은 다음과 같다.
+
+   ```console
+   kubectl-convert: OK
+   ```
+
+   검증이 실패한다면, `sha256`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
+
+   ```bash
+   kubectl-convert: FAILED
+   sha256sum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   동일한 버전의 바이너리와 체크섬을 다운로드한다.
+   {{< /note >}}
+
+1. kubectl-convert 설치
+
+   ```bash
+   sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
+   ```
+
+1. 플러그인이 정상적으로 설치되었는지 확인한다.
+
+   ```shell
+   kubectl convert --help
+   ```
+
+   에러가 출력되지 않는다면, 플러그인이 정상적으로 설치된 것이다.
 
 ## {{% heading "whatsnext" %}}
 

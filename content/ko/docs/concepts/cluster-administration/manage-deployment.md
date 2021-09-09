@@ -50,7 +50,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 URL을 구성 소스로 지정할 수도 있다. 이는 GitHub에 체크인된 구성 파일에서 직접 배포하는 데 편리하다.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/application/nginx/nginx-deployment.yaml
 ```
 
 ```shell

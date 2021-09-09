@@ -20,7 +20,7 @@ Performs a best effort revert of changes made to this host by 'kubeadm init' or 
 The "reset" command executes the following phases:
 ```
 preflight              Run reset pre-flight checks
-update-cluster-status  Remove this node from the ClusterStatus object.
+update-cluster-status  Remove this node from the ClusterStatus object (DEPRECATED).
 remove-etcd-member     Remove a local etcd member.
 cleanup-node           Run cleanup node.
 ```

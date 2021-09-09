@@ -42,7 +42,7 @@ CLA에 서명하지 않은 기여자의 풀 리퀘스트(pull request)는 자동
 
 시나리오   | 브랜치
 :---------|:------------
-현재 릴리스의 기존 또는 새로운 영어 콘텐츠 | `master`
+현재 릴리스의 기존 또는 새로운 영어 콘텐츠 | `main`
 기능 변경 릴리스의 콘텐츠 | `dev-<version>` 패턴을 사용하여 기능 변경이 있는 주 버전과 부 버전에 해당하는 브랜치. 예를 들어, `v{{< skew nextMinorVersion >}}` 에서 기능이 변경된 경우, ``dev-{{< skew nextMinorVersion >}}`` 에 문서 변경을 추가한다.
 다른 언어로된 콘텐츠(현지화) | 현지화 규칙을 사용. 자세한 내용은 [현지화 브랜치 전략](/docs/contribute/localization/#branching-strategy)을 참고한다.
 
@@ -60,6 +60,6 @@ PR 당 하나의 언어로 풀 리퀘스트를 제한한다. 여러 언어로 �
 
 ## 기여자를 위한 도구들
 
-`kubernetes/website` 리포지터리의 [문서 기여자를 위한 도구](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools) 디렉터리에는 기여 여정이 좀 더 순조롭게 진행되도록 도와주는 도구들이 포함되어 있다.
+`kubernetes/website` 리포지터리의 [문서 기여자를 위한 도구](https://github.com/kubernetes/website/tree/main/content/en/docs/doc-contributor-tools) 디렉터리에는 기여 여정이 좀 더 순조롭게 진행되도록 도와주는 도구들이 포함되어 있다.
 
 

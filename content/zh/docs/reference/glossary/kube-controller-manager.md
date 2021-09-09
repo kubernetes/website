@@ -29,9 +29,9 @@ tags:
 -->
 
 <!--
- Component on the master that runs {{< glossary_tooltip text="controllers" term_id="controller" >}}.
+ Control plane component that runs {{< glossary_tooltip text="controller" term_id="controller" >}} processes.
 -->
-在主节点上运行 {{< glossary_tooltip text="控制器" term_id="controller" >}} 的组件。
+运行{{< glossary_tooltip text="控制器" term_id="controller" >}}进程的控制平面组件。
 
 <!--more--> 
 

@@ -169,6 +169,13 @@ The following methods exist for installing kubectl on macOS:
    sudo chown root: /usr/local/bin/kubectl
    ```
 
+   {{< note >}}
+   <!--
+   Make sure `/usr/local/bin` is in your PATH environment variable.
+   -->
+   确保 `/usr/local/bin` 在你的 PATH 环境变量中。
+   {{< /note >}}
+
 <!-- 
 1. Test to ensure the version you installed is up-to-date:
 -->
@@ -257,11 +264,11 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 {{< include "included/verify-kubectl.md" >}}
 
 <!-- 
-## Optional kubectl configurations {#optional-kubectl-configurations}
+## Optional kubectl configurations and plugins {#optional-kubectl-configurations}
 
 ### Enable shell autocompletion {#enable-shell-autocompletion}
 -->
-## 可选的 kubectl 配置 {#optional-kubectl-configurations}
+## 可选的 kubectl 配置和插件 {#optional-kubectl-configurations-and-plugins}
 
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
@@ -278,6 +285,120 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，这可以节省许多输入�
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
+
+<!--
+### Install `kubectl convert` plugin
+-->
+### 安装 `kubectl convert` 插件
+
+{{< include "included/kubectl-convert-overview.md" >}}
+
+<!--
+1. Download the latest release with the command:
+-->
+1. 用以下命令下载最新发行版：
+
+   {{< tabs name="download_convert_binary_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl-convert"
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl-convert"
+   {{< /tab >}}
+   {{< /tabs >}}
+
+<!--
+1. Validate the binary (optional)
+
+   Download the kubectl-convert checksum file:
+-->
+1. 验证该可执行文件（可选步骤）
+   
+   下载 kubectl-convert 校验和文件：
+
+   {{< tabs name="download_convert_checksum_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
+
+   <!--
+   Validate the kubectl-convert binary against the checksum file:
+   -->
+   基于校验和，验证 kubectl-convert 的可执行文件：
+
+   ```bash
+   echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
+   ```
+   
+   <!--
+   If valid, the output is:
+   -->
+   验证通过时，输出为：
+
+   ```console
+   kubectl-convert: OK
+   ```
+
+   <!--
+   If the check fails, `shasum` exits with nonzero status and prints output similar to:
+   -->
+   验证失败时，`sha256` 将以非零值退出，并打印输出类似于：
+
+   ```bash
+   kubectl-convert: FAILED
+   shasum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   <!--
+   Download the same version of the binary and checksum.
+   -->
+   下载相同版本的可执行文件和校验和。
+   {{< /note >}}
+
+<!--
+1. Make kubectl-convert binary executable
+-->
+1. 使 kubectl-convert 二进制文件可执行
+
+   ```bash
+   chmod +x ./kubectl-convert
+   ```
+
+<!--
+1. Move the kubectl-convert binary to a file location on your system `PATH`.
+-->
+1. 将 kubectl-convert 可执行文件移动到系统 `PATH` 环境变量中的一个位置。
+
+   ```bash
+   sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
+   sudo chown root: /usr/local/bin/kubectl-convert
+   ```
+
+   {{< note >}}
+   <!--
+   Make sure `/usr/local/bin` is in your PATH environment variable.
+   -->
+   确保你的 PATH 环境变量中存在 `/usr/local/bin`
+   {{< /note >}}
+
+<!--
+1. Verify plugin is successfully installed
+-->
+1. 验证插件是否安装成功
+
+   ```shell
+   kubectl convert --help
+   ```
+
+   <!--
+   If you do not see an error, it means the plugin is successfully installed.
+   -->
+   如果你没有看到任何错误就代表插件安装成功了。
 
 ## {{% heading "whatsnext" %}}
 

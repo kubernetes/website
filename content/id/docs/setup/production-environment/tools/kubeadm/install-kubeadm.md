@@ -225,16 +225,18 @@ Menginstal _plugin_ CNI (dibutuhkan untuk kebanyakan jaringan Pod):
 
 ```bash
 CNI_VERSION="v0.8.2"
+ARCH="amd64"
 mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
 ```
 
 Menginstal crictl (dibutuhkan untuk kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
 CRICTL_VERSION="v1.17.0"
+ARCH="amd64"
 mkdir -p /opt/bin
-curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
 Menginstal `kubeadm`, `kubelet`, `kubectl` dan menambahkan _systemd service_ `kubelet`:
@@ -243,8 +245,9 @@ Menginstal `kubeadm`, `kubelet`, `kubectl` dan menambahkan _systemd service_ `ku
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 
 mkdir -p /opt/bin
+ARCH="amd64"
 cd /opt/bin
-curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 chmod +x {kubeadm,kubelet,kubectl}
 
 RELEASE_VERSION="v0.2.7"
