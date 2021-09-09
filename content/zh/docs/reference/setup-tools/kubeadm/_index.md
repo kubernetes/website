@@ -8,7 +8,7 @@ card:
   weight: 40
 ---
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">
 
 <!-- 
 Kubeadm is a tool built to provide `kubeadm init` and `kubeadm join` as best-practice "fast paths" for creating Kubernetes clusters.
@@ -77,4 +77,3 @@ To install kubeadm, see the [installation guide](/docs/setup/production-environm
   用于打印 kubeadm 的版本信息
 * [kubeadm alpha](/zh/docs/reference/setup-tools/kubeadm/kubeadm-alpha)
   用于预览一组可用于收集社区反馈的特性
-
