@@ -119,6 +119,8 @@ kubectl get secret mysecret -o yaml
 
 ```yaml
 apiVersion: v1
+data:
+  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:40:59Z
@@ -127,8 +129,6 @@ metadata:
   resourceVersion: "7225"
   uid: c280ad2e-e916-11e8-98f2-025000000001
 type: Opaque
-data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 ```
 
 `kubectl get`と`kubectl describe`コマンドはデフォルトではSecretの内容を表示しません。
@@ -154,6 +154,8 @@ stringData:
 
 ```yaml
 apiVersion: v1
+data:
+  username: YWRtaW5pc3RyYXRvcg==
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:46:46Z
@@ -162,8 +164,6 @@ metadata:
   resourceVersion: "7579"
   uid: 91460ecb-e917-11e8-98f2-025000000001
 type: Opaque
-data:
-  username: YWRtaW5pc3RyYXRvcg==
 ```
 
 `YWRtaW5pc3RyYXRvcg==`をデコードすると`administrator`となります。

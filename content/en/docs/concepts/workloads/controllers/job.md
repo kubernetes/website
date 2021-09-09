@@ -187,14 +187,7 @@ parallelism, for a variety of reasons:
 
 ### Completion mode
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-{{< note >}}
-To be able to create Indexed Jobs, make sure to enable the `IndexedJob`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 Jobs with _fixed completion count_ - that is, jobs that have non null
 `.spec.completions` - can have a completion mode that is specified in `.spec.completionMode`:
@@ -204,7 +197,13 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   completion is homologous to each other. Note that Jobs that have null
   `.spec.completions` are implicitly `NonIndexed`.
 - `Indexed`: the Pods of a Job get an associated completion index from 0 to
-  `.spec.completions-1`, available in the annotation `batch.kubernetes.io/job-completion-index`.
+  `.spec.completions-1`. The index is available through three mechanisms:
+  - The Pod annotation `batch.kubernetes.io/job-completion-index`.
+  - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
+    When you use an Indexed Job in combination with a
+    {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
+    the deterministic hostnames to address each other via DNS.
+  - From the containarized task, in the environment variable `JOB_COMPLETION_INDEX`.
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
@@ -255,7 +254,8 @@ from failed Jobs is not lost inadvertently.
 
 ## Job termination and cleanup
 
-When a Job completes, no more Pods are created, but the Pods are not deleted either.  Keeping them around
+When a Job completes, no more Pods are created, but the Pods are [usually](#pod-backoff-failure-policy) not deleted either.
+Keeping them around
 allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
 The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
 old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
@@ -304,7 +304,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
 ### TTL mechanism for finished Jobs
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 Another way to clean up finished Jobs (either `Complete` or `Failed`)
 automatically is to use a TTL mechanism provided by a
@@ -341,11 +341,6 @@ seconds after it finishes.
 If the field is set to `0`, the Job will be eligible to be automatically deleted
 immediately after it finishes. If the field is unset, this Job won't be cleaned
 up by the TTL controller after it finishes.
-
-Note that this TTL mechanism is alpha, with feature gate `TTLAfterFinished`. For
-more information, see the documentation for
-[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
-finished resources.
 
 ## Job patterns
 
@@ -407,14 +402,12 @@ Here, `W` is the number of work items.
 
 ### Suspending a Job
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 {{< note >}}
-Suspending Jobs is available in Kubernetes versions 1.21 and above. You must
-enable the `SuspendJob` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
-in order to use this feature.
+In Kubernetes version 1.21, this feature was in alpha, which required additional
+steps to enable this feature; make sure to read the [right documentation for the
+version of Kubernetes you're using](/docs/home/supported-doc-versions/).
 {{< /note >}}
 
 When a Job is created, the Job controller will immediately begin creating Pods
@@ -573,6 +566,46 @@ The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010
 `manualSelector: true` tells the system to that you know what you are doing and to allow this
 mismatch.
 
+### Job tracking with finalizers
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+{{< note >}}
+In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+It is disabled by default.
+
+When enabled, the control plane tracks new Jobs using the behavior described
+below. Existing Jobs are unaffected. As a user, the only difference you would
+see is that the control plane tracking of Job completion is more accurate.
+{{< /note >}}
+
+When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}
+relies on counting the Pods that exist in the cluster to track the Job status,
+that is, to keep the counters for `succeeded` and `failed` Pods.
+However, Pods can be removed for a number of reasons, including:
+- The garbage collector that removes orphan Pods when a Node goes down.
+- The garbage collector that removes finished Pods (in `Succeeded` or `Failed`
+  phase) after a threshold.
+- Human intervention to delete Pods belonging to a Job.
+- An external controller (not provided as part of Kubernetes) that removes or
+  replaces Pods.
+
+If you enable the `JobTrackingWithFinalizers` feature for your cluster, the
+control plane keeps track of the Pods that belong to any Job and notices if any
+such Pod is removed from the API server. To do that, the Job controller creates Pods with
+the finalizer `batch.kubernetes.io/job-tracking`. The controller removes the
+finalizer only after the Pod has been accounted for in the Job status, allowing
+the Pod to be removed by other controllers or users.
+
+The Job controller uses the new algorithm for new Jobs only. Jobs created
+before the feature is enabled are unaffected. You can determine if the Job
+controller is tracking a Job using Pod finalizers by checking if the Job has the
+annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
+or remove this annotation from Jobs.
+
 ## Alternatives
 
 ### Bare Pods
@@ -599,7 +632,7 @@ of custom controller for those Pods.  This allows the most flexibility, but may 
 complicated to get started with and offers less integration with Kubernetes.
 
 One example of this pattern would be a Job which starts a Pod which runs a script that in turn
-starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/spark/README.md)), runs a spark
+starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)), runs a spark
 driver, and then cleans up.
 
 An advantage of this approach is that the overall process gets the completion guarantee of a Job

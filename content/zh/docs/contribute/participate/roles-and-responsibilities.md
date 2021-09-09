@@ -269,7 +269,7 @@ To apply:
 
 <!--
 1. Open a pull request that adds your GitHub user name to a section of the
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) file
 in the `kubernetes/website` repository.
 
   {{< note >}}
@@ -282,7 +282,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 [@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
 -->
 1. 发起 PR，将你的 GitHub 用户名添加到 `kubernetes/website` 仓库中
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
    文件的特定节。
 
    {{< note >}}
@@ -383,7 +383,7 @@ When you meet the [requirements](https://github.com/kubernetes/community/blob/ma
 <!--
 To apply:
 
-1. Open a pull request adding yourself to a section of the [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file in the `kubernetes/website` repository.
+1. Open a pull request adding yourself to a section of the [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) file in the `kubernetes/website` repository.
 
     {{< note >}}
     If you aren't sure where to add yourself, add yourself to `sig-docs-en-owners`.
@@ -396,7 +396,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 申请流程如下：
 
 1. 发起一个 PR，将自己添加到 `kubernetes/website` 仓库中
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
    文件的对应节区。
 
    {{< note >}}

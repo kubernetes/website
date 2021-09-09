@@ -55,7 +55,7 @@ EOF
 
 ```shell
 kubectl apply -f example-redis-config.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/config/redis-pod.yaml
 ```
 
 Redis 파드 매니페스트의 내용을 검토하고 다음의 사항을 염두에 둔다.
@@ -206,7 +206,7 @@ kubectl exec -it redis -- redis-cli
 
 ```shell
 kubectl delete pod redis
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/config/redis-pod.yaml
 ```
 
 이제 마지막으로 설정값을 다시 확인해 본다.

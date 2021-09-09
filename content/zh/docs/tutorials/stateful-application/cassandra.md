@@ -87,14 +87,14 @@ To complete this tutorial, you should already have a basic familiarity with
 ### Additional Minikube setup instructions
 
 {{< caution >}}
-[Minikube](https://minikube.sigs.k8s.io/docs/) defaults to 1024MiB of memory and 1 CPU.
+[Minikube](https://minikube.sigs.k8s.io/docs/) defaults to 2048MB of memory and 2 CPU.
 Running Minikube with the default resource configuration results in insufficient resource
 errors during this tutorial. To avoid these errors, start Minikube with the following settings:
 -->
 ### 额外的 Minikube 设置说明
 
 {{< caution >}}
-[Minikube](https://minikube.sigs.k8s.io/docs/)默认为 1024MiB 内存和 1 个 CPU。
+[Minikube](https://minikube.sigs.k8s.io/docs/)默认为 2048MB 内存和 2 个 CPU。
 在本教程中，使用默认资源配置运行 Minikube 会导致资源不足的错误。为避免这些错误，请使用以下设置启动 Minikube：
 
 ```shell
@@ -405,7 +405,7 @@ to also be deleted. Never assume you'll be able to access data if its volume cla
 
 The Pods in this tutorial use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
 image from Google's [container registry](https://cloud.google.com/container-registry/docs/).
-The Docker image above is based on [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)
+The Docker image above is based on [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)
 and includes OpenJDK 8.
 
 This image includes a standard Cassandra installation from the Apache Debian repo.
@@ -414,7 +414,7 @@ By using environment variables you can change values that are inserted into `cas
 ## Cassandra 容器环境变量
 本教程中的 Pod 使用来自 Google [container registry](https://cloud.google.com/container-registry/docs/)
 的 [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 镜像。
-上面的 Docker 镜像基于 [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)，并且包含 OpenJDK 8。
+上面的 Docker 镜像基于 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)，并且包含 OpenJDK 8。
 
 该映像包括来自 Apache Debian 存储库的标准 Cassandra 安装。
 通过使用环境变量，您可以更改插入到 `cassandra.yaml` 中的值。

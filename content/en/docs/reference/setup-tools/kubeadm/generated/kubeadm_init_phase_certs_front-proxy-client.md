@@ -15,7 +15,7 @@ Generate the certificate for the front proxy client
 ### Synopsis
 
 
-Generate the certificate for the front proxy client, and save them into front-proxy-client.cert and front-proxy-client.key files.
+Generate the certificate for the front proxy client, and save them into front-proxy-client.crt and front-proxy-client.key files.
 
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 

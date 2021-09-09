@@ -92,10 +92,10 @@ options ndots:5
 
 <!--
 In summary, a pod in the _test_ namespace can successfully resolve either
-`data.prod` or `data.prod.cluster.local`.
+`data.prod` or `data.prod.svc.cluster.local`.
 -->
 概括起来，名字空间 `test` 中的 Pod 可以成功地解析 `data.prod` 或者
-`data.prod.cluster.local`。
+`data.prod.svc.cluster.local`。
 
 <!--
 ### DNS Records
@@ -336,11 +336,11 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 <!--
 ### Pod's setHostnameAsFQDN field {#pod-sethostnameasfqdn-field}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 -->
 ### Pod 的 setHostnameAsFQDN 字段  {#pod-sethostnameasfqdn-field}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 <!--
 When a Pod is configured to have fully qualified domain name (FQDN), its hostname is the short hostname. For example, if you have a Pod with the fully qualified domain name `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`, then by default the `hostname` command inside that Pod returns `busybox-1` and  the `hostname -fqdn` command returns the FQDN.
@@ -454,6 +454,8 @@ spec:
 <!--
 ### Pod's DNS Config
 
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+
 Pod's DNS Config allows users more control on the DNS settings for a Pod.
 
 The `dnsConfig` field is optional and it can work with any `dnsPolicy` settings.
@@ -463,6 +465,8 @@ to be specified.
 Below are the properties a user can specify in the `dnsConfig` field:
 -->
 ### Pod 的 DNS 配置  {#pod-dns-config}
+
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 Pod 的 DNS 配置可让用户对 Pod 的 DNS 设置进行更多控制。
 
@@ -540,6 +544,28 @@ nameserver fd00:79:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
+
+<!--
+#### Expanded DNS Configuration
+
+{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+
+By default, for Pod's DNS Config, Kubernetes allows at most 6 search domains and
+a list of search domains of up to 256 characters.
+
+If the feature gate `ExpandedDNSConfig` is enabled for the kube-apiserver and
+the kubelet, it is allowed for Kubernetes to have at most 32 search domains and
+a list of search domains of up to 2048 characters.
+-->
+#### 扩展 DNS 配置  {#expanded-dns-configuration}
+
+{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+
+对于 Pod DNS 配置，Kubernetes 默认允许最多 6 个 搜索域（ Search Domain） 
+以及一个最多 256 个字符的搜索域列表。
+
+如果启用 kube-apiserver 和 kubelet 的特性门控 `ExpandedDNSConfig`，Kubernetes 将可以有最多 32 个 
+搜索域以及一个最多 2048 个字符的搜索域列表。
 
 <!--
 ### Feature availability

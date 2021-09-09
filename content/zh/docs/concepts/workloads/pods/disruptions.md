@@ -170,7 +170,7 @@ in your pod spec can also cause voluntary (and involuntary) disruptions.
 实现可能导致碎片整理和紧缩节点的自愿干扰。集群
 管理员或托管提供商应该已经记录了各级别的自愿干扰（如果有的话）。
 有些配置选项，例如在 pod spec 中
-[使用 PriorityClasses]（https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/）
+[使用 PriorityClasses](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
 也会产生自愿（和非自愿）的干扰。
 
 <!--

@@ -32,59 +32,69 @@ The kube-scheduler can be configured to enable bin packing of resources along wi
 <!--
 ## Enabling Bin Packing using RequestedToCapacityRatioResourceAllocation
 
-Before Kubernetes 1.15, Kube-scheduler used to allow scoring nodes based on the request to capacity ratio of primary resources like CPU and Memory. Kubernetes 1.16 added a new parameter to the priority function that allows the users to specify the resources along with weights for each resource to score nodes based on the request to capacity ratio. This allows users to bin pack extended resources by using appropriate parameters and improves the utilization of scarce resources in large clusters. The behavior of the `RequestedToCapacityRatioResourceAllocation` priority function can be controlled by a configuration option called `requestedToCapacityRatioArguments`. This argument consists of two parameters `shape` and `resources`. Shape allows the user to tune the function as least requested or most requested based on `utilization` and `score` values. Resources
-consists of `name` which specifies the resource to be considered during scoring and `weight` specify the weight of each resource.
+Kubernetes allows the users to specify the resources along with weights for
+each resource to score nodes based on the request to capacity ratio. This
+allows users to bin pack extended resources by using appropriate parameters
+and improves the utilization of scarce resources in large clusters. The
+behavior of the `RequestedToCapacityRatioResourceAllocation` priority function
+can be controlled by a configuration option called `RequestedToCapacityRatioArgs`. 
+This argument consists of two parameters `shape` and `resources`. The `shape` 
+parameter allows the user to tune the function as least requested or most 
+requested based on `utilization` and `score` values.  The `resources` parameter 
+consists of `name` of the resource to be considered during scoring and `weight` 
+specify the weight of each resource.
+
 -->
 
 ## 使用 RequestedToCapacityRatioResourceAllocation 启用装箱
 
-在 Kubernetes 1.15 之前，Kube-scheduler 通常允许根据对主要资源（如 CPU 和内存）
-的请求数量和可用容量 之比率对节点评分。
-Kubernetes 1.16 在优先级函数中添加了一个新参数，该参数允许用户指定资源以及每类资源的权重，
+Kubernetes 允许用户指定资源以及每类资源的权重，
 以便根据请求数量与可用容量之比率为节点评分。
 这就使得用户可以通过使用适当的参数来对扩展资源执行装箱操作，从而提高了大型集群中稀缺资源的利用率。
 `RequestedToCapacityRatioResourceAllocation` 优先级函数的行为可以通过名为
-`requestedToCapacityRatioArguments` 的配置选项进行控制。
+`RequestedToCapacityRatioArgs` 的配置选项进行控制。
 该标志由两个参数 `shape` 和 `resources` 组成。
-`shape` 允许用户根据 `utilization` 和 `score` 值将函数调整为最少请求
-（least requested）或
-最多请求（most requested）计算。
+`shape` 允许用户根据 `utilization` 和 `score` 值将函数调整为
+最少请求（least requested）或最多请求（most requested）计算。
 `resources` 包含由 `name` 和  `weight` 组成，`name` 指定评分时要考虑的资源，
 `weight` 指定每种资源的权重。
 
 <!--
-Below is an example configuration that sets `requestedToCapacityRatioArguments` to bin packing behavior for extended resources `intel.com/foo` and `intel.com/bar`
+Below is an example configuration that sets
+`requestedToCapacityRatioArguments` to bin packing behavior for extended
+resources `intel.com/foo` and `intel.com/bar`.
 -->
 
 以下是一个配置示例，该配置将 `requestedToCapacityRatioArguments` 设置为对扩展资源
 `intel.com/foo` 和 `intel.com/bar` 的装箱行为
 
-```json
-{
-  "kind": "Policy",
-  "apiVersion": "v1",
-  ...
-  "priorities": [
-     ...
-    {
-      "name": "RequestedToCapacityRatioPriority",
-      "weight": 2,
-      "argument": {
-        "requestedToCapacityRatioArguments": {
-          "shape": [
-            {"utilization": 0, "score": 0},
-            {"utilization": 100, "score": 10}
-          ],
-          "resources": [
-            {"name": "intel.com/foo", "weight": 3},
-            {"name": "intel.com/bar", "weight": 5}
-          ]
-        }
-      }
-    }
-  ],
-}
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+profiles:
+# ...
+  pluginConfig:
+  - name: RequestedToCapacityRatio
+    args: 
+      shape:
+      - utilization: 0
+        score: 10
+      - utilization: 100
+        score: 0
+      resources:
+      - name: intel.com/foo
+        weight: 3
+      - name: intel.com/bar
+        weight: 5
 ```
+
+<!--
+Referencing the `KubeSchedulerConfiguration` file with the kube-scheduler 
+flag `--config=/path/to/config/file` will pass the configuration to the 
+scheduler.
+-->
+使用 kube-scheduler 标志 `--config=/path/to/config/file` 
+引用 `KubeSchedulerConfiguration` 文件将配置传递给调度器。
 
 <!--
 **This feature is disabled by default**

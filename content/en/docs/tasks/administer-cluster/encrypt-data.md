@@ -157,7 +157,7 @@ program to retrieve the contents of your secret.
    kubectl describe secret secret1 -n default
    ```
 
-   should match `mykey: bXlkYXRh`, mydata is encoded, check [decoding a secret](/docs/concepts/configuration/secret#decoding-a-secret) to
+   should match `mykey: bXlkYXRh`, mydata is encoded, check [decoding a secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret) to
    completely decode the secret.
 
 

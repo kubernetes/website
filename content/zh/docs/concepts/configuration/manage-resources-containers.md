@@ -227,7 +227,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 ## 内存的含义  {#meaning-of-memory}
 
 内存的约束和请求以字节为单位。你可以使用以下后缀之一以一般整数或定点数字形式来表示内存：
-E、P、T、G、M、K。你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
+E、P、T、G、M、k。你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
 例如，以下表达式所代表的是大致相同的值：
 
 ```

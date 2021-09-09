@@ -14,7 +14,7 @@ A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 and contains the services necessary to run
-{{< glossary_tooltip text="Pods" term_id="pod" >}}
+{{< glossary_tooltip text="Pods" term_id="pod" >}}.
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
@@ -122,6 +122,9 @@ To mark a Node unschedulable, run:
 kubectl cordon $NODENAME
 ```
 
+See [Safely Drain a Node](/docs/tasks/administer-cluster/safely-drain-node/)
+for more details.
+
 {{< note >}}
 Pods that are part of a {{< glossary_tooltip term_id="daemonset" >}} tolerate
 being run on an unschedulable Node. DaemonSets typically provide node-local services
@@ -162,8 +165,8 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 | Node Condition       | Description |
 |----------------------|-------------|
 | `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
-| `DiskPressure`       | `True` if pressure exists on the disk size--that is, if the disk capacity is low; otherwise `False` |
-| `MemoryPressure`     | `True` if pressure exists on the node memory--that is, if the node memory is low; otherwise `False` |
+| `DiskPressure`       | `True` if pressure exists on the disk size—that is, if the disk capacity is low; otherwise `False` |
+| `MemoryPressure`     | `True` if pressure exists on the node memory—that is, if the node memory is low; otherwise `False` |
 | `PIDPressure`        | `True` if pressure exists on the processes—that is, if there are too many processes on the node; otherwise `False` |
 | `NetworkUnavailable` | `True` if the network for the node is not correctly configured, otherwise `False` |
 {{< /table >}}
@@ -174,7 +177,8 @@ If you use command-line tools to print details of a cordoned Node, the Condition
 cordoned nodes are marked Unschedulable in their spec.
 {{< /note >}}
 
-The node condition is represented as a JSON object. For example, the following structure describes a healthy node:
+In the Kubernetes API, a node's condition is represented as part of the `.status`
+of the Node resource. For example, the following JSON structure describes a healthy node:
 
 ```json
 "conditions": [
@@ -189,7 +193,17 @@ The node condition is represented as a JSON object. For example, the following s
 ]
 ```
 
-If the Status of the Ready condition remains `Unknown` or `False` for longer than the `pod-eviction-timeout` (an argument passed to the {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}), then all the Pods on the node are scheduled for deletion by the node controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the API server is unable to communicate with the kubelet on the node. The decision to delete the pods cannot be communicated to the kubelet until communication with the API server is re-established. In the meantime, the pods that are scheduled for deletion may continue to run on the partitioned node.
+If the `status` of the Ready condition remains `Unknown` or `False` for longer
+than the `pod-eviction-timeout` (an argument passed to the
+{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager"
+>}}), then the [node controller](#node-controller) triggers
+{{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
+for all Pods assigned to that node. The default eviction timeout duration is
+**five minutes**.
+In some cases when the node is unreachable, the API server is unable to communicate
+with the kubelet on the node. The decision to delete the pods cannot be communicated to
+the kubelet until communication with the API server is re-established. In the meantime,
+the pods that are scheduled for deletion may continue to run on the partitioned node.
 
 The node controller does not force delete pods until it is confirmed that they have stopped
 running in the cluster. You can see the pods that might be running on an unreachable node as
@@ -199,10 +213,12 @@ may need to delete the node object by hand. Deleting the node object from Kubern
 all the Pod objects running on the node to be deleted from the API server and frees up their
 names.
 
-The node lifecycle controller automatically creates
-[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that represent conditions.
+When problems occur on nodes, the Kubernetes control plane automatically creates
+[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that match the conditions
+affecting the node.
 The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
-Pods can also have tolerations which let them tolerate a Node's taints.
+Pods can also have {{< glossary_tooltip text="tolerations" term_id="toleration" >}} that let
+them run on a Node even though it has a specific taint.
 
 See [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
 for more details.
@@ -222,10 +238,43 @@ on a Node.
 
 ### Info
 
-Describes general information about the node, such as kernel version, Kubernetes version (kubelet and kube-proxy version), Docker version (if used), and OS name.
-This information is gathered by Kubelet from the node.
+Describes general information about the node, such as kernel version, Kubernetes
+version (kubelet and kube-proxy version), container runtime details, and which
+operating system the node uses.
+The kubelet gathers this information from the node and publishes it into
+the Kubernetes API.
 
-### Node controller
+## Heartbeats
+
+Heartbeats, sent by Kubernetes nodes, help your cluster determine the
+availability of each node, and to take action when failures are detected.
+
+For nodes there are two forms of heartbeats:
+
+* updates to the `.status` of a Node
+* [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) objects
+  within the `kube-node-lease`
+  {{< glossary_tooltip term_id="namespace" text="namespace">}}.
+  Each Node has an associated Lease object.
+
+Compared to updates to `.status` of a Node, a Lease is a lightweight resource.
+Using Leases for heartbeats reduces the performance impact of these updates
+for large clusters.
+
+The kubelet is responsible for creating and updating the `.status` of Nodes,
+and for updating their related Leases.
+
+- The kubelet updates the node's `.status` either when there is change in status
+  or if there has been no update for a configured interval. The default interval
+  for `.status` updates to Nodes is 5 minutes, which is much longer than the 40
+  second default timeout for unreachable nodes.
+- The kubelet creates and then updates its Lease object every 10 seconds
+  (the default update interval). Lease updates occur independently from
+  updates to the Node's `.status`. If the Lease update fails, the kubelet retries,
+  using exponential backoff that starts at 200 milliseconds and capped at 7 seconds.
+
+
+## Node controller
 
 The node {{< glossary_tooltip text="controller" term_id="controller" >}} is a
 Kubernetes control plane component that manages various aspects of nodes.
@@ -241,39 +290,18 @@ controller deletes the node from its list of nodes.
 
 The third is monitoring the nodes' health. The node controller is
 responsible for:
-- Updating the NodeReady condition of NodeStatus to ConditionUnknown when a node
-  becomes unreachable, as the node controller stops receiving heartbeats for some
-  reason such as the node being down.
-- Evicting all the pods from the node using graceful termination if
-  the node continues to be unreachable. The default timeouts are 40s to start
-  reporting ConditionUnknown and 5m after that to start evicting pods.
+- In the case that a node becomes unreachable, updating the NodeReady condition
+  of within the Node's `.status`. In this case the node controller sets the
+  NodeReady condition to `ConditionUnknown`.
+- If a node remains unreachable: triggering
+  [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/)
+  for all of the Pods on the unreachable node. By default, the node controller
+  waits 5 minutes between marking the node as `ConditionUnknown` and submitting
+  the first eviction request.
 
 The node controller checks the state of each node every `--node-monitor-period` seconds.
 
-#### Heartbeats
-
-Heartbeats, sent by Kubernetes nodes, help determine the availability of a node.
-
-There are two forms of heartbeats: updates of `NodeStatus` and the
-[Lease object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io).
-Each Node has an associated Lease object in the `kube-node-lease`
-{{< glossary_tooltip term_id="namespace" text="namespace">}}.
-Lease is a lightweight resource, which improves the performance
-of the node heartbeats as the cluster scales.
-
-The kubelet is responsible for creating and updating the `NodeStatus` and
-a Lease object.
-
-- The kubelet updates the `NodeStatus` either when there is change in status
-  or if there has been no update for a configured interval. The default interval
-  for `NodeStatus` updates is 5 minutes, which is much longer than the 40 second default
-  timeout for unreachable nodes.
-- The kubelet creates and then updates its Lease object every 10 seconds
-  (the default update interval). Lease updates occur independently from the
-  `NodeStatus` updates. If the Lease update fails, the kubelet retries with
-  exponential backoff starting at 200 milliseconds and capped at 7 seconds.
-
-#### Reliability
+### Rate limits on eviction
 
  In most cases, the node controller limits the eviction rate to
 `--node-eviction-rate` (default 0.1) per second, meaning it won't evict pods
@@ -281,9 +309,9 @@ from more than 1 node per 10 seconds.
 
 The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
-are unhealthy (NodeReady condition is ConditionUnknown or ConditionFalse) at
+are unhealthy (NodeReady condition is `ConditionUnknown` or `ConditionFalse`) at
 the same time:
-- If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold` 
+- If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold`
   (default 0.55), then the eviction rate is reduced.
 - If the cluster is small (i.e. has less than or equal to
   `--large-cluster-size-threshold` nodes - default 50), then evictions are stopped.
@@ -293,15 +321,17 @@ the same time:
 The reason these policies are implemented per availability zone is because one
 availability zone might become partitioned from the master while the others remain
 connected. If your cluster does not span multiple cloud provider availability zones,
-then there is only one availability zone (i.e. the whole cluster).
+then the eviction mechanism does not take per-zone unavailability into account.
 
 A key reason for spreading your nodes across availability zones is so that the
 workload can be shifted to healthy zones when one entire zone goes down.
 Therefore, if all nodes in a zone are unhealthy, then the node controller evicts at
 the normal rate of `--node-eviction-rate`.  The corner case is when all zones are
-completely unhealthy (i.e. there are no healthy nodes in the cluster). In such a
-case, the node controller assumes that there is some problem with master
-connectivity and stops all evictions until some connectivity is restored.
+completely unhealthy (none of the nodes in the cluster are healthy). In such a
+case, the node controller assumes that there is some problem with connectivity
+between the control plane and the nodes, and doesn't perform any evictions.
+(If there has been an outage and some nodes reappear, the node controller does
+evict pods from the remaining nodes that are unhealthy or unreachable).
 
 The node controller is also responsible for evicting pods running on nodes with
 `NoExecute` taints, unless those pods tolerate that taint.
@@ -309,7 +339,7 @@ The node controller also adds {{< glossary_tooltip text="taints" term_id="taint"
 corresponding to node problems like node unreachable or not ready. This means
 that the scheduler won't place Pods onto unhealthy nodes.
 
-### Node capacity
+## Resource capacity tracking {#node-capacity}
 
 Node objects track information about the Node's resource capacity: for example, the amount
 of memory available and the number of CPUs.
@@ -376,6 +406,64 @@ For example, if `ShutdownGracePeriod=30s`, and
 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved
 for gracefully terminating normal pods, and the last 10 seconds would be
 reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+
+{{< note >}}
+When pods were evicted during the graceful node shutdown, they are marked as failed.
+Running `kubectl get pods` shows the status of the the evicted pods as `Shutdown`.
+And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
+
+```
+Status:         Failed
+Reason:         Shutdown
+Message:        Node is shutting, evicting pods
+```
+
+Failed pod objects will be preserved until explicitly deleted or [cleaned up by the GC](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+This is a change of behavior compared to abrupt node termination.
+{{< /note >}}
+
+## Swap memory management {#swap-memory}
+
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+
+Prior to Kubernetes 1.22, nodes did not support the use of swap memory, and a
+kubelet would by default fail to start if swap was detected on a node. In 1.22
+onwards, swap memory support can be enabled on a per-node basis.
+
+To enable swap on a node, the `NodeSwap` feature gate must be enabled on
+the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
+[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+must be set to false.
+
+A user can also optionally configure `memorySwap.swapBehavior` in order to
+specify how a node will use swap memory. For example,
+
+```yaml
+memorySwap:
+  swapBehavior: LimitedSwap
+```
+
+The available configuration options for `swapBehavior` are:
+
+- `LimitedSwap`: Kubernetes workloads are limited in how much swap they can
+  use. Workloads on the node not managed by Kubernetes can still swap.
+- `UnlimitedSwap`: Kubernetes workloads can use as much swap memory as they
+  request, up to the system limit.
+
+If configuration for `memorySwap` is not specified and the feature gate is
+enabled, by default the kubelet will apply the same behaviour as the
+`LimitedSwap` setting.
+
+The behaviour of the `LimitedSwap` setting depends if the node is running with
+v1 or v2 of control groups (also known as "cgroups"):
+
+- **cgroupsv1:** Kubernetes workloads can use any combination of memory and
+  swap, up to the pod's memory limit, if set.
+- **cgroupsv2:** Kubernetes workloads cannot use swap memory.
+
+For more information, and to assist with testing and provide feedback, please
+see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
+[design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 
 ## {{% heading "whatsnext" %}}
 

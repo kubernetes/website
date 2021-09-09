@@ -1,12 +1,8 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
-    - castrojo
-    - kbarnard10
     - onlydole
     - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
-    - castrojo
-    - kbarnard10
     - mrbobbytables
     - onlydole
     - sftim
@@ -22,31 +18,25 @@ aliases:
     - annajung
     - bradtopol
     - celestehorgan
-    - irvifa
     - jimangel
-    - kbarnard10
+    - jlbutler
     - kbhawkey
     - onlydole
     - pi-victor
     - reylejano
     - savitharaghunathan
     - sftim
-    - steveperry-53
     - tengqm
-    - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - celestehorgan
     - daminisatya
     - jimangel
-    - kbarnard10
     - kbhawkey
     - onlydole
     - rajeshdeshpande02
     - sftim
-    - steveperry-53
     - tengqm
-    - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - electrocucaracha
@@ -94,7 +84,6 @@ aliases:
     - danninov
     - girikuncoro
     - habibrosyad
-    - irvifa
     - phanama
     - wahyuoi
   sig-docs-id-reviews: # PR reviews for Indonesian content
@@ -102,7 +91,6 @@ aliases:
     - danninov
     - girikuncoro
     - habibrosyad
-    - irvifa
     - phanama
     - wahyuoi
   sig-docs-it-owners: # Admins for Italian content
@@ -138,14 +126,14 @@ aliases:
     - ClaudiaJKang
     - gochist
     - ianychoi
-    - seokho-son
-    - ysyukr
+    - jihoon-seo
+    - jmyung
     - pjhwa
+    - seokho-son
     - yoonian
+    - ysyukr
   sig-docs-leads: # Website chairs and tech leads
-    - irvifa
     - jimangel
-    - kbarnard10
     - kbhawkey
     - onlydole
     - sftim
@@ -163,8 +151,10 @@ aliases:
     # zhangxiaoyu-zidif
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - chenrui333
+    - chenxuc
     - howieyuen
     - idealhack
+    - mengjiao-liu
     - pigletfly
     - SataQiu
     - tanjunchen
@@ -235,10 +225,12 @@ aliases:
     - parispittman
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
+    - cpanato # SIG Technical Lead
     - hasheddan # SIG Technical Lead
     - jeremyrickard # SIG Technical Lead
     - justaugustus # SIG Chair
     - LappleApple # SIG Program Manager
+    - puerco # SIG Technical Lead
     - saschagrunert # SIG Chair
   release-engineering-approvers:
     - cpanato # Release Manager
@@ -250,6 +242,7 @@ aliases:
   release-engineering-reviewers:
     - ameukam # Release Manager Associate
     - jimangel # Release Manager Associate
+    - markyjackson-taulia # Release Manager Associate
     - mkorbi # Release Manager Associate
     - palnabarun # Release Manager Associate
     - onlydole # Release Manager Associate

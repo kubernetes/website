@@ -12,26 +12,33 @@ weight: 30
 
 <!-- overview -->
 
-Kubernetes Secrets let you store and manage sensitive information, such
-as passwords, OAuth tokens, and ssh keys. Storing confidential information in a Secret
-is safer and more flexible than putting it verbatim in a
-{{< glossary_tooltip term_id="pod" >}} definition or in a
-{{< glossary_tooltip text="container image" term_id="image" >}}.
-See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
-
 A Secret is an object that contains a small amount of sensitive data such as
 a password, a token, or a key. Such information might otherwise be put in a
-Pod specification or in an image. Users can create Secrets and the system
-also creates some Secrets.
+{{< glossary_tooltip term_id="pod" >}} specification or in a
+{{< glossary_tooltip text="container image" term_id="image" >}}. Using a
+Secret means that you don't need to include confidential data in your
+application code.
+
+Because Secrets can be created independently of the Pods that use them, there
+is less risk of the Secret (and its data) being exposed during the workflow of
+creating, viewing, and editing Pods. Kubernetes, and applications that run in
+your cluster, can also take additional precautions with Secrets, such as
+avoiding writing confidential data to nonvolatile storage.
+
+Secrets are similar to {{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}
+but are specifically intended to hold confidential data.
 
 {{< caution >}}
-Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
-strings. By default they can be retrieved - as plain text - by anyone with API
-access, or anyone with access to Kubernetes' underlying data store, etcd. In
-order to safely use Secrets, it is recommended you (at a minimum):
+Kubernetes Secrets are, by default, stored unencrypted in the API server's underlying data store (etcd). Anyone with API access can retrieve or modify a Secret, and so can anyone with access to etcd.
+Additionally, anyone who is authorized to create a Pod in a namespace can use that access to read any Secret in that namespace; this includes indirect access such as the ability to create a Deployment.
+
+In order to safely use Secrets, take at least the following steps:
 
 1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
-2. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that restrict reading and writing the Secret. Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+2. Enable or configure [RBAC rules](/docs/reference/access-authn-authz/authorization/) that
+   restrict reading data in Secrets (including via indirect means).
+3. Where appropriate, also use mechanisms such as RBAC to limit which principals are allowed to create new Secrets or replace existing ones.
+
 {{< /caution >}}
 
 <!-- body -->
@@ -46,6 +53,10 @@ A Secret can be used with a Pod in three ways:
   its containers.
 - As [container environment variable](#using-secrets-as-environment-variables).
 - By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
+
+The Kubernetes control plane also uses Secrets; for example,
+[bootstrap token Secrets](#bootstrap-token-secrets) are a mechanism to
+help automate node registration.
 
 The name of a Secret object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -64,9 +75,9 @@ precedence.
 ## Types of Secret {#secret-types}
 
 When creating a Secret, you can specify its type using the `type` field of
-the [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-resource, or certain equivalent `kubectl` command line flags (if available).
-The Secret type is used to facilitate programmatic handling of the Secret data.
+a Secret resource, or certain equivalent `kubectl` command line flags (if available).
+The `type` of a Secret is used to facilitate programmatic handling of different
+kinds of confidential data.
 
 Kubernetes provides several builtin types for some common usage scenarios.
 These types vary in terms of the validations performed and the constraints
@@ -822,7 +833,10 @@ are obtained from the API server.
 This includes any Pods created using `kubectl`, or indirectly via a replication
 controller. It does not include Pods created as a result of the kubelet
 `--manifest-url` flag, its `--config` flag, or its REST API (these are
-not common ways to create Pods.)
+not common ways to create Pods). 
+The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a Secret
+or any other API objects.
+
 
 Secrets must be created before they are consumed in Pods as environment
 variables unless they are marked as optional. References to secrets that do
@@ -1164,7 +1178,7 @@ limit access using [authorization policies](
 Secrets often hold values that span a spectrum of importance, many of which can
 cause escalations within Kubernetes (e.g. service account tokens) and to
 external systems. Even if an individual app can reason about the power of the
-secrets it expects to interact with, other apps within the same namespace can
+Secrets it expects to interact with, other apps within the same namespace can
 render those assumptions invalid.
 
 For these reasons `watch` and `list` requests for secrets within a namespace are
@@ -1235,15 +1249,10 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
  - A user who can create a Pod that uses a secret can also see the value of that secret. Even
    if the API server policy does not allow that user to read the Secret, the user could
    run a Pod which exposes the secret.
- - Currently, anyone with root permission on any node can read _any_ secret from the API server,
-   by impersonating the kubelet. It is a planned feature to only send secrets to
-   nodes that actually require them, to restrict the impact of a root exploit on a
-   single node.
-
 
 ## {{% heading "whatsnext" %}}
 
 - Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
-
+- Read the [API reference](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/) for `Secret`

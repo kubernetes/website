@@ -1,6 +1,6 @@
 # Dokumentacja projektu Kubernetes
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 W tym repozytorium znajdziesz wszystko, czego potrzebujesz do zbudowania [strony internetowej Kubernetesa wraz z dokumentacją](https://kubernetes.io/). Bardzo nam miło, że chcesz wziąć udział w jej współtworzeniu!
 
@@ -18,7 +18,7 @@ Aby móc skorzystać z tego repozytorium, musisz lokalnie zainstalować:
 - [npm](https://www.npmjs.com/)
 - [Go](https://golang.org/)
 - [Hugo (Extended version)](https://gohugo.io/)
-- Środowisko obsługi kontenerów, np. [Docker-a](https://www.docker.com/).
+- Środowisko obsługi kontenerów, np. [Dockera](https://www.docker.com/).
 
 Przed rozpoczęciem zainstaluj niezbędne zależności. Sklonuj repozytorium i przejdź do odpowiedniego katalogu:
 
@@ -43,7 +43,9 @@ make container-image
 make container-serve
 ```
 
-Aby obejrzeć zawartość serwisu otwórz w przeglądarce adres http://localhost:1313. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
+Jeśli widzisz błędy, prawdopodobnie kontener z Hugo nie dysponuje wystarczającymi zasobami. Aby rozwiązać ten problem, zwiększ ilość dostępnych zasobów CPU i pamięci dla Dockera na Twojej maszynie ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) i [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+
+Aby obejrzeć zawartość serwisu, otwórz w przeglądarce adres http://localhost:1313. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
 
 ## Jak uruchomić lokalną kopię strony przy pomocy Hugo?
 

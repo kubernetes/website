@@ -54,11 +54,11 @@ the container starts.
    kubectl create -f https://k8s.io/examples/debug/termination.yaml
    ``` 
 
-   <!--In the YAML file, in the `cmd` and `args` fields, you can see that the
+   <!--In the YAML file, in the `command` and `args` fields, you can see that the
    container sleeps for 10 seconds and then writes "Sleep expired" to
    the `/dev/termination-log` file. After the container writes
    the "Sleep expired" message, it terminates.-->
-   YAML 文件中，在 `cmd` 和 `args` 字段，你可以看到容器休眠 10 秒然后将 "Sleep expired"
+   YAML 文件中，在 `command` 和 `args` 字段，你可以看到容器休眠 10 秒然后将 "Sleep expired"
    写入 `/dev/termination-log` 文件。
    容器写完 "Sleep expired" 消息后就终止了。
 

@@ -85,7 +85,11 @@ front-proxy-ca          Dec 28, 2029 23:36 UTC   9y              no
 {{< /warning >}}
 
 {{< note >}}
-kubeadm은 자동 인증서 갱신을 위해 kubelet을 구성하기 때문에 `kubelet.conf` 는 위 목록에 포함되어 있지 않다.
+`kubelet.conf` 는 위 목록에 포함되어 있지 않은데, 이는
+kubeadm이 [자동 인증서 갱신](/ko/docs/tasks/tls/certificate-rotation/)을 위해 
+`/var/lib/kubelet/pki`에 있는 갱신 가능한 인증서를 이용하여 kubelet을 구성하기 때문이다.
+만료된 kubelet 클라이언트 인증서를 갱신하려면 
+[kubelet 클라이언트 갱신 실패](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#kubelet-client-cert) 섹션을 확인한다.
 {{< /note >}}
 
 {{< warning >}}
@@ -157,7 +161,7 @@ HA 클러스터를 실행 중인 경우, 모든 컨트롤 플레인 노드에서
 
 빌트인 서명자를 활성화하려면, `--cluster-signing-cert-file` 와 `--cluster-signing-key-file` 플래그를 전달해야 한다.
 
-새 클러스터를 생성하는 경우, kubeadm [구성 파일](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)을 사용할 수 있다.
+새 클러스터를 생성하는 경우, kubeadm [구성 파일](/docs/reference/config-api/kubeadm-config.v1beta2/)을 사용할 수 있다.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
@@ -238,7 +242,7 @@ serverTLSBootstrap: true
 `serverTLSBootstrap: true` 필드는 kubelet 인증서를 이용한 부트스트랩을
 `certificates.k8s.io` API에 요청함으로써 활성화할 것이다. 한 가지 알려진 제약은
 이 인증서들에 대한 CSR(인증서 서명 요청)들이 kube-controller-manager -
-[`kubernetes.io/kubelet-serving`](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)의
+[`kubernetes.io/kubelet-serving`](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)의
 기본 서명자(default signer)에 의해서 자동으로 승인될 수 없다는 점이다.
 이것은 사용자나 제 3의 컨트롤러의 액션을 필요로 할 것이다.
 

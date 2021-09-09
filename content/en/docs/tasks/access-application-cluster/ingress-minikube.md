@@ -44,6 +44,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 
 1. Verify that the NGINX Ingress controller is running
 
+
   {{< tabs name="tab_with_md" >}}
   {{% tab name="minikube v1.19 or later" %}}
 ```shell
@@ -81,6 +82,22 @@ storage-provisioner                         1/1       Running   0          2m
     {{% /tab %}}
       {{< /tabs >}}
   
+
+
+    ```shell
+    kubectl get pods -n ingress-nginx
+    ```
+
+    {{< note >}}This can take up to a minute.{{< /note >}}
+
+    Output:
+
+    ```shell
+    NAME                                        READY   STATUS      RESTARTS   AGE
+    ingress-nginx-admission-create-2tgrf        0/1     Completed   0          3m28s
+    ingress-nginx-admission-patch-68b98         0/1     Completed   0          3m28s
+    ingress-nginx-controller-59b45fb494-lzmw2   1/1     Running     0          3m28s
+    ```
 
 
 ## Deploy a hello, world app

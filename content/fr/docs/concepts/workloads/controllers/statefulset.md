@@ -178,7 +178,7 @@ Lorsque le StatefulSet {{< glossary_tooltip term_id="controller" >}} crée un Po
 il ajoute une étiquette, `statefulset.kubernetes.io/pod-name`, renseignée avec le nom du Pod.
 Cette étiquette vous permet d'attacher un Service à un Pod spécifique du StatefulSet.
 
-## Garanties de déploiment et de mise à l'échelle
+## Garanties de déploiement et de mise à l'échelle
 
 * Pour un StatefulSet avec N réplicas, lorsque les Pods sont déployés, ils sont créés de manière séquentielle, dans l'ordre {0..N-1}.
 * Lorsque les Pods sont supprimés, ils sont terminés dans l'ordre inverse, {N-1..0}.

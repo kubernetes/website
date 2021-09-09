@@ -172,7 +172,7 @@ The deploy wizard expects that you provide the following information:
  -->
 - **容器镜像**（必填）：公共镜像仓库上的 Docker
   [容器镜像](/zh/docs/concepts/containers/images/) 或者私有镜像仓库
-  （通常是 Google Container Registery 或者 Docker Hub）的 URL。容器镜像参数说明必须以冒号结尾。
+  （通常是 Google Container Registry 或者 Docker Hub）的 URL。容器镜像参数说明必须以冒号结尾。
 
 <!--
 - **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in. The value must be a positive integer.

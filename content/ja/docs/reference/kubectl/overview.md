@@ -457,8 +457,6 @@ error: one plugin warning was found
 cat ./kubectl-whoami
 ```
 次の例では、下記の内容を含んだ`kubectl-whoami`が既に作成済であることを前提としています。
-The next few examples assume that you already made `kubectl-whoami` have
-the following contents:
 ```shell
 #!/bin/bash
 

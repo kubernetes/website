@@ -83,8 +83,11 @@ kubectl logs counter
 [`configure-helper` 스크립트](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)를 통해
 자세히 알 수 있다.
 
-**CRI 컨테이너 런타임** 을 사용할 때, kubelet은 로그를 로테이션하고 로깅 디렉터리 구조를 관리한다. kubelet은
-이 정보를 CRI 컨테이너 런타임에 전송하고 런타임은 컨테이너 로그를 지정된 위치에 기록한다. 두 개의 kubelet 플래그 `container-log-max-size` 및 `container-log-max-files` 를 사용하여 각 로그 파일의 최대 크기와 각 컨테이너에 허용되는 최대 파일 수를 각각 구성할 수 있다.
+**CRI 컨테이너 런타임** 을 사용할 때, kubelet은 로그를 로테이션하고 로깅 디렉터리 구조를 관리한다.
+kubelet은 이 정보를 CRI 컨테이너 런타임에 전송하고 런타임은 컨테이너 로그를 지정된 위치에 기록한다.
+[kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/)에 있는
+두 개의 kubelet 파라미터 [`containerLogMaxSize` 및 `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)를
+사용하여 각 로그 파일의 최대 크기와 각 컨테이너에 허용되는 최대 파일 수를 각각 구성할 수 있다.
 
 기본 로깅 예제에서와 같이 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)를
 실행하면, 노드의 kubelet이 요청을 처리하고

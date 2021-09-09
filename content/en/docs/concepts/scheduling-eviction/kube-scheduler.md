@@ -47,7 +47,7 @@ functions to score the feasible Nodes and picks a Node with the highest
 score among the feasible ones to run the Pod. The scheduler then notifies
 the API server about this decision in a process called _binding_.
 
-Factors that need taken into account for scheduling decisions include
+Factors that need to be taken into account for scheduling decisions include
 individual and collective resource requirements, hardware / software /
 policy constraints, affinity and anti-affinity specifications, data
 locality, inter-workload interference, and so on.
@@ -85,7 +85,7 @@ of the scheduler:
 * Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Read the [kube-scheduler config (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) reference
+* Read the [kube-scheduler config (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) reference
 * Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)

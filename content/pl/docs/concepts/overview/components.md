@@ -27,7 +27,7 @@ Poniższy rysunek przedstawia klaster Kubernetes i powiązania pomiędzy jego r�
 
 Komponenty warstwy sterowania podejmują ogólne decyzje dotyczące klastra (np. zlecanie zadań), a także wykrywają i reagują na zdarzenia w klastrze (przykładowo, start nowego {{< glossary_tooltip text="poda" term_id="pod">}}, kiedy wartość `replicas` dla deploymentu nie zgadza się z faktyczną liczbą replik).
 
-Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie i jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Tworzenie Wysoko Dostępnych Klastrów](/docs/admin/high-availability/) jest więcej informacji o konfiguracji typu *multi-master-VM*.
+Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie i jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) znajdziesz opis konfiguracji warstwy sterowania działającej na wielu maszynach wirtualnych.
 
 ### kube-apiserver
 
@@ -45,10 +45,11 @@ Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klas
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-Kontrolerami są:
+Przykładowe kontrolery:
 
 * Node controller: Odpowiada za rozpoznawanie i reagowanie na sytuacje, kiedy węzeł staje się z jakiegoś powodu niedostępny.
-* Replication controller: Odpowiada za utrzymanie prawidłowej liczby podów dla każdego obiektu typu *ReplicationController* w systemie.
+* Job controller: Czeka na obiekty typu *Job*, które definiują zadania uruchamiane jednorazowo
+  i startuje Pody, odpowiadające za ich wykonanie tych zadań.
 * Endpoints controller: Dostarcza informacji do obiektów typu *Endpoints* (tzn. łączy ze sobą Serwisy i Pody).
 * Service Account & Token controllers: Tworzy domyślne konta i tokeny dostępu API dla nowych przestrzeni nazw (*namespaces*).
 

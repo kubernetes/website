@@ -34,7 +34,7 @@ Dokumentasi ini terbuka. Jika Anda menemukan sesuatu yang tidak ada dalam daftar
 
 - Jangan gunakan Pods naked (artinya, Pods tidak terikat dengan a [ReplicaSet](/id/docs/concepts/workloads/controllers/replicaset/) a [Deployment](/id/docs/concepts/workloads/controllers/deployment/)) jika kamu bisa menghindarinya. Pod naked tidak akan dijadwal ulang jika terjadi kegagalan pada node.
 
-  Deployment, yang keduanya menciptakan ReplicaSet untuk memastikan bahwa jumlah Pod yang diinginkan selalu tersedia, dan menentukan strategi untuk mengganti Pods (seperti [RollingUpdate](/id/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), hampir selalu lebih disukai daripada membuat Pods secara langsung, kecuali untuk beberapa yang eksplisit [`restartPolicy: Never`](/id/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) banyak skenario . A [Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/) mungkin juga sesuai.
+  Deployment, yang keduanya menciptakan ReplicaSet untuk memastikan bahwa jumlah Pod yang diinginkan selalu tersedia, dan menentukan strategi untuk mengganti Pods (seperti [RollingUpdate](/id/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), hampir selalu lebih disukai daripada membuat Pods secara langsung, kecuali untuk beberapa yang eksplisit [`restartPolicy: Never`](/id/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) banyak skenario . A [Job](/id/docs/concepts/workloads/controllers/job/) mungkin juga sesuai.
 
 
 ## Services

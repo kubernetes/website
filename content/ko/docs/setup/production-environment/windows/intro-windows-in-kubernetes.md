@@ -84,7 +84,7 @@ weight: 65
 단계별 지침을 제공한다. 이 가이드에는 클러스터 노드와 함께 사용자 애플리케이션을
 업그레이드하기 위한 권장 업그레이드 절차가 포함된다.
 윈도우 노드는 현재 리눅스 노드와 동일한 방식으로 쿠버네티스
-[버전-스큐(skew) 정책](/ko/docs/setup/release/version-skew-policy/)(노드 대 컨트롤 플레인
+[버전-차이(skew) 정책](/ko/releases/version-skew-policy/)(노드 대 컨트롤 플레인
 버전 관리)을 준수한다.
 
 
@@ -102,6 +102,8 @@ weight: 65
 
 Microsoft는 `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`에서
 윈도우 퍼즈 인프라 컨테이너를 유지한다.
+이외에도 `k8s.gcr.io/pause:3.5`를 통해 쿠버네티스에서 관리하는 다중 아키텍처 이미지를
+사용할 수도 있는데, 이 이미지는 리눅스와 윈도우를 모두 지원한다.
 
 #### 컴퓨트
 
@@ -809,7 +811,7 @@ DNS, 라우트, 메트릭과 같은 많은 구성은 리눅스에서와 같이 /
 1. [BitLocker](https://docs.microsoft.com/ko-kr/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)를
    사용한 볼륨-레벨 암호화를 사용한다.
 
-[RunAsUsername](/ko/docs/tasks/configure-pod-container/configure-runasusername)은
+[RunAsUsername](/ko/docs/tasks/configure-pod-container/configure-runasusername/)은
 컨테이너 프로세스를 노드 기본 사용자로 실행하기 위해 윈도우 파드 또는
 컨테이너에 지정할 수 있다. 이것은
 [RunAsUser](/ko/docs/concepts/policy/pod-security-policy/#사용자-및-그룹)와 거의 동일하다.

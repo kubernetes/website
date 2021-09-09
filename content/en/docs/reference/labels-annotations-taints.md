@@ -200,7 +200,7 @@ Used on: Service
 
 The kube-proxy has this label for custom proxy, which delegates service control to custom proxy.
 
-## experimental.windows.kubernetes.io/isolation-type
+## experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
 
 Example: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
@@ -210,6 +210,7 @@ The annotation is used to run Windows containers with Hyper-V isolation. To use 
 
 {{< note >}}
 You can only set this annotation on Pods that have a single container.
+Starting from v1.20, this annotation is deprecated. Experimental Hyper-V support was removed in 1.21.
 {{< /note >}}
 
 ## ingressclass.kubernetes.io/is-default-class
@@ -262,11 +263,29 @@ The value of the annotation is the container name that is default for this Pod. 
 
 ## endpoints.kubernetes.io/over-capacity
 
-Example: `endpoints.kubernetes.io/over-capacity:warning`
+Example: `endpoints.kubernetes.io/over-capacity:truncated`
 
 Used on: Endpoints
 
-In Kubernetes clusters v1.21 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity.
+In Kubernetes clusters v1.22 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity and the number of endpoints has been truncated to 1000.
+
+## batch.kubernetes.io/job-tracking
+
+Example: `batch.kubernetes.io/job-tracking: ""`
+
+Used on: Jobs
+
+The presence of this annotation on a Job indicates that the control plane is
+[tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
+You should **not** manually add or remove this annotation.
+
+## scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
+
+Used on: Nodes
+
+This annotation requires the [NodePreferAvoidPods scheduling plugin](/docs/reference/scheduling/config/#scheduling-plugins)
+to be enabled. The plugin is deprecated since Kubernetes 1.22.
+Use [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) instead.
 
 **The taints listed below are always used on Nodes**
 
@@ -323,3 +342,87 @@ Sets this taint on a node to mark it as unusable, when kubelet is started with t
 Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
+
+## pod-security.kubernetes.io/enforce
+
+Example: `pod-security.kubernetes.io/enforce: baseline`
+
+Used on: Namespace
+
+Value **must** be one of `privileged`, `baseline`, or `restricted` which correspond to
+[Pod Security Standard](/docs/concepts/security/pod-security-standards) levels. Specifically,
+the `enforce` label _prohibits_ the creation of any Pod in the labeled Namespace which does not meet
+the requirements outlined in the indicated level.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/enforce-version
+
+Example: `pod-security.kubernetes.io/enforce-version: {{< skew latestVersion >}}`
+
+Used on: Namespace
+
+Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards) 
+policies to apply when validating a submitted Pod.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/audit
+
+Example: `pod-security.kubernetes.io/audit: baseline`
+
+Used on: Namespace
+
+Value **must** be one of `privileged`, `baseline`, or `restricted` which correspond to
+[Pod Security Standard](/docs/concepts/security/pod-security-standards) levels. Specifically,
+the `audit` label does not prevent the creation of a Pod in the labeled Namespace which does not meet
+the requirements outlined in the indicated level, but adds an audit annotation to that Pod.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/audit-version
+
+Example: `pod-security.kubernetes.io/audit-version: {{< skew latestVersion >}}`
+
+Used on: Namespace
+
+Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards) 
+policies to apply when validating a submitted Pod.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/warn
+
+Example: `pod-security.kubernetes.io/warn: baseline`
+
+Used on: Namespace
+
+Value **must** be one of `privileged`, `baseline`, or `restricted` which correspond to
+[Pod Security Standard](/docs/concepts/security/pod-security-standards) levels. Specifically,
+the `warn` label does not prevent the creation of a Pod in the labeled Namespace which does not meet the 
+requirements outlined in the indicated level, but returns a warning to the user after doing so.
+Note that warnings are also displayed when creating or updating objects that contain Pod templates,
+such as Deployments, Jobs, StatefulSets, etc.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/warn-version
+
+Example: `pod-security.kubernetes.io/warn-version: {{< skew latestVersion >}}`
+
+Used on: Namespace
+
+Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards)
+policies to apply when validating a submitted Pod. Note that warnings are also displayed when creating
+or updating objects that contain Pod templates, such as Deployments, Jobs, StatefulSets, etc.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.

@@ -12,7 +12,7 @@ or virtual machines) running Kubernetes agents, managed by the
 Kubernetes {{< param "version" >}} supports clusters with up to 5000 nodes. More specifically,
 Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
 
-* No more than 100 pods per node
+* No more than 110 pods per node
 * No more than 5000 nodes
 * No more than 150000 total pods
 * No more than 300000 total containers
@@ -124,3 +124,6 @@ components, including cluster-critical addons.
 The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
 integrates with a number of cloud providers to help you run the right number of
 nodes for the level of resource demand in your cluster.
+
+The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+helps you in resizing the addons automatically as your cluster's scale changes.

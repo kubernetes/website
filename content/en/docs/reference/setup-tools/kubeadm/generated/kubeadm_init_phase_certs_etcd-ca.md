@@ -15,7 +15,7 @@ Generate the self-signed CA to provision identities for etcd
 ### Synopsis
 
 
-Generate the self-signed CA to provision identities for etcd, and save them into etcd/ca.cert and etcd/ca.key files.
+Generate the self-signed CA to provision identities for etcd, and save them into etcd/ca.crt and etcd/ca.key files.
 
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 
