@@ -64,7 +64,7 @@ Na maioria dos shells, a forma mais fácil de escapar as senhas é usar aspas si
 Por exemplo, se sua senha atual é `S!B\*d$zDsb=`, você precisa executar o comando dessa forma:
 
 ```shell
-kubectl create secret generic dev-db-secret \
+kubectl create secret generic db-user-pass \
   --from-literal=username=devuser \
   --from-literal=password='S!B\*d$zDsb='
 ```
