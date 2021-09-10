@@ -2,8 +2,9 @@
 reviewers:
 - bryk
 - mikedanese
-- rf232
-title: Web UI (Dashboard)
+title: Deploy and Access the Kubernetes Dashboard
+description: >-
+  Deploy the web UI (Kubernetes Dashboard) and access it.
 content_type: concept
 weight: 10
 card:
@@ -34,7 +35,7 @@ Dashboard also provides information on the state of Kubernetes resources in your
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml
 ```
 
 ## Accessing the Dashboard UI
@@ -49,7 +50,9 @@ The sample user created in the tutorial will have administrative privileges and 
 {{< /warning >}}
 
 ### Command line proxy
-You can access Dashboard using the kubectl command-line tool by running the following command:
+
+You can enable access to the Dashboard using the `kubectl` command-line tool,
+by running the following command:
 
 ```
 kubectl proxy
@@ -60,7 +63,8 @@ Kubectl will make Dashboard available at [http://localhost:8001/api/v1/namespace
 The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
 
 {{< note >}}
-Kubeconfig Authentication method does NOT support external identity providers or x509 certificate-based authentication.
+The kubeconfig authentication method does **not** support external identity providers
+or X.509 certificate-based authentication.
 {{< /note >}}
 
 ## Welcome view
@@ -75,7 +79,7 @@ In addition, you can view which system applications are running by default in th
 ## Deploying containerized applications
 
 Dashboard lets you create and deploy a containerized application as a Deployment and optional Service with a simple wizard.
-You can either manually specify application details, or upload a YAML or JSON file containing application configuration.
+You can either manually specify application details, or upload a YAML or JSON _manifest_ file containing application configuration.
 
 Click the **CREATE** button in the upper right corner of any page to begin.
 
@@ -186,13 +190,14 @@ If needed, you can expand the **Advanced options** section where you can specify
 ### Uploading a YAML or JSON file
 
 Kubernetes supports declarative configuration.
-In this style, all configuration is stored in YAML or JSON configuration files
-using the Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
+In this style, all configuration is stored in manifests (YAML or JSON configuration files).
+The manifests use Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
 
 As an alternative to specifying application details in the deploy wizard,
-you can define your application in YAML or JSON files, and upload the files using Dashboard.
+you can define your application in one or more manifests, and upload the files using Dashboard.
 
 ## Using Dashboard
+
 Following sections describe views of the Kubernetes Dashboard UI; what they provide and how can they be used.
 
 ### Navigation
@@ -203,8 +208,9 @@ this can be changed using the namespace selector located in the navigation menu.
 
 Dashboard shows most Kubernetes object kinds and groups them in a few menu categories.
 
-#### Admin Overview
-For cluster and namespace administrators, Dashboard lists Nodes, Namespaces and Persistent Volumes and has detail views for them.
+#### Admin overview
+
+For cluster and namespace administrators, Dashboard lists Nodes, Namespaces and PersistentVolumes and has detail views for them.
 Node list view contains CPU and memory usage metrics aggregated across all Nodes.
 The details view shows the metrics for a Node, its specification, status,
 allocated resources, events and pods running on the node.
@@ -212,14 +218,14 @@ allocated resources, events and pods running on the node.
 #### Workloads
 
 Shows all applications running in the selected namespace.
-The view lists applications by workload kind (e.g., Deployments, Replica Sets, Stateful Sets, etc.)
+The view lists applications by workload kind (for example: Deployments, ReplicaSets, StatefulSets).
 and each workload kind can be viewed separately.
 The lists summarize actionable information about the workloads,
-such as the number of ready pods for a Replica Set or current memory usage for a Pod.
+such as the number of ready pods for a ReplicaSet or current memory usage for a Pod.
 
 Detail views for workloads show status and specification information and
 surface relationships between objects.
-For example, Pods that Replica Set is controlling or New Replica Sets and Horizontal Pod Autoscalers for Deployments.
+For example, Pods that ReplicaSet is controlling or new ReplicaSets and HorizontalPodAutoscalers for Deployments.
 
 #### Services
 
@@ -230,9 +236,9 @@ internal endpoints for cluster connections and external endpoints for external u
 
 #### Storage
 
-Storage view shows Persistent Volume Claim resources which are used by applications for storing data.
+Storage view shows PersistentVolumeClaim resources which are used by applications for storing data.
 
-#### Config Maps and Secrets
+#### ConfigMaps and Secrets {#config-maps-and-secrets}
 
 Shows all Kubernetes resources that are used for live configuration of applications running in clusters.
 The view allows for editing and managing config objects and displays secrets hidden by default.

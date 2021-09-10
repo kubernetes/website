@@ -1,10 +1,8 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
-    - kbarnard10
     - onlydole
     - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
-    - kbarnard10
     - mrbobbytables
     - onlydole
     - sftim
@@ -20,9 +18,8 @@ aliases:
     - annajung
     - bradtopol
     - celestehorgan
-    - irvifa
     - jimangel
-    - kbarnard10
+    - jlbutler
     - kbhawkey
     - onlydole
     - pi-victor
@@ -35,7 +32,6 @@ aliases:
     - celestehorgan
     - daminisatya
     - jimangel
-    - kbarnard10
     - kbhawkey
     - onlydole
     - rajeshdeshpande02
@@ -88,7 +84,6 @@ aliases:
     - danninov
     - girikuncoro
     - habibrosyad
-    - irvifa
     - phanama
     - wahyuoi
   sig-docs-id-reviews: # PR reviews for Indonesian content
@@ -96,7 +91,6 @@ aliases:
     - danninov
     - girikuncoro
     - habibrosyad
-    - irvifa
     - phanama
     - wahyuoi
   sig-docs-it-owners: # Admins for Italian content
@@ -133,14 +127,13 @@ aliases:
     - gochist
     - ianychoi
     - jihoon-seo
+    - jmyung
     - pjhwa
     - seokho-son
     - yoonian
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
-    - irvifa
     - jimangel
-    - kbarnard10
     - kbhawkey
     - onlydole
     - sftim

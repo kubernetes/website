@@ -495,8 +495,13 @@ as well as other related parameters outside the Security Context. As of July 202
 [Pod Security Policies](/docs/concepts/profile/pod-security-profile/) are deprecated in favor of the
 built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
 
+{{% thirdparty-content %}}
+
 Other alternatives for enforcing security profiles are being developed in the Kubernetes
-ecosystem, such as [OPA Gatekeeper](https://github.com/open-profile-agent/gatekeeper).
+ecosystem, such as: 
+- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
+- [Kubewarden](https://github.com/kubewarden).
+- [Kyverno](https://kyverno.io/policies/pod-security/).
 
 ### What profiles should I apply to my Windows Pods?
 

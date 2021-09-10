@@ -222,9 +222,9 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
     upstream	https://github.com/kubernetes/website.git (push)
     ```
 <!--
-6. Fetch commits from your fork's `origin/master` and `kubernetes/website`'s `upstream/master`:
+6. Fetch commits from your fork's `origin/master` and `kubernetes/website`'s `upstream/main`:
 -->
-6. 从你的克隆副本取回 `origin/master` 分支，从 `kubernetes/website` 取回 `upstream/master`：
+6. 从你的克隆副本取回 `origin/master` 分支，从 `kubernetes/website` 取回 `upstream/main`：
 
     ```bash
     git fetch origin
@@ -236,10 +236,11 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
    这样可以确保你本地的仓库在开始工作前是最新的。
 
    <!--
-    This workflow is different than the [Kubernetes Community GitHub Workflow](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md). You do not need to merge your local copy of `master` with `upstream/master` before pushing updates to your fork.
+    This workflow is different than the [Kubernetes Community GitHub Workflow](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md). You do not need to merge your local copy of `main` with `upstream/main` before pushing updates to your fork.
    -->
     {{< note >}}
-    此工作流程与 [Kubernetes 社区 GitHub 工作流](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md)有所不同。在推送你的变更到你的远程派生副本库之前，你不需要将你本地的 `master` 与 `upstream/master` 合并。
+    此工作流程与 [Kubernetes 社区 GitHub 工作流](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md)有所不同。
+    在推送你的变更到你的远程派生副本库之前，你不需要将你本地的 `main` 与 `upstream/main` 合并。
     {{< /note >}}
 
 <!--
@@ -247,8 +248,8 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 
 1. Decide which branch base to your work on:
 
-  - For improvements to existing content, use `upstream/master`.
-  - For new content about existing features, use `upstream/master`.
+  - For improvements to existing content, use `upstream/main`.
+  - For new content about existing features, use `upstream/main`.
   - For localized content, use the localization's conventions. For more information, see [localizing Kubernetes documentation](/docs/contribute/localization/).
   - For new features in an upcoming Kubernetes release, use the feature branch. For more information, see [documenting for a release](/docs/contribute/new-content/new-features/).
   - For long-running efforts that multiple SIG Docs contributors collaborate on,
@@ -261,8 +262,8 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 
 1. 决定你要基于哪个分支来开展工作：
 
-   - 针对已有内容的改进，请使用 `upstream/master`；
-   - 针对已有功能特性的新文档内容，请使用 `upstream/master`；
+   - 针对已有内容的改进，请使用 `upstream/main`；
+   - 针对已有功能特性的新文档内容，请使用 `upstream/main`；
    - 对于本地化内容，请基于本地化的约定。
      可参考[对 Kubernetes 文档进行本地化](/zh/docs/contribute/localization/)了解详细信息。
    - 对于在下一个 Kubernetes 版本中新功能特性的文档，使用独立的功能特性分支。
@@ -273,13 +274,13 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
    如果你在选择分支上需要帮助，请在 `#sig-docs` Slack 频道提问。
 
 <!--
-2. Create a new branch based on the branch identified in step 1. This example assumes the base branch is `upstream/master`:
+2. Create a new branch based on the branch identified in step 1. This example assumes the base branch is `upstream/main`:
 -->
 2. 基于第一步中选定的分支，创建新分支。
-   下面的例子假定基础分支是 `upstream/master`：
+   下面的例子假定基础分支是 `upstream/main`：
 
     ```bash
-    git checkout -b <my_new_branch> upstream/master
+    git checkout -b <my_new_branch> upstream/main
     ```
 <!--
 3.  Make your changes using a text editor.
@@ -471,10 +472,10 @@ Alternately, install and use the `hugo` command on your computer:
 另一种方式是，在你的本地计算机上安装并使用 `hugo` 命令：
 
 <!--
-1.  Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml).
+1.  Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml).
 2.  In a terminal, go to your Kubernetes website repository and start the Hugo server:
 -->
-1. 安装 [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml)
+1. 安装 [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)
    文件中指定的 [Hugo](https://gohugo.io/getting-started/installing/) 版本。
 
 2. 启动一个终端窗口，进入 Kubernetes 网站仓库目录，启动 Hugo 服务器：
@@ -651,13 +652,13 @@ If another contributor commits changes to the same file in another PR, it can cr
    git push --force-with-lease origin <your-branch-name>
    ```
 <!--
-2. Fetch changes from `kubernetes/website`'s `upstream/master` and rebase your branch:
+2. Fetch changes from `kubernetes/website`'s `upstream/main` and rebase your branch:
 -->
-2. 从 `kubernetes/website` 的 `upstream/master` 分支取回更改，然后重设本地分支的基线：
+2. 从 `kubernetes/website` 的 `upstream/main` 分支取回更改，然后重设本地分支的基线：
 
    ```bash
    git fetch upstream
-   git rebase upstream/master
+   git rebase upstream/main
    ```
 <!--
 3. Inspect the results of the rebase:

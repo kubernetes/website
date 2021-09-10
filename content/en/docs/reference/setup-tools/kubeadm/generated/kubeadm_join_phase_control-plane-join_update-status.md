@@ -10,12 +10,12 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
+Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap (DEPRECATED)
 
 ### Synopsis
 
 
-Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
+Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap (DEPRECATED)
 
 ```
 kubeadm join phase control-plane-join update-status [flags]

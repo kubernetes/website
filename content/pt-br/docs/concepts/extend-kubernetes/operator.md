@@ -52,7 +52,7 @@ Algumas das coisas que um operador pode ser usado para automatizar incluem:
   como esquemas de base de dados ou definições de configuração extra
 * publicar um *Service* para aplicações que não suportam a APIs do Kubernetes
   para as descobrir
-* simular una falha em todo ou parte do cluster de forma a testar a resiliência
+* simular uma falha em todo ou parte do cluster de forma a testar a resiliência
 * escolher um lider para uma aplicação distribuída sem um processo
   de eleição de membro interno
 
@@ -128,7 +128,7 @@ que pode atuar como um [cliente da API do Kubernetes](/docs/reference/using-api/
 * Use ferramentes existentes para escrever os seus Operadores:
   * usando [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
   * usando [kubebuilder](https://book.kubebuilder.io/)
-  * usando [Metacontroller](https://metacontroller.app/) juntamente com WebHooks que
+  * usando [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) juntamente com WebHooks que
     implementa você mesmo
   * usando o [Operator Framework](https://github.com/operator-framework/getting-started)
 * [Publique](https://operatorhub.io/) o seu operador para que outras pessoas o possam usar

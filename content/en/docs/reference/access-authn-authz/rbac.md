@@ -279,8 +279,10 @@ rules:
 ```
 
 {{< note >}}
-You cannot restrict `create` or `deletecollection` requests by resourceName. For `create`, this
-limitation is because the object name is not known at authorization time.
+You cannot restrict `create` or `deletecollection` requests by their resource name.
+For `create`, this limitation is because the name of the new object may not be known at authorization time.
+If you restrict `list` or `watch` by resourceName, clients must include a `metadata.name` field selector in their `list` or `watch` request that matches the specified resourceName in order to be authorized.
+For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
 
@@ -683,12 +685,13 @@ When used in a <b>RoleBinding</b>, it gives full control over every resource in 
 <td><b>admin</b></td>
 <td>None</td>
 <td>Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
+
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
 including the ability to create roles and role bindings within the namespace.
 This role does not allow write access to resource quota or to the namespace itself.
 This role also does not allow write access to Endpoints in clusters created
-using Kubernetes v1.22+. More information is available in the ["Write Access for
-Endpoints" section](#write-access-for-endpoints).</td>
+using Kubernetes v1.22+. More information is available in the
+["Write Access for Endpoints" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>edit</b></td>

@@ -31,6 +31,17 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
 <!--
+{{< warning >}}
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
+{{< /warning>}}
+-->
+{{< warning >}}
+只使用来源可靠的 kubeconfig 文件。使用特制的 kubeconfig 文件可能会导致恶意代码执行或文件暴露。
+如果必须使用不受信任的 kubeconfig 文件，请首先像检查 shell 脚本一样仔细检查它。
+{{< /warning>}}
+
+<!--
 By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
 You can specify other kubeconfig files by setting the `KUBECONFIG` environment
 variable or by setting the
