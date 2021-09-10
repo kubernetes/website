@@ -159,7 +159,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 
 ### Enable shell autocompletion
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and Powershell which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash and Zsh.
 

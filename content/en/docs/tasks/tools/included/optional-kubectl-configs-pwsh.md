@@ -1,10 +1,10 @@
 ---
-title: "powershell auto-completion"
+title: "PowerShell auto-completion"
 description: "Some optional configuration for powershell auto-completion."
 headless: true
 ---
 
-The kubectl completion script for powershell can be generated with the command `kubectl completion powershell`.
+The kubectl completion script for PowerShell can be generated with the command `kubectl completion powershell`.
 
 To do so in all your shell sessions, add the following line to your `$PROFILE` file:
 
@@ -12,7 +12,7 @@ To do so in all your shell sessions, add the following line to your `$PROFILE` f
 kubectl completion powershell | Out-String | Invoke-Expression
 ```
 
-This command will regenerate the auto-completion script on every powershell start up. You can also add the generated script directly to your `$PROFILE` file.
+This command will regenerate the auto-completion script on every PowerShell start up. You can also add the generated script directly to your `$PROFILE` file.
 
 To add the generated script to your `$PROFILE` file, run the following line in your powershell prompt:
 
