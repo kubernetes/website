@@ -133,9 +133,9 @@ Edit the config file with a text editor of your choice, such as Notepad.
 
 ### Enable shell autocompletion
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and Powershell, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
 
-Below are the procedures to set up autocompletion for Powershell.
+Below are the procedures to set up autocompletion for PowerShell.
 
 {{< include "included/optional-kubectl-configs-pwsh.md" >}}
 
