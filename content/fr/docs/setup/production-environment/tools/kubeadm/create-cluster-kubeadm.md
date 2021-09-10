@@ -365,7 +365,7 @@ Windows (`amd64`) est annoncé comme supporté dans la v0.11.0 mais son utilisat
 documentée.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
 Pour plus d’informations sur `flannel`, voir [le dépôt CoreOS sur GitHub](https://github.com/coreos/flannel).
 {{% /tab %}}
