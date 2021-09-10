@@ -426,3 +426,9 @@ or updating objects that contain Pod templates, such as Deployments, Jobs, State
 
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
 for more information.
+
+## seccomp.security.alpha.kubernetes.io/pod and container.seccomp.security.alpha.kubernetes.io/[NAME] (deprecated)
+
+The seccomp annotations have been deprecated since Kubernetes v1.19 and will
+become non-functional in v1.25. Please use the `seccompProfile` of the
+`SecurityContext` instead.
