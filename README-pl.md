@@ -18,7 +18,7 @@ Aby móc skorzystać z tego repozytorium, musisz lokalnie zainstalować:
 - [npm](https://www.npmjs.com/)
 - [Go](https://golang.org/)
 - [Hugo (Extended version)](https://gohugo.io/)
-- Środowisko obsługi kontenerów, np. [Docker-a](https://www.docker.com/).
+- Środowisko obsługi kontenerów, np. [Dockera](https://www.docker.com/).
 
 Przed rozpoczęciem zainstaluj niezbędne zależności. Sklonuj repozytorium i przejdź do odpowiedniego katalogu:
 
@@ -43,7 +43,9 @@ make container-image
 make container-serve
 ```
 
-Aby obejrzeć zawartość serwisu otwórz w przeglądarce adres http://localhost:1313. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
+Jeśli widzisz błędy, prawdopodobnie kontener z Hugo nie dysponuje wystarczającymi zasobami. Aby rozwiązać ten problem, zwiększ ilość dostępnych zasobów CPU i pamięci dla Dockera na Twojej maszynie ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) i [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+
+Aby obejrzeć zawartość serwisu, otwórz w przeglądarce adres http://localhost:1313. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
 
 ## Jak uruchomić lokalną kopię strony przy pomocy Hugo?
 

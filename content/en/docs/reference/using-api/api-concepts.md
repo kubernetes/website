@@ -211,7 +211,7 @@ the size of a collection.
 ## Lists
 
 There are dozens of list types (such as `PodList`, `ServiceList`, and `NodeList`) defined in the Kubernetes API.
-You can get more information about each list type from the [Kubernetes API](https://kubernetes.io/docs/reference/kubernetes-api/) documentation.
+You can get more information about each list type from the [Kubernetes API](/docs/reference/kubernetes-api/) documentation.
 
 When you query the API for a particular type, all items returned by that query are of that type. For example, when you
 ask for a list of services, the list type is shown as `kind: ServiceList` and each item in that list represents a single Service. For example:

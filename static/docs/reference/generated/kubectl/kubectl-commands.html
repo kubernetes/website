@@ -28,17 +28,17 @@ inspect them.</p>
 <hr>
 <h1 id="create">create</h1>
 <blockquote class="code-block example">
-<p> Create a pod using the data in pod.json.</p>
+<p> Create a pod using the data in pod.json</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">create</span> -f ./pod.json
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a pod based on the JSON passed into stdin.</p>
+<p> Create a pod based on the JSON passed into stdin</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">cat pod.json | kubectl <span class="hljs-keyword">create</span> -f -
 </code></pre>
 <blockquote class="code-block example">
-<p> Edit the data in docker-registry.yaml in JSON then create the resource using the edited data.</p>
+<p> Edit the data in docker-registry.yaml in JSON then create the resource using the edited data</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">create</span> -f docker-registry.yaml --<span class="hljs-keyword">edit</span> -o json
 </code></pre>
@@ -158,36 +158,36 @@ inspect them.</p>
 <hr>
 <h2 id="-em-clusterrole-em-"><em>clusterrole</em></h2>
 <blockquote class="code-block example">
-<p> Create a ClusterRole named &quot;pod-reader&quot; that allows user to perform &quot;get&quot;, &quot;watch&quot; and &quot;list&quot; on pods</p>
+<p> Create a cluster role named &quot;pod-reader&quot; that allows user to perform &quot;get&quot;, &quot;watch&quot; and &quot;list&quot; on pods</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create clusterrole pod-reader <span class="hljs-attribute">--verb</span>=get,list,watch <span class="hljs-attribute">--resource</span>=pods
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a ClusterRole named &quot;pod-reader&quot; with ResourceName specified</p>
+<p> Create a cluster role named &quot;pod-reader&quot; with ResourceName specified</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create clusterrole pod-reader <span class="hljs-attribute">--verb</span>=get <span class="hljs-attribute">--resource</span>=pods <span class="hljs-attribute">--resource-name</span>=readablepod <span class="hljs-attribute">--resource-name</span>=anotherpod
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a ClusterRole named &quot;foo&quot; with API Group specified</p>
+<p> Create a cluster role named &quot;foo&quot; with API Group specified</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create clusterrole foo <span class="hljs-attribute">--verb</span>=get,list,watch <span class="hljs-attribute">--resource</span>=rs.extensions
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a ClusterRole named &quot;foo&quot; with SubResource specified</p>
+<p> Create a cluster role named &quot;foo&quot; with SubResource specified</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create clusterrole foo <span class="hljs-attribute">--verb</span>=get,list,watch <span class="hljs-attribute">--resource</span>=pods,pods/status
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a ClusterRole name &quot;foo&quot; with NonResourceURL specified</p>
+<p> Create a cluster role name &quot;foo&quot; with NonResourceURL specified</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create clusterrole <span class="hljs-string">"foo"</span> <span class="hljs-attribute">--verb</span>=get <span class="hljs-attribute">--non-resource-url</span>=/logs/*
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a ClusterRole name &quot;monitoring&quot; with AggregationRule specified</p>
+<p> Create a cluster role name &quot;monitoring&quot; with AggregationRule specified</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">create</span> clusterrole <span class="hljs-keyword">monitoring</span> <span class="hljs-comment">--aggregation-rule="rbac.example.com/aggregate-to-monitoring=true"</span>
 </code></pre>
-<p>Create a ClusterRole.</p>
+<p>Create a cluster role.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create clusterrole NAME --verb=verb --resource=resource.group [--resource-name=resourcename] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
@@ -284,11 +284,11 @@ inspect them.</p>
 <hr>
 <h2 id="-em-clusterrolebinding-em-"><em>clusterrolebinding</em></h2>
 <blockquote class="code-block example">
-<p> Create a ClusterRoleBinding for user1, user2, and group1 using the cluster-admin ClusterRole</p>
+<p> Create a cluster role binding for user1, user2, and group1 using the cluster-admin cluster role</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create clusterrolebinding cluster-admin <span class="hljs-attribute">--clusterrole</span>=cluster-admin <span class="hljs-attribute">--user</span>=user1 <span class="hljs-attribute">--user</span>=user2 <span class="hljs-attribute">--group</span>=group1
 </code></pre>
-<p>Create a ClusterRoleBinding for a particular ClusterRole.</p>
+<p>Create a cluster role binding for a particular cluster role.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
@@ -373,34 +373,34 @@ inspect them.</p>
 <hr>
 <h2 id="-em-configmap-em-"><em>configmap</em></h2>
 <blockquote class="code-block example">
-<p> Create a new configmap named my-config based on folder bar</p>
+<p> Create a new config map named my-config based on folder bar</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">create</span> configmap my-config --<span class="hljs-keyword">from</span>-file=<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/bar
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a new configmap named my-config with specified keys instead of file basenames on disk</p>
+<p> Create a new config map named my-config with specified keys instead of file basenames on disk</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create configmap my-config --<span class="hljs-keyword">from</span>-<span class="hljs-keyword">file</span>=key1=<span class="hljs-regexp">/path/</span>to<span class="hljs-regexp">/bar/</span>file1.txt --<span class="hljs-keyword">from</span>-<span class="hljs-keyword">file</span>=key2=<span class="hljs-regexp">/path/</span>to<span class="hljs-regexp">/bar/</span>file2.txt
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a new configmap named my-config with key1=config1 and key2=config2</p>
+<p> Create a new config map named my-config with key1=config1 and key2=config2</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create configmap my-config <span class="hljs-attribute">--from-literal</span>=key1=config1 <span class="hljs-attribute">--from-literal</span>=key2=config2
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a new configmap named my-config from the key=value pairs in the file</p>
+<p> Create a new config map named my-config from the key=value pairs in the file</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">create</span> configmap my-config --<span class="hljs-keyword">from</span>-file=<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/bar
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a new configmap named my-config from an env file</p>
+<p> Create a new config map named my-config from an env file</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">create</span> configmap my-config --<span class="hljs-keyword">from</span>-env-file=<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/bar.env
 </code></pre>
-<p>Create a configmap based on a file, directory, or specified literal value.</p>
-<p> A single configmap may package one or more key/value pairs.</p>
-<p> When creating a configmap based on a file, the key will default to the basename of the file, and the value will default to the file content.  If the basename is an invalid key, you may specify an alternate key.</p>
-<p> When creating a configmap based on a directory, each file whose basename is a valid key in the directory will be packaged into the configmap.  Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).</p>
+<p>Create a config map based on a file, directory, or specified literal value.</p>
+<p> A single config map may package one or more key/value pairs.</p>
+<p> When creating a config map based on a file, the key will default to the basename of the file, and the value will default to the file content.  If the basename is an invalid key, you may specify an alternate key.</p>
+<p> When creating a config map based on a directory, each file whose basename is a valid key in the directory will be packaged into the config map.  Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create configmap NAME [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
@@ -491,16 +491,16 @@ inspect them.</p>
 <hr>
 <h2 id="-em-cronjob-em-"><em>cronjob</em></h2>
 <blockquote class="code-block example">
-<p> Create a cronjob</p>
+<p> Create a cron job</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create cronjob my-job <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--schedule</span>=<span class="hljs-string">"*/1 * * * *"</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a cronjob with command</p>
+<p> Create a cron job with a command</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create cronjob my-job <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--schedule</span>=<span class="hljs-string">"*/1 * * * *"</span> -- date
 </code></pre>
-<p>Create a cronjob with the specified name.</p>
+<p>Create a cron job with the specified name.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create cronjob NAME --image=image --schedule=&#39;0/5 * * * ?&#39; -- [COMMAND] [args...]</code></p>
 <h3 id="flags">Flags</h3>
@@ -585,22 +585,22 @@ inspect them.</p>
 <hr>
 <h2 id="-em-deployment-em-"><em>deployment</em></h2>
 <blockquote class="code-block example">
-<p> Create a deployment named my-dep that runs the busybox image.</p>
+<p> Create a deployment named my-dep that runs the busybox image</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create deployment <span class="hljs-keyword">my</span>-dep <span class="hljs-comment">--image=busybox</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a deployment with command</p>
+<p> Create a deployment with a command</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create deployment <span class="hljs-keyword">my</span>-dep <span class="hljs-comment">--image=busybox -- date</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a deployment named my-dep that runs the nginx image with 3 replicas.</p>
+<p> Create a deployment named my-dep that runs the nginx image with 3 replicas</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create deployment my-dep <span class="hljs-attribute">--image</span>=nginx <span class="hljs-attribute">--replicas</span>=3
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a deployment named my-dep that runs the busybox image and expose port 5701.</p>
+<p> Create a deployment named my-dep that runs the busybox image and expose port 5701</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create deployment my-dep <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--port</span>=5701
 </code></pre>
@@ -635,12 +635,6 @@ inspect them.</p>
 <td></td>
 <td>kubectl-create</td>
 <td>Name of the manager used to track field ownership. </td>
-</tr>
-<tr>
-<td>generator</td>
-<td></td>
-<td></td>
-<td>The name of the API generator to use. </td>
 </tr>
 <tr>
 <td>image</td>
@@ -841,12 +835,12 @@ inspect them.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl create job <span class="hljs-keyword">my</span>-job <span class="hljs-comment">--image=busybox</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a job with command</p>
+<p> Create a job with a command</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create <span class="hljs-keyword">job </span>my-<span class="hljs-keyword">job </span>--image=<span class="hljs-keyword">busybox </span>-- date
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a job from a CronJob named &quot;a-cronjob&quot;</p>
+<p> Create a job from a cron job named &quot;a-cronjob&quot;</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">create</span> job <span class="hljs-keyword">test</span>-job <span class="hljs-comment">--from=cronjob/a-cronjob</span>
 </code></pre>
@@ -1000,16 +994,16 @@ inspect them.</p>
 <hr>
 <h2 id="-em-poddisruptionbudget-em-"><em>poddisruptionbudget</em></h2>
 <blockquote class="code-block example">
-<p> Create a pod disruption budget named my-pdb that will select all pods with the app=rails label # and require at least one of them being available at any point in time.</p>
+<p> Create a pod disruption budget named my-pdb that will select all pods with the app=rails label # and require at least one of them being available at any point in time</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create poddisruptionbudget my-pdb <span class="hljs-attribute">--selector</span>=app=rails <span class="hljs-attribute">--min-available</span>=1
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a pod disruption budget named my-pdb that will select all pods with the app=nginx label # and require at least half of the pods selected to be available at any point in time.</p>
+<p> Create a pod disruption budget named my-pdb that will select all pods with the app=nginx label # and require at least half of the pods selected to be available at any point in time</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create pdb my-pdb <span class="hljs-attribute">--selector</span>=app=nginx <span class="hljs-attribute">--min-available</span>=50%
 </code></pre>
-<p>Create a pod disruption budget with the specified name, selector, and desired minimum available pods</p>
+<p>Create a pod disruption budget with the specified name, selector, and desired minimum available pods.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create poddisruptionbudget NAME --selector=SELECTOR --min-available=N [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
@@ -1094,21 +1088,21 @@ inspect them.</p>
 <hr>
 <h2 id="-em-priorityclass-em-"><em>priorityclass</em></h2>
 <blockquote class="code-block example">
-<p> Create a priorityclass named high-priority</p>
+<p> Create a priority class named high-priority</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create priorityclass high-priority <span class="hljs-attribute">--value</span>=1000 <span class="hljs-attribute">--description</span>=<span class="hljs-string">"high priority"</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a priorityclass named default-priority that considered as the global default priority</p>
+<p> Create a priority class named default-priority that is considered as the global default priority</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create priorityclass <span class="hljs-keyword">default</span>-priority --<span class="hljs-keyword">value</span>=<span class="hljs-number">1000</span> --<span class="hljs-keyword">global</span>-<span class="hljs-keyword">default</span>=<span class="hljs-literal">true</span> --description=<span class="hljs-string">"default priority"</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a priorityclass named high-priority that can not preempt pods with lower priority</p>
+<p> Create a priority class named high-priority that cannot preempt pods with lower priority</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create priorityclass high-priority <span class="hljs-attribute">--value</span>=1000 <span class="hljs-attribute">--description</span>=<span class="hljs-string">"high priority"</span> <span class="hljs-attribute">--preemption-policy</span>=<span class="hljs-string">"Never"</span>
 </code></pre>
-<p>Create a priorityclass with the specified name, value, globalDefault and description</p>
+<p>Create a priority class with the specified name, value, globalDefault and description.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create priorityclass NAME --value=VALUE --global-default=BOOL [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
@@ -1199,16 +1193,16 @@ inspect them.</p>
 <hr>
 <h2 id="-em-quota-em-"><em>quota</em></h2>
 <blockquote class="code-block example">
-<p> Create a new resourcequota named my-quota</p>
+<p> Create a new resource quota named my-quota</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create quota my-quota --hard=cpu=<span class="hljs-number">1</span>,memory=<span class="hljs-number">1</span>G,pods=<span class="hljs-number">2</span>,services=<span class="hljs-number">3</span>,replicationcontrollers=<span class="hljs-number">2</span>,resourcequotas=<span class="hljs-number">1</span>,secrets=<span class="hljs-number">5</span>,persistentvolumeclaims=<span class="hljs-number">10</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a new resourcequota named best-effort</p>
+<p> Create a new resource quota named best-effort</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create quota best-effort <span class="hljs-attribute">--hard</span>=pods=100 <span class="hljs-attribute">--scopes</span>=BestEffort
 </code></pre>
-<p>Create a resourcequota with the specified name, hard limits and optional scopes</p>
+<p>Create a resource quota with the specified name, hard limits, and optional scopes.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create quota NAME [--hard=key1=value1,key2=value2] [--scopes=Scope1,Scope2] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
@@ -1287,22 +1281,22 @@ inspect them.</p>
 <hr>
 <h2 id="-em-role-em-"><em>role</em></h2>
 <blockquote class="code-block example">
-<p> Create a Role named &quot;pod-reader&quot; that allows user to perform &quot;get&quot;, &quot;watch&quot; and &quot;list&quot; on pods</p>
+<p> Create a role named &quot;pod-reader&quot; that allows user to perform &quot;get&quot;, &quot;watch&quot; and &quot;list&quot; on pods</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create role pod-reader <span class="hljs-attribute">--verb</span>=get <span class="hljs-attribute">--verb</span>=list <span class="hljs-attribute">--verb</span>=watch <span class="hljs-attribute">--resource</span>=pods
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a Role named &quot;pod-reader&quot; with ResourceName specified</p>
+<p> Create a role named &quot;pod-reader&quot; with ResourceName specified</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create role pod-reader <span class="hljs-attribute">--verb</span>=get <span class="hljs-attribute">--resource</span>=pods <span class="hljs-attribute">--resource-name</span>=readablepod <span class="hljs-attribute">--resource-name</span>=anotherpod
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a Role named &quot;foo&quot; with API Group specified</p>
+<p> Create a role named &quot;foo&quot; with API Group specified</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create role foo <span class="hljs-attribute">--verb</span>=get,list,watch <span class="hljs-attribute">--resource</span>=rs.extensions
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a Role named &quot;foo&quot; with SubResource specified</p>
+<p> Create a role named &quot;foo&quot; with SubResource specified</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create role foo <span class="hljs-attribute">--verb</span>=get,list,watch <span class="hljs-attribute">--resource</span>=pods,pods/status
 </code></pre>
@@ -1391,11 +1385,11 @@ inspect them.</p>
 <hr>
 <h2 id="-em-rolebinding-em-"><em>rolebinding</em></h2>
 <blockquote class="code-block example">
-<p> Create a RoleBinding for user1, user2, and group1 using the admin ClusterRole</p>
+<p> Create a role binding for user1, user2, and group1 using the admin cluster role</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create rolebinding admin <span class="hljs-attribute">--clusterrole</span>=admin <span class="hljs-attribute">--user</span>=user1 <span class="hljs-attribute">--user</span>=user2 <span class="hljs-attribute">--group</span>=group1
 </code></pre>
-<p>Create a RoleBinding for a particular Role or ClusterRole.</p>
+<p>Create a role binding for a particular role or cluster role.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
@@ -1506,7 +1500,7 @@ inspect them.</p>
     &#39;$ docker login DOCKER_REGISTRY_SERVER --username=DOCKER_USER --password=DOCKER_PASSWORD --email=DOCKER_EMAIL&#39;.</p>
 <p> That produces a ~/.dockercfg file that is used by subsequent &#39;docker push&#39; and &#39;docker pull&#39; commands to authenticate to the registry. The email address is optional.</p>
 <p>  When creating applications, you may have a Docker registry that requires authentication.  In order for the
-  nodes to pull images on your behalf, they have to have the credentials.  You can provide this information
+  nodes to pull images on your behalf, they must have the credentials.  You can provide this information
   by creating a dockercfg secret and attaching it to your service account.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-file=[key=]source] [--dry-run=server|client|none]</code></p>
@@ -1734,12 +1728,12 @@ inspect them.</p>
 <hr>
 <h2 id="-em-secret-tls-em-"><em>secret tls</em></h2>
 <blockquote class="code-block example">
-<p> Create a new TLS secret named tls-secret with the given key pair:</p>
+<p> Create a new TLS secret named tls-secret with the given key pair</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create<span class="hljs-built_in"> secret </span>tls tls-secret <span class="hljs-attribute">--cert</span>=path/to/tls.cert <span class="hljs-attribute">--key</span>=path/to/tls.key
 </code></pre>
 <p>Create a TLS secret from the given public/private key pair.</p>
-<p> The public/private key pair must exist before hand. The public key certificate must be .PEM encoded and match the given private key.</p>
+<p> The public/private key pair must exist beforehand. The public key certificate must be .PEM encoded and match the given private key.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
@@ -1823,7 +1817,7 @@ inspect them.</p>
 </table>
 <hr>
 <h2 id="-em-service-em-"><em>service</em></h2>
-<p>Create a service using specified subcommand.</p>
+<p>Create a service using a specified subcommand.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create service</code></p>
 <hr>
@@ -2232,67 +2226,67 @@ inspect them.</p>
 <hr>
 <h1 id="get">get</h1>
 <blockquote class="code-block example">
-<p> List all pods in ps output format.</p>
+<p> List all pods in ps output format</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> pods
 </code></pre>
 <blockquote class="code-block example">
-<p> List all pods in ps output format with more information (such as node name).</p>
+<p> List all pods in ps output format with more information (such as node name)</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> pods -o wide
 </code></pre>
 <blockquote class="code-block example">
-<p> List a single replication controller with specified NAME in ps output format.</p>
+<p> List a single replication controller with specified NAME in ps output format</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> replicationcontroller web
 </code></pre>
 <blockquote class="code-block example">
-<p> List deployments in JSON output format, in the &quot;v1&quot; version of the &quot;apps&quot; API group:</p>
+<p> List deployments in JSON output format, in the &quot;v1&quot; version of the &quot;apps&quot; API group</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">get</span> <span class="hljs-selector-tag">deployments</span><span class="hljs-selector-class">.v1</span><span class="hljs-selector-class">.apps</span> <span class="hljs-selector-tag">-o</span> <span class="hljs-selector-tag">json</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> List a single pod in JSON output format.</p>
+<p> List a single pod in JSON output format</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">get</span> -o <span class="hljs-type">json</span> pod web-pod<span class="hljs-number">-13</span>je7
 </code></pre>
 <blockquote class="code-block example">
-<p> List a pod identified by type and name specified in &quot;pod.yaml&quot; in JSON output format.</p>
+<p> List a pod identified by type and name specified in &quot;pod.yaml&quot; in JSON output format</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">get</span> -f pod.yaml -o <span class="hljs-type">json</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> List resources from a directory with kustomization.yaml - e.g. dir/kustomization.yaml.</p>
+<p> List resources from a directory with kustomization.yaml - e.g. dir/kustomization.yaml</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> -k dir/
 </code></pre>
 <blockquote class="code-block example">
-<p> Return only the phase value of the specified pod.</p>
+<p> Return only the phase value of the specified pod</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">get</span> -o <span class="hljs-keyword">template</span> pod/web-pod<span class="hljs-number">-13</span>je7 --<span class="hljs-keyword">template</span>={{.status.phase}}
 </code></pre>
 <blockquote class="code-block example">
-<p> List resource information in custom columns.</p>
+<p> List resource information in custom columns</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> pod test-pod -o <span class="hljs-attribute">custom-columns</span>=CONTAINER:.spec.containers[0].name,IMAGE:.spec.containers[0].image
 </code></pre>
 <blockquote class="code-block example">
-<p> List all replication controllers and services together in ps output format.</p>
+<p> List all replication controllers and services together in ps output format</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> rc,services
 </code></pre>
 <blockquote class="code-block example">
-<p> List one or more resources by their type and names.</p>
+<p> List one or more resources by their type and names</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> rc/web service/frontend pods/web-pod-13je7
 </code></pre>
-<p>Display one or many resources</p>
+<p>Display one or many resources.</p>
 <p> Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in your current namespace unless you pass --all-namespaces.</p>
 <p> Uninitialized objects are not shown unless --include-uninitialized is passed.</p>
 <p> By specifying the output as &#39;template&#39; and providing a Go template as the value of the --template flag, you can filter the attributes of the fetched resources.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=...] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags]</code></p>
+<p><code>$ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file|custom-columns-file|custom-columns|wide] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2362,7 +2356,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;wide&#124;name&#124;custom-columns=...&#124;custom-columns-file=...&#124;go-template=...&#124;go-template-file=...&#124;jsonpath=...&#124;jsonpath-file=... See custom columns <span>[</span><a href="http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns">http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns</a><span>]</span>, golang template <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span> and jsonpath template <span>[</span><a href="http://kubernetes.io/docs/user-guide/jsonpath">http://kubernetes.io/docs/user-guide/jsonpath</a><span>]</span>. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file&#124;custom-columns-file&#124;custom-columns&#124;wide See custom columns <span>[</span><a href="https://kubernetes.io/docs/reference/kubectl/overview/#custom-columns">https://kubernetes.io/docs/reference/kubectl/overview/#custom-columns</a><span>]</span>, golang template <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span> and jsonpath template <span>[</span><a href="https://kubernetes.io/docs/reference/kubectl/jsonpath/">https://kubernetes.io/docs/reference/kubectl/jsonpath/</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>output-watch-events</td>
@@ -2447,47 +2441,47 @@ inspect them.</p>
 <hr>
 <h1 id="run">run</h1>
 <blockquote class="code-block example">
-<p> Start a nginx pod.</p>
+<p> Start a nginx pod</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a hazelcast pod and let the container expose port 5701.</p>
+<p> Start a hazelcast pod and let the container expose port 5701</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> hazelcast <span class="hljs-attribute">--image</span>=hazelcast/hazelcast <span class="hljs-attribute">--port</span>=5701
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a hazelcast pod and set environment variables &quot;DNS_DOMAIN=cluster&quot; and &quot;POD_NAMESPACE=default&quot; in the container.</p>
+<p> Start a hazelcast pod and set environment variables &quot;DNS_DOMAIN=cluster&quot; and &quot;POD_NAMESPACE=default&quot; in the container</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> hazelcast <span class="hljs-attribute">--image</span>=hazelcast/hazelcast <span class="hljs-attribute">--env</span>=<span class="hljs-string">"DNS_DOMAIN=cluster"</span> <span class="hljs-attribute">--env</span>=<span class="hljs-string">"POD_NAMESPACE=default"</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a hazelcast pod and set labels &quot;app=hazelcast&quot; and &quot;env=prod&quot; in the container.</p>
+<p> Start a hazelcast pod and set labels &quot;app=hazelcast&quot; and &quot;env=prod&quot; in the container</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> hazelcast <span class="hljs-attribute">--image</span>=hazelcast/hazelcast <span class="hljs-attribute">--labels</span>=<span class="hljs-string">"app=hazelcast,env=prod"</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Dry run. Print the corresponding API objects without creating them.</p>
+<p> Dry run; print the corresponding API objects without creating them</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx <span class="hljs-attribute">--dry-run</span>=client
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a nginx pod, but overload the spec with a partial set of values parsed from JSON.</p>
+<p> Start a nginx pod, but overload the spec with a partial set of values parsed from JSON</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl run nginx <span class="hljs-params">--image=nginx</span> <span class="hljs-params">--overrides=</span>'{ <span class="hljs-string">"apiVersion"</span>: <span class="hljs-string">"v1"</span>, <span class="hljs-string">"spec"</span>: { <span class="hljs-string">...</span> } }'
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a busybox pod and keep it in the foreground, don&#39;t restart it if it exits.</p>
+<p> Start a busybox pod and keep it in the foreground, don&#39;t restart it if it exits</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> -i -t busybox <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--restart</span>=Never
 </code></pre>
 <blockquote class="code-block example">
-<p> Start the nginx pod using the default command, but use custom arguments (arg1 .. argN) for that command.</p>
+<p> Start the nginx pod using the default command, but use custom arguments (arg1 .. argN) for that command</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx -- &lt;arg1&gt; &lt;arg2&gt; <span class="hljs-built_in">..</span>. &lt;argN&gt;
 </code></pre>
 <blockquote class="code-block example">
-<p> Start the nginx pod using a different command and custom arguments.</p>
+<p> Start the nginx pod using a different command and custom arguments</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx --command -- &lt;cmd&gt; &lt;arg1&gt; <span class="hljs-built_in">..</span>. &lt;argN&gt;
 </code></pre>
@@ -2738,12 +2732,12 @@ inspect them.</p>
 <hr>
 <h1 id="expose">expose</h1>
 <blockquote class="code-block example">
-<p> Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000.</p>
+<p> Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl expose rc nginx <span class="hljs-attribute">--port</span>=80 <span class="hljs-attribute">--target-port</span>=8000
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a service for a replication controller identified by type and name specified in &quot;nginx-controller.yaml&quot;, which serves on port 80 and connects to the containers on port 8000.</p>
+<p> Create a service for a replication controller identified by type and name specified in &quot;nginx-controller.yaml&quot;, which serves on port 80 and connects to the containers on port 8000</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl expose -f nginx-controller.yaml <span class="hljs-attribute">--port</span>=80 <span class="hljs-attribute">--target-port</span>=8000
 </code></pre>
@@ -2763,12 +2757,12 @@ inspect them.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl expose rc streamer <span class="hljs-attribute">--port</span>=4100 <span class="hljs-attribute">--protocol</span>=UDP <span class="hljs-attribute">--name</span>=video-stream
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a service for a replicated nginx using replica set, which serves on port 80 and connects to the containers on port 8000.</p>
+<p> Create a service for a replicated nginx using replica set, which serves on port 80 and connects to the containers on port 8000</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl expose rs nginx <span class="hljs-attribute">--port</span>=80 <span class="hljs-attribute">--target-port</span>=8000
 </code></pre>
 <blockquote class="code-block example">
-<p> Create a service for an nginx deployment, which serves on port 80 and connects to the containers on port 8000.</p>
+<p> Create a service for an nginx deployment, which serves on port 80 and connects to the containers on port 8000</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl expose deployment nginx <span class="hljs-attribute">--port</span>=80 <span class="hljs-attribute">--target-port</span>=8000
 </code></pre>
@@ -2944,17 +2938,17 @@ inspect them.</p>
 <hr>
 <h1 id="delete">delete</h1>
 <blockquote class="code-block example">
-<p> Delete a pod using the type and name specified in pod.json.</p>
+<p> Delete a pod using the type and name specified in pod.json</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">delete</span> -f ./pod.json
 </code></pre>
 <blockquote class="code-block example">
-<p> Delete resources from a directory containing kustomization.yaml - e.g. dir/kustomization.yaml.</p>
+<p> Delete resources from a directory containing kustomization.yaml - e.g. dir/kustomization.yaml</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">delete</span> -k dir
 </code></pre>
 <blockquote class="code-block example">
-<p> Delete a pod based on the type and name in the JSON passed into stdin.</p>
+<p> Delete a pod based on the type and name in the JSON passed into stdin</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">cat pod.json | kubectl <span class="hljs-keyword">delete</span> -f -
 </code></pre>
@@ -2964,7 +2958,7 @@ inspect them.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">delete</span> pod,service baz foo
 </code></pre>
 <blockquote class="code-block example">
-<p> Delete pods and services with label name=myLabel.</p>
+<p> Delete pods and services with label name=myLabel</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">delete</span> pods,services -l <span class="hljs-type">name</span>=myLabel
 </code></pre>
@@ -2983,10 +2977,10 @@ inspect them.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">delete</span> pods <span class="hljs-comment">--all</span>
 </code></pre>
-<p>Delete resources by filenames, stdin, resources and names, or by resources and label selector.</p>
-<p> JSON and YAML formats are accepted. Only one type of the arguments may be specified: filenames, resources and names, or resources and label selector.</p>
-<p> Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must specify the --force flag. Note: only a subset of resources support graceful deletion. In absence of the support, --grace-period is ignored.</p>
-<p> IMPORTANT: Force deleting pods does not wait for confirmation that the pod&#39;s processes have been terminated, which can leave those processes running until the node detects the deletion and completes graceful deletion. If your processes use shared storage or talk to a remote API and depend on the name of the pod to identify themselves, force deleting those pods may result in multiple processes running on different machines using the same identification which may lead to data corruption or inconsistency. Only force delete pods when you are sure the pod is terminated, or if your application can tolerate multiple copies of the same pod running at once. Also, if you force delete pods the scheduler may place new pods on those nodes before the node has released those resources and causing those pods to be evicted immediately.</p>
+<p>Delete resources by file names, stdin, resources and names, or by resources and label selector.</p>
+<p> JSON and YAML formats are accepted. Only one type of argument may be specified: file names, resources and names, or resources and label selector.</p>
+<p> Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must specify the --force flag. Note: only a subset of resources support graceful deletion. In absence of the support, the --grace-period flag is ignored.</p>
+<p> IMPORTANT: Force deleting pods does not wait for confirmation that the pod&#39;s processes have been terminated, which can leave those processes running until the node detects the deletion and completes graceful deletion. If your processes use shared storage or talk to a remote API and depend on the name of the pod to identify themselves, force deleting those pods may result in multiple processes running on different machines using the same identification which may lead to data corruption or inconsistency. Only force delete pods when you are sure the pod is terminated, or if your application can tolerate multiple copies of the same pod running at once. Also, if you force delete pods, the scheduler may place new pods on those nodes before the node has released those resources and causing those pods to be evicted immediately.</p>
 <p> Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])</code></p>
@@ -3111,31 +3105,31 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h1 id="apply">apply</h1>
 <blockquote class="code-block example">
-<p> Apply the configuration in pod.json to a pod.</p>
+<p> Apply the configuration in pod.json to a pod</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">apply</span> -f ./pod.json
 </code></pre>
 <blockquote class="code-block example">
-<p> Apply resources from a directory containing kustomization.yaml - e.g. dir/kustomization.yaml.</p>
+<p> Apply resources from a directory containing kustomization.yaml - e.g. dir/kustomization.yaml</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">apply</span> -k dir/
 </code></pre>
 <blockquote class="code-block example">
-<p> Apply the JSON passed into stdin to a pod.</p>
+<p> Apply the JSON passed into stdin to a pod</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">cat pod.json | <span class="hljs-type">kubectl</span> <span class="hljs-built_in">apply</span> -f -
 </code></pre>
 <blockquote class="code-block example">
-<p> Note: --prune is still in Alpha # Apply the configuration in manifest.yaml that matches label app=nginx and delete all the other resources that are not in the file and match label app=nginx.</p>
+<p> Note: --prune is still in Alpha # Apply the configuration in manifest.yaml that matches label app=nginx and delete all other resources that are not in the file and match label app=nginx</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl apply --prune -f manifest.yaml -l <span class="hljs-attribute">app</span>=nginx
 </code></pre>
 <blockquote class="code-block example">
-<p> Apply the configuration in manifest.yaml and delete all the other configmaps that are not in the file.</p>
+<p> Apply the configuration in manifest.yaml and delete all the other config maps that are not in the file</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-comment">kubectl</span> <span class="hljs-comment">apply</span> --<span class="hljs-comment">prune</span> <span class="hljs-literal">-</span><span class="hljs-comment">f</span> <span class="hljs-comment">manifest</span><span class="hljs-string">.</span><span class="hljs-comment">yaml</span> --<span class="hljs-comment">all</span> --<span class="hljs-comment">prune</span><span class="hljs-literal">-</span><span class="hljs-comment">whitelist=core/v1/ConfigMap</span>
 </code></pre>
-<p>Apply a configuration to a resource by filename or stdin. The resource name must be specified. This resource will be created if it doesn&#39;t exist yet. To use &#39;apply&#39;, always create the resource initially with either &#39;apply&#39; or &#39;create --save-config&#39;.</p>
+<p>Apply a configuration to a resource by file name or stdin. The resource name must be specified. This resource will be created if it doesn&#39;t exist yet. To use &#39;apply&#39;, always create the resource initially with either &#39;apply&#39; or &#39;create --save-config&#39;.</p>
 <p> JSON and YAML formats are accepted.</p>
 <p> Alpha Disclaimer: the --prune functionality is not yet complete. Do not use unless you are aware of what the current state is. See <a href="https://issues.k8s.io/34274">https://issues.k8s.io/34274</a>.</p>
 <h3 id="usage">Usage</h3>
@@ -3300,17 +3294,17 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h2 id="-em-edit-last-applied-em-"><em>edit-last-applied</em></h2>
 <blockquote class="code-block example">
-<p> Edit the last-applied-configuration annotations by type/name in YAML.</p>
+<p> Edit the last-applied-configuration annotations by type/name in YAML</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">apply</span> edit-<span class="hljs-built_in">last</span>-applied deployment/nginx
 </code></pre>
 <blockquote class="code-block example">
-<p> Edit the last-applied-configuration annotations by file in JSON.</p>
+<p> Edit the last-applied-configuration annotations by file in JSON</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">apply</span> edit-<span class="hljs-built_in">last</span>-applied -f deploy.yaml -o json
 </code></pre>
 <p>Edit the latest last-applied-configuration annotations of resources from the default editor.</p>
-<p> The edit-last-applied command allows you to directly edit any API resource you can retrieve via the command line tools. It will open the editor defined by your KUBE_EDITOR, or EDITOR environment variables, or fall back to &#39;vi&#39; for Linux or &#39;notepad&#39; for Windows. You can edit multiple objects, although changes are applied one at a time. The command accepts filenames as well as command line arguments, although the files you point to must be previously saved versions of resources.</p>
+<p> The edit-last-applied command allows you to directly edit any API resource you can retrieve via the command-line tools. It will open the editor defined by your KUBE_EDITOR, or EDITOR environment variables, or fall back to &#39;vi&#39; for Linux or &#39;notepad&#39; for Windows. You can edit multiple objects, although changes are applied one at a time. The command accepts file names as well as command-line arguments, although the files you point to must be previously saved versions of resources.</p>
 <p> The default format is YAML. To edit in JSON, specify &quot;-o json&quot;.</p>
 <p> The flag --windows-line-endings can be used to force Windows line endings, otherwise the default for your operating system will be used.</p>
 <p> In the event an error occurs while updating, a temporary file will be created on disk that contains your unapplied changes. The most common error when updating a resource is another editor changing the resource on the server. When this occurs, you will have to apply your changes to the newer version of the resource, or update your temporary saved copy to include the latest resource version.</p>
@@ -3392,17 +3386,17 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h2 id="-em-set-last-applied-em-"><em>set-last-applied</em></h2>
 <blockquote class="code-block example">
-<p> Set the last-applied-configuration of a resource to match the contents of a file.</p>
+<p> Set the last-applied-configuration of a resource to match the contents of a file</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-string">kubectl </span><span class="hljs-string">apply </span><span class="hljs-built_in">set-last-applied</span> -f <span class="hljs-string">deploy.</span><span class="hljs-string">yaml</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Execute set-last-applied against each configuration file in a directory.</p>
+<p> Execute set-last-applied against each configuration file in a directory</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-string">kubectl </span><span class="hljs-string">apply </span><span class="hljs-built_in">set-last-applied</span> -f <span class="hljs-string">path/</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Set the last-applied-configuration of a resource to match the contents of a file, will create the annotation if it does not already exist.</p>
+<p> Set the last-applied-configuration of a resource to match the contents of a file; will create the annotation if it does not already exist</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-string">kubectl </span><span class="hljs-string">apply </span><span class="hljs-built_in">set-last-applied</span> -f <span class="hljs-string">deploy.</span><span class="hljs-string">yaml </span><span class="hljs-built_in">--create-annotation=true</span>
 </code></pre>
@@ -3467,7 +3461,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h2 id="-em-view-last-applied-em-"><em>view-last-applied</em></h2>
 <blockquote class="code-block example">
-<p> View the last-applied-configuration annotations by type/name in YAML.</p>
+<p> View the last-applied-configuration annotations by type/name in YAML</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">apply</span> <span class="hljs-built_in">view</span>-<span class="hljs-built_in">last</span>-applied deployment/nginx
 </code></pre>
@@ -3477,7 +3471,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">apply</span> <span class="hljs-built_in">view</span>-<span class="hljs-built_in">last</span>-applied -f deploy.yaml -o json
 </code></pre>
 <p>View the latest last-applied-configuration annotations by type/name or file.</p>
-<p> The default output will be printed to stdout in YAML format. One can use -o option to change output format.</p>
+<p> The default output will be printed to stdout in YAML format. You can use the -o option to change the output format.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl apply view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAME)</code></p>
 <h3 id="flags">Flags</h3>
@@ -3532,7 +3526,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h1 id="annotate">annotate</h1>
 <blockquote class="code-block example">
-<p> Update pod &#39;foo&#39; with the annotation &#39;description&#39; and the value &#39;my frontend&#39;. # If the same annotation is set multiple times, only the last value will be applied</p>
+<p> Update pod &#39;foo&#39; with the annotation &#39;description&#39; and the value &#39;my frontend&#39; # If the same annotation is set multiple times, only the last value will be applied</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl annotate pods foo description</span>=<span class="hljs-string">'my frontend'</span>
 </code></pre>
@@ -3542,7 +3536,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl annotate -f pod.json <span class="hljs-keyword">description</span>=<span class="hljs-string">'my frontend'</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Update pod &#39;foo&#39; with the annotation &#39;description&#39; and the value &#39;my frontend running nginx&#39;, overwriting any existing value.</p>
+<p> Update pod &#39;foo&#39; with the annotation &#39;description&#39; and the value &#39;my frontend running nginx&#39;, overwriting any existing value</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-string">kubectl </span><span class="hljs-string">annotate </span><span class="hljs-built_in">--overwrite</span> <span class="hljs-string">pods </span><span class="hljs-string">foo </span><span class="hljs-string">description=</span><span class="hljs-string">'my frontend running nginx'</span>
 </code></pre>
@@ -3552,16 +3546,16 @@ viewing your workloads in a Kubernetes cluster.</p>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-string">kubectl </span><span class="hljs-string">annotate </span><span class="hljs-string">pods </span><span class="hljs-built_in">--all</span> <span class="hljs-string">description=</span><span class="hljs-string">'my frontend running nginx'</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Update pod &#39;foo&#39; only if the resource is unchanged from version 1.</p>
+<p> Update pod &#39;foo&#39; only if the resource is unchanged from version 1</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl annotate pods foo <span class="hljs-attribute">description</span>=<span class="hljs-string">'my frontend running nginx'</span> <span class="hljs-attribute">--resource-version</span>=1
 </code></pre>
 <blockquote class="code-block example">
-<p> Update pod &#39;foo&#39; by removing an annotation named &#39;description&#39; if it exists. # Does not require the --overwrite flag.</p>
+<p> Update pod &#39;foo&#39; by removing an annotation named &#39;description&#39; if it exists # Does not require the --overwrite flag</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl annotate pods foo <span class="hljs-keyword">description</span>-
 </code></pre>
-<p>Update the annotations on one or more resources</p>
+<p>Update the annotations on one or more resources.</p>
 <p> All Kubernetes objects support the ability to store additional data with the object as annotations. Annotations are key/value pairs that can be larger than labels and include arbitrary string values such as structured JSON. Tools and system extensions may use annotations to store their own data.</p>
 <p> Attempting to set an annotation that already exists will fail unless --overwrite is set. If --resource-version is specified and does not match the current resource version on the server the command will fail.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
@@ -3583,6 +3577,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td></td>
 <td>false</td>
 <td>Select all resources, including uninitialized ones, in the namespace of the specified resource types. </td>
+</tr>
+<tr>
+<td>all-namespaces</td>
+<td>A</td>
+<td>false</td>
+<td>If true, check the specified action in all namespaces. </td>
 </tr>
 <tr>
 <td>allow-missing-template-keys</td>
@@ -3685,17 +3685,17 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h1 id="autoscale">autoscale</h1>
 <blockquote class="code-block example">
-<p> Auto scale a deployment &quot;foo&quot;, with the number of pods between 2 and 10, no target CPU utilization specified so a default autoscaling policy will be used:</p>
+<p> Auto scale a deployment &quot;foo&quot;, with the number of pods between 2 and 10, no target CPU utilization specified so a default autoscaling policy will be used</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl autoscale deployment foo <span class="hljs-attribute">--min</span>=2 <span class="hljs-attribute">--max</span>=10
 </code></pre>
 <blockquote class="code-block example">
-<p> Auto scale a replication controller &quot;foo&quot;, with the number of pods between 1 and 5, target CPU utilization at 80%:</p>
+<p> Auto scale a replication controller &quot;foo&quot;, with the number of pods between 1 and 5, target CPU utilization at 80%</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl autoscale rc foo <span class="hljs-attribute">--max</span>=5 <span class="hljs-attribute">--cpu-percent</span>=80
 </code></pre>
-<p>Creates an autoscaler that automatically chooses and sets the number of pods that run in a kubernetes cluster.</p>
-<p> Looks up a Deployment, ReplicaSet, StatefulSet, or ReplicationController by name and creates an autoscaler that uses the given resource as a reference. An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.</p>
+<p>Creates an autoscaler that automatically chooses and sets the number of pods that run in a Kubernetes cluster.</p>
+<p> Looks up a deployment, replica set, stateful set, or replication controller by name and creates an autoscaler that uses the given resource as a reference. An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]</code></p>
 <h3 id="flags">Flags</h3>
@@ -3738,12 +3738,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>f</td>
 <td>[]</td>
 <td>Filename, directory, or URL to files identifying the resource to autoscale. </td>
-</tr>
-<tr>
-<td>generator</td>
-<td></td>
-<td>horizontalpodautoscaler/v1</td>
-<td>The name of the API generator to use. Currently there is only 1 generator. </td>
 </tr>
 <tr>
 <td>kustomize</td>
@@ -3960,7 +3954,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h1 id="diff">diff</h1>
 <blockquote class="code-block example">
-<p> Diff resources included in pod.json.</p>
+<p> Diff resources included in pod.json</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">diff</span> <span class="hljs-selector-tag">-f</span> <span class="hljs-selector-tag">pod</span><span class="hljs-selector-class">.json</span>
 </code></pre>
@@ -3969,10 +3963,10 @@ viewing your workloads in a Kubernetes cluster.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">cat service.yaml <span class="hljs-string">| kubectl diff -f -</span>
 </code></pre>
-<p>Diff configurations specified by filename or stdin between the current online configuration, and the configuration as it would be if applied.</p>
-<p> Output is always YAML.</p>
+<p>Diff configurations specified by file name or stdin between the current online configuration, and the configuration as it would be if applied.</p>
+<p> The output is always YAML.</p>
 <p> KUBECTL_EXTERNAL_DIFF environment variable can be used to select your own diff command. Users can use external commands with params too, example: KUBECTL_EXTERNAL_DIFF=&quot;colordiff -N -u&quot;</p>
-<p> By default, the &quot;diff&quot; command available in your path will be run with &quot;-u&quot; (unified diff) and &quot;-N&quot; (treat absent files as empty) options.</p>
+<p> By default, the &quot;diff&quot; command available in your path will be run with the &quot;-u&quot; (unified diff) and &quot;-N&quot; (treat absent files as empty) options.</p>
 <p> Exit status: 0 No differences were found. 1 Differences were found. &gt;1 Kubectl or diff failed with an error.</p>
 <p> Note: KUBECTL_EXTERNAL_DIFF, if used, is expected to follow that convention.</p>
 <h3 id="usage">Usage</h3>
@@ -4035,7 +4029,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h1 id="edit">edit</h1>
 <blockquote class="code-block example">
-<p> Edit the service named &#39;docker-registry&#39;:</p>
+<p> Edit the service named &#39;docker-registry&#39;</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">edit</span> svc/docker-registry
 </code></pre>
@@ -4045,17 +4039,17 @@ viewing your workloads in a Kubernetes cluster.</p>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">KUBE_EDITOR</span>=<span class="hljs-string">"nano"</span> kubectl <span class="hljs-builtin-name">edit</span> svc/docker-registry
 </code></pre>
 <blockquote class="code-block example">
-<p> Edit the job &#39;myjob&#39; in JSON using the v1 API format:</p>
+<p> Edit the job &#39;myjob&#39; in JSON using the v1 API format</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">edit</span> job.v1.batch/myjob -o json
 </code></pre>
 <blockquote class="code-block example">
-<p> Edit the deployment &#39;mydeployment&#39; in YAML and save the modified config in its annotation:</p>
+<p> Edit the deployment &#39;mydeployment&#39; in YAML and save the modified config in its annotation</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">edit</span> deployment/mydeployment -o yaml --<span class="hljs-keyword">save</span>-config
 </code></pre>
 <p>Edit a resource from the default editor.</p>
-<p> The edit command allows you to directly edit any API resource you can retrieve via the command line tools. It will open the editor defined by your KUBE_EDITOR, or EDITOR environment variables, or fall back to &#39;vi&#39; for Linux or &#39;notepad&#39; for Windows. You can edit multiple objects, although changes are applied one at a time. The command accepts filenames as well as command line arguments, although the files you point to must be previously saved versions of resources.</p>
+<p> The edit command allows you to directly edit any API resource you can retrieve via the command-line tools. It will open the editor defined by your KUBE_EDITOR, or EDITOR environment variables, or fall back to &#39;vi&#39; for Linux or &#39;notepad&#39; for Windows. You can edit multiple objects, although changes are applied one at a time. The command accepts file names as well as command-line arguments, although the files you point to must be previously saved versions of resources.</p>
 <p> Editing is done with the API version used to fetch the resource. To edit using a specific API version, fully-qualify the resource, version, and group.</p>
 <p> The default format is YAML. To edit in JSON, specify &quot;-o json&quot;.</p>
 <p> The flag --windows-line-endings can be used to force Windows line endings, otherwise the default for your operating system will be used.</p>
@@ -4185,16 +4179,22 @@ viewing your workloads in a Kubernetes cluster.</p>
 </thead>
 <tbody>
 <tr>
-<td>allow-id-changes</td>
+<td>as-current-user</td>
 <td></td>
 <td>false</td>
-<td>enable changes to a resourceId </td>
+<td>use the uid and gid of the command executor to run the function in the container </td>
 </tr>
 <tr>
 <td>enable-alpha-plugins</td>
 <td></td>
 <td>false</td>
 <td>enable kustomize plugins </td>
+</tr>
+<tr>
+<td>enable-helm</td>
+<td></td>
+<td>false</td>
+<td>Enable use of the Helm chart inflator generator. </td>
 </tr>
 <tr>
 <td>enable-managedby-label</td>
@@ -4207,6 +4207,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>e</td>
 <td>[]</td>
 <td>a list of environment variables to be used by functions </td>
+</tr>
+<tr>
+<td>helm-command</td>
+<td></td>
+<td>helm</td>
+<td>helm command (path to executable) </td>
 </tr>
 <tr>
 <td>load-restrictor</td>
@@ -4249,12 +4255,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h1 id="label">label</h1>
 <blockquote class="code-block example">
-<p> Update pod &#39;foo&#39; with the label &#39;unhealthy&#39; and the value &#39;true&#39;.</p>
+<p> Update pod &#39;foo&#39; with the label &#39;unhealthy&#39; and the value &#39;true&#39;</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">label</span><span class="bash"> pods foo unhealthy=<span class="hljs-literal">true</span></span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Update pod &#39;foo&#39; with the label &#39;status&#39; and the value &#39;unhealthy&#39;, overwriting any existing value.</p>
+<p> Update pod &#39;foo&#39; with the label &#39;status&#39; and the value &#39;unhealthy&#39;, overwriting any existing value</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">label</span><span class="bash"> --overwrite pods foo status=unhealthy</span>
 </code></pre>
@@ -4269,19 +4275,19 @@ viewing your workloads in a Kubernetes cluster.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">label</span><span class="bash"> -f pod.json status=unhealthy</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Update pod &#39;foo&#39; only if the resource is unchanged from version 1.</p>
+<p> Update pod &#39;foo&#39; only if the resource is unchanged from version 1</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl label pods foo <span class="hljs-attribute">status</span>=unhealthy <span class="hljs-attribute">--resource-version</span>=1
 </code></pre>
 <blockquote class="code-block example">
-<p> Update pod &#39;foo&#39; by removing a label named &#39;bar&#39; if it exists. # Does not require the --overwrite flag.</p>
+<p> Update pod &#39;foo&#39; by removing a label named &#39;bar&#39; if it exists # Does not require the --overwrite flag</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">label</span><span class="bash"> pods foo bar-</span>
 </code></pre>
 <p>Update the labels on a resource.</p>
 <ul>
 <li>A label key and value must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  63 characters each.</li>
-<li>Optionally, the key can begin with a DNS subdomain prefix and a single &#39;/&#39;, like example.com/my-app</li>
+<li>Optionally, the key can begin with a DNS subdomain prefix and a single &#39;/&#39;, like example.com/my-app.</li>
 <li>If --overwrite is true, then existing labels can be overwritten, otherwise attempting to overwrite a label will result in an error.</li>
 <li>If --resource-version is specified, then updates will use this resource version, otherwise the existing resource-version will be used.</li>
 </ul>
@@ -4303,6 +4309,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td></td>
 <td>false</td>
 <td>Select all resources, including uninitialized ones, in the namespace of the specified resource types </td>
+</tr>
+<tr>
+<td>all-namespaces</td>
+<td>A</td>
+<td>false</td>
+<td>If true, check the specified action in all namespaces. </td>
 </tr>
 <tr>
 <td>allow-missing-template-keys</td>
@@ -4405,31 +4417,31 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h1 id="patch">patch</h1>
 <blockquote class="code-block example">
-<p> Partially update a node using a strategic merge patch. Specify the patch as JSON.</p>
+<p> Partially update a node using a strategic merge patch, specifying the patch as JSON</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl patch <span class="hljs-keyword">node</span> <span class="hljs-title">k8s-node-1</span> -p '{<span class="hljs-string">"spec"</span>:{<span class="hljs-string">"unschedulable"</span>:<span class="hljs-literal">true</span>}}'
 </code></pre>
 <blockquote class="code-block example">
-<p> Partially update a node using a strategic merge patch. Specify the patch as YAML.</p>
+<p> Partially update a node using a strategic merge patch, specifying the patch as YAML</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl patch <span class="hljs-keyword">node</span> <span class="hljs-title">k8s-node-1</span> -p $'<span class="hljs-keyword">spec</span>:\n unschedulable: <span class="hljs-literal">true</span>'
 </code></pre>
 <blockquote class="code-block example">
-<p> Partially update a node identified by the type and name specified in &quot;node.json&quot; using strategic merge patch.</p>
+<p> Partially update a node identified by the type and name specified in &quot;node.json&quot; using strategic merge patch</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl patch -f <span class="hljs-keyword">node</span>.<span class="hljs-title">json</span> -p '{<span class="hljs-string">"spec"</span>:{<span class="hljs-string">"unschedulable"</span>:<span class="hljs-literal">true</span>}}'
 </code></pre>
 <blockquote class="code-block example">
-<p> Update a container&#39;s image; spec.containers[*].name is required because it&#39;s a merge key.</p>
+<p> Update a container&#39;s image; spec.containers[*].name is required because it&#39;s a merge key</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">patch</span> pod valid-pod -p '{<span class="hljs-string">"spec"</span>:{<span class="hljs-string">"containers"</span>:[{<span class="hljs-string">"name"</span>:<span class="hljs-string">"kubernetes-serve-hostname"</span>,<span class="hljs-string">"image"</span>:<span class="hljs-string">"new image"</span>}]}}'
 </code></pre>
 <blockquote class="code-block example">
-<p> Update a container&#39;s image using a json patch with positional arrays.</p>
+<p> Update a container&#39;s image using a JSON patch with positional arrays</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl patch pod valid-pod --<span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-symbol">'jso</span>n' -p='[{<span class="hljs-string">"op"</span>: <span class="hljs-string">"replace"</span>, <span class="hljs-string">"path"</span>: <span class="hljs-string">"/spec/containers/0/image"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"new image"</span>}]'
 </code></pre>
-<p>Update field(s) of a resource using strategic merge patch, a JSON merge patch, or a JSON patch.</p>
+<p>Update fields of a resource using strategic merge patch, a JSON merge patch, or a JSON patch.</p>
 <p> JSON and YAML formats are accepted.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl patch (-f FILENAME | TYPE NAME) [-p PATCH|--patch-file FILE]</code></p>
@@ -4533,12 +4545,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h1 id="replace">replace</h1>
 <blockquote class="code-block example">
-<p> Replace a pod using the data in pod.json.</p>
+<p> Replace a pod using the data in pod.json</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">replace</span> -f ./pod.json
 </code></pre>
 <blockquote class="code-block example">
-<p> Replace a pod based on the JSON passed into stdin.</p>
+<p> Replace a pod based on the JSON passed into stdin</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">cat pod.json | <span class="hljs-type">kubectl</span> <span class="hljs-built_in">replace</span> -f -
 </code></pre>
@@ -4552,7 +4564,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl replace <span class="hljs-params">--force</span> -f <span class="hljs-string">./pod.json</span>
 </code></pre>
-<p>Replace a resource by filename or stdin.</p>
+<p>Replace a resource by file name or stdin.</p>
 <p> JSON and YAML formats are accepted. If replacing an existing resource, the complete resource spec must be provided. This can be obtained by</p>
 <p>  $ kubectl get TYPE NAME -o yaml</p>
 <h3 id="usage">Usage</h3>
@@ -4772,11 +4784,11 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h2 id="-em-pause-em-"><em>pause</em></h2>
 <blockquote class="code-block example">
-<p> Mark the nginx deployment as paused. Any current state of # the deployment will continue its function, new updates to the deployment will not # have an effect as long as the deployment is paused.</p>
+<p> Mark the nginx deployment as paused # Any current state of the deployment will continue its function; new updates # to the deployment will not have an effect as long as the deployment is paused</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl rollout <span class="hljs-keyword">pause</span> deployment/nginx
 </code></pre>
-<p>Mark the provided resource as paused</p>
+<p>Mark the provided resource as paused.</p>
 <p> Paused resources will not be reconciled by a controller. Use &quot;kubectl rollout resume&quot; to resume a paused resource. Currently only deployments support being paused.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl rollout pause RESOURCE</code></p>
@@ -4849,12 +4861,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl rollout <span class="hljs-built_in">restart</span> deployment/nginx
 </code></pre>
 <blockquote class="code-block example">
-<p> Restart a daemonset</p>
+<p> Restart a daemon set</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl rollout <span class="hljs-built_in">restart</span> daemonset/abc
 </code></pre>
 <p>Restart a resource.</p>
-<p>   Resource will be rollout restarted.</p>
+<p>   Resource rollout will be restarted.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl rollout restart RESOURCE</code></p>
 <h3 id="flags">Flags</h3>
@@ -4925,7 +4937,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl rollout <span class="hljs-keyword">resume</span> deployment/nginx
 </code></pre>
-<p>Resume a paused resource</p>
+<p>Resume a paused resource.</p>
 <p> Paused resources will not be reconciled by a controller. By resuming a resource, we allow it to be reconciled again. Currently only deployments support being resumed.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl rollout resume RESOURCE</code></p>
@@ -5053,21 +5065,21 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h2 id="-em-undo-em-"><em>undo</em></h2>
 <blockquote class="code-block example">
-<p> Rollback to the previous deployment</p>
+<p> Roll back to the previous deployment</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl rollout <span class="hljs-keyword">undo</span> deployment/<span class="hljs-keyword">abc</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Rollback to daemonset revision 3</p>
+<p> Roll back to daemonset revision 3</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl rollout <span class="hljs-keyword">undo</span> daemonset/<span class="hljs-keyword">abc</span> --<span class="hljs-keyword">to</span>-revision=<span class="hljs-number">3</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Rollback to the previous deployment with dry-run</p>
+<p> Roll back to the previous deployment with dry-run</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl rollout undo --dry-<span class="hljs-keyword">run</span><span class="bash">=server deployment/abc</span>
 </code></pre>
-<p>Rollback to a previous rollout.</p>
+<p>Roll back to a previous rollout.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl rollout undo (TYPE NAME | TYPE/NAME) [flags]</code></p>
 <h3 id="flags">Flags</h3>
@@ -5140,31 +5152,31 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h1 id="scale">scale</h1>
 <blockquote class="code-block example">
-<p> Scale a replicaset named &#39;foo&#39; to 3.</p>
+<p> Scale a replica set named &#39;foo&#39; to 3</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl scale <span class="hljs-attribute">--replicas</span>=3 rs/foo
 </code></pre>
 <blockquote class="code-block example">
-<p> Scale a resource identified by type and name specified in &quot;foo.yaml&quot; to 3.</p>
+<p> Scale a resource identified by type and name specified in &quot;foo.yaml&quot; to 3</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl scale <span class="hljs-attribute">--replicas</span>=3 -f foo.yaml
 </code></pre>
 <blockquote class="code-block example">
-<p> If the deployment named mysql&#39;s current size is 2, scale mysql to 3.</p>
+<p> If the deployment named mysql&#39;s current size is 2, scale mysql to 3</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl scale <span class="hljs-attribute">--current-replicas</span>=2 <span class="hljs-attribute">--replicas</span>=3 deployment/mysql
 </code></pre>
 <blockquote class="code-block example">
-<p> Scale multiple replication controllers.</p>
+<p> Scale multiple replication controllers</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">scale</span> --replicas=<span class="hljs-number">5</span> rc/foo rc/<span class="hljs-built_in">bar</span> rc/baz
 </code></pre>
 <blockquote class="code-block example">
-<p> Scale statefulset named &#39;web&#39; to 3.</p>
+<p> Scale stateful set named &#39;web&#39; to 3</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl scale <span class="hljs-attribute">--replicas</span>=3 statefulset/web
 </code></pre>
-<p>Set a new size for a Deployment, ReplicaSet, Replication Controller, or StatefulSet.</p>
+<p>Set a new size for a deployment, replica set, replication controller, or stateful set.</p>
 <p> Scale also allows users to specify one or more preconditions for the scale action.</p>
 <p> If --current-replicas or --resource-version is specified, it is validated before the scale is attempted, and it is guaranteed that the precondition holds true when the scale is sent to the server.</p>
 <h3 id="usage">Usage</h3>
@@ -5196,7 +5208,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>current-replicas</td>
 <td></td>
 <td>-1</td>
-<td>Precondition for current size. Requires that the current size of the resource match this value in order to scale. </td>
+<td>Precondition for current size. Requires that the current size of the resource match this value in order to scale. -1 (default) for no condition. </td>
 </tr>
 <tr>
 <td>dry-run</td>
@@ -5274,7 +5286,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </table>
 <hr>
 <h1 id="set">set</h1>
-<p>Configure application resources</p>
+<p>Configure application resources.</p>
 <p> These commands help you make changes to existing application resources.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl set SUBCOMMAND</code></p>
@@ -5339,7 +5351,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> List environment variable definitions in one or more pods, pod templates. Add, update, or remove container environment variable definitions in one or more pod templates (within replication controllers or deployment configurations). View or modify the environment variable definitions on all containers in the specified pods or pod templates, or just those that match a wildcard.</p>
 <p> If &quot;--env -&quot; is passed, environment variables can be read from STDIN using the standard env syntax.</p>
 <p> Possible resources include (case insensitive):</p>
-<p>  pod (po), replicationcontroller (rc), deployment (deploy), daemonset (ds), job, replicaset (rs)</p>
+<p>  pod (po), replicationcontroller (rc), deployment (deploy), daemonset (ds), statefulset (sts), cronjob (cj), replicaset (rs)</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl set env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N</code></p>
 <h3 id="flags">Flags</h3>
@@ -5478,7 +5490,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h2 id="-em-image-em-"><em>image</em></h2>
 <blockquote class="code-block example">
-<p> Set a deployment&#39;s nginx container image to &#39;nginx:1.9.1&#39;, and its busybox container image to &#39;busybox&#39;.</p>
+<p> Set a deployment&#39;s nginx container image to &#39;nginx:1.9.1&#39;, and its busybox container image to &#39;busybox&#39;</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">set</span> image deployment/nginx <span class="hljs-attribute">busybox</span>=busybox <span class="hljs-attribute">nginx</span>=nginx:1.9.1
 </code></pre>
@@ -5499,7 +5511,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </code></pre>
 <p>Update existing container image(s) of resources.</p>
 <p> Possible resources include (case insensitive):</p>
-<p>  pod (po), replicationcontroller (rc), deployment (deploy), daemonset (ds), replicaset (rs)</p>
+<p>  pod (po), replicationcontroller (rc), deployment (deploy), daemonset (ds), statefulset (sts), cronjob (cj), replicaset (rs)</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl set image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N</code></p>
 <h3 id="flags">Flags</h3>
@@ -5615,8 +5627,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">set</span> resources -f path/<span class="hljs-keyword">to</span>/file.yaml <span class="hljs-attribute">--limits</span>=cpu=200m,memory=512Mi --local -o yaml
 </code></pre>
-<p>Specify compute resource requirements (cpu, memory) for any resource that defines a pod template.  If a pod is successfully scheduled, it is guaranteed the amount of resource requested, but may burst up to its specified limits.</p>
-<p> for each compute resource, if a limit is specified and a request is omitted, the request will default to the limit.</p>
+<p>Specify compute resource requirements (CPU, memory) for any resource that defines a pod template.  If a pod is successfully scheduled, it is guaranteed the amount of resource requested, but may burst up to its specified limits.</p>
+<p> For each compute resource, if a limit is specified and a request is omitted, the request will default to the limit.</p>
 <p> Possible resources include (case insensitive): Use &quot;kubectl api-resources&quot; for a complete list of supported resources..</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl set resources (-f FILENAME | TYPE NAME)  ([--limits=LIMITS &amp; --requests=REQUESTS]</code></p>
@@ -5732,7 +5744,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <hr>
 <h2 id="-em-selector-em-"><em>selector</em></h2>
 <blockquote class="code-block example">
-<p> set the labels and selector before creating a deployment/service pair.</p>
+<p> Set the labels and selector before creating a deployment/service pair</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create<span class="hljs-built_in"> service </span>clusterip my-svc <span class="hljs-attribute">--clusterip</span>=<span class="hljs-string">"None"</span> -o yaml <span class="hljs-attribute">--dry-run</span>=client | kubectl <span class="hljs-builtin-name">set</span> selector --local -f - <span class="hljs-string">'environment=qa'</span> -o yaml | kubectl create -f -
 kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run</span>=client | kubectl label --local -f - <span class="hljs-attribute">environment</span>=qa -o yaml | kubectl create -f -
@@ -5829,16 +5841,16 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <hr>
 <h2 id="-em-serviceaccount-em--1"><em>serviceaccount</em></h2>
 <blockquote class="code-block example">
-<p> Set Deployment nginx-deployment&#39;s ServiceAccount to serviceaccount1</p>
+<p> Set deployment nginx-deployment&#39;s service account to serviceaccount1</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">set</span> serviceaccount <span class="hljs-comment">deployment nginx-deployment serviceaccount1</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Print the result (in yaml format) of updated nginx deployment with serviceaccount from local file, without hitting apiserver</p>
+<p> Print the result (in YAML format) of updated nginx deployment with the service account from local file, without hitting the API server</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">set</span> sa -f nginx-deployment.yaml serviceaccount1 --local <span class="hljs-attribute">--dry-run</span>=client -o yaml
 </code></pre>
-<p>Update ServiceAccount of pod template resources.</p>
+<p>Update the service account of pod template resources.</p>
 <p> Possible resources (case insensitive) can be:</p>
 <p> replicationcontroller (rc), deployment (deploy), daemonset (ds), job, replicaset (rs), statefulset</p>
 <h3 id="usage">Usage</h3>
@@ -5931,21 +5943,21 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <hr>
 <h2 id="-em-subject-em-"><em>subject</em></h2>
 <blockquote class="code-block example">
-<p> Update a ClusterRoleBinding for serviceaccount1</p>
+<p> Update a cluster role binding for serviceaccount1</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">set</span> subject clusterrolebinding admin <span class="hljs-attribute">--serviceaccount</span>=namespace:serviceaccount1
 </code></pre>
 <blockquote class="code-block example">
-<p> Update a RoleBinding for user1, user2, and group1</p>
+<p> Update a role binding for user1, user2, and group1</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">set</span> subject rolebinding admin <span class="hljs-attribute">--user</span>=user1 <span class="hljs-attribute">--user</span>=user2 <span class="hljs-attribute">--group</span>=group1
 </code></pre>
 <blockquote class="code-block example">
-<p> Print the result (in yaml format) of updating rolebinding subjects from a local, without hitting the server</p>
+<p> Print the result (in YAML format) of updating rolebinding subjects from a local, without hitting the server</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create rolebinding admin <span class="hljs-attribute">--role</span>=admin <span class="hljs-attribute">--user</span>=admin -o yaml <span class="hljs-attribute">--dry-run</span>=client | kubectl <span class="hljs-builtin-name">set</span> subject --local -f - <span class="hljs-attribute">--user</span>=foo -o yaml
 </code></pre>
-<p>Update User, Group or ServiceAccount in a RoleBinding/ClusterRoleBinding.</p>
+<p>Update the user, group, or service account in a role binding or cluster role binding.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl set subject (-f FILENAME | TYPE NAME) [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
@@ -6048,17 +6060,17 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <hr>
 <h1 id="wait">wait</h1>
 <blockquote class="code-block example">
-<p> Wait for the pod &quot;busybox1&quot; to contain the status condition of type &quot;Ready&quot;.</p>
+<p> Wait for the pod &quot;busybox1&quot; to contain the status condition of type &quot;Ready&quot;</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">wait</span> <span class="hljs-comment">--for=condition=Ready pod/busybox1</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> The default value of status condition is true, you can set false.</p>
+<p> The default value of status condition is true; you can set it to false</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">wait</span> --<span class="hljs-keyword">for</span>=condition=Ready=<span class="hljs-literal">false</span> pod/busybox1
 </code></pre>
 <blockquote class="code-block example">
-<p> Wait for the pod &quot;busybox1&quot; to be deleted, with a timeout of 60s, after having issued the &quot;delete&quot; command.</p>
+<p> Wait for the pod &quot;busybox1&quot; to be deleted, with a timeout of 60s, after having issued the &quot;delete&quot; command</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl delete pod/busybox1
 kubectl wait <span class="hljs-attribute">--for</span>=delete pod/busybox1 <span class="hljs-attribute">--timeout</span>=60s
@@ -6066,7 +6078,7 @@ kubectl wait <span class="hljs-attribute">--for</span>=delete pod/busybox1 <span
 <p>Experimental: Wait for a specific condition on one or many resources.</p>
 <p> The command takes multiple resources and waits until the specified condition is seen in the Status field of every given resource.</p>
 <p> Alternatively, the command can wait for the given set of resources to be deleted by providing the &quot;delete&quot; keyword as the value to the --for flag.</p>
-<p> A successful message will be printed to stdout indicating when the specified condition has been met. One can use -o option to change to output destination.</p>
+<p> A successful message will be printed to stdout indicating when the specified condition has been met. You can use -o option to change to output destination.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=delete|--for condition=available]</code></p>
 <h3 id="flags">Flags</h3>
@@ -6171,7 +6183,7 @@ applications.</p>
 <hr>
 <h1 id="attach">attach</h1>
 <blockquote class="code-block example">
-<p> Get output from running pod mypod, use the kubectl.kubernetes.io/default-container annotation # for selecting the container to be attached or the first container in the pod will be chosen</p>
+<p> Get output from running pod mypod; use the &#39;kubectl.kubernetes.io/default-container&#39; annotation # for selecting the container to be attached or the first container in the pod will be chosen</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">attach</span> mypod
 </code></pre>
@@ -6181,12 +6193,12 @@ applications.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">attach</span> mypod -c ruby-container
 </code></pre>
 <blockquote class="code-block example">
-<p> Switch to raw terminal mode, sends stdin to &#39;bash&#39; in ruby-container from pod mypod # and sends stdout/stderr from &#39;bash&#39; back to the client</p>
+<p> Switch to raw terminal mode; sends stdin to &#39;bash&#39; in ruby-container from pod mypod # and sends stdout/stderr from &#39;bash&#39; back to the client</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">attach</span> mypod -c ruby-container -i -t
 </code></pre>
 <blockquote class="code-block example">
-<p> Get output from the first pod of a ReplicaSet named nginx</p>
+<p> Get output from the first pod of a replica set named nginx</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">attach</span> rs/nginx
 </code></pre>
@@ -6279,7 +6291,7 @@ applications.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl auth can-i --list --<span class="hljs-keyword">namespace</span>=<span class="hljs-symbol">foo</span>
 </code></pre>
 <p>Check whether an action is allowed.</p>
-<p> VERB is a logical Kubernetes API verb like &#39;get&#39;, &#39;list&#39;, &#39;watch&#39;, &#39;delete&#39;, etc. TYPE is a Kubernetes resource. Shortcuts and groups will be resolved. NONRESOURCEURL is a partial URL starts with &quot;/&quot;. NAME is the name of a particular Kubernetes resource.</p>
+<p> VERB is a logical Kubernetes API verb like &#39;get&#39;, &#39;list&#39;, &#39;watch&#39;, &#39;delete&#39;, etc. TYPE is a Kubernetes resource. Shortcuts and groups will be resolved. NONRESOURCEURL is a partial URL that starts with &quot;/&quot;. NAME is the name of a particular Kubernetes resource.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl auth can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]</code></p>
 <h3 id="flags">Flags</h3>
@@ -6328,11 +6340,11 @@ applications.</p>
 <hr>
 <h2 id="-em-reconcile-em-"><em>reconcile</em></h2>
 <blockquote class="code-block example">
-<p> Reconcile rbac resources from a file</p>
+<p> Reconcile RBAC resources from a file</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl auth reconcile -f <span class="hljs-keyword">my</span>-rbac-rules.yaml
 </code></pre>
-<p>Reconciles rules for RBAC Role, RoleBinding, ClusterRole, and ClusterRoleBinding objects.</p>
+<p>Reconciles rules for RBAC role, role binding, cluster role, and cluster role binding objects.</p>
 <p> Missing objects are created, and the containing namespace is created for namespaced objects, if required.</p>
 <p> Existing roles are updated to include the permissions in the input objects, and remove extra permissions if --remove-extra-permissions is specified.</p>
 <p> Existing bindings are updated to include the subjects in the input objects, and remove extra subjects if --remove-extra-subjects is specified.</p>
@@ -6415,7 +6427,7 @@ applications.</p>
 <hr>
 <h1 id="cp">cp</h1>
 <blockquote class="code-block example">
-<p> !!!Important Note!!! # Requires that the &#39;tar&#39; binary is present in your container # image.  If &#39;tar&#39; is not present, &#39;kubectl cp&#39; will fail. # # For advanced use cases, such as symlinks, wildcard expansion or # file mode preservation consider using &#39;kubectl exec&#39;. # Copy /tmp/foo local file to /tmp/bar in a remote pod in namespace <some-namespace></p>
+<p> !!!Important Note!!! # Requires that the &#39;tar&#39; binary is present in your container # image.  If &#39;tar&#39; is not present, &#39;kubectl cp&#39; will fail. # # For advanced use cases, such as symlinks, wildcard expansion or # file mode preservation, consider using &#39;kubectl exec&#39;. # Copy /tmp/foo local file to /tmp/bar in a remote pod in namespace <some-namespace></p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">tar cf - <span class="hljs-meta-keyword">/tmp/</span>foo | kubectl exec -i -n <span class="hljs-params">&lt;some-namespace&gt;</span> <span class="hljs-params">&lt;some-pod&gt;</span> -- tar xf - -C <span class="hljs-meta-keyword">/tmp/</span>bar
 </code></pre>
@@ -6500,11 +6512,11 @@ applications.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl describe po -l <span class="hljs-attribute">name</span>=myLabel
 </code></pre>
 <blockquote class="code-block example">
-<p> Describe all pods managed by the &#39;frontend&#39; replication controller (rc-created pods # get the name of the rc as a prefix in the pod the name).</p>
+<p> Describe all pods managed by the &#39;frontend&#39; replication controller (rc-created pods # get the name of the rc as a prefix in the pod the name)</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl describe pods frontend</span>
 </code></pre>
-<p>Show details of a specific resource or group of resources</p>
+<p>Show details of a specific resource or group of resources.</p>
 <p> Print a detailed description of the selected resources, including related resources such as events or controllers. You may select a single object by name, all objects of that type, provide a name prefix, or label selector. For example:</p>
 <p>  $ kubectl describe TYPE NAME_PREFIX</p>
 <p> will first check for an exact match on TYPE and NAME_PREFIX. If no such resource exists, it will output details for every resource that has a name prefixed with NAME_PREFIX.</p>
@@ -6527,6 +6539,12 @@ applications.</p>
 <td>A</td>
 <td>false</td>
 <td>If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace. </td>
+</tr>
+<tr>
+<td>chunk-size</td>
+<td></td>
+<td>500</td>
+<td>Return large lists in chunks rather than all at once. Pass 0 to disable. This flag is beta and may change in the future. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -6563,22 +6581,22 @@ applications.</p>
 <hr>
 <h1 id="exec">exec</h1>
 <blockquote class="code-block example">
-<p> Get output from running &#39;date&#39; command from pod mypod, using the first container by default</p>
+<p> Get output from running the &#39;date&#39; command from pod mypod, using the first container by default</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">exec</span> mypod -- <span class="hljs-built_in">date</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Get output from running &#39;date&#39; command in ruby-container from pod mypod</p>
+<p> Get output from running the &#39;date&#39; command in ruby-container from pod mypod</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">exec</span> mypod -c ruby-<span class="hljs-keyword">container</span> -- <span class="hljs-keyword">date</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Switch to raw terminal mode, sends stdin to &#39;bash&#39; in ruby-container from pod mypod # and sends stdout/stderr from &#39;bash&#39; back to the client</p>
+<p> Switch to raw terminal mode; sends stdin to &#39;bash&#39; in ruby-container from pod mypod # and sends stdout/stderr from &#39;bash&#39; back to the client</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">exec</span> mypod -c ruby-<span class="hljs-keyword">container</span> -i -t -- bash -il
 </code></pre>
 <blockquote class="code-block example">
-<p> List contents of /usr from the first container of pod mypod and sort by modification time. # If the command you want to execute in the pod has any flags in common (e.g. -i), # you must use two dashes (--) to separate your command&#39;s flags/arguments. # Also note, do not surround your command and its flags/arguments with quotes # unless that is how you would execute it normally (i.e., do ls -t /usr, not &quot;ls -t /usr&quot;).</p>
+<p> List contents of /usr from the first container of pod mypod and sort by modification time # If the command you want to execute in the pod has any flags in common (e.g. -i), # you must use two dashes (--) to separate your command&#39;s flags/arguments # Also note, do not surround your command and its flags/arguments with quotes # unless that is how you would execute it normally (i.e., do ls -t /usr, not &quot;ls -t /usr&quot;)</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl exec mypod -i -<span class="hljs-built_in">t</span> -- ls -<span class="hljs-built_in">t</span> /usr
 </code></pre>
@@ -6659,7 +6677,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Return snapshot logs from all containers in pods defined by label app=nginx</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl logs <span class="hljs-attribute">-lapp</span>=nginx <span class="hljs-attribute">--all-containers</span>=<span class="hljs-literal">true</span>
+<pre class="code-block example"><code class="lang-shell">kubectl logs -l <span class="hljs-attribute">app</span>=nginx <span class="hljs-attribute">--all-containers</span>=<span class="hljs-literal">true</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Return snapshot of previous terminated ruby container logs from pod web-1</p>
@@ -6674,7 +6692,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Begin streaming the logs from all containers in pods defined by label app=nginx</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl logs -f <span class="hljs-attribute">-lapp</span>=nginx <span class="hljs-attribute">--all-containers</span>=<span class="hljs-literal">true</span>
+<pre class="code-block example"><code class="lang-shell">kubectl logs -f -l <span class="hljs-attribute">app</span>=nginx <span class="hljs-attribute">--all-containers</span>=<span class="hljs-literal">true</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Display only the most recent 20 lines of output in pod nginx</p>
@@ -6844,9 +6862,9 @@ applications.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl port-forward pod/mypod :<span class="hljs-number">5000</span>
 </code></pre>
-<p>Forward one or more local ports to a pod. This command requires the node to have &#39;socat&#39; installed.</p>
+<p>Forward one or more local ports to a pod.</p>
 <p> Use resource type/name such as deployment/mydeployment to select a pod. Resource type defaults to &#39;pod&#39; if omitted.</p>
-<p> If there are multiple pods matching the criteria, a pod will be selected automatically. The forwarding session ends when the selected pod terminates, and rerun of the command is needed to resume forwarding.</p>
+<p> If there are multiple pods matching the criteria, a pod will be selected automatically. The forwarding session ends when the selected pod terminates, and a rerun of the command is needed to resume forwarding.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl port-forward TYPE/NAME [options] [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N]</code></p>
 <h3 id="flags">Flags</h3>
@@ -6877,36 +6895,36 @@ applications.</p>
 <hr>
 <h1 id="proxy">proxy</h1>
 <blockquote class="code-block example">
-<p> To proxy all of the kubernetes api and nothing else.</p>
+<p> To proxy all of the Kubernetes API and nothing else</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> proxy </span><span class="hljs-attribute">--api-prefix</span>=/
 </code></pre>
 <blockquote class="code-block example">
-<p> To proxy only part of the kubernetes api and also some static files. # You can get pods info with &#39;curl localhost:8001/api/v1/pods&#39;</p>
+<p> To proxy only part of the Kubernetes API and also some static files # You can get pods info with &#39;curl localhost:8001/api/v1/pods&#39;</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> proxy </span><span class="hljs-attribute">--www</span>=/my/files <span class="hljs-attribute">--www-prefix</span>=/static/ <span class="hljs-attribute">--api-prefix</span>=/api/
 </code></pre>
 <blockquote class="code-block example">
-<p> To proxy the entire kubernetes api at a different root. # You can get pods info with &#39;curl localhost:8001/custom/api/v1/pods&#39;</p>
+<p> To proxy the entire Kubernetes API at a different root # You can get pods info with &#39;curl localhost:8001/custom/api/v1/pods&#39;</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> proxy </span><span class="hljs-attribute">--api-prefix</span>=/custom/
 </code></pre>
 <blockquote class="code-block example">
-<p> Run a proxy to kubernetes apiserver on port 8011, serving static content from ./local/www/</p>
+<p> Run a proxy to the Kubernetes API server on port 8011, serving static content from ./local/www/</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> proxy </span><span class="hljs-attribute">--port</span>=8011 <span class="hljs-attribute">--www</span>=./local/www/
 </code></pre>
 <blockquote class="code-block example">
-<p> Run a proxy to kubernetes apiserver on an arbitrary local port. # The chosen port for the server will be output to stdout.</p>
+<p> Run a proxy to the Kubernetes API server on an arbitrary local port # The chosen port for the server will be output to stdout</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> proxy </span><span class="hljs-attribute">--port</span>=0
 </code></pre>
 <blockquote class="code-block example">
-<p> Run a proxy to kubernetes apiserver, changing the api prefix to k8s-api # This makes e.g. the pods api available at localhost:8001/k8s-api/v1/pods/</p>
+<p> Run a proxy to the Kubernetes API server, changing the API prefix to k8s-api # This makes e.g. the pods API available at localhost:8001/k8s-api/v1/pods/</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> proxy </span><span class="hljs-attribute">--api-prefix</span>=/k8s-api
 </code></pre>
-<p>Creates a proxy server or application-level gateway between localhost and the Kubernetes API Server. It also allows serving static content over specified HTTP path. All incoming data enters through one port and gets forwarded to the remote kubernetes API Server port, except for the path matching the static content path.</p>
+<p>Creates a proxy server or application-level gateway between localhost and the Kubernetes API server. It also allows serving static content over specified HTTP path. All incoming data enters through one port and gets forwarded to the remote Kubernetes API server port, except for the path matching the static content path.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]</code></p>
 <h3 id="flags">Flags</h3>
@@ -7013,7 +7031,7 @@ applications.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl top <span class="hljs-keyword">node</span> <span class="hljs-title">NODE_NAME</span>
 </code></pre>
-<p>Display Resource (CPU/Memory) usage of nodes.</p>
+<p>Display resource (CPU/memory) usage of nodes.</p>
 <p> The top-node command allows you to see the resource consumption of nodes.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl top node [NAME | -l label]</code></p>
@@ -7049,8 +7067,8 @@ applications.</p>
 <tr>
 <td>use-protocol-buffers</td>
 <td></td>
-<td>false</td>
-<td>If present, protocol-buffers will be used to request metrics. </td>
+<td>true</td>
+<td>Enables using protocol-buffers to access Metrics API. </td>
 </tr>
 </tbody>
 </table>
@@ -7076,7 +7094,7 @@ applications.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl top pod -l <span class="hljs-attribute">name</span>=myLabel
 </code></pre>
-<p>Display Resource (CPU/Memory) usage of pods.</p>
+<p>Display resource (CPU/memory) usage of pods.</p>
 <p> The &#39;top pod&#39; command allows you to see the resource consumption of pods.</p>
 <p> Due to the metrics pipeline delay, they may be unavailable for a few minutes since pod creation.</p>
 <h3 id="usage">Usage</h3>
@@ -7105,6 +7123,12 @@ applications.</p>
 <td>If present, print usage of containers within a pod. </td>
 </tr>
 <tr>
+<td>field-selector</td>
+<td></td>
+<td></td>
+<td>Selector (field query) to filter on, supports &#39;=&#39;, &#39;==&#39;, and &#39;!=&#39;.(e.g. --field-selector key1=value1,key2=value2). The server only supports a limited number of field queries per type. </td>
+</tr>
+<tr>
 <td>no-headers</td>
 <td></td>
 <td>false</td>
@@ -7125,8 +7149,8 @@ applications.</p>
 <tr>
 <td>use-protocol-buffers</td>
 <td></td>
-<td>false</td>
-<td>If present, protocol-buffers will be used to request metrics. </td>
+<td>true</td>
+<td>Enables using protocol-buffers to access Metrics API. </td>
 </tr>
 </tbody>
 </table>
@@ -7138,7 +7162,7 @@ applications.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl api-versions</span>
 </code></pre>
-<p>Print the supported API versions on the server, in the form of &quot;group/version&quot;</p>
+<p>Print the supported API versions on the server, in the form of &quot;group/version&quot;.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl api-versions</code></p>
 <hr>
@@ -7148,6 +7172,11 @@ applications.</p>
 <p><code>$ kubectl certificate SUBCOMMAND</code></p>
 <hr>
 <h2 id="-em-approve-em-"><em>approve</em></h2>
+<blockquote class="code-block example">
+<p> Approve CSR &#39;csr-sqgzp&#39;</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl certificate approve csr-sqgzp</span>
+</code></pre>
 <p>Approve a certificate signing request.</p>
 <p> kubectl certificate approve allows a cluster admin to approve a certificate signing request (CSR). This action tells a certificate signing controller to issue a certificate to the requestor with the attributes requested in the CSR.</p>
 <p> SECURITY NOTICE: Depending on the requested attributes, the issued certificate can potentially grant a requester access to cluster resources or to authenticate as a requested identity. Before approving a CSR, ensure you understand what the signed certificate can do.</p>
@@ -7216,6 +7245,11 @@ applications.</p>
 </table>
 <hr>
 <h2 id="-em-deny-em-"><em>deny</em></h2>
+<blockquote class="code-block example">
+<p> Deny CSR &#39;csr-sqgzp&#39;</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl certificate <span class="hljs-keyword">deny</span> csr-sqgzp
+</code></pre>
 <p>Deny a certificate signing request.</p>
 <p> kubectl certificate deny allows a cluster admin to deny a certificate signing request (CSR). This action tells a certificate signing controller to not to issue a certificate to the requestor.</p>
 <h3 id="usage">Usage</h3>
@@ -7288,7 +7322,7 @@ applications.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl</span> cluster-<span class="hljs-literal">info</span>
 </code></pre>
-<p>Display addresses of the control plane and services with label kubernetes.io/cluster-service=true To further debug and diagnose cluster problems, use &#39;kubectl cluster-info dump&#39;.</p>
+<p>Display addresses of the control plane and services with label kubernetes.io/cluster-service=true. To further debug and diagnose cluster problems, use &#39;kubectl cluster-info dump&#39;.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl cluster-info</code></p>
 <hr>
@@ -7313,8 +7347,8 @@ applications.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">cluster</span>-info dump --namespaces <span class="hljs-keyword">default</span>,kube-<span class="hljs-keyword">system</span> --output-directory=/path/to/<span class="hljs-keyword">cluster</span>-state
 </code></pre>
-<p>Dumps cluster info out suitable for debugging and diagnosing cluster problems.  By default, dumps everything to stdout. You can optionally specify a directory with --output-directory.  If you specify a directory, kubernetes will build a set of files in that directory.  By default only dumps things in the &#39;kube-system&#39; namespace, but you can switch to a different namespace with the --namespaces flag, or specify --all-namespaces to dump all namespaces.</p>
-<p> The command also dumps the logs of all of the pods in the cluster, these logs are dumped into different directories based on namespace and pod name.</p>
+<p>Dump cluster information out suitable for debugging and diagnosing cluster problems.  By default, dumps everything to stdout. You can optionally specify a directory with --output-directory.  If you specify a directory, Kubernetes will build a set of files in that directory.  By default, only dumps things in the current namespace and &#39;kube-system&#39; namespace, but you can switch to a different namespace with the --namespaces flag, or specify --all-namespaces to dump all namespaces.</p>
+<p> The command also dumps the logs of all of the pods in the cluster; these logs are dumped into different directories based on namespace and pod name.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl cluster-info dump</code></p>
 <h3 id="flags">Flags</h3>
@@ -7381,7 +7415,7 @@ applications.</p>
 <hr>
 <h1 id="cordon">cordon</h1>
 <blockquote class="code-block example">
-<p> Mark node &quot;foo&quot; as unschedulable.</p>
+<p> Mark node &quot;foo&quot; as unschedulable</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl cordon foo</span>
 </code></pre>
@@ -7416,20 +7450,20 @@ applications.</p>
 <hr>
 <h1 id="drain">drain</h1>
 <blockquote class="code-block example">
-<p> Drain node &quot;foo&quot;, even if there are pods not managed by a ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet on it.</p>
+<p> Drain node &quot;foo&quot;, even if there are pods not managed by a replication controller, replica set, job, daemon set or stateful set on it</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">$ kubectl drain foo <span class="hljs-comment">--force</span>
+<pre class="code-block example"><code class="lang-shell">kubectl drain foo <span class="hljs-comment">--force</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> As above, but abort if there are pods not managed by a ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet, and use a grace period of 15 minutes.</p>
+<p> As above, but abort if there are pods not managed by a replication controller, replica set, job, daemon set or stateful set, and use a grace period of 15 minutes</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">$ kubectl drain foo <span class="hljs-attribute">--grace-period</span>=900
+<pre class="code-block example"><code class="lang-shell">kubectl drain foo <span class="hljs-attribute">--grace-period</span>=900
 </code></pre>
 <p>Drain node in preparation for maintenance.</p>
-<p> The given node will be marked unschedulable to prevent new pods from arriving. &#39;drain&#39; evicts the pods if the APIServer supports <a href="http://kubernetes.io/docs/admin/disruptions/">http://kubernetes.io/docs/admin/disruptions/</a> . Otherwise, it will use normal DELETE to delete the pods. The &#39;drain&#39; evicts or deletes all pods except mirror pods (which cannot be deleted through the API server).  If there are DaemonSet-managed pods, drain will not proceed without --ignore-daemonsets, and regardless it will not delete any DaemonSet-managed pods, because those pods would be immediately replaced by the DaemonSet controller, which ignores unschedulable markings.  If there are any pods that are neither mirror pods nor managed by ReplicationController, ReplicaSet, DaemonSet, StatefulSet or Job, then drain will not delete any pods unless you use --force.  --force will also allow deletion to proceed if the managing resource of one or more pods is missing.</p>
+<p> The given node will be marked unschedulable to prevent new pods from arriving. &#39;drain&#39; evicts the pods if the API server supports <a href="https://kubernetes.io/docs/concepts/workloads/pods/disruptions/">https://kubernetes.io/docs/concepts/workloads/pods/disruptions/</a> . Otherwise, it will use normal DELETE to delete the pods. The &#39;drain&#39; evicts or deletes all pods except mirror pods (which cannot be deleted through the API server).  If there are daemon set-managed pods, drain will not proceed without --ignore-daemonsets, and regardless it will not delete any daemon set-managed pods, because those pods would be immediately replaced by the daemon set controller, which ignores unschedulable markings.  If there are any pods that are neither mirror pods nor managed by a replication controller, replica set, daemon set, stateful set, or job, then drain will not delete any pods unless you use --force.  --force will also allow deletion to proceed if the managing resource of one or more pods is missing.</p>
 <p> &#39;drain&#39; waits for graceful termination. You should not operate on the machine until the command completes.</p>
 <p> When you are ready to put the node back into service, use kubectl uncordon, which will make the node schedulable again.</p>
-<p> <a href="http://kubernetes.io/images/docs/kubectl_drain.svg">http://kubernetes.io/images/docs/kubectl_drain.svg</a></p>
+<p> <a href="https://kubernetes.io/images/docs/kubectl_drain.svg">https://kubernetes.io/images/docs/kubectl_drain.svg</a></p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl drain NODE</code></p>
 <h3 id="flags">Flags</h3>
@@ -7443,6 +7477,12 @@ applications.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>chunk-size</td>
+<td></td>
+<td>500</td>
+<td>Return large lists in chunks rather than all at once. Pass 0 to disable. This flag is beta and may change in the future. </td>
+</tr>
 <tr>
 <td>delete-emptydir-data</td>
 <td></td>
@@ -7520,12 +7560,12 @@ applications.</p>
 <hr>
 <h1 id="taint">taint</h1>
 <blockquote class="code-block example">
-<p> Update node &#39;foo&#39; with a taint with key &#39;dedicated&#39; and value &#39;special-user&#39; and effect &#39;NoSchedule&#39;. # If a taint with that key and effect already exists, its value is replaced as specified.</p>
+<p> Update node &#39;foo&#39; with a taint with key &#39;dedicated&#39; and value &#39;special-user&#39; and effect &#39;NoSchedule&#39; # If a taint with that key and effect already exists, its value is replaced as specified</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl taint nodes foo <span class="hljs-attribute">dedicated</span>=special-user:NoSchedule
 </code></pre>
 <blockquote class="code-block example">
-<p> Remove from node &#39;foo&#39; the taint with key &#39;dedicated&#39; and effect &#39;NoSchedule&#39; if one exists.</p>
+<p> Remove from node &#39;foo&#39; the taint with key &#39;dedicated&#39; and effect &#39;NoSchedule&#39; if one exists</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">taint</span> <span class="hljs-selector-tag">nodes</span> <span class="hljs-selector-tag">foo</span> <span class="hljs-selector-tag">dedicated</span><span class="hljs-selector-pseudo">:NoSchedule-</span>
 </code></pre>
@@ -7548,7 +7588,7 @@ applications.</p>
 <ul>
 <li>A taint consists of a key, value, and effect. As an argument here, it is expressed as key=value:effect.</li>
 <li>The key must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  253 characters.</li>
-<li>Optionally, the key can begin with a DNS subdomain prefix and a single &#39;/&#39;, like example.com/my-app</li>
+<li>Optionally, the key can begin with a DNS subdomain prefix and a single &#39;/&#39;, like example.com/my-app.</li>
 <li>The value is optional. If given, it must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  63 characters.</li>
 <li>The effect must be NoSchedule, PreferNoSchedule or NoExecute.</li>
 <li>Currently taint can only apply to node.</li>
@@ -7631,9 +7671,9 @@ applications.</p>
 <hr>
 <h1 id="uncordon">uncordon</h1>
 <blockquote class="code-block example">
-<p> Mark node &quot;foo&quot; as schedulable.</p>
+<p> Mark node &quot;foo&quot; as schedulable</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-variable">$ </span>kubectl uncordon foo
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl uncordon foo</span>
 </code></pre>
 <p>Mark node as schedulable.</p>
 <h3 id="usage">Usage</h3>
@@ -7672,17 +7712,17 @@ applications.</p>
 <hr>
 <h1 id="api-resources">api-resources</h1>
 <blockquote class="code-block example">
-<p> Print the supported API Resources</p>
+<p> Print the supported API resources</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl api-resources</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Print the supported API Resources with more information</p>
+<p> Print the supported API resources with more information</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl api-resources -o wide</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Print the supported API Resources sorted by a column</p>
+<p> Print the supported API resources sorted by a column</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl api-<span class="hljs-built_in">resources</span> --<span class="hljs-built_in">sort</span>-by=<span class="hljs-built_in">name</span>
 </code></pre>
@@ -7697,11 +7737,11 @@ applications.</p>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl</span> api-resources --namespaced=<span class="hljs-literal">false</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Print the supported API Resources with specific APIGroup</p>
+<p> Print the supported API resources with a specific APIGroup</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl api-resources <span class="hljs-attribute">--api-group</span>=extensions
 </code></pre>
-<p>Print the supported API resources on the server</p>
+<p>Print the supported API resources on the server.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl api-resources</code></p>
 <h3 id="flags">Flags</h3>
@@ -7772,12 +7812,12 @@ applications.</p>
 <pre class="code-block example"><code class="lang-shell">brew install bash-<span class="hljs-symbol">completion@</span><span class="hljs-number">2</span>
 </code></pre>
 <blockquote class="code-block example#">
-<p> If kubectl is installed via homebrew, this should start working immediately. ## If you&#39;ve installed via other means, you may need add the completion to your completion directory</p>
+<p> If kubectl is installed via homebrew, this should start working immediately ## If you&#39;ve installed via other means, you may need add the completion to your completion directory</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl completion bash &gt; <span class="hljs-constructor">$(<span class="hljs-params">brew</span> --<span class="hljs-params">prefix</span>)</span>/etc/bash_completion.d/kubectl
 </code></pre>
 <blockquote class="code-block example">
-<p> Installing bash completion on Linux ## If bash-completion is not installed on Linux, please install the &#39;bash-completion&#39; package ## via your distribution&#39;s package manager. ## Load the kubectl completion code for bash into the current shell</p>
+<p> Installing bash completion on Linux ## If bash-completion is not installed on Linux, install the &#39;bash-completion&#39; package ## via your distribution&#39;s package manager. ## Load the kubectl completion code for bash into the current shell</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">source &lt;(<span class="hljs-name">kubectl</span> completion bash)
 </code></pre>
@@ -7805,8 +7845,14 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl</span> completion zsh &gt; <span class="hljs-string">"<span class="hljs-variable">${fpath[1]}</span>/_kubectl"</span>
 </code></pre>
 <p>Output shell completion code for the specified shell (bash or zsh). The shell code must be evaluated to provide interactive completion of kubectl commands.  This can be done by sourcing it from the .bash_profile.</p>
-<p> Detailed instructions on how to do this are available here: <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion">https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion</a></p>
-<p> Note for zsh users: <span>[</span>1<span>]</span> zsh completions are only supported in versions of zsh &gt;= 5.2</p>
+<p> Detailed instructions on how to do this are available here:</p>
+<p>  for macOS:
+  <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion">https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion</a></p>
+<p>  for linux:
+  <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#enable-shell-autocompletion">https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#enable-shell-autocompletion</a></p>
+<p>  for windows:
+  <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#enable-shell-autocompletion">https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#enable-shell-autocompletion</a></p>
+<p> Note for zsh users: <span>[</span>1<span>]</span> zsh completions are only supported in versions of zsh &gt;= 5.2.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl completion SHELL</code></p>
 <hr>
@@ -7827,7 +7873,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>current-context
 </code></pre>
-<p>Displays the current-context</p>
+<p>Display the current-context.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config current-context</code></p>
 <hr>
@@ -7837,7 +7883,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-string">kubectl </span><span class="hljs-string">config </span><span class="hljs-built_in">delete-cluster</span> <span class="hljs-string">minikube</span>
 </code></pre>
-<p>Delete the specified cluster from the kubeconfig</p>
+<p>Delete the specified cluster from the kubeconfig.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config delete-cluster NAME</code></p>
 <hr>
@@ -7847,7 +7893,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-string">kubectl </span><span class="hljs-string">config </span><span class="hljs-built_in">delete-context</span> <span class="hljs-string">minikube</span>
 </code></pre>
-<p>Delete the specified context from the kubeconfig</p>
+<p>Delete the specified context from the kubeconfig.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config delete-context NAME</code></p>
 <hr>
@@ -7857,13 +7903,13 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-string">kubectl </span><span class="hljs-string">config </span><span class="hljs-built_in">delete-user</span> <span class="hljs-string">minikube</span>
 </code></pre>
-<p>Delete the specified user from the kubeconfig</p>
+<p>Delete the specified user from the kubeconfig.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config delete-user NAME</code></p>
 <hr>
 <h2 id="-em-get-clusters-em-"><em>get-clusters</em></h2>
 <blockquote class="code-block example">
-<p> List the clusters kubectl knows about</p>
+<p> List the clusters that kubectl knows about</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>get-clusters
 </code></pre>
@@ -7878,11 +7924,11 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>get-contexts
 </code></pre>
 <blockquote class="code-block example">
-<p> Describe one context in your kubeconfig file.</p>
+<p> Describe one context in your kubeconfig file</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-string">kubectl </span><span class="hljs-string">config </span><span class="hljs-built_in">get-contexts</span> <span class="hljs-string">my-context</span>
 </code></pre>
-<p>Displays one or many contexts from the kubeconfig file.</p>
+<p>Display one or many contexts from the kubeconfig file.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config get-contexts [(-o|--output=)name)]</code></p>
 <h3 id="flags">Flags</h3>
@@ -7913,7 +7959,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <hr>
 <h2 id="-em-get-users-em-"><em>get-users</em></h2>
 <blockquote class="code-block example">
-<p> List the users kubectl knows about</p>
+<p> List the users that kubectl knows about</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>get-users
 </code></pre>
@@ -7928,37 +7974,37 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>rename-context old-name new-name
 </code></pre>
 <p>Renames a context from the kubeconfig file.</p>
-<p> CONTEXT_NAME is the context name that you wish to change.</p>
-<p> NEW_NAME is the new name you wish to set.</p>
-<p> Note: In case the context being renamed is the &#39;current-context&#39;, this field will also be updated.</p>
+<p> CONTEXT_NAME is the context name that you want to change.</p>
+<p> NEW_NAME is the new name you want to set.</p>
+<p> Note: If the context being renamed is the &#39;current-context&#39;, this field will also be updated.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config rename-context CONTEXT_NAME NEW_NAME</code></p>
 <hr>
 <h2 id="-em-set-em-"><em>set</em></h2>
 <blockquote class="code-block example">
-<p> Set server field on the my-cluster cluster to <a href="https://1.2.3.4">https://1.2.3.4</a></p>
+<p> Set the server field on the my-cluster cluster to <a href="https://1.2.3.4">https://1.2.3.4</a></p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">config</span> <span class="hljs-built_in">set</span> clusters.my-cluster.server https:<span class="hljs-comment">//1.2.3.4</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Set certificate-authority-data field on the my-cluster cluster.</p>
+<p> Set the certificate-authority-data field on the my-cluster cluster</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span><span class="hljs-builtin-name">set</span> clusters.my-cluster.certificate-authority-data $(echo <span class="hljs-string">"cert_data_here"</span> | base64 -i -)
 </code></pre>
 <blockquote class="code-block example">
-<p> Set cluster field in the my-context context to my-cluster.</p>
+<p> Set the cluster field in the my-context context to my-cluster</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span><span class="hljs-builtin-name">set</span> contexts.my-context.cluster my-cluster
 </code></pre>
 <blockquote class="code-block example">
-<p> Set client-key-data field in the cluster-admin user using --set-raw-bytes option.</p>
+<p> Set the client-key-data field in the cluster-admin user using --set-raw-bytes option</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span><span class="hljs-builtin-name">set</span> users.cluster-admin.client-key-data cert_data_here <span class="hljs-attribute">--set-raw-bytes</span>=<span class="hljs-literal">true</span>
 </code></pre>
-<p>Sets an individual value in a kubeconfig file</p>
+<p>Set an individual value in a kubeconfig file.</p>
 <p> PROPERTY_NAME is a dot delimited name where each token represents either an attribute name or a map key.  Map keys may not contain dots.</p>
-<p> PROPERTY_VALUE is the new value you wish to set. Binary fields such as &#39;certificate-authority-data&#39; expect a base64 encoded string unless the --set-raw-bytes flag is used.</p>
-<p> Specifying a attribute name that already exists will merge new fields on top of existing values.</p>
+<p> PROPERTY_VALUE is the new value you want to set. Binary fields such as &#39;certificate-authority-data&#39; expect a base64 encoded string unless the --set-raw-bytes flag is used.</p>
+<p> Specifying an attribute name that already exists will merge new fields on top of existing values.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config set PROPERTY_NAME PROPERTY_VALUE</code></p>
 <h3 id="flags">Flags</h3>
@@ -7983,7 +8029,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <hr>
 <h2 id="-em-set-cluster-em-"><em>set-cluster</em></h2>
 <blockquote class="code-block example">
-<p> Set only the server field on the e2e cluster entry without touching other values.</p>
+<p> Set only the server field on the e2e cluster entry without touching other values</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-cluster e2e <span class="hljs-attribute">--server</span>=https://1.2.3.4
 </code></pre>
@@ -8002,7 +8048,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-cluster e2e <span class="hljs-attribute">--tls-server-name</span>=my-cluster-name
 </code></pre>
-<p>Sets a cluster entry in kubeconfig.</p>
+<p>Set a cluster entry in kubeconfig.</p>
 <p> Specifying a name that already exists will merge new fields on top of existing values for those fields.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config set-cluster NAME [--server=server] [--certificate-authority=path/to/certificate/authority] [--insecure-skip-tls-verify=true] [--tls-server-name=example.com]</code></p>
@@ -8032,7 +8078,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-context gce <span class="hljs-attribute">--user</span>=cluster-admin
 </code></pre>
-<p>Sets a context entry in kubeconfig</p>
+<p>Set a context entry in kubeconfig.</p>
 <p> Specifying a name that already exists will merge new fields on top of existing values for those fields.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config set-context [NAME | --current] [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]</code></p>
@@ -8058,7 +8104,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <hr>
 <h2 id="-em-set-credentials-em-"><em>set-credentials</em></h2>
 <blockquote class="code-block example">
-<p> Set only the &quot;client-key&quot; field on the &quot;cluster-admin&quot; # entry, without touching other values:</p>
+<p> Set only the &quot;client-key&quot; field on the &quot;cluster-admin&quot; # entry, without touching other values</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-credentials cluster-admin <span class="hljs-attribute">--client-key</span>=~/.kube/admin.key
 </code></pre>
@@ -8107,7 +8153,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-credentials cluster-admin <span class="hljs-attribute">--exec-env</span>=var-to-remove-
 </code></pre>
-<p>Sets a user entry in kubeconfig</p>
+<p>Set a user entry in kubeconfig.</p>
 <p> Specifying a name that already exists will merge new fields on top of existing values.</p>
 <p>  Client-certificate flags:
   --client-certificate=certfile --client-key=keyfile</p>
@@ -8176,16 +8222,16 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <hr>
 <h2 id="-em-unset-em-"><em>unset</em></h2>
 <blockquote class="code-block example">
-<p> Unset the current-context.</p>
+<p> Unset the current-context</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>unset current-context
 </code></pre>
 <blockquote class="code-block example">
-<p> Unset namespace in foo context.</p>
+<p> Unset namespace in foo context</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>unset contexts.foo.namespace
 </code></pre>
-<p>Unsets an individual value in a kubeconfig file</p>
+<p>Unset an individual value in a kubeconfig file.</p>
 <p> PROPERTY_NAME is a dot delimited name where each token represents either an attribute name or a map key.  Map keys may not contain dots.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config unset PROPERTY_NAME</code></p>
@@ -8196,18 +8242,18 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>use-context minikube
 </code></pre>
-<p>Sets the current-context in a kubeconfig file</p>
+<p>Set the current-context in a kubeconfig file.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl config use-context CONTEXT_NAME</code></p>
 <hr>
 <h2 id="-em-view-em-"><em>view</em></h2>
 <blockquote class="code-block example">
-<p> Show merged kubeconfig settings.</p>
+<p> Show merged kubeconfig settings</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>view
 </code></pre>
 <blockquote class="code-block example">
-<p> Show merged kubeconfig settings and raw certificate data.</p>
+<p> Show merged kubeconfig settings and raw certificate data</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>view --raw
 </code></pre>
@@ -8293,7 +8339,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">explain</span> <span class="hljs-selector-tag">pods</span><span class="hljs-selector-class">.spec</span><span class="hljs-selector-class">.containers</span>
 </code></pre>
-<p>List the fields for supported resources</p>
+<p>List the fields for supported resources.</p>
 <p> This command describes the fields associated with each supported API resource. Fields are identified via a simple JSONPath identifier:</p>
 <p>  &lt;type&gt;.&lt;fieldName&gt;<span>[</span>.&lt;fieldName&gt;<span>]</span></p>
 <p> Add the --recursive flag to display all of the fields at once without descriptions. Information about each field is retrieved from the server in OpenAPI format.</p>
@@ -8374,7 +8420,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">version</span>
 </code></pre>
-<p>Print the client and server version information for the current context</p>
+<p>Print the client and server version information for the current context.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl version</code></p>
 <h3 id="flags">Flags</h3>

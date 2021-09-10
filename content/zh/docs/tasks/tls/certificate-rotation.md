@@ -40,14 +40,14 @@ Kubelet 使用证书进行 Kubernetes API 的认证。
 默认情况下，这些证书的签发期限为一年，所以不需要太频繁地进行更新。
 
 <!--
-Kubernetes 1.8 contains [kubelet certificate
-rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/), a beta feature
+Kubernetes contains [kubelet certificate
+rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/),
 that will automatically generate a new key and request a new certificate from
 the Kubernetes API as the current certificate approaches expiration. Once the
 new certificate is available, it will be used for authenticating connections to
 the Kubernetes API.
 -->
-Kubernetes 1.8 版本中包含 beta 特性
+Kubernetes 包含特性
 [kubelet 证书轮换](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)，
 在当前证书即将过期时，
 将自动生成新的秘钥，并从 Kubernetes API 申请新的证书。 一旦新的证书可用，它将被用于与
@@ -99,7 +99,7 @@ criteria, it will be auto approved by the controller manager, then it will have
 a status of `Approved`. Next, the controller manager will sign a certificate,
 issued for the duration specified by the
 `--cluster-signing-duration` parameter, and the signed certificate
-will be attached to the certificate signing requests.
+will be attached to the certificate signing request.
 -->
 最初，来自节点上 kubelet 的证书签名请求处于 `Pending` 状态。 如果证书签名请求满足特定条件，
 控制器管理器会自动批准，此时请求会处于 `Approved` 状态。 接下来，控制器管理器会签署证书，
@@ -116,14 +116,16 @@ Kubelet 会从 Kubernetes API 取回签署的证书，并将其写入磁盘，�
 
 <!--
 As the expiration of the signed certificate approaches, the kubelet will
-automatically issue a new certificate signing request, using the Kubernetes
-API. Again, the controller manager will automatically approve the certificate
+automatically issue a new certificate signing request, using the Kubernetes API. 
+This can happen at any point between 30% and 10% of the time remaining on the 
+certificate. Again, the controller manager will automatically approve the certificate
 request and attach a signed certificate to the certificate signing request. The
 kubelet will retrieve the new signed certificate from the Kubernetes API and
 write that to disk. Then it will update the connections it has to the
 Kubernetes API to reconnect using the new certificate.
 -->
-当签署的证书即将到期时，kubelet 会使用 Kubernetes API，发起新的证书签名请求。
+当签署的证书即将到期时，kubelet 会使用 Kubernetes API，自动发起新的证书签名请求。
+该请求会发生在证书的有效时间剩下 30% 到 10% 之间的任意时间点。
 同样地，控制器管理器会自动批准证书请求，并将签署的证书附加到证书签名请求中。 Kubelet
 会从 Kubernetes API 取回签署的证书，并将其写入磁盘。 然后它会更新与 Kubernetes API
 的连接，使用新的证书重新连接到 Kubernetes API。

@@ -115,7 +115,7 @@ It acts synchronously to modify pods as they are created or updated. When this p
 1. 如果该 Pod 没有设置 `ServiceAccount`，将其 `ServiceAccount` 设为 `default`。
 1. 保证 Pod 所引用的 `ServiceAccount` 确实存在，否则拒绝该 Pod。
 1. 如果服务账号的 `automountServiceAccountToken` 或 Pod 的
-   `automountServiceAccountToken` 都为设置为 `false`，则为 Pod 创建一个
+   `automountServiceAccountToken` 都未显式设置为 `false`，则为 Pod 创建一个
    `volume`，在其中包含用来访问 API 的令牌。
 1. 如果前一步中为服务账号令牌创建了卷，则为 Pod 中的每个容器添加一个
    `volumeSource`，挂载在其 `/var/run/secrets/kubernetes.io/serviceaccount`
@@ -128,16 +128,13 @@ It acts synchronously to modify pods as they are created or updated. When this p
 -->
 #### 绑定的服务账号令牌卷  {#bound-service-account-token-volume}
 
-
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 <!--
-When the `BoundServiceAccountTokenVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled, the service account admission controller will
-add the following projected volume instead of a Secret-based volume for the non-expiring service account token created by Token Controller.
+The ServiceAccount admission controller will add the following projected volume instead of a Secret-based volume for the non-expiring service account token created by Token Controller.
 -->
 当 `BoundServiceAccountTokenVolume`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-被启用时，服务账号准入控制器将添加如下投射卷，而不是为令牌控制器
+ServiceAccount 准入控制器将添加如下投射卷，而不是为令牌控制器
 所生成的不过期的服务账号令牌而创建的基于 Secret 的卷。
 
 ```yaml
@@ -165,7 +162,7 @@ add the following projected volume instead of a Secret-based volume for the non-
 This projected volume consists of three sources:
 
 1. A ServiceAccountToken acquired from kube-apiserver via TokenRequest API. It will expire after 1 hour by default or when the pod is deleted. It is bound to the pod and has kube-apiserver as the audience.
-1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate being enabled, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` is enabled by default in 1.20, and always enabled in 1.21+.
+1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` feature gate is graduated to GA in 1.21 and default to true. (This feature will be removed from --feature-gate arg in 1.22).
 1. A DownwardAPI that references the namespace of the pod.
 -->
 此投射卷有三个数据源：
@@ -174,26 +171,17 @@ This projected volume consists of three sources:
    这一令牌默认会在一个小时之后或者 Pod 被删除时过期。
    该令牌绑定到 Pod 实例上，并将 kube-apiserver 作为其受众（audience）。
 1. 包含用来验证与 kube-apiserver 连接的 CA 证书包的 ConfigMap 对象。
-   这一特性依赖于 `RootCAConfigMap` 特性门控被启用。该特性被启用时，
+   这一特性依赖于 `RootCAConfigMap` 特性门控。该特性被启用时，
    控制面会公开一个名为 `kube-root-ca.crt` 的 ConfigMap 给所有名字空间。
-   `RootCAConfigMap` 在 1.20 版本中是默认被启用的，在 1.21 及之后版本中
-   总是被启用。
+   `RootCAConfigMap` 在 1.21 版本中进入 GA 状态，默认被启用，
+   该特性门控会在 1.22 版本中从 `--feature-gate` 参数中删除。
 1. 引用 Pod 名字空间的一个 DownwardAPI。
 
 <!--
 See more details about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
-
-You can manually migrate a secret-based service account volume to a projected volume when
-the `BoundServiceAccountTokenVolume` feature gate is not enabled by adding the above
-projected volume to the pod spec. However, `RootCAConfigMap` needs to be enabled.
 -->
 参阅[投射卷](/zh/docs/tasks/configure-pod-container/configure-projected-volume-storage/)
 了解进一步的细节。
-
-如果 `BoundServiceAccountTokenVolume` 特性门控未被启用，
-你可以手动地将一个基于 Secret 的服务账号卷升级为一个投射卷，
-方法是将上述投射卷添加到 Pod 规约中。
-不过，这时仍需要启用 `RootCAConfigMap` 特性门控。
 
 <!--
 ### Token Controller

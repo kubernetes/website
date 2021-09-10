@@ -23,7 +23,7 @@ content_type: concept
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)は、KubernetesをCalico、Canal、Flannel、Romana、Weaveなど選択したCNIプラグインをシームレスに接続できるようにするプラグインです。
 * [Contiv](https://contiv.github.io)は、さまざまなユースケースと豊富なポリシーフレームワーク向けに設定可能なネットワーク(BGPを使用したネイティブのL3、vxlanを使用したオーバーレイ、古典的なL2、Cisco-SDN/ACI)を提供します。Contivプロジェクトは完全に[オープンソース](https://github.com/contiv)です。[インストーラ](https://github.com/contiv/install)はkubeadmとkubeadm以外の両方をベースとしたインストールオプションがあります。
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)は、[Tungsten Fabric](https://tungsten.io)をベースにしている、オープンソースでマルチクラウドに対応したネットワーク仮想化およびポリシー管理プラットフォームです。ContrailおよびTungsten Fabricは、Kubernetes、OpenShift、OpenStack、Mesosなどのオーケストレーションシステムと統合されており、仮想マシン、コンテナ/Pod、ベアメタルのワークロードに隔離モードを提供します。
-* [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md)は、Kubernetesで使用できるオーバーレイネットワークプロバイダーです。
+* [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)は、Kubernetesで使用できるオーバーレイネットワークプロバイダーです。
 * [Knitter](https://github.com/ZTE/Knitter/)は、1つのKubernetes Podで複数のネットワークインターフェイスをサポートするためのプラグインです。
 * [Multus](https://github.com/Intel-Corp/multus-cni)は、すべてのCNIプラグイン(たとえば、Calico、Cilium、Contiv、Flannel)に加えて、SRIOV、DPDK、OVS-DPDK、VPPをベースとするKubernetes上のワークロードをサポートする、複数のネットワークサポートのためのマルチプラグインです。
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/)は、Open vSwitch(OVS)プロジェクトから生まれた仮想ネットワーク実装である[OVN(Open Virtual Network)](https://github.com/ovn-org/ovn/)をベースとする、Kubernetesのためのネットワークプロバイダです。OVN-Kubernetesは、OVSベースのロードバランサーおよびネットワークポリシーの実装を含む、Kubernetes向けのオーバーレイベースのネットワーク実装を提供します。

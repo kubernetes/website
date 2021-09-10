@@ -13,13 +13,247 @@ auto_generated: true
 - [InterPodAffinityArgs](#kubescheduler-config-k8s-io-v1beta2-InterPodAffinityArgs)
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 - [NodeAffinityArgs](#kubescheduler-config-k8s-io-v1beta2-NodeAffinityArgs)
+- [NodeResourcesBalancedAllocationArgs](#kubescheduler-config-k8s-io-v1beta2-NodeResourcesBalancedAllocationArgs)
 - [NodeResourcesFitArgs](#kubescheduler-config-k8s-io-v1beta2-NodeResourcesFitArgs)
-- [NodeResourcesLeastAllocatedArgs](#kubescheduler-config-k8s-io-v1beta2-NodeResourcesLeastAllocatedArgs)
-- [NodeResourcesMostAllocatedArgs](#kubescheduler-config-k8s-io-v1beta2-NodeResourcesMostAllocatedArgs)
 - [PodTopologySpreadArgs](#kubescheduler-config-k8s-io-v1beta2-PodTopologySpreadArgs)
-- [RequestedToCapacityRatioArgs](#kubescheduler-config-k8s-io-v1beta2-RequestedToCapacityRatioArgs)
 - [VolumeBindingArgs](#kubescheduler-config-k8s-io-v1beta2-VolumeBindingArgs)
 - [Policy](#kubescheduler-config-k8s-io-v1-Policy)
+  
+    
+
+## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
+    
+
+
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+
+ClientConnectionConfiguration contains details for constructing a client.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>kubeconfig</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   kubeconfig is the path to a KubeConfig file.</td>
+</tr>
+    
+  
+<tr><td><code>acceptContentTypes</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
+default value of 'application/json'. This field will control all connections to the server used by a particular
+client.</td>
+</tr>
+    
+  
+<tr><td><code>contentType</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   contentType is the content type used when sending data to the server from this client.</td>
+</tr>
+    
+  
+<tr><td><code>qps</code> <B>[Required]</B><br/>
+<code>float32</code>
+</td>
+<td>
+   qps controls the number of queries per second allowed for this connection.</td>
+</tr>
+    
+  
+<tr><td><code>burst</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   burst allows extra queries to accumulate when a client is exceeding its rate.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `DebuggingConfiguration`     {#DebuggingConfiguration}
+    
+
+
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+
+DebuggingConfiguration holds configuration for Debugging related features.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>enableProfiling</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   enableProfiling enables profiling via web interface host:port/debug/pprof/</td>
+</tr>
+    
+  
+<tr><td><code>enableContentionProfiling</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   enableContentionProfiling enables lock contention profiling, if
+enableProfiling is true.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
+    
+
+
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+
+LeaderElectionConfiguration defines the configuration of leader election
+clients for components that can run with leader election enabled.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>leaderElect</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   leaderElect enables a leader election client to gain leadership
+before executing the main loop. Enable this when running replicated
+components for high availability.</td>
+</tr>
+    
+  
+<tr><td><code>leaseDuration</code> <B>[Required]</B><br/>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   leaseDuration is the duration that non-leader candidates will wait
+after observing a leadership renewal until attempting to acquire
+leadership of a led but unrenewed leader slot. This is effectively the
+maximum duration that a leader can be stopped before it is replaced
+by another candidate. This is only applicable if leader election is
+enabled.</td>
+</tr>
+    
+  
+<tr><td><code>renewDeadline</code> <B>[Required]</B><br/>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   renewDeadline is the interval between attempts by the acting master to
+renew a leadership slot before it stops leading. This must be less
+than or equal to the lease duration. This is only applicable if leader
+election is enabled.</td>
+</tr>
+    
+  
+<tr><td><code>retryPeriod</code> <B>[Required]</B><br/>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   retryPeriod is the duration the clients should wait between attempting
+acquisition and renewal of a leadership. This is only applicable if
+leader election is enabled.</td>
+</tr>
+    
+  
+<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   resourceLock indicates the resource object type that will be used to lock
+during leader election cycles.</td>
+</tr>
+    
+  
+<tr><td><code>resourceName</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   resourceName indicates the name of resource object that will be used to lock
+during leader election cycles.</td>
+</tr>
+    
+  
+<tr><td><code>resourceNamespace</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   resourceName indicates the namespace of resource object that will be used to lock
+during leader election cycles.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `LoggingConfiguration`     {#LoggingConfiguration}
+    
+
+
+
+**Appears in:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+LoggingConfiguration contains logging options
+Refer [Logs Options](https://github.com/kubernetes/component-base/blob/master/logs/options.go) for more information.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>format</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   Format Flag specifies the structure of log messages.
+default value of format is `text`</td>
+</tr>
+    
+  
+<tr><td><code>sanitization</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   [Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens).
+Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production.`)</td>
+</tr>
+    
+  
+</tbody>
+</table>
   
     
 
@@ -254,7 +488,7 @@ NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
   
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -263,6 +497,37 @@ AND .spec.NodeAffinity. AddedAffinity is empty by default (all Nodes
 match).
 When AddedAffinity is used, some Pods with affinity requirements that match
 a specific Node (such as Daemonset Pods) might remain unschedulable.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+    
+
+
+## `NodeResourcesBalancedAllocationArgs`     {#kubescheduler-config-k8s-io-v1beta2-NodeResourcesBalancedAllocationArgs}
+    
+
+
+
+
+NodeResourcesBalancedAllocationArgs holds arguments used to configure NodeResourcesBalancedAllocation plugin.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>kubescheduler.config.k8s.io/v1beta2</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>NodeResourcesBalancedAllocationArgs</code></td></tr>
+    
+
+  
+  
+<tr><td><code>resources</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1beta2-ResourceSpec"><code>[]ResourceSpec</code></a>
+</td>
+<td>
+   Resources to be managed, the default is "cpu" and "memory" if not specified.</td>
 </tr>
     
   
@@ -294,7 +559,7 @@ NodeResourcesFitArgs holds arguments used to configure the NodeResourcesFit plug
 </td>
 <td>
    IgnoredResources is the list of resources that NodeResources fit filter
-should ignore.</td>
+should ignore. This doesn't apply to scoring.</td>
 </tr>
     
   
@@ -305,73 +570,16 @@ should ignore.</td>
    IgnoredResourceGroups defines the list of resource groups that NodeResources fit filter should ignore.
 e.g. if group is ["example.com"], it will ignore all resource names that begin
 with "example.com", such as "example.com/aaa" and "example.com/bbb".
-A resource group name can't contain '/'.</td>
+A resource group name can't contain '/'. This doesn't apply to scoring.</td>
 </tr>
     
   
-</tbody>
-</table>
-    
-
-
-## `NodeResourcesLeastAllocatedArgs`     {#kubescheduler-config-k8s-io-v1beta2-NodeResourcesLeastAllocatedArgs}
-    
-
-
-
-
-NodeResourcesLeastAllocatedArgs holds arguments used to configure NodeResourcesLeastAllocated plugin.
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-<tr><td><code>apiVersion</code><br/>string</td><td><code>kubescheduler.config.k8s.io/v1beta2</code></td></tr>
-<tr><td><code>kind</code><br/>string</td><td><code>NodeResourcesLeastAllocatedArgs</code></td></tr>
-    
-
-  
-  
-<tr><td><code>resources</code> <B>[Required]</B><br/>
-<a href="#kubescheduler-config-k8s-io-v1beta2-ResourceSpec"><code>[]ResourceSpec</code></a>
+<tr><td><code>scoringStrategy</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1beta2-ScoringStrategy"><code>ScoringStrategy</code></a>
 </td>
 <td>
-   Resources to be managed, if no resource is provided, default resource set with both
-the weight of "cpu" and "memory" set to "1" will be applied.
-Resource with "0" weight will not accountable for the final score.</td>
-</tr>
-    
-  
-</tbody>
-</table>
-    
-
-
-## `NodeResourcesMostAllocatedArgs`     {#kubescheduler-config-k8s-io-v1beta2-NodeResourcesMostAllocatedArgs}
-    
-
-
-
-
-NodeResourcesMostAllocatedArgs holds arguments used to configure NodeResourcesMostAllocated plugin.
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-<tr><td><code>apiVersion</code><br/>string</td><td><code>kubescheduler.config.k8s.io/v1beta2</code></td></tr>
-<tr><td><code>kind</code><br/>string</td><td><code>NodeResourcesMostAllocatedArgs</code></td></tr>
-    
-
-  
-  
-<tr><td><code>resources</code> <B>[Required]</B><br/>
-<a href="#kubescheduler-config-k8s-io-v1beta2-ResourceSpec"><code>[]ResourceSpec</code></a>
-</td>
-<td>
-   Resources to be managed, if no resource is provided, default resource set with both
-the weight of "cpu" and "memory" set to "1" will be applied.
-Resource with "0" weight will not accountable for the final score.</td>
+   ScoringStrategy selects the node resource scoring strategy.
+The default strategy is LeastAllocated with an equal "cpu" and "memory" weight.</td>
 </tr>
     
   
@@ -399,7 +607,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
   
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    DefaultConstraints defines topology spread constraints to be applied to
@@ -424,45 +632,6 @@ of "System" or "List".
 
 Defaults to "List" if feature gate DefaultPodTopologySpread is disabled
 and to "System" if enabled.</td>
-</tr>
-    
-  
-</tbody>
-</table>
-    
-
-
-## `RequestedToCapacityRatioArgs`     {#kubescheduler-config-k8s-io-v1beta2-RequestedToCapacityRatioArgs}
-    
-
-
-
-
-RequestedToCapacityRatioArgs holds arguments used to configure RequestedToCapacityRatio plugin.
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-<tr><td><code>apiVersion</code><br/>string</td><td><code>kubescheduler.config.k8s.io/v1beta2</code></td></tr>
-<tr><td><code>kind</code><br/>string</td><td><code>RequestedToCapacityRatioArgs</code></td></tr>
-    
-
-  
-  
-<tr><td><code>shape</code> <B>[Required]</B><br/>
-<a href="#kubescheduler-config-k8s-io-v1beta2-UtilizationShapePoint"><code>[]UtilizationShapePoint</code></a>
-</td>
-<td>
-   Points defining priority function shape</td>
-</tr>
-    
-  
-<tr><td><code>resources</code> <B>[Required]</B><br/>
-<a href="#kubescheduler-config-k8s-io-v1beta2-ResourceSpec"><code>[]ResourceSpec</code></a>
-</td>
-<td>
-   Resources to be managed</td>
 </tr>
     
   
@@ -496,6 +665,24 @@ VolumeBindingArgs holds arguments used to configure the VolumeBinding plugin.
    BindTimeoutSeconds is the timeout in seconds in volume binding operation.
 Value must be non-negative integer. The value zero indicates no waiting.
 If this value is nil, the default value (600) will be used.</td>
+</tr>
+    
+  
+<tr><td><code>shape</code><br/>
+<a href="#kubescheduler-config-k8s-io-v1beta2-UtilizationShapePoint"><code>[]UtilizationShapePoint</code></a>
+</td>
+<td>
+   Shape specifies the points defining the score function shape, which is
+used to score nodes based on the utilization of statically provisioned
+PVs. The utilization is calculated by dividing the total requested
+storage of the pod by the total capacity of feasible PVs on each node.
+Each point contains utilization (ranges from 0 to 100) and its
+associated score (ranges from 0 to 10). You can turn the priority by
+specifying different scores for different utilization numbers.
+The default shape points are:
+1) 0 for 0 utilization
+2) 10 for 100 utilization
+All points must be sorted in increasing order by utilization.</td>
 </tr>
     
   
@@ -800,6 +987,8 @@ If an array is empty, missing, or nil, default plugins at that extension point w
 </td>
 <td>
    Enabled specifies plugins that should be enabled in addition to default plugins.
+If the default plugin is also configured in the scheduler config file, the weight of plugin will
+be overridden accordingly.
 These are called after default plugins and in the same order specified here.</td>
 </tr>
     
@@ -952,6 +1141,37 @@ for the PodTopologySpread plugin.
     
 
 
+## `RequestedToCapacityRatioParam`     {#kubescheduler-config-k8s-io-v1beta2-RequestedToCapacityRatioParam}
+    
+
+
+
+**Appears in:**
+
+- [ScoringStrategy](#kubescheduler-config-k8s-io-v1beta2-ScoringStrategy)
+
+
+RequestedToCapacityRatioParam define RequestedToCapacityRatio parameters
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>shape</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1beta2-UtilizationShapePoint"><code>[]UtilizationShapePoint</code></a>
+</td>
+<td>
+   Shape is a list of points defining the scoring function shape.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+    
+
+
 ## `ResourceSpec`     {#kubescheduler-config-k8s-io-v1beta2-ResourceSpec}
     
 
@@ -959,14 +1179,12 @@ for the PodTopologySpread plugin.
 
 **Appears in:**
 
-- [NodeResourcesLeastAllocatedArgs](#kubescheduler-config-k8s-io-v1beta2-NodeResourcesLeastAllocatedArgs)
+- [NodeResourcesBalancedAllocationArgs](#kubescheduler-config-k8s-io-v1beta2-NodeResourcesBalancedAllocationArgs)
 
-- [NodeResourcesMostAllocatedArgs](#kubescheduler-config-k8s-io-v1beta2-NodeResourcesMostAllocatedArgs)
-
-- [RequestedToCapacityRatioArgs](#kubescheduler-config-k8s-io-v1beta2-RequestedToCapacityRatioArgs)
+- [ScoringStrategy](#kubescheduler-config-k8s-io-v1beta2-ScoringStrategy)
 
 
-ResourceSpec represents single resource and weight for bin packing of priority RequestedToCapacityRatioArguments.
+ResourceSpec represents a single resource.
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -978,7 +1196,7 @@ ResourceSpec represents single resource and weight for bin packing of priority R
 <code>string</code>
 </td>
 <td>
-   Name of the resource to be managed by RequestedToCapacityRatio function.</td>
+   Name of the resource.</td>
 </tr>
     
   
@@ -995,6 +1213,72 @@ ResourceSpec represents single resource and weight for bin packing of priority R
     
 
 
+## `ScoringStrategy`     {#kubescheduler-config-k8s-io-v1beta2-ScoringStrategy}
+    
+
+
+
+**Appears in:**
+
+- [NodeResourcesFitArgs](#kubescheduler-config-k8s-io-v1beta2-NodeResourcesFitArgs)
+
+
+ScoringStrategy define ScoringStrategyType for node resource plugin
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>type</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1beta2-ScoringStrategyType"><code>ScoringStrategyType</code></a>
+</td>
+<td>
+   Type selects which strategy to run.</td>
+</tr>
+    
+  
+<tr><td><code>resources</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1beta2-ResourceSpec"><code>[]ResourceSpec</code></a>
+</td>
+<td>
+   Resources to consider when scoring.
+The default resource set includes "cpu" and "memory" with an equal weight.
+Allowed weights go from 1 to 100.
+Weight defaults to 1 if not specified or explicitly set to 0.</td>
+</tr>
+    
+  
+<tr><td><code>requestedToCapacityRatio</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1beta2-RequestedToCapacityRatioParam"><code>RequestedToCapacityRatioParam</code></a>
+</td>
+<td>
+   Arguments specific to RequestedToCapacityRatio strategy.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+    
+
+
+## `ScoringStrategyType`     {#kubescheduler-config-k8s-io-v1beta2-ScoringStrategyType}
+    
+(Alias of `string`)
+
+
+**Appears in:**
+
+- [ScoringStrategy](#kubescheduler-config-k8s-io-v1beta2-ScoringStrategy)
+
+
+ScoringStrategyType the type of scoring strategy used in NodeResourcesFit plugin.
+
+
+    
+
+
 ## `UtilizationShapePoint`     {#kubescheduler-config-k8s-io-v1beta2-UtilizationShapePoint}
     
 
@@ -1002,7 +1286,9 @@ ResourceSpec represents single resource and weight for bin packing of priority R
 
 **Appears in:**
 
-- [RequestedToCapacityRatioArgs](#kubescheduler-config-k8s-io-v1beta2-RequestedToCapacityRatioArgs)
+- [VolumeBindingArgs](#kubescheduler-config-k8s-io-v1beta2-VolumeBindingArgs)
+
+- [RequestedToCapacityRatioParam](#kubescheduler-config-k8s-io-v1beta2-RequestedToCapacityRatioParam)
 
 
 UtilizationShapePoint represents single point of priority function shape.
@@ -1820,199 +2106,3 @@ UtilizationShapePoint represents single point of priority function shape.
 </table>
     
   
-  
-    
-
-## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
-    
-
-
-
-**Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-
-ClientConnectionConfiguration contains details for constructing a client.
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-
-  
-<tr><td><code>kubeconfig</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   kubeconfig is the path to a KubeConfig file.</td>
-</tr>
-    
-  
-<tr><td><code>acceptContentTypes</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
-default value of 'application/json'. This field will control all connections to the server used by a particular
-client.</td>
-</tr>
-    
-  
-<tr><td><code>contentType</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   contentType is the content type used when sending data to the server from this client.</td>
-</tr>
-    
-  
-<tr><td><code>qps</code> <B>[Required]</B><br/>
-<code>float32</code>
-</td>
-<td>
-   qps controls the number of queries per second allowed for this connection.</td>
-</tr>
-    
-  
-<tr><td><code>burst</code> <B>[Required]</B><br/>
-<code>int32</code>
-</td>
-<td>
-   burst allows extra queries to accumulate when a client is exceeding its rate.</td>
-</tr>
-    
-  
-</tbody>
-</table>
-
-## `DebuggingConfiguration`     {#DebuggingConfiguration}
-    
-
-
-
-**Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-
-DebuggingConfiguration holds configuration for Debugging related features.
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-
-  
-<tr><td><code>enableProfiling</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   enableProfiling enables profiling via web interface host:port/debug/pprof/</td>
-</tr>
-    
-  
-<tr><td><code>enableContentionProfiling</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   enableContentionProfiling enables lock contention profiling, if
-enableProfiling is true.</td>
-</tr>
-    
-  
-</tbody>
-</table>
-
-## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
-    
-
-
-
-**Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-
-LeaderElectionConfiguration defines the configuration of leader election
-clients for components that can run with leader election enabled.
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-
-  
-<tr><td><code>leaderElect</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   leaderElect enables a leader election client to gain leadership
-before executing the main loop. Enable this when running replicated
-components for high availability.</td>
-</tr>
-    
-  
-<tr><td><code>leaseDuration</code> <B>[Required]</B><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   leaseDuration is the duration that non-leader candidates will wait
-after observing a leadership renewal until attempting to acquire
-leadership of a led but unrenewed leader slot. This is effectively the
-maximum duration that a leader can be stopped before it is replaced
-by another candidate. This is only applicable if leader election is
-enabled.</td>
-</tr>
-    
-  
-<tr><td><code>renewDeadline</code> <B>[Required]</B><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   renewDeadline is the interval between attempts by the acting master to
-renew a leadership slot before it stops leading. This must be less
-than or equal to the lease duration. This is only applicable if leader
-election is enabled.</td>
-</tr>
-    
-  
-<tr><td><code>retryPeriod</code> <B>[Required]</B><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   retryPeriod is the duration the clients should wait between attempting
-acquisition and renewal of a leadership. This is only applicable if
-leader election is enabled.</td>
-</tr>
-    
-  
-<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   resourceLock indicates the resource object type that will be used to lock
-during leader election cycles.</td>
-</tr>
-    
-  
-<tr><td><code>resourceName</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   resourceName indicates the name of resource object that will be used to lock
-during leader election cycles.</td>
-</tr>
-    
-  
-<tr><td><code>resourceNamespace</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   resourceName indicates the namespace of resource object that will be used to lock
-during leader election cycles.</td>
-</tr>
-    
-  
-</tbody>
-</table>

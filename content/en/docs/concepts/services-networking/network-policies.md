@@ -154,6 +154,7 @@ contains two elements in the `from` array, and allows connections from Pods in t
 
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
 
+<a name="behavior-of-ipblock-selectors"></a>
 __ipBlock__: This selects particular IP CIDR ranges to allow as ingress sources or egress destinations. These should be cluster-external IPs, since Pod IPs are ephemeral and unpredictable.
 
 Cluster ingress and egress mechanisms often require rewriting the source or destination IP
@@ -251,7 +252,7 @@ spec:
       endPort: 32768
 ```
 
-The above rule allows any Pod with label `db` on the namespace `default` to communicate 
+The above rule allows any Pod with label `role=db` on the namespace `default` to communicate 
 with any IP within the range `10.0.0.0/24` over TCP, provided that the target 
 port is between the range 32000 and 32768.
 

@@ -16,7 +16,7 @@ weight: 90
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="1.19" state="stable" >}}
 
 <!--
 The scheduling framework is a pluggable architecture for the Kubernetes scheduler.

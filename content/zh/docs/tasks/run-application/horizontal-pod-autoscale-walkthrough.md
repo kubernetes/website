@@ -304,7 +304,7 @@ First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2beta2`
 首先，将 HorizontalPodAutoscaler 的 YAML 文件改为 `autoscaling/v2beta2` 格式：
 
 ```shell
-kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
+kubectl get hpa php-apache -o yaml > /tmp/hpa-v2.yaml
 ```
 
 <!--
@@ -597,7 +597,9 @@ HorizontalPodAutoscaler 的配置中。
   external:
     metric:
       name: queue_messages_ready
-      selector: "queue=worker_tasks"
+      selector:
+        matchLabels:
+          queue: "worker_tasks"
     target:
       type: AverageValue
       averageValue: 30

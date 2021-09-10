@@ -133,8 +133,7 @@ dynamic certificate reload is currently not supported for all components and cer
 [Static Pods](/docs/tasks/configure-pod-container/static-pod/) are managed by the local kubelet
 and not by the API Server, thus kubectl cannot be used to delete and restart them.
 To restart a static Pod you can temporarily remove its manifest file from `/etc/kubernetes/manifests/` 
-and wait for 20 seconds (see the `fileCheckFrequency` value in [KubeletConfiguration struct](/docs/
-reference/config-api/kubelet-config.v1beta1/).
+and wait for 20 seconds (see the `fileCheckFrequency` value in [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 The kubelet will terminate the Pod if it's no longer in the manifest directory.
 You can then move the file back and after another `fileCheckFrequency` period, the kubelet will recreate
 the Pod and the certificate renewal for the component can complete.

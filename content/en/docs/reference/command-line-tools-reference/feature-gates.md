@@ -165,8 +165,8 @@ different Kubernetes components.
 | `PreferNominatedNode` | `true` | Beta | 1.22 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
 | `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | |
-| `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
+| `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `ReadWriteOncePod` | `false` | Alpha | 1.22 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
@@ -789,10 +789,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   and volume controllers.
 - `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
   controller to manage Pod completions per completion index.
-- `JobTrackingWithFinalizers`: Enables tracking [Job](/docs/concepts/workloads/controllers/job)
-  completions without relying on Pods remaining in the cluster indefinitely.
-  The Job controller uses Pod finalizers and a field in the Job status to keep
-  track of the finished Pods to count towards completion.
 - `IngressClassNamespacedParams`: Allow namespace-scoped parameters reference in
   `IngressClass` resource. This feature adds two fields - `Scope` and `Namespace`
   to `IngressClass.spec.parameters`.
@@ -800,10 +796,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Initializers admission plugin.
 - `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
   support for IPv6.
-- `JobTrackingWithFinalizers`: Enables the tracking of Job completion without
-  relying on Pods remaining in the cluster indefinitely. Pod finalizers, in
-  addition to a field in the Job status, allow the Job controller to track
-  Pods that it didn't account for yet.
+- `JobTrackingWithFinalizers`: Enables tracking [Job](/docs/concepts/workloads/controllers/job)
+  completions without relying on Pods remaining in the cluster indefinitely.
+  The Job controller uses Pod finalizers and a field in the Job status to keep
+  track of the finished Pods to count towards completion.
 - `KubeletConfigFile`: Enable loading kubelet configuration from
   a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
@@ -1012,18 +1008,16 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WatchBookmark`: Enable support for watch bookmark events.
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
+- `WindowsEndpointSliceProxying`: When enabled, kube-proxy running on Windows
+  will use EndpointSlices as the primary data source instead of Endpoints,
+  enabling scalability and performance improvements. See
+  [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
 - `WindowsGMSA`: Enables passing of GMSA credential specs from pods to container runtimes.
 - `WindowsHostProcessContainers`: Enables support for Windows HostProcess containers.
 - `WindowsRunAsUserName` : Enable support for running applications in Windows containers
   with as a non-default user. See
   [Configuring RunAsUserName](/docs/tasks/configure-pod-container/configure-runasusername)
   for more details.
-- `WindowsEndpointSliceProxying`: When enabled, kube-proxy running on Windows
-  will use EndpointSlices as the primary data source instead of Endpoints,
-  enabling scalability and performance improvements. See
-  [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
-- `WindowsHostProcessContainers`: Enables the support for `HostProcess`
-  containers on Windows nodes.
 
 
 ## {{% heading "whatsnext" %}}

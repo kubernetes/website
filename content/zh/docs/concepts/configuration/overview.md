@@ -25,7 +25,7 @@ This is a living document. If you think of something that is not on this list bu
 <!--
 ## General Configuration Tips
 -->
-## 一般配置提示
+## 一般配置提示  {#general-configuration-tips}
 
 <!--
 - When defining configurations, specify the latest stable API version.
@@ -71,7 +71,7 @@ This is a living document. If you think of something that is not on this list bu
 <!--
 ## "Naked" Pods vs ReplicaSets, Deployments, and Jobs
 -->
-## “Naked”Pods 与 ReplicaSet，Deployment 和 Jobs
+## “Naked” Pods 与 ReplicaSet，Deployment 和 Jobs
 
 <!--
 - Don't use naked Pods (that is, Pods not bound to a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) or [Deployment](/docs/concepts/workloads/controllers/deployment/)) if you can avoid it. Naked Pods will not be rescheduled in the event of a node failure.

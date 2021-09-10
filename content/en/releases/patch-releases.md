@@ -59,7 +59,7 @@ Towards the end of the twelve month, the following will happen:
 During the two-month maintenance mode period, Release Managers may cut
 additional maintenance releases to resolve:
 
-- CVEs (under the advisement of the Product Security Committee)
+- CVEs (under the advisement of the Security Response Committee)
 - dependency issues (including base image updates)
 - critical core component issues
 
@@ -78,11 +78,23 @@ releases may also occur in between these.
 
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| August 2021           | 2021-08-07           | 2021-08-11  |
-| September 2021        | 2021-09-11           | 2021-09-15  |
-| October 2021          | 2021-10-09           | 2021-10-13  |
+| September 2021        | 2021-09-10           | 2021-09-15  |
+| October 2021          | 2021-10-15           | 2021-10-20  |
+| November 2021         | 2021-11-12           | 2021-11-17  |
+| December 2021         | 2021-12-10           | 2021-12-15  |
 
 ## Detailed Release History for Active Branches
+
+### 1.22
+
+**1.22** enters maintenance mode on **2022-08-28**
+
+End of Life for **1.22** is **2022-10-28**
+
+| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
+|---------------|----------------------|-------------|------|
+| 1.22.2        | 2021-09-10           | 2021-09-15  |      |
+| 1.22.1        | 2021-08-16           | 2021-08-19  |      |
 
 ### 1.21
 
@@ -92,6 +104,7 @@ End of Life for **1.21** is **2022-06-28**
 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE                                                                   |
 | ------------- | -------------------- | ----------- | ---------------------------------------------------------------------- |
+| 1.21.5        | 2021-09-10           | 2021-09-15  |                                                                        |
 | 1.21.4        | 2021-08-07           | 2021-08-11  |                                                                        |
 | 1.21.3        | 2021-07-10           | 2021-07-14  |                                                                        |
 | 1.21.2        | 2021-06-12           | 2021-06-16  |                                                                        |
@@ -105,6 +118,7 @@ End of Life for **1.20** is **2022-02-28**
 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE                                                                                |
 | ------------- | -------------------- | ----------- | ----------------------------------------------------------------------------------- |
+| 1.20.11       | 2021-09-10           | 2021-09-15  |                                                                                     |
 | 1.20.10       | 2021-08-07           | 2021-08-11  |                                                                                     |
 | 1.20.9        | 2021-07-10           | 2021-07-14  |                                                                                     |
 | 1.20.8        | 2021-06-12           | 2021-06-16  |                                                                                     |
@@ -124,6 +138,7 @@ End of Life for **1.19** is **2021-10-28**
 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE                                                                      |
 | ------------- | -------------------- | ----------- | ------------------------------------------------------------------------- |
+| 1.19.15       | 2021-09-10           | 2021-09-15  |                                                                           |
 | 1.19.14       | 2021-08-07           | 2021-08-11  |                                                                           |
 | 1.19.13       | 2021-07-10           | 2021-07-14  |                                                                           |
 | 1.19.12       | 2021-06-12           | 2021-06-16  |                                                                           |
