@@ -133,7 +133,7 @@ the [etcd administration guide](https://etcd.io/docs/v2.3/admin_guide/#member-mi
 
 ## Implementation notes
 
-![ha-control-plane](content/en/docs/images/ha-control-plane.svg)
+![ha-control-plane](/docs/images/ha-control-plane.svg)
 
 ### Overview
 The figure above illustrates three control plane nodes and their components in a highly available cluster. The control plane node’s components employ the following methods:
