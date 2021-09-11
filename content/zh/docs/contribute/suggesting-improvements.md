@@ -20,13 +20,13 @@ card:
 <!-- overview -->
 
 <!--
-If you notice an issue with Kubernetes documentation, or have an idea for new content, then open an issue. All you need is a [GitHub account](https://github.com/join) and a web browser.
+If you notice an issue with Kubernetes documentation or have an idea for new content, then open an issue. All you need is a [GitHub account](https://github.com/join) and a web browser.
 
 In most cases, new work on Kubernetes documentation begins with an issue in GitHub. Kubernetes contributors
 then review, categorize and tag issues as needed. Next, you or another member
 of the Kubernetes community open a pull request with changes to resolve the issue.
 -->
-如果你发现 Kubernetes 文档中存在问题，或者你有一个关于新内容的想法，可以考虑
+如果你发现 Kubernetes 文档中存在问题或者你有一个关于新内容的想法，可以考虑
 提出一个问题（issue）。你只需要具有 [GitHub 账号](https://github.com/join)和 Web
 浏览器就可以完成这件事。
 
@@ -40,7 +40,7 @@ Kubernetes 贡献者会审阅这些问题并根据需要对其分类、打标签
 <!--
 ## Opening an issue
 
-If you want to suggest improvements to existing content, or notice an error, then open an issue.
+If you want to suggest improvements to existing content or notice an error, then open an issue.
 
 1. Go to the bottom of the page and click the **Create an Issue** button. This redirects you
  to a GitHub issue page pre-populated with some headers.
@@ -53,7 +53,7 @@ they can take action on your issue.
 -->
 ## 创建问题 {#opening-an-issue}
 
-如果你希望就改进已有内容提出建议，或者在文档中发现了错误，请创建一个问题（issue）。
+如果你希望就改进已有内容提出建议或者在文档中发现了错误，请创建一个问题（issue）。
 
 1. 滚动到页面底部，点击“报告问题”按钮。浏览器会重定向到一个 GitHub 问题页面，其中
    包含了一些预先填充的内容。
