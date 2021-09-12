@@ -40,7 +40,7 @@ for database debugging.
 1. 创建一个运行 MongoDB 的 deployment：
 
    ```shell
-   kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
+   kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-deployment.yaml
    ```
 
    <!--
@@ -117,7 +117,7 @@ for database debugging.
 2. 创建一个在网络上公开的 MongoDB 服务：
 
    ```shell
-   kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
+   kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-service.yaml
    ```
 
    <!--
@@ -282,16 +282,6 @@ the slightly simpler syntax:
 
 ```shell
 kubectl port-forward deployment/mongo :27017
-```
-
-<!--
-The output is similar to this:
--->
-输出应该类似于：
-
-```
-Forwarding from 127.0.0.1:63753 -> 27017
-Forwarding from [::1]:63753 -> 27017
 ```
 
 <!--
