@@ -45,7 +45,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### Prerequisites
 
 * Ensure that the Kubernetes cluster is at least as new as v1.16 (to use `admissionregistration.k8s.io/v1`),
-  or v1.9 (to use `admissionregistration.k8s.io/v1beta1`).
+  or v1.19 (to use `admissionregistration.k8s.io/v1beta1`).
 
 * Ensure that MutatingAdmissionWebhook and ValidatingAdmissionWebhook
   admission controllers are enabled.
