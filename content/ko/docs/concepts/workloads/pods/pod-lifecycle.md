@@ -39,7 +39,7 @@ ID([UID](/ko/docs/concepts/overview/working-with-objects/names/#uids))가
 
 파드는 자체적으로 자가 치유되지 않는다. 파드가
 {{< glossary_tooltip text="노드" term_id="node" >}}에 스케줄된 후에 해당 노드가 실패하면, 파드는 삭제된다. 마찬가지로, 파드는
-리소스 부족 또는 노드 유지 관리 작업으로 인해 축출되지 않는다. 쿠버네티스는
+리소스 부족 또는 노드 유지 관리 작업으로 인한 축출에서 살아남지 못한다. 쿠버네티스는
 {{< glossary_tooltip term_id="controller" text="컨트롤러" >}}라
 부르는 하이-레벨 추상화를 사용하여
 상대적으로 일회용인 파드 인스턴스를 관리하는 작업을 처리한다.
