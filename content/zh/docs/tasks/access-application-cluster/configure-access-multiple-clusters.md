@@ -34,6 +34,19 @@ It does not mean that there is a file named `kubeconfig`.
 这是一种引用配置文件的通用方式，并不意味着存在一个名为 `kubeconfig` 的文件。
 {{< /note >}}
 
+
+<!--
+{{< warning >}}
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
+{{< /warning>}}
+-->
+{{< warning >}}
+只使用来源可靠的 kubeconfig 文件。使用特制的 kubeconfig 文件可能会导致恶意代码执行或文件暴露。
+如果必须使用不受信任的 kubeconfig 文件，请首先像检查 shell 脚本一样仔细检查它。
+{{< /warning>}}
+
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -41,13 +54,13 @@ It does not mean that there is a file named `kubeconfig`.
 <!--
 To check that {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} is installed,
 run `kubectl version --client`. The kubectl version should be
-[within one minor version](/docs/setup/release/version-skew-policy/#kubectl) of your
+[within one minor version](/releases/version-skew-policy/#kubectl) of your
 cluster's API server.
 -->
 要检查 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 是否安装，
 执行 `kubectl version --client` 命令。
 kubectl 的版本应该与集群的 API 服务器
-[使用同一次版本号](/zh/docs/setup/release/version-skew-policy/#kubectl)。
+[使用同一次版本号](/zh/releases/version-skew-policy/#kubectl)。
 
 <!-- steps -->
 <!--
@@ -378,12 +391,14 @@ For example:
 例如：
 
 ### Linux
+
 ```shell
 export KUBECONFIG_SAVED=$KUBECONFIG
 ```
 
 ### Windows PowerShell
-```shell
+
+```powershell
 $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ```
 
@@ -409,7 +424,7 @@ export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 
 ### Windows PowerShell
 
-```shell
+```powershell
 $Env:KUBECONFIG=("config-demo;config-demo-2")
 ```
 
@@ -503,7 +518,7 @@ export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 
 ### Windows Powershell
 
-```shell
+```powershell
 $Env:KUBECONFIG="$Env:KUBECONFIG;$HOME\.kube\config"
 ```
 
@@ -534,7 +549,7 @@ export KUBECONFIG=$KUBECONFIG_SAVED
 
 ### Windows PowerShell
 
-```shell
+```powershell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 

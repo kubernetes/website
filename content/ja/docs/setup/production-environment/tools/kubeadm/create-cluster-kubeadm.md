@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">ベストプラクティスに準拠した実用最小限のKubernetesクラスターを作成します。実際、`kubeadm`を使用すれば、[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification)に通るクラスターをセットアップすることができます。`kubeadm`は、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)やクラスターのアップグレードなどのその他のクラスターのライフサイクルの機能もサポートします。
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">ベストプラクティスに準拠した実用最小限のKubernetesクラスターを作成します。実際、`kubeadm`を使用すれば、[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification)に通るクラスターをセットアップすることができます。`kubeadm`は、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)やクラスターのアップグレードなどのその他のクラスターのライフサイクルの機能もサポートします。
 
 `kubeadm`ツールは、次のようなときに適しています。
 
