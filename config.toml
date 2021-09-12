@@ -30,8 +30,7 @@ pygmentsStyle = "emacs"
 enableGitInfo = true
 
 # Norwegian ("no") is sometimes but not currently used for testing.
-# Hindi is disabled because it's currently in development.
-disableLanguages = ["hi", "no"]
+disableLanguages = ["no"]
 
 [caches]
  [caches.assets]
