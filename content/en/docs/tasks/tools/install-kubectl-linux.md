@@ -176,7 +176,7 @@ kubectl version --client
 
 ### Enable shell autocompletion
 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash and Zsh.
 
