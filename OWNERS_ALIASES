@@ -19,6 +19,7 @@ aliases:
     - bradtopol
     - celestehorgan
     - jimangel
+    - jlbutler
     - kbhawkey
     - onlydole
     - pi-victor
@@ -71,12 +72,12 @@ aliases:
     - anthonydahanne
     - feloy
   sig-docs-hi-owners: # Admins for Hindi content
-    - avidLearnerInProgress
-    - daminisatya
+    - anubha-v-ardhan
+    - divya-mohan0209
     - mittalyashu
   sig-docs-hi-reviews: # PR reviews for Hindi content
-    - avidLearnerInProgress
-    - daminisatya
+    - anubha-v-ardhan
+    - divya-mohan0209
     - mittalyashu
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
@@ -126,6 +127,7 @@ aliases:
     - gochist
     - ianychoi
     - jihoon-seo
+    - jmyung
     - pjhwa
     - seokho-son
     - yoonian
