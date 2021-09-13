@@ -25,7 +25,7 @@ Para mais informações sobre como criar um cluster com o kubeadm após efetuar 
 ## Verificando se o endereço MAC e o product_uiid são únicos para cada nó {#veficiar-endereco-mac}
 
 * Você pode verificar o endereço MAC da interface de rede utilizando o comando `ip link` ou o comando `ipconfig -a`.
-* O product_uuid pode ser verificado utilizando o comando `sudo cat /sys/class/dmi/I'd/product_uuid`.
+* O product_uuid pode ser verificado utilizando o comando `sudo cat /sys/class/dmi/id/product_uuid`.
 
 É provável que dispositivos físicos possuam endereços únicos. No entanto, é possível que algumas máquinas virtuais possuam endereços iguais. O Kubernetes utiliza esses valores para identificar unicamente os nós em um cluster. Se esses valores não forem únicos para cada nó, o processo de instalação pode [falhar](https://github.com/kubernetes/kubeadm/issues/31).
 
@@ -37,7 +37,7 @@ Se você possuir mais de um adaptador de rede, e seus componentes Kubernetes nã
 
 Se assegure de que o módulo `br_netfilter` está carregado. Isso pode ser feito executando o comando `lsmod | grep br_netfilter`. Para carrega-lo explicitamente execute `sudo modprobe br_netfilter`.
 
-Você também deve se assegurar de que o valor da configuração `net.bridge.bridge-nf-call-iptables` no seu `sysctl` está com o valor 1. Um requerimento para que as iptables dos seus nós enxerguem o tráfego agregado corretamente. Como no exemplo abaixo:
+Você também deve se assegurar de que a configuração `net.bridge.bridge-nf-call-iptables` no seu `sysctl` está com o valor 1. Um requerimento para que o iptables de cada um dos seus nós Linux enxergue o tráfego agregado corretamente. Como no exemplo abaixo:
 
 ```bash
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
