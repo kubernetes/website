@@ -28,7 +28,7 @@ metadata:
   name: shared-cache
 spec:
   accessModes:
-  - ReadWriteMany # Allow many pods to access shared-cache simultaneously.
+  - ReadWriteMany # Allow many nodes to access shared-cache simultaneously.
   resources:
     requests:
       storage: 1Gi
