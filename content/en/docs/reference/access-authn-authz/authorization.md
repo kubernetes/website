@@ -217,9 +217,9 @@ Details of how these can be misused are documented in [escalation paths](/docs/r
   - Can be used to obtain information meant for other workloads, and change it.
 
 {{< caution >}}
-System administrators should exercise caution when deploying CRDs that allow customisation
-of the above areas as these might might be open to the same escalation paths. This should
-be considered when deciding on your RBAC controls.
+System administrators should be cautious when deploying CRDs that
+change the above areas. These may open privilege escalations paths.
+This should be considered when deciding on your RBAC controls.
 {{< /caution >}}
 
 ## {{% heading "whatsnext" %}}
