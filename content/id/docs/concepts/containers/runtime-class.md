@@ -111,7 +111,7 @@ _Handler runtime_ diatur melalui konfigurasi containerd pada `/etc/containerd/co
 _Handler_ yang valid dapat dikonfigurasi pada bagian _runtime_:
 
 ```
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
+[plugins.cri.containerd.runtimes.${HANDLER_NAME}]
 ```
 
 Lihat dokumentasi konfigurasi containerd untuk lebih detail:
