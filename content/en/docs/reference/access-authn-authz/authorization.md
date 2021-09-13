@@ -194,10 +194,8 @@ so an earlier module has higher priority to allow or deny a request.
 
 ## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
 
-Users who have the ability to create or edit anything which creates pods in a
-namespace can potentially escalate their privileges within that namespace.
-
-
+Users who can create/edit pods in a namespace, either directly or through a [controller](/docs/concepts/architecture/controller/)
+such as an operator, could escalate their privileges in that namespace.
 
 {{< caution >}}
 System administrators, use care when granting access to create or edit workloads.
