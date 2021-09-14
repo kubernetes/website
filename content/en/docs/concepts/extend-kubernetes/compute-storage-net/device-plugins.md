@@ -197,6 +197,8 @@ service PodResourcesLister {
 }
 ```
 
+### `List` gRPC endpoint
+
 The `List` endpoint provides information on resources of running pods, with details such as the
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
 the NUMA node where these devices are allocated.
@@ -239,13 +241,21 @@ message ContainerDevices {
 }
 ```
 
+### `GetAllocatableResources` gRPC endpoint
+
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+
 GetAllocatableResources provides information on resources initially available on the worker node.
 It provides more information than kubelet exports to APIServer.
 
-NOTE:
-
-- `GetAllocatableResources` should only be used to evaluate [allocatable](https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) resources on a node. If the goal is to evaluate free/unallocated resources it should 
-be used in conjunction with the List() endpoint. The result obtained by `GetAllocatableResources` would remain the same unless the underlying resources exposed to kubelet change. This happens rarely but when it does (e.g. CPUs onlined/offlined, devices added/removed), client is expected to call `GetAlloctableResources` endpoint.
+{{< note >}}
+`GetAllocatableResources` should only be used to evaluate [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+resources on a node. If the goal is to evaluate free/unallocated resources it should be used in
+conjunction with the List() endpoint. The result obtained by `GetAllocatableResources` would remain
+the same unless the underlying resources exposed to kubelet change. This happens rarely but when
+it does (e.g. CPUs onlined/offlined, devices added/removed), client is expected to call
+`GetAlloctableResources` endpoint.
+{{< /note >}}
 
 
 ```gRPC
@@ -256,6 +266,12 @@ message AllocatableResourcesResponse {
 }
 
 ```
+Starting from v1.23, the `GetAllocatableResources` is enabled by default through
+`KubeletPodResourcesGetAllocatable` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+Preceding v1.23, the `kubelet` must be started with the following flag:
+
+`--feature-gates=KubeletPodResourcesGetAllocatable=true`
 
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is affine.
 The NUMA cells are identified using a opaque integer ID, which value is consistent to what device
