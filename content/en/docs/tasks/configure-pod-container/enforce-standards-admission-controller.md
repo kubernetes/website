@@ -9,7 +9,7 @@ min-kubernetes-server-version: v1.22
 
 As of v1.22, Kubernetes provides a built-in [admission controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards).
-You can configure this admission controller to set cluster-wide defaults and [exemptions](#exemptions).
+You can configure this admission controller to set cluster-wide defaults and [exemptions](/docs/concepts/security/pod-security-admission/#exemptions).
 
 ## {{% heading "prerequisites" %}}
 
