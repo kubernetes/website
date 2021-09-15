@@ -349,12 +349,14 @@ Also, the legacy `SelectorSpread` plugin, which provides an equivalent behavior,
 is disabled.
 
 {{< note >}}
+The `PodTopologySpread` plugin does not score the nodes that don't have
+the topology keys specified in the spreading constraints. This might result
+in a different default behavior compared to the legacy `SelectorSpread` plugin when
+using the default topology constraints.
+
 If your nodes are not expected to have **both** `kubernetes.io/hostname` and
 `topology.kubernetes.io/zone` labels set, define your own constraints
 instead of using the Kubernetes defaults.
-
-The `PodTopologySpread` plugin does not score the nodes that don't have
-the topology keys specified in the spreading constraints.
 {{< /note >}}
 
 If you don't want to use the default Pod spreading constraints for your cluster,
