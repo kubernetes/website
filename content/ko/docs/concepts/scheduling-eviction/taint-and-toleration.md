@@ -267,7 +267,7 @@ tolerations:
 ## 컨디션을 기준으로 노드 테인트하기
 
 컨트롤 플레인은 노드 {{<glossary_tooltip text="컨트롤러" term_id="controller">}}를 이용하여 
-[노드 조건](/docs/concepts/scheduling-eviction/node-pressure-eviction/)에 대한 `NoSchedule` 효과를 사용하여 자동으로 테인트를 생성한다.
+[노드 컨디션](/docs/concepts/scheduling-eviction/node-pressure-eviction/)에 대한 `NoSchedule` 효과를 사용하여 자동으로 테인트를 생성한다.
 
 스케줄러는 스케줄링 결정을 내릴 때 노드 조건을 확인하는 것이 아니라 테인트를 확인한다. 
 이렇게 하면 노드 조건이 스케줄링에 직접적인 영향을 주지 않는다.
