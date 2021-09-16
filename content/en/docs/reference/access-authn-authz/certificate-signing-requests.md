@@ -200,12 +200,12 @@ To allow signing a CertificateSigningRequest:
 
 A few steps are required in order to get a normal user to be able to
 authenticate and invoke an API. First, this user must have certificate issued
-by the Kubernetes cluster, and then present that certificate to the Kubernetes API.
+by the Kubernetes cluster and then present that certificate to the Kubernetes API.
 
 ### Create private key
 
-The following scripts show how to generate PKI private key and CSR. It is
-important to set CN and O attribute of the CSR. CN is the name of the user and
+The following scripts show how to generate a PKI private key and CSR. It is
+important to set the CN and O attributes of the CSR. CN is the name of the user and
 O is the group that this user will belong to. You can refer to
 [RBAC](/docs/reference/access-authn-authz/rbac/) for standard groups.
 
