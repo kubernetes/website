@@ -45,7 +45,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. Verify that the NGINX Ingress controller is running
 
     ```shell
-    kubectl get pods -n kube-system
+    kubectl get pods -n ingress-nginx
     ```
 
     {{< note >}}This can take up to a minute.{{< /note >}}
@@ -53,13 +53,10 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     Output:
 
     ```shell
-    NAME                                        READY     STATUS    RESTARTS   AGE
-    default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
-    kube-addon-manager-minikube                 1/1       Running   0          3m
-    kube-dns-6dcb57bcc8-n4xd4                   3/3       Running   0          2m
-    kubernetes-dashboard-5498ccf677-b8p5h       1/1       Running   0          2m
-    nginx-ingress-controller-5984b97644-rnkrg   1/1       Running   0          1m
-    storage-provisioner                         1/1       Running   0          2m
+    NAME                                        READY   STATUS      RESTARTS   AGE
+    ingress-nginx-admission-create-2tgrf        0/1     Completed   0          3m28s
+    ingress-nginx-admission-patch-68b98         0/1     Completed   0          3m28s
+    ingress-nginx-controller-59b45fb494-lzmw2   1/1     Running     0          3m28s
     ```
 
 ## Deploy a hello, world app

@@ -140,7 +140,7 @@ In the v1.22 release cycle, which ran for 15 weeks (April 26 to August 4), we sa
 
 # Upcoming release webinar
 
-Join members of the Kubernetes 1.22 release team on September 7, 2021 to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-122-release/) on the CNCF Online Programs site.
+Join members of the Kubernetes 1.22 release team on October 5, 2021 to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-122-release/) on the CNCF Online Programs site.
 
 # Get Involved
 

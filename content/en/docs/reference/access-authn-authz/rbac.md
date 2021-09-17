@@ -279,8 +279,10 @@ rules:
 ```
 
 {{< note >}}
-You cannot restrict `create` or `deletecollection` requests by resourceName. For `create`, this
-limitation is because the object name is not known at authorization time.
+You cannot restrict `create` or `deletecollection` requests by their resource name.
+For `create`, this limitation is because the name of the new object may not be known at authorization time.
+If you restrict `list` or `watch` by resourceName, clients must include a `metadata.name` field selector in their `list` or `watch` request that matches the specified resourceName in order to be authorized.
+For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
 

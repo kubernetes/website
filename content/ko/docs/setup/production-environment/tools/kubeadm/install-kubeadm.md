@@ -10,7 +10,7 @@ card:
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">이 페이지에서는 `kubeadm` 툴박스를 설치하는 방법을 보여준다.
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">이 페이지에서는 `kubeadm` 툴박스를 설치하는 방법을 보여준다.
 이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm을 사용하여 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
 
 
