@@ -290,6 +290,7 @@ Pod 的连接，*或* 来自任何名字空间中标有 `user=alice` 的任何 P
 <!--
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
 
+<a name="behavior-of-ipblock-selectors"></a>
 __ipBlock__: This selects particular IP CIDR ranges to allow as ingress sources or egress destinations. These should be cluster-external IPs, since Pod IPs are ephemeral and unpredictable.
 
 Cluster ingress and egress mechanisms often require rewriting the source or destination IP
@@ -415,13 +416,13 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 -->
 ## SCTP 支持
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 <!--
-As a beta feature, this is enabled by default. To disable SCTP at a cluster level, you (or your cluster administrator) will need to disable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `-feature-gates=SCTPSupport=false,...`.
+As a stable feature, this is enabled by default. To disable SCTP at a cluster level, you (or your cluster administrator) will need to disable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=false,…`.
 When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.
 -->
-作为一个 Beta 特性，SCTP 支持默认是被启用的。
+作为一个稳定特性，SCTP 支持默认是被启用的。
 要在集群层面禁用 SCTP，你（或你的集群管理员）需要为 API 服务器指定
 `--feature-gates=SCTPSupport=false,...`
 来禁用 `SCTPSupport` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
@@ -439,7 +440,7 @@ You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin tha
 -->
 ## 针对某个端口范围   {#targeting-a-range-of-ports}
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!--
 When writing a NetworkPolicy, you can target a range of ports instead of a single port.
@@ -473,23 +474,25 @@ spec:
 ```
 
 <!--
-The above rule allows any Pod with label `db` on the namespace `default` to communicate with any IP within the range `10.0.0.0/24` over TCP, provided that the target port is between the range 32000 and 32768.
+The above rule allows any Pod with label `db` on the namespace `default` to communicate 
+with any IP within the range `10.0.0.0/24` over TCP, provided that the target 
+port is between the range 32000 and 32768.
 -->
 上面的规则允许名字空间 `default` 中所有带有标签 `db` 的 Pod 使用 TCP 协议
 与 `10.0.0.0/24` 范围内的 IP 通信，只要目标端口介于 32000 和 32768 之间就可以。
 
 <!--
 The following restrictions apply when using this field:
-* As an alpha feature, this is disabled by default. To enable the `endPort` field at a cluster level, you (or your cluster administrator) need to enable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `-feature-gates=NetworkPolicyEndPort=true,…`.
+* As a beta feature, this is enabled by default. To disable the `endPort` field at a cluster level, you (or your cluster administrator) need to disable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `-feature-gates=NetworkPolicyEndPort=false,…`.
 * The `endPort` field must be equal than or greater to the `port` field.
 * `endPort` can only be defined if `port` is also defined.
 * Both ports must be numeric.
 -->
 使用此字段时存在以下限制：
 
-* 作为一种 Alpha 阶段的特性，端口范围设定默认是被禁用的。要在整个集群
-  范围内允许使用 `endPort` 字段，你（或者你的集群管理员）需要为 API
-  服务器设置 `-feature-gates=NetworkPolicyEndPort=true,...` 以启用
+* 作为一种 Beta 阶段的特性，端口范围设定默认是被启用的。要在整个集群
+  范围内禁止使用 `endPort` 字段，你（或者你的集群管理员）需要为 API
+  服务器设置 `-feature-gates=NetworkPolicyEndPort=false,...` 以禁用
   `NetworkPolicyEndPort` 
   [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 * `endPort` 字段必须等于或者大于 `port` 字段的值。
@@ -499,9 +502,15 @@ The following restrictions apply when using this field:
 <!--
 Your cluster must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that
 supports the `endPort` field in NetworkPolicy specifications.
+If your [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) 
+does not support the `endPort` field and you specify a NetworkPolicy with that,
+the policy will be applied only for the single `port` field.
 -->
 你的集群所使用的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件
 必须支持在 NetworkPolicy 规约中使用 `endPort` 字段。
+如果你的[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+不支持 `endPort` 字段，而你指定了一个包含 `endPort` 字段的 NetworkPolicy，
+策略只对单个 `port` 字段生效。
 {{< /note >}}
 
 <!--

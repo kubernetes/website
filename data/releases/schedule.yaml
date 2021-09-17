@@ -9,7 +9,7 @@ schedules:
   next: 1.21.4
   cherryPickDeadline: 2021-08-07
   targetDate: 2021-08-11
-  endOfLifeDate: 2022-04-30
+  endOfLifeDate: 2022-06-28
   previousPatches:
     - release: 1.21.3
       cherryPickDeadline: 2021-07-10
@@ -25,7 +25,7 @@ schedules:
   next: 1.20.10
   cherryPickDeadline: 2021-08-07
   targetDate: 2021-08-11
-  endOfLifeDate: 2021-12-30
+  endOfLifeDate: 2022-02-28
   previousPatches:
     - release: 1.20.9
       cherryPickDeadline: 2021-07-10
@@ -61,7 +61,7 @@ schedules:
   next: 1.19.14
   cherryPickDeadline: 2021-08-07
   targetDate: 2021-08-11
-  endOfLifeDate: 2021-09-30
+  endOfLifeDate: 2021-10-28
   previousPatches:
     - release: 1.19.13
       cherryPickDeadline: 2021-07-10
