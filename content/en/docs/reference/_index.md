@@ -64,6 +64,8 @@ client libraries:
   * [Scheduler Policies](/docs/reference/scheduling/policies)
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
+* List of [ports and protocols](/docs/reference/ports-and-protocols/) that
+  should be open on control plane and worker nodes
 ## Config APIs
 
 This section hosts the documentation for "unpublished" APIs which are used to
