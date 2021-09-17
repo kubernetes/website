@@ -488,7 +488,7 @@ configmap/game-config-5-m67dt67794 created
 
 This example shows you how to creat a `ConfigMap` from two literal key/value pairs:
 `special.type=charm` and `special.how=very`, using Kustomize and kubectl. To achieve
-this, you can specify the `ConfigMap` generator. Create (or replace)xi
+this, you can specify the `ConfigMap` generator. Create (or replace)
 `kustomization.yaml` with the following contents:
 
 ```yaml
