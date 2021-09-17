@@ -32,11 +32,11 @@ This tutorial shows you how to build and deploy a simple _(not production ready)
 一个简单的_(非面向生产)的_多层 web 应用程序。本例由以下组件组成：
 
 <!--
-* A single-instance [Redis](https://www.redis.com/) to store guestbook entries
+* A single-instance [Redis](https://www.redis.io/) to store guestbook entries
 * Multiple web frontend instances
 -->
 
-* 单实例 [Redis](https://www.redis.com/) 以保存留言板条目
+* 单实例 [Redis](https://www.redis.io/) 以保存留言板条目
 * 多个 web 前端实例
 
 ## {{% heading "objectives" %}}

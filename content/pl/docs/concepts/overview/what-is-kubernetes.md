@@ -14,11 +14,10 @@ sitemap:
 <!-- overview -->
 Na tej stronie znajdziesz ogólne informacje o Kubernetesie.
 
-
 <!-- body -->
 Kubernetes to przenośna, rozszerzalna platforma oprogramowania *open-source* służąca do zarządzania zadaniami i serwisami uruchamianymi w kontenerach, która umożliwia deklaratywną konfigurację i automatyzację. Ekosystem Kubernetesa jest duży i dynamicznie się rozwija. Serwisy Kubernetesa, wsparcie i narzędzia są szeroko dostępne.
 
-Nazwa Kubernetes pochodzi z greki i oznacza sternika albo pilota. Google otworzyło projekt Kubernetes publicznie w 2014. Kubernetes korzysta z [piętnastoletniego doświadczenia Google w uruchamianiu wielkoskalowych serwisów](/blog/2015/04/borg-predecessor-to-kubernetes/) i łączy je z najlepszymi pomysłami i praktykami wypracowanymi przez społeczność.
+Nazwa Kubernetes pochodzi z greki i oznacza sternika albo pilota. Skrót K8s powstał poprzez zastąpienie ośmiu liter pomiędzy "K" i "s" .Google otworzyło projekt Kubernetes publicznie w 2014. Kubernetes korzysta z [piętnastoletniego doświadczenia Google w uruchamianiu wielkoskalowych serwisów](/blog/2015/04/borg-predecessor-to-kubernetes/) i łączy je z najlepszymi pomysłami i praktykami wypracowanymi przez społeczność.
 
 ## Trochę historii
 

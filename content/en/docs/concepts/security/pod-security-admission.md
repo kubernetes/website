@@ -62,9 +62,9 @@ takes if a potential violation is detected:
 {{< table caption="Pod Security Admission modes" >}}
 Mode | Description
 :---------|:------------
-**`enforce`** | Policy violations will cause the pod to be rejected.
-**`audit`** | Policy violations will trigger the addition of an audit annotation, but are otherwise allowed.
-**`warn`** | Policy violations will trigger a user-facing warning, but are otherwise allowed.
+**enforce** | Policy violations will cause the pod to be rejected.
+**audit** | Policy violations will trigger the addition of an audit annotation to the event recorded in the [audit log](/docs/tasks/debug-application-cluster/audit/), but are otherwise allowed.
+**warn** | Policy violations will trigger a user-facing warning, but are otherwise allowed.
 {{< /table >}}
 
 A namespace can configure any or all modes, or even set a different level for different modes.
@@ -103,7 +103,7 @@ applied to workload resources, only to the resulting pod objects.
 You can define _exemptions_ from pod security enforcement in order allow the creation of pods that
 would have otherwise been prohibited due to the policy associated with a given namespace.
 Exemptions can be statically configured in the
-[Admission Controller configuration](#configuring-the-admission-controller).
+[Admission Controller configuration](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller).
 
 Exemptions must be explicitly enumerated. Requests meeting exemption criteria are _ignored_ by the
 Admission Controller (all `enforce`, `audit` and `warn` behaviors are skipped). Exemption dimensions include:

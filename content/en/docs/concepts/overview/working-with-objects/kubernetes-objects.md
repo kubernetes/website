@@ -84,7 +84,7 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API Reference](https://kubernetes.io/docs/reference/kubernetes-api/) can help you find the spec format for all of the objects you can create using Kubernetes.
 
 For example, the reference for Pod details the [`spec` field](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-for a Pod in the API, and the reference for Deployment details the [`spec` field](/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec) for Deployents.
+for a Pod in the API, and the reference for Deployment details the [`spec` field](/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec) for Deployments.
 In those API reference pages you'll see mention of PodSpec and DeploymentSpec. These names are implementation details of the Golang code that Kubernetes uses to implement its API.
 
 

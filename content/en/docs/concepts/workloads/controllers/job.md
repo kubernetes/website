@@ -523,7 +523,7 @@ to keep running, but you want the rest of the Pods it creates
 to use a different pod template and for the Job to have a new name.
 You cannot update the Job because these fields are not updatable.
 Therefore, you delete Job `old` but _leave its pods
-running_, using `kubectl delete jobs/old --cascade=false`.
+running_, using `kubectl delete jobs/old --cascade=orphan`.
 Before deleting it, you make a note of what selector it uses:
 
 ```shell
@@ -632,7 +632,7 @@ of custom controller for those Pods.  This allows the most flexibility, but may 
 complicated to get started with and offers less integration with Kubernetes.
 
 One example of this pattern would be a Job which starts a Pod which runs a script that in turn
-starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/spark/README.md)), runs a spark
+starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)), runs a spark
 driver, and then cleans up.
 
 An advantage of this approach is that the overall process gets the completion guarantee of a Job

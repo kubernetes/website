@@ -127,7 +127,7 @@ A Service in Kubernetes is a REST object, similar to a Pod.  Like all of the
 REST objects, you can `POST` a Service definition to the API server to create
 a new instance.
 The name of a Service object must be a valid
-[DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+[RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
 
 For example, suppose you have a set of Pods where each listens on TCP port 9376
 and contains a label `app=MyApp`:
@@ -138,7 +138,7 @@ and contains a label `app=MyApp`:
 Service 在 Kubernetes 中是一个 REST 对象，和 Pod 类似。
 像所有的 REST 对象一样，Service 定义可以基于 `POST` 方式，请求 API server 创建新的实例。
 Service 对象的名称必须是合法的
-[DNS 标签名称](/zh/docs/concepts/overview/working-with-objects/names#dns-label-names)。
+[RFC 1035 标签名称](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).。
 
 例如，假定有一组 Pod，它们对外暴露了 9376 端口，同时还被打上 `app=MyApp` 标签：
 
@@ -315,16 +315,17 @@ ExternalName Service 是 Service 的特例，它没有选择算符，但是使�
 <!--
 ### Over Capacity Endpoints
 
-If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.21 (or later)
-cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: warning`.
-This annotation indicates that the affected Endpoints object is over capacity.
+If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.22 (or later)
+cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: truncated`.
+This annotation indicates that the affected Endpoints object is over capacity and that
+the endpoints controller has truncated the number of endpoints to 1000.
 -->
 ### 超出容量的 Endpoints    {#over-capacity-endpoints}
 
-如果某个 Endpoints 资源中包含的端点个数超过 1000，则 Kubernetes v1.21 版本
+如果某个 Endpoints 资源中包含的端点个数超过 1000，则 Kubernetes v1.22 版本
 （及更新版本）的集群会将为该 Endpoints 添加注解
-`endpoints.kubernetes.io/over-capacity: warning`。
-这一注解表明所影响到的 Endpoints 对象已经超出容量。
+`endpoints.kubernetes.io/over-capacity: truncated`。
+这一注解表明所影响到的 Endpoints 对象已经超出容量，此外 Endpoints 控制器还会将 Endpoints 对象数量截断到 1000。
 
 <!--
 ### EndpointSlices
@@ -659,6 +660,82 @@ server will return a 422 HTTP status code to indicate that there's a problem.
 用户选择的 IP 地址必须合法，并且这个 IP 地址在 `service-cluster-ip-range` CIDR 范围内，
 这对 API 服务器来说是通过一个标识来指定的。
 如果 IP 地址不合法，API 服务器会返回 HTTP 状态码 422，表示值不合法。
+
+<!--
+## Traffic policies
+-->
+## 流量策略  {#traffic-policies}
+
+<!--
+### External traffic policy
+-->
+### 外部流量策略    {#external-traffic-policy}
+
+<!--
+You can set the `spec.externalTrafficPolicy` field to control how traffic from external sources is routed.
+Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route external traffic to all ready endpoints
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
+endpoints, the kube-proxy does not forward any traffic for the relevant Service.
+-->
+
+你可以通过设置 `spec.externalTrafficPolicy` 字段来控制来自于外部的流量是如何路由的。
+可选值有 `Cluster` 和 `Local`。字段设为 `Cluster` 会将外部流量路由到所有就绪的端点，
+设为 `Local` 会只路由到当前节点上就绪的端点。
+如果流量策略设置为 `Local`，而且当前节点上没有就绪的端点，kube-proxy 不会转发请求相关服务的任何流量。
+
+{{< note >}}
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+<!--
+If you enable the `ProxyTerminatingEndpoints`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`ProxyTerminatingEndpoints` for the kube-proxy, the kube-proxy checks if the node
+has local endpoints and whether or not all the local endpoints are marked as terminating.
+-->
+
+如果你启用了 kube-proxy 的 `ProxyTerminatingEndpoints`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+kube-proxy 会检查节点是否有本地的端点，以及是否所有的本地端点都被标记为终止中。
+
+<!--
+If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
+any external traffic policy of `Local`. Instead, whilst the node-local endpoints remain as all
+terminating, the kube-proxy forwards traffic for that Service to healthy endpoints elsewhere,
+as if the external traffic policy were set to `Cluster`.
+-->
+
+如果本地有端点，而且所有端点处于终止中的状态，那么 kube-proxy 会忽略任何设为 `Local` 的外部流量策略。
+在所有本地端点处于终止中的状态的同时，kube-proxy 将请求指定服务的流量转发到位于其它节点的
+状态健康的端点，如同外部流量策略设为 `Cluster`。
+
+<!--
+This forwarding behavior for terminating endpoints exists to allow external load balancers to
+gracefully drain connections that are backed by `NodePort` Services, even when the health check
+node port starts to fail. Otherwise, traffic can be lost between the time a node is still in the node pool of a load
+balancer and traffic is being dropped during the termination period of a pod.
+-->
+针对处于正被终止状态的端点这一转发行为使得外部负载均衡器可以优雅地排出由
+`NodePort` 服务支持的连接，就算是健康检查节点端口开始失败也是如此。
+否则，当节点还在负载均衡器的节点池内，在 Pod 终止过程中的流量会被丢掉，这些流量可能会丢失。
+
+{{< /note >}}
+
+<!--
+### Internal traffic policy
+-->
+### 内部流量策略    {#internal-traffic-policy}
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+<!--
+You can set the `spec.internalTrafficPolicy` field to control how traffic from internal sources is routed.
+Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route internal traffic to all ready endpoints
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are no node-local
+endpoints, traffic is dropped by kube-proxy.
+-->
+你可以设置 `spec.internalTrafficPolicy` 字段来控制内部来源的流量是如何转发的。可设置的值有 `Cluster` 和 `Local`。
+将字段设置为 `Cluster` 会将内部流量路由到所有就绪端点，设置为 `Local` 只会路由到当前节点上就绪的端点。
+如果流量策略是 `Local`，而且当前节点上没有就绪的端点，那么 kube-proxy 会丢弃流量。
 
 <!--
 ## Discovering services
@@ -1124,13 +1201,13 @@ LoadBalancer 类型的服务继续分配节点端口。
 -->
 #### 设置负载均衡器实现的类别 {#load-balancer-class}
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!--
-Starting in v1.21, you can optionally specify the class of a load balancer implementation for
-`LoadBalancer` type of Service by setting the field `spec.loadBalancerClass`.
+`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default. This feature is available from v1.21, you must enable the `ServiceLoadBalancerClass` feature gate to use this field in v1.21, and the feature gate is enabled by default from v1.22 onwards.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
-the cloud provider's default load balancer implementation. 
+the cloud provider's default load balancer implementation if the cluster is configured with
+a cloud provider using the `--cloud-provider` component flag. 
 If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
 implementation that matches the specified class is watching for Services.
 Any default load balancer implementation (for example, the one provided by
@@ -1138,10 +1215,11 @@ the cloud provider) will ignore Services that have this field set.
 `spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
 Once set, it cannot be changed. 
 -->
-从 v1.21 开始，你可以有选择地为 `LoadBalancer` 类型的服务设置字段
-`.spec.loadBalancerClass`，以指定其负载均衡器实现的类别。
-默认情况下，`.spec.loadBalancerClass` 的取值是 `nil`，`LoadBalancer` 类型
-服务会使用云提供商的默认负载均衡器实现。
+`spec.loadBalancerClass` 允许你不使用云提供商的默认负载均衡器实现，转而使用指定的负载均衡器实现。
+这个特性从 v1.21 版本开始可以使用，你在 v1.21 版本中使用这个字段必须启用 `ServiceLoadBalancerClass` 
+特性门控，这个特性门控从 v1.22 版本及以后默认打开。
+默认情况下，`.spec.loadBalancerClass` 的取值是 `nil`，如果集群使用 `--cloud-provider` 配置了云提供商，
+`LoadBalancer` 类型服务会使用云提供商的默认负载均衡器实现。
 如果设置了 `.spec.loadBalancerClass`，则假定存在某个与所指定的类相匹配的
 负载均衡器实现在监视服务变化。
 所有默认的负载均衡器实现（例如，由云提供商所提供的）都会忽略设置了此字段
@@ -1152,12 +1230,10 @@ Once set, it cannot be changed.
 The value of `spec.loadBalancerClass` must be a label-style identifier,
 with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
 Unprefixed names are reserved for end-users.
-You must enable the `ServiceLoadBalancerClass` feature gate to use this field.
 -->
 `.spec.loadBalancerClass` 的值必须是一个标签风格的标识符，
 可以有选择地带有类似 "`internal-vip`" 或 "`example.com/internal-vip`" 这类
 前缀。没有前缀的名字是保留给最终用户的。
-你必须启用 `ServiceLoadBalancerClass` 特性门控才能使用此字段。
 
 <!--
 #### Internal load balancer

@@ -499,8 +499,9 @@ built-in [Pod Security Admission Controller](/docs/concepts/security/pod-securit
 
 Other alternatives for enforcing security profiles are being developed in the Kubernetes
 ecosystem, such as: 
-- [OPA Gatekeeper](https://github.com/open-profile-agent/gatekeeper) 
+- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
 - [Kubewarden](https://github.com/kubewarden).
+- [Kyverno](https://kyverno.io/policies/pod-security/).
 
 ### What profiles should I apply to my Windows Pods?
 
