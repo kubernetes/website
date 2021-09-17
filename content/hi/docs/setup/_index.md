@@ -41,8 +41,8 @@ card:
 
 - [कुबेरनेट्स डाउनलोड करें](/releases/download/)
 - `kubectl` सहित डाउनलोड और [टूल इंस्टॉल](/hi/docs/tasks/tools/) करें।
-- अपने नए क्लस्टर के लिए [कंटेनर रनटाइम](/docs/setup/production-environment/container-runtimes/) चुनें।
-- क्लस्टर सेटअप के लिए [सर्वोत्तम प्रक्रियाओं](/docs/setup/best-practices/) के बारे में जानें।
+- अपने नए क्लस्टर के लिए [कंटेनर रनटाइम](/hi/docs/setup/production-environment/container-runtimes/) चुनें।
+- क्लस्टर सेटअप के लिए [सर्वोत्तम प्रक्रियाओं](/hi/docs/setup/best-practices/) के बारे में जानें।
 
 कुबेरनेट्स के {{< glossary_tooltip term_id="control-plane" text="कण्ट्रोल प्लेन" >}} को Linux पर चलाने के लिए डिज़ाइन किया गया है। अपने क्लस्टर के अंदर आप Linux या अन्य ऑपरेटिंग सिस्टम पर एप्लिकेशन चला सकते हैं, जिसमें windows भी शामिल हैं।
-- [windows नोड्स के साथ क्लस्टर सेट अप करना](/docs/setup/production-environment/windows/) सीखें।
+- [windows नोड्स के साथ क्लस्टर सेट अप करना](/hi/docs/setup/production-environment/windows/) सीखें।
