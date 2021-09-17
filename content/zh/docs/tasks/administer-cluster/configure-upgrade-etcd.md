@@ -642,7 +642,7 @@ etcd 支持从 [major.minor](http://semver.org/) 或其他不同 patch 版本的
 例如：
 
 ```shell
-ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
+ETCDCTL_API=3 etcdctl --endpoints 127.0.0.1:2379 snapshot restore snapshotdb
 ```
 
 有关从快照文件还原集群的详细信息和示例，请参阅 
