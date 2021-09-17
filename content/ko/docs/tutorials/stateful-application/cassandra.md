@@ -50,7 +50,7 @@ weight: 30
 ### 추가적인 Minikube 설정 요령
 
 {{< caution >}}
-[Minikube](https://minikube.sigs.k8s.io/docs/)는 1024MiB 메모리와 1개 CPU가 기본 설정이다.
+[Minikube](https://minikube.sigs.k8s.io/docs/)는 2048MB 메모리와 2개 CPU가 기본 설정이다.
 이 튜토리얼에서 Minikube를 기본 리소스 설정으로 실행하면 리소스 부족 오류가
 발생한다. 이런 오류를 피하려면 Minikube를 다음 설정으로 실행하자.
 
