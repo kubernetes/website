@@ -224,7 +224,7 @@ returns a status of 200. After that, the handler returns a status of 500.
 -->
 任何大于或等于 200 并且小于 400 的返回代码标示成功，其它返回代码都标示失败。
 
-可以在这里看服务的源码 [server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go)。
+可以在这里看服务的源码 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)。
 
 容器存活的最开始 10 秒中，`/healthz` 处理程序返回一个 200 的状态码。之后处理程序返回 500 的状态码。
 
