@@ -67,31 +67,9 @@ sudo sysctl --system
 For more details please see the [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
 
 ## Check required ports
-
-### Control-plane node(s)
-
-| Protocol | Direction | Port Range | Purpose                 | Used By                   |
-|----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | Inbound   | 6443\*      | Kubernetes API server   | All                       |
-| TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
-| TCP      | Inbound   | 10250      | kubelet API             | Self, Control plane       |
-| TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
-| TCP      | Inbound   | 10252      | kube-controller-manager | Self                      |
-
-### Worker node(s)
-
-| Protocol | Direction | Port Range  | Purpose               | Used By                 |
-|----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | Inbound   | 10250       | kubelet API           | Self, Control plane     |
-| TCP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
-
-† Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
-
-Any port numbers marked with * are overridable, so you will need to ensure any
-custom ports you provide are also open.
-
-Although etcd ports are included in control-plane nodes, you can also host your own
-etcd cluster externally or on custom ports.
+These
+[required ports](/docs/reference/ports-and-protocols/)
+need to be open in order for Kubernetes components to communicate with each other.
 
 The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
