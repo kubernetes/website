@@ -348,6 +348,11 @@ Events:
 
 ### PodSecurityPolicy로 프로파일 제한하기 {#restricting-profiles-with-the-podsecuritypolicy}
 
+{{< note >}}
+PodSecurityPolicy는 쿠버네티스 v1.21에서 사용 중지되었으며, v1.25에서 제거될 예정이다. 
+더 자세한 내용은 [PodSecurityPolicy 문서](/ko/docs/concepts/policy/pod-security-policy/)를 참고한다.
+{{< /note >}}
+
 만약 PodSecurityPolicy 확장을 사용하면, 클러스터 단위로 AppArmor 제한을 적용할 수 있다.
 PodSecurityPolicy를 사용하려면 위해 다음의 플래그를 반드시 `apiserver`에 설정해야 한다.
 
