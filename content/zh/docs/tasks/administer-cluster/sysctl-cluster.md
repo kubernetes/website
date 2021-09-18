@@ -12,7 +12,7 @@ content_type: task
 
 <!-- overview -->
 
-
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 <!--
 This document describes how to configure and use kernel parameters within a
 Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
@@ -24,7 +24,13 @@ interface.
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+<!--
+For some steps, you also need to be able to reconfigure the command line
+options for the kubelets running on your cluster.
+-->
+对一些步骤，你需要能够重新配置在你的集群里运行的 kubelet 命令行的选项。
 
 <!-- steps -->
 
@@ -271,6 +277,8 @@ to schedule those pods onto the right nodes.
 以便将 Pod 调度到正确的节点之上。
 
 ## PodSecurityPolicy
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 <!--
 You can further control which sysctls can be set in pods by specifying lists of
