@@ -42,7 +42,8 @@ stopping a process in that Pod. That mechanism is called
 (CPU limits are enforced using time-slicing, whereas memory limits are enforced
 by stopping containers that try to violate them).
 
-See [Meaning of Memory](/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) for more details on what memory means in kubernetes.
+See [Meaning of Memory](/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)
+for more details on what memory means in kubernetes.
 
 ### Storage
 The `storage` resource represents volume size in bytes and is specified with a number and a binary
