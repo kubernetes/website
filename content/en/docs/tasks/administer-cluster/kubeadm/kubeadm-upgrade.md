@@ -166,11 +166,10 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 
 ### Upgrade kubelet and kubectl
 
--  Upgrade the kubelet and kubectl
+-  Upgrade the kubelet and kubectl:
 
-{{< tabs name="k8s_install_kubelet" >}}
-{{< tab name="Ubuntu, Debian or HypriotOS" >}}
-    <pre>
+{{< tabs name="k8s_kubelet_and_kubectl" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in {{< skew latestVersion >}}.x-00 with the latest patch version
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00 && \
@@ -179,14 +178,11 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
     # since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00
-    </pre>
-{{< /tab >}}
-{{< tab name="CentOS, RHEL or Fedora" >}}
-    <pre>
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in {{< skew latestVersion >}}.x-0 with the latest patch version
     yum install -y kubelet-{{< skew latestVersion >}}.x-0 kubectl-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
-    </pre>
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 -  Restart the kubelet:
