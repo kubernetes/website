@@ -9,4 +9,4 @@ headless: true
 * [अपने एप्लिकेशन को लॉन्च और एक्सपोज़ करने का तरीका जानें।](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * यदि आपको किसी ऐसे क्लस्टर तक पहुंच की आवश्यकता है जिसे आपने नहीं बनाया है, तो देखें।
   [क्लस्टर एक्सेस दस्तावेज़ साझा करना](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)।
-* [kubectl संदर्भ डॉक्स](/docs/reference/kubectl/kubectl/) पढ़ें।
+* [kubectl संदर्भ प्रलेखन](/docs/reference/kubectl/kubectl/) पढ़ें।
