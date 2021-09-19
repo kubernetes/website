@@ -35,9 +35,9 @@ Se você possuir mais de um adaptador de rede, e seus componentes Kubernetes nã
 
 ## Fazendo com que o iptables enxergue o tráfego agregado
 
-Se assegure de que o módulo `br_netfilter` está carregado. Isso pode ser feito executando o comando `lsmod | grep br_netfilter`. Para carrega-lo explicitamente execute `sudo modprobe br_netfilter`.
+Assegure-se de que o módulo `br_netfilter` está carregado. Isso pode ser feito executando o comando `lsmod | grep br_netfilter`. Para carrega-lo explicitamente execute `sudo modprobe br_netfilter`.
 
-Você também deve se assegurar de que a configuração `net.bridge.bridge-nf-call-iptables` no seu `sysctl` está com o valor 1. Um requerimento para que o iptables de cada um dos seus nós Linux enxergue o tráfego agregado corretamente. Como no exemplo abaixo:
+Como um requisito para que seus nós Linux enxerguem corretamente o tráfego agregado de rede, você deve garantir que a configuração `net.bridge.bridge-nf-call-iptables` do seu `sysctl` está configurada com valor 1. Como no exemplo abaixo:
 
 ```bash
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -55,32 +55,11 @@ Para mais detalhes veja a página [Requisitos do plugin de rede](/pt-br/docs/con
 
 ## Verificando as portas necessárias
 
-### Nós da camada de gerenciamento
-
-| Protocolo | Direção | Intervalo de portas | Propósito       | Utilizada por             |
-|----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | Entrada   | 6443\*     | API do Kubernetes       | Todos                      |
-| TCP      | Entrada   | 2379-2380  | API servidor cliente do etcd | kube-apiserver, etcd      |
-| TCP      | Entrada   | 10250      | API do kubelet          | kubeadm, Camada de gerenciamento       |
-| TCP      | Entrada   | 10251      | kube-scheduler          | kubeadm                      |
-| TCP      | Entrada   | 10252      | kube-controller-manager | kubeadm                      |
-
-### Nós de processamento
-
-| Protocolo | Direção | Intervalo de portas | Propósito       | Utilizada por             |
-|----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | Entrada   | 10250       | API do kubelet        | kubeadm, Camada de gerenciamento     |
-| TCP      | Entrada   | 30000-32767 | Serviços NodePort†    | Todos                     |
-
-† Intervalo padrão de portas para o [Serviços NodePort](/docs/concepts/services-networking/service/).
-
-Quaisquer portas marcadas com * podem ser substituídas. Dito isso, tenha certeza de que qualquer porta que você tenha customizado esteja aberta.
-
-Embora portas etcd sejam inclusas nos nós da camada de gerenciamento, você também pode hospedar seu próprio cluster etcd externamente, ou em portas customizadas. 
+As portas listadas [aqui](https://kubernetes.io/docs/reference/ports-and-protocols/) precisam estar abertas para que os componentes do Kubernetes se comuniquem uns com os outros.
 
 O plugin de rede dos pods que você utiliza também pode requer que algumas portas estejam abertas. Dito que essas portas podem diferir dependendo do plugin, por favor leia a documentação dos plugins sobre quais portas serão necessárias abrir.
 
-## Instalando agente de execução {#instalando-agente-de-execucao}
+## Instalando o agente de execução de contêineres {#instalando-agente-de-execucao}
 
 Para executar os contêineres nos Pods, o Kubernetes utiliza um 
 {{< glossary_tooltip term_id="container-runtime" text="agente de execução" >}}.
@@ -122,9 +101,9 @@ para mais detalhes.
 
 Você instalará esses pacotes em todas as suas máquinas:
 
-* `kubeadm`: o comando para iniciar o cluster.
+* `kubeadm`: o comando para criar o cluster.
 
-* `kubelet`: o componente que executa em todas as máquinas no seu cluster e cuida de coisas como a inicialização de pods e contêineres. 
+* `kubelet`: o componente que executa em todas as máquinas no seu cluster e cuida de tarefas como a inicialização de pods e contêineres. 
 
 * `kubectl`: a ferramenta de linha de comando para interação com o cluster.
 
@@ -132,7 +111,7 @@ O kubeadm **não irá** instalar ou gerenciar o `kubelet` ou o `kubectl` para vo
 precisará garantir que as versões deles são as mesmas da versão da camada de gerenciamento do Kubernetes 
 que você quer que o kubeadm instale. Caso isso não seja feito, surge o risco de que uma diferença nas versões 
 leve a bugs e comportamentos inesperados. Dito isso, _uma_ diferença de menor grandeza nas versões entre o kubelet e a 
-camada de gerenciamento é suportada, mas a versão do kubelet nunca poderá ser superior a versão do servidor da API.
+camada de gerenciamento é suportada, mas a versão do kubelet nunca poderá ser superior à versão do servidor da API.
 Por exemplo, um kubelet com a versão 1.7.0 será totalmente compatível com a versão 1.8.0 do servidor da API, mas o contrário não será verdadeiro.
 
 Para mais informações acerca da instalação do `kubectl`, veja [Instale e configure o kubectl](/docs/tasks/tools/).
@@ -142,7 +121,7 @@ Essas instruções removem todos os pacotes Kubernetes de quaisquer atualizaçõ
 Isso ocorre porque o kubeadm e o Kubernetes requerem alguns [cuidados especiais para serem atualizados](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 {{</ warning >}}
 
-para mais detalhes da compatibilidade entre as versões, veja:
+Para mais detalhes sobre compatibilidade entre as versões, veja:
 
 * [Políticas de versão e compatibilidade entre versões](/docs/setup/release/version-skew-policy/) do Kubernetes.
 * [Compatibilidade entre versões](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy) do Kubeadm.
@@ -223,7 +202,7 @@ Escolha o diretório para baixar os arquivos de comandos.
 
 {{< note >}}
 A variável `DOWNLOAD_DIR` precisa estar configurada para um diretório que permita escrita.
-Se você estiver utilizando o Flatcar Container Linux, veja `DOWNLOAD_DIR=/opt/bin`.
+Se você estiver utilizando o Flatcar Container Linux, configure a váriavel de ambiente `DOWNLOAD_DIR=/opt/bin`.
 {{< /note >}}
 
 ```bash
@@ -261,7 +240,7 @@ systemctl enable --now kubelet
 ```
 
 {{< note >}}
-A distribuição Linux Flatcar Container instala o diretório `/usr` como um sistema de arquivos apenas para leitura.
+A distribuição Flatcar Container Linux instala o diretório `/usr` como um sistema de arquivos apenas para leitura.
 Antes de inicializar o seu cluster, você precisa de alguns passos adicionais para configurar um diretório com escrita.
 Veja o [Guia de solução de problemas do Kubeadm](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/) para aprender como configurar um diretório com escrita.
 {{< /note >}}
