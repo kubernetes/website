@@ -60,7 +60,6 @@ sudo docker run -it --rm --privileged --net=host \
 विशिष्ट परीक्षण चलाने के लिए, पर्यावरण चर `FOCUS` को के साथ अधिलेखित करें
 उन परीक्षणों की नियमित अभिव्यक्ति जिन्हें आप चलाना चाहते हैं।
 
-
 ```shell
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
