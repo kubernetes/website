@@ -168,7 +168,7 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 
 -  Upgrade the kubelet and kubectl:
 
-{{< tabs name="k8s_kubelet_and_kubectl" >}}
+{{< tabs name="k8s_install_kubelet" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in {{< skew latestVersion >}}.x-00 with the latest patch version
     apt-mark unhold kubelet kubectl && \
