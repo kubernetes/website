@@ -1,6 +1,6 @@
 ---
 title: "आगे क्या है?"
-description: "kubectl स्थापित करने के बाद आगे क्या है।"
+description: "kubectl इंस्टॉल करने के बाद आगे क्या है।"
 headless: true
 ---
 
