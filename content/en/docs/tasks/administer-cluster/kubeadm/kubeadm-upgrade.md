@@ -89,6 +89,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 {{% /tab %}}
 {{< /tabs >}}
 
+
 -  Verify that the download works and has the expected version:
 
     ```shell
@@ -185,6 +186,7 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 {{% /tab %}}
 {{< /tabs >}}
 
+
 -  Restart the kubelet:
 
     ```shell
@@ -264,6 +266,7 @@ without compromising the minimum required capacity for running your workloads.
     yum install -y kubelet-{{< skew latestVersion >}}.x-0 kubectl-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
+
 
 -  Restart the kubelet:
 
