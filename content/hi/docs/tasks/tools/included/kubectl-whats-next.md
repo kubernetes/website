@@ -4,7 +4,7 @@ description: "kubectl इंस्टॉल करने के बाद आग
 headless: true
 ---
 
-* [मिनीक्यूब स्थापित करें](https://minikube.sigs.k8s.io/docs/start/)
+* [मिनीक्यूब (Minikube) इंस्टॉल करें](https://minikube.sigs.k8s.io/docs/start/)
 * क्लस्टर बनाने के बारे में अधिक जानकारी के लिए [आरंभ करने की मार्गदर्शिका](/docs/setup/) देखें।
 * [अपने एप्लिकेशन को लॉन्च और एक्सपोज़ करने का तरीका जानें।](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * यदि आपको किसी ऐसे क्लस्टर को उपयोग करने की आवश्यकता है जिसे आपने नहीं बनाया है, तो 
