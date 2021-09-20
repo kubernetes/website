@@ -136,7 +136,7 @@ The general labeling process should be consistent across artifact types.
 
 ## The Release Cycle
 
-![Image of one Kubernetes release cycle](release-cycle.png)
+![Image of one Kubernetes release cycle](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release-cycle.png)
 
 Kubernetes releases currently happen approximately four times per year.
 
@@ -204,7 +204,7 @@ back to the release branch. The release is built from the release branch.
 
 Each release is part of a broader Kubernetes lifecycle:
 
-![Image of Kubernetes release lifecycle spanning three releases](release-lifecycle.png)
+![Image of Kubernetes release lifecycle spanning three releases](https://github.com/kubernetes/community/raw/master/contributors/devel/sig-release/release-lifecycle.png)
 
 ## Removal Of Items From The Milestone
 
