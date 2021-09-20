@@ -12,22 +12,13 @@ Al eliminar un DaemonSet se limpian todos los Pods que han sido creados.
 
 Algunos casos de uso típicos de un DaemonSet son:
 
-- ejecutar un proceso de almacenamiento en el clúster, como `glusterd`, `ceph`, en cada nodo.
-- ejecutar un proceso de recolección de logs en cada nodo, como `fluentd` o `logstash`.
-- ejecutar un proceso de monitorización de nodos en cada nodo, como [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), [Sysdig Agent] (https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, 
-  [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), 
-  [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), 
-  [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), 
-  [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), 
-  Ganglia `gmond` o un agente de Instana.
+- Ejecutar un proceso de almacenamiento en el clúster.
+- Ejecutar un proceso de recolección de logs en cada nodo.
+- Ejecutar un proceso de monitorización de nodos en cada nodo.
 
 De forma básica, se debería usar un DaemonSet, cubriendo todos los nodos, por cada tipo de proceso.
-En configuraciones más complejas se podría usar múltiples DaemonSets para un único tipo de proceso, 
+En configuraciones más complejas se podría usar múltiples DaemonSets para un único tipo de proceso,
 pero con diferentes parámetros y/o diferentes peticiones de CPU y memoria según el tipo de hardware.
-
-
-
 
 <!-- body -->
 
@@ -46,7 +37,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 ### Campos requeridos
 
-Como con cualquier otra configuración de Kubernetes, un DaemonSet requiere los campos `apiVersion`, `kind`, y `metadata`.  
+Como con cualquier otra configuración de Kubernetes, un DaemonSet requiere los campos `apiVersion`, `kind`, y `metadata`.
 Para información general acerca de cómo trabajar con ficheros de configuración, ver los documentos [desplegar aplicaciones](/docs/user-guide/deploying-applications/),
 [configurar contenedores](/docs/tasks/), y [gestión de objetos usando kubectl](/docs/concepts/overview/object-management-kubectl/overview/).
 
@@ -56,10 +47,10 @@ Un DaemonSet también necesita un sección [`.spec`](https://git.k8s.io/communit
 
 El campo `.spec.template` es uno de los campos obligatorios de la sección `.spec`.
 
-El campo `.spec.template` es una [plantilla Pod](/docs/concepts/workloads/pods/pod-overview/#pod-templates). Tiene exactamente el mismo esquema que un [Pod](/docs/concepts/workloads/pods/pod/), 
+El campo `.spec.template` es una [plantilla Pod](/docs/concepts/workloads/pods/pod-overview/#pod-templates). Tiene exactamente el mismo esquema que un [Pod](/docs/concepts/workloads/pods/pod/),
 excepto por el hecho de que está anidado y no tiene los campos `apiVersion` o `kind`.
 
-Además de los campos obligatorios de un Pod, la plantilla Pod para un DaemonSet debe especificar 
+Además de los campos obligatorios de un Pod, la plantilla Pod para un DaemonSet debe especificar
 las etiquetas apropiadas (ver [selector de pod](#pod-selector)).
 
 Una plantilla Pod para un DaemonSet debe tener una [`RestartPolicy`](/docs/user-guide/pod-states)
@@ -67,7 +58,7 @@ Una plantilla Pod para un DaemonSet debe tener una [`RestartPolicy`](/docs/user-
 
 ### Selector de Pod
 
-El campo `.spec.selector` es un selector de pod. Funciona igual que el campo `.spec.selector` 
+El campo `.spec.selector` es un selector de pod. Funciona igual que el campo `.spec.selector`
 de un [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
 
 A partir de Kubernetes 1.8, se debe configurar un selector de pod que coincida con las
@@ -86,15 +77,15 @@ Cuando se configura ambos campos, el resultado es conjuntivo (AND).
 
 Si se especifica el campo `.spec.selector`, entonces debe coincidir con el campo `.spec.template.metadata.labels`. Aquellas configuraciones que no coinciden, son rechazadas por la API.
 
-Además, normalmente no se debería crear ningún Pod con etiquetas que coincidan con el selector, bien sea de forma directa, via otro 
+Además, normalmente no se debería crear ningún Pod con etiquetas que coincidan con el selector, bien sea de forma directa, via otro
 DaemonSet, o via otro controlador como un ReplicaSet.  De ser así, el controlador del DaemonSet
-pensará que dichos Pods fueron en realidad creados por él mismo. Kubernetes, en cualquier caso, no te impide realizar esta 
+pensará que dichos Pods fueron en realidad creados por él mismo. Kubernetes, en cualquier caso, no te impide realizar esta
 operación. Un caso donde puede que necesites hacer esto es cuando quieres crear manualmente un Pod con un valor diferente en un nodo para pruebas.
 
 ### Ejecutar Pods sólo en algunos Nodos
 
 Si se configura un `.spec.template.spec.nodeSelector`, entonces el controlador del DaemonSet
- creará los Pods en aquellos nodos que coincidan con el [selector de nodo](/docs/concepts/configuration/assign-pod-node/) indicado. 
+ creará los Pods en aquellos nodos que coincidan con el [selector de nodo](/docs/concepts/configuration/assign-pod-node/) indicado.
  De forma similar, si se configura una `.spec.template.spec.affinity`,
 entonces el controlador del DaemonSet creará los Pods en aquellos nodos que coincidan con la [afinidad de nodo](/docs/concepts/configuration/assign-pod-node/) indicada.
 Si no se configura ninguno de los dos, entonces el controlador del DaemonSet creará los Pods en todos los nodos.
@@ -115,13 +106,13 @@ se indica el campo `.spec.nodeName`, y por ello el planificador los ignora). Por
 
 {{< feature-state state="beta" for-kubernetes-version="1.12" >}}
 
-Un DaemonSet garantiza que todos los nodos elegibles ejecuten una copia de un Pod. 
+Un DaemonSet garantiza que todos los nodos elegibles ejecuten una copia de un Pod.
 Normalmente, es el planificador de Kubernetes quien determina el nodo donde se ejecuta un Pod. Sin embargo,
 los pods del DaemonSet son creados y planificados por el mismo controlador del DaemonSet.
 Esto introduce los siguientes inconvenientes:
 
  * Comportamiento inconsistente de los Pods: Los Pods normales que están esperando
- a ser creados, se encuentran en estado `Pending`, pero los pods del DaemonSet no pasan por el estado `Pending`. 
+ a ser creados, se encuentran en estado `Pending`, pero los pods del DaemonSet no pasan por el estado `Pending`.
  Esto confunde a los usuarios.
  * La [prioridad y el comportamiento de apropiación de Pods](/docs/concepts/configuration/pod-priority-preemption/)
    se maneja por el planificador por defecto. Cuando se habilita la contaminación, el controlador del DaemonSet
@@ -130,7 +121,7 @@ Esto introduce los siguientes inconvenientes:
 `ScheduleDaemonSetPods` permite planificar DaemonSets usando el planificador por defecto
 en vez del controlador del DaemonSet, añadiendo la condición `NodeAffinity`
 a los pods del DaemonSet, en vez de la condición `.spec.nodeName`. El planificador por defecto
-se usa entonces para asociar el pod a su servidor destino. Si la afinidad de nodo del 
+se usa entonces para asociar el pod a su servidor destino. Si la afinidad de nodo del
 pod del DaemonSet ya existe, se sustituye. El controlador del DaemonSet sólo realiza
 estas operaciones cuando crea o modifica los pods del DaemonSet, y no se realizan cambios
 al `spec.template` del DaemonSet.
@@ -146,7 +137,7 @@ nodeAffinity:
         - target-host-name
 ```
 
-Adicionalmente, se añade de forma automática la tolerancia `node.kubernetes.io/unschedulable:NoSchedule` 
+Adicionalmente, se añade de forma automática la tolerancia `node.kubernetes.io/unschedulable:NoSchedule`
 a los Pods del DaemonSet. Así, el planificador por defecto ignora los nodos
 `unschedulable` cuando planifica los Pods del DaemonSet.
 
@@ -158,23 +149,23 @@ A pesar de que los Pods de proceso respetan las
 la siguientes tolerancias son añadidas a los Pods del DaemonSet de forma automática
 según las siguientes características:
 
-| Clave de tolerancia                          | Efecto     | Versión | Descripción                                                  |
-| ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
-| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+    | Los pods del DaemonSet no son expulsados cuando hay problemas de nodo como una partición de red. |
-| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+    | Los pods del DaemonSet no son expulsados cuando hay problemas de nodo como una partición de red. |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    | Los pods del DaemonSet no son expulsados cuando hay problemas de nodo como la falta de espacio en disco. |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    | Los pods del DaemonSet no son expulsados cuando hay problemas de nodo como la falta de memoria. |
-| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | Los pods del DaemonSet toleran los atributos unschedulable del planificador por defecto.                                                    |
-| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | Los pods del DaemonSet, que usan la red del servidor anfitrión, toleran los atributos network-unavailable del planificador por defecto.                      |
+| Clave de tolerancia                      | Efecto     | Versión | Descripción                                                                                                                             |
+| ---------------------------------------- | ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+   | Los pods del DaemonSet no son expulsados cuando hay problemas de nodo como una partición de red.                                        |
+| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+   | Los pods del DaemonSet no son expulsados cuando hay problemas de nodo como una partición de red.                                        |
+| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    | Los pods del DaemonSet no son expulsados cuando hay problemas de nodo como la falta de espacio en disco.                                |
+| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    | Los pods del DaemonSet no son expulsados cuando hay problemas de nodo como la falta de memoria.                                         |
+| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | Los pods del DaemonSet toleran los atributos unschedulable del planificador por defecto.                                                |
+| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | Los pods del DaemonSet, que usan la red del servidor anfitrión, toleran los atributos network-unavailable del planificador por defecto. |
 
 
 ## Comunicarse con los Pods de los DaemonSets
 
 Algunos patrones posibles para la comunicación con los Pods de un DaemonSet son:
 
-- **Push**: Los Pods del DaemonSet se configuran para enviar actualizaciones a otro servicio, 
+- **Push**: Los Pods del DaemonSet se configuran para enviar actualizaciones a otro servicio,
 como una base de datos de estadísticas. No tienen clientes.
-- **NodeIP y Known Port**: Los Pods del DaemonSet pueden usar un `hostPort`, de forma que se les puede alcanzar via las IPs del nodo. Los clientes conocen la lista de IPs del nodo de algún modo, 
+- **NodeIP y Known Port**: Los Pods del DaemonSet pueden usar un `hostPort`, de forma que se les puede alcanzar via las IPs del nodo. Los clientes conocen la lista de IPs del nodo de algún modo,
 y conocen el puerto acordado.
 - **DNS**: Se crea un [servicio headless](/docs/concepts/services-networking/service/#headless-services) con el mismo selector de pod,
   y entonces se descubre a los DaemonSets usando los recursos `endpoints` o mediante múltiples registros de tipo A en el DNS.
@@ -185,10 +176,10 @@ y conocen el puerto acordado.
 Si se cambian las etiquetas de nodo, el DaemonSet comenzará de forma inmediata a añadir Pods a los nuevos nodos que coincidan y a eliminar
 los Pods de aquellos nuevos nodos donde no coincidan.
 
-Puedes modificar los Pods que crea un DaemonSet. Sin embargo, no se permite actualizar todos los campos de los Pods. 
+Puedes modificar los Pods que crea un DaemonSet. Sin embargo, no se permite actualizar todos los campos de los Pods.
  Además, el controlador del DaemonSet utilizará la plantilla original la próxima vez que se cree un nodo (incluso con el mismo nombre).
 
-Puedes eliminar un DaemonSet. Si indicas el parámetro `--cascade=false` al usar `kubectl`, 
+Puedes eliminar un DaemonSet. Si indicas el parámetro `--cascade=false` al usar `kubectl`,
 entonces los Pods continuarán ejecutándose en los nodos. Así, puedes crear entonces un nuevo DaemonSet con una plantilla diferente.
 El nuevo DaemonSet con la plantilla diferente reconocerá a todos los Pods existentes que tengan etiquetas coincidentes y
 no modificará o eliminará ningún Pod aunque la plantilla no coincida con los Pods desplegados.
@@ -198,14 +189,14 @@ A partir de las versión 1.6 de Kubernetes, puedes [llevar a cabo una actualizac
 
 ## Alternativas al DaemonSet
 
-### Secuencias de comandos de inicialización 
+### Secuencias de comandos de inicialización
 
 Aunque es perfectamente posible ejecutar procesos arrancándolos directamente en un nodo (ej. usando
 `init`, `upstartd`, o `systemd`), existen numerosas ventajas si se realiza via un DaemonSet:
 
 - Capacidad de monitorizar y gestionar los logs de los procesos del mismo modo que para las aplicaciones.
 - Mismo lenguaje y herramientas de configuración (ej. plantillas de Pod, `kubectl`) tanto para los procesos como para las aplicaciones.
-- Los procesos que se ejecutan en contenedores con límitaciones de recursos aumentan el aislamiento entre dichos procesos y el resto de contenedores de aplicaciones. 
+- Los procesos que se ejecutan en contenedores con límitaciones de recursos aumentan el aislamiento entre dichos procesos y el resto de contenedores de aplicaciones.
   Sin embargo, esto también se podría conseguir ejecutando los procesos en un contenedor en vez de un Pod
   (ej. arrancarlos directamente via Docker).
 
@@ -231,8 +222,6 @@ ambos crean Pods, y que dichos Pods tienen procesos que no se espera que termine
 servidores de almacenamiento).
 
 Utiliza un Deployment para definir servicios sin estado, como las interfaces de usuario, donde el escalado vertical y horizontal
-del número de réplicas y las actualizaciones continuas son mucho más importantes que el control exacto del servidor donde se ejecuta el Pod. 
-Utiliza un DaemonSet cuando es importante que una copia de un Pod siempre se ejecute en cada uno de los nodos, 
+del número de réplicas y las actualizaciones continuas son mucho más importantes que el control exacto del servidor donde se ejecuta el Pod.
+Utiliza un DaemonSet cuando es importante que una copia de un Pod siempre se ejecute en cada uno de los nodos,
 y cuando se necesite que arranque antes que el resto de Pods.
-
-
