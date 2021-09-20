@@ -82,7 +82,7 @@ DaemonSet, o via otro controlador como un ReplicaSet.  De ser así, el controlad
 pensará que dichos Pods fueron en realidad creados por él mismo. Kubernetes, en cualquier caso, no te impide realizar esta
 operación. Un caso donde puede que necesites hacer esto es cuando quieres crear manualmente un Pod con un valor diferente en un nodo para pruebas.
 
-### Ejecutar Pods sólo en algunos Nodos
+### Ejecutar Pods sólo en Nodos seleccionados
 
 Si se configura un `.spec.template.spec.nodeSelector`, entonces el controlador del DaemonSet
  creará los Pods en aquellos nodos que coincidan con el [selector de nodo](/docs/concepts/configuration/assign-pod-node/) indicado.
