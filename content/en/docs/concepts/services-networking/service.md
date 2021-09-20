@@ -183,6 +183,13 @@ Accessing a Service without a selector works the same as if it had a selector.
 In the example above, traffic is routed to the single endpoint defined in
 the YAML: `192.0.2.42:9376` (TCP).
 
+{{< note >}}
+The Kubernetes API server does not allow proxying to endpoints that are not mapped to 
+pods. Actions such as `kubectl proxy <service-name>` where the service has no 
+selector will fail due to this constraint. This prevents the Kubernetes API server 
+from being used as a proxy to endpoints the caller may not be authorized to access. 
+{{< /note >}}
+
 An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
