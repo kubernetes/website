@@ -45,7 +45,7 @@ The upgrade workflow at high level is the following:
 
 ## Determine which version to upgrade to
 
-Find the latest stable {{< skew currentVersion >}} version using the OS package manager:
+Find the latest patch release for Kubernetes {{< skew currentVersion >}} using the OS package manager:
 
 {{< tabs name="k8s_install_versions" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
