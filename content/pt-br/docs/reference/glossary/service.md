@@ -15,6 +15,6 @@ Uma forma abstrata de expor uma aplicação que está executando em um conjunto 
 
 <!--more-->
 
- O conjunto de Pods referenciado por um Service é (geralmente) determinado por um {{< glossary_tooltip text="selector" term_id="selector" >}}. Se mais Pods são
- adicionados ou removidos, o conjunto de Pods que atende ao critério do selector será alterado. O Service garante que o tráfego de rede pode ser direcionado ao
+ O conjunto de Pods referenciado por um Service é (geralmente) determinado por um {{< glossary_tooltip text="seletor" term_id="selector" >}}. Se mais Pods são
+ adicionados ou removidos, o conjunto de Pods que atende ao critério do seletor será alterado. O Service garante que o tráfego de rede pode ser direcionado ao
  conjunto atual de Pods para a carga de trabalho.

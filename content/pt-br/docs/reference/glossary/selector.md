@@ -1,5 +1,5 @@
 ---
-title: Selector
+title: Seletor
 id: selector
 date: 2021-09-17
 full_link: /docs/concepts/overview/working-with-objects/labels/
@@ -14,4 +14,4 @@ tags:
 
 <!--more--> 
 
-Selectors são aplicados quando um usuário faz uma pesquisa por listas de recursos para filtrá-los por labels (rótulos).
+Seletores são aplicados quando um usuário faz uma pesquisa por listas de recursos para filtrá-los por labels (rótulos).

@@ -27,8 +27,8 @@ Você escreve código para ler a variável de ambiente chamada `DATABASE_HOST`.
 No seu ambiente local, você configura essa variável com o valor `localhost`. Na nuvem, você
 configura essa variável para referenciar um {{< glossary_tooltip text="serviço" term_id="service" >}}
 do Kubernetes que expõe o componente do banco de dados ao seu cluster.
-Isto permite que você baixe uma imagem de contêiner que roda na nuvem e depure o exato
-mesmo código localmente se necessário.
+Isto permite que você baixe uma imagem de contêiner que roda na nuvem e depure exatamente
+o mesmo código localmente se necessário.
 
 Um ConfigMap não foi planejado para conter grandes quantidades de dados. Os dados armazenados
 em um ConfigMap não podem exceder 1 MiB. Se você precisa armazenar configurações que são maiores
@@ -149,7 +149,7 @@ spec:
 ```
 
 ConfigMaps não diferenciam entre propriedades com valores simples ou valores complexos,
-que ocupam várias linhas. O importante é a forma que Pods e outros objetos consumem tais valores.
+que ocupam várias linhas. O importante é a forma que Pods e outros objetos consomem tais valores.
 
 Para este exemplo, definir um volume e montar ele dentro do container `demo` no caminho `/config`
 cria dois arquivos: `/config/game.properties` e `/config/user-interface.properties`, embora existam
