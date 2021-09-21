@@ -12,8 +12,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of your cluster.
-For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
+You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew latestVersion >}} client can communicate with v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, and v{{< skew nextMinorVersion >}} control planes.
 Using the latest version of kubectl helps avoid unforeseen issues.
 
 ## Install kubectl on Linux
@@ -23,7 +22,6 @@ The following methods exist for installing kubectl on Linux:
 - [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
 - [Install using native package management](#install-using-native-package-management)
 - [Install using other package management](#install-using-other-package-management)
-- [Install on Linux as part of the Google Cloud SDK](#install-on-linux-as-part-of-the-google-cloud-sdk)
 
 ### Install kubectl binary with curl on Linux
 
@@ -84,6 +82,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    If you do not have root access on the target system, you can still install kubectl to the `~/.local/bin` directory:
 
    ```bash
+   chmod +x kubectl
    mkdir -p ~/.local/bin/kubectl
    mv ./kubectl ~/.local/bin/kubectl
    # and then add ~/.local/bin/kubectl to $PATH
@@ -100,15 +99,38 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 ### Install using native package management
 
 {{< tabs name="kubectl_install" >}}
-{{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubectl
-{{< /tab >}}
+{{% tab name="Debian-based distributions" %}}
 
-{{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+2. Download the Google Cloud public signing key:
+
+   ```shell
+   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
+
+3. Add the Kubernetes `apt` repository:
+
+   ```shell
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+4. Update `apt` package index with the new repository and install kubectl:
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubectl
+   ```
+
+{{% /tab %}}
+
+{{< tab name="Red Hat-based distributions" codelang="bash" >}}
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -146,15 +168,11 @@ kubectl version --client
 
 {{< /tabs >}}
 
-### Install on Linux as part of the Google Cloud SDK
-
-{{< include "included/install-kubectl-gcloud.md" >}}
-
 ## Verify kubectl configuration
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Optional kubectl configurations
+## Optional kubectl configurations and plugins
 
 ### Enable shell autocompletion
 
@@ -166,6 +184,61 @@ Below are the procedures to set up autocompletion for Bash and Zsh.
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
+
+### Install `kubectl convert` plugin
+
+{{< include "included/kubectl-convert-overview.md" >}}
+
+1. Download the latest release with the command:
+
+   ```bash
+   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   ```
+
+1. Validate the binary (optional)
+
+   Download the kubectl-convert checksum file:
+
+   ```bash
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   ```
+
+   Validate the kubectl-convert binary against the checksum file:
+
+   ```bash
+   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   ```
+
+   If valid, the output is:
+
+   ```console
+   kubectl-convert: OK
+   ```
+
+   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+
+   ```bash
+   kubectl-convert: FAILED
+   sha256sum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   Download the same version of the binary and checksum.
+   {{< /note >}}
+
+1. Install kubectl-convert
+
+   ```bash
+   sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
+   ```
+
+1. Verify plugin is successfully installed
+
+   ```shell
+   kubectl convert --help
+   ```
+
+   If you do not see an error, it means the plugin is successfully installed.
 
 ## {{% heading "whatsnext" %}}
 

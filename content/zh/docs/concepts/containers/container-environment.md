@@ -68,6 +68,7 @@ Pod 定义中的用户所定义的环境变量也可在容器中使用，就像�
 ### Cluster information
 
 A list of all services that were running when a Container was created is available to that Container as environment variables.
+This list is limited to services within the same namespace as the new Container's Pod and Kubernetes control plane services.
 Those environment variables match the syntax of Docker links.
 
 For a service named *foo* that maps to a Container named *bar*,
@@ -75,7 +76,9 @@ the following variables are defined:
 -->
 ### 集群信息
 
-创建容器时正在运行的所有服务的列表都可用作该容器的环境变量。这些环境变量与 Docker 链接的语法匹配。
+创建容器时正在运行的所有服务都可用作该容器的环境变量。
+这里的服务仅限于新容器的 Pod 所在的名字空间中的服务，以及 Kubernetes 控制面的服务。
+这些环境变量与 Docker 链接的语法相同。
 
 对于名为 *foo* 的服务，当映射到名为 *bar* 的容器时，以下变量是被定义了的：
 

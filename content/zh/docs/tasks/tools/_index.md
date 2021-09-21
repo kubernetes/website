@@ -15,34 +15,34 @@ no_list: true
 <!--
 ## kubectl
 
-The Kubernetes command-line tool, `kubectl`, allows you to run commands against
-Kubernetes clusters. You can use `kubectl` to deploy applications, inspect and
-manage cluster resources, and view logs.
-
-See [Install and Set Up `kubectl`](/docs/tasks/tools/install-kubectl/) for
-information about how to download and install `kubectl` and set it up for
-accessing your cluster.
+The Kubernetes command-line tool, [kubectl](/docs/reference/kubectl/kubectl/), allows
+you to run commands against Kubernetes clusters.
+You can use kubectl to deploy applications, inspect and manage cluster resources,
+and view logs. For more information including a complete list of kubectl operations, see the
+[`kubectl` reference documentation](/docs/reference/kubectl/).
 -->
 ## kubectl
 
-Kubernetes 命令行工具，`kubectl`，使得你可以对 Kubernetes 集群运行命令。
-你可以使用 `kubectl` 来部署应用、监测和管理集群资源以及查看日志。
+Kubernetes 命令行工具，[kubectl](/docs/reference/kubectl/kubectl/)，使得你可以对 Kubernetes 集群运行命令。
+你可以使用 kubectl 来部署应用、监测和管理集群资源以及查看日志。
 
-关于如何下载和安装 `kubectl` 并配置其访问你的集群，可参阅
-[安装和配置 `kubectl`](/zh/docs/tasks/tools/install-kubectl/)。
+有关更多信息，包括 kubectl 操作的完整列表，请参见[`kubectl` 
+参考文件](/zh/docs/reference/kubectl/)。
 
 <!--
-a class="btn btn-primary" href="/docs/tasks/tools/install-kubectl/" role="button" aria-label="View kubectl Install and Set Up Guide">View kubectl Install and Set Up Guide</a>
+kubectl is installable on a variety of Linux platforms, macOS and Windows. 
+Find your preferred operating system below.
 
-You can also read the
-[`kubectl` reference documentation](/docs/reference/kubectl/).
+- [Install kubectl on Linux](/docs/tasks/tools/install-kubectl-linux)
+- [Install kubectl on macOS](/docs/tasks/tools/install-kubectl-macos)
+- [Install kubectl on Windows](/docs/tasks/tools/install-kubectl-windows)
 -->
-<a class="btn btn-primary" href="/zh/docs/tasks/tools/install-kubectl/"
-  role="button" aria-label="查看 kubectl 安装和配置指南">
-查看 kubectl 安装和配置指南
-</a>
+kubectl 可安装在各种 Linux 平台、 macOS 和 Windows 上。
+在下面找到你喜欢的操作系统。
 
-你也可以阅读 [`kubectl` 参考文档](/zh/docs/reference/kubectl/).
+- [在 Linux 上安装 kubectl](/zh/docs/tasks/tools/install-kubectl-linux)
+- [在 macOS 上安装 kubectl](/zh/docs/tasks/tools/install-kubectl-macos)
+- [在 Windows 上安装 kubectl](/zh/docs/tasks/tools/install-kubectl-windows)
 
 <!--
 ## kind

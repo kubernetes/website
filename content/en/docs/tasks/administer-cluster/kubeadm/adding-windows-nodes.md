@@ -1,7 +1,9 @@
 ---
 reviewers:
-- michmike
-- patricklang
+- jayunit100
+- jsturtevant
+- marosset
+- perithompson
 title: Adding Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: tutorial
@@ -161,7 +163,7 @@ Instructions to do so are available at [Install Docker Engine - Enterprise on Wi
 #### Install wins, kubelet, and kubeadm  
 
 ```PowerShell
-curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
 .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
 ```
 
@@ -186,7 +188,7 @@ To install a specific version of containerD specify the version with -ContainerD
 
 ```powershell
 # Example
-.\Install-Containerd.ps1 -ContainerDVersion v1.4.1
+.\Install-Containerd.ps1 -ContainerDVersion 1.4.1
 ```
 
 {{< /note >}}
@@ -204,7 +206,7 @@ If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") 
 #### Install wins, kubelet, and kubeadm
 
 ```PowerShell
-curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
 .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
 ```
 

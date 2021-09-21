@@ -5,7 +5,6 @@ feature:
   anchor: ReplicationController 如何工作
   description: >
     重新启动失败的容器，在节点死亡时替换并重新调度容器，杀死不响应用户定义的健康检查的容器，并且在它们准备好服务之前不会将它们公布给客户端。
-
 content_type: concept
 weight: 90
 ---     
@@ -97,10 +96,12 @@ Run the example job by downloading the example file and then running this comman
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
 ```
+
 <!--
 The output is similar to this:
 -->
 输出类似于：
+
 ```
 replicationcontroller/nginx created
 ```
@@ -113,10 +114,12 @@ Check on the status of the ReplicationController using this command:
 ```shell
 kubectl describe replicationcontrollers/nginx
 ```
+
 <!--
 The output is similar to this:
 -->
 输出类似于：
+
 ```
 Name:        nginx
 Namespace:   default
@@ -167,6 +170,7 @@ echo $pods
 The output is similar to this:
 -->
 输出类似于：
+
 ```
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
@@ -174,23 +178,25 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 <!--
 Here, the selector is the same as the selector for the ReplicationController (seen in the
 `kubectl describe` output), and in a different form in `replication.yaml`.  The `--output=jsonpath` option
-specifies an expression that just gets the name from each pod in the returned list.
+specifies an expression with the name from each pod in the returned list.
 -->
 这里，选择算符与 ReplicationController 的选择算符相同（参见 `kubectl describe` 输出），并以不同的形式出现在 `replication.yaml` 中。
-`--output=jsonpath` 选项指定了一个表达式，只从返回列表中的每个 Pod 中获取名称。
+`--output=jsonpath` 选项指定了一个表达式，仅从返回列表中的每个 Pod 中获取名称。
 
 <!--
 ## Writing a ReplicationController Spec
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
-For general information about working with config files, see [object management ](/docs/concepts/overview/working-with-objects/object-management/).
+For general information about working with configuration files, see [object management](/docs/concepts/overview/working-with-objects/object-management/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 -->
-## 编写一个 ReplicationController Spec
+## 编写一个 ReplicationController 规约
 
-与所有其它 Kubernetes 配置一样，ReplicationController 需要 `apiVersion`、`kind` 和 `metadata` 字段。
-有关使用配置文件的常规信息，参考[对象管理](/zh/docs/concepts/overview/working-with-objects/object-management/)。
+与所有其它 Kubernetes 配置一样，ReplicationController 需要 `apiVersion`、
+`kind` 和 `metadata` 字段。
+有关使用配置文件的常规信息，参考
+[对象管理](/zh/docs/concepts/overview/working-with-objects/object-management/)。
 
 ReplicationController 也需要一个 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
@@ -230,7 +236,7 @@ for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 
 The ReplicationController can itself have labels (`.metadata.labels`).  Typically, you
 would set these the same as the `.spec.template.metadata.labels`; if `.metadata.labels` is not specified
-then it defaults to  `.spec.template.metadata.labels`.  However, they are allowed to be
+then it defaults to  `.spec.template.metadata.labels`. However, they are allowed to be
 different, and the `.metadata.labels` do not affect the behavior of the ReplicationController.
 -->
 ### ReplicationController 上的标签
@@ -305,7 +311,7 @@ delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).  Kubectl wi
 for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
 command is interrupted, it can be restarted.
 
-When using the REST API or go client library, you need to do the steps explicitly (scale replicas to
+When using the REST API or Go client library, you need to do the steps explicitly (scale replicas to
 0, wait for pod deletions, then delete the ReplicationController).
 -->
 ## 使用 ReplicationController {#working-with-replicationcontrollers}
@@ -317,16 +323,17 @@ When using the REST API or go client library, you need to do the steps explicitl
 kubectl 将 ReplicationController 缩放为 0 并等待以便在删除 ReplicationController 本身之前删除每个 Pod。
 如果这个 kubectl 命令被中断，可以重新启动它。
 
-当使用 REST API 或 go 客户端库时，你需要明确地执行这些步骤（缩放副本为 0、 等待 Pod 删除，之后删除 ReplicationController 资源）。
+当使用 REST API 或 Go 客户端库时，你需要明确地执行这些步骤（缩放副本为 0、
+等待 Pod 删除，之后删除 ReplicationController 资源）。
 
 <!--
-### Deleting just a ReplicationController
+### Deleting only a ReplicationController
 
 You can delete a ReplicationController without affecting any of its pods.
 
 Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
 
-When using the REST API or go client library, simply delete the ReplicationController object.
+When using the REST API or Go client library, simply delete the ReplicationController object.
 -->
 ### 只删除 ReplicationController
 
@@ -334,7 +341,7 @@ When using the REST API or go client library, simply delete the ReplicationContr
 
 使用 kubectl，为 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 指定 `--cascade=false` 选项。
 
-当使用 REST API 或 go 客户端库时，只需删除 ReplicationController 对象。
+当使用 REST API 或 Go 客户端库时，只需删除 ReplicationController 对象。
 
 <!--
 Once the original is deleted, you can create a new ReplicationController to replace it.  As long
@@ -350,12 +357,13 @@ To update pods to a new spec in a controlled way, use a [rolling update](#rollin
 <!--
 ### Isolating pods from a ReplicationController
 
-Pods may be removed from a ReplicationController's target set by changing their labels. This technique may be used to remove pods from service for debugging, data recovery, etc. Pods that are removed in this way will be replaced automatically (assuming that the number of replicas is not also changed).
+Pods may be removed from a ReplicationController's target set by changing their labels. This technique may be used to remove pods from service for debugging and data recovery. Pods that are removed in this way will be replaced automatically (assuming that the number of replicas is not also changed).
 -->
 ### 从 ReplicationController 中隔离 Pod
 
 通过更改 Pod 的标签，可以从 ReplicationController 的目标中删除 Pod。
-此技术可用于从服务中删除 Pod 以进行调试、数据恢复等。以这种方式删除的 Pod 将自动替换（假设复制副本的数量也没有更改）。
+此技术可用于从服务中删除 Pod 以进行调试、数据恢复等。以这种方式删除的 Pod
+将被自动替换（假设复制副本的数量也没有更改）。
 
 <!--
 ## Common usage patterns
@@ -373,11 +381,12 @@ As mentioned above, whether you have 1 pod you want to keep running, or 1000, a 
 <!--
 ### Scaling
 
-The ReplicationController makes it easy to scale the number of replicas up or down, either manually or by an auto-scaling control agent, by simply updating the `replicas` field.
+The ReplicationController enables scaling the number of replicas up or down, either manually or by an auto-scaling control agent, by updating the `replicas` field.
 -->
 ### 扩缩容   {#scaling}
 
-通过简单地更新 `replicas` 字段，ReplicationController 可以方便地横向扩容或缩容副本的数量，或手动或通过自动缩放控制代理。
+通过设置 `replicas` 字段，ReplicationController 可以允许扩容或缩容副本的数量。
+你可以手动或通过自动缩放控制代理来控制 ReplicationController 执行此操作。
 
 <!--
 ### Rolling updates
@@ -418,7 +427,8 @@ For instance, a service might target all pods with `tier in (frontend), environm
 -->
 ### 多个版本跟踪
 
-除了在滚动更新过程中运行应用程序的多个版本之外，通常还会使用多个版本跟踪来长时间，甚至持续运行多个版本。这些跟踪将根据标签加以区分。
+除了在滚动更新过程中运行应用程序的多个版本之外，通常还会使用多个版本跟踪来长时间，
+甚至持续运行多个版本。这些跟踪将根据标签加以区分。
 
 例如，一个服务可能把具有 `tier in (frontend), environment in (prod)` 的所有 Pod 作为目标。
 现在假设你有 10 个副本的 Pod 组成了这个层。但是你希望能够 `canary` （`金丝雀`）发布这个组件的新版本。
@@ -426,7 +436,8 @@ For instance, a service might target all pods with `tier in (frontend), environm
 标签为 `tier=frontend, environment=prod, track=stable` 而为 `canary`
 设置另一个 ReplicationController，其中 `replicas` 设置为 1，
 标签为 `tier=frontend, environment=prod, track=canary`。
-现在这个服务覆盖了 `canary` 和非 `canary` Pod。但你可以单独处理 ReplicationController，以测试、监控结果等。
+现在这个服务覆盖了 `canary` 和非 `canary` Pod。但你可以单独处理
+ReplicationController，以测试、监控结果等。
 
 <!--
 ### Using ReplicationControllers with Services
@@ -438,7 +449,8 @@ A ReplicationController will never terminate on its own, but it isn't expected t
 -->
 ### 和服务一起使用 ReplicationController
 
-多个 ReplicationController 可以位于一个服务的后面，例如，一部分流量流向旧版本，一部分流量流向新版本。
+多个 ReplicationController 可以位于一个服务的后面，例如，一部分流量流向旧版本，
+一部分流量流向新版本。
 
 一个 ReplicationController 永远不会自行终止，但它不会像服务那样长时间存活。
 服务可以由多个 ReplicationController 控制的 Pod 组成，并且在服务的生命周期内
@@ -452,8 +464,10 @@ Pods created by a ReplicationController are intended to be fungible and semantic
 -->
 ## 编写多副本的应用
 
-由 ReplicationController 创建的 Pod 是可替换的，语义上是相同的，尽管随着时间的推移，它们的配置可能会变得异构。
-这显然适合于多副本的无状态服务器，但是 ReplicationController 也可以用于维护主选、分片和工作池应用程序的可用性。
+由 ReplicationController 创建的 Pod 是可替换的，语义上是相同的，
+尽管随着时间的推移，它们的配置可能会变得异构。
+这显然适合于多副本的无状态服务器，但是 ReplicationController 也可以用于维护主选、
+分片和工作池应用程序的可用性。
 这样的应用程序应该使用动态的工作分配机制，例如
 [RabbitMQ 工作队列](https://www.rabbitmq.com/tutorials/tutorial-two-python.html)，
 而不是静态的或者一次性定制每个 Pod 的配置，这被认为是一种反模式。
@@ -463,11 +477,11 @@ Pods created by a ReplicationController are intended to be fungible and semantic
 <!--
 ## Responsibilities of the ReplicationController
 
-The ReplicationController simply ensures that the desired number of pods matches its label selector and are operational. Currently, only terminated pods are excluded from its count. In the future, [readiness](http://issue.k8s.io/620) and other information available from the system may be taken into account, we may add more controls over the replacement policy, and we plan to emit events that could be used by external clients to implement arbitrarily sophisticated replacement and/or scale-down policies.
+The ReplicationController ensures that the desired number of pods matches its label selector and are operational. Currently, only terminated pods are excluded from its count. In the future, [readiness](http://issue.k8s.io/620) and other information available from the system may be taken into account, we may add more controls over the replacement policy, and we plan to emit events that could be used by external clients to implement arbitrarily sophisticated replacement and/or scale-down policies.
 -->
 ## ReplicationController 的职责
 
-ReplicationController 只需确保所需的 Pod 数量与其标签选择算符匹配，并且是可操作的。
+ReplicationController 仅确保所需的 Pod 数量与其标签选择算符匹配，并且是可操作的。
 目前，它的计数中只排除终止的 Pod。
 未来，可能会考虑系统提供的[就绪状态](https://issue.k8s.io/620)和其他信息，
 我们可能会对替换策略添加更多控制，
@@ -478,8 +492,10 @@ The ReplicationController is forever constrained to this narrow responsibility. 
 -->
 ReplicationController 永远被限制在这个狭隘的职责范围内。
 它本身既不执行就绪态探测，也不执行活跃性探测。
-它不负责执行自动缩放，而是由外部自动缩放器控制（如 [#492](https://issue.k8s.io/492) 中所述），后者负责更改其 `replicas` 字段值。
-我们不会向 ReplicationController 添加调度策略(例如，[spreading](https://issue.k8s.io/367#issuecomment-48428019))。
+它不负责执行自动缩放，而是由外部自动缩放器控制（如
+[#492](https://issue.k8s.io/492) 中所述），后者负责更改其 `replicas` 字段值。
+我们不会向 ReplicationController 添加调度策略(例如，
+[spreading](https://issue.k8s.io/367#issuecomment-48428019))。
 它也不应该验证所控制的 Pod 是否与当前指定的模板匹配，因为这会阻碍自动调整大小和其他自动化过程。
 类似地，完成期限、整理依赖关系、配置扩展和其他特性也属于其他地方。
 我们甚至计划考虑批量创建 Pod 的机制（查阅 [#170](https://issue.k8s.io/170)）。
@@ -546,7 +562,8 @@ Unlike in the case where a user directly created pods, a ReplicationController r
 -->
 ### 裸 Pod
 
-与用户直接创建 Pod 的情况不同，ReplicationController 能够替换因某些原因被删除或被终止的 Pod ，例如在节点故障或中断节点维护的情况下，例如内核升级。
+与用户直接创建 Pod 的情况不同，ReplicationController 能够替换因某些原因
+被删除或被终止的 Pod ，例如在节点故障或中断节点维护的情况下，例如内核升级。
 因此，我们建议你使用 ReplicationController，即使你的应用程序只需要一个 Pod。
 可以将其看作类似于进程管理器，它只管理跨多个节点的多个 Pod ，而不是单个节点上的单个进程。
 ReplicationController 将本地容器重启委托给节点上的某个代理(例如，Kubelet 或 Docker)。

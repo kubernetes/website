@@ -12,7 +12,6 @@ content_type: task
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 <!--
 This document describes how to configure and use kernel parameters within a

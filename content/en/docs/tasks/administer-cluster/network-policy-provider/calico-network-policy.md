@@ -20,7 +20,7 @@ Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-goog
 
 **Prerequisite**: [gcloud](https://cloud.google.com/sdk/docs/quickstarts).
 
-1.  To launch a GKE cluster with Calico, just include the `--enable-network-policy` flag.
+1.  To launch a GKE cluster with Calico, include the `--enable-network-policy` flag.
 
     **Syntax**
     ```shell

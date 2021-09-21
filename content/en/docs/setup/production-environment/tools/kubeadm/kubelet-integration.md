@@ -23,10 +23,8 @@ manager instead, but you need to configure it manually.
 Some kubelet configuration details need to be the same across all kubelets involved in the cluster, while
 other configuration aspects need to be set on a per-kubelet basis to accommodate the different
 characteristics of a given machine (such as OS, storage, and networking). You can manage the configuration
-of your kubelets manually, but kubeadm now provides a `KubeletConfiguration` API type for [managing your
-kubelet configurations centrally](#configure-kubelets-using-kubeadm).
-
-
+of your kubelets manually, but kubeadm now provides a `KubeletConfiguration` API type for
+[managing your kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 
 <!-- body -->
 
@@ -52,8 +50,9 @@ Virtual IPs for services are now allocated from this subnet. You also need to se
 by the kubelet, using the `--cluster-dns` flag. This setting needs to be the same for every kubelet
 on every manager and Node in the cluster. The kubelet provides a versioned, structured API object
 that can configure most parameters in the kubelet and push out this configuration to each running
-kubelet in the cluster. This object is called **the kubelet's ComponentConfig**.
-The ComponentConfig allows the user to specify flags such as the cluster DNS IP addresses expressed as
+kubelet in the cluster. This object is called
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/). 
+The `KubeletConfiguration` allows the user to specify flags such as the cluster DNS IP addresses expressed as
 a list of values to a camelCased key, illustrated by the following example:
 
 ```yaml
@@ -63,7 +62,7 @@ clusterDNS:
 - 10.96.0.10
 ```
 
-For more details on the ComponentConfig have a look at [this section](#configure-kubelets-using-kubeadm).
+For more details on the `KubeletConfiguration` have a look at [this section](#configure-kubelets-using-kubeadm).
 
 ### Providing instance-specific configuration details
 
@@ -99,8 +98,8 @@ API object is passed with a configuration file like so `kubeadm ... --config som
 By calling `kubeadm config print init-defaults --component-configs KubeletConfiguration` you can
 see all the default values for this structure.
 
-Also have a look at the [API reference for the
-kubelet ComponentConfig](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
+Also have a look at the
+[reference for the KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
 for more information on the individual fields.
 
 ### Workflow when using `kubeadm init`
@@ -160,9 +159,13 @@ has finished performing the TLS Bootstrap.
 `kubeadm` ships with configuration for how systemd should run the kubelet.
 Note that the kubeadm CLI command never touches this drop-in file.
 
-This configuration file installed by the `kubeadm` [DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf) or [RPM package](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubeadm/10-kubeadm.conf) is written to
+This configuration file installed by the `kubeadm`
+[DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf) or
+[RPM package](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubeadm/10-kubeadm.conf) is written to
 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by systemd.
-It augments the basic [`kubelet.service` for RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) or [`kubelet.service` for DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service):
+It augments the basic
+[`kubelet.service` for RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) or
+[`kubelet.service` for DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service):
 
 ```none
 [Service]

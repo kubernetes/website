@@ -96,7 +96,7 @@ spec:
     * ネットワークを介したノードとPod間通信、LinuxマスターからのPod IPのポート80に向けて`curl`して、ウェブサーバーの応答をチェックします
     * docker execまたはkubectl execを使用したPod間通信、Pod間(および複数のWindowsノードがある場合はホスト間)へのpingします
     * ServiceからPodへの通信、Linuxマスターおよび個々のPodからの仮想Service IP(`kubectl get services`で表示される)に`curl`します
-    * サービスディスカバリ、Kuberntesの[default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)と共にService名に`curl`します
+    * サービスディスカバリ、Kubernetesの[default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)と共にService名に`curl`します
     * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
     * インバウンド接続、Linuxマスターまたはクラスター外のマシンからNodePortに`curl`します
     * アウトバウンド接続、kubectl execを使用したPod内からの外部IPに`curl`します
@@ -134,7 +134,7 @@ Kubernetes v1.14以降、Windowsコンテナワークロードは、Group Manage
 
 Podの仕様で`"kubernetes.io/os": windows`のようなnodeSelectorが指定されていない場合、PodをWindowsまたはLinuxの任意のホストでスケジュールすることができます。WindowsコンテナはWindowsでのみ実行でき、LinuxコンテナはLinuxでのみ実行できるため、これは問題になる可能性があります。ベストプラクティスは、nodeSelectorを使用することです。
 
-ただし、多くの場合、ユーザーには既存の多数のLinuxコンテナのdepolyment、およびコミュニティHelmチャートのような既成構成のエコシステムやOperatorのようなプログラム的にPodを生成するケースがあることを理解しています。このような状況では、nodeSelectorsを追加するための構成変更をためらう可能性があります。代替策は、Taintsを使用することです。kubeletは登録中にTaintsを設定できるため、Windowsだけで実行する時に自動的にTaintを追加するように簡単に変更できます。
+ただし、多くの場合、ユーザーには既存の多数のLinuxコンテナのdeployment、およびコミュニティHelmチャートのような既成構成のエコシステムやOperatorのようなプログラム的にPodを生成するケースがあることを理解しています。このような状況では、nodeSelectorsを追加するための構成変更をためらう可能性があります。代替策は、Taintsを使用することです。kubeletは登録中にTaintsを設定できるため、Windowsだけで実行する時に自動的にTaintを追加するように簡単に変更できます。
 
 例:`--register-with-taints='os=windows:NoSchedule'`
 

@@ -1,14 +1,16 @@
 ---
 title: 调度器性能调优
 content_type: concept
-weight: 80
+weight: 100
 ---
 <!--
+---
 reviewers:
 - bsalamat
 title: Scheduler Performance Tuning
 content_type: concept
-weight: 80
+weight: 100
+---
 -->
 
 <!-- overview -->
@@ -45,7 +47,7 @@ large Kubernetes clusters.
 
 <!-- body -->
 
-<!-- 
+<!--
 In large clusters, you can tune the scheduler's behaviour balancing
 scheduling outcomes between latency (new Pods are placed quickly) and
 accuracy (the scheduler rarely makes poor placement decisions).
@@ -60,12 +62,12 @@ a threshold for scheduling nodes in your cluster.
 你可以通过设置 kube-scheduler 的 `percentageOfNodesToScore` 来配置这个调优设置。
 这个 KubeSchedulerConfiguration 设置决定了调度集群中节点的阈值。
 
-<!-- 
+<!--
 ### Setting the threshold
  -->
 ### 设置阈值
 
-<!-- 
+<!--
 The `percentageOfNodesToScore` option accepts whole numeric values between 0
 and 100. The value 0 is a special number which indicates that the kube-scheduler
 should use its compiled-in default.
@@ -77,15 +79,17 @@ had set a value of 100.
 如果你设置 `percentageOfNodesToScore` 的值超过了 100，
 kube-scheduler 的表现等价于设置值为 100。
 
-<!-- 
-To change the value, edit the kube-scheduler configuration file (this is likely
-to be `/etc/kubernetes/config/kube-scheduler.yaml`), then restart the scheduler.
+<!--
+To change the value, edit the
+[kube-scheduler configuration file](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+and then restart the scheduler.
+In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`
  -->
-要修改这个值，编辑 kube-scheduler 的配置文件
-（通常是 `/etc/kubernetes/config/kube-scheduler.yaml`），
+要修改这个值，先编辑 [kube-scheduler 的配置文件](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2/)
 然后重启调度器。
+大多数情况下，这个配置文件是 `/etc/kubernetes/config/kube-scheduler.yaml`。
 
-<!-- 
+<!--
 After you have made this change, you can run
  -->
 修改完成后，你可以执行
@@ -94,17 +98,17 @@ After you have made this change, you can run
 kubectl get pods -n kube-system | grep kube-scheduler
 ```
 
-<!-- 
+<!--
 to verify that the kube-scheduler component is healthy.
  -->
 来检查该 kube-scheduler 组件是否健康。
 
-<!-- 
+<!--
 ## Node scoring threshold {#percentage-of-nodes-to-score}
  -->
 ## 节点打分阈值 {#percentage-of-nodes-to-score}
 
-<!-- 
+<!--
 To improve scheduling performance, the kube-scheduler can stop looking for
 feasible nodes once it has found enough of them. In large clusters, this saves
 time compared to a naive approach that would consider every node.
@@ -112,7 +116,7 @@ time compared to a naive approach that would consider every node.
 要提升调度性能，kube-scheduler 可以在找到足够的可调度节点之后停止查找。
 在大规模集群中，比起考虑每个节点的简单方法相比可以节省时间。
 
-<!-- 
+<!--
 You specify a threshold for how many nodes are enough, as a whole number percentage
 of all the nodes in your cluster. The kube-scheduler converts this into an
 integer number of nodes. During scheduling, if the kube-scheduler has identified
@@ -120,24 +124,24 @@ enough feasible nodes to exceed the configured percentage, the kube-scheduler
 stops searching for more feasible nodes and moves on to the
 [scoring phase](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
  -->
-你可以使用整个集群节点总数的百分比作为阈值来指定需要多少节点就足够。 
+你可以使用整个集群节点总数的百分比作为阈值来指定需要多少节点就足够。
 kube-scheduler 会将它转换为节点数的整数值。在调度期间，如果
 kube-scheduler 已确认的可调度节点数足以超过了配置的百分比数量，
 kube-scheduler 将停止继续查找可调度节点并继续进行
 [打分阶段](/zh/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)。
 
-<!-- 
+<!--
 [How the scheduler iterates over Nodes](#how-the-scheduler-iterates-over-nodes)
 describes the process in detail.
  -->
 [调度器如何遍历节点](#how-the-scheduler-iterates-over-nodes) 详细介绍了这个过程。
 
-<!-- 
+<!--
 ### Default threshold
  -->
 ### 默认阈值
 
-<!-- 
+<!--
 If you don't specify a threshold, Kubernetes calculates a figure using a
 linear formula that yields 50% for a 100-node cluster and yields 10%
 for a 5000-node cluster. The lower bound for the automatic value is 5%.
@@ -145,20 +149,20 @@ for a 5000-node cluster. The lower bound for the automatic value is 5%.
 如果你不指定阈值，Kubernetes 使用线性公式计算出一个比例，在 100-节点集群
 下取 50%，在 5000-节点的集群下取 10%。这个自动设置的参数的最低值是 5%。
 
-<!-- 
+<!--
 This means that, the kube-scheduler always scores at least 5% of your cluster no
 matter how large the cluster is, unless you have explicitly set
 `percentageOfNodesToScore` to be smaller than 5.
  -->
 这意味着，调度器至少会对集群中 5% 的节点进行打分，除非用户将该参数设置的低于 5。
 
-<!-- 
+<!--
 If you want the scheduler to score all nodes in your cluster, set
 `percentageOfNodesToScore` to 100.
  -->
 如果你想让调度器对集群内所有节点进行打分，则将 `percentageOfNodesToScore` 设置为 100。
 
-<!-- 
+<!--
 ## Example
  -->
 ## 示例
@@ -187,15 +191,15 @@ percentageOfNodesToScore: 50
 <!--
 `percentageOfNodesToScore` must be a value between 1 and 100 with the default
 value being calculated based on the cluster size. There is also a hardcoded
-minimum value of 50 nodes. 
+minimum value of 50 nodes.
 -->
 `percentageOfNodesToScore` 的值必须在 1 到 100 之间，而且其默认值是通过集群的规模计算得来的。
 另外，还有一个 50 个 Node 的最小值是硬编码在程序中。
 
 <!--
 {{< note >}} In clusters with less than 50 feasible nodes, the scheduler still
-checks all the nodes, simply because there are not enough feasible nodes to stop
-the scheduler's search early. 
+checks all the nodes because there are not enough feasible nodes to stop
+the scheduler's search early.
 
 In a small cluster, if you set a low value for `percentageOfNodesToScore`, your
 change will have no or little effect, for a similar reason.
@@ -203,7 +207,6 @@ change will have no or little effect, for a similar reason.
 If your cluster has several hundred Nodes or fewer, leave this configuration option
 at its default value. Making changes is unlikely to improve the
 scheduler's performance significantly.
-{{< /note >}}
 -->
 {{< note >}}
 当集群中的可调度节点少于 50 个时，调度器仍然会去检查所有的 Node，
@@ -293,3 +296,8 @@ After going over all the Nodes, it goes back to Node 1.
 -->
 在评估完所有 Node 后，将会返回到 Node 1，从头开始。
 
+## {{% heading "whatsnext" %}}
+
+<!-- * Check the [kube-scheduler configuration reference (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) -->
+
+* 参见 [kube-scheduler 配置参考 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2/)

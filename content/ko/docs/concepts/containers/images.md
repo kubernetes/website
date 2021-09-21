@@ -49,17 +49,47 @@ weight: 10
 
 ## 이미지 업데이트
 
-기본 풀(pull) 정책은 `IfNotPresent`이며, 이것은
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}이 이미
-존재하는 이미지에 대한 풀을 생략하게 한다. 만약 항상 풀을 강제하고 싶다면,
-다음 중 하나를 수행하면 된다.
+{{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}},
+{{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}}, 파드 또는 파드
+템플릿은 포함하는 다른 오브젝트를 처음 만들 때 특별히 명시하지 않은 경우
+기본적으로 해당 파드에 있는 모든 컨테이너의 풀(pull)
+정책은 `IfNotPresent`로 설정된다. 이 정책은
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}이 이미 존재하는
+이미지에 대한 풀을 생략하게 한다.
+
+만약 항상 풀을 강제하고 싶다면, 다음 중 하나를 수행하면 된다.
 
 - 컨테이너의 `imagePullPolicy`를 `Always`로 설정.
-- `imagePullPolicy`를 생략하고 `:latest`를 사용할 이미지의 태그로 사용.
+- `imagePullPolicy`를 생략하고 `:latest`를 사용할 이미지의 태그로 사용,
+  쿠버네티스는 정책을 `Always`로 설정한다.
 - `imagePullPolicy`와 사용할 이미지의 태그를 생략.
 - [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) 어드미션 컨트롤러를 활성화.
 
+{{< note >}}
+컨테이너의 `imagePullPolicy` 값은 오브젝트가 처음 _created_ 일 때 항상
+설정되고 나중에 이미지 태그가 변경되더라도 업데이트되지 않는다.
+
+예를 들어, 태그가 `:latest`가 아닌 이미지로 디플로이먼트를 생성하고,
+나중에 해당 디플로이먼트의 이미지를 `:latest` 태그로 업데이트하면
+`imagePullPolicy` 필드가 `Always` 로 변경되지 않는다. 오브젝트를
+처음 생성 한 후 모든 오브젝트의 풀 정책을 수동으로 변경해야 한다.
+{{< /note >}}
+
 `imagePullPolicy` 가 특정값 없이 정의되면, `Always` 로 설정된다.
+
+### 이미지풀백오프(ImagePullBackOff)
+
+kubelet이 컨테이너 런타임을 사용하여 파드의 컨테이너 생성을 시작할 때, 
+`ImagePullBackOff`로 인해 컨테이너가 
+[Waiting](/ko/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting) 상태에 있을 수 있다.
+
+`ImagePullBackOff`라는 상태는 (이미지 이름이 잘못됨, 또는 `imagePullSecret` 없이 
+비공개 레지스트리에서 풀링 시도 등의 이유로) 쿠버네티스가 컨테이너 이미지를 
+가져올 수 없기 때문에 컨테이너를 실행할 수 없음을 의미한다. `BackOff`라는 단어는 
+쿠버네티스가 백오프 딜레이를 증가시키면서 이미지 풀링을 계속 시도할 것임을 나타낸다.
+
+쿠버네티스는 시간 간격을 늘려가면서 시도를 계속하며, 시간 간격의 상한은 쿠버네티스 코드에 
+300초(5분)로 정해져 있다.
 
 ## 이미지 인덱스가 있는 다중 아키텍처 이미지
 
@@ -100,7 +130,7 @@ weight: 10
 
 
 도커는 프라이빗 레지스트리를 위한 키를 `$HOME/.dockercfg` 또는 `$HOME/.docker/config.json` 파일에 저장한다. 만약 동일한 파일을
-아래의 검색 경로 리스트에 넣으면, kubelete은 이미지를 풀 할 때 해당 파일을 자격 증명 공급자로 사용한다.
+아래의 검색 경로 리스트에 넣으면, kubelet은 이미지를 풀 할 때 해당 파일을 자격 증명 공급자로 사용한다.
 
 * `{--root-dir:-/var/lib/kubelet}/config.json`
 * `{cwd of kubelet}/config.json`

@@ -11,6 +11,7 @@ which a pod runs: network-attached storage might not be accessible by
 all nodes, or storage is local to a node to begin with.
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 This page describes how Kubernetes keeps track of storage capacity and
 how the scheduler uses that information to schedule Pods onto nodes
@@ -27,6 +28,7 @@ text="Container Storage Interface" term_id="csi" >}} (CSI) drivers and
 网络存储可能并非所有节点都能够访问，或者对于某个节点存储是本地的。
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 本页面描述了 Kubernetes 如何跟踪存储容量以及调度程序如何为了余下的尚未挂载的卷使用该信息将
 Pod 调度到能够访问到足够存储容量的节点上。
@@ -156,64 +158,16 @@ to handle this automatically.
 <!--
 ## Enabling storage capacity tracking
 
-Storage capacity tracking is an *alpha feature* and only enabled when
-the `CSIStorageCapacity` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) and
-the `storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}} are enabled. For details on
-that, see the `--feature-gates` and `--runtime-config` [kube-apiserver
-parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
+Storage capacity tracking is a beta feature and enabled by default in 
+a Kubernetes cluster since Kubernetes 1.21. In addition to having the
+feature enabled in the cluster, a CSI driver also has to support
+it. Please refer to the driver's documentation for details.
 -->
 ## 开启存储容量跟踪
 
-存储容量跟踪是一个 *alpha 特性*，只有当 `CSIStorageCapacity`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-和 `storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API 组" term_id="api-group" >}}启用时才能启用。
-更多详细信息，可以查看`--feature-gates` 和 `--runtime-config`
-[kube-apiserver 参数](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)。
-
-<!--
-A quick check
-whether a Kubernetes cluster supports the feature is to list
-CSIStorageCapacity objects with:
-```shell
-kubectl get csistoragecapacities --all-namespaces
-```
-
-If your cluster supports CSIStorageCapacity, the response is either a list of CSIStorageCapacity objects or:
-```
-No resources found
-```
--->
-快速检查 Kubernetes 集群是否支持这个特性，可以通过下面命令列出 CSIStorageCapacity 对象：
-
-```shell
-kubectl get csistoragecapacities --all-namespaces
-```
-
-如果集群支持 CSIStorageCapacity，就会返回 CSIStorageCapacity 的对象列表或者：
-```
-No resources found
-```
-
-<!--
-If not supported, this error is printed instead:
-```
-error: the server doesn't have a resource type "csistoragecapacities"
-```
-
-In addition to enabling the feature in the cluster, a CSI
-driver also has to
-support it. Please refer to the driver's documentation for
-details.
--->
-如果不支持，下面这个错误就会被打印出来：
-
-```
-error: the server doesn't have a resource type "csistoragecapacities"
-```
-
-除了在集群中启用该功能外，CSI 驱动程序还必须支持它。有关详细信息，请参阅驱动程序的文档。
-
+存储容量跟踪是一个 Beta 特性，从 Kubernetes 1.21 版本起在 Kubernetes 集群
+中默认被启用。除了在集群中启用此功能特性之外，还要求 CSI 驱动支持此特性。
+请参阅驱动的文档了解详细信息。
 
 ## {{% heading "whatsnext" %}}
 
@@ -225,6 +179,6 @@ error: the server doesn't have a resource type "csistoragecapacities"
 -->
 - 想要获得更多该设计的信息，查看
   [Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md)。
-- 有关此功能的进一步开发信息，查看
+- 有关此功能的下一步开发信息，查看
   [enhancement tracking issue #1472](https://github.com/kubernetes/enhancements/issues/1472)。
 - 学习 [Kubernetes 调度器](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)。

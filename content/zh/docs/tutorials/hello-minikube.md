@@ -81,9 +81,13 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
    {{< kat-button >}}
 
-   <!-- If you installed Minikube locally, run `minikube start`.-->
+   <!-- 
+   If you installed minikube locally, run `minikube start`. Before you run `minikube dashboard`, you should open a new terminal, start `minikube dashboard` there, and then switch back to the main terminal.
+   -->
    {{< note >}}
-   如果你在本地安装了 Minikube，运行 `minikube start`。 
+   如果你在本地安装了 Minikube，运行 `minikube start`。
+   在运行 `minikube dashboard` 之前，你应该打开一个新终端，
+   在此启动 `minikube dashboard` ，然后切换回主终端。 
    {{< /note >}}
 
 <!--
@@ -97,12 +101,56 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
 <!--
 3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
-
-4. Katacoda environment only: Type `30000`, and then click **Display Port**.
 -->
 3. 仅限 Katacoda 环境：在终端窗口的顶部，单击加号，然后单击 **选择要在主机 1 上查看的端口**。
 
+<!--
+4. Katacoda environment only: Type `30000`, and then click **Display Port**.
+-->
 4. 仅限 Katacoda 环境：输入“30000”，然后单击 **显示端口**。
+
+<!--
+The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser. 
+You can create Kubernetes resources on the dashboard such as Deployment and Service.
+
+If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
+
+By default, the dashboard is only accessible from within the internal Kubernetes virtual network.
+The `dashboard` command creates a temporary proxy to make the dashboard accessible from outside the Kubernetes virtual network.
+
+To stop the proxy, run `Ctrl+C` to exit the process.
+After the command exits, the dashboard remains running in Kubernetes cluster.
+You can run the `dashboard` command again to create another proxy to access the dashboard.
+-->
+{{< note >}}
+`dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。
+你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
+
+如果你以 root 用户身份在环境中运行，
+请参见[使用 URL 打开仪表板](#open-dashboard-with-url)。
+
+默认情况下，仪表板只能从内部 Kubernetes 虚拟网络中访问。
+`dashboard` 命令创建一个临时代理，使仪表板可以从 Kubernetes 虚拟网络外部访问。
+
+要停止代理，请运行 `Ctrl+C` 退出该进程。仪表板仍在运行中。
+命令退出后，仪表板仍然在 Kubernetes 集群中运行。
+你可以再次运行 `dashboard` 命令创建另一个代理来访问仪表板。
+
+{{< /note >}}
+
+<!--
+## Open Dashboard with URL
+-->
+## 使用 URL 打开仪表板
+
+<!--
+If you don't want to open a web browser, run the dashboard command with the url flag to emit a URL:
+-->
+如果你不想打开 Web 浏览器，请使用 url 标志运行显示板命令以得到 URL：
+
+```shell
+minikube dashboard --url
+```
 
 <!--
 
@@ -238,9 +286,9 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    如果你用 `kubectl expose` 暴露了其它的端口，客户端将不能访问其它端口。
 
 <!--
-2. View the Service you just created:
+2. View the Service you created:
 -->
-2. 查看你刚刚创建的 Service：
+2. 查看你创建的 Service：
 
    ```shell
    kubectl get services
@@ -352,13 +400,13 @@ Minikube 有一组内置的 {{< glossary_tooltip text="插件" term_id="addons" 
    输出结果类似于这样：
 
    ```
-   metrics-server was successfully enabled
+   The 'metrics-server' addon is enabled
    ```
 
 <!--
-3. View the Pod and Service you just created:
+3. View the Pod and Service you created:
 -->
-3. 查看刚才创建的 Pod 和 Service：
+3. 查看创建的 Pod 和 Service：
 
    ```shell
    kubectl get pod,svc -n kube-system

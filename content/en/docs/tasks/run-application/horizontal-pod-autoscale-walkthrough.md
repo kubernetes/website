@@ -189,7 +189,7 @@ by making use of the `autoscaling/v2beta2` API version.
 First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2beta2` form:
 
 ```shell
-kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
+kubectl get hpa php-apache -o yaml > /tmp/hpa-v2.yaml
 ```
 
 Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
@@ -382,7 +382,7 @@ with *external metrics*.
 
 Using external metrics requires knowledge of your monitoring system; the setup is
 similar to that required when using custom metrics. External metrics allow you to autoscale your cluster
-based on any metric available in your monitoring system. Just provide a `metric` block with a
+based on any metric available in your monitoring system. Provide a `metric` block with a
 `name` and `selector`, as above, and use the `External` metric type instead of `Object`.
 If multiple time series are matched by the `metricSelector`,
 the sum of their values is used by the HorizontalPodAutoscaler.
@@ -397,7 +397,9 @@ section to your HorizontalPodAutoscaler manifest to specify that you need one wo
   external:
     metric:
       name: queue_messages_ready
-      selector: "queue=worker_tasks"
+      selector:
+        matchLabels:
+          queue: "worker_tasks"
     target:
       type: AverageValue
       averageValue: 30

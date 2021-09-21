@@ -73,7 +73,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxies UDP, TCP and SCTP
     - does not understand HTTP
     - provides load balancing
-    - is just used to reach services
+    - is only used to reach services
 -->
 3. [kube proxy](/zh/docs/concepts/services-networking/service/#ips-and-vips)：
 

@@ -1,6 +1,10 @@
 ---
-title: 使用 Kubernetes API
+title: API 概述
 weight: 10
+no_list: true
+card:
+   name: reference
+   weight: 50
 ---
 
 <!-- overview -->
@@ -68,7 +72,7 @@ can find more information about the criteria for each level in the
 [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions).
 -->
 不同的 API 版本代表着不同的稳定性和支持级别。
-你可以在 [API 变更文档]https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)
+你可以在 [API 变更文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)
 中查看到更多的不同级别的判定标准。
 
 <!--
@@ -107,7 +111,7 @@ Here's a summary of each level:
     特性默认开启。
   - 尽管一些特性会发生细节上的变化，但它们将会被长期支持。
 
-<!--
+  <!--
   - The schema and/or semantics of objects may change in incompatible ways in
     a subsequent beta or stable release. When this happens, migration
     instructions are provided. Schema changes may require deleting, editing, and
@@ -116,7 +120,7 @@ Here's a summary of each level:
   - The software is not recommended for production uses. Subsequent releases
     may introduce incompatible changes. If you have multiple clusters which
     can be upgraded independently, you may be able to relax this restriction.
--->
+  -->
   - 在随后的 Beta 版或稳定版中，对象的模式和（或）语义可能以不兼容的方式改变。
     当这种情况发生时，将提供迁移说明。
      模式更改可能需要删除、编辑和重建 API 对象。
@@ -126,10 +130,10 @@ Here's a summary of each level:
     后续发布版本可能会有不兼容的变动。
     如果你有多个集群可以独立升级，可以放宽这一限制。
 
-<!--
+  <!--
   Please try beta features and provide feedback. After the features exit beta, it
   may not be practical to make more changes.
--->
+  -->
   {{< note >}}
   请试用测试版特性时并提供反馈。特性完成 Beta 阶段测试后，
   就可能不会有太多的变更了。
@@ -188,7 +192,7 @@ part is omitted, it is treated as if `=true` is specified. For example:
  - to disable `batch/v1`, set `--runtime-config=batch/v1=false`
  - to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
 -->
-##　启用或禁用 API 组   {#enabling-or-disabling}
+## 启用或禁用 API 组   {#enabling-or-disabling}
 资源和 API 组是在默认情况下被启用的。
 你可以通过在 API 服务器上设置 `--runtime-config` 参数来启用或禁用它们。
 `--runtime-config` 参数接受逗号分隔的 `<key>[=<value>]` 对，

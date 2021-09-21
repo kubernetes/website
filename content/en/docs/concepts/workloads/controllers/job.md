@@ -16,7 +16,8 @@ weight: 50
 A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
 As pods successfully complete, the Job tracks the successful completions.  When a specified number
 of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
-the Pods it created.
+the Pods it created. Suspending a Job will delete its active Pods until the Job
+is resumed again.
 
 A simple case is to create one Job object in order to reliably run one Pod to completion.
 The Job object will start a new Pod if the first Pod fails or is deleted (for example
@@ -99,7 +100,7 @@ pi-5rwd7
 ```
 
 Here, the selector is the same as the selector for the Job.  The `--output=jsonpath` option specifies an expression
-that just gets the name from each Pod in the returned list.
+with the name from each Pod in the returned list.
 
 View the standard output of one of the pods:
 
@@ -145,8 +146,8 @@ There are three main types of task suitable to run as a Job:
    - the Job is complete as soon as its Pod terminates successfully.
 1. Parallel Jobs with a *fixed completion count*:
    - specify a non-zero positive value for `.spec.completions`.
-   - the Job represents the overall task, and is complete when there is one successful Pod for each value in the range 1 to `.spec.completions`.
-   - **not implemented yet:** Each Pod is passed a different index in the range 1 to `.spec.completions`.
+   - the Job represents the overall task, and is complete when there are `.spec.completions` successful Pods.
+   - when using `.spec.completionMode="Indexed"`, each Pod gets a different index in the range 0 to `.spec.completions-1`.
 1. Parallel Jobs with a *work queue*:
    - do not specify `.spec.completions`, default to `.spec.parallelism`.
    - the Pods must coordinate amongst themselves or an external service to determine what each should work on. For example, a Pod might fetch a batch of up to N items from the work queue.
@@ -166,7 +167,6 @@ a non-negative integer.
 
 For more information about how to make use of the different types of job, see the [job patterns](#job-patterns) section.
 
-
 #### Controlling parallelism
 
 The requested parallelism (`.spec.parallelism`) can be set to any non-negative value.
@@ -184,6 +184,32 @@ parallelism, for a variety of reasons:
   then there may be fewer pods than requested.
 - The Job controller may throttle new Pod creation due to excessive previous pod failures in the same Job.
 - When a Pod is gracefully shut down, it takes time to stop.
+
+### Completion mode
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+Jobs with _fixed completion count_ - that is, jobs that have non null
+`.spec.completions` - can have a completion mode that is specified in `.spec.completionMode`:
+
+- `NonIndexed` (default): the Job is considered complete when there have been
+  `.spec.completions` successfully completed Pods. In other words, each Pod
+  completion is homologous to each other. Note that Jobs that have null
+  `.spec.completions` are implicitly `NonIndexed`.
+- `Indexed`: the Pods of a Job get an associated completion index from 0 to
+  `.spec.completions-1`. The index is available through three mechanisms:
+  - The Pod annotation `batch.kubernetes.io/job-completion-index`.
+  - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
+    When you use an Indexed Job in combination with a
+    {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
+    the deterministic hostnames to address each other via DNS.
+  - From the containarized task, in the environment variable `JOB_COMPLETION_INDEX`.
+  The Job is considered complete when there is one successfully completed Pod
+  for each index. For more information about how to use this mode, see
+  [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
+  Note that, although rare, more than one Pod could be started for the same
+  index, but only one of them will count towards the completion count.
+
 
 ## Handling Pod and container failures
 
@@ -228,7 +254,8 @@ from failed Jobs is not lost inadvertently.
 
 ## Job termination and cleanup
 
-When a Job completes, no more Pods are created, but the Pods are not deleted either.  Keeping them around
+When a Job completes, no more Pods are created, but the Pods are [usually](#pod-backoff-failure-policy) not deleted either.
+Keeping them around
 allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
 The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
 old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
@@ -277,7 +304,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
 ### TTL mechanism for finished Jobs
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 Another way to clean up finished Jobs (either `Complete` or `Failed`)
 automatically is to use a TTL mechanism provided by a
@@ -315,11 +342,6 @@ If the field is set to `0`, the Job will be eligible to be automatically deleted
 immediately after it finishes. If the field is unset, this Job won't be cleaned
 up by the TTL controller after it finishes.
 
-Note that this TTL mechanism is alpha, with feature gate `TTLAfterFinished`. For
-more information, see the documentation for
-[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
-finished resources.
-
 ## Job patterns
 
 The Job object can be used to support reliable parallel execution of Pods.  The Job object is not
@@ -348,12 +370,12 @@ The tradeoffs are:
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
 
-|                            Pattern                                   | Single Job object | Fewer pods than work items? | Use app unmodified? |  Works in Kube 1.1? |
-| -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
-| [Job Template Expansion](/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
-| [Queue with Pod Per Work Item](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |         ✓         |                             |      sometimes      |          ✓          |
-| [Queue with Variable Pod Count](/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
-| Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
+|                  Pattern                  | Single Job object | Fewer pods than work items? | Use app unmodified? |
+| ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
+| [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
+| [Queue with Variable Pod Count]           |         ✓         |             ✓               |                     |
+| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          | 
+| [Job Template Expansion]                  |                   |                             |          ✓          |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
@@ -364,15 +386,118 @@ are different ways to arrange for pods to work on different things.
 This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
 Here, `W` is the number of work items.
 
-|                             Pattern                                  | `.spec.completions` |  `.spec.parallelism` |
-| -------------------------------------------------------------------- |:-------------------:|:--------------------:|
-| [Job Template Expansion](/docs/tasks/job/parallel-processing-expansion/)           |          1          |     should be 1      |
-| [Queue with Pod Per Work Item](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |          W          |        any           |
-| [Queue with Variable Pod Count](/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
-| Single Job with Static Work Assignment                               |          W          |        any           |
+|             Pattern                       | `.spec.completions` |  `.spec.parallelism` |
+| ----------------------------------------- |:-------------------:|:--------------------:|
+| [Queue with Pod Per Work Item]            |          W          |        any           |
+| [Queue with Variable Pod Count]           |         null        |        any           |
+| [Indexed Job with Static Work Assignment] |          W          |        any           |
+| [Job Template Expansion]                  |          1          |     should be 1      |
 
+[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
+[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
+[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
 
 ## Advanced usage
+
+### Suspending a Job
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+{{< note >}}
+In Kubernetes version 1.21, this feature was in alpha, which required additional
+steps to enable this feature; make sure to read the [right documentation for the
+version of Kubernetes you're using](/docs/home/supported-doc-versions/).
+{{< /note >}}
+
+When a Job is created, the Job controller will immediately begin creating Pods
+to satisfy the Job's requirements and will continue to do so until the Job is
+complete. However, you may want to temporarily suspend a Job's execution and
+resume it later. To suspend a Job, you can update the `.spec.suspend` field of
+the Job to true; later, when you want to resume it again, update it to false.
+Creating a Job with `.spec.suspend` set to true will create it in the suspended
+state.
+
+When a Job is resumed from suspension, its `.status.startTime` field will be
+reset to the current time. This means that the `.spec.activeDeadlineSeconds`
+timer will be stopped and reset when a Job is suspended and resumed.
+
+Remember that suspending a Job will delete all active Pods. When the Job is
+suspended, your [Pods will be terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+with a SIGTERM signal. The Pod's graceful termination period will be honored and
+your Pod must handle this signal in this period. This may involve saving
+progress for later or undoing changes. Pods terminated this way will not count
+towards the Job's `completions` count.
+
+An example Job definition in the suspended state can be like so:
+
+```shell
+kubectl get job myjob -o yaml
+```
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjob
+spec:
+  suspend: true
+  parallelism: 1
+  completions: 5
+  template:
+    spec:
+      ...
+```
+
+The Job's status can be used to determine if a Job is suspended or has been
+suspended in the past:
+
+```shell
+kubectl get jobs/myjob -o yaml
+```
+
+```json
+apiVersion: batch/v1
+kind: Job
+# .metadata and .spec omitted
+status:
+  conditions:
+  - lastProbeTime: "2021-02-05T13:14:33Z"
+    lastTransitionTime: "2021-02-05T13:14:33Z"
+    status: "True"
+    type: Suspended
+  startTime: "2021-02-05T13:13:48Z"
+```
+
+The Job condition of type "Suspended" with status "True" means the Job is
+suspended; the `lastTransitionTime` field can be used to determine how long the
+Job has been suspended for. If the status of that condition is "False", then the
+Job was previously suspended and is now running. If such a condition does not
+exist in the Job's status, the Job has never been stopped.
+
+Events are also created when the Job is suspended and resumed:
+
+```shell
+kubectl describe jobs/myjob
+```
+
+```
+Name:           myjob
+...
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  12m   job-controller  Created pod: myjob-hlrpl
+  Normal  SuccessfulDelete  11m   job-controller  Deleted pod: myjob-hlrpl
+  Normal  Suspended         11m   job-controller  Job suspended
+  Normal  SuccessfulCreate  3s    job-controller  Created pod: myjob-jvb44
+  Normal  Resumed           3s    job-controller  Job resumed
+```
+
+The last four events, particularly the "Suspended" and "Resumed" events, are
+directly a result of toggling the `.spec.suspend` field. In the time between
+these two events, we see that no Pods were created, but Pod creation restarted
+as soon as the Job was resumed.
 
 ### Specifying your own Pod selector
 
@@ -398,7 +523,7 @@ to keep running, but you want the rest of the Pods it creates
 to use a different pod template and for the Job to have a new name.
 You cannot update the Job because these fields are not updatable.
 Therefore, you delete Job `old` but _leave its pods
-running_, using `kubectl delete jobs/old --cascade=false`.
+running_, using `kubectl delete jobs/old --cascade=orphan`.
 Before deleting it, you make a note of what selector it uses:
 
 ```shell
@@ -441,6 +566,46 @@ The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010
 `manualSelector: true` tells the system to that you know what you are doing and to allow this
 mismatch.
 
+### Job tracking with finalizers
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+{{< note >}}
+In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+It is disabled by default.
+
+When enabled, the control plane tracks new Jobs using the behavior described
+below. Existing Jobs are unaffected. As a user, the only difference you would
+see is that the control plane tracking of Job completion is more accurate.
+{{< /note >}}
+
+When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}
+relies on counting the Pods that exist in the cluster to track the Job status,
+that is, to keep the counters for `succeeded` and `failed` Pods.
+However, Pods can be removed for a number of reasons, including:
+- The garbage collector that removes orphan Pods when a Node goes down.
+- The garbage collector that removes finished Pods (in `Succeeded` or `Failed`
+  phase) after a threshold.
+- Human intervention to delete Pods belonging to a Job.
+- An external controller (not provided as part of Kubernetes) that removes or
+  replaces Pods.
+
+If you enable the `JobTrackingWithFinalizers` feature for your cluster, the
+control plane keeps track of the Pods that belong to any Job and notices if any
+such Pod is removed from the API server. To do that, the Job controller creates Pods with
+the finalizer `batch.kubernetes.io/job-tracking`. The controller removes the
+finalizer only after the Pod has been accounted for in the Job status, allowing
+the Pod to be removed by other controllers or users.
+
+The Job controller uses the new algorithm for new Jobs only. Jobs created
+before the feature is enabled are unaffected. You can determine if the Job
+controller is tracking a Job using Pod finalizers by checking if the Job has the
+annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
+or remove this annotation from Jobs.
+
 ## Alternatives
 
 ### Bare Pods
@@ -467,7 +632,7 @@ of custom controller for those Pods.  This allows the most flexibility, but may 
 complicated to get started with and offers less integration with Kubernetes.
 
 One example of this pattern would be a Job which starts a Pod which runs a script that in turn
-starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/spark/README.md)), runs a spark
+starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)), runs a spark
 driver, and then cleans up.
 
 An advantage of this approach is that the overall process gets the completion guarantee of a Job

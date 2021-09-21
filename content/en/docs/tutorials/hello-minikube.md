@@ -46,7 +46,7 @@ This tutorial provides a container image that uses NGINX to echo back all the re
     {{< kat-button >}}
 
 {{< note >}}
-If you installed minikube locally, run `minikube start`.
+If you installed minikube locally, run `minikube start`. Before you run `minikube dashboard`, you should open a new terminal, start `minikube dashboard` there, and then switch back to the main terminal.
 {{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
@@ -60,11 +60,17 @@ If you installed minikube locally, run `minikube start`.
 4. Katacoda environment only: Type `30000`, and then click **Display Port**.
 
 {{< note >}}
-The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser. You can create Kubernetes resources on the dashboard such as Deployment and Service.
+The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
+You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
-If you are running in an environment as root, see [Open Dashboard with URL](/docs/tutorials/hello-minikube#open-dashboard-with-url).
+If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
 
-To stop the proxy, run `Ctrl+C` to exit the process. The dashboard remains running.
+By default, the dashboard is only accessible from within the internal Kubernetes virtual network.
+The `dashboard` command creates a temporary proxy to make the dashboard accessible from outside the Kubernetes virtual network.
+
+To stop the proxy, run `Ctrl+C` to exit the process.
+After the command exits, the dashboard remains running in Kubernetes cluster.
+You can run the `dashboard` command again to create another proxy to access the dashboard.
 {{< /note >}}
 
 ## Open Dashboard with URL
@@ -152,7 +158,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     The application code inside the image `k8s.gcr.io/echoserver` only listens on TCP port 8080. If you used
     `kubectl expose` to expose a different port, clients could not connect to that other port.
 
-2. View the Service you just created:
+2. View the Service you created:
 
     ```shell
     kubectl get services
@@ -224,10 +230,10 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The output is similar to:
 
     ```
-    metrics-server was successfully enabled
+    The 'metrics-server' addon is enabled
     ```
 
-3. View the Pod and Service you just created:
+3. View the Pod and Service you created:
 
     ```shell
     kubectl get pod,svc -n kube-system

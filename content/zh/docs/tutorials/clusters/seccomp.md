@@ -2,6 +2,7 @@
 title: 使用 Seccomp 限制容器的系统调用
 content_type: tutorial
 weight: 20
+min-kubernetes-server-version: v1.22
 ---
 
 <!-- overview -->
@@ -10,7 +11,7 @@ weight: 20
 
 <!--
 Seccomp stands for secure computing mode and has been a feature of the Linux
-kernel since version 2.6.12.  It can be used to sandbox the privileges of a
+kernel since version 2.6.12. It can be used to sandbox the privileges of a
 process, restricting the calls it is able to make from userspace into the
 kernel. Kubernetes lets you automatically apply seccomp profiles loaded onto a
 Node to your Pods and containers.
@@ -49,20 +50,118 @@ Kubernetes 允许你将加载到节点上的 seccomp 配置文件自动应用于
 
 ## {{% heading "prerequisites" %}}
 
+{{< version-check >}}
+
 <!--
 In order to complete all steps in this tutorial, you must install
 [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) and
-[kubectl](/docs/tasks/tools/install-kubectl/). This tutorial will show examples
-with both alpha (pre-v1.19) and generally available seccomp functionality, so
+[kubectl](/docs/tasks/tools/). This tutorial will show examples
+both alpha (new in v1.22) and generally available seccomp functionality. You should
 make sure that your cluster is [configured
 correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)
 for the version you are using.
 -->
 为了完成本教程中的所有步骤，你必须安装 [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) 
-和 [kubectl](/zh/docs/tasks/tools/install-kubectl/)。本教程将显示同时具有 alpha（v1.19 之前的版本）
-和通常可用的 seccomp 功能的示例，因此请确保为所使用的版本[正确配置](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)了集群。
+和 [kubectl](/zh/docs/tasks/tools/)。本教程将显示同时具有 alpha（v1.22 新版本）
+和通常可用的 seccomp 功能的示例。
+你应该确保为所使用的版本[正确配置](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)了集群。
 
 <!-- steps -->
+
+<!-- 
+## Enable the use of `RuntimeDefault` as the default seccomp profile for all workloads
+
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+
+`SeccompDefault` is an optional kubelet
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates) as
+well as corresponding `--seccomp-default`
+[command line flag](/docs/reference/command-line-tools-reference/kubelet).
+Both have to be enabled simultaneously to use the feature.
+-->
+## 启用 `RuntimeDefault` 作为所有工作负载的默认 seccomp 配置文件
+
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+
+`SeccompDefault` 是一个可选的 kubelet
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)，
+相应地，`--seccomp-default` 是此特性门控的
+[命令行标志](/zh/docs/reference/command-line-tools-reference/kubelet)。
+必须同时启用两者才能使用该功能。
+
+<!-- 
+If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is 
+defined by the container runtime, instead of using the `Unconfined` (seccomp disabled) mode. 
+The default profiles aim to provide a strong set
+of security defaults while preserving the functionality of the workload. It is
+possible that the default profiles differ between container runtimes and their
+release versions, for example when comparing those from CRI-O and containerd.
+-->
+如果启用，kubelet 将默认使用 `RuntimeDefault` seccomp 配置，
+而不是使用 `Unconfined`（禁用 seccomp）模式，该配置由容器运行时定义。
+默认配置旨在提供一组强大的安全默认值设置，同时避免影响工作负载的功能。
+不同的容器运行时之间及其不同的发布版本之间的默认配置可能不同，
+例如在比较 CRI-O 和 containerd 的配置文件时（就会发现这点）。
+
+<!-- 
+Some workloads may require a lower amount of syscall restrictions than others.
+This means that they can fail during runtime even with the `RuntimeDefault`
+profile. To mitigate such a failure, you can:
+
+- Run the workload explicitly as `Unconfined`.
+- Disable the `SeccompDefault` feature for the nodes. Also making sure that
+  workloads get scheduled on nodes where the feature is disabled.
+- Create a custom seccomp profile for the workload.
+-->
+某些工作负载可能相比其他工作负载需要更少的系统调用限制。
+这意味着即使使用 `RuntimeDefault` 配置文件，它们也可能在运行时失败。
+要处理此类失效，你可以：
+
+- 将工作负载显式运行为 `Unconfined`。
+- 禁用节点的 `SeccompDefault` 功能。
+  还要确保工作负载被安排在禁用该功能的节点上。
+- 为工作负载创建自定义 seccomp 配置文件。
+
+<!-- 
+If you were introducing this feature into production-like cluster, the Kubernetes project
+recommends that you enable this feature gate on a subset of your nodes and then
+test workload execution before rolling the change out cluster-wide.
+
+More detailed information about a possible upgrade and downgrade strategy can be
+found in the [related Kubernetes Enhancement Proposal (KEP)](https://github.com/kubernetes/enhancements/tree/a70cc18/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy).
+-->
+如果你将此功能引入到类似生产的集群中，
+Kubernetes 项目建议你在节点的子集上启用此特性门控，
+然后在集群范围内推出更改之前测试工作负载的执行情况。
+
+有关可能的升级和降级策略的更多详细信息，
+请参见[相关 Kubernetes 增强提案 (KEP)](https://github.com/kubernetes/enhancements/tree/a70cc18/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy)。
+
+<!-- 
+Since the feature is in alpha state it is disabled per default. To enable it,
+pass the flags `--feature-gates=SeccompDefault=true --seccomp-default` to the
+`kubelet` CLI or enable it via the [kubelet configuration
+file](/docs/tasks/administer-cluster/kubelet-config-file/). To enable the
+feature gate in [kind](https://kind.sigs.k8s.io), ensure that `kind` provides
+the minimum required Kubernetes version and enables the `SeccompDefault` feature
+[in the kind configuration](https://kind.sigs.k8s.io/docs/user/quick-start/#enable-feature-gates-in-your-cluster):
+-->
+由于该功能处于 alpha 状态，因此默认情况下是被禁用的。要启用它，
+请将标志 `--feature-gates=SeccompDefault=true --seccomp-default` 
+传递给 `kubelet` CLI 或通过
+[kubelet 配置文件](/zh/docs/tasks/administer-cluster/kubelet-config-file/)启用它。
+要在 [kind](https://kind.sigs.k8s.io) 中启用特性门控，
+请确保 `kind` 提供所需的最低 Kubernetes 版本并
+[在 kind 配置中](https://kind.sigs.k8s.io/docs/user/quick-start/#enable-feature-gates-in-your-cluster)
+启用 `SeccompDefault` 功能：
+
+```yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+featureGates:
+  SeccompDefault: true
+```
+
 <!--
 ## Create Seccomp Profiles
 
@@ -91,8 +190,8 @@ into the cluster.
 
 For simplicity, [kind](https://kind.sigs.k8s.io/) can be used to create a single
 node cluster with the seccomp profiles loaded. Kind runs Kubernetes in Docker,
-so each node of the cluster is actually just a container. This allows for files
-to be mounted in the filesystem of each container just as one might load files
+so each node of the cluster is a container. This allows for files
+to be mounted in the filesystem of each container similar to loading files
 onto a node.
 
 Download the example above, and save it to a file named `kind.yaml`. Then create
@@ -101,8 +200,8 @@ the cluster with the configuration.
 ## 使用 Kind 创建一个本地 Kubernetes 集群
 
 为简单起见，可以使用 [kind](https://kind.sigs.k8s.io/) 创建一个已经加载 seccomp 配置文件的单节点集群。
-Kind 在 Docker 中运行 Kubernetes，因此集群的每个节点实际上只是一个容器。这允许将文件挂载到每个容器的文件系统中，
-就像将文件挂载到节点上一样。
+Kind 在 Docker 中运行 Kubernetes，因此集群的每个节点都是一个容器。这允许将文件挂载到每个容器的文件系统中，
+类似于将文件挂载到节点上。
 
 {{< codenew file="pods/security/seccomp/kind.yaml" >}}
 <br>
@@ -151,14 +250,14 @@ audit.json  fine-grained.json  violation.json
 ```
 
 <!--
-## Create a Pod with a Seccomp profile for syscall auditing
+## Create a Pod with a seccomp profile for syscall auditing
 
 To start off, apply the `audit.json` profile, which will log all syscalls of the
 process, to a new Pod.
 
 Download the correct manifest for your Kubernetes version:
 -->
-## 使用 Seccomp 配置文件创建 Pod 以进行系统调用审核
+## 使用 seccomp 配置文件创建 Pod 以进行系统调用审核
 
 首先，将 `audit.json` 配置文件应用到新的 Pod 中，该配置文件将记录该进程的所有系统调用。
 
@@ -297,14 +396,14 @@ kubectl delete svc/audit-pod
 ```
 
 <!--
-## Create Pod with Seccomp Profile that Causes Violation
+## Create Pod with seccomp Profile that Causes Violation
 
 For demonstration, apply a profile to the Pod that does not allow for any
 syscalls.
 
 Download the correct manifest for your Kubernetes version:
 -->
-## 使用导致违规的 Seccomp 配置文件创建 Pod
+## 使用导致违规的 seccomp 配置文件创建 Pod
 
 为了进行演示，请将不允许任何系统调用的配置文件应用于 Pod。
 
@@ -364,7 +463,7 @@ kubectl delete svc/violation-pod
 ```
 
 <!--
-## Create Pod with Seccomp Profile that Only Allows Necessary Syscalls
+## Create Pod with seccomp Profile that Only Allows Necessary Syscalls
 
 If you take a look at the `fine-pod.json`, you will notice some of the syscalls
 seen in the first example where the profile set `"defaultAction":
@@ -375,7 +474,7 @@ sent to `syslog`.
 
 Download the correct manifest for your Kubernetes version:
 -->
-## 使用设置仅允许需要的系统调用的配置文件来创建 Pod
+## 使用设置仅允许需要的系统调用的 seccomp 配置文件来创建 Pod
 
 如果你看一下 `fine-pod.json` 文件，你会注意到在第一个示例中配置文件设置为 `"defaultAction": "SCMP_ACT_LOG"` 的一些系统调用。
 现在，配置文件设置为 `"defaultAction": "SCMP_ACT_ERRNO"`，但是在 `"action": "SCMP_ACT_ALLOW"` 块中明确允许一组系统调用。
@@ -482,7 +581,7 @@ kubectl delete svc/fine-pod
 ```
 
 <!--
-## Create Pod that uses the Container Runtime Default Seccomp Profile
+## Create Pod that uses the Container Runtime Default seccomp Profile
 
 Most container runtimes provide a sane set of default syscalls that are allowed
 or not. The defaults can easily be applied in Kubernetes by using the
@@ -491,7 +590,7 @@ of a pod or container to `RuntimeDefault`.
 
 Download the correct manifest for your Kubernetes version:
 -->
-## 使用容器运行时默认的 Seccomp 配置文件创建 Pod
+## 使用容器运行时默认的 seccomp 配置文件创建 Pod
 
 大多数容器运行时都提供一组允许或不允许的默认系统调用。通过使用 `runtime/default` 注释
 或将 Pod 或容器的安全上下文中的 seccomp 类型设置为 `RuntimeDefault`，可以轻松地在 Kubernetes 中应用默认值。
@@ -518,10 +617,10 @@ The default seccomp profile should provide adequate access for most workloads.
 <!--
 Additional resources:
 
-* [A Seccomp Overview](https://lwn.net/Articles/656307/)
+* [A seccomp Overview](https://lwn.net/Articles/656307/)
 * [Seccomp Security Profiles for Docker](https://docs.docker.com/engine/security/seccomp/)
 -->
 额外的资源：
 
-* [Seccomp 概要](https://lwn.net/Articles/656307/)
+* [seccomp 概要](https://lwn.net/Articles/656307/)
 * [Seccomp 在 Docker 中的安全配置](https://docs.docker.com/engine/security/seccomp/)

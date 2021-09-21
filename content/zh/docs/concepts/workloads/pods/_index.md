@@ -54,7 +54,7 @@ for debugging if your cluster offers this.
 除了应用容器，Pod 还可以包含在 Pod 启动期间运行的
 [Init 容器](/zh/docs/concepts/workloads/pods/init-containers/)。
 你也可以在集群中支持[临时性容器](/zh/docs/concepts/workloads/pods/ephemeral-containers/)
-的情况外，为调试的目的注入临时性容器。
+的情况下，为调试的目的注入临时性容器。
 
 <!-- body -->
 
@@ -135,7 +135,7 @@ Kubernetes 集群中的 Pod 主要有两种用法：
 * **运行多个协同工作的容器的 Pod**。
   Pod 可能封装由多个紧密耦合且需要共享资源的共处容器组成的应用程序。
   这些位于同一位置的容器可能形成单个内聚的服务单元 —— 一个容器将文件从共享卷提供给公众，
-  而另一个单独的“挂斗”（sidecar）容器则刷新或更新这些文件。
+  而另一个单独的“边车”（sidecar）容器则刷新或更新这些文件。
   Pod 将这些容器和存储资源打包为一个可管理的实体。
 
   {{< note >}}
@@ -484,7 +484,7 @@ Any container in a Pod can enable privileged mode, using the `privileged` flag o
 the [security context](/docs/tasks/configure-pod-container/security-context/) of the container spec. This is useful for containers that want to use operating system administrative capabilities such as manipulating the network stack or accessing hardware devices.
 Processes within a privileged container get almost the same privileges that are available to processes outside a container.
 -->
-## 容器的特权模式     {#rivileged-mode-for-containers}
+## 容器的特权模式     {#privileged-mode-for-containers}
 
 Pod 中的任何容器都可以使用容器规约中的
 [安全性上下文](/zh/docs/tasks/configure-pod-container/security-context/)中的

@@ -1,2 +1,0 @@
-
-Fitur ini *deprecated*. Untuk informasi lebih lanjut mengenai tingkatan ini, silahkan merujuk pada [Kubernetes Deprecation Policy](/docs/reference/deprecation-policy/)

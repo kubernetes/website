@@ -7,7 +7,7 @@ weight: 20
 <!-- overview -->
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize)는
-[kustomization 파일](https://kubernetes-sigs.github.io/kustomize/api-reference/glossary/#kustomization)을
+[kustomization 파일](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization)을
 통해 쿠버네티스 오브젝트를 사용자가 원하는 대로 변경하는(customize) 독립형 도구이다.
 
 1.14 이후로, kubectl도
@@ -29,7 +29,7 @@ kubectl apply -k <kustomization_directory>
 ## {{% heading "prerequisites" %}}
 
 
-[`kubectl`](/ko/docs/tasks/tools/install-kubectl/)을 설치한다.
+[`kubectl`](/ko/docs/tasks/tools/)을 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -47,12 +47,12 @@ Kustomize는 쿠버네티스 구성을 사용자 정의화하는 도구이다. �
 
 ### 리소스 생성
 
-컨피그 맵과 시크릿은 파드와 같은 다른 쿠버네티스 오브젝트에서 사용되는 설정이나 민감한 데이터를 가지고 있다. 컨피그 맵이나 시크릿의 실질적인 소스는 일반적으로 `.properties` 파일이나 ssh key 파일과 같은 것들은 클러스터 외부에 있다.
-Kustomize는 시크릿과 컨피그 맵을 파일이나 문자열에서 생성하는 `secretGenerator`와 `configMapGenerator`를 가지고 있다.
+컨피그맵과 시크릿은 파드와 같은 다른 쿠버네티스 오브젝트에서 사용되는 설정이나 민감한 데이터를 가지고 있다. 컨피그맵이나 시크릿의 실질적인 소스는 일반적으로 `.properties` 파일이나 ssh key 파일과 같은 것들은 클러스터 외부에 있다.
+Kustomize는 시크릿과 컨피그맵을 파일이나 문자열에서 생성하는 `secretGenerator`와 `configMapGenerator`를 가지고 있다.
 
 #### configMapGenerator
 
-파일에서 컨피그 맵을 생성하려면 `configMapGenerator` 내의 `files` 리스트에 항목을 추가한다. 다음은 하나의 `.properties` 파일에서 데이터 항목으로 컨피그 맵을 생성하는 예제이다.
+파일에서 컨피그맵을 생성하려면 `configMapGenerator` 내의 `files` 리스트에 항목을 추가한다. 다음은 하나의 `.properties` 파일에서 데이터 항목으로 컨피그맵을 생성하는 예제이다.
 
 ```shell
 # application.properties 파일을 생성
@@ -68,13 +68,13 @@ configMapGenerator:
 EOF
 ```
 
-생성된 컨피그 맵은 다음 명령어로 검사할 수 있다.
+생성된 컨피그맵은 다음 명령어로 검사할 수 있다.
 
 ```shell
 kubectl kustomize ./
 ```
 
-생성된 컨피그 맵은 다음과 같다.
+생성된 컨피그맵은 다음과 같다.
 
 ```yaml
 apiVersion: v1
@@ -86,7 +86,44 @@ metadata:
   name: example-configmap-1-8mbdf7882g
 ```
 
-컨피그 맵은 문자로된 키-값 쌍들로도 생성할 수 있다. 문자로된 키-값 쌍에서 컨피그 맵을 생성하려면, configMapGenerator 내의 `literals` 리스트에 항목을 추가한다. 다음은 키-값 쌍을 데이터 항목으로 받는 컨피그 맵을 생성하는 예제이다.
+env 파일에서 컨피그맵을 생성하려면, `configMapGenerator`의 `envs` 리스트에 항목을 추가한다. 다음은 `.env` 파일의 데이터 항목으로 컨피그맵을 생성하는 예시를 보여준다.
+
+```shell
+# .env 파일 생성
+cat <<EOF >.env
+FOO=Bar
+EOF
+
+cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: example-configmap-1
+  envs:
+  - .env
+EOF
+```
+
+생성된 컨피그맵은 다음 명령어로 검사할 수 있다.
+
+```shell
+kubectl kustomize ./
+```
+
+생성된 컨피그맵은 다음과 같다.
+
+```yaml
+apiVersion: v1
+data:
+    FOO=Bar
+kind: ConfigMap
+metadata:
+  name: example-configmap-1-8mbdf7882g
+```
+
+{{< note >}}
+`.env` 파일의 각 변수는 생성한 컨피그맵에서 분리된 키가 된다. `.properties` 라는 이름의 파일을 내장하는 이전 예시(그리고 모든 항목들)는 단일 키를 위한 값이므로 이 예시와는 다르다.
+{{< /note >}}
+
+컨피그맵은 문자로된 키-값 쌍들로도 생성할 수 있다. 문자로된 키-값 쌍에서 컨피그맵을 생성하려면, configMapGenerator 내의 `literals` 리스트에 항목을 추가한다. 다음은 키-값 쌍을 데이터 항목으로 받는 컨피그맵을 생성하는 예제이다.
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -97,13 +134,13 @@ configMapGenerator:
 EOF
 ```
 
-생성된 컨피그 맵은 다음 명령어로 확인할 수 있다.
+생성된 컨피그맵은 다음 명령어로 확인할 수 있다.
 
 ```shell
 kubectl kustomize ./
 ```
 
-생성된 컨피그 맵은 다음과 같다.
+생성된 컨피그맵은 다음과 같다.
 
 ```yaml
 apiVersion: v1
@@ -112,6 +149,98 @@ data:
 kind: ConfigMap
 metadata:
   name: example-configmap-2-g2hdhfc6tk
+```
+
+디플로이먼트에서 생성된 컨피그맵을 사용하기 위해서는, configMapGenerator의 이름을 참조한다. Kustomize는 자동으로 해당 이름을 생성된 이름으로 교체할 것이다.
+
+다음은 생성된 컨피그맵을 사용하는 디플로이먼트의 예시다.
+
+```yaml
+# application.properties 파일을 생성한다.
+cat <<EOF >application.properties
+FOO=Bar
+EOF
+
+cat <<EOF >deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: app
+        image: my-app
+        volumeMounts:
+        - name: config
+          mountPath: /config
+      volumes:
+      - name: config
+        configMap:
+          name: example-configmap-1
+EOF
+
+cat <<EOF >./kustomization.yaml
+resources:
+- deployment.yaml
+configMapGenerator:
+- name: example-configmap-1
+  files:
+  - application.properties
+EOF
+```
+
+컨피그맵과 디플로이먼트를 생성한다.
+
+```shell
+kubectl kustomize ./
+```
+
+생성된 디플로이먼트는 이름을 통해서 생성된 컨피그맵을 참조한다.
+
+```yaml
+apiVersion: v1
+data:
+  application.properties: |
+    FOO=Bar
+kind: ConfigMap
+metadata:
+  name: example-configmap-1-g4hk9g2ff8
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-app
+  name: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - image: my-app
+        name: app
+        volumeMounts:
+        - mountPath: /config
+          name: config
+      volumes:
+      - configMap:
+          name: example-configmap-1-g4hk9g2ff8
+        name: config
 ```
 
 #### secretGenerator
@@ -170,9 +299,56 @@ metadata:
 type: Opaque
 ```
 
+컨피그맵과 유사하게, 생성된 시크릿도 secretGenerator의 이름을 참조함으로써 디플로이먼트에서 사용될 수 있다.
+
+```shell
+# password.txt 파일을 생성한다.
+cat <<EOF >./password.txt
+username=admin
+password=secret
+EOF
+
+cat <<EOF >deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: app
+        image: my-app
+        volumeMounts:
+        - name: password
+          mountPath: /secrets
+      volumes:
+      - name: password
+        secret:
+          secretName: example-secret-1
+EOF
+
+cat <<EOF >./kustomization.yaml
+resources:
+- deployment.yaml
+secretGenerator:
+- name: example-secret-1
+  files:
+  - password.txt
+EOF
+```
+
 #### generatorOptions
 
-생성된 컨피그 맵과 시크릿은 콘텐츠 해시 접미사가 추가된다. 이는 콘텐츠가 변경될 때 새로운 컨피그 맵 이나 시크릿이 생성되는 것을 보장한다. 접미사를 추가하는 동작을 비활성화하는 방법으로 `generatorOptions`를 사용할 수 있다. 그밖에, 생성된 컨피그 맵과 시크릿에 교차 편집 옵션들을 지정해주는 것도 가능하다.
+생성된 컨피그맵과 시크릿은 콘텐츠 해시 접미사가 추가된다. 이는 콘텐츠가 변경될 때 새로운 컨피그맵 이나 시크릿이 생성되는 것을 보장한다. 접미사를 추가하는 동작을 비활성화하는 방법으로 `generatorOptions`를 사용할 수 있다. 그밖에, 생성된 컨피그맵과 시크릿에 교차 편집 옵션들을 지정해주는 것도 가능하다.
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -189,7 +365,7 @@ generatorOptions:
 EOF
 ```
 
-생성된 컨피그 맵을 보려면 `kubectl kustomize ./`를 실행한다.
+생성된 컨피그맵을 보려면 `kubectl kustomize ./`를 실행한다.
 
 ```yaml
 apiVersion: v1
@@ -814,17 +990,17 @@ deployment.apps "dev-my-nginx" deleted
 | nameSuffix            | string                                                                                                       | 모든 리소스 네임에 이 필드의 값이 접미사로 추가된다                                            |
 | commonLabels          | map[string]string                                                                                            | 모든 리소스와 셀렉터에 추가될 레이블                                                        |
 | commonAnnotations     | map[string]string                                                                                            | 모든 리소스에 추가될 어노테이션                                                            |
-| resources             | []string                                                                                                     | 이 리스트 내 각각의 항목은 반드시 존재하는 리소스 구성 파일로 해석되어져야 한다                       |
-| configmapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L99)  | 이 리스트 내 각각의 항목은 컨피그 맵을 생성한다                                               |
-| secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L106)     | 이 리스트 내 각각의 항목은 시크릿을 생성한다                                                  |
-| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L109) | 모든 configMapGenerator와 secretGenerator의 동작을 변경                                 |
-| bases                 | []string                                                                                                     | 이 리스트 내 각각의 항목은 kustomization.yaml 파일을 가지는 디렉터리로 해석되어져야 한다            |
-| patchesStrategicMerge | []string                                                                                                     | 이 리스트 내 각각의 항목은 쿠버네티스 오브젝트의 전략적 병합 패치로 해석되어져야 한다                   |
-| patchesJson6902       | [][Json6902](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/patchjson6902.go#L8)             | 이 리스트 내 각각의 항목은 쿠버네티스 오브젝트와 Json 패치로 해석되어져야 한다                       |
-| vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L31)                       | 각각의 항목은 한 리소스의 필드에서 텍스트를 캡쳐한다                                            |
-| images                | [][Image](https://github.com/kubernetes-sigs/kustomize/tree/master/api/types/image.go#L23)                   | 각각의 항목은 패치를 생성하지 않고 한 이미지의 name, tags 그리고/또는 digest를 수정한다             |
-| configurations        | []string                                                                                                     | 이 리스트 내 각각의 항목은 [Kustomize 변환 설정](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs)을 포함하는 파일로 해석되어져야 한다 |
-| crds                  | []string                                                                                                     | 이 리스트 내 각각의 항목은 쿠버네티스 타입에 대한 OpenAPI 정의 파일로 해석되어져야 한다               |
+| resources             | []string                                                                                                     | 이 리스트 내 각각의 항목은 반드시 존재하는 리소스 구성 파일로 해석되어야 한다.                       |
+| configMapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/configmapargs.go#L7)    | 이 리스트의 각 항목은 컨피그맵을 생성한다.                                       |
+| secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/secretargs.go#L7)          | 이 리스트의 각 항목은 시크릿을 생성한다.                                         |
+| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/generatoroptions.go#L7) | 모든 컨피그맵 및 시크릿 생성자(generator)의 동작을 수정한다.                             |
+| bases                 | []string                                                                                                     | 이 리스트 내 각각의 항목은 kustomization.yaml 파일을 가지는 디렉터리로 해석되어야 한다.            |
+| patchesStrategicMerge | []string                                                                                                     | 이 리스트 내 각각의 항목은 쿠버네티스 오브젝트의 전략적 병합 패치로 해석되어야 한다.                   |
+| patchesJson6902       | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10)                   | 이 리스트 내 각각의 항목은 쿠버네티스 오브젝트와 Json 패치로 해석되어야 한다.                       |
+| vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19)                       | 각각의 항목은 한 리소스의 필드에서 텍스트를 캡쳐한다.                                            |
+| images                | [][Image](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/image.go#L8)                    | 각각의 항목은 패치를 생성하지 않고 하나의 이미지에 대한 name, tags 그리고/또는 digest를 수정한다.             |
+| configurations        | []string                                                                                                     | 이 리스트 내 각각의 항목은 [Kustomize 변환 설정](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs)을 포함하는 파일로 해석되어야 한다. |
+| crds                  | []string                                                                                                     | 이 리스트 내 각각의 항목은 쿠버네티스 타입에 대한 OpenAPI 정의 파일로 해석되어야 한다.               |
 
 
 
@@ -832,6 +1008,6 @@ deployment.apps "dev-my-nginx" deleted
 
 
 * [Kustomize](https://github.com/kubernetes-sigs/kustomize)
-* [Kubectl 북](https://kubectl.docs.kubernetes.io)
+* [Kubectl 문서](https://kubectl.docs.kubernetes.io)
 * [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl-commands/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

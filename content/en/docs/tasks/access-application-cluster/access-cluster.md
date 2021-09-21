@@ -231,7 +231,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
       the cluster.  See the [services](/docs/concepts/services-networking/service/) and
       [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) documentation.
-    - Depending on your cluster environment, this may just expose the service to your corporate network,
+    - Depending on your cluster environment, this may only expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
     - Place pods behind services.  To access one specific pod from a set of replicas, such as for debugging,
@@ -283,7 +283,7 @@ at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-l
 As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
-If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
+If you haven't specified a name for your port, you don't have to specify *port_name* in the URL. You can also use the port number in place of the *port_name* for both named and unnamed ports.
 
 By default, the API server proxies to your service using http. To use https, prefix the service name with `https:`:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`https:service_name:[port_name]`*`/proxy`
@@ -291,9 +291,9 @@ By default, the API server proxies to your service using http. To use https, pre
 The supported formats for the name segment of the URL are:
 
 * `<service_name>` - proxies to the default or unnamed port using http
-* `<service_name>:<port_name>` - proxies to the specified port using http
+* `<service_name>:<port_name>` - proxies to the specified port name or port number using http
 * `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
-* `https:<service_name>:<port_name>` - proxies to the specified port using https
+* `https:<service_name>:<port_name>` - proxies to the specified port name or port number using https
 
 ##### Examples
 
@@ -357,7 +357,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxies UDP and TCP
     - does not understand HTTP
     - provides load balancing
-    - is just used to reach services
+    - is only used to reach services
 
 1.  A Proxy/Load-balancer in front of apiserver(s):
 

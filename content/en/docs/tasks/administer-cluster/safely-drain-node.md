@@ -29,7 +29,7 @@ This task also assumes that you have met the following prerequisites:
 
 ## (Optional) Configure a disruption budget {#configure-poddisruptionbudget}
 
-To endure that your workloads remain available during maintenance, you can
+To ensure that your workloads remain available during maintenance, you can
 configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
 
 If availability is important for any applications that run or could run on the node(s)
@@ -109,6 +109,28 @@ Pod can be thought of as a kind of policy-controlled DELETE operation on the Pod
 itself. To attempt an eviction (more precisely: to attempt to
 *create* an Eviction), you POST an attempted operation. Here's an example:
 
+{{< tabs name="Eviction_example" >}}
+{{% tab name="policy/v1" %}}
+{{< note >}}
+`policy/v1` Eviction is available in v1.22+. Use `policy/v1beta1` with prior releases.
+{{< /note >}}
+
+```json
+{
+  "apiVersion": "policy/v1",
+  "kind": "Eviction",
+  "metadata": {
+    "name": "quux",
+    "namespace": "default"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="policy/v1beta1" %}}
+{{< note >}}
+Deprecated in v1.22 in favor of `policy/v1`
+{{< /note >}}
+
 ```json
 {
   "apiVersion": "policy/v1beta1",
@@ -119,6 +141,8 @@ itself. To attempt an eviction (more precisely: to attempt to
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 You can attempt an eviction using `curl`:
 
@@ -128,8 +152,8 @@ curl -v -H 'Content-type: application/json' https://your-cluster-api-endpoint.ex
 
 The API can respond in one of three ways:
 
-- If the eviction is granted, then the Pod is deleted just as if you had sent
-  a `DELETE` request to the Pod's URL and you get back `200 OK`.
+- If the eviction is granted, then the Pod is deleted as if you sent
+  a `DELETE` request to the Pod's URL and received back `200 OK`.
 - If the current state of affairs wouldn't allow an eviction by the rules set
   forth in the budget, you get back `429 Too Many Requests`. This is
   typically used for generic rate limiting of *any* requests, but here we mean

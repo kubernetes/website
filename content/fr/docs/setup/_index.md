@@ -35,7 +35,7 @@ Vous devriez choisir une solution locale si vous souhaitez :
 * Essayer ou commencer à apprendre Kubernetes
 * Développer et réaliser des tests sur des clusters locaux
 
-Choisissez une [solution locale] (/fr/docs/setup/pick-right-solution/#solutions-locales).
+Choisissez une [solution locale](/fr/docs/setup/pick-right-solution/#solutions-locales).
 
 ## Solutions hébergées
 
@@ -49,7 +49,7 @@ Vous devriez choisir une solution hébergée si vous :
 * N'avez pas d'équipe de Site Reliability Engineering (SRE) dédiée, mais que vous souhaitez une haute disponibilité.
 * Vous n'avez pas les ressources pour héberger et surveiller vos clusters
 
-Choisissez une [solution hébergée] (/fr/docs/setup/pick-right-solution/#solutions-hebergées).
+Choisissez une [solution hébergée](/fr/docs/setup/pick-right-solution/#solutions-hebergées).
 
 ## Solutions cloud clés en main
 
@@ -63,7 +63,7 @@ Vous devriez choisir une solution cloud clés en main si vous :
 * Voulez plus de contrôle sur vos clusters que ne le permettent les solutions hébergées
 * Voulez réaliser vous même un plus grand nombre d'operations
 
-Choisissez une [solution clé en main] (/fr/docs/setup/pick-right-solution/#solutions-clés-en-main)
+Choisissez une [solution clé en main](/fr/docs/setup/pick-right-solution/#solutions-clés-en-main)
 
 ## Solutions clés en main sur site
 
@@ -76,7 +76,7 @@ Vous devriez choisir une solution de cloud clé en main sur site si vous :
 * Disposez d'une équipe SRE dédiée
 * Avez les ressources pour héberger et surveiller vos clusters
 
-Choisissez une [solution clé en main sur site] (/fr/docs/setup/pick-right-solution/#solutions-on-premises-clés-en-main).
+Choisissez une [solution clé en main sur site](/fr/docs/setup/pick-right-solution/#solutions-on-premises-clés-en-main).
 
 ## Solutions personnalisées
 
@@ -84,11 +84,11 @@ Les solutions personnalisées vous offrent le maximum de liberté sur vos cluste
 d'expertise. Ces solutions vont du bare-metal aux fournisseurs de cloud sur
 différents systèmes d'exploitation.
 
-Choisissez une [solution personnalisée] (/fr/docs/setup/pick-right-solution/#solutions-personnalisées).
+Choisissez une [solution personnalisée](/fr/docs/setup/pick-right-solution/#solutions-personnalisées).
 
 
 
 ## {{% heading "whatsnext" %}}
 
-Allez à [Choisir la bonne solution] (/fr/docs/setup/pick-right-solution/) pour une liste complète de solutions.
+Allez à [Choisir la bonne solution](/fr/docs/setup/pick-right-solution/) pour une liste complète de solutions.
 

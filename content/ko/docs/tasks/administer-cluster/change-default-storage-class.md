@@ -70,7 +70,7 @@ content_type: task
 
 1. 스토리지클래스를 기본값으로 표시한다.
 
-      이전 과정과 유사하게, 어노테이션을 추가/설정 해야 한다.
+      이전 과정과 유사하게, 어노테이션을 추가/설정해야 한다.
       `storageclass.kubernetes.io/is-default-class=true`.
 
       ```bash

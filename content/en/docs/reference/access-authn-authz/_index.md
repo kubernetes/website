@@ -1,6 +1,6 @@
 ---
 title: API Access Control
-weight: 20
+weight: 15
 no_list: true
 ---
 

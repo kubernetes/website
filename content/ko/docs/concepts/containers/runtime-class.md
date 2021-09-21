@@ -11,7 +11,7 @@ weight: 20
 이 페이지는 런타임클래스 리소스와 런타임 선택 메커니즘에 대해서 설명한다.
 
 런타임클래스는 컨테이너 런타임을 구성을 선택하는 기능이다. 컨테이너 런타임
-구성은 파드의 컨테이너를 실행하는데 사용된다.
+구성은 파드의 컨테이너를 실행하는 데 사용된다.
 
 
 
@@ -21,7 +21,7 @@ weight: 20
 ## 동기
 
 서로 다른 파드간에 런타임클래스를 설정하여
-성능대 보안의 균형을 유지할 수 있다.
+성능과 보안의 균형을 유지할 수 있다.
 예를 들어, 일부 작업에서 높은 수준의 정보 보안 보증이 요구되는 경우,
 하드웨어 가상화를 이용하는 컨테이너 런타임으로 파드를 실행하도록 예약하는 선택을 할 수 있다.
 그러면 몇가지 추가적인 오버헤드는 있지만
@@ -68,7 +68,7 @@ handler: myconfiguration  # 상응하는 CRI 설정의 이름임
 ```
 
 런타임클래스 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)어이야 한다.
+[DNS 레이블 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-레이블-이름)어이야 한다.
 
 {{< note >}}
 런타임클래스 쓰기 작업(create/update/patch/delete)은
@@ -106,7 +106,8 @@ CRI 런타임 설치에 대한 자세한 내용은 [CRI 설치](/ko/docs/setup/p
 
 #### dockershim
 
-쿠버네티스의 내장 dockershim CRI는 런타임 핸들러를 지원하지 않는다.
+dockershim을 사용하는 경우 RuntimeClass는 런타임 핸들러를 `docker`로 고정한다.
+dockershim은 사용자 정의 런타임 핸들러를 지원하지 않는다.
 
 #### {{< glossary_tooltip term_id="containerd" >}}
 
@@ -131,7 +132,7 @@ https://github.com/containerd/cri/blob/master/docs/config.md
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-더 자세한 것은 CRI-O의 [설정 문서](https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md)를 본다.
+더 자세한 것은 CRI-O의 [설정 문서](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)를 본다.
 
 ## 스케줄
 
@@ -174,5 +175,5 @@ PodOverhead를 사용하려면, PodOverhead [기능 게이트](/ko/docs/referenc
 
 - [런타임클래스 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [런타임클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
-- [파드 오버헤드](/ko/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
-- [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+- [파드 오버헤드](/ko/docs/concepts/scheduling-eviction/pod-overhead/) 개념에 대해 읽기
+- [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

@@ -8,7 +8,7 @@ host="redis"
 # import os
 # host = os.getenv("REDIS_SERVICE_HOST")
 
-q = rediswq.RedisWQ(name="job2", host="redis")
+q = rediswq.RedisWQ(name="job2", host=host)
 print("Worker with sessionID: " +  q.sessionID())
 print("Initial queue state: empty=" + str(q.empty()))
 while not q.empty():

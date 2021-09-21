@@ -5,7 +5,6 @@ title: 例子 #1
 <!--
 title: Example #1
 -->
-
 <!--
 This is an **example** content file inside the **includes** leaf bundle.
 -->
@@ -17,4 +16,3 @@ Included content files can also contain shortcodes.
 {{< note >}}
 被包含的内容文件也可以包含短代码。
 {{< /note >}}
-

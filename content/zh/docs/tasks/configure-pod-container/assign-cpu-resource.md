@@ -166,9 +166,9 @@ kubectl top pod cpu-demo --namespace=cpu-example
 
 <!-- 
 This example output shows that the Pod is using 974 milliCPU, which is
-just a bit less than the limit of 1 CPU specified in the Pod configuration.
+slightly less than the limit of 1 CPU specified in the Pod configuration.
 -->
-此示例输出显示 Pod 使用的是 974 milliCPU，即仅略低于 Pod 配置中指定的 1 个 CPU 的限制。
+此示例输出显示 Pod 使用的是 974 milliCPU，即略低于 Pod 配置中指定的 1 个 CPU 的限制。
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)

@@ -17,7 +17,7 @@ KUBECONFIG 환경 변수를 설정하거나 [`--kubeconfig`](/ko/docs/concepts/c
 이 개요는 `kubectl` 구문을 다루고, 커맨드 동작을 설명하며, 일반적인 예제를 제공한다.
 지원되는 모든 플래그 및 하위 명령을 포함한 각 명령에 대한 자세한 내용은
 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 참조 문서를 참고한다.
-설치 방법에 대해서는 [kubectl 설치](/ko/docs/tasks/tools/install-kubectl/)를 참고한다.
+설치 방법에 대해서는 [kubectl 설치](/ko/docs/tasks/tools/)를 참고한다.
 
 <!-- body -->
 

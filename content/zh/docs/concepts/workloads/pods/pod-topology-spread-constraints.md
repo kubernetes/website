@@ -27,7 +27,7 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 
 <!--
 {{< note >}}
-In versions of Kubernetes before v1.19, you must enable the `EvenPodsSpread`
+In versions of Kubernetes before v1.18, you must enable the `EvenPodsSpread`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on
 the [API server](/docs/concepts/overview/components/#kube-apiserver) and the
 [scheduler](/docs/reference/generated/kube-scheduler/) in order to use Pod
@@ -36,7 +36,8 @@ topology spread constraints.
 -->
 
 {{< note >}}
-在 v1.19 之前的 Kubernetes 版本中，如果要使用 Pod 拓扑扩展约束，你必须在 [API 服务器](/zh/docs/concepts/overview/components/#kube-apiserver) 
+在 v1.18 之前的 Kubernetes 版本中，如果要使用 Pod 拓扑扩展约束，你必须在
+[API 服务器](/zh/docs/concepts/overview/components/#kube-apiserver)
 和[调度器](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
 中启用 `EvenPodsSpread` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 {{< /note >}}
@@ -95,10 +96,11 @@ graph TB
 {{< /mermaid >}}
 
 <!--
-Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/kubernetes-api/labels-annotations-taints/) that are created and populated automatically on most clusters.
+
+Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/labels-annotations-taints/) that are created and populated automatically on most clusters.
 -->
 你可以复用在大多数集群上自动创建和填充的
-[常用标签](/zh/docs/reference/kubernetes-api/labels-annotations-taints/)，
+[常用标签](/zh/docs/reference/labels-annotations-taints/)，
 而不是手动添加标签。
 
 <!--
@@ -217,7 +219,7 @@ If we want an incoming Pod to be evenly spread with existing Pods across zones, 
 则让它保持悬决状态。
 
 <!--
-If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1], 
+If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1],
 hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed onto "zoneB":
 -->
 如果调度器将新的 Pod 放入 "zoneA"，Pods 分布将变为 [3, 1]，因此实际的偏差
@@ -480,7 +482,7 @@ replication controllers, replica sets or stateful sets that the Pod belongs to.
 
 An example configuration might look like follows:
 -->
-你可以在 [调度方案（Schedulingg Profile）](/zh/docs/reference/scheduling/config/#profiles)
+你可以在 [调度方案（Scheduling Profile）](/zh/docs/reference/scheduling/config/#profiles)
 中将默认约束作为 `PodTopologySpread` 插件参数的一部分来设置。
 约束的设置采用[如前所述的 API](#api)，只是 `labelSelector` 必须为空。
 选择算符是根据 Pod 所属的服务、副本控制器、ReplicaSet 或 StatefulSet 来设置的。
@@ -644,4 +646,3 @@ See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig
 -->
 - [博客: PodTopologySpread介绍](https://kubernetes.io/blog/2020/05/introducing-podtopologyspread/)
   详细解释了 `maxSkew`，并给出了一些高级的使用示例。
-

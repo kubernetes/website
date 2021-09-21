@@ -1,4 +1,4 @@
 ---
-title: Command line tools reference
+title: Component tools
 weight: 60
 ---

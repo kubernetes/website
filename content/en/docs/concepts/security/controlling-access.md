@@ -43,7 +43,7 @@ Authenticators are described in more detail in
 [Authentication](/docs/reference/access-authn-authz/authentication/).
 
 The input to the authentication step is the entire HTTP request; however, it typically
-just examines the headers and/or client certificate.
+examines the headers and/or client certificate.
 
 Authentication modules include client certificates, password, and plain tokens,
 bootstrap tokens, and JSON Web Tokens (used for service accounts).
@@ -142,7 +142,7 @@ By default, the Kubernetes API server serves HTTP on 2 ports:
       - is intended for testing and bootstrap, and for other components of the master node
         (scheduler, controller-manager) to talk to the API
       - no TLS
-      - default is port 8080, change with `--insecure-port` flag.
+      - default is port 8080
       - default IP is localhost, change with `--insecure-bind-address` flag.
       - request **bypasses** authentication and authorization modules.
       - request handled by admission control module(s).

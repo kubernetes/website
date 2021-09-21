@@ -5,6 +5,10 @@ weight: 60
 ---
 
 <!--
+reviewers:
+- erictune
+- foxish
+- davidopp
 title: Disruptions
 content_type: concept
 weight: 60
@@ -136,33 +140,38 @@ Here are some ways to mitigate involuntary disruptions:
 [stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
 and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
 - For even higher availability when running replicated applications,
-spread applications across racks (using
-[anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
-or across zones (if using a
-[multi-zone cluster](/docs/setup/multiple-zones).)
+  spread applications across racks (using
+  [anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity))
+  or across zones (if using a
+  [multi-zone cluster](/docs/setup/multiple-zones).)
 -->
 - 确保 Pod 在请求中给出[所需资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)。
 - 如果需要更高的可用性，请复制应用程序。
   （了解有关运行多副本的[无状态](/zh/docs/tasks/run-application/run-stateless-application-deployment/)
   和[有状态](/zh/docs/tasks/run-application/run-replicated-stateful-application/)应用程序的信息。）
 - 为了在运行复制应用程序时获得更高的可用性，请跨机架（使用
-  [反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)）或跨区域
-  （如果使用[多区域集群](/zh/docs/setup/best-practices/multiple-zones/)）扩展应用程序。
+  [反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+  或跨区域（如果使用[多区域集群](/zh/docs/setup/best-practices/multiple-zones/)）扩展应用程序。
 
 <!--
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
-no voluntary disruptions at all.  However, your cluster administrator or hosting provider
+no automated voluntary disruptions (only user-triggered ones).  However, your cluster administrator or hosting provider
 may run some additional services which cause voluntary disruptions. For example,
 rolling out node software updates can cause voluntary disruptions. Also, some implementations
 of cluster (node) autoscaling may cause voluntary disruptions to defragment and compact nodes.
 Your cluster administrator or hosting provider should have documented what level of voluntary
-disruptions, if any, to expect.
+disruptions, if any, to expect. Certain configuration options, such as
+[using PriorityClasses](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
+in your pod spec can also cause voluntary (and involuntary) disruptions.
 -->
-自愿干扰的频率各不相同。在一个基本的 Kubernetes 集群中，根本没有自愿干扰。然而，集群管理
-或托管提供商可能运行一些可能导致自愿干扰的额外服务。例如，节点软
+自愿干扰的频率各不相同。在一个基本的 Kubernetes 集群中，没有自愿干扰（只有用户触发的干扰）。
+然而，集群管理员或托管提供商可能运行一些可能导致自愿干扰的额外服务。例如，节点软
 更新可能导致自愿干扰。另外，集群（节点）自动缩放的某些
 实现可能导致碎片整理和紧缩节点的自愿干扰。集群
 管理员或托管提供商应该已经记录了各级别的自愿干扰（如果有的话）。
+有些配置选项，例如在 pod spec 中
+[使用 PriorityClasses](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
+也会产生自愿（和非自愿）的干扰。
 
 <!--
 Kubernetes offers features to help run highly available applications at the same
@@ -186,9 +195,9 @@ number needed for a quorum. A web front end might want to
 ensure that the number of replicas serving load never falls below a certain
 percentage of the total.
 -->
-## 干扰预算
+## 干扰预算   {#pod-disruption-budgets}
 
-{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 即使你会经常引入自愿性干扰，Kubernetes 也能够支持你运行高度可用的应用。
 
@@ -199,11 +208,11 @@ Web 前端可能希望确保提供负载的副本数量永远不会低于总数�
 
 <!--
 Cluster managers and hosting providers should use tools which
-respect Pod Disruption Budgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)
+respect PodDisruptionBudgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)
 instead of directly deleting pods or deployments.  Examples are the `kubectl drain` command
 and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 -->
-集群管理员和托管提供商应该使用遵循 Pod Disruption Budgets 的接口
+集群管理员和托管提供商应该使用遵循 PodDisruptionBudgets 的接口
 （通过调用[Eviction API](/zh/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
 而不是直接删除 Pod 或 Deployment。
 
@@ -263,8 +272,8 @@ during application updates is configured in spec for the specific workload resou
 <!--
 When a pod is evicted using the eviction API, it is gracefully
 [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination),
-hornoring the 
-`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).)
+hornoring the
+`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
 [终止](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，期间会
@@ -500,4 +509,3 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 * 进一步了解[排空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)的信息。
 * 了解[更新 Deployment](/zh/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性
-

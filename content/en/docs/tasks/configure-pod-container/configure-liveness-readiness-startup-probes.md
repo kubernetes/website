@@ -30,7 +30,7 @@ getting killed by the kubelet before they are up and running.
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 
 
@@ -145,7 +145,7 @@ Any code greater than or equal to 200 and less than 400 indicates success. Any
 other code indicates failure.
 
 You can see the source code for the server in
-[server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go).
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
 
 For the first 10 seconds that the container is alive, the `/healthz` handler
 returns a status of 200. After that, the handler returns a status of 500.
@@ -204,7 +204,7 @@ seconds.
 
 In addition to the readiness probe, this configuration includes a liveness probe.
 The kubelet will run the first liveness probe 15 seconds after the container
-starts. Just like the readiness probe, this will attempt to connect to the
+starts. Similar to the readiness probe, this will attempt to connect to the
 `goproxy` container on port 8080. If the liveness probe fails, the container
 will be restarted.
 
@@ -427,7 +427,63 @@ For a TCP probe, the kubelet makes the probe connection at the node, not in the 
 means that you can not use a service name in the `host` parameter since the kubelet is unable
 to resolve it.
 
+### Probe-level `terminationGracePeriodSeconds`
 
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+Prior to release 1.21, the pod-level `terminationGracePeriodSeconds` was used
+for terminating a container that failed its liveness or startup probe. This
+coupling was unintended and may have resulted in failed containers taking an
+unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
+was set.
+
+In 1.21 and beyond, when the feature gate `ProbeTerminationGracePeriod` is
+enabled, users can specify a probe-level `terminationGracePeriodSeconds` as
+part of the probe specification. When the feature gate is enabled, and both a
+pod- and probe-level `terminationGracePeriodSeconds` are set, the kubelet will
+use the probe-level value.
+
+{{< note >}}
+As of Kubernetes 1.22, the `ProbeTerminationGracePeriod` feature gate is only
+available on the API Server. The kubelet always honors the probe-level
+`terminationGracePeriodSeconds` field if it is present on a Pod.
+
+If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
+you no longer wish to use per-probe termination grace periods, you must delete
+those existing Pods.
+
+When you (or the control plane, or some other component) create replacement
+Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
+API server ignores the Pod-level `terminationGracePeriodSeconds` field, even if
+a Pod or pod template specifies it.
+{{< /note >}}
+
+For example,
+
+```yaml
+spec:
+  terminationGracePeriodSeconds: 3600  # pod-level
+  containers:
+  - name: test
+    image: ...
+
+    ports:
+    - name: liveness-port
+      containerPort: 8080
+      hostPort: 8080
+
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: liveness-port
+      failureThreshold: 1
+      periodSeconds: 60
+      # Override pod-level terminationGracePeriodSeconds #
+      terminationGracePeriodSeconds: 60
+```
+
+Probe-level `terminationGracePeriodSeconds` cannot be set for readiness probes.
+It will be rejected by the API server.
 
 ## {{% heading "whatsnext" %}}
 

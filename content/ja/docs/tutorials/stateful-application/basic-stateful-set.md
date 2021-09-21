@@ -45,13 +45,13 @@ StatefulSetはステートフルアプリケーションや分散システムで
 
 上の例をダウンロードして、`web.yaml`という名前で保存します。
 
-ここでは、ターミナルウィンドウを2つ使う必要があります。1つ目のターミナルでは、[`kubectl get`](/ja/docs/reference/generated/kubectl/kubectl-commands/#get)を使って、StatefulSetのPodの作成を監視します。
+ここでは、ターミナルウィンドウを2つ使う必要があります。1つ目のターミナルでは、[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)を使って、StatefulSetのPodの作成を監視します。
 
 ```shell
 kubectl get pods -w -l app=nginx
 ```
 
-2つ目のターミナルでは、[`kubectl apply`](/ja/docs/reference/generated/kubectl/kubectl-commands/#apply)を使って、`web.yaml`に定義されたheadless ServiceとStatefulSetを作成します。
+2つ目のターミナルでは、[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)を使って、`web.yaml`に定義されたheadless ServiceとStatefulSetを作成します。
 
 ```shell
 kubectl apply -f web.yaml
@@ -120,7 +120,7 @@ web-1     1/1       Running   0          1m
 
 ### 安定したネットワーク識別子の使用
 
-各Podは、順序インデックスに基づいた安定したホスト名を持ちます。[`kubectl exec`](/ja/docs/reference/generated/kubectl/kubectl-commands/#exec)を使用して、各Pod内で`hostname`コマンドを実行してみましょう。
+各Podは、順序インデックスに基づいた安定したホスト名を持ちます。[`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec)を使用して、各Pod内で`hostname`コマンドを実行してみましょう。
 
 ```shell
 for i in 0 1; do kubectl exec "web-$i" -- sh -c 'hostname'; done
@@ -130,7 +130,7 @@ web-0
 web-1
 ```
 
-[`kubectl run`](/ja/docs/reference/generated/kubectl/kubectl-commands/#run)を使用して、`dnsutils`パッケージの`nslookup`コマンドを提供するコンテナを実行します。Podのホスト名に対して`nslookup`を実行すると、クラスター内のDNSアドレスが確認できます。
+[`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run)を使用して、`dnsutils`パッケージの`nslookup`コマンドを提供するコンテナを実行します。Podのホスト名に対して`nslookup`を実行すると、クラスター内のDNSアドレスが確認できます。
 
 ```shell
 kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
@@ -165,7 +165,7 @@ headless serviceのCNAMEは、SRVレコードを指しています(1つのレコ
 ```shell
 kubectl get pod -w -l app=nginx
 ```
-2つ目のターミナルで、[`kubectl delete`](/ja/docs/reference/generated/kubectl/kubectl-commands/#delete)を使用して、StatefulSetのすべてのPodを削除します。
+2つ目のターミナルで、[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete)を使用して、StatefulSetのすべてのPodを削除します。
 
 ```shell
 kubectl delete pod -l app=nginx
@@ -316,8 +316,8 @@ web-1
 
 ## StatefulSetをスケールする
 
-StatefulSetのスケールとは、レプリカ数を増減することを意味します。これは、`replicas`フィールドを更新することによって実現できます。StatefulSetのスケールには、[`kubectl scale`](/ja/docs/reference/generated/kubectl/kubectl-commands/#scale)と
-[`kubectl patch`](/ja/docs/reference/generated/kubectl/kubectl-commands/#patch)のどちらも使用できます。
+StatefulSetのスケールとは、レプリカ数を増減することを意味します。これは、`replicas`フィールドを更新することによって実現できます。StatefulSetのスケールには、[`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale)と
+[`kubectl patch`](/docs/reference/generated/kubectl/kubectl-commands/#patch)のどちらも使用できます。
 
 ### スケールアップ
 
@@ -421,7 +421,7 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 
 まだ、5つのPersistentVolumeClaimと5つのPersistentVolumeが残っています。[安定したストレージへの書き込み](#writing-to-stable-storage)を読むと、StatefulSetのPodが削除されても、StatefulSetのPodにマウントされたPersistentVolumeは削除されないと書かれています。このことは、StatefulSetのスケールダウンによってPodが削除された場合にも当てはまります。
 
-## StatefulSetsを更新する
+## StatefulSetsを更新する {#updating-statefulsets}
 
 Kubernetes 1.7以降では、StatefulSetコントローラーは自動アップデートをサポートしています。使われる戦略は、StatefulSet APIオブジェクトの`spec.updateStrategy`フィールドによって決まります。この機能はコンテナイメージのアップグレード、リソースのrequestsやlimits、ラベル、StatefulSet内のPodのアノテーションの更新時に利用できます。有効なアップデートの戦略は、`RollingUpdate`と`OnDelete`の2種類です。
 
@@ -711,10 +711,10 @@ StatefulSetは、非カスケードな削除とカスケードな削除の両方
 kubectl get pods -w -l app=nginx
 ```
 
-[`kubectl delete`](/ja/docs/reference/generated/kubectl/kubectl-commands/#delete)を使用して、StatefulSetを削除します。このとき、`--cascade=false`パラメーターをコマンドに与えてください。このパラメーターは、Kubernetesに対して、StatefulSetだけを削除して配下のPodは削除しないように指示します。
+[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete)を使用して、StatefulSetを削除します。このとき、`--cascade=orphan`パラメーターをコマンドに与えてください。このパラメーターは、Kubernetesに対して、StatefulSetだけを削除して配下のPodは削除しないように指示します。
 
 ```shell
-kubectl delete statefulset web --cascade=false
+kubectl delete statefulset web --cascade=orphan
 ```
 ```
 statefulset.apps "web" deleted
@@ -814,7 +814,7 @@ web-1
 kubectl get pods -w -l app=nginx
 ```
 
-2つ目のターミナルで、StatefulSetをもう一度削除します。今回は、`--cascade=false`パラメーターを省略します。
+2つ目のターミナルで、StatefulSetをもう一度削除します。今回は、`--cascade=orphan`パラメーターを省略します。
 
 ```shell
 kubectl delete statefulset web

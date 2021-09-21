@@ -21,7 +21,7 @@ what that means, check out the blog post
 -->
 本文回顾了自 Kubernetes v1.20 版宣布弃用 Dockershim 以来所引发的一些常见问题。
 关于 Kubernetes kubelets 从容器运行时的角度弃用 Docker 的细节以及这些细节背后的含义，请参考博文
-[别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)
+[别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
 
 <!-- 
 ### Why is dockershim being deprecated?
@@ -83,7 +83,7 @@ and other ecosystem groups to ensure a smooth transition and will evaluate thing
 as the situation evolves.
 -->
 考虑到此改变带来的影响，我们使用了一个加长的废弃时间表。
-在 Kubernetes 1.22 版之前，它不会被彻底移除；换句话说，dockershim 被移除的最早版本会是 2021 年底发布 1.23 版。
+在 Kubernetes 1.22 版之前，它不会被彻底移除；换句话说，dockershim 被移除的最早版本会是 2021 年底发布的 1.23 版。
 我们将与供应商以及其他生态团队紧密合作，确保顺利过渡，并将依据事态的发展评估后续事项。
 
 <!-- 

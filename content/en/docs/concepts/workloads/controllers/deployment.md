@@ -54,7 +54,7 @@ In this example:
   {{< note >}}
   The `.spec.selector.matchLabels` field is a map of {key,value} pairs.
   A single {key,value} in the `matchLabels` map is equivalent to an element of `matchExpressions`,
-  whose key field is "key" the operator is "In", and the values array contains only "value".
+  whose `key` field is "key", the `operator` is "In", and the `values` array contains only "value".
   All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
   {{< /note >}}
 
@@ -708,7 +708,7 @@ nginx-deployment-618515232    11        11        11        7m
 You can pause a Deployment before triggering one or more updates and then resume it. This allows you to
 apply multiple fixes in between pausing and resuming without triggering unnecessary rollouts.
 
-* For example, with a Deployment that was just created:
+* For example, with a Deployment that was created:
   Get the Deployment details:
   ```shell
   kubectl get deploy

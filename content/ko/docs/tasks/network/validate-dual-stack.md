@@ -1,4 +1,8 @@
 ---
+
+
+
+
 min-kubernetes-server-version: v1.20
 title: IPv4/IPv6 이중 스택 검증
 content_type: task
@@ -36,9 +40,10 @@ a00:100::/24
 ```
 단일 IPv4 블록과 단일 IPv6 블록이 할당되어야 한다.
 
-노드가 IPv4 및 IPv6 인터페이스를 가지고 있는지 검증한다. (노드 이름을 클러스터의 검증된 노드로 대체한다. 본 예제에서 노드 이름은 k8s-linuxpool1-34450317-0) 이다.
+노드가 IPv4 및 IPv6 인터페이스를 가지고 있는지 검증한다. 노드 이름을 클러스터의 검증된 노드로 대체한다. 본 예제에서 노드 이름은 `k8s-linuxpool1-34450317-0` 이다.
+
 ```shell
-kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s \n" .type .address}}{{end}}'
+kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s\n" .type .address}}{{end}}'
 ```
 ```
 Hostname: k8s-linuxpool1-34450317-0
@@ -48,9 +53,10 @@ InternalIP: 2001:1234:5678:9abc::5
 
 ### 파드 어드레싱 검증
 
-파드가 IPv4 및 IPv6 주소를 할당받았는지 검증한다. (파드 이름을 클러스터에서 검증된 파드로 대체한다. 본 예제에서 파드 이름은 pod01 이다.)
+파드가 IPv4 및 IPv6 주소를 할당받았는지 검증한다. 파드 이름을 클러스터에서 검증된 파드로 대체한다. 본 예제에서 파드 이름은 `pod01` 이다.
+
 ```shell
-kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s \n" .ip}}{{end}}'
+kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s\n" .ip}}{{end}}'
 ```
 ```
 10.244.1.4
@@ -68,6 +74,7 @@ a00:100::4
 ```
 
 다음 커맨드는 컨테이너 내 `MY_POD_IPS` 환경 변수의 값을 출력한다. 해당 값은 파드의 IPv4 및 IPv6 주소를 나타내는 쉼표로 구분된 목록이다.
+
 ```shell
 kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
@@ -225,3 +232,4 @@ kubectl get svc -l app=MyApp
 ```shell
 NAME         TYPE           CLUSTER-IP   EXTERNAL-IP        PORT(S)        AGE
 my-service   LoadBalancer   fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
+```

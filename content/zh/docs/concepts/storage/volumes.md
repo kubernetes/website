@@ -5,6 +5,11 @@ weight: 10
 ---
 
 <!--
+reviewers:
+- jsafrane
+- saad-ali
+- thockin
+- msau42
 title: Volumes
 content_type: concept
 weight: 10
@@ -54,23 +59,23 @@ Docker 提供卷驱动程序，但是其功能非常有限。
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
 Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
-the lifetime of a pod. Consequently, a volume outlives any containers
-that run within the pod, and data is preserved across container restarts. When a
-pod ceases to exist, the volume is destroyed.
+the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes; 
+however, Kubernetes does not destroy persistent volumes. 
+For any kind of volume in a given pod, data is preserved across container restarts.
 -->
 Kubernetes 支持很多类型的卷。
 {{< glossary_tooltip term_id="pod" text="Pod" >}} 可以同时使用任意数目的卷类型。
 临时卷类型的生命周期与 Pod 相同，但持久卷可以比 Pod 的存活期长。
-因此，卷的存在时间会超出 Pod 中运行的所有容器，并且在容器重新启动时数据也会得到保留。
-当 Pod 不再存在时，卷也将不再存在。
+当 Pod 不再存在时，Kubernetes 也会销毁临时卷；不过 Kubernetes 不会销毁
+持久卷。对于给定 Pod 中任何类型的卷，在容器重启期间数据都不会丢失。
 
 <!--
 At its core, a volume is just a directory, possibly with some data in it, which
-is accessible to the Containers in a Pod.  How that directory comes to be, the
+is accessible to the containers in a pod. How that directory comes to be, the
 medium that backs it, and the contents of it are determined by the particular
 volume type used.
 -->
-卷的核心是包含一些数据的一个目录，Pod 中的容器可以访问该目录。
+卷的核心是一个目录，其中可能存有数据，Pod 中的容器可以访问该目录中的数据。
 所采用的特定的卷类型将决定该目录如何形成的、使用何种介质保存数据以及目录中存放
 的内容。
 
@@ -180,6 +185,11 @@ spec:
 ```
 
 <!--
+If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which parition to mount on.
+-->
+如果 EBS 卷是分区的，你可以提供可选的字段 `partition: "<partition number>"` 来指定要挂载到哪个分区上。
+
+<!--
 #### AWS EBS CSI migration
 -->
 #### AWS EBS CSI 卷迁移
@@ -263,9 +273,9 @@ For more details, see the [`azureFile` volume plugin](https://github.com/kuberne
 <!--
 #### azureFile CSI migration
 -->
-#### CSI 迁移  {#azurefile-csi-migration}
+#### azureFile CSI 迁移  {#azurefile-csi-migration}
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 <!--
 The CSI Migration feature for azureFile, when enabled, redirects all plugin operations
@@ -273,12 +283,20 @@ from the existing in-tree plugin to the `file.csi.azure.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
 Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
-Alpha features must be enabled.
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
 -->
 启用 `azureFile` 的 `CSIMigration` 功能后，所有插件操作将从现有的树内插件重定向到
-`file.csi.azure.com` 容器存储接口（CSI）驱动程序。
-要使用此功能，必须在集群中安装 [Azure 文件 CSI 驱动程序](https://github.com/kubernetes-sigs/azurefile-csi-driver)，
-并且 `CSIMigration` 和 `CSIMigrationAzureFile` Alpha 功能特性必须被启用。
+`file.csi.azure.com` 容器存储接口（CSI）驱动程序。要使用此功能，必须在集群中安装
+[Azure 文件 CSI 驱动程序](https://github.com/kubernetes-sigs/azurefile-csi-driver)，
+并且 `CSIMigration` 和 `CSIMigrationAzureFile`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+必须被启用。
+
+<!--
+Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
+-->
+Azure 文件 CSI 驱动尚不支持为同一卷设置不同的 fsgroup。
+如果 AzureFile CSI 迁移被启用，用不同的 fsgroup 来使用同一卷也是不被支持的。
 
 ### cephfs {#cephfs}
 
@@ -350,20 +368,29 @@ spec:
 -->
 #### OpenStack CSI 迁移
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 <!--
-The `CSIMigration` feature for Cinder, when enabled, redirects all plugin operations
-from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
-Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
-beta features must be enabled.
+The `CSIMigration` feature for Cinder is enabled by default in Kubernetes 1.21.
+It redirects all plugin operations from the existing in-tree plugin to the
+`cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
+[OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
+must be installed on the cluster.
+You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
+If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
+for all aspects of Cinder volume storage management.
 -->
-启用 Cinder 的 `CSIMigration` 功能后，所有插件操作会从现有的树内插件重定向到
+Cinder 的 `CSIMigration` 功能在 Kubernetes 1.21 版本中是默认被启用的。
+此特性会将插件的所有操作从现有的树内插件重定向到
 `cinder.csi.openstack.org` 容器存储接口（CSI）驱动程序。
-为了使用此功能，必须在集群中安装 [Openstack Cinder CSI 驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)，
-并且 `CSIMigration` 和 `CSIMigrationOpenStack` Beta 功能必须被启用。
+为了使用此功能，必须在集群中安装
+[OpenStack Cinder CSI 驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)，
+你可以通过设置 `CSIMigrationOpenStack`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+为 `false` 来禁止 Cinder CSI 迁移。
+如果你禁用了 `CSIMigrationOpenStack` 功能特性，则树内的 Cinder 卷插件
+会负责 Cinder 卷存储管理的方方面面。
 
 ### configMap
 
@@ -1479,13 +1506,13 @@ Quobyte 的 GitHub 项目包含以 CSI 形式部署 Quobyte 的
 
 <!--
 An `rbd` volume allows a
-[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/) volume to mount into your
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) volume to mount into your
 Pod.  Unlike `emptyDir`, which is erased when a Pod is removed, the contents of
 a `rbd` volume are preserved and the volume is merely unmounted.  This
 means that a RBD volume can be pre-populated with data, and that data can
 be shared between pods.
 -->
-`rbd` 卷允许将 [Rados 块设备](https://ceph.com/docs/master/rbd/rbd/) 卷挂载到你的 Pod 中.
+`rbd` 卷允许将 [Rados 块设备](https://docs.ceph.com/en/latest/rbd/) 卷挂载到你的 Pod 中.
 不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`rbd` 卷的内容在删除 Pod 时
 会被保存，卷只是被卸载。
 这意味着 `rbd` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
@@ -1510,7 +1537,8 @@ RBD 的一个特性是它可以同时被多个用户以只读方式挂载。
 这意味着你可以用数据集预先填充卷，然后根据需要在尽可能多的 Pod 中并行地使用卷。
 不幸的是，RBD 卷只能由单个使用者以读写模式安装。不允许同时写入。
 
-更多详情请参考 [RBD 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd)。
+更多详情请参考
+[RBD 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd)。
 
 <!--
 ### scaleIO (deprecated) {#scaleio}
@@ -2087,7 +2115,7 @@ persistent volume:
 -->
 - `volumeHandle`：唯一标识卷的字符串值。
   该值必须与 CSI 驱动在 `CreateVolumeResponse` 的 `volume_id` 字段中返回的值相对应；
-  接口定义在 [CSI spec](https://github.com/container-storageinterface/spec/blob/master/spec.md#createvolume) 中。
+  接口定义在 [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume) 中。
   在所有对 CSI 卷驱动程序的调用中，引用该 CSI 卷时都使用此值作为 `volume_id` 参数。
 
 <!--

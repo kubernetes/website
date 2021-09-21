@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-Perkakas <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">`kubeadm` membantu kamu membuat sebuah klaster Kubernetes minimum yang layak dan sesuai dengan _best practice_. Bahkan, kamu dapat menggunakan `kubeadm` untuk membuat sebuah klaster yang lolos [uji Kubernetes Conformance](https://kubernetes.io/blog/2017/10/software-conformance-certification).  
+Perkakas <img src="/images/kubeadm-stacked-color.png" align="right" width="150px">`kubeadm` membantu kamu membuat sebuah klaster Kubernetes minimum yang layak dan sesuai dengan _best practice_. Bahkan, kamu dapat menggunakan `kubeadm` untuk membuat sebuah klaster yang lolos [uji Kubernetes Conformance](https://kubernetes.io/blog/2017/10/software-conformance-certification).  
 `kubeadm` juga mendukung fungsi siklus hidup (_lifecycle_)
 klaster lainnya, seperti [_bootstrap token_](/docs/reference/access-authn-authz/bootstrap-tokens/) dan pembaruan klaster (_cluster upgrade_).
 
@@ -134,7 +134,7 @@ tidak didukung oleh kubeadm.
 
 ### Informasi lebih lanjut
 
-Untuk informasi lebih lanjut mengenai argumen-argumen `kubeadm init`, lihat [panduan referensi kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/).
+Untuk informasi lebih lanjut mengenai argumen-argumen `kubeadm init`, lihat [panduan referensi kubeadm](/docs/reference/setup-tools/kubeadm/).
 
 Untuk daftar pengaturan konfigurasi yang lengkap, lihat [dokumentasi berkas konfigurasi](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
 
@@ -569,7 +569,7 @@ opsinya.
 * Pastikan klaster berjalan dengan benar menggunakan [Sonobuoy](https://github.com/heptio/sonobuoy)
 * <a id="lifecycle" />Lihat [Memperbaharui klaster kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   untuk detail mengenai pembaruan klaster menggunakan `kubeadm`.
-* Pelajari penggunaan `kubeadm` lebih lanjut pada [dokumentasi referensi kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm)
+* Pelajari penggunaan `kubeadm` lebih lanjut pada [dokumentasi referensi kubeadm](/docs/reference/setup-tools/kubeadm)
 * Pelajari lebih lanjut mengenai [konsep-konsep](/docs/concepts/) Kubernetes dan [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Lihat halaman [Cluster Networking](/id/docs/concepts/cluster-administration/networking/) untuk daftar
 _add-on_ jaringan Pod yang lebih banyak.
@@ -635,5 +635,3 @@ mendukung platform pilihanmu.
 ## Penyelesaian masalah
 
 Jika kamu menemui kesulitan dengan kubeadm, silakan merujuk pada [dokumen penyelesaian masalah](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
-
-

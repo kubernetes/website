@@ -39,7 +39,7 @@ that provides a set of stateless replicas.
 
 ## Limitations
 
-* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
+* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
 * StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is deleted. To achieve ordered and graceful termination of the pods in the StatefulSet, it is possible to scale the StatefulSet down to 0 prior to deletion.
@@ -173,9 +173,7 @@ Cluster Domain will be set to `cluster.local` unless
 
 ### Stable Storage
 
-Kubernetes creates one [PersistentVolume](/docs/concepts/storage/persistent-volumes/) for each
-VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume
-with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
+For each VolumeClaimTemplate entry defined in a StatefulSet, each Pod receives one PersistentVolumeClaim. In the nginx example above, each Pod receives a single PersistentVolume with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
 is specified, then the default StorageClass will be used. When a Pod is (re)scheduled
 onto a node, its `volumeMounts` mount the PersistentVolumes associated with its
 PersistentVolume Claims. Note that, the PersistentVolumes associated with the
@@ -228,29 +226,33 @@ and Ready or completely terminated prior to launching or terminating another
 Pod. This option only affects the behavior for scaling operations. Updates are not
 affected.
 
-## Update Strategies
 
-In Kubernetes 1.7 and later, StatefulSet's `.spec.updateStrategy` field allows you to configure
+## Update strategies
+
+A StatefulSet's `.spec.updateStrategy` field allows you to configure
 and disable automated rolling updates for containers, labels, resource request/limits, and
-annotations for the Pods in a StatefulSet.
+annotations for the Pods in a StatefulSet. There are two possible values:
 
-### On Delete
+`OnDelete`
+: When a StatefulSet's `.spec.updateStrategy.type` is set to `OnDelete`,
+  the StatefulSet controller will not automatically update the Pods in a
+  StatefulSet. Users must manually delete Pods to cause the controller to
+  create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
 
-The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior. When a StatefulSet's
-`.spec.updateStrategy.type` is set to `OnDelete`, the StatefulSet controller will not automatically
-update the Pods in a StatefulSet. Users must manually delete Pods to cause the controller to
-create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
+`RollingUpdate`
+: The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a StatefulSet. This is the default update strategy.
 
-### Rolling Updates
+## Rolling Updates
 
-The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a
-StatefulSet. It is the default strategy when `.spec.updateStrategy` is left unspecified. When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
+When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
 StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed
 in the same order as Pod termination (from the largest ordinal to the smallest), updating
-each Pod one at a time. It will wait until an updated Pod is Running and Ready prior to
-updating its predecessor.
+each Pod one at a time.
 
-#### Partitions
+The Kubernetes control plane waits until an updated Pod is Running and Ready prior
+to updating its predecessor. If you have set `.spec.minReadySeconds` (see [Minimum Ready Seconds](#minimum-ready-seconds)), the control plane additionally waits that amount of time after the Pod turns ready, before moving on.
+
+### Partitioned rolling updates {#partitions}
 
 The `RollingUpdate` update strategy can be partitioned, by specifying a
 `.spec.updateStrategy.rollingUpdate.partition`. If a partition is specified, all Pods with an
@@ -262,7 +264,7 @@ updates to its `.spec.template` will not be propagated to its Pods.
 In most cases you will not need to use a partition, but they are useful if you want to stage an
 update, roll out a canary, or perform a phased roll out.
 
-#### Forced Rollback
+### Forced rollback
 
 When using [Rolling Updates](#rolling-updates) with the default
 [Pod Management Policy](#pod-management-policies) (`OrderedReady`),
@@ -282,6 +284,16 @@ After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
 
+### Minimum ready seconds
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+`.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
+created Pod should be ready without any of its containers crashing, for it to be considered available.
+This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
+a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+
+Please note that this field only works if you enable the `StatefulSetMinReadySeconds` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 ## {{% heading "whatsnext" %}}
 
@@ -289,4 +301,3 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
 * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
 * Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
-

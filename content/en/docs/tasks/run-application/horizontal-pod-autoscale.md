@@ -23,9 +23,7 @@ Pod Autoscaling does not apply to objects that can't be scaled, for example, Dae
 
 The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a controller.
 The resource determines the behavior of the controller.
-The controller periodically adjusts the number of replicas in a replication controller or deployment
-to match the observed average CPU utilization to the target specified by user.
-
+The controller periodically adjusts the number of replicas in a replication controller or deployment to match the observed metrics such as average CPU utilisation, average memory utilisation or any other custom metric to the target specified by the user.
 
 
 
@@ -70,14 +68,7 @@ or the custom metrics API (for all other metrics).
 
 The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,
 `custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  The `metrics.k8s.io` API is usually provided by
-metrics-server, which needs to be launched separately. See
-[metrics-server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server)
-for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
-
-{{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
-Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
-{{< /note >}}
+metrics-server, which needs to be launched separately. For more information about resource metrics, see [Metrics Server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server).
 
 See [Support for metrics APIs](#support-for-metrics-apis) for more details.
 
@@ -162,7 +153,7 @@ can be fetched, scaling is skipped. This means that the HPA is still capable
 of scaling up if one or more metrics give a `desiredReplicas` greater than
 the current value.
 
-Finally, just before HPA scales the target, the scale recommendation is recorded.  The
+Finally, right before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the
 highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
@@ -200,14 +191,17 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/refe
 
 ## Autoscaling during rolling update
 
-Currently in Kubernetes, it is possible to perform a rolling update by using the deployment object, which manages the underlying replica sets for you.
-Horizontal Pod Autoscaler only supports the latter approach: the Horizontal Pod Autoscaler is bound to the deployment object,
-it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replica sets.
+Kubernetes lets you perform a rolling update on a Deployment. In that
+case, the Deployment manages the underlying ReplicaSets for you.
+When you configure autoscaling for a Deployment, you bind a
+HorizontalPodAutoscaler to a single Deployment. The HorizontalPodAutoscaler
+manages the `replicas` field of the Deployment. The deployment controller is responsible
+for setting the `replicas` of the underlying ReplicaSets so that they add up to a suitable
+number during the rollout and also afterwards.
 
-Horizontal Pod Autoscaler does not work with rolling update using direct manipulation of replication controllers,
-i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update.
-The reason this doesn't work is that when rolling update creates a new replication controller,
-the Horizontal Pod Autoscaler will not be bound to the new replication controller.
+If you perform a rolling update of a StatefulSet that has an autoscaled number of
+replicas, the StatefulSet directly manages its set of Pods (there is no intermediate resource
+similar to ReplicaSet).
 
 ## Support for cooldown/delay
 
@@ -343,8 +337,6 @@ APIs, cluster administrators must ensure that:
 
    * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
 
-* The `--horizontal-pod-autoscaler-use-rest-clients` is `true` or unset.  Setting this to false switches to Heapster-based autoscaling, which is deprecated.
-
 For more information on these different metrics paths and how they differ please see the relevant design proposals for
 [the HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),
 [custom.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md)
@@ -356,7 +348,7 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 ## Support for configurable scaling behavior
 
 Starting from
-[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity/README.md)
 the `v2beta2` API allows scaling behavior to be configured through the HPA
 `behavior` field. Behaviors are specified separately for scaling up and down in
 `scaleUp` or `scaleDown` section under the `behavior` field. A stabilization

@@ -67,7 +67,7 @@ Kubernetes 安装中就可用。定制资源所代表的是对特定 Kubernetes 
 <!--
 ## Custom controllers
 
-On their own, custom resources simply let you store and retrieve structured data.
+On their own, custom resources let you store and retrieve structured data.
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 -->
@@ -93,13 +93,13 @@ desired state, and continually maintains this state.
 You can deploy and update a custom controller on a running cluster, independently
 of the cluster's lifecycle. Custom controllers can work with any kind of resource,
 but they are especially effective when combined with custom resources. The
-[Operator pattern](https://coreos.com/blog/introducing-operators.html) combines custom
+[Operator pattern](/docs/concepts/extend-kubernetes/operator/) combines custom
 resources and custom controllers. You can use custom controllers to encode domain knowledge
 for specific applications into an extension of the Kubernetes API.
 -->
 你可以在一个运行中的集群上部署和更新定制控制器，这类操作与集群的生命周期无关。
 定制控制器可以用于任何类别的资源，不过它们与定制资源结合起来时最为有效。
-[Operator 模式](https://coreos.com/blog/introducing-operators.html)就是将定制资源
+[Operator 模式](/zh/docs/concepts/extend-kubernetes/operator/)就是将定制资源
 与定制控制器相结合的。你可以使用定制控制器来将特定于某应用的领域知识组织
 起来，以编码的形式构造对 Kubernetes API 的扩展。
 
@@ -257,7 +257,7 @@ Kubernetes 提供了两种方式供你向集群中添加定制资源：
 <!--
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility is compromised.
 
-Aggregated APIs are subordinate API servers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
+Aggregated APIs are subordinate API servers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, the Kubernetes API is extended.
 
 CRDs allow users to create new types of resources without adding another API server. You do not need to understand API Aggregation to use CRDs.
 
@@ -324,7 +324,7 @@ making them available to all of its clients.
 
 通常，Kubernetes API 中的每个都需要处理 REST 请求和管理对象持久性存储的代码。
 Kubernetes API 主服务器能够处理诸如 *pods* 和 *services* 这些内置资源，也可以
-按通用的方式通过 CRD {#customresourcedefinitions} 来处理定制资源。
+按通用的方式通过 [CRD](#customresourcedefinitions) 来处理定制资源。
 
 [聚合层（Aggregation Layer）](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 使得你可以通过编写和部署你自己的独立的 API 服务器来为定制资源提供特殊的实现。

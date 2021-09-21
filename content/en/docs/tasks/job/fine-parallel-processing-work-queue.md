@@ -2,7 +2,7 @@
 title: Fine Parallel Processing Using a Work Queue
 content_type: task
 min-kubernetes-server-version: v1.8
-weight: 40
+weight: 30
 ---
 
 <!-- overview -->
@@ -21,7 +21,7 @@ Here is an overview of the steps in this example:
    detect when a finite-length work queue is empty.  In practice you would set up a store such
    as Redis once and reuse it for the work queues of many jobs, and other things.
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
-   this example, a message is just an integer that we will do a lengthy computation on.
+   this example, a message is an integer that we will do a lengthy computation on.
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
    one task from the message queue, processes it, and repeats until the end of the queue is reached.
 
@@ -55,7 +55,7 @@ You could also download the following files directly:
 
 ## Filling the Queue with tasks
 
-Now let's fill the queue with some "tasks".  In our example, our tasks are just strings to be
+Now let's fill the queue with some "tasks".  In our example, our tasks are strings to be
 printed.
 
 Start a temporary interactive pod for running the Redis CLI.

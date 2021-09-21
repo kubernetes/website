@@ -134,28 +134,12 @@ weight: 100
 
 1. 以下の内容で`example-ingress.yaml`を作成します。
 
-    ```yaml
-    apiVersion: networking.k8s.io/v1beta1
-    kind: Ingress
-    metadata:
-      name: example-ingress
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /$1
-    spec:
-      rules:
-      - host: hello-world.info
-        http:
-          paths:
-          - path: /
-            backend:
-              serviceName: web
-              servicePort: 8080
-    ```
+    {{< codenew file="service/networking/example-ingress.yaml" >}}
 
 1. 次のコマンドを実行して、Ingressリソースを作成します。
 
     ```shell
-    kubectl apply -f example-ingress.yaml
+    kubectl apply -f https://kubernetes.io/examples/service/networking/example-ingress.yaml
     ```
 
     出力は次のようになります。
@@ -175,8 +159,8 @@ weight: 100
     {{< /note >}}
 
     ```shell
-    NAME              HOSTS              ADDRESS       PORTS     AGE
-    example-ingress   hello-world.info   172.17.0.15   80        38s
+    NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
+    example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
     ```
 
 1. 次の行を`/etc/hosts`ファイルの最後に書きます。
@@ -241,9 +225,12 @@ weight: 100
 
     ```yaml
           - path: /v2
+            pathType: Prefix
             backend:
-              serviceName: web2
-              servicePort: 8080
+              service:
+                name: web2
+                port:
+                  number: 8080
     ```
 
 1. 次のコマンドで変更を適用します。
@@ -300,6 +287,3 @@ weight: 100
 * [Ingress](/ja/docs/concepts/services-networking/ingress/)についてさらに学ぶ。
 * [Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)についてさらに学ぶ。
 * [Service](/ja/docs/concepts/services-networking/service/)についてさらに学ぶ。
-
-
-

@@ -14,7 +14,7 @@
 /ko/docs/     /ko/docs/home/ 301!
 /no/docs/     /no/docs/home/ 301!
 /pl/docs/     /pl/docs/home/ 301!
-/pt/docs/     /pt/docs/home/ 301!
+/pt-br/docs/  /pt-br/docs/home/ 301!
 /ru/docs/     /ru/docs/home/ 301!
 /uk/docs/     /uk/docs/home/ 301!
 /vi/docs/     /vi/docs/home/ 301!
@@ -29,6 +29,7 @@
 /docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
 /docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
 /docs/admin/cluster-management/     /docs/tasks/administer-cluster/ 302
+/id/docs/admin/cluster-management/     /id/docs/tasks/administer-cluster/ 302
 /docs/admin/cluster-troubleshooting/     /docs/tasks/debug-application-cluster/debug-cluster/ 301
 /docs/admin/daemons/     /docs/concepts/workloads/controllers/daemonset/ 301
 /docs/admin/disruptions/     /docs/concepts/workloads/pods/disruptions/ 301
@@ -56,7 +57,7 @@
 /docs/admin/node-conformance.md     /docs/admin/node-conformance/ 301
 /docs/admin/node-conformance/       /docs/setup/best-practices/node-conformance/ 301
 /docs/admin/node-problem/     /docs/tasks/debug-application-cluster/monitor-node-health/ 301
-/docs/admin/out-of-resource/     /docs/tasks/administer-cluster/out-of-resource/ 301
+/docs/admin/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/admin/rescheduler/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
 /docs/admin/resourcequota/*     /docs/concepts/policy/resource-quotas/ 301
 /docs/admin/resourcequota/limitstorageconsumption/     /docs/tasks/administer-cluster/limit-storage-consumption/ 301
@@ -88,9 +89,10 @@
 /docs/concepts/cluster-administration/device-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/ 301
 /docs/concepts/cluster-administration/etcd-upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
+/docs/concepts/cluster-administration/kubelet-garbage-collection/   /docs/concepts/architecture/garbage-collection/#containers-images 301
 /docs/concepts/cluster-administration/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
 /docs/concepts/cluster-administration/network-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/ 301
-/docs/concepts/cluster-administration/out-of-resource/     /docs/tasks/administer-cluster/out-of-resource/ 301
+/docs/concepts/cluster-administration/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/concepts/cluster-administration/resource-usage-monitoring /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
 /docs/concepts/cluster-administration/monitoring/ /docs/concepts/cluster-administration/system-metrics/ 301
 /docs/concepts/cluster-administration/controller-metrics/ /docs/concepts/cluster-administration/system-metrics/ 301
@@ -98,16 +100,23 @@
 /docs/concepts/cluster-administration/static-pod/     /docs/tasks/administer-cluster/static-pod/ 301
 /docs/concepts/clusters/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/concepts/configuration/assign-pod-node/     /docs/concepts/scheduling-eviction/assign-pod-node/ 301
+/id/docs/concepts/configuration/assign-pod-node/     /id/docs/concepts/scheduling-eviction/assign-pod-node/ 301
 /docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
 /docs/concepts/configuration/manage-compute-resources-container/ /docs/concepts/configuration/manage-resources-containers/ 301
 /docs/concepts/configuration/resource-bin-packing/      /docs/concepts/scheduling-eviction/resource-bin-packing/ 301
+/id/docs/concepts/configuration/resource-bin-packing/      /id/docs/concepts/scheduling-eviction/resource-bin-packing/ 301
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
+/id/docs/concepts/configuration/scheduler-perf-tuning/      /id/docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
+/id/docs/concepts/configuration/scheduling-framework/     /id/docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301
+/id/docs/concepts/configuration/taint-and-toleration/     /id/docs/concepts/scheduling-eviction/taint-and-toleration/ 301
+/docs/concepts/configuration/pod-priority-preemption/    /docs/concepts/scheduling-eviction/pod-priority-preemption/ 301
 /docs/concepts/extend-kubernetes/extend-cluster/      /docs/concepts/extend-kubernetes/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
+/id/docs/concepts/jobs/run-to-completion-finite-workloads/      /id/docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
@@ -115,10 +124,17 @@
 /docs/concepts/policy/container-capabilities/     /docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container/ 301
 /docs/concepts/policy/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
 /docs/concepts/scheduling/kube-scheduler/     /docs/concepts/scheduling-eviction/kube-scheduler/ 301
+/id/docs/concepts/scheduling/kube-scheduler/     /id/docs/concepts/scheduling-eviction/kube-scheduler/ 301
 /docs/concepts/scheduling/scheduler-perf-tuning/     /docs/concepts/scheduling-eviction/scheduler-perf-tuning/ 301
+/id/docs/concepts/scheduling/scheduler-perf-tuning/     /id/docs/concepts/scheduling-eviction/scheduler-perf-tuning/ 301
 /docs/concepts/scheduling/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/ 301
+/id/docs/concepts/scheduling/scheduling-framework/     /id/docs/concepts/scheduling-eviction/scheduling-framework/ 301
+/docs/concepts/scheduling-eviction/eviction-policy/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
+/docs/concepts/scheduling-eviction/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
+/docs/concepts/scheduling-eviction/pod-eviction/     /docs/concepts/scheduling-eviction/#pod-disruption 301
 /docs/concepts/service-catalog/     /docs/concepts/extend-kubernetes/service-catalog/ 301
 /docs/concepts/services-networking/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
+/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/     /docs/tasks/network/customize-hosts-file-for-pods/ 301
 /docs/concepts/storage/etcd-store-api-object/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/storage/volumes/emptyDirapiVersion/     /docs/concepts/storage/volumes/#emptydir/ 301
 /docs/concepts/tools/kubectl/object-management-overview/     /docs/concepts/overview/object-management-kubectl/overview/ 301
@@ -134,8 +150,9 @@
 /docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
-
+/docs/concepts/workloads/controllers/garbage-collection/    /docs/concepts/architecture/garbage-collection/ 301
 /docs/concepts/workloads/controllers/jobs-run-to-completion/ /docs/concepts/workloads/controllers/job/ 301
+/id/docs/concepts/workloads/controllers/jobs-run-to-completion/ /id/docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301!
 /docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
@@ -173,11 +190,14 @@
 /docs/home/contribute/generated-reference/kubernetes-api/ /docs/contribute/generate-ref-docs/kubernetes-api/ 301
 /docs/home/contribute/generated-reference/kubernetes-components/ /docs/contribute/generate-ref-docs/kubernetes-components/ 301
 /docs/home/contribute/localization/ /docs/contribute/localization/ 301
-/docs/home/contribute/page-templates/ /docs/contribute/style/page-templates/ 301
-/docs/home/contribute/participating/ /docs/contribute/participating/ 301
+/docs/home/contribute/page-templates/ /docs/contribute/style/page-content-types/ 301
+/docs/home/contribute/participating/ /docs/contribute/participate/ 301
 /docs/home/contribute/review-issues/ /docs/contribute/intermediate/ 301
 /docs/home/contribute/blog-post/ /docs/contribute/start/ 301
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
+/docs/contribute/style/page-templates/ /docs/contribute/style/page-content-types/ 301
+
+/docs/reference/command-line-tools-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
@@ -189,11 +209,12 @@
 /docs/reference/generated/kube-scheduler/     /docs/reference/command-line-tools-reference/kube-scheduler/ 301
 /docs/reference/generated/kubectl/kubectl-options/     /docs/reference/kubectl/kubectl/ 301
 /docs/reference/generated/kubectl/kubectl/     /docs/reference/generated/kubectl/kubectl-commands/ 301
-/docs/reference/generated/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
+/docs/reference/generated/kubectl/kubectl/kubectl_*    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
-/docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
+/docs/reference/kubectl/kubectl-cmds/     /docs/reference/generated/kubectl/kubectl-commands/ 301!
+/docs/reference/kubectl/kubectl/kubectl_*    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
 
 /docs/reference/generated/kubernetes-api/v1.15/    https://v1-15.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/  301
@@ -235,6 +256,7 @@
 /docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
+/docs/tasks/administer-cluster/enabling-endpointslices/ /docs/concepts/services-networking/endpoint-slices/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
@@ -247,7 +269,8 @@
 /docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/ 301
 /docs/tasks/administer-cluster/quota-memory-cpu-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/ 301
 /docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
-/docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
+/docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
+/docs/tasks/administer-cluster/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
 /docs/tasks/administer-cluster/share-configuration/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
@@ -273,6 +296,7 @@
 /docs/tasks/configure-pod-container/weave-network-policy/     /docs/tasks/administer-cluster/weave-network-policy/ 301
 /docs/tasks/debug-application-cluster/sematext-logging-monitoring/     https://sematext.com/kubernetes/ 301
 /docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/job/ 301
+/id/docs/tasks/job/work-queue-1/     /id/docs/concepts/workloads/controllers/job/ 301
 /docs/tasks/setup-konnectivity/setup-konnectivity/   /docs/tasks/extend-kubernetes/setup-konnectivity/ 301
 /docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
 /docs/tasks/kubectl/install/     /docs/tasks/tools/ 301
@@ -286,6 +310,7 @@
 /docs/tasks/run-application/update-api-object-kubectl-patch/    /docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/ 301
 /docs/tasks/stateful-sets/deleting-pods/     /docs/tasks/run-application/force-delete-stateful-set-pod/ 301
 /ja/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
+/id/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
 /docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug-application-cluster/debug-init-containers/ 301
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 
@@ -365,6 +390,7 @@
 /docs/user-guide/introspection-and-debugging/     /docs/tasks/debug-application-cluster/debug-application-introspection/ 301
 /docs/user-guide/jsonpath/     /docs/reference/kubectl/jsonpath/
 /docs/user-guide/jobs/     /docs/concepts/workloads/controllers/job/ 301
+/id/docs/user-guide/jobs/     /id/docs/concepts/workloads/controllers/job/ 301
 /docs/user-guide/jobs/expansions/     /docs/tasks/job/parallel-processing-expansion/ 301
 /docs/user-guide/jobs/work-queue-1/     /docs/tasks/job/coarse-parallel-processing-work-queue/ 301
 /docs/user-guide/jobs/work-queue-2/     /docs/tasks/job/fine-parallel-processing-work-queue/ 301
@@ -374,7 +400,7 @@
 /docs/user-guide/kubectl-conventions/     /docs/reference/kubectl/conventions/
 /docs/user-guide/kubectl-cheatsheet/     /docs/reference/kubectl/cheatsheet/
 /cheatsheet /docs/reference/kubectl/cheatsheet/ 302
-/docs/user-guide/kubectl/kubectl_*/     /docs/reference/generated/kubectl/kubectl-commands#:splat 301
+/docs/user-guide/kubectl/kubectl_*     /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 /docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ 301
 /docs/user-guide/load-balancer/     /docs/tasks/access-application-cluster/create-external-load-balancer/ 301
@@ -470,13 +496,20 @@
 /code-of-conduct/     /community/code-of-conduct/   301
 /values/     /community/values/   302
 
-/docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
+/docs/setup/release/notes/     /releases/notes/   302
+/docs/setup/release/                 /releases/   301
+/docs/setup/version-skew-policy/     /releases/version-skew-policy/   301
+/docs/setup/release/version-skew-policy/     /releases/version-skew-policy/   301
 
 /docs/setup/minikube/     /docs/tasks/tools/ 302
+/id/docs/setup/minikube/     /id/docs/tasks/tools/ 302
 /docs/setup/learning-environment/     /docs/tasks/tools/  302!
+/id/docs/setup/learning-environment/     /id/docs/tasks/tools/  302!
 /zh/docs/setup/learning-environment/     /zh/docs/tasks/tools/  302!
 /docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
+/id/docs/setup/learning-environment/kind/  /id/docs/tasks/tools/  302
 /docs/setup/learning-environment/minikube/  /docs/tasks/tools/ 302
+/id/docs/setup/learning-environment/minikube/  /id/docs/tasks/tools/ 302
 /docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301
 /docs/setup/independent/install-kubeadm/     /docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
 /ja/docs/setup/independent/install-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
@@ -507,3 +540,6 @@
 /docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/     302
 
 /docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301
+/id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
+
+/pt/*         /pt-br/:splat  302!

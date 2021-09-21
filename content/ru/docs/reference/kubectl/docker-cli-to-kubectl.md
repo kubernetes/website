@@ -34,10 +34,18 @@ kubectl:
 
 ```shell
 # запустить под, в котором работает nginx
-kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
+kubectl create deployment --image=nginx nginx-app
 ```
 ```
 deployment "nginx-app" created
+```
+
+```shell
+# add env to nginx-app
+kubectl set env deployment/nginx-app  DOMAIN=cluster
+```
+```
+deployment.apps/nginx-app env updated
 ```
 
 {{< note >}}
@@ -260,7 +268,7 @@ nginx-app    1/1     1            1           2m
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 ```
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
@@ -274,7 +282,7 @@ deployment "nginx-app" deleted
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 # Return nothing
 ```
 

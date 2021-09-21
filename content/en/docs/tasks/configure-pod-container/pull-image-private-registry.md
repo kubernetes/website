@@ -54,7 +54,7 @@ If you use a Docker credentials store, you won't see that `auth` entry but a `cr
 
 ## Create a Secret based on existing Docker credentials {#registry-secret-existing-credentials}
 
-A Kubernetes cluster uses the Secret of `docker-registry` type to authenticate with
+A Kubernetes cluster uses the Secret of `kubernetes.io/dockerconfigjson` type to authenticate with
 a container registry to pull a private image.
 
 If you already ran `docker login`, you can copy that credential into Kubernetes:
@@ -102,7 +102,7 @@ kubectl create secret docker-registry regcred --docker-server=<your-registry-ser
 where:
 
 * `<your-registry-server>` is your Private Docker Registry FQDN.
-  Use `https://index.docker.io/v2/` for DockerHub.
+  Use `https://index.docker.io/v1/` for DockerHub.
 * `<your-name>` is your Docker username.
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
@@ -118,7 +118,7 @@ those secrets might also be visible to other users on your PC during the time th
 
 ## Inspecting the Secret `regcred`
 
-To understand the contents of the `regcred` Secret you just created, start by viewing the Secret in YAML format:
+To understand the contents of the `regcred` Secret you created, start by viewing the Secret in YAML format:
 
 ```shell
 kubectl get secret regcred --output=yaml

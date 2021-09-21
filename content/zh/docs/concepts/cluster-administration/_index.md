@@ -51,12 +51,12 @@ Before choosing a guide, here are some considerations:
 在选择一个指南前，有一些因素需要考虑：
 
 <!--
-- Do you just want to try out Kubernetes on your computer, or do you want to build a high-availability, multi-node cluster? Choose distros best suited for your needs.
+- Do you want to try out Kubernetes on your computer, or do you want to build a high-availability, multi-node cluster? Choose distros best suited for your needs.
 - Will you be using **a hosted Kubernetes cluster**, such as [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), or **hosting your own cluster**?
 - Will your cluster be **on-premises**, or **in the cloud (IaaS)**? Kubernetes does not directly support hybrid clusters. Instead, you can set up multiple clusters.
 - **If you are configuring Kubernetes on-premises**, consider which [networking model](/docs/concepts/cluster-administration/networking/) fits best.
 - Will you be running Kubernetes on **"bare metal" hardware** or on **virtual machines (VMs)**?
-- Do you **just want to run a cluster**, or do you expect to do **active development of Kubernetes project code**? If the
+- Do you **want to run a cluster**, or do you expect to do **active development of Kubernetes project code**? If the
   latter, choose an actively-developed distro. Some distros only use binary releases, but
   offer a greater variety of choices.
 - Familiarize yourself with the [components](/docs/concepts/overview/components/) needed to run a cluster.
@@ -70,7 +70,7 @@ Before choosing a guide, here are some considerations:
 - **如果你在本地配置 Kubernetes**，需要考虑哪种
   [网络模型](/zh/docs/concepts/cluster-administration/networking/)最适合。
 - 你的 Kubernetes 在**裸金属硬件**上还是**虚拟机（VMs）** 上运行？
-- 你**只想运行一个集群**，还是打算**参与开发 Kubernetes 项目代码**？
+- 你是想**运行一个集群**，还是打算**参与开发 Kubernetes 项目代码**？
   如果是后者，请选择一个处于开发状态的发行版。
   某些发行版只提供二进制发布版，但提供更多的选择。
 - 让你自己熟悉运行一个集群所需的[组件](/zh/docs/concepts/overview/components/)。
@@ -91,7 +91,7 @@ Before choosing a guide, here are some considerations:
 <!--
 ## Securing a cluster
 
-* [Certificates](/docs/concepts/cluster-administration/certificates/) describes the steps to generate certificates using different tool chains.
+* [Generate Certificates](/docs/tasks/administer-cluster/certificates/) describes the steps to generate certificates using different tool chains.
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment/) describes the environment for Kubelet managed containers on a Kubernetes node.
 * [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) describes how to set up permissions for users and service accounts.
 * [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in Kubernetes, including the various authentication options.
@@ -102,7 +102,7 @@ Before choosing a guide, here are some considerations:
 -->
 ## 保护集群  {#securing-a-cluster}
 
-* [证书](/zh/docs/concepts/cluster-administration/certificates/)
+* [生成证书](/zh/docs/tasks/administer-cluster/certificates/)
   节描述了使用不同的工具链生成证书的步骤。
 * [Kubernetes 容器环境](/zh/docs/concepts/containers/container-environment/)
   描述了 Kubernetes 节点上由 Kubelet 管理的容器的环境。

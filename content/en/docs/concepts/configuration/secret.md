@@ -12,26 +12,33 @@ weight: 30
 
 <!-- overview -->
 
-Kubernetes Secrets let you store and manage sensitive information, such
-as passwords, OAuth tokens, and ssh keys. Storing confidential information in a Secret
-is safer and more flexible than putting it verbatim in a
-{{< glossary_tooltip term_id="pod" >}} definition or in a
-{{< glossary_tooltip text="container image" term_id="image" >}}.
-See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
-
 A Secret is an object that contains a small amount of sensitive data such as
 a password, a token, or a key. Such information might otherwise be put in a
-Pod specification or in an image. Users can create Secrets and the system
-also creates some Secrets.
+{{< glossary_tooltip term_id="pod" >}} specification or in a
+{{< glossary_tooltip text="container image" term_id="image" >}}. Using a
+Secret means that you don't need to include confidential data in your
+application code.
+
+Because Secrets can be created independently of the Pods that use them, there
+is less risk of the Secret (and its data) being exposed during the workflow of
+creating, viewing, and editing Pods. Kubernetes, and applications that run in
+your cluster, can also take additional precautions with Secrets, such as
+avoiding writing confidential data to nonvolatile storage.
+
+Secrets are similar to {{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}
+but are specifically intended to hold confidential data.
 
 {{< caution >}}
-Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
-strings. By default they can be retrieved - as plain text - by anyone with API
-access, or anyone with access to Kubernetes' underlying data store, etcd. In
-order to safely use Secrets, it is recommended you (at a minimum):
+Kubernetes Secrets are, by default, stored unencrypted in the API server's underlying data store (etcd). Anyone with API access can retrieve or modify a Secret, and so can anyone with access to etcd.
+Additionally, anyone who is authorized to create a Pod in a namespace can use that access to read any Secret in that namespace; this includes indirect access such as the ability to create a Deployment.
+
+In order to safely use Secrets, take at least the following steps:
 
 1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
-2. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that restrict reading and writing the Secret. Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+2. Enable or configure [RBAC rules](/docs/reference/access-authn-authz/authorization/) that
+   restrict reading data in Secrets (including via indirect means).
+3. Where appropriate, also use mechanisms such as RBAC to limit which principals are allowed to create new Secrets or replace existing ones.
+
 {{< /caution >}}
 
 <!-- body -->
@@ -46,6 +53,10 @@ A Secret can be used with a Pod in three ways:
   its containers.
 - As [container environment variable](#using-secrets-as-environment-variables).
 - By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
+
+The Kubernetes control plane also uses Secrets; for example,
+[bootstrap token Secrets](#bootstrap-token-secrets) are a mechanism to
+help automate node registration.
 
 The name of a Secret object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -64,9 +75,9 @@ precedence.
 ## Types of Secret {#secret-types}
 
 When creating a Secret, you can specify its type using the `type` field of
-the [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-resource, or certain equivalent `kubectl` command line flags (if available).
-The Secret type is used to facilitate programmatic handling of the Secret data.
+a Secret resource, or certain equivalent `kubectl` command line flags (if available).
+The `type` of a Secret is used to facilitate programmatic handling of different
+kinds of confidential data.
 
 Kubernetes provides several builtin types for some common usage scenarios.
 These types vary in terms of the validations performed and the constraints
@@ -109,7 +120,7 @@ empty-secret   Opaque   0      2m6s
 ```
 
 The `DATA` column shows the number of data items stored in the Secret.
-In this case, `0` means we have just created an empty Secret.
+In this case, `0` means we have created an empty Secret.
 
 ###  Service account token Secrets
 
@@ -328,13 +339,13 @@ kubectl create secret tls my-tls-secret \
   --key=path/to/key/file
 ```
 
-The public/private key pair must exist before hand. The public key certificate
+The public/private key pair must exist beforehand. The public key certificate
 for `--cert` must be .PEM encoded (Base64-encoded DER format), and match the
 given private key for `--key`.
 The private key must be in what is commonly called PEM private key format,
 unencrypted. In both cases, the initial and the last lines from PEM (for
 example, `--------BEGIN CERTIFICATE-----` and `-------END CERTIFICATE----` for
-a cetificate) are *not* included.
+a certificate) are *not* included.
 
 ### Bootstrap token Secrets
 
@@ -668,7 +679,7 @@ When a secret currently consumed in a volume is updated, projected keys are even
 The kubelet checks whether the mounted secret is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the Secret.
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
-the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 A Secret can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
 As a result, the total delay from the moment when the Secret is updated to the moment
@@ -749,9 +760,9 @@ There are third party solutions for triggering restarts when secrets change.
 
 ## Immutable Secrets {#secret-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
 (at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
 data has the following advantages:
@@ -760,8 +771,8 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for secrets marked as immutable.
 
-This feature is controlled by the `ImmutableEphemeralVolumes` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/),
+This feature is controlled by the `ImmutableEphemeralVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 which is enabled by default since v1.19. You can create an immutable
 Secret by setting the `immutable` field to `true`. For example,
 ```yaml
@@ -822,7 +833,10 @@ are obtained from the API server.
 This includes any Pods created using `kubectl`, or indirectly via a replication
 controller. It does not include Pods created as a result of the kubelet
 `--manifest-url` flag, its `--config` flag, or its REST API (these are
-not common ways to create Pods.)
+not common ways to create Pods). 
+The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a Secret
+or any other API objects.
+
 
 Secrets must be created before they are consumed in Pods as environment
 variables unless they are marked as optional. References to secrets that do
@@ -865,6 +879,7 @@ start until all the Pod's volumes are mounted.
 ### Use-Case: As container environment variables
 
 Create a secret
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -877,6 +892,7 @@ data:
 ```
 
 Create the Secret:
+
 ```shell
 kubectl apply -f mysecret.yaml
 ```
@@ -992,7 +1008,7 @@ For example, if your actual password is `S!B\*d$zDsb=`, you should execute the c
 kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
 ```
 
- You do not need to escape special characters in passwords from files (`--from-file`).
+You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
 Now make the Pods:
@@ -1162,7 +1178,7 @@ limit access using [authorization policies](
 Secrets often hold values that span a spectrum of importance, many of which can
 cause escalations within Kubernetes (e.g. service account tokens) and to
 external systems. Even if an individual app can reason about the power of the
-secrets it expects to interact with, other apps within the same namespace can
+Secrets it expects to interact with, other apps within the same namespace can
 render those assumptions invalid.
 
 For these reasons `watch` and `list` requests for secrets within a namespace are
@@ -1173,14 +1189,12 @@ privileged, system-level components.
 
 Applications that need to access the Secret API should perform `get` requests on
 the secrets they need. This lets administrators restrict access to all secrets
-while [white-listing access to individual instances](
-/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
+while [white-listing access to individual instances](/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
 the app needs.
 
 For improved performance over a looping `get`, clients can design resources that
 reference a secret then `watch` the resource, re-requesting the secret when the
-reference changes. Additionally, a ["bulk watch" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+reference changes. Additionally, a ["bulk watch" API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
 to let clients `watch` individual resources has also been proposed, and will likely
 be available in future releases of Kubernetes.
 
@@ -1235,15 +1249,10 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
  - A user who can create a Pod that uses a secret can also see the value of that secret. Even
    if the API server policy does not allow that user to read the Secret, the user could
    run a Pod which exposes the secret.
- - Currently, anyone with root permission on any node can read _any_ secret from the API server,
-   by impersonating the kubelet. It is a planned feature to only send secrets to
-   nodes that actually require them, to restrict the impact of a root exploit on a
-   single node.
-
 
 ## {{% heading "whatsnext" %}}
 
 - Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
-
+- Read the [API reference](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/) for `Secret`

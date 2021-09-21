@@ -5,14 +5,11 @@ metadata:
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
     apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
-    seccomp.security.alpha.kubernetes.io/defaultProfileName:  'runtime/default'
     apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
 spec:
   privileged: false
-  # 루트로의 에스컬레이션을 방지하는데 필요하다.
+  # 루트로의 에스컬레이션을 방지하는 데 필요하다.
   allowPrivilegeEscalation: false
-  # 이것은 루트가 아닌 사용자 + 권한 에스컬레이션을 허용하지 않는 것으로 중복이지만,
-  # 심층 방어를 위해 이를 제공한다.
   requiredDropCapabilities:
     - ALL
   # 기본 볼륨 유형을 허용한다.
@@ -22,8 +19,10 @@ spec:
     - 'projected'
     - 'secret'
     - 'downwardAPI'
-    # 클러스터 관리자가 설정한 퍼시스턴트볼륨을 사용하는 것이 안전하다고 가정한다.
+    # 클러스터 관리자에 의해 구성된 휘발성 CSI 드라이버와 퍼시스턴트볼륨(PersistentVolume)의 사용은 안전하다고 가정한다.
+    - 'csi'
     - 'persistentVolumeClaim'
+    - 'ephemeral'
   hostNetwork: false
   hostIPC: false
   hostPID: false

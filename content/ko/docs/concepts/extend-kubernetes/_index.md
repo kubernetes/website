@@ -2,6 +2,10 @@
 title: 쿠버네티스 확장
 weight: 110
 description: 쿠버네티스 클러스터의 동작을 변경하는 다양한 방법
+feature:
+  title: 확장성을 고려하여 설계됨
+  description: >
+    쿠버네티스 업스트림 소스 코드 수정 없이 쿠버네티스 클러스터에 기능을 추가할 수 있다.
 content_type: concept
 no_list: true
 ---
@@ -17,7 +21,7 @@ no_list: true
 조정하는 방법을 이해하려는 {{< glossary_tooltip text="클러스터 운영자" term_id="cluster-operator" >}}를 대상으로 한다.
 잠재적인 {{< glossary_tooltip text="플랫폼 개발자" term_id="platform-developer" >}} 또는 쿠버네티스 프로젝트 {{< glossary_tooltip text="컨트리뷰터" term_id="contributor" >}}인 개발자에게도
 어떤 익스텐션(extension) 포인트와 패턴이 있는지,
-그리고 그것들의 트레이드오프와 제약에 대한 소개 자료로 유용할 것이다.
+그리고 그것의 트레이드오프와 제약을 이해하는 데 도움이 될 것이다.
 
 <!-- body -->
 
@@ -76,18 +80,17 @@ kubectl에서
 아래는 익스텐션 포인트가 쿠버네티스 컨트롤 플레인과 상호 작용하는 방법을
 보여주는 다이어그램이다.
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
-
 <!-- image source drawing https://docs.google.com/drawings/d/1muJ7Oxuj_7Gtv7HV9-2zJbOnkQJnjxq-v1ym_kZfB-4/edit?ts=5a01e054 -->
 
+![익스텐션 포인트와 컨트롤 플레인](/ko/docs/concepts/extend-kubernetes/control-plane.png)
 
 ## 익스텐션 포인트
 
 이 다이어그램은 쿠버네티스 시스템의 익스텐션 포인트를 보여준다.
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vSH5ZWUO2jH9f34YHenhnCd14baEb4vT-pzfxeFC7NzdNqRDgdz4DDAVqArtH4onOGqh0bhwMX0zGBb/pub?w=425&h=809">
-
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
+
+![익스텐션 포인트](/docs/concepts/extend-kubernetes/extension-points.png)
 
 1.   사용자는 종종 `kubectl`을 사용하여 쿠버네티스 API와 상호 작용한다. [Kubectl 플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)은 kubectl 바이너리를 확장한다. 개별 사용자의 로컬 환경에만 영향을 미치므로 사이트 전체 정책을 적용할 수는 없다.
 2.   apiserver는 모든 요청을 처리한다. apiserver의 여러 유형의 익스텐션 포인트는 요청을 인증하거나, 콘텐츠를 기반으로 요청을 차단하거나, 콘텐츠를 편집하고, 삭제 처리를 허용한다. 이 내용은 [API 접근 익스텐션](#api-접근-익스텐션) 섹션에 설명되어 있다.
@@ -99,10 +102,9 @@ kubectl에서
 
 어디서부터 시작해야 할지 모르겠다면, 이 플로우 차트가 도움이 될 수 있다. 일부 솔루션에는 여러 유형의 익스텐션이 포함될 수 있다.
 
-
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vRWXNNIVWFDqzDY0CsKZJY3AR8sDeFDXItdc5awYxVH8s0OLherMlEPVUpxPIB1CSUu7GPk7B2fEnzM/pub?w=1440&h=1080">
-
 <!-- image source drawing: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
+
+![익스텐션 플로우차트](/ko/docs/concepts/extend-kubernetes/flowchart.png)
 
 ## API 익스텐션
 ### 사용자 정의 유형
@@ -141,7 +143,7 @@ API를 추가해도 기존 API(예: 파드)의 동작에 직접 영향을 미치
 
 ### 인가
 
-[인가](/docs/reference/access-authn-authz/webhook/)은 특정 사용자가 API 리소스에서 읽고, 쓰고, 다른 작업을 수행할 수 있는지를 결정한다. 전체 리소스 레벨에서 작동하며 임의의 오브젝트 필드를 기준으로 구별하지 않는다. 빌트인 인증 옵션이 사용자의 요구를 충족시키지 못하면 [인가 웹훅](/docs/reference/access-authn-authz/webhook/)을 통해 사용자가 제공한 코드를 호출하여 인증 결정을 내릴 수 있다.
+[인가](/docs/reference/access-authn-authz/webhook/)는 특정 사용자가 API 리소스에서 읽고, 쓰고, 다른 작업을 수행할 수 있는지를 결정한다. 전체 리소스 레벨에서 작동하며 임의의 오브젝트 필드를 기준으로 구별하지 않는다. 빌트인 인증 옵션이 사용자의 요구를 충족시키지 못하면 [인가 웹훅](/docs/reference/access-authn-authz/webhook/)을 통해 사용자가 제공한 코드를 호출하여 인증 결정을 내릴 수 있다.
 
 
 ### 동적 어드미션 컨트롤

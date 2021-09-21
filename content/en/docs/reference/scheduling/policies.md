@@ -14,9 +14,7 @@ respectively.
 You can set a scheduling policy by running
 `kube-scheduler --policy-config-file <filename>` or
 `kube-scheduler --policy-configmap <ConfigMap>`
-and using the [Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy).
-
-
+and using the [Policy type](/docs/reference/config-api/kube-scheduler-policy-config.v1/).
 
 <!-- body -->
 
@@ -44,21 +42,6 @@ The following *predicates* implement filtering:
 
 - `MaxCSIVolumeCount`: Decides how many {{< glossary_tooltip text="CSI" term_id="csi" >}}
   volumes should be attached, and whether that's over a configured limit.
-
-- `CheckNodeMemoryPressure`: If a Node is reporting memory pressure, and there's no
-  configured exception, the Pod won't be scheduled there.
-
-- `CheckNodePIDPressure`: If a Node is reporting that process IDs are scarce, and
-  there's no configured exception, the Pod won't be scheduled there.
-
-- `CheckNodeDiskPressure`: If a Node is reporting storage pressure (a filesystem that
-   is full or nearly full), and there's no configured exception, the Pod won't be
-   scheduled there.
-
-- `CheckNodeCondition`: Nodes can report that they have a completely full filesystem,
-  that networking isn't available or that kubelet is otherwise not ready to run Pods.
-  If such a condition is set for a Node, and there's no configured exception, the Pod
-  won't be scheduled there.
 
 - `PodToleratesNodeTaints`: checks if a Pod's {{< glossary_tooltip text="tolerations" term_id="toleration" >}}
   can tolerate the Node's {{< glossary_tooltip text="taints" term_id="taint" >}}.
@@ -117,10 +100,10 @@ The following *priorities* implement scoring:
 - `EvenPodsSpreadPriority`: Implements preferred
   [pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 
-
-
 ## {{% heading "whatsnext" %}}
 
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler Configuration](/docs/reference/scheduling/config/)
+* Read the [kube-scheduler configuration reference (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2)
+* Read the [kube-scheduler Policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 

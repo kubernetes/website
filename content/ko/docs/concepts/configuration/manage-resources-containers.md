@@ -21,9 +21,6 @@ feature:
 컨테이너가 사용할 수 있도록 해당 시스템 리소스의 최소 _요청_ 량을
 예약한다.
 
-
-
-
 <!-- body -->
 
 ## 요청 및 제한
@@ -72,7 +69,7 @@ Huge page는 노드 커널이 기본 페이지 크기보다 훨씬 큰 메모리
 이것은 `memory` 및 `cpu` 리소스와는 다르다.
 {{< /note >}}
 
-CPU와 메모리를 통칭하여 *컴퓨트 리소스* 또는 그냥 *리소스* 라고 한다. 컴퓨트
+CPU와 메모리를 통칭하여 *컴퓨트 리소스* 또는 *리소스* 라고 한다. 컴퓨트
 리소스는 요청, 할당 및 소비될 수 있는 측정 가능한
 수량이다. 이것은
 [API 리소스](/ko/docs/concepts/overview/kubernetes-api/)와는 다르다. 파드 및
@@ -108,9 +105,9 @@ CPU 리소스에 대한 제한 및 요청은 *cpu* 단위로 측정된다.
 컨테이너는 CPU 1개를 요구하는 컨테이너의 절반만큼 CPU를 보장한다. `0.1` 이라는 표현은
 "백 밀리cpu"로 읽을 수 있는 `100m` 표현과 동일하다. 어떤 사람들은
 "백 밀리코어"라고 말하는데, 같은 것을 의미하는 것으로 이해된다.
-`0.1` 과 같이 소수점이 있는 요청은 API에 의해 `100m` 로 변환되며,
-`1m` 도 허용되지 않게 정밀하다. 이러한 이유로, `100m` 형식이
-선호될 수 있다.
+`0.1` 과 같이 소수점이 있는 요청은 API에 의해 `100m` 으로 변환되며, 
+`1m` 보다 더 정밀한 단위는 허용되지 않는다. 이러한 이유로, 
+`100m` 과 같은 형식이 선호될 수 있다.
 
 CPU는 항상 절대 수량으로 요청되며, 상대적 수량은 아니다.
 0.1은 단일 코어, 이중 코어 또는 48코어 시스템에서 동일한 양의 CPU이다.
@@ -441,7 +438,9 @@ kubelet은 각 `emptyDir` 볼륨, 컨테이너 로그 디렉터리 및 쓰기 �
 
 프로젝트 쿼터를 사용하려면, 다음을 수행해야 한다.
 
-* kubelet 구성에서 `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
+* [kubelet 구성](/docs/reference/config-api/kubelet-config.v1beta1/)의
+  `featureGates` 필드 또는 `--feature-gates` 커맨드 라인 플래그를 사용하여
+  `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
   [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
   활성화한다.
 
@@ -449,6 +448,7 @@ kubelet은 각 `emptyDir` 볼륨, 컨테이너 로그 디렉터리 및 쓰기 �
   프로젝트 쿼터가 활성화되어 있는지 확인한다. 모든 XFS 파일시스템은 프로젝트 쿼터를 지원한다.
   ext4 파일시스템의 경우, 파일시스템이 마운트되지 않은 상태에서 프로젝트 쿼터
   추적 기능을 활성화해야 한다.
+
   ```bash
   # ext4인 /dev/block-device가 마운트되지 않은 경우
   sudo tune2fs -O project -Q prjquota /dev/block-device
@@ -518,9 +518,8 @@ JSON-Pointer로 해석된다. 더 자세한 내용은,
 클러스터-레벨의 확장된 리소스는 노드에 연결되지 않는다. 이들은 일반적으로
 리소스 소비와 리소스 쿼터를 처리하는 스케줄러 익스텐더(extender)에 의해 관리된다.
 
-[스케줄러 정책 구성](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31)에서
-스케줄러 익스텐더가
-처리하는 확장된 리소스를 지정할 수 있다.
+[스케줄러 정책 구성](/docs/reference/config-api/kube-scheduler-policy-config.v1/)에서
+스케줄러 익스텐더가 처리하는 확장된 리소스를 지정할 수 있다.
 
 **예제:**
 
@@ -743,23 +742,13 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 컨테이너가 `reason:OOM Killed`(`OOM` 은 메모리 부족(Out Of Memory)의 약자) 때문에 종료된 것을 알 수 있다.
 
-
-
-
-
-
 ## {{% heading "whatsnext" %}}
 
-
 * [컨테이너와 파드에 메모리 리소스를 할당](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는 핸즈온 경험을 해보자.
-
 * [컨테이너와 파드에 CPU 리소스를 할당](/docs/tasks/configure-pod-container/assign-cpu-resource/)하는 핸즈온 경험을 해보자.
-
 * 요청과 제한의 차이점에 대한 자세한 내용은,
   [리소스 QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md)를 참조한다.
-
 * [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) API 레퍼런스 읽어보기
-
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API 레퍼런스 읽어보기
-
 * XFS의 [프로젝트 쿼터](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html)에 대해 읽어보기
+* [kube-scheduler 정책 레퍼런스 (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)에 대해 더 읽어보기

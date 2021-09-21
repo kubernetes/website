@@ -80,7 +80,7 @@ Members can:
 - Use the `/lgtm` comment to add the LGTM (looks good to me) label to a pull request
 
     {{< note >}}
-    Using `/lgtm` triggers automation. If you want to provide non-binding approval, simply commenting "LGTM" works too!
+    Using `/lgtm` triggers automation. If you want to provide non-binding approval, commenting "LGTM" works too!
     {{< /note >}}
 - Use the `/hold` comment to block merging for a pull request
 - Use the `/assign` comment to assign a reviewer to a pull request
@@ -98,10 +98,11 @@ Members can:
 - 执行[任何人](#anyone)节区所列举操作
 - 使用 `/lgtm` 评论添加 LGTM (looks good to me（我觉得可以）) 标签到某个 PR
 
-    {{< note >}}
-    使用 `/lgtm` 会触发自动化机制。如果你希望提供不拘约束力的批准意见，
-    直接回复 "LGTM" 也是可以的。
-    {{< /note >}}
+  {{< note >}}
+  使用 `/lgtm` 会触发自动化机制。如果你希望提供不拘约束力的批准意见，
+  直接回复 "LGTM" 也是可以的。
+  {{< /note >}}
+
 - 利用 `/hold` 评论来阻止某个 PR 被合并
 - 使用 `/assign` 评论为某个 PR 指定评审人
 - 对 PR 提供非约束性的评审意见
@@ -268,7 +269,7 @@ To apply:
 
 <!--
 1. Open a pull request that adds your GitHub user name to a section of the
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) file
 in the `kubernetes/website` repository.
 
   {{< note >}}
@@ -281,7 +282,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 [@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
 -->
 1. 发起 PR，将你的 GitHub 用户名添加到 `kubernetes/website` 仓库中
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
    文件的特定节。
 
    {{< note >}}
@@ -382,7 +383,7 @@ When you meet the [requirements](https://github.com/kubernetes/community/blob/ma
 <!--
 To apply:
 
-1. Open a pull request adding yourself to a section of the [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file in the `kubernetes/website` repository.
+1. Open a pull request adding yourself to a section of the [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) file in the `kubernetes/website` repository.
 
     {{< note >}}
     If you aren't sure where to add yourself, add yourself to `sig-docs-en-owners`.
@@ -395,7 +396,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 申请流程如下：
 
 1. 发起一个 PR，将自己添加到 `kubernetes/website` 仓库中
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
    文件的对应节区。
 
    {{< note >}}

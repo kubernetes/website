@@ -78,7 +78,8 @@ A namespace can be in one of two phases:
    * `Active` the namespace is in use
    * `Terminating` the namespace is being deleted, and can not be used for new objects
 
-See the [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases) for more details.
+For more details, see [Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)
+in the API reference.
 
 ## Creating a new namespace
 
@@ -196,7 +197,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     ```shell
     kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname  -n=development --replicas=2
     ```
-    We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
+    We have created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that serves the hostname.
 
     ```shell
     kubectl get deployment -n=development
@@ -302,7 +303,7 @@ Use cases include:
 
 When you create a [Service](/docs/concepts/services-networking/service/), it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
-that if a container just uses `<service-name>` it will resolve to the service which
+that if a container uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
@@ -313,7 +314,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* See [namespaces design](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/architecture/namespaces.md).
+* See [namespaces design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md).
 
 
 

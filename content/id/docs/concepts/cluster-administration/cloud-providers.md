@@ -11,7 +11,7 @@ Laman ini akan menjelaskan bagaimana cara mengelola Kubernetes yang berjalan pad
 
 <!-- body -->
 ### Kubeadm
-[Kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) merupakan salah satu cara yang banyak digunakan untuk membuat klaster Kubernetes.
+[Kubeadm](/docs/reference/setup-tools/kubeadm/) merupakan salah satu cara yang banyak digunakan untuk membuat klaster Kubernetes.
 Kubeadm memiliki beragam opsi untuk mengatur konfigurasi spesifik untuk penyedia layanan cloud. Salah satu contoh yang biasa digunakan pada penyedia cloud *in-tree* yang dapat diatur dengan kubeadm adalah sebagai berikut:
 
 ```yaml

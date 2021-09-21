@@ -56,7 +56,7 @@ The Dashboard UI is not deployed by default. To deploy it, run the following com
 默认情况下不会部署 Dashboard。可以通过以下命令部署：
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
 ```
 
 <!--
@@ -172,7 +172,7 @@ The deploy wizard expects that you provide the following information:
  -->
 - **容器镜像**（必填）：公共镜像仓库上的 Docker
   [容器镜像](/zh/docs/concepts/containers/images/) 或者私有镜像仓库
-  （通常是 Google Container Registery 或者 Docker Hub）的 URL。容器镜像参数说明必须以冒号结尾。
+  （通常是 Google Container Registry 或者 Docker Hub）的 URL。容器镜像参数说明必须以冒号结尾。
 
 <!--
 - **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in. The value must be a positive integer.
@@ -214,7 +214,7 @@ The deploy wizard expects that you provide the following information:
   -->
   不管哪种 Service 类型，如果你选择创建一个 Service，而且容器在一个端口上开启了监听（入向的），
   那么你需要定义两个端口。创建的 Service 会把（入向的）端口映射到容器可见的目标端口。
-  该 Service 会把流量路由到你部署的 Pod。支持的协议有 TCP 和 UDP。
+  该 Service 会把流量路由到你部署的 Pod。支持 TCP 协议和 UDP 协议。
   这个 Service 的内部 DNS 解析名就是之前你定义的应用名称的值。
 
 <!--

@@ -154,22 +154,26 @@ from the YAML you used to create it:
 
 ```yaml
 apiVersion: v1
-kind: List
 items:
 - apiVersion: stable.example.com/v1
   kind: CronTab
   metadata:
-    creationTimestamp: 2017-05-31T12:56:35Z
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"stable.example.com/v1","kind":"CronTab","metadata":{"annotations":{},"name":"my-new-cron-object","namespace":"default"},"spec":{"cronSpec":"* * * * */5","image":"my-awesome-cron-image"}}
+    creationTimestamp: "2021-06-20T07:35:27Z"
     generation: 1
     name: my-new-cron-object
     namespace: default
-    resourceVersion: "285"
-    uid: 9423255b-4600-11e7-af6a-28d2447dc82b
+    resourceVersion: "1326"
+    uid: 9aab1d66-628e-41bb-a422-57b8b3b1f5a9
   spec:
     cronSpec: '* * * * */5'
     image: my-awesome-cron-image
+kind: List
 metadata:
   resourceVersion: ""
+  selfLink: ""
 ```
 
 ## Delete a CustomResourceDefinition
@@ -520,7 +524,7 @@ CustomResourceDefinition and migrating your objects from one version to another.
 ### Finalizers
 
 *Finalizers* allow controllers to implement asynchronous pre-delete hooks.
-Custom objects support finalizers just like built-in objects.
+Custom objects support finalizers similar to built-in objects.
 
 You can add a finalizer to a custom object like this:
 
@@ -1128,8 +1132,6 @@ You can use a [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) 
 resources that have the scale subresource enabled.
 
 ### Categories
-
-{{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
 Categories is a list of grouped resources the custom resource belongs to (eg. `all`).
 You can use `kubectl get <category-name>` to list the resources belonging to the category.

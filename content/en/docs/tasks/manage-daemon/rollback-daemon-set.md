@@ -25,7 +25,7 @@ You should already know how to [perform a rolling update on a
 
 ### Step 1: Find the DaemonSet revision you want to roll back to
 
-You can skip this step if you just want to roll back to the last revision.
+You can skip this step if you only want to roll back to the last revision.
 
 List all revisions of a DaemonSet:
 

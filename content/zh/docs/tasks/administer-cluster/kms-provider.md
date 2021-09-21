@@ -79,7 +79,7 @@ Refer to your cloud provider for instructions on enabling the cloud provider-spe
 -->
 ### 启用由云服务驱动支持的 KMS
 
-有关启用云服务驱动特定的 KMS 插件的说明，请咨询你的云服务驱动。
+有关启用云服务驱动特定的 KMS 插件的说明，请咨询你的云服务驱动商。
 
 <!--
 ### Developing a KMS plugin gRPC server

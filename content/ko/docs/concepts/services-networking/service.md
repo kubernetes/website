@@ -187,9 +187,14 @@ ExternalName 서비스는 셀렉터가 없고
 DNS명을 대신 사용하는 특수한 상황의 서비스이다. 자세한 내용은
 이 문서 뒷부분의 [ExternalName](#externalname) 섹션을 참조한다.
 
+### 초과 용량 엔드포인트
+엔드포인트 리소스에 1,000개가 넘는 엔드포인트가 있는 경우 쿠버네티스 v1.21(또는 그 이상)
+클러스터는 해당 엔드포인트에 `endpoints.kubernetes.io/over-capacity: warning` 어노테이션을 추가한다.
+이 어노테이션은 영향을 받는 엔드포인트 오브젝트가 용량을 초과했음을 나타낸다.
+
 ### 엔드포인트슬라이스
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 엔드포인트슬라이스는 엔드포인트에 보다 확장 가능한 대안을 제공할 수 있는
 API 리소스이다. 개념적으로 엔드포인트와 매우 유사하지만, 엔드포인트슬라이스를
@@ -210,7 +215,7 @@ API 리소스이다. 개념적으로 엔드포인트와 매우 유사하지만, 
 오브젝트에 의해 미러링된다.
 
 이 필드는 표준 쿠버네티스 레이블 구문을 따른다. 값은
-[IANA 표준 서비스 이름](http://www.iana.org/assignments/service-names) 또는
+[IANA 표준 서비스 이름](https://www.iana.org/assignments/service-names) 또는
 `mycompany.com/my-custom-protocol`과 같은 도메인 접두사 이름 중 하나여야 한다.
 
 ## 가상 IP와 서비스 프록시
@@ -311,7 +316,7 @@ IPVS는 트래픽을 백엔드 파드로 밸런싱하기 위한 추가 옵션을
 
 {{< note >}}
 IPVS 모드에서 kube-proxy를 실행하려면, kube-proxy를 시작하기 전에 노드에서 IPVS를
-사용 가능하도록 해야한다.
+사용 가능하도록 해야 한다.
 
 kube-proxy가 IPVS 프록시 모드에서 시작될 때, IPVS 커널 모듈을
 사용할 수 있는지 확인한다. IPVS 커널 모듈이 감지되지 않으면, kube-proxy는
@@ -513,8 +518,12 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
 각 노드는 해당 포트 (모든 노드에서 동일한 포트 번호)를 서비스로 프록시한다.
 서비스는 할당된 포트를 `.spec.ports[*].nodePort` 필드에 나타낸다.
 
-포트를 프록시하기 위해 특정 IP를 지정하려면 kube-proxy의 `--nodeport-addresses` 플래그를 특정 IP 블록으로 설정할 수 있다. 이것은 쿠버네티스 v1.10부터 지원된다.
-이 플래그는 쉼표로 구분된 IP 블록 목록 (예: 10.0.0.0/8, 192.0.2.0/25)을 사용하여 kube-proxy가 로컬 노드로 고려해야 하는 IP 주소 범위를 지정한다.
+포트를 프록시하기 위해 특정 IP를 지정하려면, kube-proxy에 대한
+`--nodeport-addresses` 플래그 또는
+[kube-proxy 구성 파일](/docs/reference/config-api/kube-proxy-config.v1alpha1/)의
+동등한 `nodePortAddresses` 필드를
+특정 IP 블록으로 설정할 수 있다.
+이 플래그는 쉼표로 구분된 IP 블록 목록(예: `10.0.0.0/8`, `192.0.2.0/25`)을 사용하여 kube-proxy가 로컬 노드로 고려해야 하는 IP 주소 범위를 지정한다.
 
 예를 들어, `--nodeport-addresses=127.0.0.0/8` 플래그로 kube-proxy를 시작하면, kube-proxy는 NodePort 서비스에 대하여 루프백(loopback) 인터페이스만 선택한다. `--nodeport-addresses`의 기본 값은 비어있는 목록이다. 이것은 kube-proxy가 NodePort에 대해 사용 가능한 모든 네트워크 인터페이스를 고려해야 한다는 것을 의미한다. (이는 이전 쿠버네티스 릴리스와도 호환된다).
 
@@ -530,7 +539,9 @@ NodePort를 사용하면 자유롭게 자체 로드 밸런싱 솔루션을 설�
 하나 이상의 노드 IP를 직접 노출시킬 수 있다.
 
 이 서비스는 `<NodeIP>:spec.ports[*].nodePort`와
-`.spec.clusterIP:spec.ports[*].port`로 표기된다. (kube-proxy에서 `--nodeport-addresses` 플래그가 설정되면, <NodeIP>는 NodeIP를 필터링한다.)
+`.spec.clusterIP:spec.ports[*].port`로 표기된다.
+kube-proxy에 대한 `--nodeport-addresses` 플래그 또는 kube-proxy 구성 파일의
+동등한 필드가 설정된 경우, `<NodeIP>` 는 노드 IP를 필터링한다.
 
 예를 들면
 
@@ -627,6 +638,25 @@ v1.20부터는 `spec.allocateLoadBalancerNodePorts` 필드를 `false`로 설정�
 노드 포트가 할당된 기존 서비스에서 `spec.allocateLoadBalancerNodePorts`가 `false`로 설정된 경우 해당 노드 포트는 자동으로 할당 해제되지 않는다.
 이러한 노드 포트를 할당 해제하려면 모든 서비스 포트에서 `nodePorts` 항목을 명시적으로 제거해야 한다.
 이 필드를 사용하려면 `ServiceLBNodePortControl` 기능 게이트를 활성화해야 한다.
+
+#### 로드 밸런서 구현 클래스 지정 {#load-balancer-class}
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+v1.21부터는, `spec.loadBalancerClass` 필드를 설정하여 `LoadBalancer` 서비스 유형에
+대한 로드 밸런서 구현 클래스를 선택적으로 지정할 수 있다.
+기본적으로, `spec.loadBalancerClass` 는 `nil` 이고 `LoadBalancer` 유형의 서비스는
+클라우드 공급자의 기본 로드 밸런서 구현을 사용한다.
+`spec.loadBalancerClass` 가 지정되면, 지정된 클래스와 일치하는 로드 밸런서
+구현이 서비스를 감시하고 있다고 가정한다.
+모든 기본 로드 밸런서 구현(예: 클라우드 공급자가 제공하는
+로드 밸런서 구현)은 이 필드가 설정된 서비스를 무시한다.
+`spec.loadBalancerClass` 는 `LoadBalancer` 유형의 서비스에서만 설정할 수 있다.
+한 번 설정하면 변경할 수 없다.
+`spec.loadBalancerClass` 의 값은 "`internal-vip`" 또는
+"`example.com/internal-vip`" 와 같은 선택적 접두사가 있는 레이블 스타일 식별자여야 한다.
+접두사가 없는 이름은 최종 사용자를 위해 예약되어 있다.
+이 필드를 사용하려면 `ServiceLoadBalancerClass` 기능 게이트를 활성화해야 한다.
 
 #### 내부 로드 밸런서
 
@@ -785,8 +815,7 @@ TCP 및 SSL은 4 계층 프록시를 선택한다. ELB는 헤더를 수정하지
 ```
 
 위의 예에서, 서비스에 `80`, `443`, `8443`의 3개 포트가 포함된 경우,
-`443`, `8443`은 SSL 인증서를 사용하지만, `80`은 단순히
-프록시만 하는 HTTP이다.
+`443`, `8443`은 SSL 인증서를 사용하지만, `80`은 프록시하는 HTTP이다.
 
 쿠버네티스 v1.9부터는 서비스에 대한 HTTPS 또는 SSL 리스너와 함께 [사전에 정의된 AWS SSL 정책](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)을 사용할 수 있다.
 사용 가능한 정책을 확인하려면, `aws` 커맨드라인 툴을 사용한다.
@@ -906,11 +935,18 @@ Classic ELB의 연결 드레이닝은
         # 값 보다 작아야한다. 기본값은 5이며, 2와 60 사이여야 한다.
 
         service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-        # 생성된 ELB에 추가할 기존 보안 그룹 목록.
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 어노테이션과 달리, 이는 이전에 ELB에 할당된 다른 모든 보안 그룹을 대체한다.
+        # 생성된 ELB에 설정할 기존 보안 그룹(security group) 목록.
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 어노테이션과 달리, 이는 이전에 ELB에 할당된 다른 모든 보안 그룹을 대체하며,
+        # '해당 ELB를 위한 고유 보안 그룹 생성'을 오버라이드한다.
+        # 목록의 첫 번째 보안 그룹 ID는 인바운드 트래픽(서비스 트래픽과 헬스 체크)이 워커 노드로 향하도록 하는 규칙으로 사용된다.
+        # 여러 ELB가 하나의 보안 그룹 ID와 연결되면, 1줄의 허가 규칙만이 워커 노드 보안 그룹에 추가된다.
+        # 즉, 만약 여러 ELB 중 하나를 지우면, 1줄의 허가 규칙이 삭제되어, 같은 보안 그룹 ID와 연결된 모든 ELB에 대한 접속이 막힌다.
+        # 적절하게 사용되지 않으면 이는 다수의 서비스가 중단되는 상황을 유발할 수 있다.
 
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-        # ELB에 추가될 추가 보안 그룹(security group) 목록
+        # 생성된 ELB에 추가할 추가 보안 그룹 목록
+        # 이 방법을 사용하면 이전에 생성된 고유 보안 그룹이 그대로 유지되므로, 각 ELB가 고유 보안 그룹 ID와 그에 매칭되는 허가 규칙 라인을 소유하여
+        # 트래픽(서비스 트래픽과 헬스 체크)이 워커 노드로 향할 수 있도록 한다. 여기에 기재되는 보안 그룹은 여러 서비스 간 공유될 수 있다.
 
         service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
         # 로드 밸런서의 대상 노드를 선택하는 데
@@ -958,7 +994,7 @@ NLB는 특정 인스턴스 클래스에서만 작동한다. 지원되는 인스�
 
 | 규칙 | 프로토콜 | 포트 | IP 범위 | IP 범위 설명 |
 |------|----------|---------|------------|---------------------|
-| 헬스 체크 | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| 헬스 체크 | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
 | 클라이언트 트래픽 | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU 탐색 | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
@@ -1120,7 +1156,7 @@ VIP용 유저스페이스 프록시를 사용하면 중소 규모의 스케일�
 않아도 된다. 그것은 격리 실패이다.
 
 서비스에 대한 포트 번호를 선택할 수 있도록 하기 위해, 두 개의
-서비스가 충돌하지 않도록 해야한다. 쿠버네티스는 각 서비스에 고유한 IP 주소를
+서비스가 충돌하지 않도록 해야 한다. 쿠버네티스는 각 서비스에 고유한 IP 주소를
 할당하여 이를 수행한다.
 
 각 서비스가 고유한 IP를 받도록 하기 위해, 내부 할당기는

@@ -212,6 +212,10 @@ kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 
 # 파드 등에 대해 반환된 모든 키의 마침표로 구분된 트리를 생성한다.
 kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+
+# 모든 파드에 대해 ENV를 생성한다(각 파드에 기본 컨테이너가 있고, 기본 네임스페이스가 있고, `env` 명령어가 동작한다고 가정).
+# `env` 뿐만 아니라 다른 지원되는 명령어를 모든 파드에 실행할 때에도 참고할 수 있다.
+for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod env; done
 ```
 
 ## 리소스 업데이트
@@ -293,12 +297,12 @@ kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{pr
 ## 실행 중인 파드와 상호 작용
 
 ```bash
-kubectl logs my-pod                                 # 파드 로그(stdout) 덤프
+kubectl logs my-pod                                 # 파드 로그 덤프 (stdout)
 kubectl logs -l name=myLabel                        # name이 myLabel인 파드 로그 덤프 (stdout)
-kubectl logs my-pod --previous                      # 컨테이너의 이전 인스턴스 생성에 대한 파드 로그(stdout) 덤프
-kubectl logs my-pod -c my-container                 # 파드 로그(stdout, 멀티-컨테이너 경우) 덤프
+kubectl logs my-pod --previous                      # 컨테이너의 이전 인스턴스 생성에 대한 파드 로그 덤프 (stdout)
+kubectl logs my-pod -c my-container                 # 파드 로그 덤프 (stdout, 멀티-컨테이너 경우)
 kubectl logs -l name=myLabel -c my-container        # name이 myLabel인 파드 로그 덤프 (stdout)
-kubectl logs my-pod -c my-container --previous      # 컨테이너의 이전 인스턴스 생성에 대한 파드 로그(stdout, 멀티-컨테이너 경우) 덤프
+kubectl logs my-pod -c my-container --previous      # 컨테이너의 이전 인스턴스 생성에 대한 파드 로그 덤프 (stdout, 멀티-컨테이너 경우)
 kubectl logs -f my-pod                              # 실시간 스트림 파드 로그(stdout)
 kubectl logs -f my-pod -c my-container              # 실시간 스트림 파드 로그(stdout, 멀티-컨테이너 경우)
 kubectl logs -f -l name=myLabel --all-containers    # name이 myLabel인 모든 파드의 로그 스트리밍 (stdout)
@@ -315,6 +319,18 @@ kubectl exec --stdin --tty my-pod -- /bin/sh        # 실행 중인 파드로 �
 kubectl exec my-pod -c my-container -- ls /         # 기존 파드에서 명령 실행(멀티-컨테이너 경우)
 kubectl top pod POD_NAME --containers               # 특정 파드와 해당 컨테이너에 대한 메트릭 표시
 kubectl top pod POD_NAME --sort-by=cpu              # 지정한 파드에 대한 메트릭을 표시하고 'cpu' 또는 'memory'별로 정렬
+```
+
+## 디플로이먼트, 서비스와 상호 작용
+```bash
+kubectl logs deploy/my-deployment                         # 디플로이먼트에 대한 파드 로그 덤프 (단일-컨테이너 경우)
+kubectl logs deploy/my-deployment -c my-container         # 디플로이먼트에 대한 파드 로그 덤프 (멀티-컨테이너 경우)
+
+kubectl port-forward svc/my-service 5000                  # 로컬 머신의 5000번 포트를 리스닝하고, my-service의 동일한(5000번) 포트로 전달
+kubectl port-forward svc/my-service 5000:my-service-port  # 로컬 머신의 5000번 포트를 리스닝하고, my-service의 <my-service-port> 라는 이름을 가진 포트로 전달
+
+kubectl port-forward deploy/my-deployment 5000:6000       # 로컬 머신의 5000번 포트를 리스닝하고, <my-deployment> 에 의해 생성된 파드의 6000번 포트로 전달
+kubectl exec deploy/my-deployment -- ls                   # <my-deployment> 에 의해 생성된 첫번째 파드의 첫번째 컨테이너에 명령어 실행 (단일- 또는 다중-컨테이너 경우)
 ```
 
 ## 노드, 클러스터와 상호 작용
@@ -345,7 +361,7 @@ API 리소스를 탐색하기 위한 다른 작업:
 ```bash
 kubectl api-resources --namespaced=true      # 네임스페이스를 가지는 모든 리소스
 kubectl api-resources --namespaced=false     # 네임스페이스를 가지지 않는 모든 리소스
-kubectl api-resources -o name                # 모든 리소스의 단순한 (리소스 이름 만) 출력
+kubectl api-resources -o name                # 모든 리소스의 단순한 (리소스 이름만) 출력
 kubectl api-resources -o wide                # 모든 리소스의 확장된 ("wide"로 알려진) 출력
 kubectl api-resources --verbs=list,get       # "list"와 "get"의 요청 동사를 지원하는 모든 리소스 출력
 kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든 리소스
@@ -371,6 +387,9 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 ```bash
 # 클러스터에서 실행 중인 모든 이미지
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+# `default` 네임스페이스의 모든 이미지를 파드별로 그룹지어 출력
+kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
  # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'

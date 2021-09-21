@@ -9,7 +9,7 @@ weight: 40
 <!-- overview -->
 
 Kubernetes requires PKI certificates for authentication over TLS.
-If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), the certificates that your cluster requires are automatically generated.
+If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/), the certificates that your cluster requires are automatically generated.
 You can also generate your own certificates -- for example, to keep your private keys more secure by not storing them on the API server.
 This page explains the certificates that your cluster requires.
 
@@ -74,7 +74,7 @@ Required certificates:
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
-[1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)
+[1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)
 the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
@@ -100,7 +100,7 @@ For kubeadm users only:
 
 ### Certificate paths
 
-Certificates should be placed in a recommended path (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)).
+Certificates should be placed in a recommended path (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)).
 Paths should be specified using the given argument regardless of location.
 
 | Default CN                   | recommended key path         | recommended cert path       | command        | key argument                 | cert argument                             |

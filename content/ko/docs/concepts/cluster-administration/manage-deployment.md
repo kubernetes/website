@@ -47,10 +47,10 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 
 동일한 마이크로서비스 또는 애플리케이션 티어(tier)와 관련된 리소스를 동일한 파일에 배치하고, 애플리케이션과 연관된 모든 파일을 동일한 디렉터리에 그룹화하는 것이 좋다. 애플리케이션의 티어가 DNS를 사용하여 서로 바인딩되면, 스택의 모든 컴포넌트를 함께 배포할 수 있다.
 
-URL을 구성 소스로 지정할 수도 있다. 이는 github에 체크인된 구성 파일에서 직접 배포하는 데 편리하다.
+URL을 구성 소스로 지정할 수도 있다. 이는 GitHub에 체크인된 구성 파일에서 직접 배포하는 데 편리하다.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/application/nginx/nginx-deployment.yaml
 ```
 
 ```shell
@@ -278,7 +278,7 @@ pod/my-nginx-2035384211-u3t6x labeled
 ```
 
 먼저 "app=nginx" 레이블이 있는 모든 파드를 필터링한 다음, "tier=fe" 레이블을 지정한다.
-방금 레이블을 지정한 파드를 보려면, 다음을 실행한다.
+레이블을 지정한 파드를 보려면, 다음을 실행한다.
 
 ```shell
 kubectl get pods -l app=nginx -L tier

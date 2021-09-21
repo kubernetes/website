@@ -74,13 +74,13 @@ The upgrade workflow at high level is the following:
 <!--
 ### Additional information
 
-- [Draining nodes](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/) before kubelet MINOR version
+- [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/) before kubelet MINOR version
   upgrades is required. In the case of control plane nodes, they could be running CoreDNS Pods or other critical workloads.
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 -->
 ### 附加信息
 
-- 在对 kubelet 作次版本升级时需要[腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
+- 在对 kubelet 作次版本升版时需要[腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
   对于控制面节点，其上可能运行着 CoreDNS Pods 或者其它非常重要的负载。
 - 升级后，因为容器规约的哈希值已更改，所有容器都会被重新启动。
 
@@ -585,10 +585,10 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 - Makes sure the control plane images are available or available to pull to the machine.
 - Generates replacements and/or uses user supplied overwrites if component configs require version upgrades.
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
-- Applies the new `kube-dns` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
+- Applies the new `CoreDNS` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
 - Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
 -->
-## 工作原理
+## 工作原理   {#how-it-works}
 
 `kubeadm upgrade apply` 做了以下工作：
 
@@ -600,7 +600,7 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 - 确保控制面的镜像是可用的或可拉取到服务器上。
 - 如果组件配置要求版本升级，则生成替代配置与/或使用用户提供的覆盖版本配置。
 - 升级控制面组件或回滚（如果其中任何一个组件无法启动）。
-- 应用新的 `kube-dns` 和 `kube-proxy` 清单，并强制创建所有必需的 RBAC 规则。
+- 应用新的 `CoreDNS` 和 `kube-proxy` 清单，并强制创建所有必需的 RBAC 规则。
 - 如果旧文件在 180 天后过期，将创建 API 服务器的新证书和密钥文件并备份旧文件。
 
 <!--

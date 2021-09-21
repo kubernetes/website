@@ -1,6 +1,6 @@
 # A documentação do Kubernetes
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 Bem-vindos! Este repositório contém todos os recursos necessários para criar o [website e documentação do Kubernetes](https://kubernetes.io/). Estamos muito satisfeitos por você querer contribuir!
 
@@ -143,6 +143,15 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 ```
 
 Esta solução funciona tanto para o MacOS Catalina quanto para o MacOS Mojave.
+
+### Erro de "Out of Memory"
+
+Se você executar o comando `make container-serve` e retornar o seguinte erro:
+```
+make: *** [container-serve] Error 137
+```
+
+Verifique a quantidade de memória disponível para o agente de execução de contêiner. No caso do Docker Desktop para macOS, abra o menu "Preferences..." -> "Resources..." e tente disponibilizar mais memória.
 
 # Comunidade, discussão, contribuição e apoio
 

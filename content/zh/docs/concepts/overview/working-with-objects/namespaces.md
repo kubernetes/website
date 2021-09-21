@@ -21,6 +21,7 @@ These virtual clusters are called namespaces.
 -->
 Kubernetes 支持多个虚拟集群，它们底层依赖于同一个物理集群。
 这些虚拟集群被称为名字空间。
+在一些文档里名字空间也称为命名空间。
 
 <!-- body -->
 
@@ -33,13 +34,13 @@ Kubernetes 支持多个虚拟集群，它们底层依赖于同一个物理集群
 Namespaces are intended for use in environments with many users spread across multiple
 teams, or projects.  For clusters with a few to tens of users, you should not
 need to create or think about namespaces at all.  Start using namespaces when you
-need the features they provide. 
+need the features they provide.
 -->
 名字空间适用于存在很多跨多个团队或项目的用户的场景。对于只有几到几十个用户的集群，根本不需要创建或考虑名字空间。当需要名称空间提供的功能时，请开始使用它们。
 
 <!--
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
-but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes 
+but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes
 resource can only be in one namespace.
 -->
 名字空间为名称提供了一个范围。资源的名称需要在名字空间内是唯一的，但不能跨名字空间。
@@ -51,13 +52,14 @@ Namespaces are a way to divide cluster resources between multiple users (via [re
 名字空间是在多个用户之间划分集群资源的一种方法（通过[资源配额](/zh/docs/concepts/policy/resource-quotas/)）。
 
 <!--
-It is not necessary to use multiple namespaces just to separate slightly different
+It is not necessary to use multiple namespaces to separate slightly different
 resources, such as different versions of the same software: use
-[labels](/docs/concepts/overview/working-with-objects/labels/) to distinguish
+{{< glossary_tooltip text="labels" term_id="label" >}} to distinguish
 resources within the same namespace.
 -->
-不需要使用多个名字空间来分隔轻微不同的资源，例如同一软件的不同版本：
-使用[标签](/zh/docs/concepts/overview/working-with-objects/labels)来区分同一名字空间中的不同资源。
+不必使用多个名字空间来分隔仅仅轻微不同的资源，例如同一软件的不同版本：
+应该使用{{< glossary_tooltip text="标签" term_id="label" >}}
+来区分同一名字空间中的不同资源。
 
 <!--
 ## Working with Namespaces
@@ -70,7 +72,7 @@ for namespaces](/docs/tasks/administer-cluster/namespaces/).
 名字空间的创建和删除在[名字空间的管理指南文档](/zh/docs/tasks/administer-cluster/namespaces/)描述。
 
 <!--
-Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kubernetes system namespaces.
 -->
 {{< note >}}
 避免使用前缀 `kube-` 创建名字空间，因为它是为 Kubernetes 系统名字空间保留的。
@@ -160,7 +162,7 @@ Kubernetes 会创建一个相应的 [DNS 条目](/zh/docs/concepts/services-netw
 
 <!--
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
-that if a container just uses `<service-name>`, it will resolve to the service which
+that if a container only uses `<service-name>`, it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
@@ -197,6 +199,25 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
+<!--
+## Automatic labelling
+-->
+## 自动打标签   {#automatic-labelling}
+
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+<!--
+The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
+`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+The value of the label is the namespace name.
+-->
+Kubernetes 控制面会为所有名字空间设置一个不可变更的
+{{< glossary_tooltip text="标签" term_id="label" >}}
+`kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName` 这一
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+被启用。标签的值是名字空间的名称。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -205,4 +226,3 @@ kubectl api-resources --namespaced=false
 -->
 * 进一步了解[建立新的名字空间](/zh/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)。
 * 进一步了解[删除名字空间](/zh/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)。
-

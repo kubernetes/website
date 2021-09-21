@@ -7,12 +7,26 @@ content_type: "api_reference"
 description: "Volume represents a named volume in a pod that may be accessed by any container in the pod."
 title: "Volume"
 weight: 3
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 
 
 `import "k8s.io/api/core/v1"`
 
+
+## Volume {#Volume}
 
 Volume represents a named volume in a pod that may be accessed by any container in the pod.
 
@@ -24,7 +38,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 
 
-### Exposed Persistent volumes {#Exposed-Persistent-volumes}
+### Exposed Persistent volumes
 
 
 - **persistentVolumeClaim** (PersistentVolumeClaimVolumeSource)
@@ -42,7 +56,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     Will force the ReadOnly setting in VolumeMounts. Default false.
 
-### Projections {#Projections}
+### Projections
 
 
 - **configMap** (ConfigMapVolumeSource)
@@ -66,7 +80,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 
-  - **configMap.items** ([]<a href="{{< ref "../common-definitions/key-to-path#KeyToPath" >}}">KeyToPath</a>)
+  - **configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
     If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
@@ -91,7 +105,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 
-  - **secret.items** ([]<a href="{{< ref "../common-definitions/key-to-path#KeyToPath" >}}">KeyToPath</a>)
+  - **secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
     If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
@@ -106,7 +120,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 
-  - **downwardAPI.items** ([]<a href="{{< ref "../common-definitions/downward-api-volume-file#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
+  - **downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
     Items is a list of downward API volume file
 
@@ -128,79 +142,79 @@ Volume represents a named volume in a pod that may be accessed by any container 
     <a name="VolumeProjection"></a>
     *Projection that may be projected along with other supported volume types*
 
-  - **projected.sources.configMap** (ConfigMapProjection)
+    - **projected.sources.configMap** (ConfigMapProjection)
 
-    information about the configMap data to project
+      information about the configMap data to project
 
-    <a name="ConfigMapProjection"></a>
-    *Adapts a ConfigMap into a projected volume.
-    
-    The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.*
+      <a name="ConfigMapProjection"></a>
+      *Adapts a ConfigMap into a projected volume.
+      
+      The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.*
 
-  - **projected.sources.configMap.name** (string)
+      - **projected.sources.configMap.name** (string)
 
-    Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
-  - **projected.sources.configMap.optional** (boolean)
+      - **projected.sources.configMap.optional** (boolean)
 
-    Specify whether the ConfigMap or its keys must be defined
+        Specify whether the ConfigMap or its keys must be defined
 
-  - **projected.sources.configMap.items** ([]<a href="{{< ref "../common-definitions/key-to-path#KeyToPath" >}}">KeyToPath</a>)
+      - **projected.sources.configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
-    If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
-  - **projected.sources.downwardAPI** (DownwardAPIProjection)
+    - **projected.sources.downwardAPI** (DownwardAPIProjection)
 
-    information about the downwardAPI data to project
+      information about the downwardAPI data to project
 
-    <a name="DownwardAPIProjection"></a>
-    *Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.*
+      <a name="DownwardAPIProjection"></a>
+      *Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.*
 
-  - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../common-definitions/downward-api-volume-file#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
+      - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
-    Items is a list of DownwardAPIVolume file
+        Items is a list of DownwardAPIVolume file
 
-  - **projected.sources.secret** (SecretProjection)
+    - **projected.sources.secret** (SecretProjection)
 
-    information about the secret data to project
+      information about the secret data to project
 
-    <a name="SecretProjection"></a>
-    *Adapts a secret into a projected volume.
-    
-    The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.*
+      <a name="SecretProjection"></a>
+      *Adapts a secret into a projected volume.
+      
+      The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.*
 
-  - **projected.sources.secret.name** (string)
+      - **projected.sources.secret.name** (string)
 
-    Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
-  - **projected.sources.secret.optional** (boolean)
+      - **projected.sources.secret.optional** (boolean)
 
-    Specify whether the Secret or its key must be defined
+        Specify whether the Secret or its key must be defined
 
-  - **projected.sources.secret.items** ([]<a href="{{< ref "../common-definitions/key-to-path#KeyToPath" >}}">KeyToPath</a>)
+      - **projected.sources.secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
-    If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
-  - **projected.sources.serviceAccountToken** (ServiceAccountTokenProjection)
+    - **projected.sources.serviceAccountToken** (ServiceAccountTokenProjection)
 
-    information about the serviceAccountToken data to project
+      information about the serviceAccountToken data to project
 
-    <a name="ServiceAccountTokenProjection"></a>
-    *ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).*
+      <a name="ServiceAccountTokenProjection"></a>
+      *ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).*
 
-  - **projected.sources.serviceAccountToken.path** (string), required
+      - **projected.sources.serviceAccountToken.path** (string), required
 
-    Path is the path relative to the mount point of the file to project the token into.
+        Path is the path relative to the mount point of the file to project the token into.
 
-  - **projected.sources.serviceAccountToken.audience** (string)
+      - **projected.sources.serviceAccountToken.audience** (string)
 
-    Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+        Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
 
-  - **projected.sources.serviceAccountToken.expirationSeconds** (int64)
+      - **projected.sources.serviceAccountToken.expirationSeconds** (int64)
 
-    ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+        ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
 
-### Local / Temporary Directory {#Local-Temporary-Directory}
+### Local / Temporary Directory
 
 
 - **emptyDir** (EmptyDirVolumeSource)
@@ -233,7 +247,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     Type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 
-### Persistent volumes {#Persistent-volumes}
+### Persistent volumes
 
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
@@ -364,6 +378,33 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **cinder.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
     Optional: points to a secret object containing parameters used to connect to OpenStack.
+
+- **csi** (CSIVolumeSource)
+
+  CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+
+  <a name="CSIVolumeSource"></a>
+  *Represents a source location of a volume to mount, managed by an external CSI driver*
+
+  - **csi.driver** (string), required
+
+    Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+
+  - **csi.fsType** (string)
+
+    Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+
+  - **csi.nodePublishSecretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
+
+    NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+
+  - **csi.readOnly** (boolean)
+
+    Specifies a read-only configuration for the volume. Defaults to false (read/write).
+
+  - **csi.volumeAttributes** (map[string]string)
+
+    VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
 
 - **fc** (FCVolumeSource)
 
@@ -749,42 +790,12 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     Storage Policy Based Management (SPBM) profile name.
 
-### Beta level {#Beta-level}
-
-
-- **csi** (CSIVolumeSource)
-
-  CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
-
-  <a name="CSIVolumeSource"></a>
-  *Represents a source location of a volume to mount, managed by an external CSI driver*
-
-  - **csi.driver** (string), required
-
-    Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
-
-  - **csi.fsType** (string)
-
-    Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
-
-  - **csi.nodePublishSecretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
-
-    NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
-
-  - **csi.readOnly** (boolean)
-
-    Specifies a read-only configuration for the volume. Defaults to false (read/write).
-
-  - **csi.volumeAttributes** (map[string]string)
-
-    VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
-
-### Alpha level {#Alpha-level}
+### Alpha level
 
 
 - **ephemeral** (EphemeralVolumeSource)
 
-  Ephemeral represents a volume that is handled by a cluster storage driver (Alpha feature). The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+  Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
   
   Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
      tracking are needed,
@@ -798,13 +809,11 @@ Volume represents a named volume in a pod that may be accessed by any container 
   Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
   
   A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+  
+  This is a beta feature and only available when the GenericEphemeralVolume feature gate is enabled.
 
   <a name="EphemeralVolumeSource"></a>
   *Represents an ephemeral volume that is handled by a normal storage driver.*
-
-  - **ephemeral.readOnly** (boolean)
-
-    Specifies a read-only configuration for the volume. Defaults to false (read/write).
 
   - **ephemeral.volumeClaimTemplate** (PersistentVolumeClaimTemplate)
 
@@ -819,15 +828,15 @@ Volume represents a named volume in a pod that may be accessed by any container 
     <a name="PersistentVolumeClaimTemplate"></a>
     *PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.*
 
-  - **ephemeral.volumeClaimTemplate.spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>), required
+    - **ephemeral.volumeClaimTemplate.spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>), required
 
-    The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+      The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
 
-  - **ephemeral.volumeClaimTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+    - **ephemeral.volumeClaimTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-    May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+      May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
 
-### Deprecated {#Deprecated}
+### Deprecated
 
 
 - **gitRepo** (GitRepoVolumeSource)
@@ -850,6 +859,54 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **gitRepo.revision** (string)
 
     Commit hash for the specified revision.
+
+
+
+## DownwardAPIVolumeFile {#DownwardAPIVolumeFile}
+
+DownwardAPIVolumeFile represents information to create the file containing the pod field
+
+<hr>
+
+- **path** (string), required
+
+  Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
+
+- **fieldRef** (<a href="{{< ref "../common-definitions/object-field-selector#ObjectFieldSelector" >}}">ObjectFieldSelector</a>)
+
+  Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+
+- **mode** (int32)
+
+  Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+
+- **resourceFieldRef** (<a href="{{< ref "../common-definitions/resource-field-selector#ResourceFieldSelector" >}}">ResourceFieldSelector</a>)
+
+  Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+
+
+
+
+
+## KeyToPath {#KeyToPath}
+
+Maps a string key to a path within a volume.
+
+<hr>
+
+- **key** (string), required
+
+  The key to project.
+
+- **path** (string), required
+
+  The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
+
+- **mode** (int32)
+
+  Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+
+
 
 
 

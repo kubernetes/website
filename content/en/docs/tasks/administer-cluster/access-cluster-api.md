@@ -30,7 +30,7 @@ Check the location and credentials that kubectl knows about with this command:
 kubectl config view
 ```
 
-Many of the [examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/) provide an introduction to using
+Many of the [examples](https://github.com/kubernetes/examples/tree/master/) provide an introduction to using
 kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/overview/).
 
 ### Directly accessing the REST API
@@ -192,7 +192,7 @@ func main() {
 }
 ```
 
-If the application is deployed as a Pod in the cluster, see [Accessing the API from within a Pod](#accessing-the-api-from-within-a-pod).
+If the application is deployed as a Pod in the cluster, see [Accessing the API from within a Pod](/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod).
 
 #### Python client
 

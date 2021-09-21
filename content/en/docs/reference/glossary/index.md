@@ -2,7 +2,7 @@
 approvers:
 - chenopis
 - abiogenesis-now
-title: Standardized Glossary
+title: Glossary
 layout: glossary
 noedit: true
 default_active_tag: fundamental

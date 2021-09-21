@@ -36,6 +36,15 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/user
 
 {{< glossary_definition term_id="name" length="all" >}}
 
+{{< note >}}
+<!--
+In cases when objects represent a physical entity, like a Node representing a physical host, when the host is re-created under the same name without deleting and re-creating the Node, Kubernetes treats the new host as the old one, which may lead to inconsistencies.
+-->
+当对象所代表的是一个物理实体（例如代表一台物理主机的 Node）时，
+如果在 Node 对象未被删除并重建的条件下，重新创建了同名的物理主机，
+则 Kubernetes 会将新的主机看作是老的主机，这可能会带来某种不一致性。
+{{< /note >}}
+
 <!--
 Below are three types of commonly used name constraints for resources.
 -->
@@ -61,7 +70,7 @@ DNS 子域名的定义可参见 [RFC 1123](https://tools.ietf.org/html/rfc1123)�
 这一要求意味着名称必须满足如下规则：
 
 - 不能超过253个字符
-- 只能包含字母数字，以及'-' 和 '.'
+- 只能包含小写字母、数字，以及'-' 和 '.'
 - 须以字母数字开头
 - 须以字母数字结尾
 
@@ -83,7 +92,7 @@ This means the name must:
 所定义的 DNS 标签标准。也就是命名必须满足如下规则：
 
 - 最多63个字符
-- 只能包含字母数字，以及'-'
+- 只能包含小写字母、数字，以及'-'
 - 须以字母数字开头
 - 须以字母数字结尾
 

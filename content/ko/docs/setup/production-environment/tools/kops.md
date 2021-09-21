@@ -23,7 +23,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 ## {{% heading "prerequisites" %}}
 
 
-* [kubectl](/ko/docs/tasks/tools/install-kubectl/)을 반드시 설치해야 한다.
+* [kubectl](/ko/docs/tasks/tools/)을 반드시 설치해야 한다.
 
 * 반드시 64-bit (AMD64 그리고 Intel 64)디바이스 아키텍쳐 위에서 `kops` 를 [설치](https://github.com/kubernetes/kops#installing) 한다.
 
@@ -39,12 +39,12 @@ kops는 자동화된 프로비저닝 시스템인데,
 
 #### 설치
 
-[releases page](https://github.com/kubernetes/kops/releases)에서 kops를 다운로드 한다(소스 코드로부터 빌드하는 것도 역시 편리하다).
+[releases page](https://github.com/kubernetes/kops/releases)에서 kops를 다운로드한다(소스 코드로부터 빌드하는 것도 역시 편리하다).
 
 {{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}
 
-최신 버전의 릴리즈를 다운받는 명령어:
+최신 버전의 릴리스를 다운받는 명령어:
 
 ```shell
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest
@@ -57,10 +57,10 @@ curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
 
-예를 들어 kops 버전을 v1.15.0을 다운로드 하려면 다음을 입력한다.
+예를 들어 kops 버전을 v1.20.0을 다운로드 하려면 다음을 입력한다.
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-darwin-amd64
 ```
 
 kops 바이너리를 실행 가능하게 만든다.
@@ -84,7 +84,7 @@ brew update && brew install kops
 {{% /tab %}}
 {{% tab name="리눅스" %}}
 
-최신 릴리즈를 다운로드 받는 명령어:
+최신 릴리스를 다운로드 받는 명령어:
 
 ```shell
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
@@ -94,10 +94,10 @@ curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
-예를 들어 kops 버전을 v1.15.0을 다운로드 하려면 다음을 입력한다.
+예를 들어 kops 버전을 v1.20.0을 다운로드 하려면 다음을 입력한다.
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-linux-amd64
 ```
 
 kops 바이너리를 실행 가능하게 만든다.

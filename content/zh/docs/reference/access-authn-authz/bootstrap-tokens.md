@@ -43,7 +43,7 @@ Controller Manager.  The tokens are also used to create a signature for a
 specific ConfigMap used in a "discovery" process through a BootstrapSigner
 controller.
 -->
-启动引导令牌被定义成一个特定类型的 Secret （`bootstrap.kubernetes.io/token`），
+启动引导令牌被定义成一个特定类型的 Secret（`bootstrap.kubernetes.io/token`），
 并存在于 `kube-system` 名字空间中。
 这些 Secret 会被 API 服务器上的启动引导认证组件（Bootstrap Authenticator）读取。
 控制器管理器中的控制器 TokenCleaner 能够删除过期的令牌。
@@ -66,9 +66,9 @@ only be shared with trusted parties.
 启动引导令牌使用 `abcdef.0123456789abcdef` 的形式。
 更加规范地说，它们必须符合正则表达式 `[a-z0-9]{6}\.[a-z0-9]{16}`。
 
-令牌的第一部分是 "Token ID"，它是一种公开信息，用于引用令牌并确保不会
+令牌的第一部分是 “Token ID”，它是一种公开信息，用于引用令牌并确保不会
 泄露认证所使用的秘密信息。
-第二部分是"令牌秘密（Token Secret）"，它应该被共享给受信的第三方。
+第二部分是“令牌秘密（Token Secret）”，它应该被共享给受信的第三方。
 
 ## 启用启动引导令牌
 
@@ -275,7 +275,7 @@ verify the JWS using the `HS256` scheme (HMAC-SHA256) with the full token (e.g.
 `07401b.f395accd246ae52d`) as the shared secret.  Users _must_ verify that HS256
 is used.
 -->
-签名是一个使用 "detached" 模式生成的 JWS 签名。
+签名是一个使用 “detached” 模式生成的 JWS 签名。
 为了检验签名，用户应该按照 JWS 规则（base64 编码且丢掉结尾的 `=`）对
 `kubeconfig` 的载荷进行编码。完成编码的载荷会被插入到两个句点中间，形成完整的
 JWS。你可以使用完整的令牌（比如 `07401b.f395accd246ae52d`）作为共享密钥，

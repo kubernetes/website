@@ -80,7 +80,7 @@ parameters:
 Users request dynamically provisioned storage by including a storage class in
 their `PersistentVolumeClaim`. Before Kubernetes v1.6, this was done via the
 `volume.beta.kubernetes.io/storage-class` annotation. However, this annotation
-is deprecated since v1.6. Users now can and should instead use the
+is deprecated since v1.9. Users now can and should instead use the
 `storageClassName` field of the `PersistentVolumeClaim` object. The value of
 this field must match the name of a `StorageClass` configured by the
 administrator (see [below](#enabling-dynamic-provisioning)).

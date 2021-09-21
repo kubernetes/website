@@ -12,35 +12,35 @@ weight: 40
 
 <!-- overview -->
 <!--
-This page shows how to use `kubectl port-forward` to connect to a Redis
+This page shows how to use `kubectl port-forward` to connect to a MongoDB
 server running in a Kubernetes cluster. This type of connection can be useful
 for database debugging.
 -->
 本文展示如何使用 `kubectl port-forward` 连接到在 Kubernetes 集群中
-运行的 Redis 服务。这种类型的连接对数据库调试很有用。
+运行的 MongoDB 服务。这种类型的连接对数据库调试很有用。
 
 ## {{% heading "prerequisites" %}}
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-* Install [redis-cli](http://redis.io/topics/rediscli).
+* Install [MongoDB Shell](https://www.mongodb.com/try/download/shell).
 -->
-* 安装 [redis-cli](http://redis.io/topics/rediscli)。
+* 安装 [MongoDB Shell](https://www.mongodb.com/try/download/shell)。
 
 <!-- steps -->
 
 <!--
-## Creating Redis deployment and service
+## Creating MongoDB deployment and service
 
-1. Create a Redis deployment:
+1. Create a Deployment that runs MongoDB:
 -->
-## 创建 Redis deployment 和服务
+## 创建 MongoDB deployment 和服务
 
-1. 创建一个 Redis deployment：
+1. 创建一个运行 MongoDB 的 deployment：
 
    ```shell
-   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
+   kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-deployment.yaml
    ```
 
    <!--
@@ -49,7 +49,7 @@ for database debugging.
    查看输出是否成功，以验证是否成功创建 deployment：
 
    ```
-   deployment.apps/redis-master created
+   deployment.apps/mongo created
    ```
 
    <!--
@@ -67,144 +67,154 @@ for database debugging.
    输出显示创建的 pod：
 
    ```
-   NAME                            READY     STATUS    RESTARTS   AGE
-   redis-master-765d459796-258hz   1/1       Running   0          50s
+   NAME                     READY   STATUS    RESTARTS   AGE
+   mongo-75f59d57f4-4nd6q   1/1     Running   0          2m4s
    ```
 
    <!--
-   View the deployment status:
+   View the Deployment's status:
    -->
-   查看 deployment 状态：
+   查看 Deployment 状态：
 
    ```shell
    kubectl get deployment
    ```
 
    <!--
-   The output displays that the deployment was created:
+   The output displays that the Deployment was created:
    -->
-   输出显示创建的 deployment：
+   输出显示创建的 Deployment：
 
    ```
-   NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-   redis-master 1         1         1            1           55s
+   NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+   mongo   1/1     1            1           2m21s
    ```
 
    <!--
-   View the replicaset status using:
+   The Deployment automatically manages a ReplicaSet.
+   View the ReplicaSet status using:
    -->
-   查看 replicaset 状态：
+   Deployment 自动管理 ReplicaSet。
+   查看 ReplicaSet 状态：
 
    ```shell
-   kubectl get rs
+   kubectl get replicaset
    ```
 
    <!--
-   The output displays that the replicaset was created:
+   The output displays that the ReplicaSet was created:
    -->
-   输出显示创建的 replicaset：
+   输出显示创建的 ReplicaSet：
 
    ```
-   NAME                      DESIRED   CURRENT   READY     AGE
-   redis-master-765d459796   1         1         1         1m
+   NAME               DESIRED   CURRENT   READY   AGE
+   mongo-75f59d57f4   1         1         1       3m12s
    ```
 
 <!--
-2. Create a Redis service:
+2. Create a Service to expose MongoDB on the network:
 -->
-2. 创建一个 Redis 服务：
+2. 创建一个在网络上公开的 MongoDB 服务：
 
    ```shell
-   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
+   kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-service.yaml
    ```
 
    <!--
-   The output of a successful command verifies that the service was created:
+   The output of a successful command verifies that the Service was created:
    -->
-   查看输出是否成功，以验证是否成功创建 service：
+   查看输出是否成功，以验证是否成功创建 Service：
 
    ```
-   service/redis-master created
+   service/mongo created
    ```
 
    <!--
-   Check the service created:
+   Check the Service created:
    -->
-   检查 service 是否创建：
+   检查 Service 是否创建：
 
    ```shell
-   kubectl get svc | grep redis
+   kubectl get service mongo
    ```
 
    <!--   
    The output displays the service created:
    -->
-   输出显示创建的 service：
+   输出显示创建的 Service：
 
    ```
-   NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-   redis-master   ClusterIP   10.0.0.213   <none>        6379/TCP   27s
+   NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)     AGE
+   mongo   ClusterIP   10.96.41.183   <none>        27017/TCP   11s
    ```
 
 <!--
-3. Verify that the Redis server is running in the pod and listening on port 6379:
+3. Verify that the MongoDB server is running in the Pod, and listening on port 27017:
 -->
-3. 验证 Redis 服务是否运行在 pod 中并且监听 6379 端口：
+3. 验证 MongoDB 服务是否运行在 Pod 中并且监听 27017 端口：
 
    ```shell
-   kubectl get pods redis-master-765d459796-258hz \
-     --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+   # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+   kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
    ```
+
    <!--
-   The output displays the port:
+   The output displays the port for MongoDB in that Pod:
    -->
-   输出应该显示端口：
+   输出应该显示 Pod 中 MongoDB 的端口：
 
    ```
-   6379
+   27017
    ```
+
+   <!--
+   (this is the TCP port allocated to MongoDB on the internet).
+   -->
+   （这是 Internet 分配给 MongoDB 的 TCP 端口）。
 
 <!--
-## Forward a local port to a port on the pod
+## Forward a local port to a port on the Pod
 
-1. `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to since Kubernetes v1.10.
+1.  `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
 -->
-## 转发一个本地端口到 pod 端口
+## 转发一个本地端口到 Pod 端口
 
-1. 从 Kubernetes v1.10 开始，`kubectl port-forward` 允许使用资源名称
+1. `kubectl port-forward` 允许使用资源名称
    （例如 pod 名称）来选择匹配的 pod 来进行端口转发。
 
    ```shell
-   kubectl port-forward redis-master-765d459796-258hz 7000:6379 
+   # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+   kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
    ```
+
    <!--
    which is the same as
    -->
    这相当于
 
    ```shell
-   kubectl port-forward pods/redis-master-765d459796-258hz 7000:6379
+   kubectl port-forward pods/mongo-75f59d57f4-4nd6q 28015:27017
    ```
 
    <!-- or -->
    或者
 
    ```shell
-   kubectl port-forward deployment/redis-master 7000:6379 
+   kubectl port-forward deployment/mongo 28015:27017
    ```
 
    <!-- or -->
    或者
 
    ```shell
-   kubectl port-forward rs/redis-master 7000:6379
+   kubectl port-forward replicaset/mongo-75f59d57f4 28015:27017
    ```
 
    <!-- or -->
    或者
 
-   ```
-   kubectl port-forward svc/redis-master 7000:redis
+   ```shell
+   kubectl port-forward service/mongo 28015:27017
    ```
 
    <!--
@@ -213,9 +223,9 @@ for database debugging.
    以上所有命令都应该有效。输出应该类似于：
 
    ```
-   Forwarding from 127.0.0.1:7000 -> 6379
-   Forwarding from [::1]:7000 -> 6379  
-   ```
+   Forwarding from 127.0.0.1:28015 -> 27017
+   Forwarding from [::1]:28015 -> 27017
+    ```
 <!--
 {{< note >}}
 
@@ -231,21 +241,21 @@ for database debugging.
 
 
 <!--
-2. Start the Redis command line interface:
+2.  Start the MongoDB command line interface:
 -->
-2. 启动 Redis 命令行接口：
+2.  启动 MongoDB 命令行接口：
 
    ```shell
-   redis-cli -p 7000
+   mongosh --port 28015
    ```
 
 <!--
-3.  At the Redis command line prompt, enter the `ping` command:
+3.  At the MongoDB command line prompt, enter the `ping` command:
 -->
-3. 在 Redis 命令行提示符下，输入 `ping` 命令：
+3. 在 MongoDB 命令行提示符下，输入 `ping` 命令：
 
    ```
-   ping
+   db.runCommand( { ping: 1 } )
    ```
 
    <!--
@@ -254,8 +264,9 @@ for database debugging.
    成功的 ping 请求应该返回：
 
    ```
-   PONG
+   { ok: 1 }
    ```
+
 <!--
 ### Optionally let _kubectl_ choose the local port {#let-kubectl-choose-local-port}
 -->
@@ -270,43 +281,44 @@ the slightly simpler syntax:
 以便你不需要管理本地端口冲突。该命令使用稍微不同的语法：
 
 ```shell
-kubectl port-forward deployment/redis-master :6379
+kubectl port-forward deployment/mongo :27017
 ```
+
 <!--
 The `kubectl` tool finds a local port number that is not in use (avoiding low ports numbers,
 because these might be used by other applications). The output is similar to:
 -->
-`kubectl` 工具会找到一个未被使用的本地端口号（避免使用低段位的端口号，因为他们可能会被其他应用程序使用）。输出应该类似于：
+`kubectl` 工具会找到一个未被使用的本地端口号（避免使用低段位的端口号，因为他们可能会被其他应用程序使用）。
+输出应该类似于：
 
 ```
-Forwarding from 127.0.0.1:62162 -> 6379
-Forwarding from [::1]:62162 -> 6379
+Forwarding from 127.0.0.1:63753 -> 27017
+Forwarding from [::1]:63753 -> 27017
 ```
-
 
 <!-- discussion -->
 
 <!--
 ## Discussion
 
-Connections made to local port 7000 are forwarded to port 6379 of the pod that
-is running the Redis server. With this connection in place you can use your
-local workstation to debug the database that is running in the pod.
+Connections made to local port 28015 are forwarded to port 27017 of the Pod that
+is running the MongoDB server. With this connection in place, you can use your
+local workstation to debug the database that is running in the Pod.
 -->
 ## 讨论  {#discussion}
 
-与本地 7000 端口建立的连接将转发到运行 Redis 服务器的 pod 的 6379 端口。
-通过此连接，您可以使用本地工作站来调试在 pod 中运行的数据库。
+与本地 28015 端口建立的连接将转发到运行 MongoDB 服务器的 Pod 的 27017 端口。
+通过此连接，您可以使用本地工作站来调试在 Pod 中运行的数据库。
 
 <!--
-Due to known limitations, port forward today only works for TCP protocol.
-The support to UDP protocol is being tracked in
+`kubectl port-forward` is implemented for TCP ports only.
+The support for UDP protocol is tracked in
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 -->
 {{< warning >}}
-由于已知的限制，目前的端口转发仅适用于 TCP 协议。
+`kubectl port-forward` 仅适用于 TCP 端口。
 在 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862)
-中正在跟踪对 UDP 协议的支持。
+中跟踪了对 UDP 协议的支持。
 {{< /warning >}}
 
 ## {{% heading "whatsnext" %}}

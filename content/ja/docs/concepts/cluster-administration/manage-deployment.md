@@ -237,7 +237,7 @@ guestbook-redis-slave-qgazl   1/1       Running   0          3m
      image: gb-frontend:v3
 ```
 
-そして2つの異なるPodのセットを上書きしないようにするため、`track`ラベルに異なる値を持つ(例: `canary`)ようなguestbookフロントエンドの新しいリリースを作成できます。
+そして2つの異なるPodのセットを上書きしないようにするため、`track`ラベルに異なる値を持つ(例: `canary`)ようなguestbookフロントエンドの新しいリリースを作成できます。
 
 ```yaml
      name: frontend-canary

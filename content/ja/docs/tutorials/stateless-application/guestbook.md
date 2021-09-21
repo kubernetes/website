@@ -185,7 +185,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 1. Podのリストを問い合わせて、3つのフロントエンドのレプリカが実行中になっていることを確認します。
 
       ```shell
-      kubectl get pods -l app=guestbook -l tier=frontend
+      kubectl get pods -l app.kubernetes.io/name=guestbook -l app.kubernetes.io/component=frontend
       ```
 
       結果は次のようになるはずです。
@@ -199,7 +199,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 ### フロントエンドのServiceを作成する
 
-適用した`redis-slave`および`redis-master` Serviceは、コンテナクラスター内部からのみアクセス可能です。これは、デフォルトのServiceのtypeが[ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types)であるためです。`ClusterIP`は、Serviceが指している一連のPodに対して1つのIPアドレスを提供します。このIPアドレスはクラスター内部からのみアクセスできます。
+適用した`redis-slave`および`redis-master` Serviceは、コンテナクラスター内部からのみアクセス可能です。これは、デフォルトのServiceのtypeが[ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types)であるためです。`ClusterIP`は、Serviceが指している一連のPodに対して1つのIPアドレスを提供します。このIPアドレスはクラスター内部からのみアクセスできます。
 
 もしゲストの人にゲストブックにアクセスしてほしいのなら、フロントエンドServiceを外部から見えるように設定しなければなりません。そうすれば、クライアントはコンテナクラスターの外部からServiceにリクエストを送れるようになります。Minikubeでは、Serviceを`NodePort`でのみ公開できます。
 

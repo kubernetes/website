@@ -16,7 +16,7 @@ card:
 When you deploy Kubernetes, you get a cluster.
 {{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
-This document outlines the various components you need to have
+This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
 Here's the diagram of a Kubernetes cluster with all the components tied together.
@@ -33,7 +33,8 @@ The control plane's components make global decisions about the cluster (for exam
 Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
-[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
+[Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+for an example control plane setup that runs across multiple VMs.
 
 ### kube-apiserver
 
@@ -132,4 +133,3 @@ saving container logs to a central log store with search/browsing interface.
 * Learn about [Controllers](/docs/concepts/architecture/controller/)
 * Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
-

@@ -51,8 +51,8 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 
   {{< note >}}
   `.spec.selector.matchLabels` 필드는 {key,value}의 쌍으로 매핑되어있다. `matchLabels` 에 매핑된
-  단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, 키 필드는 "key"에 그리고 연산자는 "In"에 대응되며
-  값 배열은 "value"만 포함한다.
+  단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, `key` 필드는 "key"에 그리고 `operator`는 "In"에 대응되며
+  `value` 배열은 "value"만 포함한다.
   매칭을 위해서는 `matchLabels` 와 `matchExpressions` 의 모든 요건이 충족되어야 한다.
   {{< /note >}}
 
@@ -341,7 +341,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 이후에는 변경할 수 없다.
 {{< /note >}}
 
-* 셀렉터 추가 시 디플로이먼트의 사양에 있는 파드 템플릿 레이블도 새 레이블로 업데이트 해야한다.
+* 셀렉터 추가 시 디플로이먼트의 사양에 있는 파드 템플릿 레이블도 새 레이블로 업데이트해야 한다.
 그렇지 않으면 유효성 검사 오류가 반환된다. 이 변경은 겹치지 않는 변경으로 새 셀렉터가
 이전 셀렉터로 만든 레플리카셋과 파드를 선택하지 않게 되고, 그 결과로 모든 기존 레플리카셋은 고아가 되며,
 새로운 레플리카셋을 생성하게 된다.
@@ -706,7 +706,7 @@ nginx-deployment-618515232    11        11        11        7m
 하나 이상의 업데이트를 트리거하기 전에 디플로이먼트를 일시 중지한 다음 다시 시작할 수 있다.
 이렇게 하면 불필요한 롤아웃을 트리거하지 않고 일시 중지와 재개 사이에 여러 수정 사항을 적용할 수 있다.
 
-* 예를 들어, 방금 생성된 디플로이먼트의 경우
+* 예를 들어, 생성된 디플로이먼트의 경우
   디플로이먼트 상세 정보를 가져온다.
   ```shell
   kubectl get deploy
@@ -1037,7 +1037,7 @@ echo $?
 
 ## 카나리 디플로이먼트
 
-만약 디플로이먼트를 이용해서 일부 사용자 또는 서버에 릴리즈를 롤아웃 하기 위해서는
+만약 디플로이먼트를 이용해서 일부 사용자 또는 서버에 릴리스를 롤아웃 하기 위해서는
 [리소스 관리](/ko/docs/concepts/cluster-administration/manage-deployment/#카나리-canary-디플로이먼트)에
 설명된 카나리 패던에 따라 각 릴리스 마다 하나씩 여러 디플로이먼트를 생성할 수 있다.
 
@@ -1060,7 +1060,7 @@ echo $?
 이것은 {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 동일한 스키마를 가지고 있고, 중첩된 것을 제외하면 `apiVersion` 과 `kind` 를 가지고 있지 않는다.
 
 파드에 필요한 필드 외에 디플로이먼트 파드 템플릿은 적절한 레이블과 적절한 재시작 정책을 명시해야 한다.
-레이블의 경우 다른 컨트롤러와 겹치지 않도록 해야한다. 자세한 것은 [셀렉터](#셀렉터)를 참조한다.
+레이블의 경우 다른 컨트롤러와 겹치지 않도록 해야 한다. 자세한 것은 [셀렉터](#셀렉터)를 참조한다.
 
 [`.spec.template.spec.restartPolicy`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책) 에는 오직 `Always` 만 허용되고,
 명시되지 않으면 기본값이 된다.

@@ -2,11 +2,13 @@
 title: kube-scheduler
 content_type: tool-reference
 weight: 30
+auto_generated: true
 ---
 <!-- 
 title: kube-scheduler
 content_type: tool-reference
-weight: 28
+weight: 30
+auto_generated: true
 -->
 
 ## {{% heading "synopsis" %}}
@@ -18,14 +20,14 @@ each Pod in the scheduling queue according to constraints and available
 resources. The scheduler then ranks each valid Node and binds the Pod to a
 suitable Node. Multiple different schedulers may be used within a cluster;
 kube-scheduler is the reference implementation.
-See [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/)
+See [scheduling](/docs/concepts/scheduling-eviction/)
 for more information about scheduling and the kube-scheduler component.
 -->
 Kubernetes 调度器是一个控制面进程，负责将 Pods 指派到节点上。
 调度器基于约束和可用资源为调度队列中每个 Pod 确定其可合法放置的节点。
 调度器之后对所有合法的节点进行排序，将 Pod 绑定到一个合适的节点。
 在同一个集群中可以使用多个不同的调度器；kube-scheduler 是其参考实现。
-参阅[调度](https://kubernetes.io/zh/docs/concepts/scheduling-eviction/)
+参阅[调度](/zh/docs/concepts/scheduling-eviction/)
 以获得关于调度和 kube-scheduler 组件的更多信息。
 
 ```
@@ -58,10 +60,11 @@ If true, adds the file directory to the header of the log messages
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!-- 
-DEPRECATED: the IP address on which to listen for the --port port (set to 0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces). See --bind-address instead. 
+DEPRECATED: the IP address on which to listen for the --port port (set to 0.0.0.0 or :: for listening in all interfaces and IP families). See --bind-address instead. This parameter is ignored if a config file is specified in --config.
 -->
-已弃用: 要监听 --port 端口的 IP 地址（对于所有 IPv4 接口设置为 0.0.0.0，对于所有 IPv6 接口设置为 ::）。 
+已弃用： 要监听 --port 端口的 IP 地址（将其设置为 0.0.0.0 或者 :: 用于监听所有接口和 IP族）。 
 请参阅 --bind-address。
+如果在 --config 中指定了一个配置文件，这个参数将被忽略。
 </td>
 </tr>
 
@@ -73,8 +76,24 @@ DEPRECATED: the IP address on which to listen for the --port port (set to 0.0.0.
 <!--
 DEPRECATED: the scheduling algorithm provider to use, this sets the default plugins for component config profiles. Choose one of: ClusterAutoscalerProvider | DefaultProvider
 -->
-已弃用: 要使用的调度算法驱动，此标志设置组件配置框架的默认插件。
+已弃用： 要使用的调度算法驱动，此标志设置组件配置框架的默认插件。
 可选值：ClusterAutoscalerProvider | DefaultProvider
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--allow-metric-labels stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!--Default-->默认值： []</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The map from metric-label to value allow-list of this label. The key's format is &lt;MetricName&gt;,&lt;LabelName&gt;. The value's format is &lt;allowed_value&gt;,&lt;allowed_value&gt;...e.g. metric1,label1='v1,v2,v3', metric1,label2='v1,v2,v3' metric2,label1='v1,v2,v3'.
+-->
+这个键值映射表设置 度量标签 所允许设置的值。
+其中键的格式是 &lt;MetricName&gt;,&lt;LabelName&gt;。
+值的格式是 &lt;allowed_value&gt;,&lt;allowed_value&gt;。
+例如：metric1,label1='v1,v2,v3', metric1,label2='v1,v2,v3' metric2,label1='v1,v2,v3'。
 </td>
 </tr>
 
@@ -84,8 +103,9 @@ DEPRECATED: the scheduling algorithm provider to use, this sets the default plug
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-日志记录到标准错误以及文件
+log to standard error as well as files
 -->
+日志记录到标准错误以及文件
 </td>
 </tr>
 
@@ -141,7 +161,7 @@ If true, failures to look up missing authentication configuration from the clust
 </tr>
 
 <tr>
-<td colspan="2">--authorization-always-allow-paths stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[/healthz]</td>
+<td colspan="2">--authorization-always-allow-paths strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："/healthz,/readyz,/livez"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -203,16 +223,17 @@ Path to the file containing Azure container registry configuration information.
 </tr>
 
 <tr>
-<td colspan="2">--bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：0.0.0.0</td>
+<td colspan="2">--bind-address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：0.0.0.0</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank, all interfaces will be used (0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces).
+The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank or an unspecified address (0.0.0.0 or ::), all interfaces will be used.
 -->
 监听 --secure-port 端口的 IP 地址。
 集群的其余部分以及 CLI/ Web 客户端必须可以访问关联的接口。
 如果为空，将使用所有接口（0.0.0.0 表示使用所有 IPv4 接口，"::" 表示使用所有 IPv6 接口）。
+如果为空或未指定地址 (0.0.0.0 或 ::)，所有接口将被使用。
 </td>
 </tr>
 
@@ -248,27 +269,43 @@ If set, any request presenting a client certificate signed by one of the authori
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path to the configuration file. The following flags can overwrite fields in this file:<br/>  --address<br/>  --port<br/>  --use-legacy-policy-config<br/>  --policy-configmap<br/>  --policy-config-file<br/>  --algorithm-provider
+The path to the configuration file. The following flags can overwrite fields in this file:<br/>
+--algorithm-provider<br/>
+--policy-config-file<br/>
+--policy-configmap<br/>
+--policy-configmap-namespace
 -->
 配置文件的路径。以下标志会覆盖此文件中的值：<br/>
---address<br/>
---port<br/>
---use-legacy-policy-config<br/>
---policy-configmap<br/>
+--algorithm-provider<br/>
 --policy-config-file<br/>
---algorithm-provider
+--policy-configmap<br/>
+--policy-configmap-namespace
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--contention-profiling</td>
+<td colspan="2">--contention-profiling&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default-->默认值: true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: enable lock contention profiling, if profiling is enabled
+DEPRECATED: enable lock contention profiling, if profiling is enabled. This parameter is ignored if a config file is specified in --config.
 -->
-已弃用: 如果启用了性能分析，则启用锁竞争分析
+已弃用: 如果启用了性能分析，则启用锁竞争分析。
+如果 --config 指定了一个配置文件，那么这个参数将被忽略。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--disabled-metrics strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+This flag provides an escape hatch for misbehaving metrics. You must provide the fully qualified metric name in order to disable it. Disclaimer: disabling metrics is higher in precedence than showing hidden metrics.
+-->
+这个标志提供了一个规避不良指标的选项。你必须提供完整的指标名称才能禁用它。
+免责声明：禁用指标的优先级比显示隐藏的指标更高。
 </td>
 </tr>
 
@@ -287,7 +324,7 @@ DEPRECATED: enable lock contention profiling, if profiling is enabled
 </tr>
 
 <tr>
-<td colspan="2">--feature-gates mapStringBool</td>
+<td colspan="2">--feature-gates &lt;<!--comma-separated 'key=True|False' pairs-->逗号分隔的 'key=True|False' 对&gt;</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -299,41 +336,35 @@ APIResponseCompression=true|false (BETA - default=true)<br/>
 APIServerIdentity=true|false (ALPHA - default=false)<br/>
 AllAlpha=true|false (ALPHA - default=false)<br/>
 AllBeta=true|false (BETA - default=false)<br/>
-AllowInsecureBackendProxy=true|false (BETA - default=true)<br/>
 AnyVolumeDataSource=true|false (ALPHA - default=false)<br/>
 AppArmor=true|false (BETA - default=true)<br/>
 BalanceAttachedNodeVolumes=true|false (ALPHA - default=false)<br/>
-BoundServiceAccountTokenVolume=true|false (ALPHA - default=false)<br/>
+BoundServiceAccountTokenVolume=true|false (BETA - default=true)<br/>
 CPUManager=true|false (BETA - default=true)<br/>
-CRIContainerLogRotation=true|false (BETA - default=true)<br/>
 CSIInlineVolume=true|false (BETA - default=true)<br/>
 CSIMigration=true|false (BETA - default=true)<br/>
 CSIMigrationAWS=true|false (BETA - default=false)<br/>
-CSIMigrationAWSComplete=true|false (ALPHA - default=false)<br/>
 CSIMigrationAzureDisk=true|false (BETA - default=false)<br/>
-CSIMigrationAzureDiskComplete=true|false (ALPHA - default=false)<br/>
-CSIMigrationAzureFile=true|false (ALPHA - default=false)<br/>
-CSIMigrationAzureFileComplete=true|false (ALPHA - default=false)<br/>
+CSIMigrationAzureFile=true|false (BETA - default=false)<br/>
 CSIMigrationGCE=true|false (BETA - default=false)<br/>
-CSIMigrationGCEComplete=true|false (ALPHA - default=false)<br/>
-CSIMigrationOpenStack=true|false (BETA - default=false)<br/>
-CSIMigrationOpenStackComplete=true|false (ALPHA - default=false)<br/>
+CSIMigrationOpenStack=true|false (BETA - default=true)<br/>
 CSIMigrationvSphere=true|false (BETA - default=false)<br/>
 CSIMigrationvSphereComplete=true|false (BETA - default=false)<br/>
-CSIServiceAccountToken=true|false (ALPHA - default=false)<br/>
-CSIStorageCapacity=true|false (ALPHA - default=false)<br/>
+CSIServiceAccountToken=true|false (BETA - default=true)<br/>
+CSIStorageCapacity=true|false (BETA - default=true)<br/>
 CSIVolumeFSGroupPolicy=true|false (BETA - default=true)<br/>
+CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
 ConfigurableFSGroupPolicy=true|false (BETA - default=true)<br/>
-CronJobControllerV2=true|false (ALPHA - default=false)<br/>
+ControllerManagerLeaderMigration=true|false (ALPHA - default=false)<br/>
+CronJobControllerV2=true|false (BETA - default=true)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
+DaemonSetUpdateSurge=true|false (ALPHA - default=false)<br/>
 DefaultPodTopologySpread=true|false (BETA - default=true)<br/>
 DevicePlugins=true|false (BETA - default=true)<br/>
 DisableAcceleratorUsageMetrics=true|false (BETA - default=true)<br/>
-DownwardAPIHugePages=true|false (ALPHA - default=false)<br/>
+DownwardAPIHugePages=true|false (BETA - default=false)<br/>
 DynamicKubeletConfig=true|false (BETA - default=true)<br/>
-EfficientWatchResumption=true|false (ALPHA - default=false)<br/>
-EndpointSlice=true|false (BETA - default=true)<br/>
-EndpointSliceNodeName=true|false (ALPHA - default=false)<br/>
+EfficientWatchResumption=true|false (BETA - default=true)<br/>
 EndpointSliceProxying=true|false (BETA - default=true)<br/>
 EndpointSliceTerminatingCondition=true|false (ALPHA - default=false)<br/>
 EphemeralContainers=true|false (ALPHA - default=false)<br/>
@@ -341,90 +372,98 @@ ExpandCSIVolumes=true|false (BETA - default=true)<br/>
 ExpandInUsePersistentVolumes=true|false (BETA - default=true)<br/>
 ExpandPersistentVolumes=true|false (BETA - default=true)<br/>
 ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>
-GenericEphemeralVolume=true|false (ALPHA - default=false)<br/>
-GracefulNodeShutdown=true|false (ALPHA - default=false)<br/>
+GenericEphemeralVolume=true|false (BETA - default=true)<br/>
+GracefulNodeShutdown=true|false (BETA - default=true)<br/>
 HPAContainerMetrics=true|false (ALPHA - default=false)<br/>
 HPAScaleToZero=true|false (ALPHA - default=false)<br/>
 HugePageStorageMediumSize=true|false (BETA - default=true)<br/>
-IPv6DualStack=true|false (ALPHA - default=false)<br/>
-ImmutableEphemeralVolumes=true|false (BETA - default=true)<br/>
+IPv6DualStack=true|false (BETA - default=true)<br/>
+InTreePluginAWSUnregister=true|false (ALPHA - default=false)<br/>
+InTreePluginAzureDiskUnregister=true|false (ALPHA - default=false)<br/>
+InTreePluginAzureFileUnregister=true|false (ALPHA - default=false)<br/>
+InTreePluginGCEUnregister=true|false (ALPHA - default=false)<br/>
+InTreePluginOpenStackUnregister=true|false (ALPHA - default=false)<br/>
+InTreePluginvSphereUnregister=true|false (ALPHA - default=false)<br/>
+IndexedJob=true|false (ALPHA - default=false)<br/>
+IngressClassNamespacedParams=true|false (ALPHA - default=false)<br/>
 KubeletCredentialProviders=true|false (ALPHA - default=false)<br/>
 KubeletPodResources=true|false (BETA - default=true)<br/>
-LegacyNodeRoleBehavior=true|false (BETA - default=true)<br/>
+KubeletPodResourcesGetAllocatable=true|false (ALPHA - default=false)<br/>
 LocalStorageCapacityIsolation=true|false (BETA - default=true)<br/>
 LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>
+LogarithmicScaleDown=true|false (ALPHA - default=false)<br/>
+MemoryManager=true|false (ALPHA - default=false)<br/>
 MixedProtocolLBService=true|false (ALPHA - default=false)<br/>
-NodeDisruptionExclusion=true|false (BETA - default=true)<br/>
+NamespaceDefaultLabelName=true|false (BETA - default=true)<br/>
+NetworkPolicyEndPort=true|false (ALPHA - default=false)<br/>
 NonPreemptingPriority=true|false (BETA - default=true)<br/>
-PodDisruptionBudget=true|false (BETA - default=true)<br/>
+PodAffinityNamespaceSelector=true|false (ALPHA - default=false)<br/>
+PodDeletionCost=true|false (ALPHA - default=false)<br/>
 PodOverhead=true|false (BETA - default=true)<br/>
+PreferNominatedNode=true|false (ALPHA - default=false)<br/>
+ProbeTerminationGracePeriod=true|false (ALPHA - default=false)<br/>
 ProcMountType=true|false (ALPHA - default=false)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>
 RemainingItemCount=true|false (BETA - default=true)<br/>
 RemoveSelfLink=true|false (BETA - default=true)<br/>
-RootCAConfigMap=true|false (BETA - default=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
-RunAsGroup=true|false (BETA - default=true)<br/>
 ServerSideApply=true|false (BETA - default=true)<br/>
-ServiceAccountIssuerDiscovery=true|false (BETA - default=true)<br/>
+ServiceInternalTrafficPolicy=true|false (ALPHA - default=false)<br/>
 ServiceLBNodePortControl=true|false (ALPHA - default=false)<br/>
-ServiceNodeExclusion=true|false (BETA - default=true)<br/>
+ServiceLoadBalancerClass=true|false (ALPHA - default=false)<br/>
 ServiceTopology=true|false (ALPHA - default=false)<br/>
 SetHostnameAsFQDN=true|false (BETA - default=true)<br/>
 SizeMemoryBackedVolumes=true|false (ALPHA - default=false)<br/>
 StorageVersionAPI=true|false (ALPHA - default=false)<br/>
 StorageVersionHash=true|false (BETA - default=true)<br/>
-Sysctls=true|false (BETA - default=true)<br/>
-TTLAfterFinished=true|false (ALPHA - default=false)<br/>
+SuspendJob=true|false (ALPHA - default=false)<br/>
+TTLAfterFinished=true|false (BETA - default=true)<br/>
+TopologyAwareHints=true|false (ALPHA - default=false)<br/>
 TopologyManager=true|false (BETA - default=true)<br/>
 ValidateProxyRedirects=true|false (BETA - default=true)<br/>
+VolumeCapacityPriority=true|false (ALPHA - default=false)<br/>
 WarningHeaders=true|false (BETA - default=true)<br/>
 WinDSR=true|false (ALPHA - default=false)<br/>
 WinOverlay=true|false (BETA - default=true)<br/>
-WindowsEndpointSliceProxying=true|false (ALPHA - default=false)
+WindowsEndpointSliceProxying=true|false (BETA - default=true)
 -->
 一组 key=value 对，描述了 alpha/experimental 特征开关。选项包括：<br/>
+A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>
 APIListChunking=true|false (BETA - 默认值=true)<br/>
 APIPriorityAndFairness=true|false (BETA - 默认值=true)<br/>
 APIResponseCompression=true|false (BETA - 默认值=true)<br/>
 APIServerIdentity=true|false (ALPHA - 默认值=false)<br/>
 AllAlpha=true|false (ALPHA - 默认值=false)<br/>
 AllBeta=true|false (BETA - 默认值=false)<br/>
-AllowInsecureBackendProxy=true|false (BETA - 默认值=true)<br/>
 AnyVolumeDataSource=true|false (ALPHA - 默认值=false)<br/>
 AppArmor=true|false (BETA - 默认值=true)<br/>
 BalanceAttachedNodeVolumes=true|false (ALPHA - 默认值=false)<br/>
-BoundServiceAccountTokenVolume=true|false (ALPHA - 默认值=false)<br/>
+BoundServiceAccountTokenVolume=true|false (BETA - 默认值=true)<br/>
 CPUManager=true|false (BETA - 默认值=true)<br/>
-CRIContainerLogRotation=true|false (BETA - 默认值=true)<br/>
 CSIInlineVolume=true|false (BETA - 默认值=true)<br/>
 CSIMigration=true|false (BETA - 默认值=true)<br/>
-CSIMigrationAWS=true|false (BETA - 默认值=true)<br/>
-CSIMigrationAWSComplete=true|false (ALPHA - 默认值=false)<br/>
-CSIMigrationAzureDisk=true|false (BETA - 默认值=true)<br/>
-CSIMigrationAzureDiskComplete=true|false (ALPHA - 默认值=false)<br/>
-CSIMigrationAzureFile=true|false (ALPHA - 默认值=false)<br/>
-CSIMigrationAzureFileComplete=true|false (ALPHA - 默认值=false)<br/>
-CSIMigrationGCE=true|false (BETA - 默认值=true)<br/>
-CSIMigrationGCEComplete=true|false (ALPHA - 默认值=false)<br/>
+CSIMigrationAWS=true|false (BETA - 默认值=false)<br/>
+CSIMigrationAzureDisk=true|false (BETA - 默认值=false)<br/>
+CSIMigrationAzureFile=true|false (BETA - 默认值=false)<br/>
+CSIMigrationGCE=true|false (BETA - 默认值=false)<br/>
 CSIMigrationOpenStack=true|false (BETA - 默认值=true)<br/>
-CSIMigrationOpenStackComplete=true|false (ALPHA - 默认值=false)<br/>
 CSIMigrationvSphere=true|false (BETA - 默认值=false)<br/>
-CSIMigrationvSphereComplete=true|false (BETA - default=false)<br/>
-CSIServiceAccountToken=true|false (ALPHA - 默认值=false)<br/>
-CSIStorageCapacity=true|false (ALPHA - 默认值=false)<br/>
+CSIMigrationvSphereComplete=true|false (BETA - 默认值=false)<br/>
+CSIServiceAccountToken=true|false (BETA - 默认值=true)<br/>
+CSIStorageCapacity=true|false (BETA - 默认值=true)<br/>
 CSIVolumeFSGroupPolicy=true|false (BETA - 默认值=true)<br/>
+CSIVolumeHealth=true|false (ALPHA - 默认值=false)<br/>
 ConfigurableFSGroupPolicy=true|false (BETA - 默认值=true)<br/>
-CronJobControllerV2=true|false (ALPHA - 默认值=false)<br/>
+ControllerManagerLeaderMigration=true|false (ALPHA - 默认值=false)<br/>
+CronJobControllerV2=true|false (BETA - 默认值=true)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值=false)<br/>
+DaemonSetUpdateSurge=true|false (ALPHA - 默认值=false)<br/>
 DefaultPodTopologySpread=true|false (BETA - 默认值=true)<br/>
 DevicePlugins=true|false (BETA - 默认值=true)<br/>
 DisableAcceleratorUsageMetrics=true|false (BETA - 默认值=true)<br/>
-DownwardAPIHugePages=true|false (ALPHA - 默认值=false)<br/>
+DownwardAPIHugePages=true|false (BETA - 默认值=false)<br/>
 DynamicKubeletConfig=true|false (BETA - 默认值=true)<br/>
-EfficientWatchResumption=true|false (ALPHA - 默认值=false)<br/>
-EndpointSlice=true|false (ALPHA - 默认值=false)<br/>
-EndpointSliceNodeName=true|false (ALPHA - 默认值=false)<br/>
+EfficientWatchResumption=true|false (BETA - 默认值=true)<br/>
 EndpointSliceProxying=true|false (BETA - 默认值=true)<br/>
 EndpointSliceTerminatingCondition=true|false (ALPHA - 默认值=false)<br/>
 EphemeralContainers=true|false (ALPHA - 默认值=false)<br/>
@@ -432,47 +471,60 @@ ExpandCSIVolumes=true|false (BETA - 默认值=true)<br/>
 ExpandInUsePersistentVolumes=true|false (BETA - 默认值=true)<br/>
 ExpandPersistentVolumes=true|false (BETA - 默认值=true)<br/>
 ExperimentalHostUserNamespaceDefaulting=true|false (BETA - 默认值=false)<br/>
-GenericEphemeralVolume=true|false (ALPHA - 默认值=false)<br/>
-GracefulNodeShutdown=true|false (ALPHA - 默认值=false)<br/>
+GenericEphemeralVolume=true|false (BETA - 默认值=true)<br/>
+GracefulNodeShutdown=true|false (BETA - 默认值=true)<br/>
 HPAContainerMetrics=true|false (ALPHA - 默认值=false)<br/>
 HPAScaleToZero=true|false (ALPHA - 默认值=false)<br/>
 HugePageStorageMediumSize=true|false (BETA - 默认值=true)<br/>
-IPv6DualStack=true|false (ALPHA - 默认值=false)<br/>
-ImmutableEphemeralVolumes=true|false (BETA - 默认值=true)<br/>
+IPv6DualStack=true|false (BETA - 默认值=true)<br/>
+InTreePluginAWSUnregister=true|false (ALPHA - 默认值=false)<br/>
+InTreePluginAzureDiskUnregister=true|false (ALPHA - 默认值=false)<br/>
+InTreePluginAzureFileUnregister=true|false (ALPHA - 默认值=false)<br/>
+InTreePluginGCEUnregister=true|false (ALPHA - 默认值=false)<br/>
+InTreePluginOpenStackUnregister=true|false (ALPHA - 默认值=false)<br/>
+InTreePluginvSphereUnregister=true|false (ALPHA - 默认值=false)<br/>
+IndexedJob=true|false (ALPHA - 默认值=false)<br/>
+IngressClassNamespacedParams=true|false (ALPHA - 默认值=false)<br/>
 KubeletCredentialProviders=true|false (ALPHA - 默认值=false)<br/>
 KubeletPodResources=true|false (BETA - 默认值=true)<br/>
-LegacyNodeRoleBehavior=true|false (BETA - 默认值=true)<br/>
+KubeletPodResourcesGetAllocatable=true|false (ALPHA - 默认值=false)<br/>
 LocalStorageCapacityIsolation=true|false (BETA - 默认值=true)<br/>
 LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - 默认值=false)<br/>
+LogarithmicScaleDown=true|false (ALPHA - 默认值=false)<br/>
+MemoryManager=true|false (ALPHA - 默认值=false)<br/>
 MixedProtocolLBService=true|false (ALPHA - 默认值=false)<br/>
-NodeDisruptionExclusion=true|false (BETA - 默认值=false)<br/>
+NamespaceDefaultLabelName=true|false (BETA - 默认值=true)<br/>
+NetworkPolicyEndPort=true|false (ALPHA - 默认值=false)<br/>
 NonPreemptingPriority=true|false (BETA - 默认值=true)<br/>
-PodDisruptionBudget=true|false (BETA - 默认值=true)<br/>
+PodAffinityNamespaceSelector=true|false (ALPHA - 默认值=false)<br/>
+PodDeletionCost=true|false (ALPHA - 默认值=false)<br/>
 PodOverhead=true|false (BETA - 默认值=true)<br/>
+PreferNominatedNode=true|false (ALPHA - 默认值=false)<br/>
+ProbeTerminationGracePeriod=true|false (ALPHA - 默认值=false)<br/>
 ProcMountType=true|false (ALPHA - 默认值=false)<br/>
 QOSReserved=true|false (ALPHA - 默认值=false)<br/>
 RemainingItemCount=true|false (BETA - 默认值=true)<br/>
 RemoveSelfLink=true|false (BETA - 默认值=true)<br/>
-RootCAConfigMap=true|false (BETA - 默认值=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - 默认值=true)<br/>
-RunAsGroup=true|false (BETA - 默认值=true)<br/>
 ServerSideApply=true|false (BETA - 默认值=true)<br/>
-ServiceAccountIssuerDiscovery=true|false (BETA - 默认值=true)<br/>
+ServiceInternalTrafficPolicy=true|false (ALPHA - 默认值=false)<br/>
 ServiceLBNodePortControl=true|false (ALPHA - 默认值=false)<br/>
-ServiceNodeExclusion=true|false (BETA - 默认值=true)<br/>
+ServiceLoadBalancerClass=true|false (ALPHA - 默认值=false)<br/>
 ServiceTopology=true|false (ALPHA - 默认值=false)<br/>
 SetHostnameAsFQDN=true|false (BETA - 默认值=true)<br/>
 SizeMemoryBackedVolumes=true|false (ALPHA - 默认值=false)<br/>
 StorageVersionAPI=true|false (ALPHA - 默认值=false)<br/>
 StorageVersionHash=true|false (BETA - 默认值=true)<br/>
-Sysctls=true|false (BETA - 默认值=true)<br/>
-TTLAfterFinished=true|false (ALPHA - 默认值=false)<br/>
+SuspendJob=true|false (ALPHA - 默认值=false)<br/>
+TTLAfterFinished=true|false (BETA - 默认值=true)<br/>
+TopologyAwareHints=true|false (ALPHA - 默认值=false)<br/>
 TopologyManager=true|false (BETA - 默认值=true)<br/>
 ValidateProxyRedirects=true|false (BETA - 默认值=true)<br/>
+VolumeCapacityPriority=true|false (ALPHA - 默认值=false)<br/>
 WarningHeaders=true|false (BETA - 默认值=true)<br/>
 WinDSR=true|false (ALPHA - 默认值=false)<br/>
 WinOverlay=true|false (BETA - 默认值=true)<br/>
-WindowsEndpointSliceProxying=true|false (ALPHA - 默认值=false)
+WindowsEndpointSliceProxying=true|false (BETA - 默认值=true)
 </td>
 </tr>
 
@@ -482,12 +534,13 @@ WindowsEndpointSliceProxying=true|false (ALPHA - 默认值=false)
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: RequiredDuringScheduling affinity is not symmetric, but there is an implicit PreferredDuringScheduling affinity rule corresponding to every RequiredDuringScheduling affinity rule. --hard-pod-affinity-symmetric-weight represents the weight of implicit PreferredDuringScheduling affinity rule. Must be in the range 0-100.This option was moved to the policy configuration file
+DEPRECATED: RequiredDuringScheduling affinity is not symmetric, but there is an implicit PreferredDuringScheduling affinity rule corresponding to every RequiredDuringScheduling affinity rule. --hard-pod-affinity-symmetric-weight represents the weight of implicit PreferredDuringScheduling affinity rule. Must be in the range 0-100.This parameter is ignored if a config file is specified in --config.
 -->
 已弃用: RequiredDuringScheduling 亲和性是不对称的，但是存在与每个
 RequiredDuringScheduling 关联性规则相对应的隐式 PreferredDuringScheduling 关联性规则。
 <code>--hard-pod-affinity-symmetric-weight</code> 代表隐式 PreferredDuringScheduling
-关联性规则的权重。权重必须在 0-100 范围内。此选项已移至策略配置文件。
+关联性规则的权重。权重必须在 0-100 范围内。
+如果 --config 指定了一个配置文件，那么这个参数将被忽略。
 </td>
 </tr>
 
@@ -521,9 +574,10 @@ The limit that the server gives to clients for the maximum number of streams in 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: burst to use while talking with kubernetes apiserver
+DEPRECATED: burst to use while talking with kubernetes apiserver. This parameter is ignored if a config file is specified in --config.
 -->
 已弃用: 与 kubernetes API 通信时使用的突发请求个数限值。
+如果 --config 指定了一个配置文件，那么这个参数将被忽略。
 </td>
 </tr>
 
@@ -533,9 +587,10 @@ DEPRECATED: burst to use while talking with kubernetes apiserver
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: content type of requests sent to apiserver.
+DEPRECATED: content type of requests sent to apiserver. This parameter is ignored if a config file is specified in --config.
 -->
 已弃用: 发送到 API 服务器的请求的内容类型。
+如果 --config 指定了一个配置文件，那么这个参数将被忽略。
 </td>
 </tr>
 
@@ -545,9 +600,10 @@ DEPRECATED: content type of requests sent to apiserver.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: QPS to use while talking with kubernetes apiserver
+DEPRECATED: QPS to use while talking with kubernetes apiserver. This parameter is ignored if a config file is specified in --config.
 -->
 已弃用: 与 kubernetes apiserver 通信时要使用的 QPS
+如果 --config 指定了一个配置文件，那么这个参数将被忽略。
 </td>
 </tr>
 
@@ -557,9 +613,10 @@ DEPRECATED: QPS to use while talking with kubernetes apiserver
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: path to kubeconfig file with authorization and master location information.
+DEPRECATED: path to kubeconfig file with authorization and master location information. This parameter is ignored if a config file is specified in --config.
 -->
 已弃用: 包含鉴权和主节点位置信息的 kubeconfig 文件的路径。
+如果 --config 指定了一个配置文件，那么这个参数将被忽略。
 </td>
 </tr>
 
@@ -604,7 +661,7 @@ The interval between attempts by the acting master to renew a leadership slot be
 </tr>
 
 <tr>
-<td colspan="2">--leader-elect-resource-lock endpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："leases"</td>
+<td colspan="2">--leader-elect-resource-lock string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："leases"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -659,9 +716,10 @@ The duration the clients should wait between attempting acquisition and renewal 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: define the name of the lock object. Will be removed in favor of leader-elect-resource-name
+DEPRECATED: define the name of the lock object. Will be removed in favor of leader-elect-resource-name. This parameter is ignored if a config file is specified in --config.
 -->
 已弃用: 定义锁对象的名称。将被删除以便使用 <code>--leader-elect-resource-name</code>。
+如果 --config 指定了一个配置文件，那么这个参数将被忽略。
 </td>
 </tr>
 
@@ -671,14 +729,16 @@ DEPRECATED: define the name of the lock object. Will be removed in favor of lead
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: define the namespace of the lock object. Will be removed in favor of leader-elect-resource-namespace.
+DEPRECATED: define the namespace of the lock object. Will be removed in favor of leader-elect-resource-namespace. This parameter is ignored if a config file is specified in --config.
 -->
 已弃用: 定义锁对象的命名空间。将被删除以便使用 <code>leader-elect-resource-namespace</code>。
+如果 --config 指定了一个配置文件，那么这个参数将被忽略。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：:0</td>
+<td colspan="2">--log-backtrace-at &lt;a string in the form 'file:N'&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!--Default:-->默认值: 0</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -739,19 +799,24 @@ Maximum number of seconds between log flushes
 </tr>
 
 <tr>
-<td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："text"</td>
+<td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：“text”</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Sets the log format. Permitted formats: "json", "text".<br/>Non-default formats don't honor these flags: --add_dir_header, --alsologtostderr, --log_backtrace_at, --log_dir, --log_file, --log_file_max_size, --logtostderr, --one_output, --skip_headers, --skip_log_headers, --stderrthreshold, --vmodule, --log-flush-frequency.<br/>Non-default choices are currently alpha and subject to change without warning.
+Sets the log format. Permitted formats: &quot;json&quot;, &quot;text&quot;.<br/>
+Non-default formats don't honor these flags: --add-dir-header, --alsologtostderr, --log-backtrace-at, 
+--log-dir, --log-file, --log-file-max-size, 
+--logtostderr, --one-output, --skip-headers, --skip-log-headers, 
+--stderrthreshold, --vmodule, --log-flush-frequency.<br/>
+Non-default choices are currently alpha and subject to change without warning.
 -->
-设置日志格式。可选格式："json"、"text"。<br/>
-非默认格式不会在意以下标志设置：
---add_dir_header、--alsologtostderr、--log_backtrace_at、--log_dir、
---log_file、--log_file_max_size、--logtostderr、--one_output、
---skip_headers、--skip_log_headers、--stderrthreshold、--vmodule、
---log-flush-frequency.<br/>
+设置日志格式。可选格式：“json”，“text”。<br/>
+采用非默认格式时，以下标识不会生效：
+--add-dir-header, --alsologtostderr, --log-backtrace-at, 
+--log-dir, --log-file, --log-file-max-size, 
+--logtostderr, --one-output, --skip-headers, --skip-log-headers, 
+--stderrthreshold, --vmodule, --log-flush-frequency.<br/>
 非默认选项目前处于 Alpha 阶段，有可能会出现变更且无事先警告。
 </td>
 </tr>
@@ -786,9 +851,24 @@ Kubernetes API 服务器的地址（覆盖 kubeconfig 中的任何值）。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If true, only write logs to their native severity level (vs also writing to each lower severity level
+If true, only write logs to their native severity level (vs also writing to each lower severity level)
 -->
 若此标志为 true，则日志仅写入其自身的严重性级别，而不会写入所有较低严重性级别。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--permit-address-sharing</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If true, SO_REUSEADDR will be used when binding the port. This allows binding to wildcard IPs like 0.0.0.0 and specific IPs in parallel, and it avoids waiting for the kernel to release sockets in TIME_WAIT state. [default=false]
+-->
+如果为 true，在绑定端口时将使用 SO_REUSEADDR。
+这将允许同时绑定诸如 0.0.0.0 这类通配符 IP和特定 IP，
+并且它避免等待内核释放处于 TIME_WAIT 状态的套接字。
+默认值： false
 </td>
 </tr>
 
@@ -798,10 +878,11 @@ If true, only write logs to their native severity level (vs also writing to each
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If true, SO_REUSEPORT will be used when binding the port, which allows more than one instance to bind on the same address and port.
+If true, SO_REUSEPORT will be used when binding the port, which allows more than one instance to bind on the same address and port. [default=false]
 -->
 如果此标志为 true，在绑定端口时会使用 SO_REUSEPORT，从而允许不止一个
 实例绑定到同一地址和端口。 
+默认值：false
 </td>
 </tr>
 
@@ -853,22 +934,25 @@ DEPRECATED: the namespace where policy ConfigMap is located. The kube-system nam
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: the port on which to serve HTTP insecurely without authentication and authorization. If 0, don't serve plain HTTP at all. See --secure-port instead.
+DEPRECATED: the port on which to serve HTTP insecurely without authentication and authorization. If 0, don't serve plain HTTP at all. See --secure-port instead. This parameter is ignored if a config file is specified in --config.
 -->
-已弃用: 在没有身份验证和授权的情况下不安全地为 HTTP 服务的端口。
-如果为0，则根本不提供 HTTP。请参见--secure-port。
+已弃用： 在没有身份验证和鉴权的情况下不安全地为 HTTP 服务的端口。
+如果为 0，则根本不提供 HTTP。请参见 --secure-port。
+如果 --config 指定了一个配置文件，这个参数将被忽略。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--profiling</td>
+<td colspan="2">--profiling&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值： true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-DEPRECATED: enable profiling via web interface host:port/debug/pprof/
+DEPRECATED: enable profiling via web interface host:port/debug/pprof/. 
+This parameter is ignored if a config file is specified in --config.
 -->
 已弃用: 通过 Web 界面主机启用配置文件：<code>host:port/debug/pprof/</code>。
+如果 --config 指定了一个配置文件，这个参数将被忽略。
 </td>
 </tr>
 
@@ -901,7 +985,8 @@ Root certificate bundle to use to verify client certificates on incoming request
 </tr>
 
 <tr>
-<td colspan="2"> --requestheader-extra-headers-prefix stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[x-remote-extra-]</td>
+<td colspan="2">--requestheader-extra-headers-prefix strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!--Default:-->默认值: "x-remote-extra-"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -913,7 +998,8 @@ List of request header prefixes to inspect. X-Remote-Extra- is suggested.
 </tr>
 
 <tr>
-<td colspan="2">--requestheader-group-headers stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[x-remote-group]</td>
+<td colspan="2">--requestheader-group-headers strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!--Default:-->默认值: "x-remote-group"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -925,7 +1011,8 @@ List of request headers to inspect for groups. X-Remote-Group is suggested.
 </tr>
 
 <tr>
-<td colspan="2">--requestheader-username-headers stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[x-remote-user]</td>
+<td colspan="2">--requestheader-username-headers strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!--Default:-->默认值: "x-remote-user"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -937,15 +1024,17 @@ List of request headers to inspect for usernames. X-Remote-User is common.
 </tr>
 
 <tr>
-<td colspan="2">--scheduler-name string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："default-scheduler"</td>
+<td colspan="2">--scheduler-name string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->
+默认值："default-scheduler"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!-- 
-DEPRECATED: name of the scheduler, used to select which pods will be processed by this scheduler, based on pod's "spec.schedulerName".
+DEPRECATED: name of the scheduler, used to select which pods will be processed by this scheduler, based on pod's &quot;spec.schedulerName&quot;. This parameter is ignored if a config file is specified in --config.
 -->
-已弃用: 调度器名称，用于根据 Pod 的 "spec.schedulerName" 选择此
+已弃用: 调度器名称，用于根据 Pod 的 “spec.schedulerName” 选择此
 调度器将处理的 Pod。
+如果 --config 指定了一个配置文件，那么这个参数将被忽略
 </td>
 </tr>
 
@@ -955,7 +1044,7 @@ DEPRECATED: name of the scheduler, used to select which pods will be processed b
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The port on which to serve HTTPS with authentication and authorization.If 0, don't serve HTTPS at all.
+The port on which to serve HTTPS with authentication and authorization. If 0, don't serve HTTPS at all.
 -->
 通过身份验证和授权为 HTTPS 服务的端口。如果为 0，则根本不提供 HTTPS。
 </td>
@@ -1001,7 +1090,7 @@ If true, avoid headers when opening log files
 </tr>
 
 <tr>
-<td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：2</td>
+<td colspan="2">--stderrthreshold int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：2</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1028,15 +1117,16 @@ File containing the default x509 Certificate for HTTPS. (CA cert, if any, concat
 </tr>
 
 <tr>
-<td colspan="2">--tls-cipher-suites stringSlice</td>
+<td colspan="2">--tls-cipher-suites strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!-- 
 Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used.<br/>
-Preferred values:
-TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384. <br/>
-Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_RC4_128_SHA.
+Preferred values: 
+TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384.<br/>
+Insecure values: 
+TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_RC4_128_SHA.
 -->
 服务器的密码套件列表，以逗号分隔。如果省略，将使用默认的 Go 密码套件。
 优先考虑的值：
@@ -1071,18 +1161,20 @@ File containing the default x509 private key matching --tls-cert-file.
 </tr>
 
 <tr>
-<td colspan="2">--tls-sni-cert-key namedCertKey&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[]</td>
+<td colspan="2">--tls-sni-cert-key string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A pair of x509 certificate and private key file paths, optionally suffixed with a list of domain patterns which are fully qualified domain names, possibly with prefixed wildcard segments. If no domain patterns are provided, the names of the certificate are extracted. Non-wildcard matches trump over wildcard matches, explicit domain patterns trump over extracted names. For multiple key/certificate pairs, use the --tls-sni-cert-key multiple times. Examples: "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com".
+A pair of x509 certificate and private key file paths, optionally suffixed with a list of domain patterns which are fully qualified domain names, possibly with prefixed wildcard segments. The domain patterns also allow IP addresses, but IPs should only be used if the apiserver has visibility to the IP address requested by a client. If no domain patterns are provided, the names of the certificate are extracted. Non-wildcard matches trump over wildcard matches, explicit domain patterns trump over extracted names. For multiple key/certificate pairs, use the --tls-sni-cert-key multiple times. Examples: &quot;example.crt,example.key&quot; or &quot;foo.crt,foo.key:*.foo.com,foo.com&quot;.
 -->
-一对 x509 证书和私钥文件路径，可选地后缀为完全限定域名的域模式列表，
-并可能带有前缀的通配符段。如果未提供域名模式，则提取证书名称。
-非通配符匹配优先于通配符匹配，显式域名模式优先于提取而来的名称。
+一对 x509 证书和私钥文件路径，也可以包含由全限定域名构成的域名模式列表作为后缀，
+并可能带有前缀的通配符段。域名匹配还允许是 IP 地址，
+但是只有当 apiserver 对客户端请求的 IP 地址可见时，才能使用 IP。
+如果未提供域名匹配模式，则提取证书名称。
+非通配符匹配优先于通配符匹配，显式域名匹配优先于提取而来的名称。
 若有多个密钥/证书对，可多次使用 <code>--tls-sni-cert-key</code>。
-例如: "example.crt,example.key" 或者 "foo.crt,foo.key:*.foo.com,foo.com"。
+例子: "example.crt,example.key" 或者 "foo.crt,foo.key:*.foo.com,foo.com"。
 </td>
 </tr>
 
@@ -1100,7 +1192,7 @@ DEPRECATED: when set to true, scheduler will ignore policy ConfigMap and uses po
 </tr>
 
 <tr>
-<td colspan="2">-v, --v Level</td>
+<td colspan="2">-v, --v int</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1124,14 +1216,14 @@ Print version information and quit
 </tr>
 
 <tr>
-<td colspan="2">--vmodule moduleSpec</td>
+<td colspan="2">--vmodule &lt;<!--comma-separated 'pattern=N' settings-->逗号分隔的 ‘模式=N’ 配置列表&gt;</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 comma-separated list of pattern=N settings for file-filtered logging
 -->
-以逗号分隔的 pattern=N 设置列表，用于文件过滤的日志记录。
+以逗号分隔的 ‘模式=N’ 设置列表，用于文件过滤的日志记录。
 </td>
 </tr>
 

@@ -18,6 +18,7 @@ This document helps you get started using the Kubernetes [NetworkPolicy API](/do
 
 Make sure you've configured a network provider with network policy support. There are a number of network providers that support NetworkPolicy, including:
 
+* [Antrea](/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
 * [Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
 * [Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
 * [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
