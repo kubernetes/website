@@ -41,7 +41,7 @@ weight: 10
         <p> Kubernetes 中的服务(Service)是一种抽象概念，它定义了 Pod 的逻辑集和访问 Pod 的协议。Service 使从属 Pod 之间的松耦合成为可能。 和其他 Kubernetes 对象一样, Service 用 YAML <a href="/zh/docs/concepts/configuration/overview/#general-configuration-tips">(更推荐)</a> 或者 JSON 来定义. Service 下的一组 Pod 通常由 <i>LabelSelector</i> (请参阅下面的说明为什么您可能想要一个 spec 中不包含<code>selector</code>的服务)来标记。</p>
 
 <!--        <p>Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic. Services can be exposed in different ways by specifying a <code>type</code> in the ServiceSpec:</p>-->
-        <p>尽管每个 Pod 都有一个唯一的 IP 地址，但是如果没有 Service ，这些 IP 不会暴露在群集外部。Service 允许您的应用程序接收流量。Service 也可以用在 ServiceSpec 标记<code>type</code>的方式暴露</p>
+        <p>尽管每个 Pod 都有一个唯一的 IP 地址，但是如果没有 Service ，这些 IP 不会暴露在集群外部。Service 允许您的应用程序接收流量。Service 也可以用在 ServiceSpec 标记<code>type</code>的方式暴露</p>
 			<ul>
 <!--        <li><i>ClusterIP</i> (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.</li>-->
 <!--        <li><i>NodePort</i> - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superset of ClusterIP.</li>-->
