@@ -112,7 +112,7 @@ Agentes de execução são configurados através da configuração do containerd
 `/etc/containerd/config.toml`. Agentes válidos são configurados sob a seção de `runtimes`:
 
 ```
-[plugins.cri.containerd.runtimes.${HANDLER_NAME}]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
 Veja a documentação de configuração do containerd para maiores detalhes:
