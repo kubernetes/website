@@ -88,10 +88,10 @@ GitHub Mentions: [@kubernetes/release-engineering](https://github.com/orgs/kuber
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Daniel Mangum ([@hasheddan](https://github.com/hasheddan))
 - Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
 - Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ### Becoming a Release Manager
 
@@ -138,7 +138,6 @@ GitHub Mentions: @kubernetes/release-engineering
 - Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
 - Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
 - Taylor Dolezal ([@onlydole](https://github.com/onlydole))
-- Verónica López ([@verolop](https://github.com/verolop))
 - Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
 
 ### Becoming a Release Manager Associate
@@ -199,7 +198,6 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Daniel Mangum ([@hasheddan](https://github.com/hasheddan))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 
 ---
