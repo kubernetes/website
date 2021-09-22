@@ -109,7 +109,7 @@ objects.
 
 All of this is best illustrated by examples.  Imagine a Kubernetes release,
 version X, which introduces a new API group.  A new Kubernetes release is made
-every approximately 3 months (4 per year).  The following table describes which
+every approximately 4 months (3 per year).  The following table describes which
 API versions are supported in a series of subsequent releases.
 
 <table>
