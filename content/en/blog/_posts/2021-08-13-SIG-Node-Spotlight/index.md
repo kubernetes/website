@@ -18,8 +18,6 @@ slug: sig-node-spotlight-2021
 
 SK: SIG Node is a vertical SIG responsible for the components that support the controlled interactions between the pods and host resources. We manage the lifecycle of pods that are scheduled to a node. This SIG's focus is to enable a broad set of workload types, including workloads with hardware specific or performance sensitive requirements. All while maintaining isolation boundaries between pods on a node, as well as the pod and the host. This SIG maintains quite a few components and has many external dependencies (like container runtimes or operating system features), which makes the complexity we deal with huge. We tame the complexity and aim to continuously improve node reliability.
 
-
-
 ### "SIG Node is a vertical SIG" could you explain a bit more?
 
 EH: There are two kinds of SIGs: horizontal and vertical. Horizontal SIGs are concerned with a particular function of every component in Kubernetes: for example, SIG Security considers security aspects of every component in Kubernetes, or SIG Instrumentation looks at the logs, metrics, traces and events of every component in Kubernetes. Such SIGs don't tend to own a lot of code.
@@ -52,10 +50,9 @@ To come up to speed on any open source code base, there are two strategies you c
 
 [Davanum Srinivas](https://twitter.com/dims) and I each ran a cohort of group mentoring to help teach new contributors the skills to become Node reviewers, and if there's interest we can work to find a mentor to run another session. I also encourage new contributors to attend our Node CI Subproject meeting: it's a smaller audience and we don't record the triage sessions, so it can be a less intimidating way to get started with the SIG. 
 
-
 ### Are there any particular skills you’d like to recruit for? What skills are contributors to SIG Usability likely to learn?
 
-SK: SIG Node works on many workstreams in very different areas. All of these areas are on system level. For the  typical code contributions you need to have a passion for building and utilizing low level APIs and writing performant and reliable components. Being a contributor you will learn how to debug and troubleshoot, profile, and monitor these components, as well as user workload that is run by these components. Often, with the limited to no access to Nodes, as they are running production workloads.
+SK: SIG Node works on many workstreams in very different areas. All of these areas are on system level. For the typical code contributions you need to have a passion for building and utilizing low level APIs and writing performant and reliable components. Being a contributor you will learn how to debug and troubleshoot, profile, and monitor these components, as well as user workload that is run by these components. Often, with the limited to no access to Nodes, as they are running production workloads.
 
 The other way of contribution is to help document SIG node features. This type of contribution requires a deep understanding of features, and ability to explain them in simple terms.
 
