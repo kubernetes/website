@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Spotlight on SIG Node"
-date: 2021-08-13
+date: 2021-09-27
 slug: sig-node-spotlight-2021
 ---
 
@@ -9,7 +9,7 @@ slug: sig-node-spotlight-2021
 
 ## Introduction
 
-Are you interested in learning about what [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node) does and how you can get involved? Well, you're at the right place. SIG Node is responsible for the components that support the controlled interactions between pods and host resources. In this blog, we have summarized our conversation with [Elana Hashman](https://twitter.com/ehashdn) & [Sergey Kanzhelev](https://twitter.com/SergeyKanzhelev), who walk us through the various aspects of being a part of the SIG and share some insights about how others can get involved.
+[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node) is responsible for the components that support the controlled interactions between pods and host resources. The work of this group manages the lifecycle of pods that are scheduled to a node, and focuses on enabling a broad set of workload types, including workloads with hardware specific or performance sensitive requirements. In this blog, we have summarized our conversation with [Elana Hashman (EH)](https://twitter.com/ehashdn) & [Sergey Kanzhelev (SK)](https://twitter.com/SergeyKanzhelev), who walk us through the various aspects of being a part of the SIG and share some insights about how others can get involved.
 
 
 ## A summary of our conversation
