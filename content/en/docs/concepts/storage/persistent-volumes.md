@@ -412,11 +412,22 @@ A PersistentVolume can be mounted on a host in any way supported by the resource
 
 The access modes are:
 
-* ReadWriteOnce -- the volume can be mounted as read-write by a single node
-* ReadOnlyMany -- the volume can be mounted read-only by many nodes
-* ReadWriteMany -- the volume can be mounted as read-write by many nodes
-* ReadWriteOncePod -- the volume can be mounted as read-write by a single Pod.
-  This is only supported for CSI volumes and Kubernetes version 1.22+.
+`ReadWriteOnce` 
+: the volume can be mounted as read-write by a single node. ReadWriteOnce access mode still can allow multiple pods to access the volume when the pods are running on the same node.
+
+`ReadOnlyMany`
+: the volume can be mounted as read-only by many nodes.
+
+`ReadWriteMany`
+: the volume can be mounted as read-write by many nodes.
+
+ `ReadWriteOncePod`
+: the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod access mode if you want to ensure that only one pod across whole cluster can read that PVC or write to it. This is only supported for CSI volumes and Kubernetes version 1.22+.
+
+
+
+The blog article [Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/) covers this in more detail.
+ 
 
 In the CLI, the access modes are abbreviated to:
 
