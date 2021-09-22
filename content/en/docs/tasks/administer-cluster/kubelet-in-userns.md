@@ -34,14 +34,21 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 
 ## Running Kubernetes inside Rootless Docker/Podman
 
-[kind](https://kind.sigs.k8s.io/) supports running Kubernetes inside a Rootless Docker or Rootless Podman.
+### kind
+
+[kind](https://kind.sigs.k8s.io/) supports running Kubernetes inside Rootless Docker or Rootless Podman.
 
 See [Running kind with Rootless Docker](https://kind.sigs.k8s.io/docs/user/rootless/).
 
-<!--
-[minikube](https://minikube.sigs.k8s.io/docs/) also plans to support Rootless Docker/Podman drivers.
-See [minikube issue #10836](https://github.com/kubernetes/minikube/issues/10836) to track the progress.
--->
+### minikube
+
+[minikube](https://minikube.sigs.k8s.io/) also supports running Kubernetes inside Rootless Docker.
+
+See the page about the [docker](https://minikube.sigs.k8s.io/docs/drivers/docker/) driver in the Minikube documentation.
+
+Rootless Podman is not supported.
+
+<!-- Supporting rootless podman is discussed in https://github.com/kubernetes/minikube/issues/8719 -->
 
 ## Running Rootless Kubernetes directly on a host
 
