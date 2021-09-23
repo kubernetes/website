@@ -19,7 +19,7 @@ weight: 40
 - [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
 - [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
 - [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)
-- [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+- [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 - [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 - [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets)
 - [파드안티어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)

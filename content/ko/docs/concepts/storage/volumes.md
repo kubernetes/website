@@ -130,7 +130,7 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 
 `azureDisk` 볼륨 유형은 Microsoft Azure [데이터 디스크](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers)를 파드에 마운트한다.
 
-더 자세한 내용은 [`azureDisk` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md)을 참고한다.
+더 자세한 내용은 [`azureDisk` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md)을 참고한다.
 
 #### azureDisk CSI 마이그레이션
 
@@ -148,7 +148,7 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 `azureFile` 볼륨 유형은 Microsoft Azure 파일 볼륨(SMB 2.1과 3.0)을 파드에
 마운트한다.
 
-더 자세한 내용은 [`azureFile` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md)을 참고한다.
+더 자세한 내용은 [`azureFile` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md)을 참고한다.
 
 #### azureFile CSI 마이그레이션
 
@@ -176,7 +176,7 @@ Azure File CSI 드라이버는 동일한 볼륨을 다른 fsgroup에서 사용�
 CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 내보내야 한다.
 {{< /note >}}
 
-더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/)를 참조한다.
+더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/)를 참조한다.
 
 ### cinder
 
@@ -347,7 +347,7 @@ targetWWN은 해당 WWN이 다중 경로 연결에서 온 것으로 예상한다
 쿠버네티스 호스트가 해당 LUN에 접근할 수 있다.
 {{< /note >}}
 
-더 자세한 내용은 [파이버 채널 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel)를 참고한다.
+더 자세한 내용은 [파이버 채널 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)를 참고한다.
 
 ### flocker (사용 중단됨(deprecated)){#flocker}
 
@@ -365,7 +365,7 @@ Flocker는 파드가 스케줄 되어있는 노드에 다시 연결한다. 이�
 `flocker` 볼륨을 사용하기 위해서는 먼저 Flocker를 설치하고 실행한다.
 {{< /note >}}
 
-더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker)를 참조한다.
+더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker)를 참조한다.
 
 ### gcePersistentDisk
 
@@ -525,7 +525,7 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데�
 사용하려면 먼저 GlusterFS를 설치하고 실행해야 한다.
 {{< /note >}}
 
-더 자세한 내용은 [GlusterFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs)를 본다.
+더 자세한 내용은 [GlusterFS 예시](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs)를 본다.
 
 ### hostPath {#hostpath}
 
@@ -653,7 +653,7 @@ iSCSI 특징은 여러 고객이 읽기 전용으로 마운트할 수
 iSCSI 볼륨은 읽기-쓰기 모드에서는 단일 고객만 마운트할 수 있다.
 동시 쓰기는 허용되지 않는다.
 
-더 자세한 내용은 [iSCSI 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi)를 본다.
+더 자세한 내용은 [iSCSI 예시](https://github.com/kubernetes/examples/tree/master/volumes/iscsi)를 본다.
 
 ### local
 
@@ -741,7 +741,7 @@ local [스토리지클래스(StorageClas)](/ko/docs/concepts/storage/storage-cla
 사용하려면 먼저 NFS 서버를 실행하고 공유를 내보내야 한다.
 {{< /note >}}
 
-더 자세한 내용은 [NFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs)를 본다.
+더 자세한 내용은 [NFS 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)를 본다.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -789,7 +789,7 @@ spec:
 있는지 확인한다.
 {{< /note >}}
 
-자세한 내용은 [Portworx 볼륨](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md) 예제를 참고한다.
+자세한 내용은 [Portworx 볼륨](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) 예제를 참고한다.
 
 ### projected
 
@@ -803,7 +803,7 @@ spec:
 * `serviceAccountToken`
 
 모든 소스는 파드와 동일한 네임스페이스에 있어야 한다. 더 자세한 내용은
-[올인원 볼륨 디자인 문서](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md)를 본다.
+[올인원 볼륨 디자인 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)를 본다.
 
 #### 시크릿, 다운워드 API 그리고 컨피그맵이 있는 구성 예시 {#example-configuration-secret-downwardapi-configmap}
 
@@ -964,7 +964,7 @@ RBD의 특징은 여러 고객이 동시에 읽기 전용으로 마운트할 수
 RBD는 읽기-쓰기 모드에서 단일 고객만 마운트할 수 있다.
 동시 쓰기는 허용되지 않는다.
 
-더 자세한 내용은 [RBD 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd)를
+더 자세한 내용은 [RBD 예시](https://github.com/kubernetes/examples/tree/master/volumes/rbd)를
 참고한다.
 
 ### scaleIO (사용 중단됨) {#scaleio}
@@ -1008,7 +1008,7 @@ spec:
       fsType: xfs
 ```
 
-더 자세한 내용은 [ScaleIO](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio) 예제를 참고한다.
+더 자세한 내용은 [ScaleIO](https://github.com/kubernetes/examples/tree/master/staging/volumes/scaleio) 예제를 참고한다.
 
 ### secret
 

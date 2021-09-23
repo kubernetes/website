@@ -52,7 +52,7 @@ FOO_SERVICE_HOST=<서비스가 동작 중인 호스트>
 FOO_SERVICE_PORT=<서비스가 동작 중인 포트>
 ```
 
-서비스에 지정된 IP 주소가 있고 [DNS 애드온](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/)이 활성화된 경우, DNS를 통해서 컨테이너가 서비스를 사용할 수 있다.
+서비스에 지정된 IP 주소가 있고 [DNS 애드온](https://releases.k8s.io/master/cluster/addons/dns/)이 활성화된 경우, DNS를 통해서 컨테이너가 서비스를 사용할 수 있다.
 
 
 
