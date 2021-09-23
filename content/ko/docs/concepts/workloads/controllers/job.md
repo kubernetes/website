@@ -594,7 +594,7 @@ spec:
 시작하기에는 다소 복잡할 수 있으며 쿠버네티스와의 통합성이 낮아진다.
 
 이 패턴의 한 예시는 파드를 시작하는 잡이다. 파드는 스크립트를 실행해서
-스파크(Spark) 마스터 컨트롤러 ([스파크 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/spark/README.md)를 본다)를 시작하고,
+스파크(Spark) 마스터 컨트롤러 ([스파크 예시](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)를 본다)를 시작하고,
 스파크 드라이버를 실행한 다음, 정리한다.
 
 이 접근 방식의 장점은 전체 프로세스가 잡 오브젝트의 완료를 보장하면서도,
