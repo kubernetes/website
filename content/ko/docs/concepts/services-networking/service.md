@@ -394,7 +394,7 @@ CIDR 범위 내의 유효한 IPv4 또는 IPv6 주소여야 한다.
 파드가 노드에서 실행될 때, kubelet은 각 활성화된 서비스에 대해
 환경 변수 세트를 추가한다. [도커 링크
 호환](https://docs.docker.com/userguide/dockerlinks/) 변수
-([makeLinkVariables](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49) 참조)와
+([makeLinkVariables](https://releases.k8s.io/master/pkg/kubelet/envvars/envvars.go#L49) 참조)와
 보다 간단한 `{SVCNAME}_SERVICE_HOST` 및 `{SVCNAME}_SERVICE_PORT` 변수를 지원하고,
 이때 서비스 이름은 대문자이고 대시는 밑줄로 변환된다.
 

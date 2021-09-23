@@ -32,7 +32,7 @@ weight: 30
 
 ## 제한사항
 
-* 파드에 지정된 스토리지는 관리자에 의해 [퍼시스턴트 볼륨 프로비저너](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md)를 기반으로 하는 `storage class` 를 요청해서 프로비전하거나 사전에 프로비전이 되어야 한다.
+* 파드에 지정된 스토리지는 관리자에 의해 [퍼시스턴트 볼륨 프로비저너](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)를 기반으로 하는 `storage class` 를 요청해서 프로비전하거나 사전에 프로비전이 되어야 한다.
 * 스테이트풀셋을 삭제 또는 스케일 다운해도 스테이트풀셋과 연관된 볼륨이 *삭제되지 않는다*. 이는 일반적으로 스테이트풀셋과 연관된 모든 리소스를 자동으로 제거하는 것보다 더 중요한 데이터의 안전을 보장하기 위함이다.
 * 스테이트풀셋은 현재 파드의 네트워크 신원을 책임지고 있는 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)가 필요하다. 사용자가 이 서비스를 생성할 책임이 있다.
 * 스테이트풀셋은 스테이트풀셋의 삭제 시 파드의 종료에 대해 어떠한 보증을 제공하지 않는다. 스테이트풀셋에서는 파드가 순차적이고 정상적으로 종료(graceful termination)되도록 하려면, 삭제 전 스테이트풀셋의 스케일을 0으로 축소할 수 있다.
