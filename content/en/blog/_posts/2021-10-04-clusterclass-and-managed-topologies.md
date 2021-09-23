@@ -17,17 +17,17 @@ The [Cluster API project](https://github.com/kubernetes-sigs/cluster-api/) start
 
 With extensibility addressed, the focus shifted to features, like automatic control plane and etcd management, health-based machine remediation, machine rollout strategies and more.
 
-Fast forwarding to 2021, with lots of companies using Cluster API to manage fleets of Kubernetes clusters running workloads in production, the community focused its effort on stabilization of both code, APIs and documentation, and on extensive test signals which inform Kubernetes releases.
+Fast forwarding to 2021, with lots of companies using Cluster API to manage fleets of Kubernetes clusters running workloads in production, the community focused its effort on stabilization of both code, APIs, documentation, and on extensive test signals which inform Kubernetes releases.
 
 With solid foundations in place, and a vibrant and welcoming community that still continues to grow, it was time to plan another iteration on our UX for both new and advanced users.
 
-Enter ClusterClass and manage topologies, tada!
+Enter ClusterClass and Managed Topologies, tada!
 
 ## ClusterClass
 
 As the name suggests, ClusterClass and managed topologies are built in two parts.
 
-The idea behind ClusterClass is simple: let’s define the shape of your cluster once, and then reuse it many times, abstracting the complexities and the internals of a Kubernetes cluster away.
+The idea behind ClusterClass is simple: define the shape of your cluster once, and reuse it many times, abstracting the complexities and the internals of a Kubernetes cluster away.
 
 ![Defining a ClusterClass](/images/blog/2021-10-04-clusterclass-and-managed-topologies/clusterclass.svg)
 
@@ -84,11 +84,11 @@ apiVersion: cluster.x-k8s.io/v1beta1
        name: vsphere-cluster
 ```
 
-The possibilities are endless; you can get a default ClusterClass from the community, “off-the shelf” classes from your vendor of choice, “certified” classes from the platform admin in your company, or even create custom ones for advanced scenarios.
+The possibilities are endless; you can get a default ClusterClass from the community, “off-the-shelf” classes from your vendor of choice, “certified” classes from the platform admin in your company, or even create custom ones for advanced scenarios.
 
 ## Managed Topologies
 
-Managed topologies let you put the power that ClusterClass provides into action.
+Managed Topologies let you put the power of ClusterClass into action.
 
 Given a ClusterClass, you can create many Clusters of a similar shape by providing a single resource, the Cluster.
 
@@ -136,7 +136,7 @@ There are a lot of great ideas and opportunities ahead!
 
 We want to make managed topologies even more powerful and flexible, allowing users to dynamically change bits of a ClusterClass according to the specific needs of a Cluster; this will ensure the same simple and intuitive UX for solving complex problems like e.g. selecting machine image for a specific Kubernetes version and for a specific region of your infrastructure provider, or injecting proxy configurations in the entire Cluster, and so on.
 
-Stay tuned for what comes next, and if you have any question, comment or suggestion:
+Stay tuned for what comes next, and if you have any questions, comments or suggestions:
 
 * Chat with us on the Kubernetes [Slack](http://slack.k8s.io/):[#cluster-api](https://kubernetes.slack.com/archives/C8TSNPY4T)
 * Join the SIG Cluster Lifecycle [Google Group](https://groups.google.com/g/kubernetes-sig-cluster-lifecycle) to receive calendar invites and gain access to documents
