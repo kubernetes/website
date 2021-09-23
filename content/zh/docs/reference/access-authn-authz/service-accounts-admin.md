@@ -143,7 +143,7 @@ ServiceAccount 准入控制器将添加如下投射卷，而不是为令牌控�
     defaultMode: 420 # 0644
     sources:
       - serviceAccountToken:
-          expirationSeconds: 3600
+          expirationSeconds: 3607
           path: token
       - configMap:
           items:
