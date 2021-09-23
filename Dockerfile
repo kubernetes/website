@@ -4,7 +4,7 @@
 # change is that the Hugo version is now an overridable argument rather than a fixed
 # environment variable.
 
-FROM alpine:latest
+FROM golang:1.15-alpine
 
 LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
 
@@ -16,7 +16,7 @@ RUN apk add --no-cache \
     build-base \
     libc6-compat \
     npm && \
-    npm install -G autoprefixer postcss-cli
+    npm install -D autoprefixer postcss-cli
 
 ARG HUGO_VERSION
 
