@@ -83,6 +83,33 @@ You can also include a full definition:
 which renders as:
 {{< glossary_definition term_id="cluster" length="all" >}}
 
+## Links to API Reference
+
+You can link to a page of the Kubernetes API reference using the `api-reference` shortcode, for example to the {{< api-reference page="workload-resources/pod-v1" >}} reference:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" */>}}
+```
+
+The content of the `page` parameter is the suffix of the URL of the API reference page.
+
+
+You can link to a specific place into a page by specifying an `anchor` parameter, for example to the {{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}} reference or the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" >}} section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="PodSpec" */>}}
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" */>}}
+```
+
+
+You can change the text of the link by specifying a `text` parameter, for example by linking to the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variables">}} section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variable" */>}}
+```
+
+
+
 ## Table captions
 
 You can make tables more accessible to screen readers by adding a table caption. To add a [caption](https://www.w3schools.com/tags/tag_caption.asp) to a table, enclose the table with a `table` shortcode and specify the caption with the `caption` parameter.
