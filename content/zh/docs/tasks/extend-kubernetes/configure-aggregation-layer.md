@@ -550,10 +550,10 @@ APIService 对象的名称必须是合法的
 <!--
 #### Contacting the extension apiserver
 
-Once the Kubernetes apiserver has determined a request should be sent to a extension apiserver,
+Once the Kubernetes apiserver has determined a request should be sent to an extension apiserver,
 it needs to know how to contact it.
 
-The `service` stanza is a reference to the service for a extension apiserver.
+The `service` stanza is a reference to the service for an extension apiserver.
 The service namespace and name are required. The port is optional and defaults to 443.
 The path is optional and defaults to "/".
 

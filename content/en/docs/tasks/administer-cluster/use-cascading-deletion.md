@@ -302,7 +302,7 @@ For details, read the [documentation for your Kubernetes version](/docs/home/sup
 Run the following command:
 
 ```shell
-kubectl delete deployment nginx-deployment --cascade=false
+kubectl delete deployment nginx-deployment --cascade=orphan
 ```
 
 **Using the Kubernetes API**

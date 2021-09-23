@@ -50,6 +50,8 @@ Bevor Sie die einzelnen Lernprogramme durchgehen, möchten Sie möglicherweise e
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
+* [seccomp](/docs/tutorials/clusters/seccomp/)
+
 ## Services
 
 * [Source IP verwenden](/docs/tutorials/services/source-ip/)
