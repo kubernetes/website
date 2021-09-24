@@ -192,22 +192,33 @@ The following flags can be used:
 You can choose more than one authorization module. Modules are checked in order
 so an earlier module has higher priority to allow or deny a request.
 
-## Privilege escalation via pod creation
+## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
 
-Users who have the ability to create pods in a namespace can potentially
-escalate their privileges within that namespace.  They can create pods that
-access their privileges within that namespace. They can create pods that access
-secrets the user cannot themselves read, or that run under a service account
-with different/greater permissions.
+Users who can create/edit pods in a namespace, either directly or through a [controller](/docs/concepts/architecture/controller/)
+such as an operator, could escalate their privileges in that namespace.
 
 {{< caution >}}
-System administrators, use care when granting access to pod creation. A user
-granted permission to create pods (or controllers that create pods) in the
-namespace can: read all secrets in the namespace; read all config maps in the
-namespace; and impersonate any service account in the namespace and take any
-action the account could take. This applies regardless of authorization mode.
+System administrators, use care when granting access to create or edit workloads.
+Details of how these can be misused are documented in [escalation paths](/docs/reference/access-authn-authz/authorization/#escalation-paths)
 {{< /caution >}}
 
+### Escalation paths {#escalation-paths}
+- Mounting arbitrary secrets in that namespace
+  - Can be used to access secrets meant for other workloads
+  - Can be used to obtain a more privileged service account's service account token
+- Using arbitrary Service Accounts in that namespace
+  - Can perform Kubernetes API actions as another workload (impersonation)
+  - Can perform any privileged actions that Service Account has
+- Mounting configmaps meant for other workloads in that namespace
+  - Can be used to obtain information meant for other workloads, such as DB host names.
+- Mounting volumes meant for other workloads in that namespace
+  - Can be used to obtain information meant for other workloads, and change it.
+
+{{< caution >}}
+System administrators should be cautious when deploying CRDs that
+change the above areas. These may open privilege escalations paths.
+This should be considered when deciding on your RBAC controls.
+{{< /caution >}}
 
 ## {{% heading "whatsnext" %}}
 
