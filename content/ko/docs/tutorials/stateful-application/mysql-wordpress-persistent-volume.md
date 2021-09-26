@@ -16,7 +16,7 @@ card:
 [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)(PV)는 관리자가 수동으로 프로비저닝한 클러스터나 쿠버네티스 [스토리지클래스](/ko/docs/concepts/storage/storage-classes)를 이용해 동적으로 프로비저닝된 저장소의 일부이다. [퍼시스턴트볼륨클레임](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임)(PVC)은 PV로 충족할 수 있는 사용자에 의한 스토리지 요청이다. 퍼시스턴트볼륨은 파드 라이프사이클과 독립적이며 재시작, 재스케줄링이나 파드를 삭제할 때에도 데이터를 보존한다.
 
 {{< warning >}}
-이 배포는 프로덕션 사용 예로는 적절하지 않은데 이는 단일 인스턴스의 WordPress와 MySQL을 이용했기 때문이다. 프로덕션이라면 [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress)로 배포하기를 고려해보자.
+이 배포는 프로덕션 사용 예로는 적절하지 않은데 이는 단일 인스턴스의 WordPress와 MySQL을 이용했기 때문이다. 프로덕션이라면 [WordPress Helm Chart](https://github.com/bitnami/charts/tree/master/bitnami/wordpress)로 배포하기를 고려해보자.
 {{< /warning >}}
 
 {{< note >}}

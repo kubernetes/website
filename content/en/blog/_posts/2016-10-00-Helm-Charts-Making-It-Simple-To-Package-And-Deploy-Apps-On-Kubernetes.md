@@ -31,15 +31,15 @@ The following applications are now available:
 
 |Stable repository | Incubating repository |
 |---|---|
-|[Drupal](https://github.com/kubernetes/charts/tree/master/stable/drupal) | [Consul](https://github.com/kubernetes/charts/tree/master/incubator/consul) |
-|[Jenkins](https://github.com/kubernetes/charts/tree/master/stable/jenkins)|[Elasticsearch](https://github.com/kubernetes/charts/tree/master/incubator/elasticsearch) |
-| [MariaDB](https://github.com/kubernetes/charts/tree/master/stable/mariadb) | [etcd](https://github.com/kubernetes/charts/tree/master/incubator/etcd) |
-| [MySQL](https://github.com/kubernetes/charts/tree/master/stable/mysql) | [Grafana](https://github.com/helm/charts/tree/master/stable/grafana) |
-| [Redmine](https://github.com/kubernetes/charts/tree/master/stable/redmine)|[MongoDB](https://github.com/helm/charts/tree/master/stable/mongodb)|
-| [Wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress)|[Patroni](https://github.com/kubernetes/charts/tree/master/incubator/patroni) |
-||[Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus)|
-|  | [Spark](https://github.com/helm/charts/tree/master/stable/spark)|
-|    | [ZooKeeper](https://github.com/kubernetes/charts/tree/master/incubator/zookeeper) |
+|[Drupal](https://github.com/bitnami/charts/tree/master/bitnami/drupal) | [Consul](https://github.com/hashicorp/consul-k8s/tree/main/charts/consul) |
+|[Jenkins](https://github.com/bitnami/charts/tree/master/bitnami/jenkins)|[Elasticsearch](https://github.com/elastic/helm-charts/tree/master/elasticsearch) |
+| [MariaDB](https://github.com/bitnami/charts/tree/master/bitnami/mariadb) | [etcd](https://github.com/bitnami/charts/tree/master/bitnami/etcd) |
+| [MySQL](https://github.com/bitnami/charts/tree/master/bitnami/mysql) | [Grafana](https://github.com/bitnami/charts/tree/master/bitnami/grafana) |
+| [Redmine](https://github.com/bitnami/charts/tree/master/bitnami/redmine)|[MongoDB](https://github.com/bitnami/charts/tree/master/bitnami/mongodb)|
+| [Wordpress](https://github.com/bitnami/charts/tree/master/bitnami/wordpress)|~~[Patroni](https://github.com/kubernetes/charts/tree/master/incubator/patroni)~~ |
+||[Prometheus](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus)|
+|  | [Spark](https://github.com/bitnami/charts/tree/master/bitnami/spark)|
+|    | [ZooKeeper](https://github.com/bitnami/charts/tree/master/bitnami/zookeeper) |
 
 
 **Example workflow for a Chart developer**  
@@ -47,7 +47,7 @@ The following applications are now available:
 
 1. [Create a chart](https://github.com/kubernetes/helm/blob/master/docs/charts.md)
 2. Developer provides parameters via the [values.yaml](https://github.com/kubernetes/helm/blob/master/docs/charts.md#values-files) file allowing users to customize their deployment. This can be seen as the API between chart devs and chart users.
-3. A [README](https://github.com/kubernetes/charts/tree/master/stable/mariadb) is written to help describe the application and its parameterized values.
+3. A [README](https://github.com/bitnami/charts/tree/master/bitnami/mariadb#readme) is written to help describe the application and its parameterized values.
 4. Once the application installs properly and the values customize the deployment appropriately, the developer adds a [NOTES.txt](https://github.com/helm/helm/blob/dev-v2/docs/charts.md) file that is shown as soon as the user installs. This file generally points out the next steps for the user to connect to or use the application.
 5. If the application requires persistent storage, the developer adds a mechanism to store the data such that pod restarts do not lose data. Most charts requiring this today are using [dynamic volume provisioning](https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes) to abstract away underlying storage details from the user which allows a single configuration to work against Kubernetes installations.
 6. Submit a [Pull Request to the Kubernetes Charts repo](https://github.com/kubernetes/charts/pulls). Once tested and reviewed, the PR will be merged.
