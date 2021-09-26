@@ -67,12 +67,12 @@ For manual deployment or replacement of kube-dns, see the documentation at the
 <!--
 In Kubernetes version 1.10 and later, you can also move to CoreDNS when you use `kubeadm` to upgrade
 a cluster that is using `kube-dns`. In this case, `kubeadm` will generate the CoreDNS configuration
-("Corefile") based upon the `kube-dns` ConfigMap, preserving configurations for federation,
+("Corefile") based upon the `kube-dns` ConfigMap, preserving configurations for 
 stub domains, and upstream name server.
 -->
 在 Kubernetes 1.10 及更高版本中，当你使用 `kubeadm` 升级使用 `kube-dns` 的集群时，你还可以迁移到 CoreDNS。
 在本例中 `kubeadm` 将生成 CoreDNS 配置（"Corefile"）基于 `kube-dns` ConfigMap，
-保存联邦、存根域和上游名称服务器的配置。
+保存存根域和上游名称服务器的配置。
 
 <!--
 If you are moving from kube-dns to CoreDNS, make sure to set the `CoreDNS` feature gate to `true`
@@ -87,12 +87,9 @@ kubeadm upgrade apply v1.11.0 --feature-gates=CoreDNS=true
 
 <!--
 In Kubernetes version 1.13 and later the `CoreDNS` feature gate is removed and CoreDNS
-is used by default. Follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon) if you want
-your upgraded cluster to use kube-dns.
+is used by default. 
 -->
 在 Kubernetes 版本 1.13 和更高版本中，`CoreDNS`特性门已经删除，CoreDNS 在默认情况下使用。
-如果你想升级集群以使用 kube-dns，请遵循
-[此处](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon) 。
 
 <!--
 In versions prior to 1.11 the Corefile will be **overwritten** by the one created during upgrade.
@@ -110,41 +107,9 @@ your existing Corefile will be retained.
 如果你在 Kubernetes 1.11 及更高版本中运行 CoreDNS，则在升级期间，将保留现有的 Corefile。
 
 <!--
-## Installing kube-dns instead of CoreDNS with kubeadm
+In Kubernetes version 1.21, support for `kube-dns` is removed from kubeadm.
 -->
-## 使用 kubeadm 安装 kube-dns 而不是 CoreDNS
-
-<!--
-In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
-and is installed by default.
--->
-{{< note >}}
-在 Kubernetes 1.11 中，CoreDNS 已经升级到通用可用性（GA），并默认安装。
-{{< /note >}}
-
-<!--
-In Kubernetes 1.18, kube-dns usage with kubeadm has been deprecated and will be removed in a future version.
--->
-{{< warning >}}
-在 Kubernetes 1.18 中，用 kubeadm 来安装 kube-dns 这一做法已经被废弃，
-会在将来版本中移除。
-{{< /warning >}}
-
-<!--
-To install kube-dns on versions prior to 1.13, set the `CoreDNS` feature gate
-value to `false`:
--->
-若要在 1.13 之前版本上安装 kube-dns，请将 `CoreDNS` 特性门控设置为 `false`：
-
-```shell
-kubeadm init --feature-gates=CoreDNS=false
-```
-
-<!--
-For versions 1.13 and later, follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon).
--->
-对于 1.13 版和更高版本，请遵循
-[此处](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon)概述到指南。
+在 kubernetes 1.21 中，kubeadm 移除了对 `kube-dns` 的支持。
 
 <!--
 ## Upgrading CoreDNS 
