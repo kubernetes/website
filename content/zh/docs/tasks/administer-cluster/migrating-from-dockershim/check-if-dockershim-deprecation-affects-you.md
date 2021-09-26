@@ -99,14 +99,14 @@ Kubernetes 负责编排和调度 Pod；在每一个节点上，
 使用抽象的容器运行时接口，所以你可以任意选用兼容的容器运行时。
 
 <!-- 
-In its earliest releases, Kubernetes offered compatibility with just one container runtime: Docker.
+In its earliest releases, Kubernetes offered compatibility with one container runtime: Docker.
 Later in the Kubernetes project's history, cluster operators wanted to adopt additional container runtimes.
 The CRI was designed to allow this kind of flexibility - and the kubelet began supporting CRI. However,
 because Docker existed before the CRI specification was invented, the Kubernetes project created an
 adapter component, `dockershim`. The dockershim adapter allows the kubelet to interact with Docker as
 if Docker were a CRI compatible runtime.
  -->
-在早期版本中，Kubernetes 提供的兼容性只支持一个容器运行时：Docker。
+在早期版本中，Kubernetes 提供的兼容性支持一个容器运行时：Docker。
 在 Kubernetes 发展历史中，集群运营人员希望采用更多的容器运行时。
 于是 CRI 被设计出来满足这类灵活性需要 - 而 kubelet 亦开始支持 CRI。
 然而，因为 Docker 在 CRI 规范创建之前就已经存在，Kubernetes 就创建了一个适配器组件：`dockershim`。
@@ -144,7 +144,7 @@ or execute something inside container using `docker exec`.
 <!-- 
 If you're running workloads via Kubernetes, the best way to stop a container is through
 the Kubernetes API rather than directly through the container runtime (this advice applies
-for all container runtimes, not just Docker).
+for all container runtimes, not only Docker).
  -->
 {{< note >}}
 
