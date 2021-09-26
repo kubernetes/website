@@ -36,10 +36,10 @@ This tutorial shows you how to deploy a WordPress site and a MySQL database usin
 
 {{< warning >}}
 <!--
- This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) to deploy WordPress in production.
+ This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/bitnami/charts/tree/master/bitnami/wordpress) to deploy WordPress in production.
  -->
 
-deployment 在生产场景中并不适合，它使用单实例 WordPress 和 MySQL Pods。考虑使用 [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) 在生产场景中部署 WordPress。
+deployment 在生产场景中并不适合，它使用单实例 WordPress 和 MySQL Pods。考虑使用 [WordPress Helm Chart](https://github.com/bitnami/charts/tree/master/bitnami/wordpress) 在生产场景中部署 WordPress。
 {{< /warning >}}
 
 {{< note >}}
