@@ -262,8 +262,8 @@ The output is similar to this:
 Name:           build-robot-secret
 Namespace:      default
 Labels:         <none>
-Annotations:    kubernetes.io/service-account.name=build-robot
-                kubernetes.io/service-account.uid=da68f9c6-9d26-11e7-b84e-002dc52800da
+Annotations:    kubernetes.io/service-account.name: build-robot
+                kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da
 
 Type:   kubernetes.io/service-account-token
 
@@ -540,15 +540,18 @@ JSON Web Key Set（JWKS）。
 
 <!--
 Clusters include a default RBAC ClusterRole called
-`system:service-account-issuer-discovery`. No role bindings are provided
-by default. Administrators may, for example, choose whether to bind the role to
+`system:service-account-issuer-discovery`. A default RBAC ClusterRoleBinding
+assigns this role to the `system:serviceaccounts` group, which all service
+accounts implicitly belong to. This allows pods running on the cluster to access
+the service account discovery document via their mounted service account token.
+Administrators may, additionally, choose to bind the role to
 `system:authenticated` or `system:unauthenticated` depending on their security
 requirements and which external systems they intend to federate with.
 -->
-集群包括一个默认的 RBAC ClusterRole，
-名为 `system:service-account-issuer-discovery`。
-默认情况下不提供角色绑定对象。
-举例而言，管理员可以根据其安全性需要以及期望集成的外部系统选择是否将该角色绑定到
+集群包括一个的默认 RBAC ClusterRole, 名为 `system:service-account-issuer-discovery`。 
+默认的 RBAC ClusterRoleBinding 将此角色分配给 `system:serviceaccounts` 组，
+所有服务帐户隐式属于该组。这使得集群上运行的 Pod 能够通过它们所挂载的服务帐户令牌访问服务帐户发现文档。
+此外，管理员可以根据其安全性需要以及期望集成的外部系统选择是否将该角色绑定到
 `system:authenticated` 或 `system:unauthenticated`。
 
 <!--
@@ -596,11 +599,11 @@ JWKS URI is required to use the `https` scheme.
 See also:
 
 - [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
-- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
+- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
 - [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
 -->
 另请参见：
 
 - [服务账号的集群管理员指南](/zh/docs/reference/access-authn-authz/service-accounts-admin/)
-- [服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
+- [服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
 - [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)
