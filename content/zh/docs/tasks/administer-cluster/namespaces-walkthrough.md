@@ -345,9 +345,9 @@ Apply the manifest to create a Deployment
 应用清单文件来创建 Deployment。
 
 <!--
-We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
+We have created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that serves the hostname.
 -->
-我们刚刚创建了一个副本大小为 2 的 Deployment，该 Deployment 运行名为 `snowflake` 的 Pod，
+我们创建了一个副本大小为 2 的 Deployment，该 Deployment 运行名为 `snowflake` 的 Pod，
 其中包含一个仅提供主机名服务的基本容器。
 
 ```shell
