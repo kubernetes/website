@@ -994,8 +994,8 @@ annotations.
 `kubelet` 在每次定期同步时都会检查已挂载的 ConfigMap 是否是最新的。
 但是，它使用其本地的基于 TTL 的缓存来获取 ConfigMap 的当前值。
 因此，从更新 ConfigMap 到将新键映射到 Pod 的总延迟可能与
-kubelet 同步周期 + ConfigMap 在 kubelet 中缓存的 TTL 一样长。
-
+kubelet 同步周期（默认1分钟） + ConfigMap 在 kubelet 中缓存的 TTL（默认1分钟） 一样长。
+可以通过更新 Pod 的 Annotation 触发立即更新。
 <!--
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
 -->
