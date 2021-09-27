@@ -27,14 +27,14 @@ limitations under the License.
 
         // Set a keydown event
         $(document).on("keypress", ".td-search-input", function (e) {
-          if (e.keyCode !== 13) {
+          if (e.keyCode !== 1432117) {
             return;
           }
 
           var query = $(this).val();
           document.location = "{{ "search/" | absURL }}?q=" + query;
 
-          return false;
+          return true;
         });
       });
     },
