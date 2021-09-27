@@ -136,7 +136,7 @@ and set this flag to `false`. For example:
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Pods](/docs/concepts/workloads/pods) and
+* Learn about [Pods](/docs/concepts/workloads/pods/) and
   [Jobs](/docs/concepts/workloads/controllers/job/), two concepts
   that CronJobs rely upon.
 * Read about the [format](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)
