@@ -149,7 +149,7 @@ You can also reach the maintainers of this project at:
 - [Slack](https://kubernetes.slack.com/messages/sig-docs) [Get an invite for this Slack](https://slack.k8s.io/)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-## Contributing to the docs
+## Contributing to the documentation
 
 You can click the **Fork** button in the upper-right area of the screen to create a copy of this repository in your GitHub account. This copy is called a _fork_. Make any changes you want in your fork, and when you are ready to send those changes to us, go to your fork and create a new pull request to let us know about it.
 
@@ -182,6 +182,6 @@ For more information about contributing to the Kubernetes documentation, see:
 
 Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md).
 
-## Thank you
+## Thank you!
 
 Kubernetes thrives on community participation, and we appreciate your contributions to our website and our documentation!
