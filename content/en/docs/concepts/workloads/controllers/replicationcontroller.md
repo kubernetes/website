@@ -284,6 +284,11 @@ machine-level function, such as machine monitoring or machine logging.  These po
 to a machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
-## For more information
+## {{% heading "whatsnext" %}}
 
-Read [Run Stateless Application Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Learn about [Deployment](/docs/concepts/workloads/controllers/deployment/), the replacement
+  for ReplicationController.
+* `ReplicationController` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  object definition to understand the API for replication controllers.
