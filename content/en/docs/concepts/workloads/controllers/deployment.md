@@ -75,11 +75,6 @@ Follow the steps given below to create the above Deployment:
    kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
    ```
 
-  {{< note >}}
-  You can specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`.
-  The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision.
-  {{< /note >}}
-
 
 2. Run `kubectl get deployments` to check if the Deployment was created.
 
@@ -169,13 +164,13 @@ Follow the steps given below to update your Deployment:
 1. Let's update the nginx Pods to use the `nginx:1.16.1` image instead of the `nginx:1.14.2` image.
 
     ```shell
-    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    kubectl deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
     or use the following command:
 
     ```shell
-    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
     ```
   
     The output is similar to:
@@ -370,7 +365,7 @@ rolled back.
 * Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.161` instead of `nginx:1.16.1`:
 
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 
     ```
 
     The output is similar to this:
@@ -485,15 +480,14 @@ Follow the steps given below to check the rollout history:
     ```
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
-    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
-    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
+    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161
     ```
 
     `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You can specify the`CHANGE-CAUSE` message by:
 
     * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
-    * Append the `--record` flag to save the `kubectl` command that is making changes to the resource.
     * Manually editing the manifest of the resource.
 
 2. To see the details of each revision, run:
@@ -506,7 +500,7 @@ Follow the steps given below to check the rollout history:
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
               pod-template-hash=1159050644
-      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
       Containers:
        nginx:
         Image:      nginx:1.16.1
@@ -567,7 +561,7 @@ Follow the steps given below to rollback the Deployment from the current version
     CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
     Labels:                 app=nginx
     Annotations:            deployment.kubernetes.io/revision=4
-                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     Selector:               app=nginx
     Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
     StrategyType:           RollingUpdate
