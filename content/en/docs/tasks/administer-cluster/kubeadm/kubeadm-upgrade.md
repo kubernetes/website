@@ -88,6 +88,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
     yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
+<br />
 
 -  Verify that the download works and has the expected version:
 
@@ -166,11 +167,10 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 
 ### Upgrade kubelet and kubectl
 
--  Upgrade the kubelet and kubectl
+-  Upgrade the kubelet and kubectl:
 
 {{< tabs name="k8s_install_kubelet" >}}
-{{< tab name="Ubuntu, Debian or HypriotOS" >}}
-    <pre>
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
@@ -179,15 +179,13 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
     # since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00
-    </pre>
-{{< /tab >}}
-{{< tab name="CentOS, RHEL or Fedora" >}}
-    <pre>
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
     yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-    </pre>
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
+<br />
 
 -  Restart the kubelet:
 
@@ -268,6 +266,7 @@ without compromising the minimum required capacity for running your workloads.
     yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
+<br />
 
 -  Restart the kubelet:
 
