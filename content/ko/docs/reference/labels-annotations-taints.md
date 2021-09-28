@@ -200,7 +200,7 @@ kubelet이 Microsoft 윈도우에서 실행되고 있다면, 사용 중인 Windo
 
 kube-proxy 에는 커스텀 프록시를 위한 이와 같은 레이블이 있으며, 이 레이블은 서비스 컨트롤을 커스텀 프록시에 위임한다.
 
-## experimental.windows.kubernetes.io/isolation-type
+## experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
 
 예시: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
@@ -210,6 +210,7 @@ Hyper-V 격리(isolation)를 사용하여 윈도우 컨테이너를 실행하려
 
 {{< note >}}
 이 어노테이션은 하나의 컨테이너로 구성된 파드에만 설정할 수 있다.
+v1.20부터는 이 어노테이션은 더이상 사용되지 않는다. 실험적인 Hyper-V 지원이 1.21버전에서 제거되었다.
 {{< /note >}}
 
 ## ingressclass.kubernetes.io/is-default-class
@@ -262,11 +263,29 @@ kube-controller-manager의 잡(Job) 컨트롤러는
 
 ## endpoints.kubernetes.io/over-capacity
 
-예시: `endpoints.kubernetes.io/over-capacity:warning`
+예시: `endpoints.kubernetes.io/over-capacity:truncated`
 
 적용 대상: 엔드포인트(Endpoints)
 
-v1.21 이상의 쿠버네티스 클러스터에서, 엔드포인트(Endpoints) 컨트롤러가 1000개 이상의 엔드포인트를 관리하고 있다면 각 엔드포인트 리소스에 이 어노테이션을 추가한다. 이 어노테이션은 엔드포인트 리소스가 용량 초과 되었음을 나타낸다.
+v1.22 이상의 쿠버네티스 클러스터에서, 엔드포인트(Endpoints) 컨트롤러가 1000개 이상의 엔드포인트를 관리하고 있다면 각 엔드포인트 리소스에 이 어노테이션을 추가한다. 이 어노테이션은 엔드포인트 리소스가 용량 초과 되었음을 나타낸다.
+
+## batch.kubernetes.io/job-tracking
+
+예시: `batch.kubernetes.io/job-tracking: ""`
+
+적용 대상: 잡
+
+잡에 어노테이션이 있으면 컨트롤 플레인은 [finalizers를 사용하여 잡 상태 추적](/ko/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers) 
+중임을 나타낸다.
+어노테이션을 수동으로 추가하거나 제거하지 **않는다**.
+
+## scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
+
+적용 대상: 노드
+
+이 어노테이션을 사용할려면 [NodePreferAvoidPods 스케줄링 플러그인](/ko/docs/reference/scheduling/config/#scheduling-plugins)이 활성화되어 있어야 한다.
+플러그인은 쿠버네티스 1.22 이후로 더 이상 사용하지 않는다.
+대신 [테인트와 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)을 사용한다.
 
 **이 이후로 나오는 테인트는 모두 '적용 대상: 노드' 이다.**
 
@@ -323,3 +342,87 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 예시: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
 노드의 상태가 클라우드 공급자가 정의한 'shutdown' 상태이면, 이에 따라 노드에 `node.cloudprovider.kubernetes.io/shutdown` 테인트가 `NoSchedule` 값으로 설정된다.
+
+## pod-security.kubernetes.io/enforce
+
+예시: `pod-security.kubernetes.io/enforce: baseline`
+
+적용 대상: 네임스페이스
+
+값은 **반드시** [파드 보안 표준](/docs/concepts/security/pod-security-standards) 레벨과 상응하는 
+`privileged`, `baseline`, 또는 `restricted` 중 하나여야 한다. Specifically,
+특히 `enforce` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는 
+레이블 네임스페이스에 모든 파드의 생성을 금지한다.
+
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+참고한다.
+
+## pod-security.kubernetes.io/enforce-version
+
+예시: `pod-security.kubernetes.io/enforce-version: {{< skew latestVersion >}}`
+
+적용 대상: 네임스페이스
+
+값은 **반드시** `latest`이거나 `v<MAJOR>.<MINOR>` 형식의 유효한 쿠버네티스 버전이어야 한다.
+설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/docs/concepts/security/pod-security-standards) 
+정책의 버전이 결정된다.
+
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+참고한다.
+
+## pod-security.kubernetes.io/audit
+
+예시: `pod-security.kubernetes.io/audit: baseline`
+
+적용 대상: 네임스페이스
+
+값은 **반드시** [파드 보안 표준](/docs/concepts/security/pod-security-standards) 레벨과 상응하는 
+`privileged`, `baseline`, 또는 `restricted` 중 하나여야 한다.
+특히 `audit` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는 레이블 네임스페이스에 파드를 생성하는 것을 
+방지하지 않지만, 해당 파드에 audit 어노테이션을 추가한다.
+
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+참고한다.
+
+## pod-security.kubernetes.io/audit-version
+
+예시: `pod-security.kubernetes.io/audit-version: {{< skew latestVersion >}}`
+
+적용 대상: 네임스페이스
+
+값은 **반드시** `latest`이거나 `v<MAJOR>.<MINOR>` 형식의 유효한 쿠버네티스 버전이어야 한다.
+설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/docs/concepts/security/pod-security-standards) 
+정책의 버전이 결정된다.
+
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+참고한다.
+
+## pod-security.kubernetes.io/warn
+
+예시: `pod-security.kubernetes.io/warn: baseline`
+
+적용 대상: 네임스페이스
+
+값은 **반드시** [파드 보안 표준](/docs/concepts/security/pod-security-standards) 레벨과 상응하는 
+`privileged`, `baseline`, 또는 `restricted` 중 하나여야 한다.
+특히 `warn` 레이블은 표시된 레벨에 명시된 요구 사항을 충족하지 않는 레이블 네임스페이스에 파드를 생성하는 것을 
+방지하지 않지만, 그렇게 한 후 사용자에게 경고를 반환한다.
+디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는 
+객체를 만들거나 업데이트 할 때도 경고가 표시된다.
+
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+참고한다.
+
+## pod-security.kubernetes.io/warn-version
+
+예시: `pod-security.kubernetes.io/warn-version: {{< skew latestVersion >}}`
+
+적용 대상: 네임스페이스
+
+값은 **반드시** `latest`이거나 `v<MAJOR>.<MINOR>` 형식의 유효한 쿠버네티스 버전이어야 한다.
+설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/docs/concepts/security/pod-security-standards) 
+정책의 버전이 결정된다. 디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는 
+객체를 만들거나 업데이트 할 때도 경고가 표시된다.
+
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+참고한다.
