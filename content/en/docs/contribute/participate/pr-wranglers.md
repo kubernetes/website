@@ -26,6 +26,7 @@ Each day in a week-long shift as PR Wrangler:
     - If you need to verify content, comment on the PR and request more details.
     - Assign relevant `sig/` label(s).
     - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
+    - You can also tag a SIG for a review by commenting `@kubernetes/<sig>-pr-reviews` on the PR.
 - Use the `/approve` comment to approve a PR for merging. Merge the PR when ready.
     - PRs should have a `/lgtm` comment from another member before merging.
     - Consider accepting technically accurate content that doesn't meet the [style guidelines](/docs/contribute/style/style-guide/). Open a new issue with the label `good first issue` to address style concerns.
