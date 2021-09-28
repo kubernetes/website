@@ -187,14 +187,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 ### 완료 모드
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-{{< note >}}
-인덱싱된 잡을 생성하려면, [API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)
-및 [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)에서
-`IndexedJob` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-활성화해야 한다.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 완료 횟수가 _고정적인 완료 횟수_ 즉, null이 아닌 `.spec.completions` 가 있는 잡은
 `.spec.completionMode` 에 지정된 완료 모드를 가질 수 있다.
@@ -203,8 +196,14 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
   완료된 파드가 있는 경우 작업이 완료된 것으로 간주된다. 즉, 각 파드
   완료는 서로 상동하다(homologous). null `.spec.completions` 가 있는
   잡은 암시적으로 `NonIndexed` 이다.
-- `Indexed`: 잡의 파드는 `batch.kubernetes.io/job-completion-index`
-  어노테이션에서 사용할 수 있는 0에서 `.spec.completions-1` 까지 연결된 완료 인덱스를 가져온다.
+- `Indexed`: 잡의 파드는 연결된 완료 인덱스를 0에서 `.spec.completions-1` 까지 
+  가져온다. 이 인덱스는 다음의 세 가지 메카니즘으로 얻을 수 있다.
+  - 파드 어노테이션 `batch.kubernetes.io/job-completion-index`.
+  - 파드 호스트네임 중 일부(`$(job-name)-$(index)` 형태). 인덱스된(Indexed) 잡과 
+    {{< glossary_tooltip text="서비스" term_id="Service" >}}를 결합하여 사용하고 
+    있다면, 잡에 속한 파드는 DNS를 이용하여 서로를 디스커버 하기 위해 사전에 결정된 
+    호스트네임을 사용할 수 있다.
+  - 컨테이너화된 태스크의 경우, `JOB_COMPLETION_INDEX` 환경 변수.
   각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
   간주된다. 이 모드를 사용하는 방법에 대한 자세한 내용은
   [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
@@ -255,7 +254,8 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 ## 잡의 종료와 정리
 
-잡이 완료되면 파드가 더 이상 생성되지도 않지만, 삭제되지도 않는다.  이를 유지하면
+잡이 완료되면 파드가 더 이상 생성되지도 않지만, [일반적으로는](#pod-backoff-failure-policy) 삭제되지도 않는다.  
+이를 유지하면
 완료된 파드의 로그를 계속 보며 에러, 경고 또는 다른 기타 진단 출력을 확인할 수 있다.
 잡 오브젝트는 완료된 후에도 상태를 볼 수 있도록 남아 있다. 상태를 확인한 후 이전 잡을 삭제하는 것은 사용자의 몫이다.
 `kubectl` 로 잡을 삭제할 수 있다 (예: `kubectl delete jobs/pi` 또는 `kubectl delete -f ./job.yaml`). `kubectl` 을 사용해서 잡을 삭제하면 생성된 모든 파드도 함께 삭제된다.
@@ -402,14 +402,12 @@ spec:
 
 ### 잡 일시 중지
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 {{< note >}}
-잡 일시 중지는 쿠버네티스 버전 1.21 이상에서 사용할 수 있다. 이 기능을
-사용하려면 [API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)
-및 [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)에서
-`SuspendJob` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-활성화해야 한다.
+이 기능은 쿠버네티스 버전 1.21에서는 알파 상태였으며, 
+이 때문에 이 기능을 활성화하기 위해서는 추가적인 단계를 진행해야 한다. 
+[현재 사용 중인 쿠버네티스 버전과 맞는 문서](/ko/docs/home/supported-doc-versions/)를 읽고 있는 것이 맞는지 다시 한번 확인한다.
 {{< /note >}}
 
 잡이 생성되면, 잡 컨트롤러는 잡의 요구 사항을 충족하기 위해
@@ -567,6 +565,46 @@ spec:
 새 잡 자체는 `a8f3d00d-c6d2-11e5-9f87-42010af00002` 와 다른 uid 를 가지게 될 것이다.
 `manualSelector: true` 를 설정하면 시스템에게 사용자가 무엇을 하는지 알고 있음을 알리고, 이런
 불일치를 허용한다.
+
+### 종료자(finalizers)를 이용한 잡 추적
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+{{< note >}}
+이 기능을 이용하기 위해서는 
+[API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)와 
+[컨트롤러 매니저](/docs/reference/command-line-tools-reference/kube-controller-manager/)에 대해 
+`JobTrackingWithFinalizers` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 
+기본적으로는 비활성화되어 있다.
+
+이 기능이 활성화되면, 컨트롤 플레인은 아래에 설명할 동작을 이용하여 새로운 잡이 생성되는지 추적한다. 
+기존에 존재하던 잡은 영향을 받지 않는다. 
+사용자가 느낄 수 있는 유일한 차이점은 컨트롤 플레인이 잡 종료를 좀 더 정확하게 추적할 수 있다는 것이다.
+{{< /note >}}
+
+이 기능이 활성화되지 않으면, 잡 
+{{< glossary_tooltip text="컨트롤러" term_id="controller" >}}는 
+`succeeded`와 `failed` 파드의 수를 세어 잡 상태를 추적한다. 
+그런데, 파드는 다음과 같은 이유로 제거될 수 있다.
+- 노드가 다운되었을 때 가비지 콜렉터가 버려진(orphan) 파드를 제거
+- 가비지 콜렉터가 (`Succeeded` 또는 `Failed` 단계에 있는) 완료된 파드를 
+  일정 임계값 이후에 제거
+- 잡에 속한 파드를 사용자가 임의로 제거
+- (쿠버네티스에 속하지 않는) 외부 컨트롤러가 파드를 제거하거나 
+  교체
+
+클러스터에서 `JobTrackingWithFinalizers` 기능을 활성화하면, 
+컨트롤 플레인은 잡에 속하는 파드의 상태를 추적하고 
+API 서버에서 파드가 제거되면 이를 알아챈다. 
+이를 위해, 잡 컨트롤러는 `batch.kubernetes.io/job-tracking` 종료자를 갖는 파드를 생성한다. 
+컨트롤러는 파드의 상태 변화가 잡 상태에 반영된 후에만 종료자를 제거하므로, 
+이후 다른 컨트롤러나 사용자가 파드를 제거할 수 있다.
+
+잡 컨트롤러는 새로운 잡에 대해서만 새로운 알고리즘을 적용한다. 
+이 기능이 활성화되기 전에 생성된 잡은 영향을 받지 않는다. 
+잡에 `batch.kubernetes.io/job-tracking` 어노테이션이 있는지 확인하여, 
+잡 컨트롤러가 파드 종료자를 이용하여 잡을 추적하고 있는지 여부를 확인할 수 있다. 
+이 어노테이션을 잡에 수동으로 추가하거나 제거해서는 **안 된다**.
 
 ## 대안
 
