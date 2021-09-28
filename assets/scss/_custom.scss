@@ -635,6 +635,13 @@ body.td-documentation {
   }
 }
 
+// Match Docsy-imposed max width on text body
+@media (min-width: 1200px) {
+  body.td-blog main .td-content > figure {
+    max-width: 80%;
+  }
+}
+
 .td-content {
   table code {
     background-color: inherit !important;
