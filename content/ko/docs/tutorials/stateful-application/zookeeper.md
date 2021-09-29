@@ -929,7 +929,7 @@ kubernetes-node-i4c4
 [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain)를 이용하자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 ```
@@ -964,7 +964,7 @@ zk-0      1/1       Running   0         1m
 `zk-1` 이 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data "kubernetes-node-ixsl" cordoned
 ```
 
 ```
@@ -1007,7 +1007,7 @@ zk-1      0/1       Pending   0         0s
 `zk-2`가 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 ```
@@ -1094,7 +1094,7 @@ zk-1      1/1       Running   0         13m
 `zk-2`가 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 출력은
