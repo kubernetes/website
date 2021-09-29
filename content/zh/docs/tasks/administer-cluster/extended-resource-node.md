@@ -67,13 +67,13 @@ Host: k8s-master:8080
 
 <!--
 Note that Kubernetes does not need to know what a dongle is or what a dongle is for.
-The preceding PATCH request just tells Kubernetes that your Node has four things that
+The preceding PATCH request tells Kubernetes that your Node has four things that
 you call dongles.
 
 Start a proxy, so that you can easily send requests to the Kubernetes API server:
 -->
 注意：Kubernetes 不需要了解 dongle 资源的含义和用途。
-前面的 PATCH 请求仅仅告诉 Kubernetes 你的节点拥有四个你称之为 dongle 的东西。
+前面的 PATCH 请求告诉 Kubernetes 你的节点拥有四个你称之为 dongle 的东西。
 
 启动一个代理（proxy），以便你可以很容易地向 Kubernetes API server 发送请求：
 
