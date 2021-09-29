@@ -11,6 +11,8 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
+{{< include "task-tutorial-prereqs.md" >}}
+
 <!-- steps -->
 
 ## 데몬셋 업데이트 전략
@@ -33,9 +35,11 @@ weight: 10
 `.spec.updateStrategy.type` 에 `RollingUpdate` 를 설정해야 한다.
 
 [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/ko/docs/concepts/workloads/controllers/deployment/#최대-불가max-unavailable)
-(기본값은 1)과
+(기본값은 1),
 [`.spec.minReadySeconds`](/ko/docs/concepts/workloads/controllers/deployment/#최소-대기-시간초)
-(기본값은 0)으로 
+(기본값은 0),
+[`.spec.maxSurge`](/ko/docs/concepts/workloads/controllers/deployment/#최대-서지-max-surge)
+(베타 기능, 기본값은 25%)를 
 설정할 수도 있다.
 
 ### `RollingUpdate` 업데이트 전략으로 데몬셋 생성

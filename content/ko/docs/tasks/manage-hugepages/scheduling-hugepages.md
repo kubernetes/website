@@ -113,9 +113,3 @@ spec:
 - 네임스페이스에서의 huge page 사용은 `hugepages-<size>` 토큰을 사용하는 `cpu` 또는 `memory` 와 같은
   다른 컴퓨트 리소스와 비슷한 리소스쿼터(ResourceQuota)를 통해 제어할 수
   있다.
-- 다양한 크기의 huge page 지원이 기능 게이트로 제공된다.
-  {{<glossary_tooltip text="kubelet" term_id="kubelet" >}} 및
-  {{<glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}
-  (`--feature-gates=HugePageStorageMediumSize=true`)의 `HugePageStorageMediumSize`
-  [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-  사용하여 비활성화할 수 있다.
