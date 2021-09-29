@@ -320,7 +320,7 @@ parallelism, for a variety of reasons:
 -->
 ### 完成模式   {#completion-mode}
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 {{< note >}}
 <!--
@@ -350,7 +350,13 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   completion is homologous to each other. Note that Jobs that have null
   `.spec.completions` are implicitly `NonIndexed`.
 - `Indexed`: the Pods of a Job get an associated completion index from 0 to
-  `.spec.completions-1`, available in the annotation `batch.kubernetes.io/job-completion-index`.
+  `.spec.completions-1`. The index is available through three mechanisms:
+  - The Pod annotation `batch.kubernetes.io/job-completion-index`.
+  - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
+    When you use an Indexed Job in combination with a
+    {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
+    the deterministic hostnames to address each other via DNS.
+  - From the containarized task, in the environment variable `JOB_COMPLETION_INDEX`.
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
@@ -360,13 +366,14 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
 - `NonIndexed` （默认值）：当成功完成的 Pod 个数达到 `.spec.completions` 所
   设值时认为 Job 已经完成。换言之，每个 Job 完成事件都是独立无关且同质的。
   要注意的是，当 `.spec.completions` 取值为 null 时，Job 被隐式处理为 `NonIndexed`。
-- `Indexed`：Job 的 Pod 会获得对应的完成索引，取值为 0 到 `.spec.completions-1`，
-  存放在注解 `batch.kubernetes.io/job-completion-index` 中。
-  当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
-  关于如何使用这种模式的更多信息，可参阅
-  [用带索引的 Job 执行基于静态任务分配的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)。
-  需要注意的是，对同一索引值可能被启动的 Pod 不止一个，尽管这种情况很少发生。
-  这时，只有一个会被记入完成计数中。
+- `Indexed`：Job 的 Pod 会获得对应的完成索引，取值为 0 到 `.spec.completions-1`。该索引可通过三种机制获得：
+  - Pod注解 `batch.kubernetes.io/job-completion-index`.
+  - 作为Pod主机名的一部分, 遵循模式 `$(job-name)-$(index)`.
+    当你将Indexed Job和{{< glossary_tooltip term_id="Service" >}}一同使用时, 
+    Job中的 Pods 可以使用确定性主机名通过 DNS 相互寻址。
+  - 从容器化任务的环境变量`JOB_COMPLETION_INDEX`。当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
+    使用这种模式的更多信息，可参阅[用带索引的 Job 执行基于静态任务分配的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)。
+    需要注意的是，对同一索引值可能被启动的 Pod 不止一个，尽管这种情况很少发生。这时，只有一个会被记入完成计数中。
 
 <!--
 ## Handling Pod and container failures
