@@ -76,7 +76,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Host Namespaces</td>
 			<td>
-				<p>Sharing the host namespaces must be disallowed.</p>
+				<p>Sharing the host namespaces must be disallowed. This is a Linux specific field and should not be used for Windows Pods.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.hostNetwork</code></li>
@@ -93,7 +93,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Privileged Containers</td>
 			<td>
-				<p>Privileged Pods disable most security mechanisms and must be disallowed.</p>
+				<p>Privileged Pods disable most security mechanisms and must be disallowed. This is a Linux specific field and should not be used for Windows Pods.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.privileged</code></li>
@@ -110,7 +110,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Capabilities</td>
 			<td>
-				<p>Adding additional capabilities beyond those listed below must be disallowed.</p>
+				<p>Adding additional capabilities beyond those listed below must be disallowed. This is a Linux specific field and should not be used for Windows Pods.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.capabilities.add</code></li>
@@ -171,7 +171,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">AppArmor</td>
 			<td>
-				<p>On supported hosts, the <code>runtime/default</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.</p>
+				<p>On supported hosts, the <code>runtime/default</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles. This is a Linux specific field and should not be used for Windows Pods.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>metadata.annotations["container.apparmor.security.beta.kubernetes.io/*"]</code></li>
@@ -187,7 +187,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">SELinux</td>
 			<td>
-				<p>Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.</p>
+				<p>Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden. This is a Linux specific field and should not be used for Windows Pods.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seLinuxOptions.type</code></li>
@@ -223,7 +223,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><code>/proc</code> Mount Type</td>
 			<td>
-				<p>The default <code>/proc</code> masks are set up to reduce attack surface, and should be required.</p>
+				<p>The default <code>/proc</code> masks are set up to reduce attack surface, and should be required. This is a Linux specific field and should not be used for Windows Pods.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.procMount</code></li>
@@ -240,7 +240,7 @@ fail validation.
 		<tr>
   			<td>Seccomp</td>
   			<td>
-  				<p>Seccomp profile must not be explicitly set to <code>Unconfined</code>.</p>
+  				<p>Seccomp profile must not be explicitly set to <code>Unconfined</code>. This is a Linux specific field and should not be used for Windows Pods.</p>
   				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -259,7 +259,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Sysctls</td>
 			<td>
-				<p>Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.</p>
+				<p>Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node. This is a Linux specific field and should not be used for Windows Pods. </p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.sysctls[*].name</code></li>
@@ -339,7 +339,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Privilege Escalation (v1.8+)</td>
 			<td>
-				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed.</p>
+				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. This is a Linux specific field and should not be used for Windows Pods.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
@@ -355,7 +355,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Running as Non-root</td>
 			<td>
-				<p>Containers must be required to run as non-root users.</p>
+				<p>Containers must be required to run as non-root users. This is a Linux specific field and should not be used for Windows Pods.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.runAsNonRoot</code></li>
@@ -374,7 +374,7 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
-			<td style="white-space: nowrap">Non-root groups <em>(optional)</em></td>
+			<td style="white-space: nowrap">Non-root groups <em>(optional)</em>. This is a Linux specific field and should not be used for Windows Pods.</td>
 			<td>
 				<p>Containers should be forbidden from running with a root primary or supplementary GID.</p>
 				<p><strong>Restricted Fields</strong></p>
@@ -396,7 +396,7 @@ fail validation.
 		<tr>
   			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
   			<td>
-  				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited.</p>
+  				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. This is a Linux specific field and should not be used for Windows Pods.</p>
   				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -422,7 +422,7 @@ fail validation.
 			<td>
 				<p>
 					Containers must drop <code>ALL</code> capabilities, and are only permitted to add back
-					the <code>NET_BIND_SERVICE</code> capability.
+					the <code>NET_BIND_SERVICE</code> capability. This is a Linux specific field and should not be used for Windows Pods.
 				</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
