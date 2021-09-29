@@ -1,9 +1,4 @@
 ---
-reviewers:
-- jayunit100
-- jsturtevant
-- marosset
-- perithompson
 title: कुबेरनेट्स में Windows कंटेनरों को शेड्यूल करने के लिए गाइड
 content_type: concept
 weight: 75
