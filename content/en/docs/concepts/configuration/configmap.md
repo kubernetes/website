@@ -61,6 +61,11 @@ You can write a Pod `spec` that refers to a ConfigMap and configures the contain
 in that Pod based on the data in the ConfigMap. The Pod and the ConfigMap must be in
 the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 
+{{< note >}}
+The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a ConfigMap
+or any other API objects.
+{{< /note >}}
+
 Here's an example ConfigMap that has some keys with single values,
 and other keys where the value looks like a fragment of a configuration
 format.
@@ -224,7 +229,7 @@ When a ConfigMap currently consumed in a volume is updated, projected keys are e
 The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the ConfigMap.
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
-the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/)).
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
 As a result, the total delay from the moment when the ConfigMap is updated to the moment
@@ -236,9 +241,9 @@ ConfigMaps consumed as environment variables are not updated automatically and r
 
 ## Immutable ConfigMaps {#configmap-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use ConfigMaps
 (at least tens of thousands of unique ConfigMap to Pod mounts), preventing changes to their
 data has the following advantages:

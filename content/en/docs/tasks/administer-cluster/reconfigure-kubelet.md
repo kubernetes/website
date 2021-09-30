@@ -8,7 +8,14 @@ min-kubernetes-server-version: v1.11
 ---
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
+
+{{< caution >}}
+[Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
+feature is deprecated and should not be used.
+Please switch to alternative means distributing configuration to the Nodes of your cluster.
+{{< /caution >}}
+
 
 [Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
 allows you to change the configuration of each

@@ -25,7 +25,7 @@ This page provides an outline of the container image concept.
 
 Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
-and possible a port number as well; for example: `fictional.registry.example:10443/imagename`.
+and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
@@ -39,14 +39,6 @@ There are additional rules about where you can place the separator
 characters (`_`, `-`, and `.`) inside an image tag.  
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 
-{{< caution >}}
-You should avoid using the `latest` tag when deploying containers in production,
-as it is harder to track which version of the image is running and more difficult
-to roll back to a working version.
-
-Instead, specify a meaningful tag such as `v1.42.0`.
-{{< /caution >}}
-
 ## Updating images
 
 When you first create a {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
@@ -57,13 +49,68 @@ specified. This policy causes the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip pulling an
 image if it already exists.
 
-If you would like to always force a pull, you can do one of the following:
+### Image pull policy
 
-- set the `imagePullPolicy` of the container to `Always`.
-- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
-  Kubernetes will set the policy to `Always`.
-- omit the `imagePullPolicy` and the tag for the image to use.
-- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+The `imagePullPolicy` for a container and the tag of the image affect when the
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull (download) the specified image.
+
+Here's a list of the values you can set for `imagePullPolicy` and the effects
+these values have:
+
+`IfNotPresent`
+: the image is pulled only if it is not already present locally.
+
+`Always`
+: every time the kubelet launches a container, the kubelet queries the container
+  image registry to resolve the name to an image
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier). If the kubelet has a
+  container image with that exact digest cached locally, the kubelet uses its cached
+  image; otherwise, the kubelet pulls the image with the resolved digest,
+  and uses that image to launch the container.
+
+`Never`
+: the kubelet does not try fetching the image. If the image is somehow already present
+  locally, the kubelet attempts to start the container; otherwise, startup fails.
+  See [pre-pulled images](#pre-pulled-images) for more details.
+
+The caching semantics of the underlying image provider make even
+`imagePullPolicy: Always` efficient, as long as the registry is reliably accessible.
+Your container runtime can notice that the image layers already exist on the node
+so that they don't need to be downloaded again.
+
+{{< note >}}
+You should avoid using the `:latest` tag when deploying containers in production as
+it is harder to track which version of the image is running and more difficult to
+roll back properly.
+
+Instead, specify a meaningful tag such as `v1.42.0`.
+{{< /note >}}
+
+To make sure the Pod always uses the same version of a container image, you can specify
+the image's digest;
+replace `<image-name>:<tag>` with `<image-name>@<digest>`
+(for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
+
+When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
+
+There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
+that mutate Pods (and pod templates) when they are created, so that the
+running workload is defined based on an image digest rather than a tag.
+That might be useful if you want to make sure that all your workload is
+running the same code no matter what tag changes happen at the registry.
+
+#### Default image pull policy {#imagepullpolicy-defaulting}
+
+When you (or a controller) submit a new Pod to the API server, your cluster sets the
+`imagePullPolicy` field when specific conditions are met:
+
+- if you omit the `imagePullPolicy` field, and the tag for the container image is
+  `:latest`, `imagePullPolicy` is automatically set to `Always`;
+- if you omit the `imagePullPolicy` field, and you don't specify the tag for the
+  container image, `imagePullPolicy` is automatically set to `Always`;
+- if you omit the `imagePullPolicy` field, and you specify the tag for the
+  container image that isn't `:latest`, the `imagePullPolicy` is automatically set to
+  `IfNotPresent`.
 
 {{< note >}}
 The value of `imagePullPolicy` of the container is always set when the object is
@@ -75,7 +122,31 @@ For example, if you create a Deployment with an image whose tag is _not_
 the pull policy of any object after its initial creation.
 {{< /note >}}
 
-When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
+#### Required image pull
+
+If you would like to always force a pull, you can do one of the following:
+
+- Set the `imagePullPolicy` of the container to `Always`.
+- Omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
+  Kubernetes will set the policy to `Always` when you submit the Pod.
+- Omit the `imagePullPolicy` and the tag for the image to use;
+  Kubernetes will set the policy to `Always` when you submit the Pod.
+- Enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+
+
+### ImagePullBackOff
+
+When a kubelet starts creating containers for a Pod using a container runtime,
+it might be possible the container is in [Waiting](/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)
+state because of `ImagePullBackOff`.
+
+The status `ImagePullBackOff` means that a container could not start because Kubernetes
+could not pull a container image (for reasons such as invalid image name, or pulling
+from a private registry without `imagePullSecret`). The `BackOff` part indicates
+that Kubernetes will keep trying to pull the image, with an increasing back-off delay.
+
+Kubernetes raises the delay between each attempt until it reaches a compiled-in limit,
+which is 300 seconds (5 minutes).
 
 ## Multi-architecture images with image indexes
 
@@ -314,6 +385,8 @@ common use cases and suggested solutions.
 If you need access to multiple registries, you can create one secret for each registry.
 Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
 
+
 ## {{% heading "whatsnext" %}}
 
-* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
+* Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).

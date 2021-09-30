@@ -43,9 +43,9 @@ kubectl apply -k <kustomization_directory>
 ## {{% heading "prerequisites" %}}
 
 <!--
-Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
+Install [`kubectl`](/docs/tasks/tools/).
 -->
-安装 [`kubectl`](/zh/docs/tasks/tools/install-kubectl/).
+安装 [`kubectl`](/zh/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -133,6 +133,57 @@ metadata:
 ```
 
 <!--
+To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a `.env` file:
+-->
+要从 env 文件生成 ConfigMap，请在 `configMapGenerator` 中的 `envs` 列表中添加一个条目。
+下面是一个用来自 `.env` 文件的数据生成 ConfigMap 的例子：
+
+```shell
+# 创建一个 .env 文件
+cat <<EOF >.env
+FOO=Bar
+EOF
+
+cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: example-configmap-1
+  envs:
+  - .env
+EOF
+```
+
+<!--
+The generated ConfigMap can be examined with the following command:
+-->
+可以使用以下命令检查生成的 ConfigMap：
+
+```shell
+kubectl kustomize ./
+```
+
+<!--
+The generated ConfigMap is:
+-->
+生成的 ConfigMap 为：
+
+```yaml
+apiVersion: v1
+data:
+  FOO=Bar
+kind: ConfigMap
+metadata:
+  name: example-configmap-1-8mbdf7882g
+```
+
+<!--
+Each variable in the `.env` file becomes a separate key in the ConfigMap that you generate. This is different from the previous example which embeds a file named `.properties` (and all its entries) as the value for a single key.
+-->
+{{< note >}}
+`.env` 文件中的每个变量在生成的 ConfigMap 中成为一个单独的键。
+这与之前的示例不同，前一个示例将一个名为 `.properties` 的文件（及其所有条目）嵌入到同一个键的值中。
+{{< /note >}}
+
+<!--
 ConfigMaps can also be generated from literal key-value pairs. To generate a ConfigMap from a literal key-value pair, add an entry to the `literals` list in configMapGenerator. Here is an example of generating a ConfigMap with a data item from a key-value pair:
 -->
 ConfigMap 也可基于字面的键值偶对来生成。要基于键值偶对来生成 ConfigMap，
@@ -169,6 +220,110 @@ data:
 kind: ConfigMap
 metadata:
   name: example-configmap-2-g2hdhfc6tk
+```
+
+<!--
+To use a generated ConfigMap in a Deployment, reference it by the name of the configMapGenerator. Kustomize will automatically replace this name with the generated name.
+
+This is an example deployment that uses a generated ConfigMap:
+-->
+要在 Deployment 中使用生成的 ConfigMap，使用 configMapGenerator 的名称对其进行引用。
+Kustomize 将自动使用生成的名称替换该名称。
+
+这是使用生成的 ConfigMap 的 deployment 示例：
+
+```yaml
+# 创建一个 application.properties 文件
+cat <<EOF >application.properties
+FOO=Bar
+EOF
+
+cat <<EOF >deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: app
+        image: my-app
+        volumeMounts:
+        - name: config
+          mountPath: /config
+      volumes:
+      - name: config
+        configMap:
+          name: example-configmap-1
+EOF
+
+cat <<EOF >./kustomization.yaml
+resources:
+- deployment.yaml
+configMapGenerator:
+- name: example-configmap-1
+  files:
+  - application.properties
+EOF
+```
+
+<!--
+Generate the ConfigMap and Deployment:
+-->
+生成 ConfigMap 和 Deployment：
+
+```shell
+kubectl kustomize ./
+```
+
+<!--
+The generated Deployment will refer to the generated ConfigMap by name:
+-->
+生成的 Deployment 将通过名称引用生成的 ConfigMap：
+
+```yaml
+apiVersion: v1
+data:
+  application.properties: |
+    FOO=Bar
+kind: ConfigMap
+metadata:
+  name: example-configmap-1-g4hk9g2ff8
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-app
+  name: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - image: my-app
+        name: app
+        volumeMounts:
+        - mountPath: /config
+          name: config
+      volumes:
+      - configMap:
+          name: example-configmap-1-g4hk9g2ff8
+        name: config
 ```
 
 #### secretGenerator
@@ -240,6 +395,56 @@ kind: Secret
 metadata:
   name: example-secret-2-t52t6g96d8
 type: Opaque
+```
+
+<!--
+Like ConfigMaps, generated Secrets can be used in Deployments by refering to the name of the secretGenerator:
+-->
+与 ConfigMaps 一样，生成的 Secrets 可以通过引用 secretGenerator 的名称在部署中使用：
+
+```shell
+# 创建一个 password.txt 文件
+cat <<EOF >./password.txt
+username=admin
+password=secret
+EOF
+
+cat <<EOF >deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: app
+        image: my-app
+        volumeMounts:
+        - name: password
+          mountPath: /secrets
+      volumes:
+      - name: password
+        secret:
+          secretName: example-secret-1
+EOF
+
+cat <<EOF >./kustomization.yaml
+resources:
+- deployment.yaml
+secretGenerator:
+- name: example-secret-1
+  files:
+  - password.txt
+EOF
 ```
 
 #### generatorOptions
@@ -1023,14 +1228,14 @@ deployment.apps "dev-my-nginx" deleted
 | commonLabels          | map[string]string                                                                                            | labels to add to all resources and selectors                                       |
 | commonAnnotations     | map[string]string                                                                                            | annotations to add to all resources                                                |
 | resources             | []string                                                                                                     | each entry in this list must resolve to an existing resource configuration file    |
-| configmapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L99)  | Each entry in this list generates a ConfigMap                                      |
-| secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L106)     | Each entry in this list generates a Secret                                         |
-| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L109) | Modify behaviors of all ConfigMap and Secret generator                             |
+| configMapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/configmapargs.go#L7)    | Each entry in this list generates a ConfigMap                                      |
+| secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/secretargs.go#L7)          | Each entry in this list generates a Secret                                         |
+| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/generatoroptions.go#L7) | Modify behaviors of all ConfigMap and Secret generator                             |
 | bases                 | []string                                                                                                     | Each entry in this list should resolve to a directory containing a kustomization.yaml file |
 | patchesStrategicMerge | []string                                                                                                     | Each entry in this list should resolve a strategic merge patch of a Kubernetes object |
-| patchesJson6902       | [][Json6902](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/patchjson6902.go#L8)             | Each entry in this list should resolve to a Kubernetes object and a Json Patch     |
-| vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L31)                       | Each entry is to capture text from one resource's field                            |
-| images                | [][Image](https://github.com/kubernetes-sigs/kustomize/tree/master/api/types/image.go#L23)                   | Each entry is to modify the name, tags and/or digest for one image without creating patches |
+| patchesJson6902       | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10)                   | Each entry in this list should resolve to a Kubernetes object and a Json Patch     |
+| vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19)                       | Each entry is to capture text from one resource's field                            |
+| images                | [][Image](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/image.go#L8)                    | Each entry is to modify the name, tags and/or digest for one image without creating patches |
 | configurations        | []string                                                                                                     | Each entry in this list should resolve to a file containing [Kustomize transformer configurations](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) |
 | crds                  | []string                                                                                                     | Each entry in this list should resolve to an OpenAPI definition file for Kubernetes types |
 -->
@@ -1043,14 +1248,14 @@ deployment.apps "dev-my-nginx" deleted
 | commonLabels          | map[string]string                                                                                            | 要添加到所有资源和选择算符的标签                                       |
 | commonAnnotations     | map[string]string                                                                                            | 要添加到所有资源的注解                                                |
 | resources             | []string                                                                                                     | 列表中的每个条目都必须能够解析为现有的资源配置文件    |
-| configmapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L99)  | 列表中的每个条目都会生成一个 ConfigMap                                      |
-| secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L106)     | 列表中的每个条目都会生成一个 Secret                                         |
-| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L109) | 更改所有 ConfigMap 和 Secret 生成器的行为 |
+| configMapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/configmapargs.go#L7)    | 列表中的每个条目都会生成一个 ConfigMap                                      |
+| secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/secretargs.go#L7)          | 列表中的每个条目都会生成一个 Secret                                         |
+| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/generatoroptions.go#L7) | 更改所有 ConfigMap 和 Secret 生成器的行为 |
 | bases                 | []string                                                                                                     | 列表中每个条目都应能解析为一个包含 kustomization.yaml 文件的目录 |
 | patchesStrategicMerge | []string                                                                                                     | 列表中每个条目都能解析为某 Kubernetes 对象的策略性合并补丁 |
-| patchesJson6902       | [][Json6902](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/patchjson6902.go#L8)             | 列表中每个条目都能解析为一个 Kubernetes 对象和一个 JSON 补丁 |
-| vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L31)                       | 每个条目用来从某资源的字段来析取文字                            |
-| images                | [][Image](https://github.com/kubernetes-sigs/kustomize/tree/master/api/types/image.go#L23)                   | 每个条目都用来更改镜像的名称、标记与/或摘要，不必生成补丁 |
+| patchesJson6902       | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10)                   | 列表中每个条目都能解析为一个 Kubernetes 对象和一个 JSON 补丁 |
+| vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19)                       | 每个条目用来从某资源的字段来析取文字                            |
+| images                | [][Image](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/image.go#L8)                    | 每个条目都用来更改镜像的名称、标记与/或摘要，不必生成补丁 |
 | configurations        | []string                                                                                                     | 列表中每个条目都应能解析为一个包含 [Kustomize 转换器配置](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) 的文件 |
 | crds                  | []string                                                                                                     | 列表中每个条目都赢能够解析为 Kubernetes 类别的 OpenAPI 定义文件 |
 

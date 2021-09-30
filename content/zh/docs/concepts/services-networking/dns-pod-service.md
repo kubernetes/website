@@ -3,12 +3,23 @@ title: Pod 与 Service 的 DNS
 content_type: concept
 weight: 20
 ---
+<!--
+reviewers:
+- davidopp
+- thockin
+title: DNS for Services and Pods
+content_type: concept
+weight: 20
+-->
+
 <!-- overview -->
 
 <!--
-This page provides an overview of DNS support by Kubernetes.
+Kubernetes creates DNS records for services and pods. You can contact
+services with consistent DNS names instead of IP addresses.
 -->
-本页面提供 Kubernetes 对 DNS 的支持的概述。
+Kubernetes 为服务和 Pods 创建 DNS 记录。
+你可以使用一致的 DNS 名称而非 IP 地址来访问服务。
 
 <!-- body -->
 
@@ -21,40 +32,93 @@ resolve DNS names.
 -->
 ## 介绍
 
-Kubernetes DNS 在群集上调度 DNS Pod 和服务，并配置 kubelet 以告知各个容器使用 DNS 服务的 IP 来解析 DNS 名称。
+Kubernetes DNS 在集群上调度 DNS Pod 和服务，并配置 kubelet 以告知各个容器
+使用 DNS 服务的 IP 来解析 DNS 名称。
 
 <!--
-### What things get DNS names?
-
 Every Service defined in the cluster (including the DNS server itself) is
-assigned a DNS name.  By default, a client Pod's DNS search list will
-include the Pod's own namespace and the cluster's default domain.  This is best
-illustrated by example:
+assigned a DNS name. By default, a client Pod's DNS search list includes the
+Pod's own namespace and the cluster's default domain.
+-->
+集群中定义的每个 Service （包括 DNS 服务器自身）都被赋予一个 DNS 名称。
+默认情况下，客户端 Pod 的 DNS 搜索列表会包含 Pod 自身的名字空间和集群
+的默认域。
 
-Assume a Service named `foo` in the Kubernetes namespace `bar`.  A Pod running
-in namespace `bar` can look up this service by simply doing a DNS query for
-`foo`.  A Pod running in namespace `quux` can look up this service by doing a
-DNS query for `foo.bar`.
+<!--
+### Namespaces of Services
 
-The following sections detail the supported record types and layout that is
+A DNS query may return different results based on the namespace of the pod making
+it. DNS queries that don't specify a namespace are limited to the pod's
+namespace. Access services in other namespaces by specifying it in the DNS query.
+
+For example, consider a pod in a `test` namespace. A `data` service is in
+the `prod` namespace.
+
+A query for `data` returns no results, because it uses the pod's `test` namespace.
+
+A query for `data.prod` returns the intended result, because it specifies the
+namespace.
+-->
+### Service 的名字空间
+
+DNS 查询可能因为执行查询的 Pod 所在的名字空间而返回不同的结果。
+不指定名字空间的 DNS 查询会被限制在 Pod 所在的名字空间内。
+要访问其他名字空间中的服务，需要在 DNS 查询中给出名字空间。
+
+例如，假定名字空间 `test` 中存在一个 Pod，`prod` 名字空间中存在一个服务
+`data`。
+
+Pod 查询 `data` 时没有返回结果，因为使用的是 Pod 的名字空间 `test`。
+
+Pod 查询 `data.prod` 时则会返回预期的结果，因为查询中指定了名字空间。
+
+<!--
+DNS queries may be expanded using the pod's `/etc/resolv.conf`. Kubelet
+sets this file for each pod. For example, a query for just `data` may be
+expanded to `data.test.cluster.local`. The values of the `search` option
+are used to expand queries. To learn more about DNS queries, see
+[the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)
+-->
+DNS 查询可以使用 Pod 中的 `/etc/resolv.conf` 展开。kubelet 会为每个 Pod
+生成此文件。例如，对 `data` 的查询可能被展开为 `data.test.cluster.local`。
+`search` 选项的取值会被用来展开查询。要进一步了解 DNS 查询，可参阅
+[`resolv.conf` 手册页面](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)。
+
+```
+nameserver 10.32.0.10
+search <namespace>.svc.cluster.local svc.cluster.local cluster.local
+options ndots:5
+```
+
+<!--
+In summary, a pod in the _test_ namespace can successfully resolve either
+`data.prod` or `data.prod.svc.cluster.local`.
+-->
+概括起来，名字空间 `test` 中的 Pod 可以成功地解析 `data.prod` 或者
+`data.prod.svc.cluster.local`。
+
+<!--
+### DNS Records
+
+What objects get DNS records?
+-->
+### DNS 记录  {#dns-records}
+
+哪些对象会获得 DNS 记录呢？
+
+1. Services
+2. Pods
+
+<!--
+The following sections detail the supported DNS record types and layout that is
 supported.  Any other layout or names or queries that happen to work are
 considered implementation details and are subject to change without warning.
 For more up-to-date specification, see
 [Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 -->
-## 哪些对象会有 DNS 名字?     {#what-things-get-dns-names}
-
-在集群中定义的每个 Service（包括 DNS 服务器自身）都会被指派一个 DNS 名称。
-默认，一个客户端 Pod 的 DNS 搜索列表将包含该 Pod 自己的名字空间和集群默认域。
-如下示例是一个很好的说明：
-
-假设在 Kubernetes 集群的名字空间 `bar` 中，定义了一个服务 `foo`。
-运行在名字空间 `bar` 中的 Pod 可以简单地通过 DNS 查询 `foo` 来找到该服务。
-运行在名字空间 `quux` 中的 Pod 可以通过 DNS 查询 `foo.bar` 找到该服务。
-
-以下各节详细介绍了受支持的记录类型和支持的布局。
+以下各节详细介绍了被支持的 DNS 记录类型和被支持的布局。
 其它布局、名称或者查询即使碰巧可以工作，也应视为实现细节，
-将来很可能被更改而且不会因此出现警告。
+将来很可能被更改而且不会因此发出警告。
 有关最新规范请查看
 [Kubernetes 基于 DNS 的服务发现](https://github.com/kubernetes/dns/blob/master/docs/specification.md)。
 
@@ -272,11 +336,11 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 <!--
 ### Pod's setHostnameAsFQDN field {#pod-sethostnameasfqdn-field}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 -->
 ### Pod 的 setHostnameAsFQDN 字段  {#pod-sethostnameasfqdn-field}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 <!--
 When a Pod is configured to have fully qualified domain name (FQDN), its hostname is the short hostname. For example, if you have a Pod with the fully qualified domain name `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`, then by default the `hostname` command inside that Pod returns `busybox-1` and  the `hostname -fqdn` command returns the FQDN.
@@ -301,7 +365,7 @@ If a Pod enables this feature and its FQDN is longer than 64 character, it will 
 
 如果 Pod 启用这一特性，而其 FQDN 超出 64 字符，Pod 的启动会失败。
 Pod 会一直出于 `Pending` 状态（通过 `kubectl` 所看到的 `ContainerCreating`），
-并产生错误事件，例如 
+并产生错误事件，例如
 "Failed to construct FQDN from pod hostname and cluster domain, FQDN
 `long-FQDN` is too long (64 characters is the max, 70 characters requested)."
 （无法基于 Pod 主机名和集群域名构造 FQDN，FQDN `long-FQDN` 过长，至多 64
@@ -390,6 +454,8 @@ spec:
 <!--
 ### Pod's DNS Config
 
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+
 Pod's DNS Config allows users more control on the DNS settings for a Pod.
 
 The `dnsConfig` field is optional and it can work with any `dnsPolicy` settings.
@@ -399,6 +465,8 @@ to be specified.
 Below are the properties a user can specify in the `dnsConfig` field:
 -->
 ### Pod 的 DNS 配置  {#pod-dns-config}
+
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 Pod 的 DNS 配置可让用户对 Pod 的 DNS 设置进行更多控制。
 
@@ -476,6 +544,28 @@ nameserver fd00:79:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
+
+<!--
+#### Expanded DNS Configuration
+
+{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+
+By default, for Pod's DNS Config, Kubernetes allows at most 6 search domains and
+a list of search domains of up to 256 characters.
+
+If the feature gate `ExpandedDNSConfig` is enabled for the kube-apiserver and
+the kubelet, it is allowed for Kubernetes to have at most 32 search domains and
+a list of search domains of up to 2048 characters.
+-->
+#### 扩展 DNS 配置  {#expanded-dns-configuration}
+
+{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+
+对于 Pod DNS 配置，Kubernetes 默认允许最多 6 个 搜索域（ Search Domain） 
+以及一个最多 256 个字符的搜索域列表。
+
+如果启用 kube-apiserver 和 kubelet 的特性门控 `ExpandedDNSConfig`，Kubernetes 将可以有最多 32 个 
+搜索域以及一个最多 2048 个字符的搜索域列表。
 
 <!--
 ### Feature availability

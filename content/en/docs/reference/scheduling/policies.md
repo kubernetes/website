@@ -43,21 +43,6 @@ The following *predicates* implement filtering:
 - `MaxCSIVolumeCount`: Decides how many {{< glossary_tooltip text="CSI" term_id="csi" >}}
   volumes should be attached, and whether that's over a configured limit.
 
-- `CheckNodeMemoryPressure`: If a Node is reporting memory pressure, and there's no
-  configured exception, the Pod won't be scheduled there.
-
-- `CheckNodePIDPressure`: If a Node is reporting that process IDs are scarce, and
-  there's no configured exception, the Pod won't be scheduled there.
-
-- `CheckNodeDiskPressure`: If a Node is reporting storage pressure (a filesystem that
-   is full or nearly full), and there's no configured exception, the Pod won't be
-   scheduled there.
-
-- `CheckNodeCondition`: Nodes can report that they have a completely full filesystem,
-  that networking isn't available or that kubelet is otherwise not ready to run Pods.
-  If such a condition is set for a Node, and there's no configured exception, the Pod
-  won't be scheduled there.
-
 - `PodToleratesNodeTaints`: checks if a Pod's {{< glossary_tooltip text="tolerations" term_id="toleration" >}}
   can tolerate the Node's {{< glossary_tooltip text="taints" term_id="taint" >}}.
 
@@ -119,6 +104,6 @@ The following *priorities* implement scoring:
 
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler Configuration](/docs/reference/scheduling/config/)
-* Read the [kube-scheduler configuration reference (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1)
+* Read the [kube-scheduler configuration reference (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2)
 * Read the [kube-scheduler Policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 

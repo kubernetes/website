@@ -127,10 +127,10 @@ A Service in Kubernetes is a REST object, similar to a Pod.  Like all of the
 REST objects, you can `POST` a Service definition to the API server to create
 a new instance.
 The name of a Service object must be a valid
-[DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+[RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
 
-For example, suppose you have a set of Pods that each listen on TCP port 9376
-and carry a label `app=MyApp`:
+For example, suppose you have a set of Pods where each listens on TCP port 9376
+and contains a label `app=MyApp`:
 -->
 
 ## 定义 Service
@@ -138,7 +138,7 @@ and carry a label `app=MyApp`:
 Service 在 Kubernetes 中是一个 REST 对象，和 Pod 类似。
 像所有的 REST 对象一样，Service 定义可以基于 `POST` 方式，请求 API server 创建新的实例。
 Service 对象的名称必须是合法的
-[DNS 标签名称](/zh/docs/concepts/overview/working-with-objects/names#dns-label-names)。
+[RFC 1035 标签名称](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).。
 
 例如，假定有一组 Pod，它们对外暴露了 9376 端口，同时还被打上 `app=MyApp` 标签：
 
@@ -255,11 +255,11 @@ spec:
 ```
 
 <!--
-Because this Service has no selector, the corresponding Endpoint object is *not*
+Because this Service has no selector, the corresponding Endpoints object is not
 created automatically. You can manually map the Service to the network address and port
-where it's running, by adding an Endpoint object manually:
+where it's running, by adding an Endpoints object manually:
 -->
-由于此服务没有选择算符，因此 *不会* 自动创建相应的 Endpoint 对象。
+由于此服务没有选择算符，因此不会自动创建相应的 Endpoint 对象。
 你可以通过手动添加 Endpoint 对象，将服务手动映射到运行该服务的网络地址和端口：
 
 ```yaml
@@ -313,11 +313,26 @@ ExternalName Service 是 Service 的特例，它没有选择算符，但是使�
 有关更多信息，请参阅本文档后面的[ExternalName](#externalname)。
 
 <!--
+### Over Capacity Endpoints
+
+If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.22 (or later)
+cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: truncated`.
+This annotation indicates that the affected Endpoints object is over capacity and that
+the endpoints controller has truncated the number of endpoints to 1000.
+-->
+### 超出容量的 Endpoints    {#over-capacity-endpoints}
+
+如果某个 Endpoints 资源中包含的端点个数超过 1000，则 Kubernetes v1.22 版本
+（及更新版本）的集群会将为该 Endpoints 添加注解
+`endpoints.kubernetes.io/over-capacity: truncated`。
+这一注解表明所影响到的 Endpoints 对象已经超出容量，此外 Endpoints 控制器还会将 Endpoints 对象数量截断到 1000。
+
+<!--
 ### EndpointSlices
 -->
 ### EndpointSlice
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
 Endpoint Slices are an API resource that can provide a more scalable alternative
@@ -351,9 +366,10 @@ This field follows standard Kubernetes label syntax. Values should either be
 [IANA standard service names](https://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 -->
-### 应用程序协议   {#application-protocol}
+### 应用协议   {#application-protocol}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
+
 `appProtocol` 字段提供了一种为每个 Service 端口指定应用协议的方式。
 此字段的取值会被映射到对应的 Endpoints 和 EndpointSlices 对象。
 
@@ -646,6 +662,82 @@ server will return a 422 HTTP status code to indicate that there's a problem.
 如果 IP 地址不合法，API 服务器会返回 HTTP 状态码 422，表示值不合法。
 
 <!--
+## Traffic policies
+-->
+## 流量策略  {#traffic-policies}
+
+<!--
+### External traffic policy
+-->
+### 外部流量策略    {#external-traffic-policy}
+
+<!--
+You can set the `spec.externalTrafficPolicy` field to control how traffic from external sources is routed.
+Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route external traffic to all ready endpoints
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
+endpoints, the kube-proxy does not forward any traffic for the relevant Service.
+-->
+
+你可以通过设置 `spec.externalTrafficPolicy` 字段来控制来自于外部的流量是如何路由的。
+可选值有 `Cluster` 和 `Local`。字段设为 `Cluster` 会将外部流量路由到所有就绪的端点，
+设为 `Local` 会只路由到当前节点上就绪的端点。
+如果流量策略设置为 `Local`，而且当前节点上没有就绪的端点，kube-proxy 不会转发请求相关服务的任何流量。
+
+{{< note >}}
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+<!--
+If you enable the `ProxyTerminatingEndpoints`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`ProxyTerminatingEndpoints` for the kube-proxy, the kube-proxy checks if the node
+has local endpoints and whether or not all the local endpoints are marked as terminating.
+-->
+
+如果你启用了 kube-proxy 的 `ProxyTerminatingEndpoints`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+kube-proxy 会检查节点是否有本地的端点，以及是否所有的本地端点都被标记为终止中。
+
+<!--
+If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
+any external traffic policy of `Local`. Instead, whilst the node-local endpoints remain as all
+terminating, the kube-proxy forwards traffic for that Service to healthy endpoints elsewhere,
+as if the external traffic policy were set to `Cluster`.
+-->
+
+如果本地有端点，而且所有端点处于终止中的状态，那么 kube-proxy 会忽略任何设为 `Local` 的外部流量策略。
+在所有本地端点处于终止中的状态的同时，kube-proxy 将请求指定服务的流量转发到位于其它节点的
+状态健康的端点，如同外部流量策略设为 `Cluster`。
+
+<!--
+This forwarding behavior for terminating endpoints exists to allow external load balancers to
+gracefully drain connections that are backed by `NodePort` Services, even when the health check
+node port starts to fail. Otherwise, traffic can be lost between the time a node is still in the node pool of a load
+balancer and traffic is being dropped during the termination period of a pod.
+-->
+针对处于正被终止状态的端点这一转发行为使得外部负载均衡器可以优雅地排出由
+`NodePort` 服务支持的连接，就算是健康检查节点端口开始失败也是如此。
+否则，当节点还在负载均衡器的节点池内，在 Pod 终止过程中的流量会被丢掉，这些流量可能会丢失。
+
+{{< /note >}}
+
+<!--
+### Internal traffic policy
+-->
+### 内部流量策略    {#internal-traffic-policy}
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+<!--
+You can set the `spec.internalTrafficPolicy` field to control how traffic from internal sources is routed.
+Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route internal traffic to all ready endpoints
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are no node-local
+endpoints, traffic is dropped by kube-proxy.
+-->
+你可以设置 `spec.internalTrafficPolicy` 字段来控制内部来源的流量是如何转发的。可设置的值有 `Cluster` 和 `Local`。
+将字段设置为 `Cluster` 会将内部流量路由到所有就绪端点，设置为 `Local` 只会路由到当前节点上就绪的端点。
+如果流量策略是 `Local`，而且当前节点上没有就绪的端点，那么 kube-proxy 会丢弃流量。
+
+<!--
 ## Discovering services
 
 Kubernetes supports 2 primary modes of finding a Service - environment
@@ -728,7 +820,7 @@ Services by their DNS name.
 For example, if you have a Service called `my-service` in a Kubernetes
 namespace `my-ns`, the control plane and the DNS Service acting together
 create a DNS record for `my-service.my-ns`. Pods in the `my-ns` namespace
-should be able to find it by simply doing a name lookup for `my-service`
+should be able to find the service by doing a name lookup for `my-service`
 (`my-service.my-ns` would also work).
 
 Pods in other Namespaces must qualify the name as `my-service.my-ns`. These names
@@ -736,7 +828,7 @@ will resolve to the cluster IP assigned for the Service.
 -->
 例如，如果你在 Kubernetes 命名空间 `my-ns` 中有一个名为 `my-service` 的服务，
 则控制平面和 DNS 服务共同为 `my-service.my-ns` 创建 DNS 记录。
-`my-ns` 命名空间中的 Pod 应该能够通过简单地按名检索 `my-service` 来找到它
+`my-ns` 命名空间中的 Pod 应该能够通过按名检索 `my-service` 来找到服务
 （`my-service.my-ns` 也可以工作）。
 
 其他命名空间中的 Pod 必须将名称限定为 `my-service.my-ns`。
@@ -794,12 +886,12 @@ DNS 如何实现自动配置，依赖于 Service 是否定义了选择算符。
 
 For headless Services that define selectors, the endpoints controller creates
 `Endpoints` records in the API, and modifies the DNS configuration to return
-records (addresses) that point directly to the `Pods` backing the `Service`.
+A records (IP addresses) that point directly to the `Pods` backing the `Service`.
 -->
 ### 带选择算符的服务 {#with-selectors}
 
 对定义了选择算符的无头服务，Endpoint 控制器在 API 中创建了 Endpoints 记录，
-并且修改 DNS 配置返回 A 记录（地址），通过这个地址直接到达 `Service` 的后端 Pod 上。
+并且修改 DNS 配置返回 A 记录（IP 地址），通过这个地址直接到达 `Service` 的后端 Pod 上。
 
 <!--
 ### Without selectors
@@ -889,8 +981,13 @@ allocates a port from a range specified by `--service-node-port-range` flag (def
 Each node proxies that port (the same port number on every Node) into your Service.
 Your Service reports the allocated port in its `.spec.ports[*].nodePort` field.
 
-If you want to specify particular IP(s) to proxy the port, you can set the `--nodeport-addresses` flag in kube-proxy to particular IP block(s); this is supported since Kubernetes v1.10.
-This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/25) to specify IP address ranges that kube-proxy should consider as local to this node.
+If you want to specify particular IP(s) to proxy the port, you can set the
+`--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
+field of the
+[kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+to particular IP block(s).
+
+This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`) to specify IP address ranges that kube-proxy should consider as local to this node.
 -->
 ### NodePort 类型  {#nodeport}
 
@@ -899,8 +996,9 @@ This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/
 每个节点将那个端口（每个节点上的相同端口号）代理到你的服务中。
 你的服务在其 `.spec.ports[*].nodePort` 字段中要求分配的端口。
 
-如果你想指定特定的 IP 代理端口，则可以将 kube-proxy 中的 `--nodeport-addresses` 
-标志设置为特定的 IP 块。从 Kubernetes v1.10 开始支持此功能。
+如果你想指定特定的 IP 代理端口，则可以设置 kube-proxy 中的 `--nodeport-addresses` 参数
+或者将[kube-proxy 配置文件](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+中的等效 `nodePortAddresses` 字段设置为特定的 IP 块。
 该标志采用逗号分隔的 IP 块列表（例如，`10.0.0.0/8`、`192.0.2.0/25`）来指定
 kube-proxy 应该认为是此节点本地的 IP 地址范围。
 
@@ -928,10 +1026,12 @@ for NodePort use.
 <!--
 Using a NodePort gives you the freedom to set up your own load balancing solution,
 to configure environments that are not fully supported by Kubernetes, or even
-to just expose one or more nodes' IPs directly.
+to expose one or more nodes' IPs directly.
 
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
-and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
+and `.spec.clusterIP:spec.ports[*].port`.
+If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
+in the kube-proxy configuration file is set, `<NodeIP>` would be filtered node IP(s).
 
 For example:
 -->
@@ -940,8 +1040,9 @@ For example:
 甚至直接暴露一个或多个节点的 IP。
 
 需要注意的是，Service 能够通过 `<NodeIP>:spec.ports[*].nodePort` 和
-`spec.clusterIp:spec.ports[*].port` 而对外可见
-（如果 kube-proxy 的 `--nodeport-addresses` 参数被设置了， <NodeIP>将被过滤 NodeIP。）。
+`spec.clusterIp:spec.ports[*].port` 而对外可见。
+如果设置了 kube-proxy 的 `--nodeport-addresses` 参数或 kube-proxy 配置文件中的等效字段，
+ `<NodeIP>` 将被过滤 NodeIP。
 
 例如：
 
@@ -1068,11 +1169,15 @@ The set of protocols that can be used for LoadBalancer type of Services is still
 {{< note >}}
 可用于 LoadBalancer 类型服务的协议集仍然由云提供商决定。
 {{< /note >}}
+
 <!--
 #### Disabling load balancer NodePort allocation {#load-balancer-nodeport-allocation}
+-->
+### 禁用负载均衡器节点端口分配 {#load-balancer-nodeport-allocation}
 
 {{< feature-state for_k8s_version="v1.20" state="alpha" >}}
 
+<!--
 Starting in v1.20, you can optionally disable node port allocation for a Service Type=LoadBalancer by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
 that route traffic directly to pods as opposed to using node ports. By default, `spec.allocateLoadBalancerNodePorts`
@@ -1081,19 +1186,55 @@ is set to `false` on an existing Service with allocated node ports, those node p
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
 You must enable the `ServiceLBNodePortControl` feature gate to use this field.
 -->
-### 禁用负载均衡器节点端口分配 {#load-balancer-nodeport-allocation}
-
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
-
 从 v1.20 版本开始， 你可以通过设置 `spec.allocateLoadBalancerNodePorts` 为 `false` 
 对类型为 LoadBalancer 的服务禁用节点端口分配。
 这仅适用于直接将流量路由到 Pod 而不是使用节点端口的负载均衡器实现。
 默认情况下，`spec.allocateLoadBalancerNodePorts` 为 `true`，
 LoadBalancer 类型的服务继续分配节点端口。
-如果现有服务已被分配节点端口，将参数 `spec.allocateLoadBalancerNodePorts` 设置为 `false` 时，
-这些服务上已分配置的节点端口不会被自动释放。
+如果现有服务已被分配节点端口，将参数 `spec.allocateLoadBalancerNodePorts`
+设置为 `false` 时，这些服务上已分配置的节点端口不会被自动释放。
 你必须显式地在每个服务端口中删除 `nodePorts` 项以释放对应端口。
 你必须启用 `ServiceLBNodePortControl` 特性门控才能使用该字段。
+
+<!--
+#### Specifying class of load balancer implementation {#load-balancer-class}
+-->
+#### 设置负载均衡器实现的类别 {#load-balancer-class}
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+<!--
+`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default. This feature is available from v1.21, you must enable the `ServiceLoadBalancerClass` feature gate to use this field in v1.21, and the feature gate is enabled by default from v1.22 onwards.
+By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
+the cloud provider's default load balancer implementation if the cluster is configured with
+a cloud provider using the `--cloud-provider` component flag. 
+If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
+implementation that matches the specified class is watching for Services.
+Any default load balancer implementation (for example, the one provided by
+the cloud provider) will ignore Services that have this field set.
+`spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
+Once set, it cannot be changed. 
+-->
+`spec.loadBalancerClass` 允许你不使用云提供商的默认负载均衡器实现，转而使用指定的负载均衡器实现。
+这个特性从 v1.21 版本开始可以使用，你在 v1.21 版本中使用这个字段必须启用 `ServiceLoadBalancerClass` 
+特性门控，这个特性门控从 v1.22 版本及以后默认打开。
+默认情况下，`.spec.loadBalancerClass` 的取值是 `nil`，如果集群使用 `--cloud-provider` 配置了云提供商，
+`LoadBalancer` 类型服务会使用云提供商的默认负载均衡器实现。
+如果设置了 `.spec.loadBalancerClass`，则假定存在某个与所指定的类相匹配的
+负载均衡器实现在监视服务变化。
+所有默认的负载均衡器实现（例如，由云提供商所提供的）都会忽略设置了此字段
+的服务。`.spec.loadBalancerClass` 只能设置到类型为 `LoadBalancer` 的 Service
+之上，而且一旦设置之后不可变更。
+
+<!--
+The value of `spec.loadBalancerClass` must be a label-style identifier,
+with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
+Unprefixed names are reserved for end-users.
+-->
+`.spec.loadBalancerClass` 的值必须是一个标签风格的标识符，
+可以有选择地带有类似 "`internal-vip`" 或 "`example.com/internal-vip`" 这类
+前缀。没有前缀的名字是保留给最终用户的。
+
 <!--
 #### Internal load balancer
 
@@ -1284,14 +1425,13 @@ TCP 和 SSL 选择第4层代理：ELB 转发流量而不修改报头。
 
 <!--
 In the above example, if the Service contained three ports, `80`, `443`, and
-`8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
-be proxied HTTP.
+`8443`, then `443` and `8443` would use the SSL certificate, but `80` would be proxied HTTP.
 
 From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
 To see which policies are available for use, you can use the `aws` command line tool:
 -->
 在上例中，如果服务包含 `80`、`443` 和 `8443` 三个端口， 那么 `443` 和 `8443` 将使用 SSL 证书，
-而 `80` 端口将仅仅转发 HTTP 数据包。
+而 `80` 端口将转发 HTTP 数据包。
 
 从 Kubernetes v1.9 起可以使用
 [预定义的 AWS SSL 策略](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)
@@ -1427,43 +1567,54 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
     metadata:
       name: my-service
       annotations:
-        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
         # 按秒计的时间，表示负载均衡器关闭连接之前连接可以保持空闲
         # （连接上无数据传输）的时间长度
+        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
 
-        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
         # 指定该负载均衡器上是否启用跨区的负载均衡能力
+        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
 
-        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
         # 逗号分隔列表值，每一项都是一个键-值耦对，会作为额外的标签记录于 ELB 中
+        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
 
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
         # 将某后端视为健康、可接收请求之前需要达到的连续成功健康检查次数。
         # 默认为 2，必须介于 2 和 10 之间
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
 
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
         # 将某后端视为不健康、不可接收请求之前需要达到的连续不成功健康检查次数。
         # 默认为 6，必须介于 2 和 10 之间
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
 
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
         # 对每个实例进行健康检查时，连续两次检查之间的大致间隔秒数
         # 默认为 10，必须介于 5 和 300 之间
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
 
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
         # 时长秒数，在此期间没有响应意味着健康检查失败
         # 此值必须小于 service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
         # 默认值为 5，必须介于 2 和 60 之间
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
 
+        # 由已有的安全组所构成的列表，可以配置到所创建的 ELB 之上。
+        # 与注解 service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 不同，
+        # 这一设置会替代掉之前指定给该 ELB 的所有其他安全组，也会覆盖掉为此
+        # ELB 所唯一创建的安全组。 
+        # 此列表中的第一个安全组 ID 被用来作为决策源，以允许入站流量流入目标工作节点
+        # (包括服务流量和健康检查）。
+        # 如果多个 ELB 配置了相同的安全组 ID，为工作节点安全组添加的允许规则行只有一个，
+        # 这意味着如果你删除了这些 ELB 中的任何一个，都会导致该规则记录被删除，
+        # 以至于所有共享该安全组 ID 的其他 ELB 都无法访问该节点。
+        # 此注解如果使用不当，会导致跨服务的不可用状况。
         service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-        # 要添加到所创建的 ELB 之上的已有安全组列表。与注解
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 不同，此
-        # 注解会替换掉之前指派给 ELB 的所有其他安全组
 
+        # 额外的安全组列表，将被添加到所创建的 ELB 之上。
+        # 添加时，会保留为 ELB 所专门创建的安全组。
+        # 这样会确保每个 ELB 都有一个唯一的安全组 ID 和与之对应的允许规则记录，
+        # 允许请求（服务流量和健康检查）发送到目标工作节点。
+        # 这里顶一个安全组可以被多个服务共享。
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-        # 要添加到 ELB 上的额外安全组列表
 
-        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
         # 用逗号分隔的一个键-值偶对列表，用来为负载均衡器选择目标节点
+        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
 ```
 
 <!--
@@ -1540,7 +1691,7 @@ groups are modified with the following IP rules:
 
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
 |------|----------|---------|------------|---------------------|
-| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy=Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
 | Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
@@ -1794,7 +1945,7 @@ iptables 代理不会隐藏 Kubernetes 集群内部的 IP 地址，但却要求�
 <!--
 ## Virtual IP implementation {#the-gory-details-of-virtual-ips}
 
-The previous information should be sufficient for many people who just want to
+The previous information should be sufficient for many people who want to
 use Services.  However, there is a lot going on behind the scenes that may be
 worth understanding.
 -->
@@ -1889,7 +2040,7 @@ rule kicks in, and redirects the packets to the proxy's own port.
 The "Service proxy" chooses a backend, and starts proxying traffic from the client to the backend.
 
 This means that Service owners can choose any port they want without risk of
-collision.  Clients can simply connect to an IP and port, without being aware
+collision.  Clients can connect to an IP and port, without being aware
 of which Pods they are actually accessing.
 -->
 
@@ -1904,7 +2055,7 @@ of which Pods they are actually accessing.
 "服务代理" 选择一个后端，并将客户端的流量代理到后端上。
 
 这意味着 Service 的所有者能够选择任何他们想使用的端口，而不存在冲突的风险。
-客户端可以简单地连接到一个 IP 和端口，而不需要知道实际访问了哪些 Pod。
+客户端可以连接到一个 IP 和端口，而不需要知道实际访问了哪些 Pod。
 
 #### iptables
 
@@ -1995,7 +2146,7 @@ provider offering this facility. (Most do not).
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 一旦你使用了支持 SCTP 流量的网络插件，你就可以使用 SCTP 于更多的服务。
-对于 type = LoadBalancer 的服务，SCTP 的支持取决于提供此设施的云供应商（多大数不支持）。
+对于 type = LoadBalancer 的服务，SCTP 的支持取决于提供此设施的云供应商（大多数不支持）。
 
 <!--
 #### Warnings {#caveat-sctp-overview}
@@ -2060,7 +2211,7 @@ You can also use {{< glossary_tooltip term_id="ingress" >}} in place of Service
 to expose HTTP / HTTPS Services.
 -->
 {{< note >}}
-你还可以使用 {{< glossary_tooltip text="Ingres" term_id="ingress" >}} 代替
+你还可以使用 {{< glossary_tooltip text="Ingress" term_id="ingress" >}} 代替
 Service 来公开 HTTP/HTTPS 服务。
 {{< /note >}}
 

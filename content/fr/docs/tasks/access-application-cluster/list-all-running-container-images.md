@@ -19,7 +19,7 @@ Dans cet exercice, vous allez utiliser kubectl pour récupérer tous les pods ex
 ## Répertorier toutes les images de conteneurs dans tous les namespaces
 
 - Récupérez tous les pods dans tous les namespace à l'aide de `kubectl get pods --all-namespaces`
-- Formatez la sortie pour inclure uniquement la liste des noms d'image de conteneur à l'aide de `-o jsonpath={..image}`.
+- Formatez la sortie pour inclure uniquement la liste des noms d'image de conteneur à l'aide de `-o jsonpath={.items[*].spec.containers[*].image}`.
   Cela analysera récursivement le champ `image` du json retourné.
   - Voir la [reference jsonpath](/docs/reference/kubectl/jsonpath/) pour plus d'informations sur l'utilisation de jsonpath.
 - Formatez la sortie à l'aide des outils standard: `tr`, `sort`, `uniq`
@@ -28,7 +28,7 @@ Dans cet exercice, vous allez utiliser kubectl pour récupérer tous les pods ex
   - Utilisez `uniq` pour agréger le nombre d'images
 
 ```shell
-kubectl get pods --all-namespaces -o jsonpath="{..image}" |\
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
 tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
@@ -69,7 +69,7 @@ Pour cibler uniquement les pods correspondant à un label spécifique, utilisez 
 Les éléments suivants correspondent uniquement aux pods avec les labels `app=nginx`.
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath="{..image}" -l app=nginx
+kubectl get pods --all-namespaces -o=jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
 ## Filtrage des images de conteneur de liste par namespace de pod
@@ -78,7 +78,7 @@ Pour cibler uniquement les pods dans un namespace spécifique, utilisez l'indica
 Ce qui suit correspond uniquement aux pods du namespace `kube-system`.
 
 ```shell
-kubectl get pods --namespace kube-system -o jsonpath="{..image}"
+kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers[*].image}"
 ```
 
 ## Répertorier les images de conteneurs en utilisant un go-template au lieu de jsonpath

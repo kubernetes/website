@@ -257,8 +257,7 @@ The message tells us that there were not enough resources for the Pod on any of 
 其 message 部分表明没有任何节点拥有足够多的资源。
 
 <!--
-To correct this situation, you can use `kubectl scale` to update your Deployment to specify four or fewer replicas. 
-(Or you could just leave the one Pod pending, which is harmless.)
+To correct this situation, you can use `kubectl scale` to update your Deployment to specify four or fewer replicas. (Or you could leave the one Pod pending, which is harmless.)
 -->
 要纠正这种情况，可以使用 `kubectl scale` 更新 Deployment，以指定 4 个或更少的副本。
 (或者你可以让 Pod 继续保持这个状态，这是无害的。)

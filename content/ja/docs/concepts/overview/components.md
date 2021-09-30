@@ -17,7 +17,7 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 
 すべてのコンポーネントが結び付けられたKubernetesクラスターの図を次に示します。
 
-![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.png)
+![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.svg)
 
 
 

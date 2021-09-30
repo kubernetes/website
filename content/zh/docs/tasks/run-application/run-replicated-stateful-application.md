@@ -209,7 +209,7 @@ If you don't see any progress, make sure you have a dynamic PersistentVolume
 provisioner enabled as mentioned in the [prerequisites](#before-you-begin). 
 -->
 输入 **Ctrl+C** 结束 watch 操作。
-如果你看不到任何进度，确保已启用[前提条件](#before-you-begin)
+如果你看不到任何进度，确保已启用[前提条件](#准备开始)
 中提到的动态 PersistentVolume 预配器。
 
 <!--
@@ -290,7 +290,8 @@ Combined with the StatefulSet controller's
 this ensures the primary MySQL server is Ready before creating replicas, so they can begin
 replicating.
 -->
-通过将内容复制到 conf.d 中，`init-mysql` 容器中的脚本也可以应用 ConfigMap 中的 `primary.cnf` 或 `replica.cnf`。
+通过将内容复制到 conf.d 中，`init-mysql` 容器中的脚本也可以应用 ConfigMap 中的
+`primary.cnf` 或 `replica.cnf`。
 由于示例部署结构由单个 MySQL 主节点和任意数量的副本节点组成，
 因此脚本仅将序数 `0` 指定为主节点，而将其他所有节点指定为副本节点。
 
@@ -851,12 +852,12 @@ kubectl delete pvc data-mysql-4
 * Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
 * Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
 * Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
-* Look in the [Helm Charts repository](https://github.com/kubernetes/charts)
+* Look in the [Helm Charts repository](https://artifacthub.io/)
   for other stateful application examples.
 -->
 * 进一步了解[为 StatefulSet 扩缩容](/zh/docs/tasks/run-application/scale-stateful-set/).
 * 进一步了解[调试 StatefulSet](/zh/docs/tasks/debug-application-cluster/debug-stateful-set/).
 * 进一步了解[删除 StatefulSet](/zh/docs/tasks/run-application/delete-stateful-set/).
 * 进一步了解[强制删除 StatefulSet Pods](/zh/docs/tasks/run-application/force-delete-stateful-set-pod/).
-* 在[Helm Charts 仓库](https://github.com/kubernetes/charts)中查找其他有状态的应用程序示例。
+* 在 [Helm Charts 仓库](https://artifacthub.io/)中查找其他有状态的应用程序示例。
 

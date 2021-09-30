@@ -1,5 +1,5 @@
 ---
-title: Managing Secret using Kustomize
+title: Managing Secrets using Kustomize
 content_type: task
 weight: 30
 description: Creating Secret objects using kustomization.yaml file.
@@ -48,7 +48,19 @@ secretGenerator:
   - password=1f2d1e2e67df
 ```
 
-Note that in both cases, you don't need to base64 encode the values.
+You can also define the `secretGenerator` in the `kustomization.yaml`
+file by providing `.env` files.
+For example, the following `kustomization.yaml` file pulls in data from
+`.env.secret` file:
+
+```yaml
+secretGenerator:
+- name: db-user-pass
+  envs:
+  - .env.secret
+```
+
+Note that in all cases, you don't need to base64 encode the values.
 
 ## Create the Secret
 
@@ -123,6 +135,6 @@ kubectl delete secret db-user-pass-96mffmfh4k
 ## {{% heading "whatsnext" %}}
 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secret with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 

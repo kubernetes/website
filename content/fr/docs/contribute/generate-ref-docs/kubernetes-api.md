@@ -135,7 +135,6 @@ hack/update-generated-swagger-docs.sh
 hack/update-swagger-spec.sh
 hack/update-openapi-spec.sh
 hack/update-generated-protobuf.sh
-hack/update-api-reference-docs.sh
 ```
 
 Exécutez `git status` pour voir ce qui a été généré.
@@ -144,8 +143,6 @@ Exécutez `git status` pour voir ce qui a été généré.
 On branch master
 ...
     modified:   api/openapi-spec/swagger.json
-    modified:   api/swagger-spec/apps_v1.json
-    modified:   docs/api-reference/apps/v1/definitions.html
     modified:   staging/src/k8s.io/api/apps/v1/generated.proto
     modified:   staging/src/k8s.io/api/apps/v1/types.go
     modified:   staging/src/k8s.io/api/apps/v1/types_swagger_doc_generated.go

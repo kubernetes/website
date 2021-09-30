@@ -33,7 +33,7 @@ Helmをインストールし、以下のコマンドを実行することでロ�
 
 
 ```shell
-helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
+helm repo add svc-cat https://kubernetes-sigs.github.io/service-catalog
 ```
 
 以下のコマンドを実行し、インストールに成功していることを確認します。

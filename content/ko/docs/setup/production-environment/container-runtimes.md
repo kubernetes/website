@@ -48,7 +48,7 @@ Systemd는 cgroup과의 긴밀한 통합을 통해 프로세스당 cgroup을 할
 시스템이 안정화된다. 도커에 대해 구성하려면, `native.cgroupdriver=systemd`를 설정한다.
 
 {{< caution >}}
-클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 강력하게 권장하지 *않는다*.
+클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 신중하게 수행해야 한다.
 하나의 cgroup 드라이버의 의미를 사용하여 kubelet이 파드를 생성해왔다면,
 컨테이너 런타임을 다른 cgroup 드라이버로 변경하는 것은 존재하는 기존 파드에 대해 파드 샌드박스 재생성을 시도할 때, 에러가 발생할 수 있다.
 kubelet을 재시작하는 것은 에러를 해결할 수 없을 것이다.
@@ -56,6 +56,11 @@ kubelet을 재시작하는 것은 에러를 해결할 수 없을 것이다.
 자동화가 가능하다면, 업데이트된 구성을 사용하여 노드를 다른 노드로
 교체하거나, 자동화를 사용하여 다시 설치한다.
 {{< /caution >}}
+
+### kubeadm으로 생성한 클러스터의 드라이버를 `systemd`로 변경하기
+
+kubeadm으로 생성한 클러스터의 cgroup 드라이버를 `systemd`로 변경하려면
+[변경 가이드](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)를 참고한다.
 
 ## 컨테이너 런타임
 
@@ -92,7 +97,10 @@ containerd를 설치한다.
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
 
-1. 공식 도커 리포지터리에서 `containerd.io` 패키지를 설치한다. 각 리눅스 배포한에 대한 도커 리포지터리를 설정하고 `containerd.io` 패키지를 설치하는 방법은 [도커 엔진 설치](https://docs.docker.com/engine/install/#server)에서 찾을 수 있다.
+1. 공식 도커 리포지터리에서 `containerd.io` 패키지를 설치한다.
+각 리눅스 배포판에 대한 도커 리포지터리를 설정하고
+`containerd.io` 패키지를 설치하는 방법은
+[도커 엔진 설치](https://docs.docker.com/engine/install/#server)에서 찾을 수 있다.
 
 2. containerd 설정
 
@@ -110,7 +118,8 @@ containerd를 설치한다.
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
-PowerShell 세션을 시작하고 `$Version`을 원하는 버전(예: `$Version:1.4.3`)으로 설정한 후 다음 명령을 실행한다.
+PowerShell 세션을 시작하고 `$Version`을 원하는 버전으로
+설정(예: `$Version:1.4.3`)한 후 다음 명령을 실행한다.
 
 1. containerd 다운로드
 
@@ -237,7 +246,8 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="Ubuntu" %}}
 
-다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 `OS` 를 아래의 표에서 적절한 필드로 설정한다.
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 `OS` 를
+아래의 표에서 적절한 필드로 설정한다.
 
 | 운영 체제          | `$OS`             |
 | ---------------- | ----------------- |
@@ -272,7 +282,8 @@ apt-get install cri-o cri-o-runc
 
 {{% tab name="CentOS" %}}
 
-다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 `OS` 를 아래의 표에서 적절한 필드로 설정한다.
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 `OS` 를
+아래의 표에서 적절한 필드로 설정한다.
 
 | 운영 체제          | `$OS`             |
 | ---------------- | ----------------- |
@@ -352,7 +363,10 @@ CRI-O의 cgroup 드라이버 구성을 동기화 상태로
 
 ### 도커
 
-1. 각 노드에서 [도커 엔진 설치](https://docs.docker.com/engine/install/#server)에 따라 리눅스 배포판용 도커를 설치한다. 이 [의존성 파일](https://git.k8s.io/kubernetes/build/dependencies.yaml)에서 검증된 최신 버전의 도커를 찾을 수 있다.
+1. 각 노드에서 [도커 엔진 설치](https://docs.docker.com/engine/install/#server)에 따라
+리눅스 배포판용 도커를 설치한다.
+이 [의존성 파일](https://git.k8s.io/kubernetes/build/dependencies.yaml)에서
+검증된 최신 버전의 도커를 찾을 수 있다.
 
 2. 특히 컨테이너의 cgroup 관리에 systemd를 사용하도록 도커 데몬을 구성한다.
 
@@ -371,7 +385,8 @@ CRI-O의 cgroup 드라이버 구성을 동기화 상태로
    ```
 
    {{< note >}}
-   `overlay2`는 리눅스 커널 4.0 이상 또는 3.10.0-514 버전 이상을 사용하는 RHEL 또는 CentOS를 구동하는 시스템에서 선호하는 스토리지 드라이버이다.
+   `overlay2`는 리눅스 커널 4.0 이상 또는 3.10.0-514 버전 이상을 사용하는 RHEL
+   또는 CentOS를 구동하는 시스템에서 선호하는 스토리지 드라이버이다.
    {{< /note >}}
 
 3. 도커 재시작과 부팅시 실행되게 설정

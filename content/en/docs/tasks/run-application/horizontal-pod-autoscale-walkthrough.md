@@ -189,7 +189,7 @@ by making use of the `autoscaling/v2beta2` API version.
 First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2beta2` form:
 
 ```shell
-kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
+kubectl get hpa php-apache -o yaml > /tmp/hpa-v2.yaml
 ```
 
 Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
@@ -397,7 +397,9 @@ section to your HorizontalPodAutoscaler manifest to specify that you need one wo
   external:
     metric:
       name: queue_messages_ready
-      selector: "queue=worker_tasks"
+      selector:
+        matchLabels:
+          queue: "worker_tasks"
     target:
       type: AverageValue
       averageValue: 30

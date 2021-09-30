@@ -1,0 +1,34 @@
+{{ range $data := .Site.Data.releases.schedule.schedules }}
+{{- $dataVersion := printf "%.2f" $data.release  -}}
+<h2>{{ $dataVersion }}</h2>
+
+<br>
+
+{{ if not $data.previousPatches }}
+<b>{{ T "latest_release" }}</b> {{ printf "%s.0" $dataVersion }}
+<br>
+<b>{{ T "end_of_life" }}</b> {{ printf "%s" $data.endOfLifeDate }}
+<br>
+<b>{{ T "previous_patches" }}</b> n/a
+{{ end }}
+
+{{ if $data.previousPatches }}
+<b>{{ T "latest_release" }}</b> {{ index $data.previousPatches 0 "release" }} (released: {{ index $data.previousPatches 0 "targetDate" }})
+<br>
+<b>{{ T "end_of_life" }}</b> {{ printf "%s" $data.endOfLifeDate }}
+<br>
+<b>{{ T "previous_patches" }}</b>
+    {{ range $previousPatchesList := $data.previousPatches }}
+        {{range $previous_patches_key, $previous_patches_value := $previousPatchesList }}
+            {{ if eq $previous_patches_key "release" }}<a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md#v{{ replace $previous_patches_value `.` `` }}">{{ printf "%s" $previous_patches_value }}{{ T "inline_list_separator" }} </a>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+
+<br>
+Complete {{ $dataVersion }} <a href="/releases/patch-releases/#{{ replace $dataVersion `.` `-` }}">Schedule</a> and <a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md">Changelog</a>
+
+
+{{ end }}

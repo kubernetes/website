@@ -9,7 +9,6 @@ auto_generated: true
 ## Resource Types 
 
 
-  
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
   
     
@@ -535,3 +534,247 @@ this always falls back to the userspace proxy.
 
     
   
+  
+    
+
+## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
+    
+
+
+
+**Appears in:**
+
+- [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
+
+
+ClientConnectionConfiguration contains details for constructing a client.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>kubeconfig</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   kubeconfig is the path to a KubeConfig file.</td>
+</tr>
+    
+  
+<tr><td><code>acceptContentTypes</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
+default value of 'application/json'. This field will control all connections to the server used by a particular
+client.</td>
+</tr>
+    
+  
+<tr><td><code>contentType</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   contentType is the content type used when sending data to the server from this client.</td>
+</tr>
+    
+  
+<tr><td><code>qps</code> <B>[Required]</B><br/>
+<code>float32</code>
+</td>
+<td>
+   qps controls the number of queries per second allowed for this connection.</td>
+</tr>
+    
+  
+<tr><td><code>burst</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   burst allows extra queries to accumulate when a client is exceeding its rate.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `DebuggingConfiguration`     {#DebuggingConfiguration}
+    
+
+
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
+
+
+DebuggingConfiguration holds configuration for Debugging related features.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>enableProfiling</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   enableProfiling enables profiling via web interface host:port/debug/pprof/</td>
+</tr>
+    
+  
+<tr><td><code>enableContentionProfiling</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   enableContentionProfiling enables lock contention profiling, if
+enableProfiling is true.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
+    
+
+
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
+
+
+LeaderElectionConfiguration defines the configuration of leader election
+clients for components that can run with leader election enabled.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>leaderElect</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   leaderElect enables a leader election client to gain leadership
+before executing the main loop. Enable this when running replicated
+components for high availability.</td>
+</tr>
+    
+  
+<tr><td><code>leaseDuration</code> <B>[Required]</B><br/>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   leaseDuration is the duration that non-leader candidates will wait
+after observing a leadership renewal until attempting to acquire
+leadership of a led but unrenewed leader slot. This is effectively the
+maximum duration that a leader can be stopped before it is replaced
+by another candidate. This is only applicable if leader election is
+enabled.</td>
+</tr>
+    
+  
+<tr><td><code>renewDeadline</code> <B>[Required]</B><br/>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   renewDeadline is the interval between attempts by the acting master to
+renew a leadership slot before it stops leading. This must be less
+than or equal to the lease duration. This is only applicable if leader
+election is enabled.</td>
+</tr>
+    
+  
+<tr><td><code>retryPeriod</code> <B>[Required]</B><br/>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   retryPeriod is the duration the clients should wait between attempting
+acquisition and renewal of a leadership. This is only applicable if
+leader election is enabled.</td>
+</tr>
+    
+  
+<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   resourceLock indicates the resource object type that will be used to lock
+during leader election cycles.</td>
+</tr>
+    
+  
+<tr><td><code>resourceName</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   resourceName indicates the name of resource object that will be used to lock
+during leader election cycles.</td>
+</tr>
+    
+  
+<tr><td><code>resourceNamespace</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   resourceName indicates the namespace of resource object that will be used to lock
+during leader election cycles.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `LoggingConfiguration`     {#LoggingConfiguration}
+    
+
+
+
+**Appears in:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+LoggingConfiguration contains logging options
+Refer [Logs Options](https://github.com/kubernetes/component-base/blob/master/logs/options.go) for more information.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>format</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   Format Flag specifies the structure of log messages.
+default value of format is `text`</td>
+</tr>
+    
+  
+<tr><td><code>sanitization</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   [Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens).
+Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production.`)</td>
+</tr>
+    
+  
+</tbody>
+</table>

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 웹 UI (대시보드)
 content_type: concept
 weight: 10
@@ -30,11 +34,10 @@ card:
 대시보드 UI는 기본으로 배포되지 않는다. 배포하려면 다음 커맨드를 동작한다.
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
 ```
 
 ## 대시보드 UI 접근
-
 
 클러스터 데이터를 보호하기 위해, 대시보드는 기본적으로 최소한의 RBAC 설정을 제공한다.
 현재, 대시보드는 Bearer 토큰으로 로그인 하는 방법을 제공한다.

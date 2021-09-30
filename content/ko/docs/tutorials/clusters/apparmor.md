@@ -322,7 +322,7 @@ Events:
   23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 ```
 
-파드 상태는 Failed이며 오류메시지는 `Pod Cannot enforce AppArmor: profile
+파드 상태는 Pending이며, 오류 메시지는 `Pod Cannot enforce AppArmor: profile
 "k8s-apparmor-example-allow-write" is not loaded`이다. 이벤트도 동일한 메시지로 기록되었다.
 
 ## 관리 {#administration}

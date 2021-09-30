@@ -32,30 +32,41 @@ This page shows you how to [localize](https://blog.mozilla.org/l10n/2011/12/14/i
 <!-- body -->
 
 <!-- 
-## Getting started
+## Contribute to an existing localization
 
-Because contributors can't approve their own pull requests, you need at least two contributors to begin a localization. 
-
-All localization teams must be self-sustaining with their own resources. We're happy to host your work, but we can't translate it for you. 
+You can help add or improve content to an existing localization. In [Kubernetes Slack](https://slack.k8s.io/) you'll find a channel for each localization. There is also a general [SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations) where you can say hello. 
 -->
-## 起步
+## 为现有的本地化做出贡献
 
-由于贡献者无法批准他们自己的请求，因此您至少需要两个贡献者才能开始本地化。
+你可以帮助添加或改进现有本地化的内容。在 [Kubernetes Slack](https://slack.k8s.io/) 中，
+你能找到每个本地化的频道。还有一个通用的
+[SIG Docs Localizations Slack 频道](https://kubernetes.slack.com/messages/sig-docs-localizations)，
+你可以在这里打个招呼。
 
-所有本地化团队必须使用自身的资源持续工作。我们很高兴托管你的产出，但无法为你翻译。
+{{< note >}}
+<!-- 
+If you want to work on a localization that already exists, check
+this page in that localization (if it exists), rather than the
+English original. You might see extra details there.
+-->
+如果你想处理已经存在的本地化，请在该本地化（如果存在）中检查此页面，而不是英文原版。
+你可能会在那里看到额外的详细信息。
+{{< /note >}}
 
 <!-- 
 ### Find your two-letter language code
 
-First, consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) to find your localization's two-letter country code. For example, the two-letter code for Korean is `ko`.
+First, consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) to find your localization's two-letter language code. For example, the two-letter code for Korean is `ko`.
 
 ### Fork and clone the repo
 
-First, [create your own fork](/docs/contribute/start/#improve-existing-content) of the [kubernetes/website](https://github.com/kubernetes/website) repository. 
+First, [create your own fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the [kubernetes/website](https://github.com/kubernetes/website) repository. 
+
+The website content directory includes sub-directories for each language. The localization you want to help out with is inside `content/<two-letter-code>`.
 -->
 ### 找到两个字母的语言代码
 
-首先，有关本地化的两个字母的国家代码，请参考
+首先，有关本地化的两个字母的语言代码，请参考
 [ISO 639-1 标准](https://www.loc.gov/standards/iso639-2/php/code_list.php)。
 例如，韩国的两个字母代码是 `ko`。
 
@@ -74,23 +85,110 @@ git clone https://github.com/<username>/website
 cd website
 ```
 
+网站内容目录包括每种语言的子目录。你想要助力的本地化位于 `content/<two-letter-code>` 中。
+
 <!-- 
-### Open a pull request
+### Suggest changes
 
-Next, [open a pull request](https://kubernetes.io/docs/contribute/start/#submit-a-pull-request) (PR) to add a localization to the `kubernetes/website` repository. 
+Create or update your chosen localized page based on the English original. See
+[translating content](#translating-content) for more details.
 
-The PR must include all of the [minimum required content](#minimum-required-content) before it can be approved.
+If you notice a technical inaccuracy or other problem with the upstream (English)
+documentation, you should fix the upstream documentation first and then repeat the
+equivalent fix by updating the localization you're working on.
 
-For an example of adding a new localization, see the PR to enable [docs in French](https://github.com/kubernetes/website/pull/12548). 
+Please limit pull requests to a single localization, since pull requests that change
+content in multiple localizations could be difficult to review.
+
+Follow [Suggesting Content Improvements](/docs/contribute/suggest-improvements/) to propose changes to
+that localization. The process is very similar to proposing changes to the upstream (English) content.
 -->
-### 发起拉取请求（PR）{#open-a-pull-request}
+### 建议更改 {#suggest-changes}
 
-接下来，[提交 PR 请求](/zh/docs/contribute/new-content/open-a-pr/#open-a-pr)，
-将本地化添加到 `kubernetes/website` 仓库。
+根据英文原件创建或更新你选择的本地化页面。
+有关更多详细信息，请参阅[翻译内容](#translating-content)。
 
-该 PR 必须包含所有[最低要求的内容](#minimum-required-content)，然后才能被批准。
+如果你发现上游（英文）文档存在技术错误或其他问题，
+你应该先修复上游文档，然后通过更新你正在处理的本地化来重复等效的修复。
 
-有关添加新本地化的示例，请参见添加[法语文档](https://github.com/kubernetes/website/pull/12548) 的 PR。
+请将拉取请求限制为单个本地化，因为在多个本地化中更改内容的拉取请求可能难以审查。
+
+按照[内容改进建议](/zh/docs/contribute/suggest-improvements/)提出对该本地化的更改。
+该过程与提议更改上游（英文）内容非常相似。
+
+<!--  
+## Start a new localization
+
+If you want the Kubernetes documentation localized into a new language, here's what
+you need to do.
+
+Because contributors can't approve their own pull requests, you need _at least two contributors_
+to begin a localization.
+
+All localization teams must be self-sustaining. The Kubernetes website is happy to host your work, but
+it's up to you to translate it and keep existing localized content current.
+-->
+## 开始新的本地化
+
+如果你希望将 Kubernetes 文档本地化为一种新语言，你需要执行以下操作。
+
+因为贡献者不能批准他们自己的拉取请求，你需要 _至少两个贡献者_ 来开始本地化。
+
+所有本地化团队都必须能够自我维持。
+Kubernetes 网站很乐意托管你的作品，但要由你来翻译它并使现有的本地化内容保持最新。
+
+<!-- 
+You'll need to know the two-letter language code for your language. Consult the
+[ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) to find your
+localization's two-letter language code. For example, the two-letter code for Korean is
+`ko`.
+
+When you start a new localization, you must localize all the
+[minimum required content](#minimum-required-content) before
+the Kubernetes project can publish your changes to the live
+website.
+
+SIG Docs can help you work on a separate branch so that you
+can incrementally work towards that goal.
+-->
+你需要知道你的语言的两个字母的语言代码。
+请查阅 [ISO 639-1 标准](https://www.loc.gov/standards/iso639-2/php/code_list.php)
+以查找你的本地化的两字母语言代码。例如，韩语的两字母代码是`ko`。
+
+当你开始新的本地化时，你必须先本地化所有[最少要求的内容](#minimum-required-content)，
+Kubernetes 项目才能将你的更改发布到当前网站。
+
+SIG Docs 可以帮助你在单独的分支上工作，以便你可以逐步实现该目标。
+
+<!-- 
+### Find community
+
+Let Kubernetes SIG Docs know you're interested in creating a localization! Join the [SIG Docs Slack channel](https://kubernetes.slack.com/messages/sig-docs) and the [SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations). Other localization teams are happy to help you get started and answer any questions you have.
+-->
+### 找到社区
+
+让 Kubernetes SIG Docs 知道你有兴趣创建本地化！
+加入 [SIG Docs Slack 频道](https://kubernetes.slack.com/messages/sig-docs)
+和 [SIG Docs Localizations Slack 频道](https://kubernetes.slack.com/messages/sig-docs-localizations)。
+其他本地化团队很乐意帮助你入门并回答你的任何问题。
+
+<!-- 
+Please also consider participating in the [SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/master/sig-docs).  The mission of the SIG Docs localization subgroup is to work across the SIG Docs localization teams to collaborate on defining and documenting the processes for creating localized contribution guides. In addition, the SIG Docs localization subgroup will look for opportunities for the creation and sharing of common tools across localization teams and also serve to identify new requirements to the SIG Docs Leadership team.  If you have questions about this meeting, please inquire on the [SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
+
+You can also create a Slack channel for your localization in the `kubernetes/community` repository. For an example of adding a Slack channel, see the PR for [adding a channel for Persian](https://github.com/kubernetes/community/pull/4980).
+-->
+也请考虑参加
+[SIG Docs 本地化小组的会议](https://github.com/kubernetes/community/tree/master/sig-docs)。
+SIG Docs 本地化小组的任务是与 SIG Docs 本地化团队合作，
+共同定义和记录创建本地化贡献指南的流程。
+此外，SIG Docs 本地化小组将寻找机会在本地化团队中创建和共享通用工具，
+并为 SIG Docs 领导团队确定新要求。如果你对本次会议有任何疑问，
+请在 [SIG Docs Localizations Slack 频道](https://kubernetes.slack.com/messages/sig-docs-localizations)
+中提问。
+
+你还可以在 `kubernetes/community` 仓库中为你的本地化创建一个 Slack 频道。
+有关添加 Slack 频道的示例，请参阅
+[为波斯语添加频道](https://github.com/kubernetes/community/pull/4980)的 PR。
     
 <!-- 
 ### Join the Kubernetes GitHub organization
@@ -105,7 +203,7 @@ Once you've opened a localization PR, you can become members of the Kubernetes G
 <!-- 
 ### Add your localization team in GitHub
 
-Next, add your Kubernetes localization team to [`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml). For an example of adding a localization team, see the PR to add the [Spanish localization team](https://github.com/kubernetes/org/pull/685). 
+Next, add your Kubernetes localization team to [`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml). For an example of adding a localization team, see the PR to add the [Spanish localization team](https://github.com/kubernetes/org/pull/685). 
 
 Members of `@kubernetes/sig-docs-**-owners` can approve PRs that change content within (and only within) your localization directory: `/content/**/`. 
 
@@ -114,7 +212,7 @@ The `@kubernetes/sig-docs-**-reviews` team automates review assignment for new P
 ### 在 GitHub 中添加你的本地化团队 {#add-your-localization-team-in-github}
 
 接下来，将你的 Kubernetes 本地化团队添加到
-[`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml)。
+[`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml)。
 有关添加本地化团队的示例，请参见添加[西班牙本地化团队](https://github.com/kubernetes/org/pull/685) 的 PR。
 
 `@kubernetes/sig-docs-**-owners` 成员可以批准更改对应本地化目录 `/content/**/` 中内容的 PR，并仅限这类 PR。
@@ -122,14 +220,14 @@ The `@kubernetes/sig-docs-**-reviews` team automates review assignment for new P
 `@kubernetes/sig-docs-**-reviews` 团队被自动分派新 PR 的审阅任务。
 
 <!-- 
-Members of `@kubernetes/website-maintainers` can create new development branches to coordinate translation efforts.
+Members of `@kubernetes/website-maintainers` can create new localization branches to coordinate translation efforts.
 
 Members of `website-milestone-maintainers` can use the `/milestone` [Prow command](https://prow.k8s.io/command-help) to assign a milestone to issues or PRs. 
 -->
-`@kubernetes/website-maintainers` 成员可以创建新的开发分支来协调翻译工作。
+`@kubernetes/website-maintainers` 成员可以创建新的本地化分支来协调翻译工作。
 
 `@kubernetes/website-milestone-maintainers` 成员可以使用 `/milestone`
-[Prow 命令](https://prow.k8s.io/command-help) 为 issues 或 PR 设定里程碑。
+[Prow 命令](https://prow.k8s.io/command-help)为 issues 或 PR 设定里程碑。
     
 <!-- 
 ### Configure the workflow
@@ -140,33 +238,18 @@ For an example of adding a label, see the PR for adding the [Italian language la
 -->
 ### 配置工作流程 {#configure-the-workflow}
 
-接下来，在 `kubernetes/test-infra` 仓库中为您的本地化添加一个 GitHub 标签。
-标签可让您过滤 issues 和针对特定语言的 PR。
+接下来，在 `kubernetes/test-infra` 仓库中为你的本地化添加一个 GitHub 标签。
+标签可让你过滤 issues 和针对特定语言的 PR。
 
 有关添加标签的示例，请参见添加[意大利语标签](https://github.com/kubernetes/test-infra/pull/11316)的 PR。
-
-<!-- 
-### Find community
-
-Let Kubernetes SIG Docs know you're interested in creating a localization! Join the [SIG Docs Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/). Other localization teams are happy to help you get started and answer any questions you have.
-
-You can also create a Slack channel for your localization in the `kubernetes/community` repository. For an example of adding a Slack channel, see the PR for [adding channels for Indonesian and Portuguese](https://github.com/kubernetes/community/pull/3605).  
--->
-### 寻找社区
-
-让 Kubernetes SIG Docs 知道你对创建本地化感兴趣！
-加入[SIG Docs Slack 频道](https://kubernetes.slack.com/messages/C1J0BPD2M/)。
-其他本地化团队很乐意帮助你起步并回答你的任何问题。
 
 你还可以在 `kubernetes/community` 仓库中为你的本地化创建一个 Slack 频道。
 有关添加 Slack 频道的示例，请参见[为印尼语和葡萄牙语添加频道](https://github.com/kubernetes/community/pull/3605)的 PR。
 
 <!-- 
-## Minimum required content
-
 ### Modify the site configuration
 
-The Kubernetes website uses Hugo as its web framework. The website's Hugo configuration resides in the  [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml) file. To support a new localization, you'll need to modify `config.toml`.
+The Kubernetes website uses Hugo as its web framework. The website's Hugo configuration resides in the  [`config.toml`](https://github.com/kubernetes/website/tree/main/config.toml) file. To support a new localization, you'll need to modify `config.toml`.
 
 Add a configuration block for the new language to `config.toml`, under the existing `[languages]` block. The German block, for example, looks like: 
 -->
@@ -175,8 +258,8 @@ Add a configuration block for the new language to `config.toml`, under the exist
 ### 修改站点配置
 
 Kubernetes 网站使用 Hugo 作为其 Web 框架。网站的 Hugo 配置位于
-[`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml)文件中。
-为了支持新的本地化，您需要修改 `config.toml`。
+[`config.toml`](https://github.com/kubernetes/website/tree/main/config.toml)文件中。
+为了支持新的本地化，你需要修改 `config.toml`。
 
 在现有的 `[languages]` 下，将新语言的配置添加到 `config.toml` 中。
 例如，下面是德语的配置示例：
@@ -207,7 +290,7 @@ Add a language-specific subdirectory to the [`content`](https://github.com/kuber
 ### 添加一个新的本地化目录
 
 将特定语言的子目录添加到仓库中的
-[`content`](https://github.com/kubernetes/website/tree/master/content) 文件夹下。
+[`content`](https://github.com/kubernetes/website/tree/main/content) 文件夹下。
 例如，德语的两个字母的代码是 `de`：
 
 ```shell
@@ -215,7 +298,27 @@ mkdir content/de
 ```
 
 <!-- 
-### Localize the Community Code of Conduct 
+You also need to create a directory inside `data/i18n` for
+[localized strings](#site-strings-in-i18n); look at existing localizations
+for an example. To use these new strings, you must also create a symbolic link
+from `i18n/<localization>.toml` to the actual string configuration in
+`data/i18n/<localization>/<localization>.toml` (remember to commit the symbolic
+link).
+
+For example, for German the strings live in `data/i18n/de/de.toml`, and
+`i18n/de.toml` is a symbolic link to `data/i18n/de/de.toml`.
+-->
+你还需要在 `data/i18n` 中为 [localized strings](#site-strings-in-i18n) 创建一个目录；
+以现有的本地化为例。要使用这些新字符串，
+你还必须创建从 `i18n/<localization>.toml`
+到 `data/i18n/<localization>/<localization>.toml`
+中实际字符串配置的符号链接（记得提交符号链接关联）。
+
+例如，对于德语，字符串位于 `data/i18n/de/de.toml` 中，
+而 `i18n/de.toml` 是指向 `data/i18n/de/de.toml` 的符号链接。
+
+<!-- 
+### Localize the community code of conduct 
 
 Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages) repository to add the code of conduct in your language.
 
@@ -225,34 +328,7 @@ Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tre
 在 [`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages)
 仓库提交 PR，添加你所用语言版本的行为准则。
 
-<!-- 
-### Add a localized README 
-
-To guide other localization contributors, add a new [`README-**.md`](https://help.github.com/articles/about-readmes/) to the top level of k/website, where `**` is the two-letter language code. For example, a German README file would be `README-de.md`.
-
-Provide guidance to localization contributors in the localized `README-**.md` file. Include the same information contained in `README.md` as well as:
-
-- A point of contact for the localization project
-- Any information specific to the localization 
 -->
-### 添加本地化的 README 文件
-
-为了指导其他本地化贡献者，请在 k/website 的根目录添加一个新的
-[`README-**.md`](https://help.github.com/articles/about-readmes/)，
-其中 `**` 是两个字母的语言代码。例如，德语 README 文件为 `README-de.md`。
-
-在本地化的 `README-**.md` 文件中为本地化贡献者提供指导。包含 `README.md` 中包含的相同信息，以及：
-
-- 本地化项目的联系人
-- 任何特定于本地化的信息
-
-<!-- 
-After you create the localized README, add a link to the file from the main English `README.md`, and include contact information in English. You can provide a GitHub ID, email address, [Slack channel](https://slack.com/), or other method of contact. You must also provide a link to your localized Community Code of Conduct. 
--->
-创建本地化的 README 文件后，请在英语版文件 `README.md` 中添加指向该文件的链接，
-并给出英文形式的联系信息。你可以提供 GitHub ID、电子邮件地址、
-[Slack 频道](https://slack.com/)或其他联系方式。你还必须提供指向本地化的社区行为准则的链接。
-
 <!-- 
 ### Setting up the OWNERS files
 
@@ -267,10 +343,10 @@ To set the roles of each user contributing to the localization, create an `OWNER
 要设置每个对本地化做出贡献用户的角色，请在特定于语言的子目录内创建一个 `OWNERS` 文件，其中：
 
 - **reviewers**: 具有评审人角色的 kubernetes 团队的列表，在本例中为在
-  [在 GitHub 中添加您的本地化团队](#add-your-localization-team-in-github)
+  [在 GitHub 中添加你的本地化团队](#add-your-localization-team-in-github)
   中创建的 `sig-docs-**-reviews` 团队。
 - **approvers**: 具有批准人角色的 kubernetes 团队的列表，在本例中为在
-  [在 GitHub 中添加您的本地化团队](#add-your-localization-team-in-github)
+  [在 GitHub 中添加你的本地化团队](#add-your-localization-team-in-github)
   中创建的 `sig-docs-**-owners` 团队。
 - **labels**: 可以自动应用于 PR 的 GitHub 标签列表，在本例中为
   [配置工作流程](#configure-the-workflow)中创建的语言标签。
@@ -311,7 +387,7 @@ For each team, add the list of GitHub users requested in [Add your localization 
 [根目录下的 OWNERS_ALIAES](https://git.k8s.io/website/OWNERS_ALIASES) 文件。
 
 对于每个团队，请按字母顺序添加
-[在 GitHub 中添加您的本地化团队](#add-your-localization-team-in-github)
+[在 GitHub 中添加你的本地化团队](#add-your-localization-team-in-github)
 中所请求的 GitHub 用户列表。
 
 ```diff
@@ -335,13 +411,76 @@ For each team, add the list of GitHub users requested in [Add your localization 
 ```
 
 <!-- 
+### Open a pull request
+
+Next, [open a pull request](/docs/contribute/new-content/open-a-pr/#open-a-pr) (PR) to add a localization to the `kubernetes/website` repository.
+
+The PR must include all of the [minimum required content](#minimum-required-content) before it can be approved.
+
+For an example of adding a new localization, see the PR to enable [docs in French](https://github.com/kubernetes/website/pull/12548).
+-->
+### 打开拉取请求  {#open-a-pull-request}
+
+接下来，[打开拉取请求](/zh/docs/contribute/new-content/open-a-pr/#open-a-pr)（PR）
+将本地化添加到 `kubernetes/website` 存储库。
+
+PR 必须包含所有[最低要求内容](#minimum-required-content)才能获得批准。
+
+有关添加新本地化的示例，
+请参阅 PR 以启用[法语文档](https://github.com/kubernetes/website/pull/12548)。
+
+<!-- 
+### Add a localized README file
+
+To guide other localization contributors, add a new [`README-**.md`](https://help.github.com/articles/about-readmes/) to the top level of [k/website](https://github.com/kubernetes/website/), where `**` is the two-letter language code. For example, a German README file would be `README-de.md`.
+
+Provide guidance to localization contributors in the localized `README-**.md` file. Include the same information contained in `README.md` as well as:
+
+- A point of contact for the localization project
+- Any information specific to the localization 
+-->
+### 添加本地化的 README 文件
+
+为了指导其他本地化贡献者，请在 [k/website](https://github.com/kubernetes/website/)
+的根目录添加一个新的 [`README-**.md`](https://help.github.com/articles/about-readmes/)，
+其中 `**` 是两个字母的语言代码。例如，德语 README 文件为 `README-de.md`。
+
+在本地化的 `README-**.md` 文件中为本地化贡献者提供指导。包含 `README.md` 中包含的相同信息，以及：
+
+- 本地化项目的联系人
+- 任何特定于本地化的信息
+
+<!-- 
+After you create the localized README, add a link to the file from the main English `README.md`, and include contact information in English. You can provide a GitHub ID, email address, [Slack channel](https://slack.com/), or other method of contact. You must also provide a link to your localized Community Code of Conduct. 
+-->
+创建本地化的 README 文件后，请在英语版文件 `README.md` 中添加指向该文件的链接，
+并给出英文形式的联系信息。你可以提供 GitHub ID、电子邮件地址、
+[Slack 频道](https://slack.com/)或其他联系方式。你还必须提供指向本地化的社区行为准则的链接。
+
+<!-- 
+### Launching your new localization
+
+Once a localization meets requirements for workflow and minimum output, SIG Docs will:
+
+- Enable language selection on the website
+- Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).
+-->
+### 启动你的新本地化
+
+一旦本地化满足工作流程和最小输出的要求，SIG Docs 将：
+
+- 在网站上启用语言选择
+- 通过[云原生计算基金会](https://www.cncf.io/about/)（CNCF）渠道，
+  包括 [Kubernetes 博客](https://kubernetes.io/blog/)，来宣传本地化的可用性。
+
+<!-- 
 ## Translating content
 
 Localizing *all* of the Kubernetes documentation is an enormous task. It's okay to start small and expand over time.
 
 At a minimum, all localizations must include: 
 -->
-## 翻译文档
+## 翻译文档 {#translating-content}
 
 本地化*所有* Kubernetes 文档是一项艰巨的任务。从小做起，循序渐进。
 
@@ -352,15 +491,15 @@ Description | URLs
 -----|-----
 Home | [All heading and subheading URLs](/docs/home/)
 Setup | [All heading and subheading URLs](/docs/setup/)
-Tutorials | [Kubernetes Basics](/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
-Site strings | [All site strings in a new localized TOML file](https://github.com/kubernetes/website/tree/master/i18n) 
+Tutorials | [Kubernetes Basics](/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/hello-minikube/)
+Site strings | [All site strings](#Site-strings-in-i18n) in a new localized TOML file
 -->
 描述 | 网址
 -----|-----
 主页 | [所有标题和副标题网址](/zh/docs/home/)
 安装 | [所有标题和副标题网址](/zh/docs/setup/)
 教程 | [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/), [Hello Minikube](/zh/docs/tutorials/hello-minikube/)
-网站字符串 | [新的本地化 TOML 文件中的所有网站字符串](https://github.com/kubernetes/website/tree/master/i18n)
+网站字符串 | [所有网站字符串](#Site-strings-in-i18n)
 
 <!-- 
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source: 
@@ -394,52 +533,72 @@ To ensure accuracy in grammar and meaning, members of your localization team sho
 <!-- 
 ### Source files
 
-Localizations must be based on the English files from the most recent release, {{< latest-version >}}.
+Localizations must be based on the English files from a specific release targeted by the localization team.
+Each localization team can decide which release to target which is referred to as the _target version_ below.
 
-To find source files for the most recent release:
+To find source files for your target version:
 
 1. Navigate to the Kubernetes website repository at https://github.com/kubernetes/website.
-2. Select the `release-1.X` branch for the most recent version.
+2. Select a branch for your target version from the following table:
+    Target version | Branch
+    -----|-----
+    Latest version | [`main`](https://github.com/kubernetes/website/tree/main)
+    Previous version | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
+    Next version | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
 
-The latest version is {{< latest-version >}}, so the most recent release branch is [`{{< release-branch >}}`](https://github.com/kubernetes/website/tree/{{< release-branch >}}). 
+The `master` branch holds content for the current release `{{< latest-version >}}`. The release team will create `{{< release-branch >}}` branch before the next release: v{{< skew nextMinorVersion >}}.
 -->
 ### 源文件
 
-本地化必须基于最新版本 {{< latest-version >}} 中的英文文件。
+本地化必须基于本地化团队所针对的特定发行版本中的英文文件。
+每个本地化团队可以决定要针对哪个发行版本，在下文中称作目标版本（target version）。）
 
-要查找最新版本的源文件：
+要查找你的目标版本的源文件：
 
 1. 导航到 Kubernetes website 仓库，网址为 https://github.com/kubernetes/website。
-1. 选择最新版本的 `release-1.X` 分支。
+2. 从下面的表格中选择你的目标版本分支：
 
-最新版本是 {{< latest-version >}}，所以最新的发行分支是
-[`{{< release-branch >}}`](https://github.com/kubernetes/website/tree/{{< release-branch >}})。
+   目标版本 | 分支
+   -----|-----
+   最新版本 | [`main`](https://github.com/kubernetes/website/tree/main)
+   上一个版本 | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
+   下一个版本 | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
+
+`main` 分支中保存的是当前发行版本 `{{< latest-version >}}` 的内容。
+发行团队会在下一个发行版本 v{{< skew nextMinorVersion >}} 出现之前创建
+`{{< release-branch >}}` 分支。
 
 <!-- 
 ### Site strings in i18n/ 
 
-Localizations must include the contents of [`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) in a new language-specific file. Using German as an example: `i18n/de.toml`. 
+Localizations must include the contents of [`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) in a new language-specific file. Using German as an example: `data/i18n/de/de.toml`. 
 
 Add a new localization file to `i18n/`. For example, with German (`de`): 
-Then translate the value of each string: 
 -->
-### i18n/ 中的网站字符串
+### i18n/ 中的网站字符串 {#site-strings-in-i18n}
 
 本地化必须在新的语言特定文件中包含
-[`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml)
-的内容。以德语为例：`i18n/de.toml`。
+[`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml)
+的内容。以德语为例：`data/i18n/de/de.toml`。
 
 将新的本地化文件添加到 `i18n/`。例如德语 (`de`)：
 
-```shell
-cp i18n/en.toml i18n/de.toml
+```bash
+mkdir -p data/i18n/de
+cp data/i18n/en/en.toml data/i18n/de/de.toml
 ```
 
-然后翻译每个字符串的值：
+<!-- 
+Revise the comments at the top of the file to suit your localization,
+then translate the value of each string. For example, this is the German-language
+placeholder text for the search form:
+-->
+修改文件顶部的注释以适合你的本地化，
+然后翻译每个字符串的值。例如，这是搜索表单的德语占位符文本：
 
-```TOML
-[docs_label_i_am]
-other = "ICH BIN..."
+```toml
+[ui_search_placeholder]
+other = "Suchen"
 ```
 
 <!-- 
@@ -460,28 +619,32 @@ Some language teams have their own language-specific style guide and glossary. F
 <!-- 
 ## Branching strategy 
 
-Because localization projects are highly collaborative efforts, we encourage teams to work in shared development branches. 
+Because localization projects are highly collaborative efforts, we
+encourage teams to work in shared localization branches - especially
+when starting out and the localization is not yet live.
 
-To collaborate on a development branch: 
+To collaborate on a localization branch: 
 -->
-### 分支策略
-因为本地化项目是高度协同的工作，所以我们鼓励团队基于共享的开发分支工作。
+### 分支策略 {#branching-strategy}
 
-在开发分支上协作需要：
+因为本地化项目是高度协同的工作，所以我们鼓励团队基于共享的本地化分支工作。
+- 特别是在开始并且本地化尚未生效时。
+
+在本地化分支上协作需要：
 
 <!-- 
-1. A team member of [@kubernetes/sig-docs-l10n-admins](https://github.com/orgs/kubernetes/teams/sig-docs-l10n-admins) opens a development branch from a source branch on https://github.com/kubernetes/website.
+1. A team member of [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers) opens a localization branch from a source branch on https://github.com/kubernetes/website.
 
-    Your team approvers joined the `sig-docs-l10n-admins` team when you [added your localization team](#add-your-localization-team-in-github) to the `kubernetes/org` repository. 
+    Your team approvers joined the `@kubernetes/website-maintainers` team when you [added your localization team](#add-your-localization-team-in-github) to the [`kubernetes/org`](https://github.com/kubernetes/org) repository. 
 
     We recommend the following branch naming scheme:
 
     `dev-<source version>-<language code>.<team milestone>`
 
-    For example, an approver on a German localization team opens the development branch `dev-1.12-de.1` directly against the k/website repository, based on the source branch for Kubernetes v1.12.
+    For example, an approver on a German localization team opens the localization branch `dev-1.12-de.1` directly against the k/website repository, based on the source branch for Kubernetes v1.12.
 -->
 1. [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers)
-   中的团队成员从 https://github.com/kubernetes/website 原有分支新建一个开发分支。
+   中的团队成员从 https://github.com/kubernetes/website 原有分支新建一个本地化分支。
    当你给 `kubernetes/org` 仓库[添加你的本地化团队](#add-your-localization-team-in-github)时，
    你的团队批准人便加入了 `@kubernetes/website-maintainers` 团队。
 
@@ -490,52 +653,73 @@ To collaborate on a development branch:
    `dev-<source version>-<language code>.<team milestone>`
 
    例如，一个德语本地化团队的批准人基于 Kubernetes v1.12 版本的源分支，
-   直接新建了 k/website 仓库的开发分支 `dev-1.12-de.1`。
+   直接新建了 k/website 仓库的本地化分支 `dev-1.12-de.1`。
 
 <!-- 
-2. Individual contributors open feature branches based on the development branch.
+2. Individual contributors open feature branches based on the localization branch.
 
     For example, a German contributor opens a pull request with changes to `kubernetes:dev-1.12-de.1` from `username:local-branch-name`.
 
-3. Approvers review and merge feature branches into the development branch.
+3. Approvers review and merge feature branches into the localization branch.
 
-4. Periodically, an approver merges the development branch to its source branch by opening and approving a new pull request. Be sure to squash the commits before approving the pull request. 
+4. Periodically, an approver merges the localization branch to its source branch by opening and approving a new pull request. Be sure to squash the commits before approving the pull request. 
 -->
-2. 个人贡献者基于开发分支创建新的特性分支
+2. 个人贡献者基于本地化分支创建新的特性分支
 
    例如，一个德语贡献者新建了一个拉取请求，并将 `username:local-branch-name` 更改为 `kubernetes:dev-1.12-de.1`。
 
-3. 批准人审查功能分支并将其合并到开发分支中。
+3. 批准人审查功能分支并将其合并到本地化分支中。
 
-4. 批准人会定期发起并批准新的 PR，将开发分支合并到其源分支。在批准 PR 之前，请确保先 squash commits。
+4. 批准人会定期发起并批准新的 PR，将本地化分支合并到其源分支。
+   在批准 PR 之前，请确保先 squash commits。
 
 <!-- 
-Repeat steps 1-4 as needed until the localization is complete. For example, subsequent German development branches would be: `dev-1.12-de.2`, `dev-1.12-de.3`, etc. 
+Repeat steps 1-4 as needed until the localization is complete. For example, subsequent German localization branches would be: `dev-1.12-de.2`, `dev-1.12-de.3`, etc. 
 -->
-根据需要重复步骤 1-4，直到完成本地化工作。例如，随后的德语开发分支将是：
+根据需要重复步骤 1-4，直到完成本地化工作。例如，随后的德语本地化分支将是：
 `dev-1.12-de.2`、`dev-1.12-de.3`，等等。
 
 <!-- 
-Teams must merge localized content into the same release branch from which the content was sourced. For example, a development branch sourced from {{< release-branch >}} must be based on {{< release-branch >}}. 
+Teams must merge localized content into the same branch from which the content was sourced.
 
-An approver must maintain a development branch by keeping it current with its source branch and resolving merge conflicts. The longer a development branch stays open, the more maintenance it typically requires. Consider periodically merging development branches and opening new ones, rather than maintaining one extremely long-running development branch. 
+For example:
+
+- a localization branch sourced from `main` must be merged into `main`.
+- a localization branch sourced from `release-{{ skew "prevMinorVersion" }}` must be merged into `release-{{ skew "prevMinorVersion" }}`.
+
+{{< note >}}
+If your localization branch was created from `main` branch but it is not merged into `main` before new release branch `{{< release-branch >}}` created, merge it into both `main` and new release branch `{{< release-branch >}}`. To merge your localization branch into new release branch `{{< release-branch >}}`, you need to switch upstream branch of your localization branch to `{{< release-branch >}}`.
+{{< /note >}}
 -->
-团队必须将本地化内容合入到发布分支中，该发布分支也正是内容的来源。
-例如，源于 {{< release-branch >}} 的开发分支必须基于 {{< release-branch >}}。
+团队必须将本地化内容合入到发布分支中，该发布分支是内容的来源。
 
-approver 必须通过使开发分支与源分支保持最新并解决合并冲突来维护开发分支。
-开发分支的存在时间越长，通常需要的维护工作就越多。
-考虑定期合并开发分支并新建分支，而不是维护一个持续时间很长的开发分支。
+例如：
+
+- 源于 `main` 分支的本地化分支必须被合并到 `main`。
+- 源于 `release-{{ skew "prevMinorVersion" }}`
+  的本地化分支必须被合并到 `release-{{ skew "prevMinorVersion" }}`。
+
+如果你的本地化分支是基于 `main` 分支创建的，但最终没有在新的发行
+分支 `{{< release-branch >}}` 被创建之前合并到 `main` 中，需要将其
+同时将其合并到 `main` 和新的发行分支 `{{< release-branch >}}` 中。
+要将本地化分支合并到新的发行分支 `{{< release-branch >}}` 中，你需要
+将你本地化分支的上游分支切换到 `{{< release-branch >}}`。
 
 <!-- 
-At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous development branch and the current development branch.  
+At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous localization branch and the current localization branch. There are two scripts for comparing upstream changes. [`upstream_changes.py`](https://github.com/kubernetes/website/tree/main/scripts#upstream_changespy) is useful for checking the changes made to a specific file. And [`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/main/scripts#diff_l10n_branchespy) is useful for creating a list of outdated files for a specific localization branch.
 
-While only approvers can open a new development branch and merge pull requests, anyone can open a pull request for a new development branch. No special permissions are required. 
+While only approvers can open a new localization branch and merge pull requests, anyone can open a pull request for a new localization branch. No special permissions are required.
  -->
+在团队每个里程碑的开始时段，创建一个 issue 来比较先前的本地化分支
+和当前的本地化分支之间的上游变化很有帮助。
+现在有两个脚本用来比较上游的变化。
+[`upstream_changes.py`](https://github.com/kubernetes/website/tree/main/scripts#upstream_changespy)
+对于检查对某个文件的变更很有用。
+[`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/main/scripts#diff_l10n_branchespy)
+可以用来为某个特定本地化分支创建过时文件的列表。
 
-在团队每个里程碑的起点，创建一个 issue 来比较先前的开发分支和当前的开发分支之间的上游变化很有帮助。
-虽然只有批准人才能创建新的开发分支并合并 PR，但任何人都可以为新的开发分支提交一个拉取请求（PR）。
-不需要特殊权限。
+虽然只有批准人才能创建新的本地化分支并合并 PR，任何人都可以
+为新的本地化分支提交一个拉取请求（PR）。不需要特殊权限。
 
 <!-- 
 For more information about working from forks or directly from the repository, see ["fork and clone the repo"](#fork-and-clone-the-repo). 
@@ -550,32 +734,3 @@ SIG Docs welcomes upstream contributions and corrections to the English source.
 ### 上游贡献 {#upstream-contributions}
 
 Sig Docs 欢迎对英文原文的上游贡献和修正。
-
-<!-- 
-## Help an existing localization 
-
-You can also help add or improve content to an existing localization. Join the [Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/) for the localization, and start opening PRs to help.
- Please limit pull requests to a single localization since pull requests that change content in multiple localizations could be difficult to review.
--->
-## 帮助现有的本地化
-
-您还可以向现有本地化添加或改进内容提供帮助。
-加入本地化团队的 [Slack 频道](https://kubernetes.slack.com/messages/C1J0BPD2M/)，
-然后开始新建 PR 来提供帮助。
-请限制每个 PR 只涉及一种语言，这是因为更改多种语言版本内容的 PR
-可能非常难审阅。
-
-## {{% heading "whatsnext" %}}
-
-<!-- 
-Once a localization meets requirements for workflow and minimum output, SIG docs will: 
-
-- Enable language selection on the website
-- Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).
--->
-本地化满足工作流程和最低输出要求后，SIG 文档将：
-
-- 在网站上启用语言选择
-- 通过[Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF) 频道, 
-  包括[ Kubernetes 博客](https://kubernetes.io/blog/)公开本地化的可用性。
-

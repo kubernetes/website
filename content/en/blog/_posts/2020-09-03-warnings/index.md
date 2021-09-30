@@ -325,7 +325,7 @@ Now that we have a way to communicate helpful information to users in context,
 we're already considering other ways we can use this to improve people's experience with Kubernetes.
 A couple areas we're looking at next are warning about [known problematic values](http://issue.k8s.io/64841#issuecomment-395141013)
 we cannot reject outright for compatibility reasons, and warning about use of deprecated fields or field values
-(like selectors using beta os/arch node labels, [deprecated in v1.14](/docs/reference/kubernetes-api/labels-annotations-taints/#beta-kubernetes-io-arch-deprecated)).
+(like selectors using beta os/arch node labels, [deprecated in v1.14](/docs/reference/labels-annotations-taints/#beta-kubernetes-io-arch-deprecated)).
 I'm excited to see progress in this area, continuing to make it easier to use Kubernetes.
 
 ---

@@ -444,7 +444,7 @@ body.cid-community > #deprecation-warning > .deprecation-warning > * {
 .td-sidebar__inner {
   form.td-sidebar__search {
 
-    button.td-sidebar__toggle {
+    .td-sidebar__toggle {
       &:hover {
         color: #000000;
       }
@@ -481,10 +481,6 @@ main.content {
 /* BLOG */
 
 .td-blog {
-
-  .td-sidebar-nav {
-    max-height: calc(100vh - 8rem);
-  }
 
   .widget-link {
     margin-bottom: 1rem;
@@ -639,3 +635,17 @@ body.td-documentation {
   }
 }
 
+// Match Docsy-imposed max width on text body
+@media (min-width: 1200px) {
+  body.td-blog main .td-content > figure {
+    max-width: 80%;
+  }
+}
+
+.td-content {
+  table code {
+    background-color: inherit !important;
+    color: inherit !important;
+    font-size: inherit !important;
+  }
+}

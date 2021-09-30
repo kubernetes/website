@@ -68,14 +68,7 @@ or the custom metrics API (for all other metrics).
 
 The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,
 `custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  The `metrics.k8s.io` API is usually provided by
-metrics-server, which needs to be launched separately. See
-[metrics-server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server)
-for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
-
-{{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
-Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
-{{< /note >}}
+metrics-server, which needs to be launched separately. For more information about resource metrics, see [Metrics Server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server).
 
 See [Support for metrics APIs](#support-for-metrics-apis) for more details.
 
@@ -198,14 +191,17 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/refe
 
 ## Autoscaling during rolling update
 
-Currently in Kubernetes, it is possible to perform a rolling update by using the deployment object, which manages the underlying replica sets for you.
-Horizontal Pod Autoscaler only supports the latter approach: the Horizontal Pod Autoscaler is bound to the deployment object,
-it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replica sets.
+Kubernetes lets you perform a rolling update on a Deployment. In that
+case, the Deployment manages the underlying ReplicaSets for you.
+When you configure autoscaling for a Deployment, you bind a
+HorizontalPodAutoscaler to a single Deployment. The HorizontalPodAutoscaler
+manages the `replicas` field of the Deployment. The deployment controller is responsible
+for setting the `replicas` of the underlying ReplicaSets so that they add up to a suitable
+number during the rollout and also afterwards.
 
-Horizontal Pod Autoscaler does not work with rolling update using direct manipulation of replication controllers,
-i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update.
-The reason this doesn't work is that when rolling update creates a new replication controller,
-the Horizontal Pod Autoscaler will not be bound to the new replication controller.
+If you perform a rolling update of a StatefulSet that has an autoscaled number of
+replicas, the StatefulSet directly manages its set of Pods (there is no intermediate resource
+similar to ReplicaSet).
 
 ## Support for cooldown/delay
 
@@ -340,8 +336,6 @@ APIs, cluster administrators must ensure that:
      If you would like to write your own, check out the [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) to get started.
 
    * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
-
-* The `--horizontal-pod-autoscaler-use-rest-clients` is `true` or unset.  Setting this to false switches to Heapster-based autoscaling, which is deprecated.
 
 For more information on these different metrics paths and how they differ please see the relevant design proposals for
 [the HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),

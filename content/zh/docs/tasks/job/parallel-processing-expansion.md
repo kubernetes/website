@@ -2,13 +2,13 @@
 title: 使用展开的方式进行并行处理
 content_type: task
 min-kubernetes-server-version: v1.8
-weight: 20
+weight: 50
 ---
 <!--
 title: Parallel Processing using Expansions
 content_type: task
 min-kubernetes-server-version: v1.8
-weight: 20
+weight: 50
 -->
 
 <!-- overview -->
@@ -19,7 +19,7 @@ based on a common template. You can use this approach to process batches of work
 parallel.
 
 For this example there are only three items: _apple_, _banana_, and _cherry_.
-The sample Jobs process each item simply by printing a string then pausing.
+The sample Jobs process each item by printing a string then pausing.
 
 See [using Jobs in real workloads](#using-jobs-in-real-workloads) to learn about how
 this pattern fits more realistic use cases.
@@ -29,7 +29,8 @@ this pattern fits more realistic use cases.
 你可以用这种方法来并行执行批处理任务。
 
 在本任务示例中，只有三个工作条目：_apple_、_banana_ 和 _cherry_。
-示例任务处理每个条目时仅仅是打印一个字符串之后结束。
+示例任务处理每个条目时打印一个字符串之后结束。
+
 参考[在真实负载中使用 Job](#using-jobs-in-real-workloads)了解更适用于真实使用场景的模式。
 
 ## {{% heading "prerequisites" %}}
@@ -366,7 +367,7 @@ cat job.yaml.jinja2 | render_template | kubectl apply -f -
 <!--
 Kubernetes accepts and runs the Jobs you created.
 -->
-Kubernets 接收清单文件并执行你所创建的 Job。
+Kubernetes 接收清单文件并执行你所创建的 Job。
 
 <!--
 ### Clean up {#cleanup-2}

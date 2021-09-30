@@ -6,8 +6,20 @@ api_metadata:
 content_type: "api_reference"
 description: "configuration of a horizontal pod autoscaler."
 title: "HorizontalPodAutoscaler"
-weight: 14
+weight: 11
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: autoscaling/v1`
 
@@ -555,6 +567,8 @@ PATCH /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+
 401: Unauthorized
 
 
@@ -607,6 +621,8 @@ PATCH /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name
 
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 

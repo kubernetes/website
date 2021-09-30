@@ -55,7 +55,7 @@ You can reference glossary terms with an inclusion that automatically updates an
 As well as inclusions with tooltips, you can reuse the definitions from the glossary in
 page content.
 
-The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary), with a content file for each glossary term.
+The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary), with a content file for each glossary term.
 
 ### Glossary demo
 
@@ -82,6 +82,33 @@ You can also include a full definition:
 
 which renders as:
 {{< glossary_definition term_id="cluster" length="all" >}}
+
+## Links to API Reference
+
+You can link to a page of the Kubernetes API reference using the `api-reference` shortcode, for example to the {{< api-reference page="workload-resources/pod-v1" >}} reference:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" */>}}
+```
+
+The content of the `page` parameter is the suffix of the URL of the API reference page.
+
+
+You can link to a specific place into a page by specifying an `anchor` parameter, for example to the {{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}} reference or the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" >}} section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="PodSpec" */>}}
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" */>}}
+```
+
+
+You can change the text of the link by specifying a `text` parameter, for example by linking to the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variables">}} section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variable" */>}}
+```
+
+
 
 ## Table captions
 

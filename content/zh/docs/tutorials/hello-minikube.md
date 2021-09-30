@@ -110,19 +110,32 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 4. 仅限 Katacoda 环境：输入“30000”，然后单击 **显示端口**。
 
 <!--
-The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser. You can create Kubernetes resources on the dashboard such as Deployment and Service.
+The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser. 
+You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
-If you are running in an environment as root, see [Open Dashboard with URL](/docs/tutorials/hello-minikube#open-dashboard-with-url).
+If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
 
-To stop the proxy, run `Ctrl+C` to exit the process. The dashboard remains running.
+By default, the dashboard is only accessible from within the internal Kubernetes virtual network.
+The `dashboard` command creates a temporary proxy to make the dashboard accessible from outside the Kubernetes virtual network.
+
+To stop the proxy, run `Ctrl+C` to exit the process.
+After the command exits, the dashboard remains running in Kubernetes cluster.
+You can run the `dashboard` command again to create another proxy to access the dashboard.
 -->
 {{< note >}}
-`dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
+`dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。
+你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
 
 如果你以 root 用户身份在环境中运行，
-请参见[使用 URL 打开仪表板](/zh/docs/tutorials/hello-minikube#open-dashboard-with-url)。
+请参见[使用 URL 打开仪表板](#open-dashboard-with-url)。
+
+默认情况下，仪表板只能从内部 Kubernetes 虚拟网络中访问。
+`dashboard` 命令创建一个临时代理，使仪表板可以从 Kubernetes 虚拟网络外部访问。
 
 要停止代理，请运行 `Ctrl+C` 退出该进程。仪表板仍在运行中。
+命令退出后，仪表板仍然在 Kubernetes 集群中运行。
+你可以再次运行 `dashboard` 命令创建另一个代理来访问仪表板。
+
 {{< /note >}}
 
 <!--
@@ -273,9 +286,9 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    如果你用 `kubectl expose` 暴露了其它的端口，客户端将不能访问其它端口。
 
 <!--
-2. View the Service you just created:
+2. View the Service you created:
 -->
-2. 查看你刚刚创建的 Service：
+2. 查看你创建的 Service：
 
    ```shell
    kubectl get services
@@ -387,13 +400,13 @@ Minikube 有一组内置的 {{< glossary_tooltip text="插件" term_id="addons" 
    输出结果类似于这样：
 
    ```
-   metrics-server was successfully enabled
+   The 'metrics-server' addon is enabled
    ```
 
 <!--
-3. View the Pod and Service you just created:
+3. View the Pod and Service you created:
 -->
-3. 查看刚才创建的 Pod 和 Service：
+3. 查看创建的 Pod 和 Service：
 
    ```shell
    kubectl get pod,svc -n kube-system

@@ -17,9 +17,9 @@ no_list: true
 `kubectl` 은 다양한 리눅스 플랫폼, macOS, 그리고 윈도우에 설치할 수 있다.
 각각에 대한 설치 가이드는 다음과 같다.
 
-- [리눅스에 `kubectl` 설치하기](install-kubectl-linux)
-- [macOS에 `kubectl` 설치하기](install-kubectl-macos)
-- [윈도우에 `kubectl` 설치하기](install-kubectl-windows)
+- [리눅스에 `kubectl` 설치하기](/ko/docs/tasks/tools/install-kubectl-linux/)
+- [macOS에 `kubectl` 설치하기](/ko/docs/tasks/tools/install-kubectl-macos/)
+- [윈도우에 `kubectl` 설치하기](/ko/docs/tasks/tools/install-kubectl-windows/)
 
 ## kind
 

@@ -30,6 +30,20 @@ Used on: Node
 
 The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
 
+## kubernetes.io/metadata.name
+
+Example: `kubernetes.io/metadata.name=mynamespace`
+
+Used on: Namespaces
+
+When the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+the Kubernetes API server sets this label on all namespaces. The label value is set to
+the name of the namespace.
+
+This is useful if you want to target a specific namespace with a label
+{{< glossary_tooltip text="selector" term_id="selector" >}}.
+
 ## beta.kubernetes.io/arch (deprecated)
 
 This label has been deprecated. Please use `kubernetes.io/arch` instead.
@@ -47,6 +61,16 @@ Used on: Node
 The Kubelet populates this label with the hostname. Note that the hostname can be changed from the "actual" hostname by passing the `--hostname-override` flag to the `kubelet`.
 
 This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
+
+
+## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
+
+Example: `controller.kubernetes.io/pod-deletion-cost=10`
+
+Used on: Pod
+
+This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
 
 ## beta.kubernetes.io/instance-type (deprecated)
 
@@ -74,6 +98,18 @@ See [topology.kubernetes.io/region](#topologykubernetesioregion).
 See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). {{< /note >}}
+
+## statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
+
+Example:
+
+`statefulset.kubernetes.io/pod-name=mystatefulset-7`
+
+When a StatefulSet controller creates a Pod for the StatefulSet, the control plane
+sets this label on that Pod. The value of the label is the name of the Pod being created.
+
+See [Pod Name Label](/docs/concepts/workloads/controllers/statefulset/#pod-name-label) in the
+StatefulSet topic for more details.
 
 ## topology.kubernetes.io/region {#topologykubernetesioregion}
 
@@ -164,7 +200,7 @@ Used on: Service
 
 The kube-proxy has this label for custom proxy, which delegates service control to custom proxy.
 
-## experimental.windows.kubernetes.io/isolation-type
+## experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
 
 Example: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
@@ -174,6 +210,7 @@ The annotation is used to run Windows containers with Hyper-V isolation. To use 
 
 {{< note >}}
 You can only set this annotation on Pods that have a single container.
+Starting from v1.20, this annotation is deprecated. Experimental Hyper-V support was removed in 1.21.
 {{< /note >}}
 
 ## ingressclass.kubernetes.io/is-default-class
@@ -186,7 +223,18 @@ When a single IngressClass resource has this annotation set to `"true"`, new Ing
 
 ## kubernetes.io/ingress.class (deprecated)
 
-{{< note >}} Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`. {{< /note >}}
+{{< note >}}
+Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`.
+{{< /note >}}
+
+## storageclass.kubernetes.io/is-default-class
+
+Example: `storageclass.kubernetes.io/is-default-class=true`
+
+Used on: StorageClass
+
+When a single StorageClass resource has this annotation set to `"true"`, new PersistentVolumeClaim
+resource without a class specified will be assigned this default class.
 
 ## alpha.kubernetes.io/provided-node-ip
 
@@ -197,6 +245,47 @@ Used on: Node
 The kubelet can set this annotation on a Node to denote its configured IPv4 address.
 
 When kubelet is started with the "external" cloud provider, it sets this annotation on the Node to denote an IP address set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid by the cloud-controller-manager.
+
+## batch.kubernetes.io/job-completion-index
+
+Example: `batch.kubernetes.io/job-completion-index: "3"`
+
+Used on: Pod
+
+The Job controller in the kube-controller-manager sets this annotation for Pods
+created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
+
+## kubectl.kubernetes.io/default-container
+
+Example: `kubectl.kubernetes.io/default-container: "front-end-app"`
+
+The value of the annotation is the container name that is default for this Pod. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
+
+## endpoints.kubernetes.io/over-capacity
+
+Example: `endpoints.kubernetes.io/over-capacity:truncated`
+
+Used on: Endpoints
+
+In Kubernetes clusters v1.22 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity and the number of endpoints has been truncated to 1000.
+
+## batch.kubernetes.io/job-tracking
+
+Example: `batch.kubernetes.io/job-tracking: ""`
+
+Used on: Jobs
+
+The presence of this annotation on a Job indicates that the control plane is
+[tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
+You should **not** manually add or remove this annotation.
+
+## scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
+
+Used on: Nodes
+
+This annotation requires the [NodePreferAvoidPods scheduling plugin](/docs/reference/scheduling/config/#scheduling-plugins)
+to be enabled. The plugin is deprecated since Kubernetes 1.22.
+Use [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) instead.
 
 **The taints listed below are always used on Nodes**
 
@@ -254,3 +343,86 @@ Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
 
+## pod-security.kubernetes.io/enforce
+
+Example: `pod-security.kubernetes.io/enforce: baseline`
+
+Used on: Namespace
+
+Value **must** be one of `privileged`, `baseline`, or `restricted` which correspond to
+[Pod Security Standard](/docs/concepts/security/pod-security-standards) levels. Specifically,
+the `enforce` label _prohibits_ the creation of any Pod in the labeled Namespace which does not meet
+the requirements outlined in the indicated level.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/enforce-version
+
+Example: `pod-security.kubernetes.io/enforce-version: {{< skew latestVersion >}}`
+
+Used on: Namespace
+
+Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards) 
+policies to apply when validating a submitted Pod.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/audit
+
+Example: `pod-security.kubernetes.io/audit: baseline`
+
+Used on: Namespace
+
+Value **must** be one of `privileged`, `baseline`, or `restricted` which correspond to
+[Pod Security Standard](/docs/concepts/security/pod-security-standards) levels. Specifically,
+the `audit` label does not prevent the creation of a Pod in the labeled Namespace which does not meet
+the requirements outlined in the indicated level, but adds an audit annotation to that Pod.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/audit-version
+
+Example: `pod-security.kubernetes.io/audit-version: {{< skew latestVersion >}}`
+
+Used on: Namespace
+
+Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards) 
+policies to apply when validating a submitted Pod.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/warn
+
+Example: `pod-security.kubernetes.io/warn: baseline`
+
+Used on: Namespace
+
+Value **must** be one of `privileged`, `baseline`, or `restricted` which correspond to
+[Pod Security Standard](/docs/concepts/security/pod-security-standards) levels. Specifically,
+the `warn` label does not prevent the creation of a Pod in the labeled Namespace which does not meet the 
+requirements outlined in the indicated level, but returns a warning to the user after doing so.
+Note that warnings are also displayed when creating or updating objects that contain Pod templates,
+such as Deployments, Jobs, StatefulSets, etc.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.
+
+## pod-security.kubernetes.io/warn-version
+
+Example: `pod-security.kubernetes.io/warn-version: {{< skew latestVersion >}}`
+
+Used on: Namespace
+
+Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards)
+policies to apply when validating a submitted Pod. Note that warnings are also displayed when creating
+or updating objects that contain Pod templates, such as Deployments, Jobs, StatefulSets, etc.
+
+See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
+for more information.

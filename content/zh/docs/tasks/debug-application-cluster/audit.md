@@ -82,22 +82,34 @@ Each request can be recorded with an associated _stage_. The defined stages are:
 - `ResponseComplete` - 当响应消息体完成并且没有更多数据需要传输的时候。
 - `Panic` - 当 panic 发生时生成。
 
+<!-- 
+The configuration of an
+[Audit Event configuration](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+is different from the
+[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
+API object.
+-->
+{{< note >}}
+[审计事件配置](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+的配置与 [Event](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
+API 对象不同。
+{{< /note >}}
+
 <!--
 The audit logging feature increases the memory consumption of the API server
 because some context required for auditing is stored for each request.
 Additionally, memory consumption depends on the audit logging configuration.
 -->
-{{< note >}}
 审计日志记录功能会增加 API server 的内存消耗，因为需要为每个请求存储审计所需的某些上下文。
 此外，内存消耗取决于审计日志记录的配置。
-{{< /note >}}
 
 <!--
 ## Audit Policy
 
 Audit policy defines rules about what events should be recorded and what data
 they should include. The audit policy object structure is defined in the
-[`audit.k8s.io` API group][auditing-api]. When an event is processed, it's
+[`audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy).
+When an event is processed, it's
 compared against the list of rules in order. The first matching rule sets the
 _audit level_ of the event. The defined audit levels are:
 -->
@@ -105,7 +117,7 @@ _audit level_ of the event. The defined audit levels are:
 
 审计政策定义了关于应记录哪些事件以及应包含哪些数据的规则。
 审计策略对象结构定义在
-[`audit.k8s.io` API 组](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go)
+[`audit.k8s.io` API 组](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 处理事件时，将按顺序与规则列表进行比较。第一个匹配规则设置事件的
 _审计级别（Audit Level）_。已定义的审计级别有：
 
@@ -156,13 +168,19 @@ rules:
 
 <!--
 If you're crafting your own audit profile, you can use the audit profile for Google Container-Optimized OS as a starting point. You can check the
-[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
 script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
+
+You can also refer to the [`Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+for details about the fields defined.
 -->
 如果你在打磨自己的审计配置文件，你可以使用为 Google Container-Optimized OS
 设计的审计配置作为出发点。你可以参考
-[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
 脚本，该脚本能够生成审计策略文件。你可以直接在脚本中看到审计策略的绝大部份内容。
+
+你也可以参考 [`Policy` 配置参考](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+以获取有关已定义字段的详细信息。
 
 <!--
 ## Audit backends
@@ -173,10 +191,8 @@ Out of the box, the kube-apiserver provides two backends:
 - Log backend, which writes events into the filesystem
 - Webhook backend, which sends events to an external HTTP API
 
-In both cases, audit events structure is defined by the API in the
-`audit.k8s.io` API group. For Kubernetes {{< param "fullversion" >}}, that
-API is at version
-[`v1`](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go).
+In all cases, audit events follow a structure defined by the Kubernetes API in the
+[`audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event).
 -->
 
 ## 审计后端   {#audit-backends}
@@ -186,9 +202,9 @@ API is at version
 - Log 后端，将事件写入到文件系统
 - Webhook 后端，将事件发送到外部 HTTP API
 
-在这两种情况下，审计事件结构均由 `audit.k8s.io` API 组中的 API 定义。
-对于 Kubernetes {{< param "fullversion" >}}，该 API 的当前版本是
-[`v1`](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go).
+在这所有情况下，审计事件均遵循 Kubernetes API 在
+[`audit.k8s.io` API 组](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+中定义的结构。
 
 <!--
 In case of patches, request body is a JSON array with patch operations, not a JSON object

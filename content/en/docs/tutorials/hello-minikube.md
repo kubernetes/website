@@ -60,16 +60,22 @@ If you installed minikube locally, run `minikube start`. Before you run `minikub
 4. Katacoda environment only: Type `30000`, and then click **Display Port**.
 
 {{< note >}}
-The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser. You can create Kubernetes resources on the dashboard such as Deployment and Service.
+The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
+You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
 If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
 
-To stop the proxy, run `Ctrl+C` to exit the process. The dashboard remains running.
+By default, the dashboard is only accessible from within the internal Kubernetes virtual network.
+The `dashboard` command creates a temporary proxy to make the dashboard accessible from outside the Kubernetes virtual network.
+
+To stop the proxy, run `Ctrl+C` to exit the process.
+After the command exits, the dashboard remains running in the Kubernetes cluster.
+You can run the `dashboard` command again to create another proxy to access the dashboard.
 {{< /note >}}
 
 ## Open Dashboard with URL
 
-If you don't want to open a web browser, run the dashboard command with the url flag to emit a URL:
+If you don't want to open a web browser, run the dashboard command with the `--url` flag to emit a URL:
 
 ```shell
 minikube dashboard --url
@@ -179,7 +185,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
-5. Katacoda environment only: Note the 5 digit port number displayed opposite to `8080` in services output. This port number is randomly generated and it can be different for you. Type your number in the port number text box, then click Display Port. Using the example from earlier, you would type `30369`.
+5. Katacoda environment only: Note the 5-digit port number displayed opposite to `8080` in services output. This port number is randomly generated and it can be different for you. Type your number in the port number text box, then click Display Port. Using the example from earlier, you would type `30369`.
 
     This opens up a browser window that serves your app and shows the app's response.
 
@@ -224,7 +230,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The output is similar to:
 
     ```
-    metrics-server was successfully enabled
+    The 'metrics-server' addon is enabled
     ```
 
 3. View the Pod and Service you created:

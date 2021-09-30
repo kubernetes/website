@@ -68,7 +68,7 @@
 {{ end }}
 {{ define "case-study-featured-block" }}
 {{ $isForeignLanguage := (ne .page.Lang .ctx.Lang)}}
-{{ $logo := .page.Resources.GetMatch "**{feature,logo}*.png" }}
+{{ $logo := .page.Resources.GetMatch "**{feature,logo}*.svg" }}
 {{ $altText := .page.LinkTitle}}
 <div class="case-study">
 	{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ $altText }}">{{ end }}

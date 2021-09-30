@@ -30,6 +30,13 @@ kube-dns.
 <!--
 ### Create a simple Pod to use as a test environment
 
+{{< codenew file="admin/dns/dnsutils.yaml" >}}
+
+{{< note >}}
+This example creates a pod in the `default` namespace. DNS name resolution for 
+services depends on the namespace of the pod. For more information, review
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
+{{< /note >}}
 
 Use that manifest to create a Pod:
 
@@ -45,6 +52,11 @@ busybox   1/1       Running   0          <some-time>
 ### 创建一个简单的 Pod 作为测试环境
 
 {{< codenew file="admin/dns/dnsutils.yaml" >}}
+
+{{< note >}}
+此示例在 `default` 命名空间创建 pod。 服务的 DNS 名字解析取决于 pod 的命名空间。 详细信息请查阅
+[服务和 Pod 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
+{{< /note >}}
 
 使用上面的清单来创建一个 Pod：
 
@@ -363,6 +375,49 @@ linux/amd64, go1.10.3, 2e322f6
 172.17.0.18:41675 - [07/Sep/2018:15:29:11 +0000] 59925 "A IN kubernetes.default.svc.cluster.local. udp 54 false 512" NOERROR qr,aa,rd,ra 106 0.000066649s
 
 ```
+
+<!--
+### Are you in the right namespace for the service?
+
+DNS queries that don't specify a namespace are limited to the pod's 
+namespace. 
+
+If the namespace of the pod and service differ, the DNS query must include 
+the namespace of the service.
+
+This query is limited to the pod's namespace:
+```shell
+kubectl exec -i -t dnsutils -- nslookup <service-name>
+```
+-->
+### 你的服务在正确的命名空间中吗？
+
+未指定命名空间的 DNS 查询仅作用于 pod 所在的命名空间。
+
+如果 pod 和服务的命名空间不相同，则 DNS 查询必须指定服务所在的命名空间。
+
+该查询仅限于 pod 所在的名称空间：
+```shell
+kubectl exec -i -t dnsutils -- nslookup <service-name>
+```
+
+<!--
+This query specifies the namespace:
+```shell
+kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
+```
+-->
+指定命名空间的查询：
+```shell
+kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
+```
+
+<!--
+To learn more about name resolution, see 
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
+-->
+要进一步了解名字解析，请查看
+[服务和 Pod 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 
 <!--
 ## Known issues

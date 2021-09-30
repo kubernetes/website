@@ -222,7 +222,7 @@ pod2             1/1     Running   0          36s
 ## 레플리카셋 매니페스트 작성하기
 
 레플리카셋은 모든 쿠버네티스 API 오브젝트와 마찬가지로 `apiVersion`, `kind`, `metadata` 필드가 필요하다.
-레플리카셋에 대한 kind 필드의 값은 항상 레플리카셋이다.
+레플리카셋에 대한 `kind` 필드의 값은 항상 레플리카셋이다.
 쿠버네티스 1.9에서의 레플리카셋의 kind에 있는 API 버전 `apps/v1`은 현재 버전이며, 기본으로 활성화 되어있다. API 버전 `apps/v1beta2`은 사용 중단(deprecated)되었다.
 API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한다.
 
@@ -237,7 +237,7 @@ API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한
 우리는 `frontend.yaml` 예제에서 `tier: frontend`이라는 레이블을 하나 가지고 있다.
 이 파드를 다른 컨트롤러가 취하지 않도록 다른 컨트롤러의 셀렉터와 겹치지 않도록 주의해야 한다.
 
-템플릿의 [재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책) 필드인
+템플릿의 [재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 필드인
 `.spec.template.spec.restartPolicy`는 기본값인 `Always`만 허용된다.
 
 ### 파드 셀렉터
@@ -307,8 +307,50 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 
 ### 레플리카셋의 스케일링
 
-레플리카셋을 손쉽게 스케일 업 또는 다운하는 방법은 단순히 `.spec.replicas` 필드를 업데이트 하면 된다.
+레플리카셋을 손쉽게 스케일 업 또는 다운하는 방법은 단순히 `.spec.replicas` 필드를 업데이트하면 된다.
 레플리카셋 컨트롤러는 일치하는 레이블 셀렉터가 있는 파드가 의도한 수 만큼 가용하고 운영 가능하도록 보장한다.
+
+스케일 다운할 때, 레플리카셋 컨트롤러는 스케일 다운할 파드의 
+우선순위를 정하기 위해 다음의 기준으로 가용 파드를 정렬하여 삭제할 파드를 결정한다.
+ 1. Pending 상태인 (+ 스케줄링할 수 없는) 파드가 먼저 스케일 다운된다.
+ 2. `controller.kubernetes.io/pod-deletion-cost` 어노테이션이 설정되어 있는 
+    파드에 대해서는, 낮은 값을 갖는 파드가 먼저 스케일 다운된다.
+ 3. 더 많은 레플리카가 있는 노드의 파드가 더 적은 레플리카가 있는 노드의 파드보다 먼저 스케일 다운된다.
+ 4. 파드 생성 시간이 다르면, 더 최근에 생성된 파드가 
+    이전에 생성된 파드보다 먼저 스케일 다운된다. 
+    (`LogarithmicScaleDown` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있으면 생성 시간이 정수 로그 스케일로 버킷화된다)
+    
+모든 기준에 대해 동등하다면, 스케일 다운할 파드가 임의로 선택된다.
+
+### 파드 삭제 비용
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+[`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost) 어노테이션을 이용하여, 
+레플리카셋을 스케일 다운할 때 어떤 파드부터 먼저 삭제할지에 대한 우선순위를 설정할 수 있다.
+
+이 어노테이션은 파드에 설정되어야 하며, [-2147483647, 2147483647] 범위를 갖는다.
+이 어노테이션은 하나의 레플리카셋에 있는 다른 파드와의 상대적 삭제 비용을 나타낸다.
+삭제 비용이 낮은 파드는 삭제 비용이 높은 파드보다 삭제 우선순위가 높다.
+
+파드에 대해 이 값을 명시하지 않으면 기본값은 0이다. 음수로도 설정할 수 있다.
+유효하지 않은 값은 API 서버가 거부한다.
+
+이 기능은 알파 상태이며 기본적으로는 비활성화되어 있다. 
+kube-apiserver와 kube-controller-manager에서 `PodDeletionCost` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 켜서 활성화할 수 있다.
+
+{{< note >}}
+- 이 기능은 best-effort 방식으로 동작하므로, 파드 삭제 순서를 보장하지는 않는다.
+- 이 값을 자주 바꾸는 것은 피해야 한다 (예: 메트릭 값에 따라 변경). 
+apiserver에서 많은 양의 파드 업데이트를 동반하기 때문이다.
+{{< /note >}}
+
+#### 사용 예시
+한 애플리케이션 내의 여러 파드는 각각 사용률이 다를 수 있다. 스케일 다운 시, 
+애플리케이션은 사용률이 낮은 파드를 먼저 삭제하고 싶을 수 있다. 파드를 자주 
+업데이트하는 것을 피하기 위해, 애플리케이션은 `controller.kubernetes.io/pod-deletion-cost` 값을 
+스케일 다운하기 전에 1회만 업데이트해야 한다 (파드 사용률에 비례하는 값으로 설정).
+이 방식은 Spark 애플리케이션의 드라이버 파드처럼 애플리케이션이 스스로 다운스케일링을 수행하는 경우에 유효하다.
 
 ### 레플리카셋을 Horizontal Pod Autoscaler 대상으로 설정
 

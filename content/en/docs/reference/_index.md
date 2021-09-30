@@ -26,7 +26,7 @@ This section of the Kubernetes documentation contains references.
 * [One-page API Reference for Kubernetes {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Using The Kubernetes API](/docs/reference/using-api/) - overview of the API for Kubernetes.
 * [API access control](/docs/reference/access-authn-authz/) - details on how Kubernetes controls API access
-* [Well-Known Labels, Annotations and Taints](/docs/reference/kubernetes-api/labels-annotations-taints/)
+* [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
 
 ## Officially supported client libraries
 
@@ -38,8 +38,8 @@ client libraries:
 - [Kubernetes Python client library](https://github.com/kubernetes-client/python)
 - [Kubernetes Java client library](https://github.com/kubernetes-client/java)
 - [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
-- [Kubernetes Dotnet client library](https://github.com/kubernetes-client/csharp)
-- [Kubernetes Haskell Client library](https://github.com/kubernetes-client/haskell)
+- [Kubernetes C# client library](https://github.com/kubernetes-client/csharp)
+- [Kubernetes Haskell client library](https://github.com/kubernetes-client/haskell)
 
 ## CLI
 
@@ -64,6 +64,8 @@ client libraries:
   * [Scheduler Policies](/docs/reference/scheduling/policies)
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
+* List of [ports and protocols](/docs/reference/ports-and-protocols/) that
+  should be open on control plane and worker nodes
 ## Config APIs
 
 This section hosts the documentation for "unpublished" APIs which are used to
@@ -71,18 +73,20 @@ configure  kubernetes components or tools. Most of these APIs are not exposed
 by the API server in a RESTful way though they are essential for a user or an
 operator to use or manage a cluster.
 
+* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
 * [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
 * [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+* [kube-scheduler policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-
-## Config APIs
-
 * [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+* [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 
-## Config APIs
+## Config API for kubeadm
 
-* [kube-scheduler policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
+* [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
+* [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
 
 ## Design Docs
 

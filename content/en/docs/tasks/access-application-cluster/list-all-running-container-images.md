@@ -23,7 +23,7 @@ of Containers for each.
 
 - Fetch all Pods in all namespaces using `kubectl get pods --all-namespaces`
 - Format the output to include only the list of Container image names
-  using `-o jsonpath={..image}`.  This will recursively parse out the
+  using `-o jsonpath={.items[*].spec.containers[*].image}`.  This will recursively parse out the
   `image` field from the returned json.
   - See the [jsonpath reference](/docs/reference/kubectl/jsonpath/)
     for further information on how to use jsonpath.
@@ -33,7 +33,7 @@ of Containers for each.
   - Use `uniq` to aggregate image counts
 
 ```shell
-kubectl get pods --all-namespaces -o jsonpath="{..image}" |\
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
 tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
@@ -80,7 +80,7 @@ To target only Pods matching a specific label, use the -l flag.  The
 following matches only Pods with labels matching `app=nginx`.
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath="{..image}" -l app=nginx
+kubectl get pods --all-namespaces -o=jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
 ## List Container images filtering by Pod namespace
@@ -89,7 +89,7 @@ To target only pods in a specific namespace, use the namespace flag. The
 following matches only Pods in the `kube-system` namespace.
 
 ```shell
-kubectl get pods --namespace kube-system -o jsonpath="{..image}"
+kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers[*].image}"
 ```
 
 ## List Container images using a go-template instead of jsonpath

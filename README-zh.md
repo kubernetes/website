@@ -4,7 +4,7 @@
 # The Kubernetes documentation
 -->
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 <!--
 This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
@@ -174,7 +174,7 @@ Learn more about SIG Docs Kubernetes community and meetings on the [community pa
 
 You can also reach the maintainers of this project at:
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [Slack](https://kubernetes.slack.com/messages/sig-docs) [Get an invite for this Slack](https://slack.k8s.io/)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 -->
 # 参与 SIG Docs 工作
@@ -184,7 +184,7 @@ You can also reach the maintainers of this project at:
 
 你也可以通过以下渠道联系本项目的维护人员：
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [Slack](https://kubernetes.slack.com/messages/sig-docs) [加入Slack](https://slack.k8s.io/)
 - [邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 <!--

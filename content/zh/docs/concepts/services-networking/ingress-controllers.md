@@ -24,7 +24,8 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 -->
 为了让 Ingress 资源工作，集群必须有一个正在运行的 Ingress 控制器。
 
-与作为 `kube-controller-manager` 可执行文件的一部分运行的其他类型的控制器不同，Ingress 控制器不是随集群自动启动的。
+与作为 `kube-controller-manager` 可执行文件的一部分运行的其他类型的控制器不同，
+Ingress 控制器不是随集群自动启动的。
 基于此页面，你可选择最适合你的集群的 ingress 控制器实现。
 
 Kubernetes 作为一个项目，目前支持和维护
@@ -54,17 +55,21 @@ Kubernetes 作为一个项目，目前支持和维护
 * [AKS 应用程序网关 Ingress 控制器](https://azure.github.io/application-gateway-kubernetes-ingress/)
   是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/azure/application-gateway/overview)
   的 Ingress 控制器。
-* [Ambassador](https://www.getambassador.io/) API 网关是一个基于 [Envoy](https://www.envoyproxy.io) 的 Ingress
+* [Ambassador](https://www.getambassador.io/) API 网关是一个基于
+  [Envoy](https://www.envoyproxy.io) 的 Ingress
   控制器。
-* [Apache APISIX Ingress 控制器](https://github.com/apache/apisix-ingress-controller) 是一个基于 [Apache APISIX 网关](https://github.com/apache/apisix) 的 Ingress 控制器。
+* [Apache APISIX Ingress 控制器](https://github.com/apache/apisix-ingress-controller)
+  是一个基于 [Apache APISIX 网关](https://github.com/apache/apisix) 的 Ingress 控制器。
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)
   使用 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)
   提供第 4 到第 7 层的负载均衡。
 * [Citrix Ingress 控制器](https://github.com/citrix/citrix-k8s-ingress-controller#readme)
   可以用来与 Citrix Application Delivery Controller 一起使用。
-* [Contour](https://projectcontour.io/) 是一个基于 [Envoy](https://www.envoyproxy.io/) 的 Ingress 控制器。
+* [Contour](https://projectcontour.io/) 是一个基于 [Envoy](https://www.envoyproxy.io/)
+  的 Ingress 控制器。
 * [EnRoute](https://getenroute.io/) 是一个基于 [Envoy](https://www.envoyproxy.io) API 网关，
   可以作为 Ingress 控制器来执行。
+* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/ingresscontroller.md) 是一个基于 [Easegress](https://megaease.com/easegress/) API 网关，可以作为 Ingress 控制器来执行。
 <!--
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
   lets you use an Ingress to configure F5 BIG-IP virtual servers.
@@ -82,7 +87,8 @@ Kubernetes 作为一个项目，目前支持和维护
   让你能够使用 Ingress 来配置 F5 BIG-IP 虚拟服务器。
 * [Gloo](https://gloo.solo.io) 是一个开源的、基于 [Envoy](https://www.envoyproxy.io) 的
   Ingress 控制器，能够提供 API 网关功能，
-* [HAProxy Ingress](https://haproxy-ingress.github.io/) 针对 [HAProxy](https://www.haproxy.org/#desc)
+* [HAProxy Ingress](https://haproxy-ingress.github.io/) 针对
+  [HAProxy](https://www.haproxy.org/#desc)
   的 Ingress 控制器。
 * [用于 Kubernetes 的 HAProxy Ingress 控制器](https://github.com/haproxytech/kubernetes-ingress#readme)
   也是一个针对 [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
@@ -96,6 +102,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP router and reverse proxy for service composition, including use cases like Kubernetes Ingress, designed as a library to build your custom proxy.
 * The [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) is an
   ingress controller for the [Traefik](https://traefik.io/traefik/) proxy.
+* [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) extends Ingress with Custom Resources to bring API Management capabilities to Ingress. Tyk Operator works with the Open Source Tyk Gateway & Tyk Cloud control plane.
 * [Voyager](https://appscode.com/products/voyager) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
 -->
@@ -109,8 +116,11 @@ Kubernetes 作为一个项目，目前支持和维护
   设计用来作为构造你自己的定制代理的库。
 * [Traefik Kubernetes Ingress 提供程序](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)
   是一个用于 [Traefik](https://traefik.io/traefik/) 代理的 Ingress 控制器。
-* [Voyager](https://appscode.com/products/voyager) 是一个针对 [HAProxy](https://www.haproxy.org/#desc)
-  的 Ingress 控制器。
+* [Tyk Operator](https://github.com/TykTechnologies/tyk-operator)
+  使用自定义资源扩展 Ingress，为之带来 API 管理能力。Tyk Operator
+  使用开源的 Tyk Gateway & Tyk Cloud 控制面。
+* [Voyager](https://appscode.com/products/voyager) 是一个针对
+  [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
 
 <!--
 ## Using multiple Ingress controllers

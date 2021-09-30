@@ -1,0 +1,232 @@
+# i18n strings for the Korean translation.
+# NOTE: Please keep the entries in alphabetical order when editing
+[announcement_title]
+other = "Black lives matter."
+
+[announcement_message]
+other = "우리는 흑인 공동체를 지지합니다.<br/>인종차별은 용납될 수 없습니다.<br/> 인종차별은 [쿠버네티스 프로젝트의 핵심 가치](https://git.k8s.io/community/values.md)에 상충되며 우리 공동체는 이를 용인하지 않습니다."
+
+[caution]
+other = "주의:"
+
+[cleanup_heading]
+other = "정리하기"
+
+[community_events_calendar]
+other = "이벤트 캘린더"
+
+[community_forum_name]
+other = "Forum"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_title]
+other = "해당 문서의 쿠버네티스 버전:"
+
+[deprecation_warning]
+other = " 문서는 더 이상 적극적으로 관리되지 않음. 현재 보고있는 문서는 정적 스냅샷임. 최신 문서를 위해서는, 다음을 참고. "
+
+[deprecation_file_warning]
+other = "사용 중단됨(deprecated)"
+
+[docs_label_browse]
+other = "문서 둘러보기"
+
+[docs_label_contributors]
+other = "컨트리뷰터"
+
+[docs_label_i_am]
+other = "나는..."
+
+[docs_label_users]
+other = "사용자"
+
+[docs_version_current]
+other = "(현재 문서)"
+
+[docs_version_latest_heading]
+other = "최신 버전"
+
+[docs_version_other_heading]
+other = "이전 버전"
+
+[error_404_were_you_looking_for]
+other = "무엇과 관련된 정보를 찾으시나요?"
+
+[examples_heading]
+other = "예시"
+
+[feedback_heading]
+other = "피드백"
+
+[feedback_question]
+other = "이 페이지가 도움이 되었나요?"
+
+[feedback_yes]
+other = "네"
+
+[feedback_no]
+other = "아니요"
+
+[input_placeholder_email_address]
+other = "전자 우편 주소"
+
+[latest_version]
+other = "최신 버전."
+
+[layouts_blog_pager_prev]
+other = "<< 이전"
+
+[layouts_blog_pager_next]
+other = "다음 >>"
+
+[layouts_case_studies_list_tell]
+other = "당신의 이야기를 들려주세요."
+
+[layouts_docs_glossary_aka]
+other = "별칭"
+
+[layouts_docs_glossary_description]
+other = "이 용어집은 쿠버네티스 용어의 종합적이고 표준화된 리스트를 제공한다. 용어집은 K8s 고유의 기술 용어 뿐만 아니라, 맥락을 이해하는데 유용한 더 일반적인 용어도 포함한다. "
+
+[layouts_docs_glossary_deselect_all]
+other = "모두 선택 해제"
+
+[layouts_docs_glossary_click_details_after]
+other = "표시를 클릭하면 각 용어에 대한 더 자세한 설명을 볼 수 있다."
+
+[layouts_docs_glossary_click_details_before]
+other = "다음"
+
+[layouts_docs_glossary_filter]
+other = "태그에 따라 용어 필터링"
+
+[layouts_docs_glossary_select_all]
+other = "모두 선택"
+
+[layouts_docs_partials_feedback_improvement]
+other = "개선 제안이 가능합니다."
+
+[layouts_docs_partials_feedback_issue]
+other = "원한다면 GitHub 리포지터리에 이슈를 열어서"
+
+[layouts_docs_partials_feedback_or]
+other = "또는"
+
+[layouts_docs_partials_feedback_problem]
+other = "문제 리포트"
+
+[layouts_docs_partials_feedback_thanks]
+other = "피드백 감사합니다. 쿠버네티스 사용 방법에 대해서 구체적이고 답변 가능한 질문이 있다면, 다음 링크에서 질문하십시오."
+
+[layouts_docs_search_fetching]
+other = "결과를 가져오는 중.."
+
+[main_by]
+other = ", 다음 변경에 의해서:"
+
+[main_cncf_project]
+other = """쿠버네티스는 <a href="https://cncf.io/">CNCF</a> graduated 프로젝트입니다.</p>"""
+
+[main_community_explore]
+other = "커뮤니티 둘러보기"
+
+[main_contribute]
+other = "기여하기"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_github_invite]
+other = "쿠버네티스 핵심 코드 베이스를 살펴보는데 관심이 있으십니까?"
+
+[main_github_view_on]
+other = "GitHub에서 보기"
+
+[main_kubernetes_features]
+other = "쿠버네티스 기능"
+
+[main_kubeweekly_baseline]
+other = "최신 쿠버네티스 뉴스 수신에 관심이 있으십니까? KubeWeekly를 신청하세요."
+
+[main_kubernetes_past_link]
+other = "과거 뉴스레터 보기"
+
+[main_kubeweekly_signup]
+other = "구독하기"
+
+[main_page_history]
+other ="페이지 변경 이력"
+
+[main_page_last_modified_on]
+other = "최종 수정일시"
+
+[main_read_about]
+other = "읽어 보기"
+
+[main_read_more]
+other = "더 읽기"
+
+[note]
+other = "참고:"
+
+[objectives_heading]
+other = "목적"
+
+[options_heading]
+other = "옵션"
+
+[post_create_issue]
+other = "이슈 생성"
+
+[prerequisites_heading]
+other = "시작하기 전에"
+
+[seealso_heading]
+other = "더 보기"
+
+[subscribe_button]
+other = "구독"
+
+[synopsis_heading]
+other = "시놉시스"
+
+[thirdparty_message]
+other = """이 섹션은 쿠버네티스에 필요한 기능을 제공하는 써드파티 프로젝트와 관련이 있다. 쿠버네티스 프로젝트 작성자는 써드파티 프로젝트에 책임이 없다. 이 페이지는 <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 웹사이트 가이드라인</a>에 따라 프로젝트를 알파벳 순으로 나열한다. 이 목록에 프로젝트를 추가하려면 변경사항을 제출하기 전에 <a href="/contribute/style/content-guide/#third-party-content">콘텐츠 가이드</a>를 읽어본다."""
+
+[ui_search_placeholder]
+other = "검색하기"
+
+[version_check_mustbe]
+other = "쿠버네티스 서버의 버전은 다음과 같아야 함. 버전: "
+
+[version_check_mustbeorlater]
+other = "쿠버네티스 서버의 버전은 다음과 같거나 더 높아야 함. 버전: "
+
+[version_check_tocheck]
+other = "버전 확인을 위해서, 다음 커맨드를 실행 "
+
+[version_menu]
+other = "버전"
+
+[warning]
+other = "경고:"
+
+[whatsnext_heading]
+other = "다음 내용"

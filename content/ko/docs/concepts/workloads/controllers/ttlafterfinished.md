@@ -6,7 +6,7 @@ weight: 70
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
 제한하는 TTL (time to live) 메커니즘을 제공한다. TTL 컨트롤러는 현재
@@ -14,9 +14,9 @@ TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
 처리하며, 파드와 커스텀 리소스와 같이 실행을 완료할 다른 리소스를
 처리하도록 확장될 수 있다.
 
-알파(Alpha) 고지 사항: 이 기능은 현재 알파이고,
-kube-apiserver와 kube-controller-manager와 함께
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)로 `TTLAfterFinished` 를 활성화할 수 있다.
+이 기능은 현재 베타이고 기본적으로 활성화되어 있다. 
+kube-apiserver와 kube-controller-manager에서 `TTLAfterFinished` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 이용하여 비활성화할 수 있다.
 
 <!-- body -->
 

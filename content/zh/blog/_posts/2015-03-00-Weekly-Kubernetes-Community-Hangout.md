@@ -164,7 +164,7 @@ Notes from meeting:
 3\. Brian Grant:
 
 * 测试 v1beta3，准备进入。
-* Paul 力于改变命令行的内容。
+* Paul 致力于改变命令行的内容。
 * 下周初至中旬，尝试默认启用v1beta3 ?
 * 对于任何其他更改，请发出文件并抄送 thockin。
 

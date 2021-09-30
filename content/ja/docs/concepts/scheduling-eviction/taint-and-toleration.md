@@ -22,30 +22,30 @@ Nodeにtaintを付与するには[kubectl taint](/docs/reference/generated/kubec
 例えば、次のコマンドは
 
 ```shell
-kubectl taint nodes node1 key=value:NoSchedule
+kubectl taint nodes node1 key1=value1:NoSchedule
 ```
 
-`node1`にtaintを設定します。このtaintのキーは`key`、値は`value`、taintの効果は`NoSchedule`です。
+`node1`にtaintを設定します。このtaintのキーは`key1`、値は`value1`、taintの効果は`NoSchedule`です。
 これは`node1`にはPodに合致するtolerationがなければスケジューリングされないことを意味します。
 
 上記のコマンドで付与したtaintを外すには、下記のコマンドを使います。
 ```shell
-kubectl taint nodes node1 key:NoSchedule-
+kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 
 PodのtolerationはPodSpecの中に指定します。下記のtolerationはどちらも、上記の`kubectl taint`コマンドで追加したtaintと合致するため、どちらのtolerationが設定されたPodも`node1`へスケジューリングされることができます。
 
 ```yaml
 tolerations:
-- key: "key"
+- key: "key1"
   operator: "Equal"
-  value: "value"
+  value: "value1"
   effect: "NoSchedule"
 ```
 
 ```yaml
 tolerations:
-- key: "key"
+- key: "key1"
   operator: "Exists"
   effect: "NoSchedule"
 ```
@@ -67,7 +67,7 @@ tolerationがtaintと合致するのは、`key`と`effect`が同一であり、�
 
 空の`key`と演算子`Exists`は全ての`key`、`value`、`effect`と一致するため、すべてのtaintと合致します。
 
-空の`effect`は`key`が一致する全てのeffectと合致します。
+空の`effect`は`key1`が一致する全てのeffectと合致します。
 
 {{< /note >}}
 

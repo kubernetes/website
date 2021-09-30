@@ -75,7 +75,7 @@ Hay cuatro maneras diferentes de usar un ConfigMap para configurar
 un contenedor dentro de un {{< glossary_tooltip text="Pod" term_id="pod" >}}:
 
 1. Argumento en la linea de comandos como entrypoint de un contenedor
-1. Variable de enorno de un contenedor
+1. Variable de entorno de un contenedor
 1. Como fichero en un volumen de solo lectura, para que lo lea la aplicación
 1. Escribir el código para ejecutar dentro de un {{< glossary_tooltip text="Pod" term_id="pod" >}} que utiliza la API para leer el ConfigMap
 

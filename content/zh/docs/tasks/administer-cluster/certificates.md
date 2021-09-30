@@ -176,6 +176,13 @@ manually through `easyrsa`, `openssl` or `cfssl`.
         -CAcreateserial -out server.crt -days 10000 \
         -extensions v3_ext -extfile csr.conf
 
+    <!--
+    1.  View the certificate signing request:
+    -->
+1.  查看证书签名请求：
+
+        openssl req  -noout -text -in ./server.csr
+
     <!-- 
     1.  View the certificate:
     -->

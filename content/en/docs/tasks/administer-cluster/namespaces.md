@@ -78,7 +78,8 @@ A namespace can be in one of two phases:
    * `Active` the namespace is in use
    * `Terminating` the namespace is being deleted, and can not be used for new objects
 
-See the [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases) for more details.
+For more details, see [Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)
+in the API reference.
 
 ## Creating a new namespace
 
@@ -313,7 +314,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* See [namespaces design](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/architecture/namespaces.md).
+* See [namespaces design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md).
 
 
 
