@@ -120,7 +120,7 @@ including:
 
 * HugePages: not supported for Windows containers
 * Privileged containers: not supported for Windows containers
-* TerminationGracePeriod: not implemented
+* TerminationGracePeriod: requires containerD
 
 Not all features of shared namespaces are supported. See [API compatibility](#api)
 for more details.
