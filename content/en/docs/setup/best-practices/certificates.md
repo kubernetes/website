@@ -61,14 +61,12 @@ On top of the above CAs, it is also necessary to get a public/private key pair f
 The following example illustrates the CA key and certificate files shown in the previous table:
 
 ```
-/etc/kubernetes/pki/
-├── ca.crt
-├── ca.key
-├── etcd
-│   ├── ca.crt
-│   ├── ca.key
-├── front-proxy-ca.crt
-└── front-proxy-ca.key
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
 ```
 ### All certificates
 
@@ -142,30 +140,28 @@ Same considerations apply for the service account key pair:
 The following example illustrates the files from the previous tables you need to provide if you are generating all of your own keys and certificates:
 
 ```
-/etc/kubernetes/pki/
-├── apiserver.crt
-├── apiserver-etcd-client.crt
-├── apiserver-etcd-client.key
-├── apiserver.key
-├── apiserver-kubelet-client.crt
-├── apiserver-kubelet-client.key
-├── ca.crt
-├── ca.key
-├── etcd
-│   ├── ca.crt
-│   ├── ca.key
-│   ├── healthcheck-client.crt
-│   ├── healthcheck-client.key
-│   ├── peer.crt
-│   ├── peer.key
-│   ├── server.crt
-│   └── server.key
-├── front-proxy-ca.crt
-├── front-proxy-ca.key
-├── front-proxy-client.crt
-├── front-proxy-client.key
-├── sa.key
-└── sa.pub
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/apiserver-etcd-client.key
+/etc/kubernetes/pki/apiserver-etcd-client.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/apiserver.key
+/etc/kubernetes/pki/apiserver.crt
+/etc/kubernetes/pki/apiserver-kubelet-client.key
+/etc/kubernetes/pki/apiserver-kubelet-client.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-client.key
+/etc/kubernetes/pki/front-proxy-client.crt
+/etc/kubernetes/pki/etcd/server.key
+/etc/kubernetes/pki/etcd/server.crt
+/etc/kubernetes/pki/etcd/peer.key
+/etc/kubernetes/pki/etcd/peer.crt
+/etc/kubernetes/pki/etcd/healthcheck-client.key
+/etc/kubernetes/pki/etcd/healthcheck-client.crt
+/etc/kubernetes/pki/sa.key
+/etc/kubernetes/pki/sa.pub
 ```
 ## Configure certificates for user accounts
 
@@ -205,9 +201,8 @@ These files are used as follows:
 The following illustrates the files listed in the previous table that contain client user certificates and keys:
 
 ```
-/etc/kubernetes/
-├── admin.conf
-├── kubelet.conf
-├── controller-manager.conf
-└── scheduler.conf
+/etc/kubernetes/admin.conf
+/etc/kubernetes/kubelet.conf
+/etc/kubernetes/controller-manager.conf
+/etc/kubernetes/scheduler.conf
 ```
