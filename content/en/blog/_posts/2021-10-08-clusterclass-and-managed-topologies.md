@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Introducing ClusterClass and Managed Topologies in Cluster API"
-date: 2021-10-04
+date: 2021-10-08
 slug: capi-clusterclass-and-managed-topologies
 ---
 
@@ -29,7 +29,7 @@ As the name suggests, ClusterClass and managed topologies are built in two parts
 
 The idea behind ClusterClass is simple: define the shape of your cluster once, and reuse it many times, abstracting the complexities and the internals of a Kubernetes cluster away.
 
-![Defining a ClusterClass](/images/blog/2021-10-04-clusterclass-and-managed-topologies/clusterclass.svg)
+![Defining a ClusterClass](/images/blog/2021-10-08-clusterclass-and-managed-topologies/clusterclass.svg)
 
 ClusterClass, at its heart, is a collection of Cluster and Machine templates. You can use it as a “stamp” that can be leveraged to create many clusters of a similar shape.
 
@@ -92,7 +92,7 @@ Managed Topologies let you put the power of ClusterClass into action.
 
 Given a ClusterClass, you can create many Clusters of a similar shape by providing a single resource, the Cluster.
 
-![Create a Cluster with ClusterClass](/images/blog/2021-10-04-clusterclass-and-managed-topologies/create-cluster.svg)
+![Create a Cluster with ClusterClass](/images/blog/2021-10-08-clusterclass-and-managed-topologies/create-cluster.svg)
 
 Here is an example:
 
