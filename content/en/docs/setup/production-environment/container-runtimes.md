@@ -48,7 +48,7 @@ Changing the settings such that your container runtime and kubelet use `systemd`
 stabilized the system. To configure this for Docker, set `native.cgroupdriver=systemd`.
 
 {{< caution >}}
-Changing the cgroup driver of a Node that has joined a cluster is strongly *not* recommended.  
+Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation.
 If the kubelet has created Pods using the semantics of one cgroup driver, changing the container
 runtime to another cgroup driver can cause errors when trying to re-create the Pod sandbox
 for such existing Pods. Restarting the kubelet may not solve such errors.
@@ -56,6 +56,43 @@ for such existing Pods. Restarting the kubelet may not solve such errors.
 If you have automation that makes it feasible, replace the node with another using the updated
 configuration, or reinstall it using automation.
 {{< /caution >}}
+
+## Cgroup v2
+
+Cgroup v2 is the next version of the cgroup Linux API.  Differently than cgroup v1, there is a single
+hierarchy instead of a different one for each controller.
+
+The new version offers several improvements over cgroup v1, some of these improvements are:
+
+- cleaner and easier to use API
+- safe sub-tree delegation to containers
+- newer features like Pressure Stall Information
+
+Even if the kernel supports a hybrid configuration where some controllers are managed by cgroup v1
+and some others by cgroup v2, Kubernetes supports only the same cgroup version to manage all the
+controllers.
+
+If systemd doesn't use cgroup v2 by default, you can configure the system to use it by adding
+`systemd.unified_cgroup_hierarchy=1` to the kernel command line.
+
+```shell
+# dnf install -y grubby && \
+  sudo grubby \
+  --update-kernel=ALL \
+  --args=”systemd.unified_cgroup_hierarchy=1"
+```
+
+To apply the configuration, it is necessary to reboot the node.
+
+There should not be any noticeable difference in the user experience when switching to cgroup v2, unless
+users are accessing the cgroup file system directly, either on the node or from within the containers.
+
+In order to use it, cgroup v2 must be supported by the CRI runtime as well.
+
+### Migrating to the `systemd` driver in kubeadm managed clusters
+
+Follow this [Migration guide](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
+if you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters.
 
 ## Container runtimes
 
@@ -94,7 +131,10 @@ Install containerd:
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
 
-1. Install the `containerd.io` package from the official Docker repositories. Instructions for setting up the Docker repository for your respective Linux distribution and installing the `containerd.io` package can be found at [Install Docker Engine](https://docs.docker.com/engine/install/#server).
+1. Install the `containerd.io` package from the official Docker repositories. 
+Instructions for setting up the Docker repository for your respective Linux distribution and 
+installing the `containerd.io` package can be found at 
+[Install Docker Engine](https://docs.docker.com/engine/install/#server).
 
 2. Configure containerd:
 
@@ -112,7 +152,8 @@ Install containerd:
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
-Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), and then run the following commands:
+Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), 
+and then run the following commands:
 
 1. Download containerd:
 
@@ -238,7 +279,8 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="Ubuntu" %}}
 
-To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
+To install on the following operating systems, set the environment variable `OS` 
+to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
 | ---------------- | ----------------- |
@@ -273,7 +315,8 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="CentOS" %}}
 
-To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
+To install on the following operating systems, set the environment variable `OS` 
+to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
 | ---------------- | ----------------- |
@@ -353,7 +396,10 @@ in sync.
 
 ### Docker
 
-1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server). You can find the latest validated version of Docker in this [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
+1. On each of your nodes, install the Docker for your Linux distribution as per 
+[Install Docker Engine](https://docs.docker.com/engine/install/#server). 
+You can find the latest validated version of Docker in this 
+[dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
 
 2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
 
@@ -372,7 +418,8 @@ in sync.
    ```
 
    {{< note >}}
-   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher, or RHEL or CentOS using version 3.10.0-514 and above.
+   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher, 
+   or RHEL or CentOS using version 3.10.0-514 and above.
    {{< /note >}}
 
 3. Restart Docker and enable on boot:

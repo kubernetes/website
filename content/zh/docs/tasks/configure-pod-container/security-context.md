@@ -287,13 +287,6 @@ securityContext:
 ```
 
 <!--
-This is an alpha feature. To use it, enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ConfigurableFSGroupPolicy` for the kube-api-server, the kube-controller-manager, and for the kubelet.
--->
-这是一个 Alpha 阶段的功能特性。要使用此特性，需要在 `kube-apiserver`、`kube-controller-manager`
-和 `kubelet` 上启用 `ConfigurableFSGroupPolicy`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-
-<!--
 This field has no effect on ephemeral volume types such as
 [`secret`](/docs/concepts/storage/volumes/#secret),
 [`configMap`](/docs/concepts/storage/volumes/#configmap),

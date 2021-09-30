@@ -304,7 +304,7 @@ First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2beta2`
 首先，将 HorizontalPodAutoscaler 的 YAML 文件改为 `autoscaling/v2beta2` 格式：
 
 ```shell
-kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
+kubectl get hpa php-apache -o yaml > /tmp/hpa-v2.yaml
 ```
 
 <!--
@@ -571,7 +571,7 @@ with *external metrics*.
 <!--
 Using external metrics requires knowledge of your monitoring system; the setup is
 similar to that required when using custom metrics. External metrics allow you to autoscale your cluster
-based on any metric available in your monitoring system. Just provide a `metric` block with a
+based on any metric available in your monitoring system. Provide a `metric` block with a
 `name` and `selector`, as above, and use the `External` metric type instead of `Object`.
 If multiple time series are matched by the `metricSelector`,
 the sum of their values is used by the HorizontalPodAutoscaler.
@@ -580,7 +580,7 @@ as when you use the `Object` type.
 -->
 使用外部度量指标时，需要了解你所使用的监控系统，相关的设置与使用自定义指标时类似。
 外部度量指标使得你可以使用你的监控系统的任何指标来自动扩缩你的集群。
-你只需要在 `metric` 块中提供 `name` 和 `selector`，同时将类型由 `Object` 改为 `External`。
+你需要在 `metric` 块中提供 `name` 和 `selector`，同时将类型由 `Object` 改为 `External`。
 如果 `metricSelector` 匹配到多个度量指标，HorizontalPodAutoscaler 将会把它们加和。
 外部度量指标同时支持 `Value` 和 `AverageValue` 类型，这与 `Object` 类型的度量指标相同。
 
@@ -597,7 +597,9 @@ HorizontalPodAutoscaler 的配置中。
   external:
     metric:
       name: queue_messages_ready
-      selector: "queue=worker_tasks"
+      selector:
+        matchLabels:
+          queue: "worker_tasks"
     target:
       type: AverageValue
       averageValue: 30

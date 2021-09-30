@@ -21,7 +21,7 @@ what that means, check out the blog post
 -->
 本文回顾了自 Kubernetes v1.20 版宣布弃用 Dockershim 以来所引发的一些常见问题。
 关于 Kubernetes kubelets 从容器运行时的角度弃用 Docker 的细节以及这些细节背后的含义，请参考博文
-[别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)
+[别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
 
 <!-- 
 ### Why is dockershim being deprecated?
@@ -45,7 +45,7 @@ You can read more about the community discussion and planning in the
 -->
 Dockershim 向来都是一个临时解决方案（因此得名：shim）。
 你可以进一步阅读
-[移除 Kubernetes 增强方案 Dockershim](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1985-remove-dockershim)
+[移除 Kubernetes 增强方案 Dockershim][drkep]
 以了解相关的社区讨论和计划。
 
 <!-- 
@@ -57,6 +57,7 @@ those areas.
 此外，与 dockershim 不兼容的一些特性，例如：控制组（cgoups）v2 和用户名字空间（user namespace），已经在新的 CRI 运行时中被实现。
 移除对 dockershim 的支持将加速这些领域的发展。
 
+[drkep]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim
 <!-- 
 ### Can I still use Docker in Kubernetes 1.20?
 -->
@@ -78,12 +79,16 @@ startup if using Docker as the runtime.
 <!-- 
 Given the impact of this change, we are using an extended deprecation timeline.
 It will not be removed before Kubernetes 1.22, meaning the earliest release without
-dockershim would be 1.23 in late 2021. We will be working closely with vendors
-and other ecosystem groups to ensure a smooth transition and will evaluate things
-as the situation evolves.
+dockershim would be 1.23 in late 2021.
+_Update_: removal of dockershim is scheduled for Kubernetes v1.24, see 
+[Dockershim Removal Kubernetes Enhancement Proposal][drkep].
+We will be working closely with vendors and other ecosystem groups to ensure a smooth transition and will evaluate 
+things as the situation evolves.
 -->
 考虑到此改变带来的影响，我们使用了一个加长的废弃时间表。
-在 Kubernetes 1.22 版之前，它不会被彻底移除；换句话说，dockershim 被移除的最早版本会是 2021 年底发布 1.23 版。
+在 Kubernetes 1.22 版之前，它不会被彻底移除；换句话说，dockershim 被移除的最早版本会是 2021 年底发布的 1.23 版。
+_更新_：dockershim 计划在 Kubernetes 1.24 版被移除，
+请参阅[移除 Kubernetes 增强方案 Dockershim][drkep]。
 我们将与供应商以及其他生态团队紧密合作，确保顺利过渡，并将依据事态的发展评估后续事项。
 
 <!-- 

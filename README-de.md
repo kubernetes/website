@@ -9,7 +9,7 @@ Herzlich willkommen! Dieses Repository enthält alle Assets, die zur Erstellung 
 
 Sie können auf die Schaltfläche **Fork** im oberen rechten Bereich des Bildschirms klicken, um eine Kopie dieses Repositorys in Ihrem GitHub-Konto zu erstellen. Diese Kopie wird als *Fork* bezeichnet. Nehmen Sie die gewünschten Änderungen an Ihrem Fork vor. Wenn Sie bereit sind, diese Änderungen an uns zu senden, gehen Sie zu Ihrem Fork und erstellen Sie eine neue Pull-Anforderung, um uns darüber zu informieren.
 
-Sobald Ihre Pull-Anfrage erstellt wurde, übernimmt ein Rezensent von Kubernetes die Verantwortung für klares, umsetzbares Feedback. Als Eigentümer des Pull-Request **liegt es in Ihrer Verantwortung Ihren Pull-Reqest enstsprechend des Feedbacks, dass Sie vom Kubernetes-Reviewer erhalten haben abzuändern.** Beachten Sie auch, dass Sie am Ende mehr als einen Rezensenten von Kubernetes erhalten, der Ihnen Feedback gibt, oder dass Sie Rückmeldungen von einem Rezensenten von Kubernetes erhalten, der sich von demjenigen unterscheidet, der ursprünglich für das Feedback zugewiesen wurde. In einigen Fällen kann es vorkommen, dass einer Ihrer Prüfer bei Bedarf eine technische Überprüfung von einem [Kubernetes Tech-Reviewer](https://github.com/kubernetes/website/wiki/tech-reviewers) anfordert. Reviewer geben ihr Bestes, um zeitnah Feedback zu geben, die Antwortzeiten können jedoch je nach den Umständen variieren.
+Sobald Ihre Pull-Anfrage erstellt wurde, übernimmt ein Rezensent von Kubernetes die Verantwortung für klares, umsetzbares Feedback. Als Eigentümer des Pull-Request **liegt es in Ihrer Verantwortung Ihren Pull-Reqest entsprechend des Feedbacks, dass Sie vom Kubernetes-Reviewer erhalten haben abzuändern.** Beachten Sie auch, dass Sie am Ende mehr als einen Rezensenten von Kubernetes erhalten, der Ihnen Feedback gibt, oder dass Sie Rückmeldungen von einem Rezensenten von Kubernetes erhalten, der sich von demjenigen unterscheidet, der ursprünglich für das Feedback zugewiesen wurde. In einigen Fällen kann es vorkommen, dass einer Ihrer Prüfer bei Bedarf eine technische Überprüfung von einem [Kubernetes Tech-Reviewer](https://github.com/kubernetes/website/wiki/tech-reviewers) anfordert. Reviewer geben ihr Bestes, um zeitnah Feedback zu geben, die Antwortzeiten können jedoch je nach den Umständen variieren.
 
 Weitere Informationen zum Beitrag zur Kubernetes-Dokumentation finden Sie unter:
 
@@ -37,6 +37,13 @@ Um die Kubernetes-Website lokal laufen zu lassen, empfiehlt es sich, ein speziel
 
 > Wenn Sie die Website lieber lokal ohne Docker ausführen möchten, finden Sie weitere Informationen unter [Website lokal mit Hugo ausführen](#Die-Site-lokal-mit-Hugo-ausführen).
 
+Das benötigte [Docsy Hugo theme](https://github.com/google/docsy#readme) muss als git submodule installiert werden:
+
+```
+#Füge das Docsy submodule hinzu
+git submodule update --init --recursive --depth 1
+```
+
 Wenn Sie Docker [installiert](https://www.docker.com/get-started) haben, erstellen Sie das Docker-Image `kubernetes-hugo` lokal:
 
 ```bash
@@ -55,9 +62,18 @@ make container-serve
 
 Hugo-Installationsanweisungen finden Sie in der [offiziellen Hugo-Dokumentation](https://gohugo.io/getting-started/installing/). Stellen Sie sicher, dass Sie die Hugo-Version installieren, die in der Umgebungsvariablen `HUGO_VERSION` in der Datei [`netlify.toml`](netlify.toml#L9) angegeben ist.
 
+Das benötigte [Docsy Hugo theme](https://github.com/google/docsy#readme) muss als git submodule installiert werden:
+
+```
+#Füge das Docsy submodule hinzu
+git submodule update --init --recursive --depth 1
+```
+
 So führen Sie die Site lokal aus, wenn Sie Hugo installiert haben:
 
 ```bash
+# Installieren der JavaScript Abhängigkeiten
+npm ci
 make serve
 ```
 

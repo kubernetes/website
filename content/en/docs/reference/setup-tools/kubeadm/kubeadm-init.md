@@ -66,12 +66,10 @@ following steps:
 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
-   To install kube-dns instead of CoreDNS, the DNS addon has to be configured in the kubeadm `ClusterConfiguration`.
-   For more information about the configuration see the section `Using kubeadm init with a configuration file` below.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
    {{< warning >}}
-   kube-dns usage with kubeadm is deprecated as of v1.18 and will be removed in a future release.
+   kube-dns usage with kubeadm is deprecated as of v1.18 and is removed in v1.21.
    {{< /warning >}}
 
 ### Using init phases with kubeadm {#init-phases}
@@ -106,6 +104,10 @@ sudo kubeadm init --skip-phases=control-plane,etcd --config=configfile.yaml
 
 What this example would do is write the manifest files for the control plane and etcd in `/etc/kubernetes/manifests` based on the configuration in `configfile.yaml`. This allows you to modify the files and then skip these phases using `--skip-phases`. By calling the last command you will create a control plane node with the custom manifest files.
 
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+Alternatively, you can use the `skipPhases` field under `InitConfiguration`.
+
 ### Using kubeadm init with a configuration file {#config-file}
 
 {{< caution >}}
@@ -124,8 +126,8 @@ The default configuration can be printed out using the
 If your configuration is not using the latest version it is **recommended** that you migrate using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-For more information on the fields and usage of the configuration you can navigate to our API reference
-page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories).
+For more information on the fields and usage of the configuration you can navigate to our
+[API reference page](/docs/reference/config-api/kubeadm-config.v1beta2/).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
@@ -144,7 +146,7 @@ For information about passing flags to control plane components see:
 
 By default, kubeadm pulls images from `k8s.gcr.io`. If the
 requested Kubernetes version is a CI label (such as `ci/latest`)
-`gcr.io/kubernetes-ci-images` is used.
+`gcr.io/k8s-staging-ci-images` is used.
 
 You can override this behavior by using [kubeadm with a configuration file](#config-file).
 Allowed customization are:

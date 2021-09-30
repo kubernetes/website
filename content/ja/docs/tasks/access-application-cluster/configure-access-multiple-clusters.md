@@ -232,7 +232,7 @@ contexts:
 
 上記の設定ファイルは、`dev-ramp-up`というコンテキストを表します。
 
-## KUBECONFIG環境変数を設定する
+## KUBECONFIG環境変数を設定する {#set-the-kubeconfig-environment-variable}
 
 `KUBECONFIG`という環境変数が存在するかを確認してください。もし存在する場合は、後で復元できるようにバックアップしてください。例えば:
 

@@ -192,7 +192,7 @@ When using the REST API or Go client library, you need to do the steps explicitl
 
 You can delete a ReplicationController without affecting any of its pods.
 
-Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
+Using kubectl, specify the `--cascade=orphan` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
 
 When using the REST API or Go client library, you can delete the ReplicationController object.
 
@@ -284,6 +284,11 @@ machine-level function, such as machine monitoring or machine logging.  These po
 to a machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
-## For more information
+## {{% heading "whatsnext" %}}
 
-Read [Run Stateless Application Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Learn about [Deployment](/docs/concepts/workloads/controllers/deployment/), the replacement
+  for ReplicationController.
+* `ReplicationController` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  object definition to understand the API for replication controllers.

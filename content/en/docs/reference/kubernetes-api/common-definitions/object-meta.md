@@ -6,8 +6,20 @@ api_metadata:
 content_type: "api_reference"
 description: "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create."
 title: "ObjectMeta"
-weight: 13
+weight: 7
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 
 
@@ -86,6 +98,10 @@ ObjectMeta is metadata that all persisted resources must have, which includes al
   - **managedFields.operation** (string)
 
     Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
+
+  - **managedFields.subresource** (string)
+
+    Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
 
   - **managedFields.time** (Time)
 

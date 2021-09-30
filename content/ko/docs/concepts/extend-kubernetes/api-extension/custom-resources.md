@@ -44,7 +44,7 @@ _선언_ 하거나 지정할 수 있게 해주며 쿠버네티스 오브젝트�
 클러스터 라이프사이클과 관계없이 실행 중인 클러스터에 커스텀 컨트롤러를 배포하고
 업데이트할 수 있다. 커스텀 컨트롤러는 모든 종류의 리소스와 함께 작동할 수 있지만
 커스텀 리소스와 결합할 때 특히 효과적이다.
-[오퍼레이터 패턴](https://coreos.com/blog/introducing-operators.html)은 사용자 정의
+[오퍼레이터 패턴](/ko/docs/concepts/extend-kubernetes/operator/)은 사용자 정의
 리소스와 커스텀 컨트롤러를 결합한다. 커스텀 컨트롤러를 사용하여 특정 애플리케이션에 대한 도메인 지식을
 쿠버네티스 API의 익스텐션으로 인코딩할 수 있다.
 
@@ -128,7 +128,7 @@ CRD를 사용하면 다른 API 서버를 추가하지 않고도 새로운 타입
 
 ## 커스텀리소스데피니션
 
-[커스텀리소스데피니션](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)
+[커스텀리소스데피니션](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
 API 리소스를 사용하면 커스텀 리소스를 정의할 수 있다.
 CRD 오브젝트를 정의하면 지정한 이름과 스키마를 사용하여 새 커스텀 리소스가 만들어진다.
 쿠버네티스 API는 커스텀 리소스의 스토리지를 제공하고 처리한다.

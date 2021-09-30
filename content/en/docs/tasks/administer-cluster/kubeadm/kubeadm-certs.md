@@ -85,7 +85,11 @@ Additionally, kubeadm informs the user if the certificate is externally managed;
 {{< /warning >}}
 
 {{< note >}}
-`kubelet.conf` is not included in the list above because kubeadm configures kubelet for automatic certificate renewal.
+`kubelet.conf` is not included in the list above because kubeadm configures kubelet
+for [automatic certificate renewal](/docs/tasks/tls/certificate-rotation/)
+with rotatable certificates under `/var/lib/kubelet/pki`.
+To repair an expired kubelet client certificate see
+[Kubelet client certificate rotation fails](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#kubelet-client-cert).
 {{< /note >}}
 
 {{< warning >}}
@@ -122,7 +126,17 @@ command. In that case, you should explicitly set `--certificate-renewal=true`.
 
 You can renew your certificates manually at any time with the `kubeadm certs renew` command.
 
-This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
+This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`. 
+
+After running the command you should restart the control plane Pods. This is required since
+dynamic certificate reload is currently not supported for all components and certificates.
+[Static Pods](/docs/tasks/configure-pod-container/static-pod/) are managed by the local kubelet
+and not by the API Server, thus kubectl cannot be used to delete and restart them.
+To restart a static Pod you can temporarily remove its manifest file from `/etc/kubernetes/manifests/` 
+and wait for 20 seconds (see the `fileCheckFrequency` value in [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
+The kubelet will terminate the Pod if it's no longer in the manifest directory.
+You can then move the file back and after another `fileCheckFrequency` period, the kubelet will recreate
+the Pod and the certificate renewal for the component can complete.
 
 {{< warning >}}
 If you are running an HA cluster, this command needs to be executed on all the control-plane nodes.
@@ -142,7 +156,7 @@ The Kubernetes certificates normally reach their expiration date after one year.
 
 ## Renew certificates with the Kubernetes certificates API
 
-This section provide more details about how to execute manual certificate renewal using the Kubernetes certificates API.
+This section provides more details about how to execute manual certificate renewal using the Kubernetes certificates API.
 
 {{< caution >}}
 These are advanced topics for users who need to integrate their organization's certificate infrastructure into a kubeadm-built cluster. If the default kubeadm configuration satisfies your needs, you should let kubeadm manage certificates instead.
@@ -157,10 +171,10 @@ The built-in signer is part of [`kube-controller-manager`](/docs/reference/comma
 
 To activate the built-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
 
-If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2):
+If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3):
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
@@ -207,3 +221,71 @@ After a certificate is signed using your preferred method, the certificate and t
 Kubeadm does not support rotation or replacement of CA certificates out of the box.
 
 For more information about manual rotation or replacement of CA, see [manual rotation of CA certificates](/docs/tasks/tls/manual-rotation-of-ca-certificates/).
+
+## Enabling signed kubelet serving certificates {#kubelet-serving-certs}
+
+By default the kubelet serving certificate deployed by kubeadm is self-signed.
+This means a connection from external services like the
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server) to a
+kubelet cannot be secured with TLS.
+
+To configure the kubelets in a new kubeadm cluster to obtain properly signed serving
+certificates you must pass the following minimal configuration to `kubeadm init`:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+serverTLSBootstrap: true
+```
+
+If you have already created the cluster you must adapt it by doing the following:
+ - Find and edit the `kubelet-config-{{< skew latestVersion >}}` ConfigMap in the `kube-system` namespace.
+In that ConfigMap, the `kubelet` key has a
+[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
+- On each node, add the `serverTLSBootstrap: true` field in `/var/lib/kubelet/config.yaml`
+and restart the kubelet with `systemctl restart kubelet`
+
+The field `serverTLSBootstrap: true` will enable the bootstrap of kubelet serving
+certificates by requesting them from the `certificates.k8s.io` API. One known limitation
+is that the CSRs (Certificate Signing Requests) for these certificates cannot be automatically
+approved by the default signer in the kube-controller-manager -
+[`kubernetes.io/kubelet-serving`](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers).
+This will require action from the user or a third party controller.
+
+These CSRs can be viewed using:
+
+```shell
+kubectl get csr
+NAME        AGE     SIGNERNAME                        REQUESTOR                      CONDITION
+csr-9wvgt   112s    kubernetes.io/kubelet-serving     system:node:worker-1           Pending
+csr-lz97v   1m58s   kubernetes.io/kubelet-serving     system:node:control-plane-1    Pending
+```
+
+To approve them you can do the following:
+```shell
+kubectl certificate approve <CSR-name>
+```
+
+By default, these serving certificate will expire after one year. Kubeadm sets the
+`KubeletConfiguration` field `rotateCertificates` to `true`, which means that close
+to expiration a new set of CSRs for the serving certificates will be created and must
+be approved to complete the rotation. To understand more see
+[Certificate Rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation).
+
+If you are looking for a solution for automatic approval of these CSRs it is recommended
+that you contact your cloud provider and ask if they have a CSR signer that verifies
+the node identity with an out of band mechanism.
+
+{{% thirdparty-content %}}
+
+Third party custom controllers can be used:
+- [kubelet-rubber-stamp](https://github.com/kontena/kubelet-rubber-stamp)
+
+Such a controller is not a secure mechanism unless it not only verifies the CommonName
+in the CSR but also verifies the requested IPs and domain names. This would prevent
+a malicious actor that has access to a kubelet client certificate to create
+CSRs requesting serving certificates for any IP or domain name.

@@ -94,7 +94,7 @@ rules:
 ```
 
 If you're crafting your own audit profile, you can use the audit profile for Google Container-Optimized OS as a starting point. You can check the
-[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
 script, which generates an audit policy file. You can see most of the audit policy file by looking directly at the script.
 
 You can also refer to the [`Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
@@ -251,5 +251,7 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 ## {{% heading "whatsnext" %}}
 
 * Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
-* Read the [reference for `audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/).
+* Learn more about [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+  and the [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+  resource types by reading the Audit configuration reference.
 

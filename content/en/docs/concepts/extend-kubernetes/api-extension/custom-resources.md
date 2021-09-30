@@ -35,11 +35,11 @@ On their own, custom resources let you store and retrieve structured data.
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 
-A [declarative API](/docs/concepts/overview/kubernetes-api/)
-allows you to _declare_ or specify the desired state of your resource and tries to
-keep the current state of Kubernetes objects in sync with the desired state.
-The controller interprets the structured data as a record of the user's
-desired state, and continually maintains this state.
+The Kubernetes [declarative API](/docs/concepts/overview/kubernetes-api/)
+enforces a separation of responsibilities. You declare the desired state of
+your resource. The Kubernetes controller keeps the current state of Kubernetes
+objects in sync with your declared desired state. This is in contrast to an
+imperative API, where you *instruct* a server what to do.
 
 You can deploy and update a custom controller on a running cluster, independently
 of the cluster's lifecycle. Custom controllers can work with any kind of resource,
@@ -167,7 +167,7 @@ CRDs are easier to create than Aggregated APIs.
 
 | CRDs                        | Aggregated API |
 | --------------------------- | -------------- |
-| Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. |
+| Do not require programming. Users can choose any language for a CRD controller. | Requires programming and building binary and image. |
 | No additional service to run; CRDs are handled by API server. | An additional service to create and that could fail. |
 | No ongoing support once the CRD is created. Any bug fixes are picked up as part of normal Kubernetes Master upgrades. | May need to periodically pickup bug fixes from upstream and rebuild and update the Aggregated API server. |
 | No need to handle multiple versions of your API; for example, when you control the client for this resource, you can upgrade it in sync with the API. | You need to handle multiple versions of your API; for example, when developing an extension to share with the world. |

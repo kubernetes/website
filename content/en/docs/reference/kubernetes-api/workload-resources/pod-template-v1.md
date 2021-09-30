@@ -6,8 +6,20 @@ api_metadata:
 content_type: "api_reference"
 description: "PodTemplate describes a template for creating copies of a predefined pod."
 title: "PodTemplate"
-weight: 4
+weight: 2
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: v1`
 
@@ -411,6 +423,8 @@ PATCH /api/v1/namespaces/{namespace}/podtemplates/{name}
 
 
 200 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): Created
 
 401: Unauthorized
 

@@ -130,13 +130,15 @@ As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/pol
 
 ### Generic ephemeral volumes
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 This feature requires the `GenericEphemeralVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled. Because this is an alpha feature, it is disabled by default.
+enabled. Because this is a beta feature, it is enabled by default.
 
-Generic ephemeral volumes are similar to `emptyDir` volumes, except more
-flexible:
+Generic ephemeral volumes are similar to `emptyDir` volumes in the
+sense that they provide a per-pod directory for scratch data that is
+usually empty after provisioning. But they may also have additional
+features:
 
 - Storage can be local or network-attached.
 - Volumes can have a fixed size that Pods are not able to exceed.
@@ -243,14 +245,16 @@ PVCs indirectly if they can create Pods, even if they do not have
 permission to create PVCs directly. Cluster administrators must be
 aware of this. If this does not fit their security model, they have
 two choices:
-- Explicitly disable the feature through the feature gate, to avoid
-  being surprised when some future Kubernetes version enables it
-  by default.
+- Explicitly disable the feature through the feature gate.
 - Use a [Pod Security
   Policy](/docs/concepts/policy/pod-security-policy/) where the
-  `volumes` list does not contain the `ephemeral` volume type.
+  `volumes` list does not contain the `ephemeral` volume type
+  (deprecated in Kubernetes 1.21).
+- Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  which rejects objects like Pods that have a generic ephemeral
+  volume.
 
-The normal namespace quota for PVCs in a namespace still applies, so
+The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so
 even if users are allowed to use this new mechanism, they cannot use
 it to circumvent other policies.
 

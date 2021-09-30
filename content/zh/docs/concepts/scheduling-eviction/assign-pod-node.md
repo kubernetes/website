@@ -1,7 +1,7 @@
 ---
 title: 将 Pod 分配给节点
 content_type: concept
-weight: 50
+weight: 20
 ---
 
 <!--
@@ -11,24 +11,24 @@ reviewers:
 - bsalamat
 title: Assigning Pods to Nodes
 content_type: concept
-weight: 50
+weight: 20
 -->
 
 <!-- overview -->
 
 <!--
-You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} to only be able to run on particular
-{{< glossary_tooltip text="Node(s)" term_id="node" >}}, or to prefer to run on particular nodes.
+You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} so that it can only run on particular set of
+{{< glossary_tooltip text="Node(s)" term_id="node" >}}.
 There are several ways to do this, and the recommended approaches all use
-[label selectors](/docs/concepts/overview/working-with-objects/labels/) to make the selection.
+[label selectors](/docs/concepts/overview/working-with-objects/labels/) to facilitate the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
-(e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
+(e.g. spread your pods across nodes so as not place the pod on a node with insufficient free resources, etc.)
 but there are some circumstances where you may want more control on a node where a pod lands, for example to ensure
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
 services that communicate a lot into the same availability zone.
 -->
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 只能在特定的
-{{< glossary_tooltip text="节点" term_id="node" >}} 上运行，或者优先运行在特定的节点上。
+{{< glossary_tooltip text="节点" term_id="node" >}} 上运行。
 有几种方法可以实现这点，推荐的方法都是用
 [标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)来进行选择。
 通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 Pod 分散到节点上，
@@ -75,9 +75,9 @@ Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the o
 
 执行 `kubectl get nodes` 命令获取集群的节点名称。
 选择一个你要增加标签的节点，然后执行
-`kubectl label nodes <node-name> <label-key>=<label-value>` 
+`kubectl label nodes <node-name> <label-key>=<label-value>`
 命令将标签添加到你所选择的节点上。
-例如，如果你的节点名称为 'kubernetes-foo-node-1.c.a-robinson.internal' 
+例如，如果你的节点名称为 'kubernetes-foo-node-1.c.a-robinson.internal'
 并且想要的标签是 'disktype=ssd'，则可以执行
 `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd` 命令。
 
@@ -132,12 +132,12 @@ Pod 将会调度到将标签添加到的节点上。
 ## Interlude: built-in node labels {#built-in-node-labels}
 
 In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes come pre-populated
-with a standard set of labels. These labels are
+with a standard set of labels. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/) for a list of these.
 -->
 ## 插曲：内置的节点标签 {#built-in-node-labels}
 
-除了你[添加](#attach-labels-to-node)的标签外，节点还预先填充了一组标准标签。
-这些标签有：
+除了你[添加](#step-one-attach-label-to-the-node)的标签外，节点还预制了一组标准标签。
+参见这些[常用的标签，注解以及污点](/zh/docs/reference/labels-annotations-taints/)：
 
 * [`kubernetes.io/hostname`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-hostname)
 * [`failure-domain.beta.kubernetes.io/zone`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesiozone)
@@ -191,7 +191,7 @@ To make use of that label prefix for node isolation:
 For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
 -->
 1. 检查是否在使用 Kubernetes v1.11+，以便 NodeRestriction 功能可用。
-2. 确保你在使用[节点授权](/zh/docs/reference/access-authn-authz/node/)并且已经_启用_ 
+2. 确保你在使用[节点授权](/zh/docs/reference/access-authn-authz/node/)并且已经_启用_
    [NodeRestriction 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)。
 3. 将 `node-restriction.kubernetes.io/` 前缀下的标签添加到 Node 对象，
    然后在节点选择器中使用这些标签。
@@ -247,12 +247,12 @@ Pod 可以调度到哪些节点。
 <!--
 There are currently two types of node affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
 `preferredDuringSchedulingIgnoredDuringExecution`. You can think of them as "hard" and "soft" respectively,
-in the sense that the former specifies rules that *must* be met for a pod to be scheduled onto a node (just like
+in the sense that the former specifies rules that *must* be met for a pod to be scheduled onto a node (similar to
 `nodeSelector` but using a more expressive syntax), while the latter specifies *preferences* that the scheduler
 will try to enforce but will not guarantee. The "IgnoredDuringExecution" part of the names means that, similar
 to how `nodeSelector` works, if labels on a node change at runtime such that the affinity rules on a pod are no longer
-met, the pod will still continue to run on the node. In the future we plan to offer
-`requiredDuringSchedulingRequiredDuringExecution` which will be just like `requiredDuringSchedulingIgnoredDuringExecution`
+met, the pod continues to run on the node. In the future we plan to offer
+`requiredDuringSchedulingRequiredDuringExecution` which will be identical to `requiredDuringSchedulingIgnoredDuringExecution`
 except that it will evict pods from nodes that cease to satisfy the pods' node affinity requirements.
 -->
 目前有两种类型的节点亲和性，分别为 `requiredDuringSchedulingIgnoredDuringExecution` 和
@@ -264,8 +264,8 @@ except that it will evict pods from nodes that cease to satisfy the pods' node a
 如果节点的标签在运行时发生变更，从而不再满足 Pod 上的亲和性规则，那么 Pod
 将仍然继续在该节点上运行。
 将来我们计划提供 `requiredDuringSchedulingRequiredDuringExecution`，
-它将类似于 `requiredDuringSchedulingIgnoredDuringExecution`，
-除了它会将 pod 从不再满足 pod 的节点亲和性要求的节点上驱逐。
+它将与 `requiredDuringSchedulingIgnoredDuringExecution` 完全相同，
+只是它会将 Pod 从不再满足 Pod 的节点亲和性要求的节点上驱逐。
 
 <!--
 Thus an example of `requiredDuringSchedulingIgnoredDuringExecution` would be "only run the pod on nodes with Intel CPUs"
@@ -538,22 +538,23 @@ Pod 亲和性与反亲和性的合法操作符有 `In`，`NotIn`，`Exists`，`D
 然而，出于性能和安全原因，topologyKey 受到一些限制：
 
 <!--
-1. For affinity and for `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity,
-empty `topologyKey` is not allowed.
-2. For `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
-3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `topology.kubernetes.io/zone` and `topology.kubernetes.io/region`).
+1. For pod affinity, empty `topologyKey` is not allowed in both
+`requiredDuringSchedulingIgnoredDuringExecution`
+and `preferredDuringSchedulingIgnoredDuringExecution`.
+2. For pod anti-affinity, empty `topologyKey` is also not allowed in both `requiredDuringSchedulingIgnoredDuringExecution`
+and `preferredDuringSchedulingIgnoredDuringExecution`.
+3. For `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or disable it.
 4. Except for the above cases, the `topologyKey` can be any legal label-key.
 -->
-1. 对于亲和性与 `requiredDuringSchedulingIgnoredDuringExecution` 要求的
-   Pod 反亲和性，`topologyKey` 不允许为空。
-2. 对于 `requiredDuringSchedulingIgnoredDuringExecution` 要求的 Pod 反亲和性，
-   准入控制器 `LimitPodHardAntiAffinityTopology` 被引入来限制 `topologyKey`
-   不为 `kubernetes.io/hostname`。
-   如果你想使它可用于自定义拓扑结构，你必须修改准入控制器或者禁用它。
-3. 对于 `preferredDuringSchedulingIgnoredDuringExecution` 要求的 Pod 反亲和性，
-   空的 `topologyKey` 被解释为“所有拓扑结构”（这里的“所有拓扑结构”限制为
-   `kubernetes.io/hostname`，`topology.kubernetes.io/zone` 和
-   `topology.kubernetes.io/region` 的组合）。
+1. 对于 Pod 亲和性而言，在 `requiredDuringSchedulingIgnoredDuringExecution`
+   和 `preferredDuringSchedulingIgnoredDuringExecution` 中，`topologyKey` 不允许为空。
+2. 对于 Pod 反亲和性而言，`requiredDuringSchedulingIgnoredDuringExecution`
+   和 `preferredDuringSchedulingIgnoredDuringExecution` 中，`topologyKey`
+   都不可以为空。
+3. 对于 `requiredDuringSchedulingIgnoredDuringExecution` 要求的 Pod 反亲和性，
+   准入控制器 `LimitPodHardAntiAffinityTopology` 被引入以确保 `topologyKey`
+   只能是 `kubernetes.io/hostname`。如果你希望 `topologyKey` 也可用于其他定制
+   拓扑逻辑，你可以更改准入控制器或者禁用之。
 4. 除上述情况外，`topologyKey` 可以是任何合法的标签键。
 
 <!--
@@ -572,6 +573,36 @@ must be satisfied for the pod to be scheduled onto a node.
 -->
 所有与 `requiredDuringSchedulingIgnoredDuringExecution` 亲和性与反亲和性
 关联的 `matchExpressions` 必须满足，才能将 pod 调度到节点上。
+
+<!--
+#### Namespace selector
+-->
+#### 名字空间选择算符
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+<!--
+Users can also select matching namespaces using `namespaceSelector`, which is a label query over the set of namespaces.
+The affinity term is applied to the union of the namespaces selected by `namespaceSelector` and the ones listed in the `namespaces` field.
+Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and
+null `namespaceSelector` means "this pod's namespace".
+-->
+用户也可以使用 `namespaceSelector` 选择匹配的名字空间，`namespaceSelector`
+是对名字空间集合进行标签查询的机制。
+亲和性条件会应用到 `namespaceSelector` 所选择的名字空间和 `namespaces` 字段中
+所列举的名字空间之上。
+注意，空的 `namespaceSelector`（{}）会匹配所有名字空间，而 null 或者空的
+`namespaces` 列表以及 null 值 `namespaceSelector` 意味着“当前 Pod 的名字空间”。
+
+<!--
+This feature is beta and enabled by default. You can disable it via the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
+-->
+此功能特性是 Beta 版本的，默认是被启用的。你可以通过针对 kube-apiserver 和
+kube-scheduler 设置
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+`PodAffinityNamespaceSelector` 来禁用此特性。
 
 <!--
 #### More Practical Use-cases
@@ -807,4 +838,3 @@ resource allocation decisions.
 一旦 Pod 分配给 节点，kubelet 应用将运行该 pod 并且分配节点本地资源。
 [拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)
 可以参与到节点级别的资源分配决定中。
-

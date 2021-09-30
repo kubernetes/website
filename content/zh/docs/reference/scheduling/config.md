@@ -30,11 +30,12 @@ by implementing one or more of these extension points.
 
 <!--
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
-using the component config APIs
-([`v1beta1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.19.0/config/v1beta1?tab=doc#KubeSchedulerConfiguration)).
+using the 
+[KubeSchedulerConfiguration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+struct.
 -->
 你可以通过运行 `kube-scheduler --config <filename>` 来设置调度模板，
-配置文件使用组件配置的 API ([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.19.0/config/v1beta1?tab=doc#KubeSchedulerConfiguration))。
+使用 [KubeSchedulerConfiguration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 结构体。
 
 <!-- A minimal configuration looks as follows: -->
 最简单的配置如下：
@@ -285,11 +286,20 @@ extension points:
 <!--  
 - `VolumeBinding`: Checks if the node has or if it can bind the requested
   {{< glossary_tooltip text="volumes" term_id="volume" >}}.
-  Extension points: `PreFilter`, `Filter`, `Reserve`, `PreBind`.
+  Extension points: `PreFilter`, `Filter`, `Reserve`, `PreBind`, `Score`.
+  {{< note >}}
+  `Score` extension point is enabled when `VolumeCapacityPriority` feature is
+  enabled. It prioritizes the smallest PVs that can fit the requested volume
+  size.
+  {{< /note >}}
 -->
 - `VolumeBinding`：检查节点是否有请求的卷，或是否可以绑定请求的卷。
-
-  实现的扩展点: `PreFilter`，`Filter`，`Reserve`，`PreBind`。
+  实现的扩展点: `PreFilter`、`Filter`、`Reserve`、`PreBind` 和 `Score`。
+  {{< note >}}
+  当 `VolumeCapacityPriority` 特性被启用时，`Score` 扩展点也被启用。
+  它优先考虑可以满足所需卷大小的最小 PV。
+  {{< /note >}}
+  
 <!--
 - `VolumeRestrictions`: Checks that volumes mounted in the node satisfy
   restrictions that are specific to the volume provider.
@@ -388,13 +398,6 @@ that are not enabled by default:
 - `RequestedToCapacityRatio`：根据已分配资源的某函数设置选择节点。
 
   实现的扩展点：`Score`。
-<!--  
-- `NodeResourceLimits`: Favors nodes that satisfy the Pod resource limits.
-  Extension points: `PreScore`, `Score`.
--->
-- `NodeResourceLimits`：选择满足 Pod 资源限制的节点。
-
-  实现的扩展点：`PreScore`，`Score`。
 <!--  
 - `CinderVolume`: Checks that OpenStack Cinder volume limits can be satisfied
   for the node.
@@ -507,6 +510,9 @@ only has one pending pods queue.
 <!--  
 * Read the [kube-scheduler reference](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
+* Read the [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) reference
 -->
 * 阅读 [kube-scheduler 参考](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解[调度](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
+* 阅读 [kube-scheduler 配置 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta1/) 参考
+

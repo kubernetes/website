@@ -1,5 +1,5 @@
 ---
-title: 强制删除 StatefulSet 类型的 Pods
+title: 强制删除 StatefulSet 中的 Pods
 content_type: task
 weight: 70
 ---
@@ -19,8 +19,8 @@ weight: 70
 <!--
 This page shows how to delete Pods which are part of a {{< glossary_tooltip text="stateful set" term_id="StatefulSet" >}}, and explains the considerations to keep in mind when doing so.
 -->
-本文介绍了如何删除 {{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}}
-管理的 Pods，并且解释了这样操作时需要记住的注意事项。
+本文介绍如何删除 {{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}}
+管理的 Pods，并解释这样操作时需要记住的注意事项。
 
 ## {{% heading "prerequisites" %}}
 
@@ -76,11 +76,16 @@ Pod 不要使用。体面删除是安全的，并且会在 kubelet 从 API 服�
 [体面地结束 pod ](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!--
-Kubernetes (versions 1.5 or newer) will not delete Pods just because a Node is unreachable. The Pods running on an unreachable Node enter the 'Terminating' or 'Unknown' state after a [timeout](/docs/admin/node/#node-condition). Pods may also enter these states when the user attempts graceful deletion of a Pod on an unreachable Node. The only ways in which a Pod in such a state can be removed from the apiserver are as follows:
+A Pod is not deleted automatically when a Node is unreachable.
+The Pods running on an unreachable Node enter the 'Terminating' or 'Unknown' state after a
+[timeout](/docs/concepts/architecture/nodes/#condition).
+Pods may also enter these states when the user attempts graceful deletion of a Pod
+on an unreachable Node.
+The only ways in which a Pod in such a state can be removed from the apiserver are as follows:
 -->
-Kubernetes（1.5 版本或者更新版本）不会因为一个节点无法访问而删除 Pod。
+当某个节点不可达时，不会引发自动删除 Pod。
 在无法访问的节点上运行的 Pod 在
-[超时](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-condition)
+[超时](/zh/docs/concepts/architecture/nodes/#condition)
 后会进入'Terminating' 或者 'Unknown' 状态。
 当用户尝试体面地删除无法访问的节点上的 Pod 时 Pod 也可能会进入这些状态。
 从 API 服务器上删除处于这些状态 Pod 的仅有可行方法如下：

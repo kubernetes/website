@@ -290,7 +290,7 @@ dan [panduan penggunaan metrik eksternal](/docs/tasks/run-application/horizontal
 
 ## Dukungan untuk Perilaku *Scaling* yang dapat Dikonfigurasi
 
-Mulai dari versi [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md), API `v2beta2` mengizinkan perilaku *scaling* dapat
+Mulai dari versi [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity/README.md), API `v2beta2` mengizinkan perilaku *scaling* dapat
 dikonfigurasi melalui *field* `behavior` pada HorizontalPodAutoscaler. Perilaku *scaling up* dan *scaling down*
 ditentukan terpisah pada *field* `slaceUp` dan *field* `scaleDown`, dibawah dari *field* `behavior`.
 Sebuah stabilisator dapat ditentukan untuk kedua arah *scale* untuk mencegah perubahan replika yang terlalu

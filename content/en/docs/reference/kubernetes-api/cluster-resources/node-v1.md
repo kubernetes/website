@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "Node is a worker node in Kubernetes."
 title: "Node"
 weight: 1
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: v1`
 
@@ -50,37 +62,37 @@ NodeSpec describes the attributes that a node is created with.
 
 - **configSource** (NodeConfigSource)
 
-  If specified, the source to get node configuration from The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field
+  Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 
   <a name="NodeConfigSource"></a>
-  *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
+  *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
 
   - **configSource.configMap** (ConfigMapNodeConfigSource)
 
     ConfigMap is a reference to a Node's ConfigMap
 
     <a name="ConfigMapNodeConfigSource"></a>
-    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
 
-  - **configSource.configMap.kubeletConfigKey** (string), required
+    - **configSource.configMap.kubeletConfigKey** (string), required
 
-    KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+      KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 
-  - **configSource.configMap.name** (string), required
+    - **configSource.configMap.name** (string), required
 
-    Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+      Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
 
-  - **configSource.configMap.namespace** (string), required
+    - **configSource.configMap.namespace** (string), required
 
-    Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+      Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
 
-  - **configSource.configMap.resourceVersion** (string)
+    - **configSource.configMap.resourceVersion** (string)
 
-    ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+      ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
-  - **configSource.configMap.uid** (string)
+    - **configSource.configMap.uid** (string)
 
-    UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+      UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
 - **externalID** (string)
 
@@ -214,68 +226,68 @@ NodeStatus is information about the current status of a node.
     Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
 
     <a name="NodeConfigSource"></a>
-    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
+    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
 
-  - **config.active.configMap** (ConfigMapNodeConfigSource)
+    - **config.active.configMap** (ConfigMapNodeConfigSource)
 
-    ConfigMap is a reference to a Node's ConfigMap
+      ConfigMap is a reference to a Node's ConfigMap
 
-    <a name="ConfigMapNodeConfigSource"></a>
-    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+      <a name="ConfigMapNodeConfigSource"></a>
+      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
 
-  - **config.active.configMap.kubeletConfigKey** (string), required
+      - **config.active.configMap.kubeletConfigKey** (string), required
 
-    KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+        KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 
-  - **config.active.configMap.name** (string), required
+      - **config.active.configMap.name** (string), required
 
-    Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+        Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.active.configMap.namespace** (string), required
+      - **config.active.configMap.namespace** (string), required
 
-    Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+        Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.active.configMap.resourceVersion** (string)
+      - **config.active.configMap.resourceVersion** (string)
 
-    ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
-  - **config.active.configMap.uid** (string)
+      - **config.active.configMap.uid** (string)
 
-    UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
   - **config.assigned** (NodeConfigSource)
 
     Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.
 
     <a name="NodeConfigSource"></a>
-    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
+    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
 
-  - **config.assigned.configMap** (ConfigMapNodeConfigSource)
+    - **config.assigned.configMap** (ConfigMapNodeConfigSource)
 
-    ConfigMap is a reference to a Node's ConfigMap
+      ConfigMap is a reference to a Node's ConfigMap
 
-    <a name="ConfigMapNodeConfigSource"></a>
-    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+      <a name="ConfigMapNodeConfigSource"></a>
+      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
 
-  - **config.assigned.configMap.kubeletConfigKey** (string), required
+      - **config.assigned.configMap.kubeletConfigKey** (string), required
 
-    KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+        KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 
-  - **config.assigned.configMap.name** (string), required
+      - **config.assigned.configMap.name** (string), required
 
-    Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+        Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.assigned.configMap.namespace** (string), required
+      - **config.assigned.configMap.namespace** (string), required
 
-    Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+        Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.assigned.configMap.resourceVersion** (string)
+      - **config.assigned.configMap.resourceVersion** (string)
 
-    ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
-  - **config.assigned.configMap.uid** (string)
+      - **config.assigned.configMap.uid** (string)
 
-    UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
   - **config.error** (string)
 
@@ -286,34 +298,34 @@ NodeStatus is information about the current status of a node.
     LastKnownGood reports the checkpointed config the node will fall back to when it encounters an error attempting to use the Assigned config. The Assigned config becomes the LastKnownGood config when the node determines that the Assigned config is stable and correct. This is currently implemented as a 10-minute soak period starting when the local record of Assigned config is updated. If the Assigned config is Active at the end of this period, it becomes the LastKnownGood. Note that if Spec.ConfigSource is reset to nil (use local defaults), the LastKnownGood is also immediately reset to nil, because the local default config is always assumed good. You should not make assumptions about the node's method of determining config stability and correctness, as this may change or become configurable in the future.
 
     <a name="NodeConfigSource"></a>
-    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
+    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
 
-  - **config.lastKnownGood.configMap** (ConfigMapNodeConfigSource)
+    - **config.lastKnownGood.configMap** (ConfigMapNodeConfigSource)
 
-    ConfigMap is a reference to a Node's ConfigMap
+      ConfigMap is a reference to a Node's ConfigMap
 
-    <a name="ConfigMapNodeConfigSource"></a>
-    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+      <a name="ConfigMapNodeConfigSource"></a>
+      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
 
-  - **config.lastKnownGood.configMap.kubeletConfigKey** (string), required
+      - **config.lastKnownGood.configMap.kubeletConfigKey** (string), required
 
-    KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+        KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 
-  - **config.lastKnownGood.configMap.name** (string), required
+      - **config.lastKnownGood.configMap.name** (string), required
 
-    Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+        Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.lastKnownGood.configMap.namespace** (string), required
+      - **config.lastKnownGood.configMap.namespace** (string), required
 
-    Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+        Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.lastKnownGood.configMap.resourceVersion** (string)
+      - **config.lastKnownGood.configMap.resourceVersion** (string)
 
-    ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
-  - **config.lastKnownGood.configMap.uid** (string)
+      - **config.lastKnownGood.configMap.uid** (string)
 
-    UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
 - **daemonEndpoints** (NodeDaemonEndpoints)
 
@@ -329,9 +341,9 @@ NodeStatus is information about the current status of a node.
     <a name="DaemonEndpoint"></a>
     *DaemonEndpoint contains information about a single Daemon endpoint.*
 
-  - **daemonEndpoints.kubeletEndpoint.Port** (int32), required
+    - **daemonEndpoints.kubeletEndpoint.Port** (int32), required
 
-    Port number of the given endpoint.
+      Port number of the given endpoint.
 
 - **images** ([]ContainerImage)
 
@@ -340,7 +352,7 @@ NodeStatus is information about the current status of a node.
   <a name="ContainerImage"></a>
   *Describe a container image*
 
-  - **images.names** ([]string), required
+  - **images.names** ([]string)
 
     Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
 
@@ -758,6 +770,8 @@ PATCH /api/v1/nodes/{name}
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
 
+201 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): Created
+
 401: Unauthorized
 
 
@@ -805,6 +819,8 @@ PATCH /api/v1/nodes/{name}/status
 
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): Created
 
 401: Unauthorized
 

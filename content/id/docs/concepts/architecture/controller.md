@@ -60,7 +60,7 @@ Job adalah sumber daya dalam Kubernetes yang menjalankan a
 {{< glossary_tooltip term_id="pod" >}}, atau mungkin beberapa Pod sekaligus, 
 untuk melakukan sebuah pekerjaan dan kemudian berhenti.
 
-(Setelah [dijadwalkan](../../../../en/docs/concepts/scheduling/), objek Pod 
+(Setelah [dijadwalkan](../../../../en/docs/concepts/scheduling-eviction/), objek Pod 
 akan menjadi bagian dari keadaan yang diinginkan oleh kubelet).
 
 Ketika _controller job_ melihat tugas baru, maka _controller_ itu memastikan bahwa, 

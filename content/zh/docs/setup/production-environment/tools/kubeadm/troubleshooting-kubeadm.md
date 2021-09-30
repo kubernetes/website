@@ -91,51 +91,30 @@ If you notice that `kubeadm init` hangs after printing out the following line:
 This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
-- the default cgroup driver configuration for the kubelet differs from that used by Docker.
-  Check the system log file (e.g. `/var/log/message`) or examine the output from `journalctl -u kubelet`. If you see something like the following:
-
-  ```shell
-  error: failed to run Kubelet: failed to create kubelet:
-  misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
-  ```
-
-  There are two common ways to fix the cgroup driver problem:
-
- 1. Install Docker again following instructions
-  [here](/docs/setup/production-environment/container-runtimes/#docker).
-
- 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
-    [Configure cgroup driver used by kubelet on control-plane node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
-
-- control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
+- the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
+configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+- control plane containers are crashlooping or hanging. You can check this by running `docker ps`
+and investigating each container by running `docker logs`. For other container runtime see
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
 -->
 这可能是由许多问题引起的。最常见的是：
 
 - 网络连接问题。在继续之前，请检查你的计算机是否具有全部联通的网络连接。
-- kubelet 的默认 cgroup 驱动程序配置不同于 Docker 使用的配置。
-  检查系统日志文件 (例如 `/var/log/message`) 或检查 `journalctl -u kubelet` 的输出。 如果你看见以下内容：
-
-  ```shell
-  error: failed to run Kubelet: failed to create kubelet:
-  misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
-  ```
-
-  有两种常见方法可解决 cgroup 驱动程序问题：
-
-  1. 按照 [此处](/zh/docs/setup/production-environment/container-runtimes/#docker) 的说明再次安装 Docker。
-
-  1. 更改 kubelet 配置以手动匹配 Docker cgroup 驱动程序，你可以参考
-     [在主节点上配置 kubelet 要使用的 cgroup 驱动程序](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
-
+- 容器运行时的 cgroup 驱动不同于 kubelet 使用的 cgroup 驱动。要了解如何正确配置 cgroup 驱动，
+  请参阅[配置 cgroup 驱动](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
 - 控制平面上的 Docker 容器持续进入崩溃状态或（因其他原因）挂起。你可以运行 `docker ps` 命令来检查以及 `docker logs` 命令来检视每个容器的运行日志。
+  对于其他容器运行时，请参阅[使用 crictl 对 Kubernetes 节点进行调试](/zh/docs/tasks/debug-application-cluster/crictl/)。
 
 <!--
 ## kubeadm blocks when removing managed containers
 
 The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
 
-```bash
+```shell
 sudo kubeadm reset
+```
+
+```console
 [preflight] Running pre-flight checks
 [reset] Stopping the kubelet service
 [reset] Unmounting mounted directories in "/var/lib/kubelet"
@@ -145,14 +124,14 @@ sudo kubeadm reset
 
 A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
 
-```bash
+```shell
 sudo systemctl restart docker.service
 sudo kubeadm reset
 ```
 
 Inspecting the logs for docker may also be useful:
 
-```sh
+```shell
 journalctl -ul docker
 ```
 -->
@@ -160,8 +139,11 @@ journalctl -ul docker
 
 如果 Docker 停止并且不删除 Kubernetes 所管理的所有容器，可能发生以下情况：
 
-```bash
+```shell
 sudo kubeadm reset
+```
+
+```none
 [preflight] Running pre-flight checks
 [reset] Stopping the kubelet service
 [reset] Unmounting mounted directories in "/var/lib/kubelet"
@@ -171,7 +153,7 @@ sudo kubeadm reset
 
 一个可行的解决方案是重新启动 Docker 服务，然后重新运行 `kubeadm reset`：
 
-```bash
+```shell
 sudo systemctl restart docker.service
 sudo kubeadm reset
 ```
@@ -189,10 +171,10 @@ Right after `kubeadm init` there should not be any pods in these states.
 
 - If there are pods in one of these states _right after_ `kubeadm init`, please open an
   issue in the kubeadm repo. `coredns` (or `kube-dns`) should be in the `Pending` state
-  until you have deployed the network solution.
+  until you have deployed the network add-on.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
-  after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution that you installed is somehow broken.
+  after deploying the network add-on and nothing happens to `coredns` (or `kube-dns`),
+  it's very likely that the Pod Network add-on that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 - If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
@@ -206,11 +188,11 @@ Right after `kubeadm init` there should not be any pods in these states.
 
 - 在 `kubeadm init` 命令执行完后，如果有 pods 处于这些状态之一，请在 kubeadm
   仓库提起一个 issue。`coredns` (或者 `kube-dns`) 应该处于 `Pending` 状态，
-  直到你部署了网络解决方案为止。
+  直到你部署了网络插件为止。
 
-- 如果在部署完网络解决方案之后，有 Pods 处于 `RunContainerError`、`CrashLoopBackOff`
+- 如果在部署完网络插件之后，有 Pods 处于 `RunContainerError`、`CrashLoopBackOff`
   或 `Error` 状态之一，并且`coredns` （或者 `kube-dns`）仍处于 `Pending` 状态，
-  那很可能是你安装的网络解决方案由于某种原因无法工作。你或许需要授予它更多的
+  那很可能是你安装的网络插件由于某种原因无法工作。你或许需要授予它更多的
   RBAC 特权或使用较新的版本。请在 Pod Network 提供商的问题跟踪器中提交问题，
   然后在此处分类问题。
 
@@ -221,17 +203,18 @@ Right after `kubeadm init` there should not be any pods in these states.
   当 Kubernetes 不能找到 `var/run/secrets/kubernetes.io/serviceaccount` 文件时会发生错误。
 
 <!--
-## `coredns` (or `kube-dns`) is stuck in the `Pending` state
+## `coredns` is stuck in the `Pending` state
 
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
-should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
+should [install the pod network add-on](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
 before CoreDNS may be deployed fully. Hence the `Pending` state before the network is set up.
 -->
-## `coredns` （或 `kube-dns`）停滞在 `Pending` 状态
+## `coredns` 停滞在 `Pending` 状态
 
 这一行为是 **预期之中** 的，因为系统就是这么设计的。
-kubeadm 的网络供应商是中立的，因此管理员应该选择 [安装 pod 的网络解决方案](/zh/docs/concepts/cluster-administration/addons/)。
+kubeadm 的网络供应商是中立的，因此管理员应该选择
+[安装 pod 的网络插件](/zh/docs/concepts/cluster-administration/addons/)。
 你必须完成 Pod 的网络配置，然后才能完全部署 CoreDNS。
 在网络被配置好之前，DNS 组件会一直处于 `Pending` 状态。
 
@@ -239,7 +222,7 @@ kubeadm 的网络供应商是中立的，因此管理员应该选择 [安装 pod
 ## `HostPort` services do not work
 
 The `HostPort` and `HostIP` functionality is available depending on your Pod Network
-provider. Please contact the author of the Pod Network solution to find out whether
+provider. Please contact the author of the Pod Network add-on to find out whether
 `HostPort` and `HostIP` functionality are available.
 
 Calico, Canal, and Flannel CNI providers are verified to support HostPort.
@@ -251,7 +234,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 -->
 ## `HostPort` 服务无法工作
 
-此 `HostPort` 和 `HostIP` 功能是否可用取决于你的 Pod 网络配置。请联系 Pod 解决方案的作者，
+此 `HostPort` 和 `HostIP` 功能是否可用取决于你的 Pod 网络配置。请联系 Pod 网络插件的作者，
 以确认 `HostPort` 和 `HostIP` 功能是否可用。
 
 已验证 Calico、Canal 和 Flannel CNI 驱动程序支持 HostPort。
@@ -265,7 +248,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 <!--
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -278,7 +261,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 -->
 ## 无法通过其服务 IP 访问 Pod
 
-- 许多网络附加组件尚未启用 [hairpin 模式](/zh/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+- 许多网络附加组件尚未启用 [hairpin 模式](/zh/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   该模式允许 Pod 通过其服务 IP 进行访问。这是与 [CNI](https://github.com/containernetworking/cni/issues/476) 有关的问题。
   请与网络附加组件提供商联系，以获取他们所提供的 hairpin 模式的最新状态。
 
@@ -370,6 +353,51 @@ Error from server (NotFound): the server could not find the requested resource
 
   This may lead to problems with flannel, which defaults to the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this, pass the `-iface eth1` flag to flannel so that the second interface is chosen.
 -->
+
+<!--
+## Kubelet client certificate rotation fails {#kubelet-client-cert}
+
+By default, kubeadm configures a kubelet with automatic rotation of client certificates by using the `/var/lib/kubelet/pki/kubelet-client-current.pem` symlink specified in `/etc/kubernetes/kubelet.conf`.
+If this rotation process fails you might see errors such as `x509: certificate has expired or is not yet valid`
+in kube-apiserver logs. To fix the issue you must follow these steps:
+-->
+## Kubelet 客户端证书轮换失败   {#kubelet-client-cert}
+
+默认情况下，kubeadm 使用 `/etc/kubernetes/kubelet.conf` 中指定的 `/var/lib/kubelet/pki/kubelet-client-current.pem` 符号链接
+来配置 kubelet 自动轮换客户端证书。如果此轮换过程失败，你可能会在 kube-apiserver 日志中看到
+诸如 `x509: certificate has expired or is not yet valid` 之类的错误。要解决此问题，你必须执行以下步骤：
+<!--
+1. Backup and delete `/etc/kubernetes/kubelet.conf` and `/var/lib/kubelet/pki/kubelet-client*` from the failed node.
+1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key` execute
+`kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
+`$NODE` must be set to the name of the existing failed node in the cluster.
+Modify the resulted `kubelet.conf` manually to adjust the cluster name and server endpoint,
+or pass `kubeconfig user --config` (it accepts `InitConfiguration`). If your cluster does not have
+the `ca.key` you must sign the embedded certificates in the `kubelet.conf` externally.
+-->
+1. 从故障节点备份和删除 `/etc/kubernetes/kubelet.conf` 和 `/var/lib/kubelet/pki/kubelet-client*`。
+2. 在集群中具有 `/etc/kubernetes/pki/ca.key` 的、正常工作的控制平面节点上
+   执行 `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`。
+   `$NODE` 必须设置为集群中现有故障节点的名称。
+   手动修改生成的 `kubelet.conf` 以调整集群名称和服务器端点，
+   或传递 `kubeconfig user --config`（此命令接受 `InitConfiguration`）。
+   如果你的集群没有 `ca.key`，你必须在外部对 `kubelet.conf` 中的嵌入式证书进行签名。
+<!--
+1. Copy this resulted `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the failed node.
+1. Restart the kubelet (`systemctl restart kubelet`) on the failed node and wait for
+`/var/lib/kubelet/pki/kubelet-client-current.pem` to be recreated.
+-->
+3. 将得到的 `kubelet.conf` 文件复制到故障节点上，作为 `/etc/kubernetes/kubelet.conf`。
+4. 在故障节点上重启 kubelet（`systemctl restart kubelet`），等待 `/var/lib/kubelet/pki/kubelet-client-current.pem` 重新创建。
+<!--
+1. Run `kubeadm init phase kubelet-finalize all` on the failed node. This will make the new
+`kubelet.conf` file use `/var/lib/kubelet/pki/kubelet-client-current.pem` and will restart the kubelet.
+1. Make sure the node becomes `Ready`.
+-->
+5. 在故障节点上运行 `kubeadm init phase kubelet-finalize all`。
+   这将使新的 `kubelet.conf` 文件使用 `/var/lib/kubelet/pki/kubelet-client-current.pem` 并将重新启动 kubelet。
+6. 确保节点状况变为 `Ready`。
+
 ## 在 Vagrant 中使用 flannel 作为 pod 网络时的默认 NIC
 
 以下错误可能表明 Pod 网络中出现问题：
@@ -403,8 +431,13 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
   ```
 
-  The workaround is to tell `kubelet` which IP to use using `-node-ip`. When using Digital Ocean, it can be the public one (assigned to `eth0`) or the private one (assigned to `eth1`) should you want to use the optional private network. The [`KubeletExtraArgs` section of the kubeadm `NodeRegistrationOptions` structure](https://github.com/kubernetes/kubernetes/blob/release-1.13/cmd/kubeadm/app/apis/kubeadm/v1beta1/types.go) can be used for this.
-
+  The workaround is to tell `kubelet` which IP to use using `--node-ip`.
+  When using DigitalOcean, it can be the public one (assigned to `eth0`) or
+  the private one (assigned to `eth1`) should you want to use the optional
+  private network. The `kubeletExtraArgs` section of the kubeadm
+  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta2/#kubeadm-k8s-io-v1beta2-NodeRegistrationOptions)
+  can be used for this.
+  
   Then restart `kubelet`:
 
   ```sh
@@ -435,7 +468,8 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
   解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 Digital Ocean 时，可以是公网IP（分配给 `eth0`的），
   或者是私网IP（分配给 `eth1` 的）。私网 IP 是可选的。
-  [kubadm `NodeRegistrationOptions` 结构的 `KubeletExtraArgs` 部分](https://github.com/kubernetes/kubernetes/blob/release-1.13/cmd/kubeadm/app/apis/kubeadm/v1beta1/types.go) 被用来处理这种情况。
+  [kubadm `NodeRegistrationOptions` 结构](/zh/docs/reference/config-api/kubeadm-config.v1beta2/#kubeadm-k8s-io-v1beta2-NodeRegistrationOptions) 
+  的 `KubeletExtraArgs` 部分被用来处理这种情况。
 
   然后重启 `kubelet`：
 
@@ -561,7 +595,7 @@ Alternatively, you can try separating the `key=value` pairs like so:
 `-apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
-A known workaround is to use the kubeadm [configuration file](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#apiserver-flags).
+A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta2/).
 -->
 ## 无法将以逗号分隔的值列表传递给 `--component-extra-args` 标志内的参数
 
@@ -579,7 +613,7 @@ kube-apiserver 这样的控制平面组件。然而，由于解析 (`mapStringSt
 但这将导致键 `enable-admission-plugins` 仅有值 `NamespaceExists`。
 
 已知的解决方法是使用 kubeadm
-[配置文件](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#apiserver-flags)。
+[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta2/)。
 
 <!--
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
@@ -626,40 +660,138 @@ kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec":
 此问题的跟踪[在这里](https://github.com/kubernetes/kubeadm/issues/1027)。
 
 <!--
-## The NodeRegistration.Taints field is omitted when marshalling kubeadm configuration
+## `/usr` is mounted read-only on nodes {#usr-mounted-read-only}
 
-*Note: This [issue](https://github.com/kubernetes/kubeadm/issues/1358) only applies to tools that marshal kubeadm types (e.g. to a YAML configuration file). It will be fixed in kubeadm API v1beta2.*
-
-By default, kubeadm applies the `node-role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
-If you prefer kubeadm to not taint the control-plane node, and set `InitConfiguration.NodeRegistration.Taints` to an empty slice,
-the field will be omitted when marshalling. When the field is omitted, kubeadm applies the default taint.
-
-There are at least two workarounds:
-
-1. Use the `node-role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
-
-2. Remove the taint after kubeadm init exits:
-```bash
-kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
-```
+On Linux distributions such as Fedora CoreOS or Flatcar Container Linux, the directory `/usr` is mounted as a read-only filesystem.
+For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md),
+Kubernetes components like the kubelet and kube-controller-manager use the default path of
+`/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
+for the feature to work.
 -->
-## NodeRegistration.Taints 字段在编组 kubeadm 配置时丢失
+## 节点上的 `/usr` 被以只读方式挂载 {#usr-mounted-read-only}
 
-*注意：这个 [问题](https://github.com/kubernetes/kubeadm/issues/1358) 
-仅适用于操控 kubeadm 数据类型的工具（例如，YAML 配置文件）。它将在 kubeadm API v1beta2 修复。*
+在类似 Fedora CoreOS 或者 Flatcar Container Linux 这类 Linux 发行版本中，
+目录 `/usr` 是以只读文件系统的形式挂载的。 
+在支持 [FlexVolume](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md)时，
+类似 kubelet 和 kube-controller-manager 这类 Kubernetes 组件使用默认路径
+`/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
+而 FlexVolume 的目录 _必须是可写入的_，该功能特性才能正常工作。
 
-默认情况下，kubeadm 将 `node-role.kubernetes.io/master:NoSchedule` 污点应用于控制平面节点。
-如果你希望 kubeadm 不污染控制平面节点，并将 `InitConfiguration.NodeRegistration.Taints` 设置成空切片，则应在编组时省略该字段。
-如果省略该字段，则 kubeadm 将应用默认污点。
+<!--
+To workaround this issue you can configure the flex-volume directory using the kubeadm
+[configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3).
 
-至少有两种解决方法：
+On the primary control-plane Node (created using `kubeadm init`) pass the following
+file using `--config`:
+-->
+为了解决这个问题，你可以使用 kubeadm 的[配置文件](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)
+来配置 FlexVolume 的目录。
 
-1. 使用 `node-role.kubernetes.io/master:PreferNoSchedule` 污点代替空切片。
-  除非其他节点具有容量，[否则将在主节点上调度 Pods](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+在（使用 `kubeadm init` 创建的）主控制节点上，使用 `-config`
+参数传入如下文件：
 
-2. 在 kubeadm init 退出后删除污点：
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+controllerManager:
+  extraArgs:
+    flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+```
 
-   ```shell
-   kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
-   ```
+<!--
+On joining Nodes:
+-->
+在加入到集群中的节点上，使用下面的文件：
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: JoinConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+```
+
+<!--
+Alternatively, you can modify `/etc/fstab` to make the `/usr` mount writeable, but please
+be advised that this is modifying a design principle of the Linux distribution.
+-->
+或者，你要可以更改 `/etc/fstab` 使得 `/usr` 目录能够以可写入的方式挂载，不过
+请注意这样做本质上是在更改 Linux 发行版的某种设计原则。
+
+<!--
+## `kubeadm upgrade plan` prints out `context deadline exceeded` error message
+
+This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in the case of running an external etcd. This is not a critical bug and happens because older versions of kubeadm perform a version check on the external etcd cluster. You can proceed with `kubeadm upgrade apply ...`.
+
+This issue is fixed as of version 1.19.
+-->
+## `kubeadm upgrade plan` 输出错误信息 `context deadline exceeded`
+
+在使用 `kubeadm` 来升级某运行外部 etcd 的 Kubernetes 集群时可能显示这一错误信息。
+这并不是一个非常严重的一个缺陷，之所以出现此错误信息，原因是老的 kubeadm
+版本会对外部 etcd 集群执行版本检查。你可以继续执行 `kubeadm upgrade apply ...`。
+
+这一问题已经在 1.19 版本中得到修复。
+
+<!--
+## `kubeadm reset` unmounts `/var/lib/kubelet`
+
+If `/var/lib/kubelet` is being mounted, performing a `kubeadm reset` will effectively unmount it.
+
+To workaround the issue, re-mount the `/var/lib/kubelet` directory after performing the `kubeadm reset` operation.
+
+This is a regression introduced in kubeadm 1.15. The issue is fixed in 1.20.
+-->
+## `kubeadm reset` 会卸载 `/var/lib/kubelet`
+
+如果已经挂载了 `/var/lib/kubelet` 目录，执行 `kubeadm reset` 操作的时候
+会将其卸载。
+
+要解决这一问题，可以在执行了 `kubeadm reset` 操作之后重新挂载
+`/var/lib/kubelet` 目录。
+
+这是一个在 1.15 中引入的故障，已经在 1.20 版本中修复。
+
+<!--
+## Cannot use the metrics-server securely in a kubeadm cluster
+
+In a kubeadm cluster, the [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
+can be used insecurely by passing the `--kubelet-insecure-tls` to it. This is not recommended for production clusters.
+-->
+## 无法在 kubeadm 集群中安全地使用 metrics-server
+
+在 kubeadm 集群中可以通过为 [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
+设置 `--kubelet-insecure-tls` 来以不安全的形式使用该服务。
+建议不要在生产环境集群中这样使用。
+
+<!--
+If you want to use TLS between the metrics-server and the kubelet there is a problem,
+since kubeadm deploys a self-signed serving certificate for the kubelet. This can cause the following errors
+on the side of the metrics-server:
+-->
+如果你需要在 metrics-server 和 kubelt 之间使用 TLS，会有一个问题，
+kubeadm 为 kubelt 部署的是自签名的服务证书。这可能会导致 metrics-server
+端报告下面的错误信息：
+
+```
+x509: certificate signed by unknown authority
+x509: certificate is valid for IP-foo not IP-bar
+```
+
+<!--
+See [Enabling signed kubelet serving certificates](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
+to understand how to configure the kubelets in a kubeadm cluster to have properly signed serving certificates.
+
+Also see [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely).
+-->
+参见[为 kubelet 启用签名的服务证书](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
+以进一步了解如何在 kubeadm 集群中配置 kubelet 使用正确签名了的服务证书。
+
+另请参阅[How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely)。
 

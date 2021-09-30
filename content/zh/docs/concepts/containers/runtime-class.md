@@ -1,5 +1,5 @@
 ---
-title: 容器运行时类(Runtime Class)
+title: 容器运行时类（Runtime Class）
 content_type: concept
 weight: 20
 ---
@@ -163,7 +163,7 @@ error message.
 如果所指的 RuntimeClass 不存在或者 CRI 无法运行相应的 handler，
 那么 pod 将会进入 `Failed` 终止[阶段](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
 你可以查看相应的[事件](/zh/docs/tasks/debug-application-cluster/debug-application-introspection/)，
-获取出错信息。
+获取执行过程中的错误信息。
 
 <!--
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
@@ -184,9 +184,11 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 #### dockershim
 
 <!--
-Kubernetes built-in dockershim CRI does not support runtime handlers.
+RuntimeClasses with dockershim must set the runtime handler to `docker`. Dockershim does not support
+custom configurable runtime handlers.
 -->
-Kubernetes 内置的 dockershim CRI 不支持配置运行时 handler。
+为 dockershim 设置 RuntimeClass 时，必须将运行时处理程序设置为 `docker`。
+Dockershim 不支持自定义的可配置的运行时处理程序。
 
 #### [containerd](https://containerd.io/)
 
@@ -255,7 +257,7 @@ the intersection of the set of nodes selected by each. If there is a conflict, t
 rejected.
 -->
 为了确保 pod 会被调度到支持指定运行时的 node 上，每个 node 需要设置一个通用的 label 用于被 
-`runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 nodeSelector 将会于
+`runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 nodeSelector 将会与
 pod 的 nodeSelector 合并，取二者的交集。如果有冲突，pod 将会被拒绝。
 
 <!--
@@ -311,6 +313,4 @@ Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。
 - [RuntimeClass 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass 调度设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - 阅读关于 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/) 的概念
-- [PodOverhead 特性设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
-
-
+- [PodOverhead 特性设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

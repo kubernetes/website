@@ -2,6 +2,7 @@
 title: 为应用程序设置干扰预算（Disruption Budget）
 content_type: task
 weight: 110
+min-kubernetes-server-version: v1.21
 ---
 
 <!--
@@ -12,7 +13,7 @@ weight: 110
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
 This page shows how to limit the number of concurrent disruptions
@@ -23,6 +24,8 @@ nodes.
 本文展示如何限制应用程序的并发干扰数量，在允许集群管理员管理集群节点的同时保证高可用。
 
 ## {{% heading "prerequisites" %}}
+
+{{< version-check >}}
 
 <!--
 * You are the owner of an application running on a Kubernetes cluster that requires
@@ -205,15 +208,15 @@ It can be either an absolute number or a percentage.
 * `.spec.maxUnavailable` （Kubernetes 1.7 及更高的版本中可用）表示驱逐后允许不可用的
   Pod 的最大数量。其值可以是绝对值或是百分比。
 
-<!--
-For versions 1.8 and earlier: When creating a `PodDisruptionBudget`
-object using the `kubectl` command line tool, the `minAvailable` field has a
-default value of 1 if neither `minAvailable` nor `maxUnavailable` is specified.
--->
 {{< note >}}
-对于1.8及更早的版本：当你用 `kubectl` 命令行工具创建 `PodDisruptionBudget` 对象时，
-如果既未指定 `minAvailable` 也未指定 `maxUnavailable`，
-则 `minAvailable` 字段有一个默认值 1。
+<!--
+The behavior for an empty selector differs between the policy/v1beta1 and policy/v1 APIs for
+PodDisruptionBudgets. For policy/v1beta1 an empty selector matches zero pods, while
+for policy/v1 an empty selector matches every pod in the namespace.
+-->
+`policy/v1beta1` 和 `policy/v1` API 中 PodDisruptionBudget 的空选择算符的行为
+略有不同。在 `policy/v1beta1` 中，空的选择算符不会匹配任何 Pods，而
+`policy/v1` 中，空的选择算符会匹配名字空间中所有 Pods。
 {{< /note >}}
 
 <!--
@@ -296,9 +299,9 @@ Example PDB Using minAvailable:
 {{< codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" >}}
 
 <!--
-Example PDB Using maxUnavailable (Kubernetes 1.7 or higher):
+Example PDB Using maxUnavailable:
 -->
-使用 maxUnavailable 的 PDB 示例（Kubernetes 1.7 或更高的版本）：
+使用 maxUnavailable 的 PDB 示例：
 
 {{< codenew file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" >}}
 
@@ -378,7 +381,7 @@ kubectl get poddisruptionbudgets zk-pdb -o yaml
 ```
 
 ```yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   anntation: {}

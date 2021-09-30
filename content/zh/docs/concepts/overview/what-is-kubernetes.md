@@ -35,10 +35,11 @@ Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器
 Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。
 
 <!--
-The name Kubernetes originates from Greek, meaning helmsman or pilot. Google open-sourced the Kubernetes project in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://research.google/pubs/pub43438), combined with best-of-breed ideas and practices from the community.
+The name Kubernetes originates from Greek, meaning helmsman or pilot. K8s as an abbreviation results from counting the eight letters between the "K" and the "s". Google open-sourced the Kubernetes project in 2014. Kubernetes combines [over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running production workloads at scale with best-of-breed ideas and practices from the community.
 -->
-名称 **Kubernetes** 源于希腊语，意为“舵手”或“飞行员”。Google 在 2014 年开源了 Kubernetes 项目。
-Kubernetes 建立在 [Google 在大规模运行生产工作负载方面拥有十几年的经验](https://research.google/pubs/pub43438)
+**Kubernetes** 这个名字源于希腊语，意为“舵手”或“飞行员”。k8s 这个缩写是因为 k 和 s 之间有八个字符的关系。
+Google 在 2014 年开源了 Kubernetes 项目。Kubernetes 建立在
+[Google 在大规模运行生产工作负载方面拥有十几年的经验](https://research.google/pubs/pub43438)
 的基础上，结合了社区中最好的想法和实践。
 
 <!--
@@ -106,7 +107,7 @@ Containers are becoming popular because they have many benefits. Some of the con
 * Agile application creation and deployment: increased ease and efficiency of container image creation compared to VM image use.
 * Continuous development, integration, and deployment: provides for reliable and frequent container image build and deployment with quick and easy rollbacks (due to image immutability).
 * Dev and Ops separation of concerns: create application container images at build/release time rather than deployment time, thereby decoupling applications from infrastructure.
-* Observability not only surfaces OS-level information and metrics, but also application health and other signals.
+* Observability: not only surfaces OS-level information and metrics, but also application health and other signals.
 * Environmental consistency across development, testing, and production: Runs the same on a laptop as it does in the cloud.
 * Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.
 * Application-centric management: Raises the level of abstraction from running an OS on virtual hardware to running an application on an OS using logical resources.
@@ -119,7 +120,7 @@ Containers are becoming popular because they have many benefits. Some of the con
   容器镜像构建和部署。
 * 关注开发与运维的分离：在构建/发布时而不是在部署时创建应用程序容器镜像，
   从而将应用程序与基础架构分离。
-* 可观察性不仅可以显示操作系统级别的信息和指标，还可以显示应用程序的运行状况和其他指标信号。
+* 可观察性：不仅可以显示操作系统级别的信息和指标，还可以显示应用程序的运行状况和其他指标信号。
 * 跨开发、测试和生产的环境一致性：在便携式计算机上与在云中相同地运行。
 * 跨云和操作系统发行版本的可移植性：可在 Ubuntu、RHEL、CoreOS、本地、
   Google Kubernetes Engine 和其他任何地方运行。
@@ -155,7 +156,7 @@ Kubernetes provides you with:
 Kubernetes 为你提供：
 
 <!--
-* **Service discovery and load balancing**  
+* **Service discovery and load balancing**
 Kubernetes can expose a container using the DNS name or using their own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.
 -->
 * **服务发现和负载均衡**
@@ -164,7 +165,7 @@ Kubernetes can expose a container using the DNS name or using their own IP addre
   Kubernetes 可以负载均衡并分配网络流量，从而使部署稳定。
 
 <!--
-* **Storage orchestration**  
+* **Storage orchestration**
 Kubernetes allows you to automatically mount a storage system of your choice, such as local storages, public cloud providers, and more.
 -->
 * **存储编排**
@@ -172,7 +173,7 @@ Kubernetes allows you to automatically mount a storage system of your choice, su
   Kubernetes 允许你自动挂载你选择的存储系统，例如本地存储、公共云提供商等。
 
 <!--
-* **Automated rollouts and rollbacks**  
+* **Automated rollouts and rollbacks**
 You can describe the desired state for your deployed containers using Kubernetes, and it can change the actual state to the desired state at a controlled rate. For example, you can automate Kubernetes to create new containers for your deployment, remove existing containers and adopt all their resources to the new container.
 -->
 * **自动部署和回滚**
@@ -182,7 +183,7 @@ You can describe the desired state for your deployed containers using Kubernetes
   删除现有容器并将它们的所有资源用于新容器。
 
 <!--
-* **Automatic bin packing**  
+* **Automatic bin packing**
 Kubernetes allows you to specify how much CPU and memory (RAM) each container needs. When containers have resource requests specified, Kubernetes can make better decisions to manage the resources for containers.
 -->
 * **自动完成装箱计算**
@@ -191,7 +192,7 @@ Kubernetes allows you to specify how much CPU and memory (RAM) each container ne
   当容器指定了资源请求时，Kubernetes 可以做出更好的决策来管理容器的资源。
 
 <!--
-* **Self-healing**  
+* **Self-healing**
 Kubernetes restarts containers that fail, replaces containers, kills containers that don’t respond to your user-defined health check, and doesn’t advertise them to clients until they are ready to serve.
 -->
 * **自我修复**
@@ -200,7 +201,7 @@ Kubernetes restarts containers that fail, replaces containers, kills containers 
   运行状况检查的容器，并且在准备好服务之前不将其通告给客户端。
 
 <!--
-* **Secret and configuration management**  
+* **Secret and configuration management**
 Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. You can deploy and update secrets and application configuration without rebuilding your container images, and without exposing secrets in your stack configuration.
 -->
 * **密钥与配置管理**

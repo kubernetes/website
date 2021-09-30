@@ -74,7 +74,7 @@ Here are links to some of the popular cloud providers' security documentation:
 -->
 ### 云提供商安全性
 
-如果您是在您自己的硬件或者其他不通的云提供商上运行 Kubernetes 集群，
+如果您是在您自己的硬件或者其他不同的云提供商上运行 Kubernetes 集群，
 请查阅相关文档来获取最好的安全实践。
 
 下面是一些比较流行的云提供商的安全性文档链接：

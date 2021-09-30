@@ -119,16 +119,16 @@ Use the following phase to configure bootstrap tokens.
 {{< tab name="bootstrap-token" include="generated/kubeadm_init_phase_bootstrap-token.md" />}}
 {{< /tabs >}}
 
-## kubeadm init phase kubelet-finialize {#cmd-phase-kubelet-finalize-all}
+## kubeadm init phase kubelet-finalize {#cmd-phase-kubelet-finalize-all}
 
 Use the following phase to update settings relevant to the kubelet after TLS
 bootstrap. You can use the `all` subcommand to run all `kubelet-finalize`
 phases.
 
 {{< tabs name="tab-kubelet-finalize" >}}
-{{< tab name="kublet-finalize" include="generated/kubeadm_init_phase_kubelet-finalize.md" />}}
-{{< tab name="kublet-finalize-all" include="generated/kubeadm_init_phase_kubelet-finalize_all.md" />}}
-{{< tab name="kublet-finalize-cert-rotation" include="generated/kubeadm_init_phase_kubelet-finalize_experimental-cert-rotation.md" />}}
+{{< tab name="kubelet-finalize" include="generated/kubeadm_init_phase_kubelet-finalize.md" />}}
+{{< tab name="kubelet-finalize-all" include="generated/kubeadm_init_phase_kubelet-finalize_all.md" />}}
+{{< tab name="kubelet-finalize-cert-rotation" include="generated/kubeadm_init_phase_kubelet-finalize_experimental-cert-rotation.md" />}}
 {{< /tabs >}}
 
 ## kubeadm init phase addon {#cmd-phase-addon}
@@ -143,27 +143,8 @@ install them selectively.
 {{< tab name="kube-proxy" include="generated/kubeadm_init_phase_addon_kube-proxy.md" />}}
 {{< /tabs >}}
 
-To use kube-dns instead of CoreDNS you have to pass a configuration file:
-
-```bash
-# for installing a DNS addon only
-kubeadm init phase addon coredns --config=someconfig.yaml
-```
-
-The file has to contain a [`dns`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)
-and also a type for the addon - `kube-dns` (default value is `CoreDNS`).
-
-```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
-kind: ClusterConfiguration
-dns:
-  type: "kube-dns"
-```
-
-Please note that kube-dns usage with kubeadm is deprecated as of v1.18 and will be removed in a future release.
-
-For more details on each field in the `v1beta2` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
+For more details on each field in the `v1beta3` configuration you can navigate to our
+[API reference pages.](/docs/reference/config-api/kubeadm-config.v1beta3/)
 
 ## {{% heading "whatsnext" %}}
 

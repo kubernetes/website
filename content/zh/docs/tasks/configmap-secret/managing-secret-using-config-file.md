@@ -5,7 +5,7 @@ weight: 20
 description: 使用资源配置文件创建 Secret 对象。
 ---
 <!--  
-title: Managing Secret using Configuration File
+title: Managing Secrets using Configuration File
 content_type: task
 weight: 20
 description: Creating Secret objects using resource configuration file.
@@ -183,6 +183,8 @@ kubectl get secret mysecret -o yaml
 
 ```yaml
 apiVersion: v1
+data:
+  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:40:59Z
@@ -191,8 +193,6 @@ metadata:
   resourceVersion: "7225"
   uid: c280ad2e-e916-11e8-98f2-025000000001
 type: Opaque
-data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 ```
 
 <!--  
@@ -230,6 +230,8 @@ stringData:
 
 ```yaml
 apiVersion: v1
+data:
+  username: YWRtaW5pc3RyYXRvcg==
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:46:46Z
@@ -238,8 +240,6 @@ metadata:
   resourceVersion: "7579"
   uid: 91460ecb-e917-11e8-98f2-025000000001
 type: Opaque
-data:
-  username: YWRtaW5pc3RyYXRvcg==
 ```
 
 <!-- Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`. -->
@@ -248,8 +248,8 @@ data:
 <!-- ## Clean Up -->
 ## 清理    {#clean-up}
 
-<!-- To delete the Secret you have just created: -->
-删除你刚才创建的 Secret：
+<!-- To delete the Secret you have created: -->
+删除你创建的 Secret：
 
 ```shell
 kubectl delete secret mysecret
@@ -259,8 +259,8 @@ kubectl delete secret mysecret
 
 <!-- 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secret with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secret using kustomizae](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 -->
 - 进一步阅读 [Secret 概念](/zh/docs/concepts/configuration/secret/)
 - 了解如何[使用 `kubectl` 命令管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/)

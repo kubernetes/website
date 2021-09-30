@@ -19,8 +19,10 @@ support, on some other application-provided metrics). Note that Horizontal
 Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSets.
 -->
 Pod 水平自动扩缩（Horizontal Pod Autoscaler）
-可以基于 CPU 利用率自动扩缩 ReplicationController、Deployment、ReplicaSet 和 StatefulSet 中的 Pod 数量。
-除了 CPU 利用率，也可以基于其他应程序提供的[自定义度量指标](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
+可以基于 CPU 利用率自动扩缩 ReplicationController、Deployment、ReplicaSet 和
+StatefulSet 中的 Pod 数量。
+除了 CPU 利用率，也可以基于其他应程序提供的
+[自定义度量指标](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
 来执行自动扩缩。
 Pod 自动扩缩不适用于无法扩缩的对象，比如 DaemonSet。
 
@@ -28,11 +30,11 @@ Pod 自动扩缩不适用于无法扩缩的对象，比如 DaemonSet。
 The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a controller.
 The resource determines the behavior of the controller.
 The controller periodically adjusts the number of replicas in a replication controller or deployment
-to match the observed average CPU utilization to the target specified by user.
+to match the observed metrics such as average CPU utilisation, average memory utilisation or any other custom metric to the target specified by the user.
 -->
 Pod 水平自动扩缩特性由 Kubernetes API 资源和控制器实现。资源决定了控制器的行为。
-控制器会周期性的调整副本控制器或 Deployment 中的副本数量，以使得 Pod 的平均 CPU
-利用率与用户所设定的目标值匹配。
+控制器会周期性地调整副本控制器或 Deployment 中的副本数量，以使得类似 Pod 平均 CPU
+利用率、平均内存利用率这类观测到的度量值与用户所设定的目标值匹配。
 
 <!-- body -->
 
@@ -57,7 +59,8 @@ obtains the metrics from either the resource metrics API (for per-pod resource m
 or the custom metrics API (for all other metrics).
 -->
 每个周期内，控制器管理器根据每个 HorizontalPodAutoscaler 定义中指定的指标查询资源利用率。
-控制器管理器可以从资源度量指标 API（按 Pod 统计的资源用量）和自定义度量指标 API（其他指标）获取度量值。
+控制器管理器可以从资源度量指标 API（按 Pod 统计的资源用量）和自定义度量指标
+API（其他指标）获取度量值。
 
 <!--
 * For per-pod resource metrics (like CPU), the controller fetches the metrics
@@ -288,7 +291,7 @@ the current value.
 这表示，如果一个或多个指标给出的 `desiredReplicas` 值大于当前值，HPA 仍然能实现扩容。
 
 <!--
-Finally, just before HPA scales the target, the scale recommendation is recorded.  The
+Finally, right before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the
 highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
@@ -296,7 +299,8 @@ fluctuating metric values.
 -->
 最后，在 HPA 控制器执行扩缩操作之前，会记录扩缩建议信息。
 控制器会在操作时间窗口中考虑所有的建议信息，并从中选择得分最高的建议。
-这个值可通过 `kube-controller-manager` 服务的启动参数 `--horizontal-pod-autoscaler-downscale-stabilization` 进行配置，
+这个值可通过 `kube-controller-manager` 服务的启动参数
+`--horizontal-pod-autoscaler-downscale-stabilization` 进行配置，
 默认值为 5 分钟。
 这个配置可以让系统更为平滑地进行缩容操作，从而消除短时间内指标值快速波动产生的影响。
 
@@ -349,7 +353,7 @@ Finally, we can delete an autoscaler using `kubectl delete hpa`.
 最后，可以使用 `kubectl delete hpa` 命令删除对象。
 
 <!--
-In addition, there is a special `kubectl autoscale` command for easy creation of a Horizontal Pod Autoscaler.
+In addition, there is a special `kubectl autoscale` command for creating a HorizontalPodAutoscaler.
 For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
 will create an autoscaler for replication set *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
@@ -363,27 +367,29 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/refe
 <!--
 ## Autoscaling during rolling update
 
-Currently in Kubernetes, it is possible to perform a rolling update by using the deployment object, 
-which manages the underlying replica sets for you.
-Horizontal Pod Autoscaler only supports the latter approach: the Horizontal Pod Autoscaler is bound to the deployment object,
-it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replica sets.
+Kubernetes lets you perform a rolling update on a Deployment. In that
+case, the Deployment manages the underlying ReplicaSets for you.
+When you configure autoscaling for a Deployment, you bind a
+HorizontalPodAutoscaler to a single Deployment. The HorizontalPodAutoscaler
+manages the `replicas` field of the Deployment. The deployment controller is responsible
+for setting the `replicas` of the underlying ReplicaSets so that they add up to a suitable
+number during the rollout and also afterwards.
 -->
 ## 滚动升级时扩缩   {#autoscaling-during-rolling-update}
 
-目前在 Kubernetes 中，可以针对 ReplicationController 或 Deployment 执行
-滚动更新，它们会为你管理底层副本数。
-Pod 水平扩缩只支持后一种：HPA 会被绑定到 Deployment 对象，
-HPA 设置副本数量时，Deployment 会设置底层副本数。
+Kubernetes 允许你在 Deployment 上执行滚动更新。在这种情况下，Deployment 为你管理下层的 ReplicaSet。
+当你为一个 Deployment 配置自动扩缩时，你要为每个 Deployment 绑定一个 HorizontalPodAutoscaler。
+HorizontalPodAutoscaler 管理 Deployment 的 `replicas` 字段。
+Deployment Controller 负责设置下层 ReplicaSet 的 `replicas` 字段，
+以便确保在上线及后续过程副本个数合适。
 
 <!--
-Horizontal Pod Autoscaler does not work with rolling update using direct manipulation of replication controllers,
-i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update.
-The reason this doesn't work is that when rolling update creates a new replication controller,
-the Horizontal Pod Autoscaler will not be bound to the new replication controller.
+If you perform a rolling update of a StatefulSet that has an autoscaled number of
+replicas, the StatefulSet directly manages its set of Pods (there is no intermediate resource
+similar to ReplicaSet).
 -->
-通过直接操控副本控制器执行滚动升级时，HPA 不能工作，
-也就是说你不能将 HPA 绑定到某个 RC 再执行滚动升级。
-HPA 不能工作的原因是它无法绑定到滚动更新时所新创建的副本控制器。
+如果你对一个副本个数被自动扩缩的 StatefulSet 执行滚动更新， 该 StatefulSet
+会直接管理它的 Pod 集合 （不存在类似 ReplicaSet 这样的中间资源）。
 
 <!--
 ## Support for cooldown/delay
@@ -412,14 +418,15 @@ upscale delay.
 从 v1.12 开始，算法调整后，扩容操作时的延迟就不必设置了。
 
 <!--
-- `--horizontal-pod-autoscaler-downscale-stabilization`: The value for this option is a
-  duration that specifies how long the autoscaler has to wait before another
-  downscale operation can be performed after the current one has completed.
+- `--horizontal-pod-autoscaler-downscale-stabilization`: Specifies the duration of the
+  downscale stabilization time window. Horizontal Pod Autoscaler remembers
+  this historical recommended sizes and only acts on the largest size within this time window.
   The default value is 5 minutes (`5m0s`).
 -->
-- `--horizontal-pod-autoscaler-downscale-stabilization`: 
-  `kube-controller-manager` 的这个参数表示缩容冷却时间。
-  即自从上次缩容执行结束后，多久可以再次执行缩容，默认时间是 5 分钟(`5m0s`)。
+- `--horizontal-pod-autoscaler-downscale-stabilization`: 设置缩容冷却时间窗口长度。
+  水平 Pod
+扩缩器能够记住过去建议的负载规模，并仅对此时间窗口内的最大规模执行操作。
+  默认值是 5 分钟（`5m0s`）。
 
 <!--
 When tuning these parameter values, a cluster operator should be aware of the possible
@@ -634,7 +641,7 @@ APIs, cluster administrators must ensure that:
 * 相应的 API 已注册：
 
    * 对于资源指标，将使用 `metrics.k8s.io` API，一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
-     它可以做为集群插件启动。
+     它可以作为集群插件启动。
     
    * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
@@ -669,7 +676,7 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 ## Support for configurable scaling behavior
 
 Starting from
-[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity/README.md)
 the `v2beta2` API allows scaling behavior to be configured through the HPA
 `behavior` field. Behaviors are specified separately for scaling up and down in
 `scaleUp` or `scaleDown` section under the `behavior` field. A stabilization
@@ -679,7 +686,7 @@ policies controls the rate of change of replicas while scaling.
 -->
 ## 支持可配置的扩缩 {#support-for-configurable-scaling-behaviour}
 
-从 [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+从 [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity/README.md)
 开始，`v2beta2` API 允许通过 HPA 的 `behavior` 字段配置扩缩行为。
 在 `behavior` 字段中的 `scaleUp` 和 `scaleDown` 分别指定扩容和缩容行为。
 可以两个方向指定一个稳定窗口，以防止扩缩目标中副本数量的波动。
@@ -711,7 +718,12 @@ behavior:
 ```
 
 <!--  
-When the number of pods is more than 40 the second policy will be used for scaling down.
+`periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
+_(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
+
+Since by default the policy which allows the highest amount of change is selected, the second policy will
+only be used when the number of pod replicas is more than 40. With 40 or less replicas, the first policy will be applied.
 For instance if there are 80 replicas and the target has to be scaled down to 10 replicas
 then during the first step 8 replicas will be reduced. In the next iteration when the number
 of replicas is 72, 10% of the pods is 7.2 but the number is rounded up to 8. On each loop of
@@ -719,20 +731,16 @@ the autoscaler controller the number of pods to be change is re-calculated based
 of current replicas. When the number of replicas falls below 40 the first policy _(Pods)_ is applied
 and 4 replicas will be reduced at a time.
 -->
-当 Pod 数量超过 40 个时，第二个策略将用于缩容。
+`periodSeconds` 表示在过去的多长时间内要求策略值为真。
+第一个策略（Pods）允许在一分钟内最多缩容 4 个副本。第二个策略（Percent）
+允许在一分钟内最多缩容当前副本个数的百分之十。
+
+由于默认情况下会选择容许更大程度作出变更的策略，只有 Pod 副本数大于 40 时，
+第二个策略才会被采用。如果副本数为 40 或者更少，则应用第一个策略。
 例如，如果有 80 个副本，并且目标必须缩小到 10 个副本，那么在第一步中将减少 8 个副本。
 在下一轮迭代中，当副本的数量为 72 时，10% 的 Pod 数为 7.2，但是这个数字向上取整为 8。
 在 autoscaler 控制器的每个循环中，将根据当前副本的数量重新计算要更改的 Pod 数量。
-当副本数量低于 40 时，应用第一个策略 _（Pods）_ ，一次减少 4 个副本。
-
-<!-- 
-`periodSeconds` indicates the length of time in the past for which the policy must hold true.
-The first policy allows at most 4 replicas to be scaled down in one minute. The second policy
-allows at most 10% of the current replicas to be scaled down in one minute.
--->
-`periodSeconds` 表示策略的时间长度必须保证有效。
-第一个策略允许在一分钟内最多缩小 4 个副本。
-第二个策略最多允许在一分钟内缩小当前副本的 10%。
+当副本数量低于 40 时，应用第一个策略（Pods），一次减少 4 个副本。
 
 <!--  
 The policy selection can be changed by specifying the `selectPolicy` field for a scaling
@@ -806,7 +814,7 @@ behavior:
 ```
 
 <!--  
-For scaling down the stabilization window is _300_ seconds(or the value of the
+For scaling down the stabilization window is _300_ seconds (or the value of the
 `--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
 for scaling down which allows a 100% of the currently running replicas to be removed which
 means the scaling target can be scaled down to the minimum allowed replicas.
@@ -814,7 +822,8 @@ For scaling up there is no stabilization window. When the metrics indicate that 
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
 running replicas will be added every 15 seconds till the HPA reaches its steady state.
 -->
-用于缩小稳定窗口的时间为 _300_  秒(或是 `--horizontal-pod-autoscaler-downscale-stabilization` 参数设定值)。
+用于缩小稳定窗口的时间为 _300_  秒(或是 `--horizontal-pod-autoscaler-downscale-stabilization`
+参数设定值)。
 只有一种缩容的策略，允许 100% 删除当前运行的副本，这意味着扩缩目标可以缩小到允许的最小副本数。
 对于扩容，没有稳定窗口。当指标显示目标应该扩容时，目标会立即扩容。
 这里有两种策略，每 15 秒添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
@@ -859,7 +868,8 @@ To ensure that no more than 5 Pods are removed per minute, you can add a second 
 policy with a fixed size of 5, and set `selectPolicy` to minimum. Setting `selectPolicy` to `Min` means
 that the autoscaler chooses the policy that affects the smallest number of Pods:
 -->
-为了确保每分钟删除的 Pod 数不超过 5 个，可以添加第二个缩容策略，大小固定为 5，并将 `selectPolicy` 设置为最小值。
+为了确保每分钟删除的 Pod 数不超过 5 个，可以添加第二个缩容策略，大小固定为 5，
+并将 `selectPolicy` 设置为最小值。
 将 `selectPolicy` 设置为 `Min` 意味着 autoscaler 会选择影响 Pod 数量最小的策略:
 
 ```yaml

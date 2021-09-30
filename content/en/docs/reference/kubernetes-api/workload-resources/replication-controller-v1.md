@@ -6,8 +6,20 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicationController represents the configuration of a replication controller."
 title: "ReplicationController"
-weight: 5
+weight: 3
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: v1`
 
@@ -569,6 +581,8 @@ PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
+201 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
+
 401: Unauthorized
 
 
@@ -621,6 +635,8 @@ PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 
 200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
 
 401: Unauthorized
 

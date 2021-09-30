@@ -89,30 +89,62 @@ Instead, specify a meaningful tag such as `v1.42.0`.
 <!--
 ## Updating images
 
-The default pull policy is `IfNotPresent` which causes the
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip
-pulling an image if it already exists. If you would like to always force a pull,
-you can do one of the following:
-
-- set the `imagePullPolicy` of the container to `Always`.
-- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use.
-- omit the `imagePullPolicy` and the tag for the image to use.
-- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
-
-When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
+When you first create a {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
+{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}, Pod, or other
+object that includes a Pod template, then by default the pull policy of all
+containers in that pod will be set to `IfNotPresent` if it is not explicitly
+specified. This policy causes the
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip pulling an
+image if it already exists.
 -->
 ## 更新镜像  {#updating-images}
 
-默认的镜像拉取策略是 `IfNotPresent`：在镜像已经存在的情况下，
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 将不再去拉取镜像。
-如果希望强制总是拉取镜像，你可以执行以下操作之一：
+当你最初创建一个 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}、
+{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}、Pod
+或者其他包含 Pod 模板的对象时，如果没有显式设定的话，Pod 中所有容器的默认镜像
+拉取策略是 `IfNotPresent`。这一策略会使得
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
+在镜像已经存在的情况下直接略过拉取镜像的操作。
+
+<!--
+If you would like to always force a pull, you can do one of the following:
+
+- set the `imagePullPolicy` of the container to `Always`.
+- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
+  Kubernetes will set the policy to `Always`.
+- omit the `imagePullPolicy` and the tag for the image to use.
+- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+-->
+如果你希望强制总是拉取镜像，你可以执行以下操作之一：
 
 - 设置容器的 `imagePullPolicy` 为 `Always`。
-- 省略 `imagePullPolicy`，并使用 `:latest` 作为要使用的镜像的标签。
+- 省略 `imagePullPolicy`，并使用 `:latest` 作为要使用的镜像的标签；
+  Kubernetes 会将策略设置为 `Always`。
 - 省略 `imagePullPolicy` 和要使用的镜像标签。
 - 启用 [AlwaysPullImages](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
   准入控制器（Admission Controller）。
 
+{{< note >}}
+<!--
+The value of `imagePullPolicy` of the container is always set when the object is
+first _created_, and is not updated if the image's tag later changes.
+
+For example, if you create a Deployment with an image whose tag is _not_
+`:latest`, and later update that Deployment's image to a `:latest` tag, the
+`imagePullPolicy` field will _not_ change to `Always`. You must manually change
+the pull policy of any object after its initial creation.
+-->
+对象被 *创建* 时，容器的 `imagePullPolicy` 总是被设置为某值，如果镜像的标签
+后来发生改变，镜像拉取策略也不会被改变。
+
+例如，如果你创建了一个 Deployment 对象，其中的镜像标签不是 `:latest`，
+后来 Deployment 的镜像被改为 `:latest`，则 `imagePullPolicy` 不会被改变为
+`Always`。你必须在对象被初始创建之后手动改变拉取策略。
+{{< /note >}}
+
+<!--
+When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
+-->
 如果 `imagePullPolicy` 未被定义为特定的值，也会被设置为 `Always`。
 
 <!--
@@ -245,7 +277,7 @@ example, run these on your desktop/laptop:
 
 <!--
 1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
-1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
+1. View `$HOME/.docker/config.json` in an editor to ensure it contains only the credentials you want to use.
 1. Get a list of your nodes; for example:
       - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
       - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`

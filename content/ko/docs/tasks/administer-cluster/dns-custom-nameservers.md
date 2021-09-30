@@ -23,7 +23,7 @@ DNS 변환(DNS resolution) 절차를 사용자 정의하는 방법을 설명한�
 
 ## 소개
 
-DNS는 _애드온 관리자_ 인 [클러스터 애드온](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md)을
+DNS는 _애드온 관리자_ 인 [클러스터 애드온](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md)을
 사용하여 자동으로 시작되는 쿠버네티스
 내장 서비스이다.
 
@@ -31,7 +31,7 @@ DNS는 _애드온 관리자_ 인 [클러스터 애드온](http://releases.k8s.io
 CoreDNS 대신 `kube-dns` 를 계속 사용할 수도 있다.
 
 {{< note >}}
-CoreDNS와 kube-dns 서비스 모두 `metadata.name` 필드에 `kube-dns` 로 이름이 지정된다.
+CoreDNS 서비스는 `metadata.name` 필드에 `kube-dns` 로 이름이 지정된다.
 이를 통해, 기존의 `kube-dns` 서비스 이름을 사용하여 클러스터 내부의 주소를 확인하는 워크로드에 대한 상호 운용성이 증가된다. `kube-dns` 로 서비스 이름을 사용하면, 해당 DNS 공급자가 어떤 공통 이름으로 실행되고 있는지에 대한 구현 세부 정보를 추상화한다.
 {{< /note >}}
 
@@ -176,17 +176,14 @@ kube-dns는 스텁 도메인 및 네임서버(예: ns.foo.com)에 대한 FQDN을
 
 CoreDNS는 kube-dns 이상의 기능을 지원한다.
 `StubDomains` 과 `upstreamNameservers` 를 지원하도록 생성된 kube-dns의 컨피그맵은 CoreDNS의 `forward` 플러그인으로 변환된다.
-마찬가지로, kube-dns의 `Federations` 플러그인은 CoreDNS의 `federation` 플러그인으로 변환된다.
 
 ### 예시
 
-kube-dns에 대한 이 컨피그맵 예제는 federations, stubDomains 및 upstreamNameservers를 지정한다.
+kube-dns에 대한 이 컨피그맵 예제는 stubDomains 및 upstreamNameservers를 지정한다.
 
 ```yaml
 apiVersion: v1
 data:
-  federations: |
-    {"foo" : "foo.feddomain.com"}
   stubDomains: |
     {"abc.com" : ["1.2.3.4"], "my.cluster.local" : ["2.3.4.5"]}
   upstreamNameservers: |
@@ -195,13 +192,6 @@ kind: ConfigMap
 ```
 
 CoreDNS에서는 동등한 설정으로 Corefile을 생성한다.
-
-* federations 에 대응하는 설정:
-```
-federation cluster.local {
-    foo foo.feddomain.com
-}
-```
 
 * stubDomains 에 대응하는 설정:
 ```yaml

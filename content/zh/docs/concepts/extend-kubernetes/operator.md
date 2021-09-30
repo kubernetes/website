@@ -65,7 +65,7 @@ a [Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resour
 Kubernetes 为自动化而生。无需任何修改，你即可以从 Kubernetes 核心中获得许多内置的自动化功能。
 你可以使用 Kubernetes 自动化部署和运行工作负载， *甚至* 可以自动化 Kubernetes 自身。
 
-Kubernetes {{< glossary_tooltip text="控制器" term_id="controller" >}} 
+Kubernetes {{< glossary_tooltip text="控制器" term_id="controller" >}}
 使你无需修改 Kubernetes 自身的代码，即可以扩展集群的行为。
 Operator 是 Kubernetes API 的客户端，充当
 [定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
@@ -196,7 +196,7 @@ kubectl edit SampleDB/example-database # 手动修改某些配置
 
 <!--
 If there isn't an Operator in the ecosystem that implements the behavior you
-want, you can code your own. 
+want, you can code your own.
 
 You also implement an Operator (that is, a Controller) using any language / runtime
 that can act as a [client for the Kubernetes API](/docs/reference/using-api/client-libraries/).
@@ -213,20 +213,24 @@ Operator.
 
 {{% thirdparty-content %}}
 
+* [Charmed Operator Framework](https://juju.is/)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
 * [Metacontroller](https://metacontroller.app/) along with WebHooks that
   you implement yourself
 * [Operator Framework](https://operatorframework.io)
+* [shell-operator](https://github.com/flant/shell-operator)
 -->
 以下是一些库和工具，你可用于编写自己的云原生 Operator。
 
 {{% thirdparty-content %}}
 
+* [Charmed Operator Framework](https://juju.is/)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KUDO](https://kudo.dev/) (Kubernetes 通用声明式 Operator)
 * [Metacontroller](https://metacontroller.app/)，可与 Webhooks 结合使用，以实现自己的功能。
 * [Operator Framework](https://operatorframework.io)
+* [shell-operator](https://github.com/flant/shell-operator)
 
 ## {{% heading "whatsnext" %}}
 
@@ -244,4 +248,3 @@ Operator.
 * 阅读 [CoreOS 原始文章](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html)，它介绍了 Operator 模式（这是一个存档版本的原始文章）。
 * 阅读这篇来自谷歌云的关于构建 Operator 最佳实践的
   [文章](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
-

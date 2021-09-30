@@ -45,7 +45,7 @@ no_list: true
 
 ## 클러스터 보안
 
-* [인증서 생성](/ko/docs/tasks/administer-cluster/certificates/)는 다른 툴 체인을 사용하여 인증서를 생성하는 단계를 설명한다.
+* [인증서 생성](/ko/docs/tasks/administer-cluster/certificates/)은 다른 툴 체인을 사용하여 인증서를 생성하는 단계를 설명한다.
 
 * [쿠버네티스 컨테이너 환경](/ko/docs/concepts/containers/container-environment/)은 쿠버네티스 노드에서 Kubelet으로 관리하는 컨테이너에 대한 환경을 설명한다.
 

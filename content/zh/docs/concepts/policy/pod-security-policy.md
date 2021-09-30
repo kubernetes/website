@@ -12,7 +12,12 @@ content_type: concept
 weight: 30
 -->
 
-{{< feature-state state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
+<!--
+PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25.
+-->
+PodSecurityPolicy 在 Kubernetes v1.21 版本中被弃用，将在 v1.25 中删除。
 
 <!--
 Pod Security Policies enable fine-grained authorization of pod creation and
@@ -316,8 +321,7 @@ controller selects policies according to the following criteria:
 2. If the pod must be defaulted or mutated, the first PodSecurityPolicy
    (ordered by name) to allow the pod is selected.
 -->
-1. 优先考虑中允许 Pod 不经修改地创建或更新的 PodSecurityPolicy，这些策略
-   不会更改 Pod 字段的默认值或者其他配置。
+1. 优先考虑允许 Pod 保持原样，不会更改 Pod 字段默认值或其他配置的 PodSecurityPolicy。
    这类非更改性质的 PodSecurityPolicy 对象之间的顺序无关紧要。
 2. 如果必须要为 Pod 设置默认值或者其他配置，（按名称顺序）选择第一个允许
    Pod 操作的 PodSecurityPolicy 对象。
@@ -1233,4 +1237,3 @@ By default, all safe sysctls are allowed.
 - 参阅[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
   了解策略建议。
 - 阅读 [Pod 安全策略参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)了解 API 细节。
-

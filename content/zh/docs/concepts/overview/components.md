@@ -52,18 +52,21 @@ The control plane's components make global decisions about the cluster (for exam
  -->
 ## 控制平面组件（Control Plane Components）    {#control-plane-components}
 
-控制平面的组件对集群做出全局决策(比如调度)，以及检测和响应集群事件（例如，当不满足部署的 `replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
+控制平面的组件对集群做出全局决策(比如调度)，以及检测和响应集群事件（例如，当不满足部署的
+`replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
 
 <!--
 Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
-[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
+[Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+for an example control plane setup that runs across multiple VMs.
  -->
 控制平面组件可以在集群中的任何节点上运行。
-然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，并且不会在此计算机上运行用户容器。
-请参阅[构建高可用性集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
-中对于多主机 VM 的设置示例。
+然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，
+并且不会在此计算机上运行用户容器。
+请参阅[使用 kubeadm 构建高可用性集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
+中关于多 VM 控制平面设置的示例。
 
 ### kube-apiserver
 
@@ -203,7 +206,8 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 -->
 ### Web 界面（仪表盘）   
 
-[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/) 是Kubernetes 集群的通用的、基于 Web 的用户界面。
+[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/)
+是 Kubernetes 集群的通用的、基于 Web 的用户界面。
 它使用户可以管理集群中运行的应用程序以及集群本身并进行故障排除。
 
 <!--

@@ -10,9 +10,7 @@ no_list: true
 <!-- overview -->
 Kubernetes contains several tools to help you work with the Kubernetes system.
 
-
 <!-- body -->
-{{% thirdparty-content %}}
 
 ## Minikube
 
@@ -25,12 +23,13 @@ development and testing purposes.
 [`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself.
 
+{{% thirdparty-content %}}
 ## Helm
 
-[`Kubernetes Helm`](https://github.com/kubernetes/helm) is a tool for managing packages of pre-configured
-Kubernetes resources, aka Kubernetes charts.
+[Helm](https://helm.sh/) is a tool for managing packages of pre-configured
+Kubernetes resources. These packages are known as _Helm charts_.
 
-Beware Helm is a third party managed tool for managing packages of pre-configured
+Helm is a third party managed tool for managing packages of pre-configured
 Kubernetes resources, aka Kubernetes charts.
 
 Use Helm to:

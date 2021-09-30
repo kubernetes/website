@@ -2,11 +2,12 @@
 title: Specifying a Disruption Budget for your Application
 content_type: task
 weight: 110
+min-kubernetes-server-version: v1.21
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 This page shows how to limit the number of concurrent disruptions
 that your application experiences, allowing for higher availability
@@ -16,6 +17,8 @@ nodes.
 
 
 ## {{% heading "prerequisites" %}}
+
+{{< version-check >}}
 
 * You are the owner of an application running on a Kubernetes cluster that requires
   high availability.
@@ -112,9 +115,9 @@ of the number of pods from that set that can be unavailable after the eviction.
 It can be either an absolute number or a percentage.
 
 {{< note >}}
-For versions 1.8 and earlier: When creating a `PodDisruptionBudget`
-object using the `kubectl` command line tool, the `minAvailable` field has a
-default value of 1 if neither `minAvailable` nor `maxUnavailable` is specified.
+The behavior for an empty selector differs between the policy/v1beta1 and policy/v1 APIs for
+PodDisruptionBudgets. For policy/v1beta1 an empty selector matches zero pods, while
+for policy/v1 an empty selector matches every pod in the namespace.
 {{< /note >}}
 
 You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`. 
@@ -160,7 +163,7 @@ Example PDB Using minAvailable:
 
 {{< codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" >}}
 
-Example PDB Using maxUnavailable (Kubernetes 1.7 or higher):
+Example PDB Using maxUnavailable:
 
 {{< codenew file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" >}}
 
@@ -206,7 +209,7 @@ You can get more information about the status of a PDB with this command:
 kubectl get poddisruptionbudgets zk-pdb -o yaml
 ```
 ```yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   annotations:

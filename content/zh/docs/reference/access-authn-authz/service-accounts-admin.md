@@ -1,5 +1,5 @@
 ---
-title: 管理 Service Accounts
+title: 管理服务账号
 content_type: concept
 weight: 50
 ---
@@ -20,7 +20,7 @@ weight: 50
 This is a Cluster Administrator guide to service accounts. You should be familiar with 
 [configuring Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/).
 
-Support for authorization and user accounts is planned but incomplete.  Sometimes
+Support for authorization and user accounts is planned but incomplete. Sometimes
 incomplete features are referred to in order to better describe service accounts.
 -->
 这是一篇针对服务账号的集群管理员指南。你应该熟悉
@@ -102,41 +102,86 @@ It acts synchronously to modify pods as they are created or updated. When this p
 或更新时它会进行以下操作：
 
 <!--
-1. If the pod does not have a `serviceAccountName` set, it sets the
-   `serviceAccountName` to `default`.
-1. It ensures that the `serviceAccountName` referenced by the pod exists, and
-   otherwise rejects it.
-1. If the pod does not contain any `imagePullSecrets`, then `imagePullSecrets`
-   of the ServiceAccount referenced by `serviceAccountName` are added to the pod.
+1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
+1. It ensures that the `ServiceAccount` referenced by the pod exists, and otherwise rejects it.
 1. It adds a `volume` to the pod which contains a token for API access
    if neither the ServiceAccount `automountServiceAccountToken` nor the Pod's
    `automountServiceAccountToken` is set to `false`.
 1. It adds a `volumeSource` to each container of the pod mounted at
    `/var/run/secrets/kubernetes.io/serviceaccount`, if the previous step has
    created a volume for ServiceAccount token.
+1. If the pod does not contain any `ImagePullSecrets`, then `ImagePullSecrets` of the `ServiceAccount` are added to the pod.
 -->
-1. 如果该 Pod 没有设置 `serviceAccountName`，将其 `serviceAccountName` 设为
-   `default`。
-1. 保证 Pod 所引用的 `serviceAccountName` 确实存在，否则拒绝该 Pod。
-1. 如果 Pod 不包含 `imagePullSecrets` 设置，将 `serviceAccountName` 所引用
-   的服务账号中的 `imagePullSecrets` 信息添加到 Pod 中。
+1. 如果该 Pod 没有设置 `ServiceAccount`，将其 `ServiceAccount` 设为 `default`。
+1. 保证 Pod 所引用的 `ServiceAccount` 确实存在，否则拒绝该 Pod。
 1. 如果服务账号的 `automountServiceAccountToken` 或 Pod 的
-   `automountServiceAccountToken` 都为设置为 `false`，则为 Pod 创建一个
+   `automountServiceAccountToken` 都未显式设置为 `false`，则为 Pod 创建一个
    `volume`，在其中包含用来访问 API 的令牌。
 1. 如果前一步中为服务账号令牌创建了卷，则为 Pod 中的每个容器添加一个
    `volumeSource`，挂载在其 `/var/run/secrets/kubernetes.io/serviceaccount`
    目录下。
+1. 如果 Pod 不包含 `imagePullSecrets` 设置，将 `ServiceAccount` 所引用
+   的服务账号中的 `imagePullSecrets` 信息添加到 Pod 中。
 
 <!--
-You can migrate a service account volume to a projected volume when
-the `BoundServiceAccountTokenVolume` feature gate is enabled.
-The service account token will expire after 1 hour or the pod is deleted. See
-more details about
-[projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+#### Bound Service Account Token Volume
 -->
-当 `BoundServiceAccountTokenVolume` 特性门控被启用时，你可以将服务账号卷迁移到投射卷。
-服务账号令牌会在 1 小时后或者 Pod 被删除之后过期。
-更多信息可参阅[投射卷](/zh/docs/tasks/configure-pod-container/configure-projected-volume-storage/)。
+#### 绑定的服务账号令牌卷  {#bound-service-account-token-volume}
+
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+
+<!--
+The ServiceAccount admission controller will add the following projected volume instead of a Secret-based volume for the non-expiring service account token created by Token Controller.
+-->
+当 `BoundServiceAccountTokenVolume`
+ServiceAccount 准入控制器将添加如下投射卷，而不是为令牌控制器
+所生成的不过期的服务账号令牌而创建的基于 Secret 的卷。
+
+```yaml
+- name: kube-api-access-<随机后缀>
+  projected:
+    defaultMode: 420 # 0644
+    sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+            - key: ca.crt
+              path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+```
+
+<!--
+This projected volume consists of three sources:
+
+1. A ServiceAccountToken acquired from kube-apiserver via TokenRequest API. It will expire after 1 hour by default or when the pod is deleted. It is bound to the pod and has kube-apiserver as the audience.
+1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` feature gate is graduated to GA in 1.21 and default to true. (This feature will be removed from --feature-gate arg in 1.22).
+1. A DownwardAPI that references the namespace of the pod.
+-->
+此投射卷有三个数据源：
+
+1. 通过 TokenRequest API 从 kube-apiserver 处获得的 ServiceAccountToken。
+   这一令牌默认会在一个小时之后或者 Pod 被删除时过期。
+   该令牌绑定到 Pod 实例上，并将 kube-apiserver 作为其受众（audience）。
+1. 包含用来验证与 kube-apiserver 连接的 CA 证书包的 ConfigMap 对象。
+   这一特性依赖于 `RootCAConfigMap` 特性门控。该特性被启用时，
+   控制面会公开一个名为 `kube-root-ca.crt` 的 ConfigMap 给所有名字空间。
+   `RootCAConfigMap` 在 1.21 版本中进入 GA 状态，默认被启用，
+   该特性门控会在 1.22 版本中从 `--feature-gate` 参数中删除。
+1. 引用 Pod 名字空间的一个 DownwardAPI。
+
+<!--
+See more details about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+-->
+参阅[投射卷](/zh/docs/tasks/configure-pod-container/configure-projected-volume-storage/)
+了解进一步的细节。
 
 <!--
 ### Token Controller

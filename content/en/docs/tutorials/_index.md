@@ -35,7 +35,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [Example: Deploying PHP Guestbook application with MongoDB](/docs/tutorials/stateless-application/guestbook/)
+* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
 
 ## Stateful Applications
 
@@ -50,6 +50,8 @@ Before walking through each tutorial, you may want to bookmark the
 ## Clusters
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
+
+* [seccomp](/docs/tutorials/clusters/seccomp/)
 
 ## Services
 

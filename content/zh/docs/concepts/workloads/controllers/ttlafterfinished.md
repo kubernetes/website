@@ -1,17 +1,17 @@
 ---
 title: 已完成资源的 TTL 控制器
 content_type: concept
-weight: 65
+weight: 70
 ---
 <!--
 title: TTL Controller for Finished Resources
 content_type: concept
-weight: 65
+weight: 70
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 <!--
 The TTL controller provides a TTL mechanism to limit the lifetime of resource
@@ -25,14 +25,14 @@ TTL 控制器目前只处理 {{< glossary_tooltip text="Job" term_id="job" >}}�
 可能以后会扩展以处理将完成执行的其他资源，例如 Pod 和自定义资源。
 
 <!--
-Alpha Disclaimer: this feature is currently alpha, and can be enabled with both kube-apiserver and kube-controller-manager
+This feature is currently beta and enabled by default, and can be disabled via 
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`TTLAfterFinished`.
+`TTLAfterFinished` in both kube-apiserver and kube-controller-manager.
 -->
-Alpha 免责声明：此功能目前是 alpha 版，并且可以通过 `kube-apiserver` 和
+此功能目前是 Beta 版而自动启用，并且可以通过 `kube-apiserver` 和
 `kube-controller-manager` 上的
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-`TTLAfterFinished` 启用。
+`TTLAfterFinished` 禁用。
 
 <!-- body -->
 

@@ -124,7 +124,7 @@ Once your pod has been scheduled, the methods described in [Debug Running Pods](
 #### Pod 处于 Crashing 或别的不健康状态
 
 一旦 Pod 被调度，就可以采用
-[调试运行中的 Pod](/zh/docs/concepts/configuration/manage-resources-containers/)
+[调试运行中的 Pod](/zh/docs/tasks/debug-application-cluster/debug-running-pod/)
 中的方法来进一步调试。
 
 <!--
@@ -265,42 +265,18 @@ kubectl get pods --selector=name=nginx,type=frontend
 ```
 
 <!--
-If the list of pods matches expectations, but your endpoints are still empty, it's possible that you don't
-have the right ports exposed.  If your service has a `containerPort` specified, but the Pods that are
-selected don't have that port listed, then they won't be added to the endpoints list.
-
 Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 -->
-如果 Pod 列表符合预期，但是 Endpoints 仍然为空，那么可能暴露的端口不正确。
-如果服务指定了 `containerPort`，但是所选中的 Pod 没有列出该端口，这些 Pod
-不会被添加到 Endpoints 列表。
-
 验证 Pod 的 `containerPort` 与服务的 `targetPort` 是否匹配。
 
 <!--
 #### Network traffic is not forwarded
 
-If you can connect to the service, but the connection is immediately dropped, and there are endpoints
-in the endpoints list, it's likely that the proxy can't contact your pods.
-
-There are three things to
-check:
-
-   * Are your pods working correctly?  Look for restart count, and [debug pods](#debugging-pods).
-   * Can you connect to your pods directly?  Get the IP address for the Pod, and try to connect directly to that IP.
-   * Is your application serving on the port that you configured?  Kubernetes doesn't do port remapping, so if your application serves on 8080, the `containerPort` field needs to be 8080.
+Please see [debugging service](/docs/tasks/debug-application-cluster/debug-service/) for more information.
 -->
 #### 网络流量未被转发
 
-如果你可以连接到服务上，但是连接立即被断开了，并且在 Endpoints 列表中有末端表项，
-可能是代理无法连接到 Pod。
-
-要检查的有以下三项：
-
-* Pod 工作是否正常？ 看一下重启计数，并参阅[调试 Pod](#debugging-pods)；
-* 是否可以直接连接到 Pod？获取 Pod 的 IP 地址，然后尝试直接连接到该 IP；
-* 应用是否在配置的端口上进行服务？Kubernetes 不进行端口重映射，所以如果应用在
-  8080 端口上服务，那么 `containerPort` 字段就要设定为 8080。
+请参阅[调试 service](/zh/docs/tasks/debug-application-cluster/debug-service/) 了解更多信息。
 
 ## {{% heading "whatsnext" %}}
 

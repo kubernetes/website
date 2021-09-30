@@ -34,7 +34,7 @@ fair queuing technique so that, for example, a poorly-behaved
 {{< glossary_tooltip text="controller" term_id="controller" >}} need not
 starve others (even at the same priority level).
 -->
-API 优先级和公平性（ APF ）是一种替代方案，可提升上述最大并发限制。
+API 优先级和公平性（APF）是一种替代方案，可提升上述最大并发限制。
 APF 以更细粒度的方式对请求进行分类和隔离。
 它还引入了空间有限的排队机制，因此在非常短暂的突发情况下，API 服务器不会拒绝任何请求。
 通过使用公平排队技术从队列中分发请求，这样，
@@ -50,7 +50,7 @@ Fairness feature enabled.
 {{< /caution >}}
 -->
 {{< caution >}}
-属于“长时间运行”类型的请求（主要是 watch ）不受 API 优先级和公平性过滤器的约束。
+属于“长时间运行”类型的请求（主要是 watch）不受 API 优先级和公平性过滤器的约束。
 如果未启用 APF 特性，即便设置 `--max-requests-inflight` 标志，该类请求也不受约束。
 {{< /caution >}}
 
@@ -233,7 +233,7 @@ APF 特性附带推荐配置，该配置对实验场景应该足够；
   i.e. Kubelets, which must be able to contact the API server in order for
   workloads to be able to schedule on them.
 -->
-* `system` 优先级用于 `system:nodes` 组（即 Kubelets ）的请求；
+* `system` 优先级用于 `system:nodes` 组（即 Kubelets）的请求；
   kubelets 必须能连上 API 服务器，以便工作负载能够调度到其上。
 
 <!--
@@ -555,7 +555,7 @@ depends on the resource and your particular environment.
 FlowSchema 的 `distinguisherMethod.type` 字段决定了如何把与该模式匹配的请求分散到各个流中。
 可能是 `ByUser` ，在这种情况下，一个请求用户将无法饿死其他容量的用户；
 或者是 `ByNamespace` ，在这种情况下，一个名称空间中的资源请求将无法饿死其它名称空间的资源请求；
-或者它可以为空（或者可以完全省略 `distinguisherMethod` ），
+或者它可以为空（或者可以完全省略 `distinguisherMethod`），
 在这种情况下，与此 FlowSchema 匹配的请求将被视为单个流的一部分。
 资源和你的特定环境决定了如何选择正确一个 FlowSchema。
 
@@ -638,7 +638,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_rejected_requests_total` 是一个计数器向量，
   记录被拒绝的请求数量（自服务器启动以来累计值），
-  由标签 `flow_chema` （表示与请求匹配的 FlowSchema ），`priority_evel` 
+  由标签 `flow_chema`（表示与请求匹配的 FlowSchema），`priority_evel` 
   （表示分配给请该求的优先级）和 `reason` 来区分。
   `reason` 标签将具有以下值之一：
 
@@ -655,7 +655,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_dispatched_requests_total` 是一个计数器向量，
   记录开始执行的请求数量（自服务器启动以来的累积值），
-  由标签 `flow_schema` （表示与请求匹配的 FlowSchema ）和
+  由标签 `flow_schema`（表示与请求匹配的 FlowSchema）和
   `priority_level`（表示分配给该请求的优先级）来区分。
 
 <!--
@@ -685,8 +685,8 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_read_vs_write_request_count_samples` 是一个直方图向量，
   记录当前请求数量的观察值，
-  由标签 `phase` （取值为 `waiting` 和 `executing` ）和 `request_kind`
-  （取值 `mutating` 和 `readOnly` ）拆分。定期以高速率观察该值。
+  由标签 `phase`（取值为 `waiting` 和 `executing`）和 `request_kind`
+  （取值 `mutating` 和 `readOnly`）拆分。定期以高速率观察该值。
 
 <!--
 * `apiserver_flowcontrol_read_vs_write_request_count_watermarks` is a
@@ -701,8 +701,8 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_read_vs_write_request_count_watermarks` 是一个直方图向量，
   记录请求数量的高/低水位线，
-  由标签 `phase` （取值为 `waiting` 和 `executing` ）和 `request_kind`
-  （取值为 `mutating` 和 `readOnly` ）拆分；标签 `mark` 取值为 `high` 和 `low` 。
+  由标签 `phase`（取值为 `waiting` 和 `executing`）和 `request_kind`
+  （取值为 `mutating` 和 `readOnly`）拆分；标签 `mark` 取值为 `high` 和 `low` 。
   `apiserver_flowcontrol_read_vs_write_request_count_samples` 向量观察到有值新增，
   则该向量累积。这些水位线显示了样本值的范围。
 
@@ -735,7 +735,7 @@ poorly-behaved workloads that may be harming system health.
   rate.
 -->
 * `apiserver_flowcontrol_priority_level_request_count_samples` 是一个直方图向量，
-  记录当前请求的观测值，由标签 `phase` （取值为`waiting` 和 `executing`）和
+  记录当前请求的观测值，由标签 `phase`（取值为`waiting` 和 `executing`）和
   `priority_level` 进一步区分。
   每个直方图都会定期进行观察，直到相关类别的最后活动为止。观察频率高。
 
@@ -751,7 +751,7 @@ poorly-behaved workloads that may be harming system health.
   water marks show the range of values that occurred between samples.
 -->
 * `apiserver_flowcontrol_priority_level_request_count_watermarks` 是一个直方图向量，
-  记录请求数的高/低水位线，由标签 `phase` （取值为 `waiting` 和 `executing` ）和
+  记录请求数的高/低水位线，由标签 `phase`（取值为 `waiting` 和 `executing`）和
   `priority_level` 拆分；
   标签 `mark` 取值为 `high` 和 `low` 。
   `apiserver_flowcontrol_priority_level_request_count_samples` 向量观察到有值新增，
@@ -805,9 +805,9 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_request_wait_duration_seconds` 是一个直方图向量，
   记录请求排队的时间，
-  由标签 `flow_schema` （表示与请求匹配的 FlowSchema ），
-  `priority_level`  （表示分配该请求的优先级）
-  和 `execute` （表示请求是否开始执行）进一步区分。
+  由标签 `flow_schema`（表示与请求匹配的 FlowSchema ），
+  `priority_level`（表示分配该请求的优先级）
+  和 `execute`（表示请求是否开始执行）进一步区分。
   <!--
   Since each FlowSchema always assigns requests to a single
   PriorityLevelConfiguration, you can add the histograms for all the
@@ -829,8 +829,8 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_request_execution_seconds` 是一个直方图向量，
   记录请求实际执行需要花费的时间，
-  由标签 `flow_schema` （表示与请求匹配的 FlowSchema ）和
-  `priority_level` （表示分配给该请求的优先级）进一步区分。
+  由标签 `flow_schema`（表示与请求匹配的 FlowSchema ）和
+  `priority_level`（表示分配给该请求的优先级）进一步区分。
 
 <!--
 ### Debug endpoints

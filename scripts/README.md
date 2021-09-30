@@ -11,6 +11,7 @@
 | `linkchecker.py` | This a link checker for Kubernetes documentation website. |
 | `lsync.sh` | This script checks if the English version of a page has changed since a localized page has been committed. |
 | `replace-capture.sh` | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically |
+| `check-ctrlcode.py` | This script finds control-code(0x00-0x1f) in text files. |
 
 
 
@@ -152,3 +153,28 @@ The following command checks a subdirectory:
 
     ./scripts/lsync.sh content/zh/docs/concepts/
 
+## check-ctrlcode.py
+
+This script finds control-code(0x00-0x1f) in text files.
+It will display illegal character in browser.
+
+```
+Usage: ./check-ctrlcode.py <dir> <ext>
+
+  <dir>    Specify the directory to check.
+  <ext>    Specify the extension to check.
+
+For example, we can execute as following.
+
+  ./check-ctrlcode.py ../content/en/ .md
+
+The output is following format.
+
+  "{0} <L{1}:{2}:{3}>: {4}"
+
+  {0} : The path of file that a control-code exists.
+  {1} : The line number that a control-code exists.
+  {2} : The column number that a control-code exists.
+  {3} : The found control-code.
+  {4} : The one-line strings in the file.
+```

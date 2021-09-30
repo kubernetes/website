@@ -5,7 +5,7 @@ weight: 10
 description: 使用 kubectl 命令行创建 Secret 对象。
 ---
 <!--
-title: Managing Secret using kubectl
+title: Managing Secrets using kubectl
 content_type: task
 weight: 10
 description: Creating Secret objects using kubectl command line.
@@ -23,7 +23,7 @@ description: Creating Secret objects using kubectl command line.
 ## 创建 Secret    {#create-a-secret}
 
 <!--
-A `Secret` can contain user credentials required by Pods to access a database.
+A `Secret` can contain user credentials required by pods to access a database.
 For example, a database connection string consists of a username and password.
 You can store the username in a file `./username.txt` and the password in a
 file `./password.txt` on your local machine.
@@ -38,12 +38,12 @@ echo -n '1f2d1e2e67df' > ./password.txt
 ```
 
 <!--
-The `-n` flag in the above two commands ensures that the generated files will
-not contain an extra newline character at the end of the text. This is
-important because when `kubectl` reads a file and encode the content into
-base64 string, the extra newline character gets encoded too.
+In these commands, the `-n` flag ensures that the generated files do not have
+an extra newline character at the end of the text. This is important because
+when `kubectl` reads a file and encodes the content into a base64 string, the
+extra newline character gets encoded too.
 -->
-上面两个命令中的 `-n` 标志确保生成的文件在文本末尾不包含额外的换行符。
+在这些命令中，`-n` 标志确保生成的文件在文本末尾不包含额外的换行符。
 这一点很重要，因为当 `kubectl` 读取文件并将内容编码为 base64 字符串时，多余的换行符也会被编码。
 
 <!--
@@ -66,7 +66,7 @@ secret/db-user-pass created
 ```
 
 <!--
-Default key name is the filename. You may optionally set the key name using
+The default key name is the filename. You can optionally set the key name using
 `--from-file=[key=]source`. For example:
 -->
 默认密钥名称是文件名。 你可以选择使用 `--from-file=[key=]source` 来设置密钥名称。例如：
@@ -78,10 +78,10 @@ kubectl create secret generic db-user-pass \
 ```
 
 <!--
-You do not need to escape special characters in passwords from files
-().
+You do not need to escape special characters in password strings that you 
+include in a file.
 -->
-你无需转义文件（`--from-file`）中的密码的特殊字符。
+你不需要对文件中包含的密码字符串中的特殊字符进行转义。
 
 <!--
 You can also provide Secret data using the `--from-literal=<key>=<value>` tag.
@@ -89,19 +89,22 @@ This tag can be specified more than once to provide multiple key-value pairs.
 Note that special characters such as `$`, `\`, `*`, `=`, and `!` will be
 interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing))
 and require escaping.
+
 In most shells, the easiest way to escape the password is to surround it with
-single quotes (`'`).  For example, if your actual password is `S!B\*d$zDsb=`,
-you should execute the command this way:
+single quotes (`'`). For example, if your password is `S!B\*d$zDsb=`,
+run the following command:
 -->
 你还可以使用 `--from-literal=<key>=<value>` 标签提供 Secret 数据。
 可以多次使用此标签，提供多个键值对。
-请注意，特殊字符（例如：`$`，`\`，`*`，`=` 和 `!`）由你的 [shell](https://en.wikipedia.org/wiki/Shell_(computing)) 解释执行，而且需要转义。
+请注意，特殊字符（例如：`$`，`\`，`*`，`=` 和 `!`）由你的 [shell](https://en.wikipedia.org/wiki/Shell_(computing))
+解释执行，而且需要转义。
+
 在大多数 shell 中，转义密码最简便的方法是用单引号括起来。
 比如，如果你的密码是 `S!B\*d$zDsb=`， 
 可以像下面一样执行命令：
 
 ```shell
-kubectl create secret generic dev-db-secret \
+kubectl create secret generic db-user-pass \
   --from-literal=username=devuser \
   --from-literal=password='S!B\*d$zDsb='
 ```
@@ -109,8 +112,8 @@ kubectl create secret generic dev-db-secret \
 <!-- ## Verify the Secret -->
 ## 验证 Secret    {#verify-the-secret}
 
-<!-- You can check that the secret was created: -->
-你可以检查 secret 是否已创建：
+<!-- Check that the Secret was created: -->
+检查 secret 是否已创建：
 
 ```shell
 kubectl get secrets
@@ -151,19 +154,18 @@ username:    5 bytes
 <!--
 The commands `kubectl get` and `kubectl describe` avoid showing the contents
 of a `Secret` by default. This is to protect the `Secret` from being exposed
-accidentally to an onlooker, or from being stored in a terminal log.
+accidentally, or from being stored in a terminal log.
 -->
 `kubectl get` 和 `kubectl describe` 命令默认不显示 `Secret` 的内容。
-这是为了防止 `Secret` 被意外暴露给旁观者或存储在终端日志中。
+这是为了防止 `Secret` 被意外暴露或存储在终端日志中。
 
 <!-- ## Decoding the Secret  {#decoding-secret} -->
 ## 解码 Secret  {#decoding-secret}
 
 <!--
-To view the contents of the Secret we just created, you can run the following
-command:
+To view the contents of the Secret you created, run the following command:
 -->
-要查看我们刚刚创建的 Secret 的内容，可以运行以下命令：
+要查看创建的 Secret 的内容，运行以下命令：
 
 ```shell
 kubectl get secret db-user-pass -o jsonpath='{.data}'
@@ -195,8 +197,8 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 <!-- ## Clean Up -->
 ## 清理    {#clean-up}
 
-<!-- To delete the Secret you have just created: -->
-删除刚刚创建的 Secret：
+<!-- Delete the Secret you created: -->
+删除创建的 Secret：
 
 ```shell
 kubectl delete secret db-user-pass
@@ -208,8 +210,8 @@ kubectl delete secret db-user-pass
 
 <!--
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Learn how to [manage Secrets using config files](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 -->
 - 进一步阅读 [Secret 概念](/zh/docs/concepts/configuration/secret/)
 - 了解如何[使用配置文件管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-config-file/)

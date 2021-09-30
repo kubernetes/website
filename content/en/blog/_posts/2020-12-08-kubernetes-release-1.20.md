@@ -64,7 +64,7 @@ The Kubernetes community has written a [detailed blog post about deprecation](ht
 
 A longstanding bug regarding exec probe timeouts that may impact existing pod definitions has been fixed. Prior to this fix, the field `timeoutSeconds` was not respected for exec probes. Instead, probes would run indefinitely, even past their configured deadline, until a result was returned. With this change, the default value of `1 second` will be applied if a value is not specified and existing pod definitions may no longer be sufficient if a probe takes longer than one second. A feature gate, called `ExecProbeTimeout`, has been added with this fix that enables cluster operators to revert to the previous behavior, but this will be locked and removed in subsequent releases. In order to revert to the previous behavior, cluster operators should set this feature gate to `false`.
 
-Please review the updated documentation regarding [configuring probes](docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes) for more details.
+Please review the updated documentation regarding [configuring probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes) for more details.
 
 ## Other Updates
 

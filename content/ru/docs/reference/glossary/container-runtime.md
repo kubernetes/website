@@ -2,7 +2,7 @@
 title: Среда выполнения контейнера
 id: container-runtime
 date: 2019-06-05
-full_link: /docs/reference/generated/container-runtime
+full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
   Среда выполнения контейнера — это программа, предназначенная для выполнения контейнеров.
 

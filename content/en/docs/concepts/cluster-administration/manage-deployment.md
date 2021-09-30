@@ -50,7 +50,7 @@ It is a recommended practice to put resources related to the same microservice o
 A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into GitHub:
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/application/nginx/nginx-deployment.yaml
 ```
 
 ```shell
@@ -160,7 +160,7 @@ If you're interested in learning more about `kubectl`, go ahead and read [kubect
 
 The examples we've used so far apply at most a single label to any resource. There are many scenarios where multiple labels should be used to distinguish sets from one another.
 
-For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
+For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
 
 ```yaml
      labels:

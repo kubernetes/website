@@ -196,6 +196,39 @@ itself. To attempt an eviction (perhaps more REST-precisely, to attempt to
 Pod 的 Eviction 子资源可以看作是一种策略控制的 DELETE 操作，作用于 Pod 本身。
 要尝试驱逐（更准确地说，尝试 *创建* 一个 Eviction），需要用 POST 发出所尝试的操作。这里有一个例子：
 
+{{< tabs name="Eviction_example" >}}
+{{% tab name="policy/v1" %}}
+<!--
+{{< note >}}
+`policy/v1` Eviction is available in v1.22+. Use `policy/v1beta1` with prior releases.
+{{< /note >}}
+-->
+{{< note >}}
+`policy/v1` 驱逐在 v1.22+ 中可用。在之前版本中请使用 `policy/v1beta1` 。
+{{< /note >}}
+
+
+```json
+{
+  "apiVersion": "policy/v1",
+  "kind": "Eviction",
+  "metadata": {
+    "name": "quux",
+    "namespace": "default"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="policy/v1beta1" %}}
+<!--
+{{< note >}}
+Deprecated in v1.22 in favor of `policy/v1`
+{{< /note >}}
+-->
+{{< note >}}
+在 v1.22 中已弃用，以 `policy/v1` 取代
+{{< /note >}}
+
 ```json
 {
   "apiVersion": "policy/v1beta1",
@@ -206,6 +239,8 @@ Pod 的 Eviction 子资源可以看作是一种策略控制的 DELETE 操作，�
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!-- 
 You can attempt an eviction using `curl`:
@@ -219,8 +254,8 @@ curl -v -H 'Content-type: application/json' http://127.0.0.1:8080/api/v1/namespa
 <!-- 
 The API can respond in one of three ways:
 
-- If the eviction is granted, then the pod is deleted just as if you had sent
-  a `DELETE` request to the pod's URL and you get back `200 OK`.
+- If the eviction is granted, then the Pod is deleted as if you sent
+  a `DELETE` request to the Pod's URL and received back `200 OK`.
 - If the current state of affairs wouldn't allow an eviction by the rules set
   forth in the budget, you get back `429 Too Many Requests`. This is
   typically used for generic rate limiting of *any* requests, but here we mean

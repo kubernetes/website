@@ -131,7 +131,7 @@ Pour de l'information sur comment passer des options aux composants du control p
 
 ### Utiliser des images personnalisées {#custom-images}
 
-Par défaut, kubeadm télécharge les images depuis `k8s.gcr.io`, à moins que la version demandée de Kubernetes soit une version Intégration Continue (CI). Dans ce cas, `gcr.io/kubernetes-ci-images` est utilisé.
+Par défaut, kubeadm télécharge les images depuis `k8s.gcr.io`, à moins que la version demandée de Kubernetes soit une version Intégration Continue (CI). Dans ce cas, `gcr.io/k8s-staging-ci-images` est utilisé.
 
 Vous pouvez outrepasser ce comportement en utilisant [kubeadm avec un fichier de configuration](#config-file).
 Les personnalisations permises sont :

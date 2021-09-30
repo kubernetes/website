@@ -25,11 +25,11 @@ respectively.
 You can set a scheduling policy by running
 `kube-scheduler --policy-config-file <filename>` or
 `kube-scheduler --policy-configmap <ConfigMap>`
-and using the [Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy).
+and using the [Policy type](/zh/docs/reference/config-api/kube-scheduler-policy-config.v1/).
 -->
 你可以通过执行 `kube-scheduler --policy-config-file <filename>` 或
 `kube-scheduler --policy-configmap <ConfigMap>` 
-设置并使用[调度策略](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy)。
+设置并使用[调度策略](/zh/docs/reference/config-api/kube-scheduler-policy-config.v1/)。
 
 
 <!-- body -->
@@ -228,6 +228,10 @@ and using the [Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/con
 <!--  
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler Configuration](/docs/reference/scheduling/config/)
+* Read the [kube-scheduler configuration reference (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1)
+* Read the [kube-scheduler Policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 -->
 * 了解[调度](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 了解 [kube-scheduler 配置](/zh/docs/reference/scheduling/config/)
+* 阅读 [kube-scheduler 配置参考 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta1)
+* 阅读 [kube-scheduler 策略参考 (v1)](/zh/docs/reference/config-api/kube-scheduler-policy-config.v1/)

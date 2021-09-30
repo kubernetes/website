@@ -323,12 +323,86 @@ for these devices:
 kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且还未这些设备提供了元数据：
 
 ```gRPC
-// PodResourcesLister is a service provided by the kubelet that provides information about the
-// node resources consumed by pods and containers on the node
+// PodResourcesLister 是一个由 kubelet 提供的服务，用来提供供节点上 
+// Pods 和容器使用的节点资源的信息
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
+    rpc GetAllocatableResources(AllocatableResourcesRequest) returns (AllocatableResourcesResponse) {}
 }
 ```
+
+<!--
+The `List` endpoint provides information on resources of running pods, with details such as the
+id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
+the NUMA node where these devices are allocated.
+-->
+这一 `List` 端点提供运行中 Pods 的资源信息，包括类似独占式分配的
+CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUMA 节点 ID。
+
+```gRPC
+// ListPodResourcesResponse 是 List 函数的响应
+message ListPodResourcesResponse {
+    repeated PodResources pod_resources = 1;
+}
+
+// PodResources 包含关于分配给 Pod 的节点资源的信息
+message PodResources {
+    string name = 1;
+    string namespace = 2;
+    repeated ContainerResources containers = 3;
+}
+
+// ContainerResources 包含分配给容器的资源的信息
+message ContainerResources {
+    string name = 1;
+    repeated ContainerDevices devices = 2;
+    repeated int64 cpu_ids = 3;
+}
+
+// Topology 描述资源的硬件拓扑结构
+message TopologyInfo {
+        repeated NUMANode nodes = 1;
+}
+
+// NUMA 代表的是 NUMA 节点
+message NUMANode {
+        int64 ID = 1;
+}
+
+// ContainerDevices 包含分配给容器的设备信息
+message ContainerDevices {
+    string resource_name = 1;
+    repeated string device_ids = 2;
+    TopologyInfo topology = 3;
+}
+```
+
+<!--
+GetAllocatableResources provides information on resources initially available on the worker node.
+It provides more information than kubelet exports to APIServer.
+-->
+端点 `GetAllocatableResources` 提供最初在工作节点上可用的资源的信息。
+此端点所提供的信息比导出给 API 服务器的信息更丰富。
+
+
+```gRPC
+// AllocatableResourcesResponses 包含 kubelet 所了解到的所有设备的信息
+message AllocatableResourcesResponse {
+    repeated ContainerDevices devices = 1;
+    repeated int64 cpu_ids = 2;
+}
+
+```
+
+<!--
+`ContainerDevices` do expose the topology information declaring to which NUMA cells the device is affine.
+The NUMA cells are identified using a opaque integer ID, which value is consistent to what device
+plugins report [when they register themselves to the kubelet](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
+-->
+`ContainerDevices` 会向外提供各个设备所隶属的 NUMA 单元这类拓扑信息。
+NUMA 单元通过一个整数 ID 来标识，其取值与设备插件所报告的一致。
+[设备插件注册到 kubelet 时](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+会报告这类信息。
 
 <!--
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
@@ -338,7 +412,8 @@ agents must run in a privileged security context.  If a device monitoring agent 
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
-Support for the "PodResources service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+
+Support for the "PodResourcesLister service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 -->
 gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。
@@ -350,9 +425,9 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 中声明将 `/var/lib/kubelet/pod-resources` 目录以
 {{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到设备监控代理中。
 
-对“PodResources 服务”的支持要求启用 `KubeletPodResources`
+对“PodResourcesLister 服务”的支持要求启用 `KubeletPodResources`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20开始为 v1。
+从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20 开始为 v1。
 
 <!--
 ## Device Plugin integration with the Topology Manager

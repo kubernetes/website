@@ -1,34 +1,33 @@
 ---
-reviewers:
-- ahg-g
 title: 调度框架
 content_type: concept
-weight: 70
+weight: 90
 ---
 
 <!--
+---
 reviewers:
 - ahg-g
 title: Scheduling Framework
 content_type: concept
-weight: 60
+weight: 90
+---
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="1.19" state="stable" >}}
 
 <!--
-The scheduling framework is a plugable architecture for Kubernetes Scheduler
-that makes scheduler customizations easy. It adds a new set of "plugin" APIs to
-the existing scheduler. Plugins are compiled into the scheduler. The APIs
-allow most scheduling features to be implemented as plugins, while keeping the
-scheduling "core" simple and maintainable. Refer to the [design proposal of the
+The scheduling framework is a pluggable architecture for the Kubernetes scheduler.
+It adds a new set of "plugin" APIs to the existing scheduler. Plugins are compiled into the scheduler. The APIs allow most scheduling features to be implemented as plugins, while keeping the
+scheduling "core" lightweight and maintainable. Refer to the [design proposal of the
 scheduling framework][kep] for more technical information on the design of the
 framework.
 -->
-调度框架是 Kubernetes Scheduler 的一种可插入架构，可以简化调度器的自定义。
-它向现有的调度器增加了一组新的“插件” API。插件被编译到调度器程序中。
+
+调度框架是面向 Kubernetes 调度器的一种插件架构，
+它为现有的调度器添加了一组新的“插件” API。插件会被编译到调度器之中。
 这些 API 允许大多数调度功能以插件的形式实现，同时使调度“核心”保持简单且可维护。
 请参考[调度框架的设计提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md)
 获取框架设计的更多技术信息。
@@ -99,7 +98,7 @@ stateful tasks.
 -->
 一个插件可以在多个扩展点处注册，以执行更复杂或有状态的任务。
 
-<!-- 
+<!--
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" >}}
 -->
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="调度框架扩展点" >}}
@@ -164,12 +163,12 @@ tries to make the pod schedulable by preempting other Pods.
 则其余的插件不会调用。典型的后筛选实现是抢占，试图通过抢占其他 Pod
 的资源使该 Pod 可以调度。
 
-<!-- 
+<!--
 ### PreScore {#pre-score}
  -->
 ### 前置评分 {#pre-score}
 
-<!-- 
+<!--
 These plugins are used to perform "pre-scoring" work, which generates a sharable
 state for Score plugins to use. If a PreScore plugin returns an error, the
 scheduling cycle is aborted.
@@ -177,7 +176,7 @@ scheduling cycle is aborted.
 前置评分插件用于执行 “前置评分” 工作，即生成一个可共享状态供评分插件使用。
 如果 PreScore 插件返回错误，则调度周期将终止。
 
-<!-- 
+<!--
 ### Score {#scoring}
  -->
 ### 评分 {#scoring}
@@ -326,16 +325,16 @@ _Permit_ 插件在每个 Pod 调度周期的最后调用，用于防止或延迟
     将返回调度队列，从而触发 [Unreserve](#unreserve) 插件。
 
 
-<!-- 
+<!--
 While any plugin can access the list of "waiting" Pods and approve them
-(see [`FrameworkHandle`](#frameworkhandle)), we expect only the permit
+(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)), we expect only the permit
 plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
 is approved, it is sent to the [PreBind](#pre-bind) phase.
  -->
 {{< note >}}
-尽管任何插件可以访问 “等待中” 状态的 Pod 列表并批准它们 
-(查看 [`FrameworkHandle`](#frameworkhandle))。
-我们希望只有允许插件可以批准处于 “等待中” 状态的预留 Pod 的绑定。
+尽管任何插件可以访问 “等待中” 状态的 Pod 列表并批准它们
+(查看 [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle))。
+我们期望只有允许插件可以批准处于 “等待中” 状态的预留 Pod 的绑定。
 一旦 Pod 被批准了，它将发送到[预绑定](#pre-bind) 阶段。
 {{< /note >}}
 
@@ -445,7 +444,7 @@ type PreFilterPlugin interface {
 -->
 # 插件配置
 
-<!-- 
+<!--
 You can enable or disable plugins in the scheduler configuration. If you are using
 Kubernetes v1.18 or later, most scheduling
 [plugins](/docs/reference/scheduling/config/#scheduling-plugins) are in use and
@@ -456,7 +455,7 @@ enabled by default.
 [插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)
 都在使用中且默认启用。
 
-<!-- 
+<!--
 In addition to default plugins, you can also implement your own scheduling
 plugins and get them configured along with default plugins. You can visit
 [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins) for more details.
@@ -465,7 +464,7 @@ plugins and get them configured along with default plugins. You can visit
 你可以访问[scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins)
 了解更多信息。
 
-<!-- 
+<!--
 If you are using Kubernetes v1.18 or later, you can configure a set of plugins as
 a scheduler profile and then define multiple profiles to fit various kinds of workload.
 Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-profiles).
@@ -473,4 +472,3 @@ Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-pr
 如果你正在使用 Kubernetes v1.18 或更高版本，你可以将一组插件设置为
 一个调度器配置文件，然后定义不同的配置文件来满足各类工作负载。
 了解更多关于[多配置文件](/zh/docs/reference/scheduling/config/#multiple-profiles)。
-

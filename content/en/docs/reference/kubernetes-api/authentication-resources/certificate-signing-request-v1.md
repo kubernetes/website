@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued."
 title: "CertificateSigningRequest"
 weight: 4
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: certificates.k8s.io/v1`
 
@@ -37,7 +49,7 @@ This API can be used to request client certificates to authenticate to kube-apis
 
 - **spec** (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequestSpec" >}}">CertificateSigningRequestSpec</a>), required
 
-  spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+  spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
 
 - **status** (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequestStatus" >}}">CertificateSigningRequestStatus</a>)
 
@@ -82,6 +94,23 @@ CertificateSigningRequestSpec contains the certificate request.
    4. Required, permitted, or forbidden key usages / extended key usages.
    5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
    6. Whether or not requests for CA certificates are allowed.
+
+- **expirationSeconds** (int32)
+
+  expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+  
+  The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+  
+  Certificate signers may not honor this field for various reasons:
+  
+    1. Old signer that is unaware of the field (such as the in-tree
+       implementations prior to v1.22)
+    2. Signer whose configured maximum is shorter than the requested duration
+    3. Signer whose configured minimum is longer than the requested duration
+  
+  The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+  
+  As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
 
 - **extra** (map[string][]string)
 
@@ -618,6 +647,8 @@ PATCH /apis/certificates.k8s.io/v1/certificatesigningrequests/{name}
 
 200 (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequest" >}}">CertificateSigningRequest</a>): OK
 
+201 (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequest" >}}">CertificateSigningRequest</a>): Created
+
 401: Unauthorized
 
 
@@ -666,6 +697,8 @@ PATCH /apis/certificates.k8s.io/v1/certificatesigningrequests/{name}/approval
 
 200 (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequest" >}}">CertificateSigningRequest</a>): OK
 
+201 (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequest" >}}">CertificateSigningRequest</a>): Created
+
 401: Unauthorized
 
 
@@ -713,6 +746,8 @@ PATCH /apis/certificates.k8s.io/v1/certificatesigningrequests/{name}/status
 
 
 200 (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequest" >}}">CertificateSigningRequest</a>): OK
+
+201 (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequest" >}}">CertificateSigningRequest</a>): Created
 
 401: Unauthorized
 

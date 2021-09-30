@@ -1,5 +1,5 @@
 ---
-title: Managing Secret using kubectl
+title: Managing Secrets using kubectl
 content_type: task
 weight: 10
 description: Creating Secret objects using kubectl command line.
@@ -15,7 +15,7 @@ description: Creating Secret objects using kubectl command line.
 
 ## Create a Secret
 
-A `Secret` can contain user credentials required by Pods to access a database.
+A `Secret` can contain user credentials required by pods to access a database.
 For example, a database connection string consists of a username and password.
 You can store the username in a file `./username.txt` and the password in a
 file `./password.txt` on your local machine.
@@ -24,11 +24,10 @@ file `./password.txt` on your local machine.
 echo -n 'admin' > ./username.txt
 echo -n '1f2d1e2e67df' > ./password.txt
 ```
-
-The `-n` flag in the above two commands ensures that the generated files will
-not contain an extra newline character at the end of the text. This is
-important because when `kubectl` reads a file and encode the content into
-base64 string, the extra newline character gets encoded too.
+In these commands, the `-n` flag ensures that the generated files do not have
+an extra newline character at the end of the text. This is important because
+when `kubectl` reads a file and encodes the content into a base64 string, the
+extra newline character gets encoded too.
 
 The `kubectl create secret` command packages these files into a Secret and creates
 the object on the API server.
@@ -45,7 +44,7 @@ The output is similar to:
 secret/db-user-pass created
 ```
 
-Default key name is the filename. You may optionally set the key name using
+The default key name is the filename. You can optionally set the key name using
 `--from-file=[key=]source`. For example:
 
 ```shell
@@ -54,27 +53,28 @@ kubectl create secret generic db-user-pass \
   --from-file=password=./password.txt
 ```
 
-You do not need to escape special characters in passwords from files
-(`--from-file`).
+You do not need to escape special characters in password strings that you 
+include in a file.
 
 You can also provide Secret data using the `--from-literal=<key>=<value>` tag.
 This tag can be specified more than once to provide multiple key-value pairs.
 Note that special characters such as `$`, `\`, `*`, `=`, and `!` will be
 interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing))
 and require escaping.
+
 In most shells, the easiest way to escape the password is to surround it with
-single quotes (`'`).  For example, if your actual password is `S!B\*d$zDsb=`,
-you should execute the command this way:
+single quotes (`'`). For example, if your password is `S!B\*d$zDsb=`,
+run the following command:
 
 ```shell
-kubectl create secret generic dev-db-secret \
+kubectl create secret generic db-user-pass \
   --from-literal=username=devuser \
   --from-literal=password='S!B\*d$zDsb='
 ```
 
 ## Verify the Secret
 
-You can check that the secret was created:
+Check that the Secret was created:
 
 ```shell
 kubectl get secrets
@@ -111,7 +111,7 @@ username:    5 bytes
 
 The commands `kubectl get` and `kubectl describe` avoid showing the contents
 of a `Secret` by default. This is to protect the `Secret` from being exposed
-accidentally to an onlooker, or from being stored in a terminal log.
+accidentally, or from being stored in a terminal log.
 
 ## Decoding the Secret  {#decoding-secret}
 
@@ -141,7 +141,7 @@ The output is similar to:
 
 ## Clean Up
 
-To delete the Secret you have created:
+Delete the Secret you created:
 
 ```shell
 kubectl delete secret db-user-pass
@@ -152,5 +152,5 @@ kubectl delete secret db-user-pass
 ## {{% heading "whatsnext" %}}
 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Learn how to [manage Secrets using config files](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)

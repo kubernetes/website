@@ -72,7 +72,7 @@ after upgrading the objects to a new stored version.
 Removing an old version:
 
 1. Ensure all clients are fully migrated to the new version. The kube-apiserver
-   logs can reviewed to help identify any clients that are still accessing via
+   logs can be reviewed to help identify any clients that are still accessing via
    the old version.
 1. Set `served` to `false` for the old version in the `spec.versions` list. If
    any clients are still unexpectedly using the old version they may begin reporting
@@ -80,7 +80,7 @@ Removing an old version:
    If this occurs, switch back to using `served:true` on the old version, migrate the 
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
-    1. Verify that the `stored` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
+    1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
     1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
 1. Remove the old version from the CustomResourceDefinition `spec.versions` list.
 1. Drop conversion support for the old version in conversion webhooks.
@@ -202,7 +202,7 @@ spec:
     plural: crontabs
     # singular name to be used as an alias on the CLI and for display
     singular: crontab
-    # kind is normally the CamelCased singular type. Your resource manifests use this.
+    # kind is normally the PascalCased singular type. Your resource manifests use this.
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:

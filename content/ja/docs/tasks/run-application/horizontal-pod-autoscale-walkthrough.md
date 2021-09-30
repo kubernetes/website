@@ -10,7 +10,7 @@ Horizontal Pod Autoscalerは、Deployment、ReplicaSetまたはStatefulSetとい
 
 このドキュメントはphp-apacheサーバーに対しHorizontal Pod Autoscalerを有効化するという例に沿ってウォークスルーで説明していきます。Horizontal Pod Autoscalerの動作についてのより詳細な情報を知りたい場合は、[Horizontal Pod Autoscalerユーザーガイド](/docs/tasks/run-application/horizontal-pod-autoscale/)をご覧ください。
 
-## {{% heading "前提条件" %}}
+## {{% heading "prerequisites" %}}
 
 この例ではバージョン1.2以上の動作するKubernetesクラスターおよびkubectlが必要です。
 [Metrics API](https://github.com/kubernetes/metrics)を介してメトリクスを提供するために、[Metrics server](https://github.com/kubernetes-sigs/metrics-server)によるモニタリングがクラスター内にデプロイされている必要があります。
