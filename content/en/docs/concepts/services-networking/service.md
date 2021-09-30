@@ -414,7 +414,7 @@ endpoints, the kube-proxy does not forward any traffic for the relevant Service.
 {{< feature-state for_k8s_version="v1.22" state="alpha" >}}
 If you enable the `ProxyTerminatingEndpoints`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`ProxyTerminatingEndpoints` for the kube-proxy, the kube-proxy checks if the node
+for the kube-proxy, the kube-proxy checks if the node
 has local endpoints and whether or not all the local endpoints are marked as terminating.
 If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
 any external traffic policy of `Local`. Instead, whilst the node-local endpoints remain as all
