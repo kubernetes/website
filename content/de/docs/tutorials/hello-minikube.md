@@ -175,33 +175,51 @@ Minikube verfügt über eine Reihe von integrierten Add-Ons, die in der lokalen 
     Ausgabe:
 
     ```shell
-    addon-manager: enabled
-    coredns: disabled
-    dashboard: enabled
-    default-storageclass: enabled
-    efk: disabled
-    freshpod: disabled
-    heapster: disabled
-    ingress: disabled
-    kube-dns: enabled
-    metrics-server: disabled
-    nvidia-driver-installer: disabled
-    nvidia-gpu-device-plugin: disabled
-    registry: disabled
-    registry-creds: disabled
-    storage-provisioner: enabled
+|-----------------------------|----------|--------------|-----------------------|
+|         ADDON NAME          | PROFILE  |    STATUS    |      MAINTAINER       |
+|-----------------------------|----------|--------------|-----------------------|
+| ambassador                  | minikube | disabled     | unknown (third-party) |
+| auto-pause                  | minikube | disabled     | google                |
+| csi-hostpath-driver         | minikube | disabled     | kubernetes            |
+| dashboard                   | minikube | enabled ✅   | kubernetes            |
+| default-storageclass        | minikube | enabled ✅   | kubernetes            |
+| efk                         | minikube | disabled     | unknown (third-party) |
+| freshpod                    | minikube | disabled     | google                |
+| gcp-auth                    | minikube | disabled     | google                |
+| gvisor                      | minikube | disabled     | google                |
+| helm-tiller                 | minikube | disabled     | unknown (third-party) |
+| ingress                     | minikube | disabled     | unknown (third-party) |
+| ingress-dns                 | minikube | disabled     | unknown (third-party) |
+| istio                       | minikube | disabled     | unknown (third-party) |
+| istio-provisioner           | minikube | disabled     | unknown (third-party) |
+| kubevirt                    | minikube | disabled     | unknown (third-party) |
+| logviewer                   | minikube | disabled     | google                |
+| metallb                     | minikube | disabled     | unknown (third-party) |
+| metrics-server              | minikube | disabled     | kubernetes            |
+| nvidia-driver-installer     | minikube | disabled     | google                |
+| nvidia-gpu-device-plugin    | minikube | disabled     | unknown (third-party) |
+| olm                         | minikube | disabled     | unknown (third-party) |
+| pod-security-policy         | minikube | disabled     | unknown (third-party) |
+| portainer                   | minikube | disabled     | portainer.io          |
+| registry                    | minikube | disabled     | google                |
+| registry-aliases            | minikube | disabled     | unknown (third-party) |
+| registry-creds              | minikube | disabled     | unknown (third-party) |
+| storage-provisioner         | minikube | enabled ✅   | kubernetes            |
+| storage-provisioner-gluster | minikube | disabled     | unknown (third-party) |
+| volumesnapshots             | minikube | disabled     | kubernetes            |
+|-----------------------------|----------|--------------|-----------------------|
     ```
 
-2. Aktivieren Sie ein Addon, zum Beispiel `heapster`:
+2. Aktivieren Sie ein Addon, zum Beispiel `metrics-server`:
 
     ```shell
-    minikube addons enable heapster
+    minikube addons enable metrics-server
     ```
 
     Ausgabe:
 
     ```shell
-    heapster was successfully enabled
+    The 'metrics-server' addon is enabled
     ```
 
 3. Sehen Sie sich den Pod und den Service an, den Sie gerade erstellt haben:
@@ -214,15 +232,14 @@ Minikube verfügt über eine Reihe von integrierten Add-Ons, die in der lokalen 
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
-    pod/heapster-9jttx                          1/1       Running   0          26s
-    pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
+    pod/metrics-server-77c99ccb96-l88bv         1/1       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
     pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
     pod/kubernetes-dashboard-5498ccf677-cgspw   1/1       Running   0          34m
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        443/TCP             26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
     service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
@@ -232,13 +249,13 @@ Minikube verfügt über eine Reihe von integrierten Add-Ons, die in der lokalen 
 4. Deaktivieren Sie `heapster`:
 
     ```shell
-    minikube addons disable heapster
+    minikube addons disable metrics-server
     ```
 
     Ausgabe:
 
     ```shell
-    heapster was successfully disabled
+    metrics-server  was successfully disabled
     ```
 
 ## Aufräumen
