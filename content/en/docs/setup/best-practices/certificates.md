@@ -63,10 +63,10 @@ The following example illustrates the CA key and certificate files shown in the 
 ```
 /etc/kubernetes/pki/ca.crt
 /etc/kubernetes/pki/ca.key
-/etc/kubernetes/pki/etcd/ca.key
 /etc/kubernetes/pki/etcd/ca.crt
-/etc/kubernetes/pki/front-proxy-ca.key
+/etc/kubernetes/pki/etcd/ca.key
 /etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-ca.key
 ```
 ### All certificates
 
