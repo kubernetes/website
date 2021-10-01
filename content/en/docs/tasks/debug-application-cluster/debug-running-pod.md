@@ -73,7 +73,7 @@ For more details, see [Get a Shell to a Running Container](
 
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
 are useful for interactive troubleshooting when `kubectl exec` is insufficient
@@ -337,3 +337,7 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 ```shell
 kubectl delete pod node-debugger-mynode-pdx84
 ```
+
+## Using Debugging Profiles
+
+TODO(verb)
