@@ -207,6 +207,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
     the deterministic hostnames to address each other via DNS.
   - From the containarized task, in the environment variable `JOB_COMPLETION_INDEX`.
+  
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
