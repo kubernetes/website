@@ -73,7 +73,7 @@ other = "समुदाय का अन्वेषण करें"
 other = "कुबेरनेट्स की विशेषताएं"
 
 [main_cncf_project]
-other = """हम एक <a href="https://cncf.io/">CNCF</a> स्नातक परियोजना</p> हैं"""
+other = """हम एक <a href="https://cncf.io/">CNCF</a> स्नातक परियोजना हैं</p>"""
 
 [main_kubeweekly_baseline]
 other = "नवीनतम कुबेरनेट्स समाचार प्राप्त करने के इच्छुक हैं? KubeWeekly के लिए साइन अप करें।"
