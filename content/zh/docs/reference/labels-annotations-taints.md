@@ -449,7 +449,7 @@ The node controller detects whether a node is ready by monitoring its health and
 <!-- 
 The node controller adds the taint to a node corresponding to the [NodeCondition](/docs/concepts/architecture/nodes/#condition) `Ready` being `Unknown`.
 -->
-如果 [NodeCondition](/docs/concepts/architecture/nodes/#condition) 的 `Ready` 键值为 `Unknown`，节点控制器将添加污点到 node。
+如果 [NodeCondition](/zh/docs/concepts/architecture/nodes/#condition) 的 `Ready` 键值为 `Unknown`，节点控制器将添加污点到 node。
 
 ## node.kubernetes.io/unschedulable
 
