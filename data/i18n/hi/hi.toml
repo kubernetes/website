@@ -70,7 +70,7 @@ other = "इशू बनाएं"
 other = "समुदाय का अन्वेषण करें"
 
 [main_kubernetes_features]
-other = "कुबेरनेट्स विशेषताएं"
+other = "कुबेरनेट्स की विशेषताएं"
 
 [main_cncf_project]
 other = """हम एक <a href="https://cncf.io/">CNCF</a> स्नातक परियोजना</p> हैं"""
