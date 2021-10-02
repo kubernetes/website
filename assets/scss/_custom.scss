@@ -343,6 +343,26 @@ main {
   }
 }
 
+// Highlight disclaimer when targeted as a fragment
+
+#third-party-content-disclaimer {
+  color: #000;
+  background: #f8f9fa;
+  transition: all 0.5s ease;
+}
+
+@keyframes disclaimer-highlight {
+  from { background: #f8f922; color: #000; }
+  50% { background: #f8f944; color: #000; }
+  to { background: #f8f9cb; color: #000; }
+}
+
+#third-party-content-disclaimer:target {
+  color: #000;
+  animation: disclaimer-highlight 1.25s ease;
+  background: #f8f9cb;
+}
+
 .deprecation-warning {
     padding: 20px;
     margin: 20px 0;
