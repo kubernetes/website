@@ -10,7 +10,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-आप kubectl संस्करण का उपयोग करे जो आपके क्लस्टर के एक माइनर संस्करण भीतर हो. उदाहरण के लिए, v{{< skew latestVersion >}} क्लाइंट v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}} और v{{< skew nextMinorVersion >}} कण्ट्रोल प्लेन के साथ कम्युनिकेट कर सकते हैं।
+आप kubectl संस्करण का उपयोग करे जो आपके क्लस्टर के एक माइनर संस्करण भीतर हो। उदाहरण के लिए, v{{< skew latestVersion >}} क्लाइंट v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}} और v{{< skew nextMinorVersion >}} कण्ट्रोल प्लेन के साथ कम्युनिकेट कर सकते हैं।
 kubectl के नए संस्करण का उपयोग करने से समस्या से बचत हो सकती है।
 
 ## macOS पर kubectl इंस्टॉल करें
