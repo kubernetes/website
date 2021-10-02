@@ -338,10 +338,14 @@ main {
     border-left-color: #d9534f;
   }
 
+
   h1:first-of-type + blockquote.callout {
     margin-top: 1.5em;
   }
 }
+
+// Special color for third party content disclaimers
+.alert.third-party-content { border-left-color: #222 };
 
 // Highlight disclaimer when targeted as a fragment
 
