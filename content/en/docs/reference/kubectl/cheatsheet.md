@@ -98,6 +98,7 @@ kubectl create job hello --image=busybox -- echo "Hello World"
 kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"    
 
 kubectl explain pods                           # get the documentation for pod manifests
+kubectl run nginx --image=nginx -n mynamespace # create a pod named nginx and runs it in a specific namespace
 
 # Create multiple YAML objects from stdin
 cat <<EOF | kubectl apply -f -
@@ -310,8 +311,6 @@ kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
-kubectl run nginx --image=nginx -n 
-mynamespace                                         # Run pod nginx in a specific namespace
 kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
 --dry-run=client -o yaml > pod.yaml
 
