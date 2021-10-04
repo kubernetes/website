@@ -79,7 +79,7 @@ The webhook server in the e2e test is deployed in the Kubernetes cluster, via
 the [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps).
 The test also creates a [service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 as the front-end of the webhook server. See
-[code](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/e2e/apimachinery/webhook.go#L301).
+[code](https://github.com/kubernetes/kubernetes/blob/master/test/e2e/apimachinery/webhook.go#L748).
 
 You may also deploy your webhooks outside of the cluster. You will need to update
 your webhook configurations accordingly.
