@@ -48,6 +48,8 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
+* [seccomp](/docs/tutorials/clusters/seccomp/)
+
 ## Serwisy
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
