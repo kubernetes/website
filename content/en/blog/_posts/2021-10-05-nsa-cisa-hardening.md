@@ -221,8 +221,8 @@ As discussed here and in the guidance, many features and tooling exist in and ar
 Kubernetes that can enhance the isolation boundaries between
 pods. Based on relevant threats and risk posture, you should pick and choose
 between them, instead of trying to apply all the recommendations. Having said that, cluster
-level isolation remains the strictest workload isolation mechanism, in spite of
-improvements mentioned earlier here and in the guide.
+level isolation i.e. running workloads in dedicated clusters, remains the strictest workload 
+isolation mechanism, in spite of improvements mentioned earlier here and in the guide.
 
 ## Network Separation and Hardening
 
@@ -313,17 +313,12 @@ responsible, and who's accountable, for each layer of logging.
 
 One area that deserves more focus is what exactly should alert or be logged. The
 document outlines a sample policy in [Appendix L: Audit Policy](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF#page=55) that logs all
-RequestResponse's including metadata and request / response bodies. While
-helpful for a demo, it may not be practical for production.
+RequestResponse's including metadata and request / response bodies. While helpful for a demo, it may not be practical for production.
 
 Each organization needs to evaluate their
-own threat model and build an
-audit policy that complements or helps troubleshooting incident response. Think
-about how someone would attack your organization and what audit trail could
-identify it. Review more advanced options for tuning audit logs in
-the official [audit logging documentation](/docs/tasks/debug-application-cluster/audit/#audit-policy).
-It's crucial to tune your audit logs to only include events that meet your
-threat model.
+own threat model and build an audit policy that complements or helps troubleshooting incident response. Think
+about how someone would attack your organization and what audit trail could identify it. Review more advanced options for tuning audit logs in the official [audit logging documentation](/docs/tasks/debug-application-cluster/audit/#audit-policy).
+It's crucial to tune your audit logs to only include events that meet your threat model. A minimal audit policy that logs everything at `metadata` level can also be a good starting point. 
 
 Audit logging configurations can also be tested with
 kind following these [instructions](https://kind.sigs.k8s.io/docs/user/auditing).
@@ -383,8 +378,7 @@ easier cluster upgrades.
 
 Additionally, it's worth reiterating from the guidance that periodic 
 vulnerability scans and penetration tests can be performed on the various system
-components to proactively look for insecure configurations and 
-zero-day vulnerabilities.
+components to proactively look for insecure configurations and vulnerabilities.
 
 ### Finding release & security information
 
