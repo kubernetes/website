@@ -151,7 +151,7 @@ spec:
 ConfigMaps não diferenciam entre propriedades com valores simples ou valores complexos,
 que ocupam várias linhas. O importante é a forma que Pods e outros objetos consomem tais valores.
 
-Para este exemplo, definir um volume e montar ele dentro do container `demo` no caminho `/config`
+Neste exemplo, definir um volume e montar ele dentro do contêiner `demo` no caminho `/config`
 cria dois arquivos: `/config/game.properties` e `/config/user-interface.properties`, embora existam
 quatro chaves distintas no ConfigMap. Isso se deve ao fato de que a definição do Pod contém uma lista
 `items` na seção `volumes`.
