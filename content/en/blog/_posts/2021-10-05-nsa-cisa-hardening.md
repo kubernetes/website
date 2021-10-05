@@ -181,7 +181,7 @@ but some of the guidance in this section will still apply for the next few years
 upgrade their clusters to newer Kubernetes versions.
 
 The Kubernetes project is working on a replacement for PodSecurityPolicy.
-Kubernetes v1.22 includes an alpha feature called called [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+Kubernetes v1.22 includes an alpha feature called [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
 that is intended to allow enforcing a minimum level of isolation between pods.
 
 The built-in isolation levels for Pod Security Admission are derived
