@@ -392,6 +392,49 @@ Message:        Node is shutting, evicting pods
 이는 갑작스러운 노드 종료의 경우와 비교했을 때 동작에 차이가 있다.
 {{< /note >}}
 
+## 스왑(swap) 메모리 관리 {#swap-memory}
+
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+
+쿠버네티스 1.22 이전에는 노드가 스왑 메모리를 지원하지 않았다. 그리고 
+kubelet은 노드에서 스왑을 발견하지 못한 경우 시작과 동시에 실패하도록 되어 있었다.
+1.22부터는 스왑 메모리 지원을 노드 단위로 활성화할 수 있다.
+
+노드에서 스왑을 활성화하려면, `NodeSwap` 기능 게이트가 kubelet에서
+활성화되어야 하며, 명령줄 플래그 `--fail-swap-on` 또는
+[구성 설정](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)에서 `failSwapOn`가
+false로 지정되어야 한다.
+
+사용자는 또한 선택적으로 `memorySwap.swapBehavior`를 구성할 수 있으며, 
+이를 통해 노드가 스왑 메모리를 사용하는 방식을 명시한다. 예를 들면,
+
+```yaml
+memorySwap:
+  swapBehavior: LimitedSwap
+```
+
+`swapBehavior`에 가용한 구성 옵션은 다음과 같다.
+
+- `LimitedSwap`: 쿠버네티스 워크로드는 스왑을 사용할 수 있는 만큼으로
+  제한된다. 쿠버네티스에 의해 관리되지 않는 노드의 워크로드는 여전히 스왑될 수 있다.
+- `UnlimitedSwap`: 쿠버네티스 워크로드는 요청한 만큼 스왑 메모리를 사용할 수 있으며,
+  시스템의 최대치까지 사용 가능하다.
+
+만약 `memorySwap` 구성이 명시되지 않았고 기능 게이트가 활성화되어 있다면, 
+kubelet은 `LimitedSwap` 설정과 같은 행동을
+기본적으로 적용한다.
+
+`LimitedSwap` 설정에 대한 행동은 노드가 ("cgroups"으로 알려진)
+제어 그룹이 v1 또는 v2 중에서 무엇으로 동작하는가에 따라서 결정된다. 
+
+- **cgroupsv1:** 쿠버네티스 워크로드는 메모리와 스왑의 조합을 사용할 수 있다.
+  파드의 메모리 제한이 설정되어 있다면 가용 상한이 된다.
+- **cgroupsv2:** 쿠버네티스 워크로드는 스왑 메모리를 사용할 수 없다.
+
+테스트를 지원하고 피드벡을 제공하기 위한 정보는
+[KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) 및
+[디자인 제안](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md)에서 찾을 수 있다.
+
 ## {{% heading "whatsnext" %}}
 
 * 노드를 구성하는 [컴포넌트](/ko/docs/concepts/overview/components/#노드-컴포넌트)에 대해 알아본다.
