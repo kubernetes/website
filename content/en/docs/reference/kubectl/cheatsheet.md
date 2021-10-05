@@ -173,8 +173,8 @@ kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
 
 # Get all worker nodes (use a selector to exclude results that have a label
-# named 'node-role.kubernetes.io/master')
-kubectl get node --selector='!node-role.kubernetes.io/master'
+# named 'node-role.kubernetes.io/control-plane')
+kubectl get node --selector='!node-role.kubernetes.io/control-plane'
 
 # Get all running pods in the namespace
 kubectl get pods --field-selector=status.phase=Running

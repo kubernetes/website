@@ -271,18 +271,18 @@ reasons. If you want to be able to schedule Pods on the control-plane node, for 
 single-machine Kubernetes cluster for development, run:
 
 ```bash
-kubectl taint nodes --all node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ```
 
 With output looking something like:
 
 ```
 node "test-01" untainted
-taint "node-role.kubernetes.io/master:" not found
-taint "node-role.kubernetes.io/master:" not found
+taint "node-role.kubernetes.io/control-plane:" not found
+taint "node-role.kubernetes.io/control-plane:" not found
 ```
 
-This will remove the `node-role.kubernetes.io/master` taint from any nodes that
+This will remove the `node-role.kubernetes.io/control-plane` taint from any nodes that
 have it, including the control-plane node, meaning that the scheduler will then be able
 to schedule Pods everywhere.
 

@@ -354,8 +354,8 @@ Please note that:
 
 As soon as the control plane is available, kubeadm executes following actions:
 
-- Labels the node as control-plane with `node-role.kubernetes.io/master=""`
-- Taints the node with `node-role.kubernetes.io/master:NoSchedule`
+- Labels the node as control-plane with `node-role.kubernetes.io/control-plane=""`
+- Taints the node with `node-role.kubernetes.io/control-plane:NoSchedule`
 
 Please note that:
 

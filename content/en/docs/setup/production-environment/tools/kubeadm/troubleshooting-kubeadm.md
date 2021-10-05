@@ -343,7 +343,7 @@ A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on 
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
 ```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
@@ -352,17 +352,17 @@ The tracking issue for this problem is [here](https://github.com/kubernetes/kube
 
 *Note: This [issue](https://github.com/kubernetes/kubeadm/issues/1358) only applies to tools that marshal kubeadm types (e.g. to a YAML configuration file). It will be fixed in kubeadm API v1beta2.*
 
-By default, kubeadm applies the `node-role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
+By default, kubeadm applies the `node-role.kubernetes.io/control-plane:NoSchedule` taint to control-plane nodes.
 If you prefer kubeadm to not taint the control-plane node, and set `InitConfiguration.NodeRegistration.Taints` to an empty slice,
 the field will be omitted when marshalling. When the field is omitted, kubeadm applies the default taint.
 
 There are at least two workarounds:
 
-1. Use the `node-role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](/docs/concepts/scheduling-eviction/taint-and-toleration/), unless other nodes have capacity.
+1. Use the `node-role.kubernetes.io/control-plane:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](/docs/concepts/scheduling-eviction/taint-and-toleration/), unless other nodes have capacity.
 
 2. Remove the taint after kubeadm init exits:
 ```bash
-kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
+kubectl taint nodes NODE_NAME node-role.kubernetes.io/control-plane:NoSchedule-
 ```
 
 ## `/usr` is mounted read-only on nodes {#usr-mounted-read-only}

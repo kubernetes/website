@@ -681,7 +681,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This API augments the [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
   with informations about the allocatable resources, enabling clients to properly track the free compute resources on a node.
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and
-  node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the
+  node disruption will ignore the `node-role.kubernetes.io/control-plane` label in favor of the
   feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`.
 - `LocalStorageCapacityIsolation`: Enable the consumption of
   [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/)
