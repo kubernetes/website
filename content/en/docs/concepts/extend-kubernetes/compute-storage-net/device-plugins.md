@@ -248,6 +248,15 @@ message ContainerDevices {
     TopologyInfo topology = 3;
 }
 ```
+{{< note >}}
+cpu_ids in the `ContainerResources` in the `List` endpoint correspond to exclusive CPUs allocated
+to a partilar container. If the goal is to evaluate CPUs that belong to the shared pool, the `List`
+endpoint needs to be used in conjunction with the `GetAllocatableResources` endpoint as explained
+below:
+1. Call `GetAllocatableResources` to get a list of all the allocatable CPUs
+2. Call `GetCpuIds` on all `ContainerResources` in the system
+3. Subtract out all of the CPUs from the `GetCpuIds` calls from the `GetAllocatableResources` call
+{{< /note >}}
 
 ### `GetAllocatableResources` gRPC endpoint {#grpc-endpoint-getallocatableresources}
 
