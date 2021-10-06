@@ -83,6 +83,19 @@ kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your control-plane, the kubelet runs normally.
 {{< /note >}}
 
+### Preparing the required container images
+
+This step is optional and only applies in case you wish `kubeadm init` and `kubeadm join`
+to not download the default container images which are hosted at `k8s.gcr.io`.
+
+Kubeadm has commands that can help you pre-pull the required images
+when creating a cluster without an internet connection on its nodes.
+See [Running kubeadm without an internet connection](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection) for more details.
+
+Kubeadm allows you to use a custom image repository for the required images.
+See [Using custom images](docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+for more details.
+
 ### Initializing your control-plane node
 
 The control-plane node is the machine where the control plane components run, including
@@ -108,8 +121,6 @@ with the default gateway to set the advertise address for this particular contro
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
-1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
-connectivity to the gcr.io container image registry.
 
 To initialize the control-plane node run:
 
