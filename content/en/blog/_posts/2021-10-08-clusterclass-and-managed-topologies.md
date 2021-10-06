@@ -36,52 +36,52 @@ ClusterClass, at its heart, is a collection of Cluster and Machine templates. Yo
 ```yaml
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
- kind: ClusterClass
- metadata:
-   name: my-amazing-cluster-class
-   namespace: bar
- spec:
-   controlPlane:
-     ref:
-       apiVersion: controlplane.cluster.x-k8s.io/v1beta1
-       kind: KubeadmControlPlaneTemplate
-       name: high-availability-kcp
-     machineInfrastructure:
-       ref:
-         apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
-         kind: VSphereMachineTemplate
-         name: controlplane-vsphere-machinetemplate
-   workers:
-     deployments:
-     - class: linux-worker
-       template:
-         bootstrap:
-           ref:
-             apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
-             kind: KubeadmConfigTemplate
-             name: linux-bootstrap
-         infrastructure:
-           ref:
-             apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
-             kind: VSphereMachineTemplate
-             name: linux-vsphere-template
-     - class: windows-worker
-       template:
-         bootstrap:
-           ref:
-             apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
-             kind: KubeadmConfigTemplate
-             name: windows-bootstrap
-         infrastructure:
-           ref:
-             apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
-             kind: VSphereMachineTemplate
-             name: windows-vsphere-template
-   infrastructure:
-     ref:
-       apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
-       kind: VSphereClusterTemplate
-       name: vsphere-cluster
+kind: ClusterClass
+metadata:
+  name: my-amazing-cluster-class
+spec:
+  controlPlane:
+    ref:
+      apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+      kind: KubeadmControlPlaneTemplate
+      name: high-availability-control-plane
+    machineInfrastructure:
+      ref:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+        kind: DockerMachineTemplate
+        name: control-plane-machine
+  workers:
+    machineDeployments:
+      - class: type1-workers
+        template:
+          bootstrap:
+            ref:
+              apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+              kind: KubeadmConfigTemplate
+              name: type1-bootstrap
+          infrastructure:
+            ref:
+              apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+              kind: DockerMachineTemplate
+              name: type1-machine
+      - class: type2-workers
+        template:
+          bootstrap:
+            ref:
+              apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+              kind: KubeadmConfigTemplate
+              name: type2-bootstrap
+          infrastructure:
+            ref:
+              kind: DockerMachineTemplate
+              apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+              name: type2-machine
+  infrastructure:
+    ref:
+      apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+      kind: DockerClusterTemplate
+      name: cluster-infrastructure
+
 ```
 
 The possibilities are endless; you can get a default ClusterClass from the community, “off-the-shelf” classes from your vendor of choice, “certified” classes from the platform admin in your company, or even create custom ones for advanced scenarios.
@@ -111,15 +111,12 @@ apiVersion: cluster.x-k8s.io/v1beta1
        replicas: 3
      workers:
        machineDeployments:
-       - class: linux-worker
-         name: big-pool-of-linux-machines-1
+       - class: type1-workers
+         name: big-pool-of-machines
          replicas: 5
-       - class: linux-worker
-         name: small-pool-of-linux-machines-1
+       - class: type2-workers
+         name: small-pool-of-machines
          replicas: 1
-       - class: windows-worker
-         name: pool-of-windows-machines
-         replicas: 3
 ```
 
 But there is more than simplified cluster creation. Now the Cluster acts as a single control point for your entire topology.
@@ -141,3 +138,4 @@ Stay tuned for what comes next, and if you have any questions, comments or sugge
 * Chat with us on the Kubernetes [Slack](http://slack.k8s.io/):[#cluster-api](https://kubernetes.slack.com/archives/C8TSNPY4T)
 * Join the SIG Cluster Lifecycle [Google Group](https://groups.google.com/g/kubernetes-sig-cluster-lifecycle) to receive calendar invites and gain access to documents
 * Join our [Zoom meeting](https://zoom.us/j/861487554), every Wednesday at 10:00 Pacific Time
+* Check out the [ClusterClass tutorial](https://cluster-api.sigs.k8s.io/tasks/experimental-features/cluster-classes.html) in the Cluster API book.
