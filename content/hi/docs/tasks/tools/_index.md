@@ -20,9 +20,9 @@ kubectl संचालन की पूरी सूची सहित अध�
 kubectl विभिन्न प्रकार के Linux प्लेटफॉर्म, macOS और Windows पर इंस्टॉल करने योग्य है।
 नीचे अपना उपयुक्त ऑपरेटिंग सिस्टम खोजें।
 
-- [kubectl Linux पर इंस्टॉल करने](/hi/docs/tasks/tools/install-kubectl-linux)
-- [kubectl macOS पर इंस्टॉल करने](/hi/docs/tasks/tools/install-kubectl-macos)
-- [kubectl Windows पर इंस्टॉल करने](/hi/docs/tasks/tools/install-kubectl-windows)
+- [kubectl Linux पर इंस्टॉल करें](/hi/docs/tasks/tools/install-kubectl-linux)
+- [kubectl macOS पर इंस्टॉल करें](/hi/docs/tasks/tools/install-kubectl-macos)
+- [kubectl Windows पर इंस्टॉल करें](/hi/docs/tasks/tools/install-kubectl-windows)
 
 ## kind
 
