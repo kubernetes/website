@@ -1,4 +1,6 @@
 ---
+
+
 title: 인그레스(Ingress)
 content_type: concept
 weight: 40
@@ -222,7 +224,7 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 
 #### 네임스페이스 범위의 파라미터
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `Parameters` 필드에는 인그레스 클래스 구성을 위해 네임스페이스 별 리소스를 참조하는 데
 사용할 수 있는 `scope` 및 `namespace` 필드가 있다.
