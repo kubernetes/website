@@ -41,6 +41,8 @@ that the cron job controller uses.
 
 如果你的控制平面在 Pod 或是裸容器中运行了 kube-controller-manager，
 那么为该容器所设置的时区将会决定 Cron Job 的控制器所使用的时区。
+如果你不想使用kube-controller-manager的时区作为Cron Job 调度的时区，
+可以通过Cron Job的yaml文件添加环境变量`TZ`的方式修改成你想要的时区。
 {{< /caution >}}
 
 <!--
