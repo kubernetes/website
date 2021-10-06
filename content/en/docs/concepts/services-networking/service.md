@@ -1072,6 +1072,9 @@ in those modified security groups.
 
 {{< /note >}}
 
+Further documentation on annotations for Elastic IPs and other common use-cases may be found
+on the [AWS Load Balancer Controller documentation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/ingress/annotations/).
+
 #### Other CLB annotations on Tencent Kubernetes Engine (TKE)
 
 There are other annotations for managing Cloud Load Balancers on TKE as shown below.
