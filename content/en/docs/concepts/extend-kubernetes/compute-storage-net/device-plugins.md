@@ -1,7 +1,6 @@
 ---
-reviewers:
 title: Device Plugins
-description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
+description: Device plugins let you configure your cluster with support for devices or resources that require vendor-specific setup, such as GPUs, NICs, FPGAs, or non-volatile main memory.
 content_type: concept
 weight: 20
 ---
