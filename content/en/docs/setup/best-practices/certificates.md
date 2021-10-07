@@ -138,7 +138,7 @@ Same considerations apply for the service account key pair:
 |  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file   |
 |                              | sa.pub                      | kube-apiserver          | --service-account-key-file           |
 
-The following example illustrates the files from the previous tables you need to provide if you are generating all of your own keys and certificates:
+The following example illustrates the file paths [from the previous tables](/docs/setup/best-practices/certificates/#certificate-paths) you need to provide if you are generating all of your own keys and certificates:
 
 ```
 /etc/kubernetes/pki/etcd/ca.key
@@ -199,7 +199,7 @@ These files are used as follows:
 | controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
 | scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
 
-The following illustrates the files listed in the previous table that contain client user certificates and keys:
+The following files illustrate full paths to the files listed in the previous table:
 
 ```
 /etc/kubernetes/admin.conf
