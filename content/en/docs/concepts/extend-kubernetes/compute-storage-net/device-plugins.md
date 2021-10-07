@@ -320,7 +320,7 @@ The Topology Manager is a Kubelet component that allows resources to be co-ordin
 
 ```gRPC
 message TopologyInfo {
-	repeated NUMANode nodes = 1;
+    repeated NUMANode nodes = 1;
 }
 
 message NUMANode {
