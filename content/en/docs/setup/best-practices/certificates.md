@@ -42,7 +42,8 @@ If you install Kubernetes with kubeadm, most certificates are stored in `/etc/ku
 
 ## Configure certificates manually
 
-If you don't want kubeadm to generate the required certificates, you can create them using a single root CA or by providing all certificates. See [Certificates](/docs/tasks/administer-cluster/certificates/) for details on creating your own certificate authority and certificates and [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/) for more on managing certificates.
+If you don't want kubeadm to generate the required certificates, you can create them using a single root CA or by providing all certificates. See [Certificates](/docs/tasks/administer-cluster/certificates/) for details on creating your own certificate authority.
+See [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/) for more on managing certificates.
 
 
 ### Single root CA
