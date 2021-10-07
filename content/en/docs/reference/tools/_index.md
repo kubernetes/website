@@ -23,8 +23,8 @@ development and testing purposes.
 [`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself.
 
-{{% thirdparty-content %}}
 ## Helm
+{{% thirdparty-content single="true" %}}
 
 [Helm](https://helm.sh/) is a tool for managing packages of pre-configured
 Kubernetes resources. These packages are known as _Helm charts_.
