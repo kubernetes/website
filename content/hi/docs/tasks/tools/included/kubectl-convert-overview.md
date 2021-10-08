@@ -1,5 +1,5 @@
 ---
-title: "kubectl-convert-overview"
+title: "kubectl-convert अवलोकन"
 description: >-
 एक kubectl प्लगइन जो आपके मैनिफेस्ट को कुबेरनेट्स API के एक से दूसरे संस्करण में बदलने की अनुमति देता है।
 headless: true
