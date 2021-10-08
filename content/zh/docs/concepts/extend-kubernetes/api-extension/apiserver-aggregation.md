@@ -23,12 +23,13 @@ The aggregation layer allows Kubernetes to be extended with additional APIs, bey
 而不局限于 Kubernetes 核心 API 提供的功能。
 
 <!--
-The additional APIs can either be ready-made solutions such as [service-catalog](/docs/concepts/extend-kubernetes/service-catalog/), or APIs that you develop yourself.
+The additional APIs can either be ready-made solutions such as a [metrics server](https://github.com/kubernetes-sigs/metrics-server), or APIs that you develop yourself.
 
 The aggregation layer is different from [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/), which are a way to make the {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} recognise new kinds of object.
 -->
-这里的附加 API 可以是[服务目录](/zh/docs/concepts/extend-kubernetes/service-catalog/)
-这类已经成熟的解决方案，也可以是你自己开发的 API。
+这里的附加 API 可以是现成的解决方案比如
+[metrics server](https://github.com/kubernetes-sigs/metrics-server), 
+或者你自己开发的 API。
 
 聚合层不同于
 [定制资源（Custom Resources）](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
