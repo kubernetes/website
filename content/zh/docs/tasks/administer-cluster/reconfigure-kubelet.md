@@ -16,7 +16,11 @@ content_type: task
 {{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
 
 <!--
-Caution: Dynamic Kubelet Configuration feature is deprecated and should not be used. Please switch to alternative means distributing configuration to the Nodes of your cluster.
+{{< caution >}}
+[Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
+feature is deprecated and should not be used.
+Please switch to alternative means distributing configuration to the Nodes of your cluster.
+{{< /caution >}}
 -->
 {{< caution >}}
 [动态 kubelet 配置](https://github.com/kubernetes/enhancements/issues/281)
