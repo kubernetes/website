@@ -371,7 +371,7 @@ spec:
   storageClassName: slow
   mountOptions:
     - hard
-    - nfsvers=4.1
+    - vers=4.1
   nfs:
     path: /tmp
     server: 172.17.0.2
