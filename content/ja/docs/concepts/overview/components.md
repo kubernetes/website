@@ -115,7 +115,7 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 ## {{% heading "whatsnext" %}}
 
 * [ノード](/ja/docs/concepts/architecture/nodes/)について学ぶ
-* [コントローラー](/docs/concepts/architecture/controller/)について学ぶ
+* [コントローラー](/ja/docs/concepts/architecture/controller/)について学ぶ
 * [kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)について学ぶ
 * etcdの公式 [ドキュメント](https://etcd.io/docs/)を読む
 
