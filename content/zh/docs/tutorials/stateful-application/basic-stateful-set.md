@@ -38,7 +38,7 @@ following Kubernetes concepts.
 * [Cluster DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/zh/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
-* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 * [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl CLI](/zh/docs/user-guide/kubectl/)
 
