@@ -79,7 +79,7 @@ POD-NAMEの部分を実際のPodの名前に書き換えてください。
 
 ### RedisのマスターのServiceを作成する
 
-ゲストブックアプリケーションは、データを書き込むためにRedisのマスターと通信する必要があります。そのためには、[Service](/docs/concepts/services-networking/service/)を適用して、トラフィックをRedisのマスターのPodへプロキシーしなければなりません。Serviceは、Podにアクセスするためのポリシーを指定します。
+ゲストブックアプリケーションは、データを書き込むためにRedisのマスターと通信する必要があります。そのためには、[Service](/ja/docs/concepts/services-networking/service/)を適用して、トラフィックをRedisのマスターのPodへプロキシーしなければなりません。Serviceは、Podにアクセスするためのポリシーを指定します。
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 
@@ -199,7 +199,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 ### フロントエンドのServiceを作成する
 
-適用した`redis-slave`および`redis-master` Serviceは、コンテナクラスター内部からのみアクセス可能です。これは、デフォルトのServiceのtypeが[ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types)であるためです。`ClusterIP`は、Serviceが指している一連のPodに対して1つのIPアドレスを提供します。このIPアドレスはクラスター内部からのみアクセスできます。
+適用した`redis-slave`および`redis-master` Serviceは、コンテナクラスター内部からのみアクセス可能です。これは、デフォルトのServiceのtypeが[ClusterIP](/ja/docs/concepts/services-networking/service/#publishing-services-service-types)であるためです。`ClusterIP`は、Serviceが指している一連のPodに対して1つのIPアドレスを提供します。このIPアドレスはクラスター内部からのみアクセスできます。
 
 もしゲストの人にゲストブックにアクセスしてほしいのなら、フロントエンドServiceを外部から見えるように設定しなければなりません。そうすれば、クライアントはコンテナクラスターの外部からServiceにリクエストを送れるようになります。Minikubeでは、Serviceを`NodePort`でのみ公開できます。
 
@@ -363,8 +363,8 @@ DeploymentとServiceを削除すると、実行中のPodも削除されます。
 
 ## {{% heading "whatsnext" %}}
 
-* ゲストブックアプリケーションに対する[ELKによるロギングとモニタリング](/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)
+* ゲストブックアプリケーションに対する[ELKによるロギングとモニタリング](/ja/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)
 * [Kubernetesの基本](/ja/docs/tutorials/kubernetes-basics/)のインタラクティブチュートリアルを終わらせる
-* Kubernetesを使って、[MySQLとWordpressのためにPersistent Volume](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)を使用したブログを作成する
+* Kubernetesを使って、[MySQLとWordpressのためにPersistent Volume](/ja/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)を使用したブログを作成する
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)についてもっと読む
-* [リソースの管理](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)についてもっと読む
+* [リソースの管理](/ja/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)についてもっと読む
