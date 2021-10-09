@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 파드 우선순위(priority)와 선점(preemption)
 content_type: concept
 weight: 70
@@ -350,21 +353,25 @@ spec:
 `PodDisruptionBudget` 으로 보호되는 경우에만, 우선순위가 가장 낮은 파드를
 축출 대상으로 고려한다.
 
-QoS와 파드 우선순위를 모두 고려하는 유일한 컴포넌트는
-[kubelet 리소스 부족 축출](/docs/concepts/scheduling-eviction/node-pressure-eviction/)이다.
-kubelet은 부족한 리소스의 사용이 요청을 초과하는지 여부에 따라, 그런 다음 우선순위에 따라,
-파드의 스케줄링 요청에 대한 부족한 컴퓨팅 리소스의 소비에 의해
-먼저 축출 대상 파드의 순위를 매긴다.
-더 자세한 내용은
-[엔드유저 파드 축출](/docs/concepts/scheduling-eviction/node-pressure-eviction/#evicting-end-user-pods)을
+kubelet은 우선순위를 사용하여 파드의 [노드-압박(node-pressure) 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/) 순서를 결정한다.
+사용자는 QoS 클래스를 사용하여 어떤 파드가 축출될 것인지
+예상할 수 있다. kubelet은 다음의 요소들을 통해서 파드의 축출 순위를 매긴다.
+
+  1. 부족한 리소스 사용량이 요청을 초과하는지 여부
+  1. 파드 우선순위
+  1. 요청 대비 리소스 사용량
+
+더 자세한 내용은 [kubelet 축출에서 파드 선택](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/#kubelet-축출을-위한-파드-선택)을
 참조한다.
 
-kubelet 리소스 부족 축출은 사용량이 요청을 초과하지 않는 경우
+kubelet 노드-압박 축출은 사용량이 요청을 초과하지 않는 경우
 파드를 축출하지 않는다. 우선순위가 낮은 파드가 요청을
 초과하지 않으면, 축출되지 않는다. 요청을 초과하는 우선순위가
 더 높은 다른 파드가 축출될 수 있다.
 
-
 ## {{% heading "whatsnext" %}}
 
-* 프라이어리티클래스와 관련하여 리소스쿼터 사용에 대해 [기본적으로 프라이어리티클래스 소비 제한](/ko/docs/concepts/policy/resource-quotas/#기본적으로-우선-순위-클래스-소비-제한)을 읽어보자.
+* 프라이어리티클래스와 함께 리소스쿼터 사용에 대해 읽기: [기본으로 프라이어리티 클래스 소비 제한](/ko/docs/concepts/policy/resource-quotas/#기본적으로-우선-순위-클래스-소비-제한)
+* [파드 중단(disruption)](/ko/docs/concepts/workloads/pods/disruptions/)에 대해 학습한다.
+* [API를 이용한 축출](/ko/docs/concepts/scheduling-eviction/api-eviction/)에 대해 학습한다.
+* [노드-압박(node-pressure) 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)에 대해 학습한다.
