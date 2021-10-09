@@ -80,7 +80,7 @@ kubectl logs counter
 로테이션하도록 컨테이너 런타임을 설정할 수도 있다.
 
 예를 들어, `kube-up.sh` 가 GCP의 COS 이미지 로깅을 설정하는 방법은
-[`configure-helper` 스크립트](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)를 통해
+[`configure-helper` 스크립트](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)를 통해
 자세히 알 수 있다.
 
 **CRI 컨테이너 런타임** 을 사용할 때, kubelet은 로그를 로테이션하고 로깅 디렉터리 구조를 관리한다.

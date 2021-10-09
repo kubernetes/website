@@ -47,20 +47,20 @@ card:
 
    kubectl 바이너리를 체크섬 파일을 통해 검증한다.
 
-   - 수동으로 `CertUtil` 의 출력과 다운로드한 체크섬 파일을 비교하기 위해서 커맨드 프롬프트를 사용한다.
+   - 커맨드 프롬프트를 사용하는 경우, `CertUtil` 의 출력과 다운로드한 체크섬 파일을 수동으로 비교한다.
 
      ```cmd
      CertUtil -hashfile kubectl.exe SHA256
      type kubectl.exe.sha256
      ```
 
-   - `-eq` 연산자를 통해 `True` 또는 `False` 결과를 얻는 자동 검증을 위해서 PowerShell을 사용한다.
+   - PowerShell을 사용하는 경우, `-eq` 연산자를 통해 `True` 또는 `False` 결과가 출력되는 자동 검증을 수행한다.
 
      ```powershell
      $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
      ```
 
-1. 바이너리를 `PATH` 가 설정된 디렉터리에 추가한다.
+1. `PATH`로 설정된 디렉터리 중 하나에 kubectl 바이너리를 추가한다.
 
 1. `kubectl` 의 버전이 다운로드한 버전과 같은지 확인한다.
 
@@ -160,20 +160,20 @@ kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력
 
    kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
 
-   - 수동으로 `CertUtil` 의 출력과 다운로드한 체크섬 파일을 비교하기 위해서 커맨드 프롬프트를 사용한다.
+   - 커맨드 프롬프트를 사용하는 경우, `CertUtil` 의 출력과 다운로드한 체크섬 파일을 수동으로 비교한다.
 
      ```cmd
      CertUtil -hashfile kubectl-convert.exe SHA256
      type kubectl-convert.exe.sha256
      ```
 
-   - `-eq` 연산자를 통해 `True` 또는 `False` 결과를 얻는 자동 검증을 위해서 PowerShell을 사용한다.
+   - PowerShell을 사용하는 경우, `-eq` 연산자를 통해 `True` 또는 `False` 결과가 출력되는 자동 검증을 수행한다.
 
      ```powershell
      $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```
 
-1. 바이너리를 `PATH` 가 설정된 디렉터리에 추가한다.
+1. `PATH`로 설정된 디렉터리 중 하나에 kubectl-convert 바이너리를 추가한다.
 
 1. 플러그인이 정상적으로 설치되었는지 확인한다.
 

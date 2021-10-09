@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 이미지
 content_type: concept
 weight: 10
@@ -15,9 +18,6 @@ weight: 10
 생성해서 레지스트리로 푸시한다.
 
 이 페이지는 컨테이너 이미지 개념의 개요를 제공한다.
-
-
-
 
 <!-- body -->
 
@@ -211,10 +211,6 @@ kubectl describe pods/private-image-test-1 | grep 'Failed'
 ### 미리 내려받은 이미지
 
 {{< note >}}
-Google 쿠버네티스 엔진에서 동작 중이라면, 이미 각 노드에 Google 컨테이너 레지스트리에 대한 자격 증명과 함께 `.dockercfg`가 있을 것이다. 그렇다면 이 방법은 쓸 수 없다.
-{{< /note >}}
-
-{{< note >}}
 이 방법은 노드의 구성을 제어할 수 있는 경우에만 적합하다. 이 방법은
 클라우드 제공자가 노드를 관리하고 자동으로 교체한다면 안정적으로
 작동하지 않을 것이다.
@@ -334,4 +330,5 @@ Kubelet은 모든 `imagePullSecrets` 파일을 하나의 가상 `.docker/config.
 
 ## {{% heading "whatsnext" %}}
 
-* [OCI 이미지 매니페스트 명세](https://github.com/opencontainers/image-spec/blob/master/manifest.md) 읽어보기
+* [OCI 이미지 매니페스트 명세](https://github.com/opencontainers/image-spec/blob/master/manifest.md) 읽어보기.
+* [컨테이너 이미지 가비지 수집(garbage collection)](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)에 대해 배우기.

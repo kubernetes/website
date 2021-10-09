@@ -30,7 +30,7 @@ content_type: task
 kubectl config view
 ```
 
-많은 [예제](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)는 kubectl 사용에 대한 소개를
+많은 [예제](https://github.com/kubernetes/examples/tree/master/)는 kubectl 사용에 대한 소개를
 제공한다. 전체 문서는 [kubectl 매뉴얼](/ko/docs/reference/kubectl/overview/)에 있다.
 
 ### REST API에 직접 접근

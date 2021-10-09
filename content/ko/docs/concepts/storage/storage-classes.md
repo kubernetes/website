@@ -76,7 +76,7 @@ volumeBindingMode: Immediate
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
-| NFS                  | -                   | -                                    |
+| NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
 | VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
 | PortworxVolume       | &#x2713;            | [Portworx 볼륨](#portworx-볼륨)  |
@@ -423,6 +423,29 @@ parameters:
     헤드리스 서비스를 자동으로 생성한다. 퍼시스턴트 볼륨 클레임을
     삭제하면 동적 엔드포인트와 서비스가 자동으로 삭제된다.
 
+### NFS
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: example-nfs
+provisioner: example.com/external-nfs
+parameters:
+  server: nfs-server.example.com
+  path: /share
+  readOnly: false
+```
+
+* `server`: NFS 서버의 호스트네임 또는 IP 주소.
+* `path`: NFS 서버가 익스포트(export)한 경로.
+* `readOnly`: 스토리지를 읽기 전용으로 마운트할지 나타내는 플래그(기본값: false).
+
+쿠버네티스에는 내장 NFS 프로비저너가 없다. NFS를 위한 스토리지클래스를 생성하려면 외부 프로비저너를 사용해야 한다.
+예시는 다음과 같다.
+* [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+* [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+
 ### OpenStack Cinder
 
 ```yaml
@@ -577,6 +600,12 @@ parameters:
   기본값은 ""이며, 기능이 설정되어 있지 않다.
 
 ### Quobyte
+
+{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
+
+Quobyte 인-트리 스토리지 플러그인은 사용 중단되었으며, 
+아웃-오브-트리 Quobyte 플러그인에 대한 [예제](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml) 
+`StorageClass`는 Quobyte CSI 저장소에서 찾을 수 있다.
 
 ```yaml
 apiVersion: storage.k8s.io/v1
