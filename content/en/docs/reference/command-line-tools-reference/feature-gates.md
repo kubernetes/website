@@ -125,7 +125,6 @@ different Kubernetes components.
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
 | `IndexedJob` | `true` | Beta | 1.22 | |
-| `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | |
 | `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | 1.21 |
 | `IngressClassNamespacedParams` | `true` | Beta | 1.22 | |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
@@ -138,13 +137,13 @@ different Kubernetes components.
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
+| `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
+| `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
-| `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
-| `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | |
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
 | `MemoryManager` | `true` | Beta | 1.22 | |
 | `MemoryQoS` | `false` | Alpha | 1.22 | |
