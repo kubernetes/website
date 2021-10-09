@@ -94,3 +94,5 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
 [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
 
+## Identifiers and Names in Kubernetes
+A summarization of the goals and recommendations for identifiers in Kubernetes. More information can be found [here](/docs/reference/identifiers/identifiers.md/).
