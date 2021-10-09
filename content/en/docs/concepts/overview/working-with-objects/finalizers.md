@@ -44,7 +44,8 @@ and the controller deletes the volume.
 
 ## Owner references, labels, and finalizers {#owners-labels-finalizers}
 
-Like {{<glossary_tooltip text="labels" term_id="label">}}, [owner references](/concepts/overview/working-with-objects/owners-dependents/)
+Like {{<glossary_tooltip text="labels" term_id="label">}}, [owner references]
+(/docs/concepts/overview/working-with-objects/owners-dependents/)
 describe the relationships between objects in Kubernetes, but are used for a
 different purpose. When a
 {{<glossary_tooltip text="controller" term_id="controller">}} manages objects
