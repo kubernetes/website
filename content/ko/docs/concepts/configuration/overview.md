@@ -73,32 +73,6 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 - 디버깅을 위해 레이블을 조작할 수 있다. (레플리카셋과 같은) 쿠버네티스 컨트롤러와 서비스는 셀렉터 레이블을 사용해 파드를 선택하기 때문에, 관련된 레이블을 파드에서 삭제하는 것은 컨트롤러로부터 관리되거나 서비스로부터 트래픽을 전달받는 것을 중단시킨다. 만약 이미 존재하는 파드의 레이블을 삭제한다면, 파드의 컨트롤러는 그 자리를 대신할 새로운 파드를 생성한다. 이것은 이전에 "살아 있는" 파드를 "격리된" 환경에서 디버그할 수 있는 유용한 방법이다. 레이블을 상호적으로 추가하고 삭제하기 위해서, [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label)를 사용할 수 있다.
 
-## 컨테이너 이미지
-
-[imagePullPolicy](/ko/docs/concepts/containers/images/#이미지-업데이트)와 이미지의 태그는 [kubelet](/docs/reference/command-line-tools-reference/kubelet/)이 명시된 이미지를 풀(pull) 하려고 시도할 때 영향을 미친다.
-
-- `imagePullPolicy: IfNotPresent`: 이미지가 로컬에 이미 존재하지 않으면 이미지가 풀(Pull) 된다.
-
-- `imagePullPolicy: Always`: kubelet이 컨테이너를 시작할 때마다, kubelet은 컨테이너 이미지 레지스트리를 쿼리해서 이름을 이미지 다이제스트(digest)로 확인한다. kubelet에 정확한 다이제스트가 저장된 컨테이너 이미지가 로컬로 캐시된 경우, kubelet은 캐시된 이미지를 사용한다. 그렇지 않으면, kubelet은 확인한 다이제스트를 사용해서 이미지를 다운로드(pull)하고, 해당 이미지를 사용해서 컨테이너를 시작한다.
-
-- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 `:latest` 이거나 생략되어 있다면 `imagePullPolicy`는 자동으로 `Always`가 적용된다. 태그 값을 변경하더라도 이 값은 `IfNotPresent`로 업데이트 되지 _않는다_.
-
-- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 존재하지만 `:latest`가 아니라면 `imagePullPolicy`는 자동으로 `IfNotPresent`가 적용된다. 태그가 나중에 제거되거나 `:latest`로 변경되더라도 `Always`로 업데이트 되지 _않는다_.
-
-- `imagePullPolicy: Never`: 이미지가 로컬에 존재한다고 가정한다. 이미지를 풀(Pull) 하기 위해 시도하지 않는다.
-
-{{< note >}}
-컨테이너가 항상 같은 버전의 이미지를 사용하도록 하기 위해, `<이미지 이름>:<태그>` 를 `<이미지 이름>@<다이제스트>` (예시 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`)로 변경해서 이미지의 [다이제스트](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)를 명시할 수 있다. 다이제스트는 특정 버전의 이미지를 고유하게 식별하며, 다이제스트 값을 변경하지 않는 한 쿠버네티스에 의해 절대로 변경되지 않는다.
-{{< /note >}}
-
-{{< note >}}
-운영 환경에서 컨테이너를 생성할 때 `:latest` 태그의 사용을 피하는 것이 좋은데, 이는 어떠한 버전의 이미지가 실행 중인지 추적하기가 어렵고, 적절히 롤백하기가 더 어려워지기 때문이다.
-{{< /note >}}
-
-{{< note >}}
-레지스트리가 안정적으로 동작하는 상황에서는, `imagePullPolicy: Always`로 설정되어 있더라도 기반 이미지 관리 도구의 캐싱 정책을 통해 이미지 풀(pull) 작업의 효율성을 높일 수 있다. 예를 들어, 도커를 사용하는 경우 이미지가 이미 존재한다면 풀(Pull) 시도는 빠르게 진행되는데, 이는 모든 이미지 레이어가 캐시되어 있으며 이미지 다운로드가 필요하지 않기 때문이다.
-{{< /note >}}
-
 ## kubectl 사용하기
 
 - `kubectl apply -f <디렉터리>`를 사용한다. 이 명령어는 `<디렉터리>` 내부의 모든 `.yaml`, `.yml`, 그리고 `.json` 쿠버네티스 구성 파일을 찾아 `apply`에 전달한다.
