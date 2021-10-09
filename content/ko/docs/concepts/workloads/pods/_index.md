@@ -257,8 +257,12 @@ POSIX 공유 메모리와 같은 표준 프로세스 간 통신을 사용하여 
 
 ## 컨테이너에 대한 특권 모드
 
-파드의 모든 컨테이너는 컨테이너 명세의 [보안 콘텍스트](/docs/tasks/configure-pod-container/security-context/)에 있는 `privileged` 플래그를 사용하여 특권 모드를 활성화할 수 있다. 이는 네트워크 스택 조작이나 하드웨어 장치 접근과 같은 운영 체제 관리 기능을 사용하려는 컨테이너에 유용하다.
-특권이 있는 컨테이너 내의 프로세스는 컨테이너 외부의 프로세스가 가지는 거의 동일한 권한을 가진다.
+리눅스에서, 파드의 모든 컨테이너는 컨테이너 명세의 [보안 컨텍스트](/docs/tasks/configure-pod-container/security-context/)에 있는 `privileged` (리눅스) 플래그를 사용하여 특권 모드를 활성화할 수 있다. 이는 네트워크 스택 조작이나 하드웨어 장치 접근과 같은 운영 체제 관리 기능을 사용하려는 컨테이너에 유용하다.
+클러스터가 `WindowsHostProcessContainers` 기능을 활성화하였다면, 파드 스펙의 보안 컨텍스트의 `windowsOptions.hostProcess` 에 의해 [윈도우 HostProcess 파드](/docs/tasks/configure-pod-container/create-hostprocess-pod)를 생성할 수 있다. 이러한 모든 컨테이너는 윈도우 HostProcess 컨테이너로 실행해야 한다. HostProcess 파드는 직접적으로 호스트에서 실행하는 것으로, 리눅스 특권있는 컨테이너에서 수행되는 관리 태스크 수행에도 사용할 수 있다.
+
+파드의 모든 컨테이너는 윈도우 HostProcess 컨테이너로 반드시 실행해야 한다.
+
+HostProcess 파드는 호스트에서 직접 실행되며 리눅스 특권있는 컨테이너에서 수행되는 것과 같은 관리 작업을 수행하는데도 사용할 수 있다.
 
 {{< note >}}
 이 설정을 사용하려면 사용자의 {{< glossary_tooltip text="컨테이너 런타임" term_id="container-runtime" >}}이 특권이 있는 컨테이너의 개념을 지원해야 한다.
@@ -281,6 +285,17 @@ kubelet은 자동으로 각 정적 파드에 대한 쿠버네티스 API 서버�
 생성하려고 한다.
 즉, 노드에서 실행되는 파드는 API 서버에서 보이지만,
 여기에서 제어할 수는 없다는 의미이다.
+
+## 컨테이너 프로브
+
+_프로브_는 컨테이너의 kubelet에 의해 주기적으로 실행되는 진단이다. 진단을 수행하기 위하여 kubelet은 다음과 같은 작업을 호출할 수 있다.
+
+- `ExecAction` (컨테이너 런타임의 도움을 받아 수행)
+- `TCPSocketAction` (kubelet에 의해 직접 검사)
+- `HTTPGetAction` (kubelet에 의해 직접 검사)
+
+[프로브](/ko/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)에 대한 자세한 내용은
+파드 라이프사이클 문서를 참고한다.
 
 ## {{% heading "whatsnext" %}}
 

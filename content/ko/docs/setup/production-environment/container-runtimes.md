@@ -26,7 +26,7 @@ weight: 20
 다른 운영 체제의 경우, 해당 플랫폼과 관련된 문서를 찾아보자.
 {{< /note >}}
 
-## Cgroup 드라이버
+## cgroup 드라이버
 
 Control group은 프로세스에 할당된 리소스를 제한하는데 사용된다.
 
@@ -56,6 +56,38 @@ kubelet을 재시작하는 것은 에러를 해결할 수 없을 것이다.
 자동화가 가능하다면, 업데이트된 구성을 사용하여 노드를 다른 노드로
 교체하거나, 자동화를 사용하여 다시 설치한다.
 {{< /caution >}}
+
+## cgroup v2
+
+cgroup v2는 cgroup Linux API의 다음 버전이다. 
+cgroup v1과는 다르게 각 컨트롤러마다 다른 계층 대신 단일 계층이 있다.
+
+새 버전은 cgroup v1에 비해 몇 가지 향상된 기능을 제공하며, 개선 사항 중 일부는 다음과 같다.
+
+- API를 더 쉽고 깔끔하게 사용할 수 있음
+- 컨테이너로의 안전한 하위 트리 위임
+- 압력 중지 정보와 같은 새로운 기능
+
+일부 컨트롤러는 cgroup v1에 의해 관리되고 다른 컨트롤러는 cgroup v2에 의해 관리되는 하이브리드 구성을 지원하더라도, 
+쿠버네티스는 모든 컨트롤러를 관리하기 위해 
+동일한 cgroup 버전만 지원한다.
+
+systemd가 기본적으로 cgroup v2를 사용하지 않는 경우, 커널 명령줄에 `systemd.unified_cgroup_hierarchy=1`을 
+추가하여 cgroup v2를 사용하도록 시스템을 구성할 수 있다.
+
+```shell
+# dnf install -y grubby && \
+  sudo grubby \
+  --update-kernel=ALL \
+  --args=”systemd.unified_cgroup_hierarchy=1"
+```
+
+구성을 적용하려면 노드를 재부팅해야 한다.
+
+cgroup v2로 전환할 때 사용자가 노드 또는 컨테이너 내에서 
+cgroup 파일 시스템에 직접 접근하지 않는 한 사용자 경험에 현저한 차이가 없어야 한다.
+
+cgroup v2를 사용하려면 CRI 런타임에서도 cgroup v2를 지원해야 한다.
 
 ### kubeadm으로 생성한 클러스터의 드라이버를 `systemd`로 변경하기
 
