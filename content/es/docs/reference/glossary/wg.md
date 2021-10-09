@@ -10,7 +10,7 @@ aka:
 tags:
 - community
 ---
- Facilita la discusión y/o la implementación de un proyecto que sea efímero, corto o desacoplado para un comité, {{< glossary_tooltip text="SIG" term_id="sig" >}}, o trabajo SIG cruzado.
+ Facilita la discusión y/o la implementación de un proyecto que sea efímero, corto o desacoplado para un comité, {{< glossary_tooltip text="SIG" term_id="sig" >}}, o un esfuerzo entre varios SIGs.
 
 <!--more-->
 
