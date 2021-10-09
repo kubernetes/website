@@ -93,6 +93,10 @@ kind: JoinConfiguration
 discovery:
   bootstrapToken:
     apiServerEndpoint: 10.100.0.1:6443
+    token: "clvldh.vjjwg16ucnhp94qr"
+    caCertHashes:
+    - "sha256:a4863cde706cfc580a439f842cc65d5ef112b7b2be31628513a9881cf0d9fe0e"
+    # change auth info above to match the actual token and CA certificate hash for your cluster
 nodeRegistration:
   kubeletExtraArgs:
     node-ip: 10.100.0.3,fd00:1:2:3::3
@@ -109,6 +113,10 @@ controlPlane:
 discovery:
   bootstrapToken:
     apiServerEndpoint: 10.100.0.1:6443
+    token: "clvldh.vjjwg16ucnhp94qr"
+    caCertHashes:
+    - "sha256:a4863cde706cfc580a439f842cc65d5ef112b7b2be31628513a9881cf0d9fe0e"
+    # change auth info above to match the actual token and CA certificate hash for your cluster
 nodeRegistration:
   kubeletExtraArgs:
     node-ip: 10.100.0.4,fd00:1:2:3::4
@@ -118,7 +126,7 @@ nodeRegistration:
 `advertiseAddress` in JoinConfiguration.controlPlane specifies the IP address that the API Server will advertise it is listening on. The value of `advertiseAddress` equals the `--apiserver-advertise-address` flag of `kubeadm join`.
 
 ```shell
-kubeadm join --config=kubeadm-config.yaml ...
+kubeadm join --config=kubeadm-config.yaml
 ```
 
 ### Create a single-stack cluster
