@@ -57,7 +57,7 @@ parameters:
 
 ## Usar Aprovisionamiento Dinámico
 
-Los usuarios solicitan almacenamiento aprovisionado dinámicamente al incluir una clase de almacenamiento en su `PersistentVolumeClaim`. Antes de Kubernetes v1.6, esto se hacía a través del la annotation
+Los usuarios solicitan almacenamiento aprovisionado dinámicamente al incluir una clase de almacenamiento en su `PersistentVolumeClaim`. Antes de Kubernetes v1.6, esto se hacía a través del la anotación
 `volume.beta.kubernetes.io/storage-class`. Sin embargo, esta anotación está obsoleta desde v1.9. Los usuarios ahora pueden y deben usar el campo
 `storageClassName` del objeto `PersistentVolumeClaim`. El valor de este campo debe coincidir con el nombre de un `StorageClass` configurada por el administrador
 (ver [below](#habilitación-del-aprovisionamiento-dinámico)).
