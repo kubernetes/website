@@ -61,7 +61,7 @@ Debido a que Kubernetes pudo haber elegido un nodo basándose en información de
 
 El seguimiento de la capacidad de almacenamiento aumenta las posibilidades de que la programación funcione en el primer intento, pero no puede garantizarlo porque el programador tiene que decidir basándose en información potencialmente desactualizada. Por lo general, el mismo mecanismo de reintento que para la programación sin información de capacidad de almacenamiento es manejado por los errores de programación.
 
-Una situación en la que la programación puede fallar de forma permanente es cuando un pod usa varios volúmenes: es posible que un volumen ya se haya creado en un segmento de topología que luego no tenga suficiente capacidad para otro volumen. La intervención manual es necesaria para recuperarse de esto, por ejemplo, aumentando la capacidad o eliminando el volumen que ya se creó. [
+Una situación en la que la programación puede fallar de forma permanente es cuando un Pod usa varios volúmenes: es posible que un volumen ya se haya creado en un segmento de topología que luego no tenga suficiente capacidad para otro volumen. La intervención manual es necesaria para recuperarse de esto, por ejemplo, aumentando la capacidad o eliminando el volumen que ya se creó. [
 Trabajo adicional](https://github.com/kubernetes/enhancements/pull/1703) para manejar esto automáticamente.
 
 ## Habilitación del seguimiento de la capacidad de almacenamiento
