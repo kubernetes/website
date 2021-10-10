@@ -78,7 +78,7 @@ spec:
       storage: 30Gi
 ```
 
-Esta afirmación da como resultado que se aprovisione automáticamente un disco persistente similar a SSD. Cuando se elimina la reclamación, se destruye el volumen.
+Esta afirmación da como resultado que se aprovisione automáticamente un disco persistente similar a SSD. Cuando se elimina la petición, se destruye el volumen.
 
 ## Comportamiento Predeterminado
 
