@@ -98,5 +98,5 @@ Tenga en cuenta que puede haber como máximo una clase de almacenamiento _defaul
 
 ## Conocimiento de la Topología
 
-En los clústeres [Multi-Zone](/docs/setup/multiple-zones), los pods se pueden distribuir en zonas de una región. Los backends de almacenamiento de zona única deben aprovisionarse en las zonas donde se programan los pods. Esto se puede lograr configurando el [Volume Binding
+En los clústeres [Multi-Zone](/docs/setup/multiple-zones), los Pods se pueden distribuir en zonas de una región. Los backends de almacenamiento de zona única deben aprovisionarse en las zonas donde se programan los Pods. Esto se puede lograr configurando el [Volume Binding
 Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
