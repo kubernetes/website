@@ -61,6 +61,7 @@ takes you through this example in more detail).
       │ │ │ │ │                                   7 is also Sunday on some systems)
       │ │ │ │ │
       │ │ │ │ │
+      * * * * *
 ```
 
 
