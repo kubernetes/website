@@ -31,7 +31,7 @@ Para habilitar el aprovisionamiento dinámico, un administrador de clúster debe
 El nombre de un objeto StorageClass debe ser un
 [nombre de subdominio de DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
-El siguiente manifiesto crea una clase de almacenamiento "lenta" que aprovisiona discos persistentes estándar similares a discos.
+El siguiente manifiesto crea una clase de almacenamiento llamada "slow" que aprovisiona discos persistentes estándar similares a discos.
 
 ```yaml
 apiVersion: storage.k8s.io/v1
