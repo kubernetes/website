@@ -35,7 +35,7 @@ Los usuarios deben tener en cuenta lo siguiente cuando utilicen esta función:
 
 ## Aprovisionamiento
 
-Los clones se aprovisionan como cualquier otro PVC con la excepción de agregar un origen de datos que hace referencia a un PVC existente en el mismo espacio de nombres.
+Los clones se aprovisionan como cualquier otro PVC con la excepción de agregar un origen de datos que hace referencia a un PVC existente en el mismo Namespace.
 
 ```yaml
 apiVersion: v1
