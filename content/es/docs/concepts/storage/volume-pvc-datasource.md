@@ -14,7 +14,7 @@ Este documento describe el concepto para clonar volúmenes CSI existentes en Kub
 
 <!-- body -->
 
-## Introduction
+## Introducción
 
 La función de clonación de volumen {{< glossary_tooltip text="CSI" term_id="csi" >}} agrega soporte para especificar {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}s existentes en el campo `dataSource` para indicar que un usuario desea clonar un {{< glossary_tooltip term_id="volume" >}}.
 
