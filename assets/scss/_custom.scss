@@ -615,6 +615,24 @@ body.td-documentation {
   }
 }
 
+// Wide viewports
+#announcement {
+  padding-top: 120px;
+  padding-bottom: 20px;
+  padding-left: calc(max(6vw, 20px));
+  padding-right: calc(max(6vw, 20px));
+}
+
+// Narrow viewports
+@media only screen and (max-width: 767px) {
+  #announcement {
+    padding-top: calc(4rem + 15px + 1em);
+    padding-bottom: 15px;
+    padding-left: calc(max(4vw, 10px));
+    padding-right: calc(max(4vw, 10px));
+  }
+}
+
 .header-hero {
   padding-top: 40px;
 }
