@@ -6,16 +6,18 @@ auto_generated: true
 ---
 
 
-<!--
+{{<note>}}
 The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
+[generator](https://github.com/kubernetes-sigs/reference-docs/).
+
+- To learn how to generate the reference documentation, please read the
+  [reference docs overview](/docs/contribute/generate-ref-docs/).
+- To update the reference contents, please follow the
+  [contributing to the upstream Kubernetes code](/docs/contribute/generate-ref-docs/contribute-upstream/)
+  guide.
+- You can file document formatting bugs against the
+  [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project
+{{</note>}}
 
 
 ## {{% heading "synopsis" %}}
