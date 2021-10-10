@@ -11,7 +11,7 @@ weight: 40
 <!-- overview -->
 
 El aprovisionamiento dinámico de volúmenes permite crear volúmenes de almacenamiento bajo demanda. Sin el aprovisionamiento dinámico, los administradores de clústeres tienen que realizar llamadas manualmente a su proveedor de almacenamiento o nube para crear nuevos volúmenes de almacenamiento y luego crear [objetos de `PersistentVolume`](/docs/concepts/storage/persistent-volumes/)
-para representarlos en Kubernetes. La función de aprovisionamiento dinámico elimina la necesidad de que los administradores del clúster aprovisionen previamente el almacenamiento. En cambio cuando lo solicitan los usuarios aprovisionan el almacenamiento es automático.
+para representarlos en Kubernetes. La función de aprovisionamiento dinámico elimina la necesidad de que los administradores del clúster aprovisionen previamente el almacenamiento. En cambio, el aprovisionamiento ocurre automáticamente cuando los usuarios lo solicitan.
 
 <!-- body -->
 
