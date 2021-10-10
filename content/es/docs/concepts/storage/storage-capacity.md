@@ -28,7 +28,7 @@ text="Interfaz de Almacenamiento de Contenedores" term_id="csi" >}} (CSI) y
 Hay dos extensiones de API para esta función:
 
 - Los objetos CSIStorageCapacity:
-  son producidos por un controlador CSI en el namespace donde está instalado el controlador. Cada objeto contiene información de capacidad para una clase de almacenamiento y define qué nodos tienen acceso a ese almacenamiento.
+  son producidos por un controlador CSI en el Namespace donde está instalado el controlador. Cada objeto contiene información de capacidad para una clase de almacenamiento y define qué nodos tienen acceso a ese almacenamiento.
 - [El campo `CSIDriverSpec.StorageCapacity`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io):
   cuando se establece en `true`, el scheduler de Kubernetes considerará la capacidad de almacenamiento para los volúmenes que usan el controlador CSI.
 
