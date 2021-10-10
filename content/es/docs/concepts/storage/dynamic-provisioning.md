@@ -43,7 +43,7 @@ parameters:
   type: pd-standard
 ```
 
-El siguiente manifiesto crea una clase de almacenamiento "rápida" que aprovisiona discos persistentes similares a SSD.
+El siguiente manifiesto crea una clase de almacenamiento llamada "fast" que aprovisiona discos persistentes similares a SSD.
 
 ```yaml
 apiVersion: storage.k8s.io/v1
