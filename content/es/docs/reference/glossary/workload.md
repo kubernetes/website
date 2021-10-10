@@ -15,7 +15,7 @@ tags:
 <!--more--> 
 
 Varios objetos clave que representan diferentes tipos o partes de un Workload
-incluyen: "DaemonSet", "Deployment", "Job", "ReplicaSet" y "StatefulSet".
+incluyen los objetos: DaemonSet, Deployment, Job, ReplicaSet y StatefulSet.
 
 Por ejemplo, un Workload que tiene un servidor web y una base de datos podría ejecutar
 la base de datos en un {{< glossary_tooltip term_id="StatefulSet" >}} y el servidor
