@@ -62,7 +62,7 @@ Los usuarios solicitan almacenamiento aprovisionado dinámicamente al incluir un
 `storageClassName` del objeto `PersistentVolumeClaim`. El valor de este campo debe coincidir con el nombre de un `StorageClass` configurada por el administrador
 (ver [below](#habilitación-del-aprovisionamiento-dinámico)).
 
-Para seleccionar la clase de almacenamiento "rápido", por ejemplo, un usuario crearía el siguiente PersistentVolumeClaim:
+Para seleccionar la clase de almacenamiento llamada "fast", por ejemplo, un usuario crearía el siguiente PersistentVolumeClaim:
 
 ```yaml
 apiVersion: v1
