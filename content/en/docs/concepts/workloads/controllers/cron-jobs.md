@@ -17,8 +17,6 @@ A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repe
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
-In addition, the CronJob schedule supports timezone handling, you can specify the timezone by adding "CRON_TZ=<time zone>" at the beginning of the CronJob schedule, and it is recommended to always set `CRON_TZ`.
-
 {{< caution >}}
 All **CronJob** `schedule:` times are based on the timezone of the
 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
@@ -55,16 +53,14 @@ takes you through this example in more detail).
 ### Cron schedule syntax
 
 ```
-#      ┌────────────────── timezone (optional)
-#      |      ┌───────────── minute (0 - 59)
-#      |      │ ┌───────────── hour (0 - 23)
-#      |      │ │ ┌───────────── day of the month (1 - 31)
-#      |      │ │ │ ┌───────────── month (1 - 12)
-#      |      │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
-#      |      │ │ │ │ │                                   7 is also Sunday on some systems)
-#      |      │ │ │ │ │
-#      |      │ │ │ │ │
-# CRON_TZ=UTC * * * * *
+      ┌───────────── minute (0 - 59)
+      │ ┌───────────── hour (0 - 23)
+      │ │ ┌───────────── day of the month (1 - 31)
+      │ │ │ ┌───────────── month (1 - 12)
+      │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+      │ │ │ │ │                                   7 is also Sunday on some systems)
+      │ │ │ │ │
+      │ │ │ │ │
 ```
 
 
@@ -78,9 +74,9 @@ takes you through this example in more detail).
 
 
 
-For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight(in UTC):
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
 
-`CRON_TZ=UTC 0 0 13 * 5`
+`0 0 13 * 5`
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
