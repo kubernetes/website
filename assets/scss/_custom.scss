@@ -29,17 +29,14 @@ $announcement-size-adjustment: 8px;
 /* Fix misplaced scrolling to targets with narrow
    viewports
 */
-@media only screen and (max-width: 768px) {
-  body {
-    scroll-padding: 16rem 0 0 0;
+html {
+  @media only screen and (max-width: 768px) {
+    scroll-padding-top: 5rem;
   }
-
-  .td-main {
-    padding-top: 4rem;
+  @media only screen and (max-width: 1024px) {
+    scroll-padding-top: 4rem;
   }
 }
-
-
 section {
   .main-section {
     @media only screen and (min-width: 1024px) {
