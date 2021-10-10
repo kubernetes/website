@@ -27,7 +27,7 @@ Los usuarios deben tener en cuenta lo siguiente cuando utilicen esta función:
 - El soporte de clonación (`VolumePVCDataSource`) sólo está disponible para controladores CSI.
 - El soporte de clonación sólo está disponible para aprovisionadores dinámicos.
 - Los controladores CSI pueden haber implementado o no la funcionalidad de clonación de volúmenes.
-- Sólo puede clonar un PVC cuando existe en el mismo espacio de nombres que el PVC de destino (el origen y el destino deben estar en el mismo espacio de nombres).
+- Sólo puede clonar un PVC cuando existe en el mismo Namespace que el PVC de destino (el origen y el destino deben estar en el mismo Namespace).
 - La clonación sólo se admite dentro de la misma Clase de Almacenamiento.
   - El volumen de destino debe ser de la misma clase de almacenamiento que el origen
   - Se puede utilizar la clase de almacenamiento predeterminada y se puede omitir storageClassName en la especificación
