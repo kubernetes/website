@@ -102,8 +102,9 @@ Neither contention nor changes to quota will affect already created resources.
 <!--
 ## Enabling Resource Quota
 
-Resource Quota support is enabled by default for many Kubernetes distributions.  It is
-enabled when the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} `--enable-admission-plugins=` flag has `ResourceQuota` as
+Resource Quota support is enabled by default for many Kubernetes distributions. It is
+enabled when the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
+`--enable-admission-plugins=` flag has `ResourceQuota` as
 one of its arguments.
 -->
 ## 启用资源配额
@@ -122,7 +123,9 @@ ResourceQuota in that namespace.
 <!--
 ## Compute Resource Quota
 
-You can limit the total sum of [compute resources](/docs/concepts/configuration/manage-resources-containers/) that can be requested in a given namespace.
+You can limit the total sum of
+[compute resources](/docs/concepts/configuration/manage-resources-containers/)
+that can be requested in a given namespace.
 -->
 ## 计算资源配额
 
@@ -249,7 +252,9 @@ In release 1.8, quota support for local ephemeral storage is added as an alpha f
 
 {{< note >}}
 <!--
-When using a CRI container runtime, container logs will count against the ephemeral storage quota. This can result in the unexpected eviction of pods that have exhausted their storage quotas. Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) for details.
+When using a CRI container runtime, container logs will count against the ephemeral storage quota.
+This can result in the unexpected eviction of pods that have exhausted their storage quotas.
+Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) for details.
 -->
 如果所使用的是 CRI 容器运行时，容器日志会被计入临时存储配额。
 这可能会导致存储配额耗尽的 Pods 被意外地驱逐出节点。
@@ -382,7 +387,7 @@ Resources specified on the quota outside of the allowed set results in a validat
 | `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds is nil` |
 | `BestEffort` | Match pods that have best effort quality of service. |
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
-| `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/configuration/pod-priority-preemption). |
+| `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
 | `CrossNamespacePodAffinity` | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
 -->
 | 作用域 | 描述 |
@@ -391,7 +396,7 @@ Resources specified on the quota outside of the allowed set results in a validat
 | `NotTerminating` | 匹配所有 `spec.activeDeadlineSeconds` 是 nil 的 Pod。 |
 | `BestEffort` | 匹配所有 Qos 是 BestEffort 的 Pod。 |
 | `NotBestEffort` | 匹配所有 Qos 不是 BestEffort 的 Pod。 |
-| `PriorityClass` | 匹配所有引用了所指定的[优先级类](/zh/docs/concepts/configuration/pod-priority-preemption)的 Pods。 |
+| `PriorityClass` | 匹配所有引用了所指定的[优先级类](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption)的 Pods。 |
 | `CrossNamespacePodAffinity` | 匹配那些设置了跨名字空间 [（反）亲和性条件](/zh/docs/concepts/scheduling-eviction/assign-pod-node)的 Pod。 |
 
 <!--
@@ -476,11 +481,11 @@ specified.
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 <!--
-Pods can be created at a specific [priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority).
+Pods can be created at a specific [priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority).
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
 field in the quota spec.
 -->
-Pod 可以创建为特定的[优先级](/zh/docs/concepts/configuration/pod-priority-preemption/#pod-priority)。
+Pod 可以创建为特定的[优先级](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)。
 通过使用配额规约中的 `scopeSelector` 字段，用户可以根据 Pod 的优先级控制其系统资源消耗。
 
 <!--
@@ -489,7 +494,8 @@ A quota is matched and consumed only if `scopeSelector` in the quota spec select
 仅当配额规范中的 `scopeSelector` 字段选择到某 Pod 时，配额机制才会匹配和计量 Pod 的资源消耗。
 
 <!--
-When quota is scoped for priority class using `scopeSelector` field, quota object is restricted to track only following resources:
+When quota is scoped for priority class using `scopeSelector` field, quota object
+is restricted to track only following resources:
 -->
 如果配额对象通过 `scopeSelector` 字段设置其作用域为优先级类，则配额对象只能
 跟踪以下资源：
@@ -702,7 +708,7 @@ pods        0     10
 -->
 ### 跨名字空间的 Pod 亲和性配额   {#cross-namespace-pod-affinity-quota}
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!--
 Operators can use `CrossNamespacePodAffinity` quota scope to limit which namespaces are allowed to
@@ -781,11 +787,11 @@ if the namespace where they are created have a resource quota object with
 或 `namespaceSelector` 的新 Pod。
 
 <!--
-This feature is alpha and disabled by default. You can enable it by setting the
+This feature is beta and enabled by default. You can disable it using the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
 -->
-此功能特性处于 Alpha 阶段，默认被禁用。你可以通过为 kube-apiserver 和
+此功能特性处于 Beta 阶段，默认被禁用。你可以通过为 kube-apiserver 和
 kube-scheduler 设置
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
 `PodAffinityNamespaceSelector` 来启用此特性。
@@ -868,7 +874,7 @@ kubectl create -f ./object-counts.yaml --namespace=myspace
 kubectl get quota --namespace=myspace
 ```
 
-```
+```none
 NAME                    AGE
 compute-resources       30s
 object-counts           32s
@@ -878,7 +884,7 @@ object-counts           32s
 kubectl describe quota compute-resources --namespace=myspace
 ```
 
-```
+```none
 Name:                    compute-resources
 Namespace:               myspace
 Resource                 Used  Hard
@@ -894,7 +900,7 @@ requests.nvidia.com/gpu  0     4
 kubectl describe quota object-counts --namespace=myspace
 ```
 
-```
+```none
 Name:                   object-counts
 Namespace:              myspace
 Resource                Used    Hard
@@ -1034,7 +1040,7 @@ Then, create a resource quota object in the `kube-system` namespace:
 kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
 ```
 
-```
+```none
 resourcequota/pods-cluster-services created
 ```
 
