@@ -289,9 +289,6 @@ different Kubernetes components.
 | `DynamicKubeletConfig` | `false` | Deprecated | 1.22 | - |
 | `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
 | `DynamicProvisioningScheduling` | - | Deprecated| 1.12 | - |
-| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
-| `DynamicKubeletConfig` | `true` | Beta | 1.11 | 1.21 |
-| `DynamicKubeletConfig` | `false` | Deprecated | 1.22 | - |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | - |
 | `EnableAggregatedDiscoveryTimeout` | `true` | Deprecated | 1.16 | - |
