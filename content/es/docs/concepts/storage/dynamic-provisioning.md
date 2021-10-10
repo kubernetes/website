@@ -82,7 +82,7 @@ Esta afirmación da como resultado que se aprovisione automáticamente un disco 
 
 ## Comportamiento Predeterminado
 
-El aprovisionamiento dinámico se puede habilitar en un clúster de modo que todos los reclamos se aprovisionen dinámicamente si no se especifica una clase de almacenamiento. Un administrador de clúster puede habilitar este comportamiento al:
+El aprovisionamiento dinámico se puede habilitar en un clúster de modo que todas las peticiones se aprovisionen dinámicamente si no se especifica una clase de almacenamiento. Un administrador de clúster puede habilitar este comportamiento al:
 
 - Marcar un objeto `StorageClass` como _default_;
 - Asegúrese de que el [controlador de admisión `DefaultStorageClass`](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) esté habilitado en el servidor de API.
