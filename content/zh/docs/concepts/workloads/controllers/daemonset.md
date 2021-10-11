@@ -247,7 +247,8 @@ changes are made to the `spec.template` of the DaemonSet.
 `ScheduleDaemonSetPods` 允许您使用默认调度器而不是 DaemonSet 控制器来调度 DaemonSets，
 方法是将 `NodeAffinity` 条件而不是 `.spec.nodeName` 条件添加到 DaemonSet Pods。
 默认调度器接下来将 Pod 绑定到目标主机。
-如果 DaemonSet Pod 的节点亲和性配置已存在，则被替换。
+如果 DaemonSet Pod 的节点亲和性配置已存在，则被替换
+（原始的节点亲和性配置在选择目标主机之前被考虑）。
 DaemonSet 控制器仅在创建或修改 DaemonSet Pod 时执行这些操作，
 并且不会更改 DaemonSet 的 `spec.template`。
 
