@@ -17,6 +17,8 @@ A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repe
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
+In addition, the CronJob schedule supports timezone handling, you can specify the timezone by adding "CRON_TZ=<time zone>" at the beginning of the CronJob schedule, and it is recommended to always set `CRON_TZ`.
+
 {{< caution >}}
 All **CronJob** `schedule:` times are based on the timezone of the
 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
@@ -53,15 +55,16 @@ takes you through this example in more detail).
 ### Cron schedule syntax
 
 ```
-#      ┌───────────── minute (0 - 59)
-#      │ ┌───────────── hour (0 - 23)
-#      │ │ ┌───────────── day of the month (1 - 31)
-#      │ │ │ ┌───────────── month (1 - 12)
-#      │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
-#      │ │ │ │ │                                   7 is also Sunday on some systems)
-#      │ │ │ │ │
-#      │ │ │ │ │
-#      * * * * *
+#      ┌────────────────── timezone (optional)
+#      |      ┌───────────── minute (0 - 59)
+#      |      │ ┌───────────── hour (0 - 23)
+#      |      │ │ ┌───────────── day of the month (1 - 31)
+#      |      │ │ │ ┌───────────── month (1 - 12)
+#      |      │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+#      |      │ │ │ │ │                                   7 is also Sunday on some systems)
+#      |      │ │ │ │ │
+#      |      │ │ │ │ │
+# CRON_TZ=UTC * * * * *
 ```
 
 
@@ -75,9 +78,9 @@ takes you through this example in more detail).
 
 
 
-For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight(in UTC):
 
-`0 0 13 * 5`
+`CRON_TZ=UTC 0 0 13 * 5`
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
@@ -130,6 +133,10 @@ and set this flag to `false`. For example:
 --feature-gates="CronJobControllerV2=false"
 ```
 
+{{< caution >}}
+`CRON_TZ` requires Kubernetes v1.21 or later with the `CronJobControllerV2` feature gate enabled. 
+That feature gate is graduated in Kubernetes v1.22 and you therefore cannot disable it if you're running v1.22 or later.
+{{< /caution >}}
 
 ## {{% heading "whatsnext" %}}
 
