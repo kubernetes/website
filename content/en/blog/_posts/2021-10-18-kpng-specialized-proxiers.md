@@ -5,7 +5,7 @@ date: 2021-10-18
 slug: use-kpng-to-write-specialized-kube-proxiers
 ---
 
-Authors: Lars Ekman, Ericsson
+**Author**: Lars Ekman (Ericsson)
 
 The post will show you how to create a specialized service kube-proxy
 style network proxier using Kubernetes Proxy NG
@@ -210,12 +210,12 @@ podip=$(cat /tmp/out | jq -r '.Endpoints[]|select(.Local == true)|select(.IPs.V6
 ip6tables -t nat -A PREROUTING -d $xip/128 -j DNAT --to-destination $podip
 ```
 
-Assuming the json output above is stored in `/tmp/out` ([jq](https://stedolan.github.io/jq/) is an *awesome* program!).
+Assuming the JSON output above is stored in `/tmp/out` ([jq](https://stedolan.github.io/jq/) is an *awesome* program!).
 
 
 As this is an example we make it really simple for ourselves by using
 a minor variation of the `kpng-json` backend above. Instead of just
-printing, a program is called and the json output is passed as `stdin`
+printing, a program is called and the JSON output is passed as `stdin`
 to that program. The backend can be tested stand-alone:
 
 ```
@@ -233,7 +233,7 @@ While [kpng](https://github.com/kubernetes-sigs/kpng) is in early
 stage of development this post wants to show how you may build your
 own specialized K8s proxiers in the future. The only thing your
 applications need to do is to add the
-`service.kubernetes.io/service-proxy-name` label in the service
+`service.kubernetes.io/service-proxy-name` label in the Service
 manifest.
 
 It is a tedious process to get new features into the `kube-proxy` and
