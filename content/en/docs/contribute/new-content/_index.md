@@ -19,6 +19,7 @@ This section contains information you should know before contributing new conten
 - Write Kubernetes documentation in Markdown and build the Kubernetes site using [Hugo](https://gohugo.io/).
 - The source is in [GitHub](https://github.com/kubernetes/website). You can find Kubernetes documentation at `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
 - [Page content types](/docs/contribute/style/page-content-types/) describe the presentation of documentation content in Hugo.
+- Kubernetes documentation uses [CommonMark](https://commonmark.org/) as its flavor of Markdown. 
 - In addition to the standard Hugo shortcodes, we use a number of
   [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) in our documentation to control the presentation of content.
 - Documentation source is available in multiple languages in `/content/`. Each
