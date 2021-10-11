@@ -176,11 +176,19 @@ Download the correct manifest for your Kubernetes version:
 {{< tab name="v1.19 or Later (GA)" >}}
 {{< codenew file="pods/security/seccomp/ga/audit-pod.yaml" >}}
 {{< /tab >}}}
-{{{< tab name="Pre-v1.19 (alpha)" >}}
+{{{< tab name="Pre-v1.19 (deprecated)" >}}
 {{< codenew file="pods/security/seccomp/alpha/audit-pod.yaml" >}}
 {{< /tab >}}
 {{< /tabs >}}
 <br>
+
+{{< note >}}
+The functional support for the already deprecated seccomp annotations
+`seccomp.security.alpha.kubernetes.io/pod` (for the whole pod) and
+`container.seccomp.security.alpha.kubernetes.io/[name]` (for a single container)
+is going to be removed with the release of Kubernetes v1.25. Please always use
+the native API fields in favor of the annotations.
+{{< /note >}}
 
 Create the Pod in the cluster:
 
@@ -276,7 +284,7 @@ Download the correct manifest for your Kubernetes version:
 {{< tab name="v1.19 or Later (GA)" >}}
 {{< codenew file="pods/security/seccomp/ga/violation-pod.yaml" >}}
 {{< /tab >}}}
-{{{< tab name="Pre-v1.19 (alpha)" >}}
+{{{< tab name="Pre-v1.19 (deprecated)" >}}
 {{< codenew file="pods/security/seccomp/alpha/violation-pod.yaml" >}}
 {{< /tab >}}
 {{< /tabs >}}
@@ -327,7 +335,7 @@ Download the correct manifest for your Kubernetes version:
 {{< tab name="v1.19 or Later (GA)" >}}
 {{< codenew file="pods/security/seccomp/ga/fine-pod.yaml" >}}
 {{< /tab >}}}
-{{{< tab name="Pre-v1.19 (alpha)" >}}
+{{{< tab name="Pre-v1.19 (deprecated)" >}}
 {{< codenew file="pods/security/seccomp/alpha/fine-pod.yaml" >}}
 {{< /tab >}}
 {{< /tabs >}}
@@ -409,7 +417,7 @@ Download the correct manifest for your Kubernetes version:
 {{< tab name="v1.19 or Later (GA)" >}}
 {{< codenew file="pods/security/seccomp/ga/default-pod.yaml" >}}
 {{< /tab >}}}
-{{{< tab name="Pre-v1.19 (alpha)" >}}
+{{{< tab name="Pre-v1.19 (deprecated)" >}}
 {{< codenew file="pods/security/seccomp/alpha/default-pod.yaml" >}}
 {{< /tab >}}
 {{< /tabs >}}

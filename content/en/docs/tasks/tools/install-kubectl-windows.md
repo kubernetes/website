@@ -22,7 +22,6 @@ The following methods exist for installing kubectl on Windows:
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
 - [Install on Windows using Chocolatey or Scoop](#install-on-windows-using-chocolatey-or-scoop)
 
-
 ### Install kubectl binary with curl on Windows
 
 1. Download the [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
@@ -134,11 +133,11 @@ Edit the config file with a text editor of your choice, such as Notepad.
 
 ### Enable shell autocompletion
 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
 
-Below are the procedures to set up autocompletion for Zsh, if you are running that on Windows.
+Below are the procedures to set up autocompletion for PowerShell.
 
-{{< include "included/optional-kubectl-configs-zsh.md" >}}
+{{< include "included/optional-kubectl-configs-pwsh.md" >}}
 
 ### Install `kubectl convert` plugin
 
