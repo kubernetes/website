@@ -135,6 +135,7 @@ and set this flag to `false`. For example:
 
 {{< caution >}}
 `CRON_TZ` requires Kubernetes v1.21 or later with the `CronJobControllerV2` feature gate enabled. 
+  
 That feature gate is graduated in Kubernetes v1.22 and you therefore cannot disable it if you're running v1.22 or later.
 {{< /caution >}}
 
