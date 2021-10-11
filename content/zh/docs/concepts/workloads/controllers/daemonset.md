@@ -467,12 +467,13 @@ DaemonSet 与 [Deployments](/zh/docs/concepts/workloads/controllers/deployment/)
   object definition to understand the API for daemon sets.
 -->
 * 了解 [Pods](/zh/docs/concepts/workloads/pods)。
-  * 了解[静态 Pod](#static-pods)，这对运行 Kubernetes {{< glossary_tooltip text="control plane" term_id="control-plane" >}}组件有帮助。
+  * 了解[静态 Pod](#static-pods)，这对运行 Kubernetes {{< glossary_tooltip text="控制面" term_id="control-plane" >}}组件有帮助。
 * 了解如何使用 DaemonSet
   * [对 DaemonSet 执行滚动更新](/zh/docs/tasks/manage-daemon/update-daemon-set/)
   * [对 DaemonSet 执行回滚](/zh/docs/tasks/manage-daemon/rollback-daemon-set/)（例如：新的版本没有达到你的预期）
 * 理解[Kubernetes 如何将 Pod 分配给节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)。
-* 了解[设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)和[扩展（Addons）](/zh/docs/concepts/cluster-administration/addons/)，它们常以 DaemonSet 运行。
+* 了解[设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)和
+  [扩展（Addons）](/zh/docs/concepts/cluster-administration/addons/)，它们常以 DaemonSet 运行。
 * `DaemonSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/daemon-set-v1" >}}
    对象定义理解关于该资源的 API。
 

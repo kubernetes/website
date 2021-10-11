@@ -356,7 +356,8 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   该索引可以通过三种方式获取：
   - Pod 注解 `batch.kubernetes.io/job-completion-index`。
   - 作为 Pod 主机名的一部分，遵循模式 `$(job-name)-$(index)`。
-    当你同时使用带索引的 Job（Indexed Job）与 {{< glossary_tooltip term_id="Service" >}}，Job 中的 Pods 可以通过 DNS 使用确切的主机名互相寻址。
+    当你同时使用带索引的 Job（Indexed Job）与 {{< glossary_tooltip term_id="Service" >}}，
+    Job 中的 Pods 可以通过 DNS 使用确切的主机名互相寻址。
   - 对于容器化的任务，在环境变量 `JOB_COMPLETION_INDEX` 中。
   
   当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
@@ -988,10 +989,10 @@ see is that the control plane tracking of Job completion is more accurate.
 {{< feature-state for_k8s_version="v1.22" state="alpha" >}}
 
 {{< note >}}
-要使用该行为，你必须为 [API 服务器](//zh/docs/reference/command-line-tools-reference/kube-apiserver/)
+要使用该行为，你必须为 [API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
 和[控制器管理器](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
 启用 `JobTrackingWithFinalizers`
-[特性门控](/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 默认是禁用的。
 
 启用后，控制面基于下述行为追踪新的 Job。现有 Job 不受影响。
