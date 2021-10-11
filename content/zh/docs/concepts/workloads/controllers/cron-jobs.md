@@ -26,6 +26,8 @@ _CronJob_ 创建基于时隔重复调度的 {{< glossary_tooltip term_id="job" t
 它用 [Cron](https://en.wikipedia.org/wiki/Cron) 格式进行编写，
 并周期性地在给定的调度时间执行 Job。
 
+另外，CronJob 调度支持时区处理，可以通过在 CronJob 调度的开头添加“CRON_TZ=”来指定时区，建议始终设置 CRON_TZ。
+
 <!--
 All **CronJob** `schedule:` times are based on the timezone of the
 
@@ -91,15 +93,16 @@ This example CronJob manifest prints the current time and a hello message every 
 ### Cron 时间表语法
 
 ```
-# ┌───────────── 分钟 (0 - 59)
-# │ ┌───────────── 小时 (0 - 23)
-# │ │ ┌───────────── 月的某天 (1 - 31)
-# │ │ │ ┌───────────── 月份 (1 - 12)
-# │ │ │ │ ┌───────────── 周的某天 (0 - 6) （周日到周一；在某些系统上，7 也是星期日）
-# │ │ │ │ │                                   
-# │ │ │ │ │
-# │ │ │ │ │
-# * * * * *
+#      ┌────────────────── 时区 (可选)
+#      |      ┌───────────── 分钟 (0 - 59)
+#      |      │ ┌───────────── 小时 (0 - 23)
+#      |      │ │ ┌───────────── 月的某天 (1 - 31)
+#      |      │ │ │ ┌───────────── 月份 (1 - 12)
+#      |      │ │ │ │ ┌───────────── 周的某天 (0 - 6) (周日到周一；在某些系统上，7 也是星期日)
+#      |      │ │ │ │ │                                   
+#      |      │ │ │ │ │
+#      |      │ │ │ │ │
+# CRON_TZ=UTC * * * * *
 ```
 
 <!-- 
@@ -120,11 +123,11 @@ This example CronJob manifest prints the current time and a hello message every 
 | @hourly                   | 每小时的开始一次              | 0 * * * *      |
 
 <!--  
-For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight(in UTC):
 -->
-例如，下面这行指出必须在每个星期五的午夜以及每个月 13 号的午夜开始任务：
+例如，下面这行指出必须在每个星期五的午夜以及每个月 13 号的午夜开始任务(UTC时区)：
 
-`0 0 13 * 5`
+`CRON_TZ=UTC 0 0 13 * 5`
 
 <!--  
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
