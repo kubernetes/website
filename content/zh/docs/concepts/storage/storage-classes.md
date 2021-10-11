@@ -120,7 +120,7 @@ for provisioning PVs. This field must be specified.
 | Glusterfs            |  &#x2713;  |        [Glusterfs](#glusterfs)        |
 | iSCSI                |     -      |                   -                   |
 | Quobyte              |  &#x2713;  |          [Quobyte](#quobyte)          |
-| NFS                  |     -      |                   -                   |
+| NFS                  |     -      |              [NFS](#nfs)              |
 | RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
 | VsphereVolume        |  &#x2713;  |          [vSphere](#vsphere)          |
 | PortworxVolume       |  &#x2713;  |  [Portworx Volume](#portworx-卷)  |
@@ -315,6 +315,43 @@ to see its supported topology keys and examples.
 -->
 动态配置和预先创建的 PV 也支持 [CSI卷](/zh/docs/concepts/storage/volumes/#csi)，
 但是你需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑键名和例子。
+
+{{< note >}}
+<!-- 
+   If you choose to use `WaitForFirstConsumer`, do not use `nodeName` in the Pod spec
+   to specify node affinity. If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
+
+   Instead, you can use node selector for hostname in this case as shown below.
+-->
+   如果你选择使用 `WaitForFirstConsumer`，请不要在 Pod 规约中使用 `nodeName` 来指定节点亲和性。
+   如果在这种情况下使用 `nodeName`，Pod 将会绕过调度程序，PVC 将停留在 `pending` 状态。
+   
+   相反，在这种情况下，你可以使用节点选择器作为主机名，如下所示
+
+{{< /note >}}
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: kube-01
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
 
 <!--
 ### Allowed Topologies
@@ -647,6 +684,41 @@ parameters:
   当动态制备持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>`
   的端点和无头服务。在 PVC 被删除时动态端点和无头服务会自动被删除。
 
+### NFS
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: example-nfs
+provisioner: example.com/external-nfs
+parameters:
+  server: nfs-server.example.com
+  path: /share
+  readOnly: false
+```
+
+<!-- 
+* `server`: Server is the hostname or IP address of the NFS server.
+* `path`: Path that is exported by the NFS server.
+* `readOnly`: A flag indicating whether the storage will be mounted as read only (default false).
+-->
+* `server`：NFS 服务器的主机名或 IP 地址。
+* `path`：NFS 服务器导出的路径。
+* `readOnly`：是否将存储挂载为只读的标志（默认为 false）。
+
+<!-- 
+Kubernetes doesn't include an internal NFS provisioner. You need to use an external provisioner to create a StorageClass for NFS.
+Here are some examples:
+* [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+* [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+-->
+Kubernetes 不包含内部 NFS 驱动。你需要使用外部驱动为 NFS 创建 StorageClass。
+这里有些例子：
+* [NFS Ganesha 服务器和外部驱动](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+* [NFS subdir 外部驱动](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+
+
 ### OpenStack Cinder
 
 ```yaml
@@ -911,6 +983,17 @@ parameters:
   目前支持的功能只是 `layering`。默认是 ""，没有功能打开。
 
 ### Quobyte
+
+{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
+
+<!-- 
+The Quobyte in-tree storage plugin is deprecated, an 
+[example](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)
+`StorageClass` for the out-of-tree Quobyte plugin can be found at the Quobyte CSI repository.
+-->
+Quobyte 树内（in-tree）存储插件已弃用，
+你可以在 Quobyte CSI 仓库中找到用于树外（out-of-tree）Quobyte 插件的 `StorageClass`
+[示例](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
