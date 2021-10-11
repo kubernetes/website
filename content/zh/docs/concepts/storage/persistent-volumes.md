@@ -295,13 +295,16 @@ The `Retain` reclaim policy allows for manual reclamation of the resource. When 
 <!--
 1. Delete the PersistentVolume. The associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume) still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
-1. Manually delete the associated storage asset, or if you want to reuse the same storage asset, create a new PersistentVolume with the storage asset definition.
+1. Manually delete the associated storage asset.
+
+If you want to reuse the same storage asset, create a new PersistentVolume with the same storage asset definition.
 -->
 1. 删除 PersistentVolume 对象。与之相关的、位于外部基础设施中的存储资产
    （例如 AWS EBS、GCE PD、Azure Disk 或 Cinder 卷）在 PV 删除之后仍然存在。
 1. 根据情况，手动清除所关联的存储资产上的数据。
-1. 手动删除所关联的存储资产；如果你希望重用该存储资产，可以基于存储资产的
-   定义创建新的 PersistentVolume 卷对象。
+1. 手动删除所关联的存储资产。
+
+如果你希望重用该存储资产，可以基于存储资产的定义创建新的 PersistentVolume 卷对象。
 
 <!--
 #### Delete
@@ -617,12 +620,9 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 * [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
-* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
-  (**deprecated**)
 * [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
 * [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
-* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
 * [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
 * [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
@@ -632,27 +632,17 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 * [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
   mounted on nodes.
 * [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
-* `photonPersistentDisk` - Photon controller persistent disk.
-  (This volume type no longer works since the removal of the corresponding
-  cloud provider.)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
-* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
-* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
-  (**deprecated**)
-* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
 -->
 * [`awsElasticBlockStore`](/zh/docs/concepts/storage/volumes/#awselasticblockstore) - AWS 弹性块存储（EBS）
 * [`azureDisk`](/zh/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
 * [`azureFile`](/zh/docs/concepts/storage/volumes/#azurefile) - Azure File
 * [`cephfs`](/zh/docs/concepts/storage/volumes/#cephfs) - CephFS volume
-* [`cinder`](/zh/docs/concepts/storage/volumes/#cinder) - Cinder （OpenStack 块存储）
-  (**弃用**)
 * [`csi`](/zh/docs/concepts/storage/volumes/#csi) - 容器存储接口 (CSI)
 * [`fc`](/zh/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 存储
 * [`flexVolume`](/zh/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
-* [`flocker`](/zh/docs/concepts/storage/volumes/#flocker) - Flocker 存储
 * [`gcePersistentDisk`](/zh/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE 持久化盘
 * [`glusterfs`](/zh/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 卷
 * [`hostPath`](/zh/docs/concepts/storage/volumes/#hostpath) - HostPath 卷
@@ -661,15 +651,44 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 * [`iscsi`](/zh/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) 存储
 * [`local`](/zh/docs/concepts/storage/volumes/#local) - 节点上挂载的本地存储设备
 * [`nfs`](/zh/docs/concepts/storage/volumes/#nfs) - 网络文件系统 (NFS) 存储
-* `photonPersistentDisk` - Photon 控制器持久化盘。
-  （这个卷类型已经因对应的云提供商被移除而被弃用）。
 * [`portworxVolume`](/zh/docs/concepts/storage/volumes/#portworxvolume) - Portworx 卷
-* [`quobyte`](/zh/docs/concepts/storage/volumes/#quobyte) - Quobyte 卷
 * [`rbd`](/zh/docs/concepts/storage/volumes/#rbd) - Rados 块设备 (RBD) 卷
-* [`scaleIO`](/zh/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷
-  (**弃用**)
-* [`storageos`](/zh/docs/concepts/storage/volumes/#storageos) - StorageOS 卷
 * [`vsphereVolume`](/zh/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 卷
+
+<!-- 
+The following types of PersistentVolume are deprecated. This means that support is still available but will be removed in a future Kubernetes release.
+
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+  (**deprecated** in v1.18)
+* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+  (**deprecated** in v1.22)
+* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+  (**deprecated** in v1.22)
+* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+  (**deprecated** in v1.22)
+-->
+
+以下的持久卷已被弃用。这意味着当前仍是支持的，但是 Kubernetes 将来的发行版会将其移除。
+
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder（OpenStack 块存储）（于 v1.18 **弃用**）
+* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker 存储（于 v1.22 **弃用**）
+* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte 卷
+（于 v1.22 **弃用**）
+* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS 卷（于 v1.22 **弃用**）
+
+<!-- 
+Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
+
+* `photonPersistentDisk` - Photon controller persistent disk.
+  (**not available** after v1.15)
+* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
+  (**not available** after v1.21)
+-->
+
+旧版本的 Kubernetes 仍支持这些“树内（In-Tree）”持久卷类型：
+
+* `photonPersistentDisk` - Photon 控制器持久化盘。（v1.15 之后 **不可用**）
+* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷（v1.21 之后 **不可用**）
 
 <!--
 ## Persistent Volumes
@@ -791,15 +810,39 @@ PersistentVolume 卷可以用资源提供者所支持的任何方式挂载到宿
 <!--
 The access modes are:
 
-* ReadWriteOnce -- the volume can be mounted as read-write by a single node
-* ReadOnlyMany -- the volume can be mounted read-only by many nodes
-* ReadWriteMany -- the volume can be mounted as read-write by many nodes
+`ReadWriteOnce` 
+: the volume can be mounted as read-write by a single node. ReadWriteOnce access mode still can allow multiple pods to access the volume when the pods are running on the same node.
+
+`ReadOnlyMany`
+: the volume can be mounted as read-only by many nodes.
+
+`ReadWriteMany`
+: the volume can be mounted as read-write by many nodes.
+
+ `ReadWriteOncePod`
+: the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod access mode if you want to ensure that only one pod across whole cluster can read that PVC or write to it. This is only supported for CSI volumes and Kubernetes version 1.22+.
+
+The blog article [Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/) covers this in more detail.
 -->
 访问模式有：
 
-* ReadWriteOnce -- 卷可以被一个节点以读写方式挂载；
-* ReadOnlyMany -- 卷可以被多个节点以只读方式挂载；
-* ReadWriteMany -- 卷可以被多个节点以读写方式挂载。
+`ReadWriteOnce` 
+: 卷可以被一个节点以读写方式挂载。
+ReadWriteOnce 访问模式也允许运行在同一节点上的多个 Pod 访问卷。 
+
+`ReadOnlyMany`
+: 卷可以被多个节点以只读方式挂载。
+
+`ReadWriteMany`
+: 卷可以被多个节点以读写方式挂载。
+
+`ReadWriteOncePod`
+: 卷可以被单个 Pod 以读写方式挂载。
+如果你想确保整个集群中只有一个 Pod 可以读取或写入该 PVC，
+请使用ReadWriteOncePod 访问模式。这只支持 CSI 卷以及需要 Kubernetes 1.22 以上版本。
+
+这篇博客文章 [Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/)
+描述了更详细的内容。
 
 <!--
 In the CLI, the access modes are abbreviated to:
@@ -807,17 +850,19 @@ In the CLI, the access modes are abbreviated to:
 * RWO - ReadWriteOnce
 * ROX - ReadOnlyMany
 * RWX - ReadWriteMany
+* RWOP - ReadWriteOncePod
 -->
 在命令行接口（CLI）中，访问模式也使用以下缩写形式：
 
 * RWO - ReadWriteOnce
 * ROX - ReadOnlyMany
 * RWX - ReadWriteMany
+* RWOP - ReadWriteOncePod
 
 <!--
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 -->
-> __重要提醒！__ 每个卷只能同一时刻只能以一种访问模式挂载，即使该卷能够支持
+> __重要提醒！__ 每个卷同一时刻只能以一种访问模式挂载，即使该卷能够支持
 > 多种访问模式。例如，一个 GCEPersistentDisk 卷可以被某节点以 ReadWriteOnce
 > 模式挂载，或者被多个节点以 ReadOnlyMany 模式挂载，但不可以同时以两种模式
 > 挂载。
@@ -826,28 +871,27 @@ In the CLI, the access modes are abbreviated to:
 | Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
 -->
 
-| 卷插件               | ReadWriteOnce  | ReadOnlyMany | ReadWriteMany|
-| :---                 | :---:          | :---:        | :---:        |
-| AWSElasticBlockStore | &#x2713;       | -            | -            |
-| AzureFile            | &#x2713;       | &#x2713;     | &#x2713;     |
-| AzureDisk            | &#x2713;       | -            | -            |
-| CephFS               | &#x2713;       | &#x2713;     | &#x2713;     |
-| Cinder               | &#x2713;       | -            | -            |
-| CSI                  | 取决于驱动     | 取决于驱动   | 取决于驱动   |
-| FC                   | &#x2713;       | &#x2713;     | -            |
-| FlexVolume           | &#x2713;       | &#x2713;     | 取决于驱动   |
-| Flocker              | &#x2713;       | -            | -            |
-| GCEPersistentDisk    | &#x2713;       | &#x2713;     | -            |
-| Glusterfs            | &#x2713;       | &#x2713;     | &#x2713;     |
-| HostPath             | &#x2713;       | -            | -            |
-| iSCSI                | &#x2713;       | &#x2713;     | -            |
-| Quobyte              | &#x2713;       | &#x2713;     | &#x2713;     |
-| NFS                  | &#x2713;       | &#x2713;     | &#x2713;     |
-| RBD                  | &#x2713;       | &#x2713;     | -            |
-| VsphereVolume        | &#x2713;       | -            | - (Pod 运行于同一节点上时可行)  |
-| PortworxVolume       | &#x2713;       | -            | &#x2713;     |
-| ScaleIO              | &#x2713;       | &#x2713;     | -            |
-| StorageOS            | &#x2713;       | -            | -            |
+| 卷插件                | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
+| :---                 | :---:                  | :---:                 | :---:         | -                      |
+| AWSElasticBlockStore | &#x2713;               | -                     | -             | -                      |
+| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| AzureDisk            | &#x2713;               | -                     | -             | -                      |
+| CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| Cinder               | &#x2713;               | -                     | -             | -                      |
+| CSI                  | 取决于驱动               | 取决于驱动             | 取决于驱动      | 取决于驱动               |
+| FC                   | &#x2713;               | &#x2713;              | -             | -                      |
+| FlexVolume           | &#x2713;               | &#x2713;              | 取决于驱动      | -                      |
+| Flocker              | &#x2713;               | -                     | -             | -                      |
+| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
+| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| HostPath             | &#x2713;               | -                     | -             | -                      |
+| iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
+| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
+| VsphereVolume        | &#x2713;               | -                     | - （Pod 运行于同一节点上时可行） | -       |
+| PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
+| StorageOS            | &#x2713;               | -                     | -             | -                      |
 
 <!--
 ### Class
@@ -954,12 +998,13 @@ it will become fully deprecated in a future Kubernetes release.
 ### 节点亲和性   {#node-affinity}
 
 <!--
-A PV can specify [node affinity](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core) to define constraints that limit what nodes this volume can be accessed from. Pods that use a PV will only be scheduled to nodes that are selected by the node affinity.
+A PV can specify node affinity to define constraints that limit what nodes this volume can be accessed from. Pods that use a PV will only be scheduled to nodes that are selected by the node affinity. To specify node affinity, set `nodeAffinity` in the `.spec` of a PV. The [PersistentVolume](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec) API reference has more details on this field.
 -->
-每个 PV 卷可以通过设置
-[节点亲和性](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core)
-来定义一些约束，进而限制从哪些节点上可以访问此卷。
+每个 PV 卷可以通过设置节点亲和性来定义一些约束，进而限制从哪些节点上可以访问此卷。
 使用这些卷的 Pod 只会被调度到节点亲和性规则所选择的节点上执行。
+要设置节点亲和性，配置 PV 卷 `.spec` 中的 `nodeAffinity`。 
+[持久卷](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)
+API 参考关于该字段的更多细节。
 
 <!--
 For most volume types, you do not need to set this field. It is automatically populated for [AWS EBS](/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) and [Azure Disk](/docs/concepts/storage/volumes/#azuredisk) volume block types. You need to explicitly set this for [local](/docs/concepts/storage/volumes/#local) volumes.
@@ -1289,6 +1334,135 @@ spec:
 ```
 
 <!--
+
+## Volume populators and data sources
+
+Kubernetes supports custom volume populators; this alpha feature was introduced
+in Kubernetes 1.18. Kubernetes 1.22 reimplemented the mechanism with a redesigned API.
+Check that you are reading the version of the Kubernetes documentation that matches your
+cluster. {{% version-check %}}
+To use custom volume populators, you must enable the `AnyVolumeDataSource`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for
+the kube-apiserver and kube-controller-manager.
+
+Volume populators take advantage of a PVC spec field called `dataSourceRef`. Unlike the
+`dataSource` field, which can only contain either a reference to another PersistentVolumeClaim
+or to a VolumeSnapshot, the `dataSourceRef` field can contain a reference to any object in the
+same namespace, except for core objects other than PVCs. For clusters that have the feature
+gate enabled, use of the `dataSourceRef` is preferred over `dataSource`.
+-->
+
+## 卷填充器（Populator）与数据源      {#volume-populators-and-data-sources}
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+{{< note >}}
+Kubernetes 支持自定义的卷填充器；Kubernetes 1.18 版本引入了这个 alpha 特性。
+Kubernetes 1.22 使用重新设计的 API 重新实现了该机制。
+确认你正在阅读与你的集群版本一致的 Kubernetes 文档。{{% version-check %}}
+要使用自定义的卷填充器，你必须为 kube-apiserver 和 kube-controller-manager 启用 `AnyVolumeDataSource`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+{{< /note >}}
+
+卷填充器利用了 PVC 规约字段 `dataSourceRef`。
+不像 `dataSource` 字段只能包含对另一个持久卷申领或卷快照的引用，
+`dataSourceRef` 字段可以包含对同一命名空间中任何对象的引用（不包含除 PVC 以外的核心资源）。
+对于启用了特性门控的集群，使用 `dataSourceRef` 比 `dataSource` 更好。
+
+<!--
+## Data source references
+
+The `dataSourceRef` field behaves almost the same as the `dataSource` field. If either one is
+specified while the other is not, the API server will give both fields the same value. Neither
+field can be changed after creation, and attempting to specify different values for the two
+fields will result in a validation error. Therefore the two fields will always have the same
+contents.
+-->
+
+## 数据源引用   {#data-source-references}
+
+`dataSourceRef` 字段的行为与 `dataSource` 字段几乎相同。
+如果其中一个字段被指定而另一个字段没有被指定，API 服务器将给两个字段相同的值。
+这两个字段都不能在创建后改变，如果试图为这两个字段指定不同的值，将导致验证错误。
+因此，这两个字段将总是有相同的内容。
+
+<!--
+There are two differences between the `dataSourceRef` field and the `dataSource` field that
+users should be aware of:
+* The `dataSource` field ignores invalid values (as if the field was blank) while the
+  `dataSourceRef` field never ignores values and will cause an error if an invalid value is
+  used. Invalid values are any core object (objects with no apiGroup) except for PVCs.
+* The `dataSourceRef` field may contain different types of objects, while the `dataSource` field
+  only allows PVCs and VolumeSnapshots.
+
+Users should always use `dataSourceRef` on clusters that have the feature gate enabled, and
+fall back to `dataSource` on clusters that do not. It is not necessary to look at both fields
+under any circumstance. The duplicated values with slightly different semantics exist only for
+backwards compatibility. In particular, a mixture of older and newer controllers are able to
+interoperate because the fields are the same.
+-->
+在 `dataSourceRef` 字段和 `dataSource` 字段之间有两个用户应该注意的区别：
+* `dataSource` 字段会忽略无效的值（如同是空值），
+   而 `dataSourceRef` 字段永远不会忽略值，并且若填入一个无效的值，会导致错误。
+   无效值指的是 PVC 之外的核心对象（没有 apiGroup 的对象）。
+* `dataSourceRef` 字段可以包含不同类型的对象，而 `dataSource` 字段只允许 PVC 和卷快照。
+
+用户应该始终在启用了特性门控的集群上使用 `dataSourceRef`，而在没有启用特性门控的集群上使用 `dataSource`。
+在任何情况下都没有必要查看这两个字段。
+这两个字段的值看似相同但是语义稍微不一样，是为了向后兼容。
+特别是混用旧版本和新版本的控制器时，它们能够互通。
+
+<!--
+### Using volume populators
+
+Volume populators are {{< glossary_tooltip text="controllers" term_id="controller" >}} that can
+create non-empty volumes, where the contents of the volume are determined by a Custom Resource.
+Users create a populated volume by referring to a Custom Resource using the `dataSourceRef` field:
+-->
+## 使用卷填充器   {#using-volume-populators}
+
+卷填充器是能创建非空卷的{{< glossary_tooltip text="控制器" term_id="controller" >}}，
+其卷的内容通过一个自定义资源决定。
+用户通过使用 `dataSourceRef` 字段引用自定义资源来创建一个被填充的卷：
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: populated-pvc
+spec:
+  dataSourceRef:
+    name: example-name
+    kind: ExampleDataSource
+    apiGroup: example.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+<!--
+Because volume populators are external components, attempts to create a PVC that uses one
+can fail if not all the correct components are installed. External controllers should generate
+events on the PVC to provide feedback on the status of the creation, including warnings if
+the PVC cannot be created due to some missing component.
+
+You can install the alpha [volume data source validator](https://github.com/kubernetes-csi/volume-data-source-validator)
+controller into your cluster. That controller generates warning Events on a PVC in the case that no populator
+is registered to handle that kind of data source. When a suitable populator is installed for a PVC, it's the
+responsibility of that populator controller to report Events that relate to volume creation and issues during
+the process.
+-->
+因为卷填充器是外部组件，如果没有安装所有正确的组件，试图创建一个使用卷填充器的 PVC 就会失败。
+外部控制器应该在 PVC 上产生事件，以提供创建状态的反馈，包括在由于缺少某些组件而无法创建 PVC 的情况下发出警告。
+
+你可以把 alpha 版本的[卷数据源验证器](https://github.com/kubernetes-csi/volume-data-source-validator)
+控制器安装到你的集群中。
+如果没有填充器处理该数据源的情况下，该控制器会在 PVC 上产生警告事件。
+当一个合适的填充器被安装到 PVC 上时，该控制器的职责是上报与卷创建有关的事件，以及在该过程中发生的问题。
+
+<!--
 ### Pod specification adding Raw Block Device path in container
 -->
 ### 在容器中添加原始块设备路径的 Pod 规约
@@ -1506,16 +1680,16 @@ and need persistent storage, it is recommended that you use the following patter
 * 阅读[持久存储的设计文档](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
 
 <!--
-### Reference
+### API references {#reference}
 
-* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
-* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
-* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
-* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
+Read about the APIs described in this page:
+
+* [`PersistentVolume`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
+* [`PersistentVolumeClaim`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)
 -->
-### 参考    {#reference}
+### API 参考    {#reference}
 
-* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
-* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
-* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
-* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
+阅读以下页面中描述的 API：
+
+* [`PersistentVolume`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
+* [`PersistentVolumeClaim`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)
