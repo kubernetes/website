@@ -5,7 +5,7 @@ date: 2021-10-18
 slug: use-kpng-to-write-specialized-kube-proxiers
 ---
 
-Authors: Lars Ekman, Ericsson
+**Author**: Lars Ekman (Ericsson)
 
 The post will show you how to create a specialized service kube-proxy
 style network proxier using Kubernetes Proxy NG
