@@ -8,8 +8,8 @@ weight: 60
 <!-- overview -->
 
 This page shows how to set a quota for the total number of Pods that can run
-in a namespace. You specify quotas in a
-[ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
+in a {{< glossary_tooltip text="Namespace" term_id="namespace" >}}. You specify quotas in a
+[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
 object.
 
 
@@ -18,10 +18,9 @@ object.
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
-
-
+You must have access to create namespaces in your cluster.
 
 <!-- steps -->
 
@@ -36,7 +35,7 @@ kubectl create namespace quota-pod-example
 
 ## Create a ResourceQuota
 
-Here is the configuration file for a ResourceQuota object:
+Here is an example manifest for a ResourceQuota:
 
 {{< codenew file="admin/resource/quota-pod.yaml" >}}
 
@@ -66,11 +65,12 @@ status:
     pods: "0"
 ```
 
-Here is the configuration file for a Deployment:
+Here is an example manifest for a {{< glossary_tooltip term_id="deployment" >}}:
 
 {{< codenew file="admin/resource/quota-pod-deployment.yaml" >}}
 
-In the configuration file, `replicas: 3` tells Kubernetes to attempt to create three Pods, all running the same application.
+In that manifest, `replicas: 3` tells Kubernetes to attempt to create three new Pods, all
+running the same application.
 
 Create the Deployment:
 
@@ -85,7 +85,7 @@ kubectl get deployment pod-quota-demo --namespace=quota-pod-example --output=yam
 ```
 
 The output shows that even though the Deployment specifies three replicas, only two
-Pods were created because of the quota.
+Pods were created because of the quota you defined earlier:
 
 ```yaml
 spec:
@@ -95,10 +95,17 @@ spec:
 status:
   availableReplicas: 2
 ...
-lastUpdateTime: 2017-07-07T20:57:05Z
+lastUpdateTime: 2021-04-02T20:57:05Z
     message: 'unable to create pods: pods "pod-quota-demo-1650323038-" is forbidden:
       exceeded quota: pod-demo, requested: pods=1, used: pods=2, limited: pods=2'
 ```
+
+### Choice of resource
+
+In this task you have defined a ResourceQuota that limited the total number of Pods, but
+you could also limit the total number of other kinds of object. For example, you
+might decide to limit how many {{< glossary_tooltip text="CronJobs" term_id="cronjob" >}}
+that can live in a single namespace.
 
 ## Clean up
 
