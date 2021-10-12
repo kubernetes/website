@@ -146,11 +146,10 @@ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 http 클라이언트가 루트 인증서를 사용하도록 하려면 특별한 구성이
 필요할 수 있다.
 
-일부 클러스터에서, API 서버는 인증이 필요하지 않다.
-로컬 호스트에서 제공되거나, 방화벽으로 보호될 수 있다. 이에 대한 표준은
-없다. [쿠버네티스 API에 대한 접근 제어](/ko/docs/concepts/security/controlling-access)은
-클러스터 관리자로서 이를 구성하는 방법에 대해 설명한다. 이러한 접근 방식은 향후
-고 가용성 지원과 충돌할 수 있다.
+일부 클러스터에서, API 서버는 인증이 필요하지 않다. 로컬 호스트에서 제공되거나,
+방화벽으로 보호될 수 있다. 이에 대한 표준은 없다.
+[쿠버네티스 API에 대한 접근 제어](/ko/docs/concepts/security/controlling-access)는 클러스터
+관리자로서 이를 구성하는 방법에 대해 설명한다. 이러한 접근 방식은 향후 고 가용성 지원과 충돌할 수 있다.
 
 ### API에 프로그래밍 방식으로 접근
 
