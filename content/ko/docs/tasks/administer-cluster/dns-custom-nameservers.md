@@ -1,4 +1,7 @@
 ---
+
+
+
 title: DNS 서비스 사용자 정의하기
 content_type: task
 min-kubernetes-server-version: v1.12
