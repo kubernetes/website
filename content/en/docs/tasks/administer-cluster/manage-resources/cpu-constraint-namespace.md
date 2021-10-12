@@ -7,9 +7,10 @@ weight: 40
 
 <!-- overview -->
 
-This page shows how to set minimum and maximum values for the CPU resources used by Containers
-and Pods in a namespace. You specify minimum and maximum CPU values in a
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
+This page shows how to set minimum and maximum values for the CPU resources used by containers
+and Pods in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. You specify minimum
+and maximum CPU values in a
+[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 
@@ -19,11 +20,13 @@ in the namespace.
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
-Your cluster must have at least 1 CPU available for use to run the task examples.
+You must have access to create namespaces in your cluster.
 
-
+Your cluster must have at least 1.0 CPU available for use to run the task examples.
+See [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
+to learn what Kubernetes means by “1 CPU”.
 
 
 <!-- steps -->
@@ -39,7 +42,7 @@ kubectl create namespace constraints-cpu-example
 
 ## Create a LimitRange and a Pod
 
-Here's the configuration file for a LimitRange:
+Here's an example manifest for a LimitRange:
 
 {{< codenew file="admin/resource/cpu-constraints.yaml" >}}
 
@@ -72,15 +75,15 @@ limits:
   type: Container
 ```
 
-Now whenever a Container is created in the constraints-cpu-example namespace, Kubernetes
-performs these steps:
+Now whenever you create a Pod in the constraints-cpu-example namespace (or some other client
+of the Kubernetes API creates an equivalent Pod), Kubernetes performs these steps:
 
-* If the Container does not specify its own CPU request and limit, assign the default
-CPU request and limit to the Container.
+* If any container in that Pod does not specify its own CPU request and limit, the control plane
+  assigns the default CPU request and limit to that container.
 
-* Verify that the Container specifies a CPU request that is greater than or equal to 200 millicpu.
+* Verify that every container in that Pod specifies a CPU request that is greater than or equal to 200 millicpu.
 
-* Verify that the Container specifies a CPU limit that is less than or equal to 800 millicpu.
+* Verify that every container in that Pod specifies a CPU limit that is less than or equal to 800 millicpu.
 
 {{< note >}}
 When creating a `LimitRange` object, you can specify limits on huge-pages
@@ -88,7 +91,7 @@ or GPUs as well. However, when both `default` and `defaultRequest` are specified
 on these resources, the two values must be the same.
 {{< /note >}}
 
-Here's the configuration file for a Pod that has one Container. The Container manifest
+Here's a manifest for a Pod that has one container. The container manifest
 specifies a CPU request of 500 millicpu and a CPU limit of 800 millicpu. These satisfy the
 minimum and maximum CPU constraints imposed by the LimitRange.
 
@@ -100,7 +103,7 @@ Create the Pod:
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod.yaml --namespace=constraints-cpu-example
 ```
 
-Verify that the Pod's Container is running:
+Verify that the Pod is running and that its container is healthy:
 
 ```shell
 kubectl get pod constraints-cpu-demo --namespace=constraints-cpu-example
@@ -112,7 +115,7 @@ View detailed information about the Pod:
 kubectl get pod constraints-cpu-demo --output=yaml --namespace=constraints-cpu-example
 ```
 
-The output shows that the Container has a CPU request of 500 millicpu and CPU limit
+The output shows that the Pod's only container has a CPU request of 500 millicpu and CPU limit
 of 800 millicpu. These satisfy the constraints imposed by the LimitRange.
 
 ```yaml
@@ -131,7 +134,7 @@ kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 
 ## Attempt to create a Pod that exceeds the maximum CPU constraint
 
-Here's the configuration file for a Pod that has one Container. The Container specifies a
+Here's a manifest for a Pod that has one container. The container specifies a
 CPU request of 500 millicpu and a cpu limit of 1.5 cpu.
 
 {{< codenew file="admin/resource/cpu-constraints-pod-2.yaml" >}}
@@ -142,8 +145,8 @@ Attempt to create the Pod:
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-2.yaml --namespace=constraints-cpu-example
 ```
 
-The output shows that the Pod does not get created, because the Container specifies a CPU limit that is
-too large:
+The output shows that the Pod does not get created, because it defines an unacceptable container.
+That container is not acceptable because it specifies a CPU limit that is too large:
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-2.yaml":
@@ -152,7 +155,7 @@ pods "constraints-cpu-demo-2" is forbidden: maximum cpu usage per Container is 8
 
 ## Attempt to create a Pod that does not meet the minimum CPU request
 
-Here's the configuration file for a Pod that has one Container. The Container specifies a
+Here's a manifest for a Pod that has one container. The container specifies a
 CPU request of 100 millicpu and a CPU limit of 800 millicpu.
 
 {{< codenew file="admin/resource/cpu-constraints-pod-3.yaml" >}}
@@ -163,8 +166,9 @@ Attempt to create the Pod:
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-3.yaml --namespace=constraints-cpu-example
 ```
 
-The output shows that the Pod does not get created, because the Container specifies a CPU
-request that is too small:
+The output shows that the Pod does not get created, because it defines an unacceptable container.
+That container is not acceptable because it specifies a CPU limit that is lower than the
+enforced minimum:
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-3.yaml":
@@ -173,8 +177,8 @@ pods "constraints-cpu-demo-3" is forbidden: minimum cpu usage per Container is 2
 
 ## Create a Pod that does not specify any CPU request or limit
 
-Here's the configuration file for a Pod that has one Container. The Container does not
-specify a CPU request, and it does not specify a CPU limit.
+Here's a manifest for a Pod that has one container. The container does not
+specify a CPU request, nor does it specify a CPU limit.
 
 {{< codenew file="admin/resource/cpu-constraints-pod-4.yaml" >}}
 
@@ -190,8 +194,9 @@ View detailed information about the Pod:
 kubectl get pod constraints-cpu-demo-4 --namespace=constraints-cpu-example --output=yaml
 ```
 
-The output shows that the Pod's Container has a CPU request of 800 millicpu and a CPU limit of 800 millicpu.
-How did the Container get those values?
+The output shows that the Pod's single container has a CPU request of 800 millicpu and a
+CPU limit of 800 millicpu.
+How did that container get those values?
 
 ```yaml
 resources:
@@ -201,11 +206,12 @@ resources:
     cpu: 800m
 ```
 
-Because your Container did not specify its own CPU request and limit, it was given the
+Because that container did not specify its own CPU request and limit, the control plane
+applied the
 [default CPU request and limit](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-from the LimitRange.
+from the LimitRange for this namespace.
 
-At this point, your Container might be running or it might not be running. Recall that a prerequisite for this task is that your cluster must have at least 1 CPU available for use. If each of your Nodes has only 1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu. If you happen to be using Nodes with 2 CPU, then you probably have enough CPU to accommodate the 800 millicpu request.
+At this point, your Pod might be running or it might not be running. Recall that a prerequisite for this task is that your cluster must have at least 1 CPU available for use. If each of your Nodes has only 1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu. If you happen to be using Nodes with 2 CPU, then you probably have enough CPU to accommodate the 800 millicpu request.
 
 Delete your Pod:
 
