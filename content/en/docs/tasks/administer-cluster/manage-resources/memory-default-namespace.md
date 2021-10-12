@@ -2,6 +2,9 @@
 title: Configure Default Memory Requests and Limits for a Namespace
 content_type: task
 weight: 10
+description: >-
+  Define a default memory resource limit for a namespace, so that every new Pod
+  in that namespace has a memory resource limit configured.
 ---
 
 <!-- overview -->

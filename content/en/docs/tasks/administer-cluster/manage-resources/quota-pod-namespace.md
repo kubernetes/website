@@ -2,6 +2,8 @@
 title: Configure a Pod Quota for a Namespace
 content_type: task
 weight: 60
+description: >-
+  Restrict how many Pods you can create within a namespace.
 ---
 
 
