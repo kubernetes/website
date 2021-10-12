@@ -2,6 +2,9 @@
 title: Configure Minimum and Maximum Memory Constraints for a Namespace
 content_type: task
 weight: 30
+description: >-
+  Define a range of valid memory resource limits for a namespace, so that every new Pod
+  in that namespace falls within the range you configure.
 ---
 
 

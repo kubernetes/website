@@ -2,6 +2,9 @@
 title: Configure Default CPU Requests and Limits for a Namespace
 content_type: task
 weight: 20
+description: >-
+  Define a default CPU resource limits for a namespace, so that every new Pod
+  in that namespace has a CPU resource limit configured.
 ---
 
 <!-- overview -->

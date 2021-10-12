@@ -2,6 +2,9 @@
 title: Configure Minimum and Maximum CPU Constraints for a Namespace
 content_type: task
 weight: 40
+description: >-
+  Define a range of valid CPU resource limits for a namespace, so that every new Pod
+  in that namespace falls within the range you configure.
 ---
 
 

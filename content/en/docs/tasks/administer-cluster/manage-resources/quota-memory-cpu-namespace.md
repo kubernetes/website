@@ -2,6 +2,8 @@
 title: Configure Memory and CPU Quotas for a Namespace
 content_type: task
 weight: 50
+description: >-
+  Define overall memory and CPU resource limits for a namespace.
 ---
 
 
