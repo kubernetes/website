@@ -10,6 +10,7 @@ This page shows how to create a Pod that uses a
 {{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image from a
 private container image registry or repository.
 
+{{% thirdparty-content single="true" %}}
 
 ## {{% heading "prerequisites" %}}
 
