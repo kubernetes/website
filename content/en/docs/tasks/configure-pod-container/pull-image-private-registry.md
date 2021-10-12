@@ -6,27 +6,33 @@ weight: 100
 
 <!-- overview -->
 
-This page shows how to create a Pod that uses a Secret to pull an image from a
-private Docker registry or repository.
+This page shows how to create a Pod that uses a
+{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image from a
+private container image registry or repository.
+
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* {{< include "task-tutorial-prereqs.md" >}}
 
-* To do this exercise, you need a
-[Docker ID](https://docs.docker.com/docker-id/) and password.
+* To do this exercise, you need the `docker` command line tool, and a
+  [Docker ID](https://docs.docker.com/docker-id/) for which you know the password.
 
 <!-- steps -->
 
-## Log in to Docker
+## Log in to Docker Hub
 
-On your laptop, you must authenticate with a registry in order to pull a private image:
+On your laptop, you must authenticate with a registry in order to pull a private image.
+
+Use the `docker` tool to log in to Docker Hub. See the _log in_ section of
+[Docker ID accounts](https://docs.docker.com/docker-id/#log-in) for more information.
 
 ```shell
 docker login
 ```
 
-When prompted, enter your Docker username and password.
+When prompted, enter your Docker ID, and then the credential you want to use (access token,
+or the password for your Docker ID).
 
 The login process creates or updates a `config.json` file that holds an authorization token.
 
@@ -171,14 +177,14 @@ You have successfully set your Docker credentials as a Secret called `regcred` i
 
 ## Create a Pod that uses your Secret
 
-Here is a configuration file for a Pod that needs access to your Docker credentials in `regcred`:
+Here is a manifest for an example Pod that needs access to your Docker credentials in `regcred`:
 
 {{< codenew file="pods/private-reg-pod.yaml" >}}
 
-Download the above file:
+Download the above file onto your computer:
 
 ```shell
-wget -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
+curl -L -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
 ```
 
 In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path to an image in a private registry such as:
@@ -200,10 +206,10 @@ kubectl get pod private-reg
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [Secrets](/docs/concepts/configuration/secret/).
+* Learn more about [Secrets](/docs/concepts/configuration/secret/)
+  * or read the API reference for {{< api-reference page="config-and-storage-resources/secret-v1" >}}
 * Learn more about [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
 * Learn more about [adding image pull secrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * See [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
-* See [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core).
-* See the `imagePullSecrets` field of [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
+* See the `imagePullSecrets` field within the [container definitions](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers) of a Pod
 
