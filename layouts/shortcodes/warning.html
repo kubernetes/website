@@ -1,3 +1,4 @@
-<blockquote class="warning callout">
-  <div><strong>{{ T "warning" }}</strong> {{ trim .Inner " \n" | markdownify }}</div>
-</blockquote>
+<div class="alert alert-danger warning callout" role="alert">
+  <strong>{{ T "warning" }}</strong> {{ trim .Inner " \n" | markdownify }}
+</div>
+
