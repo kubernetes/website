@@ -262,7 +262,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   When using DigitalOcean, it can be the public one (assigned to `eth0`) or
   the private one (assigned to `eth1`) should you want to use the optional
   private network. The `kubeletExtraArgs` section of the kubeadm
-  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta2/#kubeadm-k8s-io-v1beta2-NodeRegistrationOptions)
+  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
   can be used for this.
 
   Then restart `kubelet`:
@@ -336,7 +336,7 @@ Alternatively, you can try separating the `key=value` pairs like so:
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
-A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta2/).
+A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
 
