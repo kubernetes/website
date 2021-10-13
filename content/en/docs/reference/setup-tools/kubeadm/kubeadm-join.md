@@ -287,7 +287,7 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
 For more information on the fields and usage of the configuration you can navigate to our
-[API reference](/docs/reference/config-api/kubeadm-config.v1beta2/).
+[API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 ## {{% heading "whatsnext" %}}
 
