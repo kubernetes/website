@@ -10,8 +10,7 @@ weight: 30
 
 <!-- overview -->
 
-Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-These virtual clusters are called namespaces.
+Namespaces are Kubernetes objects that partitions a Kubernetes cluster into logical boundaries. Kubernetes resources such as pods and deployments, are logically grouped into a namespace.
 
 <!-- body -->
 
