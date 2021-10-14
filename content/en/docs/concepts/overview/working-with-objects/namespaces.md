@@ -10,8 +10,10 @@ weight: 30
 
 <!-- overview -->
 
-Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-These virtual clusters are called namespaces.
+Any resource created in a kubernetes cluster exists in a logical cluster boundary called a Namespace.
+These boundaries separate all resources across the cluster's other namespaces from each other allowing resource isolation between objects.
+By default the resources in a namespace have the ability to communicate with other resources in other namespaces;
+however kubernetes supports further resource isolation between namespaces with the use of [NetworkPolicies](/docs/concepts/services-networking/network-policies/).
 
 <!-- body -->
 
