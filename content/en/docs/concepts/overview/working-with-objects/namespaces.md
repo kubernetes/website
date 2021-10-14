@@ -10,8 +10,7 @@ weight: 30
 
 <!-- overview -->
 
-Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-These virtual clusters are called namespaces.
+Namespaces in Kubernetes provides a mechanism for scoping cluster resources by name. Names of resources need to be unique within a namespace, but not across namespaces. Namespace based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 
 <!-- body -->
 
