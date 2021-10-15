@@ -153,7 +153,7 @@ Install-WindowsFeature -Name containers
 ```
 
 도커 설치
-자세한 내용은 [도커 엔진 설치 - 윈도우 서버 엔터프라이즈](https://hub.docker.com/editions/enterprise/docker-ee-server-windows)에서 확인할 수 있다.
+자세한 내용은 [도커 엔진 설치 - 윈도우 서버 엔터프라이즈](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker)에서 확인할 수 있다.
 
 #### wins, kubelet 및 kubeadm 설치
 
