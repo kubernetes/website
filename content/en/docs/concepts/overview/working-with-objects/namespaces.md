@@ -10,7 +10,7 @@ weight: 30
 
 <!-- overview -->
 
-Namespaces in Kubernetes provides a mechanism for scoping cluster resources by name. Names of resources need to be unique within a namespace, but not across namespaces. Namespace based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
+Namespaces in Kubernetes provides a mechanism for scoping cluster resources by name. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 
 <!-- body -->
 
