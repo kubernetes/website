@@ -1050,7 +1050,7 @@ A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contrib
 
 ### Pod Template
 
-The `.spec.template` and `.spec.selector` are the only required field of the `.spec`.
+The `.spec.template` and `.spec.selector` are the only required fields of the `.spec`.
 
 The `.spec.template` is a [Pod template](/docs/concepts/workloads/pods/#pod-templates). It has exactly the same schema as a {{< glossary_tooltip text="Pod" term_id="pod" >}}, except it is nested and does not have an `apiVersion` or `kind`.
 
