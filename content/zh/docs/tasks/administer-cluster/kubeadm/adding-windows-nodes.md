@@ -272,7 +272,7 @@ with elevated permissions (Administrator) on the Windows worker node.
 ### 加入 Windows 工作节点   {#joining-a-windows-worker-node}
 
 你必须安装 `Containers` 功能特性并安装 Docker 工具。相关的指令可以在
-[Install Docker Engine - Enterprise on Windows Servers](https://hub.docker.com/editions/enterprise/docker-ee-server-windows)
+[Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker)
 处找到。
 
 Windows 节的所有代码片段都需要在 PowerShell 环境中执行，并且要求在
