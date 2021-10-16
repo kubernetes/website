@@ -89,10 +89,10 @@ RuntimeClass 假设集群中的节点配置是同构的（换言之，所有的�
 
 <!--
 The configurations have a corresponding `handler` name, referenced by the RuntimeClass. The
-handler must be a valid DNS 1123 label (alpha-numeric + `-` characters).
+handler must be a valid [DNS label name](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 -->
 所有这些配置都具有相应的 `handler` 名，并被 RuntimeClass 引用。
-handler 必须符合 DNS-1123 命名规范（字母、数字、或 `-`）。
+handler 必须是有效的 [DNS 标签名](/zh/docs/concepts/overview/working-with-objects/names/#dns-label-names)。
 
 <!--
 ### 2. Create the corresponding RuntimeClass resources
@@ -200,7 +200,7 @@ Runtime handlers are configured through containerd's configuration at
 handler 需要配置在 runtimes 块中： 
 
 ```
-[plugins.cri.containerd.runtimes.${HANDLER_NAME}]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
 <!--
@@ -228,9 +228,9 @@ handler 需要配置在
 ```
 
 <!--
-See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md) for more details.
+See CRI-O's [config documentation](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md) for more details.
 -->
-更详细信息，请查阅 CRI-O [配置文档](https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md)。
+更详细信息，请查阅 CRI-O [配置文档](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)。
 
 <!-- 
 ## Scheduling
@@ -308,7 +308,7 @@ Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - Read about the [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) concept
-- [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+- [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
 -->
 - [RuntimeClass 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass 调度设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
