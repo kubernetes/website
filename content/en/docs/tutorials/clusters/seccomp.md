@@ -17,7 +17,7 @@ Seccomp stands for secure computing mode and has been a feature of the Linux
 kernel since version 2.6.12. It can be used to sandbox the privileges of a
 process, restricting the calls it is able to make from userspace into the
 kernel. Kubernetes lets you automatically apply seccomp profiles loaded onto a
-Node to your Pods and containers.
+{{< glossary_tooltip text="node" term_id="node" >}} to your Pods and containers.
 
 Identifying the privileges required for your workloads can be difficult. In this
 tutorial, you will go through how to load seccomp profiles into a local
