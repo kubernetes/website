@@ -57,7 +57,7 @@ run as `Unconfined`.
 <!-- steps -->
 
 
-## Create Seccomp Profiles
+## Download example seccomp profiles {#download-profiles}
 
 The contents of these profiles will be explored later on, but for now go ahead
 and download them into a directory named `profiles/` so that they can be loaded
@@ -91,7 +91,7 @@ audit.json  fine-grained.json  violation.json
 ```
 
 
-## Create a Local Kubernetes Cluster with kind
+## Create a local Kubernetes cluster with kind
 
 
 For simplicity, [kind](https://kind.sigs.k8s.io/) can be used to create a single
@@ -309,7 +309,7 @@ kubectl delete service audit-pod --wait
 kubectl delete pod audit-pod --wait --now
 ```
 
-## Create Pod with seccomp Profile that Causes Violation
+## Create Pod with seccomp profile that causes violation
 
 For demonstration, apply a profile to the Pod that does not allow for any
 syscalls.
@@ -349,7 +349,7 @@ kubectl delete service violation-pod --wait
 kubectl delete pod violation-pod --wait --now
 ```
 
-## Create Pod with seccomp Profile that Only Allows Necessary Syscalls
+## Create Pod with seccomp profile that only allows necessary syscalls
 
 If you take a look at the `fine-pod.json`, you will notice some of the syscalls
 seen in the first example where the profile set `"defaultAction":
@@ -428,7 +428,7 @@ kubectl delete service fine-pod --wait
 kubectl delete pod fine-pod --wait --now
 ```
 
-## Create Pod that uses the Container Runtime Default seccomp Profile
+## Create Pod that uses the container runtime default seccomp profile
 
 Most container runtimes provide a sane set of default syscalls that are allowed
 or not. You can adopt these defaults for your workload by setting the seccomp
