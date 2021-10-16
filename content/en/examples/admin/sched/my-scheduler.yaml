@@ -71,7 +71,6 @@ spec:
       containers:
       - command:
         - /usr/local/bin/kube-scheduler
-        - --bind-address=0.0.0.0
         - --config=/etc/kubernetes/my-scheduler/my-scheduler-config.yaml
         image: gcr.io/my-gcp-project/my-kube-scheduler:1.0
         livenessProbe:
