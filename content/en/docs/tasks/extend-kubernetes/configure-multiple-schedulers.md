@@ -71,15 +71,24 @@ config. Save it as `my-scheduler.yaml`:
 
 {{< codenew file="admin/sched/my-scheduler.yaml" >}}
 
-An important thing to note here is that the name of the scheduler specified as an
-argument to the scheduler command in the container spec should be unique. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether this scheduler is responsible for scheduling a particular pod.
+In the above manifest, we have used a [Scheduler Configuration](/docs/reference/scheduling/config/)
+to customize the behavior of your scheduler implementation. This configuration has been passed to
+the `kube-scheduler` during initialization via its `--config` command line argument.
+
+In the aforementioned Scheduler Configuration, your scheduler implementation has been represented via
+a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta2/#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerProfile).
+An important thing to note here is that the name of the scheduler specified via `schedulerName` field of the defined `KubeSchedulerProfile`,
+should be unique. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether
+this scheduler is responsible for scheduling a particular pod.
 
 Note also that we created a dedicated service account `my-scheduler` and bind the cluster role
 `system:kube-scheduler` to it so that it can acquire the same privileges as `kube-scheduler`.
 
 Please see the
 [kube-scheduler documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for
-detailed description of other command line arguments.
+detailed description of other command line arguments and
+[Scheduler Configuration reference](https://kubernetes.io/docs/reference/config-api/kube-scheduler-config.v1beta2/) for
+detailed description of other customizable `kube-scheduler` configurations.
 
 ## Run the second scheduler in the cluster
 
