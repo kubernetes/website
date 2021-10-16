@@ -11,7 +11,7 @@ min-kubernetes-server-version: v1.11
 {{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
 
 {{< caution >}}
-[Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
+The [Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/281-dynamic-kubelet-configuration)
 feature is deprecated and should not be used.
 Please switch to alternative means distributing configuration to the Nodes of your cluster.
 {{< /caution >}}
@@ -37,13 +37,10 @@ fields is available in the inline
 ## {{% heading "prerequisites" %}}
 
 You need to have a Kubernetes cluster.
-You also need kubectl v1.11 or higher, configured to communicate with your cluster.
+You also need `kubectl`, [installed](/docs/tasks/tools/#kubectl) and configured to communicate with your cluster.
+Make sure that you are using a version of `kubectl` that is
+[compatible](/releases/version-skew-policy/) with your cluster.
 {{< version-check >}}
-Your cluster API server version (eg v1.12) must be no more than one minor
-version away from the version of kubectl that you are using. For example,
-if your cluster is running v1.16 then you can use kubectl v1.15, v1.16
-or v1.17; other combinations
-[aren't supported](/docs/setup/release/version-skew-policy/#kubectl).
 
 Some of the examples use the command line tool
 [jq](https://stedolan.github.io/jq/). You do not need `jq` to complete the task,
