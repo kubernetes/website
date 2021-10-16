@@ -344,7 +344,7 @@ only the privileges they need.
 
 Clean up that Pod and Service before moving to the next section:
 
-```
+```shell
 kubectl delete service violation-pod --wait
 kubectl delete pod violation-pod --wait --now
 ```
@@ -431,13 +431,39 @@ kubectl delete pod fine-pod --wait --now
 ## Create Pod that uses the Container Runtime Default seccomp Profile
 
 Most container runtimes provide a sane set of default syscalls that are allowed
-or not. The defaults can easily be applied in Kubernetes by using the
-`runtime/default` annotation or setting the seccomp type in the security context
-of a pod or container to `RuntimeDefault`.
+or not. You can adopt these defaults for your workload by setting the seccomp
+type in the security context of a pod or container to `RuntimeDefault`.
+
+{{< note >}}
+If you have the `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
+no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
+{{< /note >}}
+
+Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
+for all its containers:
 
 {{< codenew file="pods/security/seccomp/ga/default-pod.yaml" >}}
 
-The default seccomp profile should provide adequate access for most workloads.
+Create that Pod:
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.yaml
+```
+
+```shell
+kubectl get pod default-pod
+```
+
+The Pod should be showing as having started successfully:
+```
+NAME        READY   STATUS    RESTARTS   AGE
+default-pod 1/1     Running   0          20s
+```
+
+Finally, now that you saw that work OK, clean up:
+
+```shell
+kubectl delete pod default-pod --wait --now
+```
 
 ## {{% heading "whatsnext" %}}
 
