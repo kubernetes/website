@@ -119,11 +119,11 @@ pod in this list.
 
 To run multiple-scheduler with leader election enabled, you must do the following:
 
-First, update the following fields in your YAML file:
+First, update the following fields in the Scheduler Configuration of your YAML file:
 
-* `--leader-elect=true`
-* `--lock-object-namespace=<lock-object-namespace>`
-* `--lock-object-name=<lock-object-name>`
+* `leaderElection.leaderElect` to `true`
+* `leaderElection.resourceNamespace` to `<lock-object-namespace>`
+* `leaderElection.resourceName` to `<lock-object-name>`
 
 {{< note >}}
 The control plane creates the lock objects for you, but the namespace must already exist.
