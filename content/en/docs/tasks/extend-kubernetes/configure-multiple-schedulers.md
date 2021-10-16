@@ -73,7 +73,7 @@ config. Save it as `my-scheduler.yaml`:
 
 In the above manifest, we have used a [Scheduler Configuration](/docs/reference/scheduling/config/)
 to customize the behavior of your scheduler implementation. This configuration has been passed to
-the `kube-scheduler` during initialization via its `--config` command line argument.
+the `kube-scheduler` during its initialization via `--config` command line argument.
 
 In the aforementioned Scheduler Configuration, your scheduler implementation has been represented via
 a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta2/#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerProfile).
@@ -177,8 +177,8 @@ scheduler in that pod spec. Let's look at three examples.
   {{< codenew file="admin/sched/pod3.yaml" >}}
 
   In this case, we specify that this pod should be scheduled using the scheduler that we
-  deployed - `my-scheduler`. Note that the value of `spec.schedulerName` should match the name supplied to the scheduler
-  command as an argument in the deployment config for the scheduler.
+  deployed - `my-scheduler`. Note that the value of `spec.schedulerName` should match the name supplied for the scheduler
+  in the `schedulerName` field of the mapping `KubeSchedulerProfile` of the scheduler.
 
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
 
