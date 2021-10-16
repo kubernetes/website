@@ -32,6 +32,10 @@ roleRef:
 ---
 
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-scheduler-config
+  namespace: kube-system
 data:
   my-scheduler-config.yaml: |
     apiVersion: kubescheduler.config.k8s.io/v1beta2
@@ -40,10 +44,6 @@ data:
       - schedulerName: my-scheduler
     leaderElection:
       leaderElect: false
-kind: ConfigMap
-metadata:
-  name: my-scheduler-config
-  namespace: kube-system
 
 ---
 apiVersion: apps/v1
