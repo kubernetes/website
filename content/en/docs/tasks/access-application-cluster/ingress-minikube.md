@@ -81,24 +81,6 @@ storage-provisioner                         1/1       Running   0          2m
 ```
     {{% /tab %}}
       {{< /tabs >}}
-  
-
-
-    ```shell
-    kubectl get pods -n ingress-nginx
-    ```
-
-    {{< note >}}This can take up to a minute.{{< /note >}}
-
-    Output:
-
-    ```shell
-    NAME                                        READY   STATUS      RESTARTS   AGE
-    ingress-nginx-admission-create-2tgrf        0/1     Completed   0          3m28s
-    ingress-nginx-admission-patch-68b98         0/1     Completed   0          3m28s
-    ingress-nginx-controller-59b45fb494-lzmw2   1/1     Running     0          3m28s
-    ```
-
 
 ## Deploy a hello, world app
 
