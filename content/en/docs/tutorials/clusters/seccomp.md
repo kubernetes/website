@@ -36,15 +36,17 @@ profiles that give only the necessary privileges to your container processes.
 
 ## {{% heading "prerequisites" %}}
 
-{{< version-check >}}
-
 In order to complete all steps in this tutorial, you must install
-[kind](https://kind.sigs.k8s.io/docs/user/quick-start/) and
-[kubectl](/docs/tasks/tools/). This tutorial will show examples
-both alpha (new in v1.22) and generally available seccomp functionality. You should
-make sure that your cluster is [configured
-correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)
+[kind](/docs/tasks/tools/#kind) and [kubectl](/docs/tasks/tools/#kubectl).
+
+This tutorial shows some examples that are still alpha (since v1.22) and
+others that use only generally available seccomp functionality. You should
+make sure that your cluster is
+[configured correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)
 for the version you are using.
+
+The tutorial also uses the `curl` tool for downloading examples to your computer.
+You can adapt the steps to use a different tool if you prefer.
 
 {{< note >}}
 It is not possible to apply a seccomp profile to a container running with
@@ -53,6 +55,107 @@ run as `Unconfined`.
 {{< /note >}}
 
 <!-- steps -->
+
+
+## Create Seccomp Profiles
+
+The contents of these profiles will be explored later on, but for now go ahead
+and download them into a directory named `profiles/` so that they can be loaded
+into the cluster.
+
+{{< tabs name="tab_with_code" >}}
+{{{< tab name="audit.json" >}}
+{{< codenew file="pods/security/seccomp/profiles/audit.json" >}}
+{{< /tab >}}
+{{< tab name="violation.json" >}}
+{{< codenew file="pods/security/seccomp/profiles/violation.json" >}}
+{{< /tab >}}}
+{{< tab name="fine-grained.json" >}}
+{{< codenew file="pods/security/seccomp/profiles/fine-grained.json" >}}
+{{< /tab >}}}
+{{< /tabs >}}
+
+Run these commands:
+
+```shell
+mkdir ./profiles
+curl -L -o profiles/audit.json https://k8s.io/examples/pods/security/seccomp/profiles/audit.json
+curl -L -o profiles/violation.json https://k8s.io/examples/pods/security/seccomp/profiles/violation.json
+curl -L -o profiles/fine-grained.json https://k8s.io/examples/pods/security/seccomp/profiles/fine-grained.json
+ls profiles
+```
+
+You should see three profiles listed at the end of the final step:
+```
+audit.json  fine-grained.json  violation.json
+```
+
+
+## Create a Local Kubernetes Cluster with kind
+
+
+For simplicity, [kind](https://kind.sigs.k8s.io/) can be used to create a single
+node cluster with the seccomp profiles loaded. Kind runs Kubernetes in Docker,
+so each node of the cluster is a container. This allows for files
+to be mounted in the filesystem of each container similar to loading files
+onto a node.
+
+{{< codenew file="pods/security/seccomp/kind.yaml" >}}
+
+Download that example kind configuration, and save it to a file named `kind.yaml`:
+```shell
+curl -L -O https://k8s.io/examples/pods/security/seccomp/kind.yaml
+```
+
+You can set a specific Kubernetes version by setting the node's container image.
+See [Nodes](https://kind.sigs.k8s.io/docs/user/configuration/#nodes) within the
+kind documentation about configuration for more details on this.
+This tutorial assumes you are using Kubernetes {{< param "version" >}}.
+
+As an alpha feature, you can configure Kubernetes to use the profile that the
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+prefers by default, rather than falling back to `Unconfined`.
+If you want to try that, see
+[enable the use of `RuntimeDefault` as the default seccomp profile for all workloads](#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads)
+before you continue.
+
+Once you have a kind configuration in place, create the kind cluster with
+that configuration:
+
+```shell
+kind create cluster --config=kind.yaml
+```
+
+After the new Kubernetes cluster is ready, identify the Docker container running
+as the single node cluster:
+
+```shell
+docker ps
+```
+
+You should see output indicating that a container is running with name
+`kind-control-plane`. The output is similar to:
+
+```
+CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                       NAMES
+6a96207fed4b        kindest/node:v1.18.2   "/usr/local/bin/entr…"   27 seconds ago      Up 24 seconds       127.0.0.1:42223->6443/tcp   kind-control-plane
+```
+
+If observing the filesystem of that container, you should see that the
+`profiles/` directory has been successfully loaded into the default seccomp path
+of the kubelet. Use `docker exec` to run a command in the Pod:
+
+```shell
+# Change 6a96207fed4b to the container ID you saw from "docker ps"
+docker exec -it 6a96207fed4b ls /var/lib/kubelet/seccomp/profiles
+```
+
+```
+audit.json  fine-grained.json  violation.json
+```
+
+You have verified that these seccomp profiles are available to the kubelet
+running within kind.
 
 ## Enable the use of `RuntimeDefault` as the default seccomp profile for all workloads
 
@@ -64,8 +167,8 @@ well as corresponding `--seccomp-default`
 [command line flag](/docs/reference/command-line-tools-reference/kubelet).
 Both have to be enabled simultaneously to use the feature.
 
-If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is 
-defined by the container runtime, instead of using the `Unconfined` (seccomp disabled) mode. 
+If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is
+defined by the container runtime, instead of using the `Unconfined` (seccomp disabled) mode.
 The default profiles aim to provide a strong set
 of security defaults while preserving the functionality of the workload. It is
 possible that the default profiles differ between container runtimes and their
@@ -102,85 +205,14 @@ featureGates:
   SeccompDefault: true
 ```
 
-## Create Seccomp Profiles
-
-The contents of these profiles will be explored later on, but for now go ahead
-and download them into a directory named `profiles/` so that they can be loaded
-into the cluster.
-
-{{< tabs name="tab_with_code" >}}
-{{{< tab name="audit.json" >}}
-{{< codenew file="pods/security/seccomp/profiles/audit.json" >}}
-{{< /tab >}}
-{{< tab name="violation.json" >}}
-{{< codenew file="pods/security/seccomp/profiles/violation.json" >}}
-{{< /tab >}}}
-{{< tab name="fine-grained.json" >}}
-{{< codenew file="pods/security/seccomp/profiles/fine-grained.json" >}}
-{{< /tab >}}}
-{{< /tabs >}}
-
-## Create a Local Kubernetes Cluster with Kind
-
-For simplicity, [kind](https://kind.sigs.k8s.io/) can be used to create a single
-node cluster with the seccomp profiles loaded. Kind runs Kubernetes in Docker,
-so each node of the cluster is a container. This allows for files
-to be mounted in the filesystem of each container similar to loading files
-onto a node.
-
-{{< codenew file="pods/security/seccomp/kind.yaml" >}}
-<br>
-
-Download the example above, and save it to a file named `kind.yaml`. Then create
-the cluster with the configuration.
-
-```
-kind create cluster --config=kind.yaml
-```
-
-Once the cluster is ready, identify the container running as the single node
-cluster:
-
-```
-docker ps
-```
-
-You should see output indicating that a container is running with name
-`kind-control-plane`.
-
-```
-CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                       NAMES
-6a96207fed4b        kindest/node:v1.18.2   "/usr/local/bin/entr…"   27 seconds ago      Up 24 seconds       127.0.0.1:42223->6443/tcp   kind-control-plane
-```
-
-If observing the filesystem of that container, one should see that the
-`profiles/` directory has been successfully loaded into the default seccomp path
-of the kubelet. Use `docker exec` to run a command in the Pod:
-
-```
-docker exec -it 6a96207fed4b ls /var/lib/kubelet/seccomp/profiles
-```
-
-```
-audit.json  fine-grained.json  violation.json
-```
-
 ## Create a Pod with a seccomp profile for syscall auditing
 
 To start off, apply the `audit.json` profile, which will log all syscalls of the
 process, to a new Pod.
 
-Download the correct manifest for your Kubernetes version:
+Here's a manifest for that Pod:
 
-{{< tabs name="audit_pods" >}}
-{{< tab name="v1.19 or Later (GA)" >}}
 {{< codenew file="pods/security/seccomp/ga/audit-pod.yaml" >}}
-{{< /tab >}}}
-{{{< tab name="Pre-v1.19 (deprecated)" >}}
-{{< codenew file="pods/security/seccomp/alpha/audit-pod.yaml" >}}
-{{< /tab >}}
-{{< /tabs >}}
-<br>
 
 {{< note >}}
 The functional support for the already deprecated seccomp annotations
@@ -192,14 +224,14 @@ the native API fields in favor of the annotations.
 
 Create the Pod in the cluster:
 
-```
-kubectl apply -f audit-pod.yaml
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/audit-pod.yaml
 ```
 
 This profile does not restrict any syscalls, so the Pod should start
 successfully.
 
-```
+```shell
 kubectl get pod/audit-pod
 ```
 
@@ -209,28 +241,31 @@ audit-pod   1/1     Running   0          30s
 ```
 
 In order to be able to interact with this endpoint exposed by this
-container,create a NodePort Service that allows access to the endpoint from
-inside the kind control plane container.
+container, create a NodePort {{< glossary_tooltip text="Services" term_id="service" >}}
+that allows access to the endpoint from inside the kind control plane container.
 
-```
-kubectl expose pod/audit-pod --type NodePort --port 5678
+```shell
+kubectl expose pod audit-pod --type NodePort --port 5678
 ```
 
 Check what port the Service has been assigned on the node.
 
-```
-kubectl get svc/audit-pod
+```shell
+kubectl get service audit-pod
 ```
 
+The output is similar to:
 ```
 NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 audit-pod   NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
 ```
 
-Now you can `curl` the endpoint from inside the kind control plane container at
-the port exposed by this Service. Use `docker exec` to run a command in the Pod:
+Now you can use `curl` to access that endpoint from inside the kind control plane container,
+at the port exposed by this Service. Use `docker exec` to run the `curl` command within the
+container belonging to that control plane container:
 
-```
+```shell
+# Change 6a96207fed4b to the control plane container ID you saw from "docker ps"
 docker exec -it 6a96207fed4b curl localhost:32373
 ```
 
@@ -243,13 +278,14 @@ Because this Pod is running in a local cluster, you should be able to see those
 in `/var/log/syslog`. Open up a new terminal window and `tail` the output for
 calls from `http-echo`:
 
-```
+```shell
 tail -f /var/log/syslog | grep 'http-echo'
 ```
 
 You should already see some logs of syscalls made by `http-echo`, and if you
 `curl` the endpoint in the control plane container you will see more written.
 
+For example:
 ```
 Jul  6 15:37:40 my-machine kernel: [369128.669452] audit: type=1326 audit(1594067860.484:14536): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=51 compat=0 ip=0x46fe1f code=0x7ffc0000
 Jul  6 15:37:40 my-machine kernel: [369128.669453] audit: type=1326 audit(1594067860.484:14537): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=54 compat=0 ip=0x46fdba code=0x7ffc0000
@@ -268,9 +304,9 @@ for this container.
 
 Clean up that Pod and Service before moving to the next section:
 
-```
-kubectl delete pod/audit-pod
-kubectl delete svc/audit-pod
+```shell
+kubectl delete service audit-pod --wait
+kubectl delete pod audit-pod --wait --now
 ```
 
 ## Create Pod with seccomp Profile that Causes Violation
@@ -278,27 +314,20 @@ kubectl delete svc/audit-pod
 For demonstration, apply a profile to the Pod that does not allow for any
 syscalls.
 
-Download the correct manifest for your Kubernetes version:
+The manifest for this demonstration is:
 
-{{< tabs name="violation_pods" >}}
-{{< tab name="v1.19 or Later (GA)" >}}
 {{< codenew file="pods/security/seccomp/ga/violation-pod.yaml" >}}
-{{< /tab >}}}
-{{{< tab name="Pre-v1.19 (deprecated)" >}}
-{{< codenew file="pods/security/seccomp/alpha/violation-pod.yaml" >}}
-{{< /tab >}}
-{{< /tabs >}}
-<br>
 
-Create the Pod in the cluster:
+Attempt to create the Pod in the cluster:
 
-```
-kubectl apply -f violation-pod.yaml
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/violation-pod.yaml
 ```
 
+The Pod creates, but there is an issue.
 If you check the status of the Pod, you should see that it failed to start.
 
-```
+```shell
 kubectl get pod/violation-pod
 ```
 
@@ -316,8 +345,8 @@ only the privileges they need.
 Clean up that Pod and Service before moving to the next section:
 
 ```
-kubectl delete pod/violation-pod
-kubectl delete svc/violation-pod
+kubectl delete service violation-pod --wait
+kubectl delete pod violation-pod --wait --now
 ```
 
 ## Create Pod with seccomp Profile that Only Allows Necessary Syscalls
@@ -329,61 +358,56 @@ but explicitly allowing a set of syscalls in the `"action": "SCMP_ACT_ALLOW"`
 block. Ideally, the container will run successfully and you will see no messages
 sent to `syslog`.
 
-Download the correct manifest for your Kubernetes version:
+The manifest for this example is:
 
-{{< tabs name="fine_pods" >}}
-{{< tab name="v1.19 or Later (GA)" >}}
 {{< codenew file="pods/security/seccomp/ga/fine-pod.yaml" >}}
-{{< /tab >}}}
-{{{< tab name="Pre-v1.19 (deprecated)" >}}
-{{< codenew file="pods/security/seccomp/alpha/fine-pod.yaml" >}}
-{{< /tab >}}
-{{< /tabs >}}
-<br>
 
 Create the Pod in your cluster:
 
-```
-kubectl apply -f fine-pod.yaml
-```
-
-The Pod should start successfully.
-
-```
-kubectl get pod/fine-pod
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/fine-pod.yaml
 ```
 
+```shell
+kubectl get pod fine-pod
+```
+
+The Pod should be showing as having started successfully:
 ```
 NAME        READY   STATUS    RESTARTS   AGE
 fine-pod   1/1     Running   0          30s
 ```
 
-Open up a new terminal window and `tail` the output for calls from `http-echo`:
+Open up a new terminal window and use `tail` to monitor for log entries that
+mention calls from `http-echo`:
 
-```
+```shell
+# The log path on your computer might be different from "/var/log/syslog"
 tail -f /var/log/syslog | grep 'http-echo'
 ```
 
-Expose the Pod with a NodePort Service:
+Next, expose the Pod with a NodePort Service:
 
-```
-kubectl expose pod/fine-pod --type NodePort --port 5678
+```shell
+kubectl expose pod fine-pod --type NodePort --port 5678
 ```
 
 Check what port the Service has been assigned on the node:
 
-```
-kubectl get svc/fine-pod
+```shell
+kubectl get service fine-pod
 ```
 
+The output is similar to:
 ```
 NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 fine-pod    NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
 ```
 
-`curl` the endpoint from inside the kind control plane container:
+Use `curl` to access that endpoint from inside the kind control plane container:
 
-```
+```shell
+# Change 6a96207fed4b to the control plane container ID you saw from "docker ps"
 docker exec -it 6a96207fed4b curl localhost:32373
 ```
 
@@ -391,7 +415,7 @@ docker exec -it 6a96207fed4b curl localhost:32373
 just made some syscalls!
 ```
 
-You should see no output in the `syslog` because the profile allowed all
+You should see no output in the `syslog`. This is because the profile allowed all
 necessary syscalls and specified that an error should occur if one outside of
 the list is invoked. This is an ideal situation from a security perspective, but
 required some effort in analyzing the program. It would be nice if there was a
@@ -399,9 +423,9 @@ simple way to get closer to this security without requiring as much effort.
 
 Clean up that Pod and Service before moving to the next section:
 
-```
-kubectl delete pod/fine-pod
-kubectl delete svc/fine-pod
+```shell
+kubectl delete service fine-pod --wait
+kubectl delete pod fine-pod --wait --now
 ```
 
 ## Create Pod that uses the Container Runtime Default seccomp Profile
@@ -411,23 +435,13 @@ or not. The defaults can easily be applied in Kubernetes by using the
 `runtime/default` annotation or setting the seccomp type in the security context
 of a pod or container to `RuntimeDefault`.
 
-Download the correct manifest for your Kubernetes version:
-
-{{< tabs name="default_pods" >}}
-{{< tab name="v1.19 or Later (GA)" >}}
 {{< codenew file="pods/security/seccomp/ga/default-pod.yaml" >}}
-{{< /tab >}}}
-{{{< tab name="Pre-v1.19 (deprecated)" >}}
-{{< codenew file="pods/security/seccomp/alpha/default-pod.yaml" >}}
-{{< /tab >}}
-{{< /tabs >}}
-<br>
 
 The default seccomp profile should provide adequate access for most workloads.
 
 ## {{% heading "whatsnext" %}}
 
-Additional resources:
+You can learn more about Linux seccomp:
 
 * [A seccomp Overview](https://lwn.net/Articles/656307/)
 * [Seccomp Security Profiles for Docker](https://docs.docker.com/engine/security/seccomp/)
