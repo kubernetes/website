@@ -79,7 +79,7 @@ Release Managers are responsible for:
     answering questions and suggesting appropriate work for them to do
 
 This team at times works in close conjunction with the
-[Security Response Committee][https://github.com/kubernetes/community/blob/master/committee-security-response/README.md] and therefore should abide by the guidelines
+[Security Response Committee][src] and therefore should abide by the guidelines
 set forth in the [Security Release Process][security-release-process].
 
 GitHub Access Controls: [@kubernetes/release-managers](https://github.com/orgs/kubernetes/teams/release-managers)
@@ -213,6 +213,6 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
 [patches]: /patch-releases.md
-[src]: https://git.k8s.io/community/committee-product-security/README.md
+[src]: https://github.com/kubernetes/community/blob/master/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md
 [security-release-process]: https://git.k8s.io/security/security-release-process.md
