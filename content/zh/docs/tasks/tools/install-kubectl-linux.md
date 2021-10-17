@@ -305,11 +305,11 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的�
    curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
    ```
 <!--
-1. Validate the binary (optional)
+2. Validate the binary (optional)
 
    Download the kubectl-convert checksum file:
 -->
-1. 验证该可执行文件（可选步骤）
+2. 验证该可执行文件（可选步骤）
    
    下载 kubectl-convert 校验和文件：
    
@@ -352,18 +352,18 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的�
    {{< /note >}}
 
 <!--
-1. Install kubectl-convert
+3. Install kubectl-convert
 -->
-1. 安装 kubectl-convert
+3. 安装 kubectl-convert
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
    ```
 
 <!--
-1. Verify plugin is successfully installed
+4. Verify plugin is successfully installed
 -->
-1. 验证插件是否安装成功
+4. 验证插件是否安装成功
 
    ```shell
    kubectl convert --help
