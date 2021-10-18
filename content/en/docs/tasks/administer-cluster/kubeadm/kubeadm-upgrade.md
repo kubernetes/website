@@ -223,7 +223,8 @@ without compromising the minimum required capacity for running your workloads.
     -
     # since apt-get version 1.1 you can also use the following method
     apt-get update && \
-    apt-get install -y --allow-change-held-packages kubeadm={{< skew currentVersion >}}.x-00
+    apt-get install -y --allow-change-held-packages kubeadm={{< skew currentVersion >}}.x-00 && \
+    apt-mark hold kubeadm
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
@@ -261,7 +262,8 @@ without compromising the minimum required capacity for running your workloads.
     -
     # since apt-get version 1.1 you can also use the following method
     apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00
+    apt-get install -y --allow-change-held-packages kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+    apt-mark hold kubelet kubectl
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
