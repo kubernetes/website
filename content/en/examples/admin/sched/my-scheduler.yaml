@@ -96,6 +96,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            # Provide the name of the ConfigMap containing the files you want
-            # to add to the container
             name: my-scheduler-config
