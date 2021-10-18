@@ -60,5 +60,5 @@ You can use finalizers to control {{<glossary_tooltip text="garbage collection" 
 of resources. For example, you can define a finalizer to clean up related resources or
 infrastructure before the controller deletes the target resource.
 -->
-你可以使用 Finalizer 控制资源的{{<glossary_tooltip text="垃圾回收" term_id="garbage-collection">}}。
+你可以使用 Finalizer 控制资源的{{<glossary_tooltip text="垃圾收集" term_id="garbage-collection">}}。
 例如，你可以定义一个 Finalizer，在删除目标资源前清理相关资源或基础设施。

@@ -13,7 +13,9 @@ You can use finalizers to control {{<glossary_tooltip text="garbage collection" 
 of resources by alerting {{<glossary_tooltip text="controllers" term_id="controller">}} to perform specific cleanup tasks before
 deleting the target resource. 
 -->
-你可以通过使用 Finalizers 提醒{{<glossary_tooltip text="控制器" term_id="controller">}}在删除目标资源前执行特定的清理任务，来控制资源的{{<glossary_tooltip text="垃圾回收" term_id="garbage-collection">}}。
+你可以通过使用 Finalizers 提醒{{<glossary_tooltip text="控制器" term_id="controller">}}
+在删除目标资源前执行特定的清理任务，
+来控制资源的{{<glossary_tooltip text="垃圾收集" term_id="garbage-collection">}}。
 
 <!--
 Finalizers don't usually specify the code to execute. Instead, they are
@@ -55,7 +57,7 @@ prevent deletion of unmanaged resources.
 -->
 然后，控制器试图满足资源的 Finalizers 的条件。
 每当一个 Finalizer 的条件被满足时，控制器就会从资源的 `finalizers` 字段中删除该键。
-当该字段为空时，垃圾回收继续进行。
+当该字段为空时，垃圾收集继续进行。
 你也可以使用 Finalizers 来阻止删除未被管理的资源。
 
 <!--
@@ -73,7 +75,8 @@ and the controller deletes the volume.
 Kubernetes 会添加 `pv-protection` Finalizer。
 如果你试图删除 `PersistentVolume`，它将进入 `Terminating` 状态，
 但是控制器因为该 Finalizer 存在而无法删除该资源。
-当 Pod 停止使用 `PersistentVolume` 时，Kubernetes 清除 `pv-protection` Finalizer，控制器就会删除该卷。
+当 Pod 停止使用 `PersistentVolume` 时，
+Kubernetes 清除 `pv-protection` Finalizer，控制器就会删除该卷。
 
 <!--
 ## Owner references, labels, and finalizers {#owners-labels-finalizers}
@@ -93,8 +96,8 @@ any Pods in the cluster with the same label.
 描述了 Kubernetes 中对象之间的关系，但它们作用不同。
 当一个{{<glossary_tooltip text="控制器" term_id="controller">}}
 管理类似于 Pod 的对象时，它使用标签来跟踪相关对象组的变化。
-例如，当 {{<glossary_tooltip text="Job" term_id="job">}} 创建一个或多个 Pod 时，Job 控制器会给这些 Pod 应用上标签，
-并跟踪集群中的具有相同标签的 Pod 的变化。
+例如，当 {{<glossary_tooltip text="Job" term_id="job">}} 创建一个或多个 Pod 时，
+Job 控制器会给这些 Pod 应用上标签，并跟踪集群中的具有相同标签的 Pod 的变化。
 
 <!--
 The Job controller also adds *owner references* to those Pods, pointing at the
