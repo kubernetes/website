@@ -182,7 +182,7 @@ scheduler in that pod spec. Let's look at three examples.
 
   In this case, we specify that this pod should be scheduled using the scheduler that we
   deployed - `my-scheduler`. Note that the value of `spec.schedulerName` should match the name supplied for the scheduler
-  in the `schedulerName` field of the mapping `KubeSchedulerProfile` of the scheduler.
+  in the `schedulerName` field of the mapping `KubeSchedulerProfile`.
 
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
 
