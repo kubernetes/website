@@ -81,7 +81,7 @@ An important thing to note here is that the name of the scheduler specified via 
 should be unique. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether
 this scheduler is responsible for scheduling a particular pod.
 
-Note also that we created a dedicated service account `my-scheduler` and bind the cluster role
+Also, note that we created a dedicated service account `my-scheduler` and bound the cluster role
 `system:kube-scheduler` to it so that it can acquire the same privileges as `kube-scheduler`.
 
 Please see the
