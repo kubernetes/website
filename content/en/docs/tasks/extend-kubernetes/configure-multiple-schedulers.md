@@ -73,12 +73,14 @@ config. Save it as `my-scheduler.yaml`:
 
 In the above manifest, we have used a [Scheduler Configuration](/docs/reference/scheduling/config/)
 to customize the behavior of your scheduler implementation. This configuration has been passed to
-the `kube-scheduler` during its initialization via `--config` command line argument.
+the `kube-scheduler` during its initialization via `--config` command line argument. The configuration
+file has been embedded within the ConfigMap `my-scheduler-config` which has been injected to the scheduler
+Deployment via a volume.
 
 In the aforementioned Scheduler Configuration, your scheduler implementation has been represented via
 a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta2/#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerProfile).
 An important thing to note here is that the name of the scheduler specified via `schedulerName` field of the defined `KubeSchedulerProfile`,
-should be unique. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether
+should be unique among all schedulers running in the cluster. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether
 this scheduler is responsible for scheduling a particular pod.
 
 Also, note that we created a dedicated service account `my-scheduler` and bound the cluster role
