@@ -5,18 +5,18 @@ weight: 40
 ---
 
 <!-- overview -->
-Esta página proporciona una descripción general de los contenedores de inicialización: contenedores especializados que se ejecutan
+Esta página proporciona una descripción general de los contenedores de inicialización (init containers): contenedores especializados que se ejecutan
 antes de los contenedores de aplicación en un {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 Los contenedores de inicialización pueden contener utilidades o scripts de instalación no presentes en una imagen de aplicación.
 
-Tú puedes especificar contenedores de inicialización en la especificación del Pod junto con el array `containers`
+Tú puedes especificar contenedores de inicialización en la especificación del Pod junto con el arreglo de `containers`
 (el cual describe los contenedores de aplicación).
 
 <!-- body -->
 ## Entendiendo los contenedores de inicialización
 
 Un {{< glossary_tooltip text="Pod" term_id="pod" >}} puede tener múltiples contenedores
-ejecutando applicaciones dentro de él, pero también puede tener uno o más contenedores de inicialización
+ejecutando aplicaciones dentro de él, pero también puede tener uno o más contenedores de inicialización
 que se ejecutan antes de que se inicien los contenedores de aplicación.
 
 Los contenedores de inicialización son exactamente iguales a los contenedores regulares excepto por:
@@ -25,16 +25,16 @@ Los contenedores de inicialización son exactamente iguales a los contenedores r
 * Cada contenedor de inicialiación debe completarse correctamente antes de que comience el siguiente.
 
 Si el contenedor de inicialización de un Pod falla, kubelet reinicia repetidamente ese contenedor de inicialización hasta que tenga éxito.
-Sin embargo, si el Pod tiene una `restartPolicy` de `Never` y un contenedor de inicialización falla durante el inicio de ese Pod, Kubernetes trata en general al Pod como fallido.
+Sin embargo, si el Pod tiene una `restartPolicy` de `Never` y un contenedor de inicialización falla durante el inicio de ese Pod, Kubernetes trata al Pod en general como fallido.
 
 Para especificar un contenedor de inicialización para un Pod, agrega el campo `initContainers` en
 la [especificación del Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec),
-como un array de elementos `container` (similar al campo `containers` de aplicación y su contenido).
+como un arreglo de elementos `container` (similar al campo `containers` de aplicación y su contenido).
 Consulta [Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) en la
 referencia de API para más detalles.
 
 El estado de los contenedores de inicialización se devuelve en el campo `.status.initContainerStatuses`
-como un array de los estados del contenedor (similar al campo `.status.containerStatuses`).
+como un arreglo de los estados del contenedor (similar al campo `.status.containerStatuses`).
 
 ### Diferencias con los contenedores regulares
 
@@ -259,7 +259,7 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 Este sencillo ejemplo debería servirte de inspiración para crear tus propios
-contenedores de inicialización. [What's next](#what-s-next) contiene un enlace a un ejemplo más detallado.
+contenedores de inicialización. [¿Qué es lo que sigue?](#what-s-next) contiene un enlace a un ejemplo más detallado.
 
 ## Comportamiento detallado
 
@@ -305,7 +305,7 @@ error de validación es arrojado para cualquier contenedor que comparta un nombr
 Dado el orden y la ejecución de los contenedores de inicialización, las siguientes reglas
 para el uso de recursos se aplican:
 
-* La más alta de cualquier solicitud particular de recurso o límite definido en todos los contenedores
+* La solicitud más alta de cualquier recurso o límite particular definido en todos los contenedores
   de inicialización es la *solicitud/límite de inicialización efectiva*. Si algún recurso no tiene un
   límite de recursos especificado éste se considera como el límite más alto.
 * La *solicitud/límite efectiva* para un recurso es la más alta entre:
@@ -319,7 +319,7 @@ para el uso de recursos se aplican:
 
 La cuota y los límites son aplicados con base en la solicitud y límite efectivos de Pod.
 
-Los grupos de control de nivel de Pod (cgroups) se basan en la solicitud y el límite de Pod efectivos, al igual que el scheduler.
+Los grupos de control de nivel de Pod (cgroups) se basan en la solicitud y el límite de Pod efectivos, al igual que el planificador de Kubernetes ({{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}).
 
 ### Razones de reinicio del Pod
 
