@@ -40,13 +40,13 @@ the following:
   * Marks the object as read-only until its `metadata.finalizers` field is empty.
 -->
 ## Finalizers 如何工作   {#how-finalizers-work}
+
 当你使用清单文件创建资源时，你可以在 `metadata.finalizers` 字段指定 Finalizers。
 当你试图删除该资源时，管理该资源的控制器会注意到 `finalizers` 字段中的值，
 并进行以下操作：
 
   * 修改对象，将你开始执行删除的时间添加到 `metadata.deletionTimestamp` 字段。
   * 将该对象标记为只读，直到其 `metadata.finalizers` 字段为空。
-
 
 <!--
 The controller then attempts to satisfy the requirements of the finalizers
@@ -91,6 +91,7 @@ more Pods, the Job controller applies labels to those pods and tracks changes to
 any Pods in the cluster with the same label.
 -->
 ## 属主引用、标签和 Finalizers {#owners-labels-finalizers}
+
 与{{<glossary_tooltip text="标签" term_id="label">}}类似，
 [属主引用](/zh/concepts/overview/working-with-objects/owners-dependents/)
 描述了 Kubernetes 中对象之间的关系，但它们作用不同。
@@ -122,7 +123,7 @@ Kubernetes 会使用属主引用（而不是标签）来确定集群中哪些 Po
 
 在某些情况下，Finalizers 会阻止依赖对象的删除，
 这可能导致目标属主对象，保持在只读状态的时间比预期的长，且没有被完全删除。
-在这些情况下，你应该检查目标属主和附属对象上的 Finalizers 和所有者引用，来排查原因。
+在这些情况下，你应该检查目标属主和附属对象上的 Finalizers 和属主引用，来排查原因。
 
 {{<note>}}
 <!--
@@ -131,7 +132,7 @@ removing finalizers to allow deletion to continue. Finalizers are usually added
 to resources for a reason, so forcefully removing them can lead to issues in
 your cluster. 
 -->
-在对象卡在删除状态的情况下，尽量避免手动移除 Finalizers 以允许继续删除操作。
+在对象卡在删除状态的情况下，尽量避免手动移除 Finalizers，以允许继续删除操作。
 Finalizers 通常因为特殊原因被添加到资源上，所以强行删除它们会导致集群出现问题。
 {{</note>}}
 
