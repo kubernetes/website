@@ -134,6 +134,21 @@ The output is similar to this:
 no
 ```
 
+Similarly, to check whether a Service Account named `dev-sa` in Namespace `dev`
+can list Pods in the Namespace `target`:
+
+```bash
+kubectl auth can-i list pods \
+	--namespace target \
+	--as system:serviceaccount:dev:dev-sa
+```
+
+The output is similar to this:
+
+```
+yes
+```
+
 `SelfSubjectAccessReview` is part of the `authorization.k8s.io` API group, which
 exposes the API server authorization to external services. Other resources in
 this group include:
