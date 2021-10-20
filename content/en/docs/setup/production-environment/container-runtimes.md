@@ -23,6 +23,21 @@ Kubernetes, on Linux:
 - [Docker](#docker)
 
 {{< note >}}
+Docker container runtime (Dockershim) has been [deprecated](
+https://kubernetes.io/blog/2020/12/02/dockershim-faq/)
+as of [version 1.20](
+https://kubernetes.io/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
+and is planned to be removed in by 1.24, therefore to use Docker you need to
+be running an older version of Kubernetes.
+You can check out this [documentation](
+https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+to understand how this deprecation might affect you. For migrating from
+dockershim you can follow [this](
+https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/) 
+document to migrate from dockershim.
+{{< /note >}}
+
+{{< note >}}
 For other operating systems, look for documentation specific to your platform.
 {{< /note >}}
 
@@ -131,9 +146,9 @@ Install containerd:
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
 
-1. Install the `containerd.io` package from the official Docker repositories. 
-Instructions for setting up the Docker repository for your respective Linux distribution and 
-installing the `containerd.io` package can be found at 
+1. Install the `containerd.io` package from the official Docker repositories.
+Instructions for setting up the Docker repository for your respective Linux distribution and
+installing the `containerd.io` package can be found at
 [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 
 2. Configure containerd:
@@ -152,7 +167,7 @@ installing the `containerd.io` package can be found at
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
-Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), 
+Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`),
 and then run the following commands:
 
 1. Download containerd:
@@ -279,7 +294,7 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="Ubuntu" %}}
 
-To install on the following operating systems, set the environment variable `OS` 
+To install on the following operating systems, set the environment variable `OS`
 to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
@@ -315,7 +330,7 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="CentOS" %}}
 
-To install on the following operating systems, set the environment variable `OS` 
+To install on the following operating systems, set the environment variable `OS`
 to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
@@ -396,9 +411,9 @@ in sync.
 
 ### Docker
 
-1. On each of your nodes, install the Docker for your Linux distribution as per 
-[Install Docker Engine](https://docs.docker.com/engine/install/#server). 
-You can find the latest validated version of Docker in this 
+1. On each of your nodes, install the Docker for your Linux distribution as per
+[Install Docker Engine](https://docs.docker.com/engine/install/#server).
+You can find the latest validated version of Docker in this
 [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
 
 2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
@@ -418,7 +433,7 @@ You can find the latest validated version of Docker in this
    ```
 
    {{< note >}}
-   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher, 
+   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher,
    or RHEL or CentOS using version 3.10.0-514 and above.
    {{< /note >}}
 
