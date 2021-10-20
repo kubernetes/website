@@ -346,7 +346,7 @@ Teams must merge localized content into the same branch from which the content w
 
 For example:
 - a localization branch sourced from `main` must be merged into `main`.
-- a localization branch sourced from `release-{{ skew "prevMinorVersion" }}` must be merged into `release-{{ skew "prevMinorVersion" }}`.
+- a localization branch sourced from `release-{{% skew "prevMinorVersion" %}}` must be merged into `release-{{% skew "prevMinorVersion" %}}`.
 
 {{< note >}}
 If your localization branch was created from `main` branch but it is not merged into `main` before new release branch `{{< release-branch >}}` created, merge it into both `main` and new release branch `{{< release-branch >}}`. To merge your localization branch into new release branch `{{< release-branch >}}`, you need to switch upstream branch of your localization branch to `{{< release-branch >}}`.
@@ -361,5 +361,3 @@ For more information about working from forks or directly from the repository, s
 ## Upstream contributions
 
 SIG Docs welcomes upstream contributions and corrections to the English source.
-
-
