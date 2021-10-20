@@ -33,8 +33,8 @@ drivers, but the functionality is somewhat limited.
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
 Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
-the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes; 
-however, Kubernetes does not destroy persistent volumes. 
+the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
+however, Kubernetes does not destroy persistent volumes.
 For any kind of volume in a given pod, data is preserved across container restarts.
 
 At its core, a volume is a directory, possibly with some data in it, which
@@ -44,12 +44,21 @@ volume type used.
 
 To use a volume, specify the volumes to provide for the Pod in `.spec.volumes`
 and declare where to mount those volumes into containers in `.spec.containers[*].volumeMounts`.
-A process in a container sees a filesystem view composed from their Docker
-image and volumes. The [Docker image](https://docs.docker.com/userguide/dockerimages/)
-is at the root of the filesystem hierarchy. Volumes mount at the specified paths within
-the image. Volumes can not mount onto other volumes or have hard links to
-other volumes. Each Container in the Pod's configuration must independently specify where to
-mount each volume.
+A process in a container sees a filesystem view composed from the initial contents of
+the {{< glossary_tooltip text="container image" term_id="image" >}}, plus volumes
+(if defined) mounted inside the container.
+The process sees a root filesystem that initially matches the contents of the container
+image.
+Any writes to within that filesystem hierarchy, if allowed, affect what that process views
+when it performs a subsequent filesystem access.
+Volumes mount at the [specified paths](#using-subpath) within
+the image.
+For each container defined within a Pod, you must independently specify where
+to mount each volume that the container uses.
+
+Volumes cannot mount within other volumes (but see [Using subPath](#using-subpath)
+for a related mechanism). Also, a volume cannot contain a hard link to anything in
+a different volume.
 
 ## Types of Volumes {#volume-types}
 
@@ -217,7 +226,7 @@ It redirects all plugin operations from the existing in-tree plugin to the
 `cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
 [OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster.
-You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack` 
+You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
 If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
 for all aspects of Cinder volume storage management.
