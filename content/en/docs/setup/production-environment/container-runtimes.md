@@ -16,7 +16,7 @@ what is involved and describes related tasks for setting up nodes.
 <!-- body -->
 
 Kubernetes {{< skew currentVersion >}} requires that you use a runtime that
-conforms with the 
+conforms with the
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI).
 
 See [CRI version support](#cri-versions) for more information.
@@ -28,6 +28,19 @@ Kubernetes, on Linux:
 - [CRI-O](#cri-o)
 - [Docker Engine](#docker)
 - [Mirantis Container Runtime](#mcr)
+
+{{< note >}}
+Dockershim, the portion of code in Kubernetes that provided direct
+integration with Docker in prior releases, was removed from Kubernetes
+version 1.24. This removal was announced as a [deprecation in Kubernetes v 1.20](
+/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
+You can check out this [documentation](
+/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+to understand how this deprecation might affect you. To migrate from
+dockershim you can follow [this migration guide](
+/docs/tasks/administer-cluster/migrating-from-dockershim/)
+to migrate from dockershim.
+{{< /note >}}
 
 {{< note >}}
 For other operating systems, look for documentation specific to your platform.
@@ -151,10 +164,11 @@ Install containerd:
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
 
-1. Install the `containerd.io` package from the official Docker repositories. 
-Instructions for setting up the Docker repository for your respective Linux distribution and 
-installing the `containerd.io` package can be found at 
-[Install Docker Engine](https://docs.docker.com/engine/install/#server).
+1. Install the `containerd.io` package from the [official containerd website](
+   https://containerd.io/downloads/).Instructions for setting up the Docker
+   repository for your respective Linux distribution and
+   installing the `containerd.io` package can be found at
+   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 
 2. Configure containerd:
 
@@ -172,7 +186,7 @@ installing the `containerd.io` package can be found at
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
-Start a Powershell session, set `$Version` to the desired version (ex: `$Version="1.4.3"`), 
+Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`),
 and then run the following commands:
 
 1. Download containerd:
@@ -299,7 +313,7 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="Ubuntu" %}}
 
-To install on the following operating systems, set the environment variable `OS` 
+To install on the following operating systems, set the environment variable `OS`
 to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
@@ -335,7 +349,7 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="CentOS" %}}
 
-To install on the following operating systems, set the environment variable `OS` 
+To install on the following operating systems, set the environment variable `OS`
 to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
@@ -416,10 +430,8 @@ in sync.
 
 ### Docker Engine {#docker}
 
-Docker Engine is the container runtime that started it all. Formerly known just as Docker,
-this container runtime is available in various forms.
-[Install Docker Engine](https://docs.docker.com/engine/install/) explains your options
-for installing this runtime.
+On each of your nodes, install Docker for your Linux distribution as per
+[Install Docker Engine](https://docs.docker.com/engine/install/#server).
 
 Docker Engine is directly compatible with Kubernetes {{< skew currentVersion >}}, using the deprecated `dockershim` component. For more information
 and context, see the [Dockershim deprecation FAQ](/dockershim).
@@ -428,7 +440,10 @@ You can also find third-party adapters that let you use Docker Engine with Kuber
 through the supported {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}}
 (CRI).
 
-The following CRI adaptors are designed to work with Docker Engine:
+{{< note >}}
+`overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher,
+or RHEL or CentOS using version 3.10.0-514 and above.
+{{< /note >}}
 
 - [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) from Mirantis
 
