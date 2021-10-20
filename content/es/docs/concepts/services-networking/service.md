@@ -18,14 +18,14 @@ Kubernetes le otorga a sus Pods su propia dirección IP y un nombre DNS para un 
 
 ## Motivación
 
-Los {{< glossary_tooltip term_id="pod" text="Pods" >}} de Kubernetes son creados y destruidos para coincidir con el estado de tu cluster.
-Los Pods son recursos no permanentes. Si utilizas un {{< glossary_tooltip term_id="deployment" >}} para correr tu aplicación, puede crear y
+Los {{< glossary_tooltip term_id="pod" text="Pods" >}} de Kubernetes son creados y destruidos para coincidir con el estado de tu clúster.
+Los Pods son recursos no permanentes. Si utilizas un {{< glossary_tooltip term_id="deployment" text="Deployment" >}} para correr tu aplicación, puede crear y
 destruir los Pods dinámicamente.
 
 Cada Pod obtiene su propia dirección IP, sin embargo, en un Deployment, el conjunto de Pods corriendo en un momento dado puede ser diferente al
 conjunto de Pods corriendo esa aplicación un momento después.
 
-Esto conlleva un problema: si un conjunto de Pods (llamémoslos "backends") provee funcionalidad a otros Pods (llamémoslos "frontends") dentro de tu cluster,
+Esto conlleva un problema: si un conjunto de Pods (llamémoslos "backends") provee funcionalidad a otros Pods (llamémoslos "frontends") dentro de tu clúster,
 ¿de qué manera los frontends encuentran y tienen seguimiento de cuál dirección IP conectarse, para que el frontend pueda usar la parte del backend de la carga de trabajo?
 
 Entran los _Services_.
@@ -33,8 +33,8 @@ Entran los _Services_.
 ## Recursos Service {#service-resource}
 
 En Kubernetes, un Service es una abstracción que define un conjunto lógico de Pods y una política por la cual acceder a ellos
-(algunas veces este patrón es llamado micro-servicio). El conjunto de Pods a los que apunta un Servicio se determina usualmente por un {{< glossary_tooltip text="selector" term_id="selector" >}}.
-Para aprender más sobre otras maneras de definir endpoints para un Service, mira [Services _without_ selectors](#services-without-selectors).
+(algunas veces este patrón es llamado micro-servicio). El conjunto de Pods a los que apunta un Servicio se determina usualmente por un {{< glossary_tooltip text="Selector" term_id="selector" >}}.
+Para aprender más sobre otras maneras de definir Endpoints para un Service, mira [Services sin selectores](#services-sin-selectores).
 
 Por ejemplo, considera un backend sin estado para procesar imágenes que está corriendo con 3 réplicas. Estas réplicas son fungibles; a los frontends no les importa
 cuál backend usar. Mientras que los Pods actuales que componen el backend pueden cambiar, los clientes del frontend no deberían estar al tanto de ello, ni deberían llevar un seguimiento
@@ -45,14 +45,14 @@ La abstracción del Service habilita este desacoplamiento.
 ### Descubrimiento de servicios nativos en la nube
 
 Si eres capaz de usar la API de Kubernetes para descubrir servicios en tu aplicación,
-puedes hacer una búsqueda en el {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} para los Endpoints, que se actualizan cuando cambian el conjunto de Pods en el servicio.
+puedes hacer una búsqueda en el {{< glossary_tooltip text="servidor API" term_id="kube-apiserver" >}} para los Endpoints, que se actualizan cuando cambian el conjunto de Pods en el servicio.
 
 Para aplicaciones no nativas, Kubernetes ofrece una manera de colocar un puerto de red o un balanceador de cargas entre tu aplicación y los Pods del backend.
 
 ## Definiendo un Service
 
 Un Service en Kubernetes es un objeto REST, similar a un Pod. Como todos los objetos REST, puedes hacer un `Post` a una definición de un Service al servidor API para crear una nueva instancia.
-EL nombre de un objeto Service debe ser un [nombre válido RFC 1035 ](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
+EL nombre de un objeto Service debe ser un [nombre RFC 1035 válido](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
 
 Por ejemplo, supongamos que tienes un conjunto de Pods en el que cada uno escucha el puerto TCP 9376 y contiene la etiqueta `app=MyApp`:
 
@@ -80,7 +80,7 @@ El controlador para el selector del Service escanea continuamente a los Pods que
 Un Service puede mapear _cualquier_ `port` de entrada a un `targetPort`. Por defecto y conveniencia, el `targetPort` se establece con el mismo valor que el campo `port`.
 {{< /note >}}
 
-Las definiciones de puerto en los Pods tienen nombres, y puedes referenciar estos nombres en el atributo `targetPort`del Service. Esto funciona incluso si existe una mezcla
+Las definiciones de puerto en los Pods tienen nombres, y puedes hacer referencia a estos nombres en el atributo `targetPort` del Service. Esto funciona incluso si existe una mezcla
 de Pods en el Service usando un único nombre configurado, con el mismo protocolo de red disponible via diferentes números de puerto.
 Esto ofrece mucha flexibilidad para desplegar y evolucionar tus Services. Por ejemplo, puedes cambiar los números de puertos que los Pods exponen en la siguiente versión de tu software backend, sin romper los clientes.
 
@@ -95,8 +95,8 @@ Los Services comúnmente abstraen el acceso a los Pods de Kubernetes, pero tambi
 
 Por ejemplo:
 
-- Quieres tener un cluster de base de datos externo en producción, pero en el ambiente de pruebas quieres usar tus propias bases de datos.
-- Quieres apuntar tu Service a un Service en un {{< glossary_tooltip term_id="namespace" >}} deferente o en un cluster diferente.
+- Quieres tener un clúster de base de datos externo en producción, pero en el ambiente de pruebas quieres usar tus propias bases de datos.
+- Quieres apuntar tu Service a un Service en un {{< glossary_tooltip term_id="namespace" text="Namespace" >}} o en un clúster diferente.
 - Estás migrando tu carga de trabajo a Kubernetes. Mientras evalúas la aproximación, corres solo una porción de tus backends en Kubernetes.
 
 En cualquiera de estos escenarios puedes definir un Service _sin_ un selector de Pod.
@@ -117,9 +117,6 @@ spec:
 
 Debido a que este Service no tiene un selector, el objeto Endpoints no se crea de forma automática.
 Puedes mapear manualmente el Service a la dirección de red y puerto donde está corriendo, añadiendo el objeto Endpoints manualmente:
-Because this Service has no selector, the corresponding Endpoints object is not
-created automatically. You can manually map the Service to the network address and port
-where it's running, by adding an Endpoints object manually:
 
 ```yaml
 apiVersion: v1
@@ -139,16 +136,16 @@ El nombre del objeto Endpoints debe ser un [nombre de subdominio DNS válido](/d
 Las direcciones IPs _no deben_ ser: loopback (127.0.0.0/8 para IPv4, ::1/128 para IPv6), o
 link-local (169.254.0.0/16 and 224.0.0.0/24 para IPv4, fe80::/64 para IPv6).
 
-Las direcciones IP del Endpoint no pueden ser IPs de cluster de otros Services de Kubernetes, debido a que el
+Las direcciones IP del Endpoint no pueden ser IPs de clúster de otros Services de Kubernetes, debido a que el
 {{< glossary_tooltip term_id="kube-proxy" >}} no soporta IPs virtuales como destino.
 {{< /note >}}
 
 Acceder a un Service sin un selector funciona de la misma manera que si tuviese un selector.
-En el ejemplo de abajo, el tráfico se dirige al único endpoint definido en el YAML:
+En el ejemplo de abajo, el tráfico se dirige al único Endpoint definido en el YAML:
 `192.0.2.42:9376` (TCP).
 
 {{< note >}}
-El servidor de API de Kubernetes no permite hacer proxy a endpoints que no están mapeados a Pods.
+El servidor de API de Kubernetes no permite hacer proxy a Endpoints que no están mapeados a Pods.
 Acciones como `kubectl proxy <service-name>` donde el servicio no tiene un selector fallará debido a esta restricción.
 Esto previene que el servidor API de Kubernetes sea utilizado como proxy a endpoints a los que quien llama no tenga acceso autorizado.
 {{< /note >}}
@@ -157,7 +154,7 @@ Un Service ExternalName es un caso especial de Service que no tiene selectores y
 
 ### Endpoints de sobrecapacidad
 
-Si un recurso Endpoint tiene más de 1000 endpoints entonces un cluster de Kubernetes v1.22 (o posterior)
+Si un recurso Endpoint tiene más de 1000 endpoints entonces un clúster de Kubernetes v1.22 (o posterior)
 anota los Endpoints con `endpoints.kubernetes.io/over-capacity: truncated`.
 Esta anotación indica que el objeto Endpoints afectado está por encima de la capacidad y que
 el controlador de endpoints ha truncado el número de endpoints a 1000.
@@ -168,7 +165,7 @@ el controlador de endpoints ha truncado el número de endpoints a 1000.
 
 Los EndpointSlices son un recurso de la API que pueden proveer una alternativa más escalable a los Endpoints.
 Aunque conceptualmente es muy similar a los Endpoints, los EndpointSlices permiten distribuir los endpoints de red a través de múltiples recursos.
-Por defecto, un EndpointSlice se considera "full" una vez que alcanza 100 endpoints, punto en el cual un EndpointSlices se creará para almacenar cualquier endpoint adicional.
+Por defecto, un EndpointSlice se considera "full" una vez que alcanza 100 endpoints, punto en el cual un EndpointSlice se creará para almacenar cualquier endpoint adicional.
 
 Los EndpointSlices proveen atributos adicionales y funcionalidad que se describe en detalle en [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
 
@@ -182,13 +179,10 @@ El valor de este campo es reflejado por el Endpoint correspondiente y los objeto
 Este campo sigue una sintaxis estándar de etiquetas de Kubernetes. Los valores deberían ser [nombres de servicio IANA estándar](https://www.iana.org/assignments/service-names)
 o nombres de dominio con prefijos tales como `mycompany.com/my-custom-protocol`.
 
-This field follows standard Kubernetes label syntax. Values should either be
-[IANA standard service names](https://www.iana.org/assignments/service-names) or
-domain prefixed names such as `mycompany.com/my-custom-protocol`.
 
 ## IPS Virtuales proxies de servicio
 
-Cada nodo en un cluster de Kubernetes ejecuta un `kube-proxy`. El `kube-proxy`es el responsable de implementar una forma de IP virtual para los
+Cada nodo en un clúster de Kubernetes ejecuta un `kube-proxy`. El `kube-proxy`es el responsable de implementar una forma de IP virtual para los
 `Services` de un tipo distinto al de [`ExternalName`](#externalname).
 
 ### Por qué no usar DNS round-robin?
@@ -198,12 +192,12 @@ Por ejemplo, ¿sería posible configurar registros DNS que tengan múltiples val
 
 Existen algunas razones para usar proxies en los Services:
 
-- Hay una larga historia de implementaciones DNS que no respetan los registros TTLs, y cachean los resultados de la búsqueda de nombres luego de que debieran haber expirado.
+- Hay una larga historia de implementaciones DNS que no respetan los registros TTLs, y cachean los resultados de la búsqueda de nombres luego de que deberían haber expirado.
 - Algunas aplicaciones realizan la búsqueda de DNS solo una vez y almacenan en caché los resultados indefinidamente.
 - Incluso si las aplicaciones y las librerías hicieran una resolución apropiada, los TTLs bajos o nulos en los registros DNS podrían imponer una carga alta en los DNS que luego se volvería difícil de manejar.
 
 Más adelante en esta página puedes leer acerca del trabajo de varias implementaciones de kube-proxy. En general, deberías notar que, cuando ejecutas `kube-proxy`, los niveles de reglas del kernel podrían modificarse (por ejemplo, podrían crearse reglas iptables), que luego no son limpiados, en algunos casos hasta que reinicias. Por tanto, ejecutar kube-proxy es algo que
-solo debería hacer un administrador que entienda las consecuencias de tener un servicio de proxy de red privilegiado de red de bajo nivel en un computador. Aunque el ejecutable de `kube-proxy` soporta una función de `cleanup`, esta función no es una característica oficial y solo está disponible para usarse como está.
+solo debería hacer un administrador que entienda las consecuencias de tener un servicio de bajo nivel privilegiado de proxy de red en un computador. Aunque el ejecutable de `kube-proxy` soporta una función de `cleanup`, esta función no es una característica oficial y solo está disponible para usarse como está.
 
 ### Configuración
 
@@ -213,17 +207,10 @@ Ten en cuenta que el kube-proxy inicia en diferentes modos, los cuales están de
 - La configuración del ConfigMap no soporta la recarga en vivo de la configuración.
 - Los parámetros del ConfigMap para el kube-proxy no se pueden validar y verificar en el arranque. Por ejemplo, si tu sistema operativo no permite ejecutar comandos iptables, el kube-proxy del kernel estándar no funcionará. De igual forma, si tienes un sistema operativo que no soporta `netsh`, no se ejecutará en modo userspace en Windows.
 
-Note that the kube-proxy starts up in different modes, which are determined by its configuration.
-
-- The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for kube-proxy effectively deprecates the behaviour for almost all of the flags for the kube-proxy.
-- The ConfigMap for the kube-proxy does not support live reloading of configuration.
-- The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
-  For example, if your operating system doesn't allow you to run iptables commands, the standard kernel kube-proxy implementation will not work. Likewise, if you have an operating system which doesn't support `netsh`, it will not run in Windows userspace mode.
-
 ### Modo proxy userspace {#proxy-mode-userspace}
 
-En este modo, el kube-proxy observa la adición y remoción de objetos Endpoint Service del control plane de Kubernetes.
-Para cada Service abre un puerto (elegido al azar) en el nodo local. Cualquier conexión a este "puerto proxy" es dirigido a uno de los Pods backend del Servicio (como se reporta via Endpoints). El kube-proxy toma el valor `sessionAffinity` del Service en cuenta cuando decide cuál Pod del backend utilizar.
+En este modo, el kube-proxy observa la adición y eliminación de objetos Endpoint Service del plano de control de Kubernetes.
+Para cada Service se abre un puerto (elegido al azar) en el nodo local. Cualquier conexión a este "puerto proxy" es dirigido a uno de los Pods backend del Servicio (como se reporta via Endpoints). El kube-proxy toma el valor `sessionAffinity` del Service en cuenta cuando decide cuál Pod del backend utilizar.
 
 Finalmente, el proxy del userspace instala reglas de iptables que capturan el tráfico al `clusterIP` (que es virtual) del servicio y el `port`. Las reglas redirigen el tráfico al puerto proxy que redirige al Pod del backend.
 
@@ -233,7 +220,7 @@ Por defecto, el kube-proxy en modo userspace elige un backend con un algoritmo r
 
 ### Modo proxy `iptables` {#proxy-mode-iptables}
 
-En este modo, el kube-proxy observa la adición y remoción de objetos Endpoint Service del control plane de Kubernetes.
+En este modo, el kube-proxy observa la adición y eliminación de objetos Endpoint Service del panel de control de Kubernetes.
 Para Service, instala reglas iptables, las cuales capturan el tráfico al `clusterIP` y el `port` del Service, y redirige este tráfico a uno de los conjuntos del backend.
 Para cada objeto Endpoint, instala reglas de iptables que seleccionan un Pod del backend.
 
@@ -244,7 +231,7 @@ Esta aproximación puede llegar a ser más confiable.
 
 Si el kube-proxy está corriendo en modo iptables y el primer Pod seleccionado no responde, la conexión falla. Esto es diferente del modo userspace: en ese escenario, el kube-proxy detectaría que la conexión al primer Pod ha fallado e intentaría automáticamente con otro Pod del backend.
 
-Puedes usar [readiness probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) para verificar que los Pods del backend están funcionando correctamente, paa que el kube-proxy en modo iptables solo vea los backends que han sido comprobados como sanos. Hacer esto significa que evitas enviar tráfico via kube-proxy a un Pod que se sabe que ha fallado.
+Puedes usar [readiness probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) para verificar que los Pods del backend están funcionando correctamente, para que kube-proxy en modo iptables solo vea los backends que han sido comprobados como sanos. Hacer esto significa que evitas enviar tráfico via kube-proxy a un Pod que se sabe que ha fallado.
 
 ![Diagrama de descripción general de los Services para el proxy iptables](/images/docs/services-iptables-overview.svg)
 
@@ -256,7 +243,7 @@ En el modo `ipvs`, el kube-proxy observa los Services de Kubernetes y los Endpoi
 
 Cuando accede a un Service, IPVS dirige el tráfico a uno de estos Pods del backend.
 
-El modo proxy IPVS está basado en la función de enlace netfilter que es similar al modo iptables, pero una una tabla hash como estructura de datos subyacente y opera en el espacio del kernel.
+El modo proxy IPVS está basado en la función de enlace netfilter que es similar al modo iptables, pero usa una tabla hash como estructura de datos subyacente y opera en el espacio del kernel.
 
 Esto significa que el kube-proxy en modo IPVS redirige el tráfico como menor latencia que el kube-proxy en modo iptables, con mejor desempeño cuando sincroniza las reglas proxy. Comparado con otros modos proxy, el modo IPVS también soporta un rendimiento más alto de tráfico de red.
 
@@ -270,16 +257,16 @@ IPVS provee más opciones para balancear el tráfico a los Pods del backend; est
 - `nq`: nunca hacer cola
 
 {{< note >}}
-Para correr el kube-proxy en modo IPVS, deber hacer disponible IPVS en el nodo antes de iniciar el kube-proxy.
+Para correr kube-proxy en modo IPVS, deber hacer disponible IPVS en el nodo antes de iniciar el kube-proxy.
 
-Cuando el kube-proxy inicia en modo IPVS, verifica si los módulos kernel IPVS están disponibles. Si no se detectan los módulos del kernel IPVS, el kube-proxy vuelve al modo proxy iptables.
+Cuando kube-proxy inicia en modo IPVS, este verifica si los módulos kernel IPVS están disponibles. Si no se detectan los módulos del kernel IPVS, kube-proxy vuelve al modo proxy iptables.
 {{< /note >}}
 
 ![Diagrama de descripción general de los Services para el proxy IPVS](/images/docs/services-ipvs-overview.svg)
 
-En estos modelos de proxy, el tráfico enlazado para la IP:Port del Service es redirigido al backend apropiado sin que el cliente sepa nada de kubernetes o Services o Pods.
+En estos modelos de proxy, el tráfico enlazado para la IP:Port del Service es redirigido al backend apropiado sin que el cliente sepa nada de Kubernetes, Services o Pods.
 
-Si quieres asegurarte que las conexiones desde in cliente en particular se pasan el mismo Pod cada vez, puedes seleccionar la afinidad de sesión basada en la dirección IP del cliente al establecer `service.spec.sessionAffinity` a "ClientIP" (por defecto es "None").
+Si quieres asegurarte que las conexiones desde un cliente en particular se pasan al mismo Pod cada vez, puedes seleccionar la afinidad de sesión basada en la dirección IP del cliente al establecer `service.spec.sessionAffinity` a "ClientIP" (por defecto es "None").
 
 Puedes establecer también el número máximo de tiempo al establecer `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` apropiadamente. (El valor por defecto es 10800, que resulta ser unas 3 horas).
 
@@ -315,10 +302,10 @@ Por ejemplo, los nombres `123-abc` and `web` son válidos, pero `123_abc` y `-we
 
 ## Eligiendo tu propia dirección IP
 
-Puedes especificar tu propia dirección IP para el cluster como parte de la petición de creación de un `Service`. Para hacer esto, establece el campo `.spec.clusterIP`. Por ejemplo, si ya tienes una entrada DNS existente que quieres reutilizar, o sistemas legacy que están configurados para direcciones IP específicas que son difíciles de re-configurar.
+Puedes especificar tu propia dirección IP para el clúster como parte de la petición de creación de un `Service`. Para hacer esto, establece el campo `.spec.clusterIP`. Por ejemplo, si ya tienes una entrada DNS existente que quieres reutilizar, o sistemas legacy que están configurados para direcciones IP específicas que son difíciles de reconfigurar.
 
-La dirección IP que elijas debe ser una dirección válida IPV4 o IPV6 dentro del rango CIDR `service-cluster-ip-range` que está configurado para el API server.
-Si intentas crear un Service con una dirección clusterIP inválida, el API server devolverá un código de estado 422 para indicar que hay un problema.
+La dirección IP que elijas debe ser una dirección válida IPV4 o IPV6 dentro del rango CIDR `service-cluster-ip-range` que está configurado para el servidor API.
+Si intentas crear un Service con una dirección clusterIP inválida, el servidor API devolverá un código de estado 422 para indicar que hay un problema.
 
 ## Políticas de tráfico
 
@@ -346,7 +333,7 @@ Kubernetes soporta 2 modos primarios de encontrar un Service - variables de ento
 Cuando un Pod está corriendo en un Node, el kubelet añade un conjunto de variables de entorno para cada Service activo. Soporta tanto variables [Docker links
 compatible](https://docs.docker.com/userguide/dockerlinks/) como variables más sencillas `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT`, donde el nombre del Service está en mayúsculas y los guiones se convierten en guiones bajos.
 
-Por ejemplo, el Service `redis-master` que expone el puerto TCP 6739 y se le ha asignado una dirección IP de cluster 10.0.0.11, produce las siguientes variables de entorno:
+Por ejemplo, el Service `redis-master` que expone el puerto TCP 6739 y se le ha asignado una dirección IP de clúster 10.0.0.11, produce las siguientes variables de entorno:
 
 ```shell
 REDIS_MASTER_SERVICE_HOST=10.0.0.11
@@ -359,35 +346,28 @@ REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
 ```
 
 {{< note >}}
-Cuando tienes un Pod que necesita acceso a un Service, y estás usando el método de variable de entorno para publicar el puerto y la dirección cluster IP al Pod cliente, debes crear el Service _antes_ de que los Pods del cliente lleguen a existir. De lo contrario, esos Pods cliente no tendrán las variables de entorno pobladas.
+Cuando tienes un Pod que necesita acceso a un Service, y estás usando el método de variable de entorno para publicar el puerto y la dirección clúster IP al Pod cliente, debes crear el Service _antes_ de que los Pods del cliente lleguen a existir. De lo contrario, esos Pods cliente no tendrán las variables de entorno pobladas.
 
-Si solo usas DNS para descubrir la cluster IP para un Service, no tienes que preocuparte acerca de este tema de ordenación.
+Si solo usas DNS para descubrir la clúster IP para un Service, no tienes que preocuparte acerca de este tema de ordenación.
 {{< /note >}}
 
 ### DNS
 
-Puedes (y casi siempre deberías) configurar un servicio DNS para tu cluster de Kubernetes usando un [add-on](/docs/concepts/cluster-administration/addons/).
+Puedes (y casi siempre deberías) configurar un servicio DNS para tu clúster de Kubernetes usando un [add-on](/docs/concepts/cluster-administration/addons/).
 
-Un servidor DNS consciente del cluster, como CoreDNS, observa la API de Kubernetes por nuevos Services y crea un conjunto de registros DNS para cada uno. Si DNS ha sido habilitado a través de tu cluster entonces todos los Pods automáticamente serán capaces de resolver Services por su nombre DNS.
+Un servidor DNS consciente del clúster, como CoreDNS, observa la API de Kubernetes por nuevos Services y crea un conjunto de registros DNS para cada uno. Si DNS ha sido habilitado a través de tu clúster entonces todos los Pods automáticamente serán capaces de resolver Services por su nombre DNS.
 
-Por ejemplo, si tienes un Service llamado `mi-servicio` en un namespace `mi-ns`, el control plane y el Service DNS crean un registro DNS para `mi-servicio.mi-ns` conjuntamente. Los Pods en el namespace `mi-ns` deberían ser capaces de encontrar el servicio haciendo una búsqueda de nombre por `mi-servicio` (`mi-servicio.mi-ns` también funcionaría)
+Por ejemplo, si tienes un Service llamado `mi-servicio` en un namespace `mi-ns`, el plano de control y el Service DNS crean un registro DNS para `mi-servicio.mi-ns` conjuntamente. Los Pods en el namespace `mi-ns` deberían ser capaces de encontrar el servicio haciendo una búsqueda de nombre por `mi-servicio` (`mi-servicio.mi-ns` también funcionaría)
 
 Los Pods en otros namespaces deben calificar el nombre como `my-service.my-ns`. Estos nombres resolverán la cluster IP asignada para el Service.
 
-Kubernetes también soporta registros DNS SRV (Service) para los puertos nombrados. Si el Service `mi-servicio.mi-ns` tiene un puerto llamado `http`con el protocolo
+Kubernetes también soporta registros DNS SRV (Service) para los puertos nombrados. Si el Service `mi-servicio.mi-ns` tiene un puerto llamado `http`con el protocolo fijado a `TCP`, puedes hacer una consulta DNS SRV a `_http._tcp.mi-servicio.mi-ns` para descubrir el número de puerto para `htpp`así como la dirección IP.
 
-Kubernetes also supports DNS SRV (Service) records for named ports. If the
-`my-service.my-ns` Service has a port named `http` with the protocol set to
-`TCP`, you can do a DNS SRV query for `_http._tcp.my-service.my-ns` to discover
-the port number for `http`, as well as the IP address.
-
-The Kubernetes DNS server is the only way to access `ExternalName` Services.
-You can find more information about `ExternalName` resolution in
-[DNS Pods and Services](/docs/concepts/services-networking/dns-pod-service/).
+El servidor DNS de Kubernetes es la única manera de acceder a los Services `ExternalName`. Puedes encontrar más información sobre la resolución `ExternalName`en [Pods y Services DNS](/docs/concepts/services-networking/dns-pod-service/).
 
 ## Servicios Headless
 
-Algunas veces no necesitas balancear cargas y una única IP. En este caso, puedes crear lo que llamamos Services "headless", especificando `"None"` para el cluster IP (`.spec.clusterIP`).
+Algunas veces no necesitas balancear cargas y una única IP. En este caso, puedes crear lo que llamamos Services "headless", especificando `"None"` para el clúster IP (`.spec.clusterIP`).
 
 Puedes usar un Service headless para hacer de interfaz con otros mecanismos de descubrimiento de servicios, sin estar atado a la implementación de Kubernetes.
 
@@ -406,36 +386,35 @@ Para Services headless que no definen selectores, el controlador de endpoints no
 
 ## Publicar Services (ServiceTypes) {#publishing-services-service-types}
 
-En algunas partes de tu aplicación (por ejemplo, frontends) puede que necesites exponer un Services a una dirección IP externa, que está fuera de tu cluster.local
+En algunas partes de tu aplicación (por ejemplo, frontends) puede que necesites exponer un Services a una dirección IP externa, que está fuera de tu clúster local
 
 Los `ServiceTypes` de Kubernetes permiten especificar qué tipo de Service quieres. El valor por defecto es `CLusterIP`
 
 Los valores `Type` y sus comportamientos son:
 
-- `CLusterIP`: Expone el Service en una direción IP interna del cluster. Al escoger este valor el Service solo es alcanzable desde el cluster. Este es el `ServiceType` por defecto.
-- [`NodePort`](#nodeport): Expone el Service en cada IP del Node en un puerto estático (el `NodePort`). Automáticamente se crea un Service `CLusterIP`, al cual enruta el `NodePort`del Service. Podrás alcanzar el Service `NodePort` desde fuera del cluster, haciendo una petición a `<NodeIP>:<NodePort>`.
+- `CLusterIP`: Expone el Service en una dirección IP interna del clúster. Al escoger este valor el Service solo es alcanzable desde el clúster. Este es el `ServiceType` por defecto.
+- [`NodePort`](#nodeport): Expone el Service en cada IP del Node en un puerto estático (el `NodePort`). Automáticamente se crea un Service `CLusterIP`, al cual enruta el `NodePort`del Service. Podrás alcanzar el Service `NodePort` desde fuera del clúster, haciendo una petición a `<NodeIP>:<NodePort>`.
 - [`LoadBalancer`](#loadbalancer): Expone el Service externamente usando un balanceador de cargar del proveedor de la nube. Son creados automáticamente Services `NodePort`y `ClusterIP`, a los cuales el apuntará el balanceador externo.
-- [`ExternalName`](#externalname): Mapea el Service a el contenido del campo `externalName` (ej. `foo.bar.example.com`), al devolver un registro `CNAME` con su valor. No se configura ningún tipo de proxy.
+- [`ExternalName`](#externalname): Mapea el Service al contenido del campo `externalName` (ej. `foo.bar.example.com`), al devolver un registro `CNAME` con su valor. No se configura ningún tipo de proxy.
 
   {{< note >}}
-
 - Necesitas la versión 1.7 de `kube-dns` o COreDNS versión 0.0.8 o más para usar el tipo `ExternalName`.
   {{< /note >}}
 
-También puedes usar un [Ingress](/docs/concepts/services-networking/ingress/) para exponer tu Service. Ingress no es un tipo de Service, pero actúa como el punto de entrada de tu cluster. Te permite consolidar tus reglas de enrutamiento en un único recurso ya que puede exponer múltiples servicios bajo la misma dirección IP.
+También puedes usar un [Ingress](/docs/concepts/services-networking/ingress/) para exponer tu Service. Ingress no es un tipo de Service, pero actúa como el punto de entrada de tu clúster. Te permite consolidar tus reglas de enrutamiento en un único recurso, ya que puede exponer múltiples servicios bajo la misma dirección IP.
 
 ### Tipo NodePort {#nodeport}
 
-Si estableces el campo `type` a `NodePort`, el control plane de Kubernetes asigna un puerto desde un rango especificado por la bandera `--service-node-port-range` (por defecto: 30000-32767).
+Si estableces el campo `type` a `NodePort`, el plano de control de Kubernetes asigna un puerto desde un rango especificado por la bandera `--service-node-port-range` (por defecto: 30000-32767).
 Cada nodo es un proxy de ese puerto (el mismo número de puerto en cada Node) hacia tu Service. Tu Service reporta al puerto asignado en el campo `.spec.ports[*].nodePort`
 
 Si quieres especificar una(s) IP(s) particular(es) para hacer proxy del puerto, puedes establecer la bandera `--nodeport-addresses` para el kube-proxy o el campo equivalente `nodePortAddresses` del [fichero de configuración de kube-proxy](/docs/reference/config-api/kube-proxy-config.v1alpha1/) para ese bloque particular de IP(s).
 
 Esta bandera recibe un listado de bloques de IP separados por coma (ej. `10.0.0.0/8`, `192.0.2.0/25`) para especificar rangos de direcciones ip que el kube-proxy debería considerar como local para este nodo.
 
-Por ejemplo, si arrancas el kube-proxy con la bandera `--nodeport-addresses=127.0.0.0/8`, el kube-proxy solo selecciona la interfaz loopback para los Services NodePort. El valor por defecto es `--nodeport-addresses` es una lista vacía. Este significa que el kube-proxy considera todas las interfaces de red disponibles para el NodePort. (Esto es compatible también con versionas más antiguas de Kubernetes).
+Por ejemplo, si arrancas el kube-proxy con la bandera `--nodeport-addresses=127.0.0.0/8`, el kube-proxy solo selecciona la interfaz loopback para los Services NodePort. El valor por defecto es `--nodeport-addresses` es una lista vacía. Este significa que el kube-proxy considera todas las interfaces de red disponibles para el NodePort. (Esto es compatible también con versiones más antiguas de Kubernetes).
 
-Si quieres un número de puerto específico, puedes especificar un valor en el campo `nodePort`. El control plane te asignará ese puerto o reportará que la transacción API ha fallado.
+Si quieres un número de puerto específico, puedes especificar un valor en el campo `nodePort`. El plano de control te asignará ese puerto o reportará que la transacción API ha fallado.
 Esto significa que necesitas prestar atención a posibles colisiones de puerto por tu cuenta.
 También tienes que usar un número de puerto válido, uno que esté dentro del rango configurado para uso del NodePort.
 
@@ -460,13 +439,13 @@ spec:
     - port: 80
       targetPort: 80
       # Campo opcional
-      # Por defecto y por conveniencia, el control plane de Kubernetes asignará el puerto desde un rango (por defecto: 30000-32767)
+      # Por defecto y por conveniencia, el plano de control de Kubernetes asignará el puerto desde un rango (por defecto: 30000-32767)
       nodePort: 30007
 ```
 
 ### Tipo LoadBalancer {#loadbalancer}
 
-En proveedores de la nube que soportan balanceadores de carga externos, establecer el campo `type` a `LoadBalancer` provisiona un balanceador de cargas para tu SErvice. La creación del balanceador de cargas ocurre de forma asíncrona, y la información sobre el balanceador de cargas provisto se publica en el campo `.status.loadBalancer` del Service.
+En proveedores de la nube que soportan balanceadores de carga externos, establecer el campo `type` a `LoadBalancer` aprovisiona un balanceador de cargas para tu Service. La creación del balanceador de cargas ocurre de forma asíncrona, y la información sobre el balanceador de cargas provisto se publica en el campo `.status.loadBalancer` del Service.
 
 Por ejemplo:
 
@@ -492,13 +471,13 @@ status:
 
 El tráfico desde el balanceador de cargas externo es dirigido a los Pods del backend. El proveedor de la nube decide cómo balancear la carga.
 
-Algunos proveedores de la nube te permiten especificar la `loadBalancerIP`. En esos caso, el balanceador de carga es creado con la `loadBalancerIP` especificada por el usuario. Si el campo `loadBalancerIP` no se especifica, el balanceador de cargas se configura con una dirección IP efímera. Si especificas una `loadBalancerIP` pero tu proveedor de la nube no soporta esta característica, se ignora el campo `loadBalancerIP` que has configurado.
+Algunos proveedores de la nube te permiten especificar la IP `loadBalancerIP`. En esos caso, el balanceador de carga es creado con la `loadBalancerIP` especificada por el usuario. Si el campo `loadBalancerIP` no se especifica, el balanceador de cargas se configura con una dirección IP efímera. Si especificas una `loadBalancerIP` pero tu proveedor de la nube no soporta esta característica, se ignora el campo `loadBalancerIP` que has configurado.
 
 {{< note >}}
-En **Azure**, si quieres usar un tipo `loadBalancerIP` público definido por el usuario, primero necesitas crear una dirección IP estática y pública. Esta dirección IP pública debería estar en el mismo grupo de recursos que los otros recursos del cluster creados automáticamente.
+En **Azure**, si quieres usar un tipo `loadBalancerIP` público definido por el usuario, primero necesitas crear una dirección IP estática y pública. Esta dirección IP pública debería estar en el mismo grupo de recursos que los otros recursos del clúster creados automáticamente.
 Por ejemplo, `MC_myResourceGroup_myAKSCluster_eastus`.
 
-Especifica la dirección IP asignada como loadBalancerIP. Asegúrate que tienes actualizado el securityGroupName en tu fichero de configuración del proveedor de la nube. Para información sobre cómo resolver problemas de permisos de `CreatingLoadBalancerFailed`, mira [Usar una IP estática con el balanceador de cargas de Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/static-ip) o [CreatingLoadBalancerFailed en un cluster AKS con configuración de red avanzada](https://github.com/Azure/AKS/issues/357).
+Especifica la dirección IP asignada como loadBalancerIP. Asegúrate que tienes actualizado el securityGroupName en tu fichero de configuración del proveedor de la nube. Para información sobre cómo resolver problemas de permisos de `CreatingLoadBalancerFailed`, mira [Usar una IP estática con el balanceador de cargas de Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/static-ip) o [CreatingLoadBalancerFailed en un clúster AKS con configuración de red avanzada](https://github.com/Azure/AKS/issues/357).
 {{< /note >}}
 
 #### Balanceadores de carga con tipos de protocolo mixtos
@@ -528,7 +507,7 @@ Debes habilitar la feature gate `ServiceLBNodePortControl` para usar este campo.
 
 `spec.loadBalancerClass` te permite usar una implementación del balanceador de cargas distinta que la que viene por defecto para el proveedor de la nube. Esta característica está disponible desde v1.21, debes habilitar la feature gate `ServiceLoadBalancerClass` para usar este campo en v1.21, y la feature gate está habilitada por defecto desde v1.22 en adelante.
 
-Por defecto, `spec.loadBalancerClass` es `nil` y un tipo de Service `LoadBalancer` usa la implementación por defecto del proveedor de la nube si el cluster está configurado con un proveedor de nube usando la bandera de componente `--cloud-provider`.
+Por defecto, `spec.loadBalancerClass` es `nil` y un tipo de Service `LoadBalancer` usa la implementación por defecto del proveedor de la nube si el clúster está configurado con un proveedor de nube usando la bandera de componente `--cloud-provider`.
 
 Si `spec.loadBalancerClass` está especificado, se asume que una implementación de un balanceador de cargas que coincida con la clase especificada está observando los Services. Cualquier implementación por defecto del balanceador de cargas (por ejemplo,la que es provista por el proveedor de la nube) ignorará los Services que tienen este campo establecido. `spec.loadBalancerClass` se puede establecer en cualquier Service de tipo `LoadBalancer` únicamente. Una vez hecho, no se puede cambiar.
 El valor de `spec.loadBalancerClass` debe ser un identificador de etiqueta, con un prefijo opcional como "`internal-vip`" o "`example.com/internal-vip`". Los nombres sin prefijo están reservados para usuarios finales.
@@ -537,7 +516,7 @@ El valor de `spec.loadBalancerClass` debe ser un identificador de etiqueta, con 
 
 En un ambiente mixto algunas veces es necesario enrutar el tráfico desde Services dentro del mismo bloque (virtual) de direcciones de red.
 
-En un entorno DNS de horizonte dividido necesitarías dos Services para ser capaz de enturar tanto el tráfico externo como el interno a tus endpoints.
+En un entorno DNS de horizonte dividido necesitarías dos Services para ser capaz de enrutar tanto el tráfico externo como el interno a tus endpoints.
 
 Para establecer un balanceador de cargas interno, agrega una de las siguientes anotaciones a tu Service dependiendo del proveedor de Service en la nube que estás usando.
 
@@ -661,7 +640,7 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
 ```
 
-La segunda anotación especifica cual protocolo habla el Pod. Para HTTPS y SSL, el ELB espera que el Pod se autentique a sí mismo sobre una conexión encriptada, usando un certificado.
+La segunda anotación especifica cuál protocolo habla el Pod. Para HTTPS y SSL, el ELB espera que el Pod se autentique a sí mismo sobre una conexión encriptada, usando un certificado.
 
 HTTP y HTTPS seleccionan un proxy de capa 7: el ELB termina la conexión con el usuario, interpreta los encabezados, e inyecta el encabezado `X-Forwared-For` con la dirección IP del usuario (Los Pods solo ven la dirección IP del ELB del otro lado de su conexión) cuando reenvía las peticiones.
 
@@ -677,9 +656,9 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443,8443"
 ```
 
-En el ejemplo de arriba, si el Service conteía tres puertos, `80`, `443` y `8443` entonces `443` y `8443` usarían el certificado SSL, pero `80`sería HTTP proxy.
+En el ejemplo de arriba, si el Service contenía tres puertos, `80`, `443` y `8443` entonces `443` y `8443` usarían el certificado SSL, pero `80`sería HTTP proxy.
 
-A partir de Kubernetes v1.9 en adelante puedes usar [políticas predefinidas de AWS SSL ](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) con listeners HTTPS o SSL para tus Services. Para ver cuales políticas están disponibles para usar, puedes usar la herramienta de línea de comandos `aws`:
+A partir de Kubernetes v1.9 en adelante puedes usar [políticas predefinidas de AWS SSL ](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) con listeners HTTPS o SSL para tus Services. Para ver cuáles políticas están disponibles para usar, puedes usar la herramienta de línea de comandos `aws`:
 
 ```bash
 aws elb describe-load-balancer-policies --query 'PolicyDescriptions[].PolicyName'
@@ -739,7 +718,7 @@ metadata:
 #### Drenaje de conexión en AWS
 
 Drenaje de conexión para ELBs clásicos se puede administrar con la anotación
-`service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled` fijado al valor `"true"`.
+`service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled` fijada al valor `"true"`.
 La anotación `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout` puede
 ser usada también para establecer el tiempo máximo, en segundos, para mantener las conexiones existentes antes de dar de baja las instancias.
 
@@ -751,9 +730,9 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout: "60"
 ```
 
-#### Otras anoaciones ELB
+#### Otras anotaciones ELB
 
-Existen otras anotaciones para administrar CLassic Elastic Load Balancers que se describen abajo.
+Existen otras anotaciones para administrar Classic Elastic Load Balancers que se describen abajo.
 
 ```yaml
 metadata:
@@ -769,31 +748,31 @@ metadata:
     # Un listado separado por comas de valores de clave-valor que será guardados como etiquetas adicionales en el ELB.
 
     service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
-    # El número de healt checks exitosos sucesivos requeridos para considerar sano para el tráfico a un backend.
+    # El número de comprobaciones de estado exitosas sucesivas requeridas para considerar sano para el tráfico a un backend.
     # Por defecto es 2, debe ser entre 2 y 10
 
     service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
-    # El número de health check fallidos requeridos para considerar a un backend no apto para el tráfico.
+    # El número de comprobaciones de estado fallidas requeridas para considerar a un backend no apto para el tráfico.
     # Por defecto es 6, debe ser entre 2 y 10
 
     service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
-    # EL intervalo aproximado, en segundos, entre health checks de una instancia ndividual.
+    # EL intervalo aproximado, en segundos, entre comprobaciones de estados de una instancia individual.
     # Por defecto es 10, debe ser entre 5 y 300.
 
     service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
-    # La cantidad de tiempo, en segundos, durante el cual no recibir respuesta significa un health check fallido.
+    # La cantidad de tiempo, en segundos, durante el cual no recibir respuesta significa una comprobación de estado fallida.
     # Este valor debe ser menor que el valor de service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
     # Por defecto es 5, debe estar entre 2 y 60
 
     service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
     # Un listado de grupos de seguridad existentes para configurar en el ELB creado. A diferencia de la anotación
     # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, esta reemplaza todos los grupos de seguridad previamente asignados al ELB y también sobreescribe la creación de un grupo de seguridad creado únicamente para este ELB.
-    # El primer ID grupo de seguridad en esta lista se utiliza para permitir tráfico de entrada a los nodos obreros objetivo (tráfico de servicio y health checks).
+    # El primer ID grupo de seguridad en esta lista se utiliza para permitir tráfico de entrada a los nodos obreros objetivo (tráfico de servicio y comprobaciones de estados).
     # Si se configuran múltiples ELBs con el mismo grupo de seguridad, solo una única línea de permisos será añadida a los grupos de seguridad del nodo obrero, lo que significa que si eliminas cualquiera de esos ELBs removerá la línea de permisos y bloqueará el acceso para todos los ELBs que comparten el mismo ID de seguridad de grupo.
     # Esto puede ocasionar cortes entre servicios si no se usa apropiadamente
 
     service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-    # Un listado adicional de grupos de seguridad para añadir al ELB creado, esto deja un grupo de seguridad creeado únicamente, asegurando que cada ELB tiene un ID de grupo de seguridad único que coincide con la línea de permiso para permitir tráfico a los nodos obreros objetivo (tráfico de servicio y health checks)
+    # Un listado adicional de grupos de seguridad para añadir al ELB creado, esto deja un grupo de seguridad creado únicamente, asegurando que cada ELB tiene un ID de grupo de seguridad único que coincide con la línea de permiso para permitir tráfico a los nodos obreros objetivo (tráfico de servicio y comprobaciones de estados)
     # Grupos de seguridad definidos se pueden compartir entre servicios.
 
     service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
@@ -814,31 +793,27 @@ metadata:
 
 {{< note >}}
 
-NLB solo funciona con ciertas clases de instancias; mira la [documentación AWS] (https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets) sobre balanceo de cargas elástico para un listado de tipos de instancia soportados.
+NLB solo funciona con ciertas clases de instancias; mira la [documentación AWS](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets) sobre balanceo de cargas elástico para un listado de tipos de instancia soportados.
 {{< /note >}}
 
-A diferencia de los balanceadores de cargas. el balanceador de cargas de red (NLB) reenvía la dirección IP del cliente a través del nodo. Si el campo `.spec.externalTrafficPolicy` está fijado a `Cluster`, la dirección IP del cliente no es propagada a los Pods finales.
+A diferencia de los balanceadores de cargas, el balanceador de cargas de red (NLB) reenvía la dirección IP del cliente a través del nodo. Si el campo `.spec.externalTrafficPolicy` está fijado a `clúster`, la dirección IP del cliente no es propagada a los Pods finales.
 
 Al fijar `.spec.externalTrafficPolicy` en `Local`, la dirección IP del cliente se propaga a los Pods finales,
-pero esto puede resultar a una distribución de tráfico desigual. Los nodos sin ningún Pod para un Service particular de tipo LoadBalancer fallarán el health check del grupo objetivo del NLB en el `.spec.healthCheckNodePort` y no recibirán ningún tráfico.  
+pero esto puede resultar a una distribución de tráfico desigual. Los nodos sin ningún Pod para un Service particular de tipo LoadBalancer fallarán ela comprobación de estado del grupo objetivo del NLB en el puerto `.spec.healthCheckNodePort` y no recibirán ningún tráfico.  
 
 Para conseguir trafico equilibrado, usa un DaemonSet o especifica [pod anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) para no localizar en el mismo nodo. 
 
 También puedes usar Services NLB con la anotación del [balanceador de cargas interno](/docs/concepts/services-networking/service/#internal-load-balancer) 
 
-Para permitir que el tráfico del cliente alcance las instancias detrás del NLB, los grupos de seguridad del Nodo se modifican con las siguiente reglas de IP:
+Para permitir que el tráfico del cliente alcance las instancias detrás del NLB, los grupos de seguridad del Nodo se modifican con las siguientes reglas de IP:
 
-In order for client traffic to reach instances behind an NLB, the Node security
-groups are modified with the following IP rules:
-
-| Regla           | Protocolo | Puerto(s)                                                                             | Rango de IP(s)                                                 | Descirpción del Rango de IP                                 |
+| Regla           | Protocolo | Puerto(s)                                                                             | Rango de IP(s)                                                 | Descripción del Rango de IP                                 |
 | -------------- | -------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------- |
 | Health Check   | TCP      | NodePort(s) (`.spec.healthCheckNodePort` para `.spec.externalTrafficPolicy = Local`) | Subnet CIDR                                                | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
 | Tráfico del Cliente | TCP      | NodePort(s)                                                                         | `.spec.loadBalancerSourceRanges` (por defecto en `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU Discovery  | ICMP     | 3,4                                                                                 | `.spec.loadBalancerSourceRanges` (por defecto en `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\>    |
 
 Para limitar cuáles IPs del cliente pueden acceder al balanceador de cargas de red, especifica  `loadBalancerSourceRanges`.
-specify `loadBalancerSourceRanges`.
 
 ```yaml
 spec:
@@ -848,11 +823,11 @@ spec:
 
 {{< note >}}
 Si no se establece `.spec.loadBalancerSourceRanges`, Kubernetes permite el tráfico 
-desde  `0.0.0.0/0` a los Grupos de Seguridad del Nodo. Si los nodos tienen direcciones IP públicas,  ten en cuenta que el tráfico que no viene del NLB
+desde  `0.0.0.0/0` a los Grupos de Seguridad del Nodo. Si los nodos tienen direcciones IP públicas, ten en cuenta que el tráfico que no viene del NLB
 también puede alcanzar todas las instancias en esos grupos de seguridad modificados.
 {{< /note >}}
 
-####Otras anotaciones CLS en Tencent Kubernetes Engine (TKE)
+#### Otras anotaciones CLS en Tencent Kubernetes Engine (TKE)
 
 Hay otras anotaciones para administrar balanceadores de cargas en la nube en TKE como se muestra abajo.
 
@@ -889,7 +864,7 @@ Hay otras anotaciones para administrar balanceadores de cargas en la nube en TKE
         service.kubernetes.io/local-svc-only-bind-node-with-pod: true
 ```
 
-### Type ExternalName {#externalname}
+### Tipo ExternalName {#externalname}
 
 Los Services de tipo ExternalName mapean un Service a un nombre DNS, no a un selector típico como `mi-servicio` o `cassandra`. Estos Services se especifican con el parámetro `spec.externalName`. 
 
@@ -910,11 +885,11 @@ spec:
 ExternalName acepta una cadena de texto IPV4, pero como un nombre DNS compuesto de dígitos, no como una dirección IP. ExternalNames que se parecen a direcciones IPV4 no se resuelven por el CoreDNS o ingress-nginx, ya que ExternalName se usa para especificar un nombre DNS canónico. Al fijar una dirección IP, considera usar [headless Services](#headless-services).
 {{< /note >}}
 
-Cuando busca el host `my-service.prod.svc.cluster.local`, el Service DNS del cluster devuelve un registro `CNAME` con el valor `my.database.example.com`. Acceder a `my-service`funciona de la misma manera que otros Services, pero con la diferencia crucial que la redirección ocurra a nivel del DNS en lugar reenviarlo o redirigirlo. Si posteriormente decides mover tu base de datos al cluster, puedes iniciar sus Pods, agregar selectores apropiados o endpoints, y cambiar el `type` del Service. 
+Cuando busca el host `my-service.prod.svc.cluster.local`, el Service DNS del clúster devuelve un registro `CNAME` con el valor `my.database.example.com`. Acceder a `my-service`funciona de la misma manera que otros Services, pero con la diferencia crucial que la redirección ocurra a nivel del DNS en lugar reenviarlo o redirigirlo. Si posteriormente decides mover tu base de datos al clúster, puedes iniciar sus Pods, agregar selectores apropiados o endpoints, y cambiar el `type` del Service. 
 
 
 {{< warning >}}
-Podrías tener problemas al usar ExternalName para algunos protocolos comunes, incluyendo HTTP y HTTPS, Si usas ExternalName luego el nombre del host usado por los clientes dentro de tu cluster is diferente del nombre al que hace referencia el ExternalName.
+Podrías tener problemas al usar ExternalName para algunos protocolos comunes, incluyendo HTTP y HTTPS, Si usas ExternalName luego el nombre del host usado por los clientes dentro de tu clúster is diferente del nombre al que hace referencia el ExternalName.
 
 Para protocolos que usan hostnames esta diferencia puede llevar a errores o respuestas inesperadas. Las peticiones HTTP tendrán un encabezado `Host:` que el servidor de origen no reconocerá; los servidores TLS no serán capaces de proveer un certificado que coincida con el hostname al que el cliente está conectado.
 {{< /warning >}}
@@ -925,7 +900,7 @@ Esta sección está en deuda con el artículo de blog [Kubernetes Tips - Part 1]
 
 ### IPs Externas
 
-Si existen IPs externas que enrutan hacia uno o más nodos del cluster, Los Services de Kubernetes pueden ser expuestos en esas `externalIPs`. El tráfico que ingresa al cluster con la IP externa (como IP de destino), en el puerto del Service, será enrutado a uno de estos endpoints del Service. Las `externalIPs` no son administradas por Kubernetes y son responsabilidad del administrador del cluster. 
+Si existen IPs externas que enrutan hacia uno o más nodos del clúster, Los Services de Kubernetes pueden ser expuestos en esas `externalIPs`. El tráfico que ingresa al clúster con la IP externa (como IP de destino), en el puerto del Service, será enrutado a uno de estos endpoints del Service. Las `externalIPs` no son administradas por Kubernetes y son responsabilidad del administrador del clúster. 
 
 En la especificación del Service, las `externalIPs` se pueden especificar junto con cualquiera de los `ServiceTypes`.
 En el ejemplo de abajo, "`mi-servicio`" puede ser accedido por clientes en "`80.11.12.10:80`" (`externalIP:port`) 
@@ -951,7 +926,7 @@ spec:
 
 Usar el proxy del userspace for VIPs funciona en pequeña y mediana escala, pero no escalará a clústeres muy grandes con miles de Services. El tópico [original design proposal for portals](https://github.com/kubernetes/kubernetes/issues/1107) tiene más detalles sobre esto.
 
-Usar el proxy del userspace oscurece la dirección IP de origen de un paquete que accede al Service. Esto hace que algún tipo de filtrado (firewalling) sea imposible. El modo proxy iptables no oscurece Ips de origen en el cluster, pero aún tiene impacto en clientes que vienen desde un balanceador de Cargas o un node-port. 
+Usar el proxy del userspace oscurece la dirección IP de origen de un paquete que accede al Service. Esto hace que algún tipo de filtrado (firewalling) sea imposible. El modo proxy iptables no oscurece Ips de origen en el clúster, pero aún tiene impacto en clientes que vienen desde un balanceador de Cargas o un node-port. 
 
 El campo `Type` está diseñado como una funcionalidad anidada - cada nivel se agrega al anterior. Esto no es estrictamente requerido en todos los proveedores de la nube (ej. Google Compute Engine no necesita asignar un `NodePort` para que funcione el `LoadBalancer`, pero AWS si) pero la API actual lo requiere.   
 
@@ -973,11 +948,11 @@ En el plano de control, un controlador de trasfondo es responsable de crear el m
 
 A diferencia de direcciones IP del Pod, que enrutan a un destino fijo, Las IPs del Service no son respondidas por ningún host. En lugar de ello, El kube-proxy usa iptables (lógica de procesamiento de paquetes en Linux) para definir direcciones IP _virtuales_ que se redirigen de forma transparente cuando se necesita. Cuando el cliente se conecta con la VIP, su tráfico es transportado automáticamente al endpoint apropiado. Las variables de entorno y DNS para los Services son pobladas en términos de la dirección IP virtual del Service (y el puerto).
 
-Kube-proxy soporta tres modos &mdash; userspace, iptables y IPVS &mdash; los cuales operan ligeramente diferente cada uno. 
+Kube-proxy soporta tres modos &mdash; userspace, iptables e IPVS &mdash; los cuales operan ligeramente diferente cada uno. 
 
 #### Userspace
 
-Por ejemplo, considera la aplicación de procesamiento de imágenes descrita arriba. Cuando el Service del backend es creado, El nodo maestro de Kubernetes asigna una dirección IP virtual, por ejemplo 10.0.0.1. Asumiendo que el puerto del Service es 1234, el Service es observado por todas las instancias del kube-proxy en el cluster. Cuando un proxy mira un nuevo Service, abre un puerto al azar, establece una redirección iptable desde la dirección IP virtual a este nuevo puerto, y comienza a aceptar conexiones a este.
+Por ejemplo, considera la aplicación de procesamiento de imágenes descrita arriba. Cuando el Service del backend es creado, El nodo maestro de Kubernetes asigna una dirección IP virtual, por ejemplo 10.0.0.1. Asumiendo que el puerto del Service es 1234, el Service es observado por todas las instancias del kube-proxy en el clúster. Cuando un proxy mira un nuevo Service, abre un puerto al azar, establece una redirección iptable desde la dirección IP virtual a este nuevo puerto, y comienza a aceptar conexiones a este.
 
 Cuando un cliente se conecta a la dirección IP virtual del Service, la regla de iptables entra en acción, y redirige los paquetes al propio puerto del proxy. El "proxy del Service" elige un backend, y comienza a redirigir el tráfico desde el cliente al backend.
 
@@ -985,7 +960,7 @@ Esto quiere decir que los dueños del Service pueden elegir cualquier puerto que
 
 #### iptables
 
-Nuevamente, considera la aplicación de procesamiento de imágenes descrita arriba. Cuando se crea el Service Backend, el control plane de Kubernetes asigna una dirección IP virtual, por ejemplo 10.0.0.1. Asumiendo que el puerto del servicio es 1234, el servicio es observado por todas las instances del kube-proxy en el cluster. Cuando un proxy mira un nuevo Service, instala una serie de reglas de iptables que redirigen desde la dirección IP virtual a las reglas del Service. Las reglas del Service enlazan a las reglas del Endpoint que redirigen el tráfico (usando NAT de destino) a los backends. 
+Nuevamente, considera la aplicación de procesamiento de imágenes descrita arriba. Cuando se crea el Service Backend, el plano de control de Kubernetes asigna una dirección IP virtual, por ejemplo 10.0.0.1. Asumiendo que el puerto del servicio es 1234, el servicio es observado por todas las instances del kube-proxy en el clúster. Cuando un proxy mira un nuevo Service, instala una serie de reglas de iptables que redirigen desde la dirección IP virtual a las reglas del Service. Las reglas del Service enlazan a las reglas del Endpoint que redirigen el tráfico (usando NAT de destino) a los backends. 
 
 Cuando un cliente se conecta a la dirección IP virtual del Service la regla de iptables entran en aplicación. A diferencia del modo proxy userspace, el kube-proxy no tiene que estar corriendo para que funcione la dirección IP virtual, y los Nodes observan el tráfico que viene desde la dirección IP del cliente sin alteraciones.
 
@@ -993,7 +968,7 @@ EL mismo flujo básico se ejecuta cuando el tráfico viene a través de un node-
 
 #### IPVS
 
-Las operaciones iptables ralentizan dramáticamente en un cluster a gran escala, ej 10.000 Services. IPVS está diseñado para balancear cargas y está basado en tablas hash dentro del kernel. De esta manera puedes alcanzar consistencia en el desempeño en un número grande de Services de un kube-proxy basado en IPVS. Mientras tanto, el kube-proxy basado en IPVs tiene algoritmos de balanceo de cargas más sofisticados (least conns, locality, weighted, persistence).
+Las operaciones iptables ralentizan dramáticamente en un clúster a gran escala, ej. 10.000 Services. IPVS está diseñado para balancear cargas y está basado en tablas hash dentro del kernel. De esta manera puedes alcanzar consistencia en el desempeño en un número grande de Services de un kube-proxy basado en IPVS. Mientras tanto, el kube-proxy basado en IPVS tiene algoritmos de balanceo de cargas más sofisticados (least conns, locality, weighted, persistence).
 
 ## Objeto API
 
@@ -1012,14 +987,14 @@ Puedes usar UDP para la mayoría de los Services. Para Services type=LoadBalance
 ### SCTP
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
-Cuando usar un plugin de red que soporta tráfico SCTP, puedes usar SCTp para la mayoría de los Services. Para Services type=LoadBalancer, el soporta SCTP depende del proveedor de la nube que ofrece esta facilidad. (La mayoría no lo hace)
+Cuando usas un plugin de red que soporta tráfico SCTP, puedes usar SCTp para la mayoría de los Services. Para Services type=LoadBalancer, el soporta SCTP depende del proveedor de la nube que ofrece esta facilidad. (La mayoría no lo hace)
 
-#### Advertancias {#caveat-sctp-overview}
+#### Advertencias {#caveat-sctp-overview}
 
 ##### Soporte para asociaciones SCTP multihomed SCTP associations {#caveat-sctp-multihomed}
 
 {{< warning >}}
-El soporte para asociaciones SCTP multihomed requiere que el plugin CNI pueda soportar la asignación de múltipes interfaces y direcciones IP a un Pod.
+El soporte para asociaciones SCTP multihomed requiere que el plugin CNI pueda soportar la asignación de múltiples interfaces y direcciones IP a un Pod.
 
 NAT para asociaciones SCTP multihomed requiere una lógica especial en los módulos del kernel correspondientes.
 {{< /warning >}}
