@@ -78,7 +78,7 @@ takes you through this example in more detail).
 
 
 
-For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight(in UTC):
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight (in UTC):
 
 `CRON_TZ=UTC 0 0 13 * 5`
 
