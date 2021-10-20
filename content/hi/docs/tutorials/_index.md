@@ -40,23 +40,23 @@ content_type: concept
 
 ## स्टेटफुल एप्लीकेशन
 
-* [स्टेटफुलसेट मूलभूत](/hi/docs/tutorials/stateful-application/basic-stateful-set/)
+* [स्टेटफुलसेट मूलभूत](/docs/tutorials/stateful-application/basic-stateful-set/)
 
-* [उदाहरण: दृढ़ वॉल्यूम के साथ वर्डप्रेस और MySQL](/hi/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [उदाहरण: दृढ़ वॉल्यूम के साथ वर्डप्रेस और MySQL](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
-* [उदाहरण: कैसेंड्रा को स्टेटफुल सेट के साथ उपयोग करना](/hi/docs/tutorials/stateful-application/cassandra/)
+* [उदाहरण: कैसेंड्रा को स्टेटफुल सेट के साथ उपयोग करना](/docs/tutorials/stateful-application/cassandra/)
 
-* [एक CP वितरित प्रणाली, ज़ूकीपर चलाना](/hi/docs/tutorials/stateful-application/zookeeper/)
+* [एक CP वितरित प्रणाली, ज़ूकीपर चलाना](/docs/tutorials/stateful-application/zookeeper/)
 
 ## क्लस्टर
 
-* [AppArmor](/hi/docs/tutorials/clusters/apparmor/)
+* [AppArmor](/docs/tutorials/clusters/apparmor/)
 
-* [seccomp](/hi/docs/tutorials/clusters/seccomp/)
+* [seccomp](/docs/tutorials/clusters/seccomp/)
 
 ## सर्विस
 
-* [सोर्स आईपी का उपयोग करना](/hi/docs/tutorials/services/source-ip/)
+* [सोर्स आईपी का उपयोग करना](/docs/tutorials/services/source-ip/)
 
 ## {{% heading "whatsnext" %}}
 
