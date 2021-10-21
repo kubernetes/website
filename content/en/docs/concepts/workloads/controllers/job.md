@@ -344,11 +344,20 @@ up by the TTL controller after it finishes.
 
 {{< note >}}
 It is recommended to set `ttlSecondsAfterFinished` field because unmanaged jobs
-(jobs not created via high level controllers like cronjobs) have a default deletion
-policy of `orphanDependents` causing pods created by this job to be left around.
-Even though podgc collector eventually deletes these lingering pods, sometimes these
+(Jobs that you created directly, and not indirectly through other workload APIs
+such as CronJob) have a default deletion
+policy of `orphanDependents` causing Pods created by an unmanaged Job to be left around
+after that Job is fully deleted.
+Even though the {{< glossary_tooltip text="control plane" term_id="control-plane" >}} eventually
+[garbage collects](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+the Pods from a deleted Job after they either fail or complete, sometimes those
 lingering pods may cause cluster performance degradation or in worst case cause the
-cluster to go down.
+cluster to go offline due to this degradation.
+
+You can use [LimitRanges](/docs/concepts/policy/limit-range/) and
+[ResourceQuotas](/docs/concepts/policy/resource-quotas/) to place a
+cap on the amount of resources that a particular namespace can
+consume.
 {{< /note >}}
 
 
