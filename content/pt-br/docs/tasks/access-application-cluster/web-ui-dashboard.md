@@ -1,5 +1,5 @@
 ---
-title: Implantar e acessar o painel Kubernetes
+title: Implantar e acessar o Kubernetes Dashboard
 description: >-
   Implementa a interface web do usuário (Kubernetes Dashboard) e acessá-lo.
 content_type: concept
@@ -14,15 +14,15 @@ card:
 <!-- overview -->
 
 Dashboard é uma interface de usuário Kubernetes baseada na Web.
-Você pode usar o dashboard para implantar aplicativos contêineres para um cluster Kubernetes,
+Você pode usar o dashboard para implantar aplicações contêineres para um cluster Kubernetes,
 solucione problemas de seu aplicativo conteinerizado e gerencie os recursos do cluster.
-Você pode usar o dashboard para obter uma visão geral dos aplicativos em execução no seu cluster,
+Você pode usar o dashboard para obter uma visão geral dos aplicações em execução no seu cluster,
 bem como para criar ou modificar recursos individuais do Kubernetes
 (como Deploys, tarefas, daemonsets, etc).
 Por exemplo, você pode dimensionar um deploy, iniciar uma atualização de rolamento, reiniciar um pod
-ou criar deploy para novos aplicativos usando um assistente de deploy.
+ou criar deploy para novos aplicações usando um assistente de deploy.
 
-Dashboard Também fornece informações sobre o estado dos recursos da Kubernetes em seu cluster e em quaisquer erros que possam ter ocorrido.
+Dashboard também fornece informações sobre o estado dos recursos da Kubernetes em seu cluster e em quaisquer erros que possam ter ocorrido.
 
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
@@ -84,7 +84,7 @@ Clique no botão **Create** no canto superior direito de qualquer página para c
 
 O assistente de implantação espera que você forneça as seguintes informações:
 
-- **App name** (obrigatório):Nome para sua aplicação.
+- **Nome do App** (obrigatório):Nome para sua aplicação.
   Uma [label](/docs/concepts/overview/working-with-objects/labels/) Com o nome será
   adicionado à implantação e serviço, se houver, que será implantado.
 
@@ -93,19 +93,19 @@ O assistente de implantação espera que você forneça as seguintes informaçõ
   e conter apenas letras minúsculas, números e traços (-). Está limitado a 24 caracteres.
   Espaços à frente ou atrás serão ignorados.
 
-- **Container image** (obrigatório):
+- **Imagem do contênier** (obrigatório):
   A URL de uma imagem de conteiner pública do Docker 
   The URL of a public Docker [container image](/docs/concepts/containers/images/) em qualquer registry,
   ou imagem privada (comumente hospedado no Google Container Registry ou Docker Hub).
   A especificação da imagem do contêiner deve terminar com um cólon.
 
-- **Number of pods** (obrigatório): O número de alvo de pods que você deseja que seu aplicativo seja implantado.
+- **Número de pods** (obrigatório): O número de alvo de pods que você deseja que seu aplicativo seja implantado.
   O valor deve ser um inteiro positivo.
 
   Um [Deployment](/docs/concepts/workloads/controllers/deployment/) será criado para
   manter o número desejado de pods em seu cluster.
 
-- **serviço** (opcional): Para algumas partes da sua aplicação (por exemplo, frontends), você pode querer expor um
+- **Serviço** (opcional): Para algumas partes da sua aplicação (por exemplo, frontends), você pode querer expor um
   [serviço](/docs/concepts/serviços-networking/serviço/) em um externo,
   talvez endereço IP público fora do seu cluster (serviço externa).
 
@@ -123,7 +123,7 @@ O assistente de implantação espera que você forneça as seguintes informaçõ
 
 Se necessário, você pode expandir a seção **Advanced options** onde você pode especificar mais configurações:
 
-- **Description**: O texto que você colocar aqui será adicionado como uma
+- **Descrição**: O texto que você colocar aqui será adicionado como uma
   [anotação](/docs/concepts/overview/working-with-objects/annotations/)
   para a implantação e exibida nos detalhes do aplicativo.
 
@@ -165,92 +165,92 @@ Se necessário, você pode expandir a seção **Advanced options** onde você po
 
   Caso a criação da imagem pull secret seja bem sucedida, ele é selecionado por padrão. Se a criação falhar, nenhum segredo é aplicado.
 
-- **CPU requirement (cores)** and **Memory requirement (MiB)**:
-  You can specify the minimum [resource limits](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-  for the container. By default, Pods run with unbounded CPU and memory limits.
+- **Requisitos de CPU (núcleos)** e **Requisitos de Memória (MiB)**:
+  Você pode especificar o limite mínimo de [recursos](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+  para o contêiner. Por padrão, as vagens são executadas com limites de memória e memória ilimitados.
 
-- **Run command** and **Run command arguments**:
-  By default, your containers run the specified Docker image's default
-  [entrypoint command](/docs/tasks/inject-data-application/define-command-argument-container/).
-  You can use the command options and arguments to override the default.
+- **Executar comando** and **Executar comandos com argumentos**:
+  Por padrão, seus contêineres Docker executam o [comando entrypoint](/docs/tasks/inject-data-application/define-command-argument-container/).
+  padrão da imagem especificada.
+  Você pode usar as opções de comando e argumentos para substituir o padrão.
 
-- **Run as privileged**: This setting determines whether processes in
-  [privileged containers](/docs/concepts/workloads/pods/#privileged-mode-for-containers)
-  are equivalent to processes running as root on the host.
-  Privileged containers can make use of capabilities like manipulating the network stack and accessing devices.
+- **Executar com privilégios**: Essa configuração determina se os processos em
+  [contêineres com privilégios](/docs/concepts/workloads/pods/#privileged-mode-for-containers)
+  são equivalentes a processos em execução como root no host.
+  Contêineres com privilégios podem fazer uso de recursos como manipular a pilha de rede e acessando dispositivos.
 
-- **Environment variables**: Kubernetes exposes serviços through
-  [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
-  You can compose environment variable or pass arguments to your commands using the values of environment variables.
-  They can be used in applications to find a serviço.
-  Values can reference other variables using the `$(VAR_NAME)` syntax.
+- **Variáveis de ambiente**: Kubernetes expõe serviços através de
+  [variáveis de ambiente](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
+  Você pode compor uma variável de ambiente ou passar argumentos para seus comandos usando os valores das variáveis de ambiente.
+  Eles podem ser usados em aplicações para encontrar um serviço.
+  Valores podem fazer referência a outras variáveis usando a sintaxe `$(VAR_NAME)`.
 
-### Uploading a YAML or JSON file
+### Carregando um arquivo YAML ou JSON
 
-Kubernetes supports declarative configuration.
-In this style, all configuration is stored in manifests (YAML or JSON configuration files).
-The manifests use Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
+Kubernetes suporta a configuração declarativa.
+Nesse estilo, toda a configuração é armazenada em manifestos (arquivos de configuração YAML ou JSON).
+Os manifestos usam os esquemas de recursos da [API](/docs/concepts/overview/kubernetes-api/) Kubernetes.
 
-As an alternative to specifying application details in the deploy wizard,
-you can define your application in one or more manifests, and upload the files using Dashboard.
+Como alternativa para especificar detalhes do aplicativo no Reploy Wizard,
+Você pode definir sua aplicação em um ou mais manifestos e carregar os arquivos usando o Dashboard.
 
-## Using Dashboard
+## Usando o Dashboard
 
-Following sections describe views of the Kubernetes Dashboard UI; what they provide and how can they be used.
+As seções seguintes descrevem as visualizações da interface de usuário do Dashboard Kubernetes; o que eles fornecem e como eles podem ser usados.
 
-### Navigation
+### Navegação
 
-When there are Kubernetes objects defined in the cluster, Dashboard shows them in the initial view.
-By default only objects from the _default_ namespace are shown and
-this can be changed using the namespace selector located in the navigation menu.
+Quando há objetos Kubernetes definidos no cluster, o painel mostra-os na visualização inicial.
+Por padrão, somente objetos do namespace _default_ são mostrados e
+Isso pode ser alterado usando o seletor de namespace localizado no menu de navegação.
 
-Dashboard shows most Kubernetes object kinds and groups them in a few menu categories.
+Dashboard mostra a maioria dos tipos de objeto Kubernetes e os agrupa em algumas categorias de menu.
 
-#### Admin overview
+#### Visão geral do administrador
 
-For cluster and namespace administrators, Dashboard lists Nodes, Namespaces and PersistentVolumes and has detail views for them.
-Node list view contains CPU and memory usage metrics aggregated across all Nodes.
-The details view shows the metrics for a Node, its specification, status,
-allocated resources, events and pods running on the node.
+Para administradores de cluster e namespace, o painel liste os nós, namespaces e persistentvolumes e tem exibições de detalhes para eles.
+A visualização de lista de nó contém métricas de uso de CPU e memória agregadas em todos os nós.
+A visualização Detalhes mostra as métricas para um nó, sua especificação, status,
+recursos alocados, eventos e vagens em execução no nó.
 
-#### Workloads
+#### Cargas de trabalho
 
-Shows all applications running in the selected namespace.
-The view lists applications by workload kind (for example: Deployments, ReplicaSets, StatefulSets).
-and each workload kind can be viewed separately.
-The lists summarize actionable information about the workloads,
-such as the number of ready pods for a ReplicaSet or current memory usage for a Pod.
+Mostra todos os aplicações em execução no namespace selecionado.
+A exibição lista aplicações pelo tipo de carga de trabalho (por exemplo: Deployments, ReplicaSets, StatefulSets).
+e cada tipo de carga de trabalho pode ser visto separadamente.
+As listas resumem informações acionáveis sobre as cargas de trabalho,
+como o número de pods prontos para um uso de replicaset ou de memória atual para um pod.
 
-Detail views for workloads show status and specification information and
-surface relationships between objects.
-For example, Pods that ReplicaSet is controlling or new ReplicaSets and HorizontalPodAutoscalers for Deployments.
+Visualizações de detalhes para cargas de trabalho mostram informações de status e especificação e
+relações superficiais entre objetos.
+Pods controlados pela ReplicaSet ou novas ReplicaSets e HorizontalPodAutoscalers para Deployments.
 
-#### serviços
+#### Serviços
 
-Shows Kubernetes resources that allow for exposing serviços to external world and
-discovering them within a cluster.
-For that reason, serviço and Ingress views show Pods targeted by them,
-internal endpoints for cluster connections and external endpoints for external users.
+Mostra recursos kubernetes que permitem a exposição de servios para o mundo externo e
+descobrindo-os dentro de um cluster.
+Por esse motivo, o Serviço e a Ingress Views mostram pods direcionadas por eles,
+endpoints internos para conexões de cluster e endpoints externos para usuários externos.
 
-#### Storage
+#### Armazenar
 
-Storage view shows PersistentVolumeClaim resources which are used by applications for storing data.
+Visualização de armazenamento mostra recursos PersistentVolumeClaim que são usados por aplicações para armazenar dados.
 
-#### ConfigMaps and Secrets {#config-maps-and-secrets}
+#### ConfigMaps e Secrets {#config-maps-and-secrets}
 
-Shows all Kubernetes resources that are used for live configuration of applications running in clusters.
-The view allows for editing and managing config objects and displays secrets hidden by default.
+Mostra todos os recursos kubernetes que são usados para a configuração em tempo real de aplicações em execução em clusters.
+A visualização permite editar e gerenciar objetos de configuração e exibe segredos ocultos por padrão.
 
-#### Logs viewer
+#### Visualização de Logs
 
-Pod lists and detail pages link to a logs viewer that is built into Dashboard.
-The viewer allows for drilling down logs from containers belonging to a single Pod.
+Listas de listas e detalhes do POD link para um visualizador de logs que é construído no painel.
+O espectador permite que os logs de perfuração de contêineres pertencem a uma única vagem.
 
-![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
+![visualização de Logs](/images/docs/ui-dashboard-logs-view.png)
 
 ## {{% heading "whatsnext" %}}
 
 
-For more information, see the
-[Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
+Para mais informações, veja a
+[página do projeto Kubernetes Dashboard](https://github.com/kubernetes/dashboard).
 
