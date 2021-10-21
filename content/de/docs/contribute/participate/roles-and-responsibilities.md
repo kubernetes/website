@@ -10,8 +10,8 @@ Jeder kann zu Kubernetes beitragen. Wenn deine Beitr&auml;ge zu SIG Docs wachsen
 Diese Rollen erm&ouml;glichen es dir, mehr Verantwortung innerhalb der Gemeinschaft zu &uuml;bernehmen.
 Jede Rolle erfordert mehr Zeit und Engagement. Die Rollen sind:
 
-- Jeder: tr&auml;gt regelm&auml;ßig zur Kubernetes-Dokumentation bei
-- Member: k&ouml;nnen Probleme zuweisen und einstufen und Pull Requests unverbindlich pr&uuml;fen
+- Jeder: kann regelm&auml;ßig zur Kubernetes-Dokumentation beitragen
+- Member: k&ouml;nnen Issues zuweisen und einstufen und Pull Requests unverbindlich pr&uuml;fen
 - Reviewer: k&ouml;nnen die &Uuml;berpr&uuml;fung von Dokumentations-Pull-Requests leiten und f&uuml;r die Qualit&auml;t einer &Auml;nderung b&uuml;rgen
 - Approver: k&ouml;nnen die &Uuml;berpr&uuml;fung von Dokumentations- und Merge-&Auml;nderungen leiten
 
@@ -25,11 +25,11 @@ Jeder kann:
 
 - Ein Problem in einem beliebigen [Kubernetes](https://github.com/kubernetes/)
   Repository, einschließlich
-  [`kubernetes/website`](https://github.com/kubernetes/website)
+  [`kubernetes/website`](https://github.com/kubernetes/website) melden
 - Unverbindliches Feedback zu einem Pull Request geben
 - Zu einer Lokalisierung beitragen
-- Schlage Verbesserungen auf [Slack](https://slack.k8s.io/) oder der
-  [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+- Verbesserungen auf [Slack](https://slack.k8s.io/) oder der
+  [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) vorschlagen.
 
 Nach dem [Signieren des CLA](/docs/contribute/new-content/overview/#sign-the-cla) kann jeder auch:
 
@@ -57,13 +57,13 @@ Member k&ouml;nnen:
 - Verwende den Kommentar `/hold`, um das Zusammenf&uuml;hren eines Pull Requests zu blockieren.
 - Benutze den Kommentar `/assign`, um einem Pull Request einen Reviewer zuzuweisen.
 - Unverbindliche &Uuml;berpr&uuml;fung von Pull Requests
-- Nutze die Automatisierung, um Probleme zu sortieren und zu kategorisieren
+- Nutze die Automatisierung, um Issues zu sortieren und zu kategorisieren
 - Neue Funktionen dokumentieren
 
 ### Mitglied werden
 
-Nachdem du mindestens 5 substantielle Pull Requests eingereicht hast und die anderen
-[Anforderungen](https://github.com/kubernetes/community/blob/master/community-membership.md#member):
+Du kannst ein Mitglied werden, nachdem du mindestens 5 substantielle Pull Requests eingereicht hast und die anderen
+[Anforderungen](https://github.com/kubernetes/community/blob/master/community-membership.md#member) erf&uuml;st: 
 
 1. Finde zwei [Reviewer](#reviewers) oder [Approver](#approvers), die deine Mitgliedschaft [sponsern](/docs/contribute/advanced#sponsor-a-new-contributor).
 
@@ -201,7 +201,7 @@ in das Website-Repository aufnehmen. Damit sind bestimmte Verantwortlichkeiten v
   Rotation teilnehmen. Siehe [PR-Wranglers](/docs/contribute/participate/pr-wranglers/).
   f&uuml;r weitere Details.
 
-### Ein Approver werden
+### Approver werden
 
 Wenn du die [Anforderungen](https://github.com/kubernetes/community/blob/master/community-membership.md#approver) erf&uuml;llst,
 kannst du ein SIG Docs Approver werden. Genehmigende in anderen SIGs m&uuml;ssen sich separat f&uuml;r den Approver-Status in SIG Docs bewerben.
@@ -224,4 +224,4 @@ dich als Reviewer f&uuml;r neue Pull Requests vorschlagen und zuweisen.
 
 ## {{% heading "whatsnext" %}}
 
--  Erfahre mehr &uuml;ber [PR-Wrangling](/docs/contribute/participate/pr-wranglers/), eine Rolle, die alle Genehmiger im Wechsel &uuml;bernehmen.
+-  Erfahre mehr &uuml;ber [PR-Wrangling](/de/docs/contribute/participate/pr-wranglers/), eine Rolle, die alle Genehmiger im Wechsel &uuml;bernehmen.
