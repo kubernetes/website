@@ -146,7 +146,7 @@ Windowsワーカーノードの(管理者)権限を持つPowerShell環境で実�
 1. wins、kubelet、kubeadmをインストールします。
 
    ```PowerShell
-   curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
    .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
    ```
 
