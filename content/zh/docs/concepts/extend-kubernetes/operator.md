@@ -98,8 +98,7 @@ Some of the things that you can use an operator to automate include:
 * 在没有内部成员选举程序的情况下，为分布式应用选择首领角色
 
 <!--
-What might an Operator look like in more detail? Here's an example in more
-detail:
+What might an Operator look like in more detail? Here's an example:
 
 1. A custom resource named SampleDB, that you can configure into the cluster.
 2. A Deployment that makes sure a Pod is running that contains the
@@ -124,7 +123,7 @@ detail:
    creates Job objects that upgrade it for you.
 -->
 
-想要更详细的了解 Operator？这儿有一个详细的示例：
+想要更详细的了解 Operator？下面是一个示例：
 
 1. 有一个名为 SampleDB 的自定义资源，你可以将其配置到集群中。
 2. 一个包含 Operator 控制器部分的 Deployment，用来确保 Pod 处于运行状态。
@@ -216,8 +215,8 @@ Operator.
 * [Charmed Operator Framework](https://juju.is/)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
-* [Metacontroller](https://metacontroller.app/) along with WebHooks that
-  you implement yourself
+* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that 
+you implement yourself
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
 -->
@@ -228,13 +227,14 @@ Operator.
 * [Charmed Operator Framework](https://juju.is/)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KUDO](https://kudo.dev/) (Kubernetes 通用声明式 Operator)
-* [Metacontroller](https://metacontroller.app/)，可与 Webhooks 结合使用，以实现自己的功能。
+* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)，可与 Webhooks 结合使用，以实现自己的功能。
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
 
 ## {{% heading "whatsnext" %}}
 
 <!--
+* Read the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [Operator White Paper](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md).
 * Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Find ready-made operators on [OperatorHub.io](https://operatorhub.io/) to suit your use case
 * [Publish](https://operatorhub.io/) your operator for other people to use
@@ -242,6 +242,7 @@ Operator.
 * Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building Operators
 -->
 
+* 阅读 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [Operator 白皮书](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md)。
 * 详细了解 [定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 在 [OperatorHub.io](https://operatorhub.io/) 上找到现成的、适合你的 Operator
 * [发布](https://operatorhub.io/)你的 Operator，让别人也可以使用
