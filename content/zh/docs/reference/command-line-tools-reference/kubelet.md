@@ -21,7 +21,7 @@ that describes a pod. The kubelet takes a set of PodSpecs that are provided thro
 kubelet 是基于 PodSpec 来工作的。每个 PodSpec 是一个描述 Pod 的 YAML 或 JSON 对象。
 kubelet 接受通过各种机制（主要是通过 apiserver）提供的一组 PodSpec，并确保这些
 PodSpec 中描述的容器处于运行状态且运行状况良好。
-kubelet 不管理不是由 Kubernetes 创建的容器。
+kubelet 不管理那些不是由 Kubernetes 创建的容器。
 
 <!--
 Other than from an PodSpec from the apiserver, there are three ways that a container manifest can be provided to the Kubelet.
