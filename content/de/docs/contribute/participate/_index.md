@@ -16,9 +16,9 @@ SIG Docs begr&uuml;&szlig,t Inhalte und Bewertungen von allen Mitwirkenden. Jede
 Pull Request (PR) er&ouml;ffnen, und jeder ist willkommen, Fragen zum Inhalt zu stellen oder Kommentare
 zu laufenden Pull Requests abzugeben.
 
-Du kannst dich ausserdem als [Member](/docs/contribute/participate/roles-and-responsibilities/#members),
-[Reviewer](/docs/contribute/participate/roles-and-responsibilities/#reviewers), oder
-[Approver](/docs/contribute/participate/roles-and-responsibilities/#approvers) beteiligen.
+Du kannst dich ausserdem als [Member](/de/docs/contribute/participate/roles-and-responsibilities/#member),
+[Reviewer](/de/docs/contribute/participate/roles-and-responsibilities/#reviewer), oder
+[Approver](/de/docs/contribute/participate/roles-and-responsibilities/#approver) beteiligen.
 Diese Rollen erfordern einen erweiterten Zugriff und bringen bestimmte Verantwortlichkeiten f&uuml;r
 Änderungen zu genehmigen und zu best&auml;tigen.
 Unter [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md) findest du weitere Informationen dar&uuml;ber, wie die Mitgliedschaft in der Kubernetes-Community funktioniert.
@@ -26,12 +26,12 @@ Unter [community-membership](https://github.com/kubernetes/community/blob/master
 Der Rest dieses Dokuments umrei&szlig,t einige spezielle Vorgehensweisen dieser Rollen innerhalb von SIG Docs, die f&uuml;r die Pflege eines der &ouml;ffentlichsten Aush&auml;ngeschilder von Kubernetes verantwortlich ist - die Kubernetes-Website und die Dokumentation.
 
 <!-- body -->
-## SIG Docs-Vorsitzender
+## SIG Docs Vorstand
 
 Jede SIG, auch die SIG Docs, w&auml;hlt ein oder mehrere SIG-Mitglieder, die als
 Vorstand fungieren. Sie sind die Kontaktstellen zwischen der SIG Docs und anderen Teilen der
 der Kubernetes-Organisation. Sie ben&ouml;tigen umfassende Kenntnisse &uuml;ber die Struktur
-des Kubernetes-Projekts als Ganzes und wie SIG Docs darin arbeitet. Informationen zur [F&uuml;hrung](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) und den aktuellen Vorsitzenden.
+des Kubernetes-Projekts als Ganzes und wie SIG Docs darin arbeitet. Informationen zur [Leitung](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) und den aktuellen Vorsitzenden.
 ## SIG Docs-Teams und Automatisierung
 
 Die Automatisierung in SIG Docs st&uuml;tzt sich auf zwei verschiedene Mechanismen:
@@ -39,7 +39,7 @@ GitHub-Teams und OWNERS-Dateien.
 
 ### GitHub Teams
 
-Es gibt zwei Kategorien von SIG Docs [Teams] (https://github.com/orgs/kubernetes/teams?query=sig-docs) auf GitHub:
+Es gibt zwei Kategorien von SIG Docs [Teams](https://github.com/orgs/kubernetes/teams?query=sig-docs) auf GitHub:
 
 - `@sig-docs-{language}-owners` sind Genehmiger und Verantwortliche
 - `@sig-docs-{language}-reviewers` sind Reviewer
@@ -53,7 +53,7 @@ Automatisierung die Informationen aus den `OWNERS`-Dateien.
 
 ### OWNERS Dateien und Front-Matter
 
-Das Kubernetes-Projekt verwendet ein Automatisierungstool namens prow f&uuml;r die Automatisierung im Zusammenhang mit GitHub-Problemen und Pull-Requests. 
+Das Kubernetes-Projekt verwendet ein Automatisierungstool namens prow f&uuml;r die Automatisierung im Zusammenhang mit GitHub-Issues und Pull-Requests. 
 Das [Kubernetes-Website-Repository](https://github.com/kubernetes/website) verwendet zwei [prow-Plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
 
 - blunderbuss
