@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 런타임클래스(RuntimeClass)
 content_type: concept
 weight: 20
@@ -115,7 +118,7 @@ dockershim은 사용자 정의 런타임 핸들러를 지원하지 않는다.
 유효한 핸들러는 runtimes 단락 아래에서 설정한다.
 
 ```
-[plugins.cri.containerd.runtimes.${HANDLER_NAME}]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
 더 자세한 containerd의 구성 문서를 살펴본다.

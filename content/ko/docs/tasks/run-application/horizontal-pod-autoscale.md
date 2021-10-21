@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: Horizontal Pod Autoscaler
 feature:
   title: Horizontal 스케일링
@@ -8,10 +12,6 @@ feature:
 content_type: concept
 weight: 90
 ---
-
-
-
-
 
 <!-- overview -->
 
@@ -181,6 +181,7 @@ HorizontalPodAutoscaler API 오브젝트 생성시 지정된 이름이 유효한
 API 오브젝트에 대한 자세한 내용은
 [HorizontalPodAutoscaler 오브젝트](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling)에서 찾을 수 있다.
 
+
 ## kubectl에서 Horizontal Pod Autoscaler 지원
 
 Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`에 의해 표준 방식으로 지원된다.
@@ -197,14 +198,17 @@ Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`�
 
 ## 롤링 업데이트 중 오토스케일링
 
-현재 쿠버네티스에서는 기본 레플리카셋를 관리하는 디플로이먼트 오브젝트를 사용하여 롤링 업데이트를 수행할 수 있다.
-Horizontal Pod Autoscaler는 후자의 방법을 지원한다. Horizontal Pod Autoscaler는 디플로이먼트 오브젝트에 바인딩되고,
-디플로이먼트 오브젝트를 위한 크기를 설정하며, 디플로이먼트는 기본 레플리카셋의 크기를 결정한다.
+쿠버네티스는 디플로이먼트에 대한 롤링 업데이트를 지원한다. 
+이 경우, 디플로이먼트가 기저 레플리카셋을 알아서 관리한다. 
+디플로이먼트에 오토스케일링을 설정하려면, 
+각 디플로이먼트에 대한 HorizontalPodAutoscaler를 생성한다. 
+HorizontalPodAutoscaler는 디플로이먼트의 `replicas` 필드를 관리한다. 
+디플로이먼트 컨트롤러는 기저 레플리카셋에 `replicas` 값을 적용하여 
+롤아웃 과정 중/이후에 적절한 숫자까지 늘어나도록 한다.
 
-Horizontal Pod Autoscaler는 레플리케이션 컨트롤러를 직접 조작하는 롤링 업데이트에서 작동하지 않는다.
-즉, Horizontal Pod Autoscaler를 레플리케이션 컨트롤러에 바인딩하고 롤링 업데이트를 수행할 수 없다. (예 : `kubectl rolling-update`)
-작동하지 않는 이유는 롤링 업데이트에서 새 레플리케이션 컨트롤러를 만들 때,
-Horizontal Pod Autoscaler가 새 레플리케이션 컨트롤러에 바인딩되지 않기 때문이다.
+오토스케일된 레플리카가 있는 스테이트풀셋의 롤링 업데이트를 수행하면, 
+스테이트풀셋이 직접 파드의 숫자를 관리한다(즉, 
+레플리카셋과 같은 중간 리소스가 없다).
 
 ## 쿨-다운 / 지연에 대한 지원
 

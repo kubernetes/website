@@ -29,7 +29,7 @@ This page provides an outline of the container image concept.
 容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有
 良定（Well Defined）的假定。
 
-你通常会创建应用的容器镜像并将其推送到某仓库，然后在
+你通常会创建应用的容器镜像并将其推送到某仓库（Registry），然后在
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
 
 本页概要介绍容器镜像的概念。
@@ -41,7 +41,7 @@ This page provides an outline of the container image concept.
 
 Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
-and possible a port number as well; for example: `fictional.registry.example:10443/imagename`.
+and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
@@ -73,20 +73,6 @@ If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 如果你不指定标签，Kubernetes 认为你想使用标签 `latest`。
 
 <!--
-You should avoid using the `latest` tag when deploying containers in production,
-as it is harder to track which version of the image is running and more difficult
-to roll back to a working version.
-
-Instead, specify a meaningful tag such as `v1.42.0`.
--->
-{{< caution >}}
-你要避免在生产环境中使用 `latest` 标签，因为这会使得跟踪所运行的镜像版本变得
-非常困难，同时也很难回滚到之前运行良好的版本。
-
-正确的做法恰恰相反，你应该指定一个有意义的标签，如 `v1.42.0`。
-{{< /caution >}}
-
-<!--
 ## Updating images
 
 When you first create a {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
@@ -107,22 +93,123 @@ image if it already exists.
 在镜像已经存在的情况下直接略过拉取镜像的操作。
 
 <!--
-If you would like to always force a pull, you can do one of the following:
+### Image pull policy
 
-- set the `imagePullPolicy` of the container to `Always`.
-- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
-  Kubernetes will set the policy to `Always`.
-- omit the `imagePullPolicy` and the tag for the image to use.
-- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+The `imagePullPolicy` for a container and the tag of the image affect when the
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull (download) the specified image.
+
+Here's a list of the values you can set for `imagePullPolicy` and the effects
+these values have:
 -->
-如果你希望强制总是拉取镜像，你可以执行以下操作之一：
+### 镜像拉取策略   {#image-pull-policy}
 
-- 设置容器的 `imagePullPolicy` 为 `Always`。
-- 省略 `imagePullPolicy`，并使用 `:latest` 作为要使用的镜像的标签；
-  Kubernetes 会将策略设置为 `Always`。
-- 省略 `imagePullPolicy` 和要使用的镜像标签。
-- 启用 [AlwaysPullImages](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
-  准入控制器（Admission Controller）。
+容器的 `imagePullPolicy` 和镜像的标签会影响 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 尝试拉取（下载）指定的镜像。
+
+以下列表包含了 `imagePullPolicy` 可以设置的值，以及这些值的效果：
+
+<!--
+`IfNotPresent`
+: the image is pulled only if it is not already present locally.
+
+`Always`
+: every time the kubelet launches a container, the kubelet queries the container
+  image registry to resolve the name to an image
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier). If the kubelet has a
+  container image with that exact digest cached locally, the kubelet uses its cached
+  image; otherwise, the kubelet pulls the image with the resolved digest,
+  and uses that image to launch the container.
+
+`Never`
+: the kubelet does not try fetching the image. If the image is somehow already present
+  locally, the kubelet attempts to start the container; otherwise, startup fails.
+  See [pre-pulled images](#pre-pulled-images) for more details.
+-->
+`IfNotPresent`
+: 只有当镜像在本地不存在时才会拉取。
+
+`Always`
+: 每当 kubelet 启动一个容器时，kubelet 会查询容器的镜像仓库，
+  将名称解析为一个镜像[摘要](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)。
+  如果 kubelet 有一个容器镜像，并且对应的摘要已在本地缓存，kubelet 就会使用其缓存的镜像；
+  否则，kubelet 就会使用解析后的摘要拉取镜像，并使用该镜像来启动容器。
+
+`Never`
+: Kubelet 不会尝试获取镜像。如果镜像已经以某种方式存在本地，
+  kubelet 会尝试启动容器；否则，会启动失败。
+  更多细节见[提前拉取镜像](#pre-pulled-images)。
+
+<!--
+The caching semantics of the underlying image provider make even
+`imagePullPolicy: Always` efficient, as long as the registry is reliably accessible.
+Your container runtime can notice that the image layers already exist on the node
+so that they don't need to be downloaded again.
+-->
+只要能够可靠地访问镜像仓库，底层镜像提供者的缓存语义甚至可以使 `imagePullPolicy: Always` 高效。
+你的容器运行时可以注意到节点上已经存在的镜像层，这样就不需要再次下载。
+
+<!--
+You should avoid using the `:latest` tag when deploying containers in production as
+it is harder to track which version of the image is running and more difficult to
+roll back properly.
+
+Instead, specify a meaningful tag such as `v1.42.0`.
+
+To make sure the Pod always uses the same version of a container image, you can specify
+the image's digest;
+replace `<image-name>:<tag>` with `<image-name>@<digest>`
+(for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
+-->
+{{< note >}}
+在生产环境中部署容器时，你应该避免使用 `:latest` 标签，因为这使得正在运行的镜像的版本难以追踪，并且难以正确地回滚。
+
+相反，应指定一个有意义的标签，如 `v1.42.0`。
+{{< /note >}}
+
+为了确保 Pod 总是使用相同版本的容器镜像，你可以指定镜像的摘要；
+将 `<image-name>:<tag>` 替换为 `<image-name>@<digest>`，例如 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
+
+<!--
+When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
+
+There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
+that mutate Pods (and pod templates) when they are created, so that the
+running workload is defined based on an image digest rather than a tag.
+That might be useful if you want to make sure that all your workload is
+running the same code no matter what tag changes happen at the registry.
+-->
+当使用镜像标签时，如果镜像仓库修改了代码所对应的镜像标签，可能会出现新旧代码混杂在 Pod 中运行的情况。
+镜像摘要唯一标识了镜像的特定版本，因此 Kubernetes 每次启动具有指定镜像名称和摘要的容器时，都会运行相同的代码。
+指定一个镜像可以固定你所运行的代码，这样镜像仓库的变化就不会导致版本的混杂。
+
+有一些第三方的[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
+在创建 Pod（和 Pod 模板）时产生变更，这样运行的工作负载就是根据镜像摘要，而不是标签来定义的。
+无论镜像仓库上的标签发生什么变化，你都想确保你所有的工作负载都运行相同的代码，那么指定镜像摘要会很有用。
+
+<!-- 
+#### Default image pull policy {#imagepullpolicy-defaulting}
+
+When you (or a controller) submit a new Pod to the API server, your cluster sets the
+`imagePullPolicy` field when specific conditions are met:
+-->
+#### 默认镜像拉取策略    {#imagepullpolicy-defaulting}
+
+当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置 `imagePullPolicy `字段：
+
+<!--
+- if you omit the `imagePullPolicy` field, and the tag for the container image is
+  `:latest`, `imagePullPolicy` is automatically set to `Always`;
+- if you omit the `imagePullPolicy` field, and you don't specify the tag for the
+  container image, `imagePullPolicy` is automatically set to `Always`;
+- if you omit the `imagePullPolicy` field, and you specify the tag for the
+  container image that isn't `:latest`, the `imagePullPolicy` is automatically set to
+  `IfNotPresent`.
+-->
+- 如果你省略了 `imagePullPolicy` 字段，并且容器镜像的标签是 `:latest`，
+  `imagePullPolicy` 会自动设置为 `Always`。
+- 如果你省略了 `imagePullPolicy` 字段，并且没有指定容器镜像的标签，
+  `imagePullPolicy` 会自动设置为 `Always`。
+- 如果你省略了 `imagePullPolicy` 字段，并且为容器镜像指定了非 `:latest` 的标签，
+  `imagePullPolicy` 就会自动设置为 `IfNotPresent`。
 
 {{< note >}}
 <!--
@@ -134,18 +221,63 @@ For example, if you create a Deployment with an image whose tag is _not_
 `imagePullPolicy` field will _not_ change to `Always`. You must manually change
 the pull policy of any object after its initial creation.
 -->
-对象被 *创建* 时，容器的 `imagePullPolicy` 总是被设置为某值，如果镜像的标签
-后来发生改变，镜像拉取策略也不会被改变。
+容器的 `imagePullPolicy` 的值总是在对象初次 _创建_ 时设置的，如果后来镜像的标签发生变化，则不会更新。
 
-例如，如果你创建了一个 Deployment 对象，其中的镜像标签不是 `:latest`，
-后来 Deployment 的镜像被改为 `:latest`，则 `imagePullPolicy` 不会被改变为
-`Always`。你必须在对象被初始创建之后手动改变拉取策略。
+例如，如果你用一个 _非_ `:latest` 的镜像标签创建一个 Deployment，
+并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段 _不会_ 变成 `Always`。
+你必须手动更改已经创建的资源的拉取策略。
 {{< /note >}}
 
 <!--
-When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
+#### Required image pull
+
+If you would like to always force a pull, you can do one of the following:
+
+- Set the `imagePullPolicy` of the container to `Always`.
+- Omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
+  Kubernetes will set the policy to `Always` when you submit the Pod.
+- Omit the `imagePullPolicy` and the tag for the image to use;
+  Kubernetes will set the policy to `Always` when you submit the Pod.
+- Enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
 -->
-如果 `imagePullPolicy` 未被定义为特定的值，也会被设置为 `Always`。
+#### 必要的镜像拉取   {#required-image-pull}
+
+如果你想总是强制执行拉取，你可以使用下述的一中方式：
+
+- 设置容器的 `imagePullPolicy` 为 `Always`。
+- 省略 `imagePullPolicy`，并使用 `:latest` 作为镜像标签；
+  当你提交 Pod 时，Kubernetes 会将策略设置为 `Always`。
+- 省略 `imagePullPolicy` 和镜像的标签；
+  当你提交 Pod 时，Kubernetes 会将策略设置为 `Always`。
+- 启用准入控制器 [AlwaysPullImages](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。
+
+
+<!--
+### ImagePullBackOff
+
+When a kubelet starts creating containers for a Pod using a container runtime,
+it might be possible the container is in [Waiting](/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)
+state because of `ImagePullBackOff`.
+-->
+### ImagePullBackOff
+
+当 kubelet 使用容器运行时创建 Pod 时，容器可能因为 `ImagePullBackOff` 导致状态为
+[Waiting](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)。
+
+<!--
+The status `ImagePullBackOff` means that a container could not start because Kubernetes
+could not pull a container image (for reasons such as invalid image name, or pulling
+from a private registry without `imagePullSecret`). The `BackOff` part indicates
+that Kubernetes will keep trying to pull the image, with an increasing back-off delay.
+
+Kubernetes raises the delay between each attempt until it reaches a compiled-in limit,
+which is 300 seconds (5 minutes).
+-->
+`ImagePullBackOff` 状态意味着容器无法启动，
+因为 Kubernetes 无法拉取容器镜像（原因包括无效的镜像名称，或从私有仓库拉取而没有 `imagePullSecret`）。
+ `BackOff` 部分表示 Kubernetes 将继续尝试拉取镜像，并增加回退延迟。
+
+Kubernetes 会增加每次尝试之间的延迟，直到达到编译限制，即 300 秒（5 分钟）。
 
 <!--
 ## Multi-architecture images with image indexes
@@ -619,7 +751,8 @@ Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
+* Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
 -->
-* 阅读 [OCI Image Manifest 规范](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
-
+* 阅读 [OCI Image Manifest 规范](https://github.com/opencontainers/image-spec/blob/master/manifest.md)。
+* 了解[容器镜像垃圾收集](/zh/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)。

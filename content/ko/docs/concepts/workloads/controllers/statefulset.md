@@ -32,7 +32,7 @@ weight: 30
 
 ## 제한사항
 
-* 파드에 지정된 스토리지는 관리자에 의해 [퍼시스턴트 볼륨 프로비저너](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md)를 기반으로 하는 `storage class` 를 요청해서 프로비전하거나 사전에 프로비전이 되어야 한다.
+* 파드에 지정된 스토리지는 관리자에 의해 [퍼시스턴트 볼륨 프로비저너](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)를 기반으로 하는 `storage class` 를 요청해서 프로비전하거나 사전에 프로비전이 되어야 한다.
 * 스테이트풀셋을 삭제 또는 스케일 다운해도 스테이트풀셋과 연관된 볼륨이 *삭제되지 않는다*. 이는 일반적으로 스테이트풀셋과 연관된 모든 리소스를 자동으로 제거하는 것보다 더 중요한 데이터의 안전을 보장하기 위함이다.
 * 스테이트풀셋은 현재 파드의 네트워크 신원을 책임지고 있는 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)가 필요하다. 사용자가 이 서비스를 생성할 책임이 있다.
 * 스테이트풀셋은 스테이트풀셋의 삭제 시 파드의 종료에 대해 어떠한 보증을 제공하지 않는다. 스테이트풀셋에서는 파드가 순차적이고 정상적으로 종료(graceful termination)되도록 하려면, 삭제 전 스테이트풀셋의 스케일을 0으로 축소할 수 있다.
@@ -223,27 +223,31 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 
 ## 업데이트 전략
 
-쿠버네티스 1.7 및 이후에는 스테이트풀셋의 `.spec.updateStrategy` 필드는 스테이트풀셋의
+스테이트풀셋의 `.spec.updateStrategy` 필드는 스테이트풀셋의
 파드에 대한 컨테이너, 레이블, 리소스의 요청/제한 그리고 주석에 대한 자동화된 롤링 업데이트를
-구성하거나 비활성화 할 수 있다.
+구성하거나 비활성화할 수 있다. 두 가지 가능한 전략이 있다.
 
-### 삭제 시(On Delete)
-
-`OnDelete` 업데이트 전략은 레거시(1.6과 이전)의 행위를 구현한다. 이때 스테이트풀셋의
-`.spec.updateStrategy.type` 은 `OnDelete` 를 설정하며, 스테이트풀셋 컨트롤러는
-스테이트풀셋의 파드를 자동으로 업데이트하지 않는다. 사용자는 컨트롤러가 스테이트풀셋의
+`OnDelete`(삭제시)
+: 스테이트풀셋의 `.spec.updateStrategy.type` 은 `OnDelete` 를 설정하며, 
+스테이트풀셋 컨트롤러는 스테이트풀셋의 파드를 자동으로 업데이트하지 않는다. 
+사용자는 컨트롤러가 스테이트풀셋의
 `.spec.template`를 반영하는 수정된 새로운 파드를 생성하도록 수동으로 파드를 삭제해야 한다.
 
-### 롤링 업데이트
+`RollingUpdate`(롤링 업데이트)
+: `롤링 업데이트` 의 업데이트 전략은 스테이트풀셋의 파드에 대한 롤링 업데이트를
+구현한다. 롤링 업데이트는 `.spec.updateStrategy` 가 지정되지 않으면 기본 전략이 된다.
 
-`롤링 업데이트` 의 업데이트 전략은 스테이트풀셋의 파드에 대한 롤링 업데이트를
-구현한다. 롤링 업데이트는 `.spec.updateStrategy` 가 지정되지 않으면 기본 전략이 된다. 스테이트풀셋에 `롤링 업데이트` 가 `.spec.updateStrategy.type` 에 설정되면
-스테이트풀셋 컨트롤러는 스테이트풀셋의 각 파드를 삭제 및 재생성을 한다. 이 과정에서 똑같이
-순차적으로 파드가 종료되고(가장 큰 수에서 작은 수까지),
-각 파드의 업데이트는 한 번에 하나씩 한다. 이전 버전을 업데이트하기 전까지 업데이트된 파드가 실행 및 준비될
-때까지 기다린다.
+## 롤링 업데이트
 
-#### 파티션(Partition)
+스테이트풀셋에 `롤링 업데이트` 가 `.spec.updateStrategy.type` 에 설정되면
+스테이트풀셋 컨트롤러는 스테이트풀셋의 각 파드를 삭제 및 재생성한다. 이 과정에서 똑같이
+순차적으로 파드가 종료되고(가장 큰 순서 색인에서부터에서 작은 순서 색인쪽으로),
+각 파드의 업데이트는 한 번에 하나씩 한다.
+
+쿠버네티스 컨트롤 플레인은 이전 버전을 업데이트 하기 전에, 업데이트된 파드가 실행 및 준비될 때까지 기다린다.
+`.spec.minReadySeconds`([최소 준비 시간 초](#minimum-ready-seconds) 참조)를 설정한 경우, 컨트롤 플레인은 파드가 준비 상태로 전환된 후 해당 시간을 추가로 기다린 후 이동한다.
+
+### 파티션 롤링 업데이트 {#partitions}
 
 `롤링 업데이트` 의 업데이트 전략은 `.spec.updateStrategy.rollingUpdate.partition`
 를 명시해서 파티션 할 수 있다. 만약 파티션을 명시하면 스테이트풀셋의 `.spec.template` 가
@@ -255,7 +259,7 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 대부분의 케이스는 파티션을 사용할 필요가 없지만 업데이트를 준비하거나,
 카나리의 롤 아웃 또는 단계적인 롤 아웃을 행하려는 경우에는 유용하다.
 
-#### 강제 롤백
+### 강제 롤백
 
 기본 [파드 관리 정책](#파드-관리-정책) (`OrderedReady`)과
 함께 [롤링 업데이트](#롤링-업데이트)를 사용할 경우
@@ -273,8 +277,19 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 
 템플릿을 되돌린 이후에는 스테이트풀셋이 이미 잘못된 구성으로
 실행하려고 시도한 모든 파드를 삭제해야 한다.
-그러면 스테이트풀셋은 되돌린 템플릿을 사용해서 파드를 다시 생성하기 시작 한다.
+그러면 스테이트풀셋은 되돌린 템플릿을 사용해서 파드를 다시 생성하기 시작한다.
 
+### 최소 준비 시간 초 {#minimum-ready-seconds}
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+`.spec.minReadySeconds`는 새로 생성된 파드가 사용가능하다고 간주되도록 
+컨테이너가 충돌되지 않고 준비되는 최소 시간 초를 지정하는 선택적 필드이다.
+기본값은 0이다(파드는 준비되는 대로 사용 가능한 것으로 간주된다).
+파드가 준비가 되는 시기에 대해 더 자세히 알아보고 싶다면,
+[컨테이너 프로브](/ko/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)를 참고한다.
+
+이 필드는 `StatefulSetMinReadySeconds` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하도록 설정한 경우에만 작동한다.
 
 ## {{% heading "whatsnext" %}}
 

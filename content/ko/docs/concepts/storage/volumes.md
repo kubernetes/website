@@ -124,13 +124,13 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 `awsElasticBlockStore` 스토리지
-플러그인을 끄려면, `CSIMigrationAWSComplete` 플래그를 `true` 로 설정한다. 이 기능은 모든 워커 노드에서 `ebs.csi.aws.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버 설치를 필요로 한다.
+플러그인을 끄려면, `InTreePluginAWSUnregister` 플래그를 `true` 로 설정한다.
 
 ### azureDisk {#azuredisk}
 
 `azureDisk` 볼륨 유형은 Microsoft Azure [데이터 디스크](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers)를 파드에 마운트한다.
 
-더 자세한 내용은 [`azureDisk` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md)을 참고한다.
+더 자세한 내용은 [`azureDisk` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md)을 참고한다.
 
 #### azureDisk CSI 마이그레이션
 
@@ -148,7 +148,7 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 `azureFile` 볼륨 유형은 Microsoft Azure 파일 볼륨(SMB 2.1과 3.0)을 파드에
 마운트한다.
 
-더 자세한 내용은 [`azureFile` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md)을 참고한다.
+더 자세한 내용은 [`azureFile` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md)을 참고한다.
 
 #### azureFile CSI 마이그레이션
 
@@ -176,7 +176,7 @@ Azure File CSI 드라이버는 동일한 볼륨을 다른 fsgroup에서 사용�
 CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 내보내야 한다.
 {{< /note >}}
 
-더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/)를 참조한다.
+더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/)를 참조한다.
 
 ### cinder
 
@@ -347,7 +347,7 @@ targetWWN은 해당 WWN이 다중 경로 연결에서 온 것으로 예상한다
 쿠버네티스 호스트가 해당 LUN에 접근할 수 있다.
 {{< /note >}}
 
-더 자세한 내용은 [파이버 채널 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel)를 참고한다.
+더 자세한 내용은 [파이버 채널 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)를 참고한다.
 
 ### flocker (사용 중단됨(deprecated)){#flocker}
 
@@ -365,7 +365,7 @@ Flocker는 파드가 스케줄 되어있는 노드에 다시 연결한다. 이�
 `flocker` 볼륨을 사용하기 위해서는 먼저 Flocker를 설치하고 실행한다.
 {{< /note >}}
 
-더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker)를 참조한다.
+더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker)를 참조한다.
 
 ### gcePersistentDisk
 
@@ -462,7 +462,8 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: failure-domain.beta.kubernetes.io/zone
+        # 1.21 이전 버전에서는 failure-domain.beta.kubernetes.io/zone 키를 사용해야 한다.
+        - key: topology.kubernetes.io/zone
           operator: In
           values:
           - us-central1-a
@@ -479,6 +480,13 @@ GCE PD의 `CSIMigration` 기능이 활성화된 경우 기존 인-트리 플러�
 드라이버](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationGCE`
 베타 기능을 활성화해야 한다.
+
+#### GCE CSI 마이그레이션 완료
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+컨트롤러 매니저와 kubelet이 `gcePersistentDisk` 스토리지 플러그인을 로드하는 것을 방지하려면, 
+`InTreePluginGCEUnregister` 플래그를 `true`로 설정한다.
 
 ### gitRepo (사용 중단됨) {#gitrepo}
 
@@ -525,7 +533,7 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데�
 사용하려면 먼저 GlusterFS를 설치하고 실행해야 한다.
 {{< /note >}}
 
-더 자세한 내용은 [GlusterFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs)를 본다.
+더 자세한 내용은 [GlusterFS 예시](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs)를 본다.
 
 ### hostPath {#hostpath}
 
@@ -653,7 +661,7 @@ iSCSI 특징은 여러 고객이 읽기 전용으로 마운트할 수
 iSCSI 볼륨은 읽기-쓰기 모드에서는 단일 고객만 마운트할 수 있다.
 동시 쓰기는 허용되지 않는다.
 
-더 자세한 내용은 [iSCSI 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi)를 본다.
+더 자세한 내용은 [iSCSI 예시](https://github.com/kubernetes/examples/tree/master/volumes/iscsi)를 본다.
 
 ### local
 
@@ -741,7 +749,7 @@ local [스토리지클래스(StorageClas)](/ko/docs/concepts/storage/storage-cla
 사용하려면 먼저 NFS 서버를 실행하고 공유를 내보내야 한다.
 {{< /note >}}
 
-더 자세한 내용은 [NFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs)를 본다.
+더 자세한 내용은 [NFS 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)를 본다.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -789,7 +797,7 @@ spec:
 있는지 확인한다.
 {{< /note >}}
 
-자세한 내용은 [Portworx 볼륨](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md) 예제를 참고한다.
+자세한 내용은 [Portworx 볼륨](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) 예제를 참고한다.
 
 ### projected
 
@@ -803,7 +811,7 @@ spec:
 * `serviceAccountToken`
 
 모든 소스는 파드와 동일한 네임스페이스에 있어야 한다. 더 자세한 내용은
-[올인원 볼륨 디자인 문서](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md)를 본다.
+[올인원 볼륨 디자인 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)를 본다.
 
 #### 시크릿, 다운워드 API 그리고 컨피그맵이 있는 구성 예시 {#example-configuration-secret-downwardapi-configmap}
 
@@ -931,7 +939,7 @@ projected 볼륨 소스를 [`subPath`](#subpath-사용하기) 볼륨으로 마�
 해당 볼륨 소스의 업데이트를 수신하지 않는다.
 {{< /note >}}
 
-### quobyte
+### quobyte (사용 중단됨) {#quobyte}
 
 `quobyte` 볼륨을 사용하면 기존 [Quobyte](https://www.quobyte.com) 볼륨을
 파드에 마운트할 수 있다.
@@ -964,51 +972,8 @@ RBD의 특징은 여러 고객이 동시에 읽기 전용으로 마운트할 수
 RBD는 읽기-쓰기 모드에서 단일 고객만 마운트할 수 있다.
 동시 쓰기는 허용되지 않는다.
 
-더 자세한 내용은 [RBD 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd)를
+더 자세한 내용은 [RBD 예시](https://github.com/kubernetes/examples/tree/master/volumes/rbd)를
 참고한다.
-
-### scaleIO (사용 중단됨) {#scaleio}
-
-ScaleIO는 기존 하드웨어를 사용해서 확장 가능한 공유 블럭 네트워크 스토리지 클러스터를
-생성하는 소프트웨어 기반 스토리지 플랫폼이다. `scaleIO` 볼륨
-플러그인을 사용하면 배포된 파드가 기존 ScaleIO에 접근할 수
-있다. 퍼시스턴트 볼륨 클레임을 위해 새로운 볼륨을 동적으로 프로비저닝하는
-방법에 대한 자세한 내용은
-[ScaleIO 퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/#scaleio)을 참고한다.
-
-{{< note >}}
-사용하기 위해선 먼저 기존에 ScaleIO 클러스터를 먼저 설정하고
-생성한 볼륨과 함께 실행해야 한다.
-{{< /note >}}
-
-다음의 예시는 ScaleIO를 사용하는 파드 구성이다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: pod-0
-spec:
-  containers:
-  - image: k8s.gcr.io/test-webserver
-    name: pod-0
-    volumeMounts:
-    - mountPath: /test-pd
-      name: vol-0
-  volumes:
-  - name: vol-0
-    scaleIO:
-      gateway: https://localhost:443/api
-      system: scaleio
-      protectionDomain: sd0
-      storagePool: sp1
-      volumeName: vol-0
-      secretRef:
-        name: sio-secret
-      fsType: xfs
-```
-
-더 자세한 내용은 [ScaleIO](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio) 예제를 참고한다.
 
 ### secret
 
@@ -1029,7 +994,7 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 
 더 자세한 내용은 [시크릿 구성하기](/ko/docs/concepts/configuration/secret/)를 참고한다.
 
-### storageOS {#storageos}
+### storageOS (사용 중단됨) {#storageos}
 
 `storageos` 볼륨을 사용하면 기존 [StorageOS](https://www.storageos.com)
 볼륨을 파드에 마운트할 수 있다.
@@ -1177,7 +1142,7 @@ vSphere CSI 드라이버에서 생성된 새 볼륨은 이러한 파라미터를
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-`vsphereVolume` 플러그인이 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 기능을 비활성화하려면, 이 기능 플래그를 `true` 로 설정해야 한다. 이를 위해서는 모든 워커 노드에 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버가 설치해야 한다.
+`vsphereVolume` 플러그인이 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 기능을 비활성화하려면, `InTreePluginvSphereUnregister` 기능 플래그를 `true` 로 설정해야 한다. 이를 위해서는 모든 워커 노드에 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버를 설치해야 한다.
 
 ## subPath 사용하기 {#using-subpath}
 
