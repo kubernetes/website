@@ -1,5 +1,5 @@
 ---
-title: Ports and Protocols
+title: Portas e protocolos
 content_type: reference
 weight: 50
 ---
@@ -10,7 +10,7 @@ como por exemplo um data center on-premises com firewalls de rede físicos ou re
 
 ## Camada de gerenciamento
 
-| Protocol | Direction | Port Range | Purpose                 | Used By                   |
+| Protocolo | Direção | Intervalo de Portas | Propósito                 | Utilizado por                   |
 |----------|-----------|------------|-------------------------|---------------------------|
 | TCP      | Entrada   | 6443       | Servidor da API do Kubernetes | Todos                       |
 | TCP      | Entrada   | 2379-2380  | API servidor-cliente do etcd  | kube-apiserver, etcd      |
@@ -18,14 +18,14 @@ como por exemplo um data center on-premises com firewalls de rede físicos ou re
 | TCP      | Entrada   | 10259      | kube-scheduler          | kubeadm                      |
 | TCP      | Entrada   | 10257      | kube-controller-manager | kubeadm                      |
 
-Embora as portas do etcd estjam inclusas na secção da Camada de gerenciamento, você também 
+Embora as portas do etcd estejam inclusas na secção da Camada de gerenciamento, você também 
 pode hospedar o seu próprio cluster etcd externamente ou em portas customizadas. 
 
 ## Nós de processamento {#node}
 
-| Protocol | Direction | Port Range  | Purpose               | Used By                 |
+| Protocolo | Direção | Intervalo de Portas | Propósito                 | Utilizado por                   |
 |----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | Entrada   | 10250       | API do Kubelet        | Self, Camada de gerenciamento     |
+| TCP      | Entrada   | 10250       | API do Kubelet        | O próprio, Camada de gerenciamento     |
 | TCP      | Entrada   | 30000-32767 | Serviços NodePort†    | Todos                     |
 
 † Intervalo padrão de portas para os [serviços NodePort](/docs/concepts/services-networking/service/).
