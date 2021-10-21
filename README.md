@@ -177,6 +177,7 @@ For more information about contributing to the Kubernetes documentation, see:
 | [Indonesian](README-id.md) | [Spanish](README-es.md)    |
 | [Italian](README-it.md)    | [Ukrainian](README-uk.md)  |
 | [Japanese](README-ja.md)   | [Vietnamese](README-vi.md) |
+| [Turkish](README-tr.md)    |                            |
 
 ## Code of conduct
 
