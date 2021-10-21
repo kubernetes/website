@@ -56,12 +56,11 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 
 ## Using multiple Ingress controllers
 
-You may deploy [any number of ingress controllers](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) 
-within a cluster. When you create an ingress, you should annotate each ingress with the appropriate
-[`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster) 
-to indicate which ingress controller should be used if more than one exists within your cluster.
+You may deploy any number of ingress controllers using [ingress class](/docs/concepts/services-networking/ingress/#ingress-class)
+within a cluster. Note the `.metadata.name` of your ingress class resource. When you create an ingress you would need that name to specify the `ingressClassName` field on your Ingress object (refer to [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec). `ingressClassName` is a replacement of older [annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation).
 
-If you do not define a class, your cloud provider may use a default ingress controller.
+If you do not specify an IngressClass for an Ingress, and your cluster has exactly one IngressClass marked as default, then Kubernetes [applies](/docs/concepts/services-networking/ingress/#default-ingress-class) the cluster's default IngressClass to the Ingress.
+You mark an IngressClass as default by setting the [`ingressclass.kubernetes.io/is-default-class` annotation](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) on that IngressClass, with the string value `"true"`.
 
 Ideally, all ingress controllers should fulfill this specification, but the various ingress
 controllers operate slightly differently.
