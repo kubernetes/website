@@ -378,6 +378,12 @@ body.td-home .deprecation-warning, body.td-blog .deprecation-warning, body.td-do
     border-radius: 3px;
 }
 
+
+.td-documentation .td-content > .highlight {
+  max-width: initial;
+  width: 100%;
+}
+
 body.td-home #deprecation-warning {
     max-width: 1000px;
     margin-top: 2.5rem;
