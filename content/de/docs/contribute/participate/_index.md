@@ -12,7 +12,7 @@ card:
 Die SIG Docs ist eine der 
 [Special Interest Groups (Fachspezifischen Interessengruppen)](https://github.com/kubernetes/community/blob/master/sig-list.md) innerhalb des Kubernetes-Projekts, die sich auf das Schreiben, Aktualisieren und Pflegen der Dokumentation f&uuml;r Kubernetes als Ganzes konzentriert. Weitere Informationen &uuml;ber die SIG findest du unter SIG Docs im [Github Repository der Community](https://github.com/kubernetes/community/tree/master/sig-docs).
 
-SIG Docs begr&uuml;&szlig,t Inhalte und Bewertungen von allen Mitwirkenden. Jeder kann einen
+SIG Docs begr&uuml;&szlig;t Inhalte und Bewertungen von allen Mitwirkenden. Jeder kann einen
 Pull Request (PR) er&ouml;ffnen, und jeder ist willkommen, Fragen zum Inhalt zu stellen oder Kommentare
 zu laufenden Pull Requests abzugeben.
 
