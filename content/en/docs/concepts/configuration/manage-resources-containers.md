@@ -100,7 +100,7 @@ Limits and requests for CPU resources are measured in *cpu* units.
 One cpu, in Kubernetes, is equivalent to **1 vCPU/Core** for cloud providers and **1 hyperthread** on bare-metal Intel processors.
 
 Fractional requests are allowed. A Container with
-`spec.containers[].resources.requests.cpu` of `0.5` is guaranteed half as much
+`spec.containers[].resources.requests.cpu` of `0.5` asks for half as much
 CPU as one that asks for 1 CPU. The expression `0.1` is equivalent to the
 expression `100m`, which can be read as "one hundred millicpu". Some people say
 "one hundred millicores", and this is understood to mean the same thing. A
@@ -236,7 +236,7 @@ The kubelet also uses this kind of storage to hold
 container images, and the writable layers of running containers.
 
 {{< caution >}}
-If a node fails, the data in its ephemeral storage can be lost.  
+If a node fails, the data in its ephemeral storage can be lost.
 Your applications cannot expect any performance SLAs (disk IOPS for example)
 from local ephemeral storage.
 {{< /caution >}}
@@ -440,7 +440,7 @@ Kubernetes does not use them.
 Quotas are faster and more accurate than directory scanning. When a
 directory is assigned to a project, all files created under a
 directory are created in that project, and the kernel merely has to
-keep track of how many blocks are in use by files in that project.  
+keep track of how many blocks are in use by files in that project.
 If a file is created and deleted, but has an open file descriptor,
 it continues to consume space. Quota tracking records that space accurately
 whereas directory scans overlook the storage used by deleted files.
