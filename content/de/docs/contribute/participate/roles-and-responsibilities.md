@@ -63,7 +63,7 @@ Member können:
 ### Mitglied werden
 
 Du kannst ein Mitglied werden, nachdem du mindestens 5 substantielle Pull Requests eingereicht hast und die anderen
-[Anforderungen](https://github.com/kubernetes/community/blob/master/community-membership.md#member) erfüst: 
+[Anforderungen](https://github.com/kubernetes/community/blob/master/community-membership.md#member) erforderst: 
 
 1. Finde zwei [Reviewer](#reviewers) oder [Approver](#approvers), die deine Mitgliedschaft [sponsern](/docs/contribute/advanced#sponsor-a-new-contributor).
 
