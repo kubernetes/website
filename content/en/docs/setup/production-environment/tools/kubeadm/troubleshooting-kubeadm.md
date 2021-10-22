@@ -90,10 +90,10 @@ This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
 - the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
-configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+configure it properly see [Configuring a cgroup driver](https://github.com/kubernetes/website/blob/main/content/en/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver.md).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
 and investigating each container by running `docker logs`. For other container runtime see
-[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
+[Debugging Kubernetes nodes with crictl](https://github.com/kubernetes/website/blob/main/content/en/docs/tasks/debug-application-cluster/crictl.md).
 
 ## kubeadm blocks when removing managed containers
 
@@ -144,7 +144,7 @@ Right after `kubeadm init` there should not be any pods in these states.
 ## `coredns` is stuck in the `Pending` state
 
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
-should [install the pod network add-on](/docs/concepts/cluster-administration/addons/)
+should [install the pod network add-on](https://github.com/kubernetes/website/blob/main/content/en/docs/concepts/cluster-administration/addons.md)
 of choice. You have to install a Pod Network
 before CoreDNS may be deployed fully. Hence the `Pending` state before the network is set up.
 
@@ -159,11 +159,11 @@ Calico, Canal, and Flannel CNI providers are verified to support HostPort.
 For more information, see the [CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
-services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
+services](https://github.com/kubernetes/website/blob/main/content/en/docs/concepts/services-networking/service.md#type-nodeport-nodeport) or use `HostNetwork=true`.
 
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](https://github.com/kubernetes/website/blob/main/content/en/docs/tasks/debug-application-cluster/debug-service.md#edge-case-a-pod-fails-to-reach-itself-via-the-service-ip-a-pod-fails-to-reach-itself-via-the-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -262,7 +262,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   When using DigitalOcean, it can be the public one (assigned to `eth0`) or
   the private one (assigned to `eth1`) should you want to use the optional
   private network. The `kubeletExtraArgs` section of the kubeadm
-  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
+  [`NodeRegistrationOptions` structure](https://github.com/kubernetes/website/blob/main/content/en/docs/reference/config-api/kubeadm-config.v1beta3.md#noderegistrationoptions-----kubeadm-k8s-io-v1beta3-noderegistrationoptions)
   can be used for this.
 
   Then restart `kubelet`:
@@ -277,7 +277,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
 where the `coredns` pods are not starting. To solve that you can try one of the following options:
 
-- Upgrade to a [newer version of Docker](/docs/setup/production-environment/container-runtimes/#docker).
+- Upgrade to a [newer version of Docker](https://github.com/kubernetes/website/blob/main/content/en/docs/setup/production-environment/container-runtimes.md#docker).
 
 - [Disable SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 - Modify the `coredns` deployment to set `allowPrivilegeEscalation` to `true`:
@@ -336,7 +336,7 @@ Alternatively, you can try separating the `key=value` pairs like so:
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
-A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
+A known workaround is to use the kubeadm [configuration file](https://github.com/kubernetes/website/blob/main/content/en/docs/reference/config-api/kubeadm-config.v1beta3.md).
 
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
 
@@ -369,7 +369,7 @@ Kubernetes components like the kubelet and kube-controller-manager use the defau
 for the feature to work.
 
 To workaround this issue you can configure the flex-volume directory using the kubeadm
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[configuration file](https://github.com/kubernetes/website/blob/main/content/en/docs/reference/config-api/kubeadm-config.v1beta3.md).
 
 On the primary control-plane Node (created using `kubeadm init`) pass the following
 file using `--config`:
@@ -428,7 +428,7 @@ x509: certificate signed by unknown authority
 x509: certificate is valid for IP-foo not IP-bar
 ```
 
-See [Enabling signed kubelet serving certificates](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
+See [Enabling signed kubelet serving certificates](https://github.com/kubernetes/website/blob/main/content/en/docs/tasks/administer-cluster/kubeadm/kubeadm-certs.md#enabling-signed-kubelet-serving-certificates-kubelet-serving-certs)
 to understand how to configure the kubelets in a kubeadm cluster to have properly signed serving certificates.
 
 Also see [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely).
