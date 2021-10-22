@@ -142,6 +142,22 @@ For information about enabling IPVS mode with kubeadm see:
 For information about passing flags to control plane components see:
 - [control-plane-flags](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 
+### Running kubeadm without an Internet connection {#without-internet-connection}
+
+For running kubeadm without an Internet connection you have to pre-pull the required control-plane images.
+
+You can list and pull the images using the `kubeadm config images` sub-command:
+
+```shell
+kubeadm config images list
+kubeadm config images pull
+```
+
+You can pass `--config` to the above commands with a [kubeadm configuration file](#config-file)
+to control the `kubernetesVersion` and `imageRepository` fields.
+
+All default `k8s.gcr.io` images that kubeadm requires support multiple architectures.
+
 ### Using custom images {#custom-images}
 
 By default, kubeadm pulls images from `k8s.gcr.io`. If the
@@ -151,13 +167,24 @@ requested Kubernetes version is a CI label (such as `ci/latest`)
 You can override this behavior by using [kubeadm with a configuration file](#config-file).
 Allowed customization are:
 
+* To provide `kubernetesVersion` which affects the version of the images.
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
-* To set `useHyperKubeImage` to `true` to use the HyperKube image.
-* To provide a specific `imageRepository` and `imageTag` for etcd or DNS add-on.
+* To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
 
-Please note that the configuration field `kubernetesVersion` or the command line flag
-`--kubernetes-version` affect the version of the images.
+Image paths between the default `k8s.gcr.io` and a custom repository specified using
+`imageRepository` may differ for backwards compatibility reasons. For example,
+one image might have a subpath at `k8s.gcr.io/subpath/image`, but be defaulted
+to `my.customrepository.io/image` when using a custom repository.
+
+To ensure you push the images to your custom repository in paths that kubeadm
+can consume, you must:
+
+* Pull images from the defaults paths at `k8s.gcr.io` using `kubeadm config images {list|pull}`.
+* Push images to the paths from `kubeadm config images list --config=config.yaml`,
+where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
+for etcd and CoreDNS.
+* Pass the same `config.yaml` to `kubeadm init`.
 
 ### Uploading control-plane certificates to the cluster
 
@@ -208,19 +235,6 @@ The flag passes the appropriate [`--hostname-override`](/docs/reference/command-
 value to the kubelet.
 
 Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
-
-### Running kubeadm without an internet connection
-
-For running kubeadm without an internet connection you have to pre-pull the required control-plane images.
-
-You can list and pull the images using the `kubeadm config images` sub-command:
-
-```shell
-kubeadm config images list
-kubeadm config images pull
-```
-
-All images that kubeadm requires such as `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` support multiple architectures.
 
 ### Automating kubeadm
 
