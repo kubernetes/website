@@ -1,6 +1,4 @@
 ---
-reviewers:
-- Random-Liu
 title: नोड सेटअप मान्य करें
 weight: 30
 ---
