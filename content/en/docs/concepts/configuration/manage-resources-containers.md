@@ -99,9 +99,10 @@ resource requests/limits of that type for each Container in the Pod.
 Limits and requests for CPU resources are measured in *cpu* units.
 One cpu, in Kubernetes, is equivalent to **1 vCPU/Core** for cloud providers and **1 hyperthread** on bare-metal Intel processors.
 
-Fractional requests are allowed. A Container with
-`spec.containers[].resources.requests.cpu` of `0.5` asks for half as much
-CPU as one that asks for 1 CPU. The expression `0.1` is equivalent to the
+Fractional requests are allowed. When you define a container with
+`spec.containers[].resources.requests.cpu` set to `0.5`, you are requesting half
+as much CPU time compared to if you asked for `1.0` CPU.
+For CPU resource units, the expression `0.1` is equivalent to the
 expression `100m`, which can be read as "one hundred millicpu". Some people say
 "one hundred millicores", and this is understood to mean the same thing. A
 request with a decimal point, like `0.1`, is converted to `100m` by the API, and
