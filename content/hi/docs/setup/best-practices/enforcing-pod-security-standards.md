@@ -1,7 +1,4 @@
 ---
-reviewers:
-- tallclair
-- liggitt
 title: पॉड सुरक्षा मानकों को लागू करना
 weight: 40
 ---
