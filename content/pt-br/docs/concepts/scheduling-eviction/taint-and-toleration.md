@@ -7,7 +7,7 @@ weight: 40
 
 <!-- overview -->
 [_Afinidade de nó_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-é uma propriedade dos {{< glossary_tooltip text="Pods" term_id="pod" >}} que os *atrai* para um conjunto de {{< glossary_tooltip text="nós" term_id="node" >}} (seja como uma preferência ou uma exigência). _Taints_ são o oposto -- eles permitem que um nó repudie um conjunto de pods.
+é uma propriedade dos {{< glossary_tooltip text="Pods" term_id="pod" >}} que os *associa* a um conjunto de {{< glossary_tooltip text="nós" term_id="node" >}} (seja como uma preferência ou uma exigência). _Taints_ são o oposto -- eles permitem que um nó repudie um conjunto de pods.
 
 _Tolerâncias_ são aplicadas em pods e permitem, mas não exigem, que os pods sejam alocados em nós com _taints_ correspondentes.
 
@@ -33,7 +33,7 @@ Para remover o taint adicionado pelo comando acima, você pode executar:
 kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 
-Você especifica uma tolerância para um pod no PodSpec. Ambas das seguintes tolerâncias "correspondem" ao taint criado pelo `kubectl taint` acima, e assim um pod com qualquer uma delas poderia ser executado no `node1`:
+Você especifica uma tolerância para um pod na [especificação do Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1#PodSpec). Ambas as seguintes tolerâncias "correspondem" ao taint criado pelo `kubectl taint` acima, e assim um pod com qualquer uma delas poderia ser executado no `node1`:
 
 ```yaml
 tolerations:
@@ -72,7 +72,7 @@ Um `effect` vazio "casa" todos os efeitos com a chave `key1`.
 {{< /note >}}
 
 O exemplo acima usou `effect` de `NoSchedule`. De forma alternativa, você pode usar `effect` de `PreferNoSchedule`.
-Nesse efeito, o sistema *tentará* evitar que o pod seja alocado ao nó caso ele não tolere os taints definidos, contudo a alocação não será evitada de forma obrigatória. Pode-se dizer que o `PreferNoSchedule` é uma versão "soft" do `NoSchedule`. O terceiro tipo de `effect` é o `NoExecute` que será descrito posteriormente.
+Nesse efeito, o sistema *tentará* evitar que o pod seja alocado ao nó caso ele não tolere os taints definidos, contudo a alocação não será evitada de forma obrigatória. Pode-se dizer que o `PreferNoSchedule` é uma versão permissiva do `NoSchedule`. O terceiro tipo de `effect` é o `NoExecute` que será descrito posteriormente.
 
 Você pode colocar múltiplos taints no mesmo nó e múltiplas tolerâncias no mesmo pod.
 O jeito que o Kubernetes processa múltiplos taints e tolerâncias é como um filtro: começa com todos os taints de um nó, em seguida ignora aqueles para os quais o pod tem uma tolerância relacionada; os taints restantes que não foram ignorados indicam o efeito no pod. Mais especificamente,
@@ -123,10 +123,10 @@ significa que se esse pod está sendo executado e um taint correspondente é adi
 Taints e tolerâncias são um modo flexível de conduzir pods para *fora* dos nós ou expulsar pods que não deveriam estar sendo executados. Alguns casos de uso são
 
 * **Nós Dedicados**: Se você quiser dedicar um conjunto de nós para uso exclusivo de um conjunto específico de usuários, poderá adicionar um taint nesses nós. (digamos, `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) e em seguida adicionar uma tolerância correspondente para seus pods (isso seria feito mais facilmente com a escrita de um [controlador de admissão](/docs/reference/access-authn-authz/admission-controllers/) customizado).
-Os pods com tolerância terão sua execução permitida nos nós com taints (dedicados), assim como em qualquer outro nó no cluster. Se você quiser dedicar nós a esses pods *e garantir* que eles usem *apenas* os nós dedicados, precisará adicionar um label similar ao taint para o mesmo conjunto de nós (por exemplo, `dedicated=groupName`), e o controle de admissão deverá adicionar uma afinidade de nó para exigir que os pods podem ser executados apenas nos nós definidos com o label `dedicated=groupName`.
+Os pods com tolerância terão sua execução permitida nos nós com taints (dedicados), assim como em qualquer outro nó no cluster. Se você quiser dedicar nós a esses pods *e garantir* que eles usem *apenas* os nós dedicados, precisará adicionar uma label similar ao taint para o mesmo conjunto de nós (por exemplo, `dedicated=groupName`), e o controle de admissão deverá adicionar uma afinidade de nó para exigir que os pods podem ser executados apenas nos nós definidos com a label `dedicated=groupName`.
 
 * **Nós com hardware especial**: Em um cluster no qual um pequeno grupo de nós possui hardware especializado (por exemplo, GPUs), é desejável manter pods que não necessitem desse tipo de hardware fora desses nós, dessa forma o recurso estará disponível para pods que precisem do hardware especializado.  Isso pode ser feito aplicando taints nos nós com o hardware especializado (por exemplo, `kubectl taint nodes nodename special=true:NoSchedule` or `kubectl taint nodes nodename special=true:PreferNoSchedule`) e aplicando uma tolerância correspondente nos pods que usam o hardware especial. Assim como no caso de uso de nós dedicados, é provavelmente mais fácil aplicar as tolerâncias utilizando um [controlador de admissão](/docs/reference/access-authn-authz/admission-controllers/).
-Por exemplo, é recomendado usar [Extender Resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources) para representar hardware especial, adicione um taint ao seus nós de hardware especializado com o nome do recurso estendido e execute o controle de admissão [ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration). Agora, tendo em vista que os nós estão marcados com um taint, nenhum pod sem a tolerância será executado neles. Porém, quando você submete um pod que requisita o recurso estendido, o controlador de admissão `ExtendedResourceToleration` irá adicionar automaticamente as tolerâncias necessárias ao pod que irá, por sua vez, ser alocado no nó com hardware especial. Isso garantirá que esses nós de hardware especial serão dedicados para os pods que requisitarem tal recurso e você não precisará adicionar manualmente as tolerâncias aos seus pods.
+Por exemplo, é recomendado usar [Extended Resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources) para representar hardware especial, adicione um taint ao seus nós de hardware especializado com o nome do recurso estendido e execute o controle de admissão [ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration). Agora, tendo em vista que os nós estão marcados com um taint, nenhum pod sem a tolerância será executado neles. Porém, quando você submete um pod que requisita o recurso estendido, o controlador de admissão `ExtendedResourceToleration` irá adicionar automaticamente as tolerâncias necessárias ao pod que irá, por sua vez, ser alocado no nó com hardware especial. Isso garantirá que esses nós de hardware especial serão dedicados para os pods que requisitarem tal recurso e você não precisará adicionar manualmente as tolerâncias aos seus pods.
 
 * **Expulsões baseadas em Taint**: Um comportamento de expulsão configurada por pod quando problemas existem em um nó, o qual será descrito na próxima seção.
 
