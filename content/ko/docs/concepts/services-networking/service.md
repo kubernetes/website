@@ -183,6 +183,13 @@ subsets:
 위의 예에서, 트래픽은 YAML에 정의된 단일 엔드 포인트로
 라우팅된다. `192.0.2.42:9376` (TCP)
 
+{{< note >}}
+쿠버네티스 API 서버는 파드에 매핑되지 않은 엔드포인트를 프록시하는 것을 허용하지 않는다.
+셀렉터가 없는 서비스에 대해서 `kubectl proxy <service-name>`과 같은 행위는
+이런 제약으로 인해 실패할 것이다. 이는 사용자가 쿠버네티스 API 서버를
+프록시로 사용하여 허가받지 않은 엔드포인트에 접근하는 것을 막아준다.
+{{< /note >}}
+
 ExternalName 서비스는 셀렉터가 없고
 DNS명을 대신 사용하는 특수한 상황의 서비스이다. 자세한 내용은
 이 문서 뒷부분의 [ExternalName](#externalname) 섹션을 참조한다.
@@ -241,6 +248,24 @@ DNS 레코드를 구성하고, 라운드-로빈 이름 확인 방식을
 * 앱과 라이브러리가 적절히 재-확인을 했다고 하더라도, DNS 레코드의 TTL이
   낮거나 0이면 DNS에 부하가 높아 관리하기가
   어려워 질 수 있다.
+
+본 페이지의 뒷 부분에서 다양한 kube-proxy 구현의 동작에 대해 읽을 수 있다.
+우선 알아두어야 할 것은, `kube-proxy`를 구동할 때, 커널 수준의 규칙이
+수정(예를 들어, iptables 규칙이 생성될 수 있음)될 수 있고,
+이는 때로는 리부트 전까지 정리되지 않을 수도 있다.
+그래서, kube-proxy는 컴퓨터에서 저수준의, 특권을 가진(privileged) 네트워킹 
+프록시 서비스가 구동됨으로써 발생하는 결과를 이해하고 있는 관리자에 의해서만 구동되어야 한다.
+비록 `kube-proxy` 실행 파일이 `cleanup` 기능을 지원하기는 하지만, 이 기능은 공식적인 기능이
+아니기 때문에 구현된 그대로만 사용할 수 있다.
+
+### 구성
+
+kube-proxy는 구성에 따라 결정되는 여러 모드에서 기동될 수 있다.
+- kube-proxy의 구성은 컨피그맵(ConfigMap)을 통해 이루어진다. 그리고 해당 kube-proxy를 위한 컨피그맵은 실효성있게 거의 대부분의 kube-proxy의 플래그의 행위를 더 이상 사용하지 않도록 한다.
+- kube-proxy를 위한 해당 컨피그맵은 기동 중 구성의 재적용(live reloading)은 지원하지 않는다.
+- kube-proxy를 위한 컨피그맵 파라미터는 기동 시에 검증이나 확인을 하지 않는다. 예를 들어,
+ 운영 체계가 iptables 명령을 허용하지 않을 경우, 표준 커널 kube-proxy 구현체는 작동하지 않을 것이다.
+ 마찬가지로, `netsh`을 지원하지 않는 운영 체계에서는, 윈도우 유저스페이스 모드로는 기동하지 않을 것이다.
 
 ### 유저 스페이스(User space) 프록시 모드 {#proxy-mode-userspace}
 
@@ -428,8 +453,7 @@ kube-proxy는 마치 외부 트래픽 정책이 `Cluster`로 설정되어 있는
 
 파드가 노드에서 실행될 때, kubelet은 각 활성화된 서비스에 대해
 환경 변수 세트를 추가한다. [도커 링크
-호환](https://docs.docker.com/userguide/dockerlinks/) 변수
-([makeLinkVariables](https://releases.k8s.io/master/pkg/kubelet/envvars/envvars.go#L49) 참조)와
+호환](https://docs.docker.com/userguide/dockerlinks/) 변수 ([makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72) 참조)와
 보다 간단한 `{SVCNAME}_SERVICE_HOST` 및 `{SVCNAME}_SERVICE_PORT` 변수를 지원하고,
 이때 서비스 이름은 대문자이고 대시는 밑줄로 변환된다.
 
