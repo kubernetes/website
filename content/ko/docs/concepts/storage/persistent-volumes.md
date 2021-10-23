@@ -130,8 +130,10 @@ Events:            <none>
 `Retain` 반환 정책은 리소스를 수동으로 반환할 수 있게 한다. 퍼시스턴트볼륨클레임이 삭제되면 퍼시스턴트볼륨은 여전히 존재하며 볼륨은 "릴리스 된" 것으로 간주된다. 그러나 이전 요청자의 데이터가 여전히 볼륨에 남아 있기 때문에 다른 요청에 대해서는 아직 사용할 수 없다. 관리자는 다음 단계에 따라 볼륨을 수동으로 반환할 수 있다.
 
 1. 퍼시스턴트볼륨을 삭제한다. PV가 삭제된 후에도 외부 인프라(예: AWS EBS, GCE PD, Azure Disk 또는 Cinder 볼륨)의 관련 스토리지 자산이 존재한다.
-1. 관련 스토리지 자산의 데이터를 수동으로 삭제한다.
-1. 연결된 스토리지 자산을 수동으로 삭제하거나 동일한 스토리지 자산을 재사용하려는 경우 스토리지 자산 정의로 새 퍼시스턴트볼륨을 생성한다.
+2. 관련 스토리지 자산의 데이터를 수동으로 삭제한다.
+3. 연결된 스토리지 자산을 수동으로 삭제한다.
+
+동일한 스토리지 자산을 재사용하려는 경우, 동일한 스토리지 자산 정의로 새 퍼시스턴트볼륨을 생성한다.
 
 #### Delete(삭제)
 
@@ -412,11 +414,19 @@ spec:
 
 접근 모드는 다음과 같다.
 
-* ReadWriteOnce -- 하나의 노드에서 볼륨을 읽기-쓰기로 마운트할 수 있다
-* ReadOnlyMany -- 여러 노드에서 볼륨을 읽기 전용으로 마운트할 수 있다
-* ReadWriteMany -- 여러 노드에서 볼륨을 읽기-쓰기로 마운트할 수 있다
-* ReadWriteOncePod -- 하나의 파드에서 볼륨을 읽기-쓰기로 마운트할 수 있다.
-  쿠버네티스 버전 1.22 이상인 경우에 CSI 볼륨에 대해서만 지원된다.
+`ReadWriteOnce`
+: 하나의 노드에서 해당 볼륨이 읽기-쓰기로 마운트 될 수 있다. ReadWriteOnce 접근 모드에서도 파트가 동일 노드에서 구동되는 경우에는 복수의 파드에서 볼륨에 접근할 수 있다.
+
+`ReadWriteMany`
+: 볼륨이 다수의 노드에서 읽기 전용으로 마운트 될 수 있다.
+
+`ReadWriteOncePod`
+: 볼륨이 단일 파드에서 읽기-쓰기로 마운트될 수 있다. 전체 클러스터에서 단 하나의 파드만 해당 PVC를 읽거나 쓸 수 있어야하는 경우 ReadWriteOncePod 접근 모드를 사용한다. 이 기능은 CSI 볼륨과 쿠버네티스 버전 1.22+ 에서만 지원된다.
+
+
+
+[퍼시스턴트 볼륨에 대한 단일 파드 접근 모드 소개](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/) 블로그 기사에서 이에 대해 보다 자세한 내용을 다룬다.
+
 
 CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 
@@ -509,7 +519,7 @@ PV는 `storageClassName` 속성을
 대부분의 볼륨 유형의 경우 이 필드를 설정할 필요가 없다. [AWS EBS](/ko/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) 및 [Azure Disk](/ko/docs/concepts/storage/volumes/#azuredisk) 볼륨 블록 유형에 자동으로 채워진다. [로컬](/ko/docs/concepts/storage/volumes/#local) 볼륨에 대해서는 이를 명시적으로 설정해야 한다.
 {{< /note >}}
 
-PV는 [노드 어피니티](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core)를 지정하여 이 볼륨에 접근할 수 있는 노드를 제한하는 제약 조건을 정의할 수 있다. PV를 사용하는 파드는 노드 어피니티에 의해 선택된 노드로만 스케줄링된다.
+PV는 [노드 어피니티](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core)를 지정하여 이 볼륨에 접근할 수 있는 노드를 제한하는 제약 조건을 정의할 수 있다. PV를 사용하는 파드는 노드 어피니티에 의해 선택된 노드로만 스케줄링된다. 노드 어피니티를 명기하기 위해서는, PV의 `.spec`에 `nodeAffinity`를 설정한다. [퍼시스턴트볼륨](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec) API 레퍼런스에 해당 필드에 대해 보다 자세한 내용이 있다.
 
 ### 단계(Phase)
 
@@ -897,16 +907,15 @@ PVC를 위한 적절한 파퓰레이터가 설치되어 있다면,
   클러스터에 스토리지 시스템이 없음을 나타낸다(이 경우
   사용자는 PVC가 필요한 구성을 배포할 수 없음).
 
-  ## {{% heading "whatsnext" %}}
-
+## {{% heading "whatsnext" %}}
 
 * [퍼시스턴트볼륨 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트볼륨클레임 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨클레임-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md) 읽어보기
 
-### 참고
+### API 레퍼런스 {#reference}
 
-* [퍼시스턴트볼륨](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
-* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
-* [퍼시스턴트볼륨클레임](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
-* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
+본 페이지에 기술된 API에 대해서 다음을 읽어본다.
+
+* [`PersistentVolume`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
+* [`PersistentVolumeClaim`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)
