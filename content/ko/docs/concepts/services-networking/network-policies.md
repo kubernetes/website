@@ -154,6 +154,7 @@ __namespaceSelector__ *와* __podSelector__: `namespaceSelector` 와 `podSelecto
 
 의심스러운 경우, `kubectl describe` 를 사용해서 쿠버네티스가 정책을 어떻게 해석하는지 확인해본다.
 
+<a name="behavior-of-ipblock-selectors"></a>
 __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP CIDR 범위를 선택한다. 파드 IP는 임시적이고 예측할 수 없기에 클러스터 외부 IP이어야 한다.
 
 클러스터 인그레스 및 이그레스 매커니즘은 종종 패킷의 소스 또는 대상 IP의 재작성을
@@ -252,7 +253,7 @@ spec:
 ```
 
 위 규칙은 대상 포트가 32000에서 32768 사이에 있는 경우, 
-네임스페이스 `default` 에 레이블이 `db` 인 모든 파드가 
+네임스페이스 `default` 에 레이블이 `role=db` 인 모든 파드가
 TCP를 통해 `10.0.0.0/24` 범위 내의 모든 IP와 통신하도록 허용한다.
 
 이 필드를 사용할 때 다음의 제한 사항이 적용된다.
