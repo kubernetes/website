@@ -34,7 +34,7 @@ conditions are met before it fully deletes resources marked for deletion.
 Finalizers alert {{<glossary_tooltip text="controllers" term_id="controller">}}
 to clean up resources the deleted object owned.
 -->
-Finalizer 是命名空间范围的键，告诉 Kubernetes 等到特定的条件被满足后，
+Finalizer 是带有命名空间的键，告诉 Kubernetes 等到特定的条件被满足后，
 再完全删除被标记为删除的资源。
 Finalizer 提醒{{<glossary_tooltip text="控制器" term_id="controller">}}清理被删除的对象拥有的资源。
 <!--more-->
