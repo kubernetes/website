@@ -11,7 +11,7 @@ tags:
 - fundamental
 - architecture
 ---
-Zestaw zależnych ścieżek w Kubernetes API.
+Zestaw zależnych ścieżek w API Kubernetesa.
 
 <!--more-->
 
