@@ -85,7 +85,7 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   It must be greater than zero. Its semantics differs according to the value of `whenUnsatisfiable`:
   - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
     permitted difference between the number of matching pods in the target
-    topology and the global minimum 
+    topology and the global minimum
     (the minimum number of pods that match the label selector in a topology domain. For example, if you have 3 zones with 0, 2 and 3 matching pods respectively, The global minimum is 0).
   - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
     precedence to topologies that would help reduce the skew.
@@ -234,43 +234,45 @@ To overcome this situation, you can either increase the `maxSkew` or modify one 
 
 The scheduler will skip the non-matching nodes from the skew calculations if the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined.
 
+### Example: TopologySpreadConstraints with NodeAffinity
+
 Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneB"
-            p3(Pod) --> n3(Node3)
-            n4(Node4)
-        end
-        subgraph "zoneA"
-            p1(Pod) --> n1(Node1)
-            p2(Pod) --> n2(Node2)
-        end
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
 
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n1,n2,n3,n4,p1,p2,p3 k8s;
-    class p4 plain;
-    class zoneA,zoneB cluster;
-    {{< /mermaid >}}
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n1,n2,n3,n4,p1,p2,p3 k8s;
+class p4 plain;
+class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneC"
-            n5(Node5)
-        end
+{{<mermaid>}}
+graph BT
+    subgraph "zoneC"
+        n5(Node5)
+    end
 
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n5 k8s;
-    class zoneC cluster;
-    {{< /mermaid >}}
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n5 k8s;
+class zoneC cluster;
+{{< /mermaid >}}
 
 and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 
-    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+{{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
 The scheduler doesn't have prior knowledge of all the zones or other topology domains that a cluster has. They are determined from the existing nodes in the cluster. This could lead to a problem in autoscaled clusters, when a node pool (or node group) is scaled to zero nodes and the user is expecting them to scale up, because, in this case, those topology domains won't be considered until there is at least one node in them.
 
@@ -392,7 +394,7 @@ for more details.
 
 ## Known Limitations
 
-- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution. 
+- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution.
 You can use [Descheduler](https://github.com/kubernetes-sigs/descheduler) to rebalance the Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
