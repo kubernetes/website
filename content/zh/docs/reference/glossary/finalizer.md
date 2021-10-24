@@ -4,7 +4,7 @@ id: finalizer
 date: 2021-07-07
 full_link: /zh/docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
-  一个命名空间范围的键，告诉 Kubernetes 等到特定的条件被满足后，
+  一个带有命名空间的键，告诉 Kubernetes 等到特定的条件被满足后，
   再完全删除被标记为删除的资源。
 aka: 
 tags:
