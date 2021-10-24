@@ -32,7 +32,7 @@ The following are typical use cases for Deployments:
 * [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
 * [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
 * [Scale up the Deployment to facilitate more load](#scaling-a-deployment).
-* [Pause the Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
+* [Pause the rollout of a Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
 * [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck.
 * [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore.
 
@@ -697,9 +697,12 @@ nginx-deployment-1989198191   7         7         0         7m
 nginx-deployment-618515232    11        11        11        7m
 ```
 
-## Pausing and Resuming a Deployment
+## Pausing and Resuming a rollout of a Deployment {#pausing-and-resuming-a-deployment}
 
-You can pause a Deployment before triggering one or more updates and then resume it. This allows you to
+When you update a Deployment, or plan to, you can pause rollouts
+for that Deployment before you trigger one or more updates. When
+you're ready to apply those changes, you resume rollouts for the
+Deployment. This approach allows you to
 apply multiple fixes in between pausing and resuming without triggering unnecessary rollouts.
 
 * For example, with a Deployment that was created:
@@ -774,10 +777,10 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     deployment.apps/nginx-deployment resource requirements updated
     ```
 
-    The initial state of the Deployment prior to pausing it will continue its function, but new updates to
-    the Deployment will not have any effect as long as the Deployment is paused.
+    The initial state of the Deployment prior to pausing its rollout will continue its function, but new updates to
+    the Deployment will not have any effect as long as the Deployment rollout is paused.
 
-* Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
+* Eventually, resume the Deployment rollout and observe a new ReplicaSet coming up with all the new updates:
     ```shell
     kubectl rollout resume deployment.v1.apps/nginx-deployment
     ```
@@ -911,8 +914,8 @@ example, rollback the Deployment to its previous version.
 {{< /note >}}
 
 {{< note >}}
-If you pause a Deployment, Kubernetes does not check progress against your specified deadline.
-You can safely pause a Deployment in the middle of a rollout and resume without triggering
+If you pause a Deployment rollout, Kubernetes does not check progress against your specified deadline.
+You can safely pause a Deployment rollout in the middle of a rollout and resume without triggering
 the condition for exceeding the deadline.
 {{< /note >}}
 
