@@ -10,14 +10,7 @@ aka:
 tags:
 - workload
 ---
-Kontenery aplikacji są podstawową grupą {{< glossary_tooltip text="kontenerów" term_id="container" >}} w {{< glossary_tooltip text="podzie" term_id="pod" >}}.
+Kontenery aplikacji są w {{< glossary_tooltip text="podzie" term_id="pod" >}} grupą {{< glossary_tooltip text="kontenerów" term_id="container" >}}, które są uruchamiane po wszystkich zakończonych sukcesem kontenerach inicjalizujących.
 
 <!--more-->
-
-W Kuberetesie {{< glossary_tooltip text="zadania" term_id="workload" >}} w podzie mogą mieć różny cykl życia i fazę w której są wykonywane.
-
-Na przykład kontenery inicjalizujące mogą być wymagane do wstępnej konfiguracji i szybko kończą swoją pracę.
-
-Następnie uruchamiane są kontenery aplikacji, których celem jest najczęściej ciągła praca, lub ich cykl życia jest znacznie dłuży niż cykl życia kontenerów inicjalizujących.
-
-W najprostszej konfiguracji pod składa się tylko i wyłącznie z jednego kontenera - kontenera aplikacji.
+Kontenery inicjalizujące pozwalają odseparować szczegóły inicjalizacji, które są charakterystyczne dla ogólnego {{< glossary_tooltip text="zadania" term_id="workload" >}} w podzie. Kontenery inicjalizujące mają określony cykl życia, i po ich poprawnym zakończenu uruchamiana jest aplikacja główna. Jeśli pod nie posiada kontenerów inicjalizujących, wtedy wszystkie kontenery w podzie są kontenerami aplikacyjnymi.

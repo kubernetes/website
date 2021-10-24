@@ -15,6 +15,6 @@ zapisywania dodatkowych informacji nie związanych z identyfikacją obiektów.
 
 <!--more-->
 
-Adnotacje pełnią rolę dodatkowych informacji, mogą być krótkimi notatkami typu klucz-wartość, czy też większymi strukturami w formie przypisów, przechowującymi odpowiednio przetworzone obiekty.
+Adnotacje pełnią rolę dodatkowych informacji, mogą być krótkimi notatkami typu klucz-wartość, czy też większymi złożonymi typami danych w formie przypisów, przechowującymi odpowiednio przetworzone obiekty.
 
 Najczęściej stosuje się je jeśli zawierają znaki niedozwolone w {{< glossary_tooltip text="etykietach" term_id="label" >}}, stanową punkt przechowywania danych przetwarzanych przez różne narzędzia i biblioteki.

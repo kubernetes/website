@@ -4,7 +4,7 @@ id: api-group
 date: 2019-09-02
 full_link: /docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
 short_description: >
-  Zestaw zależnych ścieżek w Kubernetes API.
+  ZZestaw zależnych ścieżek w API Kubernetesa.
 
 aka:
 tags:
