@@ -181,8 +181,8 @@ kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력
 다음은 Bash 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
 
 {{< tabs name="kubectl_autocompletion" >}}
-{{< tab name="Bash" include="optional-kubectl-configs-bash-linux.md" />}}
-{{< tab name="Zsh" include="optional-kubectl-configs-zsh.md" />}}
+{{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
+{{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
 ### `kubectl convert` 플러그인 설치

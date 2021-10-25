@@ -181,8 +181,8 @@ kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, whi
 Below are the procedures to set up autocompletion for Bash and Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
-{{< tab name="Bash" include="optional-kubectl-configs-bash-linux.md" />}}
-{{< tab name="Zsh" include="optional-kubectl-configs-zsh.md" />}}
+{{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
+{{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
 ### Install `kubectl convert` plugin
