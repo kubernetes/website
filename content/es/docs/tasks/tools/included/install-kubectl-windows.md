@@ -139,7 +139,7 @@ kubectl proporciona soporte de autocompletado para Bash y Zsh, lo que puede ahor
 
 A continuación se muestran los procedimientos para configurar el autocompletado para Zsh, si lo está ejecutando en Windows.
 
-{{< include "included/optional-kubectl-configs-zsh.md" >}}
+{{< include "optional-kubectl-configs-zsh.md" >}}
 
 ### Install `kubectl convert` plugin
 
