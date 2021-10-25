@@ -275,8 +275,8 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 下面是为 Bash 和 Zsh 设置自动补全功能的操作步骤。
 
 {{< tabs name="kubectl_autocompletion" >}}
-{{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
-{{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
+{{< tab name="Bash" include="optional-kubectl-configs-bash-mac.md" />}}
+{{< tab name="Zsh" include="optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
 <!--
