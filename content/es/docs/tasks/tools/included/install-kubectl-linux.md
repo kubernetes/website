@@ -169,7 +169,7 @@ kubectl version --client
 
 ## Verificar la configuración de kubectl
 
-{{< include "included/verify-kubectl.md" >}}
+{{< include "verify-kubectl.md" >}}
 
 ## Complementos y configuraciones opcionales de kubectl
 
@@ -186,7 +186,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
 
 ### Instalar en pc `kubectl convert` enchufar
 
-{{< include "included/kubectl-convert-overview.md" >}}
+{{< include "kubectl-convert-overview.md" >}}
 
 1. Descargue la última versión con el comando:
 
@@ -241,4 +241,4 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
 
 ## {{% heading "whatsnext" %}}
 
-{{< include "included/kubectl-whats-next.md" >}}
+{{< include "kubectl-whats-next.md" >}}
