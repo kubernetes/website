@@ -164,7 +164,7 @@ Follow the steps given below to update your Deployment:
 1. Let's update the nginx Pods to use the `nginx:1.16.1` image instead of the `nginx:1.14.2` image.
 
     ```shell
-    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
     or use the following command:
