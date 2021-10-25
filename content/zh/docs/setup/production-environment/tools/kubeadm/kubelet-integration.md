@@ -230,7 +230,7 @@ If the reload and restart are successful, the normal `kubeadm init` workflow con
 ConfigMap 名为 `kubelet-config-1.X`，其中 `X` 是你正在初始化的 kubernetes 版本的次版本。
 在集群中所有 kubelet 的基准集群范围内配置，将 kubelet 配置文件写入 `/etc/kubernetes/kubelet.conf` 中。
 此配置文件指向允许 kubelet 与 API 服务器通信的客户端证书。
-这解决了 [将集群级配置传播到每个 kubelet](#propagating-cluster-level-configuration-to-each-kubelet)的需求。
+这解决了[将集群级配置传播到每个 kubelet](#propagating-cluster-level-configuration-to-each-kubelet) 的需求。
 
 该文档 [提供特定实例的配置详细信息](#providing-instance-specific-configuration-details) 是第二种解决模式，
 kubeadm 将环境文件写入 `/var/lib/kubelet/kubeadm-flags.env`，其中包含了一个标志列表，
