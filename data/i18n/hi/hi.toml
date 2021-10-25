@@ -1,180 +1,179 @@
-# i18n strings for the English (main) site.
+# i18n strings for Hindi version of the site.
 
 [deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
+other = " प्रलेखन अब सक्रिय रूप से मेंटेन नहीं है। वर्तमान में आप जो संस्करण देख रहे हैं वह एक स्टैटिक स्नैपशॉट है। अप-टू-डेट प्रलेखन के लिए, देखें "
 
 [deprecation_file_warning]
-other = "Deprecated"
+other = "डेप्रिकॉटेड"
 
 [objectives_heading]
-other = "Objectives"
+other = "उद्देश्य"
 
 [cleanup_heading]
-other = "Cleaning up"
+other = "सफाई करना"
 
 [prerequisites_heading]
-other = "Before you begin"
+other = "शुरू करने से पहले"
 
 [whatsnext_heading]
-other = "What's next"
+other = "आगे क्या है"
 
 [feedback_heading]
-other = "Feedback"
+other = "प्रतिक्रिया"
 
 [feedback_question]
-other = "Was this page helpful?"
+other = "क्या यह पृष्ठ उपयोगी था?"
 
 [feedback_yes]
-other = "Yes"
+other = "हाँ"
 
 [feedback_no]
-other = "No"
+other = "नहीं"
 
 [latest_version]
-other = "latest version."
+other = "नवीनतम संस्करण।"
 
 [version_check_mustbe]
-other = "Your Kubernetes server must be version "
+other = "आपके कुबेरनेट्स सर्वर का संस्करण होना चाहिए "
 
 [version_check_mustbeorlater]
-other = "Your Kubernetes server must be at or later than version "
+other = "आपका कुबेरनेट्स सर्वर इसपर या इसके बाद के संस्करण पर होना चाहिए "
 
 [version_check_tocheck]
-other = "To check the version, enter "
+other = "संस्करण की जांच करने के लिए, लिखें "
 
 [caution]
-other = "Caution:"
+other = "सावधानी:"
 
 [note]
-other = "Note:"
+other = "टिप्पणी:"
 
 [warning]
-other = "Warning:"
+other = "चेतावनी:"
 
 [main_read_about]
-other = "Read about"
+other = "के बारे में पढ़ें"
 
 [main_read_more]
-other = "Read more"
+other = "अधिक पढ़ें"
 
 [main_github_invite]
-other = "Interested in hacking on the core Kubernetes code base?"
+other = "कोर कुबेरनेट्स कोड बेस पर हैकिंग के इच्छुक हैं?"
 
 [main_github_view_on]
-other = "View On GitHub"
+other = "GitHub पर देखें"
 
 [main_github_create_an_issue]
-other = "Create an Issue"
+other = "इशू बनाएं"
 
 [main_community_explore]
-other = "Explore the community"
+other = "समुदाय का अन्वेषण करें"
 
 [main_kubernetes_features]
-other = "Kubernetes Features"
+other = "कुबेरनेट्स की विशेषताएं"
 
 [main_cncf_project]
-other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+other = """हम एक <a href="https://cncf.io/">CNCF</a> स्नातक परियोजना हैं</p>"""
 
 [main_kubeweekly_baseline]
-other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
+other = "नवीनतम कुबेरनेट्स समाचार प्राप्त करने के इच्छुक हैं? KubeWeekly के लिए साइन अप करें।"
 
 [main_kubernetes_past_link]
-other = "View past newsletters"
+other = "पिछले न्यूज़लेटर देखें"
 
 [main_kubeweekly_signup]
-other = "Subscribe"
+other = "सब्सक्राइब करें"
 
 [main_contribute]
-other = "Contribute"
+other = "योगदान करें"
 
 [main_edit_this_page]
-other = "Edit This Page"
+other = "इस पृष्ठ को संपादित करें"
 
 [main_page_history]
-other ="Page History"
+other ="पृष्ठ का इतिहास"
 
 [main_page_last_modified_on]
-other = "Page last modified on"
+other = "पृष्ठ अंतिम बार संशोधित किया गया"
 
 [main_by]
-other = "by"
+other = "द्वारा"
 
 [main_documentation_license]
-other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+other = """कुबेरनेट्स लेखक | <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> के अंतर्गत वितरित दस्तावेज़"""
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
-
+other = """The Linux Foundation &reg;। सभी अधिकार सुरक्षित। The Linux Foundation ने ट्रेडमार्क पंजीकृत किया है और ट्रेडमार्क का उपयोग करता है। Linux Foundation के ट्रेडमार्क की सूची के लिए, कृपया हमारा <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">ट्रेडमार्क उपयोग पृष्ठ</a> देखें।"""
 # Labels for the docs portal home page.
 [docs_label_browse]
-other = "Browse Docs"
+other = "प्रलेखन ब्राउज़ करें"
 
 [docs_label_contributors]
-other = "Contributors"
+other = "योगदानकर्ता"
 
 [docs_label_users]
-other = "Users"
+other = "उपयोगकर्ता"
 
 [docs_label_i_am]
-other = "I AM..."
+other = "मैं हूँ..."
 
 # layouts > blog > pager
 
 [layouts_blog_pager_prev]
-other = "<< Prev"
+other = "<< पिछला"
 
 [layouts_blog_pager_next]
-other = "Next >>"
+other = "अगला >>"
 
 # layouts > blog > list
 
 [layouts_case_studies_list_tell]
-other = "Tell your story"
+other = "अपनी कहानी बतायें"
 
 # layouts > docs > glossary
 
 [layouts_docs_glossary_description]
-other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to K8s, as well as more general terms that provide useful context."
+other = "इस शब्दावली का उद्देश्य कुबेरनेट्स शब्दावली की एक व्यापक, मानकीकृत सूची है। इसमें कुबेरनेट्स के लिए विशिष्ट तकनीकी शब्द और उपयोगी संदर्भ प्रदान करने वाले सामान्य शब्द शामिल हैं।"
 
 [layouts_docs_glossary_filter]
-other = "Filter terms according to their tags"
+other = "शब्दों को उनके टैग के अनुसार फ़िल्टर करें"
 
 [layouts_docs_glossary_select_all]
-other = "Select all"
+other = "सभी का चयन करे"
 
 [layouts_docs_glossary_deselect_all]
-other = "Deselect all"
+other = "सभी को अचयनित करें"
 
 [layouts_docs_glossary_aka]
-other = "Also known as"
+other = "के रूप में भी जाना जाता है"
 
 [layouts_docs_glossary_click_details_before]
-other = "Click on the"
+other = "पर क्लिक करें"
 
 [layouts_docs_glossary_click_details_after]
-other = "indicators below to get a longer explanation for any particular term."
+other = "किसी विशेष शब्द के लिए लंबी व्याख्या प्राप्त करने के लिए नीचे दिए गए संकेतक।"
 
 # layouts > docs > search
 
 [layouts_docs_search_fetching]
-other = "Fetching results.."
+other = "परिणाम लाए जा रहे हैं.."
 
 # layouts > partial > feedback
 
 [layouts_docs_partials_feedback_thanks]
-other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
+other = "प्रतिक्रिया के लिए धन्यवाद। यदि आपके पास कुबेरनेट्स का उपयोग करने के तरीके के बारे में कोई विशिष्ट, जवाबदेह प्रश्न है, तो इस पर पूछें"
 
 [layouts_docs_partials_feedback_issue]
-other = "Open an issue in the GitHub repo if you want to "
+other = "यदि आप चाहते हैं तो GitHub रेपो में एक इशू खोलें "
 
 [layouts_docs_partials_feedback_problem]
-other = "report a problem"
+other = "समस्या के बारे में बताएं"
 
 [layouts_docs_partials_feedback_or]
-other = "or"
+other = "या"
 
 [layouts_docs_partials_feedback_improvement]
-other = "suggest an improvement"
+other = "सुधार का सुझाव दें"
 
 # Community links
 [community_twitter_name]
@@ -186,10 +185,10 @@ other = "Slack"
 [community_stack_overflow_name]
 other = "Stack Overflow"
 [community_forum_name]
-other = "Forum"
+other = "फोरम"
 [community_events_calendar]
-other = "Events Calendar"
+other = "घटनाक्रम कैलेंडर"
 
 # UI elements
 [ui_search_placeholder]
-other = "Search"
+other = "खोजें"
