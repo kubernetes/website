@@ -90,6 +90,7 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
   * [Charmed Operator Framework](https://juju.is/)
   * [KUDO](https://kudo.dev/)（Kubernetes Universal Declarative Operator）を使います
   * [kubebuilder](https://book.kubebuilder.io/)を使います
+  * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
   * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)を自分で実装したWebHooksと一緒に使います
   * [Operator Framework](https://operatorframework.io)を使います
   * [shell-operator](https://github.com/flant/shell-operator)
