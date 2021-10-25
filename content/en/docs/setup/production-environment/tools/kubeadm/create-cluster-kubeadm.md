@@ -93,7 +93,7 @@ when creating a cluster without an internet connection on its nodes.
 See [Running kubeadm without an internet connection](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection) for more details.
 
 Kubeadm allows you to use a custom image repository for the required images.
-See [Using custom images](docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
 for more details.
 
 ### Initializing your control-plane node
