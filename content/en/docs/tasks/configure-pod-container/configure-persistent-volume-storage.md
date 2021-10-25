@@ -240,7 +240,6 @@ You can now close the shell to your Node.
 
 You can perform 2 volume mounts on your nginx container:
 
-
 `/usr/share/nginx/html` for the static website
 `/etc/nginx/nginx.conf` for the default config
 

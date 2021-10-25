@@ -48,6 +48,21 @@ with shared namespaces and shared filesystem volumes.
 
 ## Using Pods
 
+The following is an example of a Pod which consists of a container running the image `nginx:1.14.2`.
+
+{{< codenew file="pods/simple-pod.yaml" >}}
+
+To create the Pod shown above, run the following command:
+```shell
+kubectl apply -f https://k8s.io/examples/pods/simple-pod.yaml
+```
+
+Pods are generally not created directly and are created using workload resources.
+See [Working with Pods](#working-with-pods) for more information on how Pods are used
+with workload resources.
+
+### Workload resources for managing pods
+
 Usually you don't need to create Pods directly, even singleton Pods. Instead, create them using workload resources such as {{< glossary_tooltip text="Deployment"
 term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}}.
 If your Pods need to track state, consider the
@@ -97,7 +112,7 @@ For example, you might have a container that
 acts as a web server for files in a shared volume, and a separate "sidecar" container
 that updates those files from a remote source, as in the following diagram:
 
-{{< figure src="/images/docs/pod.svg" alt="example pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" alt="Pod creation diagram" class="diagram-medium" >}}
 
 Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}. Init containers run and complete before the app containers are started.
 
@@ -257,8 +272,9 @@ section.
 
 ## Privileged mode for containers
 
-Any container in a Pod can enable privileged mode, using the `privileged` flag on the [security context](/docs/tasks/configure-pod-container/security-context/) of the container spec. This is useful for containers that want to use operating system administrative capabilities such as manipulating the network stack or accessing hardware devices.
-Processes within a privileged container get almost the same privileges that are available to processes outside a container.
+In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag on the [security context](/docs/tasks/configure-pod-container/security-context/) of the container spec. This is useful for containers that want to use operating system administrative capabilities such as manipulating the network stack or accessing hardware devices.
+
+If your cluster has the `WindowsHostProcessContainers` feature enabled, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the `windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used to perform administrative tasks as is done with Linux privileged containers.
 
 {{< note >}}
 Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must support the concept of a privileged container for this setting to be relevant.
@@ -282,6 +298,24 @@ on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
 
+{{< note >}}
+The `spec` of a static Pod cannot refer to other API objects
+(e.g., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
+{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
+{{< /note >}}
+
+## Container probes
+
+A _probe_ is a diagnostic performed periodically by the kubelet on a container. To perform a diagnostic, the kubelet can invoke different actions:
+
+- `ExecAction` (performed with the help of the container runtime)
+- `TCPSocketAction` (checked directly by the kubelet)
+- `HTTPGetAction` (checked directly by the kubelet)
+
+You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) 
+in the Pod Lifecycle documentation.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
@@ -290,9 +324,9 @@ but cannot be controlled from there.
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.
 * Pod is a top-level resource in the Kubernetes REST API.
-  The [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+  The {{< api-reference page="workload-resources/pod-v1" >}}
   object definition describes the object in detail.
-* [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) explains common layouts for Pods with more than one container.
+* [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
 
 To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), you can read about the prior art, including:
 
