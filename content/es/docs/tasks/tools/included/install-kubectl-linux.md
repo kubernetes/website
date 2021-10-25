@@ -180,8 +180,8 @@ kubectl proporciona soporte de autocompletado para Bash y Zsh, lo que puede ahor
 A continuación, se muestran los procedimientos para configurar el autocompletado para Bash y Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
-{{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
-{{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
+{{< tab name="Bash" include="optional-kubectl-configs-bash-linux.md" />}}
+{{< tab name="Zsh" include="optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
 ### Instalar en pc `kubectl convert` enchufar
