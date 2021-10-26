@@ -131,7 +131,9 @@ The `Retain` reclaim policy allows for manual reclamation of the resource. When 
 
 1. Delete the PersistentVolume. The associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume) still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
-1. Manually delete the associated storage asset, or if you want to reuse the same storage asset, create a new PersistentVolume with the storage asset definition.
+1. Manually delete the associated storage asset.
+
+If you want to reuse the same storage asset, create a new PersistentVolume with the same storage asset definition.
 
 #### Delete
 
@@ -412,11 +414,22 @@ A PersistentVolume can be mounted on a host in any way supported by the resource
 
 The access modes are:
 
-* ReadWriteOnce -- the volume can be mounted as read-write by a single node
-* ReadOnlyMany -- the volume can be mounted read-only by many nodes
-* ReadWriteMany -- the volume can be mounted as read-write by many nodes
-* ReadWriteOncePod -- the volume can be mounted as read-write by a single Pod.
-  This is only supported for CSI volumes and Kubernetes version 1.22+.
+`ReadWriteOnce` 
+: the volume can be mounted as read-write by a single node. ReadWriteOnce access mode still can allow multiple pods to access the volume when the pods are running on the same node.
+
+`ReadOnlyMany`
+: the volume can be mounted as read-only by many nodes.
+
+`ReadWriteMany`
+: the volume can be mounted as read-write by many nodes.
+
+ `ReadWriteOncePod`
+: the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod access mode if you want to ensure that only one pod across whole cluster can read that PVC or write to it. This is only supported for CSI volumes and Kubernetes version 1.22+.
+
+
+
+The blog article [Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/) covers this in more detail.
+ 
 
 In the CLI, the access modes are abbreviated to:
 
