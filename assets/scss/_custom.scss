@@ -338,9 +338,33 @@ main {
     border-left-color: #d9534f;
   }
 
+
   h1:first-of-type + blockquote.callout {
     margin-top: 1.5em;
   }
+}
+
+// Special color for third party content disclaimers
+.alert.third-party-content { border-left-color: #222 };
+
+// Highlight disclaimer when targeted as a fragment
+
+#third-party-content-disclaimer {
+  color: #000;
+  background: #f8f9fa;
+  transition: all 0.5s ease;
+}
+
+@keyframes disclaimer-highlight {
+  from { background: #f8f922; color: #000; }
+  50% { background: #f8f944; color: #000; }
+  to { background: #f8f9cb; color: #000; }
+}
+
+#third-party-content-disclaimer:target {
+  color: #000;
+  animation: disclaimer-highlight 1.25s ease;
+  background: #f8f9cb;
 }
 
 .deprecation-warning {
@@ -352,6 +376,12 @@ main {
 
 body.td-home .deprecation-warning, body.td-blog .deprecation-warning, body.td-documentation .deprecation-warning {
     border-radius: 3px;
+}
+
+
+.td-documentation .td-content > .highlight {
+  max-width: initial;
+  width: 100%;
 }
 
 body.td-home #deprecation-warning {
@@ -635,10 +665,59 @@ body.td-documentation {
   }
 }
 
+// Match Docsy-imposed max width on text body
+@media (min-width: 1200px) {
+  body.td-blog main .td-content > figure {
+    max-width: 80%;
+  }
+}
+
 .td-content {
   table code {
     background-color: inherit !important;
     color: inherit !important;
     font-size: inherit !important;
+  }
+}
+
+/* Force size constraints on figures */
+figure {
+  &.diagram-small img {
+    max-height: clamp(20mm,12em,80vh);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  &.diagram-medium img {
+    max-height: clamp(25mm,20em,80vh);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  &.diagram-large img {
+    max-width: clamp(0vw, 95vw, 100%);
+    max-height: calc(80vh - 8rem);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  figure {
+    &.diagram-small, &.diagram-medium {
+      max-width: 80%;
+    }
+    &.diagram-large {
+      max-width: 100%;
+      width: 100%;
+    }
+    &.diagram-small img {
+      max-width: clamp(30rem, 45ch, 100mm);
+    }
+    &.diagram-medium img {
+      max-width: clamp(50rem, 20ch, 160mm);
+    }
+    &.diagram-large img {
+      max-width: clamp(25vw, 95vw, 100%);
+      max-height: calc(100vh - 10rem);
+    }
   }
 }

@@ -52,7 +52,7 @@ equivalent to "Predicate" and "Scoring" is equivalent to "Priority function".
 One plugin may register at multiple extension points to perform more complex or
 stateful tasks.
 
-{{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" >}}
+{{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" class="diagram-large">}}
 
 ### QueueSort {#queue-sort}
 

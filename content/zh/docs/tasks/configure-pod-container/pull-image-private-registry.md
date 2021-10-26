@@ -110,7 +110,7 @@ kubectl create secret docker-registry regcred \
 where:
 
 * `<your-registry-server>` is your Private Docker Registry FQDN.
-  Use `https://index.docker.io/v2/` for DockerHub.
+  Use `https://index.docker.io/v1/` for DockerHub.
 * `<your-name>` is your Docker username.
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
@@ -120,7 +120,7 @@ You have successfully set your Docker credentials in the cluster as a Secret cal
 在这里：
 
 * `<your-registry-server>` 是你的私有 Docker 仓库全限定域名（FQDN）。
-  DockerHub 使用 `https://index.docker.io/v2/`。
+  DockerHub 使用 `https://index.docker.io/v1/`。
 * `<your-name>` 是你的 Docker 用户名。
 * `<your-pword>` 是你的 Docker 密码。
 * `<your-email>` 是你的 Docker 邮箱。

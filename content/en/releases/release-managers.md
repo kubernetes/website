@@ -31,7 +31,7 @@ The responsibilities of each role are described below.
 
 ### Security Embargo Policy
 
-Some information about releases is subject to embargo and we have defined policy about how those embargos are set. Please refer [Security Embargo Policy](https://github.com/kubernetes/security/blob/master/private-distributors-list.md#embargo-policy) here for more information.
+Some information about releases is subject to embargo and we have defined policy about how those embargoes are set. Please refer to the [Security Embargo Policy](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy) for more information.
 
 ## Handbooks
 

@@ -73,7 +73,7 @@ NodeLocal DNSキャッシュは、クラスターノード上でDNSキャッシ�
   * kube-proxyがIPVSモードで稼働中のとき:
 
     ``` bash
-     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
+     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
     ```
      このモードでは、node-local-dns Podは`<node-local-address>`上のみで待ち受けます。node-local-dnsのインターフェースはkube-dnsのクラスターIPをバインドしません。なぜならばIPVSロードバランシング用に使われているインターフェースは既にこのアドレスを使用しているためです。
      `__PILLAR__UPSTREAM__SERVERS__` はnode-local-dns Podにより生成されます。

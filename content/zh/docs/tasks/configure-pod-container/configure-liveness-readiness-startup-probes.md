@@ -217,14 +217,14 @@ Any code greater than or equal to 200 and less than 400 indicates success. Any
 other code indicates failure.
 
 You can see the source code for the server in
-[server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go).
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
 
 For the first 10 seconds that the container is alive, the `/healthz` handler
 returns a status of 200. After that, the handler returns a status of 500.
 -->
 任何大于或等于 200 并且小于 400 的返回代码标示成功，其它返回代码都标示失败。
 
-可以在这里看服务的源码 [server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go)。
+可以在这里看服务的源码 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)。
 
 容器存活的最开始 10 秒中，`/healthz` 处理程序返回一个 200 的状态码。之后处理程序返回 500 的状态码。
 
@@ -672,35 +672,52 @@ to resolve it.
 -->
 ### 探测器级别 `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!--
-Prior to release 1.21, the pod-level `terminationGracePeriodSeconds` was used
-for terminating a container that failed its liveness or startup probe. This
-coupling was unintended and may have resulted in failed containers taking an
-unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
-was set.
+In 1.21 and beyond, when the feature gate `ProbeTerminationGracePeriod` is
+enabled, users can specify a probe-level `terminationGracePeriodSeconds` as
+part of the probe specification. When the feature gate is enabled, and both a
+pod- and probe-level `terminationGracePeriodSeconds` are set, the kubelet will
+use the probe-level value.
 -->
-在 1.21 版之前，pod 级别的 `terminationGracePeriodSeconds` 被用来终止
-未能成功处理活跃性探测或启动探测的容器。
-这种耦合是意料之外的，可能会导致在设置了 pod 级别的 `terminationGracePeriodSeconds` 后，
-需要很长的时间来重新启动失败的容器。
+在 1.21 及更高版本中，当特性门控 `ProbeTerminationGracePeriod` 为
+启用状态时，用户可以指定一个探测级别的 `terminationGracePeriodSeconds` 作为
+探针规格的一部分。当特性门控被启用时，并且
+Pod 级和探针级的 `terminationGracePeriodSeconds` 都已设置，kubelet 将
+使用探针级设置的值。
+
+{{< note >}}
+<!--
+As of Kubernetes 1.22, the `ProbeTerminationGracePeriod` feature gate is only
+available on the API Server. The kubelet always honors the probe-level
+`terminationGracePeriodSeconds` field if it is present on a Pod.
+-->
+从 Kubernetes 1.22 开始，`ProbeTerminationGracePeriod` 特性门控只
+在 API 服务器上可用。 kubelet 始终遵守探针级别
+`terminationGracePeriodSeconds` 字段（如果它存在于 Pod 上）。
 
 <!--
-In 1.21, when the feature flag `ProbeTerminationGracePeriod` is enabled, users
-can specify a probe-level `terminationGracePeriodSeconds` as part of the probe
-specification. When the feature flag is enabled, and both a pod- and
-probe-level `terminationGracePeriodSeconds` are set, the kubelet will use the
-probe-level value.
-
-For example,
+If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
+you no longer wish to use per-probe termination grace periods, you must delete
+those existing Pods.
 -->
-在1.21中，启用特性标志 `ProbeTerminationGracePeriod` 后，
-用户可以指定一个探测器级别的 `terminationGracePeriodSeconds` 作为探测器规格的一部分。
-当该特性标志被启用时，若同时设置了 Pod 级别和探测器级别的 `terminationGracePeriodSeconds`，
-kubelet 将使用探测器级的值。
+如果你已经为现有 Pod 设置了 “terminationGracePeriodSeconds” 字段并且
+不再希望使用针对每个探针的终止宽限期，则必须删除那些现有的 Pod。
 
-例如，
+<!--
+When you (or the control plane, or some other component) create replacement
+Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
+API server ignores the Pod-level `terminationGracePeriodSeconds` field, even if
+a Pod or pod template specifies it.
+-->
+当你（或控制平面或某些其他组件）创建替换
+Pods，并且特性门控 “ProbeTerminationGracePeriod” 被禁用，那么
+API 服务器会忽略 Pod 级别的 `terminationGracePeriodSeconds` 字段，即使
+Pod 或 Pod 模板指定了它。
+{{< /note >}}
+
+例如:
 
 ```yaml
 spec:

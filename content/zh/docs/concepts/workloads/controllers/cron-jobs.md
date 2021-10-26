@@ -19,12 +19,16 @@ A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repe
 
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
+
+In addition, the CronJob schedule supports timezone handling, you can specify the timezone by adding "CRON_TZ=<time zone>" at the beginning of the CronJob schedule, and it is recommended to always set `CRON_TZ`.
 -->
 _CronJob_ 创建基于时隔重复调度的 {{< glossary_tooltip term_id="job" text="Jobs" >}}。
 
 一个 CronJob 对象就像 _crontab_ (cron table) 文件中的一行。
 它用 [Cron](https://en.wikipedia.org/wiki/Cron) 格式进行编写，
 并周期性地在给定的调度时间执行 Job。
+
+另外，CronJob 调度支持时区处理，你可以通过在 CronJob schedule 字段的开头添加 "CRON_TZ=<time zone>" 指定时区，且建议始终设置 `CRON_TZ`。
 
 <!--
 All **CronJob** `schedule:` times are based on the timezone of the
@@ -61,15 +65,16 @@ maximum length of a Job name is no more than 63 characters.
 <!--
 ## CronJob
 
-CronJobs are useful for creating periodic and recurring tasks, like running backups or
-sending emails. CronJobs can also schedule individual tasks for a specific time, such as
-scheduling a Job for when your cluster is likely to be idle.
+CronJobs are meant for performing regular scheduled actions such as backups,
+report generation, and so on. Each of those tasks should be configured to recur
+indefinitely (for example: once a day / week / month); you can define the point
+in time within that interval when the job should start.
 -->
 ## CronJob
 
-CronJobs 对于创建周期性的、反复重复的任务很有用，例如执行数据备份或者发送邮件。
-CronJobs 也可以用来计划在指定时间来执行的独立任务，例如计划当集群看起来很空闲时
-执行某个 Job。
+CronJob 用于执行周期性的动作，例如备份、报告生成等。
+这些任务中的每一个都应该配置为周期性重复的（例如：每天/每周/每月一次）；
+你可以定义任务开始执行的时间间隔。
 
 <!--
 ### Example
@@ -89,6 +94,19 @@ This example CronJob manifest prints the current time and a hello message every 
 ### Cron schedule syntax
 -->
 ### Cron 时间表语法
+
+```
+#      ┌────────────────── 时区 (可选)
+#      |      ┌───────────── 分钟 (0 - 59)
+#      |      │ ┌───────────── 小时 (0 - 23)
+#      |      │ │ ┌───────────── 月的某天 (1 - 31)
+#      |      │ │ │ ┌───────────── month (1 - 12)
+#      |      │ │ │ │ ┌───────────── 周的某天 (0 - 6)（周日到周一；在某些系统上，7 也是星期日）
+#      |      │ │ │ │ │                                
+#      |      │ │ │ │ │
+#      |      │ │ │ │ │
+# CRON_TZ=UTC * * * * *
+```
 
 ```
 # ┌───────────── 分钟 (0 - 59)
@@ -120,11 +138,11 @@ This example CronJob manifest prints the current time and a hello message every 
 | @hourly                   | 每小时的开始一次              | 0 * * * *      |
 
 <!--  
-For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight(in UTC):
 -->
-例如，下面这行指出必须在每个星期五的午夜以及每个月 13 号的午夜开始任务：
+例如，下面这行指出必须在每个星期五的午夜以及每个月 13 号的午夜开始任务（UTC 时间）：
 
-`0 0 13 * 5`
+`CRON_TZ=UTC 0 0 13 * 5`
 
 <!--  
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
@@ -237,14 +255,23 @@ and set this flag to `false`. For example:
 
 ## {{% heading "whatsnext" %}}
 <!--
-[Cron expression format](https://en.wikipedia.org/wiki/Cron)
-documents the format of CronJob `schedule` fields.
-
-For instructions on creating and working with cron jobs, and for an example of a spec file for a cron job, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
+* Learn about [Pods](/docs/concepts/workloads/pods/) and
+  [Jobs](/docs/concepts/workloads/controllers/job/), two concepts
+  that CronJobs rely upon.
+* Read about the [format](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)
+  of CronJob `.spec.schedule` fields.
+* For instructions on creating and working with CronJobs, and for an example
+  of a CronJob manifest,
+  see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
+* `CronJob` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
+  object definition to understand the API for Kubernetes cron jobs.
 -->
 
-* 进一步了解 [Cron 表达式的格式](https://en.wikipedia.org/wiki/Cron)，学习设置
-  CronJob `schedule` 字段
+* 了解 CronJob 所依赖的 [Pods](/zh/docs/concepts/workloads/pods/) 与 [Job](/zh/docs/concepts/workloads/controllers/job/) 的概念。
+* 阅读 CronJob `.spec.schedule` 字段的[格式](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)。
 * 有关创建和使用 CronJob 的说明及示例规约文件，请参见
   [使用 CronJob 运行自动化任务](/zh/docs/tasks/job/automated-tasks-with-cron-jobs/)。
-
+* `CronJob` 是 Kubernetes REST API 的一部分，
+   阅读 {{< api-reference page="workload-resources/cron-job-v1" >}}
+   对象定义以了解关于该资源的 API。

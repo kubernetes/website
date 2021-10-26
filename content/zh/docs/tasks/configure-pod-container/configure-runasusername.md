@@ -31,14 +31,17 @@ You need to have a Kubernetes cluster and the kubectl command-line tool must be 
 <!--
 ## Set the Username for a Pod
 
-To specify the username with which to execute the Pod's container processes, include the `securityContext` field ([PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core) in the Pod specification, and within it, the `windowsOptions` ([WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core) field containing the `runAsUserName` field.
+To specify the username with which to execute the Pod's container processes, include the
+`securityContext` field ([PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)) 
+in the Pod specification, and within it, the `windowsOptions` 
+([WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core)) field containing the `runAsUserName` field.
 -->
 ## 为 Pod 设置 Username
 
-要指定运行 Pod 容器时所使用的用户名，请在 Pod 声明中包含 `securityContext` 
-（[PodSecurityContext](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)）字段，
-并在其内部包含 `windowsOptions` 
-（[WindowsSecurityContextOptions](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core)）
+要指定运行 Pod 容器时所使用的用户名，请在 Pod 声明中包含 `securityContext`
+([PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)) 字段，
+并在其内部包含 `windowsOptions`
+([WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core))
 字段的 `runAsUserName` 字段。
 
 <!--
@@ -106,15 +109,19 @@ ContainerUser
 <!--
 ## Set the Username for a Container
 
-To specify the username with which to execute a Container's processes, include the `securityContext` field ([SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)) in the Container manifest, and within it, the `windowsOptions` ([WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core) field containing the `runAsUserName` field.
+To specify the username with which to execute a Container's processes, include the `securityContext` field 
+([SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)) 
+in the Container manifest, and within it, the 
+`windowsOptions` ([WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param 
+"version" >}}/#windowssecuritycontextoptions-v1-core)) field containing the `runAsUserName` field.
 -->
 
 ## 为容器设置 Username
 
 要指定运行容器时所使用的用户名，请在容器清单中包含 `securityContext`
-（[SecurityContext](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)）
+([SecurityContext](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core))
 字段，并在其内部包含 `windowsOptions`
-（[WindowsSecurityContextOptions](/zh/docs/reference/generated/kubernetes-api/{{< param 
+（[WindowsSecurityContextOptions](/zh/docs/reference/generated/kubernetes-api/{{< param
 "version" >}}/#windowssecuritycontextoptions-v1-core)）
 字段的 `runAsUserName` 字段。
 
