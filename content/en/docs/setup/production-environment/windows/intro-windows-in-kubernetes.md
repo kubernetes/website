@@ -499,13 +499,6 @@ passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
 The following list documents differences between how Pod container specifications
 work between Windows and Linux:
 
-* `limits.cpu` and `limits.memory` - Windows doesn't use hard limits
-  for CPU allocations. Instead, a share system is used.
-  The fields based on millicores are scaled into
-  relative shares that are followed by the Windows scheduler
-  See [`kuberuntime/helpers_windows.go`](https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/kuberuntime/helpers_windows.go),
-  and [Implementing resource controls for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/resource-controls)
-  in Microsoft's virtualization documentation.
 * Huge pages are not implemented in the Windows container
   runtime, and are not available. They require [asserting a user
   privilege](https://docs.microsoft.com/en-us/windows/desktop/Memory/large-page-support)
