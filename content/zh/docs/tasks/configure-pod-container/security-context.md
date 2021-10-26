@@ -39,7 +39,7 @@ a Pod or Container. Security context settings include, but are not limited to:
   为进程赋予 root 用户的部分特权而非全部特权。
 <!--
 * [AppArmor](/docs/tutorials/clusters/apparmor/): Use program profiles to restrict the capabilities of individual programs.
-* [Seccomp](https://en.wikipedia.org/wiki/Seccomp): Filter a process's system calls.
+* [Seccomp](/docs/tutorials/clusters/seccomp/): Filter a process's system calls.
 * AllowPrivilegeEscalation: Controls whether a process can gain more
   privileges than its parent process. This bool directly controls whether the
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
@@ -48,7 +48,7 @@ a Pod or Container. Security context settings include, but are not limited to:
 * readOnlyRootFilesystem: Mounts the container's root filesystem as read-only.
 -->
 * [AppArmor](/zh/docs/tutorials/clusters/apparmor/)：使用程序框架来限制个别程序的权能。
-* [Seccomp](https://en.wikipedia.org/wiki/Seccomp)：过滤进程的系统调用。
+* [Seccomp](/zh/docs/tutorials/clusters/seccomp/)：过滤进程的系统调用。
 * AllowPrivilegeEscalation：控制进程是否可以获得超出其父进程的特权。
   此布尔值直接控制是否为容器进程设置
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)标志。
@@ -298,6 +298,41 @@ and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 和 [`emptydir`](/zh/docs/concepts/storage/volumes/#emptydir)
 这类临时性存储无效。
 {{< /note >}}
+
+<!--
+## Delegating volume permission and ownership change to CSI driver
+-->
+## 将卷权限和所有权更改委派给 CSI 驱动程序
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+<!--
+If you deploy a [Container Storage Interface (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+driver which supports the `VOLUME_MOUNT_GROUP` `NodeServiceCapability`, the
+process of setting file ownership and permissions based on the
+`fsGroup` specified in the `securityContext` will be performed by the CSI driver
+instead of Kubernetes, provided that the `DelegateFSGroupToCSIDriver` Kubernetes
+feature gate is enabled. In this case, since Kubernetes doesn't perform any
+ownership and permission change, `fsGroupChangePolicy` does not take effect, and
+as specified by CSI, the driver is expected to mount the volume with the
+provided `fsGroup`, resulting in a volume that is readable/writable by the
+`fsGroup`.
+
+Please refer to the [KEP](https://github.com/gnufied/enhancements/blob/master/keps/sig-storage/2317-fsgroup-on-mount/README.md)
+and the description of the `VolumeCapability.MountVolume.volume_mount_group`
+field in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)
+for more information.
+-->
+如果你部署了一个[容器存储接口 (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+驱动支持 `VOLUME_MOUNT_GROUP` `NodeServiceCapability`，
+在 `securityContext` 中指定 `fsGroup` 来设置文件所有权和权限的过程将由 CSI 驱动
+而不是 Kubernetes 来执行，前提是 Kubernetes 的 `DelegateFSGroupToCSIDriver` 
+特性门控已启用。在这种情况下，由于 Kubernetes 不执行任何
+所有权和权限更改，`fsGroupChangePolicy` 不会生效，并且
+按照 CSI 的规定，CSI 驱动应该使用所指定的 `fsGroup` 来挂载卷，从而生成了一个对 `fsGroup` 可读/可写的卷.
+
+更多的信息请参考 [KEP](https://github.com/gnufied/enhancements/blob/master/keps/sig-storage/2317-fsgroup-on-mount/README.md)
+和 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume) 中的字
+段 `VolumeCapability.MountVolume.volume_mount_group` 的描述 。
 
 <!--
 ## Set the security context for a Container

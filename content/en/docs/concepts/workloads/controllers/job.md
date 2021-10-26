@@ -25,6 +25,9 @@ due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
 
+If you want to run a Job (either a single task, or several in parallel) on a schedule,
+see [CronJob](/docs/concepts/workloads/controllers/cron-jobs/).
+
 <!-- body -->
 
 ## Running an example Job
@@ -204,6 +207,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
     the deterministic hostnames to address each other via DNS.
   - From the containarized task, in the environment variable `JOB_COMPLETION_INDEX`.
+  
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
@@ -638,6 +642,19 @@ driver, and then cleans up.
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but maintains complete control over what Pods are created and how work is assigned to them.
 
-## Cron Jobs {#cron-jobs}
+## {{% heading "whatsnext" %}}
 
-You can use a [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) to create a Job that will run at specified times/dates, similar to the Unix tool `cron`.
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Read about different ways of running Jobs:
+   * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
+   * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
+   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/) (beta)
+   * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
+* Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
+  to learn more about how your cluster can clean up completed and / or failed tasks.
+* `Job` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/job-v1" >}}
+  object definition to understand the API for jobs.
+* Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
+  can use to define a series of Jobs that will run based on a schedule, similar to
+  the Unix tool `cron`.

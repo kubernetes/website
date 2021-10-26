@@ -28,7 +28,7 @@ as cgroups v2 and user namespaces are being implemented in these newer CRI
 runtimes. Removing support for the dockershim will allow further development in
 those areas.
 
-[drkep]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1985-remove-dockershim
+[drkep]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim
 
 ### Can I still use Docker in Kubernetes 1.20?
 
@@ -42,9 +42,11 @@ startup if using Docker as the runtime.
 
 Given the impact of this change, we are using an extended deprecation timeline.
 It will not be removed before Kubernetes 1.22, meaning the earliest release without
-dockershim would be 1.23 in late 2021. We will be working closely with vendors
-and other ecosystem groups to ensure a smooth transition and will evaluate things
-as the situation evolves.
+dockershim would be 1.23 in late 2021. 
+_Update_: removal of dockershim is scheduled for Kubernetes v1.24, see 
+[Dockershim Removal Kubernetes Enhancement Proposal][drkep].
+We will be working closely with vendors and other ecosystem groups to ensure a smooth transition and will evaluate 
+things as the situation evolves.
 
 
 ### Can I still use dockershim after it is removed from Kubernetes?

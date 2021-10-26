@@ -197,31 +197,39 @@ service PodResourcesLister {
 }
 ```
 
-`List` 엔드포인트는 독점적으로 할당된 CPU의 ID, 장치 플러그인에 의해 보고된 장치 ID,
-이러한 장치가 할당된 NUMA 노드의 ID와 같은 세부 정보와 함께
-실행 중인 파드의 리소스에 대한 정보를 제공한다.
+`List` 엔드포인트는 실행 중인 파드의 리소스에 대한 정보를 제공하며,
+독점적으로 할당된 CPU의 ID, 장치 플러그인에 의해 보고된 장치 ID,
+이러한 장치가 할당된 NUMA 노드의 ID와 같은 세부 정보를 함께 제공한다. 또한, NUMA 기반 머신의 경우, 컨테이너를 위해 예약된 메모리와 hugepage에 대한 정보를 포함한다.
 
 ```gRPC
-// ListPodResourcesResponse는 List 함수가 반환하는 응답이다
+// ListPodResourcesResponse는 List 함수가 반환하는 응답이다.
 message ListPodResourcesResponse {
     repeated PodResources pod_resources = 1;
 }
 
-// PodResources에는 파드에 할당된 노드 리소스에 대한 정보가 포함된다
+// PodResources에는 파드에 할당된 노드 리소스에 대한 정보가 포함된다.
 message PodResources {
     string name = 1;
     string namespace = 2;
     repeated ContainerResources containers = 3;
 }
 
-// ContainerResources는 컨테이너에 할당된 리소스에 대한 정보를 포함한다
+// ContainerResources는 컨테이너에 할당된 리소스에 대한 정보를 포함한다.
 message ContainerResources {
     string name = 1;
     repeated ContainerDevices devices = 2;
     repeated int64 cpu_ids = 3;
+    repeated ContainerMemory memory = 4;
 }
 
-// 토폴로지는 리소스의 하드웨어 토폴로지를 설명한다
+// ContainerMemory는 컨테이너에 할당된 메모리와 hugepage에 대한 정보를 포함한다.
+message ContainerMemory {
+    string memory_type = 1;
+    uint64 size = 2;
+    TopologyInfo topology = 3;
+}
+
+// 토폴로지는 리소스의 하드웨어 토폴로지를 설명한다.
 message TopologyInfo {
         repeated NUMANode nodes = 1;
 }
@@ -231,7 +239,7 @@ message NUMANode {
         int64 ID = 1;
 }
 
-// ContainerDevices는 컨테이너에 할당된 장치에 대한 정보를 포함한다
+// ContainerDevices는 컨테이너에 할당된 장치에 대한 정보를 포함한다.
 message ContainerDevices {
     string resource_name = 1;
     repeated string device_ids = 2;
@@ -247,6 +255,7 @@ kubelet이 APIServer로 내보내는 것보다 더 많은 정보를 제공한다
 message AllocatableResourcesResponse {
     repeated ContainerDevices devices = 1;
     repeated int64 cpu_ids = 2;
+    repeated ContainerMemory memory = 3;
 }
 
 ```

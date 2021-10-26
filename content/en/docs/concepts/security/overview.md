@@ -29,7 +29,7 @@ computing approach to security, which is widely regarded as a best practice for 
 software systems.
 {{< /note >}}
 
-{{< figure src="/images/docs/4c.png" title="The 4C's of Cloud Native Security" >}}
+{{< figure src="/images/docs/4c.png" title="The 4C's of Cloud Native Security" class="diagram-large" >}}
 
 Each layer of the Cloud Native security model builds upon the next outermost layer.
 The Code layer benefits from strong base (Cloud, Cluster, Container) security layers.
@@ -60,6 +60,7 @@ Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
+Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
 VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
 
 {{< /table >}}

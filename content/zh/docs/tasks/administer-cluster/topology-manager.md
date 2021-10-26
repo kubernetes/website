@@ -133,6 +133,15 @@ To align CPU resources with other requested resources in a Pod Spec, the CPU Man
 {{< /note >}}
 
 <!--
+To align memory (and hugepages) resources with other requested resources in a Pod Spec, the Memory Manager should be enabled and proper Memory Manager policy should be configured on a Node. Examine [Memory Manager](/docs/tasks/administer-cluster/memory-manager/) documentation.
+-->
+{{< note >}}
+为了将 Pod 规约中的 memory（和 hugepages）资源与所请求的其他资源对齐，需要启用内存管理器，
+并且在节点配置适当的内存管理器策略。查看[内存管理器](/zh/docs/tasks/administer-cluster/memory-manager/)
+文档。
+{{< /note >}}
+
+<!--
 ### Topology Manager Scopes
 
 The Topology Manager can deal with the alignment of resources in a couple of distinct scopes:
@@ -487,15 +496,10 @@ Using this information the Topology Manager calculates the optimal hint for the 
 1. The maximum number of NUMA nodes that Topology Manager allows is 8. With more than 8 NUMA nodes there will be a state explosion when trying to enumerate the possible NUMA affinities and generating their hints.
 
 2. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail on the node due to the Topology Manager.
-
-3. The Device Manager and the CPU Manager are the only components to adopt the Topology Manager's HintProvider interface. This means that NUMA alignment can only be achieved for resources managed by the CPU Manager and the Device Manager. Memory or Hugepages are not considered by the Topology Manager for NUMA alignment.
 -->
 ### 已知的局限性
 
 1. 拓扑管理器所能处理的最大 NUMA 节点个数是 8。若 NUMA 节点数超过 8，
    枚举可能的 NUMA 亲和性并为之生成提示时会发生状态爆炸。
-2. 调度器不支持拓扑功能，因此可能会由于拓扑管理器的原因而在节点上进行调度，然后在该节点上调度失败。
-3. 设备管理器和 CPU 管理器时能够采纳拓扑管理器 HintProvider 接口的唯一两个组件。
-   这意味着 NUMA 对齐只能针对 CPU 管理器和设备管理器所管理的资源实现。
-   内存和大页面在拓扑管理器决定 NUMA 对齐时都还不会被考虑在内。
+2. 调度器不是拓扑感知的，所以有可能一个 Pod 被调度到一个节点之后，会因为拓扑管理器的缘故在该节点上启动失败。
 

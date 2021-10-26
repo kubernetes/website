@@ -63,16 +63,21 @@ However, if the Pod has a `restartPolicy` of Never, and an init container fails 
 
 <!--
 To specify an init container for a Pod, add the `initContainers` field into
-the Pod specification, as an array of objects of type
-[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core),
-alongside the app `containers` array.
+the [Pod specification](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec),
+as an array of `container` items (similar to the app `containers` field and its contents).
+See [Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) in the
+API reference for more details.
+
 The status of the init containers is returned in `.status.initContainerStatuses`
 field as an array of the container statuses (similar to the `.status.containerStatuses`
 field).
 -->
-为 Pod 设置 Init 容器需要在 Pod 的 `spec` 中添加 `initContainers` 字段，
+为 Pod 设置 Init 容器需要在 [Pod 规约](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+中添加 `initContainers` 字段，
 该字段以 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 类型对象数组的形式组织，和应用的 `containers` 数组同级相邻。
+参阅 API 参考的[容器](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)章节了解详情。
+
 Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态数组的格式返回
 （类似 `status.containerStatuses` 字段）。
 
@@ -458,15 +463,21 @@ Init 容器具有应用容器的所有字段。然而 Kubernetes 禁止使用 `r
 Kubernetes 会在校验时强制执行此检查。
 
 <!--
-Use `activeDeadlineSeconds` on the Pod and `livenessProbe` on the container to
-prevent init containers from failing forever. The active deadline includes init
-containers.
+Use `activeDeadlineSeconds` on the Pod to prevent init containers from failing forever.
+The active deadline includes init containers.
+However it is recommended to use `activeDeadlineSeconds` if user deploy their application
+as a Job, because `activeDeadlineSeconds` has an effect even after initContainer finished.
+The Pod which is already running correctly would be killed by `activeDeadlineSeconds` if you set.
 
 The name of each app and init container in a Pod must be unique; a
 validation error is thrown for any container sharing a name with another.
 -->
 在 Pod 上使用 `activeDeadlineSeconds` 和在容器上使用 `livenessProbe` 可以避免
-Init 容器一直重复失败。`activeDeadlineSeconds` 时间包含了 Init 容器启动的时间。
+Init 容器一直重复失败。
+`activeDeadlineSeconds` 时间包含了 Init 容器启动的时间。
+然而，如果用户将他们的应用程序以 Job 方式部署，建议使用 `activeDeadlineSeconds`，
+因为 `activeDeadlineSeconds` 在 Init 容器结束后仍有效果。
+如果你设置了 `activeDeadlineSeconds`，已经在正常运行的 Pod 会被杀死。
 
 在 Pod 中的每个应用容器和 Init 容器的名称必须唯一；
 与任何其它容器共享同一个名称，会在校验时抛出错误。
@@ -478,7 +489,8 @@ Given the ordering and execution for init containers, the following rules
 for resource usage apply:
 
 * The highest of any particular resource request or limit defined on all init
-  containers is the *effective init request/limit*
+  containers is the *effective init request/limit*. If any resource has no
+  resource limit specified this is considered as the highest limit.
 * The Pod's *effective request/limit* for a resource is the higher of:
   * the sum of all app containers request/limit for a resource
   * the effective init request/limit for a resource
@@ -492,7 +504,8 @@ for resource usage apply:
 
 在给定的 Init 容器执行顺序下，资源使用适用于如下规则：
 
-* 所有 Init 容器上定义的任何特定资源的 limit 或 request 的最大值，作为 Pod *有效初始 request/limit*
+* 所有 Init 容器上定义的任何特定资源的 limit 或 request 的最大值，作为 Pod *有效初始 request/limit*。
+  如果任何资源没有指定资源限制，这被视为最高限制。
 * Pod 对资源的 *有效 limit/request* 是如下两者的较大者：
   * 所有应用容器对某个资源的 limit/request 之和
   * 对某个资源的有效初始 limit/request
