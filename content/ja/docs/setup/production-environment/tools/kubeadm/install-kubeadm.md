@@ -192,7 +192,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 {{% /tab %}}
 {{% tab name="CentOS、RHEL、またはFedora" %}}
 ```bash
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -203,12 +203,12 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 EOF
 
 # SELinuxをpermissiveモードに設定する(効果的に無効化する)
-setenforce 0
-sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+sudo setenforce 0
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
-yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-systemctl enable --now kubelet
+sudo systemctl enable --now kubelet
 ```
 
   **Note:**
