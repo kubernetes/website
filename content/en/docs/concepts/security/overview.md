@@ -108,10 +108,10 @@ Area of Concern for Workload Security | Recommendation |
 RBAC Authorization (Access to the Kubernetes API) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 Authentication | https://kubernetes.io/docs/concepts/security/controlling-access/
 Application secrets management (and encrypting them in etcd at rest) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
-Pod Security Standards | https://kubernetes.io/docs/concepts/security/pod-security-standards/
+Ensuring that pods meet defined Pod Security Standards | https://kubernetes.io/docs/concepts/security/pod-security-standards/#policy-instantiation
 Quality of Service (and Cluster resource management) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/
 Network Policies | https://kubernetes.io/docs/concepts/services-networking/network-policies/
-TLS For Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+TLS for Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
 
 ## Container
 
