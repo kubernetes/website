@@ -14,67 +14,39 @@ weight: 10
 <!-- overview -->
 
 <!--
-Security settings for Pods are typically applied by using [security
-contexts](/docs/tasks/configure-pod-container/security-context/). Security Contexts allow for the
-definition of privilege and access controls on a per-Pod basis.
+The Pod Security Standards define three different _policies_ to broadly cover the security
+spectrum. These policies are _cumulative_ and range from highly-permissive to highly-restrictive.
+This guide outlines the requirements of each policy.
 
-The enforcement and policy-based definition of cluster requirements of security contexts has
-previously been achieved using [Pod Security Policy](/docs/concepts/policy/pod-security-policy/). A
-_Pod Security Policy_ is a cluster-level resource that controls security sensitive aspects of the
-Pod specification.
-
-However, numerous means of policy enforcement have arisen that augment or replace the use of
-PodSecurityPolicy. The intent of this page is to detail recommended Pod security profiles, decoupled
-from any specific instantiation.
+| Profile | Description |
+| ------ | ----------- |
+| <strong style="white-space: nowrap">Privileged</strong> | Unrestricted policy, providing the widest possible level of permissions. This policy allows for known privilege escalations. |
+| <strong style="white-space: nowrap">Baseline</strong> | Minimally restrictive policy which prevents known privilege escalations. Allows the default (minimally specified) Pod configuration. |
+| <strong style="white-space: nowrap">Restricted</strong> | Heavily restricted policy, following current Pod hardening best practices. |
 -->
-Pod 的安全性配置一般通过使用
-[安全性上下文（Security Context）](/zh/docs/tasks/configure-pod-container/security-context/)
-来保证。安全性上下文允许用户逐个 Pod 地定义特权级及访问控制。
+Pod 安全性标准定义了三种不同的 _策略（Policy）_，以广泛覆盖安全应用场景。
+这些策略是 _渐进式的（Cumulative）_，安全级别从高度宽松至高度受限。
+本指南概述了每个策略的要求。
 
-以前，对集群的安全性上下文的需求的实施及其基于策略的定义都通过使用
-[Pod 安全性策略](/zh/docs/concepts/policy/pod-security-policy/)来实现。
-_Pod 安全性策略（Pod Security Policy）_ 是一种集群层面的资源，控制 Pod 规约中
-安全性敏感的部分。
-
-不过，新的策略实施方式不断涌现，或增强或替换 PodSecurityPolicy 的使用。
-本页的目的是详细介绍建议实施的 Pod 安全框架；这些内容与具体的实现无关。
+| Profile | 描述 |
+| ------ | ----------- |
+| <strong style="white-space: nowrap">Privileged</strong> | 不受限制的策略，提供最大可能范围的权限许可。此策略允许已知的特权提升。 |
+| <strong style="white-space: nowrap">Baseline</strong> | 限制性最弱的策略，禁止已知的策略提升。允许使用默认的（规定最少）Pod 配置。 |
+| <strong style="white-space: nowrap">Restricted</strong> | 限制性非常强的策略，遵循当前的保护 Pod 的最佳实践。 |
 
 <!-- body -->
 
 <!--
-## Policy Types
-
-There is an immediate need for base policy definitions to broadly cover the security spectrum. These
-should range from highly restricted to highly flexible:
-
-- **_Privileged_** - Unrestricted policy, providing the widest possible level of permissions. This
-  policy allows for known privilege escalations.
-- **_Baseline_** - Minimally restrictive policy while preventing known privilege
-  escalations. Allows the default (minimally specified) Pod configuration.
-- **_Restricted_** - Heavily restricted policy, following current Pod hardening best practices.
--->
-## 策略类型   {#policy-types}
-
-在进一步讨论整个策略谱系之前，有必要对基本的策略下个定义。
-策略可以是很严格的也可以是很宽松的：
-
-- **_Privileged_** - 不受限制的策略，提供最大可能范围的权限许可。这些策略
-  允许已知的特权提升。
-- **_Baseline_** - 限制性最弱的策略，禁止已知的策略提升。
-  允许使用默认的（规定最少）Pod 配置。
-- **_Restricted_** - 限制性非常强的策略，遵循当前的保护 Pod 的最佳实践。
-
-<!--
-## Policies
+## Profile Details
 
 ### Privileged
 -->
-## 策略    {#policies}
+## Profile 细节    {#profile-details}
 
 ### Privileged
 
 <!--
-The Privileged policy is purposely-open, and entirely unrestricted. This type of policy is typically
+**The _Privileged_ policy is purposely-open, and entirely unrestricted.** This type of policy is typically
 aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
 The privileged policy is defined by an absence of restrictions. For allow-by-default enforcement
@@ -82,8 +54,8 @@ mechanisms (such as gatekeeper), the privileged profile may be an absence of app
 rather than an instantiated policy. In contrast, for a deny-by-default mechanism (such as Pod
 Security Policy) the privileged policy should enable all controls (disable all restrictions).
 -->
-Privileged 策略是有目的地开放且完全无限制的策略。此类策略通常针对由
-特权较高、受信任的用户所管理的系统级或基础设施级负载。
+**_Privileged_ 策略是有目的地开放且完全无限制的策略。**
+此类策略通常针对由特权较高、受信任的用户所管理的系统级或基础设施级负载。
 
 Privileged 策略定义中限制较少。对于默认允许（Allow-by-default）实施机制（例如 gatekeeper），
 Privileged 框架可能意味着不应用任何约束而不是实施某策略实例。
@@ -93,14 +65,25 @@ Privileged 策略应该默认允许所有控制（即，禁止所有限制）。
 ### Baseline
 
 <!--
-The Baseline policy is aimed at ease of adoption for common containerized workloads while
-preventing known privilege escalations. This policy is targeted at application operators and
+**The _Baseline_ policy is aimed at ease of adoption for common containerized workloads while
+preventing known privilege escalations.** This policy is targeted at application operators and
 developers of non-critical applications. The following listed controls should be
 enforced/disallowed:
+
+In this table, wildcards (`*`) indicate all elements in a list. For example,
+`spec.containers[*].securityContext` refers to the Security Context object for _all defined
+containers_. If any of the listed containers fails to meet the requirements, the entire pod will
+fail validation.
 -->
-Baseline 策略的目标是便于常见的容器化应用采用，同时禁止已知的特权提升。
+**_Baseline_ 策略的目标是便于常见的容器化应用采用，同时禁止已知的特权提升。**
 此策略针对的是应用运维人员和非关键性应用的开发人员。
 下面列举的控制应该被实施（禁止）：
+
+{{< note >}}
+在下述表格中，通配符（`*`）意味着一个列表中的所有元素。
+例如 `spec.containers[*].securityContext` 表示 _所定义的所有容器_ 的安全性上下文对象。
+如果所列出的任一容器不能满足要求，整个 Pod 将无法通过校验。
+{{< /note >}}
 
 <table>
 	<!-- caption style="display:none">Baseline policy specification</caption -->
@@ -110,202 +93,429 @@ Baseline 策略的目标是便于常见的容器化应用采用，同时禁止�
 			<td width="30%"><strong>控制（Control）</strong></td>
 			<td><strong>策略（Policy）</strong></td>
 		</tr>
-		<tr>
-			<!-- td>Host Namespaces</td -->
-			<td>宿主名字空间</td>
-			<!-- td>
-				Sharing the host namespaces must be disallowed.<br>
-				<br><b>限制的字段：</b><br>
-				spec.hostNetwork<br>
-				spec.hostPID<br>
-				spec.hostIPC<br>
-				<br><b>Allowed Values:</b> false<br>
-			</td -->
+    <tr>
+			<!-- <td style="white-space: nowrap">HostProcess</td> -->
+      <td style="white-space: nowrap">HostProcess</td>
+      <!-- <td>
+				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. HostProcess pods are an <strong>alpha</strong> feature as of Kubernetes <strong>v1.22</strong>.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.containers[*].securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.initContainers[*].securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.windowsOptions.hostProcess</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>false</code></li>
+				</ul>
+			</td> -->
 			<td>
-				必须禁止共享宿主名字空间。<br>
-				<br><b>限制的字段：</b><br>
-				spec.hostNetwork<br>
-				spec.hostPID<br>
-				spec.hostIPC<br>
-				<br><b>允许的值：</b> false<br>
+				<p>Windows Pod 提供了运行
+         <a href="/zh/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a> 的能力，
+         这使得对 Windows 节点的特权访问成为可能。 
+         基线策略中对宿主的特权访问是被禁止的。 
+         HostProcess Pod 是 Kubernetes <strong>v1.22</strong> 版本的
+          <strong>alpha</strong> 特性。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.containers[*].securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.initContainers[*].securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.windowsOptions.hostProcess</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+					<li><code>false</code></li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<!-- td>Privileged Containers</td -->
-			<td>特权容器</td>
-			<!-- td>
-				Privileged Pods disable most security mechanisms and must be disallowed.<br>
-				<br><b>限制的字段：</b><br>
-				spec.containers[*].securityContext.privileged<br>
-				spec.initContainers[*].securityContext.privileged<br>
-				<br><b>Allowed Values:</b> false, undefined/nil<br>
-			</td -->
+			<!-- <td style="white-space: nowrap">Host Namespaces</td> -->
+			<td style="white-space: nowrap">宿主名字空间</td>
+			<!-- 
+      <td>
+				<p>Sharing the host namespaces must be disallowed.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.hostNetwork</code></li>
+					<li><code>spec.hostPID</code></li>
+					<li><code>spec.hostIPC</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>false</code></li>
+				</ul>
+			</td>
+      -->
 			<td>
-				特权 Pod 禁用大多数安全性机制，必须被禁止。<br>
-				<br><b>限制的字段：</b><br>
-				spec.containers[*].securityContext.privileged<br>
-				spec.initContainers[*].securityContext.privileged<br>
-				<br><b>允许的值：</b> false、未定义/nil<br>
+        <p>必须禁止共享宿主名字空间。</p>
+        <p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.hostNetwork</code></li>
+					<li><code>spec.hostPID</code></li>
+					<li><code>spec.hostIPC</code></li>
+				</ul>
+        <p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+					<li><code>false</code></li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<!-- td>Capabilities</td -->
-			<td>权能</td>
-			<!-- td>
-				Adding additional capabilities beyond the <a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">default set</a> must be disallowed.<br>
-				<br><b>限制的字段：</b><br>
-				spec.containers[*].securityContext.capabilities.add<br>
-				spec.initContainers[*].securityContext.capabilities.add<br>
-				<br><b>Allowed Values:</b> empty (or restricted to a known list)<br>
-			</td -->
+			<!-- <td style="white-space: nowrap">Privileged Containers</td> -->
+			<td style="white-space: nowrap">特权容器</td>
+			<!-- <td>
+				<p>Privileged Pods disable most security mechanisms and must be disallowed.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.privileged</code></li>
+					<li><code>spec.initContainers[*].securityContext.privileged</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.privileged</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>false</code></li>
+				</ul>
+			</td> -->
 			<td>
-				必须禁止添加<a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">默认集合</a>之外的权能。<br>
-				<br><b>限制的字段：</b><br>
-				spec.containers[*].securityContext.capabilities.add<br>
-				spec.initContainers[*].securityContext.capabilities.add<br>
-				<br><b>允许的值：</b> 空（或限定为一个已知列表）<br>
+        <p>特权 Pod 关闭了大多数安全性机制，必须被禁止。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.privileged</code></li>
+					<li><code>spec.initContainers[*].securityContext.privileged</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.privileged</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+					<li><code>false</code></li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<!-- td>HostPath Volumes</td -->
-			<td>HostPath 卷</td>
-			<!-- td>
-				HostPath volumes must be forbidden.<br>
-				<br><b>限制的字段：</b><br>
-				spec.volumes[*].hostPath<br>
-				<br><b>Allowed Values:</b> undefined/nil<br>
-			</td -->
+			<!-- <td style="white-space: nowrap">Capabilities</td> -->
+			<td style="white-space: nowrap">权能</td>
+			<!-- <td>
+				<p>Adding additional capabilities beyond those listed below must be disallowed.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.initContainers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.capabilities.add</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>AUDIT_WRITE</code></li>
+					<li><code>CHOWN</code></li>
+					<li><code>DAC_OVERRIDE</code></li>
+					<li><code>FOWNER</code></li>
+					<li><code>FSETID</code></li>
+					<li><code>KILL</code></li>
+					<li><code>MKNOD</code></li>
+					<li><code>NET_BIND_SERVICE</code></li>
+					<li><code>SETFCAP</code></li>
+					<li><code>SETGID</code></li>
+					<li><code>SETPCAP</code></li>
+					<li><code>SETUID</code></li>
+					<li><code>SYS_CHROOT</code></li>
+				</ul>
+			</td> -->
 			<td>
-				必须禁止 HostPath 卷。<br>
-				<br><b>限制的字段：</b><br>
-				spec.volumes[*].hostPath<br>
-				<br><b>允许的值：</b> 未定义/nil<br>
+        <p>必须禁止添加除下列字段之外的权能。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.initContainers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.capabilities.add</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>AUDIT_WRITE</code></li>
+					<li><code>CHOWN</code></li>
+					<li><code>DAC_OVERRIDE</code></li>
+					<li><code>FOWNER</code></li>
+					<li><code>FSETID</code></li>
+					<li><code>KILL</code></li>
+					<li><code>MKNOD</code></li>
+					<li><code>NET_BIND_SERVICE</code></li>
+					<li><code>SETFCAP</code></li>
+					<li><code>SETGID</code></li>
+					<li><code>SETPCAP</code></li>
+					<li><code>SETUID</code></li>
+					<li><code>SYS_CHROOT</code></li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<!-- td>Host Ports</td -->
-			<td>宿主端口</td>
-			<!-- td>
-				HostPorts should be disallowed, or at minimum restricted to a known list.<br>
-				<br><b>限制的字段：</b><br>
-				spec.containers[*].ports[*].hostPort<br>
-				spec.initContainers[*].ports[*].hostPort<br>
-				<br><b>Allowed Values:</b> 0, undefined (or restricted to a known list)<br>
-			</td -->
+			<!-- <td style="white-space: nowrap">HostPath Volumes</td>-->
+			<td style="white-space: nowrap">HostPath 卷</td>
+			<!-- <td>
+				<p>HostPath volumes must be forbidden.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.volumes[*].hostPath</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+				</ul>
+			</td> -->
 			<td>
-				应禁止使用宿主端口，或者至少限定为已知列表。<br>
-				<br><b>限制的字段：</b><br>
-				spec.containers[*].ports[*].hostPort<br>
-				spec.initContainers[*].ports[*].hostPort<br>
-				<br><b>允许的值：</b> 0、未定义（或限定为已知列表）<br>
+        <p>必须禁止 HostPath 卷。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.volumes[*].hostPath</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<!-- <td>AppArmor <em>(optional)</em></td> -->
-			<td>AppArmor</td>
-			<!-- td>
-				On supported hosts, the 'runtime/default' AppArmor profile is applied by default.
-				The baseline policy should prevent overriding or disabling the default AppArmor
-				profile, or restrict overrides to an allowed set of profiles.<br>
-				<br><b>限制的字段：</b><br>
-				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
-				<br><b>Allowed Values:</b> 'runtime/default', undefined<br>
-			</td -->
+			<!-- <td style="white-space: nowrap">Host Ports</td> -->
+			<td style="white-space: nowrap">宿主端口</td>
+			<!-- <td>
+				<p>HostPorts should be disallowed, or at minimum restricted to a known list.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].ports[*].hostPort</code></li>
+					<li><code>spec.initContainers[*].ports[*].hostPort</code></li>
+					<li><code>spec.ephemeralContainers[*].ports[*].hostPort</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li>Known list</li>
+					<li><code>0</code></li>
+				</ul>
+			</td>-->
 			<td>
-				在被支持的主机上，默认使用 'runtime/default' AppArmor Profile。
-				基线策略应避免覆盖或者禁用默认策略，以及限制覆盖一些 profile 集合的权限。<br>
-				<br><b>限制的字段：</b><br>
-				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
-				<br><b>允许的值：</b> 'runtime/default'、未定义<br>
+        <p>应禁止使用宿主端口，或者至少限定为已知列表。</p>
+        <p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.containers[*].ports[*].hostPort</code></li>
+					<li><code>spec.initContainers[*].ports[*].hostPort</code></li>
+					<li><code>spec.ephemeralContainers[*].ports[*].hostPort</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+					<li>已知列表</li>
+					<li><code>0</code></li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<!-- <td>SELinux</td> -->
-			<td>SELinux</td>
-			<!-- td>
-				Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.<br>
-				<br><b>Restricted Fields:</b><br>
-				spec.securityContext.seLinuxOptions.type<br>
-				spec.containers[*].securityContext.seLinuxOptions.type<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.type<br>
-				<br><b>Allowed Values:</b><br>
-				undefined/empty<br>
-				container_t<br>
-				container_init_t<br>
-				container_kvm_t<br>
-				<br><b>Restricted Fields:</b><br>
-				spec.securityContext.seLinuxOptions.user<br>
-				spec.containers[*].securityContext.seLinuxOptions.user<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.user<br>
-				spec.securityContext.seLinuxOptions.role<br>
-				spec.containers[*].securityContext.seLinuxOptions.role<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.role<br>
-				<br><b>Allowed Values:</b> undefined/empty<br>
-			</td -->
+			<!-- <td style="white-space: nowrap">AppArmor</td> -->
+			<td style="white-space: nowrap">AppArmor</td>
+			<!-- <td>
+				<p>On supported hosts, the <code>runtime/default</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>metadata.annotations["container.apparmor.security.beta.kubernetes.io/*"]</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>runtime/default</code></li>
+					<li><code>localhost/*</code></li>
+				</ul>
+			</td> -->
 			<td>
-				设置 SELinux 类型的操作是被限制的，设置自定义的 SELinux 用户或角色选项是被禁止的。<br>
-				<br><b>限制的字段：</b><br>
-				spec.securityContext.seLinuxOptions.type<br>
-				spec.containers[*].securityContext.seLinuxOptions.type<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.type<br>
-				<br><b>允许的值：</b><br>
-				未定义/空<br>
-				container_t<br>
-				container_init_t<br>
-				container_kvm_t<br>
-				<br><b>被限制的字段：</b><br>
-				spec.securityContext.seLinuxOptions.user<br>
-				spec.containers[*].securityContext.seLinuxOptions.user<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.user<br>
-				spec.securityContext.seLinuxOptions.role<br>
-				spec.containers[*].securityContext.seLinuxOptions.role<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.role<br>
-				<br><b>允许的值：</b> 未定义或空<br>
+        <p>在受支持的主机上，默认使用 <code>runtime/default</code> AppArmor Profile。
+				基线策略应避免覆盖或者禁用默认策略，以及限制覆盖一些 Profile 集合的权限。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>metadata.annotations["container.apparmor.security.beta.kubernetes.io/*"]</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+					<li><code>runtime/default</code></li>
+					<li><code>localhost/*</code></li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<!-- td>/proc Mount Type</td -->
-			<td>/proc 挂载类型</td>
-			<!-- td>
-				The default /proc masks are set up to reduce attack surface, and should be required.<br>
-				<br><b>Restricted Fields:</b><br>
-				spec.containers[*].securityContext.procMount<br>
-				spec.initContainers[*].securityContext.procMount<br>
-				<br><b>Allowed Values:</b> undefined/nil, 'Default'<br>
-			</td -->
+			<!-- <td style="white-space: nowrap">SELinux</td> -->
+			<td style="white-space: nowrap">SELinux</td>
+			<!-- <td>
+				<p>Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.seLinuxOptions.type</code></li>
+					<li><code>spec.containers[*].securityContext.seLinuxOptions.type</code></li>
+					<li><code>spec.initContainers[*].securityContext.seLinuxOptions.type</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seLinuxOptions.type</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/""</li>
+					<li><code>container_t</code></li>
+					<li><code>container_init_t</code></li>
+					<li><code>container_kvm_t</code></li>
+				</ul>
+				<hr />
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.seLinuxOptions.user</code></li>
+					<li><code>spec.containers[*].securityContext.seLinuxOptions.user</code></li>
+					<li><code>spec.initContainers[*].securityContext.seLinuxOptions.user</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seLinuxOptions.user</code></li>
+					<li><code>spec.securityContext.seLinuxOptions.role</code></li>
+					<li><code>spec.containers[*].securityContext.seLinuxOptions.role</code></li>
+					<li><code>spec.initContainers[*].securityContext.seLinuxOptions.role</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seLinuxOptions.role</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/""</li>
+				</ul>
+			</td>-->
 			<td>
-				要求使用默认的 <code>/proc</code> 掩码以减小攻击面。<br>
-				<br><b>限制的字段：</b><br>
-				spec.containers[*].securityContext.procMount<br>
-				spec.initContainers[*].securityContext.procMount<br>
-				<br><b>允许的值：</b> 未定义/nil、'Default'<br>
+        <p>设置 SELinux 类型的操作是被限制的，设置自定义的 SELinux 用户或角色选项是被禁止的。</p>
+        <p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.securityContext.seLinuxOptions.type</code></li>
+					<li><code>spec.containers[*].securityContext.seLinuxOptions.type</code></li>
+					<li><code>spec.initContainers[*].securityContext.seLinuxOptions.type</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seLinuxOptions.type</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/""</li>
+					<li><code>container_t</code></li>
+					<li><code>container_init_t</code></li>
+					<li><code>container_kvm_t</code></li>
+				</ul>
+				<hr />
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.securityContext.seLinuxOptions.user</code></li>
+					<li><code>spec.containers[*].securityContext.seLinuxOptions.user</code></li>
+					<li><code>spec.initContainers[*].securityContext.seLinuxOptions.user</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seLinuxOptions.user</code></li>
+					<li><code>spec.securityContext.seLinuxOptions.role</code></li>
+					<li><code>spec.containers[*].securityContext.seLinuxOptions.role</code></li>
+					<li><code>spec.initContainers[*].securityContext.seLinuxOptions.role</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seLinuxOptions.role</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/""</li>
+				</ul>
 			</td>
 		</tr>
+		<tr>
+			<!-- <td style="white-space: nowrap"><code>/proc</code> Mount Type</td> -->
+			<td style="white-space: nowrap"><code>/proc</code> 挂载类型</td>
+			<!-- <td>
+				<p>The default <code>/proc</code> masks are set up to reduce attack surface, and should be required.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.procMount</code></li>
+					<li><code>spec.initContainers[*].securityContext.procMount</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.procMount</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>Default</code></li>
+				</ul>
+			</td> -->
+			<td>
+        <p>要求使用默认的 <code>/proc</code> 掩码以减小攻击面。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.procMount</code></li>
+					<li><code>spec.initContainers[*].securityContext.procMount</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.procMount</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+					<li><code>Default</code></li>
+				</ul>
+			</td>
+		</tr>
+    <tr>
+  			<td>Seccomp</td>
+  			<!-- <td>
+  				<p>Seccomp profile must not be explicitly set to <code>Unconfined</code>.</p>
+  				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.seccompProfile.type</code></li>
+					<li><code>spec.containers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.initContainers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seccompProfile.type</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>RuntimeDefault</code></li>
+					<li><code>Localhost</code></li>
+				</ul>
+  			</td> -->
+        <td>
+  				<p>Seccomp Profile 禁止被显式设置为 <code>Unconfined</code>。</p>
+  				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.securityContext.seccompProfile.type</code></li>
+					<li><code>spec.containers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.initContainers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seccompProfile.type</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+					<li><code>RuntimeDefault</code></li>
+					<li><code>Localhost</code></li>
+				</ul>
+  			</td>
+  		</tr>
 		<tr>
 			<td>Sysctls</td>
-			<!-- td>
-				Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset.
-				A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.<br>
-				<br><b>Restricted Fields:</b><br>
-				spec.securityContext.sysctls<br>
-				<br><b>Allowed Values:</b><br>
-				kernel.shm_rmid_forced<br>
-				net.ipv4.ip_local_port_range<br>
-				net.ipv4.tcp_syncookies<br>
-				net.ipv4.ping_group_range<br>
-				undefined/empty<br>
-			</td -->
+			<!-- <td>
+				<p>Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.sysctls[*].name</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>kernel.shm_rmid_forced</code></li>
+					<li><code>net.ipv4.ip_local_port_range</code></li>
+					<li><code>net.ipv4.ip_unprivileged_port_start</code></li>
+					<li><code>net.ipv4.tcp_syncookies</code></li>
+					<li><code>net.ipv4.ping_group_range</code></li>
+				</ul>
+			</td> -->
 			<td>
-				Sysctls 可以禁用安全机制或影响宿主上所有容器，因此除了若干『安全』的子集之外，应该被禁止。
-				如果某 sysctl 是受容器或 Pod 的名字空间限制，且与节点上其他 Pod 或进程相隔离，可认为是安全的。<br>
-				<br><b>限制的字段：</b><br>
-				spec.securityContext.sysctls<br>
-				<br><b>允许的值：</b><br>
-				kernel.shm_rmid_forced<br>
-				net.ipv4.ip_local_port_range<br>
-				net.ipv4.tcp_syncookies<br>
-				net.ipv4.ping_group_range<br>
-				未定义/空值<br>
+        <p>Sysctls 可以禁用安全机制或影响宿主上所有容器，因此除了若干“安全”的子集之外，应该被禁止。
+				如果某 sysctl 是受容器或 Pod 的名字空间限制，且与节点上其他 Pod 或进程相隔离，可认为是安全的。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.securityContext.sysctls[*].name</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+					<li><code>kernel.shm_rmid_forced</code></li>
+					<li><code>net.ipv4.ip_local_port_range</code></li>
+					<li><code>net.ipv4.ip_unprivileged_port_start</code></li>
+					<li><code>net.ipv4.tcp_syncookies</code></li>
+					<li><code>net.ipv4.ping_group_range</code></li>
+				</ul>
 			</td>
 		</tr>
 	</tbody>
@@ -314,13 +524,25 @@ Baseline 策略的目标是便于常见的容器化应用采用，同时禁止�
 ### Restricted
 
 <!--
-The Restricted policy is aimed at enforcing current Pod hardening best practices, at the expense of
-some compatibility. It is targeted at operators and developers of security-critical applications, as
-well as lower-trust users.The following listed controls should be enforced/disallowed:
+**The _Restricted_ policy is aimed at enforcing current Pod hardening best practices, at the
+expense of some compatibility.** It is targeted at operators and developers of security-critical
+applications, as well as lower-trust users. The following listed controls should be
+enforced/disallowed:
+
+In this table, wildcards (`*`) indicate all elements in a list. For example, 
+`spec.containers[*].securityContext` refers to the Security Context object for _all defined
+containers_. If any of the listed containers fails to meet the requirements, the entire pod will
+fail validation.
 -->
-Restricted 策略旨在实施当前保护 Pod 的最佳实践，尽管这样作可能会牺牲一些兼容性。
+**_Restricted_ 策略旨在实施当前保护 Pod 的最佳实践，尽管这样作可能会牺牲一些兼容性。**
 该类策略主要针对运维人员和安全性很重要的应用的开发人员，以及不太被信任的用户。
 下面列举的控制需要被实施（禁止）：
+
+{{< note >}}
+在下述表格中，通配符（`*`）意味着一个列表中的所有元素。
+例如 `spec.containers[*].securityContext` 表示 _所定义的所有容器_ 的安全性上下文对象。
+如果所列出的任一容器不能满足要求，整个 Pod 将无法通过校验。
+{{< /note >}}
 
 <table>
 	<!-- caption style="display:none">Restricted policy specification</caption -->
@@ -337,90 +559,282 @@ Restricted 策略旨在实施当前保护 Pod 的最佳实践，尽管这样作�
 			<td colspan="2"><em>基线策略的所有要求。</em></td>
 		</tr>
 		<tr>
-			<!-- td>Volume Types</td -->
+      <!-- <td style="white-space: nowrap">Volume Types</td>
+			<td>
+				<p>In addition to restricting HostPath volumes, the restricted policy limits usage of non-core volume types to those defined through PersistentVolumes.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.volumes[*].hostPath</code></li>
+					<li><code>spec.volumes[*].gcePersistentDisk</code></li>
+					<li><code>spec.volumes[*].awsElasticBlockStore</code></li>
+					<li><code>spec.volumes[*].gitRepo</code></li>
+					<li><code>spec.volumes[*].nfs</code></li>
+					<li><code>spec.volumes[*].iscsi</code></li>
+					<li><code>spec.volumes[*].glusterfs</code></li>
+					<li><code>spec.volumes[*].rbd</code></li>
+					<li><code>spec.volumes[*].flexVolume</code></li>
+					<li><code>spec.volumes[*].cinder</code></li>
+					<li><code>spec.volumes[*].cephfs</code></li>
+					<li><code>spec.volumes[*].flocker</code></li>
+					<li><code>spec.volumes[*].fc</code></li>
+					<li><code>spec.volumes[*].azureFile</code></li>
+					<li><code>spec.volumes[*].vsphereVolume</code></li>
+					<li><code>spec.volumes[*].quobyte</code></li>
+					<li><code>spec.volumes[*].azureDisk</code></li>
+					<li><code>spec.volumes[*].portworxVolume</code></li>
+					<li><code>spec.volumes[*].scaleIO</code></li>
+					<li><code>spec.volumes[*].storageos</code></li>
+					<li><code>spec.volumes[*].photonPersistentDisk</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+				</ul>
+			</td> -->
 			<td>卷类型</td>
 			<td>
-				<!-- In addition to restricting HostPath volumes, the restricted profile limits usage of non-core volume types to those defined through PersistentVolumes. -->
-				除了限制 HostPath 卷之外，此类策略还限制可以通过 PersistentVolumes 定义的非核心卷类型。<br>
-				<br><b>限制的字段：</b><br>
-				spec.volumes[*].hostPath<br>
-				spec.volumes[*].gcePersistentDisk<br>
-				spec.volumes[*].awsElasticBlockStore<br>
-				spec.volumes[*].gitRepo<br>
-				spec.volumes[*].nfs<br>
-				spec.volumes[*].iscsi<br>
-				spec.volumes[*].glusterfs<br>
-				spec.volumes[*].rbd<br>
-				spec.volumes[*].flexVolume<br>
-				spec.volumes[*].cinder<br>
-				spec.volumes[*].cephFS<br>
-				spec.volumes[*].flocker<br>
-				spec.volumes[*].fc<br>
-				spec.volumes[*].azureFile<br>
-				spec.volumes[*].vsphereVolume<br>
-				spec.volumes[*].quobyte<br>
-				spec.volumes[*].azureDisk<br>
-				spec.volumes[*].portworxVolume<br>
-				spec.volumes[*].scaleIO<br>
-				spec.volumes[*].storageos<br>
-				spec.volumes[*].csi<br>
-				<br><b>允许的值：</b> 未定义/nil<br>
+        <p>除了限制 HostPath 卷之外，此类策略还限制可以通过 PersistentVolumes 定义的非核心卷类型。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.volumes[*].hostPath</code></li>
+					<li><code>spec.volumes[*].gcePersistentDisk</code></li>
+					<li><code>spec.volumes[*].awsElasticBlockStore</code></li>
+					<li><code>spec.volumes[*].gitRepo</code></li>
+					<li><code>spec.volumes[*].nfs</code></li>
+					<li><code>spec.volumes[*].iscsi</code></li>
+					<li><code>spec.volumes[*].glusterfs</code></li>
+					<li><code>spec.volumes[*].rbd</code></li>
+					<li><code>spec.volumes[*].flexVolume</code></li>
+					<li><code>spec.volumes[*].cinder</code></li>
+					<li><code>spec.volumes[*].cephfs</code></li>
+					<li><code>spec.volumes[*].flocker</code></li>
+					<li><code>spec.volumes[*].fc</code></li>
+					<li><code>spec.volumes[*].azureFile</code></li>
+					<li><code>spec.volumes[*].vsphereVolume</code></li>
+					<li><code>spec.volumes[*].quobyte</code></li>
+					<li><code>spec.volumes[*].azureDisk</code></li>
+					<li><code>spec.volumes[*].portworxVolume</code></li>
+					<li><code>spec.volumes[*].scaleIO</code></li>
+					<li><code>spec.volumes[*].storageos</code></li>
+					<li><code>spec.volumes[*].photonPersistentDisk</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<!-- td>Privilege Escalation</td -->
-			<td>特权提升</td>
+      <!-- <td style="white-space: nowrap">Privilege Escalation (v1.8+)</td>
 			<td>
-				<!-- Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. -->
-				禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升。<br>
-				<br><b>限制的字段：</b><br>
-				spec.containers[*].securityContext.allowPrivilegeEscalation<br>
-				spec.initContainers[*].securityContext.allowPrivilegeEscalation<br>
-				<br><b>允许的值：</b> false<br>
+				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
+					<li><code>spec.initContainers[*].securityContext.allowPrivilegeEscalation</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.allowPrivilegeEscalation</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li><code>false</code></li>
+				</ul>
+			</td> -->
+			<td style="white-space: nowrap">特权提升（v1.8+）</td>
+			<td>
+        <p>禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升。</p>
+				<br>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
+					<li><code>spec.initContainers[*].securityContext.allowPrivilegeEscalation</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.allowPrivilegeEscalation</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li><code>false</code></li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<!-- td>Running as Non-root</td -->
-			<td>以非 root 账号运行 </td>
+      <!-- <td style="white-space: nowrap">Running as Non-root</td> -->
+			<td style="white-space: nowrap">以非 root 账号运行 </td>
+      <!-- <td>
+				<p>Containers must be required to run as non-root users.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.runAsNonRoot</code></li>
+					<li><code>spec.containers[*].securityContext.runAsNonRoot</code></li>
+					<li><code>spec.initContainers[*].securityContext.runAsNonRoot</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.runAsNonRoot</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li><code>true</code></li>
+				</ul>
+				<small>
+					The container fields may be undefined/<code>nil</code> if the pod-level
+					<code>spec.securityContext.runAsNonRoot</code> is set to <code>true</code>.
+				</small>
+			</td> -->
 			<td>
-				<!-- Containers must be required to run as non-root users. -->
-				必须要求容器以非 root 用户运行。<br>
-				<br><b>限制的字段：</b><br>
-				spec.securityContext.runAsNonRoot<br>
-				spec.containers[*].securityContext.runAsNonRoot<br>
-				spec.initContainers[*].securityContext.runAsNonRoot<br>
-				<br><b>允许的值：</b> true<br>
+        <p>必须要求容器以非 root 用户运行。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.securityContext.runAsNonRoot</code></li>
+					<li><code>spec.containers[*].securityContext.runAsNonRoot</code></li>
+					<li><code>spec.initContainers[*].securityContext.runAsNonRoot</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.runAsNonRoot</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li><code>true</code></li>
+				</ul>
+				<small>
+					如果 Pod 级别 <code>spec.securityContext.runAsNonRoot</code> 设置为 
+          <code>true</code>，则允许容器组的安全上下文字段设置为 未定义/<code>nil</code>。
+				</small>
 			</td>
 		</tr>
 		<tr>
-			<!-- td>Non-root groups <em>(optional)</em></td -->
-			<td>非 root 组 <em>（可选）</em></td>
+			<!-- <td style="white-space: nowrap">Non-root groups <em>(optional)</em></td> -->
+			<td style="white-space: nowrap">非 root 组<em>（可选）</em></td>
 			<td>
-				<!-- Containers should be forbidden from running with a root primary or supplementary GID. -->
-				禁止容器使用 root 作为主要或辅助 GID 来运行。<br>
-				<br><b>限制的字段：</b><br>
-				spec.securityContext.runAsGroup<br>
-				spec.securityContext.supplementalGroups[*]<br>
-				spec.securityContext.fsGroup<br>
-				spec.containers[*].securityContext.runAsGroup<br>
-				spec.initContainers[*].securityContext.runAsGroup<br>
-				<br><b>允许的值：</b><br>
-				非零值<br>
-				未定义/nil （<code>*.runAsGroup</code> 除外）<br>
+				<!-- <td>
+				<p>Containers should be forbidden from running with a root primary or supplementary GID.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.runAsGroup</code></li>
+					<li><code>spec.securityContext.supplementalGroups[*]</code></li>
+					<li><code>spec.securityContext.fsGroup</code></li>
+					<li><code>spec.containers[*].securityContext.runAsGroup</code></li>
+					<li><code>spec.initContainers[*].securityContext.runAsGroup</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.runAsGroup</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil (except for <code>*.runAsGroup</code>)</li>
+					<li>Non-zero</li>
+				</ul>
+			</td> -->
+        <p>禁止容器使用 root 作为主要或辅助 GID 来运行。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.securityContext.runAsGroup</code></li>
+					<li><code>spec.securityContext.supplementalGroups[*]</code></li>
+					<li><code>spec.securityContext.fsGroup</code></li>
+					<li><code>spec.containers[*].securityContext.runAsGroup</code></li>
+					<li><code>spec.initContainers[*].securityContext.runAsGroup</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.runAsGroup</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil（<code>*.runAsGroup</code> 除外）</li>
+					<li>非零值</li>
+				</ul>
 			</td>
 		</tr>
 		<tr>
-			<td>Seccomp</td>
+			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
 			<td>
-				<!-- The RuntimeDefault seccomp profile must be required, or allow specific additional profiles. -->
-				必须要求使用 RuntimeDefault seccomp profile 或者允许使用特定的 profiles。<br>
-				<br><b>限制的字段：</b><br>
-				spec.securityContext.seccompProfile.type<br>
-				spec.containers[*].securityContext.seccompProfile<br>
-				spec.initContainers[*].securityContext.seccompProfile<br>
-				<br><b>允许的值：</b><br>
-				'runtime/default'<br>
-				未定义/nil<br>
+				<!-- <td>
+  				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited.</p>
+  				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.seccompProfile.type</code></li>
+					<li><code>spec.containers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.initContainers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seccompProfile.type</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li><code>RuntimeDefault</code></li>
+					<li><code>Localhost</code></li>
+				</ul>
+				<small>
+					The container fields may be undefined/<code>nil</code> if the pod-level
+					<code>spec.securityContext.seccompProfile.type</code> field is set appropriately.
+					Conversely, the pod-level field may be undefined/<code>nil</code> if _all_ container-
+					level fields are set.
+				</small>
+  			</td> -->
+        <p>Seccomp Profile 必须被显式设置成一个允许的值。禁止使用 <code>Unconfined</code> 
+        Profile 或者指定 <em>不存在的</em> Profile。</p>
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.securityContext.seccompProfile.type</code></li>
+					<li><code>spec.containers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.initContainers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seccompProfile.type</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li><code>RuntimeDefault</code></li>
+					<li><code>Localhost</code></li>
+				</ul>
+				<small>
+					如果 Pod 级别的 <code>spec.securityContext.seccompProfile.type</code> 
+          已设置得当，容器级别的安全上下文字段可以为 未定义/<code>nil</code>。
+          反过来说，如果 _所有的_ 容器级别的安全上下文字段已设置，则 Pod 级别的字段可为 未定义/<code>nil</code>。 
+				</small>
+			</td>
+		</tr>
+    <tr>
+			<!-- <td style="white-space: nowrap">Capabilities (v1.22+)</td> -->
+      <td style="white-space: nowrap">权能（v1.22+）</td>
+      <!-- <td>
+				<p>
+					Containers must drop <code>ALL</code> capabilities, and are only permitted to add back
+					the <code>NET_BIND_SERVICE</code> capability.
+				</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.capabilities.drop</code></li>
+					<li><code>spec.initContainers[*].securityContext.capabilities.drop</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.capabilities.drop</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Any list of capabilities that includes <code>ALL</code></li>
+				</ul>
+				<hr />
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.initContainers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.capabilities.add</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>NET_BIND_SERVICE</code></li>
+				</ul>
+			</td> -->
+			<td>
+        <p>
+					容器组必须弃用 <code>ALL</code> 权能，并且只允许添加 <code>NET_BIND_SERVICE</code> 权能。
+				</p>
+        <p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.capabilities.drop</code></li>
+					<li><code>spec.initContainers[*].securityContext.capabilities.drop</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.capabilities.drop</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>包含 <code>ALL</code> 的任何一种权能列表。</li>
+				</ul>
+				<hr />
+				<p><strong>限制的字段</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.initContainers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.capabilities.add</code></li>
+				</ul>
+				<p><strong>允许的值</strong></p>
+				<ul>
+					<li>未定义/nil</li>
+					<li><code>NET_BIND_SERVICE</code></li>
+				</ul>
 			</td>
 		</tr>
 	</tbody>
@@ -443,11 +857,17 @@ of individual policies are not defined here.
 
 随着相关机制的成熟，这些机制会按策略分别定义在下面。特定策略的实施方法不在这里定义。
 
+[**Pod 安全性准入控制器**](/zh/docs/concepts/security/pod-security-admission/)
+
+- {{< example file="security/podsecurity-privileged.yaml" >}}Privileged namespace{{< /example >}}
+- {{< example file="security/podsecurity-baseline.yaml" >}}Baseline namespace{{< /example >}}
+- {{< example file="security/podsecurity-restricted.yaml" >}}Restricted namespace{{< /example >}}
+
 [**PodSecurityPolicy**](/zh/docs/concepts/policy/pod-security-policy/)
 
-- [Privileged](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/privileged-psp.yaml)
-- [Baseline](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/baseline-psp.yaml)
-- [Restricted](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/restricted-psp.yaml)
+- {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
+- {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
+- {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
 
 <!--
 ## FAQ
@@ -489,20 +909,26 @@ in the Pod manifest, and represent parameters to the container runtime.
 传递给容器运行时的参数。
 
 <!--
-Security policies are control plane mechanisms to enforce specific settings in the Security Context,
-as well as other parameters outside the Security Context. As of February 2020, the current native
-solution for enforcing these security policies is [Pod Security
-Policy](/docs/concepts/policy/pod-security-policy/) - a mechanism for centrally enforcing security
-policy on Pods across a cluster. Other alternatives for enforcing security policy are being
-developed in the Kubernetes ecosystem, such as [OPA
-Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
+Security profiles are control plane mechanisms to enforce specific settings in the Security Context,
+as well as other related parameters outside the Security Context. As of July 2021, 
+[Pod Security Policies](/docs/concepts/profile/pod-security-profile/) are deprecated in favor of the
+built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
+
+Other alternatives for enforcing security profiles are being developed in the Kubernetes
+ecosystem, such as: 
+- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
+- [Kubewarden](https://github.com/kubewarden).
+- [Kyverno](https://kyverno.io/policies/pod-security/).
 -->
 安全策略则是控制面用来对安全上下文以及安全性上下文之外的参数实施某种设置的机制。
-在 2020 年 2 月，目前实施这些安全性策略的原生解决方案是
-[Pod 安全性策略](/zh/docs/concepts/policy/pod-security-policy/) - 一种对集群中
-Pod 的安全性策略进行集中控制的机制。
+在 2020 年 7 月，
+[Pod 安全性策略](/zh/docs/concepts/policy/pod-security-policy/)已被废弃，
+取而代之的是内置的 [Pod 安全性准入控制器](/zh/docs/concepts/security/pod-security-admission/)。
+
 Kubernetes 生态系统中还在开发一些其他的替代方案，例如
-[OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)。
+- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)。
+- [Kubewarden](https://github.com/kubewarden)。
+- [Kyverno](https://kyverno.io/policies/pod-security/)。
 
 <!--
 ### What profiles should I apply to my Windows Pods?
@@ -518,6 +944,27 @@ Kubernetes 中的 Windows 负载与标准的基于 Linux 的负载相比有一�
 尤其是 Pod SecurityContext 字段
 [对 Windows 不起作用](/zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
 因此，目前没有对应的标准 Pod 安全性框架。
+
+
+<!-- 
+If you apply the restricted profile for a Windows pod, this **may** have an impact on the pod
+at runtime. The restricted profile requires enforcing Linux-specific restrictions (such as seccomp
+profile, and disallowing privilege escalation). If the kubelet and / or its container runtime ignore
+these Linux-specific values, then the Windows pod should still work normally within the restricted
+profile. However, the lack of enforcement means that there is no additional restriction, for Pods
+that use Windows containers, compared to the baseline profile.
+
+The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy. Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies, so any HostProcess pod should be considered privileged.
+-->
+
+如果你为一个 Windows Pod 应用了 Restricted 策略，**可能会** 对该 Pod 的运行时产生影响。
+Restricted 策略需要强制执行 Linux 特有的限制（如 seccomp Profile，并且禁止特权提升）。
+如果 kubelet 和/或其容器运行时忽略了 Linux 特有的值，那么应该不影响 Windows Pod 正常工作。
+然而，对于使用 Windows 容器的 Pod 来说，缺乏强制执行意味着相比于 Restricted 策略，没有任何额外的限制。
+
+你应该只在 Privileged 策略下使用 HostProcess 标志来创建 HostProcess Pod。
+在 Baseline 和 Restricted 策略下，创建 Windows HostProcess Pod 是被禁止的，
+因此任何 HostProcess Pod 都应该被认为是有特权的。
 
 <!--
 ### What about sandboxed Pods?

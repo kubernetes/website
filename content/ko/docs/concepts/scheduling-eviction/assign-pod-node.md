@@ -271,16 +271,16 @@ PodSpec에 지정된 NodeAffinity도 적용된다.
 연관된 `matchExpressions` 가 모두 충족되어야 한다.
 
 #### 네임스페이스 셀렉터
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 사용자는 네임스페이스 집합에 대한 레이블 쿼리인 `namespaceSelector` 를 사용하여 일치하는 네임스페이스를 선택할 수도 있다.
 어피니티 용어는 `namespaceSelector` 에서 선택한 네임스페이스와 `namespaces` 필드에 나열된 네임스페이스의 결합에 적용된다.
 빈 `namespaceSelector` ({})는 모든 네임스페이스와 일치하는 반면, null 또는 빈 `namespaces` 목록과
 null `namespaceSelector` 는 "이 파드의 네임스페이스"를 의미한다.
 
-이 기능은 알파이며 기본적으로 비활성화되어 있다. kube-apiserver 및 kube-scheduler 모두에서
+이 기능은 베타이며 기본으로 활성화되어 있다. kube-apiserver 및 kube-scheduler 모두에서
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` 를 설정하여 활성화할 수 있다.
+`PodAffinityNamespaceSelector` 를 사용하여 비활성화할 수 있다.
 
 #### 더 실용적인 유스케이스
 

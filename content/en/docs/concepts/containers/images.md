@@ -108,7 +108,7 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
   `:latest`, `imagePullPolicy` is automatically set to `Always`;
 - if you omit the `imagePullPolicy` field, and you don't specify the tag for the
   container image, `imagePullPolicy` is automatically set to `Always`;
-- if you omit the `imagePullPolicy` field, and you don't specify the tag for the
+- if you omit the `imagePullPolicy` field, and you specify the tag for the
   container image that isn't `:latest`, the `imagePullPolicy` is automatically set to
   `IfNotPresent`.
 

@@ -9,7 +9,7 @@ weight: 40
 <!-- overview -->
 
 This page covers how to customize the components that kubeadm deploys. For control plane components
-you can use flags in the `ClusteConfiguration` structure or patches per-node. For the kubelet
+you can use flags in the `ClusterConfiguration` structure or patches per-node. For the kubelet
 and kube-proxy you can use `KubeletConfiguration` and `KubeProxyConfiguration`, accordingly.
 
 All of these options are possible via the kubeadm configuration API.

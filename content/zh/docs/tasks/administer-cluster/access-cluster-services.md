@@ -46,7 +46,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
       the cluster.  See the [services](/docs/concepts/services-networking/service/) and
       [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) documentation.
-    - Depending on your cluster environment, this may just expose the service to your corporate network,
+    - Depending on your cluster environment, this may only expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
     - Place pods behind services.  To access one specific pod from a set of replicas, such as for debugging,
@@ -148,7 +148,7 @@ See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/ac
 <!--
 #### Manually constructing apiserver proxy URLs
 
-As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you simply append to the service's proxy URL:
+As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`[https:]service_name[:port_name]`*`/proxy`
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
@@ -156,7 +156,7 @@ If you haven't specified a name for your port, you don't have to specify *port_n
 #### 手动构建 API 服务器代理 URLs   {#manually-constructing-apiserver-proxy-urls}
 
 如前所述，你可以使用 `kubectl cluster-info` 命令取得服务的代理 URL。
-为了创建包含服务末端、后缀和参数的代理 URLs，你可以简单地在服务的代理 URL 中添加：
+为了创建包含服务末端、后缀和参数的代理 URLs，你可以在服务的代理 URL 中添加：
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
 如果还没有为你的端口指定名称，你可以不用在 URL 中指定 *port_name*。

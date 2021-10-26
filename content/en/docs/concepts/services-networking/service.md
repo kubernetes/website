@@ -183,6 +183,13 @@ Accessing a Service without a selector works the same as if it had a selector.
 In the example above, traffic is routed to the single endpoint defined in
 the YAML: `192.0.2.42:9376` (TCP).
 
+{{< note >}}
+The Kubernetes API server does not allow proxying to endpoints that are not mapped to 
+pods. Actions such as `kubectl proxy <service-name>` where the service has no 
+selector will fail due to this constraint. This prevents the Kubernetes API server 
+from being used as a proxy to endpoints the caller may not be authorized to access. 
+{{< /note >}}
+
 An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
@@ -414,7 +421,7 @@ endpoints, the kube-proxy does not forward any traffic for the relevant Service.
 {{< feature-state for_k8s_version="v1.22" state="alpha" >}}
 If you enable the `ProxyTerminatingEndpoints`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`ProxyTerminatingEndpoints` for the kube-proxy, the kube-proxy checks if the node
+for the kube-proxy, the kube-proxy checks if the node
 has local endpoints and whether or not all the local endpoints are marked as terminating.
 If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
 any external traffic policy of `Local`. Instead, whilst the node-local endpoints remain as all
@@ -1065,6 +1072,9 @@ in those modified security groups.
 
 {{< /note >}}
 
+Further documentation on annotations for Elastic IPs and other common use-cases may be found
+in the [AWS Load Balancer Controller documentation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/).
+
 #### Other CLB annotations on Tencent Kubernetes Engine (TKE)
 
 There are other annotations for managing Cloud Load Balancers on TKE as shown below.
@@ -1121,7 +1131,7 @@ spec:
 ```
 
 {{< note >}}
-ExternalName accepts an IPv4 address string, but as a DNS names comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
+ExternalName accepts an IPv4 address string, but as a DNS name comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
 is intended to specify a canonical DNS name. To hardcode an IP address, consider using
 [headless Services](#headless-services).
 {{< /note >}}

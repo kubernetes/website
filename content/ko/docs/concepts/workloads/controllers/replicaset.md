@@ -323,9 +323,9 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 모든 기준에 대해 동등하다면, 스케일 다운할 파드가 임의로 선택된다.
 
 ### 파드 삭제 비용
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-[`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost) 어노테이션을 이용하여, 
+[`controller.kubernetes.io/pod-deletion-cost`](/ko/docs/reference/labels-annotations-taints/#pod-deletion-cost) 어노테이션을 이용하여, 
 레플리카셋을 스케일 다운할 때 어떤 파드부터 먼저 삭제할지에 대한 우선순위를 설정할 수 있다.
 
 이 어노테이션은 파드에 설정되어야 하며, [-2147483647, 2147483647] 범위를 갖는다.
@@ -335,9 +335,9 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 파드에 대해 이 값을 명시하지 않으면 기본값은 0이다. 음수로도 설정할 수 있다.
 유효하지 않은 값은 API 서버가 거부한다.
 
-이 기능은 알파 상태이며 기본적으로는 비활성화되어 있다. 
-kube-apiserver와 kube-controller-manager에서 `PodDeletionCost` 
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 켜서 활성화할 수 있다.
+이 기능은 베타 상태이며 기본적으로 활성화되어 있다. 
+kube-apiserver와 kube-controller-manager에 대해 `PodDeletionCost` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 이용하여 비활성화할 수 있다.
 
 {{< note >}}
 - 이 기능은 best-effort 방식으로 동작하므로, 파드 삭제 순서를 보장하지는 않는다.

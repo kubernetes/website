@@ -258,7 +258,7 @@ In the example below the Pod did not get the credspec correctly:
 ```PowerShell
 kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
 ```
-nltest.exe /parentdomain` results in the following error:
+`nltest.exe /parentdomain` results in the following error:
 ```
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
