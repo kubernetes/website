@@ -142,3 +142,5 @@ documents the format of CronJob `schedule` fields.
 For instructions on creating and working with cron jobs, and for an example of CronJob
 manifest, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
 
+For instructions to clean up failed or completed jobs automatically, see 
+[Clean up Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
