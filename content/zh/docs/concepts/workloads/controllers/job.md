@@ -854,7 +854,7 @@ directly a result of toggling the `.spec.suspend` field. In the time between
 these two events, we see that no Pods were created, but Pod creation restarted
 as soon as the Job was resumed.
 -->
-最后四个四件，特别是 "Suspended" 和 "Resumed" 事件，都是因为 `.spec.suspend`
+最后四个事件，特别是 "Suspended" 和 "Resumed" 事件，都是因为 `.spec.suspend`
 字段值被改来改去造成的。在这两个事件之间，我们看到没有 Pod 被创建，不过当
 Job 被恢复执行时，Pod 创建操作立即被重启执行。
 

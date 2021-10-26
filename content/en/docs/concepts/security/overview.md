@@ -29,7 +29,7 @@ computing approach to security, which is widely regarded as a best practice for 
 software systems.
 {{< /note >}}
 
-{{< figure src="/images/docs/4c.png" title="The 4C's of Cloud Native Security" >}}
+{{< figure src="/images/docs/4c.png" title="The 4C's of Cloud Native Security" class="diagram-large" >}}
 
 Each layer of the Cloud Native security model builds upon the next outermost layer.
 The Code layer benefits from strong base (Cloud, Cluster, Container) security layers.

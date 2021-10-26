@@ -19,11 +19,7 @@ When you deploy Kubernetes, you get a cluster.
 This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
-Here's the diagram of a Kubernetes cluster with all the components tied together.
-
-![Components of Kubernetes](/images/docs/components-of-kubernetes.svg)
-
-
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
 
 <!-- body -->
 ## Control Plane Components
