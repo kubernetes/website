@@ -76,7 +76,7 @@ tienen algunas ventajas sobre el código relacionado de inicio:
 A continuación, se muestran algunas ideas sobre cómo utilizar los contenedores de inicialización:
 
 * Esperar a que se cree un {{< glossary_tooltip text="Service" term_id="service">}}
-  usando un comando de una línea de shell:
+  usando una sola linea de comando de shell:
 
   ```shell
   for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
