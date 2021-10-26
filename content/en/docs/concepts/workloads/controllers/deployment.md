@@ -164,7 +164,7 @@ Follow the steps given below to update your Deployment:
 1. Let's update the nginx Pods to use the `nginx:1.16.1` image instead of the `nginx:1.14.2` image.
 
     ```shell
-    kubectl deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
     or use the following command:
@@ -182,7 +182,7 @@ Follow the steps given below to update your Deployment:
     Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1`:
 
     ```shell
-    kubectl edit deployment.v1.apps/nginx-deployment
+    kubectl edit deployment/nginx-deployment
     ```
 
     The output is similar to:
@@ -365,7 +365,7 @@ rolled back.
 * Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.161` instead of `nginx:1.16.1`:
 
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.161 
     ```
 
     The output is similar to this:
@@ -474,25 +474,25 @@ Follow the steps given below to check the rollout history:
 
 1. First, check the revisions of this Deployment:
     ```shell
-    kubectl rollout history deployment.v1.apps/nginx-deployment
+    kubectl rollout history deployment/nginx-deployment
     ```
     The output is similar to this:
     ```
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
     1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
-    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
-    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161
+    2           kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
+    3           kubectl set image deployment/nginx-deployment nginx=nginx:1.161
     ```
 
     `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You can specify the`CHANGE-CAUSE` message by:
 
-    * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
+    * Annotating the Deployment with `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
     * Manually editing the manifest of the resource.
 
 2. To see the details of each revision, run:
     ```shell
-    kubectl rollout history deployment.v1.apps/nginx-deployment --revision=2
+    kubectl rollout history deployment/nginx-deployment --revision=2
     ```
 
     The output is similar to this:
@@ -500,7 +500,7 @@ Follow the steps given below to check the rollout history:
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
               pod-template-hash=1159050644
-      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+      Annotations:  kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
       Containers:
        nginx:
         Image:      nginx:1.16.1
@@ -517,7 +517,7 @@ Follow the steps given below to rollback the Deployment from the current version
 
 1. Now you've decided to undo the current rollout and rollback to the previous revision:
     ```shell
-    kubectl rollout undo deployment.v1.apps/nginx-deployment
+    kubectl rollout undo deployment/nginx-deployment
     ```
 
     The output is similar to this:
@@ -527,7 +527,7 @@ Follow the steps given below to rollback the Deployment from the current version
     Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
     ```shell
-    kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
+    kubectl rollout undo deployment/nginx-deployment --to-revision=2
     ```
 
     The output is similar to this:
@@ -561,7 +561,7 @@ Follow the steps given below to rollback the Deployment from the current version
     CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
     Labels:                 app=nginx
     Annotations:            deployment.kubernetes.io/revision=4
-                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+                            kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
     Selector:               app=nginx
     Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
     StrategyType:           RollingUpdate
@@ -604,7 +604,7 @@ Follow the steps given below to rollback the Deployment from the current version
 You can scale a Deployment by using the following command:
 
 ```shell
-kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
+kubectl scale deployment/nginx-deployment --replicas=10
 ```
 The output is similar to this:
 ```
@@ -616,7 +616,7 @@ in your cluster, you can setup an autoscaler for your Deployment and choose the 
 Pods you want to run based on the CPU utilization of your existing Pods.
 
 ```shell
-kubectl autoscale deployment.v1.apps/nginx-deployment --min=10 --max=15 --cpu-percent=80
+kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu-percent=80
 ```
 The output is similar to this:
 ```
@@ -645,7 +645,7 @@ For example, you are running a Deployment with 10 replicas, [maxSurge](#max-surg
 
 * You update to a new image which happens to be unresolvable from inside the cluster.
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
+    kubectl set image deployment/nginx-deployment nginx=nginx:sometag
     ```
 
     The output is similar to this:
@@ -724,7 +724,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 
 * Pause by running the following command:
     ```shell
-    kubectl rollout pause deployment.v1.apps/nginx-deployment
+    kubectl rollout pause deployment/nginx-deployment
     ```
 
     The output is similar to this:
@@ -734,7 +734,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 
 * Then update the image of the Deployment:
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
     ```
 
     The output is similar to this:
@@ -744,7 +744,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 
 * Notice that no new rollout started:
     ```shell
-    kubectl rollout history deployment.v1.apps/nginx-deployment
+    kubectl rollout history deployment/nginx-deployment
     ```
 
     The output is similar to this:
@@ -766,7 +766,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 
 * You can make as many updates as you wish, for example, update the resources that will be used:
     ```shell
-    kubectl set resources deployment.v1.apps/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
+    kubectl set resources deployment/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
     ```
 
     The output is similar to this:
@@ -779,7 +779,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 
 * Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
     ```shell
-    kubectl rollout resume deployment.v1.apps/nginx-deployment
+    kubectl rollout resume deployment/nginx-deployment
     ```
 
     The output is similar to this:
@@ -889,7 +889,7 @@ The following `kubectl` command sets the spec with `progressDeadlineSeconds` to 
 lack of progress for a Deployment after 10 minutes:
 
 ```shell
-kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
+kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
 ```
 The output is similar to this:
 ```
