@@ -67,7 +67,7 @@ See the [webhook request](#request) section for details on the data sent to webh
 See the [webhook response](#response) section for the data expected from webhooks.
 
 The example admission webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/config.go#L47-L48),
+[empty](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39),
 which defaults to `NoClientCert`. This means that the webhook server does not
 authenticate the identity of the clients, supposedly apiservers. If you need
 mutual TLS or other ways to authenticate the clients, see
@@ -79,7 +79,7 @@ The webhook server in the e2e test is deployed in the Kubernetes cluster, via
 the [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps).
 The test also creates a [service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 as the front-end of the webhook server. See
-[code](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/e2e/apimachinery/webhook.go#L301).
+[code](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748).
 
 You may also deploy your webhooks outside of the cluster. You will need to update
 your webhook configurations accordingly.

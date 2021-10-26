@@ -153,14 +153,14 @@ Install-WindowsFeature -Name containers
 ```
 
 도커 설치
-자세한 내용은 [도커 엔진 설치 - 윈도우 서버 엔터프라이즈](https://hub.docker.com/editions/enterprise/docker-ee-server-windows)에서 확인할 수 있다.
+자세한 내용은 [도커 엔진 설치 - 윈도우 서버 엔터프라이즈](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker)에서 확인할 수 있다.
 
 #### wins, kubelet 및 kubeadm 설치
 
-   ```PowerShell
-   curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
-   .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
-   ```
+```PowerShell
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
+.\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
+```
 
 #### `kubeadm` 실행하여 노드에 조인
 
@@ -201,7 +201,7 @@ curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/lates
 #### wins, kubelet 및 kubeadm 설치
 
 ```PowerShell
-curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
 .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
 ```
 

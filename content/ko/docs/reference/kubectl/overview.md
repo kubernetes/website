@@ -87,7 +87,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 `cluster-info`    | `kubectl cluster-info [flags]` | 클러스터의 마스터와 서비스에 대한 엔드포인트 정보를 표시한다.
 `completion`    | `kubectl completion SHELL [options]` | 지정된 셸(bash 또는 zsh)에 대한 셸 완성 코드를 출력한다.
 `config`        | `kubectl config SUBCOMMAND [flags]` | kubeconfig 파일을 수정한다. 세부 사항은 개별 하위 명령을 참고한다.
-`convert`    | `kubectl convert -f FILENAME [options]` | 다른 API 버전 간에 구성 파일을 변환한다. YAML 및 JSON 형식이 모두 허용된다.
+`convert`    | `kubectl convert -f FILENAME [options]` | 다른 API 버전 간에 구성 파일을 변환한다. YAML 및 JSON 형식이 모두 허용된다. 참고 - `kubectl-convert` 플러그인을 설치해야 한다.
 `cordon`    | `kubectl cordon NODE [options]` | 노드를 스케줄 불가능(unschedulable)으로 표시한다.
 `cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | 컨테이너에서 그리고 컨테이너로 파일 및 디렉터리를 복사한다.
 `create`        | `kubectl create -f FILENAME [flags]` | 파일이나 표준입력에서 하나 이상의 리소스를 생성한다.

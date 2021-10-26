@@ -48,6 +48,21 @@ with shared namespaces and shared filesystem volumes.
 
 ## Using Pods
 
+The following is an example of a Pod which consists of a container running the image `nginx:1.14.2`.
+
+{{< codenew file="pods/simple-pod.yaml" >}}
+
+To create the Pod shown above, run the following command:
+```shell
+kubectl apply -f https://k8s.io/examples/pods/simple-pod.yaml
+```
+
+Pods are generally not created directly and are created using workload resources.
+See [Working with Pods](#working-with-pods) for more information on how Pods are used
+with workload resources.
+
+### Workload resources for managing pods
+
 Usually you don't need to create Pods directly, even singleton Pods. Instead, create them using workload resources such as {{< glossary_tooltip text="Deployment"
 term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}}.
 If your Pods need to track state, consider the
@@ -97,7 +112,7 @@ For example, you might have a container that
 acts as a web server for files in a shared volume, and a separate "sidecar" container
 that updates those files from a remote source, as in the following diagram:
 
-{{< figure src="/images/docs/pod.svg" alt="example pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" alt="Pod creation diagram" class="diagram-medium" >}}
 
 Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}. Init containers run and complete before the app containers are started.
 

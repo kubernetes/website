@@ -962,4 +962,4 @@ For a detailed explanation of Windows distribution channels see the [Microsoft d
 
 Information on the different Windows Server servicing channels
 including their support models can be found at
-[Windows Server servicing channels](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
+[Windows Server servicing channels](https://docs.microsoft.com/en-us/windows-server/get-started/servicing-channels-comparison).

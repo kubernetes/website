@@ -19,7 +19,7 @@ This tutorial provides an introduction to managing applications with
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 -->
 
-本教程介绍如何了使用 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/) 来管理应用。
+本教程介绍了如何使用 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/) 来管理应用。
 演示了如何创建、删除、扩容/缩容和更新 StatefulSets 的 Pods。
 
 
@@ -38,7 +38,7 @@ following Kubernetes concepts.
 * [Cluster DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/zh/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
-* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 * [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl CLI](/zh/docs/user-guide/kubectl/)
 

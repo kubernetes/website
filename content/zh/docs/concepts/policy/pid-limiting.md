@@ -17,7 +17,8 @@ weight: 40
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 <!--
-Kubernetes allow you to limit the number of process IDs (PIDs) that a {{< glossary_tooltip term_id="Pod" text="Pod" >}} can use.
+Kubernetes allow you to limit the number of process IDs (PIDs) that a
+{{< glossary_tooltip term_id="Pod" text="Pod" >}} can use.
 You can also reserve a number of allocatable PIDs for each {{< glossary_tooltip term_id="node" text="node" >}}
 for use by the operating system and daemons (rather than by Pods).
 -->
@@ -155,8 +156,8 @@ gate](/docs/reference/command-line-tools-reference/feature-gates/)
 Kubernetes allows you to limit the number of processes running in a Pod. You
 specify this limit at the node level, rather than configuring it as a resource
 limit for a particular Pod. Each Node can have a different PID limit.  
-To configure the limit, you can specify the command line parameter
-`--pod-max-pids` to the kubelet, or set `PodPidsLimit` in the kubelet
+To configure the limit, you can specify the command line parameter `--pod-max-pids`
+to the kubelet, or set `PodPidsLimit` in the kubelet
 [configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 -->
 ## Pod 级别 PID 限制   {#pod-pid-limits}
@@ -183,9 +184,12 @@ the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 ## PID based eviction
 
 You can configure kubelet to start terminating a Pod when it is misbehaving and consuming abnormal amount of resources.
-This feature is called eviction. You can [Configure Out of Resource Handling](/docs/tasks/administer-cluster/out-of-resource) for various eviction signals.
+This feature is called eviction. You can
+[Configure Out of Resource Handling](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+for various eviction signals.
 Use `pid.available` eviction signal to configure the threshold for number of PIDs used by Pod.
-You can set soft and hard eviction policies. However, even with the hard eviction policy, if the number of PIDs growing very fast,
+You can set soft and hard eviction policies.
+However, even with the hard eviction policy, if the number of PIDs growing very fast,
 node can still get into unstable state by hitting the node PIDs limit.
 Eviction signal value is calculated periodically and does NOT enforce the limit.
 -->
@@ -219,9 +223,10 @@ Pod 行为不正常而没有 PID 可用。
 
 <!--
 - Refer to the [PID Limiting enhancement document](https://github.com/kubernetes/enhancements/blob/097b4d8276bc9564e56adf72505d43ce9bc5e9e8/keps/sig-node/20190129-pid-limiting.md) for more information.
-- For historical context, read [Process ID Limiting for Stability Improvements in Kubernetes 1.14](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/).
+- For historical context, read
+  [Process ID Limiting for Stability Improvements in Kubernetes 1.14](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/).
 - Read [Managing Resources for Containers](/docs/concepts/configuration/manage-resources-containers/).
-- Learn how to [Configure Out of Resource Handling](/docs/tasks/administer-cluster/out-of-resource).
+- Learn how to [Configure Out of Resource Handling](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 -->
 - 参阅 [PID 约束改进文档](https://github.com/kubernetes/enhancements/blob/097b4d8276bc9564e56adf72505d43ce9bc5e9e8/keps/sig-node/20190129-pid-limiting.md)
   以了解更多信息。
@@ -229,5 +234,5 @@ Pod 行为不正常而没有 PID 可用。
   [Kubernetes 1.14 中限制进程 ID 以提升稳定性](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/)
   的博文。
 - 请阅读[为容器管理资源](/zh/docs/concepts/configuration/manage-resources-containers/)。
-- 学习如何[配置资源不足情况的处理](/zh/docs/tasks/administer-cluster/out-of-resource)。
+- 学习如何[配置资源不足情况的处理](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
 

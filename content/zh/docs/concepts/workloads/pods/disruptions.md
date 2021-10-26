@@ -52,7 +52,7 @@ an application.  Examples are:
 - cloud provider or hypervisor failure makes VM disappear
 - a kernel panic
 - the node disappears from the cluster due to cluster network partition
-- eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource/).
+- eviction of a pod due to the node being [out-of-resources](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 -->
 
 - 节点下层物理机的硬件故障
@@ -60,7 +60,7 @@ an application.  Examples are:
 - 云提供商或虚拟机管理程序中的故障导致的虚拟机消失
 - 内核错误
 - 节点由于集群网络隔离从集群中消失
-- 由于节点[资源不足](/zh/docs/tasks/administer-cluster/out-of-resource/)导致 pod 被驱逐。
+- 由于节点[资源不足](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)导致 pod 被驱逐。
 
 <!--
 Except for the out-of-resources condition, all these conditions
@@ -161,7 +161,7 @@ rolling out node software updates can cause voluntary disruptions. Also, some im
 of cluster (node) autoscaling may cause voluntary disruptions to defragment and compact nodes.
 Your cluster administrator or hosting provider should have documented what level of voluntary
 disruptions, if any, to expect. Certain configuration options, such as
-[using PriorityClasses](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
+[using PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 in your pod spec can also cause voluntary (and involuntary) disruptions.
 -->
 自愿干扰的频率各不相同。在一个基本的 Kubernetes 集群中，没有自愿干扰（只有用户触发的干扰）。
@@ -170,7 +170,7 @@ in your pod spec can also cause voluntary (and involuntary) disruptions.
 实现可能导致碎片整理和紧缩节点的自愿干扰。集群
 管理员或托管提供商应该已经记录了各级别的自愿干扰（如果有的话）。
 有些配置选项，例如在 pod spec 中
-[使用 PriorityClasses](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
+[使用 PriorityClasses](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 也会产生自愿（和非自愿）的干扰。
 
 <!--

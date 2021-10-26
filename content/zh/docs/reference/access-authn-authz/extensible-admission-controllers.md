@@ -103,12 +103,15 @@ In the following, we describe how to quickly experiment with admission webhooks.
 
 <!--
 Please refer to the implementation of the [admission webhook
-server](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `AdmissionReview` request sent by the apiservers, and sends back its decision
 as an `AdmissionReview` object in the same version it received.
 -->
-请参阅 Kubernetes e2e 测试中的 [admission webhook 服务器](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/main.go) 的实现。webhook 处理由 apiserver 发送的 `AdmissionReview` 请求，并且将其决定作为 `AdmissionReview` 对象以相同版本发送回去。
+请参阅 Kubernetes e2e 测试中的
+[admission webhook 服务器](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
+的实现。webhook 处理由 apiserver 发送的 `AdmissionReview` 请求，并且将其决定
+作为 `AdmissionReview` 对象以相同版本发送回去。
 
 <!--
 See the [webhook request](#request) section for details on the data sent to webhooks.
@@ -128,8 +131,11 @@ authenticate the identity of the clients, supposedly apiservers. If you need
 mutual TLS or other ways to authenticate the clients, see
 how to [authenticate apiservers](#authenticate-apiservers).
 -->
-示例准入 Webhook 服务器置 `ClientAuth` 字段为[空](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/config.go#L47-L48)，默认为 `NoClientCert` 。这意味着 webhook 服务器不会验证客户端的身份，认为其是 apiservers。
-如果你需要双向 TLS 或其他方式来验证客户端，请参阅如何[对 apiservers 进行身份认证](#authenticate-apiservers)。
+示例准入 Webhook 服务器置 `ClientAuth` 字段为
+[空](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/config.go#L47-L48)，
+默认为 `NoClientCert` 。这意味着 webhook 服务器不会验证客户端的身份，认为其是 apiservers。
+如果你需要双向 TLS 或其他方式来验证客户端，请参阅
+如何[对 apiservers 进行身份认证](#authenticate-apiservers)。
 
 <!--
 ### Deploy the admission webhook service
@@ -141,9 +147,14 @@ The webhook server in the e2e test is deployed in the Kubernetes cluster, via
 the [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps).
 The test also creates a [service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 as the front-end of the webhook server. See
-[code](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/e2e/apimachinery/webhook.go#L301).
+[code](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748).
 -->
-e2e 测试中的 webhook 服务器通过 [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps) 部署在 Kubernetes 集群中。该测试还将创建一个 [service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core) 作为 webhook 服务器的前端。参见[相关代码](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/e2e/apimachinery/webhook.go#L301)。
+e2e 测试中的 webhook 服务器通过
+[deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps)
+部署在 Kubernetes 集群中。该测试还将创建一个
+[service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
+作为 webhook 服务器的前端。参见
+[相关代码](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748)。
 
 <!--
 You may also deploy your webhooks outside of the cluster. You will need to update
@@ -163,7 +174,10 @@ webhooks via
 or
 [MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io).
 -->
-你可以通过 [ValidatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhookconfiguration-v1-admissionregistration-k8s-io) 或者 [MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io) 动态配置哪些资源要被哪些准入 Webhook 处理。
+你可以通过 
+[ValidatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhookconfiguration-v1-admissionregistration-k8s-io)
+或者 
+[MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io) 动态配置哪些资源要被哪些准入 Webhook 处理。
 <!--
 The following is an example `ValidatingWebhookConfiguration`, a mutating webhook configuration is similar.
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
@@ -223,7 +237,7 @@ webhooks:
 
 <!--
 The scope field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
-resources ("Namespaced") will match this rule. "*" means that there are no scope restrictions.
+resources ("Namespaced") will match this rule. "&lowast;" means that there are no scope restrictions.
 -->
 scope 字段指定是仅集群范围的资源（Cluster）还是名字空间范围的资源资源（Namespaced）将与此规则匹配。`*` 表示没有范围限制。
 
@@ -338,12 +352,13 @@ plugins:
 
 <!--
 For more information about `AdmissionConfiguration`, see the
-[AdmissionConfiguration schema](https://github.com/kubernetes/kubernetes/blob/v1.17.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1/types.go#L27).
+[AdmissionConfiguration (v1) reference](/docs/reference/config-api/apiserver-webhookadmission.v1/).
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
 
 * In the kubeConfig file, provide the credentials:
 -->
-有关 `AdmissionConfiguration` 的更多信息，请参见 [AdmissionConfiguration schema](https://github.com/kubernetes/kubernetes/blob/v1.17.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1/types.go#L27)。
+有关 `AdmissionConfiguration` 的更多信息，请参见
+[AdmissionConfiguration (v1) reference](/docs/reference/config-api/apiserver-webhookadmission.v1/)。
 有关每个配置字段的详细信息，请参见 [webhook 配置](#webhook-配置)部分。
 
 * 在 kubeConfig 文件中，提供证书凭据：
@@ -401,7 +416,7 @@ Of course you need to set up the webhook server to handle these authentications.
 <!--
 ### Request
 
-Webhooks are sent a POST request, with `Content-Type: application/json`,
+Webhooks are sent as POST request, with `Content-Type: application/json`,
 with an `AdmissionReview` API object in the `admission.k8s.io` API group
 serialized to JSON as the body.
 
@@ -411,7 +426,7 @@ with the `admissionReviewVersions` field in their configuration:
 
 ### 请求 {#request}
 
-向 Webhook 发送 POST 请求时，请设置 `Content-Type: application/json` 并对 `admission.k8s.io`  API 组中的 `AdmissionReview` 对象进行序列化，将所得到的 JSON 作为请求的主体。
+Webhook 发送 POST 请求时，请设置 `Content-Type: application/json` 并对 `admission.k8s.io`  API 组中的 `AdmissionReview` 对象进行序列化，将所得到的 JSON 作为请求的主体。
 
 Webhook 可以在配置中的 `admissionReviewVersions` 字段指定可接受的 `AdmissionReview` 对象版本：
 
@@ -975,10 +990,10 @@ kind: ValidatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   rules:
-  - operations: ["CREATE"]
+  - operations: ["UPDATE"]
     apiGroups: ["*"]
     apiVersions: ["*"]
-    resources: ["*"]
+    resources: ["*/status"]
     scope: "*"
   ...
 ```
@@ -992,10 +1007,10 @@ kind: ValidatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   rules:
-  - operations: ["CREATE"]
+  - operations: ["UPDATE"] 
     apiGroups: ["*"]
     apiVersions: ["*"]
-    resources: ["*"]
+    resources: ["*/status"]
     scope: "*"
   ...
 ```
@@ -1386,12 +1401,12 @@ be a layering violation). `host` may also be an IP address.
 Please note that using `localhost` or `127.0.0.1` as a `host` is
 risky unless you take great care to run this webhook on all hosts
 which run an apiserver which might need to make calls to this
-webhook. Such installs are likely to be non-portable, i.e., not easy
+webhook. Such installations are likely to be non-portable, i.e., not easy
 to turn up in a new cluster.
 -->
 请注意，将 `localhost` 或 `127.0.0.1` 用作 `host` 是有风险的，
 除非你非常小心地在所有运行 apiserver 的、可能需要对此 webhook 
-进行调用的主机上运行。这样的安装可能不具有可移植性，即很难在新集群中启用。
+进行调用的主机上运行。这样的安装方式可能不具有可移植性，即很难在新集群中启用。
 
 <!--
 The scheme must be "https"; the URL must begin with "https://".
