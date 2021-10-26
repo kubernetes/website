@@ -888,20 +888,3 @@ won't be tracked.
 服务器端应用不能正确地跟踪其所有权。
 如果你对这样的子资源使用服务器端应用，变更的字段将不会被跟踪。
 {{< /caution >}}
-
-<!-- 
-## Disabling the feature
-
-Server Side Apply is a beta feature, so it is enabled by default. To turn this
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates) off,
-you need to include the `--feature-gates ServerSideApply=false` flag when
-starting `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all
-should have the same flag setting.
--->
-## 禁用此功能 {#disabling-the-feature}
-
-服务器端应用是一个 Beta 版特性，默认启用。
-要关闭此[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)，
-你需要在启动 `kube-apiserver` 时包含参数 `--feature-gates ServerSideApply=false`。
-如果你有多个 `kube-apiserver` 副本，它们的标志设置应该都相同。
-
