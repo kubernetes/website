@@ -29,7 +29,8 @@ Der Rest dieses Dokuments umreißt einige spezielle Vorgehensweisen dieser Rolle
 Jede SIG, auch die SIG Docs, wählt ein oder mehrere SIG-Mitglieder, die als
 Vorstand fungieren. Sie sind die Kontaktstellen zwischen der SIG Docs und anderen Teilen der
 der Kubernetes-Organisation. Sie benötigen umfassende Kenntnisse über die Struktur
-des Kubernetes-Projekts als Ganzes und wie SIG Docs darin arbeitet. Hier findest zu alle weiteren Informationen zu den aktuellen Vorsitzenden und der [Leitung](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
+des Kubernetes-Projekts als Ganzes und wie SIG Docs darin arbeitet. Hier findest alle weiteren Informationen zu den aktuellen Vorsitzenden und der [Leitung](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
+
 ## SIG Docs-Teams und Automatisierung
 
 Die Automatisierung in SIG Docs stützt sich auf zwei verschiedene Mechanismen:
