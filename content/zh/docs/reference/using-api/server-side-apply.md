@@ -18,9 +18,9 @@ min-kubernetes-server-version: 1.16
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-<!-- 
+<!--
 ## Introduction
 
 Server Side Apply helps users and controllers manage their resources through
