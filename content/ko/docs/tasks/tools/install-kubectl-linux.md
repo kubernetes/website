@@ -130,7 +130,7 @@ card:
 {{% /tab %}}
 
 {{< tab name="레드햇 기반의 배포판" codelang="bash" >}}
-sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
