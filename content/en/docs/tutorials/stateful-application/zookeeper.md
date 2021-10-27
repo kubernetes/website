@@ -266,7 +266,7 @@ to read the data from another.
 The command below executes the `zkCli.sh` script to write `world` to the path `/hello` on the `zk-0` Pod in the ensemble.
 
 ```shell
-kubectl exec zk-0 zkCli.sh create /hello world
+kubectl exec zk-0 -- zkCli.sh create /hello world
 ```
 
 ```
