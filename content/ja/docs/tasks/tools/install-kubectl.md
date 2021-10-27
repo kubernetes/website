@@ -65,7 +65,7 @@ echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/
 sudo apt-get update
 sudo apt-get install -y kubectl
 {{< /tab >}}
-{{< tab name="CentOS、RHELまたはFedora" codelang="bash" >}}sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+{{< tab name="CentOS、RHELまたはFedora" codelang="bash" >}}cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
