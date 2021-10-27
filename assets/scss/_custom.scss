@@ -313,33 +313,40 @@ main {
 
 // blockquotes and callouts
 
-.td-content, body {
-  blockquote.callout {
+body {
+  .alert {
+    // Override Docsy styles
     padding: 0.4rem 0.4rem 0.4rem 1rem;
-    border: 1px solid #eee;
-    border-left-width: 0.5em;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-radius: 0.25em;
+    border-left-width: 0.5em; // fallback in case calc() is missing
     background: #fff;
     color: #000;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
-  blockquote.callout {
-    border-radius: calc(1em/3);
+  // Set minimum width and radius for alert color
+  .alert {
+      border-left-width: calc(max(0.5em, 4px));
+      border-top-left-radius: calc(max(0.5em, 4px));
+      border-bottom-left-radius: calc(max(0.5em, 4px));
   }
-  .callout.caution {
+  .alert.callout.caution {
     border-left-color: #f0ad4e;
   }
-
-  .callout.note {
+  .alert.callout.note {
     border-left-color: #428bca;
   }
-
-  .callout.warning {
+  .alert.callout.warning {
     border-left-color: #d9534f;
   }
+  .alert.third-party-content {
+    border-left-color: #444;
+  }
 
-
-  h1:first-of-type + blockquote.callout {
+  h1:first-of-type + .alert.callout {
     margin-top: 1.5em;
   }
 }
@@ -367,7 +374,7 @@ main {
   background: #f8f9cb;
 }
 
-.deprecation-warning {
+.deprecation-warning, .pageinfo.deprecation-warning {
     padding: 20px;
     margin: 20px 0;
     background-color: #faf5b6;
@@ -376,6 +383,12 @@ main {
 
 body.td-home .deprecation-warning, body.td-blog .deprecation-warning, body.td-documentation .deprecation-warning {
     border-radius: 3px;
+}
+
+
+.td-documentation .td-content > .highlight {
+  max-width: initial;
+  width: 100%;
 }
 
 body.td-home #deprecation-warning {
@@ -671,5 +684,47 @@ body.td-documentation {
     background-color: inherit !important;
     color: inherit !important;
     font-size: inherit !important;
+  }
+}
+
+/* Force size constraints on figures */
+figure {
+  &.diagram-small img {
+    max-height: clamp(20mm,12em,80vh);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  &.diagram-medium img {
+    max-height: clamp(25mm,20em,80vh);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  &.diagram-large img {
+    max-width: clamp(0vw, 95vw, 100%);
+    max-height: calc(80vh - 8rem);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  figure {
+    &.diagram-small, &.diagram-medium {
+      max-width: 80%;
+    }
+    &.diagram-large {
+      max-width: 100%;
+      width: 100%;
+    }
+    &.diagram-small img {
+      max-width: clamp(30rem, 45ch, 100mm);
+    }
+    &.diagram-medium img {
+      max-width: clamp(50rem, 20ch, 160mm);
+    }
+    &.diagram-large img {
+      max-width: clamp(25vw, 95vw, 100%);
+      max-height: calc(100vh - 10rem);
+    }
   }
 }

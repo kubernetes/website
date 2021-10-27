@@ -261,7 +261,7 @@ The following restrictions apply when using this field:
 at a cluster level, you (or your cluster administrator) need to disable the 
 `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
 for the API server with `--feature-gates=NetworkPolicyEndPort=false,…`.
-* The `endPort` field must be equal than or greater to the `port` field.
+* The `endPort` field must be equal to or greater than the `port` field.
 * `endPort` can only be defined if `port` is also defined.
 * Both ports must be numeric.
 
