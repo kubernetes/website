@@ -68,14 +68,7 @@ Horizontal Pod Autoscaler는 컨트롤러
 
 HorizontalPodAutoscaler는 보통 일련의 API 집합(`metrics.k8s.io`,
 `custom.metrics.k8s.io`, `external.metrics.k8s.io`)에서 메트릭을 가져온다. `metrics.k8s.io` API는 대개 별도로
-시작해야 하는 메트릭-서버에 의해 제공된다. 가이드는
-[메트릭-서버](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-서버)를
-참조한다. HorizontalPodAutoscaler는 힙스터(Heapster)에서 직접 메트릭을 가져올 수도 있다.
-
-{{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
-힙스터에서 메트릭 가져오기는 Kubernetes 1.11에서 사용 중단(deprecated)됨.
-{{< /note >}}
+시작해야 하는 메트릭-서버에 의해 제공된다. 더 자세한 정보는 [메트릭-서버](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-서버)를 참조한다. 
 
 자세한 사항은 [메트릭 API를 위한 지원](#메트릭-api를-위한-지원)을 참조한다.
 
@@ -225,8 +218,7 @@ v1.12부터는 새로운 알고리즘 업데이트가 업스케일 지연에 대
 - `--horizontal-pod-autoscaler-downscale-delay` : 다운스케일이
   안정화되기까지의 시간 간격을 지정한다.
   Horizontal Pod Autoscaler는 이전의 권장하는 크기를 기억하고,
-  이 시간 간격에서의 가장 큰 크기에서만 작동한다.
-  기본값은 5분(`5m0s`)이다.
+  이 시간 간격에서의 가장 큰 크기에서만 작동한다. 기본값은 5분(`5m0s`)이다.
 
 {{< note >}}
 이러한 파라미터 값을 조정할 때 클러스터 운영자는 가능한 결과를 알아야
@@ -344,8 +336,6 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
      직접 작성하고 싶다면 [샘플](https://github.com/kubernetes-sigs/custom-metrics-apiserver)을 확인한다.
 
    * 외부 메트릭의 경우, 이것은 `external.metrics.k8s.io` API이다. 위에 제공된 사용자 정의 메트릭 어댑터에서 제공될 수 있다.
-
-* `--horizontal-pod-autoscaler-use-rest-clients`는 `true`이거나 설정되지 않음. 이것을 false로 설정하면 더 이상 사용되지 않는 힙스터 기반 오토스케일링으로 전환된다.
 
 이런 다양한 메트릭 경로와 각각의 다른 점에 대한 상세 내용은 관련 디자인 제안서인
 [HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),
