@@ -33,7 +33,7 @@ Tägliche Aufgaben in einer einwöchigen Schicht als PR Wrangler:
 
 Die folgenden Anfragen sind beim Wrangling hilfreich.
 Wenn du diese Anfragen abgearbeitet hast, ist die verbleibende Liste der zu prüfenden PRs meist klein.
-Diese Anfragen schließen Lokalisierungs-PRs aus. Alle Anfragen beziehen sich auf den Hauptast, außer der letzten.
+Diese Anfragen schließen Lokalisierungs-PRs aus. Alle Anfragen beziehen sich auf den `main`-Branch, außer der letzten.
 
 - [Kein CLA, nicht zusammenfürbar](https://github.com/kubernetes/website/pulls?q=is%3Aopen+ist%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3Alanguage%2Fen):
   Erinnere den Beitragenden daran, den CLA zu unterschreiben. Wenn sowohl der Bot als auch ein Mensch sie daran erinnert haben, schließe
@@ -44,12 +44,12 @@ Diese Anfragen schließen Lokalisierungs-PRs aus. Alle Anfragen beziehen sich au
 - [Hat LGTM, braucht die Zustimmung von Docs](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge%2Fwork-in-progress+-label%3Ado-not-merge%2Fhold+label%3Alanguage%2Fen+label%3Algtm+):
   Listet PRs auf, die einen `/approve`-Kommentar benötigen, um zusammengeführt zu werden.
 - [Quick Wins](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amain+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fen%22): Listet PRs gegen den Hauptzweig auf, die nicht eindeutig blockiert sind. (ändere "XS" in der Größenbezeichnung, wenn du dich durch die PRs arbeitest [XS, S, M, L, XL, XXL]).
-- [Nicht gegen den Hauptast](https://github.com/kubernetes/website/pulls?q=is%3Aopen+ist%3Apr+label%3Alanguage%2Fen+-base%3Amain): Wenn der PR gegen einen `dev-`Ast gerichtet ist, ist er für eine kommende Veröffentlichung. Weise diesen dem [Docs Release Manager](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles) zu: `/assign @<manager's_github-username>`. Wenn der PR gegen einen alten Ast gerichtet ist, hilf dem Autor herauszufinden, ob er auf den richtigen Ast gerichtet ist.
+- [Nicht gegen den `main`-Branch](https://github.com/kubernetes/website/pulls?q=is%3Aopen+ist%3Apr+label%3Alanguage%2Fen+-base%3Amain): Wenn der PR gegen einen `dev-`Ast gerichtet ist, ist er für eine kommende Veröffentlichung. Weise diesen dem [Docs Release Manager](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles) zu: `/assign @<manager's_github-username>`. Wenn der PR gegen einen alten Ast gerichtet ist, hilf dem Autor herauszufinden, ob er auf den richtigen Ast gerichtet ist.
 
 ### Hilfreiche Prow-Befehle für Wranglers
 
 ```
-# Englisches Label hinzufuegen
+# Englisches Label hinzufügen
 /language en
 
 # füge dem PR ein Squash-Label hinzu, wenn es mehr als einen Commit gibt
@@ -59,7 +59,7 @@ Diese Anfragen schließen Lokalisierungs-PRs aus. Alle Anfragen beziehen sich au
 /retitle [WIP] <TITLE>
 ```
 
-### Wann Pull Requests schließen
+### Wann sind Pull Requests zu schließen
 
 Reviews und Genehmigungen sind ein Mittel, um unsere PR-Warteschlange kurz und aktuell zu halten. Ein weiteres Mittel ist das Schließen.
 

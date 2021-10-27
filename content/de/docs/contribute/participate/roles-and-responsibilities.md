@@ -98,12 +98,12 @@ Du kannst ein Mitglied werden, nachdem du mindestens 5 substantielle Pull Reques
 
 ## Reviewer
 
-Reviewer (Rezensenten) sind dafür verantwortlich, offene Pull Requests zu überprüfen. Anders als bei den Mitgliedern
+Reviewer (Gutachteren) sind dafür verantwortlich, offene Pull Requests zu überprüfen. Anders als bei den Mitgliedern
 musst du auf das Feedback der Prüfer eingehen. Reviewer sind Mitglieder des
 [@kubernetes/sig-docs-{language}-reviews](https://github.com/orgs/kubernetes/teams?query=sig-docs)
 GitHub-Teams.
 
-Rezensenten können:
+Gutachteren können:
 
 - Alles tun, was unter [Jeder](#jeder) und [Member](#member) aufgeführt ist
 - Pull Requests überprüfen und verbindliches Feedback geben
