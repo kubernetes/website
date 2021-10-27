@@ -247,7 +247,7 @@ El modo proxy IPVS está basado en la función de enlace netfilter que es simila
 
 Esto significa que el kube-proxy en modo IPVS redirige el tráfico como menor latencia que el kube-proxy en modo iptables, con mejor desempeño cuando sincroniza las reglas proxy. Comparado con otros modos proxy, el modo IPVS también soporta un rendimiento más alto de tráfico de red.
 
-IPVS provee más opciones para balancear el tráfico a los Pods del backend; estos son:
+IPVS provee más opciones para balancear el tráfico a los Pods del backend; estas son:
 
 - `rr`: round-robin
 - `lc`: menor conexión (el número más pequeño de conexiones abiertas)
