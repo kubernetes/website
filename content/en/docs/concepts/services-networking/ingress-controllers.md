@@ -30,6 +30,7 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes) provides L4-L7 load-balancing using [VMware NSX Advanced Load Balancer](https://avinetworks.com/).
 * The [Citrix ingress controller](https://github.com/citrix/citrix-k8s-ingress-controller#readme) works with
   Citrix Application Delivery Controller.
+* [BFE Ingress Controller](https://github.com/bfenetworks/ingress-bfe) is a BFE(https://www.bfe-networks.net) based ingress controller.
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller.
 * [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
 * [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/ingresscontroller.md) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
