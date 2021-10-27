@@ -279,7 +279,7 @@ Created /hello
 To get the data from the `zk-1` Pod use the following command.
 
 ```shell
-kubectl exec zk-1 zkCli.sh get /hello
+kubectl exec zk-1 -- zkCli.sh get /hello
 ```
 
 The data that you created on `zk-0` is available on all the servers in the
