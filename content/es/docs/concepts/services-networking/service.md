@@ -512,7 +512,7 @@ Por defecto, `spec.loadBalancerClass` es `nil` y un tipo de Service `LoadBalance
 Si `spec.loadBalancerClass` está especificado, se asume que una implementación de un balanceador de carga que coincida con la clase especificada está observando los Services. Cualquier implementación por defecto del balanceador de carga (por ejemplo, la que es provista por el proveedor de la nube) ignorará los Services que tienen este campo establecido. `spec.loadBalancerClass` se puede establecer en cualquier Service de tipo `LoadBalancer` únicamente. Una vez hecho, no se puede cambiar.
 El valor de `spec.loadBalancerClass` debe ser un identificador de etiqueta, con un prefijo opcional como "`internal-vip`" o "`example.com/internal-vip`". Los nombres sin prefijo están reservados para usuarios finales.
 
-#### Balanceador de cargas interno
+#### Balanceador de carga interno
 
 En un ambiente mixto algunas veces es necesario enrutar el tráfico desde Services dentro del mismo bloque (virtual) de direcciones de red.
 
@@ -782,7 +782,7 @@ metadata:
 #### Soporte para Balanceador de Carga de Red (NLB) en AWS {#aws-nlb-support}
 
 {{< feature-state for_k8s_version="v1.15" state="beta" >}}
-Para usar un balanceador de cargas de Red en AWS, usa la anotación `service.beta.kubernetes.io/aws-load-balancer-type` con el valor fijado a `nlb`.
+Para usar un balanceador de carga de Red en AWS, usa la anotación `service.beta.kubernetes.io/aws-load-balancer-type` con el valor fijado a `nlb`.
 
 ```yaml
 metadata:
@@ -848,8 +848,8 @@ Hay otras anotaciones para administrar balanceadores de carga en la nube en TKE 
         # Parámetros personalizados para el listener LB
         service.kubernetes.io/service.listenerParameters: ""
 
-        # Especifica el tipo de balanceador de cargas;
-        # valores válidos: clásico (Balanceador de Cargas clásico) o aplicación (Balanceador de Cargas de aplicación de la nube)
+        # Especifica el tipo de balanceador de carga;
+        # valores válidos: clásico (Balanceador de Carga clásico) o aplicación (Balanceador de Carga de aplicación de la nube)
         service.kubernetes.io/loadbalance-type: xxxxx
 
         # Especifica método de pago el ancho de banda de la red pública;
@@ -1020,7 +1020,7 @@ También puedes usar {{< glossary_tooltip term_id="ingress" >}} en lugar de un S
 ### Protocolo PROXY
 Si tu proveedor de la nube lo soporta, puedes usar un Service en modo LoadBalancer para configurar un balanceador de carga fuera de Kubernetes mismo, que redirigirá las conexiones prefijadas con [protocolo PROXY](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt). 
 
-El balanceador de cargas enviará una serie inicial de octetos describiendo la conexión entrante, similar a este ejemplo
+El balanceador de carga enviará una serie inicial de octetos describiendo la conexión entrante, similar a este ejemplo
 
 ```
 PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
