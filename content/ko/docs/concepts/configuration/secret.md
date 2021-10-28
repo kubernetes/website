@@ -1156,8 +1156,8 @@ HTTP 요청을 처리하고, 복잡한 비즈니스 로직을 수행한 다음, 
 
 ### 시크릿 API를 사용하는 클라이언트
 
-시크릿 API와 상호 작용하는 애플리케이션을 배포할 때, 
-[RBAC](/docs/reference/access-authn-authz/rbac/)과 같은 
+시크릿 API와 상호 작용하는 애플리케이션을 배포할 때,
+[RBAC](/docs/reference/access-authn-authz/rbac/)과 같은
 [인가 정책](/ko/docs/reference/access-authn-authz/authorization/)을
 사용하여 접근을 제한해야 한다.
 
@@ -1235,10 +1235,6 @@ API 서버에서 kubelet으로의 통신은 SSL/TLS로 보호된다.
  - 시크릿을 사용하는 파드를 생성할 수 있는 사용자는 해당 시크릿의 값도 볼 수 있다.
    API 서버 정책이 해당 사용자가 시크릿을 읽을 수 있도록 허용하지 않더라도, 사용자는
    시크릿을 노출하는 파드를 실행할 수 있다.
- - 현재, 모든 노드에 대한 루트 권한이 있는 모든 사용자는 kubelet을 가장하여
-   API 서버에서 _모든_ 시크릿을 읽을 수 있다. 단일 노드에 대한 루트 취약점 공격의
-   영향을 제한하기 위해, 실제로 필요한 노드에만 시크릿을 보내는 것이 앞으로 계획된
-   기능이다.
 
 
 ## {{% heading "whatsnext" %}}

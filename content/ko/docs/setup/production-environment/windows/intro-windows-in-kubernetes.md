@@ -102,6 +102,8 @@ weight: 65
 
 Microsoft는 `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`에서
 윈도우 퍼즈 인프라 컨테이너를 유지한다.
+이외에도 `k8s.gcr.io/pause:3.5`를 통해 쿠버네티스에서 관리하는 다중 아키텍처 이미지를
+사용할 수도 있는데, 이 이미지는 리눅스와 윈도우를 모두 지원한다.
 
 #### 컴퓨트
 
