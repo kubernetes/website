@@ -123,7 +123,8 @@ To create a new secret perform the following steps:
 
 2. Place that value in the secret field.
 3. Set the `--encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file.
-4. Restart your API server.
+4. Edit /etc/kubernetes/manifests/kube-apiserver.yaml and add a mount path with the point to the location of the config file.
+5. Restart your API server.
 
 {{< caution >}}
 Your config file contains keys that can decrypt content in etcd, so you must properly restrict permissions on your masters so only the user who runs the kube-apiserver can read it.
