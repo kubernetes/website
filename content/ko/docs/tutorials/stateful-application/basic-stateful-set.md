@@ -122,7 +122,7 @@ web-1     1/1       Running   0         18s
 ```
 
 참고로 `web-1` 파드는 `web-0` 파드가 _Running_ ([파드의 단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계-phase) 참고)
-및 _Ready_ ([파드의 조건](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-조건-condition)에서 `type` 참고) 상태가 되기 전에 시작하지 않음을 주의하자.
+및 _Ready_ ([파드의 컨디션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-컨디션-condition)에서 `type` 참고) 상태가 되기 전에 시작하지 않음을 주의하자.
 
 ## 스테이트풀셋 안에 파드
 
