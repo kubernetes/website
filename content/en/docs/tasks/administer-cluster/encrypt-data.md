@@ -122,7 +122,7 @@ To create a new secret perform the following steps:
    ```
 
 2. Place that value in the secret field.
-3. Set the `--encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file. If your API server is running in a container, make sure that the config file is attached to the container.
+3. Set the `--encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file. If your API server is running in a container, make sure that the config file is mounted into to the container.
 4. Restart your API server.
 
 {{< caution >}}
