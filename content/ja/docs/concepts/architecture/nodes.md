@@ -248,7 +248,7 @@ Pod以外のプロセス用にリソースを明示的に予約したい場合�
 kubeletはリソースの割当を決定する際にトポロジーのヒントを利用できます。
 詳細は、[ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
 
-## Graceful node shutdown {#graceful-node-shutdown}
+## Graceful Node Shutdown {#graceful-node-shutdown}
 
 {{< feature-state state="beta" for_k8s_version="v1.21" >}}
 
@@ -256,10 +256,10 @@ kubeletは、ノードのシステムシャットダウンを検出すると、�
 
 Kubelet は、ノードのシャットダウン時に、ポッドが通常の[通常のポッド終了プロセス](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)に従うようにします。
 
-Graceful node shutdownはsystemdに依存しているため、[systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)を
+Graceful Node Shutdownはsystemdに依存しているため、[systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)を
 利用してノードのシャットダウンを一定時間遅らせることができます。
 
-Graceful node shutdownは、v1.21でデフォルトで有効になっている`GracefulNodeShutdown` [feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)で制御されます。
+Graceful Node Shutdownは、v1.21でデフォルトで有効になっている`GracefulNodeShutdown` [feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)で制御されます。
 
 なお、デフォルトでは、後述の設定オプション`ShutdownGracePeriod`および`ShutdownGracePeriodCriticalPods`の両方がゼロに設定されているため、Graceful node shutdownは有効になりません。この機能を有効にするには、この2つのkubeletの設定を適切に設定し、ゼロ以外の値を設定する必要があります。
 
@@ -268,7 +268,7 @@ Graceful shutdownには, kubeletは以下の2段階でPodを終了させます�
 1. そのノード上で動作している通常のPodを終了させます。
 2. そのノード上で動作している[critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)を終了させます。
 
-Graceful node shutdownには、2つの[`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)オプションを設定します。:
+Graceful Node Shutdownには、2つの[`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)オプションを設定します。:
 * `ShutdownGracePeriod`:
   *  ノードがシャットダウンを遅らせるべき合計期間を指定します。これは、通常のPodと[critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)の両方のPod終了の合計猶予期間です。
 * `ShutdownGracePeriodCriticalPods`:
@@ -279,7 +279,7 @@ kubeletはノードのシャットダウンを30秒遅らせます。シャッ�
 残りの10秒は重要なポッドを終了させるために確保されることになります。
 
 {{< note >}}
-Graceful node shutdown中にPodが退避された場合、それらのPodの`.status`は`Failed`になります。
+Graceful Node Shutdown中にPodが退避された場合、それらのPodの`.status`は`Failed`になります。
 `kubectl get pods`を実行すると、退避させられたPodのステータスが `Shutdown` と表示されます。
 また、`kubectl describe pod`を実行すると、ノードのシャットダウンのためにPodが退避されたことがわかります。
 
@@ -294,7 +294,7 @@ Message:        Node is shutting, evicting pods
 
 {{< /note >}}
 
-## Swap memory management {#swap-memory}
+## スワップメモリの管理 {#swap-memory}
 
 {{< feature-state state="alpha" for_k8s_version="v1.22" >}}
 
@@ -321,7 +321,7 @@ swapBehaviorで使用できる設定オプションは以下の通りです。:
 `memorySwap`の設定が指定されておらず、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、
 デフォルトのkubeletは`LimitedSwap`の設定と同じ動作を適用します。
 
-LimitedSwap`設定の動作は、ノードがコントロールグループ（「cgroups」とも呼ばれる）のv1とv2のどちらで動作しているかによって異なります。
+`LimitedSwap`設定の動作は、ノードがコントロールグループ（「cgroups」とも呼ばれる）のv1とv2のどちらで動作しているかによって異なります。
 
 Kubernetesのワークロードでは、メモリとスワップを組み合わせて使用することができ、ポッドのメモリ制限が設定されている場合はその制限まで使用できます。
 - **cgroupsv1:** Kubernetesのワークロードは、メモリとスワップを組み合わせて使用することができ、ポッドのメモリ制限が設定されている場合はその制限まで使用できます。
