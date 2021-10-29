@@ -519,13 +519,13 @@ work between Windows and Linux:
 * `securityContext.readOnlyRootFilesystem` -
    not possible on Windows; write access is required for registry & system
    processes to run inside the container
-* `EcurityContext.runAsGroup` -
+* `securityContext.runAsGroup` -
    not possible on Windows as there is no GID support
-* `ecurityContext.runAsNonRoot` -
-   Windows does not have a root user. The closest equivalent is `ContainerAdministrator`
-   which is an identity that doesn't exist on the node.
+* `securityContext.runAsNonRoot` -
+   this setting will prevent containers from running as `ContainerAdministrator`
+   which is the closest equivalent to a root user on Windows.
 * `securityContext.runAsUser` -
-   use [`runAsUsername`](/docs/tasks/configure-pod-container/configure-runasusername)
+   use [`runAsUserName`](/docs/tasks/configure-pod-container/configure-runasusername)
    instead
 * `securityContext.seLinuxOptions` -
    not possible on Windows as SELinux is Linux-specific
