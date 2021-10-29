@@ -248,7 +248,7 @@ Pod以外のプロセス用にリソースを明示的に予約したい場合�
 kubeletはリソースの割当を決定する際にトポロジーのヒントを利用できます。
 詳細は、[ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
 
-## Graceful Node Shutdown {#graceful-node-shutdown}
+## ノードの正常終了 {#graceful-node-shutdown}
 
 {{< feature-state state="beta" for_k8s_version="v1.21" >}}
 
