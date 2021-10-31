@@ -166,6 +166,7 @@ aliases:
     - xichengliudui
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
+    - edsoncelio
     - femrtnz
     - jailton
     - jcjesus
@@ -174,6 +175,7 @@ aliases:
     - rikatz
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
+    - edsoncelio
     - femrtnz
     - jailton
     - jcjesus

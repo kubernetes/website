@@ -356,7 +356,7 @@ You can use an existing public OpenID Connect Identity Provider (such as Google,
 Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
 [Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
-Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
+Tremolo Security's [OpenUnison](https://openunison.github.io/).
 
 For an identity provider to work with Kubernetes it must:
 

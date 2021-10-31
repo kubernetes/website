@@ -234,7 +234,7 @@ To overcome this situation, you can either increase the `maxSkew` or modify one 
 
 The scheduler will skip the non-matching nodes from the skew calculations if the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined.
 
-    Suppose you have a 5-node cluster ranging from zoneA to zoneC:
+Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 
     {{<mermaid>}}
     graph BT
@@ -268,7 +268,7 @@ The scheduler will skip the non-matching nodes from the skew calculations if the
     class zoneC cluster;
     {{< /mermaid >}}
 
-    and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
+and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
