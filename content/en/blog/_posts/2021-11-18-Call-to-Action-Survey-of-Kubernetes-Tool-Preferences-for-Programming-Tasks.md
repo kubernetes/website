@@ -19,6 +19,6 @@ Developer surveys, such as the [CNCF 2020 survey](https://www.cncf.io/wp-content
 
 Good candidates for participating in this survey include those that have any Kubernetes experience, anywhere from a beginner to an expert level. For beginners, even if you've only been using Kubernetes for a few weeks, we'd appreciate your feedback. We welcome participants with experience using any form of Kubernetes tools. Furthermore, we encourage others involved within open source Special Interest Groups (SIGs) for [CLIs](https://github.com/kubernetes/community/blob/master/sig-cli/README.md) and [Usability](https://github.com/kubernetes-sigs/sig-usability) to share the survey within the Kubernetes community. We are still recruiting survey participants with any experience using Kubernetes in their work.
 
-## [Take Our Survey](https://forms.gle/CcXwjx1Tftkp7KAW9)
+## Take Our Survey
 
-This quick, 2-minute survey is still open to willing participants. Your responses are important to help understand the combinations of tasks and tools preferred by Kubernetes developers. We appreciate any feedback you may have on our survey. Please reach out via email to ccoleman at ucsd.edu with any feedback or questions.
+This quick, 2-minute [Kubernetes Tasks and Tools survey](https://forms.gle/CcXwjx1Tftkp7KAW9) is still open to willing participants. Your responses are important to help understand the combinations of tasks and tools preferred by Kubernetes developers. We appreciate any feedback you may have on our survey. Please reach out via email to ccoleman at ucsd.edu with any feedback or questions.
