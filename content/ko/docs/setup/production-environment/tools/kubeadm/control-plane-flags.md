@@ -9,12 +9,12 @@ weight: 40
 <!-- overview -->
 
 이 페이지는 kubeadm이 배포하는 컴포넌트(component)들을 사용자 정의하는 방법을 다룬다. 컨트롤 플레인 컴포넌트에
-대해서는 `ClusterConfiguration` 구조에서 플래그를 사용하거나 노드당 패치를 사용할 수 있다. kubelet과
+대해서는 `Cluster Configuration` 구조에서 플래그를 사용하거나 노드당 패치를 사용할 수 있다. kubelet과
 kube-proxy의 경우, `KubeletConfiguration`과 `KubeProxyConfiguration`을 각각 사용할 수 있다.
 
 이 모든 옵션이 kubeadm 구성 API를 통해 가용하다.
 구성의 각 필드 상세 사항은
-[API 참조 페이지](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)에서 찾아볼 수 있다.
+[API 참조 페이지](/docs/reference/config-api/kubeadm-config.v1beta3/)에서 찾아볼 수 있다.
 
 {{< note >}}
 kubeadm의 CoreDNS 디플로이먼트 사용자 정의는 현재 제공되지 않는다.
@@ -202,7 +202,7 @@ kubeadm은 클러스터의 모든 노드에 동일한 `KubeletConfiguration`을 
 kube-proxy를 사용자 정의하려면, `KubeProxyConfiguration`을 `---`로 구분된 `ClusterConfiguration`이나 `InitConfiguration`
 다음에 두고 `kubeadm init`에 전달하면 된다.
 
-자세한 사항은 [API 참조 페이지](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)에서 살펴볼 수 있다.
+자세한 사항은 [API 참조 페이지](/docs/reference/config-api/kubeadm-config.v1beta3/)에서 살펴볼 수 있다.
 
 {{< note >}}
 kubeadm은 kube-proxy를 {{< glossary_tooltip text="데몬셋" term_id="daemonset" >}}으로 배포한다. 이것은

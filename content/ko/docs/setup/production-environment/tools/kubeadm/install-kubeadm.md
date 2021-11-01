@@ -10,7 +10,8 @@ card:
 
 <!-- overview -->
 
-<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">이 페이지에서는 `kubeadm` 툴박스를 설치하는 방법을 보여준다.
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
+이 페이지에서는 `kubeadm` 툴박스 설치 방법을 보여준다.
 이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm을 사용하여 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
 
 
@@ -31,6 +32,7 @@ card:
 <!-- steps -->
 
 ## MAC 주소 및 product_uuid가 모든 노드에 대해 고유한지 확인 {#verify-mac-address}
+
 * 사용자는 `ip link` 또는 `ifconfig -a` 명령을 사용하여 네트워크 인터페이스의 MAC 주소를 확인할 수 있다.
 * product_uuid는 `sudo cat /sys/class/dmi/id/product_uuid` 명령을 사용하여 확인할 수 있다.
 
@@ -65,31 +67,9 @@ sudo sysctl --system
 자세한 내용은 [네트워크 플러그인 요구 사항](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#네트워크-플러그인-요구-사항) 페이지를 참고한다.
 
 ## 필수 포트 확인 {#check-required-ports}
-
-### 컨트롤 플레인 노드
-
-| 프로토콜   | 방향       | 포트 범위    | 목적                      | 사용자                     |
-|----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | 인바운드    | 6443\*      | 쿠버네티스 API 서버         | 모두                       |
-| TCP      | 인바운드    | 2379-2380  | etcd 서버 클라이언트 API    | kube-apiserver, etcd      |
-| TCP      | 인바운드    | 10250      | kubelet API             | 자체, 컨트롤 플레인          |
-| TCP      | 인바운드    | 10251      | kube-scheduler          | 자체                      |
-| TCP      | 인바운드    | 10252      | kube-controller-manager | 자체                      |
-
-### 워커 노드
-
-| 프로토콜   | 방향       | 포트 범위      | 목적                   | 사용자                   |
-|----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | 인바운드    | 10250       | kubelet API           | 자체, 컨트롤 플레인        |
-| TCP      | 인바운드    | 30000-32767 | NodePort 서비스†        | 모두                     |
-
-† [NodePort 서비스](/ko/docs/concepts/services-networking/service/)의 기본 포트 범위.
-
-*로 표시된 모든 포트 번호는 재정의할 수 있으므로, 사용자 지정 포트도
-열려 있는지 확인해야 한다.
-
-etcd 포트가 컨트롤 플레인 노드에 포함되어 있지만, 외부 또는 사용자 지정 포트에서
-자체 etcd 클러스터를 호스팅할 수도 있다.
+[필수 포트들](/docs/reference/ports-and-protocols/)은
+쿠버네티스 컴포넌트들이 서로 통신하기 위해서 열려 있어야
+한다.
 
 사용자가 사용하는 파드 네트워크 플러그인(아래 참조)은 특정 포트를 열어야 할 수도
 있다. 이것은 각 파드 네트워크 플러그인마다 다르므로, 필요한 포트에 대한
