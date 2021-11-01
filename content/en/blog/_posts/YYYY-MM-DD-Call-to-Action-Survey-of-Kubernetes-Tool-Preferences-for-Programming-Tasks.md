@@ -2,7 +2,7 @@
 layout: blog
 title: "Call to Action: Survey of Kubernetes Tool Preferences for Programming Tasks"
 date: 2021-10-29
-slug: call-to-action-survey-of-kubernetes-tool-preferences-for-programming-tasks
+slug: kubernetes-crud-debugging-monitoring-tool-survey
 ---
 
 **Authors:** Cora Coleman (UCSD) and Nick Mitchell (IBM)
