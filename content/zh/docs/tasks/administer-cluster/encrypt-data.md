@@ -345,7 +345,7 @@ and restart all `kube-apiserver` processes. Then run
 并重新启动所有 `kube-apiserver` 进程。然后运行：
 
 ```
-kubectl get secrets -all-namespaces -o json | kubectl replace -f -`
+kubectl get secrets -all-namespaces -o json | kubectl replace -f -
 ```
 
 <!--
