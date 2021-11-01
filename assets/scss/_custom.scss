@@ -728,3 +728,13 @@ figure {
     }
   }
 }
+
+// Indent definition lists
+dl {
+  padding-left: 1.5em;
+
+  // Add vertical space before definitions
+  > *:not(dt) + dt, dt:first-child {
+    margin-top: 1.5em;
+  }
+}
