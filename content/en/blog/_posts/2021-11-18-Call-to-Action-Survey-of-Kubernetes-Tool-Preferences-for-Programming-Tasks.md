@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Call to Action: Survey of Kubernetes Tool Preferences for Programming Tasks"
-date: 2021-10-29
+date: 2021-11-18
 slug: kubernetes-crud-debugging-monitoring-tool-survey
 ---
 
