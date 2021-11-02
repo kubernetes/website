@@ -110,11 +110,9 @@ You can check for that kind of Event by running
 在 v1.20+ 版本，如果垃圾收集器检测到无效的跨名字空间的属主引用，
 或者一个集群范围的附属指定了一个名字空间范围类型的属主，
 那么它就会报告一个警告事件。该事件的原因是 `OwnerRefInvalidNamespace`，
-`involvedObject` 属性中包含无效的附属。你可以通过以下命令来获取该类型的事件：
-
-```shell
-kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace
-```
+`involvedObject` 属性中包含无效的附属。
+你可以运行 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace` 
+来获取该类型的事件。
 {{< /note >}}
 
 <!--
