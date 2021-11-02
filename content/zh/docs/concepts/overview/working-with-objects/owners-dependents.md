@@ -18,9 +18,9 @@ In Kubernetes, some objects are *owners* of other objects. For example, a
 of their owner. 
 -->
 
-在 Kubernetes 中，一些对象是其他对象的*属主*。
+在 Kubernetes 中，一些对象是其他对象的*属主（Owner）*。
 例如，{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} 是一组 Pod 的属主。
-具有属主的对象是属主的*附属* 。
+具有属主的对象是属主的*附属（Dependent）* 。
 
 <!--
 Ownership is different from the [labels and selectors](/docs/concepts/overview/working-with-objects/labels/)
@@ -32,10 +32,10 @@ an owner reference. Owner references help different parts of Kubernetes avoid
 interfering with objects they don’t control. 
 -->
 属主关系不同于一些资源使用的[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)机制。
-例如，考虑一个创建 `EndpointSlice` 对象的 Service。
-该 Service 使用标签来允许控制平面确定哪些 `EndpointSlice` 对象用于该 Service。
-除了标签，每个代表 Service 管理的 `EndpointSlice` 都有一个属主引用。
-属主引用避免 Kubernetes 的不同组成部分干扰到不受它们控制的对象。
+例如，有一个创建 `EndpointSlice` 对象的 Service，
+该 Service 使用标签来让控制平面确定，哪些 `EndpointSlice` 对象属于该 Service。
+除开标签，每个代表 Service 所管理的 `EndpointSlice` 都有一个属主引用。
+属主引用避免 Kubernetes 的不同部分干扰到不受它们控制的对象。
 
 <!--
 ## Owner references in object specifications
@@ -56,7 +56,7 @@ automatically manage the relationships.
 Kubernetes 自动为一些对象的附属资源设置属主引用的值，
 这些对象包含 ReplicaSet、DaemonSet、Deployment、Job、CronJob、ReplicationController 等。
 你也可以通过改变这个字段的值，来手动配置这些关系。
-然而，你通常不需要这么做，你可以让 Kubernetes 自动管理从属关系。
+然而，你通常不需要这么做，你可以让 Kubernetes 自动管理附属关系。
 
 <!--
 Dependent objects also have an `ownerReferences.blockOwnerDeletion` field that
@@ -72,12 +72,12 @@ A Kubernetes admission controller controls user access to change this field for
 dependent resources, based on the delete permissions of the owner. This control
 prevents unauthorized users from delaying owner object deletion.
 -->
-从属对象还有一个 `ownerReferences.blockOwnerDeletion` 字段，该字段使用布尔值，
+附属对象还有一个 `ownerReferences.blockOwnerDeletion` 字段，该字段使用布尔值，
 用于控制特定的附属对象是否可以阻止垃圾收集删除其属主对象。
 如果{{<glossary_tooltip text="控制器" term_id="controller">}}（例如 Deployment 控制器）
 设置了 `metadata.ownerReferences` 字段的值，Kubernetes 会自动设置
 `blockOwnerDeletion` 的值为 `true`。
-你也可以手动设置 `blockOwnerDeletion` 字段的值，以控制哪些从属对象阻止垃圾收集。
+你也可以手动设置 `blockOwnerDeletion` 字段的值，以控制哪些附属对象会阻止垃圾收集。
 
 {{< note >}}
 <!--
@@ -135,10 +135,10 @@ bound to a Pod.
 [Finalizer 规则](/zh/docs/concepts/overview/working-with-objects/finalizers/)。
 {{<glossary_tooltip text="Finalizer" term_id="finalizer">}} 
 防止意外删除你的集群所依赖的、用于正常运作的资源。
-例如， 如果你试图删除一个仍被 Pod 使用的 `PersistentVolume`，该资源不会被立即删除，
+例如，如果你试图删除一个仍被 Pod 使用的 `PersistentVolume`，该资源不会被立即删除，
 因为 `PersistentVolume` 有 `kubernetes.io/pv-protection` Finalizer。
 相反，它将进入 `Terminating` 状态，直到 Kubernetes 清除这个 Finalizer，
-而只有当 `PersistentVolume` 不再挂载到 Pod 上时才会发生。
+而这种情况只会发生在 `PersistentVolume` 不再被挂载到 Pod 上时。
 
 <!--
 Kubernetes also adds finalizers to an owner resource when you use either
