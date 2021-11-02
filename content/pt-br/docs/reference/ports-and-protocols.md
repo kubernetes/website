@@ -18,7 +18,7 @@ como por exemplo um data center on-premises com firewalls de rede físicos ou re
 | TCP      | Entrada   | 10259      | kube-scheduler          | kubeadm                      |
 | TCP      | Entrada   | 10257      | kube-controller-manager | kubeadm                      |
 
-Embora as portas do etcd estejam inclusas na secção da Camada de gerenciamento, você também 
+Embora as portas do etcd estejam inclusas na seção da Camada de gerenciamento, você também 
 pode hospedar o seu próprio cluster etcd externamente ou em portas customizadas. 
 
 ## Nós de processamento {#node}
