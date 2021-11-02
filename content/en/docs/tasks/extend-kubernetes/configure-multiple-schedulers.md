@@ -71,7 +71,7 @@ config. Save it as `my-scheduler.yaml`:
 
 {{< codenew file="admin/sched/my-scheduler.yaml" >}}
 
-In the above manifest, you use a [Scheduler Configuration](/docs/reference/scheduling/config/)
+In the above manifest, you use a [KubeSchedulerConfiguration](/docs/reference/scheduling/config/)
 to customize the behavior of your scheduler implementation. This configuration has been passed to
 the `kube-scheduler` during initialization with the `--config` option. The `my-scheduler-config` ConfigMap stores the configuration file. The Pod of the`my-scheduler` Deployment mounts the `my-scheduler-config` ConfigMap as a volume.
 
