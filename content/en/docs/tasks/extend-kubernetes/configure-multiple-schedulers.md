@@ -75,13 +75,15 @@ In the above manifest, you use a [Scheduler Configuration](/docs/reference/sched
 to customize the behavior of your scheduler implementation. This configuration has been passed to
 the `kube-scheduler` during initialization with the `--config` option. The `my-scheduler-config` ConfigMap stores the configuration file. The Pod of the`my-scheduler` Deployment mounts the `my-scheduler-config` ConfigMap as a volume.
 
-In the aforementioned Scheduler Configuration, your scheduler implementation has been represented via
+In the aforementioned Scheduler Configuration, your scheduler implementation is represented via
 a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta2/#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerProfile).
-An important thing to note here is that the name of the scheduler specified via `schedulerName` field of the defined `KubeSchedulerProfile`,
-should be unique among all schedulers running in the cluster. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether
-this scheduler is responsible for scheduling a particular pod.
+{{< note >}}
+To determine if a scheduler is responsible for scheduling a specific Pod, the `spec.schedulerName` field in a 
+PodTemplate or Pod manifest must match the `schedulerName` field of the `KubeSchedulerProfile`.
+All schedulers running in the cluster must have unique names.
+{{< /note >}}
 
-Also, note that we created a dedicated service account `my-scheduler` and bound the cluster role
+Also, note that you create a dedicated service account `my-scheduler` and bind the ClusterRole
 `system:kube-scheduler` to it so that it can acquire the same privileges as `kube-scheduler`.
 
 Please see the
