@@ -39,7 +39,7 @@ weight: 10
 [`.spec.minReadySeconds`](/ko/docs/concepts/workloads/controllers/deployment/#최소-대기-시간초)
 (기본값은 0),
 [`.spec.maxSurge`](/ko/docs/concepts/workloads/controllers/deployment/#최대-서지-max-surge)
-(베타 기능, 기본값은 25%)를 
+(베타 기능, 기본값은 0)를 
 설정할 수도 있다.
 
 ### `RollingUpdate` 업데이트 전략으로 데몬셋 생성

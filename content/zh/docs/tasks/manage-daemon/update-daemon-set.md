@@ -67,12 +67,12 @@ You may want to set
 [`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) 
 (default to 0) and 
 [`.spec.maxSurge`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-surge) 
-(a beta feature and defaults to 25%) as well.
+(a beta feature and defaults to 0) as well.
 -->
 你可能想设置
 [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh/docs/concepts/workloads/controllers/deployment/#max-unavailable) (默认为 1)，
 [`.spec.minReadySeconds`](/zh/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (默认为 0) 和
-[`.spec.maxSurge`](/zh/docs/concepts/workloads/controllers/deployment/#max-surge) (一种 Beta 阶段的特性，默认为 25%) 
+[`.spec.maxSurge`](/zh/docs/concepts/workloads/controllers/deployment/#max-surge) (一种 Beta 阶段的特性，默认为 0) 
 
 <!--
 ### Creating a DaemonSet with `RollingUpdate` update strategy
