@@ -182,7 +182,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    ```
 
 1. Add the following line to the bottom of the `/etc/hosts` file on
-   your computer (you will need adminstrator access):
+   your computer (you will need administrator access):
 
     ```
     172.17.0.15 hello-world.info

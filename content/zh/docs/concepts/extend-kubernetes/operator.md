@@ -214,6 +214,7 @@ Operator.
 
 * [Charmed Operator Framework](https://juju.is/)
 * [kubebuilder](https://book.kubebuilder.io/)
+* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that 
 you implement yourself
@@ -226,6 +227,7 @@ you implement yourself
 
 * [Charmed Operator Framework](https://juju.is/)
 * [kubebuilder](https://book.kubebuilder.io/)
+* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes 通用声明式 Operator)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)，可与 Webhooks 结合使用，以实现自己的功能。
 * [Operator Framework](https://operatorframework.io)

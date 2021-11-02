@@ -69,7 +69,11 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 ## Check required ports
 These
 [required ports](/docs/reference/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other.
+need to be open in order for Kubernetes components to communicate with each other. You can use telnet to check if a port is open. For example:
+
+```shell
+telnet 127.0.0.1 6443
+```
 
 The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the

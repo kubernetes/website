@@ -313,33 +313,40 @@ main {
 
 // blockquotes and callouts
 
-.td-content, body {
-  blockquote.callout {
+body {
+  .alert {
+    // Override Docsy styles
     padding: 0.4rem 0.4rem 0.4rem 1rem;
-    border: 1px solid #eee;
-    border-left-width: 0.5em;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-radius: 0.25em;
+    border-left-width: 0.5em; // fallback in case calc() is missing
     background: #fff;
     color: #000;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
-  blockquote.callout {
-    border-radius: calc(1em/3);
+  // Set minimum width and radius for alert color
+  .alert {
+      border-left-width: calc(max(0.5em, 4px));
+      border-top-left-radius: calc(max(0.5em, 4px));
+      border-bottom-left-radius: calc(max(0.5em, 4px));
   }
-  .callout.caution {
+  .alert.callout.caution {
     border-left-color: #f0ad4e;
   }
-
-  .callout.note {
+  .alert.callout.note {
     border-left-color: #428bca;
   }
-
-  .callout.warning {
+  .alert.callout.warning {
     border-left-color: #d9534f;
   }
+  .alert.third-party-content {
+    border-left-color: #444;
+  }
 
-
-  h1:first-of-type + blockquote.callout {
+  h1:first-of-type + .alert.callout {
     margin-top: 1.5em;
   }
 }
@@ -367,7 +374,7 @@ main {
   background: #f8f9cb;
 }
 
-.deprecation-warning {
+.deprecation-warning, .pageinfo.deprecation-warning {
     padding: 20px;
     margin: 20px 0;
     background-color: #faf5b6;
@@ -719,5 +726,15 @@ figure {
       max-width: clamp(25vw, 95vw, 100%);
       max-height: calc(100vh - 10rem);
     }
+  }
+}
+
+// Indent definition lists
+dl {
+  padding-left: 1.5em;
+
+  // Add vertical space before definitions
+  > *:not(dt) + dt, dt:first-child {
+    margin-top: 1.5em;
   }
 }
