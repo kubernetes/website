@@ -73,9 +73,7 @@ config. Save it as `my-scheduler.yaml`:
 
 In the above manifest, you use a [Scheduler Configuration](/docs/reference/scheduling/config/)
 to customize the behavior of your scheduler implementation. This configuration has been passed to
-the `kube-scheduler` during its initialization via `--config` command line argument. The configuration
-file has been embedded within the ConfigMap `my-scheduler-config` which has been injected to the scheduler
-Deployment via a volume.
+the `kube-scheduler` during initialization with the `--config` option. The `my-scheduler-config` ConfigMap stores the configuration file. The Pod of the`my-scheduler` Deployment mounts the `my-scheduler-config` ConfigMap as a volume.
 
 In the aforementioned Scheduler Configuration, your scheduler implementation has been represented via
 a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta2/#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerProfile).
