@@ -121,11 +121,7 @@ pod in this list.
 
 To run multiple-scheduler with leader election enabled, you must do the following:
 
-First, update the scheduler configuration (earlier you applied a
-`my-scheduler.yaml` file that included a ConfigMap named `my-scheduler-config`; the
-scheduler configuration is in YAML format, within the `data` field of that ConfigMap).
-
-The fields to change in the inner KubeSchedulerConfiguration are:
+Update the following fields for the KubeSchedulerConfiguration in the `my-scheduler-config` ConfigMap in your YAML file:
 
 * `leaderElection.leaderElect` to `true`
 * `leaderElection.resourceNamespace` to `<lock-object-namespace>`
