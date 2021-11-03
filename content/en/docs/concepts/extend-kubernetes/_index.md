@@ -68,14 +68,14 @@ clusters and managed installations.
 There is a specific pattern for writing client programs that work well with
 Kubernetes called the *Controller* pattern. Controllers typically read an
 object's `.spec`, possibly do things, and then update the object's `.status`.
+A controller is a client of Kubernetes.
 
-A controller is a client of Kubernetes. When Kubernetes is the client and
-calls out to a remote service, it is called a *Webhook*. The remote service
-is called a *Webhook Backend*. Like Controllers, Webhooks do add a point of
-failure.
+When Kubernetes is the client and calls out to a remote service, 
+it is called a *Webhook*. The remote serviceis called a *Webhook Backend*. 
+Like Controllers, Webhooks do add a point of failure.
 
-In the webhook model, Kubernetes makes a network request to a remote service.
-In the *Binary Plugin* model, Kubernetes executes a binary (program).
+In the *Webhook* pattern, Kubernetes makes a network request to a remote service.
+In the *Binary Plugin* pattern, Kubernetes executes a binary (program).
 Binary plugins are used by the kubelet (e.g.
 [Flex Volume Plugins](/docs/concepts/storage/volumes/#flexVolume)
 and [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))
