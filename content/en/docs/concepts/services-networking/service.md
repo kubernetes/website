@@ -973,6 +973,20 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
         # A comma-separated list of key-value pairs which will be recorded as
         # additional tags in the ELB.
+        
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol:
+        # Specifies health check protocol. Default is TCP for Local traffic policy and HTTP for cluster traffic policy. 
+        # NLB allows TCP/HTTP/HTTPS, ELB allows TCP/SSL/HTTP/HTTPS.
+        
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-port:
+        # Specify  health check port. 
+        # Defaults to traffic-port for Cluster, healthCheckNodePort for Local policy.
+        
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-path:
+        # specify the path for HTTP/HTTPS protocol. 
+        # Default value is "/" for Cluster mode 
+        # for Local mode the default value is "/healthz" . 
+        # If healthcheck protocol is TCP path gets ignored.
 
         service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
         # The number of successive successful health checks required for a backend to
