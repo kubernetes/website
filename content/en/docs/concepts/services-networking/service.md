@@ -974,19 +974,22 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # A comma-separated list of key-value pairs which will be recorded as
         # additional tags in the ELB.
         
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol:
-        # Specifies health check protocol. Default is TCP for Local traffic policy and HTTP for cluster traffic policy. 
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: "HTTP"
+        # Specifies health check protocol. 
+        # For externalTrafficPolicy: Local default is TCP 
+        # For externalTrafficPolicy: Cluster default is HTTP 
         # NLB allows TCP/HTTP/HTTPS, ELB allows TCP/SSL/HTTP/HTTPS.
         
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-port:
-        # Specify  health check port. 
-        # Defaults to traffic-port for Cluster, healthCheckNodePort for Local policy.
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "traffic-port"
+        # Specify health check port. 
+        # For externalTrafficPolicy: Cluster default is traffic-port 
+        # For externalTrafficPolicy: Local default is healthCheckNodePort
         
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-path:
-        # specify the path for HTTP/HTTPS protocol. 
-        # Default value is "/" for Cluster mode 
-        # for Local mode the default value is "/healthz" . 
-        # If healthcheck protocol is TCP path gets ignored.
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: "/"
+        # Specify the path for HTTP/HTTPS protocol. 
+        # For externalTrafficPolicy: Cluster mode the default value is "/" 
+        # For externalTrafficPolicy: Local the default value is "/healthz" 
+        # If healthcheck protocol is TCP, path gets ignored
 
         service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
         # The number of successive successful health checks required for a backend to
