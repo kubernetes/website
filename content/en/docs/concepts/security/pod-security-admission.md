@@ -13,13 +13,13 @@ min-kubernetes-server-version: v1.22
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 The Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/) define
 different isolation levels for Pods. These standards let you define how you want to restrict the
 behavior of pods in a clear, consistent fashion.
 
-As an Alpha feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
+As an Beta feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
 text="admission controller" term_id="admission-controller" >}}, the successor
 to [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/). Pod security restrictions
 are applied at the {{< glossary_tooltip text="namespace" term_id="namespace" >}} level when pods
@@ -32,14 +32,39 @@ The PodSecurityPolicy API is deprecated and will be
 
 <!-- body -->
 
-## Enabling the Alpha feature
+## Enabling the `PodSecurity` admission plugin
 
-Setting pod security controls by namespace is an alpha feature. You must enable the `PodSecurity`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in order to use it.
+In v1.23, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is a Beta feature and is enabled by default.
+
+In v1.22, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is an Alpha feature and must be enabled in `kube-apiserver` in order to use the built-in admission plugin.
 
 ```shell
 --feature-gates="...,PodSecurity=true"
 ```
+
+## Alternative: installing the `PodSecurity` admission webhook
+
+For environments where the built-in `PodSecurity` admission plugin cannot be used,
+either because the cluster is older than v1.22, or the `PodSecurity` feature cannot be enabled,
+the `PodSecurity` admission logic is also available as a Beta [validating admission webhook](https://git.k8s.io/pod-security-admission/webhook).
+
+A pre-built container image, certificate generation scripts, and example manifests
+are available at [https://git.k8s.io/pod-security-admission/webhook](https://git.k8s.io/pod-security-admission/webhook).
+
+To install:
+```shell
+git clone git@github.com:kubernetes/pod-security-admission.git
+cd pod-security-admission/webhook
+make certs
+kubectl apply -k .
+```
+
+{{< note >}}
+The generated certificate is valid for 2 years. Before it expires,
+regenerate the certificate or remove the webhook in favor of the built-in admission plugin.
+{{< /note >}}
 
 ## Pod Security levels
 
@@ -52,7 +77,7 @@ page for an in-depth look at those requirements.
 
 ## Pod Security Admission labels for namespaces
 
-Provided that you have enabled this feature, you can configure namespaces to define the admission
+Once the feature is enabled or the webhook is installed, you can configure namespaces to define the admission
 control mode you want to use for pod security in each namespace. Kubernetes defines a set of 
 {{< glossary_tooltip term_id="label" text="labels" >}} that you can set to define which of the 
 predefined Pod Security Standard levels you want to use for a namespace. The label you select
