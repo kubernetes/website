@@ -408,3 +408,16 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 이 두 개의 용도는 동일하고, 유사하게 동작하며, 레플리케이션 컨트롤러가 [레이블 사용자 가이드](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)에
 설명된 설정-기반의 셀렉터의 요건을 지원하지 않는다는 점을 제외하면 유사하다.
 따라서 레플리카셋이 레플리케이션 컨트롤러보다 선호된다.
+
+
+## {{% heading "whatsnext" %}}
+
+* [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
+* [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해 배운다.
+* 레플리카셋에 의존해서 동작하는 [디플로이먼트로 스테이트리스 애플리케이션을 실행한다](/ko/docs/tasks/run-application/run-stateless-application-deployment/).
+* `ReplicaSet`는 쿠버네티스 REST API의 상위-수준 리소스이다.
+  레플리카셋 API에 대해 이해하기 위해
+  {{< api-reference page="workload-resources/replica-set-v1" >}}
+  오브젝트 정의를 읽는다.
+* [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과
+  이를 사용해서 어떻게 중단 중에 애플리케이션 가용성을 관리할 수 있는지에 대해 읽는다.
