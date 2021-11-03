@@ -120,20 +120,6 @@ be down for the same period as the previous example (`08:29:00` to `10:21:00`,) 
 The CronJob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 
-## Controller version {#new-controller}
-
-Starting with Kubernetes v1.21 the second version of the CronJob controller
-is the default implementation. To disable the default CronJob controller
-and use the original CronJob controller instead, one pass the `CronJobControllerV2`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}},
-and set this flag to `false`. For example:
-
-```
---feature-gates="CronJobControllerV2=false"
-```
-
-
 ## {{% heading "whatsnext" %}}
 
 * Learn about [Pods](/docs/concepts/workloads/pods/) and

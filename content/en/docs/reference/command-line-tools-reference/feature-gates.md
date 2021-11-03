@@ -256,9 +256,6 @@ different Kubernetes components.
 | `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | 1.19 |
 | `CSIVolumeFSGroupPolicy` | `true` | Beta | 1.20 | 1.22 |
 | `CSIVolumeFSGroupPolicy` | `true` | GA | 1.23 | |
-| `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
-| `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
-| `CronJobControllerV2` | `true` | GA | 1.22 | - |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
@@ -558,10 +555,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   extended tokens by starting `kube-apiserver` with flag `--service-account-extend-token-expiration=false`.
   Check [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
    for more details.
-- `ControllerManagerLeaderMigration`: Enables Leader Migration for 
-  [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and 
-  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager) which allows a cluster operator to live migrate 
-  controllers from the kube-controller-manager into an external controller-manager 
+- `ControllerManagerLeaderMigration`: Enables Leader Migration for
+  [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
+  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager) which allows a cluster operator to live migrate
+  controllers from the kube-controller-manager into an external controller-manager
   (e.g. the cloud-controller-manager) in an HA cluster without downtime.
 - `CPUManager`: Enable container level CPU affinity support, see
   [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
@@ -666,9 +663,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for more details.
 - `ControllerManagerLeaderMigration`: Enables leader migration for
   `kube-controller-manager` and `cloud-controller-manager`.
-- `CronJobControllerV2`: Use an alternative implementation of the
-  {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} controller. Otherwise,
-  version 1 of the same controller is selected.
 - `CustomCPUCFSQuotaPeriod`: Enable nodes to change `cpuCFSQuotaPeriod` in
   [kubelet config](/docs/tasks/administer-cluster/kubelet-config-file/).
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
