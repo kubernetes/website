@@ -698,7 +698,7 @@ admission plugin, which allows preventing pods from running on specifically tain
 
 ### PodSecurity {#podsecurity}
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
 defined in the next section. This admission controller acts on creation and modification of the pod and
