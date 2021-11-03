@@ -18,7 +18,7 @@ draft](https://github.com/ietf-wg-acme/acme/).
 
 {{< note >}}
 Certificates created using the `certificates.k8s.io` API are signed by a
-dedicated CA. It is possible to configure your cluster to use the cluster root
+[dedicated CA](#a-note-to-cluster-administrators). It is possible to configure your cluster to use the cluster root
 CA for this purpose, but you should never rely on this. Do not assume that
 these certificates will validate against the cluster root CA.
 {{< /note >}}
@@ -37,12 +37,17 @@ these certificates will validate against the cluster root CA.
 
 ## Trusting TLS in a Cluster
 
-Trusting the custom CA from an application running as a pod usually requires
+Trusting the [custom CA](#a-note-to-cluster-administrators) from an application running as a pod usually requires
 some extra application configuration. You will need to add the CA certificate
 bundle to the list of CA certificates that the TLS client or server trusts. For
 example, you would do this with a golang TLS config by parsing the certificate
 chain and adding the parsed certificates to the `RootCAs` field in the
 [`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
+
+{{< note >}}
+If the cluster was setup using kubeadm, by default, the custom CA will be the same as the ConfigMap kube-root-ca.crt
+already placed into the filesystem tree of each container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`
+{{< /note >}}
 
 You can distribute the CA certificate as a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your
