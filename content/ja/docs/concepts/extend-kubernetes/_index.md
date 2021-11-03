@@ -50,12 +50,13 @@ Kubernetes APIに読み書きをするどのようなプログラムも、役に
 
 Kubernetes上でうまく動くクライアントプログラムを書くために、*コントローラー* パターンという明確なパターンがあります。
 コントローラーは通常、オブジェクトの `.spec` を読み取り、何らかの処理をして、オブジェクトの `.status` を更新します。
+コントローラーはKubernetesのクライアントです。
 
-コントローラーはKubernetesのクライアントです。Kubernetesがクライアントとして動き、外部のサービスを呼び出す場合、それは *Webhook* と呼ばれます。
+Kubernetesがクライアントとして動き、外部のサービスを呼び出す場合、それは *Webhook* と呼ばれます。
 呼び出されるサービスは *Webhookバックエンド* と呼ばれます。コントローラーのように、Webhookも障害点を追加します。
 
-Webhookのモデルでは、Kubernetesは外部のサービスを呼び出します。
-*バイナリプラグイン* モデルでは、Kubernetesはバイナリ(プログラム)を実行します。
+*Webhook* パターンでは、Kubernetesは外部のサービスを呼び出します。
+*バイナリプラグイン* パターンでは、Kubernetesはバイナリ(プログラム)を実行します。
 バイナリプラグインはkubelet(例、[FlexVolumeプラグイン](/docs/concepts/storage/volumes/#flexVolume)、[ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))、またkubectlで利用されています。
 
 下図は、それぞれの拡張ポイントが、Kubernetesのコントロールプレーンとどのように関わっているかを示しています。
