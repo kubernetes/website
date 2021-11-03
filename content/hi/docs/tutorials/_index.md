@@ -18,7 +18,7 @@ content_type: concept
 
 ## मूलभूत
 
-* [मूलभूत कुबरनेट्स](/hi/docs/tutorials/kubernetes-basics/) एक गहन इंटरैक्टिव ट्यूटोरियल है जो आपको कुबेरनेट्स प्रणाली को समझने और कुबेरनेट्स की कुछ बुनियादी सुविधाओं को आज़माने में मदद करता है।
+* [मूलभूत कुबरनेट्स](/hi/docs/tutorials/kubernetes-basics/) एक गहन संवादात्मक ट्यूटोरियल है जो आपको कुबेरनेट्स प्रणाली को समझने और कुबेरनेट्स की कुछ बुनियादी सुविधाओं को आज़माने में मदद करता है।
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
