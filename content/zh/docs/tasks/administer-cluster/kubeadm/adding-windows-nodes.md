@@ -262,44 +262,130 @@ curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/dow
 
 <!--
 ### Joining a Windows worker node
-
-You must install the `Containers` feature and install Docker. Instructions
-to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.mirantis.com/docker-enterprise/v3.1/dockeree-products/docker-engine-enterprise/dee-windows.html).
-
-All code snippets in Windows sections are to be run in a PowerShell environment
-with elevated permissions (Administrator) on the Windows worker node.
 -->
 ### 加入 Windows 工作节点   {#joining-a-windows-worker-node}
 
-你必须安装 `Containers` 功能特性并安装 Docker 工具。相关的指令可以在
-[Install Docker Engine - Enterprise on Windows Servers](https://hub.docker.com/editions/enterprise/docker-ee-server-windows)
-处找到。
-
+{{< note >}}
+<!--
+All code snippets in Windows sections are to be run in a PowerShell environment
+with elevated permissions (Administrator) on the Windows worker node.
+-->
 Windows 节的所有代码片段都需要在 PowerShell 环境中执行，并且要求在
 Windows 工作节点上具有提升的权限（Administrator）。
+{{< /note >}}
+
+{{< tabs name="tab-windows-kubeadm-runtime-installation" >}}
+{{% tab name="Docker EE" %}}
 
 <!--
-1. Install wins, kubelet, and kubeadm.
+#### Install Docker EE
+
+Install the `Containers` feature
 -->
-1. 安装 wins、kubelet 和 kubeadm
+#### 安装 Docker EE
+
+```powershell
+Install-WindowsFeature -Name containers
+```
+<!--
+Install Docker
+Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://hub.docker.com/editions/enterprise/docker-ee-server-windows).
+-->
+安装 Docker
+操作指南在 [Install Docker Engine - Enterprise on Windows Servers](https://hub.docker.com/editions/enterprise/docker-ee-server-windows)。
+
+<!--
+#### Install wins, kubelet, and kubeadm.
+-->
+#### 安装 wins、kubelet 和 kubeadm
 
    ```PowerShell
-   curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
    .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
    ```
 
 <!--
-1. Run `kubeadm` to join the node
+#### Run `kubeadm` to join the node
 
     Use the command that was given to you when you ran `kubeadm init` on a control plane host.
     If you no longer have this command, or the token has expired, you can run `kubeadm token create -print-join-command`
     (on a control plane host) to generate a new token and join command.
 -->
-2. 运行 `kubeadm` 添加节点
+#### 运行 `kubeadm` 添加节点
 
    当你在控制面主机上运行 `kubeadm init` 时，输出了一个命令。现在运行这个命令。
    如果你找不到这个命令，或者命令中对应的令牌已经过期，你可以（在一个控制面主机上）运行
    `kubeadm token create --print-join-command` 来生成新的令牌和 join 命令。
+
+{{% /tab %}}
+{{% tab name="CRI-containerD" %}}
+
+<!--
+#### Install containerD
+-->
+
+#### 安装 containerD
+
+```powershell
+curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/Install-Containerd.ps1
+.\Install-Containerd.ps1
+```
+
+{{< note >}}
+<!--
+To install a specific version of containerD specify the version with -ContainerDVersion.
+-->
+要安装特定版本的 containerD，使用参数 -ContainerDVersion指定版本。
+
+```powershell
+# Example
+.\Install-Containerd.ps1 -ContainerDVersion 1.4.1
+```
+
+{{< /note >}}
+
+{{< note >}}
+<!--
+If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") on the Windows nodes, specify the name with `-netAdapterName`.
+-->
+如果你在 Windows 节点上使用了与 Ethernet 不同的接口（例如 "Ethernet0 2"），使用参数 `-netAdapterName` 指定名称。
+
+```powershell
+# Example
+.\Install-Containerd.ps1 -netAdapterName "Ethernet0 2"
+```
+
+{{< /note >}}
+
+<!--
+#### Install wins, kubelet, and kubeadm
+-->
+#### 安装 wins，kubelet 和 kubeadm
+
+```PowerShell
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
+.\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
+```
+
+<!--
+#### Run `kubeadm` to join the node
+
+Use the command that was given to you when you ran `kubeadm init` on a control plane host.
+If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
+(on a control plane host) to generate a new token and join command.
+-->
+#### 运行 `kubeadm` 添加节点
+
+   使用当你在控制面主机上运行 `kubeadm init` 时得到的命令。
+   如果你找不到这个命令，或者命令中对应的令牌已经过期，你可以（在一个控制面主机上）运行
+   `kubeadm token create --print-join-command` 来生成新的令牌和 join 命令。
+
+{{< note >}}
+If using **CRI-containerD** add `--cri-socket "npipe:////./pipe/containerd-containerd"` to the kubeadm call
+{{< /note >}}
+
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 #### Verifying your installation
