@@ -83,8 +83,6 @@ different Kubernetes components.
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | |
-| `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | 1.19 |
-| `CSIVolumeFSGroupPolicy` | `true` | Beta | 1.20 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `CSRDuration` | `true` | Beta | 1.22 | |
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | 1.19 |
@@ -255,6 +253,9 @@ different Kubernetes components.
 | `CSIServiceAccountToken` | `false` | Alpha | 1.20 | 1.20 |
 | `CSIServiceAccountToken` | `true` | Beta | 1.21 | 1.21 |
 | `CSIServiceAccountToken` | `true` | GA | 1.22 | |
+| `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | 1.19 |
+| `CSIVolumeFSGroupPolicy` | `true` | Beta | 1.20 | 1.22 |
+| `CSIVolumeFSGroupPolicy` | `true` | GA | 1.23 | |
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
 | `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
 | `CronJobControllerV2` | `true` | GA | 1.22 | - |
