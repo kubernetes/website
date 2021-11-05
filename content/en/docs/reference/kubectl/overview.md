@@ -545,3 +545,4 @@ Current user: plugins-user
 * Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
 
 * To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
+
