@@ -94,5 +94,10 @@ You can disable this feature by removing the DaemonSet, using `kubectl delete -f
 
 ## StubDomains and Upstream server Configuration
 
-StubDomains and Upstream servers specified in the `kube-dns` configmap in the kube-system namespace will be automatically picked up by node-local-dns pods. The configmap contents need to follow the format shown [here](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1). The `node-local-dns` configmap can also be modified directly with the stubDomain configuration in the Corefile format. Some cloud-providers might not allow modifying `node-local-dns` configmap directly. In those cases, `kube-dns` configmap can be updated.
+StubDomains and upstream servers specified in the `kube-dns` ConfigMap in the `kube-system` namespace
+are automatically picked up by `node-local-dns` pods. The ConfigMap contents need to follow the format
+shown in [the example](/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1).
+The `node-local-dns` ConfigMap can also be modified directly with the stubDomain configuration
+in the Corefile format. Some cloud providers might not allow modifying `node-local-dns` ConfigMap directly.
+In those cases, the `kube-dns` ConfigMap can be updated.
  
