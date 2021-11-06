@@ -55,6 +55,9 @@ biblioteki to:
 * [Scheduler Policies](/docs/reference/scheduling/policies)
 * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
+* Spis [portów i protokołów](/docs/reference/ports-and-protocols/), które
+  muszą być otwarte dla warstwy sterowania i na węzłach roboczych
+
 ## API konfiguracji
 
 W tej części zebrano "niepublikowane" API, które służą do konfiguracji komponentów
