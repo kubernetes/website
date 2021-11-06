@@ -32,12 +32,14 @@ weight: 40
 그러나, 만약 파드의 `restartPolicy` 를 절대 하지 않음(Never)으로 설정하고, 해당 파드를 시작하는 동안 초기화 컨테이너가 실패하면, 쿠버네티스는 전체 파드를 실패한 것으로 처리한다.
 
 컨테이너를 초기화 컨테이너로 지정하기 위해서는,
-파드 스펙에 앱 `containers` 배열과 나란히 `initContainers` 필드를
-[컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-타입 오브젝트들의 JSON 배열로서 추가한다.
-초기화 컨테이너의 상태는 `.status.initContainerStatuses` 필드를
-통해서 컨테이너 상태 배열로 반환된다
-(`.status.containerStatuses` 필드와 유사하게).
+[파드 스펙](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)에 `initContainers` 필드를
+`container` 항목(앱 `container` 필드 및 내용과 유사한)들의 배열로서 추가한다.
+[컨테이너](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)에 대한 더 상세한 사항은
+API 레퍼런스를 참고한다.
+
+초기화 컨테이너의 상태는 컨테이너
+상태의 배열(`.status.containerStatuses` 필드와 유사)로 `.status.initContainerStatuses`
+필드에 반환된다.
 
 ### 일반적인 컨테이너와의 차이점
 
@@ -278,9 +280,11 @@ myapp-pod   1/1       Running   0          9m
 `readinessProbe` 가 사용되는 것을 금지한다. 초기화 컨테이너가 완료 상태와 준비성을
 구분해서 정의할 수 없기 때문이다. 이것은 유효성 검사 중에 시행된다.
 
-초기화 컨테이너들이 실패를
-영원히 지속하는 상황을 방지하기 위해서
-파드의 `activeDeadlineSeconds` 와 컨테이너의 `livenessProbe` 를 사용한다.
+초기화 컨테이너들이 실패를 영원히 지속하는 상황을 방지하기 위해서
+파드의 `activeDeadlineSeconds`를 사용한다.
+Active deadline은 초기화 컨테이너를 포함한다.
+그러나 사용자가 애플리케이션을 잡(job)으로 배포한 경우 `activeDeadlineSeconds`를 사용하길 추천한다. 왜냐하면, `activeDeadlineSeconds`는 초기화 컨테이너가 완료된 이후에도 영향을 주기 때문이다.
+이미 정상적으로 동작하고 있는 파드도 `activeDeadlineSeconds`를 설정한 경우 종료(killed)될 수 있다.
 
 파드 내의 각 앱과 초기화 컨테이너의 이름은 유일해야 한다. 어떤
 컨테이너가 다른 컨테이너와 같은 이름을 공유하는 경우 유효성 오류가 발생한다.
