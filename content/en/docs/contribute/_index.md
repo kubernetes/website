@@ -180,6 +180,7 @@ SIG Docs communicates with different methods:
 ## Other ways to contribute
 
 - Visit the [Kubernetes community site](/community/). Participate on Twitter or Stack Overflow, learn about local Kubernetes meetups and events, and more.
-- Read the [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) to get involved with Kubernetes feature development.
+- Read the [contributor cheatsheet](https://www.kubernetes.dev/docs/contributor-cheatsheet/) to get involved with Kubernetes feature development.
+- Visit the contributor site to learn more about [Kubernetes Contributors](https://www.kubernetes.dev/) and [additional contributor resources](https://www.kubernetes.dev/resources/).
 - Submit a [blog post or case study](/docs/contribute/new-content/blogs-case-studies/).
 
