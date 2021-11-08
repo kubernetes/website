@@ -359,7 +359,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     当你同时使用带索引的 Job（Indexed Job）与 {{< glossary_tooltip term_id="Service" >}}，
     Job 中的 Pods 可以通过 DNS 使用确切的主机名互相寻址。
   - 对于容器化的任务，在环境变量 `JOB_COMPLETION_INDEX` 中。
-  
+
   当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
   关于如何使用这种模式的更多信息，可参阅
   [用带索引的 Job 执行基于静态任务分配的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)。
@@ -854,7 +854,7 @@ directly a result of toggling the `.spec.suspend` field. In the time between
 these two events, we see that no Pods were created, but Pod creation restarted
 as soon as the Job was resumed.
 -->
-最后四个四件，特别是 "Suspended" 和 "Resumed" 事件，都是因为 `.spec.suspend`
+最后四个事件，特别是 "Suspended" 和 "Resumed" 事件，都是因为 `.spec.suspend`
 字段值被改来改去造成的。在这两个事件之间，我们看到没有 Pod 被创建，不过当
 Job 被恢复执行时，Pod 创建操作立即被重启执行。
 

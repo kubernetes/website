@@ -55,7 +55,7 @@ exists. If that Pod is deleted for any reason, and even if an identical replacem
 is created, the related thing (a volume, in this example) is also destroyed and
 created anew.
 
-{{< figure src="/images/docs/pod.svg" title="Pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" title="Pod diagram" class="diagram-medium" >}}
 
 *A multi-container Pod that contains a file puller and a
 web server that uses a persistent volume for shared storage between the containers.*

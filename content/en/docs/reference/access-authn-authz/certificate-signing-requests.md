@@ -274,10 +274,10 @@ kubectl get csr myuser -o jsonpath='{.status.certificate}'| base64 -d > myuser.c
 
 ### Create Role and RoleBinding
 
-With the certificate created. it is time to define the Role and RoleBinding for
+With the certificate created it is time to define the Role and RoleBinding for
 this user to access Kubernetes cluster resources.
 
-This is a sample script to create a Role for this new user:
+This is a sample command to create a Role for this new user:
 
 ```shell
 kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods

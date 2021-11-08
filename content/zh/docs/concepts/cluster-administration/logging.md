@@ -151,21 +151,25 @@ Kubernetes 并不负责轮转日志，而是通过部署工具建立一个解决
 <!--
 As an example, you can find detailed information about how `kube-up.sh` sets
 up logging for COS image on GCP in the corresponding
-[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh).
+[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh).
 -->
 例如，你可以找到关于 `kube-up.sh` 为 GCP 环境的 COS 镜像设置日志的详细信息，
 脚本为
-[`configure-helper` 脚本](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)。
+[`configure-helper` 脚本](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)。
 
 <!--
 When using a **CRI container runtime**, the kubelet is responsible for rotating the logs and managing the logging directory structure. The kubelet
-sends this information to the CRI container runtime and the runtime writes the container logs to the given location. The two kubelet flags `container-log-max-size` and `container-log-max-files` can be used to configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
+sends this information to the CRI container runtime and the runtime writes the container logs to the given location. 
+The two kubelet parameters [`containerLogMaxSize` and `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+in [kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/)
+can be used to configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
 -->
 当使用某 *CRI 容器运行时* 时，kubelet 要负责对日志进行轮换，并
 管理日志目录的结构。kubelet 将此信息发送给 CRI 容器运行时，后者
-将容器日志写入到指定的位置。kubelet 标志 `container-log-max-size`
-和 `container-log-max-files` 可以用来配置每个日志文件的最大长度
-和每个容器可以生成的日志文件个数上限。
+将容器日志写入到指定的位置。在 [kubelet 配置文件](/docs/tasks/administer-cluster/kubelet-config-file/)
+中的两个 kubelet 参数
+[`containerLogMaxSize` 和 `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+可以用来配置每个日志文件的最大长度和每个容器可以生成的日志文件个数上限。
 
 <!--
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
