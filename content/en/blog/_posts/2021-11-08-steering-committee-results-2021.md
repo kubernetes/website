@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Announcing the 2021 Steering Committee Election Results"
-date: 2020-11-08
+date: 2021-11-08
 slug: steering-committee-results-2021
 ---
 
