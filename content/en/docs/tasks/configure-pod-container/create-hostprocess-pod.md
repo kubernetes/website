@@ -2,12 +2,12 @@
 title: Create a Windows HostProcess Pod
 content_type: task
 weight: 20
-min-kubernetes-server-version: 1.22
+min-kubernetes-server-version: 1.23
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 Windows HostProcess containers enable you to run containerized 
 workloads on a Windows host. These containers operate as 
@@ -54,7 +54,7 @@ documentation for more details.
 --feature-gates=WindowsHostProcessContainers=true
 ```
 
-You can use the latest version of Containerd (v1.5.4+) with the following settings using the containerd 
+You can use the latest version of Containerd (v1.6+) with the following settings using the containerd 
 v2 configuration. Add these annotations to any runtime configurations were you wish to enable the 
 HostProcess container feature.
 
@@ -82,7 +82,7 @@ replace the `containerd-shim-runhcs-v1.exe` is installed at `$Env:ProgramFiles\c
 
 ## Limitations
 
-- HostProcess containers require version 1.5.4 or higher of the containerd {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
+- HostProcess containers require the latest version of containerd {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 - As of v1.22 HostProcess pods can only contain HostProcess containers. This is a current limitation 
 of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
 - HostProcess containers run as a process on the host and do not have any degree of 
