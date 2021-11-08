@@ -29,12 +29,9 @@ as of [version 1.20](
 https://kubernetes.io/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 and is planned to be removed in by 1.24, therefore to use Docker you need to
 be running an older version of Kubernetes.
-You can check out this [documentation](
-https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-to understand how this deprecation might affect you. For migrating from
-dockershim you can follow [this](
-https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/) 
-document to migrate from dockershim.
+Read the [Migrating from dockershim](
+/docs/tasks/administer-cluster/migrating-from-dockershim/) section to learn
+more about migrating to an alternative container runtime.
 {{< /note >}}
 
 {{< note >}}
