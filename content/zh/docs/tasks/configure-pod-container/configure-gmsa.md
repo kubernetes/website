@@ -480,7 +480,7 @@ kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
 ```
 
 <!--
-nltest.exe /parentdomain` results in the following error:
+`nltest.exe /parentdomain` results in the following error:
 -->
 `nltest.exe /parentdomain` 导致以下错误：
 ```
