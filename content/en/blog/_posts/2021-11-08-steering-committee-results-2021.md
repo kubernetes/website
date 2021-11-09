@@ -34,6 +34,8 @@ Thank you and congratulations on a successful election to this round’s electio
 * Noah Kantrowitz ([@coderanger](https://github.com/coderanger))
 * Josh Berkus ([@jberkus](https://github.com/jberkus))
 
+Special thanks to Arnaud Meukam ([@ameukam](https://github.com/ameukam)), k8s-infra liaison, who enabled our voting software on community-owned infrastructure.
+
 Thanks to the Emeritus Steering Committee Members. Your prior service is appreciated by the community:
 * Derek Carr ([@derekwaynecarr](https://github.com/derekwaynecarr))
 * Nikhita Raghunath ([@nikhita](https://github.com/nikhita))
