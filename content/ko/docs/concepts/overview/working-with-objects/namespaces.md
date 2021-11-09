@@ -59,6 +59,9 @@ kube-system       Active   1d
    * `kube-system` 쿠버네티스 시스템에서 생성한 오브젝트를 위한 네임스페이스
    * `kube-public` 이 네임스페이스는 자동으로 생성되며 모든 사용자(인증되지 않은 사용자 포함)가 읽기 권한으로 접근할 수 있다. 이 네임스페이스는 주로 전체 클러스터 중에 공개적으로 드러나서 읽을 수 있는 리소스를 위해 예약되어 있다. 이 네임스페이스의 공개적인 성격은 단지 관례이지 요구 사항은 아니다.
    * `kube-node-lease` 클러스터가 스케일링될 때 노드 하트비트의 성능을 향상시키는 각 노드와 관련된 리스(lease) 오브젝트에 대한 네임스페이스
+   * `kube-node-lease` 이 네임스페이스는 각 노드와 연관된 [리스](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
+      오브젝트를 갖는다. 노드 리스는 kubelet이 [하트비트](/ko/docs/concepts/architecture/nodes/#하트비트)를
+      보내서 컨트롤 플레인이 노드의 장애를 탐지할 수 있게 한다.
 
 ### 요청에 네임스페이스 설정하기
 

@@ -230,20 +230,9 @@ graph BT
 
 이 상황을 극복하기 위해서는 사용자가 `maxSkew` 의 증가 또는 `whenUnsatisfiable: ScheduleAnyway` 를 사용하도록 제약 조건 중 하나를 수정할 수 있다.
 
-### 규칙
+### 노드 어피니티(Affinity) 및 노드 셀렉터(Selector)와의 상호 작용
 
-여기에 주목할만한 몇 가지 암묵적인 규칙이 있다.
-
-- 신규 파드와 같은 네임스페이스를 갖는 파드만이 매칭의 후보가 된다.
-
-- `topologySpreadConstraints[*].topologyKey` 가 없는 노드는 무시된다. 이것은 다음을 의미한다.
-
-  1. 이러한 노드에 위치한 파드는 "maxSkew" 계산에 영향을 미치지 않는다. - 위의 예시에서, "node1"은 "zone" 레이블을 가지고 있지 않다고 가정하면, 파드 2개는 무시될 것이고, 이런 이유로 신규 파드는 "zoneA"로 스케줄된다.
-  2. 신규 파드는 이런 종류의 노드에 스케줄 될 기회가 없다. - 위의 예시에서, 레이블로 `{zone-typo: zoneC}` 를 가지는 "node5"가 클러스터에 편입한다고 가정하면, 레이블 키에 "zone"이 없기 때문에 무시하게 된다.
-
-- 들어오는 파드의 `topologySpreadConstraints[*].labelSelector` 와 자체 레이블과 일치하지 않을 경우 어떻게 되는지 알고 있어야 한다. 위의 예시에서, 만약 들어오는 파드의 레이블을 제거하더라도 여전히 제약 조건이 충족하기 때문에 "zoneB"에 배치할 수 있다. 그러나, 배치 이후에도 클러스터의 불균형 정도는 변경되지 않는다. - 여전히 zoneA는 {foo:bar} 레이블을 가지고 있는 2개의 파드를 가지고 있고, zoneB 도 {foo:bar}를 레이블로 가지는 파드 1개를 가지고 있다. 따라서 만약 예상과 다르면, 워크로드의 `topologySpreadConstraints[*].labelSelector` 가 자체 레이블과 일치하도록 하는 것을 권장한다.
-
-- 만약 신규 파드에 `spec.nodeSelector` 또는 `spec.affinity.nodeAffinity` 가 정의되어 있으면, 일치하지 않는 노드는 무시하게 된다.
+스케줄러는 신규 파드에 `spec.nodeSelector` 또는 `spec.affinity.nodeAffinity`가 정의되어 있는 경우, 부합하지 않는 노드들을 차이(skew) 계산에서 생략한다.
 
     zoneA 에서 zoneC에 걸쳐있고, 5개의 노드를 가지는 클러스터가 있다고 가정한다.
 
@@ -282,6 +271,21 @@ graph BT
     그리고 알다시피 "zoneC"는 제외해야 한다. 이 경우에, "mypod"가 "zoneC"가 아닌 "zoneB"에 배치되도록 yaml을 다음과 같이 구성할 수 있다. 마찬가지로 `spec.nodeSelector` 도 존중된다.
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+
+스케줄러는 클러스터에 있는 모든 영역(zone) 또는 다른 토폴로지 도메인에 대한 사전 지식이 없다. 스케줄링은 클러스터의 기존 노드에서 결정된다. 노드 풀(또는 노드 그룹)이 0개의 노드로 스케일(scale)되고 사용자는 노드가 확장될 것으로 예상하는 경우, 자동 스케일되는 클러스터에서 문제가 발생할 수 있다. 이러한 토폴로지 도메인은 스케줄링에서 해당 도메인에 노드가 하나 이상 있을 때까지 고려되지 않을 것이기 때문이다.
+
+### 기타 눈에 띄는 의미(semantics)
+
+여기에 주목할만한 몇 가지 암묵적인 규칙이 있다.
+
+- 신규 파드와 같은 네임스페이스를 갖는 파드만이 매칭의 후보가 된다.
+
+- `topologySpreadConstraints[*].topologyKey` 가 없는 노드는 무시된다. 이것은 다음을 의미한다.
+
+  1. 이러한 노드에 위치한 파드는 "maxSkew" 계산에 영향을 미치지 않는다. - 위의 예시에서, "node1"은 "zone" 레이블을 가지고 있지 않다고 가정하면, 파드 2개는 무시될 것이고, 이런 이유로 신규 파드는 "zoneA"로 스케줄된다.
+  2. 신규 파드는 이런 종류의 노드에 스케줄 될 기회가 없다. - 위의 예시에서, 레이블로 `{zone-typo: zoneC}` 를 가지는 "node5"가 클러스터에 편입한다고 가정하면, 레이블 키에 "zone"이 없기 때문에 무시하게 된다.
+
+- 들어오는 파드의 `topologySpreadConstraints[*].labelSelector` 와 자체 레이블과 일치하지 않을 경우 어떻게 되는지 알고 있어야 한다. 위의 예시에서, 만약 들어오는 파드의 레이블을 제거하더라도 여전히 제약 조건이 충족하기 때문에 "zoneB"에 배치할 수 있다. 그러나, 배치 이후에도 클러스터의 불균형 정도는 변경되지 않는다. - 여전히 zoneA는 {foo:bar} 레이블을 가지고 있는 2개의 파드를 가지고 있고, zoneB 도 {foo:bar}를 레이블로 가지는 파드 1개를 가지고 있다. 따라서 만약 예상과 다르면, 워크로드의 `topologySpreadConstraints[*].labelSelector` 가 자체 레이블과 일치하도록 하는 것을 권장한다.
 
 ### 클러스터 수준의 기본 제약 조건
 

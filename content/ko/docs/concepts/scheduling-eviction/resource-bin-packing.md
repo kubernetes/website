@@ -93,9 +93,9 @@ shape:
 
 ``` yaml
 resources:
-  - name: CPU
+  - name: cpu
     weight: 1
-  - name: Memory
+  - name: memory
     weight: 1
 ```
 
@@ -105,9 +105,9 @@ resources:
 resources:
   - name: intel.com/foo
     weight: 5
-  - name: CPU
+  - name: cpu
     weight: 3
-  - name: Memory
+  - name: memory
     weight: 1
 ```
 
@@ -124,16 +124,16 @@ resources:
 
 ```
 intel.com/foo : 2
-Memory: 256MB
-CPU: 2
+memory: 256MB
+cpu: 2
 ```
 
 리소스의 가중치는 다음과 같다.
 
 ```
 intel.com/foo : 5
-Memory: 1
-CPU: 3
+memory: 1
+cpu: 3
 ```
 
 FunctionShapePoint {{0, 0}, {100, 10}}
@@ -143,13 +143,13 @@ FunctionShapePoint {{0, 0}, {100, 10}}
 ```
 Available:
   intel.com/foo: 4
-  Memory: 1 GB
-  CPU: 8
+  memory: 1 GB
+  cpu: 8
 
 Used:
   intel.com/foo: 1
-  Memory: 256MB
-  CPU: 1
+  memory: 256MB
+  cpu: 1
 ```
 
 노드 점수는 다음과 같다.
@@ -159,16 +159,16 @@ intel.com/foo  = resourceScoringFunction((2+1),4)
                = (100 - ((4-3)*100/4)
                = (100 - 25)
                = 75                       # requested + used = 75% * available
-               = rawScoringFunction(75)
-               = 7                        # floor(75/10)
+               = rawScoringFunction(75) 
+               = 7                        # floor(75/10) 
 
-Memory         = resourceScoringFunction((256+256),1024)
+memory         = resourceScoringFunction((256+256),1024)
                = (100 -((1024-512)*100/1024))
                = 50                       # requested + used = 50% * available
                = rawScoringFunction(50)
                = 5                        # floor(50/10)
 
-CPU            = resourceScoringFunction((2+1),8)
+cpu            = resourceScoringFunction((2+1),8)
                = (100 -((8-3)*100/8))
                = 37.5                     # requested + used = 37.5% * available
                = rawScoringFunction(37.5)
@@ -183,12 +183,12 @@ NodeScore   =  (7 * 5) + (5 * 1) + (3 * 3) / (5 + 1 + 3)
 ```
 Available:
   intel.com/foo: 8
-  Memory: 1GB
-  CPU: 8
+  memory: 1GB
+  cpu: 8
 Used:
   intel.com/foo: 2
-  Memory: 512MB
-  CPU: 6
+  memory: 512MB
+  cpu: 6
 ```
 
 노드 점수는 다음과 같다.
@@ -207,7 +207,7 @@ Memory         = resourceScoringFunction((256+512),1024)
                = rawScoringFunction(75)
                = 7
 
-CPU            = resourceScoringFunction((2+6),8)
+cpu            = resourceScoringFunction((2+6),8)
                = (100 -((8-8)*100/8))
                = 100
                = rawScoringFunction(100)
