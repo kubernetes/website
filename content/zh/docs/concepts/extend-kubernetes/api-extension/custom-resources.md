@@ -327,9 +327,9 @@ Kubernetes API 主服务器能够处理诸如 *pods* 和 *services* 这些内置
 按通用的方式通过 [CRD](#customresourcedefinitions) 来处理定制资源。
 
 [聚合层（Aggregation Layer）](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-使得你可以通过编写和部署你自己的独立的 API 服务器来为定制资源提供特殊的实现。
-主 API 服务器将针对你要处理的定制资源的请求全部委托给你来处理，同时将这些资源
-提供给其所有客户。
+使得你可以通过编写和部署你自己的 API 服务器来为定制资源提供特殊的实现。
+主 API 服务器将针对你要处理的定制资源的请求全部委托给你自己的 API 服务器来处理，同时将这些资源
+提供给其所有客户端。
 
 <!--
 ## Choosing a method for adding custom resources
