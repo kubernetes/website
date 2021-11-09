@@ -129,7 +129,7 @@ curl을 할 수 있을 것이다. 서비스 IP는 완전히 가상이므로 외�
 
 쿠버네티스는 서비스를 찾는 두 가지 기본 모드인 환경 변수와 DNS를
 지원한다. 전자는 기본적으로 작동하지만 후자는
-[CoreDNS 클러스터 애드온](https://releases.k8s.io/master/cluster/addons/dns/coredns)이 필요하다.
+[CoreDNS 클러스터 애드온](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)이 필요하다.
 {{< note >}}
 만약 서비스 환경 변수가 필요하지 않은 경우(소유한 프로그램과의 예상되는 충돌 가능성,
 처리할 변수가 너무 많은 경우, DNS만 사용하는 경우 등) [파드 사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)에서

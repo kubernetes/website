@@ -61,6 +61,11 @@ v1.19부터 컨피그맵 정의에 `immutable` 필드를 추가하여
 기반으로 해당 파드의 컨테이너를 구성할 수 있다. 파드와 컨피그맵은
 동일한 {{< glossary_tooltip text="네임스페이스" term_id="namespace" >}}에 있어야 한다.
 
+{{< note >}}
+{{< glossary_tooltip text="스태틱(static) 파드" term_id="static-pod" >}}의 `spec`은 컨피그맵
+또는 다른 API 오브젝트를 참조할 수 없다.
+{{< /note >}}
+
 다음은 단일 값을 가진 키와,
 값이 구성 형식의 일부처럼 보이는 키를 가진 컨피그맵의
 예시이다.

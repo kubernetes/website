@@ -77,7 +77,7 @@ weight: 30
 시크릿을 생성할 때, [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 리소스의 `type` 필드를 사용하거나, (활용 가능하다면) `kubectl` 의
 유사한 특정 커맨드라인 플래그를 사용하여 시크릿의 타입을 명시할 수 있다.
-시크릿 타입은 시크릿 데이터의 프로그래믹 처리를 촉진시키기 위해 사용된다.
+시크릿 타입은 여러 종류의 기밀 데이터를 프로그래밍 방식으로 용이하게 처리하기 위해 사용된다.
 
 쿠버네티스는 일반적인 사용 시나리오를 위해 몇 가지 빌트인 타입을 제공한다.
 이 타입은 쿠버네티스가 부과하여 수행되는 검증 및 제약에
@@ -212,7 +212,8 @@ data:
 kubectl create secret docker-registry secret-tiger-docker \
   --docker-username=tiger \
   --docker-password=pass113 \
-  --docker-email=tiger@acme.com
+  --docker-email=tiger@acme.com \
+  --docker-server=my-registry.example:5000
 ```
 
 이 커맨드는 `kubernetes.io/dockerconfigjson` 타입의 시크릿을 생성한다.
@@ -222,15 +223,21 @@ kubectl create secret docker-registry secret-tiger-docker \
 
 ```json
 {
-  "auths": {
-    "https://index.docker.io/v1/": {
-      "username": "tiger",
-      "password": "pass113",
-      "email": "tiger@acme.com",
-      "auth": "dGlnZXI6cGFzczExMw=="
-    }
-  }
+    "apiVersion": "v1",
+    "data": {
+        ".dockerconfigjson": "eyJhdXRocyI6eyJteS1yZWdpc3RyeTo1MDAwIjp7InVzZXJuYW1lIjoidGlnZXIiLCJwYXNzd29yZCI6InBhc3MxMTMiLCJlbWFpbCI6InRpZ2VyQGFjbWUuY29tIiwiYXV0aCI6ImRHbG5aWEk2Y0dGemN6RXhNdz09In19fQ=="
+    },
+    "kind": "Secret",
+    "metadata": {
+        "creationTimestamp": "2021-07-01T07:30:59Z",
+        "name": "secret-tiger-docker",
+        "namespace": "default",
+        "resourceVersion": "566718",
+        "uid": "e15c1d7b-9071-4100-8681-f3a7a2ce89ca"
+    },
+    "type": "kubernetes.io/dockerconfigjson"
 }
+
 ```
 
 ### 기본 인증 시크릿
@@ -834,6 +841,9 @@ kubelet은 API 서버에서 시크릿을 가져오는 파드에 대한
 파드가 포함된다. kubelet의 `--manifest-url` 플래그, `--config` 플래그 또는
 kubectl의 REST API(이 방법들은 파드를 생성하는 일반적인 방법이 아님)로
 생성된 파드는 포함하지 않는다.
+{{< glossary_tooltip text="스태틱(static) 파드" term_id="static-pod" >}}의 `spec`은 컨피그맵
+또는 다른 API 오브젝트를 참조할 수 없다.
+
 
 시크릿은 optional(선택 사항)로 표시되지 않는 한 파드에서 환경
 변수로 사용되기 전에 생성되어야 한다. 존재하지 않는 시크릿을
@@ -1252,3 +1262,4 @@ API 서버에서 kubelet으로의 통신은 SSL/TLS로 보호된다.
 - [`kubectl` 을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
 - [구성 파일을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
 - [kustomize를 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기
+- [API 레퍼런스](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)에서 `Secret`에 대해 읽기

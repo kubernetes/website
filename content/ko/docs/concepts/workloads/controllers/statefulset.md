@@ -297,3 +297,19 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 * [스테이트풀 애플리케이션의 배포](/ko/docs/tutorials/stateful-application/basic-stateful-set/)의 예시를 따른다.
 * [카산드라와 스테이트풀셋 배포](/ko/docs/tutorials/stateful-application/cassandra/)의 예시를 따른다.
 * [레플리케이티드(replicated) 스테이트풀 애플리케이션 실행하기](/docs/tasks/run-application/run-replicated-stateful-application/)의 예시를 따른다.
+
+* [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
+* 스테이트풀셋을 사용하는 방법을 알아본다.
+  * [스테이트풀셋 애플리케이션 배포](/ko/docs/tutorials/stateful-application/basic-stateful-set/) 예제를 따라한다.
+  * [스테이트풀셋으로 카산드라 배포](/ko/docs/tutorials/stateful-application/cassandra/) 예제를 따라한다.
+  * [복제된 스테이트풀셋 애플리케이션 구동하기](/docs/tasks/run-application/run-replicated-stateful-application/) 예제를 따라한다.
+  * [스테이트풀셋 확장하기](/docs/tasks/run-application/scale-stateful-set/)에 대해 배운다.
+  * [스테이트풀셋을 삭제하면](/ko/docs/tasks/run-application/delete-stateful-set/) 어떤 일이 수반되는지를 배운다.
+  * [스토리지의 볼륨을 사용하는 파드 구성](/ko/docs/tasks/configure-pod-container/configure-volume-storage/)을 하는 방법을 배운다.
+  * [스토리지로 퍼시스턴트볼륨(PersistentVolume)을 사용하도록 파드 설정](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)하는 방법을 배운다.
+* `StatefulSet`은 쿠버네티스 REST API의 상위-수준 리소스이다.
+  스테이트풀셋 API에 대해 이해하기 위해 
+  {{< api-reference page="workload-resources/stateful-set-v1" >}}
+  오브젝트 정의를 읽는다.
+* [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과
+  이를 사용해서 어떻게 중단 중에 애플리케이션 가용성을 관리할 수 있는지에 대해 읽는다.
