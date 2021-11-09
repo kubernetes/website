@@ -152,8 +152,7 @@ containerd or CRI-O and ensure that it is running within the user namespace befo
 
 Running CRI plugin of containerd in a user namespace is supported since containerd 1.4.
 
-Running containerd within a user namespace requires the following configurations
-in `/etc/containerd/config.toml`.
+Running containerd within a user namespace requires the following configurations.
 
 ```toml
 version = 2
@@ -176,6 +175,9 @@ version = 2
   SystemdCgroup = false
 ```
 
+The default path of the configuration file is `/etc/containerd/config.toml`.
+The path can be specified with `containerd -c /path/to/containerd/config.toml`.
+
 {{% /tab %}}
 {{% tab name="CRI-O" %}}
 
@@ -183,7 +185,7 @@ Running CRI-O in a user namespace is supported since CRI-O 1.22.
 
 CRI-O requires an environment variable `_CRIO_ROOTLESS=1` to be set.
 
-The following configurations (in `/etc/crio/crio.conf`) are also recommended:
+The following configurations are also recommended:
 
 ```toml
 [crio]
@@ -197,6 +199,8 @@ The following configurations (in `/etc/crio/crio.conf`) are also recommended:
   cgroup_manager = "cgroupfs"
 ```
 
+The default path of the configuration file is `/etc/crio/crio.conf`.
+The path can be specified with `crio --config /path/to/crio/crio.conf`.
 {{% /tab %}}
 {{< /tabs >}}
 
