@@ -141,6 +141,7 @@ the host with an external port forwarder, such as RootlessKit, slirp4netns, or
 You can use the port forwarder from K3s.
 See [Running K3s in Rootless Mode](https://rancher.com/docs/k3s/latest/en/advanced/#known-issues-with-rootless-mode)
 for more details.
+The implementation can be found in [the `pkg/rootlessports` package](https://github.com/k3s-io/k3s/blob/v1.22.3+k3s1/pkg/rootlessports/controller.go) of k3s.
 
 ### Configuring CRI
 
