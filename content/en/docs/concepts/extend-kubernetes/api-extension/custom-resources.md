@@ -149,7 +149,7 @@ Usually, each resource in the Kubernetes API requires code that handles REST req
 
 The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
 implementations for your custom resources by writing and deploying your own standalone API server.
-The main API server delegates requests to you for the custom resources that you handle,
+The main API server delegates requests to your API server for the custom resources that you handle,
 making them available to all of its clients.
 
 ## Choosing a method for adding custom resources
