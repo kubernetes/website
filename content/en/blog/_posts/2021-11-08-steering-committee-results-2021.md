@@ -15,7 +15,7 @@ This community body is significant since it oversees the governance of the entir
 
 Congratulations to the elected committee members whose two year terms begin immediately (listed in alphabetical order by GitHub handle):
 
-* **Christoph Blecker ([@cblecker](https://github.com/cblecker)),RedHat**
+* **Christoph Blecker ([@cblecker](https://github.com/cblecker)), Red Hat**
 * **Stephen Augustus ([@justaugusts](https://github.com/justaugustus)), Cisco**
 * **Paris Pittman ([@parispittman](https://github.com/parispittman)), Apple**
 * **Tim Pepper ([@tpepper](https://github.com/tpepper)), VMware**
@@ -35,8 +35,8 @@ Thank you and congratulations on a successful election to this round’s electio
 * Josh Berkus ([@jberkus](https://github.com/jberkus))
 
 Thanks to the Emeritus Steering Committee Members. Your prior service is appreciated by the community:
-  * Derek Carr ([@derekwaynecarr](https://github.com/derekwaynecarr))
-  * Nikhita Raghunath ([@nikhita](https://github.com/nikhita))
+* Derek Carr ([@derekwaynecarr](https://github.com/derekwaynecarr))
+* Nikhita Raghunath ([@nikhita](https://github.com/nikhita))
 
 And thank you to all the candidates who came forward to run for election.
 
