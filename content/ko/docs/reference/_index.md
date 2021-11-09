@@ -64,6 +64,8 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
   * [kube-scheduler 정책](/ko/docs/reference/scheduling/policies)
   * [kube-scheduler 프로파일](/ko/docs/reference/scheduling/config/#여러-프로파일)
 
+* 컨트롤 플레인과 워커 노드에서 꼭 열어야 하는
+  [포트와 프로토콜](/docs/reference/ports-and-protocols/) 리스트
 ## API 설정
 
 이 섹션은 쿠버네티스 구성요소 또는 도구를 환경설정하는 데에 사용되는

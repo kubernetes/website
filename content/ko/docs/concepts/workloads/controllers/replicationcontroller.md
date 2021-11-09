@@ -193,7 +193,7 @@ REST API나 Go 클라이언트 라이브러리를 사용하는 경우 명시적�
 
 해당 파드에 영향을 주지 않고 레플리케이션 컨트롤러를 삭제할 수 있다.
 
-kubectl을 사용하여, [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)에 옵션으로 `--cascade=false`를 지정하라.
+kubectl을 사용하여, [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)에 옵션으로 `--cascade=orphan`을 지정하라.
 
 REST API나 Go 클라이언트 라이브러리를 사용하는 경우 레플리케이션 컨트롤러 오브젝트를 삭제하라.
 
@@ -285,6 +285,11 @@ API 오브젝트에 대한 더 자세한 것은
 다른 파드가 시작되기 전에 파드가 머신에서 실행되어야 하며,
 머신이 재부팅/종료 준비가 되어 있을 때 안전하게 종료된다.
 
-## 더 자세한 정보는
+## {{% heading "whatsnext" %}}
 
-[스테이트리스 애플리케이션 디플로이먼트 실행하기](/docs/tasks/run-application/run-stateless-application-deployment/)를 참고한다.
+* [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
+* 레플리케이션 컨트롤러를 대신하는 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해 배운다.
+* `ReplicationController`는 쿠버네티스 REST API의 일부이다.
+  레플리케이션 컨트롤러 API에 대해 이해하기 위해
+  {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  오브젝트 정의를 읽는다.

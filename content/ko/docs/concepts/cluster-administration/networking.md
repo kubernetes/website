@@ -1,4 +1,6 @@
 ---
+
+
 title: 클러스터 네트워킹
 content_type: concept
 weight: 50
@@ -89,18 +91,6 @@ VM 내의 프로세스와 동일하다. 이것을 "IP-per-pod(파드별 IP)" 모
 프로젝트 [Antrea](https://github.com/vmware-tanzu/antrea)는 쿠버네티스 고유의 오픈소스 쿠버네티스 네트워킹 솔루션이다. 네트워킹 데이터 플레인으로 Open vSwitch를 활용한다. Open vSwitch는 리눅스와 윈도우를 모두 지원하는 고성능의 프로그래밍이 가능한 가상 스위치이다. Antrea는 Open vSwitch를 통해 쿠버네티스 네트워크 정책을 고성능의 효율적인 방식으로 구현할 수 있다.
 Antrea는 Open vSwitch의 "프로그래밍이 가능한" 특성으로 인해 Open vSwitch 위에 광범위한 네트워킹 및 보안 기능과 서비스를 구현할 수 있다.
 
-### Apstra의 AOS
-
-[AOS](https://www.apstra.com/products/aos/)는 단순한 통합 플랫폼에서 복잡한 데이터센터 환경을 만들고 관리하는 의도기반(Intent-Based) 네트워킹 시스템이다. AOS는 확장성이 뛰어난 분산 설계를 활용하여 네트워크 중단을 제거하면서 비용을 최소화한다.
-
-AOS 레퍼런스 디자인은 현재 레거시 Layer-2 스위칭 문제를 제거하는 Layer-3 연결 호스트를 지원한다. 이 Layer-3 호스트는 리눅스 서버(Debian, Ubuntu, CentOS)일 수 있으며 랙 상단 스위치(TOR)와 직접 BGP 인접 관계를 만든다. AOS는 라우팅 인접성을 자동화한 다음 쿠버네티스 디플로이먼트에서 일반적으로 사용되는 RHI(Route Health Injection)에 대한 세밀한 제어를 제공한다.
-
-AOS는 쿠버네티스가 애플리케이션 요구 사항에 따라 네트워크 정책을 신속하게 변경할 수 있는 풍부한 REST API 엔드포인트 셋을 제공한다. 네트워크 설계에 사용된 AOS 그래프 모델을 워크로드 프로비저닝과 통합하여 프라이빗 클라우드와 퍼블릭 클라우드 모두에 대한 엔드-투-엔드 관리 시스템을 향상시킬 수 있다.
-
-AOS는 Cisco, Arista, Dell, Mellanox, HPE 그리고 Microsoft SONiC, Dell OPX 및 Cumulus Linux와 같은 개방형 네트워크 운영체제와 수많은 화이트-박스 시스템을 포함한 제조업체의 일반적인 벤더 장비 사용을 지원한다.
-
-AOS 시스템 작동 방식에 대한 자세한 내용은 다음을 참고한다. https://www.apstra.com/products/how-it-works/
-
 ### 쿠버네티스용 AWS VPC CNI
 
 [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s)는 쿠버네티스 클러스터를 위한 통합된 AWS 버추얼 프라이빗 클라우드(Virtual Private Cloud, VPC) 네트워킹을 제공한다. 이 CNI 플러그인은 높은 처리량과 가용성, 낮은 레이턴시(latency) 그리고 최소 네트워크 지터(jitter)를 제공한다. 또한, 사용자는 쿠버네티스 클러스터를 구축하기 위한 기존의 AWS VPC 네트워킹 및 보안 모범 사례를 적용할 수 있다. 여기에는 VPC 플로우 로그, VPC 라우팅 정책과 네트워크 트래픽 격리를 위한 보안 그룹을 사용하는 기능이 포함되어 있다.
@@ -113,15 +103,6 @@ AOS 시스템 작동 방식에 대한 자세한 내용은 다음을 참고한다
 [Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview)는 VM과 동등한 네트워크 성능을 제공하는 Azure 버추얼 네트워크(VNet이라고도 알려진)와 쿠버네티스 파드를 통합하는 [오픈소스](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) 플러그인이다. 파드는 피어링된 VNet과 Express Route 또는 사이트 간 VPN을 통해 온-프레미스에 연결할 수 있으며 이러한 네트워크에서 직접 연결할 수도 있다. 파드는 서비스 엔드포인트 또는 프라이빗 링크로 보호되는 스토리지와 SQL과 같은 Azure 서비스에 접근할 수 있다. VNet 보안 정책과 라우팅을 사용하여 파드 트래픽을 필터링할 수 있다. 플러그인은 쿠버네티스 노드의 네트워크 인터페이스에 사전 구성된 보조 IP 풀을 활용하여 VNet IP를 파드에 할당한다.
 
 Azure CNI는 [Azure 쿠버네티스 서비스(Azure Kubernetes Service, AKS)](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni)에서 기본적으로 사용할 수 있다.
-
-
-### Big Switch Networks의 빅 클라우드 패브릭(Big Cloud Fabric)
-
-[빅 클라우드 패브릭](https://www.bigswitch.com/container-network-automation)은 클라우드 네이티브 네트워킹 아키텍처로, 프라이빗 클라우드/온-프레미스 환경에서 쿠버네티스를 실행하도록 디자인되었다. 통합된 물리 및 가상 SDN을 사용하여, 빅 클라우드 패브릭은 로드 밸런싱, 가시성, 문제 해결, 보안 정책 및 컨테이너 트래픽 모니터링과 같은 내재한 컨테이너 네트워킹 문제를 해결한다.
-
-빅 클라우드 패브릭의 가상 파드 멀티 테넌트 아키텍처를 통해 쿠버네티스, RedHat OpenShift, Mesosphere DC/OS 및 Docker Swarm과 같은 컨테이너 오케스트레이션 시스템은 VMware, OpenStack 및 Nutanix와 같은 VM 오케스트레이션 시스템과 함께 네이티브로 통합된다. 고객은 원하는 수의 클러스터를 안전하게 상호 연결할 수 있으며 필요한 경우 이들 사이의 테넌트 간 통신을 활성화할 수 있다.
-
-가트너는 최신의 [매직 쿼드런트(Magic Quadrant)](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html)에서 BCF를 비저너리(Visionary)로 인정했다. BCF 쿠버네티스 온-프레미스 디플로이먼트 중 하나(지리적으로 다른 리전에 걸쳐 여러 DC에서 실행되는 쿠버네티스, DC/OS 및 VMware 포함)도 [여기](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)에서 사례로 참조된다.
 
 ### 캘리코
 
@@ -267,7 +248,7 @@ Lars Kellogg-Stedman이 제공하는
 
 [Multus](https://github.com/Intel-Corp/multus-cni)는 쿠버네티스의 CRD 기반 네트워크 오브젝트를 사용하여 쿠버네티스에서 멀티 네트워킹 기능을 지원하는 멀티 CNI 플러그인이다.
 
-Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://github.com/containernetworking/plugins)(예: [플라넬](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) 및 써드파티 플러그인(예: [캘리코](https://github.com/projectcalico/cni-plugin), [위브(Weave)](https://github.com/weaveworks/weave), [실리움](https://github.com/cilium/cilium), [콘티브](https://github.com/contiv/netplugin))을 지원한다. 또한, Multus는 쿠버네티스의 클라우드 네이티브 애플리케이션과 NFV 기반 애플리케이션을 통해 쿠버네티스의 [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK 및 VPP](https://github.com/intel/vhost-user-net-plugin) 워크로드를 지원한다.
+Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://github.com/containernetworking/plugins)(예: [플라넬](https://github.com/containernetworking/cni.dev/blob/main/content/plugins/v0.9/meta/flannel.md), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) 및 써드파티 플러그인(예: [캘리코](https://github.com/projectcalico/cni-plugin), [위브(Weave)](https://github.com/weaveworks/weave), [실리움](https://github.com/cilium/cilium), [콘티브](https://github.com/contiv/netplugin))을 지원한다. 또한, Multus는 쿠버네티스의 클라우드 네이티브 애플리케이션과 NFV 기반 애플리케이션을 통해 쿠버네티스의 [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK 및 VPP](https://github.com/intel/vhost-user-net-plugin) 워크로드를 지원한다.
 
 ### OVN4NFV-K8s-Plugin (OVN 기반의 CNI 컨트롤러 & 플러그인)
 
