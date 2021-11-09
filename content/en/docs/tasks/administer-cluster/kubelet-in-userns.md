@@ -14,7 +14,7 @@ without root privileges, by using a {{< glossary_tooltip text="user namespace" t
 This technique is also known as _rootless mode_.
 
 {{< note >}}
-This document describes how to run Kubernetes Node components (and hence pods) a non-root user.
+This document describes how to run Kubernetes Node components (and hence pods) as a non-root user.
 
 If you are just looking for how to run a pod as a non-root user, see [SecurityContext](/docs/tasks/configure-pod-container/security-context/).
 {{< /note >}}
@@ -153,7 +153,7 @@ containerd or CRI-O and ensure that it is running within the user namespace befo
 Running CRI plugin of containerd in a user namespace is supported since containerd 1.4.
 
 Running containerd within a user namespace requires the following configurations
-in `/etc/containerd/containerd-config.toml`.
+in `/etc/containerd/config.toml`.
 
 ```toml
 version = 2
