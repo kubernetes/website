@@ -601,18 +601,19 @@ mismatch.
 
 ### Job tracking with finalizers
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
 In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-It is disabled by default.
+It is enabled by default.
 
 When enabled, the control plane tracks new Jobs using the behavior described
-below. Existing Jobs are unaffected. As a user, the only difference you would
-see is that the control plane tracking of Job completion is more accurate.
+below. Jobs created before the feature was enabled are unaffected. As a user,
+the only difference you would see is that the control plane tracking of Job
+completion is more accurate.
 {{< /note >}}
 
 When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}
