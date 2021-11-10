@@ -133,6 +133,7 @@ different Kubernetes components.
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
+| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
@@ -794,6 +795,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Initializers admission plugin.
 - `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
   support for IPv6.
+- `JobMutableNodeSchedulingDirectives`: Allows updating node scheduling directives in
+  the pod template of [Job](/docs/concepts/workloads/controllers/job).
 - `JobTrackingWithFinalizers`: Enables tracking [Job](/docs/concepts/workloads/controllers/job)
   completions without relying on Pods remaining in the cluster indefinitely.
   The Job controller uses Pod finalizers and a field in the Job status to keep
