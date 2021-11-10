@@ -146,7 +146,7 @@ spec:
     plural: crontabs
     # 名称的单数形式，作为命令行使用时和显示时的别名
     singular: crontab
-    # kind 通常是单数形式的驼峰编码（PascalCased）形式。你的资源清单会使用这一形式。
+    # kind 通常是单数形式的帕斯卡编码（PascalCased）形式。你的资源清单会使用这一形式。
     kind: CronTab
     # shortNames 允许你在命令行使用较短的字符串来匹配资源
     shortNames:
