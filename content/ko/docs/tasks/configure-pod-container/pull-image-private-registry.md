@@ -102,7 +102,7 @@ kubectl create secret docker-registry regcred --docker-server=<your-registry-ser
 아래의 각 항목에 대한 설명을 참고한다.
 
 * `<your-registry-server>` 은 프라이빗 도커 저장소의 FQDN 주소이다.
-  도커허브(DockerHub)는 `https://index.docker.io/v2/` 를 사용한다.
+  도커허브(DockerHub)는 `https://index.docker.io/v1/` 를 사용한다.
 * `<your-name>` 은 도커 사용자의 계정이다.
 * `<your-pword>` 은 도커 사용자의 비밀번호이다.
 * `<your-email>` 은 도커 사용자의 이메일 주소이다.

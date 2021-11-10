@@ -16,7 +16,7 @@ weight: 50
 `healthz` 엔드포인트는 사용 중단(deprecated)됐으며 (쿠버네티스  v1.16 버전 이후), 대신 보다 구체적인 `livez` 와 `readyz` 엔드포인트를 사용해야 한다.
 `livez` 엔드포인트는 `--livez-grace-period` [플래그](/docs/reference/command-line-tools-reference/kube-apiserver) 옵션을 사용하여 시작 대기 시간을 지정할 수 있다.
 `/readyz` 엔드포인트는 `--shutdown-delay-duration` [플래그](/docs/reference/command-line-tools-reference/kube-apiserver) 옵션을 사용하여 정상적(graceful)으로 셧다운할 수 있다.
-API 서버의 `health`/`livez`/`readyz` 를 사용하는 머신은 HTTP 상태 코드에 의존해야 한다.
+API 서버의 `healthz`/`livez`/`readyz` 를 사용하는 머신은 HTTP 상태 코드에 의존해야 한다.
 상태 코드 200은 호출된 엔드포인트에 따라 API 서버의 `healthy`/`live`/`ready` 상태를 나타낸다.
 아래 표시된 더 자세한 옵션은 운영자가 클러스터나 특정 API 서버의 상태를 디버깅하는데 사용할 수 있다.
 
