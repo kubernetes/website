@@ -165,7 +165,7 @@ HA 클러스터를 실행 중인 경우, 모든 컨트롤 플레인 노드에서
 ### 서명자 설정
 
 쿠버네티스 인증 기관(Certificate Authority)은 기본적으로 작동하지 않는다.
-[cert-manager](https://docs.cert-manager.io/en/latest/tasks/issuers/setup-ca.html)와 같은 외부 서명자를 설정하거나, 빌트인 서명자를 사용할 수 있다.
+[cert-manager](https://cert-manager.io/docs/configuration/ca/)와 같은 외부 서명자를 설정하거나, 빌트인 서명자를 사용할 수 있다.
 
 빌트인 서명자는 [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)의 일부이다.
 
