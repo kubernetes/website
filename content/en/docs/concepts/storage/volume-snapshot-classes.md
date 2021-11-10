@@ -39,6 +39,10 @@ request a particular class. Administrators set the name and other parameters
 of a class when first creating VolumeSnapshotClass objects, and the objects cannot
 be updated once they are created.
 
+{{< note >}}
+Installation of the CRDs is the responsibility of the Kubernetes distribution. Without the required CRDs present, the creation of a VolumeSnapshotClass fails.  
+{{< /note >}}
+
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
