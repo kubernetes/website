@@ -312,7 +312,7 @@ These are advanced topics for users who need to integrate their organization's c
 ### Set up a signer
 
 The Kubernetes Certificate Authority does not work out of the box.
-You can configure an external signer such as [cert-manager](https://docs.cert-manager.io/en/latest/tasks/issuers/setup-ca.html), or you can use the build-in signer.
+You can configure an external signer such as [cert-manager](https://cert-manager.io/docs/configuration/ca/), or you can use the build-in signer.
 The built-in signer is part of [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 To activate the build-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
 -->
@@ -321,7 +321,7 @@ To activate the build-in signer, you must pass the `--cluster-signing-cert-file`
 
 Kubernetes 证书颁发机构不是开箱即用。
 你可以配置外部签名者，例如
-[cert-manager](https://docs.cert-manager.io/en/latest/tasks/issuers/setup-ca.html)，
+[cert-manager](https://cert-manager.io/docs/configuration/ca/)，
 也可以使用内置签名者。
 内置签名者是
 [`kube-controller-manager`](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
