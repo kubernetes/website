@@ -21,13 +21,13 @@ by implementing one or more of these extension points.
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
 using the
 KubeSchedulerConfiguration ([v1beta1](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
-or [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)) 
+or [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)) or [v1beta3](docs reference need to be generated)
 struct.
 
 A minimal configuration looks as follows:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta2
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 clientConnection:
   kubeconfig: /etc/srv/kubernetes/kube-scheduler/kubeconfig
@@ -100,7 +100,7 @@ profiles:
 You can use `*` as name in the disabled array to disable all default plugins
 for that extension point. This can also be used to rearrange plugins order, if
 desired.
-   
+
 ### Scheduling plugins
 
 The following plugins, enabled by default, implement one or more of these
@@ -111,19 +111,17 @@ extension points:
   Extension points: `score`.
 - `TaintToleration`: Implements
   [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-  Implements extension points: `filter`, `preScore`, `score`.
+  Implements extension points: `filter`, `preScore`, `score`. The weight associated with
+  this plugin has been increased from 2 in v1beta2 to 3 in v1beta3.
 - `NodeName`: Checks if a Pod spec node name matches the current node.
   Extension points: `filter`.
 - `NodePorts`: Checks if a node has free ports for the requested Pod ports.
   Extension points: `preFilter`, `filter`.
-- `NodePreferAvoidPods`: Scores nodes according to the node
-  {{< glossary_tooltip text="annotation" term_id="annotation" >}}
-  `scheduler.alpha.kubernetes.io/preferAvoidPods`.
-  Extension points: `score`.
 - `NodeAffinity`: Implements
   [node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
   and [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
-  Extension points: `filter`, `score`.
+  Extension points: `filter`, `score`. The weight associated with
+  this plugin has been increased from 1 in v1beta2 to 2 in v1beta3.
 - `PodTopologySpread`: Implements
   [Pod topology spread](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
   Extension points: `preFilter`, `filter`, `preScore`, `score`.
@@ -163,14 +161,15 @@ extension points:
   Extension points: `filter`.
 - `InterPodAffinity`: Implements
   [inter-Pod affinity and anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
-  Extension points: `preFilter`, `filter`, `preScore`, `score`.
+  Extension points: `preFilter`, `filter`, `preScore`, `score`. The weight associated with
+  this plugin has been increased from 2 in v1beta2 to 3 in v1beta3.
 - `PrioritySort`: Provides the default priority based sorting.
   Extension points: `queueSort`.
 - `DefaultBinder`: Provides the default binding mechanism.
   Extension points: `bind`.
 - `DefaultPreemption`: Provides the default preemption mechanism.
   Extension points: `postFilter`.
-  
+
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
 
@@ -182,7 +181,7 @@ that are not enabled by default:
 - `CinderLimits`: Checks that [OpenStack Cinder](https://docs.openstack.org/cinder/)
   volume limits can be satisfied for the node.
   Extension points: `filter`.
-  
+
 The following plugins are deprecated and can only be enabled in a `v1beta1`
 configuration:
 
@@ -206,7 +205,7 @@ configuration:
 - `NodePreferAvoidPods`: Prioritizes nodes according to the node annotation
   `scheduler.alpha.kubernetes.io/preferAvoidPods`.
   Extension points: `score`.
-  
+
 ### Multiple profiles
 
 You can configure `kube-scheduler` to run more than one profile.
@@ -255,10 +254,47 @@ the same configuration parameters (if applicable). This is because the scheduler
 only has one pending pods queue.
 {{< /note >}}
 
+## Scheduler configuration migrations
+
+{{< tabs name="tab_with_md" >}}
+{{% tab name="v1beta2 → v1beta3" %}}
+* With the v1beta3 configuration version, you will have increased weights for the following user specifiable scoring plugins.
+  - TaintTolerations to 3
+  - NodeAffinity to 2
+  - InterPodAffinity to 2
+  - Won't have HealthzBindAddress, MetricsBindAddress fields 
+
+* With the v1beta2 configuration version, you can use a new score extension for the
+  `NodeResourcesFit` plugin.(This needs to be changed for minimal config)
+  The new extension combines the functionalities of the `NodeResourcesLeastAllocated`,
+  `NodeResourcesMostAllocated` and `RequestedToCapacityRatio` plugins.
+  For example, if you previously used the `NodeResourcesMostAllocated` plugin, you
+  would instead use `NodeResourcesFit` (enabled by default) and add a `pluginConfig`
+  with a `scoreStrategy` that is similar to:
+  ```yaml
+  apiVersion: kubescheduler.config.k8s.io/v1beta3
+  kind: KubeSchedulerConfiguration
+  profiles:
+  - pluginConfig: (Change this to minimal config)
+    - args:
+        scoringStrategy:
+          resources:
+          - name: cpu
+            weight: 1
+          type: MostAllocated
+      name: NodeResourcesFit
+  ```
+
+* A plugin enabled in a v1beta3 configuration file takes precedence over the default configuration for that plugin.
+
+
+{{% /tab %}}
+{{< /tabs >}}
+
 ## {{% heading "whatsnext" %}}
 
 * Read the [kube-scheduler reference](/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read the [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) reference
 * Read the [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) reference
-
+* Read the [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference
