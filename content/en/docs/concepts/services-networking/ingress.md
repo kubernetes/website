@@ -224,7 +224,7 @@ reference additional implementation-specific configuration for this class.
 
 #### Namespace-scoped parameters
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 `Parameters` field has a `scope` and `namespace` field that can be used to
 reference a namespace-specific resource for configuration of an Ingress class.
