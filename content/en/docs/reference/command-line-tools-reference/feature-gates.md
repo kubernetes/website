@@ -84,6 +84,7 @@ different Kubernetes components.
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
+| `CSIMigrationPortworx` | `false` | Alpha | 1.23 | |
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | |
@@ -664,6 +665,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and
   configured on all nodes in the cluster. This flag has been deprecated in favor
   of the `InTreePluginvSphereUnregister` feature flag which prevents the registration of in-tree vsphere plugin.
+- `CSIMigrationPortworx`: Enables shims and translation logic to route volume operations
+  from the Portworx in-tree plugin to Portworx CSI plugin.
+  Requires Portworx CSI driver to be installed and configured in the cluster, and feature gate set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet configs.
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
