@@ -165,17 +165,17 @@ when creating a cluster without an internet connection on its nodes.
 See [Running kubeadm without an internet connection](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection) for more details.
 
 Kubeadm allows you to use a custom image repository for the required images.
-See [Using custom images](docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
 for more details.
 -->
 这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在 `k8s.gcr.io` 上的默认的容器镜像的情况。
 
 当你在离线的节点上创建一个集群的时候，Kubeadm 有一些命令可以帮助你预拉取所需的镜像。
-阅读[离线运行 kubeadm](docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+阅读[离线运行 kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
 获取更多的详情。
 
 Kubeadm 允许你给所需要的镜像指定一个自定义的镜像仓库。
-阅读[使用自定义镜像](docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+阅读[使用自定义镜像](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
 获取更多的详情。
 
 <!--
