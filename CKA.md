@@ -1,3 +1,46 @@
+# useful aliases
+cat <<EOF >> .bashrc
+alias k=kubectl
+alias ks='k -n kube-system'
+alias krun="k run -h | grep '# ' -A2"
+alias kc='k config view --minify | grep name'
+alias kdp='kubectl describe pod'
+alias krh='kubectl run --help | more'
+alias kgh='kubectl get --help | more'
+alias kd='kubectl describe'
+alias ke='kubectl explain'
+alias kf='kubectl create -f'
+alias kg='kubectl get pods --show-labels'
+alias kr='kubectl replace -f'
+alias kh='kubectl --help | more'
+alias kl='kubectl logs'
+alias kt='kubectl top'
+alias kx='kubectl exec -it'
+alias kn='kubectl get all -n '
+alias kw='kubectl get pods --watch'
+alias getcert='openssl x509 -text -in '
+alias l='ls -lrt'
+alias ll='ls -lah'
+export do="--dry-run=client -o yaml"
+export now="--force --grace-period 0"
+EOF
+. .bashrc
+cat <<EOF >> .vimrc
+:set smarttab
+:set expandtab
+:set shiftwidth=2
+:set tabstop=2
+EOF
+
+:set number
+
+SVC CIDR:
+cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep range
+CNI:
+find /etc/cni/net.d/
+
+
+
 kubectl get po -o wide -n <namspace1> -n <namespace2> -n <namespace3>
 kubectl get all --show-labels
 
@@ -8,6 +51,10 @@ k taint no node01 env=prod:NoSchedule
 # Create ds:
 kubectl create deployment elasticsearch --image=k8s.gcr.io/fluentd-elasticsearch:1.20 -n kube-system --dry-run=client -o yaml > fluentd.yaml
 Next, remove the replicas, strategy, resources and status fields
+
+# Create job:
+k create job job1 -oyaml --dry-run=client --image=busybox
+k create cj cj1 -oyaml --dry-run=client --schedule="* * * * *" --image=busybox
 
 # Static pods.
 Kubelet checking below folder periodically
@@ -55,6 +102,9 @@ k config view --minify
 k config use-context <ctx name>
 kubectl config use-context research --kubeconfig
 kubectl config use-context prod-user@production
+k config get-contexts -o name
+kubectl config current-context
+
 
 kubectl proxy --port=8080
 
@@ -69,6 +119,7 @@ kubectl create rolebinding dev-user-binding --namespace=default --role=developer
 
 kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
+k api-resources --namespaced -o name
 k get crd
 
 kubectl create clusterrole michelle --verb=* --resource=nodes
@@ -200,7 +251,7 @@ spec:
     requests:
       storage: 50Mi
 
-#netpol 
+#netpol
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -216,6 +267,36 @@ spec:
   - ports:
     - protocol: TCP
       port: 80
+
+Another:
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np-backend
+  namespace: project-snake
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  policyTypes:
+    - Egress
+  egress:
+    -
+      to:
+      - podSelector:
+          matchLabels:
+            app: db1
+      ports:
+      - protocol: TCP
+        port: 1111
+    -
+      to:
+      - podSelector:
+          matchLabels:
+            app: db2
+      ports:                       
+      - protocol: TCP
+        port: 2222
 
 k run check --image=busybox:1.28 -rm -it -- sh
 nc -zvw 2 <svc_name> <port>
@@ -290,6 +371,20 @@ kubectl create --dry-run --validate -f pod-dummy.yaml
 # Watch pods
 kubectl get pods -n wordpress --watch
 
+#certificates valid:
+find /etc/kubernetes/pki | grep apiserver
+openssl x509  -noout -text -in /etc/kubernetes/pki/apiserver.crt | grep Validity -A2
+
+kubeadm certs check-expiration | grep apiserver
+kubeadm certs renew apiserver
+
+#Kubelet cert
+/etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+openssl x509  -noout -text -in /var/lib/kubelet/pki/kubelet-client-current.pem | grep Issuer
+openssl x509  -noout -text -in /var/lib/kubelet/pki/kubelet-client-current.pem | grep "Extended Key Usage" -A1
+openssl x509  -noout -text -in /var/lib/kubelet/pki/kubelet.crt | grep Issuer
+-"-
+
 # Main commands:
 k run -h | grep '# ' -A2
 k describe pod <pod-name> | grep -i events -A 10
@@ -344,45 +439,307 @@ netstat -plnt
 ss -lp
 cat /etc/cni/net.d/10-weave.conf
 
-# useful aliases
-cat <<EOF >> .bashrc
-alias k=kubectl
-alias ks='k -n kube-system'
-alias krun="k run -h | grep '# ' -A2"
-alias kc='k config view --minify | grep name'
-alias kdp='kubectl describe pod'
-alias krh='kubectl run --help | more'
-alias kgh='kubectl get --help | more'
-alias kd='kubectl describe'
-alias ke='kubectl explain'
-alias kf='kubectl create -f'
-alias kg='kubectl get pods --show-labels'
-alias kr='kubectl replace -f'
-alias kh='kubectl --help | more'
-alias kl='kubectl logs'
-alias kt='kubectl top'
-alias kx='kubectl exec -it'
-alias kn='kubectl get all -n '
-alias kw='kubectl get pods --watch'
-alias getcert='openssl x509 -text -in '
-alias l='ls -lrt'
-alias ll='ls -lah'
-export do="--dry-run=client -o yaml"
-EOF
-. .bashrc
-cat <<EOF >> .vimrc
-:set smarttab
-:set expandtab
-:set shiftwidth=2
-:set tabstop=2
-:set number
-EOF
-
 # In the file insert new Line and position cursor at the start of the new line
 o + Ecs
 V - Visual editor
 ctrl+v - line mode
-c - substirute
+c - substitute
 yy - copy
 p - paste
 u -undo
+
+crictl
+crictl ps | grep tigers-reunite
+crictl inspect b01edbe6f89ed | grep runtimeType
+ssh cluster1-worker2 'crictl logs b01edbe6f89ed' &> <file>
+
+livenessProbe:
+httpGet:
+path: /healthz
+port: 8081
+readinessProbe:
+httpGet:
+path: /
+port: 80
+
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: ready-if-service-ready
+  name: ready-if-service-ready
+spec:
+  containers:
+  - image: nginx:1.16.1-alpine
+    name: ready-if-service-ready
+    resources: {}
+    livenessProbe:
+      exec:
+        command:
+        - 'true'
+    readinessProbe:
+      exec:
+        command:
+        - sh
+        - -c
+        - 'wget -T2 -O- <address>'
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+
+
+#For running on master
+tolerations:
+- effect: NoSchedule
+  key: node-role.kubernetes.io/master
+nodeSelector:
+  node-role.kubernetes.io/master: ""
+
+    # since 1.18
+    k run pod1 \
+        -oyaml \
+        --dry-run=client \
+        --image=busybox \
+        --requests "cpu=100m,memory=256Mi" \
+        --limits "cpu=200m,memory=512Mi" \
+        --command \
+        -- sh -c "sleep 1d"
+
+The metrics-server hasn't been installed yet in the cluster, but it's something that should be done soon. Your college would already like to know the kubectl commands to:
+
+show node resource usage
+show Pod and their containers resource usage
+Please write the commands into /opt/course/7/node.sh and /opt/course/7/pod.sh.
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-elasticsearch
+  namespace: kube-system
+  labels:
+    k8s-app: fluentd-logging
+    uuid: 18426a0b-5f59-4e10-923f-c0e078e82462
+spec:
+  selector:
+    matchLabels:
+      name: fluentd-elasticsearch
+      uuid: 18426a0b-5f59-4e10-923f-c0e078e82462
+  template:
+    metadata:
+      labels:
+        name: fluentd-elasticsearch
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: fluentd-elasticsearch
+        image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              creationTimestamp: null
+              labels:
+                app: safari
+              name: safari
+              namespace: project-tiger
+            spec:
+              replicas: 1
+              selector:
+                matchLabels:
+                  app: safari
+              strategy: {}
+              template:
+                metadata:
+                  creationTimestamp: null
+                  labels:
+                    app: safari
+                spec:
+                  volumes:
+                  - name: data
+                    persistentVolumeClaim:
+                      claimName: safari-pvc
+                  containers:
+                  - image: httpd:2.4.41-alpine
+                    name: container
+                    volumeMounts:
+                    - name: data
+                      mountPath: /tmp/safari-data
+
+#Manual node shedule
+spec:
+  nodeName: cluster2-master1
+
+  k -f <file>.yaml replace --force
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      containers:
+      - name: pi
+        image: perl
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+  backoffLimit: 4
+
+#One pod per node
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    id: very-important
+  name: deploy-important
+  namespace: project-tiger
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      id: very-important
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        id: very-important
+    spec:
+      containers:
+      - image: nginx:1.17.6-alpine
+        name: container1
+        resources: {}
+      - image: kubernetes/pause
+        name: container2
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: id
+                operator: In
+                values:
+                - very-important
+            topologyKey: kubernetes.io/hostname
+
+#Multicontainer pod
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: multi-container-playground
+  name: multi-container-playground
+spec:
+  containers:
+  - image: nginx:1.17.6-alpine
+    name: c1
+    resources: {}
+    env:
+    - name: MY_NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    volumeMounts:
+    - name: vol
+      mountPath: /vol
+  - image: busybox:1.31.1
+    name: c2
+    command: ["sh", "-c", "while true; do date >> /vol/date.log; sleep 1; done"]
+    volumeMounts:
+    - name: vol
+      mountPath: /vol
+  - image: busybox:1.31.1
+    name: c3
+    command: ["sh", "-c", "tail -f /vol/date.log"]
+    volumeMounts:
+    - name: vol
+      mountPath: /vol
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+    - name: vol
+      emptyDir: {}
+
+#POD secrets mount and vars
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: secret-pod
+  name: secret-pod
+  namespace: secret
+spec:
+  tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+  containers:
+  - args:
+    - sh
+    - -c
+    - sleep 1d
+    image: busybox:1.31.1
+    name: secret-pod
+    resources: {}
+    env:
+    - name: APP_USER
+      valueFrom:
+        secretKeyRef:
+          name: secret2
+          key: user
+    - name: APP_PASS
+      valueFrom:
+        secretKeyRef:
+          name: secret2
+          key: pass
+    volumeMounts:
+    - name: secret1
+      mountPath: /tmp/secret1
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: secret1
+    secret:
+      secretName: secret1
+
+
+#install kubectl
+on worker:
+apt-get install kubectl=1.22.1-00 kubelet=1.22.1-00
+systemctl restart kubelet
+service kubelet status
+
+on master:
+kubeadm token create --print-join-command
+kubeadm token list
