@@ -165,7 +165,7 @@ These are advanced topics for users who need to integrate their organization's c
 ### Set up a signer
 
 The Kubernetes Certificate Authority does not work out of the box.
-You can configure an external signer such as [cert-manager](https://docs.cert-manager.io/en/latest/tasks/issuers/setup-ca.html), or you can use the built-in signer.
+You can configure an external signer such as [cert-manager](https://cert-manager.io/docs/configuration/ca/), or you can use the built-in signer.
 
 The built-in signer is part of [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 
