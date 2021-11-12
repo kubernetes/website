@@ -219,7 +219,7 @@ kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 
 # Produce ENV for all pods, assuming you have a default container for the pods, default namespace and the `env` command is supported.
 # Helpful when running any supported command across all pods, not just `env`
-for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod env; done
+for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod -- env; done
 ```
 
 ## Updating resources
