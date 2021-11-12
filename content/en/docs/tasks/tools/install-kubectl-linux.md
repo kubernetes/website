@@ -235,7 +235,7 @@ Below are the procedures to set up autocompletion for Bash and Zsh.
 1. Verify plugin is successfully installed
 
    ```shell
-   kubectl convert --help
+   kubectl-convert --help
    ```
 
    If you do not see an error, it means the plugin is successfully installed.
