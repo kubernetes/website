@@ -63,7 +63,7 @@ prior to submitting new content. The information details follow.
   the `update-imported-docs/` directory.
 - [Page content types](/docs/contribute/style/page-content-types/) describe the
   presentation of documentation content in Hugo.
-- You can use [Docsy shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/) or our custom Hugo shortcode to contribute to our documentation.
+- You can use [Docsy shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/) or [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) to contribute to Kubernetes documentation.
 - In addition to the standard Hugo shortcodes, we use a number of
   [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) in our
   documentation to control the presentation of content.
