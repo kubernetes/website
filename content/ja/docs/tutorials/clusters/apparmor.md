@@ -35,7 +35,7 @@ AppArmorを利用すれば、コンテナに許可することを制限したり
    gke-test-default-pool-239f5d02-xwux: v1.4.0
    ```
 
-2. AppArmorカーネルモジュールが有効であること。LinuxカーネルがAppArmorプロファイルを強制するためには、AppArmorカーネルモジュールのインストールと有効化が必須です。UbuntuやSUSEなどのディストリビューションではデフォルトで有効化されますが、他の多くのディストリビューションでのサポートはオプションです。モジュールが有効になっているかチェックするには、次のように`/sys/module/apparmor/parameters/enabled`ファイルを確認します。
+2. AppArmorカーネルモジュールが有効であること。LinuxカーネルがAppArmorプロファイルを強制するためには、AppArmorカーネルモジュールのインストールと有効化が必須です。UbuntuやSUSEなどのディストリビューションではデフォルトで有効化されますが、他の多くのディストリビューションでのサポートはオプションです。モジュールが有効になっているかチェックするには、次のように`/sys/module/apparmor/parameters/enabled`ファイルを確認します。
 
    ```shell
    cat /sys/module/apparmor/parameters/enabled
