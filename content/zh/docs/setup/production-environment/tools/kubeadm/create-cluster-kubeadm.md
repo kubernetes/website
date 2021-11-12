@@ -170,8 +170,8 @@ for more details.
 -->
 这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在 `k8s.gcr.io` 上的默认的容器镜像的情况。
 
-当你在离线的节点上创建一个集群的时候，Kubeadm 有一些命令可以帮助你预拉取所需的镜像。
-阅读[离线运行 kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+当你在离线的节点上创建一个集群的时候，Kubeadm 有一些命令可以帮助你预拉取所需的镜像。
+阅读[离线运行 kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
 获取更多的详情。
 
 Kubeadm 允许你给所需要的镜像指定一个自定义的镜像仓库。
