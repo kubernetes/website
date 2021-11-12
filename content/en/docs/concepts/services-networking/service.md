@@ -568,7 +568,7 @@ The default is `ClusterIP`.
 You can also use [Ingress](/docs/concepts/services-networking/ingress/) to expose your Service. Ingress is not a Service type, but it acts as the entry point for your cluster. It lets you consolidate your routing rules
 into a single resource as it can expose multiple services under the same IP address.
 
-### Type NodePort {#nodeport}
+### Type NodePort {#type-nodeport}
 
 If you set the `type` field to `NodePort`, the Kubernetes control plane
 allocates a port from a range specified by `--service-node-port-range` flag (default: 30000-32767).
