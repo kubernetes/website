@@ -161,4 +161,4 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
   * [ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
   * [デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * [kubectlプラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)について学ぶ
-* [オペレーターパターン](/docs/concepts/extend-kubernetes/operator/)について学ぶ
+* [オペレーターパターン](/ja/docs/concepts/extend-kubernetes/operator/)について学ぶ
