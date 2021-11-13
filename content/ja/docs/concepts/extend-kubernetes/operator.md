@@ -26,7 +26,8 @@ Kubernetes上でワークロードを稼働させている人は、しばしば�
 Kubernetesは自動化のために設計されています。追加の作業、設定無しに、Kubernetesのコア機能によって多数のビルトインされた自動化機能が提供されます。
 ワークロードのデプロイおよび稼働を自動化するためにKubernetesを使うことができます。 *さらに* Kubernetesがそれをどのように行うかの自動化も可能です。
 
-Kubernetesの{{< glossary_tooltip text="コントローラー" term_id="controller" >}}コンセプトは、Kubernetesのソースコードを修正すること無く、クラスターの振る舞いを拡張することを可能にします。
+Kubernetesの {{< glossary_tooltip text="オペレーターパターン" term_id="operator-pattern" >}} コンセプトは、Kubernetesのソースコードを修正すること無く、
+一つ以上のカスタムリソースに {{< glossary_tooltip text="カスタムコントローラー" term_id="controller" >}} をリンクすることで、クラスターの振る舞いを拡張することを可能にします。
 オペレーターはKubernetes APIのクライアントで、[Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)にとっての、コントローラーのように振る舞います。
 
 ## オペレーターの例 {#example}
