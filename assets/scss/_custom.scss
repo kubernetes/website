@@ -26,6 +26,10 @@ $announcement-size-adjustment: 8px;
   }
 }
 
+.header-hero #quickstartButton.button {
+  margin-top: 1em;
+}
+
 section {
   .main-section {
     @media only screen and (min-width: 1024px) {
@@ -34,8 +38,14 @@ section {
   }
 }
 
-.td-outer {
-  padding: 0 !important;
+body {
+  display: grid;
+  grid-column-template: auto;
+
+  header + .td-outer {
+    min-height: 50vh;
+    height: auto;
+  }
 }
 
 
@@ -561,34 +571,6 @@ main.content {
   }
 }
 
-/* ANNOUNCEMENTS */
-section#fp-announcement ~ .header-hero {
-    padding: $announcement-size-adjustment  0;
-
-    > div {
-       margin-top: $announcement-size-adjustment;
-       margin-bottom: $announcement-size-adjustment;
-    }
-
-    h1, h2, h3, h4, h5 {
-      margin: $announcement-size-adjustment 0;
-    }
-}
-
-section#announcement ~ .header-hero {
-    padding: #{$announcement-size-adjustment / 2} 0;
-
-    > div {
-       margin-top: #{$announcement-size-adjustment / 2};
-       margin-bottom: #{$announcement-size-adjustment / 2};
-       padding-bottom: #{$announcement-size-adjustment / 2};
-    }
-
-    h1, h2, h3, h4, h5 {
-      margin: #{$announcement-size-adjustment / 2} 0;
-    }
-}
-
 /* DOCUMENTATION */
 
 /* Don't show lead text */
@@ -614,12 +596,12 @@ body.td-documentation {
 
 @media print {
   /* Do not print announcements */
-  #announcement, section#announcement, #fp-announcement, section#fp-announcement {
+  #announcement {
     display: none;
   }
 }
 
-#announcement, #fp-announcement {
+#announcement {
   > * {
     color: inherit;
     background: inherit;
@@ -636,41 +618,89 @@ body.td-documentation {
   }
 }
 
-#announcement {
-  padding-top: 105px;
-  padding-bottom: 25px;
-}
-
 .header-hero {
   padding-top: 40px;
 }
 
-/* Extra announcement height only for landscape viewports */
-@media (min-aspect-ratio: 8/9) {
-  #fp-announcement {
-    min-height: 25vh;
-  }
-}
-
-#fp-announcement aside {
-  padding-top: 115px;
-  padding-bottom: 25px;
-}
-
-.announcement {
-  .content {
+#announcement {
+  .announcement-main {
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 0px;
+
+    // for padding-top see _size.scss
+    padding-bottom: calc(max(2em, 2rem));
+
+    max-width: calc(min(1200px - 8em, 80vw));
   }
 
 
-  > p {
-    .gridPage #announcement .content p,
-    .announcement > h4,
-    .announcement > h3 {
-      color: #ffffff;
+  /* always white */
+  h1, h2, h3, h4, h5, h6, p * {
+    color: #ffffff;
+    background: transparent;
+
+    img.event-logo {
+      display: inline-block;
+      max-height: calc(min(80px, 8em));
+      max-width: calc(min(240px, 33vw));
+      float: right;
     }
   }
 }
+
+#announcement + .header-hero {
+  padding-top: 2em;
+}
+
+// Extra padding for anything except wide viewports
+@media (min-width: 992px) {
+  #announcement aside { // more specific
+    .announcement-main {
+      padding-top: calc(max(8em, 8rem));
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #announcement {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    .announcement-main, aside .announcement-main {
+      padding-top: calc(min(2rem,2em));
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #announcement {
+    padding-bottom: 0.5em;
+  }
+  #announcement aside {
+    h1, h2, h3, h4, h5, h6 {
+      img.event-logo {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0.75em;
+        display: block;
+        max-height: initial;
+        max-width: calc(min(calc(100vw - 2em), 240px));
+        float: initial;
+      }
+    }
+  }
+}
+
+#announcement + .header-hero.filler {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  #announcement + .header-hero {
+    display: none;
+  }
+}
+
 
 // Match Docsy-imposed max width on text body
 @media (min-width: 1200px) {
