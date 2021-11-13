@@ -65,8 +65,8 @@ a [Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resour
 Kubernetes 为自动化而生。无需任何修改，你即可以从 Kubernetes 核心中获得许多内置的自动化功能。
 你可以使用 Kubernetes 自动化部署和运行工作负载， *甚至* 可以自动化 Kubernetes 自身。
 
-Kubernetes {{< glossary_tooltip text="控制器" term_id="controller" >}}
-使你无需修改 Kubernetes 自身的代码，即可以扩展集群的行为。
+Kubernetes 的 {{< glossary_tooltip text="operator pattern" term_id="operator-pattern" >}} 概念
+使你无需修改 Kubernetes 自身的代码，通过把定制控制器关联到一个以上的定制资源上，即可以扩展集群的行为。
 Operator 是 Kubernetes API 的客户端，充当
 [定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 的控制器。
