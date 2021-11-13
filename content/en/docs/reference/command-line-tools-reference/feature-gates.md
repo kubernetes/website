@@ -115,8 +115,6 @@ different Kubernetes components.
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `GenericEphemeralVolume` | `false` | Alpha | 1.19 | 1.20 |
-| `GenericEphemeralVolume` | `true` | Beta | 1.21 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
@@ -311,6 +309,9 @@ different Kubernetes components.
 | `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | - |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
+| `GenericEphemeralVolume` | `false` | Alpha | 1.19 | 1.20 |
+| `GenericEphemeralVolume` | `true` | Beta | 1.21 | 1.22 |
+| `GenericEphemeralVolume` | `true` | GA | 1.23 | - |
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
 | `HugePageStorageMediumSize` | `true` | Beta | 1.19 | 1.21 |
 | `HugePageStorageMediumSize` | `true` | GA | 1.22 | - |
