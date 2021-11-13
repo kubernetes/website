@@ -24,9 +24,9 @@ Kubernetes, on Linux:
 
 {{< note >}}
 Docker container runtime (Dockershim) has been [deprecated](
-https://kubernetes.io/blog/2020/12/02/dockershim-faq/)
+/blog/2020/12/02/dockershim-faq/)
 as of [version 1.20](
-https://kubernetes.io/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
+/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 and is planned to be removed in by 1.24, therefore to use Docker you need to
 be running an older version of Kubernetes.
 Read the [Migrating from dockershim](
