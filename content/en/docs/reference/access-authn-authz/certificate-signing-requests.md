@@ -199,7 +199,7 @@ To allow signing a CertificateSigningRequest:
 ## Normal user
 
 A few steps are required in order to get a normal user to be able to
-authenticate and invoke an API. First, this user must have certificate issued
+authenticate and invoke an API. First, this user must have a certificate issued
 by the Kubernetes cluster, and then present that certificate to the Kubernetes API.
 
 ### Create private key
