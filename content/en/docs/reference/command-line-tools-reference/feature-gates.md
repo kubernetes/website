@@ -123,8 +123,6 @@ different Kubernetes components.
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
 | `IndexedJob` | `true` | Beta | 1.22 | |
-| `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | 1.21 |
-| `IngressClassNamespacedParams` | `true` | Beta | 1.22 | |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureDiskUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureFileUnregister` | `false` | Alpha | 1.21 | |
@@ -327,6 +325,9 @@ different Kubernetes components.
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
 | `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | 1.20 |
 | `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | |
+| `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | 1.21 |
+| `IngressClassNamespacedParams` | `true` | Beta | 1.22 | 1.22 |
+| `IngressClassNamespacedParams` | `true` | GA | 1.23 | - |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | - |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
