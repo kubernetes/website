@@ -8,7 +8,7 @@ weight: 30
 
 Operators are software extensions to Kubernetes.
 
-An Operator consists of a set of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources) and a set of [custom controllers](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-controllers). 
+An Operator consists of a set of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources) and [custom controllers](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-controllers). 
 
 Operators follow Kubernetes principles, notably the [control loop](/docs/concepts/architecture/controller).
 
