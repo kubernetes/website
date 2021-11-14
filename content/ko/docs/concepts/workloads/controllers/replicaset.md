@@ -50,7 +50,7 @@ OwnerReference가 {{< glossary_tooltip term_id="controller" >}} 가 아니고 �
 
 {{< codenew file="controllers/frontend.yaml" >}}
 
-이 매니페스트를 `frontend.yaml`에 저장하고 쿠버네티스 클러스터에 적용하면 정의되어있는 레플리카셋이
+이 매니페스트를 `frontend.yaml`에 저장하고 쿠버네티스 클러스터에 적용하면 정의되어 있는 레플리카셋이
 생성되고 레플리카셋이 관리하는 파드가 생성된다.
 
 ```shell
@@ -128,7 +128,7 @@ frontend-wtsmm   1/1     Running   0          6m36s
 kubectl get pods frontend-b2zdv -o yaml
 ```
 
-메타데이터의 ownerReferences 필드에 설정되어있는 프런트엔드 레플리카셋의 정보가 다음과 유사하게 나오는 것을 볼 수 있다.
+메타데이터의 ownerReferences 필드에 설정되어 있는 프런트엔드 레플리카셋의 정보가 다음과 유사하게 나오는 것을 볼 수 있다.
 
 ```shell
 apiVersion: v1
@@ -223,7 +223,7 @@ pod2             1/1     Running   0          36s
 
 레플리카셋은 모든 쿠버네티스 API 오브젝트와 마찬가지로 `apiVersion`, `kind`, `metadata` 필드가 필요하다.
 레플리카셋에 대한 `kind` 필드의 값은 항상 레플리카셋이다.
-쿠버네티스 1.9에서의 레플리카셋의 kind에 있는 API 버전 `apps/v1`은 현재 버전이며, 기본으로 활성화 되어있다. API 버전 `apps/v1beta2`은 사용 중단(deprecated)되었다.
+쿠버네티스 1.9에서의 레플리카셋의 kind에 있는 API 버전 `apps/v1`은 현재 버전이며, 기본으로 활성화 되어 있다. API 버전 `apps/v1beta2`은 사용 중단(deprecated)되었다.
 API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한다.
 
 레플리카셋 오브젝트의 이름은 유효한
@@ -233,7 +233,7 @@ API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한
 
 ### 파드 템플릿
 
-`.spec.template`은 레이블을 붙이도록 되어있는 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다.
+`.spec.template`은 레이블을 붙이도록 되어 있는 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다.
 우리는 `frontend.yaml` 예제에서 `tier: frontend`이라는 레이블을 하나 가지고 있다.
 이 파드를 다른 컨트롤러가 취하지 않도록 다른 컨트롤러의 셀렉터와 겹치지 않도록 주의해야 한다.
 
@@ -269,7 +269,7 @@ matchLabels:
 
 ### 레플리카셋과 해당 파드 삭제
 
-레플리카셋 및 모든 파드를 삭제하려면 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)를 사용한다. [가비지 수집기](/ko/docs/concepts/workloads/controllers/garbage-collection/)는 기본적으로 종속되어있는 모든 파드를 자동으로 삭제한다.
+레플리카셋 및 모든 파드를 삭제하려면 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)를 사용한다. [가비지 수집기](/ko/docs/concepts/workloads/controllers/garbage-collection/)는 기본적으로 종속되어 있는 모든 파드를 자동으로 삭제한다.
 
 REST API또는 `client-go` 라이브러리를 이용할 때는 -d 옵션으로 `propagationPolicy`를 `Background`또는 `Foreground`로
 설정해야 한다.

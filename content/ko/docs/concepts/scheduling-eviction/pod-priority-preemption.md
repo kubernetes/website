@@ -357,11 +357,11 @@ kubelet은 우선순위를 사용하여 파드의 [노드-압박(node-pressure) 
 사용자는 QoS 클래스를 사용하여 어떤 파드가 축출될 것인지
 예상할 수 있다. kubelet은 다음의 요소들을 통해서 파드의 축출 순위를 매긴다.
 
-  1. 부족한 리소스 사용량이 요청을 초과하는지 여부
+  1. 기아(starved) 리소스 사용량이 요청을 초과하는지 여부
   1. 파드 우선순위
   1. 요청 대비 리소스 사용량
 
-더 자세한 내용은 [kubelet 축출에서 파드 선택](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/#kubelet-축출을-위한-파드-선택)을
+더 자세한 내용은 [kubelet 축출을 위한 파드 선택](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/#kubelet-축출을-위한-파드-선택)을
 참조한다.
 
 kubelet 노드-압박 축출은 사용량이 요청을 초과하지 않는 경우
