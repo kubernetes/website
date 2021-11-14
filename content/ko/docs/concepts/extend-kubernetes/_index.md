@@ -2,6 +2,11 @@
 title: 쿠버네티스 확장
 weight: 110
 description: 쿠버네티스 클러스터의 동작을 변경하는 다양한 방법
+
+
+
+
+
 feature:
   title: 확장성을 고려하여 설계됨
   description: >
@@ -47,9 +52,9 @@ no_list: true
 익스텐션은 쿠버네티스를 확장하고 쿠버네티스와 긴밀하게 통합되는 소프트웨어 컴포넌트이다.
 이들 컴포넌트는 쿠버네티스가 새로운 유형과 새로운 종류의 하드웨어를 지원할 수 있게 해준다.
 
-대부분의 클러스터 관리자는 쿠버네티스의 호스팅 또는 배포판 인스턴스를 사용한다.
-결과적으로 대부분의 쿠버네티스 사용자는 익스텐션 기능을 설치할 필요가 없고
-새로운 익스텐션 기능을 작성할 필요가 있는 사람은 더 적다.
+많은 클러스터 관리자가 호스팅 또는 배포판 쿠버네티스 인스턴스를 사용한다.
+이러한 클러스터들은 미리 설치된 익스텐션을 포함한다. 결과적으로 대부분의
+쿠버네티스 사용자는 익스텐션을 설치할 필요가 없고, 새로운 익스텐션을 만들 필요가 있는 사용자는 더 적다.
 
 ## 익스텐션 패턴
 
@@ -74,14 +79,12 @@ no_list: true
 바이너리 플러그인은 kubelet(예:
 [Flex Volume 플러그인](/ko/docs/concepts/storage/volumes/#flexVolume)과
 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))과
-kubectl에서
-사용한다.
+kubectl에서 사용한다.
 
 아래는 익스텐션 포인트가 쿠버네티스 컨트롤 플레인과 상호 작용하는 방법을
 보여주는 다이어그램이다.
 
 <!-- image source drawing https://docs.google.com/drawings/d/1muJ7Oxuj_7Gtv7HV9-2zJbOnkQJnjxq-v1ym_kZfB-4/edit?ts=5a01e054 -->
-
 ![익스텐션 포인트와 컨트롤 플레인](/ko/docs/concepts/extend-kubernetes/control-plane.png)
 
 ## 익스텐션 포인트
@@ -89,7 +92,6 @@ kubectl에서
 이 다이어그램은 쿠버네티스 시스템의 익스텐션 포인트를 보여준다.
 
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
-
 ![익스텐션 포인트](/docs/concepts/extend-kubernetes/extension-points.png)
 
 1.   사용자는 종종 `kubectl`을 사용하여 쿠버네티스 API와 상호 작용한다. [Kubectl 플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)은 kubectl 바이너리를 확장한다. 개별 사용자의 로컬 환경에만 영향을 미치므로 사이트 전체 정책을 적용할 수는 없다.
@@ -103,10 +105,10 @@ kubectl에서
 어디서부터 시작해야 할지 모르겠다면, 이 플로우 차트가 도움이 될 수 있다. 일부 솔루션에는 여러 유형의 익스텐션이 포함될 수 있다.
 
 <!-- image source drawing: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
-
 ![익스텐션 플로우차트](/ko/docs/concepts/extend-kubernetes/flowchart.png)
 
 ## API 익스텐션
+
 ### 사용자 정의 유형
 
 새 컨트롤러, 애플리케이션 구성 오브젝트 또는 기타 선언적 API를 정의하고 `kubectl` 과 같은 쿠버네티스 도구를 사용하여 관리하려면 쿠버네티스에 커스텀 리소스를 추가하자.
@@ -155,7 +157,6 @@ API를 추가해도 기존 API(예: 파드)의 동작에 직접 영향을 미치
 
 ## 인프라스트럭처 익스텐션
 
-
 ### 스토리지 플러그인
 
 [Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md)을 사용하면
@@ -172,7 +173,8 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 
 ### 네트워크 플러그인
 
-노드-레벨의 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)을 통해 다양한 네트워킹 패브릭을 지원할 수 있다.
+노드-레벨의 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+을 통해 다양한 네트워킹 패브릭을 지원할 수 있다.
 
 ### 스케줄러 익스텐션
 
@@ -200,3 +202,4 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
   * [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * [kubectl 플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)에 대해 알아보기
 * [오퍼레이터 패턴](/ko/docs/concepts/extend-kubernetes/operator/)에 대해 알아보기
+
