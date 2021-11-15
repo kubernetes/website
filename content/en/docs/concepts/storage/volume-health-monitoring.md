@@ -24,7 +24,7 @@ If a CSI Driver supports Volume Health Monitoring feature from the controller si
 
 The External Health Monitor {{< glossary_tooltip text="controller" term_id="controller" >}} also watches for node failure events. You can enable node failure monitoring by setting the `enable-node-watcher` flag to true. When the external health monitor detects a node failure event, the controller reports an Event will be reported on the PVC to indicate that pods using this PVC are on a failed node.
 
-If a CSI Driver supports Volume Health Monitoring feature from the node side, an Event will be reported on every Pod using the PVC when an abnormal volume condition is detected on a CSI volume.
+If a CSI Driver supports Volume Health Monitoring feature from the node side, an Event will be reported on every Pod using the PVC when an abnormal volume condition is detected on a CSI volume. Volume Health information is also exposed as Kubelet VolumeStats Metrics.
 
 {{< note >}}
 You need to enable the `CSIVolumeHealth` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to use this feature from the node side.
