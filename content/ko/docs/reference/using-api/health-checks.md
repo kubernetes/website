@@ -1,5 +1,7 @@
 ---
 title: 쿠버네티스 API 헬스(health) 엔드포인트
+
+
 content_type: concept
 weight: 50
 ---
@@ -91,7 +93,7 @@ curl -k 'https://localhost:6443/readyz?verbose&exclude=etcd'
 
 {{< feature-state state="alpha" >}}
 
-각 개별 헬스 체크는 http 엔드포인트를 노출하고 개별적으로 체크가 가능하다.
+각 개별 헬스 체크는 HTTP 엔드포인트를 노출하고 개별적으로 체크가 가능하다.
 개별 체크를 위한 스키마는 `/livez/<healthcheck-name>` 이고, 여기서 `livez` 와 `readyz` 는 API 서버의 활성 상태 또는 준비 상태인지를 확인할 때 사용한다.
 `<healthcheck-name>` 경로 위에서 설명한 `verbose` 플래그를 사용해서 찾을 수 있고, `[+]` 와 `ok` 사이의 경로를 사용한다.
 이러한 개별 헬스 체크는 머신에서 사용되서는 안되며, 운영자가 시스템의 현재 상태를 디버깅하는데 유용하다.

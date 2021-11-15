@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 title: 윈도우 노드 추가
 min-kubernetes-server-version: 1.17
 content_type: tutorial
@@ -157,10 +162,10 @@ Install-WindowsFeature -Name containers
 
 #### wins, kubelet 및 kubeadm 설치
 
-   ```PowerShell
-   curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
-   .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
-   ```
+```PowerShell
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
+.\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
+```
 
 #### `kubeadm` 실행하여 노드에 조인
 
@@ -201,7 +206,7 @@ curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/lates
 #### wins, kubelet 및 kubeadm 설치
 
 ```PowerShell
-curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
 .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
 ```
 

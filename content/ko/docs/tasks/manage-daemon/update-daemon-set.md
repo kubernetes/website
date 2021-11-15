@@ -11,6 +11,8 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
+{{< include "task-tutorial-prereqs.md" >}}
+
 <!-- steps -->
 
 ## 데몬셋 업데이트 전략

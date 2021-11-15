@@ -379,7 +379,7 @@ TERM 대신 이 값을 보낸다.
    확인하는 즉시(정상적인 종료 기간이 설정됨), kubelet은 로컬 파드의 종료
    프로세스를 시작한다.
    1. 파드의 컨테이너 중 하나가 `preStop`
-      [훅](/ko/docs/concepts/containers/container-lifecycle-hooks/#hook-details)을 정의한 경우, kubelet은
+      [훅](/ko/docs/concepts/containers/container-lifecycle-hooks/)을 정의한 경우, kubelet은
       컨테이너 내부에서 해당 훅을 실행한다. 유예 기간이 만료된 후 `preStop` 훅이
       계속 실행되면, kubelet은 2초의 작은 일회성 유예 기간 연장을
       요청한다.

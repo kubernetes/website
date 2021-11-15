@@ -200,7 +200,7 @@ kubelet이 Microsoft 윈도우에서 실행되고 있다면, 사용 중인 Windo
 
 kube-proxy 에는 커스텀 프록시를 위한 이와 같은 레이블이 있으며, 이 레이블은 서비스 컨트롤을 커스텀 프록시에 위임한다.
 
-## experimental.windows.kubernetes.io/isolation-type
+## experimental.windows.kubernetes.io/isolation-type (사용 중단됨) {#experimental-windows-kubernetes-io-isolation-type}
 
 예시: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
@@ -210,6 +210,7 @@ Hyper-V 격리(isolation)를 사용하여 윈도우 컨테이너를 실행하려
 
 {{< note >}}
 이 어노테이션은 하나의 컨테이너로 구성된 파드에만 설정할 수 있다.
+v1.20부터 이 어노테이션은 더이상 사용되지 않는다. 실험적인 Hyper-V 지원은 1.21버전에서 제거되었다.
 {{< /note >}}
 
 ## ingressclass.kubernetes.io/is-default-class

@@ -72,7 +72,7 @@ _서비스_ 로 들어가보자.
 마찬가지로, 서비스 정의를 API 서버에 `POST`하여
 새 인스턴스를 생성할 수 있다.
 서비스 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
+[RFC 1035 레이블 이름](/ko/docs/concepts/overview/working-with-objects/names/#rfc-1035-레이블-이름)이어야 한다.
 
 예를 들어, 각각 TCP 포트 9376에서 수신하고
 `app=MyApp` 레이블을 가지고 있는 파드 세트가 있다고 가정해 보자.
@@ -188,7 +188,7 @@ DNS명을 대신 사용하는 특수한 상황의 서비스이다. 자세한 내
 이 문서 뒷부분의 [ExternalName](#externalname) 섹션을 참조한다.
 
 ### 초과 용량 엔드포인트
-엔드포인트 리소스에 1,000개가 넘는 엔드포인트가 있는 경우 쿠버네티스 v1.21(또는 그 이상)
+엔드포인트 리소스에 1,000개가 넘는 엔드포인트가 있는 경우 쿠버네티스 v1.21
 클러스터는 해당 엔드포인트에 `endpoints.kubernetes.io/over-capacity: warning` 어노테이션을 추가한다.
 이 어노테이션은 영향을 받는 엔드포인트 오브젝트가 용량을 초과했음을 나타낸다.
 

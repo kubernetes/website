@@ -282,6 +282,17 @@ kubelet은 자동으로 각 정적 파드에 대한 쿠버네티스 API 서버�
 즉, 노드에서 실행되는 파드는 API 서버에서 보이지만,
 여기에서 제어할 수는 없다는 의미이다.
 
+## 컨테이너 프로브
+
+_프로브_는 컨테이너의 kubelet에 의해 주기적으로 실행되는 진단이다. 진단을 수행하기 위하여 kubelet은 다음과 같은 작업을 호출할 수 있다.
+
+- `ExecAction` (컨테이너 런타임의 도움을 받아 수행)
+- `TCPSocketAction` (kubelet에 의해 직접 검사)
+- `HTTPGetAction` (kubelet에 의해 직접 검사)
+
+[프로브](/ko/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)에 대한 자세한 내용은
+파드 라이프사이클 문서를 참고한다.
+
 ## {{% heading "whatsnext" %}}
 
 * [파드의 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)에 대해 알아본다.
