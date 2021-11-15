@@ -37,7 +37,7 @@ weight: 30
 1. 시크릿에 대한 [암호화 활성화](/docs/tasks/administer-cluster/encrypt-data/).
 2. 시크릿의 데이터 읽기 및 쓰기(간접적인 방식 포함)를 제한하는 [RBAC 규칙](/ko/docs/reference/access-authn-authz/authorization/)
    활성화 또는 구성.
-3. 적절한 경우, RBAC와 같은 메커니즘을 사용하여 새로운 시크릿을 생성하거나 기존 시크릿을 대체할 수 있는 주체(principal)들을 제한한다.
+3. 적절한 경우, RBAC과 같은 메커니즘을 사용하여 새로운 시크릿을 생성하거나 기존 시크릿을 대체할 수 있는 주체(principal)들을 제한한다.
 
 {{< /caution >}}
 
