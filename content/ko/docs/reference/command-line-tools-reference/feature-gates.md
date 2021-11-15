@@ -640,7 +640,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `ExpandPersistentVolumes`: 퍼시스턴트 볼륨 확장을 활성화한다.
   [퍼시스턴트 볼륨 클레임 확장](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트-볼륨-클레임-확장)을 참고한다.
 - `ExperimentalCriticalPodAnnotation`: 특정 파드에 *critical* 로
-  어노테이션을 달아서 [스케줄링이 보장되도록](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 한다.
+  어노테이션을 달아서 [스케줄링이 보장되도록](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 한다.
   이 기능은 v1.13부터 파드 우선 순위 및 선점으로 인해 사용 중단되었다.
 - `ExperimentalHostUserNamespaceDefaulting`: 사용자 네임스페이스를 호스트로
   기본 활성화한다. 이것은 다른 호스트 네임스페이스, 호스트 마운트,
