@@ -31,9 +31,7 @@ built-in automation from the core of Kubernetes. You can use Kubernetes
 to automate deploying and running workloads, *and* you can automate how
 Kubernetes does that.
 
-Kubernetes' {{< glossary_tooltip text="controllers" term_id="controller" >}}
-concept lets you extend the cluster's behaviour without modifying the code
-of Kubernetes itself.
+Kubernetes' {{< glossary_tooltip text="operator pattern" term_id="operator-pattern" >}} concept lets you extend the cluster's behaviour without modifying the code of Kubernetes itself by linking {{< glossary_tooltip text="controllers" term_id="controller" >}} to one or more custom resources.
 Operators are clients of the Kubernetes API that act as controllers for
 a [Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
