@@ -556,8 +556,9 @@ deleted by Kubernetes.
 ### Validation
 
 Custom resources are validated via
-[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject)
-and you can add additional validation using
+[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject),
+by x-kubernetes-validation-rules when the [Validation Rules feature](#validation-rules) is enabled, and you
+can add additional validation using
 [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 
 Additionally, the following restrictions are applied to the schema:
@@ -576,6 +577,11 @@ Additionally, the following restrictions are applied to the schema:
 - The field `uniqueItems` cannot be set to `true`.
 - The field `additionalProperties` cannot be set to `false`.
 - The field `additionalProperties` is mutually exclusive with `properties`.
+
+The `x-kubernetes-validation-rules` extension can be use to validate custom resources using
+[CEL](https://github.com/google/cel-spec) expressions when the [Validation Rules
+feature](#validation-rules) feature is enabled and the CustomResourceDefinition schema is a
+[structural schema](#specifying-a-structural-schema).
 
 The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
 which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions.
@@ -692,6 +698,78 @@ And create it:
 kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
+
+## Validation Rules
+
+{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+
+Validation Rules are in alpha since 1.23 and validate custom resources when the
+`CustomResourceValidationExpressions` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled and the schema is a
+[structural schema](#specifying-a-structural-schema).
+
+Validation rules use the [CEL](https://github.com/google/cel-spec) expression language to validate custom
+resource values. Validation rules are included in CustomResourceDefinition schemas using the
+`x-kubernetes-validation-rules` extension.
+
+For example:
+
+```yaml
+    ...
+    openAPIV3Schema:
+      type: object
+      properties:
+        spec:
+          type: object
+            x-kubernetes-validation-rules:
+              - rule: "self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas"
+          properties:
+            ...
+            minReplicas:
+              type: integer
+           replicas:
+              type: integer
+           maxReplicas:
+              type: integer
+```
+
+will reject an request to create this custom resource:
+
+```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
+metadata:
+  name: my-new-cron-object
+spec:
+  minReplicas: 0
+  replicas: 20
+  maxReplicas: 10
+```
+
+with the response:
+
+```
+The CronTab "my-new-cron-object" is invalid:
+* spec: Invalid value: map[string]interface {}{"minReplicas": 0, "replicas":20, "maxReplicas": 10}: failed rule: self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas
+```
+
+TODO: (using text from types_jsonprops.go and KEP were applicable, but using "full" multi-line examples that include both the schema and the custom resource data)
+- Explain that rules are compiled when CRDs are created/updated. Show full example including compilation error output examples.
+- Explain scope, self, and how objects, maps and arrays are accessed. Show full examples.
+  - Must show: 'self.field' selection, has() field presence checking, 'self[key]' map access and
+    'key in self' map containment, 'self[i]' list access, all/exists/filter and how they apply to
+    maps and lists. Show more of the functions than covered in types_jsonprops.go. Provide links to
+    functions and macros in spec.  Provide link to strings extension library in cel-go that we have
+    enabled. Explain that this is an extension library.
+- Include examples table from KEP? Probably just past it in and add context.
+- Explain access to type and object meta.
+- Explain openapiv3 -> CEL declarations type mapping and include the table from the KEP. Link to OpenAPIv3 and CEL documentation about types.
+- Explain int-or-string, preserve-unknown, nullable, embedded. Provide some short examples.
+- Explain escaping using a table. Provide some short examples. Provide guidance on how to name
+  properties (both in this section of this document and elsewhere in this document where property
+  names are introduced/discussed).
+- Explain + and == for list maps and list sets (table? whatever looks better)
+- DO NOT: provide all the motivation and design rationale from the KEP.
 
 ### Defaulting
 
