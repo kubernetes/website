@@ -48,7 +48,7 @@ weight: 70
 {{< note >}}
 쿠버네티스는 이미 `system-cluster-critical` 과 `system-node-critical`,
 두 개의 프라이어리티클래스를 제공한다.
-이들은 일반적인 클래스이며 [중요한(critical) 컴포넌트가 항상 먼저 스케줄링이 되도록 하는 데](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 사용된다.
+이들은 일반적인 클래스이며 [중요한(critical) 컴포넌트가 항상 먼저 스케줄링이 되도록 하는 데](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 사용된다.
 {{< /note >}}
 
 ## 프라이어리티클래스

@@ -116,6 +116,6 @@ PR 소유자에게 조언하는데 활용된다.
 
 쿠버네티스 문서화에 기여하는 일에 대한 보다 많은 정보는 다음 문서를 참고한다.
 
-- [신규 콘텐츠 기여하기](/ko/docs/contribute/new-content/overview/)
+- [신규 콘텐츠 기여하기](/ko/docs/contribute/new-content/)
 - [콘텐츠 검토하기](/ko/docs/contribute/review/reviewing-prs/)
 - [문서 스타일 가이드](/ko/docs/contribute/style/)

@@ -283,7 +283,7 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
 - 노드가 접근이 불가능한 상태가되는 경우, 노드의 `.status` 내에 있는 NodeReady 컨디션을 업데이트한다.
   이 경우에는 노드 컨트롤러가 NodeReady 컨디션을 `ConditionUnknown`으로 설정한다.
 - 노드에 계속 접근이 불가능한 상태로 남아있는 경우에는 해당 노드의 모든 파드에 대해서
-  [API를 이용한 축출](/docs/concepts/scheduling-eviction/api-eviction/)을 트리거한다.
+  [API를 이용한 축출](/ko/docs/concepts/scheduling-eviction/api-eviction/)을 트리거한다.
   기본적으로, 노드 컨트롤러는 노드를 `ConditionUnknown`으로 마킹한 뒤 5분을 기다렸다가 최초의 축출 요청을 시작한다. 
 
 노드 컨트롤러는 매 `--node-monitor-period` 초 마다 각 노드의 상태를 체크한다.
@@ -377,19 +377,19 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 그레이스풀 셧다운 중에 kubelet은 다음의 두 단계로 파드를 종료한다.
 
 1. 노드에서 실행 중인 일반 파드를 종료시킨다.
-2. 노드에서 실행 중인 [중요(critical) 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)를 종료시킨다.
+2. 노드에서 실행 중인 [중요(critical) 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료시킨다.
 
 그레이스풀 노드 셧다운 기능은 두 개의 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) 옵션으로 구성된다.
 * `ShutdownGracePeriod`:
-  * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 이것은 모든 일반 및 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 파드 종료에 필요한 총 유예 기간에 해당한다.
+  * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 이것은 모든 일반 및 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 파드 종료에 필요한 총 유예 기간에 해당한다.
 * `ShutdownGracePeriodCriticalPods`:
-  * 노드 종료 중에 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `ShutdownGracePeriod` 보다 작아야 한다.
+  * 노드 종료 중에 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `ShutdownGracePeriod` 보다 작아야 한다.
 
 예를 들어, `ShutdownGracePeriod=30s`,
 `ShutdownGracePeriodCriticalPods=10s` 인 경우, kubelet은 노드 종료를 30초까지
 지연시킨다. 종료하는 동안 처음 20(30-10)초는 일반 파드의
 유예 종료에 할당되고, 마지막 10초는
-[중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 종료에 할당된다.
+[중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 종료에 할당된다.
 
 {{< note >}}
 그레이스풀 노드 셧다운 과정에서 축출된 파드는 `Failed` 라고 표시된다.

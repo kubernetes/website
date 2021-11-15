@@ -91,5 +91,5 @@ _스코어링_ 단계에서 스케줄러는 목록에 남아있는 노드의 순
 * [파드 오버헤드](/ko/docs/concepts/scheduling-eviction/pod-overhead/)에 대해 배우기
 * 볼륨을 사용하는 파드의 스케줄링에 대해 배우기
   * [볼륨 토폴리지 지원](/ko/docs/concepts/storage/storage-classes/#볼륨-바인딩-모드)
-  * [스토리지 용량 추적](/docs/concepts/storage/storage-capacity/)
+  * [스토리지 용량 추적](/ko/docs/concepts/storage/storage-capacity/)
   * [노드별 볼륨 한도](/ko/docs/concepts/storage/storage-limits/)
