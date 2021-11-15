@@ -51,7 +51,7 @@ weight: 10
 ```
 
 쿠버네티스는 내부적으로 노드 오브젝트를 생성한다(표시한다). 쿠버네티스는
-kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록이 되어있는지 확인한다.
+kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록이 되어 있는지 확인한다.
 노드가 정상이면(예를 들어 필요한 모든 서비스가 실행중인 경우) 파드를 실행할 수 있게 된다.
 그렇지 않으면, 해당 노드는 정상이 될 때까지 모든 클러스터 활동에
 대해 무시된다.
@@ -146,7 +146,7 @@ kubectl cordon $NODENAME
 kubectl describe node <insert-node-name-here>
 ```
 
-출력되는 각 섹션은 아래에 설명되어있다.
+출력되는 각 섹션은 아래에 설명되어 있다.
 
 ### 주소 {#addresses}
 
