@@ -65,14 +65,14 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/a
 To protect your cluster data, Dashboard deploys with a minimal RBAC configuration by default.
 Currently, Dashboard only supports logging in with a Bearer Token.
 To create a token for this demo, you can follow our guide on
-[creating a sample user](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user).
+[creating a sample user](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md).
 -->
 ## 访问 Dashboard UI
 
 为了保护你的集群数据，默认情况下，Dashboard 会使用最少的 RBAC 配置进行部署。
 当前，Dashboard 仅支持使用 Bearer 令牌登录。
 要为此样本演示创建令牌，你可以按照
-[创建示例用户](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user)
+[创建示例用户](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
 上的指南进行操作。
 
 <!--
