@@ -47,7 +47,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 다른 모든 쿠버네티스 설정과 마찬가지로 데몬셋에는 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다.
 일반적인 설정파일 작업에 대한 정보는
-[스테이트리스 애플리케이션 실행하기](/docs/tasks/run-application/run-stateless-application-deployment/)와
+[스테이트리스 애플리케이션 실행하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/)와
  [kubectl을 사용한 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를 참고한다.
 
 데몬셋 오브젝트의 이름은 유효한

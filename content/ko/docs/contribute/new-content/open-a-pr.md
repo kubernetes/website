@@ -15,7 +15,7 @@ card:
 [새 기능 문서화](/docs/contribute/new-content/new-features/)를 참고한다.
 {{< /note >}}
 
-새 콘텐츠 페이지를 기여하거나 기존 콘텐츠 페이지를 개선하려면, 풀 리퀘스트(PR)를 연다. [시작하기 전에](/ko/docs/contribute/new-content/overview/#before-you-begin) 섹션의 모든 요구 사항을 준수해야 한다.
+새 콘텐츠 페이지를 기여하거나 기존 콘텐츠 페이지를 개선하려면, 풀 리퀘스트(PR)를 연다. [시작하기 전에](/ko/docs/contribute/new-content/#before-you-begin) 섹션의 모든 요구 사항을 준수해야 한다.
 
 변경 사항이 작거나, git에 익숙하지 않은 경우, [GitHub을 사용하여 변경하기](#github을-사용하여-변경하기)를 읽고 페이지를 편집하는 방법을 알아보자.
 

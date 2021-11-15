@@ -77,7 +77,7 @@ graph LR;
 다른 모든 쿠버네티스 리소스와 마찬가지로 인그레스에는 `apiVersion`, `kind`, 그리고 `metadata` 필드가 필요하다.
 인그레스 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
-설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
+설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
  인그레스는 종종 어노테이션을 이용해서 인그레스 컨트롤러에 따라 몇 가지 옵션을 구성하는데,
  그 예시는 [재작성-타겟 어노테이션](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)이다.
 다른 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 다른 어노테이션을 지원한다.
@@ -567,4 +567,4 @@ Events:
 
 * [인그레스 API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)에 대해 배우기
 * [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers/)에 대해 배우기
-* [NGINX 컨트롤러로 Minikube에서 인그레스 구성하기](/docs/tasks/access-application-cluster/ingress-minikube/)
+* [NGINX 컨트롤러로 Minikube에서 인그레스 구성하기](/ko/docs/tasks/access-application-cluster/ingress-minikube/)

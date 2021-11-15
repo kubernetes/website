@@ -56,7 +56,7 @@ card:
 
 ## 첫 번째 기여
 
-- [기여 개요](/ko/docs/contribute/new-content/overview/)를 읽고
+- [기여 개요](/ko/docs/contribute/new-content/)를 읽고
   기여할 수 있는 다양한 방법에 대해 알아봅니다.
 - [`kubernetes/website` 이슈 목록](https://github.com/kubernetes/website/issues/)을
   확인하여 좋은 진입점이 되는 이슈를 찾을 수 있습니다.

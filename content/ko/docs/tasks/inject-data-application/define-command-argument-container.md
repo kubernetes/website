@@ -152,5 +152,5 @@ EntryPoint 값과 기본 Cmd 값이 덮어쓰여진다. `command`가 `args` 값�
 
 
 * [파드와 컨테이너를 구성하는 방법](/ko/docs/tasks/)에 대해 더 알아본다.
-* [컨테이너 안에서 커맨드를 실행하는 방법](/docs/tasks/debug-application-cluster/get-shell-running-container/)에 대해 더 알아본다.
+* [컨테이너 안에서 커맨드를 실행하는 방법](/ko/docs/tasks/debug-application-cluster/get-shell-running-container/)에 대해 더 알아본다.
 * [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)를 확인한다.

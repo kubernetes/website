@@ -147,7 +147,7 @@ LogMonitor가 로그를 STDOUT으로 푸시할 수 있도록 필요한 엔트리
 그룹 매니지드 서비스 어카운트는 액티브 디렉터리 어카운트의 특정한 종류로 자동 암호 관리 기능,
 단순화된 서비스 주체 이름(SPN, simplified service principal name), 여러 서버의 다른 관리자에게 관리를 위임하는 기능을 제공한다.
 GMSA로 구성한 컨테이너는 GMSA로 구성된 신원을 들고 있는 동안 외부 액티브 디렉터리 도메인 리소스를 접근할 수 있다.
-윈도우 컨테이너를 위한 GMSA를 이용하고 구성하는 방법은 [여기](/docs/tasks/configure-pod-container/configure-gmsa/)에서 알아보자.
+윈도우 컨테이너를 위한 GMSA를 이용하고 구성하는 방법은 [여기](/ko/docs/tasks/configure-pod-container/configure-gmsa/)에서 알아보자.
 
 ## 테인트(Taint)와 톨러레이션(Toleration)
 
