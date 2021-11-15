@@ -39,9 +39,6 @@ section {
 }
 
 body {
-  display: grid;
-  grid-column-template: auto;
-
   header + .td-outer {
     min-height: 50vh;
     height: auto;
