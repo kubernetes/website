@@ -52,7 +52,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
     <tr>
 			<td>ホストのプロセス</td>
 			<td>
-        <p>Windows ポッドは、Windows ノードへの特権的なアクセスを可能にする<a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess</a>コンテナ</a>を実行する機能を提供します。ベースラインポリシーでは、ホストへの特権的なアクセスは禁止されています。HostProcessポッドは、Kubernetes v1.22時点ではアルファ版の機能です。
+        <p>Windows Podは、Windowsノードへの特権的なアクセスを可能にする<a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess</a>コンテナ</a>を実行する機能を提供します。ベースラインポリシーでは、ホストへの特権的なアクセスは禁止されています。HostProcess Podは、Kubernetes v1.22時点ではアルファ版の機能です。
 				ホストのネームスペースの共有は無効化すべきです。</p>
 				<p><strong>制限されるフィールド</strong></p>
 				<ul>
@@ -136,7 +136,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 			</td>
 		</tr>
 		<tr>
-			<td>AppArmor <em>(任意)</em></td>
+			<td>AppArmor<em>(任意)</em></td>
 			<td>
 				サポートされるホストでは、AppArmorの'runtime/default'プロファイルがデフォルトで適用されます。デフォルトのポリシーはポリシーの上書きや無効化を防ぎ、許可されたポリシーのセットを上書きできないよう制限すべきです。<br>
 				<br><b>制限されるフィールド:</b><br>
@@ -153,7 +153,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				spec.containers[*].securityContext.seLinuxOptions<br>
 				spec.initContainers[*].securityContext.seLinuxOptions<br>
         spec.ephemeralContainers[*].securityContext.seLinuxOptions.type<br>
-				<br><b>認められる値:</b> undefined/nil<br>
+				<br><b>認められる値:</b>undefined/nil<br>
         Undefined/""<br>
         container_t<br>
         container_init_t<br>
@@ -168,7 +168,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
         spec.containers[*].securityContext.seLinuxOptions.role<br>
         spec.initContainers[*].securityContext.seLinuxOptions.role<br>
         spec.ephemeralContainers[*].securityContext.seLinuxOptions.role<br>
-        <br><b>認められる値:</b> undefined/nil<br>
+        <br><b>認められる値:</b>undefined/nil<br>
         Undefined/""        
 			</td>
 		</tr>
@@ -180,7 +180,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				spec.containers[*].securityContext.procMount<br>
 				spec.initContainers[*].securityContext.procMount<br>
         spec.ephemeralContainers[*].securityContext.procMount<br>
-				<br><b>認められる値:</b> undefined/nil, 'Default'<br>
+				<br><b>認められる値:</b>undefined/nil, 'Default'<br>
 			</td>
 		</tr>
     <tr>
@@ -390,12 +390,12 @@ Kubernetesでは、Linuxベースのワークロードと比べてWindowsの使�
 したがって、現段階では標準化されたセキュリティポリシーは存在しません。
 
 Windows Podに制限付きプロファイルを適用すると、実行時にPodに影響が出る場合があります。
-制限付きプロファイルでは、Linux 固有の制限 (seccomp プロファイルや特権昇格の不許可など) を適用する必要があります。
-kubelet および/またはそのコンテナランタイムがこれらの Linux 固有の値を無視した場合、Windows Podは制限付きプロファイル内で正常に動作します。
+制限付きプロファイルでは、Linux固有の制限 (seccompプロファイルや特権昇格の不許可など) を適用する必要があります。
+kubeletおよび/またはそのコンテナランタイムがこれらのLinux固有の値を無視した場合、Windows Podは制限付きプロファイル内で正常に動作します。
 ただし、強制力がないため、Windows コンテナを使用するPodについては、ベースラインプロファイルと比較して追加の制限はありません。
 
-HostProcess Podを作成するための HostProcess フラグの使用は、特権的なポリシーに沿ってのみ行われるべきです。
-Windows HostProcess Podの作成は、ベースラインおよび制限されたポリシーの下でブロックされているため、いかなる HostProcess Podも特権的であるとみなされるべきです。
+HostProcess Podを作成するためのHostProcessフラグの使用は、特権的なポリシーに沿ってのみ行われるべきです。
+Windows HostProcess Podの作成は、ベースラインおよび制限されたポリシーの下でブロックされているため、いかなるHostProcess Podも特権的であるとみなされるべきです。
 
 ### サンドボックス化されたPodはどのように扱えばよいでしょうか?
 
