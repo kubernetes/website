@@ -30,11 +30,11 @@ Hay dos extensiones de API para esta función:
 - Los objetos CSIStorageCapacity:
   son producidos por un controlador CSI en el Namespace donde está instalado el controlador. Cada objeto contiene información de capacidad para una clase de almacenamiento y define qué nodos tienen acceso a ese almacenamiento.
 - [El campo `CSIDriverSpec.StorageCapacity`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io):
-  cuando se establece en `true`, el scheduler de Kubernetes considerará la capacidad de almacenamiento para los volúmenes que usan el controlador CSI.
+  cuando se establece en `true`, el Planificador de Kubernetes considerará la capacidad de almacenamiento para los volúmenes que usan el controlador CSI.
 
 ## Planificación
 
-El scheduler de Kubernetes utiliza la información sobre la capacidad de almacenamiento si:
+El Planificador de Kubernetes utiliza la información sobre la capacidad de almacenamiento si:
 
 - la puerta de la característica `CSIStorageCapacity` es `true`,
 - un Pod usa un volumen que aún no se ha creado,
@@ -43,10 +43,10 @@ El scheduler de Kubernetes utiliza la información sobre la capacidad de almacen
   y
 - el objeto `CSIDriver` para el controlador tiene `StorageCapacity` establecido en `true`.
 
-En ese caso, el scheduler sólo considera los nodos para el Pod que tienen suficiente almacenamiento disponible. Esta verificación es muy simplista y solo compara el tamaño del volumen con la capacidad indicada en los objetos `CSIStorageCapacity` con una topología que incluye el nodo.
+En ese caso, el Planificador sólo considera los nodos para el Pod que tienen suficiente almacenamiento disponible. Esta verificación es muy simplista y solo compara el tamaño del volumen con la capacidad indicada en los objetos `CSIStorageCapacity` con una topología que incluye el nodo.
 
 Para los volúmenes con el modo de enlace de volumen `Immediate`, el controlador de almacenamiento decide dónde crear el volumen, independientemente de los pods que usarán el volumen.
-Luego, el scheduler programa los pods en los nodos donde el volumen está disponible después de que se haya creado.
+Luego, el Planificador programa los pods en los nodos donde el volumen está disponible después de que se haya creado.
 
 Para los [volúmenes efímeros de CSI](/docs/concepts/storage/volumes/#csi),
 la programación siempre ocurre sin considerar la capacidad de almacenamiento. Esto se basa en la suposición de que este tipo de volumen solo lo utilizan controladores CSI especiales que son locales a un nodo y no necesitan allí recursos importantes.
@@ -55,7 +55,7 @@ la programación siempre ocurre sin considerar la capacidad de almacenamiento. E
 
 Cuando se selecciona un nodo para un Pod con volúmenes `WaitForFirstConsumer`, esa decisión sigue siendo tentativa. El siguiente paso es que se le pide al controlador de almacenamiento CSI que cree el volumen con una pista de que el volumen está disponible en el nodo seleccionado.
 
-Debido a que Kubernetes pudo haber elegido un nodo basándose en información de capacidad desactualizada, es posible que el volumen no se pueda crear realmente. Luego, la selección de nodo se restablece y el scheduler de Kubernetes intenta nuevamente encontrar un nodo para el Pod.
+Debido a que Kubernetes pudo haber elegido un nodo basándose en información de capacidad desactualizada, es posible que el volumen no se pueda crear realmente. Luego, la selección de nodo se restablece y el Planificador de Kubernetes intenta nuevamente encontrar un nodo para el Pod.
 
 ## Limitationes
 
@@ -73,4 +73,4 @@ El seguimiento de la capacidad de almacenamiento es una función beta y está ha
 - Para obtener más información sobre el diseño, consulte las
   [Restricciones de Capacidad de Almacenamiento para la Programación de Pods KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md).
 - Para obtener más información sobre un mayor desarrollo de esta función, consulte [problema de seguimiento de mejoras #1472](https://github.com/kubernetes/enhancements/issues/1472).
-- Aprender sobre [Scheduler de Kubernetes](/docs/concepts/scheduling-eviction/kube-scheduler/)
+- Aprender sobre [Planificador de Kubernetes](/docs/concepts/scheduling-eviction/kube-scheduler/)
