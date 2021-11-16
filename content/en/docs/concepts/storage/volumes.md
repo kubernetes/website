@@ -965,11 +965,11 @@ GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte
 ### rbd
 
 An `rbd` volume allows a
-[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount into your
-Pod. Unlike `emptyDir`, which is erased when a pod is removed, the contents of
-an `rbd` volume are preserved and the volume is unmounted. This
-means that a RBD volume can be pre-populated with data, and that data can
-be shared between pods.
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount
+into your Pod. Unlike `emptyDir`, which is erased when a pod is removed, the
+contents of an `rbd` volume are preserved and the volume is unmounted. This
+means that a RBD volume can be pre-populated with data, and that data can be
+shared between pods.
 
 {{< note >}}
 You must have a Ceph installation running before you can use RBD.
@@ -983,6 +983,36 @@ Simultaneous writers are not allowed.
 
 See the [RBD example](https://github.com/kubernetes/examples/tree/master/volumes/rbd)
 for more details.
+
+#### RBD CSI migration {#rbd-csi-migration}
+
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+The `CSIMigration` feature for `RBD`, when enabled, redirects all plugin
+operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
+glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this
+feature, the
+[CEPH CSI driver](https://github.com/ceph/ceph-csi)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationRBD`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled.
+
+{{< note >}}
+
+Before enabling migration for RBD, a Kubernetes storage admin has to complete
+below prerequisites in their setup:
+
+* ceph csi driver ( rbd.csi.ceph.com) v3.5.0 or above has to be installed in the
+  cluster
+* considering the `clusterID` field is a required parameter for CSI driver for
+  its operations, but in-tree StorageClass has `monitors` field as a required
+  parameter, a Kubernetes storage admin has to create a clusterID based on the
+  monitors hash ( ex:`#echo -n
+  '<monitors_string>' | md5sum`) in the CSI config map and keep the monitors
+  under this clusterID configuration.
+* Also, if `adminId` in the intree storageclass is different than `admin`, the
+  adminSecret has to be patched with the base64 value of this `adminId`
+  parameter value, otherwise this step can be skipped. {{< /note >}}
 
 ### secret
 

@@ -81,6 +81,7 @@ different Kubernetes components.
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
+| `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | |
 | `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | 1.19 |
@@ -615,6 +616,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
   operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling
   back to in-tree GCE plugin if a node does not have PD CSI plugin installed and
   configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationRBD`: Enables shims and translation logic to route volume
+  operations from the RBD in-tree plugin to CEPH RBD CSI plugin. Requires
+  CSIMigration and CSIMigrationRBD feature flags enabled and Ceph CSI plugin
+  installed and configured in the cluster. This flag has been deprecated in
+  favor of the
+  `InTreePluginRBDUnregister` feature flag which prevents the registration of
+  in-tree RBD plugin.
 - `CSIMigrationGCEComplete`: Stops registering the GCE-PD in-tree plugin in
   kubelet and volume controllers and enables shims and translation logic to
   route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.
