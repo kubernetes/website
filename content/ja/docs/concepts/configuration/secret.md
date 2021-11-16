@@ -10,14 +10,31 @@ weight: 30
 
 <!-- overview -->
 
-KubernetesのSecretはパスワード、OAuthトークン、SSHキーのような機密情報を保存し、管理できるようにします。
-Secretに機密情報を保存することは、それらを{{< glossary_tooltip text="Pod" term_id="pod" >}}の定義や{{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}に直接記載するより、安全で柔軟です。
-詳しくは[Secretの設計文書](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md)を参照してください。
 
-Secretはパスワード、トークン、キーのような小容量の機密データを含むオブジェクトです。
-他の方法としては、そのような情報はPodの定義やイメージに含めることができます。
-ユーザーはSecretを作ることができ、またシステムが作るSecretもあります。
+Secretとは、パスワードやトークン、キーなどの少量の機密データを含むオブジェクトのことです。
+このような情報は、Secretを用いないと {{< glossary_tooltip term_id="pod" >}} の定義や
+{{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}に直接記載することになってしまうかもしれません。
+シークレットを使用すれば、アプリケーションコードに機密データを含める必要がなくなります。
 
+なぜなら、シークレットは、それを使用するポッドとは独立して作成することができ、
+ポッドの作成、閲覧、編集といったワークフローの中でシークレット（およびそのデータ）が漏洩する危険性が低くなるためです。
+また、Kubernetesやクラスタ内で動作するアプリケーションは、不揮発性ストレージに機密データを書き込まないようにするなど、Secretsで追加の予防措置を取ることができます。
+
+Secretsは、{{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}
+に似ていますが、機密データを保持するために用います。
+
+
+{{< caution >}}
+KubernetesのSecretは、デフォルトでは、APIサーバーの基礎となるデータストア（etcd）に暗号化されずに保存されます。APIにアクセスできる人は誰でもSecretを取得または変更でき、etcdにアクセスできる人も同様です。
+さらに、名前空間でPodを作成する権限を持つ人は、そのアクセスを使用して、その名前空間のあらゆるSecretを読むことができます。これには、Deploymentを作成する能力などの間接的なアクセスも含まれます。
+
+Secretsを安全に使用するには、以下の手順を推奨します。
+
+1. Secretsを[安全に暗号化する](/docs/tasks/administer-cluster/encrypt-data/)
+2. Secretsのデータの読み取りを制限する[RBACルール](/docs/reference/access-authn-authz/authorization/)の有効化または設定 
+3. 適切な場合には、RBACなどのメカニズムを使用して、どの原則が新しいSecretの作成や既存のSecretの置き換えを許可されるかを制限します。
+
+{{< /caution >}}
 
 <!-- body -->
 
@@ -30,6 +47,7 @@ PodがSecretを使う方法は3種類あります。
 - [コンテナの環境変数](#using-secrets-as-environment-variables)として利用する
 - Podを生成するために[kubeletがイメージをpullする](#using-imagepullsecrets)ときに使用する
 
+KubernetesのコントロールプレーンでもSecretsは使われています。例えば、[bootstrap token Secrets](#bootstrap-token-secrets)は、ノード登録を自動化するための仕組みです。
 
 Secretオブジェクトの名称は正当な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要があります。
 シークレットの構成ファイルを作成するときに、`data`および/または`stringData`フィールドを指定できます。`data`フィールドと`stringData`フィールドはオプションです。
@@ -145,7 +163,8 @@ Docker configファイルがない場合、または`kubectl`を使用してDock
 kubectl create secret docker-registry secret-tiger-docker \
   --docker-username=tiger \
   --docker-password=pass113 \
-  --docker-email=tiger@acme.com
+  --docker-email=tiger@acme.com \
+  --docker-server=my-registry.example:5000
 ```
 
 このコマンドは、`kubernetes.io/dockerconfigjson`型のSecretを作成します。
@@ -153,15 +172,21 @@ kubectl create secret docker-registry secret-tiger-docker \
 
 ```json
 {
-  "auths": {
-    "https://index.docker.io/v1/": {
-      "username": "tiger",
-      "password": "pass113",
-      "email": "tiger@acme.com",
-      "auth": "dGlnZXI6cGFzczExMw=="
-    }
-  }
+    "apiVersion": "v1",
+    "data": {
+        ".dockerconfigjson": "eyJhdXRocyI6eyJteS1yZWdpc3RyeTo1MDAwIjp7InVzZXJuYW1lIjoidGlnZXIiLCJwYXNzd29yZCI6InBhc3MxMTMiLCJlbWFpbCI6InRpZ2VyQGFjbWUuY29tIiwiYXV0aCI6ImRHbG5aWEk2Y0dGemN6RXhNdz09In19fQ=="
+    },
+    "kind": "Secret",
+    "metadata": {
+        "creationTimestamp": "2021-07-01T07:30:59Z",
+        "name": "secret-tiger-docker",
+        "namespace": "default",
+        "resourceVersion": "566718",
+        "uid": "e15c1d7b-9071-4100-8681-f3a7a2ce89ca"
+    },
+    "type": "kubernetes.io/dockerconfigjson"
 }
+
 ```
 
 ### Basic authentication Secret
@@ -1062,3 +1087,4 @@ Podに複数のコンテナが含まれることもあります。しかし、Po
 - [`kubectl`を使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)方法を学ぶ
 - [config fileを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-config-file/)方法を学ぶ
 - [kustomizeを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)方法を学ぶ
+- [SecretのAPIリファレンス](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)を読む
