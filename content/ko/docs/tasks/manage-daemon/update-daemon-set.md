@@ -143,7 +143,7 @@ daemonset "fluentd-elasticsearch" successfully rolled out
 #### 일부 노드에 리소스가 부족하다
 
 적어도 하나의 노드에서 새 데몬셋 파드를 스케줄링할 수 없어서 롤아웃이
-중단되었다. 노드에 [리소스가 부족](/docs/concepts/scheduling-eviction/node-pressure-eviction/)할 때
+중단되었다. 노드에 [리소스가 부족](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)할 때
 발생할 수 있다.
 
 이 경우, `kubectl get nodes` 의 출력 결과와 다음의 출력 결과를 비교하여
