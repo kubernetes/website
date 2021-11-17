@@ -773,7 +773,7 @@ Hal ini umumnya digunakan oleh pugasan server API untuk otentikasi dan otorisasi
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
 <td>Tidak ada</td>
-<td>Mengizinkan akses ke sumber daya yang dibutuhkan oleh kebanyakan <a href="/docs/concepts/storage/persistent-volumes/#provisioner">penyedia volume dinamis</a>.</td>
+<td>Mengizinkan akses ke sumber daya yang dibutuhkan oleh kebanyakan <a href="/id/docs/concepts/storage/persistent-volumes/#dinamis">penyedia volume dinamis</a>.</td>
 </tr>
 <tbody>
 </table>

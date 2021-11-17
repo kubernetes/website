@@ -1,15 +1,23 @@
 ---
-title: 쿠버네티스의 윈도우 지원 소개
+
+
+
+
+
+title: 쿠버네티스에서 윈도우 컨테이너
 content_type: concept
 weight: 65
-
-
-
-
-
 ---
 
 <!-- overview -->
+
+{{< note >}}
+본 문서의 영어 원문([Windows containers in Kubernetes](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/))은 변경되었습니다.
+
+최신 내용은 원문을 통해 확인하시기 바랍니다.
+
+본 문서에 대한 갱신은 기여를 통해 진행되며, 갱신이 완료되면 해당 알림은 제거됩니다.
+{{< /note >}}
 
 윈도우 애플리케이션은 많은 조직에서 실행되는 서비스 및
 애플리케이션의 상당 부분을 구성한다.

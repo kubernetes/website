@@ -182,8 +182,8 @@ kubelet은 파드의 컨테이너를 시작할 때, CPU와 메모리 제한을
   플래그의 값으로 사용된다.
 
 - 이 `spec.containers[].resources.limits.cpu` 값은 밀리코어 값으로 변환되고
-  100을 곱한 값이다. 그 결과 값은 컨테이너가 100ms마다 사용할 수 있는 총 CPU
-  시간이다. 이 간격 동안 컨테이너는 CPU 시간을 초과하여 사용할 수 없다.
+  100을 곱한 값이다. 그 결과 값은 컨테이너가 100ms마다 사용할 수 있는 마이크로초 단위의
+  총 CPU 시간이다. 이 간격 동안 컨테이너는 CPU 시간을 초과하여 사용할 수 없다.
 
   {{< note >}}
   기본 쿼터 기간은 100ms이다. 최소 CPU 쿼터는 1ms이다.
@@ -338,6 +338,9 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+    - name: ephemeral
+      mountPath: "/tmp"
   - name: log-aggregator
     image: images.my-company.example/log-aggregator:v6
     resources:
@@ -345,6 +348,12 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+    - name: ephemeral
+      mountPath: "/tmp"
+  volumes:
+    - name: ephemeral
+      emptyDir: {}
 ```
 
 ### 임시-스토리지 요청이 있는 파드의 스케줄링 방법

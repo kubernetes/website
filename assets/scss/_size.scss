@@ -18,3 +18,11 @@ section,
   line-height: $vendor-strip-height;
   font-size: $vendor-strip-font-size;
 }
+
+#announcement {
+  min-height: $hero-padding-top;
+
+  .announcement-main {
+    padding-top: calc(max(8em, 8rem, #{$hero-padding-top} / 3));
+  }
+}

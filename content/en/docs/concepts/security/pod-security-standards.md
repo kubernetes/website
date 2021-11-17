@@ -484,7 +484,7 @@ of individual policies are not defined here.
 - {{< example file="security/podsecurity-baseline.yaml" >}}Baseline namespace{{< /example >}}
 - {{< example file="security/podsecurity-restricted.yaml" >}}Restricted namespace{{< /example >}}
 
-[**PodSecurityPolicy**](/docs/concepts/profile/pod-security-profile/) (Deprecated)
+[**PodSecurityPolicy**](/docs/concepts/policy/pod-security-policy/) (Deprecated)
 
 - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}

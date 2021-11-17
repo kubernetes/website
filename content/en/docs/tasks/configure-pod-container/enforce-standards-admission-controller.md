@@ -90,7 +90,7 @@ plugins:
       # Array of authenticated usernames to exempt.
       usernames: []
       # Array of runtime class names to exempt.
-      runtimeClassNames: []
+      runtimeClasses: []
       # Array of namespaces to exempt.
       namespaces: []
 ```

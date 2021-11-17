@@ -129,7 +129,7 @@ option. Your cluster requirements may need a different configuration.
     - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
 
-    - Read the [Options for Software Load Balancing](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)
+    - Read the [Options for Software Load Balancing](https://git.k8s.io/kubeadm/docs/ha-considerations.md#options-for-software-load-balancing)
       guide for more details.
 -->
 1.  创建一个名为 kube-apiserver 的负载均衡器解析 DNS。
@@ -146,8 +146,7 @@ option. Your cluster requirements may need a different configuration.
 
     - 确保负载均衡器的地址始终匹配 kubeadm 的 `ControlPlaneEndpoint` 地址。
 
-    - 阅读[软件负载平衡选项指南](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)
-      以获取更多详细信息。
+    - 阅读[软件负载平衡选项指南](https://git.k8s.io/kubeadm/docs/ha-considerations.md#options-for-software-load-balancing)以获取更多详细信息。
 
 <!--
 1.  Add the first control plane nodes to the load balancer and test the
@@ -216,12 +215,11 @@ option. Your cluster requirements may need a different configuration.
     {{< note >}}
     <!--
     The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
-    to use the [kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) you must add the `certificateKey` field in the appropriate config locations (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
+    to use the [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/) you must add the `certificateKey` field in the appropriate config locations (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
     -->
     标志 `kubeadm init`、`--config` 和 `--certificate-key` 不能混合使用，
     因此如果你要使用
-    [kubeadm 配置](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)，
-    你必须在相应的配置文件
+    [kubeadm 配置](/docs/reference/config-api/kubeadm-config.v1beta3/)，你必须在相应的配置文件
     （位于 `InitConfiguration` 和 `JoinConfiguration: controlPlane`）添加 `certificateKey` 字段。
     {{< /note >}}
 
