@@ -125,7 +125,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `HPAScaleToZero` | `false` | 알파 | 1.16 | |
 | `IndexedJob` | `false` | 알파 | 1.21 | 1.21 |
 | `IndexedJob` | `true` | 베타 | 1.22 | |
-| `JobTrackingWithFinalizers` | `false` | 알파 | 1.22 | |
 | `IngressClassNamespacedParams` | `false` | 알파 | 1.21 | 1.21 |
 | `IngressClassNamespacedParams` | `true` | 베타 | 1.22 | |
 | `InTreePluginAWSUnregister` | `false` | 알파 | 1.21 | |
@@ -138,13 +137,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `IPv6DualStack` | `true` | 베타 | 1.21 | |
 | `JobTrackingWithFinalizers` | `false` | 알파 | 1.22 | |
 | `KubeletCredentialProviders` | `false` | 알파 | 1.20 | |
+| `KubeletInUserNamespace` | `false` | 알파 | 1.22 | |
+| `KubeletPodResourcesGetAllocatable` | `false` | 알파 | 1.21 | |
 | `LocalStorageCapacityIsolation` | `false` | 알파 | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | 베타 | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | 알파 | 1.15 | |
 | `LogarithmicScaleDown` | `false` | 알파 | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | 베타 | 1.22 | |
-| `KubeletInUserNamespace` | `false` | 알파 | 1.22 | |
-| `KubeletPodResourcesGetAllocatable` | `false` | 알파 | 1.21 | |
 | `MemoryManager` | `false` | 알파 | 1.21 | 1.21 |
 | `MemoryManager` | `true` | 베타 | 1.22 | |
 | `MemoryQoS` | `false` | 알파 | 1.22 | |
@@ -289,9 +288,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `DynamicKubeletConfig` | `false` | 사용중단 | 1.22 | - |
 | `DynamicProvisioningScheduling` | `false` | 알파 | 1.11 | 1.11 |
 | `DynamicProvisioningScheduling` | - | 사용중단| 1.12 | - |
-| `DynamicKubeletConfig` | `false` | 알파 | 1.4 | 1.10 |
-| `DynamicKubeletConfig` | `true` | 베타 | 1.11 | 1.21 |
-| `DynamicKubeletConfig` | `false` | 사용중단 | 1.22 | - |
 | `DynamicVolumeProvisioning` | `true` | 알파 | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | - |
 | `EnableAggregatedDiscoveryTimeout` | `true` | 사용중단 | 1.16 | - |
