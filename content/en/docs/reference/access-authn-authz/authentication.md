@@ -53,7 +53,7 @@ or be treated as an anonymous user.
 
 ## Authentication strategies
 
-Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
+Kubernetes uses client certificates, bearer tokens, or an authenticating proxy to
 authenticate API requests through authentication plugins. As HTTP requests are
 made to the API server, plugins attempt to associate the following attributes
 with the request:
