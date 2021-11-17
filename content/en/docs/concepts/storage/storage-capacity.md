@@ -16,7 +16,6 @@ Storage capacity is limited and may vary depending on the node on
 which a pod runs: network-attached storage might not be accessible by
 all nodes, or storage is local to a node to begin with.
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 This page describes how Kubernetes keeps track of storage capacity and

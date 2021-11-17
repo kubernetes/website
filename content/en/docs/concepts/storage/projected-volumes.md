@@ -1,6 +1,5 @@
 ---
 reviewers:
-- sftim
 - marosset
 - jsturtevant
 - zshihang
@@ -11,7 +10,7 @@ weight: 21 # just after persistent volumes
 
 <!-- overview -->
 
-This document describes the current state of _projected volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
+This document describes _projected volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 
 <!-- body -->
 
