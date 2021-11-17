@@ -165,8 +165,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `PreferNominatedNode` | `true` | 베타 | 1.22 | |
 | `ProbeTerminationGracePeriod` | `false` | 알파 | 1.21 | 1.21 |
 | `ProbeTerminationGracePeriod` | `false` | 베타 | 1.22 | |
-| `ProxyTerminatingEndpoints` | `false` | 알파 | 1.22 | |
 | `ProcMountType` | `false` | 알파 | 1.12 | |
+| `ProxyTerminatingEndpoints` | `false` | 알파 | 1.22 | |
 | `QOSReserved` | `false` | 알파 | 1.11 | |
 | `ReadWriteOncePod` | `false` | 알파 | 1.22 | |
 | `RemainingItemCount` | `false` | 알파 | 1.15 | 1.15 |
@@ -789,10 +789,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   플러그인의 등록을 중지한다.
 - `IndexedJob`: [잡](/ko/docs/concepts/workloads/controllers/job/) 컨트롤러가
   완료 횟수를 기반으로 파드 완료를 관리할 수 있도록 한다.
-- `JobTrackingWithFinalizers`: 클러스터에 무제한으로 남아 있는 파드에 의존하지 않고 
-  [잡](/ko/docs/concepts/workloads/controllers/job)의 완료를 추적할 수 있다.
-  잡 컨트롤러는 완료된 파드를 추적하기 위해 
-  완료된 파드의 잡 상태 필드를 사용한다.
 - `IngressClassNamespacedParams`: `IngressClass` 리소스가 네임스페이스 범위로
   한정된 파라미터를 이용할 수 있도록 한다. 이 기능은 `IngressClass.spec.parameters` 에
   `Scope` 와 `Namespace` 2개의 필드를 추가한다.
@@ -800,10 +796,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   비동기 조정을 허용한다.
 - `IPv6DualStack`: IPv6을 위한 [이중 스택](/ko/docs/concepts/services-networking/dual-stack/)
   기능을 활성화한다.
-- `JobTrackingWithFinalizers`: 클러스터에 무제한으로 남아있는 파드에 
-  의존하지 않고 잡 완료를 추적할 수 있다. 
-  파드 finalizers는 잡 상태 필드와 
-  아직 구성되지 않은 파드를 추적할 수 있다.
+- `JobTrackingWithFinalizers`: 클러스터에 무제한으로 남아 있는 파드에 의존하지 않고 
+  [잡](/ko/docs/concepts/workloads/controllers/job)의 완료를 추적할 수 있다.
+  잡 컨트롤러는 완료된 파드를 추적하기 위해 
+  완료된 파드의 잡 상태 필드를 사용한다.
 - `KubeletConfigFile`: 구성 파일을 사용하여 지정된 파일에서
   kubelet 구성을 로드할 수 있다.
   자세한 내용은 [구성 파일을 통해 kubelet 파라미터 설정](/docs/tasks/administer-cluster/kubelet-config-file/)을
@@ -1012,19 +1008,17 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `WatchBookmark`: 감시자 북마크(watch bookmark) 이벤트 지원을 활성화한다.
 - `WinDSR`: kube-proxy가 윈도우용 DSR 로드 밸런서를 생성할 수 있다.
 - `WinOverlay`: kube-proxy가 윈도우용 오버레이 모드에서 실행될 수 있도록 한다.
+- `WindowsEndpointSliceProxying`: 활성화되면, 윈도우에서 실행되는 kube-proxy는
+  엔드포인트 대신 엔드포인트슬라이스를 기본 데이터 소스로 사용하여
+  확장성과 성능을 향상시킨다.
+  [엔드포인트슬라이스 활성화하기](/ko/docs/concepts/services-networking/endpoint-slices/)를 참고한다.
 - `WindowsGMSA`: 파드에서 컨테이너 런타임으로 GMSA 자격 증명 스펙을 전달할 수 있다.
 - `WindowsHostProcessContainers`: 윈도우 HostProcess 컨테이너에 대한 지원을 사용하도록 설정한다.
 - `WindowsRunAsUserName` : 기본 사용자가 아닌(non-default) 사용자로 윈도우 컨테이너에서
   애플리케이션을 실행할 수 있도록 지원한다. 자세한 내용은
   [RunAsUserName 구성](/ko/docs/tasks/configure-pod-container/configure-runasusername/)을
   참고한다.
-- `WindowsEndpointSliceProxying`: 활성화되면, 윈도우에서 실행되는 kube-proxy는
-  엔드포인트 대신 엔드포인트슬라이스를 기본 데이터 소스로 사용하여
-  확장성과 성능을 향상시킨다.
-  [엔드포인트슬라이스 활성화하기](/ko/docs/concepts/services-networking/endpoint-slices/)를 참고한다.
-- `WindowsHostProcessContainers`: 윈도우 노드에서 `HostProcess`
-  컨테이너 지원을 활성화한다.
-  
+
 
 ## {{% heading "whatsnext" %}}
 

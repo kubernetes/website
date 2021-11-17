@@ -242,6 +242,43 @@ Renders to:
 {{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
+## Third party content marker
+
+Running Kubernetes requires third-party software. For example: you
+usually need to add a
+[DNS server](/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)
+to your cluster so that name resolution works.
+
+When we link to third-party software, or otherwise mention it,
+we follow the [content guide](/docs/contribute/style/content-guide/)
+and we also mark those third party items.
+
+Using these shortcodes adds a disclaimer to any documentation page
+that uses them.
+
+### Lists {#third-party-content-list}
+
+For a list of several third-party items, add:
+```
+{{%/* thirdparty-content */%}}
+```
+just below the heading for the section that includes all items.
+
+### Items {#third-party-content-item}
+
+If you have a list where most of the items refer to in-project
+software (for example: Kubernetes itself, and the separate
+[Descheduler](https://github.com/kubernetes-sigs/descheduler)
+component), then there is a different form to use.
+
+Add the shortcode:
+```
+{{%/* thirdparty-content single="true" */%}}
+```
+
+before the item, or just below the heading for the specific item.
+
+
 ## Version strings
 
 To generate a version string for inclusion in the documentation, you can choose from

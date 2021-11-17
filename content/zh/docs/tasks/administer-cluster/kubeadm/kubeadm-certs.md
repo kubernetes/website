@@ -234,9 +234,27 @@ You can renew your certificates manually at any time with the `kubeadm certs ren
 你能随时通过 `kubeadm certs renew` 命令手动更新你的证书。
 
 <!-- 
-This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`. 
+This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
+
+After running the command you should restart the control plane Pods. This is required since
+dynamic certificate reload is currently not supported for all components and certificates.
+[Static Pods](/docs/tasks/configure-pod-container/static-pod/) are managed by the local kubelet
+and not by the API Server, thus kubectl cannot be used to delete and restart them.
+To restart a static Pod you can temporarily remove its manifest file from `/etc/kubernetes/manifests/`
+and wait for 20 seconds (see the `fileCheckFrequency` value in [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
+The kubelet will terminate the Pod if it's no longer in the manifest directory.
+You can then move the file back and after another `fileCheckFrequency` period, the kubelet will recreate
+the Pod and the certificate renewal for the component can complete.
 -->
 此命令用 CA （或者 front-proxy-CA ）证书和存储在 `/etc/kubernetes/pki` 中的密钥执行更新。
+
+执行完此命令之后你需要重启控制面 Pods。因为动态证书重载目前还不被所有组件和证书支持，所有这项操作是必须的。
+[静态 Pods](/zh/docs/tasks/configure-pod-container/static-pod/) 是被本地 kubelet 而不是 API Server 管理，
+所以 kubectl 不能用来删除或重启他们。
+要重启静态 Pod 你可以临时将清单文件从 `/etc/kubernetes/manifests/` 移除并等待 20 秒
+（参考 [KubeletConfiguration 结构](/docs/reference/config-api/kubelet-config.v1beta1/) 中的`fileCheckFrequency` 值）。
+如果 Pod 不在清单目录里，kubelet将会终止它。
+在另一个 `fileCheckFrequency` 周期之后你可以将文件移回去，为了组件可以完成 kubelet 将重新创建 Pod 和证书更新。
 
 <!-- 
 If you are running an HA cluster, this command needs to be executed on all the control-plane nodes. 
@@ -294,7 +312,7 @@ These are advanced topics for users who need to integrate their organization's c
 ### Set up a signer
 
 The Kubernetes Certificate Authority does not work out of the box.
-You can configure an external signer such as [cert-manager](https://docs.cert-manager.io/en/latest/tasks/issuers/setup-ca.html), or you can use the build-in signer.
+You can configure an external signer such as [cert-manager](https://cert-manager.io/docs/configuration/ca/), or you can use the build-in signer.
 The built-in signer is part of [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 To activate the build-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
 -->
@@ -303,7 +321,7 @@ To activate the build-in signer, you must pass the `--cluster-signing-cert-file`
 
 Kubernetes 证书颁发机构不是开箱即用。
 你可以配置外部签名者，例如
-[cert-manager](https://docs.cert-manager.io/en/latest/tasks/issuers/setup-ca.html)，
+[cert-manager](https://cert-manager.io/docs/configuration/ca/)，
 也可以使用内置签名者。
 内置签名者是
 [`kube-controller-manager`](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
@@ -311,13 +329,13 @@ Kubernetes 证书颁发机构不是开箱即用。
 要激活内置签名者，请传递 `--cluster-signing-cert-file` 和 `--cluster-signing-key-file` 参数。
 
 <!--
-If you're creating a new cluster, you can use a kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta2/): 
+If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3): 
 -->
 如果你正在创建一个新的集群，你可以使用 kubeadm 的
-[配置文件](/docs/reference/config-api/kubeadm-config.v1beta2/)。
+[配置文件](/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
@@ -441,7 +459,7 @@ certificates you must pass the following minimal configuration to `kubeadm init`
 你必须向 `kubeadm init` 传递如下最小配置数据：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1

@@ -47,6 +47,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
   controller.
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes) provides L4-L7 load-balancing using [VMware NSX Advanced Load Balancer](https://avinetworks.com/).
+* [BFE Ingress Controller](https://github.com/bfenetworks/ingress-bfe) is a [BFE](https://www.bfe-networks.net)-based ingress controller.
 * The [Citrix ingress controller](https://github.com/citrix/citrix-k8s-ingress-controller#readme) works with
   Citrix Application Delivery Controller.
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller.
@@ -63,6 +64,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)
   使用 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)
   提供第 4 到第 7 层的负载均衡。
+* [BFE Ingress 控制器](https://github.com/bfenetworks/ingress-bfe) 是一个基于 [BFE](https://www.bfe-networks.net) 的 Ingress 控制器。
 * [Citrix Ingress 控制器](https://github.com/citrix/citrix-k8s-ingress-controller#readme)
   可以用来与 Citrix Application Delivery Controller 一起使用。
 * [Contour](https://projectcontour.io/) 是一个基于 [Envoy](https://www.envoyproxy.io/)

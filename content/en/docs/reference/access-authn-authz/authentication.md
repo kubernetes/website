@@ -53,7 +53,7 @@ or be treated as an anonymous user.
 
 ## Authentication strategies
 
-Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
+Kubernetes uses client certificates, bearer tokens, or an authenticating proxy to
 authenticate API requests through authentication plugins. As HTTP requests are
 made to the API server, plugins attempt to associate the following attributes
 with the request:
@@ -356,7 +356,7 @@ You can use an existing public OpenID Connect Identity Provider (such as Google,
 Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
 [Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
-Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
+Tremolo Security's [OpenUnison](https://openunison.github.io/).
 
 For an identity provider to work with Kubernetes it must:
 
