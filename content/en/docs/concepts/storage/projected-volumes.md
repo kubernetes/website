@@ -6,6 +6,7 @@ reviewers:
 - zshihang
 title: Projected Volumes
 content_type: concept
+weight: 21 # just after persistent volumes
 ---
 
 <!-- overview -->
