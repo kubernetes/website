@@ -71,7 +71,7 @@ object's `.spec`, possibly do things, and then update the object's `.status`.
 A controller is a client of Kubernetes.
 
 When Kubernetes is the client and calls out to a remote service, 
-it is called a *Webhook*. The remote serviceis called a *Webhook Backend*. 
+it is called a *Webhook*. The remote service is called a *Webhook Backend*. 
 Like Controllers, Webhooks do add a point of failure.
 
 In the *Webhook* pattern, Kubernetes makes a network request to a remote service.
