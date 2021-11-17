@@ -21,8 +21,7 @@ weight: 30
 `kubeadm` also supports other cluster
 lifecycle functions, such as [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
 -->
-<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">使用 `kubeadm`，你
-能创建一个符合最佳实践的最小化 Kubernetes 集群。事实上，你可以使用 `kubeadm` 配置一个通过 [Kubernetes 一致性测试](https://kubernetes.io/blog/2017/10/software-conformance-certification) 的集群。
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">使用 `kubeadm`，你能创建一个符合最佳实践的最小化 Kubernetes 集群。事实上，你可以使用 `kubeadm` 配置一个通过 [Kubernetes 一致性测试](https://kubernetes.io/blog/2017/10/software-conformance-certification) 的集群。
 `kubeadm` 还支持其他集群生命周期功能，
 例如 [启动引导令牌](/zh/docs/reference/access-authn-authz/bootstrap-tokens/) 和集群升级。
 
@@ -153,6 +152,33 @@ apt-get upgrade` 或 `yum update` 以获取 kubeadm 的最新版本。
 {{< /note >}}
 
 <!--
+### Preparing the required container images
+-->
+### 准备所需的容器镜像
+
+<!--
+This step is optional and only applies in case you wish `kubeadm init` and `kubeadm join`
+to not download the default container images which are hosted at `k8s.gcr.io`.
+
+Kubeadm has commands that can help you pre-pull the required images
+when creating a cluster without an internet connection on its nodes.
+See [Running kubeadm without an internet connection](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection) for more details.
+
+Kubeadm allows you to use a custom image repository for the required images.
+See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+for more details.
+-->
+这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在 `k8s.gcr.io` 上的默认的容器镜像的情况。
+
+当你在离线的节点上创建一个集群的时候，Kubeadm 有一些命令可以帮助你预拉取所需的镜像。
+阅读[离线运行 kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+获取更多的详情。
+
+Kubeadm 允许你给所需要的镜像指定一个自定义的镜像仓库。
+阅读[使用自定义镜像](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+获取更多的详情。
+
+<!--
 ### Initializing your control-plane node
 -->
 ### 初始化控制平面节点
@@ -186,13 +212,11 @@ with the default gateway to set the advertise address for this particular contro
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
-1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
-connectivity to the gcr.io container image registry.
 -->
 1. （推荐）如果计划将单个控制平面 kubeadm 集群升级成高可用，
 你应该指定 `--control-plane-endpoint` 为所有控制平面节点设置共享端点。
 端点可以是负载均衡器的 DNS 名称或 IP 地址。
-1. 选择一个Pod网络插件，并验证是否需要为 `kubeadm init` 传递参数。
+1. 选择一个 Pod 网络插件，并验证是否需要为 `kubeadm init` 传递参数。
 根据你选择的第三方网络插件，你可能需要设置 `--pod-network-cidr` 的值。
 请参阅 [安装Pod网络附加组件](#pod-network)。
 1. （可选）从版本1.14开始，`kubeadm` 尝试使用一系列众所周知的域套接字路径来检测 Linux 上的容器运行时。
@@ -203,8 +227,6 @@ connectivity to the gcr.io container image registry.
 要使用其他网络接口，请为 `kubeadm init` 设置 `--apiserver-advertise-address=<ip-address>` 参数。
 要部署使用 IPv6 地址的 Kubernetes 集群，
 必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=fd00::101`
-1. （可选）在 `kubeadm init` 之前运行 `kubeadm config images pull`，以验证与 gcr.io 容器镜像仓库的连通性。
-
 
 <!--
 To initialize the control-plane node run:
@@ -437,7 +459,7 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
   IPv6 support was added to CNI in [v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
 -->
 - 如果要为集群使用 IPv6（双协议栈或仅单协议栈 IPv6 网络），
-  请确保你的Pod网络插件支持 IPv6。
+  请确保你的 Pod 网络插件支持 IPv6。
   IPv6 支持已在 CNI [v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0) 版本中添加。
 {{< /caution >}}
 
@@ -492,7 +514,8 @@ If your network is not working or CoreDNS is not in the `Running` state, check o
 [troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
 for `kubeadm`.
 -->
-如果您的网络无法正常工作或CoreDNS不在“运行中”状态，请查看 `kubeadm` 的[故障排除指南](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
+如果您的网络无法正常工作或 CoreDNS 不在“运行中”状态，请查看 `kubeadm` 的
+[故障排除指南](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
 
 <!--
@@ -829,15 +852,15 @@ options.
   See [Logging Architecture](/docs/concepts/cluster-administration/logging/) for
   an overview of what is involved.
 -->
-* 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正常运行
-* <a id="lifecycle" />有关使用kubeadm升级集群的详细信息，请参阅[升级 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
-* 在[kubeadm 参考文档](/zh/docs/reference/setup-tools/kubeadm)中了解有关高级 `kubeadm` 用法的信息
-* 了解有关Kubernetes[概念](/zh/docs/concepts/)和[`kubectl`](/zh/docs/reference/kubectl/overview/)的更多信息。
-* 有关Pod网络附加组件的更多列表，请参见[集群网络](/zh/docs/concepts/cluster-administration/networking/)页面。
+* 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正常运行。
+* <a id="lifecycle"/>有关使用 kubeadm 升级集群的详细信息，请参阅[升级 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+* 在 [kubeadm 参考文档](/zh/docs/reference/setup-tools/kubeadm)中了解有关高级 `kubeadm` 用法的信息。
+* 了解有关 Kubernetes [概念](/zh/docs/concepts/)和 [`kubectl`](/zh/docs/reference/kubectl/overview/) 的更多信息。
+* 有关 Pod 网络附加组件的更多列表，请参见[集群网络](/zh/docs/concepts/cluster-administration/networking/)页面。
 * <a id="other-addons" />请参阅[附加组件列表](/zh/docs/concepts/cluster-administration/addons/)以探索其他附加组件，
   包括用于 Kubernetes 集群的日志记录，监视，网络策略，可视化和控制的工具。
 * 配置集群如何处理集群事件的日志以及
-   在Pods中运行的应用程序。
+   在 Pods 中运行的应用程序。
   有关所涉及内容的概述，请参见[日志架构](/zh/docs/concepts/cluster-administration/logging/)。
 
 <!--
@@ -879,7 +902,7 @@ The `kubeadm` tool of version v{{< skew latestVersion >}} may deploy clusters wi
 <!--
 Due to that we can't see into the future, kubeadm CLI v{{< skew latestVersion >}} may or may not be able to deploy v{{< skew nextMinorVersion >}} clusters.
 -->
-由于没有未来，kubeadm CLI v{{< skew latestVersion >}} 可能会或可能无法部署 v{{< skew nextMinorVersion >}} 集群。
+由于我们不能预见未来，kubeadm CLI v{{< skew latestVersion >}} 可能会或可能无法部署 v{{< skew nextMinorVersion >}} 集群。
 
 <!--
 These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
@@ -956,9 +979,7 @@ Only some of the network providers offer solutions for all platforms. Please con
 network providers above or the documentation from each provider to figure out whether the provider
 supports your chosen platform.
 -->
-只有一些网络提供商为所有平台提供解决方案。请查阅上方的
-网络提供商清单或每个提供商的文档以确定提供商是否
-支持你选择的平台。
+只有一些网络提供商为所有平台提供解决方案。请查阅上方的网络提供商清单或每个提供商的文档以确定提供商是否支持你选择的平台。
 
 <!--
 ## Troubleshooting {#troubleshooting}

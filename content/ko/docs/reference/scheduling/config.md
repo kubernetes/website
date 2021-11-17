@@ -131,14 +131,12 @@ profiles:
   필터링한다.
   익스텐션 포인트: `filter`.
 - `NodeResourcesFit`: 노드에 파드가 요청하는 모든 리소스가 있는지
-  확인한다. 점수는 `LeastAllocated`(기본값), `MostAllocated`, `RequestedToCapacityRatio` 등 3가지 전략 중 하나를 사용할 수 있다.
+  확인한다. 점수는 `LeastAllocated`(기본값), `MostAllocated`, `RequestedToCapacityRatio` 등
+  3가지 전략 중 하나를 사용할 수 있다.
   익스텐션 포인트: `preFilter`, `filter`, `score`.
 - `NodeResourcesBalancedAllocation`: 파드가 스케줄된 경우, 보다 균형잡힌 리소스 사용량을
   얻을 수 있는 노드를 선호한다.
   익스텐션 포인트: `score`.
-- `NodeResourcesLeastAllocated`: 리소스 할당이 적은 노드를
-  선호한다.
-  익스텐션 포인트: `Score`.
 - `VolumeBinding`: 노드에 요청된 {{< glossary_tooltip text="볼륨" term_id="volume" >}}이 있는지
   또는 바인딩할 수 있는지 확인한다.
   익스텐션 포인트: `preFilter`, `filter`, `reserve`, `preBind`, `score`.
@@ -263,3 +261,4 @@ profiles:
 * [스케줄링](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 알아보기
 * [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 레퍼런스 읽어보기
 * [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) 레퍼런스 읽어보기
+

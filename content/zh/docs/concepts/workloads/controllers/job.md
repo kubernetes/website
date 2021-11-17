@@ -359,7 +359,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     当你同时使用带索引的 Job（Indexed Job）与 {{< glossary_tooltip term_id="Service" >}}，
     Job 中的 Pods 可以通过 DNS 使用确切的主机名互相寻址。
   - 对于容器化的任务，在环境变量 `JOB_COMPLETION_INDEX` 中。
-  
+
   当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
   关于如何使用这种模式的更多信息，可参阅
   [用带索引的 Job 执行基于静态任务分配的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)。

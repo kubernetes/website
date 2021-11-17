@@ -43,11 +43,11 @@ The controllers inside the cloud controller manager include:
 
 ### Node controller
 
-The node controller is responsible for creating {{< glossary_tooltip text="Node" term_id="node" >}} objects
+The node controller is responsible for updating {{< glossary_tooltip text="Node" term_id="node" >}} objects
 when new servers are created in your cloud infrastructure. The node controller obtains information about the
 hosts running inside your tenancy with the cloud provider. The node controller performs the following functions:
 
-1. Initialize a Node object for each server that the controller discovers through the cloud provider API.
+1. Update a Node object with the corresponding server's unique identifier obtained from the cloud provider API.
 2. Annotating and labelling the Node object with cloud-specific information, such as the region the node
    is deployed into and the resources (CPU, memory, etc) that it has available.
 3. Obtain the node's hostname and network addresses.

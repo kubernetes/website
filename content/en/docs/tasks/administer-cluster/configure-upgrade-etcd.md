@@ -325,7 +325,7 @@ Here is an example:
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
 ```
-Another example for restoring using etcdutl options:
+Another example for restoring using etcdctl options:
 ```shell
 ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
 ```

@@ -292,7 +292,7 @@ command line arguments to `kube-apiserver`:
 * `--service-account-issuer`
 * `--service-account-key-file`
 * `--service-account-signing-key-file`
-* `--api-audiences`
+* `--api-audiences` (can be omitted)
 
 {{< /note >}}
 

@@ -51,6 +51,7 @@ content_type: concept
 
 * [AppArmor](/ko/docs/tutorials/clusters/apparmor/)
 
+* [seccomp](/docs/tutorials/clusters/seccomp/)
 ## 서비스
 
 * [소스 IP 주소 이용하기](/ko/docs/tutorials/services/source-ip/)
