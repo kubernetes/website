@@ -250,7 +250,7 @@ back-off count is reset when a Job's Pod is deleted or successful without any
 other Pods for the Job failing around that time.
 
 {{< note >}}
-If your job has `restartPolicy = "OnFailure"`, keep in mind that your container running the Job
+If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
 will be terminated once the job backoff limit has been reached. This can make debugging the Job's executable more difficult. We suggest setting
 `restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
 from failed Jobs is not lost inadvertently.
