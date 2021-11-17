@@ -88,8 +88,8 @@ kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\"
 * [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)에 대해 더 배워 보기.
 * [퍼시스턴트볼륨클레임](/ko/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)에 대해 더 배워 보기.
 
-### Reference
+### 레퍼런스 {#reference}
 
-* [퍼시스턴트볼륨](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
-* [퍼시스턴트볼륨클레임](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
-* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)의 `persistentVolumeReclaimPolicy` 필드에 대해 보기.
+* {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
+  * Pay attention to the 퍼시스턴트볼륨의 `.spec.persistentVolumeReclaimPolicy` [필드](docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)에 주의한다.
+* {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
