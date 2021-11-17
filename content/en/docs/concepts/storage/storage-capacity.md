@@ -7,7 +7,7 @@ reviewers:
 - pohly
 title: Storage Capacity
 content_type: concept
-weight: 45
+weight: 70
 ---
 
 <!-- overview -->
