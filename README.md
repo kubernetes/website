@@ -146,7 +146,8 @@ Learn more about SIG Docs Kubernetes community and meetings on the [community pa
 
 You can also reach the maintainers of this project at:
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs) [Get an invite for this Slack](https://slack.k8s.io/)
+- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+  - [Get an invite for this Slack](https://slack.k8s.io/)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 ## Contributing to the docs

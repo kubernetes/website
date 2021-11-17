@@ -35,9 +35,11 @@ aliases:
     - divya-mohan0209
     - jimangel
     - kbhawkey
+    - mehabhalodiya
     - onlydole
     - rajeshdeshpande02
     - sftim
+    - shannonxtreme
     - tengqm
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
@@ -166,6 +168,7 @@ aliases:
     - xichengliudui
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
+    - edsoncelio
     - femrtnz
     - jailton
     - jcjesus
@@ -174,6 +177,7 @@ aliases:
     - rikatz
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
+    - edsoncelio
     - femrtnz
     - jailton
     - jcjesus
@@ -221,12 +225,12 @@ aliases:
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - cblecker
-    - derekwaynecarr
     - dims
+    - justaugustus
     - liggitt
     - mrbobbytables
-    - nikhita
     - parispittman
+    - tpepper
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
     - cpanato # SIG Technical Lead

@@ -52,9 +52,9 @@ Flags and configuration files may not always be changeable in a hosted Kubernete
 Extensions are software components that extend and deeply integrate with Kubernetes.
 They adapt it to support new types and new kinds of hardware.
 
-Most cluster administrators will use a hosted or distribution
-instance of Kubernetes. As a result, most Kubernetes users will not need to
-install extensions and fewer will need to author new ones.
+Many cluster administrators use a hosted or distribution instance of Kubernetes. 
+These clusters come with extensions pre-installed. As a result, most Kubernetes 
+users will not need to install extensions and even fewer users will need to author new ones.
 
 ## Extension Patterns
 

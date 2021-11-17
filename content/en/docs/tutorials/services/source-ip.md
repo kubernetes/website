@@ -164,7 +164,7 @@ The `client_address` is always the client pod's IP address, whether the client p
 ## Source IP for Services with `Type=NodePort`
 
 Packets sent to Services with
-[`Type=NodePort`](/docs/concepts/services-networking/service/#nodeport)
+[`Type=NodePort`](/docs/concepts/services-networking/service/#type-nodeport)
 are source NAT'd by default. You can test this by creating a `NodePort` Service:
 
 ```shell
