@@ -165,6 +165,7 @@ different Kubernetes components.
 | `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `ReadWriteOncePod` | `false` | Alpha | 1.22 | |
+| `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
@@ -889,6 +890,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   (memory only for now).
 - `ReadWriteOncePod`: Enables the usage of `ReadWriteOncePod` PersistentVolume
   access mode.
+- `RecoverVolumeExpansionFailure`: Enables users to edit their PVCs to smaller sizes so as they can recover from previously issued
+  volume expansion failures. See [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1790-recover-resize-failure/README.md) for more details.
 - `RemainingItemCount`: Allow the API servers to show a count of remaining
   items in the response to a
   [chunking list request](/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks).
