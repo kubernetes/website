@@ -470,7 +470,7 @@ This internal provisioner of OpenStack is deprecated. Please use [the external c
 
 There are two types of provisioners for vSphere storage classes: 
 
-- [CSI provisioner](#csi-provisioner): `csi.vsphere.vmware.com`
+- [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
 In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#csi-migration-5).
