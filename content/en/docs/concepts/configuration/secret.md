@@ -244,7 +244,7 @@ on the fly:
 
 The `kubernetes.io/basic-auth` type is provided for storing credentials needed
 for basic authentication. When using this Secret type, the `data` field of the
-Secret must contain the following two keys:
+Secret must contain one of the following two keys:
 
 - `username`: the user name for authentication;
 - `password`: the password or token for authentication.

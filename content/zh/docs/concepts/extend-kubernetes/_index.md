@@ -155,11 +155,12 @@ calls out to a remote service, it is called a *Webhook*. The remote service
 is called a *Webhook Backend*. Like Controllers, Webhooks do add a point of
 failure.
 -->
-编写客户端程序有一种特殊的*Controller（控制器）*模式，能够与 Kubernetes 很好地
+编写客户端程序有一种特殊的 *Controller(控制器)* 模式，能够与 Kubernetes 很好地
 协同工作。控制器通常会读取某个对象的 `.spec`，或许还会执行一些操作，之后更新
 对象的 `.status`。
+*Controller（控制器）* 是 Kubernetes 的客户端。
 
-控制器是 Kubernetes 的客户端。当 Kubernetes 充当客户端，调用某远程服务时，对应
+当 Kubernetes 充当客户端，调用某远程服务时，对应
 的远程组件称作*Webhook*。 远程服务称作*Webhook 后端*。 
 与控制器模式相似，Webhook 也会在整个架构中引入新的失效点（Point of Failure）。
 
@@ -176,7 +177,7 @@ Below is a diagram showing how the extension points interact with the
 Kubernetes control plane.
 -->
 在 Webhook 模式中，Kubernetes 向远程服务发起网络请求。
-在*可执行文件插件（Binary Plugin）*模式中，Kubernetes 执行某个可执行文件（程序）。
+在 *可执行文件插件（Binary Plugin）* 模式中，Kubernetes 执行某个可执行文件（程序）。
 可执行文件插件在 kubelet （例如，
 [FlexVolume 插件](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 和[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)）

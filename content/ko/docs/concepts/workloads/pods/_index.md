@@ -258,11 +258,8 @@ POSIX 공유 메모리와 같은 표준 프로세스 간 통신을 사용하여 
 ## 컨테이너에 대한 특권 모드
 
 리눅스에서, 파드의 모든 컨테이너는 컨테이너 명세의 [보안 컨텍스트](/docs/tasks/configure-pod-container/security-context/)에 있는 `privileged` (리눅스) 플래그를 사용하여 특권 모드를 활성화할 수 있다. 이는 네트워크 스택 조작이나 하드웨어 장치 접근과 같은 운영 체제 관리 기능을 사용하려는 컨테이너에 유용하다.
-클러스터가 `WindowsHostProcessContainers` 기능을 활성화하였다면, 파드 스펙의 보안 컨텍스트의 `windowsOptions.hostProcess` 에 의해 [윈도우 HostProcess 파드](/docs/tasks/configure-pod-container/create-hostprocess-pod)를 생성할 수 있다. 이러한 모든 컨테이너는 윈도우 HostProcess 컨테이너로 실행해야 한다. HostProcess 파드는 직접적으로 호스트에서 실행하는 것으로, 리눅스 특권있는 컨테이너에서 수행되는 관리 태스크 수행에도 사용할 수 있다.
 
-파드의 모든 컨테이너는 윈도우 HostProcess 컨테이너로 반드시 실행해야 한다.
-
-HostProcess 파드는 호스트에서 직접 실행되며 리눅스 특권있는 컨테이너에서 수행되는 것과 같은 관리 작업을 수행하는데도 사용할 수 있다.
+클러스터가 `WindowsHostProcessContainers` 기능을 활성화하였다면, 파드 스펙의 보안 컨텍스트의 `windowsOptions.hostProcess` 에 의해 [윈도우 HostProcess 파드](/docs/tasks/configure-pod-container/create-hostprocess-pod)를 생성할 수 있다. 이러한 모든 컨테이너는 윈도우 HostProcess 컨테이너로 실행해야 한다. HostProcess 파드는 직접적으로 호스트에서 실행하는 것으로, 리눅스 특권있는 컨테이너에서 수행되는 관리 태스크 수행에도 사용할 수 있다. 파드의 모든 컨테이너는 윈도우 HostProcess 컨테이너로 반드시 실행해야 한다. HostProcess 파드는 호스트에서 직접 실행되며 리눅스 특권있는 컨테이너에서 수행되는 것과 같은 관리 작업을 수행하는데도 사용할 수 있다.
 
 {{< note >}}
 이 설정을 사용하려면 사용자의 {{< glossary_tooltip text="컨테이너 런타임" term_id="container-runtime" >}}이 특권이 있는 컨테이너의 개념을 지원해야 한다.
@@ -286,6 +283,13 @@ kubelet은 자동으로 각 정적 파드에 대한 쿠버네티스 API 서버�
 즉, 노드에서 실행되는 파드는 API 서버에서 보이지만,
 여기에서 제어할 수는 없다는 의미이다.
 
+{{< note >}}
+스태틱 파드의 `스펙(spec)`은 다른 API 오브젝트
+(예를 들면, {{< glossary_tooltip text="서비스어카운트" term_id="service-account" >}},
+{{< glossary_tooltip text="컨피그맵" term_id="configmap" >}},
+{{< glossary_tooltip text="시크릿" term_id="secret" >}}, 등)가 참조할 수 없다.
+{{< /note >}}
+
 ## 컨테이너 프로브
 
 _프로브_는 컨테이너의 kubelet에 의해 주기적으로 실행되는 진단이다. 진단을 수행하기 위하여 kubelet은 다음과 같은 작업을 호출할 수 있다.
@@ -305,9 +309,9 @@ _프로브_는 컨테이너의 kubelet에 의해 주기적으로 실행되는 �
 * [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽어본다.
 * [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과 이를 사용하여 서비스 중단 중에 애플리케이션 가용성을 관리하는 방법에 대해 읽어본다.
 * 파드는 쿠버네티스 REST API의 최상위 리소스이다.
-  [파드](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+  {{< api-reference page="workload-resources/pod-v1" >}}
   오브젝트 정의는 오브젝트를 상세히 설명한다.
-* [분산 시스템 툴킷: 컴포지트 컨테이너에 대한 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)은 둘 이상의 컨테이너가 있는 파드의 일반적인 레이아웃을 설명한다.
+* [분산 시스템 툴킷: 컴포지트 컨테이너에 대한 패턴](/blog/2015/06/the-distributed-system-toolkit-patterns/)은 둘 이상의 컨테이너가 있는 파드의 일반적인 레이아웃을 설명한다.
 
 쿠버네티스가 다른 리소스({{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}}이나 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}와 같은)에서 공통 파드 API를 래핑하는 이유에 대한 콘텍스트를 이해하기 위해서, 다음과 같은 선행 기술에 대해 읽어볼 수 있다.
 

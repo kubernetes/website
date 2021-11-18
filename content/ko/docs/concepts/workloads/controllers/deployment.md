@@ -73,10 +73,6 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
-  {{< note >}}
-  `--record` 플래그를 지정해서 실행된 명령을 `kubernetes.io/change-cause` 리소스 어노테이션에 작성할 수 있다.
-  기록된 변경사항은 향후 인트로스펙션(introspection)에 유용하다. 예를 들면, 디플로이먼트의 각 수정 버전에서 실행된 명령을 볼 수 있다.
-  {{< /note >}}
 
 
 2. `kubectl get deployments` 을 실행해서 디플로이먼트가 생성되었는지 확인한다.
@@ -167,13 +163,13 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 1. `nginx:1.14.2` 이미지 대신 `nginx:1.16.1` 이미지를 사용하도록 nginx 파드를 업데이트 한다.
 
     ```shell
-    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    kubectl deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
     또는 다음의 명령어를 사용한다.
 
     ```shell
-    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
     ```
 
     다음과 유사하게 출력된다.
@@ -368,7 +364,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 * 디플로이먼트를 업데이트하는 동안 이미지 이름을 `nginx:1.16.1` 이 아닌 `nginx:1.161` 로 입력해서 오타를 냈다고 가정한다.
 
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 
     ```
 
     이와 유사하게 출력된다.
@@ -483,15 +479,14 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     ```
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
-    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
-    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
+    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161
     ```
 
     `CHANGE-CAUSE` 는 수정 생성시 디플로이먼트 주석인 `kubernetes.io/change-cause` 에서 복사한다. 다음에 대해 `CHANGE-CAUSE` 메시지를 지정할 수 있다.
 
     * 디플로이먼트에 `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"` 로 주석을 단다.
-    * `kubectl` 명령어 이용시 `--record` 플래그를 추가해서 리소스 변경을 저장한다.
     * 수동으로 리소스 매니페스트 편집.
 
 2. 각 수정 버전의 세부 정보를 보려면 다음을 실행한다.
@@ -504,7 +499,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
               pod-template-hash=1159050644
-      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
       Containers:
        nginx:
         Image:      nginx:1.16.1
@@ -565,7 +560,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
     Labels:                 app=nginx
     Annotations:            deployment.kubernetes.io/revision=4
-                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     Selector:               app=nginx
     Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
     StrategyType:           RollingUpdate
@@ -1174,3 +1169,14 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 일시 중지 된 디플로이먼트와 일시 중지 되지 않은 디플로이먼트 사이의 유일한 차이점은
 일시 중지된 디플로이먼트는 PodTemplateSpec에 대한 변경 사항이 일시중지 된 경우 새 롤아웃을 트리거 하지 않는다.
 디플로이먼트는 생성시 기본적으로 일시 중지되지 않는다.
+
+## {{% heading "whatsnext" %}}
+
+* [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
+* [디플로이먼트를 사용해서 상태를 유지하지 않는 애플리케이션을 구동한다](/ko/docs/tasks/run-application/run-stateless-application-deployment/).
+* `Deployment`는 쿠버네티스 REST API에서 상위-수준 리소스이다.
+  디플로이먼트 API를 이해하기 위해서
+  {{< api-reference page="workload-resources/deployment-v1" >}}
+  오브젝트 정의를 읽는다.
+* [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과
+  이를 사용해서 어떻게 중단 중에 애플리케이션 가용성을 관리할 수 있는지에 대해 읽는다.

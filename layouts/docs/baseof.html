@@ -8,7 +8,11 @@
     <header>
       {{ partial "navbar.html" . }}
       {{ partial "announcement.html" . }}
-      <div class="header-filler"></div>
+      {{ block "hero" . }}
+        <section class="header-hero filler">
+        </section>
+         {{ block "hero-more" . }}{{ end }}
+      {{ end }}
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
@@ -41,8 +45,8 @@
           </div>
         </div>
       </div>
-      {{ partial "footer.html" . }}
     </div>
+    {{ partial "footer.html" . }}
     {{ partial "scripts.html" . }}
   </body>
 </html>

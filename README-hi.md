@@ -23,9 +23,12 @@
 
 ## `README.md`'s स्थानीयकरण कुबरनेट्स प्रलेखन
 
-आप पर हिंदी स्थानीयकरण के maintainers तक पहुँच सकते हैं:
+आप हिंदी स्थानीयकरण के मैन्टेनरों तक पहुँच सकते हैं:
 
+* Anubhav Vardhan ([Slack](https://kubernetes.slack.com/archives/D0261C0A3R8), [Twitter](https://twitter.com/anubha_v_ardhan), [GitHub](https://github.com/anubha-v-ardhan))
+* Divya Mohan ([Slack](https://kubernetes.slack.com/archives/D027R7BE804), [Twitter](https://twitter.com/Divya_Mohan02), [GitHub](https://github.com/divya-mohan0209))
 * Yashu Mittal ([Twitter](https://twitter.com/mittalyashu77), [GitHub](https://github.com/mittalyashu))
+
 * [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-hi)
 
 ## स्थानीय रूप से डॉकर का उपयोग करके साइट चलाना

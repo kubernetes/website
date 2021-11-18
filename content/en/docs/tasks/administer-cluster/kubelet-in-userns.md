@@ -14,7 +14,7 @@ without root privileges, by using a {{< glossary_tooltip text="user namespace" t
 This technique is also known as _rootless mode_.
 
 {{< note >}}
-This document describes how to run Kubernetes Node components (and hence pods) a non-root user.
+This document describes how to run Kubernetes Node components (and hence pods) as a non-root user.
 
 If you are just looking for how to run a pod as a non-root user, see [SecurityContext](/docs/tasks/configure-pod-container/security-context/).
 {{< /note >}}
@@ -27,8 +27,7 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 * [Enable systemd with user session](https://rootlesscontaine.rs/getting-started/common/login/)
 * [Configure several sysctl values, depending on host Linux distribution](https://rootlesscontaine.rs/getting-started/common/sysctl/)
 * [Ensure that your unprivileged user is listed in `/etc/subuid` and `/etc/subgid`](https://rootlesscontaine.rs/getting-started/common/subuid/)
-
-* `KubeletInUserNamespace` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+* Enable the `KubeletInUserNamespace` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 
 <!-- steps -->
 
@@ -86,9 +85,10 @@ Rootless Docker/Podman or LXC/LXD, you are all set, and you can go to the next s
 Otherwise you have to create a user namespace by yourself, by calling `unshare(2)` with `CLONE_NEWUSER`.
 
 A user namespace can be also unshared by using command line tools such as:
+
+- [`unshare(1)`](https://man7.org/linux/man-pages/man1/unshare.1.html)
 - [RootlessKit](https://github.com/rootless-containers/rootlesskit)
 - [become-root](https://github.com/giuseppe/become-root)
-- [`unshare(1)`](https://man7.org/linux/man-pages/man1/unshare.1.html)
 
 After unsharing the user namespace, you will also have to unshare other namespaces such as mount namespace.
 
@@ -123,29 +123,37 @@ On your node, systemd must already be configured to allow delegation; for more d
 Containers documentation.
 
 ### Configuring network
+
 {{% thirdparty-content %}}
 
 The network namespace of the Node components has to have a non-loopback interface, which can be for example configured with
-slirp4netns, VPNKit, or lxc-user-nic.
+[slirp4netns](https://github.com/rootless-containers/slirp4netns),
+[VPNKit](https://github.com/moby/vpnkit), or
+[lxc-user-nic(1)](https://www.man7.org/linux/man-pages/man1/lxc-user-nic.1.html).
 
 The network namespaces of the Pods can be configured with regular CNI plugins.
 For multi-node networking, Flannel (VXLAN, 8472/UDP) is known to work.
 
 Ports such as the kubelet port (10250/TCP) and `NodePort` service ports have to be exposed from the Node network namespace to
-the host with an external port forwarder, such as RootlessKit, slirp4netns, or socat.
+the host with an external port forwarder, such as RootlessKit, slirp4netns, or
+[socat(1)](https://linux.die.net/man/1/socat).
 
-You can use the port forwarder from K3s; see https://github.com/k3s-io/k3s/blob/v1.21.2+k3s1/pkg/rootlessports/controller.go
+You can use the port forwarder from K3s.
+See [Running K3s in Rootless Mode](https://rancher.com/docs/k3s/latest/en/advanced/#known-issues-with-rootless-mode)
+for more details.
+The implementation can be found in [the `pkg/rootlessports` package](https://github.com/k3s-io/k3s/blob/v1.22.3+k3s1/pkg/rootlessports/controller.go) of k3s.
 
 ### Configuring CRI
 
-The kubelet relies on a container runtime. You should deploy a container runtime such as containerd or CRI-O and ensure that it is running within the user namespace before the kubelet starts.
+The kubelet relies on a container runtime. You should deploy a container runtime such as
+containerd or CRI-O and ensure that it is running within the user namespace before the kubelet starts.
 
 {{< tabs name="cri" >}}
 {{% tab name="containerd" %}}
 
 Running CRI plugin of containerd in a user namespace is supported since containerd 1.4.
 
-Running containerd within a user namespace requires the following configuration:
+Running containerd within a user namespace requires the following configurations.
 
 ```toml
 version = 2
@@ -168,6 +176,9 @@ version = 2
   SystemdCgroup = false
 ```
 
+The default path of the configuration file is `/etc/containerd/config.toml`.
+The path can be specified with `containerd -c /path/to/containerd/config.toml`.
+
 {{% /tab %}}
 {{% tab name="CRI-O" %}}
 
@@ -175,7 +186,7 @@ Running CRI-O in a user namespace is supported since CRI-O 1.22.
 
 CRI-O requires an environment variable `_CRIO_ROOTLESS=1` to be set.
 
-The following configuration is also recommended:
+The following configurations are also recommended:
 
 ```toml
 [crio]
@@ -189,6 +200,8 @@ The following configuration is also recommended:
   cgroup_manager = "cgroupfs"
 ```
 
+The default path of the configuration file is `/etc/crio/crio.conf`.
+The path can be specified with `crio --config /path/to/crio/crio.conf`.
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -197,8 +210,8 @@ The following configuration is also recommended:
 Running kubelet in a user namespace requires the following configuration:
 
 ```yaml
-kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
 featureGates:
   KubeletInUserNamespace: true
 # We use cgroupfs that is delegated by systemd, so we do not use "systemd" driver
@@ -206,22 +219,23 @@ featureGates:
 cgroupDriver: "cgroupfs"
 ```
 
-When the `KubeletInUserNamespace` feature gate is enabled, kubelet ignores errors that may happen during setting the following sysctl values:
+When the `KubeletInUserNamespace` feature gate is enabled, the kubelet ignores errors
+that may happen during setting the following sysctl values on the node.
+
 - `vm.overcommit_memory`
 - `vm.panic_on_oom`
 - `kernel.panic`
 - `kernel.panic_on_oops`
 - `kernel.keys.root_maxkeys`
 - `kernel.keys.root_maxbytes`.
-   (these are sysctl values for the host, not for the containers).
 
 Within a user namespace, the kubelet also ignores any error raised from trying to open `/dev/kmsg`.
 This feature gate also allows kube-proxy to ignore an error during setting `RLIMIT_NOFILE`.
 
 The `KubeletInUserNamespace` feature gate was introduced in Kubernetes v1.22 with "alpha" status.
 
-Running kubelet in a user namespace without using this feature gate is also possible by mounting a specially crafted proc filesystem,
-but not officially supported.
+Running kubelet in a user namespace without using this feature gate is also possible
+by mounting a specially crafted proc filesystem, but not officially supported.
 
 ### Configuring kube-proxy
 
@@ -251,9 +265,11 @@ For more on this, see the [Caveats and Future work](https://rootlesscontaine.rs/
 on the rootlesscontaine.rs website.
 
 ## {{% heading "seealso" %}}
+
 - [rootlesscontaine.rs](https://rootlesscontaine.rs/)
 - [Rootless Containers 2020 (KubeCon NA 2020)](https://www.slideshare.net/AkihiroSuda/kubecon-na-2020-containerd-rootless-containers-2020)
 - [Running kind with Rootless Docker](https://kind.sigs.k8s.io/docs/user/rootless/)
 - [Usernetes](https://github.com/rootless-containers/usernetes)
 - [Running K3s with rootless mode](https://rancher.com/docs/k3s/latest/en/advanced/#running-k3s-with-rootless-mode-experimental)
 - [KEP-2033: Kubelet-in-UserNS (aka Rootless mode)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2033-kubelet-in-userns-aka-rootless)
+

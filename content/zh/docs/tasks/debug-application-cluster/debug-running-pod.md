@@ -493,15 +493,43 @@ kubectl delete pod myapp myapp-debug
 <!--
 ## Debugging via a shell on the node {#node-shell-session}
 
-If none of these approaches work, you can find the host machine that the pod is
-running on and SSH into that host, but this should generally not be necessary
-given tools in the Kubernetes API. Therefore, if you find yourself needing to
-ssh into a machine, please file a feature request on GitHub describing your use
-case and why these tools are insufficient.
+If none of these approaches work, you can find the Node on which the Pod is
+running and create a privileged Pod running in the host namespaces. To create
+an interactive shell on a node using `kubectl debug`, run:
 -->
-## 在节点上通过 shell 来调试 {#node-shell-session}
+## 在节点上通过 shell 来进行调试 {#node-shell-session}
 
-如果这些方法都不起作用，你可以找到运行 Pod 的主机并通过 SSH 进入该主机，
-但是如果使用 Kubernetes API 中的工具，则通常不需要这样做。
-因此，如果你发现自己需要使用 ssh 进入主机，请在GitHub 上提交功能请求，
-以描述你的用例以及这些工具不足的原因。
+如果这些方法都不起作用，你可以找到运行 Pod 的节点，然后在节点上部署一个运行在宿主名字空间的特权 Pod。
+
+你可以通过`kubectl debug` 在节点上创建一个交互式 shell：
+
+```shell
+kubectl debug node/mynode -it --image=ubuntu
+```
+
+```
+Creating debugging pod node-debugger-mynode-pdx84 with container debugger on node mynode.
+If you don't see a command prompt, try pressing enter.
+root@ek8s:/#
+```
+
+<!--
+When creating a debugging session on a node, keep in mind that:
+
+* `kubectl debug` automatically generates the name of the new Pod based on
+  the name of the Node.
+* The container runs in the host IPC, Network, and PID namespaces.
+* The root filesystem of the Node will be mounted at `/host`.
+
+Don't forget to clean up the debugging Pod when you're finished with it:
+-->
+当在节点上创建调试会话，注意以下要点：
+* `kubectl debug` 基于节点的名字自动生成新的 Pod 的名字。
+* 新的调试容器运行在宿主命名空间里（IPC, 网络 还有PID命名空间）。
+* 节点的根文件系统会被挂载在 `/host`。
+
+当你完成节点调试时，不要忘记清理调试 Pod：
+
+```shell
+kubectl delete pod node-debugger-mynode-pdx84
+```

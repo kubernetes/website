@@ -334,10 +334,12 @@ service PodResourcesLister {
 <!--
 The `List` endpoint provides information on resources of running pods, with details such as the
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
-the NUMA node where these devices are allocated.
+the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains 
+the information about memory and hugepages reserved for a container.
 -->
 这一 `List` 端点提供运行中 Pods 的资源信息，包括类似独占式分配的
 CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUMA 节点 ID。
+此外，对于基于 NUMA 的机器，它还会包含为容器保留的内存和大页的信息。
 
 ```gRPC
 // ListPodResourcesResponse 是 List 函数的响应
@@ -357,6 +359,14 @@ message ContainerResources {
     string name = 1;
     repeated ContainerDevices devices = 2;
     repeated int64 cpu_ids = 3;
+    repeated ContainerMemory memory = 4;
+}
+
+// ContainerMemory 包含分配给容器的内存和大页信息
+message ContainerMemory {
+    string memory_type = 1;
+    uint64 size = 2;
+    TopologyInfo topology = 3;
 }
 
 // Topology 描述资源的硬件拓扑结构
@@ -390,6 +400,7 @@ It provides more information than kubelet exports to APIServer.
 message AllocatableResourcesResponse {
     repeated ContainerDevices devices = 1;
     repeated int64 cpu_ids = 2;
+    repeated ContainerMemory memory = 3;
 }
 
 ```
@@ -397,7 +408,7 @@ message AllocatableResourcesResponse {
 <!--
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is affine.
 The NUMA cells are identified using a opaque integer ID, which value is consistent to what device
-plugins report [when they register themselves to the kubelet](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
+plugins report [when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
 -->
 `ContainerDevices` 会向外提供各个设备所隶属的 NUMA 单元这类拓扑信息。
 NUMA 单元通过一个整数 ID 来标识，其取值与设备插件所报告的一致。
