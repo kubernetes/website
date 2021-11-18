@@ -222,6 +222,7 @@ different Kubernetes components.
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | 1.20 |
 | `BoundServiceAccountTokenVolume` | `true` | Beta | 1.21 | 1.21 |
 | `BoundServiceAccountTokenVolume` | `true` | GA | 1.22 | - |
+| `ConfigurableFSGroupPolicy` | `true` | GA | 1.23 | |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta | 1.11 | 1.20 |
 | `CRIContainerLogRotation` | `true` | GA | 1.21 | - |
