@@ -19,16 +19,12 @@ A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repe
 
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
-
-In addition, the CronJob schedule supports timezone handling, you can specify the timezone by adding "CRON_TZ=<time zone>" at the beginning of the CronJob schedule, and it is recommended to always set `CRON_TZ`.
 -->
 _CronJob_ 创建基于时隔重复调度的 {{< glossary_tooltip term_id="job" text="Jobs" >}}。
 
 一个 CronJob 对象就像 _crontab_ (cron table) 文件中的一行。
 它用 [Cron](https://en.wikipedia.org/wiki/Cron) 格式进行编写，
 并周期性地在给定的调度时间执行 Job。
-
-另外，CronJob 调度支持时区处理，你可以通过在 CronJob schedule 字段的开头添加 "CRON_TZ=<time zone>" 指定时区，且建议始终设置 `CRON_TZ`。
 
 <!--
 All **CronJob** `schedule:` times are based on the timezone of the
@@ -46,6 +42,24 @@ that the cron job controller uses.
 如果你的控制平面在 Pod 或是裸容器中运行了 kube-controller-manager，
 那么为该容器所设置的时区将会决定 Cron Job 的控制器所使用的时区。
 {{< /caution >}}
+
+<!--
+The [v1 CronJob API](/docs/reference/kubernetes-api/workload-resources/cron-job-v1/)
+does not officially support setting timezone as explained above.
+
+Setting variables such as `CRON_TZ` or `TZ` is not officially supported by the Kubernetes project.
+`CRON_TZ` or `TZ` is an implementation detail of the internal library being used
+for parsing and calculating the next Job creation time. Any usage of it is not
+recommended in a production cluster.
+-->
+
+{{< caution >}}
+如 [v1 CronJob API](/zh/docs/reference/kubernetes-api/workload-resources/cron-job-v1/) 所述，官方并不支持设置时区。
+
+Kubernetes 项目官方并不支持设置如 `CRON_TZ` 或者 `TZ` 等变量。
+`CRON_TZ` 或者 `TZ` 是用于解析和计算下一个 Job 创建时间所使用的内部库中一个实现细节。
+不建议在生产集群中使用它。
+{{< /caution>}}
 
 <!--
 When creating the manifest for a CronJob resource, make sure the name you provide
@@ -96,16 +110,15 @@ This example CronJob manifest prints the current time and a hello message every 
 ### Cron 时间表语法
 
 ```
-#      ┌────────────────── 时区 (可选)
-#      |      ┌───────────── 分钟 (0 - 59)
-#      |      │ ┌───────────── 小时 (0 - 23)
-#      |      │ │ ┌───────────── 月的某天 (1 - 31)
-#      |      │ │ │ ┌───────────── month (1 - 12)
-#      |      │ │ │ │ ┌───────────── 周的某天 (0 - 6)（周日到周一；在某些系统上，7 也是星期日）
-#      |      │ │ │ │ │                                
-#      |      │ │ │ │ │
-#      |      │ │ │ │ │
-# CRON_TZ=UTC * * * * *
+# ┌───────────── 分钟 (0 - 59)
+# │ ┌───────────── 小时 (0 - 23)
+# │ │ ┌───────────── 月的某天 (1 - 31)
+# │ │ │ ┌───────────── 月份 (1 - 12)
+# │ │ │ │ ┌───────────── 周的某天 (0 - 6)（周日到周一；在某些系统上，7 也是星期日）
+# │ │ │ │ │
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
 ```
 
 ```
@@ -114,7 +127,7 @@ This example CronJob manifest prints the current time and a hello message every 
 # │ │ ┌───────────── 月的某天 (1 - 31)
 # │ │ │ ┌───────────── 月份 (1 - 12)
 # │ │ │ │ ┌───────────── 周的某天 (0 - 6) （周日到周一；在某些系统上，7 也是星期日）
-# │ │ │ │ │                                   
+# │ │ │ │ │
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * *
@@ -138,11 +151,11 @@ This example CronJob manifest prints the current time and a hello message every 
 | @hourly                   | 每小时的开始一次              | 0 * * * *      |
 
 <!--  
-For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight(in UTC):
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
 -->
-例如，下面这行指出必须在每个星期五的午夜以及每个月 13 号的午夜开始任务（UTC 时间）：
+例如，下面这行指出必须在每个星期五的午夜以及每个月 13 号的午夜开始任务：
 
-`CRON_TZ=UTC 0 0 13 * 5`
+`0 0 13 * 5`
 
 <!--  
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
