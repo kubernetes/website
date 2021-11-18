@@ -557,7 +557,7 @@ deleted by Kubernetes.
 
 Custom resources are validated via
 [OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject),
-by x-kubernetes-validation-rules when the [Validation Rules feature](#validation-rules) is enabled, and you
+by x-kubernetes-validations when the [Validation Rules feature](#validation-rules) is enabled, and you
 can add additional validation using
 [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 
@@ -578,9 +578,9 @@ Additionally, the following restrictions are applied to the schema:
 - The field `additionalProperties` cannot be set to `false`.
 - The field `additionalProperties` is mutually exclusive with `properties`.
 
-The `x-kubernetes-validation-rules` extension can be use to validate custom resources using [Common
+The `x-kubernetes-validations` extension can be used to validate custom resources using [Common
 Expression Language (CEL)](https://github.com/google/cel-spec) expressions when the [Validation
-Rules feature](#validation-rules) feature is enabled and the CustomResourceDefinition schema is a
+rules](#validation-rules) feature is enabled and the CustomResourceDefinition schema is a
 [structural schema](#specifying-a-structural-schema).
 
 The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
@@ -705,12 +705,16 @@ crontab "my-new-cron-object" created
 
 Validation rules are in alpha since 1.23 and validate custom resources when the
 `CustomResourceValidationExpressions` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled and the schema is a
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+This feature is only available if the schema is a
 [structural schema](#specifying-a-structural-schema).
 
 Validation rules use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
-expression language to validate custom resource values. Validation rules are included in
-CustomResourceDefinition schemas using the `x-kubernetes-validation-rules` extension.
+to validate custom resource values. Validation rules are included in
+CustomResourceDefinition schemas using the `x-kubernetes-validations` extension.
+
+The Rule is scoped to the location of the `x-kubernetes-validations` extension in the schema.
+And `self` variable in the CEL expression is bound to the scoped value.
 
 For example:
 
@@ -721,9 +725,11 @@ For example:
       properties:
         spec:
           type: object
-            x-kubernetes-validation-rules:
-              - rule: "self.minReplicas <= self.replicas"
-              - rule: "self.replicas <= self.maxReplicas"
+          x-kubernetes-validation-rules:
+            - rule: "self.minReplicas <= self.replicas"
+              message: "replicas should be greater than or equal to minReplicas."
+            - rule: "self.replicas <= self.maxReplicas"
+              message: "replicas should be smaller than or equal to maxReplicas."
           properties:
             ...
             minReplicas:
@@ -732,9 +738,13 @@ For example:
               type: integer
             maxReplicas:
               type: integer
+          required:
+            - minReplicas
+            - replicas
+            - maxReplicas 
 ```
 
-will reject an request to create this custom resource:
+will reject a request to create this custom resource:
 
 ```yaml
 apiVersion: "stable.example.com/v1"
@@ -751,26 +761,240 @@ with the response:
 
 ```
 The CronTab "my-new-cron-object" is invalid:
-* spec: Invalid value: map[string]interface {}{"minReplicas": 0, "replicas":20, "maxReplicas": 10}: failed rule: self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas
+* spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: replicas should be smaller than or equal to maxReplicas.
 ```
 
-TODO: (using text from types_jsonprops.go and KEP were applicable, but using "full" multi-line examples that include both the schema and the custom resource data)
-- Explain that rules are compiled when CRDs are created/updated. Show full example including compilation error output examples.
-- Explain scope, self, and how objects, maps and arrays are accessed. Show full examples.
-  - Must show: 'self.field' selection, has() field presence checking, 'self[key]' map access and
-    'key in self' map containment, 'self[i]' list access, all/exists/filter and how they apply to
-    maps and lists. Show more of the functions than covered in types_jsonprops.go. Provide links to
-    functions and macros in spec.  Provide link to strings extension library in cel-go that we have
-    enabled. Explain that this is an extension library.
-- Include examples table from KEP? Probably just past it in and add context.
-- Explain access to type and object meta.
-- Explain openapiv3 -> CEL declarations type mapping and include the table from the KEP. Link to OpenAPIv3 and CEL documentation about types.
-- Explain int-or-string, preserve-unknown, nullable, embedded. Provide some short examples.
-- Explain escaping using a table. Provide some short examples. Provide guidance on how to name
-  properties (both in this section of this document and elsewhere in this document where property
-  names are introduced/discussed).
-- Explain + and == for list maps and list sets (table? whatever looks better)
-- DO NOT: provide all the motivation and design rationale from the KEP.
+`x-kubernetes-validations` could have multiple rules. 
+
+The `rule` under `x-kubernetes-validations` represents the expression which will be evaluated by CEL.
+
+The `message` represents the message displayed when validation fails. If message is unset, the above response would be:
+```
+The CronTab "my-new-cron-object" is invalid:
+* spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: failed rule: self.replicas <= self.maxReplicas
+```
+
+Validation rules are compiled when CRDs are created/updated. 
+The request of CRDs create/update will fail if compilation of validation rules fail. 
+Compilation process includes type checking as well.
+
+The compilation failure:
+- `no_matching_overload`: this function has no overload for the types of the arguments.
+ 
+   e.g. Rule like `self == true` against a field of integer type will get error:
+  ```
+  Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
+  ```
+  
+- `no_such_field`: does not contain the desired field.
+  
+   e.g. Rule like `self.nonExistingField > 0` against a non-existing field will return the error:
+  ```
+  Invalid value: apiextensions.ValidationRule{Rule:"self.nonExistingField > 0", Message:""}: compilation failed: ERROR: \<input>:1:5: undefined field 'nonExistingField'
+  ```
+
+- `invalid argument`: invalid argument to macros.
+ 
+  e.g. Rule like `has(self)` will return error:
+  ```
+  Invalid value: apiextensions.ValidationRule{Rule:"has(self)", Message:""}: compilation failed: ERROR: <input>:1:4: invalid argument to has() macro
+  ```
+
+
+Validation Rules Examples:
+
+| Rule                                                                             | Purpose                                                                           |
+| ----------------                                                                 | ------------                                                                      |
+| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`         | Validate that the three fields defining replicas are ordered appropriately        |
+| `'Available' in self.stateCounts`                                                | Validate that an entry with the 'Available' key exists in a map                   |
+| `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
+| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | Validate the value of a map for a specific key, if it is in the map               |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `has(self.expired) && self.created + self.ttl < self.expired`                    | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
+| `self.health.startsWith('ok')`                                                   | Validate a 'health' string field has the prefix 'ok'                              |
+| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
+| `type(self) == string ? self == '100%' : self == 1000`                           | Validate an int-or-string field for both the the int and string cases             |
+| `self.metadata.name.startsWith(self.prefix)`                                     | Validate that an object's name has the prefix of another field value              |
+| `self.set1.all(e, !(e in self.set2))`                                            | Validate that two listSets are disjoint                                           |
+| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
+
+Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
+
+
+- If the Rule is scoped to the root of a resource, it may make field selection into any fields
+  declared in the OpenAPIv3 schema of the CRD as well as `apiVersion`, `kind`, `metadata.name` and
+  `metadata.generateName`. This includes selection of fields in both the `spec` and `status` in the
+  same expression:
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        x-kubernetes-validation-rules:
+          - rule: "self.status.availableReplicas >= self.spec.minReplicas"
+        properties:
+            spec:
+              type: object
+              properties:
+                minReplicas:
+                  type: integer
+                ...
+            status:
+              type: object
+              properties:
+                availableReplicas:
+                  type: integer
+  ```
+
+- If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable
+  via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as
+  absent fields in CEL expressions.
+
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            x-kubernetes-validation-rules:
+              - rule: "has(self.foo)"
+            properties:
+              ...
+              foo:
+                type: integer
+  ```
+
+- If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map
+  are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map
+  are accessible via CEL macros and functions such as `self.all(...)`.
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            x-kubernetes-validation-rules:
+              - rule: "self['xyz'].foo > 0"
+            additionalProperties:
+              ...
+              type: object
+              properties:
+                foo:
+                  type: integer
+  ```
+
+- If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and
+  functions.
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        properties:
+          ...
+          foo:
+            type: array
+            x-kubernetes-validation-rules:
+              - rule: "size(self) == 1"
+            items:
+              type: string
+  ```
+
+- If the Rule is scoped to a scalar, `self` is bound to the scalar value.
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              ...
+              foo:
+                type: integer
+                x-kubernetes-validation-rules:
+                - rule: "self > 0"
+  ```
+Examples:
+
+|type of the field rule scoped to    | Rule example             |
+| -----------------------| -----------------------|
+| root object            | `self.status.actual <= self.spec.maxDesired`|
+| map of objects         | `self.components['Widget'].priority < 10`|
+| list of integers       | `self.values.all(value, value >= 0 && value < 100)`|
+| string                 | `self.startsWith('kube')`|
+
+
+The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the 
+object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+	
+Unknown data preserved in custom resources via `x-kubernetes-preserve-unknown-fields` is not accessible in CEL
+  expressions. This includes:
+  - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields.
+  - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
+    - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+    - An array where the items schema is of an "unknown type"
+    - An object where the additionalProperties schema is of an "unknown type"
+
+
+Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
+Accessible property names are escaped according to the following rules when accessed in the expression:
+
+| escape sequence         | property name equivalent  |
+| ----------------------- | -----------------------|
+| `__underscores__`       | `__`                  |
+| `__dot__`               | `.`                   |
+|`__dash__`               | `-`                   |
+| `__slash__`             | `/`                   |
+| `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
+
+Note: CEL RESERVED keyword needs to match the exact property name to be escaped (e.g. int in the word sprint would not be escaped).
+
+Examples on escaping:
+
+|property name    | rule with escaped property name     |
+| ----------------| -----------------------             |
+| namespace       | `self.__namespace__ > 0`            |
+| x-prop          | `self.x__dash__prop > 0`            |
+| redact__d       | `self.redact__underscores__d > 0`   |
+| string          | `self.startsWith('kube')`           |
+
+  
+Equality on arrays with `x-kubernetes-list-type` of `set` or `map` ignores element order, i.e. [1, 2] == [2, 1].
+Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+ - `set`: `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+      non-intersecting elements in `Y` are appended, retaining their partial order.
+ - `map`: `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+   are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+   non-intersecting keys are appended, retaining their partial order.
+ 
+
+Here is the declarations type mapping between OpenAPIv3 and CEL type:
+
+| OpenAPIv3 type                                     | CEL type                                                                                                                     |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 'object' with Properties                           | object / "message type"                                                                                                      |
+| 'object' with AdditionalProperties                 | map                                                                                                                          |
+| 'object' with x-kubernetes-embedded-type           | object / "message type", 'apiVersion', 'kind', 'metadata.name' and 'metadata.generateName' are implicitly included in schema |
+| 'object' with x-kubernetes-preserve-unknown-fields | object / "message type", unknown fields are NOT accessible in CEL expression                                                 |
+| x-kubernetes-int-or-string                         | dynamic object that is either an int or a string, `type(value)` can be used to check the type                                |
+| 'array                                             | list                                                                                                                         |
+| 'array' with x-kubernetes-list-type=map            | list with map based Equality & unique key guarantees                                                                         |
+| 'array' with x-kubernetes-list-type=set            | list with set based Equality & unique entry guarantees                                                                       |
+| 'boolean'                                          | boolean                                                                                                                      |
+| 'number' (all formats)                             | double                                                                                                                       |
+| 'integer' (all formats)                            | int (64)                                                                                                                     |
+| 'null'                                             | null_type                                                                                                                    |
+| 'string'                                           | string                                                                                                                       |
+| 'string' with format=byte (base64 encoded)         | bytes                                                                                                                        |
+| 'string' with format=date                          | timestamp (google.protobuf.Timestamp)                                                                                        |
+| 'string' with format=datetime                      | timestamp (google.protobuf.Timestamp)                                                                                        |
+| 'string' with format=duration                      | duration (google.protobuf.Duration)                                                                                          |
+
+xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values), [OpenAPI
+types](https://swagger.io/specification/#data-types), [Kubernetes Structural Schemas](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
+
+
 
 ### Defaulting
 
