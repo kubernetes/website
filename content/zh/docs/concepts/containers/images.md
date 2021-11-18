@@ -68,7 +68,7 @@ There are additional rules about where you can place the separator
 characters (`_`, `-`, and `.`) inside an image tag.  
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 -->
-镜像标签可以包含小写字母、大写字符、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
+镜像标签可以包含小写字母、大写字母、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
 关于在镜像标签中何处可以使用分隔字符（`_`、`-` 和 `.`）还有一些额外的规则。
 如果你不指定标签，Kubernetes 认为你想使用标签 `latest`。
 
