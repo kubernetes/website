@@ -62,7 +62,7 @@ or the custom metrics API (for all other metrics).
 
 * For object metrics and external metrics, a single metric is fetched, which describes
   the object in question. This metric is compared to the target
-  value, to produce a ratio as above. In the `autoscaling/v2beta2` API
+  value, to produce a ratio as above. In the `autoscaling/v2` API
   version, this value can optionally be divided by the number of Pods before the
   comparison is made.
 
@@ -161,18 +161,17 @@ fluctuating metric values.
 
 ## API Object
 
-The Horizontal Pod Autoscaler is an API resource in the Kubernetes `autoscaling` API group.
-The current stable version, which only includes support for CPU autoscaling,
-can be found in the `autoscaling/v1` API version.
-
-The beta version, which includes support for scaling on memory and custom metrics,
-can be found in `autoscaling/v2beta2`. The new fields introduced in `autoscaling/v2beta2`
-are preserved as annotations when working with `autoscaling/v1`.
+The Horizontal Pod Autoscaler is an API resource in the Kubernetes
+`autoscaling` API group.  The current stable version can be found in
+the `autoscaling/v2` API version which includes support for scaling on
+memory and custom metrics. The new fields introduced in
+`autoscaling/v2` are preserved as annotations when working with
+`autoscaling/v1`.
 
 When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 More details about the API object can be found at
-[HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling).
+[HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling).
 
 
 ## Support for Horizontal Pod Autoscaler in kubectl
@@ -299,7 +298,7 @@ the old container name from the HPA specification.
 
 ## Support for multiple metrics
 
-Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2beta2` API
+Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2` API
 version to specify multiple metrics for the Horizontal Pod Autoscaler to scale on. Then, the Horizontal Pod
 Autoscaler controller will evaluate each metric, and propose a new scale based on that metric. The largest of the
 proposed scales will be used as the new scale.
@@ -313,9 +312,11 @@ custom metrics is still available, these metrics will not be available for use b
 annotations for specifying which custom metrics to scale on are no longer honored by the Horizontal Pod Autoscaler controller.
 {{< /note >}}
 
-Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal Pod Autoscaler.
-You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta2` API.
-Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
+You can also use a HorizontalPodAutoscaler to change the scale of a
+workload based on custom metrics.  You can add custom metrics for the
+Horizontal Pod Autoscaler to use in the `autoscaling/v2` API.
+Kubernetes then queries the new custom metrics API to fetch the values
+of the appropriate custom metrics.
 
 See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
 
@@ -349,12 +350,14 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 
 Starting from
 [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity/README.md)
-the `v2beta2` API allows scaling behavior to be configured through the HPA
-`behavior` field. Behaviors are specified separately for scaling up and down in
-`scaleUp` or `scaleDown` section under the `behavior` field. A stabilization
-window can be specified for both directions which prevents the flapping of the
-number of the replicas in the scaling target. Similarly specifying scaling
-policies controls the rate of change of replicas while scaling.
+the `v2beta2` API (and from v1.23 the `v2` API) allows scaling
+behavior to be configured through the HPA `behavior` field. Behaviors
+are specified separately for scaling up and down in `scaleUp` or
+`scaleDown` section under the `behavior` field. A stabilization window
+can be specified for both directions which prevents the flapping of
+the number of the replicas in the scaling target. Similarly specifying
+scaling policies controls the rate of change of replicas while
+scaling.
 
 ### Scaling Policies
 
