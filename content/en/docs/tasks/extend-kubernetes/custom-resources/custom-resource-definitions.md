@@ -578,9 +578,9 @@ Additionally, the following restrictions are applied to the schema:
 - The field `additionalProperties` cannot be set to `false`.
 - The field `additionalProperties` is mutually exclusive with `properties`.
 
-The `x-kubernetes-validation-rules` extension can be use to validate custom resources using
-[CEL](https://github.com/google/cel-spec) expressions when the [Validation Rules
-feature](#validation-rules) feature is enabled and the CustomResourceDefinition schema is a
+The `x-kubernetes-validation-rules` extension can be use to validate custom resources using [Common
+Expression Language (CEL)](https://github.com/google/cel-spec) expressions when the [Validation
+Rules feature](#validation-rules) feature is enabled and the CustomResourceDefinition schema is a
 [structural schema](#specifying-a-structural-schema).
 
 The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
@@ -699,18 +699,18 @@ kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
 
-## Validation Rules
+## Validation rules
 
 {{< feature-state state="alpha" for_k8s_version="v1.23" >}}
 
-Validation Rules are in alpha since 1.23 and validate custom resources when the
+Validation rules are in alpha since 1.23 and validate custom resources when the
 `CustomResourceValidationExpressions` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled and the schema is a
 [structural schema](#specifying-a-structural-schema).
 
-Validation rules use the [CEL](https://github.com/google/cel-spec) expression language to validate custom
-resource values. Validation rules are included in CustomResourceDefinition schemas using the
-`x-kubernetes-validation-rules` extension.
+Validation rules use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
+expression language to validate custom resource values. Validation rules are included in
+CustomResourceDefinition schemas using the `x-kubernetes-validation-rules` extension.
 
 For example:
 
@@ -722,14 +722,15 @@ For example:
         spec:
           type: object
             x-kubernetes-validation-rules:
-              - rule: "self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas"
+              - rule: "self.minReplicas <= self.replicas"
+              - rule: "self.replicas <= self.maxReplicas"
           properties:
             ...
             minReplicas:
               type: integer
-           replicas:
+            replicas:
               type: integer
-           maxReplicas:
+            maxReplicas:
               type: integer
 ```
 
