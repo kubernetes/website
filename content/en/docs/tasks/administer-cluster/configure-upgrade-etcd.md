@@ -130,8 +130,8 @@ communication:
 
 ```
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
-  --cert=/etc/kubernetes/pki/etcd/server.crt \
-  --key=/etc/kubernetes/pki/etcd/server.key \
+  --cert=/etc/kubernetes/pki/etcd/client.crt \
+  --key=/etc/kubernetes/pki/etcd/client.key \
   --cacert=/etc/kubernetes/pki/etcd/ca.crt \
   member list
 ```
