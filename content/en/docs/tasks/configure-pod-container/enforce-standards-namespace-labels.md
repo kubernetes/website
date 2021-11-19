@@ -11,9 +11,9 @@ Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts
 
 ## {{% heading "prerequisites" %}}
 
-{{% version-check %}}
-
-- Enable the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features).
+The Pod Security admission controller must be enabled on the cluster. See [Pod Security
+Admission](/docs/concepts/security/pod-security-admission/) for instructions on enabling the
+admission controller.
 
 ## Requiring the `baseline` Pod Security Standard with namespace labels
 

@@ -13,9 +13,9 @@ You can configure this admission controller to set cluster-wide defaults and [ex
 
 ## {{% heading "prerequisites" %}}
 
-{{% version-check %}}
-
-- Enable the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features).
+The Pod Security admission controller must be enabled on the cluster. See [Pod Security
+Admission](/docs/concepts/security/pod-security-admission/) for instructions on enabling the
+admission controller.
 
 ## Configure the Admission Controller
 
