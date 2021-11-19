@@ -355,7 +355,7 @@ Filename containing a PEM-encoded X509 CA certificate used to issue cluster-scop
 The max length of duration signed certificates will be given.
 Individual CSRs may request shorter certs by setting spec.expirationSeconds.
 -->
-所签名证书的有效期限。个人的 CSR 可以通过设置 spec.expirationSeconds 来请求更短的证书。
+所签名证书的有效期限。每个 CSR 可以通过设置 spec.expirationSeconds 来请求更短的证书。
 </td>
 </tr>
 

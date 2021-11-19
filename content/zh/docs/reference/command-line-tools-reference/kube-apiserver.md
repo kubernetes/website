@@ -1643,7 +1643,7 @@ Maximum number of seconds between log flushes
 <!--
 Sets the log format. Permitted formats: "text".<br/>Non-default formats don't honor these flags: --add_dir_header, --alsologtostderr, --log_backtrace_at, --log_dir, --log_file, --log_file_max_size, --logtostderr, --one_output, --skip_headers, --skip_log_headers, --stderrthreshold, --vmodule, --log-flush-frequency.<br/>Non-default choices are currently alpha and subject to change without warning.
 -->
-设置日志格式。允许的格式："json"。<br/>
+设置日志格式。允许的格式："text"。<br/>
 非默认格式不支持以下标志：<code>--add-dir-header</code>、<code>--alsologtostderr</code>、<code>--log-backtrace-at</code>、<code>--log-dir</code>、<code>--log-file</code>、<code>--log-file-max-size</code>、<code>--logtostderr</code>、<code>--one-output</code>、<code>-skip-headers</code>、<code>-skip-log-headers</code>、<code>--stderrthreshold</code>、<code>-vmodule</code> 和 <code>--log-flush-frequency</code>。<br/>
 当前非默认选择为 alpha，会随时更改而不会发出警告。
 </td>
@@ -1695,7 +1695,7 @@ If non-zero, throttle each user connection to this number of bytes/sec. Currentl
 This and --max-requests-inflight are summed to determine the server's total concurrency limit (which must be positive) if --enable-priority-and-fairness is true.
 Otherwise, this flag limits the maximum number of mutating requests in flight, or a zero value disables the limit completely.
 -->
-如果 --enable-priority-and-fairness 为 true，那么该值和 --max-requests-inflight 的和将确定服务器的总并发限制（必须是正数）。
+如果 --enable-priority-and-fairness 为 true，那么此值和 --max-requests-inflight 的和将确定服务器的总并发限制（必须是正数）。
 否则，该值限制进行中变更类型请求的最大个数，零表示无限制。
 </td>
 </tr>
@@ -1709,7 +1709,7 @@ Otherwise, this flag limits the maximum number of mutating requests in flight, o
 This and --max-mutating-requests-inflight are summed to determine the server's total concurrency limit (which must be positive) if --enable-priority-and-fairness is true.
 Otherwise, this flag limits the maximum number of non-mutating requests in flight, or a zero value disables the limit completely.
 -->
-如果 --enable-priority-and-fairness 为 true，那么该值和 --max-mutating-requests-inflight 的和将确定服务器的总并发限制（必须是正数）。
+如果 --enable-priority-and-fairness 为 true，那么此值和 --max-mutating-requests-inflight 的和将确定服务器的总并发限制（必须是正数）。
 否则，该值限制进行中非变更类型请求的最大个数，零表示无限制。
 </td>
 </tr>
@@ -2465,7 +2465,7 @@ If set, the file that will be used to secure the secure port of the API server v
 <!--
 File with apiserver tracing configuration.
 -->
-带有 apiserver 跟踪配置的文件。
+包含 API 服务器跟踪配置的文件。
 </td>
 </tr>
 
