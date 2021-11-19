@@ -46,31 +46,36 @@ Kubernetesの監査はクラスタ内の一連の行動を記録するセキュ�
 
 ## Audit policy
 
-Audit policy defines rules about what events should be recorded and what data
-they should include. The audit policy object structure is defined in the
-[`audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy).
-When an event is processed, it's
-compared against the list of rules in order. The first matching rule sets the
-_audit level_ of the event. The defined audit levels are:
+監査ポリシーはどのようなイベントを記録し、どのようなデータを含むべきかについてのルールを定義します。
+監査ポリシーのオブジェクト構造は、[audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)で定義されています。
 
-- `None` - don't log events that match this rule.
-- `Metadata` - log request metadata (requesting user, timestamp, resource,
-  verb, etc.) but not request or response body.
-- `Request` - log event metadata and request body but not response body.
-  This does not apply for non-resource requests.
-- `RequestResponse` - log event metadata, request and response bodies.
-  This does not apply for non-resource requests.
+イベントが処理されると、そのイベントは順番にルールのリストと比較されます。
+最初のマッチングルールは、イベントの監査レベルを設定します。
+
+定義されている監査レベルは:
+
+- `None` - ルールに一致するイベントを記録しません。
+- `Metadata` - lリクエストのメタデータ（リクエストしたユーザー、タイムスタンプ、リソース、動作など）を記録しますが、リクエストやレスポンスのボディは記録しません。
+- `Request` - ログイベントのメタデータとリクエストボディは表示されますが、レスポンスボディは表示されません。
+  これは非リソースリクエストには適用されません。
+- `RequestResponse` - イベントのメタデータ、リクエストとレスポンスのボディを記録しますが、
+  非リソースリクエストには適用されません。
 
 You can pass a file with the policy to `kube-apiserver`
 using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
 Note that the `rules` field __must__ be provided in the audit policy file.
 A policy with no (0) rules is treated as illegal.
 
-Below is an example audit policy file:
+`audit-policy-file` フラグを使って、ポリシーを記述したファイルを `kube-apiserver` に渡すことができます。
+このフラグが省略された場合イベントは記録されません。
+監査ポリシーファイルでは、`rules`フィールドが必ず指定されることに注意してください。
+ルールがない(0)ポリシーは不当なものとして扱われます。
+
+以下は監査ポリシーファイルの例:
 
 {{< codenew file="audit/audit-policy.yaml" >}}
 
-You can use a minimal audit policy file to log all requests at the `Metadata` level:
+最小限の監査ポリシーファイルを使用して、すべてのリクエストを `Metadata` レベルで記録することができます。
 
 ```yaml
 # Log all requests at the Metadata level.
@@ -80,28 +85,26 @@ rules:
 - level: Metadata
 ```
 
-If you're crafting your own audit profile, you can use the audit profile for Google Container-Optimized OS as a starting point. You can check the
-[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
-script, which generates an audit policy file. You can see most of the audit policy file by looking directly at the script.
+独自の監査プロファイルを作成する場合は、Google Container-Optimized OSの監査プロファイルを出発点として使用できます。
+監査ポリシーファイルを生成する[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)スクリプトを確認することができます。
+スクリプトを直視することで、監査ポリシーファイルのほとんどを見ることができます。
 
-You can also refer to the [`Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
-for details about the fields defined.
+また、定義されているフィールドの詳細については、[Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)を参照できます。
 
-## Audit backends
+## 監査バックエンド
 
-Audit backends persist audit events to an external storage.
-Out of the box, the kube-apiserver provides two backends:
+監査バックエンドは監査イベントを外部ストレージに永続化します。
+kube-apiserverには2つのバックエンドが用意されています。
 
-- Log backend, which writes events into the filesystem
-- Webhook backend, which sends events to an external HTTP API
+- イベントをファイルシステムに書き込むログバックエンド
+- 外部のHTTP APIにイベントを送信するWebhookバックエンド
 
-In all cases, audit events follow a structure defined by the Kubernetes API in the
-[`audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event).
+いずれの場合も、監査イベントはKubernetes API[`audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)で定義されている構造に従います。
+
 
 {{< note >}}
-In case of patches, request body is a JSON array with patch operations, not a JSON object
-with an appropriate Kubernetes API object. For example, the following request body is a valid patch
-request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`:
+パッチの場合、リクエストボディはパッチ操作を含むJSON配列であり、適切なKubernetes APIオブジェクトを含むJSONオブジェクトではありません。
+例えば、以下のリクエストボディは`/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`に対する有効なパッチリクエストです。
 
 ```json
 [
@@ -119,25 +122,25 @@ request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`:
 
 {{< /note >}}
 
-### Log backend
+### ログバックエンド
 
-The log backend writes audit events to a file in [JSONlines](https://jsonlines.org/) format.
-You can configure the log audit backend using the following `kube-apiserver` flags:
+ログバックエンドは監査イベントを[JSONlines](https://jsonlines.org/)形式のファイルに書き込みます。
+以下の `kube-apiserver` フラグを使ってログ監査バックエンドを設定できます。
 
-- `--audit-log-path` specifies the log file path that log backend uses to write
-  audit events. Not specifying this flag disables log backend. `-` means standard out
-- `--audit-log-maxage` defined the maximum number of days to retain old audit log files
-- `--audit-log-maxbackup` defines the maximum number of audit log files to retain
-- `--audit-log-maxsize` defines the maximum size in megabytes of the audit log file before it gets rotated
+- `--audit-log-path` は、ログバックエンドが監査イベントを書き込む際に使用するログファイルのパスを指定します。
+  このフラグを指定しないと、ログバックエンドは無効になります。`-` は標準出力を意味します。
+- `--audit-log-maxage` は、古い監査ログファイルを保持する最大日数を定義します。
+- `audit-log-maxbackup`は、保持する監査ログファイルの最大数を定義します。
+- `--audit-log-maxsize` は、監査ログファイルがローテーションされるまでの最大サイズをメガバイト単位で定義します。
 
-If your cluster's control plane runs the kube-apiserver as a Pod, remember to mount the `hostPath`
-to the location of the policy file and log file, so that audit records are persisted. For example:
+クラスタのコントロールプレーンでkube-apiserverをPodとして動作させている場合は、監査記録が永久化されるように、ポリシーファイルとログファイルの場所に`hostPath`をマウントすることを忘れないでください。
+例えば:
 ```shell
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml \
     --audit-log-path=/var/log/audit.log
 ```
-then mount the volumes:
 
+それからボリュームをマウントします:
 ```yaml
 ...
 volumeMounts:
@@ -148,8 +151,8 @@ volumeMounts:
     name: audit-log
     readOnly: false
 ```
-and finally configure the `hostPath`:
 
+最後に `hostPath` を設定します:
 ```yaml
 ...
 - name: audit
@@ -164,81 +167,73 @@ and finally configure the `hostPath`:
 
 ```
 
-### Webhook backend
+### Webhook バックエンド
 
-The webhook audit backend sends audit events to a remote web API, which is assumed to
-be a form of the Kubernetes API, including means of authentication. You can configure
-a webhook audit backend using the following kube-apiserver flags:
+Webhook監査バックエンドは、監査イベントをリモートのWeb APIに送信しますが、
+これは認証手段を含むKubernetes APIの形式であると想定されます。
 
-- `--audit-webhook-config-file` specifies the path to a file with a webhook
-  configuration. The webhook configuration is effectively a specialized
-  [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
-- `--audit-webhook-initial-backoff` specifies the amount of time to wait after the first failed
-  request before retrying. Subsequent requests are retried with exponential backoff.
+Webhook監査バックエンドを設定するには、以下のkube-apiserverフラグを使用します。
 
-The webhook config file uses the kubeconfig format to specify the remote address of
-the service and credentials used to connect to it.
+- `--audit-webhook-config-file` は、Webhookの設定ファイルのパスを指定します。
+  webhookの設定は、事実上特化した [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters) です。
+- `--audit-webhook-initial-backoff` は、最初に失敗したリクエストの後、再試行するまでに待つ時間を指定します。
+  それ以降のリクエストは、指数関数的なバックオフで再試行されます。
 
-## Event batching {#batching}
+Webhookの設定ファイルは、kubeconfig 形式でサービスのリモートアドレスと接続に使用する認証情報を指定します。
 
-Both log and webhook backends support batching. Using webhook as an example, here's the list of
-available flags. To get the same flag for log backend, replace `webhook` with `log` in the flag
-name. By default, batching is enabled in `webhook` and disabled in `log`. Similarly, by default
-throttling is enabled in `webhook` and disabled in `log`.
+## イベントバッチ {#batching}
 
-- `--audit-webhook-mode` defines the buffering strategy. One of the following:
-  - `batch` - buffer events and asynchronously process them in batches. This is the default.
-  - `blocking` - block API server responses on processing each individual event.
-  - `blocking-strict` - Same as blocking, but when there is a failure during audit logging at the
-     RequestReceived stage, the whole request to the kube-apiserver fails.
+ログバックエンドとwebhookバックエンドの両方がバッチ処理をサポートしています。
+webhookを例に、利用可能なフラグの一覧を示します。
+ログバックエンドで同じフラグを取得するには、フラグ名の `webhook` を `log` に置き換えてください。
+デフォルトでは、バッチングは `webhook` では有効で、`log` では無効です。
+同様に、デフォルトでは、スロットリングは `webhook` で有効で、`log` では無効です。
 
-The following flags are used only in the `batch` mode:
+- `--audit-webhook-mode` は、バッファリング戦略を定義します。以下のいずれかとなります。
+  - `batch` - イベントをバッファリングして、非同期にバッチ処理します。これがデフォルトです。
+  - `blocking` - 個々のイベントを処理する際に、APIサーバーの応答をブロックします。
+  - `blocking-strict` - blockingと同じですが、RequestReceivedステージでの監査ログに失敗した場合は RequestReceivedステージで監査ログに失敗すると、kube-apiserverへのリクエスト全体が失敗します。
 
-- `--audit-webhook-batch-buffer-size` defines the number of events to buffer before batching.
-  If the rate of incoming events overflows the buffer, events are dropped.
-- `--audit-webhook-batch-max-size` defines the maximum number of events in one batch.
-- `--audit-webhook-batch-max-wait` defines the maximum amount of time to wait before unconditionally
-  batching events in the queue.
-- `--audit-webhook-batch-throttle-qps` defines the maximum average number of batches generated
-  per second.
-- `--audit-webhook-batch-throttle-burst` defines the maximum number of batches generated at the same
-  moment if the allowed QPS was underutilized previously.
+以下のフラグは `batch` モードでのみ使用されます:
 
-## Parameter tuning
+- `--audit-webhook-batch-buffer-size` は、バッチ処理を行う前にバッファリングするイベントの数を定義します。
+  入力イベントの割合がバッファをオーバーフローすると、イベントはドロップされます。
+- `--audit-webhook-batch-max-size` は、1つのバッチに入れるイベントの最大数を定義します。
+- `--audit-webhook-batch-max-wait` は、キュー内のイベントを無条件にバッチ処理するまでの最大待機時間を定義します。
+- `--audit-webhook-batch-throttle-qps` は、1秒あたりに生成されるバッチの最大平均数を定義します。
+- `--audit-webhook-batch-throttle-burst` は、許可された QPS が低い場合に、同じ瞬間に生成されるバッチの最大数を定義します。
 
-Parameters should be set to accommodate the load on the API server.
 
-For example, if kube-apiserver receives 100 requests each second, and each request is audited only
-on `ResponseStarted` and `ResponseComplete` stages, you should account for ≅200 audit
-events being generated each second. Assuming that there are up to 100 events in a batch,
-you should set throttling level at least 2 queries per second. Assuming that the backend can take up to
-5 seconds to write events, you should set the buffer size to hold up to 5 seconds of events;
-that is: 10 batches, or 1000 events.
+## パラメータチューニング
 
-In most cases however, the default parameters should be sufficient and you don't have to worry about
-setting them manually. You can look at the following Prometheus metrics exposed by kube-apiserver
-and in the logs to monitor the state of the auditing subsystem.
+パラメータは、APIサーバーの負荷に合わせて設定してください。
 
-- `apiserver_audit_event_total` metric contains the total number of audit events exported.
-- `apiserver_audit_error_total` metric contains the total number of events dropped due to an error
-  during exporting.
+例えば、kube-apiserverが毎秒100件のリクエストを受け取り、それぞれのリクエストが`ResponseStarted`と`ResponseComplete`の段階でのみ監査されるとします。毎秒≅200の監査イベントが発生すると考えてください。
+1 つのバッチに最大 100 個のイベントがあるの場合、スロットリングレベルを少なくとも2クエリ/秒に設定する必要があります。
+バックエンドがイベントを書き込むのに最大で5秒かかる場合、5秒分のイベントを保持するようにバッファサイズを設定する必要があります。
 
-### Log entry truncation {#truncate}
+10バッチ、または1000イベントとなります。
 
-Both log and webhook backends support limiting the size of events that are logged.
-As an example, the following is the list of flags available for the log backend:
+しかし、ほとんどの場合デフォルトのパラメーターで十分であり、手動で設定する必要はありません。
+kube-apiserverが公開している以下のPrometheusメトリクスや、ログを見て監査サブシステムの状態を監視することができます。
 
-- `audit-log-truncate-enabled` whether event and batch truncating is enabled.
-- `audit-log-truncate-max-batch-size` maximum size in bytes of the batch sent to the underlying backend.
-- `audit-log-truncate-max-event-size` maximum size in bytes of the audit event sent to the underlying backend.
+- `apiserver_audit_event_total` メトリックには、エクスポートされた監査イベントの合計数が含まれます。
+- `apiserver_audit_error_total` メトリックには、エクスポート中にエラーが発生してドロップされたイベントの総数が含まれます。
 
-By default truncate is disabled in both `webhook` and `log`, a cluster administrator should set
-`audit-log-truncate-enabled` or `audit-webhook-truncate-enabled` to enable the feature.
+### ログエントリー・トランケーション {#truncate}
+
+logバックエンドとwebhookバックエンドは、ログに記録されるイベントのサイズを制限することをサポートしています。
+
+例として、logバックエンドで利用可能なフラグの一覧を以下に示します
+
+- `audit-log-truncate-enabled` イベントとバッチの切り捨てを有効にするかどうかです。
+- `audit-log-truncate-max-batch-size` バックエンドに送信されるバッチのバイト単位の最大サイズ。
+- `audit-log-truncate-max-event-size` バックエンドに送信される監査イベントのバイト単位の最大サイズです。
+
+デフォルトでは、`webhook` と `log` の両方で切り捨ては無効になっていますが、クラスタ管理者は `audit-log-truncate-enabled` または `audit-webhook-truncate-enabled` を設定して、この機能を有効にする必要があります。
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
-* Learn more about [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
-  and the [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
-  resource types by reading the Audit configuration reference.
-
+* [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
+* [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+* [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
