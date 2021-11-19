@@ -11,47 +11,38 @@ Kubernetesの監査はクラスタ内の一連の行動を記録するセキュ�
 
 監査により、クラスタ管理者は以下の質問に答えることができます:
 
- - what happened?
- - when did it happen?
- - who initiated it?
- - on what did it happen?
- - where was it observed?
- - from where was it initiated?
- - to where was it going?
+ - 何が起きたのか？
+ - いつ起こったのか？
+ - 誰がそれを始めたのか？
+ - 何のために起こったのか？
+ - それはどこで観察されましたか？
+ - それはどこから始まったのか？
+ - それはどこへ向かっていたのか？
 
 <!-- body -->
 
-Audit records begin their lifecycle inside the
-[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
-component. Each request on each stage
-of its execution generates an audit event, which is then pre-processed according to
-a certain policy and written to a backend. The policy determines what's recorded
-and the backends persist the records. The current backend implementations
-include logs files and webhooks.
+監査記録は、そのライフサイクルを
+[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)コンポーネントの中で始まります。
+各リクエストは、その実行の各段階でその実行の各段階で、監査イベントが生成されます。
+ポリシーに従って前処理され、バックエンドに書き込まれます。 ポリシーが何を記録するかを決定しを決定し、
+バックエンドがその記録を永続化します。現在のバックエンドの実装はログファイルやWebhookなどがあります。
 
-Each request can be recorded with an associated _stage_. The defined stages are:
+各リクエストは関連する _stage_ で記録されます。
+定義されたステージは以下の通りです:
 
-- `RequestReceived` - The stage for events generated as soon as the audit
-  handler receives the request, and before it is delegated down the handler
-  chain.
-- `ResponseStarted` - Once the response headers are sent, but before the
-  response body is sent. This stage is only generated for long-running requests
-  (e.g. watch).
-- `ResponseComplete` - The response body has been completed and no more bytes
-  will be sent.
-- `Panic` - Events generated when a panic occurred.
+- `RequestReceived` - 監査ハンドラーがリクエストを受信すると同時に生成されるイベントのステージ。
+  つまり、ハンドラーチェーンに委譲される前に生成されるイベントのステージです。
+- `ResponseStarted` - レスポンスヘッダーが送信された後、レスポンスボディが送信される前のステージです。
+  このステージは長時間実行されるリクエスト（watchなど）でのみ発生します。
+- `ResponseComplete` - レスポンスボディの送信が完了して、それ以上のバイトは送信されません。
+- `Panic` - パニックが起きたときに発生するイベント。
 
 {{< note >}}
-The configuration of an
-[Audit Event configuration](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
-is different from the
-[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
-API object.
+[Audit Event configuration](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)の設定は[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)API オブジェクトとは異なります。
 {{< /note >}}
 
-The audit logging feature increases the memory consumption of the API server
-because some context required for auditing is stored for each request.
-Memory consumption depends on the audit logging configuration.
+監査ログ機能は、リクエストごとに監査に必要なコンテキストが保存されるため、APIサーバーのメモリ消費量が増加します。
+メモリの消費量は、監査ログ機能の設定によって異なります。
 
 ## Audit policy
 
