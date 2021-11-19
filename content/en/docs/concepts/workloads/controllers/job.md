@@ -346,6 +346,25 @@ If the field is set to `0`, the Job will be eligible to be automatically deleted
 immediately after it finishes. If the field is unset, this Job won't be cleaned
 up by the TTL controller after it finishes.
 
+{{< note >}}
+It is recommended to set `ttlSecondsAfterFinished` field because unmanaged jobs
+(Jobs that you created directly, and not indirectly through other workload APIs
+such as CronJob) have a default deletion
+policy of `orphanDependents` causing Pods created by an unmanaged Job to be left around
+after that Job is fully deleted.
+Even though the {{< glossary_tooltip text="control plane" term_id="control-plane" >}} eventually
+[garbage collects](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+the Pods from a deleted Job after they either fail or complete, sometimes those
+lingering pods may cause cluster performance degradation or in worst case cause the
+cluster to go offline due to this degradation.
+
+You can use [LimitRanges](/docs/concepts/policy/limit-range/) and
+[ResourceQuotas](/docs/concepts/policy/resource-quotas/) to place a
+cap on the amount of resources that a particular namespace can
+consume.
+{{< /note >}}
+
+
 ## Job patterns
 
 The Job object can be used to support reliable parallel execution of Pods.  The Job object is not
