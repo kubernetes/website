@@ -1,5 +1,22 @@
 ---
 id: pod-disruption
+title: Pod 中断
+full_link: /docs/concepts/workloads/pods/disruptions/
+date: 2021-05-12
+short_description: >
+  自愿或非自愿地终止节点上的 pod 的过程.
+
+aka:
+related:
+ - pod
+ - container
+tags:
+ - operation
+---
+
+<!--
+---
+id: pod-disruption
 title: Pod Disruption
 full_link: /docs/concepts/workloads/pods/disruptions/
 date: 2021-05-12
@@ -13,12 +30,14 @@ related:
 tags:
  - operation
 ---
+-->
+
 <!--
 [Pod disruption](/docs/concepts/workloads/pods/disruptions/) is the process by which 
 Pods on Nodes are terminated either voluntarily or involuntarily. 
 -->
 
-pod中断是指结点上的pod被自动或非自愿终止的过程。
+[pod 中断](/zh/docs/concepts/workloads/pods/disruptions/) 是指结点上的 pod 被自动或非自愿终止的过程。
 
 <!--more--> 
 
