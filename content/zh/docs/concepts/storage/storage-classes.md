@@ -786,7 +786,7 @@ vSphere CSI StorageClass 制备器在 Tanzu Kubernetes 集群下运行。示例�
 
 The following examples use the VMware Cloud Provider (vCP) StorageClass provisioner.  
 -->
-#### vCP 制备器
+#### vCP 制备器 {#vcp-provisioner}
 
 以下示例使用 VMware Cloud Provider (vCP) StorageClass 调度器
 
