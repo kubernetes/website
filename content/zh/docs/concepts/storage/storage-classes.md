@@ -755,14 +755,14 @@ OpenStack 的内部驱动已经被弃用。请使用
 <!--
 There are two types of provisioners for vSphere storage classes: 
 
-- [CSI provisioner](#csi-provisioner): `csi.vsphere.vmware.com`
+- [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
 In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#csi-migration-5).
 -->
 vSphere 存储类有两种制备器
 
-- [CSI 制备器](#csi-provisioner): `csi.vsphere.vmware.com`
+- [CSI 制备器](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP 制备器](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
 树内制备器已经被
@@ -774,12 +774,12 @@ vSphere 存储类有两种制备器
 <!--
 #### CSI Provisioner {#vsphere-provisioner-csi}
 
-The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For an example, refer to the [vSphere CSI repository](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml).
+The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For an example, refer to the [vSphere CSI repository](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml).
 -->
 #### CSI 制备器 {#vsphere-provisioner-csi}
 
 vSphere CSI StorageClass 制备器在 Tanzu Kubernetes 集群下运行。示例请参
-[vSphere CSI 仓库](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml)。
+[vSphere CSI 仓库](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)。
 
 <!--
 #### vCP Provisioner 
