@@ -2,42 +2,42 @@
 title: Create a Windows HostProcess Pod
 content_type: task
 weight: 20
-min-kubernetes-server-version: 1.23
+min-kubernetes-server-version: 1.22
 ---
 
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
-Windows HostProcess containers enable you to run containerized 
-workloads on a Windows host. These containers operate as 
-normal processes but have access to the host network namespace, 
-storage, and devices when given the appropriate user privileges. 
+Windows HostProcess containers enable you to run containerized
+workloads on a Windows host. These containers operate as
+normal processes but have access to the host network namespace,
+storage, and devices when given the appropriate user privileges.
 HostProcess containers can be used to deploy network plugins,
-storage configurations, device plugins, kube-proxy, and other 
-components to Windows nodes without the need for dedicated proxies or 
+storage configurations, device plugins, kube-proxy, and other
+components to Windows nodes without the need for dedicated proxies or
 the direct installation of host services.
 
-Administrative tasks such as installation of security patches, event 
-log collection, and more can be performed without requiring cluster operators to 
-log onto each Window node. HostProcess containers can run as any user that is 
-available on the host or is in the domain of the host machine, allowing administrators 
-to restrict resource access through user permissions. While neither filesystem or process 
-isolation are supported, a new volume is created on the host upon starting the container 
-to give it a clean and consolidated workspace. HostProcess containers can also be built on 
-top of existing Windows base images and do not inherit the same 
-[compatibility requirements](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) 
-as Windows server containers, meaning that the version of the base images does not need 
-to match that of the host. HostProcess containers also support 
+Administrative tasks such as installation of security patches, event
+log collection, and more can be performed without requiring cluster operators to
+log onto each Window node. HostProcess containers can run as any user that is
+available on the host or is in the domain of the host machine, allowing administrators
+to restrict resource access through user permissions. While neither filesystem or process
+isolation are supported, a new volume is created on the host upon starting the container
+to give it a clean and consolidated workspace. HostProcess containers can also be built on
+top of existing Windows base images and do not inherit the same
+[compatibility requirements](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)
+as Windows server containers, meaning that the version of the base images does not need
+to match that of the host. HostProcess containers also support
 [volume mounts](./create-hostprocess-pod#volume-mounts) within the container volume.
 
 ### When should I use a Windows HostProcess container?
 
-- When you need to perform tasks which require the networking namespace of the host. 
+- When you need to perform tasks which require the networking namespace of the host.
 HostProcess containers have access to the host's network interfaces and IP addresses.
 - You need access to resources on the host such as the filesystem, event logs, etc.
 - Installation of specific device drivers or Windows services.
-- Consolidation of administrative tasks and security policies. This reduces the degree of 
+- Consolidation of administrative tasks and security policies. This reduces the degree of
 privileges needed by Windows nodes.
 
 
@@ -45,63 +45,42 @@ privileges needed by Windows nodes.
 
 {{% version-check %}}
 
-To enable HostProcess containers while in Alpha you need to pass the following feature gate flag to 
-**kubelet** and **kube-apiserver**. 
-See [Features Gates](/docs/reference/command-line-tools-reference/feature-gates/#overview) 
-documentation for more details.
+To enable HostProcess containers while you need to pass the following feature gate flag to 
+**kubelet** and **kube-apiserver**:
 
-```
+```powershell
 --feature-gates=WindowsHostProcessContainers=true
 ```
 
-You can use the latest version of Containerd (v1.6+) with the following settings using the containerd 
-v2 configuration. Add these annotations to any runtime configurations were you wish to enable the 
-HostProcess container feature.
+See [Features Gates](/docs/reference/command-line-tools-reference/feature-gates/#overview)
+documentation for more details.
 
-
-```
-[plugins]
-  [plugins."io.containerd.grpc.v1.cri"]
-    [plugins."io.containerd.grpc.v1.cri".containerd]
-      [plugins."io.containerd.grpc.v1.cri".containerd.default_runtime]
-        container_annotations = ["microsoft.com/hostprocess-container"]
-        pod_annotations = ["microsoft.com/hostprocess-container"]
-    [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
-      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runhcs-wcow-process]
-        container_annotations = ["microsoft.com/hostprocess-container"]
-        pod_annotations = ["microsoft.com/hostprocess-container"]
-```
-
-The current versions of containerd ship with a version of hcsshim that does not have support. 
-You will need to build a version of hcsshim from the main branch following the 
-[instructions in hcsshim](https://github.com/Microsoft/hcsshim/#containerd-shim). 
-Once the containerd shim is built you can replace the file in your contianerd installation. 
-For example if you followed the instructions to 
-[install containerd](/docs/setup/production-environment/container-runtimes/#containerd)
-replace the `containerd-shim-runhcs-v1.exe` is installed at `$Env:ProgramFiles\containerd` with the newly built shim.
+You can use the latest version of containerd (v1.6+) to run HostProcess containers. The kublet
+communicates with containerd directly by passing the hostprocess flag via CRI.
+In 1.23 this means that the annotation plugin configurations are no longer needed.
+[How to install containerd.](/docs/setup/production-environment/container-runtimes/#containerd)
 
 ## Limitations
 
 - HostProcess containers require the latest version of containerd {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
-- As of v1.22 HostProcess pods can only contain HostProcess containers. This is a current limitation 
+- As of v1.22 HostProcess pods can only contain HostProcess containers. This is a current limitation
 of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
-- HostProcess containers run as a process on the host and do not have any degree of 
-isolation other than resource constraints imposed on the HostProcess user account. Neither 
+- HostProcess containers run as a process on the host and do not have any degree of
+isolation other than resource constraints imposed on the HostProcess user account. Neither
 filesystem or Hyper-V isolation are supported for HostProcess containers.
-- Volume mounts are supported and are mounted under the container volume. 
-See [Volume Mounts](#volume-mounts)
-- A limited set of host user accounts are available for HostProcess containers by default. 
+- Volume mounts are supported and are mounted under the container volume. See [Volume Mounts](#volume-mounts)
+- As of 1.23, a limited set of host user accounts are available for HostProcess containers by default.
 See [Choosing a User Account](#choosing-a-user-account).
-- Resource limits (disk, memory, cpu count) are supported in the same fashion as processes 
+- Resource limits (disk, memory, cpu count) are supported in the same fashion as processes
 on the host.
-- Both Named pipe mounts and Unix domain sockets are **not** currently supported and should instead 
+- Both Named pipe mounts and Unix domain sockets are **not** currently supported and should instead
 be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 
 ## HostProcess Pod configuration requirements
 
-Enabling a Windows HostProcess pod requires setting the right configurations in the pod security 
-configuration. Of the policies defined in the [Pod Security Standards](/docs/concepts/security/pod-security-standards) 
-HostProcess pods are disallowed by the baseline and restricted policies. It is therefore recommended 
+Enabling a Windows HostProcess pod requires setting the right configurations in the pod security
+configuration. Of the policies defined in the [Pod Security Standards](/docs/concepts/security/pod-security-standards)
+HostProcess pods are disallowed by the baseline and restricted policies. It is therefore recommended
 that HostProcess pods run in alignment with the privileged profile. 
 
 When running under the privileged policy, here are
@@ -185,10 +164,10 @@ spec:
 
 ## Volume Mounts
 
-HostProcess containers support the ability to mount volumes within the container volume space. 
-Applications running inside the container can access volume mounts directly via relative or 
-absolute paths. An environment variable `$CONTAINER_SANDBOX_MOUNT_POINT` is set upon container 
-creation and provides the absolute host path to the container volume. Relative paths are based 
+HostProcess containers support the ability to mount volumes within the container volume space.
+Applications running inside the container can access volume mounts directly via relative or
+absolute paths. As of v1.23, an environment variable `$CONTAINER_SANDBOX_MOUNT_POINT` is set upon container
+creation and provides the absolute host path to the container volume. Relative paths are based
 upon the `Pod.containers.volumeMounts.mountPath` configuration.
 
 ### Example {#volume-mount-example}
@@ -199,13 +178,22 @@ To access service account tokens the following path structures are supported wit
 
 `$CONTAINER_SANDBOX_MOUNT_POINT\var\run\secrets\kubernetes.io\serviceaccount\`
 
+## Resource Limits
+
+Resource limits (disk, memory, cpu count) are applied to the job and are job wide.
+For example, with a limit of 10MB set, the memory allocated for any HostProcess job object
+will be capped at 10MB. This is the same behavior as other Windows container types.
+These limits would be specified the same way they are currently for whatever orchestrator
+or runtime is being used. The only difference is in the disk resource usage calculation
+used for resource tracking due to the difference in how HostProcess containers are bootstrapped.
+
 ## Choosing a User Account
 
-HostProcess containers support the ability to run as one of three supported Windows service accounts:
+As of 1.23, HostProcess containers support the ability to run as one of three supported Windows service accounts:
 
-- **[LocalSystem](https://docs.microsoft.com/en-us/windows/win32/services/localsystem-account)**
-- **[LocalService](https://docs.microsoft.com/en-us/windows/win32/services/localservice-account)**
-- **[NetworkService](https://docs.microsoft.com/en-us/windows/win32/services/networkservice-account)**
+- **[LocalSystem](https://docs.microsoft.com/windows/win32/services/localsystem-account)**
+- **[LocalService](https://docs.microsoft.com/windows/win32/services/localservice-account)**
+- **[NetworkService](https://docs.microsoft.com/windows/win32/services/networkservice-account)**
 
 You should select an appropriate Windows service account for each HostProcess
 container, aiming to limit the degree of privileges so as to avoid accidental (or even

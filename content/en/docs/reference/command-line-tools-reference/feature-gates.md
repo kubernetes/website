@@ -193,7 +193,7 @@ different Kubernetes components.
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
-| `WindowsHostProcessContainers` | `false` | Alpha | 1.22 | |
+| `WindowsHostProcessContainers` | `false` | Beta | 1.23 | |
 {{< /table >}}
 
 ### Feature gates for graduated or deprecated features
