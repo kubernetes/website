@@ -41,6 +41,9 @@ Setting pod security controls by namespace is an alpha feature. You must enable 
 --feature-gates="...,PodSecurity=true"
 ```
 
+Alternatively, see [Pod Security Webhook](#pod-security-webhook) for instructions on running Pod
+Security as a Validating Admission Webhook.
+
 ## Pod Security levels
 
 Pod Security admission places requirements on a Pod's [Security
@@ -135,6 +138,35 @@ current policy level:
   - `container.apparmor.security.beta.kubernetes.io/*`
 - Valid updates to `.spec.activeDeadlineSeconds`
 - Valid updates to `.spec.tolerations`
+
+## Pod Security Webhook
+
+As an alternative to the built-in admission controller, Pod Security can also be run as a [dynamic
+admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/). Running as
+a webhook is useful for enabling Pod Security on older clusters or clusters where the built-in
+controller cannot be enabled, but the webhook is not as performant as the built-in admission
+controller.
+
+### Webhook Installation
+
+The manifests for a recommended installation can be found at https://git.k8s.io/pod-security-admission/webhook.
+
+In order to set up the webhook, a serving certificate & private key pair must be generated. This can
+be done manually, or managed automatically by an operator like https://cert-manager.io/. To
+streamline the process of manual certificate generation, the webhook includes a
+[make](https://www.gnu.org/software/make/) target to generate a self-signed certificate-key pair.
+Running the make rule requires `make` and `openssl` to be installed.
+
+Here is a sample set of commands to install the latest version of the webhook:
+
+```shell
+# Fetch the latest verison of the webhook manifests.
+# Alternatively, replace "master" with the desired version, such as "kubernetes-1.22.3"
+git clone -b master https://github.com/kubernetes/pod-security-admission.git
+cd pod-security-admission/webhook
+make certs          # Generate the self-signed certificate-key pair.
+kubectl apply -k .  # Install the webhook in the "pod-security-webhook" namespace.
+```
 
 ## {{% heading "whatsnext" %}}
 
