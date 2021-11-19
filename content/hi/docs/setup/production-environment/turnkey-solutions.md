@@ -1,6 +1,6 @@
 ---
-title:  टर्नकी क्लाउड सॉल्यूशंस
-content_type:  अवधारणा
+title: Turnkey Cloud Solutions
+content_type:  concept
 weight: 30
 ---
 <!-- overview -->
