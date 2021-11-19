@@ -1,5 +1,5 @@
 ---
-title: 애그리게이션 레이어(aggregation layer)로 쿠버네티스 API 확장하기
+title: 쿠버네티스 API 애그리게이션 레이어(aggregation layer)
 
 
 
@@ -11,7 +11,7 @@ weight: 10
 <!-- overview -->
 
 애그리게이션 레이어는 코어 쿠버네티스 API가 제공하는 기능 이외에 더 많은 기능을 제공할 수 있도록 추가 API를 더해 쿠버네티스를 확장할 수 있게 해준다.
-추가 API는 [서비스-카탈로그](/ko/docs/concepts/extend-kubernetes/service-catalog/)와 같이 미리 만들어진 솔루션이거나 사용자가 직접 개발한 API일 수 있다.
+추가 API는 [메트릭 서버](https://github.com/kubernetes-sigs/metrics-server)와 같이 미리 만들어진 솔루션이거나 사용자가 직접 개발한 API일 수 있다.
 
 애그리게이션 레이어는 [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)와는 다르며, 애그리게이션 레이어는 {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} 가 새로운 종류의 오브젝트를 인식하도록 하는 방법이다.
 
@@ -34,5 +34,6 @@ extention API server가 레이턴시 요구 사항을 달성할 수 없는 경�
 
 * 사용자의 환경에서 Aggregator를 동작시키려면, [애그리게이션 레이어를 설정한다](/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
 * 다음에, [확장 API 서버를 구성해서](/ko/docs/tasks/extend-kubernetes/setup-extension-api-server/) 애그리게이션 레이어와 연계한다.
-* 또한, 어떻게 [쿠버네티스 API를 커스텀 리소스 데피니션으로 확장하는지](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)를 배워본다.
-* [API 서비스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apiservice-v1-apiregistration-k8s-io)의 사양을 읽어본다.
+* API 레퍼런스에서 [API 서비스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apiservice-v1-apiregistration-k8s-io)에 대해 읽어본다.
+
+대안으로, 어떻게 [쿠버네티스 API를 커스텀 리소스 데피니션으로 확장하는지](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)를 배워본다.

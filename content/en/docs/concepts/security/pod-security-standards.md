@@ -374,6 +374,24 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
+			<td style="white-space: nowrap">Running as Non-root user (v1.23+)</td>
+			<td>
+				<p>Containers must not set <tt>runAsUser</tt> to 0</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.runAsUser</code></li>
+					<li><code>spec.containers[*].securityContext.runAsUser</code></li>
+					<li><code>spec.initContainers[*].securityContext.runAsUser</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.runAsUser</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>any non-zero value</li>
+					<li><code>undefined/null</code></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
 			<td style="white-space: nowrap">Non-root groups <em>(optional)</em></td>
 			<td>
 				<p>Containers should be forbidden from running with a root primary or supplementary GID.</p>
@@ -466,7 +484,7 @@ of individual policies are not defined here.
 - {{< example file="security/podsecurity-baseline.yaml" >}}Baseline namespace{{< /example >}}
 - {{< example file="security/podsecurity-restricted.yaml" >}}Restricted namespace{{< /example >}}
 
-[**PodSecurityPolicy**](/docs/concepts/profile/pod-security-profile/) (Deprecated)
+[**PodSecurityPolicy**](/docs/concepts/policy/pod-security-policy/) (Deprecated)
 
 - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}

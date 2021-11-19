@@ -51,7 +51,7 @@ graph LR;
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
-uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) or
+uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport) or
 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
 
 ## Prerequisites
@@ -224,7 +224,7 @@ reference additional implementation-specific configuration for this class.
 
 #### Namespace-scoped parameters
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 `Parameters` field has a `scope` and `namespace` field that can be used to
 reference a namespace-specific resource for configuration of an Ingress class.

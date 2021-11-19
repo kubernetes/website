@@ -115,16 +115,12 @@ different Kubernetes components.
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `GenericEphemeralVolume` | `false` | Alpha | 1.19 | 1.20 |
-| `GenericEphemeralVolume` | `true` | Beta | 1.21 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
 | `IndexedJob` | `true` | Beta | 1.22 | |
-| `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | 1.21 |
-| `IngressClassNamespacedParams` | `true` | Beta | 1.22 | |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureDiskUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureFileUnregister` | `false` | Alpha | 1.21 | |
@@ -133,7 +129,9 @@ different Kubernetes components.
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
-| `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | |
+| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
+| `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
+| `JobTrackingWithFinalizers` | `true` | Beta | 1.23 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | |
@@ -157,7 +155,8 @@ different Kubernetes components.
 | `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
 | `PodOverhead` | `true` | Beta | 1.18 | |
-| `PodSecurity` | `false` | Alpha | 1.22 | |
+| `PodSecurity` | `false` | Alpha | 1.22 | 1.22 |
+| `PodSecurity` | `true` | Beta | 1.23 | |
 | `PreferNominatedNode` | `false` | Alpha | 1.21 | 1.21 |
 | `PreferNominatedNode` | `true` | Beta | 1.22 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
@@ -310,6 +309,9 @@ different Kubernetes components.
 | `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | - |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
+| `GenericEphemeralVolume` | `false` | Alpha | 1.19 | 1.20 |
+| `GenericEphemeralVolume` | `true` | Beta | 1.21 | 1.22 |
+| `GenericEphemeralVolume` | `true` | GA | 1.23 | - |
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
 | `HugePageStorageMediumSize` | `true` | Beta | 1.19 | 1.21 |
 | `HugePageStorageMediumSize` | `true` | GA | 1.22 | - |
@@ -324,6 +326,9 @@ different Kubernetes components.
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
 | `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | 1.20 |
 | `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | |
+| `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | 1.21 |
+| `IngressClassNamespacedParams` | `true` | Beta | 1.22 | 1.22 |
+| `IngressClassNamespacedParams` | `true` | GA | 1.23 | - |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | - |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
@@ -794,6 +799,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Initializers admission plugin.
 - `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
   support for IPv6.
+- `JobMutableNodeSchedulingDirectives`: Allows updating node scheduling directives in
+  the pod template of [Job](/docs/concepts/workloads/controllers/job).
 - `JobTrackingWithFinalizers`: Enables tracking [Job](/docs/concepts/workloads/controllers/job)
   completions without relying on Pods remaining in the cluster indefinitely.
   The Job controller uses Pod finalizers and a field in the Job status to keep

@@ -417,7 +417,10 @@ version of Kubernetes you're using](/docs/home/supported-doc-versions/).
 When a Job is created, the Job controller will immediately begin creating Pods
 to satisfy the Job's requirements and will continue to do so until the Job is
 complete. However, you may want to temporarily suspend a Job's execution and
-resume it later. To suspend a Job, you can update the `.spec.suspend` field of
+resume it later, or start Jobs in suspended state and have a custom controller
+decide later when to start them.
+
+To suspend a Job, you can update the `.spec.suspend` field of
 the Job to true; later, when you want to resume it again, update it to false.
 Creating a Job with `.spec.suspend` set to true will create it in the suspended
 state.
@@ -503,6 +506,32 @@ directly a result of toggling the `.spec.suspend` field. In the time between
 these two events, we see that no Pods were created, but Pod creation restarted
 as soon as the Job was resumed.
 
+### Mutable Scheduling Directives
+
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+
+{{< note >}}
+In order to use this behavior, you must enable the `JobMutableNodeSchedulingDirectives`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
+It is enabled by default.
+{{< /note >}}
+
+In most cases a parallel job will want the pods to run with constraints, 
+like all in the same zone, or all either on GPU model x or y but not a mix of both.
+
+The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a 
+custom queue controller to decide when a job should start; However, once a job is unsuspended,
+a custom queue controller has no influence on where the pods of a job will actually land.
+
+This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
+controllers the ability to influence pod placement while at the same time offloading actual 
+pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never 
+been unsuspended before.
+
+The fields in a Job's pod template that can be updated are node affinity, node selector, 
+tolerations, labels and annotations.
+
 ### Specifying your own Pod selector
 
 Normally, when you create a Job object, you do not specify `.spec.selector`.
@@ -572,18 +601,19 @@ mismatch.
 
 ### Job tracking with finalizers
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
 In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-It is disabled by default.
+It is enabled by default.
 
 When enabled, the control plane tracks new Jobs using the behavior described
-below. Existing Jobs are unaffected. As a user, the only difference you would
-see is that the control plane tracking of Job completion is more accurate.
+below. Jobs created before the feature was enabled are unaffected. As a user,
+the only difference you would see is that the control plane tracking of Job
+completion is more accurate.
 {{< /note >}}
 
 When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}

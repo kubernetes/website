@@ -2,8 +2,9 @@
 
 
 
-
-title: 웹 UI (대시보드)
+title: 쿠버네티스 대시보드를 배포하고 접속하기
+description: >-
+  웹 UI(쿠버네티스 대시보드)를 배포하고 접속한다.
 content_type: concept
 weight: 10
 card:
@@ -31,36 +32,39 @@ card:
 
 ## 대시보드 UI 배포
 
-대시보드 UI는 기본으로 배포되지 않는다. 배포하려면 다음 커맨드를 동작한다.
+대시보드 UI는 기본으로 배포되지 않는다. 배포하려면 다음 커맨드를 실행한다.
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml
 ```
 
 ## 대시보드 UI 접근
 
 클러스터 데이터를 보호하기 위해, 대시보드는 기본적으로 최소한의 RBAC 설정을 제공한다.
-현재, 대시보드는 Bearer 토큰으로 로그인 하는 방법을 제공한다.
+현재, 대시보드는 Bearer 토큰으로 로그인하는 방법을 제공한다.
 본 시연을 위한 토큰을 생성하기 위해서는,
 [샘플 사용자 만들기](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md) 가이드를 따른다.
 
 {{< warning >}}
-시연 중에 생성한 샘플 사용자는 어드민 권한이 부여되며, 이는 교육 목적으로만 사용한다.
+시연 중 생성한 샘플의 사용자에게는 관리자(admin) 권한이 부여되며, 이는 교육 목적으로만 사용한다.
 {{< /warning >}}
 
 ### 커맨드 라인 프록시
-kubectl 커맨드라인 도구를 이용해 다음 커맨드를 실행함으로써 대시보드를 사용할 수 있다.
+
+`kubectl` 커맨드라인 도구를 이용해 다음 커맨드를 실행함으로써 대시보드로의
+접속을 활성화할 수 있다.
 
 ```
 kubectl proxy
 ```
 
-kubectl은 [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)에 대시보드를 사용하는 것을 가능하게 해줄 것이다.
+kubectl은 [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)를 통해 대시보드에 접속할 수 있게 해줄 것이다.
 
-UI는 커맨드가 실행된 머신에서 _오직_ 접근 가능하다. 상세 내용은 `kubectl proxy --help` 옵션을 확인한다.
+UI는 _오직_ 커맨드가 실행된 머신에서만 접근 가능하다. 상세 내용은 `kubectl proxy --help` 옵션을 확인한다.
 
 {{< note >}}
-Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 인증서를 지원하지 않는다.
+Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
+또는 X.509 인증서를 **지원하지 않는다**.
 {{< /note >}}
 
 ## 웰컴 뷰
@@ -75,7 +79,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 ## 컨테이너화 된 애플리케이션 배포
 
 대시보드를 이용하여 컨테이너화 된 애플리케이션을 디플로이먼트와 간단한 마법사를 통한 선택적인 서비스로 생성하고 배포할 수 있다.
-애플리케이션 세부 정보를 수동으로 지정할 수 있고, 또는 애플리케이션 구성을 포함한 YAML, JSON 파일을 업로드할 수 있다.
+애플리케이션 세부 정보를 수동으로 지정할 수 있고, 또는 애플리케이션 구성을 포함한 YAML 또는 JSON _매니페스트(manifest)_ 파일을 업로드할 수 있다.
 
 시작하는 페이지의 상위 오른쪽 코너에 있는 **CREATE** 버튼을 클릭한다.
 
@@ -186,13 +190,14 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 ### YAML 또는 JSON 파일 업로드
 
 쿠버네티스는 선언적인 설정을 제공한다.
-이 방식으로 모든 설정은 쿠버네티스 [API](/ko/docs/concepts/overview/kubernetes-api/) 리소스 스키마를
-이용하여 YAML 또는 JSON 설정 파일에 저장한다.
+이 방식에서는 모든 설정이 매니페스트(YAML 또는 JSON 설정 파일)에 저장된다.
+매니페스트는 쿠버네티스 [API](/ko/docs/concepts/overview/kubernetes-api/) 리소스 스키마를
+사용한다.
 
-배포 마법사를 통해 애플리케이션 세부사항들을 지정하는 대신,
-애플리케이션을 YAML 또는 JSON 파일로 정의할 수 있고 대시보드를 이용해서 파일을 업로드할 수 있다.
+배포 마법사를 통해 애플리케이션 세부 사항들을 지정하는 대신, 애플리케이션을 하나 이상의 매니페스트로 정의할 수 있고 대시보드를 이용해서 파일을 업로드할 수 있다.
 
 ## 대시보드 사용
+
 다음 섹션들은 어떻게 제공하고 어떻게 사용할 수 있는지에 대한 쿠버네티스 대시보드 UI의 모습을 보여준다.
 
 ### 탐색
@@ -201,9 +206,10 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 기본적으로 _기본_ 네임스페이스의 오프젝트만이 보이는데,
 이는 탐색 창에 위치한 네임스페이스 셀렉터를 이용해 변경할 수 있다.
 
-대시보드는 몇가지 메뉴 카테고리 중에서 대부분의 쿠버네티스 오브젝트 종류와 그룹을 보여준다.
+대시보드는 몇 가지 메뉴 카테고리 중에서 대부분의 쿠버네티스 오브젝트 종류와 그룹을 보여준다.
 
 #### 어드민 개요
+
 클러스터와 네임스페이스 관리자에게 대시보드는 노드, 네임스페이스 그리고 퍼시스턴트 볼륨과 세부사항들이 보여진다.
 노드는 모든 노드를 통틀어 CPU와 메모리 사용량을 보여준다.
 세부사항은 각 노드들에 대한 사용량, 사양, 상태,
@@ -212,7 +218,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 #### 워크로드
 
 선택된 네임스페이스에서 구동되는 모든 애플리케이션을 보여준다.
-애플리케이션의 워크로드 종류(예를 들어, 디플로이먼트, 레플리카셋(ReplicaSet), 스테이트풀셋(StatefulSet) 등)를 보여주고
+애플리케이션의 워크로드 종류(예시: 디플로이먼트, 레플리카셋(ReplicaSet), 스테이트풀셋(StatefulSet))를 보여주고
 각각의 워크로드 종류는 따로 보여진다.
 리스트는 예를 들어 레플리카셋에서 준비된 파드의 숫자 또는 파드의 현재 메모리 사용량과 같은
 워크로드에 대한 실용적인 정보를 요약한다.
@@ -230,9 +236,9 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 
 #### 스토리지
 
-스토리지는 애플리케이션이 데이터를 저장하기 위해 사용하는 퍼시턴트 볼륨 클레임 리소스들을 보여준다.
+스토리지는 애플리케이션이 데이터를 저장하기 위해 사용하는 퍼시턴트볼륨클레임 리소스들을 보여준다.
 
-#### 컨피그 맵과 시크릿
+#### 컨피그맵과 시크릿 {#config-maps-and-secrets}
 
 클러스터에서 동작 중인 애플리케이션의 라이브 설정을 사용하는 모든 쿠버네티스 리소스들을 보여준다.
 컨피그 오브젝트들을 수정하고 관리할 수 있도록 허용하며, 기본적으로는 숨겨져 있는 시크릿들을 보여준다.

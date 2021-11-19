@@ -40,11 +40,11 @@ explains how to use `kubeadm` to migrate from `kube-dns`.
 
 DNS is a built-in Kubernetes service launched automatically
 using the addon manager
-[cluster add-on](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md). 
+[cluster add-on](http://releases.k8s.io/master/cluster/addons/README.md). 
 -->
 ## 介绍
 
-DNS 是使用[集群插件](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md)
+DNS 是使用[集群插件](http://releases.k8s.io/master/cluster/addons/README.md)
 管理器自动启动的内置的 Kubernetes 服务。
 
 <!-- 
@@ -55,11 +55,11 @@ originally used kube-dns, you may still have `kube-dns` deployed rather than Cor
 你的集群原来使用 kube-dns，你可能部署的仍然是 `kube-dns` 而不是 CoreDNS。
 
 <!--
-Both the CoreDNS and kube-dns Service are named `kube-dns` in the `metadata.name` field.  
+The CoreDNS Service is named `kube-dns` in the `metadata.name` field.  
 This is so that there is greater interoperability with workloads that relied on the legacy `kube-dns` Service name to resolve addresses internal to the cluster. Using a Service named `kube-dns` abstracts away the implementation detail of which DNS provider is running behind that common name.
 -->
 {{< note >}}
-CoreDNS 和 kube-dns 的 Service 都在其 `metadata.name` 字段使用名字 `kube-dns`。
+CoreDNS 服务在其 `metadata.name` 字段被命名为 `kube-dns`。
 这是为了能够与依靠传统 `kube-dns` 服务名称来解析集群内部地址的工作负载具有更好的互操作性。
 使用 `kube-dns` 作为服务名称可以抽离共有名称之后运行的是哪个 DNS 提供程序这一实现细节。
 {{< /note >}}
@@ -304,27 +304,23 @@ During translation, all FQDN nameservers will be omitted from the CoreDNS config
 
 CoreDNS supports the features of kube-dns and more.
 A ConfigMap created for kube-dns to support `StubDomains`and `upstreamNameservers` translates to the `proxy` plugin in CoreDNS.
-Similarly, the `Federations` plugin in kube-dns translates to the `federation` plugin in CoreDNS.
 
 ### Example
 
-This example ConfigMap for kubedns specifies federations, stubdomains and upstreamnameservers: 
+This example ConfigMap for kube-dns specifies stubdomains and upstreamnameservers: 
 -->
 ## CoreDNS 配置等同于 kube-dns
 
 CoreDNS 不仅仅提供 kube-dns 的功能。
 为 kube-dns 创建的 ConfigMap 支持 `StubDomains` 和 `upstreamNameservers` 转换为 CoreDNS 中的 `forward` 插件。
-同样，kube-dns 中的 `Federations` 插件会转换为 CoreDNS 中的 `federation` 插件。
 
 ### 示例
 
-用于 kubedns 的此示例 ConfigMap 描述了 federations、stubdomains and upstreamnameservers：
+用于 kubedns 的此示例 ConfigMap 描述了 stubdomains 和 upstreamnameservers：
 
 ```yaml
 apiVersion: v1
 data:
-  federations: |
-    {"foo" : "foo.feddomain.com"}
   stubDomains: |
     {"abc.com" : ["1.2.3.4"], "my.cluster.local" : ["2.3.4.5"]}
   upstreamNameservers: |
@@ -336,14 +332,6 @@ kind: ConfigMap
 The equivalent configuration in CoreDNS creates a Corefile: 
 -->
 CoreDNS 中的等效配置将创建一个 Corefile：
-
-* 针对 federations:
-
-  ```yaml
-  federation cluster.local {
-      foo foo.feddomain.com
-  }
-  ```
 
 * 针对 stubDomains:
 

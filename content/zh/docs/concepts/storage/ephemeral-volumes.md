@@ -241,7 +241,7 @@ features:
   parameters.
 - Typical operations on volumes are supported assuming that the driver
   supports them, including
-  ([snapshotting](/docs/concepts/storage/volume-snapshots/),
+  [snapshotting](/docs/concepts/storage/volume-snapshots/),
   [cloning](/docs/concepts/storage/volume-pvc-datasource/),
   [resizing](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
   and [storage capacity tracking](/docs/concepts/storage/storage-capacity/).

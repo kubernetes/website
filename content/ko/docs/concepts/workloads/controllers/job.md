@@ -25,6 +25,8 @@ weight: 50
 
 잡을 사용하면 여러 파드를 병렬로 실행할 수도 있다.
 
+잡을 스케줄에 따라 구동하고 싶은 경우(단일 작업이든, 여러 작업의 병렬 수행이든), [크론잡(CronJob)](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 참고한다.
+
 <!-- body -->
 
 ## 예시 잡 실행하기
@@ -294,7 +296,7 @@ spec:
 `restartPolicy` 는 잡 자체에 적용되는 것이 아니라 파드에 적용된다는 점을 유념한다. 잡의 상태가 `type: Failed` 이 되면, 잡의 자동 재시작은 없다.
 즉, `.spec.activeDeadlineSeconds` 와 `.spec.backoffLimit` 로 활성화된 잡의 종료 메커니즘은 영구적인 잡의 실패를 유발하며 이를 해결하기 위해 수동 개입이 필요하다.
 
-## 완료된 잡을 자동으로 정리
+## 완료된 잡을 자동으로 정리 {#clean-up-finished-jobs-automatically}
 
 완료된 잡은 일반적으로 시스템에서 더 이상 필요로 하지 않는다. 시스템 내에
 이를 유지한다면 API 서버에 부담이 된다.
@@ -522,7 +524,7 @@ Events:
 실행되기를 원하지만, 잡이 생성한 나머지 파드에는 다른
 파드 템플릿을 사용하고 잡으로 하여금 새 이름을 부여하기를 원한다.
 그러나 관련된 필드들은 업데이트가 불가능하기 때문에 잡을 업데이트할 수 없다.
-따라서 `kubectl delete jobs/old --cascade=false` 를 사용해서
+따라서 `kubectl delete jobs/old --cascade=orphan` 명령을 사용해서
 잡 `old` 를 삭제하지만, _파드를 실행 상태로 둔다_.
 삭제하기 전에 어떤 셀렉터를 사용하는지 기록한다.
 
@@ -638,6 +640,19 @@ API 서버에서 파드가 제거되면 이를 알아챈다.
 이 접근 방식의 장점은 전체 프로세스가 잡 오브젝트의 완료를 보장하면서도,
 파드 생성과 작업 할당 방법을 완전히 제어하고 유지한다는 것이다.
 
-## 크론잡 {#cron-jobs}
+## {{% heading "whatsnext" %}}
 
-[`CronJob`](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 사용해서 Unix 도구인 `cron`과 유사하게 지정된 시간/일자에 실행되는 잡을 생성할 수 있다.
+* [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
+* 다른 방식으로 잡을 구동하는 방법에 대해서 읽는다.
+  * [작업 대기열을 사용한 거친 병렬 처리](/ko/docs/tasks/job/coarse-parallel-processing-work-queue/)
+  * [작업 대기열을 사용한 정밀 병렬 처리](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)
+  * [병렬 처리를 위한 정적 작업 할당으로 인덱스된 잡](/docs/tasks/job/indexed-parallel-processing-static/)(베타) 사용
+  * 템플릿 기반으로 복수의 잡 생성: [확장을 사용한 병렬 처리](/ko/docs/tasks/job/parallel-processing-expansion/)
+* [완료된 잡을 자동으로 정리](#clean-up-finished-jobs-automatically) 섹션 내 링크를 따라서
+  클러스터가 완료되거나 실패된 태스크를 어떻게 정리하는지에 대해 더 배운다.
+* `Job`은 쿠버네티스 REST API의 일부이다.
+  잡 API에 대해 이해하기 위해
+  {{< api-reference page="workload-resources/job-v1" >}}
+  오브젝트 정의를 읽은다.
+* 스케줄을 기반으로 실행되는 일련의 잡을 정의하는데 사용할 수 있고, 유닉스 툴 `cron`과 유사한
+  [`CronJob`](/ko/docs/concepts/workloads/controllers/cron-jobs/)에 대해 읽는다.

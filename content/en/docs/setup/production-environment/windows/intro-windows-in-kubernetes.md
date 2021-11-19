@@ -499,13 +499,6 @@ passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
 The following list documents differences between how Pod container specifications
 work between Windows and Linux:
 
-* `limits.cpu` and `limits.memory` - Windows doesn't use hard limits
-  for CPU allocations. Instead, a share system is used.
-  The fields based on millicores are scaled into
-  relative shares that are followed by the Windows scheduler
-  See [`kuberuntime/helpers_windows.go`](https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/kuberuntime/helpers_windows.go),
-  and [Implementing resource controls for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/resource-controls)
-  in Microsoft's virtualization documentation.
 * Huge pages are not implemented in the Windows container
   runtime, and are not available. They require [asserting a user
   privilege](https://docs.microsoft.com/en-us/windows/desktop/Memory/large-page-support)
@@ -526,13 +519,13 @@ work between Windows and Linux:
 * `securityContext.readOnlyRootFilesystem` -
    not possible on Windows; write access is required for registry & system
    processes to run inside the container
-* `EcurityContext.runAsGroup` -
+* `securityContext.runAsGroup` -
    not possible on Windows as there is no GID support
-* `ecurityContext.runAsNonRoot` -
-   Windows does not have a root user. The closest equivalent is `ContainerAdministrator`
-   which is an identity that doesn't exist on the node.
+* `securityContext.runAsNonRoot` -
+   this setting will prevent containers from running as `ContainerAdministrator`
+   which is the closest equivalent to a root user on Windows.
 * `securityContext.runAsUser` -
-   use [`runAsUsername`](/docs/tasks/configure-pod-container/configure-runasusername)
+   use [`runAsUserName`](/docs/tasks/configure-pod-container/configure-runasusername)
    instead
 * `securityContext.seLinuxOptions` -
    not possible on Windows as SELinux is Linux-specific
