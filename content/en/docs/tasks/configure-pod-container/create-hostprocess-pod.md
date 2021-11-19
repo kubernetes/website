@@ -62,8 +62,9 @@ In 1.23 this means that the annotation plugin configurations are no longer neede
 
 ## Limitations
 
-- HostProcess containers require the latest version of containerd {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
-- As of v1.22 HostProcess pods can only contain HostProcess containers. This is a current limitation
+- HostProcess containers require containerd 1.6 or higher
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
+- As of v1.23 HostProcess pods can only contain HostProcess containers. This is a current limitation
 of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
 - HostProcess containers run as a process on the host and do not have any degree of
 isolation other than resource constraints imposed on the HostProcess user account. Neither
