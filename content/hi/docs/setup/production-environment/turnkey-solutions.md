@@ -1,6 +1,6 @@
 ---
 title: Turnkey Cloud Solutions
-content_type:  concept
+content_type: concept
 weight: 30
 ---
 <!-- overview -->
