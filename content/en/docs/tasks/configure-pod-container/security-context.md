@@ -186,7 +186,7 @@ and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 
 ## Delegating volume permission and ownership change to CSI driver
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 If you deploy a [Container Storage Interface (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
 driver which supports the `VOLUME_MOUNT_GROUP` `NodeServiceCapability`, the
