@@ -1255,6 +1255,10 @@ plugin path on each node and in some cases the control plane nodes as well.
 Pods interact with FlexVolume drivers through the `flexvolume` in-tree volume plugin.
 For more details, see the [FlexVolume](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) examples.
 
+{{< note >}}
+FlexVolume is deprecated starting v1.23. Out-of-tree CSI driver is the recommended way to write volume driver in Kubernetes. Maintainers of FlexVolume driver should implement a CSI Driver and move users of FlexVolume to CSI. Users of FlexVolume should move their workloads to CSI Driver.
+{{< /note >}}
+
 ## Mount propagation
 
 Mount propagation allows for sharing volumes mounted by a container to
