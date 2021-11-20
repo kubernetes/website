@@ -64,7 +64,7 @@ This means that containers within a `Pod` can all reach each other's ports on
 usage, but this is no different from processes in a VM.  This is called the
 "IP-per-pod" model.
 
-How this is implemented is a detail of the particular container runtime in use.
+How this is implemented is a detail of the particular container runtime in use. Likewise, the networking option you choose may support [dual-stack IPv4/IPv6 networking](/docs/concepts/services-networking/dual-stack/); implementations vary.
 
 It is possible to request ports on the `Node` itself which forward to your `Pod`
 (called host ports), but this is a very niche operation. How that forwarding is
