@@ -218,8 +218,11 @@ equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 #### Static policy options
 
+The following policy options exist for the static `CPUManager` policy:
+* `full-pcpus-only` (beta, visible by default)
+* `distribute-cpus-across-numa` (alpha, hidden by default)
+
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
-You can enable this option by adding `full-pcups-only=true` to the CPUManager policy options.
 By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.
 On SMT enabled systems, the policy can allocate individual virtual cores, which correspond to hardware threads.
 This can lead to different containers sharing the same physical cores; this behaviour in turn contributes
@@ -227,3 +230,24 @@ to the [noisy neighbours problem](https://en.wikipedia.org/wiki/Cloud_computing_
 With the option enabled, the pod will be admitted by the kubelet only if the CPU request of all its containers
 can be fulfilled by allocating full physical cores.
 If the pod does not pass the admission, it will be put in Failed state with the message `SMTAlignmentError`.
+
+If the `distribute-cpus-across-numa`policy option is specified, the static
+policy will evenly distribute CPUs across NUMA nodes in cases where more than
+one NUMA node is required to satisfy the allocation.
+By default, the `CPUManager` will pack CPUs onto one NUMA node until it is
+filled, with any remaining CPUs simply spilling over to the next NUMA node.
+This can cause undesired bottlenecks in parallel code relying on barriers (and
+similar synchronization primitivies), as this type of code tends to run only as
+fast as its slowest worker (which is slowed down by the fact that fewer CPUs
+are available on at least one NUMA node).
+By distributing CPUs evenly across NUMA nodes, application developers can more
+easily ensure that no single worker suffers from NUMA effects more than any
+other, improving the overall performance of these types of applications.
+
+The `full-pcpus-only` option can be enabled by adding `full-pcups-only=true` to
+the CPUManager policy options.
+Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
+`distribute-cpus-across-numa=true` to the CPUManager policy options.
+When both are set, they are "additive" in the sense that CPUs will be
+distributed across NUMA nodes in chunks of full-pcpus rather than individual
+cores.
