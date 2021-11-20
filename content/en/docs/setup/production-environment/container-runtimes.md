@@ -79,7 +79,7 @@ If systemd doesn't use cgroup v2 by default, you can configure the system to use
 # dnf install -y grubby && \
   sudo grubby \
   --update-kernel=ALL \
-  --args=”systemd.unified_cgroup_hierarchy=1"
+  --args="systemd.unified_cgroup_hierarchy=1"
 ```
 
 To apply the configuration, it is necessary to reboot the node.
