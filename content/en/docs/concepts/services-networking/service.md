@@ -550,7 +550,7 @@ The default is `ClusterIP`.
 * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value
   makes the Service only reachable from within the cluster. This is the
   default `ServiceType`.
-* [`NodePort`](#nodeport): Exposes the Service on each Node's IP at a static port
+* [`NodePort`](#type-nodeport): Exposes the Service on each Node's IP at a static port
   (the `NodePort`). A `ClusterIP` Service, to which the `NodePort` Service
   routes, is automatically created.  You'll be able to contact the `NodePort` Service,
   from outside the cluster,
