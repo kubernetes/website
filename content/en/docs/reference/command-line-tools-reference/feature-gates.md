@@ -106,7 +106,8 @@ different Kubernetes components.
 | `EfficientWatchResumption` | `true` | Beta | 1.21 | |
 | `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | 1.21 |
 | `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | |
-| `EphemeralContainers` | `false` | Alpha | 1.16 | |
+| `EphemeralContainers` | `false` | Alpha | 1.16 | 1.22 |
+| `EphemeralContainers` | `true` | Beta | 1.23 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
 | `ExpandedDNSConfig` | `false` | Alpha | 1.22 | |
