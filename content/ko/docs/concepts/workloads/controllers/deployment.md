@@ -50,13 +50,13 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
   보다 정교한 선택 규칙의 적용이 가능하다.
 
   {{< note >}}
-  `.spec.selector.matchLabels` 필드는 {key,value}의 쌍으로 매핑되어있다. `matchLabels` 에 매핑된
+  `.spec.selector.matchLabels` 필드는 {key,value}의 쌍으로 매핑되어 있다. `matchLabels` 에 매핑된
   단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, `key` 필드는 "key"에 그리고 `operator`는 "In"에 대응되며
   `value` 배열은 "value"만 포함한다.
   매칭을 위해서는 `matchLabels` 와 `matchExpressions` 의 모든 요건이 충족되어야 한다.
   {{< /note >}}
 
-* `template` 필드에는 다음 하위 필드가 포함되어있다.
+* `template` 필드에는 다음 하위 필드가 포함되어 있다.
   * 파드는 `.metadata.labels` 필드를 사용해서 `app: nginx` 라는 레이블을 붙인다.
   * 파드 템플릿의 사양 또는 `.template.spec` 필드는
   파드가 [도커 허브](https://hub.docker.com/)의 `nginx` 1.14.2 버전 이미지를 실행하는
@@ -1023,7 +1023,7 @@ echo $?
 
 디플로이먼트의 `.spec.revisionHistoryLimit` 필드를 설정해서
 디플로이먼트에서 유지해야 하는 이전 레플리카셋의 수를 명시할 수 있다. 나머지는 백그라운드에서 가비지-수집이 진행된다.
-기본적으로 10으로 되어있다.
+기본적으로 10으로 되어 있다.
 
 {{< note >}}
 명시적으로 이 필드를 0으로 설정하면 그 결과로 디플로이먼트의 기록을 전부 초기화를 하고,
@@ -1040,7 +1040,7 @@ echo $?
 
 다른 모든 쿠버네티스 설정과 마찬가지로 디플로이먼트에는 `.apiVersion`, `.kind` 그리고 `.metadata` 필드가 필요하다.
 설정 파일 작업에 대한 일반적인 내용은
-[애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/),
+[애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/),
 컨테이너 구성하기 그리고 [kubectl을 사용해서 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참조한다.
 디플로이먼트 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.

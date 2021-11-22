@@ -14,5 +14,5 @@ API를 이용한 축출은 구성된 [`PodDisruptionBudgets`](/docs/tasks/run-ap
 
 ## {{% heading "whatsnext" %}}
 
-- [노드-압박 축출](/docs/concepts/scheduling-eviction/node-pressure-eviction/)에 대해 더 배우기
+- [노드-압박 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)에 대해 더 배우기
 - [파드 우선순위와 선점](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)에 대해 더 배우기

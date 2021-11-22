@@ -654,7 +654,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   [토큰 요청](https://kubernetes-csi.github.io/docs/token-requests.html)을 참조한다.
 - `CSIStorageCapacity`: CSI 드라이버가 스토리지 용량 정보를 게시하고
   쿠버네티스 스케줄러가 파드를 스케줄할 때 해당 정보를 사용하도록 한다.
-  [스토리지 용량](/docs/concepts/storage/storage-capacity/)을 참고한다.
+  [스토리지 용량](/ko/docs/concepts/storage/storage-capacity/)을 참고한다.
   자세한 내용은 [`csi` 볼륨 유형](/ko/docs/concepts/storage/volumes/#csi) 문서를 확인한다.
 - `CSIVolumeFSGroupPolicy`: CSI드라이버가 `fsGroupPolicy` 필드를 사용하도록 허용한다.
   이 필드는 CSI드라이버에서 생성된 볼륨이 마운트될 때 볼륨 소유권과
@@ -698,7 +698,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `DisableCloudProviders`: `kube-apiserver`,  `kube-controller-manager`, 
   `--cloud-provider` 컴포넌트 플래그와 관련된 `kubelet`의 
   모든 기능을 비활성화한다.
-- `DownwardAPIHugePages`: [다운워드 API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information)에서
+- `DownwardAPIHugePages`: [다운워드 API](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)에서
   hugepages 사용을 활성화한다.
 - `DryRun`: 서버 측의 [dry run](/docs/reference/using-api/api-concepts/#dry-run) 요청을
   요청을 활성화하여 커밋하지 않고 유효성 검사, 병합 및 변화를 테스트할 수 있다.
@@ -738,13 +738,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `ExpandCSIVolumes`: CSI 볼륨 확장을 활성화한다.
 - `ExpandedDNSConfig`: 더 많은 DNS 검색 경로와 더 긴 DNS 검색 경로 목록을 허용하려면 
   kubelet과 kube-apiserver를 사용하도록 설정한다.
-  [확장된 DNS 구성](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration)을 참고한다.
+  [확장된 DNS 구성](/ko/docs/concepts/services-networking/dns-pod-service/#확장된-dns-환경-설정)을 참고한다.
 - `ExpandInUsePersistentVolumes`: 사용 중인 PVC를 확장할 수 있다.
   [사용 중인 퍼시스턴트볼륨클레임 크기 조정](/ko/docs/concepts/storage/persistent-volumes/#사용-중인-퍼시스턴트볼륨클레임-크기-조정)을 참고한다.
 - `ExpandPersistentVolumes`: 퍼시스턴트 볼륨 확장을 활성화한다.
   [퍼시스턴트 볼륨 클레임 확장](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트-볼륨-클레임-확장)을 참고한다.
 - `ExperimentalCriticalPodAnnotation`: 특정 파드에 *critical* 로
-  어노테이션을 달아서 [스케줄링이 보장되도록](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 한다.
+  어노테이션을 달아서 [스케줄링이 보장되도록](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 한다.
   이 기능은 v1.13부터 파드 우선 순위 및 선점으로 인해 사용 중단되었다.
 - `ExperimentalHostUserNamespaceDefaulting`: 사용자 네임스페이스를 호스트로
   기본 활성화한다. 이것은 다른 호스트 네임스페이스, 호스트 마운트,
@@ -847,7 +847,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `NodeLease`: 새로운 리스(Lease) API가 노드 상태 신호로 사용될 수 있는 노드 하트비트(heartbeats)를 보고할 수 있게 한다.
 - `NodeSwap`: 노드의 쿠버네티스 워크로드용 스왑 메모리를 할당하려면 kubelet을 활성화한다.
   반드시 `KubeletConfiguration.failSwapOn`를 false로 설정한 후 사용해야 한다.
-  더 자세한 정보는 [스왑 메모리](/docs/concepts/architecture/nodes/#swap-memory)를 참고한다.
+  더 자세한 정보는 [스왑 메모리](/ko/docs/concepts/architecture/nodes/#swap-memory)를 참고한다.
 - `NonPreemptingPriority`: 프라이어리티클래스(PriorityClass)와 파드에 `preemptionPolicy` 필드를 활성화한다.
 - `PVCProtection`: 파드에서 사용 중일 때 퍼시스턴트볼륨클레임(PVC)이
   삭제되지 않도록 한다.
@@ -970,7 +970,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   참고한다.
 - `Sysctls`: 각 파드에 설정할 수 있는 네임스페이스 커널
   파라미터(sysctl)를 지원한다. 자세한 내용은
-  [sysctl](/docs/tasks/administer-cluster/sysctl-cluster/)을 참고한다.
+  [sysctl](/ko/docs/tasks/administer-cluster/sysctl-cluster/)을 참고한다.
 - `TTLAfterFinished`: [TTL 컨트롤러](/ko/docs/concepts/workloads/controllers/ttlafterfinished/)가
   실행이 끝난 후 리소스를 정리하도록
   허용한다.
