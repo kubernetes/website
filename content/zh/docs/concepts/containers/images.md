@@ -509,7 +509,6 @@ template needs to include the `.docker/config.json` or mount a drive that contai
 
 All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`.
-
 -->
 你必须确保集群中所有节点的 `.docker/config.json` 文件内容相同。
 否则，Pod 会能在一些节点上正常运行而无法在另一些节点上启动。
@@ -528,21 +527,10 @@ The interpretation of `config.json` varies between the original Docker
 implementation and the Kubernetes interpretation. In Docker, the `auths` keys
 can only specify root URLs, whereas Kubernetes allows glob URLs as well as
 prefix-matched paths. This means that a `config.json` like this is valid:
-
-```json
-{
-    "auths": {
-        "*my-registry.io/images": {
-            "auth": "…"
-        }
-    }
-}
-```
 -->
-对于`config.json`的说明在 原始 Docker 实现和 Kubernetes 的说明有所不同。
-在 Docker 中，auths 键只能指定根 URL ，而 Kubernetes 允许 glob URLs 以及
-前缀匹配的路径。这意味着，像这样的`config.json`是有效的：
-
+对于 `config.json` 的解释在原始 Docker 实现和 Kubernetes 的解释之间有所不同。
+在 Docker 中，`auths` 键只能指定根 URL ，而 Kubernetes 允许 glob URLs 以及
+前缀匹配的路径。这意味着，像这样的 `config.json` 是有效的：
 ```json
 {
     "auths": {
@@ -574,24 +562,23 @@ character-range:
     lo '-' hi   matches character c for lo <= c <= hi
 ```
 -->
-使用以下语法匹配根 URL (*my-registry.io)：
-
+使用以下语法匹配根 URL （`*my-registry.io`）：
 ```
 pattern:
     { term }
 
 term:
-    '*'         matches any sequence of non-Separator characters
-    '?'         matches any single non-Separator character
-    '[' [ '^' ] { character-range } ']'
-                character class (must be non-empty)
-    c           matches character c (c != '*', '?', '\\', '[')
-    '\\' c      matches character c
+    '*'         matches any sequence of non-Separator characters #匹配任何无分隔符字符序列
+    '?'         matches any single non-Separator character #匹配任意单个非分隔符
+    '[' [ '^' ] { character-range } ']' #字符范围
+                character class (must be non-empty) #字符集（必须非空）
+    c           matches character c (c != '*', '?', '\\', '[') #匹配字符 c （c 不为 '*','?','\\','['）
+    '\\' c      matches character c #匹配字符 c
 
-character-range:
-    c           matches character c (c != '\\', '-', ']')
-    '\\' c      matches character c
-    lo '-' hi   matches character c for lo <= c <= hi
+character-range: #字符范围
+    c           matches character c (c != '\\', '-', ']') #匹配字符 c （c 不为 '\\','?','-',']'）
+    '\\' c      matches character c #匹配字符 c
+    lo '-' hi   matches character c for lo <= c <= hi #匹配字符范围在 lo 到 hi 之间字符
 ```
 
 <!--
@@ -605,7 +592,7 @@ would match successfully:
 - `sub.my-registry.io/images/my-image`
 - `a.sub.my-registry.io/images/my-image`
 -->
-现在镜像拉取操作会将凭据传递给每个有效模式的 CRI 容器运行时。例如下面的容器镜像名称会匹配成功：
+现在镜像拉取操作会将每种有效模式的凭据都传递给 CRI 容器运行时。例如下面的容器镜像名称会匹配成功：
 
 - `my-registry.io/images`
 - `my-registry.io/images/my-image`
@@ -616,21 +603,8 @@ would match successfully:
 <!--
 The kubelet performs image pulls sequentially for every found credential. This
 means, that multiple entries in `config.json` are possible, too:
-
-```json
-{
-    "auths": {
-        "my-registry.io/images": {
-            "auth": "…"
-        },
-        "my-registry.io/images/subpath": {
-            "auth": "…"
-        }
-    }
-}
-```
 -->
-kubelet 为每个找到的凭证的镜像按顺序拉取。 这意味着在`config.json`中可能有多项：
+kubelet 为每个找到的凭证的镜像按顺序拉取。 这意味着在 `config.json` 中可能有多项：
 
 ```json
 {
@@ -644,15 +618,14 @@ kubelet 为每个找到的凭证的镜像按顺序拉取。 这意味着在`conf
     }
 }
 ```
+
 <!--
 If now a container specifies an image `my-registry.io/images/subpath/my-image`
 to be pulled, then the kubelet will try to download them from both
 authentication sources if one of them fails.
-
 -->
-如果一个容器指定了被拉取的镜像`my-registry.io/images/subpath/my-image`，
-如果其中一个失败，kubelet 将尝试从两个身份验证源下载它们。
-
+如果一个容器指定了要拉取的镜像 `my-registry.io/images/subpath/my-image`，
+并且其中一个失败，kubelet 将尝试从另一个身份验证源下载镜像
 
 <!--
 ### Pre-pulled images
