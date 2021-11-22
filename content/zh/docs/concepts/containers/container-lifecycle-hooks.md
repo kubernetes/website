@@ -107,7 +107,7 @@ Resources consumed by the command are counted against the Container.
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
-the Kubernetes management system execute the handler according to the hook action,
+the Kubernetes management system executes the handler according to the hook action,
 `httpGet` and `tcpSocket` are executed by the kubelet process, and `exec` is executed in the container.
 -->
 ### 回调处理程序执行
