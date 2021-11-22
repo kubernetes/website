@@ -60,7 +60,26 @@ When present, indicates that modifications should not be persisted. An invalid o
 
 ## fieldValidation {#fieldValidation}
 
-TODO
+When both the fieldValidation parameter is present and the `ServerSideFieldValidation` feature gate is enabeld, it instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are:
+- Ignore: This will ignore any unknown fields, silently dropping them from the
+  object, and ignoring all but the last duplicate field that the decoder
+  encounters. This is the default behavior prior to v1.23 and is the default
+  behavior when the `ServerSideFieldValidation` feature gate is disabled.
+- Warn: This will send a warning via the [standarding warning response
+  header](https://datatracker.ietf.org/doc/html/rfc7234#section-5.5) for each
+  unknown or duplicate field it encounters. The request will still succeed if
+  there are no other errors, the resulting object will drop any unknown
+  fields and only persist the last of any duplicate fields. This is the default
+  when the `ServerSideFieldValidation` feature gate is enabled.
+- Strict: This will fail the request with a BadRequest error if any unknown or
+  duplicate fields are present. The error returned from the server will contain
+  all unknown and duplicate fields encountered.
+
+
+One exception is that CRDs with the `x-kubernetes-preserve-unknown-fields`
+property will continue to preserve the unknown fields and will not indicate via
+warning/error if an unknown field is detected for any node in the custom
+resource that has `x-kubernetes-preserve-unknown-fields` set.
 
 <hr>
 
