@@ -32,7 +32,7 @@ weight: 20
 함수 호출을 통해서 구할 수 있다.
 
 파드 이름과 네임스페이스는
-[다운워드(Downward) API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 통해 환경 변수로 구할 수 있다.
+[다운워드(Downward) API](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 통해 환경 변수로 구할 수 있다.
 
 Docker 이미지에 정적으로 명시된 환경 변수와 마찬가지로,
 파드 정의에서의 사용자 정의 환경 변수도 컨테이너가 사용할 수 있다.

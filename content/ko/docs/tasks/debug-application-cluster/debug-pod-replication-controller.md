@@ -91,7 +91,7 @@ kubectl describe pods ${POD_NAME}
 
 ### 파드가 손상(crashing)되었거나 양호하지 않을(unhealthy) 경우
 
-일단 사용자의 파드가 스케줄 되면, [구동중인 파드 디버그하기](/docs/tasks/debug-application-cluster/debug-running-pod/)에
+일단 사용자의 파드가 스케줄 되면, [구동중인 파드 디버그하기](/ko/docs/tasks/debug-application-cluster/debug-running-pod/)에
 기술된 메서드를 디버깅에 사용할 수 있다.
 
 

@@ -27,7 +27,7 @@ weight: 30
 파드 및 컨테이너 필드를 실행 중인 컨테이너에 노출하는 두 가지 방법이 있다.
 
 * 환경 변수
-* [볼륨 파일](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
+* [볼륨 파일](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#다운워드-downward-api)
 
 파드 및 컨테이너 필드를 노출하는 이 두 가지 방법을 *다운워드 API*라고 한다.
 
@@ -145,7 +145,7 @@ kubectl logs dapi-envars-resourcefieldref
 ## {{% heading "whatsnext" %}}
 
 
-* [컨테이너를 위한 환경 변수 정의하기](/docs/tasks/inject-data-application/define-environment-variable-container/)
+* [컨테이너를 위한 환경 변수 정의하기](/ko/docs/tasks/inject-data-application/define-environment-variable-container/)
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 * [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [EnvVar](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)
