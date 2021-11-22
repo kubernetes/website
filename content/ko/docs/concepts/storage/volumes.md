@@ -280,7 +280,7 @@ spec:
 업데이트를 수신하지 않는다.
 {{< /note >}}
 
-더 자세한 내용은 [다운워드 API 예시](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 참고한다.
+더 자세한 내용은 [다운워드 API 예시](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 참고한다.
 
 ### emptyDir {#emptydir}
 

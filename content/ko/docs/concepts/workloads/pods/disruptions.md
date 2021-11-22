@@ -31,7 +31,7 @@ weight: 60
 - 클라우드 공급자 또는 하이퍼바이저의 오류로 인한 VM 장애
 - 커널 패닉
 - 클러스터 네트워크 파티션의 발생으로 클러스터에서 노드가 사라짐
-- 노드의 [리소스 부족](/docs/concepts/scheduling-eviction/node-pressure-eviction/)으로 파드가 축출됨
+- 노드의 [리소스 부족](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)으로 파드가 축출됨
 
 리소스 부족을 제외한 나머지 조건은 대부분의 사용자가 익숙할 것이다.
 왜냐하면
@@ -71,7 +71,7 @@ weight: 60
 
 - 파드가 필요로 하는 [리소스를 요청](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다.
-  (복제된 [스테이트리스](/docs/tasks/run-application/run-stateless-application-deployment/) 및
+  (복제된 [스테이트리스](/ko/docs/tasks/run-application/run-stateless-application-deployment/) 및
   [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/) 애플리케이션에 대해 알아보기.)
 - 복제된 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체
   ([안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티) 이용)

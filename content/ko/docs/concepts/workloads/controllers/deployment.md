@@ -1040,7 +1040,7 @@ echo $?
 
 다른 모든 쿠버네티스 설정과 마찬가지로 디플로이먼트에는 `.apiVersion`, `.kind` 그리고 `.metadata` 필드가 필요하다.
 설정 파일 작업에 대한 일반적인 내용은
-[애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/),
+[애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/),
 컨테이너 구성하기 그리고 [kubectl을 사용해서 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참조한다.
 디플로이먼트 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.

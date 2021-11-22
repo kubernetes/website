@@ -425,9 +425,9 @@ stringData:
 
 시크릿을 생성하기 위한 몇 가지 옵션이 있다.
 
-- [`kubectl` 명령을 사용하여 시크릿 생성하기](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [구성 파일로 시크릿 생성하기](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [kustomize를 사용하여 시크릿 생성하기](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [`kubectl` 명령을 사용하여 시크릿 생성하기](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [구성 파일로 시크릿 생성하기](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [kustomize를 사용하여 시크릿 생성하기](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 ## 시크릿 편집하기
 
@@ -1259,7 +1259,7 @@ API 서버에서 kubelet으로의 통신은 SSL/TLS로 보호된다.
 
 ## {{% heading "whatsnext" %}}
 
-- [`kubectl` 을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
-- [구성 파일을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
-- [kustomize를 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기
+- [`kubectl` 을 사용한 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
+- [구성 파일을 사용한 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
+- [kustomize를 사용한 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기
 - [API 레퍼런스](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)에서 `Secret`에 대해 읽기
