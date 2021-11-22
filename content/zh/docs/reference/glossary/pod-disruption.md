@@ -1,6 +1,6 @@
 ---
 id: pod-disruption
-title: Pod 中断
+title: Pod 干扰
 full_link: /docs/concepts/workloads/pods/disruptions/
 date: 2021-05-12
 short_description: >
@@ -37,7 +37,7 @@ tags:
 Pods on Nodes are terminated either voluntarily or involuntarily. 
 -->
 
-[pod 中断](/zh/docs/concepts/workloads/pods/disruptions/) 是指结点上的 pod 被自动或非自愿终止的过程。
+[pod 干扰](/zh/docs/concepts/workloads/pods/disruptions/) 是指结点上的 pod 被自愿或非自愿终止的过程。
 
 <!--more--> 
 
@@ -47,6 +47,6 @@ administrators. Involuntary disruptions are unintentional and can be triggered b
 unavoidable issues like Nodes running out of resources, or by accidental deletions. 
 -->
 
-自愿中断是由应用程序所有者或集群管理员有意
-启动的。非自愿中断是无意的，可能由不可避免的
+自愿干扰是由应用程序所有者或集群管理员有意
+启动的。非自愿干扰是无意的，可能由不可避免的
 问题触发，如节点耗尽资源或意外删除。
