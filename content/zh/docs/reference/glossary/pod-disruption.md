@@ -47,6 +47,4 @@ administrators. Involuntary disruptions are unintentional and can be triggered b
 unavoidable issues like Nodes running out of resources, or by accidental deletions. 
 -->
 
-自愿干扰是由应用程序所有者或集群管理员有意
-启动的。非自愿干扰是无意的，可能由不可避免的
-问题触发，如节点耗尽资源或意外删除。
+自愿干扰是由应用程序所有者或集群管理员有意启动的。非自愿干扰是无意的，可能由不可避免的问题触发，如节点耗尽资源或意外删除。
