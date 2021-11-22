@@ -129,6 +129,7 @@ different Kubernetes components.
 | `InTreePluginOpenStackUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
 | `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
+| `JobReadyPods` | `false` | Alpha | 1.23 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.23 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
@@ -803,6 +804,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   support for IPv6.
 - `JobMutableNodeSchedulingDirectives`: Allows updating node scheduling directives in
   the pod template of [Job](/docs/concepts/workloads/controllers/job).
+- `JobReadyPods`: Enables tracking the number of Pods that have a `Ready`
+  [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
+  The count of `Ready` pods is recorded in the
+  [status](/docs/reference/kubernetes-api/workload-resources/job-v1/#JobStatus)
+  of a [Job](/docs/concepts/workloads/controllers/job) status.
 - `JobTrackingWithFinalizers`: Enables tracking [Job](/docs/concepts/workloads/controllers/job)
   completions without relying on Pods remaining in the cluster indefinitely.
   The Job controller uses Pod finalizers and a field in the Job status to keep
