@@ -145,7 +145,7 @@ Coil은 베어메탈에 비해 낮은 오버헤드로 작동하며, 외부 네�
 
 ### 콘티브(Contiv)
 
-[콘티브](https://github.com/contiv/netplugin)는 다양한 적용 사례에서 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3, vxlan을 사용하는 오버레이, 클래식 L2 또는 Cisco-SDN/ACI)을 제공한다. [콘티브](https://contiv.io)는 모두 오픈소스이다.
+[콘티브](https://github.com/contiv/netplugin)는 다양한 적용 사례에서 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3, vxlan을 사용하는 오버레이, 클래식 L2 또는 Cisco-SDN/ACI)을 제공한다.
 
 ### 콘트레일(Contrail) / 텅스텐 패브릭(Tungsten Fabric)
 
@@ -259,12 +259,6 @@ Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://
 [VMware NSX-T](https://docs.vmware.com/en/VMware-NSX-T/index.html)는 네트워크 가상화 및 보안 플랫폼이다. NSX-T는 멀티 클라우드 및 멀티 하이퍼바이저 환경에 네트워크 가상화를 제공할 수 있으며 이기종 엔드포인트와 기술 스택이 있는 새로운 애플리케이션 프레임워크 및 아키텍처에 중점을 둔다. vSphere 하이퍼바이저 외에도, 이러한 환경에는 KVM, 컨테이너 및 베어메탈과 같은 다른 하이퍼바이저가 포함된다.
 
 [NSX-T 컨테이너 플러그인(NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf)은 NSX-T와 쿠버네티스와 같은 컨테이너 오케스트레이터 사이의 통합은 물론, NSX-T와 Pivotal 컨테이너 서비스(PKS) 및 OpenShift와 같은 컨테이너 기반 CaaS/PaaS 플랫폼 간의 통합을 제공한다.
-
-### Nuage Networks VCS(가상 클라우드 서비스)
-
-[Nuage](https://www.nuagenetworks.net)는 확장성이 뛰어난 정책 기반의 소프트웨어 정의 네트워킹(SDN) 플랫폼을 제공한다. Nuage는 개방형 표준을 기반으로 구축된 풍부한 기능의 SDN 컨트롤러와 함께 데이터 플레인용 오픈소스 Open vSwitch를 사용한다.
-
-Nuage 플랫폼은 오버레이를 사용하여 쿠버네티스 파드와 쿠버네티스가 아닌 환경(VM 및 베어메탈 서버) 간에 완벽한 정책 기반의 네트워킹을 제공한다. Nuage의 정책 추상화 모델은 애플리케이션을 염두에 두고 설계되었으며 애플리케이션에 대한 세분화된 정책을 쉽게 선언할 수 있도록 한다. 플랫폼의 실시간 분석 엔진을 통해 쿠버네티스 애플리케이션에 대한 가시성과 보안 모니터링이 가능하다.
 
 ### OpenVSwitch
 

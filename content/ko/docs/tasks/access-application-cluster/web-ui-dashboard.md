@@ -182,7 +182,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
   특권을 가진(privileged) 컨테이너는 네트워크 스택과 디바이스에 접근하는 것을 조작하도록 활용할 수 있다.
 
 - **환경 변수**: 쿠버네티스 서비스를
-  [환경 변수](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)를 통해 노출한다.
+  [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)를 통해 노출한다.
   환경 변수 또는 인자를 환경 변수들의 값으로 커맨드를 통해 구성할 수 있다.
   애플리케이션들이 서비스를 찾는데 사용된다.
   값들은 `$(VAR_NAME)` 구문을 사용하는 다른 변수들로 참조할 수 있다.
