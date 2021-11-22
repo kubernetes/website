@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-이 문서에서는 `update-imported-docs` 스크립트를 사용하여 
+이 문서에서는 `update-imported-docs.py` 스크립트를 사용하여 
 쿠버네티스 레퍼런스 문서를 생성하는 방법에 대해 설명한다. 
 이 스크립트는 특정 쿠버네티스 릴리스 버전에 대해 빌드 설정을 자동으로 수행하고 레퍼런스 문서를 생성한다.
 
@@ -39,7 +39,7 @@ git clone git@github.com:<your_github_username>/website.git
 
 ## `update-imported-docs` 스크립트 개요 {#Overview-of-update-imported-docs}
 
-`update-imported-docs` 스크립트는 `<web-base>/update-imported-docs/` 
+`update-imported-docs.py` 스크립트는 `<web-base>/update-imported-docs/` 
 디렉터리에 존재한다.
 
 이 스크립트는 다음 레퍼런스를 생성한다.
@@ -48,7 +48,7 @@ git clone git@github.com:<your_github_username>/website.git
 * `kubectl` 명령어 레퍼런스
 * 쿠버네티스 API 레퍼런스
 
-`update-imported-docs` 스크립트는 쿠버네티스 소스코드로부터 레퍼런스 문서를 
+`update-imported-docs.py` 스크립트는 쿠버네티스 소스코드로부터 레퍼런스 문서를 
 생성한다. 스크립트가 실행되면 개발 머신의 `/tmp` 디렉터리 아래에 임시 디렉터리를 
 생성하고, 이 임시 디렉터리 아래에 레퍼런스 문서 생성에 필요한 `kubernetes/kubernetes` 저장소와 
 `kubernetes-sigs/reference-docs` 저장소를 클론하며, 
@@ -69,7 +69,7 @@ git clone git@github.com:<your_github_username>/website.git
 `kubernetes-sigs/reference-docs/Makefile` 에 있는 Make 타겟들을 활용하여 빌드하는 일련의 과정이 명시되어 있다.
 `K8S_RELEASE` 환경 변수는 릴리스 버전을 결정한다.
 
-`update-imported-docs` 스크립트는 다음의 과정을 수행한다.
+`update-imported-docs.py` 스크립트는 다음의 과정을 수행한다.
 
 1. 환경설정 파일에 있는 관련 저장소를 클론한다. 
    레퍼런스 문서 생성을 위해 
@@ -152,17 +152,17 @@ repos:
 
 ## `update-imported-docs` 도구 실행하기 {#Running-the-update-imported-docs-tool}
 
-다음과 같이 `update-imported-docs` 도구를 실행할 수 있다.
+다음과 같이 `update-imported-docs.py` 도구를 실행할 수 있다.
 
 ```shell
 cd <web-base>/update-imported-docs
-./update-imported-docs <configuration-file.yml> <release-version>
+./update-imported-docs.py <configuration-file.yml> <release-version>
 ```
 
 예를 들면 다음과 같다.
 
 ```shell
-./update-imported-docs reference.yml 1.17
+./update-imported-docs.py reference.yml 1.17
 ```
 
 <!-- Revisit: is the release configuration used -->
@@ -253,5 +253,4 @@ static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fon
 * [쿠버네티스 구성요소와 도구에 대한 레퍼런스 문서 생성하기](/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [kubectl 명령어에 대한 레퍼런스 문서 생성하기](/docs/contribute/generate-ref-docs/kubectl/)
 * [쿠버네티스 API에 대한 레퍼런스 문서 생성하기](/docs/contribute/generate-ref-docs/kubernetes-api/)
-
 

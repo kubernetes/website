@@ -1,7 +1,10 @@
 ---
-weight: 10
 title: 기능 게이트
+weight: 10
 content_type: concept
+card:
+  name: reference
+  weight: 60
 ---
 
 <!-- overview -->

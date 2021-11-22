@@ -31,6 +31,7 @@ card:
 <!-- steps -->
 
 ## MAC 주소 및 product_uuid가 모든 노드에 대해 고유한지 확인 {#verify-mac-address}
+
 * 사용자는 `ip link` 또는 `ifconfig -a` 명령을 사용하여 네트워크 인터페이스의 MAC 주소를 확인할 수 있다.
 * product_uuid는 `sudo cat /sys/class/dmi/id/product_uuid` 명령을 사용하여 확인할 수 있다.
 
@@ -239,8 +240,9 @@ CNI 플러그인 설치(대부분의 파드 네트워크에 필요)
 
 ```bash
 CNI_VERSION="v0.8.2"
+ARCH="amd64"
 sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
 ```
 
 명령어 파일을 다운로드할 디렉터리 정의
@@ -259,15 +261,17 @@ crictl 설치(kubeadm / Kubelet 컨테이너 런타임 인터페이스(CRI)에 �
 
 ```bash
 CRICTL_VERSION="v1.17.0"
-curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
+ARCH="amd64"
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
 `kubeadm`, `kubelet`, `kubectl` 설치 및 `kubelet` systemd 서비스 추가
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
 
 RELEASE_VERSION="v0.4.0"
