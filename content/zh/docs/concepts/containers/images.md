@@ -510,8 +510,20 @@ template needs to include the `.docker/config.json` or mount a drive that contai
 All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`.
 
-### Interpretation of config.json {#config-json}
+-->
+你必须确保集群中所有节点的 `.docker/config.json` 文件内容相同。
+否则，Pod 会能在一些节点上正常运行而无法在另一些节点上启动。
+例如，如果使用节点自动扩缩，那么每个实例模板都需要包含 `.docker/config.json`，
+或者挂载一个包含该文件的驱动器。
 
+在 `.docker/config.json` 中配置了私有仓库密钥后，所有 Pod 都将能读取私有仓库中的镜像。
+
+<!--
+### Interpretation of config.json {#config-json}
+-->
+### config.json 说明 {#config-json}
+
+<!--
 The interpretation of `config.json` varies between the original Docker
 implementation and the Kubernetes interpretation. In Docker, the `auths` keys
 can only specify root URLs, whereas Kubernetes allows glob URLs as well as
@@ -526,7 +538,22 @@ prefix-matched paths. This means that a `config.json` like this is valid:
     }
 }
 ```
+-->
+对于`config.json`的说明在 原始 Docker 实现和 Kubernetes 的说明有所不同。
+在 Docker 中，auths 键只能指定根 URL ，而 Kubernetes 允许 glob URLs 以及
+前缀匹配的路径。这意味着，像这样的`config.json`是有效的：
 
+```json
+{
+    "auths": {
+        "*my-registry.io/images": {
+            "auth": "…"
+        }
+    }
+}
+```
+
+<!--
 The root URL (`*my-registry.io`) is matched by using the following syntax:
 
 ```
@@ -546,7 +573,28 @@ character-range:
     '\\' c      matches character c
     lo '-' hi   matches character c for lo <= c <= hi
 ```
+-->
+使用以下语法匹配根 URL (*my-registry.io)：
 
+```
+pattern:
+    { term }
+
+term:
+    '*'         matches any sequence of non-Separator characters
+    '?'         matches any single non-Separator character
+    '[' [ '^' ] { character-range } ']'
+                character class (must be non-empty)
+    c           matches character c (c != '*', '?', '\\', '[')
+    '\\' c      matches character c
+
+character-range:
+    c           matches character c (c != '\\', '-', ']')
+    '\\' c      matches character c
+    lo '-' hi   matches character c for lo <= c <= hi
+```
+
+<!--
 Image pull operations would now pass the credentials to the CRI container
 runtime for every valid pattern. For example the following container image names
 would match successfully:
@@ -556,7 +604,16 @@ would match successfully:
 - `my-registry.io/images/another-image`
 - `sub.my-registry.io/images/my-image`
 - `a.sub.my-registry.io/images/my-image`
+-->
+现在镜像拉取操作会将凭据传递给每个有效模式的 CRI 容器运行时。例如下面的容器镜像名称会匹配成功：
 
+- `my-registry.io/images`
+- `my-registry.io/images/my-image`
+- `my-registry.io/images/another-image`
+- `sub.my-registry.io/images/my-image`
+- `a.sub.my-registry.io/images/my-image`
+
+<!--
 The kubelet performs image pulls sequentially for every found credential. This
 means, that multiple entries in `config.json` are possible, too:
 
@@ -572,18 +629,30 @@ means, that multiple entries in `config.json` are possible, too:
     }
 }
 ```
+-->
+kubelet 为每个找到的凭证的镜像按顺序拉取。 这意味着在`config.json`中可能有多项：
 
+```json
+{
+    "auths": {
+        "my-registry.io/images": {
+            "auth": "…"
+        },
+        "my-registry.io/images/subpath": {
+            "auth": "…"
+        }
+    }
+}
+```
+<!--
 If now a container specifies an image `my-registry.io/images/subpath/my-image`
 to be pulled, then the kubelet will try to download them from both
 authentication sources if one of them fails.
 
 -->
-你必须确保集群中所有节点的 `.docker/config.json` 文件内容相同。
-否则，Pod 会能在一些节点上正常运行而无法在另一些节点上启动。
-例如，如果使用节点自动扩缩，那么每个实例模板都需要包含 `.docker/config.json`，
-或者挂载一个包含该文件的驱动器。
+如果一个容器指定了被拉取的镜像`my-registry.io/images/subpath/my-image`，
+如果其中一个失败，kubelet 将尝试从两个身份验证源下载它们。
 
-在 `.docker/config.json` 中配置了私有仓库密钥后，所有 Pod 都将能读取私有仓库中的镜像。
 
 <!--
 ### Pre-pulled images
