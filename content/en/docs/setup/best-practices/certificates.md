@@ -22,6 +22,7 @@ This page explains the certificates that your cluster requires.
 Kubernetes requires PKI for the following operations:
 
 * Client certificates for the kubelet to authenticate to the API server
+* Server certificates for the [kubelet endpoint](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#client-and-serving-certificates)
 * Server certificate for the API server endpoint
 * Client certificates for administrators of the cluster to authenticate to the API server
 * Client certificates for the API server to talk to the kubelets
