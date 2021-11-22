@@ -103,7 +103,7 @@ spec:
     plural: crontabs
     # singular name to be used as an alias on the CLI and for display
     singular: crontab
-    # kind is normally the CamelCased singular type. Your resource manifests use this.
+    # kind is normally the PascalCased singular type. Your resource manifests use this.
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
@@ -146,7 +146,7 @@ spec:
     plural: crontabs
     # 名称的单数形式，作为命令行使用时和显示时的别名
     singular: crontab
-    # kind 通常是单数形式的驼峰编码（CamelCased）形式。你的资源清单会使用这一形式。
+    # kind 通常是单数形式的帕斯卡编码（PascalCased）形式。你的资源清单会使用这一形式。
     kind: CronTab
     # shortNames 允许你在命令行使用较短的字符串来匹配资源
     shortNames:

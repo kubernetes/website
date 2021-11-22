@@ -122,6 +122,9 @@ kubelets 은 자신의 노드 리소스를 생성/수정할 권한을 가진다.
 kubectl cordon $NODENAME
 ```
 
+보다 자세한 내용은 [안전하게 노드를 드레인(drain)하기](/docs/tasks/administer-cluster/safely-drain-node/)
+를 참고한다.
+
 {{< note >}}
 {{< glossary_tooltip term_id="daemonset" >}}에 포함되는 일부 파드는
 스케줄 불가 노드에서 실행될 수 있다. 일반적으로 데몬셋은 워크로드 애플리케이션을
@@ -174,7 +177,7 @@ kubectl describe node <insert-node-name-here>
 대신 코드화된 노드는 사양에 스케줄 불가로 표시된다.
 {{< /note >}}
 
-노드 컨디션은 JSON 오브젝트로 표현된다. 예를 들어, 다음 응답은 상태 양호한 노드를 나타낸다.
+쿠버네티스 API에서, 노드의 컨디션은 노드 리소스의 `.status` 부분에 표현된다. 예를 들어, 다음의 JSON 구조는 상태가 양호한 노드를 나타낸다.
 
 ```json
 "conditions": [
@@ -189,20 +192,30 @@ kubectl describe node <insert-node-name-here>
 ]
 ```
 
-ready 컨디션의 상태가 `pod-eviction-timeout` ({{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}에 전달된 인수) 보다 더 길게 `Unknown` 또는 `False`로 유지되는 경우, 노드 상에 모든 파드는 노드 컨트롤러에 의해 삭제되도록 스케줄 된다. 기본 축출 타임아웃 기간은 **5분** 이다. 노드에 접근이 불가할 때와 같은 경우, apiserver는 노드 상의 kubelet과 통신이 불가하다. apiserver와의 통신이 재개될 때까지 파드 삭제에 대한 결정은 kubelet에 전해질 수 없다. 그 사이, 삭제되도록 스케줄 되어진 파드는 분할된 노드 상에서 계속 동작할 수도 있다.
+ready 컨디션의 `status`가 `pod-eviction-timeout`
+({{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager"
+>}}에 전달된 인수)보다 더 길게 `Unknown` 또는 `False`로 유지되는 경우,
+[노드 컨트롤러](#node-controller)가 해당 노드에 할당된 전체 파드에 대해
+{{< glossary_tooltip text="API를 이용한 축출" term_id="api-eviction" >}}
+을 트리거한다. 기본 축출 타임아웃 기간은 
+**5분** 이다.
+노드에 접근이 불가할 때와 같은 경우, API 서버는 노드 상의 kubelet과 통신이 불가하다.
+API 서버와의 통신이 재개될 때까지 파드 삭제에 대한 결정은 kubelet에 전해질 수 없다.
+그 사이, 삭제되도록 스케줄 되어진 파드는 분할된 노드 상에서 계속 동작할 수도 있다.
 
-노드 컨트롤러가 클러스터 내 동작 중지된 것을 확신할 때까지는 파드를
-강제로 삭제하지 않는다. 파드가 `Terminating` 또는 `Unknown` 상태로 있을 때 접근 불가한 노드 상에서
+노드 컨트롤러가 클러스터 내 동작 중지된 것을 확신할 때까지는 파드를 강제로 삭제하지 않는다.
+파드가 `Terminating` 또는 `Unknown` 상태로 있을 때 접근 불가한 노드 상에서
 동작되고 있는 것을 보게 될 수도 있다. 노드가 영구적으로 클러스터에서 삭제되었는지에
 대한 여부를 쿠버네티스가 기반 인프라로부터 유추할 수 없는 경우, 노드가 클러스터를 영구적으로
 탈퇴하게 되면, 클러스터 관리자는 손수 노드 오브젝트를 삭제해야 할 수도 있다.
 쿠버네티스에서 노드 오브젝트를 삭제하면 노드 상에서 동작중인 모든 파드 오브젝트가
-apiserver로부터 삭제되어 그 이름을 사용할 수 있는 결과를 낳는다.
+API 서버로부터 삭제되어 그 이름을 사용할 수 있는 결과를 낳는다.
 
-노드 수명주기 컨트롤러는 자동으로 컨디션을 나타내는
+노드에서 문제가 발생하면, 쿠버네티스 컨트롤 플레인은 자동으로 노드 상태에 영향을 주는 조건과 일치하는
 [테인트(taints)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)를 생성한다.
 스케줄러는 파드를 노드에 할당 할 때 노드의 테인트를 고려한다.
-또한 파드는 노드의 테인트를 극복(tolerate)할 수 있는 톨러레이션(toleration)을 가질 수 있다.
+또한 파드는 노드에 특정 테인트가 있더라도 해당 노드에서 동작하도록 
+{{< glossary_tooltip text="톨러레이션(toleration)" term_id="toleration" >}}을 가질 수 있다.
 
 자세한 내용은
 [컨디션별 노드 테인트하기](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/#컨디션별-노드-테인트하기)를 참조한다.
@@ -222,8 +235,34 @@ apiserver로부터 삭제되어 그 이름을 사용할 수 있는 결과를 낳
 
 ### 정보
 
-커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), (사용하는 경우) Docker 버전, OS 이름과 같은노드에 대한 일반적인 정보를 보여준다.
-이 정보는 Kubelet에 의해 노드로부터 수집된다.
+커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), 컨테이너 런타임 상세 정보 및 노드가 사용하는 운영 체계가 무엇인지와 같은 노드에 대한 일반적인 정보가 기술된다.
+
+이 정보는 Kubelet이 노드로부터 수집해서 쿠버네티스 API로 이를 보낸다.
+
+## 하트비트
+
+쿠버네티스 노드가 보내는 하트비트는 클러스터가 개별 노드가 가용한지를
+판단할 수 있도록 도움을 주고, 장애가 발견된 경우 조치를 할 수 있게한다.
+
+노드에는 두 가지 형태의 하트비트가 있다.
+
+* 노드의 `.status`에 대한 업데이트
+* `kube-node-lease`
+  {{< glossary_tooltip term_id="namespace" text="네임스페이스">}} 내의 [리스(Lease)](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) 오브젝트.
+  각 노드는 연관된 리스 오브젝트를 갖는다.
+
+노드의 `.status`와 비교해서, 리스는 경량의 리소스이다.
+큰 규모의 클러스터에서는 리스를 하트비트에 사용해서 업데이트를 위해 필요한 성능 영향도를 줄일 수 있다.
+
+kubelet은 노드의 `.status` 생성과 업데이트 및
+관련된 리스의 업데이트를 담당한다. 
+
+- kubelet은 상태가 변경되거나 설정된 인터벌보다 오래 업데이트가 없는 경우 노드의 `.status`를 업데이트한다.
+  노드의 `.status` 업데이트에 대한 기본 인터벌은 접근이 불가능한 노드에 대한 타임아웃인 40초 보다 훨씬 긴 5분이다.
+- kubelet은 리스 오브젝트를 (기본 업데이트 인터벌인) 매 10초마다 생성하고 업데이트한다.
+  리스 업데이트는 노드의 `.status` 업데이트와는 독립적이다.
+  만약 리스 업데이트가 실패하면, kubelet은 200밀리초에서 시작하고 7초의 상한을 갖는 지수적 백오프를 사용해서 재시도한다.
+
 
 ### 노드 컨트롤러
 
@@ -241,39 +280,15 @@ apiserver로부터 삭제되어 그 이름을 사용할 수 있는 결과를 낳
 
 세 번째는 노드의 동작 상태를 모니터링 하는 것이다. 노드 컨트롤러는
 다음을 담당한다.
-- 노드 다운과 같은 어떤 이유로 노드 컨트롤러가
-  하트비트 수신이 중단되는 경우 NodeStatus의 NodeReady
-  컨디션을 ConditionUnknown으로 업데이트 한다.
-- 노드가 계속 접근 불가할 경우 나중에 노드로부터 정상적인 종료를 이용해서 모든 파드를 축출 한다.
-  ConditionUnknown을 알리기 시작하는 기본 타임아웃 값은 40초 이고,
-  파드를 축출하기 시작하는 값은 5분이다.
+- 노드가 접근이 불가능한 상태가되는 경우, 노드의 `.status` 내에 있는 NodeReady 컨디션을 업데이트한다.
+  이 경우에는 노드 컨트롤러가 NodeReady 컨디션을 `ConditionUnknown`으로 설정한다.
+- 노드에 계속 접근이 불가능한 상태로 남아있는 경우에는 해당 노드의 모든 파드에 대해서
+  [API를 이용한 축출](/docs/concepts/scheduling-eviction/api-eviction/)을 트리거한다.
+  기본적으로, 노드 컨트롤러는 노드를 `ConditionUnknown`으로 마킹한 뒤 5분을 기다렸다가 최초의 축출 요청을 시작한다. 
 
 노드 컨트롤러는 매 `--node-monitor-period` 초 마다 각 노드의 상태를 체크한다.
 
-#### 하트비트
-
-쿠버네티스 노드에서 보내는 하트비트는 노드의 가용성을 결정하는데 도움이 된다.
-
-하트비트의 두 가지 형태는 `NodeStatus` 와
-[리스(Lease) 오브젝트](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)이다.
-각 노드에는 `kube-node-lease` 라는
-{{< glossary_tooltip term_id="namespace" text="네임스페이스">}} 에 관련된 리스 오브젝트가 있다.
-리스는 경량 리소스로, 클러스터가 확장될 때
-노드의 하트비트 성능을 향상 시킨다.
-
-kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
-의무가 있다.
-
-- kubelet은 상태가 변경되거나 구성된 상태에 대한 업데이트가 없는 경우,
-  `NodeStatus` 를 업데이트 한다. `NodeStatus` 의 기본 업데이트
-  주기는 5분으로, 연결할 수 없는 노드의 시간 제한인 40초
-  보다 훨씬 길다.
-- kubelet은 10초마다 리스 오브젝트를 생성하고 업데이트 한다(기본 업데이트 주기).
-  리스 업데이트는 `NodeStatus` 업데이트와는
-  독립적으로 발생한다. 리스 업데이트가 실패하면 kubelet에 의해 재시도하며
-  7초로 제한된 지수 백오프를 200 밀리초에서 부터 시작한다.
-
-#### 안정성
+#### 축출 빈도 한계
 
  대부분의 경우, 노드 컨트롤러는 초당 `--node-eviction-rate`(기본값 0.1)로
 축출 속도를 제한한다. 이 말은 10초당 1개의 노드를 초과하여
@@ -281,8 +296,8 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 
 노드 축출 행위는 주어진 가용성 영역 내 하나의 노드가 상태가 불량할
 경우 변화한다. 노드 컨트롤러는 영역 내 동시에 상태가 불량한 노드의 퍼센티지가 얼마나 되는지
-체크한다(NodeReady 컨디션은 ConditionUnknown 또는
-ConditionFalse 다).
+체크한다(NodeReady 컨디션은 `ConditionUnknown` 또는
+`ConditionFalse` 다).
 - 상태가 불량한 노드의 비율이 최소 `--unhealthy-zone-threshold`
   (기본값 0.55)가 되면 축출 속도가 감소한다.
 - 클러스터가 작으면 (즉 `--large-cluster-size-threshold`
@@ -292,16 +307,15 @@ ConditionFalse 다).
 
 이 정책들이 가용성 영역 단위로 실행되어지는 이유는 나머지가 연결되어 있는 동안
 하나의 가용성 영역이 마스터로부터 분할되어 질 수도 있기 때문이다.
-만약 클러스터가 여러 클라우드 제공사업자의 가용성 영역에 걸쳐 있지 않으면,
-오직 하나의 가용성 영역만 (전체 클러스터) 존재하게 된다.
+만약 클러스터가 여러 클라우드 제공사업자의 가용성 영역에 걸쳐 있지 않는 이상,
+축출 매커니즘은 영역 별 가용성을 고려하지 않는다.
 
 노드가 가용성 영역들에 걸쳐 퍼져 있는 주된 이유는 하나의 전체 영역이
 장애가 발생할 경우 워크로드가 상태 양호한 영역으로 이전되어질 수 있도록 하기 위해서이다.
 그러므로, 하나의 영역 내 모든 노드들이 상태가 불량하면 노드 컨트롤러는
 `--node-eviction-rate` 의 정상 속도로 축출한다. 코너 케이스란 모든 영역이
-완전히 상태불량 (즉 클러스터 내 양호한 노드가 없는 경우) 한 경우이다.
-이러한 경우, 노드 컨트롤러는 마스터 연결에 문제가 있어 일부 연결이
-복원될 때까지 모든 축출을 중지하는 것으로 여긴다.
+완전히 상태불량(클러스터 내 양호한 노드가 없는 경우)한 경우이다.
+이러한 경우, 노드 컨트롤러는 컨트롤 플레인과 노드 간 연결에 문제가 있는 것으로 간주하고 축출을 실행하지 않는다. (중단 이후 일부 노드가 다시 보이는 경우 노드 컨트롤러는 상태가 양호하지 않거나 접근이 불가능한 나머지 노드에서 파드를 축출한다.)
 
 또한, 노드 컨트롤러는 파드가 테인트를 허용하지 않을 때 `NoExecute` 테인트 상태의
 노드에서 동작하는 파드에 대한 축출 책임을 가지고 있다.
@@ -309,7 +323,7 @@ ConditionFalse 다).
 {{< glossary_tooltip text="테인트" term_id="taint" >}}를 추가한다.
 이는 스케줄러가 비정상적인 노드에 파드를 배치하지 않게 된다.
 
-### 노드 용량
+## 리소스 용량 추적 {#node-capacity}
 
 노드 오브젝트는 노드 리소스 용량에 대한 정보: 예를 들어, 사용 가능한 메모리의
 양과 CPU의 수를 추적한다.
@@ -391,6 +405,49 @@ Message:        Node is shutting, evicting pods
 실패한 파드 오브젝트는 명시적으로 삭제하거나 [가비지 콜렉션에 의해 정리](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)되기 전까지는 보존된다.
 이는 갑작스러운 노드 종료의 경우와 비교했을 때 동작에 차이가 있다.
 {{< /note >}}
+
+## 스왑(swap) 메모리 관리 {#swap-memory}
+
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+
+쿠버네티스 1.22 이전에는 노드가 스왑 메모리를 지원하지 않았다. 그리고 
+kubelet은 노드에서 스왑을 발견하지 못한 경우 시작과 동시에 실패하도록 되어 있었다.
+1.22부터는 스왑 메모리 지원을 노드 단위로 활성화할 수 있다.
+
+노드에서 스왑을 활성화하려면, `NodeSwap` 기능 게이트가 kubelet에서
+활성화되어야 하며, 명령줄 플래그 `--fail-swap-on` 또는
+[구성 설정](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)에서 `failSwapOn`가
+false로 지정되어야 한다.
+
+사용자는 또한 선택적으로 `memorySwap.swapBehavior`를 구성할 수 있으며, 
+이를 통해 노드가 스왑 메모리를 사용하는 방식을 명시한다. 예를 들면,
+
+```yaml
+memorySwap:
+  swapBehavior: LimitedSwap
+```
+
+`swapBehavior`에 가용한 구성 옵션은 다음과 같다.
+
+- `LimitedSwap`: 쿠버네티스 워크로드는 스왑을 사용할 수 있는 만큼으로
+  제한된다. 쿠버네티스에 의해 관리되지 않는 노드의 워크로드는 여전히 스왑될 수 있다.
+- `UnlimitedSwap`: 쿠버네티스 워크로드는 요청한 만큼 스왑 메모리를 사용할 수 있으며,
+  시스템의 최대치까지 사용 가능하다.
+
+만약 `memorySwap` 구성이 명시되지 않았고 기능 게이트가 활성화되어 있다면, 
+kubelet은 `LimitedSwap` 설정과 같은 행동을
+기본적으로 적용한다.
+
+`LimitedSwap` 설정에 대한 행동은 노드가 ("cgroups"으로 알려진)
+제어 그룹이 v1 또는 v2 중에서 무엇으로 동작하는가에 따라서 결정된다. 
+
+- **cgroupsv1:** 쿠버네티스 워크로드는 메모리와 스왑의 조합을 사용할 수 있다.
+  파드의 메모리 제한이 설정되어 있다면 가용 상한이 된다.
+- **cgroupsv2:** 쿠버네티스 워크로드는 스왑 메모리를 사용할 수 없다.
+
+테스트를 지원하고 피드벡을 제공하기 위한 정보는
+[KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) 및
+[디자인 제안](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md)에서 찾을 수 있다.
 
 ## {{% heading "whatsnext" %}}
 

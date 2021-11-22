@@ -17,6 +17,8 @@ _크론잡은_ 반복 일정에 따라 {{< glossary_tooltip term_id="job" text="
 하나의 크론잡 오브젝트는 _크론탭_ (크론 테이블) 파일의 한 줄과 같다.
 크론잡은 잡을 [크론](https://ko.wikipedia.org/wiki/Cron) 형식으로 쓰여진 주어진 일정에 따라 주기적으로 동작시킨다.
 
+추가로, 크론잡 스케줄은 타임존(timezone) 처리를 지원해서, 크론잡 스케줄 시작 부분에 "CRON_TZ=<time zone>"을 추가해서 타임존을 명기할 수 있으며, 항상 `CRON_TZ`를 설정하는 것을 권장한다.
+
 {{< caution >}}
 모든 **크론잡** `일정:` 시간은
 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}의 시간대를 기준으로 한다.
@@ -36,9 +38,10 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 
 ## 크론잡
 
-크론잡은 백업 실행 또는 이메일 전송과 같은 정기적이고 반복적인
-작업을 만드는데 유용하다. 또한 크론잡은 클러스터가 유휴 상태일 때 잡을
-스케줄링하는 것과 같이 특정 시간 동안의 개별 작업을 스케줄할 수 있다.
+크론잡은 백업, 리포트 생성 등의 정기적 작업을 수행하기 위해 사용된다. 
+각 작업은 무기한 반복되도록 구성해야 한다(예: 
+1일/1주/1달마다 1회). 
+작업을 시작해야 하는 해당 간격 내 특정 시점을 정의할 수 있다.
 
 ### 예시
 
@@ -52,15 +55,16 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 ### 크론 스케줄 문법
 
 ```
-# ┌───────────── 분 (0 - 59)
-# │ ┌───────────── 시 (0 - 23)
-# │ │ ┌───────────── 일 (1 - 31)
-# │ │ │ ┌───────────── 월 (1 - 12)
-# │ │ │ │ ┌───────────── 요일 (0 - 6) (일요일부터 토요일까지;
-# │ │ │ │ │                                   특정 시스템에서는 7도 일요일)
-# │ │ │ │ │
-# │ │ │ │ │
-# * * * * *
+#      ┌────────────────── 타임존 (옵션)
+#      |      ┌───────────── 분 (0 - 59)
+#      |      │ ┌───────────── 시 (0 - 23)
+#      |      │ │ ┌───────────── 일 (1 - 31)
+#      |      │ │ │ ┌───────────── 월 (1 - 12)
+#      |      │ │ │ │ ┌───────────── 요일 (0 - 6) (일요일부터 토요일까지;
+#      |      │ │ │ │ │                           특정 시스템에서는 7도 일요일)
+#      |      │ │ │ │ │
+#      |      │ │ │ │ │
+# CRON_TZ=UTC * * * * *
 ```
 
 
@@ -73,9 +77,9 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 | @hourly 									| 매시 0분에 시작                          								       | 0 * * * * 		|
 
 
-예를 들면, 다음은 해당 작업이 매주 금요일 자정에 시작되어야 하고, 매월 13일 자정에도 시작되어야 한다는 뜻이다.
+예를 들면, 다음은 해당 작업이 매주 금요일 자정에 시작되어야 하고, 매월 13일 자정(UTC 기준)에도 시작되어야 한다는 뜻이다.
 
-`0 0 13 * 5`
+`CRON_TZ=UTC 0 0 13 * 5`
 
 크론잡 스케줄 표현을 생성하기 위해서 [crontab.guru](https://crontab.guru/)와 같은 웹 도구를 사용할 수도 있다.
 
@@ -131,8 +135,14 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 ## {{% heading "whatsnext" %}}
 
-[크론 표현 포맷](https://ko.wikipedia.org/wiki/Cron)은
-크론잡 `schedule` 필드의 포맷을 문서화 한다.
-
-크론잡 생성과 작업에 대한 지침과 크론잡 매니페스트의
-예는 [크론잡으로 자동화된 작업 실행하기](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)를 참조한다.
+* 크론잡이 의존하고 있는 [파드](/ko/docs/concepts/workloads/pods/)와
+  [잡](/ko/docs/concepts/workloads/controllers/job/) 두 개념에
+  대해 배운다.
+* 크론잡 `.spec.schedule` 필드의 [형식](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)에
+  대해서 읽는다.
+* 크론잡을 생성하고 다루기 위한 지침 및
+  크론잡 매니페스트의 예제로
+  [크론잡으로 자동화된 작업 실행](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)를 읽는다.
+* `CronJob`은 쿠버네티스 REST API의 일부이다.
+  {{< api-reference page="workload-resources/cron-job-v1" >}}
+  오브젝트 정의를 읽고 쿠버네티스 크론잡 API에 대해 이해한다.

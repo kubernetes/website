@@ -320,22 +320,7 @@ parallelism, for a variety of reasons:
 -->
 ### 完成模式   {#completion-mode}
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-{{< note >}}
-<!--
-To be able to create Indexed Jobs, make sure to enable the `IndexedJob`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
--->
-若想创建带索引的 Job（Indexed Job），请确保
-[API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
-和[控制器管理器](/docs/reference/command-line-tools-reference/kube-controller-manager/)
-上的
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-`IndexedJob` 被启用。
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!--
 Jobs with _fixed completion count_ - that is, jobs that have non null
@@ -350,18 +335,31 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   completion is homologous to each other. Note that Jobs that have null
   `.spec.completions` are implicitly `NonIndexed`.
 - `Indexed`: the Pods of a Job get an associated completion index from 0 to
-  `.spec.completions-1`, available in the annotation `batch.kubernetes.io/job-completion-index`.
+  `.spec.completions-1`. The index is available through three mechanisms:
+  - The Pod annotation `batch.kubernetes.io/job-completion-index`.
+  - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
+    When you use an Indexed Job in combination with a
+    {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
+    the deterministic hostnames to address each other via DNS.
+  - From the containarized task, in the environment variable `JOB_COMPLETION_INDEX`.
+
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
   Note that, although rare, more than one Pod could be started for the same
   index, but only one of them will count towards the completion count.
 -->
-- `NonIndexed` （默认值）：当成功完成的 Pod 个数达到 `.spec.completions` 所
+- `NonIndexed`（默认值）：当成功完成的 Pod 个数达到 `.spec.completions` 所
   设值时认为 Job 已经完成。换言之，每个 Job 完成事件都是独立无关且同质的。
   要注意的是，当 `.spec.completions` 取值为 null 时，Job 被隐式处理为 `NonIndexed`。
-- `Indexed`：Job 的 Pod 会获得对应的完成索引，取值为 0 到 `.spec.completions-1`，
-  存放在注解 `batch.kubernetes.io/job-completion-index` 中。
+- `Indexed`：Job 的 Pod 会获得对应的完成索引，取值为 0 到 `.spec.completions-1`。
+  该索引可以通过三种方式获取：
+  - Pod 注解 `batch.kubernetes.io/job-completion-index`。
+  - 作为 Pod 主机名的一部分，遵循模式 `$(job-name)-$(index)`。
+    当你同时使用带索引的 Job（Indexed Job）与 {{< glossary_tooltip term_id="Service" >}}，
+    Job 中的 Pods 可以通过 DNS 使用确切的主机名互相寻址。
+  - 对于容器化的任务，在环境变量 `JOB_COMPLETION_INDEX` 中。
+
   当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
   关于如何使用这种模式的更多信息，可参阅
   [用带索引的 Job 执行基于静态任务分配的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)。
@@ -459,14 +457,15 @@ from failed Jobs is not lost inadvertently.
 <!--
 ## Job termination and cleanup
 
-When a Job completes, no more Pods are created, but the Pods are not deleted either.  Keeping them around
+When a Job completes, no more Pods are created, but the Pods are [usually](#pod-backoff-failure-policy) not deleted either.
+Keeping them around
 allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
 The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
 old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
 -->
 ## Job 终止与清理
 
-Job 完成时不会再创建新的 Pod，不过已有的 Pod 也不会被删除。
+Job 完成时不会再创建新的 Pod，不过已有的 Pod [通常](#pod-backoff-failure-policy)也不会被删除。
 保留这些 Pod 使得你可以查看已完成的 Pod 的日志输出，以便检查错误、警告
 或者其它诊断性输出。
 Job 完成时 Job 对象也一样被保留下来，这样你就可以查看它的状态。
@@ -562,7 +561,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
 ### 已完成 Job 的 TTL 机制  {#ttl-mechanisms-for-finished-jobs}
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 <!--
 Another way to clean up finished Jobs (either `Complete` or `Failed`)
@@ -613,20 +612,11 @@ seconds after it finishes.
 If the field is set to `0`, the Job will be eligible to be automatically deleted
 immediately after it finishes. If the field is unset, this Job won't be cleaned
 up by the TTL controller after it finishes.
-
-Note that this TTL mechanism is alpha, with feature gate `TTLAfterFinished`. For
-more information, see the documentation for
-[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
-finished resources.
 -->
 Job `pi-with-ttl` 在结束 100 秒之后，可以成为被自动删除的对象。
 
 如果该字段设置为 `0`，Job 在结束之后立即成为可被自动删除的对象。
 如果该字段没有设置，Job 不会在结束之后被 TTL 控制器自动清除。
-
-注意这种 TTL 机制仍然是一种 Alpha 状态的功能特性，需要配合 `TTLAfterFinished`
-特性门控使用。有关详细信息，可参考
-[TTL 控制器](/zh/docs/concepts/workloads/controllers/ttlafterfinished/)的文档。
 
 <!--
 ## Job patterns
@@ -731,19 +721,12 @@ Here, `W` is the number of work items.
 
 {{< note >}}
 <!--
-Suspending Jobs is available in Kubernetes versions 1.21 and above. You must
-enable the `SuspendJob` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
-in order to use this feature.
+In Kubernetes version 1.21, this feature was in alpha, which required additional
+steps to enable this feature; make sure to read the [right documentation for the
+version of Kubernetes you're using](/docs/home/supported-doc-versions/).
 -->
-在 Kubernetes 1.21 及更高版本中可以执行挂起（Suspending）Job 的操作。
-你必须在
-[API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
-和[控制器管理器](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
-上启用 `SuspendJob` 这一
-[特性门控](/docs/reference/command-line-tools-reference/feature-gates/)
-才能执行此操作，
+该特性在 Kubernetes 1.21 版本中是 Alpha 阶段，启用该特性需要额外的步骤；
+请确保你正在阅读[与集群版本一致的文档](/zh/docs/home/supported-doc-versions/)。
 {{< /note >}}
 
 <!--
@@ -871,7 +854,7 @@ directly a result of toggling the `.spec.suspend` field. In the time between
 these two events, we see that no Pods were created, but Pod creation restarted
 as soon as the Job was resumed.
 -->
-最后四个四件，特别是 "Suspended" 和 "Resumed" 事件，都是因为 `.spec.suspend`
+最后四个事件，特别是 "Suspended" 和 "Resumed" 事件，都是因为 `.spec.suspend`
 字段值被改来改去造成的。在这两个事件之间，我们看到没有 Pod 被创建，不过当
 Job 被恢复执行时，Pod 创建操作立即被重启执行。
 
@@ -920,7 +903,7 @@ to keep running, but you want the rest of the Pods it creates
 to use a different pod template and for the Job to have a new name.
 You cannot update the Job because these fields are not updatable.
 Therefore, you delete Job `old` but _leave its pods
-running_, using `kubectl delete jobs/old -cascade=false`.
+running_, using `kubectl delete jobs/old --cascade=orphan`.
 Before deleting it, you make a note of what selector it uses:
 -->
 下面是一个示例场景，在这种场景下你可能会使用刚刚讲述的特性。
@@ -930,7 +913,7 @@ Before deleting it, you make a note of what selector it uses:
 使用一个不同的 Pod 模版，甚至希望 Job 的名字也发生变化。
 你无法更新现有的 Job，因为这些字段都是不可更新的。
 因此，你会删除 `old` Job，但 _允许该 Job 的 Pod 集合继续运行_。
-这是通过 `kubectl delete jobs/old --cascade=false` 实现的。
+这是通过 `kubectl delete jobs/old --cascade=orphan` 实现的。
 在删除之前，我们先记下该 Job 所使用的选择算符。
 
 ```shell
@@ -989,6 +972,77 @@ mismatch.
 的存在。
 
 <!--
+### Job tracking with finalizers
+
+In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+It is disabled by default.
+
+When enabled, the control plane tracks new Jobs using the behavior described
+below. Existing Jobs are unaffected. As a user, the only difference you would
+see is that the control plane tracking of Job completion is more accurate.
+-->
+### 使用 Finalizer 追踪 Job   {#job-tracking-with-finalizers}
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+{{< note >}}
+要使用该行为，你必须为 [API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
+和[控制器管理器](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
+启用 `JobTrackingWithFinalizers`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+默认是禁用的。
+
+启用后，控制面基于下述行为追踪新的 Job。现有 Job 不受影响。
+作为用户，你会看到的唯一区别是控制面对 Job 完成情况的跟踪更加准确。
+{{< /note >}}
+
+<!--
+When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}
+relies on counting the Pods that exist in the cluster to track the Job status,
+that is, to keep the counters for `succeeded` and `failed` Pods.
+However, Pods can be removed for a number of reasons, including:
+- The garbage collector that removes orphan Pods when a Node goes down.
+- The garbage collector that removes finished Pods (in `Succeeded` or `Failed`
+  phase) after a threshold.
+- Human intervention to delete Pods belonging to a Job.
+- An external controller (not provided as part of Kubernetes) that removes or
+  replaces Pods.
+-->
+该功能未启用时，Job {{< glossary_tooltip term_id="controller" >}} 依靠计算集群中存在的 Pod 来跟踪作业状态。
+也就是说，维持一个统计 `succeeded` 和 `failed` 的 Pod 的计数器。
+然而，Pod 可以因为一些原因被移除，包括：
+- 当一个节点宕机时，垃圾收集器会删除孤立（Orphan）Pod。
+- 垃圾收集器在某个阈值后删除已完成的 Pod（处于 `Succeeded` 或 `Failed` 阶段）。
+- 人工干预删除 Job 的 Pod。
+- 一个外部控制器（不包含于 Kubernetes）来删除或取代 Pod。
+
+<!--
+If you enable the `JobTrackingWithFinalizers` feature for your cluster, the
+control plane keeps track of the Pods that belong to any Job and notices if any
+such Pod is removed from the API server. To do that, the Job controller creates Pods with
+the finalizer `batch.kubernetes.io/job-tracking`. The controller removes the
+finalizer only after the Pod has been accounted for in the Job status, allowing
+the Pod to be removed by other controllers or users.
+
+The Job controller uses the new algorithm for new Jobs only. Jobs created
+before the feature is enabled are unaffected. You can determine if the Job
+controller is tracking a Job using Pod finalizers by checking if the Job has the
+annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
+or remove this annotation from Jobs.
+-->
+如果你为你的集群启用了 `JobTrackingWithFinalizers` 特性，控制面会跟踪属于任何 Job 的 Pod。
+并注意是否有任何这样的 Pod 被从 API 服务器上删除。
+为了实现这一点，Job 控制器创建的 Pod 带有 Finalizer `batch.kubernetes.io/job-tracking`。
+控制器只有在 Pod 被记入 Job 状态后才会移除 Finalizer，允许 Pod 可以被其他控制器或用户删除。
+
+Job 控制器只对新的 Job 使用新的算法。在启用该特性之前创建的 Job 不受影响。
+你可以根据检查 Job 是否含有 `batch.kubernetes.io/job-tracking` 注解，来确定 Job 控制器是否正在使用 Pod Finalizer 追踪 Job。
+你**不**应该给 Job 手动添加或删除该注解。
+
+<!--
 ## Alternatives
 
 ### Bare Pods
@@ -1044,26 +1098,44 @@ complicated to get started with and offers less integration with Kubernetes.
 
 <!--
 One example of this pattern would be a Job which starts a Pod which runs a script that in turn
-starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/spark/README.md)), runs a spark
+starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)), runs a spark
 driver, and then cleans up.
 
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but maintains complete control over what Pods are created and how work is assigned to them.
 -->
 这种模式的实例之一是用 Job 来启动一个运行脚本的 Pod，脚本负责启动 Spark
-主控制器（参见 [Spark 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/spark/README.md)），
+主控制器（参见 [Spark 示例](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)），
 运行 Spark 驱动，之后完成清理工作。
 
 这种方法的优点之一是整个过程得到了 Job 对象的完成保障，
 同时维持了对创建哪些 Pod、如何向其分派工作的完全控制能力，
 
+## {{% heading "whatsnext" %}}
+
 <!--
-## Cron Jobs {#cron-jobs}
-
-You can use a [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) to create a Job that will run at specified times/dates, similar to the Unix tool `cron`.
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Read about different ways of running Jobs:
+   * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
+   * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
+   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/) (beta)
+   * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
+* Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
+  to learn more about how your cluster can clean up completed and / or failed tasks.
+* `Job` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/job-v1" >}}
+  object definition to understand the API for jobs.
+* Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
+  can use to define a series of Jobs that will run based on a schedule, similar to
+  the Unix tool `cron`.
 -->
-## Cron Jobs {#cron-jobs}
-
-你可以使用 [`CronJob`](/zh/docs/concepts/workloads/controllers/cron-jobs/)
-创建一个在指定时间/日期运行的 Job，类似于 UNIX 系统上的 `cron` 工具。
-
+* 了解 [Pods](/zh/docs/concepts/workloads/pods)。
+* 了解运行 Job 的不同的方式：
+  * [使用工作队列进行粗粒度并行处理](/zh/docs/tasks/job/coarse-parallel-processing-work-queue/)
+  * [使用工作队列进行精细的并行处理](/zh/docs/tasks/job/fine-parallel-processing-work-queue/)
+  * [使用索引作业完成静态工作分配下的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)（Beta 阶段）
+  * 基于一个模板运行多个 Job：[使用展开的方式进行并行处理](/zh/docs/tasks/job/parallel-processing-expansion/)
+* 跟随[自动清理完成的 Job](#clean-up-finished-jobs-automatically) 文中的链接，了解你的集群如何清理完成和失败的任务。
+* `Job` 是 Kubernetes REST API 的一部分。阅读 {{< api-reference page="workload-resources/job-v1" >}}
+   对象定义理解关于该资源的 API。
+* 阅读 [`CronJob`](/zh/docs/concepts/workloads/controllers/cron-jobs/)，它允许你定义一系列定期运行的 Job，类似于 Unix 工具 `cron`。

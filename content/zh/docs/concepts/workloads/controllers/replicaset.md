@@ -563,7 +563,7 @@ prioritize scaling down pods based on the following general algorithm:
 -->
 ### Pod 删除开销   {#pod-deletion-cost}
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!--
 Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost) 
@@ -589,11 +589,11 @@ Pods 如果未设置此注解，则隐含的设置值为 0。负值也是可接�
 如果注解值非法，API 服务器会拒绝对应的 Pod。
 
 <!--
-This feature is alpha and disabled by default. You can enable it by setting the
+This feature is beta and enabled by default. You can disable it using the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodDeletionCost` in both kube-apiserver and kube-controller-manager.
 -->
-此功能特性处于 Alpha 阶段，默认被禁用。你可以通过为 kube-apiserver 和
+此功能特性处于 Beta 阶段，默认被禁用。你可以通过为 kube-apiserver 和
 kube-controller-manager 设置
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
 `PodDeletionCost` 来启用此功能。
@@ -745,3 +745,22 @@ ReplicaSet 是 [ReplicationController](/zh/docs/concepts/workloads/controllers/r
 中讨论的基于集合的选择算符需求。
 因此，相比于 ReplicationController，应优先考虑 ReplicaSet。
 
+## {{% heading "whatsnext" %}}
+
+<!--
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Learn about [Deployments](/docs/concepts/workloads/controllers/deployment/).
+* [Run a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/),
+  which relies on ReplicaSets to work.
+* `ReplicaSet` is a top-level resource in the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/replica-set-v1" >}}
+  object definition to understand the API for replica sets.
+* Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
+  you can use it to manage application availability during disruptions.
+-->
+* 了解 [Pods](/zh/docs/concepts/workloads/pods)。
+* 了解 [Deployments](/zh/docs/concepts/workloads/controllers/deployment/)。
+* [使用 Deployment 运行一个无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)，它依赖于 ReplicaSet。
+* `ReplicaSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/replica-set-v1" >}}
+   对象定义理解关于该资源的 API。
+* 阅读[Pod 干扰预算（Disruption Budget）](/zh/docs/concepts/workloads/pods/disruptions/)，了解如何在干扰下运行高度可用的应用。

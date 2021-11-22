@@ -1,4 +1,6 @@
 ---
+
+
 title: kubectl 개요
 content_type: concept
 weight: 20
@@ -69,6 +71,32 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 도움이 필요하다면, 터미널 창에서 `kubectl help` 를 실행한다.
 
+## 클러스터 내 인증과 네임스페이스 오버라이드
+
+기본적으로 `kubectl`은 먼저 자신이 파드 안에서 실행되고 있는지, 즉 클러스터 안에 있는지를 판별한다. 이를 위해 `KUBERNETES_SERVICE_HOST`와 `KUBERNETES_SERVICE_PORT` 환경 변수, 그리고 서비스 어카운트 토큰 파일이 `/var/run/secrets/kubernetes.io/serviceaccount/token` 경로에 있는지를 확인한다. 세 가지가 모두 감지되면, 클러스터 내 인증이 적용된다.
+
+하위 호환성을 위해, 클러스터 내 인증 시에 `POD_NAMESPACE` 환경 변수가 설정되어 있으면, 서비스 어카운트 토큰의 기본 네임스페이스 설정을 오버라이드한다. 기본 네임스페이스 설정에 의존하는 모든 매니페스트와 도구가 영향을 받을 것이다.
+
+**`POD_NAMESPACE` 환경 변수**
+
+`POD_NAMESPACE` 환경 변수가 설정되어 있으면, 네임스페이스에 속하는 자원에 대한 CLI 작업은 환경 변수에 설정된 네임스페이스를 기본값으로 사용한다. 예를 들어, 환경 변수가 `seattle`로 설정되어 있으면, `kubectl get pods` 명령은 `seattle` 네임스페이스에 있는 파드 목록을 반환한다. 이는 파드가 네임스페이스에 속하는 자원이며, 명령어에 네임스페이스를 특정하지 않았기 때문이다. `kubectl api-resources` 명령을 실행하고 결과를 확인하여 특정 자원이 네임스페이스에 속하는 자원인지 판별한다.
+
+명시적으로 `--namespace <value>` 인자를 사용하면 위와 같은 동작을 오버라이드한다.
+
+**kubectl이 서비스어카운트 토큰을 관리하는 방법**
+
+만약
+* 쿠버네티스 서비스 어카운트 토큰 파일이 
+  `/var/run/secrets/kubernetes.io/serviceaccount/token` 경로에 마운트되어 있고,
+* `KUBERNETES_SERVICE_HOST` 환경 변수가 설정되어 있고,
+* `KUBERNETES_SERVICE_PORT` 환경 변수가 설정되어 있고,
+* kubectl 명령에 네임스페이스를 명시하지 않으면
+kubectl은 자신이 클러스터 내부에서 실행되고 있다고 가정한다. 
+kubectl은 해당 서비스어카운트의 네임스페이스(파드의 네임스페이스와 동일하다)를 인식하고 해당 네임스페이스에 대해 동작한다.
+이는 클러스터 외부에서 실행되었을 때와는 다른데, 
+kubectl이 클러스터 외부에서 실행되었으며 네임스페이스가 명시되지 않은 경우 
+kubectl은 `default` 네임스페이스에 대해 동작한다.
+
 ## 명령어
 
 다음 표에는 모든 `kubectl` 작업에 대한 간단한 설명과 일반적인 구문이 포함되어 있다.
@@ -87,7 +115,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 `cluster-info`    | `kubectl cluster-info [flags]` | 클러스터의 마스터와 서비스에 대한 엔드포인트 정보를 표시한다.
 `completion`    | `kubectl completion SHELL [options]` | 지정된 셸(bash 또는 zsh)에 대한 셸 완성 코드를 출력한다.
 `config`        | `kubectl config SUBCOMMAND [flags]` | kubeconfig 파일을 수정한다. 세부 사항은 개별 하위 명령을 참고한다.
-`convert`    | `kubectl convert -f FILENAME [options]` | 다른 API 버전 간에 구성 파일을 변환한다. YAML 및 JSON 형식이 모두 허용된다.
+`convert`    | `kubectl convert -f FILENAME [options]` | 다른 API 버전 간에 구성 파일을 변환한다. YAML 및 JSON 형식이 모두 허용된다. 참고 - `kubectl-convert` 플러그인을 설치해야 한다.
 `cordon`    | `kubectl cordon NODE [options]` | 노드를 스케줄 불가능(unschedulable)으로 표시한다.
 `cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | 컨테이너에서 그리고 컨테이너로 파일 및 디렉터리를 복사한다.
 `create`        | `kubectl create -f FILENAME [flags]` | 파일이나 표준입력에서 하나 이상의 리소스를 생성한다.

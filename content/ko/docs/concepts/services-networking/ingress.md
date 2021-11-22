@@ -1,4 +1,6 @@
 ---
+
+
 title: 인그레스(Ingress)
 content_type: concept
 weight: 40
@@ -162,8 +164,8 @@ Events:       <none>
   요청은 _p_ 경로에 일치한다.
 
   {{< note >}} 경로의 마지막 요소가 요청 경로에 있는 마지막
-  요소의 하위 문자열인 경우에는 일치하지 않는다(예시: `/foo/bar` 와
-  `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다). {{< /note >}}
+  요소의 하위 문자열인 경우에는 일치하지 않는다(예시: `/foo/bar` 는
+  `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 와는 일치하지 않는다). {{< /note >}}
 
 ### 예제
 
@@ -222,7 +224,7 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 
 #### 네임스페이스 범위의 파라미터
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `Parameters` 필드에는 인그레스 클래스 구성을 위해 네임스페이스 별 리소스를 참조하는 데
 사용할 수 있는 `scope` 및 `namespace` 필드가 있다.

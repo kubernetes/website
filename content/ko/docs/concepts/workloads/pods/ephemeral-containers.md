@@ -6,15 +6,15 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
 
-이 페이지는 임시 컨테이너에 대한 개요를 제공한다: 이 특별한 유형의 컨테이너는
-트러블 슈팅과 같은 사용자가 시작한 작업을 완료하기위해 기존 {{< glossary_tooltip text="파드" term_id="pod" >}} 에서
-임시적으로 실행된다. 사용자는 애플리케이션 빌드보다는 서비스를 점검할 때 임시
-컨테이너를 사용한다.
+이 페이지는 임시 컨테이너에 대한 개요를 제공한다. 
+이 특별한 유형의 컨테이너는 트러블슈팅과 같은 사용자가 시작한 작업을 완료하기 위해 
+기존 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 임시적으로 실행된다. 
+임시 컨테이너는 애플리케이션을 빌드하는 경우보다는 서비스 점검과 같은 경우에 더 적합하다.
 
 {{< warning >}}
-임시 컨테이너는 초기 알파 상태이며,
+임시 컨테이너 기능은 알파 상태이며,
 프로덕션 클러스터에는 적합하지 않다.
 [쿠버네티스 사용 중단(deprecation) 정책](/docs/reference/using-api/deprecation-policy/)에 따라
 이 알파 기능은 향후 크게 변경되거나, 완전히 제거될 수 있다.
@@ -72,119 +72,8 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 
 임시 컨테이너 사용 시 [프로세스 네임스페이스
 공유](/docs/tasks/configure-pod-container/share-process-namespace/)를
-활성화하면 다른 컨테이너 안의 프로세스를 보는데 도움이 된다.
+활성화하면 다른 컨테이너 안의 프로세스를 보는 데 도움이 된다.
 
-임시 컨테이너를 사용해서 문제를 해결하는 예시는
-[임시 디버깅 컨테이너로 디버깅하기]
-(/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)를 참조한다.
+## {{% heading "whatsnext" %}}
 
-## 임시 컨테이너 API
-
-{{< note >}}
-이 섹션의 예시는 `EphemeralContainers` [기능
-게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)의
-활성화를 필요로 하고, 쿠버네티스 클라이언트와 서버는 v1.16 또는 이후의 버전이어야 한다.
-{{< /note >}}
-
-이 섹션의 예시는 임시 컨테이너가 어떻게 API에 나타나는지
-보여준다. 일반적으로 `kubectl debug` 또는
-다른 `kubectl` [플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)을
-사용해서 API를 직접 호출하지 않고 이런 단계들을 자동화 한다.
-
-임시 컨테이너는 파드의 `ephemeralcontainers` 하위 리소스를
-사용해서 생성되며, `kubectl --raw` 를 사용해서 보여준다. 먼저
-`EphemeralContainers` 목록으로 추가하는 임시 컨테이너를 명시한다.
-
-```json
-{
-    "apiVersion": "v1",
-    "kind": "EphemeralContainers",
-    "metadata": {
-        "name": "example-pod"
-    },
-    "ephemeralContainers": [{
-        "command": [
-            "sh"
-        ],
-        "image": "busybox",
-        "imagePullPolicy": "IfNotPresent",
-        "name": "debugger",
-        "stdin": true,
-        "tty": true,
-        "terminationMessagePolicy": "File"
-    }]
-}
-```
-
-이미 실행중인 `example-pod` 에 임시 컨테이너를 업데이트 한다.
-
-```shell
-kubectl replace --raw /api/v1/namespaces/default/pods/example-pod/ephemeralcontainers  -f ec.json
-```
-
-그러면 새로운 임시 컨테이너 목록이 반환된다.
-
-```json
-{
-   "kind":"EphemeralContainers",
-   "apiVersion":"v1",
-   "metadata":{
-      "name":"example-pod",
-      "namespace":"default",
-      "selfLink":"/api/v1/namespaces/default/pods/example-pod/ephemeralcontainers",
-      "uid":"a14a6d9b-62f2-4119-9d8e-e2ed6bc3a47c",
-      "resourceVersion":"15886",
-      "creationTimestamp":"2019-08-29T06:41:42Z"
-   },
-   "ephemeralContainers":[
-      {
-         "name":"debugger",
-         "image":"busybox",
-         "command":[
-            "sh"
-         ],
-         "resources":{
-
-         },
-         "terminationMessagePolicy":"File",
-         "imagePullPolicy":"IfNotPresent",
-         "stdin":true,
-         "tty":true
-      }
-   ]
-}
-```
-
-사용자는 `kubectl describe` 를 사용해서 새로 만든 임시 컨테이너의 상태를 볼 수 있다.
-
-```shell
-kubectl describe pod example-pod
-```
-
-```
-...
-Ephemeral Containers:
-  debugger:
-    Container ID:  docker://cf81908f149e7e9213d3c3644eda55c72efaff67652a2685c1146f0ce151e80f
-    Image:         busybox
-    Image ID:      docker-pullable://busybox@sha256:9f1003c480699be56815db0f8146ad2e22efea85129b5b5983d0e0fb52d9ab70
-    Port:          <none>
-    Host Port:     <none>
-    Command:
-      sh
-    State:          Running
-      Started:      Thu, 29 Aug 2019 06:42:21 +0000
-    Ready:          False
-    Restart Count:  0
-    Environment:    <none>
-    Mounts:         <none>
-...
-```
-
-예시와 같이 `kubectl attach`, `kubectl exec`, 그리고 `kubectl logs` 를 사용해서
-다른 컨테이너와 같은 방식으로 새로운 임시 컨테이너와
-상호작용할 수 있다.
-
-```shell
-kubectl attach -it example-pod -c debugger
-```
+* [임시 컨테이너 디버깅하기](/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)에 대해 알아보기.

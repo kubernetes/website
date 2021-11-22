@@ -83,6 +83,33 @@ You can also include a full definition:
 which renders as:
 {{< glossary_definition term_id="cluster" length="all" >}}
 
+## Links to API Reference
+
+You can link to a page of the Kubernetes API reference using the `api-reference` shortcode, for example to the {{< api-reference page="workload-resources/pod-v1" >}} reference:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" */>}}
+```
+
+The content of the `page` parameter is the suffix of the URL of the API reference page.
+
+
+You can link to a specific place into a page by specifying an `anchor` parameter, for example to the {{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}} reference or the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" >}} section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="PodSpec" */>}}
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" */>}}
+```
+
+
+You can change the text of the link by specifying a `text` parameter, for example by linking to the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variables">}} section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variable" */>}}
+```
+
+
+
 ## Table captions
 
 You can make tables more accessible to screen readers by adding a table caption. To add a [caption](https://www.w3schools.com/tags/tag_caption.asp) to a table, enclose the table with a `table` shortcode and specify the caption with the `caption` parameter.
@@ -214,6 +241,43 @@ Renders to:
 {{< tab name="Content File #2" include="example2" />}}
 {{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
+
+## Third party content marker
+
+Running Kubernetes requires third-party software. For example: you
+usually need to add a
+[DNS server](/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)
+to your cluster so that name resolution works.
+
+When we link to third-party software, or otherwise mention it,
+we follow the [content guide](/docs/contribute/style/content-guide/)
+and we also mark those third party items.
+
+Using these shortcodes adds a disclaimer to any documentation page
+that uses them.
+
+### Lists {#third-party-content-list}
+
+For a list of several third-party items, add:
+```
+{{%/* thirdparty-content */%}}
+```
+just below the heading for the section that includes all items.
+
+### Items {#third-party-content-item}
+
+If you have a list where most of the items refer to in-project
+software (for example: Kubernetes itself, and the separate
+[Descheduler](https://github.com/kubernetes-sigs/descheduler)
+component), then there is a different form to use.
+
+Add the shortcode:
+```
+{{%/* thirdparty-content single="true" */%}}
+```
+
+before the item, or just below the heading for the specific item.
+
 
 ## Version strings
 

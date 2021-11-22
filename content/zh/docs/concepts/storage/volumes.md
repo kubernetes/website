@@ -219,23 +219,22 @@ beta features must be enabled.
 
 <!--
 To disable the `awsElasticBlockStore` storage plugin from being loaded by the controller manager
-and the kubelet, set the `CSIMigrationAWSComplete` flag to `true`. This feature requires the `ebs.csi.aws.com` Container Storage Interface (CSI) driver installed on all worker nodes.
+and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
 -->
-如欲禁止 `awsElasticBlockStore` 存储插件被控制器管理器和 kubelet
-组件加载，可将 `CSIMigrationAWSComplete` 特性门控设置为 `true`。此特性要求在
-集群中所有工作节点上安装 `ebs.csi.aws.com` 容器存储接口驱动。
+要禁止控制器管理器和 kubelet 加载 `awsElasticBlockStore` 存储插件，
+请将 `InTreePluginAWSUnregister` 标志设置为 `true`。
 
 ### azureDisk {#azuredisk}
 
 <!--
 The `azureDisk` volume type mounts a Microsoft Azure [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) into a pod.
 
-For more details, see the [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
+For more details, see the [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md).
 -->
 
 `azureDisk` 卷类型用来在 Pod 上挂载 Microsoft Azure
 [数据盘（Data Disk）](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) 。
-若需了解更多详情，请参考 [`azureDisk` 卷插件](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md)。
+若需了解更多详情，请参考 [`azureDisk` 卷插件](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md)。
 
 <!--
 #### azureDisk CSI Migration
@@ -265,10 +264,10 @@ features must be enabled.
 The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
 into a Pod.
 
-For more details, see the [`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
+For more details, see the [`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md).
 -->
 `azureFile` 卷类型用来在 Pod 上挂载 Microsoft Azure 文件卷（File Volume）（SMB 2.1 和 3.0）。
-更多详情请参考 [`azureFile` 卷插件](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md)。
+更多详情请参考 [`azureFile` 卷插件](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md)。
 
 <!--
 #### azureFile CSI migration
@@ -321,9 +320,9 @@ You must have your own Ceph server running with the share exported before you ca
 {{< /note >}}
 
 <!--
-See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 -->
-更多信息请参考 [CephFS 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/)。
+更多信息请参考 [CephFS 示例](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/)。
 
 ### cinder {#cinder}
 
@@ -589,15 +588,15 @@ targetWWNs expect that those WWNs are from multi-path connections.
 <!--
 You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts can access them.
 -->
-{{< caution >}}
+{{< note >}}
 你必须配置 FC SAN Zoning，以便预先向目标 WWN 分配和屏蔽这些 LUN（卷），
 这样 Kubernetes 主机才可以访问它们。
-{{< /caution >}}
+{{< /note >}}
 
 <!--
-See the [FC example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) for more details.
+See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) for more details.
 -->
-更多详情请参考 [FC 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel)。
+更多详情请参考 [FC 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)。
 
 <!--
 ### flocker (deprecated) {#flocker}
@@ -632,9 +631,9 @@ You must have your own Flocker installation running before you can use it.
 {{< /note >}}
 
 <!--
-See the [Flocker example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker) for more details.
+See the [Flocker example](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) for more details.
 -->
-更多详情请参考 [Flocker 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker)。
+更多详情请参考 [Flocker 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker)。
 
 <!--
 ### gcePersistentDisk
@@ -784,7 +783,8 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: failure-domain.beta.kubernetes.io/zone
+        # failure-domain.beta.kubernetes.io/zone 应在 1.21 之前使用
+        - key: topology.kubernetes.io/zone
           operator: In
           values:
           - us-central1-a
@@ -811,6 +811,21 @@ beta features must be enabled.
 为了使用此功能，必须在集群中上安装
 [GCE PD CSI驱动程序](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)，
 并且 `CSIMigration` 和 `CSIMigrationGCE` Beta 功能必须被启用。
+
+<!-- 
+#### GCE CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `gcePersistentDisk` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginGCEUnregister` flag to `true`.
+-->
+#### GCE CSI 迁移完成
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+要禁止控制器管理器和 kubelet 加载 `gcePersistentDisk` 存储插件，
+请将 `InTreePluginGCEUnregister` 标志设置为 `true`。
 
 <!--
 ### gitRepo (deprecated) {#gitrepo}
@@ -883,11 +898,27 @@ You must have your own GlusterFS installation running before you can use it.
 {{< /note >}}
 
 <!--
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs) for more details.
 -->
-更多详情请参考 [GlusterFS 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs)。
+更多详情请参考 [GlusterFS 示例](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs)。
 
 ### hostPath
+
+{{< warning >}}
+<!-- 
+HostPath volumes present many security risks, and it is a best practice to avoid the use of
+HostPaths when possible. When a HostPath volume must be used, it should be scoped to only the
+required file or directory, and mounted as ReadOnly.
+
+If restricting HostPath access to specific directories through AdmissionPolicy, `volumeMounts` MUST
+be required to use `readOnly` mounts for the policy to be effective.
+-->
+HostPath 卷存在许多安全风险，最佳做法是尽可能避免使用 HostPath。
+当必须使用 HostPath 卷时，它的范围应仅限于所需的文件或目录，并以只读方式挂载。
+
+如果通过 AdmissionPolicy 限制 HostPath 对特定目录的访问，
+则必须要求 `volumeMounts` 使用 `readOnly` 挂载以使策略生效。
+{{< /warning >}}
 
 <!--
 A `hostPath` volume mounts a file or directory from the host node's filesystem
@@ -947,6 +978,9 @@ The supported values for field `type` are:
 <!--
 Watch out when using this type of volume, because:
 
+* HostPaths can expose privileged system credentials (such as for the Kubelet) or privileged APIs
+  (such as container runtime socket), which can be used for container escape or to attack other
+  parts of the cluster.
 * Pods with identical configuration (such as created from a PodTemplate) may
   behave differently on different nodes due to different files on the nodes
 * The files or directories created on the underlying hosts are only writable by root. You
@@ -956,6 +990,8 @@ Watch out when using this type of volume, because:
 -->
 当使用这种类型的卷时要小心，因为：
 
+* HostPath 卷可能会暴露特权系统凭据（例如 Kubelet）或特权 API（例如容器运行时套接字），
+  可用于容器逃逸或攻击集群的其他部分。
 * 具有相同配置（例如基于同一 PodTemplate 创建）的多个 Pod 会由于节点上文件的不同
   而在不同节点上有不同的行为。
 * 下层主机上创建的文件或目录只能由 root 用户写入。你需要在
@@ -1065,9 +1101,9 @@ iSCSI 的一个特点是它可以同时被多个用户以只读方式挂载。
 不幸的是，iSCSI 卷只能由单个使用者以读写模式挂载。不允许同时写入。
 
 <!--
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) for more details.
+See the [iSCSI example](https://github.com/kubernetes/examples/tree/master/volumes/iscsi) for more details.
 -->
-更多详情请参考 [iSCSI 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi)。
+更多详情请参考 [iSCSI 示例](https://github.com/kubernetes/examples/tree/master/volumes/iscsi)。
 
 <!--
 ### local
@@ -1210,9 +1246,9 @@ You must have your own NFS server running with the share exported before you can
 {{< /caution >}}
 
 <!--
-See the [NFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs) for more details.
+See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for more details.
 -->
-要了解更多详情请参考 [NFS 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs)。
+要了解更多详情请参考 [NFS 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)。
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -1283,10 +1319,10 @@ before using it in the Pod.
 {{< /note >}}
 
 <!--
-For more details, see the [Portworx volume](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md) examples.
+For more details, see the [Portworx volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) examples.
 -->
 
-更多详情可以参考 [Portworx 卷](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md)。
+更多详情可以参考 [Portworx 卷](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md)。
 
 ### projected
 
@@ -1306,10 +1342,10 @@ Currently, the following types of volume sources can be projected:
 
 <!--
 All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
+see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
 -->
 所有的卷来源需要和 Pod 处于相同的命名空间。
-更多详情请参考[一体化卷设计文档](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md)。
+更多详情请参考[一体化卷设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)。
 
 <!--
 #### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
@@ -1475,7 +1511,7 @@ receive updates for those volume sources.
 使用投射卷源作为 [subPath](#using-subpath) 卷挂载的容器将不会接收这些卷源的更新。
 {{< /note >}}
 
-### quobyte
+### quobyte (已弃用) {#quobyte}
 
 <!--
 A `quobyte` volume allows an existing [Quobyte](http://www.quobyte.com) volume to
@@ -1531,73 +1567,14 @@ and then serve it in parallel from as many Pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode.
 Simultaneous writers are not allowed.
 
-See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd) for more details.
+See the [RBD example](https://github.com/kubernetes/examples/tree/master/volumes/rbd) for more details.
 -->
 RBD 的一个特性是它可以同时被多个用户以只读方式挂载。
 这意味着你可以用数据集预先填充卷，然后根据需要在尽可能多的 Pod 中并行地使用卷。
 不幸的是，RBD 卷只能由单个使用者以读写模式安装。不允许同时写入。
 
 更多详情请参考
-[RBD 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd)。
-
-<!--
-### scaleIO (deprecated) {#scaleio}
--->
-### scaleIO （已弃用）   {#scaleio}
-
-<!--
-ScaleIO is a software-based storage platform that can use existing hardware to
-create clusters of scalable shared block networked storage. The `scaleIO` volume
-plugin allows deployed Pods to access existing ScaleIO
-volumes (or it can dynamically provision new volumes for persistent volume claims, see
-[ScaleIO Persistent Volumes](/docs/concepts/storage/persistent-volumes/#scaleio)).
--->
-ScaleIO 是基于软件的存储平台，可以使用现有硬件来创建可伸缩的、共享的而且是网络化的块存储集群。
-`scaleIO` 卷插件允许部署的 Pod 访问现有的 ScaleIO 卷（或者它可以动态地为持久卷申领提供新的卷，
-参见 [ScaleIO 持久卷](/zh/docs/concepts/storage/persistent-volumes/#scaleio)）。
-
-<!--
-You must have an existing ScaleIO cluster already setup and
-running with the volumes created before you can use them.
--->
-{{< note >}}
-在使用前，你必须有个安装完毕且运行正常的 ScaleIO 集群，并且创建好了存储卷。
-{{< /note >}}
-
-<!--
-The following is an example of Pod configuration with ScaleIO:
--->
-下面是配置了 ScaleIO 的 Pod 示例：
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: pod-0
-spec:
-  containers:
-  - image: k8s.gcr.io/test-webserver
-    name: pod-0
-    volumeMounts:
-    - mountPath: /test-pd
-      name: vol-0
-  volumes:
-  - name: vol-0
-    scaleIO:
-      gateway: https://localhost:443/api
-      system: scaleio
-      protectionDomain: sd0
-      storagePool: sp1
-      volumeName: vol-0
-      secretRef:
-        name: sio-secret
-      fsType: xfs
-```
-
-<!--
-For further detail, please see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
--->
-更多详情，请参考 [ScaleIO 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio)。
+[RBD 示例](https://github.com/kubernetes/examples/tree/master/volumes/rbd)。
 
 ### secret
 
@@ -1633,7 +1610,7 @@ For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/
 -->
 更多详情请参考[配置 Secrets](/zh/docs/concepts/configuration/secret/)。
 
-### storageOS {#storageos}
+### storageOS (已弃用) {#storageos}
 
 <!--
 A `storageos` volume allows an existing [StorageOS](https://www.storageos.com)
@@ -1854,10 +1831,10 @@ CSI 驱动所创建的新卷都不会理会这些参数。
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 <!--
-To turn off the `vsphereVolume` plugin from being loaded by the controller manager and the kubelet, you need to set this feature flag to `true`. You must install a `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver on all worker nodes.
+To turn off the `vsphereVolume` plugin from being loaded by the controller manager and the kubelet, you need to set `InTreePluginvSphereUnregister` feature flag to `true`. You must install a `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver on all worker nodes.
 -->
 为了避免控制器管理器和 kubelet 加载 `vsphereVolume` 插件，你需要将
-`CSIMigrationVSphereComplete` 特性设置为 `true`。你还必须在所有工作节点上安装
+`InTreePluginvSphereUnregister` 特性设置为 `true`。你还必须在所有工作节点上安装
 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。
 
 <!--

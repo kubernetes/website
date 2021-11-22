@@ -154,6 +154,7 @@ __namespaceSelector__ *와* __podSelector__: `namespaceSelector` 와 `podSelecto
 
 의심스러운 경우, `kubectl describe` 를 사용해서 쿠버네티스가 정책을 어떻게 해석하는지 확인해본다.
 
+<a name="behavior-of-ipblock-selectors"></a>
 __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP CIDR 범위를 선택한다. 파드 IP는 임시적이고 예측할 수 없기에 클러스터 외부 IP이어야 한다.
 
 클러스터 인그레스 및 이그레스 매커니즘은 종종 패킷의 소스 또는 대상 IP의 재작성을
@@ -223,7 +224,7 @@ SCTP 프로토콜 네트워크폴리시를 지원하는 {{< glossary_tooltip tex
 
 ## 포트 범위 지정
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 네트워크폴리시를 작성할 때, 단일 포트 대신 포트 범위를 대상으로 지정할 수 있다.
 
@@ -251,17 +252,25 @@ spec:
       endPort: 32768
 ```
 
-위 규칙은 대상 포트가 32000에서 32768 사이에 있는 경우, 네임스페이스 `default` 에 레이블이 `db` 인 모든 파드가 TCP를 통해 `10.0.0.0/24` 범위 내의 모든 IP와 통신하도록 허용한다.
+위 규칙은 대상 포트가 32000에서 32768 사이에 있는 경우, 
+네임스페이스 `default` 에 레이블이 `role=db` 인 모든 파드가
+TCP를 통해 `10.0.0.0/24` 범위 내의 모든 IP와 통신하도록 허용한다.
 
 이 필드를 사용할 때 다음의 제한 사항이 적용된다.
-* 알파 기능으로, 기본적으로 비활성화되어 있다. 클러스터 수준에서 `endPort` 필드를 활성화하려면, 사용자(또는 클러스터 관리자)가 `--feature-gates=NetworkPolicyEndPort=true,…` 가 있는 API 서버에 대해 `NetworkPolicyEndPort` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+* 베타 기능으로, 기본적으로 활성화되어 있다. 
+클러스터 수준에서 `endPort` 필드를 비활성화하려면, 사용자(또는 클러스터 관리자)가 
+API 서버에 대해 `--feature-gates=NetworkPolicyEndPort=false,…` 명령을 이용하여 
+`NetworkPolicyEndPort` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화해야 한다.
 * `endPort` 필드는 `port` 필드보다 크거나 같아야 한다.
 * `endPort` 는 `port` 도 정의된 경우에만 정의할 수 있다.
 * 두 포트 모두 숫자여야 한다.
 
 {{< note >}}
-클러스터는 {{< glossary_tooltip text="CNI" term_id="cni" >}} 플러그인을 사용해야 한다.
-네트워크폴리시 명세에서 `endPort` 필드를 지원한다.
+클러스터가 네트워크폴리시 명세의 `endPort` 필드를 지원하는
+{{< glossary_tooltip text="CNI" term_id="cni" >}} 플러그인을 사용해야 한다.
+만약 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)이 
+`endPort` 필드를 지원하지 않는데 네트워크폴리시의 해당 필드에 명시를 하면, 
+그 정책은 `port` 필드에만 적용될 것이다.
 {{< /note >}}
 
 ## 이름으로 네임스페이스 지정

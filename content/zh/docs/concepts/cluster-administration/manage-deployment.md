@@ -85,7 +85,7 @@ A URL can also be specified as a configuration source, which is handy for deploy
 还可以使用 URL 作为配置源，便于直接使用已经提交到 Github 上的配置文件进行部署：
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/zh/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/zh/examples/application/nginx/nginx-deployment.yaml
 ```
 
 ```
@@ -252,10 +252,10 @@ The examples we've used so far apply at most a single label to any resource. The
 在许多情况下，应使用多个标签来区分集合。
 
 <!--
-For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
+For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
 -->
 例如，不同的应用可能会为 `app` 标签设置不同的值。
-但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)
+但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/master/guestbook/)
 这样的多层应用，还需要区分每一层。前端可以带以下标签：
 
 ```yaml

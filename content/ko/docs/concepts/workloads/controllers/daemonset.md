@@ -185,7 +185,7 @@ nodeAffinity:
 필드가 업데이트 되는 것을 허용하지 않는다. 또한 데몬셋 컨트롤러는
 다음에 노드(동일한 이름으로)가 생성될 때 원본 템플릿을 사용한다.
 
-사용자는 데몬셋을 삭제할 수 있다. 만약 `kubectl` 에서 `--cascade=false` 를 명시하면
+사용자는 데몬셋을 삭제할 수 있다. 만약 `kubectl` 에서 `--cascade=orphan` 를 명시하면
 파드는 노드에 남게 된다. 이후에 동일한 셀렉터로 새 데몬셋을 생성하면,
 새 데몬셋은 기존 파드를 채택한다. 만약 파드를 교체해야 하는 경우 데몬셋은
 `updateStrategy` 에 따라 파드를 교체한다.
@@ -213,7 +213,7 @@ nodeAffinity:
 어떠한 이유로든 삭제되거나 종료된 파드를 교체한다. 따라서 개별 파드를
 생성하는 것보다는 데몬 셋을 사용해야 한다.
 
-### 스태틱(static) 파드
+### 스태틱(static) 파드 {#static-pods}
 
 Kubelet이 감시하는 특정 디렉터리에 파일을 작성하는 파드를 생성할 수 있다. 이것을
 [스태틱 파드](/ko/docs/tasks/configure-pod-container/static-pod/)라고 부른다.
@@ -229,5 +229,25 @@ Kubelet이 감시하는 특정 디렉터리에 파일을 작성하는 파드를 
 
 파드가 실행되는 호스트를 정확하게 제어하는 것보다 레플리카의 수를 스케일링 업 및 다운 하고,
 업데이트 롤아웃이 더 중요한 프런트 엔드와 같은 것은 스테이트리스 서비스의
-디플로이먼트를 사용한다. 파드 사본이 항상 모든 호스트 또는 특정 호스트에서 실행되는 것이 중요하고,
-다른 파드의 실행 이전에 필요한 경우에는 데몬셋을 사용한다.
+디플로이먼트를 사용한다. 데몬셋이 특정 노드에서 다른 파드가 올바르게 실행되도록 하는 노드 수준 기능을 제공한다면, 
+파드 사본이 항상 모든 호스트 또는 특정 호스트에서 실행되는 것이 중요한 경우에 데몬셋을 사용한다.
+
+예를 들어, [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)은 데몬셋으로 실행되는 컴포넌트를 포함할 수 있다. 데몬셋 컴포넌트는 작동 중인 노드가 정상적인 클러스터 네트워킹을 할 수 있도록 한다.
+
+## {{% heading "whatsnext" %}}
+
+* [파드](/ko/docs/concepts/workloads/pods/)에 대해 배운다.
+  * 쿠버네티스 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}
+    컴포넌트를 기동하는데 유용한
+    [스태틱 파드](#static-pods)에 대해 배운다. 
+* 데몬셋을 어떻게 사용하는지 알아본다.
+  * [데몬셋 롤링 업데이트 수행하기](/ko/docs/tasks/manage-daemon/update-daemon-set/)
+  * [데몬셋 롤백하기](/ko/docs/tasks/manage-daemon/rollback-daemon-set/)
+    (예를 들어, 롤 아웃이 예상대로 동작하지 않은 경우).
+* [쿠버네티스가 파드를 노드에 할당하는 방법](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)을 이해한다.
+* 데몬셋으로 구동되곤 하는, [디바이스 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)과
+  [애드온](/ko/docs/concepts/cluster-administration/addons/)에 대해 배운다.
+* `DaemonSet`은 쿠버네티스 REST API에서 상위-수준 리소스이다.
+  데몬셋 API에 대해 이해하기 위해 
+  {{< api-reference page="workload-resources/daemon-set-v1" >}}
+  오브젝트 정의를 읽는다.

@@ -17,8 +17,6 @@ A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repe
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
-In addition, the CronJob schedule supports timezone handling, you can specify the timezone by adding "CRON_TZ=<time zone>" at the beginning of the CronJob schedule, and it is recommended to always set `CRON_TZ`.
-
 {{< caution >}}
 All **CronJob** `schedule:` times are based on the timezone of the
 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
@@ -26,6 +24,16 @@ All **CronJob** `schedule:` times are based on the timezone of the
 If your control plane runs the kube-controller-manager in Pods or bare
 containers, the timezone set for the kube-controller-manager container determines the timezone
 that the cron job controller uses.
+{{< /caution >}}
+
+{{< caution >}}
+The [v1 CronJob API](/docs/reference/kubernetes-api/workload-resources/cron-job-v1/)
+does not officially support setting timezone as explained above.
+
+Setting variables such as `CRON_TZ` or `TZ` is not officially supported by the Kubernetes project.
+`CRON_TZ` or `TZ` is an implementation detail of the internal library being used
+for parsing and calculating the next Job creation time. Any usage of it is not
+recommended in a production cluster.
 {{< /caution >}}
 
 When creating the manifest for a CronJob resource, make sure the name you provide
@@ -55,16 +63,15 @@ takes you through this example in more detail).
 ### Cron schedule syntax
 
 ```
-#      ┌────────────────── timezone (optional)
-#      |      ┌───────────── minute (0 - 59)
-#      |      │ ┌───────────── hour (0 - 23)
-#      |      │ │ ┌───────────── day of the month (1 - 31)
-#      |      │ │ │ ┌───────────── month (1 - 12)
-#      |      │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
-#      |      │ │ │ │ │                                   7 is also Sunday on some systems)
-#      |      │ │ │ │ │
-#      |      │ │ │ │ │
-# CRON_TZ=UTC * * * * *
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
 ```
 
 
@@ -78,9 +85,9 @@ takes you through this example in more detail).
 
 
 
-For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight(in UTC):
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
 
-`CRON_TZ=UTC 0 0 13 * 5`
+`0 0 13 * 5`
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
@@ -136,9 +143,14 @@ and set this flag to `false`. For example:
 
 ## {{% heading "whatsnext" %}}
 
-[Cron expression format](https://en.wikipedia.org/wiki/Cron)
-documents the format of CronJob `schedule` fields.
-
-For instructions on creating and working with cron jobs, and for an example of CronJob
-manifest, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
-
+* Learn about [Pods](/docs/concepts/workloads/pods/) and
+  [Jobs](/docs/concepts/workloads/controllers/job/), two concepts
+  that CronJobs rely upon.
+* Read about the [format](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)
+  of CronJob `.spec.schedule` fields.
+* For instructions on creating and working with CronJobs, and for an example
+  of a CronJob manifest,
+  see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
+* `CronJob` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
+  object definition to understand the API for Kubernetes cron jobs.

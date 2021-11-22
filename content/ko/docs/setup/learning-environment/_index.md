@@ -11,7 +11,7 @@ weight: 20
 {{/* If you're localizing this page, you only need to copy the front matter */}}
 {{/* and add a redirect into "/static/_redirects", for YOUR localization. */}}
 -->
-
+<!--
 ## kind
 
 [`kind`](https://kind.sigs.k8s.io/docs/)를 사용하면 로컬 컴퓨터에서
@@ -31,3 +31,4 @@ kind를 시작하고 실행하기 위해 해야 할 일이 나와 있다.
 툴을 설치하고 싶으면
 [시작하기!](https://minikube.sigs.k8s.io/docs/start/) 공식 가이드를
 참조하기 바란다.
+-->

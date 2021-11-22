@@ -1,16 +1,20 @@
 ---
+
+
 title: 클라우드 네이티브 보안 개요
+description: >
+  클라우드 네이티브 보안 관점에서 쿠버네티스 보안을 생각해보기 위한 모델
 content_type: concept
-weight: 10
+weight: 1
 ---
 
 <!-- overview -->
+
 이 개요는 클라우드 네이티브 보안의 맥락에서 쿠버네티스 보안에 대한 생각의 모델을 정의한다.
 
 {{< warning >}}
 이 컨테이너 보안 모델은 입증된 정보 보안 정책이 아닌 제안 사항을 제공한다.
 {{< /warning >}}
-
 
 <!-- body -->
 
@@ -56,6 +60,7 @@ Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
+Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
 VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
 
 {{< /table >}}
@@ -82,7 +87,6 @@ etcd 암호화 | 가능한 한 모든 드라이브를 암호화하는 것이 좋
 
 * 설정 가능한 클러스터 컴포넌트의 보안
 * 클러스터에서 실행되는 애플리케이션의 보안
-
 
 ### 클러스터의 컴포넌트 {#cluster-components}
 

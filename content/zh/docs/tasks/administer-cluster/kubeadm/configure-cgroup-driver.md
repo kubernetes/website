@@ -62,14 +62,12 @@ kubeadm 支持在执行 `kubeadm init` 时，传递一个 `KubeletConfiguration`
 `KubeletConfiguration` 包含 `cgroupDriver` 字段，可用于控制 kubelet 的 cgroup 驱动。
 
 <!-- 
-If the user is not setting the `cgroupDriver` field under `KubeletConfiguration`,
+In v1.22, if the user is not setting the `cgroupDriver` field under `KubeletConfiguration`,
 `kubeadm init` will default it to `systemd`.
 -->
 
-{{< feature-state for_k8s_version="v1.21" state="stable" >}}
-
 {{< note >}}
-如果用户没有在 `KubeletConfiguration` 中设置 `cgroupDriver` 字段，
+在版本 1.22 中，如果用户没有在 `KubeletConfiguration` 中设置 `cgroupDriver` 字段，
 `kubeadm init` 会将它设置为默认值 `systemd`。
 {{< /note >}}
 
@@ -81,7 +79,7 @@ A minimal example of configuring the field explicitly:
 ```yaml
 # kubeadm-config.yaml
 kind: ClusterConfiguration
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kubernetesVersion: v1.21.0
 ---
 kind: KubeletConfiguration
