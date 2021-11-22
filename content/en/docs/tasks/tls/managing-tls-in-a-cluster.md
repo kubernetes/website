@@ -162,9 +162,19 @@ Events: <none>
 
 ## Get the Certificate Signing Request Approved
 
-Approving the certificate signing request is either done by an automated
-approval process or on a one off basis by a cluster administrator. More
-information on what this involves is covered below.
+Approving the [certificate signing request](/docs/reference/access-authn-authz/certificate-signing-requests/)
+is either done by an automated approval process or on a one off basis by a cluster
+administrator. If you're authorized to approve a certificate request, you can do that
+manually using `kubectl`; for example:
+
+```shell
+kubectl certificate approve my-svc.my-namespace
+```
+
+```none
+certificatesigningrequest.certificates.k8s.io/my-svc.my-namespace approved
+```
+
 
 ## Download the Certificate and Use It
 
