@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: Horizontal Pod Autoscaler
 feature:
   title: Horizontal 스케일링
@@ -8,10 +12,6 @@ feature:
 content_type: concept
 weight: 90
 ---
-
-
-
-
 
 <!-- overview -->
 
@@ -68,14 +68,7 @@ Horizontal Pod Autoscaler는 컨트롤러
 
 HorizontalPodAutoscaler는 보통 일련의 API 집합(`metrics.k8s.io`,
 `custom.metrics.k8s.io`, `external.metrics.k8s.io`)에서 메트릭을 가져온다. `metrics.k8s.io` API는 대개 별도로
-시작해야 하는 메트릭-서버에 의해 제공된다. 가이드는
-[메트릭-서버](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-서버)를
-참조한다. HorizontalPodAutoscaler는 힙스터(Heapster)에서 직접 메트릭을 가져올 수도 있다.
-
-{{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
-힙스터에서 메트릭 가져오기는 Kubernetes 1.11에서 사용 중단(deprecated)됨.
-{{< /note >}}
+시작해야 하는 메트릭-서버에 의해 제공된다. 더 자세한 정보는 [메트릭-서버](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-서버)를 참조한다. 
 
 자세한 사항은 [메트릭 API를 위한 지원](#메트릭-api를-위한-지원)을 참조한다.
 
@@ -181,6 +174,7 @@ HorizontalPodAutoscaler API 오브젝트 생성시 지정된 이름이 유효한
 API 오브젝트에 대한 자세한 내용은
 [HorizontalPodAutoscaler 오브젝트](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling)에서 찾을 수 있다.
 
+
 ## kubectl에서 Horizontal Pod Autoscaler 지원
 
 Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`에 의해 표준 방식으로 지원된다.
@@ -197,14 +191,17 @@ Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`�
 
 ## 롤링 업데이트 중 오토스케일링
 
-현재 쿠버네티스에서는 기본 레플리카셋를 관리하는 디플로이먼트 오브젝트를 사용하여 롤링 업데이트를 수행할 수 있다.
-Horizontal Pod Autoscaler는 후자의 방법을 지원한다. Horizontal Pod Autoscaler는 디플로이먼트 오브젝트에 바인딩되고,
-디플로이먼트 오브젝트를 위한 크기를 설정하며, 디플로이먼트는 기본 레플리카셋의 크기를 결정한다.
+쿠버네티스는 디플로이먼트에 대한 롤링 업데이트를 지원한다. 
+이 경우, 디플로이먼트가 기저 레플리카셋을 알아서 관리한다. 
+디플로이먼트에 오토스케일링을 설정하려면, 
+각 디플로이먼트에 대한 HorizontalPodAutoscaler를 생성한다. 
+HorizontalPodAutoscaler는 디플로이먼트의 `replicas` 필드를 관리한다. 
+디플로이먼트 컨트롤러는 기저 레플리카셋에 `replicas` 값을 적용하여 
+롤아웃 과정 중/이후에 적절한 숫자까지 늘어나도록 한다.
 
-Horizontal Pod Autoscaler는 레플리케이션 컨트롤러를 직접 조작하는 롤링 업데이트에서 작동하지 않는다.
-즉, Horizontal Pod Autoscaler를 레플리케이션 컨트롤러에 바인딩하고 롤링 업데이트를 수행할 수 없다. (예 : `kubectl rolling-update`)
-작동하지 않는 이유는 롤링 업데이트에서 새 레플리케이션 컨트롤러를 만들 때,
-Horizontal Pod Autoscaler가 새 레플리케이션 컨트롤러에 바인딩되지 않기 때문이다.
+오토스케일된 레플리카가 있는 스테이트풀셋의 롤링 업데이트를 수행하면, 
+스테이트풀셋이 직접 파드의 숫자를 관리한다(즉, 
+레플리카셋과 같은 중간 리소스가 없다).
 
 ## 쿨-다운 / 지연에 대한 지원
 
@@ -221,8 +218,7 @@ v1.12부터는 새로운 알고리즘 업데이트가 업스케일 지연에 대
 - `--horizontal-pod-autoscaler-downscale-delay` : 다운스케일이
   안정화되기까지의 시간 간격을 지정한다.
   Horizontal Pod Autoscaler는 이전의 권장하는 크기를 기억하고,
-  이 시간 간격에서의 가장 큰 크기에서만 작동한다.
-  기본값은 5분(`5m0s`)이다.
+  이 시간 간격에서의 가장 큰 크기에서만 작동한다. 기본값은 5분(`5m0s`)이다.
 
 {{< note >}}
 이러한 파라미터 값을 조정할 때 클러스터 운영자는 가능한 결과를 알아야
@@ -340,8 +336,6 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
      직접 작성하고 싶다면 [샘플](https://github.com/kubernetes-sigs/custom-metrics-apiserver)을 확인한다.
 
    * 외부 메트릭의 경우, 이것은 `external.metrics.k8s.io` API이다. 위에 제공된 사용자 정의 메트릭 어댑터에서 제공될 수 있다.
-
-* `--horizontal-pod-autoscaler-use-rest-clients`는 `true`이거나 설정되지 않음. 이것을 false로 설정하면 더 이상 사용되지 않는 힙스터 기반 오토스케일링으로 전환된다.
 
 이런 다양한 메트릭 경로와 각각의 다른 점에 대한 상세 내용은 관련 디자인 제안서인
 [HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),

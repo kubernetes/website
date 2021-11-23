@@ -25,6 +25,8 @@ weight: 50
 
 잡을 사용하면 여러 파드를 병렬로 실행할 수도 있다.
 
+잡을 스케줄에 따라 구동하고 싶은 경우(단일 작업이든, 여러 작업의 병렬 수행이든), [크론잡(CronJob)](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 참고한다.
+
 <!-- body -->
 
 ## 예시 잡 실행하기
@@ -187,14 +189,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 ### 완료 모드
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-{{< note >}}
-인덱싱된 잡을 생성하려면, [API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)
-및 [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)에서
-`IndexedJob` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-활성화해야 한다.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 완료 횟수가 _고정적인 완료 횟수_ 즉, null이 아닌 `.spec.completions` 가 있는 잡은
 `.spec.completionMode` 에 지정된 완료 모드를 가질 수 있다.
@@ -203,8 +198,14 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
   완료된 파드가 있는 경우 작업이 완료된 것으로 간주된다. 즉, 각 파드
   완료는 서로 상동하다(homologous). null `.spec.completions` 가 있는
   잡은 암시적으로 `NonIndexed` 이다.
-- `Indexed`: 잡의 파드는 `batch.kubernetes.io/job-completion-index`
-  어노테이션에서 사용할 수 있는 0에서 `.spec.completions-1` 까지 연결된 완료 인덱스를 가져온다.
+- `Indexed`: 잡의 파드는 연결된 완료 인덱스를 0에서 `.spec.completions-1` 까지 
+  가져온다. 이 인덱스는 다음의 세 가지 메카니즘으로 얻을 수 있다.
+  - 파드 어노테이션 `batch.kubernetes.io/job-completion-index`.
+  - 파드 호스트네임 중 일부(`$(job-name)-$(index)` 형태). 인덱스된(Indexed) 잡과 
+    {{< glossary_tooltip text="서비스" term_id="Service" >}}를 결합하여 사용하고 
+    있다면, 잡에 속한 파드는 DNS를 이용하여 서로를 디스커버 하기 위해 사전에 결정된 
+    호스트네임을 사용할 수 있다.
+  - 컨테이너화된 태스크의 경우, `JOB_COMPLETION_INDEX` 환경 변수.
   각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
   간주된다. 이 모드를 사용하는 방법에 대한 자세한 내용은
   [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
@@ -255,7 +256,8 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 ## 잡의 종료와 정리
 
-잡이 완료되면 파드가 더 이상 생성되지도 않지만, 삭제되지도 않는다.  이를 유지하면
+잡이 완료되면 파드가 더 이상 생성되지도 않지만, [일반적으로는](#pod-backoff-failure-policy) 삭제되지도 않는다.  
+이를 유지하면
 완료된 파드의 로그를 계속 보며 에러, 경고 또는 다른 기타 진단 출력을 확인할 수 있다.
 잡 오브젝트는 완료된 후에도 상태를 볼 수 있도록 남아 있다. 상태를 확인한 후 이전 잡을 삭제하는 것은 사용자의 몫이다.
 `kubectl` 로 잡을 삭제할 수 있다 (예: `kubectl delete jobs/pi` 또는 `kubectl delete -f ./job.yaml`). `kubectl` 을 사용해서 잡을 삭제하면 생성된 모든 파드도 함께 삭제된다.
@@ -294,7 +296,7 @@ spec:
 `restartPolicy` 는 잡 자체에 적용되는 것이 아니라 파드에 적용된다는 점을 유념한다. 잡의 상태가 `type: Failed` 이 되면, 잡의 자동 재시작은 없다.
 즉, `.spec.activeDeadlineSeconds` 와 `.spec.backoffLimit` 로 활성화된 잡의 종료 메커니즘은 영구적인 잡의 실패를 유발하며 이를 해결하기 위해 수동 개입이 필요하다.
 
-## 완료된 잡을 자동으로 정리
+## 완료된 잡을 자동으로 정리 {#clean-up-finished-jobs-automatically}
 
 완료된 잡은 일반적으로 시스템에서 더 이상 필요로 하지 않는다. 시스템 내에
 이를 유지한다면 API 서버에 부담이 된다.
@@ -402,14 +404,12 @@ spec:
 
 ### 잡 일시 중지
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 {{< note >}}
-잡 일시 중지는 쿠버네티스 버전 1.21 이상에서 사용할 수 있다. 이 기능을
-사용하려면 [API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)
-및 [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)에서
-`SuspendJob` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-활성화해야 한다.
+이 기능은 쿠버네티스 버전 1.21에서는 알파 상태였으며, 
+이 때문에 이 기능을 활성화하기 위해서는 추가적인 단계를 진행해야 한다. 
+[현재 사용 중인 쿠버네티스 버전과 맞는 문서](/ko/docs/home/supported-doc-versions/)를 읽고 있는 것이 맞는지 다시 한번 확인한다.
 {{< /note >}}
 
 잡이 생성되면, 잡 컨트롤러는 잡의 요구 사항을 충족하기 위해
@@ -524,7 +524,7 @@ Events:
 실행되기를 원하지만, 잡이 생성한 나머지 파드에는 다른
 파드 템플릿을 사용하고 잡으로 하여금 새 이름을 부여하기를 원한다.
 그러나 관련된 필드들은 업데이트가 불가능하기 때문에 잡을 업데이트할 수 없다.
-따라서 `kubectl delete jobs/old --cascade=false` 를 사용해서
+따라서 `kubectl delete jobs/old --cascade=orphan` 명령을 사용해서
 잡 `old` 를 삭제하지만, _파드를 실행 상태로 둔다_.
 삭제하기 전에 어떤 셀렉터를 사용하는지 기록한다.
 
@@ -568,6 +568,46 @@ spec:
 `manualSelector: true` 를 설정하면 시스템에게 사용자가 무엇을 하는지 알고 있음을 알리고, 이런
 불일치를 허용한다.
 
+### 종료자(finalizers)를 이용한 잡 추적
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+{{< note >}}
+이 기능을 이용하기 위해서는 
+[API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)와 
+[컨트롤러 매니저](/docs/reference/command-line-tools-reference/kube-controller-manager/)에 대해 
+`JobTrackingWithFinalizers` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 
+기본적으로는 비활성화되어 있다.
+
+이 기능이 활성화되면, 컨트롤 플레인은 아래에 설명할 동작을 이용하여 새로운 잡이 생성되는지 추적한다. 
+기존에 존재하던 잡은 영향을 받지 않는다. 
+사용자가 느낄 수 있는 유일한 차이점은 컨트롤 플레인이 잡 종료를 좀 더 정확하게 추적할 수 있다는 것이다.
+{{< /note >}}
+
+이 기능이 활성화되지 않으면, 잡 
+{{< glossary_tooltip text="컨트롤러" term_id="controller" >}}는 
+`succeeded`와 `failed` 파드의 수를 세어 잡 상태를 추적한다. 
+그런데, 파드는 다음과 같은 이유로 제거될 수 있다.
+- 노드가 다운되었을 때 가비지 콜렉터가 버려진(orphan) 파드를 제거
+- 가비지 콜렉터가 (`Succeeded` 또는 `Failed` 단계에 있는) 완료된 파드를 
+  일정 임계값 이후에 제거
+- 잡에 속한 파드를 사용자가 임의로 제거
+- (쿠버네티스에 속하지 않는) 외부 컨트롤러가 파드를 제거하거나 
+  교체
+
+클러스터에서 `JobTrackingWithFinalizers` 기능을 활성화하면, 
+컨트롤 플레인은 잡에 속하는 파드의 상태를 추적하고 
+API 서버에서 파드가 제거되면 이를 알아챈다. 
+이를 위해, 잡 컨트롤러는 `batch.kubernetes.io/job-tracking` 종료자를 갖는 파드를 생성한다. 
+컨트롤러는 파드의 상태 변화가 잡 상태에 반영된 후에만 종료자를 제거하므로, 
+이후 다른 컨트롤러나 사용자가 파드를 제거할 수 있다.
+
+잡 컨트롤러는 새로운 잡에 대해서만 새로운 알고리즘을 적용한다. 
+이 기능이 활성화되기 전에 생성된 잡은 영향을 받지 않는다. 
+잡에 `batch.kubernetes.io/job-tracking` 어노테이션이 있는지 확인하여, 
+잡 컨트롤러가 파드 종료자를 이용하여 잡을 추적하고 있는지 여부를 확인할 수 있다. 
+이 어노테이션을 잡에 수동으로 추가하거나 제거해서는 **안 된다**.
+
 ## 대안
 
 ### 베어(Bare) 파드
@@ -594,12 +634,25 @@ spec:
 시작하기에는 다소 복잡할 수 있으며 쿠버네티스와의 통합성이 낮아진다.
 
 이 패턴의 한 예시는 파드를 시작하는 잡이다. 파드는 스크립트를 실행해서
-스파크(Spark) 마스터 컨트롤러 ([스파크 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/spark/README.md)를 본다)를 시작하고,
+스파크(Spark) 마스터 컨트롤러 ([스파크 예시](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)를 본다)를 시작하고,
 스파크 드라이버를 실행한 다음, 정리한다.
 
 이 접근 방식의 장점은 전체 프로세스가 잡 오브젝트의 완료를 보장하면서도,
 파드 생성과 작업 할당 방법을 완전히 제어하고 유지한다는 것이다.
 
-## 크론잡 {#cron-jobs}
+## {{% heading "whatsnext" %}}
 
-[`CronJob`](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 사용해서 Unix 도구인 `cron`과 유사하게 지정된 시간/일자에 실행되는 잡을 생성할 수 있다.
+* [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
+* 다른 방식으로 잡을 구동하는 방법에 대해서 읽는다.
+  * [작업 대기열을 사용한 거친 병렬 처리](/ko/docs/tasks/job/coarse-parallel-processing-work-queue/)
+  * [작업 대기열을 사용한 정밀 병렬 처리](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)
+  * [병렬 처리를 위한 정적 작업 할당으로 인덱스된 잡](/docs/tasks/job/indexed-parallel-processing-static/)(베타) 사용
+  * 템플릿 기반으로 복수의 잡 생성: [확장을 사용한 병렬 처리](/ko/docs/tasks/job/parallel-processing-expansion/)
+* [완료된 잡을 자동으로 정리](#clean-up-finished-jobs-automatically) 섹션 내 링크를 따라서
+  클러스터가 완료되거나 실패된 태스크를 어떻게 정리하는지에 대해 더 배운다.
+* `Job`은 쿠버네티스 REST API의 일부이다.
+  잡 API에 대해 이해하기 위해
+  {{< api-reference page="workload-resources/job-v1" >}}
+  오브젝트 정의를 읽은다.
+* 스케줄을 기반으로 실행되는 일련의 잡을 정의하는데 사용할 수 있고, 유닉스 툴 `cron`과 유사한
+  [`CronJob`](/ko/docs/concepts/workloads/controllers/cron-jobs/)에 대해 읽는다.

@@ -1,4 +1,12 @@
 ---
+
+
+
+
+
+
+
+
 title: 분산 시스템 코디네이터 ZooKeeper 실행하기
 content_type: tutorial
 weight: 40
@@ -19,7 +27,7 @@ weight: 40
 - [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
 - [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
 - [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)
-- [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+- [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 - [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 - [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets)
 - [파드안티어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
@@ -929,7 +937,7 @@ kubernetes-node-i4c4
 [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain)를 이용하자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 ```
@@ -964,7 +972,7 @@ zk-0      1/1       Running   0         1m
 `zk-1` 이 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data "kubernetes-node-ixsl" cordoned
 ```
 
 ```
@@ -1007,7 +1015,7 @@ zk-1      0/1       Pending   0         0s
 `zk-2`가 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 ```
@@ -1094,7 +1102,7 @@ zk-1      1/1       Running   0         13m
 `zk-2`가 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 출력은

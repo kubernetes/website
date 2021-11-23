@@ -133,7 +133,6 @@ It acts synchronously to modify pods as they are created or updated. When this p
 <!--
 The ServiceAccount admission controller will add the following projected volume instead of a Secret-based volume for the non-expiring service account token created by Token Controller.
 -->
-当 `BoundServiceAccountTokenVolume`
 ServiceAccount 准入控制器将添加如下投射卷，而不是为令牌控制器
 所生成的不过期的服务账号令牌而创建的基于 Secret 的卷。
 
@@ -143,7 +142,7 @@ ServiceAccount 准入控制器将添加如下投射卷，而不是为令牌控�
     defaultMode: 420 # 0644
     sources:
       - serviceAccountToken:
-          expirationSeconds: 3600
+          expirationSeconds: 3607
           path: token
       - configMap:
           items:

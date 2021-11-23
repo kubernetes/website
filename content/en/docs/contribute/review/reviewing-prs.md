@@ -36,7 +36,38 @@ Before you start a review:
 
 ## Review process
 
-In general, review pull requests for content and style in English.
+In general, review pull requests for content and style in English. The figure below outlines the steps for the review process. The details for each step follow.
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+    subgraph fourth[Start review]
+    direction TB
+    S[ ] -.-
+    M[add comments] --> N[review changes]
+    N --> O[new contributors should<br>choose Comment]
+    end
+    subgraph third[Select PR]
+    direction TB
+    T[ ] -.-
+    J[read description<br>and comments]--> K[preview changes in<br>Netlify preview build]
+    end
+ 
+  A[Review open PR list]--> B[Filter open PRs<br>by label]
+  B --> third --> fourth
+     
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class A,B,J,K,M,N,O grey
+class S,T spacewhite
+class third,fourth white
+{{</ mermaid >}}
+
+***Figure - Review process steps***
 
 1.  Go to
     [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).

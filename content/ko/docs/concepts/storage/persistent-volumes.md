@@ -130,8 +130,10 @@ Events:            <none>
 `Retain` 반환 정책은 리소스를 수동으로 반환할 수 있게 한다. 퍼시스턴트볼륨클레임이 삭제되면 퍼시스턴트볼륨은 여전히 존재하며 볼륨은 "릴리스 된" 것으로 간주된다. 그러나 이전 요청자의 데이터가 여전히 볼륨에 남아 있기 때문에 다른 요청에 대해서는 아직 사용할 수 없다. 관리자는 다음 단계에 따라 볼륨을 수동으로 반환할 수 있다.
 
 1. 퍼시스턴트볼륨을 삭제한다. PV가 삭제된 후에도 외부 인프라(예: AWS EBS, GCE PD, Azure Disk 또는 Cinder 볼륨)의 관련 스토리지 자산이 존재한다.
-1. 관련 스토리지 자산의 데이터를 수동으로 삭제한다.
-1. 연결된 스토리지 자산을 수동으로 삭제하거나 동일한 스토리지 자산을 재사용하려는 경우 스토리지 자산 정의로 새 퍼시스턴트볼륨을 생성한다.
+2. 관련 스토리지 자산의 데이터를 수동으로 삭제한다.
+3. 연결된 스토리지 자산을 수동으로 삭제한다.
+
+동일한 스토리지 자산을 재사용하려는 경우, 동일한 스토리지 자산 정의로 새 퍼시스턴트볼륨을 생성한다.
 
 #### Delete(삭제)
 
@@ -314,12 +316,9 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 * [`azureDisk`](/ko/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
 * [`azureFile`](/ko/docs/concepts/storage/volumes/#azurefile) - Azure File
 * [`cephfs`](/ko/docs/concepts/storage/volumes/#cephfs) - CephFS 볼륨
-* [`cinder`](/ko/docs/concepts/storage/volumes/#cinder) - Cinder (오픈스택 블록 스토리지)
-  (**사용 중단**)
 * [`csi`](/ko/docs/concepts/storage/volumes/#csi) - 컨테이너 스토리지 인터페이스 (CSI)
 * [`fc`](/ko/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 스토리지
 * [`flexVolume`](/ko/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
-* [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
 * [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
 * [`glusterfs`](/ko/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 볼륨
 * [`hostPath`](/ko/docs/concepts/storage/volumes/#hostpath) - HostPath 볼륨
@@ -329,16 +328,27 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 * [`local`](/ko/docs/concepts/storage/volumes/#local) - 노드에 마운트된
   로컬 스토리지 디바이스
 * [`nfs`](/ko/docs/concepts/storage/volumes/#nfs) - 네트워크 파일 시스템 (NFS) 스토리지
-* `photonPersistentDisk` - Photon 컨트롤러 퍼시스턴트 디스크.
-  (이 볼륨 유형은 해당 클라우드 공급자가 없어진 이후 더 이상
-  작동하지 않는다.)
 * [`portworxVolume`](/ko/docs/concepts/storage/volumes/#portworxvolume) - Portworx 볼륨
-* [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
 * [`rbd`](/ko/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) 볼륨
-* [`scaleIO`](/ko/docs/concepts/storage/volumes/#scaleio) - ScaleIO 볼륨
-  (**사용 중단**)
-* [`storageos`](/ko/docs/concepts/storage/volumes/#storageos) - StorageOS 볼륨
 * [`vsphereVolume`](/ko/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 볼륨
+
+아래의 PersistentVolume 타입은 사용 중단되었다. 이 말인 즉슨, 지원은 여전히 제공되지만 추후 쿠버네티스 릴리스에서는 삭제될 예정이라는 것이다.
+
+* [`cinder`](/ko/docs/concepts/storage/volumes/#cinder) - Cinder (오픈스택 블록 스토리지)
+  (v1.18에서 **사용 중단**)
+* [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
+  (v1.22에서 **사용 중단**)
+* [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
+  (v1.22에서 **사용 중단**)
+* [`storageos`](/ko/docs/concepts/storage/volumes/#storageos) - StorageOS 볼륨
+  (v1.22에서 **사용 중단**)
+
+이전 쿠버네티스 버전은 아래의 인-트리 PersistentVolume 타입도 지원했었다.
+
+* `photonPersistentDisk` - Photon 컨트롤러 퍼시스턴트 디스크.
+  (v1.15 이후 **사용 불가**)
+* [`scaleIO`](/ko/docs/concepts/storage/volumes/#scaleio) - ScaleIO 볼륨
+  (v1.21 이후 **사용 불가**)
 
 ## 퍼시스턴트 볼륨
 
@@ -404,41 +414,51 @@ spec:
 
 접근 모드는 다음과 같다.
 
-* ReadWriteOnce -- 하나의 노드에서 볼륨을 읽기-쓰기로 마운트할 수 있다
-* ReadOnlyMany -- 여러 노드에서 볼륨을 읽기 전용으로 마운트할 수 있다
-* ReadWriteMany -- 여러 노드에서 볼륨을 읽기-쓰기로 마운트할 수 있다
+`ReadWriteOnce`
+: 하나의 노드에서 해당 볼륨이 읽기-쓰기로 마운트 될 수 있다. ReadWriteOnce 접근 모드에서도 파트가 동일 노드에서 구동되는 경우에는 복수의 파드에서 볼륨에 접근할 수 있다.
+
+`ReadWriteMany`
+: 볼륨이 다수의 노드에서 읽기 전용으로 마운트 될 수 있다.
+
+`ReadWriteOncePod`
+: 볼륨이 단일 파드에서 읽기-쓰기로 마운트될 수 있다. 전체 클러스터에서 단 하나의 파드만 해당 PVC를 읽거나 쓸 수 있어야하는 경우 ReadWriteOncePod 접근 모드를 사용한다. 이 기능은 CSI 볼륨과 쿠버네티스 버전 1.22+ 에서만 지원된다.
+
+
+
+[퍼시스턴트 볼륨에 대한 단일 파드 접근 모드 소개](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/) 블로그 기사에서 이에 대해 보다 자세한 내용을 다룬다.
+
 
 CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 
 * RWO - ReadWriteOnce
 * ROX - ReadOnlyMany
 * RWX - ReadWriteMany
+* RWOP - ReadWriteOncePod
 
 > __중요!__ 볼륨이 여러 접근 모드를 지원하더라도 한 번에 하나의 접근 모드를 사용하여 마운트할 수 있다. 예를 들어 GCEPersistentDisk는 하나의 노드가 ReadWriteOnce로 마운트하거나 여러 노드가 ReadOnlyMany로 마운트할 수 있지만 동시에는 불가능하다.
 
 
-| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
-| :---                 | :---:                  | :---:                 | :---:        |
-| AWSElasticBlockStore | &#x2713;               | -                     | -            |
-| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;     |
-| AzureDisk            | &#x2713;               | -                     | -            |
-| CephFS               | &#x2713;               | &#x2713;              | &#x2713;     |
-| Cinder               | &#x2713;               | -                     | -            |
-| CSI                  | 드라이버에 따라 다름    | 드라이버에 따라 다름    | 드라이버에 따라 다름 |
-| FC                   | &#x2713;               | &#x2713;              | -            |
-| FlexVolume           | &#x2713;               | &#x2713;              | 드라이버에 따라 다름 |
-| Flocker              | &#x2713;               | -                     | -            |
-| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -            |
-| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;     |
-| HostPath             | &#x2713;               | -                     | -            |
-| iSCSI                | &#x2713;               | &#x2713;              | -            |
-| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;     |
-| NFS                  | &#x2713;               | &#x2713;              | &#x2713;     |
-| RBD                  | &#x2713;               | &#x2713;              | -            |
-| VsphereVolume        | &#x2713;               | -                     | - (파드가 병치될(collocated) 때 작동)  |
-| PortworxVolume       | &#x2713;               | -                     | &#x2713;     |
-| ScaleIO              | &#x2713;               | &#x2713;              | -            |
-| StorageOS            | &#x2713;               | -                     | -            |
+| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
+| :---                 | :---:                  | :---:                 | :---:         | -                      |
+| AWSElasticBlockStore | &#x2713;               | -                     | -             | -                      |
+| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| AzureDisk            | &#x2713;               | -                     | -             | -                      |
+| CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| Cinder               | &#x2713;               | -                     | -             | -                      |
+| CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
+| FC                   | &#x2713;               | &#x2713;              | -             | -                      |
+| FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
+| Flocker              | &#x2713;               | -                     | -             | -                      |
+| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
+| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| HostPath             | &#x2713;               | -                     | -             | -                      |
+| iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
+| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
+| VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
+| PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
+| StorageOS            | &#x2713;               | -                     | -             | -                      |
 
 ### 클래스
 
@@ -499,7 +519,7 @@ PV는 `storageClassName` 속성을
 대부분의 볼륨 유형의 경우 이 필드를 설정할 필요가 없다. [AWS EBS](/ko/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) 및 [Azure Disk](/ko/docs/concepts/storage/volumes/#azuredisk) 볼륨 블록 유형에 자동으로 채워진다. [로컬](/ko/docs/concepts/storage/volumes/#local) 볼륨에 대해서는 이를 명시적으로 설정해야 한다.
 {{< /note >}}
 
-PV는 [노드 어피니티](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core)를 지정하여 이 볼륨에 접근할 수 있는 노드를 제한하는 제약 조건을 정의할 수 있다. PV를 사용하는 파드는 노드 어피니티에 의해 선택된 노드로만 스케줄링된다.
+PV는 [노드 어피니티](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core)를 지정하여 이 볼륨에 접근할 수 있는 노드를 제한하는 제약 조건을 정의할 수 있다. PV를 사용하는 파드는 노드 어피니티에 의해 선택된 노드로만 스케줄링된다. 노드 어피니티를 명기하기 위해서는, PV의 `.spec`에 `nodeAffinity`를 설정한다. [퍼시스턴트볼륨](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec) API 레퍼런스에 해당 필드에 대해 보다 자세한 내용이 있다.
 
 ### 단계(Phase)
 
@@ -785,6 +805,82 @@ spec:
       storage: 10Gi
 ```
 
+## 볼륨 파퓰레이터(Volume populator)와 데이터 소스
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+{{< note >}}
+쿠버네티스는 커스텀 볼륨 파퓰레이터를 지원한다. 
+이 알파 기능은 쿠버네티스 1.18에서 도입되었으며 
+1.22에서는 새로운 메카니즘과 리디자인된 API로 새롭게 구현되었다.
+현재 사용 중인 클러스터의 버전에 맞는 쿠버네티스 문서를 읽고 있는지 다시 한번 
+확인한다. {{% version-check %}}
+커스텀 볼륨 파퓰레이터를 사용하려면, kube-apiserver와 kube-controller-manager에 대해 
+`AnyVolumeDataSource` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+{{< /note >}}
+
+볼륨 파퓰레이터는 `dataSourceRef`라는 PVC 스펙 필드를 활용한다. 
+다른 PersistentVolumeClaim 또는 VolumeSnapshot을 가리키는 참조만 명시할 수 있는 
+`dataSource` 필드와는 다르게, `dataSourceRef` 필드는 동일 네임스페이스에 있는 
+어떠한 오브젝트에 대한 참조도 명시할 수 있다(단, PVC 외의 다른 코어 오브젝트는 제외). 
+기능 게이트가 활성화된 클러스터에서는 `dataSource`보다 `dataSourceRef`를 사용하는 것을 권장한다.
+
+## 데이터 소스 참조
+
+`dataSourceRef` 필드는 `dataSource` 필드와 거의 동일하게 동작한다. 
+둘 중 하나만 명시되어 있으면, API 서버는 두 필드에 같은 값을 할당할 것이다. 
+두 필드 모두 생성 이후에는 변경될 수 없으며, 
+두 필드에 다른 값을 넣으려고 시도하면 검증 에러가 발생할 것이다. 
+따라서 두 필드는 항상 같은 값을 갖게 된다.
+
+`dataSourceRef` 필드와 `dataSource` 필드 사이에는 
+사용자가 알고 있어야 할 두 가지 차이점이 있다.
+* `dataSource` 필드는 유효하지 않은 값(예를 들면, 빈 값)을 무시하지만, 
+  `dataSourceRef` 필드는 어떠한 값도 무시하지 않으며 유효하지 않은 값이 들어오면 에러를 발생할 것이다. 
+  유효하지 않은 값은 PVC를 제외한 모든 코어 오브젝트(apiGroup이 없는 오브젝트)이다.
+* `dataSourceRef` 필드는 여러 타입의 오브젝트를 포함할 수 있지만, `dataSource` 필드는 
+  PVC와 VolumeSnapshot만 포함할 수 있다.
+
+기능 게이트가 활성화된 클러스터에서는 `dataSourceRef`를 사용해야 하고, 그렇지 않은 
+클러스터에서는 `dataSource`를 사용해야 한다. 어떤 경우에서든 두 필드 모두를 확인해야 
+할 필요는 없다. 이렇게 약간의 차이만 있는 중복된 값은 이전 버전 호환성을 위해서만 
+존재하는 것이다. 상세히 설명하면, 이전 버전과 새로운 버전의 컨트롤러가 함께 동작할 
+수 있는데, 이는 두 필드가 동일하기 때문이다.
+
+### 볼륨 파퓰레이터 사용하기
+
+볼륨 파퓰레이터는 비어 있지 않은 볼륨(non-empty volume)을 생성할 수 있는 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}이며, 
+이 볼륨의 내용물은 커스텀 리소스(Custom Resource)에 의해 결정된다.
+파퓰레이티드 볼륨(populated volume)을 생성하려면 `dataSourceRef` 필드에 커스텀 리소스를 기재한다.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: populated-pvc
+spec:
+  dataSourceRef:
+    name: example-name
+    kind: ExampleDataSource
+    apiGroup: example.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+볼륨 파퓰레이터는 외부 컴포넌트이기 때문에, 
+만약 적합한 컴포넌트가 설치되어 있지 않다면 볼륨 파퓰레이터를 사용하는 PVC에 대한 생성 요청이 실패할 수 있다.
+외부 컨트롤러는 '컴포넌트가 없어서 PVC를 생성할 수 없음' 경고와 같은 
+PVC 생성 상태에 대한 피드백을 제공하기 위해, PVC에 대한 이벤트를 생성해야 한다.
+
+알파 버전의 [볼륨 데이터 소스 검증기](https://github.com/kubernetes-csi/volume-data-source-validator)를 
+클러스터에 설치할 수 있다. 
+해당 데이터 소스를 다루는 파퓰레이터가 등록되어 있지 않다면 이 컨트롤러가 PVC에 경고 이벤트를 생성한다.
+PVC를 위한 적절한 파퓰레이터가 설치되어 있다면, 
+볼륨 생성과 그 과정에서 발생하는 이슈에 대한 이벤트를 생성하는 것은 파퓰레이터 컨트롤러의 몫이다.
+
 ## 포터블 구성 작성
 
 광범위한 클러스터에서 실행되고 퍼시스턴트 스토리지가 필요한
@@ -811,16 +907,15 @@ spec:
   클러스터에 스토리지 시스템이 없음을 나타낸다(이 경우
   사용자는 PVC가 필요한 구성을 배포할 수 없음).
 
-  ## {{% heading "whatsnext" %}}
-
+## {{% heading "whatsnext" %}}
 
 * [퍼시스턴트볼륨 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트볼륨클레임 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨클레임-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md) 읽어보기
 
-### 참고
+### API 레퍼런스 {#reference}
 
-* [퍼시스턴트볼륨](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
-* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
-* [퍼시스턴트볼륨클레임](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
-* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
+본 페이지에 기술된 API에 대해서 다음을 읽어본다.
+
+* [`PersistentVolume`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
+* [`PersistentVolumeClaim`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)

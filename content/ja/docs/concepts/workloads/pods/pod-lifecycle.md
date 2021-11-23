@@ -19,10 +19,10 @@ Podはその生存期間に1回だけ[スケジューリング](/docs/concepts/s
 
 ## Podのライフタイム
 
-個々のアプリケーションコンテナと同様に、Podは(永続的ではなく)比較的短期間の存在と捉えられます。Podが作成されると、一意のID([UID](ja/docs/concepts/overview/working-with-objects/names/#uids))が割り当てられ、(再起動ポリシーに従って)終了または削除されるまでNodeで実行されるようにスケジュールされます。  
+個々のアプリケーションコンテナと同様に、Podは(永続的ではなく)比較的短期間の存在と捉えられます。Podが作成されると、一意のID([UID](/ja/docs/concepts/overview/working-with-objects/names/#uids))が割り当てられ、(再起動ポリシーに従って)終了または削除されるまでNodeで実行されるようにスケジュールされます。  
 {{< glossary_tooltip term_id="node" >}}が停止した場合、そのNodeにスケジュールされたPodは、タイムアウト時間の経過後に[削除](#pod-garbage-collection)されます。
 
-Pod自体は、自己修復しません。Podが{{< glossary_tooltip text="node" term_id="node" >}}にスケジュールされ、その後に失敗、またはスケジュール操作自体が失敗した場合、Podは削除されます。同様に、リソースの不足またはNodeのメンテナンスによりポッドはNodeから立ち退きます。Kubernetesは、比較的使い捨てのPodインスタンスの管理作業を処理する、{{< glossary_tooltip term_id="controller" text="controller" >}}と呼ばれる上位レベルの抽象化を使用します。
+Pod自体は、自己修復しません。Podが{{< glossary_tooltip text="node" term_id="node" >}}にスケジュールされ、その後に失敗、またはスケジュール操作自体が失敗した場合、Podは削除されます。同様に、リソースの不足またはNodeのメンテナンスによりPodはNodeから立ち退きます。Kubernetesは、比較的使い捨てのPodインスタンスの管理作業を処理する、{{< glossary_tooltip term_id="controller" text="controller" >}}と呼ばれる上位レベルの抽象化を使用します。
 
 特定のPod(UIDで定義)は新しいNodeに"再スケジュール"されません。代わりに、必要に応じて同じ名前で、新しいUIDを持つ同一のPodに置き換えることができます。
 
@@ -55,7 +55,7 @@ Nodeが停止するか、クラスタの残りの部分から切断された場�
 
 ## コンテナのステータス {#container-states}
 
-Pod全体の[フェーズ](#pod-phase)と同様に、KubernetesはPod内の各コンテナの状態を追跡します。[container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)を使用して、コンテナのライフサイクルの特定のポイントで実行するイベントをトリガーできます。
+Pod全体の[フェーズ](#pod-phase)と同様に、KubernetesはPod内の各コンテナの状態を追跡します。[container lifecycle hooks](/ja/docs/concepts/containers/container-lifecycle-hooks/)を使用して、コンテナのライフサイクルの特定のポイントで実行するイベントをトリガーできます。
 
 Podが{{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}によってNodeに割り当てられると、kubeletは{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}を使用してコンテナの作成を開始します。コンテナの状態は`Waiting`、`Running`または`Terminated`の3ついずれかです。
 
@@ -211,7 +211,7 @@ Podが削除されたときにリクエストを来ないようにするため�
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-startupProbeは、サービスの開始に時間がかかるコンテナを持つポッドに役立ちます。livenessProbeの間隔を長く設定するのではなく、コンテナの起動時に別のProbeを構成して、livenessProbeの間隔よりも長い時間を許可できます。
+startupProbeは、サービスの開始に時間がかかるコンテナを持つPodに役立ちます。livenessProbeの間隔を長く設定するのではなく、コンテナの起動時に別のProbeを構成して、livenessProbeの間隔よりも長い時間を許可できます。
 コンテナの起動時間が、`initialDelaySeconds + failureThreshold x periodSeconds`よりも長い場合は、livenessProbeと同じエンドポイントをチェックするためにstartupProbeを指定します。`periodSeconds`のデフォルトは30秒です。次に、`failureThreshold`をlivenessProbeのデフォルト値を変更せずにコンテナが起動できるように、十分に高い値を設定します。これによりデッドロックを防ぐことができます。
 
 ## Podの終了 {#pod-termination}
@@ -220,7 +220,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 
 ユーザーは削除を要求可能であるべきで、プロセスがいつ終了するかを知ることができなければなりませんが、削除が最終的に完了することも保証できるべきです。ユーザーがPodの削除を要求すると、システムはPodが強制終了される前に意図された猶予期間を記録および追跡します。強制削除までの猶予期間がある場合、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}正常な終了を試みます。
 
-通常、コンテナランタイムは各コンテナのメインプロセスにTERMシグナルを送信します。多くのコンテナランタイムは、コンテナイメージで定義されたSTOPSIGNAL値を尊重し、TERMの代わりにこれを送信します。猶予期間が終了すると、プロセスにKILLシグナルが送信され、Podは{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}から削除されます。プロセスの終了を待っている間にkubeletかコンテナランタイムの管理サービスが再起動されると、クラスターは元の猶予期間を含めて、最初からリトライされます。
+通常、コンテナランタイムは各コンテナのメインプロセスにTERMシグナルを送信します。多くのコンテナランタイムは、コンテナイメージで定義されたSTOPSIGNAL値を尊重し、TERMシグナルの代わりにこれを送信します。猶予期間が終了すると、プロセスにKILLシグナルが送信され、Podは{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}から削除されます。プロセスの終了を待っている間にkubeletかコンテナランタイムの管理サービスが再起動されると、クラスターは元の猶予期間を含めて、最初からリトライされます。
 
 フローの例は下のようになります。
 
@@ -228,7 +228,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 1. API server内のPodは、猶予期間を越えるとPodが「死んでいる」と見なされるように更新される。  
    削除中のPodに対して`kubectl describe`コマンドを使用すると、Podは「終了中」と表示される。  
    Podが実行されているNode上で、Podが終了しているとマークされている(正常な終了期間が設定されている)とkubeletが認識するとすぐに、kubeletはローカルでPodの終了プロセスを開始します。
-    1. Pod内のコンテナの1つが`preStop`[フック](/docs/concepts/containers/container-lifecycle-hooks/#hook-details)を定義している場合は、コンテナの内側で呼び出される。猶予期間が終了した後も `preStop`フックがまだ実行されている場合は、一度だけ猶予期間を延長される(2秒)。
+    1. Pod内のコンテナの1つが`preStop`[フック](/ja/docs/concepts/containers/container-lifecycle-hooks/#hook-details)を定義している場合は、コンテナの内側で呼び出される。猶予期間が終了した後も `preStop`フックがまだ実行されている場合は、一度だけ猶予期間を延長される(2秒)。
    {{< note >}}
    `preStop`フックが完了するまでにより長い時間が必要な場合は、`terminationGracePeriodSeconds`を変更する必要があります。
    {{< /note >}}
@@ -271,10 +271,10 @@ StatefulSetのPodについては、[StatefulSetからPodを削除するための
 ## {{% heading "whatsnext" %}}
 
 
-* [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオンをやってみる
+* [attaching handlers to Container lifecycle events](/ja/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオンをやってみる
 
 * [Configure Liveness, Readiness and Startup Probes](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のハンズオンをやってみる
 
-* [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
+* [Container lifecycle hooks](/ja/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
 
 * APIのPod/コンテナステータスの詳細情報は[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)および[ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)を参照してください

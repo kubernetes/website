@@ -173,7 +173,7 @@ Cluster Domain will be set to `cluster.local` unless
 
 ### Stable Storage
 
-For each VolumeClaimTemplate entry defined in a StatefulSet, each Pod receives one PersistentVolumeClaim. In the nginx example above, each Podreceives a single PersistentVolume with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
+For each VolumeClaimTemplate entry defined in a StatefulSet, each Pod receives one PersistentVolumeClaim. In the nginx example above, each Pod receives a single PersistentVolume with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
 is specified, then the default StorageClass will be used. When a Pod is (re)scheduled
 onto a node, its `volumeMounts` mount the PersistentVolumes associated with its
 PersistentVolume Claims. Note that, the PersistentVolumes associated with the
@@ -297,8 +297,18 @@ Please note that this field only works if you enable the `StatefulSetMinReadySec
 
 ## {{% heading "whatsnext" %}}
 
-
-* Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
-* Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
-* Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Find out how to use StatefulSets
+  * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
+  * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
+  * Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
+  * Learn how to [scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
+  * Learn what's involved when you [delete a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
+  * Learn how to [configure a Pod to use a volume for storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
+  * Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+* `StatefulSet` is a top-level resource in the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/stateful-set-v1" >}}
+  object definition to understand the API for stateful sets.
+* Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
+  you can use it to manage application availability during disruptions.
 

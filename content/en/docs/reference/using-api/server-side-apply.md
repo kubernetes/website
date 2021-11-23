@@ -508,11 +508,3 @@ sub-resources that don't receive the resource object type. If you are
 using Server Side Apply with such a sub-resource, the changed fields
 won't be tracked.
 {{< /caution >}}
-
-## Disabling the feature
-
-Server Side Apply is a beta feature, so it is enabled by default. To turn this
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates) off,
-you need to include the `--feature-gates ServerSideApply=false` flag when
-starting `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all
-should have the same flag setting.

@@ -128,12 +128,12 @@ APF 特性包含几个不同的功能。
 
 <!--
 ### Priority Levels
-Without APF enabled, overall concurrency in
-the API server is limited by the `kube-apiserver` flags
-`--max-requests-inflight` and `--max-mutating-requests-inflight`. With APF
-enabled, the concurrency limits defined by these flags are summed and then the sum is divided up
-among a configurable set of _priority levels_. Each incoming request is assigned
-to a single priority level, and each priority level will only dispatch as many
+Without APF enabled, overall concurrency in the API server is limited by the
+`kube-apiserver` flags `--max-requests-inflight` and
+`--max-mutating-requests-inflight`. With APF enabled, the concurrency limits
+defined by these flags are summed and then the sum is divided up among a
+configurable set of _priority levels_. Each incoming request is assigned to a
+single priority level, and each priority level will only dispatch as many
 concurrent requests as its configuration allows.
 -->
 ### 优先级    {#Priority-Levels}
@@ -219,8 +219,9 @@ server.
 
 The Priority and Fairness feature ships with a suggested configuration that
 should suffice for experimentation; if your cluster is likely to
-experience heavy load then you should consider what configuration will work best.
-The suggested configuration groups requests into five priority classes:
+experience heavy load then you should consider what configuration will work
+best. The suggested configuration groups requests into five priority
+classes:
 -->
 ## 默认值    {#defaults}
 
@@ -418,8 +419,8 @@ to balance progress between request flows.
 
 <!--
 The queuing configuration allows tuning the fair queuing algorithm for a
-priority level. Details of the algorithm can be read in the [enhancement
-proposal](#whats-next), but in short:
+priority level. Details of the algorithm can be read in the
+[enhancement proposal](#whats-next), but in short:
 -->
 公平排队算法支持通过排队配置对优先级微调。 可以在[增强建议](#whats-next)中阅读算法的详细信息，但总之：
 
@@ -450,7 +451,7 @@ proposal](#whats-next), but in short:
   a small number of flows can dominate the apiserver. A larger `handSize` also
   potentially increases the amount of latency that a single high-traffic flow
   can cause. The maximum number of queued requests possible from a
-  single flow is `handSize *queueLengthLimit`.
+  single flow is `handSize * queueLengthLimit`.
   {{< /note >}}
 -->
 * 修改 `handSize` 允许你调整过载情况下不同流之间的冲突概率以及单个流可用的整体并发性。
@@ -459,7 +460,7 @@ proposal](#whats-next), but in short:
   较大的 `handSize` 使两个单独的流程发生碰撞的可能性较小（因此，一个流可以饿死另一个流），
   但是更有可能的是少数流可以控制 apiserver。
   较大的 `handSize` 还可能增加单个高并发流的延迟量。
-  单个流中可能排队的请求的最大数量为 `handSize *queueLengthLimit` 。
+  单个流中可能排队的请求的最大数量为 `handSize * queueLengthLimit` 。
   {{< /note >}}
 
 <!--
@@ -628,13 +629,14 @@ poorly-behaved workloads that may be harming system health.
   matched the request), `priority_evel` (indicating the one to which
   the request was assigned), and `reason`.  The `reason` label will be
   have one of the following values:
-    * `queue-full`, indicating that too many requests were already
-      queued,
-    * `concurrency-limit`, indicating that the
-      PriorityLevelConfiguration is configured to reject rather than
-      queue excess requests, or
-    * `time-out`, indicating that the request was still in the queue
-      when its queuing time limit expired.
+
+  * `queue-full`, indicating that too many requests were already
+    queued,
+  * `concurrency-limit`, indicating that the
+    PriorityLevelConfiguration is configured to reject rather than
+    queue excess requests, or
+  * `time-out`, indicating that the request was still in the queue
+    when its queuing time limit expired.
 -->
 * `apiserver_flowcontrol_rejected_requests_total` 是一个计数器向量，
   记录被拒绝的请求数量（自服务器启动以来累计值），
@@ -724,6 +726,14 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_current_executing_requests` 是一个表向量，
   记录包含执行中（不在队列中等待）请求的瞬时数量，
   由标签 `priority_level` 和 `flow_schema` 进一步区分。
+
+<!-- 
+* `apiserver_flowcontrol_request_concurrency_in_use` is a gauge vector
+  holding the instantaneous number of occupied seats, broken down by
+  the labels `priority_level` and `flow_schema`.
+-->
+* `apiserver_flowcontrol_request_concurrency_in_use` 是一个规范向量，
+  包含占用座位的瞬时数量，由标签 `priority_level` 和 `flow_schema` 进一步区分。
 
 <!--
 * `apiserver_flowcontrol_priority_level_request_count_samples` is a
@@ -835,16 +845,16 @@ poorly-behaved workloads that may be harming system health.
 <!--
 ### Debug endpoints
 
-When you enable the API Priority and Fairness feature,
-the kube-apiserver serves the following additional paths at its HTTP[S] ports.
+When you enable the API Priority and Fairness feature, the `kube-apiserver`
+serves the following additional paths at its HTTP[S] ports.
 -->
 ### 调试端点    {#Debug-endpoints}
 
 启用 APF 特性后， kube-apiserver 会在其 HTTP/HTTPS 端口提供以下路径：
 
 <!--
-- `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of all the priority levels and the current state of each.
-You can fetch like this:
+- `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of
+  all the priority levels and the current state of each.  You can fetch like this:
 -->
 - `/debug/api_priority_and_fairness/dump_priority_levels` ——
   所有优先级及其当前状态的列表。你可以这样获取：
@@ -856,7 +866,7 @@ You can fetch like this:
   <!-- The output is similar to this: -->
   输出类似于：
 
-  ```
+  ```none
   PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests,
   workload-low,      0,            true,   false,       0,               0,
   global-default,    0,            true,   false,       0,               0,
@@ -868,8 +878,8 @@ You can fetch like this:
   ```
 
 <!--
-- `/debug/api_priority_and_fairness/dump_queues` - a listing of all the queues and their current state.
-You can fetch like this:
+- `/debug/api_priority_and_fairness/dump_queues` - a listing of all the
+  queues and their current state.  You can fetch like this:
 -->
 - `/debug/api_priority_and_fairness/dump_queues` —— 所有队列及其当前状态的列表。
   你可以这样获取：
@@ -881,7 +891,7 @@ You can fetch like this:
   <!-- The output is similar to this: -->
   输出类似于：
 
-  ```
+  ```none
   PriorityLevelName, Index,  PendingRequests, ExecutingRequests, VirtualStart,
   workload-high,     0,      0,               0,                 0.0000,
   workload-high,     1,      0,               0,                 0.0000,
@@ -892,8 +902,8 @@ You can fetch like this:
   ```
 
 <!--
-- `/debug/api_priority_and_fairness/dump_requests` - a listing of all the requests that are currently waiting in a queue.
-You can fetch like this:
+- `/debug/api_priority_and_fairness/dump_requests` - a listing of all the requests
+  that are currently waiting in a queue.  You can fetch like this:
 -->
 - `/debug/api_priority_and_fairness/dump_requests` ——当前正在队列中等待的所有请求的列表。
   你可以这样获取：
@@ -905,15 +915,15 @@ You can fetch like this:
   <!-- The output is similar to this: -->
   输出类似于：
 
-  ```
+  ```none
   PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,
   exempt,            <none>,         <none>,     <none>,              <none>,                <none>,
   system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:26:57.179170694Z,
   ```
 
   <!--
-  In addition to the queued requests,
-  the output includes one phantom line for each priority level that is exempt from limitation.
+  In addition to the queued requests, the output includes one phantom line
+  for each priority level that is exempt from limitation.
   -->
   针对每个优先级别，输出中还包含一条虚拟记录，对应豁免限制。
 
@@ -925,8 +935,9 @@ You can fetch like this:
   ```
 
   <!-- The output is similar to this: -->
+
   输出类似于：
-  ```
+  ```none
   PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,                     UserName,              Verb,   APIPath,                                                     Namespace, Name,   APIVersion, Resource, SubResource,
   system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
@@ -935,14 +946,13 @@ You can fetch like this:
 ## {{% heading "whatsnext" %}}
 
 <!--
-For background information on design details for API priority and fairness, see the
-[enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
-You can make suggestions and feature requests via
-[SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
+For background information on design details for API priority and fairness, see
+the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
+You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 
 or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).
 -->
 有关API优先级和公平性的设计细节的背景信息，
-请参阅[增强建议](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md)。
+请参阅[增强建议](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)。
 你可以通过 [SIG APIMachinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery/)
 或特性的 [Slack 频道](https://kubernetes.slack.com/messages/api-priority-and-fairness/)
 提出建议和特性请求。

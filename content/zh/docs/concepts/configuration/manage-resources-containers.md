@@ -202,10 +202,10 @@ CPU is always requested as an absolute quantity, never as a relative quantity;
 
 ### CPU 的含义 {#meaning-of-cpu}
 
-CPU 资源的约束和请求以 *cpu* 为单位。
+CPU 资源的约束和请求以 *CPU* 为单位。
 
-Kubernetes 中的一个 cpu 等于云平台上的 **1 个 vCPU/核**和裸机 Intel
-处理器上的 **1 个超线程 **。
+Kubernetes 中的一个 CPU 等于云平台上的 **1 个 vCPU/核**和裸机 Intel
+处理器上的 **1 个超线程**。
 
 你也可以表达带小数 CPU 的请求。`spec.containers[].resources.requests.cpu` 为 0.5
 的 Container 肯定能够获得请求 1 CPU 的容器的一半 CPU 资源。表达式 `0.1` 等价于表达式 `100m`，
@@ -321,8 +321,9 @@ When using Docker:
   flag in the `docker run` command.
 
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
-  multiplied by 100. The resulting value is the total amount of CPU time that a container can use
-  every 100ms. A container cannot use more than its share of CPU time during this interval.
+  multiplied by 100. The resulting value is the total amount of CPU time in microseconds
+  that a container can use every 100ms. A container cannot use more than its share of
+  CPU time during this interval.
 
   The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
 
@@ -337,8 +338,8 @@ When using Docker:
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
   标志的值。
 - `spec.containers[].resources.limits.cpu` 先被转换为 millicore 值，再乘以 100。
-  其结果就是每 100 毫秒内容器可以使用的 CPU 时间总量。在此期间（100ms），容器所使用的 CPU
-  时间不会超过它被分配的时间。
+  其结果就是每 100 毫秒内容器可以使用的 CPU 时间总量，单位为微秒。在此期间（100ms），
+  容器所使用的 CPU 时间不可以超过它被分配的时间。
 
   {{< note >}}
   默认的配额（Quota）周期为 100 毫秒。CPU 配额的最小精度为 1 毫秒。
@@ -621,6 +622,9 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+    - name: ephemeral
+      mountPath: "/tmp"
   - name: log-aggregator
     image: images.my-company.example/log-aggregator:v6
     resources:
@@ -628,6 +632,12 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+    - name: ephemeral
+      mountPath: "/tmp"
+  volumes:
+    - name: ephemeral
+      emptyDir: {}
 ```
 
 <!--

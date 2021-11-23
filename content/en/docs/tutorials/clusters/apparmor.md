@@ -233,7 +233,7 @@ kubectl get events | grep hello-apparmor
 We can verify that the container is actually running with that profile by checking its proc attr:
 
 ```shell
-kubectl exec hello-apparmor cat /proc/1/attr/current
+kubectl exec hello-apparmor -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)
@@ -242,7 +242,7 @@ k8s-apparmor-example-deny-write (enforce)
 Finally, we can see what happens if we try to violate the profile by writing to a file:
 
 ```shell
-kubectl exec hello-apparmor touch /tmp/test
+kubectl exec hello-apparmor -- touch /tmp/test
 ```
 ```
 touch: /tmp/test: Permission denied

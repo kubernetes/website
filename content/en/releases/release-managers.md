@@ -31,7 +31,7 @@ The responsibilities of each role are described below.
 
 ### Security Embargo Policy
 
-Some information about releases is subject to embargo and we have defined policy about how those embargos are set. Please refer [Security Embargo Policy](https://github.com/kubernetes/security/blob/master/private-distributors-list.md#embargo-policy) here for more information.
+Some information about releases is subject to embargo and we have defined policy about how those embargoes are set. Please refer to the [Security Embargo Policy](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy) for more information.
 
 ## Handbooks
 
@@ -88,10 +88,10 @@ GitHub Mentions: [@kubernetes/release-engineering](https://github.com/orgs/kuber
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Daniel Mangum ([@hasheddan](https://github.com/hasheddan))
 - Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
 - Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ### Becoming a Release Manager
 
@@ -138,7 +138,6 @@ GitHub Mentions: @kubernetes/release-engineering
 - Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
 - Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
 - Taylor Dolezal ([@onlydole](https://github.com/onlydole))
-- Verónica López ([@verolop](https://github.com/verolop))
 - Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
 
 ### Becoming a Release Manager Associate
@@ -199,7 +198,6 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Daniel Mangum ([@hasheddan](https://github.com/hasheddan))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 
 ---
@@ -215,6 +213,6 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
 [patches]: /patch-releases.md
-[src]: https://git.k8s.io/community/committee-product-security/README.md
+[src]: https://git.k8s.io/community/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md
 [security-release-process]: https://git.k8s.io/security/security-release-process.md

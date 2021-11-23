@@ -12,7 +12,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
 
 <!--
 This page provides an overview of ephemeral containers: a special type of container
@@ -27,14 +27,12 @@ containers to inspect services rather than to build applications.
 
 {{< warning >}}
 <!--
-Ephemeral containers are in early alpha state and are not suitable for production
-clusters. You should expect the feature not to work in some situations, such as
-when targeting the namespaces of a container. In accordance with the [Kubernetes
-Deprecation Policy](/docs/reference/using-api/deprecation-policy/), this alpha
-feature could change significantly in the future or be removed entirely.
+Ephemeral containers are in alpha state and are not suitable for production
+clusters. In accordance with the [Kubernetes Deprecation Policy](
+/docs/reference/using-api/deprecation-policy/), this alpha feature could change
+significantly in the future or be removed entirely.
 -->
-临时容器处于早期的 Alpha 阶段，不适用于生产环境集群。
-应该预料到临时容器在某些情况下不起作用，例如在定位容器的命名空间时。
+临时容器处于 Alpha 阶段，不适用于生产环境集群。
 根据 [Kubernetes 弃用政策](/zh/docs/reference/using-api/deprecation-policy/)，
 此 Alpha 功能将来可能发生重大变化或被完全删除。
 {{< /warning >}}
@@ -141,151 +139,8 @@ you can view processes in other containers.
 [进程名字空间共享](/zh/docs/tasks/configure-pod-container/share-process-namespace/)
 很有帮助，可以查看其他容器中的进程。
 
+{{% heading "whatsnext" %}}
 <!--
-See [Debugging with Ephemeral Debug Container](/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)
-for examples of troubleshooting using ephemeral containers.
+* Learn how to [debug pods using ephemeral containers](/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container).
 -->
-关于如何使用临时容器来执行故障排查的例子，可参阅
-[使用临时调试容器来调试](/zh/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)。
-
-<!--
-## Ephemeral containers API
--->
-### 临时容器 API   {#ephemeral-containers-api}
-
-{{< note >}}
-<!--
-The examples in this section require the `EphemeralContainers` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled, and Kubernetes client and server version v1.16 or later.
--->
-本节中的示例要求启用 `EphemeralContainers`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
-并且 kubernetes 客户端和服务端版本要求为 v1.16 或更高版本。
-{{< /note >}}
-
-<!--
-The examples in this section demonstrate how ephemeral containers appear in
-the API. You would normally use `kubectl debug` or another `kubectl`
-[plugin](/docs/tasks/extend-kubectl/kubectl-plugins/) to automate these steps
-rather than invoking the API directly.
--->
-本节中的示例演示了临时容器如何出现在 API 中。
-通常，你会使用 `kubectl debug` 或别的 `kubectl`
-[插件](/zh/docs/tasks/extend-kubectl/kubectl-plugins/) 自动执行这些步骤，而不是直接调用API。
-
-<!--
-Ephemeral containers are created using the `ephemeralcontainers` subresource
-of Pod, which can be demonstrated using `kubectl -raw`. First describe
-the ephemeral container to add as an `EphemeralContainers` list:
--->
-临时容器是使用 Pod 的 `ephemeralcontainers` 子资源创建的，可以使用
-`kubectl --raw` 命令进行显示。
-首先描述临时容器被添加为一个 `EphemeralContainers` 列表：
-
-```json
-{
-    "apiVersion": "v1",
-    "kind": "EphemeralContainers",
-    "metadata": {
-        "name": "example-pod"
-    },
-    "ephemeralContainers": [{
-        "command": [
-            "sh"
-        ],
-        "image": "busybox",
-        "imagePullPolicy": "IfNotPresent",
-        "name": "debugger",
-        "stdin": true,
-        "tty": true,
-        "terminationMessagePolicy": "File"
-    }]
-}
-```
-
-<!--
-To update the ephemeral containers of the already running `example-pod`:
--->
-使用如下命令更新已运行的临时容器 `example-pod`：
-
-```shell
-kubectl replace --raw /api/v1/namespaces/default/pods/example-pod/ephemeralcontainers  -f ec.json
-```
-
-<!--
-This will return the new list of ephemeral containers:
--->
-这将返回临时容器的新列表：
-
-```json
-{
-   "kind":"EphemeralContainers",
-   "apiVersion":"v1",
-   "metadata":{
-      "name":"example-pod",
-      "namespace":"default",
-      "selfLink":"/api/v1/namespaces/default/pods/example-pod/ephemeralcontainers",
-      "uid":"a14a6d9b-62f2-4119-9d8e-e2ed6bc3a47c",
-      "resourceVersion":"15886",
-      "creationTimestamp":"2019-08-29T06:41:42Z"
-   },
-   "ephemeralContainers":[
-      {
-         "name":"debugger",
-         "image":"busybox",
-         "command":[
-            "sh"
-         ],
-         "resources":{
-
-         },
-         "terminationMessagePolicy":"File",
-         "imagePullPolicy":"IfNotPresent",
-         "stdin":true,
-         "tty":true
-      }
-   ]
-}
-```
-
-<!--
-You can view the state of the newly created ephemeral container using `kubectl describe`:
--->
-可以使用以下命令查看新创建的临时容器的状态：
-
-```shell
-kubectl describe pod example-pod
-```
-
-输出为：
-
-```
-...
-Ephemeral Containers:
-  debugger:
-    Container ID:  docker://cf81908f149e7e9213d3c3644eda55c72efaff67652a2685c1146f0ce151e80f
-    Image:         busybox
-    Image ID:      docker-pullable://busybox@sha256:9f1003c480699be56815db0f8146ad2e22efea85129b5b5983d0e0fb52d9ab70
-    Port:          <none>
-    Host Port:     <none>
-    Command:
-      sh
-    State:          Running
-      Started:      Thu, 29 Aug 2019 06:42:21 +0000
-    Ready:          False
-    Restart Count:  0
-    Environment:    <none>
-    Mounts:         <none>
-...
-```
-
-<!--
-You can attach to the new ephemeral container using `kubectl attach`:
--->
-可以使用以下命令连接到新的临时容器：
-
-```shell
-kubectl attach -it example-pod -c debugger
-```
-
+* 了解如何[使用临时调试容器来进行调试](/zh/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)

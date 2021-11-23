@@ -35,11 +35,11 @@ On their own, custom resources let you store and retrieve structured data.
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 
-A [declarative API](/docs/concepts/overview/kubernetes-api/)
-allows you to _declare_ or specify the desired state of your resource and tries to
-keep the current state of Kubernetes objects in sync with the desired state.
-The controller interprets the structured data as a record of the user's
-desired state, and continually maintains this state.
+The Kubernetes [declarative API](/docs/concepts/overview/kubernetes-api/)
+enforces a separation of responsibilities. You declare the desired state of
+your resource. The Kubernetes controller keeps the current state of Kubernetes
+objects in sync with your declared desired state. This is in contrast to an
+imperative API, where you *instruct* a server what to do.
 
 You can deploy and update a custom controller on a running cluster, independently
 of the cluster's lifecycle. Custom controllers can work with any kind of resource,
@@ -148,8 +148,8 @@ and use a controller to handle events.
 Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also generically handle custom resources through [CRDs](#customresourcedefinitions).
 
 The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
-implementations for your custom resources by writing and deploying your own standalone API server.
-The main API server delegates requests to you for the custom resources that you handle,
+implementations for your custom resources by writing and deploying your own API server.
+The main API server delegates requests to your API server for the custom resources that you handle,
 making them available to all of its clients.
 
 ## Choosing a method for adding custom resources

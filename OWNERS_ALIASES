@@ -18,6 +18,7 @@ aliases:
     - annajung
     - bradtopol
     - celestehorgan
+    - divya-mohan0209
     - jimangel
     - jlbutler
     - kbhawkey
@@ -31,11 +32,14 @@ aliases:
     - bradtopol
     - celestehorgan
     - daminisatya
+    - divya-mohan0209
     - jimangel
     - kbhawkey
+    - mehabhalodiya
     - onlydole
     - rajeshdeshpande02
     - sftim
+    - shannonxtreme
     - tengqm
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
@@ -79,6 +83,7 @@ aliases:
     - anubha-v-ardhan
     - divya-mohan0209
     - mittalyashu
+    - verma-kunal
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
     - danninov
@@ -133,6 +138,7 @@ aliases:
     - yoonian
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
+    - divya-mohan0209
     - jimangel
     - kbhawkey
     - onlydole
@@ -162,6 +168,7 @@ aliases:
     - xichengliudui
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
+    - edsoncelio
     - femrtnz
     - jailton
     - jcjesus
@@ -170,6 +177,7 @@ aliases:
     - rikatz
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
+    - edsoncelio
     - femrtnz
     - jailton
     - jcjesus
@@ -217,12 +225,12 @@ aliases:
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - cblecker
-    - derekwaynecarr
     - dims
+    - justaugustus
     - liggitt
     - mrbobbytables
-    - nikhita
     - parispittman
+    - tpepper
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
     - cpanato # SIG Technical Lead

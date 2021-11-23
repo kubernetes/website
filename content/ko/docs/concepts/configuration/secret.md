@@ -12,26 +12,33 @@ weight: 30
 
 <!-- overview -->
 
-쿠버네티스 시크릿을 사용하면 비밀번호, OAuth 토큰, ssh 키와 같은
-민감한 정보를 저장하고 관리할 수 ​​있다. 기밀 정보를 시크릿에 저장하는 것이
-{{< glossary_tooltip term_id="pod" >}} 정의나
-{{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}}
-내에 그대로 두는 것보다 안전하고 유연하다.
-자세한 내용은 [시크릿 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md)를 참고한다.
-
 시크릿은 암호, 토큰 또는 키와 같은 소량의 중요한 데이터를
-포함하는 오브젝트이다. 그렇지 않으면  이러한 정보가 파드
-명세나 이미지에 포함될 수 있다. 사용자는 시크릿을 만들 수 있고 시스템도
-일부 시크릿을 만들 수 있다.
+포함하는 오브젝트이다. 이를 사용하지 않으면 중요한 정보가 {{< glossary_tooltip text="파드" term_id="pod" >}}
+명세나 {{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}}에
+포함될 수 있다. 시크릿을 사용한다는 것은 사용자의 기밀 데이터를
+애플리케이션 코드에 넣을 필요가
+없음을 뜻한다.
+
+시크릿은 시크릿을 사용하는 파드와 독립적으로 생성될 수 있기 때문에,
+파드를 생성하고, 확인하고, 수정하는 워크플로우 동안 시크릿(그리고 데이터)이
+노출되는 것에 대한 위험을 경감시킬 수 있다. 쿠버네티스
+및 클러스터에서 실행되는 애플리케이션은 기밀 데이터를 비휘발성
+저장소에 쓰는 것을 피하는 것과 같이, 시크릿에 대해 추가 예방 조치를 취할 수도 있다.
+
+시크릿은 {{< glossary_tooltip text="컨피그맵" term_id="configmap" >}}과 유사하지만
+특별히 기밀 데이터를 보관하기 위한 것이다.
 
 {{< caution >}}
-쿠버네티스 시크릿은 기본적으로 암호화되지 않은 base64 인코딩 문자열로 저장된다.
-기본적으로 API 액세스 권한이 있는 모든 사용자 또는 쿠버네티스의 기본 데이터 저장소 etcd에
-액세스할 수 있는 모든 사용자가 일반 텍스트로 검색할 수 있다.
-시크릿을 안전하게 사용하려면 (최소한) 다음과 같이 하는 것이 좋다.
+쿠버네티스 시크릿은 기본적으로 API 서버의 기본 데이터 저장소(etcd)에 암호화되지 않은 상태로 저장된다. API 접근(access) 권한이 있는 모든 사용자 또는 etcd에 접근할 수 있는 모든 사용자는 시크릿을 조회하거나 수정할 수 있다.
+또한 네임스페이스에서 파드를 생성할 권한이 있는 사람은 누구나 해당 접근을 사용하여 해당 네임스페이스의 모든 시크릿을 읽을 수 있다. 여기에는 디플로이먼트 생성 기능과 같은 간접 접근이 포함된다. 
+
+시크릿을 안전하게 사용하려면 최소한 다음의 단계를 따르는 것이 좋다.
 
 1. 시크릿에 대한 [암호화 활성화](/docs/tasks/administer-cluster/encrypt-data/).
-2. 시크릿 읽기 및 쓰기를 제한하는 [RBAC 규칙 활성화 또는 구성](/ko/docs/reference/access-authn-authz/authorization/). 파드를 만들 권한이 있는 모든 사용자는 시크릿을 암묵적으로 얻을 수 있다.
+2. 시크릿의 데이터 읽기 및 쓰기(간접적인 방식 포함)를 제한하는 [RBAC 규칙](/ko/docs/reference/access-authn-authz/authorization/)
+   활성화 또는 구성.
+3. 적절한 경우, RBAC와 같은 메커니즘을 사용하여 새로운 시크릿을 생성하거나 기존 시크릿을 대체할 수 있는 주체(principal)들을 제한한다.
+
 {{< /caution >}}
 
 <!-- body -->
@@ -46,6 +53,10 @@ weight: 30
   [파일](#시크릿을-파드의-파일로-사용하기)로써 사용.
 - [컨테이너 환경 변수](#시크릿을-환경-변수로-사용하기)로써 사용.
 - 파드의 [이미지를 가져올 때 kubelet](#imagepullsecrets-사용하기)에 의해 사용.
+
+쿠버네티스 컨트롤 플레인 또한 시크릿을 사용한다. 예를 들어,
+[부트스트랩 토큰 시크릿](#부트스트랩-토큰-시크릿)은
+노드 등록을 자동화하는 데 도움을 주는 메커니즘이다.
 
 시크릿 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
@@ -66,7 +77,7 @@ weight: 30
 시크릿을 생성할 때, [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 리소스의 `type` 필드를 사용하거나, (활용 가능하다면) `kubectl` 의
 유사한 특정 커맨드라인 플래그를 사용하여 시크릿의 타입을 명시할 수 있다.
-시크릿 타입은 시크릿 데이터의 프로그래믹 처리를 촉진시키기 위해 사용된다.
+시크릿 타입은 여러 종류의 기밀 데이터를 프로그래밍 방식으로 용이하게 처리하기 위해 사용된다.
 
 쿠버네티스는 일반적인 사용 시나리오를 위해 몇 가지 빌트인 타입을 제공한다.
 이 타입은 쿠버네티스가 부과하여 수행되는 검증 및 제약에
@@ -201,7 +212,8 @@ data:
 kubectl create secret docker-registry secret-tiger-docker \
   --docker-username=tiger \
   --docker-password=pass113 \
-  --docker-email=tiger@acme.com
+  --docker-email=tiger@acme.com \
+  --docker-server=my-registry.example:5000
 ```
 
 이 커맨드는 `kubernetes.io/dockerconfigjson` 타입의 시크릿을 생성한다.
@@ -211,15 +223,21 @@ kubectl create secret docker-registry secret-tiger-docker \
 
 ```json
 {
-  "auths": {
-    "https://index.docker.io/v1/": {
-      "username": "tiger",
-      "password": "pass113",
-      "email": "tiger@acme.com",
-      "auth": "dGlnZXI6cGFzczExMw=="
-    }
-  }
+    "apiVersion": "v1",
+    "data": {
+        ".dockerconfigjson": "eyJhdXRocyI6eyJteS1yZWdpc3RyeTo1MDAwIjp7InVzZXJuYW1lIjoidGlnZXIiLCJwYXNzd29yZCI6InBhc3MxMTMiLCJlbWFpbCI6InRpZ2VyQGFjbWUuY29tIiwiYXV0aCI6ImRHbG5aWEk2Y0dGemN6RXhNdz09In19fQ=="
+    },
+    "kind": "Secret",
+    "metadata": {
+        "creationTimestamp": "2021-07-01T07:30:59Z",
+        "name": "secret-tiger-docker",
+        "namespace": "default",
+        "resourceVersion": "566718",
+        "uid": "e15c1d7b-9071-4100-8681-f3a7a2ce89ca"
+    },
+    "type": "kubernetes.io/dockerconfigjson"
 }
+
 ```
 
 ### 기본 인증 시크릿
@@ -823,6 +841,9 @@ kubelet은 API 서버에서 시크릿을 가져오는 파드에 대한
 파드가 포함된다. kubelet의 `--manifest-url` 플래그, `--config` 플래그 또는
 kubectl의 REST API(이 방법들은 파드를 생성하는 일반적인 방법이 아님)로
 생성된 파드는 포함하지 않는다.
+{{< glossary_tooltip text="스태틱(static) 파드" term_id="static-pod" >}}의 `spec`은 컨피그맵
+또는 다른 API 오브젝트를 참조할 수 없다.
+
 
 시크릿은 optional(선택 사항)로 표시되지 않는 한 파드에서 환경
 변수로 사용되기 전에 생성되어야 한다. 존재하지 않는 시크릿을
@@ -1236,9 +1257,9 @@ API 서버에서 kubelet으로의 통신은 SSL/TLS로 보호된다.
    API 서버 정책이 해당 사용자가 시크릿을 읽을 수 있도록 허용하지 않더라도, 사용자는
    시크릿을 노출하는 파드를 실행할 수 있다.
 
-
 ## {{% heading "whatsnext" %}}
 
 - [`kubectl` 을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
 - [구성 파일을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
 - [kustomize를 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기
+- [API 레퍼런스](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)에서 `Secret`에 대해 읽기

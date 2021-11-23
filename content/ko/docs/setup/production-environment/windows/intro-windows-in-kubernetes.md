@@ -1,15 +1,23 @@
 ---
-title: 쿠버네티스의 윈도우 지원 소개
+
+
+
+
+
+title: 쿠버네티스에서 윈도우 컨테이너
 content_type: concept
 weight: 65
-
-
-
-
-
 ---
 
 <!-- overview -->
+
+{{< note >}}
+본 문서의 영어 원문([Windows containers in Kubernetes](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/))은 변경되었습니다.
+
+최신 내용은 원문을 통해 확인하시기 바랍니다.
+
+본 문서에 대한 갱신은 기여를 통해 진행되며, 갱신이 완료되면 해당 알림은 제거됩니다.
+{{< /note >}}
 
 윈도우 애플리케이션은 많은 조직에서 실행되는 서비스 및
 애플리케이션의 상당 부분을 구성한다.
@@ -67,10 +75,9 @@ weight: 65
 
 | 쿠버네티스 버전 | 윈도우 서버 LTSC 릴리스 | 윈도우 서버 SAC 릴리스 |
 | --- | --- | --- | --- |
-| *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 | *Kubernetes v1.20* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 | *Kubernetes v1.21* | Windows Server 2019 | Windows Server ver 2004, Windows Server ver 20H2 |
-
+| *Kubernetes v1.22* | Windows Server 2019 | Windows Server ver 2004, Windows Server ver 20H2 |
 
 지원 모델을 포함한 다양한 윈도우 서버
 서비스 채널에 대한 정보는
@@ -98,12 +105,16 @@ weight: 65
 일단 쿠버네티스에서 Hyper-V 격리가 포함된 윈도우 컨테이너를 지원하면,
 제한 및 호환성 규칙이 변경될 것이다.
 
-#### 퍼즈(Pause) 이미지
+#### 퍼즈(Pause) 이미지 {#pause-image}
 
-Microsoft는 `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`에서
-윈도우 퍼즈 인프라 컨테이너를 유지한다.
-이외에도 `k8s.gcr.io/pause:3.5`를 통해 쿠버네티스에서 관리하는 다중 아키텍처 이미지를
-사용할 수도 있는데, 이 이미지는 리눅스와 윈도우를 모두 지원한다.
+쿠버네티스는 윈도우 지원을 포함하는 다중 아키텍처 이미지를 유지보수한다.
+쿠버네티스 v1.22의 경우 권장 퍼즈 이미지는 `k8s.gcr.io/pause:3.5`이다.
+[소스 코드](https://github.com/kubernetes/kubernetes/tree/master/build/pause)는 
+GitHub에서 찾을 수 있다.
+
+Microsoft는 리눅스, 윈도우 amd64를 지원하는 다중 아키텍처 이미지를 `mcr.microsoft.com/oss/kubernetes/pause:3.5`에서 유지보수하고 있다.
+이 이미지는 쿠버네티스가 유지 관리하는 이미지와 동일한 소스코드에서 생성되었지만, 모든 윈도우 바이너리는 Microsoft에 의해 서명된 [인증 코드](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode)이다.
+프로덕션 환경에서 서명된 바이너리가 필요한 경우, Microsoft가 유지 관리하는 이미지를 사용하는 것을 권장한다.
 
 #### 컴퓨트
 
@@ -237,7 +248,7 @@ powershell 스크립트로 배포된 다음의 FlexVolume
 
 ##### CSI 플러그인
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 {{< glossary_tooltip text="CSI" term_id="csi" >}} 플러그인과
 관련된 코드는 일반적으로 컨테이너 이미지로 배포되고 데몬셋(DaemonSets)
@@ -246,9 +257,7 @@ powershell 스크립트로 배포된 다음의 FlexVolume
 바이너리로 제공된다. CSI 플러그인은 쿠버네티스에서 볼륨 프로비저닝/디-프로비저닝, 볼륨
 크기 조정, 쿠버네티스 노드에 볼륨 연결/분리, 파드의 개별 컨테이너에 볼륨
 마운트/분리, 스냅샷 및 복제를 사용하여 퍼시스턴트 데이터 백업/복원과 같은
-다양한 볼륨 관리 작업을 처리한다. CSI 플러그인은
-일반적으로 (각 노드에서 데몬셋으로 실행되는) 노드 플러그인과 컨트롤러
-플러그인으로 구성된다.
+다양한 볼륨 관리 작업을 처리한다.
 
 CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템으로 노출된
 퍼시스턴트 볼륨과 관련된 플러그인)은 디스크 장치 스캔, 파일 시스템 마운트 등과 같은
@@ -261,6 +270,13 @@ CSI 노드 플러그인에 대한 특권이 필요한 작업은 커뮤니티에�
 [csi-proxy](https://github.com/kubernetes-csi/csi-proxy)를 사용하여 지원된다. 자세한
 내용은 배포하려는 CSI 플러그인의 배포 가이드를
 참조한다.
+
+윈도우 노드에서 CSI 노드 플러그인은 일반적으로 로컬 스토리지 작업을 처리하는 
+커뮤니티에서 관리하는 [csi-proxy](https://github.com/kubernetes-csi/csi-proxy)에 의해 노출된 API를 호출한다.
+
+설치에 대한 자세한 내용은 윈도우 CSI 플러그인을 
+배포할 환경의 배포 가이드를 참고한다.
+또한 다음 [설치 단계](https://github.com/kubernetes-csi/csi-proxy#installation)를 참고할 수도 있다.
 
 #### 네트워킹
 
@@ -1068,9 +1084,8 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
     kubelet.exe를 등록한다.
 
     ```powershell
-    # Microsoft는 mcr.microsoft.com/oss/kubernetes/pause:1.4.1에서 pause 인프라 컨테이너를 릴리스했다.
     nssm install kubelet C:\k\kubelet.exe
-    nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/oss/kubernetes/pause:1.4.1 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
+    nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=k8s.gcr.io/pause:3.5 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
     nssm set kubelet AppDirectory C:\k
     nssm start kubelet
     ```
@@ -1224,13 +1239,13 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
 * 내 파드가 "Container Creating"에서 멈췄거나 계속해서 다시 시작된다.
 
-  pause 이미지가 OS 버전과 호환되는지 확인한다.
+  퍼즈 이미지가 OS 버전과 호환되는지 확인한다.
   [지침](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources)에서는
   OS와 컨테이너가 모두 버전 1803이라고 가정한다. 이후 버전의
   윈도우가 있는 경우, Insider 빌드와 같이 그에 따라 이미지를
   조정해야 한다. 이미지는 Microsoft의
   [도커 리포지터리](https://hub.docker.com/u/microsoft/)를 참조한다.
-  그럼에도 불구하고, pause 이미지 Dockerfile과 샘플 서비스는 이미지가
+  그럼에도 불구하고, 퍼즈 이미지 Dockerfile과 샘플 서비스는 이미지가
   :latest로 태그될 것으로 예상한다.
 
 * DNS 확인(resolution)이 제대로 작동하지 않는다.
@@ -1239,11 +1254,17 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
 * `kubectl port-forward`가 "unable to do port forwarding: wincat not found"로 실패한다.
 
-  이는 쿠버네티스 1.15 및 pause 인프라 컨테이너
+  이는 쿠버네티스 1.15 및 퍼즈 인프라 컨테이너
   `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`에서 구현되었다.
-  해당 버전 또는 최신 버전을 사용해야 한다. 자체 pause
+  해당 버전 또는 최신 버전을 사용해야 한다. 자체 퍼즈
   인프라 컨테이너를 빌드하려면
   [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat)을 포함해야 한다.
+
+  윈도우에서 포트 포워딩을 지원하려면 [퍼즈 인프라 컨테이너](#pause-image)를 이용하기 위해서 
+  wincat.exe가 필요하다. 
+  윈도우 OS 버전과 호환되는 지원되는 이미지를 사용하고 있는지 확인해야 한다.
+  자신만의 퍼즈 인프라 컨테이너를 구축하려면 
+  [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat)을 포함해야 한다.
 
 * 내 윈도우 서버 노드가 프록시 뒤에 있기 때문에 내 쿠버네티스
   설치가 실패한다.
@@ -1256,20 +1277,18 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
   [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
   ```
 
-* `pause` 컨테이너란 무엇인가?
+* 퍼즈(`pause`) 컨테이너란 무엇인가?
 
   쿠버네티스 파드에서는 컨테이너 엔드포인트를 호스팅하기 위해
-  먼저 인프라 또는 "pause" 컨테이너가 생성된다. 인프라 및 워커 컨테이너를 포함하여
+  먼저 인프라 또는 "퍼즈" 컨테이너가 생성된다. 인프라 및 워커 컨테이너를 포함하여
   동일한 파드에 속하는 컨테이너는 공통 네트워크 네임스페이스 및
   엔드포인트(동일한 IP 및 포트 공간)를 공유한다. 네트워크 구성을 잃지 않고
-  워커 컨테이너가 충돌하거나 다시 시작되도록 하려면 pause 컨테이너가
+  워커 컨테이너가 충돌하거나 다시 시작되도록 하려면 퍼즈 컨테이너가
   필요하다.
 
-  "pause" (인프라) 이미지는 Microsoft Container Registry(MCR)에서
-  호스팅된다. `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`을 사용하여 접근할 수 있다.
-  자세한 내용은
-  [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile)을 참고한다.
-
+  퍼즈 이미지 추천 버전을 찾기 위해서는 
+  [퍼즈 이미지](#pause-image)를 참고한다.
+  
 ### 추가 조사
 
 이러한 단계로 문제가 해결되지 않으면, 다음을 통해 쿠버네티스의 윈도우 노드에서

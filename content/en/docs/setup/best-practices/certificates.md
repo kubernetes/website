@@ -38,11 +38,13 @@ etcd also implements mutual TLS to authenticate clients and peers.
 
 ## Where certificates are stored
 
-If you install Kubernetes with kubeadm, certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory.
+If you install Kubernetes with kubeadm, most certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory, with the exception of user account certificates which kubeadm places in `/etc/kubernetes`.
 
 ## Configure certificates manually
 
-If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways.
+If you don't want kubeadm to generate the required certificates, you can create them using a single root CA or by providing all certificates. See [Certificates](/docs/tasks/administer-cluster/certificates/) for details on creating your own certificate authority.
+See [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/) for more on managing certificates.
+
 
 ### Single root CA
 
@@ -57,7 +59,16 @@ Required CAs:
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 On top of the above CAs, it is also necessary to get a public/private key pair for service account management, `sa.key` and `sa.pub`.
+The following example illustrates the CA key and certificate files shown in the previous table:
 
+```
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+```
 ### All certificates
 
 If you don't wish to copy the CA private keys to your cluster, you can generate all certificates yourself.
@@ -127,6 +138,32 @@ Same considerations apply for the service account key pair:
 |  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file   |
 |                              | sa.pub                      | kube-apiserver          | --service-account-key-file           |
 
+The following example illustrates the file paths [from the previous tables](/docs/setup/best-practices/certificates/#certificate-paths) you need to provide if you are generating all of your own keys and certificates:
+
+```
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/apiserver-etcd-client.key
+/etc/kubernetes/pki/apiserver-etcd-client.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/apiserver.key
+/etc/kubernetes/pki/apiserver.crt
+/etc/kubernetes/pki/apiserver-kubelet-client.key
+/etc/kubernetes/pki/apiserver-kubelet-client.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-client.key
+/etc/kubernetes/pki/front-proxy-client.crt
+/etc/kubernetes/pki/etcd/server.key
+/etc/kubernetes/pki/etcd/server.crt
+/etc/kubernetes/pki/etcd/peer.key
+/etc/kubernetes/pki/etcd/peer.crt
+/etc/kubernetes/pki/etcd/healthcheck-client.key
+/etc/kubernetes/pki/etcd/healthcheck-client.crt
+/etc/kubernetes/pki/sa.key
+/etc/kubernetes/pki/sa.pub
+```
 ## Configure certificates for user accounts
 
 You must manually configure these administrator account and service accounts:
@@ -146,7 +183,7 @@ The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value 
 
 1. Run `kubectl` as follows for each config:
 
-```shell
+```
 KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
 KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
 KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
@@ -162,4 +199,11 @@ These files are used as follows:
 | controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
 | scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
 
+The following files illustrate full paths to the files listed in the previous table:
 
+```
+/etc/kubernetes/admin.conf
+/etc/kubernetes/kubelet.conf
+/etc/kubernetes/controller-manager.conf
+/etc/kubernetes/scheduler.conf
+```

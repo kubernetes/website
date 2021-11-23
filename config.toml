@@ -122,6 +122,7 @@ id = "UA-00000000-0"
 [params]
 copyright_k8s = "The Kubernetes Authors"
 copyright_linux =  "Copyright © 2020 The Linux Foundation ®."
+
 # privacy_policy = "https://policies.google.com/privacy"
 
 # First one is picked as the Twitter card image if not set on page.

@@ -558,15 +558,10 @@ specify a readiness probe. In this case, the readiness probe might be the same
 as the liveness probe, but the existence of the readiness probe in the spec means
 that the Pod will start without receiving any traffic and only start receiving
 traffic after the probe starts succeeding.
-If your container needs to work on loading large data, configuration files, or
-migrations during startup, specify a readiness probe.
 -->
 如果要仅在探测成功时才开始向 Pod 发送请求流量，请指定就绪态探针。
 在这种情况下，就绪态探针可能与存活态探针相同，但是规约中的就绪态探针的存在意味着
 Pod 将在启动阶段不接收任何数据，并且只有在探针探测成功后才开始接收数据。
-
-如果你的容器需要加载大规模的数据、配置文件或者在启动期间执行迁移操作，可以添加一个
-就绪态探针。
 
 <!--
 If you want your container to be able to take itself down for maintenance, you
@@ -575,6 +570,27 @@ is different from the liveness probe.
 -->
 如果你希望容器能够自行进入维护状态，也可以指定一个就绪态探针，检查某个特定于
 就绪态的因此不同于存活态探测的端点。
+
+<!--
+If your app has a strict dependency on back-end services, you can implement both
+a liveness and a readiness probe. The liveness probe passes when the app itself
+is healthy, but the readiness probe additionally checks that each required
+back-end service is available. This helps you avoid directing traffic to Pods
+that can only respond with error messages.
+
+If your container needs to work on loading large data, configuration files, or
+migrations during startup, you can use a
+[startup probe](#when-should-you-use-a-startup-probe). However, if you want to
+detect the difference between an app that has failed and an app that is still
+processing its startup data, you might prefer a readiness probe.
+-->
+如果你的应用程序对后端服务有严格的依赖性，你可以同时实现存活态和就绪态探针。
+当应用程序本身是健康的，存活态探针检测通过后，就绪态探针会额外检查每个所需的后端服务是否可用。
+这可以帮助你避免将流量导向只能返回错误信息的 Pod。
+
+如果你的容器需要在启动期间加载大型数据、配置文件或执行迁移，你可以使用
+[启动探针](#when-should-you-use-a-startup-probe)。
+然而，如果你想区分已经失败的应用和仍在处理其启动数据的应用，你可能更倾向于使用就绪探针。
 
 {{< note >}}
 <!--
@@ -690,7 +706,7 @@ An example flow:
 
    <!--
    1. If one of the Pod's containers has defined a `preStop`
-      [hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), the kubelet
+      [hook](/docs/concepts/containers/container-lifecycle-hooks), the kubelet
       runs that hook inside of the container. If the `preStop` hook is still running after the
       grace period expires, the kubelet requests a small, one-off grace period extension of 2
       seconds.
@@ -702,7 +718,7 @@ An example flow:
       order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
    -->
    1. 如果 Pod 中的容器之一定义了 `preStop`
-      [回调](/zh/docs/concepts/containers/container-lifecycle-hooks/#hook-details)，
+      [回调](/zh/docs/concepts/containers/container-lifecycle-hooks)，
       `kubelet` 开始在容器内运行该回调逻辑。如果超出体面终止限期时，`preStop` 回调逻辑
       仍在运行，`kubelet` 会请求给予该 Pod 的宽限期一次性增加 2 秒钟。
 

@@ -29,13 +29,13 @@ Kompose is released via GitHub on a three-week cycle, you can see all current re
 
 ```sh
 # Linux
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-linux-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.24.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.24.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.24.0/kompose-windows-amd64.exe -o kompose.exe
 
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
@@ -150,13 +150,12 @@ you need is an existing `docker-compose.yml` file.
    ```
 
    ```bash
-    kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,
+    kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
    ```
 
    The output is similar to:
 
    ```none
-   redis-master-deployment.yaml,redis-slave-deployment.yaml
    service/frontend created
    service/redis-master created
    service/redis-slave created

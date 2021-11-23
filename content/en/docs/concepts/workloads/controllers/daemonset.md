@@ -185,7 +185,7 @@ You can modify the Pods that a DaemonSet creates.  However, Pods do not allow al
 fields to be updated.  Also, the DaemonSet controller will use the original template the next
 time a node (even with the same name) is created.
 
-You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the Pods
+You can delete a DaemonSet.  If you specify `--cascade=orphan` with `kubectl`, then the Pods
 will be left on the nodes.  If you subsequently create a new DaemonSet with the same selector,
 the new DaemonSet adopts the existing Pods. If any Pods need replacing the DaemonSet replaces
 them according to its `updateStrategy`.
@@ -235,3 +235,18 @@ all or certain hosts, if the DaemonSet provides node-level functionality that al
 For example, [network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) often include a component that runs as a DaemonSet. The DaemonSet component makes sure that the node where it's running has working cluster networking.
 
 
+## {{% heading "whatsnext" %}}
+
+* Learn about [Pods](/docs/concepts/workloads/pods).
+  * Learn about [static Pods](#static-pods), which are useful for running Kubernetes
+    {{< glossary_tooltip text="control plane" term_id="control-plane" >}} components.
+* Find out how to use DaemonSets
+  * [Perform a rolling update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
+  * [Perform a rollback on a DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
+    (for example, if a roll out didn't work how you expected).
+* Understand [how Kubernetes assigns Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
+* Learn about [device plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) and
+  [add ons](/docs/concepts/cluster-administration/addons/), which often run as DaemonSets.
+* `DaemonSet` is a top-level resource in the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/daemon-set-v1" >}}
+  object definition to understand the API for daemon sets.
