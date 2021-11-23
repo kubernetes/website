@@ -447,7 +447,7 @@ will be terminated once the job backoff limit has been reached. This can make de
 from failed Jobs is not lost inadvertently.
 -->
 {{< note >}}
-如果你的 Job 的 `restartPolicy` 被设置为 "OnFailure"，就要注意运行该 Job 的容器
+如果你的 Job 的 `restartPolicy` 被设置为 "OnFailure"，就要注意运行该 Job 的 Pod
 会在 Job 到达失效回退次数上限时自动被终止。
 这会使得调试 Job 中可执行文件的工作变得非常棘手。
 我们建议在调试 Job 时将 `restartPolicy` 设置为 "Never"，
