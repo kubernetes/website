@@ -346,16 +346,21 @@ Events:
 [노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)를 이용하여
 파드가 필요한 프로파일이 있는 노드에서 실행되도록 한다.
 
-### PodSecurityPolicy로 프로파일 제한하기 {#restricting-profiles-with-the-podsecuritypolicy}
+### 파드시큐리티폴리시(PodSecurityPolicy)로 프로파일 제한하기 {#restricting-profiles-with-the-podsecuritypolicy}
 
-만약 PodSecurityPolicy 확장을 사용하면, 클러스터 단위로 AppArmor 제한을 적용할 수 있다.
-PodSecurityPolicy를 사용하려면 위해 다음의 플래그를 반드시 `apiserver`에 설정해야 한다.
+{{< note >}}
+파드시큐리티폴리시는 쿠버네티스 v1.21에서 사용 중단되었으며, v1.25에서 제거될 예정이다. 
+더 자세한 내용은 [파드시큐리티폴리시 문서](/ko/docs/concepts/policy/pod-security-policy/)를 참고한다.
+{{< /note >}}
+
+만약 파드시큐리티폴리시 확장을 사용하면, 클러스터 단위로 AppArmor 제한을 적용할 수 있다.
+파드시큐리티폴리시를 사용하려면 위해 다음의 플래그를 반드시 `apiserver`에 설정해야 한다.
 
 ```
 --enable-admission-plugins=PodSecurityPolicy[,others...]
 ```
 
-AppArmor 옵션은 PodSecurityPolicy의 어노테이션으로 지정할 수 있다.
+AppArmor 옵션은 파드시큐리티폴리시의 어노테이션으로 지정할 수 있다.
 
 ```yaml
 apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>
@@ -385,7 +390,7 @@ AppArmor가 일반 사용자 버전이 되면 제거된다.
 ### AppArmor와 함께 쿠버네티스 1.4로 업그레이드 하기 {#upgrading-to-kubernetes-v1.4-with-apparmor}
 
 클러스터 버전을 v1.4로 업그레이드하기 위해 AppArmor쪽 작업은 없다.
-그러나 AppArmor 어노테이션을 가진 파드는 유효성 검사(혹은 PodSecurityPolicy 승인)을 거치지 않는다.
+그러나 AppArmor 어노테이션을 가진 파드는 유효성 검사(혹은 파드시큐리티폴리시 승인)을 거치지 않는다.
 그 노드에 허용 프로파일이 로드되면, 악의적인 사용자가 허가 프로필을 미리 적용하여
 파드의 권한을 docker-default 보다 높일 수 있다.
 이것이 염려된다면 `apparmor.security.beta.kubernetes.io` 어노테이션이 포함된
@@ -434,7 +439,7 @@ AppArmor 로그는 `dmesg`에서 보이며, 오류는 보통 시스템 로그나
 ### 프로파일 참조 {#profile-reference}
 
 - `runtime/default`: 기본 런타임 프로파일을 참조한다.
-  - (기본 PodSecurityPolicy 없이) 프로파일을 지정하지 않고
+  - (기본 파드시큐리티폴리시 없이) 프로파일을 지정하지 않고
     AppArmor를 사용하는 것과 동등하다.
   - 도커에서는 권한 없는 컨테이너의 경우는
     [`docker-default`](https://docs.docker.com/engine/security/apparmor/) 프로파일로,
@@ -446,7 +451,7 @@ AppArmor 로그는 `dmesg`에서 보이며, 오류는 보통 시스템 로그나
 
 다른 어떤 프로파일 참조 형식도 유효하지 않다.
 
-### PodSecurityPolicy 어노테이션 {#podsecuritypolicy-annotations}
+### 파드시큐리티폴리시 어노테이션 {#podsecuritypolicy-annotations}
 
 아무 프로파일도 제공하지 않을 때에 컨테이너에 적용할 기본 프로파일을 지정하기
 

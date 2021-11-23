@@ -183,7 +183,7 @@ CPU 사용량은 0으로 떨어졌고, HPA는 레플리카의 개수를 1로 낮
 첫 번째로, `autoscaling/v2beta2` 형식으로 HorizontalPodAutoscaler YAML 파일을 생성한다.
 
 ```shell
-kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
+kubectl get hpa php-apache -o yaml > /tmp/hpa-v2.yaml
 ```
 
 에디터로 `/tmp/hpa-v2.yaml` 파일을 열면, 다음과 같은 YAML을 확인할 수 있다.

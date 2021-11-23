@@ -126,7 +126,18 @@ kubeadm 1.17 이전 버전에는 `kubeadm upgrade node` 명령에서
 
 `kubeadm certs renew` 명령을 사용하여 언제든지 인증서를 수동으로 갱신할 수 있다.
 
-이 명령은 `/etc/kubernetes/pki` 에 저장된 CA(또는 프론트 프록시 CA) 인증서와 키를 사용하여 갱신을 수행한다.
+이 명령은 `/etc/kubernetes/pki` 에 저장된 CA(또는 프론트 프록시 CA) 인증서와 키를 사용하여 갱신을 수행한다. 
+
+명령을 실행한 후에는 컨트롤 플레인 파드를 재시작해야 한다.
+이는 현재 일부 구성 요소 및 인증서에 대해 인증서를 동적으로 다시 로드하는 것이 지원되지 않기 때문이다.
+[스태틱(static) 파드](/ko/docs/tasks/configure-pod-container/static-pod/)는 API 서버가 아닌 로컬 kubelet에서 관리되므로 
+kubectl을 사용하여 삭제 및 재시작할 수 없다.
+스태틱 파드를 다시 시작하려면 `/etc/kubernetes/manifests/`에서 매니페스트 파일을 일시적으로 제거하고 
+20초를 기다리면 된다 ([KubeletConfiguration struct](/docs/
+reference/config-api/kubelet-config.v1beta1/)의 `fileCheckFrequency` 값을 참고한다).
+파드가 매니페스트 디렉터리에 더 이상 없는 경우 kubelet은 파드를 종료한다.
+그런 다음 파일을 다시 이동할 수 있으며 또 다른 `fileCheckFrequency` 기간이 지나면,
+kubelet은 파드를 생성하고 구성 요소에 대한 인증서 갱신을 완료할 수 있다.
 
 {{< warning >}}
 HA 클러스터를 실행 중인 경우, 모든 컨트롤 플레인 노드에서 이 명령을 실행해야 한다.
