@@ -63,7 +63,7 @@ Containers cannot assume an identity from the host because the Security Account 
 
 #### Memory reservations {#resource-management-memory}
 
-Windows does not have an out-of-memory process killer as Linux does. Windows always
+Windows does not have an out-of-memory process killer as Linux has. Windows always
 treats all user-mode memory allocations as virtual, and pagefiles are mandatory
 (on Linux, the kubelet will by default not start with swap space enabled).
 
