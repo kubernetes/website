@@ -1,74 +1,61 @@
 ---
-
 title: कंटेनर रनटाइम
 content_type: concept
 weight: 20
 ---
 <!-- overview -->
 
-आपको स्क्लस्टर के प्रत्येक नोड पे
-{{< glossary_tooltip text="कंटेनर रनटाइम " term_id="container-runtime" >}}
-इंस्टॉल करने की आवयशकता है ताकि पॉड वहां वहाँ चल सकें।
-यह पृष्ठ नोड्स की स्थापना के लिए संबंधित कार्यों का वर्णन करता है।
+आपको क्लस्टर में प्रत्येक नोड में एक {{< glossary_tooltip text="container रनटाइम" term_id="container-runtime" >}} 
+इंस्टॉल करना होगा ताकि पॉड वहां चल सकें। 
+यह पृष्ठ बताता है कि क्या शामिल है और 
+नोड्स की स्थापना के लिए संबंधित कार्यों का वर्णन करता है।
+
 <!-- body -->
 
-यह पृष्ठ कुबेरनेट्स Linux पर कई सामान्य कंटेनर रनटाइम का उपयोग करने के लिए विवरण सूचीबद्ध करता है: 
+यह पृष्ठ लिनक्स पर कुबेरनेट्स के साथ कई सामान्य कंटेनर रनटाइम का उपयोग करने के विवरण सूचीबद्ध करता है: 
 
 - [containerd](#containerd)
 - [CRI-O](#cri-o)
 - [Docker](#docker)
 
 {{< note >}}
-अन्य ऑपरेटिंग सिस्टम के लिए, अपने प्लेटफ़ॉर्म के लिए विअनुसार विशिष्ट प्रलेखन देखें देखें।
+अन्य ऑपरेटिंग सिस्टम के लिए, अपने प्लेटफ़ॉर्म के लिए अनुसार विशिष्ट प्रलेखन देखें।
 {{< /note >}}
 
 ## Cgroup ड्राइवर 
 
-Control groups प्रक्रियाओं को आवंटित संसाधनों को बाधित करने के लिए उपयोग किया जाता है। 
+प्रक्रियाओं के लिए आवंटित संसाधनों को सीमित करने के लिए कण्ट्रोल ग्रुप का उपयोग किया जाता है।
 
-जब Linux वातावरण के लिए init सिस्टम, [systemd](https://www.freedesktop.org/wiki/Software/systemd/)
+जब Linux वातावरण के लिए init सिस्टम, [systemd]
+(https://www.freedesktop.org/wiki/Software/systemd/)
 को चुना जाता है, तब init प्रक्रिया root control group(`cgroup`) उत्पन्न करती है और उपभोग करती है 
-तथा cgroup मैनेजर की तरह कार्य करती है।
+तथा cgroup मैनेजर  की तरह काम करता है।
 
 
+Systemd और cgroups एकीकृत हैं और प्रत्येक systemd यूनिट को एक cgroup आवंटित होता है। अपने कन्टैनर रनटाइम और kubelet को `cgroupfs` प्रयोग करने के लिए कॉन्फ़िगर करना संभव है। systemd के साथ `cgroupfs` प्रयोग करने के कारण दो अलग cgroup मैनेजर होंगे।
 
-Systemd और cgroups एकीकृत हैं और प्रत्येक systemd यूनिट को एक cgroup आवंटित होता है। अपने कन्टैनर रनटाइम और kubelet
-को `cgroupfs` प्रयोग करने के लिए कॉन्फ़िगर करना संभव है। systemd के साथ `cgroupfs` प्रयोग करने के कारण दो 
-अलग cgroup मैनेजर होंगे।
+एक एकल cgroup प्रबंधक इस दृष्टिकोण को सरल बनाता है कि कौन से संसाधन आवंटित किए जा रहे हैं और डिफ़ॉल्ट रूप से उपलब्ध और उपयोग में आने वाले संसाधनों के बारे में अधिक सुसंगत दृश्य होगा।
+जब एक सिस्टम पर दो cgroup मैनेजर होते हैं, तो आपको उन रिसोर्सेज के दो व्यू मिलते हैं। क्षेत्र में, लोगों ने ऐसे मामलों की सूचना दी है जहां नोड्स जो kubelet और डॉकर के लिए `cgroupfs` का उपयोग करने के लिए कॉन्फ़िगर किए गए हैं, लेकिन बाकी प्रक्रियाओं के लिए `systemd` संसाधन दबाव के कारण अस्थिर हो जाते हैं। 
 
-एक एकल cgroup प्रबंधक इस दृष्टिकोण को सरल बनाता है कि कौन से संसाधन आवंटित किए जा रहे हैं और डिफ़ॉल्ट रूप से उपलब्ध और उपयोग में आ
-और उपयोग में आने वाले संसाधनों के बारे में अधिक सुसंगत दृश्य होगा।
-जब एक सिस्टम पर दो cgroup प्रबंधक होते हैं, तो आपको उन संसाधनों के दो दृश्य मिदोदृश्य मिलते हैं। तेक्षेत्र में, लोऐसा देखा गया है की नोड्स जो क्यूबलेट और डॉकर के लिए cgroupfs परन्तु बाकि
-प्रोसेस के लिए systemd उपयोग करने को कॉन्फ़िगर किये गए है, वो दबाव में अस्थिर हो जाते हैं। टिंग्स को इस तरहसेटिंग्स को इस तरह बदलें कि आपका कंटेनर रनटाइम और क्यूबलेट `systemd` का उप
- योग करें क्योंकि cgroup ड्राइवर सिस्टम को स्थिर करता है।
-डॉकर के लिए इसे कॉन्फ़िगर करने के लिए, `native.cgroupdriver=systemd` सेट करें। 
+सेटिंग्स को इस तरह बदलना कि आपका कंटेनर रनटाइम और kubelet `systemd` का उपयोग करें क्योंकि cgroup ड्राइवर सिस्टम को स्थिर करता है। डॉकर के लिए इसे कॉन्फ़िगर करने के लिए, `native.cgroupdriver=systemd` सेट करें। 
 
-{{< caution >}}
-क्लस्टर में शामिल होने वाले नोड के cgroup ड्राइवर को बदलना एक संवेसंवेदनशील ऑपरेशन है। 
-यदि क्यूबलेट ने एक cgroup ड्राइवर के शब्दार्थ का उपयोग करके पॉड्स बनाए हैं, तो कंटेनर रनटाइम को दूसरे cgroup ड्राइवर में बदलने से ऐसे मौजूदा पॉड्स के   
-मौजूदा पॉपॉड्स के लिए पॉड सैंडबॉक्स को फिर से बनाने का प्रयास करते समय त्रुटियाँ हो सकती हैं। 
-यदि आपके पास स्वचालन है जो इसे व्यवहार्य बनाता है, तो अद्यतन किए गए
-कॉन्फ़िगरेशन का उपयोग करके नोड को दूसरे के साथ बदलें, या स्वचालन का उपयोग
-करके इसे पुनर्स्थापित करें।
+{{<caution >}}
+क्लस्टर में शामिल होने वाले नोड के cgroup ड्राइवर को बदलना एक संवेदनशील ऑपरेशन है। यदि kubelet ने एक सीग्रुप ड्राइवर के शब्दार्थ का उपयोग करके पॉड्स बनाए हैं, तो कंटेनर रनटाइम को दूसरे सीग्रुप ड्राइवर में बदलने से मौजूदा पॉड्स के पॉड सैंडबॉक्स को फिर से बनाते समय त्रुटियां हो सकती हैं। kubelet को पुनरारंभ करने से ऐसी त्रुटियों का समाधान नहीं हो सकता है। 
+यदि आपके पास स्वचालन है जो इसे व्यवहार्य बनाता है, तो अद्यतन किए गए कॉन्फ़िगरेशन का उपयोग करके नोड को दूसरे के साथ बदलें, या स्वचालन का उपयोग करके इसे पुनर्स्थापित करें।
+
 {{< /caution >}}
 
 ## Cgroup v2
 
-Cgroup v2 cgroup Linux API का अगला संस्करण है।
-cgroup v1 से अलग, प्रत्येक नियंत्रक के लिए एक अलग पदानुक्रम के बजाय एक एकल पदानुक्रम है। 
+Cgroup v2, cgroup Linux API का अगला संस्करण है।cgroup v1 से अलग, प्रत्येक कंट्रोलर के लिए एक अलग अनुक्रम के बजाय एक एकल पदानुक्रम है। 
 
 नया संस्करण cgroup v1 पर कई सुधार प्रदान करता है, इनमें से कुछ सुधार हैं:
+- API का उपयोग करने का क्लीनर और आसान तरीका
+- कंटेनरों के लिए सुरक्षित उप-वृक्ष प्रतिनिधिमंडल
+- प्रेशर स्टॉल की जानकारी जैसी नई सुविधाएँ
 
-- एपीआई का उपयोग कर करने का स्वच्छ और आसान तरीकारीका
-- कंटेनरों के लिए सुरक्षित उप-वृक्ष प्रतिनिधिमंडल  
-- प्रेशर स्टॉल की जानकारी जैसी नई सुविधाएँ 
-
-भले ही कर्नेल हाइब्रिड कॉन्फ़िगरेशन का समर्थन करता है जबकि कुछ
-कंट्रोलर  cgroup v1 द्वारा प्रबंधित किए जाते हैं और कुछ अन्य cgroup v2 द्वारा प्प्रबंधितकि किए जाते हैं, लेकिन Kuberbernetes सभी 
-कंट्रोलरस को प्रबंधित करने के लिए केवल एक ही cgroup संस्करण का समर्थन करता है। nel su
-
-यदि सिस्टमड डिफ़ॉल्ट रूप से cgroup v2 का उपयोग नहीं करता है, तो आप सिस्टम को इसके द्वारा कॉन्फ़िगर कर सकते हैं
-systemd.unified_cgroup_hierarchy=1` कर्नेल कमांड लाइन के लिए। 
+भले ही कर्नेल हाइब्रिड कॉन्फ़िगरेशन का समर्थन करता हो, जहां कुछ नियंत्रक cgroup v1 . द्वारा प्रबंधित किए जाते हैं और कुछ अन्य cgroup v2 द्वारा, Kubernetes सभी नियंत्रकों को प्रबंधित करने के लिए केवल उसी cgroup संस्करण का समर्थन करता है।
+यदि सिस्टमड डिफ़ॉल्ट रूप से cgroup v2 का उपयोग नहीं करता है, तो आप कर्नेल कमांड लाइन में `systemd.unified_cgroup_hierarchy=1` जोड़कर सिस्टम को इसका उपयोग करने के लिए कॉन्फ़िगर कर सकते हैं।
 
 ```shell
 # dnf install -y grubby && \
@@ -79,15 +66,13 @@ systemd.unified_cgroup_hierarchy=1` कर्नेल कमांड लाइ
 
 कॉन्फ़िगरेशन को लागू करने के लिए, नोड को रीबूट करना आवश्यक है।
 
-cgroup v2 में स्विच करते समय उपयोगकर्ता अनुभव में कोई ध्यान देने योग्य अंतर नहीं होना चाहिए
-होना चाहिए,  जब तक कि उपयोगकर्ता cgroup फ़ाइल सिस्टम को सीधे नोड पर या कंटेनरों के भीतर से एक्सेस नहीं कर रहे हों। 
+cgroup v2 में स्विच करते समय उपयोगकर्ता अनुभव में कोई उल्लेखनीय अंतर नहीं होना चाहिए, जब तक कि उपयोगकर्ता सीग्रुप फाइल सिस्टम को सीधे नोड पर या कंटेनरों के भीतर से एक्सेस कर रहे हैं। 
 
-इसका उपयोग करने के लिए, cgroup v2 को CRI रनटाइम द्वारा भी समर्थित होना चाहिए।
+इसका उपयोग करने के लिए, cgroup v2 को CRI रनटाइम द्वारा भी समर्थित होना चाहिए। 
 
-### Migrating to the `systemd` driver in kubeadm managed clusters
+### Kubeadm प्रबंधित क्लस्टर में `systemd` ड्राइवर में माइग्रेट करना
 
-इस पेज को फॉलो करें  [Migration guide](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
-यदि आप मौजूदा kubeadm प्रबंधित क्लस्टर में `systemd` cgroup ड्राइवर में माइग्रेट करना चाहते हैं। .
+यदि आप मौजूदा kubeadm प्रबंधित क्लस्टर में `systemd` cgroup ड्राइवर में माइग्रेट करना चाहते हैं, तो [माइग्रेशन गाइड](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) का पालन करें।
 
 ## Container runtimes
 
@@ -95,12 +80,9 @@ cgroup v2 में स्विच करते समय उपयोगकर
 
 ### containerd
 
-इस खंड में कंटेनरड को सीआरआई रनटाइम के रूप में उपयोग करने के लिए आवश्यक जानकारी है। 
-
-अपने सिस्टम पर कंटेनर्ड को स्थापित करने के लिए निम्नलिखित कमांड का उपयोग करें:
-
-पूर्वापेक्षाएँ स्थापित और कॉन्फ़िगर करें: 
-
+यह खंड कंटेनरड को सीआरआई रनटाइम के रूप में उपयोग करने के लिए आवश्यक कदम बताता है।
+अपने सिस्टम पर containerd स्थापित करने के लिए निम्नलिखित कमांड का उपयोग करें:
+पूर्वापेक्षाएँ स्थापित और कॉन्फ़िगर करें:
 
 ```shell
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
@@ -122,7 +104,7 @@ EOF
 sudo sysctl --system
 ```
 
-इंस्टॉलI कंटेनरड :
+कंटेनर स्थापित करें:
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
@@ -131,14 +113,14 @@ sudo sysctl --system
 अपने संबंधित लिनक्स वितरण के लिए डॉकर रिपॉजिटरी स्थापित करने और `containerd.io` पैकेज स्थापित करने के निर्देश यहां देखे जा सकते हैं
 [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 
-2. कॉन्फ़िगर  cकंटेनरड:
+2. कंटेनर को कॉन्फ़िगर करें:
 
    ```shell
    sudo mkdir -p /etc/containerd
    containerd config default | sudo tee /etc/containerd/config.toml
    ```
 
-3. Restart कंटेनरड: 
+3. कंटेनर को पुनरारंभ करें:
 
    ```shell
    sudo systemctl restart containerd
@@ -147,17 +129,16 @@ sudo sysctl --system
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
-एक पॉवरशेल शुरू करें, और सेट करें `$Version` वांछित संस्करण के लिए (ex: `$Version=1.4.3`), 
-और उसके बाद निम्न आदेश चलाएँ: 
+Powershell सत्र प्रारंभ करें, `$Version` को वांछित संस्करण पर सेट करें (उदाहरण: `$Version=1.4.3`), और फिर निम्न आदेश चलाएँ: 
 
-1. डाउनलोड coकंटेनरड: 
+1. कंटेनरड डाउनलोड करें: 
 
    ```powershell
    curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
    tar.exe xvf .\containerd-windows-amd64.tar.gz
    ```
 
-2. Extract and configure:
+2. एक्सट्रेक्ट एंड कॉन्फ़िगर:
 
    ```powershell
    Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
@@ -173,7 +154,7 @@ sudo sysctl --system
    Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
    ```
 
-3. Start containerd:
+3. कंटेनर शुरू करें:
 
    ```powershell
    .\containerd.exe --register-service
@@ -183,11 +164,11 @@ sudo sysctl --system
 {{% /tab %}}
 {{< /tabs >}}
 
-#### Using the `systemd` cgroup driver {#containerd-systemd}
+#### `systemd` cgroup ड्राइवर {#containerd-systemd} का उपयोग करें
 
-`systemd` cgroup ड्राइवर का`etc/containerd/config.toml` के भीतर
-उपयोग करने के लिलिए , `runc` कोसेको
-सेट करे
+`systemd` cgroup ड्राइवर {#containerd-systemd} का उपयोग करना
+`runc` के साथ `/etc/containerd/config.toml` में `systemd` cgroup ड्राइवर का उपयोग करने के लिए, सेट करें
+
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
   ...
@@ -195,14 +176,14 @@ sudo sysctl --system
     SystemdCgroup = true
 ```
 
-यदि आप इस परिवर्तन को लागू करते हैं तो फिर से कंटेन्डर कंटेनरड आरंभ करना सुनिश्चित करें: 
+यदि आप इस परिवर्तन को लागू करते हैं, तो सुनिश्चित करें कि आप फिर से कंटेन्डर को पुनरारंभ करें: 
 
 ```shell
 sudo systemctl restart containerd
 ```
 
 Kubeadm का उपयोग करते समय, मैन्युअल रूप से कॉन्फ़िगर करें
-[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+[क्यूबलेट के लिए cgroup ड्राइवर](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 
 ### CRI-O
 
@@ -218,7 +199,7 @@ CRI-O के प्रमुख और छोटे संस्करणों 
 पूर्वापेक्षाएँ स्थापित और कॉन्फ़िगर करें:
 
 ```shell
-# बूटअप पर मॉड्यूल लोड क करने के लिए .conf फाइल बनाएं Cr
+# बूटअप पर मॉड्यूल लोड करने के लिए .conf फाइल बनाएं
 cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
 overlay
 br_netfilter
@@ -240,7 +221,7 @@ sudo sysctl --system
 {{< tabs name="tab-cri-cri-o-installation" >}}
 {{% tab name="Debian" %}}
 
-निम्नलिखित ऑपरेटिंग सिस्टम पर CRI-O स्थापित करने के लिए, एनवायरनमेंट वेरिएबल`OS` को निम्न तालिका से उपयुक्त मान पर सेट करें:  To install CRI-
+निम्नलिखित ऑपरेटिंग सिस्टम पर CRI-O स्थापित करने के लिए, एनवायरनमेंट वेरिएबल`OS` को निम्न तालिका से उपयुक्त मान पर सेट करें: 
 
 	| Operating system | `$OS`             |
 | ---------------- | ----------------- |
@@ -255,7 +236,7 @@ sudo sysctl --system
 
 <br />
 
-Then run
+कृपया यह करें
 ```shell
 cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
@@ -275,8 +256,8 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="Ubuntu" %}}
 
-निम्नलिखित ऑपरेटिंग सिस्टम पर स्थापित करने के लिए, एनवायरनमेंट वेरिएबल  `OS` सेट करें
-निम्न तालिका में उपयुक्त फ़ील्ड के लिए:  To in
+निम्नलिखित ऑपरेटिंग सिस्टम पर स्थापित करने के लिए, एनवायरनमेंट वेरिएबल `OS` सेट करें
+निम्न तालिका में उपयुक्त फ़ील्ड के लिए: 
 
 | Operating system | `$OS`             |
 | ---------------- | ----------------- |
@@ -293,7 +274,7 @@ sudo apt-get install cri-o cri-o-runc
 
 <br />
 
-Then run
+कृपया यह करें
 ```shell
 cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
@@ -313,8 +294,7 @@ sudo apt-get install cri-o cri-o-runc
 {{% tab name="CentOS" %}}
 
 निम्नलिखित ऑपरेटिंग सिस्टम पर स्थापित करने के लिए, एनवायरनमेंट वे वेरिएबल
-`OS` सेट करें निम्न तालिका में उपयुक्त फ़ील्ड के लिए:    To i
-
+`OS` सेट करें निम्न तालिका में उपयुक्त फ़ील्ड के लिए: 
 | Operating system | `$OS`             |
 | ---------------- | ----------------- |
 | Centos 8         | `CentOS_8`        |
@@ -328,7 +308,7 @@ sudo apt-get install cri-o cri-o-runc
 संस्करण 1.20.0 स्थापित करने के लिए, `VERSION=1.20:1.20.0` सेट करें।
 <br />
 
-Then run
+कृपया यह करें
 ```shell
 sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
 sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
@@ -352,9 +332,9 @@ sudo zypper install cri-o
 ```shell
 sudo dnf module list cri-o
 ```
-सीआरआई-ओ फेडोरा पर विशिष्ट रिलीज के लिए पिनिंग का समर्थन नहीं करता है। 
+CRI-O फेडोरा पर विशिष्ट रिलीज के लिए पिनिंग का समर्थन नहीं करता है। 
 
-Then run
+फिर इसे करें:
 ```shell
 sudo dnf module enable cri-o:$VERSION
 sudo dnf install cri-o
@@ -363,22 +343,20 @@ sudo dnf install cri-o
 {{% /tab %}}
 {{< /tabs >}}
 
-Start CRI-O:
+इसे शुरू करें CRI-O:
 
 ```shell
 sudo systemctl daemon-reload
 sudo systemctl enable crio --now
 ```
 
-Refer to the [CRI-O installation guide](https://github.com/cri-o/cri-o/blob/master/install.md)
-for more information.
+[CRI-O इंस्टॉलेशन गाइड](https://github.com/cri-o/cri-o/blob/master/install.md)
 
 
 #### cgroup driver
 
 CRI-O डिफ़ॉल्ट रूप से systemd cgroup ड्राइवर का उपयोग करता है।
-CRI-O uses the systemd cgroup driver per default.`cgroupfs` cgroup ड्राइवर पर स्विच करने के लिए, या तो `
-/etc/crio/crio.conf` संपादित करें या `/etc/crio/crio.conf.d/02-cgroup-manager.conf` में ड्रॉप-इन कॉन्फ़िगरेशन रखें। , उदाहरण के लिए:  
+CRI-O uses the systemd cgroup driver per default.`cgroupfs` cgroup ड्राइवर पर स्विच करने के लिए, या तो `/etc/crio/crio.conf` संपादित करें या `/etc/crio/crio.conf.d/02-cgroup-manager.conf` में ड्रॉप-इन कॉन्फ़िगरेशन रखें। उदाहरण के लिए:  
 
 ```toml
 [crio.runtime]
@@ -390,13 +368,11 @@ cgroup_manager = "cgroupfs"
 
 ### Docker
 
-1.अपने प्रत्येक नोड पर, अपने लिनक्स वितरण के लि लिलिए डॉकर को
-निम्नानुसार स्थापित करें
-[Install Docker Engine](https://docs.docker.com/engine/install/#server). 
-आप इसमें डॉकर का नवीनतम मान्य संस्करण पा सकते हैं 
-[dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
+1.अपने प्रत्येक नोड पर, अपने लिनक्स वितरण के लिए डॉकर को निम्नानुसार स्थापित करें
+[डॉकर इंजन स्थापित करें](https://docs.docker.com/engine/install/#server). 
+आप इसमें डॉकर का नवीनतम मान्य संस्करण पा सकते हैं [निर्भरता](https://git.k8s.io/kubernetes/build/dependencies.yaml) फ़ाइल.
 
-2. डॉकर डेमॉन को कॉन्फ़िगर करें, विशेष रूप से कंटेनर के cgroups के प्रबंधन के लिए systemd का उपयोग करने के लिए। Configure
+2.कंटेनर के समूह के प्रबंधन के लिए विशेष रूप से सिस्टमड का उपयोग करने के लिए डॉकर डेमॉन को कॉन्फ़िगर करें।
    ```shell
    sudo mkdir /etc/docker
    cat <<EOF | sudo tee /etc/docker/daemon.json
@@ -416,7 +392,7 @@ cgroup_manager = "cgroupfs"
    or RHEL or CentOS using version 3.10.0-514 and above.
    {{< /note >}}
 
-3. डॉकर को पुनरारंभ करें और बूट पर सक्षम करें:  Re
+3. डॉकर को पुनरारंभ करें और बूट पर सक्षम करें: 
 
    ```shell
    sudo systemctl enable docker
@@ -426,6 +402,6 @@ cgroup_manager = "cgroupfs"
 
 {{< note >}}
 अधिक जानकारी के लिए देखें 
-  - [Configure the Docker daemon](https://docs.docker.com/config/daemon/)
-  - [Control Docker with systemd](https://docs.docker.com/config/daemon/systemd/)
+  - [डॉकर डेमॉन को कॉन्फ़िगर करें](https://docs.docker.com/config/daemon/)
+  - [सिस्टमड के साथ डॉकर को नियंत्रित करें](https://docs.docker.com/config/daemon/systemd/)
 {{< /note >}}
