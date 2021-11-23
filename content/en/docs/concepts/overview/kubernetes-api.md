@@ -37,8 +37,11 @@ if you are writing an application using the Kubernetes API.
 
 Complete API details are documented using [OpenAPI](https://www.openapis.org/).
 
-The Kubernetes API server serves an OpenAPI spec via the `/openapi/v2` endpoint.
-You can request the response format using request headers as follows:
+### OpenAPI V2
+
+The Kubernetes API server serves an aggregated OpenAPI v2 spec via the
+`/openapi/v2` endpoint. You can request the response format using
+request headers as follows:
 
 <table>
   <caption style="display:none">Valid request header values for OpenAPI v2 queries</caption>
@@ -76,6 +79,55 @@ is primarily intended for intra-cluster communication. For more information
 about this format, see the [Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) design proposal and the
 Interface Definition Language (IDL) files for each schema located in the Go
 packages that define the API objects.
+
+### OpenAPI V3
+
+{{< feature-state state="alpha"  for_k8s_version="v1.23" >}}
+
+Kubernetes v1.23 offers initial support for publishing its APIs as OpenAPI v3; this is an
+alpha feature that is disabled by default.
+You can enable the alpha feature by turning on the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
+for the kube-apiserver component.
+
+With the feature enabled, the Kubernetes API server serves an
+aggregated OpenAPI v3 spec per Kubernetes group version at the
+`/openapi/v3/apis/<group>/<version>` endpoint. Please refer to the
+table below for accepted request headers.
+
+<table>
+  <caption style="display:none">Valid request header values for OpenAPI v3 queries</caption>
+  <thead>
+     <tr>
+        <th>Header</th>
+        <th style="min-width: 50%;">Possible values</th>
+        <th>Notes</th>
+     </tr>
+  </thead>
+  <tbody>
+     <tr>
+        <td><code>Accept-Encoding</code></td>
+        <td><code>gzip</code></td>
+        <td><em>not supplying this header is also acceptable</em></td>
+     </tr>
+     <tr>
+        <td rowspan="3"><code>Accept</code></td>
+        <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
+        <td><em>mainly for intra-cluster use</em></td>
+     </tr>
+     <tr>
+        <td><code>application/json</code></td>
+        <td><em>default</em></td>
+     </tr>
+     <tr>
+        <td><code>*</code></td>
+        <td><em>serves </em><code>application/json</code></td>
+     </tr>
+  </tbody>
+</table>
+
+A discovery endpoint `/openapi/v3` is provided to see a list of all
+group/versions available. This endpoint only returns JSON.
 
 ## Persistence
 
