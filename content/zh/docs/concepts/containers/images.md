@@ -568,17 +568,17 @@ pattern:
     { term }
 
 term:
-    '*'         matches any sequence of non-Separator characters #匹配任何无分隔符字符序列
-    '?'         matches any single non-Separator character #匹配任意单个非分隔符
-    '[' [ '^' ] { character-range } ']' #字符范围
-                character class (must be non-empty) #字符集（必须非空）
-    c           matches character c (c != '*', '?', '\\', '[') #匹配字符 c （c 不为 '*','?','\\','['）
-    '\\' c      matches character c #匹配字符 c
+    '*'         #匹配任何无分隔符字符序列
+    '?'         #匹配任意单个非分隔符
+    '[' [ '^' ] #字符范围
+                  #字符集（必须非空）
+    c           #匹配字符 c （c 不为 '*','?','\\','['）
+    '\\' c      #匹配字符 c
 
 character-range: #字符范围
-    c           matches character c (c != '\\', '-', ']') #匹配字符 c （c 不为 '\\','?','-',']'）
-    '\\' c      matches character c #匹配字符 c
-    lo '-' hi   matches character c for lo <= c <= hi #匹配字符范围在 lo 到 hi 之间字符
+    c           #匹配字符 c （c 不为 '\\','?','-',']'）
+    '\\' c      #匹配字符 c
+    lo '-' hi   #匹配字符范围在 lo 到 hi 之间字符
 ```
 
 <!--
@@ -625,7 +625,7 @@ to be pulled, then the kubelet will try to download them from both
 authentication sources if one of them fails.
 -->
 如果一个容器指定了要拉取的镜像 `my-registry.io/images/subpath/my-image`，
-并且其中一个失败，kubelet 将尝试从另一个身份验证源下载镜像
+并且其中一个失败，kubelet 将尝试从另一个身份验证源下载镜像。
 
 <!--
 ### Pre-pulled images
