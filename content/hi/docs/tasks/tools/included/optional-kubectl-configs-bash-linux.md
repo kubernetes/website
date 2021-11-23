@@ -8,7 +8,7 @@ headless: true
 
  Bash के लिए kubectl  कम्प्लिशन स्क्रिप्ट `kubectl completion bash` कमांड के साथ उत्पन्न की जा सकती है। आपके शेल में कम्प्लिशन स्क्रिप्ट को सोर्स करने से kubectl ऑटोकम्प्लिशन ऐनेबल हो जाती है।
 
- हालाँकि, कम्प्लिशन की स्क्रिप्ट इस पर निर्भर करती है [**bash-completion**](https://github.com/scop/bash-completion), जिसका अर्थ है कि आपको पहले इस सॉफ़्टवेयर को स्थापित करना होगा (आप परीक्षण कर  सकते हैं कि क्या आपने `टाइप _init_completion`  चलाकर पहले से ही bash-completion स्थापित की है)।
+हालाँकि, कम्प्लिशन की स्क्रिप्ट [**bash-completion**](https://github.com/scop/bash-completion) पर निर्भर करती हैं जिसका अर्थ है कि आपको पहले इस सॉफ़्टवेयर को स्थापित करना होगा (आप `type _init_completion`  चलाकर परीक्षण कर सकते हैं कि आपने  पहले से bash-completion इंस्टॉल की है या नहीं)।
 
 ## Bash-completion को इंस्टॉल करें
 
