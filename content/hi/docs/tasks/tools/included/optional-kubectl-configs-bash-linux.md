@@ -44,6 +44,6 @@ echo 'alias k=kubectl' >>~/.bashrc
 echo 'complete -F __start_kubectl k' >>~/.bashrc
 ```
 {{< note >}}
-बैश- कम्प्लिशन स्रोत सभी कम्प्लिशन स्क्रिप्ट `/etc/bash_completion.d` में ।
+bash-completion सभी कम्प्लिशन स्क्रिप्ट को `/etc/bash_completion.d` में सोर्स करता है।
 {{< /note >}}
 दोनों दृष्टिकोण बराबर हैं। आपके शेल को पुनः लोड करने के बाद, Kubectl ऑटोकम्प्लिशन कार्य करना शुरू कर देगा।
