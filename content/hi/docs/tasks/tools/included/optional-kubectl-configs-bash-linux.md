@@ -10,7 +10,7 @@ headless: true
 
  हालाँकि, कम्प्लिशन की स्क्रिप्ट इस पर निर्भर करती है [**bash-completion**](https://github.com/scop/bash-completion), जिसका अर्थ है कि आपको पहले इस सॉफ़्टवेयर को स्थापित करना होगा (आप परीक्षण कर  सकते हैं कि क्या आपने `टाइप _init_completion`  चलाकर पहले से ही bash-completion स्थापित की है)।
 
-## Bash-completion को स्थापित करें
+## Bash-completion को इंस्टॉल करें
 
 कई पैकेज मैनेजर द्वारा bash-`completion` प्रदान की जाती है (देखें [यहाँ](https://github.com/scop/bash-completion#installation)) । आप इसे `apt-get install bash-completion` या `yum install bash-completion` आदि के साथ इंस्टॉल कर सकते हैं।
 
