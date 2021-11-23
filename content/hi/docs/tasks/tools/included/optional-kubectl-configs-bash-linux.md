@@ -22,7 +22,7 @@ headless: true
 source /usr/share/bash-completion/bash_completion
 ```
 
-अपना शेल पुनः लोड करें और सत्यापित करें कि `type _init_completion` टाइप करके bash-completion सही ढंग से इंस्टॉल है।
+अपना शेल पुनः लोड करें और `type _init_completion` टाइप करके सत्यापित करें कि bash-completion सही ढंग से इंस्टॉल है।
 
 ## kubectl ऑटोकम्प्लिशन ऐनेबल करे
 
