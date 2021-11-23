@@ -60,6 +60,8 @@ When present, indicates that modifications should not be persisted. An invalid o
 
 ## fieldValidation {#fieldValidation}
 
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
 When both the fieldValidation parameter is present and the `ServerSideFieldValidation` feature gate is enabled, it instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are:
 - Ignore: This will ignore any unknown fields that are silently dropped from the
   object, and will ignore all but the last duplicate field that the decoder
