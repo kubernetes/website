@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Quality-of-Service for Memory Resources'
-date: 2021-09-01
+date: 2021-11-26
 slug: qos-memory-resources
 ---
 
