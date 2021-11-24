@@ -366,8 +366,8 @@ kubectl:
 kubectl get deployment nginx-app
 ```
 ```
-NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-nginx-app   1         1         1            1           2m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-app    1/1     1            1           2m
 ```
 
 ```shell
