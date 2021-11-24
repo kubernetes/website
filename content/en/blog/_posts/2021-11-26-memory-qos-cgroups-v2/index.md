@@ -99,7 +99,7 @@ Here are the prerequisites for enabling Memory QoS on your Linux node, some of t
 
 OCI runtimes such as runc and crun already support cgroups v2 [`Unified`](https://github.com/opencontainers/runtime-spec/blob/master/config-linux.md#unified), and Kubernetes CRI has also made the desired changes to support passing [`Unified`](https://github.com/kubernetes/kubernetes/pull/102578). However, CRI Runtime support is required as well. Memory QoS in Alpha phase is designed to support containerd and cri-o. Related PR [Feature: containerd-cri support LinuxContainerResources.Unified #5627](https://github.com/containerd/containerd/pull/5627) has been merged and will be released in containerd 1.6. CRI-O [implement kube alpha features for 1.22 #5207](https://github.com/cri-o/cri-o/pull/5207) is still in WIP.
 
-With those prerequisites met, you can enable the memory QoS feature gate (see [Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/).
+With those prerequisites met, you can enable the memory QoS feature gate (see [Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)).
     
 ## How can I learn more?
 
