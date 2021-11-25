@@ -6,9 +6,9 @@ headless: true
 
 ## परिचय
 
-Bash के लिए kubectl  कम्पलीशन स्क्रिप्ट `kubectl completion bash` कमांड के साथ उत्पन्न की जा सकती है। आपके शेल में कम्पलीशन स्क्रिप्ट को सोर्स करने से kubectl ऑटोकम्पलीशन ऐनेबल हो जाती है।
+Bash के लिए kubectl समापन स्क्रिप्ट `kubectl completion bash` कमांड के साथ उत्पन्न की जा सकती है। आपके शेल में समापन स्क्रिप्ट को सोर्स करने से kubectl ऑटोकम्पलीशन सक्षम हो जाती है।
 
-हालाँकि, कम्पलीशन की स्क्रिप्ट [**bash-completion**](https://github.com/scop/bash-completion) पर निर्भर करती हैं जिसका अर्थ है कि आपको पहले इस सॉफ़्टवेयर को स्थापित करना होगा (आप `type _init_completion`  चलाकर परीक्षण कर सकते हैं कि आपने  पहले से bash-completion इंस्टॉल की है या नहीं)।
+हालाँकि, समापन की स्क्रिप्ट [**bash-completion**](https://github.com/scop/bash-completion) पर निर्भर हैं जिसका अर्थ है कि आपको पहले इस सॉफ़्टवेयर को इंस्टॉल करना होगा (आप `type _init_completion`  चलाकर परीक्षण कर सकते हैं कि आपने पहले से bash-completion इंस्टॉल की है या नहीं)।
 
 ## Bash-completion को इंस्टॉल करें
 
@@ -23,28 +23,28 @@ source /usr/share/bash-completion/bash_completion
 
 अपना शेल पुनः लोड करें और `type _init_completion` टाइप करके सत्यापित करें कि bash-completion सही ढंग से इंस्टॉल है।
 
-## kubectl ऑटोकम्पलीशन ऐनेबल करे
+## kubectl ऑटोकम्पलीशन सक्षम करे
 
-अब आपको यह सुनिश्चित करने की आवश्यकता है कि Kubectl कम्पलीशन स्क्रिप्ट आपके सभी शेल सत्रों (sourced) में प्राप्त हो जाए। आप ऐसा दो तरीकों से कर सकते हैं:
+अब आपको यह सुनिश्चित करने की आवश्यकता है कि Kubectl समापन स्क्रिप्ट आपके सभी शेल सत्रों (sourced) में प्राप्त हो जाए। आप ऐसा दो तरीकों से कर सकते हैं:
 
-- अपनी `~/.bashrc` फ़ाइल में कम्पलीशन स्क्रिप्ट सॉर्स करें:
+- अपनी `~/.bashrc` फ़ाइल में समापन स्क्रिप्ट सॉर्स करें:
 
    ```bash
   echo 'source <(kubectl completion bash)' >>~/.bashr
   ```
- -  कम्पलीशन स्क्रिप्ट को `/etc/bash_completion.d` डायरेक्टरी में जोड़ें:
+ -   समापन स्क्रिप्ट को `/etc/bash_completion.d` डायरेक्टरी में जोड़ें:
     ```bash
     kubectl completion bash >/etc/bash_completion.d/kubectl
     ```
     
 
-यदि आप के पास kubectl के लिए एक अन्य नाम (alias) है, तो आप उस अन्य नाम के साथ काम करने के लिए शेल कम्पलीशन को बढ़ा सकते हैं:    
+यदि आप के पास kubectl के लिए एक अन्य नाम (alias) है, तो आप उस अन्य नाम के साथ काम करने के लिए शेल समापन को बढ़ा सकते हैं:    
 ```bash
 echo 'alias k=kubectl' >>~/.bashrc
 echo 'complete -F __start_kubectl k' >>~/.bashrc
 ```
 {{< note >}}
-bash-completion सभी कम्पलीशन स्क्रिप्ट को `/etc/bash_completion.d` में सोर्स करता है।
+bash-completion सभी समापन स्क्रिप्ट को `/etc/bash_completion.d` में सोर्स करता है।
 {{< /note >}}
 
 दोनों दृष्टिकोण बराबर हैं। आपके शेल को पुनः लोड करने के बाद, Kubectl ऑटोकम्पलीशन कार्य करना शुरू कर देगा।
