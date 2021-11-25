@@ -20,8 +20,7 @@ by implementing one or more of these extension points.
 
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
 using the
-KubeSchedulerConfiguration ([v1beta1](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
-or [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/))
+KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/))
 struct.
 
 A minimal configuration looks as follows:
@@ -179,30 +178,6 @@ that are not enabled by default:
   volume limits can be satisfied for the node.
   Extension points: `filter`.
 
-The following plugins are deprecated and can only be enabled in a `v1beta1`
-configuration:
-
-- `NodeResourcesLeastAllocated`: Favors nodes that have a low allocation of
-  resources.
-  Extension points: `score`.
-- `NodeResourcesMostAllocated`: Favors nodes that have a high allocation of
-  resources.
-  Extension points: `score`.
-- `RequestedToCapacityRatio`: Favor nodes according to a configured function of
-  the allocated resources.
-  Extension points: `score`.
-- `NodeLabel`: Filters and / or scores a node according to configured
-  {{< glossary_tooltip text="label(s)" term_id="label" >}}.
-  Extension points: `filter`, `score`.
-- `ServiceAffinity`: Checks that Pods that belong to a
-  {{< glossary_tooltip term_id="service" >}} fit in a set of nodes defined by
-  configured labels. This plugin also favors spreading the Pods belonging to a
-  Service across nodes.
-  Extension points: `preFilter`, `filter`, `score`.
-- `NodePreferAvoidPods`: Prioritizes nodes according to the node annotation
-  `scheduler.alpha.kubernetes.io/preferAvoidPods`.
-  Extension points: `score`.
-
 ### Multiple profiles
 
 You can configure `kube-scheduler` to run more than one profile.
@@ -285,7 +260,13 @@ only has one pending pods queue.
 * A plugin enabled in a v1beta2 configuration file takes precedence over the default configuration for that plugin.
 
 * Invalid `host` or `port` configured for scheduler healthz and metrics bind address will cause validation failure.
+{{% /tab %}}
 
+{{% tab name="v1beta2 → v1beta3" %}}
+* Three plugins' weight are increased by default:
+  * `InterPodAffinity` from 1 to 2
+  * `NodeAffinity` from 1 to 2
+  * `TaintToleration` from 1 to 3
 {{% /tab %}}
 {{< /tabs >}}
 
