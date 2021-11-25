@@ -36,7 +36,7 @@ Example: `kubernetes.io/metadata.name=mynamespace`
 
 Used on: Namespaces
 
-The Kubernetes {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+The Kubernetes API server (part of the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}) 
 sets this label on all namespaces. The label value is set
 to the name of the namespace. You can't change this label's value. 
 
