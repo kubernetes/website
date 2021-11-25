@@ -36,9 +36,9 @@ Example: `kubernetes.io/metadata.name=mynamespace`
 
 Used on: Namespaces
 
-The [`Control Plane`](https://kubernetes.io/docs/concepts/overview/components/)
-sets this label on all namespaces. It is **mandatory** to `set a label`
-on all the namespaces. The label value is set to the name of the namespace.
+The Kubernetes {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+sets this label on all namespaces. The label value is set
+to the name of the namespace. You can't change this label's value. 
 
 This is useful if you want to target a specific namespace with a label
 {{< glossary_tooltip text="selector" term_id="selector" >}}.
