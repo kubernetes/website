@@ -1503,7 +1503,7 @@ inspect them.</p>
   nodes to pull images on your behalf, they must have the credentials.  You can provide this information
   by creating a dockercfg secret and attaching it to your service account.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl create docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-file=[key=]source] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create secret docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-file=[key=]source] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1633,7 +1633,7 @@ inspect them.</p>
 <p> When creating a secret based on a file, the key will default to the basename of the file, and the value will default to the file content. If the basename is an invalid key or you wish to chose your own, you may specify an alternate key.</p>
 <p> When creating a secret based on a directory, each file whose basename is a valid key in the directory will be packaged into the secret. Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl create generic NAME [--type=string] [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create secret generic NAME [--type=string] [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1735,7 +1735,7 @@ inspect them.</p>
 <p>Create a TLS secret from the given public/private key pair.</p>
 <p> The public/private key pair must exist beforehand. The public key certificate must be .PEM encoded and match the given private key.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl create tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create secret tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
