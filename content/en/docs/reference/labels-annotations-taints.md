@@ -36,10 +36,9 @@ Example: `kubernetes.io/metadata.name=mynamespace`
 
 Used on: Namespaces
 
-When the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-the Kubernetes API server sets this label on all namespaces. The label value is set to
-the name of the namespace.
+The [`Control Plane`](https://kubernetes.io/docs/concepts/overview/components/)
+sets this label on all namespaces. It is **mandatory** to `set a label`
+on all the namespaces. The label value is set to the name of the namespace.
 
 This is useful if you want to target a specific namespace with a label
 {{< glossary_tooltip text="selector" term_id="selector" >}}.
