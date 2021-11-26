@@ -55,7 +55,7 @@ UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되�
 생성되더라도, 관련된 그것(이 예에서는 볼륨)도 폐기되고
 새로 생성된다.
 
-{{< figure src="/images/docs/pod.svg" title="Pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" title="Pod diagram" class="diagram-medium" >}}
 
 *컨테이너 간의 공유 스토리지에 퍼시스턴트 볼륨을 사용하는 웹 서버와
 파일 풀러(puller)가 포함된 다중 컨테이너 파드이다.*
