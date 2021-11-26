@@ -1,4 +1,6 @@
 ---
+
+
 title: 디플로이먼트
 feature:
   title: 자동화된 롤아웃과 롤백
@@ -72,7 +74,6 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
-
 
 
 2. `kubectl get deployments` 을 실행해서 디플로이먼트가 생성되었는지 확인한다.
@@ -163,7 +164,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 1. `nginx:1.14.2` 이미지 대신 `nginx:1.16.1` 이미지를 사용하도록 nginx 파드를 업데이트 한다.
 
     ```shell
-    kubectl deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
     또는 다음의 명령어를 사용한다.
@@ -181,7 +182,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     대안으로 디플로이먼트를 `edit` 해서 `.spec.template.spec.containers[0].image` 를 `nginx:1.14.2` 에서 `nginx:1.16.1` 로 변경한다.
 
     ```shell
-    kubectl edit deployment.v1.apps/nginx-deployment
+    kubectl edit deployment/nginx-deployment
     ```
 
     다음과 유사하게 출력된다.
@@ -364,7 +365,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 * 디플로이먼트를 업데이트하는 동안 이미지 이름을 `nginx:1.16.1` 이 아닌 `nginx:1.161` 로 입력해서 오타를 냈다고 가정한다.
 
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.161 
     ```
 
     이와 유사하게 출력된다.
@@ -473,25 +474,25 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 
 1. 먼저 이 디플로이먼트의 수정 사항을 확인한다.
     ```shell
-    kubectl rollout history deployment.v1.apps/nginx-deployment
+    kubectl rollout history deployment/nginx-deployment
     ```
     이와 유사하게 출력된다.
     ```
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
     1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
-    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
-    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161
+    2           kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
+    3           kubectl set image deployment/nginx-deployment nginx=nginx:1.161
     ```
 
     `CHANGE-CAUSE` 는 수정 생성시 디플로이먼트 주석인 `kubernetes.io/change-cause` 에서 복사한다. 다음에 대해 `CHANGE-CAUSE` 메시지를 지정할 수 있다.
 
-    * 디플로이먼트에 `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"` 로 주석을 단다.
+    * 디플로이먼트에 `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"` 로 주석을 단다.
     * 수동으로 리소스 매니페스트 편집.
 
 2. 각 수정 버전의 세부 정보를 보려면 다음을 실행한다.
     ```shell
-    kubectl rollout history deployment.v1.apps/nginx-deployment --revision=2
+    kubectl rollout history deployment/nginx-deployment --revision=2
     ```
 
     이와 유사하게 출력된다.
@@ -499,7 +500,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
               pod-template-hash=1159050644
-      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+      Annotations:  kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
       Containers:
        nginx:
         Image:      nginx:1.16.1
@@ -516,7 +517,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 
 1. 이제 현재 롤아웃의 실행 취소 및 이전 수정 버전으로 롤백 하기로 결정했다.
     ```shell
-    kubectl rollout undo deployment.v1.apps/nginx-deployment
+    kubectl rollout undo deployment/nginx-deployment
     ```
 
     이와 유사하게 출력된다.
@@ -526,7 +527,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
     ```shell
-    kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
+    kubectl rollout undo deployment/nginx-deployment --to-revision=2
     ```
 
     이와 유사하게 출력된다.
@@ -560,7 +561,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
     Labels:                 app=nginx
     Annotations:            deployment.kubernetes.io/revision=4
-                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+                            kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
     Selector:               app=nginx
     Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
     StrategyType:           RollingUpdate
@@ -603,7 +604,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 다음 명령어를 사용해서 디플로이먼트의 스케일을 할 수 있다.
 
 ```shell
-kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
+kubectl scale deployment/nginx-deployment --replicas=10
 ```
 이와 유사하게 출력된다.
 ```
@@ -615,7 +616,7 @@ deployment.apps/nginx-deployment scaled
 실행할 최소 파드 및 최대 파드의 수를 선택할 수 있다.
 
 ```shell
-kubectl autoscale deployment.v1.apps/nginx-deployment --min=10 --max=15 --cpu-percent=80
+kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu-percent=80
 ```
 이와 유사하게 출력된다.
 ```
@@ -644,7 +645,7 @@ deployment.apps/nginx-deployment scaled
 
 * 클러스터 내부에서 확인할 수 없는 새 이미지로 업데이트 된다.
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
+    kubectl set image deployment/nginx-deployment nginx=nginx:sometag
     ```
 
     이와 유사하게 출력된다.
@@ -723,7 +724,7 @@ nginx-deployment-618515232    11        11        11        7m
 
 * 다음 명령을 사용해서 일시 중지한다.
     ```shell
-    kubectl rollout pause deployment.v1.apps/nginx-deployment
+    kubectl rollout pause deployment/nginx-deployment
     ```
 
     이와 유사하게 출력된다.
@@ -733,7 +734,7 @@ nginx-deployment-618515232    11        11        11        7m
 
 * 그런 다음 디플로이먼트의 이미지를 업데이트 한다.
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
     ```
 
     이와 유사하게 출력된다.
@@ -743,7 +744,7 @@ nginx-deployment-618515232    11        11        11        7m
 
 * 새로운 롤아웃이 시작되지 않는다.
     ```shell
-    kubectl rollout history deployment.v1.apps/nginx-deployment
+    kubectl rollout history deployment/nginx-deployment
     ```
 
     이와 유사하게 출력된다.
@@ -765,7 +766,7 @@ nginx-deployment-618515232    11        11        11        7m
 
 * 예를 들어 사용할 리소스를 업데이트하는 것처럼 원하는 만큼 업데이트할 수 있다.
     ```shell
-    kubectl set resources deployment.v1.apps/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
+    kubectl set resources deployment/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
     ```
 
     이와 유사하게 출력된다.
@@ -778,7 +779,7 @@ nginx-deployment-618515232    11        11        11        7m
 
 * 결국, 디플로이먼트를 재개하고 새로운 레플리카셋이 새로운 업데이트를 제공하는 것을 관찰한다.
     ```shell
-    kubectl rollout resume deployment.v1.apps/nginx-deployment
+    kubectl rollout resume deployment/nginx-deployment
     ```
 
     이와 유사하게 출력된다.
@@ -888,7 +889,7 @@ echo $?
 10분 후 디플로이먼트에 대한 진행 상태의 부족에 대한 리포트를 수행하게 한다.
 
 ```shell
-kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
+kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
 ```
 이와 유사하게 출력된다.
 ```
@@ -999,7 +1000,7 @@ Conditions:
 `kubectl rollout status` 는 디플로이먼트의 진행 데드라인을 초과하면 0이 아닌 종료 코드를 반환한다.
 
 ```shell
-kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment/nginx-deployment
 ```
 이와 유사하게 출력된다.
 ```
