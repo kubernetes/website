@@ -169,26 +169,27 @@ supported path types:
 
 ### Examples
 
-| Kind   | Path(s)                         | Request path(s)               | Matches?                           |
-|--------|---------------------------------|-------------------------------|------------------------------------|
-| Prefix | `/`                             | (all paths)                   | Yes                                |
-| Exact  | `/foo`                          | `/foo`                        | Yes                                |
-| Exact  | `/foo`                          | `/bar`                        | No                                 |
-| Exact  | `/foo`                          | `/foo/`                       | No                                 |
-| Exact  | `/foo/`                         | `/foo`                        | No                                 |
-| Prefix | `/foo`                          | `/foo`, `/foo/`               | Yes                                |
-| Prefix | `/foo/`                         | `/foo`, `/foo/`               | Yes                                |
-| Prefix | `/aaa/bb`                       | `/aaa/bbb`                    | No                                 |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb`                    | Yes                                |
-| Prefix | `/aaa/bbb/`                     | `/aaa/bbb`                    | Yes, ignores trailing slash        |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb/`                   | Yes,  matches trailing slash       |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`                | Yes, matches subpath               |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`                 | No, does not match string prefix   |
-| Prefix | `/`, `/aaa`                     | `/aaa/ccc`                    | Yes, matches `/aaa` prefix         |
-| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`                    | Yes, matches `/aaa/bbb` prefix     |
-| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`                        | Yes, matches `/` prefix            |
-| Prefix | `/aaa`                          | `/ccc`                        | No, uses default backend           |
-| Mixed  | `/foo` (Prefix), `/foo` (Exact) | `/foo`                        | Yes, prefers Exact                 |
+| Kind   | Path(s)                         | Request path(s)               | Matches?                            |
+|--------|---------------------------------|-------------------------------|-------------------------------------|
+| Prefix | `/`                             | (all paths)                   | Yes                                 |
+| Exact  | `/foo`                          | `/foo`                        | Yes                                 |
+| Exact  | `/foo`                          | `/bar`                        | No                                  |
+| Exact  | `/foo`                          | `/foo/`                       | No                                  |
+| Exact  | `/foo/`                         | `/foo`                        | No                                  |
+| Prefix | `/foo`                          | `/foo`, `/foo/`               | Yes                                 |
+| Prefix | `/foo/`                         | `/foo`, `/foo/`               | Yes                                 |
+| Prefix | `/aaa/bb`                       | `/aaa/bbb`                    | No                                  |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb`                    | Yes                                 |
+| Prefix | `/aaa/bbb/`                     | `/aaa/bbb`                    | Yes, ignores trailing slash         |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb/`                   | Yes,  matches trailing slash        |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`                | Yes, matches subpath                |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc/ddd`            | No, /aaa/bbb is not a prefix of /ddd|
+| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`                 | No, does not match string prefix    |
+| Prefix | `/`, `/aaa`                     | `/aaa/ccc`                    | Yes, matches `/aaa` prefix          |
+| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`                    | Yes, matches `/aaa/bbb` prefix      |
+| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`                        | Yes, matches `/` prefix             |
+| Prefix | `/aaa`                          | `/ccc`                        | No, uses default backend            |
+| Mixed  | `/foo` (Prefix), `/foo` (Exact) | `/foo`                        | Yes, prefers Exact                  |
 
 #### Multiple matches
 In some cases, multiple paths within an Ingress will match a request. In those
