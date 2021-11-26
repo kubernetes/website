@@ -93,7 +93,7 @@ This can can help improve stability when pod memory usage increases, ensuring th
 Here are the prerequisites for enabling Memory QoS on your Linux node, some of these are related to [Kubernetes support for cgroup v2](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2254-cgroup-v2).
 
 1. Kubernetes since v1.22
-2. [runc](https://github.com/opencontainers/runc) since v1.0.0-rc93; [containerd](https://containerd.io/) since 1.14; [cri-o](https://cri-o.io/) since 1.20
+2. [runc](https://github.com/opencontainers/runc) since v1.0.0-rc93; [containerd](https://containerd.io/) since 1.4; [cri-o](https://cri-o.io/) since 1.20
 3. Linux kernel minimum version: 4.15, recommended version: 5.2+
 4. Linux image with cgroupv2 enabled or enabling cgroupv2 unified_cgroup_hierarchy manually
 
