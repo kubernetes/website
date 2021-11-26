@@ -234,43 +234,43 @@ graph BT
 
 스케줄러는 신규 파드에 `spec.nodeSelector` 또는 `spec.affinity.nodeAffinity`가 정의되어 있는 경우, 부합하지 않는 노드들을 차이(skew) 계산에서 생략한다.
 
-    zoneA 에서 zoneC에 걸쳐있고, 5개의 노드를 가지는 클러스터가 있다고 가정한다.
+zoneA 에서 zoneC에 걸쳐있고, 5개의 노드를 가지는 클러스터가 있다고 가정한다.
 
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneB"
-            p3(Pod) --> n3(Node3)
-            n4(Node4)
-        end
-        subgraph "zoneA"
-            p1(Pod) --> n1(Node1)
-            p2(Pod) --> n2(Node2)
-        end
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
 
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n1,n2,n3,n4,p1,p2,p3 k8s;
-    class p4 plain;
-    class zoneA,zoneB cluster;
-    {{< /mermaid >}}
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n1,n2,n3,n4,p1,p2,p3 k8s;
+class p4 plain;
+class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneC"
-            n5(Node5)
-        end
+{{<mermaid>}}
+graph BT
+    subgraph "zoneC"
+        n5(Node5)
+    end
 
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n5 k8s;
-    class zoneC cluster;
-    {{< /mermaid >}}
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n5 k8s;
+class zoneC cluster;
+{{< /mermaid >}}
 
-    그리고 알다시피 "zoneC"는 제외해야 한다. 이 경우에, "mypod"가 "zoneC"가 아닌 "zoneB"에 배치되도록 yaml을 다음과 같이 구성할 수 있다. 마찬가지로 `spec.nodeSelector` 도 존중된다.
+그리고 알다시피 "zoneC"는 제외해야 한다. 이 경우에, "mypod"가 "zoneC"가 아닌 "zoneB"에 배치되도록 yaml을 다음과 같이 구성할 수 있다. 마찬가지로 `spec.nodeSelector` 도 존중된다.
 
-    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+{{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
 스케줄러는 클러스터에 있는 모든 영역(zone) 또는 다른 토폴로지 도메인에 대한 사전 지식이 없다. 스케줄링은 클러스터의 기존 노드에서 결정된다. 노드 풀(또는 노드 그룹)이 0개의 노드로 스케일(scale)되고 사용자는 노드가 확장될 것으로 예상하는 경우, 자동 스케일되는 클러스터에서 문제가 발생할 수 있다. 이러한 토폴로지 도메인은 스케줄링에서 해당 도메인에 노드가 하나 이상 있을 때까지 고려되지 않을 것이기 때문이다.
 
