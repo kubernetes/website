@@ -1,5 +1,5 @@
 ---
-title: Garbage Collection
+title: 垃圾收集
 content_type: concept
 weight: 50
 ---
@@ -8,17 +8,17 @@ weight: 50
 {{<glossary_definition term_id="garbage-collection" length="short">}} 这
 允许像下面这样清理资源:
 
-  * [Failed pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
-  * [Completed Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
+  * [Failed pods](https://kubernetes.io/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+  * [Completed Jobs](https://kubernetes.io/zh/docs/concepts/workloads/)
   * [Objects without owner references](#拥有者)
   * [Unused containers and container images](#容器镜像)
-  * [Dynamically provisioned PersistentVolumes with a StorageClass reclaim policy of Delete](/docs/concepts/storage/persistent-volumes/#delete)
+  * [Dynamically provisioned PersistentVolumes with a StorageClass reclaim policy of Delete](https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/)
   * [Stale or expired CertificateSigningRequests (CSRs)](/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
   * {{<glossary_tooltip text="Nodes" term_id="node">}} 在以下场景中删除:
-    * 当集群使用 [cloud controller manager](/docs/concepts/architecture/cloud-controller/)
+    * 当集群使用 [cloud controller manager](https://kubernetes.io/zh/docs/concepts/architecture/cloud-controller/)
     * 当集群使用类似于云控制器的插件时，本地管理
 
-  * [Node Lease objects](/docs/concepts/architecture/nodes/#heartbeats)
+  * [Node Lease objects](https://kubernetes.io/zh/docs/concepts/nodes/#heartbeats)
 
 ## 拥有者和家属 {#owners-dependents}
 
@@ -176,6 +176,6 @@ kubelet only垃圾收集它管理的容器。
 
 ## {{% heading "whatsnext" %}}
 
-* 了解更多关于 [ownership of Kubernetes objects](/docs/concepts/overview/working-with-objects/owners-dependents/).
-* 了解更多关于 Kubernetes [finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
-* 了解更多关于 [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) (beta) that cleans up finished Jobs.
+* 了解更多关于 [ownership of Kubernetes objects](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/owners-dependents/).
+* 了解更多关于 Kubernetes [finalizers](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/).
+* 了解更多关于 [TTL controller](https://kubernetes.io/zh/docs/concepts/workloads/controllers/ttlafterfinished/) (测试版) 清理已完成的工作。
