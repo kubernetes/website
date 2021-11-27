@@ -1,14 +1,11 @@
 ---
-approvers:
-- chenopis
-- abiogenesis-now
 title: शब्दकोष
-layout: शब्दकोष
+layout: glossary
 noedit: true
-default_active_tag: मौलिक
+default_active_tag: fundamental
 weight: 5
 card:
-  name: संदर्भ
+  name: reference
   weight: 10
   title: शब्दकोष
 ---
