@@ -175,7 +175,7 @@ For more information on version skews, see:
 3. Add the Kubernetes `apt` repository:
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] http://packages.cloud.google.com/apt/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. Update `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
