@@ -1,7 +1,8 @@
 ---
 title: Scheduling Policies
 content_type: concept
-weight: 10
+sitemap:
+  priority: 0.2 # Scheduling priorities are deprecated
 ---
 
 <!-- overview -->
