@@ -22,7 +22,7 @@ Bash के लिए kubectl समापन स्क्रिप्ट `kubec
 source /usr/share/bash-completion/bash_completion
 ```
 
-अपना शेल पुनः लोड करें और `type _init_completion` टाइप करके सत्यापित करें कि bash-completion सही ढंग से इंस्टॉल है।
+अपना शेल पुनः लोड करें और `type _init_completion` टाइप करके सत्यापित करें कि बैश-कम्पलीशन सही ढंग से इंस्टॉल है।
 
 ## kubectl ऑटोकम्पलीशन सक्षम करे
 
