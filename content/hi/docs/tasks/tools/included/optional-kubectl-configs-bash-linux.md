@@ -39,7 +39,8 @@ source /usr/share/bash-completion/bash_completion
     ```
     
 
-यदि आप के पास kubectl के लिए एक अन्य नाम (alias) है, तो आप उस अन्य नाम के साथ काम करने के लिए शेल समापन को बढ़ा सकते हैं:    
+यदि आप के पास kubectl के लिए एक अन्य नाम (alias) है, तो आप उस अन्य नाम के साथ काम करने के लिए शेल समापन को बढ़ा सकते हैं:
+
 ```bash
 echo 'alias k=kubectl' >>~/.bashrc
 echo 'complete -F __start_kubectl k' >>~/.bashrc
