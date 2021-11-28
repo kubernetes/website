@@ -1,6 +1,6 @@
 ---
 title: "Linux पर bash ऑटो-कम्पलीशन"
-description: "Linux पर bash ऑटो-कम्पलीशन के लिए कुछ वैकल्पिक विन्विन्यास।"
+description: "Linux पर bash ऑटो-कम्पलीशन के लिए कुछ वैकल्पिक कॉन्फ़िगरेशन।"
 headless: true
 ---
 
