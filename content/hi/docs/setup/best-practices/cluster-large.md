@@ -47,7 +47,7 @@ weight: 20
 * अतिरिक्त etcd उदाहरण शुरू और कॉन्फ़िगर करें
 * {{< glossary_tooltip term_id="kube-apiserver" text="API सर्वर" >}} को घटनाओं को संग्रहीत करने के लिए उपयोग करने के लिए कॉन्फ़िगर करें
 
-देखें [कुबेरनेट्स के लिए ऑपरेटिंग etcd क्लस्टर](/docs/tasks/admin-cluster/configure-upgrad-etcd/) और
+देखें [कुबेरनेट्स के लिए ऑपरेटिंग etcd क्लस्टर](/docs/tasks/administer-cluster/configure-upgrade-etcd/) और
 [kubeadm के साथ एक उच्च उपलब्धता आदि क्लस्टर स्थापित करें]
 एक बड़े क्लस्टर के लिए etcd को कॉन्फ़िगर करने और प्रबंधित करने के विवरण के लिए|
 
