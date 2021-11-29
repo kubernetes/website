@@ -158,7 +158,7 @@ Install-WindowsFeature -Name containers
 ```
 
 Install Docker
-Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://hub.docker.com/editions/enterprise/docker-ee-server-windows).
+Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docker-docs.netlify.app/install/windows/docker-ee/).
 
 #### Install wins, kubelet, and kubeadm  
 
