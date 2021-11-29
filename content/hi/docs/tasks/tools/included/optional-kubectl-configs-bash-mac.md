@@ -34,7 +34,8 @@ brew install bash
 echo $BASH_VERSION $SHELL
 ```
 
-Homebrew आमतौर पर इसे `/usr/local/bin/bash` पर स्थापित करता है।
+Homebrew आमतौर पर इसे `/usr/local/bin/bash` पर इनस्टॉल करता है।
+
 ### इनस्टॉल bash-completion
 
 {{< note >}}
