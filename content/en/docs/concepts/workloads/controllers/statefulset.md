@@ -113,6 +113,14 @@ In the above example:
 The name of a StatefulSet object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
+### Pod Selector
+
+You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
+
+### Volume Claim Templates
+
+You can set the  `.spec.volumeClaimTemplates` which can provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
+
 
 ### Minimum ready seconds
 
@@ -123,10 +131,6 @@ created Pod should be ready without any of its containers crashing, for it to be
 Please note that this feature is beta and enabled by default. Please opt out by unsetting the StatefulSetMinReadySeconds flag, if you don't
 want this feature to be enabled. This field defaults to 0 (the Pod will be considered 
 available as soon as it is ready). To learn more about when a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
-
-## Pod Selector
-
-You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Prior to Kubernetes 1.8, the `.spec.selector` field was defaulted when omitted. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
 
 ## Pod Identity
 
