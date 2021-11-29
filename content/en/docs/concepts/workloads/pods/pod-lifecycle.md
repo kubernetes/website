@@ -159,7 +159,7 @@ through which the Pod has or has not passed:
 * `PodScheduled`: the Pod has been scheduled to a node.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
-  have started successfully.
+  have completed successfully.
 * `Ready`: the Pod is able to serve requests and should be added to the load
   balancing pools of all matching Services.
 
