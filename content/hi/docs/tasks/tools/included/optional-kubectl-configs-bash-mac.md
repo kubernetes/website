@@ -55,7 +55,7 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 ```
   
-अपने शेल को दुबारा लोड करें और सत्यापित करें कि बैश कम्पलीशन v2 `type_init_completion` . के साथ सही ढंग से इनस्टॉल है
+अपने शेल को पुनः लोड करें और `type_init_completion` से सत्यापित करें कि bash-completion  v2 सही ढंग से इनस्टॉल है।
 
 ### kubectl ऑटोकम्पलीशन सक्षम करें
 
