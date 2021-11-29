@@ -340,9 +340,7 @@ Kubernetes on Windows does not support single-stack "IPv6-only" networking. Howe
 dual-stack IPv4/IPv6 networking for pods and nodes with single-family services
 is supported.
 
-You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the
-`IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
+You can use IPv4/IPv6 dual-stack networking with `l2bridge` networks. See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack) for more details.
 
 {{< note >}}
 Overlay (VXLAN) networks on Windows do not support dual-stack networking.
