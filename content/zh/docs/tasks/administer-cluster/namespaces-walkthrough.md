@@ -354,8 +354,8 @@ We have created a deployment whose replica size is 2 that is running the pod cal
 kubectl get deployment
 ```
 ```
-NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-snowflake   2         2         2            2           2m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+snowflake    2/2     2            2           2m
 ```
 
 ```shell
@@ -402,8 +402,8 @@ kubectl get deployment
 ```
 
 ```
-NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-cattle    5         5         5            5           10s
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+cattle       5/5     5            5           10s
 ```
 
 ```shell
