@@ -68,12 +68,12 @@ echo 'source <(kubectl completion bash)' >>~/.bash_profile
 kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
 ```
 
-- यदि आपके पास kubectl के लिए एक उपनाम है, तो आप उस उपनाम के साथ काम करने के लिए शेल पूर्णता को बढ़ा सकते हैं:
-```bash
-echo 'alias k=kubectl' >>~/.bash_profile
+- यदि आपके पास kubectl के लिए एक नाम (alias) है, तो आप उस उपनाम के साथ काम करने के लिए शेल कम्पलीशन को बढ़ा सकते हैं:
 
-echo 'complete -F __start_kubectl k' >>~/.bash_profile
-```
+    ```bash
+    echo 'alias k=kubectl' >>~/.bash_profile
+    echo 'complete -F __start_kubectl k' >>~/.bash_profile
+    ```
 
 - यदि आपने Homebrew के साथ kubectl इनस्टॉल किया है (जैसा कि यहां बताया गया है), तो kubectl कम्पलीशन स्क्रिप्ट पहले से ही `/usr/local/etc/bash_completion.d/kubectl` में होनी चाहिए। ऐसे में आपको कुछ भी करने की जरूरत नहीं है।
 
