@@ -75,7 +75,7 @@ echo 'alias k=kubectl' >>~/.bash_profile
 echo 'complete -F __start_kubectl k' >>~/.bash_profile
 ```
 
-- यदि आपने होमब्रे के साथ kubectl इनस्टॉल किया है (जैसा कि यहां बताया गया है), तो kubectl पहले से ही कम्पलीशन स्क्रिप्ट `/usr/local/etc/bash_completion.d/kubectl` में होनी चाहिए। ऐसे में आपको कुछ भी करने की जरूरत नहीं है।
+- यदि आपने Homebrew के साथ kubectl इनस्टॉल किया है (जैसा कि यहां बताया गया है), तो kubectl कम्पलीशन स्क्रिप्ट पहले से ही `/usr/local/etc/bash_completion.d/kubectl` में होनी चाहिए। ऐसे में आपको कुछ भी करने की जरूरत नहीं है।
 
 {{< note >}}
 bash-completion Homebrew से इनस्टॉल होने पर, सारे फाइल्स को `BASH_COMPLETION_COMPAT_DIR` डायरेक्टरी में सोर्स कर देता है। इसलिए आखरी दो तरीके काम करते हैं।
