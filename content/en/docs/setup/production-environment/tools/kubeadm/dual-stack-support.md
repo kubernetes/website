@@ -71,7 +71,7 @@ Run kubeadm to initiate the dual-stack control plane node:
 kubeadm init --config=kubeadm-config.yaml
 ```
 
-Currently, the kube-controller-manager flags `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` are being left with default values. See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack).
+The kube-controller-manager flags `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` are set with default values. See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack).
 
 {{< note >}}
 The `--apiserver-advertise-address` flag does not support dual-stack.
