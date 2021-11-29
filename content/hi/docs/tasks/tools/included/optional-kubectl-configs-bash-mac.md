@@ -41,7 +41,7 @@ Homebrew आमतौर पर इसे `/usr/local/bin/bash` पर स्थ
 जैसा कि उल्लेख किया गया है, ये निर्देश मानते हैं कि आप Bash 4.1+ का उपयोग करते हैं, जिसका अर्थ है कि आप bash-completion v2 इनस्टॉल  करेंगे (Bash 3.2 और bash-completion v1 पर kubectl  पूर्णता काम नहीं करेगी)।
 {{< /note >}}
 
-आप `type_init_completion` से परीक्षण कर सकते हैं कि क्या आपके पास बैश कम्पलीशन v2 पहले से ही इनस्टॉल है | अगर नहीं, तो आप इसे Homebrew के साथ इनस्टॉल कर सकते हैं
+आप `type_init_completion` से सत्यापित कर सकते हैं कि क्या आपके पास bash-completion v2 पहले से इनस्टॉल है। यदि नहीं, तो आप इसे Homebrew से इनस्टॉल कर सकते हैं
 
 ```bash
 brew install bash-completion@2
