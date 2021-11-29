@@ -44,7 +44,7 @@ is an Alpha feature and must be enabled in `kube-apiserver` in order to use the 
 --feature-gates="...,PodSecurity=true"
 ```
 
-## Alternative: installing the `PodSecurity` admission webhook
+## Alternative: installing the `PodSecurity` admission webhook {#webhook}
 
 For environments where the built-in `PodSecurity` admission plugin cannot be used,
 either because the cluster is older than v1.22, or the `PodSecurity` feature cannot be enabled,
