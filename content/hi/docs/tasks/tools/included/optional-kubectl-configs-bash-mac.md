@@ -63,10 +63,11 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 echo 'source <(kubectl completion bash)' >>~/.bash_profile
 ```
 
-- कम्पलीशन स्क्रिप्ट को `/usr/local/etc/bash_completion.d` डायरेक्टरी  में जोड़ें
-```bash
-kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
-```
+- कम्पलीशन स्क्रिप्ट को `/usr/local/etc/bash_completion.d` डायरेक्टरी में जोड़ें:
+
+    ```bash
+    kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
+    ```
 
 - यदि आपके पास kubectl के लिए एक नाम (alias) है, तो आप उस उपनाम के साथ काम करने के लिए शेल कम्पलीशन को बढ़ा सकते हैं:
 
