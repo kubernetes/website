@@ -58,10 +58,11 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 
 अब आपको यह सुनिश्चित करना होगा कि आपके सभी शेल सत्रों में kubectl कम्पलीशन स्क्रिप्ट प्राप्त हो जाए। इसे हासिल करने के कई तरीके हैं:
 
-- अपने कम्पलीशन स्क्रिप्ट को  `~/.bash_profile`  में सोर्स करें  
-```bash
-echo 'source <(kubectl completion bash)' >>~/.bash_profile
-```
+- अपने कम्पलीशन स्क्रिप्ट को  `~/.bash_profile`  में सोर्स करें:
+
+    ```bash
+    echo 'source <(kubectl completion bash)' >>~/.bash_profile
+    ```
 
 - कम्पलीशन स्क्रिप्ट को `/usr/local/etc/bash_completion.d` डायरेक्टरी में जोड़ें:
 
