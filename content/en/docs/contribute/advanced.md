@@ -26,7 +26,7 @@ may have ideas for improving the [Style Guide](/docs/contribute/style/style-guid
 the documentation, the website style, the processes for reviewing and merging
 pull requests, or other aspects of the documentation. For maximum transparency,
 these types of proposals need to be discussed in a SIG Docs meeting or on the
-[Kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+[kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 In addition, it can help to have some context about the way things
 currently work and why past decisions have been made before proposing sweeping
 changes. The quickest way to get answers to questions about how the documentation
@@ -101,7 +101,7 @@ in the Kubernetes organization. The contributor's membership needs to be
 backed by two sponsors who are already reviewers.
 
 New docs contributors can request sponsors by asking in the #sig-docs channel
-on the [Kubernetes Slack instance](https://kubernetes.slack.com) or the
+on the [Kubernetes Slack instance](https://kubernetes.slack.com) or on the
 [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 If you feel confident about the applicant's work, you volunteer to sponsor them.
 When they submit their membership application, reply to the application with a
@@ -135,11 +135,11 @@ The role of co-chair is one of service: co-chairs build contributor capacity, ha
 Responsibilities include:
 
 - Keep SIG Docs focused on maximizing developer happiness through excellent documentation
-- Exemplify the [community code of conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) and hold SIG members accountable for it
+- Exemplify the [community code of conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) and hold SIG members accountable to it
 - Learn and set best practices for the SIG by updating contribution guidelines
 - Schedule and run SIG meetings: weekly status updates, quarterly retro/planning sessions, and others as needed
 - Schedule and run doc sprints at KubeCon events and other conferences
-- Recruit for and advocate on behalf of SIG Docs with the {{< glossary_tooltip text= "CNCF" term_id= "cncf" >}} and its platinum partners, including Google, Oracle, Azure, IBM, and Huawei
+- Recruit for and advocate on behalf of SIG Docs with the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} and its platinum partners, including Google, Oracle, Azure, IBM, and Huawei
 - Keep the SIG running smoothly
 
 ### Running effective meetings
