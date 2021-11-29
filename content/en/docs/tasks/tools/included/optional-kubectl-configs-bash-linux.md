@@ -37,7 +37,7 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
 - Add the completion script to the `/etc/bash_completion.d` directory:
 
    ```bash
-   kubectl completion bash >/etc/bash_completion.d/kubectl
+   echo -e "$(kubectl completion bash)" | sudo tee /etc/bash_completion.d/kubectl > /dev/null
    ```
 
 If you have an alias for kubectl, you can extend shell completion to work with that alias:
