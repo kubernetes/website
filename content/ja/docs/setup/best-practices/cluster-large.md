@@ -4,7 +4,7 @@ weight: 20
 ---
 
 
-クラスターはKubernetesのエージェントが動作する（物理もしくは仮想の） {{< glossary_tooltip text="nodes" term_id="node" >}} の集合で、{{< glossary_tooltip text="control plane" term_id="control-plane" >}} によって管理されます。
+クラスターはKubernetesのエージェントが動作する（物理もしくは仮想の） {{< glossary_tooltip text="ノード" term_id="node" >}} の集合で、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}} によって管理されます。
 Kubernetes {{< param "version" >}} では、最大5000ノードから構成されるクラスターをサポートします。
 具体的には、Kubernetesは次の基準を *全て* 満たす構成に対して適用できるように設計されています。
 
@@ -53,15 +53,15 @@ Kubernetesノードは、同一故障ゾーン内のコントロールプレー�
 クラスターを作るときに、（カスタムツールを使って）以下のようなことができます。
 
 * 追加のetcdインスタンスを起動または設定する
-* イベントを保存するために {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} を設定する
+* イベントを保存するために {{< glossary_tooltip term_id="kube-apiserver" text="APIサーバ" >}} を設定する
 
 大きなクラスターのためにetcdを設定・管理する詳細については、[Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) または [kubeadmを使用した高可用性etcdクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) を見てください。
 
 
 ## アドオンのリソース
 
-Kubernetesの [リソース制限](/docs/concepts/configuration/manage-resources-containers/) は、メモリリークの影響やPodやコンテナが他のコンポーネントに与える他の影響を最小化することに役立ちます。
-これらのリソース制限は、アプリケーションのワークロードに適用するのと同様に、{{< glossary_tooltip text="addon" term_id="addons" >}} のリソースにも適用されます。
+Kubernetesの [リソース制限](/ja/docs/concepts/configuration/manage-resources-containers/) は、メモリリークの影響やPodやコンテナが他のコンポーネントに与える他の影響を最小化することに役立ちます。
+これらのリソース制限は、アプリケーションのワークロードに適用するのと同様に、{{< glossary_tooltip text="アドオン" term_id="addons" >}} のリソースにも適用されます。
 
 例えば、ロギングコンポーネントに対してCPUやメモリ制限を設定できます。
 
@@ -90,7 +90,7 @@ Kubernetesの [リソース制限](/docs/concepts/configuration/manage-resources
 
 ## {{% heading "whatsnext" %}}
 
-`VerticalPodAutoscaler` は、リソースのリクエストやポッドの制限についての管理を手助けするためにクラスターへデプロイ可能なカスタムリソースです。
+`VerticalPodAutoscaler` は、リソースのリクエストやPodの制限についての管理を手助けするためにクラスターへデプロイ可能なカスタムリソースです。
 `VerticalPodAutoscaler` やクラスターで致命的なアドオンを含むクラスターコンポーネントをスケールする方法についてさらに知りたい場合は [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) をご覧ください。
 
 [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme) は、クラスターで要求されるリソース水準を満たす正確なノード数で動作できるよう、いくつかのクラウドプロバイダと統合されています。
