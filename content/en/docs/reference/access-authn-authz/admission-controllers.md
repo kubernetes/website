@@ -583,7 +583,8 @@ subresource of the referenced *owner* can change it.
 This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
 
 {{< note >}}
-Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
+Support for volume resizing is available as a beta feature. As a cluster administrator,
+you must ensure that the feature gate `ExpandPersistentVolumes` is set
 to `true` to enable resizing.
 {{< /note >}}
 
