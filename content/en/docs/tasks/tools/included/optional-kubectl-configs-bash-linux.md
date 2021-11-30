@@ -26,19 +26,18 @@ Reload your shell and verify that bash-completion is correctly installed by typi
 
 ### Enable kubectl autocompletion
 
+#### Bash
+
 You now need to ensure that the kubectl completion script gets sourced in all your shell sessions. There are two ways in which you can do this:
 
-- Source the completion script in your `~/.bashrc` file:
-
-   ```bash
-   echo 'source <(kubectl completion bash)' >>~/.bashrc
-   ```
-
-- Add the completion script to the `/etc/bash_completion.d` directory:
-
-   ```bash
-   kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
-   ```
+{{< tabs name="kubectl_bash_autocompletion" >}}
+{{{< tab name="User" codelang="bash" >}}
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+{{< /tab >}}
+{{< tab name="System" codelang="bash" >}}
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+{{< /tab >}}}
+{{< /tabs >}}
 
 If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
