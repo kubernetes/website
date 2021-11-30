@@ -122,6 +122,7 @@ different Kubernetes components.
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
+| `GRPCContainerProbe` | `false` | Alpha | 1.23 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
@@ -573,10 +574,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   extended tokens by starting `kube-apiserver` with flag `--service-account-extend-token-expiration=false`.
   Check [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
    for more details.
-- `ControllerManagerLeaderMigration`: Enables Leader Migration for 
-  [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and 
-  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager) which allows a cluster operator to live migrate 
-  controllers from the kube-controller-manager into an external controller-manager 
+- `ControllerManagerLeaderMigration`: Enables Leader Migration for
+  [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
+  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager) which allows a cluster operator to live migrate
+  controllers from the kube-controller-manager into an external controller-manager
   (e.g. the cloud-controller-manager) in an HA cluster without downtime.
 - `CPUManager`: Enable container level CPU affinity support, see
   [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
@@ -782,6 +783,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   and gracefully terminate pods running on the node. See
   [Graceful Node Shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown)
   for more details.
+- `GRPCContainerProbe`: Enables gPRC probe method for {Liveness,Readiness,Startup}Probe. See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
 - `HPAContainerMetrics`: Enable the `HorizontalPodAutoscaler` to scale based on
   metrics from individual containers in target pods.
 - `HPAScaleToZero`: Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler`
