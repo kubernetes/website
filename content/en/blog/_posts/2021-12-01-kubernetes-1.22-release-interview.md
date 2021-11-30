@@ -8,7 +8,7 @@ date: 2021-12-01
 
 The Kubernetes release train rolls on, and we look ahead to the release of 1.23 next week. [As is our tradition](https://www.google.com/search?q=%22release+interview%22+site%3Akubernetes.io%2Fblog), I'm pleased to bring you a look back at the process that brought us the previous version.
 
-The release team for 1.22 was led by [Savitha Raghunathan](https://twitter.com/coffeeartgirl), Senior Platform Engineer at MathWorks. [I spoke to Savitha](https://kubernetespodcast.com/episode/157-kubernetes-1.22/) on the [Kubernetes Podcast from Google](https://kubernetespodcast.com/), the weekly<super>*</super> show covering the Kubernetes and Cloud Native ecosystem.
+The release team for 1.22 was led by [Savitha Raghunathan](https://twitter.com/coffeeartgirl), who was, at the time, a Senior Platform Engineer at MathWorks. [I spoke to Savitha](https://kubernetespodcast.com/episode/157-kubernetes-1.22/) on the [Kubernetes Podcast from Google](https://kubernetespodcast.com/), the weekly<super>*</super> show covering the Kubernetes and Cloud Native ecosystem.
 
 Our release conversations shine a light on the team that puts together each Kubernetes release. Make sure you [subscribe, wherever you get your podcasts](https://kubernetespodcast.com/subscribe/) so you catch the story of 1.23 next week.
 
@@ -26,7 +26,7 @@ SAVITHA RAGHUNATHAN: Hey, Craig. Thanks for having me on the show. How are you t
 
 SAVITHA RAGHUNATHAN: I'm glad. It's something that I always do. I just want to make sure the other person is good and happy.
 
-**CRAIG BOX: That's very kind of you. Thank you for kicking off on a wonderful foot there. I want to ask first of all-- you grew up in Chennai. My association with Chennai is the [Super Kings cricket team](https://en.wikipedia.org/wiki/Chennai_Super_Kings)). Was cricket part of your upbringing?**
+**CRAIG BOX: That's very kind of you. Thank you for kicking off on a wonderful foot there. I want to ask first of all-- you grew up in Chennai. My association with Chennai is the [Super Kings cricket team](https://en.wikipedia.org/wiki/Chennai_Super_Kings). Was cricket part of your upbringing?**
 
 SAVITHA RAGHUNATHAN: Yeah. Actually, a lot. My mom loves watching cricket. I have a younger brother, and when we were growing up, we used to play cricket on the terrace. Everyone surrounding me, my best friends-- and even now, my partner-- loves watching cricket, too. Cricket is a part of my life.
 
@@ -80,7 +80,7 @@ Everyone asks me like, you're working at [MathWorks](https://en.wikipedia.org/wi
 
 **CRAIG BOX: Fair enough. Nor have I. But it's been around since the late 1970s, so I imagine there are a lot of people who will have come across it at some point. Do you work with a lot of people who have been working on it the whole time?**
 
-SAVITHA RAGHUNATHAN: Kind of. Not all the time, but I get to meet some folks who work on the product itself. Most of my interactions are with the infrastructure team and platform engineering teams at MathWorks. One other interesting fact is that when I joined the company-- MathWorks has extensive internal curriculum for training and learning, which I really love. They have intuitive Matlab, and that's on my bucket of things to do.
+SAVITHA RAGHUNATHAN: Kind of. Not all the time, but I get to meet some folks who work on the product itself. Most of my interactions are with the infrastructure team and platform engineering teams at MathWorks. One other interesting fact is that when I joined the company-- MathWorks has extensive internal curriculum for training and learning, which I really love. They have a Matlab training course, and that's on my bucket of things to do.
 
 It was like 500 years ago. I added it, and I never got to it. I'm like, OK, maybe this year at least I want to get to it and I want to learn something new. My partner-- he used Matlab extensively. He misses it right now at his current employer. And he's like, you have the entire license! You have access to the entire suite and you haven't used it? I'm like, no!
 
@@ -96,7 +96,7 @@ Now, everyone knows, because I'm working there. They were initially like, I don'
 
 I know I don't directly work on the product, but I'm enabling the people who are creating the product. I'm really, really proud of that.
 
-**CRAIG BOX: I think Jeff Bezos is working on at least two out of three of those disciplines that you mentioned before, so it's maybe a little bit like Amazon. One thing I've always thought about Matlab is that, because it's called Matlab, it solves that whole problem where [Americans call it math, and the rest of the world call it maths](https://www.grammar.com/math_vs._maths). Why do the Americans think there's only one math?**
+**CRAIG BOX: I think Jeff Bezos is working on at least two out of three of those disciplines that you mentioned before, so it's maybe a little bit like Amazon. One thing I've always thought about Matlab is that, because it's called Matlab, it solves that whole problem where [Americans call it math, and the rest of the world call it maths](https://www.grammar.com/math_vs._maths). Why do Americans think there's only one math?**
 
 SAVITHA RAGHUNATHAN: Definitely. I had trouble-- growing up in India, it's always British English. And I had so much trouble when I moved here. So many things changed.
 
@@ -332,10 +332,10 @@ I started out because I wanted to make these little toys. They call them [amigur
 
 **CRAIG BOX: It's an artistic interpretation of a cat.**
 
-SAVITHA RAGHUNATHAN: It definitely is.
+SAVITHA RAGHUNATHAN: It definitely is!
 
 ---
 
-_[Savitha Raghunathan](https://twitter.com/coffeeartgirl) is a Senior Platform Engineer at MathWorks and served as the Kubernetes 1.22 release team lead._
+_[Savitha Raghunathan](https://twitter.com/coffeeartgirl), now a Senior Software Engineer at Red Hat, served as the Kubernetes 1.22 release team lead._
 
 _You can find the [Kubernetes Podcast from Google](http://www.kubernetespodcast.com/) at [@KubernetesPod](https://twitter.com/KubernetesPod) on Twitter, and you can [subscribe](https://kubernetespodcast.com/subscribe/) so you never miss an episode._
