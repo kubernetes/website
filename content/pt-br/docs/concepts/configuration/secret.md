@@ -2005,7 +2005,7 @@ be available in future releases of Kubernetes.
 
 Para melhor desempenho em uma requisição `get` repetitiva, clientes podem criar
 objetos que referenciam o Secret e então utilizar a requisição `watch` neste
-novo objeto, requisitanto o Secret novamente quando a referência mudar.
+novo objeto, requisitando o Secret novamente quando a referência mudar.
 Além disso, uma [API de "observação em lotes"](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
 para permitir a clientes observar recursos individuais também foi proposta e
 provavelmente estará disponível em versões futuras do Kubernetes.
