@@ -115,7 +115,7 @@ Kubdernetesはいくつかのビルトイン認証方式をサポートしてい
 
 [認証](/ja/docs/reference/access-authn-authz/authentication/)は、全てのリクエストのヘッダーまたは証明書情報を、リクエストを投げたクライアントのユーザー名にマッピングします。
 
-Kubernetesはいくつかのビルトイン認証方式と、それらが要件に合わない場合、[認証Webhook](ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)を提供します。
+Kubernetesはいくつかのビルトイン認証方式と、それらが要件に合わない場合、[認証Webhook](/ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)を提供します。
 
 ### 認可
 
