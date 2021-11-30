@@ -28,7 +28,9 @@ to give it a clean and consolidated workspace. HostProcess containers can also b
 top of existing Windows base images and do not inherit the same
 [compatibility requirements](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)
 as Windows server containers, meaning that the version of the base images does not need
-to match that of the host. HostProcess containers also support
+to match that of the host. It is, however, recommended that you use the same base image
+version as your Windows Server container workloads to ensure you do not have any unused
+images taking up space on the node. HostProcess containers also support
 [volume mounts](./create-hostprocess-pod#volume-mounts) within the container volume.
 
 ### When should I use a Windows HostProcess container?
@@ -57,7 +59,6 @@ documentation for more details.
 
 You can use the latest version of containerd (v1.6+) to run HostProcess containers. The kublet
 communicates with containerd directly by passing the hostprocess flag via CRI.
-In 1.23 this means that the annotation plugin configurations are no longer needed.
 [How to install containerd.](/docs/setup/production-environment/container-runtimes/#containerd)
 
 ## Limitations
