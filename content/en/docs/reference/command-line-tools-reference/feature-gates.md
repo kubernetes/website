@@ -891,7 +891,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ReadWriteOncePod`: Enables the usage of `ReadWriteOncePod` PersistentVolume
   access mode.
 - `RecoverVolumeExpansionFailure`: Enables users to edit their PVCs to smaller sizes so as they can recover from previously issued
-  volume expansion failures. See [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1790-recover-resize-failure/README.md) for more details.
+  volume expansion failures. See
+  [Recovering from Failure when Expanding Volumes](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes)
+  for more details.
 - `RemainingItemCount`: Allow the API servers to show a count of remaining
   items in the response to a
   [chunking list request](/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks).
