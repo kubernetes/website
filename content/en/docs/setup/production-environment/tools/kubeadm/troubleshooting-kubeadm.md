@@ -375,6 +375,7 @@ For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/c
 Kubernetes components like the kubelet and kube-controller-manager use the default path of
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
 for the feature to work.
+(**Note** FlexVolume is deprecated in v1.23)
 
 To workaround this issue you can configure the flex-volume directory using the kubeadm
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
