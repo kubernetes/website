@@ -43,23 +43,24 @@ HostProcess containers have access to the host's network interfaces and IP addre
 privileges needed by Windows nodes.
 
 
-## {{% heading "prerequisites" %}}
+## {{% heading "prerequisites" %}}% version-check %}}
 
-{{% version-check %}}
+In 1.23 the HostProcess container feature is enabled by default. The kublet will
+communicate with containerd directly by passing the hostprocess flag via CRI. You can use the
+latest version of containerd (v1.6+) to run HostProcess containers.
+[How to install containerd.](/docs/setup/production-environment/container-runtimes/#containerd)
 
-To enable HostProcess containers while you need to pass the following feature gate flag to 
+To *disable* HostProcess containers you need to pass the following feature gate flag to the
 **kubelet** and **kube-apiserver**:
 
 ```powershell
---feature-gates=WindowsHostProcessContainers=true
+--feature-gates=WindowsHostProcessContainers=false
 ```
 
 See [Features Gates](/docs/reference/command-line-tools-reference/feature-gates/#overview)
 documentation for more details.
 
-You can use the latest version of containerd (v1.6+) to run HostProcess containers. The kublet
-communicates with containerd directly by passing the hostprocess flag via CRI.
-[How to install containerd.](/docs/setup/production-environment/container-runtimes/#containerd)
+
 
 ## Limitations
 
@@ -83,7 +84,7 @@ be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 Enabling a Windows HostProcess pod requires setting the right configurations in the pod security
 configuration. Of the policies defined in the [Pod Security Standards](/docs/concepts/security/pod-security-standards)
 HostProcess pods are disallowed by the baseline and restricted policies. It is therefore recommended
-that HostProcess pods run in alignment with the privileged profile. 
+that HostProcess pods run in alignment with the privileged profile.
 
 When running under the privileged policy, here are
 the configurations which need to be set to enable the creation of a HostProcess pod:
