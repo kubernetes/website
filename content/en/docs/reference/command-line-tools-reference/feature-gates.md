@@ -126,6 +126,7 @@ different Kubernetes components.
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
+| `IdentifyPodOS` | `false` | Alpha | 1.23 | |
 | `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
 | `IndexedJob` | `true` | Beta | 1.22 | |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
@@ -801,6 +802,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `HyperVContainer`: Enable
   [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)
   for Windows containers.
+- `IdentifyPodOS`: Allows the Pod OS field to be specified. This helps in identifying the OS of the pod
+  authoritatively during the API server admission time. In Kubernetes {{< skew currentVersion >}}, the allowed values for the `pod.spec.os.name` are `windows` and `linux`.
 - `ImmutableEphemeralVolumes`: Allows for marking individual Secrets and ConfigMaps as
   immutable for better safety and performance.
 - `InTreePluginAWSUnregister`: Stops registering the aws-ebs in-tree plugin in kubelet
