@@ -71,16 +71,21 @@ different Kubernetes components.
 | `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigration` | `true` | Beta | 1.17 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
-| `CSIMigrationAWS` | `false` | Beta | 1.17 | |
+| `CSIMigrationAWS` | `false` | Beta | 1.17 | 1.22 |
+| `CSIMigrationAWS` | `true` | Beta | 1.23 | |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | 1.18 |
-| `CSIMigrationAzureDisk` | `false` | Beta | 1.19 | |
+| `CSIMigrationAzureDisk` | `false` | Beta | 1.19 | 1.22 |
+| `CSIMigrationAzureDisk` | `true` | Beta | 1.23 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.19 |
 | `CSIMigrationAzureFile` | `false` | Beta | 1.21 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
-| `CSIMigrationGCE` | `false` | Beta | 1.17 | |
+| `CSIMigrationGCE` | `false` | Beta | 1.17 | 1.22 |
+| `CSIMigrationGCE` | `true` | Beta | 1.23 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
+| `CSIMigrationPortworx` | `false` | Alpha | 1.23 | |
+| `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
@@ -90,6 +95,7 @@ different Kubernetes components.
 | `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
+| `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | |
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
@@ -106,7 +112,8 @@ different Kubernetes components.
 | `EfficientWatchResumption` | `true` | Beta | 1.21 | |
 | `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | 1.21 |
 | `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | |
-| `EphemeralContainers` | `false` | Alpha | 1.16 | |
+| `EphemeralContainers` | `false` | Alpha | 1.16 | 1.22 |
+| `EphemeralContainers` | `true` | Beta | 1.23 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
 | `ExpandedDNSConfig` | `false` | Alpha | 1.22 | |
@@ -127,8 +134,6 @@ different Kubernetes components.
 | `InTreePluginGCEUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginOpenStackUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
-| `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
-| `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.23 | |
@@ -165,6 +170,7 @@ different Kubernetes components.
 | `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `ReadWriteOncePod` | `false` | Alpha | 1.22 | |
+| `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
@@ -180,13 +186,15 @@ different Kubernetes components.
 | `ServiceLoadBalancerClass` | `true` | Beta | 1.22 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
-| `StatefulSetMinReadySeconds` | `false` | Alpha | 1.22 | |
+| `StatefulSetMinReadySeconds` | `false` | Alpha | 1.22 | 1.22 |
+| `StatefulSetMinReadySeconds` | `true` | Beta | 1.23 | |
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
 | `SuspendJob` | `false` | Alpha | 1.21 | 1.21 |
 | `SuspendJob` | `true` | Beta | 1.22 | |
-| `TopologyAwareHints` | `false` | Alpha | 1.21 | |
+| `TopologyAwareHints` | `false` | Alpha | 1.21 | 1.22 |
+| `TopologyAwareHints` | `true` | Beta | 1.23 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
 | `TopologyManager` | `true` | Beta | 1.18 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
@@ -222,6 +230,7 @@ different Kubernetes components.
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | 1.20 |
 | `BoundServiceAccountTokenVolume` | `true` | Beta | 1.21 | 1.21 |
 | `BoundServiceAccountTokenVolume` | `true` | GA | 1.22 | - |
+| `ConfigurableFSGroupPolicy` | `true` | GA | 1.23 | |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta | 1.11 | 1.20 |
 | `CRIContainerLogRotation` | `true` | GA | 1.21 | - |
@@ -331,6 +340,9 @@ different Kubernetes components.
 | `IngressClassNamespacedParams` | `true` | GA | 1.23 | - |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | - |
+| `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
+| `IPv6DualStack` | `true` | Beta | 1.21 | 1.22 |
+| `IPv6DualStack` | `true` | GA | 1.23 | - |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletConfigFile` | - | Deprecated | 1.10 | - |
 | `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
@@ -360,6 +372,7 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
+| `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | 1.20 |
 | `PodDisruptionBudget` | `true` | GA | 1.21 | - |
@@ -622,6 +635,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
   operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling
   back to in-tree GCE plugin if a node does not have PD CSI plugin installed and
   configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationRBD`: Enables shims and translation logic to route volume
+  operations from the RBD in-tree plugin to Ceph RBD CSI plugin. Requires
+  CSIMigration and CSIMigrationRBD feature flags enabled and Ceph CSI plugin
+  installed and configured in the cluster. This flag has been deprecated in
+  favor of the
+  `InTreePluginRBDUnregister` feature flag which prevents the registration of
+  in-tree RBD plugin.
 - `CSIMigrationGCEComplete`: Stops registering the GCE-PD in-tree plugin in
   kubelet and volume controllers and enables shims and translation logic to
   route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.
@@ -648,6 +668,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and
   configured on all nodes in the cluster. This flag has been deprecated in favor
   of the `InTreePluginvSphereUnregister` feature flag which prevents the registration of in-tree vsphere plugin.
+- `CSIMigrationPortworx`: Enables shims and translation logic to route volume operations
+  from the Portworx in-tree plugin to Portworx CSI plugin.
+  Requires Portworx CSI driver to be installed and configured in the cluster, and feature gate set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet configs.
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
@@ -676,6 +699,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   version 1 of the same controller is selected.
 - `CustomCPUCFSQuotaPeriod`: Enable nodes to change `cpuCFSQuotaPeriod` in
   [kubelet config](/docs/tasks/administer-cluster/kubelet-config-file/).
+- `CustomResourceValidationExpressions`: Enable expression language validation in CRD which will validate customer resource based on validation rules written in `x-kubernetes-validations` extension.
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
   Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
   for more details.
@@ -860,6 +884,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
    feature which allows users to influence ReplicaSet downscaling order.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
+- `PodAndContainerStatsFromCRI`: Configure the kubelet to gather container and pod stats from the CRI container runtime
+   rather than gathering them from cAdvisor.
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
 - `PodAffinityNamespaceSelector`: Enable the [Pod Affinity Namespace Selector](/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
   and [CrossNamespacePodAffinity](/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota) quota scope features.
@@ -889,6 +915,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   (memory only for now).
 - `ReadWriteOncePod`: Enables the usage of `ReadWriteOncePod` PersistentVolume
   access mode.
+- `RecoverVolumeExpansionFailure`: Enables users to edit their PVCs to smaller sizes so as they can recover from previously issued
+  volume expansion failures. See
+  [Recovering from Failure when Expanding Volumes](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes)
+  for more details.
 - `RemainingItemCount`: Allow the API servers to show a count of remaining
   items in the response to a
   [chunking list request](/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks).

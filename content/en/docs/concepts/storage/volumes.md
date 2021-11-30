@@ -830,11 +830,11 @@ GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte
 ### rbd
 
 An `rbd` volume allows a
-[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount into your
-Pod. Unlike `emptyDir`, which is erased when a pod is removed, the contents of
-an `rbd` volume are preserved and the volume is unmounted. This
-means that a RBD volume can be pre-populated with data, and that data can
-be shared between pods.
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount
+into your Pod. Unlike `emptyDir`, which is erased when a pod is removed, the
+contents of an `rbd` volume are preserved and the volume is unmounted. This
+means that a RBD volume can be pre-populated with data, and that data can be
+shared between pods.
 
 {{< note >}}
 You must have a Ceph installation running before you can use RBD.
@@ -848,6 +848,38 @@ Simultaneous writers are not allowed.
 
 See the [RBD example](https://github.com/kubernetes/examples/tree/master/volumes/rbd)
 for more details.
+
+#### RBD CSI migration {#rbd-csi-migration}
+
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+The `CSIMigration` feature for `RBD`, when enabled, redirects all plugin
+operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
+glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this
+feature, the
+[Ceph CSI driver](https://github.com/ceph/ceph-csi)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationRBD`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled.
+
+{{< note >}}
+
+As a Kubernetes cluster operator that administers storage, here are the
+prerequisites that you must complete before you attempt migration to the
+RBD CSI driver:
+
+* You must install the Ceph CSI driver (`rbd.csi.ceph.com`), v3.5.0 or above,
+  into your Kubernetes cluster.
+* considering the `clusterID` field is a required parameter for CSI driver for
+  its operations, but in-tree StorageClass has `monitors` field as a required
+  parameter, a Kubernetes storage admin has to create a clusterID based on the
+  monitors hash ( ex:`#echo -n
+  '<monitors_string>' | md5sum`) in the CSI config map and keep the monitors
+  under this clusterID configuration.
+* Also, if the value of `adminId` in the in-tree Storageclass is different from
+ `admin`, the `adminSecretName` mentioned in the in-tree Storageclass has to be
+  patched with the base64 value of the `adminId` parameter value, otherwise this
+  step can be skipped. {{< /note >}}
 
 ### secret
 
@@ -1017,6 +1049,16 @@ but new volumes created by the vSphere CSI driver will not be honoring these par
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 To turn off the `vsphereVolume` plugin from being loaded by the controller manager and the kubelet, you need to set `InTreePluginvSphereUnregister` feature flag to `true`. You must install a `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver on all worker nodes.
+
+#### Portworx CSI migration
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+The `CSIMigration` feature for Portworx has been added but disabled by default in Kubernetes 1.23 since it's in alpha state.
+It redirects all plugin operations from the existing in-tree plugin to the
+`pxd.portworx.com` Container Storage Interface (CSI) Driver.
+[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)
+must be installed on the cluster.
+To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
 
 ## Using subPath {#using-subpath}
 
@@ -1254,6 +1296,10 @@ plugin path on each node and in some cases the control plane nodes as well.
 
 Pods interact with FlexVolume drivers through the `flexvolume` in-tree volume plugin.
 For more details, see the [FlexVolume](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) examples.
+
+{{< note >}}
+FlexVolume is deprecated starting v1.23. Out-of-tree CSI driver is the recommended way to write volume driver in Kubernetes. Maintainers of FlexVolume driver should implement a CSI Driver and move users of FlexVolume to CSI. Users of FlexVolume should move their workloads to CSI Driver.
+{{< /note >}}
 
 ## Mount propagation
 

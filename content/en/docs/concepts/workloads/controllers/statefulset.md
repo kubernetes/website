@@ -77,6 +77,7 @@ spec:
       app: nginx # has to match .spec.template.metadata.labels
   serviceName: "nginx"
   replicas: 3 # by default is 1
+  minReadySeconds: 10 # by default is 0
   template:
     metadata:
       labels:
@@ -112,9 +113,24 @@ In the above example:
 The name of a StatefulSet object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-## Pod Selector
+### Pod Selector
 
-You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Prior to Kubernetes 1.8, the `.spec.selector` field was defaulted when omitted. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
+You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
+
+### Volume Claim Templates
+
+You can set the  `.spec.volumeClaimTemplates` which can provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
+
+
+### Minimum ready seconds
+
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+
+`.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
+created Pod should be ready without any of its containers crashing, for it to be considered available.
+Please note that this feature is beta and enabled by default. Please opt out by unsetting the StatefulSetMinReadySeconds flag, if you don't
+want this feature to be enabled. This field defaults to 0 (the Pod will be considered 
+available as soon as it is ready). To learn more about when a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 ## Pod Identity
 
@@ -284,16 +300,6 @@ After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
 
-### Minimum ready seconds
-
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
-
-`.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
-created Pod should be ready without any of its containers crashing, for it to be considered available.
-This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
-a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
-
-Please note that this field only works if you enable the `StatefulSetMinReadySeconds` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 ## {{% heading "whatsnext" %}}
 
