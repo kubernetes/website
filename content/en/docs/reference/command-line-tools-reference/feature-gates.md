@@ -95,6 +95,7 @@ different Kubernetes components.
 | `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
+| `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | |
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
@@ -698,6 +699,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   version 1 of the same controller is selected.
 - `CustomCPUCFSQuotaPeriod`: Enable nodes to change `cpuCFSQuotaPeriod` in
   [kubelet config](/docs/tasks/administer-cluster/kubelet-config-file/).
+- `CustomResourceValidationExpressions`: Enable expression language validation in CRD which will validate customer resource based on validation rules written in `x-kubernetes-validations` extension.
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
   Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
   for more details.
