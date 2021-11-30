@@ -665,4 +665,4 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
 我们还建议重启所有组件（例如 `kube-scheduler`、`kube-controller-manager`、`kubelet`），以确保它们不会
 依赖一些过时的数据。请注意，实际中还原会花费一些时间。
 在还原过程中，关键组件将丢失领导锁并自行重启。
-{{< note >}}
+{{< /note >}}
