@@ -36,7 +36,7 @@ Hay dos extensiones de API para esta función:
 
 El Planificador de Kubernetes utiliza la información sobre la capacidad de almacenamiento si:
 
-- la puerta de la característica `CSIStorageCapacity` es `true`,
+- la Feature Gate de `CSIStorageCapacity` es `true`,
 - un Pod usa un volumen que aún no se ha creado,
 - ese volumen usa un {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} que hace referencia a un controlador CSI y usa el modo de enlace de volumen `WaitForFirstConsumer` [volume binding
   mode](/docs/concepts/storage/storage-classes/#volume-binding-mode),
