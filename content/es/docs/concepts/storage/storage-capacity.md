@@ -38,8 +38,7 @@ El Planificador de Kubernetes utiliza la información sobre la capacidad de alma
 
 - la Feature Gate de `CSIStorageCapacity` es `true`,
 - un Pod usa un volumen que aún no se ha creado,
-- ese volumen usa un {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} que hace referencia a un controlador CSI y usa el modo de enlace de volumen `WaitForFirstConsumer` [volume binding
-  mode](/docs/concepts/storage/storage-classes/#volume-binding-mode),
+- ese volumen usa un {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} que hace referencia a un controlador CSI y usa el [modo de enlace de volumen](/docs/concepts/storage/storage-classes/#volume-binding-mode) `WaitForFirstConsumer` ,
   y
 - el objeto `CSIDriver` para el controlador tiene `StorageCapacity` establecido en `true`.
 
