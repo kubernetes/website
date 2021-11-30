@@ -546,3 +546,8 @@
 /id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
 
 /pt/*         /pt-br/:splat  302!
+
+# Redirect common Go packages redirected from k8s.io/* to show Go package documentation.
+/api/* https://pkg.go.dev/k8s.io/api/:splat 302!
+/apimachinery/* https://pkg.go.dev/k8s.io/api/:splat 302!
+/client-go/* https://pkg.go.dev/k8s.io/client-go/:splat 302!
