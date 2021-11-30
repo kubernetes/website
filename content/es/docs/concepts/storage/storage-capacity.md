@@ -15,7 +15,7 @@ La capacidad de almacenamiento es limitada y puede variar según el nodo en el q
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-Esta página describe cómo Kubernetes realiza un seguimiento de la capacidad de almacenamiento y cómo el programador usa esa información para programar Pods en nodos que tienen acceso a suficiente capacidad de almacenamiento para los volúmenes restantes que faltan. Sin el seguimiento de la capacidad de almacenamiento, el programador puede elegir un nodo que no tenga suficiente capacidad para aprovisionar un volumen y se necesitarán varios reintentos de programación.
+Esta página describe cómo Kubernetes realiza un seguimiento de la capacidad de almacenamiento y cómo el planificador usa esa información para programar Pods en nodos que tienen acceso a suficiente capacidad de almacenamiento para los volúmenes restantes que faltan. Sin el seguimiento de la capacidad de almacenamiento, el programador puede elegir un nodo que no tenga suficiente capacidad para aprovisionar un volumen y se necesitarán varios reintentos de programación.
 
 El seguimiento de la capacidad de almacenamiento es compatible con los controladores de la {{< glossary_tooltip
 text="Interfaz de Almacenamiento de Contenedores" term_id="csi" >}} (CSI) y
