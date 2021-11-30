@@ -56,7 +56,7 @@ Cuando se selecciona un nodo para un Pod con volúmenes `WaitForFirstConsumer`, 
 
 Debido a que Kubernetes pudo haber elegido un nodo basándose en información de capacidad desactualizada, es posible que el volumen no se pueda crear realmente. Luego, la selección de nodo se restablece y el Planificador de Kubernetes intenta nuevamente encontrar un nodo para el Pod.
 
-## Limitationes
+## Limitaciones
 
 El seguimiento de la capacidad de almacenamiento aumenta las posibilidades de que la programación funcione en el primer intento, pero no puede garantizarlo porque el programador tiene que decidir basándose en información potencialmente desactualizada. Por lo general, el mismo mecanismo de reintento que para la programación sin información de capacidad de almacenamiento es manejado por los errores de programación.
 
