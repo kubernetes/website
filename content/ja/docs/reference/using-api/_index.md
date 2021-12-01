@@ -82,22 +82,13 @@ APIグループは、RESTパスとシリアル化されたオブジェクトの`
 
 KubernetesにはいくつかのAPIグループがあります:
 
-*  The *core* (also called *legacy*) group is found at REST path `/api/v1`.
-   The core group is not specified as part of the `apiVersion` field, for
-   example, `apiVersion: v1`.
-*  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION` and use
-   `apiVersion: $GROUP_NAME/$VERSION` (for example, `apiVersion: batch/v1`).
-   You can find the full list of supported API groups in
-   [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#-strong-api-groups-strong-).
-
-
-* *core*（legacy*とも呼ばれる）グループは、RESTパス `/api/v1` にあります。
+* *core*（*legacy*とも呼ばれる）グループは、RESTパス `/api/v1` にあります。
    コアグループは `apiVersion` フィールドの一部としては指定されません。
    例えば、`apiVersion: v1` のように。
 * 名前付きのグループは、REST パス `/apis/$GROUP_NAME/$VERSION` にあり、以下のように使用します。
    `apiVersion: $GROUP_NAME/$VERSION`を使用します（例：`apiVersion: batch/v1`）。
    サポートされているAPIグループの完全なリストは以下にあります。
-   [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}/#strong-api-groups-strong-)。
+   [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#strong-api-groups-strong-)。
 
 ## API グループの有効化と無効化   {#enabling-or-disabling}
 
