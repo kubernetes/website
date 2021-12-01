@@ -45,7 +45,7 @@ privileges needed by Windows nodes.
 
 ## {{% heading "prerequisites" %}}% version-check %}}
 
-In 1.23 the HostProcess container feature is enabled by default. The kublet will
+In 1.23 the HostProcess container feature is enabled by default. The kubelet will
 communicate with containerd directly by passing the hostprocess flag via CRI. You can use the
 latest version of containerd (v1.6+) to run HostProcess containers.
 [How to install containerd.](/docs/setup/production-environment/container-runtimes/#containerd)
