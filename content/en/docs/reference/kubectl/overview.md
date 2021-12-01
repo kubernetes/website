@@ -91,6 +91,7 @@ If:
 * the `KUBERNETES_SERVICE_HOST` environment variable is set, and
 * the `KUBERNETES_SERVICE_PORT` environment variable is set, and
 * you don't explicitly specify a namespace on the kubectl command line
+
 then kubectl assumes it is running in your cluster. The kubectl tool looks up the
 namespace of that ServiceAccount (this is the same as the namespace of the Pod)
 and acts against that namespace. This is different from what happens outside of a
@@ -544,5 +545,4 @@ Current user: plugins-user
 * Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
 
 * To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
-
 

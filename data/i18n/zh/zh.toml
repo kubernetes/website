@@ -49,6 +49,9 @@ other = "我是..."
 [docs_label_users]
 other = "用户"
 
+[envvars_heading]
+other = "环境变量"
+
 [examples_heading]
 other = "示例"
 
