@@ -645,6 +645,12 @@ etcd 支持从 [major.minor](http://semver.org/) 或其他不同 patch 版本的
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
 ```
 
+恢复时也可以指定操作选项，例如：
+
+```
+ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
+```
+
 有关从快照文件还原集群的详细信息和示例，请参阅 
 [etcd 灾难恢复文档](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster)。
 
@@ -665,4 +671,4 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
 我们还建议重启所有组件（例如 `kube-scheduler`、`kube-controller-manager`、`kubelet`），以确保它们不会
 依赖一些过时的数据。请注意，实际中还原会花费一些时间。
 在还原过程中，关键组件将丢失领导锁并自行重启。
-{{< note >}}
+{{< /note >}}
