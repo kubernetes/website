@@ -55,7 +55,7 @@ documentation for more details.
 --feature-gates=WindowsHostProcessContainers=true
 ```
 
-The kublet will communicate with containerd directly by
+The kubelet will communicate with containerd directly by
 passing the hostprocess flag via CRI. You can use the
 latest version of containerd (v1.6+) to run HostProcess containers.
 [How to install containerd.](/docs/setup/production-environment/container-runtimes/#containerd)
