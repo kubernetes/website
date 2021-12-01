@@ -152,8 +152,6 @@ SAVITHA RAGHUNATHAN: I really want to know the secret for endless time. If I onl
 
 **CRAIG BOX: If I had a chance to sleep up to 48 hours a day, I think it'd be a lot more than 16.**
 
-*laughs*
-
 **Now, one of the areas that you've been contributing to Kubernetes is in the release team. In 1.18, you were a shadow for the docs role. You led that role in 1.19. And you were a release lead shadow for versions 1,20 and 1.21 before finally leading this release, 1.22, which we will talk about soon.**
 
 **How did you get involved? And how did you decide which roles to take as you went through that process?**
