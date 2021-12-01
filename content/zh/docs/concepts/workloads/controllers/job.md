@@ -441,13 +441,13 @@ other Pods for the Job failing around that time.
 当 Job 的 Pod 被删除时，或者 Pod 成功时没有其它 Pod 处于失败状态，失效回退的次数也会被重置（为 0）。
 
 <!--
-If your job has `restartPolicy = "OnFailure"`, keep in mind that your container running the Job
+If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
 will be terminated once the job backoff limit has been reached. This can make debugging the Job's executable more difficult. We suggest setting
 `restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
 from failed Jobs is not lost inadvertently.
 -->
 {{< note >}}
-如果你的 Job 的 `restartPolicy` 被设置为 "OnFailure"，就要注意运行该 Job 的容器
+如果你的 Job 的 `restartPolicy` 被设置为 "OnFailure"，就要注意运行该 Job 的 Pod
 会在 Job 到达失效回退次数上限时自动被终止。
 这会使得调试 Job 中可执行文件的工作变得非常棘手。
 我们建议在调试 Job 时将 `restartPolicy` 设置为 "Never"，

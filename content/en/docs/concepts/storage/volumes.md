@@ -811,7 +811,7 @@ For more details, see the [Portworx volume](https://github.com/kubernetes/exampl
 ### projected
 
 A projected volume maps several existing volume sources into the same
-directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/)
+directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
 
 ### quobyte (deprecated) {#quobyte}
 
