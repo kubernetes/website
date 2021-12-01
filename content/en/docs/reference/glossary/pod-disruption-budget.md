@@ -22,5 +22,5 @@ tags:
 
 <!--more--> 
 
-PDBs cannot prevent an involuntary disruption, but 
- will count against the budget.
+Involuntary disruptions cannot be prevented by PDBs; however they 
+do count against the budget.
