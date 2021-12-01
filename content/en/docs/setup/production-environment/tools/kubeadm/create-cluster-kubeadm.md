@@ -383,6 +383,12 @@ Run 'kubectl get nodes' on control-plane to see this machine join.
 A few seconds later, you should notice this node in the output from `kubectl get
 nodes` when run on the control-plane node.
 
+{{< note >}}
+As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run 
+on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods 
+with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
+{{< /note >}}
+
 ### (Optional) Controlling your cluster from machines other than the control-plane node
 
 In order to get a kubectl on some other computer (e.g. laptop) to talk to your

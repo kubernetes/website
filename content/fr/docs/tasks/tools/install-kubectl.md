@@ -457,7 +457,7 @@ Si vous avez un alias pour kubectl, vous pouvez étendre la completion de votre 
 
 ```shell
 echo 'alias k=kubectl' >>~/.zshrc
-echo 'complete -F __start_kubectl k' >>~/.zshrc
+echo 'compdef __start_kubectl k' >>~/.zshrc
 ```
 
 Après avoir rechargé votre shell, l'auto-complétion de kubectl devrait fonctionner.

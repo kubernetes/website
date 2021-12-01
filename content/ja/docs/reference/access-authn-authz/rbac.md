@@ -698,7 +698,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
 <td>None</td>
-<td>ほとんどの<a href="/ja/docs/concepts/storage/persistent-volumes/#provisioner">dynamic volume provisioners</a>が必要とするリソースへのアクセスを許可します。</td>
+<td>ほとんどの<a href="/ja/docs/concepts/storage/persistent-volumes/#dynamic">dynamic volume provisioners</a>が必要とするリソースへのアクセスを許可します。</td>
 </tr>
 </table>
 

@@ -316,9 +316,10 @@ CRD 使得你不必编写自己的 API 服务器来处理定制资源，不过�
 Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also generically handle custom resources through [CRDs](#customresourcedefinitions).
 
 The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
-implementations for your custom resources by writing and deploying your own standalone API server.
-The main API server delegates requests to you for the custom resources that you handle,
+implementations for your custom resources by writing and deploying your own API server.
+The main API server delegates requests to your API server for the custom resources that you handle,
 making them available to all of its clients.
+
 -->
 ## API 服务器聚合  {#api-server-aggregation}
 
@@ -327,9 +328,9 @@ Kubernetes API 主服务器能够处理诸如 *pods* 和 *services* 这些内置
 按通用的方式通过 [CRD](#customresourcedefinitions) 来处理定制资源。
 
 [聚合层（Aggregation Layer）](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-使得你可以通过编写和部署你自己的独立的 API 服务器来为定制资源提供特殊的实现。
-主 API 服务器将针对你要处理的定制资源的请求全部委托给你来处理，同时将这些资源
-提供给其所有客户。
+使得你可以通过编写和部署你自己的 API 服务器来为定制资源提供特殊的实现。
+主 API 服务器将针对你要处理的定制资源的请求全部委托给你自己的 API 服务器来处理，同时将这些资源
+提供给其所有客户端。
 
 <!--
 ## Choosing a method for adding custom resources

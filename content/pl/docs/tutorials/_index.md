@@ -26,13 +26,15 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 ## Konfiguracja
 
-[Konfiguracja  serwera Redis z użyciem ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
+
+* [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Aplikacje bezstanowe *(Stateless Applications)*
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [Example: Deploying PHP Guestbook application with MongoDB](/docs/tutorials/stateless-application/guestbook/)
+* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
 
 ## Aplikacje stanowe *(Stateful Applications)*
 

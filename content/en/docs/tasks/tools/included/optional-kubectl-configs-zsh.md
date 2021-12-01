@@ -16,7 +16,7 @@ If you have an alias for kubectl, you can extend shell completion to work with t
 
 ```zsh
 echo 'alias k=kubectl' >>~/.zshrc
-echo 'complete -F __start_kubectl k' >>~/.zshrc
+echo 'compdef __start_kubectl k' >>~/.zshrc
 ```
 
 After reloading your shell, kubectl autocompletion should be working.

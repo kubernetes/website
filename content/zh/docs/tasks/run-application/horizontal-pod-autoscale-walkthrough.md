@@ -135,8 +135,8 @@ Now that the server is running, we will create the autoscaler using
 The following command will create a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods
 controlled by the php-apache deployment we created in the first step of these instructions.
 Roughly speaking, HPA will increase and decrease the number of replicas
-(via the deployment) to maintain an average CPU utilization across all Pods of 50%
-(since each pod requests 200 milli-cores by `kubectl run`), this means average CPU usage of 100 milli-cores).
+(via the deployment) to maintain an average CPU utilization across all Pods of 50%.
+Since each pod requests 200 milli-cores by `kubectl run`, this means an average CPU usage of 100 milli-cores.
 See [here](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details on the algorithm.
 -->
 ## 创建 Horizontal Pod Autoscaler  {#create-horizontal-pod-autoscaler}
@@ -147,8 +147,8 @@ See [here](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-detai
 以下命令将创建一个 Horizontal Pod Autoscaler 用于控制我们上一步骤中创建的
 Deployment，使 Pod 的副本数量维持在 1 到 10 之间。
 大致来说，HPA 将（通过 Deployment）增加或者减少 Pod 副本的数量以保持所有 Pod
-的平均 CPU 利用率在 50% 左右（由于每个 Pod 请求 200 毫核的 CPU，这意味着平均
-CPU 用量为 100 毫核）。
+的平均 CPU 利用率在 50% 左右。由于每个 Pod 请求 200 毫核的 CPU，这意味着平均
+CPU 用量为 100 毫核。
 算法的详情请参阅[相关文档](/zh/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
 
 ```shell
