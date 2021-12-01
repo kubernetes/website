@@ -11,80 +11,76 @@ card:
 
 <!-- overview -->
 
-This section provides reference information for the Kubernetes API.
+このセクションでは、Kubernetes APIのリファレンス情報を提供します。
 
-The REST API is the fundamental fabric of Kubernetes. All operations and
-communications between components, and external user commands are REST API
-calls that the API Server handles. Consequently, everything in the Kubernetes
-platform is treated as an API object and has a corresponding entry in the
-[API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
-
-The [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-lists the API for Kubernetes version {{< param "version" >}}.
-
-For general background information, read
-[The Kubernetes API](/docs/concepts/overview/kubernetes-api/).
-[Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/)
-describes how clients can authenticate to the Kubernetes API server, and how their
-requests are authorized.
+REST APIはKubernetesの基本的な構造です。
+すべての操作とコンポーネント間のと通信、および外部ユーザーのコマンドは、REST API 呼び出しでありAPIサーバーが処理します。
 
 
-## API versioning
+その結果、Kubernetesプラットフォーム内のすべてのものは、APIオブジェクトとして扱われ、[API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)に対応するエントリがあります.
 
-The JSON and Protobuf serialization schemas follow the same guidelines for
-schema changes. The following descriptions cover both formats.
+[Kubernetes API 参照](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)は、Kubernetes バージョン {{< param "version" >}}のAPI一覧を提供します。
 
-The API versioning and software versioning are indirectly related.
-The [API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)
-describes the relationship between API versioning and software versioning.
+一般的な背景情報を知るには、[The Kubernetes API](/docs/concepts/overview/kubernetes-api/)、
+[Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/)を読んでください。
+それらはKubernetes APIサーバーがクライアントを認証する方法とリクエストを認可する方法を説明します。
 
-Different API versions indicate different levels of stability and support. You
-can find more information about the criteria for each level in the
-[API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions).
+## API バージョニング
 
-Here's a summary of each level:
+JSONとProtobufなどのシリアル化スキーマの変更については同じガイドラインに従います。
+以下の説明は、両方のフォーマットをカバーしています。
+
+APIのバージョニングとソフトウェアのバージョニングは間接的に関係しています。
+[API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)は、APIバージョニングとソフトウェアバージョニングの関係を説明しています。
+
+APIのバージョンが異なると、安定性やサポートのレベルも異なります。
+各レベルの基準については、
+[API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)で詳しく説明しています。.
+
+各レベルの概要は以下の通りです:
 
 - Alpha:
-  - The version names contain `alpha` (for example, `v1alpha1`).
-  - The software may contain bugs. Enabling a feature may expose bugs. A
-    feature may be disabled by default.
-  - The support for a feature may be dropped at any time without notice.
-  - The API may change in incompatible ways in a later software release without notice.
-  - The software is recommended for use only in short-lived testing clusters,
-    due to increased risk of bugs and lack of long-term support.
+  - バージョン名に「alpha」が含まれています（例：「v1alpha1」）。
+  - バグが含まれている可能性があります
+    機能を有効にするとバグが露呈する可能性があります
+    機能がデフォルトで無効になっている可能性があります。
+  - ある機能のサポートは、予告なしにいつでも中止される可能性があります。
+  - 後にリリースされるソフトウェアで、互換性のない方法で予告なく変更される可能性があります。
+  - バグのリスクが高く、長期的なサポートが得られないため、短期間のテストクラスタのみでの使用を推奨します。
 
 - Beta:
-  - The version names contain `beta` (for example, `v2beta3`).
-  - The software is well tested. Enabling a feature is considered safe.
-    Features are enabled by default.
-  - The support for a feature will not be dropped, though the details may change.
+  - バージョン名には `beta` が含まれています（例：`v2beta3`）。
+  - ソフトウェアは十分にテストされています。
+    機能を有効にすることは安全であると考えられています。
+    機能はデフォルトで有効になっています。
+  - 機能のサポートが打ち切られることはありませんが、詳細は変更される可能性があります。
 
-  - The schema and/or semantics of objects may change in incompatible ways in
-    a subsequent beta or stable release. When this happens, migration
-    instructions are provided. Schema changes may require deleting, editing, and
-    re-creating API objects. The editing process may not be straightforward.
-    The migration may require downtime for applications that rely on the feature.
-  - The software is not recommended for production uses. Subsequent releases
-    may introduce incompatible changes. If you have multiple clusters which
-    can be upgraded independently, you may be able to relax this restriction.
+  - オブジェクトのスキーマやセマンティクスは、その後のベータ版や安定版のリリースで互換性のない方法で変更される可能性があります。
+    このような場合には、移行手順が提供されます。
+    スキーマの変更に伴い、APIオブジェクトの削除、編集、再作成が必要になる場合があります。
+    編集作業は単純ではないかもしれません。
+    移行に伴い、その機能に依存しているアプリケーションのダウンタイムが必要になる場合があります。
+
+  - 本番環境での使用は推奨しません。
+    後続のリリース は、互換性のない変更を導入する可能性があります。
+    独立してアップグレード可能な複数のクラスターがある場合、この制限を緩和できる可能性があります。
 
   {{< note >}}
-  Please try beta features and provide feedback. After the features exit beta, it
-  may not be practical to make more changes.
+ベータ版の機能をお試しいただき、ご意見をお寄せください。
+ベータ版の機能が終了した後はこれ以上の変更ができない場合があります。
   {{< /note >}}
 
 - Stable:
-  - The version name is `vX` where `X` is an integer.
-  - The stable versions of features appear in released software for many subsequent versions.
+  - バージョン名は `vX` であり、`X` は整数である。
+  - 安定版の機能は、リリースされたソフトウェアの中で、その後の多くのバージョンに登場します。
 
-## API groups
+## API グループ
 
-[API groups](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)
-make it easier to extend the Kubernetes API.
-The API group is specified in a REST path and in the `apiVersion` field of a
-serialized object.
+[API groups](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)で、
+KubernetesのAPIを簡単に拡張することができます。
+APIグループは、RESTパスとシリアル化されたオブジェクトの`apiVersion`フィールドで指定されます。
 
-There are several API groups in Kubernetes:
+KubernetesにはいくつかのAPIグループがあります:
 
 *  The *core* (also called *legacy*) group is found at REST path `/api/v1`.
    The core group is not specified as part of the `apiVersion` field, for
@@ -94,29 +90,37 @@ There are several API groups in Kubernetes:
    You can find the full list of supported API groups in
    [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#-strong-api-groups-strong-).
 
-## Enabling or disabling API groups   {#enabling-or-disabling}
 
-Certain resources and API groups are enabled by default. You can enable or
-disable them by setting `--runtime-config` on the API server.  The
-`--runtime-config` flag accepts comma separated `<key>[=<value>]` pairs
-describing the runtime configuration of the API server. If the `=<value>`
-part is omitted, it is treated as if `=true` is specified. For example:
+* *core*（legacy*とも呼ばれる）グループは、RESTパス `/api/v1` にあります。
+   コアグループは `apiVersion` フィールドの一部としては指定されません。
+   例えば、`apiVersion: v1` のように。
+* 名前付きのグループは、REST パス `/apis/$GROUP_NAME/$VERSION` にあり、以下のように使用します。
+   `apiVersion: $GROUP_NAME/$VERSION`を使用します（例：`apiVersion: batch/v1`）。
+   サポートされているAPIグループの完全なリストは以下にあります。
+   [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}/#strong-api-groups-strong-)。
 
- - to disable `batch/v1`, set `--runtime-config=batch/v1=false`
- - to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
+## API グループの有効化と無効化   {#enabling-or-disabling}
+
+一部のリソースやAPIグループはデフォルトで有効になっています。
+APIサーバー上で`--runtime-config`を設定することで、有効にしたり無効にしたりすることができます。
+また`runtime-config`フラグには、APIサーバのランタイム構成を記述したコンマ区切りの`<key>[=<value>]`ペアを指定します。
+もし`=<value>`の部分が省略された場合には、`=true`が指定されたものとして扱われます。
+
+例えば:
+
+ - `batch/v1`を無効するには、`--runtime-config=batch/v1=false`を設定する
+ - `batch/v2alpha1`を有効するには、`--runtime-config=batch/v2alpha1`ｗ設定する
 
 {{< note >}}
-When you enable or disable groups or resources, you need to restart the API
-server and controller manager to pick up the `--runtime-config` changes.
+グループやリソースを有効または無効にした場合、
+APIサーバとコントローラマネージャを再起動して、`--runtime-config`の変更を反映させる必要があります。
 {{< /note >}}
 
-## Persistence
+## 永久化
 
-Kubernetes stores its serialized state in terms of the API resources by writing them into
-{{< glossary_tooltip term_id="etcd" >}}.
+Kubernetesはシリアライズされた状態を、APIリソースとして{{< glossary_tooltip term_id="etcd" >}}に書き込んで保存します。
 
 ## {{% heading "whatsnext" %}}
 
-- Learn more about [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
-- Read the design documentation for
-  [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
+- [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)をもっと知る
+- [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)の設計ドキュメントを読む
