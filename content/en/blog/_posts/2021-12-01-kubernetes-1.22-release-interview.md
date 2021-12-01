@@ -294,7 +294,7 @@ It also helps to have good, strong individuals in the team who can step up and h
 
 I didn't get more of a chance to interact with him. I had exchanged a few Slack messages, but I got his warm personality. I just want to take a couple of seconds to remember him. He was awesome.
 
-After we lost him, we had this strong person from the team step up and lead the communications, who had never been a part of the release team before at all. He was a shadow for the first time. His name was Jesse Butler. So he stepped up, and he just took it away. He ran the comms show for 1.22.
+After we lost him, we had this strong person from the team step up and lead the communications, who had never been a part of the release team before at all. He was a shadow for the first time. His name is Jesse Butler. So he stepped up, and he just took it away. He ran the comms show for 1.22.
 
 That's what the community is about. You take care of team members, and the team will take care of you. So that's one other thing that I want to let Rey know, and maybe whoever-- I think it's applicable overall.
 
