@@ -29,6 +29,14 @@ AppArmor 是通过配置文件进行配置的，这些配置文件被调整为�
 每个配置文件都可以在*强制（enforcing）*模式（阻止访问不允许的资源）或*投诉（complain）*模式
 （仅报告冲突）下运行。
 
+<!-- AppArmor can help you to run a more secure deployment by restricting what containers are allowed to
+do, and/or provide better auditing through system logs. However, it is important to keep in mind
+that AppArmor is not a silver bullet and can only do so much to protect against exploits in your
+application code. It is important to provide good, restrictive profiles, and harden your
+applications and cluster from other angles as well. -->
+AppArmor 可以通过限制允许容器执行的操作来帮助您运行更安全的部署，和/或通过系统日志提供更好的审计。 
+但是，重要的是要记住 AppArmor 不是灵丹妙药，只能做很多事情来防止应用程序代码中的漏洞利用。 
+重要的是提供良好的、限制性的配置文件，并从其他角度强化您的应用程序和集群。
 
 
 
@@ -108,32 +116,13 @@ AppArmor 是通过配置文件进行配置的，这些配置文件被调整为�
   Ubuntu 携带了许多没有合并到上游 Linux 内核中的 AppArmor 补丁，包括添加附加钩子和特性的补丁。Kubernetes 只在上游版本中测试过，不承诺支持其他特性。
   {{< /note >}}
 
-<!-- 3. Container runtime is Docker -- Currently the only Kubernetes-supported container runtime that
-   also supports AppArmor is Docker. As more runtimes add AppArmor support, the options will be
-   expanded. You can verify that your nodes are running docker with:
-
-   ```shell
-   kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.containerRuntimeVersion}\n{end}'
-   ```
-   ```
-   gke-test-default-pool-239f5d02-gyn2: docker://1.11.2
-   gke-test-default-pool-239f5d02-x1kf: docker://1.11.2
-   gke-test-default-pool-239f5d02-xwux: docker://1.11.2
-   ```
-
-   If the Kubelet contains AppArmor support (>= v1.4), it will refuse to run a Pod with AppArmor
-   options if the runtime is not Docker. -->
-3. Docker 作为容器运行环境 -- 目前，支持 Kubernetes 运行的容器中只有 Docker 也支持 AppArmor。随着更多的运行时添加 AppArmor 的支持，可选项将会增多。您可以使用以下命令验证节点是否正在运行 Docker:
-   ```shell
-   kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.containerRuntimeVersion}\n{end}'
-   ```
-   ```
-   gke-test-default-pool-239f5d02-gyn2: docker://1.11.2
-   gke-test-default-pool-239f5d02-x1kf: docker://1.11.2
-   gke-test-default-pool-239f5d02-xwux: docker://1.11.2
-   ```
-
-   如果 Kubelet 包含 AppArmor 支持(>=v1.4)，如果运行环境不是 Docker，它将拒绝运行带有 AppArmor 选项的 Pod。
+<!-- 3. Container runtime supports AppArmor -- Currently all common Kubernetes-supported container
+   runtimes should support AppArmor, like {{< glossary_tooltip term_id="docker">}},
+   {{< glossary_tooltip term_id="cri-o" >}} or {{< glossary_tooltip term_id="containerd" >}}.
+   Please refer to the corresponding runtime documentation and verify that the cluster fulfills
+   the requirements to use AppArmor. -->
+3. 容器运行时支持AppArmor -- 目前所有常见的 Kubernetes 支持的容器运行时都应该支持 AppArmor，像{{< glossary_tooltip term_id="docker">}}、{{< glossary_tooltip term_id="cri-o" >}} 及 {{< glossary_tooltip term_id="containerd" >}}。
+   请参阅相应容器的运行时文档并验证集群是否满足使用 AppArmor 的要求。
 
 <!-- 4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
    container should be run with. If any of the specified profiles is not already loaded in the
@@ -320,7 +309,7 @@ kubectl get events | grep hello-apparmor
 我们可以通过检查该配置文件的 proc attr 来验证容器是否实际使用该配置文件运行：
 
 ```shell
-kubectl exec hello-apparmor -- cat /proc/1/attr/current
+kubectl exec hello-apparmor cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)
@@ -330,7 +319,7 @@ k8s-apparmor-example-deny-write (enforce)
 最后，我们可以看到如果试图通过写入文件来违反配置文件，会发生什么情况：
 
 ```shell
-kubectl exec hello-apparmor -- touch /tmp/test
+kubectl exec hello-apparmor touch /tmp/test
 ```
 ```
 touch: /tmp/test: Permission denied
