@@ -1155,8 +1155,7 @@ To learn about requesting space using a resource specification, see
 ## Out-of-tree volume plugins
 
 The out-of-tree volume plugins include
-{{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI)
-and FlexVolume. These plugins enable storage vendors to create custom storage plugins
+{{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI), and also FlexVolume (which is deprecated). These plugins enable storage vendors to create custom storage plugins
 without adding their plugin source code to the Kubernetes repository.
 
 Previously, all volume plugins were "in-tree". The "in-tree" plugins were built, linked, compiled,
@@ -1289,16 +1288,20 @@ are listed in [Types of Volumes](#volume-types).
 
 ### flexVolume
 
-FlexVolume is an out-of-tree plugin interface that has existed in Kubernetes
-since version 1.2 (before CSI). It uses an exec-based model to interface with
-drivers. The FlexVolume driver binaries must be installed in a pre-defined volume
-plugin path on each node and in some cases the control plane nodes as well.
+{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
-Pods interact with FlexVolume drivers through the `flexvolume` in-tree volume plugin.
-For more details, see the [FlexVolume](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) examples.
+FlexVolume is an out-of-tree plugin interface that uses an exec-based model to interface
+with storage drivers. The FlexVolume driver binaries must be installed in a pre-defined
+volume plugin path on each node and in some cases the control plane nodes as well.
+
+Pods interact with FlexVolume drivers through the `flexVolume` in-tree volume plugin.
+For more details, see the FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) document.
 
 {{< note >}}
-FlexVolume is deprecated starting v1.23. Out-of-tree CSI driver is the recommended way to write volume driver in Kubernetes. Maintainers of FlexVolume driver should implement a CSI Driver and move users of FlexVolume to CSI. Users of FlexVolume should move their workloads to CSI Driver.
+FlexVolume is deprecated. Using an out-of-tree CSI driver is the recommended way to integrate external storage with Kubernetes.
+
+Maintainers of FlexVolume driver should implement a CSI Driver and help to migrate users of FlexVolume drivers to CSI.
+Users of FlexVolume should move their workloads to use the equivalent CSI Driver.
 {{< /note >}}
 
 ## Mount propagation
