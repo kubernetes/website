@@ -76,7 +76,7 @@ then paging can slow down performance.
 You can place bounds on memory use for workloads using the kubelet
 parameters `--kubelet-reserve` and/or `--system-reserve`; these account
 for memory usage on the node (outside of containers), and reduce
-[NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)).
+[NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
 As you deploy workloads, set resource limits on containers. This also subtracts from
 `NodeAllocatable` and prevents the scheduler from adding more pods once a node is full.
 

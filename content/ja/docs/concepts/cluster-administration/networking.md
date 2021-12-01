@@ -142,7 +142,7 @@ Coilはベアメタルと比較して低いオーバーヘッドで操作する�
 
 ### Contiv
 
-[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](https://contiv.io) is all open sourced.
+[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases.
 
 ### Contrail / Tungsten Fabric
 
