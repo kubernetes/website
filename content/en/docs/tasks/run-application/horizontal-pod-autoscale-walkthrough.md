@@ -184,9 +184,9 @@ Autoscaling the replicas may take a few minutes.
 ## Autoscaling on multiple metrics and custom metrics
 
 You can introduce additional metrics to use when autoscaling the `php-apache` Deployment
-by making use of the `autoscaling/v2beta2` API version.
+by making use of the `autoscaling/v2` API version.
 
-First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2beta2` form:
+First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2` form:
 
 ```shell
 kubectl get hpa php-apache -o yaml > /tmp/hpa-v2.yaml
@@ -195,7 +195,7 @@ kubectl get hpa php-apache -o yaml > /tmp/hpa-v2.yaml
 Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
 
 ```yaml
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
@@ -287,7 +287,7 @@ For example, if you had your monitoring system collecting metrics about network 
 you could update the definition above using `kubectl edit` to look like this:
 
 ```yaml
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
@@ -411,7 +411,7 @@ access to any metric, so cluster administrators should take care when exposing i
 
 ## Appendix: Horizontal Pod Autoscaler Status Conditions
 
-When using the `autoscaling/v2beta2` form of the HorizontalPodAutoscaler, you will be able to see
+When using the `autoscaling/v2` form of the HorizontalPodAutoscaler, you will be able to see
 *status conditions* set by Kubernetes on the HorizontalPodAutoscaler.  These status conditions indicate
 whether or not the HorizontalPodAutoscaler is able to scale, and whether or not it is currently restricted
 in any way.
