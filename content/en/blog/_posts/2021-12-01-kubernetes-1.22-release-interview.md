@@ -26,9 +26,9 @@ SAVITHA RAGHUNATHAN: Hey, Craig. Thanks for having me on the show. How are you t
 
 SAVITHA RAGHUNATHAN: I'm glad. It's something that I always do. I just want to make sure the other person is good and happy.
 
-**CRAIG BOX: That's very kind of you. Thank you for kicking off on a wonderful foot there. I want to ask first of all-- you grew up in Chennai. My association with Chennai is the [Super Kings cricket team](https://en.wikipedia.org/wiki/Chennai_Super_Kings). Was cricket part of your upbringing?**
+**CRAIG BOX: That's very kind of you. Thank you for kicking off on a wonderful foot there. I want to ask first of all — you grew up in Chennai. My association with Chennai is the [Super Kings cricket team](https://en.wikipedia.org/wiki/Chennai_Super_Kings). Was cricket part of your upbringing?**
 
-SAVITHA RAGHUNATHAN: Yeah. Actually, a lot. My mom loves watching cricket. I have a younger brother, and when we were growing up, we used to play cricket on the terrace. Everyone surrounding me, my best friends-- and even now, my partner-- loves watching cricket, too. Cricket is a part of my life.
+SAVITHA RAGHUNATHAN: Yeah. Actually, a lot. My mom loves watching cricket. I have a younger brother, and when we were growing up, we used to play cricket on the terrace. Everyone surrounding me, my best friends — and even now, my partner — loves watching cricket, too. Cricket is a part of my life.
 
 I stopped watching it a while ago, but I still enjoy a good game.
 
@@ -48,13 +48,13 @@ SAVITHA RAGHUNATHAN: Oh, really?
 
 **CRAIG BOX: Yeah, he's a dead ringer for the guy who played the [yellow Wiggle](https://s1.reutersmedia.net/resources/r/?m=02&d=20061130&t=2&i=153531&w=&fh=545px&fw=&ll=&pl=&sq=&r=153531) back in the day.**
 
-SAVITHA RAGHUNATHAN: Oh, interesting. I remember the name, but I cannot put the picture and the name together. I stopped watching cricket once I moved to the States. Then, all my focus was on studies and extracurriculars. I have always been an introvert. The campus-- it was a new thing for me-- they had international festivals.
+SAVITHA RAGHUNATHAN: Oh, interesting. I remember the name, but I cannot put the picture and the name together. I stopped watching cricket once I moved to the States. Then, all my focus was on studies and extracurriculars. I have always been an introvert. The campus — it was a new thing for me — they had international festivals.
 
-And every week, they'd have some kind of new thing going on, so I'd go check them out. I wouldn't participate, but I did go out and check them out. That was a big feat for me around that time because a lot of people-- and still, even now, a lot of people-- they kind of scare me. I don't know how to make a conversation with everyone.
+And every week, they'd have some kind of new thing going on, so I'd go check them out. I wouldn't participate, but I did go out and check them out. That was a big feat for me around that time because a lot of people — and still, even now, a lot of people — they kind of scare me. I don't know how to make a conversation with everyone.
 
 I'll just go and say, "hi, how are you? OK, I'm good. I'm just going to move on". And I'll just go to the next person. And after two hours, I'm out of that place.
 
-**CRAIG BOX: Perhaps a pleasant side effect of the last 12 months-- a lot fewer gatherings of people.**
+**CRAIG BOX: Perhaps a pleasant side effect of the last 12 months — a lot fewer gatherings of people.**
 
 SAVITHA RAGHUNATHAN: Could be that, but I'm so excited about KubeCon. But when I think about it, I'm like "oh my God. There's going to be a lot of people. What am I going to do? I'm going to meet all my friends over there".
 
@@ -68,7 +68,7 @@ SAVITHA RAGHUNATHAN: *laughs* I hope so.
 
 SAVITHA RAGHUNATHAN: I always wanted to pursue higher studies when I was in India, and I didn't have the opportunity immediately. Once I graduated from my school there, I went and I worked for a couple of years. My aim was always to get out of there and come here, do my graduate studies.
 
-Eventually, I want to do a PhD. I have an idea of what I want to do. I always wanted to keep studying. If there's an option that I could just keep studying and not do work or anything of that sort, I'd just pick that other one-- I'll just keep studying.
+Eventually, I want to do a PhD. I have an idea of what I want to do. I always wanted to keep studying. If there's an option that I could just keep studying and not do work or anything of that sort, I'd just pick that other one — I'll just keep studying.
 
 But unfortunately, you need money and other things to live and sustain in this world. So I'm like, OK, I'll take a break from studies, and I will work for a while.
 
@@ -80,7 +80,7 @@ Everyone asks me like, you're working at [MathWorks](https://en.wikipedia.org/wi
 
 **CRAIG BOX: Fair enough. Nor have I. But it's been around since the late 1970s, so I imagine there are a lot of people who will have come across it at some point. Do you work with a lot of people who have been working on it that whole time?**
 
-SAVITHA RAGHUNATHAN: Kind of. Not all the time, but I get to meet some folks who work on the product itself. Most of my interactions are with the infrastructure team and platform engineering teams at MathWorks. One other interesting fact is that when I joined the company-- MathWorks has an extensive internal curriculum for training and learning, which I really love. They have an "Intro to Matlab" course, and that's on my bucket of things to do.
+SAVITHA RAGHUNATHAN: Kind of. Not all the time, but I get to meet some folks who work on the product itself. Most of my interactions are with the infrastructure team and platform engineering teams at MathWorks. One other interesting fact is that when I joined the company — MathWorks has an extensive internal curriculum for training and learning, which I really love. They have an "Intro to Matlab" course, and that's on my bucket of things to do.
 
 It was like 500 years ago. I added it, and I never got to it. I'm like, OK, maybe this year at least I want to get to it and I want to learn something new. My partner used Matlab extensively. He misses it right now at his current employer. And he's like, "you have the entire licence! You have access to the entire suite and you haven't used it?" I'm like, "no!"
 
@@ -88,9 +88,9 @@ It was like 500 years ago. I added it, and I never got to it. I'm like, OK, mayb
 
 SAVITHA RAGHUNATHAN: Another thing is that none of my family knew about the company MathWorks and Matlab. The only person who knew was my younger brother. He was so proud. He was like, "oh my God".
 
-When he was 12 years old, he started getting involved in robotics and all that stuff. That's how he got introduced to Matlab. He goes absolutely bananas for the swag. So all the t-shirts, all the hoodies-- any swag that I get from MathWorks goes to him, without saying.
+When he was 12 years old, he started getting involved in robotics and all that stuff. That's how he got introduced to Matlab. He goes absolutely bananas for the swag. So all the t-shirts, all the hoodies — any swag that I get from MathWorks goes to him, without saying.
 
-Over the five, six years, the things that I've got-- there was only one sweatshirt that I kept for myself. Everything else I've just given to him. And he cherishes it. He's the only one in my family who knew about Matlab and MathWorks.
+Over the five, six years, the things that I've got — there was only one sweatshirt that I kept for myself. Everything else I've just given to him. And he cherishes it. He's the only one in my family who knew about Matlab and MathWorks.
 
 Now, everyone knows, because I'm working there. They were initially like, I don't even know that company name. Is it like Amazon? I'm like, no, we make software that can send people to the moon. And we also make software that can do amazing robotic surgeries and even make a car drive on its own. That's something that I take immense pride in.
 
@@ -98,29 +98,29 @@ I know I don't directly work on the product, but I'm enabling the people who are
 
 **CRAIG BOX: I think Jeff Bezos is working on at least two out of three of those disciplines that you mentioned before, so it's maybe a little bit like Amazon. One thing I've always thought about Matlab is that, because it's called Matlab, it solves that whole problem where [Americans call it math, and the rest of the world call it maths](https://www.grammar.com/math_vs._maths). Why do Americans think there's only one math?**
 
-SAVITHA RAGHUNATHAN: Definitely. I had trouble-- growing up in India, it's always British English. And I had so much trouble when I moved here. So many things changed.
+SAVITHA RAGHUNATHAN: Definitely. I had trouble — growing up in India, it's always British English. And I had so much trouble when I moved here. So many things changed.
 
 One of the things is maths. I always got used to writing maths, physics, and everything.
 
 **CRAIG BOX: They don't call it "physic" in the US, do they?**
 
-SAVITHA RAGHUNATHAN: No, no, they don't. Luckily, they don't. That still stays "physics". But math-- I had trouble. It's maths. Even when you do the full abbreviations like mathematics and you are still calling it math, I'm like, mm.
+SAVITHA RAGHUNATHAN: No, no, they don't. Luckily, they don't. That still stays "physics". But math — I had trouble. It's maths. Even when you do the full abbreviations like mathematics and you are still calling it math, I'm like, mm.
 
 **CRAIG BOX: They can do the computer science abbreviation thing and call it math-7-S or whatever the number of letters is.**
 
 SAVITHA RAGHUNATHAN: Just like Kubernetes. K-8-s.
 
-**CRAIG BOX: Your path to Kubernetes is through MathWorks. They started out as a company making software which was distributed in a physical sense -- boxed copies, if you will. I understand now there is a cloud version. Can I assume that that is where the two worlds intersect?**
+**CRAIG BOX: Your path to Kubernetes is through MathWorks. They started out as a company making software which was distributed in a physical sense — boxed copies, if you will. I understand now there is a cloud version. Can I assume that that is where the two worlds intersect?**
 
 SAVITHA RAGHUNATHAN: Kind of. I have interaction with the team that supports Matlab on the cloud, but I don't get to work with them on a day-to-day basis. They use Docker containers, and they are building the platform using Kubernetes. So yeah, a little bit of that.
 
 **CRAIG BOX: So what exactly is the platform that you are engineering day to day?**
 
-SAVITHA RAGHUNATHAN: Providing Kubernetes as a platform, obviously-- that goes without saying-- to some of the internal development teams. In the future we might expand it to more teams within the company. That is a focus area right now, so that's what we are doing. In the process, we might even get to work with the people who are deploying Matlab on the cloud, which is exciting.
+SAVITHA RAGHUNATHAN: Providing Kubernetes as a platform, obviously — that goes without saying — to some of the internal development teams. In the future we might expand it to more teams within the company. That is a focus area right now, so that's what we are doing. In the process, we might even get to work with the people who are deploying Matlab on the cloud, which is exciting.
 
 **CRAIG BOX: Now, your path to contribution to Kubernetes, you've said before, was through [fixing a 404 error on the Kubernetes.io website](https://github.com/kubernetes/website/pull/15588). Do you remember what the page was?**
 
-SAVITHA RAGHUNATHAN: I do. I was going to something for work, and I came across this changelog. In Kubernetes there's a nice page-- once you got to the release page, there would be a long list of changelogs.
+SAVITHA RAGHUNATHAN: I do. I was going to something for work, and I came across this changelog. In Kubernetes there's a nice page — once you got to the release page, there would be a long list of changelogs.
 
 One of the things that I fixed was, the person who worked on the feature had changed their GitHub handle, and that wasn't reflected on this page. So that was my first. I got curious and clicked on the links. One of the links was the handle, and that went to a 404. And I was like "Yeah, I'll just fix that. They have done all the hard work. They can get the credit that's due".
 
@@ -130,13 +130,13 @@ It was easy. It wasn't overwhelming for me to pick it up as my first issue. Befo
 
 SAVITHA RAGHUNATHAN: Of course. There are more and more tutorials available these days. There is a new contributor workshop. They actually have a [GitHub workflow section](https://www.kubernetes.dev/docs/guide/github-workflow/), [how to do a pull request](https://www.kubernetes.dev/docs/guide/pull-requests/) and stuff like that. I know a couple of folks from SIG Docs that are working on which Git commands that you need, or how to get to writing something small and getting it committed. But more tutorials or more links to intro to Git would definitely help.
 
-The thing is also, someone like a documentation writer-- they don't actually want to know the entirety of Git. Honestly, it's an ocean. I don't know how to do it. Most of the time, I still ask for help even though I work with Git on a day to day basis. There are several articles and a lot of help is available already within the community. Maybe we could just add a couple more to kubernetes.dev. That is an amazing site for all the new contributors and existing contributors who want to build code, who want to write documentation.
+The thing is also, someone like a documentation writer — they don't actually want to know the entirety of Git. Honestly, it's an ocean. I don't know how to do it. Most of the time, I still ask for help even though I work with Git on a day to day basis. There are several articles and a lot of help is available already within the community. Maybe we could just add a couple more to [kubernetes.dev](https://kubernetes.dev/). That is an amazing site for all the new contributors and existing contributors who want to build code, who want to write documentation.
 
 We could just add a tutorial there like, "hey, don't know Git, you are new to Git? You just need to know these main things".
 
 **CRAIG BOX: I find it a shame, to be honest, that people need to use Git for that, by comparison to Wikipedia where you can come along, and even though it might be written in Markdown or something like it, it seems like the barrier is a lot lower. Similar to you, I always have to look up anything more complicated than the five or six Git commands that I use on a day to day basis. Even to do simple things, I basically just go and follow a recipe which I find on the internet.**
 
-SAVITHA RAGHUNATHAN: This is how I got introduced to one of the amazing mentors in Kubernetes. Everyone knows him by his handle, Dims. It was my second PR to the Kubernetes website, and I made a mistake. I destroyed the Git history. I could not push my reviews and comments-- I addressed them. I couldn't push them back.
+SAVITHA RAGHUNATHAN: This is how I got introduced to one of the amazing mentors in Kubernetes. Everyone knows him by his handle, Dims. It was my second PR to the Kubernetes website, and I made a mistake. I destroyed the Git history. I could not push my reviews and comments — I addressed them. I couldn't push them back.
 
 My immediate thought was to delete it and recreate, do another pull request. But then I was like, "what happens to others who have already put effort into reviewing them?" I asked for help, and Dims was there.
 
@@ -144,7 +144,7 @@ I would say I just got lucky he was there. And he was like, "OK, let me walk you
 
 Finally, I got it fixed. So you know what I did? I went and I stored the command history somewhere local for the next time when I run into this problem. Luckily, I haven't. But I find the contributors so helpful. They are busy. They have a lot of things to do, but they take moments to stop and help someone who's new.
 
-That is also another part of the reason why I stay-- I want to contribute more. It's mainly the community. It's the Kubernetes community. I know you asked me about Git, and I just took the conversation to the Kubernetes community. That's how my brain works.
+That is also another part of the reason why I stay — I want to contribute more. It's mainly the community. It's the Kubernetes community. I know you asked me about Git, and I just took the conversation to the Kubernetes community. That's how my brain works.
 
 **CRAIG BOX: A lot of people in the community do that and think that's fantastic, obviously, people like Dims who are just floating around on Slack and seem to have endless time. I don't know how they do it.**
 
@@ -160,9 +160,9 @@ SAVITHA RAGHUNATHAN: That is a topic I love to talk about. This was fresh when I
 
 At the first KubeCon that I attended in 2018, in Seattle, they had a speed mentoring session. Now they call it "pod mentoring". I went to the session, and said, "hey, I want to contribute. I don't know where to start". And I got a lot of information on how to get started.
 
-One of the places was SIG Release and the release team. I came back and diligently attended all the SIG Release meetings for four to six months. And in between, I applied to the Kubernetes release team-- 1.14 and 1.15. I didn't get through. So I took a little bit of a break, and I focused on doing some documentation work. Then I applied for 1.18.
+One of the places was SIG Release and the release team. I came back and diligently attended all the SIG Release meetings for four to six months. And in between, I applied to the Kubernetes release team — 1.14 and 1.15. I didn't get through. So I took a little bit of a break, and I focused on doing some documentation work. Then I applied for 1.18.
 
-Since I was already working on some kinds of-- not like full fledged "documentation" documentation, I still don't write. I eventually want to write something really nice and full fledged documentation like other awesome folks.
+Since I was already working on some kinds of — not like full fledged "documentation" documentation, I still don't write. I eventually want to write something really nice and full fledged documentation like other awesome folks.
 
 **CRAIG BOX: You'll need a lot more than 48 hours in your day to do that.**
 
@@ -182,7 +182,7 @@ My team has been wonderful: they support me in all possible ways, and the manage
 
 Before the pandemic I had a good work life balance. I'd just go to work at 7:00, 7:30, and I'd be back by 4 o'clock. I never touched my laptop ever again. I left all work behind when I came home. So right now, I'm still learning how to get through.
 
-I try to limit the amount of open source work that I do during work time. The release lead shadow and the release lead job-- they require a lot of time, effort. So on average, I'd be spending two to three hours post work time on the release activities.
+I try to limit the amount of open source work that I do during work time. The release lead shadow and the release lead job — they require a lot of time, effort. So on average, I'd be spending two to three hours post work time on the release activities.
 
 **CRAIG BOX: Before the pandemic, everyone was worried that if we let people work from home, they wouldn't work enough. I think the opposite has actually happened, is that now we're worried that if we let people work from home, they will just get on the computer in the morning and you'll have to pry it out of their hands at midnight.**
 
@@ -210,13 +210,13 @@ SAVITHA RAGHUNATHAN: Thank you.
 
 **CRAIG BOX: Each launch comes with a theme and a mascot or a logo. What is the theme for this release?**
 
-SAVITHA RAGHUNATHAN: The theme for the release is reaching new peaks. I am fascinated with a lot of space travel and chasing stars, the Milky Way. The best place to do that is over the top of a mountain. So that is the release logo, basically. It's a mountain-- Mount Rainier. On top of that, there is a Kubernetes flag, and it's overlooking the Milky Way.
+SAVITHA RAGHUNATHAN: The theme for the release is reaching new peaks. I am fascinated with a lot of space travel and chasing stars, the Milky Way. The best place to do that is over the top of a mountain. So that is the release logo, basically. It's a mountain — Mount Rainier. On top of that, there is a Kubernetes flag, and it's overlooking the Milky Way.
 
 It's also symbolic that with every release, that we are achieving something new, bigger, and better, and we are making the release awesome. So I just wanted to incorporate that into the team as to say, we are achieving new things with every release. That's the "reaching new peaks" theme.
 
-**CRAIG BOX: The last couple of releases have both been incrementally larger-- as a result, perhaps, of the fact there are now only three releases per year rather than four. There were also changes to the process, where the work has been driven a lot more by the SIGs than by the release team having to go and ask the SIGs what was going on. What can you say about the size and scope of the 1.22 release?**
+**CRAIG BOX: The last couple of releases have both been incrementally larger — as a result, perhaps, of the fact there are now only three releases per year rather than four. There were also changes to the process, where the work has been driven a lot more by the SIGs than by the release team having to go and ask the SIGs what was going on. What can you say about the size and scope of the 1.22 release?**
 
-SAVITHA RAGHUNATHAN: The 1.22 release is the largest release to date. We have 56 enhancements if I'm not wrong, and we have a good amount of features that's graduated as stable. You can now say that Kubernetes as a project has become more mature because you see new features coming in. At the same time, you see the features that weren't used getting deprecated-- we have like three deprecations in this release.
+SAVITHA RAGHUNATHAN: The 1.22 release is the largest release to date. We have 56 enhancements if I'm not wrong, and we have a good amount of features that's graduated as stable. You can now say that Kubernetes as a project has become more mature because you see new features coming in. At the same time, you see the features that weren't used getting deprecated — we have like three deprecations in this release.
 
 Aside from that fact, we also have a big team that's supporting one of the longest releases. This is the first official release cycle after the cadence KEP got approved. Officially, we are at four months, even though 1.19 was six months, and 1.21 was like 3 and 1/2 months, I think, this is the first one after the official KEP approval.
 
@@ -224,7 +224,7 @@ Aside from that fact, we also have a big team that's supporting one of the longe
 
 SAVITHA RAGHUNATHAN: One of the things the community had asked for is more time for development. We tried to incorporate that in the release schedule. We had about six weeks between the enhancements freeze and the code freeze. That's one.
 
-It might not be visible to everyone, but one of the things that I wanted to make sure of was the health of the team-- since it was a long, long release, we had time to plan out, and not have everyone work during the weekends or during their evenings or time off. That actually helped everyone keep their sanity, and also in making good progress and delivering good results at the end of the release. That's one of the process improvements that I'd call out.
+It might not be visible to everyone, but one of the things that I wanted to make sure of was the health of the team — since it was a long, long release, we had time to plan out, and not have everyone work during the weekends or during their evenings or time off. That actually helped everyone keep their sanity, and also in making good progress and delivering good results at the end of the release. That's one of the process improvements that I'd call out.
 
 We got better by making a post during the exception request process. Everyone works around the world. People from the UK start a little earlier than the people in the US East Coast. The West Coast starts three hours later than the East Coast. We used to make a post every Friday evening saying "hey, we actually received this many requests. We have addressed a number of them. We are waiting on a couple, or whatever. All the release team members are done for the day. We will see you around on Monday. Have a good weekend." Something like that.
 
@@ -246,7 +246,7 @@ SAVITHA RAGHUNATHAN: You should really go and watch it whenever you have time. I
 
 **CRAIG BOX: Yes, the mark of good media that you want to immediately go back and watch it again once you've seen it.**
 
-**Let's look now at some of the new features in Kubernetes 1.22. A couple of things that have graduated to general availability-- server-side apply, external credential providers, a couple of new security features-- the replacement for pod security policy has been announced, and seccomp is now available by default.**
+**Let's look now at some of the new features in Kubernetes 1.22. A couple of things that have graduated to general availability — server-side apply, external credential providers, a couple of new security features — the replacement for pod security policy has been announced, and seccomp is now available by default.**
 
 **Do you have any favourite features in 1.22 that you'd like to discuss?**
 
@@ -256,17 +256,17 @@ This is close to my heart because the base of the MathWorks platform is provisio
 
 My next one is [rootless Kubelet](https://github.com/kubernetes/enhancements/issues/2033). That feature's going to enable the cluster admin, the platform developers to deploy Kubernetes components to run in a user namespace. And I think that is also a great addition.
 
-Like you mention, the most awaited drop in for the PSP replacement is here. It's [pod admission control](https://github.com/kubernetes/enhancements/issues/2579). It lets cluster admins apply the pod security standards. And I think it's just not related to the cluster admins. I might have to go back and check on that. Anyone can probably use it-- the developers and the admins alike.
+Like you mention, the most awaited drop in for the PSP replacement is here. It's [pod admission control](https://github.com/kubernetes/enhancements/issues/2579). It lets cluster admins apply the pod security standards. And I think it's just not related to the cluster admins. I might have to go back and check on that. Anyone can probably use it — the developers and the admins alike.
 
-It also supports various modes, which is most welcome. There are times where you don't want to just cut the users off because they are trying to do something which is not securely correct. You just want to warn them, hey, this is what you are doing. This might just cause a security issue later, so you might want to correct it. But you just don't want to cut them off from using the platform, or them trying to attempt to do something-- deploy their workload and get their day-to-day job done. That is something that I really like, that it also supports a warning mechanism.
+It also supports various modes, which is most welcome. There are times where you don't want to just cut the users off because they are trying to do something which is not securely correct. You just want to warn them, hey, this is what you are doing. This might just cause a security issue later, so you might want to correct it. But you just don't want to cut them off from using the platform, or them trying to attempt to do something — deploy their workload and get their day-to-day job done. That is something that I really like, that it also supports a warning mechanism.
 
 Another one which is not security is [node swap support](https://github.com/kubernetes/enhancements/issues/2400). Kubernetes didn't have support for swap before, but it is taken into consideration now. This is an alpha feature. With this, you can take advantage of the swap, which is provisioned on the Linux VMs.
 
-Some of the workloads-- when they are deployed, they might need a lot of swap for the start-up-- example, like Node and Java applications, which I just took out of their KEP user stories. So if anyone's interested, they can go and look in the KEP. That's useful. And it also increases the node stability and whatnot. So I think it's going to be beneficial for a lot of folks.
+Some of the workloads — when they are deployed, they might need a lot of swap for the start-up — example, like Node and Java applications, which I just took out of their KEP user stories. So if anyone's interested, they can go and look in the KEP. That's useful. And it also increases the node stability and whatnot. So I think it's going to be beneficial for a lot of folks.
 
 We know how Java and containers work. I think it has gotten better, but five years ago, it was so hard to get a Java application to fit in a small container. It always needed a lot of memory, swap, and everything to start up and run. I think this will help the users and help the admins and keep the cost low, and it will tie into so many other things as well. I'm excited about that feature.
 
-Another feature that I want to just call out-- I don't use Windows that much, but I just want to give a shout out to the folks who are doing an amazing job bringing all the Kubernetes features to Windows as well, to give a seamless experience.
+Another feature that I want to just call out — I don't use Windows that much, but I just want to give a shout out to the folks who are doing an amazing job bringing all the Kubernetes features to Windows as well, to give a seamless experience.
 
 One of the things is [Windows privileged containers](https://github.com/kubernetes/enhancements/issues/1981). I think it went alpha this release. And that is a wonderful addition, if you ask me. It can take advantage of whatever that's happening on the Linux side. And they can also port it over and see, OK, I can now run Windows containers in a privileged mode.
 
@@ -290,13 +290,13 @@ Also collaborate and learn from each other. I constantly learn. I think the team
 
 Sometimes I have learned more leadership skills from my release lead shadows. They are awesome, and they are mature. I constantly learn from them, and I admire them a lot.
 
-It also helps to have good, strong individuals in the team who can step up and help when needed. For example, unfortunately, we lost one of our teammates after the start of the release cycle. That was tragic. His name was [Peeyush Gupta](https://github.com/cncf/memorials/blob/main/peeyush-gupta.md). He was an awesome and wonderful human-- very warm.
+It also helps to have good, strong individuals in the team who can step up and help when needed. For example, unfortunately, we lost one of our teammates after the start of the release cycle. That was tragic. His name was [Peeyush Gupta](https://github.com/cncf/memorials/blob/main/peeyush-gupta.md). He was an awesome and wonderful human — very warm.
 
 I didn't get more of a chance to interact with him. I had exchanged a few Slack messages, but I got his warm personality. I just want to take a couple of seconds to remember him. He was awesome.
 
 After we lost him, we had this strong person from the team step up and lead the communications, who had never been a part of the release team before at all. He was a shadow for the first time. His name is Jesse Butler. So he stepped up, and he just took it away. He ran the comms show for 1.22.
 
-That's what the community is about. You take care of team members, and the team will take care of you. So that's one other thing that I want to let Rey know, and maybe whoever-- I think it's applicable overall.
+That's what the community is about. You take care of team members, and the team will take care of you. So that's one other thing that I want to let Rey know, and maybe whoever — I think it's applicable overall.
 
 **CRAIG BOX: There's a link to a [family education fund for Peeyush Gupta](https://milaap.org/fundraisers/support-peeyush-gupta-family-education), which you can find in the show notes.**
 
