@@ -260,12 +260,6 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 
 [NSX-T Container Plug-in (NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) provides integration between NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
 
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) is a somewhat more mature but also
-complicated way to build an overlay network.  This is endorsed by several of the
-"Big Shops" for networking.
-
 ### OVN (Open Virtual Networking)
 
 OVN is an opensource network virtualization solution developed by the
