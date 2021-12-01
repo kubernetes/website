@@ -347,7 +347,6 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
 * [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
-* [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
 * [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
 * [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
@@ -363,6 +362,8 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 
 The following types of PersistentVolume are deprecated. This means that support is still available but will be removed in a future Kubernetes release.
 
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+  (**deprecated** in v1.23)
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
   (**deprecated** in v1.18)
 * [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
