@@ -147,7 +147,7 @@ If your cluster's control plane runs the kube-apiserver as a Pod, remember to mo
 to the location of the policy file and log file, so that audit records are persisted. For example:
 ```shell
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml \
-    --audit-log-path=/var/log/audit.log
+    --audit-log-path=/var/log/kubernetes/audit/audit.log
 ```
 then mount the volumes:
 
@@ -157,7 +157,7 @@ volumeMounts:
   - mountPath: /etc/kubernetes/audit-policy.yaml
     name: audit
     readOnly: true
-  - mountPath: /var/log/audit.log
+  - mountPath: /var/log/kubernetes/audit/
     name: audit-log
     readOnly: false
 ```
@@ -172,8 +172,8 @@ and finally configure the `hostPath`:
 
 - name: audit-log
   hostPath:
-    path: /var/log/audit.log
-    type: FileOrCreate
+    path: /var/log/kubernetes/audit/
+    type: DirectoryOrCreate
 
 ```
 
