@@ -792,7 +792,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   and gracefully terminate pods running on the node. See
   [Graceful Node Shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown)
   for more details.
-- `GRPCContainerProbe`: Enables gPRC probe method for {Liveness,Readiness,Startup}Probe. See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
+- `GRPCContainerProbe`: Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe. See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
 - `HPAContainerMetrics`: Enable the `HorizontalPodAutoscaler` to scale based on
   metrics from individual containers in target pods.
 - `HPAScaleToZero`: Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler`
