@@ -30,8 +30,8 @@ The `healthz` endpoint is deprecated (since Kubernetes v1.16), and you should us
 The `livez` endpoint can be used with the `--livez-grace-period` [flag](/docs/reference/command-line-tools-reference/kube-apiserver) to specify the startup duration.
 For a graceful shutdown you can specify the `--shutdown-delay-duration` [flag](/docs/reference/command-line-tools-reference/kube-apiserver) with the `/readyz` endpoint.
 Machines that check the `healthz`/`livez`/`readyz` of the API server should rely on the HTTP status code.
-A status code `200` indicates the API server is `healthy`/`live`/`ready`, depending of the called endpoint.
-The more verbose options shown below are intended to be used by human operators to debug their cluster or specially the state of the API server.
+A status code `200` indicates the API server is `healthy`/`live`/`ready`, depending on the called endpoint.
+The more verbose options shown below are intended to be used by human operators to debug their cluster or understand the state of the API server.
 -->
 Kubernetes API 服务器提供 3 个 API 端点（`healthz`、`livez` 和 `readyz`）来表明 API 服务器的当前状态。
 `healthz` 端点已被弃用（自 Kubernetes v1.16 起），你应该使用更为明确的 `livez` 和 `readyz` 端点。
@@ -39,13 +39,13 @@ Kubernetes API 服务器提供 3 个 API 端点（`healthz`、`livez` 和 `ready
 为了正常关机，你可以使用 `/readyz` 端点并指定 `--shutdown-delay-duration` [标志](/zh/docs/reference/command-line-tools-reference/kube-apiserver)。
 检查 API 服务器的 `healthz`/`livez`/`readyz` 端点的机器应依赖于 HTTP 状态代码。
 状态码 `200` 表示 API 服务器是 `healthy`、`live` 还是 `ready`，具体取决于所调用的端点。
-以下更详细的选项供操作人员使用，用来调试其集群或专门调试 API 服务器的状态。
+以下更详细的选项供操作人员使用，用来调试其集群或了解 API 服务器的状态。
 
 <!-- The following examples will show how you can interact with the health API endpoints. -->
 以下示例将显示如何与运行状况 API 端点进行交互。
 
 <!-- 
-For all endpoints you can use the `verbose` parameter to print out the checks and their status.
+For all endpoints, you can use the `verbose` parameter to print out the checks and their status.
 This can be useful for a human operator to debug the current status of the API server, it is not intended to be consumed by a machine:
 -->
 对于所有端点，都可以使用 `verbose` 参数来打印检查项以及检查状态。
@@ -130,7 +130,7 @@ healthz check passed
 {{< feature-state state="alpha" >}}
 
 <!-- 
-Each individual health check exposes an HTTP endpoint and could can be checked individually.
+Each individual health check exposes an HTTP endpoint and can be checked individually.
 The schema for the individual health checks is `/livez/<healthcheck-name>` where `livez` and `readyz` and be used to indicate if you want to check the liveness or the readiness of the API server.
 The `<healthcheck-name>` path can be discovered using the `verbose` flag from above and take the path between `[+]` and `ok`.
 These individual health checks should not be consumed by machines but can be helpful for a human operator to debug a system:
