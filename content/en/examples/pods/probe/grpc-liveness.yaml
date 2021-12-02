@@ -10,6 +10,6 @@ spec:
     ports:
     - containerPort: 2379
     livenessProbe:
-      gRPC:
+      grpc:
         port: 2379
       initialDelaySeconds: 10
