@@ -62,7 +62,7 @@ latest version of containerd (v1.6+) to run HostProcess containers.
 
 ## Limitations
 
-- HostProcess containers require containerd 1.6 or higher
+- HostProcess containers require containerd 1.6 or higher for the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 - As of v1.22 HostProcess pods can only contain HostProcess containers. This is a current limitation
 of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
