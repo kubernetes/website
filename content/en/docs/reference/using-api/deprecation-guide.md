@@ -21,6 +21,16 @@ deprecated API versions to newer and more stable API versions.
 ## Removed APIs by release
 
 
+### v1.27
+
+The **v1.27** release will stop serving the following deprecated API versions:
+
+#### HorizontalPodAutoscaler {#horizontalpodautoscaler-v127}
+
+The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler will no longer be served in v1.27.
+
+* Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
+
 ### v1.25
 
 The **v1.25** release will stop serving the following deprecated API versions:
@@ -83,6 +93,16 @@ RuntimeClass in the **node.k8s.io/v1beta1** API version will no longer be served
 * Migrate manifests and API clients to use the **node.k8s.io/v1** API version, available since v1.20.
 * All existing persisted objects are accessible via the new API
 * No notable changes
+
+### v1.24
+
+The **v1.24** release will stop serving the following deprecated API versions:
+
+#### HorizontalPodAutoscaler {#horizontalpodautoscaler-v124}
+
+The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler will no longer be served in v1.24.
+
+* Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 
 ### v1.22
 
