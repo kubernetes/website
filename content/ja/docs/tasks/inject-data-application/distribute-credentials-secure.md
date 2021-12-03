@@ -58,7 +58,7 @@ OSから信頼されているローカルツールを使用することで、外
     test-secret   Opaque    2         1m
     ```
 
-1. Secret の詳細な情報を取得する:
+1. Secretの詳細な情報を取得する:
 
     ```shell
     kubectl describe secret test-secret
