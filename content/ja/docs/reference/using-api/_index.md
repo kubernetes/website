@@ -1,12 +1,12 @@
 ---
-title: API 概要
+title: API概要
 content_type: concept
 weight: 10
 no_list: true
 card:
   name: reference
   weight: 50
-  title: API 概要
+  title: API概要
 ---
 
 <!-- overview -->
@@ -14,12 +14,12 @@ card:
 このセクションでは、Kubernetes APIのリファレンス情報を提供します。
 
 REST APIはKubernetesの基本的な構造です。
-すべての操作とコンポーネント間のと通信、および外部ユーザーのコマンドは、REST API 呼び出しでありAPIサーバーが処理します。
+すべての操作とコンポーネント間のと通信、および外部ユーザーのコマンドは、REST API呼び出しでありAPIサーバーが処理します。
 
 
 その結果、Kubernetesプラットフォーム内のすべてのものは、APIオブジェクトとして扱われ、[API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)に対応するエントリがあります.
 
-[Kubernetes API 参照](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)は、Kubernetes バージョン {{< param "version" >}}のAPI一覧を提供します。
+[Kubernetes API参照](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)は、Kubernetesバージョン {{< param "version" >}}のAPI一覧を提供します。
 
 一般的な背景情報を知るには、[The Kubernetes API](/docs/concepts/overview/kubernetes-api/)、
 [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/)を読んでください。
@@ -34,8 +34,7 @@ APIのバージョニングとソフトウェアのバージョニングは間�
 [API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)は、APIバージョニングとソフトウェアバージョニングの関係を説明しています。
 
 APIのバージョンが異なると、安定性やサポートのレベルも異なります。
-各レベルの基準については、
-[API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)で詳しく説明しています。.
+各レベルの基準については、[API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)で詳しく説明しています。
 
 各レベルの概要は以下の通りです:
 
@@ -74,10 +73,9 @@ APIのバージョンが異なると、安定性やサポートのレベルも�
   - バージョン名は `vX` であり、`X` は整数である。
   - 安定版の機能は、リリースされたソフトウェアの中で、その後の多くのバージョンに登場します。
 
-## API グループ
+## APIグループ
 
-[API groups](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)で、
-KubernetesのAPIを簡単に拡張することができます。
+[API groups](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)で、KubernetesのAPIを簡単に拡張することができます。
 APIグループは、RESTパスとシリアル化されたオブジェクトの`apiVersion`フィールドで指定されます。
 
 KubernetesにはいくつかのAPIグループがあります:
@@ -85,12 +83,12 @@ KubernetesにはいくつかのAPIグループがあります:
 * *core*（*legacy*とも呼ばれる）グループは、RESTパス `/api/v1` にあります。
    コアグループは `apiVersion` フィールドの一部としては指定されません。
    例えば、`apiVersion: v1` のように。
-* 名前付きのグループは、REST パス `/apis/$GROUP_NAME/$VERSION` にあり、以下のように使用します。
+* 名前付きのグループは、RESTパス `/apis/$GROUP_NAME/$VERSION` にあり、以下のように使用します。
    `apiVersion: $GROUP_NAME/$VERSION`を使用します（例：`apiVersion: batch/v1`）。
    サポートされているAPIグループの完全なリストは以下にあります。
    [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#strong-api-groups-strong-)。
 
-## API グループの有効化と無効化   {#enabling-or-disabling}
+## APIグループの有効化と無効化   {#enabling-or-disabling}
 
 一部のリソースやAPIグループはデフォルトで有効になっています。
 APIサーバー上で`--runtime-config`を設定することで、有効にしたり無効にしたりすることができます。
@@ -100,7 +98,7 @@ APIサーバー上で`--runtime-config`を設定することで、有効にし�
 例えば:
 
  - `batch/v1`を無効するには、`--runtime-config=batch/v1=false`を設定する
- - `batch/v2alpha1`を有効するには、`--runtime-config=batch/v2alpha1`ｗ設定する
+ - `batch/v2alpha1`を有効するには、`--runtime-config=batch/v2alpha1`を設定する
 
 {{< note >}}
 グループやリソースを有効または無効にした場合、
