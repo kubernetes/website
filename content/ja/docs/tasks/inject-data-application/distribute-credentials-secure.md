@@ -219,7 +219,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 この機能は Kubernetes v1.6 以降から利用可能
 {{< /note >}}
 
-*  複数 key-value ペアを含む Secret を作成する
+*  複数のkey-valueペアを含むSecretを作成する
 
    ```shell
    kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
