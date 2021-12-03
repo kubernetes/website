@@ -229,7 +229,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
     {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
 
-*  Pod を作成する:
+*  Podを作成する:
 
    ```shell
    kubectl create -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
