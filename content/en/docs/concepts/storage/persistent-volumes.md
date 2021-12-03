@@ -221,19 +221,19 @@ to `Retain`, including cases where you are reusing an existing PV.
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-Support for expanding PersistentVolumeClaims (PVCs) is now enabled by default. You can expand
+Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
 
-* gcePersistentDisk
+* azureDisk
+* azureFile
 * awsElasticBlockStore
-* Cinder
+* cinder (deprecated)
+* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* flexVolume (deprecated)
+* gcePersistentDisk
 * glusterfs
 * rbd
-* Azure File
-* Azure Disk
-* Portworx
-* FlexVolumes
-* {{< glossary_tooltip text="CSI" term_id="csi" >}}
+* portworxVolume
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
@@ -270,8 +270,8 @@ When a volume contains a file system, the file system is only resized when a new
 the PersistentVolumeClaim in `ReadWrite` mode. File system expansion is either done when a Pod is starting up
 or when a Pod is running and the underlying file system supports online expansion.
 
-FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to `true`.
-The FlexVolume can be resized on Pod restart.
+FlexVolumes (deprecated since Kubernetes v1.23) allow resize if the driver is configured with the
+`RequiresFSResize` capability to `true`. The FlexVolume can be resized on Pod restart.
 
 #### Resizing an in-use PersistentVolumeClaim
 
@@ -362,10 +362,10 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 
 The following types of PersistentVolume are deprecated. This means that support is still available but will be removed in a future Kubernetes release.
 
-* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
-  (**deprecated** in v1.23)
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
   (**deprecated** in v1.18)
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+  (**deprecated** in v1.23)
 * [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
   (**deprecated** in v1.22)
 * [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
