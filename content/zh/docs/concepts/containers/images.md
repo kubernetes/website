@@ -68,7 +68,7 @@ There are additional rules about where you can place the separator
 characters (`_`, `-`, and `.`) inside an image tag.  
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 -->
-镜像标签可以包含小写字母、大写字符、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
+镜像标签可以包含小写字母、大写字母、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
 关于在镜像标签中何处可以使用分隔字符（`_`、`-` 和 `.`）还有一些额外的规则。
 如果你不指定标签，Kubernetes 认为你想使用标签 `latest`。
 
@@ -516,6 +516,116 @@ registry keys are added to the `.docker/config.json`.
 或者挂载一个包含该文件的驱动器。
 
 在 `.docker/config.json` 中配置了私有仓库密钥后，所有 Pod 都将能读取私有仓库中的镜像。
+
+<!--
+### Interpretation of config.json {#config-json}
+-->
+### config.json 说明 {#config-json}
+
+<!--
+The interpretation of `config.json` varies between the original Docker
+implementation and the Kubernetes interpretation. In Docker, the `auths` keys
+can only specify root URLs, whereas Kubernetes allows glob URLs as well as
+prefix-matched paths. This means that a `config.json` like this is valid:
+-->
+对于 `config.json` 的解释在原始 Docker 实现和 Kubernetes 的解释之间有所不同。
+在 Docker 中，`auths` 键只能指定根 URL ，而 Kubernetes 允许 glob URLs 以及
+前缀匹配的路径。这意味着，像这样的 `config.json` 是有效的：
+```json
+{
+    "auths": {
+        "*my-registry.io/images": {
+            "auth": "…"
+        }
+    }
+}
+```
+
+<!--
+The root URL (`*my-registry.io`) is matched by using the following syntax:
+
+```
+pattern:
+    { term }
+
+term:
+    '*'         matches any sequence of non-Separator characters
+    '?'         matches any single non-Separator character
+    '[' [ '^' ] { character-range } ']'
+                character class (must be non-empty)
+    c           matches character c (c != '*', '?', '\\', '[')
+    '\\' c      matches character c
+
+character-range:
+    c           matches character c (c != '\\', '-', ']')
+    '\\' c      matches character c
+    lo '-' hi   matches character c for lo <= c <= hi
+```
+-->
+使用以下语法匹配根 URL （`*my-registry.io`）：
+```
+pattern:
+    { term }
+
+term:
+    '*'         匹配任何无分隔符字符序列
+    '?'         匹配任意单个非分隔符
+    '[' [ '^' ] 字符范围
+                  字符集（必须非空）
+    c           匹配字符 c （c 不为 '*','?','\\','['）
+    '\\' c      匹配字符 c
+
+字符范围: 
+    c           匹配字符 c （c 不为 '\\','?','-',']'）
+    '\\' c      匹配字符 c
+    lo '-' hi   匹配字符范围在 lo 到 hi 之间字符
+```
+
+<!--
+Image pull operations would now pass the credentials to the CRI container
+runtime for every valid pattern. For example the following container image names
+would match successfully:
+
+- `my-registry.io/images`
+- `my-registry.io/images/my-image`
+- `my-registry.io/images/another-image`
+- `sub.my-registry.io/images/my-image`
+- `a.sub.my-registry.io/images/my-image`
+-->
+现在镜像拉取操作会将每种有效模式的凭据都传递给 CRI 容器运行时。例如下面的容器镜像名称会匹配成功：
+
+- `my-registry.io/images`
+- `my-registry.io/images/my-image`
+- `my-registry.io/images/another-image`
+- `sub.my-registry.io/images/my-image`
+- `a.sub.my-registry.io/images/my-image`
+
+<!--
+The kubelet performs image pulls sequentially for every found credential. This
+means, that multiple entries in `config.json` are possible, too:
+-->
+kubelet 为每个找到的凭证的镜像按顺序拉取。 这意味着在 `config.json` 中可能有多项：
+
+```json
+{
+    "auths": {
+        "my-registry.io/images": {
+            "auth": "…"
+        },
+        "my-registry.io/images/subpath": {
+            "auth": "…"
+        }
+    }
+}
+```
+
+<!--
+If now a container specifies an image `my-registry.io/images/subpath/my-image`
+to be pulled, then the kubelet will try to download them from both
+authentication sources if one of them fails.
+-->
+如果一个容器指定了要拉取的镜像 `my-registry.io/images/subpath/my-image`，
+并且其中一个失败，kubelet 将尝试从另一个身份验证源下载镜像。
 
 <!--
 ### Pre-pulled images

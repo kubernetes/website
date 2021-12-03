@@ -894,8 +894,7 @@ Use this command to get the nodes in your cluster.
 kubectl get nodes
 ```
 
-Use [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon) to
-cordon all but four of the nodes in your cluster.
+This tutorial assumes a cluster with at least four nodes. If the cluster has more than four, use [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon) to cordon all but four nodes. Constraining to four nodes will ensure Kubernetes encounters affinity and PodDisruptionBudget constraints when scheduling zookeeper Pods in the following maintenance simulation.
 
 ```shell
 kubectl cordon <node-name>
