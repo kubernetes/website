@@ -225,7 +225,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
    kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
    ```
 
-*  envFromを使用してSecretのすべてのデータをコンテナの環境変数として定義します。Secret のキーが Pod の環境変数名になります。
+*  envFromを使用してSecretのすべてのデータをコンテナの環境変数として定義します。SecretのキーがPodの環境変数名になります。
 
     {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
 
