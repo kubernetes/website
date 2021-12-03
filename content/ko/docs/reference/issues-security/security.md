@@ -1,6 +1,6 @@
 ---
 title: 쿠버네티스 보안과 공개 정보
-aliases: [/security/]
+aliases: [/ko/security/]
 
 
 

@@ -44,7 +44,7 @@ weight: 10
 
   *これは順序付けの必要性を意味します* - `Pod`がアクセスしたい`Service`は`Pod`自身の前に作らなければならず、そうしないと環境変数は注入されません。DNSにはこの制限はありません。
 
-- （強くお勧めしますが）[クラスターアドオン](/docs/concepts/cluster-administration/addons/)の1つの選択肢はDNSサーバーです。DNSサーバーは、新しい`Service`についてKubernetes APIを監視し、それぞれに対して一連のDNSレコードを作成します。クラスタ全体でDNSが有効になっている場合は、すべての`Pod`が自動的に`Services`の名前解決を行えるはずです。
+- （強くお勧めしますが）[クラスターアドオン](/ja/docs/concepts/cluster-administration/addons/)の1つの選択肢はDNSサーバーです。DNSサーバーは、新しい`Service`についてKubernetes APIを監視し、それぞれに対して一連のDNSレコードを作成します。クラスタ全体でDNSが有効になっている場合は、すべての`Pod`が自動的に`Services`の名前解決を行えるはずです。
 
 - どうしても必要な場合以外は、Podに`hostPort`を指定しないでください。Podを`hostPort`にバインドすると、Podがスケジュールできる場所の数を制限します、それぞれの<`hostIP`、 `hostPort`、`protocol`>の組み合わせはユニークでなければならないからです。`hostIP`と`protocol`を明示的に指定しないと、Kubernetesはデフォルトの`hostIP`として`0.0.0.0`を、デフォルトの `protocol`として`TCP`を使います。
 
@@ -58,7 +58,7 @@ weight: 10
 
 ## ラベルの使用
 
-- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`のように、アプリケーションまたはデプロイメントの __セマンティック属性__ を識別する[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を定義して使いましょう。これらのラベルを使用して、他のリソースに適切なポッドを選択できます。例えば、すべての`tier：frontend`を持つPodを選択するServiceや、`app：myapp`に属するすべての`phase：test`コンポーネント、などです。このアプローチの例を知るには、[ゲストブック](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)アプリも合わせてご覧ください。
+- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`のように、アプリケーションまたはデプロイメントの __セマンティック属性__ を識別する[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を定義して使いましょう。これらのラベルを使用して、他のリソースに適切なPodを選択できます。例えば、すべての`tier：frontend`を持つPodを選択するServiceや、`app：myapp`に属するすべての`phase：test`コンポーネント、などです。このアプローチの例を知るには、[ゲストブック](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)アプリも合わせてご覧ください。
 
 セレクターからリリース固有のラベルを省略することで、Serviceを複数のDeploymentにまたがるように作成できます。 [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)により、ダウンタイムなしで実行中のサービスを簡単に更新できます。
 
@@ -68,7 +68,7 @@ weight: 10
 
 ## コンテナイメージ
 
-[imagePullPolicy](/docs/concepts/containers/images/#updating-images)とイメージのタグは、[kubelet](/docs/reference/command-line-tools-reference/kubelet/)が特定のイメージをpullしようとしたときに作用します。
+[imagePullPolicy](/ja/docs/concepts/containers/images/#updating-images)とイメージのタグは、[kubelet](/docs/reference/command-line-tools-reference/kubelet/)が特定のイメージをpullしようとしたときに作用します。
 
 - `imagePullPolicy: IfNotPresent`: ローカルでイメージが見つからない場合にのみイメージをpullします。
 
@@ -96,8 +96,8 @@ weight: 10
 
 - `kubectl apply -f <directory>`を使いましょう。これを使うと、ディレクトリ内のすべての`.yaml`、`.yml`、および`.json`ファイルが`apply`に渡されます。
 
-- `get`や`delete`を行う際は、特定のオブジェクト名を指定するのではなくラベルセレクターを使いましょう。[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)と[ラベルの効果的な使い方](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)のセクションを参照してください。
+- `get`や`delete`を行う際は、特定のオブジェクト名を指定するのではなくラベルセレクターを使いましょう。[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)と[ラベルの効果的な使い方](/ja/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)のセクションを参照してください。
 
-- 単一コンテナのDeploymentやServiceを素早く作成するなら、`kubectl create deployment`や`kubectl expose`を使いましょう。一例として、[Serviceを利用したクラスター内のアプリケーションへのアクセス](/docs/tasks/access-application-cluster/service-access-application-cluster/)を参照してください。
+- 単一コンテナのDeploymentやServiceを素早く作成するなら、`kubectl create deployment`や`kubectl expose`を使いましょう。一例として、[Serviceを利用したクラスター内のアプリケーションへのアクセス](/ja/docs/tasks/access-application-cluster/service-access-application-cluster/)を参照してください。
 
 

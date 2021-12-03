@@ -461,7 +461,7 @@ source <(kubectl completion zsh)
 
 ```shell
 echo 'alias k=kubectl' >>~/.zshrc
-echo 'complete -F __start_kubectl k' >>~/.zshrc
+echo 'compdef __start_kubectl k' >>~/.zshrc
 ```
 
 После перезагрузки командной оболочки должны появляться дополнения ввода kubectl.
