@@ -82,8 +82,7 @@ OSから信頼されているローカルツールを使用することで、外
 
 ### kubectlでSecretを作成する
 
-base64エンコードの手順を省略したい場合は、`kubectl create secret`コマンドで
-同じSecretを作成することができます。
+base64エンコードの手順を省略したい場合は、`kubectl create secret`コマンドで同じSecretを作成することができます。
 
 例えば:
 
@@ -91,23 +90,22 @@ base64エンコードの手順を省略したい場合は、`kubectl create secr
 kubectl create secret generic test-secret --from-literal='username=my-app' --from-literal='password=39528$vdg7Jb'
 ```
 
-先ほどの詳細なアプローチでは 各ステップを明示的に実行し、何が起こっているかを示していますが、
-`kubectl create secret` の方が便利です。
+先ほどの詳細なアプローチでは 各ステップを明示的に実行し、何が起こっているかを示していますが、`kubectl create secret` の方が便利です。
 
 
-## Volume にある機密情報をアクセスする Pod を作成する
+## Volumeにある機密情報をアクセスするPodを作成する
 
-これは Pod の作成に使用できる設定ファイルです。
+これはPodの作成に使用できる設定ファイルです。
 
 {{< codenew file="pods/inject/secret-pod.yaml" >}}
 
-1. Pod を作成する:
+1. Podを作成する:
 
    ```shell
    kubectl apply -f https://k8s.io/examples/pods/inject/secret-pod.yaml
    ```
 
-1. Pod がランニング状態にあるのを確認する:
+1. Podがランニング状態にあるのを確認する:
 
    ```shell
    kubectl get pod secret-test-pod
@@ -119,7 +117,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
    secret-test-pod   1/1       Running   0          42m
    ```
 
-1. Pod の中にあるコンテナにシェルを実行する
+1. Podの中にあるコンテナにシェルを実行する
 
    ```shell
    kubectl exec -i -t secret-test-pod -- /bin/bash
@@ -151,27 +149,27 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
    39528$vdg7Jb
    ```
 
-## Secret でコンテナの環境変数を定義する
+## Secretでコンテナの環境変数を定義する
 
-### 単一の Secret でコンテナの環境変数を定義する
+### 単一のSecretでコンテナの環境変数を定義する
 
-*  Secret の中で key-value ペアで環境変数を定義する:
+*  Secretの中でkey-valueペアで環境変数を定義する:
 
    ```shell
    kubectl create secret generic backend-user --from-literal=backend-username='backend-admin'
    ```
 
-*  Secret で定義された`backend-username`の値をPodの環境変数`SECRET_USERNAME`に割り当てます。
+*  Secretで定義された`backend-username`の値をPodの環境変数`SECRET_USERNAME`に割り当てます。
 
    {{< codenew file="pods/inject/pod-single-secret-env-variable.yaml" >}}
 
-*  Pod を作成する:
+*  Podを作成する:
 
    ```shell
    kubectl create -f https://k8s.io/examples/pods/inject/pod-single-secret-env-variable.yaml
    ```
 
-*  コンテナの環境変数 `SECRET_USERNAME` の中身を表示する:
+*  コンテナの環境変数`SECRET_USERNAME`の中身を表示する:
 
    ```shell
    kubectl exec -i -t env-single-secret -- /bin/sh -c 'echo $SECRET_USERNAME'
@@ -182,20 +180,20 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
    backend-admin
    ```
 
-### 複数の Secret からコンテナの環境変数を定義する
+### 複数のSecretからコンテナの環境変数を定義する
 
-*  前述の例と同様に、まず Secret を作成します:
+*  前述の例と同様に、まずSecretを作成します:
 
    ```shell
    kubectl create secret generic backend-user --from-literal=backend-username='backend-admin'
    kubectl create secret generic db-user --from-literal=db-username='db-admin'
    ```
 
-*  Pod の中で環境変数を定義する:
+*  Podの中で環境変数を定義する:
 
    {{< codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" >}}
 
-*  Pod を作成する:
+*  Podを作成する:
 
    ```shell
    kubectl create -f https://k8s.io/examples/pods/inject/pod-multiple-secret-env-variable.yaml
@@ -213,7 +211,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
    ```
 
 
-## Secret のすべての key-value ペアを環境変数として設定する
+## Secretのすべてのkey-valueペアを環境変数として設定する
 
 {{< note >}}
 この機能は Kubernetes v1.6 以降から利用可能
@@ -235,7 +233,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
    kubectl create -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
    ```
 
-* `username` と `password` コンテナの環境変数を表示する
+* `username`と`password`コンテナの環境変数を表示する
 
   ```shell
   kubectl exec -i -t envfrom-secret -- /bin/sh -c 'echo "username: $username\npassword: $password\n"'
