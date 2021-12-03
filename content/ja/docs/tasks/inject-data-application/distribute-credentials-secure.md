@@ -45,7 +45,7 @@ OSから信頼されているローカルツールを使用することで、外
     kubectl apply -f https://k8s.io/examples/pods/inject/secret.yaml
     ```
 
-1. Secret の情報を取得する
+1. Secretの情報を取得する
 
     ```shell
     kubectl get secret test-secret
