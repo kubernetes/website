@@ -13,9 +13,9 @@ min-kubernetes-server-version: v1.6
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-### 秘密データをbase64でエンコードする
+### 機密データをbase64でエンコードする
 
-ユーザー名 `my-app` とパスワード `39528$vdg7Jb` の2つの秘密データが必要だとします。
+ユーザー名 `my-app` とパスワード `39528$vdg7Jb` の2つの機密データが必要だとします。
 まず、base64エンコーディングツールを使って、ユーザ名とパスワードをbase64表現に変換します。
 ここでは、手軽に入手できるbase64プログラムを使った例を紹介します:
 
@@ -24,8 +24,7 @@ echo -n 'my-app' | base64
 echo -n '39528$vdg7Jb' | base64
 ```
 
-出力結果によると、ユーザ名のbase64表現は `bXktYXBw`で、
-パスワードのbase64表現は `Mzk1MjgkdmRnN0pi` です。
+出力結果によると、ユーザ名のbase64表現は `bXktYXBw`で、パスワードのbase64表現は `Mzk1MjgkdmRnN0pi` です。
 
 {{< caution >}}
 OSから信頼されているローカルツールを使用することで、外部ツールのセキュリティリスクを低減することができます。
@@ -96,7 +95,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 `kubectl create secret` の方が便利です。
 
 
-## Volume にある秘密情報をアクセスする Pod を作成する
+## Volume にある機密情報をアクセスする Pod を作成する
 
 これは Pod の作成に使用できる設定ファイルです。
 
@@ -126,7 +125,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
    kubectl exec -i -t secret-test-pod -- /bin/bash
    ```
 
-1. 秘密のデータは `/etc/secret-volume` にマウントされたボリュームを介してコンテナに公開されます。
+1. 機密データは `/etc/secret-volume` にマウントされたボリュームを介してコンテナに公開されます。
 
    ディレクトリ `/etc/secret-volume` 中のファイルの一覧を確認する:
    ```shell
