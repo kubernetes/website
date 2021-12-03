@@ -55,7 +55,7 @@ A _PersistentVolume_ (PV) is a piece of storage in the cluster that has been pro
 -->
 持久卷（PersistentVolume，PV）是集群中的一块存储，可以由管理员事先供应，或者
 使用[存储类（Storage Class）](/zh/docs/concepts/storage/storage-classes/)来动态供应。
-持久卷是集群资源，就像节点也是集群资源一样。PV 持久卷和普通的 Volume 一样，也是使用
+持久卷是集群资源，就像节点一样，都属于集群资源。PV 持久卷和普通的 Volume 一样，也是使用
 卷插件来实现的，只是它们拥有独立于任何使用 PV 的 Pod 的生命周期。
 此 API 对象中记述了存储的实现细节，无论其背后是 NFS、iSCSI 还是特定于云平台的存储系统。
 
@@ -63,8 +63,8 @@ A _PersistentVolume_ (PV) is a piece of storage in the cluster that has been pro
 A _PersistentVolumeClaim_ (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany or ReadWriteMany, see [AccessModes](#access-modes)).
 -->
 持久卷申领（PersistentVolumeClaim，PVC）表达的是用户对存储的请求。概念上与 Pod 类似。
-Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源。Pod 可以请求特定数量的资源（CPU
-和内存）；同样 PVC 申领也可以请求特定的大小和访问模式
+Pod 会消耗节点资源，同样 PVC 也会消耗集群内的 PV 资源。Pod 可以请求特定数量的资源（CPU
+和内存），同样 PVC 也可以请求特定大小的 PV 以及不同的访问模式
 （例如，可以要求 PV 卷能够以 ReadWriteOnce、ReadOnlyMany 或 ReadWriteMany
 模式之一来挂载，参见[访问模式](#access-modes)）。
 
