@@ -21,8 +21,7 @@ Kubernetesの監査はクラスタ内の一連の行動を記録するセキュ�
 
 <!-- body -->
 
-監査記録は、そのライフサイクルを
-[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)コンポーネントの中で始まります。
+監査記録は、そのライフサイクルを[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)コンポーネントの中で始まります。
 各リクエストは、その実行の各段階でその実行の各段階で、監査イベントが生成されます。
 ポリシーに従って前処理され、バックエンドに書き込まれます。 ポリシーが何を記録するかを決定しを決定し、
 バックエンドがその記録を永続化します。現在のバックエンドの実装はログファイルやWebhookなどがあります。
@@ -38,7 +37,7 @@ Kubernetesの監査はクラスタ内の一連の行動を記録するセキュ�
 - `Panic` - パニックが起きたときに発生するイベント。
 
 {{< note >}}
-[Audit Event configuration](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)の設定は[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)API オブジェクトとは異なります。
+[Audit Event configuration](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)の設定は[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)APIオブジェクトとは異なります。
 {{< /note >}}
 
 監査ログ機能は、リクエストごとに監査に必要なコンテキストが保存されるため、APIサーバーのメモリ消費量が増加します。
@@ -66,7 +65,7 @@ using the `--audit-policy-file` flag. If the flag is omitted, no events are logg
 Note that the `rules` field __must__ be provided in the audit policy file.
 A policy with no (0) rules is treated as illegal.
 
-`audit-policy-file` フラグを使って、ポリシーを記述したファイルを `kube-apiserver` に渡すことができます。
+`audit-policy-file`フラグを使って、ポリシーを記述したファイルを `kube-apiserver`に渡すことができます。
 このフラグが省略された場合イベントは記録されません。
 監査ポリシーファイルでは、`rules`フィールドが必ず指定されることに注意してください。
 ルールがない(0)ポリシーは不当なものとして扱われます。
@@ -75,7 +74,7 @@ A policy with no (0) rules is treated as illegal.
 
 {{< codenew file="audit/audit-policy.yaml" >}}
 
-最小限の監査ポリシーファイルを使用して、すべてのリクエストを `Metadata` レベルで記録することができます。
+最小限の監査ポリシーファイルを使用して、すべてのリクエストを `Metadata`レベルで記録することができます。
 
 ```yaml
 # Log all requests at the Metadata level.
@@ -152,7 +151,7 @@ volumeMounts:
     readOnly: false
 ```
 
-最後に `hostPath` を設定します:
+最後に`hostPath`を設定します:
 ```yaml
 ...
 - name: audit
@@ -185,9 +184,9 @@ Webhookの設定ファイルは、kubeconfig 形式でサービスのリモー�
 
 ログバックエンドとwebhookバックエンドの両方がバッチ処理をサポートしています。
 webhookを例に、利用可能なフラグの一覧を示します。
-ログバックエンドで同じフラグを取得するには、フラグ名の `webhook` を `log` に置き換えてください。
-デフォルトでは、バッチングは `webhook` では有効で、`log` では無効です。
-同様に、デフォルトでは、スロットリングは `webhook` で有効で、`log` では無効です。
+ログバックエンドで同じフラグを取得するには、フラグ名の`webhook`を`log`に置き換えてください。
+デフォルトでは、バッチングは`webhook`では有効で、`log`では無効です。
+同様に、デフォルトではスロットリングは `webhook` で有効で、`log`では無効です。
 
 - `--audit-webhook-mode` は、バッファリング戦略を定義します。以下のいずれかとなります。
   - `batch` - イベントをバッファリングして、非同期にバッチ処理します。これがデフォルトです。
@@ -196,12 +195,12 @@ webhookを例に、利用可能なフラグの一覧を示します。
 
 以下のフラグは `batch` モードでのみ使用されます:
 
-- `--audit-webhook-batch-buffer-size` は、バッチ処理を行う前にバッファリングするイベントの数を定義します。
+- `--audit-webhook-batch-buffer-size`は、バッチ処理を行う前にバッファリングするイベントの数を定義します。
   入力イベントの割合がバッファをオーバーフローすると、イベントはドロップされます。
-- `--audit-webhook-batch-max-size` は、1つのバッチに入れるイベントの最大数を定義します。
-- `--audit-webhook-batch-max-wait` は、キュー内のイベントを無条件にバッチ処理するまでの最大待機時間を定義します。
-- `--audit-webhook-batch-throttle-qps` は、1秒あたりに生成されるバッチの最大平均数を定義します。
-- `--audit-webhook-batch-throttle-burst` は、許可された QPS が低い場合に、同じ瞬間に生成されるバッチの最大数を定義します。
+- `--audit-webhook-batch-max-size`は、1つのバッチに入れるイベントの最大数を定義します。
+- `--audit-webhook-batch-max-wait`は、キュー内のイベントを無条件にバッチ処理するまでの最大待機時間を定義します。
+- `--audit-webhook-batch-throttle-qps`は、1秒あたりに生成されるバッチの最大平均数を定義します。
+- `--audit-webhook-batch-throttle-burst`は、許可された QPS が低い場合に、同じ瞬間に生成されるバッチの最大数を定義します。
 
 
 ## パラメータチューニング
@@ -230,7 +229,7 @@ logバックエンドとwebhookバックエンドは、ログに記録される�
 - `audit-log-truncate-max-batch-size` バックエンドに送信されるバッチのバイト単位の最大サイズ。
 - `audit-log-truncate-max-event-size` バックエンドに送信される監査イベントのバイト単位の最大サイズです。
 
-デフォルトでは、`webhook` と `log` の両方で切り捨ては無効になっていますが、クラスタ管理者は `audit-log-truncate-enabled` または `audit-webhook-truncate-enabled` を設定して、この機能を有効にする必要があります。
+デフォルトでは、`webhook`と`log`の両方で切り捨ては無効になっていますが、クラスタ管理者は `audit-log-truncate-enabled`または`audit-webhook-truncate-enabled`を設定して、この機能を有効にする必要があります。
 
 ## {{% heading "whatsnext" %}}
 
