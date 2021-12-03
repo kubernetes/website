@@ -80,7 +80,7 @@ OSから信頼されているローカルツールを使用することで、外
     username:   7 bytes
     ```
 
-### kubectl で Secret を作成する
+### kubectlでSecretを作成する
 
 base64エンコードの手順を省略したい場合は、`kubectl create secret`コマンドで
 同じSecretを作成することができます。
