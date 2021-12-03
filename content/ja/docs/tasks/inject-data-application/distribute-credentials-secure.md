@@ -255,5 +255,5 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
 ## {{% heading "whatsnext" %}}
 
-* [Secrets](/docs/concepts/configuration/secret/) についてもっと知る.
+* [Secrets](/docs/concepts/configuration/secret/)についてもっと知る。
 * [Volumes](/docs/concepts/storage/volumes/) について.
