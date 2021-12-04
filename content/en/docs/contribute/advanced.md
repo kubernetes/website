@@ -82,7 +82,7 @@ few PR submissions.
 Responsibilities for New Contributor Ambassadors include:
 
 - Monitoring the [#sig-docs Slack channel](https://kubernetes.slack.com) for questions from new contributors.
-- Working with PR wranglers to identify good first issues for new contributors.
+- Working with PR wranglers to identify [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue) for new contributors.
 - Mentoring new contributors through their first few PRs to the docs repo.
 - Helping new contributors create the more complex PRs they need to become Kubernetes members.
 - [Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members.
