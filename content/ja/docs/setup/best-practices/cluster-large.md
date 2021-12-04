@@ -4,7 +4,7 @@ weight: 20
 ---
 
 
-クラスターはKubernetesのエージェントが動作する（物理もしくは仮想の） {{< glossary_tooltip text="ノード" term_id="node" >}} の集合で、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}} によって管理されます。
+クラスターはKubernetesのエージェントが動作する(物理もしくは仮想の){{< glossary_tooltip text="ノード" term_id="node" >}}の集合で、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}によって管理されます。
 Kubernetes {{< param "version" >}} では、最大5000ノードから構成されるクラスターをサポートします。
 具体的には、Kubernetesは次の基準を *全て* 満たす構成に対して適用できるように設計されています。
 
@@ -17,9 +17,9 @@ Kubernetes {{< param "version" >}} では、最大5000ノードから構成さ�
 これを行う方法は、クラスターがどのようにデプロイされたかに依存します。
 
 
-## クラウドプロバイダのリソースクォータ {#クォータの問題}
+## クラウドプロバイダーのリソースクォータ {#クォータの問題}
 
-クラウドプロバイダのクォータの問題に遭遇することを避けるため、多数のノードを使ったクラスターを作成するときには次のようなことを考慮してください。
+クラウドプロバイダのクォーターの問題に遭遇することを避けるため、多数のノードを使ったクラスターを作成するときには次のようなことを考慮してください。
 
 * 次のようなクラウドリソースの増加をリクエストする
   * コンピュータインスタンス
@@ -27,10 +27,10 @@ Kubernetes {{< param "version" >}} では、最大5000ノードから構成さ�
   * ストレージボリューム
   * 使用中のIPアドレス
   * パケットフィルタリングのルールセット
-  * ロードバランサの数
+  * ロードバランサーの数
   * ネットワークサブネット
   * ログストリーム
-* クラウドプロバイダによる新しいインスタンスの作成に対するレート制限のため、バッチで新しいノードを立ち上げるようなクラスターのスケーリング操作を通すためには、バッチ間ですこし休止を入れます。
+* クラウドプロバイダーによる新しいインスタンスの作成に対するレート制限のため、バッチで新しいノードを立ち上げるようなクラスターのスケーリング操作を通すためには、バッチ間ですこし休止を入れます。
 
 
 ## コントロールプレーンのコンポーネント
@@ -41,27 +41,27 @@ Kubernetes {{< param "version" >}} では、最大5000ノードから構成さ�
 
 フォールトトレランスを備えるために、1つの故障ゾーンに対して最低1インスタンスを動かすべきです。
 Kubernetesノードは、同一故障ゾーン内のコントロールプレーンエンドポイントに対して自動的にトラフィックが向かないようにします。
-しかし、クラウドプロバイダはこれを実現するための独自の機構を持っているかもしれません。
+しかし、クラウドプロバイダーはこれを実現するための独自の機構を持っているかもしれません。
 
-例えばマネージドなロードバランサを使うと、故障ゾーン _A_ にあるkubeletやPodから発生したトラフィックを、同じく故障ゾーン _A_ にあるコントロールプレーンホストに対してのみ送るように設定します。もし1つのコントロールプレーンホストまたは故障ゾーン _A_ のエンドポイントがオフラインになった場合、ゾーン _A_ にあるノードについてすべてのコントロールプレーンのトラフィックはゾーンを跨いで送信されます。それぞれのゾーンで複数のコントロールプレーンホストを動作させることは、結果としてほとんどありません。
+例えばマネージドなロードバランサーを使うと、故障ゾーン _A_ にあるkubeletやPodから発生したトラフィックを、同じく故障ゾーン _A_ にあるコントロールプレーンホストに対してのみ送るように設定します。もし1つのコントロールプレーンホストまたは故障ゾーン _A_ のエンドポイントがオフラインになった場合、ゾーン _A_ にあるノードについてすべてのコントロールプレーンのトラフィックはゾーンを跨いで送信されます。それぞれのゾーンで複数のコントロールプレーンホストを動作させることは、結果としてほとんどありません。
 
 
 ## etcdストレージ
 
 大きなクラスターの性能を向上させるために、他の専用のetcdインスタンスにイベントオブジェクトを保存できます。
 
-クラスターを作るときに、（カスタムツールを使って）以下のようなことができます。
+クラスターを作るときに、(カスタムツールを使って)以下のようなことができます。
 
 * 追加のetcdインスタンスを起動または設定する
-* イベントを保存するために {{< glossary_tooltip term_id="kube-apiserver" text="APIサーバ" >}} を設定する
+* イベントを保存するために{{< glossary_tooltip term_id="kube-apiserver" text="APIサーバ" >}}を設定する
 
-大きなクラスターのためにetcdを設定・管理する詳細については、[Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) または [kubeadmを使用した高可用性etcdクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) を見てください。
+大きなクラスターのためにetcdを設定・管理する詳細については、[Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/)または[kubeadmを使用した高可用性etcdクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)を見てください。
 
 
 ## アドオンのリソース
 
-Kubernetesの [リソース制限](/ja/docs/concepts/configuration/manage-resources-containers/) は、メモリリークの影響やPodやコンテナが他のコンポーネントに与える他の影響を最小化することに役立ちます。
-これらのリソース制限は、アプリケーションのワークロードに適用するのと同様に、{{< glossary_tooltip text="アドオン" term_id="addons" >}} のリソースにも適用されます。
+Kubernetesの[リソース制限](/ja/docs/concepts/configuration/manage-resources-containers/)は、メモリリークの影響やPodやコンテナが他のコンポーネントに与える他の影響を最小化することに役立ちます。
+これらのリソース制限は、アプリケーションのワークロードに適用するのと同様に、{{< glossary_tooltip text="アドオン" term_id="addons" >}}のリソースにも適用されます。
 
 例えば、ロギングコンポーネントに対してCPUやメモリ制限を設定できます。
 
@@ -78,7 +78,7 @@ Kubernetesの [リソース制限](/ja/docs/concepts/configuration/manage-resour
 
 アドオンのデフォルト制限は、アドオンを小～中規模のKubernetesクラスターで動作させたときの経験から得られたデータに基づきます。
 大規模のクラスターで動作させる場合は、アドオンはデフォルト制限よりも多くのリソースを消費することが多いです。
-これらの値を調整せずに大規模のクラスターをデプロイした場合、メモリ制限に達し続けるため、アドオンが継続的に停止されるかもしれません。
+これらの値を調整せずに大規模のクラスターをデプロイした場合、メモリー制限に達し続けるため、アドオンが継続的に停止されるかもしれません。
 あるいは、CPUのタイムスライス制限により性能がでない状態で動作するかもしれません。
 
 クラスターのアドオンのリソース制限に遭遇しないために、多くのノードで構成されるクラスターを構築する場合は次のことを考慮します。
@@ -91,8 +91,8 @@ Kubernetesの [リソース制限](/ja/docs/concepts/configuration/manage-resour
 ## {{% heading "whatsnext" %}}
 
 `VerticalPodAutoscaler` は、リソースのリクエストやPodの制限についての管理を手助けするためにクラスターへデプロイ可能なカスタムリソースです。
-`VerticalPodAutoscaler` やクラスターで致命的なアドオンを含むクラスターコンポーネントをスケールする方法についてさらに知りたい場合は [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) をご覧ください。
+`VerticalPodAutoscaler` やクラスターで致命的なアドオンを含むクラスターコンポーネントをスケールする方法についてさらに知りたい場合は[Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)をご覧ください。
 
-[cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme) は、クラスターで要求されるリソース水準を満たす正確なノード数で動作できるよう、いくつかのクラウドプロバイダと統合されています。
+[cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)は、クラスターで要求されるリソース水準を満たす正確なノード数で動作できるよう、いくつかのクラウドプロバイダーと統合されています。
 
-[addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme) は、クラスターのスケールが変化したときにアドオンの自動的なリサイズをお手伝いします。
+[addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)は、クラスターのスケールが変化したときにアドオンの自動的なリサイズをお手伝いします。
