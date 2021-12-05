@@ -67,7 +67,7 @@ request is rejected immediately and an error is returned to the end-user.
 准入控制器可以执行 “验证（Validating）” 和/或 “变更（Mutating）” 操作。
 变更（mutating）控制器可以修改被其接受的请求；验证（validating）控制器则不行。
 
-准入控制限制请求生成，删除，修改对象，不限制请求读取对象。
+准入控制器限制请求生成，删除，修改对象，不限制请求读取对象。
 
 准入控制过程分为两个阶段。第一阶段，运行变更准入控制器。第二阶段，运行验证准入控制器。
 再次提醒，某些控制器既是变更准入控制器又是验证准入控制器。
