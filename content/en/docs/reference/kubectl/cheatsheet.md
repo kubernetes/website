@@ -73,6 +73,9 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
 
 kubectl config unset users.foo                       # delete user foo
+
+# short alias to set/show namespace (useful for CKAD/CKA exams)
+alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace ; } ; f'
 ```
 
 ## Kubectl apply
