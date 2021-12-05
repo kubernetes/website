@@ -1,61 +1,54 @@
 ---
-reviewers:
-- lavalamp
-- davidopp
-- derekwaynecarr
-- erictune
-- janetkuo
-- thockin
-title: Using Admission Controllers
+title: Admission Controllersを使う
 content_type: concept
 weight: 30
 ---
 
 <!-- overview -->
-This page provides an overview of Admission Controllers.
+このページでは、Admission Controllerの概要について説明します。
 
 
 <!-- body -->
-## What are they?
+## Admission Controllersとは
 
-An admission controller is a piece of code that intercepts requests to the
-Kubernetes API server prior to persistence of the object, but after the request
-is authenticated and authorized.  The controllers consist of the
-[list](#what-does-each-admission-controller-do) below, are compiled into the
-`kube-apiserver` binary, and may only be configured by the cluster
-administrator. In that list, there are two special controllers:
-MutatingAdmissionWebhook and ValidatingAdmissionWebhook.  These execute the
-mutating and validating (respectively)
-[admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-which are configured in the API.
+Admission controllersとは、オブジェクトの永続化に先立ち、リクエストが認証・認可された後に、Kubernetes APIサーバーへのリクエストを傍受するコードのことです。
 
-Admission controllers may be "validating", "mutating", or both. Mutating
-controllers may modify the objects they admit; validating controllers may not.
+Admission controllersは、以下の[リスト](#what-does-each-admission-controller-do)で構成されています。これらのコントローラは、`kube-apiserver`バイナリにコンパイルされ、クラスタ管理者のみが設定することができます。
 
-Admission controllers limit requests to create, delete, modify or connect to (proxy). They do not support read requests.
+そのリストの中に、2つの特別なコントローラがあります:
+「MutatingAdmissionWebhook」と「ValidatingAdmissionWebhook」です。
 
-The admission control process proceeds in two phases. In the first phase,
-mutating admission controllers are run. In the second phase, validating
-admission controllers are run. Note again that some of the controllers are
-both.
+これらはAPIで設定された「Mutating」と「Validating」それぞれの[admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)を実行します。
+
+Admission controllersは「Mutating」、「Validating」、またはその両方を行います。
+承認したオブジェクトを、Mutating controllersは変更でき、Validating controllersは変更できません。
+
+Admission controllers limit requests to create, delete, modify or connect to (proxy).
+
+# https://github.com/kubernetes/website/pull/30741
+Admission controllersはオブジェクト作成、削除、変更、プロキシへの接続などのリクエストを制限し、オブジェクト参照のリクエストを制限しません。
+
+
+The admission control process proceeds in two phases.
+In the first phase,mutating admission controllers are run.
+In the second phase, validating admission controllers are run.
+Note again that some of the controllers are both.
 
 If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
 
 Finally, in addition to sometimes mutating the object in question, admission
 controllers may sometimes have side effects, that is, mutate related
-resources as part of request processing. Incrementing quota usage is the
-canonical example of why this is necessary. Any such side-effect needs a
-corresponding reclamation or reconciliation process, as a given admission
-controller does not know for sure that a given request will pass all of the
-other admission controllers.
+resources as part of request processing.
+
+Incrementing quota usage is the canonical example of why this is necessary.
+Any such side-effect needs a corresponding reclamation or reconciliation process, as a given admission controller does not know for sure that a given request will pass all of the other admission controllers.
 
 ## Why do I need them?
 
 Many advanced features in Kubernetes require an admission controller to be enabled in order
-to properly support the feature.  As a result, a Kubernetes API server that is not properly
-configured with the right set of admission controllers is an incomplete server and will not
-support all the features you expect.
+to properly support the feature.
+As a result, a Kubernetes API server that is not properly configured with the right set of admission controllers is an incomplete server and will not support all the features you expect.
 
 ## How do I turn on an admission controller?
 
@@ -69,10 +62,10 @@ kube-apiserver --enable-admission-plugins=NamespaceLifecycle,LimitRanger ...
 
 {{< note >}}
 Depending on the way your Kubernetes cluster is deployed and how the API server is
-started, you may need to apply the settings in different ways. For example, you may
-have to modify the systemd unit file if the API server is deployed as a systemd
-service, you may modify the manifest file for the API server if Kubernetes is deployed
-in a self-hosted way.
+started, you may need to apply the settings in different ways.
+
+For example, you may have to modify the systemd unit file if the API server is deployed as a systemd
+service, you may modify the manifest file for the API server if Kubernetes is deployed in a self-hosted way.
 {{< /note >}}
 
 ## How do I turn off an admission controller?
@@ -103,23 +96,24 @@ CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultI
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-This admission controller allows all pods into the cluster. It is deprecated because its behavior is the same as if there were no admission controller at all.
+This admission controller allows all pods into the cluster.
+It is deprecated because its behavior is the same as if there were no admission controller at all.
 
 ### AlwaysDeny {#alwaysdeny}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-Rejects all requests. AlwaysDeny is DEPRECATED as it has no real meaning.
+Rejects all requests.
+AlwaysDeny is DEPRECATED as it has no real meaning.
 
 ### AlwaysPullImages {#alwayspullimages}
 
-This admission controller modifies every new Pod to force the image pull policy to Always. This is useful in a
-multitenant cluster so that users can be assured that their private images can only be used by those
-who have the credentials to pull them. Without this admission controller, once an image has been pulled to a
-node, any pod from any user can use it by knowing the image's name (assuming the Pod is
-scheduled onto the right node), without any authorization check against the image. When this admission controller
-is enabled, images are always pulled prior to starting containers, which means valid credentials are
-required.
+This admission controller modifies every new Pod to force the image pull policy to Always.
+This is useful in a multitenant cluster so that users can be assured that their private images can only be used by those who have the credentials to pull them.
+
+Without this admission controller, once an image has been pulled to a node, any pod from any user can use it by knowing the image's name (assuming the Pod is scheduled onto the right node), without any authorization check against the image.
+
+When this admission controller is enabled, images are always pulled prior to starting containers, which means valid credentials are required.
 
 ### CertificateApproval {#certificateapproval}
 
