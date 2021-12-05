@@ -1065,6 +1065,18 @@ allowed, which is the default if not specified.
 
 `.spec.replicas` is an optional field that specifies the number of desired Pods. It defaults to 1.
 
+Should you manually scale a Deployment, example via `kubectl scale deployment
+deployment --replicas=X`, and then you update that Deployment based on a manifest
+(for example: by running `kubectl apply -f deployment.yaml`),
+then applying that manifest overwrites the manual scaling that you previously did.
+
+If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) (or any
+similar API for horizontal scaling) is managing scaling for a Deployment, don't set `.spec.replicas`.
+
+Instead, allow the Kubernetes
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}} to manage the
+`.spec.replicas` field automatically.
+
 ### Selector
 
 `.spec.selector` is a required field that specifies a [label selector](/docs/concepts/overview/working-with-objects/labels/)

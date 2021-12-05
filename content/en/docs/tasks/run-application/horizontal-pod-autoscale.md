@@ -504,8 +504,46 @@ stops adjusting the target (and sets the `ScalingActive` Condition on itself
 to `false`) until you reactivate it by manually adjusting the target's desired
 replica count or HPA's minimum replica count.
 
-## {{% heading "whatsnext" %}}
+### Migrating Deployments and StatefulSets to horizontal autoscaling
 
+When an HPA is enabled, it is recommended that the value of `spec.replicas` of
+the Deployment and / or StatefulSet be removed from their
+{{< glossary_tooltip text="manifest(s)" term_id="manifest" >}}.  If this isn't done, any time
+a change to that object is applied, for example via `kubectl apply -f
+deployment.yaml`, this will instruct Kubernetes to scale the current number of Pods
+to the value of the `spec.replicas` key. This may not be
+desired and could be troublesome when an HPA is active.
+
+Keep in mind that the removal of `spec.replicas` may incur a one-time
+degradation of Pod counts as the default value of this key is 1 (reference
+[Deployment Replicas](/docs/concepts/workloads/controllers/deployment#replicas).
+Upon the update, all Pods except 1 will begin their termination procedures.  Any
+deployment application afterwards will behave as normal and respect a rolling
+update configuration as desired.  You can avoid this degradation by choosing one of the following two
+methods based on how you are modifying your deployments:
+
+{{< tabs name="fix_replicas_instructions" >}}
+{{% tab name="Client Side Apply (this is the default)" %}}
+
+1. `kubectl apply edit-last-applied deployment/<deployment_name>`
+2. In the editor, remove `spec.replicas`. When you save and exit the editor, `kubectl`
+    applies the update.  No changes to Pod counts happen at this step.
+3. You can now remove `spec.replicas` from the manifest. If you use source code management,
+    also commit your changes or take whatever other steps for revising the source code
+    are appropriate for how you track updates.
+4. From here on out you can run `kubectl apply -f deployment.yaml`
+
+{{% /tab %}}
+{{% tab name="Server Side Apply" %}}
+
+When using the [Server-Side Apply](/docs/reference/using-api/server-side-apply/)
+you can follow the [transferring ownership](/docs/reference/using-api/server-side-apply/#transferring-ownership)
+guidelines, which cover this exact use case.
+
+{{% /tab %}}
+{{< /tabs >}}
+
+## {{% heading "whatsnext" %}}
 
 * Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl autoscale command: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
