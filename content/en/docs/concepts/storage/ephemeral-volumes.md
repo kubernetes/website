@@ -7,7 +7,7 @@ reviewers:
 - pohly
 title: Ephemeral Volumes
 content_type: concept
-weight: 50
+weight: 30
 ---
 
 <!-- overview -->
