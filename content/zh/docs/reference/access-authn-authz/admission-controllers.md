@@ -51,7 +51,10 @@ which are configured in the API.
 
 <!--
 Admission controllers may be "validating", "mutating", or both. Mutating
-controllers may modify the objects they admit; validating controllers may not.
+controllers may modify the requests they admit; validating controllers may not.
+
+Admission controllers limit requests to create, delete, modify objects or connect to proxy.
+They do not limit requests to read objects.
 
 The admission control process proceeds in two phases. In the first phase,
 mutating admission controllers are run. In the second phase, validating
@@ -62,7 +65,9 @@ If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
 -->
 准入控制器可以执行 “验证（Validating）” 和/或 “变更（Mutating）” 操作。
-变更（mutating）控制器可以修改被其接受的对象；验证（validating）控制器则不行。
+变更（mutating）控制器可以修改被其接受的请求；验证（validating）控制器则不行。
+
+准入控制限制请求生成，删除，修改对象，不限制请求读取对象。
 
 准入控制过程分为两个阶段。第一阶段，运行变更准入控制器。第二阶段，运行验证准入控制器。
 再次提醒，某些控制器既是变更准入控制器又是验证准入控制器。
