@@ -88,6 +88,15 @@ has all the information needed to configure a load balancer or proxy server. Mos
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP(S) traffic.
 
+If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class) 
+should be defined.
+
+There are some ingress controllers, that work without the definition of a 
+default `IngressClass`. For example, the Ingress-NGINX controller can be 
+configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class) 
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the 
+default `IngressClass` as shown [below](#default-ingress-class).
+
 ### Ingress rules
 
 Each HTTP rule contains the following information:
@@ -265,6 +274,14 @@ the admission controller prevents creating new Ingress objects that don't have
 an `ingressClassName` specified. You can resolve this by ensuring that at most 1
 IngressClass is marked as default in your cluster.
 {{< /caution >}}
+
+There are some ingress controllers, that work without the definition of a
+default `IngressClass`. For example, the Ingress-NGINX controller can be
+configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
+default `IngressClass`:
+
+{{< codenew file="service/networking/default-ingressclass.yaml" >}}
 
 ## Types of Ingress
 
