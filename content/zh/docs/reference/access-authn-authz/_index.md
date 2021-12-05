@@ -1,12 +1,12 @@
 ---
 title: 访问 API
-weight: 20
+weight: 15
 no_list: true
 ---
 
 <!--
 title: API Access Control
-weight: 20
+weight: 15
 no_list: true
 -->
 
