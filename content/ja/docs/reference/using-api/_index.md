@@ -17,15 +17,15 @@ REST APIはKubernetesの基本的な構造です。
 すべての操作とコンポーネント間のと通信、および外部ユーザーのコマンドは、REST API呼び出しでありAPIサーバーが処理します。
 
 
-その結果、Kubernetesプラットフォーム内のすべてのものは、APIオブジェクトとして扱われ、[API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)に対応するエントリがあります.
+その結果、Kubernetesプラットフォーム内のすべてのものは、APIオブジェクトとして扱われ、[API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)に対応するエントリーがあります。
 
-[Kubernetes API参照](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)は、Kubernetesバージョン {{< param "version" >}}のAPI一覧を提供します。
+[Kubernetes API参照](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)は、Kubernetesバージョン{{< param "version" >}}のAPI一覧を提供します。
 
 一般的な背景情報を知るには、[The Kubernetes API](/docs/concepts/overview/kubernetes-api/)、
 [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/)を読んでください。
 それらはKubernetes APIサーバーがクライアントを認証する方法とリクエストを認可する方法を説明します。
 
-## API バージョニング
+## APIバージョニング
 
 JSONとProtobufなどのシリアル化スキーマの変更については同じガイドラインに従います。
 以下の説明は、両方のフォーマットをカバーしています。
@@ -40,15 +40,15 @@ APIのバージョンが異なると、安定性やサポートのレベルも�
 
 - Alpha:
   - バージョン名に「alpha」が含まれています（例：「v1alpha1」）。
-  - バグが含まれている可能性があります
-    機能を有効にするとバグが露呈する可能性があります
+  - バグが含まれている可能性があります。
+    機能を有効にするとバグが露呈する可能性があります。
     機能がデフォルトで無効になっている可能性があります。
   - ある機能のサポートは、予告なしにいつでも中止される可能性があります。
   - 後にリリースされるソフトウェアで、互換性のない方法で予告なく変更される可能性があります。
-  - バグのリスクが高く、長期的なサポートが得られないため、短期間のテストクラスタのみでの使用を推奨します。
+  - バグのリスクが高く、長期的なサポートが得られないため、短期間のテストクラスターのみでの使用を推奨します。
 
 - Beta:
-  - バージョン名には `beta` が含まれています（例：`v2beta3`）。
+  - バージョン名には `beta` が含まれています(例：`v2beta3`)。
   - ソフトウェアは十分にテストされています。
     機能を有効にすることは安全であると考えられています。
     機能はデフォルトで有効になっています。
@@ -80,11 +80,11 @@ APIグループは、RESTパスとシリアル化されたオブジェクトの`
 
 KubernetesにはいくつかのAPIグループがあります:
 
-* *core*（*legacy*とも呼ばれる）グループは、RESTパス `/api/v1` にあります。
+* *core*(*legacy*とも呼ばれる)グループは、RESTパス `/api/v1` にあります。
    コアグループは `apiVersion` フィールドの一部としては指定されません。
    例えば、`apiVersion: v1` のように。
 * 名前付きのグループは、RESTパス `/apis/$GROUP_NAME/$VERSION` にあり、以下のように使用します。
-   `apiVersion: $GROUP_NAME/$VERSION`を使用します（例：`apiVersion: batch/v1`）。
+   `apiVersion: $GROUP_NAME/$VERSION`を使用します(例：`apiVersion: batch/v1`)。
    サポートされているAPIグループの完全なリストは以下にあります。
    [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#strong-api-groups-strong-)。
 
@@ -92,7 +92,7 @@ KubernetesにはいくつかのAPIグループがあります:
 
 一部のリソースやAPIグループはデフォルトで有効になっています。
 APIサーバー上で`--runtime-config`を設定することで、有効にしたり無効にしたりすることができます。
-また`runtime-config`フラグには、APIサーバのランタイム構成を記述したコンマ区切りの`<key>[=<value>]`ペアを指定します。
+また`runtime-config`フラグには、APIサーバーのランタイム構成を記述したコンマ区切りの`<key>[=<value>]`ペアを指定します。
 もし`=<value>`の部分が省略された場合には、`=true`が指定されたものとして扱われます。
 
 例えば:
@@ -102,10 +102,10 @@ APIサーバー上で`--runtime-config`を設定することで、有効にし�
 
 {{< note >}}
 グループやリソースを有効または無効にした場合、
-APIサーバとコントローラマネージャを再起動して、`--runtime-config`の変更を反映させる必要があります。
+APIサーバーとコントローラマネージャーを再起動して、`--runtime-config`の変更を反映させる必要があります。
 {{< /note >}}
 
-## 永久化
+## 永続化
 
 Kubernetesはシリアライズされた状態を、APIリソースとして{{< glossary_tooltip term_id="etcd" >}}に書き込んで保存します。
 
