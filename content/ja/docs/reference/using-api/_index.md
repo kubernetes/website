@@ -16,7 +16,6 @@ card:
 REST APIはKubernetesの基本的な構造です。
 すべての操作とコンポーネント間のと通信、および外部ユーザーのコマンドは、REST API呼び出しでありAPIサーバーが処理します。
 
-
 その結果、Kubernetesプラットフォーム内のすべてのものは、APIオブジェクトとして扱われ、[API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)に対応するエントリーがあります。
 
 [Kubernetes API参照](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)は、Kubernetesバージョン{{< param "version" >}}のAPI一覧を提供します。
