@@ -252,14 +252,14 @@ metadata:
 spec:
   controller example.com/ingress-controller
   parameters:
-    # The parameters for this IngressClass are specified in an
+    # The parameters for this IngressClass are specified in a
     # ClusterIngressParameter (API group k8s.example.net) named
     # "external-config-1". This definition tells Kubernetes to
     # look for a cluster-scoped parameter resource.
     scope: Cluster
     apiGroup: k8s.example.net
     kind: ClusterIngressParameter
-    name: external-config
+    name: external-config-1
 ```
 {{% /tab %}}
 {{% tab name="Namespaced" %}}
