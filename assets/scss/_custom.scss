@@ -601,7 +601,7 @@ body.td-documentation {
 #announcement {
   > * {
     color: inherit;
-    background: inherit;
+    background: transparent;
   }
 
   a {
@@ -763,5 +763,26 @@ dl {
   // Add vertical space before definitions
   > *:not(dt) + dt, dt:first-child {
     margin-top: 1.5em;
+  }
+}
+
+.release-details {
+  padding-left: 2em;
+
+  > :not(p) {
+    font-size: 1.125em;
+  }
+
+  .release-inline-heading, .release-inline-value {
+    display: inline-block
+  }
+
+  .release-inline-value {
+    padding-left: 0.25em;
+  }
+
+  p {
+     margin-top: 1em;
+     margin-bottom: 1em;
   }
 }

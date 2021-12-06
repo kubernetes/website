@@ -189,6 +189,10 @@ other = "Read about"
 [main_read_more]
 other = "Read more"
 
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "n/a"
+
 [note]
 other = "Note:"
 
@@ -206,6 +210,12 @@ other = "Before you begin"
 
 [previous_patches]
 other = "Patch Releases:"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(released: "
 
 [seealso_heading]
 other = "See Also"

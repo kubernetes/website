@@ -8,6 +8,7 @@ reviewers:
 - liggitt
 - mikedanese
 - munnerz
+- enj
 title: Certificate Signing Requests
 content_type: concept
 weight: 20
@@ -50,6 +51,9 @@ The CertificateSigningRequest object includes a PEM-encoded PKCS#10 signing requ
 the `spec.request` field. The CertificateSigningRequest denotes the _signer_ (the
 recipient that the request is being made to) using the `spec.signerName` field.
 Note that `spec.signerName` is a required key after api version `certificates.k8s.io/v1`.
+In Kubernetes v1.22 and later, clients may optionally set the `spec.expirationSeconds`
+field to request a particular lifetime for the issued certificate.  The minimum valid
+value for this field is `600`, i.e. ten minutes.
 -->
 ## 请求签名流程 {#request-signing-process}
 
@@ -57,6 +61,8 @@ CertificateSigningRequest 资源类型允许客户使用它申请发放 X.509 �
 CertificateSigningRequest 对象 在 `spec.request` 中包含一个 PEM 编码的 PKCS#10 签名请求。
 CertificateSigningRequest 使用 `spec.signerName` 字段标示 _签名者_（请求的接收方）。
 注意，`spec.signerName` 在 `certificates.k8s.io/v1` 之后的 API 版本是必填项。
+在 Kubernetes v1.22 和以后的版本，客户可以可选地设置 `spec.expirationSeconds`
+字段来为颁发的证书设定一个特定的有效期。该字段的最小有效值是 `600`，也就是 10 分钟。
 
 <!-- 
 Once created, a CertificateSigningRequest must be approved before it can be signed.
@@ -113,7 +119,9 @@ state for some duration:
 
 * Approved requests: automatically deleted after 1 hour
 * Denied requests: automatically deleted after 1 hour
-* Pending requests: automatically deleted after 1 hour
+* Failed requests: automatically deleted after 1 hour
+* Pending requests: automatically deleted after 24 hours
+* All requests: automatically deleted after the issued certificate has expired
 -->
 为了减少集群中遗留的过时的 CertificateSigningRequest 资源的数量，
 一个垃圾收集控制器将会周期性地运行。
@@ -121,7 +129,9 @@ state for some duration:
 
 * 已批准的请求：1小时后自动删除
 * 已拒绝的请求：1小时后自动删除
-* 挂起的请求：1小时后自动删除
+* 已失败的请求：1小时后自动删除
+* 挂起的请求：24小时后自动删除
+* 所有请求：在颁发的证书过期后自动删除
 
 <!-- 
 ## Signers
@@ -146,10 +156,8 @@ This includes:
    and behavior when a disallowed extension is requested.
 4. **Permitted key usages / extended key usages**: any restrictions on and behavior 
    when usages different than the signer-determined usages are specified in the CSR.
-5. **Expiration/certificate lifetime**: whether it is fixed by the signer, 
-   configurable by the admin, determined by the CSR object etc and the behavior 
-   when an expiration is different than the signer-determined expiration 
-   that is specified in the CSR.
+5. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR `spec.expirationSeconds` field, etc
+   and the behavior when the signer-determined expiration is different from the CSR `spec.expirationSeconds` field.
 6. **CA bit allowed/disallowed**: and behavior if a CSR contains a request 
    a for a CA certificate when the signer does not permit it.
 -->
@@ -159,8 +167,8 @@ This includes:
    Email subjectAltNames、URI subjectAltNames 等，请求一个受限制的扩展项时的应对手段。
 4. **许可的密钥用途/扩展的密钥用途**：当用途和签名者在 CSR 中指定的用途不同时，
    相应的限制和应对手段。
-5. **过期时间/证书有效期**：过期时间由签名者确定、由管理员配置，还是由 CSR 对象指定等，
-   以及过期时间与签名者在 CSR 中指定过期时间不同时的应对手段。
+5. **过期时间/证书有效期**：过期时间由签名者确定、由管理员配置、还是由 CSR `spec.expirationSeconds` 字段指定等，
+   以及签名者决定的过期时间与 CSR `spec.expirationSeconds` 字段不同时的应对手段。
 6. **允许/不允许 CA 位**：当 CSR 包含一个签名者并不允许的 CA 证书的请求时，相应的应对手段。
 
 <!-- 
@@ -178,21 +186,30 @@ intermediates to be presented during TLS handshakes.
 例如，这是要在 TLS 握手时提供的证书和中继证书。
 
 <!--
-The PKCS#10 signing request format doesn't allow to specify a certificate
-expiration or lifetime. The expiration or lifetime therefore has to be set
-through e.g. an annotation on the CSR object. While it's theoretically
-possible for a signer to use that expiration date, there is currently no
-known implementation that does. (The built-in signers all use the same
-`ClusterSigningDuration` configuration option, which defaults to 1 year,
-and can be changed with the `--cluster-signing-duration` command-line
-flag of the kube-controller-manager.)
+The PKCS#10 signing request format does not have a standard mechanism to specify a
+certificate expiration or lifetime. The expiration or lifetime therefore has to be set
+through the `spec.expirationSeconds` field of the CSR object. The built-in signers
+use the `ClusterSigningDuration` configuration option, which defaults to 1 year,
+(the `--cluster-signing-duration` command-line flag of the kube-controller-manager)
+as the default when no `spec.expirationSeconds` is specified.  When `spec.expirationSeconds`
+is specified, the minimum of `spec.expirationSeconds` and `ClusterSigningDuration` is
+used.
 -->
-PKCS#10 签名请求格式不允许设置证书的过期时间或者生命期。因此，证书的过期
-时间或者生命期必须通过类似 CSR 对象的注解字段这种形式来设置。
-尽管让签名者使用过期日期从理论上来讲也是可行的，目前还不存在哪个实现这样做了。
-（内置的签名者都是用相同的 `ClusterSigningDuration` 配置选项，而该选项
-中将生命期的默认值设为 1 年，且可通过 kube-controller-manager 的命令行选项
-`--cluster-signing-duration` 来更改。）
+PKCS#10 签名请求格式并没有一种标准的方法去设置证书的过期时间或者生命期。
+因此，证书的过期时间或者生命期必须通过 CSR 对象的 `spec.expirationSeconds` 字段来设置。
+当 `spec.expirationSeconds` 没有被指定时，内置的签名者默认使用 `ClusterSigningDuration` 配置选项
+（kube-controller-manager 的命令行选项 `--cluster-signing-duration`），该选项的默认值设为 1 年。
+当 `spec.expirationSeconds` 被指定时，`spec.expirationSeconds` 和 `ClusterSigningDuration`
+中的最小值会被使用。
+
+{{< note >}}
+<!--
+The `spec.expirationSeconds` field was added in Kubernetes v1.22.  Earlier versions of Kubernetes do not honor this field.
+Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
+-->
+`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的。早期的 Kubernetes 版本并不认识该字段。
+v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
+{{< /note >}}
 
 <!-- 
 ### Kubernetes signers
@@ -214,8 +231,8 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
        but it is often not the only cluster-admin subject in a cluster.
     1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
     1. Permitted key usages - must include `["client auth"]`. Must not include key usages beyond `["digital signature", "key encipherment", "client auth"]`.
-    1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
-       kube-controller-manager implementation of this signer.
+    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
+       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
     1. CA bit allowed/disallowed - not allowed.
 -->
 1. `kubernetes.io/kube-apiserver-client`：签名的证书将被 API 服务器视为客户证书。
@@ -229,8 +246,8 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
    1. 许可的 x509 扩展：允许 subjectAltName 和 key usage 扩展，弃用其他扩展。
    1. 许可的密钥用途：必须包含 `["client auth"]`，但不能包含
       `["digital signature", "key encipherment", "client auth"]` 之外的键。
-   1. 过期时间/证书有效期：通过 kube-controller-manager 中 `--cluster-signing-duration`
-      标志来设置，由其中的签名者实施。
+   1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
+      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
 
 <!-- 
@@ -242,8 +259,8 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
    1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
    1. Permitted key usages - exactly `["key encipherment", "digital signature", "client auth"]`.
-   1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
-      kube-controller-manager implementation of this signer.
+   1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
+      of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
 -->
 2. `kubernetes.io/kube-apiserver-client-kubelet`: 签名的证书将被 kube-apiserver 视为客户证书。
@@ -253,8 +270,8 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
    1. 许可的主体：组织名必须是 `["system:nodes"]`，用户名以 "`system:node:`" 开头
    1. 许可的 x509 扩展：允许 key usage 扩展，禁用 subjectAltName 扩展，并删除其他扩展。
    1. 许可的密钥用途：必须是 `["key encipherment", "digital signature", "client auth"]`
-   1. 过期时间/证书有效期：通过 kube-controller-manager 中签名者的实现所对应的标志
-      `--cluster-signing-duration` 来设置。
+   1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
+      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
 
 <!-- 
@@ -266,7 +283,8 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
    1. Permitted key usages - exactly `["key encipherment", "digital signature", "server auth"]`.
-   1. Expiration/certificate lifetime - minimum of CSR signer or request.
+   1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
+      of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
 -->
 3. `kubernetes.io/kubelet-serving`: 签名服务证书，该服务证书被 API 服务器视为有效的 kubelet 服务证书，
@@ -277,8 +295,8 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
       禁止  EmailAddress、URI subjectAltName 等扩展，并丢弃其他扩展。
       至少有一个 DNS 或 IP 的 SubjectAltName 存在。
    1. 许可的密钥用途：必须是 `["key encipherment", "digital signature", "client auth"]`
-   1. 过期日期/证书生命期：通过 kube-controller-manager 中签名者的实现所对应的标志
-      `--cluster-signing-duration` 来设置。
+   1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
+      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
 
 <!-- 
@@ -290,8 +308,8 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
    1. Permitted subjects - any
    1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
    1. Permitted key usages - any
-   1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
-       kube-controller-manager implementation of this signer.
+   1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
+      of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
 -->
 4. `kubernetes.io/legacy-unknown`: 不保证信任。Kubernetes 的一些第三方发行版可能会使用它签署的客户端证书。
@@ -302,8 +320,8 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
    1. 许可的主体：全部。
    1. 许可的 x509 扩展：允许 subjectAltName 和 key usage 等扩展，并弃用其他扩展。
    1. 许可的密钥用途：全部。
-   1. 过期日期/证书生命期：通过 kube-controller-manager 中签名者的实现所对应的标志
-      `--cluster-signing-duration` 来设置。
+   1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
+      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位 - 不允许。
 
 {{< note >}}
@@ -311,6 +329,15 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
 Failures for all of these are only reported in kube-controller-manager logs.
 -->
 注意：所有这些故障仅在 kube-controller-manager 日志中报告。
+{{< /note >}}
+
+{{< note >}}
+<!--
+The `spec.expirationSeconds` field was added in Kubernetes v1.22.  Earlier versions of Kubernetes do not honor this field.
+Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
+-->
+`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的。早期的 Kubernetes 版本并不认识该字段。
+v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
 {{< /note >}}
 
 <!-- 
@@ -399,15 +426,14 @@ To allow signing a CertificateSigningRequest:
 ## Normal User
 
 A few steps are required in order to get a normal user to be able to
-authenticate and invoke an API. First, this user must have certificate issued
-by the Kubernetes cluster, and then present that Certificate to the API call
-as the Certificate Header or through the kubectl.
+authenticate and invoke an API. First, this user must have a certificate issued
+by the Kubernetes cluster, and then present that certificate to the Kubernetes API.
 -->
 ## 普通用户 {#normal-user}
 
 为了让普通用户能够通过认证并调用 API，需要执行几个步骤。
 首先，该用户必须拥有 Kubernetes 集群签发的证书，
-然后将该证书作为 API 调用的 Certificate 头或通过 kubectl 提供。
+然后将该证书提供给 Kubernetes API。
 
 <!-- 
 ### Create private key
@@ -446,10 +472,9 @@ kind: CertificateSigningRequest
 metadata:
   name: myuser
 spec:
-  groups:
-  - system:authenticated
   request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZVzVuWld4aE1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQTByczhJTHRHdTYxakx2dHhWTTJSVlRWMDNHWlJTWWw0dWluVWo4RElaWjBOCnR2MUZtRVFSd3VoaUZsOFEzcWl0Qm0wMUFSMkNJVXBGd2ZzSjZ4MXF3ckJzVkhZbGlBNVhwRVpZM3ExcGswSDQKM3Z3aGJlK1o2MVNrVHF5SVBYUUwrTWM5T1Nsbm0xb0R2N0NtSkZNMUlMRVI3QTVGZnZKOEdFRjJ6dHBoaUlFMwpub1dtdHNZb3JuT2wzc2lHQ2ZGZzR4Zmd4eW8ybmlneFNVekl1bXNnVm9PM2ttT0x1RVF6cXpkakJ3TFJXbWlECklmMXBMWnoyalVnald4UkhCM1gyWnVVV1d1T09PZnpXM01LaE8ybHEvZi9DdS8wYk83c0x0MCt3U2ZMSU91TFcKcW90blZtRmxMMytqTy82WDNDKzBERHk5aUtwbXJjVDBnWGZLemE1dHJRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBR05WdmVIOGR4ZzNvK21VeVRkbmFjVmQ1N24zSkExdnZEU1JWREkyQTZ1eXN3ZFp1L1BVCkkwZXpZWFV0RVNnSk1IRmQycVVNMjNuNVJsSXJ3R0xuUXFISUh5VStWWHhsdnZsRnpNOVpEWllSTmU3QlJvYXgKQVlEdUI5STZXT3FYbkFvczFqRmxNUG5NbFpqdU5kSGxpT1BjTU1oNndLaTZzZFhpVStHYTJ2RUVLY01jSVUyRgpvU2djUWdMYTk0aEpacGk3ZnNMdm1OQUxoT045UHdNMGM1dVJVejV4T0dGMUtCbWRSeEgvbUNOS2JKYjFRQm1HCkkwYitEUEdaTktXTU0xMzhIQXdoV0tkNjVoVHdYOWl4V3ZHMkh4TG1WQzg0L1BHT0tWQW9FNkpsYWFHdTlQVmkKdjlOSjVaZlZrcXdCd0hKbzZXdk9xVlA3SVFjZmg3d0drWm89Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
   signerName: kubernetes.io/kube-apiserver-client
+  expirationSeconds: 86400  # one day
   usages:
   - client auth
 EOF
@@ -459,12 +484,14 @@ EOF
 Some points to note:
 
 - `usages` has to be '`client auth`'
+- `expirationSeconds` could be made longer (i.e. `864000` for ten days) or shorter (i.e. `3600` for one hour)
 - `request` is the base64 encoded value of the CSR file content.
   You can get the content using this command: ```cat myuser.csr | base64 | tr -d "\n"```
 -->
 需要注意的几点:
 
 - `usage` 字段必须是 '`client auth`'
+- `expirationSeconds` 可以设置为更长（例如 `864000` 是十天）或者更短（例如 `3600` 是一个小时）
 - `request` 字段是 CSR 文件内容的 base64 编码值。
   要得到该值，可以执行命令 `cat myuser.csr | base64 | tr -d "\n"`。
 
@@ -522,19 +549,19 @@ kubectl get csr myuser -o jsonpath='{.status.certificate}'| base64 -d > myuser.c
 ```
 
 <!--
-### Create Role and Role Binding
+### Create Role and RoleBinding
 
-With the certificate created. it is time to define the Role and RoleBinding for
+With the certificate created it is time to define the Role and RoleBinding for
 this user to access Kubernetes cluster resources.
 
-This is a sample script to create Role for this new user
+This is a sample command to create a Role for this new user:
 -->
 ### 创建角色和角色绑定 {#create-role-and-role-binding}
 
 创建了证书之后，为了让这个用户能访问 Kubernetes 集群资源，现在就要创建
 Role 和 RoleBinding 了。
 
-下面是为这个新用户创建 Role 的示例脚本：
+下面是为这个新用户创建 Role 的示例命令：
 
 ```shell
 kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
@@ -723,6 +750,15 @@ Kubernetes 控制平面实现了每一个
 {{< note >}}
 在Kubernetes v1.18 之前，
 kube-controller-manager 签名所有标记为 approved  的 CSR。
+{{< /note >}}
+
+{{< note >}}
+<!--
+The `spec.expirationSeconds` field was added in Kubernetes v1.22.  Earlier versions of Kubernetes do not honor this field.
+Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
+-->
+`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的。早期的 Kubernetes 版本并不认识该字段。
+v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
 {{< /note >}}
 
 <!-- 
