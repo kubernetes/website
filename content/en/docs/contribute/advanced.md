@@ -27,7 +27,7 @@ the documentation, the website style, the processes for reviewing and merging
 pull requests, or other aspects of the documentation. For maximum transparency,
 these types of proposals need to be discussed in a SIG Docs meeting or on the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
-In addition, it can really help to have some context about the way things
+In addition, it can help to have some context about the way things
 currently work and why past decisions have been made before proposing sweeping
 changes. The quickest way to get answers to questions about how the documentation
 currently works is to ask in the `#sig-docs` Slack channel on
@@ -54,7 +54,7 @@ refer to
 The SIG Docs representative for a given release coordinates the following tasks:
 
 - Monitor the feature-tracking spreadsheet for new or changed features with an
-  impact on documentation. If documentation for a given feature won't be ready
+  impact on documentation. If the documentation for a given feature won't be ready
   for the release, the feature may not be allowed to go into the release.
 - Attend sig-release meetings regularly and give updates on the status of the
   docs for the release.
@@ -87,7 +87,7 @@ Responsibilities for New Contributor Ambassadors include:
 - Helping new contributors create the more complex PRs they need to become Kubernetes members.
 - [Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members.
 
-Current New Contributor Ambassadors are announced at each SIG-Docs meeting, and in the [Kubernetes #sig-docs channel](https://kubernetes.slack.com).
+Current New Contributor Ambassadors are announced at each SIG-Docs meeting and in the [Kubernetes #sig-docs channel](https://kubernetes.slack.com).
 
 ## Sponsor a new contributor
 
@@ -122,7 +122,7 @@ Approvers must meet the following requirements to be a co-chair:
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs
   workflow, including:
-  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
+  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the
   [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
   plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
   [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
