@@ -40,7 +40,6 @@ weight: 40
 튜토리얼을 시작하기 전에 수동으로 3개의 20 GiB 볼륨을
 프로비저닝해야 한다.
 
-
 ## {{% heading "objectives" %}}
 
 이 튜토리얼을 마치면 다음에 대해 알게 된다.
@@ -49,7 +48,6 @@ weight: 40
 - 어떻게 앙상블을 일관되게 설정하는가.
 - 어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
 - 어떻게 PodDisruptionBudget을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
-
 
 <!-- lessoncontent -->
 
@@ -262,13 +260,15 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 
 ### 앙상블 무결성 테스트
 
-가장 기본적인 테스트는 한 ZooKeeper 서버에 데이터를 쓰고 다른 ZooKeeper 서버에서 데이터를 읽는 것이다.
+가장 기본적인 테스트는 한 ZooKeeper 서버에 데이터를 쓰고 
+다른 ZooKeeper 서버에서 데이터를 읽는 것이다.
 
 아래 명령어는 앙상블 내에 `zk-0` 파드에서 `/hello` 경로로 `world`를 쓰는 스크립트인 `zkCli.sh`를 실행한다.
 
 ```shell
-kubectl exec zk-0 zkCli.sh create /hello world
+kubectl exec zk-0 -- zkCli.sh create /hello world
 ```
+
 ```
 WATCHER::
 
@@ -279,7 +279,7 @@ Created /hello
 `zk-1` 파드에서 데이터를 읽기 위해 다음 명령어를 이용하자.
 
 ```shell
-kubectl exec zk-1 zkCli.sh get /hello
+kubectl exec zk-1 -- zkCli.sh get /hello
 ```
 
 `zk-0`에서 생성한 그 데이터는 앙상블 내에 모든 서버에서
@@ -409,7 +409,6 @@ numChildren = 0
 
 `zk` 스테이트풀셋의 `spec`에 `volumeClaimTemplates` 필드는 각 파드에 프로비전될 퍼시스턴트볼륨을 지정한다.
 
-
 ```yaml
 volumeClaimTemplates:
   - metadata:
@@ -442,7 +441,6 @@ datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       R
 ```
 
 `스테이트풀셋`의 컨테이너 `template`의 `volumeMounts` 부분이 ZooKeeper 서버의 데이터 디렉터리에 퍼시스턴트볼륨 마운트하는 내용이다.
-
 
 ```shell
 volumeMounts:
@@ -591,6 +589,7 @@ kubectl exec zk-0 -- ps -elf
 
 `securityContext` 오브젝트의 `runAsUser` 필드 값이 1000 이므로
 루트 사용자로 실행하는 대신 ZooKeeper 프로세스는 ZooKeeper 사용자로 실행된다.
+
 ```
 F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
 4 S zookeep+     1     0  0  80   0 -  1127 -      20:46 ?        00:00:00 sh -c zkGenConfig.sh && zkServer.sh start-foreground
@@ -695,6 +694,7 @@ kubectl exec zk-0 -- ps -ef
 
 컨테이너의 엔트리 포인트로 PID 1 인 명령이 사용되었으며
 ZooKeeper 프로세스는 엔트리 포인트의 자식 프로세스로 PID 27 이다.
+
 ```
 UID        PID  PPID  C STIME TTY          TIME CMD
 zookeep+     1     0  0 15:03 ?        00:00:00 sh -c zkGenConfig.sh && zkServer.sh start-foreground
@@ -1033,7 +1033,6 @@ kubectl 을 종료하기 위해 `CTRL-C`를 이용하자.
 
 `zk-0`에서 온전성 테스트 때에 입력한 값을 가져오는 `zkCli.sh`를 이용하자.
 
-
 ```shell
 kubectl exec zk-0 zkCli.sh get /hello
 ```
@@ -1132,9 +1131,7 @@ drain으로 노드를 통제하고 유지보수를 위해 노드를 오프라인
 서비스는 혼란 예산을 표기한 서비스는 그 예산이 존중은 존중될 것이다.
 파드가 즉각적으로 재스케줄 할 수 있도록 항상 중요 서비스를 위한 추가 용량을 할당해야 한다.
 
-
 ## {{% heading "cleanup" %}}
-
 
 - `kubectl uncordon`은 클러스터 내에 모든 노드를 통제 해제한다.
 - 반드시 이 튜토리얼에서 사용한 퍼시스턴트 볼륨을 위한 퍼시스턴트 스토리지 미디어를 삭제하자.

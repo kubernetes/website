@@ -47,7 +47,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 다른 모든 쿠버네티스 설정과 마찬가지로 데몬셋에는 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다.
 일반적인 설정파일 작업에 대한 정보는
-[스테이트리스 애플리케이션 실행하기](/docs/tasks/run-application/run-stateless-application-deployment/)와
+[스테이트리스 애플리케이션 실행하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/)와
  [kubectl을 사용한 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를 참고한다.
 
 데몬셋 오브젝트의 이름은 유효한
@@ -166,7 +166,7 @@ nodeAffinity:
 데몬셋의 파드와 통신할 수 있는 몇 가지 패턴은 다음과 같다.
 
 - **푸시(Push)**: 데몬셋의 파드는 통계 데이터베이스와 같은 다른 서비스로 업데이트를 보내도록
-  구성되어있다. 그들은 클라이언트들을 가지지 않는다.
+  구성되어 있다. 그들은 클라이언트들을 가지지 않는다.
 - **노드IP와 알려진 포트**: 데몬셋의 파드는 `호스트 포트`를 사용할 수 있으며, 
   노드IP를 통해 파드에 접근할 수 있다. 
   클라이언트는 노드IP를 어떻게든지 알고 있으며, 관례에 따라 포트를 알고 있다.

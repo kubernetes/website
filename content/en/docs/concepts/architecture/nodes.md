@@ -402,7 +402,7 @@ Graceful node shutdown is controlled with the `GracefulNodeShutdown`
 enabled by default in 1.21.
 
 Note that by default, both configuration options described below,
-`ShutdownGracePeriod` and `ShutdownGracePeriodCriticalPods` are set to zero,
+`shutdownGracePeriod` and `shutdownGracePeriodCriticalPods` are set to zero,
 thus not activating Graceful node shutdown functionality.
 To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
 
@@ -412,13 +412,13 @@ During a graceful shutdown, kubelet terminates pods in two phases:
 2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
 
 Graceful node shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
-* `ShutdownGracePeriod`:
+* `shutdownGracePeriod`:
   * Specifies the total duration that the node should delay the shutdown by. This is the total grace period for pod termination for both regular and [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
-* `ShutdownGracePeriodCriticalPods`:
-  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `ShutdownGracePeriod`.
+* `shutdownGracePeriodCriticalPods`:
+  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `shutdownGracePeriod`.
 
-For example, if `ShutdownGracePeriod=30s`, and
-`ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
+For example, if `shutdownGracePeriod=30s`, and
+`shutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved
 for gracefully terminating normal pods, and the last 10 seconds would be
 reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
@@ -534,6 +534,11 @@ To enable swap on a node, the `NodeSwap` feature gate must be enabled on
 the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
 [configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 must be set to false.
+
+{{< warning >}}
+When the memory swap feature is turned on, Kubernetes data such as the content
+of Secret objects that were written to tmpfs now could be swapped to disk.
+{{< /warning >}}
 
 A user can also optionally configure `memorySwap.swapBehavior` in order to
 specify how a node will use swap memory. For example,
