@@ -13,7 +13,7 @@ Kubernetesはv1.20より新しいバージョンで、コンテナランタイ�
 
 概要: ランタイムとしてのDockerは、Kubernetesのために開発された[Container Runtime Interface(CRI)](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)を利用しているランタイムを選んだ結果としてサポートされなくなります。しかし、Dockerによって生成されたイメージはこれからも、今までもそうだったように、みなさんのクラスターで使用可能です。
 
-もし、あなたがKubernetesのエンドユーザーであるならば、多くの変化はないでしょう。これはDockerの死を意味するものではありませんし、開発ツールとして今後Dockerを使用するべきでない、使用することは出来ないと言っているのでもありません。Dockerはコンテナを作成するのに便利なツールですし、docker buildコマンドで作成されたImageはKubernetesクラスタ上でこれからも動作可能なのです。
+もし、あなたがKubernetesのエンドユーザーであるならば、多くの変化はないでしょう。これはDockerの死を意味するものではありませんし、開発ツールとして今後Dockerを使用するべきでない、使用することは出来ないと言っているのでもありません。Dockerはコンテナを作成するのに便利なツールですし、docker buildコマンドで作成されたイメージはKubernetesクラスタ上でこれからも動作可能なのです。
 
 もし、GKE、EKS、AKSといったマネージドKubernetesサービス(それらはデフォルトで[containerdを使用しています](https://github.com/Azure/AKS/releases/tag/2020-11-16))を使っているのなら、Workerノードがサポート対象のRuntimeを使用しているか、Dockerのサポートが将来のK8sバージョンで切れる前に確認しておく必要があるでしょう。
 もし、ノードをカスタマイズしているのなら、環境やRuntimeの仕様に合わせて更新する必要があるでしょう。サービスプロバイダーと確認し、アップグレードのための適切なテストと計画を立ててください。
