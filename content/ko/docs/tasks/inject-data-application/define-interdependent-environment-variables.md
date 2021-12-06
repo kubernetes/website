@@ -72,6 +72,6 @@ weight: 20
 ## {{% heading "whatsnext" %}}
 
 
-* [환경 변수](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)에 대해 알아본다.
+* [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)에 대해 알아본다.
 * [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)를 확인한다.
 

@@ -82,8 +82,8 @@ service/php-apache created
 다음 명령어는 첫 번째 단계에서 만든 php-apache 디플로이먼트 파드의 개수를
 1부터 10 사이로 유지하는 Horizontal Pod Autoscaler를 생성한다.
 간단히 얘기하면, HPA는 (디플로이먼트를 통한) 평균 CPU 사용량을 50%로 유지하기 위하여 레플리카의 개수를 늘리고 줄인다.
-(kubectl run으로 각 파드는 200 밀리코어까지 요청할 수 있고,
-따라서 여기서 말하는 평균 CPU 사용은 100 밀리코어를 말한다).
+kubectl run으로 각 파드는 200 밀리코어를 요청하므로,
+여기서 말하는 평균 CPU 사용은 100 밀리코어를 말한다.
 이에 대한 자세한 알고리즘은 [여기](/ko/docs/tasks/run-application/horizontal-pod-autoscale/#알고리즘-세부-정보)를 참고하기 바란다.
 
 ```shell
@@ -447,7 +447,7 @@ Events:
 이 HorizontalPodAutoscaler 경우, 건강 상태의 여러 조건들을 볼 수 있다.
 첫 번째 `AbleToScale`는 HPA가 스케일을 가져오고 업데이트할 수 있는지,
 백 오프 관련 조건으로 스케일링이 방지되는지 여부를 나타낸다.
-두 번째 `ScalingActive`는 HPA가 활성화되어있는지(즉 대상 레플리카 개수가 0이 아닌지),
+두 번째 `ScalingActive`는 HPA가 활성화되어 있는지(즉 대상 레플리카 개수가 0이 아닌지),
 원하는 스케일을 계산할 수 있는지 여부를 나타낸다. 만약 `False` 인 경우,
 일반적으로 메트릭을 가져오는데 문제가 있다.
 마지막으로, 마지막 조건인 `ScalingLimited`는

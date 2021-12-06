@@ -76,4 +76,4 @@ weight: 40
 
 
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 자세히 알아보기.
-* [NGINX 컨트롤러로 Minikube에서 인그레스를 설정하기](/docs/tasks/access-application-cluster/ingress-minikube).
+* [NGINX 컨트롤러로 Minikube에서 인그레스를 설정하기](/ko/docs/tasks/access-application-cluster/ingress-minikube/).
