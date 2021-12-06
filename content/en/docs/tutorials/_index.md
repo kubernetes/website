@@ -59,8 +59,8 @@ Before walking through each tutorial, you may want to bookmark the
 
 ## Security
 
-* [Applying Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
-* [Applying Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
+* [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
+* [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
 
 ## {{% heading "whatsnext" %}}
 
