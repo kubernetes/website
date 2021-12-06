@@ -32,7 +32,7 @@ DockerはCRI([Container Runtime Interface](https://kubernetes.io/blog/2016/12/co
 
 1つ注意すべきことは、クラスターで行われる処理のなかでDocker socket(`/var/run/docker.sock`)に依存する部分がある場合、他のRuntimeへ切り替えるとこの部分が働かなくなるでしょう。このパターンはしばしばDocker in Dockerと呼ばれます。このような場合の対応方法はたくさんあります。[kaniko](https://github.com/GoogleContainerTools/kaniko)、[img](https://github.com/genuinetools/img)、[buildah](https://github.com/containers/buildah)などです。
 
-## では開発者にとって、この変更は何を意味するのか。これからもDockerfileを使ってよいのか。これからもDockerでビルドを行ってよいのか。 ##
+## では開発者にとって、この変更は何を意味するのか。これからもDockerfileを使ってよいのか。これからもDockerでビルドを行ってよいのか。 
 
 この変更は、Dockerを直接操作している多くのみなさんとは別の場面に影響を与えるでしょう。
 みなさんが開発を行う際に使用しているDockerと、Kubernetesクラスタの内部で使われているDocker runtimeは関係ありません。これがわかりにくいことは理解しています。開発者にとって、Dockerはこれからも便利なものであり、このアナウンスがあった前と変わらないでしょう。DockerでビルドされたImageは、決してDockerでだけ動作するというわけではありません。それはOCI([Open Container Initiative](https://opencontainers.org/)) Imageと呼ばれるものです。あらゆるOCI準拠のImageは、それを何のツールでビルドしたかによらず、Kubernetesから見れば同じものなのです。[containerd](https://containerd.io/)も[CRI-O](https://cri-o.io/)も、そのようなImageをPullし、起動することが出来ます。
