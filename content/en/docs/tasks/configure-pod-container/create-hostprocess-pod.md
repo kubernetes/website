@@ -73,6 +73,7 @@ isolation other than resource constraints imposed on the HostProcess user accoun
 filesystem or Hyper-V isolation are supported for HostProcess containers.
 - Volume mounts are supported and are mounted under the container volume. See [Volume Mounts](#volume-mounts)
 - As of 1.23, a limited set of host user accounts are available for HostProcess containers by default.
+- A limited set of host user accounts are available for HostProcess containers by default.
 See [Choosing a User Account](#choosing-a-user-account).
 - Resource limits (disk, memory, cpu count) are supported in the same fashion as processes
 on the host.

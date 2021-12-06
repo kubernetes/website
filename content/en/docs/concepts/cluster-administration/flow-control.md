@@ -26,6 +26,10 @@ fair queuing technique so that, for example, a poorly-behaved
 {{< glossary_tooltip text="controller" term_id="controller" >}} need not
 starve others (even at the same priority level).
 
+This feature is designed to work well with standard controllers, which
+use informers and react to failures of API requests with exponential
+back-off, and other clients that also work this way.
+
 {{< caution >}}
 Requests classified as "long-running" — primarily watches — are not
 subject to the API Priority and Fairness filter. This is also true for
@@ -102,6 +106,8 @@ name of the matching FlowSchema plus a _flow distinguisher_ — which
 is either the requesting user, the target resource's namespace, or nothing — and the
 system attempts to give approximately equal weight to requests in different
 flows of the same priority level.
+To enable distinct handling of distinct instances, controllers that have
+many instances should authenticate with distinct usernames
 
 After classifying a request into a flow, the API Priority and Fairness
 feature then may assign the request to a queue.  This assignment uses

@@ -25,7 +25,7 @@ weight: 40
 
 실행 중인 컨테이너에 파드 및 컨테이너 필드를 노출하는 방법에는 두 가지가 있다.
 
-* [환경 변수](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#다운워드-downward-api)
 * 볼륨 파일
 
 파드 및 컨테이너 필드를 노출하는 이 두 가지 방법을 *다운워드 API*라고 한다.
@@ -134,7 +134,7 @@ total 8
 원자적(atomic)으로 갱신한다.
 
 {{< note >}}
-다운워드 API를 [subPath](/docs/concepts/storage/volumes/#using-subpath) 
+다운워드 API를 [subPath](/ko/docs/concepts/storage/volumes/#using-subpath) 
 볼륨 마운트로 사용하는 컨테이너는 다운워드 API 업데이트를 수신하지 않는다.
 {{< /note >}}
 
@@ -200,8 +200,8 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
   * 컨테이너의 CPU 요청(request)
   * 컨테이너의 메모리 한도(limit)
   * 컨테이너의 메모리 요청(request)
-  * 컨테이너의 hugepages 한도(limit) (`DownwardAPIHugePages` [기능 게이트(feature gate)](/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우)
-  * 컨테이너의 hugepages 요청(request) (`DownwardAPIHugePages` [기능 게이트(feature gate)](/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우)
+  * 컨테이너의 hugepages 한도(limit) (`DownwardAPIHugePages` [기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우)
+  * 컨테이너의 hugepages 요청(request) (`DownwardAPIHugePages` [기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우)
   * 컨테이너의 임시-스토리지 한도(limit)
   * 컨테이너의 임시-스토리지 요청(request)
 

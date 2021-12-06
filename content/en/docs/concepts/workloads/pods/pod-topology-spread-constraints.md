@@ -85,7 +85,7 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   It must be greater than zero. Its semantics differs according to the value of `whenUnsatisfiable`:
   - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
     permitted difference between the number of matching pods in the target
-    topology and the global minimum 
+    topology and the global minimum
     (the minimum number of pods that match the label selector in a topology domain. For example, if you have 3 zones with 0, 2 and 3 matching pods respectively, The global minimum is 0).
   - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
     precedence to topologies that would help reduce the skew.
@@ -234,6 +234,8 @@ To overcome this situation, you can either increase the `maxSkew` or modify one 
 
 The scheduler will skip the non-matching nodes from the skew calculations if the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined.
 
+### Example: TopologySpreadConstraints with NodeAffinity
+
 Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 
 {{<mermaid>}}
@@ -349,12 +351,14 @@ Also, the legacy `SelectorSpread` plugin, which provides an equivalent behavior,
 is disabled.
 
 {{< note >}}
+The `PodTopologySpread` plugin does not score the nodes that don't have
+the topology keys specified in the spreading constraints. This might result
+in a different default behavior compared to the legacy `SelectorSpread` plugin when
+using the default topology constraints.
+
 If your nodes are not expected to have **both** `kubernetes.io/hostname` and
 `topology.kubernetes.io/zone` labels set, define your own constraints
 instead of using the Kubernetes defaults.
-
-The `PodTopologySpread` plugin does not score the nodes that don't have
-the topology keys specified in the spreading constraints.
 {{< /note >}}
 
 If you don't want to use the default Pod spreading constraints for your cluster,
@@ -392,7 +396,7 @@ for more details.
 
 ## Known Limitations
 
-- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution. 
+- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution.
 You can use [Descheduler](https://github.com/kubernetes-sigs/descheduler) to rebalance the Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 

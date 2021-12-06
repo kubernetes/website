@@ -18,7 +18,8 @@ weight: 10
 - 적합한 코멘트를 남길 수 있도록 [콘텐츠 가이드](/docs/contribute/style/content-guide/)와
   [스타일 가이드](/docs/contribute/style/style-guide/)를 읽는다.
 - 쿠버네티스 문서화 커뮤니티의 다양한
-  [역할과 책임](/ko/docs/contribute/participate/#역할과-책임)을 이해한다.
+  [역할과 책임](/ko/docs/contribute/participate/#역할과-책임)을 
+  이해한다.
 
 <!-- body -->
 
@@ -35,7 +36,38 @@ weight: 10
 
 ## 리뷰 과정
 
-일반적으로, 영어로 콘텐츠와 스타일에 대한 풀 리퀘스트를 리뷰한다.
+일반적으로, 영어로 콘텐츠와 스타일에 대한 풀 리퀘스트를 리뷰한다. 아래의 그림은 리뷰 과정의 단계를 보여 준다. 각 단계에 대한 상세 사항은 아래에 나와 있다.
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+    subgraph fourth[리뷰 시작]
+    direction TB
+    S[ ] -.-
+    M[코멘트 작성] --> N[변경사항 리뷰]
+    N --> O[새 기여자가 어떤 코멘트를<br>반영할지 선택해야 함]
+    end
+    subgraph third[PR 선택]
+    direction TB
+    T[ ] -.-
+    J[본문과 코멘트 확인]--> K[Netlify 미리보기 빌드로<br>변경사항 미리보기]
+    end
+ 
+  A[열려 있는 PR 목록 확인]--> B[레이블을 이용하여<br>PR을 필터링]
+  B --> third --> fourth
+     
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class A,B,J,K,M,N,O grey
+class S,T spacewhite
+class third,fourth white
+{{</ mermaid >}}
+
+***그림 - 리뷰 과정 절차***
 
 1.  [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls)로
     이동한다.
@@ -43,7 +75,7 @@ weight: 10
     표시된다.
 
 2.  다음 레이블 중 하나 또는 모두를 사용하여 열린 PR을 필터링한다.
-    - `cncf-cla: yes`(권장): CLA에 서명하지 않은 기여자가 제출한 PR은 병합할 수 없다. 자세한 내용은 [CLA 서명](/ko/docs/contribute/new-content/overview/#sign-the-cla)을 참고한다.
+    - `cncf-cla: yes`(권장): CLA에 서명하지 않은 기여자가 제출한 PR은 병합할 수 없다. 자세한 내용은 [CLA 서명](/ko/docs/contribute/new-content/#sign-the-cla)을 참고한다.
     - `language/en`(권장): 영어 문서에 대한 PR 전용 필터이다.
     - `size/<size>`: 특정 크기의 PR을 필터링한다. 새로 시작하는 사람이라면, 더 작은 PR로 시작한다.
 

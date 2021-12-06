@@ -105,5 +105,5 @@ kubelet이 관리하지 않는 컨테이너는 컨테이너 가비지 수집 대
 
 ## {{% heading "whatsnext" %}}
 
-자세한 내용은 [리소스 부족 처리 구성](/docs/concepts/scheduling-eviction/node-pressure-eviction/)를 
+자세한 내용은 [리소스 부족 처리 구성](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)를 
 본다.

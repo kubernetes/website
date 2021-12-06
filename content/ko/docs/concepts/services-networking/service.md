@@ -263,9 +263,7 @@ DNS 레코드를 구성하고, 라운드-로빈 이름 확인 방식을
 kube-proxy는 구성에 따라 결정되는 여러 모드에서 기동될 수 있다.
 - kube-proxy의 구성은 컨피그맵(ConfigMap)을 통해 이루어진다. 그리고 해당 kube-proxy를 위한 컨피그맵은 실효성있게 거의 대부분의 kube-proxy의 플래그의 행위를 더 이상 사용하지 않도록 한다.
 - kube-proxy를 위한 해당 컨피그맵은 기동 중 구성의 재적용(live reloading)은 지원하지 않는다.
-- kube-proxy를 위한 컨피그맵 파라미터는 기동 시에 검증이나 확인을 하지 않는다. 예를 들어,
- 운영 체계가 iptables 명령을 허용하지 않을 경우, 표준 커널 kube-proxy 구현체는 작동하지 않을 것이다.
- 마찬가지로, `netsh`을 지원하지 않는 운영 체계에서는, 윈도우 유저스페이스 모드로는 기동하지 않을 것이다.
+- kube-proxy를 위한 컨피그맵 파라미터는 기동 시에 검증이나 확인을 하지 않는다. 예를 들어, 운영 체계가 iptables 명령을 허용하지 않을 경우, 표준 커널 kube-proxy 구현체는 작동하지 않을 것이다. 마찬가지로, `netsh`을 지원하지 않는 운영 체계에서는, 윈도우 유저스페이스 모드로는 기동하지 않을 것이다.
 
 ### 유저 스페이스(User space) 프록시 모드 {#proxy-mode-userspace}
 
@@ -1073,6 +1071,9 @@ spec:
 모든 인스턴스에 도달할 수 있다.
 
 {{< /note >}}
+
+엘라스틱 IP에 대한 설명 문서와 기타 일반적 사용 사례를 
+[AWS 로드 밸런서 컨트롤러 문서](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)에서 볼 수 있다.
 
 #### Tencent Kubernetes Engine (TKE)의 다른 CLB 어노테이션
 
