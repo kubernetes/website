@@ -51,10 +51,9 @@ which are configured in the API.
 
 <!--
 Admission controllers may be "validating", "mutating", or both. Mutating
-controllers may modify the requests they admit; validating controllers may not.
+controllers may modify related objects to the requests they admit; validating controllers may not.
 
-Admission controllers limit requests to create, delete, modify objects or connect to proxy.
-They do not limit requests to read objects.
+Admission controllers limit requests to create, delete, modify objects or connect to proxy. They do not limit requests to read objects.
 
 The admission control process proceeds in two phases. In the first phase,
 mutating admission controllers are run. In the second phase, validating
