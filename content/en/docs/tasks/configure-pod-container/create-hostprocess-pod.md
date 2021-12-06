@@ -99,13 +99,15 @@ the configurations which need to be set to enable the creation of a HostProcess 
 
 <table>
   <caption style="display: none">Privileged policy specification</caption>
+  <thead>
+    <tr>
+      <th>Control</th>
+      <th>Policy</th>
+    </tr>
+  </thead>
   <tbody>
     <tr>
-      <td><strong>Control</strong></td>
-      <td><strong>Policy</strong></td>
-    </tr>
-    <tr>
-      <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">Windows HostProcess</a></td>
+      <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards"><tt>securityContext.windowsOptions.hostProcess</tt></a></td>
       <td>
         <p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">
         HostProcess containers</a> which enables privileged access to the Windows node. </p>
@@ -116,7 +118,7 @@ the configurations which need to be set to enable the creation of a HostProcess 
       </td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">Host Networking</a></td>
+      <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards"><tt>hostNetwork</tt></a></td>
       <td>
         <p>Will be in host network by default initially. Support
         to set network to a different compartment may be desirable in
@@ -128,7 +130,7 @@ the configurations which need to be set to enable the creation of a HostProcess 
       </td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><a href="/docs/tasks/configure-pod-container/configure-runasusername/">runAsUsername</a></td>
+      <td style="white-space: nowrap"><a href="/docs/tasks/configure-pod-container/configure-runasusername/"><tt>securityContext.windowsOptions.runAsUsername</tt></a></td>
       <td>
         <p>Specification of which user the HostProcess container should run as is required for the pod spec.</p>
         <p><strong>Allowed Values</strong></p>
@@ -140,7 +142,7 @@ the configurations which need to be set to enable the creation of a HostProcess 
       </td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">runAsNonRoot</a></td>
+      <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards"><tt>runAsNonRoot</tt></a></td>
       <td>
         <p>Because HostProcess containers have privileged access to the host, the <tt>runAsNonRoot</tt> field cannot be set to true.</p>
         <p><strong>Allowed Values</strong></p>
