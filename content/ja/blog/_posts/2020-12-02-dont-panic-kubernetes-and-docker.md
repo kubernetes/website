@@ -30,7 +30,7 @@ Kubernetesはv1.20より新しいバージョンで、コンテナランタイ�
 DockerはCRI([Container Runtime Interface](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/))に準拠していません。もしそうであればshimは必要ないのですが、現実はそうでありません。
 しかし、これは世界の終わりでありません、心配しないでください。みなさんはContainer runtimeをDockerから他のサポート対象であるContainer runtimeに切り替えるだけでよいのです。
 
-1つ注意すべきことは、クラスタで行われる処理のなかでDocker socket(`/var/run/docker.sock`)に依存する部分がある場合、他のRuntimeへ切り替えるとこの部分が働かなくなるでしょう。このパターンはしばしばDocker in Dockerと呼ばれます。このような場合の対応方法はたくさんあります。[kaniko](https://github.com/GoogleContainerTools/kaniko)、[img](https://github.com/genuinetools/img)、[buildah](https://github.com/containers/buildah)などです。
+1つ注意すべきことは、クラスターで行われる処理のなかでDocker socket(`/var/run/docker.sock`)に依存する部分がある場合、他のRuntimeへ切り替えるとこの部分が働かなくなるでしょう。このパターンはしばしばDocker in Dockerと呼ばれます。このような場合の対応方法はたくさんあります。[kaniko](https://github.com/GoogleContainerTools/kaniko)、[img](https://github.com/genuinetools/img)、[buildah](https://github.com/containers/buildah)などです。
 
 ## では開発者にとって、この変更は何を意味するのか。これからもDockerfileを使ってよいのか。これからもDockerでビルドを行ってよいのか。 ##
 
