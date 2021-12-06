@@ -91,4 +91,13 @@ If you are using the sample manifest from the previous point, this will require 
 Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
 
 You can disable this feature by removing the DaemonSet, using `kubectl delete -f <manifest>` . You should also revert any changes you made to the kubelet configuration.
+
+## StubDomains and Upstream server Configuration
+
+StubDomains and upstream servers specified in the `kube-dns` ConfigMap in the `kube-system` namespace
+are automatically picked up by `node-local-dns` pods. The ConfigMap contents need to follow the format
+shown in [the example](/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1).
+The `node-local-dns` ConfigMap can also be modified directly with the stubDomain configuration
+in the Corefile format. Some cloud providers might not allow modifying `node-local-dns` ConfigMap directly.
+In those cases, the `kube-dns` ConfigMap can be updated.
  

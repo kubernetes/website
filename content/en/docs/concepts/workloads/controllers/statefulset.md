@@ -379,6 +379,22 @@ which will verify owner references before terminating Pods. If that is not possi
 operator should verify the owner references on PVCs to ensure the expected objects are
 deleted when Pods are force-deleted.
 
+### Replicas
+
+`.spec.replicas` is an optional field that specifies the number of desired Pods. It defaults to 1.
+
+Should you manually scale a deployment, example via `kubectl scale
+statefulset statefulset --replicas=X`, and then you update that StatefulSet
+based on a manifest (for example: by running `kubectl apply -f
+statefulset.yaml`), then applying that manifest overwrites the manual scaling
+that you previously did.
+
+If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)
+(or any similar API for horizontal scaling) is managing scaling for a
+Statefulset, don't set `.spec.replicas`. Instead, allow the Kubernetes
+{{<glossary_tooltip text="control plane" term_id="control-plane" >}} to manage
+the `.spec.replicas` field automatically.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about [Pods](/docs/concepts/workloads/pods).

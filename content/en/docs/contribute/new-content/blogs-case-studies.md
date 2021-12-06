@@ -38,6 +38,7 @@ Anyone can write a blog post and submit it for review.
   - The components of Kubernetes are purposely modular, so tools that use existing integration points like CNI and CSI are on topic. 
   - Posts about other CNCF projects may or may not be on topic. We recommend asking the blog team before submitting a draft.
     - Many CNCF projects have their own blog. These are often a better choice for posts. There are times of major feature or milestone for a CNCF project that users would be interested in reading on the Kubernetes blog.
+  - Blog posts about contributing to the Kubernetes project should be in the [Kubernetes Contributors site](https://kubernetes.dev)
 - Blog posts should be original content
   - The official blog is not for repurposing existing content from a third party as new content.
   - The [license](https://github.com/kubernetes/website/blob/main/LICENSE) for the blog allows commercial use of the content for commercial purposes, but not the other way around.

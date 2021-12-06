@@ -62,6 +62,16 @@ The Kubelet populates this label with the hostname. Note that the hostname can b
 This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
 
 
+## kubernetes.io/change-cause {#change-cause}
+
+Example: `kubernetes.io/change-cause=kubectl edit --record deployment foo`
+
+Used on: All Objects
+
+This annotation is a best guess at why something was changed. 
+
+It is populated when adding `--record` to a `kubectl` command that may change an object.
+
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
 Example: `controller.kubernetes.io/pod-deletion-cost=10`

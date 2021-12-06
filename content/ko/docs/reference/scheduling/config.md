@@ -89,7 +89,7 @@ profiles:
   - plugins:
       score:
         disabled:
-        - name: NodeResourcesLeastAllocated
+        - name: PodTopologySpread
         enabled:
         - name: MyCustomPluginA
           weight: 2
@@ -116,10 +116,6 @@ profiles:
   익스텐션 포인트: `filter`.
 - `NodePorts`: 노드에 요청된 파드 포트에 대해 사용 가능한 포트가 있는지 확인한다.
   익스텐션 포인트: `preFilter`, `filter`.
-- `NodePreferAvoidPods`: 노드 {{< glossary_tooltip text="어노테이션" term_id="annotation" >}}
-  `scheduler.alpha.kubernetes.io/preferAvoidPods` 에 따라
-  노드 점수를 매긴다.
-  익스텐션 포인트: `score`.
 - `NodeAffinity`: [노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-셀렉터-nodeselector)와
   [노드 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-어피니티)를
   구현한다.
@@ -195,8 +191,8 @@ profiles:
 - `RequestedToCapacityRatio`: 할당된 리소스의 구성된 기능에 따라 노드를
   선호한다.
   익스텐션 포인트: `score`.
-- `NodeLabel`: Filters and / or scores a node according to configured
-  {{< glossary_tooltip text="label(s)" term_id="label" >}}.
+- `NodeLabel`: 설정된 {{< glossary_tooltip text="레이블" term_id="label" >}}에 따라 
+  노드를 필터링하거나 스코어링한다.
   익스텐션 포인트: `Filter`, `Score`.
 - `ServiceAffinity`: {{< glossary_tooltip text="서비스" term_id="service" >}}에
   속한 파드가 구성된 레이블로 정의된 노드 집합에 맞는지
@@ -255,10 +251,47 @@ profiles:
 단 하나만 가질 수 있기 때문이다.
 {{< /note >}}
 
+## 스케줄러 설정 전환
+
+{{< tabs name="tab_with_md" >}}
+{{% tab name="v1beta1 → v1beta2" %}}
+* 설정 버전 v1beta2 에서는, `NodeResourcesFit` 플러그인을 위한 새로운 스코어링 확장을 
+  이용할 수 있다.
+  새 확장은 `NodeResourcesLeastAllocated`, `NodeResourcesMostAllocated`, 
+  `RequestedToCapacityRatio` 플러그인의 기능을 통합하여 제공한다.
+  예를 들어, 이전에 `NodeResourcesMostAllocated` 플러그인을 사용했다면, 
+  대신 `NodeResourcesFit`(기본적으로 활성화되어 있음)을 사용하면서 
+  다음과 같이 `scoreStrategy`를 포함하는 `pluginConfig`를 추가할 수 있다.
+  ```yaml
+  apiVersion: kubescheduler.config.k8s.io/v1beta2
+  kind: KubeSchedulerConfiguration
+  profiles:
+  - pluginConfig:
+    - args:
+        scoringStrategy:
+          resources:
+          - name: cpu
+            weight: 1
+          type: MostAllocated
+      name: NodeResourcesFit
+  ```
+
+* 스케줄러 플러그인 `NodeLabel`은 사용 중단되었다. 대신, 비슷한 효과를 얻기 위해 [`NodeAffinity`](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity) 플러그인(기본적으로 활성화되어 있음)을 사용한다.
+
+* 스케줄러 플러그인 `ServiceAffinity`은 사용 중단되었다. 대신, 비슷한 효과를 얻기 위해 [`InterPodAffinity`](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티) 플러그인(기본적으로 활성화되어 있음)을 사용한다.
+
+* 스케줄러 플러그인 `NodePreferAvoidPods`은 사용 중단되었다. 대신, 비슷한 효과를 얻기 위해 [노드 테인트](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)를 사용한다.
+
+* v1beta2 설정 파일에서 활성화된 플러그인은 해당 플러그인의 기본 설정값보다 v1beta2 설정 파일의 값이 우선 적용된다.
+
+* 스케줄러 healthz와 metrics 바인드 주소에 대해 `host` 또는 `port`가 잘못 설정되면 검증 실패를 유발한다.
+
+{{% /tab %}}
+{{< /tabs >}}
+
 ## {{% heading "whatsnext" %}}
 
 * [kube-scheduler 레퍼런스](/docs/reference/command-line-tools-reference/kube-scheduler/) 읽어보기
 * [스케줄링](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 알아보기
-* [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 레퍼런스 읽어보기
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) 레퍼런스 읽어보기
-
+* [kube-scheduler 설정 (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 레퍼런스 읽어보기
+* [kube-scheduler 설정 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) 레퍼런스 읽어보기

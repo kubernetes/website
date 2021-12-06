@@ -8,7 +8,7 @@ weight: 98
 <!-- overview -->
 
 이 페이지에서는 당신이
-[새로운 콘텐츠에 기여](/ko/docs/contribute/new-content/overview)하고
+[새로운 콘텐츠에 기여](/ko/docs/contribute/new-content/)하고
 [다른 사람의 작업을 리뷰](/ko/docs/contribute/review/reviewing-prs/)하는 방법을
 이해한다고 가정한다. 또한 기여하기 위한 더 많은 방법에 대해 배울 준비가 되었다고 가정한다. 이러한
 작업 중 일부에는 Git 커맨드 라인 클라이언트와 다른 도구를 사용해야 한다.

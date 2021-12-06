@@ -283,7 +283,7 @@ myapp-pod   1/1       Running   0          9m
 초기화 컨테이너들이 실패를 영원히 지속하는 상황을 방지하기 위해서
 파드의 `activeDeadlineSeconds`를 사용한다.
 Active deadline은 초기화 컨테이너를 포함한다.
-그러나 사용자가 애플리케이션을 잡(job)으로 배포한 경우 `activeDeadlineSeconds`를 사용하길 추천한다. 왜냐하면, `activeDeadlineSeconds`는 초기화 컨테이너가 완료된 이후에도 영향을 주기 때문이다.
+그러나 팀에서 애플리케이션을 잡(job)으로 배포한 경우에만 `activeDeadlineSeconds`를 사용하길 추천한다. 왜냐하면, `activeDeadlineSeconds`는 초기화 컨테이너가 완료된 이후에도 영향을 주기 때문이다.
 이미 정상적으로 동작하고 있는 파드도 `activeDeadlineSeconds`를 설정한 경우 종료(killed)될 수 있다.
 
 파드 내의 각 앱과 초기화 컨테이너의 이름은 유일해야 한다. 어떤
