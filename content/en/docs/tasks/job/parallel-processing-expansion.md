@@ -178,13 +178,13 @@ First, copy and paste the following template of a Job object, into a file called
 
 
 ```liquid
-{%- set params = [{ "name": "apple", "url": "http://dbpedia.org/resource/Apple", },
+{% set params = [{ "name": "apple", "url": "http://dbpedia.org/resource/Apple", },
                   { "name": "banana", "url": "http://dbpedia.org/resource/Banana", },
                   { "name": "cherry", "url": "http://dbpedia.org/resource/Cherry" }]
 %}
-{%- for p in params %}
-{%- set name = p["name"] %}
-{%- set url = p["url"] %}
+{% for p in params %}
+{% set name = p["name"] %}
+{% set url = p["url"] %}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -204,7 +204,7 @@ spec:
         image: busybox
         command: ["sh", "-c", "echo Processing URL {{ url }} && sleep 5"]
       restartPolicy: Never
-{%- endfor %}
+{% endfor %}
 ```
 
 The above template defines two parameters for each Job object using a list of
