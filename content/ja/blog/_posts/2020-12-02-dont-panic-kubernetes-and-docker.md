@@ -43,4 +43,4 @@ DockerはCRI([Container Runtime Interface](https://kubernetes.io/blog/2016/12/co
 経験の多寡や難易度にかかわらず、どんなことでも質問してください。我々の目標は、全ての人が将来の変化について、可能な限りの知識と理解を得られることです。
 このブログが多くの質問の答えとなり、不安を和らげることができればと願っています。
 
-別の情報をお探してあれば、こちらを参照してください。 [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/).
+別の情報をお探してあれば、[Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/)を参照してください。
