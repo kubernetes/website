@@ -125,7 +125,7 @@ A huge thank you to the release lead Rey Lejano for leading us through a success
 
 Kubernetes 1.23: The Next Frontier
 
-![Kubernetes 1.23 Release Logo](/images/blog/2021-12-07-kubernetes-release-1.22/kubernetes-1.23.png)
+![Kubernetes 1.23 Release Logo](/images/blog/2021-12-07-kubernetes-release-1.23/kubernetes-1.23.png)
 
 "The Next Frontier" theme represents the new and graduated enhancements in 1.23, Kubernetes' history of Star Trek references, and the growth of community members in the release team.
 
