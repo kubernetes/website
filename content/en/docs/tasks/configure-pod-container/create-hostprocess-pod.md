@@ -98,59 +98,59 @@ When running under the privileged policy, here are
 the configurations which need to be set to enable the creation of a HostProcess pod:
 
 <table>
-	<caption style="display:none">Privileged policy specification</caption>
-	<tbody>
-		<tr>
-			<td><strong>Control</strong></td>
-			<td><strong>Policy</strong></td>
-		</tr>
-		<tr>
-			<td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">Windows HostProcess</a></td>
-			<td>
-				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">
+  <caption style="display: none">Privileged policy specification</caption>
+  <tbody>
+    <tr>
+      <td><strong>Control</strong></td>
+      <td><strong>Policy</strong></td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">Windows HostProcess</a></td>
+      <td>
+        <p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">
         HostProcess containers</a> which enables privileged access to the Windows node. </p>
-				<p><strong>Allowed Values</strong></p>
-				<ul>
-					<li><code>true</code></li>
-				</ul>
-			</td>
-		</tr>
-		<tr>
-			<td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">Host Networking</a></td>
-			<td>
-				<p>Will be in host network by default initially. Support 
-				to set network to a different compartment may be desirable in 
-				the future.</p>
-				<p><strong>Allowed Values</strong></p>
-				<ul>
-					<li><code>true</code></li>
-				</ul>
-			</td>
-		</tr>
+        <p><strong>Allowed Values</strong></p>
+        <ul>
+          <li><code>true</code></li>
+        </ul>
+      </td>
+    </tr>
     <tr>
-			<td style="white-space: nowrap"><a href="/docs/tasks/configure-pod-container/configure-runasusername/">runAsUsername</a></td>
-			<td>
-				<p>Specification of which user the HostProcess container should run as is required for the pod spec.</p>
-				<p><strong>Allowed Values</strong></p>
-				<ul>
-					<li><code>NT AUTHORITY\SYSTEM</code></li>
-					<li><code>NT AUTHORITY\Local service</code></li>
-					<li><code>NT AUTHORITY\NetworkService</code></li>
-				</ul>
-			</td>
-		</tr>
+      <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">Host Networking</a></td>
+      <td>
+        <p>Will be in host network by default initially. Support
+        to set network to a different compartment may be desirable in
+        the future.</p>
+        <p><strong>Allowed Values</strong></p>
+        <ul>
+          <li><code>true</code></li>
+        </ul>
+      </td>
+    </tr>
     <tr>
-			<td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">runAsNonRoot</a></td>
-			<td>
-				<p>Because HostProcess containers have privileged access to the host, the <tt>runAsNonRoot</tt> field cannot be set to true.</p>
-				<p><strong>Allowed Values</strong></p>
-				<ul>
+      <td style="white-space: nowrap"><a href="/docs/tasks/configure-pod-container/configure-runasusername/">runAsUsername</a></td>
+      <td>
+        <p>Specification of which user the HostProcess container should run as is required for the pod spec.</p>
+        <p><strong>Allowed Values</strong></p>
+        <ul>
+          <li><code>NT AUTHORITY\SYSTEM</code></li>
+          <li><code>NT AUTHORITY\Local service</code></li>
+          <li><code>NT AUTHORITY\NetworkService</code></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">runAsNonRoot</a></td>
+      <td>
+        <p>Because HostProcess containers have privileged access to the host, the <tt>runAsNonRoot</tt> field cannot be set to true.</p>
+        <p><strong>Allowed Values</strong></p>
+        <ul>
           <li>Undefined/Nil</li>
-					<li><code>false</code></li>
-				</ul>
-			</td>
-		</tr>
-	</tbody>
+          <li><code>false</code></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ### Example manifest (excerpt) {#manifest-example}
