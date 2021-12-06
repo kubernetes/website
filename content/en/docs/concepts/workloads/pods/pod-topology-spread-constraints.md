@@ -85,7 +85,7 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   It must be greater than zero. Its semantics differs according to the value of `whenUnsatisfiable`:
   - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
     permitted difference between the number of matching pods in the target
-    topology and the global minimum 
+    topology and the global minimum
     (the minimum number of pods that match the label selector in a topology domain. For example, if you have 3 zones with 0, 2 and 3 matching pods respectively, The global minimum is 0).
   - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
     precedence to topologies that would help reduce the skew.
@@ -233,6 +233,8 @@ To overcome this situation, you can either increase the `maxSkew` or modify one 
 ### Interaction With Node Affinity and Node Selectors
 
 The scheduler will skip the non-matching nodes from the skew calculations if the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined.
+
+### Example: TopologySpreadConstraints with NodeAffinity
 
 Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 
@@ -392,7 +394,7 @@ for more details.
 
 ## Known Limitations
 
-- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution. 
+- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution.
 You can use [Descheduler](https://github.com/kubernetes-sigs/descheduler) to rebalance the Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
