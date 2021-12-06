@@ -27,7 +27,7 @@ Kubernetesはv1.20より新しいバージョンで、コンテナランタイ�
 このhuman-friendlyな抽象化レイヤが作られてために、結果としてはKubernetesクラスタはDockershimと呼ばれるほかのツールを使い、本当に必要な機能つまりcontainerdを利用してきました。これは素晴らしいとは言えません。なぜなら、我々がメンテする必要のあるものが増えますし、それは問題が発生する要因ともなります。今回の変更で実際に行われることというのは、Dockershimを最も早い場合でv1.23のリリースでkubeletから除外することです。その結果として、Dockerのサポートがなくなるということなのです。
 ここで、containerdがDockerに含まれているなら、なぜDockershimが必要なのかと疑問に思われる方もいるでしょう。
 
-DockerはCRI（[Container Runtime Interface](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)）に準拠していません。もしそうであればshimは必要ないのですが、現実はそうでありません。
+DockerはCRI([Container Runtime Interface](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/))に準拠していません。もしそうであればshimは必要ないのですが、現実はそうでありません。
 しかし、これは世界の終わりでありません、心配しないでください。みなさんはContainer runtimeをDockerから他のサポート対象であるContainer runtimeに切り替えるだけでよいのです。
 
 1つ注意すべきことは、クラスタで行われる処理のなかでDocker socket(`/var/run/docker.sock`)に依存する部分がある場合、他のRuntimeへ切り替えるとこの部分が働かなくなるでしょう。このパターンはしばしばDocker in Dockerと呼ばれます。このような場合の対応方法はたくさんあります。[kaniko](https://github.com/GoogleContainerTools/kaniko)、[img](https://github.com/genuinetools/img)、[buildah](https://github.com/containers/buildah)などです。
