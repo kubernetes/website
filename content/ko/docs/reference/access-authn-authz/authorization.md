@@ -134,6 +134,21 @@ kubectl auth can-i list secrets --namespace dev --as dave
 no
 ```
 
+유사하게, `dev` 네임스페이스의 `dev-sa` 서비스 어카운트가 
+`target` 네임스페이스의 파드 목록을 볼 수 있는지 확인하려면 다음을 실행한다.
+
+```bash
+kubectl auth can-i list pods \
+	--namespace target \
+	--as system:serviceaccount:dev:dev-sa
+```
+
+다음과 유사하게 출력된다.
+
+```
+yes
+```
+
 `SelfSubjectAccessReview`는 `authorization.k8s.io` API 그룹의 일부로서
 API 서버 인가를 외부 서비스에 노출시킨다.
 이 그룹의 기타 리소스에는 다음이 포함된다.

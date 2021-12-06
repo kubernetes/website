@@ -68,6 +68,6 @@ kube-proxy는 `spec.internalTrafficPolicy` 의 설정에 따라서 라우팅되�
 
 ## {{% heading "whatsnext" %}}
 
-* [토폴로지 인식 힌트 활성화](/docs/tasks/administer-cluster/enabling-topology-aware-hints)에 대해서 읽기
+* [토폴로지 인식 힌트 활성화](/ko/docs/tasks/administer-cluster/enabling-topology-aware-hints/)에 대해서 읽기
 * [서비스 외부 트래픽 정책](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)에 대해서 읽기
 * [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/) 읽기

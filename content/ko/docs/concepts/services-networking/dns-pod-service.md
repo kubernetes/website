@@ -233,7 +233,7 @@ DNS 정책은 파드별로 설정할 수 있다.
   자세한 내용을 확인할 수 있다.
 
 {{< note >}}
-"Default"는 기본 DNS 정책이 아니다. `dnsPolicy`가 명시적으로 지정되어있지 않다면
+"Default"는 기본 DNS 정책이 아니다. `dnsPolicy`가 명시적으로 지정되어 있지 않다면
 "ClusterFirst"가 기본값으로 사용된다.
 {{< /note >}}
 
