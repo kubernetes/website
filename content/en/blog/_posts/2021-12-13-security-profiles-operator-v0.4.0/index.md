@@ -21,98 +21,101 @@ improvements.
 
 ## What's new
 
+It has been a while since the last
+[v0.3.0](https://github.com/kubernetes-sigs/security-profiles-operator/releases/tag/v0.3.0)
+release of the operator. We added new features, fine-tuned existing ones and
+reworked our documentation in 290 commits over the past half year.
+
+One of the highlights is that we're now able to record seccomp and SELinux
+profiles using the operators [log enricher](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#log-enricher-based-recording).
+This allows us to reduce the dependencies required for profile recording to have
+[auditd](https://linux.die.net/man/8/auditd) or
+[syslog](https://en.wikipedia.org/wiki/Syslog) (as fallback) running on the
+nodes. All profile recordings in the operator work in the same way by using the
+`ProfileRecording` CRD as well as their corresponding [label
+selectors](/docs/concepts/overview/working-with-objects/labels). The log
+enricher itself can be also used to gather meaningful insights about seccomp and
+SELinux messages of a node. Checkout the [official
+documentation](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#using-the-log-enricher)
+to learn more about it.
+
+### seccomp related improvements
+
+Beside the log enricher based recording we now offer an alternative to record
+seccomp profiles by utilizing [ebpf](https://ebpf.io). This optional feature can
+be enabled by setting `enableBpfRecorder` to `true`. This results in running a
+dedicated container, which ships a custom bpf module on every node to collect
+the syscalls for containers. It even supports older Kernel versions which do not
+expose the [BPF Type Format (BTF)](https://www.kernel.org/doc/html/latest/bpf/btf.html) per
+default as well as the `amd64` and `arm64` architectures. Checkout
+[our documentation](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#ebpf-based-recording)
+to see it in action. By the way, we now add the seccomp profile architecture of
+the recorder host to the recorded profile as well.
+
+We also graduated the seccomp profile API from `v1alpha1` to `v1beta1`. This
+aligns with our overall goal to stabilize the CRD APIs over time. The only thing
+which has changed is that the seccomp profile type `Architectures` now points to
+`[]Arch` instead of `[]*Arch`.
+
+### SELinux enhancements
+
 <!--
-Current release notes as list of things to cover:
+- Selinuxd now uses containers from quay.io/security-profiles-operator (#750, @jhrozek)
+-->
 
-## Changes by Kind
+#### Profile Recording
 
-### API Change
+<!--
+- #592, @jhrozek
+-->
 
-- A v1alpha2 version of the SelinuxProfile object has been introduced. This
-  removes the raw CIL from the object itself and instead adds a simple policy
-  language to ease the writing and parsing experience.
+#### `SELinuxProfile` CRD graduation
 
-  Alongside, a RawSelinuxProfile object was also introduced. This contains a wrapped
-  and raw representation of the policy. This was intended for folks to be able to take
-  their existing policies into use as soon as possible. However, on validations are done here. (#675, @JAORMX)
+<!--
+- #675, @JAORMX
+-->
 
+### AppArmor support
+
+<!--
 - Add CRD type to represent AppArmor profiles. (#643, @pjbgf)
-- Change seccomp profile type `Architectures` to `[]Arch` from `[]*Arch` (#671, @saschagrunert)
-- Graduate seccomp profile API from `v1alpha1` to `v1beta1` (#674, @saschagrunert)
-
-### Feature
-
-- Add arm64 support for retrieving the correct syscall names within the log enricher. (#539, @saschagrunert)
-- Add retry functionality to log enricher if container ID is still empty during pod creation. (#491, @saschagrunert)
-- Added CLI flag `-V` and environment variable parsing `SPO_VERBOSITY` to set the logging verbosity. (#657, @saschagrunert)
-- Added `metrics-token` secret to the operator namespace for metrics client retrieval. (#457, @saschagrunert)
-- Added `metrics` service endpoint to the operator namespace, which now serves the `security_profiles_operator_seccomp_profile` metric. (#422, @saschagrunert)
-- Added `seccomp_profile_error_total` metrics. (#461, @saschagrunert)
-- Added `verbosity` option to spod configuration. Currently supports `0` (the default) and `1` for enhanced verbosity. (#665, @saschagrunert)
-- Added automatic ServiceMonitor deployment if the CRD is available within the cluster. (#458, @saschagrunert)
-- Added container ID caching to log enricher for performance reasons. (#509, @saschagrunert)
-- Added libseccomp version output to `version` subcommand output. (#524, @saschagrunert)
-- Added liveness and startup probe to operator daemon set to streamline the operator stratup. (#430, @saschagrunert)
-- Added log enricher metrics `security_profiles_operator_seccomp_profile_audit_total` and `security_profiles_operator_selinux_profile_audit_total`. (#492, @saschagrunert)
-- Added logging to non-root-enabler (#486, @saschagrunert)
-- Added name=spod label to metrics service. (#456, @saschagrunert)
-- Added single TLS certificate for serving metrics. See `installation-usage.md` for more details. (#451, @saschagrunert)
-- Added support for recording profiles by using the log enricher. (#513, @saschagrunert)
-- Added syslog support for log enricher. (#531, @saschagrunert)
-- Added the seccomp profile architecture to the `bpf` and `log` recorder. (#670, @saschagrunert)
-- Automatically mount /dev/kmsg for log enricher usage if running with CRI-O and an allowed `io.kubernetes.cri-o.Devices` annotation. (#479, @saschagrunert)
-- Deploying kube-rbac-proxy sidecar in SPOD for exposing metrics via the new `metrics-spod` and `metrics-controller-runtime` services. (#424, @saschagrunert)
-- SPO's ProfileRecording CRD ProfileRecording which allows the admin to
-  record workloads and create security policies was extended to allow
-  recording SELinux profiles as well. In order to record a SELinux profile
-  for a workload, set ProfileRecording.Spec.Kind to SelinuxProfile. (#592, @jhrozek)
-- Switched to unix domain sockets for the GRPC servers. (#631, @saschagrunert)
-- This patch re-adds the no_bpf build tag triggered by the BPF_ENABLED=0 tag
-  environment variable if set to 0. A developer can then build SPO without the
-  built-in BPF support by running:
-  BPF_ENABLED=0 make
-  This is useful to build SPO in environments with older dependencies
-  that don't allow building the in-tree BPF-based recorder. (#690, @jhrozek)
-- Update example base profiles to their recent runtime versions. (#543, @saschagrunert)
 - `spod` can load and unload AppArmor profiles into clusters host servers.
   `spod` now runs as `root` and `privileged` when apparmor is enabled. (#680, @pjbgf)
-
-### Documentation
-
-- Added documentation about how to record profiles by using the log enricher. (#521, @saschagrunert)
-- Added documentation how to use the automatically deployed `ServiceMonitor` with OpenShift as example platform. (#460, @saschagrunert)
-- Added log enricher documentation to installation-usage.md. (#498, @saschagrunert)
-- Added metrics documentation to `installation-usage.md`. (#449, @saschagrunert)
-- Added table of contents to installation documentation. (#493, @saschagrunert)
-- Changed documentation to reference `main` instead of `master` as default git branch. (#706, @saschagrunert)
-- Fixed header links containing source code in `installation-usage.md` (#606, @saschagrunert)
-
-### Bug or Regression
-
-- Do not retry container ID retrieval on container creation failures any more. (#612, @saschagrunert)
-
-### Other (Cleanup or Flake)
-
-- An OpenShift deployment manifest was included in deploy/openshift.yaml (#695, @JAORMX)
-- Bumps
-  golang.org/x/text to fix advisory GO-2021-0113 (#655, @pjbgf)
-- Log enricher now requires running auditd (`/var/log/audit/audit.log`) (#487, @saschagrunert)
-- Log libseccomp version on operator startup. (#556, @saschagrunert)
-- Removed CPU limits from SPOD and added resource requests/limits to manager and webhook. (#550, @saschagrunert)
-- The directory /etc/selinux.d used to be mounted on the hosts in previous SPO versions.
-  This is no longer the case, the directory was converted to an emptyDir instead,
-  reducing the number of required host mounts. (#698, @jhrozek)
-- The securityprofilenodestatus CR now links with the security profile its status
-  it represents using label spo.x-k8s.io/profile-id. If the profile name is less
-  than 64 characters long, then the label value is the profile name, otherwise it's
-  kind-sha1hashofthename.
-
-  This change supports profile names whose names are over 64 characters. (#685, @jhrozek)
-
-- Update cert-manager to v1.5.3 (#577, @saschagrunert)
-
-### Uncategorized
-
-- Add Metrics for SELinux profiles (#470, @mrogers950)
-- Added new seccomp profile recorder `bpf`. (#618, @saschagrunert)
 -->
+
+### Metrics
+
+The operator now exposes metrics, which are described in detail in
+[our new metrics documentation](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#using-metrics).
+We decided to secure the metrics retrieval process by using
+[kube-rbac-proxy](https://github.com/brancz/kube-rbac-proxy), while we ship an
+additional `spo-metrics-client` cluster role (and binding) to retrieve the
+metrics from within the cluster. If you're using
+[OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift),
+then we provide an out of the box working
+[`ServiceMonitor`](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#automatic-servicemonitor-deployment)
+to access the metrics.
+
+#### Debuggability and robustness
+
+Beside all those new features, we decided to restructure parts of the Security
+Profiles Operator internally to make it better to debug and more robust. For
+example, we now maintain an internal [gRPC](https://grpc.io) API to communicate
+within the operator across different features. We also improved the performance
+of the log enricher, which now caches results for faster retrieval of the log
+data. The operator can be put into a more [verbose log mode](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#set-logging-verbosity)
+by setting `verbosity` from `0` to `1`.
+
+We also print the used `libseccomp` and `libbpf` versions on startup, as well as
+expose CPU and memory profiling endpoints for each container via the
+[`enableProfiling` option](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#enable-cpu-and-memory-profiling).
+Dedicated liveness and startup probes inside of the operator daemon will now
+additionally improve the life cycle of the operator.
+
+## Conclusion
+
+Thank you for reading this update. We're looking forward to future enhancements
+of the operator and would love to get your feedback about the latest release.
+Feel free to reach out to us via the Kubernetes slack
+[#security-profiles-operator](https://kubernetes.slack.com/messages/security-profiles-operator)
+for any feedback or question.
