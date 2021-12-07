@@ -13,6 +13,17 @@ This document describes how to configure and use kernel parameters within a
 Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
 interface.
 
+{{< note >}}
+Starting from Kubernetes version 1.23, the kubelet supports the use of either `/` or `.`
+as separators for sysctl names. 
+For example, you can represent the same sysctl name as `kernel.shm_rmid_forced` using a
+period as the separator, or as `kernel/shm_rmid_forced` using a slash as a separator.
+For more sysctl parameter conversion method details, please refer to
+the page [sysctl.d(5)](https://man7.org/linux/man-pages/man5/sysctl.d.5.html) from
+the Linux man-pages project.
+Setting Sysctls for a Pod and PodSecurityPolicy features do not yet support 
+setting sysctls with slashes.
+{{< /note >}}
 ## {{% heading "prerequisites" %}}
 
 

@@ -220,11 +220,62 @@ After 15 seconds, view Pod events to verify that liveness probes:
 kubectl describe pod goproxy
 ```
 
+## Define a gRPC liveness probe
+
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
+kubelet can be configured to use it for application liveness checks.
+You must enable the `GRPCContainerProbe`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+in order to configure checks that rely on gRPC.
+
+Here is an example manifest:
+
+{{< codenew file="pods/probe/grpc-liveness.yaml">}}
+
+To use a gRPC probe, `port` must be configured. If the health endpoint is configured
+on a non-default service, you must also specify the `service`.
+
+{{< note >}}
+Unlike HTTP and TCP probes, named ports cannot be used and custom host cannot be configured.
+{{< /note >}}
+
+Configuration problems (for example: incorrect port and service, unimplemented health checking protocol)
+are considered a probe failure, similar to HTTP and TCP probes.
+
+To try the gRPC liveness check, create a Pod using the command below.
+In the example below, the etcd pod is configured to use gRPC liveness probe.
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/probe/content/en/examples/pods/probe/grpc-liveness.yaml
+```
+
+After 15 seconds, view Pod events to verify that the liveness check has not failed:
+
+```shell
+kubectl describe pod etcd-with-grpc
+```
+
+Before Kubernetes 1.23, gRPC health probes were often implemented using [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/),
+as described in the blog post [Health checking gRPC servers on Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/).
+The built-in gRPC probes behavior is similar to one implemented by grpc-health-probe.
+When migrating from grpc-health-probe to built-in probes, remember the following differences:
+
+- Built-in probes run against the pod IP address, unlike grpc-health-probe that often runs against `127.0.0.1`.
+  Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
+- Built-in probes do not support any authentication parameters (like `-tls`).
+- There are no error codes for built-in probes. All errors are considered as probe failures.
+- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not** respect the `timeoutSeconds` setting (which defaults to 1s),
+  while built-in probe would fail on timeout.
+
 ## Use a named port
 
 You can use a named
-[ContainerPort](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerport-v1-core)
-for HTTP or TCP liveness checks:
+[`port`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#ports)
+for HTTP and TCP probes. (gRPC probes do not support named ports).
+
+For example:
 
 ```yaml
 ports:
@@ -349,7 +400,7 @@ This defect was corrected in Kubernetes v1.20. You may have been relying on the 
 even without realizing it, as the default timeout is 1 second.
 As a cluster administrator, you can disable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ExecProbeTimeout` (set it to `false`)
 on each kubelet to restore the  behavior from older versions, then remove that override
-once all the exec probes in the cluster have a `timeoutSeconds` value set.  
+once all the exec probes in the cluster have a `timeoutSeconds` value set.
 If you have pods that are impacted from the default 1 second timeout,
 you should update their probe timeout so that you're ready for the
 eventual removal of that feature gate.
@@ -487,12 +538,11 @@ It will be rejected by the API server.
 
 ## {{% heading "whatsnext" %}}
 
-
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 You can also read the API references for:
 
-* [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-* [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
+* [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/), and specifically:
+  * [container(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+  * [probe(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)

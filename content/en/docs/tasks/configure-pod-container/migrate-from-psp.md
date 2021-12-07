@@ -17,7 +17,7 @@ admission controller. This can be done effectively using a combination of dry-ru
 
 {{% version-check %}}
 
-- Enable the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features).
+- Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
 
 <!-- body -->
 
