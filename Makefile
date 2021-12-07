@@ -28,14 +28,14 @@ module-init:
 
 all: build ## Build site with production settings and put deliverables in ./public
 
-build: module-check ## Build site with production settings and put deliverables in ./public
-	hugo --minify
+build: module-check ## Build site with non-production settings and put deliverables in ./public
+	hugo --minify --environment development
 
 build-preview: module-check ## Build site with drafts and future posts enabled
-	hugo --buildDrafts --buildFuture
+	hugo --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
-	hugo --enableGitInfo --buildFuture -b $(DEPLOY_PRIME_URL)
+	hugo --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
@@ -43,13 +43,15 @@ functions-build:
 check-headers-file:
 	scripts/check-headers-file.sh
 
-production-build: build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+production-build: module-check ## Build the production site and ensure that noindex headers aren't added
+	hugo --minify --environment production
+	HUGO_ENV=production $(MAKE) check-headers-file
 
-non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
-	hugo --enableGitInfo
+non-production-build: module-check ## Build the non-production site, which adds noindex headers to prevent indexing
+	hugo --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
-	hugo server --buildFuture
+	hugo server --buildFuture --environment development
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
@@ -70,10 +72,10 @@ container-image: ## Build a container image for the preview of the website
 		--build-arg HUGO_VERSION=$(HUGO_VERSION)
 
 container-build: module-check
-	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify"
+	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"
 
 container-serve: module-check ## Boot the development server using container. Run `make container-image` before this.
-	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir
+	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir
 
 test-examples:
 	scripts/test_examples.sh install
@@ -88,7 +90,7 @@ docker-internal-linkcheck:
 	$(MAKE) container-internal-linkcheck
 
 container-internal-linkcheck: link-checker-image-pull
-	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture
+	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture --environment test
 	$(CONTAINER_ENGINE) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest
 
 clean-api-reference: ## Clean all directories in API reference directory, preserve _index.md

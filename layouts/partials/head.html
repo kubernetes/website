@@ -1,5 +1,11 @@
 {{- $isBlogPost := eq .Section "blog" }}
 {{- $ogType := cond (.IsHome) "website" "article" }}
+<!-- per-page robot indexing controls -->
+{{- if hugo.IsProduction -}}
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+{{- else -}}
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+{{- end -}}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36037335-10"></script>
 <script>
@@ -19,11 +25,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 {{ hugo.Generator }}
-{{ if eq (getenv "HUGO_ENV") "production" }}
-<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-{{ else }}
-<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-{{ end }}
 {{ range .AlternativeOutputFormats -}}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
 {{ end -}}
@@ -33,7 +34,7 @@
 {{- template "_internal/google_news.html" . -}}
 {{- template "_internal/schema.html" . -}}
 {{- template "_internal/twitter_cards.html" . -}}
-{{ if eq (getenv "HUGO_ENV") "production" }}
+{{- if hugo.IsProduction -}}
 {{ template "_internal/google_analytics_async.html" . }}
 {{ end }}
 {{ partialCached "head-css.html" . "asdf" }}
