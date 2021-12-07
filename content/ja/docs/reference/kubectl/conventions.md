@@ -6,7 +6,6 @@ content_type: concept
 <!-- overview -->
 `kubectl`の推奨される使用規則です。
 
-
 <!-- body -->
 
 ## 再利用可能なスクリプトでの`kubectl`の使用
@@ -23,37 +22,37 @@ content_type: concept
 
 `kubectl run`がインフラのコード化を満たすのために:
 
-* Tag the image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (For more information, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images)).
-* Check in the script for an image that is heavily parameterized.
-* Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
+* 画像にバージョン固有のタグを付けて、そのタグを新しいバージョンに移さない。例えば、`:latest`ではなく、`:v1234`、`v1.2.3`、`r03062016-1-4`を使用してください(詳細は、[Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images)を参照してください)。
+* パラメーターが多用されているイメージをスクリプトでチェックします。
+* `kubectl run` フラグでは表現できない機能を、ソースコントロールでチェックした設定ファイルに切り替えます。
 
-You can use the `--dry-run=client` flag to preview the object that would be sent to your cluster, without really submitting it.
+`dry-run=client` フラグを使用すると、実際に送信することなく、クラスタに送信されるオブジェクトをプレビューすることができます。
 
 {{< note >}}
-All `kubectl run` generators are deprecated. See the Kubernetes v1.17 documentation for a [list](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) of generators and how they were used.
+すべての`kubectl run`ジェネレータは非推奨です。ジェネレータの[リスト](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators)とその使用方法については、Kubernetes v1.17のドキュメントを参照してください。
 {{< /note >}}
 
 #### Generators
-You can generate the following resources with a kubectl command, `kubectl create --dry-run=client -o yaml`:
+`kubectl create --dry-run=client -o yaml`というkubectlコマンドで以下のリソースを生成することができます。
 
-* `clusterrole`: Create a ClusterRole.
-* `clusterrolebinding`: Create a ClusterRoleBinding for a particular ClusterRole.
-* `configmap`: Create a ConfigMap from a local file, directory or literal value.
-* `cronjob`: Create a CronJob with the specified name.
-* `deployment`: Create a Deployment with the specified name.
-* `job`: Create a Job with the specified name.
-* `namespace`: Create a Namespace with the specified name.
-* `poddisruptionbudget`: Create a PodDisruptionBudget with the specified name.
-* `priorityclass`: Create a PriorityClass with the specified name.
-* `quota`: Create a Quota with the specified name.
-* `role`: Create a Role with single rule.
-* `rolebinding`: Create a RoleBinding for a particular Role or ClusterRole.
-* `secret`: Create a Secret using specified subcommand.
-* `service`: Create a Service using specified subcommand.
-* `serviceaccount`: Create a ServiceAccount with the specified name.
+* `clusterrole`: ClusterRoleを作成します。
+* `clusterrolebinding`:  特定のClusterRoleに対するClusterRoleBindingを作成します。
+* `configmap`: ローカルファイル、ディレクトリ、またはリテラル値からConfigMapを作成します。
+* `cronjob`: 指定された名前のCronJobを作成します。
+* `deployment`: 指定された名前でDeploymentを作成します。
+* `job`: 指定された名前でJobを作成します。
+* `namespace`: 指定された名前でNamespaceを作成します。
+* `poddisruptionbudget`:  指定された名前でPodDisruptionBudgetを作成します。
+* `priorityclass`: 指定された名前でPriorityClassを作成します。
+* `quota`: 指定された名前でQuotaを作成します。
+* `role`: 1つのルールでRoleを作成します。
+* `rolebinding`: 特定のロールやClusterRoleに対するRoleBindingを作成します。
+* `secret`: 指定されたサブコマンドを使用してSecretを作成します。
+* `service`: 指定されたサブコマンドを使用してServiceを作成します。
+* `ServiceAccount`: 指定された名前でServiceAccountを作成します。
 
 ### `kubectl apply`
 
-* You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).
+* リソースの作成や更新には `kubectl apply` を使用できます。kubectl applyを使ったリソースの更新については、[Kubectl Book](https://kubectl.docs.kubernetes.io)を参照してください。
 
 
