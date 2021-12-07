@@ -197,6 +197,8 @@ service PodResourcesLister {
 }
 ```
 
+### `List` gRPC endpoint {#grpc-endpoint-list}
+
 The `List` endpoint provides information on resources of running pods, with details such as the
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
 the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the information about memory and hugepages reserved for a container.
@@ -246,9 +248,34 @@ message ContainerDevices {
     TopologyInfo topology = 3;
 }
 ```
+{{< note >}}
+cpu_ids in the `ContainerResources` in the `List` endpoint correspond to exclusive CPUs allocated
+to a partilar container. If the goal is to evaluate CPUs that belong to the shared pool, the `List`
+endpoint needs to be used in conjunction with the `GetAllocatableResources` endpoint as explained
+below:
+1. Call `GetAllocatableResources` to get a list of all the allocatable CPUs
+2. Call `GetCpuIds` on all `ContainerResources` in the system
+3. Subtract out all of the CPUs from the `GetCpuIds` calls from the `GetAllocatableResources` call
+{{< /note >}}
+
+### `GetAllocatableResources` gRPC endpoint {#grpc-endpoint-getallocatableresources}
+
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 GetAllocatableResources provides information on resources initially available on the worker node.
 It provides more information than kubelet exports to APIServer.
+
+{{< note >}}
+`GetAllocatableResources` should only be used to evaluate [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+resources on a node. If the goal is to evaluate free/unallocated resources it should be used in
+conjunction with the List() endpoint. The result obtained by `GetAllocatableResources` would remain
+the same unless the underlying resources exposed to kubelet change. This happens rarely but when
+it does (for example: hotplug/hotunplug, device health changes), client is expected to call
+`GetAlloctableResources` endpoint.
+However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
+update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
+{{< /note >}}
+
 
 ```gRPC
 // AllocatableResourcesResponses contains informations about all the devices known by the kubelet
@@ -259,6 +286,13 @@ message AllocatableResourcesResponse {
 }
 
 ```
+Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
+You can disable it by turning off the
+`KubeletPodResourcesGetAllocatable` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
+
+`--feature-gates=KubeletPodResourcesGetAllocatable=true`
 
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is affine.
 The NUMA cells are identified using a opaque integer ID, which value is consistent to what device

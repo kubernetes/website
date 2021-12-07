@@ -220,19 +220,19 @@ to `Retain`, including cases where you are reusing an existing PV.
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-Support for expanding PersistentVolumeClaims (PVCs) is now enabled by default. You can expand
+Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
 
-* gcePersistentDisk
+* azureDisk
+* azureFile
 * awsElasticBlockStore
-* Cinder
+* cinder (deprecated)
+* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* flexVolume (deprecated)
+* gcePersistentDisk
 * glusterfs
 * rbd
-* Azure File
-* Azure Disk
-* Portworx
-* FlexVolumes
-* {{< glossary_tooltip text="CSI" term_id="csi" >}}
+* portworxVolume
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
@@ -269,8 +269,8 @@ When a volume contains a file system, the file system is only resized when a new
 the PersistentVolumeClaim in `ReadWrite` mode. File system expansion is either done when a Pod is starting up
 or when a Pod is running and the underlying file system supports online expansion.
 
-FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to `true`.
-The FlexVolume can be resized on Pod restart.
+FlexVolumes (deprecated since Kubernetes v1.23) allow resize if the driver is configured with the
+`RequiresFSResize` capability to `true`. The FlexVolume can be resized on Pod restart.
 
 #### Resizing an in-use PersistentVolumeClaim
 
@@ -298,6 +298,11 @@ Expanding EBS volumes is a time-consuming operation. Also, there is a per-volume
 
 #### Recovering from Failure when Expanding Volumes
 
+If a user specifies a new size that is too big to be satisfied by underlying storage system, expansion of PVC will be continuously retried until user or cluster administrator takes some action. This can be undesirable and hence Kubernetes provides following methods of recovering from such failures.
+
+{{< tabs name="recovery_methods" >}}
+{{% tab name="Manually with Cluster Administrator access" %}}
+
 If expanding underlying storage fails, the cluster administrator can manually recover the Persistent Volume Claim (PVC) state and cancel the resize requests. Otherwise, the resize requests are continuously retried by the controller without administrator intervention.
 
 1. Mark the PersistentVolume(PV) that is bound to the PersistentVolumeClaim(PVC) with `Retain` reclaim policy.
@@ -305,6 +310,30 @@ If expanding underlying storage fails, the cluster administrator can manually re
 3. Delete the `claimRef` entry from PV specs, so as new PVC can bind to it. This should make the PV `Available`.
 4. Re-create the PVC with smaller size than PV and set `volumeName` field of the PVC to the name of the PV. This should bind new PVC to existing PV.
 5. Don't forget to restore the reclaim policy of the PV.
+
+{{% /tab %}}
+{{% tab name="By requesting expansion to smaller size" %}}
+{{% feature-state for_k8s_version="v1.23" state="alpha" %}}
+
+{{< note >}}
+Recovery from failing PVC expansion by users is available as an alpha feature since Kubernetes 1.23. The `RecoverVolumeExpansionFailure` feature must be enabled for this feature to work. Refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+{{< /note >}}
+
+If the feature gates `ExpandPersistentVolumes` and `RecoverVolumeExpansionFailure` are both
+enabled in your cluster, and expansion has failed for a PVC, you can retry expansion with a
+smaller size than the previously requested value. To request a new expansion attempt with a
+smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
+value you previously tried.
+This is useful if expansion to a higher value did not succeed because of capacity constraint.
+If that has happened, or you suspect that it might have, you can retry expansion by specifying a
+size that is within the capacity limits of underlying storage provider. You can monitor status of resize operation by watching `.status.resizeStatus` and events on the PVC.
+
+Note that,
+although you can a specify a lower amount of storage than what was requested previously,
+the new value must still be higher than `.status.capacity`.
+Kubernetes does not support shrinking a PVC to less than its current size.
+{{% /tab %}}
+{{% /tabs %}}
 
 
 ## Types of Persistent Volumes
@@ -317,7 +346,6 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
 * [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
-* [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
 * [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
 * [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
@@ -335,6 +363,8 @@ The following types of PersistentVolume are deprecated. This means that support 
 
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
   (**deprecated** in v1.18)
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+  (**deprecated** in v1.23)
 * [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
   (**deprecated** in v1.22)
 * [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume

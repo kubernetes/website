@@ -583,7 +583,8 @@ subresource of the referenced *owner* can change it.
 This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
 
 {{< note >}}
-Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
+Support for volume resizing is available as a beta feature. As a cluster administrator,
+you must ensure that the feature gate `ExpandPersistentVolumes` is set
 to `true` to enable resizing.
 {{< /note >}}
 
@@ -698,7 +699,7 @@ admission plugin, which allows preventing pods from running on specifically tain
 
 ### PodSecurity {#podsecurity}
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
 defined in the next section. This admission controller acts on creation and modification of the pod and
