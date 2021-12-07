@@ -259,7 +259,7 @@ Other API server flags that are set unconditionally are:
 
 #### Controller manager
 
-The static Pod manifest for the API server is affected by following parameters provided by the users:
+The static Pod manifest for the controller manager is affected by following parameters provided by the users:
 
 - If kubeadm is invoked specifying a `--pod-network-cidr`, the subnet manager feature required for some CNI network plugins is enabled by
    setting:
