@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "autoscaling/v2beta2"
-  import: "k8s.io/api/autoscaling/v2beta2"
+  apiVersion: "autoscaling/v2"
+  import: "k8s.io/api/autoscaling/v2"
   kind: "HorizontalPodAutoscaler"
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified."
-title: "HorizontalPodAutoscaler v2beta2"
-weight: 13
+title: "HorizontalPodAutoscaler"
+weight: 12
 auto_generated: true
 ---
 
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: autoscaling/v2beta2`
+`apiVersion: autoscaling/v2`
 
-`import "k8s.io/api/autoscaling/v2beta2"`
+`import "k8s.io/api/autoscaling/v2"`
 
 
 ## HorizontalPodAutoscaler {#HorizontalPodAutoscaler}
@@ -32,7 +32,7 @@ HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, wh
 
 <hr>
 
-- **apiVersion**: autoscaling/v2beta2
+- **apiVersion**: autoscaling/v2
 
 
 - **kind**: HorizontalPodAutoscaler
@@ -42,11 +42,11 @@ HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, wh
 
   metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
 
   spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 
-- **status** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
 
   status is the current information about the autoscaler.
 
@@ -103,6 +103,8 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
     - **behavior.scaleDown.policies** ([]HPAScalingPolicy)
 
+      *Atomic: will be replaced during a merge*
+      
       policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
 
       <a name="HPAScalingPolicy"></a>
@@ -122,7 +124,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
     - **behavior.scaleDown.selectPolicy** (string)
 
-      selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+      selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 
     - **behavior.scaleDown.stabilizationWindowSeconds** (int32)
 
@@ -140,6 +142,8 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
     - **behavior.scaleUp.policies** ([]HPAScalingPolicy)
 
+      *Atomic: will be replaced during a merge*
+      
       policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
 
       <a name="HPAScalingPolicy"></a>
@@ -159,7 +163,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
     - **behavior.scaleUp.selectPolicy** (string)
 
-      selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+      selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 
     - **behavior.scaleUp.stabilizationWindowSeconds** (int32)
 
@@ -167,6 +171,8 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
 - **metrics** ([]MetricSpec)
 
+  *Atomic: will be replaced during a merge*
+  
   metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
 
   <a name="MetricSpec"></a>
@@ -178,7 +184,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
   - **metrics.containerResource** (ContainerResourceMetricSource)
 
-    container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+    containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
 
     <a name="ContainerResourceMetricSource"></a>
     *ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.*
@@ -268,6 +274,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
     - **metrics.object.describedObject** (CrossVersionObjectReference), required
 
+      describedObject specifies the descriptions of a object,such as kind,name apiVersion
 
       <a name="CrossVersionObjectReference"></a>
       *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
@@ -411,16 +418,16 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
 <hr>
 
-- **currentReplicas** (int32), required
-
-  currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
-
 - **desiredReplicas** (int32), required
 
   desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
 
 - **conditions** ([]HorizontalPodAutoscalerCondition)
 
+  *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
+  
   conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
 
   <a name="HorizontalPodAutoscalerCondition"></a>
@@ -451,6 +458,8 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
 - **currentMetrics** ([]MetricStatus)
 
+  *Atomic: will be replaced during a merge*
+  
   currentMetrics is the last read state of the metrics used by this autoscaler.
 
   <a name="MetricStatus"></a>
@@ -563,6 +572,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
     - **currentMetrics.object.describedObject** (CrossVersionObjectReference), required
 
+      DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
 
       <a name="CrossVersionObjectReference"></a>
       *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
@@ -665,6 +675,10 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
       Name is the name of the resource in question.
 
+- **currentReplicas** (int32)
+
+  currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
+
 - **lastScaleTime** (Time)
 
   lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
@@ -686,7 +700,7 @@ HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
 
 <hr>
 
-- **apiVersion**: autoscaling/v2beta2
+- **apiVersion**: autoscaling/v2
 
 
 - **kind**: HorizontalPodAutoscalerList
@@ -696,7 +710,7 @@ HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
 
   metadata is the standard list metadata.
 
-- **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>), required
 
   items is the list of horizontal pod autoscaler objects.
 
@@ -719,7 +733,7 @@ HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
 
 #### HTTP Request
 
-GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}
+GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 #### Parameters
 
@@ -743,7 +757,7 @@ GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
 
@@ -752,7 +766,7 @@ GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
 
 #### HTTP Request
 
-GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
+GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
 
 #### Parameters
 
@@ -776,7 +790,7 @@ GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
 
@@ -785,7 +799,7 @@ GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
 
 #### HTTP Request
 
-GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
+GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### Parameters
 
@@ -849,7 +863,7 @@ GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
 
 401: Unauthorized
 
@@ -858,7 +872,7 @@ GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### HTTP Request
 
-GET /apis/autoscaling/v2beta2/horizontalpodautoscalers
+GET /apis/autoscaling/v2/horizontalpodautoscalers
 
 #### Parameters
 
@@ -917,7 +931,7 @@ GET /apis/autoscaling/v2beta2/horizontalpodautoscalers
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
 
 401: Unauthorized
 
@@ -926,7 +940,7 @@ GET /apis/autoscaling/v2beta2/horizontalpodautoscalers
 
 #### HTTP Request
 
-POST /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
+POST /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### Parameters
 
@@ -936,7 +950,7 @@ POST /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
+- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
 
   
 
@@ -965,11 +979,11 @@ POST /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Accepted
 
 401: Unauthorized
 
@@ -978,7 +992,7 @@ POST /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### HTTP Request
 
-PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}
+PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 #### Parameters
 
@@ -993,7 +1007,7 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
+- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
 
   
 
@@ -1022,9 +1036,9 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -1033,7 +1047,7 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
 
 #### HTTP Request
 
-PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
+PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
 
 #### Parameters
 
@@ -1048,7 +1062,7 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
+- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
 
   
 
@@ -1077,9 +1091,9 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -1088,7 +1102,7 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
 
 #### HTTP Request
 
-PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}
+PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 #### Parameters
 
@@ -1137,9 +1151,9 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -1148,7 +1162,7 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
 
 #### HTTP Request
 
-PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
+PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
 
 #### Parameters
 
@@ -1197,9 +1211,9 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -1208,7 +1222,7 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
 
 #### HTTP Request
 
-DELETE /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}
+DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 #### Parameters
 
@@ -1263,7 +1277,7 @@ DELETE /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### HTTP Request
 
-DELETE /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
+DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### Parameters
 
