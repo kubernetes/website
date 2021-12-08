@@ -2,6 +2,7 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - onlydole
     - mrbobbytables
+    - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - mrbobbytables
     - onlydole
