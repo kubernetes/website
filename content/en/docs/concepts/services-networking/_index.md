@@ -49,8 +49,8 @@ blind to the existence or non-existence of host ports.
 Kubernetes networking addresses four concerns:
 - Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
 - Cluster networking provides communication between different Pods.
-- The [Service](/docs/concepts/services-networking/service/) resource lets you
-  [expose an application running in Pods](/docs/concepts/services-networking/connect-applications-service/)
+- The [Service](/docs/concepts/services-networking/service/) API lets you
+  [expose an application running in Pods](/docs/tutorials/services/connect-applications-service/)
   to be reachable from outside your cluster.
   - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
     specifically for exposing HTTP applications, websites and APIs.
