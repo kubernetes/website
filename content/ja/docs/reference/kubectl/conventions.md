@@ -29,7 +29,7 @@ content_type: concept
 `dry-run=client` フラグを使用すると、実際に送信することなく、クラスタに送信されるオブジェクトをプレビューすることができます。
 
 {{< note >}}
-すべての`kubectl run`ジェネレータは非推奨です。ジェネレータの[リスト](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators)とその使用方法については、Kubernetes v1.17のドキュメントを参照してください。
+すべての`kubectl run`ジェネレーターは非推奨です。ジェネレーターの[リスト](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators)とその使用方法については、Kubernetes v1.17のドキュメントを参照してください。
 {{< /note >}}
 
 #### Generators
