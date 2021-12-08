@@ -250,7 +250,7 @@ kind: IngressClass
 metadata:
   name: external-lb-1
 spec:
-  controller example.com/ingress-controller
+  controller: example.com/ingress-controller
   parameters:
     # The parameters for this IngressClass are specified in a
     # ClusterIngressParameter (API group k8s.example.net) named
@@ -297,7 +297,7 @@ kind: IngressClass
 metadata:
   name: external-lb-2
 spec:
-  controller example.com/ingress-controller
+  controller: example.com/ingress-controller
   parameters:
     # The parameters for this IngressClass are specified in an
     # IngressParameter (API group k8s.example.com) named "external-config",
