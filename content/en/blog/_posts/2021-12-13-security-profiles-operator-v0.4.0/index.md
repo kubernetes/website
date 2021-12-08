@@ -86,7 +86,7 @@ which has changed is that the seccomp profile type `Architectures` now points to
 ### Metrics
 
 The operator now exposes metrics, which are described in detail in
-[our new metrics documentation](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#using-metrics).
+our new [metrics documentation](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#using-metrics).
 We decided to secure the metrics retrieval process by using
 [kube-rbac-proxy](https://github.com/brancz/kube-rbac-proxy), while we ship an
 additional `spo-metrics-client` cluster role (and binding) to retrieve the
