@@ -575,4 +575,4 @@ For more information on HorizontalPodAutoscaler:
 * Read documentation for [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * If you would like to write your own custom metrics adapter, check out the
   [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) to get started.
-* Read the [API reference](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler/) for HorizontalPodAutoscaler.
+* Read the [API reference](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2beta2/) for HorizontalPodAutoscaler.
