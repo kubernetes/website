@@ -5,7 +5,7 @@ weight: 30
 ---
 
 <!-- overview -->
-このページでは、Admission Controllerの概要について説明します。
+このページでは、Admission Controllersの概要について説明します。
 
 
 <!-- body -->
@@ -23,121 +23,106 @@ Admission controllersは、以下の[リスト](#what-does-each-admission-contro
 Admission controllersは「Mutating」、「Validating」、またはその両方を行います。
 承認したオブジェクトを、Mutating controllersは変更でき、Validating controllersは変更できません。
 
-Admission controllers limit requests to create, delete, modify or connect to (proxy).
-
-# https://github.com/kubernetes/website/pull/30741
 Admission controllersはオブジェクト作成、削除、変更、プロキシへの接続などのリクエストを制限し、オブジェクト参照のリクエストを制限しません。
 
+Admission controllersは2つのフェーズで進行する。
+第1フェーズでは，Mutating controllersが実行される。
+第2フェーズでは，Validating controllersが実行される。
+また，いくつかのコントローラは両方ともであることに注意してください。
 
-The admission control process proceeds in two phases.
-In the first phase,mutating admission controllers are run.
-In the second phase, validating admission controllers are run.
-Note again that some of the controllers are both.
+いずれかのフェーズのコントローラがリクエストを拒否した場合、リクエスト全体が直ちに拒否され、エンドユーザーにエラーが返されます。
 
-If any of the controllers in either phase reject the request, the entire
-request is rejected immediately and an error is returned to the end-user.
+最後に、問題のオブジェクトを時々変更することに加えて、Admission controllersは時々副作用を持つかもしれない、つまり、リクエスト処理の一部として関連リソースを変更する。
 
-Finally, in addition to sometimes mutating the object in question, admission
-controllers may sometimes have side effects, that is, mutate related
-resources as part of request processing.
+クォータ使用量の増加は、関連リソースの変更が必要な理由の典型的な例です。
+指定されたAdmission controllersは、与えられたリクエストが他のすべてのAdmission controllersを通過することを確実には知らないので、そのような副作用には、対応する回収または調整のプロセスが必要です。
 
-Incrementing quota usage is the canonical example of why this is necessary.
-Any such side-effect needs a corresponding reclamation or reconciliation process, as a given admission controller does not know for sure that a given request will pass all of the other admission controllers.
+## なぜAdmission Controllersが必要ですか？
 
-## Why do I need them?
+Kubernetesの高度な機能の多くは、その機能を適切にサポートするためにAdmission Controllersを有効にする必要があります。
+その結果、適切なAdmission Controllersのセットで適切に構成されていないKubernetes APIサーバーは不完全なサーバーであり、期待する機能をすべてサポートすることはできません。
 
-Many advanced features in Kubernetes require an admission controller to be enabled in order
-to properly support the feature.
-As a result, a Kubernetes API server that is not properly configured with the right set of admission controllers is an incomplete server and will not support all the features you expect.
+## どのようにAdmission Controllersを有効にしますか？
 
-## How do I turn on an admission controller?
+Kubernetes APIのサーバーフラグである`enable-admission-plugins`には、クラスタ内のオブジェクトを変更する前に起動するAdmission Controllersプラグインのコンマ区切りのリストを指定します。
+例えば、次のコマンドラインは、`NamespaceLifecycle`と`LimitRanger`のAdmission Controllersプラグインを有効にします。
 
-The Kubernetes API server flag `enable-admission-plugins` takes a comma-delimited list of admission control plugins to invoke prior to modifying objects in the cluster.
-For example, the following command line enables the `NamespaceLifecycle` and the `LimitRanger`
-admission control plugins:
 
 ```shell
 kube-apiserver --enable-admission-plugins=NamespaceLifecycle,LimitRanger ...
 ```
 
 {{< note >}}
-Depending on the way your Kubernetes cluster is deployed and how the API server is
-started, you may need to apply the settings in different ways.
+Kubernetesクラスターの展開方法やAPIサーバーの起動方法によっては、異なる方法で設定を適用する必要があります。
 
-For example, you may have to modify the systemd unit file if the API server is deployed as a systemd
-service, you may modify the manifest file for the API server if Kubernetes is deployed in a self-hosted way.
+例えば、APIサーバーがsystemdのサービスとしてデプロイされている場合はsystemdのユニットファイルを変更する必要があるかもしれません。Kubernetesがセルフホスト方式でデプロイされている場合はAPIサーバーのマニフェストファイルを修正する必要があるかもしれません。
 {{< /note >}}
 
-## How do I turn off an admission controller?
+## どのようにAdmission Controllersを無効にしますか？
 
-The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimited list of admission control plugins to be disabled, even if they are in the list of plugins enabled by default.
+Kubernetes APIサーバーフラグの`disable-admission-plugins`は、デフォルトで有効化されているプラグインのリストに含まれていても、無効化するAdmission Controllersプラグインのコンマ区切りのリストを受け取ります。
 
 ```shell
 kube-apiserver --disable-admission-plugins=PodNodeSelector,AlwaysDeny ...
 ```
 
-## Which plugins are enabled by default?
+## デフォルトで有効なプラグインはなんですか？
 
-To see which admission plugins are enabled:
+どのAdmission Controllersプラグインが有効になっているかを確認するには:
 
 ```shell
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In the current version, the default ones are:
+現在のバージョンでは、デフォルトのものは:
 
 ```shell
 CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
 ```
 
-## What does each admission controller do?
+## 各Admission Controllerの役割はなんですか？
 
 ### AlwaysAdmit {#alwaysadmit}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-This admission controller allows all pods into the cluster.
-It is deprecated because its behavior is the same as if there were no admission controller at all.
+このAdmission Controllerは、すべてのポッドをクラスターに入れることができます。
+その動作はAdmission Controllerが全くない場合と同じであるため非推奨です。
 
 ### AlwaysDeny {#alwaysdeny}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-Rejects all requests.
-AlwaysDeny is DEPRECATED as it has no real meaning.
+すべての要求を拒否します。
+AlwaysDenyは、実際には意味を持たないため、廃止されました。
 
 ### AlwaysPullImages {#alwayspullimages}
 
-This admission controller modifies every new Pod to force the image pull policy to Always.
-This is useful in a multitenant cluster so that users can be assured that their private images can only be used by those who have the credentials to pull them.
+このAdmission Controllerは、すべての新しいPodを修正して、イメージ・プル・ポリシーをAlwaysに強制します。
+これは、マルチテナントクラスターにおいて、ユーザーが自分のプライベートイメージを、それを引き出すための資格を持っている人だけが使用できることを保証するために有用です。
 
-Without this admission controller, once an image has been pulled to a node, any pod from any user can use it by knowing the image's name (assuming the Pod is scheduled onto the right node), without any authorization check against the image.
+このAdmission Controllerがないと、イメージがノードに引き込まれると、どのユーザーのどのポッドでも、イメージの名前を知るだけで（ポッドが正しいノードにスケジューリングされていると仮定して）、イメージに対する認証チェックなしに、そのイメージを使用することができます。
 
-When this admission controller is enabled, images are always pulled prior to starting containers, which means valid credentials are required.
+このAdmission Controllerーを有効にすると、コンテナを起動する前に必ずイメージがプルされるため、有効な認証情報が必要になります。
 
 ### CertificateApproval {#certificateapproval}
 
-This admission controller observes requests to 'approve' CertificateSigningRequest resources and performs additional
-authorization checks to ensure the approving user has permission to `approve` certificate requests with the
-`spec.signerName` requested on the CertificateSigningRequest resource.
+このAdmission Controllerは、CertificateSigningRequestリソースを承認するリクエストを監視し、承認するユーザがCertificateSigningRequestリソース上で要求された`spec.signerName`を持つ証明書リクエストを`approve`する権限を持っていることを確認するために、追加の認可チェックを行う。
 
-See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
-information on the permissions required to perform different actions on CertificateSigningRequest resources.
+CertificateSigningRequestリソース上で異なるアクションを実行するために必要なパーミッションの詳細については、[Certificate Signing Requests](/docs/reference/access-authn-authz/certificat-signing-requests/)を参照してください。
 
 ### CertificateSigning {#certificatesigning}
 
-This admission controller observes updates to the `status.certificate` field of CertificateSigningRequest resources
-and performs an additional authorization checks to ensure the signing user has permission to `sign` certificate
-requests with the `spec.signerName` requested on the CertificateSigningRequest resource.
+このアドミッション・コントローラは、CertificateSigningRequestリソースの`status.certificate`フィールドの更新を観察し
+リソースの`status.certificate`フィールドの更新を監視し、署名ユーザが CertificateSigningRequest リソースで要求された`spec.signerName`を持つ証明書リクエストに`sign`する権限を持っていることを確認するために追加の認可チェックを行います。
 
-See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
-information on the permissions required to perform different actions on CertificateSigningRequest resources.
+証明書署名要求の実行に必要な権限については、[Certificate Signing Requests](/docs/reference/access-authn-authz/certificat-signing-requests/)を参照してください。
 
 ### CertificateSubjectRestrictions {#certificatesubjectrestrictions}
 
-This admission controller observes creation of CertificateSigningRequest resources that have a `spec.signerName`
-of `kubernetes.io/kube-apiserver-client`. It rejects any request that specifies a 'group' (or 'organization attribute')
-of `system:masters`.
+このアドミッションコントローラは、`kubernetes io/kube-apiserver-client`の`spec.signerName`を持つCertificateSigningRequestリソースの作成を監視します。
+`system:masters`の`group`(または`organization attribute`)を指定したリクエストはすべて拒否します。
+
 
 ### DefaultIngressClass {#defaultingressclass}
 
@@ -174,7 +159,7 @@ storage classes and how to mark a storage class as default.
 
 This admission controller sets the default forgiveness toleration for pods to tolerate
 the taints `notready:NoExecute` and `unreachable:NoExecute` based on the k8s-apiserver input parameters
-`default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` if the pods don't already 
+`default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` if the pods don't already
 have toleration for taints `node.kubernetes.io/not-ready:NoExecute` or
 `node.kubernetes.io/unreachable:NoExecute`.
 The default value for `default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` is 5 minutes.
@@ -818,10 +803,10 @@ group/version via the `--runtime-config` flag (both are on by default in
 versions 1.9 and later).
 
 
-## Is there a recommended set of admission controllers to use?
+## 推奨されるAdmission Controllersのセットはありますか？
 
-Yes. The recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
+推奨されるAdmission Controllersは、デフォルトで有効になっているので（[こちら](/docs/reference/command-line-tools-reference/kube-apiserver/#options)に表示されています）、明示的に指定する必要はありません。また、`--enable-admission-plugins`フラグを使用して、デフォルトセット以外のAdmission Controllersを有効にすることができます（**順番は関係ありません**）。
 
 {{< note >}}
-`--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
+`--admission-control` は1.10で非推奨となり、`--enable-admission-plugins`で置き換えられました。
 {{< /note >}}
