@@ -23,7 +23,7 @@ parts:
     - PodSpec
     - Container
     - EphemeralContainer
-    - Handler
+    - LifecycleHandler
     - NodeAffinity
     - PodAffinity
     - PodAntiAffinity
@@ -60,6 +60,9 @@ parts:
   - name: HorizontalPodAutoscaler
     group: autoscaling
     version: v1
+  - name: HorizontalPodAutoscaler
+    group: autoscaling
+    version: v2
   - name: HorizontalPodAutoscaler
     group: autoscaling
     version: v2beta2
@@ -217,10 +220,10 @@ parts:
     version: v1
   - name: FlowSchema
     group: flowcontrol.apiserver.k8s.io
-    version: v1beta1
+    version: v1beta2
   - name: PriorityLevelConfiguration
     group: flowcontrol.apiserver.k8s.io
-    version: v1beta1
+    version: v1beta2
   - name: Binding
     group: ""
     version: v1

@@ -64,7 +64,7 @@ CSIDriverSpec is the specification of a CSIDriver.
 
 - **fsGroupPolicy** (string)
 
-  Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.
+  Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
   
   This field is immutable.
   
@@ -93,7 +93,7 @@ CSIDriverSpec is the specification of a CSIDriver.
   
   Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
   
-  This field is immutable.
+  This field was immutable in Kubernetes \<= 1.22 and now is mutable.
   
   This is a beta field and only available when the CSIStorageCapacity feature is enabled. The default is false.
 
@@ -289,6 +289,11 @@ POST /apis/storage.k8s.io/v1/csidrivers
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -336,6 +341,11 @@ PUT /apis/storage.k8s.io/v1/csidrivers/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -379,6 +389,11 @@ PATCH /apis/storage.k8s.io/v1/csidrivers/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
