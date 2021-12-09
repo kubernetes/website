@@ -116,11 +116,11 @@ CPU is always requested as an absolute quantity, never as a relative quantity;
 
 Limits and requests for `memory` are measured in bytes. You can express memory as
 a plain integer or as a fixed-point number using one of these suffixes:
-E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k, m (millis). You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following represent roughly the same value:
 
 ```shell
-128974848, 129e6, 129M, 123Mi
+128974848, 129e6, 129M,  128974848000m, 123Mi
 ```
 
 Here's an example.

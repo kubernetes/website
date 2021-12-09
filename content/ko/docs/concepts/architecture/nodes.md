@@ -51,7 +51,7 @@ weight: 10
 ```
 
 쿠버네티스는 내부적으로 노드 오브젝트를 생성한다(표시한다). 쿠버네티스는
-kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록이 되어있는지 확인한다.
+kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록이 되어 있는지 확인한다.
 노드가 정상이면(예를 들어 필요한 모든 서비스가 실행중인 경우) 파드를 실행할 수 있게 된다.
 그렇지 않으면, 해당 노드는 정상이 될 때까지 모든 클러스터 활동에
 대해 무시된다.
@@ -72,15 +72,16 @@ kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록
 [이름](/ko/docs/concepts/overview/working-with-objects/names#names)은 노드를 식별한다. 두 노드는
 동시에 같은 이름을 가질 수 없다. 쿠버네티스는 또한 같은 이름의 리소스가
 동일한 객체라고 가정한다. 노드의 경우, 동일한 이름을 사용하는 인스턴스가 동일한
-상태(예: 네트워크 설정, 루트 디스크 내용)를 갖는다고 암시적으로 가정한다. 인스턴스가
+상태(예: 네트워크 설정, 루트 디스크 내용)와 노드 레이블과 같은 동일한 속성(attribute)을
+갖는다고 암시적으로 가정한다. 인스턴스가
 이름을 변경하지 않고 수정된 경우 이로 인해 불일치가 발생할 수 있다. 노드를 대폭 교체하거나
 업데이트해야 하는 경우, 기존 노드 오브젝트를 먼저 API 서버에서 제거하고
 업데이트 후 다시 추가해야 한다.
 
-### 노드에 대한 자체-등록
+### 노드에 대한 자체-등록(self-registration)
 
-kubelet 플래그 `--register-node`는 참(기본값)일 경우, kubelet 은 API 서버에
-스스로 등록을 시도할 것이다. 이는 대부분의 배포판에 의해 이용되는, 선호하는 패턴이다.
+kubelet 플래그 `--register-node`가 참(기본값)일 경우, kubelet은 API 서버에
+스스로 등록을 시도할 것이다. 이는 선호되는 패턴이며, 대부분의 배포판에서 사용된다.
 
 자체-등록에 대해, kubelet은 다음 옵션과 함께 시작된다.
 
@@ -96,7 +97,22 @@ kubelet 플래그 `--register-node`는 참(기본값)일 경우, kubelet 은 API
 
 [Node authorization mode](/docs/reference/access-authn-authz/node/)와
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)이 활성화 되면,
-kubelets 은 자신의 노드 리소스를 생성/수정할 권한을 가진다.
+각 kubelet은 자신이 속한 노드의 리소스에 대해서만 생성/수정할 권한을 가진다.
+
+{{< note >}}
+[노드 이름 고유성](#노드-이름-고유성) 섹션에서 언급했듯이,
+노드 구성을 업데이트해야 하는 경우 API 서버에 노드를
+다시 등록하는 것이 좋다. 예를 들어 kubelet이 `--node-labels`의 새로운 구성으로
+다시 시작되더라도, 동일한 노드 이름이 사용된 경우
+레이블이 해당 노드의 등록에 설정되기 때문에 변경 사항이 적용되지 않는다.
+
+노드에 이미 스케줄된 파드는 해당 노드 구성이 kubelet 재시작에 의해 변경된 경우
+오작동하거나 문제를 일으킬 수 있다. 예를 들어 이미 실행 중인 파드가 노드에
+할당된 새 레이블에 대해 테인트(taint)될 수 있는 반면 해당 파드와 호환되지 않는 다른 파드는
+새 레이블을 기반으로 스케줄링된다. 노드 재등록(re-registration)은 모든 파드를
+비우고(drain) 다시 적절하게 스케줄링되도록
+한다.
+{{< /note >}}
 
 #### 수동 노드 관리
 
@@ -146,7 +162,7 @@ kubectl cordon $NODENAME
 kubectl describe node <insert-node-name-here>
 ```
 
-출력되는 각 섹션은 아래에 설명되어있다.
+출력되는 각 섹션은 아래에 설명되어 있다.
 
 ### 주소 {#addresses}
 
@@ -177,7 +193,8 @@ kubectl describe node <insert-node-name-here>
 대신 코드화된 노드는 사양에 스케줄 불가로 표시된다.
 {{< /note >}}
 
-쿠버네티스 API에서, 노드의 컨디션은 노드 리소스의 `.status` 부분에 표현된다. 예를 들어, 다음의 JSON 구조는 상태가 양호한 노드를 나타낸다.
+쿠버네티스 API에서, 노드의 컨디션은 노드 리소스의 `.status` 부분에
+표현된다. 예를 들어, 다음의 JSON 구조는 상태가 양호한 노드를 나타낸다.
 
 ```json
 "conditions": [
@@ -208,12 +225,14 @@ API 서버와의 통신이 재개될 때까지 파드 삭제에 대한 결정은
 동작되고 있는 것을 보게 될 수도 있다. 노드가 영구적으로 클러스터에서 삭제되었는지에
 대한 여부를 쿠버네티스가 기반 인프라로부터 유추할 수 없는 경우, 노드가 클러스터를 영구적으로
 탈퇴하게 되면, 클러스터 관리자는 손수 노드 오브젝트를 삭제해야 할 수도 있다.
-쿠버네티스에서 노드 오브젝트를 삭제하면 노드 상에서 동작중인 모든 파드 오브젝트가
-API 서버로부터 삭제되어 그 이름을 사용할 수 있는 결과를 낳는다.
+쿠버네티스에서 노드 오브젝트를 삭제하면
+노드 상에서 동작 중인 모든 파드 오브젝트가 API 서버로부터 삭제되며
+파드가 사용하던 이름을 다시 사용할 수 있게 된다.
 
 노드에서 문제가 발생하면, 쿠버네티스 컨트롤 플레인은 자동으로 노드 상태에 영향을 주는 조건과 일치하는
-[테인트(taints)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)를 생성한다.
-스케줄러는 파드를 노드에 할당 할 때 노드의 테인트를 고려한다.
+[테인트(taints)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)를
+생성한다.
+스케줄러는 파드를 노드에 할당할 때 노드의 테인트를 고려한다.
 또한 파드는 노드에 특정 테인트가 있더라도 해당 노드에서 동작하도록 
 {{< glossary_tooltip text="톨러레이션(toleration)" term_id="toleration" >}}을 가질 수 있다.
 
@@ -235,9 +254,11 @@ API 서버로부터 삭제되어 그 이름을 사용할 수 있는 결과를 �
 
 ### 정보
 
-커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), 컨테이너 런타임 상세 정보 및 노드가 사용하는 운영 체계가 무엇인지와 같은 노드에 대한 일반적인 정보가 기술된다.
-
-이 정보는 Kubelet이 노드로부터 수집해서 쿠버네티스 API로 이를 보낸다.
+커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), 컨테이너
+런타임 상세 정보 및 노드가 사용하는 운영 체제가 무엇인지와 같은
+노드에 대한 일반적인 정보가 기술된다.
+이 정보는 Kubelet이 노드에서 수집하여
+쿠버네티스 API로 전송한다.
 
 ## 하트비트
 
@@ -248,20 +269,25 @@ API 서버로부터 삭제되어 그 이름을 사용할 수 있는 결과를 �
 
 * 노드의 `.status`에 대한 업데이트
 * `kube-node-lease`
-  {{< glossary_tooltip term_id="namespace" text="네임스페이스">}} 내의 [리스(Lease)](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) 오브젝트.
-  각 노드는 연관된 리스 오브젝트를 갖는다.
+  {{< glossary_tooltip term_id="namespace" text="네임스페이스">}}
+  내의 [리스(Lease)](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
+  오브젝트. 각 노드는 연관된 리스 오브젝트를 갖는다.
 
-노드의 `.status`와 비교해서, 리스는 경량의 리소스이다.
-큰 규모의 클러스터에서는 리스를 하트비트에 사용해서 업데이트를 위해 필요한 성능 영향도를 줄일 수 있다.
+노드의 `.status`에 비하면, 리스는 경량의 리소스이다.
+큰 규모의 클러스터에서는 리스를 하트비트에 사용하여 
+업데이트로 인한 성능 영향을 줄일 수 있다.
 
 kubelet은 노드의 `.status` 생성과 업데이트 및
 관련된 리스의 업데이트를 담당한다. 
 
-- kubelet은 상태가 변경되거나 설정된 인터벌보다 오래 업데이트가 없는 경우 노드의 `.status`를 업데이트한다.
-  노드의 `.status` 업데이트에 대한 기본 인터벌은 접근이 불가능한 노드에 대한 타임아웃인 40초 보다 훨씬 긴 5분이다.
-- kubelet은 리스 오브젝트를 (기본 업데이트 인터벌인) 매 10초마다 생성하고 업데이트한다.
-  리스 업데이트는 노드의 `.status` 업데이트와는 독립적이다.
-  만약 리스 업데이트가 실패하면, kubelet은 200밀리초에서 시작하고 7초의 상한을 갖는 지수적 백오프를 사용해서 재시도한다.
+- kubelet은 상태가 변경되거나 설정된 인터벌보다 오래 업데이트가 없는 경우
+  노드의 `.status`를 업데이트한다. 노드의 `.status` 업데이트에 대한 기본
+  인터벌은 접근이 불가능한 노드에 대한 타임아웃인
+  40초 보다 훨씬 긴 5분이다.
+- kubelet은 리스 오브젝트를 (기본 업데이트 인터벌인) 매 10초마다
+  생성하고 업데이트한다. 리스 업데이트는 노드의 `.status` 업데이트와는 독립적이다.
+  만약 리스 업데이트가 실패하면, kubelet은 200밀리초에서 시작하고
+  7초의 상한을 갖는 지수적 백오프를 사용해서 재시도한다.
 
 
 ### 노드 컨트롤러
@@ -278,13 +304,16 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
 해당 노드용 VM이 여전히 사용 가능한지에 대해 클라우드 제공사업자에게 묻는다. 사용 가능하지 않을 경우,
 노드 컨트롤러는 노드 리스트로부터 그 노드를 삭제한다.
 
-세 번째는 노드의 동작 상태를 모니터링 하는 것이다. 노드 컨트롤러는
+세 번째는 노드의 동작 상태를 모니터링하는 것이다. 노드 컨트롤러는
 다음을 담당한다.
-- 노드가 접근이 불가능한 상태가되는 경우, 노드의 `.status` 내에 있는 NodeReady 컨디션을 업데이트한다.
+- 노드가 접근 불가능(unreachable) 상태가 되는 경우, 노드의 `.status`
+  내에 있는 NodeReady 컨디션을 업데이트한다.
   이 경우에는 노드 컨트롤러가 NodeReady 컨디션을 `ConditionUnknown`으로 설정한다.
-- 노드에 계속 접근이 불가능한 상태로 남아있는 경우에는 해당 노드의 모든 파드에 대해서
-  [API를 이용한 축출](/docs/concepts/scheduling-eviction/api-eviction/)을 트리거한다.
-  기본적으로, 노드 컨트롤러는 노드를 `ConditionUnknown`으로 마킹한 뒤 5분을 기다렸다가 최초의 축출 요청을 시작한다. 
+- 노드가 계속 접근 불가능 상태로 남아있는 경우, 해당 노드의 모든 파드에 대해서
+  [API를 이용한 축출](/ko/docs/concepts/scheduling-eviction/api-eviction/)을
+  트리거한다. 기본적으로, 노드 컨트롤러는 노드를
+  `ConditionUnknown`으로 마킹한 뒤 5분을 기다렸다가
+  최초의 축출 요청을 시작한다. 
 
 노드 컨트롤러는 매 `--node-monitor-period` 초 마다 각 노드의 상태를 체크한다.
 
@@ -315,7 +344,10 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
 그러므로, 하나의 영역 내 모든 노드들이 상태가 불량하면 노드 컨트롤러는
 `--node-eviction-rate` 의 정상 속도로 축출한다. 코너 케이스란 모든 영역이
 완전히 상태불량(클러스터 내 양호한 노드가 없는 경우)한 경우이다.
-이러한 경우, 노드 컨트롤러는 컨트롤 플레인과 노드 간 연결에 문제가 있는 것으로 간주하고 축출을 실행하지 않는다. (중단 이후 일부 노드가 다시 보이는 경우 노드 컨트롤러는 상태가 양호하지 않거나 접근이 불가능한 나머지 노드에서 파드를 축출한다.)
+이러한 경우, 노드 컨트롤러는 컨트롤 플레인과 노드 간 연결에 문제가
+있는 것으로 간주하고 축출을 실행하지 않는다. (중단 이후 일부 노드가
+다시 보이는 경우 노드 컨트롤러는 상태가 양호하지 않거나 접근이 불가능한
+나머지 노드에서 파드를 축출한다.)
 
 또한, 노드 컨트롤러는 파드가 테인트를 허용하지 않을 때 `NoExecute` 테인트 상태의
 노드에서 동작하는 파드에 대한 축출 책임을 가지고 있다.
@@ -377,19 +409,19 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 그레이스풀 셧다운 중에 kubelet은 다음의 두 단계로 파드를 종료한다.
 
 1. 노드에서 실행 중인 일반 파드를 종료시킨다.
-2. 노드에서 실행 중인 [중요(critical) 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)를 종료시킨다.
+2. 노드에서 실행 중인 [중요(critical) 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료시킨다.
 
 그레이스풀 노드 셧다운 기능은 두 개의 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) 옵션으로 구성된다.
 * `ShutdownGracePeriod`:
-  * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 이것은 모든 일반 및 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 파드 종료에 필요한 총 유예 기간에 해당한다.
+  * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 이것은 모든 일반 및 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 파드 종료에 필요한 총 유예 기간에 해당한다.
 * `ShutdownGracePeriodCriticalPods`:
-  * 노드 종료 중에 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `ShutdownGracePeriod` 보다 작아야 한다.
+  * 노드 종료 중에 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `ShutdownGracePeriod` 보다 작아야 한다.
 
 예를 들어, `ShutdownGracePeriod=30s`,
 `ShutdownGracePeriodCriticalPods=10s` 인 경우, kubelet은 노드 종료를 30초까지
 지연시킨다. 종료하는 동안 처음 20(30-10)초는 일반 파드의
 유예 종료에 할당되고, 마지막 10초는
-[중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 종료에 할당된다.
+[중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 종료에 할당된다.
 
 {{< note >}}
 그레이스풀 노드 셧다운 과정에서 축출된 파드는 `Failed` 라고 표시된다.

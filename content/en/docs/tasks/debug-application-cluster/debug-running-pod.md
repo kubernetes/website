@@ -73,7 +73,7 @@ For more details, see [Get a Shell to a Running Container](
 
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
 are useful for interactive troubleshooting when `kubectl exec` is insufficient
@@ -82,12 +82,6 @@ utilities, such as with [distroless images](
 https://github.com/GoogleContainerTools/distroless).
 
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
-
-{{< note >}}
-The examples in this section require the `EphemeralContainers` [feature gate](
-/docs/reference/command-line-tools-reference/feature-gates/) enabled in your
-cluster and `kubectl` version v1.22 or later.
-{{< /note >}}
 
 You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
