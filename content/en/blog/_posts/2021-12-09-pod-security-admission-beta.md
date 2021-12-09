@@ -770,7 +770,7 @@ Listed as "optional future extensions" and currently out of scope, SIG Auth has 
 
 Pod Security is a promising new feature that provides an out-of-the-box way to allow users to improve the security posture of their workloads. Like any new enhancement that has matured to beta, we ask that you try it out, provide feedback, or share your experience via either raising a Github issue or joining SIG Auth community meetings. It's our hope that Pod Security will be deployed on every cluster in our ongoing pursuit as a community to make Kubernetes security a priority.
 
-For a step by step guide on how to enable "baseline" Pod Security Standards with Pod Security Admission feature please refer to these dedicated [tutorials](/docs/tutorials/pod-security) that cover the configuration needed at cluster level and namespace level.
+For a step by step guide on how to enable "baseline" Pod Security Standards with Pod Security Admission feature please refer to these dedicated [tutorials](/docs/tutorials/security/) that cover the configuration needed at cluster level and namespace level.
 
 ## Additional resources
 
