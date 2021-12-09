@@ -34,8 +34,7 @@ CA for this purpose, but you should never rely on this. Do not assume that
 these certificates will validate against the cluster root CA.
 -->
 使用 `certificates.k8s.io` API 创建的证书由指定 CA 颁发。将集群配置为使用集群根目录
-CA 可以达到这个目的，但是你永远不要依赖这一假定。不要以为
-这些证书将针对群根目录 CA 进行验证。
+CA 可以达到这个目的，但是你永远不要依赖这一假定。不要以为这些证书将针对群根目录 CA 进行验证。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
