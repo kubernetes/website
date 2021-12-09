@@ -82,6 +82,10 @@ DaemonSetSpec is the specification of a daemon set.
   - **updateStrategy.type** (string)
 
     Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+    
+    Possible enum values:
+     - `"OnDelete"` Replace the old daemons only when it's killed
+     - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
 
   - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
 
@@ -120,7 +124,7 @@ DaemonSetStatus represents the current status of a daemon set.
 
 - **numberReady** (int32), required
 
-  The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+  numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
 
 - **numberAvailable** (int32)
 
@@ -461,6 +465,11 @@ POST /apis/apps/v1/namespaces/{namespace}/daemonsets
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -513,6 +522,11 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -563,6 +577,11 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -611,6 +630,11 @@ PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
@@ -666,6 +690,11 @@ PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

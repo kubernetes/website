@@ -493,14 +493,13 @@ Default: "5m"</td>
 <code>int32</code>
 </td>
 <td>
-   nodeLeaseDurationSeconds is the duration the Kubelet will set on its corresponding Lease,
-when the NodeLease feature is enabled. This feature provides an indicator of node
-health by having the Kubelet create and periodically renew a lease, named after the node,
-in the kube-node-lease namespace. If the lease expires, the node can be considered unhealthy.
-The lease is currently renewed every 10s, per KEP-0009. In the future, the lease renewal interval
-may be set based on the lease duration.
+   nodeLeaseDurationSeconds is the duration the Kubelet will set on its corresponding Lease.
+NodeLease provides an indicator of node health by having the Kubelet create and
+periodically renew a lease, named after the node, in the kube-node-lease namespace.
+If the lease expires, the node can be considered unhealthy.
+The lease is currently renewed every 10s, per KEP-0009. In the future, the lease renewal
+interval may be set based on the lease duration.
 The field value must be greater than 0.
-Requires the NodeLease feature gate to be enabled.
 If DynamicKubeletConfig (deprecated; default off) is on, when
 dynamically updating this field, consider that
 decreasing the duration may reduce tolerance for issues that temporarily prevent
@@ -514,11 +513,9 @@ Default: 40</td>
 </td>
 <td>
    imageMinimumGCAge is the minimum age for an unused image before it is
-garbage collected.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may trigger or delay garbage collection, and may change the image overhead
-on the node.
+garbage collected. If DynamicKubeletConfig (deprecated; default off)
+is on, when dynamically updating this field, consider that  it may trigger or
+delay garbage collection, and may change the image overhead on the node.
 Default: "2m"</td>
 </tr>
     
@@ -693,7 +690,7 @@ Valid values include:
   requested resources;
 - `best-effort`: kubelet will favor pods with NUMA alignment of CPU and device
   resources;
-- `none`: kublet has no knowledge of NUMA alignment of a pod's CPU and device resources.
+- `none`: kubelet has no knowledge of NUMA alignment of a pod's CPU and device resources.
 - `single-numa-node`: kubelet only allows pods with a single NUMA alignment
   of CPU and device resources.
 
@@ -819,6 +816,7 @@ If DynamicKubeletConfig (deprecated; default off) is on, when
 dynamically updating this field, consider that
 changes will only take effect on Pods created after the update. Draining
 the node is recommended before changing this field.
+If set to the empty string, will override the default and effectively disable DNS lookups.
 Default: "/etc/resolv.conf"</td>
 </tr>
     
@@ -1417,6 +1415,39 @@ Default: "0s"</td>
 </tr>
     
   
+<tr><td><code>shutdownGracePeriodByPodPriority</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ShutdownGracePeriodByPodPriority"><code>[]ShutdownGracePeriodByPodPriority</code></a>
+</td>
+<td>
+   shutdownGracePeriodByPodPriority specifies the shutdown grace period for Pods based
+on their associated priority class value.
+When a shutdown request is received, the Kubelet will initiate shutdown on all pods
+running on the node with a grace period that depends on the priority of the pod,
+and then wait for all pods to exit.
+Each entry in the array represents the graceful shutdown time a pod with a priority
+class value that lies in the range of that value and the next higher entry in the
+list when the node is shutting down.
+For example, to allow critical pods 10s to shutdown, priority>=10000 pods 20s to
+shutdown, and all remaining pods 30s to shutdown.
+
+shutdownGracePeriodByPodPriority:
+  - priority: 2000000000
+    shutdownGracePeriodSeconds: 10
+  - priority: 10000
+    shutdownGracePeriodSeconds: 20
+  - priority: 0
+    shutdownGracePeriodSeconds: 30
+
+The time the Kubelet will wait before exiting will at most be the maximum of all
+shutdownGracePeriodSeconds for each priority class range represented on the node.
+When all pods have exited or reached their grace periods, the Kubelet will release
+the shutdown inhibit lock.
+Requires the GracefulNodeShutdown feature gate to be enabled.
+This configuration must be empty if either ShutdownGracePeriod or ShutdownGracePeriodCriticalPods is set.
+Default: nil</td>
+</tr>
+    
+  
 <tr><td><code>reservedMemory</code><br/>
 <a href="#kubelet-config-k8s-io-v1beta1-MemoryReservation"><code>[]MemoryReservation</code></a>
 </td>
@@ -1482,6 +1513,26 @@ Decreasing this factor will set lower high limit for container cgroups and put h
 while increasing will put less reclaim pressure.
 See http://kep.k8s.io/2570 for more details.
 Default: 0.8</td>
+</tr>
+    
+  
+<tr><td><code>registerWithTaints</code><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+</td>
+<td>
+   registerWithTaints are an array of taints to add to a node object when
+the kubelet registers itself. This only takes effect when registerNode
+is true and upon the initial registration of the node.
+Default: nil</td>
+</tr>
+    
+  
+<tr><td><code>registerNode</code><br/>
+<code>bool</code>
+</td>
+<td>
+   registerNode enables automatic registration with the apiserver.
+Default: true</td>
 </tr>
     
   
@@ -1879,9 +1930,117 @@ managers (secret, configmap) are discovering object changes.
 
 
     
+
+
+## `ShutdownGracePeriodByPodPriority`     {#kubelet-config-k8s-io-v1beta1-ShutdownGracePeriodByPodPriority}
+    
+
+
+
+**Appears in:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+ShutdownGracePeriodByPodPriority specifies the shutdown grace period for Pods based on their associated priority class value
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>priority</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   priority is the priority value associated with the shutdown grace period</td>
+</tr>
+    
+  
+<tr><td><code>shutdownGracePeriodSeconds</code> <B>[Required]</B><br/>
+<code>int64</code>
+</td>
+<td>
+   shutdownGracePeriodSeconds is the shutdown grace period in seconds</td>
+</tr>
+    
+  
+</tbody>
+</table>
+    
   
   
     
+
+## `FormatOptions`     {#FormatOptions}
+    
+
+
+
+**Appears in:**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+
+FormatOptions contains options for the different logging formats.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>json</code> <B>[Required]</B><br/>
+<a href="#JSONOptions"><code>JSONOptions</code></a>
+</td>
+<td>
+   [Experimental] JSON contains options for logging format "json".</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `JSONOptions`     {#JSONOptions}
+    
+
+
+
+**Appears in:**
+
+- [FormatOptions](#FormatOptions)
+
+
+JSONOptions contains options for logging format "json".
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>splitStream</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   [Experimental] SplitStream redirects error messages to stderr while
+info messages go to stdout, with buffering. The default is to write
+both to stdout, without buffering.</td>
+</tr>
+    
+  
+<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
+<code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code>
+</td>
+<td>
+   [Experimental] InfoBufferSize sets the size of the info stream when
+using split streams. The default is zero, which disables buffering.</td>
+</tr>
+    
+  
+</tbody>
+</table>
 
 ## `LoggingConfiguration`     {#LoggingConfiguration}
     
@@ -1911,6 +2070,35 @@ default value of format is `text`</td>
 </tr>
     
   
+<tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
+<a href="https://godoc.org/time#Duration"><code>time.Duration</code></a>
+</td>
+<td>
+   Maximum number of seconds between log flushes. Ignored if the
+selected logging backend writes log messages without buffering.</td>
+</tr>
+    
+  
+<tr><td><code>verbosity</code> <B>[Required]</B><br/>
+<code>uint32</code>
+</td>
+<td>
+   Verbosity is the threshold that determines which log messages are
+logged. Default is zero which logs only the most important
+messages. Higher values enable additional messages. Error messages
+are always logged.</td>
+</tr>
+    
+  
+<tr><td><code>vmodule</code> <B>[Required]</B><br/>
+<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
+</td>
+<td>
+   VModule overrides the verbosity threshold for individual files.
+Only supported for "text" log format.</td>
+</tr>
+    
+  
 <tr><td><code>sanitization</code> <B>[Required]</B><br/>
 <code>bool</code>
 </td>
@@ -1920,5 +2108,30 @@ Runtime log sanitization may introduce significant computation overhead and ther
 </tr>
     
   
+<tr><td><code>options</code> <B>[Required]</B><br/>
+<a href="#FormatOptions"><code>FormatOptions</code></a>
+</td>
+<td>
+   [Experimental] Options holds additional parameters that are specific
+to the different logging formats. Only the options for the selected
+format get used, but all of them get validated.</td>
+</tr>
+    
+  
 </tbody>
 </table>
+
+## `VModuleConfiguration`     {#VModuleConfiguration}
+    
+(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
+
+
+**Appears in:**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+
+VModuleConfiguration is a collection of individual file names or patterns
+and the corresponding verbosity threshold.
+
+

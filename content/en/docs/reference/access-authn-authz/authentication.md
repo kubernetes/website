@@ -104,7 +104,7 @@ See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for ho
 ### Static Token File
 
 The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
-changed without restarting API server.
+changed without restarting the API server.
 
 The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
 followed by optional group names.

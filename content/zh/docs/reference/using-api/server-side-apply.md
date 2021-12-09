@@ -840,7 +840,7 @@ with an empty entry. Two examples are:
 可以从对象中剥离所有 managedField，
 实现方法是通过使用 `MergePatch`、 `StrategicMergePatch`、
 `JSONPatch`、 `Update`、以及所有的非应用方式的操作来覆盖它。
-这可以通过用空条目覆盖 managedFields 字段的方式实现。
+这可以通过用空条目覆盖 managedFields 字段的方式实现。以下是两个示例：
 
 ```console
 PATCH /api/v1/namespaces/default/configmaps/example-cm

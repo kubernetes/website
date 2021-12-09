@@ -9,7 +9,7 @@ weight: 45
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 _Topology Aware Hints_ enable topology aware routing by including suggestions
 for how clients should consume endpoints. This approach adds metadata to enable
@@ -35,8 +35,7 @@ can then consume those hints, and use them to influence how traffic to is routed
 
 ## Using Topology Aware Hints
 
-If you have [enabled](/docs/tasks/administer-cluster/enabling-topology-aware-hints) the
-overall feature, you can activate Topology Aware Hints for a Service by setting the
+You can activate Topology Aware Hints for a Service by setting the
 `service.kubernetes.io/topology-aware-hints` annotation to `auto`. This tells
 the EndpointSlice controller to set topology hints if it is deemed safe.
 Importantly, this does not guarantee that hints will always be set.
@@ -156,5 +155,4 @@ zone.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [enabling Topology Aware Hints](/docs/tasks/administer-cluster/enabling-topology-aware-hints/)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)

@@ -156,7 +156,7 @@ sysctl 설정이 필요한 노드에만 파드를 예약하는 것이 좋다.
 두 _unsafe_ sysctl을 명시적으로 활성화하지 않은 노드에서 _unsafe_ sysctl을 사용하는 
 파드가 시작되지 않는다. _node-level_ sysctl과 마찬가지로 
 [_테인트와 톨러레이션_ 특징](/docs/reference/generated/kubectl/kubectl-commands/#taint) 또는 
-[노드 테인트](/docs/concepts/scheduling-eviction/taint-and-toleration/)를 
+[노드 테인트](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)를 
 사용하여 해당 파드를 오른쪽 노드에 
 스케줄하는 것을 추천한다.
 

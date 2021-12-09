@@ -7,7 +7,7 @@ $announcement-size-adjustment: 8px;
   }
 
   main {
-    img {
+    *:not(figure) > img {
       max-width: 100%;
     }
 
@@ -601,7 +601,7 @@ body.td-documentation {
 #announcement {
   > * {
     color: inherit;
-    background: inherit;
+    background: transparent;
   }
 
   a {
@@ -695,6 +695,26 @@ body.td-documentation {
 @media (min-width: 768px) {
   #announcement + .header-hero {
     display: none;
+  }
+}
+
+figure {
+  > figcaption {
+    padding-top: 1em;
+    margin-bottom: 3em;
+  }
+}
+
+// Clamp size for release logos
+figure.release-logo {
+  > figcaption {
+    font-size: 1.8em;
+  }
+  > img {
+    max-width: 100%;
+    max-height: calc(max(40em,min(80vh,70em)));
+    height: auto;
+    width: auto;
   }
 }
 

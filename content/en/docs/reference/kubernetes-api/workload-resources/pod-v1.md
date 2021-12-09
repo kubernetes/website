@@ -87,6 +87,21 @@ PodSpec is a description of a pod.
 
   EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
 
+- **os** (PodOS)
+
+  Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
+  
+  If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
+  
+  If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+
+  <a name="PodOS"></a>
+  *PodOS defines the OS parameters of a pod.*
+
+  - **os.name** (string), required
+
+    Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
+
 ### Volumes
 
 
@@ -140,6 +155,10 @@ PodSpec is a description of a pod.
   - **tolerations.operator** (string)
 
     Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+    
+    Possible enum values:
+     - `"Equal"`
+     - `"Exists"`
 
   - **tolerations.value** (string)
 
@@ -148,6 +167,11 @@ PodSpec is a description of a pod.
   - **tolerations.effect** (string)
 
     Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+    
+    Possible enum values:
+     - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+     - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+     - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 
   - **tolerations.tolerationSeconds** (int64)
 
@@ -193,7 +217,11 @@ PodSpec is a description of a pod.
     WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
       but giving higher precedence to topologies that would help reduce the
       skew.
-    A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assigment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+    A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+    
+    Possible enum values:
+     - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
+     - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
 
   - **topologySpreadConstraints.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -205,6 +233,11 @@ PodSpec is a description of a pod.
 - **restartPolicy** (string)
 
   Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+  
+  Possible enum values:
+   - `"Always"`
+   - `"Never"`
+   - `"OnFailure"`
 
 - **terminationGracePeriodSeconds** (int64)
 
@@ -224,6 +257,12 @@ PodSpec is a description of a pod.
   - **readinessGates.conditionType** (string), required
 
     ConditionType refers to a condition in the pod's condition list with matching type.
+    
+    Possible enum values:
+     - `"ContainersReady"` indicates whether all containers in the pod are ready.
+     - `"Initialized"` means that all init containers in the pod have started successfully.
+     - `"PodScheduled"` represents status of the scheduling process for this pod.
+     - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 
 ### Hostname and Name resolution
 
@@ -289,6 +328,12 @@ PodSpec is a description of a pod.
 - **dnsPolicy** (string)
 
   Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+  
+  Possible enum values:
+   - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+   - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+   - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
+   - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 
 ### Hosts namespaces
 
@@ -332,7 +377,7 @@ PodSpec is a description of a pod.
 
   - **securityContext.runAsUser** (int64)
 
-    The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+    The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.runAsNonRoot** (boolean)
 
@@ -340,11 +385,11 @@ PodSpec is a description of a pod.
 
   - **securityContext.runAsGroup** (int64)
 
-    The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+    The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.supplementalGroups** ([]int64)
 
-    A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
+    A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.fsGroup** (int64)
 
@@ -352,15 +397,15 @@ PodSpec is a description of a pod.
     
     1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
     
-    If unset, the Kubelet will not modify the ownership and permissions of any volume.
+    If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.fsGroupChangePolicy** (string)
 
-    fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
+    fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.seccompProfile** (SeccompProfile)
 
-    The seccomp options to use by the containers in this pod.
+    The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="SeccompProfile"></a>
     *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
@@ -370,6 +415,11 @@ PodSpec is a description of a pod.
       type indicates which kind of seccomp profile will be applied. Valid options are:
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+      
+      Possible enum values:
+       - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to \<kubelet-root-dir>/seccomp.
+       - `"RuntimeDefault"` represents the default container runtime seccomp profile.
+       - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -377,7 +427,7 @@ PodSpec is a description of a pod.
 
   - **securityContext.seLinuxOptions** (SELinuxOptions)
 
-    The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+    The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="SELinuxOptions"></a>
     *SELinuxOptions are the labels to be applied to the container*
@@ -400,7 +450,7 @@ PodSpec is a description of a pod.
 
   - **securityContext.sysctls** ([]Sysctl)
 
-    Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
+    Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="Sysctl"></a>
     *Sysctl defines a kernel parameter to be set*
@@ -415,7 +465,7 @@ PodSpec is a description of a pod.
 
   - **securityContext.windowsOptions** (WindowsSecurityContextOptions)
 
-    The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 
     <a name="WindowsSecurityContextOptions"></a>
     *WindowsSecurityContextOptions contain Windows-specific options and credentials.*
@@ -454,7 +504,7 @@ PodSpec is a description of a pod.
 
   *Patch strategy: merge on key `name`*
   
-  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is alpha-level and is only honored by servers that enable the EphemeralContainers feature.
+  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 
 ### Deprecated
 
@@ -487,6 +537,11 @@ A single application container that you want to run within a pod.
 - **imagePullPolicy** (string)
 
   Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+  
+  Possible enum values:
+   - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+   - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+   - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 
 ### Entrypoint
 
@@ -536,6 +591,11 @@ A single application container that you want to run within a pod.
   - **ports.protocol** (string)
 
     Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+    
+    Possible enum values:
+     - `"SCTP"` is the SCTP protocol.
+     - `"TCP"` is the TCP protocol.
+     - `"UDP"` is the UDP protocol.
 
 ### Environment variables
 
@@ -736,13 +796,13 @@ A single application container that you want to run within a pod.
   <a name="Lifecycle"></a>
   *Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.*
 
-  - **lifecycle.postStart** (<a href="{{< ref "../workload-resources/pod-v1#Handler" >}}">Handler</a>)
+  - **lifecycle.postStart** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
 
     PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 
-  - **lifecycle.preStop** (<a href="{{< ref "../workload-resources/pod-v1#Handler" >}}">Handler</a>)
+  - **lifecycle.preStop** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
 
-    PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+    PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 
 - **terminationMessagePath** (string)
 
@@ -751,6 +811,10 @@ A single application container that you want to run within a pod.
 - **terminationMessagePolicy** (string)
 
   Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+  
+  Possible enum values:
+   - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
+   - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 
 - **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
 
@@ -776,7 +840,7 @@ A single application container that you want to run within a pod.
 
   - **securityContext.runAsUser** (int64)
 
-    The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.runAsNonRoot** (boolean)
 
@@ -784,27 +848,27 @@ A single application container that you want to run within a pod.
 
   - **securityContext.runAsGroup** (int64)
 
-    The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.readOnlyRootFilesystem** (boolean)
 
-    Whether this container has a read-only root filesystem. Default is false.
+    Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.procMount** (string)
 
-    procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.
+    procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.privileged** (boolean)
 
-    Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.
+    Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.allowPrivilegeEscalation** (boolean)
 
-    AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN
+    AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.capabilities** (Capabilities)
 
-    The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime.
+    The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="Capabilities"></a>
     *Adds and removes POSIX capabilities from running containers.*
@@ -819,7 +883,7 @@ A single application container that you want to run within a pod.
 
   - **securityContext.seccompProfile** (SeccompProfile)
 
-    The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+    The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="SeccompProfile"></a>
     *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
@@ -829,6 +893,11 @@ A single application container that you want to run within a pod.
       type indicates which kind of seccomp profile will be applied. Valid options are:
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+      
+      Possible enum values:
+       - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to \<kubelet-root-dir>/seccomp.
+       - `"RuntimeDefault"` represents the default container runtime seccomp profile.
+       - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -836,7 +905,7 @@ A single application container that you want to run within a pod.
 
   - **securityContext.seLinuxOptions** (SELinuxOptions)
 
-    The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="SELinuxOptions"></a>
     *SELinuxOptions are the labels to be applied to the container*
@@ -859,7 +928,7 @@ A single application container that you want to run within a pod.
 
   - **securityContext.windowsOptions** (WindowsSecurityContextOptions)
 
-    The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 
     <a name="WindowsSecurityContextOptions"></a>
     *WindowsSecurityContextOptions contain Windows-specific options and credentials.*
@@ -899,7 +968,11 @@ A single application container that you want to run within a pod.
 
 ## EphemeralContainer {#EphemeralContainer}
 
-An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a pod is removed or restarted. If an ephemeral container causes a pod to exceed its resource allocation, the pod may be evicted. Ephemeral containers may not be added by directly updating the pod spec. They must be added via the pod's ephemeralcontainers subresource, and they will appear in the pod spec once added. This is an alpha feature enabled by the EphemeralContainers feature flag.
+An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
+
+To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+
+This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
 
 <hr>
 
@@ -909,7 +982,9 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
 - **targetContainerName** (string)
 
-  If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container is run in whatever namespaces are shared for the pod. Note that the container runtime must support this feature.
+  If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container uses the namespaces configured in the Pod spec.
+  
+  The container runtime must implement support for this feature. If the runtime does not support namespace targeting then the result of setting this field is undefined.
 
 
 
@@ -923,6 +998,11 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 - **imagePullPolicy** (string)
 
   Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+  
+  Possible enum values:
+   - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+   - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+   - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 
 ### Entrypoint
 
@@ -1064,7 +1144,7 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
   *Patch strategy: merge on key `mountPath`*
   
-  Pod volumes to mount into the container's filesystem. Cannot be updated.
+  Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers. Cannot be updated.
 
   <a name="VolumeMount"></a>
   *VolumeMount describes a mounting of a Volume within a container.*
@@ -1120,6 +1200,10 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 - **terminationMessagePolicy** (string)
 
   Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+  
+  Possible enum values:
+   - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
+   - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 
 ### Debugging
 
@@ -1141,6 +1225,10 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
 - **ports** ([]ContainerPort)
 
+  *Patch strategy: merge on key `containerPort`*
+  
+  *Map: unique values on keys `containerPort, protocol` will be kept during a merge*
+  
   Ports are not allowed for ephemeral containers.
 
   <a name="ContainerPort"></a>
@@ -1165,6 +1253,11 @@ An EphemeralContainer is a container that may be added temporarily to an existin
   - **ports.protocol** (string)
 
     Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+    
+    Possible enum values:
+     - `"SCTP"` is the SCTP protocol.
+     - `"TCP"` is the TCP protocol.
+     - `"UDP"` is the UDP protocol.
 
 - **resources** (ResourceRequirements)
 
@@ -1188,13 +1281,13 @@ An EphemeralContainer is a container that may be added temporarily to an existin
   <a name="Lifecycle"></a>
   *Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.*
 
-  - **lifecycle.postStart** (<a href="{{< ref "../workload-resources/pod-v1#Handler" >}}">Handler</a>)
+  - **lifecycle.postStart** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
 
     PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 
-  - **lifecycle.preStop** (<a href="{{< ref "../workload-resources/pod-v1#Handler" >}}">Handler</a>)
+  - **lifecycle.preStop** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
 
-    PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+    PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 
 - **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
 
@@ -1213,7 +1306,7 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
   - **securityContext.runAsUser** (int64)
 
-    The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.runAsNonRoot** (boolean)
 
@@ -1221,27 +1314,27 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
   - **securityContext.runAsGroup** (int64)
 
-    The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.readOnlyRootFilesystem** (boolean)
 
-    Whether this container has a read-only root filesystem. Default is false.
+    Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.procMount** (string)
 
-    procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.
+    procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.privileged** (boolean)
 
-    Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.
+    Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.allowPrivilegeEscalation** (boolean)
 
-    AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN
+    AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.capabilities** (Capabilities)
 
-    The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime.
+    The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="Capabilities"></a>
     *Adds and removes POSIX capabilities from running containers.*
@@ -1256,7 +1349,7 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
   - **securityContext.seccompProfile** (SeccompProfile)
 
-    The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+    The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="SeccompProfile"></a>
     *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
@@ -1266,6 +1359,11 @@ An EphemeralContainer is a container that may be added temporarily to an existin
       type indicates which kind of seccomp profile will be applied. Valid options are:
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+      
+      Possible enum values:
+       - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to \<kubelet-root-dir>/seccomp.
+       - `"RuntimeDefault"` represents the default container runtime seccomp profile.
+       - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -1273,7 +1371,7 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
   - **securityContext.seLinuxOptions** (SELinuxOptions)
 
-    The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="SELinuxOptions"></a>
     *SELinuxOptions are the labels to be applied to the container*
@@ -1296,7 +1394,7 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
   - **securityContext.windowsOptions** (WindowsSecurityContextOptions)
 
-    The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 
     <a name="WindowsSecurityContextOptions"></a>
     *WindowsSecurityContextOptions contain Windows-specific options and credentials.*
@@ -1323,15 +1421,15 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
 
 
-## Handler {#Handler}
+## LifecycleHandler {#LifecycleHandler}
 
-Handler defines a specific action that should be taken
+LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
 
 <hr>
 
 - **exec** (ExecAction)
 
-  One and only one of the following should be specified. Exec specifies the action to take.
+  Exec specifies the action to take.
 
   <a name="ExecAction"></a>
   *ExecAction describes a "run in container" action.*
@@ -1380,10 +1478,14 @@ Handler defines a specific action that should be taken
   - **httpGet.scheme** (string)
 
     Scheme to use for connecting to the host. Defaults to HTTP.
+    
+    Possible enum values:
+     - `"HTTP"` means that the scheme used will be http://
+     - `"HTTPS"` means that the scheme used will be https://
 
 - **tcpSocket** (TCPSocketAction)
 
-  TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+  Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
 
   <a name="TCPSocketAction"></a>
   *TCPSocketAction describes an action based on opening a socket*
@@ -1603,7 +1705,7 @@ Probe describes a health check to be performed against a container to determine 
 
 - **exec** (ExecAction)
 
-  One and only one of the following should be specified. Exec specifies the action to take.
+  Exec specifies the action to take.
 
   <a name="ExecAction"></a>
   *ExecAction describes a "run in container" action.*
@@ -1652,10 +1754,14 @@ Probe describes a health check to be performed against a container to determine 
   - **httpGet.scheme** (string)
 
     Scheme to use for connecting to the host. Defaults to HTTP.
+    
+    Possible enum values:
+     - `"HTTP"` means that the scheme used will be http://
+     - `"HTTPS"` means that the scheme used will be https://
 
 - **tcpSocket** (TCPSocketAction)
 
-  TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+  TCPSocket specifies an action involving a TCP port.
 
   <a name="TCPSocketAction"></a>
   *TCPSocketAction describes an action based on opening a socket*
@@ -1695,6 +1801,23 @@ Probe describes a health check to be performed against a container to determine 
 
   Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
 
+- **grpc** (GRPCAction)
+
+  GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+
+  <a name="GRPCAction"></a>
+  **
+
+  - **grpc.port** (int32), required
+
+    Port number of the gRPC service. Number must be in the range 1 to 65535.
+
+  - **grpc.service** (string)
+
+    Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+    
+    If this is not specified, the default behavior is defined by gRPC.
+
 
 
 
@@ -1727,6 +1850,13 @@ PodStatus represents information about the status of a pod. Status may trail the
   Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
   
   More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
+  
+  Possible enum values:
+   - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
+   - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
+   - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
+   - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
+   - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 
 - **message** (string)
 
@@ -1770,6 +1900,12 @@ PodStatus represents information about the status of a pod. Status may trail the
   - **conditions.type** (string), required
 
     Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+    
+    Possible enum values:
+     - `"ContainersReady"` indicates whether all containers in the pod are ready.
+     - `"Initialized"` means that all init containers in the pod have started successfully.
+     - `"PodScheduled"` represents status of the scheduling process for this pod.
+     - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 
   - **conditions.lastProbeTime** (Time)
 
@@ -1796,6 +1932,11 @@ PodStatus represents information about the status of a pod. Status may trail the
 - **qosClass** (string)
 
   The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+  
+  Possible enum values:
+   - `"BestEffort"` is the BestEffort qos class.
+   - `"Burstable"` is the Burstable qos class.
+   - `"Guaranteed"` is the Guaranteed qos class.
 
 - **initContainerStatuses** ([]ContainerStatus)
 
@@ -1810,7 +1951,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **initContainerStatuses.image** (string), required
 
-    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
+    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
 
   - **initContainerStatuses.imageID** (string), required
 
@@ -1980,7 +2121,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **initContainerStatuses.restartCount** (int32), required
 
-    The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
+    The number of times the container has been restarted.
 
   - **initContainerStatuses.started** (boolean)
 
@@ -1999,7 +2140,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **containerStatuses.image** (string), required
 
-    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
+    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
 
   - **containerStatuses.imageID** (string), required
 
@@ -2169,7 +2310,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **containerStatuses.restartCount** (int32), required
 
-    The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
+    The number of times the container has been restarted.
 
   - **containerStatuses.started** (boolean)
 
@@ -2177,7 +2318,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
 - **ephemeralContainerStatuses** ([]ContainerStatus)
 
-  Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.
+  Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
@@ -2188,7 +2329,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **ephemeralContainerStatuses.image** (string), required
 
-    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
+    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
 
   - **ephemeralContainerStatuses.imageID** (string), required
 
@@ -2358,7 +2499,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **ephemeralContainerStatuses.restartCount** (int32), required
 
-    The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
+    The number of times the container has been restarted.
 
   - **ephemeralContainerStatuses.started** (boolean)
 
@@ -2747,6 +2888,11 @@ POST /api/v1/namespaces/{namespace}/pods
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -2799,6 +2945,11 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -2847,6 +2998,11 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string
@@ -2899,6 +3055,11 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -2947,6 +3108,11 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
@@ -3004,6 +3170,11 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -3057,6 +3228,11 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

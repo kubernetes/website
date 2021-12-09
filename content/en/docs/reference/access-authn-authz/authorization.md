@@ -134,7 +134,7 @@ The output is similar to this:
 no
 ```
 
-Similarly, to check whether a Service Account named `dev-sa` in Namespace `dev`
+Similarly, to check whether a ServiceAccount named `dev-sa` in Namespace `dev`
 can list Pods in the Namespace `target`:
 
 ```bash

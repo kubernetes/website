@@ -65,3 +65,12 @@ Metrics Server collects metrics from the Summary API, exposed by
 
 Learn more about the metrics server in
 [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
+
+### Summary API Source
+The [Kubelet](/docs/reference/command-line-tools-reference/kubelet/) gathers stats at node, volume, pod and container level, and omits
+them in the [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
+for consumers to read.
+
+Pre-1.23, these resources have been primarily gathered from [cAdvisor](https://github.com/google/cadvisor). However, in 1.23 with the
+introduction of the `PodAndContainerStatsFromCRI` FeatureGate, container and pod level stats can be gathered by the CRI implementation.
+Note: this also requires support from the CRI implementations (containerd >= 1.6.0, CRI-O >= 1.23.0).

@@ -151,6 +151,8 @@ and set this flag to `false`. For example:
 * For instructions on creating and working with CronJobs, and for an example
   of a CronJob manifest,
   see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
+* For instructions to clean up failed or completed jobs automatically,
+  see [Clean up Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 * `CronJob` is part of the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
   object definition to understand the API for Kubernetes cron jobs.

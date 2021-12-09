@@ -125,14 +125,14 @@ See the [webhook response](#response) section for the data expected from webhook
 
 <!--
 The example admission webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/config.go#L47-L48),
+[empty](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39),
 which defaults to `NoClientCert`. This means that the webhook server does not
 authenticate the identity of the clients, supposedly apiservers. If you need
 mutual TLS or other ways to authenticate the clients, see
 how to [authenticate apiservers](#authenticate-apiservers).
 -->
 示例准入 Webhook 服务器置 `ClientAuth` 字段为
-[空](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/config.go#L47-L48)，
+[空](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39)，
 默认为 `NoClientCert` 。这意味着 webhook 服务器不会验证客户端的身份，认为其是 apiservers。
 如果你需要双向 TLS 或其他方式来验证客户端，请参阅
 如何[对 apiservers 进行身份认证](#authenticate-apiservers)。
