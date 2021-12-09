@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "What's new in Security Profiles Operator v0.4.0"
-date: 2021-12-13
+date: 2021-12-17
 slug: security-profiles-operator
 ---
 
