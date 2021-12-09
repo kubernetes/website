@@ -809,8 +809,6 @@ Volume represents a named volume in a pod that may be accessed by any container 
   Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
   
   A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-  
-  This is a beta feature and only available when the GenericEphemeralVolume feature gate is enabled.
 
   <a name="EphemeralVolumeSource"></a>
   *Represents an ephemeral volume that is handled by a normal storage driver.*
