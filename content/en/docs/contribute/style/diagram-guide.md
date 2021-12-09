@@ -479,7 +479,7 @@ Proper captioning involves three components: diagram, diagram caption and the di
 
 **Diagram**
 
-Here is the `{{</* figure */>}}` shortcode for the diagram.
+Here is the `{{</* figure */>}}` shortcode for the diagram:
 ```text
 {{</* figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes pod running inside a cluster" class="diagram-large" */>}}
 ```
@@ -495,7 +495,7 @@ Next, add a diagram caption. You must use the following format:
 ```text
 <figcaption><p style="padding-left: 310px; font-weight: bold">Figure #. CAPTION TEXT</p></figcaption><br>
 ```
-Here are several items to consider when adding diagram captions. 
+Here are several items to consider when adding diagram captions: 
 
 * Use`<figcation></figcaption>` tags to add a diagram caption for `Inline`, `Mermaid+SVG` and `External Tool` diagrams. 
 * Wrap caption text inside `<p></p>` tags using `style="padding-left: 310px; font-weight: bold"`. This provides a consistent style for the caption text.
@@ -504,11 +504,11 @@ Here are several items to consider when adding diagram captions.
 * Position your diagram caption __BELOW__ your diagram.
 * You can hyperlink your caption using `<a></a>` tags.
 
-Caption for the `/images/docs/components-of-kubernetes.svg` diagram. 
+Here is the caption for the `/images/docs/components-of-kubernetes.svg` diagram: 
 ```text
 <figcaption><p style="padding-left: 310px; font-weight: bold">Figure 4. Kubernetes Architecture.</p></figcaption><br>
 ```
-Hyperlinked caption for the same diagram.
+Here is the hyperlinked caption for the same diagram:
 ```text
 <figcaption><a href="https://kubernetes.io/docs/concepts/overview/components/"><p style="padding-left: 310px; font-weight: bold">Figure 4. Kubernetes Architecture Test.</p></a></figcaption><br>
 ```
@@ -523,7 +523,7 @@ Here is an example of a caption referral included in your content text:
 ```text
 Figure 9 depicts the components of the Kubernetes architecture. The control plane ...
 ```
-Diagram referrals are optional and there are cases where they might not be suitable. If you are not sure, add a diagram referral to your text to see if it sounds okay. When in doubt, use a diagram referral.
+Diagram referrals are optional and there are cases where they might not be suitable. If you are not sure, add a diagram referral to your text to see if it looks and sounds okay. When in doubt, use a diagram referral.
 
 **Complete picture**
 
