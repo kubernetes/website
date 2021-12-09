@@ -124,7 +124,8 @@ resource type.
 ### Container image lifecycle
 
 Kubernetes manages the lifecycle of all images through its *image manager*,
-which is part of the kubelet, with the cooperation of cadvisor. The kubelet
+which is part of the kubelet, with the cooperation of 
+{{< glossary_tooltip text="cadvisor" term_id="cadvisor" >}}. The kubelet
 considers the following disk usage limits when making garbage collection
 decisions:
 
