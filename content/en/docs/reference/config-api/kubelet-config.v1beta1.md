@@ -14,6 +14,166 @@ auto_generated: true
   
     
 
+## `FormatOptions`     {#FormatOptions}
+    
+
+
+
+**Appears in:**
+- [LoggingConfiguration](#LoggingConfiguration)
+
+
+FormatOptions contains options for the different logging formats.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>json</code> <B>[Required]</B><br/>
+<a href="#JSONOptions"><code>JSONOptions</code></a>
+</td>
+<td>
+   [Experimental] JSON contains options for logging format "json".</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `JSONOptions`     {#JSONOptions}
+    
+
+
+
+**Appears in:**
+- [FormatOptions](#FormatOptions)
+
+
+JSONOptions contains options for logging format "json".
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>splitStream</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   [Experimental] SplitStream redirects error messages to stderr while
+info messages go to stdout, with buffering. The default is to write
+both to stdout, without buffering.</td>
+</tr>
+    
+  
+<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
+</td>
+<td>
+   [Experimental] InfoBufferSize sets the size of the info stream when
+using split streams. The default is zero, which disables buffering.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `LoggingConfiguration`     {#LoggingConfiguration}
+    
+
+
+
+**Appears in:**
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+LoggingConfiguration contains logging options
+Refer [Logs Options](https://github.com/kubernetes/component-base/blob/master/logs/options.go) for more information.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>format</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   Format Flag specifies the structure of log messages.
+default value of format is `text`</td>
+</tr>
+    
+  
+<tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
+<a href="https://godoc.org/time#Duration"><code>time.Duration</code></a>
+</td>
+<td>
+   Maximum number of seconds between log flushes. Ignored if the
+selected logging backend writes log messages without buffering.</td>
+</tr>
+    
+  
+<tr><td><code>verbosity</code> <B>[Required]</B><br/>
+<code>uint32</code>
+</td>
+<td>
+   Verbosity is the threshold that determines which log messages are
+logged. Default is zero which logs only the most important
+messages. Higher values enable additional messages. Error messages
+are always logged.</td>
+</tr>
+    
+  
+<tr><td><code>vmodule</code> <B>[Required]</B><br/>
+<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
+</td>
+<td>
+   VModule overrides the verbosity threshold for individual files.
+Only supported for "text" log format.</td>
+</tr>
+    
+  
+<tr><td><code>sanitization</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   [Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens).
+Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production.`)</td>
+</tr>
+    
+  
+<tr><td><code>options</code> <B>[Required]</B><br/>
+<a href="#FormatOptions"><code>FormatOptions</code></a>
+</td>
+<td>
+   [Experimental] Options holds additional parameters that are specific
+to the different logging formats. Only the options for the selected
+format get used, but all of them get validated.</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `VModuleConfiguration`     {#VModuleConfiguration}
+    
+(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
+
+
+**Appears in:**
+- [LoggingConfiguration](#LoggingConfiguration)
+
+
+VModuleConfiguration is a collection of individual file names or patterns
+and the corresponding verbosity threshold.
+
+
+  
+    
 
 ## `KubeletConfiguration`     {#kubelet-config-k8s-io-v1beta1-KubeletConfiguration}
     
@@ -1517,7 +1677,7 @@ Default: 0.8</td>
     
   
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    registerWithTaints are an array of taints to add to a node object when
@@ -1538,8 +1698,6 @@ Default: true</td>
   
 </tbody>
 </table>
-    
-
 
 ## `SerializedNodeConfigSource`     {#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource}
     
@@ -1562,7 +1720,7 @@ It exists in the kubeletconfig API group because it is classified as a versioned
   
   
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    source is the source that we are serializing.</td>
@@ -1571,21 +1729,6 @@ It exists in the kubeletconfig API group because it is classified as a versioned
   
 </tbody>
 </table>
-    
-
-
-## `HairpinMode`     {#kubelet-config-k8s-io-v1beta1-HairpinMode}
-    
-(Alias of `string`)
-
-
-
-HairpinMode denotes how the kubelet should configure networking to handle
-hairpin packets.
-
-
-    
-
 
 ## `KubeletAnonymousAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}
     
@@ -1593,7 +1736,6 @@ hairpin packets.
 
 
 **Appears in:**
-
 - [KubeletAuthentication](#kubelet-config-k8s-io-v1beta1-KubeletAuthentication)
 
 
@@ -1619,8 +1761,6 @@ Anonymous requests have a username of `system:anonymous`, and a group name of
   
 </tbody>
 </table>
-    
-
 
 ## `KubeletAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletAuthentication}
     
@@ -1628,7 +1768,6 @@ Anonymous requests have a username of `system:anonymous`, and a group name of
 
 
 **Appears in:**
-
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
 
@@ -1666,8 +1805,6 @@ Anonymous requests have a username of `system:anonymous`, and a group name of
   
 </tbody>
 </table>
-    
-
 
 ## `KubeletAuthorization`     {#kubelet-config-k8s-io-v1beta1-KubeletAuthorization}
     
@@ -1675,7 +1812,6 @@ Anonymous requests have a username of `system:anonymous`, and a group name of
 
 
 **Appears in:**
-
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
 
@@ -1707,8 +1843,6 @@ Webhook mode uses the SubjectAccessReview API to determine authorization.</td>
   
 </tbody>
 </table>
-    
-
 
 ## `KubeletAuthorizationMode`     {#kubelet-config-k8s-io-v1beta1-KubeletAuthorizationMode}
     
@@ -1716,14 +1850,11 @@ Webhook mode uses the SubjectAccessReview API to determine authorization.</td>
 
 
 **Appears in:**
-
 - [KubeletAuthorization](#kubelet-config-k8s-io-v1beta1-KubeletAuthorization)
 
 
 
 
-
-    
 
 
 ## `KubeletWebhookAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletWebhookAuthentication}
@@ -1732,7 +1863,6 @@ Webhook mode uses the SubjectAccessReview API to determine authorization.</td>
 
 
 **Appears in:**
-
 - [KubeletAuthentication](#kubelet-config-k8s-io-v1beta1-KubeletAuthentication)
 
 
@@ -1763,8 +1893,6 @@ tokenreviews.authentication.k8s.io API.</td>
   
 </tbody>
 </table>
-    
-
 
 ## `KubeletWebhookAuthorization`     {#kubelet-config-k8s-io-v1beta1-KubeletWebhookAuthorization}
     
@@ -1772,7 +1900,6 @@ tokenreviews.authentication.k8s.io API.</td>
 
 
 **Appears in:**
-
 - [KubeletAuthorization](#kubelet-config-k8s-io-v1beta1-KubeletAuthorization)
 
 
@@ -1804,8 +1931,6 @@ the webhook authorizer.</td>
   
 </tbody>
 </table>
-    
-
 
 ## `KubeletX509Authentication`     {#kubelet-config-k8s-io-v1beta1-KubeletX509Authentication}
     
@@ -1813,7 +1938,6 @@ the webhook authorizer.</td>
 
 
 **Appears in:**
-
 - [KubeletAuthentication](#kubelet-config-k8s-io-v1beta1-KubeletAuthentication)
 
 
@@ -1838,8 +1962,6 @@ and groups corresponding to the Organization in the client certificate.</td>
   
 </tbody>
 </table>
-    
-
 
 ## `MemoryReservation`     {#kubelet-config-k8s-io-v1beta1-MemoryReservation}
     
@@ -1847,7 +1969,6 @@ and groups corresponding to the Organization in the client certificate.</td>
 
 
 **Appears in:**
-
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
 
@@ -1869,7 +1990,7 @@ MemoryReservation specifies the memory reservation of different types for each N
     
   
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span>
@@ -1879,8 +2000,6 @@ MemoryReservation specifies the memory reservation of different types for each N
   
 </tbody>
 </table>
-    
-
 
 ## `MemorySwapConfiguration`     {#kubelet-config-k8s-io-v1beta1-MemorySwapConfiguration}
     
@@ -1888,7 +2007,6 @@ MemoryReservation specifies the memory reservation of different types for each N
 
 
 **Appears in:**
-
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
 
@@ -1912,8 +2030,6 @@ MemoryReservation specifies the memory reservation of different types for each N
   
 </tbody>
 </table>
-    
-
 
 ## `ResourceChangeDetectionStrategy`     {#kubelet-config-k8s-io-v1beta1-ResourceChangeDetectionStrategy}
     
@@ -1921,15 +2037,12 @@ MemoryReservation specifies the memory reservation of different types for each N
 
 
 **Appears in:**
-
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
 
 ResourceChangeDetectionStrategy denotes a mode in which internal
 managers (secret, configmap) are discovering object changes.
 
-
-    
 
 
 ## `ShutdownGracePeriodByPodPriority`     {#kubelet-config-k8s-io-v1beta1-ShutdownGracePeriodByPodPriority}
@@ -1938,7 +2051,6 @@ managers (secret, configmap) are discovering object changes.
 
 
 **Appears in:**
-
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
 
@@ -1968,170 +2080,4 @@ ShutdownGracePeriodByPodPriority specifies the shutdown grace period for Pods ba
   
 </tbody>
 </table>
-    
   
-  
-    
-
-## `FormatOptions`     {#FormatOptions}
-    
-
-
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-FormatOptions contains options for the different logging formats.
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-
-  
-<tr><td><code>json</code> <B>[Required]</B><br/>
-<a href="#JSONOptions"><code>JSONOptions</code></a>
-</td>
-<td>
-   [Experimental] JSON contains options for logging format "json".</td>
-</tr>
-    
-  
-</tbody>
-</table>
-
-## `JSONOptions`     {#JSONOptions}
-    
-
-
-
-**Appears in:**
-
-- [FormatOptions](#FormatOptions)
-
-
-JSONOptions contains options for logging format "json".
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-
-  
-<tr><td><code>splitStream</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   [Experimental] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering.</td>
-</tr>
-    
-  
-<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
-<code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code>
-</td>
-<td>
-   [Experimental] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.</td>
-</tr>
-    
-  
-</tbody>
-</table>
-
-## `LoggingConfiguration`     {#LoggingConfiguration}
-    
-
-
-
-**Appears in:**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-
-LoggingConfiguration contains logging options
-Refer [Logs Options](https://github.com/kubernetes/component-base/blob/master/logs/options.go) for more information.
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-
-  
-<tr><td><code>format</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   Format Flag specifies the structure of log messages.
-default value of format is `text`</td>
-</tr>
-    
-  
-<tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
-<a href="https://godoc.org/time#Duration"><code>time.Duration</code></a>
-</td>
-<td>
-   Maximum number of seconds between log flushes. Ignored if the
-selected logging backend writes log messages without buffering.</td>
-</tr>
-    
-  
-<tr><td><code>verbosity</code> <B>[Required]</B><br/>
-<code>uint32</code>
-</td>
-<td>
-   Verbosity is the threshold that determines which log messages are
-logged. Default is zero which logs only the most important
-messages. Higher values enable additional messages. Error messages
-are always logged.</td>
-</tr>
-    
-  
-<tr><td><code>vmodule</code> <B>[Required]</B><br/>
-<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
-</td>
-<td>
-   VModule overrides the verbosity threshold for individual files.
-Only supported for "text" log format.</td>
-</tr>
-    
-  
-<tr><td><code>sanitization</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   [Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens).
-Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production.`)</td>
-</tr>
-    
-  
-<tr><td><code>options</code> <B>[Required]</B><br/>
-<a href="#FormatOptions"><code>FormatOptions</code></a>
-</td>
-<td>
-   [Experimental] Options holds additional parameters that are specific
-to the different logging formats. Only the options for the selected
-format get used, but all of them get validated.</td>
-</tr>
-    
-  
-</tbody>
-</table>
-
-## `VModuleConfiguration`     {#VModuleConfiguration}
-    
-(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
-
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-VModuleConfiguration is a collection of individual file names or patterns
-and the corresponding verbosity threshold.
-
-
