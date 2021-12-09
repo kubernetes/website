@@ -81,10 +81,24 @@ ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
     - **scopeSelector.matchExpressions.operator** (string), required
 
       Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
+      
+      Possible enum values:
+       - `"DoesNotExist"`
+       - `"Exists"`
+       - `"In"`
+       - `"NotIn"`
 
     - **scopeSelector.matchExpressions.scopeName** (string), required
 
       The name of the scope that the selector applies to.
+      
+      Possible enum values:
+       - `"BestEffort"` Match all pod objects that have best effort quality of service
+       - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned. This is a beta feature enabled by the PodAffinityNamespaceSelector feature flag.
+       - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
+       - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
+       - `"PriorityClass"` Match all pod objects that have priority class mentioned
+       - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
 
     - **scopeSelector.matchExpressions.values** ([]string)
 
@@ -387,6 +401,11 @@ POST /api/v1/namespaces/{namespace}/resourcequotas
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -439,6 +458,11 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -489,6 +513,11 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -537,6 +566,11 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
@@ -592,6 +626,11 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
