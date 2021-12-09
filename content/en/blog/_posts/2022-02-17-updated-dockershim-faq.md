@@ -1,6 +1,7 @@
 ---
 layout: blog
 title: "Updated: Dockershim Removal FAQ"
+linkTitle: "Dockershim Removal FAQ"
 date: 2022-02-17
 slug: dockershim-faq
 aliases: [ '/dockershim' ]
@@ -184,7 +185,7 @@ options are available as you migrate things over.
 [documentation]: https://github.com/containerd/cri/blob/master/docs/registry.md
 
 For instructions on how to use containerd and CRI-O with Kubernetes, see the
-Kubernetes documentation on [Container Runtimes]
+Kubernetes documentation on [Container Runtimes].
 
 [Container Runtimes]: /docs/setup/production-environment/container-runtimes/
 
@@ -192,7 +193,10 @@ Kubernetes documentation on [Container Runtimes]
 
 If you use a vendor-supported Kubernetes distribution, you can ask them about
 upgrade plans for their products. For end-user questions, please post them
-to our end user community forum: https://discuss.kubernetes.io/. 
+to our end user community forum: https://discuss.kubernetes.io/.
+
+You can discuss the decision to remove dockershim via a dedicated
+[GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917).
 
 You can also check out the excellent blog post
 [Wait, Docker is deprecated in Kubernetes now?][dep] a more in-depth technical

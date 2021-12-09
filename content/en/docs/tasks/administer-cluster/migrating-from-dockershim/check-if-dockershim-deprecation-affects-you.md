@@ -10,7 +10,9 @@ weight: 20
 
 The `dockershim` component of Kubernetes allows to use Docker as a Kubernetes's
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
-Kubernetes' built-in `dockershim` component was deprecated in release v1.20.
+Kubernetes' built-in `dockershim` component was
+[deprecated](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
+in release v1.20.
 
 This page explains how your cluster could be using Docker as a container runtime,
 provides details on the role that `dockershim` plays when in use, and shows steps
@@ -88,3 +90,8 @@ You can still pull images or build them using `docker build` command. But images
 built or pulled by Docker would not be visible to container runtime and
 Kubernetes. They needed to be pushed to some registry to allow them to be used
 by Kubernetes.
+
+## {{% heading "whatsnext" %}}
+
+- Read [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) to understand your next steps
+- Read the [dockershim deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article for more information.
