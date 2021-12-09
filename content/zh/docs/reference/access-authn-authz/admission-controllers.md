@@ -999,7 +999,8 @@ This admission controller implements additional validations for checking incomin
 
 {{< note >}}
 <!--
-Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
+Support for volume resizing is available as a beta feature. As a cluster administrator,
++you must ensure that the feature gate `ExpandPersistentVolumes` is set
 to `true` to enable resizing.
 -->
 对调整卷大小的支持是一种 Alpha 特性。管理员必须将特性门控 `ExpandPersistentVolumes`
@@ -1175,7 +1176,21 @@ PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
 另请参阅 PodTolerationRestriction 准入插件，该插件可防止 Pod 在特定污点的节点上运行。
 {{< /note >}}
 
+### PodSecurity {#podsecurity}
+
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+
+This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
+defined in the next section. This admission controller acts on creation and modification of the pod and
+determines if it should be admitted based on the requested security context and the 
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/).
+
+See the [Pod Security Admission documentation](/docs/concepts/security/pod-security-admission/)
+for more information.
+
 ### PodSecurityPolicy {#podsecuritypolicy}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 <!--
 This admission controller acts on creation and modification of the pod and determines if it should be admitted
