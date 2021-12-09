@@ -86,7 +86,18 @@ See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/ac
 As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`[https:]service_name[:port_name]`*`/proxy`
 
-If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
+If you haven't specified a name for your port, you don't have to specify *port_name* in the URL. You can also use the port number in place of the *port_name* for both named and unnamed ports.
+
+By default, the API server proxies to your service using HTTP. To use HTTPS, prefix the service name with `https:`:
+`http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
+
+The supported formats for the `<service_name>` segment of the URL are:
+
+* `<service_name>` - proxies to the default or unnamed port using http
+* `<service_name>:<port_name>` - proxies to the specified port name or port number using http
+* `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
+* `https:<service_name>:<port_name>` - proxies to the specified port name or port number using https
+
 
 ##### Examples
 

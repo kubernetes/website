@@ -27,7 +27,7 @@ flowchart LR
     direction TB
        T[ ] -.-
        D[Write docs in markdown<br>and build site with Hugo] --- E[source in GitHub]
-       E --- G[_'/content/../docs'_ folder contains docs<br>for multiple languages]
+       E --- G['/content/../docs' folder contains docs<br>for multiple languages]
        G --- H[Review Hugo page content<br>types and shortcodes]
     end
     

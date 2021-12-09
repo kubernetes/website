@@ -64,7 +64,7 @@ This means that containers within a `Pod` can all reach each other's ports on
 usage, but this is no different from processes in a VM.  This is called the
 "IP-per-pod" model.
 
-How this is implemented is a detail of the particular container runtime in use.
+How this is implemented is a detail of the particular container runtime in use. Likewise, the networking option you choose may support [dual-stack IPv4/IPv6 networking](/docs/concepts/services-networking/dual-stack/); implementations vary.
 
 It is possible to request ports on the `Node` itself which forward to your `Pod`
 (called host ports), but this is a very niche operation. How that forwarding is
@@ -169,49 +169,6 @@ With this toolset DANM is able to provide multiple separated network interfaces,
 network that satisfies the Kubernetes requirements. Many
 people have reported success with Flannel and Kubernetes.
 
-### Google Compute Engine (GCE)
-
-For the Google Compute Engine cluster configuration scripts, [advanced
-routing](https://cloud.google.com/vpc/docs/routes) is used to
-assign each VM a subnet (default is `/24` - 254 IPs).  Any traffic bound for that
-subnet will be routed directly to the VM by the GCE network fabric.  This is in
-addition to the "main" IP address assigned to the VM, which is NAT'ed for
-outbound internet access.  A linux bridge (called `cbr0`) is configured to exist
-on that subnet, and is passed to docker's `--bridge` flag.
-
-Docker is started with:
-
-```shell
-DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
-```
-
-This bridge is created by Kubelet (controlled by the `--network-plugin=kubenet`
-flag) according to the `Node`'s `.spec.podCIDR`.
-
-Docker will now allocate IPs from the `cbr-cidr` block.  Containers can reach
-each other and `Nodes` over the `cbr0` bridge.  Those IPs are all routable
-within the GCE project network.
-
-GCE itself does not know anything about these IPs, though, so it will not NAT
-them for outbound internet traffic.  To achieve that an iptables rule is used
-to masquerade (aka SNAT - to make it seem as if packets came from the `Node`
-itself) traffic that is bound for IPs outside the GCE project network
-(10.0.0.0/8).
-
-```shell
-iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
-```
-
-Lastly IP forwarding is enabled in the kernel (so the kernel will process
-packets for bridged containers):
-
-```shell
-sysctl net.ipv4.ip_forward=1
-```
-
-The result of all this is that all `Pods` can reach each other and can egress
-traffic to the internet.
-
 ### Jaguar
 
 [Jaguar](https://gitlab.com/sdnlab/jaguar) is an open source solution for Kubernetes's network based on OpenDaylight. Jaguar provides overlay network using vxlan and Jaguar CNIPlugin provides one IP address per pod.
@@ -267,10 +224,6 @@ Open vSwitch community.  It lets one create logical switches, logical routers,
 stateful ACLs, load-balancers etc to build different virtual networking
 topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
-
-### Romana
-
-[Romana](https://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
 
 ### Weave Net from Weaveworks
 

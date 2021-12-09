@@ -48,6 +48,21 @@ _파드_ (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지로)
 
 ## 파드의 사용
 
+다음은 `nginx:1.14.2` 이미지를 실행하는 컨테이너로 구성되는 파드의 예시이다.
+
+{{< codenew file="pods/simple-pod.yaml" >}}
+
+위에서 설명한 파드를 생성하려면, 다음 명령을 실행한다.
+```shell
+kubectl apply -f https://k8s.io/examples/pods/simple-pod.yaml
+```
+
+일반적으로 파드는 직접 생성하지는 않으며, 대신 워크로드 리소스를 사용하여 생성한다.
+[파드 작업](#파드-작업) 섹션에서 파드와 워크로드 리소스의 관계에 대한 
+더 많은 정보를 확인한다.
+
+### Workload resources for managing pods
+
 일반적으로 싱글톤(singleton) 파드를 포함하여 파드를 직접 만들 필요가 없다. 대신, {{< glossary_tooltip text="디플로이먼트(Deployment)"
 term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="job" >}}과 같은 워크로드 리소스를 사용하여 생성한다.
 파드가 상태를 추적해야 한다면,
@@ -97,7 +112,7 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 공유 볼륨의 파일에 대한 웹 서버 역할을 하는 컨테이너와, 원격 소스에서 해당 파일을 업데이트하는
 별도의 "사이드카" 컨테이너가 있을 수 있다.
 
-{{< figure src="/images/docs/pod.svg" alt="예제 파드 다이어그램" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" alt="파드 생성 다이어그램" class="diagram-medium" >}}
 
 일부 파드에는 {{< glossary_tooltip text="앱 컨테이너" term_id="app-container" >}} 뿐만 아니라 {{< glossary_tooltip text="초기화 컨테이너" term_id="init-container" >}}를 갖고 있다. 초기화 컨테이너는 앱 컨테이너가 시작되기 전에 실행되고 완료된다.
 

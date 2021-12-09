@@ -280,7 +280,7 @@ spec:
 업데이트를 수신하지 않는다.
 {{< /note >}}
 
-더 자세한 내용은 [다운워드 API 예시](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 참고한다.
+더 자세한 내용은 [다운워드 API 예시](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 참고한다.
 
 ### emptyDir {#emptydir}
 
@@ -358,7 +358,7 @@ targetWWN은 해당 WWN이 다중 경로 연결에서 온 것으로 예상한다
 `flocker` 볼륨은 Flocker 데이터셋을 파드에 마운트할 수 있게 한다. 만약
 Flocker내에 데이터셋이 없는 경우, 먼저 Flocker
 CLI 또는 Flocker API를 사용해서 생성해야 한다. 만약 데이터셋이 이미 있다면
-Flocker는 파드가 스케줄 되어있는 노드에 다시 연결한다. 이는 필요에
+Flocker는 파드가 스케줄 되어 있는 노드에 다시 연결한다. 이는 필요에
 따라 파드 간에 데이터를 공유할 수 있다는 의미이다.
 
 {{< note >}}

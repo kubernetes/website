@@ -45,6 +45,11 @@ This page lists some of the available add-ons and links to their respective inst
 ## Infrastructure
 
 * [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) is an add-on to run virtual machines on Kubernetes. Usually run on bare-metal clusters.
+* The
+  [node problem detector](https://github.com/kubernetes/node-problem-detector)
+  runs on Linux nodes and reports system issues as either
+  [Events](/docs/reference/kubernetes-api/cluster-resources/event-v1/) or
+  [Node conditions](/docs/concepts/architecture/nodes/#condition).
 
 ## Legacy Add-ons
 
