@@ -10,14 +10,13 @@ feature:
   title: 스토리지 오케스트레이션
   description: >
     로컬 스토리지, <a href="https://cloud.google.com/storage/">GCP</a>나 <a href="https://aws.amazon.com/products/storage/">AWS</a>와 같은 퍼블릭 클라우드 공급자 또는 NFS, iSCSI, Gluster, Ceph, Cinder나 Flocker와 같은 네트워크 스토리지 시스템에서 원하는 스토리지 시스템을 자동으로 마운트한다.
-
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
 
-이 페이지는 쿠버네티스의 _퍼시스턴트 볼륨_ 의 현재 상태를 설명한다. [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 익숙해지는 것을 추천한다.
+이 페이지에서는 쿠버네티스의 _퍼시스턴트 볼륨_ 에 대해 설명한다. [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 익숙해지는 것을 추천한다.
 
 <!-- body -->
 

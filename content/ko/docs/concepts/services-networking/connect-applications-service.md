@@ -50,7 +50,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 클러스터의 모든 노드로 ssh 접속하고 두 IP로 curl을 할수 있어야 한다. 컨테이너는 노드의 포트 80을 사용하지 *않으며* , 트래픽을 파드로 라우팅하는 특별한 NAT 규칙도 없다는 것을 참고한다. 이것은 동일한 containerPort를 사용해서 동일한 노드에서 여러 nginx 파드를 실행하고 IP를 사용해서 클러스터의 다른 파드나 노드에서 접근할 수 있다는 의미이다. 도커와 마찬가지로 포트는 여전히 호스트 노드의 인터페이스에 게시될 수 있지만, 네트워킹 모델로 인해 포트의 필요성이 크게 줄어든다.
 
-만약 궁금하다면 [우리가 이것을 달성하는 방법](/ko/docs/concepts/cluster-administration/networking/#쿠버네티스-네트워크-모델의-구현-방법)을 자세히 읽어본다.
+만약 궁금하다면 [쿠버네티스 네트워킹 모델](/ko/docs/concepts/cluster-administration/networking/#쿠버네티스-네트워크-모델)을 자세히 읽어본다.
 
 ## 서비스 생성하기
 

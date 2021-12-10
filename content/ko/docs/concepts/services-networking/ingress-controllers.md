@@ -28,6 +28,7 @@ weight: 40
   컨트롤러다.
 * [Apache APISIX 인그레스 컨트롤러](https://github.com/apache/apisix-ingress-controller)는 [Apache APISIX](https://github.com/apache/apisix) 기반의 인그레스 컨트롤러이다.
 * [Avi 쿠버네티스 오퍼레이터](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)는 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)을 사용하는 L4-L7 로드 밸런싱을 제공한다.
+* [BFE Ingress Controller](https://github.com/bfenetworks/ingress-bfe)는 [BFE](https://www.bfe-networks.net) 기반 인그레스 컨트롤러다.
 * [Citrix 인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller#readme)는
   Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.
@@ -56,12 +57,11 @@ weight: 40
 
 ## 여러 인그레스 컨트롤러 사용
 
-하나의 클러스터 내에 [여러 개의 인그레스 컨트롤러](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers)를 배포할 수 있다.
-인그레스를 생성할 때,  클러스터 내에 둘 이상의 인그레스 컨트롤러가 존재하는 경우
-어떤 인그레스 컨트롤러를 사용해야 하는지 표시해주는 적절한 [`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster)
-어노테이션을 각각의 인그레스에 달아야 한다.
+[인그레스 클래스](/ko/docs/concepts/services-networking/ingress/#인그레스-클래스)를 사용하여 하나의 클러스터 내에 여러 개의 인그레스 컨트롤러를 배포할 수 있다. 
+인그레스 클래스 리소스의 `.metadata.name`을 기록해 놓는다. 인그레스를 생성할 때, 인그레스 오브젝트의 `ingressClassName` 필드에 해당 값을 적어야 한다([IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec) 참조). `ingressClassName`은 예전 [어노테이션 메소드](/ko/docs/concepts/services-networking/ingress/#사용중단-deprecated-어노테이션)를 대체한다.
 
-만약 클래스를 정의하지 않으면, 클라우드 제공자는 기본 인그레스 컨트롤러를 사용할 수 있다.
+인그레스에 대해 인그레스클래스를 명시하지 않고, 기본값으로 지정된 인그레스클래스가 클러스터에 단 하나만 있다면, 쿠버네티스는 해당 기본 인그레스클래스를 인그레스에 [적용한다](/ko/docs/concepts/services-networking/ingress/#default-ingress-class).
+인그레스클래스의 [`ingressclass.kubernetes.io/is-default-class` 어노테이션](/ko/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)을 `"true"`로 지정하여 해당 인그레스클래스를 기본 인그레스클래스로 표시할 수 있다.
 
 이상적으로는 모든 인그레스 컨트롤러가 이 사양을 충족해야 하지만,
 다양한 인그레스 컨트롤러는 약간 다르게 작동한다.
