@@ -649,13 +649,13 @@ when using GMSA with containerd to access Windows network shares, which requires
 kernel patch.
 {{< /note >}}
 
-#### Docker EE
+#### MCR
 
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-[Docker EE](https://docs.mirantis.com/containers/v3.0/dockeree-products/dee-intro.html)-basic 19.03+ is available as a container runtime for all Windows Server versions. This works with the legacy dockershim adapter.
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is available as a container runtime for all Windows Server 2019 and later versions.
 
-See [Install Docker](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/deploy-containers-on-server#install-docker) for more information.
+See [Install MCR](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
 
 ## Windows OS version compatibility {#windows-os-version-support}
 
