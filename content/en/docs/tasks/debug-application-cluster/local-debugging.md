@@ -32,7 +32,7 @@ Launching Telepresence Daemon
 Connected to context default (https://<cluster public IP>)
 ```
 
-You are now connected to the network of your remote cluster and so you can curl services using the Kubernetes syntax e.g. `curl -ik https://kubernetes.default`
+You can curl services using the Kubernetes syntax e.g. `curl -ik https://kubernetes.default`
  
 ## Developing or debugging an existing service
 
