@@ -46,7 +46,7 @@ Where:
 -   `$LOCAL_PORT` is the port that your service is running on your local workstation
 -   And `$REMOTE_PORT` is the port your service listens to in the cluster
 
-Running this command will tell Telepresence to send remote traffic to your local service instead of the service in the remote Kubernetes cluster.  With this, you can then make edits to your service source code locally, save, and see the corresponding changes when accessing your remote application take effect immediately. You can also run your local service using a debugger or any other local development tool.
+Running this command tells Telepresence to send remote traffic to your local service instead of the service in the remote Kubernetes cluster. Make edits to your service source code locally, save, and see the corresponding changes when accessing your remote application take effect immediately. You can also run your local service using a debugger or any other local development tool.
 
 ## How does Telepresence work?
 
