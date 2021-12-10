@@ -15,4 +15,4 @@ tags:
 
 <!--more--> 
 
-민감한 정보를 사용하는 방식에 대해 더 세밀하게 제어할 수 있으며, 유휴 상태의 [암호화](/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)를 포함하여 우발적인 노출 위험을 줄인다. {{< glossary_tooltip text="파드(Pod)" term_id="pod" >}}는 시크릿을 마운트된 볼륨의 파일로 참조하거나, 파드의 이미지를 풀링하는 kubelet이 시크릿을 참조한다. 시크릿은 기밀 데이터에 적합하고 [컨피그맵](/docs/tasks/configure-pod-container/configure-pod-configmap/)은 기밀이 아닌 데이터에 적합하다.
+민감한 정보를 사용하는 방식에 대해 더 세밀하게 제어할 수 있으며, 우발적인 노출 위험을 줄인다. 시크릿 값은 기본적으로 base64 문자열로 인코딩되어 암호화되지 않은 채로 저장되지만, [안전하게 암호화](/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)되도록 설정할 수 있다. {{< glossary_tooltip text="파드" term_id="pod" >}}는 볼륨 마운트 내의 파일 형태로 시크릿에 접근하며, 시크릿은 또한 kubelet이 파드를 위해 이미지를 풀링할 때에도 사용될 수 있다. 시크릿은 기밀 데이터를 다루는 용도로 적합으며, [컨피그맵](/docs/tasks/configure-pod-container/configure-pod-configmap/)은 기밀이 아닌 데이터를 다루는 용도로 적합하다.

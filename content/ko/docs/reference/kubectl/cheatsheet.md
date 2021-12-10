@@ -1,5 +1,9 @@
 ---
 title: kubectl 치트 시트
+
+
+
+
 content_type: concept
 card:
   name: reference
@@ -215,7 +219,7 @@ kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 
 # 모든 파드에 대해 ENV를 생성한다(각 파드에 기본 컨테이너가 있고, 기본 네임스페이스가 있고, `env` 명령어가 동작한다고 가정).
 # `env` 뿐만 아니라 다른 지원되는 명령어를 모든 파드에 실행할 때에도 참고할 수 있다.
-for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod env; done
+for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod -- env; done
 ```
 
 ## 리소스 업데이트
@@ -285,11 +289,11 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 여러 개�
 ## 리소스 삭제
 
 ```bash
-kubectl delete -f ./pod.json                                              # pod.json에 지정된 유형 및 이름을 사용하여 파드 삭제
-kubectl delete pod,service baz foo                                        # "baz", "foo"와 동일한 이름을 가진 파드와 서비스 삭제
-kubectl delete pods,services -l name=myLabel                              # name=myLabel 라벨을 가진 파드와 서비스 삭제
-kubectl delete pods,services -l name=myLabel --include-uninitialized      # 초기화되지 않은 것을 포함하여, name=myLabel 라벨을 가진 파드와 서비스 삭제
-kubectl -n my-ns delete pod,svc --all                                      # 초기화되지 않은 것을 포함하여, my-ns 네임스페이스 내 모든 파드와 서비스 삭제
+kubectl delete -f ./pod.json                                      # pod.json에 지정된 유형 및 이름을 사용하여 파드 삭제
+kubectl delete pod unwanted --now                                 # 유예 시간 없이 즉시 파드 삭제
+kubectl delete pod,service baz foo                                # "baz", "foo"와 동일한 이름을 가진 파드와 서비스 삭제
+kubectl delete pods,services -l name=myLabel                      # name=myLabel 라벨을 가진 파드와 서비스 삭제
+kubectl -n my-ns delete pod,svc --all                             # my-ns 네임스페이스 내 모든 파드와 서비스 삭제
 # awk pattern1 또는 pattern2에 매칭되는 모든 파드 삭제
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
@@ -307,8 +311,7 @@ kubectl logs -f my-pod                              # 실시간 스트림 파드
 kubectl logs -f my-pod -c my-container              # 실시간 스트림 파드 로그(stdout, 멀티-컨테이너 경우)
 kubectl logs -f -l name=myLabel --all-containers    # name이 myLabel인 모든 파드의 로그 스트리밍 (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # 대화형 셸로 파드를 실행
-kubectl run nginx --image=nginx -n
-mynamespace                                         # 특정 네임스페이스에서 nginx 파드 실행
+kubectl run nginx --image=nginx -n mynamespace      # mynamespace 네임스페이스에서 nginx 파드 1개 실행
 kubectl run nginx --image=nginx                     # nginx 파드를 실행하고 해당 스펙을 pod.yaml 파일에 기록
 --dry-run=client -o yaml > pod.yaml
 
@@ -320,6 +323,24 @@ kubectl exec my-pod -c my-container -- ls /         # 기존 파드에서 명령
 kubectl top pod POD_NAME --containers               # 특정 파드와 해당 컨테이너에 대한 메트릭 표시
 kubectl top pod POD_NAME --sort-by=cpu              # 지정한 파드에 대한 메트릭을 표시하고 'cpu' 또는 'memory'별로 정렬
 ```
+## 컨테이너로/컨테이너에서 파일과 디렉터리 복사
+
+```bash
+kubectl cp /tmp/foo_dir my-pod:/tmp/bar_dir            # 로컬 디렉토리 /tmp/foo_dir 를 현재 네임스페이스의 my-pod 파드 안의 /tmp/bar_dir 로 복사
+kubectl cp /tmp/foo my-pod:/tmp/bar -c my-container    # 로컬 파일 /tmp/foo 를 my-pod 파드의 my-container 컨테이너 안의 /tmp/bar 로 복사
+kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar       # 로컬 파일 /tmp/foo 를 my-namespace 네임스페이스의 my-pod 파드 안의 /tmp/bar 로 복사
+kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # my-namespace 네임스페이스의 my-pod 파드 안의 파일 /tmp/foo 를 로컬의 /tmp/bar 로 복사
+```
+{{< note >}}
+`kubectl cp` 명령을 사용하려면 컨테이너 이미지에 'tar' 바이너리가 포함되어 있어야 한다. 'tar'가 없으면, `kubectl cp`는 실패할 것이다.
+심볼릭 링크, 와일드카드 확장, 파일 모드 보존과 같은 고급 사용 사례에 대해서는 `kubectl exec` 를 고려해볼 수 있다.
+{{< /note >}}
+
+```bash
+tar cf - /tmp/foo | kubectl exec -i -n my-namespace my-pod -- tar xf - -C /tmp/bar           # 로컬 파일 /tmp/foo 를 my-namespace 네임스페이스의 my-pod 파드 안의 /tmp/bar 로 복사
+kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar    # my-namespace 네임스페이스의 my-pod 파드 안의 파일 /tmp/foo 를 로컬의 /tmp/bar 로 복사
+```
+
 
 ## 디플로이먼트, 서비스와 상호 작용
 ```bash

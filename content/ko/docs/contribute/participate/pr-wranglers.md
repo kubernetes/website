@@ -26,9 +26,16 @@ PR 랭글러는 일주일 간 매일 다음의 일을 해야 한다.
   - 내용을 확인해야 하는 경우, PR에 코멘트를 달고 자세한 내용을 요청한다.
   - 관련 `sig/` 레이블을 할당한다.
   - 필요한 경우, 파일의 머리말(front matter)에 있는 `reviewers:` 블록의 리뷰어를 할당한다.
+  - PR에 `@kubernetes/<sig>-pr-reviews` 코멘트를 남겨 [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md)에 리뷰를 요청할 수도 있다.
 - PR을 병합하려면 승인을 위한 `approve` 코멘트를 사용한다. 준비가 되면 PR을 병합한다.
   - 병합하기 전에 PR은 다른 멤버의 `/lgtm` 코멘트를 받아야 한다.
   - [스타일 지침]을 충족하지 않지만 기술적으로는 정확한 PR은 수락하는 것을 고려한다. 스타일 문제를 해결하는 `good first issue` 레이블의 새로운 이슈를 올리면 된다.
+  - [스타일 지침](/docs/contribute/style/style-guide/)을 충족하지 않지만 
+      기술적으로는 정확한 PR은 수락하는 쪽으로 고려한다. 
+      변경 사항을 승인하면, 스타일 이슈에 대한 새 이슈를 연다. 
+      보통 이러한 스타일 수정 이슈는 [좋은 첫 이슈](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue)로 지정할 수 있다.
+    - 스타일 수정 이슈를 좋은 첫 이슈로 표시하면 비교적 쉬운 작업을 공급하여 
+      새로운 기여자가 참여하는 것을 장려할 수 있다.
 
 ### 랭글러를 위해 도움이 되는 GitHub 쿼리
 

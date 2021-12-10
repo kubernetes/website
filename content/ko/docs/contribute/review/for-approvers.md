@@ -121,7 +121,7 @@ PR에서 사용할 수 있는 명령의 전체 목록을 보려면
   `priority/important-longterm` | 6개월 이내에 이 작업을 수행한다.
   `priority/backlog` | 무기한 연기할 수 있다. 자원이 있을 때 수행한다.
   `priority/awaiting-more-evidence` | 잠재적으로 좋은 이슈에 대해 잊지 않도록 표시한다.
-  `help` 또는 `good first issue` | 쿠버네티스나 SIG Docs 경험이 거의 없는 사람에게 적합하다. 자세한 내용은 [도움이 필요함 및 좋은 첫 번째 이슈 레이블](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md)을 참고한다.
+  `help` 또는 `good first issue` | 쿠버네티스나 SIG Docs 경험이 거의 없는 사람에게 적합하다. 자세한 내용은 [도움이 필요함 및 좋은 첫 번째 이슈 레이블](https://kubernetes.dev/docs/guide/help-wanted/)을 참고한다.
 
   {{< /table >}}
 
