@@ -169,49 +169,6 @@ Coil은 베어메탈에 비해 낮은 오버헤드로 작동하며, 외부 네�
 충족하는 매우 간단한 오버레이 네트워크이다. 많은
 경우에 쿠버네티스와 플라넬은 성공적으로 적용이 가능하다.
 
-### Google 컴퓨트 엔진(GCE)
-
-Google 컴퓨트 엔진 클러스터 구성 스크립트의 경우, [고급
-라우팅](https://cloud.google.com/vpc/docs/routes)을 사용하여
-각 VM에 서브넷을 할당한다(기본값은 `/24` - 254개 IP). 해당 서브넷에 바인딩된
-모든 트래픽은 GCE 네트워크 패브릭에 의해 VM으로 직접 라우팅된다. 이는
-아웃 바운드 인터넷 접근을 위해 NAT로 구성된 VM에 할당된 "기본"
-IP 주소에 추가된다. 리눅스 브릿지(`cbr0`)는 해당 서브넷에 존재하도록
-구성되며, 도커의 `--bridge` 플래그로 전달된다.
-
-도커는 다음의 설정으로 시작한다.
-
-```shell
-DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
-```
-
-이 브릿지는 노드의 `.spec.podCIDR`에 따라 Kubelet(`--network-plugin=kubenet`
-플래그로 제어되는)에 의해 생성된다.
-
-도커는 이제 `cbr-cidr` 블록에서 IP를 할당한다. 컨테이너는 `cbr0` 브릿지를
-통해 서로 `Node` 에 도달할 수 있다. 이러한 IP는 모두 GCE 프로젝트 네트워크
-내에서 라우팅할 수 있다.
-
-그러나, GCE 자체는 이러한 IP에 대해 전혀 알지 못하므로, 아웃 바운드 인터넷 트래픽을 위해
-IP를 NAT하지 않는다. 그것을 달성하기 위해 iptables 규칙을 사용하여
-GCE 프로젝트 네트워크(10.0.0.0/8) 외부의 IP에 바인딩된 트래픽을
-마스커레이드(일명 SNAT - 마치 패킷이 `Node` 자체에서 온 것처럼
-보이게 함)한다.
-
-```shell
-iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
-```
-
-마지막으로 커널에서 IP 포워딩이 활성화되어 있으므로, 커널은 브릿지된 컨테이너에
-대한 패킷을 처리한다.
-
-```shell
-sysctl net.ipv4.ip_forward=1
-```
-
-이 모든 것의 결과는 모든 `Pod` 가 서로에게 도달할 수 있고 인터넷으로 트래픽을
-송신할 수 있다는 것이다.
-
 ### 재규어(Jaguar)
 
 [재규어](https://gitlab.com/sdnlab/jaguar)는 OpenDaylight 기반의 쿠버네티스 네트워크를 위한 오픈소스 솔루션이다. 재규어는 vxlan을 사용하여 오버레이 네트워크를 제공하고 재규어 CNI 플러그인은 파드별로 하나의 IP 주소를 제공한다.
@@ -246,7 +203,7 @@ Lars Kellogg-Stedman이 제공하는
 
 ### Multus(멀티 네트워크 플러그인)
 
-[Multus](https://github.com/Intel-Corp/multus-cni)는 쿠버네티스의 CRD 기반 네트워크 오브젝트를 사용하여 쿠버네티스에서 멀티 네트워킹 기능을 지원하는 멀티 CNI 플러그인이다.
+Multus는 쿠버네티스의 CRD 기반 네트워크 오브젝트를 사용하여 쿠버네티스에서 멀티 네트워킹 기능을 지원하는 멀티 CNI 플러그인이다.
 
 Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://github.com/containernetworking/plugins)(예: [플라넬](https://github.com/containernetworking/cni.dev/blob/main/content/plugins/v0.9/meta/flannel.md), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) 및 써드파티 플러그인(예: [캘리코](https://github.com/projectcalico/cni-plugin), [위브(Weave)](https://github.com/weaveworks/weave), [실리움](https://github.com/cilium/cilium), [콘티브](https://github.com/contiv/netplugin))을 지원한다. 또한, Multus는 쿠버네티스의 클라우드 네이티브 애플리케이션과 NFV 기반 애플리케이션을 통해 쿠버네티스의 [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK 및 VPP](https://github.com/intel/vhost-user-net-plugin) 워크로드를 지원한다.
 
@@ -259,12 +216,6 @@ Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://
 [VMware NSX-T](https://docs.vmware.com/en/VMware-NSX-T/index.html)는 네트워크 가상화 및 보안 플랫폼이다. NSX-T는 멀티 클라우드 및 멀티 하이퍼바이저 환경에 네트워크 가상화를 제공할 수 있으며 이기종 엔드포인트와 기술 스택이 있는 새로운 애플리케이션 프레임워크 및 아키텍처에 중점을 둔다. vSphere 하이퍼바이저 외에도, 이러한 환경에는 KVM, 컨테이너 및 베어메탈과 같은 다른 하이퍼바이저가 포함된다.
 
 [NSX-T 컨테이너 플러그인(NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf)은 NSX-T와 쿠버네티스와 같은 컨테이너 오케스트레이터 사이의 통합은 물론, NSX-T와 Pivotal 컨테이너 서비스(PKS) 및 OpenShift와 같은 컨테이너 기반 CaaS/PaaS 플랫폼 간의 통합을 제공한다.
-
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/)는 다소 성숙하지만
-오버레이 네트워크를 구축하는 복잡한 방법이다. 이것은 네트워킹 분야의 몇몇
-"대형 벤더"에 의해 승인되었다.
 
 ### OVN(오픈 버추얼 네트워킹)
 

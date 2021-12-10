@@ -54,13 +54,15 @@ weight: 10
 컨테이너에 대한 `imagePullPolicy`와 이미지의 태그는
 [kubelet](/docs/reference/command-line-tools-reference/kubelet/)이 특정 이미지를 풀(다운로드)하려고 할 때 영향을 준다.
 
-다음은 `imagePullPolicy`에 설정할 수 있는 값의 목록과 효과이다.
+다음은 `imagePullPolicy`에 설정할 수 있는 값의 목록과 
+효과이다.
 
 `IfNotPresent`
 : 이미지가 로컬에 없는 경우에만 내려받는다.
 
 `Always`
-: kubelet이 컨테이너를 기동할 때마다, kubelet이 컨테이너 이미지 레지스트리에 이름과 이미지의
+: kubelet이 컨테이너를 기동할 때마다, kubelet이 컨테이너 
+  이미지 레지스트리에 이름과 이미지의
   [다이제스트](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)가 있는지 질의한다.
   일치하는 다이제스트를 가진 컨테이너 이미지가 로컬에 있는 경우, kubelet은 캐시된 이미지를 사용한다.
   이외의 경우, kubelet은 검색된 다이제스트를 가진 이미지를 내려받아서
@@ -78,7 +80,8 @@ weight: 10
 
 {{< note >}}
 프로덕션 환경에서 컨테이너를 배포하는 경우 `:latest` 태그 사용을 지양해야 하는데,
-이미지의 어떤 버전이 기동되고 있는지 추적이 어렵고 제대로 롤백하기 어렵게 되기 때문이다.
+이미지의 어떤 버전이 기동되고 있는지 추적이 어렵고 
+제대로 롤백하기 어렵게 되기 때문이다.
 
 대신, `v1.42.0`과 같이 의미있는 태그를 명기한다.
 {{< /note >}}
@@ -90,7 +93,8 @@ weight: 10
 
 이미지 태그를 사용하는 경우, 이미지 레지스트리에서 한 이미지를 나타내는 태그에 코드를 변경하게 되면, 기존 코드와 신규 코드를 구동하는 파드가 섞이게 되고 만다. 이미지 다이제스트를 통해 이미지의 특정 버전을 유일하게 식별할 수 있기 때문에, 쿠버네티스는 매번 해당 이미지 이름과 다이제스트가 명시된 컨테이너를 기동해서 같은 코드를 구동한다. 이미지를 명시하는 것은 구동할 코드를 고정시켜서 레지스트리에서의 변경으로 인해 버전이 섞이는 일이 발생하지 않도록 해준다.
 
-파드(및 파드 템플릿)가 생성될 때 구동 중인 워크로드가 태그가 아닌 이미지 다이제스트를 통해 정의되도록 조작해주는
+파드(및 파드 템플릿)가 생성될 때 구동 중인 워크로드가 
+태그가 아닌 이미지 다이제스트를 통해 정의되도록 조작해주는
 서드-파티 [어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)가 있다.
 이는 레지스트리에서 태그가 변경되는 일이 발생해도
 구동 중인 워크로드가 모두 같은 코드를 사용하고 있다는 것을 보장하기를 원하는 경우 유용할 것이다.
@@ -104,7 +108,9 @@ weight: 10
   `:latest`인 경우, `imagePullPolicy`는 자동으로 `Always`로 설정된다.
 - `imagePullPolicy` 필드를 생략하고 컨테이너 이미지의 태그를 명기하지 않은 경우,
   `imagePullPolicy`는 자동으로 `Always`로 설정된다.
-- `imagePullPolicy` 필드를 생략하고, 명기한 컨테이너 이미지의 태그가 `:latest`가 아니면, `imagePullPolicy`는 자동으로 `IfNotPresent`로 설정된다.
+- `imagePullPolicy` 필드를 생략하고, 
+  명기한 컨테이너 이미지의 태그가 `:latest`가 아니면, 
+  `imagePullPolicy`는 자동으로 `IfNotPresent`로 설정된다.
 
 {{< note >}}
 컨테이너의 `imagePullPolicy` 값은 오브젝트가 처음 _created_ 일 때 항상
@@ -126,6 +132,7 @@ weight: 10
 - `imagePullPolicy`와 사용할 이미지의 태그를 생략한다.
   그러면 사용자가 파드를 요청할 때 쿠버네티스가 정책을 `Always`로 설정한다.
 - [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) 어드미션 컨트롤러를 활성화 한다.
+
 
 ### 이미지풀백오프(ImagePullBackOff)
 
@@ -258,6 +265,73 @@ kubectl describe pods/private-image-test-1 | grep 'Failed'
 프라이빗 레지스트리 키가 `.docker/config.json`에 추가되고 나면 모든 파드는
 프라이빗 레지스트리의 이미지에 읽기 접근 권한을 가지게 될 것이다.
 
+### config.json 파일 해석 {#config-json}
+
+`config.json` 파일의 해석에 있어서, 기존 도커의 구현과 쿠버네티스의 구현에 차이가 있다. 
+도커에서는 `auths` 키에 특정 루트 URL만 기재할 수 있으나, 
+쿠버네티스에서는 glob URL과 접두사-매칭 경로도 기재할 수 있다. 
+이는 곧 다음과 같은 `config.json`도 유효하다는 뜻이다.
+
+```json
+{
+    "auths": {
+        "*my-registry.io/images": {
+            "auth": "…"
+        }
+    }
+}
+```
+
+루트 URL(`*my-registry.io`)은 다음 문법을 사용하여 매치된다.
+
+```
+pattern:
+    { term }
+
+term:
+    '*'         구분자가 아닌 모든 문자와 매치됨
+    '?'         구분자가 아닌 문자 1개와 매치됨
+    '[' [ '^' ] { character-range } ']'
+                문자 클래스 (비어 있으면 안 됨))
+    c           문자 c에 매치됨 (c != '*', '?', '\\', '[')
+    '\\' c      문자 c에 매치됨
+
+character-range:
+    c           문자 c에 매치됨 (c != '\\', '-', ']')
+    '\\' c      문자 c에 매치됨
+    lo '-' hi   lo <= c <= hi 인 문자 c에 매치됨
+```
+
+이미지 풀 작업 시, 모든 유효한 패턴에 대해 크리덴셜을 CRI 컨테이너 런타임에 제공할 것이다. 
+예를 들어 다음과 같은 컨테이너 이미지 이름은 
+성공적으로 매치될 것이다.
+
+- `my-registry.io/images`
+- `my-registry.io/images/my-image`
+- `my-registry.io/images/another-image`
+- `sub.my-registry.io/images/my-image`
+- `a.sub.my-registry.io/images/my-image`
+
+kubelet은 인식된 모든 크리덴셜을 순차적으로 이용하여 이미지 풀을 수행한다. 즉,
+`config.json`에 다음과 같이 여러 항목을 기재할 수도 있다.
+
+```json
+{
+    "auths": {
+        "my-registry.io/images": {
+            "auth": "…"
+        },
+        "my-registry.io/images/subpath": {
+            "auth": "…"
+        }
+    }
+}
+```
+
+이제 컨테이너가 `my-registry.io/images/subpath/my-image` 
+이미지를 풀 해야 한다고 명시하면,
+kubelet은 크리덴셜을 순차적으로 사용하여 풀을 시도한다.
+
 ### 미리 내려받은 이미지 {#pre-pulled-images}
 
 {{< note >}}
@@ -383,3 +457,4 @@ Kubelet은 모든 `imagePullSecrets` 파일을 하나의 가상 `.docker/config.
 
 * [OCI 이미지 매니페스트 명세](https://github.com/opencontainers/image-spec/blob/master/manifest.md) 읽어보기.
 * [컨테이너 이미지 가비지 수집(garbage collection)](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)에 대해 배우기.
+* [프라이빗 레지스트리에서 이미지 받아오기](/ko/docs/tasks/configure-pod-container/pull-image-private-registry)
