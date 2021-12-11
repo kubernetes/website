@@ -113,10 +113,10 @@ The generated ConfigMap is:
 ```yaml
 apiVersion: v1
 data:
-    FOO=Bar
+  FOO: Bar
 kind: ConfigMap
 metadata:
-  name: example-configmap-1-8mbdf7882g
+  name: example-configmap-1-42cfbf598f
 ```
 
 {{< note >}}
