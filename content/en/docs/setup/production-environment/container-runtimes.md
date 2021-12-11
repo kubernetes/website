@@ -20,7 +20,7 @@ Kubernetes, on Linux:
 
 - [containerd](#containerd)
 - [CRI-O](#cri-o)
-- [Docker](#docker)
+- [Mirantis Container Runtime](#mcr)
 
 {{< note >}}
 For other operating systems, look for documentation specific to your platform.
@@ -394,44 +394,10 @@ Please also note the changed `conmon_cgroup`, which has to be set to the value
 cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
 
-### Docker
+### Mirantis Container Runtime {#mcr}
 
-1. On each of your nodes, install the Docker for your Linux distribution as per 
-[Install Docker Engine](https://docs.docker.com/engine/install/#server). 
-You can find the latest validated version of Docker in this 
-[dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially
+available container runtime that was formerly known as Docker Enterprise Edition.
 
-2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
-
-   ```shell
-   sudo mkdir /etc/docker
-   cat <<EOF | sudo tee /etc/docker/daemon.json
-   {
-     "exec-opts": ["native.cgroupdriver=systemd"],
-     "log-driver": "json-file",
-     "log-opts": {
-       "max-size": "100m"
-     },
-     "storage-driver": "overlay2"
-   }
-   EOF
-   ```
-
-   {{< note >}}
-   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher, 
-   or RHEL or CentOS using version 3.10.0-514 and above.
-   {{< /note >}}
-
-3. Restart Docker and enable on boot:
-
-   ```shell
-   sudo systemctl enable docker
-   sudo systemctl daemon-reload
-   sudo systemctl restart docker
-   ```
-
-{{< note >}}
-For more information refer to
-  - [Configure the Docker daemon](https://docs.docker.com/config/daemon/)
-  - [Control Docker with systemd](https://docs.docker.com/config/daemon/systemd/)
-{{< /note >}}
+You can use Mirantis Container Runtime with Kubernetes using the open source
+[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) component, included with MCR.
