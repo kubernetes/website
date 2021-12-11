@@ -649,13 +649,11 @@ when using GMSA with containerd to access Windows network shares, which requires
 kernel patch.
 {{< /note >}}
 
-#### MCR
-
-{{< feature-state for_k8s_version="v1.23" state="stable" >}}
+#### Mirantis Container Runtime {#mcr}
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is available as a container runtime for all Windows Server 2019 and later versions.
 
-See [Install MCR](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
+See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
 
 ## Windows OS version compatibility {#windows-os-version-support}
 
