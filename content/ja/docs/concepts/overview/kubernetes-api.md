@@ -16,7 +16,7 @@ card:
 Kubernetesの中核である {{< glossary_tooltip text="control plane" term_id="control-plane" >}}は{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} です。
 APIサーバーは、エンドユーザー、クラスターのさまざまな部分、および外部コンポーネントが相互に通信できるようにするHTTP APIを公開します。
 
-Kubernetes APIを使用すると、Kubernetes API内のオブジェクトの状態をクエリで操作できます（例：Pod、Namespace、ConfigMap、Events）。
+Kubernetes APIを使用すると、Kubernetes API内のオブジェクトの状態をクエリで操作できます(例:Pod、Namespace、ConfigMap、Events)。
 
 ほとんどの操作は、APIを使用している[kubectl](/ja/docs/reference/kubectl/overview/)コマンドラインインターフェースもしくは[kubeadm](/ja/docs/reference/setup-tools/kubeadm/)のような別のコマンドラインツールを通して実行できます。
 RESTコールを利用して直接APIにアクセスすることも可能です。
@@ -65,7 +65,7 @@ Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOp
 </table>
 
 
-Kubernetesは、他の手段として主にクラスター間の連携用途向けのAPIに、Protocol buffersをベースにしたシリアライズフォーマットを実装しています。このフォーマットに関しては、[Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)デザイン提案を参照してください。また、各スキーマのInterface Definition Language（IDL）ファイルは、APIオブジェクトを定義しているGoパッケージ内に配置されています。
+Kubernetesは、他の手段として主にクラスター間の連携用途向けのAPIに、Protocol buffersをベースにしたシリアライズフォーマットを実装しています。このフォーマットに関しては、[Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)デザイン提案を参照してください。また、各スキーマのInterface Definition Language(IDL)ファイルは、APIオブジェクトを定義しているGoパッケージ内に配置されています。
 
 ## 永続性
 
@@ -79,7 +79,7 @@ APIが、システムリソースと動作について明確かつ一貫した�
 
 APIの発展や拡張を簡易に行えるようにするため、Kubernetesは[有効もしくは無効](/docs/reference/using-api/#enabling-or-disabling)を行える[APIグループ](/docs/reference/using-api/#api-groups)を実装しました。
 
-APIリソースは、APIグループ、リソースタイプ、ネームスペース（namespacedリソースのための）、名前によって区別されます。APIサーバーは、APIバージョン間の変換を透過的に処理します。すべてのバージョンの違いは、実際のところ同じ永続データとして表現されます。APIサーバーは、同じ基本的なデータを複数のAPIバージョンで提供することができます。
+APIリソースは、APIグループ、リソースタイプ、ネームスペース(namespacedリソースのための)、名前によって区別されます。APIサーバーは、APIバージョン間の変換を透過的に処理します。すべてのバージョンの違いは、実際のところ同じ永続データとして表現されます。APIサーバーは、同じ基本的なデータを複数のAPIバージョンで提供することができます。
 
 例えば、同じリソースで`v1`と`v1beta1`の2つのバージョンが有ることを考えてみます。`v1beta1`バージョンのAPIを利用しオブジェクトを最初に作成したとして、`v1beta1`もしくは`v1`どちらのAPIバージョンを利用してもオブジェクトのread、update、deleteができます。
 
@@ -92,7 +92,7 @@ Kubernetesプロジェクトは、既存のクライアントとの互換性を�
 基本的に、新しいAPIリソースと新しいリソースフィールドは追加することができます。
 リソースまたはフィールドを削除するには、[API非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)に従ってください。
 
-Kubernetesは、公式のKubernetes APIが一度一般提供（GA）に達した場合、通常は`v1`APIバージョンです、互換性を維持することを強い責任があります。さらに、Kubernetesは _beta_ についても可能な限り互換性を維持し続けます。ベータAPIを採用した場合、その機能が安定版になったあとでも、APIを利用してクラスタを操作し続けることができます。
+Kubernetesは、公式のKubernetes APIが一度一般提供(GA)に達した場合、通常は`v1`APIバージョンです、互換性を維持することを強い責任があります。さらに、Kubernetesは _beta_ についても可能な限り互換性を維持し続けます。ベータAPIを採用した場合、その機能が安定版になったあとでも、APIを利用してクラスタを操作し続けることができます。
 
 {{< note >}}
 Kubernetesは、 _alpha_ APIバージョンについても互換性の維持に注力しますが、いくつかの事情により不可である場合もあります。アルファAPIバージョンを使っている場合、クラスタのアップグレードやAPIが変更された場合に備えて、Kubernetesのリリースノートを確認してください。
