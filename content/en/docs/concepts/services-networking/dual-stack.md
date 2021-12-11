@@ -57,6 +57,14 @@ To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
    * kube-proxy:
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+   * kubelet:
+      * when there is no `--cloud-provider` the administrator can pass a comma-separated pair
+        of IP addresses via `--node-ip` to manually configure dual-stack `.status.addresses`
+        for that Node.
+        If a Pod runs on that node in HostNetwork mode, the Pod reports these IP addresses in its
+        `.status.podIPs` field.
+        All `podIPs` in a node match the IP family preference defined by the
+        `.status.addresses` field for that Node.
 
 {{< note >}}
 An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own address range)
