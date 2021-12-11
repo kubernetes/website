@@ -139,3 +139,9 @@ Some example values of `matchImages` patterns are:
 * `gcr.io`
 * `*.*.registry.io`
 * `foo.registry.io:8080/path`
+
+
+## {{% heading "whatsnext" %}}
+
+* Read the details about `CredentialProviderConfig` in the
+  [kubelet configuration API (v1alpha1) reference](/docs/reference/config-api/kubelet-config.v1alpha1/).
