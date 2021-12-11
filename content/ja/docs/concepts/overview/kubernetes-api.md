@@ -18,7 +18,7 @@ APIサーバーは、エンドユーザー、クラスターのさまざまな�
 
 Kubernetes APIを使用すると、Kubernetes API内のオブジェクトの状態をクエリで操作できます（例：Pod、Namespace、ConfigMap、Events）。
 
-ほとんどの操作は、APIを使用している[kubectl](/docs/reference/kubectl/overview/)コマンドラインインターフェースもしくは[kubeadm](/docs/reference/setup-tools/kubeadm/)のような別のコマンドラインツールを通して実行できます。
+ほとんどの操作は、APIを使用している[kubectl](/ja/docs/reference/kubectl/overview/)コマンドラインインターフェースもしくは[kubeadm](/ja/docs/reference/setup-tools/kubeadm/)のような別のコマンドラインツールを通して実行できます。
 RESTコールを利用して直接APIにアクセスすることも可能です。
 
 Kubernetes APIを利用してアプリケーションを書いているのであれば、[client libraries](/docs/reference/using-api/client-libraries/)の利用を考えてみてください。
