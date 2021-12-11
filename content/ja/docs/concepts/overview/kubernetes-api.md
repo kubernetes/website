@@ -65,7 +65,7 @@ Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOp
 </table>
 
 
-Kubernetesは、他の手段として主にクラスター間の連携用途向けのAPIに、Protocol buffersをベースにしたシリアライズフォーマットを実装しています。このフォーマットに関しては、[Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/des ign-proposals/api-machinery/protobuf.md)デザイン提案を参照してください。また、各スキーマのInterface Definition Language（IDL）ファイルは、APIオブジェクトを定義しているGoパッケージ内に配置されています。
+Kubernetesは、他の手段として主にクラスター間の連携用途向けのAPIに、Protocol buffersをベースにしたシリアライズフォーマットを実装しています。このフォーマットに関しては、[Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)デザイン提案を参照してください。また、各スキーマのInterface Definition Language（IDL）ファイルは、APIオブジェクトを定義しているGoパッケージ内に配置されています。
 
 ## 永続性
 
@@ -112,5 +112,5 @@ Kubernetes APIは2つの方法で拡張できます。
 
 - 自分自身で[カスタムリソース定義](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)を追加してKubernetes APIを拡張する方法について学んでください。
 - [Kubernetes APIのアクセス制御](/docs/concepts/security/controlling-access/)では、クラスターがAPIアクセスの認証と承認を管理する方法を説明しています。
-- [APIリファレンス](/ja/docs/reference/kubernetes-api/)を読んで、APIエンドポイント、リソースタイプやサンプルについて学んでください。
+- [APIリファレンス](/docs/reference/kubernetes-api/)を読んで、APIエンドポイント、リソースタイプやサンプルについて学んでください。
 - [APIの変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)から、互換性のある変更とは何か, どのようにAPIを変更するかについて学んでください。
