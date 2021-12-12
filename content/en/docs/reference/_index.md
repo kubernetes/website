@@ -27,6 +27,7 @@ This section of the Kubernetes documentation contains references.
 * [Using The Kubernetes API](/docs/reference/using-api/) - overview of the API for Kubernetes.
 * [API access control](/docs/reference/access-authn-authz/) - details on how Kubernetes controls API access
 * [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
+* [Identifiers and Names in Kubernetes](/docs/reference/identifiers/identifiers/) - goals and recommendations for identifiers in Kubernetes
 
 ## Officially supported client libraries
 
@@ -93,6 +94,3 @@ operator to use or manage a cluster.
 An archive of the design docs for Kubernetes functionality. Good starting points are
 [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
 [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
-
-## Identifiers and Names in Kubernetes
-A summarization of the goals and recommendations for identifiers in Kubernetes. More information can be found [here](/docs/reference/identifiers/identifiers/).
