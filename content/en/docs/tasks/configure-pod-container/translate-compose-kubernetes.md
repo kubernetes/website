@@ -29,13 +29,13 @@ Kompose is released via GitHub on a three-week cycle, you can see all current re
 
 ```sh
 # Linux
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.24.0/kompose-linux-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.24.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.24.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-windows-amd64.exe -o kompose.exe
 
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
@@ -150,13 +150,12 @@ you need is an existing `docker-compose.yml` file.
    ```
 
    ```bash
-    kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,
+    kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
    ```
 
    The output is similar to:
 
    ```none
-   redis-master-deployment.yaml,redis-slave-deployment.yaml
    service/frontend created
    service/redis-master created
    service/redis-slave created
@@ -208,8 +207,6 @@ you need is an existing `docker-compose.yml` file.
 
 - CLI
   - [`kompose convert`](#kompose-convert)
-  - [`kompose up`](#kompose-up)
-  - [`kompose down`](#kompose-down)
 - Documentation
   - [Build and Push Docker Images](#build-and-push-docker-images)
   - [Alternative Conversions](#alternative-conversions)
@@ -329,121 +326,7 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 If you are manually pushing the OpenShift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this OpenShift issue: https://github.com/openshift/origin/issues/4518 .
 {{< /note >}}
 
-## `kompose up`
 
-Kompose supports a straightforward way to deploy your "composed" application to Kubernetes or OpenShift via `kompose up`.
-
-### Kubernetes `kompose up` example
-
-```shell
-kompose --file ./examples/docker-guestbook.yml up
-```
-
-```none
-We are going to create Kubernetes deployments and services for your Dockerized application.
-If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
-
-INFO Successfully created service: redis-master
-INFO Successfully created service: redis-slave
-INFO Successfully created service: frontend
-INFO Successfully created deployment: redis-master
-INFO Successfully created deployment: redis-slave
-INFO Successfully created deployment: frontend
-
-Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods' for details.
-```
-
-```shell
-kubectl get deployment,svc,pods
-```
-
-```none
-NAME                                              DESIRED       CURRENT       UP-TO-DATE   AVAILABLE   AGE
-deployment.extensions/frontend                    1             1             1            1           4m
-deployment.extensions/redis-master                1             1             1            1           4m
-deployment.extensions/redis-slave                 1             1             1            1           4m
-
-NAME                         TYPE               CLUSTER-IP    EXTERNAL-IP   PORT(S)      AGE
-service/frontend             ClusterIP          10.0.174.12   <none>        80/TCP       4m
-service/kubernetes           ClusterIP          10.0.0.1      <none>        443/TCP      13d
-service/redis-master         ClusterIP          10.0.202.43   <none>        6379/TCP     4m
-service/redis-slave          ClusterIP          10.0.1.85     <none>        6379/TCP     4m
-
-NAME                                READY         STATUS        RESTARTS     AGE
-pod/frontend-2768218532-cs5t5       1/1           Running       0            4m
-pod/redis-master-1432129712-63jn8   1/1           Running       0            4m
-pod/redis-slave-2504961300-nve7b    1/1           Running       0            4m
-```
-
-{{< note >}}
-
-- You must have a running Kubernetes cluster with a pre-configured kubectl context.
-- Only deployments and services are generated and deployed to Kubernetes. If you need different kind of resources, use the `kompose convert` and `kubectl apply -f` commands instead.
-{{< /note >}}
-
-### OpenShift `kompose up` example
-
-```shell
-kompose --file ./examples/docker-guestbook.yml --provider openshift up
-```
-
-```none
-We are going to create OpenShift DeploymentConfigs and Services for your Dockerized application.
-If you need different kind of resources, use the 'kompose convert' and 'oc create -f' commands instead.
-
-INFO Successfully created service: redis-slave    
-INFO Successfully created service: frontend       
-INFO Successfully created service: redis-master   
-INFO Successfully created deployment: redis-slave
-INFO Successfully created ImageStream: redis-slave
-INFO Successfully created deployment: frontend    
-INFO Successfully created ImageStream: frontend   
-INFO Successfully created deployment: redis-master
-INFO Successfully created ImageStream: redis-master
-
-Your application has been deployed to OpenShift. You can run 'oc get dc,svc,is' for details.
-```
-
-```shell
-oc get dc,svc,is
-```
-
-```none
-NAME               REVISION                              DESIRED       CURRENT    TRIGGERED BY
-dc/frontend        0                                     1             0          config,image(frontend:v4)
-dc/redis-master    0                                     1             0          config,image(redis-master:e2e)
-dc/redis-slave     0                                     1             0          config,image(redis-slave:v1)
-NAME               CLUSTER-IP                            EXTERNAL-IP   PORT(S)    AGE
-svc/frontend       172.30.46.64                          <none>        80/TCP     8s
-svc/redis-master   172.30.144.56                         <none>        6379/TCP   8s
-svc/redis-slave    172.30.75.245                         <none>        6379/TCP   8s
-NAME               DOCKER REPO                           TAGS          UPDATED
-is/frontend        172.30.12.200:5000/fff/frontend                     
-is/redis-master    172.30.12.200:5000/fff/redis-master                 
-is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1  
-```
-
-{{< note >}}
-You must have a running OpenShift cluster with a pre-configured `oc` context (`oc login`).
-{{< /note >}}
-
-## `kompose down`
-
-Once you have deployed "composed" application to Kubernetes, `kompose down` will help you to take the application out by deleting its deployments and services. If you need to remove other resources, use the 'kubectl' command.
-
-```shell
-kompose --file docker-guestbook.yml down
-INFO Successfully deleted service: redis-master   
-INFO Successfully deleted deployment: redis-master
-INFO Successfully deleted service: redis-slave    
-INFO Successfully deleted deployment: redis-slave
-INFO Successfully deleted service: frontend       
-INFO Successfully deleted deployment: frontend
-```
-
-{{< note >}}
-You must have a running Kubernetes cluster with a pre-configured `kubectl` context.
-{{< /note >}}
 
 ## Build and Push Docker Images
 

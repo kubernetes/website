@@ -1,16 +1,16 @@
 ---
 reviewers:
-- sftim
 - marosset
 - jsturtevant
 - zshihang
 title: Projected Volumes
 content_type: concept
+weight: 21 # just after persistent volumes
 ---
 
 <!-- overview -->
 
-This document describes the current state of _projected volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
+This document describes _projected volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 
 <!-- body -->
 
@@ -71,7 +71,7 @@ volume mount will not receive updates for those volume sources.
 
 ## SecurityContext interactions
 
-The [proposal for file permission handling in projected service account volume](https://github.com/kubernetes/enhancements/pull/1598)
+The [proposal for file permission handling in projected service account volume](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#token-volume-projection)
 enhancement introduced the projected files having the the correct owner
 permissions set.
 
@@ -100,6 +100,8 @@ into their own volume mount outside of `C:\`.
 By default, the projected files will have the following ownership as shown for
 an example projected volume file:
 ```powershell
+PS C:\> Get-Acl C:\var\run\secrets\kubernetes.io\serviceaccount\..2021_08_31_22_22_18.318230061\ca.crt | Format-List
+
 Path   : Microsoft.PowerShell.Core\FileSystem::C:\var\run\secrets\kubernetes.io\serviceaccount\..2021_08_31_22_22_18.318230061\ca.crt
 Owner  : BUILTIN\Administrators
 Group  : NT AUTHORITY\SYSTEM

@@ -118,7 +118,6 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 은
 반환된 목록의 각 파드의 이름을 출력하도록 하는 옵션이다.
 
-
 ## 레플리케이션 컨트롤러의 Spec 작성
 
 다른 모든 쿠버네티스 컨피그와 마찬가지로 레플리케이션 컨트롤러는 `apiVersion`, `kind`, `metadata` 와 같은 필드가 필요하다.

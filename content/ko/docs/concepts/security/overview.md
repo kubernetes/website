@@ -29,7 +29,7 @@ weight: 1
 널리 알려져 있다.
 {{< /note >}}
 
-{{< figure src="/images/docs/4c.png" title="클라우드 네이티브 보안의 4C" >}}
+{{< figure src="/images/docs/4c.png" title="클라우드 네이티브 보안의 4C" class="diagram-large" >}}
 
 클라우드 네이티브 보안 모델의 각 계층은 다음의 가장 바깥쪽 계층을 기반으로 한다.
 코드 계층은 강력한 기본(클라우드, 클러스터, 컨테이너) 보안 계층의 이점을 제공한다.
@@ -77,7 +77,7 @@ API 서버에 대한 네트워크 접근(컨트롤 플레인) | 쿠버네티스 
 노드에 대한 네트워크 접근(노드) | 지정된 포트의 컨트롤 플레인에서 _만_ (네트워크 접근 제어 목록을 통한) 연결을 허용하고 NodePort와 LoadBalancer 유형의 쿠버네티스 서비스에 대한 연결을 허용하도록 노드를 구성해야 한다. 가능하면 이러한 노드가 공용 인터넷에 완전히 노출되어서는 안된다.
 클라우드 공급자 API에 대한 쿠버네티스 접근 | 각 클라우드 공급자는 쿠버네티스 컨트롤 플레인 및 노드에 서로 다른 권한 집합을 부여해야 한다. 관리해야하는 리소스에 대해 [최소 권한의 원칙](https://en.wikipedia.org/wiki/Principle_of_least_privilege)을 따르는 클라우드 공급자의 접근 권한을 클러스터에 구성하는 것이 가장 좋다. [Kops 설명서](https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles)는 IAM 정책 및 역할에 대한 정보를 제공한다.
 etcd에 대한 접근 | etcd(쿠버네티스의 데이터 저장소)에 대한 접근은 컨트롤 플레인으로만 제한되어야 한다. 구성에 따라 TLS를 통해 etcd를 사용해야 한다. 자세한 내용은 [etcd 문서](https://github.com/etcd-io/etcd/tree/master/Documentation)에서 확인할 수 있다.
-etcd 암호화 | 가능한 한 모든 드라이브를 암호화하는 것이 좋은 방법이지만, etcd는 전체 클러스터(시크릿 포함)의 상태를 유지하고 있기에 특히 디스크는 암호화되어 있어야 한다.
+etcd 암호화 | 가능한 한 모든 스토리지를 암호화하는 것이 좋은 방법이며, etcd는 전체 클러스터(시크릿 포함)의 상태를 유지하고 있기에 특히 디스크는 암호화되어 있어야 한다.
 
 {{< /table >}}
 
@@ -107,9 +107,9 @@ etcd 암호화 | 가능한 한 모든 드라이브를 암호화하는 것이 좋
 ------------------------------ | ------------ |
 RBAC 인증(쿠버네티스 API에 대한 접근) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 인증 | https://kubernetes.io/ko/docs/concepts/security/controlling-access/
-애플리케이션 시크릿 관리(및 유휴 상태에서의 etcd 암호화 등) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
-파드 보안 정책 | https://kubernetes.io/docs/concepts/policy/pod-security-policy/
-서비스 품질(및 클러스터 리소스 관리) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/
+애플리케이션 시크릿 관리(및 유휴 상태에서의 etcd 암호화 등) | https://kubernetes.io/ko/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
+파드가 파드 시큐리티 폴리시를 만족하는지 확인하기 | https://kubernetes.io/docs/concepts/security/pod-security-standards/#policy-instantiation
+서비스 품질(및 클러스터 리소스 관리) | https://kubernetes.io/ko/docs/tasks/configure-pod-container/quality-service-pod/
 네트워크 정책 | https://kubernetes.io/ko/docs/concepts/services-networking/network-policies/
 쿠버네티스 인그레스를 위한 TLS | https://kubernetes.io/ko/docs/concepts/services-networking/ingress/#tls
 
@@ -137,7 +137,7 @@ RBAC 인증(쿠버네티스 API에 대한 접근) | https://kubernetes.io/docs/r
 
 코드에서 고려할 영역 | 추천 |
 -------------------------| -------------- |
-TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 미리 클라이언트와 TLS 핸드 셰이크를 수행한다. 몇 가지 경우를 제외하고, 전송 중인 모든 것을 암호화한다. 한 걸음 더 나아가, 서비스 간 네트워크 트래픽을 암호화하는 것이 좋다. 이것은 인증서를 가지고 있는 두 서비스의 양방향 검증을 [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication)를 통해 수행할 수 있다. |
+TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 미리 클라이언트와 TLS 핸드 셰이크를 수행한다. 몇 가지 경우를 제외하고, 전송 중인 모든 것을 암호화한다. 한 걸음 더 나아가, 서비스 간 네트워크 트래픽을 암호화하는 것이 좋다. 이것은 인증서를 가지고 있는 두 서비스의 양방향 검증을 실행하는 [mTLS(상호 TLS 인증)](https://en.wikipedia.org/wiki/Mutual_authentication)를 통해 수행할 수 있다. |
 통신 포트 범위 제한 | 이 권장사항은 당연할 수도 있지만, 가능하면 통신이나 메트릭 수집에 꼭 필요한 서비스의 포트만 노출시켜야 한다. |
 타사 종속성 보안 | 애플리케이션의 타사 라이브러리를 정기적으로 스캔하여 현재 알려진 취약점이 없는지 확인하는 것이 좋다. 각 언어에는 이런 검사를 자동으로 수행하는 도구를 가지고 있다. |
 정적 코드 분석 | 대부분 언어에는 잠재적으로 안전하지 않은 코딩 방법에 대해 코드 스니펫을 분석할 수 있는 방법을 제공한다. 가능한 언제든지 일반적인 보안 오류에 대해 코드베이스를 스캔할 수 있는 자동화된 도구를 사용하여 검사를 한다. 도구는 다음에서 찾을 수 있다. https://owasp.org/www-community/Source_Code_Analysis_Tools |

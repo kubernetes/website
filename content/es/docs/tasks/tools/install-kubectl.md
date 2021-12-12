@@ -493,7 +493,7 @@ Si tienes alias para kubectl, puedes extender el completado de intérprete de co
 
 ```zsh
 echo 'alias k=kubectl' >>~/.zshrc
-echo 'complete -F __start_kubectl k' >>~/.zshrc
+echo 'compdef __start_kubectl k' >>~/.zshrc
 ```
 
 Tras recargar tu intérprete de comandos, el auto-completado de kubectl debería funcionar.

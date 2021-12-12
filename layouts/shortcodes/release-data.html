@@ -1,34 +1,45 @@
 {{ range $data := .Site.Data.releases.schedule.schedules }}
 {{- $dataVersion := printf "%.2f" $data.release  -}}
-<h2>{{ $dataVersion }}</h2>
+{{- $dataIdVersion := replace ( printf "%.2f" $data.release ) "." "-" | anchorize -}}
+<h3 id="release-v{{ $dataIdVersion }}">{{ $dataVersion }}</h3>
 
-<br>
-
+<div class="release-details">
 {{ if not $data.previousPatches }}
-<b>{{ T "latest_release" }}</b> {{ printf "%s.0" $dataVersion }}
-<br>
-<b>{{ T "end_of_life" }}</b> {{ printf "%s" $data.endOfLifeDate }}
-<br>
-<b>{{ T "previous_patches" }}</b> n/a
+<div>
+<b class="release-inline-heading">{{ T "latest_release" }}</b><span class="release-version release-inline-value">{{ printf "%s.0" $dataVersion }}</span>
+</div>
+<div>
+  <b class="release-inline-heading">{{ T "end_of_life" }}</b><span class="release-eoldate release-inline-value">{{ printf "%s" $data.endOfLifeDate }}</span>
+</div>
+<div>
+    <b class="release-inline-heading">{{ T "previous_patches" }}</b> <span class="notapplicable release-inline-value">{{ T "not_applicable" }}</span>
+</div>
 {{ end }}
 
 {{ if $data.previousPatches }}
-<b>{{ T "latest_release" }}</b> {{ index $data.previousPatches 0 "release" }} (released: {{ index $data.previousPatches 0 "targetDate" }})
-<br>
-<b>{{ T "end_of_life" }}</b> {{ printf "%s" $data.endOfLifeDate }}
-<br>
+<div>
+    <b class="release-inline-heading">{{ T "latest_release" }}</b><span class="release-inline-value">{{ index $data.previousPatches 0 "release" }} {{ T "release_date_before" }}{{ index $data.previousPatches 0 "targetDate" }}{{ T "release_date_after" }}</span>
+</div>
+<div>
+    <b class="release-inline-heading">{{ T "end_of_life" }}</b><span class="release-eoldate release-inline-value">{{ printf "%s" $data.endOfLifeDate }}</span>
+</div>
+<div>
 <b>{{ T "previous_patches" }}</b>
-    {{ range $previousPatchesList := $data.previousPatches }}
-        {{range $previous_patches_key, $previous_patches_value := $previousPatchesList }}
-            {{ if eq $previous_patches_key "release" }}<a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md#v{{ replace $previous_patches_value `.` `` }}">{{ printf "%s" $previous_patches_value }}{{ T "inline_list_separator" }} </a>
-            {{ end }}
-        {{ end }}
-    {{ end }}
-{{ end }}
+    <span class="release-prevpatches release-inline-value">
+    {{- range $key, $value := sort $data.previousPatches ".targetDate" "asc" -}}
+        {{ if $key }}{{ T "inline_list_separator" }}{{ end }}
+        <a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md#v{{ replace .release `.` `` }}">{{ printf "%s" .release }}</a>
+    {{- end -}}
+{{- end -}}
+    </span>
+</div>
 
+<!-- not yet localized, mark as English -->
+<p lang="en">
+Complete {{ $dataVersion }} <a href="/releases/patch-releases/#{{ replace $dataVersion `.` `-` }}">Schedule</a>
+and <a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md">Changelog</a>
+</p>
 
-<br>
-Complete {{ $dataVersion }} <a href="/releases/patch-releases/#{{ replace $dataVersion `.` `-` }}">Schedule</a> and <a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md">Changelog</a>
-
+</div>
 
 {{ end }}

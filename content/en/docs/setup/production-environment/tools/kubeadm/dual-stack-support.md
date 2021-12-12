@@ -7,9 +7,9 @@ min-kubernetes-server-version: 1.21
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-Your Kubernetes cluster can run in [dual-stack](/docs/concepts/services-networking/dual-stack/) networking mode, which means that cluster networking lets you use either address family. In a dual-stack cluster, the control plane can assign both an IPv4 address and an IPv6 address to a single {{< glossary_tooltip text="Pod" term_id="pod" >}} or a {{< glossary_tooltip text="Service" term_id="service" >}}.
+Your Kubernetes cluster includes [dual-stack](/docs/concepts/services-networking/dual-stack/) networking, which means that cluster networking lets you use either address family. In a cluster, the control plane can assign both an IPv4 address and an IPv6 address to a single {{< glossary_tooltip text="Pod" term_id="pod" >}} or a {{< glossary_tooltip text="Service" term_id="service" >}}.
 
 <!-- body -->
 
@@ -28,10 +28,8 @@ The size of the IP address allocations should be suitable for the number of Pods
 Services that you are planning to run.
 
 {{< note >}}
-If you are upgrading an existing cluster then, by default, the `kubeadm upgrade` command
-changes the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`IPv6DualStack` to `true` if that is not already enabled.
-However, `kubeadm` does not support making modifications to the pod IP address range
+If you are upgrading an existing cluster with the `kubeadm upgrade` command,
+`kubeadm` does not support making modifications to the pod IP address range
 (“cluster CIDR”) nor to the cluster's Service address range (“Service CIDR”).
 {{< /note >}}
 
@@ -51,8 +49,6 @@ To make things clearer, here is an example kubeadm [configuration file](https://
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-featureGates:
-  IPv6DualStack: true
 networking:
   podSubnet: 10.244.0.0/16,2001:db8:42:0::/56
   serviceSubnet: 10.96.0.0/16,2001:db8:42:1::/112
@@ -75,7 +71,7 @@ Run kubeadm to initiate the dual-stack control plane node:
 kubeadm init --config=kubeadm-config.yaml
 ```
 
-Currently, the kube-controller-manager flags `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` are being left with default values. See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack).
+The kube-controller-manager flags `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` are set with default values. See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack).
 
 {{< note >}}
 The `--apiserver-advertise-address` flag does not support dual-stack.
@@ -132,23 +128,15 @@ kubeadm join --config=kubeadm-config.yaml
 ### Create a single-stack cluster
 
 {{< note >}}
-Enabling the dual-stack feature doesn't mean that you need to use dual-stack addressing.
+Dual-stack support doesn't mean that you need to use dual-stack addressing.
 You can deploy a single-stack cluster that has the dual-stack networking feature enabled.
 {{< /note >}}
-
-In 1.21 the `IPv6DualStack` feature is Beta and the feature gate is defaulted to `true`. To disable the feature you must configure the feature gate to `false`. Note that once the feature is GA, the feature gate will be removed.
-
-```shell
-kubeadm init --feature-gates IPv6DualStack=false
-```
 
 To make things more clear, here is an example kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) `kubeadm-config.yaml` for the single-stack control plane node.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-featureGates:
-  IPv6DualStack: false
 networking:
   podSubnet: 10.244.0.0/16
   serviceSubnet: 10.96.0.0/16

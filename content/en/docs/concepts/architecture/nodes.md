@@ -402,7 +402,7 @@ Graceful node shutdown is controlled with the `GracefulNodeShutdown`
 enabled by default in 1.21.
 
 Note that by default, both configuration options described below,
-`ShutdownGracePeriod` and `ShutdownGracePeriodCriticalPods` are set to zero,
+`shutdownGracePeriod` and `shutdownGracePeriodCriticalPods` are set to zero,
 thus not activating Graceful node shutdown functionality.
 To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
 
@@ -412,31 +412,115 @@ During a graceful shutdown, kubelet terminates pods in two phases:
 2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
 
 Graceful node shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
-* `ShutdownGracePeriod`:
+* `shutdownGracePeriod`:
   * Specifies the total duration that the node should delay the shutdown by. This is the total grace period for pod termination for both regular and [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
-* `ShutdownGracePeriodCriticalPods`:
-  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `ShutdownGracePeriod`.
+* `shutdownGracePeriodCriticalPods`:
+  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `shutdownGracePeriod`.
 
-For example, if `ShutdownGracePeriod=30s`, and
-`ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
+For example, if `shutdownGracePeriod=30s`, and
+`shutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved
 for gracefully terminating normal pods, and the last 10 seconds would be
 reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 
 {{< note >}}
-When pods were evicted during the graceful node shutdown, they are marked as failed.
-Running `kubectl get pods` shows the status of the the evicted pods as `Shutdown`.
+When pods were evicted during the graceful node shutdown, they are marked as shutdown.
+Running `kubectl get pods` shows the status of the the evicted pods as `Terminated`.
 And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
 
 ```
-Status:         Failed
-Reason:         Shutdown
-Message:        Node is shutting, evicting pods
+Reason:         Terminated
+Message:        Pod was terminated in response to imminent node shutdown.
 ```
 
-Failed pod objects will be preserved until explicitly deleted or [cleaned up by the GC](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
-This is a change of behavior compared to abrupt node termination.
 {{< /note >}}
+
+### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
+
+{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+
+To provide more flexibility during graceful node shutdown around the ordering
+of pods during shutdown, graceful node shutdown honors the PriorityClass for
+Pods, provided that you enabled this feature in your cluster. The feature
+allows allows cluster administers to explicitly define the ordering of pods
+during graceful node shutdown based on [priority
+classes](docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
+
+The [Graceful Node Shutdown](#graceful-node-shutdown) feature, as described
+above, shuts down pods in two phases, non-critical pods, followed by critical
+pods. If additional flexibility is needed to explicitly define the ordering of
+pods during shutdown in a more granular way, pod priority based graceful
+shutdown can be used.
+
+When graceful node shutdown honors pod priorities, this makes it possible to do
+graceful node shutdown in multiple phases, each phase shutting down a
+particular priority class of pods. The kubelet can be configured with the exact
+phases and shutdown time per phase.
+
+Assuming the following custom pod [priority
+classes](docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
+in a cluster,
+
+|Pod priority class name|Pod priority class value|
+|-------------------------|------------------------|
+|`custom-class-a`         | 100000                 |
+|`custom-class-b`         | 10000                  |
+|`custom-class-c`         | 1000                   |
+|`regular/unset`          | 0                      |
+
+Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+the settings for `shutdownGracePeriodByPodPriority` could look like:
+
+|Pod priority class value|Shutdown period|
+|------------------------|---------------|
+| 100000                 |10 seconds     |
+| 10000                  |180 seconds    |
+| 1000                   |120 seconds    |
+| 0                      |60 seconds     |
+
+The corresponding kubelet config YAML configuration would be:
+
+```yaml
+shutdownGracePeriodByPodPriority:
+  - priority: 100000
+    shutdownGracePeriodSeconds: 10
+  - priority: 10000
+    shutdownGracePeriodSeconds: 180
+  - priority: 1000
+    shutdownGracePeriodSeconds: 120
+  - priority: 0
+    shutdownGracePeriodSeconds: 60
+```
+
+The above table implies that any pod with priority value >= 100000 will get
+just 10 seconds to stop, any pod with value >= 10000 and < 100000 will get 180
+seconds to stop, any pod with value >= 1000 and < 10000 will get 120 seconds to stop.
+Finally, all other pods will get 60 seconds to stop.
+
+One doesn't have to specify values corresponding to all of the classes. For
+example, you could instead use these settings:
+
+|Pod priority class value|Shutdown period|
+|------------------------|---------------|
+| 100000                 |300 seconds    |
+| 1000                   |120 seconds    |
+| 0                      |60 seconds     |
+
+
+In the above case, the pods with custom-class-b will go into the same bucket
+as custom-class-c for shutdown.
+
+If there are no pods in a particular range, then the kubelet does not wait
+for pods in that priority range. Instead, the kubelet immediately skips to the
+next priority class value range.
+
+If this feature is enabled and no configuration is provided, then no ordering
+action will be taken.
+
+Using this feature, requires enabling the
+`GracefulNodeShutdownBasedOnPodPriority` feature gate, and setting the kubelet
+config's `ShutdownGracePeriodByPodPriority` to the desired configuration
+containing the pod priority class values and their respective shutdown periods.
 
 ## Swap memory management {#swap-memory}
 
@@ -450,6 +534,11 @@ To enable swap on a node, the `NodeSwap` feature gate must be enabled on
 the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
 [configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 must be set to false.
+
+{{< warning >}}
+When the memory swap feature is turned on, Kubernetes data such as the content
+of Secret objects that were written to tmpfs now could be swapped to disk.
+{{< /warning >}}
 
 A user can also optionally configure `memorySwap.swapBehavior` in order to
 specify how a node will use swap memory. For example,

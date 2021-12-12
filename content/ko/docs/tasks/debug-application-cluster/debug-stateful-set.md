@@ -32,7 +32,7 @@ kubectl get pods -l app=myapp
 
 만약 오랜 시간동안 `Unknown`이나 `Terminating` 상태에 있는
 파드들을 발견하였다면, 이러한 파드들을 어떻게 다루는지 알아보기 위해 
-[스테이트풀셋 파드 삭제하기](/docs/tasks/run-application/delete-stateful-set/)를 참고하길 바란다.
+[스테이트풀셋 파드 삭제하기](/ko/docs/tasks/run-application/delete-stateful-set/)를 참고하길 바란다.
 스테이트풀셋에 포함된 개별 파드들을 디버깅하기 위해서는
 [파드 디버그하기](/ko/docs/tasks/debug-application-cluster/debug-pod-replication-controller/) 가이드를 참고하길 바란다.
 

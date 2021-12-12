@@ -84,34 +84,6 @@ and using the [Policy type](/zh/docs/reference/config-api/kube-scheduler-policy-
 - `MaxCSIVolumeCount`：决定附加 {{< glossary_tooltip text="CSI" term_id="csi" >}} 卷的数量，判断是否超过配置的限制。
 
 <!--  
-- `CheckNodeMemoryPressure`: If a Node is reporting memory pressure, and there's no
-  configured exception, the Pod won't be scheduled there.
--->
-- `CheckNodeMemoryPressure`：如果节点正上报内存压力，并且没有异常配置，则不会把 Pod 调度到此节点上。
-
-<!--  
-- `CheckNodePIDPressure`: If a Node is reporting that process IDs are scarce, and
-  there's no configured exception, the Pod won't be scheduled there.
--->
-- `CheckNodePIDPressure`：如果节点正上报进程 ID 稀缺，并且没有异常配置，则不会把 Pod 调度到此节点上。
-
-<!--  
-- `CheckNodeDiskPressure`: If a Node is reporting storage pressure (a filesystem that
-   is full or nearly full), and there's no configured exception, the Pod won't be
-   scheduled there.
--->
-- `CheckNodeDiskPressure`：如果节点正上报存储压力（文件系统已满或几乎已满），并且没有异常配置，则不会把 Pod 调度到此节点上。
-
-<!--  
-- `CheckNodeCondition`: Nodes can report that they have a completely full filesystem,
-  that networking isn't available or that kubelet is otherwise not ready to run Pods.
-  If such a condition is set for a Node, and there's no configured exception, the Pod
-  won't be scheduled there.
--->
-- `CheckNodeCondition`：节点可用上报自己的文件系统已满，网络不可用或者 kubelet 尚未准备好运行 Pod。
-  如果节点上设置了这样的状况，并且没有异常配置，则不会把 Pod 调度到此节点上。
-
-<!--  
 - `PodToleratesNodeTaints`: checks if a Pod's {{< glossary_tooltip text="tolerations" term_id="toleration" >}}
   can tolerate the Node's {{< glossary_tooltip text="taints" term_id="taint" >}}.
 -->
@@ -228,10 +200,10 @@ and using the [Policy type](/zh/docs/reference/config-api/kube-scheduler-policy-
 <!--  
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler Configuration](/docs/reference/scheduling/config/)
-* Read the [kube-scheduler configuration reference (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1)
+* Read the [kube-scheduler configuration reference (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta2)
 * Read the [kube-scheduler Policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 -->
 * 了解[调度](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 了解 [kube-scheduler 配置](/zh/docs/reference/scheduling/config/)
-* 阅读 [kube-scheduler 配置参考 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta1)
+* 阅读 [kube-scheduler 配置参考 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2)
 * 阅读 [kube-scheduler 策略参考 (v1)](/zh/docs/reference/config-api/kube-scheduler-policy-config.v1/)

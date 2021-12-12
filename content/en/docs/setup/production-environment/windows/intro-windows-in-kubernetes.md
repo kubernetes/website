@@ -76,7 +76,7 @@ then paging can slow down performance.
 You can place bounds on memory use for workloads using the kubelet
 parameters `--kubelet-reserve` and/or `--system-reserve`; these account
 for memory usage on the node (outside of containers), and reduce
-[NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)).
+[NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
 As you deploy workloads, set resource limits on containers. This also subtracts from
 `NodeAllocatable` and prevents the scheduler from adding more pods once a node is full.
 
@@ -153,6 +153,37 @@ section refers to several key workload enablers and how they map to Windows.
   * `emptyDir` volumes
   * Named pipe host mounts
   * Resource limits
+  * OS field: 
+              {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+               `.spec.os.name` should be set to `windows` to indicate that the current Pod uses Windows containers.
+               `IdentifyPodOS` feature gate needs to be enabled for this field to be recognized and used by control plane
+               components and kubelet.
+               {{< note >}}
+              If the `IdentifyPodOS` feature gate is enabled and you set the `.spec.os.name` field to `windows`, you must not set the following fields in the `.spec` of that Pod:
+               * `spec.hostPID`
+               * `spec.hostIPC`
+               * `spec.securityContext.seLinuxOptions`
+               * `spec.securityContext.seccompProfile`
+               * `spec.securityContext.fsGroup`
+               * `spec.securityContext.fsGroupChangePolicy`
+               * `spec.securityContext.sysctls`
+               * `spec.shareProcessNamespace`
+               * `spec.securityContext.runAsUser`
+               * `spec.securityContext.runAsGroup`
+               * `spec.securityContext.supplementalGroups`
+               * `spec.containers[*].securityContext.seLinuxOptions`
+               * `spec.containers[*].securityContext.seccompProfile`
+               * `spec.containers[*].securityContext.capabilities`
+               * `spec.containers[*].securityContext.readOnlyRootFilesystem`
+               * `spec.containers[*].securityContext.privileged`
+               * `spec.containers[*].securityContext.allowPrivilegeEscalation`
+               * `spec.containers[*].securityContext.procMount`
+               * `spec.containers[*].securityContext.runAsUser`
+               * `spec.containers[*].securityContext.runAsGroup`
+
+            Note: In this table, wildcards (*) indicate all elements in a list. For example, spec.containers[*].securityContext refers to the Security Context object for all defined containers. If not, Pod API validation would fail causing admission failures.
+            {{< /note >}}
+
 * [Workload resources](/docs/concepts/workloads/controllers/) including:
   * ReplicaSet
   * Deployments
@@ -340,9 +371,7 @@ Kubernetes on Windows does not support single-stack "IPv6-only" networking. Howe
 dual-stack IPv4/IPv6 networking for pods and nodes with single-family services
 is supported.
 
-You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the
-`IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
+You can use IPv4/IPv6 dual-stack networking with `l2bridge` networks. See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack) for more details.
 
 {{< note >}}
 Overlay (VXLAN) networks on Windows do not support dual-stack networking.
@@ -620,13 +649,11 @@ when using GMSA with containerd to access Windows network shares, which requires
 kernel patch.
 {{< /note >}}
 
-#### Docker EE
+#### Mirantis Container Runtime {#mcr}
 
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is available as a container runtime for all Windows Server 2019 and later versions.
 
-[Docker EE](https://docs.mirantis.com/containers/v3.0/dockeree-products/dee-intro.html)-basic 19.03+ is available as a container runtime for all Windows Server versions. This works with the legacy dockershim adapter.
-
-See [Install Docker](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/deploy-containers-on-server#install-docker) for more information.
+See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
 
 ## Windows OS version compatibility {#windows-os-version-support}
 
