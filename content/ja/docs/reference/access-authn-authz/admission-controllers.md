@@ -113,96 +113,76 @@ CertificateSigningRequestリソース上で異なるアクションを実行す�
 
 ### CertificateSigning {#certificatesigning}
 
-このアドミッション・コントローラは、CertificateSigningRequestリソースの`status.certificate`フィールドの更新を観察し
+このAdmission Controllerは、CertificateSigningRequestリソースの`status.certificate`フィールドの更新を観察し
 リソースの`status.certificate`フィールドの更新を監視し、署名ユーザが CertificateSigningRequest リソースで要求された`spec.signerName`を持つ証明書リクエストに`sign`する権限を持っていることを確認するために追加の認可チェックを行います。
 
 証明書署名要求の実行に必要な権限については、[Certificate Signing Requests](/docs/reference/access-authn-authz/certificat-signing-requests/)を参照してください。
 
 ### CertificateSubjectRestrictions {#certificatesubjectrestrictions}
 
-このアドミッションコントローラは、`kubernetes io/kube-apiserver-client`の`spec.signerName`を持つCertificateSigningRequestリソースの作成を監視します。
+このAdmission Controllerは、`kubernetes io/kube-apiserver-client`の`spec.signerName`を持つCertificateSigningRequestリソースの作成を監視します。
 `system:masters`の`group`(または`organization attribute`)を指定したリクエストはすべて拒否します。
 
 
 ### DefaultIngressClass {#defaultingressclass}
 
-This admission controller observes creation of `Ingress` objects that do not request any specific
-ingress class and automatically adds a default ingress class to them.  This way, users that do not
-request any special ingress class do not need to care about them at all and they will get the
-default one.
+このAdmission Controllerは、特定のIngressクラスを要求していないIngressオブジェクトの作成を監視して、それらに自動的にデフォルトの ingress クラスを追加します。
+これにより、特別なIngressクラスを要求していないユーザは、それらを気にする必要は全くなく、デフォルトのものを得ることができます。
+このAdmission Controllerは、デフォルトのIngressクラスが設定されていないときは何もしません。
+複数のIngressクラスがデフォルトとしてマークされている場合、`Ingress`の作成はエラーで拒否され、管理者は `IngressClass` オブジェクトを再検討して、1つだけをデフォルトとしてマークする必要があります(アノテーション "ingressclass.kubernetes.io/is-default-class"を使用)。
+このAdmission Controllerは`Ingress`の更新を一切無視し、作成時にのみ動作します。
 
-This admission controller does not do anything when no default ingress class is configured. When more than one ingress
-class is marked as default, it rejects any creation of `Ingress` with an error and an administrator
-must revisit their `IngressClass` objects and mark only one as default (with the annotation
-"ingressclass.kubernetes.io/is-default-class").  This admission controller ignores any `Ingress`
-updates; it acts only on creation.
-
-See the [ingress](/docs/concepts/services-networking/ingress/) documentation for more about ingress
-classes and how to mark one as default.
+Ingressクラスの詳細については、[ingress](/docs/concepts/services-networking/ingress/)のドキュメントに参照してください。
 
 ### DefaultStorageClass {#defaultstorageclass}
 
-This admission controller observes creation of `PersistentVolumeClaim` objects that do not request any specific storage class
-and automatically adds a default storage class to them.
-This way, users that do not request any special storage class do not need to care about them at all and they
-will get the default one.
+このAdmission Controllerは、特定のストレージクラスを要求していない `PersistentVolumeClaim` オブジェクトの作成を監視し、デフォルトのストレージクラスを自動的に追加します。
+このようにして、特別なストレージクラスを要求しないユーザは、それらを気にする必要は全くなく、デフォルトのものを得ることができます。
+デフォルトのストレージクラスが設定されていない場合、このAdmission Controllerは何もしない。
+複数のストレージクラスがデフォルトとしてマークされている場合、`PersistentVolumeClaim`の作成をエラーで拒否し、管理者は自分の`StorageClass`オブジェクトを再確認して、1つだけをデフォルトとしてマークしなければなりません。
 
-This admission controller does not do anything when no default storage class is configured. When more than one storage
-class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and an administrator
-must revisit their `StorageClass` objects and mark only one as default.
-This admission controller ignores any `PersistentVolumeClaim` updates; it acts only on creation.
+このAdmission Controllerは、`PersistentVolumeClaim`の更新をすべて無視し、作成時にのみ動作します。
 
-See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
-storage classes and how to mark a storage class as default.
+`persistent volume claims`と`storage classes`については、[persistent volume](/docs/concepts/storage/persistent-volumes/)のドキュメントに参照してください。
 
 ### DefaultTolerationSeconds {#defaulttolerationseconds}
 
-This admission controller sets the default forgiveness toleration for pods to tolerate
-the taints `notready:NoExecute` and `unreachable:NoExecute` based on the k8s-apiserver input parameters
-`default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` if the pods don't already
-have toleration for taints `node.kubernetes.io/not-ready:NoExecute` or
-`node.kubernetes.io/unreachable:NoExecute`.
-The default value for `default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` is 5 minutes.
+このAdmission Controllerは、podがtaintsの許容範囲をまだ持っていない場合、k8s-apiserverの入力パラメーター`default-not-ready-toleration-seconds`と`default-unreachable-toleration-seconds`に基づいて、
+`taints `node.kubernetes.io/not-ready:NoExecute`と`node.kubernetes.io/unreachable:NoExecute`を許容するためにpodにデフォルトの許容範囲を設定します。
+`kubernetes.io/not-ready:NoExecute`や`node.kubernetes.io/unreachable:NoExecute`のようなtaintに対して、podがまだトレレーションを持っていない場合です。
+
+`default-not-ready-toleration-seconds`と`default-unreachable-toleration-seconds`のデフォルト値は5分です。
 
 ### DenyEscalatingExec {#denyescalatingexec}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-This admission controller will deny exec and attach commands to pods that run with escalated privileges that
-allow host access.  This includes pods that run as privileged, have access to the host IPC namespace, and
-have access to the host PID namespace.
+このAdmission controllerは、ホストへのアクセスを許可する昇格した特権で実行されるpodへのexecおよびattachコマンドを拒否します。
+これには、特権付きで実行されホストのIPC名前空間へのアクセスがあり、ホストのPID名前空間へのアクセスがあるpodが含まれます。
+DenyEscalatingExec Admissionプラグインは非推奨です。
 
-The DenyEscalatingExec admission plugin is deprecated.
-
-Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
-which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
-is recommended instead.
+ポリシーベースのAdmissionプラグイン（[PodSecurityPolicy](#podsecuritypolicy)やカスタムAdmissionプラグインなど）を使用して、特定のユーザーや名前空間を対象とし、過度に特権的なPodの作成から保護することをお勧めします。
 
 ### DenyExecOnPrivileged {#denyexeconprivileged}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
+このAdmission controllerは、あるpodに特権コンテナがある場合、そのpodでコマンドを実行するすべてのリクエストを遮断します。
+この機能は[DenyEscalatingExec](#denyescalatingexec)に統合されました。
 
-This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
-The DenyExecOnPrivileged admission plugin is deprecated.
+DenyExecOnPrivilegedAdmissionプラグインは非推奨です。
 
-Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
-which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
-is recommended instead.
+ポリシーベースのAdmissionプラグイン([PodSecurityPolicy](#podsecuritypolicy)やカスタムアドミッションプラグインなど)を使用することをお勧めします。
 
 ### DenyServiceExternalIPs
 
-This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
-feature is very powerful (allows network traffic interception) and not well
-controlled by policy.  When enabled, users of the cluster may not create new
-Services which use `externalIPs` and may not add new values to `externalIPs` on
-existing `Service` objects.  Existing uses of `externalIPs` are not affected,
-and users may remove values from `externalIPs` on existing `Service` objects.
+このアドミッション・コントローラーは、すべての正当な`Service`フィールドの`externalIPs`の使用を拒否します。
+この機能は非常に強力で(ネットワーク・トラフィックの傍受を可能にします)、ポリシーではうまく制御できません。
+この機能を有効にすると、クラスタのユーザは`externalIPs`を使用する新しいサービスを作成することができず、既存の`Service`オブジェクトの`externalIPs`に新しい値を追加することもできません。
+既存の`externalIPs`の使用には影響がなく、ユーザーは既存の`Service`オブジェクトの`externalIPs`から値を削除することができます。
 
-Most users do not need this feature at all, and cluster admins should consider disabling it.
-Clusters that do need to use this feature should consider using some custom policy to manage usage
-of it.
+ほとんどのユーザーはこの機能を全く必要としていないため、クラスター管理者はこの機能を無効にすることを検討してください。
+この機能を使用する必要があるクラスターでは、何らかのカスタムポリシーを使用して使用状況を管理することを検討してください。
 
 ### EventRateLimit {#eventratelimit}
 
