@@ -29,6 +29,7 @@ guide. You can file document formatting bugs against the
 ## Endpoints {#Endpoints}
 
 Endpoints is a collection of endpoints that implement the actual service. Example:
+```
   Name: "mysvc",
   Subsets: [
     {
@@ -40,7 +41,7 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
     },
  ]
-
+```
 <hr>
 
 - **apiVersion**: v1
