@@ -27,8 +27,10 @@ Docker container runtime (Dockershim) has been [deprecated](
 /blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 as of version 1.20.
 and will be removed  by version 1.24. For more information, read
-[Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and
--docker/), or visit [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
+[Don't Panic: Kubernetes and Docker](
+/blog/2020/12/02/dont-panic-kubernetes-and-docker/), or
+visit [Migrating from dockershim](
+/docs/tasks/administer-cluster/migrating-from-dockershim/).
 {{< /note >}}
 
 {{< note >}}
