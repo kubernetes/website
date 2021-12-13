@@ -254,6 +254,13 @@ To request a larger volume for a PVC, edit the PVC object and specify a larger
 size. This triggers expansion of the volume that backs the underlying PersistentVolume. A
 new PersistentVolume is never created to satisfy the claim. Instead, an existing volume is resized.
 
+{{< warning >}}
+Editing the size of a PersistentVolume can prevent resize of the volume. If the
+capacity of a PersistentVolume edited, then the PersistentVolumeClaim size is edited to increase to
+the same value, no resize will happen. Kubernetes will think the backing volume has been manually
+increased and that no resize is necessary.
+{{< /warning >}}
+
 #### CSI Volume expansion
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
