@@ -10,7 +10,7 @@ weight: 50
 
 <!-- overview -->
 
-If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4), then you might consider using Kubernetes NetworkPolicies for particular applications in your cluster.  NetworkPolicies are an application-centric construct which allow you to specify how a {{< glossary_tooltip text="pod" term_id="pod">}} is allowed to communicate with various network "entities" (we use the word "entity" here to avoid overloading the more common terms such as "endpoints" and "services", which have specific Kubernetes connotations) over the network.
+If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4), then you might consider using Kubernetes NetworkPolicies for particular applications in your cluster.  NetworkPolicies are an application-centric construct which allow you to specify how a {{< glossary_tooltip text="pod" term_id="pod">}} is allowed to communicate with various network "entities" (we use the word "entity" here to avoid overloading the more common terms such as "endpoints" and "services", which have specific Kubernetes connotations) over the network.  NetworkPolicies are about the communications that are allowed to involve a pod, and say nothing about communication between two non-pod entities.
 
 The entities that a Pod can communicate with are identified through a combination of the following 3 identifiers:
 
@@ -27,15 +27,34 @@ Meanwhile, when IP based NetworkPolicies are created, we define policies based o
 
 Network policies are implemented by the [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). To use network policies, you must be using a networking solution which supports NetworkPolicy. Creating a NetworkPolicy resource without a controller that implements it will have no effect.
 
-## Isolated and Non-isolated Pods
+## What Communication is Allowed
 
-By default, pods are non-isolated; they accept traffic from any source.
+Network policies prescribe _stateful_ filtering.  Each network flow is initiated from a source entity to a destination entity.  The entire flow is allowed if and only if the initiation is allowed.
 
-Pods become isolated by having a NetworkPolicy that selects them. Once there is any NetworkPolicy in a namespace selecting a particular pod, that pod will reject any connections that are not allowed by any NetworkPolicy. (Other pods in the namespace that are not selected by any NetworkPolicy will continue to accept all traffic.)
+By default, pods are non-isolated; they accept traffic from any source and are allowed to send traffic to any destination.
 
-Network policies do not conflict; they are additive. If any policy or policies select a pod, the pod is restricted to what is allowed by the union of those policies' ingress/egress rules. Thus, order of evaluation does not affect the policy result.
+Pods become restricted in a particular direction by having a NetworkPolicy that selects them and restricts their traffic in that direction.
 
-For a network flow between two pods to be allowed, both the egress policy on the source pod and the ingress policy on the destination pod need to allow the traffic. If either the egress policy on the source, or the ingress policy on the destination denies the traffic, the traffic will be denied.
+A network flow with a pod on either or both ends is allowed to be initiated from a particular source to a particular destination if and only if both
+1. the source is allowed to initiate the flow and
+2. the destination is allowed to receive the flow.
+
+A source is allowed to initiate a network flow if and only if one of the following cases is true.
+1. The source is not a Pod.
+2. The source is a Pod that is selected by at least one NetworkPolicy for which both
+   (a) `policyTypes`, after the defaulting rules are applied, includes `Egress`, and
+   (b) at least one `egress` rule allows the flow.
+3. The source is a Pod that is not selected by any NetworkPolicy for which `policyTypes`, after the defaulting rules are applied, includes `Egress`.
+
+A destination is allowed to receive a flow if and only if at least one of the following cases is true.
+1. The destination is not a Pod.
+2. The destination is a Pod and the source IP address belongs to the Pod's Node.
+3. The destination is a Pod that is selected by at least one NetworkPolicy for wich both
+  (a) `policyTypes`, after the defaulting rules are applied, includes `Ingress`, and
+  (b) at least one `ingress` rule allows the flow.
+4. The destination is a Pod that is not selected by any NetworkPolicy for which `policyTypes`, after the defaulting rules are applied, includes `Ingress`.
+
+An important property of NetworkPolicy semantics is that there are no conflicts.  NetworkPolicy objects are additive.  If one NetworkPolicy allows something, no other NetworkPolicy can deny that thing.  The only negative semantic is the change in default that is the consequence of _any_ NetworkPolicy being relevant.
 
 ## The NetworkPolicy resource {#networkpolicy-resource}
 
@@ -96,9 +115,9 @@ __podSelector__: Each NetworkPolicy includes a `podSelector` which selects the g
 
 __policyTypes__: Each NetworkPolicy includes a `policyTypes` list which may include either `Ingress`, `Egress`, or both. The `policyTypes` field indicates whether or not the given policy applies to ingress traffic to selected pod, egress traffic from selected pods, or both. If no `policyTypes` are specified on a NetworkPolicy then by default `Ingress` will always be set and `Egress` will be set if the NetworkPolicy has any egress rules.
 
-__ingress__: Each NetworkPolicy may include a list of allowed `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from one of three sources, the first specified via an `ipBlock`, the second via a `namespaceSelector` and the third via a `podSelector`.
+__ingress__: Each NetworkPolicy may include a list of allowed `ingress` rules that apply if `policyTypes`, after defaulting, includes `Ingress`.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from one of three sources, the first specified via an `ipBlock`, the second via a `namespaceSelector` and the third via a `podSelector`.
 
-__egress__: Each NetworkPolicy may include a list of allowed `egress` rules.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
+__egress__: Each NetworkPolicy may include a list of allowed `egress` rules that apply if `policyTypes`, after defaulting, includes `Egress`.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
 
 So, the example NetworkPolicy:
 
@@ -176,30 +195,29 @@ in that namespace.
 
 ### Default deny all ingress traffic
 
-You can create a "default" isolation policy for a namespace by creating a NetworkPolicy that selects all pods but does not allow any ingress traffic to those pods.
+You can create a "default" ingress restriction policy for a namespace by creating a NetworkPolicy that selects all pods but does not allow any ingress traffic to those pods.  This does not affect what egress is allowed from those pods.
 
 {{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
 
-This ensures that even pods that aren't selected by any other NetworkPolicy will still be isolated. This policy does not change the default egress isolation behavior.
+This ensures that even pods that aren't selected by any other NetworkPolicy will still deny ingress by default.
 
-### Default allow all ingress traffic
+### Allow all ingress traffic
 
-If you want to allow all traffic to all pods in a namespace (even if policies are added that cause some pods to be treated as "isolated"), you can create a policy that explicitly allows all traffic in that namespace.
+If you want to allow all ingress to all pods in a namespace, you can create a policy that explicitly allows all traffic into pods in that namespace.  With this policy in place, no addition of other policies will cause any ingress to those pods to be disallowed.  This policy has no effect on what egress is allowed from those pods.
 
 {{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
 
 ### Default deny all egress traffic
 
-You can create a "default" egress isolation policy for a namespace by creating a NetworkPolicy that selects all pods but does not allow any egress traffic from those pods.
+You can create a "default" egress restriction policy for a namespace by creating a NetworkPolicy that selects all pods but does not allow any egress traffic from those pods.  This does not affect what ingress is allowed to those pods.
 
 {{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
 
-This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed egress traffic. This policy does not
-change the default ingress isolation behavior.
+This ensures that even pods that aren't selected by any other NetworkPolicy will deny egress by default.
 
-### Default allow all egress traffic
+### Allow all egress traffic
 
-If you want to allow all traffic from all pods in a namespace (even if policies are added that cause some pods to be treated as "isolated"), you can create a policy that explicitly allows all egress traffic in that namespace.
+If you want to allow all traffic from all pods in a namespace, you can create a policy that explicitly allows all egress traffic from pods in that namespace.  With this policy in place, no addition of other policies will cause any egress from those pods to be denied.  This policy has no effect on what ingress is allowed to those pods.
 
 {{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
 
