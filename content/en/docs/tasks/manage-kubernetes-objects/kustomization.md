@@ -749,7 +749,7 @@ not recommended to hard code the Service name in the command argument. For this 
 
 ```shell
 # Create a deployment.yaml file
-cat <<EOF > deployment.yaml
+cat <<\EOF > deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
