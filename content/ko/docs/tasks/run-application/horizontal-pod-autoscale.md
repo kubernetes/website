@@ -467,9 +467,7 @@ behavior:
       periodSeconds: 60
 ```
 
-마지막으로 5개의 파드를 드롭하기 위해 다른 폴리시를 추가하고, 최소 선택
-전략을 추가할 수 있다.
-분당 5개 이하의 파드가 제거되지 않도록, 고정 크기가 5인 두 번째 축소
+분당 제거되는 파드 수가 5를 넘지 않도록 하기 위해, 크기가 5로 고정된 두 번째 축소
 정책을 추가하고, `selectPolicy` 를 최소로 설정하면 된다. `selectPolicy` 를 `Min` 으로 설정하면
 자동 스케일러가 가장 적은 수의 파드에 영향을 주는 정책을 선택함을 의미한다.
 
@@ -505,6 +503,45 @@ HPA를 암시적으로 비활성화할 수 있다. 대상의 의도한
 의도한 레플리카 수 또는 HPA의 최소 레플리카 수를 수동으로 조정하여
 다시 활성화할 때까지 HPA는 대상 조정을
 중지한다(그리고 `ScalingActive` 조건 자체를 `false`로 설정).
+
+### 디플로이먼트와 스테이트풀셋을 horizontal autoscaling으로 전환하기
+
+HPA가 활성화되어 있으면, 디플로이먼트, 스테이트풀셋 모두 또는 둘 중 하나의
+{{< glossary_tooltip text="매니페스트" term_id="manifest" >}}에서 
+`spec.replicas`의 값을 삭제하는 것이 바람직하다. 
+이렇게 적용하지 않으면, (예를 들어 `kubectl apply -f deployment.yaml` 명령으로) 
+오브젝트에 변경이 생길 때마다 쿠버네티스가 파드의 수를 
+`spec.replicas`에 기재된 값으로 조정할 것이다. 
+이는 바람직하지 않으며 HPA가 활성화된 경우에 문제가 될 수 있다.
+
+`spec.replicas` 값을 제거하면 1회성으로 파드 숫자가 줄어들 수 있는데, 
+이는 이 키의 기본값이 1이기 때문이다(레퍼런스: 
+[디플로이먼트 레플리카](/ko/docs/concepts/workloads/controllers/deployment#레플리카)). 
+값을 업데이트하면, 파드 1개를 제외하고 나머지 파드가 종료 절차에 들어간다. 
+이후의 디플로이먼트 애플리케이션은 정상적으로 작동하며 롤링 업데이트 구성도 의도한 대로 동작한다.
+이러한 1회성 저하를 방지하는 방법이 존재하며, 
+디플로이먼트 수정 방법에 따라 다음 중 한 가지 방법을 선택한다.
+
+{{< tabs name="fix_replicas_instructions" >}}
+{{% tab name="클라이언트 쪽에 적용하기 (기본값))" %}}
+
+1. `kubectl apply edit-last-applied deployment/<디플로이먼트_이름>`
+2. 에디터에서 `spec.replicas`를 삭제한다. 저장하고 에디터를 종료하면, `kubectl`이 
+    업데이트 사항을 적용한다. 이 단계에서 파드 숫자가 변경되지는 않는다.
+3. 이제 매니페스트에서 `spec.replicas`를 삭제할 수 있다. 
+    소스 코드 관리 도구를 사용하고 있다면, 변경 사항을 추적할 수 있도록 
+    변경 사항을 커밋하고 추가 필요 단계를 수행한다.
+4. 이제 `kubectl apply -f deployment.yaml`를 실행할 수 있다.
+
+{{% /tab %}}
+{{% tab name="서버 쪽에 적용하기" %}}
+
+[서버 쪽에 적용하기](/docs/reference/using-api/server-side-apply/)를 수행하려면, 
+정확히 이러한 사용 사례를 다루고 있는 [소유권 이전하기](/docs/reference/using-api/server-side-apply/#transferring-ownership) 
+가이드라인을 참조한다.
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
 
