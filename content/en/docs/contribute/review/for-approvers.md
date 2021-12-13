@@ -79,7 +79,7 @@ The most common prow commands reviewers and approvers use are:
 {{< table caption="Prow commands for reviewing" >}}
 Prow Command | Role Restrictions | Description
 :------------|:------------------|:-----------
-`/lgtm` | Anyone, but triggers automation if a Reviewer or Approver uses it | Signals that you've finished reviewing a PR and are satisfied with the changes.
+`/lgtm` | Organization members | Signals that you've finished reviewing a PR and are satisfied with the changes.
 `/approve` | Approvers | Approves a PR for merging.
 `/assign` | Reviewers or Approvers | Assigns a person to review or approve a PR
 `/close` | Reviewers or Approvers | Closes an issue or PR.
