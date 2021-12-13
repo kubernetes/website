@@ -255,9 +255,12 @@ size. This triggers expansion of the volume that backs the underlying Persistent
 new PersistentVolume is never created to satisfy the claim. Instead, an existing volume is resized.
 
 {{< warning >}}
-Editing the size of a PersistentVolume can prevent resize of the volume. If the
-capacity of a PersistentVolume edited, then the PersistentVolumeClaim size is edited to increase to
-the same value, no resize will happen. Kubernetes will think the backing volume has been manually
+Directly editing the size of a PersistentVolume can prevent an automatic resize of that volume.
+If you edit the capacity of a PersistentVolume, and then edit the `.spec` of a matching
+PersistentVolumeClaim to make the size of the PersistentVolumeClaim match the PersistentVolume,
+then no storage resize happens.
+The Kubernetes control plane will see that the desired state of both resources matches,
+conclude that the backing volume size has been manually
 increased and that no resize is necessary.
 {{< /warning >}}
 
