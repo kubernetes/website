@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: vulnerable-app
+  name: vulnerable-app
+spec:
+  restartPolicy: Never
+  containers:
+  - image: ghcr.io/christophetd/log4shell-vulnerable-app
+    imagePullPolicy: Always
+    name: vulnerable-app
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vulnerable-app
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: vulnerable-app
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: attacker
+  name: attacker
+spec:
+  containers:
+  - env:
+    - name: LDAP_PORT
+      value: "1389"
+    - name: HTTP_PORT
+      value: "80"
+    image: edenfed/jndiexploit
+    imagePullPolicy: Always
+    name: attacker
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: attacker
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: ldap
+    port: 1389
+    protocol: TCP
+    targetPort: 1389
+  selector:
+    run: attacker
+  type: ClusterIP
