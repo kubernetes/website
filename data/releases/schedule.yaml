@@ -1,8 +1,10 @@
 schedules:
 - release: 1.23
+  releaseDate: 2021-12-07
   next: 1.23.1
   endOfLifeDate: 2023-02-28
 - release: 1.22
+  releaseDate: 2021-08-04
   next: 1.22.5
   cherryPickDeadline: 2021-12-10
   targetDate: 2021-12-15
@@ -21,6 +23,7 @@ schedules:
       cherryPickDeadline: 2021-08-16
       targetDate: 2021-08-19
 - release: 1.21
+  releaseDate: 2021-04-08
   next: 1.21.8
   cherryPickDeadline: 2021-12-10
   targetDate: 2021-12-15
@@ -49,6 +52,7 @@ schedules:
       targetDate: 2021-05-12
       note: Regression https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs
 - release: 1.20
+  releaseDate: 2020-12-08
   next: 1.20.14
   cherryPickDeadline: 2021-12-10
   targetDate: 2021-12-15
