@@ -92,9 +92,15 @@ the recorded workload exits, the policy is created.
 
 #### `SELinuxProfile` CRD graduation
 
-<!--
-- #675, @JAORMX
--->
+An `v1alpha2` version of the `SelinuxProfile` object has been introduced. This
+removes the raw Common Intermediate Language (CIL) from the object itself and
+instead adds a simple policy language to ease the writing and parsing
+experience.
+
+Alongside, a `RawSelinuxProfile` object was also introduced. This contains a
+wrapped and raw representation of the policy. This was intended for folks to be
+able to take their existing policies into use as soon as possible. However, on
+validations are done here.
 
 ### AppArmor support
 
