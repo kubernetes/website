@@ -7,20 +7,20 @@
 {{ if not $data.previousPatches }}
 <!-- initial minor release -->
 <div>
-    <b class="release-inline-heading">{{ T "latest_release" }}</b><span class="release-inline-value">{{ printf "%s.0" $dataVersion }}{{ if isset $data "releaseDate" }} {{ T "release_date_before" }}{{ printf "%s" $data.releaseDate }}{{ T "release_date_after" }}{{- end -}}</span>
+    <b class="release-inline-heading">{{ T "latest_release" }}</b><span class="release-inline-value">{{ printf "%s.0" $dataVersion }}{{ if isset $data "releaseDate" }} {{ T "release_date_before" }}<time datetime="{{ time.Format "2006-01-02" $data.releaseDate }}">{{ time.Format ( T "release_date_format") $data.releaseDate }}</time>{{ T "release_date_after" }}{{- end -}}</span>
 </div>
 <div>
-   <b class="release-inline-heading">{{ T "end_of_life" }}</b><span class="release-eoldate release-inline-value">{{ printf "%s" $data.endOfLifeDate }}</span>
+   <b class="release-inline-heading">{{ T "end_of_life" }}</b><span class="release-eoldate release-inline-value"><time datetime="{{ time.Format "2006-01-02" $data.endOfLifeDate }}">{{ time.Format ( T "release_date_format") $data.endOfLifeDate }}</time></span>
 </div>
 <div>
     <b class="release-inline-heading">{{ T "previous_patches" }}</b> <span class="notapplicable release-inline-value">{{ T "not_applicable" }}</span>
 </div>
 {{- else -}}
 <div>
-    <b class="release-inline-heading">{{ T "latest_release" }}</b><span class="release-inline-value">{{ index $data.previousPatches 0 "release" }} {{ T "release_date_before" }}{{ printf "%s" ( index $data.previousPatches 0 "targetDate" ) }}{{ T "release_date_after" }}</span>
+    <b class="release-inline-heading">{{ T "latest_release" }}</b><span class="release-inline-value">{{ index $data.previousPatches 0 "release" }} {{ T "release_date_before" }}<time datetime="{{ time.Format "2006-01-02" ( index $data.previousPatches 0 "targetDate" ) }}">{{ time.Format ( T "release_date_format") ( index $data.previousPatches 0 "targetDate" ) }}</time>{{ T "release_date_after" }}</span>
 </div>
 <div>
-    <b class="release-inline-heading">{{ T "end_of_life" }}</b><span class="release-eoldate release-inline-value">{{ printf "%s" $data.endOfLifeDate }}</span>
+    <b class="release-inline-heading">{{ T "end_of_life" }}</b><span class="release-eoldate release-inline-value"><time datetime="{{ time.Format "2006-01-02" $data.endOfLifeDate }}">{{ time.Format ( T "release_date_format") $data.endOfLifeDate }}</time></span>
 </div>
 <div>
 <b>{{ T "previous_patches" }}</b>

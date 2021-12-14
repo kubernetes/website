@@ -217,6 +217,11 @@ other = ")"
 [release_date_before]
 other = "(released: "
 
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
+
 [seealso_heading]
 other = "See Also"
 
