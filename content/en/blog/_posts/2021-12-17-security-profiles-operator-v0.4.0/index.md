@@ -9,7 +9,7 @@ slug: security-profiles-operator
 
 ---
 
-The [Security Profiles Operator](https://sigs.k8s.io/security-profiles-operator)
+The [Security Profiles Operator (SPO)](https://sigs.k8s.io/security-profiles-operator)
 is an out-of-tree Kubernetes enhancement to make the management of
 [seccomp](https://en.wikipedia.org/wiki/Seccomp),
 [SELinux](https://en.wikipedia.org/wiki/Security-Enhanced_Linux) and
@@ -63,10 +63,12 @@ Managing SELinux policies (an equivalent to using `semodule` that
 you would normally call on a single server) is not done by SPO
 itself, but by another container called selinuxd to provide better
 isolation. This release switched to using selinuxd containers from
-a personal reposiroty to images located under [our team's quay.io repository](https://quay.io/organization/security-profiles-operator).
-The selinuxd repo has moved as well to [the containers github organization](https://github.com/containers/selinuxd).
+a personal repository to images located under [our team's quay.io
+repository](https://quay.io/organization/security-profiles-operator).
+The selinuxd repository has moved as well to [the containers GitHub
+organization](https://github.com/containers/selinuxd).
 
-Please note that selinuxd links dynamically to libsemanage and mounts the
+Please note that selinuxd links dynamically to `libsemanage` and mounts the
 SELinux directories from the nodes, which means that the selinuxd container
 must be running the same distribution as the cluster nodes. SPO defaults
 to using CentOS-8 based containers, but we also build Fedora based ones.
@@ -76,14 +78,15 @@ it, please file [an issue against selinuxd](https://github.com/containers/selinu
 #### Profile Recording
 
 This release adds support for recording of SELinux profiles.
-The recording itself is managed via an instance of a `ProfileRecording` CR
-as seen in an [example](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/profilerecording-selinux-logs.yaml)
-in our repo and from user's point of view works pretty much the same as
-recording of seccomp profiles.
+The recording itself is managed via an instance of a `ProfileRecording` Custom
+Resource as seen in an
+[example](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/profilerecording-selinux-logs.yaml)
+in our repository. From the user's point of view it works pretty much the same
+as recording of seccomp profiles.
 
 Under the hood, to know what the workload is doing SPO installs a special
 permissive policy called [selinuxrecording](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/deploy/base/profiles/selinuxrecording.cil)
-on startup which allows everything and logs all AVCs to audit.log.
+on startup which allows everything and logs all AVCs to `audit.log`.
 These AVC messages are scraped by the log enricher component and when
 the recorded workload exits, the policy is created.
 
