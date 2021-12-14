@@ -1,4 +1,7 @@
 schedules:
+- release: 1.23
+  next: 1.23.1
+  endOfLifeDate: 2023-02-28
 - release: 1.22
   next: 1.22.5
   cherryPickDeadline: 2021-12-10
