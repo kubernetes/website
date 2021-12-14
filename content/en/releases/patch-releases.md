@@ -85,6 +85,14 @@ releases may also occur in between these.
 
 ## Detailed Release History for Active Branches
 
+### 1.23
+
+**1.23** enters maintenance mode on **2022-12-28**.
+
+End of Life for **1.23** is **2023-02-28**.
+
+_Patch release schedule is not yet decided._
+
 ### 1.22
 
 **1.22** enters maintenance mode on **2022-08-28**
