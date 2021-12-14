@@ -49,7 +49,7 @@ A source is allowed to initiate a network flow if and only if one of the followi
 A destination is allowed to receive a flow if and only if at least one of the following cases is true.
 1. The destination is not a Pod.
 2. The destination is a Pod and the source IP address belongs to the Pod's Node.
-3. The destination is a Pod that is selected by at least one NetworkPolicy for wich both
+3. The destination is a Pod that is selected by at least one NetworkPolicy for which both
   (a) `policyTypes`, after the defaulting rules are applied, includes `Ingress`, and
   (b) at least one `ingress` rule allows the flow.
 4. The destination is a Pod that is not selected by any NetworkPolicy for which `policyTypes`, after the defaulting rules are applied, includes `Ingress`.
