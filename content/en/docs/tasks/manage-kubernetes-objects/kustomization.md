@@ -748,8 +748,8 @@ Since the Service name may change as `namePrefix` or `nameSuffix` is added in th
 not recommended to hard code the Service name in the command argument. For this usage, Kustomize can inject the Service name into containers through `vars`.
 
 ```shell
-# Create a deployment.yaml file
-cat <<EOF > deployment.yaml
+# Create a deployment.yaml file (quoting the here doc delimiter)
+cat <<'EOF' > deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
