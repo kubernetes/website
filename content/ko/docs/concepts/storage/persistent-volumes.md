@@ -10,14 +10,13 @@ feature:
   title: 스토리지 오케스트레이션
   description: >
     로컬 스토리지, <a href="https://cloud.google.com/storage/">GCP</a>나 <a href="https://aws.amazon.com/products/storage/">AWS</a>와 같은 퍼블릭 클라우드 공급자 또는 NFS, iSCSI, Gluster, Ceph, Cinder나 Flocker와 같은 네트워크 스토리지 시스템에서 원하는 스토리지 시스템을 자동으로 마운트한다.
-
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
 
-이 페이지는 쿠버네티스의 _퍼시스턴트 볼륨_ 의 현재 상태를 설명한다. [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 익숙해지는 것을 추천한다.
+이 페이지에서는 쿠버네티스의 _퍼시스턴트 볼륨_ 에 대해 설명한다. [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 익숙해지는 것을 추천한다.
 
 <!-- body -->
 
@@ -221,19 +220,19 @@ spec:
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-이제 퍼시스턴트볼륨클레임(PVC) 확장 지원이 기본적으로 활성화되어 있다. 다음 유형의
+퍼시스턴트볼륨클레임(PVC) 확장 지원은 기본적으로 활성화되어 있다. 다음 유형의
 볼륨을 확장할 수 있다.
 
-* gcePersistentDisk
+* azureDisk
+* azureFile
 * awsElasticBlockStore
-* Cinder
+* cinder (deprecated)
+* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* flexVolume (deprecated)
+* gcePersistentDisk
 * glusterfs
 * rbd
-* Azure File
-* Azure Disk
-* Portworx
-* FlexVolumes
-* {{< glossary_tooltip text="CSI" term_id="csi" >}}
+* portworxVolume
 
 스토리지 클래스의 `allowVolumeExpansion` 필드가 true로 설정된 경우에만 PVC를 확장할 수 있다.
 
@@ -270,7 +269,7 @@ CSI 볼륨 확장 지원은 기본적으로 활성화되어 있지만 볼륨 확
 경우에만 파일시스템의 크기가 조정된다. 파일시스템 확장은 파드가 시작되거나
 파드가 실행 중이고 기본 파일시스템이 온라인 확장을 지원할 때 수행된다.
 
-FlexVolumes는 `RequiresFSResize` 기능으로 드라이버가 `true`로 설정된 경우 크기 조정을 허용한다.
+FlexVolumes(쿠버네티스 v1.23부터 사용 중단됨)는 드라이버의 `RequiresFSResize` 기능이 `true`로 설정된 경우 크기 조정을 허용한다.
 FlexVolume은 파드 재시작 시 크기를 조정할 수 있다.
 
 #### 사용 중인 퍼시스턴트볼륨클레임 크기 조정
@@ -299,6 +298,11 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 
 #### 볼륨 확장 시 오류 복구
 
+사용자가 기반 스토리지 시스템이 제공할 수 있는 것보다 더 큰 사이즈를 지정하면, 사용자 또는 클러스터 관리자가 조치를 취하기 전까지 PVC 확장을 계속 시도한다. 이는 바람직하지 않으며 따라서 쿠버네티스는 이러한 오류 상황에서 벗어나기 위해 다음과 같은 방법을 제공한다.
+
+{{< tabs name="recovery_methods" >}}
+{{% tab name="클러스터 관리자 접근 권한을 이용하여 수동으로" %}}
+
 기본 스토리지 확장에 실패하면, 클러스터 관리자가 수동으로 퍼시스턴트 볼륨 클레임(PVC) 상태를 복구하고 크기 조정 요청을 취소할 수 있다. 그렇지 않으면, 컨트롤러가 관리자 개입 없이 크기 조정 요청을 계속해서 재시도한다.
 
 1. 퍼시스턴트볼륨클레임(PVC)에 바인딩된 퍼시스턴트볼륨(PV)을 `Retain` 반환 정책으로 표시한다.
@@ -306,6 +310,30 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 3. 새 PVC를 바인딩할 수 있도록 PV 명세에서 `claimRef` 항목을 삭제한다. 그러면 PV가 `Available` 상태가 된다.
 4. PV 보다 작은 크기로 PVC를 다시 만들고 PVC의 `volumeName` 필드를 PV 이름으로 설정한다. 이것은 새 PVC를 기존 PV에 바인딩해야 한다.
 5. PV의 반환 정책을 복원하는 것을 잊지 않는다.
+
+{{% /tab %}}
+{{% tab name="더 작은 크기로의 확장을 요청하여" %}}
+{{% feature-state for_k8s_version="v1.23" state="alpha" %}}
+
+{{< note >}}
+PVC 확장 실패의 사용자에 의한 복구는 쿠버네티스 1.23부터 제공되는 알파 기능이다. 이 기능이 작동하려면 `RecoverVolumeExpansionFailure` 기능이 활성화되어 있어야 한다. 더 많은 정보는 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 문서를 참조한다.
+{{< /note >}}
+
+클러스터에 `ExpandPersistentVolumes`와 `RecoverVolumeExpansionFailure` 
+기능 게이트가 활성화되어 있는 상태에서 PVC 확장이 실패하면 
+이전에 요청했던 값보다 작은 크기로의 확장을 재시도할 수 있다. 
+더 작은 크기를 지정하여 확장 시도를 요청하려면, 
+이전에 요청했던 값보다 작은 크기로 PVC의 `.spec.resources` 값을 수정한다.
+이는 총 용량 제한(capacity constraint)으로 인해 큰 값으로의 확장이 실패한 경우에 유용하다. 
+만약 확장이 실패했다면, 또는 실패한 것 같다면, 기반 스토리지 공급자의 용량 제한보다 작은 값으로 확장을 재시도할 수 있다. 
+`.status.resizeStatus`와 PVC의 이벤트를 감시하여 리사이즈 작업의 상태를 모니터할 수 있다.
+
+참고: 
+이전에 요청했던 값보다 작은 크기를 요청했더라도, 
+새로운 값이 여전히 `.status.capacity`보다 클 수 있다. 
+쿠버네티스는 PVC를 현재 크기보다 더 작게 축소하는 것은 지원하지 않는다.
+{{% /tab %}}
+{{% /tabs %}}
 
 
 ## 퍼시스턴트 볼륨의 유형
@@ -318,7 +346,6 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 * [`cephfs`](/ko/docs/concepts/storage/volumes/#cephfs) - CephFS 볼륨
 * [`csi`](/ko/docs/concepts/storage/volumes/#csi) - 컨테이너 스토리지 인터페이스 (CSI)
 * [`fc`](/ko/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 스토리지
-* [`flexVolume`](/ko/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
 * [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
 * [`glusterfs`](/ko/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 볼륨
 * [`hostPath`](/ko/docs/concepts/storage/volumes/#hostpath) - HostPath 볼륨
@@ -336,6 +363,8 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 
 * [`cinder`](/ko/docs/concepts/storage/volumes/#cinder) - Cinder (오픈스택 블록 스토리지)
   (v1.18에서 **사용 중단**)
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+  (v1.23에서 **사용 중단**)
 * [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
   (v1.22에서 **사용 중단**)
 * [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
@@ -417,8 +446,11 @@ spec:
 `ReadWriteOnce`
 : 하나의 노드에서 해당 볼륨이 읽기-쓰기로 마운트 될 수 있다. ReadWriteOnce 접근 모드에서도 파트가 동일 노드에서 구동되는 경우에는 복수의 파드에서 볼륨에 접근할 수 있다.
 
-`ReadWriteMany`
+`ReadOnlyMany`
 : 볼륨이 다수의 노드에서 읽기 전용으로 마운트 될 수 있다.
+
+`ReadWriteMany`
+: 볼륨이 다수의 노드에서 읽기-쓰기로 마운트 될 수 있다.
 
 `ReadWriteOncePod`
 : 볼륨이 단일 파드에서 읽기-쓰기로 마운트될 수 있다. 전체 클러스터에서 단 하나의 파드만 해당 PVC를 읽거나 쓸 수 있어야하는 경우 ReadWriteOncePod 접근 모드를 사용한다. 이 기능은 CSI 볼륨과 쿠버네티스 버전 1.22+ 에서만 지원된다.
