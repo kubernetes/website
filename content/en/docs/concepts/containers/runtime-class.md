@@ -107,11 +107,6 @@ to the behavior when the RuntimeClass feature is disabled.
 
 For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/production-environment/container-runtimes/).
 
-#### dockershim
-
-RuntimeClasses with dockershim must set the runtime handler to `docker`. Dockershim does not support
-custom configurable runtime handlers.
-
 #### {{< glossary_tooltip term_id="containerd" >}}
 
 Runtime handlers are configured through containerd's configuration at
