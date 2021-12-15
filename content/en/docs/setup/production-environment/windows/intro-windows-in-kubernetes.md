@@ -612,7 +612,7 @@ network port spaces). Kubernetes uses pause containers to allow for worker conta
 crashing or restarting without losing any of the networking configuration.
 
 Kubernetes maintains a multi-architecture image that includes support for Windows.
-For Kubernetes v1.23 the recommended pause image is `k8s.gcr.io/pause:3.6`.
+For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `k8s.gcr.io/pause:3.6`.
 The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
 is available on GitHub.
 
@@ -661,7 +661,7 @@ On Windows nodes, strict compatibility rules apply where the host OS version mus
 match the container base image OS version. Only Windows containers with a container
 operating system of Windows Server 2019 are fully supported.
 
-For Kubernetes v1.23, operating system compatibility for Windows nodes (and Pods)
+For Kubernetes v{{< skew currentVersion >}}, operating system compatibility for Windows nodes (and Pods)
 is as follows:
 
 Windows Server LTSC release
