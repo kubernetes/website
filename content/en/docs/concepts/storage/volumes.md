@@ -1133,6 +1133,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
+      # The variable expansion uses round brackets (not curly brackets).
       subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:
