@@ -1,7 +1,14 @@
 ---
+
+
+
+
+
+
+
 title: 볼륨 스냅샷
 content_type: concept
-weight: 20
+weight: 40
 ---
 
 <!-- overview -->
