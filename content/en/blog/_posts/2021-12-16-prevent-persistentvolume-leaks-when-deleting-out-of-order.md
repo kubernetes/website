@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.23 Prevent PersistentVolume leaks when deleting out of order"
-date: 2021-12-15T10:00:00-08:00
+date: 2021-12-16
 slug: kubernetes-1-23-prevent-persistentvolume-leaks-when-deleting-out-of-order
 ---
 
