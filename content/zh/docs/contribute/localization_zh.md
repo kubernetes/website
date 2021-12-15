@@ -390,12 +390,12 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 - federation，联邦
 - flags，命令行参数，参数
 - grace period，宽限期限
-- graceful termination，体面终止
+- graceful termination，优雅终止
 - hairpin，发夹
 - hash，哈希
 - headless service，无头服务
 - healthcheck，健康检查
-- hook，回调
+- hook，钩子
 - host，主机，宿主机
 - hosting，托管
 - idempotent，幂等的
