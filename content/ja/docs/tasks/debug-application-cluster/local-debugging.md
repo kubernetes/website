@@ -1,5 +1,7 @@
 ---
 title: ローカルでのサービス開発・デバッグ
+reviewers:
+- ptux
 content_type: task
 ---
 
