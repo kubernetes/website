@@ -107,6 +107,16 @@ to the behavior when the RuntimeClass feature is disabled.
 
 For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/production-environment/container-runtimes/).
 
+#### dockershim
+
+{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
+
+Dockershim is deprecated as of Kubernetes v1.20, and will be removed in v1.24. For more information on the deprecation,
+see [dockershim deprecation](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
+
+RuntimeClasses with dockershim must set the runtime handler to `docker`. Dockershim does not support
+custom configurable runtime handlers.
+
 #### {{< glossary_tooltip term_id="containerd" >}}
 
 Runtime handlers are configured through containerd's configuration at
