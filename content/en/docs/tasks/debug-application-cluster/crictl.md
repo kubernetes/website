@@ -227,8 +227,6 @@ The output is similar to this:
 ### Run a pod sandbox
 
 Using `crictl` to run a pod sandbox is useful for debugging container runtimes.
-On a running Kubernetes cluster, the sandbox will eventually be stopped and
-deleted by the Kubelet.
 
 1.  Create a JSON file like the following:
 
