@@ -104,11 +104,11 @@ validations are done here.
 
 ### AppArmor support
 
-<!--
-- Add CRD type to represent AppArmor profiles. (#643, @pjbgf)
-- `spod` can load and unload AppArmor profiles into clusters host servers.
-  `spod` now runs as `root` and `privileged` when apparmor is enabled. (#680, @pjbgf)
--->
+This version introduces the initial support for AppArmor, allowing users to load and 
+unload AppArmor profiles into cluster nodes by using the new [AppArmorProfile](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/deploy/base/crds/apparmorprofile.yaml) CRD.
+
+To enable AppArmor support use the [enableAppArmor feature gate](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/config.yaml#L10) switch of your SPO configuration.
+Then use our [apparmor example](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/apparmorprofile.yaml) to deploy your first profile across your cluster.
 
 ### Metrics
 
