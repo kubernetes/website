@@ -149,6 +149,7 @@ Because they are cluster-scoped, you can also use them to grant access to:
 * cluster-scoped resources (like {{< glossary_tooltip text="nodes" term_id="node" >}})
 * non-resource endpoints (like `/healthz`)
 * namespaced resources (like Pods), across all namespaces
+
   For example: you can use a ClusterRole to allow a particular user to run
   `kubectl get pods -all-namespaces`
 -->
@@ -159,8 +160,9 @@ ClusterRole 可以和 Role 相同完成授权。
 
 * 集群范围资源（比如 {{< glossary_tooltip text="节点（Node）" term_id="node" >}}）
 * 非资源端点（比如 `/healthz`）
-* 跨名字空间访问的名字空间作用域的资源（如 Pods），比如，你可以使用
-  ClusterRole 来允许某特定用户执行 `kubectl get pods --all-namespaces`
+* 跨名字空间访问的名字空间作用域的资源（如 Pods）
+
+  比如，你可以使用 ClusterRole 来允许某特定用户执行 `kubectl get pods --all-namespaces`
 
 <!--
 Here is an example of a ClusterRole that can be used to grant read access to
@@ -429,11 +431,16 @@ rules:
 
 {{< note >}}
 <!--
-You cannot restrict `create` or `deletecollection` requests by resourceName. For `create`, this
-limitation is because the object name is not known at authorization time.
+You cannot restrict `create` or `deletecollection` requests by their resource name.
+For `create`, this limitation is because the name of the new object may not be known at authorization time.
+If you restrict `list` or `watch` by resourceName, clients must include a `metadata.name` field selector in their `list` or `watch` request that matches the specified resourceName in order to be authorized.
+For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 -->
-你不能针对 `create` 或者 `deletecollection` 请求来实施 resourceName 限制。
-对于 `create` 操作而言，这是因为在鉴权时还不知道对象名称。
+你不能使用资源名字来限制 `create` 或者 `deletecollection` 请求。
+对于 `create` 请求而言，这是因为在鉴权时可能还不知道新对象的名字。
+如果你使用 resourceName 来限制 `list` 或者 `watch` 请求，
+客户端必须在它们的 `list` 或者 `watch` 请求里包含一个与指定的 resourceName 匹配的 `metadata.name` 字段选择器。
+例如，`kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
 <!--
@@ -1051,12 +1058,18 @@ When used in a <b>RoleBinding</b>, it gives full control over every resource in 
 Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
 including the ability to create roles and rolebindings within the namespace.
-It does not allow write access to resource quota or to the namespace itself.
+This role does not allow write access to resource quota or to the namespace itself.
+This role also does not allow write access to Endpoints in clusters created
+using Kubernetes v1.22+. More information is available in the
+["Write Access for Endpoints" section](#write-access-for-endpoints).
 -->
 允许管理员访问权限，旨在使用 <b>RoleBinding</b> 在名字空间内执行授权。
+
 如果在 <b>RoleBinding</b> 中使用，则可授予对名字空间中的大多数资源的读/写权限，
 包括创建角色和角色绑定的能力。
-但是它不允许对资源配额或者名字空间本身进行写操作。
+此角色不允许对资源配额或者名字空间本身进行写操作。
+此角色也不允许对 Kubernetes v1.22+ 创建的 Endpoints 进行写操作。
+更多信息参阅[“Endpoints 写权限”小节](#write-access-for-endpoints)。
 </td>
 </tr>
 <tr>
@@ -1071,12 +1084,17 @@ Allows read/write access to most objects in a namespace.
 This role does not allow viewing or modifying roles or role bindings.
 However, this role allows accessing Secrets and running Pods as any ServiceAccount in
 the namespace, so it can be used to gain the API access levels of any ServiceAccount in
-the namespace.
+the namespace. This role also does not allow write access to Endpoints in
+clusters created using Kubernetes v1.22+. More information is available in the
+["Write Access for Endpoints" section](#write-access-for-endpoints).
 -->
 允许对名字空间的大多数对象进行读/写操作。
+
 它不允许查看或者修改角色或者角色绑定。
 不过，此角色可以访问 Secret，以名字空间中任何 ServiceAccount 的身份运行 Pods，
 所以可以用来了解名字空间内所有服务账户的 API 访问级别。
+此角色也不允许对 Kubernetes v1.22+ 创建的 Endpoints 进行写操作。
+更多信息参阅[“Endpoints 写操作”小节](#write-access-for-endpoints)。
 </td>
 </tr>
 <tr>
@@ -1327,10 +1345,10 @@ Role for the <a href="https://github.com/kubernetes/node-problem-detector">node-
 <td>无</td>
 <td>
 <!-- 
-Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#provisioner">dynamic volume provisioners</a>.
+Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#dynamic">dynamic volume provisioners</a>.
 -->
 允许访问大部分
-<a href="/docs/concepts/storage/persistent-volumes/#provisioner">动态卷驱动
+<a href="/zh/docs/concepts/storage/persistent-volumes/#dynamic">动态卷驱动
 </a>
 所需要的资源。</td>
 </tr>
@@ -1956,6 +1974,40 @@ In order from most secure to least secure, the approaches are:
      --clusterrole=cluster-admin \
      --group=system:serviceaccounts
    ```
+
+<!--
+## Write access for Endpoints
+
+Kubernetes clusters created before Kubernetes v1.22 include write access to
+Endpoints in the aggregated "edit" and "admin" roles. As a mitigation for
+[CVE-2021-25740](https://github.com/kubernetes/kubernetes/issues/103675), this
+access is not part of the aggregated roles in clusters that you create using
+Kubernetes v1.22 or later.
+
+Existing clusters that have been upgraded to Kubernetes v1.22 will not be
+subject to this change. The [CVE
+announcement](https://github.com/kubernetes/kubernetes/issues/103675) includes
+guidance for restricting this access in existing clusters.
+
+If you want new clusters to retain this level of access in the aggregated roles,
+you can create the following ClusterRole:
+
+{{< codenew file="access/endpoints-aggregated.yaml" >}}
+-->
+## Endpoints 写权限 {#write-access-for-endpoints}
+
+在 Kubernetes v1.22 之前版本创建的集群里，
+"edit" 和 "admin" 聚合角色包含对 Endpoints 的写权限。
+作为 [CVE-2021-25740](https://github.com/kubernetes/kubernetes/issues/103675) 的缓解措施，
+此访问权限不包含在 Kubernetes 1.22 以及更高版本集群的聚合角色里。
+
+升级到 Kubernetes v1.22 版本的现有集群不会包括此变化。
+[CVE 公告](https://github.com/kubernetes/kubernetes/issues/103675)
+包含了在现有集群里限制此访问权限的指引。
+
+如果你希望在新集群的聚合角色里保留此访问权限，你可以创建下面的 ClusterRole：
+
+{{< codenew file="access/endpoints-aggregated.yaml" >}}
 
 <!--
 ## Upgrading from ABAC

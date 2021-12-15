@@ -224,6 +224,10 @@ a given action, and works regardless of the authorization mode used.
 ```shell
 kubectl auth can-i create deployments --namespace dev
 ```
+
+<!-- The output is similar to this: -->
+输出类似于：
+
 ```
 yes
 ```
@@ -231,6 +235,10 @@ yes
 ```shell
 kubectl auth can-i create deployments --namespace prod
 ```
+
+<!-- The output is similar to this: -->
+输出类似于：
+
 ```
 no
 ```
@@ -246,8 +254,31 @@ to determine what action other users can perform.
 ```bash
 kubectl auth can-i list secrets --namespace dev --as dave
 ```
+
+<!-- The output is similar to this: -->
+输出类似于：
+
 ```
 no
+```
+
+<!--
+Similarly, to check whether a Service Account named `dev-sa` in Namespace `dev`
+can list Pods in the Namespace `target`:
+-->
+类似地，检查名字空间 `dev` 里的 `dev-sa` 服务账号是否可以列举名字空间 `target` 里的 Pod：
+
+```bash
+kubectl auth can-i list pods \
+	--namespace target \
+	--as system:serviceaccount:dev:dev-sa
+```
+
+<!-- The output is similar to this: -->
+输出类似于：
+
+```
+yes
 ```
 
 <!--
@@ -255,7 +286,7 @@ no
 exposes the API server authorization to external services. Other resources in
 this group include:
 
-* `SubjectAccessReview` - Access review for any user, not just the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
+* `SubjectAccessReview` - Access review for any user, not only the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
 * `LocalSubjectAccessReview` - Like `SubjectAccessReview` but restricted to a specific namespace.
 * `SelfSubjectRulesReview` - A review which returns the set of actions a user can perform within a namespace. Useful for users to quickly summarize their own access, or for UIs to hide/show actions.
 
@@ -352,35 +383,63 @@ so an earlier module has higher priority to allow or deny a request.
 或拒绝请求。
 
 <!--
-## Privilege escalation via pod creation
+## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
 
-Users who have the ability to create pods in a namespace can potentially
-escalate their privileges within that namespace.  They can create pods that
-access their privileges within that namespace. They can create pods that access
-secrets the user cannot themselves read, or that run under a service account
-with different/greater permissions.
+Users who can create/edit pods in a namespace, either directly or through a [controller](/docs/concepts/architecture/controller/)
+such as an operator, could escalate their privileges in that namespace.
 -->
-## 通过创建 Pod 提升权限
+## 通过创建或编辑工作负载提升权限 {#privilege-escalation-via-pod-creation}
 
-能够在名字空间中创建 Pod 的用户可能会提升其在该名字空间内的权限。
-他们可以创建在该名字空间内访问其权限的 Pod。
-他们可以创建 Pod 访问用户自己无法读取的 Secret，或者在具有不同/更高权限的
-服务帐户下运行的 Pod 。
+能够在名字空间中创建或者编辑 Pod 的用户，
+无论是直接操作还是通过[控制器](/zh/docs/concepts/architecture/controller/)（例如，一个 Operator）来操作，
+都可以提升他们在该名字空间内的权限。
 
 {{< caution >}}
 <!--
-System administrators, use care when granting access to pod creation.  A user
-granted permission to create pods (or controllers that create pods) in the
-namespace can: read all secrets in the namespace; read all config maps in the
-namespace; and impersonate any service account in the namespace and take any
-action the account could take. This applies regardless of authorization mode.
+System administrators, use care when granting access to create or edit workloads.
+Details of how these can be misused are documented in [escalation paths](/docs/reference/access-authn-authz/authorization/#escalation-paths)
 -->
-系统管理员在授予对 Pod 创建的访问权限时要小心。
-被授予在名字空间中创建 Pod（或创建 Pod 的控制器）的权限的用户可以：
-读取名字空间中的所有 Secret；读取名字空间中的所有 ConfigMap；
-并模拟名字空间中的任意服务账号并执行账号可以执行的任何操作。
-无论采用何种鉴权方式，这都适用。
+系统管理员在授予对工作负载的创建或编辑的权限时要小心。
+关于这些权限如何被误用的详细信息请参阅
+[提升途径](#escalation-paths)
 {{< /caution >}}
+
+<!--
+### Escalation paths {#escalation-paths}
+- Mounting arbitrary secrets in that namespace
+  - Can be used to access secrets meant for other workloads
+  - Can be used to obtain a more privileged service account's service account token
+- Using arbitrary Service Accounts in that namespace
+  - Can perform Kubernetes API actions as another workload (impersonation)
+  - Can perform any privileged actions that Service Account has
+- Mounting configmaps meant for other workloads in that namespace
+  - Can be used to obtain information meant for other workloads, such as DB host names.
+- Mounting volumes meant for other workloads in that namespace
+  - Can be used to obtain information meant for other workloads, and change it.
+-->
+### 提升途径 {#escalation-paths}
+- 挂载该名字空间内的任意 Secret
+  - 可以用来访问其他工作负载专用的 Secret
+  - 可以用来获取权限更高的服务账号的令牌
+- 使用该名字空间内的任意服务账号
+  - 可以用另一个工作负载的身份来访问 Kubernetes API（伪装）
+  - 可以执行该服务账号的任意特权操作
+- 挂载该名字空间里其他工作负载专用的 ConfigMap
+  - 可以用来获取其他工作负载专用的信息，例如数据库主机名。
+- 挂载该名字空间里其他工作负载的卷
+  - 可以用来获取其他工作负载专用的信息，并且更改它。
+
+{{< caution >}}
+<!--
+System administrators should be cautious when deploying CRDs that
+change the above areas. These may open privilege escalations paths.
+This should be considered when deciding on your RBAC controls.
+-->
+系统管理员在部署改变以上部分的 CRD 的时候要小心。
+它们可能会打开权限提升的途径。
+在决定你的 RBAC 控制时应该考虑这方面的问题。
+{{< /caution >}}
+
 
 ## {{% heading "whatsnext" %}}
 
