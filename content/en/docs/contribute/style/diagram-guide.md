@@ -52,8 +52,8 @@ All you need to begin working with Mermaid is the following:
 
 * Basic understanding of markdown.
 * Using the Mermaid live editor.
-* Using [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
-* Using the [Hugo {{</* figure */>}} shortcode](https://gohugo.io/content-management/shortcodes/#figure)   
+* Using [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
+* Using the [Hugo {{</* figure */>}} shortcode](https://gohugo.io/content-management/shortcodes/#figure).   
 * Performing [Hugo local previews](https://kubernetes.io/docs/contribute/new-content/open-a-pr/#preview-locally).
 * Familiar with the [Contributing new content](/docs/contribute/new-content/) process.
 
@@ -314,7 +314,7 @@ Be sure to check that your diagram renders properly using the [local](https://ku
 
 Figure 5 outlines the steps to follow for adding a diagram using the External Tool method. 
 
-In essence, you use your external tool to create the diagram and save it as an `.svg` or `.png` image file. After that, use the same steps as the __Mermaid+SVG__ method for adding `.svg` image files.
+First, use your external tool to create the diagram and save it as an `.svg` or `.png` image file. After that, use the same steps as the __Mermaid+SVG__ method for adding `.svg` image files.
 
 {{< mermaid >}}
 flowchart LR
