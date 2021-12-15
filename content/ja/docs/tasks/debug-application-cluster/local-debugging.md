@@ -1,0 +1,65 @@
+---
+title: ローカルでのサービス開発・デバッグ
+content_type: task
+---
+
+<!-- overview -->
+
+Kubernetesアプリケーションは通常、複数の独立したサービスから構成され、それぞれが独自のコンテナで動作しています。これらのサービスをリモートのKubernetesクラスタ上で開発・デバッグするには、[get a shell on a running container](/docs/task/debug-application-cluster/get-shell-running-container/)してリモートシェル内でツールを実行しなければならず面倒な場合があります。
+
+`telepresence`は、リモートKubernetesクラスタにサービスをプロキシングしながら、ローカルでサービスを開発・デバッグするプロセスを容易にするためのツールです。
+`telepresence` を使用すると、デバッガや IDE などのカスタムツールをローカルサービスで使用でき、ConfigMap や secret、リモートクラスタ上で動作しているサービスへのフルアクセスをサービスに提供します。
+
+このドキュメントでは、リモートクラスタ上で動作しているサービスをローカルで開発・デバッグするために `telepresence` を使用する方法を説明します。
+
+## {{% heading "prerequisites" %}}
+
+* Kubernetesクラスタがインストールされていること
+* クラスタと通信するために `kubectl` が設定されていること
+* telepresence(https://www.telepresence.io/reference/install)がインストールされていること
+
+<!-- steps -->
+
+## リモートクラスタ上でシェルの取得
+
+ターミナルを開いて、引数なしで`telepresence`を実行すると、`telepresence`シェルが表示されます。
+このシェルはローカルで動作し、ローカルのファイルシステムに完全にアクセスすることができます。
+
+この`telepresence`シェルは様々な方法で使用することができます。
+例えば、ラップトップでシェルスクリプトを書いて、それをシェルから直接リアルタイムで実行することができます。これはリモートシェルでもできますが、好みのコードエディタが使えないかもしれませんし、コンテナが終了するとスクリプトは削除されます。
+
+終了してシェルを閉じるには`exit`と入力してください。
+
+## 既存サービスの開発・デバッグ
+
+When developing an application on Kubernetes, you typically program or debug a single service. The service might require access to other services for testing and debugging. One option is to use the continuous deployment pipeline, but even the fastest deployment pipeline introduces a delay in the program or debug cycle.
+
+Use the `--swap-deployment` option to swap an existing deployment with the Telepresence proxy. Swapping allows you to run a service locally and connect to the remote Kubernetes cluster. The services in the remote cluster can now access the locally running instance.
+
+Kubernetes上でアプリケーションを開発する場合、通常は1つのサービスをプログラミングまたはデバッグすることになります。
+そのサービスは、テストやデバッグのために他のサービスへのアクセスを必要とする場合があります。
+継続的なデプロイメントパイプラインを使用することも一つの選択肢ですが、最速のデプロイメントパイプラインでさえ、プログラムやデバッグサイクルに遅延が発生します。
+
+既存のデプロイメントとtelepresenceプロキシを交換するには、`--swap-deployment` オプションを使用します。
+スワップすることで、ローカルでサービスを実行し、リモートのKubernetesクラスタに接続することができます。
+リモートクラスタ内のサービスは、ローカルで実行されているインスタンスにアクセスできるようになりました。
+
+telepresenceを「--swap-deployment」で実行するには、次のように入力します。
+
+`telepresence --swap-deployment $DEPLOYMENT_NAME`
+
+ここで、$DEPLOYMENT_NAMEは既存のディプロイメントの名前です。
+
+このコマンドを実行すると、シェルが起動します。そのシェルで、サービスを起動します。
+そして、ローカルでソースコードの編集を行い、保存すると、すぐに変更が反映されるのを確認できます。
+また、デバッガやその他のローカルな開発ツールでサービスを実行することもできます。
+
+## {{% heading "whatsnext" %}}
+
+もしハンズオンのチュートリアルに興味があるなら、Google Kubernetes Engine上でGuestbookアプリケーションをローカルに開発する手順を説明した[this tutorial](https://cloud.google.com/community/tutorials/developing-services-with-k8s)をチェックしてみてください。
+
+telepresenceには、状況に応じて[numerous proxying options](https://www.telepresence.io/reference/methods)があります。
+
+さらに詳しい情報は、[telepresence website](https://www.telepresence.io)をご覧ください。
+
+
