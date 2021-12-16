@@ -90,6 +90,6 @@ K8s एक संक्षिप्त नाम के रूप में "K" 
 
 ## {{% heading "whatsnext" %}}
 
-*   [कुबेरनेट्स के घटक ](/docs/concepts/overview/components/) पर एक नज़र डालें ।
-*   [शुरू करने के लिए तैयार हैं](/docs/setup/)? शुरू करने के लिए।
+*   [कुबेरनेट्स के घटक ](/docs/concepts/overview/components/)पर एक नज़र डालें ।
+*   क्या आप [शुरू करने के लिए तैयार हैं](/docs/setup/)?
 
