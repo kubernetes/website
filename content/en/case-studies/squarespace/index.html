@@ -69,3 +69,7 @@ After experimenting with another container orchestration platform and "breaking 
 <p>Lynch and his team are planning to open source some of the tools they've developed to extend Kubernetes and use it as an API itself. The first tool injects dependent applications as containers in a pod. "When you ship an application, usually it comes along with a whole bunch of dependent applications that need to be shipped with that, for example, fluentd for logging," he explains. With this tool, the developer doesn't need to worry about the configurations.</p>
 
 <p>Going forward, all new services at Squarespace are going into Kubernetes, and the end goal is to convert everything it can. About a quarter of existing services have been migrated. "Our monolithic application is going to be the last one, just because it's so big and complex," says Lynch. "But now I'm seeing other services get moved over, like the file storage service. Someone just did it and it worked—painlessly. So I believe if we tackle it, it's probably going to be a lot easier than we fear. Maybe I should just take my own advice and fail fast!"</p>
+
+{{< warning >}}
+This case study mentions Docker, which is no longer compatible with Kubernetes. For more information, see the [Dockershim Deprecation FAQ](https://kubernetes.io/blog/2020/12/02/dockershim-faq/).
+{{< /warning >}}
