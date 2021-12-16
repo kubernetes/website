@@ -7,9 +7,6 @@ title: トラブルシューティング
 
 <!-- overview -->
 
-Sometimes things go wrong. This guide is aimed at making them right. It has
-two sections:
-
 時には物事がうまくいかないこともあります。このガイドは、それらを正すことを目的としています。
 
  2つのセクションから構成されています:
@@ -44,57 +41,58 @@ Kubernetesチームも[posts tagged Kubernetes](https://stackoverflow.com/questi
 
 ### Slack
 
-Many people from the Kubernetes community hang out on Kubernetes Slack in the `#kubernetes-users` channel.
-Slack requires registration; you can [request an invitation](https://slack.kubernetes.io),
-and registration is open to everyone). Feel free to come and ask any and all questions.
-Once registered, access the [Kubernetes organisation in Slack](https://kubernetes.slack.com)
-via your web browser or via Slack's own dedicated app.
+Kubernetesコミュニティの多くの人々は、Kubernetes Slackの`#kubernetes-users`チャンネルにたむろしています。
+Slackは登録が必要です。[request an invitation](https://slack.kubernetes.io)ことができ、登録は誰でも可能です）。
+お気軽にお越しいただき、何でも質問してください。
+登録が完了したら、WebブラウザまたはSlackの専用アプリから[Kubernetes organization in Slack](https://kubernetes.slack.com)にアクセスします。
+
 
 Once you are registered, browse the growing list of channels for various subjects of
 interest. For example, people new to Kubernetes may also want to join the
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) channel. As another example, developers should join the
 [`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) channel.
 
-There are also many country specific / local language channels. Feel free to join
-these channels for localized support and info:
+登録が完了したら、増え続けるチャンネルリストを見て、興味のある様々なテーマについて調べてみましょう。
+たとえば、Kubernetes の初心者は、次のチャンネルに参加するのもよいでしょう。
+[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)
+別の例として、開発者は[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev)チャンネルに参加するとよいでしょう。
+
+また、多くの国別／現地語チャンネルがあります。これらのチャンネルに参加すれば、地域特有のサポートや情報を得ることができます。
 
 {{< table caption="Country / language specific Slack channels" >}}
 Country | Channels
 :---------|:------------
-China | [`#cn-users`](https://kubernetes.slack.com/messages/cn-users), [`#cn-events`](https://kubernetes.slack.com/messages/cn-events)
-Finland | [`#fi-users`](https://kubernetes.slack.com/messages/fi-users)
-France | [`#fr-users`](https://kubernetes.slack.com/messages/fr-users), [`#fr-events`](https://kubernetes.slack.com/messages/fr-events)
-Germany | [`#de-users`](https://kubernetes.slack.com/messages/de-users), [`#de-events`](https://kubernetes.slack.com/messages/de-events)
-India | [`#in-users`](https://kubernetes.slack.com/messages/in-users), [`#in-events`](https://kubernetes.slack.com/messages/in-events)
-Italy | [`#it-users`](https://kubernetes.slack.com/messages/it-users), [`#it-events`](https://kubernetes.slack.com/messages/it-events)
-Japan | [`#jp-users`](https://kubernetes.slack.com/messages/jp-users), [`#jp-events`](https://kubernetes.slack.com/messages/jp-events)
-Korea | [`#kr-users`](https://kubernetes.slack.com/messages/kr-users)
-Netherlands | [`#nl-users`](https://kubernetes.slack.com/messages/nl-users)
-Norway | [`#norw-users`](https://kubernetes.slack.com/messages/norw-users)
-Poland | [`#pl-users`](https://kubernetes.slack.com/messages/pl-users)
-Russia | [`#ru-users`](https://kubernetes.slack.com/messages/ru-users)
-Spain | [`#es-users`](https://kubernetes.slack.com/messages/es-users)
-Sweden | [`#se-users`](https://kubernetes.slack.com/messages/se-users)
-Turkey | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-events`](https://kubernetes.slack.com/messages/tr-events)
+中国 | [`#cn-users`](https://kubernetes.slack.com/messages/cn-users), [`#cn-events`](https://kubernetes.slack.com/messages/cn-events)
+フィンランド | [`#fi-users`](https://kubernetes.slack.com/messages/fi-users)
+フランス | [`#fr-users`](https://kubernetes.slack.com/messages/fr-users), [`#fr-events`](https://kubernetes.slack.com/messages/fr-events)
+ドイツ | [`#de-users`](https://kubernetes.slack.com/messages/de-users), [`#de-events`](https://kubernetes.slack.com/messages/de-events)
+インド | [`#in-users`](https://kubernetes.slack.com/messages/in-users), [`#in-events`](https://kubernetes.slack.com/messages/in-events)
+イタリア | [`#it-users`](https://kubernetes.slack.com/messages/it-users), [`#it-events`](https://kubernetes.slack.com/messages/it-events)
+日本 | [`#jp-users`](https://kubernetes.slack.com/messages/jp-users), [`#jp-events`](https://kubernetes.slack.com/messages/jp-events)
+韓国 | [`#kr-users`](https://kubernetes.slack.com/messages/kr-users)
+オランダ | [`#nl-users`](https://kubernetes.slack.com/messages/nl-users)
+ノルウェー | [`#norw-users`](https://kubernetes.slack.com/messages/norw-users)
+ポーランド | [`#pl-users`](https://kubernetes.slack.com/messages/pl-users)
+ロシア | [`#ru-users`](https://kubernetes.slack.com/messages/ru-users)
+スペイン | [`#es-users`](https://kubernetes.slack.com/messages/es-users)
+スウェーデン | [`#se-users`](https://kubernetes.slack.com/messages/se-users)
+トルコ | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-events`](https://kubernetes.slack.com/messages/tr-events)
 {{< /table >}}
 
-### Forum
+### フォーラム
 
-You're welcome to join the official Kubernetes Forum: [discuss.kubernetes.io](https://discuss.kubernetes.io).
+Kubernetesの公式フォーラムへの参加は大歓迎です[discuss.kubernetes.io](https://discuss.kubernetes.io)。
 
-### Bugs and feature requests
+### バグと機能の要望
 
-If you have what looks like a bug, or you would like to make a feature request,
-please use the [GitHub issue tracking system](https://github.com/kubernetes/kubernetes/issues).
+バグらしきものを発見した場合、または機能要望を出したい場合。
+GitHub課題追跡システム](https://github.com/kubernetes/kubernetes/issues)をご利用ください。
+課題を提出する前に、既存の課題を検索して、あなたの課題が解決されているかどうかを確認してください。
 
-Before you file an issue, please search existing issues to see if your issue is
-already covered.
+バグを報告する場合は、そのバグを再現するための詳細な情報を含めてください。
 
-If filing a bug, please include detailed information about how to reproduce the
-problem, such as:
-
-* Kubernetes version: `kubectl version`
-* Cloud provider, OS distro, network configuration, and Docker version
-* Steps to reproduce the problem
+* Kubernetes のバージョン: `kubectl version`
+* クラウドプロバイダー、OSディストリビューション、ネットワーク構成、Dockerバージョン
+* 問題を再現するための手順
 
 
