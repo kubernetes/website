@@ -110,15 +110,13 @@ membership in the Kubernetes organization.
 
 ## Serve as a SIG Co-chair
 
-SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers)
+SIG Docs [members](/docs/contribute/participate/roles-and-responsibilities/#members)
 can serve a term as a co-chair of SIG Docs.
 
 ### Prerequisites
 
-Approvers must meet the following requirements to be a co-chair:
+A Kubernetes member must meet the following requirements to be a co-chair:
 
-- Have been a SIG Docs approver for at least 6 months
-- Have [led a Kubernetes docs release](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) or shadowed two releases
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs
   workflow, including:
@@ -126,6 +124,8 @@ Approvers must meet the following requirements to be a co-chair:
   [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
   plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
   [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
+  In addition, understand how the [Kubernetes docs release process](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) works.
+- Approved by the SIG Docs community either directly or via lazy consensus.
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
 
 ### Responsibilities
