@@ -283,6 +283,7 @@ the node identity with an out of band mechanism.
 {{% thirdparty-content %}}
 
 Third party custom controllers can be used:
+- [kubelet-csr-approver](https://github.com/postfinance/kubelet-csr-approver)
 - [kubelet-rubber-stamp](https://github.com/kontena/kubelet-rubber-stamp)
 
 Such a controller is not a secure mechanism unless it not only verifies the CommonName
