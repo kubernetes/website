@@ -1,5 +1,5 @@
 ---
-title: Affinity
+title: 亲和性（Affinity）
 id: affinity
 date: 2019-01-11
 full_link: zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
