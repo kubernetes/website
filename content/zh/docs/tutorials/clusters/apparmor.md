@@ -320,7 +320,7 @@ kubectl get events | grep hello-apparmor
 我们可以通过检查该配置文件的 proc attr 来验证容器是否实际使用该配置文件运行：
 
 ```shell
-kubectl exec hello-apparmor cat /proc/1/attr/current
+kubectl exec hello-apparmor -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)
@@ -330,7 +330,7 @@ k8s-apparmor-example-deny-write (enforce)
 最后，我们可以看到如果试图通过写入文件来违反配置文件，会发生什么情况：
 
 ```shell
-kubectl exec hello-apparmor touch /tmp/test
+kubectl exec hello-apparmor -- touch /tmp/test
 ```
 ```
 touch: /tmp/test: Permission denied

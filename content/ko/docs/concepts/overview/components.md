@@ -1,4 +1,6 @@
 ---
+
+
 title: 쿠버네티스 컴포넌트
 content_type: concept
 description: >
@@ -17,11 +19,7 @@ card:
 이 문서는 완전히 작동하는 쿠버네티스 클러스터를 갖기 위해 필요한
 다양한 컴포넌트들에 대해 요약하고 정리한다.
 
-여기에 모든 컴포넌트가 함께 있는 쿠버네티스 클러스터 다이어그램이 있다.
-
-![쿠버네티스의 컴포넌트](/images/docs/components-of-kubernetes.svg)
-
-
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="쿠버네티스 구성 요소" caption="쿠버네티스 클러스터 구성 요소" class="diagram-large" >}}
 
 <!-- body -->
 ## 컨트롤 플레인 컴포넌트

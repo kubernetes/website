@@ -132,7 +132,7 @@ kubectl delete cronjob hello
 ## 크론 잡 명세 작성
 
 다른 모든 쿠버네티스 구성과 마찬가지로, 크론 잡은 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다. 구성 파일
-작업에 대한 일반적인 정보는 [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)와
+작업에 대한 일반적인 정보는 [애플리케이션 배포](/ko/docs/tasks/run-application/run-stateless-application-deployment/)와
 [kubectl을 사용하여 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참고한다.
 
 크론 잡 구성에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.

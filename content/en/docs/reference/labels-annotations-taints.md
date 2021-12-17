@@ -36,10 +36,9 @@ Example: `kubernetes.io/metadata.name=mynamespace`
 
 Used on: Namespaces
 
-When the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-the Kubernetes API server sets this label on all namespaces. The label value is set to
-the name of the namespace.
+The Kubernetes API server (part of the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}) 
+sets this label on all namespaces. The label value is set
+to the name of the namespace. You can't change this label's value. 
 
 This is useful if you want to target a specific namespace with a label
 {{< glossary_tooltip text="selector" term_id="selector" >}}.
@@ -62,6 +61,16 @@ The Kubelet populates this label with the hostname. Note that the hostname can b
 
 This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
 
+
+## kubernetes.io/change-cause {#change-cause}
+
+Example: `kubernetes.io/change-cause=kubectl edit --record deployment foo`
+
+Used on: All Objects
+
+This annotation is a best guess at why something was changed. 
+
+It is populated when adding `--record` to a `kubectl` command that may change an object.
 
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
@@ -426,3 +435,19 @@ or updating objects that contain Pod templates, such as Deployments, Jobs, State
 
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
 for more information.
+
+## seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
+
+This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
+To specify security settings for a Pod, include the `securityContext` field in the Pod specification.
+The [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) field within a Pod's `.spec` defines pod-level security attributes.
+When you [specify the security context for a Pod](/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod),
+the settings you specify apply to all containers in that Pod.
+
+## container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
+
+This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
+The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/clusters/seccomp/) takes
+you through the steps you follow to apply a seccomp profile to a Pod or to one of
+its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
+based on setting `securityContext` within the Pod's `.spec`.

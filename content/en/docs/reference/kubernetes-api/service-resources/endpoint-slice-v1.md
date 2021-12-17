@@ -45,6 +45,11 @@ EndpointSlice represents a subset of the endpoints that implement a service. For
 - **addressType** (string), required
 
   addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
+  
+  Possible enum values:
+   - `"FQDN"` represents a FQDN.
+   - `"IPv4"` represents an IPv4 Address.
+   - `"IPv6"` represents an IPv6 Address.
 
 - **endpoints** ([]Endpoint), required
 
@@ -387,6 +392,11 @@ POST /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -439,6 +449,11 @@ PUT /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -487,6 +502,11 @@ PATCH /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

@@ -1,6 +1,6 @@
 ---
 title: 쿠버네티스 보안과 공개 정보
-aliases: [/security/]
+aliases: [/ko/security/]
 
 
 
@@ -27,7 +27,7 @@ weight: 20
 
 보고서를 작성하려면, [쿠버네티스 버그 현상금 프로그램](https://hackerone.com/kubernetes)에 취약점을 제출한다. 이를 통해 표준화된 응답시간으로 취약점을 분류하고 처리할 수 있다.
 
-또한, 보안 세부 내용과 [모든 쿠버네티스 버그 보고서](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)로 부터 예상되는 세부사항을 [security@kubernetes.io](mailto:security@kubernetes.io)로 이메일을 보낸다.
+또한, 보안 세부 내용과 [모든 쿠버네티스 버그 보고서](https://github.com/kubernetes/kubernetes/blob/master/.github/ISSUE_TEMPLATE/bug-report.yaml)로 부터 예상되는 세부사항을 [security@kubernetes.io](mailto:security@kubernetes.io)로 이메일을 보낸다.
 
 [보안 대응 위원회(Security Response Committee) 구성원](https://git.k8s.io/security/README.md#product-security-committee-psc)의 GPG 키를 사용하여 이 목록으로 이메일을 암호화할 수 있다. GPG를 사용한 암호화는 공개할 필요가 없다.
 

@@ -26,9 +26,16 @@ Each day in a week-long shift as PR Wrangler:
     - If you need to verify content, comment on the PR and request more details.
     - Assign relevant `sig/` label(s).
     - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
+    - You can also tag a [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md) for a review by commenting `@kubernetes/<sig>-pr-reviews` on the PR.
 - Use the `/approve` comment to approve a PR for merging. Merge the PR when ready.
     - PRs should have a `/lgtm` comment from another member before merging.
-    - Consider accepting technically accurate content that doesn't meet the [style guidelines](/docs/contribute/style/style-guide/). Open a new issue with the label `good first issue` to address style concerns.
+    - Consider accepting technically accurate content that doesn't meet the
+      [style guidelines](/docs/contribute/style/style-guide/). As you approve the change,
+      open a new issue to address the style concern. You can usually write these style fix
+      issues as [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue).
+    - Using style fixups as good first issues is a good way to ensure a supply of easier tasks
+      to help onboard new contributors.
+
 
 ### Helpful GitHub queries for wranglers
 

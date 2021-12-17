@@ -32,39 +32,48 @@ different approach.
 
 ## The Kubernetes network model
 
-Every `Pod` gets its own IP address. This means you do not need to explicitly
-create links between `Pods` and you almost never need to deal with mapping
-container ports to host ports.  This creates a clean, backwards-compatible
-model where `Pods` can be treated much like VMs or physical hosts from the
-perspectives of port allocation, naming, service discovery, load balancing,
-application configuration, and migration.
+Every `Pod` gets its own IP address, maximum one per IP family. This means you
+do not need need to deal with mapping container ports to host ports in order to
+expose the `Pods` services on the network. This creates a clean,
+backwards-compatible model where `Pods` can be treated much like VMs or physical
+hosts from the perspectives of port allocation, naming, service discovery, load
+balancing, application configuration, and migration.
+
+Kubernetes IP addresses exist at the `Pod` scope, in the `status.PodIPs` field
+- containers within a `Pod` share their network namespaces - including their IP
+address. This means that containers within a `Pod` can all reach each other's
+ports on `localhost`. This also means that containers within a `Pod` must
+coordinate port usage, but this is no different from processes in a VM. This is
+called the _IP-per-pod_ model.
+
+In every cluster, there exists an abstract pod-network to which pods
+are connected by default, unless explicitly configured to use the
+host-network (on platforms that support it). Even if a host has
+multiple IPs, host-network pods only have one Kubernetes IP address at
+the `Pod` scope, that is, the `status.PodIPs` field contains one
+IP per address family (for now), so the "IP-per-pod" model is guaranteed.
 
 Kubernetes imposes the following fundamental requirements on any networking
 implementation (barring any intentional network segmentation policies):
 
-   * pods on a node can communicate with all pods on all nodes without NAT
-   * agents on a node (e.g. system daemons, kubelet) can communicate with all
-     pods on that node
+   * any pod-network pod on any node can communicate with all other pod-network
+     pods on all nodes without NAT.
+   * non-pod processes on a node (the kubelet, and also for example any other system daemon) can
+     communicate with all pods on that node.
 
-Note: For those platforms that support `Pods` running in the host network (e.g.
-Linux):
+In addition, for platforms and runtimes that support running pods in the host OS network:
 
-   * pods in the host network of a node can communicate with all pods on all
-     nodes without NAT
+   * host-network pods of a node can connect directly with all pods IPs on all
+     nodes, however, unlike pod-network pods, the source IP address might not be
+     present in the `Pod` `status.PodIPs` field.
 
-This model is not only less complex overall, but it is principally compatible
-with the desire for Kubernetes to enable low-friction porting of apps from VMs
-to containers.  If your job previously ran in a VM, your VM had an IP and could
-talk to other VMs in your project.  This is the same basic model.
+This model is principally compatible with the desire for Kubernetes to enable
+low-friction porting of apps from VMs to containers. If your workload previously ran
+in a VM, your VM typically had a single IP address; everything in that VM could talk to
+other VMs on your network.
+This is the same basic model but less complex overall.
 
-Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
-share their network namespaces - including their IP address and MAC address.
-This means that containers within a `Pod` can all reach each other's ports on
-`localhost`. This also means that containers within a `Pod` must coordinate port
-usage, but this is no different from processes in a VM.  This is called the
-"IP-per-pod" model.
-
-How this is implemented is a detail of the particular container runtime in use.
+How this is implemented is a detail of the particular container runtime in use. Likewise, the networking option you choose may support [dual-stack IPv4/IPv6 networking](/docs/concepts/services-networking/dual-stack/); implementations vary.
 
 It is possible to request ports on the `Node` itself which forward to your `Pod`
 (called host ports), but this is a very niche operation. How that forwarding is
@@ -169,49 +178,6 @@ With this toolset DANM is able to provide multiple separated network interfaces,
 network that satisfies the Kubernetes requirements. Many
 people have reported success with Flannel and Kubernetes.
 
-### Google Compute Engine (GCE)
-
-For the Google Compute Engine cluster configuration scripts, [advanced
-routing](https://cloud.google.com/vpc/docs/routes) is used to
-assign each VM a subnet (default is `/24` - 254 IPs).  Any traffic bound for that
-subnet will be routed directly to the VM by the GCE network fabric.  This is in
-addition to the "main" IP address assigned to the VM, which is NAT'ed for
-outbound internet access.  A linux bridge (called `cbr0`) is configured to exist
-on that subnet, and is passed to docker's `--bridge` flag.
-
-Docker is started with:
-
-```shell
-DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
-```
-
-This bridge is created by Kubelet (controlled by the `--network-plugin=kubenet`
-flag) according to the `Node`'s `.spec.podCIDR`.
-
-Docker will now allocate IPs from the `cbr-cidr` block.  Containers can reach
-each other and `Nodes` over the `cbr0` bridge.  Those IPs are all routable
-within the GCE project network.
-
-GCE itself does not know anything about these IPs, though, so it will not NAT
-them for outbound internet traffic.  To achieve that an iptables rule is used
-to masquerade (aka SNAT - to make it seem as if packets came from the `Node`
-itself) traffic that is bound for IPs outside the GCE project network
-(10.0.0.0/8).
-
-```shell
-iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
-```
-
-Lastly IP forwarding is enabled in the kernel (so the kernel will process
-packets for bridged containers):
-
-```shell
-sysctl net.ipv4.ip_forward=1
-```
-
-The result of all this is that all `Pods` can reach each other and can egress
-traffic to the internet.
-
 ### Jaguar
 
 [Jaguar](https://gitlab.com/sdnlab/jaguar) is an open source solution for Kubernetes's network based on OpenDaylight. Jaguar provides overlay network using vxlan and Jaguar CNIPlugin provides one IP address per pod.
@@ -246,7 +212,7 @@ Lars Kellogg-Stedman.
 
 ### Multus (a Multi Network plugin)
 
-[Multus](https://github.com/Intel-Corp/multus-cni) is a Multi CNI plugin to support the Multi Networking feature in Kubernetes using CRD based network objects in Kubernetes.
+Multus is a Multi CNI plugin to support the Multi Networking feature in Kubernetes using CRD based network objects in Kubernetes.
 
 Multus supports all [reference plugins](https://github.com/containernetworking/plugins) (eg. [Flannel](https://github.com/containernetworking/cni.dev/blob/main/content/plugins/v0.9/meta/flannel.md), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) that implement the CNI specification and 3rd party plugins (eg. [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). In addition to it, Multus supports [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) workloads in Kubernetes with both cloud native and NFV based applications in Kubernetes.
 
@@ -260,12 +226,6 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 
 [NSX-T Container Plug-in (NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) provides integration between NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
 
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) is a somewhat more mature but also
-complicated way to build an overlay network.  This is endorsed by several of the
-"Big Shops" for networking.
-
 ### OVN (Open Virtual Networking)
 
 OVN is an opensource network virtualization solution developed by the
@@ -273,10 +233,6 @@ Open vSwitch community.  It lets one create logical switches, logical routers,
 stateful ACLs, load-balancers etc to build different virtual networking
 topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
-
-### Romana
-
-[Romana](https://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
 
 ### Weave Net from Weaveworks
 

@@ -69,7 +69,7 @@ kubectl exec -it cassandra -- sh
 ```
 
 더욱 상세한 내용은 다음 [동작중인 컨테이너의 쉘에 접근하기](
-/docs/tasks/debug-application-cluster/get-shell-running-container/)를 참고하라.
+/ko/docs/tasks/debug-application-cluster/get-shell-running-container/)를 참고하라.
 
 ## 임시(ephemeral) 디버그 컨테이너를 사용해서 디버깅하기 {#ephemeral-container}
 
@@ -87,7 +87,7 @@ kubectl exec -it cassandra -- sh
 
 {{< note >}}
 이 섹션에서 소개하는 예시를 사용하기 위해서는
-여러분의 클러스터에 `EphemeralContainers` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가
+여러분의 클러스터에 `EphemeralContainers` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
 활성화되어 있어야 하고 `kubectl`의 버전이 v1.18 이상이어야 한다.
 {{< /note >}}
 

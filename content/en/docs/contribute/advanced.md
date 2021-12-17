@@ -27,7 +27,7 @@ the documentation, the website style, the processes for reviewing and merging
 pull requests, or other aspects of the documentation. For maximum transparency,
 these types of proposals need to be discussed in a SIG Docs meeting or on the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
-In addition, it can really help to have some context about the way things
+In addition, it can help to have some context about the way things
 currently work and why past decisions have been made before proposing sweeping
 changes. The quickest way to get answers to questions about how the documentation
 currently works is to ask in the `#sig-docs` Slack channel on
@@ -54,7 +54,7 @@ refer to
 The SIG Docs representative for a given release coordinates the following tasks:
 
 - Monitor the feature-tracking spreadsheet for new or changed features with an
-  impact on documentation. If documentation for a given feature won't be ready
+  impact on documentation. If the documentation for a given feature won't be ready
   for the release, the feature may not be allowed to go into the release.
 - Attend sig-release meetings regularly and give updates on the status of the
   docs for the release.
@@ -82,12 +82,12 @@ few PR submissions.
 Responsibilities for New Contributor Ambassadors include:
 
 - Monitoring the [#sig-docs Slack channel](https://kubernetes.slack.com) for questions from new contributors.
-- Working with PR wranglers to identify good first issues for new contributors.
+- Working with PR wranglers to identify [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue) for new contributors.
 - Mentoring new contributors through their first few PRs to the docs repo.
 - Helping new contributors create the more complex PRs they need to become Kubernetes members.
 - [Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members.
 
-Current New Contributor Ambassadors are announced at each SIG-Docs meeting, and in the [Kubernetes #sig-docs channel](https://kubernetes.slack.com).
+Current New Contributor Ambassadors are announced at each SIG-Docs meeting and in the [Kubernetes #sig-docs channel](https://kubernetes.slack.com).
 
 ## Sponsor a new contributor
 
@@ -110,22 +110,22 @@ membership in the Kubernetes organization.
 
 ## Serve as a SIG Co-chair
 
-SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers)
+SIG Docs [members](/docs/contribute/participate/roles-and-responsibilities/#members)
 can serve a term as a co-chair of SIG Docs.
 
 ### Prerequisites
 
-Approvers must meet the following requirements to be a co-chair:
+A Kubernetes member must meet the following requirements to be a co-chair:
 
-- Have been a SIG Docs approver for at least 6 months
-- Have [led a Kubernetes docs release](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) or shadowed two releases
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs
   workflow, including:
-  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
+  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the
   [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
   plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
   [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
+  In addition, understand how the [Kubernetes docs release process](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) works.
+- Approved by the SIG Docs community either directly or via lazy consensus.
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
 
 ### Responsibilities

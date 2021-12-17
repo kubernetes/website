@@ -80,7 +80,7 @@ The name of an Ingress object must be a valid
 For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
  is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
-Different [Ingress controller](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
+Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 
 The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
@@ -219,25 +219,98 @@ of the controller that should implement the class.
 
 {{< codenew file="service/networking/external-lb.yaml" >}}
 
-IngressClass resources contain an optional parameters field. This can be used to
-reference additional implementation-specific configuration for this class.
+The `.spec.parameters` field of an IngressClass lets you reference another
+resource that provides configuration related to that IngressClass.
 
-#### Namespace-scoped parameters
+The specific type of parameters to use depends on the ingress controller
+that you specify in the `.spec.controller` field of the IngressClass.
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+### IngressClass scope
 
-`Parameters` field has a `scope` and `namespace` field that can be used to
-reference a namespace-specific resource for configuration of an Ingress class.
-`Scope` field defaults to `Cluster`, meaning, the default is cluster-scoped
-resource. Setting `Scope` to `Namespace` and setting the `Namespace` field
-will reference a parameters resource in a specific namespace:
+Depending on your ingress controller, you may be able to use parameters
+that you set cluster-wide, or just for one namespace.
 
-Namespace-scoped parameters avoid the need for a cluster-scoped CustomResourceDefinition
-for a parameters resource. This further avoids RBAC-related resources
-that would otherwise be required to grant permissions to cluster-scoped
-resources.
+{{< tabs name="tabs_ingressclass_parameter_scope" >}}
+{{% tab name="Cluster" %}}
+The default scope for IngressClass parameters is cluster-wide.
 
-{{< codenew file="service/networking/namespaced-params.yaml" >}}
+If you set the `.spec.parameters` field and don't set
+`.spec.parameters.scope`, or if you set `.spec.parameters.scope` to
+`Cluster`, then the IngressClass refers to a cluster-scoped resource.
+The `kind` (in combination the `apiGroup`) of the parameters
+refers to a cluster-scoped API (possibly a custom resource), and
+the `name` of the parameters identifies a specific cluster scoped
+resource for that API.
+
+For example:
+```yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb-1
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    # The parameters for this IngressClass are specified in a
+    # ClusterIngressParameter (API group k8s.example.net) named
+    # "external-config-1". This definition tells Kubernetes to
+    # look for a cluster-scoped parameter resource.
+    scope: Cluster
+    apiGroup: k8s.example.net
+    kind: ClusterIngressParameter
+    name: external-config-1
+```
+{{% /tab %}}
+{{% tab name="Namespaced" %}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
+
+If you set the `.spec.parameters` field and set
+`.spec.parameters.scope` to `Namespace`, then the IngressClass refers
+to a namespaced-scoped resource. You must also set the `namespace`
+field within `.spec.parameters` to the namespace that contains
+the parameters you want to use.
+
+The `kind` (in combination the `apiGroup`) of the parameters
+refers to a namespaced API (for example: ConfigMap), and
+the `name` of the parameters identifies a specific resource
+in the namespace you specified in `namespace`.
+
+Namespace-scoped parameters help the cluster operator delegate control over the
+configuration (for example: load balancer settings, API gateway definition)
+that is used for a workload. If you used a cluster-scoped parameter then either:
+
+- the cluster operator team needs to approve a different team's changes every
+  time there's a new configuration change being applied.
+- the cluster operator must define specific access controls, such as
+  [RBAC](/docs/reference/access-authn-authz/rbac/) roles and bindings, that let
+  the application team make changes to the cluster-scoped parameters resource.
+
+The IngressClass API itself is always cluster-scoped.
+
+Here is an example of an IngressClass that refers to parameters that are
+namespaced:
+```yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb-2
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    # The parameters for this IngressClass are specified in an
+    # IngressParameter (API group k8s.example.com) named "external-config",
+    # that's in the "external-configuration" configuration namespace.
+    scope: Namespace
+    apiGroup: k8s.example.com
+    kind: IngressParameter
+    namespace: external-configuration
+    name: external-config
+```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Deprecated annotation
 
@@ -570,6 +643,6 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
+* Learn about the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
 * Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)

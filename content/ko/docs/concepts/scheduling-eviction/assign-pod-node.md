@@ -265,7 +265,7 @@ PodSpec에 지정된 NodeAffinity도 적용된다.
 
 `labelSelector` 와 `topologyKey` 외에도 `labelSelector` 와 일치해야 하는 네임스페이스 목록 `namespaces` 를
 선택적으로 지정할 수 있다(이것은 `labelSelector` 와 `topologyKey` 와 같은 수준의 정의이다).
-생략되어있거나 비어있을 경우 어피니티/안티-어피니티 정의가 있는 파드의 네임스페이스가 기본 값이다.
+생략되어 있거나 비어있을 경우 어피니티/안티-어피니티 정의가 있는 파드의 네임스페이스가 기본 값이다.
 
 파드를 노드에 스케줄하려면 `requiredDuringSchedulingIgnoredDuringExecution` 어피니티와 안티-어피니티와
 연관된 `matchExpressions` 가 모두 충족되어야 한다.

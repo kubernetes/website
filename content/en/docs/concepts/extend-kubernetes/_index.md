@@ -77,7 +77,7 @@ failure.
 In the webhook model, Kubernetes makes a network request to a remote service.
 In the *Binary Plugin* model, Kubernetes executes a binary (program).
 Binary plugins are used by the kubelet (e.g.
-[Flex Volume Plugins](/docs/concepts/storage/volumes/#flexVolume)
+[Flex Volume Plugins](/docs/concepts/storage/volumes/#flexvolume)
 and [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))
 and by kubectl.
 
@@ -145,7 +145,7 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 
 ### Authorization
 
-[Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
+[Authorization](/docs/reference/access-authn-authz/authorization/) determines whether specific users can read, write, and do other operations on API resources. It works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 
 
 ### Dynamic Admission Control
@@ -162,6 +162,8 @@ After a request is authorized, if it is a write operation, it also goes through 
 [Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
 ) allow users to mount volume types without built-in support by having the
 Kubelet call a Binary Plugin to mount the volume.
+
+FlexVolume is deprecated since Kubernetes v1.23. The Out-of-tree CSI driver is the recommended way to write volume drivers in Kubernetes. See [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors) for more information.
 
 
 ### Device Plugins
