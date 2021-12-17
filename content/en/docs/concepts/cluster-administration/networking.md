@@ -33,7 +33,7 @@ different approach.
 ## The Kubernetes network model
 
 Every `Pod` gets its own IP address, maximum one per IP family. This means you
-do not need need to deal with mapping container ports to host ports in order to
+do not need to deal with mapping container ports to host ports in order to
 expose the `Pods` services on the network. This creates a clean,
 backwards-compatible model where `Pods` can be treated much like VMs or physical
 hosts from the perspectives of port allocation, naming, service discovery, load
