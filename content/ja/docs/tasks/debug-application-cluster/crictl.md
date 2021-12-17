@@ -400,7 +400,7 @@ docker cli | crictl | 説明 | サポートされていない機能
 {{< table caption="mapping from docker cli to crictl - supported only in crictl" >}}
 crictl | 説明
 -- | --
-`imagefsinfo` | イメージファイルシステムの情報を返Pod
+`imagefsinfo` | イメージファイルシステムの情報を返します
 `inspectp` | 1つまたは複数のPodの状態を表示します
 `port-forward` | ローカルポートをPodに転送します
 `runp` | 新しいPodを実行します
