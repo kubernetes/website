@@ -1,73 +1,76 @@
 ---
 reviewers:
-- erictune
-- lavalamp
-title: Controlling Access to the Kubernetes API
+- electrocucaracha
+- raelga
+title: Controlando el Acceso a la API de Kubernetes
 content_type: concept
 ---
 
 <!-- overview -->
-This page provides an overview of controlling access to the Kubernetes API.
+Esta pagina proporciona información sobre el como controlar el acceso a la API de Kubernetes.
 
 
 <!-- body -->
-Users access the [Kubernetes API](/docs/concepts/overview/kubernetes-api/) using `kubectl`,
-client libraries, or by making REST requests.  Both human users and
-[Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) can be
-authorized for API access.
-When a request reaches the API, it goes through several stages, illustrated in the
-following diagram:
+Los usuarios acceden a la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/) usando `kubectl`,
+client libraries, o haciendo peticiones REST.  Humanos y los
+[Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) pueden ser
+autorizados para acceder a la API.
+Cuando una peticion llega a la API, pasa por varias etapas, estan ilustradas en el
+siguiente diagrama:
 
-![Diagram of request handling steps for Kubernetes API request](/images/docs/admin/access-control-overview.svg)
+![Diagrama de pasos para una petición a la API de Kubernetes](/images/docs/admin/access-control-overview.svg)
 
 ## Transport security
 
-In a typical Kubernetes cluster, the API serves on port 443, protected by TLS.
-The API server presents a certificate. This certificate may be signed using
-a private certificate authority (CA), or based on a public key infrastructure linked
-to a generally recognized CA.
+En un cluster típico de Kubernetes, la API sirve peticiones en el puerto 443, protegida por TLS.
+El server API presenta un certificado. Este certificado puede ser firmando usando
+un certificado de autoridad privada (CA) o basado en una llave publica relacionada
+generalmente a un CA reconocido.
 
-If your cluster uses a private certificate authority, you need a copy of that CA
-certificate configured into your `~/.kube/config` on the client, so that you can
-trust the connection and be confident it was not intercepted.
+Si el cluster usa un certificado de autoridad privado, se necesita copiar este certificado
+CA configurado dentro de su `~/.kube/config` en el cliente, entonces usted podrá
+confiar en la conección y estar seguro que no será hackeada.
 
-Your client can present a TLS client certificate at this stage.
+Su cliente puede presentar un certificado TLS de cliente en esta etapa.
 
-## Authentication
+## Autenticación
 
-Once TLS is established, the HTTP request moves to the Authentication step.
-This is shown as step **1** in the diagram.
-The cluster creation script or cluster admin configures the API server to run
-one or more Authenticator modules.
-Authenticators are described in more detail in
+Una vez que se estableció el TLS, las peticiones HTTP avanzan a la etapa de autenticación.
+Esto se muestra en el paso 1 del diagrama.
+El script de creación del cluster o el administrador del cluster configurada el servidor API para ejecutar
+uno o mas módulos de autenticación.
+Los Autenticadores estan descriptos con más detalle en
 [Authentication](/docs/reference/access-authn-authz/authentication/).
 
-The input to the authentication step is the entire HTTP request; however, it typically
+```The input to the authentication step is the entire HTTP request; however, it typically
 examines the headers and/or client certificate.
+```
+El ingreso al paso de autenticación es la petición HTTP completa, aun así, esta tipicamente
+examina las cabeceras y/o el certificado del cliente.
 
-Authentication modules include client certificates, password, and plain tokens,
-bootstrap tokens, and JSON Web Tokens (used for service accounts).
+Los modulos de autenticación incluyen certificado de cliente, contraseña, tokens planos,
+tokens de inicio y JSON Web Tokens (usados para los service accounts).
 
-Multiple authentication modules can be specified, in which case each one is tried in sequence,
-until one of them succeeds.
+Multiples modulos de autenticación puede ser especificados, en este caso cada uno es probado secuencialmente,
+hasta que uno de ellos tiene éxito.
 
-If the request cannot be authenticated, it is rejected with HTTP status code 401.
-Otherwise, the user is authenticated as a specific `username`, and the user name
-is available to subsequent steps to use in their decisions.  Some authenticators
-also provide the group memberships of the user, while other authenticators
-do not.
+Si la petición no puede ser autenticada, la misma es rechazada con un codigo de estado HTTP  401.
+En otro caso, el usuario es validado con el `username` específico, y el nombre de usuario
+esta disponible para los pasos siguientes. Algunos autenticadores
+tambien proporcionan membresías de grupo al usuario, mientras que otros
+no lo hacen.
 
 While Kubernetes uses usernames for access control decisions and in request logging,
-it does not have a `User` object nor does it store usernames or other information about
-users in its API.
+este n otiene un objeto `User` ni tampoco guarda nombres de usaurio o otra información acerca
+de ellos en su API.
 
-## Authorization
+## Autorización
 
-After the request is authenticated as coming from a specific user, the request must be authorized. This is shown as step **2** in the diagram.
+Despues de autenticar la petición como proveniente de un usuario específico, la petición debe ser autorizada. Esto se muestra en el paso 2 del diagrama.
 
-A request must include the username of the requester, the requested action, and the object affected by the action. The request is authorized if an existing policy declares that the user has permissions to complete the requested action.
+Una petición debe incluir el nombre de usuario solicitante, la acción solicitada y el objeto afectado por la acción. La petición es autorizada si hay una politica existente que declare que el usuario tiene permisos para la realizar la acción.
 
-For example, if Bob has the policy below, then he can read pods only in the namespace `projectCaribou`:
+Por ejemplo, si Bob tiene la siguiente politica, entonces el puede leer pods solamente en el namespace `projectCaribou`:
 
 ```json
 {
@@ -81,7 +84,7 @@ For example, if Bob has the policy below, then he can read pods only in the name
     }
 }
 ```
-If Bob makes the following request, the request is authorized because he is allowed to read objects in the `projectCaribou` namespace:
+Si Bob hace la siguiente petición, será aturizada porque él tiene permitido leer los objetos en el namespace `projectCaribou` :
 
 ```json
 {
@@ -97,70 +100,69 @@ If Bob makes the following request, the request is authorized because he is allo
   }
 }
 ```
-If Bob makes a request to write (`create` or `update`) to the objects in the `projectCaribou` namespace, his authorization is denied. If Bob makes a request to read (`get`) objects in a different namespace such as `projectFish`, then his authorization is denied.
+Si Bob en su petición intenta escribir (`create` o `update`) en los objetos del namespace `projectCaribou`. Si Bob hace una petición para leer (`get`) objetocs en otro namespace como `projectFish`, entonces la autorización será denegada.
 
-Kubernetes authorization requires that you use common REST attributes to interact with existing organization-wide or cloud-provider-wide access control systems. It is important to use REST formatting because these control systems might interact with other APIs besides the Kubernetes API.
+Las autorizaciones en Kubernetes requieren que se usen atributos REST comunes para interactuar con el existente sistema de control de toda la organización o del proveedor cloud. Es importante usar formatos REST porque esos sistemas de control pueden interactuar con otras APIs además de la API de Kubernetes.
 
-Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configure the authorization modules that should be used in the API server. If more than one authorization modules are configured, Kubernetes checks each module, and if any module authorizes the request, then the request can proceed. If all of the modules deny the request, then the request is denied (HTTP status code 403).
+Kubernetes soporta multiples modulos de autorización, como el modo ABAC, el modo RBAC y el modo Webhook. Cuando un administrador crea un cluster, se realiza la configuración de los modulos de autorización que deben ser usados con la API del server. Si mas de uno modulo de autorización es configurado, Kubernetes verificada cada uon y si alguno de ellos autoriza la petición entonces la misma se ejecuta. Si todos los modules deniegan la petición, entonces la misma es denegada (Con un error HTTP con código 403).
 
-To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization](/docs/reference/access-authn-authz/authorization/).
-
-
-## Admission control
-
-Admission Control modules are software modules that can modify or reject requests.
-In addition to the attributes available to Authorization modules, Admission
-Control modules can access the contents of the object that is being created or modified.
-
-Admission controllers act on requests that create, modify, delete, or connect to (proxy) an object.
-Admission controllers do not act on requests that merely read objects.
-When multiple admission controllers are configured, they are called in order.
-
-This is shown as step **3** in the diagram.
-
-Unlike Authentication and Authorization modules, if any admission controller module
-rejects, then the request is immediately rejected.
-
-In addition to rejecting objects, admission controllers can also set complex defaults for
-fields.
-
-The available Admission Control modules are described in [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
-
-Once a request passes all admission controllers, it is validated using the validation routines
-for the corresponding API object, and then written to the object store (shown as step **4**).
+Para leer más acerca de las autorizaciones en Kubernetes, incluyendo detalles acerca de crear politicas usando los modulos de autorización soportados, vea [Authorization](/docs/reference/access-authn-authz/authorization/).
 
 
-## API server ports and IPs
+## Control de Admisión
 
-The previous discussion applies to requests sent to the secure port of the API server
-(the typical case).  The API server can actually serve on 2 ports:
+Los modulos de Control de Admisión son modulos de software que solo pueen modificar o rechazar peticiones.
+Adicionalmente a los atributos disponibles en los modulos de Autorización, los modulos de
+Control de Admisión pueden acceder al contenido del objeto que esta siendo creado o modificado.
 
-By default, the Kubernetes API server serves HTTP on 2 ports:
+Los Controles de Admisión actúan en las peticiones que crean, modifican, borran ó se conectan (proxy) a un objeto.
+cuando multiples modulos de control de admisión son configurados, son llamados en orden.
 
-  1. `localhost` port:
+Esto se muestra en el paso 3 del diagrama.
 
-      - is intended for testing and bootstrap, and for other components of the master node
-        (scheduler, controller-manager) to talk to the API
-      - no TLS
-      - default is port 8080
-      - default IP is localhost, change with `--insecure-bind-address` flag.
+A diferencia de los modulos de Autorización y Autenticación, si uno de los modulos de control de admisión
+rechaza la petición, entonces es inmediatamente rechazada.
+
+Adicionalmente a rechazar objetos, los controles de admisión pueden tambien permite establecer
+valores predeterminados complejos.
+
+Los modulos de Control de Admisión disponibles están descriptos en [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
+
+Cuando una petición pasa todos los controles de admisión, esta es validada usando la rutinas de validación
+para el objeto API correspondiente y luego es escrita en el objeto.
+
+
+## Puertos e IPs del API server
+
+La discusión previa aplica a peticiones enviadas a un puerto seguro del servidor API
+(el caso típico). El servidor API puede en realidad servir en 2 puertos:
+
+Por defecto, la API de Kubernetes entrega HTTP en 2 puertos:
+
+  1. puerto `localhost`:
+
+      - debe usarse para testeo e iniciar el sistema y para otros componentes del nodo maestro
+        (scheduler, controller-manager) para hablar con la API
+      - no se usa TLS
+      - el puerto predeterminado es el 8080
+      - la IP por defecto es localhost, la puede cambiar con el flag `--insecure-bind-address`.
       - request **bypasses** authentication and authorization modules.
-      - request handled by admission control module(s).
-      - protected by need to have host access
+      - peticiones controladas por los modulos de control de admisión.
+      - protejidas por necesidad para tener acceso al host
 
-  2. “Secure port”:
+  2. “Puerto seguro”:
 
-      - use whenever possible
-      - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
-      - default is port 6443, change with `--secure-port` flag.
-      - default IP is first non-localhost network interface, change with `--bind-address` flag.
-      - request handled by authentication and authorization modules.
-      - request handled by admission control module(s).
+      - usar siempre que sea posible
+      - usa TLS.  Se configura el certificado con el flag `--tls-cert-file` y la llave con `--tls-private-key-file`.
+      - el puerto predeterminado es 6443, se cambia con el flag `--secure-port`.
+      - la IP por defecto es la primer interface que no es la localhost. se cambia con el flag `--bind-address`.
+      - peticiones controladas por los modulos de autenticación y autorización.
+      - peticiones controladas por los modulos de control de admisión.
       - authentication and authorization modules run.
 
 ## {{% heading "whatsnext" %}}
 
-Read more documentation on authentication, authorization and API access control:
+Lea mas documentación sobre autenticación, autorización y el contro de acceso a la API:
 
 - [Authenticating](/docs/reference/access-authn-authz/authentication/)
    - [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
@@ -178,7 +180,7 @@ Read more documentation on authentication, authorization and API access control:
   - [Developer guide](/docs/tasks/configure-pod-container/configure-service-account/)
   - [Administration](/docs/reference/access-authn-authz/service-accounts-admin/)
 
-You can learn about:
-- how Pods can use
+Tambien puede aprender sobre:
+- como los pods pueden usar
   [Secrets](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
-  to obtain API credentials.
+  para obtener credenciales para la API.
