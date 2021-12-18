@@ -342,7 +342,7 @@ kubectl certificate deny <certificate-signing-request-name>
 
 ### Approval or rejection using the Kubernetes API {#approval-rejection-api-client}
 
-Users of the REST API can approve CSRs by submitting an UPDATE request to the `approval`
+Users of the REST API can approve CSRs by submitting an UPDATE request to the `status`
 subresource of the CSR to be approved. For example, you could write an
 {{< glossary_tooltip term_id="operator-pattern" text="operator" >}} that watches for a particular
 kind of CSR and then sends an UPDATE to approve them.
