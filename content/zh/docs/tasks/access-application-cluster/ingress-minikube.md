@@ -70,26 +70,44 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 -->
 2. 检查验证 NGINX Ingress 控制器处于运行状态：
 
-   ```shell
-   kubectl get pods -n kube-system
-   ```
 
-   <!-- This can take up to a minute. -->
-   {{< note >}}
-   这一操作可能需要近一分钟时间。
-   {{< /note >}}
+   {{< tabs name="tab_with_md" >}}
+   {{% tab name="minikube v1.19 或更高版本" %}}
+```shell
+kubectl get pods -n ingress-nginx
+```
+   {{< note >}}最多可能需要等待一分钟左右才可以看到 `ingress-nginx-controller-*` 的 `Pod` 运行状态变更为 `Running`。{{< /note >}}
 
-   输出：
+   输出:
 
-   ```
-   NAME                                        READY     STATUS    RESTARTS   AGE
-   default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
-   kube-addon-manager-minikube                 1/1       Running   0          3m
-   kube-dns-6dcb57bcc8-n4xd4                   3/3       Running   0          2m
-   kubernetes-dashboard-5498ccf677-b8p5h       1/1       Running   0          2m
-   nginx-ingress-controller-5984b97644-rnkrg   1/1       Running   0          1m
-   storage-provisioner                         1/1       Running   0          2m
-   ```
+```
+NAME                                        READY   STATUS      RESTARTS    AGE
+ingress-nginx-admission-create-g9g49        0/1     Completed   0          11m
+ingress-nginx-admission-patch-rqp78         0/1     Completed   1          11m
+ingress-nginx-controller-59b45fb494-26npt   1/1     Running     0          11m
+```
+   {{% /tab %}}
+   {{% tab name="minikube v1.18.1 或更早版本" %}}
+```shell
+kubectl get pods -n kube-system
+```
+   {{< note >}}最多可能需要等待一分钟左右才可以看到 `nginx-ingress-controller-*` 的 `Pod` 运行状态变更为 `Running`。{{< /note >}}
+
+   输出:
+
+```
+NAME                                        READY     STATUS    RESTARTS   AGE
+default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
+kube-addon-manager-minikube                 1/1       Running   0          3m
+kube-dns-6dcb57bcc8-n4xd4                   3/3       Running   0          2m
+kubernetes-dashboard-5498ccf677-b8p5h       1/1       Running   0          2m
+nginx-ingress-controller-5984b97644-rnkrg   1/1       Running   0          1m
+storage-provisioner                         1/1       Running   0          2m
+```
+  请确保可以在输出中看到一个名称以 `nginx-ingress-controller-` 为前缀的 `Pod`。
+   {{% /tab %}}
+   {{< /tabs >}}
+
 
 <!--
 ## Deploy a hello, world app
