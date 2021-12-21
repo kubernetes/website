@@ -752,6 +752,10 @@ figure {
     max-width: clamp(0vw, 95vw, 100%);
     max-height: calc(80vh - 8rem);
   }
+
+  figure + noscript > *{
+    max-width: calc(max(100%, 100vw));
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -773,6 +777,9 @@ figure {
       max-width: clamp(25vw, 95vw, 100%);
       max-height: calc(100vh - 10rem);
     }
+  }
+  figure + noscript > * {
+    max-width: 80%;
   }
 }
 
@@ -805,4 +812,14 @@ dl {
      margin-top: 1em;
      margin-bottom: 1em;
   }
+}
+
+.no-js .mermaid {
+  display: none;
+}
+
+div.alert > em.javascript-required {
+  display: inline-block;
+  min-height: 1.5em;
+  margin: calc(max(4em, ( 8vh + 4em ) / 2)) 0 0.25em 0;
 }
