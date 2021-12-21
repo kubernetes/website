@@ -356,9 +356,8 @@ the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1be
 当卷中使用的 ConfigMap 被更新时，所投射的键最终也会被更新。
 kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否为最新。
 不过，kubelet 使用的是其本地的高速缓存来获得 ConfigMap 的当前值。
-高速缓存的类型可以通过
-[KubeletConfiguration 结构](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)
-的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
+高速缓存的类型可以通过 [KubeletConfiguration 结构](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
+中的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
 
 <!--
 A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
