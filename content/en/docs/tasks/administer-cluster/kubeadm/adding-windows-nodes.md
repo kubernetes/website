@@ -146,20 +146,6 @@ All code snippets in Windows sections are to be run in a PowerShell environment
 with elevated permissions (Administrator) on the Windows worker node.
 {{< /note >}}
 
-{{< tabs name="tab-windows-kubeadm-runtime-installation" >}}
-{{% tab name="Docker EE" %}}
-
-#### Install Docker EE
-
-Install the `Containers` feature
-
-```powershell
-Install-WindowsFeature -Name containers
-```
-
-Install Docker
-Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker).
-
 #### Install wins, kubelet, and kubeadm  
 
 ```PowerShell
