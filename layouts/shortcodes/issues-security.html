@@ -1,0 +1,18 @@
+<table>
+    <thead>
+      <tr>
+      <th>CVE ID</th>
+      <th>Summary</th>
+      <th>Issue Details</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{ range $issues := getJSON "https://gist.githubusercontent.com/nehaLohia27/ffc2c57f0e32ab338d9f2a02b2fc9e7c/raw/431b5527613fca8c4b5bcff3ba1b06d92db47f88/issues" }}
+      <tr>
+        <td><a href="{{ .cve_url }}">{{ .cve_id }}</a></td>
+        <td>{{ .summary }}</td>
+        <td><a href="{{ .issue_url }}">#{{ .number }}</a></td>
+      </tr>
+    {{ end }}
+    </tbody>
+  </table>
