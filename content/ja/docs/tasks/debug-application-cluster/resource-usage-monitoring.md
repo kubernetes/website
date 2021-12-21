@@ -1,0 +1,43 @@
+---
+reviewers:
+- ptux
+content_type: concept
+title: リソース監視のためのツール
+---
+
+<!-- overview -->
+
+アプリケーションを拡張し、信頼性の高いサービスを提供するために、デプロイ時にアプリケーションがどのように動作するかを理解する必要があります。
+コンテナ、[Pods](/docs/concepts/workloads/pods/)、[service](/docs/concepts/services-networking/service/)、クラスタ全体の特性を調べることにより、Kubernetesクラスタのアプリケーションパフォーマンスを調査することができます。
+Kubernetesは、これらの各レベルでアプリケーションのリソース使用に関する詳細な情報を提供します。
+この情報により、アプリケーションのパフォーマンスを評価し、ボトルネックを取り除くことで全体のパフォーマンスを向上させることができます。
+
+<!-- body -->
+
+Kubernetesでは、アプリケーションの監視は1つの監視ソリューションに依存することはありません。
+新しいクラスタでは、[resource metrics](#resource-metrics-pipeline) または [full metrics](#full-metrics-pipeline) パイプラインを使用してモニタリング統計を収集することができます。
+
+## リソースメトリクスパイプライン
+
+リソースメトリックパイプラインは、[Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)コントローラなどのクラスタコンポーネントや、`kubectl top`ユーティリティに関連する限定的なメトリックセットを提供します。
+
+これらのメトリクスは軽量、短期、インメモリの[metrics-server](https://github.com/kubernetes-sigs/metrics-server)によって収集され、`metrics.k8s.io` APIを通じて公開されます。
+
+metrics-serverはクラスタ上のすべてのノードを検出し
+各ノードの [kubelet](/docs/reference/command-line-tools-reference/kubelet/) にCPUとメモリの使用量を問い合わせます。
+
+kubeletはKubernetesマスターとノードの橋渡し役として、マシン上で動作するPodやコンテナを管理する。
+kubeletは各ポッドを構成するコンテナに変換し、コンテナランタイムインターフェースを介してコンテナランタイムから個々のコンテナ使用統計情報を取得します。この情報は、レガシーDocker統合のための統合cAdvisorから取得されます。
+
+そして、集約されたポッドリソース使用統計情報を、metrics-server Resource Metrics APIを通じて公開します。
+このAPIは、kubeletの認証済みおよび読み取り専用ポート上の `/metrics/resource/v1beta1` で提供されます。
+
+## フルメトリクスパイプライン
+
+完全なメトリクス・パイプラインは、より豊富なメトリクスにアクセスすることができます。
+Kubernetesは、Horizontal Pod Autoscalerなどのメカニズムを使用して、現在の状態に基づいてクラスタを自動的にスケーリングまたは適応させることによって、これらのメトリクスに対応することができます。
+モニタリングパイプラインは、kubeletからメトリクスをフェッチし、`custom.metrics.k8s.io` または `external.metrics.k8s.io` APIを実装してアダプタ経由でKubernetesにそれらを公開する。
+CNCFプロジェクトの[Prometheus](https://prometheus.io)は、Kubernetes、ノード、Prometheus自身をネイティブに監視することができます。
+CNCFに属さない完全なメトリクスパイプラインのプロジェクトは、Kubernetesのドキュメントの範囲外です。
+
+
