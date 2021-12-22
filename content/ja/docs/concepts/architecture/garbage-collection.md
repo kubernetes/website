@@ -13,14 +13,14 @@ weight: 50
   * [未使用のコンテナとコンテナイメージ](#containers-images)
   * [StorageClassの再利用ポリシーがDeleteである動的にプロビジョニングされたPersistentVolume](/docs/concepts/storage/persistent-volumes/#delete)
   * [失効または期限切れのCertificateSigningRequests (CSRs)](/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
-  * 次のシナリオで削除された{{<glossary_tooltip text="Nodes" term_id="node">}}:
+  * 次のシナリオで削除された{{<glossary_tooltip text="Node" term_id="node">}}:
     * クラウド上でクラスターが[クラウドコントローラーマネージャー](/docs/concepts/architecture/cloud-controller/)を使用する場合
     * オンプレミスでクラスターがクラウドコントローラーマネージャーと同様のアドオンを使用する場合
-  * [Node Lease objects](/docs/concepts/architecture/nodes/#heartbeats)
+  * [Node Leaseオブジェクト](/docs/concepts/architecture/nodes/#heartbeats)
 
-## Owners and dependents {#owners-dependents}
+## オーナーとdependent {#owners-dependents}
 
-Kubernetesの多くのオブジェクトは、 [*owner reference*](/docs/concepts/overview/working-with-objects/owners-dependents/)を介して相互にリンクしています。
+Kubernetesの多くのオブジェクトは、[*owner reference*](/docs/concepts/overview/working-with-objects/owners-dependents/)を介して相互にリンクしています。
 owner referenceは、どのオブジェクトが他のオブジェクトに依存しているかをコントロールプレーンに通知します。
 Kubernetesは、owner referenceを使用して、コントロールプレーンやその他のAPIクライアントに、オブジェクトを削除する前に関連するリソースをクリーンアップする機会を提供します。
 ほとんどの場合、Kubernetesはowner referenceを自動的に管理します。
@@ -33,14 +33,14 @@ owner referenceは、Kubernetesのさまざまな部分が制御していない�
 
 {{< note >}}
 namespace間のowner referenceは、設計上許可されていません。
-namespaceのdependentは、クラスタースコープまたはnamespaceの所有者を指定できます。
-namespaceの所有者は、dependentと同じnamespaceに**存在する必要があります**。
-そうでない場合、owner referenceは不在として扱われ、すべての所有者が不在であることが確認されると、dependentは削除される可能性があります。
+namespaceのdependentは、クラスタースコープまたはnamespaceのオーナーを指定できます。
+namespaceのオーナーは、dependentと同じnamespaceに**存在する必要があります**。
+そうでない場合、owner referenceは不在として扱われ、すべてのオーナーが不在であることが確認されると、dependentは削除される可能性があります。
 
-クラスタースコープのdependentは、クラスタースコープの所有者のみを指定できます。
-v1.20以降では、クラスタースコープのdependentがnamespaceを持つkindを所有者として指定している場合、それは解決できないowner referenceを持つものとして扱われ、ガベージコレクションを行うことはできません。
+クラスタースコープのdependentは、クラスタースコープのオーナーのみを指定できます。
+v1.20以降では、クラスタースコープのdependentがnamespaceを持つkindをオーナーとして指定している場合、それは解決できないowner referenceを持つものとして扱われ、ガベージコレクションを行うことはできません。
 
-V1.20以降では、ガベージコレクタは無効な名前空間間の`ownerReference`、またはnamespaceのkindを参照する`ownerReference`をもつクラスター・スコープの依存関係を検出した場合、無効な依存関係の `OwnerRefInvalidNamespace`と` involvedObject`を理由とする警告イベントが報告されます。
+V1.20以降では、ガベージコレクタは無効な名前空間間の`ownerReference`、またはnamespaceのkindを参照する`ownerReference`をもつクラスター・スコープのdependentを検出した場合、無効なdependentの`OwnerRefInvalidNamespace`と`involvedObject`を理由とする警告イベントが報告されます。
 以下のコマンドを実行すると、そのようなイベントを確認できます。
 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`
 {{< /note >}}
@@ -48,48 +48,48 @@ V1.20以降では、ガベージコレクタは無効な名前空間間の`owner
 ## カスケード削除 {#cascading-deletion}
 
 Kubernetesは、ReplicaSetを削除したときに残されたPodなど、owner referenceがなくなったオブジェクトをチェックして削除します。
-オブジェクトを削除する場合、カスケード削除と呼ばれるプロセスで、Kubernetesがオブジェクトの依存関係を自動的に削除するかどうかを制御できます。
+オブジェクトを削除する場合、カスケード削除と呼ばれるプロセスで、Kubernetesがオブジェクトのdependentを自動的に削除するかどうかを制御できます。
 カスケード削除には、次の2つのタイプがあります。
 
   * フォアグラウンドカスケード削除
   * バックグラウンドカスケード削除
 
-また、Kubernetes{{<glossary_tooltip text="finalizers" term_id="finalizer">}}を使用して、ガベージコレクションがowner referenceを持つリソースを削除する方法とタイミングを制御することもできます
+また、Kubernetes {{<glossary_tooltip text="finalizer" term_id="finalizer">}}を使用して、ガベージコレクションがowner referenceを持つリソースを削除する方法とタイミングを制御することもできます
 
 ### フォアグラウンドカスケード削除 {#foreground-deletion}
 
-フォアグラウンドカスケード削除では、削除する所有者オブジェクトは最初に*削除進行中*の状態になります。
-この状態では、所有者オブジェクトに次のことが起こります。
+フォアグラウンドカスケード削除では、削除するオーナーオブジェクトは最初に*削除進行中*の状態になります。
+この状態では、オーナーオブジェクトに次のことが起こります。
 
   * Kubernetes APIサーバーは、オブジェクトの`metadata.deletionTimestamp`フィールドを、オブジェクトに削除のマークが付けられた時刻に設定します。
   * Kubernetes APIサーバーは、`metadata.finalizers`フィールドを`foregroundDeletion`に設定します。
   * オブジェクトは、削除プロセスが完了するまで、KubernetesAPIを介して表示されたままになります。
 
-所有者オブジェクトが削除進行中の状態に入ると、コントローラーは依存関係を削除します。
-すべての依存オブジェクトを削除した後、コントローラーは所有者オブジェクトを削除します。
+オーナーオブジェクトが削除進行中の状態に入ると、コントローラーはdependentを削除します。
+すべてのdependentオブジェクトを削除した後、コントローラーはオーナーオブジェクトを削除します。
 この時点で、オブジェクトはKubernetesAPIに表示されなくなります。
 
-フォアグラウンドカスケード削除中に、所有者の削除をブロックする依存関係は、`ownerReference.blockOwnerDeletion=true`フィールドを持つ依存関係のみです。
-詳細については、[フォアグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)を参照してください 。
+フォアグラウンドカスケード削除中に、オーナーの削除をブロックするdependentは、`ownerReference.blockOwnerDeletion=true`フィールドを持つdependentのみです。
+詳細については、[フォアグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)を参照してください。
 
 ### バックグラウンドカスケード削除 {#background-deletion}
 
-バックグラウンドカスケード削除では、Kubernetes APIサーバーが所有者オブジェクトをすぐに削除し、コントローラーがバックグラウンドで依存オブジェクトをクリーンアップします。
+バックグラウンドカスケード削除では、Kubernetes APIサーバーがオーナーオブジェクトをすぐに削除し、コントローラーがバックグラウンドで依存オブジェクトをクリーンアップします。
 デフォルトでは、フォアグラウンド削除を手動で使用するか、依存オブジェクトを孤立させることを選択しない限り、Kubernetesはバックグラウンドカスケード削除を使用します。
 
-詳細については、[バックグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)を参照してください 。
+詳細については、[バックグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)を参照してください。
 
 ### Orphaned dependents
 
-Kubernetesが所有者オブジェクトを削除すると、残された依存関係は*orphan*オブジェクトと呼ばれます。
-デフォルトでは、Kubernetesは依存オブジェクトを削除します。この動作をオーバーライドする方法については、[所有者オブジェクトと孤立した依存関係の削除](/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)を参照してください。
+Kubernetesがオーナーオブジェクトを削除すると、残されたdependentは*orphan*オブジェクトと呼ばれます。
+デフォルトでは、Kubernetesはdependentオブジェクトを削除します。この動作をオーバーライドする方法については、[オーナーオブジェクトと孤立したdependentの削除](/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)を参照してください。
 
 ## 未使用のコンテナとイメージのガベージコレクション {#containers-images}
 
 {{<glossary_tooltip text="kubelet" term_id="kubelet">}}は未使用のイメージに対して5分ごとに、未使用のコンテナーに対して1分ごとにガベージコレクションを実行します。
 外部のガベージコレクションツールは、kubeletの動作を壊し、存在するはずのコンテナを削除する可能性があるため、使用しないでください。
 
-未使用のコンテナーとイメージのガベージコレクションのオプションを構成するには、[構成ファイル](/docs/tasks/administer-cluster/kubelet-config-file/)を使用してkubeletを調整し、[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)リソースタイプを使用してガベージコレクションに関連するパラメーターを変更します。
+未使用のコンテナーとイメージのガベージコレクションのオプションを設定するには、[設定ファイル](/docs/tasks/administer-cluster/kubelet-config-file/)を使用してkubeletを調整し、[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)リソースタイプを使用してガベージコレクションに関連するパラメーターを変更します。
 
 ### コンテナイメージのライフサイクル
 
@@ -112,8 +112,8 @@ kubeletは、次の変数に基づいて未使用のコンテナをガベージ�
 
 これらの変数に加えて、kubeletは、通常、最も古いものから順に、定義されていない削除されたコンテナをガベージコレクションします。
 
-`MaxPerPodContainer`と`MaxContainer`は、Podごとのコンテナーの最大数（`MaxPerPodContainer`）を保持すると、グローバルなデッドコンテナーの許容合計（`MaxContainers`）を超える状況で、互いに競合する可能性があります。 
-この状況では、kubeletは`MaxPodPerContainer`を調整して競合に対処します。 最悪のシナリオは、`MaxPerPodContainer`を1にダウングレードし、最も古いコンテナーを削除することです。 
+`MaxPerPodContainer`と`MaxContainer`は、Podごとのコンテナーの最大数（`MaxPerPodContainer`）を保持すると、グローバルなデッドコンテナーの許容合計（`MaxContainers`）を超える状況で、互いに競合する可能性があります。
+この状況では、kubeletは`MaxPodPerContainer`を調整して競合に対処します。最悪のシナリオは、`MaxPerPodContainer`を1にダウングレードし、最も古いコンテナーを削除することです。
 さらに、削除されたポッドが所有するコンテナは、`MinAge`より古くなると削除されます。
 
 {{<note>}}
@@ -132,5 +132,5 @@ kubeletは、次の変数に基づいて未使用のコンテナをガベージ�
 ## {{% heading "whatsnext" %}}
 
 * [Kubernetes オブジェクトの所有権](/docs/concepts/overview/working-with-objects/owners-dependents/)を学びます。
-* Kubernetes [finalizers](/docs/concepts/overview/working-with-objects/finalizers/)を学びます。
-* 完了したジョブをクリーンアップする[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) (beta)について学びます。
+* Kubernetes [finalizer](/docs/concepts/overview/working-with-objects/finalizers/)を学びます。
+* 完了したジョブをクリーンアップする[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/)(beta)について学びます。
