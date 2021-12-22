@@ -1232,3 +1232,5 @@ The following `ExecCredential` manifest describes a cluster information sample.
 ## {{% heading "whatsnext" %}}
 
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+* Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
+
