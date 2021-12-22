@@ -52,7 +52,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    Validate the kubectl binary against the checksum file:
 
    ```bash
-   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    If valid, the output is:
