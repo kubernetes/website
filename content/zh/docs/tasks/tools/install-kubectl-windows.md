@@ -226,15 +226,15 @@ Edit the config file with a text editor of your choice, such as Notepad.
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
 <!-- 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
 
-Below are the procedures to set up autocompletion for Zsh, if you are running that on Windows.
+Below are the procedures to set up autocompletion for PowerShell.
 -->
-kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的负担。
+kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以为你节省大量的输入。
 
-下面是设置 Zsh 自动补全功能的操作步骤，前提是你在 Windows 上面运行的是 Zsh。
+下面是设置 PowerShell 自动补全功能的操作步骤。
 
-{{< include "included/optional-kubectl-configs-zsh.md" >}}
+{{< include "included/optional-kubectl-configs-pwsh.md" >}}
 
 <!--
 ### Install `kubectl convert` plugin
