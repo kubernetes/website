@@ -5,7 +5,7 @@ weight: 50
 ---
 
 <!-- overview -->
-{{<glossary_definition term_id="garbage-collection" length="short">}} これにより、次のようなリソースのクリーンアップが可能になります。:
+ガベージコレクションは、Kubernetesがクラスターリソースをクリーンアップするために使用するさまざまなメカニズムの総称です。これにより、次のようなリソースのクリーンアップが可能になります。:
 
   * [失敗したPod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
   * [完了したJob](/docs/concepts/workloads/controllers/ttlafterfinished/)
