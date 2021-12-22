@@ -8,9 +8,11 @@ spec:
     - name: test
       image: nginx
       volumeMounts:
-        - name: site-data
+        # a mount for site-data
+        - name: config
           mountPath: /usr/share/nginx/html
           subPath: html
+        # another mount for nginx config
         - name: config
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
