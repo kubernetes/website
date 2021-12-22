@@ -43,7 +43,7 @@ Support for using CSI drivers was introduced to make it easier to add and mainta
 <!---
 As more CSI Drivers were created and became production ready, SIG Storage group wanted all Kubernetes users to benefit from the CSI model. However, we cannot break API compatibility with the existing storage API types. The solution we came up with was CSI migration: a feature that translates in-tree APIs to equivalent CSI APIs and delegates operations to a replacement CSI driver.
 -->
-随着更多的 CSI 驱动诞生并发展到生产准备阶段，Kubernetes 存储特别兴趣组希望所有 Kubernetes 用户都能从 CSI 模型中受益──然而，我们不应破坏与现有存储 API 类型的 API 兼容性。对此，我们给出的解决方案是 CSI 迁移：该功能实现将树内存储 API 翻译成等效的 CSI API，并把操作委托给一个替换的 CSI 驱动来完成。
+随着更多的 CSI 驱动诞生并进入生产就绪阶段，Kubernetes 存储特别兴趣组希望所有 Kubernetes 用户都能从 CSI 模型中受益──然而，我们不应破坏与现有存储 API 类型的 API 兼容性。对此，我们给出的解决方案是 CSI 迁移：该功能实现将树内存储 API 翻译成等效的 CSI API，并把操作委托给一个替换的 CSI 驱动来完成。
 
 <!---
 The CSI migration effort enables the replacement of existing in-tree storage plugins such as `kubernetes.io/gce-pd` or `kubernetes.io/aws-ebs` with a corresponding [CSI driver](https://kubernetes-csi.github.io/docs/introduction.html) from the storage backend.
@@ -83,12 +83,12 @@ Kubernetes v1.21 弃用了 `CSIMigration{provider}Complete` 特性参数（featu
 <!---
 `CSIMigration{provider}Complete` was introduced before as a supplementary feature gate once CSI migration is enabled on all of the nodes. This flag unregisters the in-tree storage plugin you specify with the `{provider}` part of the flag name.
 -->
-`CSIMigration{provider}Complete` 是作为 CSI 迁移功能在所有节点上启用后的补充特性门控于之前引入的。这个参数可反注册参数名称中 `{provider}` 部分所指定的树内存储插件。
+`CSIMigration{provider}Complete` 是作为 CSI 迁移功能在所有节点上启用后的补充特性门控于之前引入的。这个参数可注销参数名称中 `{provider}` 部分所指定的树内存储插件。
 
 <!---
 When you enable that feature gate, then instead of using the in-tree driver code, your cluster directly selects and uses the relevant CSI driver. This happens without any check for whether CSI migration is enabled on the node, or whether you have in fact deployed that CSI driver.
 -->
-当你启用该特性门控时，你的集群不再使用树内驱动代码，而是直接选择并使用相应的 CSI 驱动。同时，这也将不再检查节点上 CSI 迁移功能是否启用，以及 CSI 驱动是否实际部署。
+当你启用该特性门控时，你的集群不再使用树内驱动代码，而是直接选择并使用相应的 CSI 驱动。同时，集群并不检查节点上 CSI 迁移功能是否启用，以及 CSI 驱动是否实际部署。
 
 <!---
 While this feature gate is a great helper, SIG Storage (and, I'm sure, lots of cluster operators) also wanted a feature gate that lets you disable an in-tree storage plugin, even without also enabling CSI migration. For example, you might want to disable the EBS storage plugin on a GCE cluster, because EBS volumes are specific to a different vendor's cloud (AWS).
@@ -177,7 +177,7 @@ The current and targeted releases for each individual driver is shown in the tab
 | Ceph RBD         | 1.23  |
 | Portworx         | 1.23  |
 -->
-| 驱动 | Alpha | Beta (in-tree deprecated) | Beta (on-by-default) | 正式发布 | 目标：移除“树内存储插件” |
+| 驱动 | Alpha | Beta（启用树内插件） | Beta（默认启用） | 正式发布 | 目标：移除“树内存储插件” |
 | ---------------- | ----- | ------------------------- | -------------------- | ------------- | ------------------------------- |
 | AWS EBS          | 1.14  | 1.17                      | 1.23                 | 1.24 (Target) | 1.26 (Target)                   |
 | GCE PD           | 1.14  | 1.17                      | 1.23                 | 1.24 (Target) | 1.26 (Target)                   |
