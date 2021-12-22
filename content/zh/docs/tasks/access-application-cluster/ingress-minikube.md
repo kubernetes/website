@@ -2,11 +2,13 @@
 title: 在 Minikube 环境中使用 NGINX Ingress 控制器配置 Ingress
 content_type: task
 weight: 100
+min-kubernetes-server-version: 1.19
 ---
 <!--
 title: Set up Ingress on Minikube with the NGINX Ingress Controller
 content_type: task
 weight: 100
+min-kubernetes-server-version: 1.19
 -->
 
 <!-- overview -->
@@ -25,31 +27,26 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 本节为你展示如何配置一个简单的 Ingress，根据 HTTP URI 将服务请求路由到
 服务 `web` 或 `web2`。
 
+
 ## {{% heading "prerequisites" %}}
 
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+如果你使用的是较早的 Kubernetes 版本，请切换到该版本的文档。
 
 <!-- steps -->
 
 <!--
-## Create a Minikube cluster
-
-1. Click **Launch Terminal**
+### Create a Minikube cluster
 -->
-## 创建一个 Minikube  集群
+### 创建一个 Minikube  集群
 
-1. 点击 **Launch Terminal**
+使用 Katacoda
+: {{< kat-button >}}
 
-    {{< kat-button >}}
-
-<!--
-1. (Optional) If you installed Minikube locally, run the following command:
--->
-2. （可选操作）如果你在本地安装了 Minikube，运行下面的命令：
-
-    ```shell
-    minikube start
-    ```
+本地
+: 如果已经在本地[安装Minikube](/zh/docs/tasks/tools/#minikube)，
+请运行 `minikube start` 创建一个集群。
 
 <!--
 ## Enable the Ingress controller
@@ -70,26 +67,51 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 -->
 2. 检查验证 NGINX Ingress 控制器处于运行状态：
 
-   ```shell
-   kubectl get pods -n kube-system
-   ```
 
-   <!-- This can take up to a minute. -->
-   {{< note >}}
-   这一操作可能需要近一分钟时间。
-   {{< /note >}}
+   {{< tabs name="tab_with_md" >}}
+   {{% tab name="minikube v1.19 或更高版本" %}}
+```shell
+kubectl get pods -n ingress-nginx
+```
+   <!-- It can take up to a minute before you see these pods running OK. -->
+   {{< note >}}最多可能需要等待一分钟才能看到这些 Pod 运行正常。{{< /note >}}
 
-   输出：
+   <!-- The output is similar to: -->
+   输出类似于：
 
-   ```
-   NAME                                        READY     STATUS    RESTARTS   AGE
-   default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
-   kube-addon-manager-minikube                 1/1       Running   0          3m
-   kube-dns-6dcb57bcc8-n4xd4                   3/3       Running   0          2m
-   kubernetes-dashboard-5498ccf677-b8p5h       1/1       Running   0          2m
-   nginx-ingress-controller-5984b97644-rnkrg   1/1       Running   0          1m
-   storage-provisioner                         1/1       Running   0          2m
-   ```
+```
+NAME                                        READY   STATUS      RESTARTS    AGE
+ingress-nginx-admission-create-g9g49        0/1     Completed   0          11m
+ingress-nginx-admission-patch-rqp78         0/1     Completed   1          11m
+ingress-nginx-controller-59b45fb494-26npt   1/1     Running     0          11m
+```
+   {{% /tab %}}
+   {{% tab name="minikube v1.18.1 或更早版本" %}}
+```shell
+kubectl get pods -n kube-system
+```
+   <!-- It can take up to a minute before you see these pods running OK. -->
+   {{< note >}}最多可能需要等待一分钟才能看到这些 Pod 运行正常。{{< /note >}}
+
+   <!-- The output is similar to: -->
+   输出类似于：
+
+```
+NAME                                        READY     STATUS    RESTARTS   AGE
+default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
+kube-addon-manager-minikube                 1/1       Running   0          3m
+kube-dns-6dcb57bcc8-n4xd4                   3/3       Running   0          2m
+kubernetes-dashboard-5498ccf677-b8p5h       1/1       Running   0          2m
+nginx-ingress-controller-5984b97644-rnkrg   1/1       Running   0          1m
+storage-provisioner                         1/1       Running   0          2m
+```
+
+   <!--
+   Make sure that you see a Pod with a name that starts with `nginx-ingress-controller-`.
+   -->
+   请确保可以在输出中看到一个名称以 `nginx-ingress-controller-` 为前缀的 Pod。
+   {{% /tab %}}
+   {{< /tabs >}}
 
 <!--
 ## Deploy a hello, world app
@@ -104,7 +126,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
    ```
 
-   <!--Output:-->
+   <!--The output should be:-->
    输出：
 
    ```
@@ -120,7 +142,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    kubectl expose deployment web --type=NodePort --port=8080
    ```
 
-   <!-- Output: -->
+   <!--The output should be:-->
    输出：
 
    ```
@@ -136,8 +158,8 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    kubectl get service web
    ```
 
-   <!-- Output: -->
-   输出：
+   <!-- The output is similar to: -->
+   输出类似于：
 
    ```shell
    NAME      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
@@ -153,8 +175,8 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    minikube service web --url
    ```
 
-   <!-- Output: -->
-   输出：
+   <!-- The output is similar to: -->
+   输出类似于：
 
    ```shell
    http://172.17.0.15:31637
@@ -169,8 +191,8 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    输入节点和端口号（这里是`31637`），之后点击 **Display Port**。
    {{< /note >}}
 
-   <!-- Output: -->
-   输出：
+   <!-- The output is similar to: -->
+   输出类似于：
 
    ```shell
    Hello, world!
@@ -186,15 +208,15 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    下一步是让自己能够通过 Ingress 资源来访问应用。
 
 <!--
-## Create an Ingress resource
+## Create an Ingress
 
-The following file is an Ingress resource that sends traffic to your Service via hello-world.info.
+The following manifest defines an Ingress that sends traffic to your Service via hello-world.info.
 
 1. Create `example-ingress.yaml` from the following file:
 -->
-## 创建一个 Ingress 资源
+## 创建一个 Ingress
 
-下面是一个 Ingress 资源的配置文件，负责通过 `hello-world.info` 将服务请求
+下面是一个定义 Ingress 的配置文件，负责通过 `hello-world.info` 将请求
 转发到你的服务。
 
 1. 根据下面的 YAML 创建文件 `example-ingress.yaml`：
@@ -202,15 +224,15 @@ The following file is an Ingress resource that sends traffic to your Service via
    {{< codenew file="service/networking/example-ingress.yaml" >}}
 
 <!--
-1. Create the Ingress resource by running the following command:
+1. Create the Ingress object by running the following command:
 -->
-2. 通过运行下面的命令创建 Ingress 资源：
+2. 通过运行下面的命令创建 Ingress 对象：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/service/networking/example-ingress.yaml
    ```
 
-   <!-- Output: -->
+   <!-- The output should be: -->
    输出：
 
    ```
@@ -231,15 +253,19 @@ The following file is an Ingress resource that sends traffic to your Service via
    此操作可能需要几分钟时间。
    {{< /note >}}
 
+   <!-- You should see an IPv4 address in the ADDRESS column; for example: -->
+   接下来你将会在ADDRESS列中看到IPv4地址，例如：
+
    ```
    NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
    example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
    ```
 
 <!--
-1. Add the following line to the bottom of the `/etc/hosts` file.
+1. Add the following line to the bottom of the `/etc/hosts` file on
+   your computer (you will need administrator access):
 -->
-4. 在 `/etc/hosts` 文件的末尾添加以下内容：
+4. 在 `/etc/hosts` 文件的末尾添加以下内容（需要管理员访问权限）：
 
    <!--
    If you are running Minikube locally, use `minikube ip` to get the external IP. The IP address displayed within the ingress list will be the internal IP.
@@ -252,8 +278,11 @@ The following file is an Ingress resource that sends traffic to your Service via
    172.17.0.15 hello-world.info
    ```
 
-   <!-- This sends requests from hello-world.info to Minikube. -->
-   此设置使得来自 `hello-world.info` 的请求被发送到 Minikube。
+   <!--     
+   After you make this change, your web browser sends requests for
+   hello-world.info URLs to Minikube.
+   -->
+   添加完成后，在浏览器中访问URL `hello-world.info`，请求将被发送到 Minikube。
 
 <!--
 1. Verify that the Ingress controller is directing traffic:
@@ -264,8 +293,8 @@ The following file is an Ingress resource that sends traffic to your Service via
    curl hello-world.info
    ```
 
-   <!-- Output: -->
-   输出：
+   <!-- You should see: -->
+   你应该看到类似输出：
 
    ```
    Hello, world!
@@ -281,18 +310,19 @@ The following file is an Ingress resource that sends traffic to your Service via
    {{< /note >}}
 
 <!--
-## Create Second Deployment
+## Create a second Deployment
 
-1. Create a v2 Deployment using the following command:
+1. Create another Deployment using the following command:
 -->
 ## 创建第二个 Deployment
 
-1. 使用下面的命令创建 v2 的 Deployment：
+1. 使用下面的命令创建第二个 Deployment：
 
    ```shell
    kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
    ```
-   <!-- Output: -->
+
+   <!-- The output should be: -->
    输出：
 
    ```
@@ -300,15 +330,15 @@ The following file is an Ingress resource that sends traffic to your Service via
    ```
 
 <!--
-1. Expose the Deployment:
+1. Expose the second Deployment:
 -->
-2. 将 Deployment 暴露出来：
+2. 将第二个 Deployment 暴露出来：
 
    ```shell
    kubectl expose deployment web2 --port=8080 --type=NodePort
    ```
 
-   <!-- Output:  -->
+   <!-- The output should be:  -->
    输出：
 
    ```
@@ -316,13 +346,14 @@ The following file is an Ingress resource that sends traffic to your Service via
    ```
 
 <!--
-## Edit Ingress
+## Edit the existing Ingress {#edit-ingress}
 
-1. Edit the existing `example-ingress.yaml` and add the following lines:
+1. Edit the existing `example-ingress.yaml` manifest, and add the
+   following lines at the end:
 -->
-## 编辑 Ingress
+## 编辑现有的 Ingress {#edit-ingress}
 
-1. 编辑现有的 `example-ingress.yaml`，添加以下行：
+1. 编辑现有的 `example-ingress.yaml`，在文件最后添加以下行：
 
 
    ```yaml
@@ -338,13 +369,13 @@ The following file is an Ingress resource that sends traffic to your Service via
 <!--
 1. Apply the changes:
 -->
-2. 应用所作变更：
+2. 应用变更：
 
    ```shell
    kubectl apply -f example-ingress.yaml
    ```
 
-   <!-- Output: -->
+   <!-- You should see: -->
    输出：
 
    ```
@@ -364,8 +395,8 @@ The following file is an Ingress resource that sends traffic to your Service via
    curl hello-world.info
    ```
 
-   <!-- Output: -->
-   输出：
+   <!-- The output is similar to: -->
+   输出类似于：
 
    ```
    Hello, world!
@@ -382,8 +413,8 @@ The following file is an Ingress resource that sends traffic to your Service via
    curl hello-world.info/v2
    ```
 
-   <!-- Output: -->
-   输出：
+   <!-- The output is similar to: -->
+   输出类似于：
 
    ```
    Hello, world!
@@ -392,7 +423,7 @@ The following file is an Ingress resource that sends traffic to your Service via
    ```
 
    <!--
-   If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser
+   If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser.
    -->
    {{< note >}}
    如果你在本地运行 Minikube 环境，你可以使用浏览器来访问
@@ -409,5 +440,4 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 * 进一步了解 [Ingress](/zh/docs/concepts/services-networking/ingress/)。
 * 进一步了解 [Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers/)
-* 进一步了解[服务](/zh/docs/concepts/services-networking/service/)
-
+* 进一步了解 [服务](/zh/docs/concepts/services-networking/service/)
