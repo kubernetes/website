@@ -68,7 +68,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/ip-masq-agent
 You must also apply the appropriate node label to any nodes in your cluster that you want the agent to run on.
 
 `
-kubectl label nodes my-node beta.kubernetes.io/masq-agent-ds-ready=true
+kubectl label nodes my-node node.kubernetes.io/masq-agent-ds-ready=true
 `
 
 More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-sigs/ip-masq-agent)
