@@ -250,13 +250,6 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
    ```
 
 <!-- 
-### Install on macOS as part of the Google Cloud SDK {#install-on-macos-as-part-of-the-google-cloud-sdk}
--->
-### 作为谷歌云 SDK 的一部分，在 macOS 上安装 {#install-on-macos-as-part-of-the-google-cloud-sdk}
-
-{{< include "included/install-kubectl-gcloud.md" >}}
-
-<!-- 
 ## Verify kubectl configuration {#verify-kubectl-configuration}
 -->
 ## 验证 kubectl 配置 {#verify-kubectl-configuration}
