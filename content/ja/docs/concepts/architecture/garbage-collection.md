@@ -1,5 +1,5 @@
 ---
-title: Garbage Collection
+title: ガベージコレクション
 content_type: concept
 weight: 50
 ---
