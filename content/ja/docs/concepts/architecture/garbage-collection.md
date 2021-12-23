@@ -5,7 +5,7 @@ weight: 50
 ---
 
 <!-- overview -->
-ガベージコレクションは、Kubernetesがクラスターリソースをクリーンアップするために使用するさまざまなメカニズムの総称です。これにより、次のようなリソースのクリーンアップが可能になります。:
+ガベージコレクションは、Kubernetesがクラスターリソースをクリーンアップするために使用するさまざまなメカニズムの総称です。これにより、次のようなリソースのクリーンアップが可能になります:
 
   * [失敗したPod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
   * [完了したJob](/docs/concepts/workloads/controllers/ttlafterfinished/)
@@ -54,7 +54,7 @@ Kubernetesは、ReplicaSetを削除したときに残されたPodなど、owner 
   * フォアグラウンドカスケード削除
   * バックグラウンドカスケード削除
 
-また、Kubernetes {{<glossary_tooltip text="finalizer" term_id="finalizer">}}を使用して、ガベージコレクションがowner referenceを持つリソースを削除する方法とタイミングを制御することもできます
+また、Kubernetes {{<glossary_tooltip text="finalizer" term_id="finalizer">}}を使用して、ガベージコレクションがowner referenceを持つリソースを削除する方法とタイミングを制御することもできます。
 
 ### フォアグラウンドカスケード削除 {#foreground-deletion}
 
