@@ -1723,7 +1723,7 @@ Further documentation on annotations for Elastic IPs and other common use-cases 
 in the [AWS Load Balancer Controller documentation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/).
 -->
 有关弹性 IP 注解和更多其他常见用例，
-请参阅[AWS负载均衡器控制器文档](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)。
+请参阅[AWS负载均衡控制器文档](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)。
 
 <!--
 #### Other CLB annotations on Tencent Kubernetes Engine (TKE)
