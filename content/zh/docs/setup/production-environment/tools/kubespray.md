@@ -77,24 +77,23 @@ Provision servers with the following [requirements](https://github.com/kubernete
 按以下[要求](https://github.com/kubernetes-sigs/kubespray#requirements)来配置服务器：
 
 <!--
-* **Ansible v2.9 and python-netaddr is installed on the machine that will run Ansible commands**
+* **Ansible v2.9 and python-netaddr are installed on the machine that will run Ansible commands**
 * **Jinja 2.11 (or newer) is required to run the Ansible Playbooks**
 * The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * The target servers are configured to allow **IPv4 forwarding**
-* **Your ssh key must be copied** to all the servers part of your inventory
-* The **firewalls are not managed**, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall
-* If kubespray is ran from non-root user account, correct privilege escalation method should be configured in the target servers. Then the `ansible_become` flag or command parameters `--become` or `-b` should be specified
+* **Your ssh key must be copied** to all the servers in your inventory
+* **Firewalls are not managed by kubespray**. You'll need to implement appropriate rules as needed. You should disable your firewall in order to avoid any issues during deployment
+* If kubespray is ran from a non-root user account, correct privilege escalation method should be configured in the target servers and the `ansible_become` flag or command parameters `--become` or `-b` should be specified
 -->
 * 在将运行 Ansible 命令的计算机上安装 Ansible v2.9 和 python-netaddr
 * **运行 Ansible Playbook 需要 Jinja 2.11（或更高版本）**
 * 目标服务器必须有权访问 Internet 才能拉取 Docker 镜像。否则，
   需要其他配置（[请参见离线环境](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md)）
 * 目标服务器配置为允许 IPv4 转发
-* **你的 SSH 密钥必须复制**到清单中的所有服务器部分
-* 防火墙不受管理，你将需要按照以前的方式实施自己的规则。
-  为了避免在部署过程中出现任何问题，你应该禁用防火墙
-* 如果从非 root 用户帐户运行 kubespray，则应在目标服务器中配置正确的特权升级方法。
-  然后应指定“ansible_become” 标志或命令参数 “--become” 或 “-b”
+* **你的 SSH 密钥必须复制**到部署集群的所有服务器中
+* **防火墙不是由 kubespray 管理的**。你需要根据需求设置适当的规则策略。为了避免部署过程中出现问题，可以禁用防火墙。
+* 如果从非 root 用户帐户运行 kubespray，则应在目标服务器中配置正确的特权升级方法
+并指定 `ansible_become` 标志或命令参数 `--become` 或 `-b`
 
 <!--
 Kubespray provides the following utilities to help provision your environment:
@@ -191,16 +190,16 @@ Large deployments (100+ nodes) may require [specific adjustments](https://github
 <!--
 ### (5/5) Verify the deployment
 
-Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md). Netchecker ensures the netchecker-agents pods can resolve DNS requests and ping each over within the default namespace. Those pods mimic similar behavior of the rest of the workloads and serve as cluster health indicators.
+Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md). Netchecker ensures the netchecker-agents pods can resolve DNS requests and ping each over within the default namespace. Those pods mimic similar behavior as the rest of the workloads and serve as cluster health indicators.
 -->
 ### （5/5）验证部署
 
 Kubespray 提供了一种使用
 [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md)
 验证 Pod 间连接和 DNS 解析的方法。
-Netchecker 确保 netchecker-agents pod 可以解析。
-DNS 请求并在默认名称空间内对每个请求执行 ping 操作。
-这些 Pods 模仿其余工作负载的类似行为，并用作集群运行状况指示器。
+Netchecker 确保 netchecker-agents Pods 可以解析DNS请求，
+并在默认命名空间内对每个请求执行 ping 操作。
+这些 Pod 模仿其他工作负载类似的行为，并用作集群运行状况指示器。
 <!--
 ## Cluster operations
 
