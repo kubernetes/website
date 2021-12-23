@@ -239,6 +239,10 @@ propagation delay, where the cache propagation delay depends on the chosen cache
 
 ConfigMaps consumed as environment variables are not updated automatically and require a pod restart. 
 
+{{< note >}}
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume will not receive ConfigMap updates.
+{{< /note >}}
+
 ## Immutable ConfigMaps {#configmap-immutable}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
