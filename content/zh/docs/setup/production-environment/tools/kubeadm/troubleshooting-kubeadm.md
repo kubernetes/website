@@ -676,6 +676,7 @@ For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/c
 Kubernetes components like the kubelet and kube-controller-manager use the default path of
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
 for the feature to work.
+(**Note**: FlexVolume was deprecated in the Kubernetes v1.23 release)
 -->
 ## 节点上的 `/usr` 被以只读方式挂载 {#usr-mounted-read-only}
 
