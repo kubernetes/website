@@ -128,6 +128,11 @@ need to be open in order for Kubernetes components to communicate with each othe
 telnet 127.0.0.1 6443
 ```
 
+<!--
+The pod network plugin you use (see below) may also require certain ports to be
+open. Since this differs with each pod network plugin, please see the
+documentation for the plugins about what port(s) those need.
+-->
 你使用的 Pod 网络插件 (详见后续章节) 也可能需要开启某些特定端口。由于各个 Pod 网络插件的功能都有所不同，
 请参阅他们各自文档中对端口的要求。
 
