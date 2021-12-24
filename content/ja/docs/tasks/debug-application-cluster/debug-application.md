@@ -84,13 +84,12 @@ pods/mypod
 通常、"apiserver" バージョンには、元のバージョンにはない行がいくつかあります。これは予想されることです。
 しかし、もし元のバージョンにある行がapiserverバージョンにない場合、これはあなたのPod specに問題があることを示している可能性があります。
 
-### Debugging Replication Controllers
+### レプリケーションコントローラのデバッグ
 
-Replication controllers are fairly straightforward.  They can either create Pods or they can't.  If they can't
-create pods, then please refer to the [instructions above](#debugging-pods) to debug your pods.
-
-You can also use `kubectl describe rc ${CONTROLLER_NAME}` to introspect events related to the replication
-controller.
+レプリケーションコントローラはかなり単純なものです。
+彼らはPodを作ることができるか、できないか、どちらかです。
+もしPodを作成できないのであれば、[instructions above](#debugging-pods)を参照して、Podをデバッグしてください。
+また、`kubectl describe rc ${CONTROLLER_NAME}`を使用すると、レプリケーションコントローラに関連するイベントをイントロスペクトすることができます。
 
 ### サービスのデバッグ
 
