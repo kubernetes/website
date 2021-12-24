@@ -672,6 +672,18 @@ nodes` when run on the control-plane node.
 几秒钟后，当你在控制平面节点上执行 `kubectl get nodes`，你会注意到该节点出现在输出中。
 
 <!--
+As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run 
+on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods 
+with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
+-->
+
+{{< note >}}
+由于集群节点通常是按顺序初始化的，CoreDNS Pods 很可能都运行
+在第一个控制面节点上。为了提供更高的可用性，请在加入至少一个新节点后
+使用 `kubectl -n kube-system rollout restart deployment coredns` 命令，重新平衡 CoreDNS Pods。
+{{< /note >}}
+
+<!--
 ### (Optional) Controlling your cluster from machines other than the control-plane node
 -->
 ### （可选）从控制平面节点以外的计算机控制集群
