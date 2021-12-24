@@ -235,9 +235,8 @@ Kubeadm 允许将包含补丁文件的目录传递给各个节点上的 `InitCon
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
-nodeRegistration:
-  patches:
-    directory: /home/user/somedir
+patches:
+  directory: /home/user/somedir
 ```
 
 {{< note >}}
@@ -256,9 +255,8 @@ You can pass this file to `kubeadm join` with `--config <YOUR CONFIG YAML>`:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
-nodeRegistration:
-  patches:
-    directory: /home/user/somedir
+patches:
+  directory: /home/user/somedir
 ```
 
 <!--
