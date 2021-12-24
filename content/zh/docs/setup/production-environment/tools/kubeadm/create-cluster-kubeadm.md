@@ -678,8 +678,8 @@ with `kubectl -n kube-system rollout restart deployment coredns` after at least 
 -->
 
 {{< note >}}
-由于集群节点通常是按顺序初始化的，CoreDNS Pods 很可能都运行
-在第一个控制面节点上。为了提供更高的可用性，请在加入至少一个新节点后
+由于集群节点通常是按顺序初始化的，CoreDNS Pods 很可能都运行在第一个控制面节点上。
+为了提供更高的可用性，请在加入至少一个新节点后
 使用 `kubectl -n kube-system rollout restart deployment coredns` 命令，重新平衡 CoreDNS Pods。
 {{< /note >}}
 
