@@ -68,7 +68,7 @@ ERROR_LOG="${TMP_DIR}/errors.log"
 # this file.
 skipping_file="${KUBE_ROOT}/scripts/.spelling_failures"
 failing_packages=$(sed "s| | -e |g" "${skipping_file}")
-git ls-files | grep content/${LANGUAGE} | grep -v -e "${failing_packages}" | xargs misspell > "${ERROR_LOG}"
+git ls-files -z | grep --null-data "^content/${LANGUAGE}" | grep --null-data -v -e "${failing_packages}" | xargs -0 -r misspell > "${ERROR_LOG}"
 if [[ -s "${ERROR_LOG}" ]]; then
   sed 's/^/error: /' "${ERROR_LOG}" # add 'error' to each line to highlight in e2e status
   echo "Found spelling errors!"
