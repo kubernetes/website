@@ -1,0 +1,145 @@
+---
+reviewers:
+- ptux
+title: アプリケーションのトラブルシューティング
+content_type: concept
+---
+
+<!-- overview -->
+
+このガイドは、Kubernetesにデプロイされ、正しく動作しないアプリケーションをユーザーがデバッグするためのものです。
+これは、自分のクラスタをデバッグしたい人のためのガイドでは *ありません*。
+そのためには、[debug-cluster](/docs/tasks/debug-application-cluster/debug-cluster)を確認する必要があります。
+
+<!-- body -->
+
+## 問題の診断
+
+トラブルシューティングの最初のステップは切り分けです。何が問題なのでしょうか？
+ポッドなのか、レプリケーション・コントローラなのか、それともサービスなのか？
+
+   * [Debugging Pods](#debugging-pods)
+   * [Debugging Replication Controllers](#debugging-replication-controllers)
+   * [Debugging Services](#debugging-services)
+
+### Podのデバッグ
+
+デバッグの第一歩は、Podを見てみることです。
+以下のコマンドで、Podの現在の状態や最近のイベントを確認します。
+
+```shell
+kubectl describe pods ${POD_NAME}
+```
+
+Pod内のコンテナの状態を見てください。
+すべて`Running`ですか？ 最近、再起動がありましたか？
+ポッドの状態に応じてデバッグを続けます。
+
+#### PodがPendingのまま
+
+Podが`Pending` で止まっている場合、それはノードにスケジュールできないことを意味します。
+一般に、これはある種のリソースが不十分で、スケジューリングできないことが原因です。
+上の`kubectl describe ...`コマンドの出力を見てください。
+
+なぜあなたのPodをスケジュールできないのか、スケジューラからのメッセージがあるはずです。
+理由は以下の通りです。
+
+* **リソースが不足しています。** クラスタのCPUまたはメモリーを使い果たした可能性があります。Podを削除するか、リソース要求を調整するか、クラスタに新しいノードを追加する必要があります。詳しくは[Compute Resources document](/docs/concepts/configuration/manage-resources-containers/)を参照してください。
+
+* **あなたが使用しているのは`hostPort`**です。Podを`hostPort`にバインドすると、そのPodがスケジュールできる場所が限定されます。ほとんどの場合、`hostPort`は不要なので、Serviceオブジェクトを使ってPodを公開するようにしてください。もし`hostPort` が必要な場合は、Kubernetes クラスタのノード数だけ Pod をスケジュールすることができます。
+
+
+#### Podがwaitingのまま
+
+Podが `Waiting` 状態で止まっている場合、ワーカーノードにスケジュールされていますが、そのマシン上で実行することはできません。この場合も、`kubectl describe ...` の情報が参考になるはずです。`Waiting`状態のポッドの最も一般的な原因は、イメージの取り出しに失敗することです。
+
+確認すべきことは3つあります。
+
+* イメージの名前が正しいかどうか確認してください。
+* イメージをリポジトリにプッシュしましたか？
+* あなたのマシンで手動で`docker pull <image>`を実行し、イメージをプルできるかどうか確認してください。
+
+#### Podがクラッシュするなどの不健全な状態
+
+Podがスケジュールされると、[Debug Running Pods](/docs/tasks/debug-application-cluster/debug-running-pod/)で説明されているメソッドがデバッグに利用できるようになります。
+
+#### Podが期待する通りに動きません
+
+Podが期待した動作をしない場合、ポッドの記述（ローカルマシンの `mypod.yaml` ファイルなど）に誤りがあり、ポッド作成時にその誤りが黙って無視された可能性があります。Pod記述のセクションのネストが正しくないか、キー名が間違って入力されていることがよくあり、そのため、そのキーは無視されます。たとえば、`command`のスペルを`commnd`と間違えた場合、Podは作成されますが、あなたが意図したコマンドラインは使用されません。
+
+まずPodを削除して、`--validate` オプションを付けて再度作成してみてください。
+例えば、`kubectl apply --validate -f mypod.yaml`と実行します。
+command`のスペルを`commnd`に間違えると、以下のようなエラーになります。
+
+```shell
+I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
+I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see https://github.com/kubernetes/kubernetes/issues/6842
+pods/mypod
+```
+
+<!-- TODO: Now that #11914 is merged, this advice may need to be updated -->
+
+次に確認することは、apiserver上のPodが、作成しようとしたPod（例えば、ローカルマシンのyamlファイル）と一致しているかどうかです。
+例えば、`kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml` を実行して、元のポッドの説明である`mypod.yaml`とapiserverから戻ってきた`mypod-on-apiserver.yaml`を手動で比較してみてください。
+通常、"apiserver" バージョンには、元のバージョンにはない行がいくつかあります。これは予想されることです。
+しかし、もし元のバージョンにある行がapiserverバージョンにない場合、これはあなたのPod specに問題があることを示している可能性があります。
+
+### Debugging Replication Controllers
+
+Replication controllers are fairly straightforward.  They can either create Pods or they can't.  If they can't
+create pods, then please refer to the [instructions above](#debugging-pods) to debug your pods.
+
+You can also use `kubectl describe rc ${CONTROLLER_NAME}` to introspect events related to the replication
+controller.
+
+### サービスのデバッグ
+
+サービスは、ポッドのセット全体でロードバランシングを提供します。
+サービスが正しく動作しない原因には、いくつかの一般的な問題があります。
+
+以下の手順は、サービスの問題をデバッグするのに役立つはずです。
+
+まず、サービスのエンドポイントが存在することを確認します。
+全てのサービスオブジェクトに対して、apiserverは `endpoints` リソースを利用できるようにします。
+このリソースは次のようにして見ることができます。
+
+```shell
+kubectl get endpoints ${SERVICE_NAME}
+```
+
+エンドポイントがサービスのメンバーとして想定されるPod数と一致していることを確認してください。
+例えば、3つのレプリカを持つnginxコンテナ用のサービスであれば、サービスのエンドポイントには3つの異なるIPアドレスが表示されるはずです。
+
+#### サービスにエンドポイントがありません
+
+エンドポイントが見つからない場合は、サービスが使用しているラベルを使用してポッドをリストアップしてみてください。
+ラベルがあるところにServiceがあると想像してください。
+
+```yaml
+...
+spec:
+  - selector:
+     name: nginx
+     type: frontend
+```
+
+セレクタに一致するポッドを一覧表示するには、次のコマンドを使用します。
+
+```shell
+kubectl get pods --selector=name=nginx,type=frontend
+```
+
+リストがサービスを提供する予定のPodと一致することを確認します。
+Podの`containerPort`がサービスの`targetPort`と一致することを確認します。
+
+#### ネットワークトラフィックが転送されません
+
+詳しくは[debugging service](/docs/tasks/debug-application-cluster/debug-service/)を参照してください。
+
+## {{% heading "whatsnext" %}}
+
+上記のいずれの方法でも問題が解決しない場合は、以下の手順に従ってください。
+[Debugging Service document](/docs/tasks/debug-application-cluster/debug-service/)で、`Service` が実行されていること、`Endpoints`があること、`Pods`が実際にサービスを提供していること、DNS が機能していること、IPtables ルールがインストールされていること、kube-proxyが誤作動を起こしていないようなことを確認してください。
+
+トラブルシューティングドキュメント](/docs/tasks/debug-application-cluster/troubleshooting/)に詳細が記載されています。
+
