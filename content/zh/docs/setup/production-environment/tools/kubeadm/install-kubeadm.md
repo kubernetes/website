@@ -115,63 +115,20 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 
 <!--
 ## Check required ports
-
-### Control-plane node(s)
-
-| Protocol   | Direction  | Port Range | Purpose                 | Used By                 |
-|------------|------------|------------|-------------------------|-------------------------|
-| TCP        | Inbound    | 6443*      | Kubernetes API server   | All                     |
-| TCP        | Inbound    | 2379-2380  | etcd server client API  | kube-apiserver, etcd    |
-| TCP        | Inbound    | 10250      | Kubelet API             | Self, Control plane     |
-| TCP        | Inbound    | 10251      | kube-scheduler          | Self                    |
-| TCP        | Inbound    | 10252      | kube-controller-manager | Self                    |
+These
+[required ports](/docs/reference/ports-and-protocols/)
+need to be open in order for Kubernetes components to communicate with each other. You can use telnet to check if a port is open. For example:
 -->
+
 ## 检查所需端口{#check-required-ports}
 
-### 控制平面节点
+启用这些[必要的端口](/zh/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。可以使用 telnet 来检查端口是否启用，例如：
 
-| 协议     | 方向   | 端口范围   | 作用                    | 使用者                       |
-|----------|--------|------------|-------------------------|------------------------------|
-| TCP      | 入站   | 6443       | Kubernetes API 服务器   | 所有组件                     |
-| TCP      | 入站   | 2379-2380  | etcd 服务器客户端 API   | kube-apiserver, etcd         |
-| TCP      | 入站   | 10250      | Kubelet API             | kubelet 自身、控制平面组件   |
-| TCP      | 入站   | 10251      | kube-scheduler          | kube-scheduler 自身          |
-| TCP      | 入站   | 10252      | kube-controller-manager | kube-controller-manager 自身 |
+```shell
+telnet 127.0.0.1 6443
+```
 
-<!--
-### Worker node(s)
-
-| Protocol   | Direction  | Port Range  | Purpose             | Used By                 |
-|------------|------------|-------------|---------------------|-------------------------|
-| TCP        | Inbound    | 10250       | Kubelet API         | Self, Control plane     |
-| TCP        | Inbound    | 30000-32767 | NodePort Services** | All                     |
-
-** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
-
-Any port numbers marked with * are overridable, so you will need to ensure any
-custom ports you provide are also open.
-
-Although etcd ports are included in control-plane nodes, you can also host your own
-etcd cluster externally or on custom ports.
-
-The pod network plugin you use (see below) may also require certain ports to be
-open. Since this differs with each pod network plugin, please see the
-documentation for the plugins about what port(s) those need.
--->
-### 工作节点
-
-| 协议 | 方向   | 端口范围    | 作用              | 使用者                      |
-|------|--------|-------------|-------------------|-----------------------------|
-| TCP  | 入站   | 10250       | Kubelet API       | kubelet 自身、控制平面组件  |
-| TCP  | 入站   | 30000-32767 | NodePort 服务†    | 所有组件                    |
-
-† [NodePort 服务](/zh/docs/concepts/services-networking/service/) 的默认端口范围。
-
-使用 * 标记的任意端口号都可以被覆盖，所以你需要保证所定制的端口是开放的。
-
-虽然控制平面节点已经包含了 etcd 的端口，你也可以使用自定义的外部 etcd 集群，或是指定自定义端口。
-
-你使用的 Pod 网络插件 (见下) 也可能需要某些特定端口开启。由于各个 Pod 网络插件都有所不同，
+你使用的 Pod 网络插件 (详见后续章节) 也可能需要开启某些特定端口。由于各个 Pod 网络插件的功能都有所不同，
 请参阅他们各自文档中对端口的要求。
 
 <!--
@@ -444,7 +401,7 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）
 
 ```bash
-CRICTL_VERSION="v1.17.0"
+CRICTL_VERSION="v1.22.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
