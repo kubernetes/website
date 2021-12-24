@@ -11,7 +11,7 @@ weight: 45
 
 {{< feature-state for_k8s_version="v1.21" state="alpha" >}}
 
-_サービス内部トラフィックポリシー_ を使用すると、内部トラフィック制限により、トラフィックが発信されたノード内のエンドポイントにのみ内部トラフィックをルーティングできます。
+*サービス内部トラフィックポリシー*を使用すると、内部トラフィック制限により、トラフィックが発信されたノード内のエンドポイントにのみ内部トラフィックをルーティングできます。
 ここでの「内部」トラフィックとは、現在のクラスターのポッドから発信されたトラフィックを指します。これは、コストを削減し、パフォーマンスを向上させるのに役立ちます。
 
 <!-- body -->
@@ -19,7 +19,7 @@ _サービス内部トラフィックポリシー_ を使用すると、内部�
 ## サービス内部トラフィックポリシーの使用
 
 `ServiceInternalTrafficPolicy`
-[feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、`.spec.internalTrafficPolicy`を`Local`に設定すると、{{< glossary_tooltip text="Service" term_id="service" >}}内部のみのトラフィックポリシーを有効にすることができます。
+[feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、`.spec.internalTrafficPolicy`を`Local`に設定して、{{< glossary_tooltip text="Service" term_id="service" >}}内部のみのトラフィックポリシーを有効にすることができます。
 これにより、kube-proxyは、クラスター内部トラフィックにノードローカルエンドポイントのみを使用するようになります。
 
 {{< note >}}
@@ -46,12 +46,12 @@ spec:
 ## 使い方
 
 kube-proxyは、`spec.internalTrafficPolicy`設定に基づいて、ルーティング先のエンドポイントをフィルタリングします。
-`Local`に設定されている場合、ノードのローカルエンドポイントのみが考慮されます。 `Cluster`であるか欠落している場合、すべてのエンドポイントが考慮されます。
+`Local`に設定されている場合、ノードのローカルエンドポイントのみが考慮されます。`Cluster`であるか欠落している場合、すべてのエンドポイントが考慮されます。
 `ServiceInternalTrafficPolicy`[feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、`spec.internalTrafficPolicy`のデフォルトは"Cluster"です。
 
 ## 制約
 
-* サービスで`externalTrafficPolicy`が`Local`に設定されている場合、サービス内部トラフィックポリシーは使用されません。 同じサービスではなく、異なるサービスの同じクラスターで両方の機能を使用することができます。
+* サービスで`externalTrafficPolicy`が`Local`に設定されている場合、サービス内部トラフィックポリシーは使用されません。同じサービスではなく、異なるサービスの同じクラスターで両方の機能を使用することができます。
 
 ## {{% heading "whatsnext" %}}
 
