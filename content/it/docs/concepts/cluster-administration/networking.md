@@ -255,7 +255,7 @@ Lars Kellogg-Stedman.
 
 ### Multus (a Multi Network plugin)
 
-[Multus](https://github.com/Intel-Corp/multus-cni) è un plugin Multi CNI per supportare la funzionalità Multi
+Multus è un plugin Multi CNI per supportare la funzionalità Multi
 Networking in Kubernetes utilizzando oggetti di rete basati su CRD in Kubernetes.
 
 Multus supporta tutti i [plug-in di riferimento](https://github.com/containernetworking/plugins)
