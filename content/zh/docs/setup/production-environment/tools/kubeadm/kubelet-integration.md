@@ -261,8 +261,9 @@ environment file is generated in exactly the same way as `kubeadm init`.
 
 ### 当使用 `kubeadm join`时的工作流程
 
-当运行 `kubeadm join` 时，kubeadm 使用 Bootstrap Token 证书执行 TLS 引导，该引导会获取一份证书，该证书需要下载 `kubelet-config-1.X` ConfigMap 并把它写入 `/var/lib/kubelet/config.yaml` 中。
-动态环境文件的生成方式恰好与 `kubeadm init` 相同。
+当运行 `kubeadm join` 时，kubeadm 使用 Bootstrap Token 证书执行 TLS 引导，该引导会获取一份证书，
+该证书需要下载 `kubelet-config-1.X` ConfigMap 并把它写入 `/var/lib/kubelet/config.yaml` 中。
+动态环境文件的生成方式恰好与 `kubeadm init` 完全相同。
 
 <!--
 Next, `kubeadm` runs the following two commands to load the new configuration into the kubelet:
@@ -289,8 +290,8 @@ When the `/etc/kubernetes/kubelet.conf` file is written, the kubelet has finishe
 Kubeadm deletes the `/etc/kubernetes/bootstrap-kubelet.conf` file after completing the TLS Bootstrap.
 -->
 
-当 `/etc/kubernetes/kubelet.conf` 文件被写入后，kubelet 就完成了 TLS 引导程序。
-Kubeadm 在完成 TLS 引导程序后将删除 `/etc/kubernetes/bootstrap-kubelet.conf` 文件。
+当 `/etc/kubernetes/kubelet.conf` 文件被写入后，kubelet 就完成了 TLS 引导过程。
+Kubeadm 在完成 TLS 引导过程后将删除 `/etc/kubernetes/bootstrap-kubelet.conf` 文件。
 
 
 <!--
