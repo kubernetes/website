@@ -140,3 +140,27 @@ Learn more about the metrics server in
 在[设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)
 中可以了解到有关 Metrics 服务器的更多信息。
 
+<!--
+### Summary API Source
+
+The [Kubelet](/docs/reference/command-line-tools-reference/kubelet/) gathers stats at node, volume, pod and container level, and omits
+them in the [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
+for consumers to read.
+-->
+
+### 摘要 API 来源
+
+[Kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 在节点、卷、pod 和容器级别收集统计信息，
+并在[摘要API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go) 
+中省略它们以供消费者阅读。
+
+<!--
+Pre-1.23, these resources have been primarily gathered from [cAdvisor](https://github.com/google/cadvisor). However, in 1.23 with the
+introduction of the `PodAndContainerStatsFromCRI` FeatureGate, container and pod level stats can be gathered by the CRI implementation.
+Note: this also requires support from the CRI implementations (containerd >= 1.6.0, CRI-O >= 1.23.0).
+-->
+
+在 1.23 版本前，这些资源主要来自 [cAdvisor](https://github.com/google/cadvisor)。但在 1.23 版本中
+引入了 `PodAndContainerStatsFromCRI` FeatureGate，
+CRI 实现了可以收集容器和 pod 级别的统计信息。
+注意：这需要 CRI 实现的支持（containerd >= 1.6.0，CRI-O >= 1.23.0）。
