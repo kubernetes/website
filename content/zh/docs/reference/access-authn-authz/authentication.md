@@ -764,9 +764,8 @@ users:
 <!--
 Once your `id_token` expires, `kubectl` will attempt to refresh your `id_token` using your `refresh_token` and `client_secret` storing the new values for the `refresh_token` and `id_token` in your `.kube/config`.
 -->
-当你的 `id_token` 过期时，`kubectl` 会尝试使用你的 `refresh_token` 来刷新你的
-`id_token`，并且在 `client_secret` 中存放 `refresh_token` 的新值，同时把
-`id_token` 的新值写入到 `.kube/config` 文件中。
+当你的 `id_token` 过期时，`kubectl` 会尝试使用你的 `refresh_token` 和 `client_secret` 来刷新你的
+`id_token`，并把 `refresh_token` 和 `id_token` 的新值写入到 `.kube/config` 文件中。
 
 <!--
 ##### Option 2 - Use the `--token` Option
