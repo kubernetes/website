@@ -143,7 +143,7 @@ Learn more about the metrics server in
 <!--
 ### Summary API Source
 
-The [Kubelet](/docs/reference/command-line-tools-reference/kubelet/) gathers stats at node, volume, pod and container level, and omits
+The [Kubelet](/docs/reference/command-line-tools-reference/kubelet/) gathers stats at node, volume, pod and container level, and emits
 them in the [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
 for consumers to read.
 -->
@@ -152,7 +152,7 @@ for consumers to read.
 
 [Kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 在节点、卷、pod 和容器级别收集统计信息，
 并在[摘要API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go) 
-中省略它们以供消费者阅读。
+中提供它们的统计信息供消费者阅读。
 
 <!--
 Pre-1.23, these resources have been primarily gathered from [cAdvisor](https://github.com/google/cadvisor). However, in 1.23 with the
