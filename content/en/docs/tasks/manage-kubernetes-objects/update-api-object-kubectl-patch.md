@@ -303,9 +303,14 @@ spec:
 
 Patch your Deployment:
 
-```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no-retainkeys.yaml
-```
+{{< tabs name="kubectl_retainkeys_example" >}}
+{{{< tab name="Bash" codelang="bash" >}}
+kubectl patch deployment retainkeys-demo  --type merge --patch "$(cat patch-file-no-retainkeys.yaml)"
+{{< /tab >}}
+{{< tab name="PowerShell" codelang="posh" >}}
+kubectl patch deployment retainkeys-demo  --type merge --patch $(Get-Content patch-file-no-retainkeys.yaml -Raw)
+{{< /tab >}}}
+{{< /tabs >}}
 
 In the output, you can see that it is not possible to set `type` as `Recreate` when a value is defined for `spec.strategy.rollingUpdate`:
 
@@ -329,9 +334,14 @@ With this patch, we indicate that we want to retain only the `type` key of the `
 
 Patch your Deployment again with this new patch:
 
-```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-retainkeys.yaml
-```
+{{< tabs name="kubectl_retainkeys2_example" >}}
+{{{< tab name="Bash" codelang="bash" >}}
+kubectl patch deployment retainkeys-demo  --type merge --patch "$(cat patch-file-retainkeys.yaml)"
+{{< /tab >}}
+{{< tab name="PowerShell" codelang="posh" >}}
+kubectl patch deployment retainkeys-demo  --type merge --patch $(Get-Content patch-file-retainkeys.yaml -Raw)
+{{< /tab >}}}
+{{< /tabs >}}
 
 Examine the content of the Deployment:
 
