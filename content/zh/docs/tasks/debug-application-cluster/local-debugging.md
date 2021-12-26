@@ -10,20 +10,25 @@ content_type: task
 
 <!-- overview -->
 
+{{% thirdparty-content %}}
+
 <!--
-Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](/docs/tasks/debug-application-cluster/get-shell-running-container/) and running your tools inside the remote shell.
+Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](/docs/tasks/debug-application-cluster/get-shell-running-container/) in order to run debugging tools.
 -->
+
 Kubernetes 应用程序通常由多个独立的服务组成，每个服务都在自己的容器中运行。
 在远端的 Kubernetes 集群上开发和调试这些服务可能很麻烦，需要
 [在运行的容器上打开 Shell](/zh/docs/tasks/debug-application-cluster/get-shell-running-container/)，
-然后在远端 Shell 中运行你所需的工具。
+运行你所需的工具。
 
 <!--
-`telepresence` is a tool to ease the process of developing and debugging services locally, while proxying the service to a remote Kubernetes cluster. Using `telepresence` allows you to use custom tools, such as a debugger and IDE, for a local service and provides the service full access to ConfigMap, secrets, and the services running on the remote cluster.
+`telepresence` is a tool to ease the process of developing and debugging services locally while proxying the service to a remote Kubernetes cluster. Using `telepresence` allows you to use custom tools, such as a debugger and IDE, for a local service and provides the service full access to ConfigMap, secrets, and the services running on the remote cluster.
 -->
-`telepresence` 是一种工具，用于在本地轻松开发和调试服务，同时将服务代理到远程 Kubernetes 集群。
-使用 `telepresence` 可以为本地服务使用自定义工具（如调试器和 IDE），
+
+`telepresence` 是一个工具，用于简化本地开发和调试服务的过程，同时可以将服务代理到远程 Kubernetes 集群。
+`telepresence` 允许你使用使用自定义工具（例如：调试器 和 IDE）调式服务，
 并提供对 Configmap、Secret 和远程集群上运行的服务的完全访问。
+
 
 <!--
 This document describes using `telepresence` to develop and debug services running on a remote cluster locally.
@@ -35,31 +40,38 @@ This document describes using `telepresence` to develop and debug services runni
 <!--
 * Kubernetes cluster is installed
 * `kubectl` is configured to communicate with the cluster
-* [Telepresence](https://www.telepresence.io/reference/install) is installed
+* [Telepresence](https://www.telepresence.io/docs/latest/install/) is installed
 -->
 
 * Kubernetes 集群安装完毕
 * 配置好 `kubectl` 与集群交互
-* [Telepresence](https://www.telepresence.io/reference/install) 安装完毕
+* [Telepresence](https://www.telepresence.io/docs/latest/install/) 安装完毕
 
 <!-- steps -->
 
 <!--
-## Getting a shell on a remote cluster
-
-Open a terminal and run `telepresence` with no arguments to get a `telepresence` shell. This shell runs locally, giving you full access to your local filesystem.
+## Connecting your local machine to a remote Kubernetes cluster
+ 
+After installing `telepresence`, run `telepresence connect` to launch it's Daemon and connect your local workstation to the cluster.
 -->
-打开终端，不带参数运行 `telepresence`，以打开 `telepresence` Shell。
-这个 Shell 在本地运行，使你可以完全访问本地文件系统。
+
+## 从本机连接到远程 Kubernetes 集群
+
+安装 `telepresence` 后，运行 `telepresence connect` 来启动它的守护进程并将本地工作站连接到远程 Kubernetes 集群。
+
+```
+$ telepresence connect
+ 
+Launching Telepresence Daemon
+...
+Connected to context default (https://<cluster public IP>)
+```
 
 <!--
-The `telepresence` shell can be used in a variety of ways. For example, write a shell script on your laptop, and run it directly from the shell in real time. You can do this on a remote shell as well, but you might not be able to use your preferred code editor, and the script is deleted when the container is terminated.
-
-Enter `exit` to quit and close the shell.
+You can curl services using the Kubernetes syntax e.g. `curl -ik https://kubernetes.default`
 -->
-`telepresence` Shell 的使用方式多种多样。
-例如，在你的笔记本电脑上写一个 Shell 脚本，然后直接在 Shell 中实时运行它。
-你也可以在远端 Shell 上执行此操作，但这样可能无法使用首选的代码编辑器，并且在容器终止时脚本将被删除。
+
+你可以通过 curl 使用 Kubernetes 语法，例如：`curl -ik https://kubernetes.default`
 
 <!--
 ## Developing or debugging an existing service
@@ -73,28 +85,44 @@ When developing an application on Kubernetes, you typically program or debug a s
 一种选择是使用连续部署流水线，但即使最快的部署流水线也会在程序或调试周期中引入延迟。
 
 <!--
-Use the `--swap-deployment` option to swap an existing deployment with the Telepresence proxy. Swapping allows you to run a service locally and connect to the remote Kubernetes cluster. The services in the remote cluster can now access the locally running instance.
+Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:REMOTE_PORT` command to create an "intercept" for rerouting remote service traffic.
 
-To run telepresence with `--swap-deployment`, enter:
+Where:
+
+-   `$SERVICE_NAME`  is the name of your local service
+-   `$LOCAL_PORT` is the port that your service is running on your local workstation
+-   And `$REMOTE_PORT` is the port your service listens to in the cluster
 -->
-使用 `--swap-deployment` 选项将现有部署与 Telepresence 代理交换。
-交换允许你在本地运行服务并能够连接到远端的 Kubernetes 集群。
-远端集群中的服务现在就可以访问本地运行的实例。
 
-要运行 telepresence 并带有 `--swap-deployment` 选项，请输入：
+使用 `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:REMOTE_PORT` 命令创建一个 "拦截器" 用于重新路由远程服务流量。
 
-`telepresence --swap-deployment $DEPLOYMENT_NAME`
+环境变量：
+
+- `$SERVICE_NAME` 是本地服务名称
+- `$LOCAL_PORT` 是服务在本地工作站上运行的端口
+- `$REMOTE_PORT` 是服务在集群中侦听的端口
 
 <!--
-where $DEPLOYMENT_NAME is the name of your existing deployment.
-
-Running this command spawns a shell. In the shell, start your service. You can then make edits to the source code locally, save, and see the changes take effect immediately. You can also run your service in a debugger, or any other local development tool.
+Running this command tells Telepresence to send remote traffic to your local service instead of the service in the remote Kubernetes cluster. Make edits to your service source code locally, save, and see the corresponding changes when accessing your remote application take effect immediately. You can also run your local service using a debugger or any other local development tool.
 -->
-这里的 `$DEPLOYMENT_NAME` 是你现有的部署名称。
 
-运行此命令将生成 Shell。在该 Shell 中，启动你的服务。
-然后，你就可以在本地对源代码进行编辑、保存并能看到更改立即生效。
-你还可以在调试器或任何其他本地开发工具中运行服务。
+运行此命令会告诉 Telepresence 将远程流量发送到的本地服务，而不是远程 Kubernetes 集群中的服务中。
+在本地编辑保存服务源代码，并在访问远程应用时查看相应变更会立即生效。
+还可以使用调试器或任何其他本地开发工具运行本地服务。
+
+<!--
+## How does Telepresence work?
+
+Telepresence installs a traffic-agent sidecar next to your existing application's container running in the remote cluster. It then captures all traffic requests going into the Pod, and instead of forwarding this to the application in the remote cluster, it routes all traffic (when you create a [global intercept](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#global-intercept)) or a subset of the traffic (when you create a [personal intercept](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#personal-intercept)) to your local development environment.
+-->
+
+## Telepresence 是如何工作的？
+
+Telepresence 会在远程集群中运行的现有应用程序容器旁边安装流量代理 sidecar。
+当它捕获进入 Pod 的所有流量请求时，不是将其转发到远程集群中的应用程序，
+而是路由所有流量（当创建[全局拦截器](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#global-intercept)时）
+或流量的一个子集（当创建[自定义拦截器](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#personal-intercept)时）
+到本地开发环境。
 
 ## {{% heading "whatsnext" %}}
 
@@ -104,11 +132,7 @@ If you're interested in a hands-on tutorial, check out [this tutorial](https://c
 如果你对实践教程感兴趣，请查看[本教程](https://cloud.google.com/community/tutorials/developing-services-with-k8s)，其中介绍了在 Google Kubernetes Engine 上本地开发 Guestbook 应用程序。
 
 <!--
-Telepresence has [numerous proxying options](https://www.telepresence.io/reference/methods), depending on your situation.
-
 For further reading, visit the [Telepresence website](https://www.telepresence.io).
 -->
-Telepresence 有[多种代理选项](https://www.telepresence.io/reference/methods)，以满足你的各种情况。
 
-要了解更多信息，请访问 [Telepresence 网站](https://www.telepresence.io)。
-
+如需进一步了解，请访问 [Telepresence 官方网站](https://www.telepresence.io)。
