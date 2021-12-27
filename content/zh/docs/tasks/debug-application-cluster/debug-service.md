@@ -314,7 +314,7 @@ traffic to `hostnames-*` Pods, these need to be reviewed.
 Please refer to [Network Policies](/docs/concepts/services-networking/network-policies/) for more details.
 -->
 
-## 任何影响目标 Pod 的网络策略入站规则？
+## 是否存在影响目标 Pod 的网络策略入站规则？
 
 如果你部署了任何可能影响到 `hostnames-*` Pod 的传入流量的网络策略入站规则，
 则需要对其进行检查。
