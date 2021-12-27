@@ -19,7 +19,7 @@ Kubernetes applications usually consist of multiple, separate services, each run
 Kubernetes 应用程序通常由多个独立的服务组成，每个服务都在自己的容器中运行。
 在远端的 Kubernetes 集群上开发和调试这些服务可能很麻烦，需要
 [在运行的容器上打开 Shell](/zh/docs/tasks/debug-application-cluster/get-shell-running-container/)，
-运行你所需的工具。
+以运行调试工具。
 
 <!--
 `telepresence` is a tool to ease the process of developing and debugging services locally while proxying the service to a remote Kubernetes cluster. Using `telepresence` allows you to use custom tools, such as a debugger and IDE, for a local service and provides the service full access to ConfigMap, secrets, and the services running on the remote cluster.
@@ -71,7 +71,7 @@ Connected to context default (https://<cluster public IP>)
 You can curl services using the Kubernetes syntax e.g. `curl -ik https://kubernetes.default`
 -->
 
-你可以通过 curl 使用 Kubernetes 语法，例如：`curl -ik https://kubernetes.default`
+你可以通过 curl 使用 Kubernetes 语法访问服务，例如：`curl -ik https://kubernetes.default`
 
 <!--
 ## Developing or debugging an existing service
