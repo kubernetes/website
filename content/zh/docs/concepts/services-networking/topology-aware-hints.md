@@ -15,7 +15,7 @@ weight: 45
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 <!-- 
 _Topology Aware Hints_ enable topology aware routing by including suggestions
@@ -64,14 +64,13 @@ EndpointSlice 控制器会评估每一个端点的拓扑（地域和区域），
 ## 使用拓扑感知提示 {#using-topology-aware-hints}
 
 <!-- 
-If you have [enabled](/docs/tasks/administer-cluster/enabling-topology-aware-hints) the
-overall feature, you can activate Topology Aware Hints for a Service by setting the
+You can activate Topology Aware Hints for a Service by setting the
 `service.kubernetes.io/topology-aware-hints` annotation to `auto`. This tells
 the EndpointSlice controller to set topology hints if it is deemed safe.
 Importantly, this does not guarantee that hints will always be set.
 -->
-如果你已经[启用](/zh/docs/tasks/administer-cluster/enabling-topology-aware-hints)了整个特性，
-就可以通过把注解 `service.kubernetes.io/topology-aware-hints` 的值设置为 `auto`，
+
+你可以通过把注解 `service.kubernetes.io/topology-aware-hints` 的值设置为 `auto`，
 来激活服务的拓扑感知提示功能。
 这告诉 EndpointSlice 控制器在它认为安全的时候来设置拓扑提示。
 重要的是，这并不能保证总会设置提示（hints）。
@@ -278,8 +277,7 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Read about [enabling Topology Aware Hints](/docs/tasks/administer-cluster/enabling-topology-aware-hints/)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
-* 参阅[启用拓扑感知提示](/zh/docs/tasks/administer-cluster/enabling-topology-aware-hints/)
+
 * 参阅[通过服务连通应用](/zh/docs/concepts/services-networking/connect-applications-service/)
