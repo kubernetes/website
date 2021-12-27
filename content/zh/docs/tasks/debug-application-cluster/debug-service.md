@@ -306,6 +306,22 @@ Services, these values might be the same.
 对于许多真实的 Service，这些值可以是相同的。
 
 <!--
+## Any Network Policy Ingress rules affecting the target Pods?
+
+If you have deployed any Network Policy Ingress rules which may affect incoming
+traffic to `hostnames-*` Pods, these need to be reviewed.
+
+Please refer to [Network Policies](/docs/concepts/services-networking/network-policies/) for more details.
+-->
+
+## 是否存在影响目标 Pod 的网络策略入站规则？
+
+如果你部署了任何可能影响到 `hostnames-*` Pod 的传入流量的网络策略入站规则，
+则需要对其进行检查。
+
+详细信息，请参阅[网络策略](/zh/docs/concepts/services-networking/network-policies/)。
+
+<!--
 ## Does the Service work by DNS name?
 
 One of the most common ways that clients consume a Service is through a DNS
