@@ -49,7 +49,7 @@ This is a living document. If you think of something that is not on this list bu
 -->
 - 只要有意义，就将相关对象分组到一个文件中。
  一个文件通常比几个文件更容易管理。
- 请参阅[guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml) 文件作为此语法的示例。
+ 请参阅[guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/blob/master/guestbook/all-in-one/guestbook-all-in-one.yaml) 文件作为此语法的示例。
 
 <!--
 - Note also that many `kubectl` commands can be called on a directory. For example, you can call `kubectl apply` on a directory of config files.
