@@ -191,7 +191,7 @@ kubectl get events --namespace=my-namespace
 
 すべての名前空間からのイベントを見るには、`--all-namespaces` 引数を使用できます。
 
-`kubectl describe pod`に加えて、(`kubectl get pod` で提供される以上の)Podに関する追加情報を得るためのもう一つの方法は、`-o yaml`出力形式フラグを `kubectl get pod`に渡すことです。これにより、`kubectl describe pod`よりもさらに多くの情報、つまりシステムが持っているPodに関するすべての情報をYAML形式で得ることができます。ここでは、アノテーション（Kubernetesのシステムコンポーネントが内部的に使用している、ラベル制限のないキーバリューのメタデータ）、再起動ポリシー、ポート、ボリュームなどが表示されます。
+`kubectl describe pod`に加えて、(`kubectl get pod` で提供される以上の)Podに関する追加情報を得るためのもう一つの方法は、`-o yaml`出力形式フラグを `kubectl get pod`に渡すことです。これにより、`kubectl describe pod`よりもさらに多くの情報、つまりシステムが持っているPodに関するすべての情報をYAML形式で得ることができます。ここでは、アノテーション(Kubernetesのシステムコンポーネントが内部的に使用している、ラベル制限のないキーバリューのメタデータ)、再起動ポリシー、ポート、ボリュームなどが表示されます。
 
 ```shell
 kubectl get pod nginx-deployment-1006230814-6winp -o yaml
