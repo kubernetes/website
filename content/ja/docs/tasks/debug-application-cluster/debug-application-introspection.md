@@ -183,7 +183,7 @@ kubectl describe pod nginx-deployment-1370807587-fz9sd
 kubectl get events
 ```
 
-しかし、イベントは名前空間であることを忘れてはいけません。つまり、名前空間で管理されているオブジェクトのイベントに興味がある場合(例：名前空間 `my-namespace`のPods で何が起こったか)コマンドに名前空間を明示的に指定する必要があります。
+しかし、イベントは名前空間に所属することを忘れてはいけません。つまり、名前空間で管理されているオブジェクトのイベントに興味がある場合(例：名前空間 `my-namespace`のPods で何が起こったか)、コマンドに名前空間を明示的に指定する必要があります。
 
 ```shell
 kubectl get events --namespace=my-namespace
