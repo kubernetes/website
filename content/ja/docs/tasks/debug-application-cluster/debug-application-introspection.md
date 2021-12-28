@@ -17,7 +17,7 @@ title: アプリケーションの自己観察とデバッグ
 
 {{< codenew file="application/nginx-with-request.yaml" >}}
 
-以下のコマンドを実行して、Deploymentトを作成します:
+以下のコマンドを実行して、Deploymentを作成します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/nginx-with-request.yaml
