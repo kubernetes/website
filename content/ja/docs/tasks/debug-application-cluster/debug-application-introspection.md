@@ -170,7 +170,7 @@ kubectl describe pod nginx-deployment-1370807587-fz9sd
   fit failure on node (kubernetes-node-wul5): Node didn't have enough resource: CPU, requested: 1000, used: 1100, capacity: 2000
 ```
 
-ここでは、理由 `FailedScheduling` (およびその他の理由)でPodのスケジュールに失敗したという、スケジューラによって生成されたイベントを見ることができます。このメッセージは、どのノードでもPodに十分なリソースがなかったことを示しています。
+ここでは、理由 `FailedScheduling` (およびその他の理由)でPodのスケジュールに失敗したという、スケジューラーによって生成されたイベントを見ることができます。このメッセージは、どのノードでもPodに十分なリソースがなかったことを示しています。
 
 この状況を修正するには、`kubectl scale`を使用して、4つ以下のレプリカを指定するようにDeploymentを更新します。(あるいは、1つのPodを保留にしたままにしておいても害はありません。)
 
