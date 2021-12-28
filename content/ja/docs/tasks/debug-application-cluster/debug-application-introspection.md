@@ -101,7 +101,7 @@ Events:
   53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Started		Started container with docker id 90315cc9f513
 ```
 
-ここでは、コンテナ（複数可）とPodに関する構成情報（ラベル、リソース要件など）や、コンテナ（複数可）とPodに関するステータス情報（状態、準備状況、再起動回数、イベントなど）を確認できます。
+ここでは、コンテナ(複数可)とPodに関する構成情報(ラベル、リソース要件など)や、コンテナ(複数可)とPodに関するステータス情報(状態、準備状況、再起動回数、イベントなど)を確認できます。
 
 コンテナの状態は、Waiting（待機中）、Running（実行中）、Terminated（終了）のいずれかです。状態に応じて、追加の情報が提供されます。ここでは、Running状態のコンテナについて、コンテナがいつ開始されたかが表示されています。
 
