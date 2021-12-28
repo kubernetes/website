@@ -168,7 +168,7 @@ volumeMounts:
 
 ```
 
-### Webhook バックエンド
+### Webhookバックエンド
 
 Webhook監査バックエンドは、監査イベントをリモートのWeb APIに送信しますが、
 これは認証手段を含むKubernetes APIの形式であると想定されます。
