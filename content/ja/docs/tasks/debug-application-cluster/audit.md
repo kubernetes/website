@@ -88,7 +88,7 @@ rules:
 
 独自の監査プロファイルを作成する場合は、Google Container-Optimized OSの監査プロファイルを出発点として使用できます。
 監査ポリシーファイルを生成する[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)スクリプトを確認することができます。
-スクリプトを直視することで、監査ポリシーファイルのほとんどを見ることができます。
+スクリプトを直接見ることで、監査ポリシーファイルのほとんどを見ることができます。
 
 また、定義されているフィールドの詳細については、[Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)を参照できます。
 
