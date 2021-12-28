@@ -23,7 +23,7 @@ Kubernetesの監査はクラスター内の一連の行動を記録するセキ�
 
 <!-- body -->
 
-監査記録は、そのライフサイクルを[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)コンポーネントの中で始まります。
+監査記録のライフサイクルは[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)コンポーネントの中で始まります。
 各リクエストは、その実行の各段階でその実行の各段階で、監査イベントが生成されます。
 ポリシーに従って前処理され、バックエンドに書き込まれます。 ポリシーが何を記録するかを決定しを決定し、
 バックエンドがその記録を永続化します。現在のバックエンドの実装はログファイルやWebhookなどがあります。
