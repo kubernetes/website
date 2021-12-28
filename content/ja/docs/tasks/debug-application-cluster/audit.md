@@ -72,7 +72,7 @@ A policy with no (0) rules is treated as illegal.
 監査ポリシーファイルでは、`rules`フィールドが必ず指定されることに注意してください。
 ルールがない(0)ポリシーは不当なものとして扱われます。
 
-以下は監査ポリシーファイルの例:
+以下は監査ポリシーファイルの例です:
 
 {{< codenew file="audit/audit-policy.yaml" >}}
 
