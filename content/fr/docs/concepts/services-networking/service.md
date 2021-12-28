@@ -363,7 +363,7 @@ Les valeurs de `Type` et leurs comportements sont:
    * `ClusterIP`: Expose le service sur une IP interne au cluster.
      Le choix de cette valeur rend le service uniquement accessible à partir du cluster.
      Il s'agit du `ServiceType` par défaut.
-   * [`NodePort`](#nodeport): Expose le service sur l'IP de chaque nœud sur un port statique (le `NodePort`).
+   * [`NodePort`](#type-nodeport): Expose le service sur l'IP de chaque nœud sur un port statique (le `NodePort`).
      Un service `ClusterIP`, vers lequel le service` NodePort` est automatiquement créé.
      Vous pourrez contacter le service `NodePort`, depuis l'extérieur du cluster, en demandant `<NodeIP>: <NodePort>`.
    * [`LoadBalancer`](#loadbalancer): Expose le service en externe à l'aide de l'équilibreur de charge d'un fournisseur de cloud.
@@ -378,7 +378,7 @@ Vous pouvez également utiliser [Ingress](/fr/docs/concepts/services-networking/
 Ingress n'est pas un type de service, mais il sert de point d'entrée pour votre cluster.
 Il vous permet de consolider vos règles de routage en une seule ressource car il peut exposer plusieurs services sous la même adresse IP.
 
-### Type NodePort {#nodeport}
+### Type NodePort {#type-nodeport}
 
 Si vous définissez le champ `type` sur` NodePort`, le plan de contrôle Kubernetes alloue un port à partir d'une plage spécifiée par l'indicateur `--service-node-port-range` (par défaut: 30000-32767).
 Chaque nœud assure le proxy de ce port (le même numéro de port sur chaque nœud) vers votre service.
