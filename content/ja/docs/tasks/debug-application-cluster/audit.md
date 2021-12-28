@@ -62,11 +62,6 @@ Kubernetesの監査はクラスター内の一連の行動を記録するセキ�
 - `RequestResponse` - イベントのメタデータ、リクエストとレスポンスのボディを記録しますが、
   非リソースリクエストには適用されません。
 
-You can pass a file with the policy to `kube-apiserver`
-using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
-Note that the `rules` field __must__ be provided in the audit policy file.
-A policy with no (0) rules is treated as illegal.
-
 `audit-policy-file`フラグを使って、ポリシーを記述したファイルを `kube-apiserver`に渡すことができます。
 このフラグが省略された場合イベントは記録されません。
 監査ポリシーファイルでは、`rules`フィールドが必ず指定されることに注意してください。
