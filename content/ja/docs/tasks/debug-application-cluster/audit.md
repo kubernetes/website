@@ -42,7 +42,7 @@ Kubernetesの監査はクラスター内の一連の行動を記録するセキ�
 [Audit Event configuration](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)の設定は[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)APIオブジェクトとは異なります。
 {{< /note >}}
 
-監査ログ機能は、リクエストごとに監査に必要なコンテキストが保存されるため、APIサーバーのメモリ消費量が増加します。
+監査ログ機能は、リクエストごとに監査に必要なコンテキストが保存されるため、APIサーバーのメモリー消費量が増加します。
 メモリの消費量は、監査ログ機能の設定によって異なります。
 
 ## Audit policy
