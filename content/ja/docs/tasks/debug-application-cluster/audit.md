@@ -48,7 +48,7 @@ Kubernetesの監査はクラスター内の一連の行動を記録するセキ�
 ## Audit policy
 
 監査ポリシーはどのようなイベントを記録し、どのようなデータを含むべきかについてのルールを定義します。
-監査ポリシーのオブジェクト構造は、[audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)で定義されています。
+監査ポリシーのオブジェクト構造は、[`audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)で定義されています。
 
 イベントが処理されると、そのイベントは順番にルールのリストと比較されます。
 最初のマッチングルールは、イベントの監査レベルを設定します。
