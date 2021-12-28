@@ -1,6 +1,6 @@
 ---
 title: 验证 IPv4/IPv6 双协议栈
-min-kubernetes-server-version: v1.20
+min-kubernetes-server-version: v1.23
 content_type: task
 ---
 <!--
@@ -30,6 +30,15 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
   [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)，
   （如 Calico，Cilium 或 Kubenet）。 
 * [启用双协议栈](/zh/docs/concepts/services-networking/dual-stack/) 集群
+
+{{< version-check >}}
+
+<!--
+While you can validate with an earlier version, the feature is only GA and officially supported since v1.23.
+-->
+{{< note >}}
+虽然你可以使用较早的版本进行验证，但该功能是从 v1.23 版本进入 GA 状态并正式支持的。
+{{< /note >}}
 
 <!-- steps -->
 
