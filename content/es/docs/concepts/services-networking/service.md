@@ -393,7 +393,7 @@ Los `ServiceTypes` de Kubernetes permiten especificar qué tipo de Service quier
 Los valores `Type` y sus comportamientos son:
 
 - `ClusterIP`: Expone el Service en una dirección IP interna del clúster. Al escoger este valor el Service solo es alcanzable desde el clúster. Este es el `ServiceType` por defecto.
-- [`NodePort`](#nodeport): Expone el Service en cada IP del nodo en un puerto estático (el `NodePort`). Automáticamente se crea un Service `ClusterIP`, al cual enruta el `NodePort`del Service. Podrás alcanzar el Service `NodePort` desde fuera del clúster, haciendo una petición a `<NodeIP>:<NodePort>`.
+- [`NodePort`](#tipo-nodeport): Expone el Service en cada IP del nodo en un puerto estático (el `NodePort`). Automáticamente se crea un Service `ClusterIP`, al cual enruta el `NodePort`del Service. Podrás alcanzar el Service `NodePort` desde fuera del clúster, haciendo una petición a `<NodeIP>:<NodePort>`.
 - [`LoadBalancer`](#loadbalancer): Expone el Service externamente usando el balanceador de carga del proveedor de la nube. Son creados automáticamente Services `NodePort`y `ClusterIP`, a los cuales el apuntará el balanceador externo.
 - [`ExternalName`](#externalname): Mapea el Service al contenido del campo `externalName` (ej. `foo.bar.example.com`), al devolver un registro `CNAME` con su valor. No se configura ningún tipo de proxy.
 
@@ -403,7 +403,7 @@ Los valores `Type` y sus comportamientos son:
 
 También puedes usar un [Ingress](/docs/concepts/services-networking/ingress/) para exponer tu Service. Ingress no es un tipo de Service, pero actúa como el punto de entrada de tu clúster. Te permite consolidar tus reglas de enrutamiento en un único recurso, ya que puede exponer múltiples servicios bajo la misma dirección IP.
 
-### Tipo NodePort {#nodeport}
+### Tipo NodePort {#tipo-nodeport}
 
 Si estableces el campo `type` a `NodePort`, el plano de control de Kubernetes asigna un puerto desde un rango especificado por la bandera `--service-node-port-range` (por defecto: 30000-32767).
 Cada nodo es un proxy de ese puerto (el mismo número de puerto en cada nodo) hacia tu Service. Tu Service reporta al puerto asignado en el campo `.spec.ports[*].nodePort`
