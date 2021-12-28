@@ -1,15 +1,17 @@
 ---
 content_type: concept
+reviewers:
+- ptux
 title: 監査
 ---
 
 <!-- overview -->
 
-Kubernetesの監査はクラスタ内の一連の行動を記録するセキュリティに関連した時系列の記録を提供します。
-クラスタはユーザー、Kubernetes APIを使用するアプリケーション、
+Kubernetesの監査はクラスター内の一連の行動を記録するセキュリティに関連した時系列の記録を提供します。
+クラスターはユーザー、Kubernetes APIを使用するアプリケーション、
 およびコントロールプレーン自体によって生成されたアクティビティなどを監査します。
 
-監査により、クラスタ管理者は以下の質問に答えることができます:
+監査により、クラスター管理者は以下の質問に答えることができます:
 
  - 何が起きたのか？
  - いつ起こったのか？
@@ -132,7 +134,7 @@ kube-apiserverには2つのバックエンドが用意されています。
 - `audit-log-maxbackup`は、保持する監査ログファイルの最大数を定義します。
 - `--audit-log-maxsize` は、監査ログファイルがローテーションされるまでの最大サイズをメガバイト単位で定義します。
 
-クラスタのコントロールプレーンでkube-apiserverをPodとして動作させている場合は、監査記録が永久化されるように、ポリシーファイルとログファイルの場所に`hostPath`をマウントすることを忘れないでください。
+クラスターのコントロールプレーンでkube-apiserverをPodとして動作させている場合は、監査記録が永久化されるように、ポリシーファイルとログファイルの場所に`hostPath`をマウントすることを忘れないでください。
 例えば:
 ```shell
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml \
@@ -229,7 +231,7 @@ logバックエンドとwebhookバックエンドは、ログに記録される�
 - `audit-log-truncate-max-batch-size` バックエンドに送信されるバッチのバイト単位の最大サイズ。
 - `audit-log-truncate-max-event-size` バックエンドに送信される監査イベントのバイト単位の最大サイズです。
 
-デフォルトでは、`webhook`と`log`の両方で切り捨ては無効になっていますが、クラスタ管理者は `audit-log-truncate-enabled`または`audit-webhook-truncate-enabled`を設定して、この機能を有効にする必要があります。
+デフォルトでは、`webhook`と`log`の両方で切り捨ては無効になっていますが、クラスター管理者は `audit-log-truncate-enabled`または`audit-webhook-truncate-enabled`を設定して、この機能を有効にする必要があります。
 
 ## {{% heading "whatsnext" %}}
 
