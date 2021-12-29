@@ -82,7 +82,7 @@ Por ejemplo, si Bob tiene la siguiente politica, entonces el puede leer pods sol
     }
 }
 ```
-Si Bob hace la siguiente petición, será aturizada porque él tiene permitido leer los objetos en el namespace `projectCaribou` :
+Si Bob hace la siguiente petición, será autorizada dado que tiene permitido leer los objetos en el namespace `projectCaribou` :
 
 ```json
 {
