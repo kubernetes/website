@@ -240,7 +240,7 @@ exit
 -->
 ## 为 Pod 配置卷访问权限和属主变更策略
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 <!--
 By default, Kubernetes recursively changes ownership and permissions for the contents of each
@@ -303,7 +303,7 @@ and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 ## Delegating volume permission and ownership change to CSI driver
 -->
 ## 将卷权限和所有权更改委派给 CSI 驱动程序
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 <!--
 If you deploy a [Container Storage Interface (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
