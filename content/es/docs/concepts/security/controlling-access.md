@@ -45,7 +45,7 @@ Los Autenticadores están descritos con más detalle en
 ```The input to the authentication step is the entire HTTP request; however, it typically
 examines the headers and/or client certificate.
 ```
-El ingreso al paso de autenticación es la petición HTTP completa, aun así, esta tipicamente
+La entrada al paso de autenticación es la petición HTTP completa, aun así, esta tipicamente
 examina las cabeceras y/o el certificado del cliente.
 
 Los modulos de autenticación incluyen certificado de cliente, contraseña, tokens planos,
