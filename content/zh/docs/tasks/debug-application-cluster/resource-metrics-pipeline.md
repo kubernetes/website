@@ -119,7 +119,7 @@ as a Deployment object. If you use a different Kubernetes setup mechanism you ca
 是集群范围资源用量数据的聚合器。
 默认情况下，在由 `kube-up.sh` 脚本创建的集群中会以 Deployment 的形式被部署。
 如果你使用其他 Kubernetes 安装方法，则可以使用提供的
-[部署组件 components.yaml](https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy)
+[部署组件 components.yaml](https://github.com/kubernetes-sigs/metrics-server/releases)
 来部署。
 
 <!--
