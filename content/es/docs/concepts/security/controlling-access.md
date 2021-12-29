@@ -51,7 +51,7 @@ examina las cabeceras y/o el certificado del cliente.
 Los modulos de autenticación incluyen certificado de cliente, contraseña, tokens planos,
 tokens de inicio y JSON Web Tokens (usados para los service accounts).
 
-Multiples modulos de autenticación puede ser especificados, en este caso cada uno es probado secuencialmente,
+Múltiples módulos de autenticación puede ser especificados, en este caso cada uno es probado secuencialmente,
 hasta que uno de ellos tiene éxito.
 
 Si la petición no puede ser autenticada, la misma es rechazada con un codigo de estado HTTP  401.
