@@ -54,7 +54,7 @@ tokens de inicio y JSON Web Tokens (usados para los service accounts).
 Múltiples módulos de autenticación puede ser especificados, en este caso cada uno es probado secuencialmente,
 hasta que uno de ellos tiene éxito.
 
-Si la petición no puede ser autenticada, la misma es rechazada con un codigo de estado HTTP  401.
+Si la petición no puede ser autenticada, la misma es rechazada con un código HTTP 401.
 En otro caso, el usuario es validado con el `username` específico, y el nombre de usuario
 esta disponible para los pasos siguientes. Algunos autenticadores
 tambien proporcionan membresías de grupo al usuario, mientras que otros
