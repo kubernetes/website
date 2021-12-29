@@ -158,7 +158,6 @@ Por defecto, la API de Kubernetes entrega HTTP en 2 puertos:
       - la IP por defecto es la primer interface que no es la localhost. se cambia con el flag `--bind-address`.
       - peticiones controladas por los módulos de autenticación y autorización.
       - peticiones controladas por los módulos de control de admisión.
-      - authentication and authorization modules run.
 
 ## {{% heading "whatsnext" %}}
 
