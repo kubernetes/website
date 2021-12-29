@@ -31,7 +31,7 @@ Si el cluster usa un certificado de autoridad privado, se necesita copiar este c
 CA configurado dentro de su `~/.kube/config` en el cliente, entonces se podrá
 confiar en la conexión y estar seguro que no será comprometida.
 
-Su cliente puede presentar un certificado TLS de cliente en esta etapa.
+El cliente puede presentar un certificado TLS de cliente en esta etapa.
 
 ## Autenticación
 
