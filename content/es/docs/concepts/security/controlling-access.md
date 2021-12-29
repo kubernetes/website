@@ -22,7 +22,7 @@ siguiente diagrama:
 
 ## Transport security
 
-En un cluster típico de Kubernetes, la API sirve peticiones en el puerto 443, protegida por TLS.
+En un {{< glossary_tooltip term_id="cluster" text="cluster" >}}  típico de Kubernetes, la API sirve peticiones en el puerto 443, protegida por TLS.
 El {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}} presenta un certificado. Este certificado puede ser firmando usando
 un certificado de autoridad privada (CA) o basado en una llave pública relacionada
 generalmente a un CA reconocido.
