@@ -57,7 +57,7 @@ hasta que uno de ellos tiene éxito.
 Si la petición no puede ser autenticada, la misma es rechazada con un código HTTP 401.
 Si la autenticación tiene éxito, el usuario es validado con el `username` específico, y el nombre de usuario
 esta disponible para los pasos siguientes. Algunos autenticadores
-tambien proporcionan membresías de grupo al usuario, mientras que otros
+también proporcionan membresías de grupo al usuario, mientras que otros
 no lo hacen.
 
 Aunque Kubernetes utiliza los nombres de usuario para tomar decisiones durante el control de acceso y para registrar las peticiones de entrada, no tiene un objeto `User` ni tampoco almacena información sobre los usuarios en la API.
