@@ -39,7 +39,7 @@ Una vez que se estableció la conexión TLS, las peticiones HTTP avanzan a la et
 Esto se muestra en el paso 1 del diagrama.
 El script de creación del cluster o el administrador del cluster puede configurar el {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}} para ejecutar
 uno o mas módulos de autenticación.
-Los Autenticadores estan descriptos con más detalle en
+Los Autenticadores están descritos con más detalle en
 [Authentication](/docs/reference/access-authn-authz/authentication/).
 
 ```The input to the authentication step is the entire HTTP request; however, it typically
