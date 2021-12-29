@@ -12,7 +12,7 @@ Esta página proporciona información sobre cómo controlar el acceso a la API d
 
 <!-- body -->
 Los usuarios acceden a la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/) usando `kubectl`,
-client libraries, o haciendo peticiones REST.  Humanos y los
+bibliotecas de cliente, o haciendo peticiones REST.  Usuarios y
 [Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) pueden ser
 autorizados para acceder a la API.
 Cuando una peticion llega a la API, pasa por varias etapas, estan ilustradas en el
