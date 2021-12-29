@@ -55,7 +55,7 @@ Múltiples módulos de autenticación puede ser especificados, en este caso cada
 hasta que uno de ellos tiene éxito.
 
 Si la petición no puede ser autenticada, la misma es rechazada con un código HTTP 401.
-En otro caso, el usuario es validado con el `username` específico, y el nombre de usuario
+Si la autenticación tiene éxito, el usuario es validado con el `username` específico, y el nombre de usuario
 esta disponible para los pasos siguientes. Algunos autenticadores
 tambien proporcionan membresías de grupo al usuario, mientras que otros
 no lo hacen.
