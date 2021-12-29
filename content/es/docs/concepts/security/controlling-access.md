@@ -35,7 +35,7 @@ El cliente puede presentar un certificado TLS de cliente en esta etapa.
 
 ## Autenticación
 
-Una vez que se estableció el TLS, las peticiones HTTP avanzan a la etapa de autenticación.
+Una vez que se estableció la conexión TLS, las peticiones HTTP avanzan a la etapa de autenticación.
 Esto se muestra en el paso 1 del diagrama.
 El script de creación del cluster o el administrador del cluster configurada el servidor API para ejecutar
 uno o mas módulos de autenticación.
