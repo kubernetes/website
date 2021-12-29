@@ -37,7 +37,7 @@ El cliente puede presentar un certificado TLS de cliente en esta etapa.
 
 Una vez que se estableció la conexión TLS, las peticiones HTTP avanzan a la etapa de autenticación.
 Esto se muestra en el paso 1 del diagrama.
-El script de creación del cluster o el administrador del cluster configurada el servidor API para ejecutar
+El script de creación del cluster o el administrador del cluster puede configurar el {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}} para ejecutar
 uno o mas módulos de autenticación.
 Los Autenticadores estan descriptos con más detalle en
 [Authentication](/docs/reference/access-authn-authz/authentication/).
