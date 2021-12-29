@@ -42,9 +42,6 @@ uno o mas módulos de autenticación.
 Los Autenticadores están descritos con más detalle en
 [Authentication](/docs/reference/access-authn-authz/authentication/).
 
-```The input to the authentication step is the entire HTTP request; however, it typically
-examines the headers and/or client certificate.
-```
 La entrada al paso de autenticación es la petición HTTP completa, aun así, esta tipicamente
 examina las cabeceras y/o el certificado del cliente.
 
@@ -64,11 +61,11 @@ Aunque Kubernetes utiliza los nombres de usuario para tomar decisiones durante e
 
 ## Autorización
 
-Despues de autenticar la petición como proveniente de un usuario específico, la petición debe ser autorizada. Esto se muestra en el paso 2 del diagrama.
+Después de autenticar la petición como proveniente de un usuario específico, la petición debe ser autorizada. Esto se muestra en el paso 2 del diagrama.
 
-Una petición debe incluir el nombre de usuario solicitante, la acción solicitada y el objeto afectado por la acción. La petición es autorizada si hay una politica existente que declare que el usuario tiene permisos para la realizar la acción.
+Una petición debe incluir el nombre de usuario solicitante, la acción solicitada y el objeto afectado por la acción. La petición es autorizada si hay una política existente que declare que el usuario tiene permisos para la realizar la acción.
 
-Por ejemplo, si Bob tiene la siguiente politica, entonces el puede leer pods solamente en el namespace `projectCaribou`:
+Por ejemplo, si el usuario Bob tiene la siguiente política, entonces puede leer pods solamente en el namespace `projectCaribou`:
 
 ```json
 {
@@ -98,33 +95,33 @@ Si Bob hace la siguiente petición, será autorizada dado que tiene permitido le
   }
 }
 ```
-Si Bob en su petición intenta escribir (`create` o `update`) en los objetos del namespace `projectCaribou`. Si Bob hace una petición para leer (`get`) objetocs en otro namespace como `projectFish`, entonces la autorización será denegada.
+En cambio, si Bob en su petición intenta escribir (`create` o `update`) en los objetos del namespace `projectCaribou`, la petición será denegada. Del mismo modo, si Bob hace una petición para leer (`get`) objetos en otro namespace como `projectFish`, la autorización también será denegada.
 
 Las autorizaciones en Kubernetes requieren que se usen atributos REST comunes para interactuar con el existente sistema de control de toda la organización o del proveedor cloud. Es importante usar formatos REST porque esos sistemas de control pueden interactuar con otras APIs además de la API de Kubernetes.
 
-Kubernetes soporta multiples modulos de autorización, como el modo ABAC, el modo RBAC y el modo Webhook. Cuando un administrador crea un cluster, se realiza la configuración de los modulos de autorización que deben ser usados con la API del server. Si mas de uno modulo de autorización es configurado, Kubernetes verificada cada uon y si alguno de ellos autoriza la petición entonces la misma se ejecuta. Si todos los modules deniegan la petición, entonces la misma es denegada (Con un error HTTP con código 403).
+Kubernetes soporta múltiples módulos de autorización, como el modo ABAC, el modo RBAC y el modo Webhook. Cuando un administrador crea un cluster, se realiza la configuración de los módulos de autorización que deben ser usados con la API del server. Si más de uno módulo de autorización es configurado, Kubernetes verificada cada uno y si alguno de ellos autoriza la petición entonces la misma se ejecuta. Si todos los modules deniegan la petición, entonces la misma es denegada (Con un error HTTP con código 403).
 
-Para leer más acerca de las autorizaciones en Kubernetes, incluyendo detalles acerca de crear politicas usando los modulos de autorización soportados, vea [Authorization](/docs/reference/access-authn-authz/authorization/).
+Para leer más acerca de las autorizaciones en Kubernetes, incluyendo detalles sobre cómo crear politicas usando los módulos de autorización soportados, vea [Authorization](/docs/reference/access-authn-authz/authorization/).
 
 
 ## Control de Admisión
 
-Los modulos de Control de Admisión son modulos de software que solo pueen modificar o rechazar peticiones.
-Adicionalmente a los atributos disponibles en los modulos de Autorización, los modulos de
+Los módulos de Control de Admisión son módulos de software que solo pueden modificar o rechazar peticiones.
+Adicionalmente a los atributos disponibles en los módulos de Autorización, los de
 Control de Admisión pueden acceder al contenido del objeto que esta siendo creado o modificado.
 
-Los Controles de Admisión actúan en las peticiones que crean, modifican, borran ó se conectan (proxy) a un objeto.
-cuando multiples modulos de control de admisión son configurados, son llamados en orden.
+Los Controles de Admisión actúan en las peticiones que crean, modifican, borran o se conectan (proxy) a un objeto.
+Cuando múltiples módulos de control de admisión son configurados, son llamados en orden.
 
 Esto se muestra en el paso 3 del diagrama.
 
-A diferencia de los modulos de Autorización y Autenticación, si uno de los modulos de control de admisión
+A diferencia de los módulos de Autorización y Autenticación, si uno de los módulos de control de admisión
 rechaza la petición, entonces es inmediatamente rechazada.
 
-Adicionalmente a rechazar objetos, los controles de admisión pueden tambien permite establecer
+Adicionalmente a rechazar objetos, los controles de admisión también permiten establecer
 valores predeterminados complejos.
 
-Los modulos de Control de Admisión disponibles están descriptos en [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
+Los módulos de Control de Admisión disponibles están descritos en [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
 
 Cuando una petición pasa todos los controles de admisión, esta es validada usando la rutinas de validación
 para el objeto API correspondiente y luego es escrita en el objeto.
@@ -144,22 +141,22 @@ Por defecto, la API de Kubernetes entrega HTTP en 2 puertos:
       - no se usa TLS
       - el puerto predeterminado es el `8080`
       - la IP por defecto es localhost, la puede cambiar con el flag `--insecure-bind-address`.
-      - request **bypasses** authentication and authorization modules.
+      - la petición no pasa por los mecanismos de autenticación ni autorización
       - peticiones controladas por los modulos de control de admisión.
-      - protejidas por necesidad para tener acceso al host
+      - protegidas por necesidad para tener acceso al host
 
   2. “Puerto seguro”:
 
       - usar siempre que sea posible
-      - usa TLS.  Se configura el certificado con el flag `--tls-cert-file` y la llave con `--tls-private-key-file`.
-      - el puerto predeterminado es 6443, se cambia con el flag `--secure-port`.
+      - usa TLS. Se configura el certificado con el flag `--tls-cert-file` y la clave con `--tls-private-key-file`.
+      - el puerto predeterminado es `6443`, se cambia con el flag `--secure-port`.
       - la IP por defecto es la primer interface que no es la localhost. se cambia con el flag `--bind-address`.
       - peticiones controladas por los módulos de autenticación y autorización.
       - peticiones controladas por los módulos de control de admisión.
 
 ## {{% heading "whatsnext" %}}
 
-Lea mas documentación sobre autenticación, autorización y el contro de acceso a la API:
+En los siguientes enlaces, encontrará mucha más documentación sobre autenticación, autorización y el control de acceso a la API:
 
 - [Authenticating](/docs/reference/access-authn-authz/authentication/)
    - [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
@@ -177,7 +174,6 @@ Lea mas documentación sobre autenticación, autorización y el contro de acceso
   - [Developer guide](/docs/tasks/configure-pod-container/configure-service-account/)
   - [Administration](/docs/reference/access-authn-authz/service-accounts-admin/)
 
-Tambien puede aprender sobre:
-- como los pods pueden usar
+- Como los pods pueden usar
   [Secrets](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
   para obtener credenciales para la API.
