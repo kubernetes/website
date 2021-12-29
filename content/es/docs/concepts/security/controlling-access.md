@@ -28,7 +28,7 @@ un certificado de autoridad privada (CA) o basado en una llave pública relacion
 generalmente a un CA reconocido.
 
 Si el cluster usa un certificado de autoridad privado, se necesita copiar este certificado
-CA configurado dentro de su `~/.kube/config` en el cliente, entonces usted podrá
+CA configurado dentro de su `~/.kube/config` en el cliente, entonces se podrá
 confiar en la conección y estar seguro que no será hackeada.
 
 Su cliente puede presentar un certificado TLS de cliente en esta etapa.
