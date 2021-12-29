@@ -7,7 +7,7 @@ content_type: concept
 ---
 
 <!-- overview -->
-Esta pagina proporciona información sobre el como controlar el acceso a la API de Kubernetes.
+Esta página proporciona información sobre cómo controlar el acceso a la API de Kubernetes.
 
 
 <!-- body -->
