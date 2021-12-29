@@ -144,7 +144,7 @@ Por defecto, la API de Kubernetes entrega HTTP en 2 puertos:
       - debe usarse para testeo e iniciar el sistema y para otros componentes del nodo maestro
         (scheduler, controller-manager) para hablar con la API
       - no se usa TLS
-      - el puerto predeterminado es el 8080
+      - el puerto predeterminado es el `8080`
       - la IP por defecto es localhost, la puede cambiar con el flag `--insecure-bind-address`.
       - request **bypasses** authentication and authorization modules.
       - peticiones controladas por los modulos de control de admisión.
