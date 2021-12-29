@@ -20,7 +20,7 @@ siguiente diagrama:
 
 ![Diagrama de pasos para una petición a la API de Kubernetes](/images/docs/admin/access-control-overview.svg)
 
-## Transport security
+## Seguridad en la capa de transporte
 
 En un {{< glossary_tooltip term_id="cluster" text="cluster" >}}  típico de Kubernetes, la API sirve peticiones en el puerto 443, protegida por TLS.
 El {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}} presenta un certificado. Este certificado puede ser firmando usando
