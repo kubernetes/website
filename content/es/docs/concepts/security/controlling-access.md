@@ -60,9 +60,7 @@ esta disponible para los pasos siguientes. Algunos autenticadores
 tambien proporcionan membresías de grupo al usuario, mientras que otros
 no lo hacen.
 
-While Kubernetes uses usernames for access control decisions and in request logging,
-este n otiene un objeto `User` ni tampoco guarda nombres de usaurio o otra información acerca
-de ellos en su API.
+Aunque Kubernetes utiliza los nombres de usuario para tomar decisiones durante el control de acceso y para registrar las peticiones de entrada, no tiene un objeto `User` ni tampoco almacena información sobre los usuarios en la API.
 
 ## Autorización
 
