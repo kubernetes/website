@@ -86,7 +86,17 @@ heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/servi
 위에서 언급한 것처럼, `kubectl cluster-info` 명령을 사용하여 서비스의 프록시 URL을 검색한다. 서비스 엔드포인트, 접미사 및 매개 변수를 포함하는 프록시 URL을 작성하려면, 서비스의 프록시 URL에 추가하면 된다.
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`[https:]service_name[:port_name]`*`/proxy`
 
-포트에 대한 이름을 지정하지 않은 경우, URL에 *port_name* 을 지정할 필요가 없다.
+포트에 대한 이름을 지정하지 않은 경우, URL에 *port_name* 을 지정할 필요가 없다. 또한, 이름이 지정된 포트와 지정되지 않은 포트 모두에 대해, *port_name* 자리에 포트 번호를 기재할 수도 있다.
+
+기본적으로, API 서버는 서비스로의 프록시를 HTTP로 제공한다. HTTPS를 사용하려면, 서비스 이름 앞에 `https:`를 추가한다.
+`http://<쿠버네티스_컨트롤_플레인_주소>/api/v1/namespaces/<네임스페이스_이름>/services/<서비스_이름>/proxy`
+
+URL에서 `<서비스_이름>`이 지원하는 형식은 다음과 같다.
+
+* `<서비스_이름>` - 기본 포트 또는 이름이 지정되지 않은 포트로 http를 사용하여 프록시
+* `<서비스_이름>:<포트_이름>` - 기재된 포트 이름 또는 포트 번호로 http를 사용하여 프록시
+* `https:<서비스_이름>:` - 기본 포트 또는 이름이 지정되지 않은 포트로 https를 사용하여 프록시(맨 끝의 콜론에 유의)
+* `https:<서비스_이름>:<포트_이름>` - 기재된 포트 이름 또는 포트 번호로 https를 사용하여 프록시
 
 ##### 예제
 
