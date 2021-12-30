@@ -232,6 +232,11 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 리소스이다. `Scope` 를 `Namespace` 로 설정하고 `Namespace` 필드를
 설정하면 특정 네임스페이스의 파라미터 리소스를 참조한다.
 
+네임스페이스 범위의 파라미터를 사용하면 파라미터 리소스에 대해 
+클러스터 범위의 CustomResourceDefinition이 필요하지 않다. 
+또한, 클러스터 범위의 리소스에 권한을 부여하는 데 필요한 
+RBAC 관련 리소스도 필요하지 않게 만든다.
+
 {{< codenew file="service/networking/namespaced-params.yaml" >}}
 
 ### 사용중단(Deprecated) 어노테이션
