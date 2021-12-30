@@ -178,6 +178,10 @@ With this toolset DANM is able to provide multiple separated network interfaces,
 network that satisfies the Kubernetes requirements. Many
 people have reported success with Flannel and Kubernetes.
 
+### Hybridnet
+
+[Hybridnet](https://github.com/alibaba/hybridnet) is an open source CNI plugin designed for hybrid clouds which provides both overlay and underlay networking for containers in one or more clusters. Overlay and underlay containers can run on the same node and have cluster-wide bidirectional network connectivity.
+
 ### Jaguar
 
 [Jaguar](https://gitlab.com/sdnlab/jaguar) is an open source solution for Kubernetes's network based on OpenDaylight. Jaguar provides overlay network using vxlan and Jaguar CNIPlugin provides one IP address per pod.
