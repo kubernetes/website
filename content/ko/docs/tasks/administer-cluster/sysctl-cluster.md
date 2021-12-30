@@ -10,7 +10,8 @@ content_type: task
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 이 문서는 쿠버네티스 클러스터에서 {{< glossary_tooltip term_id="sysctl" >}} 인터페이스를 사용하여 
-커널 파라미터를 어떻게 구성하고, 사용하는지를 설명한다.
+커널 파라미터를 어떻게 구성하고, 사용하는지를 
+설명한다.
 
 ## {{% heading "prerequisites" %}}
 
@@ -19,6 +20,7 @@ content_type: task
 
 일부 단계에서는 실행 중인 클러스터의 kubelet에서 
 커맨드 라인 옵션을 재구성할 필요가 있다.
+
 
 <!-- steps -->
 
@@ -57,7 +59,8 @@ sysctl은 _safe_ sysctl과 _unsafe_ sysctl로 구성되어 있다. _safe_ sysctl
 - `kernel.shm_rmid_forced`,
 - `net.ipv4.ip_local_port_range`,
 - `net.ipv4.tcp_syncookies`,
-- `net.ipv4.ping_group_range` (Kubernetes 1.18 이후).
+- `net.ipv4.ping_group_range` (쿠버네티스 1.18 이후),
+- `net.ipv4.ip_unprivileged_port_start` (쿠버네티스 1.22 이후).
 
 {{< note >}}
 `net.ipv4.tcp_syncookies` 예시는 리눅스 커널 버전 4.4 또는 이하에서 네임스페이스되지 않는다.
@@ -112,10 +115,13 @@ _네임스페이스_ sysctl만 이 방법을 사용할 수 있다.
 이를 설정해야 한다면, 각 노드의 OS에서 수동으로 구성하거나 
 특권있는 컨테이너의 데몬셋을 사용하여야 한다.
 
-네임스페이스 sysctl을 구성하기 위해서 파드 securityContext를 사용한다. securityContext는 동일한 파드의 모든 컨테이너에 적용된다.
+네임스페이스 sysctl을 구성하기 위해서 파드 securityContext를 사용한다. 
+securityContext는 동일한 파드의 모든 컨테이너에 적용된다.
 
 이 예시는 safe sysctl `kernel.shm_rmid_forced`와 두 개의 unsafe sysctl인 
 `net.core.somaxconn` 과 `kernel.msgmax` 를 설정하기 위해 파드 securityContext를 사용한다.
+스펙에 따르면 _safe_ sysctl과 _unsafe_ sysctl 간 
+차이는 없다.
 
 {{< warning >}}
 파라미터의 영향을 파악한 후에만 운영체제가 

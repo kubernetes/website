@@ -11,7 +11,11 @@ Konnectivity 서비스는 컨트롤 플레인에 클러스터 통신을 위한 T
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}}
+쿠버네티스 클러스터가 있어야 하며, kubectl 명령줄 도구가 
+클러스터와 통신하도록 설정되어 있어야 한다. 컨트롤 플레인 호스트가 아닌 
+두 개 이상의 노드로 구성된 클러스터에서 이 튜토리얼을 수행하는 것을 권장한다. 
+클러스터가 없다면, [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)를 
+이용하여 생성할 수 있다.
 
 <!-- steps -->
 
@@ -24,16 +28,9 @@ Konnectivity 서비스는 컨트롤 플레인에 클러스터 통신을 위한 T
 Konnectivity 서비스를 사용하고 네트워크 트래픽을 클러스터 노드로 보내도록 
 API 서버를 구성해야 한다.
 
-1. `ServiceAccountTokenVolumeProjection` [기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
-활성화되어 있는지
-확인한다. kube-apiserver에 다음과 같은 플래그를 제공하여
-[서비스 어카운트 토큰 볼륨 보호](/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)를
-활성화할 수 있다.
-   ```
-   --service-account-issuer=api
-   --service-account-signing-key-file=/etc/kubernetes/pki/sa.key
-   --api-audiences=system:konnectivity-server
-   ```
+1. [Service Account Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection) 
+기능이 활성화되어 있는지 확인한다. 
+쿠버네티스 v1.20부터는 기본적으로 활성화되어 있다.
 1. `admin/konnectivity/egress-selector-configuration.yaml`과 같은 송신 구성 파일을 생성한다.
 1. API 서버의 `--egress-selector-config-file` 플래그를 
 API 서버 송신 구성 파일의 경로로 설정한다.

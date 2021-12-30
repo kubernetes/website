@@ -894,8 +894,7 @@ kubernetes-node-2g2d
 kubectl get nodes
 ```
 
-[`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon)을 이용하여
-클러스터 내에 4개 노드를 제외하고 다른 모든 노드를 통제해보자.
+이 튜토리얼에서는 클러스터가 최소 4개의 노드로 구성되었다고 가정한다. 클러스터의 노드가 4개보다 많다면, [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon) 명령을 이용하여 4개 노드를 제외하고 다른 모든 노드를 통제(cordon)한다. 이렇게 4개 노드만 사용하도록 제한하여, 다음의 유지보수 시뮬레이션 예시에서 주키퍼 파드를 스케줄링할 때 어피니티와 PodDisruptionBudget 제약이 발생하도록 할 수 있다.
 
 ```shell
 kubectl cordon <노드-이름>

@@ -233,7 +233,7 @@ kubectl get events | grep hello-apparmor
 proc attr을 확인하여 컨테이너가 실제로 해당 프로파일로 실행 중인지 확인할 수 있다.
 
 ```shell
-kubectl exec hello-apparmor cat /proc/1/attr/current
+kubectl exec hello-apparmor -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)
@@ -242,7 +242,7 @@ k8s-apparmor-example-deny-write (enforce)
 마지막으로 파일 쓰기를 통해 프로파일을 위반하면 어떻게 되는지 확인할 수 있다.
 
 ```shell
-kubectl exec hello-apparmor touch /tmp/test
+kubectl exec hello-apparmor -- touch /tmp/test
 ```
 ```
 touch: /tmp/test: Permission denied

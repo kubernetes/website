@@ -78,10 +78,6 @@ OS 패키지 관리자를 사용하여 쿠버네티스의 최신 패치 릴리�
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
     apt-mark hold kubeadm
-    -
-    # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubeadm={{< skew currentVersion >}}.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
     # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다.
@@ -175,10 +171,6 @@ sudo kubeadm upgrade apply
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
     apt-mark hold kubelet kubectl
-    -
-    # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
     # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
@@ -218,10 +210,6 @@ sudo systemctl restart kubelet
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
     apt-mark hold kubeadm
-    -
-    # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubeadm={{< skew currentVersion >}}.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
     # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
@@ -256,10 +244,6 @@ sudo systemctl restart kubelet
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
     apt-mark hold kubelet kubectl
-    -
-    # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
     # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
