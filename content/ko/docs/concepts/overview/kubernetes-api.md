@@ -1,4 +1,6 @@
 ---
+
+
 title: 쿠버네티스 API
 content_type: concept
 weight: 30
@@ -35,36 +37,39 @@ card:
 
 완전한 API 상세 내용은 [OpenAPI](https://www.openapis.org/)를 활용해서 문서화했다.
 
-OpenAPI 규격은 `/openapi/v2` 엔드포인트에서만 제공된다.
-다음과 같은 요청 헤더를 사용해서 응답 형식을 요청할 수 있다.
+### OpenAPI V2
+
+쿠버네티스 API 서버는 `/openapi/v2` 엔드포인트를 통해 
+통합된(aggregated) OpenAPI v2 스펙을 제공한다. 
+요청 헤더에 다음과 같이 기재하여 응답 형식을 지정할 수 있다.
 
 <table>
-  <caption style="display:none">Valid request header values for OpenAPI v2 queries</caption>
+  <caption style="display:none"> OpenAPI v2 질의에 사용할 수 있는 유효한 요청 헤더 값</caption>
   <thead>
      <tr>
-        <th>Header</th>
-        <th style="min-width: 50%;">Possible values</th>
-        <th>Notes</th>
+        <th>헤더</th>
+        <th style="min-width: 50%;">사용할 수 있는 값</th>
+        <th>참고</th>
      </tr>
   </thead>
   <tbody>
      <tr>
         <td><code>Accept-Encoding</code></td>
         <td><code>gzip</code></td>
-        <td><em>not supplying this header is also acceptable</em></td>
+        <td><em>이 헤더를 제공하지 않는 것도 가능</em></td>
      </tr>
      <tr>
         <td rowspan="3"><code>Accept</code></td>
         <td><code>application/com.github.proto-openapi.spec.v2@v1.0+protobuf</code></td>
-        <td><em>mainly for intra-cluster use</em></td>
+        <td><em>주로 클러스터 내부 용도로 사용</em></td>
      </tr>
      <tr>
         <td><code>application/json</code></td>
-        <td><em>default</em></td>
+        <td><em>기본값</em></td>
      </tr>
      <tr>
         <td><code>*</code></td>
-        <td><em>serves </em><code>application/json</code></td>
+        <td><code>JSON으로 응답</em></td>
      </tr>
   </tbody>
 </table>
@@ -74,6 +79,55 @@ Protobuf에 기반한 직렬화 형식을 구현한다. 이 형식에 대한
 자세한 내용은 [쿠버네티스 Protobuf 직렬화](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) 디자인 제안과
 API 오브젝트를 정의하는 Go 패키지에 들어있는 각각의 스키마에 대한
 IDL(인터페이스 정의 언어) 파일을 참고한다.
+
+### OpenAPI V3
+
+{{< feature-state state="alpha"  for_k8s_version="v1.23" >}}
+
+쿠버네티스 v1.23은 OpenAPI v3 API 발행(publishing)에 대한 초기 지원을 제공한다. 
+이는 알파 기능이며 기본적으로 비활성화되어 있다.
+kube-apiserver 구성 요소에 
+`OpenAPIV3` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 이용하여 
+이 알파 기능을 활성화할 수 있다.
+
+이 기능이 활성화되면, 쿠버네티스 API 서버는 
+통합된(aggregated) OpenAPI v3 스펙을 쿠버네티스 그룹 버전별로 
+`/openapi/v3/apis/<group>/<version>` 엔드포인트에 제공한다. 
+사용할 수 있는 요청 헤더는 아래의 표를 참고한다.
+
+<table>
+  <caption style="display:none"> OpenAPI v3 질의에 사용할 수 있는 유효한 요청 헤더 값</caption>
+  <thead>
+     <tr>
+        <th>헤더</th>
+        <th style="min-width: 50%;">사용할 수 있는 값</th>
+        <th>참고</th>
+     </tr>
+  </thead>
+  <tbody>
+     <tr>
+        <td><code>Accept-Encoding</code></td>
+        <td><code>gzip</code></td>
+        <td><em>이 헤더를 제공하지 않는 것도 가능</em></td>
+     </tr>
+     <tr>
+        <td rowspan="3"><code>Accept</code></td>
+        <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
+        <td><em>주로 클러스터 내부 용도로 사용</em></td>
+     </tr>
+     <tr>
+        <td><code>application/json</code></td>
+        <td><em>기본값</em></td>
+     </tr>
+     <tr>
+        <td><code>*</code></td>
+        <td><code>JSON으로 응답</em></td>
+     </tr>
+  </tbody>
+</table>
+
+`/openapi/v3` 디스커버리 엔드포인트는 사용 가능한 모든 
+그룹/버전의 목록을 제공한다. 이 엔드포인트는 JSON 만을 반환한다.
 
 ## 지속성
 
