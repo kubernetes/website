@@ -50,7 +50,7 @@ FOO_SERVICE_PORT=<サービスが実行されているポート>
 ## {{% heading "whatsnext" %}}
 
 
-* [コンテナライフサイクルフック](/docs/concepts/containers/container-lifecycle-hooks/)の詳細
-* [コンテナライフサイクルイベントへのハンドラー紐付け](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
+* [コンテナライフサイクルフック](/ja/docs/concepts/containers/container-lifecycle-hooks/)の詳細
+* [コンテナライフサイクルイベントへのハンドラー紐付け](/ja/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
 
 

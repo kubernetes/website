@@ -127,6 +127,6 @@ EndpointSliceを使用する実装では、エンドポイントを複数のス�
 
 ## {{% heading "whatsnext" %}}
 
-* [EndpointSliceの有効化](/docs/tasks/administer-cluster/enabling-endpointslices)について学ぶ
+* [EndpointSliceの有効化](/ja/docs/tasks/administer-cluster/enabling-endpointslices)について学ぶ
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を読む
 

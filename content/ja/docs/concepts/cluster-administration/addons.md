@@ -30,7 +30,7 @@ content_type: concept
 * [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin)は、クラウドネイティブベースのService function chaining(SFC)、Multiple OVNオーバーレイネットワーク、動的なサブネットの作成、動的な仮想ネットワークの作成、VLANプロバイダーネットワーク、Directプロバイダーネットワークを提供し、他のMulti-networkプラグインと付け替え可能なOVNベースのCNIコントローラープラグインです。
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in(NCP)は、VMware NSX-TとKubernetesなどのコンテナオーケストレーター間のインテグレーションを提供します。また、NSX-Tと、Pivotal Container Service(PKS)とOpenShiftなどのコンテナベースのCaaS/PaaSプラットフォームとのインテグレーションも提供します。
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)は、Kubernetes Podと非Kubernetes環境間で可視化とセキュリティモニタリングを使用してポリシーベースのネットワークを提供するSDNプラットフォームです。
-* [Romana](https://romana.io)は、[NetworkPolicy API](/docs/concepts/services-networking/network-policies/)もサポートするPodネットワーク向けのL3のネットワークソリューションです。Kubeadmアドオンのインストールの詳細は[こちら](https://github.com/romana/romana/tree/master/containerize)で確認できます。
+* [Romana](https://romana.io)は、[NetworkPolicy API](/ja/docs/concepts/services-networking/network-policies/)もサポートするPodネットワーク向けのL3のネットワークソリューションです。Kubeadmアドオンのインストールの詳細は[こちら](https://github.com/romana/romana/tree/master/containerize)で確認できます。
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)は、ネットワークパーティションの両面で機能し、外部データベースを必要とせずに、ネットワークとネットワークポリシーを提供します。
 
 ## サービスディスカバリ

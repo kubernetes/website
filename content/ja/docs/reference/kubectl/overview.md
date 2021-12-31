@@ -8,7 +8,7 @@ card:
 ---
 
 <!-- overview -->
-`kubectl`コマンドラインツールを使うと、Kubernetesクラスターを制御できます。環境設定のために、`kubectl`は、`$HOME/.kube`ディレクトリにある`config`という名前のファイルを探します。他の[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)ファイルは、`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)フラグを設定することで指定できます。
+`kubectl`コマンドラインツールを使うと、Kubernetesクラスターを制御できます。環境設定のために、`kubectl`は、`$HOME/.kube`ディレクトリにある`config`という名前のファイルを探します。他の[kubeconfig](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)ファイルは、`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)フラグを設定することで指定できます。
 この概要では、`kubectl`の構文を扱い、コマンド操作を説明し、一般的な例を示します。サポートされているすべてのフラグやサブコマンドを含め、各コマンドの詳細については、[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)リファレンスドキュメントを参照してください。インストール方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)をご覧ください。
 
 

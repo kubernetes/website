@@ -347,7 +347,7 @@ kubectl api-resources --api-group=extensions # "extensions" APIグループの�
 `-o=custom-columns=<spec>` | コンマ区切りされたカスタムカラムのリストを指定してテーブルを表示します
 `-o=custom-columns-file=<filename>` | `<filename>`ファイル内のカスタムカラムテンプレートを使用してテーブルを表示します
 `-o=json`     | JSON形式のAPIオブジェクトを出力します
-`-o=jsonpath=<template>` | [jsonpath](/docs/reference/kubectl/jsonpath)式で定義されたフィールドを出力します
+`-o=jsonpath=<template>` | [jsonpath](/ja/docs/reference/kubectl/jsonpath)式で定義されたフィールドを出力します
 `-o=jsonpath-file=<filename>` | `<filename>`ファイル内の[jsonpath](/docs/reference/kubectl/jsonpath)式で定義されたフィールドを出力します
 `-o=name`     | リソース名のみを出力し、それ以外は何も出力しません。
 `-o=wide`     | 追加の情報を含むプレーンテキスト形式で出力します。Podの場合、Node名が含まれます。

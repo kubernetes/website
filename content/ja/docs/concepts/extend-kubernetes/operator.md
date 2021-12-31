@@ -27,7 +27,7 @@ Kubernetesは自動化のために設計されています。追加の作業、�
 ワークロードのデプロイおよび稼働を自動化するためにKubernetesを使うことができます。 *さらに* Kubernetesがそれをどのように行うかの自動化も可能です。
 
 Kubernetesの{{< glossary_tooltip text="コントローラー" term_id="controller" >}}コンセプトは、Kubernetesのソースコードを修正すること無く、クラスターの振る舞いを拡張することを可能にします。
-オペレーターはKubernetes APIのクライアントで、[Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)にとっての、コントローラーのように振る舞います。
+オペレーターはKubernetes APIのクライアントで、[Custom Resource](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)にとっての、コントローラーのように振る舞います。
 
 ## オペレーターの例 {#example}
 

@@ -281,7 +281,7 @@ Gatekeeper](https://github.com/open-policy-agent/gatekeeper)があります。
 ### WindowsのPodにはどのプロファイルを適用すればよいですか?
 
 Kubernetesでは、Linuxベースのワークロードと比べてWindowsの使用は制限や差異があります。
-特に、PodのSecurityContextフィールドは[Windows環境では効果がありません](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
+特に、PodのSecurityContextフィールドは[Windows環境では効果がありません](/ja/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
 したがって、現段階では標準化されたセキュリティポリシーは存在しません。
 
 ### サンドボックス化されたPodはどのように扱えばよいでしょうか?

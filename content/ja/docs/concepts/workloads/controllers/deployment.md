@@ -562,7 +562,7 @@ kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
 deployment.apps/nginx-deployment scaled
 ```
 
-クラスター内で[水平Podオートスケーラー](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)が有効になっていると仮定します。ここでDeploymentのオートスケーラーを設定し、稼働しているPodのCPU使用量に基づいて、稼働させたいPodのレプリカ数の最小値と最大値を設定できます。
+クラスター内で[水平Podオートスケーラー](/ja/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)が有効になっていると仮定します。ここでDeploymentのオートスケーラーを設定し、稼働しているPodのCPU使用量に基づいて、稼働させたいPodのレプリカ数の最小値と最大値を設定できます。
 
 ```shell
 kubectl autoscale deployment.v1.apps/nginx-deployment --min=10 --max=15 --cpu-percent=80
