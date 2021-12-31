@@ -39,7 +39,7 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 
 * [Hello Minikube](/docs/tutorials/hello-minikube/)
 -->
-## 基础知识
+## 基础知识  {#basics}
 
 * [Kubernetes 基础知识](/zh/docs/tutorials/Kubernetes-Basics/)是一个深入的
   交互式教程，帮助您理解 Kubernetes 系统，并尝试一些基本的 Kubernetes 特性。
@@ -55,7 +55,7 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 -->
-## 配置
+## 配置  {#configuration}
 
 * [示例：配置 Java 微服务](/zh/docs/tutorials/configuration/configure-java-microservice/)
 
@@ -68,7 +68,7 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 
 * [Example: Deploying PHP Guestbook application with MongoDB](/docs/tutorials/stateless-application/guestbook/)
 -->
-## 无状态应用程序
+## 无状态应用程序  {#stateless-applications}
 
 * [公开外部 IP 地址访问集群中的应用程序](/zh/docs/tutorials/stateless-application/expose-external-ip-address/)
 
@@ -86,7 +86,7 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 -->
-## 有状态应用程序
+## 有状态应用程序  {#stateful-applications}
 
 * [StatefulSet 基础](/zh/docs/tutorials/stateful-application/basic-stateful-set/)
 
@@ -99,9 +99,13 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 <!--
 ## Clusters
 
+* [AppArmor](/docs/tutorials/clusters/apparmor/)
+
 * [seccomp](/docs/tutorials/clusters/seccomp/)
 -->
-## 集群
+## 集群  {#clusters}
+
+* [AppArmor](/zh/docs/tutorials/clusters/apparmor/)
 
 * [seccomp](/zh/docs/tutorials/clusters/seccomp/)
 
@@ -110,9 +114,20 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 -->
-## 服务
+## 服务  {#services}
 
 * [使用源 IP](/zh/docs/tutorials/services/source-ip/)
+
+<!--
+## Security
+
+* [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
+* [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
+-->
+## 安全  {#security}
+
+* [在集群级别应用 Pod 安全标准](/zh/docs/tutorials/security/cluster-level-pss/)
+* [在名字空间级别应用 Pod 安全标准](/zh/docs/tutorials/security/ns-level-pss/)
 
 ## {{% heading "whatsnext" %}}
 
