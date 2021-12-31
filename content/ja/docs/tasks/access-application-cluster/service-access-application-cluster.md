@@ -140,6 +140,6 @@ Hello Worldアプリケーションが稼働しているDeployment、ReplicaSet�
 
 
 詳細は
-[serviceを利用してアプリケーションと接続する](/docs/concepts/services-networking/connect-applications-service/)
+[serviceを利用してアプリケーションと接続する](/ja/docs/concepts/services-networking/connect-applications-service/)
 を確認してください。
 

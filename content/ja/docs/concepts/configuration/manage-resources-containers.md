@@ -51,8 +51,8 @@ Huge PageはLinux固有の機能であり、Nodeのカーネルはデフォル�
 
 CPUとメモリーは、まとめて*コンピュートリソース*または単に*リソース*と呼ばれます。
 コンピューティングリソースは、要求され、割り当てられ、消費され得る測定可能な量です。
-それらは[API resources](/docs/concepts/overview/kubernetes-api/)とは異なります。
-Podや[Services](/docs/concepts/services-networking/service/)などのAPIリソースは、Kubernetes APIサーバーを介して読み取りおよび変更できるオブジェクトです。
+それらは[API resources](/ja/docs/concepts/overview/kubernetes-api/)とは異なります。
+Podや[Services](/ja/docs/concepts/services-networking/service/)などのAPIリソースは、Kubernetes APIサーバーを介して読み取りおよび変更できるオブジェクトです。
 
 ## Podとコンテナのリソース要求と制限
 
@@ -624,9 +624,9 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 ## {{% heading "whatsnext" %}}
 
-* [コンテナとPodへのメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)ハンズオンを行う
+* [コンテナとPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)ハンズオンを行う
 
-* [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)ハンズオンを行う
+* [コンテナとPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)ハンズオンを行う
 
 * 要求と制限の違いの詳細については、[リソースQoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md)を参照する
 

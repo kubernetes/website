@@ -267,7 +267,7 @@ Pod以外のプロセス用にリソースを明示的に予約したい場合�
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 `TopologyManager`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
 kubeletはリソースの割当を決定する際にトポロジーのヒントを利用できます。
-詳細は、[ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
+詳細は、[ノードのトポロジー管理ポリシーを制御する](/ja/docs/tasks/administer-cluster/topology-manager/)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 

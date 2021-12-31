@@ -105,7 +105,7 @@ nodeAffinity:
 
 ### TaintsとTolerations
 
-DaemonSetのPodは[TaintsとTolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/)の設定を尊重します。下記のTolerationsは、関連する機能によって自動的にDaemonSetのPodに追加されます。
+DaemonSetのPodは[TaintsとTolerations](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)の設定を尊重します。下記のTolerationsは、関連する機能によって自動的にDaemonSetのPodに追加されます。
 
 | Toleration Key                           | Effect     | Version | Description |
 | ---------------------------------------- | ---------- | ------- | ----------- |
@@ -151,7 +151,7 @@ Node上で直接起動することにより(例: `init`、`upstartd`、`systemd`
 
 ### 静的Pod Pods
 
-Kubeletによって監視されているディレクトリに対してファイルを書き込むことによって、Podを作成することが可能です。これは[静的Pod](/docs/tasks/configure-pod-container/static-pod/)と呼ばれます。DaemonSetと違い、静的Podはkubectlや他のKubernetes APIクライアントで管理できません。静的PodはApiServerに依存しておらず、クラスターの自立起動時に最適です。また、静的Podは将来的には廃止される予定です。
+Kubeletによって監視されているディレクトリに対してファイルを書き込むことによって、Podを作成することが可能です。これは[静的Pod](/ja/docs/tasks/configure-pod-container/static-pod/)と呼ばれます。DaemonSetと違い、静的Podはkubectlや他のKubernetes APIクライアントで管理できません。静的PodはApiServerに依存しておらず、クラスターの自立起動時に最適です。また、静的Podは将来的には廃止される予定です。
 
 ### Deployment
 

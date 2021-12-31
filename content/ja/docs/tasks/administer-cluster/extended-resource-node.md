@@ -85,7 +85,7 @@ Capacity:
  example.com/dongle:  4
 ```
 
-これで、アプリケーション開発者は特定の数のdongleをリクエストするPodを作成できるようになりました。詳しくは、[拡張リソースをコンテナに割り当てる](/docs/tasks/configure-pod-container/extended-resource/)を読んでください。
+これで、アプリケーション開発者は特定の数のdongleをリクエストするPodを作成できるようになりました。詳しくは、[拡張リソースをコンテナに割り当てる](/ja/docs/tasks/configure-pod-container/extended-resource/)を読んでください。
 
 ## 議論
 
