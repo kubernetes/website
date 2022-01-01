@@ -165,49 +165,49 @@ The following methods exist for installing kubectl on Linux:
 ### 用原生包管理工具安装 {#install-using-native-package-management}
 
 {{< tabs name="kubectl_install" >}}
-{{< tab name="Ubuntu、Debian 或 HypriotOS" codelang="bash" >}}
+{{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 
-<!--
-1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
--->
-1. 更新 `apt` 包索引，并安装使用 Kubernetes `apt` 仓库锁需要的包：
+  <!--
+  1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+  -->
+  1. 更新 `apt` 包索引，并安装使用 Kubernetes `apt` 仓库所需要的包：
 
-   ```shell
-   sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
-   ```
+     ```shell
+     sudo apt-get update
+     sudo apt-get install -y apt-transport-https ca-certificates curl
+     ```
+  <!--
+  2. Download the Google Cloud public signing key:
+  -->
+  2. 下载 Google Cloud 公开签名秘钥：
 
-<!--
-2. Download the Google Cloud public signing key:
--->
-2. 下载 Google Cloud 公开签名秘钥：
+     ```shell
+     sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+     ```
 
-   ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-   ```
+  <!--
+  3. Add the Kubernetes `apt` repository:
+  -->
+  3. 添加 Kubernetes `apt` 仓库：
 
-<!--
-3. Add the Kubernetes `apt` repository:
--->
-3. 添加 Kubernetes `apt` 仓库：
+     ```shell
+     echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+     ```
 
-   ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-   ```
+  <!--
+  4. Update `apt` package index with the new repository and install kubectl:
+  -->
+  4. 更新 `apt` 包索引，使之包含新的仓库并安装 kubectl：
 
-<!--
-4. Update `apt` package index with the new repository and install kubectl:
--->
-4. 更新 `apt` 包索引，使之包含新的仓库并安装 kubectl：
+     ```shell
+     sudo apt-get update
+     sudo apt-get install -y kubectl
+     ```
+{{% /tab %}}
 
-   ```shell
-   sudo apt-get update
-   sudo apt-get install -y kubectl
-   ```
+{{% tab name="基于 Red Hat 的发行版" %}}
 
-{{< /tab >}}
-
-{{< tab name="基于 Red Hat 的发行版" codelang="bash" >}}
+```shell
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -218,7 +218,9 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
-{{< /tab >}}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 <!-- 
