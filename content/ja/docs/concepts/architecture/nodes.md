@@ -303,7 +303,7 @@ kubeletはデフォルトで起動に失敗していました。1.22以降では
 
 
 
-ノードでスワップを有効にするには、kubelet の `NodeSwap` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にし、
+ノードでスワップを有効にするには、kubeletの `NodeSwap` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にし、
 `--fail-swap-on`コマンドラインフラグまたは`failSwapOn`[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)を false に設定する必要があります。
 
 
