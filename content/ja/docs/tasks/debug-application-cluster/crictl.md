@@ -1,6 +1,4 @@
 ---
-reviewers:
-- ptux
 title: crictlによるKubernetesノードのデバッグ
 content_type: task
 ---
