@@ -1,7 +1,5 @@
 ---
 content_type: concept
-reviewers:
-- ptux
 title: 監査
 ---
 
