@@ -321,7 +321,7 @@ swapBehaviorで使用できる設定オプションは以下の通りです。:
 `memorySwap`の設定が指定されておらず、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、
 デフォルトのkubeletは`LimitedSwap`の設定と同じ動作を適用します。
 
-`LimitedSwap`設定の動作は、ノードがコントロールグループ（「cgroups」とも呼ばれる）のv1とv2のどちらで動作しているかによって異なります。
+`LimitedSwap`設定の動作は、ノードがコントロールグループ(「cgroups」とも呼ばれる)のv1とv2のどちらで動作しているかによって異なります。
 
 Kubernetesのワークロードでは、メモリとスワップを組み合わせて使用することができ、ポッドのメモリ制限が設定されている場合はその制限まで使用できます。
 - **cgroupsv1:** Kubernetesのワークロードは、メモリとスワップを組み合わせて使用することができ、ポッドのメモリ制限が設定されている場合はその制限まで使用できます。
