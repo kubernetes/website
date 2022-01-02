@@ -138,7 +138,7 @@ Podの`containerPort`がServiceの`targetPort`と一致することを確認し�
 ## {{% heading "whatsnext" %}}
 
 上記のいずれの方法でも問題が解決しない場合は、以下の手順に従ってください。
-[Debugging Service document](/docs/tasks/debug-application-cluster/debug-service/)で、`Service` が実行されていること、`Endpoints`があること、`Pods`が実際にサービスを提供していること、DNS が機能していること、IPtables ルールがインストールされていること、kube-proxyが誤作動を起こしていないようなことを確認してください。
+[Debugging Service document](/docs/tasks/debug-application-cluster/debug-service/)で、`Service` が実行されていること、`Endpoints`があること、`Pods`が実際にサービスを提供していること、DNS が機能していること、IPtablesルールがインストールされていること、kube-proxyが誤作動を起こしていないようなことを確認してください。
 
 トラブルシューティングドキュメント](/docs/tasks/debug-application-cluster/troubleshooting/)に詳細が記載されています。
 
