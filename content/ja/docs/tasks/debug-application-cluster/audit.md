@@ -214,7 +214,7 @@ webhookを例に、利用可能なフラグの一覧を示します。
 kube-apiserverが公開している以下のPrometheusメトリクスや、ログを見て監査サブシステムの状態を監視することができます。
 
 - `apiserver_audit_event_total`メトリックには、エクスポートされた監査イベントの合計数が含まれます。
-- `apiserver_audit_error_total` メトリックには、エクスポート中にエラーが発生してドロップされたイベントの総数が含まれます。
+- `apiserver_audit_error_total`メトリックには、エクスポート中にエラーが発生してドロップされたイベントの総数が含まれます。
 
 ### ログエントリー・トランケーション {#truncate}
 
