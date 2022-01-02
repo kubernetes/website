@@ -33,7 +33,7 @@ kubectl describe pods ${POD_NAME}
 
 Pod内のコンテナの状態を見てください。
 すべて`Running`ですか？ 最近、再起動がありましたか？
-ポッドの状態に応じてデバッグを続けます。
+Podの状態に応じてデバッグを続けます。
 
 #### PodがPendingのまま
 
