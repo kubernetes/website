@@ -259,7 +259,7 @@ Kubelet は、ノードのシャットダウン時に、ポッドが通常の[�
 Graceful Node Shutdownはsystemdに依存しているため、[systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)を
 利用してノードのシャットダウンを一定時間遅らせることができます。
 
-Graceful Node Shutdownは、v1.21でデフォルトで有効になっている`GracefulNodeShutdown` [feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)で制御されます。
+Graceful Node Shutdownは、v1.21でデフォルトで有効になっている`GracefulNodeShutdown` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)で制御されます。
 
 なお、デフォルトでは、後述の設定オプション`ShutdownGracePeriod`および`ShutdownGracePeriodCriticalPods`の両方がゼロに設定されているため、Graceful node shutdownは有効になりません。この機能を有効にするには、この2つのkubeletの設定を適切に設定し、ゼロ以外の値を設定する必要があります。
 
