@@ -224,7 +224,7 @@ logバックエンドとwebhookバックエンドは、ログに記録される�
 
 - `audit-log-truncate-enabled`イベントとバッチの切り捨てを有効にするかどうかです。
 - `audit-log-truncate-max-batch-size`バックエンドに送信されるバッチのバイト単位の最大サイズ。
-- `audit-log-truncate-max-event-size` バックエンドに送信される監査イベントのバイト単位の最大サイズです。
+- `audit-log-truncate-max-event-size`バックエンドに送信される監査イベントのバイト単位の最大サイズです。
 
 デフォルトでは、`webhook`と`log`の両方で切り捨ては無効になっていますが、クラスター管理者は `audit-log-truncate-enabled`または`audit-webhook-truncate-enabled`を設定して、この機能を有効にする必要があります。
 
