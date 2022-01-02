@@ -252,7 +252,7 @@ kubeletはリソースの割当を決定する際にトポロジーのヒント�
 
 {{< feature-state state="beta" for_k8s_version="v1.21" >}}
 
-kubeletは、ノードのシステムシャットダウンを検出すると、ノード上で動作しているポッドを終了させます。
+kubeletは、ノードのシステムシャットダウンを検出すると、ノード上で動作しているPodを終了させます。
 
 Kubelet は、ノードのシャットダウン時に、ポッドが通常の[通常のポッド終了プロセス](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)に従うようにします。
 
