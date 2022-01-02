@@ -58,7 +58,7 @@ telepresenceを「--swap-deployment」で実行するには、次のように入
 
 ## {{% heading "whatsnext" %}}
 
-もしハンズオンのチュートリアルに興味があるなら、Google Kubernetes Engine上でGuestbookアプリケーションをローカルに開発する手順を説明した[this tutorial](https://cloud.google.com/community/tutorials/developing-services-with-k8s)をチェックしてみてください。
+もしハンズオンのチュートリアルに興味があるなら、Google Kubernetes Engine上でGuestbookアプリケーションをローカルに開発する手順を説明した[こちらのチュートリアル](https://cloud.google.com/community/tutorials/developing-services-with-k8s)をチェックしてみてください。
 
 telepresenceには、状況に応じて[numerous proxying options](https://www.telepresence.io/reference/methods)があります。
 
