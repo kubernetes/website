@@ -465,7 +465,7 @@ Kubernetes 会在校验时强制执行此检查。
 <!--
 Use `activeDeadlineSeconds` on the Pod to prevent init containers from failing forever.
 The active deadline includes init containers.
-However it is recommended to use `activeDeadlineSeconds` if user deploy their application
+However it is recommended to use `activeDeadlineSeconds` only if teams deploy their application
 as a Job, because `activeDeadlineSeconds` has an effect even after initContainer finished.
 The Pod which is already running correctly would be killed by `activeDeadlineSeconds` if you set.
 
@@ -475,7 +475,7 @@ validation error is thrown for any container sharing a name with another.
 在 Pod 上使用 `activeDeadlineSeconds` 和在容器上使用 `livenessProbe` 可以避免
 Init 容器一直重复失败。
 `activeDeadlineSeconds` 时间包含了 Init 容器启动的时间。
-然而，如果用户将他们的应用程序以 Job 方式部署，建议使用 `activeDeadlineSeconds`，
+但建议仅在团队将其应用程序部署为 Job 时才使用 `activeDeadlineSeconds`，
 因为 `activeDeadlineSeconds` 在 Init 容器结束后仍有效果。
 如果你设置了 `activeDeadlineSeconds`，已经在正常运行的 Pod 会被杀死。
 
