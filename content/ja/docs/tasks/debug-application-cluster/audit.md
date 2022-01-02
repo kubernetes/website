@@ -171,7 +171,7 @@ Webhook監査バックエンドは、監査イベントをリモートのWeb API
 Webhook監査バックエンドを設定するには、以下のkube-apiserverフラグを使用します。
 
 - `--audit-webhook-config-file` は、Webhookの設定ファイルのパスを指定します。
-  webhookの設定は、事実上特化した [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters) です。
+  webhookの設定は、事実上特化した[kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters)です。
 - `--audit-webhook-initial-backoff` は、最初に失敗したリクエストの後、再試行するまでに待つ時間を指定します。
   それ以降のリクエストは、指数関数的なバックオフで再試行されます。
 
