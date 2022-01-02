@@ -44,7 +44,7 @@ Podが`Pending`で止まっている場合、それはノードにスケジュ�
 なぜあなたのPodをスケジュールできないのか、スケジューラーからのメッセージがあるはずです。
 理由は以下の通りです。
 
-* **リソースが不足しています。** クラスタのCPUまたはメモリーを使い果たした可能性があります。Podを削除するか、リソース要求を調整するか、クラスタに新しいノードを追加する必要があります。詳しくは[Compute Resources document](/docs/concepts/configuration/manage-resources-containers/)を参照してください。
+* **リソースが不足しています。** クラスターのCPUまたはメモリーを使い果たしている可能性があります。Podを削除するか、リソースの要求値を調整するか、クラスターに新しいノードを追加する必要があります。詳しくは[Compute Resources document](/ja/docs/concepts/configuration/manage-resources-containers/)を参照してください。
 
 * **あなたが使用しているのは`hostPort`**です。Podを`hostPort`にバインドすると、そのPodがスケジュールできる場所が限定されます。ほとんどの場合、`hostPort`は不要なので、Serviceオブジェクトを使ってPodを公開するようにしてください。もし`hostPort` が必要な場合は、Kubernetes クラスタのノード数だけ Pod をスケジュールすることができます。
 
