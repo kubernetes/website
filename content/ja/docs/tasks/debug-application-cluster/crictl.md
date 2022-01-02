@@ -310,7 +310,7 @@ crictl logs --tail=1 87d3992f84f74
       crictl create f84dd361f8dc51518ed291fbadd6db537b0496536c1d2d6c05ff943ce8c9a54f container-config.json pod-config.json
       ```
 
-4.  すべてのコンテナをリストアップし、新しく作成されたコンテナのステートが`Created`に設定されていることを確認します:
+4.  すべてのコンテナをリストアップし、新しく作成されたコンテナの状態が`Created`に設定されていることを確認します:
 
       ```shell
       crictl ps -a
