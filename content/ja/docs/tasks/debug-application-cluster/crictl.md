@@ -386,7 +386,7 @@ docker cli | crictl | 説明 | サポートされていない機能
 -- | -- | -- | --
 `create` | `create` | 新しいコンテナを作成します |  
 `kill` | `stop` (timeout = 0) | 1つ以上の実行中のコンテナを停止します | `--signal`
-`pull` | `pull` | レジストリからイメージやリポジトリをプルします | `--all-tags`, `--disable-content-trust`
+`pull` | `pull` | レジストリーからイメージやリポジトリをプルします | `--all-tags`, `--disable-content-trust`
 `rm` | `rm` | 1つまたは複数のコンテナを削除します |  
 `rmi` | `rmi` | 1つまたは複数のイメージを削除します |  
 `run` | `run` | 新しいコンテナでコマンドを実行 |  
