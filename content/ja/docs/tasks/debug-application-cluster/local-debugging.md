@@ -64,4 +64,3 @@ telepresenceには、状況に応じて[numerous proxying options](https://www.t
 
 さらに詳しい情報は、[telepresence website](https://www.telepresence.io)をご覧ください。
 
-
