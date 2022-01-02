@@ -133,7 +133,7 @@ Podの`containerPort`がServiceの`targetPort`と一致することを確認し�
 
 #### ネットワークトラフィックが転送されません
 
-詳しくは[debugging service](/docs/tasks/debug-application-cluster/debug-service/)を参照してください。
+詳しくは[Serviceのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-service/)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 
