@@ -8,7 +8,7 @@ content_type: concept
 <!-- overview -->
 
 このガイドは、Kubernetesにデプロイされ、正しく動作しないアプリケーションをユーザーがデバッグするためのものです。
-これは、自分のクラスタをデバッグしたい人のためのガイドでは *ありません*。
+これは、自分のクラスターをデバッグしたい人のためのガイドでは *ありません*。
 そのためには、[debug-cluster](/docs/tasks/debug-application-cluster/debug-cluster)を確認する必要があります。
 
 <!-- body -->
