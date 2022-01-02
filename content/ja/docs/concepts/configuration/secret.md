@@ -25,7 +25,7 @@ Secretsは、{{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}
 
 
 {{< caution >}}
-KubernetesのSecretは、デフォルトでは、APIサーバーの基礎となるデータストア（etcd）に暗号化されずに保存されます。APIにアクセスできる人は誰でもSecretを取得または変更でき、etcdにアクセスできる人も同様です。
+KubernetesのSecretは、デフォルトでは、APIサーバーの基礎となるデータストア(etcd)に暗号化されずに保存されます。APIにアクセスできる人は誰でもSecretを取得または変更でき、etcdにアクセスできる人も同様です。
 さらに、名前空間でPodを作成する権限を持つ人は、そのアクセスを使用して、その名前空間のあらゆるSecretを読むことができます。これには、Deploymentを作成する能力などの間接的なアクセスも含まれます。
 
 Secretsを安全に使用するには、以下の手順を推奨します。
