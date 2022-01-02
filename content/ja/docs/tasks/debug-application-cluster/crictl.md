@@ -26,7 +26,7 @@ content_type: task
 
 ## crictlのインストール
 
-cri-tools [release page](https://github.com/kubernetes-sigs/cri-tools/releases)から、いくつかの異なるアーキテクチャ用の圧縮アーカイブ`crictl`をダウンロードできます。
+cri-toolsの[リリースページ](https://github.com/kubernetes-sigs/cri-tools/releases)から、いくつかの異なるアーキテクチャ用の圧縮アーカイブ`crictl`をダウンロードできます。
 
 お使いのKubernetesのバージョンに対応するバージョンをダウンロードしてください。
 それを解凍してシステムパス上の`/usr/local/bin/`などの場所に移動します。
