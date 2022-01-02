@@ -24,7 +24,7 @@ echo -n 'my-app' | base64
 echo -n '39528$vdg7Jb' | base64
 ```
 
-出力結果によると、ユーザ名のbase64表現は `bXktYXBw`で、パスワードのbase64表現は `Mzk1MjgkdmRnN0pi` です。
+出力結果によると、ユーザ名のbase64表現は`bXktYXBw`で、パスワードのbase64表現は`Mzk1MjgkdmRnN0pi`です。
 
 {{< caution >}}
 OSから信頼されているローカルツールを使用することで、外部ツールのセキュリティリスクを低減することができます。
