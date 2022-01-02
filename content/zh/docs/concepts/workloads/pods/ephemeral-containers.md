@@ -12,7 +12,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 <!--
 This page provides an overview of ephemeral containers: a special type of container
@@ -24,18 +24,6 @@ containers to inspect services rather than to build applications.
 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 中临时运行，以便完成用户发起的操作，例如故障排查。
 你会使用临时容器来检查服务，而不是用它来构建应用程序。
-
-{{< warning >}}
-<!--
-Ephemeral containers are in alpha state and are not suitable for production
-clusters. In accordance with the [Kubernetes Deprecation Policy](
-/docs/reference/using-api/deprecation-policy/), this alpha feature could change
-significantly in the future or be removed entirely.
--->
-临时容器处于 Alpha 阶段，不适用于生产环境集群。
-根据 [Kubernetes 弃用政策](/zh/docs/reference/using-api/deprecation-policy/)，
-此 Alpha 功能将来可能发生重大变化或被完全删除。
-{{< /warning >}}
 
 <!-- body -->
 
