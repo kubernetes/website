@@ -18,7 +18,7 @@ content_type: task
 ## {{% heading "prerequisites" %}}
 
 
-`crictl`にはCRIランタイムを搭載した Linux が必要です。
+`crictl`にはCRIランタイムを搭載したLinuxが必要です。
 
 
 
