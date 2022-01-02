@@ -147,7 +147,7 @@ Kubernetes 仅支持使用同一 cgroup 版本来管理所有控制器。
 # dnf install -y grubby && \
   sudo grubby \
   --update-kernel=ALL \
-  --args=”systemd.unified_cgroup_hierarchy=1"
+  --args="systemd.unified_cgroup_hierarchy=1"
 ```
 
 <!--
