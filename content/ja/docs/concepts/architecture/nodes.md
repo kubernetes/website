@@ -179,7 +179,7 @@ CapacityとAllocatableについて深く知りたい場合は、ノード上で�
 ## ハートビート
 ハートビートは、Kubernetesノードから送信され、ノードが利用可能か判断するのに役立ちます。
 以下の２つのハートビートがあります：
-* ノードの`.status`の更新
+* Nodeの`.status`の更新
 * [Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}#lease-v1-coordination-k8s-io)です。
 各ノードは`kube-node-lease`という{{< glossary_tooltip term_id="namespace" text="namespace">}}に関連したLeaseオブジェクトを持ちます。
 Leaseは軽量なリソースで、クラスターのスケールに応じてノードのハートビートにおけるパフォーマンスを改善します。
