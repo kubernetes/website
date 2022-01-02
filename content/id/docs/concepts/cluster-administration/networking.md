@@ -195,10 +195,6 @@ Multus mendukung semua [plugin referensi](https://github.com/containernetworking
 
 Platform Nuage menggunakan _overlay_ untuk menyediakan jaringan berbasis kebijakan yang mulus antara Kubernetes Pod-Pod dan lingkungan non-Kubernetes (VM dan server _bare metal_). Model abstraksi kebijakan Nuage dirancang dengan mempertimbangkan aplikasi dan membuatnya mudah untuk mendeklarasikan kebijakan berbutir halus untuk aplikasi. Mesin analisis _real-time_ platform memungkinkan pemantauan visibilitas dan keamanan untuk aplikasi Kubernetes.
 
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) adalah cara yang agak lebih dewasa tetapi juga rumit untuk membangun jaringan _overlay_. Ini didukung oleh beberapa "Toko Besar" untuk jaringan.
-
 ### OVN (Open Virtual Networking)
 
 OVN adalah solusi virtualisasi jaringan opensource yang dikembangkan oleh komunitas Open vSwitch. Ini memungkinkan seseorang membuat switch logis, router logis, ACL stateful, load-balancers dll untuk membangun berbagai topologi jaringan virtual. Proyek ini memiliki plugin dan dokumentasi Kubernetes spesifik di [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
