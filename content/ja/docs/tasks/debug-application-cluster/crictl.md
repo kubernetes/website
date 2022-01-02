@@ -369,7 +369,7 @@ CRICTLの出力形式はDocker CLIと似ていますが、いくつかのCLIで�
 docker cli | crictl | 説明 | サポートされていない機能
 -- | -- | -- | --
 `attach` | `attach` | 実行中のコンテナにアタッチ | `--detach-keys`, `--sig-proxy`
-`exec` | `exec` | ランニングコンテナにコマンドの実行 | `--privileged`, `--user`, `--detach-keys`
+`exec` | `exec` | 実行中のコンテナでコマンドの実行 | `--privileged`, `--user`, `--detach-keys`
 `images` | `images` | イメージのリストアップ |  
 `info` | `info` | システム全体の情報の表示 |  
 `inspect` | `inspect`, `inspecti` | コンテナ、イメージ、タスクの低レベルの情報を返します |  
