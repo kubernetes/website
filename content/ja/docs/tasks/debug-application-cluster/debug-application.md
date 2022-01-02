@@ -129,7 +129,7 @@ kubectl get pods --selector=name=nginx,type=frontend
 ```
 
 リストがServiceを提供する予定のPodと一致することを確認します。
-Podの`containerPort`がサービスの`targetPort`と一致することを確認します。
+Podの`containerPort`がServiceの`targetPort`と一致することを確認します。
 
 #### ネットワークトラフィックが転送されません
 
