@@ -122,7 +122,7 @@ spec:
      type: frontend
 ```
 
-セレクタに一致するポッドを一覧表示するには、次のコマンドを使用します。
+セレクタに一致するPodを一覧表示するには、次のコマンドを使用します。
 
 ```shell
 kubectl get pods --selector=name=nginx,type=frontend
