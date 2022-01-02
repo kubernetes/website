@@ -1,7 +1,5 @@
 ---
 title: ローカルでのサービス開発・デバッグ
-reviewers:
-- ptux
 content_type: task
 ---
 
@@ -33,10 +31,6 @@ Kubernetesアプリケーションは通常、複数の独立したサービス�
 終了してシェルを閉じるには`exit`と入力してください。
 
 ## 既存サービスの開発・デバッグ
-
-When developing an application on Kubernetes, you typically program or debug a single service. The service might require access to other services for testing and debugging. One option is to use the continuous deployment pipeline, but even the fastest deployment pipeline introduces a delay in the program or debug cycle.
-
-Use the `--swap-deployment` option to swap an existing deployment with the Telepresence proxy. Swapping allows you to run a service locally and connect to the remote Kubernetes cluster. The services in the remote cluster can now access the locally running instance.
 
 Kubernetes上でアプリケーションを開発する場合、通常は1つのサービスをプログラミングまたはデバッグすることになります。
 そのサービスは、テストやデバッグのために他のサービスへのアクセスを必要とする場合があります。
