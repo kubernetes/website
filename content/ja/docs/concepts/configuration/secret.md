@@ -12,7 +12,7 @@ weight: 30
 
 
 Secretとは、パスワードやトークン、キーなどの少量の機密データを含むオブジェクトのことです。
-このような情報は、Secretを用いないと {{< glossary_tooltip term_id="pod" >}} の定義や
+このような情報は、Secretを用いないと{{< glossary_tooltip term_id="pod" >}}の定義や
 {{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}に直接記載することになってしまうかもしれません。
 シークレットを使用すれば、アプリケーションコードに機密データを含める必要がなくなります。
 
