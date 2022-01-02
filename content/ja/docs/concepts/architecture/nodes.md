@@ -318,8 +318,7 @@ swapBehaviorで使用できる設定オプションは以下の通りです。:
 - `LimitedSwap`: Kubernetesのワークロードが、使用できるスワップ量に制限を設けます。Kubernetesが管理していないノード上のワークロードは、依然としてスワップを使用できます。
 - `UnlimitedSwap`: Kubernetesのワークロードが使用できるスワップ量に制限を設けません。システムの限界まで、要求されただけのスワップメモリを使用することができます。
 
-`memorySwap`の設定が指定されておらず、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、
-デフォルトのkubeletは`LimitedSwap`の設定と同じ動作を適用します。
+`memorySwap`の設定が指定されておらず、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、デフォルトのkubeletは`LimitedSwap`の設定と同じ動作を適用します。
 
 `LimitedSwap`設定の動作は、ノードがコントロールグループ(「cgroups」とも呼ばれる)のv1とv2のどちらで動作しているかによって異なります。
 
@@ -328,8 +327,7 @@ Kubernetesのワークロードでは、メモリとスワップを組み合わ�
 - **cgroupsv2:** Kubernetesのワークロードは、スワップメモリを使用できません。
 
 詳しくは、[KEP-2400](https://github.com/kubernetes/enhancements/issues/2400)と
-[design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md)
-をご覧いただき、テストにご協力、ご意見をお聞かせください。
+[design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md)をご覧いただき、テストにご協力、ご意見をお聞かせください。
 
 
 ## {{% heading "whatsnext" %}}
