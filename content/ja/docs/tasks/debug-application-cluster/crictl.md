@@ -376,7 +376,7 @@ docker cli | crictl | 説明 | サポートされていない機能
 `logs` | `logs` | コンテナのログを取得します | `--details`
 `ps` | `ps` | コンテナのリストアップ |  
 `stats` | `stats` | コンテナのリソース使用状況をライブで表示 | Column: NET/BLOCK I/O, PIDs
-`version` | `version` | ランタイム（Docker、ContainerD、その他）のバージョン情報を表示します |  
+`version` | `version` | ランタイム(Docker、ContainerD、その他)のバージョン情報を表示します |  
 {{< /table >}}
 
 ### 変更を行います
