@@ -90,7 +90,7 @@ base64エンコードの手順を省略したい場合は、`kubectl create secr
 kubectl create secret generic test-secret --from-literal='username=my-app' --from-literal='password=39528$vdg7Jb'
 ```
 
-先ほどの詳細なアプローチでは 各ステップを明示的に実行し、何が起こっているかを示していますが、`kubectl create secret` の方が便利です。
+先ほどの詳細なアプローチでは 各ステップを明示的に実行し、何が起こっているかを示していますが、`kubectl create secret`の方が便利です。
 
 
 ## Volumeにある機密情報をアクセスするPodを作成する
