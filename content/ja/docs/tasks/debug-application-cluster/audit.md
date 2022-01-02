@@ -222,7 +222,7 @@ logバックエンドとwebhookバックエンドは、ログに記録される�
 
 例として、logバックエンドで利用可能なフラグの一覧を以下に示します
 
-- `audit-log-truncate-enabled` イベントとバッチの切り捨てを有効にするかどうかです。
+- `audit-log-truncate-enabled`イベントとバッチの切り捨てを有効にするかどうかです。
 - `audit-log-truncate-max-batch-size` バックエンドに送信されるバッチのバイト単位の最大サイズ。
 - `audit-log-truncate-max-event-size` バックエンドに送信される監査イベントのバイト単位の最大サイズです。
 
