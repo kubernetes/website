@@ -263,7 +263,7 @@ Graceful Node Shutdownは、v1.21でデフォルトで有効になっている`G
 
 なお、デフォルトでは、後述の設定オプション`ShutdownGracePeriod`および`ShutdownGracePeriodCriticalPods`の両方がゼロに設定されているため、Graceful node shutdownは有効になりません。この機能を有効にするには、この2つのkubeletの設定を適切に設定し、ゼロ以外の値を設定する必要があります。
 
-Graceful shutdownには, kubeletは以下の2段階でPodを終了させます。
+Graceful shutdownでは、kubeletは以下の2段階でPodを終了させます。
 
 1. そのノード上で動作している通常のPodを終了させます。
 2. そのノード上で動作している[critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)を終了させます。
