@@ -128,7 +128,7 @@ spec:
 kubectl get pods --selector=name=nginx,type=frontend
 ```
 
-リストがサービスを提供する予定のPodと一致することを確認します。
+リストがServiceを提供する予定のPodと一致することを確認します。
 Podの`containerPort`がサービスの`targetPort`と一致することを確認します。
 
 #### ネットワークトラフィックが転送されません
