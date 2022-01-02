@@ -7,7 +7,7 @@ content_type: task
 
 <!-- overview -->
 
-Kubernetesアプリケーションは通常、複数の独立したサービスから構成され、それぞれが独自のコンテナで動作しています。これらのサービスをリモートのKubernetesクラスタ上で開発・デバッグするには、[get a shell on a running container](/docs/task/debug-application-cluster/get-shell-running-container/)してリモートシェル内でツールを実行しなければならず面倒な場合があります。
+Kubernetesアプリケーションは通常、複数の独立したサービスから構成され、それぞれが独自のコンテナで動作しています。これらのサービスをリモートのKubernetesクラスター上で開発・デバッグするには、[get a shell on a running container](/docs/task/debug-application-cluster/get-shell-running-container/)してリモートシェル内でツールを実行しなければならず面倒な場合があります。
 
 `telepresence`は、リモートKubernetesクラスタにサービスをプロキシングしながら、ローカルでサービスを開発・デバッグするプロセスを容易にするためのツールです。
 `telepresence` を使用すると、デバッガや IDE などのカスタムツールをローカルサービスで使用でき、ConfigMap や secret、リモートクラスタ上で動作しているサービスへのフルアクセスをサービスに提供します。
