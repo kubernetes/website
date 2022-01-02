@@ -12,16 +12,14 @@ weight: 30
 
 
 Secretとは、パスワードやトークン、キーなどの少量の機密データを含むオブジェクトのことです。
-このような情報は、Secretを用いないと{{< glossary_tooltip term_id="pod" >}}の定義や
-{{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}に直接記載することになってしまうかもしれません。
+このような情報は、Secretを用いないと{{< glossary_tooltip term_id="pod" >}}の定義や{{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}に直接記載することになってしまうかもしれません。
 Secretを使用すれば、アプリケーションコードに機密データを含める必要がなくなります。
 
 なぜなら、Secretは、それを使用するPodとは独立して作成することができ、
 Podの作成、閲覧、編集といったワークフローの中でSecret(およびそのデータ)が漏洩する危険性が低くなるためです。
 また、Kubernetesやクラスター内で動作するアプリケーションは、不揮発性ストレージに機密データを書き込まないようにするなど、Secretで追加の予防措置を取ることができます。
 
-Secretsは、{{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}
-に似ていますが、機密データを保持するために用います。
+Secretsは、{{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}に似ていますが、機密データを保持するために用います。
 
 
 {{< caution >}}
