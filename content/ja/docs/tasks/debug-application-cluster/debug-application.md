@@ -1,6 +1,4 @@
 ---
-reviewers:
-- ptux
 title: アプリケーションのトラブルシューティング
 content_type: concept
 ---
