@@ -105,7 +105,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
    kubectl apply -f https://k8s.io/examples/pods/inject/secret-pod.yaml
    ```
 
-1. Podがランニング状態にあるのを確認する:
+1. Podの`STATUS`が`Running`であるのを確認する:
 
    ```shell
    kubectl get pod secret-test-pod
