@@ -67,7 +67,7 @@ Podが期待した動作をしない場合、ポッドの記述(ローカルマ�
 
 まずPodを削除して、`--validate` オプションを付けて再度作成してみてください。
 例えば、`kubectl apply --validate -f mypod.yaml`と実行します。
-command`のスペルを`commnd`に間違えると、以下のようなエラーになります。
+`command`のスペルを`commnd`に間違えると、以下のようなエラーになります。
 
 ```shell
 I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
