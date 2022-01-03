@@ -28,7 +28,7 @@ title: トラブルシューティング
 
 [Concepts](/docs/concepts/)では、Kubernetesのアーキテクチャーと各コンポーネントの動作について説明し、[Setup](/docs/setup/)では、使い始めるための実用的な手順を提供しています。
 [Tasks](/docs/tasks/) は、よく使われるタスクの実行方法を示し、 [Tutorials](/docs/tutorials/)は、実世界の業界特有、またはエンドツーエンドの開発シナリオ、より包括的なウォークスルーとなります。
-[Reference](/docs/reference/)セクションでは、[Kubernetes API(/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)と`kubectl`](/docs/reference/kubectl/overview/)などのコマンドラインインターフェース（CLI）に関する詳しいドキュメントが提供されています。
+[Reference](/docs/reference/)セクションでは、[Kubernetes API(/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)と`kubectl`](/docs/reference/kubectl/overview/)などのコマンドラインインターフェース(CLI)に関する詳しいドキュメントが提供されています。
 
 ## ヘルプ!私の質問はカバーされていません!今すぐ助けてください!
 
