@@ -93,7 +93,7 @@ that are most appropriate for your configuration, do the following:
 
    1. Privileged
       ```shell
-      kubectl label --dry-run=server --overwrite ns --all \                    
+      kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
       ```
      The output is similar to this:
