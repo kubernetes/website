@@ -423,7 +423,7 @@ command line arguments to `kube-apiserver`:
 * `--service-account-issuer`
 * `--service-account-key-file`
 * `--service-account-signing-key-file`
-* `--api-audiences`
+* `--api-audiences` (can be omitted)
 
 -->
 {{< note >}}
@@ -432,7 +432,7 @@ command line arguments to `kube-apiserver`:
 * `--service-account-issuer`
 * `--service-account-key-file`
 * `--service-account-signing-key-file`
-* `--api-audiences`
+* `--api-audiences`（可以省略）
 
 {{< /note >}}
 
