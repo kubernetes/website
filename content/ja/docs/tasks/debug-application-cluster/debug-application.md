@@ -77,7 +77,7 @@ pods/mypod
 
 <!-- TODO: Now that #11914 is merged, this advice may need to be updated -->
 
-次に確認することは、apiserver上のPodが、作成しようとしたPod（例えば、ローカルマシンのyamlファイル）と一致しているかどうかです。
+次に確認することは、apiserver上のPodが、作成しようとしたPod(例えば、ローカルマシンのyamlファイル)と一致しているかどうかです。
 例えば、`kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml` を実行して、元のポッドの説明である`mypod.yaml`とapiserverから戻ってきた`mypod-on-apiserver.yaml`を手動で比較してみてください。
 通常、"apiserver" バージョンには、元のバージョンにはない行がいくつかあります。これは予想されることです。
 しかし、もし元のバージョンにある行がapiserverバージョンにない場合、これはあなたのPod specに問題があることを示している可能性があります。
