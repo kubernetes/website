@@ -46,7 +46,7 @@ Kubernetesはスワップをサポートしていないため、すべての匿�
 
 ## メトリクスサーバー
 
-[メトリクスサーバー](https://github.com/kubernetes-sigs/metrics-server)は、クラスタ全体のリソース使用量データのアグリゲータです。
+[メトリクスサーバー](https://github.com/kubernetes-sigs/metrics-server)は、クラスター全体のリソース使用量データのアグリゲーターです。
 デフォルトでは、`kube-up.sh`スクリプトで作成されたクラスタにDeploymentオブジェクトとしてデプロイされます。
 別のKubernetesセットアップ機構を使用する場合は、提供される[deployment components.yaml](https://github.com/kubernetes-sigs/metrics-server/releases)ファイルを使用してデプロイすることができます。
 メトリクスサーバーは、Summary APIからメトリクスを収集します。
