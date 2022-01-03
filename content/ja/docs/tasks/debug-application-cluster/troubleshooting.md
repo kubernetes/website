@@ -1,6 +1,4 @@
 ---
-reviewers:
-- ptux
 content_type: concept
 title: トラブルシューティング
 ---
@@ -45,12 +43,6 @@ Kubernetesコミュニティの多くの人々は、Kubernetes Slackの`#kuberne
 Slackは登録が必要です。[request an invitation](https://slack.kubernetes.io)ことができ、登録は誰でも可能です）。
 お気軽にお越しいただき、何でも質問してください。
 登録が完了したら、WebブラウザまたはSlackの専用アプリから[Kubernetes organization in Slack](https://kubernetes.slack.com)にアクセスします。
-
-
-Once you are registered, browse the growing list of channels for various subjects of
-interest. For example, people new to Kubernetes may also want to join the
-[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) channel. As another example, developers should join the
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) channel.
 
 登録が完了したら、増え続けるチャンネルリストを見て、興味のある様々なテーマについて調べてみましょう。
 たとえば、Kubernetesの初心者は、[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)に参加してみるのもよいでしょう。
