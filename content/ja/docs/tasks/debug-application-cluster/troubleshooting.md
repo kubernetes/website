@@ -53,8 +53,7 @@ interest. For example, people new to Kubernetes may also want to join the
 [`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) channel.
 
 登録が完了したら、増え続けるチャンネルリストを見て、興味のある様々なテーマについて調べてみましょう。
-たとえば、Kubernetes の初心者は、次のチャンネルに参加するのもよいでしょう。
-[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)
+たとえば、Kubernetesの初心者は、[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)に参加してみるのもよいでしょう。
 別の例として、開発者は[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev)チャンネルに参加するとよいでしょう。
 
 また、多くの国別／現地語チャンネルがあります。これらのチャンネルに参加すれば、地域特有のサポートや情報を得ることができます。
