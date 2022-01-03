@@ -21,7 +21,7 @@ Kubernetesでは、コンテナのCPU使用率やメモリ使用率といった�
 - 他のKubernetes APIと同じエンドポイントを経由して、`/apis/metrics.k8s.io/`パスの下で発見できます。
 - 同じセキュリティ、スケーラビリティ、信頼性の保証を提供します。
 
-メトリクスAPIは[k8s.io/metrics](https://github.com/kubernetes/metrics/blob/master/pkg/apis/metrics/v1beta1/types.go)レポジトリで定義されています。
+メトリクスAPIは[k8s.io/metrics](https://github.com/kubernetes/metrics/blob/master/pkg/apis/metrics/v1beta1/types.go)リポジトリで定義されています。
 メトリクスAPIについての詳しい情報はそちらをご覧ください。
 
 {{< note >}}
