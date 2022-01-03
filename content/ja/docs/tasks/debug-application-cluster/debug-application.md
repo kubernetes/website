@@ -105,7 +105,7 @@ kubectl get endpoints ${SERVICE_NAME}
 ```
 
 EndpointがServiceのメンバーとして想定されるPod数と一致していることを確認してください。
-例えば、3つのレプリカを持つnginxコンテナ用のサービスであれば、サービスのエンドポイントには3つの異なるIPアドレスが表示されるはずです。
+例えば、3つのレプリカを持つnginxコンテナ用のServiceであれば、ServiceのEndpointには3つの異なるIPアドレスが表示されるはずです。
 
 #### サービスにエンドポイントがありません
 
