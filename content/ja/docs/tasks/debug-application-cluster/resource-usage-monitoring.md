@@ -15,7 +15,7 @@ Kubernetesは、これらの各レベルでアプリケーションのリソー�
 <!-- body -->
 
 Kubernetesでは、アプリケーションの監視は1つの監視ソリューションに依存することはありません。
-新しいクラスタでは、[resource metrics](#resource-metrics-pipeline) または [full metrics](#full-metrics-pipeline) パイプラインを使用してモニタリング統計を収集することができます。
+新しいクラスターでは、[リソースメトリクス](#resource-metrics-pipeline)または[フルメトリクス](#full-metrics-pipeline)パイプラインを使用してモニタリング統計を収集することができます。
 
 ## リソースメトリクスパイプライン
 
