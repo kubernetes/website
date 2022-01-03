@@ -63,13 +63,11 @@ Important topic in the context of Memory Manager operation is the management of 
 
 ## Memory Manager configuration
 
-Other Managers should be first pre-configured (section [Pre-configuration](#pre-configuration)). Next, the Memory Manger feature should be enabled (section [Enable the Memory Manager feature](#enable-the-memory-manager-feature)) and be run with `Static` policy (section [Static policy](#static-policy)). Optionally, some amount of memory can be reserved for system or kubelet processes to increase node stability (section [Reserved memory flag](#reserved-memory-flag)).
+Other Managers should be first pre-configured. Next, the Memory Manger feature should be enabled and be run with `Static` policy (section [Static policy](#policy-static)). Optionally, some amount of memory can be reserved for system or kubelet processes to increase node stability (section [Reserved memory flag](#reserved-memory-flag)).
 
 ### Policies 
 
-Memory Manager supports two policies. You can select a policy via a `kubelet` flag `--memory-manager-policy`.
-
-Two policies can be selected:
+Memory Manager supports two policies. You can select a policy via a `kubelet` flag `--memory-manager-policy`:
 
 * `None` (default)
 * `Static`
@@ -92,7 +90,6 @@ In the case of the `BestEffort` or `Burstable` pod, the `Static` Memory Manager 
 The [Node Allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/) mechanism is commonly used by node administrators to reserve K8S node system resources for the kubelet or operating system processes in order to enhance the node stability. A dedicated set of flags can be used for this purpose to set the total amount of reserved memory for a node. This pre-configured value is subsequently utilized to calculate the real amount of node's "allocatable" memory available to pods.
 
 The Kubernetes scheduler incorporates "allocatable" to optimise pod scheduling process. The foregoing flags include `--kube-reserved`, `--system-reserved` and `--eviction-threshold`. The sum of their values will account for the total amount of reserved memory.
-
 
 A new `--reserved-memory` flag was added to Memory Manager to allow for this total reserved memory to be split (by a node administrator) and accordingly reserved across many NUMA nodes. 
 
@@ -150,7 +147,7 @@ The default hard eviction threshold is 100MiB, and **not** zero. Remember to inc
 
 Here is an example of a correct configuration:
 
-```shell
+```none
 --feature-gates=MemoryManager=true 
 --kube-reserved=cpu=4,memory=4Gi 
 --system-reserved=cpu=1,memory=1Gi 
@@ -225,14 +222,19 @@ This error typically occurs in the following situations:
 * the pod's request is rejected due to particular Topology Manager policy constraints 
 
 The error appears in the status of a pod:
+
 ```shell
-# kubectl get pods
+kubectl get pods
+```
+
+```none
 NAME         READY   STATUS                  RESTARTS   AGE
 guaranteed   0/1     TopologyAffinityError   0          113s
 ```
 
 Use `kubectl describe pod <id>` or `kubectl get events` to obtain detailed error message:
-```shell
+
+```none
 Warning  TopologyAffinityError  10m   kubelet, dell8  Resources cannot be allocated with Topology locality
 ```
 
@@ -253,6 +255,7 @@ Also, search the logs for occurrences associated with the Memory Manager, e.g. t
 ### Examine the memory manager state on a node
 
 Let us first deploy a sample `Guaranteed` pod whose specification is as follows:
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -274,6 +277,7 @@ spec:
 ``` 
 
 Next, let us log into the node where it was deployed and examine the state file in `/var/lib/kubelet/memory_manager_state`:
+
 ```json
 {
    "policyName":"Static",
