@@ -387,6 +387,25 @@ You can now close the shell to your Node.
 -->
 你现在可以关闭连接到节点的 Shell。
 
+<!--
+## Mounting the same persistentVolume in two places
+-->
+
+## 在两个地方挂载相同的 persistentVolume
+
+{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
+
+<!--
+You can perform 2 volume mounts on your nginx container:
+
+`/usr/share/nginx/html` for the static website
+`/etc/nginx/nginx.conf` for the default config
+-->
+你可以在 nginx 容器上执行两个卷挂载:
+
+`/usr/share/nginx/html` 用于静态网站
+`/etc/nginx/nginx.conf` 作为默认配置
+
 <!-- discussion -->
 
 <!--

@@ -85,7 +85,11 @@ class third,fourth white
     - Reading the PR description to understand the changes made, and read any linked issues
     - Reading any comments by other reviewers
     - Clicking the **Files changed** tab to see the files and lines changed
-    - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab and clicking the **deploy/netlify** line's **Details** link.
+    - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab.
+      Here's a screenshot (this shows GitHub's desktop site; if you're reviewing
+      on a tablet or smartphone device, the GitHub web UI is slightly different):
+      {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
+      To open the preview, click on the  **Details** link of the **deploy/netlify** line in the list of checks.
 
 4.  Go to the **Files changed** tab to start your review.
     1. Click on the `+` symbol  beside the line you want to comment on.
