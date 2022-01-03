@@ -22,7 +22,7 @@ content_type: concept
 
 `kubectl run`がインフラのコード化を満たすために:
 
-* 画像にバージョン固有のタグを付けて、そのタグを新しいバージョンに移さない。例えば、`:latest`ではなく、`:v1234`、`v1.2.3`、`r03062016-1-4`を使用してください(詳細は、[Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images)を参照してください)。
+* イメージにバージョン固有のタグを付けて、そのタグを新しいバージョンに移さない。例えば、`:latest`ではなく、`:v1234`、`v1.2.3`、`r03062016-1-4`を使用してください(詳細は、[Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images)を参照してください)。
 * パラメーターが多用されているイメージをスクリプトでチェックします。
 * `kubectl run` フラグでは表現できない機能を、ソースコントロールでチェックした設定ファイルに切り替えます。
 
