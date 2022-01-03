@@ -137,7 +137,7 @@ collection, which deletes images in order based on the last time they were used,
 starting with the oldest first. The kubelet deletes images
 until disk usage reaches the `LowThresholdPercent` value.
 
-### Container image garbage collection {#container-image-garbage-collection}
+### Container garbage collection {#container-garbage-collection}
 
 The kubelet garbage collects unused containers based on the following variables,
 which you can define: 
