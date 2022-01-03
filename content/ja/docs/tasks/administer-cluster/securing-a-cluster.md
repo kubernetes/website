@@ -87,7 +87,7 @@ Kubernetesにおける権限付与は、意図的にハイレベルであり、�
 
 ### コンテナが利用する特権の制御
 
-ポッドの定義には、[security context](/docs/tasks/configure-pod-container/security-context/)が含まれており、ノード上の特定の Linux ユーザー(root など)として実行するためのアクセス、特権的に実行するためのアクセス、ホストネットワークにアクセスするためのアクセス、その他の制御を要求することができます。
+ポッドの定義には、[security context](/docs/tasks/configure-pod-container/security-context/)が含まれており、ノード上の特定の Linux ユーザー(rootなど)として実行するためのアクセス、特権的に実行するためのアクセス、ホストネットワークにアクセスするためのアクセス、その他の制御を要求することができます。
 [Pod security policies](/docs/concepts/policy/pod-security-policy/)は、危険なセキュリティコンテキスト設定を提供できるユーザーやサービスアカウントを制限することができます。
 
 たとえば、ポッドのセキュリティポリシーでは、ボリュームマウント、特に`hostPath`を制限することができ、これはポッドの制御すべき側面です。
