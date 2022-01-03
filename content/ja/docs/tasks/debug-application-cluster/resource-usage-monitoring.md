@@ -27,7 +27,7 @@ metrics-serverはクラスタ上のすべてのノードを検出し
 各ノードの [kubelet](/docs/reference/command-line-tools-reference/kubelet/) にCPUとメモリの使用量を問い合わせます。
 
 kubeletはKubernetesマスターとノードの橋渡し役として、マシン上で動作するPodやコンテナを管理する。
-kubeletは各ポッドを構成するコンテナに変換し、コンテナランタイムインターフェースを介してコンテナランタイムから個々のコンテナ使用統計情報を取得します。この情報は、レガシーDocker統合のための統合cAdvisorから取得されます。
+kubeletは各Podを構成するコンテナに変換し、コンテナランタイムインターフェースを介してコンテナランタイムから個々のコンテナ使用統計情報を取得します。この情報は、レガシーDocker統合のための統合cAdvisorから取得されます。
 
 そして、集約されたポッドリソース使用統計情報を、metrics-server Resource Metrics APIを通じて公開します。
 このAPIは、kubeletの認証済みおよび読み取り専用ポート上の `/metrics/resource/v1beta1` で提供されます。
