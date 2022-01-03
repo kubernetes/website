@@ -59,7 +59,7 @@ Podが`Waiting`状態で止まっている場合、ワーカーノードにス�
 
 #### Podがクラッシュするなどの不健全な状態
 
-Podがスケジュールされると、[Debug Running Pods](/docs/tasks/debug-application-cluster/debug-running-pod/)で説明されているメソッドがデバッグに利用できるようになります。
+Podがスケジュールされると、[Debug Running Pods](/docs/tasks/debug-application-cluster/debug-running-pod/)で説明されている方法がデバッグに利用できるようになります。
 
 #### Podが期待する通りに動きません
 
