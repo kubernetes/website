@@ -5,13 +5,13 @@ weight: 60
 
 ## Disclaimer
 
-The [compose specification](https://github.com/compose-spec/compose-spec) is evolving, this documentation aims to cover the latest version of this compose specification.
+The [compose specification](https://github.com/compose-spec/compose-spec) is evolving. This documentation aims to cover the latest version of this compose specification.
 We will assume that we are talking about the latest compose specifications which the v3 at this time of writing.
-If your compose files at not at the latest version specification, we suggest you try to upgrade to the latest spec version first. 
+If your compose files are not at the latest version specification, we suggest you try to upgrade to the latest spec version first. 
 
 ## Differences between compose specification and Kubernetes specification
 
-A set of workflows defined using the compose specification cannot be automated translated to a unique set of Kubernetes objects.
+A set of workflows defined using the compose specification cannot be automatically translated to a unique set of Kubernetes objects.
 While some notions are very similar, there is not a single way to translate concepts from compose to Kubernetes.
 There is no direct equivalence for many concepts of compose in Kubernetes.
 
@@ -27,7 +27,7 @@ One of the first step to migrate from compose to Kubernetes is to analyze among 
 
 ### Stateless applications
 
-Stateless applications is one which depends on no persistent storage.
+A stateless application is one which depends on no persistent storage.
 The only thing your cluster is responsible for is the code, and other static content, being hosted on it.
 That's it, no changing databases, no writes and no left over files when the pod is deleted.
 
