@@ -59,6 +59,6 @@ Kubernetesはスワップをサポートしていないため、すべての匿�
 
 [Kubelet](/docs/reference/command-line-tools-reference/kubelet/)は、ノード、ボリューム、Pod、コンテナレベルの統計情報を収集し、[Summary API(https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)]で省略して消費者が読めるようにするものです。
 
-1.23以前は、これらのリソースは主に[cAdvisor(https://github.com/google/cadvisor)]から収集されていました。しかし、1.23では`PodAndContainerStatsFromCRI FeatureGate`の導入により、コンテナとポッドレベルの統計情報をCRI実装で収集することができます。
+1.23以前は、これらのリソースは主に[cAdvisor](https://github.com/google/cadvisor)から収集されていました。しかし、1.23では`PodAndContainerStatsFromCRI FeatureGate`の導入により、コンテナとPodレベルの統計情報をCRI実装で収集することができます。
 
 注意: これはCRI実装によるサポートも必要です (containerd >= 1.6.0, CRI-O >= 1.23.0)。
