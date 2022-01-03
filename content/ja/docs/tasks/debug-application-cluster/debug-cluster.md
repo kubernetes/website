@@ -1,6 +1,4 @@
 ---
-reviewers:
-- ptux
 title: クラスターのトラブルシューティング
 content_type: concept
 ---
