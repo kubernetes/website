@@ -22,7 +22,7 @@ content_type: task
 
 Kubernetesは完全にAPI駆動であるため、誰がクラスタにアクセスできるか、どのようなアクションを実行できるかを制御・制限することが第一の防御策となります。
 
-### すべてのAPIトラフィックにTLS（Transport Layer Security）の使用
+### すべてのAPIトラフィックにTLS(Transport Layer Security)の使用
 
 Kubernetesは、クラスタ内のすべてのAPI通信がデフォルトでTLSにより暗号化されていることを期待しており、大半のインストール方法では、必要な証明書を作成してクラスタコンポーネントに配布することができます。
 
