@@ -102,7 +102,7 @@ kubectl cluster-info dump
     - HA（高可用性）etcdの構成を想定しています
 
 - 対処法: apiserver PDs/EBS-volumesを定期的にスナップショットする
-  - 異常。Apiserver のバッキングストレージが失われた
+  - 異常: Apiserver のバックエンドストレージが失われる
   - 異常。操作ミスが発生する場合がある
   - 異常。Kubernetesのソフトウェアに障害が発生する場合がある
 
