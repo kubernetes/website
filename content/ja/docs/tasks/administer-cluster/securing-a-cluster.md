@@ -47,8 +47,6 @@ Kubernetesには、統合された[Role-Based Access Control (RBAC)](/docs/refer
 これらのパーミッションは、動詞(get, create, delete)とリソース(pods, services, nodes)を組み合わせたもので、ネームスペース・スコープまたはクラスター・スコープに対応しています。
 すぐに使えるロールのセットが提供されており、クライアントが実行したいアクションに応じて、デフォルトで適切な責任の分離を提供します。
 
-It is recommended that you use the [Node](/docs/reference/access-authn-authz/node/) and [RBAC](/docs/reference/access-authn-authz/rbac/) authorizers together, in combination with the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) admission plugin.
-
 [Node](/docs/reference/access-authn-authz/node/)と[RBAC](/docs/reference/access-authn-authz/rbac/)の承認者は、[NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)のアドミッションプラグインと組み合わせて使用することをお勧めします。
 
 認証の場合と同様に、小規模なクラスタにはシンプルで幅広い役割が適切かもしれません。
@@ -193,12 +191,6 @@ Kubernetesは1.7で導入された機能である[encryption at rest](/docs/task
 この機能は現在ベータ版ですが、バックアップが暗号化されていない場合や、攻撃者が etcd への読み取りアクセスを得た場合に、追加の防御レベルを提供します。
 
 ### セキュリティアップデートのアラートの受信と脆弱性の報告
-
-Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)
-group for emails about security announcements. See the
-[security reporting](/docs/reference/issues-security/security/)
-page for more on how to report vulnerabilities.
-
 
 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)に参加してください。
 グループに参加すると、セキュリティアナウンスに関するメールを受け取ることができます。
