@@ -35,7 +35,7 @@ kubeletは各Podを構成するコンテナに変換し、コンテナランタ�
 ## フルメトリクスパイプライン
 
 フルメトリクスパイプラインは、より豊富なメトリクスにアクセスすることができます。
-Kubernetesは、Horizontal Pod Autoscalerなどのメカニズムを使用して、現在の状態に基づいてクラスタを自動的にスケーリングまたは適応させることによって、これらのメトリクスに対応することができます。
+Kubernetesは、Horizontal Pod Autoscalerなどのメカニズムを使用して、現在の状態に基づいてクラスターを自動的にスケールまたは適応させることによって、これらのメトリクスに対応することができます。
 モニタリングパイプラインは、kubeletからメトリクスをフェッチし、`custom.metrics.k8s.io` または `external.metrics.k8s.io` APIを実装してアダプタ経由でKubernetesにそれらを公開する。
 CNCFプロジェクトの[Prometheus](https://prometheus.io)は、Kubernetes、ノード、Prometheus自身をネイティブに監視することができます。
 CNCFに属さない完全なメトリクスパイプラインのプロジェクトは、Kubernetesのドキュメントの範囲外です。
