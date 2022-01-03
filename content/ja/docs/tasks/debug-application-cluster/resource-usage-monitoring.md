@@ -1,6 +1,4 @@
 ---
-reviewers:
-- ptux
 content_type: concept
 title: リソース監視のためのツール
 ---
