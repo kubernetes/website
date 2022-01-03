@@ -26,7 +26,7 @@ content_type: concept
 * パラメーターが多用されているイメージをスクリプトでチェックします。
 * `kubectl run` フラグでは表現できない機能を、ソースコントロールでチェックした設定ファイルに切り替えます。
 
-`dry-run=client` フラグを使用すると、実際に送信することなく、クラスタに送信されるオブジェクトをプレビューすることができます。
+`dry-run=client` フラグを使用すると、実際に送信することなく、クラスターに送信されるオブジェクトを確認することができます。
 
 {{< note >}}
 すべての`kubectl run`ジェネレーターは非推奨です。ジェネレーターの[リスト](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators)とその使用方法については、Kubernetes v1.17のドキュメントを参照してください。
