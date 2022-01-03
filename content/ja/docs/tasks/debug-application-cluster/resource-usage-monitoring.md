@@ -19,7 +19,7 @@ Kubernetesでは、アプリケーションの監視は1つの監視ソリュー
 
 ## リソースメトリクスパイプライン
 
-リソースメトリックパイプラインは、[Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)コントローラなどのクラスタコンポーネントや、`kubectl top`ユーティリティに関連する限定的なメトリックセットを提供します。
+リソースメトリックパイプラインは、[Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)コントローラーなどのクラスターコンポーネントや、`kubectl top`ユーティリティに関連する限定的なメトリックセットを提供します。
 
 これらのメトリクスは軽量、短期、インメモリの[metrics-server](https://github.com/kubernetes-sigs/metrics-server)によって収集され、`metrics.k8s.io` APIを通じて公開されます。
 
