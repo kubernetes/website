@@ -12,58 +12,57 @@ Esta guía es para los dueños de aplicaciones que quieren crear
 aplicaciones con alta disponibilidad y que necesitan entender
 que tipos de interrupciones pueden suceder en los Pods.
 
-Tambien es para los administradores de clusters que quieren aplicacar acciones
-automáticas en sus clusters, como actualizar o autoescalar los clusters.
+También es para los administradores de clústers que quieren aplicar acciones
+automáticas en sus clústers, cómo actualizar o autoescalar los clústers.
 
 <!-- body -->
 
 ## Interrupciones voluntarias e involuntarias
 
 Los pods no desaparecen hasta que algo (una persona o un controlador) los destruye
-ó hay problemas de hardware o del software que son inevitables.
+ó hay problemas de hardware ó del software que son inevitables.
 
-Nosotros llamamos esos casos inevitables *interrupciones involuntarias* a
+Nosotros llamamos a esos casos inevitables *interrupciones involuntarias* de
 una aplicación. Algunos ejemplos:
 
-- Una falla en en hardware de la máquina fisica del nodo
-- Un administrador del cluster borra una VM (instancia) por error
+- Una falla en en hardware de la máquina física del nodo
+- Un administrador del clúster borra una VM (instancia) por error
 - El proveedor cloud o el hypervisor falla y hace desaparecer la VM
 - Un kernel panic
-- El nodo desaparece del cluster por un problema de red que lo separa del cluster
-- Una remoción del pod porque el nodo esta [fuera-de-recursos](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
-```No se si es correcto el termino remoción, porque la traducción sería desalojo pero no me gusta tanto```
+- El nodo desaparece del clúster por un problema de red que lo separa del clúster
+- Una remoción del pod porque el nodo esta [sin-recursos-suficientes](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 
-A excepción de la condición fuera-de-recursos, todas estas condiciones
+A excepción de la condición sin-recursos-suficientes, todas estas condiciones
 deben ser familiares para la mayoría de los usuarios, no son específicas
 de Kubernetes
 
 Nosotros llamamos a los otros casos *interrupciones voluntarias*. Estas incluyen
 las acciones iniciadas por el dueño de la aplicación y aquellas iniciadas por el Administrador
-del Cluster. Las acciones típicas de los dueños de la aplicación incluye:
+del Clúster. Las acciones típicas de los dueños de la aplicación incluye:
 
 - borrar el deployment o otro controlador que maneja el pod
 - actualizar el deployment del pod que causa un reinicio 
 - borrar un pod (por ejemplo por accidente)
 
-Las acciones del administrador del cluster incluyen:
+Las acciones del administrador del clúster incluyen:
 
-- [Drenar un nodo](/docs/tasks/administer-cluster/safely-drain-node/) para reparar o actualizar.
-- Drenar un nodo del cluster para reducir el cluster (aprenda acerca de [Autoescalamiento de Cluster](https://github.com/kubernetes/autoscaler/#readme)
+- [Drenar un nodo](/docs/tasks/administer-clúster/safely-drain-node/) para reparar o actualizar.
+- Drenar un nodo del clúster para reducir el clúster (aprenda acerca de [Autoescalamiento de Clúster](https://github.com/kubernetes/autoscaler/#readme)
 ).
 - Remover un pod de un nodo para permitir que otra cosa pueda ingresar a ese nodo.
 
-Estas acciones pueden ser realizadas directamente por el administrador del cluster, por
-tareas automaticas del administrador del cluster ó por el proveedor del cluster.
+Estas acciones pueden ser realizadas directamente por el administrador del clúster, por
+tareas automaticas del administrador del clúster ó por el proveedor del clúster.
 ```Si puden revisar esta frase de arriba sería muy bueno, no me gusta como ha quedado```
 
-Consulte al administrador de su cluster, a su proveedor cloud ó la documentación de su distribución
-para determinar si alguno de estas interrupciones voluntarias están habilitadas en su cluster.
+Consulte al administrador de su clúster, a su proveedor cloud ó la documentación de su distribución
+para determinar si alguna de estas interrupciones voluntarias están habilitadas en su clúster.
 Si no estan habilitadas, puede saltear la creación del presupuesto de Interrupción de Pods.
 ```Si puden revisar esta frase de arriba sería muy bueno, no me gusta como ha quedado```
 
 {{< caution >}}
-Not all voluntary disruptions are constrained by Pod Disruption Budgets. For example,
-deleting deployments or pods bypasses Pod Disruption Budgets.
+No todas las interrupciones voluntarias son consideradas por el presupuesto de interrupción de Pods. Por ejemplo,
+borrar un deployment o pods que evitan el uso del presupuesto.
 {{< /caution >}}
 
 ## Tratando con las interrupciones
@@ -73,193 +72,201 @@ Estas son algunas de las maneras para mitigar las interrupciones involuntarias:
 - Asegurarse que el pod [solicite los recursos](/docs/tasks/configure-pod-container/assign-memory-resource) que necesita.
 - Replique su aplicación su usted necesita alta disponiblidad. (Aprenda sobre correr aplicaciones replicadas
   [stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
-  y [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
+  y [stateful](/docs/tasks/run-application/run-replicated-stateful-application/)
 - Incluso, para alta disponiblidad cuando corre aplicaciones replicadas,
   extendia aplicaciones por varios racks (usando
   [anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity))
-  o usando zonas (si usa un [cluster multi-zona](/docs/setup/multiple-zones).)
+  o usando zonas (si usa un [clúster multi-zona](/docs/setup/multiple-zones).)
 
-La frecuencia de las interrupciones voluntarias varía. En un cluster basico de Kubernetes, no hay 
-interrupciones voluntarias automáticas (solo el usuario las genera). Sin embargo, su administrador del cluster o proveedor de hosting
+La frecuencia de las interrupciones voluntarias varía. En un clúster basico de Kubernetes, no hay 
+interrupciones voluntarias automáticas (solo el usuario las genera). Sin embargo, su administrador del clúster o proveedor de hosting
 puede correr algun servicio adicional que pueda causar estas interrupciones voluntarias. Por ejemplo,
 desplegando una actualización de software en los nodos puede causar interrupciones. También, algunas implementaciones
-de clusters con autoescalamiento de nodos puede causar interrupciones para defragmentar o compactar los nodos.
-Su administrador de cluster o proveedor de hosting debe tener documentado cual es el nivel de interrupciones
-voluntarias esperadas, si las hay. Ciertas opciones de configuración, como ser
+de clústers con autoescalamiento de nodos puede causar interrupciones para defragmentar o compactar los nodos.
+Su administrador de clúster o proveedor de hosting debe tener documentado cuál es el nivel de interrupciones
+voluntarias esperadas, sí las hay. Ciertas opciones de configuración, como ser
 [usar PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 en las spec de su pod pueden tambien causar interrupciones voluntarias (o involuntarias).
 
 
-## Pod disruption budgets
+## Presupuesto de Interrupción de Pods
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-Kubernetes offers features to help you run highly available applications even when you
-introduce frequent voluntary disruptions.
+Kubernetes ofrece carácteristicas para ayudar a ejecutar aplicaciones con alta disponibliidad, incluso cuando usted
+introduce frecuentes interrupciones voluntarias.
 
-As an application owner, you can create a PodDisruptionBudget (PDB) for each application.
-A PDB limits the number of Pods of a replicated application that are down simultaneously from
-voluntary disruptions. For example, a quorum-based application would
-like to ensure that the number of replicas running is never brought below the
-number needed for a quorum. A web front end might want to
-ensure that the number of replicas serving load never falls below a certain
-percentage of the total.
+```Necesito que me digan si aca ponemos en ingles PodDisruptionBudget o se hace la tradución```
+Como dueño de la aplicación, usted puede crear un presupuesto de interrupcion de pods (PDB por su sigla en inglés) para cada aplicación.
+Un PDB limita el numero de Pods de una aplicación replicada,  que estan caídos de manera simultánea por
+interrupciones voluntarias. Por ejemplo, una aplicación basada en quórum puede
+asegurarse que el número de réplicas corriendo nunca es menor al
+número necesitado para obtener el quórum. Un front de una web puede querer
+asegurarse que el número de réplicas atendiendo al tráfico nunca puede caer bajo un cierto
+porcentaje del total.
 
-Cluster managers and hosting providers should use tools which
-respect PodDisruptionBudgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)
-instead of directly deleting pods or deployments.
+Los administradores del clúster y proveedores de hosting pueden usar herramientas que
+repeten el presupuesto de interrupción de pods utilizando la [API de Desalojo](/docs/tasks/administer-clúster/safely-drain-node/#eviction-api)
+en vez de directamente borrar pods o deployments.
 
-For example, the `kubectl drain` subcommand lets you mark a node as going out of
-service. When you run `kubectl drain`, the tool tries to evict all of the Pods on
-the Node you're taking out of service. The eviction request that `kubectl` submits on
-your behalf may be temporarily rejected, so the tool periodically retries all failed
-requests until all Pods on the target node are terminated, or until a configurable timeout
-is reached.
+Por ejemplo, el subcomando `kubectl drain` le permite marcar un nodo a un modo fuera de
+servicio. Cuando se ejecuta `kubectl drain`, la herramienta trata de quitar a todos los Pods en
+el nodo que se esta dejando fuera de servicio. El pedido de desalojo que `kubectl` solicita en 
+su nombre puede ser temporalmente denegado, entonces la herramienta periodicamente reintenta todas las 
+peticiones fallidas hasta que todos los Pods en el nodo afectado son terminados ó hasta que el tiempo de espera,
+que puede ser configurado, es alcanzado.
+ 
+Un PDB especifica el número de réplicas que una aplicación puede tener, relativo a cuantos
+se pretende tener. Por ejemplo, un Deployment que tiene un `.spec.replicas: 5` se
+supone que tiene 5 pods en cualquier momento. Si su PDB permite tener 4 por a la vez,
+entonces la API de Desalojo va a permitir interrupciones voluntarias a uno (pero no a dos) pods.
 
-A PDB specifies the number of replicas that an application can tolerate having, relative to how
-many it is intended to have.  For example, a Deployment which has a `.spec.replicas: 5` is
-supposed to have 5 pods at any given time.  If its PDB allows for there to be 4 at a time,
-then the Eviction API will allow voluntary disruption of one (but not two) pods at a time.
+El grupo de pods que comprende a la aplicación esta especificada usando una etiqueta selectora, la mismma
+que es usada por el controlador de aplicación (deployment, stateful-set, etc).
 
-The group of pods that comprise the application is specified using a label selector, the same
-as the one used by the application's controller (deployment, stateful-set, etc).
-
+```No puedo darle sentido a estas lineas, necesito ayuda```
 The "intended" number of pods is computed from the `.spec.replicas` of the workload resource
 that is managing those pods. The control plane discovers the owning workload resource by
 examining the `.metadata.ownerReferences` of the Pod.
 
-[Involuntary disruptions](#voluntary-and-involuntary-disruptions) cannot be prevented by PDBs; however they
-do count against the budget.
+Las [Interrupciones Involuntarias](#voluntary-and-involuntary-disruptions) no pueden ser prevenidas por los PDB; pero si
+son contabilizadas contra este presupuesto.
 
-Pods which are deleted or unavailable due to a rolling upgrade to an application do count
-against the disruption budget, but workload resources (such as Deployment and StatefulSet)
-are not limited by PDBs when doing rolling upgrades. Instead, the handling of failures
-during application updates is configured in the spec for the specific workload resource.
+Los Pods que son borrados o no estan disponibles por una actualización continua de una aplicación cuentan
+contra el presupuesto de interrupciones, pero los recursos de trabajo (como los Deployments y StatefulSet)
+no están limitados por los PDBs cuando hacen actualizaciones continuas. En cambio, el manejo de fallas
+mientras dura la actualización de la aplicación es configurado en el spec de este recurso específico.
+```La ultima frase de arriba no me gusta como queda, quisiera agregar algo como que el rollout no se contabiliza, pero no se si es correcto
+o hace falta```
 
-When a pod is evicted using the eviction API, it is gracefully
-[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
-`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
+Cuando un pod es quitado usando la API de desarolojo, este es 
+[terminado](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) correctamente, haciendo honor al 
+`terminationGracePeriodSeconds` configurado en su [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
+```Arriba no hago la traducción de PodeSpec porque no se si sería necesario```
 
-## PodDisruptionBudget example {#pdb-example}
+## Ejemplo de Presupuesto de Interrupción de POD {#pdb-example}
 
-Consider a cluster with 3 nodes, `node-1` through `node-3`.
-The cluster is running several applications.  One of them has 3 replicas initially called
-`pod-a`, `pod-b`, and `pod-c`.  Another, unrelated pod without a PDB, called `pod-x`, is also shown.
-Initially, the pods are laid out as follows:
+Considere un clúster con 3 nodos, `nodo-1` hasta `nodo-3`.
+El clúster esta corriendo varias aplicaciones. Uno de ellos tiene 3 replicas, que llamaremos
+`pod-a`, `pod-b`, and `pod-c`. Otro pod no relacionado y sin PDB, llamado `pod-x`, tambien se muestra.
 
-|       node-1         |       node-2        |       node-3       |
+Inicialmente los pods estan distribuidos de esta manera:
+
+
+|       nodo-1         |       nodo-2        |       nodo-3       |
 |:--------------------:|:-------------------:|:------------------:|
 | pod-a  *available*   | pod-b *available*   | pod-c *available*  |
 | pod-x  *available*   |                     |                    |
 
-All 3 pods are part of a deployment, and they collectively have a PDB which requires
-there be at least 2 of the 3 pods to be available at all times.
+Los 3 pods son parte de un deployment, ellos colectivamente tienen un PDB que requiere
+que por lo menos 2 de los 3 pods esten disponibles todo el tiempo.
 
-For example, assume the cluster administrator wants to reboot into a new kernel version to fix a bug in the kernel.
-The cluster administrator first tries to drain `node-1` using the `kubectl drain` command.
-That tool tries to evict `pod-a` and `pod-x`.  This succeeds immediately.
-Both pods go into the `terminating` state at the same time.
-This puts the cluster in this state:
+Por ejemplo, supongamos que el administrador del clúster quiere reiniciar para actualizar el kernel y arreglar un bug.
+El administrador del clúster primero intenta desocupar el `nodo-1` usando el comando `kubectl drain`.
+La herramienta intenta desalojar a los pods `pod-a` y `pod-x`. Esto tiene éxito inmediatamente.
+Ambos pods van al estado `terminating` al mismo tiempo.
+Pone al clúster en el siguiente estado:
 
-|   node-1 *draining*  |       node-2        |       node-3       |
+| nodo-1 *desalojando* |       nodo-2        |       nodo-3       |
 |:--------------------:|:-------------------:|:------------------:|
 | pod-a  *terminating* | pod-b *available*   | pod-c *available*  |
 | pod-x  *terminating* |                     |                    |
 
-The deployment notices that one of the pods is terminating, so it creates a replacement
-called `pod-d`.  Since `node-1` is cordoned, it lands on another node.  Something has
-also created `pod-y` as a replacement for `pod-x`.
+El deployment detecta que uno de los pods esta terminando, entonces crea un reemplazo
+llamado `pod-d`. Como el `nodo-1` esta bloqueado, el pod termina en otro nodo. Algo más, adicionalmente
+a creado el pod `pod-y` como un reemplazo del `pod-x` . 
 
+```Necesita revisión```
 (Note: for a StatefulSet, `pod-a`, which would be called something like `pod-0`, would need
 to terminate completely before its replacement, which is also called `pod-0` but has a
 different UID, could be created.  Otherwise, the example applies to a StatefulSet as well.)
 
-Now the cluster is in this state:
+Ahora el clúster esta en este estado:
 
-|   node-1 *draining*  |       node-2        |       node-3       |
+| nodo-1 *desalojando* |       nodo-2        |       nodo-3       |
 |:--------------------:|:-------------------:|:------------------:|
 | pod-a  *terminating* | pod-b *available*   | pod-c *available*  |
 | pod-x  *terminating* | pod-d *starting*    | pod-y              |
 
-At some point, the pods terminate, and the cluster looks like this:
+En algún punto, los pods finalizan y el clúster se ve de esta forma:
 
-|    node-1 *drained*  |       node-2        |       node-3       |
+|  nodo-1 *desalojado* |       nodo-2        |       nodo-3       |
 |:--------------------:|:-------------------:|:------------------:|
 |                      | pod-b *available*   | pod-c *available*  |
 |                      | pod-d *starting*    | pod-y              |
 
-At this point, if an impatient cluster administrator tries to drain `node-2` or
-`node-3`, the drain command will block, because there are only 2 available
-pods for the deployment, and its PDB requires at least 2.  After some time passes, `pod-d` becomes available.
+En este estado, si un administrador del clúster impaciente intenta desalojar el `nodo-2` ó al 
+`nodo-3`, el comando drain va a ser bloqueado, porque hay solamente 2 pods disponibles para
+el deployment y el PDB requiere por lo menos 2. Después de pasado un tiempo el `pod-d` esta disponible.
 
-The cluster state now looks like this:
+El estado del clúster ahora se ve así:
 
-|    node-1 *drained*  |       node-2        |       node-3       |
+|  nodo-1 *desalojado* |       nodo-2        |       nodo-3       |
 |:--------------------:|:-------------------:|:------------------:|
 |                      | pod-b *available*   | pod-c *available*  |
 |                      | pod-d *available*   | pod-y              |
 
-Now, the cluster administrator tries to drain `node-2`.
-The drain command will try to evict the two pods in some order, say
-`pod-b` first and then `pod-d`.  It will succeed at evicting `pod-b`.
-But, when it tries to evict `pod-d`, it will be refused because that would leave only
-one pod available for the deployment.
+Ahora, el administrador del clúster desaloja el `nodo-2`.
+El comando drain tratará de desalojar a los 2 pods con algún orden, digamos
+primero el `pod-b` y después el `pod-d`. Va a tener éxito en quitar el `pod-b`.
+Pero cuando intente desalojar al `pod-d`, va a ser rechazado porque esto va a dejar solamente
+un pod disponible para el deployment. 
 
-The deployment creates a replacement for `pod-b` called `pod-e`.
-Because there are not enough resources in the cluster to schedule
-`pod-e` the drain will again block.  The cluster may end up in this
-state:
+El deployment crea un reemplazo para el `pod-b` llamando `pod-e`.
+Porque no hay recursos suficientes disponibles en el clúster para programar
+el `pod-e` el desalojo será bloqueado nuevamente. El clúster va a terminar en este
+estado:
 
-|    node-1 *drained*  |       node-2        |       node-3       | *no node*          |
+|    nodo-1 *drained*  |       nodo-2        |       nodo-3       | *sin nodo*          |
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
 |                      | pod-b *terminating* | pod-c *available*  | pod-e *pending*    |
 |                      | pod-d *available*   | pod-y              |                    |
 
-At this point, the cluster administrator needs to
-add a node back to the cluster to proceed with the upgrade.
+Ahora, el administrador del clúster necesita
+agregar un nodo de nuevo en el clúster para continuar con la actualización.
 
-You can see how Kubernetes varies the rate at which disruptions
-can happen, according to:
+Ustede puede ver como Kubernetes varia la tasa a la que las interrupciones
+pueden suceder, en función de: 
 
-- how many replicas an application needs
-- how long it takes to gracefully shutdown an instance
-- how long it takes a new instance to start up
-- the type of controller
-- the cluster's resource capacity
+- cuantas réplicas una aplicación necesita
+- cuanto toma apagar una instancia de manera correcta
+- cuanto tiempo toma que una nueva instancia inicie
+- el tipo de controlador
+- la capacidad de recursos del clúster
 
-## Separating Cluster Owner and Application Owner Roles
+## Separando al dueño del Clúster y los roles de dueños de la Aplicación
 
-Often, it is useful to think of the Cluster Manager
-and Application Owner as separate roles with limited knowledge
-of each other.   This separation of responsibilities
-may make sense in these scenarios:
+Muchas veces es útil pensar en el Administrador del Clúster
+y al dueño de la aplicación como roles separados con conocimiento limitado
+el uno del otro. Esta separación de responsabilidades
+puede tener sentido en estos escenarios:
 
-- when there are many application teams sharing a Kubernetes cluster, and
-  there is natural specialization of roles
-- when third-party tools or services are used to automate cluster management
+- Cuando hay muchas equipos con aplicaciones compartiendo un clúster de Kubernetes y 
+  hay una especialización natural de roles
+- Cuando una herramienta de terceros o servicio es usado para automatizar el control del clúster
 
-Pod Disruption Budgets support this separation of roles by providing an
-interface between the roles.
+El presupuesto de interrupción de pods soporta esta separación de roles, proveyendo
+una interface entre los roles.
 
-If you do not have such a separation of responsibilities in your organization,
-you may not need to use Pod Disruption Budgets.
+Si no se tiene tal separación de responsabilidades en la organización,
+posiblemente no se necesite el Presupuesto de Interrupción de Pods.
 
-## How to perform Disruptive Actions on your Cluster
+## Como realizar Acciones Disruptivas en el Clúster
 
-If you are a Cluster Administrator, and you need to perform a disruptive action on all
-the nodes in your cluster, such as a node or system software upgrade, here are some options:
+Si usted es el Administrador del Clúster y necesita realizar una acción disruptiva en todos
+los nodos en el clúster, como ser un upgrade de nodo o de software, estas son algunas de las opciones:
 
-- Accept downtime during the upgrade.
-- Failover to another complete replica cluster.
-   -  No downtime, but may be costly both for the duplicated nodes
-     and for human effort to orchestrate the switchover.
-- Write disruption tolerant applications and use PDBs.
-   - No downtime.
-   - Minimal resource duplication.
-   - Allows more automation of cluster administration.
-   - Writing disruption-tolerant applications is tricky, but the work to tolerate voluntary
-     disruptions largely overlaps with work to support autoscaling and tolerating
-     involuntary disruptions.
+- Aceptar el tiempo sin funcionar mientras dura el upgrade.
+- Conmutar a otra replica completa del clúster.
+   - No hay tiempo sin funcionar, pero puede ser costoso tener duplicados los nodos
+   y tambien un esfuerzo humano para orquestar dicho cambio.
+- Escribir la toleracia a la falla de la aplicación y usar PDBs.
+   - No hay tiempo sin funcionar.
+   - Duplicación de recursos mínimo.
+   - Permite mucha más automatización de la administración del clúster.
+   - Escribir aplicaciones que tengan tolerancia a fallas es complicado, pero el trabajo para tolerar interrupciones
+     involuntarias, largamente se sobrepone con el trabajo que es dar soporte a autoescalamientos y tolerar
+     interrupciones involuntarias.
 
 
 
@@ -267,10 +274,10 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 ## {{% heading "whatsnext" %}}
 
 
-* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
+* Siga los pasos para proteger su aplicación con [configurar el Presupuesto de Interrupciones de Pods](/docs/tasks/run-application/configure-pdb/).
 
-* Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
+* Aprenda más sobre [desalojar nodos](/docs/tasks/administer-clúster/safely-drain-node/)
 
-* Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
-  including steps to maintain its availability during the rollout.
+* Aprenda sobre [actualizar un deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
+  incluyendo los pasos para mantener su disponibilidad mientras dura la actualización.
 
