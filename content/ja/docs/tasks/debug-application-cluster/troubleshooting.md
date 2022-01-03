@@ -56,7 +56,7 @@ interest. For example, people new to Kubernetes may also want to join the
 たとえば、Kubernetesの初心者は、[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)に参加してみるのもよいでしょう。
 別の例として、開発者は[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev)チャンネルに参加するとよいでしょう。
 
-また、多くの国別／現地語チャンネルがあります。これらのチャンネルに参加すれば、地域特有のサポートや情報を得ることができます。
+また、多くの国別/言語別チャンネルがあります。これらのチャンネルに参加すれば、地域特有のサポートや情報を得ることができます。
 
 {{< table caption="Country / language specific Slack channels" >}}
 Country | Channels
