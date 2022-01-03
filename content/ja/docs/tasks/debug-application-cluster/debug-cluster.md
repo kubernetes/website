@@ -7,7 +7,7 @@ content_type: concept
 
 <!-- overview -->
 
-このドキュメントはクラスタのトラブルシューティングに関するもので、お客様が経験している問題の根本原因として、アプリケーションをすでに除外していることを前提としています。
+このドキュメントはクラスターのトラブルシューティングに関するもので、あなたが経験している問題の根本原因として、アプリケーションをすでに除外していることを前提としています。
 アプリケーションのデバッグのコツは、[application troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application)をご覧ください。
 また、[troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/)にも詳しい情報があります。
 
