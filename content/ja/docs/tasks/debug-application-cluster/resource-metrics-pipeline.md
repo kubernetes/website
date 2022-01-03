@@ -7,7 +7,7 @@ content_type: concept
 
 <!-- overview -->
 
-Kubernetesでは、コンテナのCPU使用率やメモリ使用率といったリソース使用量のメトリクスが、メトリクスAPIを通じて提供されています。これらのメトリクスは、ユーザーが`kubectl top`コマンドで直接アクセスするか、クラスタ内のコントローラ（例えばHorizontal Pod Autoscaler）が判断するためにアクセスすることができます。
+Kubernetesでは、コンテナのCPU使用率やメモリ使用率といったリソース使用量のメトリクスが、メトリクスAPIを通じて提供されています。これらのメトリクスは、ユーザーが`kubectl top`コマンドで直接アクセスするか、クラスター内のコントローラー(例えばHorizontal Pod Autoscaler)が判断するためにアクセスすることができます。
 
 <!-- body -->
 
