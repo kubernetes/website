@@ -8,7 +8,7 @@ title: リソース監視のためのツール
 <!-- overview -->
 
 アプリケーションを拡張し、信頼性の高いサービスを提供するために、デプロイ時にアプリケーションがどのように動作するかを理解する必要があります。
-コンテナ、[Pods](/docs/concepts/workloads/pods/)、[service](/docs/concepts/services-networking/service/)、クラスタ全体の特性を調べることにより、Kubernetesクラスタのアプリケーションパフォーマンスを調査することができます。
+コンテナ、[Pod](/docs/concepts/workloads/pods/)、[Service](/docs/concepts/services-networking/service/)、クラスター全体の特性を調べることにより、Kubernetesクラスターのアプリケーションパフォーマンスを調査することができます。
 Kubernetesは、これらの各レベルでアプリケーションのリソース使用に関する詳細な情報を提供します。
 この情報により、アプリケーションのパフォーマンスを評価し、ボトルネックを取り除くことで全体のパフォーマンスを向上させることができます。
 
