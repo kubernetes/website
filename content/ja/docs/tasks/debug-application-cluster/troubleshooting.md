@@ -35,7 +35,7 @@ title: トラブルシューティング
 ### Stack Overflow
 
 コミュニティの誰かがすでに同じような質問をしている可能性があり、あなたの問題を解決できるかもしれません。
-Kubernetesチームも[posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes)を監視しています。
+Kubernetesチームも[Kubernetesタグが付けられた投稿](https://stackoverflow.com/questions/tagged/kubernetes)を監視しています。
 もし役立つ既存の質問がない場合は、[新しく質問してみてください](https://stackoverflow.com/questions/ask?tags=kubernetes)。
 
 
