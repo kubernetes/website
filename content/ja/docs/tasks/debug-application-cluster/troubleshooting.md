@@ -84,8 +84,7 @@ Kubernetesの公式フォーラムへの参加は大歓迎です[discuss.kuberne
 
 ### バグと機能の要望
 
-バグらしきものを発見した場合、または機能要望を出したい場合。
-GitHub課題追跡システム](https://github.com/kubernetes/kubernetes/issues)をご利用ください。
+バグらしきものを発見した場合、または機能要望を出したい場合、[GitHub課題追跡システム](https://github.com/kubernetes/kubernetes/issues)をご利用ください。
 課題を提出する前に、既存の課題を検索して、あなたの課題が解決されているかどうかを確認してください。
 
 バグを報告する場合は、そのバグを再現するための詳細な情報を含めてください。
