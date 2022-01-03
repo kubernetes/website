@@ -137,7 +137,7 @@ collection, which deletes images in order based on the last time they were used,
 starting with the oldest first. The kubelet deletes images
 until disk usage reaches the `LowThresholdPercent` value.
 
-### Container image garbage collection {#container-image-garbage-collection}
+### Container garbage collection {#container-image-garbage-collection}
 
 The kubelet garbage collects unused containers based on the following variables,
 which you can define: 
@@ -152,11 +152,11 @@ which you can define:
 In addition to these variables, the kubelet garbage collects unidentified and
 deleted containers, typically starting with the oldest first. 
 
-`MaxPerPodContainer` and `MaxContainer` may potentially conflict with each other
+`MaxPerPodContainer` and `MaxContainers` may potentially conflict with each other
 in situations where retaining the maximum number of containers per Pod
 (`MaxPerPodContainer`) would go outside the allowable total of global dead
 containers (`MaxContainers`). In this situation, the kubelet adjusts
-`MaxPodPerContainer` to address the conflict. A worst-case scenario would be to
+`MaxPerPodContainer` to address the conflict. A worst-case scenario would be to
 downgrade `MaxPerPodContainer` to `1` and evict the oldest containers.
 Additionally, containers owned by pods that have been deleted are removed once
 they are older than `MinAge`.
