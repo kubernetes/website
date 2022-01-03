@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 리소스 메트릭 파이프라인
 content_type: concept
 ---
@@ -62,3 +65,12 @@ kubelet은 비율 계산에 사용할 윈도우를 선택한다.
 
 [설계 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)에서
 메트릭 서버에 대해 자세하게 배울 수 있다.
+
+### 요약(Summary) API 소스
+[Kubelet](/docs/reference/command-line-tools-reference/kubelet/)은 노드, 볼륨, 파드, 컨테이너 수준의 통계를 수집하며, 
+소비자(consumer)가 읽을 수 있도록 이를 
+[요약 API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)에 기록한다.
+
+1.23 이전에는 이러한 자원들은 기본적으로 [cAdvisor](https://github.com/google/cadvisor)에 의해 수집되었다. 
+그러나, 1.23에서 `PodAndContainerStatsFromCRI` 기능 게이트가 추가되면서, 컨테이너 및 파드 수준 통계를 CRI 구현에서 수집할 수 있게 되었다.
+참고: 이를 위해서는 CRI 구현에서도 이 기능을 지원해야 한다(containerd >= 1.6.0, CRI-O >= 1.23.0).
