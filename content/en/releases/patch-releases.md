@@ -90,7 +90,7 @@ releases may also occur in between these.
 
 End of Life for **1.23** is **2023-02-28**.
 
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
+| Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
 | 1.23.2        | 2022-01-14           | 2022-01-19  |      |
 | 1.23.1        | 2021-12-14           | 2021-12-16  |      |
@@ -101,7 +101,7 @@ End of Life for **1.23** is **2023-02-28**.
 
 End of Life for **1.22** is **2022-10-28**
 
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
+| Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
 | 1.22.6        | 2022-01-14           | 2022-01-19  |      |
 | 1.22.5        | 2021-12-10           | 2021-12-15  |      |
@@ -116,7 +116,7 @@ End of Life for **1.22** is **2022-10-28**
 
 End of Life for **1.21** is **2022-06-28**
 
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE                                                                   |
+| Patch Release | Cherry Pick Deadline | Target Date | Note |
 | ------------- | -------------------- | ----------- | ---------------------------------------------------------------------- |
 | 1.21.9        | 2022-01-14           | 2022-01-19  |                                                                        |
 | 1.21.8        | 2021-12-10           | 2021-12-15  |                                                                        |
@@ -134,7 +134,7 @@ End of Life for **1.21** is **2022-06-28**
 
 End of Life for **1.20** is **2022-02-28**
 
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE                                                                                |
+| Patch Release | Cherry Pick Deadline | Target Date | Note |
 | ------------- | -------------------- | ----------- | ----------------------------------------------------------------------------------- |
 | 1.20.15       | 2022-01-14           | 2022-01-19  |                                                                                     |
 | 1.20.14       | 2021-12-10           | 2021-12-15  |                                                                                     |
@@ -157,7 +157,7 @@ End of Life for **1.20** is **2022-02-28**
 
 These releases are no longer supported.
 
-| MINOR VERSION | FINAL PATCH RELEASE | EOL DATE   | NOTE                                                                   |
+| Minor Version | Final Patch Release | EOL Date   | Note                                                                   |
 | ------------- | ------------------- | ---------- | ---------------------------------------------------------------------- |
 | 1.19          | 1.19.16             | 2021-10-28 |                                                                        |
 | 1.18          | 1.18.20             | 2021-06-18 | Created to resolve regression introduced in 1.18.19                    |
