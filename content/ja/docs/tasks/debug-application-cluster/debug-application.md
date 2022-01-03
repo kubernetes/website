@@ -86,7 +86,7 @@ pods/mypod
 
 レプリケーションコントローラーはかなり単純なものです。
 彼らはPodを作ることができるか、できないか、どちらかです。
-もしPodを作成できないのであれば、[instructions above](#debugging-pods)を参照して、Podをデバッグしてください。
+もしPodを作成できないのであれば、[上記の説明](#debugging-pods)を参照して、Podをデバッグしてください。
 また、`kubectl describe rc ${CONTROLLER_NAME}`を使用すると、レプリケーションコントローラに関連するイベントをイントロスペクトすることができます。
 
 ### サービスのデバッグ
