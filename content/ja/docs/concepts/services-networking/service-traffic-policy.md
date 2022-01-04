@@ -45,7 +45,7 @@ spec:
 ## 使い方
 
 kube-proxyは、`spec.internalTrafficPolicy`の設定に基づいて、ルーティング先のエンドポイントをフィルタリングします。
-`Local`に設定されている場合、ノードのローカルエンドポイントのみが考慮されます。`Cluster`であるか欠落している場合、すべてのエンドポイントが考慮されます。
+`spec.internalTrafficPolicy`が`Local`であれば、ノードのローカルエンドポイントにのみルーティングできるようにします。`Cluster`または未設定であればすべてのエンドポイントにルーティングできるようにします。
 `ServiceInternalTrafficPolicy`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、`spec.internalTrafficPolicy`のデフォルトは`Cluster`です。
 
 ## 制約
