@@ -1,6 +1,4 @@
 ---
-reviewers:
-- maplain
 title: サービス内部トラフィックポリシー
 content_type: concept
 weight: 45
@@ -18,7 +16,7 @@ weight: 45
 
 ## ServiceInternalTrafficPolicyの使用
 
-`ServiceInternalTrafficPolicy` [feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、`.spec.internalTrafficPolicy`を`Local`に設定して、{{< glossary_tooltip text="Service" term_id="service" >}}内部のみのトラフィックポリシーを有効にすることができます。
+`ServiceInternalTrafficPolicy` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、`.spec.internalTrafficPolicy`を`Local`に設定して、{{< glossary_tooltip text="Service" term_id="service" >}}内部のみのトラフィックポリシーを有効にすることができます。
 これにより、kube-proxyは、クラスター内部トラフィックにノードローカルエンドポイントのみを使用するようになります。
 
 {{< note >}}
