@@ -345,14 +345,13 @@ only the privileges they need.
 Clean up that Pod and Service before moving to the next section:
 
 ```shell
-kubectl delete service violation-pod --wait
 kubectl delete pod violation-pod --wait --now
 ```
 
 ## Create Pod with seccomp profile that only allows necessary syscalls
 
-If you take a look at the `fine-pod.json`, you will notice some of the syscalls
-seen in the first example where the profile set `"defaultAction":
+If you take a look at the `fine-grained.json` profile, you will notice some of the syscalls
+seen in syslog of the first example where the profile set `"defaultAction":
 "SCMP_ACT_LOG"`. Now the profile is setting `"defaultAction": "SCMP_ACT_ERRNO"`,
 but explicitly allowing a set of syscalls in the `"action": "SCMP_ACT_ALLOW"`
 block. Ideally, the container will run successfully and you will see no messages
