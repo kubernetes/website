@@ -26,7 +26,7 @@ weight: 45
 特定のServiceのエンドポイントがないノード上のPodの場合、Serviceに他のノードのエンドポイントがある場合でも、Serviceは(このノード上のポッドの)エンドポイントがゼロであるかのように動作します。
 {{< /note >}}
 
-次の例は、`.spec.internalTrafficPolicy`を`Local`に設定した場合のサービスの様子を示しています：
+次の例は、`.spec.internalTrafficPolicy`を`Local`に設定した場合のServiceの様子を示しています：
 
 ```yaml
 apiVersion: v1
