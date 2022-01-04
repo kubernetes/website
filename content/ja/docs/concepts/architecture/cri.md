@@ -10,7 +10,7 @@ CRIは、クラスターコンポーネントを再コンパイルすること�
 
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}が{{< glossary_tooltip text="Pod" term_id="pod" >}}とそのコンテナを起動できるように、クラスター内の各ノードで動作する{{<glossary_tooltip text="container runtime" term_id="container-runtime">}}が必要です。
 
-kubeletとContainerRuntime間の通信のメインプロトコル。
+kubeletとContainerRuntime間の通信のメインプロトコルです。
 
 Kubernetes Container Runtime Interface(CRI)は、[クラスターコンポーネント](/ja/docs/concepts/overview/components/#node-components){{< glossary_tooltip text="kubelet" term_id="kubelet" >}}と{{<glossary_tooltip text="container runtime" term_id="container-runtime">}}間の通信用のメイン[gRPC](/ja/docs/concepts/overview/components/#node-components)プロトコルを定義します。
 
