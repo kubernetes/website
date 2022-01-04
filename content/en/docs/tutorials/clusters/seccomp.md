@@ -342,7 +342,7 @@ syscalls. Here seccomp has been instructed to error on any syscall by setting
 ability to do anything meaningful. What you really want is to give workloads
 only the privileges they need.
 
-Clean up that Pod and Service before moving to the next section:
+Clean up that Pod before moving to the next section:
 
 ```shell
 kubectl delete pod violation-pod --wait --now
