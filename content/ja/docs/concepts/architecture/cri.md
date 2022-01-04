@@ -8,7 +8,7 @@ weight: 50
 
 CRIは、クラスターコンポーネントを再コンパイルすることなく、kubeletがさまざまなコンテナランタイムを使用できるようにするプラグインインターフェイスです。
 
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}が{{< glossary_tooltip text="Pod" term_id="pod" >}}とそのコンテナを起動できるように、クラスタ内の各ノードで動作する{{<glossary_tooltip text="container runtime" term_id="container-runtime">}}が必要です。
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}が{{< glossary_tooltip text="Pod" term_id="pod" >}}とそのコンテナを起動できるように、クラスター内の各ノードで動作する{{<glossary_tooltip text="container runtime" term_id="container-runtime">}}が必要です。
 
 kubeletとContainerRuntime間の通信のメインプロトコル。
 
