@@ -5,7 +5,7 @@ content_type: concept
 
 <!-- overview -->
 
-Kubernetesでは、コンテナのCPU使用率やメモリ使用率といったリソース使用量のメトリクスが、メトリクスAPIを通じて提供されています。これらのメトリクスは、ユーザーが`kubectl top`コマンドで直接アクセスするか、クラスター内のコントローラー(例えばHorizontal Pod Autoscaler)が判断するためにアクセスすることができます。
+Kubernetesでは、コンテナのCPU使用率やメモリー使用率といったリソース使用量のメトリクスが、メトリクスAPIを通じて提供されています。これらのメトリクスは、ユーザーが`kubectl top`コマンドで直接アクセスするか、クラスター内のコントローラー(例えばHorizontal Pod Autoscaler)が判断するためにアクセスすることができます。
 
 <!-- body -->
 
@@ -31,8 +31,8 @@ Kubernetesでは、コンテナのCPU使用率やメモリ使用率といった�
 ### CPU
 
 CPUは、一定期間の平均使用量を[CPU cores](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)という単位で報告されます。
-この値は、カーネルが提供する累積CPUカウンターをレートすることで得られます(LinuxとWindowsの両カーネルで)。
-kubeletは、レート計算のためのウィンドウを選択します。
+この値は、カーネルが提供する累積CPUカウンターの比率を取得することで得られます(LinuxとWindowsの両カーネルで)。
+kubeletは、比率計算のためのウィンドウを選択します。
 
 ### メモリー
 
