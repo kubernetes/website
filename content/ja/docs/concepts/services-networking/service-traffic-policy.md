@@ -51,7 +51,7 @@ kube-proxyは、`spec.internalTrafficPolicy`設定に基づいて、ルーティ
 
 ## 制約
 
-* サービスで`externalTrafficPolicy`が`Local`に設定されている場合、サービス内部トラフィックポリシーは使用されません。同じサービスではなく、異なるサービスの同じクラスターで両方の機能を使用することができます。
+* Serviceで`externalTrafficPolicy`が`Local`に設定されている場合、サービス内部トラフィックポリシーは使用されません。同じServiceだけではなく、同じクラスター内の異なるServiceで両方の機能を使用することができます。
 
 ## {{% heading "whatsnext" %}}
 
