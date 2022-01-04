@@ -30,7 +30,7 @@ Kubernetesでは、コンテナのCPU使用率やメモリ使用率といった�
 
 ### CPU
 
-CPU は、一定期間の平均使用量を [CPU cores](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu) という単位で報告されます。
+CPUは、一定期間の平均使用量を[CPU cores](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)という単位で報告されます。
 この値は、カーネルが提供する累積CPUカウンターをレートすることで得られます（LinuxとWindowsの両カーネルで）。
 kubeletは、レート計算のためのウィンドウを選択します。
 
