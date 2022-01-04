@@ -304,8 +304,8 @@ following:
 
 ## Clean up
 
-Run `kind delete cluster -name psa-with-cluster-pss` and
-`kind delete cluster -name psa-wo-cluster-pss` to delete the clusters you
+Run `kind delete cluster --name psa-with-cluster-pss` and
+`kind delete cluster --name psa-wo-cluster-pss` to delete the clusters you
 created.
 
 ## {{% heading "whatsnext" %}}
