@@ -48,8 +48,8 @@ Kubernetes se inicializa com quatro namespaces iniciais:
 
    * `default` O namespace padrão para objetos sem namespace
    * `kube-system` O namespace para objetos criados pelo sistema Kubernetes
-   * `kube-public` Este namespace é criado automaticamente e é legível a todos os usuários (incluindo usuários não autenticados). Este namespace é reservado principalmente para uso do cluster, no caso de alguns recursos que precisem ser visíveis e legíveis publicamente por todo o cluster. O aspecto público deste namespace é apenas uma convenção, não um requisito.
-   * `kube-node-lease` Este namespace contém os objetos de [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) associados com cada node. Node leases permitem que o kubelet envie [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) para que o plano de controle detecte falhas nos nodes.
+   * `kube-public` Este namespace é criado automaticamente e é legível por todos os usuários (incluindo usuários não autenticados). Este namespace é reservado principalmente para uso do cluster, no caso de alguns recursos que precisem ser visíveis e legíveis publicamente por todo o cluster. O aspecto público deste namespace é apenas uma convenção, não um requisito.
+   * `kube-node-lease` Este namespace contém os objetos de [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) associados com cada node. Node leases permitem que o kubelet envie [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) para que a camada de gerenciamento detecte falhas nos nodes.
 
 ### Preparando o namespace para uma requisição
 
@@ -74,8 +74,8 @@ kubectl config view --minify | grep namespace:
 
 Quando você cria um [Serviço](/docs/concepts/services-networking/service/), ele cria uma
 [entrada DNS](/docs/concepts/services-networking/dns-pod-service/) correspondente.
-Esta entrada possui o formato: `<service-name>.<namespace-name>.svc.cluster.local`, de forma que se um container utiliza apenas `<service-name>` ele será resolvido para um serviço que é local ao namespace.
-Isso é útil para utilizar a mesma configuração em vários namespaces, por exemplo em `Deployment`, `Staging` e `Production`. Se você quiser acessar múltiplos namespaces, precisará utilizar um _Fully Qualified Domain Name_ (FQDN).
+Esta entrada possui o formato: `<service-name>.<namespace-name>.svc.cluster.local`, de forma que se um container utilizar apenas `<service-name>` ele será resolvido para um serviço que é local ao namespace.
+Isso é útil para utilizar a mesma configuração em vários namespaces, por exemplo em Desenvolvimento, `Staging` e `Production`. Se você quiser acessar múltiplos namespaces, precisará utilizar um _Fully Qualified Domain Name_ (FQDN).
 
 ## Nem todos os objetos pertencem a algum Namespace
 
@@ -95,7 +95,7 @@ kubectl api-resources --namespaced=false
 
 {{< feature-state state="beta" for_k8s_version="1.21" >}}
 
-O plano de controle Kubernetes configura um {{< glossary_tooltip text="label" term_id="label" >}} imutável `kubernetes.io/metadata.name` em todos os namespaces se a 
+A camada de gerenciamento Kubernetes configura um {{< glossary_tooltip text="label" term_id="label" >}} imutável `kubernetes.io/metadata.name` em todos os namespaces se a 
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `NamespaceDefaultLabelName` estiver habilitada. O valor do label é o nome do namespace.
 
