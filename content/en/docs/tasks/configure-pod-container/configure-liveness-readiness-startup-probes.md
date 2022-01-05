@@ -248,7 +248,7 @@ To try the gRPC liveness check, create a Pod using the command below.
 In the example below, the etcd pod is configured to use gRPC liveness probe.
 
 ```shell
-kubectl apply -f https://k8s.io/examples/pods/probe/content/en/examples/pods/probe/grpc-liveness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/grpc-liveness.yaml
 ```
 
 After 15 seconds, view Pod events to verify that the liveness check has not failed:
