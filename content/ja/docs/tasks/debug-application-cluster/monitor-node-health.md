@@ -124,7 +124,7 @@ reviewers:
 
 ### カーネルログデバイスのパスの設定 {#kernel-log-device-path}
 
-ご使用のオペレーティングシステム（OS）ディストリビューションのカーネルログパスの場所をご確認ください。
+ご使用のオペレーティングシステム(OS)ディストリビューションのカーネルログパスをご確認ください。
 Linuxカーネルの[ログデバイス](https://www.kernel.org/doc/Documentation/ABI/testing/dev-kmsg)は通常`/dev/kmsg`として表示されます。
 しかし，OSのディストリビューションによって，ログパスの位置は異なります。
 `config/kernel-monitor.json`の`log`フィールドは、コンテナ内のログパスを表します。
