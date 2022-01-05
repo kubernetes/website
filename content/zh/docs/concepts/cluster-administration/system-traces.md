@@ -119,7 +119,7 @@ spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 下面是一个示例配置，它为万分之一的请求记录 spans，并使用了默认的 OpenTelemetry 端口。
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1alpha1
+apiVersion: apiserver.config.k8s.io/v1beta1
 kind: TracingConfiguration
 # default value
 #endpoint: localhost:4317
@@ -128,10 +128,11 @@ samplingRatePerMillion: 100
 
 <!-- 
 For more information about the `TracingConfiguration` struct, see
-[API server config API (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration).
+[API server config API (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration).
 -->
+
 有关 TracingConfiguration 结构体的更多信息，请参阅 
-[API 服务器配置 API (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration)。
+[API 服务器配置 API (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration)。
 
 <!-- 
 ## Stability
