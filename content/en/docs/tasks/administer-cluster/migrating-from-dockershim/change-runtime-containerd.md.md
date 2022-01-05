@@ -1,10 +1,10 @@
 ---
-title: "Migrating Container runtime from dockershim to containerd"
-weight: 10
+title: "Change Your Container Runtime from Docker Engine to containerd"
+weight: 8
 content_type: task 
 ---
 
-- Drain Node
+- Drain Node 
 ```
 # replace <node-to-drain> with the name of your node you are draining
 kubectl drain <node-to-drain> --ignore-daemonsets
@@ -17,7 +17,7 @@ systemctl stop docker
 - Install & start containerd 
 
 
-### For Linux systems
+## Migrate a Linux node {#migration-linux}
 Use the following commands to install Containerd on your system:
 
 Install and configure prerequisites:
@@ -60,7 +60,7 @@ Install containerd:
    ```shell
    sudo systemctl restart containerd
    ```
-### For windows powershell
+## Migrate a Windows node {#migrate-windows-powershell}
 
 Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), 
 and then run the following commands:
@@ -94,7 +94,7 @@ and then run the following commands:
    .\containerd.exe --register-service
    Start-Service containerd
    ```
-- configure kubelet to use containerd
+- ## Configure the kubelet to use containerd as its container runtime {#use-containerd-as-runtime}
 
    Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags. `--container-runtime=remote` and `--container-runtimeendpoint=unix:///run/containerd/containerd.sock"`
 
@@ -102,7 +102,7 @@ and then run the following commands:
    
    Kubeadm stores the CRI socket for each host as an annotation in the Node object for that host.
    To change it you must do the following:
-   ```
+   
       - Execute `kubectl edit no <NODE-NAME>` on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
       
       This will start a text editor where you can edit the Node object.
@@ -112,7 +112,7 @@ and then run the following commands:
    
    Note that new CRI socket paths must be prefixed with `unix://` ideally.
     - Save the changes in the text editor, which will update the   Node object.
-   ```
+   
       
    
 
