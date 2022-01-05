@@ -22,7 +22,7 @@ reviewers:
 ## 制限事項
 
 * Node Problem Detector は、ファイルベースのカーネルログのみをサポートします。
-  `journald` のようなログツールはサポートされていません。
+  `journald`のようなログツールはサポートされていません。
 
 * Node Problem Detector は、カーネルの問題を報告するためにカーネルログフォーマットを使用します。
   カーネルログフォーマットを拡張する方法については、 [Add support for another log format] (#support-other-log-format) を参照してください。
