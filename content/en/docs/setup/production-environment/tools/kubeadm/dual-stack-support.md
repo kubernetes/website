@@ -43,7 +43,9 @@ similar to the following example:
 kubeadm init --pod-network-cidr=10.244.0.0/16,2001:db8:42:0::/56 --service-cidr=10.96.0.0/16,2001:db8:42:1::/112
 ```
 
-To make things clearer, here is an example kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) `kubeadm-config.yaml` for the primary dual-stack control plane node.
+To make things clearer, here is an example kubeadm
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+`kubeadm-config.yaml` for the primary dual-stack control plane node.
 
 ```yaml
 ---
@@ -81,7 +83,8 @@ The `--apiserver-advertise-address` flag does not support dual-stack.
 
 Before joining a node, make sure that the node has IPv6 routable network interface and allows IPv6 forwarding.
 
-Here is an example kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) `kubeadm-config.yaml` for joining a worker node to the cluster.
+Here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+`kubeadm-config.yaml` for joining a worker node to the cluster.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -98,7 +101,9 @@ nodeRegistration:
     node-ip: 10.100.0.3,fd00:1:2:3::3
 ```
 
-Also, here is an example kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) `kubeadm-config.yaml` for joining another control plane node to the cluster.
+Also, here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+`kubeadm-config.yaml` for joining another control plane node to the cluster.
+
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
@@ -132,7 +137,9 @@ Dual-stack support doesn't mean that you need to use dual-stack addressing.
 You can deploy a single-stack cluster that has the dual-stack networking feature enabled.
 {{< /note >}}
 
-To make things more clear, here is an example kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) `kubeadm-config.yaml` for the single-stack control plane node.
+To make things more clear, here is an example kubeadm
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+`kubeadm-config.yaml` for the single-stack control plane node.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
