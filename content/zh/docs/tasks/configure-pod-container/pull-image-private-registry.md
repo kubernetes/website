@@ -13,20 +13,26 @@ weight: 100
 <!-- overview -->
 
 <!--
-This page shows how to create a Pod that uses a Secret to pull an image from a
-private Docker registry or repository.
+This page shows how to create a Pod that uses a
+{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image from a
+private container image registry or repository.
 -->
-本文介绍如何使用 Secret 从私有的 Docker 镜像仓库或代码仓库拉取镜像来创建 Pod。
+本文介绍如何使用 {{< glossary_tooltip text="Secret" term_id="secret" >}} 
+从私有的镜像仓库或代码仓库拉取镜像来创建 Pod。
+
+{{% thirdparty-content single="true" %}}
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* {{< include "task-tutorial-prereqs.md" >}}
 
 <!--
-* To do this exercise, you need a
-[Docker ID](https://docs.docker.com/docker-id/) and password.
+* To do this exercise, you need the `docker` command line tool, and a
+  [Docker ID](https://docs.docker.com/docker-id/) for which you know the password.
 -->
-你需要 [Docker ID](https://docs.docker.com/docker-id/) 和密码来进行本练习。
+
+要进行此练习，你需要 `docker` 命令行工具和一个知道密码的 
+[Docker ID](https://docs.docker.com/docker-id/)。
 
 <!-- steps -->
 
@@ -44,15 +50,18 @@ docker login
 ```
 
 <!--
-When prompted, enter your Docker username and password.
+When prompted, enter your Docker ID, and then the credential you want to use (access token,
+or the password for your Docker ID).
 
-The login process creates or updates a `config.json` file that holds an authorization token.
+The login process creates or updates a `config.json` file that holds an authorization token. Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json). 
 
 View the `config.json` file:
 -->
-当出现提示时，输入 Docker 用户名和密码。
+当出现提示时，输入您的 Docker ID 和登录凭证（访问令牌、
+或 Docker ID 的密码）。
 
 登录过程会创建或更新保存有授权令牌的 `config.json` 文件。
+查看 [Kubernetes 中如何解析这个文件](/zh/docs/concepts/containers/images#config-json)。
 
 查看 `config.json` 文件：
 
@@ -125,7 +134,7 @@ You have successfully set your Docker credentials in the cluster as a Secret cal
 * `<your-pword>` 是你的 Docker 密码。
 * `<your-email>` 是你的 Docker 邮箱。
 
-这样你就成功地将集群中的 Docker 凭据设置为名为 `regcred` 的 Secret。
+这样你就成功地将集群中的 Docker 凭证设置为名为 `regcred` 的 Secret。
 
 <!--
 ## Inspecting the Secret `regcred`
@@ -161,7 +170,7 @@ The value of the `.dockerconfigjson` field is a base64 representation of your Do
 To understand what is in the `.dockerconfigjson` field, convert the secret data to a
 readable format:
 -->
-`.dockerconfigjson` 字段的值是 Docker 凭据的 base64 表示。
+`.dockerconfigjson` 字段的值是 Docker 凭证的 base64 表示。
 
 要了解 `dockerconfigjson` 字段中的内容，请将 Secret 数据转换为可读格式：
 
@@ -201,24 +210,27 @@ You have successfully set your Docker credentials as a Secret called `regcred` i
 -->
 注意，Secret 数据包含与本地 `~/.docker/config.json` 文件类似的授权令牌。
 
-这样你就已经成功地将 Docker 凭据设置为集群中的名为 `regcred` 的 Secret。
+这样你就已经成功地将 Docker 凭证设置为集群中的名为 `regcred` 的 Secret。
 
 <!--
 ## Create a Pod that uses your Secret
 
-Here is a configuration file for a Pod that needs access to your Docker credentials in `regcred`:
+Here is a manifest for an example Pod that needs access to your Docker credentials in `regcred`:
 -->
 ## 创建一个使用你的 Secret 的 Pod
 
-下面是一个 Pod 配置文件，它需要访问 `regcred` 中的 Docker 凭据：
+下面是一个 Pod 配置清单示例，该示例中 Pod 需要访问你的 Docker 凭证 `regcred`：
 
 {{< codenew file="pods/private-reg-pod.yaml" >}}
 
-<!-- Download the above file: -->
-下载上述文件：
+<!-- 
+Download the above file onto your computer:
+-->
+
+将上述文件下载到你的计算机中：
 
 ```shell
-wget -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
+curl -L -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
 ```
 
 <!--
@@ -250,17 +262,17 @@ kubectl get pod private-reg
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Secrets](/docs/concepts/configuration/secret/).
+* Learn more about [Secrets](/docs/concepts/configuration/secret/)
+  * or read the API reference for {{< api-reference page="config-and-storage-resources/secret-v1" >}}
 * Learn more about [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
+* Learn more about [adding image pull secrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * See [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
-* See [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core).
-* See the `imagePullSecrets` field of [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
+* See the `imagePullSecrets` field within the [container definitions](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers) of a Pod
 -->
 
-* 进一步了解 [Secret](/zh/docs/concepts/configuration/secret/)
+* 进一步了解 [Secrets](/zh/docs/concepts/configuration/secret/)
+  * 或阅读 {{< api-reference page="config-and-storage-resources/secret-v1" >}} 的 API 参考
 * 进一步了解 [使用私有仓库](/zh/docs/concepts/containers/images/#using-a-private-registry)
-* 参考 [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)
-* 参考 [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-* 参考 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中的 `imagePullSecrets` 字段
-
-
+* 进一步了解 [为服务账户添加拉取镜像凭证](/zh/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
+* 查看 [kubectl 创建 docker-registry 凭证](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)
+* 查看 Pod [容器定义](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers)中的 `imagePullSecrets` 字段。

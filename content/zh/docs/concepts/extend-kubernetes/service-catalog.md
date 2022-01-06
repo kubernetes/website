@@ -56,7 +56,7 @@ The application can simply use it as a service.
 
 Service Catalog uses the [Open service broker API](https://github.com/openservicebrokerapi/servicebroker) to communicate with service brokers, acting as an intermediary for the Kubernetes API Server to negotiate the initial provisioning and retrieve the credentials necessary for the application to use a managed service.
 
-It is implemented as an extension API server and a controller, using etcd for storage. It also uses the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) available in Kubernetes 1.7+ to present its API.
+It is implemented using a [CRDs-based](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources) architecture.
 
 ![Service Catalog Architecture](/images/docs/service-catalog-architecture.svg)
 -->
@@ -66,10 +66,8 @@ It is implemented as an extension API server and a controller, using etcd for st
 与服务代理进行通信，并作为 Kubernetes API 服务器的中介，以便协商启动部署和获取
 应用程序使用托管服务时必须的凭据。
 
-服务目录实现为一个扩展 API 服务器和一个控制器，使用 Etcd 提供存储。
-它还使用了 Kubernetes 1.7 之后版本中提供的
-[聚合层](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-来呈现其 API。
+它是[基于 CRDs](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources)
+架构实现的。
 
 ![服务目录架构](/images/docs/service-catalog-architecture.svg)
 

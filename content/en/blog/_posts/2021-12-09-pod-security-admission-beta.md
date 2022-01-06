@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Pod Security Graduates to Beta'
+title: 'Kubernetes 1.23: Pod Security Graduates to Beta'
 date: 2021-12-09
 slug: pod-security-admission-beta
 ---

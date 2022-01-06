@@ -123,9 +123,9 @@ kubectl delete secret user pass
 
 <!--
 * Learn more about [`projected`](/docs/concepts/storage/volumes/#projected) volumes.
-* Read the [all-in-one volume](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md) design document.
+* Read the [all-in-one volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md) design document.
 -->
 
 * 进一步了解[`projected`](/zh/docs/concepts/storage/volumes/#projected) 卷。
-* 阅读[一体卷](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md)设计文档。
+* 阅读[一体卷](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)设计文档。
 

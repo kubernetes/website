@@ -28,9 +28,9 @@ The Kubernetes project maintains release branches for the most recent three mino
 Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
 Patch releases are cut from those branches at a [regular cadence](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence), plus additional urgent releases, when required.
 
-The [Release Managers](https://git.k8s.io/sig-release/release-managers.md) group owns this decision.
+The [Release Managers](/releases/release-managers/) group owns this decision.
 
-For more information, see the Kubernetes [patch releases](https://git.k8s.io/sig-release/releases/patch-releases.md) page.
+For more information, see the Kubernetes [patch releases](/releases/patch-releases/) page.
 
 ## Supported version skew
 

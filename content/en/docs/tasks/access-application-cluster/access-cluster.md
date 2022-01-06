@@ -214,7 +214,7 @@ In each case, the credentials of the pod are used to communicate securely with t
 
 ## Accessing services running on the cluster
 
-The previous section describes how to connect to the Kubernetes API server. For information about connecting to other services running on a Kubernetes cluster, see [Access Cluster Services.](/docs/tasks/access-application-cluster/access-cluster/)  
+The previous section describes how to connect to the Kubernetes API server. For information about connecting to other services running on a Kubernetes cluster, see [Access Cluster Services.](/docs/tasks/administer-cluster/access-cluster-services/)
 
 ## Requesting redirects
 

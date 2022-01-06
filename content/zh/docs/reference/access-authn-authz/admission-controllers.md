@@ -1171,7 +1171,29 @@ PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
 另请参阅 PodTolerationRestriction 准入插件，该插件可防止 Pod 在特定污点的节点上运行。
 {{< /note >}}
 
+### PodSecurity {#podsecurity}
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+<!--
+This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
+defined in the next section. This admission controller acts on creation and modification of the pod and
+determines if it should be admitted based on the requested security context and the 
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/).
+
+See the [Pod Security Admission documentation](/docs/concepts/security/pod-security-admission/)
+for more information.
+-->
+这是下节已被废弃的 [PodSecurityPolicy](#podsecuritypolicy) 准入控制器的替代品。
+此准入控制器负责在创建和修改 Pod 时根据请求的安全上下文和
+[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
+来确定是否可以执行请求。
+
+更多信息请参阅 [Pod 安全性准入控制器](/zh/docs/concepts/security/pod-security-admission/)。
+
 ### PodSecurityPolicy {#podsecuritypolicy}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 <!--
 This admission controller acts on creation and modification of the pod and determines if it should be admitted

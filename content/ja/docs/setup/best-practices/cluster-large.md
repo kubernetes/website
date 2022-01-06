@@ -1,123 +1,98 @@
 ---
-title: 大規模クラスタの構築
+title: 大規模クラスターの構築
 weight: 20
 ---
 
-## サポート
 
-At {{< param "version" >}}, Kubernetes supports clusters with up to 5000 nodes. More specifically, we support configurations that meet *all* of the following criteria:
+クラスターはKubernetesのエージェントが動作する(物理もしくは仮想の){{< glossary_tooltip text="ノード" term_id="node" >}}の集合で、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}によって管理されます。
+Kubernetes {{< param "version" >}} では、最大5000ノードから構成されるクラスターをサポートします。
+具体的には、Kubernetesは次の基準を *全て* 満たす構成に対して適用できるように設計されています。
 
-* No more than 110 pods per node
-* No more than 5000 nodes
-* No more than 150000 total pods
-* No more than 300000 total containers
+* 1ノードにつきPodが110個以上存在しない
+* 5000ノード以上存在しない
+* Podの総数が150000個以上存在しない
+* コンテナの総数が300000個以上存在しない
+
+ノードを追加したり削除したりすることによって、クラスターをスケールできます。
+これを行う方法は、クラスターがどのようにデプロイされたかに依存します。
 
 
-## 構築
+## クラウドプロバイダーのリソースクォータ {#クォータの問題}
 
-A cluster is a set of nodes (physical or virtual machines) running Kubernetes agents, managed by a "master" (the cluster-level control plane).
+クラウドプロバイダーのクォータの問題に遭遇することを避けるため、多数のノードを使ったクラスターを作成するときには次のようなことを考慮してください。
 
-Normally the number of nodes in a cluster is controlled by the value `NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh)).
+* 次のようなクラウドリソースの増加をリクエストする
+  * コンピューターインスタンス
+  * CPU
+  * ストレージボリューム
+  * 使用中のIPアドレス
+  * パケットフィルタリングのルールセット
+  * ロードバランサーの数
+  * ネットワークサブネット
+  * ログストリーム
+* クラウドプロバイダーによる新しいインスタンスの作成に対するレート制限のため、バッチで新しいノードを立ち上げるようなクラスターのスケーリング操作を通すためには、バッチ間ですこし休止を入れます。
 
-Simply changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up.
 
-When setting up a large Kubernetes cluster, the following issues must be considered.
+## コントロールプレーンのコンポーネント
 
-### クォータの問題
+大きなクラスターでは、十分な計算とその他のリソースを持ったコントロールプレーンが必要になります。
 
-To avoid running into cloud provider quota issues, when creating a cluster with many nodes, consider:
+特に故障ゾーンあたり1つまたは2つのコントロールプレーンインスタンスを動かす場合、最初に垂直方向にインスタンスをスケールし、垂直方向のスケーリングの効果が低下するポイントに達したら水平方向にスケールします。
 
-* Increase the quota for things like CPU, IPs, etc.
-  * In [GCE, for example,](https://cloud.google.com/compute/docs/resource-quotas) you'll want to increase the quota for:
-    * CPUs
-    * VM instances
-    * Total persistent disk reserved
-    * In-use IP addresses
-    * Firewall Rules
-    * Forwarding rules
-    * Routes
-    * Target pools
-* Gating the setup script so that it brings up new node VMs in smaller batches with waits in between, because some cloud providers rate limit the creation of VMs.
+フォールトトレランスを備えるために、1つの故障ゾーンに対して最低1インスタンスを動かすべきです。
+Kubernetesノードは、同一故障ゾーン内のコントロールプレーンエンドポイントに対して自動的にトラフィックが向かないようにします。
+しかし、クラウドプロバイダーはこれを実現するための独自の機構を持っているかもしれません。
 
-### Etcdのストレージ
+例えばマネージドなロードバランサーを使うと、故障ゾーン _A_ にあるkubeletやPodから発生したトラフィックを、同じく故障ゾーン _A_ にあるコントロールプレーンホストに対してのみ送るように設定します。もし1つのコントロールプレーンホストまたは故障ゾーン _A_ のエンドポイントがオフラインになった場合、ゾーン _A_ にあるノードについてすべてのコントロールプレーンのトラフィックはゾーンを跨いで送信されます。それぞれのゾーンで複数のコントロールプレーンホストを動作させることは、結果としてほとんどありません。
 
-To improve performance of large clusters, we store events in a separate dedicated etcd instance.
 
-When creating a cluster, existing salt scripts:
+## etcdストレージ
 
-* start and configure additional etcd instance
-* configure api-server to use it for storing events
+大きなクラスターの性能を向上させるために、他の専用のetcdインスタンスにイベントオブジェクトを保存できます。
 
-### マスターのサイズと構成要素
+クラスターを作るときに、(カスタムツールを使って)以下のようなことができます。
 
-On GCE/Google Kubernetes Engine, and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
-in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are
+* 追加のetcdインスタンスを起動または設定する
+* イベントを保存するために{{< glossary_tooltip term_id="kube-apiserver" text="APIサーバ" >}}を設定する
 
-* 1-5 nodes: n1-standard-1
-* 6-10 nodes: n1-standard-2
-* 11-100 nodes: n1-standard-4
-* 101-250 nodes: n1-standard-8
-* 251-500 nodes: n1-standard-16
-* more than 500 nodes: n1-standard-32
+大きなクラスターのためにetcdを設定・管理する詳細については、[Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/)または[kubeadmを使用した高可用性etcdクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)を見てください。
 
-And the sizes we use on AWS are
 
-* 1-5 nodes: m3.medium
-* 6-10 nodes: m3.large
-* 11-100 nodes: m3.xlarge
-* 101-250 nodes: m3.2xlarge
-* 251-500 nodes: c4.4xlarge
-* more than 500 nodes: c4.8xlarge
+## アドオンのリソース
 
-{{< note >}}
-On Google Kubernetes Engine, the size of the master node adjusts automatically based on the size of your cluster. For more information, see [this blog post](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html).
+Kubernetesの[リソース制限](/ja/docs/concepts/configuration/manage-resources-containers/)は、メモリリークの影響やPodやコンテナが他のコンポーネントに与える他の影響を最小化することに役立ちます。
+これらのリソース制限は、アプリケーションのワークロードに適用するのと同様に、{{< glossary_tooltip text="アドオン" term_id="addons" >}}のリソースにも適用されます。
 
-On AWS, master node sizes are currently set at cluster startup time and do not change, even if you later scale your cluster up or down by manually removing or adding nodes or using a cluster autoscaler.
-{{< /note >}}
-
-### アドオンのリソース
-
-To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](https://pr.k8s.io/10653/files) and [#10778](https://pr.k8s.io/10778/files)).
-
-For example:
+例えば、ロギングコンポーネントに対してCPUやメモリ制限を設定できます。
 
 ```yaml
+  ...
   containers:
   - name: fluentd-cloud-logging
-    image: k8s.gcr.io/fluentd-gcp:1.16
+    image: fluent/fluentd-kubernetes-daemonset:v1
     resources:
       limits:
         cpu: 100m
         memory: 200Mi
 ```
 
-Except for Heapster, these limits are static and are based on data we collected from addons running on 4-node clusters (see [#10335](https://issue.k8s.io/10335#issuecomment-117861225)). The addons consume a lot more resources when running on large deployment clusters (see [#5880](http://issue.k8s.io/5880#issuecomment-113984085)). So, if a large cluster is deployed without adjusting these values, the addons may continuously get killed because they keep hitting the limits.
+アドオンのデフォルト制限は、アドオンを小～中規模のKubernetesクラスターで動作させたときの経験から得られたデータに基づきます。
+大規模のクラスターで動作させる場合は、アドオンはデフォルト制限よりも多くのリソースを消費することが多いです。
+これらの値を調整せずに大規模のクラスターをデプロイした場合、メモリー制限に達し続けるため、アドオンが継続的に停止されるかもしれません。
+あるいは、CPUのタイムスライス制限により性能がでない状態で動作するかもしれません。
 
-To avoid running into cluster addon resource issues, when creating a cluster with many nodes, consider the following:
+クラスターのアドオンのリソース制限に遭遇しないために、多くのノードで構成されるクラスターを構築する場合は次のことを考慮します。
 
-* Scale memory and CPU limits for each of the following addons, if used, as you scale up the size of cluster (there is one replica of each handling the entire cluster so memory and CPU usage tends to grow proportionally with size/load on cluster):
-  * [InfluxDB and Grafana](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
-  * [kubedns, dnsmasq, and sidecar](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/kube-dns.yaml.in)
-  * [Kibana](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
-* Scale number of replicas for the following addons, if used, along with the size of cluster (there are multiple replicas of each so increasing replicas should help handle increased load, but, since load per replica also increases slightly, also consider increasing CPU/memory limits):
-  * [elasticsearch](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/es-statefulset.yaml)
-* Increase memory and CPU limits slightly for each of the following addons, if used, along with the size of cluster (there is one replica per node but CPU/memory usage increases slightly along with cluster load/size as well):
-  * [FluentD with ElasticSearch Plugin](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
-  * [FluentD with GCP Plugin](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
+* いくつかのアドオンは垂直方向にスケールします - クラスターに1つのレプリカ、もしくは故障ゾーン全体にサービングされるものがあります。このようなアドオンでは、クラスターをスケールアウトしたときにリクエストと制限を増やす必要があります。
+* 数多くのアドオンは、水平方向にスケールします - より多くのPod数を動作させることで性能を向上できます - ただし、とても大きなクラスターではCPUやメモリの制限も少し引き上げる必要があるかもしれません。VerticalPodAutoscalerは、提案されたリクエストや制限の数値を提供する `_recommender_` モードで動作可能です。
+* いくつかのアドオンは{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}によって制御され、1ノードに1つ複製される形で動作します: 例えばノードレベルのログアグリゲーターです。水平方向にスケールするアドオンの場合と同様に、CPUやメモリ制限を少し引き上げる必要があるかもしれません。
 
-Heapster's resource limits are set dynamically based on the initial size of your cluster (see [#16185](http://issue.k8s.io/16185)
-and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
-out of resources, you should adjust the formulas that compute heapster memory request (see those PRs for details).
 
-For directions on how to detect if addon containers are hitting resource limits, see the
-[Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-resources-containers/#troubleshooting).
+## {{% heading "whatsnext" %}}
 
-### 少数のノードの起動の失敗を許容する
+`VerticalPodAutoscaler` は、リソースのリクエストやPodの制限についての管理を手助けするためにクラスターへデプロイ可能なカスタムリソースです。
+`VerticalPodAutoscaler` やクラスターで致命的なアドオンを含むクラスターコンポーネントをスケールする方法についてさらに知りたい場合は[Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)をご覧ください。
 
-For various reasons (see [#18969](https://github.com/kubernetes/kubernetes/issues/18969) for more details) running
-`kube-up.sh` with a very large `NUM_NODES` may fail due to a very small number of nodes not coming up properly.
-Currently you have two choices: restart the cluster (`kube-down.sh` and then `kube-up.sh` again), or before
-running `kube-up.sh` set the environment variable `ALLOWED_NOTREADY_NODES` to whatever value you feel comfortable
-with. This will allow `kube-up.sh` to succeed with fewer than `NUM_NODES` coming up. Depending on the
-reason for the failure, those additional nodes may join later or the cluster may remain at a size of
-`NUM_NODES - ALLOWED_NOTREADY_NODES`.
+[cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)は、クラスターで要求されるリソース水準を満たす正確なノード数で動作できるよう、いくつかのクラウドプロバイダーと統合されています。
+
+[addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)は、クラスターのスケールが変化したときにアドオンの自動的なリサイズをお手伝いします。

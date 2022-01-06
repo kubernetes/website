@@ -165,6 +165,7 @@ and finally configure the `hostPath`:
 
 ```yaml
 ...
+volumes:
 - name: audit
   hostPath:
     path: /etc/kubernetes/audit-policy.yaml
@@ -174,7 +175,6 @@ and finally configure the `hostPath`:
   hostPath:
     path: /var/log/kubernetes/audit/
     type: DirectoryOrCreate
-
 ```
 
 ### Webhook backend

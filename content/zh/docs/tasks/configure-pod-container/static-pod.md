@@ -27,7 +27,7 @@ The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Po
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
-The Pod names will suffixed with the node hostname with a leading hyphen
+The Pod names will be suffixed with the node hostname with a leading hyphen.
 
 {{< note >}}
 If you are running clustered Kubernetes and are using static
@@ -46,6 +46,20 @@ Pod 名称将把以连字符开头的节点主机名作为后缀。
 {{< note >}}
 如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，
 就可能需要考虑使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} 替代这种方式。
+{{< /note >}}
+
+<!--
+The `spec` of a static Pod cannot refer to other API objects
+(e.g., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
+{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
+-->
+
+{{< note >}}
+静态 Pod 的 `spec` 不能引用其他 API 对象
+（如：{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}、
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、
+{{< glossary_tooltip text="Secret" term_id="secret" >}} 等）。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
