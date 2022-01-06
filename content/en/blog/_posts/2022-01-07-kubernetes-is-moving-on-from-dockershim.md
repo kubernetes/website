@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes is moving on from Dockershim: commitments and next steps"
+title: "Kubernetes is Moving on From Dockershim: Commitments and Next Steps"
 date: 2022-01-07
 slug: kubernetes-is-moving-on-from-dockershim
 ---
