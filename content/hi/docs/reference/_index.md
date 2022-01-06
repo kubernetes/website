@@ -42,9 +42,10 @@ client libraries:
 
 ## CLI
 
-* [kubectl](/docs/reference/kubectl/overview/) - Main CLI tool for running commands and managing Kubernetes clusters.
-    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
-* [kubeadm](/docs/reference/setup-tools/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
+* [kubectl](/docs/reference/kubectl/overview/) - कमांड चलाने और कुबेरनेट्स क्लस्टर के प्रबंधन के लिए मुख्य CLI उपकरण।
+    * [JSONPath](/docs/reference/kubectl/jsonpath/) - kubectl के साथ प्रयोग करने के लिए 
+वाक्य - विन्यास मार्गदर्शक [JSONPath expressions](https://goessner.net/articles/JsonPath/).
+* [kubeadm](/docs/reference/setup-tools/kubeadm/) - एक सुरक्षित कुबेरनेट्स क्लस्टर का आसानी से प्रावधान करने के लिए CLI टूल।
 
 ## अवयव
 
@@ -74,7 +75,7 @@ client libraries:
 * [Client प्रमाणीकरण API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * [WebhookAdmission विन्यास (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 
-## क्यूबएडीएम के लिए कॉन्फिग API
+## kubeadm के लिए कॉन्फिग API
 
 * [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
