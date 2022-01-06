@@ -141,7 +141,7 @@ class first,second white
   को जाँचे । 
 - [गिट हब का प्रयोग करते हुए पुल रीक्वेस्ट खोले  ](/docs/contribute/new-content/open-a-pr/#changes-using-github) पुराने प्रलेखन मे और मुद्दा को भरने की प्रक्रिया के बारे मे ज्यादा अच्छे से जाने । 
 - भाषा और ठीक तरीके से पुल रीक्वेस्ट के लिए दूसरे कुबेरनेटस समुदाय के सदस्यों के [पुल रीक्वेस्ट की समीक्षा करे ](/docs/contribute/review/reviewing-prs/) । 
-- कुबेरनेटेस  [प्रकरण ](/docs/contribute/style/content-guide/) और  
+- कुबेरनेटस [प्रकरण ](/docs/contribute/style/content-guide/) और  
   [स्टाइल मार्गदर्शक](/docs/contribute/style/style-guide/) को पढे ताकि आप सूचित टिप्पणी दे सके। 
 - [पेज प्रलेखन टाइप ](/docs/contribute/style/page-content-types/)
   और  [हुगो शॉर्टकोडेस ](/docs/contribute/style/hugo-shortcodes/) के बारे मे जाने। 
