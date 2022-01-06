@@ -63,24 +63,21 @@ client libraries:
   * [Scheduler Policies](/docs/reference/scheduling/policies)
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
-## Config APIs
+## कॉन्फिग APIs
 
-This section hosts the documentation for "unpublished" APIs which are used to
-configure  kubernetes components or tools. Most of these APIs are not exposed
-by the API server in a RESTful way though they are essential for a user or an
-operator to use or manage a cluster.
+इस खंड में "अप्रकाशित" API के लिए दस्तावेज़ शामिल हैं जिनका उपयोग कुबेरनेट्स घटकों या उपकरणों को कॉन्फ़िगर करने के लिए किया जाता है। इनमें से अधिकांश APIs, RESTful तरीके से API सर्वर द्वारा उजागर नहीं होते हैं हालांकि वे एक उपयोगकर्ता या क्लस्टर के उपयोगकर्ता या प्रबंधक के लिए आवश्यक हैं। 
 
-* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
-* [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-* [kube-scheduler policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
-* [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+* [kube-apiserver विन्यास (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
+* [क्यूबलेट विन्यास (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
+* [kube-scheduler विन्यास (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+* [kube-scheduler विन्यास (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+* [kube-scheduler नीति संदर्भ (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
+* [kube-proxy विन्यास (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
-* [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+* [Client प्रमाणीकरण API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+* [WebhookAdmission विन्यास (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 
-## Config API for kubeadm
+## क्यूबएडीएम के लिए कॉन्फिग API
 
 * [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
