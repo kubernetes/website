@@ -35,7 +35,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is an open source, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide isolation modes for virtual machines, containers/pods and bare metal workloads.
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) is an overlay network provider that can be used with Kubernetes.
 * [Knitter](https://github.com/ZTE/Knitter/) is a network solution supporting multiple networking in Kubernetes.
-* [Multus](https://github.com/Intel-Corp/multus-cni) is a Multi plugin for multiple network support in Kubernetes to support all CNI plugins (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and VPP based workloads in Kubernetes.
+* Multus is a Multi plugin for multiple network support in Kubernetes to support all CNI plugins (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and VPP based workloads in Kubernetes.
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) is a networking provider for Kubernetes based on [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/), a virtual networking implementation that came out of the Open vSwitch (OVS) project. OVN-Kubernetes provides an overlay based networking implementation for Kubernetes, including an OVS based implementation of load balancing and network policy.
 * [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
@@ -66,7 +66,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)
   是一个可以用于 Kubernetes 的 overlay 网络提供者。
 * [Knitter](https://github.com/ZTE/Knitter/) 是为 kubernetes 提供复合网络解决方案的网络组件。
-* [Multus](https://github.com/Intel-Corp/multus-cni) 是一个多插件，可在 Kubernetes 中提供多种网络支持，
+* Multus 是一个多插件，可在 Kubernetes 中提供多种网络支持，
   以支持所有 CNI 插件（例如 Calico，Cilium，Contiv，Flannel），
   而且包含了在 Kubernetes 中基于 SRIOV、DPDK、OVS-DPDK 和 VPP 的工作负载。
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) 是一个 Kubernetes 网络驱动，
@@ -116,11 +116,19 @@ Add-ons 扩展了 Kubernetes 的功能。
 ## Infrastructure
 
 * [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) is an add-on to run virtual machines on Kubernetes. Usually run on bare-metal clusters.
+* The
+  [node problem detector](https://github.com/kubernetes/node-problem-detector)
+  runs on Linux nodes and reports system issues as either
+  [Events](/docs/reference/kubernetes-api/cluster-resources/event-v1/) or
+  [Node conditions](/docs/concepts/architecture/nodes/#condition).
 -->
 ## 基础设施
 
 * [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) 是可以让 Kubernetes
   运行虚拟机的 add-ons。通常运行在裸机集群上。
+* [节点问题检测器](https://github.com/kubernetes/node-problem-detector) 在 Linux 节点上运行，
+  并将系统问题报告为[事件](/docs/reference/kubernetes-api/cluster-resources/event-v1/)
+  或[节点状况](/zh/docs/concepts/architecture/nodes/#condition)。
 
 <!--
 ## Legacy Add-ons

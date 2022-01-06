@@ -234,8 +234,8 @@ so the above scenario will not apply if the node is, for example, under `DiskPre
 
 `Guaranteed` pods are guaranteed only when requests and limits are specified for
 all the containers and they are equal. These pods will never be evicted because
-of another pod's resource consumption. If a system daemon (such as `kubelet`,
-`docker`, and `journald`) is consuming more resources than were reserved via 
+of another pod's resource consumption. If a system daemon (such as `kubelet`
+and `journald`) is consuming more resources than were reserved via 
 `system-reserved` or `kube-reserved` allocations, and the node only has
 `Guaranteed` or `Burstable` pods using less resources than requests left on it,
 then the kubelet must choose to evict one of these pods to preserve node stability

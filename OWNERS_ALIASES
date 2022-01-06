@@ -2,10 +2,12 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - onlydole
     - mrbobbytables
+    - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - mrbobbytables
     - onlydole
     - sftim
+    - nate-double-u
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -125,6 +127,7 @@ aliases:
     - ClaudiaJKang
     - gochist
     - ianychoi
+    - jihoon-seo
     - seokho-son
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
@@ -242,19 +245,18 @@ aliases:
     - saschagrunert # SIG Chair
   release-engineering-approvers:
     - cpanato # Release Manager
-    - hasheddan # subproject owner / Release Manager
+    - palnabarun # Release Manager
     - puerco # Release Manager
     - saschagrunert # subproject owner / Release Manager
     - justaugustus # subproject owner / Release Manager
+    - Verolop # Release Manager
     - xmudrii # Release Manager
   release-engineering-reviewers:
     - ameukam # Release Manager Associate
     - jimangel # Release Manager Associate
     - markyjackson-taulia # Release Manager Associate
     - mkorbi # Release Manager Associate
-    - palnabarun # Release Manager Associate
     - onlydole # Release Manager Associate
     - sethmccombs # Release Manager Associate
     - thejoycekung # Release Manager Associate
-    - verolop # Release Manager Associate
     - wilsonehusin # Release Manager Associate

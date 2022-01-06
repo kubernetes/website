@@ -93,7 +93,7 @@ that are most appropriate for your configuration, do the following:
 
    1. Privileged
       ```shell
-      kubectl label --dry-run=server --overwrite ns --all \                    
+      kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
       ```
      The output is similar to this:
@@ -304,8 +304,8 @@ following:
 
 ## Clean up
 
-Run `kind delete cluster -name psa-with-cluster-pss` and
-`kind delete cluster -name psa-wo-cluster-pss` to delete the clusters you
+Run `kind delete cluster --name psa-with-cluster-pss` and
+`kind delete cluster --name psa-wo-cluster-pss` to delete the clusters you
 created.
 
 ## {{% heading "whatsnext" %}}

@@ -24,6 +24,14 @@ deprecated API versions to newer and more stable API versions.
 
 The **v1.26** release will stop serving the following deprecated API versions:
 
+#### Flow control resources {#flowcontrol-resources-v126}
+
+The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.26.
+
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta2** API version, available since v1.23.
+* All existing persisted objects are accessible via the new API
+* No notable changes
+
 #### HorizontalPodAutoscaler {#horizontalpodautoscaler-v126}
 
 The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler will no longer be served in v1.26.

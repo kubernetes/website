@@ -78,12 +78,22 @@ releases may also occur in between these.
 
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| December 2021         | 2021-12-10           | 2021-12-15  |
-| January 2022          | 2021-01-14           | 2021-01-19  |
-| February 2022         | 2021-02-11           | 2021-02-16  |
-| March 2022            | 2021-03-11           | 2021-03-16  |
+| January 2022          | 2022-01-14           | 2022-01-19  |
+| February 2022         | 2022-02-11           | 2022-02-16  |
+| March 2022            | 2022-03-11           | 2022-03-16  |
 
 ## Detailed Release History for Active Branches
+
+### 1.23
+
+**1.23** enters maintenance mode on **2022-12-28**.
+
+End of Life for **1.23** is **2023-02-28**.
+
+| Patch Release | Cherry Pick Deadline | Target Date | Note |
+|---------------|----------------------|-------------|------|
+| 1.23.2        | 2022-01-14           | 2022-01-19  |      |
+| 1.23.1        | 2021-12-14           | 2021-12-16  |      |
 
 ### 1.22
 
@@ -91,8 +101,9 @@ releases may also occur in between these.
 
 End of Life for **1.22** is **2022-10-28**
 
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
+| Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
+| 1.22.6        | 2022-01-14           | 2022-01-19  |      |
 | 1.22.5        | 2021-12-10           | 2021-12-15  |      |
 | 1.22.4        | 2021-11-12           | 2021-11-17  |      |
 | 1.22.3        | 2021-10-22           | 2021-10-27  |      |
@@ -105,8 +116,9 @@ End of Life for **1.22** is **2022-10-28**
 
 End of Life for **1.21** is **2022-06-28**
 
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE                                                                   |
+| Patch Release | Cherry Pick Deadline | Target Date | Note |
 | ------------- | -------------------- | ----------- | ---------------------------------------------------------------------- |
+| 1.21.9        | 2022-01-14           | 2022-01-19  |                                                                        |
 | 1.21.8        | 2021-12-10           | 2021-12-15  |                                                                        |
 | 1.21.7        | 2021-11-12           | 2021-11-17  |                                                                        |
 | 1.21.6        | 2021-10-22           | 2021-10-27  |                                                                        |
@@ -122,8 +134,9 @@ End of Life for **1.21** is **2022-06-28**
 
 End of Life for **1.20** is **2022-02-28**
 
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE                                                                                |
+| Patch Release | Cherry Pick Deadline | Target Date | Note |
 | ------------- | -------------------- | ----------- | ----------------------------------------------------------------------------------- |
+| 1.20.15       | 2022-01-14           | 2022-01-19  |                                                                                     |
 | 1.20.14       | 2021-12-10           | 2021-12-15  |                                                                                     |
 | 1.20.13       | 2021-11-12           | 2021-11-17  |                                                                                     |
 | 1.20.12       | 2021-10-22           | 2021-10-27  |                                                                                     |
@@ -144,7 +157,7 @@ End of Life for **1.20** is **2022-02-28**
 
 These releases are no longer supported.
 
-| MINOR VERSION | FINAL PATCH RELEASE | EOL DATE   | NOTE                                                                   |
+| Minor Version | Final Patch Release | EOL Date   | Note                                                                   |
 | ------------- | ------------------- | ---------- | ---------------------------------------------------------------------- |
 | 1.19          | 1.19.16             | 2021-10-28 |                                                                        |
 | 1.18          | 1.18.20             | 2021-06-18 | Created to resolve regression introduced in 1.18.19                    |

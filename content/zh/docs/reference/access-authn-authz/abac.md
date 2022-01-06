@@ -38,7 +38,7 @@ Attribute-based access control (ABAC) defines an access control paradigm whereby
 To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `--authorization-mode=ABAC` on startup.
 
 The file format is [one JSON object per line](http://jsonlines.org/).  There
-should be no enclosing list or map, just one map per line.
+should be no enclosing list or map, only one map per line.
 
 Each line is a "policy object", where each such object is a map with the following
 properties:
@@ -73,7 +73,7 @@ properties:
 
 基于 `ABAC` 模式，可以这样指定策略文件 `--authorization-policy-file=SOME_FILENAME`。
 
-此文件格式是 [JSON Lines](https://jsonlines.org/)，不应存在封闭的列表或映射，每行一个映射。
+此文件格式是 [JSON Lines](https://jsonlines.org/)，不应存在外层的列表或映射，每行应只有一个映射。
 
 每一行都是一个策略对象，策略对象是具有以下属性的映射：
 
@@ -258,7 +258,7 @@ Kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类�
     ```
 
 <!--
-[Complete file example](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
+[Complete file example](http://releases.k8s.io/{{< param "fullversion" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## A quick note on service accounts
 
@@ -270,7 +270,7 @@ system:serviceaccount:<namespace>:<serviceaccountname>
 
 -->
 
-[完整文件示例](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
+[完整文件示例](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## 服务帐户的快速说明
 

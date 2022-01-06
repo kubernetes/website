@@ -197,7 +197,7 @@ Eviction signal value is calculated periodically and does NOT enforce the limit.
 
 你可以配置 kubelet 使之在 Pod 行为不正常或者消耗不正常数量资源的时候将其终止。
 这一特性称作驱逐。你可以针对不同的驱逐信号
-[配置资源不足的处理](/zh/docs/tasks/administer-cluster/out-of-resource)。
+[配置资源不足的处理](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
 使用 `pid.available` 驱逐信号来配置 Pod 使用的 PID 个数的阈值。
 你可以设置硬性的和软性的驱逐策略。不过，即使使用硬性的驱逐策略，
 如果 PID 个数增长过快，节点仍然可能因为触及节点 PID 限制而进入一种不稳定状态。

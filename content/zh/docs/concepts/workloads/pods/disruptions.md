@@ -253,11 +253,12 @@ Pod 控制器的 `.spec.replicas` 计算“预期的” Pod 数量。
 根据 Pod 对象的 `.metadata.ownerReferences` 字段来发现控制器。
 
 <!--
-PDBs cannot prevent [involuntary disruptions](#voluntary-and-involuntary-disruptions) from
-occurring, but they do count against the budget.
+[Involuntary disruptions](#voluntary-and-involuntary-disruptions) cannot be prevented by PDBs; however they
+do count against the budget.
 -->
-PDB 不能阻止[非自愿干扰](#voluntary-and-involuntary-disruptions)的发生，但是确实会计入
-预算。
+
+PDB 无法防止[非自愿干扰](#voluntary-and-involuntary-disruptions)；
+但它们确实计入预算。
 
 <!--
 Pods which are deleted or unavailable due to a rolling upgrade to an application do count

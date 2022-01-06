@@ -110,7 +110,7 @@ kubectl exec -it cassandra -- sh
 <!--
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
 are useful for interactive troubleshooting when `kubectl exec` is insufficient
@@ -120,17 +120,13 @@ https://github.com/GoogleContainerTools/distroless).
 -->
 ## 使用临时调试容器来进行调试 {#ephemeral-container}
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 当由于容器崩溃或容器镜像不包含调试程序（例如[无发行版镜像](https://github.com/GoogleContainerTools/distroless)等）
 而导致 `kubectl exec` 无法运行时，{{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}对于排除交互式故障很有用。
 
 <!--
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
-
-The examples in this section require the `EphemeralContainers` [feature gate](
-/docs/reference/command-line-tools-reference/feature-gates/) enabled in your
-cluster and `kubectl` version v1.22 or later.
 
 You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
@@ -144,12 +140,6 @@ contain debugging utilities, but this method works with all container
 images.
 -->
 ## 使用临时容器来调试的例子 {#ephemeral-container-example}
-
-{{< note >}}
-本示例需要你的集群已经开启 `EphemeralContainers`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
-`kubectl` 版本为 v1.22 或者更高。
-{{< /note >}}
 
 你可以使用 `kubectl debug` 命令来给正在运行中的 Pod 增加一个临时容器。
 首先，像示例一样创建一个 pod：
