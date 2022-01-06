@@ -46,22 +46,19 @@ client libraries:
     * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
 
-## Components
+## अवयव
 
-* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - The
-  primary agent that runs on each node. The kubelet takes a set of PodSpecs
-  and ensures that the described containers are running and healthy.
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - प्राथमिक एजेंट जो प्रत्येक   नोड पर चलता है। क्यूबलेट पॉडस्पेक्स का एक सेट लेता है
+  और यह सुनिश्चित करता है कि वर्णित कंटेनर चल रहे हैं और स्वस्थ हैं।
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) -
-  REST API that validates and configures data for API objects such as  pods,
-  services, replication controllers.
-* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
-* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can
-  do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across
-  a set of back-ends.
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
+  REST API जो API वस्तु जैसे पॉड्स, सेवाएं, प्रतिकृति नियंत्रक के लिए डेटा को मान्य और कॉन्फ़िगर करता है।
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - डेमॉन जो कुबेरनेट्स के साथ भेजे गए कोर कंट्रोल लूप्स को एम्बेड करता है।
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - बैक-एंड के एक सेट में साधारण TCP/UDP स्ट्रीम फॉरवर्डिंग या राउंड-रॉबिन TCP/UDP फॉरवर्डिंग कर सकते हैं। 
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - 
+अनुसूचक जो उपलब्धता, प्रदर्शन और क्षमता का प्रबंधन करता है।
   
-  * [Scheduler Policies](/docs/reference/scheduling/policies)
-  * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
+  * [अनुसूचक नीतियां](/docs/reference/scheduling/policies)
+  * [अनुसूचक विवरणिका ](/docs/reference/scheduling/config#profiles)
 
 ## कॉन्फिग APIs
 
