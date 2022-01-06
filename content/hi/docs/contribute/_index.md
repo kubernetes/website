@@ -1,14 +1,15 @@
 ---
-विषय सूची : संकल्पना 
-शीर्षक : कुबेरनेटस डाक्यमेन्ट मे योगदान दे 
-linktitle: योगदान 
-मुख्य मेनू : सच 
-no_list: सही 
+content_type: concept
+title: Contribute to K8s docs
+linktitle: Contribute
+main_menu: true
+no_list: true
 weight: 80
 card:
-  नाम : योगदान 
+  name: योगदान
   weight: 10
-  शीर्षक : कुबेरनेटेस मे योगदान देना शुरू करे 
+  title: कुबेरनेटेस मे योगदान देना शुरू करे
+
 ---
 
 <!-- अवलोकन  -->
@@ -38,8 +39,8 @@ card:
 कोई भी प्रलेखन के बारे मे मुद्दा खोल सकते है या कुबेरनेटेस वेबसाईट 
 [`kubernetes/website` GitHub कोष](https://github.com/kubernetes/website)मे बदलाव  का योगदान पुल रीक्वेस्ट (PR) द्वारा कर सकते है । 
 आपको 
-[गिट ](https://git-scm.com/) और 
-[गीठब ](https://lab.github.com/) 
+[Git](https://git-scm.com/) और 
+[Github](https://lab.github.com/) 
 के बारे मे जानकारी होनी चाहिए ताकि आप कुबेरनेटेस समुदाय मे प्रभावी रूप से काम कर सके। 
 
 प्रलेखन मे शामिल होने के लिए:
@@ -139,7 +140,7 @@ class first,second white
 - योगदान करने के विभिन्न तरीकों को जानने के लिए  [योगदानकर्ता अवलोकन](/docs/contribute/new-content/overview/) को पढे । 
 - अच्छे प्रवेश बिन्दु के लिए  [`कुबेरनेटेस /वेबसाईट ` मुद्दा सूची ](https://github.com/kubernetes/website/issues/)
   को जाँचे । 
-- [गिट हब का प्रयोग करते हुए पुल रीक्वेस्ट खोले  ](/docs/contribute/new-content/open-a-pr/#changes-using-github) पुराने प्रलेखन मे और मुद्दा को भरने की प्रक्रिया के बारे मे ज्यादा अच्छे से जाने । 
+- [Github का प्रयोग करते हुए पुल रीक्वेस्ट खोले  ](/docs/contribute/new-content/open-a-pr/#changes-using-github) पुराने प्रलेखन मे और मुद्दा को भरने की प्रक्रिया के बारे मे ज्यादा अच्छे से जाने । 
 - भाषा और ठीक तरीके से पुल रीक्वेस्ट के लिए दूसरे कुबेरनेटस समुदाय के सदस्यों के [पुल रीक्वेस्ट की समीक्षा करे ](/docs/contribute/review/reviewing-prs/) । 
 - कुबेरनेटस [प्रकरण ](/docs/contribute/style/content-guide/) और  
   [स्टाइल मार्गदर्शक](/docs/contribute/style/style-guide/) को पढे ताकि आप सूचित टिप्पणी दे सके। 
