@@ -23,22 +23,22 @@ no_list: true
 * [शब्दकोष](/docs/reference/glossary/) - कुबेरनेट्स शब्दावली की एक व्यापक, मानकीकृत सूची।
 * [कुबेरनेट्स API संदर्भ](/docs/reference/kubernetes-api/)
 * [कुबेरनेट्स के लिए एक-पृष्ठ API संदर्भ {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-* [कुबेरनेट्स API का उपयोग करना](/docs/reference/using-api/) - कुबेरनेट्स के लिए एपीआई का अवलोकन।
+* [कुबेरनेट्स API का उपयोग करना](/docs/reference/using-api/) - कुबेरनेट्स के लिए API का अवलोकन।
 * [API अभिगम नियंत्रण](/docs/reference/access-authn-authz/) - कुबेरनेट्स API एक्सेस को कैसे नियंत्रित करता है, इस पर विवरण।
-* [जाने-माने लेबल, एनोटेशन और दाग](/docs/reference/labels-annotations-taints/)
+* [जाने-माने लेबल, टिप्पणी और दाग](/docs/reference/labels-annotations-taints/)
 
-## Officially supported client libraries
+## आधिकारिक तौर पर समर्थित ग्राहक पुस्तकालय
 
-To call the Kubernetes API from a programming language, you can use
-[client libraries](/docs/reference/using-api/client-libraries/). Officially supported
+कुबेरनेट्स API को प्रोग्रामिंग भाषा से कॉल करने के लिए, आप उपयोग कर सकते हैं
+[client libraries](/docs/reference/using-api/client-libraries/). आधिकारिक तौर पर समर्थित
 client libraries:
 
-- [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
-- [Kubernetes Python client library](https://github.com/kubernetes-client/python)
-- [Kubernetes Java client library](https://github.com/kubernetes-client/java)
-- [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
-- [Kubernetes C# client library](https://github.com/kubernetes-client/csharp)
-- [Kubernetes Haskell client library](https://github.com/kubernetes-client/haskell)
+- [कुबेरनेट्स Go client library](https://github.com/kubernetes/client-go/)
+- [कुबेरनेट्स Python client library](https://github.com/kubernetes-client/python)
+- [कुबेरनेट्स Java client library](https://github.com/kubernetes-client/java)
+- [कुबेरनेट्स JavaScript client library](https://github.com/kubernetes-client/javascript)
+- [कुबेरनेट्स C# client library](https://github.com/kubernetes-client/csharp)
+- [कुबेरनेट्स Haskell client library](https://github.com/kubernetes-client/haskell)
 
 ## CLI
 
