@@ -85,9 +85,9 @@ operator to use or manage a cluster.
 * [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
 
-## Design Docs
+## डिज़ाइन दस्तावेज़
 
-An archive of the design docs for Kubernetes functionality. Good starting points are
-[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
-[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+कुबेरनेट्स कार्यक्षमता के लिए डिज़ाइन से संबंधित दस्तावेज़ों का एक संग्रह। अच्छे शुरुआती बिंदु हैं
+[कुबेरनेट्स वास्तुकला](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) और
+[कुबेरनेट्स डिज़ाइन अवलोकन](https://git.k8s.io/community/contributors/design-proposals).
 
