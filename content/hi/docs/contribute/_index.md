@@ -36,7 +36,7 @@ card:
 ## शुरू करना 
 
 कोई भी प्रलेखन के बारे मे मुद्दा खोल सकते है या कुबेरनेटेस वेबसाईट 
-[`kubernetes/website` GitHub repository](https://github.com/kubernetes/website)मे बदलाव  का योगदान पुल रीक्वेस्ट (PR) द्वारा कर सकते है । 
+[`kubernetes/website` GitHub कोष](https://github.com/kubernetes/website)मे बदलाव  का योगदान पुल रीक्वेस्ट (PR) द्वारा कर सकते है । 
 आपको 
 [गिट ](https://git-scm.com/) और 
 [गीठब ](https://lab.github.com/) 
