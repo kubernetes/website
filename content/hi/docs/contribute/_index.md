@@ -154,7 +154,7 @@ class first,second white
 - [सिग डॉक्स ](/docs/contribute/participate/) मे भाग ले  और
   [सदस्य या समीक्षक ](/docs/contribute/participate/roles-and-responsibilities/) बने। 
                        
-- [स्थानीयकरण ](/docs/contribute/localization/) शुरू करे या उसमे सहायता करे। 
+- [स्थानीयकरण](/docs/contribute/localization/) शुरू करे या उसमे सहायता करे। 
 
 ## सिग डॉक्स मे शामिल हो 
 
