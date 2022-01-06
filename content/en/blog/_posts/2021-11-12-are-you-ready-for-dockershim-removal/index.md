@@ -5,6 +5,10 @@ date: 2021-11-12
 slug: are-you-ready-for-dockershim-removal
 ---
 
+{{< note >}}
+This poll will close on January 7, 2022.
+{{</ note >}}
+
 **Author:** Sergey Kanzhelev, Google. With reviews from Davanum Srinivas, Elana Hashman, Noah Kantrowitz, Rey Lejano.
 
 Last year we announced that Dockershim is being deprecated: [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/).
@@ -25,7 +29,7 @@ are still not ready: [migrating telemetry and security agents](/docs/tasks/admin
 At this point, we believe that there is feature parity between Docker and the
 other runtimes. Many end-users have used our [migration guide](/docs/tasks/administer-cluster/migrating-from-dockershim/)
 and are running production workload using these different runtimes. The plan of
-record today is that dockershim will be removed in version 1.24, slated for 
+record today is that dockershim will be removed in version 1.24, slated for
 release around April of next year. For those developing or running alpha and
 beta versions, dockershim will be removed in December at the beginning of the
 1.24 release development cycle.
