@@ -6,7 +6,7 @@ weight: 10
 
 <!-- overview -->
 
-このページでは、kubeadmクラスタのコンテナランタイムcgroupドライバに合わせて、kubelet cgroupドライバを設定する方法について説明します。
+このページでは、kubeadmクラスタのコンテナランタイムcgroupドライバーに合わせて、kubelet cgroupドライバーを設定する方法について説明します。
 
 ## {{% heading "prerequisites" %}}
 
@@ -16,15 +16,15 @@ Kubernetesの[コンテナランタイムの要件](/docs/setup/production-envir
 
 ## コンテナランタイムのcgroupドライバーの設定
 
-[Container runtimes](/docs/setup/production-environment/container-runtimes)ページでは、kubeadmベースのセットアップでは`cgroupfs`ドライバーではなく、`systemd`ドライバーが推奨されると説明されています。
+[Container runtimes](/docs/setup/production-environment/container-runtimes)ページから、kubeadmベースのセットアップでは`cgroupfs`ドライバーではなく、`systemd`ドライバーが推奨されると説明されています。
 
 このページでは、デフォルトで`systemd`ドライバーを使用して多くの異なるコンテナランタイムをセットアップする方法についての詳細も説明されています。
 
 ## kubelet cgroupドライバーの設定
 
-kubeadmでは、`kubeadm init`の際に `KubeletConfiguration`構造体を渡すことができます。
+kubeadmでは、`kubeadm init`の際に`KubeletConfiguration`構造体を渡すことができます。
 
-この`KubeletConfiguration` には、kubeletのcgroupドライバーを制御する`cgroupDriver`フィールドを含めることができます。
+この`KubeletConfiguration`には、kubeletのcgroupドライバーを制御する`cgroupDriver`フィールドを含めることができます。
 
 {{< note >}}
 v1.22では、ユーザーが`KubeletConfiguration`の`cgroupDriver`フィールドを設定していない場合、`kubeadm`はデフォルトで`systemd`を設定するようになりました。
@@ -52,7 +52,7 @@ kubeadm init --config kubeadm-config.yaml
 {{< note >}}
 Kubeadmはクラスタ内の全ノードで同じ`KubeletConfiguration`を使用します。
 
-KubeletConfiguration`は`kube-system`名前空間下の[ConfigMap](/docs/concepts/configuration/configmap)オブジェクトに格納されます。
+`KubeletConfiguration`は`kube-system`名前空間下の[ConfigMap](/docs/concepts/configuration/configmap)オブジェクトに格納されます。
 
 サブコマンド`init`、`join`、`upgrade`を実行すると、kubeadmが`KubeletConfiguration`を`/var/lib/kubelet/config.yaml`以下にファイルとして書き込み、ローカルノードのkubeletに渡します。
 {{< /note >}}
@@ -81,9 +81,9 @@ KubeletConfiguration`は`kube-system`名前空間下の[ConfigMap](/docs/concept
 - `kubectl edit cm kubelet-config-x.yy -n kube-system`を呼び出します(`x.yy`はKubernetesのバージョンに置き換えてください)。
 - 既存の`cgroupDriver`の値を修正するか、以下のような新しいフィールドを追加します。
 
-  ``yaml
+``yaml
   cgroupDriver: systemd
-  ```
+```
 
 このフィールドは、ConfigMapの`kubelet:`セクションの下に存在する必要があります。
 
