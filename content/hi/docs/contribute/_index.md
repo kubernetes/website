@@ -134,7 +134,7 @@ class A,B,D,E,F,G grey
 class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
-***आकृति  - आपके पहले योगदान की तैयारी ***
+**आकृति - आपके पहले योगदान की तैयारी**
 
 - योगदान करने के विभिन्न तरीकों को जानने के लिए  [योगदानकर्ता अवलोकन](/docs/contribute/new-content/overview/) को पढे । 
 - अच्छे प्रवेश बिन्दु के लिए  [`कुबेरनेटेस /वेबसाईट ` मुद्दा सूची ](https://github.com/kubernetes/website/issues/)
