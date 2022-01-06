@@ -1,7 +1,5 @@
 ---
 title: संदर्भ
-approvers:
-- chenopis
 linkTitle: "संदर्भ"
 main_menu: true
 weight: 70
