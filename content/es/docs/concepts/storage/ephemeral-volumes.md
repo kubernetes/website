@@ -10,27 +10,27 @@ weight: 30
 <!-- overview -->
 
 Este documento describe los _volúmenes efímeros_ en Kubernetes. Es recomendable
-estar familiarizado con los [volúmenenes](/docs/es/concepts/storage/volumes/), en 
+estar familiarizado con los [volúmenes](/docs/es/concepts/storage/volumes/), en 
 particular con PersistentVolumeClaim y PersistentVolume.
 
 <!-- body -->
 
-Algunas aplicaciones nececistan almacenamiento adicional pero no se preocupa si
-sus datos son guardados persistentemente durante los reinicios. Por ejemplo, servicios
+Algunas aplicaciones necesitan almacenamiento adicional pero no se preocupa si
+los datos son guardados persistentemente durante los reinicios. Por ejemplo, servicios
 de cacheo estan limitados habitualmente por el tamaño de la memoria y pueden mover de manera
 infrecuente datos de usuario al disco, esto es más lento que la memoria y tiene un pequeño impacto
-en rendimiento global.
+en el rendimiento global.
 
-Otras aplicaciones experan algun tipo de dato de solo lectura que debe estar presente en 
-archivos, como los archivos de configuración claves secretas.
+Otras aplicaciones esperan algun tipo de dato de solo lectura que debe estar presente entre sus
+archivos, como los archivos de configuración con claves secretas.
 
 Los _Volúmenes efímeros_ estan diseñados para este tipo de casos. Porque los volúmenes
 siguen toda la vida del Pod y son creados y borrados junto con el
-Pod, Los Pods pueden ser frenados y reiniciados sin estar limitados por
-la ubicación de algún volúmen persistente este disponible. 
+Pod, los Pods pueden ser frenados y reiniciados sin ser limitados por
+la ubicación y disponibilidad de algún volúmen persistente. 
 
-Los volúmenes efímeros se especifican _en linea_ dentro de las especificaciones del Pod, que 
-simplifican el despliegue y manejo de la aplicación. 
+Los volúmenes efímeros se especifican _en linea_ dentro de las especificaciones del Pod, esto 
+simplifica el despliegue y manejo de la aplicación. 
 
 ### Tipos de volúmenes efímeros
 
@@ -55,46 +55,47 @@ diferentes propósitos:
 local](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
 Estos son administrados por kubelet en cada uno de los nodos.
 
-Los volúmenes efímeros CSI *deben* ser proporcionados por un driver de almacenamiento
+Los volúmenes efímeros CSI *deben* ser proporcionados por un controlador de almacenamiento
 de terceros.
 
-Los volúmenes efímeros genéricos *pueden* ser proporcionados por drivers de almacenamiento
-de terceros, pero tambien puede ser por cualquier otro driver de almacenamiento que tenga soporte para aprovisionamiento
+Los volúmenes efímeros genéricos *pueden* ser proporcionados por controladores de almacenamiento
+de terceros, pero tambien puede ser por cualquier otro controlador de almacenamiento que tenga soporte para aprovisionamiento
 dinámico. Algunos drivers CSI estan escritos específicamente para volúmenes
 efímeros CSI y no tienen soporte para aprovisionamiento dinámico: estos 
 no pueden ser usados por volúmenes efímeros genéricos.
 
-The advantage of using third-party drivers is that they can offer
-functionality that Kubernetes itself does not support, for example
-storage with different performance characteristics than the disk that
-is managed by kubelet, or injecting different data.
+```Necesito una revisión a esta frase no quedó bien```
+La ventaja de usar controladores de terceros es que estos pueden ofrecer
+funcionalidades que Kubernetes por si mismo no soporta, por ejemplo
+almacenamiento con diferentes caracteristicas de rendimiento que el disco que
+es administrado por kubelet ó injectando datos diferentes.
 
-### CSI ephemeral volumes
+### Volúmenes efímeros CSI
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-This feature requires the `CSIInlineVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It
-is enabled by default starting with Kubernetes 1.16.
+Esta carácteristica requiere `CSIInlineVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para estar habilitado. Este
+esta habilitado por defecto desde Kubernetes 1.16.
 
 {{< note >}}
-CSI ephemeral volumes are only supported by a subset of CSI drivers.
-The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/drivers.html)
-shows which drivers support ephemeral volumes.
+Los volúmenes efímeros CSI son solamente soportados por un subconjunto de controladores CSI.
+La [lista de controladores](https://kubernetes-csi.github.io/docs/drivers.html) CSI de Kubernetes
+muestra cuales controladores soportan volúmenes efímeros.
 {{< /note >}}
 
-Conceptually, CSI ephemeral volumes are similar to `configMap`,
-`downwardAPI` and `secret` volume types: the storage is managed locally on each
- node and is created together with other local resources after a Pod has been
-scheduled onto a node. Kubernetes has no concept of rescheduling Pods
-anymore at this stage. Volume creation has to be unlikely to fail,
-otherwise Pod startup gets stuck. In particular, [storage capacity
-aware Pod scheduling](/docs/concepts/storage/storage-capacity/) is *not*
-supported for these volumes. They are currently also not covered by
-the storage resource usage limits of a Pod, because that is something
-that kubelet can only enforce for storage that it manages itself.
+Conceptualmente, los volúmenes efímeros CSI son similares a los tipos de volúmen
+ `configMap`, `downwardAPI`y `secret`: el almacenamiento es administrado localmente en cada
+nodo y es creato junto con otros recursos locales después de programar el Pod
+en uno de los nodos. Kubernetes no tiene el concepto de reprogramar Pods
+en esta etapa. La creación del volúmen no tendría que fallar,
+de lo contrario el inicio del Pod queda bloqueado. En particular, [storage capacity
+aware Pod scheduling](/docs/concepts/storage/storage-capacity/) no esta
+soportada en estos volúmenes. Estos actualmente no estan cubiertos por
+el límite de recursos de almacenamiento del Pod, porque esto es algo
+que kubelet solamente puede hacer cumplir para almacenamientos que él administra.
 
 
-Here's an example manifest for a Pod that uses CSI ephemeral storage:
+Aca hay un manifiesto de ejemplo para un Pod que usa un volúmen efímero CSI:
 
 ```yaml
 kind: Pod
@@ -117,35 +118,35 @@ spec:
           foo: bar
 ```
 
-The `volumeAttributes` determine what volume is prepared by the
-driver. These attributes are specific to each driver and not
-standardized. See the documentation of each CSI driver for further
-instructions.
+El `volumeAttributes` determina que volúmen esta preparado por el
+controlador. Estos atributos son específicos para cada controlador y no esta
+estandarizado. Vea la documentación para cada controlador CSI para información
+adicional.
 
-As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
+Como administrador del Cluster, usted puede usar una [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) para controlar que controlador CSI puede ser usado el el Pod, especificando con
 [`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
 
-### Generic ephemeral volumes
+### Volúmenes efímeros genéricos
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-Generic ephemeral volumes are similar to `emptyDir` volumes in the
-sense that they provide a per-pod directory for scratch data that is
-usually empty after provisioning. But they may also have additional
-features:
+Los volúmenes efímeros genericos son similares a los volúmenes `emptyDir` en el 
+sentido de que ellos proveen un directorio por Pod para inicializar datos que
+usualmente estan vacíos antes de aprovisionar. Pero ellos pueden tener características
+adicionales:
 
-- Storage can be local or network-attached.
-- Volumes can have a fixed size that Pods are not able to exceed.
-- Volumes may have some initial data, depending on the driver and
-  parameters.
-- Typical operations on volumes are supported assuming that the driver
-  supports them, including
+- El almacenamiento puede ser local o estar en la red.
+- Los volúmenes pueden tener un tamaño fijo que los Pods no pueden exceder.
+- Los volúmenes pueden tener datos iniciales, dependiendo del controlador y de
+  los parámetros.
+- Las operaciones típicas en volúmenes estan soportadas, asumiendo que el controlador
+  las soporta, incluyendo
   [snapshotting](/docs/concepts/storage/volume-snapshots/),
   [cloning](/docs/concepts/storage/volume-pvc-datasource/),
   [resizing](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
-  and [storage capacity tracking](/docs/concepts/storage/storage-capacity/).
+  y [storage capacity tracking](/docs/concepts/storage/storage-capacity/).
 
-Example:
+Ejemplo:
 
 ```yaml
 kind: Pod
@@ -175,7 +176,7 @@ spec:
                 storage: 1Gi
 ```
 
-### Lifecycle and PersistentVolumeClaim
+### Ciclo de vida y PersistentVolumeClaim
 
 The key design idea is that the
 [parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)
