@@ -2,7 +2,7 @@
 title: Secret
 id: secret
 date: 2021-08-24
-full_link: /docs/concepts/configuration/secret/
+full_link: /pt-br/docs/concepts/configuration/secret/
 short_description: >
   Armazena dados sensíveis, como senhas, tokens OAuth e chaves SSH.
 
