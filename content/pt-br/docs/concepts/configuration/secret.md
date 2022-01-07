@@ -9,28 +9,7 @@ feature:
 weight: 30
 ---
 
-<!--
----
-title: Secrets
-content_type: concept
-feature:
-  title: Secret and configuration management
-  description: >
-    Deploy and update secrets and application configuration without rebuilding your image and without exposing secrets in your stack configuration.
-weight: 30
----
--->
-
 <!-- overview -->
-
-<!--
-A Secret is an object that contains a small amount of sensitive data such as
-a password, a token, or a key. Such information might otherwise be put in a
-{{< glossary_tooltip term_id="pod" >}} specification or in a
-{{< glossary_tooltip text="container image" term_id="image" >}}. Using a
-Secret means that you don't need to include confidential data in your
-application code.
--->
 
 Um Secret é um objeto que contém uma pequena quantidade de informação sensível,
 como senhas, tokens ou chaves. Este tipo de informação poderia, em outras
