@@ -294,6 +294,8 @@ command line arguments to `kube-apiserver`:
 * `--service-account-signing-key-file`
 * `--api-audiences` (can be omitted)
 
+To enable non-disruptive change of issuer we can specify `--service-account-issuer` flag multiple times to `kube-apiserver` for k8s v1.22 and later versions.
+
 {{< /note >}}
 
 The kubelet can also project a service account token into a Pod. You can
