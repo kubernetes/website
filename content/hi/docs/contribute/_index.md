@@ -1,7 +1,7 @@
 ---
-content_type: concept
-title: Contribute to K8s docs
-linktitle: Contribute
+content_type: संकल्पना
+title: कुबेरनेटेस डॉक्स में योगदान दे
+linktitle: योगदान
 main_menu: true
 no_list: true
 weight: 80
@@ -21,7 +21,7 @@ card:
 [योगदानकर्ता प्रलेखन ](https://www.kubernetes.dev/docs/) देखे । .
 {{< /ध्यान दे  >}}
 
-ये वेबसाईट  [कुबेरनेटस सिग डॉक्स ](/docs/contribute/#get-involved-with-sig-docs) द्वारा  देख रेख की जाती है ।
+यह वेबसाईट कि देख रेख [कुबेरनेटस सिग डॉक्स ](/docs/contribute/#get-involved-with-sig-docs) द्वारा की जाती है ।
 
 कुबेरनेटस  प्रलेखन  योगदानकर्ता :
 
