@@ -1,25 +1,25 @@
 ---
-title: Viewing Site Analytics
+title: साइट विश्लेषिकी देखना
 content_type: concept
 weight: 100
 card:
-  name: contribute
+  name: योगदान
   weight: 100
 ---
 
 <!-- overview -->
 
-This page contains information about the kubernetes.io analytics dashboard.
+इस पृष्ठ में Kubernetes.io विश्लेषिकी डैशबोर्ड के बारे में जानकारी है।
 
 
 <!-- body -->
 
-[View the dashboard](https://datastudio.google.com/reporting/fede2672-b2fd-402a-91d2-7473bdb10f04).
+[डैशबोर्ड देखें](https://datastudio.google.com/reporting/fede2672-b2fd-402a-91d2-7473bdb10f04)।
 
-This dashboard is built using Google Data Studio and shows information collected on kubernetes.io using Google Analytics.
+यह डैशबोर्ड Google Data Studio का उपयोग करके बनाया गया है और Google Analytics का उपयोग करके Kubernetes.io पर एकत्रित जानकारी दिखाता है।
 
-### Using the dashboard
+### डैशबोर्ड का उपयोग करना
 
-By default, the dashboard shows all collected analytics for the past 30 days. Use the date selector to see data from a different date range. Other filtering options allow you to view data based on user location, the device used to access the site, the translation of the docs used, and more.
+डिफ़ॉल्ट रूप से, डैशबोर्ड पिछले 30 दिनों के सभी एकत्रित विश्लेषण दिखाता है। विभिन्न दिनांक सीमा मे आने वाला डेटा देखने के लिए date selector का उपयोग करें। अन्य फ़िल्टरिंग विकल्प आपको उपयोगकर्ता का स्थान, साइट तक पहुंचने के लिए उपयोग किए जाने वाले उपकरण, उपयोग किए गए दस्तावेज़ों के अनुवाद, और बहुत से चिज़ो का डेटा देखने की अनुमति देते हैं।
 
- If you notice an issue with this dashboard, or would like to request any improvements, please [open an issue](https://github.com/kubernetes/website/issues/new/choose).
+ यदि आप इस डैशबोर्ड में कोई समस्या देखते हैं, या किसी सुधार का अनुरोध करना चाहते हैं, तो कृपया [एक समस्या खोलें](https://github.com/kubernetes/website/issues/new/choose)।
