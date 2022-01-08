@@ -36,8 +36,7 @@ If you define args, but do not define a command, the default command is used
 with your new arguments.
 
 {{< note >}}
-The `command` field corresponds to `entrypoint` in some container
-runtimes. Refer to the [Notes](#notes) below.
+The `command` field corresponds to `entrypoint` in some container runtimes.
 {{< /note >}}
 
 In this exercise, you create a Pod that runs one container. The configuration
@@ -111,50 +110,9 @@ command: ["/bin/sh"]
 args: ["-c", "while true; do echo hello; sleep 10;done"]
 ```
 
-## Notes
-
-This table summarizes the field names used by Docker and Kubernetes.
-
-|              Description               |    Docker field name   | Kubernetes field name |
-|----------------------------------------|------------------------|-----------------------|
-|  The command run by the container      |   Entrypoint           |      command          |
-|  The arguments passed to the command   |   Cmd                  |      args             |
-
-When you override the default Entrypoint and Cmd, these rules apply:
-
-* If you do not supply `command` or `args` for a Container, the defaults defined
-in the Docker image are used.
-
-* If you supply a `command` but no `args` for a Container, only the supplied
-`command` is used. The default EntryPoint and the default Cmd defined in the Docker
-image are ignored.
-
-* If you supply only `args` for a Container, the default Entrypoint defined in
-the Docker image is run with the `args` that you supplied.
-
-* If you supply a `command` and `args`, the default Entrypoint and the default
-Cmd defined in the Docker image are ignored. Your `command` is run with your
-`args`.
-
-Here are some examples:
-
-| Image Entrypoint   |    Image Cmd     | Container command   |  Container args    |    Command run   |
-|--------------------|------------------|---------------------|--------------------|------------------|
-|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |   &lt;not set&gt;  | `[ep-1 foo bar]` |
-|     `[/ep-1]`      |   `[foo bar]`    |      `[/ep-2]`      |   &lt;not set&gt;  |     `[ep-2]`     |
-|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |     `[zoo boo]`    | `[ep-1 zoo boo]` |
-|     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
-
-
-
-
 ## {{% heading "whatsnext" %}}
 
 
 * Learn more about [configuring pods and containers](/docs/tasks/).
 * Learn more about [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 * See [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
-
-
-
-
