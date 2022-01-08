@@ -2,10 +2,12 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - onlydole
     - mrbobbytables
+    - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - mrbobbytables
     - onlydole
     - sftim
+    - nate-double-u
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -125,6 +127,7 @@ aliases:
     - ClaudiaJKang
     - gochist
     - ianychoi
+    - jihoon-seo
     - seokho-son
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
