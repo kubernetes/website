@@ -39,7 +39,7 @@ API concepts:
 * For some resource types, the API includes one or more *sub-resources*, which are represented as URI paths below the resource
 
 Most Kubernetes API resource types are
-[objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects):
+{{< glossary_tooltip text="objects" term_id="object" >}} –
 they represent a concrete instance of a concept on the cluster, like a
 pod or namespace. A smaller number of API resource types are *virtual* in
 that they often represent operations on objects, rather than objects, such
