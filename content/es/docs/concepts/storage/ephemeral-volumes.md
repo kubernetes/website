@@ -95,7 +95,7 @@ el límite de recursos de almacenamiento del Pod, porque esto es algo
 que kubelet solamente puede hacer cumplir para almacenamientos que él administra.
 
 
-Aca hay un manifiesto de ejemplo para un Pod que usa un volúmen efímero CSI:
+Manifiesto de ejemplo para un Pod que usa un volúmen efímero CSI:
 
 ```yaml
 kind: Pod
@@ -123,7 +123,7 @@ controlador. Estos atributos son específicos para cada controlador y no esta
 estandarizado. Vea la documentación para cada controlador CSI para información
 adicional.
 
-Como administrador del Cluster, usted puede usar una [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) para controlar que controlador CSI puede ser usado el el Pod, especificando con
+Como administrador del Cluster, usted puede usar una [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) para definir que controlador CSI puede ser usado el el Pod, especificando con
 [`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
 
 ### Volúmenes efímeros genéricos
@@ -178,6 +178,7 @@ spec:
 
 ### Ciclo de vida y PersistentVolumeClaim
 
+```to be done```
 The key design idea is that the
 [parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)
 are allowed inside a volume source of the Pod. Labels, annotations and
@@ -186,27 +187,27 @@ created, the ephemeral volume controller then creates an actual PersistentVolume
 object in the same namespace as the Pod and ensures that the PersistentVolumeClaim
 gets deleted when the Pod gets deleted.
 
-That triggers volume binding and/or provisioning, either immediately if
-the {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} uses immediate volume binding or when the Pod is
-tentatively scheduled onto a node (`WaitForFirstConsumer` volume
-binding mode). The latter is recommended for generic ephemeral volumes
-because then the scheduler is free to choose a suitable node for
-the Pod. With immediate binding, the scheduler is forced to select a node that has
-access to the volume once it is available.
+Esto desencadena la vinculación y/o aprovisionamiento del volumen, ya sea inmediatamente si
+el {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} usa la vinculación inmediata del volumen o cuando el Pod es
+programado tentativamente dentro del nodo (modo de vinculación de volumen
+`WaitForFirstConsumer`). Se recomienda esto último para volúmenes efímeros genéricos
+porque entonces el planificador de Kubernetes es libre de eligir un nodo apropiado para
+el Pod. Con vinculación inmediata, el planificador de Kubernetes se ve forzado a seleccionar el nodo que tiene
+acceso al volumen una vez que esta disponible.
 
-In terms of [resource ownership](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents),
-a Pod that has generic ephemeral storage is the owner of the PersistentVolumeClaim(s)
-that provide that ephemeral storage. When the Pod is deleted,
-the Kubernetes garbage collector deletes the PVC, which then usually
-triggers deletion of the volume because the default reclaim policy of
-storage classes is to delete volumes. You can create quasi-ephemeral local storage
-using a StorageClass with a reclaim policy of `retain`: the storage outlives the Pod, 
-and in this case you need to ensure that volume clean up happens separately.
+En los terminos de la [propiedad de los recursos](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents),
+un Pod que tiene un almacenamiento efímero genérico es el dueño del `PersistenVolumeClaim`
+que proporciona este almacenamiento efímero. Cuando un Pod es borrado,
+el recolector de basura de Kubernetes borra el PVC, que usualmente
+desencadena el borrado del volumen porque la política de reclamos por defecto de 
+esta clase de almacenamiento es borrar los volúmenes. Usted puede crear almacenamiento local cuasi-efímero
+usando un `StorageClass` que tenga una politica de recupero de `retención`: el almacenamiento sobrevive al Pod,
+y en este caso se necesita asegurarse que la limpieza de este volumen sucede separadamente.
 
-While these PVCs exist, they can be used like any other PVC. In
-particular, they can be referenced as data source in volume cloning or
-snapshotting. The PVC object also holds the current status of the
-volume.
+Mientras estos PVCs existan, ellos pueden ser usados como cualquier otro PVC. En
+particular, estos pueden ser referenciados como fuente de datos para clonar volúmenes o
+instantáneas. El objeto PVS tambien guarda el estado actual del
+volumen.
 
 ### PersistentVolumeClaim naming
 
@@ -254,17 +255,17 @@ it to circumvent other policies.
 
 ## {{% heading "whatsnext" %}}
 
-### Ephemeral volumes managed by kubelet
+### Volúmenes efímeros administrados por kubelet
 
-See [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
+Vea [almacenamiento local efímero](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
 
-### CSI ephemeral volumes
+### Volúmenes efímeros CSI
 
-- For more information on the design, see the [Ephemeral Inline CSI
+- Para más información sobre el diseño, visite [Ephemeral Inline CSI
   volumes KEP](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md).
-- For more information on further development of this feature, see the [enhancement tracking issue #596](https://github.com/kubernetes/enhancements/issues/596).
+- Para más información sobre el desarrollo de esta característica, visite [enhancement tracking issue #596](https://github.com/kubernetes/enhancements/issues/596).
 
-### Generic ephemeral volumes
+### Volúmenes efímeros genéricos
 
-- For more information on the design, see the
+- Para más información en su diseño, visite
 [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
