@@ -2,6 +2,7 @@
 reviewers:
 - electrocucaracha
 - raelga
+- edithrut
 title: Ephemeral Volumes
 content_type: concept
 weight: 30
@@ -26,8 +27,8 @@ archivos, como los archivos de configuración con claves secretas.
 
 Los _Volúmenes efímeros_ estan diseñados para este tipo de casos. Porque los volúmenes
 siguen toda la vida del Pod y son creados y borrados junto con el
-Pod, los Pods pueden ser frenados y reiniciados sin ser limitados por
-la ubicación y disponibilidad de algún volúmen persistente. 
+Pod, los Pods pueden ser frenados y reiniciados sin estar limitados por
+la ubicación y disponibilidad de algún volumen persistente. 
 
 Los volúmenes efímeros se especifican _en linea_ dentro de las especificaciones del Pod, esto 
 simplifica el despliegue y manejo de la aplicación. 
@@ -44,15 +45,14 @@ diferentes propósitos:
   [secret](/docs/concepts/storage/volumes/#secret): Injectar diferentes
   tipos de datos de Kubernetes dentro del Pod
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
-  similar al anterior tipo de volúmen pero manejado por el driver 
+  similar al anterior tipo de volumen pero manejado por el driver 
   [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
-  que específicamente [soporta esta característica](https://kubernetes-csi.github.io/docs/drivers.html)
+  que específicamente [soportan esta característica](https://kubernetes-csi.github.io/docs/drivers.html)
 - [volúmenes efímeros genéricos](#generic-ephemeral-volumes), que
-  puede ser proporcionado por todos los drivers de almacenamiento que tienen soporte para volúmenes persistentes
+  pueden ser proporcionados por todos los drivers de almacenamiento que tienen soporte para volúmenes persistentes
 
 `emptyDir`, `configMap`, `downwardAPI`, `secret` son proporcionados como
-[almacenamiento efímero
-local](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
+[almacenamiento efímero local](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
 Estos son administrados por kubelet en cada uno de los nodos.
 
 Los volúmenes efímeros CSI *deben* ser proporcionados por un controlador de almacenamiento
@@ -72,9 +72,10 @@ es administrado por kubelet ó injectando datos diferentes.
 
 ### Volúmenes efímeros CSI
 
+```esta linea para mi debe ser eliminada, ya estamos en versiones más nuevas y la 1.16 ya no tiene soporte```
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-Esta carácteristica requiere `CSIInlineVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para estar habilitado. Este
+Esta característica requiere `CSIInlineVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para estar habilitado. Este
 esta habilitado por defecto desde Kubernetes 1.16.
 
 {{< note >}}
@@ -85,8 +86,8 @@ muestra cuales controladores soportan volúmenes efímeros.
 
 Conceptualmente, los volúmenes efímeros CSI son similares a los tipos de volúmen
  `configMap`, `downwardAPI`y `secret`: el almacenamiento es administrado localmente en cada
-nodo y es creato junto con otros recursos locales después de programar el Pod
-en uno de los nodos. Kubernetes no tiene el concepto de reprogramar Pods
+nodo y es creato junto con otros recursos locales después de planificar el Pod
+en uno de los nodos. Kubernetes no tiene el concepto de replanificar Pods
 en esta etapa. La creación del volúmen no tendría que fallar,
 de lo contrario el inicio del Pod queda bloqueado. En particular, [storage capacity
 aware Pod scheduling](/docs/concepts/storage/storage-capacity/) no esta
@@ -95,7 +96,7 @@ el límite de recursos de almacenamiento del Pod, porque esto es algo
 que kubelet solamente puede hacer cumplir para almacenamientos que él administra.
 
 
-Manifiesto de ejemplo para un Pod que usa un volúmen efímero CSI:
+Manifiesto de ejemplo para un Pod que usa un volumen efímero CSI:
 
 ```yaml
 kind: Pod
@@ -118,7 +119,7 @@ spec:
           foo: bar
 ```
 
-El `volumeAttributes` determina que volúmen esta preparado por el
+El `volumeAttributes` determina que volumen esta preparado por el
 controlador. Estos atributos son específicos para cada controlador y no esta
 estandarizado. Vea la documentación para cada controlador CSI para información
 adicional.
@@ -141,10 +142,10 @@ adicionales:
   los parámetros.
 - Las operaciones típicas en volúmenes estan soportadas, asumiendo que el controlador
   las soporta, incluyendo
-  [snapshotting](/docs/concepts/storage/volume-snapshots/),
-  [cloning](/docs/concepts/storage/volume-pvc-datasource/),
-  [resizing](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
-  y [storage capacity tracking](/docs/concepts/storage/storage-capacity/).
+  [instantáneas](/docs/concepts/storage/volume-snapshots/),
+  [clonado](/docs/concepts/storage/volume-pvc-datasource/),
+  [cambio de tamaño](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
+  y [seguimiento de capacidad de almacenamiento](/docs/concepts/storage/storage-capacity/).
 
 Ejemplo:
 
@@ -195,63 +196,62 @@ porque entonces el planificador de Kubernetes es libre de eligir un nodo apropia
 el Pod. Con vinculación inmediata, el planificador de Kubernetes se ve forzado a seleccionar el nodo que tiene
 acceso al volumen una vez que esta disponible.
 
-En los terminos de la [propiedad de los recursos](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents),
+En términos de la [propiedad de los recursos](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents),
 un Pod que tiene un almacenamiento efímero genérico es el dueño del `PersistenVolumeClaim`
 que proporciona este almacenamiento efímero. Cuando un Pod es borrado,
 el recolector de basura de Kubernetes borra el PVC, que usualmente
 desencadena el borrado del volumen porque la política de reclamos por defecto de 
-esta clase de almacenamiento es borrar los volúmenes. Usted puede crear almacenamiento local cuasi-efímero
+esta clase de almacenamiento es eliminar los volúmenes. Usted puede crear almacenamiento local cuasi-efímero
 usando un `StorageClass` que tenga una politica de recupero de `retención`: el almacenamiento sobrevive al Pod,
-y en este caso se necesita asegurarse que la limpieza de este volumen sucede separadamente.
+y en este caso se necesita asegurarse que la limpieza de este volumen suceda separadamente.
 
 Mientras estos PVCs existan, ellos pueden ser usados como cualquier otro PVC. En
 particular, estos pueden ser referenciados como fuente de datos para clonar volúmenes o
-instantáneas. El objeto PVS tambien guarda el estado actual del
+instantáneas. El objeto PVC tambien guarda el estado actual del
 volumen.
 
-### PersistentVolumeClaim naming
+### Nombrado de PersistentVolumeClaim
 
-Naming of the automatically created PVCs is deterministic: the name is
-a combination of Pod name and volume name, with a hyphen (`-`) in the
-middle. In the example above, the PVC name will be
-`my-app-scratch-volume`.  This deterministic naming makes it easier to
-interact with the PVC because one does not have to search for it once
-the Pod name and volume name are known.
+El nombrado automático de los PVCs creados es determinístico: el nombre es
+una combinación del nombre del Pod y el nombre del volumen, con un guión (`-`) en el 
+medio. En el siguiente ejemplo, el nombre del PVC será
+`my-app-scratch-volume`. Este nombrado determinístico hace más fácil la
+interacción con el PVC porque uno no tiene que buscar el mismo una
+vez que el nombre del Pod y del volumen se conocen.
 
-The deterministic naming also introduces a potential conflict between different
-Pods (a Pod "pod-a" with volume "scratch" and another Pod with name
-"pod" and volume "a-scratch" both end up with the same PVC name
-"pod-a-scratch") and between Pods and manually created PVCs.
+El nombrar de manera determinística tambien introduce un conflicto potencia entre diferentes
+Pods (un Pod "pod-a" con un volumen "scratch" y otro Pod con nombre
+"pod" y un volumen "a-scratch" terminan con el mismo nombre del PVC
+"pod-a-scratch") y entre los Pods y PVCs creados manualmente.
 
-Such conflicts are detected: a PVC is only used for an ephemeral
-volume if it was created for the Pod. This check is based on the
-ownership relationship. An existing PVC is not overwritten or
-modified. But this does not resolve the conflict because without the
-right PVC, the Pod cannot start.
+Este tipo de conflictos son detectados: un PVC solamente es usado por un volumen
+efímero si este fue creado por el Pod. Esta verificacion esta basada en la
+relación de propiedad. Un PVC existente no es sobreescrito o
+modificado. Pero esto no resuelve el conflicto porque sin el PVC
+correcto, el Pod no puede iniciar.
 
 {{< caution >}}
-Take care when naming Pods and volumes inside the
-same namespace, so that these conflicts can't occur.
+Tenga cuidado cuando nombre Pods y volúmenes dentro del 
+mismo namespace, para que estos conflictos no ocurran.
 {{< /caution >}}
 
-### Security
+### Seguridad
 
-Enabling the GenericEphemeralVolume feature allows users to create
-PVCs indirectly if they can create Pods, even if they do not have
-permission to create PVCs directly. Cluster administrators must be
-aware of this. If this does not fit their security model, they have
-two choices:
-- Use a [Pod Security
-  Policy](/docs/concepts/policy/pod-security-policy/) where the
-  `volumes` list does not contain the `ephemeral` volume type
-  (deprecated in Kubernetes 1.21).
-- Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  which rejects objects like Pods that have a generic ephemeral
-  volume.
+Habilitar la característica VolumenGenéricoEfímero permite a los usuarios crear
+PVCs indirectamente si ellos pueden crear Pods, aún si ellos no tiene
+permisos para crear PVCs de manera directa. Los administradores del cluster deben
+ser concientes de esto. Si esto no cumple con el modelo de seguridad, se tienen
+dos opciones:
+- Usar una [Politica de Seguridad en Pods](/docs/concepts/policy/pod-security-policy/) donde la
+  lista de `volúmenes` no contine el tipo de volumen efímero
+  (obsoleto desde Kubernetes 1.21).
+- Usar un [webhook de admisión](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  que niega a los objetos como Pods que tengan un volumen genérico
+  efímero.
 
-The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so
-even if users are allowed to use this new mechanism, they cannot use
-it to circumvent other policies.
+La [cuota en namespace para PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) se sigue aplicando, entonces
+aún si los usuarios tienen permisos para usar este mecanismo, ellos no pueden usar
+este para evitar otras políticas.
 
 ## {{% heading "whatsnext" %}}
 
