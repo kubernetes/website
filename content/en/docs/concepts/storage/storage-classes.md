@@ -434,7 +434,7 @@ provisioner: example.com/external-nfs
 parameters:
   server: nfs-server.example.com
   path: /share
-  readOnly: false
+  readOnly: "false"
 ```
 
 * `server`: Server is the hostname or IP address of the NFS server.
@@ -797,7 +797,7 @@ parameters:
   storagePool: sp1
   storageMode: ThinProvisioned
   secretRef: sio-secret
-  readOnly: false
+  readOnly: "false"
   fsType: xfs
 ```
 
