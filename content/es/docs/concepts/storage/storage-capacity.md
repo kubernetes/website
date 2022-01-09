@@ -48,7 +48,7 @@ Para los volúmenes con el modo de enlace de volumen `Immediate`, el controlador
 Luego, el Planificador programa los pods en los nodos donde el volumen está disponible después de que se haya creado.
 
 Para los [volúmenes efímeros de CSI](/docs/concepts/storage/volumes/#csi),
-la programación siempre ocurre sin considerar la capacidad de almacenamiento. Esto se basa en la suposición de que este tipo de volumen solo lo utilizan controladores CSI especiales que son locales a un nodo y no necesitan allí recursos importantes.
+la planificación siempre ocurre sin considerar la capacidad de almacenamiento. Esto se basa en la suposición de que este tipo de volumen solo lo utilizan controladores CSI especiales que son locales a un nodo y no necesitan allí recursos importantes
 
 ## Reprogramar
 
