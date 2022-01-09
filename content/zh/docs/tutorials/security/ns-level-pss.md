@@ -61,7 +61,7 @@ Install the following on your workstation:
    kind create cluster --name psa-ns-level --image kindest/node:v1.23.0
    ```
    <!-- The output is similar to this: -->
-   输入类似于：
+   输出类似于：
    ```
    Creating cluster "psa-ns-level" ...
     ✓ Ensuring node image (kindest/node:v1.23.0) 🖼 
@@ -84,7 +84,7 @@ Install the following on your workstation:
    kubectl cluster-info --context kind-psa-ns-level
    ```
     <!-- The output is similar to this: -->
-   输入类似于：
+   输出类似于：
    ```
    Kubernetes control plane is running at https://127.0.0.1:50996
    CoreDNS is running at https://127.0.0.1:50996/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
@@ -194,7 +194,7 @@ namespace/example created
     kubectl apply -n default -f /tmp/pss/nginx-pod.yaml
     ```
    <!-- Output is similar to this: -->
-   输入类似于：
+   输出类似于：
    ```
    pod/nginx created
    ```
