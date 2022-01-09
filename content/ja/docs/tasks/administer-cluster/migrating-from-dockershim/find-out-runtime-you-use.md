@@ -13,7 +13,7 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-`kubectl`をインストールし、設定します。詳細は[ツールのインストール](/docs/tasks/tools/#kubectl)の項を参照してください。
+`kubectl`をインストールし、設定します。詳細は[ツールのインストール](/ja/docs/tasks/tools/#kubectl)の項を参照してください。
 
 ## ノードで使用されているコンテナランタイムの確認
 
