@@ -29,9 +29,8 @@ When you deploy Kubernetes, you get a cluster.
 This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
-Here's the diagram of a Kubernetes cluster with all the components tied together.
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
 
-![Components of Kubernetes](/images/docs/components-of-kubernetes.svg)
 -->
 <!-- overview -->
 当你部署完 Kubernetes, 即拥有了一个完整的集群。
@@ -39,9 +38,7 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 
 本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
 
-这张图表展示了包含所有相互关联组件的 Kubernetes 集群。
-
-![Kubernetes 组件](/images/docs/components-of-kubernetes.svg)
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes 的组件" caption="Kubernetes 集群的组件" class="diagram-large" >}}
 
 <!-- body -->
 
