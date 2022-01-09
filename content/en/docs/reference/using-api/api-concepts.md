@@ -76,6 +76,7 @@ For PUT requests, Kubernetes internally classifies these as either **create** or
 based on the state of the existing object. An **update** is different from a **patch**; the
 HTTP verb for a **patch** is PATCH.
 
+
 ## Resource URIs
 
 All resource types are either scoped by the cluster (`/apis/GROUP/VERSION/*`) or to a
@@ -162,7 +163,7 @@ For example:
    ```
 
 2. Starting from resource version 10245, receive notifications of any API operations
-   (such as **create**, **delete**, **apply** or **update**) that affect Pods in the
+   (such as **create**, **delete**, **patch** or **update**) that affect Pods in the
    _test_ namespace. Each change notification is a JSON document. The HTTP response body
    (served as `application/json`) consists a series of JSON documents.
 
@@ -750,7 +751,7 @@ Once the last finalizer is removed, the resource is actually removed from etcd.
 
 ## Single resource API
 
-The Kubernetes API verbs **get**, **create**, **apply**, **update**, **patch**,
+The Kubernetes API verbs **get**, **create**, **update**, **patch**,
 **delete** and **proxy** support single resources only.
 These verbs with single resource support have no support for submitting multiple
 resources together in an ordered or unordered list or transaction.
@@ -937,15 +938,70 @@ rules:
 
 See [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
 
-## Server Side Apply
+## Updates to existing resources {#patch-and-apply}
+
+You can overwrite (**update**) an existing resource - for example, a ConfigMap -
+using an HTTP PUT. For a PUT request, it is the client's responsibility to specify
+the `resourceVersion` (taking this from the object being updated). Kubernetes uses
+that `resourceVersion` information so that the API server can detect lost updates
+and reject requests made by a client that is out of date with the cluster.
+In the event that the resource has changed (the `resourceVersion` the client
+provided is stale), the API server returns a `409 Conflict` error response.
+
+Instead of sending a PUT request, the client can send an instruction to the API
+server to **patch** an existing resource. A **patch** is typically appropriate
+if the change that the client wants to make isn't conditional on the existing data. Clients that need effective detection of lost updates should consider
+making their request conditional on the existing `resourceVersion` (either HTTP PUT or HTTP PATCH),
+and then handle any retries that are needed in case there is a conflict.
+
+The Kubernetes API supports four different PATCH operations, determined by their
+corresponding HTTP `Content-Type` header:
+
+`application/apply-patch+yaml`
+: Server Side Apply YAML (a Kubernetes-specific extension, based on YAML).
+  All JSON documents are valid YAML, so you can also submit JSON using this
+  media type. See [Server Side Apply serialization](/docs/reference/using-api/server-side-apply/#serialization)
+  for more details.  
+  To Kubernetes, this is a **create** operation if the object does not exist,
+  or a **patch** operation if the object already exists.
+
+`application/json-patch+json`
+: JSON Patch, as defined in [RFC6902](https://tools.ietf.org/html/rfc6902).
+  A JSON patch is a sequence of operations that are executed on the resource;
+  for example `{"op": "add", "path": "/a/b/c", "value": [ "foo", "bar" ]}`.  
+  To Kubernetes, this is a **patch** operation.
+  
+  A **patch** using `application/json-patch+json` can include conditions to
+  validate consistency, allowing the operation to fail if those conditions
+  are not met (for example, to avoid a lost update).
+
+`application/merge-patch+json`
+: JSON Merge Patch, as defined in [RFC7386](https://tools.ietf.org/html/rfc7386).
+  A JSON Merge Patch is essentially a partial representation of the resource.
+  The submitted JSON is combined with the current resource to create a new one,
+  then the new one is saved.  
+  To Kubernetes, this is a **patch** operation.
+
+`application/strategic-merge-patch+json`
+: Strategic Merge Patch (a Kubernetes-specific extension based on JSON).
+  Strategic Merge Patch is a custom implementation of JSON Merge Patch.  
+  To Kubernetes, this is a **patch** operation.
+
+{{< note >}}
+The Kubernetes _server side apply_ mechanism has superseded Strategic Merge
+Patch.
+{{< /note >}}
 
 Kubernetes' [Server Side Apply](/docs/reference/using-api/server-side-apply/)
 feature allows the control plane to track managed fields for newly created objects.
 Server Side Apply provides a clear pattern for managing field conflicts,
-offers server-side `Apply` and `Update` operations, and replaces the
+offers server-side **apply** and **update** operations, and replaces the
 client-side functionality of `kubectl apply`.
 
-The API verb for Server-Side Apply is **apply**.
+For Server-Side Apply, Kubernetes treats the request as a **create** if the object
+does not yet exist, and a **patch** otherwise. For other requests that use PATCH
+at the HTTP level, the logical Kubernetes operation is always **patch**.
+
 See [Server Side Apply](/docs/reference/using-api/server-side-apply/) for more details.
 
 ## Resource versions
