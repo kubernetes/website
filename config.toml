@@ -427,8 +427,8 @@ language_alternatives = ["en"]
 
 [languages.hi]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
-languageName = "Hindi"
+description = "प्रोडक्शन-ग्रेड कंटेनर ऑर्केस्ट्रेशन"
+languageName = "हिन्दी"
 weight = 11
 contentDir = "content/hi"
 languagedirection = "ltr"
