@@ -8,7 +8,7 @@ content_type: task
 
 dockershimから他のコンテナランタイムに移行する際に知っておくべき情報を紹介します。
 
-Kubernetes 1.20で[dockershim deprecation](/blog/2020/12/08/kubernetes-1-20-release announcement/#dockershim-deprecation)が発表されてから、様々なワークロードやKubernetesインストールにどう影響するのかという質問が寄せられています。
+Kubernetes 1.20で[dockershim deprecation](blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)が発表されてから、様々なワークロードやKubernetesインストールにどう影響するのかという質問が寄せられています。
 
 この問題をよりよく理解するために、[Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/)ブログが役に立つでしょう。
 
