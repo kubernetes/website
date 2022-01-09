@@ -50,7 +50,7 @@ Luego, el Planificador programa los pods en los nodos donde el volumen está dis
 Para los [volúmenes efímeros de CSI](/docs/concepts/storage/volumes/#csi),
 la planificación siempre ocurre sin considerar la capacidad de almacenamiento. Esto se basa en la suposición de que este tipo de volumen solo lo utilizan controladores CSI especiales que son locales a un nodo y no necesitan allí recursos importantes
 
-## Reprogramar
+## Replanificar
 
 Cuando se selecciona un nodo para un Pod con volúmenes `WaitForFirstConsumer`, esa decisión sigue siendo tentativa. El siguiente paso es que se le pide al controlador de almacenamiento CSI que cree el volumen con una pista de que el volumen está disponible en el nodo seleccionado.
 
