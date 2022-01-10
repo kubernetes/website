@@ -1,19 +1,19 @@
 ---
 title: StorageClass
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dokumen ini mendeskripsikan konsep StorageClass yang ada pada Kubernetes.
 Sebelum lanjut membaca, sangat dianjurkan untuk memiliki pengetahuan terhadap
-[volumes](/docs/concepts/storage/volumes/) dan
-[peristent volume](/docs/concepts/storage/persistent-volumes) terlebih dahulu.
+[volumes](/id/docs/concepts/storage/volumes/) dan
+[peristent volume](/id/docs/concepts/storage/persistent-volumes) terlebih dahulu.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pengenalan
 
@@ -21,7 +21,7 @@ Sebuah StorageClass menyediakan cara bagi administrator untuk
 mendeskripsikan "kelas" dari penyimpanan yang mereka sediakan.
 Kelas yang berbeda bisa saja memiliki perbedaan dari segi kualitas
 servis yang disediakan, pemulihan (_backup_) kebijakan, atau kebijakan lain yang ditentukan
-oleh administrator kluster. Kubernetes sendiri tidak dipengaruhi oleh
+oleh administrator klaster. Kubernetes sendiri tidak dipengaruhi oleh
 kelas apakah yang digunakan pada mekanisme penyimpanan yang digunakan.
 Mekanisme ini seringkali disebut sebagai _"profiles"_ pada sistem penyimpanan
 yang lain.
@@ -40,7 +40,7 @@ dan objek yang sudah dibuat tidak dapat diubah lagi definisinya.
 
 Administrator dapat memberikan spesifikasi StorageClass _default_ bagi
 PVC yang tidak membutuhkan kelas tertentu untuk dapat melakukan mekanisme _bind_:
-kamu dapat membaca [bagian `PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#class-1)
+kamu dapat membaca [bagian `PersistentVolumeClaim`](/id/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 untuk penjelasan lebih lanjut.
 
 ```yaml
@@ -131,28 +131,28 @@ akan gagal apabila salah satu dari keduanya bersifat invalid.
 ### Mode Volume _Binding_
 
 _Field_ `volumeBindingMode` mengontrol kapan mekanisme [_binding_ volume dan
-_provisioning_ dinamis](/docs/concepts/storage/persistent-volumes/#provisioning)
+_provisioning_ dinamis](/id/docs/concepts/storage/persistent-volumes/#provisioning)
 harus dilakukan.
 
 Secara _default_, ketika mode `Immediate` yang mengindikasikan
 terjadinya volume _binding_ dan _provisioning_ dinamis terjadi ketika
 PersistentVolumeClaim dibuat. Untuk _backend_ penyimpanan yang dibatasi oleh
 topologi tertentu dan tidak dapat diakses secara global dari semua Node
-yang ada di kluster, PersistentVolume akan di-_bound_ atau di-_provision_
+yang ada di klaster, PersistentVolume akan di-_bound_ atau di-_provision_
 tanpa perlu memenuhi persyaratan _scheduling_ dari Pod. Hal ini dapat menyebabkan
 adanya Pod yang tidak mendapatkan mekanisme _scheduling_.
 
-Seorang administrator kluster dapat mengatasi hal tersebut dengan cara memberikan
+Seorang administrator klaster dapat mengatasi hal tersebut dengan cara memberikan
 spesifikasi mode `WaitForFirstConsumer` yang akan memperlambat mekanisme _provisioning_
 dan _binding_ dari sebuah PersistentVolume hingga sebuah Pod yang menggunakan
 PersistentVolumeClaim dibuat. PersistentVolume akan dipilih atau di-_provisioning_
 sesuai dengan topologi yang dispesifikasikan oleh limitasi yang diberikan
 oleh mekanisme _scheduling_ Pod. Hal ini termasuk, tetapi tidak hanya terbatas pada,
-[persyaratan sumber daya](/docs/concepts/configuration/manage-compute-resources-container),
-[_node selector_](/docs/concepts/configuration/assign-pod-node/#nodeselector),
+[persyaratan sumber daya](/id/docs/concepts/configuration/manage-compute-resources-container),
+[_node selector_](/id/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector),
 [afinitas dan
-anti-afinitas Pod](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
-serta [_taint_ dan _toleration_](/docs/concepts/configuration/taint-and-toleration).
+anti-afinitas Pod](/id/docs/concepts/scheduling-evictionassign-pod-node/#affinity-and-anti-affinity),
+serta [_taint_ dan _toleration_](/id/docs/concepts/scheduling-eviction/taint-and-toleration).
 
 Beberapa _plugin_ di bawah ini mendukung `WaitForFirstConsumer` dengan _provisioning_
 dinamis:
@@ -168,7 +168,7 @@ PersistentVolume yang terlebih dahulu dibuat:
 * [Lokal](#lokal)
 
 {{< feature-state state="beta" for_k8s_version="1.14" >}}
-[Volume-volume CSI](/docs/concepts/storage/volumes/#csi) juga didukung
+[Volume-volume CSI](/id/docs/concepts/storage/volumes/#csi) juga didukung
 dengan adanya _provisioning_ dinamis serta PV yang telah terlebih dahulu dibuat,
 meskipun demikian, akan lebih baik apabila kamu melihat dokumentasi
 untuk driver spesifik CSI untuk melihat topologi _key_ yang didukung
@@ -176,7 +176,7 @@ beserta contoh penggunaannya. _Feature gate_ `CSINodeInfo` haruslah diaktifkan.
 
 ### Topologi yang Diizinkan
 
-Ketika sebuah operator kluster memberikan spesifikasi `WaitForFirstConsumer` pada
+Ketika sebuah operator klaster memberikan spesifikasi `WaitForFirstConsumer` pada
 mode `binding` volume, mekanisme pembatasan (restriksi) `provisioning` tidak lagi dibutuhkan
 pada sebagian besar kasus. Meskipun begitu, apabila hal tersebut masih dibutuhkan,
 `field` `allowedTopologies` dapat dispesifikasikan.
@@ -230,12 +230,12 @@ parameters:
   untuk detail lebih lanjut. Nilai _default_: `gp2`.
 * `zone` (_deprecated_): zona AWS. Jika tidak terdapat nilai `zone` atau `zones`
   yang dispesifikasikan, volume secara generik dijadwalkan dengan menggunakan
-  penjadwalan `round-robin-ed` pada semua zona aktif yang ada pada kluster Kubernetes
+  penjadwalan `round-robin-ed` pada semua zona aktif yang ada pada klaster Kubernetes
   yang memiliki _node_.
 * `zones` (_deprecated_): Nilai terpisahkan koma yang merupakan barisan zona pada AWS.
   Jika tidak terdapat nilai `zone` atau `zones` yang dispesifikasikan,
   volume secara generik dijadwalkan dengan menggunakan penjadwalan
-  `round-robin-ed` pada semua zona aktif yang ada pada kluster Kubernetes
+  `round-robin-ed` pada semua zona aktif yang ada pada klaster Kubernetes
   yang memiliki _node_.
 * `iopsPerGB`: hanya untuk volume `io1`. Operasi per detik per GiB. Volume _plugin_
   AWS mengalikan nilai ini dengan ukuran volume yang dibutuhkan untuk menghitung IOPS
@@ -271,12 +271,12 @@ parameters:
 * `type`: `pd-standard` atau `pd-ssd`. Nilai _default_: `pd-standard`
 * `zone` (_deprecated_): zona GCE. Jika tidak terdapat nilai `zone` atau `zones`
    yang dispesifikasikan, volume secara generik dijadwalkan dengan menggunakan
-   penjadwalan `round-robin-ed` pada semua zona aktif yang ada pada kluster Kubernetes
+   penjadwalan `round-robin-ed` pada semua zona aktif yang ada pada klaster Kubernetes
    yang memiliki _node_.
 * `zones` (_deprecated_): Nilai terpisahkan koma yang merupakan barisan zona.
   Jika tidak terdapat nilai `zone` atau `zones` yang dispesifikasikan,
   volume secara generik dijadwalkan dengan menggunakan penjadwalan
-  `round-robin-ed` pada semua zona aktif yang ada pada kluster Kubernetes
+  `round-robin-ed` pada semua zona aktif yang ada pada klaster Kubernetes
   yang memiliki _node_.
 * `replication-type`: `none` atau `regional-pd`. Nilai _default_: `none`.
 
@@ -291,7 +291,7 @@ tepat dua zona yang dispesifikasikan, PD Regional akan di-_provisioning_ pada
 zona replikasi yang diinginkan. Jika terdapat lebih dari 2 zona yang dispesifikasikan,
 Kubernetes akan memilih secara acak zona dari zona-zona yang dispesifikasikan. Jika
 parameter `zones` tidak diinisialisasi, Kubernetes akan memilih secara acak dari
-zona yang diatur oleh kluster Kubernetes.
+zona yang diatur oleh klaster Kubernetes.
 
 {{< note >}}
 Parameter `zone` dan `zones` sudah _deprecated_ dan digantikan oleh
@@ -351,7 +351,7 @@ parameters:
     Contoh Secret dapat ditemukan pada berkas berikut
     [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
 
-* `clusterid`: `630372ccdc720a92c681fb928f27b53f` merupakan ID dari kluster
+* `clusterid`: `630372ccdc720a92c681fb928f27b53f` merupakan ID dari klaster
   yang akan digunakan oleh Heketi ketikan melakukan _provisioning_ volume. ID ini juga
   dapat berupa serangkaian list, misalnya: `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`.
   Parameter ini merupakan parameter opsional.
@@ -396,7 +396,7 @@ parameters:
 
 * `availability`: Zona _Availability_. Jika tidak dispesifikasikan, secara umum volume akan
   diatur dengan menggunakan algoritma _round-robin_ pada semua zona aktif
-  dimana kluster Kubernetes memiliki sebuah node.
+  dimana klaster Kubernetes memiliki sebuah node.
 
 {{< note >}}
 {{< feature-state state="deprecated" for_k8s_version="1.11" >}}
@@ -581,9 +581,9 @@ parameters:
 * `skuName`: Akun penyimpanan Azure yang ada pada tingkatan Sku. Nilai _default_-nya adalah kosong.
 * `location`: Lokasi akun penyimpanan Azure. Nilai _default_-nya adalah kosong.
 * `storageAccount`: Nama akun penyimpanan Azure. Jika sebuan akun penyimpanan disediakan,
-  akun tersebut haruslah berada pada grup sumber daya yang ada dengan kluster,
+  akun tersebut haruslah berada pada grup sumber daya yang ada dengan klaster,
   dan `location` akan diabaikan. Jika sebuah akun penyimpanan tidak disediakan, sebuah akun penyimpanan
-  baru akan dibuat pada grup sumber daya yang ada dengan kluster.
+  baru akan dibuat pada grup sumber daya yang ada dengan klaster.
 
 #### Kelas Penyimpanan Disk Azure yang Baru (mulai versi v1.7.2)
 
@@ -595,16 +595,16 @@ metadata:
 provisioner: kubernetes.io/azure-disk
 parameters:
   storageaccounttype: Standard_LRS
-  kind: Shared
+  kind: managed
 ```
 
 * `storageaccounttype`: Akun penyimpanan Azure yang ada pada tingkatan Sku. Nilai _default_-nya adalah kosong.
-* `kind`: Nilai yang mungkin adalah `shared` (default), `dedicated`, dan `managed`.
+* `kind`: Nilai yang mungkin adalah `shared`, `dedicated`, dan `managed` (default).
   Ketika `kind` yang digunakan adalah `shared`, semua disk yang tidak di-_manage_ akan
-  dibuat pada beberapa akun penyimpanan yang ada pada grup sumber daya yang sama dengan kluster.
+  dibuat pada beberapa akun penyimpanan yang ada pada grup sumber daya yang sama dengan klaster.
   Ketika `kind` yang digunakan adalah `dedicated`, sebuah akun penyimpanan
-  baru akan dibuat pada grup sumber daya yang ada dengan kluster. Ketika `kind` yang digunakan adalah
-  `managed`, semua disk yang dikelola akan dibuat pada grup sumber daya yang ada dengan kluster.
+  baru akan dibuat pada grup sumber daya yang ada dengan klaster. Ketika `kind` yang digunakan adalah
+  `managed`, semua disk yang dikelola akan dibuat pada grup sumber daya yang ada dengan klaster.
 
 - VM premium dapat di-_attach_ baik pada Standard_LRS dan Premium_LRS disks, sementara Standard
   VM hanya dapat di-_attach_ pada disk Standard_LRS.
@@ -631,11 +631,11 @@ parameters:
   tidak memiliki sebuah akun yang disediakan, semua akun penyimpanan yang diasosiasikan dengan
   grup sumber daya yang ada dan kemudian melakukan pencarian terhadap akun yang sesuai dengan
   `skuName` dan `location`. Jika sebuah akun penyimpanan disediakan, akun tersebut haruslah berada
-  di dalam grup sumber daya yang sama dengan kluster, serta `skuName` dan `location` akan diabaikan.
+  di dalam grup sumber daya yang sama dengan klaster, serta `skuName` dan `location` akan diabaikan.
 
-Selama _provision_, sebuah secret dibuat untuk menyimpan _credentials_. Jika kluster
-menggunakan konsep [RBAC](/docs/reference/access-authn-authz/rbac/) dan
-[_Roles_ Controller](/docs/reference/access-authn-authz/rbac/#controller-roles),
+Selama _provision_, sebuah secret dibuat untuk menyimpan _credentials_. Jika klaster
+menggunakan konsep [RBAC](/id/docs/reference/access-authn-authz/rbac/) dan
+[_Roles_ Controller](/id/docs/reference/access-authn-authz/rbac/#controller-roles),
 menambahkan kapabilitas `create` untuk sumber daya `secret` bagi clusterrole
 `system:controller:persistent-volume-binder`.
 
@@ -785,4 +785,4 @@ sampai _scheduling_ pod dilakukan. Hal ini dispesifikasikan oleh mode _binding_ 
 Memperlambat _binding_ volume mengizinkan _scheduler_ untuk memastikan
 batasan _scheduling_ semua pod ketika memilih PersistentVolume untuk sebuah PersistentVolumeClaim.
 
-{{% /capture %}}
+

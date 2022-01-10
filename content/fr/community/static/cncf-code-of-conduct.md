@@ -24,7 +24,7 @@ Ce Code de conduite s’applique à la fois dans le cadre du projet et dans le c
 
 Des cas de conduite abusive, de harcèlement ou autre pratique inacceptable ayant cours sur Kubernetes peuvent être signalés en contactant le [comité pour le code de conduite de Kubernetes](https://git.k8s.io/community/committee-code-of-conduct) via l'adresse <conduct@kubernetes.io>.  Pour d'autres projets, bien vouloir contacter un responsable de projet CNCF ou notre médiateur, Mishi Choudhary à l'adresse <mishi@linux.com>.
 
-Ce Code de conduite est inspiré du « Contributor Covenant » (http://contributor-covenant.org) version 1.2.0, disponible à l’adresse http://contributor-covenant.org/version/1/2/0/.
+Ce Code de conduite est inspiré du « Contributor Covenant » (https://contributor-covenant.org) version 1.2.0, disponible à l’adresse https://contributor-covenant.org/version/1/2/0/.
 
 ### Code de conduite pour les événements de la CNCF
 

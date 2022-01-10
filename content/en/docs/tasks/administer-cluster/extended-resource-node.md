@@ -1,26 +1,27 @@
 ---
 title: Advertise Extended Resources for a Node
-content_template: templates/task
+content_type: task
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to specify extended resources for a Node.
 Extended resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Get the names of your Nodes
 
@@ -53,7 +54,7 @@ Host: k8s-master:8080
 ```
 
 Note that Kubernetes does not need to know what a dongle is or what a dongle is for.
-The preceding PATCH request just tells Kubernetes that your Node has four things that
+The preceding PATCH request tells Kubernetes that your Node has four things that
 you call dongles.
 
 Start a proxy, so that you can easily send requests to the Kubernetes API server:
@@ -189,10 +190,11 @@ kubectl describe node <your-node-name> | grep dongle
 
 (you should not see any output)
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### For application developers
 
@@ -200,8 +202,8 @@ kubectl describe node <your-node-name> | grep dongle
 
 ### For cluster administrators
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
 
-{{% /capture %}}
+

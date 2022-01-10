@@ -7,7 +7,7 @@
 
 ## डॉक्स में योगदान देना
 
-आप अपने GitHub खाते में इस रिपॉजिटरी की एक copy बनाने के लिए स्क्रीन के ऊपरी-दाएँ क्षेत्र में **Fork** बटन पर क्लिक करें। इस copy को *Fork* कहा जाता है। अपने fork में कोई भी परिवर्तन करना चाहते हैं, और जब आप उन परिवर्तनों को हमारे पास भेजने के लिए तैयार हों, तो अपने fork पर जाएं और हमें इसके बारे में बताने के लिए एक नया pull request बनाएं।
+आप अपने GitHub खाते में इस रिपॉजिटरी की एक copy बनाने के लिए स्क्रीन के ऊपरी-दाएँ क्षेत्र में **Fork** बटन पर क्लिक करें। इस copy को *Fork* कहा जाता है। अपने fork में परिवर्तन करने के बाद जब आप उनको हमारे पास भेजने के लिए तैयार हों, तो अपने fork पर जाएं और हमें इसके बारे में बताने के लिए एक नया pull request बनाएं।
 
 एक बार जब आपका pull request बन जाता है, तो एक कुबरनेट्स समीक्षक स्पष्ट, कार्रवाई योग्य प्रतिक्रिया प्रदान करने की जिम्मेदारी लेगा। pull request के मालिक के रूप में, **यह आपकी जिम्मेदारी है कि आप कुबरनेट्स समीक्षक द्वारा प्रदान की गई प्रतिक्रिया को संबोधित करने के लिए अपने pull request को संशोधित करें।**
 
@@ -17,15 +17,18 @@
 
 * [योगदान देना शुरू करें](https://kubernetes.io/docs/contribute/start/)
 * [परिवर्तनों को अंतिम चरण में लेजाएं](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [पेज टेम्पलेट](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [पेज टेम्पलेट](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [प्रलेखन शैली गाइड](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [स्थानीयकरण कुबरनेट्स प्रलेखन](https://kubernetes.io/docs/contribute/localization/)
 
 ## `README.md`'s स्थानीयकरण कुबरनेट्स प्रलेखन
 
-आप पर हिंदी स्थानीयकरण के maintainers तक पहुँच सकते हैं:
+आप हिंदी स्थानीयकरण के मैन्टेनरों तक पहुँच सकते हैं:
 
+* Anubhav Vardhan ([Slack](https://kubernetes.slack.com/archives/D0261C0A3R8), [Twitter](https://twitter.com/anubha_v_ardhan), [GitHub](https://github.com/anubha-v-ardhan))
+* Divya Mohan ([Slack](https://kubernetes.slack.com/archives/D027R7BE804), [Twitter](https://twitter.com/Divya_Mohan02), [GitHub](https://github.com/divya-mohan0209))
 * Yashu Mittal ([Twitter](https://twitter.com/mittalyashu77), [GitHub](https://github.com/mittalyashu))
+
 * [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-hi)
 
 ## स्थानीय रूप से डॉकर का उपयोग करके साइट चलाना
@@ -36,18 +39,18 @@
 
 > यदि आप डॉकर के बिना स्थानीय रूप से वेबसाइट चलाना पसंद करते हैं, तो नीचे Hugo का उपयोग करके स्थानीय रूप से साइट चलाना देखें।
 
-यदि आप डॉकर के बिना स्थानीय रूप से वेबसाइट चलाना पसंद करते हैं, तो नीचे दिए गए Hugo का उपयोग करके स्थानीय रूप से [साइट को चलाने](#running-the-site-locally-using-hugo) का तरीका देखें।
+यदि आप डॉकर के बिना स्थानीय रूप से वेबसाइट चलाना पसंद करते हैं, तो नीचे दिए गए Hugo का उपयोग करके स्थानीय रूप से [साइट को चलाने](#hugo-का-उपयोग-करते-हुए-स्थानीय-रूप-से-साइट-चलाना) का तरीका देखें।
 
 यदि आप [डॉकर](https://www.docker.com/get-started) चला रहे हैं, तो स्थानीय रूप से `कुबेरनेट्स-ह्यूगो` Docker image बनाएँ:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 एक बार image बन जाने के बाद, आप साइट को स्थानीय रूप से चला सकते हैं:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 साइट देखने के लिए अपने browser को `http://localhost:1313` पर खोलें। जैसा कि आप source फ़ाइलों में परिवर्तन करते हैं, Hugo साइट को अपडेट करता है और browser को refresh करने पर मजबूर करता है।

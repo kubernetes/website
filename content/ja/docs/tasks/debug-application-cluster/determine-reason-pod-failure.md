@@ -1,25 +1,26 @@
 ---
 title: Pod障害の原因を特定する
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、コンテナ終了メッセージの読み書き方法を説明します。
 
 終了メッセージは、致命的なイベントに関する情報を、ダッシュボードや監視ソフトウェアなどのツールで簡単に取得して表示できる場所にコンテナが書き込むための手段を提供します。 ほとんどの場合、終了メッセージに入力した情報も一般的な[Kubernetesログ](/docs/concepts/cluster-administration/logging/)に書き込まれるはずです。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 終了メッセージの書き込みと読み取り
 
@@ -32,7 +33,7 @@ content_template: templates/task
 
         kubectl apply -f https://k8s.io/examples/debug/termination.yaml
 
-    YAMLファイルの`cmd`フィールドと`args`フィールドで、コンテナが10秒間スリープしてから`/dev/termination-log`ファイルに「Sleep expired」と書いているのがわかります。コンテナが「Sleep expired」メッセージを書き込んだ後、コンテナは終了します。
+    YAMLファイルの`command`フィールドと`args`フィールドで、コンテナが10秒間スリープしてから`/dev/termination-log`ファイルに「Sleep expired」と書いているのがわかります。コンテナが「Sleep expired」メッセージを書き込んだ後、コンテナは終了します。
 
 1. Podに関する情報を表示します:
 
@@ -66,6 +67,8 @@ content_template: templates/task
 
 Kubernetesは、コンテナの`terminationMessagePath`フィールドで指定されている終了メッセージファイルから終了メッセージを取得します。デフォルト値は`/dev/termination-log`です。このフィールドをカスタマイズすることで、Kubernetesに別のファイルを使うように指示できます。Kubernetesは指定されたファイルの内容を使用して、成功と失敗の両方についてコンテナのステータスメッセージを入力します。
 
+終了メッセージはアサーションエラーメッセージのように、最終状態を簡潔に示します。kubeletは4096バイトより長いメッセージは切り詰めます。全コンテナの合計メッセージの長さの上限は12キビバイトです。デフォルトの終了メッセージのパスは`/dev/termination-log`です。Pod起動後に終了メッセージのパスを設定することはできません。
+
 次の例では、コンテナはKubernetesが取得するために終了メッセージを`/tmp/my-log`に書き込みます:
 
 ```yaml
@@ -82,15 +85,16 @@ spec:
 
 さらに、ユーザーは追加のカスタマイズをするためにContainerの`terminationMessagePolicy`フィールドを設定できます。このフィールドのデフォルト値は`File`です。これは、終了メッセージが終了メッセージファイルからのみ取得されることを意味します。`terminationMessagePolicy`を`FallbackToLogsOnError`に設定することで、終了メッセージファイルが空でコンテナがエラーで終了した場合に、コンテナログ出力の最後のチャンクを使用するようにKubernetesに指示できます。ログ出力は、2048バイトまたは80行のどちらか小さい方に制限されています。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)の`terminationMessagePath`フィールド参照
 * [ログ取得](/docs/concepts/cluster-administration/logging/)について
 * [Goテンプレート](https://golang.org/pkg/text/template/)について
 
-{{% /capture %}}
+
 
 
 

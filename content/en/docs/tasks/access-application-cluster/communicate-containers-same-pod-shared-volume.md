@@ -1,25 +1,21 @@
 ---
 title: Communicate Between Containers in the Same Pod Using a Shared Volume
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to use a Volume to communicate between two Containers running
-in the same Pod. See also how to allow processes to communicate by [sharing process namespace](/docs/tasks/configure-pod-container/share-process-namespace/) between containers.
+in the same Pod. See also how to allow processes to communicate by
+[sharing process namespace](/docs/tasks/configure-pod-container/share-process-namespace/)
+between containers.
 
-{{% /capture %}}
-
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
-
-
-{{% capture steps %}}
+<!-- steps -->
 
 ##  Creating a Pod that runs two Containers
 
@@ -102,16 +98,17 @@ The output is similar to this:
 Recall that the debian Container created the `index.html` file in the nginx root
 directory. Use `curl` to send a GET request to the nginx server:
 
-    root@two-containers:/# curl localhost
+```
+root@two-containers:/# curl localhost
+```
 
 The output shows that nginx serves a web page written by the debian container:
 
-    Hello from the debian container
+```
+Hello from the debian container
+```
 
-{{% /capture %}}
-
-
-{{% capture discussion %}}
+<!-- discussion -->
 
 ## Discussion
 
@@ -127,27 +124,18 @@ The Volume in this exercise provides a way for Containers to communicate during
 the life of the Pod. If the Pod is deleted and recreated, any data stored in
 the shared Volume is lost.
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
 
 
-{{% capture whatsnext %}}
+* Learn more about [patterns for composite containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
 
-* Learn more about
-[patterns for composite containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
+* Learn about [composite containers for modular architecture](https://www.slideshare.net/Docker/slideshare-burns).
 
-* Learn about
-[composite containers for modular architecture](http://www.slideshare.net/Docker/slideshare-burns).
-
-* See
-[Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
+* See [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
 
 * See [Configure a Pod to share process namespace between containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/)
 
 * See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 
 * See [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
-
-{{% /capture %}}
-
-
 

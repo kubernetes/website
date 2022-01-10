@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: snowflake
+  name: snowflake
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: snowflake
+  template:
+    metadata:
+      labels:
+        app: snowflake
+    spec:
+      containers:
+      - image: k8s.gcr.io/serve_hostname
+        imagePullPolicy: Always
+        name: snowflake

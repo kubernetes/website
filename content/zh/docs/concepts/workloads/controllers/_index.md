@@ -1,11 +1,4 @@
-<!--
 ---
-title: "Controllers"
-weight: 20
----
--->
-
----
-title: "控制器"
+title: "工作负载资源"
 weight: 20
 ---

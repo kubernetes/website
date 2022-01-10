@@ -3,19 +3,12 @@ title: 노드 구성 검증하기
 weight: 30
 ---
 
-{{< toc >}}
 
 ## 노드 적합성 테스트
 
 *노드 적합성 테스트* 는 노드의 시스템 검증과 기능 테스트를 제공하기 위해 컨테이너화된 테스트 프레임워크이다.
 테스트는 노드가 쿠버네티스를 위한 최소 요구조건을 만족하는지를 검증한다. 그리고 테스트를 통과한 노드는 쿠버네티스 클러스터에 참
 여할 자격이 주어진다.
-
-## 제한 사항
-
-쿠버네티스 1.5에서는 노드 적합성 테스트가 아래의 제약이 있다.
-
-* 노드 적합성 테스트는 컨테이너 런타임으로 Docker만 지원한다.
 
 ## 노드 필수 구성 요소
 
@@ -29,7 +22,11 @@ weight: 30
 
 노드 적합성 테스트는 다음 순서로 진행된다.
 
-1. 테스트 프레임워크는 Kublet을 테스트하기 위해 로컬 마스터를 시작하기 때문에, Kublet이 localhost를 가르키도록 `--api-servers="http://localhost:8080"`를 사용한다. 고려해야 할 다른 Kubelet 플래그들은 다음과 같다.
+1. kubelet에 대한 `--kubeconfig` 옵션의 값을 계산한다. 예를 들면, 다음과 같다.
+   `--kubeconfig = / var / lib / kubelet / config.yaml`.
+   테스트 프레임워크는 kubelet을 테스트하기 위해 로컬 컨트롤 플레인을 시작하기 때문에,
+   `http://localhost:8080` 을 API 서버의 URL로 사용한다.
+   사용할 수 있는 kubelet 커맨드 라인 파라미터가 몇 개 있다.
   * `--pod-cidr`: `kubenet`을 사용 중이라면, 임의의 CIDR을 Kubelet에 지정해주어야 한다. 예) `--pod-cidr=10.180.0.0/24`.
   * `--cloud-provider`: `--cloud-provider=gce`를 사용 중이라면, 테스트 실행 시에는 제거해야 한다.
 
@@ -73,7 +70,7 @@ sudo docker run -it --rm --privileged --net=host \
   k8s.gcr.io/node-test:0.2
 ```
 
-노드 적합성 테스트는 [노드 e2e 테스트](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md)를 컨테이너화한 버전이다.
+노드 적합성 테스트는 [노드 e2e 테스트](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md)를 컨테이너화한 버전이다.
 기본적으로, 모든 적합성 테스트를 실행한다.
 
 이론적으로, 컨테이너와 필요한 볼륨을 적절히 설정했다면 어떤 노드 e2e 테스트도 수행할 수 있다.

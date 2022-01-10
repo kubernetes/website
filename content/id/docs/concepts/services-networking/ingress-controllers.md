@@ -1,26 +1,26 @@
 ---
 title: Kontroler Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Agar Ingress dapat bekerja sebagaimana mestinya,
-sebuah kluster harus memiliki paling tidak sebuah kontroler Ingress.
+sebuah klaster harus memiliki paling tidak sebuah kontroler Ingress.
 
 Berbeda dengan kontroler-kontroler lainnya yang dijalankan
 sebagai bagian dari *binary* `kube-controller-manager`, kontroler Ingress
-tidak secara otomatis dijalankan di dalam kluster. Kamu bisa menggunakan
+tidak secara otomatis dijalankan di dalam klaster. Kamu bisa menggunakan
 laman ini untuk memilih implementasi kontroler Ingress yang kamu pikir
 paling sesuai dengan kebutuhan kamu.
 
 Kubernetes sebagai sebuah proyek, saat ini, mendukung dan memaintain kontroler-kontroler [GCE](https://git.k8s.io/ingress-gce/README.md) dan
   [nginx](https://git.k8s.io/ingress-nginx/README.md).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kontroler-kontroler lainnya
 
@@ -52,10 +52,10 @@ Kubernetes sebagai sebuah proyek, saat ini, mendukung dan memaintain kontroler-k
 ## Menggunakan beberapa jenis kontroler Ingress sekaligus
 
 Kamu dapat melakukan *deploy* [berapa pun banyaknya kontroler Ingress](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers)
-dalam sebuah kluster. Jika kamu ingin membuat Ingress, kamu tinggal memberikan anotasi setiap Ingress sesuai dengan
+dalam sebuah klaster. Jika kamu ingin membuat Ingress, kamu tinggal memberikan anotasi setiap Ingress sesuai dengan
 [`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster)
 yang sesuai untuk menandai kontroler Ingress mana yang digunakan jika terdapat lebih dari satu kontroler Ingress yang ada di
-kluster kamu.
+klaster kamu.
 
 Apabila kamu tidak mendefinisikan `class` yang dipakai, penyedia layanan *cloud* kamu akan menggunakan kontroler Ingress *default* yang mereka miliki.
 
@@ -66,11 +66,12 @@ kontroler Ingress bisa saja memiliki sedikit perbedaan cara kerja.
 Pastikan kamu sudah terlebih dahulu memahami dokumentasi kontroler Ingress yang akan kamu pakai sebelum memutuskan untuk memakai kontroler tersebut.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* Pelajari [Ingress](/docs/concepts/services-networking/ingress/) lebih lanjut.
+## {{% heading "whatsnext" %}}
+
+
+* Pelajari [Ingress](/id/docs/concepts/services-networking/ingress/) lebih lanjut.
 * [Melakukan konfigurasi Ingress pada Minikube dengan kontroler NGINX](/docs/tasks/access-application-cluster/ingress-minikube)
 
-{{% /capture %}}
+

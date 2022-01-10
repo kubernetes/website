@@ -1,10 +1,10 @@
 ---
 title: Installer Kubernetes sur AWS avec kops
 description: Installation Kubernetes avec kops sur AWS
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette documentation pour un démarrage rapide montre comment facilement installer un cluster Kubernetes sur AWS.
 L'outil utilisé est [`kops`](https://github.com/kubernetes/kops).
@@ -21,9 +21,9 @@ kops est un système de provisionnement dont les principes sont:
 
 Si ces principes ne vous conviennent pas, vous préférerez probablement construire votre propre cluster selon votre convenance grâce à [kubeadm](/docs/admin/kubeadm/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Créer un cluster
 
@@ -39,20 +39,81 @@ Télécharger kops à partir de la [page de releases](https://github.com/kuberne
 
 Sur macOS:
 
+Téléchargez la dernière version avec la commande:
+
 ```shell
-curl -OL https://github.com/kubernetes/kops/releases/download/1.10.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
+```
+
+Pour télécharger une version spécifique, remplacez le
+
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+
+partie de la commande avec la version spécifique.
+
+Par exemple, pour télécharger la version 1.15.0 de kops, tapez:
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+```
+
+Rendre le binaire exécutable kops.
+
+```shell
 chmod +x kops-darwin-amd64
-mv kops-darwin-amd64 /usr/local/bin/kops
-# Vous pouvez aussi l'installer avec Homebrew
+```
+
+Déplacez le fichier binaire kops dans votre chemin.
+
+```shell
+sudo mv kops-darwin-amd64 /usr/local/bin/kops
+```
+
+Vous pouvez également installer kops en utilisant [Homebrew] (https://brew.sh/).
+
+```shell
 brew update && brew install kops
 ```
 
 Sur Linux:
 
+Téléchargez la dernière version avec la commande:
+
 ```shell
-wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+```
+
+Pour télécharger une version spécifique, remplacez le
+
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+partie de la commande avec la version spécifique.
+
+Par exemple, pour télécharger la version 1.15.0 de kops, tapez:
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+```
+
+Rendre le binaire exécutable kops
+
+```shell
 chmod +x kops-linux-amd64
-mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+Déplacez le fichier binaire kops dans votre chemin.
+
+```shell
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+Vous pouvez également installer kops en utilisant [Homebrew] (https://docs.brew.sh/Homebrew-on-Linux).
+
+```shell
+brew update && brew install kops
 ```
 
 ### (2/5) Créer un domaine route53 pour votre cluster
@@ -150,12 +211,13 @@ Reportez-vous à la [liste des add-ons] (/docs/concepts/cluster-administration/a
 * Channel Slack: [#kops-users] (https://kubernetes.slack.com/messages/kops-users/)
 * [Problèmes GitHub] (https://github.com/kubernetes/kops/issues)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * En apprendre davantages sur les [concepts](/docs/concepts/) Kubernetes et [`kubectl`](/docs/user-guide/kubectl-overview/).
 * En savoir plus sur les [utilisations avancées](https://github.com/kubernetes/kops) de `kops`.
 * Pour les bonnes pratiques et les options de configuration avancées de `kops` se référer à la [documentation](https://github.com/kubernetes/kops)
 
-{{% /capture %}}
+

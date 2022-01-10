@@ -1,7 +1,9 @@
 ---
 title: kubeadm init phase
 weight: 90
+content_type: concept
 ---
+
 `kubeadm init phase` enables you to invoke atomic steps of the bootstrap process.
 Hence, you can let kubeadm do some of the work and you can fill in the gaps
 if you wish to apply customization.
@@ -80,7 +82,6 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 {{< tab name="local" include="generated/kubeadm_init_phase_etcd_local.md" />}}
 {{< /tabs >}}
 
-
 ## kubeadm init phase upload-config {#cmd-phase-upload-config}
 
 You can use this command to upload the kubeadm configuration to your cluster.
@@ -93,7 +94,6 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 {{< tab name="kubelet" include="generated/kubeadm_init_phase_upload-config_kubelet.md" />}}
 {{< /tabs >}}
 
-
 ## kubeadm init phase upload-certs {#cmd-phase-upload-certs}
 
 Use the following phase to upload control-plane certificates to the cluster.
@@ -103,7 +103,6 @@ By default the certs and encryption key expire after two hours.
 {{< tab name="upload-certs" include="generated/kubeadm_init_phase_upload-certs.md" />}}
 {{< /tabs >}}
 
-
 ## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 
 Use the following phase to label and taint the node with the `node-role.kubernetes.io/master=""` key-value pair.
@@ -111,7 +110,6 @@ Use the following phase to label and taint the node with the `node-role.kubernet
 {{< tabs name="tab-mark-control-plane" >}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_init_phase_mark-control-plane.md" />}}
 {{< /tabs >}}
-
 
 ## kubeadm init phase bootstrap-token {#cmd-phase-bootstrap-token}
 
@@ -121,6 +119,17 @@ Use the following phase to configure bootstrap tokens.
 {{< tab name="bootstrap-token" include="generated/kubeadm_init_phase_bootstrap-token.md" />}}
 {{< /tabs >}}
 
+## kubeadm init phase kubelet-finalize {#cmd-phase-kubelet-finalize-all}
+
+Use the following phase to update settings relevant to the kubelet after TLS
+bootstrap. You can use the `all` subcommand to run all `kubelet-finalize`
+phases.
+
+{{< tabs name="tab-kubelet-finalize" >}}
+{{< tab name="kubelet-finalize" include="generated/kubeadm_init_phase_kubelet-finalize.md" />}}
+{{< tab name="kubelet-finalize-all" include="generated/kubeadm_init_phase_kubelet-finalize_all.md" />}}
+{{< tab name="kubelet-finalize-cert-rotation" include="generated/kubeadm_init_phase_kubelet-finalize_experimental-cert-rotation.md" />}}
+{{< /tabs >}}
 
 ## kubeadm init phase addon {#cmd-phase-addon}
 
@@ -134,33 +143,11 @@ install them selectively.
 {{< tab name="kube-proxy" include="generated/kubeadm_init_phase_addon_kube-proxy.md" />}}
 {{< /tabs >}}
 
-To use kube-dns instead of CoreDNS you have to pass a configuration file:
+For more details on each field in the `v1beta3` configuration you can navigate to our
+[API reference pages.](/docs/reference/config-api/kubeadm-config.v1beta3/)
 
-```bash
-# for installing a DNS addon only
-kubeadm init phase addon coredns --config=someconfig.yaml
-# for creating a complete control plane node
-kubeadm init --config=someconfig.yaml
-# for listing or pulling images
-kubeadm config images list/pull --config=someconfig.yaml
-# for upgrades
-kubeadm upgrade apply --config=someconfig.yaml
-```
+## {{% heading "whatsnext" %}}
 
-The file has to contain a [`DNS`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)
-and also a type for the addon - `kube-dns` (default value is `CoreDNS`).
-
-```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
-kind: ClusterConfiguration
-dns:
-  type: "kube-dns"
-```
-
-For more details on each field in the `v1beta2` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
-
-## What's next
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`

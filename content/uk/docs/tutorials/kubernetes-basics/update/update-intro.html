@@ -1,0 +1,168 @@
+---
+title: Виконання послідовного оновлення (rolling update)
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <!--<h3>Objectives</h3>
+          -->
+          <h3>Цілі</h3>
+                <ul>
+                    <!--<li>Perform a rolling update using kubectl.</li>
+                    -->
+                    <li>Виконати послідовне оновлення, використовуючи kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+            <!--<h3>Updating an application</h3>
+            -->
+            <h3>Оновлення застосунку</h3>
+
+            <!--<p>Users expect applications to be available all the time and developers are expected to deploy new versions of them several times a day. In Kubernetes this is done with rolling updates. <b>Rolling updates</b> allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. The new Pods will be scheduled on Nodes with available resources.</p>
+            -->
+            <p>Користувачі очікують від застосунків високої доступності у будь-який час, а розробники - оновлення цих застосунків декілька разів на день. У Kubernetes це стає можливим завдяки послідовному оновленню. <b>Послідовні оновлення</b> дозволяють оновити Deployment без простою, шляхом послідовної заміни одних Pod'ів іншими. Нові Pod'и розподіляються по вузлах з доступними ресурсами.</p>
+
+            <!--<p>In the previous module we scaled our application to run multiple instances. This is a requirement for performing updates without affecting application availability. By default, the maximum number of Pods that can be unavailable during the update and the maximum number of new Pods that can be created, is one. Both options can be configured to either numbers or percentages (of Pods).
+            In Kubernetes, updates are versioned and any Deployment update can be reverted to a previous (stable) version.</p>
+            -->
+            <p>У попередньому модулі ми масштабували наш застосунок, запустивши його на декількох Pod'ах. Масштабування - необхідна умова для проведення оновлень без шкоди для доступності застосунку. За типовими налаштуваннями, максимальна кількість Pod'ів, недоступних під час оновлення, і максимальна кількість нових Pod'ів, які можуть бути створені, дорівнює одиниці. Обидві опції можна налаштувати в числовому або відсотковому (від кількості Pod'ів) еквіваленті.
+            У Kubernetes оновлення версіонуються, тому кожне оновлення Deployment'а можна відкотити до попередньої (стабільної) версії.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <!--<h3>Summary:</h3>
+                    -->
+                    <h3>Зміст:</h3>
+                    <ul>
+                        <!--<li>Updating an app</li>
+                        -->
+                        <li>Оновлення застосунку</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <!--<p><i>Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. </i></p>
+                    -->
+                    <p><i>Послідовне оновлення дозволяє оновити Deployment без простою шляхом послідовної заміни одних Pod'ів іншими. </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Загальна інформація про послідовне оновлення</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Попередня</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Наступна</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <!--<p>Similar to application Scaling, if a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update. An available Pod is an instance that is available to the users of the application.</p>
+                -->
+                <p>Як і у випадку з масштабуванням, якщо Deployment "відкритий у світ", то під час оновлення Service розподілятиме трафік лише на доступні Pod'и. Під доступним мається на увазі Pod, готовий до експлуатації користувачами застосунку.</p>
+
+                <!--<p>Rolling updates allow the following actions:</p>
+                -->
+                <p>Послідовне оновлення дозволяє вам:</p>
+                <ul>
+                    <!--<li>Promote an application from one environment to another (via container image updates)</li>
+                    -->
+                    <li>Просувати застосунок з одного оточення в інше (шляхом оновлення образу контейнера)</li>
+                    <!--<li>Rollback to previous versions</li>
+                    -->
+                    <li>Відкочуватися до попередніх версій</li>
+                    <!--<li>Continuous Integration and Continuous Delivery of applications with zero downtime</li>
+                    -->
+                    <li>Здійснювати безперервну інтеграцію та розгортання застосунків без простою</li>
+
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!--<p><i>If a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update. </i></p>
+                    -->
+                    <p><i>Якщо Deployment "відкритий у світ", то під час оновлення Service розподілятиме трафік лише на доступні Pod'и. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--<p> In the following interactive tutorial, we'll update our application to a new version, and also perform a rollback.</p>
+                -->
+                <p> В інтерактивному уроці ми оновимо наш застосунок до нової версії, а потім відкотимося до попередньої.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/uk/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">Почати інтерактивний урок <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

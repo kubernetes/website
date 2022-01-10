@@ -1,19 +1,19 @@
 ---
 title: VolumeSnapshotClass
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menjelaskan tentang konsep VolumeSnapshotClass pada Kubernetes. Sebelum melanjutkan,
-sangat disarankan untuk membaca [_snapshot_ volume](/docs/concepts/storage/volume-snapshots/)
-dan [kelas penyimpanan (_storage class_)](/docs/concepts/storage/storage-classes) terlebih dahulu.
-
-{{% /capture %}}
+sangat disarankan untuk membaca [_snapshot_ volume](/id/docs/concepts/storage/volume-snapshots/)
+dan [kelas penyimpanan (_storage class_)](/id/docs/concepts/storage/storage-classes) terlebih dahulu.
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## Pengenalan
 
@@ -55,4 +55,4 @@ VolumeSnapshotClass memiliki parameter-parameter yang menggambarkan _snapshot_ v
 di dalam VolumeSnapshotClass. Parameter-parameter yang berbeda diperbolehkan tergantung
 dari `shapshotter`.
 
-{{% /capture %}}
+

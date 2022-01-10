@@ -1,16 +1,16 @@
 ---
 title: Anotasi
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kamu dapat menggunakan fitur anotasi dari Kubernetes untuk menempelkan sembarang
 metadata tanpa identitas pada suatu objek. Klien, seperti perangkat dan *library*,
 dapat memperoleh metadata tersebut.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Mengaitkan metadata pada objek
 
 Kamu dapat menggunakan label maupun anotasi untuk menempelkan metadata pada suatu
@@ -76,8 +76,9 @@ pada objek-objek pengguna harus memiliki sebuah prefiks.
 
 Prefiks `kubernetes.io/` dan `k8s.io/` merupakan reservasi dari komponen inti Kubernetes.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-Pelajari lebih lanjut tentang [Label dan Selektor](/docs/concepts/overview/working-with-objects/labels/).
-{{% /capture %}}
+
+## {{% heading "whatsnext" %}}
+
+Pelajari lebih lanjut tentang [Label dan Selektor](/id/docs/concepts/overview/working-with-objects/labels/).
+

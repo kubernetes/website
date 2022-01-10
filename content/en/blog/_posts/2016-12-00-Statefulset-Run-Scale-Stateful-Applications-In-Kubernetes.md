@@ -4,9 +4,9 @@ date: 2016-12-20
 slug: statefulset-run-scale-stateful-applications-in-kubernetes
 url: /blog/2016/12/Statefulset-Run-Scale-Stateful-Applications-In-Kubernetes
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1-5/) on what's new in Kubernetes 1.5_
 
-In the latest release, [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads), we’ve moved the feature formerly known as PetSet into beta as [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). There were no major changes to the API Object, other than the community selected name, but we added the semantics of “at most one pod per index” for deployment of the Pods in the set. Along with ordered deployment, ordered termination, unique network names, and persistent stable storage, we think we have the right primitives to support many containerized stateful workloads. We don’t claim that the feature is 100% complete (it is software after all), but we believe that it is useful in its current form, and that we can extend the API in a backwards-compatible way as we progress toward an eventual GA release.  
+In the latest release, [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/), we’ve moved the feature formerly known as PetSet into beta as [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). There were no major changes to the API Object, other than the community selected name, but we added the semantics of “at most one pod per index” for deployment of the Pods in the set. Along with ordered deployment, ordered termination, unique network names, and persistent stable storage, we think we have the right primitives to support many containerized stateful workloads. We don’t claim that the feature is 100% complete (it is software after all), but we believe that it is useful in its current form, and that we can extend the API in a backwards-compatible way as we progress toward an eventual GA release.
 
 **When is StatefulSet the Right Choice for my Storage Application?**  
 
@@ -37,7 +37,7 @@ If you run your storage application on high-end hardware or extra-large instance
 [ZooKeeper](https://zookeeper.apache.org/doc/current/) is an interesting use case for StatefulSet for two reasons. First, it demonstrates that StatefulSet can be used to run a distributed, strongly consistent storage application on Kubernetes. Second, it's a prerequisite for running workloads like [Apache Hadoop](http://hadoop.apache.org/) and [Apache Kakfa](https://kafka.apache.org/) on Kubernetes. An [in-depth tutorial](/docs/tutorials/stateful-application/zookeeper/) on deploying a ZooKeeper ensemble on Kubernetes is available in the Kubernetes documentation, and we’ll outline a few of the key features below.  
 
 **Creating a ZooKeeper Ensemble**  
-Creating an ensemble is as simple as using [kubectl create](/docs/user-guide/kubectl/kubectl_create/) to generate the objects stored in the manifest.  
+Creating an ensemble is as simple as using [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create) to generate the objects stored in the manifest.  
 
 
 ```
@@ -297,7 +297,7 @@ zk-0      0/1       Terminating   0         15m
 
 
 
-You can use [kubectl apply](/docs/user-guide/kubectl/kubectl_apply/) to recreate the zk StatefulSet and redeploy the ensemble.
+You can use [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply) to recreate the zk StatefulSet and redeploy the ensemble.
 
 
 

@@ -3,7 +3,7 @@ title: Proxy
 id: proxy
 date: 2019-09-10
 short_description: >
-  An application acting as an intermediary beween clients and servers
+  An application acting as an intermediary between clients and servers
 
 aka:
 tags:

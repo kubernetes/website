@@ -1,33 +1,36 @@
 ---
 title: Komponen-Komponen Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
+description: >
+  Sebuah klaster Kubernetes terdiri dari komponen yang merepresentasikan 
+  bidang kontrol dan sepasang mesin yaitu _nodes_.
 card:
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Dokumen ini merupakan ikhtisar yang mencakup berbagai komponen
-yang dibutuhkan agar kluster Kubernetes dapat berjalan secara fungsional.
+yang dibutuhkan agar klaster Kubernetes dapat berjalan secara fungsional.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Komponen <i>Master</i>
 
-Komponen <i>master</i> menyediakan <i>control plane</i> bagi kluster.
+Komponen <i>master</i> menyediakan <i>control plane</i> bagi klaster.
 Komponen ini berperan dalam proses pengambilan secara global
-pada kluster (contohnya, mekanisme <i>schedule</i>), serta berperan dalam proses
-deteksi serta pemberian respons terhadap <i>events</i> yang berlangsung di dalam kluster
+pada klaster (contohnya, mekanisme <i>schedule</i>), serta berperan dalam proses
+deteksi serta pemberian respons terhadap <i>events</i> yang berlangsung di dalam klaster
 (contohnya, penjadwalan pod baru apabila jumlah replika yang ada pada
 <i>replication controller</i> tidak terpenuhi).
 
-Komponen master dapat dijalankan di mesin manapun yang ada di kluster. Meski begitu,
+Komponen master dapat dijalankan di mesin manapun yang ada di klaster. Meski begitu,
 untuk memudahkan proses yang ada, <i>script</i> inisiasi awal yang dijalankan
 biasanya memulai komponen master pada mesin yang sama, serta tidak menjalankan
 kontainer bagi pengguna di mesin ini. Contoh konfigurasi <i>multi-master VM</i>
-dapat dilihat di modul [Membangun Kluster HA] (/docs/admin/high-availability/).
+dapat dilihat di modul [Membangun Klaster HA] (/docs/admin/high-availability/).
 
 
 ### kube-apiserver
@@ -63,7 +66,7 @@ Kontroler-kontroler ini meliputi:
 
 ### cloud-controller-manager
 
-[Cloud-controller-manager](/en/docs/tasks/administer-cluster/running-cloud-controller/) merupakan kontroler yang berinteraksi dengan penyedia layanan <i>cloud</i>.
+[Cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) merupakan kontroler yang berinteraksi dengan penyedia layanan <i>cloud</i>.
 Kontroler ini merupakat fitur alfa yang diperkenalkan pada Kubernetes versi 1.6.
 
 <i>Cloud-controller-manager</i> hanya menjalankan iterasi kontroler <i>cloud-provider-specific</i> .
@@ -109,18 +112,18 @@ Kubernetes mendukung beberapa <i>runtime</i>, diantaranya adalah: [Docker](http:
 
 ## <i>Addons</i>
 
-<i>Addons</i> merupakan pod dan service yang mengimplementasikan fitur-fitur yang diperlukan kluster.
+<i>Addons</i> merupakan pod dan service yang mengimplementasikan fitur-fitur yang diperlukan klaster.
 
 Beberapa <i>addons</i> akan dijelaskan selanjutnya.
 
 
 ### DNS
 
-Meskipun tidak semua <i>addons</i> dibutuhkan, semua kluster Kubernetes hendaknya
-memiliki DNS kluster. Komponen ini penting karena banyak dibutuhkan oleh komponen
+Meskipun tidak semua <i>addons</i> dibutuhkan, semua klaster Kubernetes hendaknya
+memiliki DNS klaster. Komponen ini penting karena banyak dibutuhkan oleh komponen
 lainnya.
 
-[Kluster DNS](/en/docs/concepts/cluster-administration/addons/      ) adalah server DNS, selain beberapa server DNS lain yang sudah ada di
+[Klaster DNS](/id/docs/concepts/cluster-administration/addons/) adalah server DNS, selain beberapa server DNS lain yang sudah ada di
 <i>environment</i> kamu, yang berfungsi sebagai catatan DNS bagi Kubernetes <i>services</i>
 
 Kontainer yang dimulai oleh kubernetes secara otomatis akan memasukkan server DNS ini
@@ -129,24 +132,24 @@ ke dalam mekanisme pencarian DNS yang dimilikinya.
 
 ### <i>Web UI</i> (Dasbor)
 
-[Dasbor](/en/docs/tasks/access-application-cluster/web-ui-dashboard/) adalah antar muka berbasis web multifungsi yang ada pada kluster Kubernetes.
-Dasbor ini memungkinkan user melakukan manajemen dan <i>troubleshooting</i> kluster maupun
-aplikasi yang ada pada kluster itu sendiri.
+[Dasbor](/id/docs/tasks/access-application-cluster/web-ui-dashboard/) adalah antar muka berbasis web multifungsi yang ada pada klaster Kubernetes.
+Dasbor ini memungkinkan user melakukan manajemen dan <i>troubleshooting</i> klaster maupun
+aplikasi yang ada pada klaster itu sendiri.
 
 
 ### <i>Container Resource Monitoring</i>
 
-[Container Resource Monitoring](/en/docs/tasks/debug-application-cluster/resource-usage-monitoring/) mencatat metrik <i>time-series</i> yang diperoleh
+[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) mencatat metrik <i>time-series</i> yang diperoleh
 dari kontainer ke dalam basis data serta menyediakan antar muka yang dapat digunakan
 untuk melakukan pencarian data yang dibutuhkan.
 
 
 ### <i>Cluster-level Logging</i>
 
-[Cluster-level logging](/en/docs/concepts/cluster-administration/logging/) bertanggung jawab mencatat <i>log</i> kontainer pada
+[Cluster-level logging](/id/docs/concepts/cluster-administration/logging/) bertanggung jawab mencatat <i>log</i> kontainer pada
 penyimpanan <i>log</i> terpusat dengan antar muka yang dapat digunakan untuk melakukan
 pencarian.
 
-{{% /capture %}}
+
 
 

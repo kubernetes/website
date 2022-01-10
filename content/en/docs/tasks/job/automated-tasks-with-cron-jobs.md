@@ -1,44 +1,40 @@
 ---
 title: Running Automated Tasks with a CronJob
+min-kubernetes-server-version: v1.21
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-You can use [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) to run jobs on a time-based schedule.
+CronJobs was promoted to general availability in Kubernetes v1.21. If you are using an older version of
+Kubernetes, please refer to the documentation for the version of Kubernetes that you are using,
+so that you see accurate information. Older Kubernetes versions do not support the `batch/v1` CronJob API.
+
+You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}} on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
 
 Cron jobs are useful for creating periodic and recurring tasks, like running backups or sending emails.
 Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
 
-{{< note >}}
-CronJob resource in `batch/v2alpha1` API group has been deprecated starting from cluster version 1.8.
-You should switch to using `batch/v1beta1`, instead, which is enabled by default in the API server.
-Examples in this document use `batch/v1beta1` in all examples.
-{{< /note >}}
-
 Cron jobs have limitations and idiosyncrasies.
 For example, in certain circumstances, a single cron job can create multiple jobs.
 Therefore, jobs should be idempotent.
+
 For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-jobs).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* You need a working Kubernetes cluster at version >= 1.8 (for CronJob). For previous versions of cluster (< 1.8)
-you need to explicitly enable `batch/v2alpha1` API by passing `--runtime-config=batch/v2alpha1=true` to
-the API server (see [Turn on or off an API version for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
-for more), and then restart both the API server and the controller manager
-component.
+## {{% heading "prerequisites" %}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+* {{< include "task-tutorial-prereqs.md" >}}
+
+
+
+<!-- steps -->
 
 ## Creating a Cron Job
 
@@ -56,12 +52,6 @@ The output is similar to this:
 
 ```
 cronjob.batch/hello created
-```
-
-Alternatively, you can use `kubectl run` to create a cron job without writing a full config:
-
-```shell
-kubectl run hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
 ```
 
 After creating the cron job, get its status using this command:
@@ -87,8 +77,8 @@ The output is similar to this:
 ```
 NAME               COMPLETIONS   DURATION   AGE
 hello-4111706356   0/1                      0s
-hello-4111706356   0/1   0s    0s
-hello-4111706356   1/1   5s    5s
+hello-4111706356   0/1           0s         0s
+hello-4111706356   1/1           5s         5s
 ```
 
 Now you've seen one running job scheduled by the "hello" cron job.
@@ -142,8 +132,8 @@ You can read more about removing jobs in [garbage collection](/docs/concepts/wor
 ## Writing a Cron Job Spec
 
 As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and `metadata` fields. For general
-information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications),
-and [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
+information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
+and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 
 A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -156,7 +146,8 @@ All modifications to a cron job, especially its `.spec`, are applied only to the
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
 
-The format also includes extended `vixie cron` step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+The format also includes extended "Vixie cron" step values. As explained in the
+[FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
 
 > Step values can be	used in	conjunction with ranges.  Following a range
 > with `/<number>` specifies skips	of the number's	value through the
@@ -172,8 +163,8 @@ A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, t
 ### Job Template
 
 The `.spec.jobTemplate` is the template for the job, and it is required.
-It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/), except that it is nested and does not have an `apiVersion` or `kind`.
-For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
+It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/job/), except that it is nested and does not have an `apiVersion` or `kind`.
+For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
 
 ### Starting Deadline
 
@@ -183,13 +174,12 @@ After the deadline, the cron job does not start the job.
 Jobs that do not meet their deadline in this way count as failed jobs.
 If this field is not specified, the jobs have no deadline.
 
-The CronJob controller counts how many missed schedules happen for a cron job. If there are more than 100 missed schedules, the cron job is no longer scheduled. When `.spec.startingDeadlineSeconds` is not set, the CronJob controller counts missed schedules from `status.lastScheduleTime` until now. 
+If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob
+controller measures the time between when a job is expected to be created and
+now. If the difference is higher than that limit, it will skip this execution.
 
-For example, one cron job is supposed to run every minute, the `status.lastScheduleTime` of the cronjob is 5:00am, but now it's 7:00am. That means 120 schedules were missed, so the cron job is no longer scheduled. 
-
-If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of `.spec.startingDeadlineSeconds` until now. 
-
-For example, if it is set to `200`, it counts how many missed schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the last 200 seconds, the cron job is no longer scheduled. 
+For example, if it is set to `200`, it allows a job to be created for up to 200
+seconds after the actual schedule.
 
 ### Concurrency Policy
 
@@ -222,4 +212,4 @@ The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields
 These fields specify how many completed and failed jobs should be kept.
 By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.
 
-{{% /capture %}}
+

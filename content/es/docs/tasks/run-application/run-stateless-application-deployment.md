@@ -1,34 +1,36 @@
 ---
 title: Corre una aplicación stateless usando un Deployment
 min-kubernetes-server-version: v1.9
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Ésta página enseña como correr una aplicación stateless usando un `deployment` de Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Crear un `deployment` de nginx.
 * Usar kubectl para obtener información acerca del `deployment`.
 * Actualizar el `deployment`.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Creando y explorando un nginx deployment
 
@@ -47,7 +49,6 @@ Puedes correr una aplicación creando un `deployment` de Kubernetes, y puedes de
 
     El resultado es similar a esto:
 
-        user@computer:~/website$ kubectl describe deployment nginx-deployment
         Name:     nginx-deployment
         Namespace:    default
         CreationTimestamp:  Tue, 30 Aug 2016 18:11:37 -0700
@@ -141,11 +142,12 @@ Elimina el `deployment` por el nombre:
 La manera preferida de crear una aplicación con múltiples instancias es usando un Deployment, el cual usa un ReplicaSet. Antes de que Deployment y ReplicaSet fueran introducidos en Kubernetes, aplicaciones con múltiples instancias eran configuradas usando un
 [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Aprende más acerca de [Deployments](/docs/concepts/workloads/controllers/deployment/).
 
-{{% /capture %}}
+

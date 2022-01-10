@@ -4,9 +4,9 @@
 # change is that the Hugo version is now an overridable argument rather than a fixed
 # environment variable.
 
-FROM alpine:latest
+FROM golang:1.15-alpine
 
-MAINTAINER Luc Perkins <lperkins@linuxfoundation.org>
+LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
 
 RUN apk add --no-cache \
     curl \
@@ -14,7 +14,9 @@ RUN apk add --no-cache \
     openssh-client \
     rsync \
     build-base \
-    libc6-compat
+    libc6-compat \
+    npm && \
+    npm install -D autoprefixer postcss-cli
 
 ARG HUGO_VERSION
 
@@ -26,5 +28,7 @@ RUN mkdir -p /usr/local/src && \
     adduser -Sg hugo -u 1000 -h /src hugo
 
 WORKDIR /src
+
+USER hugo:hugo
 
 EXPOSE 1313

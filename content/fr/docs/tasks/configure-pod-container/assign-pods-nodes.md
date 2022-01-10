@@ -1,20 +1,21 @@
 ---
 title: Assigner des pods aux nœuds
-content_template: templates/task
+content_type: task
 weight: 120
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Cette page montre comment assigner un Pod à un nœud particulier dans un cluster Kubernetes.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Ajouter un label à un nœud
 
@@ -89,10 +90,11 @@ Vous pouvez également ordonnancer un pod sur un nœud spécifique via le param�
 
 Utilisez le fichier de configuration pour créer un pod qui sera ordonnancé sur `foo-node` uniquement.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 Pour en savoir plus sur
 [labels et selectors](/docs/concepts/overview/working-with-objects/labels/).
-{{% /capture %}}
+
 

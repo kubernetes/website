@@ -1,10 +1,10 @@
 ---
 title: Concepts sous-jacents au Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Le concept de cloud controller manager (CCM) (ne pas confondre avec le binaire) a été créé à l'origine pour permettre au code de fournisseur spécifique de cloud et au noyau Kubernetes d'évoluer indépendamment les uns des autres.
 Le gestionnaire de contrôleur de cloud fonctionne aux côtés d'autres composants principaux, tels que le gestionnaire de contrôleur Kubernetes, le serveur d'API et le planificateur.
@@ -19,9 +19,9 @@ Voici l'architecture d'un cluster Kubernetes sans le cloud controller manager:
 
 ![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Conception
 
@@ -253,9 +253,10 @@ Les fournisseurs de cloud suivants ont implémenté leur CCM:
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
+* [Scaleway](https://github.com/scaleway/scaleway-cloud-controller-manager)
 
 ## Administration de cluster
 
 Des instructions complètes pour la configuration et l'exécution du CCM sont fournies [ici](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 
-{{% /capture %}}
+

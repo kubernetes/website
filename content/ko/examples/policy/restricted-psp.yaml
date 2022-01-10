@@ -1,0 +1,47 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: restricted
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
+    apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
+    apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
+spec:
+  privileged: false
+  # 루트로의 에스컬레이션을 방지하는 데 필요하다.
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  # 기본 볼륨 유형을 허용한다.
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    - 'downwardAPI'
+    # 클러스터 관리자에 의해 구성된 휘발성 CSI 드라이버와 퍼시스턴트볼륨(PersistentVolume)의 사용은 안전하다고 가정한다.
+    - 'csi'
+    - 'persistentVolumeClaim'
+    - 'ephemeral'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    # 루트 권한없이 컨테이너를 실행해야 한다.
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    # 이 정책은 노드가 SELinux가 아닌 AppArmor를 사용한다고 가정한다.
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      # 루트 그룹을 추가하지 않는다.
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      # 루트 그룹을 추가하지 않는다.
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: false

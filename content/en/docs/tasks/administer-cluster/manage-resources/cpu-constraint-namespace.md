@@ -1,11 +1,11 @@
 ---
 title: Configure Minimum and Maximum CPU Constraints for a Namespace
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to set minimum and maximum values for the CPU resources used by Containers
 and Pods in a namespace. You specify minimum and maximum CPU values in a
@@ -13,19 +13,20 @@ and Pods in a namespace. You specify minimum and maximum CPU values in a
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Each node in your cluster must have at least 1 CPU.
-
-{{% /capture %}}
+Your cluster must have at least 1 CPU available for use to run the task examples.
 
 
-{{% capture steps %}}
+
+
+<!-- steps -->
 
 ## Create a namespace
 
@@ -201,14 +202,10 @@ resources:
 ```
 
 Because your Container did not specify its own CPU request and limit, it was given the
-[default CPU request and limit](/docs/tasks/administer-cluster/cpu-default-namespace/)
+[default CPU request and limit](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 from the LimitRange.
 
-At this point, your Container might be running or it might not be running. Recall that a prerequisite
-for this task is that your Nodes have at least 1 CPU. If each of your Nodes has only
-1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request
-of 800 millicpu. If you happen to be using Nodes with 2 CPU, then you probably have
-enough CPU to accommodate the 800 millicpu request.
+At this point, your Container might be running or it might not be running. Recall that a prerequisite for this task is that your cluster must have at least 1 CPU available for use. If each of your Nodes has only 1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu. If you happen to be using Nodes with 2 CPU, then you probably have enough CPU to accommodate the 800 millicpu request.
 
 Delete your Pod:
 
@@ -243,21 +240,22 @@ Delete your namespace:
 kubectl delete namespace constraints-cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
@@ -270,7 +268,7 @@ kubectl delete namespace constraints-cpu-example
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 
-{{% /capture %}}
+
 
 
 

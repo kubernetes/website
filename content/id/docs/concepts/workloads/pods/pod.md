@@ -1,18 +1,18 @@
 ---
 reviewers:
 title: Pod
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Pod adalah unit komputasi terkecil yang bisa di-_deploy_ dan dibuat serta dikelola dalam Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Apa Itu Pod?
 
@@ -39,7 +39,7 @@ dan bisa saling berkomunikasi melalui `localhost`. Komunikasi tersebut mengunaka
 standar _inter-process communications_ (IPC) seperti SystemV semaphores 
 atau POSIX shared memory. Kontainer pada Pod yang berbeda memiliki alamat IP 
 yang berbeda dan tidak dapat berkomunikasi menggunakan IPC tanpa 
-[pengaturan khusus](/docs/concepts/policy/pod-security-policy/). Kontainer ini
+[pengaturan khusus](/id/docs/concepts/policy/pod-security-policy/). Kontainer ini
 biasa berkomunikasi dengan yang lain menggunakan alamat IP setiap Pod.
 
 Aplikasi dalam suatu Pod juga memiliki akses ke {{< glossary_tooltip text="ruang penyimpanan" term_id="volume" >}} bersama, 
@@ -47,18 +47,18 @@ yang didefinisikan sebagai bagian dari Pod dan dibuat bisa diikatkan ke masing-m
 _filesystem_ pada aplikasi.
 
 Dalam istilah konsep [Docker](https://www.docker.com/), sebuah Pod dimodelkan sebagai 
-gabungan dari kontainer Docker yang berbagi _namespacs_ dan ruang penyimpanan _filesystem_.
+gabungan dari kontainer Docker yang berbagi _namespace_ dan ruang penyimpanan _filesystem_.
 
 Layaknya aplikasi dengan kontainer, Pod dianggap sebagai entitas yang relatif tidak kekal 
 (tidak bertahan lama). Seperti yang didiskusikan dalam 
-[siklus hidup Pod](/docs/concepts/workloads/pods/pod-lifecycle/), Pod dibuat, diberikan
+[siklus hidup Pod](/id/docs/concepts/workloads/pods/pod-lifecycle/), Pod dibuat, diberikan
 ID unik (UID), dan dijadwalkan pada suatu mesin dan akan tetap disana hingga dihentikan
 (bergantung pada aturan _restart_) atau dihapus. Jika {{< glossary_tooltip text="mesin" term_id="node" >}}
 mati, maka semua Pod pada mesin tersebut akan dijadwalkan untuk dihapus, namun setelah 
 suatu batas waktu. Suatu Pod tertentu (sesuai dengan ID unik) tidak akan dijadwalkan ulang
 ke mesin baru, namun akan digantikan oleh Pod yang identik, bahkan jika dibutuhkan bisa 
 dengan nama yang sama, tapi dengan ID unik yang baru 
-(baca [_replication controller_](/docs/concepts/workloads/controllers/replicationcontroller/) 
+(baca [_replication controller_](/id/docs/concepts/workloads/controllers/replicationcontroller/) 
 untuk info lebih lanjut)
 
 Ketika sesuatu dikatakan memiliki umur yang sama dengan Pod, misalnya saja ruang penyimpanan,
@@ -96,20 +96,20 @@ dan Pod lain dalam jaringan yang sama.
 
 Kontainer dalam suatu Pod melihat _hostname_ sistem sebagai sesuatu yang sama
 dengan konfigurasi `name` pada Pod. Informasi lebih lanjut terdapat dibagian
-[jaringan](/docs/concepts/cluster-administration/networking/).
+[jaringan](/id/docs/concepts/cluster-administration/networking/).
 
 Sebagai tambahan dalam mendefinisikan kontainer aplikasi yang berjalan dalam Pod,
 Pod memberikan sepaket sistem penyimpanan bersama. Sistem penyimpanan memungkinkan
 data untuk bertahan saat kontainer dijalankan ulang dan dibagikan kepada semua
 aplikasi dalam Pod tersebut.
 
-## Pengunaan Pod
+## Penggunaan Pod
 
 Pod dapat digunakan untuk menjalankan beberapa aplikasi yang terintegrasi
 secara vertikal (misalnya LAMP), namun motivasi utamanya adalah untuk mendukung
 berlokasi bersama, mengelola program pembantu, diantaranya adalah:
 
-* sistem pengelolaan konten, pemuat file dan data, manajer _cache_ lokal, dll.
+* sistem pengelolaan konten, pemuat berkas dan data, manajer _cache_ lokal, dll.
 * catatan dan _checkpoint_ cadangan, kompresi, rotasi, dll.
 * pengamat perubahan data, pengintip catatan, adapter pencatatan dan pemantauan,
 penerbit peristiwa, dll.
@@ -153,14 +153,15 @@ kasus mesin sedang dalam pemeliharaan.
 
 Secara umum, pengguna tidak seharusnya butuh membuat Pod secara langsung. Mereka 
 seharusnya selalu menggunakan pengontrol, sekalipun untuk yang tunggal, misalnya,
-[_Deployment_](/docs/concepts/workloads/controllers/deployment/). Pengontrol
+[_Deployment_](/id/docs/concepts/workloads/controllers/deployment/). Pengontrol
 menyediakan penyembuhan diri dengan ruang lingkup kelompok, begitu juga dengan
 pengelolaan replikasi dan penluncuran. 
-Pengontrol seperti [_StatefulSet_](/docs/concepts/workloads/controllers/statefulset.md)
+Pengontrol seperti [_StatefulSet_](/id/docs/concepts/workloads/controllers/statefulset.md)
 bisa memberikan dukungan terhadap Pod yang _stateful_.
 
-Pengunaan API kolektif sebagai _user-facing primitive_ utama adalah hal yang 
+Penggunaan API kolektif sebagai _user-facing primitive_ utama adalah hal yang
 relatif umum diantara sistem penjadwalan kluster, seperti 
+
 [Borg](https://research.google.com/pubs/pub43438.html), 
 [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), 
 [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), dan
@@ -172,7 +173,7 @@ Pod diekspose sebagai _primitive_ untuk memfasilitasi hal berikut:
 * mendukung operasi pada level Pod tanpa perlu melakukan proksi melalui API pengontrol
 * pemisahan antara umur suatu Pod dan pengontrol, seperti misalnya _bootstrapping_.
 * pemisahan antara pengontrol dan servis, pengontrol _endpoint_ hanya memperhatikan Pod
-* komposisi yang bersih antara fungsionalitas dilevel Kubelet dan kluster. Kubelet 
+* komposisi yang bersih antara fungsionalitas dilevel Kubelet dan klaster. Kubelet 
   secara efektif adalah pengontrol Pod.
 * aplikasi dengan ketersediaan tinggi, yang akan mengharapkan Pod akan digantikan 
   sebelum dihentikan dan tentu saja sebelum dihapus, seperti dalam kasus penggusuran 
@@ -180,13 +181,13 @@ Pod diekspose sebagai _primitive_ untuk memfasilitasi hal berikut:
 
 ## Penghentian Pod
 
-Karena Pod merepresentasikan proses yang berjalan pada mesin didalam kluster, sangat 
+Karena Pod merepresentasikan proses yang berjalan pada mesin didalam klaster, sangat 
 penting untuk memperbolehkan proses ini berhenti secara normal ketika sudah tidak 
-dibutuhkan (dibandingkan dengan dihentikan paksa dengan sinyak KILL dan tidak memiliki
+dibutuhkan (dibandingkan dengan dihentikan paksa dengan sinyal KILL dan tidak memiliki
 waktu untuk dibersihkan). Pengguna seharusnya dapat meminta untuk menghapus dan tahu
 proses penghentiannya, serta dapat memastikan penghentian berjalan sempurna. Ketika 
 pengguna meminta menghapus Pod, sistem akan mencatat masa tenggang untuk penghentian
-secara normal sebelum Pod dipaksa untuk dihentikan, dan sinyak TERM akan dikirim ke 
+secara normal sebelum Pod dipaksa untuk dihentikan, dan sinyal TERM akan dikirim ke
 proses utama dalam setiap kontainer. Setelah masa tenggang terlewati, sinyal KILL 
 akan dikirim ke setiap proses dan Pod akan dihapus dari API server. Jika Kubelet 
 atau kontainer manajer dijalankan ulang ketika menunggu suatu proses dihentikan,
@@ -201,7 +202,7 @@ bersama dengan masa tenggang.
 1. (bersamaan dengan poin 3) Ketika Kubelet melihat Pod sudah ditandai sebagai 
 "Terminating" karena waktu pada poin 2 sudah diatur, ini memulai proses penghentian Pod
 	1. Jika salah satu kontainer pada Pod memiliki 
-	[preStop _hook_](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), 
+	[preStop _hook_](/id/docs/concepts/containers/container-lifecycle-hooks/#hook-details), 
 	maka akan dipanggil di dalam kontainer. Jika `preStop` _hook_ masih berjalan
 	setelah masa tenggang habis, langkah 2 akan dipanggil dengan tambahan masa tenggang
 	yang sedikit, 2 detik.
@@ -213,7 +214,7 @@ tidak lagi dianggap sebagai bagian dari Pod yang berjalan dalam _replication con
 Pod yang dihentikan, secara perlahan tidak akan melayani permintaan karena load balancer 
 (seperti servis proksi) menghapus mereka dari daftar rotasi.
 1. Ketika masa tenggang sudah lewat, semua proses yang masih berjalan dalam Pod
-akan dihentikan dengan sinyak SIGKILL.
+akan dihentikan dengan sinyal SIGKILL.
 1. Kubelet akan selesai menghapus Pod dalam API server dengan mengatur masa tenggang
 menjadi 0 (langsung menghapus). Pod akan menghilang dari API dan tidak lagi terlihat
 oleh klien.
@@ -222,14 +223,14 @@ Secara _default_, semua penghapusan akan berjalan normal selama 30 detik. Perint
 `kubectl delete` mendukung opsi `--grace-period=<waktu dalam detik>` yang akan
 memperbolehkan pengguna untuk menimpa nilai awal dan memberikan nilai sesuai keinginan
 pengguna. Nilai `0` akan membuat Pod
-[dihapus paksa](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods).
+[dihapus paksa](/id/docs/concepts/workloads/pods/pod/#force-deletion-of-pods).
 Kamu harus memberikan opsi tambahan `--force` bersamaan dengan `--grace-period=0`
 untuk melakukan penghapusan paksa.
 
 ### Penghapusan paksa sebuah Pod
 
 Penghapusan paksa dari sebuah Pod didefinisikan sebagai penghapusan Pod dari _state_ 
-kluster dan etcd secara langsung. Ketika penghapusan paksa dilakukan, API server tidak
+klaster dan etcd secara langsung. Ketika penghapusan paksa dilakukan, API server tidak
 akan menunggu konfirmasi dari kubelet bahwa Pod sudah dihentikan pada mesin ia berjalan.
 Ini menghapus Pod secara langsung dari API, sehingga Pod baru bisa dibuat dengan nama
 yang sama. Dalam mesin, Pod yang dihentikan paksa akan tetap diberikan sedikit masa 
@@ -241,8 +242,8 @@ dokumentasi untuk [penghentian Pod dari StatefulSet](/docs/tasks/run-application
 
 ## Hak istimewa untuk kontainer pada Pod
 
-Setiap kontainer dalam Pod dapat mengaktifkan hak istimewa (mode _previleged_), dengan menggunakan tanda
-`privileged` pada [konteks keamanan](/docs/tasks/configure-pod-container/security-context/)
+Setiap kontainer dalam Pod dapat mengaktifkan hak istimewa (mode _privileged_), dengan menggunakan tanda
+`privileged` pada [konteks keamanan](/id/docs/tasks/configure-pod-container/security-context/)
 pada spesifikasi kontainer. Ini akan berguna untuk kontainer yang ingin menggunakan 
 kapabilitas Linux seperti memanipulasi jaringan dan mengakses perangkat. Proses dalam
 kontainer mendapatkan hak istimewa yang hampir sama dengan proses di luar kontainer.
@@ -259,4 +260,4 @@ pengaturan ini menjadi relevan.
 Pod adalah sumber daya tingkat tinggi dalam Kubernetes REST API.
 Definisi [Objek Pod API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core) menjelaskan mengenai objek secara lengkap.
 
-{{% /capture %}}
+

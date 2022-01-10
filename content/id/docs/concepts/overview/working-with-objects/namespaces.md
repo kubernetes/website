@@ -1,25 +1,25 @@
 ---
 title: Namespace
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-Kubernetes mendukung banyak kluster virtual di dalam satu kluster fisik. Kluster virtual tersebut disebut dengan *namespace*.
-
-{{% /capture %}}
+Kubernetes mendukung banyak klaster virtual di dalam satu klaster fisik. Klaster virtual tersebut disebut dengan *namespace*.
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## Kapan menggunakan banyak Namespace
 
-*Namespace* dibuat untuk digunakan di *environment* dengan banyak pengguna yang berada di dalam banyak tim ataupun proyek. Untuk sebuah kluster dengan beberapa pengguna saja, kamu tidak harus membuat ataupun memikirkan tentang *namespace*. Mulai gunakan *namespace* saat kamu membutuhkan fitur dari *namespace* itu sendiri.
+*Namespace* dibuat untuk digunakan di *environment* dengan banyak pengguna yang berada di dalam banyak tim ataupun proyek. Untuk sebuah klaster dengan beberapa pengguna saja, kamu tidak harus membuat ataupun memikirkan tentang *namespace*. Mulai gunakan *namespace* saat kamu membutuhkan fitur dari *namespace* itu sendiri.
 
 *Namespace* menyediakan ruang untuk nama objek. Nama dari *resource* atau objek harus berbeda di dalam sebuah *namespace*, tetapi boleh sama jika berbeda *namespace*. *Namespace* tidak bisa dibuat di dalam *namespace* lain dan setiap *resource* atau objek Kubernetes hanya dapat berada di dalam satu *namespace*.
 
-*Namespace* merupakan cara yang digunakan untuk memisahkan *resource* kluster untuk beberapa pengguna (dengan [*resource quota*](/docs/concepts/policy/resource-quotas/)).
+*Namespace* merupakan cara yang digunakan untuk memisahkan *resource* klaster untuk beberapa pengguna (dengan [*resource quota*](/id/docs/concepts/policy/resource-quotas/)).
 
 Dalam versi Kubernetes yang akan datang, objek di dalam satu *namespace* akan mempunyai *access control policies* yang sama secara *default*.
 
@@ -32,7 +32,7 @@ Pembuatan dan penghapusan *namespace* dijelaskan di [dokumentasi panduan admin u
 
 ### Melihat namespace
 
-Kamu dapat melihat daftar *namespace* di dalam kluster menggunakan:
+Kamu dapat melihat daftar *namespace* di dalam klaster menggunakan:
 
 ```shell
 kubectl get namespace
@@ -48,7 +48,7 @@ Kubernetes berjalan dengan tiga *namespace* awal:
 
 * `default`, *namespace default* untuk objek yang dibuat tanpa mencantumkan *namespace* pada spesifikasinya.
 * `kube-system`, *namespace* yang digunakan untuk objek yang dibuat oleh sistem Kubernetes.
-* `kube-public`, *namespace* ini dibuat secara otomatis dan dapat diakses oleh semua pengguna (termasuk yang tidak diautentikasi). *Namespace* ini disediakan untuk penggunaan kluster, jika beberapa *resouce* harus terlihat dan dapat dibaca secara publik di seluruh kluster. Aspek publik dari *namespace* ini hanya sebuah konvensi, bukan persyaratan.
+* `kube-public`, *namespace* ini dibuat secara otomatis dan dapat diakses oleh semua pengguna (termasuk yang tidak diautentikasi). *Namespace* ini disediakan untuk penggunaan klaster, jika beberapa *resouce* harus terlihat dan dapat dibaca secara publik di seluruh klaster. Aspek publik dari *namespace* ini hanya sebuah konvensi, bukan persyaratan.
 
 
 ### Mengkonfigurasi namespace untuk request
@@ -74,7 +74,7 @@ kubectl config view | grep namespace:
 
 ## Namespace dan DNS
 
-Saat kamu membuat sebuah [Service](/docs/user-guide/services), Kubernetes membuat [Entri DNS](/docs/concepts/services-networking/dns-pod-service/) untuk *service* tersebut. Entri *DNS* ini berformat `<service-name>.<namespace-name>.svc.cluster.local`, yang berarti jika sebuah kontainer hanya menggunakan `<service-name>`, kontainer tersebut akan berkomunikasi dengan *service* yang berada di dalam satu *namespace*. Ini berguna untuk menggunakan konfigurasi yang sama di beberapa *namespace* seperti *Development*, *Staging*, dan *Production*. Jika kamu ingin berkomunikasi antar *namespace*, kamu harus menggunakan seluruh *fully qualified domain name (FQDN)*.
+Saat kamu membuat sebuah [Service](/docs/user-guide/services), Kubernetes membuat [Entri DNS](/id/docs/concepts/services-networking/dns-pod-service/) untuk *service* tersebut. Entri *DNS* ini berformat `<service-name>.<namespace-name>.svc.cluster.local`, yang berarti jika sebuah kontainer hanya menggunakan `<service-name>`, kontainer tersebut akan berkomunikasi dengan *service* yang berada di dalam satu *namespace*. Ini berguna untuk menggunakan konfigurasi yang sama di beberapa *namespace* seperti *Development*, *Staging*, dan *Production*. Jika kamu ingin berkomunikasi antar *namespace*, kamu harus menggunakan seluruh *fully qualified domain name (FQDN)*.
 
 
 ## Tidak semua objek di dalam Namespace
@@ -91,4 +91,4 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 ##
-# This script was tested with Python 3.7.4, Go 1.12, and PyYAML 5.1.2
+# This script was tested with Python 3.7.4, Go 1.14.4+, and PyYAML 5.1.2
 # installed in a virtual environment.
 # This script assumes you have the Python package manager 'pip' installed.
 #
@@ -18,10 +18,11 @@
 # This work_dir will temporarily become the GOPATH.
 #
 # To execute the script from the website/update-imported-docs directory:
-# ./update-imported-docs.py <config_file>
+# ./update-imported-docs.py <config_file> <k8s_release>
 # Config files:
 #     reference.yml  use this to update the reference docs
 #     release.yml    use this to auto-generate/import release notes
+# K8S_RELEASE: provide a valid release tag such as, 1.17.0
 ##
 
 import argparse
@@ -32,12 +33,14 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import platform
 
 error_msgs = []
 
 # pip should be installed when Python is installed, but just in case...
-if not shutil.which('pip'):
-    error_msgs.append("Install pip so you can install PyYAML. https://pip.pypa.io/en/stable/installing")
+if not (shutil.which('pip') or shutil.which('pip3')):
+    error_msgs.append(
+        "Install pip so you can install PyYAML. https://pip.pypa.io/en/stable/installing")
 
 reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
 installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
@@ -154,14 +157,18 @@ def process_file(src, dst, repo_path, repo_dir, root_dir, gen_absolute_links):
 def parse_input_args():
     """
     Parse command line argument
-    'config_file' is only one argument; it should be one of the YAML
+    'config_file' is the first argument; it should be one of the YAML
     files in this same directory
+    'k8s_release' is the second argument; provide the release version
     :return: parsed argument
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('config_file', type=str,
                         help="reference.yml to generate reference docs; "
                              "release.yml to generate release notes")
+    parser.add_argument('k8s_release', type=str,
+                        help="k8s release version, ex: 1.17.0"
+                        )
     return parser.parse_args()
 
 
@@ -177,7 +184,16 @@ def main():
     config_file = in_args.config_file
     print("config_file is {}".format(config_file))
 
-    curr_dir = os.path.dirname(__file__)
+    # second parse input argument
+    k8s_release = in_args.k8s_release
+    print("k8s_release is {}".format(k8s_release))
+
+    # if release string does not contain patch num, add zero
+    if len(k8s_release) == 4:
+        k8s_release = k8s_release + ".0"
+        print("k8s_release updated to {}".format(k8s_release))
+
+    curr_dir = os.path.dirname(os.path.abspath(__file__))
     print("curr_dir {}".format(curr_dir))
     root_dir = os.path.realpath(os.path.join(curr_dir, '..'))
     print("root_dir {}".format(root_dir))
@@ -194,11 +210,15 @@ def main():
     # create the temp work_dir
     try:
         print("Making temp work_dir")
-        work_dir = tempfile.mkdtemp()
+        work_dir = tempfile.mkdtemp(
+            dir='/tmp' if platform.system() == 'Darwin' else tempfile.gettempdir()
+        )
     except OSError as ose:
         print("[Error] Unable to create temp work_dir {}; error: {}"
               .format(work_dir, ose))
         return -2
+
+    print("Working dir {}".format(work_dir))
 
     for repo in config_data["repos"]:
         if "name" not in repo:
@@ -231,7 +251,11 @@ def main():
         os.chdir(repo_path)
         if "generate-command" in repo:
             gen_cmd = repo["generate-command"]
-            gen_cmd = "export GOPATH=" + work_dir + "\n" + gen_cmd
+            gen_cmd = "export K8S_RELEASE=" + k8s_release + "\n" + \
+                "export GOPATH=" + work_dir + "\n" + \
+                "export K8S_ROOT=" + work_dir + \
+                "/src/k8s.io/kubernetes" + "\n" + \
+                "export K8S_WEBROOT=" + root_dir + "\n" + gen_cmd
             print("Generating docs for {} with {}".format(repo_name, gen_cmd))
             res = subprocess.call(gen_cmd, shell=True)
             if res != 0:

@@ -1,31 +1,31 @@
 ---
 title: Qu'est-ce-que Kubernetes ?
 description: Description de Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Cette page est une vue d'ensemble de Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
-Kubernetes est une plate-forme open-source extensible et portable pour la gestion de charges de travail (workloads) et des services conteneurisés.
+
+<!-- body -->
+Kubernetes est une plate-forme open-source extensible et portable pour la gestion de charges de travail (workloads) et de services conteneurisés.
 Elle favorise à la fois l'écriture de configuration déclarative (declarative configuration) et l'automatisation.
 C'est un large écosystème en rapide expansion.
 Les services, le support et les outils Kubernetes sont largement disponibles.
 
 Google a rendu open-source le projet Kubernetes en 2014.
-Le développement de Kubernetes est basé sur une [décennie et demie d’expérience de Google avec la gestion de la charge et de la mise à l'échelle (scale) en production](https://research.google.com/pubs/pub43438.html), associé aux meilleures idées et pratiques de la communauté.
+Le développement de Kubernetes est basé sur une [décennie et demie d’expérience de Google avec la gestion de la charge et de la mise à l'échelle (scale) en production](https://research.google.com/pubs/pub43438.html), associée aux meilleures idées et pratiques de la communauté.
 
 ## Pourquoi ai-je besoin de Kubernetes et que peut-il faire ?
 
 Kubernetes a un certain nombre de fonctionnalités. Il peut être considéré comme:
 
-- une plate-forme de conteneur
+- une plate-forme de conteneurs
 - une plate-forme de microservices
 - une plate-forme cloud portable
 et beaucoup plus.
@@ -46,7 +46,7 @@ C'est pourquoi Kubernetes a également été conçu pour servir de plate-forme e
 
 De plus, le [plan de contrôle Kubernetes (control
 plane)](/docs/concepts/overview/components/) est construit sur les mêmes [APIs](/docs/reference/using-api/api-overview/) que celles accessibles aux développeurs et utilisateurs.
-Les utilisateurs peuvent écrire leurs propres controlleurs (controllers), tels que les [ordonnanceurs (schedulers)](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md),
+Les utilisateurs peuvent écrire leurs propres contrôleurs (controllers), tels que les [ordonnanceurs (schedulers)](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md),
 avec [leurs propres APIs](/docs/concepts/api-extension/custom-resources/) qui peuvent être utilisés par un [outil en ligne de commande](/docs/user-guide/kubectl-overview/).
 
 Ce choix de [conception](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) a permis de construire un ensemble d'autres systèmes par dessus Kubernetes.
@@ -60,8 +60,8 @@ Ces implémentations par défaut sont optionnelles et interchangeables. Kubernet
 
 Kubernetes:
 
-- Ne limite pas les types d'applications supportées. Kubernetes prend en charge des workloads extrêmement divers, dont des applications stateless, stateful ou orientées traitement de données (data-processing).
-Si l'application peut fonctionner dans un conteneur, elle devrait bien fonctionner sur Kubernetes.
+- Ne limite pas les types d'applications supportées. Kubernetes prend en charge des workloads extrêmement diverses, dont des applications stateless, stateful ou orientées traitement de données (data-processing).
+Si l'application peut fonctionner dans un conteneur, elle devrait fonctionner correctement sur Kubernetes.
 - Ne déploie pas de code source et ne build pas d'application non plus. Les workflows d'Intégration Continue, de Livraison Continue et de Déploiement Continu (CI/CD) sont réalisés en fonction de la culture d'entreprise, des préférences ou des pré-requis techniques.
 - Ne fournit pas nativement de services au niveau applicatif tels que des middlewares (e.g., message buses), des frameworks de traitement de données (par exemple, Spark), des bases de données (e.g., mysql), caches, ou systèmes de stockage clusterisés (e.g., Ceph).
 Ces composants peuvent être lancés dans Kubernetes et/ou être accessibles à des applications tournant dans Kubernetes via des mécaniques d'intermédiation tel que Open Service Broker.
@@ -72,11 +72,11 @@ Il fournit une API déclarative qui peut être ciblée par n'importe quelle form
 - Ne fournit ou n'adopte aucune mécanique de configuration des machines, de maintenance, de gestion ou de contrôle de la santé des systèmes.
 
 De plus, Kubernetes n'est pas vraiment un _système d'orchestration_. En réalité, il élimine le besoin d'orchestration.
-Techniquement, l'_orchestration_ se définie par l'exécution d'un workflow défini : premièrement faire A, puis B, puis C.
-Kubernetes quant à lui est composé d'un ensemble de processus de contrôle qui pilote l'état courant vers l'état désiré.
+Techniquement, l'_orchestration_ se définit par l'exécution d'un workflow spécifié : premièrement faire A, puis B, puis C.
+Kubernetes quant à lui est composé d'un ensemble de processus de contrôle qui pilotent l'état courant vers l'état désiré.
 Peu importe comment on arrive du point A au point C.
 Un contrôle centralisé n'est pas non plus requis.
-Cela abouti à un système plus simple à utiliser et plus puissant, robuste, résiliant et extensible.
+Cela aboutit à un système plus simple à utiliser et plus puissant, robuste, résiliant et extensible.
 
 ## Pourquoi les conteneurs ?
 
@@ -91,23 +91,23 @@ Il est bien entendu possible de construire une image de machine virtuelle (VM) i
 La _nouvelle façon (new way)_ consiste à déployer des conteneurs basés sur une virtualisation au niveau du système d'opération (operation-system-level) plutôt que de la virtualisation hardware.
 Ces conteneurs sont isolés les uns des autres et de l'hôte :
 ils ont leurs propres systèmes de fichiers, ne peuvent voir que leurs propres processus et leur usage des ressources peut être contraint.
-Ils sont aussi plus facile à construire que des VMs, et vu qu'ils sont décorrélés de l'infrastructure sous-jacente et du système de fichiers de l'hôte, ils sont aussi portables entre les différents fournisseurs de Cloud et les OS.
+Ils sont aussi plus faciles à construire que des VMs, et vu qu'ils sont décorrélés de l'infrastructure sous-jacente et du système de fichiers de l'hôte, ils sont aussi portables entre les différents fournisseurs de Cloud et les OS.
 
-Étant donné que les conteneurs sont petits et rapides, une application peut être packagées dans chaque image de conteneurs.
-Cette relation application-image tout-en-un permet de bénéficier de tous les bénéfices des conteneurs. Avec les conteneurs, des images immuables de conteneur peuvent être créées au moment du build/release plutôt qu'au déploiement, vu que chaque application ne dépend pas du reste de la stack applicative et n'est pas liée à l'environnement de production.
+Étant donné que les conteneurs sont petits et rapides, une application peut être packagée dans chaque image de conteneurs.
+Cette relation application-image tout-en-un permet de bénéficier de tous les bénéfices des conteneurs. Avec les conteneurs, des images immuables de conteneurs peuvent être créées au moment du build/release plutôt qu'au déploiement, vu que chaque application ne dépend pas du reste de la stack applicative et n'est pas liée à l'environnement de production.
 La génération d'images de conteneurs au moment du build permet d'obtenir un environnement constant qui peut être déployé tant en développement qu'en production. De la même manière, les conteneurs sont bien plus transparents que les VMs, ce qui facilite le monitoring et le management.
 Cela est particulièrement vrai lorsque le cycle de vie des conteneurs est géré par l'infrastructure plutôt que caché par un gestionnaire de processus à l'intérieur du conteneur. Avec une application par conteneur, gérer ces conteneurs équivaut à gérer le déploiement de son application.
 
 Résumé des bénéfices des conteneurs :
 
-- **Création et déploiement agile d'application** :
-  Augmente la simplicité et l'efficacité de la création d'images par rapport à l'utilisation d'image de VM.
+- **Création et déploiement agile d'applications** :
+  Augmente la simplicité et l'efficacité de la création d'images par rapport à l'utilisation d'images de VM.
 - **Développement, intégration et déploiement Continus**:
-  Fournit un processus pour constuire et déployer fréquemment et de façon fiable avec la capacité de faire des rollbacks rapide et simple (grâce à l'immuabilité de l'image).
+  Fournit un processus pour constuire et déployer fréquemment et de façon fiable avec la capacité de faire des rollbacks rapides et simples (grâce à l'immuabilité de l'image).
 - **Séparation des besoins entre Dev et Ops**:
   Création d'images applicatives au moment du build plutôt qu'au déploiement, tout en séparant l'application de l'infrastructure.
 - **Observabilité**
-  Pas seulement des informations venant du système d'exploitation sous-jacent mais aussi des signaux propres de l'application.
+  Informations venant non seulement du système d'exploitation sous-jacent mais aussi des signaux propres de l'application.
 - **Consistance entre les environnements de développement, tests et production**:
   Fonctionne de la même manière que ce soit sur un poste local que chez un fournisseur d'hébergement / dans le Cloud.
 - **Portabilité entre Cloud et distribution système**:
@@ -115,19 +115,20 @@ Résumé des bénéfices des conteneurs :
 - **Gestion centrée Application**:
   Bascule le niveau d'abstraction d'une virtualisation hardware liée à l'OS à une logique de ressources orientée application.
 - **[Micro-services](https://martinfowler.com/articles/microservices.html) faiblement couplés, distribués, élastiques**:
-  Les applications sont séparées en petits morceaux indépendants et peuvent être déployés et gérés dynamiquement -- pas une stack monolithique dans une seule machine à tout faire.
+  Les applications sont séparées en petits morceaux indépendants et peuvent être déployées et gérées dynamiquement -- pas une stack monolithique dans une seule machine à tout faire.
 - **Isolation des ressources**:
-  Performances de l'application prédictible.
+  Performances de l'application prédictibles.
 - **Utilisation des ressources**:
   Haute efficacité et densité.
 
 ## Qu'est-ce-que Kubernetes signifie ? K8s ?
 
-Le nom **Kubernetes** tire son origine du grec ancien, signifiant _capitaine_ ou _pilôte_ et est la racine de _gouverneur_ et [cybernetic](http://www.etymonline.com/index.php?term=cybernetics). _K8s_ est l'abréviation dérivée par le remplacement des 8 lettres "ubernete" par "8".
+Le nom **Kubernetes** tire son origine du grec ancien, signifiant _capitaine_ ou _pilote_ et est la racine de _gouverneur_ et [cybernetic](http://www.etymonline.com/index.php?term=cybernetics). _K8s_ est l'abbréviation dérivée par le remplacement des 8 lettres "ubernete" par "8".
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   Prêt à [commencer](/docs/setup/) ?
 *   Pour plus de détails, voir la [documentation Kubernetes](/docs/home/).
-{{% /capture %}}
+

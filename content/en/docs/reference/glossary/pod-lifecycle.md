@@ -9,11 +9,11 @@ related:
 tags:
  - fundamental
 short_description: >
-  A high-level summary of what phase the Pod is in within its lifecyle.
+  The sequence of states through which a Pod passes during its lifetime.
  
 ---
- A high-level summary of what phase the Pod is in within its lifecyle.
+ The sequence of states through which a Pod passes during its lifetime.
 
 <!--more--> 
 
-The [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/) is a high level summary of where a Pod is in its lifecyle.  A Pod’s `status` field is a [PodStatus](/docs/reference/generated/kubernetes-api/v1.13/#podstatus-v1-core) object, which has a `phase` field that displays one of the following phases: Running, Pending, Succeeded, Failed, Unknown, Completed, or CrashLoopBackOff.
+The [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/) is defined by the states or phases of a Pod. There are five possible Pod phases: Pending, Running, Succeeded, Failed, and Unknown. A high-level description of the Pod state is summarized in the [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core) `phase` field.

@@ -1,17 +1,16 @@
 ---
 title: Kubernetes Object Management
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 The `kubectl` command-line tool supports several different ways to create and manage
 Kubernetes objects. This document provides an overview of the different
 approaches. Read the [Kubectl book](https://kubectl.docs.kubernetes.io) for
 details of managing objects by Kubectl.
-{{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 
 ## Management techniques
 
@@ -32,19 +31,13 @@ When using imperative commands, a user operates directly on live objects
 in a cluster. The user provides operations to
 the `kubectl` command as arguments or flags.
 
-This is the simplest way to get started or to run a one-off task in
+This is the recommended way to get started or to run a one-off task in
 a cluster. Because this technique operates directly on live
 objects, it provides no history of previous configurations.
 
 ### Examples
 
 Run an instance of the nginx container by creating a Deployment object:
-
-```sh
-kubectl run nginx --image nginx
-```
-
-Do the same thing using a different syntax:
 
 ```sh
 kubectl create deployment nginx --image nginx
@@ -54,7 +47,7 @@ kubectl create deployment nginx --image nginx
 
 Advantages compared to object configuration:
 
-- Commands are simple, easy to learn and easy to remember.
+- Commands are expressed as a single action word.
 - Commands require only a single step to make changes to the cluster.
 
 Disadvantages compared to object configuration:
@@ -173,9 +166,7 @@ Disadvantages compared to imperative object configuration:
 - Declarative object configuration is harder to debug and understand results when they are unexpected.
 - Partial updates using diffs create complex merge and patch operations.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
@@ -185,4 +176,3 @@ Disadvantages compared to imperative object configuration:
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}

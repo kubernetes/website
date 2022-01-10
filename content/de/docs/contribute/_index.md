@@ -1,12 +1,12 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Zur Kubernets-Dokumentation beitragen
 linktitle: Mitmachen
 main_menu: true
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Wenn Sie an der Dokumentation oder der Website von Kubernetes mitwirken möchten, freuen wir uns über Ihre Hilfe!
 Jeder kann seinen Beitrag leisten, unabhängig davon ob Sie neu im Projekt sind oder schon lange dabei sind, und ob Sie sich als
@@ -15,7 +15,7 @@ Entwickler, Endbenutzer oder einfach jemanden, der es einfach nicht aushält, Ti
 Weitere Möglichkeiten, sich in der Kubernetes-Community zu engagieren oder mehr über uns zu erfahren, finden Sie auf der [Kubernetes-Community-Seite](/community/).
 Informationen zum Handbuch zur Dokumentation von Kubernetes finden Sie im [Gestaltungshandbuch](/docs/contribute/style/style-guide/).
 
-{{% capture body %}}
+<!-- body -->
 
 ## Arten von Mitwirkenden
 
@@ -59,4 +59,4 @@ Dies ist keine vollständige Liste von Möglichkeiten, wie Sie zur Kubernetes-Do
   - Verbesserungsvorschläge für Dokumentprüfungen vorschlagen
   - Vorschläge für Verbesserungen der Kubernetes-Website oder anderer Tools
 
-{{% /capture %}}
+

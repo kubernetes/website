@@ -1,19 +1,21 @@
 ---
-reviewers:
-title: AppArmor
-content_template: templates/tutorial
+title: AppArmor를 사용하여 리소스에 대한 컨테이너의 접근 제한
+content_type: tutorial
+weight: 10
 ---
 
-{{% capture overview %}}
+
+
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
 
 
 AppArmor는 표준 리눅스 사용자와 그룹 기반의 권한을 보완하여, 한정된 리소스 집합으로
 프로그램을 제한하는 리눅스 커널 보안 모듈이다. AppArmor는 임의의 애플리케이션에 대해서
-잠재적인 공격범위를 줄이고 더욱 심층적인 방어를 제공하도록 구성할 수 있다.
+잠재적인 공격 범위를 줄이고 더욱 심층적인 방어를 제공하도록 구성할 수 있다.
 이 기능은 특정 프로그램이나 컨테이너에서 필요한 리눅스 기능, 네트워크 사용, 파일 권한 등에 대한
-접근 허용 목록를 조정한 프로파일로 구성한다. 각 프로파일은
+접근을 허용하는 프로파일로 구성한다. 각 프로파일은
 허용하지 않은 리소스 접근을 차단하는 *강제(enforcing)* 모드 또는
 위반만을 보고하는 *불평(complain)* 모드로 실행할 수 있다.
 
@@ -23,19 +25,21 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
 애플리케이션 코드 취약점을 보호하기 위한 여러 조치를 할 수 있는 것 뿐임을 잊으면 안된다.
 양호하고 제한적인 프로파일을 제공하고, 애플리케이션과 클러스터를 여러 측면에서 강화하는 것이 중요하다.
 
-{{% /capture %}}
 
-{{% capture objectives %}}
 
-* 노드에 프로파일을 어떻게 적재 하는지 예시를 본다.
-* 파드(Pod)에 프로파일을 어떻게 강제 적용하는지 배운다.
+## {{% heading "objectives" %}}
+
+
+* 노드에 프로파일을 어떻게 적재하는지 예시를 본다.
+* 파드에 프로파일을 어떻게 강제 적용하는지 배운다.
 * 프로파일이 적재되었는지 확인하는 방법을 배운다.
 * 프로파일을 위반하는 경우를 살펴본다.
 * 프로파일을 적재할 수 없을 경우를 살펴본다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 다음을 보장해야 한다.
 
@@ -54,7 +58,7 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
    ```
 
 2. AppArmor 커널 모듈을 사용 가능해야 한다. -- 리눅스 커널에 AppArmor 프로파일을 강제 적용하기 위해 AppArmor 커널 모듈은 반드시 설치되어 있고
-   사용 가능해야 한다. 예를 들어 Ubnutu 및 SUSE 같은 배포판은 모듈을 기본값으로 지원하고, 그 외 많은 다른 배포판들은 선택적으로 지원한다.
+   사용 가능해야 한다. 예를 들어 Ubuntu 및 SUSE 같은 배포판은 모듈을 기본값으로 지원하고, 그 외 많은 다른 배포판들은 선택적으로 지원한다.
    모듈이 사용 가능한지 확인하려면
    `/sys/module/apparmor/parameters/enabled` 파일을 확인한다.
 
@@ -63,8 +67,8 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
    Y
    ```
 
-   Kubelet(>=v1.4)이 AppArmor 기능 지원을 포함하지만 커널 모듈을 사용할 수 없으면
-   파드에서 AppArmor 옵션을 실행하는 것을 거부된다.
+   Kubelet(>=v1.4)이 AppArmor 기능 지원을 포함하지만, 커널 모듈을 사용할 수 없으면
+   파드에서 AppArmor 옵션을 실행하는 것이 거부된다.
 
   {{< note >}}
   우분투에는 추가적인 훅(hook)이나 추가 기능 패치를 포함한 리눅스 커널의 상위 스트림에 머지되지 않은
@@ -72,21 +76,11 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
   상위 스트림 버전에서 테스트한 패치만을 가지고 있어서 다른 기능은 지원을 보장하지 않는다.
   {{< /note >}}
 
-3. 컨테이너 런타임이 도커이다. -- 이는 현재 쿠버네티스에서 지원하는 컨테이너 런타임이며 AppArmor도 지원한다.
-   더 많은 런타임에서 AppArmor 지원을 추가할수록 설정은 확장될 것이다.
-   노드가 도커로 운영되고 있는지 확인할 수 있다.
-
-   ```shell
-   $ kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.containerRuntimeVersion}\n{end}'
-   ```
-   ```
-   gke-test-default-pool-239f5d02-gyn2: docker://1.11.2
-   gke-test-default-pool-239f5d02-x1kf: docker://1.11.2
-   gke-test-default-pool-239f5d02-xwux: docker://1.11.2
-   ```
-
-   Kubelet(>=v1.4)은 AppArmor 지원을 포함하지만, 도커 런타임이 아니라면
-   파드를 AppArmor 옵션으로 실행하는 것은 거부된다.
+3. 컨테이너 런타임이 AppArmor을 지원한다. -- 현재 모든 일반적인 쿠버네티스를 지원하는
+{{< glossary_tooltip term_id="docker">}}, {{< glossary_tooltip term_id="cri-o" >}} 또는
+{{< glossary_tooltip term_id="containerd" >}} 와 같은 컨테이너 런타임들은 AppArmor를 지원해야 한다.
+이 런타임 설명서를 참조해서 클러스터가 AppArmor를 사용하기 위한
+요구 사항을 충족하는지 확인해야 한다.
 
 4. 프로파일이 적재되어 있다. -- AppArmor는 각 컨테이너와 함께 실행해야 하는 AppArmor 프로파일을 지정하여 파드에 적용한다.
    커널에 지정한 프로파일이 적재되지 않았다면, Kubelet(>= v1.4)은 파드를 거부한다. 해당 노드에 어떤 프로파일이 적재되었는지는
@@ -109,7 +103,7 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
 AppArmor 지원이 포함된 Kubelet (>= v1.4)이면
 어떤 전제 조건이 충족되지 않으면 AppArmor와 함께한 파드를 거부한다.
 노드 상에 AppArmor 지원 여부는
-노드 준비 조건 메시지를 확인하여(이후 릴리즈에서는 삭제될 것 같지만) 검증할 수 있다.
+노드 준비 조건 메시지를 확인하여(이후 릴리스에서는 삭제될 것 같지만) 검증할 수 있다.
 
 ```shell
 kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
@@ -120,9 +114,9 @@ gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor e
 gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 ```
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 파드 보안 강화하기 {#securing-a-pod}
 
@@ -132,7 +126,7 @@ AppArmor는 현재 베타라서 옵션은 어노테이션 형식으로 지정한
 [일반 사용자 버전으로 업그레이드 방법](#upgrade-path-to-general-availability) 참고)
 {{< /note >}}
 
-AppArmor 프로파일은 *컨테이너 마다* 지정된다. 함께 실행할 파드 컨테이너에 AppArmor 프로파일을 지정하려면
+AppArmor 프로파일은 *컨테이너마다* 지정된다. 함께 실행할 파드 컨테이너에 AppArmor 프로파일을 지정하려면
 파드의 메타데이터에 어노테이션을 추가한다.
 
 ```yaml
@@ -174,8 +168,7 @@ k8s-apparmor-example-deny-write (enforce)
 
 *이 예시는 AppArmor를 지원하는 클러스터를 이미 구성하였다고 가정한다.*
 
-먼저 노드에서 사용하려는 프로파일을 적재해야 한다. 사용할 프로파일은 단순히
-파일 쓰기를 거부할 것이다.
+먼저 노드에서 사용하려는 프로파일을 적재해야 한다. 사용할 프로파일은 파일 쓰기를 거부한다.
 
 ```shell
 #include <tunables/global>
@@ -329,7 +322,7 @@ Events:
   23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 ```
 
-파드 상태는 Failed이며 오류메시지는 `Pod Cannot enforce AppArmor: profile
+파드 상태는 Pending이며, 오류 메시지는 `Pod Cannot enforce AppArmor: profile
 "k8s-apparmor-example-allow-write" is not loaded`이다. 이벤트도 동일한 메시지로 기록되었다.
 
 ## 관리 {#administration}
@@ -339,9 +332,9 @@ Events:
 현재 쿠버네티스는 AppArmor 프로파일을 노드에 적재하기 위한 네이티브 메커니즘을 제공하지 않는다.
 프로파일을 설정하는 여러 방법이 있다. 예를 들면 다음과 같다.
 
-* 각 노드에서 파드를 실행하는 [데몬셋](/docs/concepts/workloads/controllers/daemonset/)을 통해서
+* 각 노드에서 파드를 실행하는 [데몬셋](/ko/docs/concepts/workloads/controllers/daemonset/)을 통해서
   올바른 프로파일이 적재되었는지 확인한다. 예시 구현은
-  [여기](https://git.k8s.io/kubernetes/test/images/apparmor-loader)에서 찾아 볼 수 있다.
+  [여기](https://git.k8s.io/kubernetes/test/images/apparmor-loader)에서 찾아볼 수 있다.
 * 노드 초기화 시간에 노드 초기화 스크립트(예를 들어 Salt, Ansible 등)나
   이미지를 이용
 * [예시](#example)에서 보여준 것처럼,
@@ -350,19 +343,24 @@ Events:
 스케줄러는 어떤 프로파일이 어떤 노드에 적재되는지 고려하지 않으니, 프로파일 전체 집합이
 모든 노드에 적재되어야 한다. 대안적인 방법은
 각 프로파일(혹은 프로파일의 클래스)을 위한 노드 레이블을 노드에 추가하고,
-[노드 셀렉터](/docs/concepts/configuration/assign-pod-node/)를 이용하여
+[노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)를 이용하여
 파드가 필요한 프로파일이 있는 노드에서 실행되도록 한다.
 
-### PodSecurityPolicy로 프로파일 제한하기 {#restricting-profiles-with-the-podsecuritypolicy}
+### 파드시큐리티폴리시(PodSecurityPolicy)로 프로파일 제한하기 {#restricting-profiles-with-the-podsecuritypolicy}
 
-만약 PodSecurityPolicy 확장을 사용하면, 클러스터 단위로 AppArmor 제한을 적용할 수 있다.
-PodSecurityPolicy를 사용하려면 위해 다음의 플래그를 반드시 `apiserver`에 설정해야 한다.
+{{< note >}}
+파드시큐리티폴리시는 쿠버네티스 v1.21에서 사용 중단되었으며, v1.25에서 제거될 예정이다. 
+더 자세한 내용은 [파드시큐리티폴리시 문서](/ko/docs/concepts/policy/pod-security-policy/)를 참고한다.
+{{< /note >}}
+
+만약 파드시큐리티폴리시 확장을 사용하면, 클러스터 단위로 AppArmor 제한을 적용할 수 있다.
+파드시큐리티폴리시를 사용하려면 위해 다음의 플래그를 반드시 `apiserver`에 설정해야 한다.
 
 ```
 --enable-admission-plugins=PodSecurityPolicy[,others...]
 ```
 
-AppArmor 옵션은 PodSecurityPolicy의 어노테이션으로 지정할 수 있다.
+AppArmor 옵션은 파드시큐리티폴리시의 어노테이션으로 지정할 수 있다.
 
 ```yaml
 apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>
@@ -392,7 +390,7 @@ AppArmor가 일반 사용자 버전이 되면 제거된다.
 ### AppArmor와 함께 쿠버네티스 1.4로 업그레이드 하기 {#upgrading-to-kubernetes-v1.4-with-apparmor}
 
 클러스터 버전을 v1.4로 업그레이드하기 위해 AppArmor쪽 작업은 없다.
-그러나 AppArmor 어노테이션을 가진 파드는 유효성 검사(혹은 PodSecurityPolicy 승인)을 거치지 않는다.
+그러나 AppArmor 어노테이션을 가진 파드는 유효성 검사(혹은 파드시큐리티폴리시 승인)을 거치지 않는다.
 그 노드에 허용 프로파일이 로드되면, 악의적인 사용자가 허가 프로필을 미리 적용하여
 파드의 권한을 docker-default 보다 높일 수 있다.
 이것이 염려된다면 `apparmor.security.beta.kubernetes.io` 어노테이션이 포함된
@@ -403,13 +401,13 @@ AppArmor가 일반 사용자 버전이 되면 제거된다.
 AppArmor는 일반 사용자 버전(general available)으로 준비되면 현재 어노테이션으로 지정되는 옵션은 필드로 변경될 것이다.
 모든 업그레이드와 다운그레이드 방법은 전환을 통해 지원하기에는 매우 미묘하니
 전환이 필요할 때에 상세히 설명할 것이다.
-최소 두번의 릴리즈에 대해서는 필드와 어노테이션 모두를 지원할 것이고,
+최소 두 번의 릴리스에 대해서는 필드와 어노테이션 모두를 지원할 것이고,
 그 이후부터는 어노테이션은 명확히 거부된다.
 
 ## 프로파일 제작 {#authoring-profiles}
 
 AppArmor 프로파일을 만들고 올바르게 지정하는 것은 매우 까다로울 수 있다.
-다행히 이 작업에 도움되는 도구가 있다.
+다행히 이 작업에 도움 되는 도구가 있다.
 
 * `aa-genprof`와 `aa-logprof`는 애플리케이션 활동과 로그와 수행에 필요한 행동을 모니터링하여
   일반 프로파일 규칙을 생성한다. 자세한 사용방법은
@@ -422,7 +420,7 @@ AppArmor 프로파일을 만들고 올바르게 지정하는 것은 매우 까�
 파드가 실행 중인 쿠버네티스 노드에서 도구 실행을 금하지는 않는다.
 
 AppArmor 문제를 디버깅하기 위해서 거부된 것으로 보이는 시스템 로그를 확인할 수 있다.
-AppArmor 로그는 `dmesg`에서 보여지며, 오류는 보통 시스템 로그나
+AppArmor 로그는 `dmesg`에서 보이며, 오류는 보통 시스템 로그나
 `journalctl`에서 볼 수 있다. 더 많은 정보는
 [AppArmor 실패](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures)에서 제공한다.
 
@@ -441,9 +439,9 @@ AppArmor 로그는 `dmesg`에서 보여지며, 오류는 보통 시스템 로그
 ### 프로파일 참조 {#profile-reference}
 
 - `runtime/default`: 기본 런타임 프로파일을 참조한다.
-  - (기본 PodSecurityPolicy 없이) 프로파일을 지정하지 않고
+  - (기본 파드시큐리티폴리시 없이) 프로파일을 지정하지 않고
     AppArmor를 사용하는 것과 동등하다.
-  - 도커에서는 권한없는 컨테이너의 경우는
+  - 도커에서는 권한 없는 컨테이너의 경우는
     [`docker-default`](https://docs.docker.com/engine/security/apparmor/) 프로파일로,
     권한이 있는 컨테이너의 경우 unconfined(프로파일 없음)으로 해석한다.
 - `localhost/<profile_name>`: 노드(localhost)에 적재된 프로파일을 이름으로 참조한다.
@@ -453,7 +451,7 @@ AppArmor 로그는 `dmesg`에서 보여지며, 오류는 보통 시스템 로그
 
 다른 어떤 프로파일 참조 형식도 유효하지 않다.
 
-### PodSecurityPolicy 어노테이션 {#podsecuritypolicy-annotations}
+### 파드시큐리티폴리시 어노테이션 {#podsecuritypolicy-annotations}
 
 아무 프로파일도 제공하지 않을 때에 컨테이너에 적용할 기본 프로파일을 지정하기
 
@@ -467,13 +465,12 @@ AppArmor 로그는 `dmesg`에서 보여지며, 오류는 보통 시스템 로그
   - 비록 이스케이프된 쉼표(%2C ',')도 프로파일 이름에서 유효한 문자이지만
     여기에서 명시적으로 허용하지 않는다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 참고 자료
 
 * [퀵 가이드 AppArmor 프로파일 언어](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [AppArmor 코어 정책 참고](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
-
-{{% /capture %}}

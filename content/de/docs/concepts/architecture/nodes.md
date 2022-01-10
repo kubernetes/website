@@ -1,22 +1,22 @@
 ---
 title: Nodes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-Ein Knoten (Node in Englisch) ist eine Arbeitsmaschine in Kubernetes, früher als `minion` bekannt. Ein Node
+Ein Knoten (Node in Englisch) ist eine Arbeitsmaschine in Kubernetes. Ein Node
 kann je nach Cluster eine VM oder eine physische Maschine sein. Jeder Node enthält
 die für den Betrieb von [Pods](/docs/concepts/workloads/pods/pod/) notwendigen Dienste
 und wird von den Master-Komponenten verwaltet.
 Die Dienste auf einem Node umfassen die [Container Runtime](/docs/concepts/overview/components/#node-components), das Kubelet und den Kube-Proxy.
 Weitere Informationen finden Sie im Abschnitt Kubernetes Node in der Architekturdesign-Dokumentation.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Node Status
 
@@ -123,7 +123,7 @@ Wenn Sie beispielsweise versuchen, einen Node aus folgendem Inhalt zu erstellen:
 ```
 
 
-Kubernetes erstellt intern ein Node-Oject (die Darstellung) und validiert den Node durch Zustandsprüfung basierend auf dem Feld `metadata.name`.
+Kubernetes erstellt intern ein Node-Objekt (die Darstellung) und validiert den Node durch Zustandsprüfung basierend auf dem Feld `metadata.name`.
 Wenn der Node gültig ist, d.h. wenn alle notwendigen Dienste ausgeführt werden, ist er berechtigt, einen Pod auszuführen.
 Andernfalls wird er für alle Clusteraktivitäten ignoriert, bis er gültig wird.
 
@@ -147,7 +147,8 @@ Die zweite ist, die interne Node-Liste des Node Controllers mit der Liste der ve
 Wenn ein Node in einer Cloud-Umgebung ausgeführt wird und sich in einem schlechten Zustand befindet, fragt der Node Controller den Cloud-Anbieter, ob die virtuelle Maschine für diesen Node noch verfügbar ist. Wenn nicht, löscht der Node Controller den Node aus seiner Node-Liste.
 
 Der dritte ist die Überwachung des Zustands der Nodes. Der Node Controller ist dafür verantwortlich,
-die NodeReady-Bedingung von NodeStatus auf ConditionUnknown zu aktualisieren, wenn ein wenn ein Node unerreichbar wird (der Node Controller empfängt aus irgendeinem Grund keine Herzschläge mehr, z.B. weil der Node heruntergefahren ist) und später alle Pods aus dem Node zu entfernen (und diese ordnungsgemäss zu beenden), wenn der Node weiterhin unzugänglich ist. (Die Standard-Timeouts sind 40s, um ConditionUnknown zu melden und 5 Minuten, um mit der Evakuierung der Pods zu beginnen).
+die NodeReady-Bedingung von NodeStatus auf ConditionUnknown zu aktualisieren, wenn ein Node unerreichbar wird (der Node Controller empfängt aus irgendeinem Grund keine Herzschläge mehr, z.B. weil der Node heruntergefahren ist) und später alle Pods aus dem Node zu entfernen (und diese ordnungsgemäss zu beenden), wenn der Node weiterhin unzugänglich ist. (Die Standard-Timeouts sind 40s, um ConditionUnknown zu melden und 5 Minuten, um mit der Evakuierung der Pods zu beginnen).
+
 Der Node Controller überprüft den Zustand jedes Nodes alle `--node-monitor-period` Sekunden.
 
 
@@ -244,4 +245,4 @@ Wenn Sie Ressourcen explizit für Nicht-Pod-Prozesse reservieren möchten, folge
 Node ist eine Top-Level-Ressource in der Kubernetes-REST-API. Weitere Details zum API-Objekt finden Sie unter:
 [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
-{{% /capture %}}
+

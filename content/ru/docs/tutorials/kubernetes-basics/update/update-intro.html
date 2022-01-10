@@ -1,0 +1,135 @@
+---
+title: Выполнение плавающего обновления
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Темы</h3>
+                <ul>
+                    <li>Выполнение плавающего обновления с помощью kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+            <h3>Обновление приложения</h3>
+            <p>Пользователи надеются, что приложения будут работать круглосуточно, а разработчики в свою очередь ожидают развёртывать новые версии приложений по нескольку раз в день. В Kubernetes это возможно благодаря механизму плавающих обновлений (rolling updates). <b>Плавающие обновления</b> позволяет обновить развёртывания без простоев, шаг за шагом заменяя старые поды на новые. Новые поды будут запущены на узлах, имеющих достаточно ресурсов.</p>
+
+            <p>В предыдущем модуле мы промасштабировали приложение до нескольких экземпляров. Это необходимо сделать, чтобы иметь возможность обновлять приложение, не влияя на его доступность. По умолчанию максимальное количество подов, которое может быть недоступно во время обновления, и максимальное количество новых подов, которое можно создать, равны 1. Эти две опции могут быть определены в абсолютном (числа) или относительном соотношении (проценты).
+            В Kubernetes обновления версионируются, поэтому любое обновление развёртывания можно откатить до предыдущей (стабильной) версии.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Краткое содержание:</h3>
+                    <ul>
+                        <li>Обновление приложения</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>Плавающие обновления последовательно заменяют экземпляры подов на новые, тем самым позволяя обновить развёртывания без простоев</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Обзор плавающих обновлений</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Предыдущая картинка</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Следующая картинка</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>Подобно масштабированию приложения, если развёртывание доступно извне, при обновлении сервис будет балансировать трафик только между доступными подами. Доступный под — это экземпляр, который может быть запущен для пользователей приложения.</p>
+
+                <p>С помощью плавающих обновлений можно:</p>
+                <ul>
+                    <li>Переводить приложение из одного окружения в другое (через обновления образа контейнера)</li>
+                    <li>Откатываться к предыдущим версиям</li>
+                    <li>Осуществлять непрерывную интеграцию и непрерывную доставку приложений без простоев</li>
+
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Если развёртывание было открыто наружу, в процессе обновления сервис будет балансировать нагрузку трафика только на доступные поды.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>В следующем интерактивном уроке мы обновим приложение до новой версии, а потом выполним откат, т.е. вернёмся к предыдущей версии</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/ru/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">Начать интерактивный урок <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

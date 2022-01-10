@@ -4,9 +4,11 @@
 		{{ partial "head.html" . }}
 	</head>
 	<body>
-		{{ partial "header.html" . }}
+		{{ partial "navbar.html" . }}
+		{{ partial "deprecation-warning.html" . }}
 		{{ block "main" . }}{{ end }}
 		{{ partialCached "footer.html" . }}
-		{{ partialCached "footer-scripts.html" . }}
+    {{ partialCached "scripts.html" . }}
+
 	</body>
 </html>

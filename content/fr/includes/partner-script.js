@@ -837,8 +837,8 @@
 			type: 2,
 			name: 'IBM',
 			logo: 'ibm',
-			link: 'https://www.ibm.com/cloud-computing/bluemix/containers',
-			blurb: "Le service de conteneur IBM Bluemix combine Docker et Kubernetes pour fournir des outils puissants, des expériences utilisateur intuitives, ainsi qu'une sécurité et une isolation intégrées pour permettre la livraison rapide d'applications tout en tirant parti des services de cloud computing, notamment des capacités cognitives de Watson."
+			link: 'https://www.ibm.com/cloud/container-service/',
+			blurb: "Le service de conteneur IBM Cloud combine Docker et Kubernetes pour fournir des outils puissants, des expériences utilisateur intuitives, ainsi qu'une sécurité et une isolation intégrées pour permettre la livraison rapide d'applications tout en tirant parti des services de cloud computing, notamment des capacités cognitives de Watson."
 				},
 		{
 			type: 3,

@@ -1,19 +1,19 @@
 ---
 title: Certificats
-content_template: templates/concept
+content_type: concept
 description: Certifications cluster Kubernetes
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Lorsque vous utilisez l'authentification par certificats client, vous pouvez générer des certificats
 manuellement grâce à `easyrsa`, `openssl` ou `cfssl`.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### easyrsa
 
@@ -245,4 +245,4 @@ Vous pouvez utiliser l’API `certificates.k8s.io` pour faire créer des
 Certificats x509 à utiliser pour l'authentification, comme documenté
 [ici](/docs/tasks/tls/managing-tls-in-a-cluster).
 
-{{% /capture %}}
+

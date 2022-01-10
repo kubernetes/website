@@ -1,25 +1,26 @@
 ---
 title: Expose Pod Information to Containers Through Files
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how a Pod can use a DownwardAPIVolumeFile to expose information
 about itself to Containers running in the Pod. A DownwardAPIVolumeFile can expose
 Pod fields and Container fields.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## The Downward API
 
@@ -59,7 +60,7 @@ Create the Pod:
 kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
 ```
 
-Verify that Container in the Pod is running:
+Verify that the Container in the Pod is running:
 
 ```shell
 kubectl get pods
@@ -189,9 +190,9 @@ In your shell, view the `cpu_limit` file:
 You can use similar commands to view the `cpu_request`, `mem_limit` and
 `mem_request` files.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Capabilities of the Downward API
 
@@ -199,30 +200,32 @@ The following information is available to containers through environment
 variables and `downwardAPI` volumes:
 
 * Information available via `fieldRef`:
-  * `metadata.name` - the pod’s name
-  * `metadata.namespace` - the pod’s namespace
-  * `metadata.uid` - the pod’s UID, available since v1.8.0-alpha.2
-  * `metadata.labels['<KEY>']` - the value of the pod’s label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
-  * `metadata.annotations['<KEY>']` - the value of the pod’s annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
+  * `metadata.name` - the pod's name
+  * `metadata.namespace` - the pod's namespace
+  * `metadata.uid` - the pod's UID
+  * `metadata.labels['<KEY>']` - the value of the pod's label `<KEY>` (for example, `metadata.labels['mylabel']`)
+  * `metadata.annotations['<KEY>']` - the value of the pod's annotation `<KEY>` (for example, `metadata.annotations['myannotation']`)
 * Information available via `resourceFieldRef`:
-  * A Container’s CPU limit
-  * A Container’s CPU request
-  * A Container’s memory limit
-  * A Container’s memory request
-  * A Container’s ephemeral-storage limit, available since v1.8.0-beta.0
-  * A Container’s ephemeral-storage request, available since v1.8.0-beta.0
+  * A Container's CPU limit
+  * A Container's CPU request
+  * A Container's memory limit
+  * A Container's memory request
+  * A Container's hugepages limit (providing that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+  * A Container's hugepages request (providing that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+  * A Container's ephemeral-storage limit
+  * A Container's ephemeral-storage request
 
 In addition, the following information is available through
 `downwardAPI` volume `fieldRef`:
 
-* `metadata.labels` - all of the pod’s labels, formatted as `label-key="escaped-label-value"` with one label per line
-* `metadata.annotations` - all of the pod’s annotations, formatted as `annotation-key="escaped-annotation-value"` with one annotation per line
+* `metadata.labels` - all of the pod's labels, formatted as `label-key="escaped-label-value"` with one label per line
+* `metadata.annotations` - all of the pod's annotations, formatted as `annotation-key="escaped-annotation-value"` with one annotation per line
 
 The following information is available through environment variables:
 
-* `status.podIP` - the pod’s IP address
-* `spec.serviceAccountName` - the pod’s service account name, available since v1.4.0-alpha.3
-* `spec.nodeName` - the node’s name, available since v1.4.0-alpha.3
+* `status.podIP` - the pod's IP address
+* `spec.serviceAccountName` - the pod's service account name, available since v1.4.0-alpha.3
+* `spec.nodeName` - the node's name, available since v1.4.0-alpha.3
 * `status.hostIP` - the node's IP, available since v1.7.0-alpha.1
 
 {{< note >}}
@@ -249,10 +252,11 @@ application, but that is tedious and error prone, and it violates the goal of lo
 coupling. A better option would be to use the Pod's name as an identifier, and
 inject the Pod's name into the well-known environment variable.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 * [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
@@ -260,7 +264,7 @@ inject the Pod's name into the well-known environment variable.
 * [DownwardAPIVolumeFile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#downwardapivolumefile-v1-core)
 * [ResourceFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
 
-{{% /capture %}}
+
 
 
 

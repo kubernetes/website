@@ -8,23 +8,18 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: Debug a StatefulSet
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
-
+<!-- overview -->
 This task shows you how to debug a StatefulSet.
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 * You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster.
 * You should have a StatefulSet running that you want to investigate.
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## Debugging a StatefulSet
 
@@ -36,17 +31,12 @@ kubectl get pods -l app=myapp
 ```
 
 If you find that any Pods listed are in `Unknown` or `Terminating` state for an extended period of time,
-refer to the [Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/) task for
+refer to the [Deleting StatefulSet Pods](/docs/tasks/run-application/delete-stateful-set/) task for
 instructions on how to deal with them.
 You can debug individual Pods in a StatefulSet using the
 [Debugging Pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/) guide.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 Learn more about [debugging an init-container](/docs/tasks/debug-application-cluster/debug-init-containers/).
-
-{{% /capture %}}
-
 

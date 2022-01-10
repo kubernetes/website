@@ -1,28 +1,14 @@
 {{ define "main" }}
-<div class="container-404">
-    <h4>
-        Perhaps you were looking for:
-    </h4>
-
-    <br />
-    <br />
-
-    <ul>
-        <li>
-            <a href="/docs">
-                The Kubernetes documentation
-            </a>
-        </li>
-        <li>
-            <a href="/blog">
-                The Kubernetes blog
-            </a>
-        </li>
-        <li>
-            <a href="/community">
-                The Kubernetes community
-            </a>
-        </li>
+{{ partial "handle-version-switch-404.html" . }}
+<section id="error-404" class="error-details">
+    <p>
+    {{ T "error_404_were_you_looking_for" }}
+    </p>
+    <ul id="error-sections">
+        {{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
+        {{ range $sections }}
+        {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+        {{ end }}
     </ul>
-</div>
+</section>
 {{ end }}

@@ -1,19 +1,25 @@
 ---
 title: Specifying a Disruption Budget for your Application
-content_template: templates/task
+content_type: task
 weight: 110
+min-kubernetes-server-version: v1.21
 ---
 
-{{% capture overview %}}
+<!-- overview -->
+
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 This page shows how to limit the number of concurrent disruptions
 that your application experiences, allowing for higher availability
 while permitting the cluster administrator to manage the clusters
 nodes.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
+{{< version-check >}}
+
 * You are the owner of an application running on a Kubernetes cluster that requires
   high availability.
 * You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment/)
@@ -21,9 +27,9 @@ nodes.
 * You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
 * You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Protecting an Application with a PodDisruptionBudget
 
@@ -32,9 +38,9 @@ nodes.
 1. Create a PDB definition as a YAML file.
 1. Create the PDB object from the YAML file.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Identify an Application to Protect
 
@@ -49,7 +55,7 @@ specified by one of the built-in Kubernetes controllers:
 In this case, make a note of the controller's `.spec.selector`; the same
 selector goes into the PDBs `.spec.selector`.
 
-From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
+From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
 
 You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
@@ -109,9 +115,9 @@ of the number of pods from that set that can be unavailable after the eviction.
 It can be either an absolute number or a percentage.
 
 {{< note >}}
-For versions 1.8 and earlier: When creating a `PodDisruptionBudget`
-object using the `kubectl` command line tool, the `minAvailable` field has a
-default value of 1 if neither `minAvailable` nor `maxUnavailable` is specified.
+The behavior for an empty selector differs between the policy/v1beta1 and policy/v1 APIs for
+PodDisruptionBudgets. For policy/v1beta1 an empty selector matches zero pods, while
+for policy/v1 an empty selector matches every pod in the namespace.
 {{< /note >}}
 
 You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`. 
@@ -144,8 +150,10 @@ collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
 {{< /note >}}
 
-A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the
-number of replicas) may block node drains entirely. This is permitted as per the 
+If you set `maxUnavailable` to 0% or 0, or you set `minAvailable` to 100% or the number of replicas,
+you are requiring zero voluntary evictions. When you set zero voluntary evictions for a workload
+object such as ReplicaSet, then you cannot successfully drain a Node running one of those Pods.
+If you try to drain a Node where an unevictable Pod is running, the drain never completes. This is permitted as per the
 semantics of `PodDisruptionBudget`.
 
 You can find examples of pod disruption budgets defined below. They match pods with the label 
@@ -155,7 +163,7 @@ Example PDB Using minAvailable:
 
 {{< codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" >}}
 
-Example PDB Using maxUnavailable (Kubernetes 1.7 or higher):
+Example PDB Using maxUnavailable:
 
 {{< codenew file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" >}}
 
@@ -178,8 +186,8 @@ then you'll see something like this:
 kubectl get poddisruptionbudgets
 ```
 ```
-NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
-zk-pdb    2               0                     7s
+NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+zk-pdb   2               N/A               0                     7s
 ```
 
 If there are matching pods (say, 3), then you would see something like this:
@@ -188,11 +196,11 @@ If there are matching pods (say, 3), then you would see something like this:
 kubectl get poddisruptionbudgets
 ```
 ```
-NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
-zk-pdb    2               1                     7s
+NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+zk-pdb   2               N/A               1                     7s
 ```
 
-The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
+The non-zero value for `ALLOWED DISRUPTIONS` means that the disruption controller has seen the pods,
 counted the matching pods, and updated the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
@@ -201,17 +209,18 @@ You can get more information about the status of a PDB with this command:
 kubectl get poddisruptionbudgets zk-pdb -o yaml
 ```
 ```yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  creationTimestamp: 2017-08-28T02:38:26Z
+  annotations:
+…
+  creationTimestamp: "2020-03-04T04:22:56Z"
   generation: 1
   name: zk-pdb
 …
 status:
   currentHealthy: 3
-  desiredHealthy: 3
-  disruptedPods: null
+  desiredHealthy: 2
   disruptionsAllowed: 1
   expectedPods: 3
   observedGeneration: 1
@@ -230,9 +239,6 @@ You can use a PDB with pods controlled by another type of controller, by an
 - only an integer value can be used with `.spec.minAvailable`, not a percentage.
 
 You can use a selector which selects a subset or superset of the pods belonging to a built-in
-controller.  However, when there are multiple PDBs in a namespace, you must be careful not
-to create PDBs whose selectors overlap.
-
-{{% /capture %}}
-
-
+controller.  The eviction API will disallow eviction of any pod covered by multiple PDBs,
+so most users will want to avoid overlapping selectors.  One reasonable use of overlapping
+PDBs is when pods are being transitioned from one PDB to another.

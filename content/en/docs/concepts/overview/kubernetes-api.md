@@ -2,140 +2,208 @@
 reviewers:
 - chenopis
 title: The Kubernetes API
-content_template: templates/concept
+content_type: concept
 weight: 30
+description: >
+  The Kubernetes API lets you query and manipulate the state of objects in Kubernetes.
+  The core of Kubernetes' control plane is the API server and the HTTP API that it exposes. Users, the different parts of your cluster, and external components all communicate with one another through the API server.
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
+The core of Kubernetes' {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+is the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}. The API server
+exposes an HTTP API that lets end users, different parts of your cluster, and
+external components communicate with one another.
 
-API endpoints, resource types and samples are described in [API Reference](/docs/reference).
+The Kubernetes API lets you query and manipulate the state of API objects in Kubernetes
+(for example: Pods, Namespaces, ConfigMaps, and Events).
 
-Remote access to the API is discussed in the [Controlling API Access doc](/docs/reference/access-authn-authz/controlling-access/).
+Most operations can be performed through the
+[kubectl](/docs/reference/kubectl/overview/) command-line interface or other
+command-line tools, such as
+[kubeadm](/docs/reference/setup-tools/kubeadm/), which in turn use the
+API. However, you can also access the API directly using REST calls.
 
-The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [kubectl](/docs/reference/kubectl/overview/) command-line tool can be used to create, update, delete, and get API objects.
+Consider using one of the [client libraries](/docs/reference/using-api/client-libraries/)
+if you are writing an application using the Kubernetes API.
 
-Kubernetes also stores its serialized state (currently in [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)) in terms of the API resources.
+<!-- body -->
 
-Kubernetes itself is decomposed into multiple components, which interact through its API.
-
-{{% /capture %}}
-
-
-{{% capture body %}}
-
-## API changes
-
-In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following the [API deprecation policy](/docs/reference/using-api/deprecation-policy/).
-
-What constitutes a compatible change and how to change the API are detailed by the [API change document](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md).
-
-## OpenAPI and Swagger definitions
+## OpenAPI specification {#api-specification}
 
 Complete API details are documented using [OpenAPI](https://www.openapis.org/).
 
-Starting with Kubernetes 1.10, the Kubernetes API server serves an OpenAPI spec via the `/openapi/v2` endpoint.
-The requested format is specified by setting HTTP headers:
+### OpenAPI V2
 
-Header | Possible Values
------- | ---------------
-Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (the default content-type is `application/json` for `*/*` or not passing this header)
-Accept-Encoding | `gzip` (not passing this header is acceptable)
+The Kubernetes API server serves an aggregated OpenAPI v2 spec via the
+`/openapi/v2` endpoint. You can request the response format using
+request headers as follows:
 
-Prior to 1.14, format-separated endpoints (`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)
-serve the OpenAPI spec in different formats. These endpoints are deprecated, and are removed in Kubernetes 1.14.
+<table>
+  <caption style="display:none">Valid request header values for OpenAPI v2 queries</caption>
+  <thead>
+     <tr>
+        <th>Header</th>
+        <th style="min-width: 50%;">Possible values</th>
+        <th>Notes</th>
+     </tr>
+  </thead>
+  <tbody>
+     <tr>
+        <td><code>Accept-Encoding</code></td>
+        <td><code>gzip</code></td>
+        <td><em>not supplying this header is also acceptable</em></td>
+     </tr>
+     <tr>
+        <td rowspan="3"><code>Accept</code></td>
+        <td><code>application/com.github.proto-openapi.spec.v2@v1.0+protobuf</code></td>
+        <td><em>mainly for intra-cluster use</em></td>
+     </tr>
+     <tr>
+        <td><code>application/json</code></td>
+        <td><em>default</em></td>
+     </tr>
+     <tr>
+        <td><code>*</code></td>
+        <td><em>serves </em><code>application/json</code></td>
+     </tr>
+  </tbody>
+</table>
 
-**Examples of getting OpenAPI spec**:
+Kubernetes implements an alternative Protobuf based serialization format that
+is primarily intended for intra-cluster communication. For more information
+about this format, see the [Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) design proposal and the
+Interface Definition Language (IDL) files for each schema located in the Go
+packages that define the API objects.
 
-Before 1.10 | Starting with Kubernetes 1.10
------------ | -----------------------------
-GET /swagger.json | GET /openapi/v2 **Accept**: application/json
-GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
-GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip
+### OpenAPI V3
 
-Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
+{{< feature-state state="alpha"  for_k8s_version="v1.23" >}}
 
-Prior to 1.14, the Kubernetes apiserver also exposes an API that can be used to retrieve
-the [Swagger v1.2](http://swagger.io/) Kubernetes API spec at `/swaggerapi`.
-This endpoint is deprecated, and will be removed in Kubernetes 1.14.
+Kubernetes v1.23 offers initial support for publishing its APIs as OpenAPI v3; this is an
+alpha feature that is disabled by default.
+You can enable the alpha feature by turning on the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
+for the kube-apiserver component.
 
-## API versioning
+With the feature enabled, the Kubernetes API server serves an
+aggregated OpenAPI v3 spec per Kubernetes group version at the
+`/openapi/v3/apis/<group>/<version>` endpoint. Please refer to the
+table below for accepted request headers.
 
-To make it easier to eliminate fields or restructure resource representations, Kubernetes supports
-multiple API versions, each at a different API path, such as `/api/v1` or
-`/apis/extensions/v1beta1`.
+<table>
+  <caption style="display:none">Valid request header values for OpenAPI v3 queries</caption>
+  <thead>
+     <tr>
+        <th>Header</th>
+        <th style="min-width: 50%;">Possible values</th>
+        <th>Notes</th>
+     </tr>
+  </thead>
+  <tbody>
+     <tr>
+        <td><code>Accept-Encoding</code></td>
+        <td><code>gzip</code></td>
+        <td><em>not supplying this header is also acceptable</em></td>
+     </tr>
+     <tr>
+        <td rowspan="3"><code>Accept</code></td>
+        <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
+        <td><em>mainly for intra-cluster use</em></td>
+     </tr>
+     <tr>
+        <td><code>application/json</code></td>
+        <td><em>default</em></td>
+     </tr>
+     <tr>
+        <td><code>*</code></td>
+        <td><em>serves </em><code>application/json</code></td>
+     </tr>
+  </tbody>
+</table>
 
-We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-life and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes - all descriptions below cover both formats.
+A discovery endpoint `/openapi/v3` is provided to see a list of all
+group/versions available. This endpoint only returns JSON.
 
-Note that API versioning and Software versioning are only indirectly related.  The [API and release
-versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and
-software versioning.
+## Persistence
+
+Kubernetes stores the serialized state of objects by writing them into
+{{< glossary_tooltip term_id="etcd" >}}.
+
+## API groups and versioning
+
+To make it easier to eliminate fields or restructure resource representations,
+Kubernetes supports multiple API versions, each at a different API path, such
+as `/api/v1` or `/apis/rbac.authorization.k8s.io/v1alpha1`.
+
+Versioning is done at the API level rather than at the resource or field level
+to ensure that the API presents a clear, consistent view of system resources
+and behavior, and to enable controlling access to end-of-life and/or
+experimental APIs.
+
+To make it easier to evolve and to extend its API, Kubernetes implements
+[API groups](/docs/reference/using-api/#api-groups) that can be
+[enabled or disabled](/docs/reference/using-api/#enabling-or-disabling).
+
+API resources are distinguished by their API group, resource type, namespace
+(for namespaced resources), and name. The API server handles the conversion between
+API versions transparently: all the different versions are actually representations
+of the same persisted data. The API server may serve the same underlying data
+through multiple API versions.
+
+For example, suppose there are two API versions, `v1` and `v1beta1`, for the same
+resource. If you originally created an object using the `v1beta1` version of its
+API, you can later read, update, or delete that object
+using either the `v1beta1` or the `v1` API version.
+
+### API changes
+
+Any system that is successful needs to grow and change as new use cases emerge or existing ones change.
+Therefore, Kubernetes has designed the Kubernetes API to continuously change and grow.
+The Kubernetes project aims to _not_ break compatibility with existing clients, and to maintain that
+compatibility for a length of time so that other projects have an opportunity to adapt.
+
+In general, new API resources and new resource fields can be added often and frequently.
+Elimination of resources or fields requires following the
+[API deprecation policy](/docs/reference/using-api/deprecation-policy/).
+
+Kubernetes makes a strong commitment to maintain compatibility for official Kubernetes APIs
+once they reach general availability (GA), typically at API version `v1`. Additionally,
+Kubernetes keeps compatibility even for _beta_ API versions wherever feasible:
+if you adopt a beta API you can continue to interact with your cluster using that API,
+even after the feature goes stable.
+
+{{< note >}}
+Although Kubernetes also aims to maintain compatibility for _alpha_ APIs versions, in some
+circumstances this is not possible. If you use any alpha API versions, check the release notes
+for Kubernetes when upgrading your cluster, in case the API did change.
+{{< /note >}}
+
+Refer to [API versions reference](/docs/reference/using-api/#api-versioning)
+for more details on the API version level definitions.
 
 
-Different API versions imply different levels of stability and support.  The criteria for each level are described
-in more detail in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions).  They are summarized here:
 
-- Alpha level:
-  - The version names contain `alpha` (e.g. `v1alpha1`).
-  - May be buggy.  Enabling the feature may expose bugs.  Disabled by default.
-  - Support for feature may be dropped at any time without notice.
-  - The API may change in incompatible ways in a later software release without notice.
-  - Recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of long-term support.
-- Beta level:
-  - The version names contain `beta` (e.g. `v2beta3`).
-  - Code is well tested.  Enabling the feature is considered safe.  Enabled by default.
-  - Support for the overall feature will not be dropped, though details may change.
-  - The schema and/or semantics of objects may change in incompatible ways in a subsequent beta or stable release.  When this happens,
-    we will provide instructions for migrating to the next version.  This may require deleting, editing, and re-creating
-    API objects.  The editing process may require some thought.   This may require downtime for applications that rely on the feature.
-  - Recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases.  If you have
-    multiple clusters which can be upgraded independently, you may be able to relax this restriction.
-  - **Please do try our beta features and give feedback on them!  Once they exit beta, it may not be practical for us to make more changes.**
-- Stable level:
-  - The version name is `vX` where `X` is an integer.
-  - Stable versions of features will appear in released software for many subsequent versions.
+## API Extension
 
-## API groups
+The Kubernetes API can be extended in one of two ways:
 
-To make it easier to extend the Kubernetes API, we implemented [*API groups*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md).
-The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
+1. [Custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+   let you declaratively define how the API server should provide your chosen resource API.
+1. You can also extend the Kubernetes API by implementing an
+   [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 
-Currently there are several API groups in use:
+## {{% heading "whatsnext" %}}
 
-1. The *core* group, often referred to as the *legacy group*, is at the REST path `/api/v1` and uses `apiVersion: v1`.
-
-1. The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
-   (e.g. `apiVersion: batch/v1`).  Full list of supported API groups can be seen in [Kubernetes API reference](/docs/reference/).
-
-
-There are two supported paths to extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/):
-
-1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
-   is for users with very basic CRUD needs.
-1. Users needing the full set of Kubernetes API semantics can implement their own apiserver
-   and use the [aggregator](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)
-   to make it seamless for clients.
-
-
-## Enabling API groups
-
-Certain resources and API groups are enabled by default.  They can be enabled or disabled by setting `--runtime-config`
-on apiserver. `--runtime-config` accepts comma separated values. For ex: to disable batch/v1, set
-`--runtime-config=batch/v1=false`, to enable batch/v2alpha1, set `--runtime-config=batch/v2alpha1`.
-The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
-
-IMPORTANT: Enabling or disabling groups or resources requires restarting apiserver and controller-manager
-to pick up the `--runtime-config` changes.
-
-## Enabling resources in the groups
-
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingresses, Jobs and ReplicaSets are enabled by default.
-Other extensions resources can be enabled by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For example: to disable deployments and ingress, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
-
-{{% /capture %}}
+- Learn how to extend the Kubernetes API by adding your own
+  [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
+- [Controlling Access To The Kubernetes API](/docs/concepts/security/controlling-access/) describes
+  how the cluster manages authentication and authorization for API access.
+- Learn about API endpoints, resource types and samples by reading
+  [API Reference](/docs/reference/kubernetes-api/).
+- Learn about what constitutes a compatible change, and how to change the API, from
+  [API changes](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme).

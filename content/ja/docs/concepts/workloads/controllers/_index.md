@@ -1,5 +1,4 @@
 ---
-title: "Controllers"
+title: "ワークロードリソース"
 weight: 20
 ---
-

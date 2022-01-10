@@ -1,14 +1,14 @@
 ---
 reviewers:
 title: ServiceとPodに対するDNS
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 このページではKubernetesによるDNSサポートについて概観します。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## イントロダクション
 
@@ -25,28 +25,36 @@ Kubernetesの`bar`というネームスペース内で`foo`という名前のSer
 うまく機能する他のレイアウト、名前、またはクエリーは、実装の詳細を考慮し、警告なしに変更されることがあります。  
 最新の仕様に関する詳細は、[KubernetesにおけるDNSベースのServiceディスカバリ](https://github.com/kubernetes/dns/blob/master/docs/specification.md)を参照ください。
 
-## Service
+## Service {#services}
 
-### Aレコード
+### A/AAAAレコード
 
-"通常の"(Headlessでない)Serviceは、`my-svc.my-namespace.svc.cluster.local`という形式のDNS Aレコードを割り当てられます。このAレコードはそのServiceのClusterIPへと名前解決されます。
+"通常の"(Headlessでない)Serviceは、`my-svc.my-namespace.svc.cluster.local`という形式のDNS A(AAAA)レコードを、ServiceのIPバージョンに応じて割り当てられます。このAレコードはそのServiceのClusterIPへと名前解決されます。
 
-"Headless"(ClusterIPなしの)Serviceもまた`my-svc.my-namespace.svc.cluster.local`という形式のDNS Aレコードを割り当てられます。通常のServiceとは異なり、このAレコードはServiceによって選択されたPodのIPの一覧へと名前解決されます。クライアントはこの一覧のIPを使うか、その一覧から標準のラウンドロビン方式によって選択されたIPを使います…
+"Headless"(ClusterIPなしの)Serviceもまた`my-svc.my-namespace.svc.cluster.local`という形式のDNS A(AAAA)レコードを、ServiceのIPバージョンに応じて割り当てられます。通常のServiceとは異なり、このレコードはServiceによって選択されたPodのIPの一覧へと名前解決されます。クライアントはこの一覧のIPを使うか、その一覧から標準のラウンドロビン方式によって選択されたIPを使います。
 
 ### SRVレコード
 
 SRVレコードは、通常のServiceもしくは[Headless
-Services](/docs/concepts/services-networking/service/#headless-services)の一部である名前付きポート向けに作成されます。それぞれの名前付きポートに対して、そのSRVレコードは`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`という形式となります。  
+Services](/ja/docs/concepts/services-networking/service/#headless-service)の一部である名前付きポート向けに作成されます。それぞれの名前付きポートに対して、そのSRVレコードは`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`という形式となります。  
 通常のServiceに対しては、このSRVレコードは`my-svc.my-namespace.svc.cluster.local`という形式のドメイン名とポート番号へ名前解決します。  
 Headless Serviceに対しては、このSRVレコードは複数の結果を返します。それはServiceの背後にある各Podの1つを返すのと、`auto-generated-name.my-svc.my-namespace.svc.cluster.local`という形式のPodのドメイン名とポート番号を含んだ結果を返します。
 
 ## Pod
 
-### Aレコード
+### A/AAAAレコード
 
-DNSが有効なとき、Podは"`pod-ip-address.my-namespace.pod.cluster.local`"という形式のAレコードを割り当てられます。
+一般的にPodは下記のDNS解決となります。
 
-例えば、`default`ネームスペース内で`cluster.local`というDNS名を持ち、`1.2.3.4`というIPを持ったPodは次の形式のエントリーを持ちます。: `1-2-3-4.default.pod.cluster.local`。
+`pod-ip-address.my-namespace.pod.cluster-domain.example`
+
+例えば、`default`ネームスペースのpodのIPアドレスが172.17.0.3で、クラスターのドメイン名が`cluster.local`の場合、PodのDNS名は以下になります。
+
+`172-17-0-3.default.pod.cluster.local`
+
+DeploymentかDaemonSetに作成され、Serviceに公開されるどのPodも以下のDNS解決が利用できます。
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`
 
 ### Podのhostnameとsubdomainフィールド
 
@@ -105,23 +113,46 @@ spec:
     name: busybox
 ```
 
-もしそのPodと同じネームスペース内で、同じサブドメインを持ったHeadless Serviceが存在していた場合、クラスターのKubeDNSサーバーもまた、そのPodの完全修飾ドメイン名(FQDN)に対するAレコードを返します。
-例えば、"`busybox-1`"というホスト名で、"`default-subdomain`"というサブドメインを持ったPodと、そのPodと同じネームスペース内にある"`default-subdomain`"という名前のHeadless Serviceがあると考えると、そのPodは自身の完全修飾ドメイン名(FQDN)を"`busybox-1.default-subdomain.my-namespace.svc.cluster.local`"として扱います。DNSはそのPodのIPを指し示すAレコードを返します。"`busybox1`"と"`busybox2`"の両方のPodはそれぞれ独立したAレコードを持ちます。
+もしそのPodと同じネームスペース内で、同じサブドメインを持ったHeadless Serviceが存在していた場合、クラスターのDNSサーバーもまた、そのPodの完全修飾ドメイン名(FQDN)に対するA(AAAA)レコードを返します。
+例えば、"`busybox-1`"というホスト名で、"`default-subdomain`"というサブドメインを持ったPodと、そのPodと同じネームスペース内にある"`default-subdomain`"という名前のHeadless Serviceがあると考えると、そのPodは自身の完全修飾ドメイン名(FQDN)を"`busybox-1.default-subdomain.my-namespace.svc.cluster.local`"として扱います。DNSはそのPodのIPを指し示すA(AAAA)レコードを返します。"`busybox1`"と"`busybox2`"の両方のPodはそれぞれ独立したA(AAAA)レコードを持ちます。
 
 そのエンドポイントオブジェクトはそのIPに加えて`hostname`を任意のエンドポイントアドレスに対して指定できます。
 
 {{< note >}}
-AレコードはPodの名前に対して作成されないため、`hostname`はPodのAレコードが作成されるために必須となります。`hostname`を持たないが`subdomain`を持つようなPodは、そのPodのIPアドレスを指し示すHeadless Service(`default-subdomain.my-namespace.svc.cluster.local`)に対するAレコードのみ作成します。
+A(AAAA)レコードはPodの名前に対して作成されないため、`hostname`はPodのA(AAAA)レコードが作成されるために必須となります。`hostname`を持たないが`subdomain`を持つようなPodは、そのPodのIPアドレスを指し示すHeadless Service(`default-subdomain.my-namespace.svc.cluster.local`)に対するA(AAAA)レコードのみ作成します。
 {{< /note >}}
+
+### PodのsetHostnameAsFQDNフィールド
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+**前提条件**: {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}に対して`SetHostnameAsFQDN`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
+
+Podが完全修飾ドメイン名(FQDN)を持つように構成されている場合、そのホスト名は短いホスト名です。
+例えば、FQDNが`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`のPodがある場合、
+デフォルトではそのPod内の`hostname`コマンドは`busybox-1`を返し、`hostname --fqdn`コマンドはFQDNを返します。
+
+Podのspecで`setHostnameAsFQDN: true`を設定した場合、そのPodの名前空間に対してkubeletはPodのFQDNをホスト名に書き込みます。
+この場合、`hostname`と`hostname --fqdn`の両方がPodのFQDNを返します。
+
+{{< note >}}
+Linuxでは、カーネルのホスト名のフィールド(`struct utsname`の`nodename`フィールド)は64文字に制限されています。
+
+Podがこの機能を有効にしていて、そのFQDNが64文字より長い場合、Podは起動に失敗します。
+Podは`Pending`ステータス(`kubectl`でみられる`ContainerCreating`)のままになり、「Podのホスト名とクラスタードメインからFQDNを作成できなかった」や、「FQDN`long-FQDN`が長すぎる(64文字が最大, 70文字が要求された)」などのエラーイベントが生成されます。
+
+このシナリオのユーザー体験を向上させる1つの方法は、[admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)を作成して、ユーザーがDeploymentなどのトップレベルのオブジェクトを作成するときにFQDNのサイズを制御することです。
+{{< /note >}}
+
 
 ### PodのDNSポリシー
 
 DNSポリシーはPod毎に設定できます。現在のKubernetesでは次のようなPod固有のDNSポリシーをサポートしています。これらのポリシーはPod Specの`dnsPolicy`フィールドで指定されます。
 
 - "`Default`": そのPodはPodが稼働しているNodeから名前解決の設定を継承します。詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)を参照してください。
-- "`ClusterFirst`": "`www.kubernetes.io`"のようなクラスタードメインのサフィックスにマッチしないようなDNSクエリーは、Nodeから継承された上流のネームサーバーにフォワーディングされます。クラスター管理者は、追加のstubドメインと上流のDNSサーバーを設定できます。
+- "`ClusterFirst`": "`www.kubernetes.io`"のようなクラスタードメインのサフィックスにマッチしないようなDNSクエリーは、Nodeから継承された上流のネームサーバーにフォワーディングされます。クラスター管理者は、追加のstubドメインと上流のDNSサーバーを設定できます。このような場合におけるDNSクエリー処理の詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)を参照してください。
 - "`ClusterFirstWithHostNet`": hostNetworkによって稼働しているPodに対しては、ユーザーは明示的にDNSポリシーを"`ClusterFirstWithHostNet`"とセットするべきです。
-- "`None`": この設定では、Kubernetesの環境からDNS設定を無視することができます。全てのDNS設定は、Pod Spec内の`dnsConfig`フィールドを指定して提供することになっています。下記のセクションの[Pod's DNS config](#pod-s-dns-config)を参照ください。
+- "`None`": この設定では、Kubernetesの環境からDNS設定を無視することができます。全てのDNS設定は、Pod Spec内の`dnsConfig`フィールドを指定して提供することになっています。下記のセクションの[Pod's DNS config](#pod-dns-config)を参照ください。
 
 {{< note >}}
 "Default"は、デフォルトのDNSポリシーではありません。もし`dnsPolicy`が明示的に指定されていない場合、"ClusterFirst"が使用されます。
@@ -148,7 +179,7 @@ spec:
   dnsPolicy: ClusterFirstWithHostNet
 ```
 
-### PodのDNS設定
+### PodのDNS設定 {#pod-dns-config}
 
 PodのDNS設定は、ユーザーがPodに対してそのDNS設定上でさらに制御するための手段を提供します。
 
@@ -191,13 +222,14 @@ PodのDNS設定と"`None`"というDNSポリシーの利用可能なバージョ
 | 1.10 | β版 (デフォルトで有効)|
 | 1.9 | α版 |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 DNS設定の管理方法に関しては、[DNS Serviceの設定](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 を確認してください。
 
-{{% /capture %}}
+
 
 

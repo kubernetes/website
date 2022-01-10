@@ -1,22 +1,22 @@
 ---
 title: Volume
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Berkas-berkas yang disimpan di _disk_ di dalam Container bersifat tidak permanen (akan terhapus seiring dengan dihapusnya Container/Pod), yang menimbulkan beberapa masalah untuk aplikasi biasa saat berjalan di dalam Container. Pertama, saat sebuah Container mengalami kegagalan, Kubelet akan memulai kembali Container tersebut, tetapi semua berkas di dalamnya akan hilang - Container berjalan dalam kondisi yang bersih. Kedua, saat menjalankan banyak Container bersamaan di dalam sebuah `Pod`, biasanya diperlukan untuk saling berbagi berkas-berkas di antara Container-container tersebut. Kedua masalah tersebut dipecahkan oleh abstraksi `Volume` pada Kubernetes.
 
 Pengetahuan tentang [Pod](/docs/user-guide/pods) disarankan.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Latar Belakang
 
-Docker juga memiliki konsep _[volume]_(https://docs.docker.com/engine/admin/volumes/), walaupun konsepnya Docker agak lebih fleksibel dan kurang dikelola. Pada Docker, sebuah volume adalah sesederhana sebuah direktori pada _disk_ atau  di dalam Container lainnya. _Lifetime_ tidak dikelola dan hingga baru-baru ini hanya ada volume yang didukung _disk_ lokal. Docker sekarang menyediakan _driver_ untuk volume, namun fungsionalitasnya masih sangat terbatas (misalnya hingga Docker 1.7 hanya ada satu _driver_ volume yang diizinkan untuk setiap Container, dan tidak ada cara untuk menyampaikan parameter kepada volume).
+Docker juga memiliki konsep _[volume](https://docs.docker.com/storage/)_, walaupun konsepnya Docker agak lebih fleksibel dan kurang dikelola. Pada Docker, sebuah volume adalah sesederhana sebuah direktori pada _disk_ atau  di dalam Container lainnya. _Lifetime_ tidak dikelola dan hingga baru-baru ini hanya ada volume yang didukung _disk_ lokal. Docker sekarang menyediakan _driver_ untuk volume, namun fungsionalitasnya masih sangat terbatas (misalnya hingga Docker 1.7 hanya ada satu _driver_ volume yang diizinkan untuk setiap Container, dan tidak ada cara untuk menyampaikan parameter kepada volume).
 
 Sebaliknya, sebuah Volume Kubernetes memiliki _lifetime_ yang gamblang - sama dengan _lifetime_ Pod yang berisi Volume tersebut. Oleh karena itu, sebuah Volume bertahan lebih lama dari Container-container yang berjalan di dalam Pod tersebut, dan data di Volum tersebut juga dipertahankan melewati diulangnya Container. Tentu saja, saat sebuah Pod berakhir, Volume tersebut juga akan berakhir/terhapus. Dan mungkin lebih penting lagi, Kubernetes mendukung banyak jenis Volume, dan sebuah Pod dapat menggunakan sebanyak apapun Volume secara bersamaan.
 
@@ -83,7 +83,7 @@ Sebelum kamu dapat menggunakan sebuah volume EBS pada sebuah Pod, kamu harus mem
 aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
 ```
 
-Pastikan _availability zone_ yang kamu masukkan sama dengan _availability zone_ kluster kamu. (Dan pastikan juga ukuran dan jenis EBSnya sesuai dengan penggunaan yang kamu butuhkan!)
+Pastikan _availability zone_ yang kamu masukkan sama dengan _availability zone_ klaster kamu. (Dan pastikan juga ukuran dan jenis EBSnya sesuai dengan penggunaan yang kamu butuhkan!)
 
 #### Contoh Konfigurasi AWS EBS
 
@@ -111,7 +111,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-Pada saat fitur migrasi CSI (Container Storage Interface) untuk `awsElasticBlockStore` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `ebs.csi.aws.com`. Untuk menggunakan fitur ini, [Driver CSI AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationAWS` harus diaktifkan.
+Pada saat fitur migrasi CSI (Container Storage Interface) untuk `awsElasticBlockStore` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `ebs.csi.aws.com`. Untuk menggunakan fitur ini, [Driver CSI AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationAWS` harus diaktifkan.
 
 ### azureDisk {#azuredisk}
 
@@ -123,7 +123,7 @@ Selengkapnya dapat ditemukan [di sini](https://github.com/kubernetes/examples/tr
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-Pada saat fitur migrasi CSI untuk `azureDisk` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `disk.csi.azure.com`. Untuk menggunakan fitur ini, [Driver CSI Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationAzureDisk` harus diaktifkan.
+Pada saat fitur migrasi CSI untuk `azureDisk` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `disk.csi.azure.com`. Untuk menggunakan fitur ini, [Driver CSI Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationAzureDisk` harus diaktifkan.
 
 ### azureFile {#azurefile}
 
@@ -135,7 +135,7 @@ Selengkapnya dapat ditemukan [di sini](https://github.com/kubernetes/examples/tr
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-Pada saat fitur migrasi CSI untuk `azureFile` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `file.csi.azure.com`. Untuk menggunakan fitur ini, [Driver CSI Azure File](https://github.com/kubernetes-sigs/azuredisk-csi-driver) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationAzureFile` harus diaktifkan.
+Pada saat fitur migrasi CSI untuk `azureFile` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `file.csi.azure.com`. Untuk menggunakan fitur ini, [Driver CSI Azure File](https://github.com/kubernetes-sigs/azuredisk-csi-driver) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationAzureFile` harus diaktifkan.
 
 ### cephfs {#cephfs}
 
@@ -181,11 +181,11 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-Pada saat fitur migrasi CSI untuk Cinder diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `cinder.csi.openstack.com`. Untuk menggunakan fitur ini, [Driver CSI Openstack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationOpenStack` harus diaktifkan.
+Pada saat fitur migrasi CSI untuk Cinder diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `cinder.csi.openstack.com`. Untuk menggunakan fitur ini, [Driver CSI Openstack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationOpenStack` harus diaktifkan.
 
 ### configMap {#configmap}
 
-Sumber daya [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) memungkinkan kamu untuk menyuntikkan data konfigurasi ke dalam Pod.
+Sumber daya [`configMap`](/id/docs/tasks/configure-pod-container/configure-pod-configmap/) memungkinkan kamu untuk menyuntikkan data konfigurasi ke dalam Pod.
 Data yang ditaruh di dalam sebuah objek `ConfigMap` dapat dirujuk dalam sebuah Volume dengan tipe `configMap` dan kemudian digunakan oleh aplikasi/container yang berjalan di dalam sebuah Pod.
 
 Saat mereferensikan sebuah objek `configMap`, kamu tinggal memasukkan nama ConfigMap tersebut ke dalam rincian Volume yang bersangkutan. Kamu juga dapat mengganti _path_ spesifik yang akan digunakan pada ConfigMap. Misalnya, untuk menambatkan ConfigMap `log-config` pada Pod yang diberi nama `configmap-pod`, kamu dapat menggunakan YAML ini:
@@ -215,7 +215,7 @@ ConfigMap `log-config` ditambatkan sebagai sebuah Volume, dan semua isinya yang 
 Perlu dicatat bahwa _path_ tersebut berasal dari isian `mountPath` pada Volume, dan `path` yang ditunjuk dengan `key` bernama `log_level`.
 
 {{< caution >}}
-Kamu harus membuat sebuah [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) sebelum kamu dapat menggunakannya.
+Kamu harus membuat sebuah [ConfigMap](/id/docs/tasks/configure-pod-container/configure-pod-configmap/) sebelum kamu dapat menggunakannya.
 {{< /caution >}}
 
 {{< note >}}
@@ -281,7 +281,7 @@ Lihat [Contoh FC](https://github.com/kubernetes/examples/tree/{{< param "githubb
 
 ### flocker {#flocker}
 
-[Flocker](https://github.com/ClusterHQ/flocker) adalah sebuah proyek _open-source_ yg berfungsi sebagai pengatur _volume_ data Container yang diklusterkan. Flocker menyediakan pengelolaan dan orkestrasi _volume_ yang disokong oleh banyak jenis media penyimpanan.
+[Flocker](https://github.com/ClusterHQ/flocker) adalah sebuah proyek _open-source_ yg berfungsi sebagai pengatur _volume_ data Container yang diklasterkan. Flocker menyediakan pengelolaan dan orkestrasi _volume_ yang disokong oleh banyak jenis media penyimpanan.
 
 Sebuah Volume `flockere` memungkinkan sebuah _dataset_ Flocker untuk ditambatkan ke dalam sebuah Pod. Jika _dataset_ tersebut belum ada di dalam Flocker, maka ia harus dibuat terlebih dahulu dengan menggunakan Flocker CLI atau menggunakan Flocker API. Jika _dataset_ tersebut sudah ada, ia akan ditambatkan kembali oleh Flocker ke Node di mana Pod tersebut dijadwalkan. Hal ini berarti data dapat dioper diantara Pod-pod sesuai dengan kebutuhan.
 
@@ -346,7 +346,7 @@ Fitur [Regional Persistent Disks](https://cloud.google.com/compute/docs/disks/#r
 
 #### Menyediakan sebuah Regional PD PersistentVolume Secara Manual
 
-Penyediaan secara dinamis mungkin dilakukan dengan sebuah [StorageClass untuk GCE PD](/docs/concepts/storage/storage-classes/#gce).
+Penyediaan secara dinamis mungkin dilakukan dengan sebuah [StorageClass untuk GCE PD](/id/docs/concepts/storage/storage-classes/#gce).
 Sebelum membuat sebuah PersistentVolume, kamu harus membuat PD-nya:
 
 ```shell
@@ -378,7 +378,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-Pada saat fitur migrasi CSI untuk GCE PD diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `pd.csi.storage.gke.io`. Untuk menggunakan fitur ini, [Driver CSI GCE PD](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationGCE` harus diaktifkan.
+Pada saat fitur migrasi CSI untuk GCE PD diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `pd.csi.storage.gke.io`. Untuk menggunakan fitur ini, [Driver CSI GCE PD](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationGCE` harus diaktifkan.
 
 ### gitRepo (kedaluwarsa) {#gitrepo}
 
@@ -450,7 +450,7 @@ Nilai yang didukung untuk kolom `type` adalah:`
 Berhati-hatilah saat menggunakan tipe volume ini, karena:
 
 * Pod-pod dengan konfigurasi identik (misalnya dibuat dari podTemplate) mungkin berperilaku berbeda pada Node-node yang berbeda oleh karena berkas-berkas yang berbeda pada Node-node tersebut.
-* Saat Kubernetes menambahkan penjadwalan yang sadar terhadap sumber-daya kluster, sesuai yang telah direncanakan, ia tidak dapat melakukan perhitungan terhadap sumber daya yang digunakan oleh sebuah `hostPath`
+* Saat Kubernetes menambahkan penjadwalan yang sadar terhadap sumber-daya klaster, sesuai yang telah direncanakan, ia tidak dapat melakukan perhitungan terhadap sumber daya yang digunakan oleh sebuah `hostPath`
 * Berkas-berkas atau direktori-direktori yang dibuat pada _host-host_ bersangkutan hanya dapat ditulis oleh `root`. Kamu butuh antara menjalankan proses aplikasi kamu sebagai `root` pada sebuah [privileged Container](/docs/user-guide/security-context) atau mengubah _permission_ berkas kamu pada _host_ tersebut agar dapat menulis pada Volume `hostPath`
 
 #### Contoh Pod
@@ -533,7 +533,7 @@ Kolom `nodeAffinity` ada PersistentVolue dibutuhkan saat menggunakan Volume `loc
 
 Kolom `volumeMode` pada PersistentVolume sekarang dapat disetel menjadi "Block" (menggantikan nilai bawaan "Filesystem") untuk membuka Volume `local` tersebut sebagai media penyimpanan blok mentah. Hal ini membutuhkan diaktifkannya _Alpha feature gate_ `BlockVolume`.
 
-Saat menggunakan Volume `local`, disarankan untuk membuat sebuah StorageClass dengan `volumeBindingMode` yang disetel menjadi `WaitForFirstConsumer`. Lihat[contohnya](/docs/concepts/storage/storage-classes/#local). Menunda pengikatan Volume memastikan bahwa keputusan pengikatan PersistentVolumeClaim juga akan dievaluasi terhadap batasan-batasan Node yang berlaku pada Pod, seperti kebutuhan sumber daya Node, `nodeSelector`, `podAffinity`, dan `podAntiAffinity`.
+Saat menggunakan Volume `local`, disarankan untuk membuat sebuah StorageClass dengan `volumeBindingMode` yang disetel menjadi `WaitForFirstConsumer`. Lihat[contohnya](/id/docs/concepts/storage/storage-classes/#local). Menunda pengikatan Volume memastikan bahwa keputusan pengikatan PersistentVolumeClaim juga akan dievaluasi terhadap batasan-batasan Node yang berlaku pada Pod, seperti kebutuhan sumber daya Node, `nodeSelector`, `podAffinity`, dan `podAntiAffinity`.
 
 Sebuah penyedia statis eksternal dapat berjalan secara terpisah untuk memperbaik pengaturan siklus hidup Volume `local`. Perlu dicatat bahwa penyedia ini belum mendukung _dynamic provisioning_. Untuk contoh bagaimana menjalankan penyedia Volume `local` eksternal, lihat [petunjuk penggunaannya](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 
@@ -554,9 +554,9 @@ Lihat [contoh NFS](https://github.com/kubernetes/examples/tree/{{< param "github
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
-Sebuah Volume `persistentVolumeClaim` digunakan untuk menambatkan sebuah [PersistentVolume](/docs/concepts/storage/persistent-volumes/) ke dalam sebuag Pod. PersistentVolume adalah sebuah cara bagi pengguna untuk "mengklaim" penyimpanan yang _durable_ (seperti sebuah GCE PD atau sebuah volume iSCSI) tanpa mengetahui detil lingkungan _cloud_ yang bersangkutan.
+Sebuah Volume `persistentVolumeClaim` digunakan untuk menambatkan sebuah [PersistentVolume](/id/docs/concepts/storage/persistent-volumes/) ke dalam sebuag Pod. PersistentVolume adalah sebuah cara bagi pengguna untuk "mengklaim" penyimpanan yang _durable_ (seperti sebuah GCE PD atau sebuah volume iSCSI) tanpa mengetahui detil lingkungan _cloud_ yang bersangkutan.
 
-Lihat [contoh PersistentVolumes](/docs/concepts/storage/persistent-volumes/) untuk lebih lanjut.
+Lihat [contoh PersistentVolumes](/id/docs/concepts/storage/persistent-volumes/) untuk lebih lanjut.
 
 ### projected {#projected}
 
@@ -742,10 +742,10 @@ Lihat [contoh RBD](https://github.com/kubernetes/examples/tree/{{< param "github
 
 ### scaleIO {#scaleio}
 
-ScaleIO adalah _platform_ penyimpanan berbasis perangkat lunak yang dapat menggunakan perangkat keras yang sudah tersedia untuk membuat kluster-kluster media penyimpanan terhubung jaringan yang _scalable_. _Plugin_ Volume `scaleIO` memungkinkan Pod-pod yang di-_deploy_ untuk mengakses Volume-volume ScaleIO yang telah tersedia (atau dapat menyediakan volume-volume untuk PersistentVolumeClaim secara dinamis, lihat [Persistent Volume ScaleIO](/docs/concepts/storage/persistent-volumes/#scaleio)).
+ScaleIO adalah _platform_ penyimpanan berbasis perangkat lunak yang dapat menggunakan perangkat keras yang sudah tersedia untuk membuat klaster-klaster media penyimpanan terhubung jaringan yang _scalable_. _Plugin_ Volume `scaleIO` memungkinkan Pod-pod yang di-_deploy_ untuk mengakses Volume-volume ScaleIO yang telah tersedia (atau dapat menyediakan volume-volume untuk PersistentVolumeClaim secara dinamis, lihat [Persistent Volume ScaleIO](/id/docs/concepts/storage/persistent-volumes/#scaleio)).
 
 {{< caution >}}
-Kamu harus memiliki kluster ScaleIO yang berjalan dengan volume-volume yang sudah dibuat sebelum kamu dapat menggunakannya.
+Kamu harus memiliki klaster ScaleIO yang berjalan dengan volume-volume yang sudah dibuat sebelum kamu dapat menggunakannya.
 {{< /caution >}}
 
 Berikut contoh konfigurasi sebuah Pod yang menggunakan ScaleIO:
@@ -795,7 +795,7 @@ Secret dijelaskan lebih lanjut [di sini](/docs/user-guide/secrets).
 
 Sebuah Volume `storageos` memungkinkan volume [StorageOS](https://www.storageos.com) yang sudah tersedia untuk ditambatkan ke dalam Pod kamu.
 
-StorageOS berjalan sebagai sebuah COntainer di dalam lingkungan Kubernetes kamu, membuat penyimpanan yang lokal atau penyimpanan yang sedang dipasang untuk diakses dari Node manapun di dalam kluster Kubernetes.
+StorageOS berjalan sebagai sebuah COntainer di dalam lingkungan Kubernetes kamu, membuat penyimpanan yang lokal atau penyimpanan yang sedang dipasang untuk diakses dari Node manapun di dalam klaster Kubernetes.
 Data dapat direplikasikan untuk melindungi dari kegagalan Node. _Thin provisioning_ dan kompresi dapat meningkatkan utilisasi dan mengurangi biaya.
 
 Di dalam intinya, StorageOS menyediakan penyimpanan blok kepada Container-container, yang dapat diakses melalui sebuah _filesystem_.
@@ -804,7 +804,7 @@ Container StorageOS membutuhkan Linux 64-bit dan tidak memiliki ketergantungan t
 Tersedia pula sebuah lisensi gratis untuk _developer_.
 
 {{< caution >}}
-Kamu harus menjalankan Container StorageOS pada setiap Node yang ingin mengakses volume-volume StorageOS atau yang akan berkontribusi pada kapasitas penyimpanan di kluster StorageOS. Untuk petunjuk instalasi, lihat [dokumentasi StorageOS](https://docs.storageos.com).
+Kamu harus menjalankan Container StorageOS pada setiap Node yang ingin mengakses volume-volume StorageOS atau yang akan berkontribusi pada kapasitas penyimpanan di klaster StorageOS. Untuk petunjuk instalasi, lihat [dokumentasi StorageOS](https://docs.storageos.com).
 {{< /caution >}}
 
 ```yaml
@@ -972,7 +972,7 @@ spec:
 
 Media penyimpanan (Disk, SSD, dll.) dari sebuah Volume `emptyDir` ditentukan oleh medium dari _filesystem_ yang menyimpan direktori _root_ dari Kubelet (biasanya `/var/lib/kubelet`). Tidak ada batasan berapa banyak ruang yang dapat digunakan oleh Volume `emptyDir` dan `hostPath`, dan tidak ada isolasi antara Container-container atau antara Pod-pod.
 
-Ke depannya, kita mengharapkan Volume `emptyDir` dan `hostPath` akan dapat meminta jumlah ruangan penyimpanan tertentu dengan mengunakan spesifikasi [resource][resource](/docs/user-guide/compute-resources), dan memilih tipe media penyimpanan yang akan digunakan, untuk kluster yang memiliki beberapa jenis media penyimpanan.
+Ke depannya, kita mengharapkan Volume `emptyDir` dan `hostPath` akan dapat meminta jumlah ruangan penyimpanan tertentu dengan mengunakan spesifikasi [resource][resource](/docs/user-guide/compute-resources), dan memilih tipe media penyimpanan yang akan digunakan, untuk klaster yang memiliki beberapa jenis media penyimpanan.
 
 ## _Plugin_ Volume yang Out-of-Tree
 
@@ -980,7 +980,7 @@ _Plugin_ Volume yang Out-of-tree termasuk Container Storage Interface (CSI) dan 
 
 Sebelum dikenalkannya CSI dan Flexvolume, semua _plugin_ volume (seperti jenis-jenis volume yang terdaftar di atas) berada pada "in-tree", yang berarti bahwa mereka dibangun, di-_link_, di-_compile_, dan didistribusikan bersama-sama dengan kode inti Kubernetes dan mengekstensi inti dari Kubernetes API. Hal ini berarti menambah sistem penyimpanan baru ke dalam Kubernetes (sebuah _plugin_ volume) membutukan penambahan kode tersebut ke dalam _repository_ kode inti Kubernetes.
 
-CSI dan Flexvolume memungkinkan _plugin_ volume untuk dikembangkan secara terpisah dari kode inti Kubernetes, dan diinstal pada kluster Kubernetes sebagai ekstensi.
+CSI dan Flexvolume memungkinkan _plugin_ volume untuk dikembangkan secara terpisah dari kode inti Kubernetes, dan diinstal pada klaster Kubernetes sebagai ekstensi.
 
 Bagi _vendor-vendor_ penyimpanan yang ingin membuat sebuah _plugin_ volume yang out-of-tree, lihat [FAQ ini](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
@@ -1001,7 +1001,7 @@ _Driver-driver_ CSI mungkin tidak cocok pada semua rilis Kubernetes.
 Silahkan lihat dokumentasi _driver_ CSI yang bersangkutan untuk petunjuk penggunaan yang didukung untuk setiap rilis Kubernetes, dan untuk melihat matriks kompabilitasnya.
 {{< /note >}}
 
-Saat sebuah _driver_ volume CSI dipasang pada kluster Kubernetes, pengguna dapat menggunakan tipe Volume `csi` untuk menambatkan volume-volume yang diekspos oleh _driver_ CSI tersebut.
+Saat sebuah _driver_ volume CSI dipasang pada klaster Kubernetes, pengguna dapat menggunakan tipe Volume `csi` untuk menambatkan volume-volume yang diekspos oleh _driver_ CSI tersebut.
 
 Tipe Volume `csi` tidak mendukung referensi secara langsung dari Pod dan hanya dapat dirujuk di dalam sebuah Pod melalui sebuah objek `PersistentVolumeClaim`.
 
@@ -1033,7 +1033,7 @@ Dimulai pada versi 1.11, CSI memperkenalkan dukungak untuk volume blok _raw_, ya
 
 Dukungan untuk volume blok CSI bersifat _feature-gate_, tapi secara bawaan diaktifkan. Kedua _feature-gate_ yang harus diaktifkan adalah `BlockVolume` dan `CSIBlockVolume`.
 
-Pelajari cara [menyiapkan PV/PVC dengan dukungan volume blok _raw_](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
+Pelajari cara [menyiapkan PV/PVC dengan dukungan volume blok _raw_](/id/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
 #### Volume CSI Sementara
 
@@ -1144,8 +1144,9 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * Ikuti contoh [memasang WordPress dan MySQL dengan Persistent Volume](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 
-{{% /capture %}}
+

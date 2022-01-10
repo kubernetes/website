@@ -2,11 +2,11 @@
 reviewers:
 - mikedanese
 title: Labels and Selectors
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.
 Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system.
@@ -22,12 +22,11 @@ Each object can have a set of key/value labels defined. Each Key must be unique 
 }
 ```
 
-Labels allow for efficient queries and watches and are ideal for use in UIs and CLIs. Non-identifying information should be recorded using [annotations](/docs/concepts/overview/working-with-objects/annotations/).
+Labels allow for efficient queries and watches and are ideal for use in UIs
+and CLIs. Non-identifying information should be recorded using
+[annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## Motivation
 
@@ -43,7 +42,7 @@ Example labels:
    * `"partition" : "customerA"`, `"partition" : "customerB"`
    * `"track" : "daily"`, `"track" : "weekly"`
 
-These are just examples of commonly used labels; you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
+These are examples of [commonly used labels](/docs/concepts/overview/working-with-objects/common-labels/); you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
 
 ## Syntax and character set
 
@@ -51,11 +50,14 @@ _Labels_ are key/value pairs. Valid label keys have two segments: an optional pr
 
 If the prefix is omitted, the label Key is presumed to be private to the user. Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl`, or other third-party automation) which add labels to end-user objects must specify a prefix.
 
-The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.
+The `kubernetes.io/` and `k8s.io/` prefixes are [reserved](/docs/reference/labels-annotations-taints/) for Kubernetes core components.
 
-Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
+Valid label value:
+* must be 63 characters or less (can be empty),
+* unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
+* could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
-For example, here’s the configuration file for a Pod that has two labels `environment: production` and `app: nginx` :
+For example, here's the configuration file for a Pod that has two labels `environment: production` and `app: nginx` :
 
 ```yaml
 
@@ -69,15 +71,15 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
-    
+
 ```
 
 ## Label selectors
 
-Unlike [names and UIDs](/docs/user-guide/identifiers), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
+Unlike [names and UIDs](/docs/concepts/overview/working-with-objects/names/), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
 
 Via a _label selector_, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.
 
@@ -92,10 +94,14 @@ them.
 For some API types, such as ReplicaSets, the label selectors of two instances must not overlap within a namespace, or the controller can see that as conflicting instructions and fail to determine how many replicas should be present.
 {{< /note >}}
 
+{{< caution >}}
+For both equality-based and set-based conditions there is no logical _OR_ (`||`) operator. Ensure your filter statements are structured accordingly.
+{{< /caution >}}
+
 ### _Equality-based_ requirement
 
 _Equality-_ or _inequality-based_ requirements allow filtering by label keys and values. Matching objects must satisfy all of the specified label constraints, though they may have additional labels as well.
-Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _equality_ (and are simply synonyms), while the latter represents _inequality_. For example:
+Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _equality_ (and are synonyms), while the latter represents _inequality_. For example:
 
 ```
 environment = production
@@ -137,10 +143,11 @@ partition
 !partition
 ```
 
-The first example selects all resources with key equal to `environment` and value equal to `production` or `qa`.
-The second example selects all resources with key equal to `tier` and values other than `frontend` and `backend`, and all resources with no labels with the `tier` key.
-The third example selects all resources including a label with key `partition`; no values are checked.
-The fourth example selects all resources without a label with key `partition`; no values are checked.
+* The first example selects all resources with key equal to `environment` and value equal to `production` or `qa`.
+* The second example selects all resources with key equal to `tier` and values other than `frontend` and `backend`, and all resources with no labels with the `tier` key.
+* The third example selects all resources including a label with key `partition`; no values are checked.
+* The fourth example selects all resources without a label with key `partition`; no values are checked.
+
 Similarly the comma separator acts as an _AND_ operator. So filtering resources with a `partition` key (no matter the value) and with `environment` different than  `qa` can be achieved using `partition,environment notin (qa)`.
 The _set-based_ label selector is a general form of equality since `environment=production` is equivalent to `environment in (production)`; similarly for `!=` and `notin`.
 
@@ -182,7 +189,10 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ### Set references in API objects
 
-Some Kubernetes objects, such as [`services`](/docs/user-guide/services) and [`replicationcontrollers`](/docs/user-guide/replication-controller), also use label selectors to specify sets of other resources, such as [pods](/docs/user-guide/pods).
+Some Kubernetes objects, such as [`services`](/docs/concepts/services-networking/service/)
+and [`replicationcontrollers`](/docs/concepts/workloads/controllers/replicationcontroller/),
+also use label selectors to specify sets of other resources, such as
+[pods](/docs/concepts/workloads/pods/).
 
 #### Service and ReplicationController
 
@@ -206,7 +216,11 @@ this selector (respectively in `json` or `yaml` format) is equivalent to `compon
 
 #### Resources that support set-based requirements
 
-Newer resources, such as [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`Replica Set`](/docs/concepts/workloads/controllers/replicaset/), and [`Daemon Set`](/docs/concepts/workloads/controllers/daemonset/), support _set-based_ requirements as well.
+Newer resources, such as [`Job`](/docs/concepts/workloads/controllers/job/),
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/),
+[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/), and
+[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/),
+support _set-based_ requirements as well.
 
 ```yaml
 selector:
@@ -222,6 +236,4 @@ selector:
 #### Selecting sets of nodes
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
-See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.
-
-{{% /capture %}}
+See the documentation on [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.

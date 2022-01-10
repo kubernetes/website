@@ -8,11 +8,11 @@ date: 2019-04-16
 
 Kubernetes is well-known for running scalable workloads. It scales your workloads based on their resource usage. When a workload is scaled up, more instances of the application get created. When the application is critical for your product, you want to make sure that these new instances are scheduled even when your cluster is under resource pressure. One obvious solution to this problem is to over-provision your cluster resources to have some amount of slack resources available for scale-up situations. This approach often works, but costs more as you would have to pay for the resources that are idle most of the time.
 
-[Pod priority and preemption](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/) is a scheduler feature made generally available in Kubernetes 1.14 that allows you to achieve high levels of scheduling confidence for your critical workloads without overprovisioning your clusters. It also provides a way to improve resource utilization in your clusters without sacrificing the reliability of your essential workloads.
+[Pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/) is a scheduler feature made generally available in Kubernetes 1.14 that allows you to achieve high levels of scheduling confidence for your critical workloads without overprovisioning your clusters. It also provides a way to improve resource utilization in your clusters without sacrificing the reliability of your essential workloads.
 
 ## Guaranteed scheduling with controlled cost
 
-[Kubernetes Cluster Autoscaler](https://kubernetes.io/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling) is an excellent tool in the ecosystem which adds more nodes to your cluster when your applications need them. However, cluster autoscaler has some limitations and may not work for all users:
+[Kubernetes Cluster Autoscaler](https://github.com/kubernetes/autoscaler/) is an excellent tool in the ecosystem which adds more nodes to your cluster when your applications need them. However, cluster autoscaler has some limitations and may not work for all users:
 
 - It does not work in physical clusters.
 - Adding more nodes to the cluster costs more.

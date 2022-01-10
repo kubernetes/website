@@ -1,5 +1,5 @@
 ---
-title: 서비스 어카운트(Service Account)
+title: 서비스어카운트(ServiceAccount)
 id: service-account
 date: 2018-04-12
 full_link: /docs/tasks/configure-pod-container/configure-service-account/

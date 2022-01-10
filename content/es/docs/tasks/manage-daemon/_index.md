@@ -1,4 +1,4 @@
 ---
-title: Gestionar y ejecutar demonios
+title: Gestionar y ejecutar daemons
 weight: 45
 ---

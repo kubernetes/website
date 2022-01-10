@@ -2,11 +2,11 @@
 title: Service Catalog
 reviewers:
 - chenopis
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
 
 A service broker, as defined by the [Open service broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of managed services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
@@ -14,10 +14,10 @@ Some examples of managed services are Microsoft Azure Cloud Queue, Amazon Simple
 
 Using Service Catalog, a {{< glossary_tooltip text="cluster operator" term_id="cluster-operator" >}} can browse the list of managed services offered by a service broker, provision an instance of a managed service, and bind with it to make it available to an application in the Kubernetes cluster.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## Example use case
 
 An {{< glossary_tooltip text="application developer" term_id="application-developer" >}} wants to use message queuing as part of their application running in a Kubernetes cluster.
@@ -26,13 +26,13 @@ Fortunately, there is a cloud provider that offers message queuing as a managed 
 
 A cluster operator can setup Service Catalog and use it to communicate with the cloud provider's service broker to provision an instance of the message queuing service and make it available to the application within the Kubernetes cluster.
 The application developer therefore does not need to be concerned with the implementation details or management of the message queue.
-The application can simply use it as a service.
+The application can access the message queue as a service.
 
 ## Architecture
 
 Service Catalog uses the [Open service broker API](https://github.com/openservicebrokerapi/servicebroker) to communicate with service brokers, acting as an intermediary for the Kubernetes API Server to negotiate the initial provisioning and retrieve the credentials necessary for the application to use a managed service.
 
-It is implemented as an extension API server and a controller, using etcd for storage. It also uses the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) available in Kubernetes 1.7+ to present its API.
+It is implemented using a [CRDs-based](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources) architecture.
 
 <br>
 
@@ -222,16 +222,17 @@ The following example describes how to map secret values into application enviro
                    key: topic
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * If you are familiar with {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}, [install Service Catalog using Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/) into your Kubernetes cluster. Alternatively, you can [install Service Catalog using the SC tool](/docs/tasks/service-catalog/install-service-catalog-using-sc/).
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
-* Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
+* Explore the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) project.
 * View [svc-cat.io](https://svc-cat.io/docs/).
 
-{{% /capture %}}
+
 
 
 

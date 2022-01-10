@@ -1,11 +1,3 @@
-function addAnchorTags() {
-  anchors.options = {
-    visible: 'touch'
-  }
-
-  anchors.add('#docsContent h2, #docsContent h3, #docsContent h4, #docsContent h5, #docsContent h6');
-}
-
 //modal close button
 (function(){
     //π.modalCloseButton = function(closingFunction){
@@ -17,40 +9,6 @@ function addAnchorTags() {
 var body;
 
 //helper functions
-function copyCode(elem){
-     if (document.getElementById(elem)) {
-         // create hidden text element, if it doesn't already exist
-         var targetId = "_hiddenCopyText_";
-             // must use a temporary form element for the selection and copy
-             target = document.getElementById(targetId);
-             if (!target) {
-                 var target = document.createElement("textarea");
-                 target.style.position = "absolute";
-                 target.style.left = "-9999px";
-                 target.style.top = "0";
-                 target.id = targetId;
-                 document.body.appendChild(target);
-             }
-             target.value = document.getElementById(elem).innerText;
-         // select the content
-         target.select();
-
-         // copy the selection
-         var succeed;
-         try {
-             succeed = document.execCommand("copy");
-         } catch(e) {
-             swal("Oh, no...","Sorry, your browser doesn't support document.execCommand('copy'), so we can't copy this code to your clipboard.");
-             succeed = false;
-         }
-         if (succeed) swal("Copied to clipboard: ",elem);
-         return succeed;
-     } else {
-         swal("Oops!",elem + " not found when trying to copy code");
-         return false;
-     }
- }
-
 function booleanAttributeValue(element, attribute, defaultValue){
     // returns true if an attribute is present with no value
     // e.g. booleanAttributeValue(element, 'data-modal', false);
@@ -113,6 +71,8 @@ var kub = (function () {
         footer = $('footer');
         headlineWrapper = $('#headlineWrapper');
         HEADER_HEIGHT = header.outerHeight();
+
+        document.documentElement.classList.remove('no-js');
 
         resetTheView();
 
@@ -517,16 +477,13 @@ var pushmenu = (function(){
 })();
 
 $(function() {
-  addAnchorTags();
-
-
     // If vendor strip doesn't exist add className
     if ( !$('#vendorStrip').length > 0 ) {
-        $('#hero').addClass('bot-bar');
+        $('.header-hero').addClass('bot-bar');
     }
 
     // If is not homepage add class to hero section
-    if (!$('#home').length > 0 ) {
-        $('#hero').addClass('no-sub');
+    if (!$('.td-home').length > 0 ) {
+        $('.header-hero').addClass('no-sub');
     }
 });

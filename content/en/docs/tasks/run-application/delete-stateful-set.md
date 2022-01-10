@@ -6,23 +6,24 @@ reviewers:
 - janetkuo
 - smarterclayton
 title: Delete a StatefulSet
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This task shows you how to delete a {{< glossary_tooltip term_id="StatefulSet" >}}.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * This task assumes you have an application running on your cluster represented by a StatefulSet.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Deleting a StatefulSet
 
@@ -42,14 +43,14 @@ You may need to delete the associated headless service separately after the Stat
 kubectl delete service <service-name>
 ```
 
-Deleting a StatefulSet through kubectl will scale it down to 0, thereby deleting all pods that are a part of it. 
-If you want to delete just the StatefulSet and not the pods, use `--cascade=false`.
+When deleting a StatefulSet through `kubectl`, the StatefulSet scales down to 0. All Pods that are part of this workload are also deleted. If you want to delete only the StatefulSet and not the Pods, use `--cascade=orphan`.
+For example:
 
 ```shell
-kubectl delete -f <file.yaml> --cascade=false
+kubectl delete -f <file.yaml> --cascade=orphan
 ```
 
-By passing `--cascade=false` to `kubectl delete`, the Pods managed by the StatefulSet are left behind even after the StatefulSet object itself is deleted. If the pods have a label `app=myapp`, you can then delete them as follows:
+By passing `--cascade=orphan` to `kubectl delete`, the Pods managed by the StatefulSet are left behind even after the StatefulSet object itself is deleted. If the pods have a label `app=myapp`, you can then delete them as follows:
 
 ```shell
 kubectl delete pods -l app=myapp
@@ -57,7 +58,7 @@ kubectl delete pods -l app=myapp
 
 ### Persistent Volumes
 
-Deleting the Pods in a StatefulSet will not delete the associated volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Deleting the PVC after the pods have left the [terminating state](/docs/concepts/workloads/pods/pod/#termination-of-pods) might trigger deletion of the backing Persistent Volumes depending on the storage class and reclaim policy. You should never assume ability to access a volume after claim deletion.
+Deleting the Pods in a StatefulSet will not delete the associated volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Deleting the PVC after the pods have terminated might trigger deletion of the backing Persistent Volumes depending on the storage class and reclaim policy. You should never assume ability to access a volume after claim deletion.
 
 {{< note >}}
 Use caution when deleting a PVC, as it may lead to data loss.
@@ -65,7 +66,7 @@ Use caution when deleting a PVC, as it may lead to data loss.
 
 ### Complete deletion of a StatefulSet
 
-To simply delete everything in a StatefulSet, including the associated pods, you can run a series of commands similar to the following:
+To delete everything in a StatefulSet, including the associated pods, you can run a series of commands similar to the following:
 
 ```shell
 grace=$(kubectl get pods <stateful-set-pod> --template '{{.spec.terminationGracePeriodSeconds}}')
@@ -81,12 +82,13 @@ In the example above, the Pods have the label `app=myapp`; substitute your own l
 
 If you find that some pods in your StatefulSet are stuck in the 'Terminating' or 'Unknown' states for an extended period of time, you may need to manually intervene to forcefully delete the pods from the apiserver. This is a potentially dangerous task. Refer to [Force Delete StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/) for details.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
-{{% /capture %}}
+
 
 

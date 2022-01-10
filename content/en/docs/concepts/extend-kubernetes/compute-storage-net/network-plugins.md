@@ -4,31 +4,27 @@ reviewers:
 - freehan
 - thockin
 title: Network Plugins
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
-
-{{< feature-state state="alpha" >}}
-{{< warning >}}Alpha features change rapidly. {{< /warning >}}
+<!-- overview -->
 
 Network plugins in Kubernetes come in a few flavors:
 
-* CNI plugins: adhere to the appc/CNI specification, designed for interoperability.
+* CNI plugins: adhere to the [Container Network Interface](https://github.com/containernetworking/cni) (CNI) specification, designed for interoperability.
+  * Kubernetes follows the [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) release of the CNI specification.
 * Kubenet plugin: implements basic `cbr0` using the `bridge` and `host-local` CNI plugins
 
-{{% /capture %}}
-
-{{% capture body %}}
+<!-- body -->
 
 ## Installation
 
-The kubelet has a single default network plugin, and a default network common to the entire cluster. It probes for plugins when it starts up, remembers what it finds, and executes the selected plugin at appropriate times in the pod lifecycle (this is only true for Docker, as rkt manages its own CNI plugins). There are two Kubelet command line parameters to keep in mind when using plugins:
+The kubelet has a single default network plugin, and a default network common to the entire cluster. It probes for plugins when it starts up, remembers what it finds, and executes the selected plugin at appropriate times in the pod lifecycle (this is only true for Docker, as CRI manages its own CNI plugins). There are two Kubelet command line parameters to keep in mind when using plugins:
 
 * `cni-bin-dir`: Kubelet probes this directory for plugins on startup
-* `network-plugin`: The network plugin to use from `cni-bin-dir`.  It must match the name reported by a plugin probed from the plugin directory.  For CNI plugins, this is simply "cni".
+* `network-plugin`: The network plugin to use from `cni-bin-dir`.  It must match the name reported by a plugin probed from the plugin directory.  For CNI plugins, this is `cni`.
 
 ## Network Plugin Requirements
 
@@ -83,11 +79,13 @@ For example:
 
 #### Support traffic shaping
 
+**Experimental Feature**
+
 The CNI networking plugin also supports pod ingress and egress traffic shaping. You can use the official [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
 plugin offered by the CNI plugin team or use your own plugin with bandwidth control functionality.
 
-If you want to enable traffic shaping support, you must add a `bandwidth` plugin to your CNI configuration file
-(default `/etc/cni/net.d`).
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file
+(default `/etc/cni/net.d`) and ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
 
 ```json
 {
@@ -154,18 +152,14 @@ most network plugins.
 
 Where needed, you can specify the MTU explicitly with the `network-plugin-mtu` kubelet option.  For example,
 on AWS the `eth0` MTU is typically 9001, so you might specify `--network-plugin-mtu=9001`.  If you're using IPSEC you
-might reduce it to allow for encapsulation overhead e.g. `--network-plugin-mtu=8873`.
+might reduce it to allow for encapsulation overhead; for example: `--network-plugin-mtu=8873`.
 
 This option is provided to the network-plugin; currently **only kubenet supports `network-plugin-mtu`**.
 
 ## Usage Summary
 
 * `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `--cni-bin-dir` (default `/opt/cni/bin`) and CNI plugin configuration located in `--cni-conf-dir` (default `/etc/cni/net.d`).
-* `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge` and `host-local` plugins placed in `/opt/cni/bin` or `cni-bin-dir`.
+* `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge`, `lo` and `host-local` plugins placed in `/opt/cni/bin` or `cni-bin-dir`.
 * `--network-plugin-mtu=9001` specifies the MTU to use, currently only used by the `kubenet` network plugin.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-{{% /capture %}}
+## {{% heading "whatsnext" %}}

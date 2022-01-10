@@ -5,54 +5,54 @@ feature:
   description: >
     Secara otomatis memasang sistem penyimpanan pilihanmu, baik dari penyimpanan lokal, penyedia layanan _cloud_ seperti <a href="https://cloud.google.com/storage/">GCP</a> atau <a href="https://aws.amazon.com/products/storage/">AWS</a>, maupun sebuah sistem penyimpanan jaringan seperti NFS, iSCSI, Gluster, Ceph, Cinder, atau Flocker.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-Dokumen ini menjelaskan kondisi terkini dari `PersistentVolumes` pada Kubernetes. Disarankan telah memiliki familiaritas dengan [volume](/docs/concepts/storage/volumes/).
-
-{{% /capture %}}
+Dokumen ini menjelaskan kondisi terkini dari `PersistentVolumes` pada Kubernetes. Disarankan telah memiliki familiaritas dengan [volume](/id/docs/concepts/storage/volumes/).
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## Pengenalan
 
 Mengelola penyimpanan adalah hal yang berbeda dengan mengelola komputasi. Sub-sistem `PersistentVolume` (PV) menyediakan API untuk para pengguna dan administrator yang mengabstraksi detail-detail tentang bagaimana penyimpanan disediakan dari bagaimana penyimpanan dikonsumsi. Untuk melakukan ini, kami mengenalkan dua sumber daya API baru:  `PersistentVolume` (PV) dan `PersistentVolumeClaim` (PVC).
 
-Sebuah `PersistentVolume` (PV) adalah suatu bagian dari penyimpanan pada kluster yang telah disediakan oleh seorang administrator. PV merupakan sebuah sumber daya pada kluster sama halnya dengan _node_ yang juga merupakan sumber daya kluster. PV adalah _volume plugin_ seperti _Volumes_, tetapi memiliki siklus hidup yang independen dari _pod_ individual yang menggunakan PV tersebut. Objek API ini menangkap detail-detail implementasi dari penyimpanan, seperti NFS, iSCSI, atau sistem penyimpanan yang spesifik pada penyedia layanan _cloud_.
+Sebuah `PersistentVolume` (PV) adalah suatu bagian dari penyimpanan pada klaster yang telah disediakan oleh seorang administrator. PV merupakan sebuah sumber daya pada klaster sama halnya dengan _node_ yang juga merupakan sumber daya klaster. PV adalah _volume plugin_ seperti _Volumes_, tetapi memiliki siklus hidup yang independen dari _pod_ individual yang menggunakan PV tersebut. Objek API ini menangkap detail-detail implementasi dari penyimpanan, seperti NFS, iSCSI, atau sistem penyimpanan yang spesifik pada penyedia layanan _cloud_.
 
 Sebuah `PersistentVolumeClaim` (PVC) merupakan permintaan penyimpanan oleh pengguna. PVC mirip dengan sebuah _pod_. _Pod_ mengonsumsi sumber daya _node_ dan PVC mengonsumsi sumber daya PV. _Pods_ dapat meminta taraf-taraf spesifik dari sumber daya (CPU dan Memory).  Klaim dapat meminta ukuran dan mode akses yang spesifik (seperti, dapat dipasang sekali sebagai _read/write_ atau lain kali sebagai _read-only_).
 
 Meskipun `PersistentVolumeClaims` mengizinkan pengguna untuk mengkonsumsi sumber daya penyimpanan
 abstrak, pada umumnya para pengguna membutuhkan `PersistentVolumes` dengan properti yang
-bermacam-macam, seperti performa, untuk mengatasi masalah yang berbeda. Para administrator kluster
+bermacam-macam, seperti performa, untuk mengatasi masalah yang berbeda. Para administrator klaster
 harus dapat menawarkan berbagai macam `PersistentVolumes` yang berbeda tidak hanya pada ukuran dan
 mode akses, tanpa memaparkan detail-detail bagaimana cara volume tersebut diimplementasikan
 kepada para pengguna. Untuk mengatasi hal ini maka dibutuhkan sumber daya
 `StorageClass`.
 
-Silakan lihat [panduan mendetail dengan contoh-contoh yang sudah berjalan](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+Silakan lihat [panduan mendetail dengan contoh-contoh yang sudah berjalan](/id/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 
 
 ## Siklus hidup dari sebuah volume dan klaim
 
-PV adalah sumber daya dalam sebuah kluster. PVC adalah permintaan terhadap sumber daya tersebut dan juga berperan sebagai pemeriksaan klaim dari sumber daya yang diminta. Interaksi antara PV dan PVC mengikuti siklus hidup berikut ini:
+PV adalah sumber daya dalam sebuah klaster. PVC adalah permintaan terhadap sumber daya tersebut dan juga berperan sebagai pemeriksaan klaim dari sumber daya yang diminta. Interaksi antara PV dan PVC mengikuti siklus hidup berikut ini:
 
 ### Penyediaan
 
 Ada dua cara untuk menyediakan PV: secara statis atau dinamis.
 
 #### Statis
-Seorang administrator kluster membuat beberapa PV. PV yang telah dibuat membawa detail-detail dari penyimpanan yang sesungguhnya tersedia untuk digunakan oleh pengguna kluster. PV tersebut ada pada Kubernetes API dan siap untuk digunakan.
+Seorang administrator klaster membuat beberapa PV. PV yang telah dibuat membawa detail-detail dari penyimpanan yang sesungguhnya tersedia untuk digunakan oleh pengguna klaster. PV tersebut ada pada Kubernetes API dan siap untuk digunakan.
 
 #### Dinamis
-Ketika tidak ada PV statis yang dibuat oleh administrator yang sesuai dengan `PersistentVolumeClaim` (PVC) yang dibuat oleh pengguna, kluster akan mencoba untuk menyediakan volume khusus sesuai permintaan PVC.
+Ketika tidak ada PV statis yang dibuat oleh administrator yang sesuai dengan `PersistentVolumeClaim` (PVC) yang dibuat oleh pengguna, klaster akan mencoba untuk menyediakan volume khusus sesuai permintaan PVC.
 Penyediaan dinamis ini berbasis `StorageClass`: artinya PVC harus meminta sebuah _storage class_ dan _storage class_ tersebut harus sudah dibuat dan dikonfigurasi oleh administrator agar penyediaan dinamis bisa terjadi. Klaim yang meminta PV dengan _storage class_ `""` secara efektif telah menonaktifkan penyediaan dinamis.
 
-Untuk mengaktifkan penyediaan _storage_ dinamis berdasarkan _storage class_, administrator kluster harus mengaktifkan [_admission controller_](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
+Untuk mengaktifkan penyediaan _storage_ dinamis berdasarkan _storage class_, administrator klaster harus mengaktifkan [_admission controller_](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 `DefaultStorageClass` pada API _server_. Hal ini dapat dilakukan, dengan cara memastikan `DefaultStorageClass` ada di antara urutan daftar _value_ yang dibatasi koma untuk _flag_ `--enable-admission-plugins` pada komponen API _server_. Untuk informasi lebih lanjut mengenai _flag_ perintah pada API _server_, silakan cek dokumentasi,
 [kube-apiserver](/docs/admin/kube-apiserver/).
 
@@ -60,11 +60,11 @@ Untuk mengaktifkan penyediaan _storage_ dinamis berdasarkan _storage class_, adm
 
 Seorang pengguna membuat, atau telah membuat (dalam kasus penyediaan dinamis), sebuah `PersistentVolumeClaim` (PVC) dengan jumlah penyimpanan spesifik yang diminta dan dengan mode akses tertentu. Sebuah _control loop_ pada _master_ akan melihat adanya PVC baru, mencari PV yang cocok (jika memungkinkan), dan mengikat PVC dengan PV tersebut. Jika sebuah PV disediakan secara dinamis untuk sebuah PVC baru, _loop_ tersebut akan selalu mengikat PV tersebut pada PVC yang baru dibuat itu. Jika tidak, pengguna akan selalu mendapatkan setidaknya apa yang dimintanya, tetapi volume tersebut mungkin lebih dari apa yang diminta sebelumnya. Setelah terikat, ikatan `PersistentVolumeClaim` (PVC) bersifat eksklusif, terlepas dari bagaimana caranya mereka bisa terikat. Sebuah ikatan PVC ke PV merupakan pemetaan satu ke satu.
 
-Klaim akan berada dalam kondisi tidak terikat tanpa kepastian jika tidak ada volume yang cocok. Klaim akan terikat dengan volume yang cocok ketika ada volume yang cocok. Sebagai contoh, sebuah kluster yang sudah menyediakan banyak PV berukuran 50Gi tidak akan cocok dengan PVC yang meminta 100Gi. PVC hanya akan terikat ketika ada PV 100Gi yang ditambahkan ke kluster.
+Klaim akan berada dalam kondisi tidak terikat tanpa kepastian jika tidak ada volume yang cocok. Klaim akan terikat dengan volume yang cocok ketika ada volume yang cocok. Sebagai contoh, sebuah klaster yang sudah menyediakan banyak PV berukuran 50Gi tidak akan cocok dengan PVC yang meminta 100Gi. PVC hanya akan terikat ketika ada PV 100Gi yang ditambahkan ke klaster.
 
 ### Penggunaan
 
-_Pod_ menggunakan klaim sebagai volume. Kluster menginspeksi klaim untuk menemukan volume yang terikat dengan klaim tersebut dan memasangkan volume tersebut ke pada _pod_. Untuk volume yang mendukung banyak mode akses, pengguna yang menentukan mode yang diinginkan ketika menggunakan klaim sebagai volume dalam sebuah _pod_.
+_Pod_ menggunakan klaim sebagai volume. Klaster menginspeksi klaim untuk menemukan volume yang terikat dengan klaim tersebut dan memasangkan volume tersebut ke pada _pod_. Untuk volume yang mendukung banyak mode akses, pengguna yang menentukan mode yang diinginkan ketika menggunakan klaim sebagai volume dalam sebuah _pod_.
 
 Ketika pengguna memiliki klaim dan klaim tersebut telah terikat, PV yang terikat menjadi hak penggunanya selama yang dibutuhkan. Pengguna menjadwalkan _pod_ dan mengakses PV yang sudah diklaim dengan menambahkan `persistentVolumeClaim` pada blok volume pada _Pod_ miliknya. [Lihat pranala di bawah untuk detail-detail mengenai sintaks](#claims-as-volumes).
 
@@ -117,7 +117,7 @@ Events:            <none>
 
 ### Melakukan Reklaim
 
-Ketika seorang pengguna telah selesai dengan volumenya, ia dapat menghapus objek PVC dari API yang memungkinkan untuk reklamasi dari sumber daya tersebut. Kebijakan reklaim dari sebuah `PersistentVolume` (PV) menyatakan apa yang dilakukan kluster setelah volume dilepaskan dari klaimnya. Saat ini, volume dapat dipertahankan (_Retained_), didaur ulang (_Recycled_), atau dihapus (_Deleted_).
+Ketika seorang pengguna telah selesai dengan volumenya, ia dapat menghapus objek PVC dari API yang memungkinkan untuk reklamasi dari sumber daya tersebut. Kebijakan reklaim dari sebuah `PersistentVolume` (PV) menyatakan apa yang dilakukan klaster setelah volume dilepaskan dari klaimnya. Saat ini, volume dapat dipertahankan (_Retained_), didaur ulang (_Recycled_), atau dihapus (_Deleted_).
 
 #### _Retain_
 
@@ -266,7 +266,7 @@ Tipe-tipe `PersistentVolume` (PV) diimplementasikan sebagai _plugin_.  Kubernete
 * Glusterfs
 * VsphereVolume
 * Quobyte Volumes
-* HostPath (Hanya untuk pengujian _single node_ -- penyimpanan lokal tidak didukung dan TIDAK AKAN BEKERJA pada kluster _multi-node_)
+* HostPath (Hanya untuk pengujian _single node_ -- penyimpanan lokal tidak didukung dan TIDAK AKAN BEKERJA pada klaster _multi-node_)
 * Portworx Volumes
 * ScaleIO Volumes
 * StorageOS
@@ -295,6 +295,10 @@ spec:
     path: /tmp
     server: 172.17.0.2
 ```
+
+{{< note >}}
+Program pembantu yang berkaitan dengan tipe volume bisa saja diperlukan untuk mengonsumsi sebuah PersistentVolume di dalam klaster. Contoh ini menggunakan PersistentVolume dengan tipe NFS dan program pembantu /sbin/mount.nfs diperlukan untuk mendukung proses mounting sistem berkas (filesystem) NFS.
+{{< /note >}}
 
 ### Kapasitas
 
@@ -356,7 +360,7 @@ Pada CLI, mode-mode akses tersebut disingkat menjadi:
 
 Sebuah PV bisa memiliki sebuah kelas, yang dispesifikasi dalam pengaturan atribut
 `storageClassName` menjadi nama
-[StorageClass](/docs/concepts/storage/storage-classes/).
+[StorageClass](/id/docs/concepts/storage/storage-classes/).
 Sebuah PV dari kelas tertentu hanya dapat terikat dengan PVC yang meminta
 kelas tersebut. Sebuah PV tanpa `storageClassName` tidak memiliki kelas dan hanya dapat terikat
 dengan PVC yang tidak meminta kelas tertentu.
@@ -408,7 +412,7 @@ akan dihilangkan sepenuhnya pada rilis Kubernetes mendatang.
 ### Afinitas Node
 
 {{< note >}}
-Untuk kebanyakan tipe volume, kamu tidak perlu memasang kolom ini. Kolom ini secara otomatis terisi untuk tipe blok volume [AWS EBS](/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) dan [Azure Disk](/docs/concepts/storage/volumes/#azuredisk). Kamu harus mengaturnya secara eksplisit untuk volume [lokal](/docs/concepts/storage/volumes/#local).
+Untuk kebanyakan tipe volume, kamu tidak perlu memasang kolom ini. Kolom ini secara otomatis terisi untuk tipe blok volume [AWS EBS](/id/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/id/docs/concepts/storage/volumes/#gcepersistentdisk) dan [Azure Disk](/id/docs/concepts/storage/volumes/#azuredisk). Kamu harus mengaturnya secara eksplisit untuk volume [lokal](/id/docs/concepts/storage/volumes/#local).
 {{< /note >}}
 
 Sebuah PV dapat menspesifikasi [afinitas node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core) untuk mendefinisikan batasan yang membatasi _node_ mana saja yang dapat mengakses volume tersebut. _Pod_ yang menggunakan sebuah PV hanya akan bisa dijadwalkan ke _node_ yang dipilih oleh afinitas _node_.
@@ -419,7 +423,7 @@ Sebuah volume akan berada dalam salah satu fase di bawah ini:
 
 * Available -- sumber daya bebas yang belum terikat dengan sebuah klaim
 * Bound -- volume sudah terikat dengan sebuah klaim
-* Released -- klaim sudah dihapus, tetapi sumber daya masih belum direklaim oleh kluster
+* Released -- klaim sudah dihapus, tetapi sumber daya masih belum direklaim oleh klaster
 * Failed -- volume gagal menjalankan reklamasi otomatis
 
 CLI akan menunjukkan nama dari PVC yang terikat pada PV.
@@ -462,7 +466,7 @@ Klaim, seperti _pod_, bisa meminta sumber daya dengan jumlah tertentu.  Pada kas
 
 ### _Selector_
 
-Klaim dapat menspesifikasi [_label selector_](/docs/concepts/overview/working-with-objects/labels/#label-selectors) untuk memilih serangkaian volume lebih jauh. Hanya volume yang cocok labelnya dengan _selector_ yang dapat terikat dengan klaim. _Selector_ dapat terdiri dari dua kolom:
+Klaim dapat menspesifikasi [_label selector_](/id/docs/concepts/overview/working-with-objects/labels/#label-selectors) untuk memilih serangkaian volume lebih jauh. Hanya volume yang cocok labelnya dengan _selector_ yang dapat terikat dengan klaim. _Selector_ dapat terdiri dari dua kolom:
 
 * `matchLabels` - volume harus memiliki label dengan nilai ini
 * `matchExpressions` - daftar dari persyaratan yang dibuat dengan menentukan kunci, daftar nilai, dan operator yang menghubungkan kunci dengan nilai. Operator yang valid meliputi In, NotIn, Exists, dan DoesNotExist.
@@ -472,7 +476,7 @@ Semua persyaratan tersebut, dari `matchLabels` dan `matchExpressions` akan dilak
 ### Kelas
 
 Sebuah klaim dapat meminta kelas tertentu dengan menspesifikasi nama dari
-[StorageClass](/docs/concepts/storage/storage-classes/)
+[StorageClass](/id/docs/concepts/storage/storage-classes/)
 menggunakan atribut `storageClassName`.
 Hanya PV dari kelas yang diminta, yang memiliki `storageClassName` yang sama dengan PVC, yang dapat
 terikat dengan PVC.
@@ -481,7 +485,7 @@ PVC tidak harus meminta sebuah kelas. Sebuah PVC dengan `storageClassName` milik
 `""` akan selalu diinterpretasikan sebagai meminta PV tanpa kelas, jadi PVC
 hanya bisa terikat ke PV tanpa kelas (tanpa anotasi atau bernilai
 `""`). Sebuah PVC tanpa `storageClassName` tidaklah sama dan diperlakukan berbeda
-oleh kluster tergantung apakah
+oleh klaster tergantung apakah
 [_admission plugin_ `DefaultStorageClass`](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 dinyalakan.
 
@@ -490,7 +494,7 @@ dinyalakan.
   PVs standar. Menspesifikasikan `StorageClass` standar dapat dilakukan dengan mengatur
   anotasi `storageclass.kubernetes.io/is-default-class` menjadi "_true_" pada
   sebuah objek `StorageClass`. Jika administrator tidak menspesifikasikan standar apapun,
-  kluster menanggapi pembuatan PVC sekan-akan _admission plugin_ dimatikan. Jika
+  klaster menanggapi pembuatan PVC sekan-akan _admission plugin_ dimatikan. Jika
   ada lebih dari satu setelan standar dispesifikasikan, _admission plugin_ melarang pembuatan seluruh
   PVC.
 * Jika _admission plugin_ dimatikan, tidak ada pilihan menggunakan
@@ -499,7 +503,7 @@ dinyalakan.
   sama seperti PVC yang memiliki `storageClassName` bernilai `""`.
 
 Tergantung metode instalasi, sebuah StorageClass dari setelan standar dapat dibuat
-ke kluster Kubernetes oleh _addon manager_ pada saat instalasi.
+ke klaster Kubernetes oleh _addon manager_ pada saat instalasi.
 
 Ketika sebuah PVC menspesifikasi sebuah `selector` selain meminta `StorageClass`,
 kebutuhan tersebut akan digabungkan dengan operasi AND bersama: hanya PV dari kelas yang diminta dan dengan
@@ -515,7 +519,7 @@ akan dihilangkan sepenuhnya pada rilis Kubernetes mendatang.
 
 ## Klaim sebagai Volume
 
-_Pod_ mengakses _storage_ dengan menggunakan klaim sebagai volume.  Klaim harus berada pada _namespace_ yang sama dengan _pod_ yang menggunakan klaim tersebut.  Kluster menemukan klaim pada _namespace_ yang sama dengan _pod_ dan menggunakannya untuk mendapatkan `PersistentVolume` (PV) yang ada di baliknya.  Volume tersebut kemudian dipasangkan ke _host_ dan lalu ke _pod_.
+_Pod_ mengakses _storage_ dengan menggunakan klaim sebagai volume.  Klaim harus berada pada _namespace_ yang sama dengan _pod_ yang menggunakan klaim tersebut.  Klaster menemukan klaim pada _namespace_ yang sama dengan _pod_ dan menggunakannya untuk mendapatkan `PersistentVolume` (PV) yang ada di baliknya.  Volume tersebut kemudian dipasangkan ke _host_ dan lalu ke _pod_.
 
 ```yaml
 apiVersion: v1
@@ -643,7 +647,7 @@ Hanya volume yang disediakan secara statis yang didukung untuk rilis alfa. Admin
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-Fitur _volume snapshot_ ditambahkan hanya untuk mendukung _CSI Volume Plugins_. Untuk lebih detail, lihat [_volume snapshots_](/docs/concepts/storage/volume-snapshots/).
+Fitur _volume snapshot_ ditambahkan hanya untuk mendukung _CSI Volume Plugins_. Untuk lebih detail, lihat [_volume snapshots_](/id/docs/concepts/storage/volume-snapshots/).
 
 Untuk mengaktifkan dukungan pemulihan sebuah volume dari sebuah sumber data _volume snapshot_, aktifkan
 gerbang fitur `VolumeSnapshotDataSource` pada apiserver dan _controller-manager_.
@@ -669,7 +673,7 @@ spec:
 
 ## Menulis Konfigurasi Portabel
 
-Jika kamu menulis templat konfigurasi atau contoh yang dapat berjalan pada berbagai macam kluster
+Jika kamu menulis templat konfigurasi atau contoh yang dapat berjalan pada berbagai macam klaster
 dan membutuhkan _persistent storage_, kami merekomendasikan agar kamu menggunakan pola berikut:
 
 - Masukkan objek PersistentVolumeClaim (PVC) pada kumpulan _config_ (bersamaan dengan
@@ -681,17 +685,17 @@ dan membutuhkan _persistent storage_, kami merekomendasikan agar kamu menggunaka
   - Jika pengguna menyediakan nama _storage class_, taruh nilai tersebut pada
     kolom `persistentVolumeClaim.storageClassName`.
     Hal ini akan membuat PVC agar sesuai dengan _storage class_
-    yang tepat jika kluster memiliki banyak StorageClass yang diaktifkan oleh admin.
+    yang tepat jika klaster memiliki banyak StorageClass yang diaktifkan oleh admin.
   - Jika pengguna tidak menyediakan nama _storage class_, biarkan
     kolom `persistentVolumeClaim.storageClassName` kosong.
     - Hal ini kakan membuat sebuah PV disediakan secara otomatis untuk pengguna dengan
-      StorageClass standar pada kluster.  Banyak lingkungan kluster memiliki
+      StorageClass standar pada klaster.  Banyak lingkungan klaster memiliki
       StorageClass standar yang sudah terpasang, atau administrator dapat membuat
       StorageClass standar sendiri.
 - Dalam pembuatan, perhatikan PVC yang tidak kunjung terikat setelah beberapa lama
-  dan beritahukan hal ini pada pengguna, karena hal ini dapat mengindikasikan kluster tidak
+  dan beritahukan hal ini pada pengguna, karena hal ini dapat mengindikasikan klaster tidak
   memiliki dukungan penyimpanan dinamis (di mana pengguna harus membuat PV yang sesuai)
-  atau kluster tidak memiliki sistem penyimpanan (di mana penggun tidak dapat membuat
+  atau klaster tidak memiliki sistem penyimpanan (di mana penggun tidak dapat membuat
   PVC yang membutuhkan _config_).
 
-{{% /capture %}}
+

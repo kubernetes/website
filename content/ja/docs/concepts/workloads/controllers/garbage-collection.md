@@ -1,18 +1,18 @@
 ---
 title: ガベージコレクション
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetesのガベージコレクターの役割は、かつてオーナーがいたが、現時点でもはやオーナーがいないようなオブジェクトの削除を行うことです。
-{{% /capture %}}
 
 
-{{% capture body %}}
 
-## オーナーとその従属オブジェクト
+<!-- body -->
+
+## オーナーとその従属オブジェクト {#owners-and-dependents}
 
 いくつかのKubernetesオブジェクトは他のオブジェクトのオーナーとなります。例えば、ReplicaSetはPodのセットに対するオーナーです。オーナーによって所有されたオブジェクトは、オーナーオブジェクトの*従属オブジェクト(Dependents)* と呼ばれます。全ての従属オブジェクトは、オーナーオブジェクトを指し示す`metadata.ownerReferences`というフィールドを持ちます。
 
@@ -33,7 +33,7 @@ kubectl get pods --output=yaml
 
 その出力結果によると、そのPodのオーナーは`my-repset`という名前のReplicaSetです。
 
-```shell
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -70,7 +70,7 @@ metadata:
 
 一度"削除処理中"状態に遷移すると、そのガベージコレクターはオブジェクトの従属オブジェクトを削除します。一度そのガベージコレクターが全ての”ブロッキングしている”従属オブジェクトを削除すると(`ownerReference.blockOwnerDeletion=true`という値を持つオブジェクト)、それはオーナーのオブジェクトも削除します。
 
-注意点として、"フォアグラウンドのカスケード削除"において、`ownerReference.blockOwnerDeletion`フィールドを持つ従属オブジェクトのみ、そのオーナーオブジェクトの削除をブロックします。
+注意点として、"フォアグラウンドのカスケード削除"において、`ownerReference.blockOwnerDeletion=true`フィールドを持つ従属オブジェクトのみ、そのオーナーオブジェクトの削除をブロックします。
 Kubernetes1.7では、認証されていない従属オブジェクトがオーナーオブジェクトの削除を遅らせることができないようにするために[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#ownerreferencespermissionenforcement)が追加され、それは、オーナーオブジェクトの削除パーミッションに基づいて`blockOwnerDeletion`の値がtrueに設定してユーザーアクセスをコントロールします。
 
 もしオブジェクトの`ownerReferences`フィールドがコントローラー(DeploymentやReplicaSetなど)によってセットされている場合、`blockOwnerDeletion`は自動的にセットされ、ユーザーはこのフィールドを手動で修正する必要はありません。
@@ -83,17 +83,14 @@ Kubernetes1.7では、認証されていない従属オブジェクトがオー�
 
 カスケード削除ポリシーを制御するためには、オブジェクトをいつ設定するか`deleteOptions`引数上の`propagationPolicy`フィールドに設定してください。設定可能な値は`Orphan`、`Foreground`、もしくは`Background`のどれかです。
 
-Kubernetes1.9以前では多くのコントローラーにおけるデフォルトのガベージコレクションポリシーは`orphan`でした。
-この対象のコントローラーはReplicationController、ReplicaSet、StatefulSet、DaemonSetとDeploymentを含みます。`extensions/v1beta1`、`apps/v1beta1`、`apps/v1beta2`のグループバージョンに含まれるオブジェクト種においては、もしユーザーがガベージコレクションに他の値を設定しない限り、デフォルトで従属オブジェクトはみなしご(orphaned)になります。
-Kubernetes1.9において、`apps/v1`というグループバージョンにおいて、従属オブジェクトはデフォルトで削除されます。
 
 下記のコマンドは従属オブジェクトをバックグラウンドで削除する例です。
 
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
--d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
--H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
+  -H "Content-Type: application/json"
 ```
 
 下記のコマンドは従属オブジェクトをフォアグラウンドで削除する例です。
@@ -101,8 +98,8 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
--d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
--H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
+  -H "Content-Type: application/json"
 ```
 
 下記のコマンドは従属オブジェクトをみなしご状態になった従属オブジェクトの例です。
@@ -110,8 +107,8 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
--d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
--H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
+  -H "Content-Type: application/json"
 ```
 
 kubectlもまたカスケード削除をサポートしています。  
@@ -127,23 +124,24 @@ kubectl delete replicaset my-repset --cascade=false
 
 ### Deploymentsに関する追記事項
 
-Kubernetes1.7以前では、Deploymentに対するカスケード削除において、作成されたReplicaSetだけでなく、それらのPodも削除するためには、ユーザーは`propagationPolicy: Foreground`と指定*しなくてはなりません* 。もしこのタイプの_propagationPolicy_ が使われなかった場合、そのReplicaSetは削除されますが、そのPodは削除されずみなしご状態になります。  
+Kubernetes1.7以前では、Deploymentに対するカスケード削除において、作成されたReplicaSetだけでなく、それらのPodも削除するためには、ユーザーは`propagationPolicy: Foreground`と指定*しなくてはなりません* 。もしこのタイプの*propagationPolicy*が使われなかった場合、そのReplicaSetは削除されますが、そのPodは削除されずみなしご状態になります。  
 さらなる詳細に関しては[kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613)を参照してください。
 
 ## 既知の問題について
 
 [#26120](https://github.com/kubernetes/kubernetes/issues/26120)にてイシューがトラックされています。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
 [Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
-{{% /capture %}}
+
 
 
 

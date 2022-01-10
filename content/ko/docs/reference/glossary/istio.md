@@ -2,7 +2,7 @@
 title: Istio
 id: istio
 date: 2018-04-12
-full_link: https://istio.io/docs/concepts/what-is-istio/overview.html
+full_link: https://istio.io/docs/concepts/what-is-istio/
 short_description: >
   마이크로서비스의 통합을 위한 통일된 방법을 제공하는 오픈 플랫폼(쿠버네티스에 특정적이지 않음)이며, 트래픽 흐름을 관리하고, 정책을 시행하고, 텔레메트리 데이터를 모은다.
 

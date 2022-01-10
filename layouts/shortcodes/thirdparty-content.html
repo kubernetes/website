@@ -1,0 +1,9 @@
+{{- $single := .Get "single" | default "false" -}}
+<div class="alert alert-secondary callout third-party-content" role="alert">
+{{- if not (eq $single "true" ) -}}
+  <strong>{{ T "note" | safeHTML }}</strong>
+  {{ T "thirdparty_message" | safeHTML }}
+{{- else -}}
+  {{ T "thirdparty_message_single_item" | safeHTML }}
+{{- end -}}
+</div>

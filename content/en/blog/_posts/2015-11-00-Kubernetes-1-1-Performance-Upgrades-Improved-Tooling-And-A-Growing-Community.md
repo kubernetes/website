@@ -46,7 +46,7 @@ As we mentioned above, we would love your help:
 - Connect with the community on [Slack](http://slack.kubernetes.io/)
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates&nbsp;
 - Post questions (or answer questions) on Stackoverflow&nbsp;
-- Get started running, deploying, and using Kubernetes [guides](http://kubernetes.io/gettingstarted/)&nbsp;
+- Get started running, deploying, and using Kubernetes [guides](/docs/tutorials/kubernetes-basics/);
 
 But, most of all, just let us know how you are transforming your business using Kubernetes, and how we can help you do it even faster. Thank you for your support!  
 

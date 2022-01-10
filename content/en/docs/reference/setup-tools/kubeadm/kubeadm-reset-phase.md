@@ -1,7 +1,9 @@
 ---
 title: kubeadm reset phase
 weight: 90
+content_type: concept
 ---
+
 `kubeadm reset phase` enables you to invoke atomic steps of the node reset process.
 Hence, you can let kubeadm do some of the work and you can fill in the gaps
 if you wish to apply customization.
@@ -23,14 +25,6 @@ Using this phase you can execute preflight checks on a node that is being reset.
 {{< tab name="preflight" include="generated/kubeadm_reset_phase_preflight.md" />}}
 {{< /tabs >}}
 
-## kubeadm reset phase update-cluster-status {#cmd-reset-phase-update-cluster-status}
-
-Using this phase you can remove this control-plane node from the ClusterStatus object.
-
-{{< tabs name="tab-update-cluster-status" >}}
-{{< tab name="update-cluster-status" include="generated/kubeadm_reset_phase_update-cluster-status.md" />}}
-{{< /tabs >}}
-
 ## kubeadm reset phase remove-etcd-member {#cmd-reset-phase-remove-etcd-member}
 
 Using this phase you can remove this control-plane node's etcd member from the etcd cluster.
@@ -47,7 +41,8 @@ Using this phase you can perform cleanup on this node.
 {{< tab name="cleanup-node" include="generated/kubeadm_reset_phase_cleanup-node.md" />}}
 {{< /tabs >}}
 
-## What's next
+## {{% heading "whatsnext" %}}
+
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`

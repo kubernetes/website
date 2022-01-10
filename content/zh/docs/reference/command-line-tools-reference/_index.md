@@ -1,5 +1,8 @@
 ---
-title: 命令行工具
+title: 组件工具
 weight: 60
-toc-hide: true
 ---
+<!--
+title: Component tools
+weight: 60
+-->

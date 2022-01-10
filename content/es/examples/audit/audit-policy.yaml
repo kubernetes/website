@@ -1,0 +1,68 @@
+apiVersion: audit.k8s.io/v1 # Esto es obligatorio.
+kind: Policy
+# No generar eventos de auditoría para las peticiones en la etapa RequestReceived.
+omitStages:
+  - "RequestReceived"
+rules:
+  # Registrar los cambios del pod al nivel RequestResponse
+  - level: RequestResponse
+    resources:
+    - group: ""
+      # Los recursos "pods" no hacen coincidir las peticiones a cualquier sub-recurso de pods,
+      # lo que es consistente con la regla RBAC.
+      resources: ["pods"]
+  # Registrar "pods/log", "pods/status" al nivel Metadata
+  - level: Metadata
+    resources:
+    - group: ""
+      resources: ["pods/log", "pods/status"]
+
+  # No registrar peticiones al configmap denominado "controller-leader"
+  - level: None
+    resources:
+    - group: ""
+      resources: ["configmaps"]
+      resourceNames: ["controller-leader"]
+
+  # No registrar peticiones de observación hechas por "system:kube-proxy" sobre puntos de acceso o servicios
+  - level: None
+    users: ["system:kube-proxy"]
+    verbs: ["watch"]
+    resources:
+    - group: "" # Grupo API base
+      resources: ["endpoints", "services"]
+
+  # No registrar peticiones autenticadas a ciertas rutas URL que no son recursos.
+  - level: None
+    userGroups: ["system:authenticated"]
+    nonResourceURLs:
+    - "/api*" # Coincidencia por comodín.
+    - "/version"
+
+  # Registrar el cuerpo de la petición de los cambios de configmap en kube-system.
+  - level: Request
+    resources:
+    - group: "" # Grupo API base
+      resources: ["configmaps"]
+    # Esta regla sólo aplica a los recursos en el Namespace "kube-system".
+    # La cadena vacía "" se puede usar para seleccionar los recursos sin Namespace.
+    namespaces: ["kube-system"]
+
+  # Registrar los cambios de configmap y secret en todos los otros Namespaces al nivel Metadata.
+  - level: Metadata
+    resources:
+    - group: "" # Grupo API base
+      resources: ["secrets", "configmaps"]
+
+  # Registrar todos los recursos en core y extensions al nivel Request.
+  - level: Request
+    resources:
+    - group: "" # Grupo API base
+    - group: "extensions" # La versión del grupo NO debería incluirse.
+
+  # Regla para "cazar" todos las demás peticiones al nivel Metadata.
+  - level: Metadata
+    # Las peticiones de larga duración, como los watches, que caen bajo esta regla no
+    # generan un evento de auditoría en RequestReceived.
+    omitStages:
+      - "RequestReceived"

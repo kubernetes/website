@@ -1,0 +1,84 @@
+---
+title: Babylon Case Study
+linkTitle: Babylon
+case_study_styles: true
+cid: caseStudies
+logo: babylon_featured_logo.svg
+featured: true
+weight: 1
+quote: >
+   Kubernetes is a great platform for machine learning because it comes with all the scheduling and scalability that you need.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/babylon/banner4.jpg
+heading_title_text: Babylon
+use_gradient_overlay: true
+subheading: >
+  AppDirect: How Cloud Native Is Enabling Babylon's Medical AI Innovations
+case_study_details:
+  - Company: Babylon
+  - Location: United Kingdom
+  - Industry: AI, Healthcare
+---
+
+<h2>Challenge</h2>
+
+<p>A large number of Babylon's products leverage machine learning and artificial intelligence, and in 2019, there wasn't enough computing power in-house to run a particular experiment. The company was also growing (from 100 to 1,600 in three years) and planning expansion into other countries.</p>
+
+<h2>Solution</h2>
+
+<p>Babylon had migrated its user-facing applications to a Kubernetes platform in 2018, so the infrastructure team turned to Kubeflow, a toolkit for machine learning on Kubernetes. "We tried to create a Kubernetes core server, we deployed Kubeflow, and we orchestrated the whole experiment, which ended up being a really good success," says AI Infrastructure Lead Jérémie Vallée. The team began building a self-service AI training platform on top of Kubernetes.</p>
+
+<h2>Impact</h2>
+
+<p>Instead of waiting hours or days to be able to compute, teams can get access instantaneously. Clinical validations used to take 10 hours; now they are done in under 20 minutes. The portability of the cloud native platform has also enabled Babylon to expand into other countries.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/babylon/banner1.jpg"
+  author="JÉRÉMIE VALLÉE, AI INFRASTRUCTURE LEAD AT BABYLON"
+>}}
+"Kubernetes is a great platform for machine learning because it comes with all the scheduling and scalability that you need."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Babylon's mission is to put accessible and affordable healthcare services in the hands of every person on earth.
+{{< /case-studies/lead >}}
+
+<p>Since its launch in the U.K. in 2013, the startup has facilitated millions of digital consultations around the world. In the U.K., patients were typically waiting a week or two for a doctor's appointment. Through Babylon's NHS service, GP at Hand—which has more than 75,000 registered patients—39% get an appointment through their phone within 30 minutes, and 89% within 6 hours.</p>
+
+<p>That's just the start. "We try to combine different types of technology with the medical expertise that we have in-house to build products that will help patients manage and understand their health, and also help doctors be more efficient at what they do," says Jérémie Vallée, AI Infrastructure Lead at Babylon. </p>
+
+<p>A large number of these products leverage machine learning and artificial intelligence, and in 2019, researchers hit a pain point. "We have some servers in-house where our researchers were doing a lot of AI experiments and some training of models, and we came to a point where we didn't have enough compute in-house to run a particular experiment," says Vallée. </p>
+
+<p>Babylon had migrated its user-facing applications to a Kubernetes platform in 2018, "and we had a lot of Kubernetes knowledge thanks to the migration," he adds. To optimize some of the models that had been created, the team turned to Kubeflow, a toolkit for machine learning on Kubernetes. "We tried to create a Kubernetes core server, we deployed Kubeflow, and we orchestrated the whole experiment, which ended up being a really good success," he says.</p>
+
+<p>Based on that experience, Vallée's team was tasked with building a self-service platform to help Babylon's AI teams become more efficient, and by extension help get products to market faster. The main requirements: (1) the ability to give researchers and engineers access to the compute they needed, regardless of the size of the experiments they may need to run; (2) a way to provide teams with the best tools that they needed to do their work, on demand and in a centralized way; and (3) the training platform had to be close to the data that was being managed, because of the company's expansion into different countries.</p>
+
+{{< case-studies/quote author="CAROLINE HARGROVE, CHIEF TECHNOLOGY OFFICER AT BABYLON" >}}
+"Delivering a self-service platform where users are empowered to run their own workload has enabled our data scientist community to do hyper parameter tuning and general algorithm development without any cloud skill and without the help of platform engineers, thus accelerating our innovation."
+{{< /case-studies/quote >}}
+
+<p>Kubernetes was an enabler on every count. "Kubernetes is a great platform for machine learning because it comes with all the scheduling and scalability that you need," says Vallée. The need to keep data in every country in which Babylon operates requires a multi-region, multi-cloud strategy, and some countries might not even have a public cloud provider at all. "We wanted to make this platform portable so that we can run training jobs anywhere," he says. "Kubernetes offered a base layer that allows you to deploy the platform outside of the cloud provider, and then deploy whatever tooling you need. That was a very good selling point for us."</p>
+
+<p>Once the team decided to build the Babylon AI Research platform on top of Kubernetes, they referred to the Cloud Native Landscape to build out the stack: Prometheus and Grafana for monitoring; an Istio service mesh to control the network on the training platform and control what access all of the workflows would have; Helm to deploy the stack; and Flux to manage the GitOps part of the pipeline.</p>
+
+<p>The cloud native AI platform has had a huge impact at Babylon. The first research projects run on the platform mostly involved machine learning and natural language processing. These experiments required a huge amount of compute—1600 CPU, 3.2 TB RAM—which was much more than Babylon had in-house. Plus, access to compute used to take hours, or sometimes even days, depending on how busy the platform team was. "Now, with Kubernetes and the self-service platform that we provide, it's pretty much instantaneous," says Vallée.</p>
+
+<p>Another important type of work that's done on the platform is clinical validation for new applications such as Babylon's Symptom Checker, which calculates the probability of a disease given the evidence input by the user. "Being in healthcare, we want all of our models to be safe before they're going to hit production," says Vallée. Using Argo for GitOps "enabled us to scale the process massively."</p>
+
+{{< case-studies/quote 
+  image="/images/case-studies/babylon/banner2.jpg"
+  author="JEAN MARIE FERDEGUE, DIRECTOR OF PLATFORM OPERATIONS AT BABYLON"
+>}}
+"Giving a Kubernetes-based platform to our data scientists has meant increased security, increased innovation through empowerment, and a more affordable health service as our cloud engineers are building an experience that is used by hundreds on a daily basis, rather than supporting specific bespoke use cases."
+{{< /case-studies/quote >}}
+
+<p>Researchers used to have to wait up to 10 hours to get results on new versions of their models. With Kubernetes, that time is now down to under 20 minutes. Plus, previously they could only run one clinical validation at a time, now they can run many parallel ones if they need to—a huge benefit considering that in the past three years, Babylon has grown from 100 to 1,600 employees.</p>
+
+<p>"Delivering a self-service platform where users are empowered to run their own workload has enabled our data scientist community to do hyper parameter tuning and general algorithm development without any cloud skill and without the help of platform engineers, thus accelerating our innovation," says Chief Technology Officer Caroline Hargrove.</p>
+
+<p>Adds Director of Platform Operations Jean Marie Ferdegue: "Giving a Kubernetes-based platform to our data scientists has meant increased security, increased innovation through empowerment, and a more affordable health service as our cloud engineers are building an experience that is used by hundreds on a daily basis, rather than supporting specific bespoke use cases."</p>
+
+<p>Plus, as Babylon continues to expand, "it will be very easy to onboard new countries," says Vallée. "Fifteen months ago when we deployed this platform, we had one big environment in the U.K., but now we have one in Canada, we have one in Asia, and we have one coming in the U.S. This is one of the things that Kubernetes and the other cloud native projects have enabled for us."</p>
+
+<p>Babylon's road map for cloud native involves onboarding all of the company's AI efforts to the platform. Increasingly, that includes AI services of care. "I think this is going to be an interesting field where AI and healthcare meet," Vallée says. "It's kind of a complex problem and there's a lot of issues around this. So with our platform, we want to say, 'What can we do to make this less painful for our developers and machine learning engineers?'"</p>

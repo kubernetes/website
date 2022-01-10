@@ -1,13 +1,13 @@
 ---
 title: kubeadm init
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 Cette commande initialise un noeud Kubernetes control-plane.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< include "generated/kubeadm_init.md" >}}
 
@@ -131,7 +131,7 @@ Pour de l'information sur comment passer des options aux composants du control p
 
 ### Utiliser des images personnalisées {#custom-images}
 
-Par défaut, kubeadm télécharge les images depuis `k8s.gcr.io`, à moins que la version demandée de Kubernetes soit une version Intégration Continue (CI). Dans ce cas, `gcr.io/kubernetes-ci-images` est utilisé.
+Par défaut, kubeadm télécharge les images depuis `k8s.gcr.io`, à moins que la version demandée de Kubernetes soit une version Intégration Continue (CI). Dans ce cas, `gcr.io/k8s-staging-ci-images` est utilisé.
 
 Vous pouvez outrepasser ce comportement en utilisant [kubeadm avec un fichier de configuration](#config-file).
 Les personnalisations permises sont :
@@ -170,7 +170,7 @@ Vous remarquerez que la commande CLI `kubeadm` ne modifiera jamais ce fichier.
 Ce fichier ad-hoc appartient au paquet deb/rpm de kubeadm.
 
 Pour en savoir plus sur comment kubeadm gère kubelet, vous pouvez consulter
-[cette page](/docs/setup/independent/kubelet-integration).
+[cette page](/fr/docs/setup/production-environment/tools/kubeadm/kubelet-integration).
 
 ### Utilisation de kubeadm avec des runtimes CRI
 
@@ -293,11 +293,12 @@ et les utiliser pour communiquer avec le cluster.
 Vous remarquerez que ce type d'installation présente un niveau de sécurité inférieur puisqu'il ne permet pas la validation du hash du certificat racine avec `--discovery-token-ca-cert-hash`
 (puisqu'il n'est pas généré quand les noeuds sont provisionnés). Pour plus d'information, se référer à [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) pour mieux comprendre les phases `kubeadm init`
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) pour amorcer un noeud Kubernetes worker node Kubernetes et le faire joindre le cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) pour mettre à jour un cluster Kubernetes vers une version plus récente
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) pour annuler les changements appliqués avec `kubeadm init` ou `kubeadm join` à un noeud
-{{% /capture %}}
+

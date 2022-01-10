@@ -1,25 +1,26 @@
 ---
 title: Configurer la qualité de service pour les pods
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page montre comment configurer les Pods pour qu'ils soient affectés à des classes particulières de qualité de service (QoS). Kubernetes utilise des classes de QoS pour prendre des décisions concernant l'ordonnancement et les évictions des pods.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Les Classes de QoS
 
@@ -74,7 +75,8 @@ spec:
       requests:
         cpu: 700m
         memory: 200Mi
-...
+  ...
+status:
   qosClass: Guaranteed
 ```
 
@@ -123,7 +125,8 @@ spec:
         memory: 200Mi
       requests:
         memory: 100Mi
-...
+  ...
+status:
   qosClass: Burstable
 ```
 
@@ -162,6 +165,7 @@ spec:
     ...
     resources: {}
   ...
+status:
   qosClass: BestEffort
 ```
 
@@ -207,6 +211,7 @@ spec:
     name: qos-demo-4-ctr-2
     resources: {}
     ...
+status:
   qosClass: Burstable
 ```
 
@@ -224,9 +229,10 @@ Supprimez votre namespace.
 kubectl delete namespace qos-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 ### Pour les développeurs d'applications
@@ -251,7 +257,7 @@ kubectl delete namespace qos-example
 * [Configuration du quota de pods pour un Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
 
 * [Configuration des quotas pour les objets API](/docs/tasks/administer-cluster/quota-api-object/)
-{{% /capture %}}
+
 
 
 

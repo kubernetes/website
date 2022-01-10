@@ -1,19 +1,20 @@
 ---
+draft: True
 title: Certificati
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 Quando si utilizza l'autenticazione del certificato client, è possibile generare certificati
 manualmente tramite `easyrsa`,` openssl` o `cfssl`.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### easyrsa
 
@@ -245,4 +246,4 @@ done.
 certificati x509 da utilizzare per l'autenticazione come documentato
 [here](/docs/tasks/tls/managing-tls-in-a-cluster).
 
-{{% /capture %}}
+

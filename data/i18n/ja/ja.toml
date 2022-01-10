@@ -1,0 +1,203 @@
+# i18n strings for the English (main) site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+[caution]
+other = "注意:"
+
+[cleanup_heading]
+other = "クリーンアップ"
+
+[community_events_calendar]
+other = "イベントカレンダー"
+
+[community_forum_name]
+other = "フォーラム"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_file_warning]
+other = "廃止予定"
+
+[deprecation_title]
+other = "現在表示しているのは、次のバージョン向けのドキュメントです。Kubernetesバージョン:"
+
+[deprecation_warning]
+other = " のドキュメントは積極的にメンテナンスされていません。現在表示されているバージョンはスナップショットです。最新のドキュメントはこちらです: "
+
+[docs_label_browse]
+other = "ドキュメントの参照"
+
+[docs_label_contributors]
+other = "コントリビューター"
+
+[docs_label_i_am]
+other = "私は..."
+
+[docs_label_users]
+other = "ユーザー"
+
+[feedback_heading]
+other = "フィードバック"
+
+[feedback_no]
+other = "いいえ"
+
+[feedback_question]
+other = "このページは役に立ちましたか？"
+
+[feedback_yes]
+other = "はい"
+
+[input_placeholder_email_address]
+other = "メールアドレス"
+
+[latest_version]
+other = "最新バージョン"
+
+[layouts_blog_pager_prev]
+other = "<< 前"
+
+[layouts_blog_pager_next]
+other = "次 >>"
+
+[layouts_case_studies_list_tell]
+other = "あなたの話を聞かせてください"
+
+[layouts_docs_glossary_aka]
+other = "またの名を"
+
+[layouts_docs_glossary_description]
+other = "この用語集は、Kubernetesの用語の包括的で標準化されたリストを対象としています。これには、Kubernetesに固有で有用なコンテキストを提供しつつも、より一般的な技術用語が含まれています。"
+
+[layouts_docs_glossary_deselect_all]
+other = "すべての選択を解除"
+
+[layouts_docs_glossary_click_details_after]
+other = "特定の用語の詳細な説明を取得するには、以下のインジケータを使用します。"
+
+[layouts_docs_glossary_click_details_before]
+other = "Click on the" # TODO: Translate me
+
+[layouts_docs_glossary_filter]
+other = "タグに従って用語をフィルタ"
+
+[layouts_docs_glossary_select_all]
+other = "すべてを選択"
+
+[layouts_docs_partials_feedback_improvement]
+other = "改善を提案"
+
+[layouts_docs_partials_feedback_issue]
+other = "Open an issue in the GitHub repo if you want to " # TODO: Translate me
+
+[layouts_docs_partials_feedback_or]
+other = "or" # TODO: Translate me
+
+[layouts_docs_partials_feedback_problem]
+other = "問題を報告する"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on" # TODO: Translate me
+
+[layouts_docs_search_fetching]
+other = "結果を取得しています..."
+
+[main_by]
+other = "by"
+
+[main_cncf_project]
+other = """私達は<a href="https://cncf.io/">CNCF</a> graduated プロジェクトです</p>"""
+
+[main_community_explore]
+other = "コミュニティを探す"
+
+[main_contribute]
+other = "コントリビュート"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_edit_this_page]
+other = "ページ編集"
+
+[main_github_invite]
+other = "Kubernetesのコードを編集することに興味がありますか？"
+
+[main_github_create_an_issue]
+other = "Issue作成"
+
+[main_github_view_on]
+other = "GitHubで参照する"
+
+[main_kubernetes_features]
+other = "Kubernetesの機能"
+
+[main_kubeweekly_baseline]
+other = "最新のKubernetesのニュースを受け取りたいですか？ KubeWeeklyにサインアップしてください。"
+
+[main_kubernetes_past_link]
+other = "過去のニュースレターを見る"
+
+[main_kubeweekly_signup]
+other = "登録"
+
+[main_page_history]
+other ="ページ履歴"
+
+[main_page_last_modified_on]
+other = "ページの最終更新"
+
+[main_read_about]
+other = "Read about" #other = "について参照する" TODO: Translate me
+
+[main_read_more]
+other = "続きを読む"
+
+[note]
+other = "備考:"
+
+[objectives_heading]
+other = "目標"
+
+[prerequisites_heading]
+other = "始める前に"
+
+[subscribe_button]
+other = "購読する"
+
+[ui_search_placeholder]
+other = "検索"
+
+[version_check_mustbe]
+other = "作業するKubernetesサーバーは次のバージョンである必要があります: "
+
+[version_check_mustbeorlater]
+other = "作業するKubernetesサーバーは次のバージョン以降のものである必要があります: "
+
+[version_check_tocheck]
+other = "バージョンを確認するには次のコマンドを実行してください: "
+
+[version_menu]
+other = "バージョン"
+
+[warning]
+other = "警告:"
+
+[whatsnext_heading]
+other = "次の項目"

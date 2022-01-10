@@ -2,7 +2,7 @@
 title: 컨테이너(Container)
 id: container
 date: 2018-04-12
-full_link: /ko/docs/concepts/overview/what-is-kubernetes/#왜-컨테이너인가
+full_link: /ko/docs/concepts/containers/
 short_description: >
   소프트웨어와 그것에 종속된 모든 것을 포함한 가볍고 휴대성이 높은 실행 가능 이미지.
 

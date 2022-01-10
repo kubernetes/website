@@ -1,14 +1,13 @@
 ---
 title: Configure Access to Multiple Clusters
-content_template: templates/task
+content_type: task
 weight: 30
 card:
   name: tasks
   weight: 40
 ---
 
-
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to configure access to multiple clusters by using
 configuration files. After your clusters, users, and contexts are defined in
@@ -21,15 +20,23 @@ a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+{{< warning >}}
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
+{{< /warning>}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
+## {{% heading "prerequisites" %}}
 
-{{% capture steps %}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+To check that {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} is installed,
+run `kubectl version --client`. The kubectl version should be
+[within one minor version](/releases/version-skew-policy/#kubectl) of your
+cluster's API server.
+
+<!-- steps -->
 
 ## Define clusters, users, and contexts
 
@@ -86,7 +93,9 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 ```
 
 {{< note >}}
-To delete a user you can run `kubectl config unset users.<name>`
+- To delete a user you can run `kubectl --kubeconfig=config-demo config unset users.<name>`
+- To remove a cluster, you can run `kubectl --kubeconfig=config-demo config unset clusters.<name>`
+- To remove a context, you can run `kubectl --kubeconfig=config-demo config unset contexts.<name>`
 {{< /note >}}
 
 Add context details to your configuration file:
@@ -147,17 +156,17 @@ users:
     username: exp
 ```
 
-The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above is the placeholders
-for the real path of the certification files. You need change these to the real path
-of certification files in your environment.
+The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above are the placeholders
+for the pathnames of the certificate files. You need to change these to the actual pathnames
+of certificate files in your environment.
 
-Some times you may want to use base64 encoded data here instead of the path of the 
-certification files, then you need add the suffix `-data` to the keys. For example,
+Sometimes you may want to use Base64-encoded data embedded here instead of separate
+certificate files; in that case you need to add the suffix `-data` to the keys, for example,
 `certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 
 Each context is a triple (cluster, user, namespace). For example, the
-`dev-frontend` context says, Use the credentials of the `developer`
-user to access the `frontend` namespace of the `development` cluster.
+`dev-frontend` context says, "Use the credentials of the `developer`
+user to access the `frontend` namespace of the `development` cluster".
 
 Set the current context:
 
@@ -178,7 +187,7 @@ kubectl config --kubeconfig=config-demo view --minify
 
 The output shows configuration information associated with the `dev-frontend` context:
 
-```shell
+```yaml
 apiVersion: v1
 clusters:
 - cluster:
@@ -230,7 +239,6 @@ kubectl config --kubeconfig=config-demo use-context dev-storage
 
 View configuration associated with the new current context, `dev-storage`.
 
-
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
 ```
@@ -239,7 +247,7 @@ kubectl config --kubeconfig=config-demo view --minify
 
 In your `config-exercise` directory, create a file named `config-demo-2` with this content:
 
-```shell
+```yaml
 apiVersion: v1
 kind: Config
 preferences: {}
@@ -261,26 +269,33 @@ current value of your `KUBECONFIG` environment variable, so you can restore it l
 For example:
 
 ### Linux
+
 ```shell
 export KUBECONFIG_SAVED=$KUBECONFIG
 ```
+
 ### Windows PowerShell
-```shell
+
+```powershell
 $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ```
+
  The `KUBECONFIG` environment variable is a list of paths to configuration files. The list is
 colon-delimited for Linux and Mac, and semicolon-delimited for Windows. If you have
 a `KUBECONFIG` environment variable, familiarize yourself with the configuration files
 in the list.
 
-Temporarily append two paths to your `KUBECONFIG` environment variable. For example:<br>
+Temporarily append two paths to your `KUBECONFIG` environment variable. For example:
 
 ### Linux
+
 ```shell
 export KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 ```
+
 ### Windows PowerShell
-```shell
+
+```powershell
 $Env:KUBECONFIG=("config-demo;config-demo-2")
 ```
 
@@ -295,7 +310,7 @@ environment variable. In particular, notice that the merged information has the
 `dev-ramp-up` context from the `config-demo-2` file and the three contexts from
 the `config-demo` file:
 
-```shell
+```yaml
 contexts:
 - context:
     cluster: development
@@ -339,12 +354,15 @@ If you have a `$HOME/.kube/config` file, and it's not already listed in your
 For example:
 
 ### Linux
+
 ```shell
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
+
 ### Windows Powershell
-```shell
-$Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
+
+```powershell
+$Env:KUBECONFIG="$Env:KUBECONFIG;$HOME\.kube\config"
 ```
 
 View configuration information merged from all the files that are now listed
@@ -357,23 +375,21 @@ kubectl config view
 ## Clean up
 
 Return your `KUBECONFIG` environment variable to its original value. For example:<br>
-Linux:
+
+### Linux
+
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
 ```
-Windows PowerShell
-```shell
+
+### Windows PowerShell
+
+```powershell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 * [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-* [kubectl config](/docs/reference/generated/kubectl/kubectl-commands/)
-
-{{% /capture %}}
-
-
+* [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 

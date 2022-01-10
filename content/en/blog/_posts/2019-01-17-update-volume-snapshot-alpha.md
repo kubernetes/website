@@ -147,7 +147,7 @@ As of the publishing of this blog post, the following CSI drivers support snapsh
 - [Datera CSI Driver](https://github.com/Datera/datera-csi)
 - [NexentaStor CSI Driver](https://github.com/Nexenta/nexentastor-csi-driver)
 
-Snapshot support for other [drivers](https://kubernetes-csi.github.io/docs/Drivers.html) is pending, and should be available soon. Read the “Container Storage Interface (CSI) for Kubernetes GA” blog post to learn more about CSI and how to deploy CSI drivers.
+Snapshot support for other [drivers](https://kubernetes-csi.github.io/docs/drivers.html) is pending, and should be available soon. Read the “Container Storage Interface (CSI) for Kubernetes GA” blog post to learn more about CSI and how to deploy CSI drivers.
 
 ## What’s next?
 

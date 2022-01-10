@@ -1,3 +1,4 @@
 ---
-title: ドキュメント 
+linktitle: Kubernetesドキュメント
+title: ドキュメント
 ---

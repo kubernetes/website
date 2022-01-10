@@ -5,28 +5,30 @@ approvers:
 linkTitle: "Reference"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
+no_list: true
 ---
 
-{{% capture overview %}}
+
+<!-- overview -->
 
 This section of the Kubernetes documentation contains references.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## API Reference
 
-* [Kubernetes API Overview](/docs/reference/using-api/api-overview/) - Overview of the API for Kubernetes.
-* Kubernetes API Versions
-  * [1.16](/docs/reference/generated/kubernetes-api/v1.16/)
-  * [1.15](/docs/reference/generated/kubernetes-api/v1.15/)
-  * [1.14](/docs/reference/generated/kubernetes-api/v1.14/)
-  * [1.13](/docs/reference/generated/kubernetes-api/v1.13/)
-  * [1.12](/docs/reference/generated/kubernetes-api/v1.12/)
+* [Glossary](/docs/reference/glossary/) -  a comprehensive, standardized list of Kubernetes terminology
 
-## API Client Libraries
+* [Kubernetes API Reference](/docs/reference/kubernetes-api/)
+* [One-page API Reference for Kubernetes {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [Using The Kubernetes API](/docs/reference/using-api/) - overview of the API for Kubernetes.
+* [API access control](/docs/reference/access-authn-authz/) - details on how Kubernetes controls API access
+* [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
+
+## Officially supported client libraries
 
 To call the Kubernetes API from a programming language, you can use
 [client libraries](/docs/reference/using-api/client-libraries/). Officially supported
@@ -36,24 +38,61 @@ client libraries:
 - [Kubernetes Python client library](https://github.com/kubernetes-client/python)
 - [Kubernetes Java client library](https://github.com/kubernetes-client/java)
 - [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
+- [Kubernetes C# client library](https://github.com/kubernetes-client/csharp)
+- [Kubernetes Haskell client library](https://github.com/kubernetes-client/haskell)
 
-## CLI Reference
+## CLI
 
-* [kubectl](/docs/user-guide/kubectl-overview) - Main CLI tool for running commands and managing Kubernetes clusters.
-    * [JSONPath](/docs/user-guide/jsonpath/) - Syntax guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
-* [kubeadm](/docs/admin/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
-* [kubefed](/docs/admin/kubefed/) - CLI tool to help you administrate your federated clusters.
+* [kubectl](/docs/reference/kubectl/overview/) - Main CLI tool for running commands and managing Kubernetes clusters.
+    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
+* [kubeadm](/docs/reference/setup-tools/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
 
-## Config Reference
+## Components
 
-* [kubelet](/docs/admin/kubelet/) - The primary *node agent* that runs on each node. The kubelet takes a set of PodSpecs and ensures that the described containers are running and healthy.
-* [kube-apiserver](/docs/admin/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
-* [kube-controller-manager](/docs/admin/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
-* [kube-proxy](/docs/admin/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of back-ends.
-* [kube-scheduler](/docs/admin/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - The
+  primary agent that runs on each node. The kubelet takes a set of PodSpecs
+  and ensures that the described containers are running and healthy.
+* [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) -
+  REST API that validates and configures data for API objects such as  pods,
+  services, replication controllers.
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can
+  do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across
+  a set of back-ends.
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
+  
+  * [Scheduler Policies](/docs/reference/scheduling/policies)
+  * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
+
+* List of [ports and protocols](/docs/reference/ports-and-protocols/) that
+  should be open on control plane and worker nodes
+## Config APIs
+
+This section hosts the documentation for "unpublished" APIs which are used to
+configure  kubernetes components or tools. Most of these APIs are not exposed
+by the API server in a RESTful way though they are essential for a user or an
+operator to use or manage a cluster.
+
+
+* [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
+* [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
+  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
+* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) and
+  [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+* [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
+* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and 
+  [Client authentication API (v1)](/docs/reference/config-api/client-authentication.v1/)
+* [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+
+## Config API for kubeadm
+
+* [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
+* [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
 
 ## Design Docs
 
-An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+An archive of the design docs for Kubernetes functionality. Good starting points are
+[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
+[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
 
-{{% /capture %}}

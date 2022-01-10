@@ -1,10 +1,10 @@
 ---
 title: Troubleshooting kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 As with any program, you might run into an error installing or running kubeadm.
 This page lists some common failure scenarios and have provided steps that can help you understand and fix the problem.
@@ -15,12 +15,54 @@ If your problem is not listed below, please follow the following steps:
   - Go to [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) and search for existing issues.
   - If no issue exists, please [open one](https://github.com/kubernetes/kubeadm/issues/new) and follow the issue template.
 
-- If you are unsure about how kubeadm works, you can ask on [Slack](http://slack.k8s.io/) in #kubeadm, or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
+- If you are unsure about how kubeadm works, you can ask on [Slack](https://slack.k8s.io/) in `#kubeadm`,
+  or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
   relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
 
-{{% /capture %}}
+<!-- body -->
 
-{{% capture body %}}
+## Not possible to join a v1.18 Node to a v1.17 cluster due to missing RBAC
+
+In v1.18 kubeadm added prevention for joining a Node in the cluster if a Node with the same name already exists.
+This required adding RBAC for the bootstrap-token user to be able to GET a Node object.
+
+However this causes an issue where `kubeadm join` from v1.18 cannot join a cluster created by kubeadm v1.17.
+
+To workaround the issue you have two options:
+
+Execute `kubeadm init phase bootstrap-token` on a control-plane node using kubeadm v1.18.
+Note that this enables the rest of the bootstrap-token permissions as well.
+
+or
+
+Apply the following RBAC manually using `kubectl apply -f ...`:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubeadm:get-nodes
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeadm:get-nodes
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubeadm:get-nodes
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:bootstrappers:kubeadm:default-node-token
+```
 
 ## `ebtables` or some similar executable not found during installation
 
@@ -47,30 +89,21 @@ If you notice that `kubeadm init` hangs after printing out the following line:
 This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
-- the default cgroup driver configuration for the kubelet differs from that used by Docker.
-  Check the system log file (e.g. `/var/log/message`) or examine the output from `journalctl -u kubelet`. If you see something like the following:
-
-  ```shell
-  error: failed to run Kubelet: failed to create kubelet:
-  misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
-  ```
-
-  There are two common ways to fix the cgroup driver problem:
-
- 1. Install Docker again following instructions
-  [here](/docs/setup/production-environment/container-runtimes/#docker).
-
- 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
-    [Configure cgroup driver used by kubelet on Master Node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
-
-- control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
+- the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
+configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+- control plane containers are crashlooping or hanging. You can check this by running `docker ps`
+and investigating each container by running `docker logs`. For other container runtime see
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
 
 ## kubeadm blocks when removing managed containers
 
 The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
 
-```bash
+```shell
 sudo kubeadm reset
+```
+
+```console
 [preflight] Running pre-flight checks
 [reset] Stopping the kubelet service
 [reset] Unmounting mounted directories in "/var/lib/kubelet"
@@ -80,15 +113,15 @@ sudo kubeadm reset
 
 A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
 
-```bash
+```shell
 sudo systemctl restart docker.service
 sudo kubeadm reset
 ```
 
 Inspecting the logs for docker may also be useful:
 
-```sh
-journalctl -ul docker
+```shell
+journalctl -u docker
 ```
 
 ## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
@@ -97,10 +130,10 @@ Right after `kubeadm init` there should not be any pods in these states.
 
 - If there are pods in one of these states _right after_ `kubeadm init`, please open an
   issue in the kubeadm repo. `coredns` (or `kube-dns`) should be in the `Pending` state
-  until you have deployed the network solution.
+  until you have deployed the network add-on.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
-  after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution that you installed is somehow broken.
+  after deploying the network add-on and nothing happens to `coredns` (or `kube-dns`),
+  it's very likely that the Pod Network add-on that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 - If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
@@ -108,17 +141,17 @@ Right after `kubeadm init` there should not be any pods in these states.
   MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
   The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 
-## `coredns` (or `kube-dns`) is stuck in the `Pending` state
+## `coredns` is stuck in the `Pending` state
 
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
-should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
+should [install the pod network add-on](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
 before CoreDNS may be deployed fully. Hence the `Pending` state before the network is set up.
 
 ## `HostPort` services do not work
 
 The `HostPort` and `HostIP` functionality is available depending on your Pod Network
-provider. Please contact the author of the Pod Network solution to find out whether
+provider. Please contact the author of the Pod Network add-on to find out whether
 `HostPort` and `HostIP` functionality are available.
 
 Calico, Canal, and Flannel CNI providers are verified to support HostPort.
@@ -126,11 +159,11 @@ Calico, Canal, and Flannel CNI providers are verified to support HostPort.
 For more information, see the [CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
-services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
+services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
 
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -175,6 +208,33 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
 
+## Kubelet client certificate rotation fails {#kubelet-client-cert}
+
+By default, kubeadm configures a kubelet with automatic rotation of client certificates by using the `/var/lib/kubelet/pki/kubelet-client-current.pem` symlink specified in `/etc/kubernetes/kubelet.conf`.
+If this rotation process fails you might see errors such as `x509: certificate has expired or is not yet valid`
+in kube-apiserver logs. To fix the issue you must follow these steps:
+
+1. Backup and delete `/etc/kubernetes/kubelet.conf` and `/var/lib/kubelet/pki/kubelet-client*` from the failed node.
+1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key` execute
+`kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
+`$NODE` must be set to the name of the existing failed node in the cluster.
+Modify the resulted `kubelet.conf` manually to adjust the cluster name and server endpoint,
+or pass `kubeconfig user --config` (it accepts `InitConfiguration`). If your cluster does not have
+the `ca.key` you must sign the embedded certificates in the `kubelet.conf` externally.
+1. Copy this resulted `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the failed node.
+1. Restart the kubelet (`systemctl restart kubelet`) on the failed node and wait for
+`/var/lib/kubelet/pki/kubelet-client-current.pem` to be recreated.
+1. Manually edit the `kubelet.conf` to point to the rotated kubelet client certificates, by replacing
+`client-certificate-data` and `client-key-data` with:
+
+    ```yaml
+    client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
+    client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
+    ```
+
+1. Restart the kubelet.
+1. Make sure the node becomes `Ready`.
+
 ## Default NIC When using flannel as the pod network in Vagrant
 
 The following error might indicate that something was wrong in the pod network:
@@ -206,7 +266,12 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
   ```
 
-  The workaround is to tell `kubelet` which IP to use using `--node-ip`. When using DigitalOcean, it can be the public one (assigned to `eth0`) or the private one (assigned to `eth1`) should you want to use the optional private network. The [`KubeletExtraArgs` section of the kubeadm `NodeRegistrationOptions` structure](https://github.com/kubernetes/kubernetes/blob/release-1.13/cmd/kubeadm/app/apis/kubeadm/v1beta1/types.go) can be used for this.
+  The workaround is to tell `kubelet` which IP to use using `--node-ip`.
+  When using DigitalOcean, it can be the public one (assigned to `eth0`) or
+  the private one (assigned to `eth1`) should you want to use the optional
+  private network. The `kubeletExtraArgs` section of the kubeadm
+  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
+  can be used for this.
 
   Then restart `kubelet`:
 
@@ -279,7 +344,7 @@ Alternatively, you can try separating the `key=value` pairs like so:
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
-A known workaround is to use the kubeadm [configuration file](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#apiserver-flags).
+A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
 
@@ -303,20 +368,76 @@ kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec":
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
 
-## The NodeRegistration.Taints field is omitted when marshalling kubeadm configuration
+## `/usr` is mounted read-only on nodes {#usr-mounted-read-only}
 
-*Note: This [issue](https://github.com/kubernetes/kubeadm/issues/1358) only applies to tools that marshal kubeadm types (e.g. to a YAML configuration file). It will be fixed in kubeadm API v1beta2.*
+On Linux distributions such as Fedora CoreOS or Flatcar Container Linux, the directory `/usr` is mounted as a read-only filesystem.
+For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md),
+Kubernetes components like the kubelet and kube-controller-manager use the default path of
+`/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
+for the feature to work.
+(**Note**: FlexVolume was deprecated in the Kubernetes v1.23 release)
 
-By default, kubeadm applies the `role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
-If you prefer kubeadm to not taint the control-plane node, and set `InitConfiguration.NodeRegistration.Taints` to an empty slice,
-the field will be omitted when marshalling. When the field is omitted, kubeadm applies the default taint.
+To workaround this issue you can configure the flex-volume directory using the kubeadm
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
-There are at least two workarounds:
+On the primary control-plane Node (created using `kubeadm init`) pass the following
+file using `--config`:
 
-1. Use the `role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
-
-2. Remove the taint after kubeadm init exits:
-```bash
-kubectl taint nodes NODE_NAME role.kubernetes.io/master:NoSchedule-
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+controllerManager:
+  extraArgs:
+    flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ```
-{{% /capture %}}
+
+On joining Nodes:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: JoinConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+```
+
+Alternatively, you can modify `/etc/fstab` to make the `/usr` mount writeable, but please
+be advised that this is modifying a design principle of the Linux distribution.
+
+## `kubeadm upgrade plan` prints out `context deadline exceeded` error message
+
+This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in the case of running an external etcd. This is not a critical bug and happens because older versions of kubeadm perform a version check on the external etcd cluster. You can proceed with `kubeadm upgrade apply ...`.
+
+This issue is fixed as of version 1.19.
+
+## `kubeadm reset` unmounts `/var/lib/kubelet`
+
+If `/var/lib/kubelet` is being mounted, performing a `kubeadm reset` will effectively unmount it.
+
+To workaround the issue, re-mount the `/var/lib/kubelet` directory after performing the `kubeadm reset` operation.
+
+This is a regression introduced in kubeadm 1.15. The issue is fixed in 1.20.
+
+## Cannot use the metrics-server securely in a kubeadm cluster
+
+In a kubeadm cluster, the [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
+can be used insecurely by passing the `--kubelet-insecure-tls` to it. This is not recommended for production clusters.
+
+If you want to use TLS between the metrics-server and the kubelet there is a problem,
+since kubeadm deploys a self-signed serving certificate for the kubelet. This can cause the following errors
+on the side of the metrics-server:
+```
+x509: certificate signed by unknown authority
+x509: certificate is valid for IP-foo not IP-bar
+```
+
+See [Enabling signed kubelet serving certificates](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
+to understand how to configure the kubelets in a kubeadm cluster to have properly signed serving certificates.
+
+Also see [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely).

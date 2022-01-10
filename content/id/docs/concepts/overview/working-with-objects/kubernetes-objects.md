@@ -1,23 +1,23 @@
 ---
 title: Memahami Konsep Objek-Objek yang ada pada Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Laman ini menjelaskan bagaimana objek-objek Kubernetes direpresentasikan di dalam API Kubernetes,
 dan bagaimana kamu dapat merepresentasikannya di dalam format `.yaml`.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Memahami Konsep Objek-Objek yang Ada pada Kubernetes
 
 Objek-objek Kubernetes adalah entitas persisten di dalam sistem Kubernetes.
 Kubernetes menggunakan entitas ini untuk merepresentasikan _state_ yang ada pada
-kluster kamu. Secara spesifik, hal itu dapat dideskripsikan sebagai:
+klaster kamu. Secara spesifik, hal itu dapat dideskripsikan sebagai:
 
 * Aplikasi-aplikasi kontainer apa sajakah yang sedang dijalankan (serta pada _node_ apa aplikasi tersebut dijalankan)
 * _Resource_ yang tersedia untuk aplikasi tersebut
@@ -26,11 +26,11 @@ kluster kamu. Secara spesifik, hal itu dapat dideskripsikan sebagai:
 Objek Kubernetes merupakan sebuah _"record of intent"_--yang mana sekali kamu membuat suatu objek,
 sistem Kubernetes akan bekerja secara konsisten untuk menjamin
 bahwa objek tersebut akan selalu ada. Dengan membuat sebuah objek, secara tak langsung kamu
-memberikan informasi pada sistem Kubernetes mengenai perilaku apakah yang kamu inginkan pada _workload_ kluster yang kamu miliki;
-dengan kata lain ini merupakan definisi _state_ kluster yang kamu inginkan.
+memberikan informasi pada sistem Kubernetes mengenai perilaku apakah yang kamu inginkan pada _workload_ klaster yang kamu miliki;
+dengan kata lain ini merupakan definisi _state_ klaster yang kamu inginkan.
 
 Untuk menggunakan objek-objek Kubernetes--baik membuat, mengubah, atau menghapus objek-objek tersebut--kamu
-harus menggunakan [API Kubernetes](/docs/concepts/overview/kubernetes-api/).
+harus menggunakan [API Kubernetes](/id/docs/concepts/overview/kubernetes-api/).
 Ketika kamu menggunakan perintah `kubectl`, perintah ini akan melakukan _API call_ untuk perintah
 yang kamu berikan. Kamu juga dapat menggunakan API Kubernetes secara langsung pada program yang kamu miliki
 menggunakan salah satu [_library_ klien](/docs/reference/using-api/client-libraries/) yang disediakan.
@@ -44,7 +44,7 @@ Status mendeskripsikan _state_ yang sebenarnya dari sebuah objek, dan hal ini di
 sistem Kubernetes. Setiap saat, _Control Plane_ Kubernetes selalu memantau apakah _state_ aktual sudah sesuai dengan
 _state_ yang diinginkan.
 
-Sebagai contoh, _Deployment_ merupakan sebuah objek yang merepresentasikan sebuah aplikasi yang dijalankan di kluster kamu.
+Sebagai contoh, _Deployment_ merupakan sebuah objek yang merepresentasikan sebuah aplikasi yang dijalankan di klaster kamu.
 Ketika kamu membuat sebuah _Deployment_, kamu bisa saja memberikan _spec_ bagi _Deployment_ untuk memberikan spesifikasi
 berapa banyak _replica_ yang kamu inginkan. Sistem Kubernetes kemudian akan membaca konfigurasi yang kamu berikan
 dan mengaktifkan tiga buah instans untuk aplikasi yang kamu inginkan--mengubah status yang ada saat ini agar sesuai dengan apa yang kamu inginkan.
@@ -99,10 +99,11 @@ untuk _Pod_ dapat kamu temukan [di sini](/docs/reference/generated/kubernetes-ap
 dan format _spec_ untuk _Deployment_ dapat ditemukan
 [di sini](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-* Pelajari lebih lanjut mengenai dasar-dasar penting bagi objek Kubernetes, seperti [Pod](/docs/concepts/workloads/pods/pod-overview/).
-{{% /capture %}}
+
+## {{% heading "whatsnext" %}}
+
+* Pelajari lebih lanjut mengenai dasar-dasar penting bagi objek Kubernetes, seperti [Pod](/id/docs/concepts/workloads/pods/pod-overview/).
+
 
 

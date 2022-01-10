@@ -1,2 +1,0 @@
-
-이 기능은 *사용중단(deprecated)* 상태이다. 이 상태에 대한 더 많은 정보는 [쿠버네티스 사용중단(deprecation) 정책](/docs/reference/deprecation-policy/)을 참조한다.

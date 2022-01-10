@@ -14,5 +14,5 @@ tags:
 
 <!--more--> 
 
-The metadata in an annotation can be small or large, structured or unstructured, and can include characters not permitted by labels. Clients such as tools and libraries can retrieve this metadata.
+The metadata in an annotation can be small or large, structured or unstructured, and can include characters not permitted by {{< glossary_tooltip text="labels" term_id="label" >}}. Clients such as tools and libraries can retrieve this metadata.
 

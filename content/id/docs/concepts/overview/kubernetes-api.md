@@ -1,13 +1,16 @@
 ---
 title: API Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 30
+description: >
+  API Kubernetes membuatmu dapat melakukan _query_ dan memanipulasi keadaan objek dalam Kubernetes.
+  Inti dari bidang kontrol Kubernetes adalah  _server_ API dan HTTP API yang diekspos. Pengguna, berbagai bagian klastermu, dan komponen eksternal semuanya berkomunikasi satu sama lain melalui server API.
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Secara keseluruhan standar yang digunakan untuk API dijelaskan di dalam [dokumentasi API standar](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
@@ -21,10 +24,10 @@ Kubernetes menyimpan bentuk terserialisasi dari obyek API yang dimilikinya di da
 
 Kubernetes sendiri dibagi menjadi beberapa komponen yang saling dapat saling interaksi melalui API.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Perubahan API
 
@@ -64,7 +67,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 
 Kubernetes juga menyediakan alternatif mekanisme serialisasi lain,
 yaitu dengan menggunakan <i>Protobuf</i>, yang secara umum digunakan untuk mekanisme komunikasi
-intra-kluster, hal ini didokumentasikan di dalam [proposal desain](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)
+intra-klaster, hal ini didokumentasikan di dalam [proposal desain](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)
 serta berkas IDL sebagai bentuk spesifikasi skema berada dalam <i>package</i> Go
 
 Sebelum Kubernetes versi 1.14, <i>apiserver</i> Kubernetes juga mengekspos API
@@ -97,7 +100,7 @@ Kriteria untuk setiap tingkatan dideskripsikan secara lebih detail di dalam
   - Bisa jadi terdapat <i>bug</i>. Secara <i>default</i> fitur ini tidak diekspos.
   - Ketersediaan untuk fitur yang ada bisa saja dihilangkan pada suatu waktu tanpa pemberitahuan sebelumnya.
   - API yang ada mungkin saja berubah tanpa memperhatikan kompatibilitas dengan versi perangkat lunak sebelumnya.
-  - Hanya direkomendasikan untuk kluster yang digunakan untuk tujuan <i>testing</i>.
+  - Hanya direkomendasikan untuk klaster yang digunakan untuk tujuan <i>testing</i>.
 - Tingkatan <i>Beta</i>:
   - Nama dari versi ini mengandung string `beta` (misalnya `v2beta3`).
   - Kode yang ada sudah melalui mekanisme <i>testing</i> yang cukup baik. Menggunakan fitur ini dianggap cukup aman. Fitur ini diekspos secara <i>default</i>.
@@ -153,4 +156,4 @@ Ekstensi lain dapat diaktifkan penanda `--runtime-config` pada <i>apiserver</i>.
  Sebagai contoh untuk menonaktifkan <i>deployments</i> dan <i>ingress</i>, tetapkan.
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
 
-{{% /capture %}}
+

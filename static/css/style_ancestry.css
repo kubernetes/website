@@ -1,10 +1,8 @@
 #caseStudyTitle {
     margin-top: 1em !important;
-    font-family:"Roboto", sans-serif;
 }
 
 p {
-  font-family:"Roboto", sans-serif;
   padding:5%;
 }
 
@@ -19,7 +17,6 @@ body {
 }
 
 h1 {
-  font-family:"Roboto", sans-serif;
   font-weight:bold;
   letter-spacing:0.025em;
   font-size:42px;
@@ -36,20 +33,18 @@ h1 {
 }
 
 .banner1 {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   padding-top:12%;
   padding-bottom:0.5%;
   padding-left:10.9%;
   font-size:32px;
-  background: url('/images/CaseStudy_ancestry_banner1.jpg');
+  background: url('/images/case-studies/ancestry/banner1.jpg');
   background-size:100% auto;
   background-repeat:no-repeat;
 }
 
 .banner2 {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   padding-top:3%;
@@ -64,7 +59,6 @@ h1 {
 }
 
 .banner3 {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   padding-left:5%;
@@ -74,12 +68,11 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  background: url('/images/CaseStudy_ancestry_banner3.jpg');
+  background: url('/images/case-studies/ancestry/banner3.jpg');
   background-size:100% auto;
 }
 
 .banner4 {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   padding-top:5%;
@@ -87,12 +80,11 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  background: url('/images/CaseStudy_ancestry_banner4.jpg');
+  background: url('/images/case-studies/ancestry/banner4.jpg');
   background-size:100% auto;
 }
 
 .banner5 {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   padding-top:3%;
@@ -106,7 +98,6 @@ h1 {
 }
 
 .banner2text {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   width:65%;
@@ -115,7 +106,6 @@ h1 {
 }
 
 .banner3text {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   width:70%;
@@ -124,7 +114,6 @@ h1 {
 }
 
 .banner4text {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   width:70%;
@@ -133,7 +122,6 @@ h1 {
 }
 
 .banner5text {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   width:65%;
@@ -143,7 +131,6 @@ h1 {
 
 
 h2 {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   font-size:24px;
   line-height:34px;
@@ -151,7 +138,6 @@ h2 {
 }
 
 .quote {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   font-size:22px;
   line-height:32px;
@@ -159,7 +145,6 @@ h2 {
 }
 
 .details {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   font-size:18px;
   color:#3366ff;
@@ -179,7 +164,6 @@ hr {
 }
 
 .col1 {
-  font-family:"Roboto", sans-serif;
   font-weight:100;
   color:#606060;
   line-height:20px;
@@ -189,7 +173,6 @@ hr {
 }
 
 .col2 {
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   line-height:20px;
   color:#606060;
@@ -204,7 +187,6 @@ hr {
   margin-right:10%;
   margin-top:4%;
   margin-bottom:6%;
-  font-family:"Roboto", sans-serif;
   font-weight:300;
   line-height:22px;
   color:#606060;
@@ -217,12 +199,10 @@ hr {
   margin-left:6.5%;
   margin-top:1%;
   margin-bottom:4%;
-  font-family:"Roboto", sans-serif;
   font-weight:300;
 }
 
 h4 {
-  font-family:"Roboto", sans-serif;
   font-weight:400;
   letter-spacing:0.9;
   font-size:20px;
@@ -233,7 +213,6 @@ h4 {
 @media screen and (max-width: 910px){
 
   h1 {
-    font-family:"Roboto", sans-serif;
     font-weight:bold;
     line-height:36px;
     letter-spacing:0.03em;
@@ -249,7 +228,6 @@ h4 {
   }
 
   .details {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     font-size:16px;
     color:#3366ff;
@@ -263,13 +241,12 @@ h4 {
   .logo {
       width:8%;
   }
-  
+
   .col1 {
     width: 90%;
     padding-left:5%;
     padding-right:8%;
     float:left;
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#606060;
     line-height:20px;
@@ -282,7 +259,6 @@ h4 {
     padding-left:5%;
     padding-top:5%;
     padding-bottom:5%;
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     float:left;
     line-height:20px;
@@ -292,7 +268,6 @@ h4 {
   }
 
   .banner1 {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#ffffff;
     padding-top:15%;
@@ -304,7 +279,6 @@ h4 {
   }
 
   .banner2 {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#ffffff;
     padding-top:4%;
@@ -320,7 +294,6 @@ h4 {
   }
 
   .banner3 {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#ffffff;
     padding-top:5%;
@@ -334,7 +307,6 @@ h4 {
   }
 
   .banner4 {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#ffffff;
     padding-top:5%;
@@ -348,7 +320,6 @@ h4 {
   }
 
   .banner5 {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#ffffff;
     padding-top:4%;
@@ -363,7 +334,6 @@ h4 {
   }
 
   .banner2text {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#ffffff;
     width:80%;
@@ -374,7 +344,6 @@ h4 {
   }
 
   .banner3text {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#ffffff;
     width:80%;
@@ -385,7 +354,6 @@ h4 {
   }
 
   .banner4text {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#ffffff;
     width:80%;
@@ -396,7 +364,6 @@ h4 {
   }
 
   .banner5text {
-    font-family:"Roboto", sans-serif;
     font-weight:300;
     color:#ffffff;
     width:80%;

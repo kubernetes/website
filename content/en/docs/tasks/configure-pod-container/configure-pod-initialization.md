@@ -1,22 +1,23 @@
 ---
 title: Configure Pod Initialization
-content_template: templates/task
+content_type: task
 weight: 130
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to use an Init Container to initialize a Pod before an
 application Container runs.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a Pod that has an Init Container
 
@@ -36,7 +37,7 @@ shared Volume at `/work-dir`, and the application container mounts the shared
 Volume at `/usr/share/nginx/html`. The init container runs the following command
 and then terminates:
 
-    wget -O /work-dir/index.html http://kubernetes.io
+    wget -O /work-dir/index.html http://info.cern.ch
 
 Notice that the init container writes the `index.html` file in the root directory
 of the nginx server.
@@ -66,21 +67,19 @@ In your shell, send a GET request to the nginx server:
 
 The output shows that nginx is serving the web page that was written by the init container:
 
-    <!Doctype html>
-    <html id="home">
+    <html><head></head><body><header>
+    <title>http://info.cern.ch</title>
+    </header>
 
-    <head>
-    ...
-    "url": "http://kubernetes.io/"}</script>
-    </head>
-    <body>
+    <h1>http://info.cern.ch - home of the first website</h1>
       ...
-      <p>Kubernetes is open source giving you the freedom to take advantage ...</p>
+      <li><a href="http://info.cern.ch/hypertext/WWW/TheProject.html">Browse the first website</a></li>
       ...
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about
 [communicating between Containers running in the same Pod](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
@@ -88,6 +87,6 @@ The output shows that nginx is serving the web page that was written by the init
 * Learn more about [Volumes](/docs/concepts/storage/volumes/).
 * Learn more about [Debugging Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 
-{{% /capture %}}
+
 
 

@@ -1,6 +1,6 @@
 ---
 title: Hallo Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -13,7 +13,7 @@ card:
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dieses Tutorial zeigt Ihnen, wie Sie eine einfache "Hallo Welt" Node.js-Anwendung auf Kubernetes mit [Minikube](/docs/getting-started-guides/minikube) und Katacoda ausführen.
 Katacoda bietet eine kostenlose Kubernetes-Umgebung im Browser.
@@ -22,17 +22,19 @@ Katacoda bietet eine kostenlose Kubernetes-Umgebung im Browser.
 Sie können dieses Tutorial auch verwenden, wenn Sie [Minikube lokal](/docs/tasks/tools/install-minikube/) installiert haben.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Stellen Sie eine Hallo-Welt-Anwendung für Minikube bereit.
 * Führen Sie die App aus.
 * Betrachten Sie die Log Dateien.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Dieses Lernprogramm enthält ein aus den folgenden Dateien erstelltes Container-Image:
 
@@ -42,9 +44,9 @@ Dieses Lernprogramm enthält ein aus den folgenden Dateien erstelltes Container-
 
 Weitere Informationen zum `docker build` Befehl, lesen Sie die [Docker Dokumentation](https://docs.docker.com/engine/reference/commandline/build/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Erstellen Sie einen Minikube-Cluster
 
@@ -75,7 +77,7 @@ Deployments sind die empfohlene Methode zum Verwalten der Erstellung und Skalier
 Der Pod führt einen Container basierend auf dem bereitgestellten Docker-Image aus.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. Anzeigen des Deployments:
@@ -145,7 +147,7 @@ Um den "Hallo-Welt"-Container außerhalb des virtuellen Netzwerks von Kubernetes
     ```
 
     Bei Cloud-Anbietern, die Load-Balancer unterstützen, wird eine externe IP-Adresse für den Zugriff auf den Dienst bereitgestellt.
-    Bei Minikube ermöglicht der Typ `LoadBalancer` den Dienst über den Befehl `minikube service` verfuügbar zu machen.
+    Bei Minikube ermöglicht der Typ `LoadBalancer` den Dienst über den Befehl `minikube service` verfügbar zu machen.
 
 
 3. Führen Sie den folgenden Befehl aus:
@@ -260,12 +262,13 @@ Löschen Sie optional die Minikube-VM:
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Lernen Sie mehr über [Bereitstellungsobjekte](/docs/concepts/workloads/controllers/deployment/).
 * Lernen Sie mehr über [Anwendungen bereitstellen](/docs/user-guide/deploying-applications/).
 * Lernen Sie mehr über [Serviceobjekte](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+

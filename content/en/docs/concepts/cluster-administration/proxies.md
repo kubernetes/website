@@ -1,14 +1,14 @@
 ---
 title: Proxies in Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains proxies used with Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Proxies
 
@@ -39,7 +39,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxies UDP, TCP and SCTP
     - does not understand HTTP
     - provides load balancing
-    - is just used to reach services
+    - is only used to reach services
 
 1.  A Proxy/Load-balancer in front of apiserver(s):
 
@@ -62,6 +62,6 @@ will typically ensure that the latter types are setup correctly.
 
 Proxies have replaced redirect capabilities.  Redirects have been deprecated.
 
-{{% /capture %}}
+
 
 

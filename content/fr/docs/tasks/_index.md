@@ -2,21 +2,21 @@
 title: Tâches
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette section de la documentation de Kubernetes contient des pages qui montrent comment effectuer des tâches individuelles.
 Une page montre comment effectuer une seule chose, généralement en donnant une courte séquence d'étapes.
 
-{{% /capture %}}
 
-{{% capture body %}}
 
-## Interface web (Dashboard) #{dashboard}
+<!-- body -->
+
+## Interface web (Dashboard) {#dashboard}
 
 Déployer et accéder au dashboard web de votre cluster pour vous aider à le gérer et administrer un cluster Kubernetes.
 
@@ -76,11 +76,12 @@ Configurer des GPUs NVIDIA pour les utiliser dans des noeuds dans un cluster.
 
 Configuration des huge pages comme une ressource planifiable dans un cluster.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Si vous souhaitez écrire une page, consultez
 [Création d'une PullRequest de documentation](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
+

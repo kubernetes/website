@@ -1,22 +1,21 @@
 ---
 title: 推荐使用的标签
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
 title: Recommended Labels
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 You can visualize and manage Kubernetes objects with more tools than kubectl and
 the dashboard. A common set of labels allows tools to work interoperably, describing
 objects in a common manner that all tools can understand.
 -->
-除了 kubectl 和 dashboard 之外，您可以其他工具来可视化和管理 Kubernetes 对象。
-一组通用的标签可以让多个工具之间互操作，用所有工具都能理解的通用方式描述对象。
+除了 kubectl 和 dashboard 之外，您可以使用其他工具来可视化和管理 Kubernetes 对象。一组通用的标签可以让多个工具之间相互操作，用所有工具都能理解的通用方式描述对象。
 
 <!--
 In addition to supporting tooling, the recommended labels describe applications
@@ -24,9 +23,9 @@ in a way that can be queried.
 -->
 除了支持工具外，推荐的标签还以一种可以查询的方式描述了应用程序。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 The metadata is organized around the concept of an _application_. Kubernetes is not
 a platform as a service (PaaS) and doesn't have or enforce a formal notion of an application.
@@ -65,21 +64,22 @@ on every resource object.
 | Key                                 | Description           | Example  | Type |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | The name of the application | `mysql` | string |
-| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `wordpress-abcxzy` | string |
+| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `mysql-abcxzy` | string |
 | `app.kubernetes.io/version`         | The current version of the application (e.g., a semantic version, revision hash, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
-| `app.kubernetes.io/managed-by`  | The tool being used to manage the operation of an application | `helm` | string |
-
+| `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `helm` | string |
+| `app.kubernetes.io/created-by`      | The controller/user who created this resource | `controller-manager` | string |
 -->
 | 键                                 | 描述           | 示例  | 类型 |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | 应用程序的名称 | `mysql` | 字符串 |
-| `app.kubernetes.io/instance`        | 用于唯一确定应用实例的名称 | `wordpress-abcxzy` | 字符串 |
+| `app.kubernetes.io/instance`        | 用于唯一确定应用实例的名称 | `mysql-abcxzy` | 字符串 |
 | `app.kubernetes.io/version`         | 应用程序的当前版本（例如，语义版本，修订版哈希等） | `5.7.21` | 字符串 |
 | `app.kubernetes.io/component`       | 架构中的组件 | `database` | 字符串 |
 | `app.kubernetes.io/part-of`         | 此级别的更高级别应用程序的名称 | `wordpress` | 字符串 |
-| `app.kubernetes.io/managed-by`  | 用于管理应用程序的工具 | `helm` | 字符串 |
+| `app.kubernetes.io/managed-by`      | 用于管理应用程序的工具 | `helm` | 字符串 |
+| `app.kubernetes.io/created-by`      | 创建该资源的控制器或者用户 | `controller-manager` | 字符串 |
 <!--
 To illustrate these labels in action, consider the following StatefulSet object:
 -->
@@ -91,19 +91,20 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxzy
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
     app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/created-by: controller-manager
 ```
 
 <!--
 ## Applications And Instances Of Applications
 
 An application can be installed one or more times into a Kubernetes cluster and,
-in some cases, the same namespace. For example, wordpress can be installed more
-than once where different websites are different installations of wordpress.
+in some cases, the same namespace. For example, WordPress can be installed more
+than once where different websites are different installations of WordPress.
 
 The name of an application and the instance name are recorded separately. For
 example, WordPress has a `app.kubernetes.io/name` of `wordpress` while it has
@@ -113,9 +114,12 @@ to be identifiable. Every instance of an application must have a unique name.
 -->
 ## 应用和应用实例
 
-应用可以在 Kubernetes 集群中安装一次或多次。在某些情况下，可以安装在同一命名空间中。例如，可以不止一次地为不同的站点安装不同的 wordpress。
+应用可以在 Kubernetes 集群中安装一次或多次。在某些情况下，可以安装在同一命名空间中。例如，可以不止一次地为不同的站点安装不同的 WordPress。
 
-应用的名称和实例的名称是分别记录的。例如，某 WordPress 实例的 `app.kubernetes.io/name` 为 `wordpress`，而其实例名称表现为 `app.kubernetes.io/instance` 的属性值 `wordpress-abcxzy`。这使应用程序和应用程序的实例成为可能是可识别的。应用程序的每个实例都必须具有唯一的名称。
+应用的名称和实例的名称是分别记录的。例如，WordPress 应用的 
+`app.kubernetes.io/name` 为 `wordpress`，而其实例名称 
+`app.kubernetes.io/instance` 为 `wordpress-abcxzy`。
+这使得应用和应用的实例均可被识别，应用的每个实例都必须具有唯一的名称。
 
 <!--
 ## Examples
@@ -182,7 +186,6 @@ The start to the following `Deployment` is used for WordPress:
 
 以下 `Deployment` 的开头用于 WordPress：
 
-
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -219,7 +222,6 @@ metadata:
 <!--
 MySQL is exposed as a `StatefulSet` with metadata for both it and the larger application it belongs to:
 -->
-
 MySQL 作为一个 `StatefulSet` 暴露，包含它和它所属的较大应用程序的元数据：
 ```yaml
 apiVersion: apps/v1
@@ -228,17 +230,16 @@ metadata:
   labels:
     app.kubernetes.io/name: mysql
     app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/version: "5.7.21"
 ...
 ```
 
 <!--
 The `Service` is used to expose MySQL as part of WordPress:
 -->
-
 `Service` 用于将 MySQL 作为 WordPress 的一部分暴露：
 ```yaml
 apiVersion: v1
@@ -247,10 +248,10 @@ metadata:
   labels:
     app.kubernetes.io/name: mysql
     app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/version: "5.7.21"
 ...
 ```
 
@@ -258,5 +259,3 @@ metadata:
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and Wordpress, the broader application, are included.
 -->
 使用 MySQL `StatefulSet` 和 `Service`，您会注意到有关 MySQL 和 Wordpress 的信息，包括更广泛的应用程序。
-
-{{% /capture %}}

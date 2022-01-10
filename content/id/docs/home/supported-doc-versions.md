@@ -1,29 +1,12 @@
 ---
-title: Versi Kubernetes yang Termasuk dalam Dokumentasi
-content_template: templates/concept
+title: Versi Dokumentasi yang Tersedia
+content_type: custom
+layout: supported-versions
 card:
   name: about
   weight: 10
-  title: Versi Kubernetes yang Termasuk dalam Dokumentasi
+  title: Versi Dokumentasi yang Tersedia
 ---
 
-{{% capture overview %}}
-
-Situs ini merupakan dokumentasi dari Kubernetes versi saat ini dan 4 versi sebelumnya.
-
-{{% /capture %}}
-
-{{% capture body %}}
-
-## Versi saat ini
-
-Versi saat ini adalah
-[{{< param "version" >}}](/).
-
-## Versi sebelumnya
-
-{{< versions-other >}}
-
-{{% /capture %}}
-
-
+Situs web ini berisi dokumentasi untuk versi terkini Kubernetes
+dan empat versi sebelumnya.

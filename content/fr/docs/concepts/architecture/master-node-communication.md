@@ -1,31 +1,31 @@
 ---
 title: Communication Master-Node
-content_template: templates/concept
+content_type: concept
 description: Communication Master-Node Kubernetes
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Ce document répertorie les canaux de communication entre l'API du noeud maître (apiserver of master node en anglais) et le reste du cluster Kubernetes.
 L'objectif est de permettre aux utilisateurs de personnaliser leur installation afin de sécuriser la configuration réseau, de sorte que le cluster puisse être exécuté sur un réseau non approuvé (ou sur des adresses IP entièrement publiques d'un fournisseur de cloud).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Communication du Cluster vers le Master
 
-Tous les canaux de communication du cluster au master se terminent au apiserver (aucun des autres composants principaux n'est conçu pour exposer des services distants).
+Tous les canaux de communication du cluster au master se terminent à l'apiserver (aucun des autres composants principaux n'est conçu pour exposer des services distants).
 Dans un déploiement typique, l'apiserver est configuré pour écouter les connexions distantes sur un port HTTPS sécurisé (443) avec un ou plusieurs types d'[authentification](/docs/reference/access-authn-authz/authentication/) client.
-Une ou plusieurs formes d'[autorisation](/docs/reference/access-authn-authz/authorization/) devraient être activée, notamment si les [requêtes anonymes](/docs/reference/access-authn-authz/authentication/#anonymous-requests) ou [jeton de compte de service](/docs/reference/access-authn-authz/authentication/#service-account-tokens) sont autorisés.
+Une ou plusieurs formes d'[autorisation](/docs/reference/access-authn-authz/authorization/) devraient être activées, notamment si les [requêtes anonymes](/docs/reference/access-authn-authz/authentication/#anonymous-requests) ou [jeton de compte de service](/docs/reference/access-authn-authz/authentication/#service-account-tokens) sont autorisés.
 
 Le certificat racine public du cluster doit être configuré pour que les nœuds puissent se connecter en toute sécurité à l'apiserver avec des informations d'identification client valides.
 Par exemple, dans un déploiement GKE par défaut, les informations d'identification client fournies au kubelet sont sous la forme d'un certificat client.
 Consultez [amorçage TLS de kubelet](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) pour le provisioning automatisé des certificats de client Kubelet.
 
 Les pods qui souhaitent se connecter à l'apiserver peuvent le faire de manière sécurisée en utilisant un compte de service afin que Kubernetes injecte automatiquement le certificat racine public et un jeton de support valide dans le pod lorsqu'il est instancié.
-Le service `kubernetes` (dans tous les namespaces) est configuré avec une adresse IP virtuelle redirigée (via kube-proxy) vers le point de terminaison HTTPS sur le apiserver.
+Le service `kubernetes` (dans tous les namespaces) est configuré avec une adresse IP virtuelle redirigée (via kube-proxy) vers le point de terminaison HTTPS sur l'apiserver.
 
 Les composants du master communiquent également avec l'apiserver du cluster via le port sécurisé.
 
@@ -48,11 +48,11 @@ Les connexions de l'apiserver au kubelet sont utilisées pour:
 Ces connexions se terminent au point de terminaison HTTPS du kubelet.
 Par défaut, l'apiserver ne vérifie pas le certificat du kubelet, ce qui rend la connexion sujette aux attaques de type "man-in-the-middle", et **non sûre** sur des réseaux non approuvés et/ou publics.
 
-Pour vérifier cette connexion, utilisez l'argument `--kubelet-certificate-authority` pour fournir à apiserver un ensemble de certificats racine à utiliser pour vérifier le certificat du kubelet.
+Pour vérifier cette connexion, utilisez l'argument `--kubelet-certificate-authority` pour fournir à l'apiserver un ensemble de certificats racine à utiliser pour vérifier le certificat du kubelet.
 
 Si ce n'est pas possible, utilisez [SSH tunneling](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) entre l'apiserver et le kubelet si nécessaire pour éviter la connexion sur un réseau non sécurisé ou public.
 
-Finalement, l'[authentification et/ou autorisation du Kubelet](/docs/admin/kubelet-authentication-authorization/) devrait être activé pour sécuriser l'API kubelet.
+Finalement, l'[authentification et/ou autorisation du Kubelet](/docs/admin/kubelet-authentication-authorization/) devrait être activée pour sécuriser l'API kubelet.
 
 ### apiserver vers nodes, pods et services
 
@@ -72,4 +72,4 @@ Ce tunnel garantit que le trafic n'est pas exposé en dehors du réseau dans leq
 Les tunnels SSH étant actuellement obsolètes, vous ne devriez pas choisir de les utiliser à moins de savoir ce que vous faites.
 Un remplacement pour ce canal de communication est en cours de conception.
 
-{{% /capture %}}
+

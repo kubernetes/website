@@ -1,27 +1,28 @@
 ---
 title: Assign CPU Resources to Containers and Pods
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to assign a CPU *request* and a CPU *limit* to
 a container. Containers cannot use more CPU than the configured limit.
 Provided the system has CPU time free, a container is guaranteed to be
 allocated as much CPU as it requests.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Each node in your cluster must have at least 1 CPU.
+Your cluster must have at least 1 CPU available for use to run the task examples.
 
 A few of the steps on this page require you to run the
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 service in your cluster. If you have the metrics-server
 running, you can skip those steps.
 
@@ -48,10 +49,10 @@ NAME
 v1beta1.metrics.k8s.io
 ```
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a namespace
 
@@ -111,7 +112,7 @@ kubectl top pod cpu-demo --namespace=cpu-example
 ```
 
 This example output shows that the Pod is using 974 milliCPU, which is
-just a bit less than the limit of 1 CPU specified in the Pod configuration.
+slightly less than the limit of 1 CPU specified in the Pod configuration.
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
@@ -122,9 +123,7 @@ Recall that by setting `-cpu "2"`, you configured the Container to attempt to us
 
 {{< note >}}
 Another possible explanation for the CPU use being below 1.0 is that the Node might not have
-enough CPU resources available. Recall that the prerequisites for this exercise require each of
-your Nodes to have at least 1 CPU. If your Container runs on a Node that has only 1 CPU, the Container
-cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
+enough CPU resources available. Recall that the prerequisites for this exercise require your cluster to have at least 1 CPU available for use. If your Container runs on a Node that has only 1 CPU, the Container cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
 {{< /note >}}
 
 ## CPU units
@@ -182,9 +181,6 @@ The output shows that the Pod status is Pending. That is, the Pod has not been
 scheduled to run on any Node, and it will remain in the Pending state indefinitely:
 
 
-```shell
-kubectl get pod cpu-demo-2 --namespace=cpu-example
-```
 ```
 NAME         READY     STATUS    RESTARTS   AGE
 cpu-demo-2   0/1       Pending   0          7m
@@ -226,6 +222,13 @@ Container is automatically assigned the default limit. Cluster administrators ca
 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core/)
 to specify a default value for the CPU limit.
 
+## If you specify a CPU limit but do not specify a CPU request
+
+If you specify a CPU limit for a Container but do not specify a CPU request, Kubernetes automatically
+assigns a CPU request that matches the limit. Similarly, if a Container specifies its own memory limit,
+but does not specify a memory request, Kubernetes automatically assigns a memory request that matches
+the limit.
+
 ## Motivation for CPU requests and limits
 
 By configuring the CPU requests and limits of the Containers that run in your
@@ -244,9 +247,10 @@ Delete your namespace:
 kubectl delete namespace cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 ### For app developers
@@ -257,18 +261,18 @@ kubectl delete namespace cpu-example
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-{{% /capture %}}
+

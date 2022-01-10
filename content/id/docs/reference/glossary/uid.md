@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-Setiap objek yang ada pada kluster Kubernetes memiliki UID yang unik. Hal ini dilakukan untuk membedakan keberadaan historis suatu entitas dengan kind dan nama yang serupa.
+Setiap objek yang ada pada klaster Kubernetes memiliki UID yang unik. Hal ini dilakukan untuk membedakan keberadaan historis suatu entitas dengan kind dan nama yang serupa.

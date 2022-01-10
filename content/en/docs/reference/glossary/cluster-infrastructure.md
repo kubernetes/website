@@ -8,6 +8,6 @@ short_description: >
 
 aka:
 tags:
-- operations
+- operation
 ---
-The infrastructure layer provides and maintains VMs, networking, security groups and others.
+ The infrastructure layer provides and maintains VMs, networking, security groups and others.

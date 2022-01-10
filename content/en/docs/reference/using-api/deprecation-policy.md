@@ -4,15 +4,15 @@ reviewers:
 - lavalamp
 - thockin
 title: Kubernetes Deprecation Policy
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This document details the deprecation policy for various facets of the system.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetes is a large system with many components and many contributors.  As
 with any such software, the feature set naturally evolves over time, and
 sometimes a feature may need to be removed. This could include an API, a flag,
@@ -24,7 +24,7 @@ a deprecation policy for aspects of the system that are slated to be removed.
 Since Kubernetes is an API-driven system, the API has evolved over time to
 reflect the evolving understanding of the problem space. The Kubernetes API is
 actually a set of APIs, called "API groups", and each API group is
-independently versioned.  [API versions](/docs/reference/using-api/api-overview/#api-versioning) fall
+independently versioned.  [API versions](/docs/reference/using-api/#api-versioning) fall
 into 3 main tracks, each of which has different policies for deprecation:
 
 | Example  | Track                            |
@@ -109,7 +109,7 @@ objects.
 
 All of this is best illustrated by examples.  Imagine a Kubernetes release,
 version X, which introduces a new API group.  A new Kubernetes release is made
-every approximately 3 months (4 per year).  The following table describes which
+every approximately 4 months (3 per year).  The following table describes which
 API versions are supported in a series of subsequent releases.
 
 <table>
@@ -289,14 +289,27 @@ API versions are supported in a series of subsequent releases.
 ### REST resources (aka API objects)
 
 Consider a hypothetical REST resource named Widget, which was present in API v1
-in the above timeline, and which needs to be deprecated.  We
-[document](/docs/reference/deprecation-policy/) and
+in the above timeline, and which needs to be deprecated.  We document and
 [announce](https://groups.google.com/forum/#!forum/kubernetes-announce) the
 deprecation in sync with release X+1.  The Widget resource still exists in API
 version v1 (deprecated) but not in v2alpha1.  The Widget resource continues to
 exist and function in releases up to and including X+8.  Only in release X+9,
 when API v1 has aged out, does the Widget resource cease to exist, and the
 behavior get removed.
+
+Starting in Kubernetes v1.19, making an API request to a deprecated REST API endpoint:
+
+1. Returns a `Warning` header (as defined in [RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)) in the API response.
+2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug-application-cluster/audit/) recorded for the request.
+3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver`
+   process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
+   to the `apiserver_request_total` metric, and a `removed_release` label that indicates the
+   Kubernetes release in which the API will no longer be served. The following Prometheus query
+   returns information about requests made to deprecated APIs which will be removed in v1.22:
+
+   ```promql
+   apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
+   ```
 
 ### Fields of REST resources
 
@@ -314,7 +327,7 @@ supported in API v1 must exist and function until API v1 is removed.
 
 ### Component config structures
 
-Component configs are versioned and managed just like REST resources.
+Component configs are versioned and managed similar to REST resources.
 
 ### Future work
 
@@ -415,6 +428,46 @@ transitions a lifecycle stage as follows. Feature gates must function for no les
 is deprecated it must be documented in both in the release notes and the corresponding CLI help.
 Both warnings and documentation must indicate whether a feature gate is non-operational.**
 
+## Deprecating a metric
+
+Each component of the Kubernetes control-plane exposes metrics (usually the
+`/metrics` endpoint), which are typically ingested by cluster administrators.
+Not all metrics are the same: some metrics are commonly used as SLIs or used
+to determine SLOs, these tend to have greater import. Other metrics are more
+experimental in nature or are used primarily in the Kubernetes development
+process.
+
+Accordingly, metrics fall under two stability classes (`ALPHA` and `STABLE`);
+this impacts removal of a metric during a Kubernetes release. These classes
+are determined by the perceived importance of the metric. The rules for
+deprecating and removing a metric are as follows:
+
+**Rule #9a: Metrics, for the corresponding stability class, must function for no less than:**
+
+   * **STABLE: 4 releases or 12 months (whichever is longer)**
+   * **ALPHA: 0 releases**
+
+**Rule #9b: Metrics, after their _announced deprecation_, must function for no less than:**
+
+   * **STABLE: 3 releases or 9 months (whichever is longer)**
+   * **ALPHA: 0 releases**
+
+Deprecated metrics will have their description text prefixed with a deprecation notice
+string '(Deprecated from x.y)' and a warning log will be emitted during metric
+registration. Like their stable undeprecated counterparts, deprecated metrics will
+be automatically registered to the metrics endpoint and therefore visible.
+
+On a subsequent release (when the metric's `deprecatedVersion` is equal to
+_current_kubernetes_version - 3_)), a deprecated metric will become a _hidden_ metric.
+**_Unlike_** their deprecated counterparts, hidden metrics will _no longer_ be
+automatically registered to the metrics endpoint (hence hidden). However, they
+can be explicitly enabled through a command line flag on the binary
+(`--show-hidden-metrics-for-version=`). This provides cluster admins an
+escape hatch to properly migrate off of a deprecated metric, if they were not
+able to react to the earlier deprecation warnings. Hidden metrics should be
+deleted after one release.
+
+
 ## Exceptions
 
 No policy can cover every possible situation.  This policy is a living
@@ -425,4 +478,3 @@ leaders to find the best solutions for those specific cases, always bearing in
 mind that Kubernetes is committed to being a stable system that, as much as
 possible, never breaks users. Exceptions will always be announced in all
 relevant release notes.
-{{% /capture %}}

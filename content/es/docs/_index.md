@@ -3,18 +3,18 @@ reviewers:
 - raelga
 title: Documentación
 weight: 10
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 **¡Bienvenido a la documentación de Kubernetes en Castellano!**
 
 Como podrá comprobar, la mayor parte de la documentación aún está disponible solo en inglés, pero no se preocupe, hay un equipo trabajando en la traducción al castellano.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 Si quiere participar, puede entrar al canal de Slack [#kubernets-docs-es](http://slack.kubernetes.io/) y formar parte del equipo detrás de la localización.
 

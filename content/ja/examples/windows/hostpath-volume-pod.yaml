@@ -11,7 +11,7 @@ spec:
       mountPath: "C:\\etc\\foo"
       readOnly: true
   nodeSelector:
-    beta.kubernetes.io/os: windows
+    kubernetes.io/os: windows
   volumes:
   - name: foo
     hostPath:

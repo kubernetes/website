@@ -44,7 +44,7 @@ Only 4 tools were in use by more than 10% of those who took the survey with Helm
 
 ## Want To See More?
 
-As the [Application Definition Working Group](https://github.com/kubernetes/community/tree/master/wg-app-def) is working through the data we're putting observations into a [Google Slides Document](http://bit.ly/2qTkuhx). This is a living document that will continue to grow while we look over and discuss the data.
+As the [Application Definition Working Group](https://github.com/kubernetes/community/tree/master/sig-apps) is working through the data we're putting observations into a [Google Slides Document](http://bit.ly/2qTkuhx). This is a living document that will continue to grow while we look over and discuss the data.
 
 There is [a session at KubeCon where the Application Definition Working Group will be meeting](https://kccnceu18.sched.com/event/DxV4) and discussing the survey. This is a session open to anyone in attendance, if you would like to attend.
 

@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-{{< glossary_tooltip text="쿠버네티스 API 서버" term_id="kube-apiserver" >}}에서 [추가 API 지원](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)을 구성하였으면, 쿠버네티스 API의 URL 경로를 "요구하는" `APIService` 오브젝트 추가할 수 있다.
+{{< glossary_tooltip text="쿠버네티스 API 서버" term_id="kube-apiserver" >}}에서 [추가 API 지원](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)을 구성하였으면, 쿠버네티스 API의 URL 경로를 "요구하는" `APIService` 오브젝트 추가할 수 있다.

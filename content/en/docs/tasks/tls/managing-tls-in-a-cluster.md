@@ -1,13 +1,13 @@
 ---
 title: Manage TLS Certificates in a Cluster
-content_template: templates/task
+content_type: task
 reviewers:
 - mikedanese
 - beacham
 - liggit
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes provides a `certificates.k8s.io` API, which lets you provision TLS
 certificates signed by a Certificate Authority (CA) that you control. These CA
@@ -23,16 +23,17 @@ CA for this purpose, but you should never rely on this. Do not assume that
 these certificates will validate against the cluster root CA.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Trusting TLS in a Cluster
 
@@ -59,7 +60,7 @@ This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://
 ## Download and install CFSSL
 
 The cfssl tools used in this example can be downloaded at
-[https://pkg.cfssl.org/](https://pkg.cfssl.org/).
+[https://github.com/cloudflare/cfssl/releases](https://github.com/cloudflare/cfssl/releases).
 
 ## Create a Certificate Signing Request
 
@@ -75,11 +76,16 @@ cat <<EOF | cfssl genkey - | cfssljson -bare server
     "192.0.2.24",
     "10.0.34.2"
   ],
-  "CN": "my-pod.my-namespace.pod.cluster.local",
+  "CN": "system:node:my-pod.my-namespace.pod.cluster.local",
   "key": {
     "algo": "ecdsa",
     "size": 256
-  }
+  },
+  "names": [
+    {
+      "O": "system:nodes"
+    }
+  ]
 }
 EOF
 ```
@@ -108,12 +114,13 @@ command:
 
 ```shell
 cat <<EOF | kubectl apply -f -
-apiVersion: certificates.k8s.io/v1beta1
+apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 metadata:
   name: my-svc.my-namespace
 spec:
   request: $(cat server.csr | base64 | tr -d '\n')
+  signerName: kubernetes.io/kubelet-serving
   usages:
   - digital signature
   - key encipherment
@@ -124,10 +131,10 @@ EOF
 Notice that the `server.csr` file created in step 1 is base64 encoded
 and stashed in the `.spec.request` field. We are also requesting a
 certificate with the "digital signature", "key encipherment", and "server
-auth" key usages. We support all key usages and extended key usages listed
-[here](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)
-so you can request client certificates and other certificates using this
-same API.
+auth" key usages, signed by the `kubernetes.io/kubelet-serving` signer.
+A specific `signerName` must be requested.
+View documentation for [supported signer names](/docs/reference/access-authn-authz/certificate-signing-requests/#signers)
+for more information.
 
 The CSR should now be visible from the API in a Pending state. You can see
 it by running:
@@ -155,9 +162,19 @@ Events: <none>
 
 ## Get the Certificate Signing Request Approved
 
-Approving the certificate signing request is either done by an automated
-approval process or on a one off basis by a cluster administrator. More
-information on what this involves is covered below.
+Approving the [certificate signing request](/docs/reference/access-authn-authz/certificate-signing-requests/)
+is either done by an automated approval process or on a one off basis by a cluster
+administrator. If you're authorized to approve a certificate request, you can do that
+manually using `kubectl`; for example:
+
+```shell
+kubectl certificate approve my-svc.my-namespace
+```
+
+```none
+certificatesigningrequest.certificates.k8s.io/my-svc.my-namespace approved
+```
+
 
 ## Download the Certificate and Use It
 
@@ -208,7 +225,7 @@ the CSR and otherwise should deny the CSR.
 
 ## A Word of Warning on the Approval Permission
 
-The ability to approve CSRs decides who trusts who within your environment. The
+The ability to approve CSRs decides who trusts whom within your environment. The
 ability to approve CSRs should not be granted broadly or lightly. The
 requirements of the challenge noted in the previous section and the
 repercussions of issuing a specific certificate should be fully understood
@@ -222,4 +239,4 @@ enable it, pass the `--cluster-signing-cert-file` and
 `--cluster-signing-key-file` parameters to the controller manager with paths to
 your Certificate Authority's keypair.
 
-{{% /capture %}}
+

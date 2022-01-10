@@ -1,5 +1,19 @@
-# Update imported docs
+### Update Kubernetes reference docs
 
-This tool updates the reference docs generated from the Kubernetes repository.
+The `update-imported-docs` script generates the Kubernetes reference docs (component and tool pages, kubectl-command
+reference, and Kubernetes API reference).
 
-[Generating Reference Pages for Kubernetes Components and Tools](https://kubernetes.io/docs/contribute/generate-ref-docs/kubernetes-components/) contains detailed instructions for using this tool.
+For detailed information about the generation process, view the
+[Generating Reference Documentation Quickstart Guide](https://kubernetes.io/docs/contribute/generate-ref-docs/quickstart/).
+
+### General Usage
+
+```shell
+./update-imported-docs <configuration-file.yml> <k8s_release>
+```
+
+For example:
+
+```shell
+./update-imported-docs reference.yml 1.17
+```

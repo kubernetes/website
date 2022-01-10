@@ -1,0 +1,113 @@
+---
+title: Jak użyć kubectl do tworzenia Deploymentu
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="pl">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+         <div class="col-md-8">
+          <h3>Cele</h3>
+                <ul>
+                    <li>Nauczyć się jak działa Deployment dla aplikacji.</li>
+                    <li>Zainstalować pierwszą aplikację używając kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Instalacje w Kubernetes</h3>
+                <p>
+                Mając działający klaster Kubernetes, można na nim zacząć instalować aplikacje.
+                W tym celu należy skonfigurować <b>Deployment</b>. Deployment informuje Kubernetesa,
+                jak tworzyć i aktualizować instancje Twojej aplikacji. Po stworzeniu Deploymentu, węzeł <em>master</em> Kubernetesa
+                zleca uruchomienie tej aplikacji na indywidualnych węzłach klastra.
+                </p>
+
+                <p>Po utworzeniu instancji aplikacji, Kubernetes Deployment Controller na bieżąco monitoruje te instancje. Jeśli węzeł, na którym działała jedna z instancji ulegnie awarii lub zostanie usunięty,  Deployment Controller zamieni tę instancję z instancją na innym węźle klastra. <b>W ten sposób działa samo naprawiający się mechanizm, który reaguje na awarie lub wyłączenia maszyn w klastrze.</b></p>
+
+                <p>W czasach przed wprowadzeniem takiej automatyzacji, skrypty instalacyjne używane były zazwyczaj do uruchomienia aplikacji, ale nie radziły sobie z awariami maszyn. Poprzez połączenie procesu instalacji i kontroli nad działaniem aplikacji na węzłach, Deployment Kubernetes oferuje fundamentalnie różne podejście do zarządzania aplikacjami.</p>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Podsumowanie:</h3>
+                    <ul>
+                        <li>Deployments</li>
+                        <li>Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        Deployment odpowiada za stworzenie i aktualizacje instancji Twojej aplikacji
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Instalacja pierwszej aplikacji w Kubernetes</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Do tworzenia i zarządzaniem Deploymentem służy polecenie linii komend, <b>Kubectl</b>. Kubectl używa Kubernetes API do komunikacji z klasterem. W tym module nauczysz się najczęściej używanych poleceń Kubectl niezbędnych do stworzenia Deploymentu, który uruchomi Twoje aplikacje na klastrze Kubernetes.</p>
+
+                <p>Tworząc Deployment musisz określić obraz kontenera oraz liczbę replik, które mają być uruchomione. Te ustawienia możesz zmieniać później, aktualizując Deployment. Moduły <a href="/pl/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a> oraz <a href="/pl/docs/tutorials/kubernetes-basics/update/update-intro/">6</a> omawiają skalowanie i aktualizowanie Deploymentów.</p>
+
+
+
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Aby aplikacja mogła zostać uruchomiona w Kubernetes, musi być opakowana w jeden z obsługiwanych formatów kontenerów</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+              <p>
+                Na potrzeby pierwszej instalacji użyjesz aplikacji hello-node zapakowaną w kontener Docker-a, która korzysta z NGINXa i powtarza wszystkie wysłane do niej zapytania. (Jeśli jeszcze nie próbowałeś stworzyć aplikacji hello-node i uruchomić za pomocą kontenerów, możesz spróbować teraz, kierując się instrukcjami samouczka <a href="/pl/docs/tutorials/hello-minikube/">Hello Minikube</a>).
+              <p>
+              
+               <p>Teraz, kiedy wiesz, czym są Deploymenty, przejdźmy do samouczka online, żeby zainstalować naszą pierwszą aplikację!</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/pl/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/" role="button">Uruchom interaktywny samouczek <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

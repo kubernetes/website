@@ -252,7 +252,7 @@ It’s finally possible to have dots in Go package names. In this section’s ex
 Kubernetes 1.9 includes a number of example projects which can serve as a blueprint for your own projects:  
 
 - [k8s.io/sample-apiserver](https://github.com/kubernetes/sample-apiserver) is a simple user-provided API server that is integrated into a cluster via [API aggregation](/docs/concepts/api-extension/apiserver-aggregation/).
-- [k8s.io/sample-controller](https://github.com/kubernetes/sample-controller) is a full-featured [controller](https://github.com/kubernetes/community/blob/master/contributors/devel/controllers.md) (also called an operator) with shared informers and a workqueue to process created, changed or deleted objects. It is based on CustomResourceDefinitions and uses [k8s.io/code-generator](https://github.com/kubernetes/code-generator) to generate deepcopy functions, typed clientsets, informers, and listers.
+- [k8s.io/sample-controller](https://github.com/kubernetes/sample-controller) is a full-featured [controller](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/controllers.md) (also called an operator) with shared informers and a workqueue to process created, changed or deleted objects. It is based on CustomResourceDefinitions and uses [k8s.io/code-generator](https://github.com/kubernetes/code-generator) to generate deepcopy functions, typed clientsets, informers, and listers.
 
 
 

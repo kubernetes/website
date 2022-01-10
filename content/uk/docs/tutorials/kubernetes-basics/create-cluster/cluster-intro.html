@@ -1,0 +1,152 @@
+---
+title: Використання Minikube для створення кластера
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+      <div class="col-md-8">
+          <!--<h3>Objectives</h3>
+          -->
+          <h3>Цілі</h3>
+                <ul>
+                    <!--<li>Learn what a Kubernetes cluster is.</li>
+                    -->
+                    <li>Зрозуміти, що таке Kubernetes кластер.</li>
+                    <!--<li>Learn what Minikube is.</li>
+                    -->
+                    <li>Зрозуміти, що таке Minikube.</li>
+                    <!--<li>Start a Kubernetes cluster using an online terminal.</li>
+                    -->
+                    <li>Запустити Kubernetes кластер за допомогою онлайн-термінала.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <!--<h3>Kubernetes Clusters</h3>
+                -->
+                <h3>Kubernetes кластери</h3>
+                <!--<p>
+                <b>Kubernetes coordinates a highly available cluster of computers that are connected to work as a single unit.</b> The abstractions in Kubernetes allow you to deploy containerized applications to a cluster without tying them specifically to individual machines. To make use of this new model of deployment, applications need to be packaged in a way that decouples them from individual hosts: they need to be containerized. Containerized applications are more flexible and available than in past deployment models, where applications were installed directly onto specific machines as packages deeply integrated into the host. <b>Kubernetes automates the distribution and scheduling of application containers across a cluster in a more efficient way.</b> Kubernetes is an open-source platform and is production-ready.
+                </p>
+                -->
+                <p>
+                <b>Kubernetes координує високодоступний кластер комп'ютерів, з'єднаних таким чином, щоб працювати як одне ціле.</b> Абстракції Kubernetes дозволяють вам розгортати контейнеризовані застосунки в кластері без конкретної прив'язки до окремих машин. Для того, щоб скористатися цією новою моделлю розгортання, застосунки потрібно упакувати таким чином, щоб звільнити їх від прив'язки до окремих хостів, тобто контейнеризувати. Контейнеризовані застосунки більш гнучкі і доступні, ніж попередні моделі розгортання, що передбачали встановлення застосунків безпосередньо на призначені для цього машини у вигляді програмного забезпечення, яке глибоко інтегрувалося із хостом. <b>Kubernetes дозволяє автоматизувати розподіл і запуск контейнерів застосунку у кластері, а це набагато ефективніше.</b> Kubernetes - це платформа з відкритим вихідним кодом, готова для використання у проді.
+                </p>
+                <!--<p>A Kubernetes cluster consists of two types of resources:
+                    <ul>
+                        <li>The <b>Master</b> coordinates the cluster</li>
+                        <li><b>Nodes</b> are the workers that run applications</li>
+                    </ul>
+                </p>
+                -->
+                <p>Kubernetes кластер складається з двох типів ресурсів:
+                    <ul>
+                        <li> <b>master</b>, що координує роботу кластера</li>
+                        <li><b>вузли (nodes)</b> - робочі машини, на яких запущені застосунки</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <!--<h3>Summary:</h3>
+                    -->
+                    <h3>Зміст:</h3>
+                    <ul>
+                        <!--<li>Kubernetes cluster</li>
+                        -->
+                        <li>Kubernetes кластер</li>
+                        <!--<li>Minikube</li>
+                        -->
+                        <li>Minikube</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <!--<p><i>
+                        Kubernetes is a production-grade, open-source platform that orchestrates the placement (scheduling) and execution of application containers within and across computer clusters.
+                    </i></p>
+                    -->
+                    <p><i>
+                        Kubernetes - це довершена платформа з відкритим вихідним кодом, що оркеструє розміщення і запуск контейнерів застосунку всередині та між комп'ютерними кластерами.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Схема кластера</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--<p><b>The Master is responsible for managing the cluster.</b> The master coordinates all activities in your cluster, such as scheduling applications, maintaining applications' desired state, scaling applications, and rolling out new updates.</p>
+                -->
+                <p><b>Master відповідає за керування кластером.</b> Master координує всі процеси у вашому кластері, такі як запуск застосунків, підтримка їх бажаного стану, масштабування застосунків і викатка оновлень.</p>
+
+                <!--<p><b>A node is a VM or a physical computer that serves as a worker machine in a Kubernetes cluster.</b> Each node has a Kubelet, which is an agent for managing the node and communicating with the Kubernetes master. The node should also have tools for handling container operations, such as Docker or rkt. A Kubernetes cluster that handles production traffic should have a minimum of three nodes.</p>
+                -->
+                <p><b>Вузол (node) - це ВМ або фізичний комп'ютер, що виступає у ролі робочої машини в Kubernetes кластері.</b> Кожен вузол має kubelet - агент для управління вузлом і обміну даними з Kubernetes master. Також на вузлі мають бути встановлені інструменти для виконання операцій з контейнерами, такі як Docker або rkt. Kubernetes кластер у проді повинен складатися як мінімум із трьох вузлів.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!--<p><i>Masters manage the cluster and the nodes are used to host the running applications.</i></p>
+                    -->
+                    <p><i>Master'и керують кластером, а вузли використовуються для запуску застосунків.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--<p>When you deploy applications on Kubernetes, you tell the master to start the application containers. The master schedules the containers to run on the cluster's nodes. <b>The nodes communicate with the master using the <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, which the master exposes. End users can also use the Kubernetes API directly to interact with the cluster.</p>
+                -->
+                <p>Коли ви розгортаєте застосунки у Kubernetes, ви кажете master-вузлу запустити контейнери застосунку. Master розподіляє контейнери для запуску на вузлах кластера. <b>Для обміну даними з master вузли використовують <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, який надається master-вузлом. Кінцеві користувачі також можуть взаємодіяти із кластером безпосередньо через Kubernetes API.</p>
+
+                <!--<p>A Kubernetes cluster can be deployed on either physical or virtual machines. To get started with Kubernetes development, you can use Minikube.  Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple cluster containing only one node. Minikube is available for Linux, macOS, and Windows systems. The Minikube CLI provides basic bootstrapping operations for working with your cluster, including start, stop, status, and delete. For this tutorial, however, you'll use a provided online terminal with Minikube pre-installed.</p>
+                -->
+                <p>Kubernetes кластер можна розгорнути як на фізичних, так і на віртуальних серверах. Щоб розпочати розробку під Kubernetes, ви можете скористатися Minikube - спрощеною реалізацією Kubernetes. Minikube створює на вашому локальному комп'ютері ВМ, на якій розгортає простий кластер з одного вузла. Існують версії Minikube для операційних систем Linux, macOS та Windows. Minikube CLI надає основні операції для роботи з вашим кластером, такі як start, stop, status і delete. Однак у цьому уроці ви використовуватимете онлайн термінал із вже встановленим Minikube.</p>
+
+                <!--<p>Now that you know what Kubernetes is, let's go to the online tutorial and start our first cluster!</p>
+                -->
+                <p>Тепер ви знаєте, що таке Kubernetes. Тож давайте перейдемо до інтерактивного уроку і створимо ваш перший кластер!</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/uk/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">Почати інтерактивний урок <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

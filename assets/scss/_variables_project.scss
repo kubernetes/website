@@ -1,0 +1,27 @@
+/* This file is provided by Docsy as an entry point to styling.
+Add styles or override variables from the theme here. */
+
+@import "reset";
+@import "skin";
+
+//K8S-Docsy integration
+@import "custom";
+
+//Media queries
+@import "base";
+@import "tablet";
+@import "desktop";
+
+$primary: #3371e3;
+
+// tooltip
+$tooltip-bg: #555;
+$tooltip-arrow-color: $tooltip-bg !default;
+$tooltip-arrow-width: 10px !default;
+$tooltip-opacity: 1 !default;
+$tooltip-color: #fff !default;
+$tooltip-max-width: 300px !default;
+$tooltip-font-size: 1rem;
+$tooltip-padding: 5px 8px;
+$tooltip-border-radius: 6px;
+$tooltip-font-weight: 400;

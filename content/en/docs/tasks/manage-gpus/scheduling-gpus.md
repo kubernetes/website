@@ -1,13 +1,14 @@
 ---
 reviewers:
 - vishh
-content_template: templates/concept
+content_type: concept
 title: Schedule GPUs
+description: Configure and schedule GPUs for use as a resource by nodes in a cluster.
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="1.10" >}}
+{{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
 Kubernetes includes **experimental** support for managing AMD and NVIDIA GPUs
 (graphical processing units) across several nodes.
@@ -15,10 +16,10 @@ Kubernetes includes **experimental** support for managing AMD and NVIDIA GPUs
 This page describes how users can consume GPUs across different Kubernetes versions
 and the current limitations.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Using device plugins
 
@@ -36,7 +37,7 @@ When the above conditions are true, Kubernetes will expose `amd.com/gpu` or
 `nvidia.com/gpu` as a schedulable resource.
 
 You can consume these GPUs from your containers by requesting
-`<vendor>.com/gpu` just like you request `cpu` or `memory`.
+`<vendor>.com/gpu` the same way you request `cpu` or `memory`.
 However, there are some limitations in how you specify the resource requirements
 when using GPUs:
 
@@ -98,13 +99,13 @@ has the following requirements:
 - Kubelet must use Docker as its container runtime
 - `nvidia-container-runtime` must be configured as the [default runtime](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)
   for Docker, instead of runc.
-- The version of the NVIDIA drivers must match the constraint ~= 361.93
+- The version of the NVIDIA drivers must match the constraint ~= 384.81.
 
 To deploy the NVIDIA device plugin once your cluster is running and the above
 requirements are satisfied:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta/nvidia-device-plugin.yml
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta4/nvidia-device-plugin.yml
 ```
 
 You can report issues with this third-party device plugin by logging an issue in
@@ -216,4 +217,4 @@ spec:
 This will ensure that the Pod will be scheduled to a node that has the GPU type
 you specified.
 
-{{% /capture %}}
+

@@ -5,19 +5,19 @@ reviewers:
 - deads2k
 - liggitt
 title: Authorization Overview
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Learn more about Kubernetes authorization, including details about creating
 policies using the supported authorization modules.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 In Kubernetes, you must be authenticated (logged in) before your request can be
 authorized (granted permission to access). For information about authentication,
-see [Accessing Control Overview](/docs/reference/access-authn-authz/controlling-access/).
+see [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/).
 
 Kubernetes expects attributes that are common to REST API requests. This means
 that Kubernetes authorization works with existing organization-wide or
@@ -52,7 +52,7 @@ Kubernetes reviews only the following API request attributes:
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only) -- For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
- * **API group** - The {{< glossary_tooltip text="API Group" term_id="api-group" >}} being accessed (for resource requests only). An empty string designates the [core API group](/docs/concepts/overview/kubernetes-api/).
+ * **API group** - The {{< glossary_tooltip text="API Group" term_id="api-group" >}} being accessed (for resource requests only). An empty string designates the _core_ [API group](/docs/reference/using-api/#api-groups).
 
 ## Determine the Request Verb
 
@@ -104,6 +104,9 @@ a given action, and works regardless of the authorization mode used.
 ```bash
 kubectl auth can-i create deployments --namespace dev
 ```
+
+The output is similar to this:
+
 ```
 yes
 ```
@@ -111,6 +114,9 @@ yes
 ```shell
 kubectl auth can-i create deployments --namespace prod
 ```
+
+The output is similar to this:
+
 ```
 no
 ```
@@ -121,15 +127,33 @@ to determine what action other users can perform.
 ```bash
 kubectl auth can-i list secrets --namespace dev --as dave
 ```
+
+The output is similar to this:
+
 ```
 no
+```
+
+Similarly, to check whether a ServiceAccount named `dev-sa` in Namespace `dev`
+can list Pods in the Namespace `target`:
+
+```bash
+kubectl auth can-i list pods \
+	--namespace target \
+	--as system:serviceaccount:dev:dev-sa
+```
+
+The output is similar to this:
+
+```
+yes
 ```
 
 `SelfSubjectAccessReview` is part of the `authorization.k8s.io` API group, which
 exposes the API server authorization to external services. Other resources in
 this group include:
 
-* `SubjectAccessReview` - Access review for any user, not just the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
+* `SubjectAccessReview` - Access review for any user, not only the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
 * `LocalSubjectAccessReview` - Like `SubjectAccessReview` but restricted to a specific namespace.
 * `SelfSubjectRulesReview` - A review which returns the set of actions a user can perform within a namespace. Useful for users to quickly summarize their own access, or for UIs to hide/show actions.
 
@@ -138,8 +162,6 @@ field of the returned object is the result of the query.
 
 ```bash
 kubectl create -f - -o yaml << EOF
-```
-```
 apiVersion: authorization.k8s.io/v1
 kind: SelfSubjectAccessReview
 spec:
@@ -149,7 +171,10 @@ spec:
     verb: create
     namespace: dev
 EOF
+```
 
+The generated `SelfSubjectAccessReview` is:
+```yaml
 apiVersion: authorization.k8s.io/v1
 kind: SelfSubjectAccessReview
 metadata:
@@ -182,24 +207,36 @@ The following flags can be used:
 You can choose more than one authorization module. Modules are checked in order
 so an earlier module has higher priority to allow or deny a request.
 
-## Privilege escalation via pod creation
+## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
 
-Users who have the ability to create pods in a namespace can potentially
-escalate their privileges within that namespace.  They can create pods that
-access their privileges within that namespace. They can create pods that access
-secrets the user cannot themselves read, or that run under a service account
-with different/greater permissions.
+Users who can create/edit pods in a namespace, either directly or through a [controller](/docs/concepts/architecture/controller/)
+such as an operator, could escalate their privileges in that namespace.
 
 {{< caution >}}
-System administrators, use care when granting access to pod creation. A user
-granted permission to create pods (or controllers that create pods) in the
-namespace can: read all secrets in the namespace; read all config maps in the
-namespace; and impersonate any service account in the namespace and take any
-action the account could take. This applies regardless of authorization mode.
+System administrators, use care when granting access to create or edit workloads.
+Details of how these can be misused are documented in [escalation paths](/docs/reference/access-authn-authz/authorization/#escalation-paths)
 {{< /caution >}}
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-* To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
+### Escalation paths {#escalation-paths}
+- Mounting arbitrary secrets in that namespace
+  - Can be used to access secrets meant for other workloads
+  - Can be used to obtain a more privileged service account's service account token
+- Using arbitrary Service Accounts in that namespace
+  - Can perform Kubernetes API actions as another workload (impersonation)
+  - Can perform any privileged actions that Service Account has
+- Mounting configmaps meant for other workloads in that namespace
+  - Can be used to obtain information meant for other workloads, such as DB host names.
+- Mounting volumes meant for other workloads in that namespace
+  - Can be used to obtain information meant for other workloads, and change it.
+
+{{< caution >}}
+System administrators should be cautious when deploying CRDs that
+change the above areas. These may open privilege escalations paths.
+This should be considered when deciding on your RBAC controls.
+{{< /caution >}}
+
+## {{% heading "whatsnext" %}}
+
+* To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/).
 * To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
-{{% /capture %}}
+

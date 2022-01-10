@@ -2,21 +2,26 @@
 reviewers:
 - hw-qiaolei
 title: Overview of kubectl
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
   weight: 20
 ---
 
-{{% capture overview %}}
-Kubectl is a command line interface for running commands against Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
+<!-- overview -->
+The kubectl command line tool lets you control Kubernetes clusters.
+For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
+You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+files by setting the KUBECONFIG environment variable or by setting the
+[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 
-This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
+This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
+For details about each command, including all the supported flags and subcommands, see the
+[kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation.
+For installation instructions see [installing kubectl](/docs/tasks/tools/).
 
-{{% /capture %}}
-
-{{% capture body %}}
+<!-- body -->
 
 ## Syntax
 
@@ -28,15 +33,18 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 where `command`, `TYPE`, `NAME`, and `flags` are:
 
-* `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
+* `command`: Specifies the operation that you want to perform on one or more resources, 
+for example `create`, `get`, `describe`, `delete`.
 
-* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
+* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and
+  you can specify the singular, plural, or abbreviated forms.
+  For example, the following commands produce the same output:
 
-      ```shell
-      kubectl get pod pod1
-      kubectl get pods pod1
-      kubectl get po pod1
-      ```
+   ```shell
+   kubectl get pod pod1
+   kubectl get pods pod1
+   kubectl get po pod1
+   ```
 
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `kubectl get pods`.
 
@@ -53,7 +61,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
    * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
       * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
-     Example: `kubectl get pod -f ./pod.yaml`
+     Example: `kubectl get -f ./pod.yaml`
 
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
 
@@ -61,7 +69,34 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 Flags that you specify from the command line override default values and any corresponding environment variables.
 {{< /caution >}}
 
-If you need help, just run `kubectl help` from the terminal window.
+If you need help, run `kubectl help` from the terminal window.
+
+## In-cluster authentication and namespace overrides
+
+By default `kubectl` will first determine if it is running within a pod, and thus in a cluster. It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`. If all three are found in-cluster authentication is assumed.
+
+To maintain backwards compatibility, if the `POD_NAMESPACE` environment variable is set during in-cluster authentication it will override the default namespace from the service account token. Any manifests or tools relying on namespace defaulting will be affected by this.
+
+**`POD_NAMESPACE` environment variable**
+
+If the `POD_NAMESPACE` environment variable is set, cli operations on namespaced resources will default to the variable value. For example, if the variable is set to `seattle`, `kubectl get pods` would return pods in the `seattle` namespace. This is because pods are a namespaced resource, and no namespace was provided in the command. Review the output of `kubectl api-resources` to determine if a resource is namespaced. 
+
+Explicit use of `--namespace <value>` overrides this behavior. 
+
+**How kubectl handles ServiceAccount tokens**
+
+If:
+* there is Kubernetes service account token file mounted at
+  `/var/run/secrets/kubernetes.io/serviceaccount/token`, and
+* the `KUBERNETES_SERVICE_HOST` environment variable is set, and
+* the `KUBERNETES_SERVICE_PORT` environment variable is set, and
+* you don't explicitly specify a namespace on the kubectl command line
+
+then kubectl assumes it is running in your cluster. The kubectl tool looks up the
+namespace of that ServiceAccount (this is the same as the namespace of the Pod)
+and acts against that namespace. This is different from what happens outside of a
+cluster; when kubectl runs outside a cluster and you don't specify a namespace,
+the kubectl command acts against the `default` namespace.
 
 ## Operations
 
@@ -69,47 +104,65 @@ The following table includes short descriptions and the general syntax for all o
 
 Operation       | Syntax    |       Description
 -------------------- | -------------------- | --------------------
-`annotate`    | `kubectl annotate (-f FILENAME \| TYPE NAME \| TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | Add or update the annotations of one or more resources.
+`alpha`    | `kubectl alpha SUBCOMMAND [flags]` | List the available commands that correspond to alpha features, which are not enabled in Kubernetes clusters by default.
+`annotate`    | <code>kubectl annotate (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | Add or update the annotations of one or more resources.
+`api-resources`    | `kubectl api-resources [flags]` | List the API resources that are available.
 `api-versions`    | `kubectl api-versions [flags]` | List the API versions that are available.
 `apply`            | `kubectl apply -f FILENAME [flags]`| Apply a configuration change to a resource from a file or stdin.
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | Attach to a running container either to view the output stream or interact with the container (stdin).
-`autoscale`    | `kubectl autoscale (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]` | Automatically scale the set of pods that are managed by a replication controller.
+`auth`    | `kubectl auth [flags] [options]` | Inspect authorization.
+`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | Automatically scale the set of pods that are managed by a replication controller.
+`certificate`    | `kubectl certificate SUBCOMMAND [options]` | Modify certificate resources.
 `cluster-info`    | `kubectl cluster-info [flags]` | Display endpoint information about the master and services in the cluster.
+`completion`    | `kubectl completion SHELL [options]` | Output shell completion code for the specified shell (bash or zsh).
 `config`        | `kubectl config SUBCOMMAND [flags]` | Modifies kubeconfig files. See the individual subcommands for details.
+`convert`    | `kubectl convert -f FILENAME [options]` | Convert config files between different API versions. Both YAML and JSON formats are accepted. Note - requires `kubectl-convert` plugin to be installed.
+`cordon`    | `kubectl cordon NODE [options]` | Mark node as unschedulable.
+`cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | Copy files and directories to and from containers.
 `create`        | `kubectl create -f FILENAME [flags]` | Create one or more resources from a file or stdin.
-`delete`        | `kubectl delete (-f FILENAME \| TYPE [NAME \| /NAME \| -l label \| --all]) [flags]` | Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
-`describe`    | `kubectl describe (-f FILENAME \| TYPE [NAME_PREFIX \| /NAME \| -l label]) [flags]` | Display the detailed state of one or more resources.
-`diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration (**BETA**)
-`edit`        | `kubectl edit (-f FILENAME \| TYPE NAME \| TYPE/NAME) [flags]` | Edit and update the definition of one or more resources on the server by using the default editor.
+`delete`        | <code>kubectl delete (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label &#124; --all]) [flags]</code> | Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
+`describe`    | <code>kubectl describe (-f FILENAME &#124; TYPE [NAME_PREFIX &#124; /NAME &#124; -l label]) [flags]</code> | Display the detailed state of one or more resources.
+`diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration.
+`drain`    | `kubectl drain NODE [options]` | Drain node in preparation for maintenance.
+`edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | Edit and update the definition of one or more resources on the server by using the default editor.
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
-`expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
-`get`        | `kubectl get (-f FILENAME \| TYPE [NAME \| /NAME \| -l label]) [--watch] [--sort-by=FIELD] [[-o \| --output]=OUTPUT_FORMAT] [flags]` | List one or more resources.
-`label`        | `kubectl label (-f FILENAME \| TYPE NAME \| TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | Add or update the labels of one or more resources.
+`expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | Expose a replication controller, service, or pod as a new Kubernetes service.
+`get`        | <code>kubectl get (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label]) [--watch] [--sort-by=FIELD] [[-o &#124; --output]=OUTPUT_FORMAT] [flags]</code> | List one or more resources.
+`kustomize`    | `kubectl kustomize <dir> [flags] [options]` | List a set of API resources generated from instructions in a kustomization.yaml file. The argument must be the path to the directory containing the file, or a git repository URL with a path suffix specifying same with respect to the repository root.
+`label`        | <code>kubectl label (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | Add or update the labels of one or more resources.
 `logs`        | `kubectl logs POD [-c CONTAINER] [--follow] [flags]` | Print the logs for a container in a pod.
-`patch`        | `kubectl patch (-f FILENAME \| TYPE NAME \| TYPE/NAME) --patch PATCH [flags]` | Update one or more fields of a resource by using the strategic merge patch process.
+`options`    | `kubectl options` | List of global command-line options, which apply to all commands.
+`patch`        | <code>kubectl patch (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --patch PATCH [flags]</code> | Update one or more fields of a resource by using the strategic merge patch process.
+`plugin`    | `kubectl plugin [flags] [options]` | Provides utilities for interacting with plugins.
 `port-forward`    | `kubectl port-forward POD [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [flags]` | Forward one or more local ports to a pod.
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Run a proxy to the Kubernetes API server.
 `replace`        | `kubectl replace -f FILENAME` | Replace a resource from a file or stdin.
-`rolling-update`    | `kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE \| -f NEW_CONTROLLER_SPEC) [flags]` | Perform a rolling update by gradually replacing the specified replication controller and its pods.
-`run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]` | Run a specified image on the cluster.
-`scale`        | `kubectl scale (-f FILENAME \| TYPE NAME \| TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]` | Update the size of the specified replication controller.
+`rollout`    | `kubectl rollout SUBCOMMAND [options]` | Manage the rollout of a resource. Valid resource types include: deployments, daemonsets and statefulsets.
+`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | Run a specified image on the cluster.
+`scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | Update the size of the specified replication controller.
+`set`    | `kubectl set SUBCOMMAND [options]` | Configure application resources.
+`taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | Update the taints on one or more nodes.
+`top`    | `kubectl top [flags] [options]` | Display Resource (CPU/Memory/Storage) usage.
+`uncordon`    | `kubectl uncordon NODE [options]` | Mark node as schedulable.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
+`wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Experimental: Wait for a specific condition on one or many resources.
 
-Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
+To learn more about command operations, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 
 ## Resource types
 
 The following table includes a list of all the supported resource types and their abbreviated aliases.
 
-(This output can be retrieved from `kubectl api-resources`, and is accurate as of Kubernetes 1.13.3.)
+(This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.19.1.)
 
-| Resource Name | Short Names | API Group | Namespaced | Resource Kind |
+| NAME | SHORTNAMES | APIGROUP | NAMESPACED | KIND |
 |---|---|---|---|---|
-| `bindings` | | | true | Binding|
+| `bindings` | | | true | Binding |
 | `componentstatuses` | `cs` | | false | ComponentStatus |
 | `configmaps` | `cm` | | true | ConfigMap |
 | `endpoints` | `ep` | | true | Endpoints |
+| `events` | `ev` | | true | Event |
 | `limitranges` | `limits` | | true | LimitRange |
 | `namespaces` | `ns` | | false | Namespace |
 | `nodes` | `no` | | false | Node |
@@ -117,14 +170,14 @@ The following table includes a list of all the supported resource types and thei
 | `persistentvolumes` | `pv` | | false | PersistentVolume |
 | `pods` | `po` | | true | Pod |
 | `podtemplates` | | | true | PodTemplate |
-| `replicationcontrollers` | `rc` | | true| ReplicationController |
+| `replicationcontrollers` | `rc` | | true | ReplicationController |
 | `resourcequotas` | `quota` | | true | ResourceQuota |
 | `secrets` | | | true | Secret |
 | `serviceaccounts` | `sa` | | true | ServiceAccount |
 | `services` | `svc` | | true | Service |
 | `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
 | `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
-| `customresourcedefinitions` | `crd`, `crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
+| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io | false | CustomResourceDefinition |
 | `apiservices` | | apiregistration.k8s.io | false | APIService |
 | `controllerrevisions` | | apps | true | ControllerRevision |
 | `daemonsets` | `ds` | apps | true | DaemonSet |
@@ -141,9 +194,15 @@ The following table includes a list of all the supported resource types and thei
 | `jobs` | | batch | true | Job |
 | `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
 | `leases` | | coordination.k8s.io | true | Lease |
+| `endpointslices` |  | discovery.k8s.io | true | EndpointSlice |
 | `events` | `ev` | events.k8s.io | true | Event |
 | `ingresses` | `ing` | extensions | true | Ingress |
+| `flowschemas` |  | flowcontrol.apiserver.k8s.io | false | FlowSchema |
+| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io | false | PriorityLevelConfiguration |
+| `ingressclasses` |  | networking.k8s.io | false | IngressClass |
+| `ingresses` | `ing` | networking.k8s.io | true | Ingress |
 | `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
+| `runtimeclasses` |  | node.k8s.io | false | RuntimeClass |
 | `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
 | `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
 | `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
@@ -153,12 +212,12 @@ The following table includes a list of all the supported resource types and thei
 | `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
 | `csidrivers` | | storage.k8s.io | false | CSIDriver |
 | `csinodes` | | storage.k8s.io | false | CSINode |
-| `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
+| `storageclasses` | `sc` | storage.k8s.io | false | StorageClass |
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 
 ### Formatting output
 
@@ -191,11 +250,13 @@ In this example, the following command outputs the details for a single pod as a
 kubectl get pod web-pod-13je7 -o yaml
 ```
 
-Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation
+for details about which output format is supported by each command.
 
 #### Custom columns
 
-To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option. You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
+To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option.
+You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
 
 ##### Examples
 
@@ -217,9 +278,9 @@ where the `template.txt` file contains:
 NAME          RSRC
 metadata.name metadata.resourceVersion
 ```
-The result of running either command is:
+The result of running either command is similar to:
 
-```shell
+```
 NAME           RSRC
 submit-queue   610995
 ```
@@ -230,7 +291,7 @@ submit-queue   610995
 This means that for any given resource, the server will return columns and rows relevant to that resource, for the client to print.
 This allows for consistent human-readable output across clients used against the same cluster, by having the server encapsulate the details of printing.
 
-This feature is enabled by default in `kubectl` 1.11 and higher. To disable it, add the
+This feature is enabled by default. To disable it, add the
 `--server-print=false` flag to the `kubectl get` command.
 
 ##### Examples
@@ -241,11 +302,11 @@ To print information about the status of a pod, use a command like the following
 kubectl get pods <pod-name> --server-print=false
 ```
 
-Output looks like this:
+The output is similar to:
 
-```shell
-NAME       READY     STATUS              RESTARTS   AGE
-pod-name   1/1       Running             0          1m
+```
+NAME       AGE
+pod-name   1m
 ```
 
 ### Sorting list objects
@@ -340,11 +401,8 @@ the pods running on it, the events generated for the node etc.
 # Delete a pod using the type and name specified in the pod.yaml file.
 kubectl delete -f pod.yaml
 
-# Delete all the pods and services that have the label name=<label-name>.
-kubectl delete pods,services -l name=<label-name>
-
-# Delete all the pods and services that have the label name=<label-name>.
-kubectl delete pods,services -l name=<label-name>
+# Delete all the pods and services that have the label '<label-key>=<label-value>'.
+kubectl delete pods,services -l <label-key>=<label-value>
 
 # Delete all pods, including uninitialized ones.
 kubectl delete pods --all
@@ -354,13 +412,13 @@ kubectl delete pods --all
 
 ```shell
 # Get output from running 'date' from pod <pod-name>. By default, output is from the first container.
-kubectl exec <pod-name> date
+kubectl exec <pod-name> -- date
 
 # Get output from running 'date' in container <container-name> of pod <pod-name>.
-kubectl exec <pod-name> -c <container-name> date
+kubectl exec <pod-name> -c <container-name> -- date
 
 # Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
-kubectl exec -ti <pod-name> /bin/bash
+kubectl exec -ti <pod-name> -- /bin/bash
 ```
 
 `kubectl logs` - Print the logs for a container in a pod.
@@ -373,6 +431,16 @@ kubectl logs <pod-name>
 kubectl logs -f <pod-name>
 ```
 
+`kubectl diff` - View a diff of the proposed updates to a cluster.
+
+```shell
+# Diff resources included in "pod.json".
+kubectl diff -f pod.json
+
+# Diff file read from stdin.
+cat service.yaml | kubectl diff -f -
+```
+
 ## Examples: Creating and using plugins
 
 Use the following set of examples to help you familiarize yourself with writing and using `kubectl` plugins:
@@ -381,36 +449,42 @@ Use the following set of examples to help you familiarize yourself with writing 
 # create a simple plugin in any language and name the resulting executable file
 # so that it begins with the prefix "kubectl-"
 cat ./kubectl-hello
-#!/bin/bash
+```
+```shell
+#!/bin/sh
 
 # this plugin prints the words "hello world"
 echo "hello world"
-
-# with our plugin written, let's make it executable
-sudo chmod +x ./kubectl-hello
+```
+With a plugin written, let's make it executable:
+```bash
+chmod a+x ./kubectl-hello
 
 # and move it to a location in our PATH
 sudo mv ./kubectl-hello /usr/local/bin
+sudo chown root:root /usr/local/bin
 
-# we have now created and "installed" a kubectl plugin.
-# we can begin using our plugin by invoking it from kubectl as if it were a regular command
+# You have now created and "installed" a kubectl plugin.
+# You can begin using this plugin by invoking it from kubectl as if it were a regular command
 kubectl hello
 ```
 ```
 hello world
 ```
 
-```
-# we can "uninstall" a plugin, by simply removing it from our PATH
+```shell
+# You can "uninstall" a plugin, by removing it from the folder in your
+# $PATH where you placed it
 sudo rm /usr/local/bin/kubectl-hello
 ```
 
-In order to view all of the plugins that are available to `kubectl`, we can use
+In order to view all of the plugins that are available to `kubectl`, use
 the `kubectl plugin list` subcommand:
 
 ```shell
 kubectl plugin list
 ```
+The output is similar to:
 ```
 The following kubectl-compatible plugins are available:
 
@@ -418,11 +492,11 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
 ```
-```
-# this command can also warn us about plugins that are
-# not executable, or that are overshadowed by other
-# plugins, for example
-sudo chmod -x /usr/local/bin/kubectl-foo
+
+`kubectl plugin list` also warns you about plugins that are not
+executable, or that are shadowed by other plugins; for example:
+```shell
+sudo chmod -x /usr/local/bin/kubectl-foo # remove execute permission
 kubectl plugin list
 ```
 ```
@@ -436,38 +510,39 @@ The following kubectl-compatible plugins are available:
 error: one plugin warning was found
 ```
 
-We can think of plugins as a means to build more complex functionality on top
+You can think of plugins as a means to build more complex functionality on top
 of the existing kubectl commands:
 
 ```shell
 cat ./kubectl-whoami
+```
+The next few examples assume that you already made `kubectl-whoami` have
+the following contents:
+```shell
 #!/bin/bash
 
 # this plugin makes use of the `kubectl config` command in order to output
 # information about the current user, based on the currently selected context
-kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ .context.user }}{{ end }}{{ end }}'
+kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ printf "%s\n" .context.user }}{{ end }}{{ end }}'
 ```
 
-Running the above plugin gives us an output containing the user for the currently selected
-context in our KUBECONFIG file:
+Running the above command gives you an output containing the user for the
+current context in your KUBECONFIG file:
 
 ```shell
 # make the file executable
 sudo chmod +x ./kubectl-whoami
 
-# and move it into our PATH
+# and move it into your PATH
 sudo mv ./kubectl-whoami /usr/local/bin
 
 kubectl whoami
 Current user: plugins-user
 ```
 
-To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+* Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
 
-{{% capture whatsnext %}}
+* To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
 
-Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
-
-{{% /capture %}}

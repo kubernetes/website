@@ -1,12 +1,12 @@
 ---
 title: Participez au SIG Docs
-content_template: templates/concept
+content_type: concept
 card:
   name: contribute
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 SIG Docs est l'un des [groupes d'intérêts spéciaux](https://github.com/kubernetes/community/blob/master/sig-list.md) au sein du projet Kubernetes, axé sur la rédaction, la mise à jour et la maintenance de la documentation de Kubernetes dans son ensemble.
 Pour plus d'informations sur le SIG consultez [le dépôt GitHub de la communauté](https://github.com/kubernetes/community/tree/master/sig-docs).
@@ -19,15 +19,15 @@ Ces rôles nécessitent un plus grand accès et impliquent certaines responsabil
 Voir [appartenance à la communauté](https://github.com/kubernetes/community/blob/master/community-membership.md) pour plus d'informations sur le fonctionnement de l'adhésion au sein de la communauté Kubernetes.
 Le reste de ce document décrit certaines fonctions uniques de ces rôles au sein du SIG Docs, responsable de la gestion de l’un des aspects les plus accessibles du public de Kubernetes: le site Web et la documentation de Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Rôles et responsabilités
 
 Lorsqu'une pull request est mergée à la branche utilisée pour publier le contenu (actuellement `master`), ce contenu est publié et disponible dans le monde entier.
 Pour nous assurer que la qualité de notre contenu publié est élevée, nous limitons aux approbateurs SIG Docs le droit de merger des pull requests.
-Voici comment ça fonctionne.
+Voici comment ce processus fonctionne.
 
 - Lorsqu'une pull request a les deux labels `lgtm` et `approve` et n'a pas de label `hold`, la pull request est mergée automatiquement.
 - Les membres de l'organisation Kubernetes et les approbateurs SIG Docs peuvent ajouter des commentaires à une pull request ou empêcher le merge automatique d'une pull request donnée (en ajoutant un commentaire `/hold` ou en retirant un commentaire `/lgtm`).
@@ -35,7 +35,7 @@ Voici comment ça fonctionne.
 - Seul un approbateur membre de SIG Docs peut causer le merge d'une pull request en ajoutant un commentaire `/approve`.
   Certains approbateurs remplissent également des rôles spécifiques supplémentaires, tels que [PR Wrangler](#pr-wrangler) or [président(e) du SIG Docs](#sig-docs-chairperson).
 
-Pour plus d'informations sur les attentes et les différences entre les rôles de membre d'organisation Kubernetes et d'approbateurs SIG Docs, voir [Types de contributeur](/docs/contribute#types-of-contributor).
+Pour plus d'informations sur les attentes et les différences entre les rôles de membre de l'organisation Kubernetes et d'approbateurs SIG Docs, voir [Types de contributeur](/docs/contribute#types-of-contributor).
 Les sections suivantes couvrent plus de détails sur ces rôles et leur fonctionnement dans SIG-Docs.
 
 ### N'importe qui
@@ -47,7 +47,7 @@ Si vous ne pouvez pas signer le CLA, le projet Kubernetes ne peut pas accepter v
 
 ### Membres
 
-Tout membre de l'[organisation Kubernetes](https://github.com/kubernetes) peut faire une revue d'une pull request, et SIG Docs les membres de l’équipe demandent fréquemment aux membres d’autres SIG d’être révisés pour des raisons de précision technique.
+Tout membre de l'[organisation Kubernetes](https://github.com/kubernetes) peut faire une revue d'une pull request, et les membres de l’équipe SIG Docs demandent fréquemment aux membres d’autres SIG d'effectuer des révisions de documents pour des raisons de précision technique.
 SIG Docs accueille également des critiques et des commentaires indépendamment du statut de membre d'une personne dans l'organisation Kubernetes.
 Vous pouvez indiquer votre approbation en ajoutant un commentaire de `/lgtm` à une pull request.
 Si vous n'êtes pas membre de l'organisation Kubernetes, votre `/lgtm` n'a aucun effet sur les systèmes automatisés.
@@ -85,7 +85,7 @@ Voir [Equipes et groupes au sein de SIG Docs](#teams-and-groups-within-sig-docs)
 
 Les relecteurs examinent les Pull Request de documentation et font des commentaires sur les changements proposés.
 
-L'automatisation assigne des relecteurs aux pull requets, et les contributeurs peuvent demander une revue d'un relecteur spécifique en laissant un commentaire tel que: `/assign [@_github_handle]`.
+L'automatisation assigne des relecteurs aux pull requests, et les contributeurs peuvent demander une revue d'un relecteur spécifique en laissant un commentaire tel que: `/assign [@_github_handle]`.
 Pour indiquer qu'une pull request est techniquement exacte et ne nécessite aucune modification supplémentaire, un examinateur ajoute un commentaire `/lgtm` à la Pull Request.
 
 Si le relecteur affecté n'a pas encore revu le contenu, un autre relecteur peut intervenir.
@@ -105,7 +105,7 @@ Les relecteurs d'autres SIG doivent demander séparément le statut de relecteur
 Pour postuler, ouvrez une pull request et ajoutez vous à la section `reviewers` du fichier [top-level OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) dans le dépôt `kubernetes/website`.
 Affectez la PR à un ou plusieurs approbateurs SIG Docs.
 
-Si votre pull request est approuvé, vous êtes maintenant un relecteur SIG Docs.
+Si votre pull request est approuvée, vous êtes maintenant un relecteur SIG Docs.
 [K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) vous assignera et vous suggérera en tant que relecteur pour les nouvelles Pull Requests.
 
 Si vous êtes approuvé, demandez qu’un approbateur SIG Docs en cours vous ajoute au groupe Github [@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews).
@@ -141,7 +141,7 @@ Seuls les membres du groupe Github `kubernetes-website-admins` peuvent ajouter d
 
 #### Devenir un administrateur de site Web
 
-Les membres du groupe GitHub `kubernetes-website-admins` peut gérer l’appartenance au groupe Github et disposer de tous les droits administratifs sur les paramètres du dépôt, y compris la possibilité d'ajouter, de supprimer et de debugger des Webhooks.
+Les membres du groupe GitHub `kubernetes-website-admins` peuvent gérer l’appartenance au groupe Github et disposer de tous les droits administratifs sur les paramètres du dépôt, y compris la possibilité d'ajouter, de supprimer et de debugger des Webhooks.
 Tous les approbateurs SIG Docs n'ont pas besoin de ce niveau d'accès.
 
 Si vous pensez avoir besoin de ce niveau d’accès, adressez-vous à un administrateur de site Web existant ou posez la question dans le canal Slack [#sig-docs](https://kubernetes.slack.com/messages/C1J0BPD2M/).
@@ -179,7 +179,7 @@ Pour l'affectation des tickets, des pull requests, et aider la validation des PR
 ### OWNERS files et front-matter
 
 Le projet Kubernetes utilise un outil d'automatisation appelé prow pour l'automatisation liée aux Github issues et aux pull requests.
-Le [dépôt du site web Kubernetes](https://github.com/kubernetes/website) utilise deux [plugins prow](https://github.com/kubernetes/test-infra/blob/master/prow/plugins.yaml#L210):
+Le [dépôt du site web Kubernetes](https://github.com/kubernetes/website) utilise deux [plugins prow](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
 
 - blunderbuss
 - approve
@@ -187,20 +187,21 @@ Le [dépôt du site web Kubernetes](https://github.com/kubernetes/website) utili
 Ces deux plugins utilisent les fichiers [OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) et [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES) à la racine du dépôt Github `kubernetes/website` pour contrôler comment prow fonctionne.
 
 Un fichier [OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) contient une liste de personnes qui sont des relecteurs et des approbateurs SIG Docs.
-Les fichiers OWNERS existent aussi dans les sous-dossiers, et peut ignorer qui peut agir en tant que relecteur ou approbateur des fichiers de ce sous-répertoire et de ses descendants.
+Les fichiers OWNERS existent aussi dans les sous-dossiers, et peuvent ignorer qui peut agir en tant que relecteur ou approbateur des fichiers de ce sous-répertoire et de ses descendants.
 Pour plus d'informations sur les fichiers OWNERS en général, voir [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
 
 En outre, un fichier Markdown individuel peut répertorier les relecteurs et les approbateurs dans l'entête, soit en répertoriant les noms d’utilisateur ou les groupes de Github.
 
-La combinaison des fichiers `OWNERS` et des entêtes dans les fichiers Markdown determinent les suggestions automatiques de relecteurs dans la PullRequest.
+La combinaison des fichiers `OWNERS` et des entêtes dans les fichiers Markdown déterminent les suggestions automatiques de relecteurs dans la PullRequest.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Pour plus d'informations sur la contribution à la documentation Kubernetes, voir:
 
 - [Commencez à contribuer](/docs/contribute/start/)
 - [Documentation style](/docs/contribute/style/)
 
-{{% /capture %}}
+

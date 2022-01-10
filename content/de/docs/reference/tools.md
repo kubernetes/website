@@ -1,13 +1,13 @@
 ---
 title: Tools
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetes enthält mehrere integrierte Tools, die Ihnen bei der Arbeit mit dem Kubernetes System helfen.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Kubectl
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/) ist ein Kommandozeilenprogramm für Kubernetes. Es steuert den Kubernetes Clustermanager.
@@ -49,4 +49,4 @@ Verwenden Sie Kompose um:
 * Ein Docker Compose Datei in Kubernetes Objekte zu übersetzen
 * Von Ihrer lokalen Docker Entwicklung auf eine Kubernetes verwaltete Entwicklung zu wechseln
 * v1 oder v2 Docker Compose `yaml` Dateien oder [Distributed Application Bundles](https://docs.docker.com/compose/bundles/) zu konvertieren
-{{% /capture %}}
+

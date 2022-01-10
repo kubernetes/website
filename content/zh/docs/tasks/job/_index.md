@@ -1,12 +1,5 @@
-<!--
 ---
-title: "Run Jobs"
+title: "运行 Jobs"
 weight: 50
+description: 使用并行处理运行 Jobs。
 ---
--->
-
----
-title: "运行任务"
-weight: 50
----
-

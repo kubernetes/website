@@ -1,19 +1,20 @@
 ---
+draft: True
 title: Log di registrazione
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 I log di applicazioni e sistemi possono aiutarti a capire cosa sta accadendo all'interno del tuo cluster. I log sono particolarmente utili per il debug dei problemi e il monitoraggio delle attività del cluster. La maggior parte delle applicazioni moderne ha una sorta di meccanismo di registrazione; in quanto tale, la maggior parte dei motori di container sono progettati allo stesso modo per supportare alcuni tipi di registrazione. Il metodo di registrazione più semplice e più accettato per le applicazioni containerizzate è scrivere sull'output standard e sui flussi di errore standard.
 
 Tuttavia, la funzionalità nativa fornita da un motore contenitore o dal runtime di solito non è sufficiente per una soluzione di registrazione completa. Ad esempio, se un container si arresta in modo anomalo, un pod viene rimosso, o un nodo muore, di solito vuoi comunque accedere ai log dell'applicazione. Pertanto, i registri devono avere una memoria e un ciclo di vita separati, indipendenti da nodi, pod o contenitori. Questo concetto è chiamato _cluster-logging_. La registrazione a livello di cluster richiede un back-end separato per archiviare, analizzare e interrogare i registri. Kubernetes non fornisce alcuna soluzione di archiviazione nativa per i dati di registro, ma è possibile integrare molte soluzioni di registrazione esistenti nel proprio cluster Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 Le architetture di registrazione a livello di cluster sono descritte nel presupposto che
 un back-end per la registrazione è presente all'interno o all'esterno del cluster. Se tu sei
@@ -255,4 +256,4 @@ contenitore.
 ogni applicazione; tuttavia, l'implementazione di un tale meccanismo di registrazione
 è al di fuori dello scopo di Kubernetes.
 
-{{% /capture %}}
+

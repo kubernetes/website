@@ -199,9 +199,7 @@ SIG Docs faces challenges due to lack of technical writers:
     Terms should be identical to what is used in the **Standardized Glossary**. Being consistent reduces confusion.
     Tracking down and fixing these occurrences is time-consuming but worthwhile for readers.
 - **Working with the Steering Committee to create project documentation guidelines**:
-    The [Kubernetes Repository
-    Guidelines](https://github.com/kubernetes/community/blob/master/github-managemen
-    t/kubernetes-repositories.md) don't mention documentation at all. Between a
+    The [Kubernetes Repository Guidelines](https://github.com/kubernetes/community/blob/master/github-management/kubernetes-repositories.md) don't mention documentation at all. Between a
     project's GitHub docs and the Kubernetes docs, some projects have almost
     duplicate content, whereas others have conflicting content. Create clear
     guidelines so projects know to put roadmaps, milestones, and comprehensive

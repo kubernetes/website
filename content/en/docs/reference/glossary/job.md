@@ -2,7 +2,7 @@
 title: Job
 id: job
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/jobs-run-to-completion
+full_link: /docs/concepts/workloads/controllers/job/
 short_description: >
   A finite or batch task that runs to completion.
 

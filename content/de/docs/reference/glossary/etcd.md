@@ -15,5 +15,5 @@ tags:
 
 <!--more-->
 
-Halten Sie immer einen Sicherungsplan für etcds Daten für Ihren Kubernetes-Cluster bereit. Ausführliche Informationen zu etcd finden Sie in der [etcd Dokumentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
+Halten Sie immer einen Sicherungsplan für etcds Daten für Ihren Kubernetes-Cluster bereit. Ausführliche Informationen zu etcd finden Sie in der [etcd Dokumentation](https://etcd.io/docs).
 

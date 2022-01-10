@@ -1,0 +1,121 @@
+---
+title: Uruchamianie wielu instancji aplikacji
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="pl">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Cele</h3>
+                <ul>
+                    <li>Wyskaluj aplikację przy użyciu kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+       <h3>Skalowanie aplikacji</h3>
+
+            <p>W poprzednim module stworzyliśmy <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a> i udostępniliśmy go publicznie korzystając z <a href="/docs/concepts/services-networking/service/">Serwisu</a>. Deployment utworzył tylko jeden Pod, w którym uruchomiona jest nasza aplikacja. Wraz ze wzrostem ruchu, będziemy musieli wyskalować aplikację, aby była w stanie obsłużyć zwiększone zapotrzebowanie użytkowników.</p>
+
+            <p><b>Skalowanie</b> polega na zmianie liczby replik w Deploymencie.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Podsumowanie:</h3>
+                    <ul>
+                        <li>Skalowanie Deploymentu</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i> Od samego początku w ramach Deploymentu można uruchomić wiele instancji — skorzystaj z parametru --replicas polecenia kubectl create deployment</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Ogólnie o skalowaniu</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Wstecz</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Dalej</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Kiedy zwiększamy skalę Deploymentu, uruchomienie nowych Podów jest zlecane na Węzłach, które posiadają odpowiednio dużo zasobów. Operacja skalowania zwiększy liczbę Podów do oczekiwanej wartości. W Kubernetes możliwe jest również <a href="/docs/user-guide/horizontal-pod-autoscaling/">autoskalowanie</a> Podów, ale jest ono poza zakresem niniejszego samouczka. Istnieje także możliwość skalowania do zera — w ten sposób zatrzymane zostaną wszystkie Pody należące do konkretnego Deploymentu.</p>
+
+                <p>Kiedy działa jednocześnie wiele instancji jednej aplikacji, należy odpowiednio rozłożyć ruch pomiędzy każdą z nich. Serwisy posiadają zintegrowany load-balancer, który dystrybuuje ruch na wszystkie Pody w Deployment wystawionym na zewnątrz. Serwis prowadzi ciągły monitoring Podów poprzez ich punkty dostępowe <em>(endpoints)</em>, aby zapewnić, że ruch kierowany jest tylko do tych Podów, które są faktycznie dostępne.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Skalowanie polega na zmianie liczby replik w ramach Deploymentu.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>Kiedy aplikacja ma uruchomioną więcej niż jedną instancję, można prowadzić ciągłe aktualizacje <em>(Rolling updates)</em> bez przerw w działaniu aplikacji. O tym będzie mowa w następnym module. Na razie przejdźmy do terminala online, aby przeprowadzić skalowanie aplikacji.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/pl/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Uruchom interaktywny samouczek<span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

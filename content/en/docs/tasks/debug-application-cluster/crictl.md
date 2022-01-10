@@ -4,33 +4,34 @@ reviewers:
 - feiskyer
 - mrunalp
 title: Debugging Kubernetes nodes with crictl
-content_template: templates/task
+content_type: task
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
 `crictl` is a command-line interface for CRI-compatible container runtimes.
 You can use it to inspect and debug container runtimes and applications on a
 Kubernetes node. `crictl` and its source are hosted in the
-[cri-tools](https://github.com/kubernetes-incubator/cri-tools) repository.
+[cri-tools](https://github.com/kubernetes-sigs/cri-tools) repository.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 `crictl` requires a Linux operating system with a CRI runtime.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Installing crictl
 
 You can download a compressed archive `crictl` from the cri-tools [release
-page](https://github.com/kubernetes-incubator/cri-tools/releases), for several
+page](https://github.com/kubernetes-sigs/cri-tools/releases), for several
 different architectures. Download the version that corresponds to your version
 of Kubernetes. Extract it and move it to a location on your system path, such as
 `/usr/local/bin/`.
@@ -347,12 +348,64 @@ CONTAINER ID        IMAGE               CREATED              STATE              
 3e025dd50a72d       busybox             About a minute ago   Running             busybox             0
 ```
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
 
-See [kubernetes-incubator/cri-tools](https://github.com/kubernetes-incubator/cri-tools)
+<!-- discussion -->
+
+See [kubernetes-sigs/cri-tools](https://github.com/kubernetes-sigs/cri-tools)
 for more information.
 
-{{% /capture %}}
+## Mapping from docker cli to crictl
+
+The exact versions for below mapping table are for docker cli v1.40 and crictl v1.19.0. Please note that the list is not exhaustive. For example, it doesn't include experimental commands of docker cli.
+
+{{< note >}}
+The output format of CRICTL is similar to Docker CLI, despite some missing columns for some CLI. Make sure to check output for the specific command if your script output parsing.
+{{< /note >}}
+
+### Retrieve Debugging Information
+
+{{< table caption="mapping from docker cli to crictl - retrieve debugging information" >}}
+docker cli | crictl | Description | Unsupported Features
+-- | -- | -- | --
+`attach` | `attach` | Attach to a running container | `--detach-keys`, `--sig-proxy`
+`exec` | `exec` | Run a command in a running container | `--privileged`, `--user`, `--detach-keys`
+`images` | `images` | List images |  
+`info` | `info` | Display system-wide information |  
+`inspect` | `inspect`, `inspecti` | Return low-level information on a container, image or task |  
+`logs` | `logs` | Fetch the logs of a container | `--details`
+`ps` | `ps` | List containers |  
+`stats` | `stats` | Display a live stream of container(s) resource usage statistics | Column: NET/BLOCK I/O, PIDs
+`version` | `version` | Show the runtime (Docker, ContainerD, or others) version information |  
+{{< /table >}}
+
+### Perform Changes
+
+{{< table caption="mapping from docker cli to crictl - perform changes" >}}
+docker cli | crictl | Description | Unsupported Features
+-- | -- | -- | --
+`create` | `create` | Create a new container |  
+`kill` | `stop` (timeout = 0) | Kill one or more running container | `--signal`
+`pull` | `pull` | Pull an image or a repository from a registry | `--all-tags`, `--disable-content-trust`
+`rm` | `rm` | Remove one or more containers |  
+`rmi` | `rmi` | Remove one or more images |  
+`run` | `run` | Run a command in a new container |  
+`start` | `start` | Start one or more stopped containers | `--detach-keys`
+`stop` | `stop` | Stop one or more running containers |  
+`update` | `update` | Update configuration of one or more containers | `--restart`, `--blkio-weight` and some other resource limit not supported by CRI.
+{{< /table >}}
+
+### Supported only in crictl
+
+{{< table caption="mapping from docker cli to crictl - supported only in crictl" >}}
+crictl | Description
+-- | --
+`imagefsinfo` | Return image filesystem info
+`inspectp` | Display the status of one or more pods
+`port-forward` | Forward local port to a pod
+`pods` | List pods
+`runp` | Run a new pod
+`rmp` | Remove one or more pods
+`stopp` | Stop one or more running pods
+{{< /table >}}

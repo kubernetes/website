@@ -1,11 +1,5 @@
 ---
 title: "策略"
-weight: 160
+weight: 90
+description: 可配置的、可应用到一组资源的策略。
 ---
-
-<!--
----
-title: "Policies"
-weight: 160
----
--->

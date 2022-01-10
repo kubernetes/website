@@ -1,23 +1,24 @@
 ---
 title: 명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스 오브젝트는 `kubectl` 커맨드 라인 툴 속에 내장된 명령형 커맨드를 이용함으로써
 바로 신속하게 생성, 업데이트 및 삭제할 수 있다. 이 문서는 어떻게 커맨드가 구성되어 있으며,
 이를 사용하여 활성 오브젝트를 어떻게 관리하는 지에 대해 설명한다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
-[`kubectl`](/docs/tasks/tools/install-kubectl/)을 설치한다.
+
+## {{% heading "prerequisites" %}}
+
+[`kubectl`](/ko/docs/tasks/tools/)을 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 트레이드 오프
 
@@ -36,7 +37,7 @@ weight: 30
 지원한다. 쿠버네티스 오브젝트 타입에 익숙하지 않은 사용자가 인지할 수 있도록 커맨드
 이름이 지어졌다.
 
-- `run`: 하나 이상의 파드 내 컨테이너를 실행하도록 새로운 디플로이먼트 오브젝트를 생성한다.
+- `run`: 컨테이너를 실행할 새로운 파드를 생성한다.
 - `expose`: 파드에 걸쳐 트래픽을 로드 밸런스하도록 새로운 서비스 오브젝트를 생성한다.
 - `autoscale`: 디플로이먼트와 같이, 하나의 컨트롤러에 대해 자동으로 수평적 스케일이 이루어 지도록 새로운 Autoscaler 오브젝트를 생성한다.
 
@@ -139,10 +140,10 @@ TODO(pwittrock): 구현이 이루어지면 주석을 해제한다.
 다음은 관련 예제이다.
 
 ```sh
-kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
+kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run=client | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
 ```
 
-1. `kubectl create service -o yaml --dry-run` 커맨드는 서비스에 대한 구성을 생성하지만, 이를 쿠버네티스 API 서버에 전송하는 대신 YAML 형식으로 stdout에 출력한다.
+1. `kubectl create service -o yaml --dry-run=client` 커맨드는 서비스에 대한 구성을 생성하지만, 이를 쿠버네티스 API 서버에 전송하는 대신 YAML 형식으로 stdout에 출력한다.
 1. `kubectl set selector --local -f - -o yaml` 커맨드는 stdin으로부터 구성을 읽어, YAML 형식으로 stdout에 업데이트된 구성을 기록한다.
 1. `kubectl create -f -` 커맨드는 stdin을 통해 제공된 구성을 사용하여 오브젝트를 생성한다.
 
@@ -152,18 +153,19 @@ kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run | k
 다음은 관련 예제이다.
 
 ```sh
-kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run > /tmp/srv.yaml
+kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run=client > /tmp/srv.yaml
 kubectl create --edit -f /tmp/srv.yaml
 ```
 
 1. `kubectl create service` 커맨드는 서비스에 대한 구성을 생성하고 이를 `/tmp/srv.yaml`에 저장한다.
 1. `kubectl create --edit` 커맨드는 오브젝트를 생성하기 전에 편집을 위해 구성파일을 열어준다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
+
 * [오브젝트 구성을 이용하여 쿠버네티스 관리하기(명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [오브젝트 구성을 이용하여 쿠버네티스 관리하기(선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
-* [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl/)
+* [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl-commands/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-{{% /capture %}}

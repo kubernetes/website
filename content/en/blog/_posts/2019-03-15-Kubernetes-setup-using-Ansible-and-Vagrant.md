@@ -66,6 +66,7 @@ Vagrant.configure("2") do |config|
             end
         end
     end
+end
 ```
 
 ### Step 2: Create an Ansible playbook for Kubernetes master.

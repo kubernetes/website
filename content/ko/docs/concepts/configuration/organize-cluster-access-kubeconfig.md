@@ -1,10 +1,10 @@
 ---
 title: kubeconfig 파일을 사용하여 클러스터 접근 구성하기
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 kubeconfig 파일들을 사용하여 클러스터, 사용자, 네임스페이스 및 인증 메커니즘에 대한 정보를 관리하자.
 `kubectl` 커맨드라인 툴은 kubeconfig 파일을 사용하여
@@ -17,18 +17,23 @@ kubeconfig 파일들을 사용하여 클러스터, 사용자, 네임스페이스
 `kubeconfig`라는 이름의 파일이 있다는 의미는 아니다.
 {{< /note >}}
 
+{{< warning >}}
+신뢰할 수 있는 소스의 kubeconfig 파일만 사용한다. 특수 제작된 kubeconfig 파일을 사용하면 악성 코드가 실행되거나 파일이 노출될 수 있다. 
+신뢰할 수 없는 kubeconfig 파일을 사용해야 하는 경우 셸 스크립트를 사용하는 경우처럼 먼저 신중하게 검사한다.
+{{< /warning>}}
+
 기본적으로 `kubectl`은 `$HOME/.kube` 디렉터리에서 `config`라는 이름의 파일을 찾는다.
 `KUBECONFIG` 환경 변수를 설정하거나
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/) 플래그를 지정해서
 다른 kubeconfig 파일을 사용할 수 있다.
 
 kubeconfig 파일을 생성하고 지정하는 단계별 지시사항은
-[다중 클러스터로 접근 구성하기](/docs/tasks/access-application-cluster/configure-access-multiple-clusters)를 참조한다.
-
-{{% /capture %}}
+[다중 클러스터로 접근 구성하기](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)를 참조한다.
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## 다중 클러스터, 사용자와 인증 메커니즘 지원
 
@@ -58,8 +63,8 @@ kubectl config use-context
 ## KUBECONFIG 환경 변수
 
 `KUBECONFIG` 환경 변수는 kubeconfig 파일 목록을 보유한다.
-Linux 및 Mac의 경우 이는 콜론(:)으로 구분된 목록이다.
-Windows는 세미콜론(;)으로 구분한다. `KUBECONFIG` 환경 변수가 필수는 아니다.
+리눅스 및 Mac의 경우 이는 콜론(:)으로 구분된 목록이다.
+윈도우는 세미콜론(;)으로 구분한다. `KUBECONFIG` 환경 변수가 필수는 아니다.
 `KUBECONFIG` 환경 변수가 없으면,
 `kubectl`은 기본 kubeconfig 파일인 `$HOME/.kube/config`를 사용한다.
 
@@ -97,9 +102,9 @@ kubectl config view
      두 번째 파일의 `red-user` 하위에 충돌하지 않는 항목이 있어도 버린다.
 
    `KUBECONFIG` 환경 변수 설정의 예로,
-   [KUBECONFIG 환경 변수 설정](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable)를 참조한다.
+   [KUBECONFIG 환경 변수 설정](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#kubeconfig-환경-변수-설정)를 참조한다.
 
-   그렇지 않다면, 병합하지 않고 기본 kubecofig 파일인 `$HOME/.kube/config`를 사용한다.
+   그렇지 않다면, 병합하지 않고 기본 kubeconfig 파일인 `$HOME/.kube/config`를 사용한다.
 
 1. 이 체인에서 첫 번째를 기반으로 사용할 컨텍스트를 결정한다.
 
@@ -143,14 +148,14 @@ kubeconfig 파일에서 파일과 경로 참조는 kubeconfig 파일의 위치�
 `$HOME/.kube/config`에서 상대 경로는 상대적으로, 절대 경로는
 절대적으로 저장한다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
 
-* [다중 클러스터 접근 구성하기](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+## {{% heading "whatsnext" %}}
+
+
+* [다중 클러스터 접근 구성하기](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}
 
 

@@ -2,18 +2,18 @@
 reviewers:
 - raelga
 title: ¿Qué es Kubernetes?
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Esta página ofrece una visión general sobre Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetes es una plataforma portable y extensible de código abierto para
 administrar cargas de trabajo y servicios. Kubernetes facilita la automatización
 y la configuración declarativa. Tiene un ecosistema grande y en rápido crecimiento.
@@ -49,7 +49,7 @@ una plataforma: para poder construir un ecosistema de componentes y herramientas
 más fácil el desplegar, escalar y administrar aplicaciones.
 
 Las etiquetas, o [Labels](/es/docs/concepts/overview/working-with-objects/labels/), le
-permiten a los usuarios organizar sus recursos como deseen. Las anotaciones , o [Annotations](/es/docs/concepts/overview/working-with-objects/annotations/), les permiten asignar información arbitraria a un recurso para
+permiten a los usuarios organizar sus recursos como deseen. Las anotaciones, o [Annotations](/es/docs/concepts/overview/working-with-objects/annotations/), les permiten asignar información arbitraria a un recurso para
 facilitar sus flujos de trabajo y hacer más fácil a las herramientas administrativas inspeccionar el estado.
 
 Además, el [Plano de Control](/docs/concepts/overview/components/) de Kubernetes usa las mismas
@@ -127,7 +127,7 @@ En resumen, los beneficios de usar contenedores incluyen:
 
 * **Ágil creación y despliegue de aplicaciones**:
     Mayor facilidad y eficiencia al crear imágenes de contenedor en vez de máquinas virtuales
-* **Desarrollo, integración y despliegue continuos**:
+* **Desarrollo, integración y despliegue continuo**:
     Permite que la imagen de contenedor se construya y despliegue de forma frecuente y confiable,
     facilitando los rollbacks pues la imagen es inmutable
 * **Separación de tareas entre Dev y Ops**:
@@ -154,11 +154,12 @@ En resumen, los beneficios de usar contenedores incluyen:
 El nombre **Kubernetes** proviene del griego y significa *timonel* o *piloto*. Es la raíz de *gobernador* y de [cibernética](http://www.etymonline.com/index.php?term=cybernetics). *K8s*
 es una abrevación que se obtiene al reemplazar las ocho letras "ubernete" con el número 8.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   ¿Estás listo para [empezar](/docs/setup/)?
 *   Para saber más, visita el resto de la [documentación de Kubernetes](/docs/home/).
-{{% /capture %}}
+
 
 

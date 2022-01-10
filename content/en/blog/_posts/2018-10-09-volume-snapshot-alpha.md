@@ -39,7 +39,7 @@ As of the publishing of this blog, the following CSI drivers support snapshots:
 * [Ceph RBD CSI Driver](https://github.com/ceph/ceph-csi/tree/master/pkg/rbd)
 * [Portworx CSI Driver](https://github.com/libopenstorage/openstorage/tree/master/csi)
 
-Snapshot support for other [drivers](https://kubernetes-csi.github.io/docs/Drivers.html) is pending, and should be available soon. Read the “[Container Storage Interface (CSI) for Kubernetes Goes Beta](https://kubernetes.io/blog/2018/04/10/container-storage-interface-beta/)” blog post to learn more about CSI and how to deploy CSI drivers.
+Snapshot support for other [drivers](https://kubernetes-csi.github.io/docs/drivers.html) is pending, and should be available soon. Read the “[Container Storage Interface (CSI) for Kubernetes Goes Beta](https://kubernetes.io/blog/2018/04/10/container-storage-interface-beta/)” blog post to learn more about CSI and how to deploy CSI drivers.
 
 ## Kubernetes Snapshots API
 
@@ -57,7 +57,7 @@ Similar to the API for managing Kubernetes Persistent Volumes, Kubernetes Volume
 
 It is important to note that unlike the core Kubernetes Persistent Volume objects, these Snapshot objects are defined as [CustomResourceDefinitions (CRDs)](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions). The Kubernetes project is moving away from having resource types pre-defined in the API server, and is moving towards a model where the API server is independent of the API objects. This allows the API server to be reused for projects other than Kubernetes, and consumers (like Kubernetes) can simply install the resource types they require as CRDs.
 
-[CSI Drivers](https://kubernetes-csi.github.io/docs/Drivers.html) that support snapshots will automatically install the required CRDs. Kubernetes end users only need to verify that a CSI driver that supports snapshots is deployed on their Kubernetes cluster.
+[CSI Drivers](https://kubernetes-csi.github.io/docs/drivers.html) that support snapshots will automatically install the required CRDs. Kubernetes end users only need to verify that a CSI driver that supports snapshots is deployed on their Kubernetes cluster.
 
 In addition to these new objects, a new, DataSource field has been added to the `PersistentVolumeClaim` object:
 

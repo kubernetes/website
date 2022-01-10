@@ -1,14 +1,15 @@
 ---
 title: Autoscale the DNS Service in a Cluster
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to enable and configure autoscaling of the DNS service in
 your Kubernetes cluster.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -16,9 +17,9 @@ your Kubernetes cluster.
 
 * Make sure [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) is enabled.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Determine whether DNS horizontal autoscaling is already enabled {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
 
@@ -31,9 +32,9 @@ kubectl get deployment --namespace=kube-system
 
 The output is similar to this:
 
-    NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+    NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
     ...
-    dns-autoscaler        1         1         1            1           ...
+    dns-autoscaler            1/1     1            1           ...
     ...
 
 If you see "dns-autoscaler" in the output, DNS horizontal autoscaling is
@@ -50,9 +51,9 @@ kubectl get deployment -l k8s-app=kube-dns --namespace=kube-system
 
 The output is similar to this:
 
-    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
     ...
-    coredns      2         2         2            2           ...
+    coredns   2/2     2            2           ...
     ...
 
 If you don't see a Deployment for DNS services, you can also look for it by name:
@@ -97,7 +98,7 @@ kubectl apply -f dns-horizontal-autoscaler.yaml
 
 The output of a successful command is:
 
-    deployment.apps/kube-dns-autoscaler created
+    deployment.apps/dns-autoscaler created
 
 DNS horizontal autoscaling is now enabled.
 
@@ -129,20 +130,20 @@ linear: '{"coresPerReplica":256,"min":1,"nodesPerReplica":16}'
 ```
 
 Modify the fields according to your needs. The "min" field indicates the
-minimal number of DNS backends. The actual number of backends number is
+minimal number of DNS backends. The actual number of backends is
 calculated using this equation:
 
     replicas = max( ceil( cores × 1/coresPerReplica ) , ceil( nodes × 1/nodesPerReplica ) )
 
 Note that the values of both `coresPerReplica` and `nodesPerReplica` are
-integers.
+floats.
 
 The idea is that when a cluster is using nodes that have many cores,
 `coresPerReplica` dominates. When a cluster is using nodes that have fewer
 cores, `nodesPerReplica` dominates.
 
 There are other supported scaling patterns. For details, see
-[cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
+[cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 
 ## Disable DNS horizontal autoscaling
 
@@ -159,19 +160,19 @@ kubectl scale deployment --replicas=0 dns-autoscaler --namespace=kube-system
 
 The output is:
 
-    deployment.extensions/dns-autoscaler scaled
+    deployment.apps/dns-autoscaler scaled
 
 Verify that the replica count is zero:
 
 ```shell
-kubectl get deployment --namespace=kube-system
+kubectl get rs --namespace=kube-system
 ```
 
 The output displays 0 in the DESIRED and CURRENT columns:
 
-    NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+    NAME                                 DESIRED   CURRENT   READY   AGE
     ...
-    dns-autoscaler        0         0         0            0           ...
+    dns-autoscaler-6b59789fc8            0         0         0       ...
     ...
 
 ### Option 2: Delete the dns-autoscaler deployment
@@ -185,7 +186,7 @@ kubectl delete deployment dns-autoscaler --namespace=kube-system
 
 The output is:
 
-    deployment.extensions "dns-autoscaler" deleted
+    deployment.apps "dns-autoscaler" deleted
 
 ### Option 3: Delete the dns-autoscaler manifest file from the master node
 
@@ -201,9 +202,9 @@ The common path for this dns-autoscaler is:
 After the manifest file is deleted, the Addon Manager will delete the
 dns-autoscaler Deployment.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Understanding how DNS horizontal autoscaling works
 
@@ -226,10 +227,11 @@ the autoscaler Pod.
 * The autoscaler provides a controller interface to support two control
 patterns: *linear* and *ladder*.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about [Guaranteed Scheduling For Critical Add-On Pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 * Learn more about the
-[implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
-{{% /capture %}}
+[implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
+

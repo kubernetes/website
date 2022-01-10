@@ -1,0 +1,11 @@
+# Localized strings for Portuguese.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-pt-reviews
+
+approvers:
+- sig-docs-pt-owners
+
+labels:
+- language/pt

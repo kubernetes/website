@@ -1,33 +1,30 @@
 ---
-approvers:
-- chenopis
 title: Custom Hugo Shortcodes
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
-This page explains the custom Hugo shortcodes that can be used in Kubernetes markdown documentation.
+<!-- overview -->
+This page explains the custom Hugo shortcodes that can be used in Kubernetes Markdown documentation.
 
 Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content-management/shortcodes).
-{{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 
 ## Feature state
 
-In a markdown page (`.md` file) on this site, you can add a shortcode to display version and state of the documented feature.
+In a Markdown page (`.md` file) on this site, you can add a shortcode to display version and state of the documented feature.
 
 ### Feature state demo
 
-Below is a demo of the feature state snippet, which displays the feature as stable in Kubernetes version 1.10.
+Below is a demo of the feature state snippet, which displays the feature as stable in the latest Kubernetes version.
 
 ```
-{{</* feature-state for_k8s_version="v1.10" state="stable" */>}}
+{{</* feature-state state="stable" */>}}
 ```
 
 Renders to:
 
-{{< feature-state for_k8s_version="v1.10" state="stable" >}}
+{{< feature-state state="stable" >}}
 
 The valid values for `state` are:
 
@@ -38,70 +35,80 @@ The valid values for `state` are:
 
 ### Feature state code
 
-The displayed Kubernetes version defaults to that of the page or the site. This can be changed by passing the <code>for_k8s_version</code> shortcode parameter.
+The displayed Kubernetes version defaults to that of the page or the site. You can change the
+feature state version by passing the `for_k8s_version` shortcode parameter. For example:
 
 ```
-{{</* feature-state for_k8s_version="v1.10" state="stable" */>}}
-```
-
-Renders to:
-
-{{< feature-state for_k8s_version="v1.10" state="stable" >}}
-
-#### Alpha feature
-
-```
-{{</* feature-state state="alpha" */>}}
+{{</* feature-state for_k8s_version="v1.10" state="beta" */>}}
 ```
 
 Renders to:
 
-{{< feature-state state="alpha" >}}
-
-#### Beta feature
-
-```
-{{</* feature-state state="beta" */>}}
-```
-
-Renders to:
-
-{{< feature-state state="beta" >}}
-
-#### Stable feature
-
-```
-{{</* feature-state state="stable" */>}}
-```
-
-Renders to:
-
-{{< feature-state state="stable" >}}
-
-#### Deprecated feature
-
-```
-{{</* feature-state state="deprecated" */>}}
-```
-
-Renders to:
-
-{{< feature-state state="deprecated" >}}
+{{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 ## Glossary
 
-You can reference glossary terms with an inclusion that automatically updates and replaces content with the relevant links from [our glossary](/docs/reference/glossary/). When the term is moused-over by someone
-using the online documentation, the glossary entry displays a tooltip.
+There are two glossary shortcodes: `glossary_tooltip` and `glossary_definition`.
 
-The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary), with a content file for each glossary term.
+You can reference glossary terms with an inclusion that automatically updates and replaces content with the relevant links from [our glossary](/docs/reference/glossary/). When the glossary term is moused-over, the glossary entry displays a tooltip. The glossary term also displays as a link.
 
-### Glossary Demo
+As well as inclusions with tooltips, you can reuse the definitions from the glossary in
+page content.
 
-For example, the following include within the markdown renders to {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
+The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary), with a content file for each glossary term.
 
-```liquid
+### Glossary demo
+
+For example, the following include within the Markdown renders to {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
+
+```
 {{</* glossary_tooltip text="cluster" term_id="cluster" */>}}
 ```
+
+Here's a short glossary definition:
+
+```
+{{</* glossary_definition prepend="A cluster is" term_id="cluster" length="short" */>}}
+```
+
+which renders as:
+{{< glossary_definition prepend="A cluster is" term_id="cluster" length="short" >}}
+
+You can also include a full definition:
+
+```
+{{</* glossary_definition term_id="cluster" length="all" */>}}
+```
+
+which renders as:
+{{< glossary_definition term_id="cluster" length="all" >}}
+
+## Links to API Reference
+
+You can link to a page of the Kubernetes API reference using the `api-reference` shortcode, for example to the {{< api-reference page="workload-resources/pod-v1" >}} reference:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" */>}}
+```
+
+The content of the `page` parameter is the suffix of the URL of the API reference page.
+
+
+You can link to a specific place into a page by specifying an `anchor` parameter, for example to the {{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}} reference or the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" >}} section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="PodSpec" */>}}
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" */>}}
+```
+
+
+You can change the text of the link by specifying a `text` parameter, for example by linking to the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variables">}} section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variable" */>}}
+```
+
+
 
 ## Table captions
 
@@ -232,15 +239,108 @@ Renders to:
 {{< tabs name="tab_with_file_include" >}}
 {{< tab name="Content File #1" include="example1" />}}
 {{< tab name="Content File #2" include="example2" />}}
-{{< tab name="JSON File" include="podtemplate" />}}
+{{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
-{{% /capture %}}
+## Third party content marker
 
-{{% capture whatsnext %}}
+Running Kubernetes requires third-party software. For example: you
+usually need to add a
+[DNS server](/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)
+to your cluster so that name resolution works.
+
+When we link to third-party software, or otherwise mention it,
+we follow the [content guide](/docs/contribute/style/content-guide/)
+and we also mark those third party items.
+
+Using these shortcodes adds a disclaimer to any documentation page
+that uses them.
+
+### Lists {#third-party-content-list}
+
+For a list of several third-party items, add:
+```
+{{%/* thirdparty-content */%}}
+```
+just below the heading for the section that includes all items.
+
+### Items {#third-party-content-item}
+
+If you have a list where most of the items refer to in-project
+software (for example: Kubernetes itself, and the separate
+[Descheduler](https://github.com/kubernetes-sigs/descheduler)
+component), then there is a different form to use.
+
+Add the shortcode:
+```
+{{%/* thirdparty-content single="true" */%}}
+```
+
+before the item, or just below the heading for the specific item.
+
+
+## Version strings
+
+To generate a version string for inclusion in the documentation, you can choose from
+several version shortcodes. Each version shortcode displays a version string derived from
+the value of a version parameter found in the site configuration file, `config.toml`.
+The two most commonly used version parameters are `latest` and `version`.
+
+### `{{</* param "version" */>}}`
+
+The `{{</* param "version" */>}}` shortcode generates the value of the current version of
+the Kubernetes documentation from the `version` site parameter. The `param` shortcode accepts the name of one site parameter, in this case: `version`.
+
+{{< note >}}
+In previously released documentation, `latest` and `version` parameter values are not equivalent.
+After a new version is released, `latest` is incremented and the value of `version` for the documentation set remains unchanged. For example, a previously released version of the documentation displays `version` as
+`v1.19` and `latest` as `v1.20`.
+{{< /note >}}
+
+Renders to:
+
+{{< param "version" >}}
+
+### `{{</* latest-version */>}}`
+
+The `{{</* latest-version */>}}` shortcode returns the value of the `latest` site parameter.
+The `latest` site parameter is updated when a new version of the documentation is released.
+This parameter does not always match the value of `version` in a documentation set.
+
+Renders to:
+
+{{< latest-version >}}
+
+### `{{</* latest-semver */>}}`
+
+The `{{</* latest-semver */>}}` shortcode generates the value of `latest` without the "v" prefix.
+
+Renders to:
+
+{{< latest-semver >}}
+
+### `{{</* version-check */>}}`
+
+The `{{</* version-check */>}}` shortcode checks if the `min-kubernetes-server-version`
+page parameter is present and then uses this value to compare to `version`.
+
+Renders to:
+
+{{< version-check >}}
+
+### `{{</* latest-release-notes */>}}`
+
+The `{{</* latest-release-notes */>}}` shortcode generates a version string from `latest` and removes
+the "v" prefix. The shortcode prints a new URL for the release note CHANGELOG page with the modified version string.
+
+Renders to:
+
+{{< latest-release-notes >}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn about [Hugo](https://gohugo.io/).
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
-* Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
-{{% /capture %}}
+* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
+* Learn about [page content types](/docs/contribute/style/page-content-types/).
+* Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
+* Learn about [advanced contributing](/docs/contribute/advanced/).

@@ -1,7 +1,0 @@
-{{ $_hugo_config := `{ "version": 1 }`}}
-{{- $id := .Get 0 -}}
-{{- if not $id -}}
-{{- errorf "missing id in capture" -}}
-{{- end -}}
-{{- $capture_id := printf "__cid_%s" $id -}}
-{{- .Page.Scratch.Set $capture_id .Inner -}}

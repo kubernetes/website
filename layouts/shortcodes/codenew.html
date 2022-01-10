@@ -4,7 +4,7 @@
 {{ $fileDir := path.Split $file }}
 {{ $bundlePath := path.Join .Page.File.Dir $fileDir.Dir }}
 {{ $filename := printf "/content/%s/examples/%s" .Page.Lang $file | safeURL }}
-{{ $ghlink := printf "https://%s/master%s" site.Params.githubwebsiteraw $filename | safeURL }}
+{{ $ghlink := printf "https://%s/main%s" site.Params.githubwebsiteraw $filename | safeURL }}
 {{/* First assume this is a bundle and the file is inside it. */}}
 {{ $resource := $p.Resources.GetMatch (printf "%s*" $file ) }}
 {{ with $resource }}
@@ -18,21 +18,15 @@
 {{ errorf "[%s] %q not found in %q" site.Language.Lang $fileDir.File $bundlePath }}
 {{ end }}
 {{ with $.Scratch.Get "content" }}
-<table class="includecode" id="{{ $file | anchorize }}">
-    <thead>
-        <tr>
-            <th>
-                {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}
-                    <code>{{ $file }}</code>
-                {{ if $ghlink }}</a>{{ end }}
-                <img src="{{ "images/copycode.svg" | relURL }}" style="max-height:24px" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard">
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ highlight . $codelang "" }}  </td>
-        </tr>
-    </tbody>
-</table>
+<div class="highlight">
+    <div class="copy-code-icon" style="text-align:right">
+    {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}<code>{{ $file }}</code>
+    {{ if $ghlink }}</a>{{ end }}
+    <img src="{{ "images/copycode.svg" | relURL }}" style="max-height:24px; cursor: pointer" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard">
+    </img>
+    </div>
+    <div class="includecode" id="{{ $file | anchorize }}">
+    {{ highlight . $codelang "" }}
+    </div>
+</div>
 {{ end }}
