@@ -164,7 +164,7 @@ class first,second white
 सिग डॉक्स भिन्न प्रकार से संवाद करते है :
 
 - [#sig-docs को जॉइन करे  कुबेरनेटेस स्लैक चैनल मे](https://slack.k8s.io/) । खुद का परिचय देना सुनिश्चित करे। 
-- [kubernetes-sig-docs` मैलिंग लिस्ट मे शामिल हो ](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
+- [kubernetes-sig-docs मेलिंग लिस्ट मे शामिल हो ](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   वहाँ व्यापक विचार-विमर्श होता है और आधिकारिक फैसले का अभिलेखन किया जाता है।
 - [सिग डॉक्स विडिओ बैठक](https://github.com/kubernetes/community/tree/master/sig-docs) मे शामिल हो जो हर दो सप्ताह मे होती है। 
  बैठक की घोषणा हमेशा `#sig-docs पर की जाती है ` और  [कुबेरनेटेस समुदाय बैठक कैलंडर](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles) मे जोड़ दिया जाता है।  आपको [Zoom client](https://zoom.us/download) डाउनलोड करने की जरूरत पड़ेगी  या फोन की मदद से भी डायल कर सकते है। 
