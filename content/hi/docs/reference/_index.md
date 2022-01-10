@@ -47,7 +47,7 @@ client libraries:
 
 ## अवयव
 
-* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - प्राथमिक एजेंट जो प्रत्येक   नोड पर चलता है। क्यूबलेट पॉडस्पेक्स का एक सेट लेता है
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - प्राथमिक प्रतिनिधि(एजेंट) जो प्रत्येक नोड पर चलता है। क्यूबलेट पॉडस्पेक्स का एक सेट लेता है
   और यह सुनिश्चित करता है कि वर्णित कंटेनर चल रहे हैं और स्वस्थ हैं।
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) -
   REST API जो API वस्तु जैसे पॉड्स, सेवाएं, प्रतिकृति नियंत्रक के लिए डेटा को मान्य और कॉन्फ़िगर करता है।
