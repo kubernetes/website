@@ -42,7 +42,7 @@ client libraries:
 
 * [kubectl](/docs/reference/kubectl/overview/) - कमांड चलाने और कुबेरनेट्स क्लस्टर के प्रबंधन के लिए मुख्य CLI उपकरण।
     * [JSONPath](/docs/reference/kubectl/jsonpath/) - kubectl के साथ प्रयोग करने के लिए 
-वाक्य - विन्यास मार्गदर्शक [JSONPath expressions](https://goessner.net/articles/JsonPath/).
+सिन्‌टैक्‍स्‌(वाक्य रचना)मार्गदर्शक [JSONPath expressions](https://goessner.net/articles/JsonPath/)
 * [kubeadm](/docs/reference/setup-tools/kubeadm/) - एक सुरक्षित कुबेरनेट्स क्लस्टर का आसानी से प्रावधान करने के लिए CLI टूल।
 
 ## अवयव
