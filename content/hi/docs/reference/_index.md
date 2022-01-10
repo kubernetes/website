@@ -52,7 +52,7 @@ client libraries:
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) -
   REST API जो API वस्तु जैसे पॉड्स, सेवाएं, प्रतिकृति नियंत्रक के लिए डेटा को मान्य और कॉन्फ़िगर करता है।
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - डेमॉन जो कुबेरनेट्स के साथ भेजे गए कोर कंट्रोल लूप्स को एम्बेड करता है।
-* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - बैक-एंड के एक सेट में साधारण TCP/UDP स्ट्रीम फॉरवर्डिंग या राउंड-रॉबिन TCP/UDP फॉरवर्डिंग कर सकते हैं। 
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - बैक-एंड के एक सेट में साधारण TCP/UDP स्ट्रीम फॉरवर्डिंग (आगे भेजना) या राउंड-रॉबिन TCP/UDP फॉरवर्डिंग कर सकते हैं। 
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - 
 अनुसूचक जो उपलब्धता, प्रदर्शन और क्षमता का प्रबंधन करता है।
   
