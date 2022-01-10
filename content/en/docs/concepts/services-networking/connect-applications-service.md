@@ -13,13 +13,11 @@ weight: 30
 
 ## The Kubernetes model for connecting containers
 
-Now that you have a continuously running, replicated application you can expose it on a network. 
+Now that you have a continuously running, replicated application you can expose it on a network.
 
 Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. Kubernetes gives every pod its own cluster-private IP address, so you do not need to explicitly create links between pods or map container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document elaborates on how you can run reliable services on such a networking model.
 
 This guide uses a simple nginx server to demonstrate proof of concept.
-
-
 
 <!-- body -->
 
@@ -52,6 +50,7 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
 ```
 
 You should be able to ssh into any node in your cluster and use a tool such as `curl` to make queries against both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same `containerPort`, and access them from any other pod or node in your cluster using the assigned IP address for the Service. If you want to arrange for a specific port on the host Node to be forwarded to backing Pods, you can - but the networking model should mean that you do not need to do so.
+
 
 You can read more about the [Kubernetes Networking Model](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model) if you're curious.
 
