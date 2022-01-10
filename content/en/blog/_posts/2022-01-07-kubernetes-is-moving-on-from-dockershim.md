@@ -9,20 +9,22 @@ slug: kubernetes-is-moving-on-from-dockershim
 
 Kubernetes is removing dockershim in the upcoming v1.24 release. We're excited
 to reaffirm our community values by supporting open source container runtimes,
-enable a smaller kubelet, and increase engineering velocity for teams using
-Kubernetes. If you [use Docker Engine as a Container Runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)
-for your Kubernetes cluster, get ready to migrate to 1.24! To check if you're
+enabling a smaller kubelet, and increasing engineering velocity for teams using
+Kubernetes. If you [use Docker Engine as a container runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)
+for your Kubernetes cluster, get ready to migrate in 1.24! To check if you're
 affected, refer to [Check whether dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/).
 
 ## Why we’re moving away from dockershim
 
 Docker was the first container runtime used by Kubernetes. This is one of the
 reasons why Docker is so familiar to many Kubernetes users and enthusiasts.
+Docker support was hardcoded into Kubernetes – a component the project refers to
+as dockershim.
 As containerization became an industry standard, the Kubernetes project added support
-for additional runtimes. This culminated with the implementation of the
+for additional runtimes. This culminated in the implementation of the
 container runtime interface (CRI), letting system components (like the kubelet)
-talk to container runtimes in a standardized way. As a result, the hardcoded support for Docker –
-a component the project refers to as dockershim – became an anomaly in the Kubernetes project.
+talk to container runtimes in a standardized way. As a result, dockershim became
+an anomaly in the Kubernetes project. 
 Dependencies on Docker and dockershim have crept into various tools
 and projects in the CNCF ecosystem ecosystem, resulting in fragile code.
 
@@ -33,14 +35,14 @@ Stay tuned for future communications on the topic!
 
 ## Deprecation timeline
 
-We [formally announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/) the dockershim deprecation in December 2020.  Full removal is targeted
+We [formally announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/) the dockershim deprecation in December 2020. Full removal is targeted
 in Kubernetes 1.24, in April 2022. This timeline
 aligns with our [deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior),
 which states that deprecated behaviors must function for at least 1 year
 after their announced deprecation.
 
 We'll support Kubernetes version 1.23, which includes
-dockershim, for another year in the Kubernetes project. Managed
+dockershim, for another year in the Kubernetes project. For managed
 Kubernetes providers, vendor support is likely to last even longer, but this is
 dependent on the companies themselves. Regardless, we're confident all cluster operations will have
 time to migrate. If you have more questions about the dockershim removal, refer
@@ -55,8 +57,8 @@ The results show that we still have a lot of ground to cover to help you to
 migrate smoothly. Other container runtimes exist, and have been promoted
 extensively. However, many users told us they still rely on dockershim,
 and sometimes have dependencies that need to be re-worked. Some of these
-dependencies are outside of your control. Based on the feedback received from
-you, here are some of the steps we are taking to help.
+dependencies are outside of your control. Based on your feedback, here are some
+of the steps we are taking to help.
 
 ## Our next steps
 
@@ -72,13 +74,14 @@ Based on the feedback you provided:
 If you're part of a project with dependencies on dockershim, or if you're
 interested in helping with the migration effort, please join us! There's always
 room for more contributors, whether to our transition tools or to our
-documentation. To get started, say hello in
+documentation. To get started, say hello in the
 [#sig-node](https://kubernetes.slack.com/archives/C0BP8PW9G)
-channel on [Kuberentes Slack](https://slack.kubernetes.io/)!
+channel on [Kubernetes Slack](https://slack.kubernetes.io/)!
 
 ## Final thoughts
 
-As a project, we've already seen cluster operators increasingly adopt of other container runtimes through 2021.
+As a project, we've already seen cluster operators increasingly adopt other
+container runtimes through 2021. 
 We believe there are no major blockers to migration. The steps we're taking to
 improve the migration experience will light the path more clearly for you.
 
@@ -89,7 +92,8 @@ hiccups or issues. The community has discussed at length whether postponing the
 dockershim removal would be helpful. For example, we recently talked about it in
 the [SIG Node discussion on November 11th](https://docs.google.com/document/d/1Ne57gvidMEWXR70OxxnRkYquAoMpt56o75oZtg-OeBg/edit#bookmark=id.r77y11bgzid)
 and in the [Kubernetes Steering committee meeting held on December 6th](https://docs.google.com/document/d/1qazwMIHGeF3iUh5xMJIJ6PDr-S3bNkT8tNLRkSiOkOU/edit#bookmark=id.m0ir406av7jx).
-We already [postponed](https://github.com/kubernetes/enhancements/pull/2481/) it once last year because the adoption rate of other
+We already [postponed](https://github.com/kubernetes/enhancements/pull/2481/) it
+once in 2021 because the adoption rate of other
 runtimes was lower than we wanted, which also gave us more time to identify
 potential blocking issues.
 
