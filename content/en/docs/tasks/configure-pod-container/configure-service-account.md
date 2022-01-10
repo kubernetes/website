@@ -294,7 +294,10 @@ command line arguments to `kube-apiserver`:
 * `--service-account-signing-key-file`
 * `--api-audiences` (can be omitted)
 
-To enable non-disruptive change of issuer we can specify `--service-account-issuer` flag multiple times to `kube-apiserver` for k8s v1.22 and later versions.
+You can specify the `--service-account-issuer` argument multiple times. This can be useful to
+enable a non-disruptive change of the key for an issuer.
+You must be running running Kubernetes v1.22 or later to be able to specify
+`--service-account-issuer` multiple times.
 
 {{< /note >}}
 
