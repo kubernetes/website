@@ -487,6 +487,6 @@ kubectl delete pod security-context-demo-4
 * [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
-* [Pod Security Policies](/docs/concepts/policy/pod-security-policy/)
+* [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/)
 * [AllowPrivilegeEscalation design
   document](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)

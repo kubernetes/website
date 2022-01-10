@@ -716,7 +716,7 @@ for more information.
 This admission controller acts on creation and modification of the pod and determines if it should be admitted
 based on the requested security context and the available Pod Security Policies.
 
-See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-policy/)
+See also the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation
 for more information.
 
 ### PodTolerationRestriction {#podtolerationrestriction}
@@ -777,14 +777,17 @@ for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}
 
-This admission controller will deny any pod that attempts to set certain escalating
+This admission controller will deny any Pod that attempts to set certain escalating
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 fields, as shown in the
 [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
 task.
-This should be enabled if a cluster doesn't utilize 
-[pod security policies](/docs/concepts/policy/pod-security-policy/)
-to restrict the set of values a security context can take.
+If you don't use [Pod Security admission]((/docs/concepts/security/pod-security-admission/),
+[PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), nor any external enforcement mechanism,
+then you could use this admission controller to restrict the set of values a security context can take.
+
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for more context on restricting
+pod privileges.
 
 ### ServiceAccount {#serviceaccount}
 

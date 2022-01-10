@@ -21,7 +21,7 @@ behavior of pods in a clear, consistent fashion.
 
 As a Beta feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
 text="admission controller" term_id="admission-controller" >}}, the successor
-to [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/). Pod security restrictions
+to [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/). Pod security restrictions
 are applied at the {{< glossary_tooltip text="namespace" term_id="namespace" >}} level when pods
 are created.
 
