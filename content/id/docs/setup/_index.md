@@ -28,7 +28,7 @@ Jika kamu sedang belajar Kubernetes, gunakan alat yang didukung oleh komunitas K
 
 ## Lingkungan Produksi
 
-Pada saat mengevaluasi sebuah solusi untuk lingkungan produksi, pertimbangkan aspek dari pengoperasian klaster Kubernetes (atau _abstractions_) yang ingin kamu kelola atau membiarkan penyedia.
+Pada saat mengevaluasi sebuah solusi untuk lingkungan produksi, pertimbangkan aspek dari pengoperasian klaster Kubernetes atau abstraksi yang ingin kamu kelola atau membiarkan penyedia.
 
 [Kubernetes _Partners_](https://kubernetes.io/partners/#conformance) termasuk dari daftar dari penyedia [_Certified_ Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes).
 
