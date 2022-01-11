@@ -15,4 +15,4 @@ Kubernetes 1.20で[dockershim deprecation](blog/2020/12/08/kubernetes-1-20-relea
 dockershimから代替のコンテナランタイムに移行することが推奨されます。
 [コンテナランタイム](/docs/setup/production-environment/container-runtimes/)のセクションをチェックして、どのような選択肢があるかを確認してください。
 問題が発生した場合は、必ず[問題の報告](https://github.com/kubernetes/kubernetes/issues)をしてください。
-そうすれば、問題が適時に修正され、クラスタがdockershimの削除に対応できるようになります。
+そうすれば、問題が適時に修正され、クラスターがdockershimの削除に対応できるようになります。
