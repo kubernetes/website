@@ -22,7 +22,7 @@ Kubernetesでは、アプリケーションの監視は1つの監視ソリュー
 これらのメトリクスは軽量、短期、インメモリーの[metrics-server](https://github.com/kubernetes-sigs/metrics-server)によって収集され、`metrics.k8s.io` APIを通じて公開されます。
 
 metrics-serverはクラスター上のすべてのノードを検出し
-各ノードの [kubelet](/docs/reference/command-line-tools-reference/kubelet/) にCPUとメモリの使用量を問い合わせます。
+各ノードの[kubelet](/docs/reference/command-line-tools-reference/kubelet/)にCPUとメモリーの使用量を問い合わせます。
 
 kubeletはKubernetesマスターとノードの橋渡し役として、マシン上で動作するPodやコンテナを管理する。
 kubeletは各Podを構成するコンテナに変換し、コンテナランタイムインターフェースを介してコンテナランタイムから個々のコンテナ使用統計情報を取得します。この情報は、レガシーDocker統合のための統合cAdvisorから取得されます。
