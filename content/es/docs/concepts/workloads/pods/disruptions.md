@@ -173,7 +173,7 @@ a creado el pod `pod-y` como un reemplazo del `pod-x` .
 
 Ahora el clúster esta en este estado:
 
-| nodo-1 *desalojando* |       nodo-2        |       nodo-3       |
+| nodo-1 *draining* |       nodo-2        |       nodo-3       |
 |:--------------------:|:-------------------:|:------------------:|
 | pod-a  *terminating* | pod-b *available*   | pod-c *available*  |
 | pod-x  *terminating* | pod-d *starting*    | pod-y              |
