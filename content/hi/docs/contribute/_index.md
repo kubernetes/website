@@ -1,5 +1,5 @@
 ---
-content_type: संकल्पना
+content_type: सिद्धांत
 title: कुबेरनेटेस डॉक्स में योगदान दे
 linktitle: योगदान
 main_menu: true
