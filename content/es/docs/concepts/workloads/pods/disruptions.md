@@ -2,6 +2,7 @@
 reviewers:
 - electrocucaracha
 - raelga
+- gamba47
 title: Interrupciones
 content_type: concept
 weight: 60
