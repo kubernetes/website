@@ -27,7 +27,7 @@ text="Interfaz de Almacenamiento de Contenedores" term_id="csi" >}} (CSI) y
 Hay dos extensiones de API para esta función:
 
 - Los objetos CSIStorageCapacity:
-  son producidos por un controlador CSI en el namespace donde está instalado el controlador. Cada objeto contiene información de capacidad para una clase de almacenamiento y define qué nodos tienen acceso a ese almacenamiento.
+  son producidos por un controlador CSI en el Namespace donde está instalado el controlador. Cada objeto contiene información de capacidad para una clase de almacenamiento y define qué nodos tienen acceso a ese almacenamiento.
 - [El campo `CSIDriverSpec.StorageCapacity`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io):
   cuando se establece en `true`, el [Planificador de Kubernetes](/docs/concepts/scheduling-eviction/kube-scheduler/) considerará la capacidad de almacenamiento para los volúmenes que usan el controlador CSI.
 
@@ -35,10 +35,9 @@ Hay dos extensiones de API para esta función:
 
 El planificador de Kubernetes utiliza la información sobre la capacidad de almacenamiento si:
 
-- la puerta de la característica `CSIStorageCapacity` es `true`,
+- la Feature gate de `CSIStorageCapacity` es `true`,
 - un Pod usa un volumen que aún no se ha creado,
-- ese volumen usa un {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} que hace referencia a un controlador CSI y usa el modo de enlace de volumen `WaitForFirstConsumer` [volume binding
-  mode](/docs/concepts/storage/storage-classes/#volume-binding-mode),
+- ese volumen usa un {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} que hace referencia a un controlador CSI y usa el [modo de enlace de volumen] (/docs/concepts/storage/storage-classes/#volume-binding-mode)`WaitForFirstConsumer`,
   y
 - el objeto `CSIDriver` para el controlador tiene `StorageCapacity` establecido en `true`.
 
@@ -56,7 +55,7 @@ Cuando se selecciona un nodo para un Pod con volúmenes `WaitForFirstConsumer`, 
 
 Debido a que Kubernetes pudo haber elegido un nodo basándose en información de capacidad desactualizada, es posible que el volumen no se pueda crear realmente. Luego, la selección de nodo se restablece y el planificador de Kubernetes intenta nuevamente encontrar un nodo para el Pod.
 
-## Limitationes
+## Limitaciones
 
 El seguimiento de la capacidad de almacenamiento aumenta las posibilidades de que la planificación funcione en el primer intento, pero no puede garantizarlo porque el planificador tiene que decidir basándose en información potencialmente desactualizada. Por lo general, el mismo mecanismo de reintento que para la planificación sin información de capacidad de almacenamiento es manejado por los errores de planificación.
 
