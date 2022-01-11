@@ -146,7 +146,7 @@ class first,second white
 - [पेज प्रलेखन टाइप ](/docs/contribute/style/page-content-types/)
   और  [हुगो शॉर्टकोडेस ](/docs/contribute/style/hugo-shortcodes/) के बारे मे जाने। 
 
-## अगला कदम 
+## अगले कदम 
 
 - रिपॉजिटरी के [लोकल क्लोन से काम करना](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
   सीखें। 
