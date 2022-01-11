@@ -160,14 +160,13 @@ class first,second white
 
 [SIG Docs](/docs/contribute/participate/) योगदानकर्ताओ का एक समूह है जो कुबेरनेटेस प्रलेखन और वेबसाईट की देख रेख और उसे प्रकाशित करता है। SIG Docs मे शामिल होना कुबेरनेटेस परियोजना मे बाद प्रभाव डालने का कुबेरनेटेस योगदानकर्ताओ (महत्ववावपूर्ण लेख या उससे अन्यथा) के लिए बेहतरीन तरीका है । 
 
-SIG Docs भिन्न प्रकार से संवाद करते है :
+SIG Docs भिन्न प्रकार से संवाद करते हैं:
 
-- [कुबेरनेटेस स्लैक चैनल मे #sig-docs को जॉइन करे](https://slack.k8s.io/) । खुद का परिचय देना सुनिश्चित करे। 
-- [kubernetes-sig-docs मेलिंग लिस्ट मे शामिल हो ](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
+- [कुबेरनेटेस Slack चैनल मे #sig-docs से जुड़ें](https://slack.k8s.io/) और खुद का परिचय दें! 
+- [kubernetes-sig-docs मेलिंग लिस्ट मे शामिल हो](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   वहाँ व्यापक विचार-विमर्श होता है और आधिकारिक फैसले का अभिलेखन किया जाता है।
-- [SIG Docs विडिओ बैठक](https://github.com/kubernetes/community/tree/master/sig-docs) मे शामिल हो जो हर दो सप्ताह मे होती है। 
- बैठक की घोषणा हमेशा `#sig-docs पर की जाती है ` और  [कुबेरनेटेस समुदाय बैठक कैलंडर](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles) मे जोड़ दिया जाता है। आपको [Zoom client](https://zoom.us/download) डाउनलोड करने की जरूरत पड़ेगी या फोन की मदद से भी डायल कर सकते है। 
-- जिन सप्ताह मे zoom बैठक नहीं हुई हो तब SIG Docs अतुल्यकालिक बैठक को जॉइन करे जो स्लैक मे होती है। बैठक की घोषणा हमेशा `#sig-docs`पर होती है। बैठक की घोषणा के बाद आप किसी भी सूत्र मे 24 घंटे तक योगदान कर सकते है।
+- [SIG Docs विडिओ बैठक](https://github.com/kubernetes/community/tree/master/sig-docs) मे शामिल हो जो हर दो सप्ताह मे होती है। बैठक की घोषणा हमेशा `#sig-docs`  पर की जाती है और [कुबेरनेटेस समुदाय बैठक कैलंडर](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles) में जोड़ दिया जाता है। आपको [Zoom client](https://zoom.us/download) डाउनलोड करने की जरूरत पड़ेगी या फोन की मदद से भी डायल कर सकते हैं। 
+- जिन सप्ताह मे Zoom बैठक नहीं हुई हो तब SIG Docs अतुल्यकालिक बैठक को जॉइन करे जो Slack पर होती है। बैठक की घोषणा हमेशा `#sig-docs` पर होती है। बैठक की घोषणा के बाद आप किसी भी सूत्र मे 24 घंटे तक योगदान कर सकते है।
 
 ## योगदान करने के अन्य तरीके 
 
