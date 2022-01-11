@@ -45,6 +45,7 @@ on every resource object.
 To illustrate these labels in action, consider the following {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} object:
 
 ```yaml
+# This is an excerpt
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
