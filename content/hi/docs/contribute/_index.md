@@ -20,7 +20,7 @@ card:
 [योगदानकर्ता प्रलेखन](https://www.kubernetes.dev/docs/) देखें।
 {{< /note  >}}
 
-यह वेबसाईट कि देख रेख [कुबेरनेटस SIG Docs](/docs/contribute/#get-involved-with-sig-docs) द्वारा की जाती है ।
+इस वेबसाइट की देख रेख [कुबेरनेटस SIG Docs](/docs/contribute/#get-involved-with-sig-docs) द्वारा की जाती है।
 
 कुबेरनेटस  प्रलेखन  योगदानकर्ता :
 
