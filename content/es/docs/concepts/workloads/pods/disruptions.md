@@ -191,7 +191,7 @@ el Deployment y el PDB requiere por lo menos 2. Después de pasado un tiempo el 
 
 El estado del clúster ahora se ve así:
 
-|  nodo-1 *desalojado* |       nodo-2        |       nodo-3       |
+|  nodo-1 *drained* |       nodo-2        |       nodo-3       |
 |:--------------------:|:-------------------:|:------------------:|
 |                      | pod-b *available*   | pod-c *available*  |
 |                      | pod-d *available*   | pod-y              |
