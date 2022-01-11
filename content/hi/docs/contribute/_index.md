@@ -114,14 +114,14 @@ flowchart LR
     subgraph second[पहला योगदान]
     direction TB
     S[ ] -.-
-    G[दूसरे K8s मेम्बर्स के <br> prs की समीक्षा करे] -->
-    A[पहली अच्छी समस्या के लिए K8s/website<br>की समस्या सूची पर जाए ] --> B[pr ओपन करे!!]
+    G[दूसरे K8s मेम्बर्स के<br>PRs की समीक्षा करें] -->
+    A[अपने पहले इशू (गुफ फर्स्ट इशू)<br>के लिए K8s/website<br>की इशू सूची पर जाएं] --> B[PR ओपन करें!!]
     end
-    subgraph first[सूचित तैयारी ]
+    subgraph first[सूचित तैयारी]
     direction TB
        T[ ] -.-
-       D[योगदान अवलोकन को पढे] -->E[K8s content<br>and style guide को पढे]
-       E --> F[Hugo page<br>content types<br>और shortcodes के बारे मे जाने]
+       D[योगदान अवलोकन को पढे] -->E[K8s विषय<br>और विषय गाइड को पढ़ें]
+       E --> F[Hugo पेज<br>विषय के प्रकार<br>और shortcodes के बारे मे जाने]
     end
     
 
