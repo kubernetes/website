@@ -148,13 +148,13 @@ class first,second white
 
 ## अगला कदम 
 
--  कोड संग्रह मे [लोकल क्लोन से काम करने ](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
- के बारे मे सीखे। 
-- [रिलीज मे फीचर्स को](/docs/contribute/new-content/new-features/) आलेख करे। 
-- [सिग डॉक्स](/docs/contribute/participate/) मे भाग ले और
-  [सदस्य या समीक्षक](/docs/contribute/participate/roles-and-responsibilities/) बने। 
+- रिपॉजिटरी के [लोकल क्लोन से काम करना](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
+  सीखें। 
+- [रिलीज़ में फीचर्स का](/docs/contribute/new-content/new-features/) आलेख करे। 
+- [SIG  Docs](/docs/contribute/participate/) मे भाग लें और
+  [सदस्य या समीक्षक](/docs/contribute/participate/roles-and-responsibilities/) बनें। 
                        
-- [स्थानीयकरण](/docs/contribute/localization/) शुरू करे या उसमे सहायता करे। 
+- [स्थानीयकरण](/docs/contribute/localization/) शुरू करे या उसमे सहायता करें। 
 
 ## सिग डॉक्स मे शामिल हो 
 
