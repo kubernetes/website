@@ -31,7 +31,7 @@ Kubernetesの組み込みコンポーネントである`dockershim`はリリー�
 
 ## Dockerへの依存について解説 {#role-of-dockershim}
 
-[コンテナランタイム](/docs/concepts/containers/#container-runtimes)とは、Kubernetes Podを構成するコンテナを実行できるソフトウェアです。
+[コンテナランタイム](/ja/docs/concepts/containers/#container-runtimes)とは、Kubernetes Podを構成するコンテナを実行できるソフトウェアです。
 
 KubernetesはPodのオーケストレーションとスケジューリングを担当し、各ノードでは{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}がコンテナランタイムインターフェイスを抽象化して使用するので、互換性があればどのコンテナランタイムでも使用することができます。
 初期のリリースでは、Kubernetesは1つのコンテナランタイムと互換性を提供していました: Dockerです。
