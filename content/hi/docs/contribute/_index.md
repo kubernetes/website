@@ -51,8 +51,8 @@ card:
    [पुल अनुरोध करना](/docs/contribute/new-content/open-a-pr/) और 
    [बदलाओ की समीक्षा](/docs/contribute/review/reviewing-prs/) करना आता हो। 
 
-<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
-<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+<!-- इस चित्र की लाइव-एडिटर URL के लिए https://github.com/kubernetes/website/issues/28808 देखें  -->
+<!-- आप मरमेड (मरमेड) कोड को लाइव-एडिटर https://mermaid-js.github.io/mermaid-live-editor में कट/पेस्ट करके भी संपादित कर सकते हैं -->
 
 {{< mermaid >}}
 flowchart TB
