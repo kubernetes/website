@@ -52,7 +52,7 @@ card:
    [बदलाओ की समीक्षा](/docs/contribute/review/reviewing-prs/) करना आता हो। 
 
 <!-- इस चित्र की लाइव-एडिटर URL के लिए https://github.com/kubernetes/website/issues/28808 देखें  -->
-<!-- आप मरमेड (मरमेड) कोड को लाइव-एडिटर https://mermaid-js.github.io/mermaid-live-editor में कट/पेस्ट करके भी संपादित कर सकते हैं -->
+<!-- आप मरमेड (mermaid) कोड को लाइव-एडिटर https://mermaid-js.github.io/mermaid-live-editor में कट/पेस्ट करके भी संपादित कर सकते हैं -->
 
 {{< mermaid >}}
 flowchart TB
