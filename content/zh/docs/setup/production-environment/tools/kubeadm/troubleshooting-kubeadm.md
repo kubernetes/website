@@ -230,7 +230,7 @@ Calico, Canal, and Flannel CNI providers are verified to support HostPort.
 For more information, see the [CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
-services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
+services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
 -->
 ## `HostPort` 服务无法工作
 
@@ -242,7 +242,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 有关更多信息，请参考 [CNI portmap 文档](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 如果你的网络提供商不支持 portmap CNI 插件，你或许需要使用
-[NodePort 服务的功能](/zh/docs/concepts/services-networking/service/#nodeport)
+[NodePort 服务的功能](/zh/docs/concepts/services-networking/service/#type-nodeport)
 或者使用 `HostNetwork=true`。
 
 <!--
@@ -390,13 +390,22 @@ the `ca.key` you must sign the embedded certificates in the `kubelet.conf` exter
 3. 将得到的 `kubelet.conf` 文件复制到故障节点上，作为 `/etc/kubernetes/kubelet.conf`。
 4. 在故障节点上重启 kubelet（`systemctl restart kubelet`），等待 `/var/lib/kubelet/pki/kubelet-client-current.pem` 重新创建。
 <!--
-1. Run `kubeadm init phase kubelet-finalize all` on the failed node. This will make the new
-`kubelet.conf` file use `/var/lib/kubelet/pki/kubelet-client-current.pem` and will restart the kubelet.
+1. Manually edit the `kubelet.conf` to point to the rotated kubelet client certificates, by replacing
+`client-certificate-data` and `client-key-data` with:
+-->
+5. 手动编辑 `kubelet.conf` 指向轮换的 kubelet 客户端证书，方法是将 `client-certificate-data` 和 `client-key-data` 替换为：
+
+    ```yaml
+    client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
+    client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
+    ```
+
+<!--
+1. Restart the kubelet.
 1. Make sure the node becomes `Ready`.
 -->
-5. 在故障节点上运行 `kubeadm init phase kubelet-finalize all`。
-   这将使新的 `kubelet.conf` 文件使用 `/var/lib/kubelet/pki/kubelet-client-current.pem` 并将重新启动 kubelet。
-6. 确保节点状况变为 `Ready`。
+6. 重新启动 kubelet。
+7. 确保节点状况变为 `Ready`。
 
 ## 在 Vagrant 中使用 flannel 作为 pod 网络时的默认 NIC
 
@@ -667,6 +676,7 @@ For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/c
 Kubernetes components like the kubelet and kube-controller-manager use the default path of
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
 for the feature to work.
+(**Note**: FlexVolume was deprecated in the Kubernetes v1.23 release)
 -->
 ## 节点上的 `/usr` 被以只读方式挂载 {#usr-mounted-read-only}
 
@@ -676,6 +686,7 @@ for the feature to work.
 类似 kubelet 和 kube-controller-manager 这类 Kubernetes 组件使用默认路径
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
 而 FlexVolume 的目录 _必须是可写入的_，该功能特性才能正常工作。
+（**注意**：FlexVolume 在 Kubernetes v1.23 版本中已被弃用）
 
 <!--
 To workaround this issue you can configure the flex-volume directory using the kubeadm

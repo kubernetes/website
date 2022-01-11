@@ -22,7 +22,7 @@ For additional information on creating new content for the Kubernetes
 documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/).
 
 Changes to the style guide are made by SIG Docs as a group. To propose a change
-or addition, [add it to the agenda](https://docs.google.com/document/d/1ddHwLK3kUMX1wVFIwlksjTk0MsqitBnWPe1LRa1Rx5A/edit) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
+or addition, [add it to the agenda](https://bit.ly/sig-docs-agenda) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
 discussion.
 -->
 本页讨论 Kubernetes 文档的样式指南。
@@ -34,7 +34,7 @@ discussion.
 
 样式指南的变更是 SIG Docs 团队集体决定。
 如要提议更改或新增条目，请先将其添加到下一次 SIG Docs 例会的
-[议程表](https://docs.google.com/document/d/1ddHwLK3kUMX1wVFIwlksjTk0MsqitBnWPe1LRa1Rx5A/edit)
+[议程表](https://bit.ly/sig-docs-agenda)
 上，并按时参加会议讨论。
 
 <!-- body -->
@@ -123,7 +123,7 @@ For managing confidential data, consider using the Secret API. | For managing co
 {{< table caption = "使用 Pascal 风格大小写来给出 API 对象的约定" >}}
 可以 | 不可以
 :--| :-----
-该 HorizontalPodAutoscaler 负责... | 该 HorizontalPodAutoscaler 负责...
+该 HorizontalPodAutoscaler 负责... | 该 Horizontal pod autoscaler 负责...
 每个 PodList 是一个 Pod 组成的列表。 | 每个 Pod List 是一个由 pods 组成的列表。
 该 Volume 对象包含一个 `hostPath` 字段。 | 此卷对象包含一个 hostPath 字段。
 每个 ConfigMap 对象都是某个名字空间的一部分。| 每个 configMap 对象是某个名字空间的一部分。

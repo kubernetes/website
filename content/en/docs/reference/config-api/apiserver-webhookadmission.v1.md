@@ -13,7 +13,6 @@ Package v1 is the v1 version of the API.
   
     
 
-
 ## `WebhookAdmission`     {#apiserver-config-k8s-io-v1-WebhookAdmission}
     
 
@@ -42,5 +41,4 @@ WebhookAdmission provides configuration for the webhook admission controller.
   
 </tbody>
 </table>
-    
   
