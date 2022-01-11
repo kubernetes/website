@@ -30,55 +30,7 @@ insert dynamic port numbers into configuration blocks, services have to know
 how to find each other, etc.  Rather than deal with this, Kubernetes takes a
 different approach.
 
-## The Kubernetes network model
-
-Every `Pod` gets its own IP address, maximum one per IP family. This means you
-do not need need to deal with mapping container ports to host ports in order to
-expose the `Pods` services on the network. This creates a clean,
-backwards-compatible model where `Pods` can be treated much like VMs or physical
-hosts from the perspectives of port allocation, naming, service discovery, load
-balancing, application configuration, and migration.
-
-Kubernetes IP addresses exist at the `Pod` scope, in the `status.PodIPs` field
-- containers within a `Pod` share their network namespaces - including their IP
-address. This means that containers within a `Pod` can all reach each other's
-ports on `localhost`. This also means that containers within a `Pod` must
-coordinate port usage, but this is no different from processes in a VM. This is
-called the _IP-per-pod_ model.
-
-In every cluster, there exists an abstract pod-network to which pods
-are connected by default, unless explicitly configured to use the
-host-network (on platforms that support it). Even if a host has
-multiple IPs, host-network pods only have one Kubernetes IP address at
-the `Pod` scope, that is, the `status.PodIPs` field contains one
-IP per address family (for now), so the "IP-per-pod" model is guaranteed.
-
-Kubernetes imposes the following fundamental requirements on any networking
-implementation (barring any intentional network segmentation policies):
-
-   * any pod-network pod on any node can communicate with all other pod-network
-     pods on all nodes without NAT.
-   * non-pod processes on a node (the kubelet, and also for example any other system daemon) can
-     communicate with all pods on that node.
-
-In addition, for platforms and runtimes that support running pods in the host OS network:
-
-   * host-network pods of a node can connect directly with all pods IPs on all
-     nodes, however, unlike pod-network pods, the source IP address might not be
-     present in the `Pod` `status.PodIPs` field.
-
-This model is principally compatible with the desire for Kubernetes to enable
-low-friction porting of apps from VMs to containers. If your workload previously ran
-in a VM, your VM typically had a single IP address; everything in that VM could talk to
-other VMs on your network.
-This is the same basic model but less complex overall.
-
-How this is implemented is a detail of the particular container runtime in use. Likewise, the networking option you choose may support [dual-stack IPv4/IPv6 networking](/docs/concepts/services-networking/dual-stack/); implementations vary.
-
-It is possible to request ports on the `Node` itself which forward to your `Pod`
-(called host ports), but this is a very niche operation. How that forwarding is
-implemented is also a detail of the container runtime. The `Pod` itself is
-blind to the existence or non-existence of host ports.
+To learn about the Kubernetes networking model, see [here](/docs/concepts/services-networking/).
 
 ## How to implement the Kubernetes networking model
 

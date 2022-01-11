@@ -936,7 +936,7 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型，默认是
 * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value
   makes the Service only reachable from within the cluster. This is the
   default `ServiceType`.
-* [`NodePort`](#nodeport): Exposes the Service on each Node's IP at a static port
+* [`NodePort`](#type-nodeport): Exposes the Service on each Node's IP at a static port
   (the `NodePort`). A `ClusterIP` Service, to which the `NodePort` Service
   routes, is automatically created.  You'll be able to contact the `NodePort` Service,
   from outside the cluster,
@@ -953,7 +953,7 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型，默认是
 -->
 * `ClusterIP`：通过集群的内部 IP 暴露服务，选择该值时服务只能够在集群内部访问。
   这也是默认的 `ServiceType`。
-* [`NodePort`](#nodeport)：通过每个节点上的 IP 和静态端口（`NodePort`）暴露服务。
+* [`NodePort`](#type-nodeport)：通过每个节点上的 IP 和静态端口（`NodePort`）暴露服务。
   `NodePort` 服务会路由到自动创建的 `ClusterIP` 服务。
   通过请求 `<节点 IP>:<节点端口>`，你可以从集群的外部访问一个 `NodePort` 服务。
 * [`LoadBalancer`](#loadbalancer)：使用云提供商的负载均衡器向外部暴露服务。
@@ -974,7 +974,7 @@ Ingress 不是一种服务类型，但它充当集群的入口点。
 它可以将路由规则整合到一个资源中，因为它可以在同一IP地址下公开多个服务。
 
 <!--
-### Type NodePort {#nodeport}
+### Type NodePort {#type-nodeport}
 
 If you set the `type` field to `NodePort`, the Kubernetes control plane
 allocates a port from a range specified by `--service-node-port-range` flag (default: 30000-32767).
@@ -989,7 +989,7 @@ to particular IP block(s).
 
 This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`) to specify IP address ranges that kube-proxy should consider as local to this node.
 -->
-### NodePort 类型  {#nodeport}
+### NodePort 类型  {#type-nodeport}
 
 如果你将 `type` 字段设置为 `NodePort`，则 Kubernetes 控制平面将在
 `--service-node-port-range` 标志指定的范围内分配端口（默认值：30000-32767）。
@@ -1717,6 +1717,13 @@ in those modified security groups.
 如果未设置 `.spec.loadBalancerSourceRanges` ，则 Kubernetes 允许从 `0.0.0.0/0` 到节点安全组的流量。
 如果节点具有公共 IP 地址，请注意，非 NLB 流量也可以到达那些修改后的安全组中的所有实例。
 {{< /note >}}
+
+<!--
+Further documentation on annotations for Elastic IPs and other common use-cases may be found
+in the [AWS Load Balancer Controller documentation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/).
+-->
+有关弹性 IP 注解和更多其他常见用例，
+请参阅[AWS负载均衡控制器文档](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)。
 
 <!--
 #### Other CLB annotations on Tencent Kubernetes Engine (TKE)

@@ -169,10 +169,10 @@ The generated ConfigMap is:
 ```yaml
 apiVersion: v1
 data:
-  FOO=Bar
+  FOO: Bar
 kind: ConfigMap
 metadata:
-  name: example-configmap-1-8mbdf7882g
+  name: example-configmap-1-42cfbf598f
 ```
 
 <!--
@@ -936,8 +936,8 @@ Service 名称可能发生变化，建议不要在命令参数中硬编码 Servi
 对于这种使用场景，Kustomize 可以通过 `vars` 将 Service 名称注入到容器中。
 
 ```shell
-# 创建一个 deployment.yaml 文件
-cat <<EOF > deployment.yaml
+# 创建一个 deployment.yaml 文件（引用此处的文档分隔符）
+cat <<'EOF' > deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
