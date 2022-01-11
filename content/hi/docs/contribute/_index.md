@@ -81,7 +81,7 @@ subgraph first[साइनअप]
     V --- M[साप्ताहिक<br>sig-docs कॉल<br>या स्लैक बैठक में शामिल हों]
 end
 
-A([fa:fa-user New<br>Contributor]) --> first
+A([fa:fa-user नए<br>योगदानकर्ता]) --> first
 A --> second
 A --> third
 A --> H[सवाल पूछे!!!]
