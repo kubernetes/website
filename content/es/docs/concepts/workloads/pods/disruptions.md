@@ -160,7 +160,7 @@ La herramienta intenta desalojar a los pods `pod-a` y `pod-x`. Esto tiene éxito
 Ambos Pods van al estado `terminating` al mismo tiempo.
 Pone al clúster en el siguiente estado:
 
-| nodo-1 *desalojando* |       nodo-2        |       nodo-3       |
+| nodo-1 *draining* |       nodo-2        |       nodo-3       |
 |:--------------------:|:-------------------:|:------------------:|
 | pod-a  *terminating* | pod-b *available*   | pod-c *available*  |
 | pod-x  *terminating* |                     |                    |
