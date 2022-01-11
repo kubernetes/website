@@ -106,7 +106,7 @@ description: "This priority class should be used for XYZ service pods only."
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue
+Pods with `preemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
 but they cannot preempt other pods.
 A non-preempting pod waiting to be scheduled will stay in the scheduling queue,
@@ -122,16 +122,16 @@ allowing other pods with lower priority to be scheduled before them.
 Non-preempting pods may still be preempted by other,
 high-priority pods.
 
-`PreemptionPolicy` defaults to `PreemptLowerPriority`,
+`preemptionPolicy` defaults to `PreemptLowerPriority`,
 which will allow pods of that PriorityClass to preempt lower-priority pods
 (as is existing default behavior).
-If `PreemptionPolicy` is set to `Never`,
+If `preemptionPolicy` is set to `Never`,
 pods in that PriorityClass will be non-preempting.
 
 An example use case is for data science workloads.
 A user may submit a job that they want to be prioritized above other workloads,
 but do not wish to discard existing work by preempting running pods.
-The high priority job with `PreemptionPolicy: Never` will be scheduled
+The high priority job with `preemptionPolicy: Never` will be scheduled
 ahead of other queued pods,
 as soon as sufficient cluster resources "naturally" become free.
 
