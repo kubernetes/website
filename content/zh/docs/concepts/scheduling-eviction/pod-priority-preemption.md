@@ -177,7 +177,7 @@ description: "此优先级类应仅用于 XYZ 服务 Pod。"
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue
+Pods with `preemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
 but they cannot preempt other pods.
 A non-preempting pod waiting to be scheduled will stay in the scheduling queue,
@@ -197,7 +197,7 @@ high-priority pods.
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-配置了 `PreemptionPolicy: Never` 的 Pod 将被放置在调度队列中较低优先级 Pod 之前，
+配置了 `preemptionPolicy: Never` 的 Pod 将被放置在调度队列中较低优先级 Pod 之前，
 但它们不能抢占其他 Pod。等待调度的非抢占式 Pod 将留在调度队列中，直到有足够的可用资源，
 它才可以被调度。非抢占式 Pod，像其他 Pod 一样，受调度程序回退的影响。
 这意味着如果调度程序尝试这些 Pod 并且无法调度它们，它们将以更低的频率被重试，
@@ -206,26 +206,26 @@ high-priority pods.
 非抢占式 Pod 仍可能被其他高优先级 Pod 抢占。
 
 <!--  
-`PreemptionPolicy` defaults to `PreemptLowerPriority`,
+`preemptionPolicy` defaults to `PreemptLowerPriority`,
 which will allow pods of that PriorityClass to preempt lower-priority pods
 (as is existing default behavior).
-If `PreemptionPolicy` is set to `Never`,
+If `preemptionPolicy` is set to `Never`,
 pods in that PriorityClass will be non-preempting.
 
 An example use case is for data science workloads.
 A user may submit a job that they want to be prioritized above other workloads,
 but do not wish to discard existing work by preempting running pods.
-The high priority job with `PreemptionPolicy: Never` will be scheduled
+The high priority job with `preemptionPolicy: Never` will be scheduled
 ahead of other queued pods,
 as soon as sufficient cluster resources "naturally" become free.
 -->
-`PreemptionPolicy` 默认为 `PreemptLowerPriority`，
+`preemptionPolicy` 默认为 `PreemptLowerPriority`，
 这将允许该 PriorityClass 的 Pod 抢占较低优先级的 Pod（现有默认行为也是如此）。
-如果 `PreemptionPolicy` 设置为 `Never`，则该 PriorityClass 中的 Pod 将是非抢占式的。
+如果 `preemptionPolicy` 设置为 `Never`，则该 PriorityClass 中的 Pod 将是非抢占式的。
 
 数据科学工作负载是一个示例用例。用户可以提交他们希望优先于其他工作负载的作业，
 但不希望因为抢占运行中的 Pod 而导致现有工作被丢弃。
-设置为 `PreemptionPolicy: Never` 的高优先级作业将在其他排队的 Pod 之前被调度，
+设置为 `preemptionPolicy: Never` 的高优先级作业将在其他排队的 Pod 之前被调度，
 只要足够的集群资源“自然地”变得可用。
 
 <!-- ### Example Non-preempting PriorityClass -->
