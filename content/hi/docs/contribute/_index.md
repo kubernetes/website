@@ -136,7 +136,7 @@ class first,second white
 {{</ mermaid >}}
 **आकृति - आपके पहले योगदान की तैयारी**
 
-- योगदान करने के विभिन्न तरीकों को जानने के लिए  [योगदानकर्ता अवलोकन](/docs/contribute/new-content/overview/) को पढे । 
+- योगदान करने के विभिन्न तरीकों को जानने के लिए  [योगदानकर्ता अवलोकन](/docs/contribute/new-content/overview/) को पढ़ें । 
 - अच्छे प्रवेश बिन्दु के लिए  [`कुबेरनेटेस /वेबसाईट ` मुद्दा सूची ](https://github.com/kubernetes/website/issues/)
   को जाँचे । 
 - [Github का प्रयोग करते हुए पुल रीक्वेस्ट करॆ](/docs/contribute/new-content/open-a-pr/#changes-using-github) पुराने प्रलेखन मे और मुद्दा को भरने की प्रक्रिया के बारे मे ज्यादा अच्छे से जाने । 
