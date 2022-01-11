@@ -42,14 +42,14 @@ card:
 [Github](https://lab.github.com/) 
 की जानकारी होनी चाहिए ताकि आप कुबेरनेटेस समुदाय मे प्रभावी रूप से काम कर सकें। 
 
-प्रलेखन मे शामिल होने के लिए:
+प्रलेखन मे सहयोग करने के लिए:
 
-1. [योगदानकर्ता समझौता लाइसेन्स ](https://github.com/kubernetes/community/blob/master/CLA.md)पर हस्ताक्षर करे । 
-2. [प्रलेखन संग्रह ](https://github.com/kubernetes/website) 
-   और वेबसाईट की [स्टैटिक साइट जनरेटर ](https://gohugo.io) से खुद को परिचित कर ले । 
-3. इस बात की समीक्षा करे के आपको 
-   [पुल रीक्वेस्ट करना ](/docs/contribute/new-content/open-a-pr/) और 
-   [बदलाओ की समीक्षा ](/docs/contribute/review/reviewing-prs/) करना आता हो । 
+1. [योगदानकर्ता समझौता लाइसेन्स](https://github.com/kubernetes/community/blob/master/CLA.md) पर हस्ताक्षर करें। 
+2. [प्रलेखन रिपॉजिटरी](https://github.com/kubernetes/website) 
+   और वेबसाइट की [स्टैटिक साइट जनरेटर](https://gohugo.io) से खुद को परिचित करें। 
+3. सुनिश्चित करें की आपको 
+   [पुल अनुरोध करना](/docs/contribute/new-content/open-a-pr/) और 
+   [बदलाओ की समीक्षा](/docs/contribute/review/reviewing-prs/) करना आता हो। 
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
