@@ -49,7 +49,7 @@ Kubernetesには、統合された[Role-Based Access Control (RBAC)](/docs/refer
 
 [Node](/docs/reference/access-authn-authz/node/)と[RBAC](/docs/reference/access-authn-authz/rbac/)の承認者は、[NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)のアドミッションプラグインと組み合わせて使用することをお勧めします。
 
-認証の場合と同様に、小規模なクラスタにはシンプルで幅広い役割が適切かもしれません。
+認証の場合と同様に、小規模なクラスターにはシンプルで幅広い役割が適切かもしれません。
 しかし、より多くのユーザーがクラスターに関わるようになるとチームを別の名前空間に分け、より限定的な役割を持たせることが必要になるかもしれません。
 認可においては、あるオブジェクトの更新が、他の場所でどのようなアクションを起こすかを理解することが重要です。
 
