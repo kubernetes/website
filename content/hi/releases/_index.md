@@ -22,6 +22,6 @@ type: docs
 
 ## आगामी रिलीज
 
-[शेड्यूल](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{ske nextMinorVersion >}}) पर आने वाले कुबेरनेट्स रिलीज देखें।
+आने वाले **{{< skew nextMinorVersion >}}** कुबेरनेट्स रिलीज़ का [कार्यक्रम](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}}) देखें।
 
 ## सहायक संसाधन
