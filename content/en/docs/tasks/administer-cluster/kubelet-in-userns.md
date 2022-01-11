@@ -49,6 +49,20 @@ Rootless Podman is not supported.
 
 <!-- Supporting rootless podman is discussed in https://github.com/kubernetes/minikube/issues/8719 -->
 
+## Running Kubernetes inside Unprivileged Containers
+
+### sysbox
+
+[Sysbox](https://github.com/nestybox/sysbox) is a container runtime (similar to "runc") that
+supports running Kubernetes inside containers (or pods) isolated via the Linux user namespace.
+
+See Kubernetes-in-Docker in the [Sysbox docs][https://github.com/nestybox/sysbox/blob/master/docs/quickstart/kind.md] for more info.
+
+Note that Sysbox supports running Kubernetes inside unprivileged containers
+without requiring Cgroup v2 and without the `KubeletInUserNamespace` feature
+gate. It does this by exposing specially crafted proc and sys filesystems inside
+the container plus several other techniques.
+
 ## Running Rootless Kubernetes directly on a host
 
 {{% thirdparty-content %}}
@@ -235,7 +249,7 @@ This feature gate also allows kube-proxy to ignore an error during setting `RLIM
 The `KubeletInUserNamespace` feature gate was introduced in Kubernetes v1.22 with "alpha" status.
 
 Running kubelet in a user namespace without using this feature gate is also possible
-by mounting a specially crafted proc filesystem, but not officially supported.
+by mounting a specially crafted proc filesystem (as done by [Sysbox](https://github.com/nestybox/sysbox)), but not officially supported.
 
 ### Configuring kube-proxy
 
@@ -272,4 +286,3 @@ on the rootlesscontaine.rs website.
 - [Usernetes](https://github.com/rootless-containers/usernetes)
 - [Running K3s with rootless mode](https://rancher.com/docs/k3s/latest/en/advanced/#running-k3s-with-rootless-mode-experimental)
 - [KEP-2033: Kubelet-in-UserNS (aka Rootless mode)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2033-kubelet-in-userns-aka-rootless)
-
