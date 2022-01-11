@@ -180,7 +180,7 @@ Ahora el clúster esta en este estado:
 
 En algún punto, los Pods finalizan y el clúster se ve de esta forma:
 
-|  nodo-1 *desalojado* |       nodo-2        |       nodo-3       |
+|  nodo-1 *drained* |       nodo-2        |       nodo-3       |
 |:--------------------:|:-------------------:|:------------------:|
 |                      | pod-b *available*   | pod-c *available*  |
 |                      | pod-d *starting*    | pod-y              |
