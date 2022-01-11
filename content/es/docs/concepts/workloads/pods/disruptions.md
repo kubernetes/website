@@ -207,7 +207,7 @@ Porque no hay recursos suficientes disponibles en el clúster para programar
 el `pod-e` el desalojo será bloqueado nuevamente. El clúster va a terminar en este
 estado:
 
-|    nodo-1 *drained*  |       nodo-2        |       nodo-3       | *sin nodo*          |
+|    nodo-1 *drained*  |       nodo-2        |       nodo-3       | *no node*          |
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
 |                      | pod-b *terminating* | pod-c *available*  | pod-e *pending*    |
 |                      | pod-d *available*   | pod-y              |                    |
