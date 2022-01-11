@@ -18,7 +18,7 @@ particular con PersistentVolumeClaim y PersistentVolume.
 
 Algunas aplicaciones necesitan almacenamiento adicional pero no se preocupa si
 los datos son guardados persistentemente durante los reinicios. Por ejemplo, servicios
-de cacheo estan limitados habitualmente por el tamaño de la memoria y pueden mover de manera
+de cacheo están limitados habitualmente por el tamaño de la memoria y pueden mover de manera
 infrecuente datos de usuario al disco, esto es más lento que la memoria y tiene un pequeño impacto
 en el rendimiento global.
 
@@ -27,10 +27,10 @@ archivos, como los archivos de configuración con claves secretas.
 
 Los _Volúmenes efímeros_ estan diseñados para este tipo de casos. Porque los volúmenes
 siguen toda la vida del Pod y son creados y borrados junto con el
-Pod, los Pods pueden ser frenados y reiniciados sin estar limitados por
+Pod, los Pods pueden ser parados y reiniciados sin estar limitados por
 la ubicación y disponibilidad de algún volumen persistente. 
 
-Los volúmenes efímeros se especifican _en linea_ dentro de las especificaciones del Pod, esto 
+Los volúmenes efímeros se especifican _en línea_ dentro de las especificaciones del Pod, esto 
 simplifica el despliegue y manejo de la aplicación. 
 
 ### Tipos de volúmenes efímeros
@@ -45,17 +45,17 @@ diferentes propósitos:
   [secret](/docs/concepts/storage/volumes/#secret): Injectar diferentes
   tipos de datos de Kubernetes dentro del Pod
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
-  similar al anterior tipo de volumen pero manejado por el driver 
+  similar al anterior tipo de volumen pero manejado por un controlador que implemente la Container Storage Interface 
   [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
   que específicamente [soportan esta característica](https://kubernetes-csi.github.io/docs/drivers.html)
 - [volúmenes efímeros genéricos](#generic-ephemeral-volumes), que
-  pueden ser proporcionados por todos los drivers de almacenamiento que tienen soporte para volúmenes persistentes
+  pueden ser proporcionados por todos los controladores de almacenamiento que tienen soporte para volúmenes persistentes
 
 `emptyDir`, `configMap`, `downwardAPI`, `secret` son proporcionados como
 [almacenamiento efímero local](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
 Estos son administrados por kubelet en cada uno de los nodos.
 
-Los volúmenes efímeros CSI *deben* ser proporcionados por un controlador de almacenamiento
+Los volúmenes efímeros CSI (Container Storage Interface) *deben* ser proporcionados por un controlador de almacenamiento
 de terceros.
 
 Los volúmenes efímeros genéricos *pueden* ser proporcionados por controladores de almacenamiento
