@@ -20,7 +20,7 @@ content_type: task
 
 ## Kubernetes APIへのアクセスの制御
 
-Kubernetesは完全にAPI駆動であるため、誰がクラスタにアクセスできるか、どのようなアクションを実行できるかを制御・制限することが第一の防御策となります。
+Kubernetesは完全にAPI駆動であるため、誰がクラスターにアクセスできるか、どのようなアクションを実行できるかを制御・制限することが第一の防御策となります。
 
 ### すべてのAPIトラフィックにTLS(Transport Layer Security)の使用
 
