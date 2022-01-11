@@ -37,7 +37,7 @@ KubernetesはPodのオーケストレーションとスケジューリングを�
 初期のリリースでは、Kubernetesは1つのコンテナランタイムと互換性を提供していました:Dockerです。
 その後、Kubernetesプロジェクトの歴史の中で、クラスタ運用者は追加のコンテナランタイムを採用することを希望しました。
 CRIはこのような柔軟性を可能にするために設計され、kubeletはCRIのサポートを開始しました。
-しかし、DockerはCRI仕様が考案される前から存在していたため、Kubernetesプロジェクトはアダプタコンポーネント「dockershim」を作成しました
+しかし、DockerはCRI仕様が考案される前から存在していたため、Kubernetesプロジェクトはアダプタコンポーネント「dockershim」を作成しました。
 
 dockershimアダプターは、DockerがCRI互換ランタイムであるかのように、kubeletがDockerと対話することを可能にします。
 [Kubernetes Containerd integration goes GA](/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/)ブログ記事で紹介されています。
