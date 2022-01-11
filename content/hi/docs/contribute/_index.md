@@ -171,7 +171,7 @@ SIG Docs भिन्न प्रकार से संवाद करते 
 
 ## योगदान करने के अन्य तरीके 
 
-- [कुबेरनेटस समुदाय साइट](/community/) पर जाए। ट्विटर या स्टैक ओवर्फ्लो मे भाग ले , कुबेरनेटस आयोजन और मिलन के बारे मे जाने । 
-- [योगदानकर्ता प्रवंचक पत्रक](https://www.kubernetes.dev/docs/contributor-cheatsheet/) को पढे ताकि आप कुबेरनेटेस माहत्वपूर्ण लेख के विकास मे शामिल हो सके। 
--[कुबेरनेटस योगदानकर्ताओ ](https://www.kubernetes.dev/) और [अतिरिक्त योगदानकर्ता साधन](https://www.kubernetes.dev/resources/) के बारे मे ज्यादा जानकारी के लिए योगदानकर्ता साइट पर जाए। 
-- [ब्लॉग पोस्ट या मामले का अध्ययन ](/docs/contribute/new-content/blogs-case-studies/) जमा करे। 
+- [कुबेरनेटस समुदाय साइट](/community/) पर जाए। Twitter या Slack Overflow मैं भाग ले, कुबेरनेटस स्थानीय आयोजन और मिलन के बारे मे जाने । 
+- कुबेरनेटस फीचर विकास में शामिल होने के लिए [योगदानकर्ता चीटशीट](https://www.kubernetes.dev/docs/contributor-cheatsheet/) पढ़ें। 
+- [कुबेरनेटस योगदानकर्ता](https://www.kubernetes.dev/) और [अतिरिक्त योगदानकर्ता साधन](https://www.kubernetes.dev/resources/) के बारे मे अधिक जानकारी के लिए योगदानकर्ता साइट पर जाएं। 
+- [ब्लॉग पोस्ट या केस अध्ययन](/docs/contribute/new-content/blogs-case-studies/) प्रस्तुत करे। 
