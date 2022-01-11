@@ -73,12 +73,12 @@ direction TB
    F --- G[ओपन PR की समीक्षा करे<br>और समीक्षा प्रक्रिया<br>को बदलें]
 end
 
-subgraph first[साइन अप करे]
+subgraph first[साइनअप]
     direction TB
     S[ ] -.-
-    B[CNCF<br>Contributor<br>License Agreement <br> को साइन करे] --- C[sig-docs<br>स्लैक चैनल को जॉइन करे] 
-    C --- V[kubernetes-sig-docs<br>mailing list को जॉइन करे]
-    V --- M[साप्ताहिक <br>sig-docs calls<br>या स्लैक बैठक मे शामिल हो]
+    B[CNCF<br>योगदानकर्ता<br>लइसेंस समझौता<br>पर हस्ताक्षर करें] --- C[sig-docs स्लैक चैनल<br>में जुड़ें] 
+    C --- V[kubernetes-sig-docs<br>मेलिंग लिस्ट में जुड़ें]
+    V --- M[साप्ताहिक<br>sig-docs कॉल<br>या स्लैक बैठक में शामिल हों]
 end
 
 A([fa:fa-user New<br>Contributor]) --> first
