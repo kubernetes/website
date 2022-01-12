@@ -14,7 +14,7 @@ content_type: concept
 ## 問題の診断
 
 トラブルシューティングの最初のステップは切り分けです。何が問題なのでしょうか？
-Podなのか、レプリケーションコントローラなのか、それともサービスなのか？
+Podなのか、レプリケーションコントローラーなのか、それともサービスなのか？
 
    * [Debugging Pods](#debugging-pods)
    * [Debugging Replication Controllers](#debugging-replication-controllers)
