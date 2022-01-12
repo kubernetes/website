@@ -113,6 +113,7 @@ kubeadmバージョン1.17より前のバージョンでは、`kubeadm upgrade n
 ## 手動による証明書更新
 
 `kubeadm certs renew` コマンドを使えば、いつでも証明書を手動で更新することができます。
+
 このコマンドは`/etc/kubernetes/pki`に格納されているCA(またはfront-proxy-CA)の証明書と鍵を使って更新を行います。
 
 コマンド実行後、コントロールプレーンのPodを再起動する必要があります。
