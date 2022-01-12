@@ -76,7 +76,7 @@ front-proxy-ca          Dec 28, 2029 23:36 UTC   9y              no
 {{< /warning >}}
 
 {{< note >}}
-kubeadmは`/var/lib/kubelet/pki`以下にあるローテート可能な証明書で[証明書の自動更新](/docs/task/tls/certificate-rotation/)のためkubeletを構成するので`kubelet.conf`は上記のリストに含まれません。
+kubeadmは`/var/lib/kubelet/pki`以下にあるローテート可能な証明書でkubeletの[証明書の自動更新](/docs/task/tls/certificate-rotation/)を構成するので`kubelet.conf`は上記のリストに含まれません。
 
 期限切れのkubeletクライアント証明書を修復するには、[Kubelet クライアント証明書のローテーションに失敗しました](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#kubelet-client-cert)を参照ください。
 {{< /note >}}
