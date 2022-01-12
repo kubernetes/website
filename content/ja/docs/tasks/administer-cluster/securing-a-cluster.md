@@ -37,7 +37,7 @@ Kubernetesは、クラスター内のすべてのAPI通信がデフォルトでT
 ノード、プロキシー、スケジューラー、ボリュームプラグインなど、インフラの一部であるものも含めて、すべてのAPIクライアントを認証する必要があります。
 これらのクライアントは通常、[service accounts](/docs/reference/access-authn-authz/service-accounts-admin/)であるか、またはx509クライアント証明書を使用しており、クラスター起動時に自動的に作成されるか、クラスターインストールの一部として設定されます。
 
-詳細については、[authentication reference document](/docs/reference/access-authn-authz/authentication/)を参照してください。
+詳細については、[認証](/ja/docs/reference/access-authn-authz/authentication/)を参照してください。
 
 ### APIの認可
 
