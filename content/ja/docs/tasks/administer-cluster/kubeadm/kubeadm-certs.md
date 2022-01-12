@@ -259,7 +259,7 @@ Kubeadmは`KubeletConfiguration`フィールド`rotateCertificates`を`true`に�
 詳しくは[Certificate Rotation] (/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation)をご覧ください。
 
 これらのCSRを自動的に承認するためのソリューションをお探しの場合は、以下をお勧めします。
-クラウドプロバイダーに連絡し、CSRの署名者がいるかどうか尋ねてください。
+クラウドプロバイダーに連絡し、ノードの識別をアウトオブバンドのメカニズムで行うCSRの署名者がいるかどうか尋ねてください。
 ノードの識別をアウトオブバンドのメカニズムで行います。
 
 {{% thirdparty-content %}}
