@@ -34,10 +34,7 @@ function copyCode(elem){
         swal("Oh, no…","Sorry, your browser doesn't support copying this example to your clipboard.");
         succeed = false;
     }
-    if (succeed) {
-      swal("Copied to clipboard: ",elem);
-      return succeed;
-    } else {
+    if (!succeed) {
       swal("Oops!", elem + " not found when trying to copy code");
       return false;
     }
