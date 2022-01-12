@@ -147,7 +147,7 @@ separately for reviewer status in SIG Docs.
 To apply:
 
 1. Open a pull request that adds your GitHub user name to a section of the
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) file
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) file
    in the `kubernetes/website` repository.
 
    {{< note >}}
@@ -219,7 +219,7 @@ separately for approver status in SIG Docs.
 To apply:
 
 1. Open a pull request adding yourself to a section of the
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
    file in the `kubernetes/website` repository.
 
     {{< note >}}
