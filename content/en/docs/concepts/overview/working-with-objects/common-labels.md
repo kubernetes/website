@@ -42,9 +42,10 @@ on every resource object.
 | `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `helm` | string |
 | `app.kubernetes.io/created-by`      | The controller/user who created this resource | `controller-manager` | string |
 
-To illustrate these labels in action, consider the following StatefulSet object:
+To illustrate these labels in action, consider the following {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} object:
 
 ```yaml
+# This is an excerpt
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
