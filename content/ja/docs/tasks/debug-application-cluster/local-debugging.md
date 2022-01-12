@@ -15,7 +15,7 @@ Kubernetesアプリケーションは通常、複数の独立したサービス�
 ## {{% heading "prerequisites" %}}
 
 * Kubernetesクラスターがインストールされていること
-* クラスタと通信するために `kubectl` が設定されていること
+* クラスターと通信するために `kubectl` が設定されていること
 * telepresence(https://www.telepresence.io/reference/install)がインストールされていること
 
 <!-- steps -->
