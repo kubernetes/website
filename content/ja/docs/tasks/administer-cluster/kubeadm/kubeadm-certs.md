@@ -195,7 +195,7 @@ CSRとそれに付随する秘密鍵の両方が出力されます。
 CSRには、証明書の名前、ドメイン、IPが含まれますが、用途は指定されません。
 証明書を発行する際に、[正しい証明書の使用法](/docs/setup/best-practices/certificates/#all-certificates)を指定するのはCAの責任です。
 
-* `opensl`では、[`openssl ca`コマンド](https://superuser.com/questions/738612/openssl-ca-keyusage-extension)を使って行います。
+* `openssl`では、[`openssl ca`コマンド](https://superuser.com/questions/738612/openssl-ca-keyusage-extension)を使って行います。
 
 * `cfssl`では、[configファイルのusages](https://github.com/cloudflare/cfssl/blob/master/doc/cmd/cfssl.txt#L170)で指定します。
 
