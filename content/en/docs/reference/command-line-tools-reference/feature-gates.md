@@ -737,7 +737,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes).
 - `ExpandCSIVolumes`: Enable the expanding of CSI volumes.
 - `ExpandedDNSConfig`: Enable kubelet and kube-apiserver to allow more DNS
-  search paths and longer list of DNS search paths. See
+  search paths and longer list of DNS search paths. This feature requires container
+  runtime support(Containerd: v1.5.6 or higher, CRI-O: v1.22 or higher). See
   [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See
   [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
