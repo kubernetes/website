@@ -43,11 +43,11 @@ Kubernetesは、クラスター内のすべてのAPI通信がデフォルトでT
 
 認証されると、すべてのAPIコールは認可チェックを通過することになります。
 
-Kubernetesには、統合された[Role-Based Access Control (RBAC)](/docs/reference/access-authn-authz/rbac/)コンポーネントが搭載されており、入力されたユーザーやグループを、ロールにまとめられたパーミッションのセットにマッチさせます。
+Kubernetesには、統合された[RBAC](/ja/docs/reference/access-authn-authz/rbac/)コンポーネントが搭載されており、入力されたユーザーやグループを、ロールにまとめられたパーミッションのセットにマッチさせます。
 これらのパーミッションは、動詞(get, create, delete)とリソース(pods, services, nodes)を組み合わせたもので、ネームスペース・スコープまたはクラスター・スコープに対応しています。
 すぐに使えるロールのセットが提供されており、クライアントが実行したいアクションに応じて、デフォルトで適切な責任の分離を提供します。
 
-[Node](/docs/reference/access-authn-authz/node/)と[RBAC](/docs/reference/access-authn-authz/rbac/)の承認者は、[NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)のアドミッションプラグインと組み合わせて使用することをお勧めします。
+[Node](/docs/reference/access-authn-authz/node/)と[RBAC](/ja/docs/reference/access-authn-authz/rbac/)の承認者は、[NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)のアドミッションプラグインと組み合わせて使用することをお勧めします。
 
 認証の場合と同様に、小規模なクラスターにはシンプルで幅広い役割が適切かもしれません。
 しかし、より多くのユーザーがクラスターに関わるようになるとチームを別の名前空間に分け、より限定的な役割を持たせることが必要になるかもしれません。
@@ -67,7 +67,7 @@ Kubeletsは、ノードやコンテナの強力な制御を可能にするHTTPS�
 
 本番環境のクラスターでは、Kubeletの認証と認可を有効にする必要があります。
 
-詳細は、[Kubelet authentication/authorization reference](/docs/reference command-line-tools-reference/kubelet-authentication-authorization)に参照してください。
+詳細は、[Kubelet 認証/認可](/ja/docs/reference/command-line-tools-reference/kubelet-authentication-authorization)に参照してください。
 
 ## ワークロードやユーザーのキャパシティーを実行時に制御
 
@@ -77,7 +77,7 @@ Kubernetesにおける権限付与は、意図的にハイレベルであり、�
 
 ### クラスタのリソース使用量の制限
 
-[Resource quota](/docs/concepts/policy/resource-quota/)は、ネームスペースに付与されるリソースの数や容量を制限するものです。
+[リソースクォータ](/ja/docs/concepts/policy/resource-quotas/)は、ネームスペースに付与されるリソースの数や容量を制限するものです。
 
 これは、ネームスペースが割り当てることのできるCPU、メモリ、永続的なディスクの量を制限するためによく使われますが、各ネームスペースに存在するPod、サービス、ボリュームの数を制御することもできます。
 
@@ -115,9 +115,9 @@ blacklist sctp
 
 ### ネットワークアクセスの制限
 
-名前空間の[network policies](/docs/tasks/administer-cluster/declare-network-policy/)により、アプリケーション作成者は、他の名前空間のPodが自分の名前空間内のPodやポートにアクセスすることを制限することができます。
+名前空間の[ネットワークポリシー](/ja/docs/tasks/administer-cluster/declare-network-policy/)により、アプリケーション作成者は、他の名前空間のPodが自分の名前空間内のPodやポートにアクセスすることを制限することができます。
 
-サポートされている[Kubernetes networking providers](/docs/concepts/cluster-administration/networking/)の多くは、ネットワークポリシーを尊重するようになりました。
+サポートされている[Kubernetes networking providers](/ja/docs/concepts/cluster-administration/networking/)の多くは、ネットワークポリシーを尊重するようになりました。
 クォータやリミットの範囲は、ユーザーがノードポートや負荷分散サービスを要求するかどうかを制御するためにも使用でき、多くのクラスターでは、ユーザーのアプリケーションがクラスターの外で見えるかどうかを制御できます。
 ノードごとのファイアウォール、クロストークを防ぐための物理的なクラスタノードの分離、高度なネットワークポリシーなど、プラグインや環境ごとにネットワークルールを制御する追加の保護機能が利用できる場合もあります。
 
@@ -127,12 +127,12 @@ blacklist sctp
 デフォルトでは、これらのAPIはインスタンス上で実行されているPodからアクセスでき、そのノードのクラウド認証情報や、kubelet認証情報などのプロビジョニングデータを含むことができます。
 これらの認証情報は、クラスタ内でのエスカレーションや、同じアカウントの他のクラウドサービスへのエスカレーションに使用できます。
 
-クラウドプラットフォーム上でKubernetesを実行する場合は、インスタンスの認証情報に与えられるパーミッションを制限し、[network policies](/docs/tasks/administer-cluster/declare-network-policy/)を使用してメタデータAPIへのPodのアクセスを制限し、プロビジョニングデータを使用してシークレットを配信することは避けてください。
+クラウドプラットフォーム上でKubernetesを実行する場合は、インスタンスの認証情報に与えられるパーミッションを制限し、[ネットワークポリシー](/ja/docs/tasks/administer-cluster/declare-network-policy/)を使用してメタデータAPIへのPodのアクセスを制限し、プロビジョニングデータを使用してシークレットを配信することは避けてください。
 
 ### Podのアクセス可能ノードを制御
 
 デフォルトでは、どのノードがPodを実行できるかについての制限はありません。
-Kubernetesは、エンドユーザーが利用できる[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)と[taint-based pod placement and eviction](/docs/concepts/scheduling-eviction/taint-and-toleration/)を提供します。
+Kubernetesは、エンドユーザーが利用できる[Node上へのPodのスケジューリング](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)と[TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を提供します。
 多くのクラスターでは、ワークロードを分離するためにこれらのポリシーを使用することは、作者が採用したり、ツールを使って強制したりする慣習になっています。
 
 管理者としては、ベータ版のアドミッションプラグイン「PodNodeSelector」を使用して、ネームスペース内のPodをデフォルトまたは特定のノードセレクタを必要とするように強制することができます。
