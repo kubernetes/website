@@ -155,6 +155,7 @@ Kubernetesの認証局は、そのままでは機能しません。
 [cert-manager](https://cert-manager.io/docs/configuration/ca/)などの外部署名者を設定するか、組み込みの署名者を使用することができます。
 
 ビルトインサイナーは[`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)に含まれるものです。
+
 ビルトインサイナーを有効にするには、`--cluster-signing-cert-file`と`--cluster-signing-key-file`フラグを渡す必要があります。
 
 新しいクラスタを作成する場合は、kubeadm[設定ファイル](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)を使用します。
