@@ -260,7 +260,6 @@ Kubeadmは`KubeletConfiguration`フィールド`rotateCertificates`を`true`に�
 
 これらのCSRを自動的に承認するためのソリューションをお探しの場合は、以下をお勧めします。
 クラウドプロバイダーに連絡し、ノードの識別をアウトオブバンドのメカニズムで行うCSRの署名者がいるかどうか尋ねてください。
-ノードの識別をアウトオブバンドのメカニズムで行います。
 
 {{% thirdparty-content %}}
 
