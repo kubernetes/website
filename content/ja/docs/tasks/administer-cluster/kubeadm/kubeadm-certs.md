@@ -187,7 +187,7 @@ kubeadmの用語では、通常ディスク上のCAによって署名される�
 
 CSRとそれに付随する秘密鍵の両方が出力されます。
 ディレクトリを`--csr-dir`で渡すと、指定した場所にCSRを出力することができます。
-csr-dir`を指定しない場合は、デフォルトの証明書ディレクトリ(`/etc/kubernetes/pki`)が使用されます。
+`csr-dir`を指定しない場合は、デフォルトの証明書ディレクトリ(`/etc/kubernetes/pki`)が使用されます。
 
 証明書は`kubeadm certs renew --csr-only`で更新することができます。
 `kubeadm init`と同様に、`--csr-dir`フラグで出力先ディレクトリを指定することができます。
