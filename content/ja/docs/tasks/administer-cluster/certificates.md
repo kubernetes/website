@@ -27,7 +27,7 @@ weight: 20
         ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
 1.  サーバー証明書と鍵を生成します。
     引数`--subject-alt-name`は、APIサーバーがアクセス可能なIPとDNS名を設定します。
-    `MASTER_CLUSTER_IP`は通常、APIサーバーとコントローラーマネージャーコンポーネントの両方で `--service-cluster-ip-range`引数に指定したサービスCIDRの最初のIPとなります。
+    `MASTER_CLUSTER_IP`は通常、APIサーバーとコントローラーマネージャーコンポーネントの両方で`--service-cluster-ip-range`引数に指定したサービスCIDRの最初のIPとなります。
     引数`--days`は、証明書の有効期限が切れるまでの日数を設定するために使用します。
     また、以下のサンプルでは、デフォルトのDNSドメイン名として`cluster.local`を使用することを想定しています。
 
