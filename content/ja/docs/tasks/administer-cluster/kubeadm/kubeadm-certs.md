@@ -256,7 +256,7 @@ kubectl certificate approve <CSR-name>
 
 Kubeadmは`KubeletConfiguration`フィールド`rotateCertificates`を`true`に設定します。これは有効期限が切れる間際に、サービング証明書のための新しいCSRセットを作成し、ローテーションを完了するために承認する必要があることを意味します。
 
-詳しくは[Certificate Rotation] (/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation)をご覧ください。
+詳しくは[Certificate Rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation)をご覧ください。
 
 これらのCSRを自動的に承認するためのソリューションをお探しの場合は、以下をお勧めします。
 クラウドプロバイダーに連絡し、ノードの識別をアウトオブバンドのメカニズムで行うCSRの署名者がいるかどうか尋ねてください。
