@@ -36,7 +36,7 @@ kubeadmはディスク上のCAキーがなくても処理を進めます。
 
 代わりに、Controller-managerをスタンドアロンで、`--controllers=csrsigner`と実行し、CA証明書と鍵を指し示します。
 
-[PKI certificates and requirements](/docs/setup/best-practices/certificates/)には、外部CAを使用するためのクラスタのセットアップに関するガイダンスが含まれています。
+[PKI certificates and requirements](/docs/setup/best-practices/certificates/)には、外部CAを使用するためのクラスターのセットアップに関するガイダンスが含まれています。
 
 ## 証明書の有効期限の確認
 
@@ -97,10 +97,10 @@ client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
 kubeadmはコントロールプレーンの[アップグレード](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)時にすべての証明書を更新します。
 
 この機能は、最もシンプルなユースケースに対応するために設計されています。
-証明書の更新に特別な要件がなく、Kubernetesのバージョンアップを定期的に行う場合(各アップグレードの間隔が1年未満)、kubeadmがクラスタを最新かつ適度に安全に保つための処理を行います。
+証明書の更新に特別な要件がなく、Kubernetesのバージョンアップを定期的に行う場合(各アップグレードの間隔が1年未満)、kubeadmがクラスターを最新かつ適度に安全に保つための処理を行います。
 
 {{< note >}}
-安全性を維持するために、クラスタを頻繁にアップグレードすることがベストプラクティスです。
+安全性を維持するために、クラスターを頻繁にアップグレードすることがベストプラクティスです。
 {{< /note >}}
 
 証明書の更新に関してより複雑な要求がある場合は、`--certificate-renewal=false`を`kubeadm upgrade apply`や`kubeadm upgrade node`に渡して、デフォルトの動作から外れるようにすることができます。
@@ -125,7 +125,7 @@ kubeadmバージョン1.17より前のバージョンでは、`kubeadm upgrade n
 その後ファイルを戻して、さらに`fileCheckFrequency`期間後に、kubeletはPodを再作成し、コンポーネントの証明書更新を完了することができます。
 
 {{< warning >}}
-HAクラスタを実行している場合、このコマンドはすべての制御プレーンノードで実行する必要があります。
+HAクラスターを実行している場合、このコマンドはすべての制御プレーンノードで実行する必要があります。
 {{< /warning >}}
 
 {{< note >}}
@@ -145,7 +145,7 @@ Kubernetesの証明書は通常1年後に有効期限を迎えます。
 ここでは、Kubernetes certificates APIを使用して手動で証明書更新を実行する方法について詳しく説明します。
 
 {{< caution >}}
-これらは、組織の証明書インフラをkubeadmで構築されたクラスタに統合する必要があるユーザー向けの上級者向けのトピックです。
+これらは、組織の証明書インフラをkubeadmで構築されたクラスターに統合する必要があるユーザー向けの上級者向けのトピックです。
 kubeadmのデフォルトの設定で満足できる場合は、代わりにkubeadmに証明書を管理させる必要があります。
 {{< /caution >}}
 
@@ -158,7 +158,7 @@ Kubernetesの認証局は、そのままでは機能しません。
 
 ビルトインサイナーを有効にするには、`--cluster-signing-cert-file`と`--cluster-signing-key-file`フラグを渡す必要があります。
 
-新しいクラスタを作成する場合は、kubeadm[設定ファイル](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)を使用します。
+新しいクラスターを作成する場合は、kubeadm[設定ファイル](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)を使用します。
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -211,7 +211,7 @@ CAの手動ローテーションや交換についての詳細は、[manual rota
 
 デフォルトでは、kubeadmによって展開されるkubeletサービング証明書は自己署名されています。
 これは、[metrics-server](https://github.com/kubernetes-sigs/metrics-server)のような外部サービスからキューブレットへの接続がTLSで保護されないことを意味します。
-新しいkubeadmクラスタ内のkubeletが適切に署名されたサービング証明書を取得するように設定するには、`kubeadm init`に以下の最小限の設定を渡す必要があります。
+新しいkubeadmクラスター内のkubeletが適切に署名されたサービング証明書を取得するように設定するには、`kubeadm init`に以下の最小限の設定を渡す必要があります。
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -222,11 +222,11 @@ kind: KubeletConfiguration
 serverTLSBootstrap: true
 ```
 
-すでにクラスタを作成している場合は、以下の手順で適応させる必要があります。
+すでにクラスターを作成している場合は、以下の手順で適応させる必要があります。
 
- - kube-system` ネームスペースにある `kubelet-config-{{< skew latestVersion >}}` ConfigMap を見つけて編集します。
+ - kube-system` ネームスペースにある `kubelet-config-{{< skew latestVersion >}}` ConfigMapを見つけて編集します。
 
-そのConfigMapの`kubelet`キーの値として[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) ドキュメントを指定します。KubeletConfigurationドキュメントを編集し、`serverTLSBootstrap: true`を設定します。
+そのConfigMapの`kubelet`キーの値として[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)ドキュメントを指定します。KubeletConfigurationドキュメントを編集し、`serverTLSBootstrap: true`を設定します。
 
 - 各ノードで、`/var/lib/kubelet/config.yaml`に`serverTLSBootstrap: true`フィールドを追加し、`systemctl restart kubelet`でkubeletを再起動します。
 
@@ -236,7 +236,7 @@ serverTLSBootstrap: true
 既知の制限事項として、これらの証明書のCSR(Certificate Signing Requests)はkube-controller-managerのデフォルトサイナーによって自動的に承認されないことがあります。
 [`kubernetes.io/kubelet-serving`](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers) を参照してください。
 
-これには、ユーザーまたはサードパーティのコントローラからのアクションが必要です。
+これには、ユーザーまたはサードパーティーのコントローラーからのアクションが必要です。
 
 これらのCSRは、以下を使用して表示できます:
 
@@ -263,7 +263,7 @@ Kubeadmは`KubeletConfiguration`フィールド`rotateCertificates`を`true`に�
 
 {{% thirdparty-content %}}
 
-サードパーティのカスタムコントローラを使用することができます。
+サードパーティーのカスタムコントローラーを使用することができます。
 - [kubelet-csr-approver](https://github.com/postfinance/kubelet-csr-approver)
 
-このようなコントローラは、CSRのCommonNameを検証するだけでなく、要求されたIPやドメイン名も検証しなければ、安全なメカニズムとは言えません。これにより、kubeletクライアント証明書にアクセスできる悪意のあるアクターが、任意のIPやドメイン名に対してサービング証明書を要求するCSRを作成することを防ぐことができます。
+このようなコントローラーは、CSRのCommonNameを検証するだけでなく、要求されたIPやドメイン名も検証しなければ、安全なメカニズムとは言えません。これにより、kubeletクライアント証明書にアクセスできる悪意のあるアクターが、任意のIPやドメイン名に対してサービング証明書を要求するCSRを作成することを防ぐことができます。
