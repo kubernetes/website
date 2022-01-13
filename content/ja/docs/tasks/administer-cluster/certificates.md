@@ -41,7 +41,7 @@ weight: 20
         --days=10000 \
         build-server-full server nopass
 1.  `pki/ca.crt`,`pki/issued/server.crt`,`pki/private/server.key`を自分のディレクトリにコピーします。
-1.  APIサーバーのスタートパラメータに以下のパラメータを記入し、追加します。
+1.  APIサーバーのスタートパラメーターに以下のパラメーターを記入し、追加します。
 
         --client-ca-file=/yourdirectory/ca.crt
         --tls-cert-file=/yourdirectory/server.crt
