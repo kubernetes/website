@@ -113,7 +113,7 @@ Pod runs a Container based on the provided Docker image.
 3. View the Pod:
 
     ```shell
-    kubectl get pods
+    kubectl get pods or kubectl get po -A
     ```
 
     The output is similar to:
