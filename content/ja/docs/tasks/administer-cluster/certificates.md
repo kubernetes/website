@@ -118,7 +118,7 @@ weight: 20
 **cfssl**も証明書生を成するためのツールです。
 
 1.  以下のように、コマンドラインツールをダウンロードし、解凍して準備してください。
-    なお、サンプルのコマンドは、お使いのハードウェア・アーキテクチャやCFSSLのバージョンに応じて、アレンジする必要があるかもしれません。
+    なお、サンプルのコマンドは、お使いのハードウェア・アーキテクチャやCFSSLのバージョンに合わせる必要があるかもしれません。
 
         curl -L https://github.com/cloudflare/cfssl/releases/download/v1.5.0/cfssl_1.5.0_linux_amd64 -o cfssl
         chmod +x cfssl
