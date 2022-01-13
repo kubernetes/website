@@ -111,7 +111,7 @@ weight: 20
 
         openssl x509  -noout -text -in ./server.crt
 
-最後に、同じパラメータをAPIサーバーのスタートパラメータに追加します。
+最後に、同じパラメーターをAPIサーバーのスタートパラメーターに追加します。
 
 ### cfssl
 
