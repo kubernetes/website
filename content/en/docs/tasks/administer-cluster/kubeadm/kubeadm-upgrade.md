@@ -37,8 +37,11 @@ The upgrade workflow at high level is the following:
 
 ### Additional information
 
-- [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/) before kubelet MINOR version
-  upgrades is required. In the case of control plane nodes, they could be running CoreDNS Pods or other critical workloads.
+- The instructions below outline when to drain each node during the upgrade process.
+If you are performing a **minor** version upgrade for any kubelet, you **must**
+first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
+they could be running CoreDNS Pods or other critical workloads. For more information see
+[Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 
 <!-- steps -->
