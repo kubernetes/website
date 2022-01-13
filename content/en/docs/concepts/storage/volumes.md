@@ -902,17 +902,18 @@ For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/
 
 ### serviceAccountToken
 
-A [service account](/docs/tasks/configure-pod-container/configure-service-account.md) is 
+A [serviceAccount](/docs/tasks/configure-pod-container/configure-service-account/) is 
 used to provide an identity for pods. Pods that want to interact with the API server will 
-authenticate with a particular service account. By default, applications will authenticate 
-as the `default` service account in the namespace they are running in. This means, for 
-example, that an application running in the `test` namespace will use the default service 
-account of the `test` namespace.
+authenticate using a particular ServiceAccount. By default, applications will authenticate 
+as the `default` ServiceAccount in the namespace they are running in. This means, for 
+example, that an application running in the `test` namespace will use the default 
+`ServiceAccount` in the `test` namespace.
 
 Processes that are run inside a container use service account tokens to communicate with 
 the Kubernetes API server.
 
-See the information about how to configure [service account](/docs/tasks/configure-pod-container/configure-service-account.md) for pods.
+[Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/) explains 
+how to configure a Pod to use ServiceAccounts.
 
 ### storageOS (deprecated) {#storageos}
 
