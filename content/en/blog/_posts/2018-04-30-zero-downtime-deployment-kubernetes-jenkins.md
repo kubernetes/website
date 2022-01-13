@@ -43,7 +43,9 @@ spec:
             port: 8080
   strategy:
     type: RollingUpdate
-    rollingUp      maxSurge: 50%
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 1
 ```
 
 If the Tomcat running in the current deployments is version 7, we can replace `${TOMCAT_VERSION}` with 8 and apply this to the Kubernetes cluster. With the [Kubernetes Continuous Deploy](https://aka.ms/azjenkinsk8s) or the [Azure Container Service](https://aka.ms/azjenkinsacs) plugin, the value can be fetched from an environment variable which eases the deployment process.
