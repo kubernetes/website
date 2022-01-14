@@ -21,7 +21,7 @@ kubeadmの`ClusterConfiguration`オブジェクトはAPIServer、ControllerManag
 2. フラグを追加して項目を上書き
 3. `--config <任意の設定YAMLファイル>`で`kubeadm init`を実行
 
-各設定項目のより詳細な情報は[APIリファレンスのページ](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration)を参照してください。
+各設定項目のより詳細な情報は[APIリファレンスのページ](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration)を参照してください。
 
 {{< note >}}
 `kubeadm config print init-defaults`を実行し、選択したファイルに出力を保存することで、デフォルト値で`ClusterConfiguration`オブジェクトを生成できます。

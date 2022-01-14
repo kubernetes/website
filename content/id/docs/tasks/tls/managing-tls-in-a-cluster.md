@@ -37,7 +37,7 @@ beberapa tambahan konfigurasi aplikasi. Kamu harus menambahkan bundel sertifikat
 ke daftar sertifikat CA yang dipercaya klien atau server TLS. 
 Misalnya, kamu akan melakukan ini dengan konfigurasi TLS golang dengan mengurai rantai sertifikat 
 dan menambahkan sertifikat yang diurai ke `RootCAs` di _struct_
-[`tls.Config`](https://godoc.org/crypto/tls#Config).
+[`tls.Config`](https://pkg.go.dev/crypto/tls#Config).
 
 Kamu bisa mendistribusikan sertifikat CA sebagai sebuah
 [ConfigMap](/id/docs/tasks/configure-pod-container/configure-pod-configmap) yang bisa diakses oleh Pod kamu.
@@ -117,7 +117,7 @@ Perhatikan bahwa berkas `server.csr` yang dibuat pada langkah 1 merupakan base64
 dan disimpan di _field_ `.spec.request`. Kami juga meminta
 sertifikat dengan penggunaan kunci "_digital signature_", "_key enchiperment_", dan "_server
 auth_". Kami mendukung semua penggunaan kunci dan penggunaan kunci yang diperpanjang yang terdaftar
-[di sini](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)
+[di sini](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage)
 sehingga kamu dapat meminta sertifikat klien dan sertifikat lain menggunakan
 API yang sama.
 

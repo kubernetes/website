@@ -147,14 +147,14 @@ Required certificates:
 [1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/) the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-where `kind` maps to one or more of the [x509 key usage](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) types:
+where `kind` maps to one or more of the [x509 key usage](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage) types:
 -->
 [1]: 用来连接到集群的不同 IP 或 DNS 名
 （就像 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 为负载均衡所使用的固定
 IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
 `kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
 
-其中，`kind` 对应一种或多种类型的 [x509 密钥用途](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)：
+其中，`kind` 对应一种或多种类型的 [x509 密钥用途](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage)：
 
 <!--
 | kind   | Key usage                                                                       |

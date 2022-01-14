@@ -59,7 +59,7 @@ Suatu Pod memiliki sebuah PodStatus, yang merupakan _array_ dari [PodConditions]
 
 ## Pemeriksaan Kontainer
 
-Sebuah [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) adalah sebuah diagnosa yang dilakukan secara berkala oleh [kubelet](/docs/admin/kubelet/) dalam suatu kontainer. Untuk melakukan diagnosa, kubelet memanggil sebuah [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) yang diimplementasikan oleh kontainer. Ada 3 tipe _Handler_ yang tersedia, yaitu:
+Sebuah [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) adalah sebuah diagnosa yang dilakukan secara berkala oleh [kubelet](/docs/admin/kubelet/) dalam suatu kontainer. Untuk melakukan diagnosa, kubelet memanggil sebuah [Handler](https://pkg.go.dev/k8s.io/kubernetes/pkg/api/v1#Handler) yang diimplementasikan oleh kontainer. Ada 3 tipe _Handler_ yang tersedia, yaitu:
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core): Mengeksekusi perintah tertentu di dalam kontainer. Diagnosa dikatakan berhasil jika perintah selesai dengan kode status 0.
 

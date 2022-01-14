@@ -657,7 +657,7 @@ current-context: my-cluster
 
 実行されたコマンドは`ExecCredential`オブジェクトを`stdout`に出力します。`k8s.io/client-go`は`status`で返された認証情報を用いて、Kubernetes APIに対して認証を行ういます。
 
-対話的なセッションから実行する場合、`stdin`はプラグインに直接公開されます。プラグインは[TTYチェック](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal)を使って、対話的にユーザーにプロンプトを出すことが適切かどうかを判断する必要があります。
+対話的なセッションから実行する場合、`stdin`はプラグインに直接公開されます。プラグインは[TTYチェック](https://pkg.go.dev/golang.org/x/crypto/ssh/terminal#IsTerminal)を使って、対話的にユーザーにプロンプトを出すことが適切かどうかを判断する必要があります。
 
 Bearerトークンのクレデンシャルを使用するために、プラグインは`ExecCredential`のステータスにトークンを返します。
 

@@ -329,7 +329,7 @@ Kubernetes 证书颁发机构不是开箱即用。
 要激活内置签名者，请传递 `--cluster-signing-cert-file` 和 `--cluster-signing-key-file` 参数。
 
 <!--
-If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3): 
+If you're creating a new cluster, you can use a kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3): 
 -->
 如果你正在创建一个新的集群，你可以使用 kubeadm 的
 [配置文件](/docs/reference/config-api/kubeadm-config.v1beta3/)。

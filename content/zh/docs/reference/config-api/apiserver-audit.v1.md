@@ -53,7 +53,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
     
 <tr><td><code>auditID</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
    <!--Unique audit ID, generated for each request.-->
@@ -153,7 +153,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
 
 <tr><td><code>requestObject</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
    <!--API object from the request, in JSON format. The RequestObject is recorded as-is in the request
@@ -170,7 +170,7 @@ Omitted for non-resource requests.  Only logged at Request Level and higher.-->
     
   
 <tr><td><code>responseObject</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
    <!--API object returned in the response, in JSON. The ResponseObject is recorded after conversion
@@ -487,7 +487,7 @@ ObjectReference 包含的是用来检查或修改所引用对象时将需要的�
 </tr>
 
 <tr><td><code>uid</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->资源对象的唯一标识（UID）。</span>

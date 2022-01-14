@@ -114,12 +114,12 @@ la commande [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm
 car le support de `v1alpha3` sera supprimé dans Kubernetes 1.15.
 
 Pour plus de détails à propos de chaque option de la configuration `v1beta1` vous pouvez consulter la
-[référence de l'API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1).
+[référence de l'API](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1).
 
 ### Ajouter des paramètres kube-proxy {#kube-proxy}
 
 Pour de l'information à propos des paramètres kube-proxy dans la configuration kubeadm, se référer à :
-[kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+[kube-proxy](https://pkg.go.dev/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
 
 Pour de l'information sur comment activer le mode IPVS avec kubeadm, se référer à :
 [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)

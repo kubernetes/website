@@ -353,12 +353,12 @@ Minikubeにはユーザーが任意の値でKubernetesコンポーネントを�
 各コンポーネントのKubernetes `componentconfigs` のドキュメントを調べることで有効なキーを見つけることができます。
 サポートされている各設定のドキュメントは次のとおりです:
 
-* [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
-* [apiserver](https://godoc.org/k8s.io/kubernetes/cmd/kube-apiserver/app/options#ServerRunOptions)
-* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
-* [controller-manager](https://godoc.org/k8s.io/kubernetes/pkg/controller/apis/config#KubeControllerManagerConfiguration)
-* [etcd](https://godoc.org/github.com/coreos/etcd/etcdserver#ServerConfig)
-* [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/scheduler/apis/config#KubeSchedulerConfiguration)
+* [kubelet](https://pkg.go.dev/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
+* [apiserver](https://pkg.go.dev/k8s.io/kubernetes/cmd/kube-apiserver/app/options#ServerRunOptions)
+* [proxy](https://pkg.go.dev/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+* [controller-manager](https://pkg.go.dev/k8s.io/kubernetes/pkg/controller/apis/config#KubeControllerManagerConfiguration)
+* [etcd](https://pkg.go.dev/github.com/coreos/etcd/etcdserver#ServerConfig)
+* [scheduler](https://pkg.go.dev/k8s.io/kubernetes/pkg/scheduler/apis/config#KubeSchedulerConfiguration)
 
 #### 例
 

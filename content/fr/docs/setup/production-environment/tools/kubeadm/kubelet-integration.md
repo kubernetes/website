@@ -105,7 +105,7 @@ Il est possible de configurer la kubelet que kubeadm va démarrer si un objet AP
 En appelant `kubeadm config print-default --api-objects KubeletConfiguration` vous
 pouvez voir toutes les valeurs par défaut pour cette structure.
 
-Regardez aussi la [référence API pour le composant ComponentConfig des kubelets](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
+Regardez aussi la [référence API pour le composant ComponentConfig des kubelets](https://pkg.go.dev/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
 pour plus d'informations sur les champs individuels.
 
 ### Workflow lors de l'utilisation de `kubeadm init`

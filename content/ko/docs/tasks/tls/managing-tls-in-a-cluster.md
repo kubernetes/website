@@ -37,7 +37,7 @@ content_type: task
 일반적으로 몇 가지 추가 애플리케이션 구성이 필요하다.
 TLS 클라이언트 또는 서버가 신뢰하는 CA 인증서 목록에 
 CA 인증서 번들을 추가해야 한다.
-예를 들어 인증서 체인을 파싱하고, 파싱된 인증서를 [`tls.Config`](https://godoc.org/crypto/tls#Config) 구조체의 
+예를 들어 인증서 체인을 파싱하고, 파싱된 인증서를 [`tls.Config`](https://pkg.go.dev/crypto/tls#Config) 구조체의 
 `RootCAs` 필드에 추가하여, golang TLS 구성으로 이를 수행할 수 있다.
 
 CA 인증서를 파드에서 사용할 수 있는 

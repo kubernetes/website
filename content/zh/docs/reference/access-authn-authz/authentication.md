@@ -1512,7 +1512,7 @@ The executed command prints an `ExecCredential` object to `stdout`. `k8s.io/clie
 authenticates against the Kubernetes API using the returned credentials in the `status`.
 
 When run from an interactive session, `stdin` is exposed directly to the plugin. Plugins should use a
-[TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal) to determine if it's
+[TTY check](https://pkg.go.dev/golang.org/x/crypto/ssh/terminal#IsTerminal) to determine if it's
 appropriate to prompt a user interactively.
 
 To use bearer token credentials, the plugin returns a token in the status of the `ExecCredential`.
@@ -1525,7 +1525,7 @@ To use bearer token credentials, the plugin returns a token in the status of the
 
 在交互式会话中运行时，`stdin` 是直接暴露给插件使用的。
 插件应该使用
-[TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal)
+[TTY check](https://pkg.go.dev/golang.org/x/crypto/ssh/terminal#IsTerminal)
 来确定是否适合用交互方式请求用户输入。
 
 与使用持有者令牌凭据，插件在 `ExecCredential` 的状态中返回一个令牌：

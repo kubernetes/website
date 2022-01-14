@@ -85,7 +85,7 @@ weight: 60
     - `--control-plane-endpoint`フラグは、ロードバランサーのIPアドレスまたはDNS名と、ポートが設定される必要があります。
     - `--upload-certs`フラグは全てのコントロールプレーンノードで共有する必要がある証明書をクラスターにアップロードするために使用されます。代わりに、コントロールプレーンノード間で手動あるいは自動化ツールを使用して証明書をコピーしたい場合は、このフラグを削除し、以下の[証明書の手動配布](#manual-certs)のセクションを参照してください。
 
-    {{< note >}}`kubeadm init`の`--config`フラグと`--certificate-key`フラグは混在させることはできないため、[kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用する場合は`certificateKey`フィールドを適切な場所に追加する必要があります(`InitConfiguration`と`JoinConfiguration: controlPlane`の配下)。{{< /note >}}
+    {{< note >}}`kubeadm init`の`--config`フラグと`--certificate-key`フラグは混在させることはできないため、[kubeadm configuration](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用する場合は`certificateKey`フィールドを適切な場所に追加する必要があります(`InitConfiguration`と`JoinConfiguration: controlPlane`の配下)。{{< /note >}}
 
     {{< note >}}いくつかのCNIネットワークプラグインはPodのIPのCIDRの指定など追加の設定を必要としますが、必要としないプラグインもあります。[CNIネットワークドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}
 

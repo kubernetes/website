@@ -235,10 +235,10 @@ install them selectively.
 
 <!--
 For more details on each field in the `v1beta2` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
+[API reference pages.] (https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
 -->
 有关 `v1beta2` 配置中每个字段的更多详细信息，可以访问
-[API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)。
+[API](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)。
 
 ## {{% heading "whatsnext" %}}
 
