@@ -522,4 +522,4 @@ Minikubeの詳細については、[proposal](https://git.k8s.io/community/contr
 
 ## コミュニティ
 
-コントリビューションや質問、コメントは歓迎・奨励されています! Minikubeの開発者は[Slack](https://kubernetes.slack.com)の`#minikube`チャンネルにいます(Slackへの招待状は[こちら](http://slack.kubernetes.io/))。[kubernetes-dev Google Groupsメーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-dev)もあります。メーリングリストに投稿する際は件名の最初に "minikube: " をつけてください。
+コントリビューションや質問、コメントは歓迎・奨励されています! Minikubeの開発者は[Slack](https://kubernetes.slack.com)の`#minikube`チャンネルにいます(Slackへの招待状は[こちら](http://slack.kubernetes.io/))。[dev@kubernetes Google Groupsメーリングリスト](https://groups.google.com/a/kubernetes.io/g/dev/)もあります。メーリングリストに投稿する際は件名の最初に "minikube: " をつけてください。
