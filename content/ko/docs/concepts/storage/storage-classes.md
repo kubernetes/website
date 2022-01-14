@@ -470,14 +470,14 @@ parameters:
 
 vSphere 스토리지 클래스에는 두 가지 유형의 프로비저닝 도구가 있다.
 
-- [CSI 프로비저닝 도구](#csi-프로비저닝-도구): `csi.vsphere.vmware.com`
+- [CSI 프로비저닝 도구](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP 프로비저닝 도구](#vcp-프로비저닝-도구): `kubernetes.io/vsphere-volume`
 
 인-트리 프로비저닝 도구는 [사용 중단](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)되었다. CSI 프로비저닝 도구에 대한 자세한 내용은 [쿠버네티스 vSphere CSI 드라이버](https://vsphere-csi-driver.sigs.k8s.io/) 및 [vSphereVolume CSI 마이그레이션](/ko/docs/concepts/storage/volumes/#csi-마이그레이션)을 참고한다.
 
 #### CSI 프로비저닝 도구 {#vsphere-provisioner-csi}
 
-vSphere CSI 스토리지클래스 프로비저닝 도구는 Tanzu 쿠버네티스 클러스터에서 작동한다. 예시는 [vSphere CSI 리포지터리](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml)를 참조한다.
+vSphere CSI 스토리지클래스 프로비저닝 도구는 Tanzu 쿠버네티스 클러스터에서 작동한다. 예시는 [vSphere CSI 리포지터리](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)를 참조한다.
 
 #### vCP 프로비저닝 도구
 
