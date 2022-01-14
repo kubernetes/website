@@ -119,10 +119,10 @@ kube-proxy 基于 `spec.internalTrafficPolicy` 的设置来过滤路由的目标
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Read about [enabling Topology Aware Hints](/docs/tasks/administer-cluster/enabling-topology-aware-hints)
+* Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
-* 请阅读[启用拓扑感知提示](/zh/docs/tasks/administer-cluster/enabling-topology-aware-hints)
+* 请阅读[拓扑感知提示](/zh/docs/concepts/services-networking/topology-aware-hints)
 * 请阅读[Service 的外部流量策略](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
 * 请阅读[用 Service 连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)

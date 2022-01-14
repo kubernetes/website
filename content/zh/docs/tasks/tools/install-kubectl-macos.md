@@ -250,13 +250,6 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
    ```
 
 <!-- 
-### Install on macOS as part of the Google Cloud SDK {#install-on-macos-as-part-of-the-google-cloud-sdk}
--->
-### 作为谷歌云 SDK 的一部分，在 macOS 上安装 {#install-on-macos-as-part-of-the-google-cloud-sdk}
-
-{{< include "included/install-kubectl-gcloud.md" >}}
-
-<!-- 
 ## Verify kubectl configuration {#verify-kubectl-configuration}
 -->
 ## 验证 kubectl 配置 {#verify-kubectl-configuration}
@@ -273,11 +266,11 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
 <!-- 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash and Zsh.
 -->
-kubectl 为 Bash 和 Zsh 提供自动补全功能，这可以节省许多输入的麻烦。
+kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以为你节省大量的输入。
 
 下面是为 Bash 和 Zsh 设置自动补全功能的操作步骤。
 

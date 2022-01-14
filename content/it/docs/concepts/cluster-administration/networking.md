@@ -292,12 +292,6 @@ Nuage è stato progettato pensando alle applicazioni e semplifica la dichiarazio
 applicazioni. Il motore di analisi in tempo reale della piattaforma consente la visibilità e il monitoraggio della
 sicurezza per le applicazioni Kubernetes.
 
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) è un po 'più maturo ma anche
-modo complicato per costruire una rete di sovrapposizione. Questo è approvato da molti dei
-"Grandi negozi" per il networking.
-
 ### OVN (Apri rete virtuale)
 
 OVN è una soluzione di virtualizzazione della rete opensource sviluppata da

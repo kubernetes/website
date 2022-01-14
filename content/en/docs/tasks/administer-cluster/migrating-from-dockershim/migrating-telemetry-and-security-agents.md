@@ -52,7 +52,7 @@ For example: on COS images, Docker exposes its Unix domain socket at
 
 Here's a sample shell script to find Pods that have a mount directly mapping the
 Docker socket. This script outputs the namespace and name of the pod. You can
-remove the grep `/var/run/docker.sock` to review other mounts.
+remove the `grep '/var/run/docker.sock'` to review other mounts.
 
 ```bash
 kubectl get pods --all-namespaces \

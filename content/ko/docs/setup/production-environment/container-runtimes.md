@@ -79,7 +79,7 @@ systemd가 기본적으로 cgroup v2를 사용하지 않는 경우, 커널 명�
 # dnf install -y grubby && \
   sudo grubby \
   --update-kernel=ALL \
-  --args=”systemd.unified_cgroup_hierarchy=1"
+  --args="systemd.unified_cgroup_hierarchy=1"
 ```
 
 구성을 적용하려면 노드를 재부팅해야 한다.

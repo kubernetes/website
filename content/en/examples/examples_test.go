@@ -160,10 +160,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		AllowPodAffinityNamespaceSelector: true,
 	}
 
-	pspValidationOptions := policy_validation.PodSecurityPolicyValidationOptions{
-		AllowEphemeralVolumeType: true,
-	}
-
 	// Enable CustomPodDNS for testing
 	// feature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
@@ -283,11 +279,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		gv := schema.GroupVersion{
-			Group:   networking.GroupName,
-			Version: legacyscheme.Scheme.PrioritizedVersionsForGroup(networking.GroupName)[0].Version,
-		}
-		errors = networking_validation.ValidateIngressCreate(t, gv)
+		errors = networking_validation.ValidateIngressCreate(t)
 	case *networking.IngressClass:
 		/*
 			if t.Namespace == "" {
@@ -301,7 +293,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		errors = networking_validation.ValidateIngressClass(t)
 
 	case *policy.PodSecurityPolicy:
-		errors = policy_validation.ValidatePodSecurityPolicy(t, pspValidationOptions)
+		errors = policy_validation.ValidatePodSecurityPolicy(t)
 	case *apps.ReplicaSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -405,7 +397,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"admin/dns": {
 			"busybox":                   {&api.Pod{}},
-			"dns-horizontal-autoscaler": {&apps.Deployment{}},
+			"dns-horizontal-autoscaler": {&api.ServiceAccount{}, &rbac.ClusterRole{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
 			"dnsutils":                  {&api.Pod{}},
 		},
 		"admin/logging": {
@@ -453,7 +445,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"admin/sched": {
 			"clusterrole":  {&rbac.ClusterRole{}},
-			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
+			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &api.ConfigMap{}, &apps.Deployment{}},
 			"pod1":         {&api.Pod{}},
 			"pod2":         {&api.Pod{}},
 			"pod3":         {&api.Pod{}},
@@ -592,6 +584,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"pods/probe": {
 			"exec-liveness":                   {&api.Pod{}},
+			"grpc-liveness":                   {&api.Pod{}},
 			"http-liveness":                   {&api.Pod{}},
 			"pod-with-http-healthcheck":       {&api.Pod{}},
 			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
@@ -620,11 +613,15 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"security-context-4": {&api.Pod{}},
 		},
 		"pods/storage": {
-			"projected": {&api.Pod{}},
-			"pv-claim":  {&api.PersistentVolumeClaim{}},
-			"pv-pod":    {&api.Pod{}},
-			"pv-volume": {&api.PersistentVolume{}},
-			"redis":     {&api.Pod{}},
+			"projected":                                    {&api.Pod{}},
+			"projected-secret-downwardapi-configmap":       {&api.Pod{}},
+			"projected-secrets-nondefault-permission-mode": {&api.Pod{}},
+			"projected-service-account-token":              {&api.Pod{}},
+			"pv-claim":                                     {&api.PersistentVolumeClaim{}},
+			"pv-duplicate":                                 {&api.Pod{}},
+			"pv-pod":                                       {&api.Pod{}},
+			"pv-volume":                                    {&api.PersistentVolume{}},
+			"redis":                                        {&api.Pod{}},
 		},
 		"policy": {
 			"baseline-psp":                 {&policy.PodSecurityPolicy{}},

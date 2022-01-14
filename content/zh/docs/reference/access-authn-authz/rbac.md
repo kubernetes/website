@@ -483,7 +483,7 @@ that change triggers adding the new rules into the aggregated ClusterRole.
 Here is an example that adds rules to the "monitoring" ClusterRole, by creating another
 ClusterRole labeled `rbac.example.com/aggregate-to-monitoring: true`.
 -->
-如果你创建一个与某现有聚合 ClusterRole 的标签选择算符匹配的 ClusterRole，
+如果你创建一个与某个已存在的聚合 ClusterRole 的标签选择算符匹配的 ClusterRole，
 这一变化会触发新的规则被添加到聚合 ClusterRole 的操作。
 下面的例子中，通过创建一个标签同样为 `rbac.example.com/aggregate-to-monitoring: true`
 的 ClusterRole，新的规则可被添加到 "monitoring" ClusterRole 中。

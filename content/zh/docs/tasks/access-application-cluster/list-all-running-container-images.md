@@ -107,17 +107,17 @@ Pod is returned instead of a list of items.
 {{< /note >}}
 
 <!--
-## List Containers by Pod
+## List Container images by Pod
 
 The formatting can be controlled further by using the `range` operation to
 iterate over elements individually.
 -->
-## 列出 Pod 中的容器
+## 按 Pod 列出容器镜像
 
 可以使用 `range` 操作进一步控制格式化，以单独操作每个元素。
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
 sort
 ```
 
@@ -132,7 +132,7 @@ following matches only Pods with labels matching `app=nginx`.
 要获取匹配特定标签的 Pod，请使用 -l 参数。以下匹配仅与标签 `app=nginx` 相符的 Pod。
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
 <!--

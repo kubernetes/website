@@ -33,7 +33,7 @@ There are two main ways to have Nodes added to the {{< glossary_tooltip text="AP
 1. The kubelet on a node self-registers to the control plane
 2. You (or another human user) manually add a Node object
 
-After you create a Node object, or the kubelet on a node self-registers, the
+After you create a Node {{< glossary_tooltip text="object" term_id="object" >}}, or the kubelet on a node self-registers, the
 control plane checks whether the new Node object is valid. For example, if you
 try to create a Node from the following JSON manifest:
 
@@ -442,7 +442,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 To provide more flexibility during graceful node shutdown around the ordering
 of pods during shutdown, graceful node shutdown honors the PriorityClass for
 Pods, provided that you enabled this feature in your cluster. The feature
-allows allows cluster administers to explicitly define the ordering of pods
+allows cluster administers to explicitly define the ordering of pods
 during graceful node shutdown based on [priority
 classes](docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
 
