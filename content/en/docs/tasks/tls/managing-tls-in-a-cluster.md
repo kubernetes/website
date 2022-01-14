@@ -42,7 +42,7 @@ some extra application configuration. You will need to add the CA certificate
 bundle to the list of CA certificates that the TLS client or server trusts. For
 example, you would do this with a golang TLS config by parsing the certificate
 chain and adding the parsed certificates to the `RootCAs` field in the
-[`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
+[`tls.Config`](https://pkg.go.dev/crypto/tls#Config) struct.
 
 You can distribute the CA certificate as a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your

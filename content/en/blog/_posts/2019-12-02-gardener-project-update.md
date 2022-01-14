@@ -477,7 +477,7 @@ following resources:
 * [Example extension controller implementation for
   AWS](https://github.com/gardener/gardener-extensions/tree/master/controllers/provider-aws)
 * [Gardener Extensions Golang
-  library](https://godoc.org/github.com/gardener/gardener-extensions/pkg)
+  library](https://pkg.go.dev/github.com/gardener/gardener-extensions/pkg)
 * [Extension contract
   documentation](https://github.com/gardener/gardener/tree/master/docs/extensions)
 * [Gardener API Reference](https://gardener.cloud/api-reference/)

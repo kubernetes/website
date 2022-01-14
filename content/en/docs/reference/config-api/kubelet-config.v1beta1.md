@@ -109,7 +109,7 @@ default value of format is `text`</td>
     
   
 <tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
-<a href="https://godoc.org/time#Duration"><code>time.Duration</code></a>
+<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
 </td>
 <td>
    Maximum number of seconds between log flushes. Ignored if the
@@ -221,7 +221,7 @@ Default: ""</td>
     
   
 <tr><td><code>syncFrequency</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    syncFrequency is the max period between synchronizing running
@@ -236,7 +236,7 @@ Default: "1m"</td>
     
   
 <tr><td><code>fileCheckFrequency</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    fileCheckFrequency is the duration between checking config files for
@@ -250,7 +250,7 @@ Default: "20s"</td>
     
   
 <tr><td><code>httpCheckFrequency</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    httpCheckFrequency is the duration between checking http for new data.
@@ -602,7 +602,7 @@ Default: nil</td>
     
   
 <tr><td><code>streamingConnectionIdleTimeout</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    streamingConnectionIdleTimeout is the maximum time a streaming connection
@@ -616,7 +616,7 @@ Default: "4h"</td>
     
   
 <tr><td><code>nodeStatusUpdateFrequency</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    nodeStatusUpdateFrequency is the frequency that kubelet computes node
@@ -635,7 +635,7 @@ Default: "10s"</td>
     
   
 <tr><td><code>nodeStatusReportFrequency</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    nodeStatusReportFrequency is the frequency that kubelet posts node
@@ -669,7 +669,7 @@ Default: 40</td>
     
   
 <tr><td><code>imageMinimumGCAge</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    imageMinimumGCAge is the minimum age for an unused image before it is
@@ -715,7 +715,7 @@ Default: 80</td>
     
   
 <tr><td><code>volumeStatsAggPeriod</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    volumeStatsAggPeriod is the frequency for calculating and caching volume
@@ -815,7 +815,7 @@ Default: nil</td>
     
   
 <tr><td><code>cpuManagerReconcilePeriod</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    cpuManagerReconcilePeriod is the reconciliation period for the CPU Manager.
@@ -892,7 +892,7 @@ Default: nil</td>
     
   
 <tr><td><code>runtimeRequestTimeout</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    runtimeRequestTimeout is the timeout for all runtime requests except long running
@@ -1005,7 +1005,7 @@ Default: true</td>
     
   
 <tr><td><code>cpuCFSQuotaPeriod</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    cpuCFSQuotaPeriod is the CPU CFS quota period value, `cpu.cfs_period_us`.
@@ -1148,7 +1148,7 @@ Default: nil</td>
     
   
 <tr><td><code>evictionPressureTransitionPeriod</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    evictionPressureTransitionPeriod is the duration for which the kubelet has to wait
@@ -1552,7 +1552,7 @@ Default: true</td>
     
   
 <tr><td><code>shutdownGracePeriod</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    shutdownGracePeriod specifies the total duration that the node should delay the
@@ -1562,7 +1562,7 @@ Default: "0s"</td>
     
   
 <tr><td><code>shutdownGracePeriodCriticalPods</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    shutdownGracePeriodCriticalPods specifies the duration used to terminate critical
@@ -1884,7 +1884,7 @@ tokenreviews.authentication.k8s.io API.</td>
     
   
 <tr><td><code>cacheTTL</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    cacheTTL enables caching of authentication results</td>
@@ -1912,7 +1912,7 @@ tokenreviews.authentication.k8s.io API.</td>
 
   
 <tr><td><code>cacheAuthorizedTTL</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    cacheAuthorizedTTL is the duration to cache 'authorized' responses from the
@@ -1921,7 +1921,7 @@ webhook authorizer.</td>
     
   
 <tr><td><code>cacheUnauthorizedTTL</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    cacheUnauthorizedTTL is the duration to cache 'unauthorized' responses from

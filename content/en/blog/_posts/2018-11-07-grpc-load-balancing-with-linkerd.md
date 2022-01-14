@@ -78,7 +78,7 @@ L3/L4, i.e. we need to understand the protocol sent over the TCP connections.
 How do we accomplish this? There are a couple options. First, our application
 code could manually maintain its own load balancing pool of destinations, and
 we could configure our gRPC client to [use this load balancing
-pool](https://godoc.org/google.golang.org/grpc/balancer). This approach gives
+pool](https://pkg.go.dev/google.golang.org/grpc/balancer). This approach gives
 us the most control, but it can be very complex in environments like Kubernetes
 where the pool changes over time as Kubernetes reschedules pods. Our
 application would have to watch the Kubernetes API and keep itself up to date
