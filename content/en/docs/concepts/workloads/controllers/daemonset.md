@@ -94,7 +94,7 @@ When the two are specified the result is ANDed.
 If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.
 Config with these not matching will be rejected by the API.
 
-### Running Pods on select Nodes
+### Running Pods on selected Nodes
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create Pods on nodes which match that [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/).
