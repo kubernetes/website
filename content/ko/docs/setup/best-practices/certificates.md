@@ -87,7 +87,7 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 로드 밸런서 안정 IP 또는 DNS 이름, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-`kind`는 하나 이상의 [x509 키 사용](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage) 종류를 가진다.
+`kind`는 하나 이상의 [x509 키 사용](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) 종류를 가진다.
 
 | 종류   | 키 사용                                                                         |
 |--------|---------------------------------------------------------------------------------|

@@ -73,7 +73,7 @@ With this tool, you can use the same health check configuration in all your gRPC
 applications. This approach requires you to:
 
 1.  Find the gRPC "health" module in your favorite language and start using it
-    (example [Go library](https://pkg.go.dev/github.com/grpc/grpc-go/health)).
+    (example [Go library](https://godoc.org/github.com/grpc/grpc-go/health)).
 2.  Ship the
     [grpc_health_probe](https://github.com/grpc-ecosystem/grpc-health-probe/)
     binary in your container.

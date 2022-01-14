@@ -197,7 +197,7 @@ Example values of matchImages:
     
   
 <tr><td><code>defaultCacheDuration</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    defaultCacheDuration is the default duration the plugin will cache credentials in-memory

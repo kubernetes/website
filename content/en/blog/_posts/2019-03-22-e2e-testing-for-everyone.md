@@ -45,7 +45,7 @@ E2E testing consists of several phases:
   behavior in “specs”. In this blog post, “test” is used to reference
   an individual `Ginkgo.It` spec. Tests interact with the Kubernetes
   cluster using
-  [client-go](https://pkg.go.dev/k8s.io/client-go/kubernetes).
+  [client-go](https://godoc.org/k8s.io/client-go/kubernetes).
 * Bringing up a test cluster. Tools like
   [kubetest](https://github.com/kubernetes/test-infra/blob/master/kubetest/README.md)
   can help here.

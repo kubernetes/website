@@ -254,7 +254,7 @@ components by adding customized setting or overriding kubeadm default settings.<
 <p>The KubeProxyConfiguration type should be used to change the configuration passed to kube-proxy instances
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ or
-https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
+https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
 for kube-proxy official documentation.</p>
 -->
 <p>KubeProxyConfiguration 类型用来更改传递给在集群中部署的 kube-proxy 实例
@@ -262,7 +262,7 @@ for kube-proxy official documentation.</p>
 
 <p>关于 kube-proxy 的官方文档，可参阅
 https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kube-proxy/
-或者 https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration。
+或者 https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration。
 </p>
 
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
@@ -274,7 +274,7 @@ https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kube-proxy/
 <p>The KubeletConfiguration type should be used to change the configurations that will be passed to all kubelet instances
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ or
-https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
+https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
 for kubelet official documentation.</p>
 <p>Here is a fully populated example of a single YAML file containing multiple
 configuration types to be used during a <code>kubeadm init</code> run.</p>
@@ -285,7 +285,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 <p>关于 kubelet 的官方文档，可参阅
 https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kubelet/
 或者
-https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
+https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 
 <p>下面是一个为执行 <code>kubeadm init</code> 而提供的、包含多个配置类型的单一 YAML 文件，
 其中填充了很多部分。</p>
@@ -917,7 +917,7 @@ APIServer 包含集群中 API 服务器部署所必需的设置。
 </td>
 </tr>
 <tr><td><code>timeoutForControlPlane</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
 <p>
@@ -1168,7 +1168,7 @@ does not contain any other authentication information
 </td>
 </tr>
 <tr><td><code>timeout</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
 <p>
@@ -1782,7 +1782,7 @@ for, so other administrators can know its purpose.</p-->
 </td>
 </tr>
 <tr><td><code>ttl</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    <!--p><code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.

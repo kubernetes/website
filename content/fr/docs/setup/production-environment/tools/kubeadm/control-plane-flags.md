@@ -25,7 +25,7 @@ pour un composant du control plane:
 2. Ajoutez les indicateurs à remplacer dans le champ.
 
 Pour plus de détails sur chaque champ de la configuration, vous pouvez accéder aux
-[pages de référence de l'API](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration).
+[pages de référence de l'API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration).
 
 
 

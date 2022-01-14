@@ -807,7 +807,7 @@ O comando executado imprime um objeto `ExecCredential` para o `stdout`. `k8s.io/
 autentica na API do Kubernetes utilizando as credenciais retornadas no `status`.
  
 Quando executando uma sessão interativa, `stdin` é exposto diretamente para o plugin. plugins devem utilizar
-um [TTY check](https://pkg.go.dev/golang.org/x/crypto/ssh/terminal#IsTerminal) para determinar se é
+um [TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal) para determinar se é
 apropriado solicitar um usuário interativamente.
  
 Para usar credenciais do tipo _bearer token_, o plugin retorna um token no status do objeto `ExecCredential`.

@@ -107,7 +107,7 @@ cluster.
 </td>
 </tr>
 <tr><td><code>config</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime/#RawExtension"><code>k8s.io/apimachinery/pkg/runtime.RawExtension</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime/#RawExtension"><code>k8s.io/apimachinery/pkg/runtime.RawExtension</code></a>
 </td>
 <td>
    Config holds additional config data that is specific to the exec

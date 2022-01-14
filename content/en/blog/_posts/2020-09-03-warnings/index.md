@@ -255,8 +255,8 @@ Here are a couple ideas to get you started:
 Applications that use the `k8s.io/client-go` library to make API requests can customize
 how warnings returned from the server are handled. By default, warnings are logged to
 stderr as they are received, but this behavior can be customized 
-[per-process](https://pkg.go.dev/k8s.io/client-go/rest#SetDefaultWarningHandler)
-or [per-client](https://pkg.go.dev/k8s.io/client-go/rest#Config).
+[per-process](https://godoc.org/k8s.io/client-go/rest#SetDefaultWarningHandler)
+or [per-client](https://godoc.org/k8s.io/client-go/rest#Config).
 
 This example shows how to make your application behave like `kubectl`,
 overriding message handling process-wide to deduplicate warnings 

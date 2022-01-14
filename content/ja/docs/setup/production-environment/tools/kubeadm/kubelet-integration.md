@@ -60,7 +60,7 @@ ComponentConfigの詳細については、[このセクション](#configure-kub
 
 `kubeadm config print init-defaults --component-configs KubeletConfiguration`を実行することによって、この構造体の全てのデフォルト値を確認することができます。
 
-また、各フィールドの詳細については、[kubelet ComponentConfigに関するAPIリファレンス](https://pkg.go.dev/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)を参照してください。
+また、各フィールドの詳細については、[kubelet ComponentConfigに関するAPIリファレンス](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)を参照してください。
 
 ### `kubeadm init`実行時の流れ
 

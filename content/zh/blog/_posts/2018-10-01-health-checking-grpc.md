@@ -118,7 +118,7 @@ applications. This approach requires you to:
 
 <!--
 1.  Find the gRPC "health" module in your favorite language and start using it
-    (example [Go library](https://pkg.go.dev/github.com/grpc/grpc-go/health)).
+    (example [Go library](https://godoc.org/github.com/grpc/grpc-go/health)).
 2.  Ship the
     [grpc_health_probe](https://github.com/grpc-ecosystem/grpc-health-probe/)
     binary in your container.
@@ -126,7 +126,7 @@ applications. This approach requires you to:
     Kubernetes "exec" probe to invoke the "grpc_health_probe" tool in the
     container.
 --->
-1.  用您喜欢的语言找到 gRPC 的 "健康" 模块并开始使用它（例如 [Go 库](https://pkg.go.dev/github.com/grpc/grpc-go/health)）。
+1.  用您喜欢的语言找到 gRPC 的 "健康" 模块并开始使用它（例如 [Go 库](https://godoc.org/github.com/grpc/grpc-go/health)）。
 2.  将二进制文件 [grpc_health_probe](https://github.com/grpc-ecosystem/grpc-health-probe/) 送到容器中。
 3.  [配置](https://github.com/grpc-ecosystem/grpc-health-probe/tree/1329d682b4232c102600b5e7886df8ffdcaf9e26#example-grpc-health-checking-on-kubernetes) Kubernetes 的 "exec" 检查模块来调用容器中的 "grpc_health_probe" 工具。
 

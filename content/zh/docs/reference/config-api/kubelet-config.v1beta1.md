@@ -59,7 +59,7 @@ Default: ""</td>
     
   
 <tr><td><code>syncFrequency</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    syncFrequency is the max period between synchronizing running
@@ -73,7 +73,7 @@ Default: "1m"</td>
     
   
 <tr><td><code>fileCheckFrequency</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    fileCheckFrequency is the duration between checking config files for
@@ -86,7 +86,7 @@ Default: "20s"</td>
     
   
 <tr><td><code>httpCheckFrequency</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    httpCheckFrequency is the duration between checking http for new data
@@ -407,7 +407,7 @@ Default: nil</td>
     
   
 <tr><td><code>streamingConnectionIdleTimeout</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    streamingConnectionIdleTimeout is the maximum time a streaming connection
@@ -420,7 +420,7 @@ Default: "4h"</td>
     
   
 <tr><td><code>nodeStatusUpdateFrequency</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    nodeStatusUpdateFrequency is the frequency that kubelet computes node
@@ -438,7 +438,7 @@ Default: "10s"</td>
     
   
 <tr><td><code>nodeStatusReportFrequency</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    nodeStatusReportFrequency is the frequency that kubelet posts node
@@ -471,7 +471,7 @@ Default: 40</td>
     
   
 <tr><td><code>imageMinimumGCAge</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    imageMinimumGCAge is the minimum age for an unused image before it is
@@ -512,7 +512,7 @@ Default: 80</td>
     
   
 <tr><td><code>volumeStatsAggPeriod</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    How frequently to calculate and cache volume disk usage for all pods
@@ -595,7 +595,7 @@ Default: "none"</td>
     
   
 <tr><td><code>cpuManagerReconcilePeriod</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    CPU Manager reconciliation period.
@@ -645,7 +645,7 @@ Default: nil</td>
     
   
 <tr><td><code>runtimeRequestTimeout</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    runtimeRequestTimeout is the timeout for all runtime requests except long running
@@ -748,7 +748,7 @@ Default: true</td>
     
   
 <tr><td><code>cpuCFSQuotaPeriod</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    CPUCFSQuotaPeriod is the CPU CFS quota period value, cpu.cfs_period_us.
@@ -875,7 +875,7 @@ Default: nil</td>
     
   
 <tr><td><code>evictionPressureTransitionPeriod</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    Duration for which the kubelet has to wait before transitioning out of an eviction pressure condition.
@@ -1227,7 +1227,7 @@ Default: true</td>
     
   
 <tr><td><code>shutdownGracePeriod</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    ShutdownGracePeriod specifies the total duration that the node should delay the shutdown and total grace period for pod termination during a node shutdown.
@@ -1236,7 +1236,7 @@ Default: "30s"</td>
     
   
 <tr><td><code>shutdownGracePeriodCriticalPods</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    ShutdownGracePeriodCriticalPods specifies the duration used to terminate critical pods during a node shutdown. This should be less than ShutdownGracePeriod.
@@ -1460,7 +1460,7 @@ Webhook mode uses the SubjectAccessReview API to determine authorization.</td>
     
   
 <tr><td><code>cacheTTL</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    cacheTTL enables caching of authentication results</td>
@@ -1491,7 +1491,7 @@ Webhook mode uses the SubjectAccessReview API to determine authorization.</td>
 
   
 <tr><td><code>cacheAuthorizedTTL</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    cacheAuthorizedTTL is the duration to cache 'authorized' responses from the webhook authorizer.</td>
@@ -1499,7 +1499,7 @@ Webhook mode uses the SubjectAccessReview API to determine authorization.</td>
     
   
 <tr><td><code>cacheUnauthorizedTTL</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    cacheUnauthorizedTTL is the duration to cache 'unauthorized' responses from the webhook authorizer.</td>

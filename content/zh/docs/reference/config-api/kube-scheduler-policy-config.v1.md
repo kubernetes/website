@@ -387,7 +387,7 @@ can implement this function.</td>
     
   
 <tr><td><code>httpTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
+<a href="https://godoc.org/time#Duration"><code>time.Duration</code></a>
 </td>
 <td>
    HTTPTimeout specifies the timeout duration for a call to the extender. Filter timeout fails the scheduling of the pod. Prioritize

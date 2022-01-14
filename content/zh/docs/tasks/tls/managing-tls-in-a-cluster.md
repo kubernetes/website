@@ -52,7 +52,7 @@ some extra application configuration. You will need to add the CA certificate
 bundle to the list of CA certificates that the TLS client or server trusts. For
 example, you would do this with a golang TLS config by parsing the certificate
 chain and adding the parsed certificates to the `RootCAs` field in the
-[`tls.Config`](https://pkg.go.dev/crypto/tls#Config) struct.
+[`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
 
 You can distribute the CA certificate as a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your
@@ -63,7 +63,7 @@ pods have access to use.
 信任 Pod 中运行的应用程序所提供的 CA 通常需要一些额外的应用程序配置。
 你需要将 CA 证书包添加到 TLS 客户端或服务器信任的 CA 证书列表中。
 例如，你可以使用 Golang TLS 配置通过解析证书链并将解析的证书添加到
-[`tls.Config`](https://pkg.go.dev/crypto/tls#Config) 结构中的 `RootCAs`
+[`tls.Config`](https://godoc.org/crypto/tls#Config) 结构中的 `RootCAs`
 字段中。
 
 你可以用你的应用能够访问到的

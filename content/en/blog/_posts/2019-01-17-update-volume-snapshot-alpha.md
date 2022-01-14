@@ -23,7 +23,7 @@ To be consistent with the change in the CSI spec, the `Ready` field in the `Volu
 
 ## Timestamp Data Type
 
-The creation time of a snapshot is available to Kubernetes admins as part of the `VolumeSnapshotContent` API object. This field is populated using the `creation_time` field in the CSI `CreateSnapshotResponse`. In CSI v1.0, this `creation_time` field type was changed to [`.google.protobuf.Timestamp`](https://pkg.go.dev/github.com/golang/protobuf/ptypes/timestamp) instead of `int64`. When upgrading drivers to CSI 1.0, driver maintainers must make changes accordingly. The [v1.x.x releases](https://github.com/kubernetes-csi/external-snapshotter/releases/tag/v1.0.1) of the CSI external-snapshotter sidecar container has been updated to handle this change.
+The creation time of a snapshot is available to Kubernetes admins as part of the `VolumeSnapshotContent` API object. This field is populated using the `creation_time` field in the CSI `CreateSnapshotResponse`. In CSI v1.0, this `creation_time` field type was changed to [`.google.protobuf.Timestamp`](https://godoc.org/github.com/golang/protobuf/ptypes/timestamp) instead of `int64`. When upgrading drivers to CSI 1.0, driver maintainers must make changes accordingly. The [v1.x.x releases](https://github.com/kubernetes-csi/external-snapshotter/releases/tag/v1.0.1) of the CSI external-snapshotter sidecar container has been updated to handle this change.
 
 ## Deprecations
 

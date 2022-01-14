@@ -78,7 +78,7 @@ configuration</td>
     
   
 <tr><td><code>configuration</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
    Configuration is an embedded configuration object to be used as the plugin's

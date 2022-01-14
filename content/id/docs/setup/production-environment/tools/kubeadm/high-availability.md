@@ -104,7 +104,7 @@ opsi. Kebutuhan klastermu mungkin membutuhkan konfigurasi berbeda.
 
     {{< note >}}
     Opsi `--config` dan `--certificate-key` pada `kubeadm init` tidak dapat digunakan secara bersamaan, maka dari itu jika kamu ingin menggunakan
-    [konfigurasi kubeadm](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
+    [konfigurasi kubeadm](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
     kamu harus menambahkan _field_ `certificateKey` pada lokasi pengaturan yang sesuai
     (berada di bawah `InitConfiguration` dan `JoinConfiguration: controlPlane`).
     {{< /note >}}

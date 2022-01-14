@@ -355,12 +355,12 @@ Minikube имеет такую возможность как "конфигура
 Допустимые ключи можно найти в документации по `componentconfigs` в Kubernetes каждого компонента.
 Ниже вы найдете документации по каждой поддерживаемой конфигурации:
 
-* [kubelet](https://pkg.go.dev/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
-* [apiserver](https://pkg.go.dev/k8s.io/kubernetes/cmd/kube-apiserver/app/options#ServerRunOptions)
-* [proxy](https://pkg.go.dev/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
-* [controller-manager](https://pkg.go.dev/k8s.io/kubernetes/pkg/controller/apis/config#KubeControllerManagerConfiguration)
-* [etcd](https://pkg.go.dev/github.com/coreos/etcd/etcdserver#ServerConfig)
-* [scheduler](https://pkg.go.dev/k8s.io/kubernetes/pkg/scheduler/apis/config#KubeSchedulerConfiguration)
+* [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
+* [apiserver](https://godoc.org/k8s.io/kubernetes/cmd/kube-apiserver/app/options#ServerRunOptions)
+* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+* [controller-manager](https://godoc.org/k8s.io/kubernetes/pkg/controller/apis/config#KubeControllerManagerConfiguration)
+* [etcd](https://godoc.org/github.com/coreos/etcd/etcdserver#ServerConfig)
+* [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/scheduler/apis/config#KubeSchedulerConfiguration)
 
 #### Примеры
 

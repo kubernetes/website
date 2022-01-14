@@ -312,7 +312,7 @@ kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
 
 Fedora CoreOSなどのLinuxディストリビューションでは、ディレクトリ`/usr`が読み取り専用のファイルシステムとしてマウントされます。 [flex-volumeサポート](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md)では、kubeletやkube-controller-managerのようなKubernetesコンポーネントはデフォルトで`/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`のパスを使用していますが、この機能を動作させるためにはflex-volumeディレクトリは _書き込み可能_ な状態でなければなりません。
 
-この問題を回避するには、kubeadm[設定ファイル](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用してflex-volumeディレクトリを設定します。
+この問題を回避するには、kubeadm[設定ファイル](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用してflex-volumeディレクトリを設定します。
 
 プライマリコントロールプレーンノード（`kubeadm init`で作成されたもの）上で、`--config`で以下のファイルを渡します:
 

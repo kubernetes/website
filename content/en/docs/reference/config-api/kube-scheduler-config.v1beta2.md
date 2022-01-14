@@ -523,7 +523,7 @@ can implement this function.</td>
     
   
 <tr><td><code>httpTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    HTTPTimeout specifies the timeout duration for a call to the extender. Filter timeout fails the scheduling of the pod. Prioritize
@@ -814,7 +814,7 @@ It is up to the plugin to process these Args.
     
   
 <tr><td><code>args</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime/#RawExtension"><code>k8s.io/apimachinery/pkg/runtime.RawExtension</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime/#RawExtension"><code>k8s.io/apimachinery/pkg/runtime.RawExtension</code></a>
 </td>
 <td>
    Args defines the arguments passed to the plugins at the time of initialization. Args can have arbitrary structure.</td>
@@ -1361,7 +1361,7 @@ components for high availability.</td>
     
   
 <tr><td><code>leaseDuration</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    leaseDuration is the duration that non-leader candidates will wait
@@ -1374,7 +1374,7 @@ enabled.</td>
     
   
 <tr><td><code>renewDeadline</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    renewDeadline is the interval between attempts by the acting master to
@@ -1385,7 +1385,7 @@ election is enabled.</td>
     
   
 <tr><td><code>retryPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    retryPeriod is the duration the clients should wait between attempting
@@ -1452,7 +1452,7 @@ default value of format is `text`</td>
     
   
 <tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
+<a href="https://godoc.org/time#Duration"><code>time.Duration</code></a>
 </td>
 <td>
    Maximum number of seconds between log flushes. Ignored if the

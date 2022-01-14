@@ -155,7 +155,7 @@ in order to proxy service traffic. If unspecified (0-0) then ports will be rando
     
   
 <tr><td><code>udpIdleTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    udpIdleTimeout is how long an idle UDP connection will be kept open (e.g. '250ms', '2s').
@@ -172,7 +172,7 @@ Must be greater than 0. Only applicable for proxyMode=userspace.</td>
     
   
 <tr><td><code>configSyncPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    configSyncPeriod is how often configuration from the apiserver is refreshed. Must be greater
@@ -261,7 +261,7 @@ regardless of conntrackMaxPerCore (set maxPerCore=0 to leave the limit as-is).</
     
   
 <tr><td><code>tcpEstablishedTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    tcpEstablishedTimeout is how long an idle TCP connection will be kept open
@@ -270,7 +270,7 @@ regardless of conntrackMaxPerCore (set maxPerCore=0 to leave the limit as-is).</
     
   
 <tr><td><code>tcpCloseWaitTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    tcpCloseWaitTimeout is how long an idle conntrack entry
@@ -321,7 +321,7 @@ the pure iptables proxy mode. Values must be within the range [0, 31].</td>
     
   
 <tr><td><code>syncPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    syncPeriod is the period that iptables rules are refreshed (e.g. '5s', '1m',
@@ -330,7 +330,7 @@ the pure iptables proxy mode. Values must be within the range [0, 31].</td>
     
   
 <tr><td><code>minSyncPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    minSyncPeriod is the minimum period that iptables rules are refreshed (e.g. '5s', '1m',
@@ -363,7 +363,7 @@ details for the Kubernetes proxy server.
 
   
 <tr><td><code>syncPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    syncPeriod is the period that ipvs rules are refreshed (e.g. '5s', '1m',
@@ -372,7 +372,7 @@ details for the Kubernetes proxy server.
     
   
 <tr><td><code>minSyncPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    minSyncPeriod is the minimum period that ipvs rules are refreshed (e.g. '5s', '1m',
@@ -407,7 +407,7 @@ from kube-ipvs0 interface</td>
     
   
 <tr><td><code>tcpTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    tcpTimeout is the timeout value used for idle IPVS TCP sessions.
@@ -416,7 +416,7 @@ The default value is 0, which preserves the current timeout value on the system.
     
   
 <tr><td><code>tcpFinTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    tcpFinTimeout is the timeout value used for IPVS TCP sessions after receiving a FIN.
@@ -425,7 +425,7 @@ The default value is 0, which preserves the current timeout value on the system.
     
   
 <tr><td><code>udpTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    udpTimeout is the timeout value used for IPVS UDP packets.

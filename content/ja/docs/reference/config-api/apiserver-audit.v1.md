@@ -48,7 +48,7 @@ Event captures all the information that can be included in an API audit log.
     
   
 <tr><td><code>auditID</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
    Unique audit ID, generated for each request.</td>
@@ -133,7 +133,7 @@ For non-status type error responses, this will be auto-populated with the error 
     
   
 <tr><td><code>requestObject</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
    API object from the request, in JSON format. The RequestObject is recorded as-is in the request
@@ -144,7 +144,7 @@ Omitted for non-resource requests.  Only logged at Request Level and higher.</td
     
   
 <tr><td><code>responseObject</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
    API object returned in the response, in JSON. The ResponseObject is recorded after conversion
@@ -451,7 +451,7 @@ ObjectReference contains enough information to let you inspect or modify the ref
     
   
 <tr><td><code>uid</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span>

@@ -171,7 +171,7 @@ HA 클러스터를 실행 중인 경우, 모든 컨트롤 플레인 노드에서
 
 빌트인 서명자를 활성화하려면, `--cluster-signing-cert-file` 와 `--cluster-signing-key-file` 플래그를 전달해야 한다.
 
-새 클러스터를 생성하는 경우, kubeadm [구성 파일](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)을 사용할 수 있다.
+새 클러스터를 생성하는 경우, kubeadm [구성 파일](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)을 사용할 수 있다.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3

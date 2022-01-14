@@ -74,7 +74,7 @@ du tableau de PodCondition a six champs possibles :
 Une [Sonde](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) (Probe) est un diagnostic
 exécuté périodiquement par [kubelet](/docs/admin/kubelet/)
 sur un Conteneur. Pour exécuter un diagnostic, kubelet appelle un
-[Handler](https://pkg.go.dev/k8s.io/kubernetes/pkg/api/v1#Handler) implémenté par
+[Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implémenté par
 le Conteneur. Il existe trois types de handlers :
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core):

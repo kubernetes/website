@@ -524,10 +524,10 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 
 <!--
 For more information on the fields and usage of the configuration you can navigate to our API reference
-page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
+page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
 -->
 有关配置的字段和用法的更多信息，你可以导航到我们的 API 参考页
-并从[列表]中选择一个版本(https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories)。
+并从[列表]中选择一个版本(https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories)。
 
 
 ## {{% heading "whatsnext" %}}

@@ -138,7 +138,7 @@ The KubeProxyConfiguration type should be used to change the configuration passe
 in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.
 
 See https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ or
-https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
+https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
 for kube proxy official documentation.
 
 ```yaml
@@ -151,7 +151,7 @@ The KubeletConfiguration type should be used to change the configurations that w
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.
 
 See https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ or
-https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
+https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
 for kubelet official documentation.
 
 Here is a fully populated example of a single YAML file containing multiple
@@ -660,7 +660,7 @@ signing certificate.</td>
     
   
 <tr><td><code>timeoutForControlPlane</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    `timeoutForControlPlane` controls the timeout that we wait for the API server
@@ -707,7 +707,7 @@ for, so other administrators can know its purpose.</td>
     
   
 <tr><td><code>ttl</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    `ttl` defines the time to live for this token. Defaults to '24h'.
@@ -985,7 +985,7 @@ contain any other authentication information.</td>
     
   
 <tr><td><code>timeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    `timeout` modifies the discovery timeout.</td>
