@@ -615,7 +615,7 @@ spec:
 ```
 
 The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010af00002`.  Setting
-`manualSelector: true` tells the system to that you know what you are doing and to allow this
+`manualSelector: true` tells the system that you know what you are doing and to allow this
 mismatch.
 
 ### Job tracking with finalizers
