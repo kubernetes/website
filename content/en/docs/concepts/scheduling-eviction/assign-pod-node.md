@@ -48,6 +48,8 @@ You can verify that it worked by re-running `kubectl get nodes --show-labels` an
 Take whatever pod config file you want to run, and add a nodeSelector section to it, like this. For example, if this is my pod config:
 
 ```yaml
+# config yaml file for adding a nodeSelector to your pod configuration
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -60,13 +62,13 @@ spec:
     image: nginx
 ```
 
-Then add a nodeSelector like so:
+Then add a nodeSelector using the following commands:
 
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
 When you then run `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`,
-the Pod will get scheduled on the node that you attached the label to. You can
-verify that it worked by running `kubectl get pods -o wide` and looking at the
+the Pod will get scheduled on the node that you attached the label to.
+You can verify that if  it worked by running the  `kubectl get pods -o wide` and by looking at the
 "NODE" that the Pod was assigned to.
 
 ## Interlude: built-in node labels {#built-in-node-labels}
@@ -75,7 +77,7 @@ In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes co
 with a standard set of labels. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/) for a list of these.
 
 {{< note >}}
-The value of these labels is cloud provider specific and is not guaranteed to be reliable.
+The values of these labels are cloud provider specific and are not guaranteed to be reliable.
 For example, the value of `kubernetes.io/hostname` may be the same as the Node name in some environments
 and a different value in other environments.
 {{< /note >}}
@@ -83,8 +85,8 @@ and a different value in other environments.
 ## Node isolation/restriction
 
 Adding labels to Node objects allows targeting pods to specific nodes or groups of nodes.
-This can be used to ensure specific pods only run on nodes with certain isolation, security, or regulatory properties.
-When using labels for this purpose, choosing label keys that cannot be modified by the kubelet process on the node is strongly recommended.
+This can be used to ensure specific pods  that only run on nodes with certain isolation, security, or regulatory properties.
+When using labels for this purpose, choosing label keys which cannot be modified by the kubelet process on the node is strongly recommended.
 This prevents a compromised node from using its kubelet credential to set those labels on its own Node object,
 and influencing the scheduler to schedule workloads to the compromised node.
 
@@ -92,7 +94,7 @@ The `NodeRestriction` admission plugin prevents kubelets from setting or modifyi
 To make use of that label prefix for node isolation:
 
 1. Ensure you are using the [Node authorizer](/docs/reference/access-authn-authz/node/) and have _enabled_ the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction).
-2. Add labels under the `node-restriction.kubernetes.io/` prefix to your Node objects, and use those labels in your node selectors.
+2. Add labels under the `node-restriction.kubernetes.io/` prefix to your Node objects, and use those same labels in your node selectors.
 For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
 
 ## Affinity and anti-affinity
@@ -100,9 +102,9 @@ For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.
 `nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
 feature, greatly expands the types of constraints you can express. The key enhancements are
 
-1. The affinity/anti-affinity language is more expressive. The language offers more matching rules
+1. The affinity/anti-affinity language is more expressive. This language offers more matching rules
    besides exact matches created with a logical AND operation;
-2. you can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
+2. you can also indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
    can't satisfy it, the pod will still be scheduled;
 3. you can constrain against labels on other pods running on the node (or other topological domain),
    rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located
@@ -176,6 +178,7 @@ profiles:
     pluginConfig:
       - name: NodeAffinity
         args:
+        #use of the addedaffinity argument
           addedAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
@@ -195,7 +198,7 @@ recommend to use node labels that have clear correlation with the profile's sche
 
 {{< note >}}
 The DaemonSet controller, which [creates Pods for DaemonSets](/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler)
-is not aware of scheduling profiles. For this reason, it is recommended that you keep a scheduler profile, such as the
+is not aware of scheduling profiles. For this reason, it's recommended that you keep a scheduler profile, such as the
 `default-scheduler`, without any `addedAffinity`. Then, the Daemonset's Pod template should use this scheduler name.
 Otherwise, some Pods created by the Daemonset controller might remain unschedulable.
 {{< /note >}}
@@ -278,7 +281,7 @@ The affinity term is applied to the union of the namespaces selected by `namespa
 Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and 
 null `namespaceSelector` means "this pod's namespace".
 
-This feature is beta and enabled by default. You can disable it via the
+This feature is in the beta version and enabled by default. You can surely disable it via the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
 
@@ -292,9 +295,11 @@ be co-located in the same defined topology, eg., the same node.
 
 In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.
 
-Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
+Here, below there is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 
 ```yaml
+# a simple redis deployment with three replicas and selector label : app=store
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -327,6 +332,7 @@ spec:
 The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that each web-server replica does not co-locate on a single node.
 
 ```yaml
+# podAntiAffinity and podAffinity configured
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -417,6 +423,7 @@ Some of the limitations of using `nodeName` to select nodes are:
 Here is an example of a pod config file using the `nodeName` field:
 
 ```yaml
+# pod config using the nodeName field
 apiVersion: v1
 kind: Pod
 metadata:
@@ -441,7 +448,7 @@ The design documents for
 [node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
 and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) contain extra background information about these features.
 
-Once a Pod is assigned to a Node, the kubelet runs the Pod and allocates node-local resources.
+Once a Pod is  successfully assigned to a Node, the kubelet runs the Pod and allocates node-local resources.
 The [topology manager](/docs/tasks/administer-cluster/topology-manager/) can take part in node-level
 resource allocation decisions. 
 
