@@ -402,7 +402,9 @@ In summary, it is fantastic to see security practitioners sharing this
 level of detailed guidance in public. This guidance further highlights
 Kubernetes going mainstream and how securing Kubernetes clusters and the
 application containers running on Kubernetes continues to need attention and focus of
-practitioners.
+practitioners. Only a few weeks after the guidance was published, an open source
+tool [kubescape](https://github.com/armosec/kubescape) to validate cluster
+against this guidance became available.
 
 A few open-source tools exist to help validate and automate this guideance:
 
