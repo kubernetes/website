@@ -170,10 +170,10 @@ option. Your cluster requirements may need a different configuration.
     [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) 
     to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
   
-  {{<note>}}
-  You must pick your own CNI plugin and deploy it before you move on to next step.
+  {{< note >}}
+  You must pick a network plugin that suits your use case and deploy it before you move on to next step.
   If you don't do this, you will not be able to launch your cluster properly.
-  {{<note>}}
+  {{< /note >}}
 
 1.  Type the following and watch the pods of the control plane components get started:
 
