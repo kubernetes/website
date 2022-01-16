@@ -6,9 +6,9 @@ headless: true
 
 ### Introducción
 
-El script de finalización de kubectl para Bash se puede generar con `kubectl completion bash`. Obtener este script en su shell permite la finalización de kubectl.
+El script de completado de kubectl para Bash se puede generar con `kubectl completion bash`. Obtener este script en su shell permite el completado de kubectl.
 
-Sin embargo, el script de finalización de kubectl depende de [**finalización de bash**](https://github.com/scop/bash-completion) que, por lo tanto, debe instalar previamente.
+Sin embargo, el script de finalización de kubectl depende de [**bash-completion**](https://github.com/scop/bash-completion) que, por lo tanto, debe instalar previamente.
 
 {{< warning>}}
 Hay dos versiones de bash-complete, v1 y v2. V1 es para Bash 3.2 (

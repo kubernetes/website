@@ -11,18 +11,18 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-Debes usar una versión de kubectl que esté dentro de una diferencia de versión menor de tu clúster. Por ejemplo, un v{{< skew latestVersion >}} La cliente puede comunicarse con v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, and v{{< skew nextMinorVersion >}} aviones de control.
+Debes usar una versión de kubectl que esté dentro de una diferencia de versión menor de tu clúster. Por ejemplo, un v{{< skew latestVersion >}} El cliente puede comunicarse con v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, y v{{< skew nextMinorVersion >}} del plano de control.
 El uso de la última versión de kubectl ayuda a evitar problemas imprevistos.
 
 ## Instalar kubectl en macOS
 
 Existen los siguientes métodos para instalar kubectl en macOS:
 
-- [Instalar kubectl binary con curl en macOS](#install-kubectl-binary-with-curl-on-macos)
+- [Instalar el binario de kubectl con curl en macOS](#install-kubectl-binary-with-curl-on-macos)
 - [Instalar con Homebrew en macOS](#install-with-homebrew-on-macos)
 - [Instalar con Macports en macOS](#install-with-macports-on-macos)
 
-### Instalar kubectl binary con curl en macOS
+### Instalar el binario de kubectl con curl en macOS
 
 1. Descargue la última versión:
 
@@ -54,7 +54,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
 
 1. Validar el binario (opcional)
 
-   Descargue el archivo de suma de comprobación de kubectl:
+   Descargue el archivo de comprobación de kubectl:
 
    {{< tabs name="download_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -65,7 +65,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
    {{< /tab >}}
    {{< /tabs >}}
 
-   Valide el binario kubectl con el archivo de suma de comprobación:
+   Valide el binario kubectl con el archivo de comprobación:
 
    ```bash
    echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
@@ -77,7 +77,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
    kubectl: OK
    ```
 
-   Si la verificación falla, `shasum` sale con un estado distinto de cero e imprime una salida similar a:
+   Si la verificación falla, `shasum` arroja un valor distinto de cero e imprime una salida similar a:
 
    ```bash
    kubectl: FAILED
@@ -85,7 +85,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
    ```
 
    {{< note >}}
-   Descargue la misma versión del binario y la suma de comprobación.
+   Descargue la misma versión del binario y el archivo de comprobación.
    {{< /note >}}
 
 1. Hacer ejecutable el binario de kubectl.
@@ -102,10 +102,10 @@ Existen los siguientes métodos para instalar kubectl en macOS:
    ```
 
    {{< note >}}
-   Cerciorarse `/usr/local/bin` está en su variable de entorno PATH.
+   Asegúrese de que `/usr/local/bin` se encuentre definida en su variable de entorno PATH.
    {{< /note >}}
 
-1. Pruebe para asegurarse de que la versión que instaló esté actualizada:
+1. Para asegurarse de que la versión que instaló se encuentra actualizada, ejecute:
 
    ```bash
    kubectl version --client
@@ -113,7 +113,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
 
 ### Instalar con Homebrew en macOS
 
-Si está en macOS y usa [Homebrew](https://brew.sh/) administrador de paquetes, puede instalar kubectl con Homebrew.
+Si está en macOS y usa [Homebrew](https://brew.sh/) como administrador de paquetes, puede instalar kubectl con Homebrew.
 
 1. Ejecute el comando de instalación:
 
@@ -127,7 +127,7 @@ Si está en macOS y usa [Homebrew](https://brew.sh/) administrador de paquetes, 
    brew install kubernetes-cli
    ```
 
-1. Pruebe para asegurarse de que la versión que instaló esté actualizada:
+1. Para asegurarse de que la versión que instaló se encuentra actualizada, ejecute:
 
    ```bash
    kubectl version --client
@@ -135,7 +135,7 @@ Si está en macOS y usa [Homebrew](https://brew.sh/) administrador de paquetes, 
 
 ### Instalar con Macports en macOS
 
-Si está en macOS y usa [Macports](https://macports.org/) administrador de paquetes, puede instalar kubectl con Macports.
+Si está en macOS y usa [Macports](https://macports.org/) como administrador de paquetes, puede instalar kubectl con Macports.
 
 1. Ejecute el comando de instalación:
 
@@ -144,7 +144,7 @@ Si está en macOS y usa [Macports](https://macports.org/) administrador de paque
    sudo port install kubectl
    ```
 
-1. Pruebe para asegurarse de que la versión que instaló esté actualizada:
+1. Para asegurarse de que la versión que instaló se encuentra actualizada, ejecute:
 
    ```bash
    kubectl version --client
@@ -154,11 +154,11 @@ Si está en macOS y usa [Macports](https://macports.org/) administrador de paque
 
 {{< include "verify-kubectl.md" >}}
 
-## Complementos y configuraciones opcionales de kubectl
+## Plugins y configuraciones opcionales de kubectl
 
 ### Habilitar el autocompletado de shell
 
-kubectl proporciona soporte de autocompletado para Bash y Zsh, lo que puede ahorrarle mucho escribir.
+kubectl proporciona soporte de autocompletado para Bash y Zsh, lo que puede ahorrarle mucho tiempo al escribir.
 
 A continuación, se muestran los procedimientos para configurar el autocompletado para Bash y Zsh.
 
@@ -167,7 +167,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
 {{< tab name="Zsh" include="optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### Instalar el complemento `kubectl convert`
+### Instalar el plugin `kubectl-convert`
 
 {{< include "kubectl-convert-overview.md" >}}
 
@@ -184,7 +184,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
 
 1. Validar el binario (opcional)
 
-   Descargue el archivo de suma de comprobación de kubectl:
+   Descargue el archivo de comprobación de kubectl:
 
    {{< tabs name="download_convert_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -195,7 +195,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
    {{< /tab >}}
    {{< /tabs >}}
 
-   Valide el binario kubectl-convert con el archivo de suma de comprobación:
+   Valide el binario kubectl-convert con el archivo de comprobación:
 
    ```bash
    echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
@@ -207,7 +207,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
    kubectl-convert: OK
    ```
 
-   Si la verificación falla, `shasum` sale con un estado distinto de cero e imprime una salida similar a:
+   Si la verificación falla, `shasum` arroja un valor distinto de cero e imprime una salida similar a:
 
    ```bash
    kubectl-convert: FAILED
@@ -215,16 +215,16 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
    ```
 
    {{< note >}}
-   Descargue la misma versión del binario y la suma de comprobación.
+   Descargue la misma versión del binario y el archivo de comprobación.
    {{< /note >}}
 
-1. Hacer ejecutable kubectl-convert binary
+1. Hacer ejecutable el binario de kubectl-convert
 
    ```bash
    chmod +x ./kubectl-convert
    ```
 
-1. Mueva el binario kubectl-convert a una ubicación de archivo en su sistema`PATH`.
+1. Mueva el binario kubectl-convert a una ubicación de archivo en su sistema `PATH`.
 
    ```bash
    sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
@@ -232,7 +232,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
    ```
 
    {{< note >}}
-   Cerciorarse `/usr/local/bin` está en tu PATH Variable ambiental.
+   Asegúrese de que `/usr/local/bin` se encuentre definida en su variable de entorno PATH.
    {{< /note >}}
 
 1. Verifique que el complemento se haya instalado correctamente
@@ -241,7 +241,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
    kubectl convert --help
    ```
 
-   Si no ve un error, significa que el complemento se instaló correctamente.
+   Si no ve algun error, significa que el complemento se instaló correctamente.
 
 ## {{% heading "whatsnext" %}}
 

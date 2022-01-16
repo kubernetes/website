@@ -171,7 +171,7 @@ kubectl version --client
 
 {{< include "verify-kubectl.md" >}}
 
-## Complementos y configuraciones opcionales de kubectl
+## Plugins y configuraciones opcionales de kubectl
 
 ### Habilitar el autocompletado de shell
 
