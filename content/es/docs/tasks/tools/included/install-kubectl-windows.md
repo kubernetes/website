@@ -19,11 +19,11 @@ El uso de la última versión de kubectl ayuda a evitar problemas imprevistos.
 
 Existen los siguientes métodos para instalar kubectl en Windows:
 
-- [Instalar kubectl binary con curl en Windows](#install-kubectl-binary-with-curl-on-windows)
+- [Instalar el binario de kubectl con curl en Windows](#install-kubectl-binary-with-curl-on-windows)
 - [Instalar en Windows usando Chocolatey o Scoop](#install-on-windows-using-chocolatey-or-scoop)
 
 
-### Instalar kubectl binary con curl en Windows
+### Instalar el binario de kubectl con curl en Windows
 
 1. Descarga la [última versión {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
@@ -39,22 +39,22 @@ Existen los siguientes métodos para instalar kubectl en Windows:
 
 1. Validar el binario (opcional)
 
-   Descargue el archivo de suma de comprobación de kubectl:
+   Descargue el archivo de comprobación de kubectl:
 
    ```powershell
    curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256
    ```
 
-   Valide el binario kubectl con el archivo de suma de comprobación:
+   Valide el binario kubectl con el archivo de comprobación:
 
-   - Usando el símbolo del sistema para comparar manualmente la salida de `CertUtil` con el archivo de suma de comprobación descargado:
+   - Usando la consola del sistema para comparar manualmente la salida de `CertUtil` con el archivo de comprobación descargado:
 
      ```cmd
      CertUtil -hashfile kubectl.exe SHA256
      type kubectl.exe.sha256
      ```
 
-   - Usando PowerShell para automatizar la verificación usando el `-eq` Operadora para obtener una `True` o `False` resultado:
+   - Usando PowerShell puede automatizar la verificación usando el operador `-eq` para obtener un resultado de `True` o `False`:
 
      ```powershell
      $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
@@ -62,21 +62,21 @@ Existen los siguientes métodos para instalar kubectl en Windows:
 
 1. Agregue el binario a su `PATH`.
 
-1. Prueba para asegurar la versión de`kubectl` Es la misma que descargada:
+1. Para asegurar que la versión de`kubectl` es la misma que descargada, ejecute:
 
    ```cmd
    kubectl version --client
    ```
 
 {{< note >}}
-[Docker Desktop para Windows](https://docs.docker.com/docker-for-windows/#kubernetes) agrega su propia versión de `kubectl` a` PATH`.
-Si ha instalado Docker Desktop antes, es posible que deba colocar su `PATH` entrada antes de la agregada por el instalador de Docker Desktop o elimine el `kubectl`.
+[Docker Desktop para Windows](https://docs.docker.com/docker-for-windows/#kubernetes) agrega su propia versión de `kubectl` a el `PATH`.
+Si ha instalado Docker Desktop antes, es posible que deba colocar su entrada en el `PATH` antes de la agregada por el instalador de Docker Desktop o elimine el `kubectl`.
 {{< /note >}}
 
 ### Instalar en Windows usando Chocolatey o Scoop
 
 1. Para instalar kubectl en Windows, puede usar [Chocolatey](https://chocolatey.org) 
-administrador de paquetes o [Scoop](https://scoop.sh) instalador de línea de comandos.
+como administrador de paquetes o el instalador [Scoop](https://scoop.sh) desde línea de comandos.
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
@@ -92,7 +92,7 @@ administrador de paquetes o [Scoop](https://scoop.sh) instalador de línea de co
    {{< /tabs >}}
 
 
-1. Pruebe para asegurarse de que la versión que instaló esté actualizada:
+1. Para asegurarse de que la versión que instaló esté actualizada, ejecute:
 
    ```powershell
    kubectl version --client
@@ -131,17 +131,17 @@ Edite el archivo de configuración con un editor de texto de su elección, como 
 
 {{< include "verify-kubectl.md" >}}
 
-## Complementos y configuraciones opcionales de kubectl
+## Plugins y configuraciones opcionales de kubectl
 
 ### Habilitar el autocompletado de shell
 
-kubectl proporciona soporte de autocompletado para Bash y Zsh, lo que puede ahorrarle mucho escribir.
+kubectl proporciona soporte de autocompletado para Bash y Zsh, lo que puede ahorrarle mucho tiempo al escribir.
 
 A continuación se muestran los procedimientos para configurar el autocompletado para Zsh, si lo está ejecutando en Windows.
 
 {{< include "optional-kubectl-configs-zsh.md" >}}
 
-### Install `kubectl convert` plugin
+### Instalar el plugin `kubectl-convert`
 
 {{< include "kubectl-convert-overview.md" >}}
 
@@ -153,37 +153,37 @@ A continuación se muestran los procedimientos para configurar el autocompletado
 
 1. Validar el binario (opcional)
 
-   Descargue el archivo de suma de comprobación kubectl-convert:
+   Descargue el archivo de comprobación kubectl-convert:
 
    ```powershell
    curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256
    ```
 
-   Valide el binario kubectl-convert con el archivo de suma de comprobación:
+   Valide el binario kubectl-convert con el archivo de comprobación:
 
-   - Usando el símbolo del sistema para comparar manualmente la salida de `CertUtil` con el archivo de suma de comprobación descargado:
+   - Usando la consola del sistema puede comparar manualmente la salida de `CertUtil` con el archivo de comprobación descargado:
 
      ```cmd
      CertUtil -hashfile kubectl-convert.exe SHA256
      type kubectl-convert.exe.sha256
      ```
 
-   - Usando PowerShell para automatizar la verificación usando el `-eq` 
-     Operadora para obtener una `True` or `False` resultado:
+   - Usando PowerShell puede automatizar la verificación usando el operador `-eq` 
+     para obtener un resultado de `True` o `False`:
 
      ```powershell
      $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```
 
-1. Agregue el binario a su`PATH`.
+1. Agregue el binario a su `PATH`.
 
-1. Verifique que el complemento se haya instalado correctamente
+1. Verifique que el plugin se haya instalado correctamente
 
    ```shell
    kubectl convert --help
    ```
 
-   Si no ve un error, significa que el complemento se instaló correctamente.
+   Si no ve un error, significa que el plugin se instaló correctamente.
 
 ## {{% heading "whatsnext" %}}
 
