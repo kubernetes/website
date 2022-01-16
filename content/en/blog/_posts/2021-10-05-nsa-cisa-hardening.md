@@ -406,14 +406,7 @@ practitioners. Only a few weeks after the guidance was published, an open source
 tool [kubescape](https://github.com/armosec/kubescape) to validate cluster
 against this guidance became available.
 
-A few open-source tools exist to help validate and automate this guideance:
-
-- [kubescape](https://github.com/armosec/kubescape)
-- [cloudquery](https://github.com/cloudquery/cloudquery)
-
-Those tool can be a great starting point to check the current state of your
-clusters, after which you can use the information in this blog post and in the guidance to assess 
-where improvements can be made.
+With newer tools like [cloudquery](https://github.com/cloudquery/cloudquery) being introduced in the open source landscape for validation and automation of this guidance, they can be a great starting point to check the current state of your clusters. Post which you can use the information in this blog post and in the guidance to assess where improvements can be made.
 
 Finally, it is worth reiterating that not all controls in this guidance will
 make sense for all practitioners. The best way to know which controls matter is
