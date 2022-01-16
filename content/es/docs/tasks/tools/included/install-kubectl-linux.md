@@ -12,13 +12,13 @@ card:
 ## {{% heading "prerequisites" %}}
 
 Debes usar una versión de kubectl que esté dentro de una diferencia de versión menor de tu clúster. Por ejemplo, un v{{< skew latestVersion >}} La cliente puede comunicarse con v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, y v{{< skew nextMinorVersion >}} aviones de control.
-El uso de la última versión de kubectl ayuda a evitar problemas imprevistos.
+El uso de la última versión de kubectl ayuda a evitar problemas inesperados.
 
 ## Instalar kubectl en Linux
 
 Existen los siguientes métodos para instalar kubectl en Linux:
 
-- [Instale el binario kubectl con curl en Linux](#install-kubectl-binary-with-curl-on-linux)
+- [Instalar el binario kubectl con curl en Linux](#install-kubectl-binary-with-curl-on-linux)
 - [Instalar usando la administración nativa de paquetes](#install-using-native-package-management)
 - [Instalar usando otra administración de paquetes](#install-using-other-package-management)
 
@@ -175,7 +175,7 @@ kubectl version --client
 
 ### Habilitar el autocompletado de shell
 
-kubectl proporciona soporte de autocompletado para Bash y Zsh, lo que puede ahorrarle mucho tiempo al escribir.
+kubectl proporciona soporte de autocompletado para Bash y Zsh, lo que puede ahorrarle mucho tiempo al interactuar con la herramienta.
 
 A continuación, se muestran los procedimientos para configurar el autocompletado para Bash y Zsh.
 

@@ -5,7 +5,7 @@ headless: true
 ---
 
 Para que kubectl encuentre y acceda a un clúster de Kubernetes, necesita un
-[archivo kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),que se crea automáticamente cuando creas un clúster usando
+[archivo kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), que se crea automáticamente cuando creas un clúster usando
 [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
 o implementar con éxito un clúster de Minikube.
 De forma predeterminada, la configuración de kubectl se encuentra en `~/.kube/config`.
@@ -19,7 +19,7 @@ Si ve una respuesta de URL, kubectl está configurado correctamente para acceder
 
 Si ve un mensaje similar al siguiente, kubectl no está configurado correctamente o no puede conectarse a un clúster de Kubernetes.
 ```
-La conexión al servidor <server-name:port> fue rechazada. ¿Especificó el host o puerto correcto?
+The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
 Por ejemplo, si tiene la intención de ejecutar un clúster de Kubernetes en su computadora portátil (localmente), primero necesitará instalar una herramienta como Minikube y luego volver a ejecutar los comandos indicados anteriormente.
