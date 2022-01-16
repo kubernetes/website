@@ -51,11 +51,14 @@ Rootless Podman is not supported.
 
 ## Running Kubernetes inside Unprivileged Containers
 
+{{% thirdparty-content %}}
+
 ### sysbox
 
 [Sysbox](https://github.com/nestybox/sysbox) is an open-source container runtime
 (similar to "runc") that supports running system-level workloads such as Docker
-and Kubernetes inside containers isolated via the Linux user namespace.
+and Kubernetes inside unprivileged containers isolated with the Linux user
+namespace.
 
 See Kubernetes-in-Docker in the [Sysbox docs][https://github.com/nestybox/sysbox/blob/master/docs/quickstart/kind.md] for more info.
 
