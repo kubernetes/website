@@ -226,9 +226,9 @@ option. Your cluster requirements may need a different configuration.
    As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
    {{< /caution >}}
 
-    {{<note>}}
-    You must pick your own plugin and deploy it before you move on to next step. If you don't do this, your cluster will not launch properly.
-    {{<note>}}
+    {{< note >}}
+    You must pick a network plugin that suits your use case and deploy it before you move on to next step. If you don't do this, your cluster will not launch properly.
+    {{< /note >}}
 
 1. Type the following and watch the pods of the control plane components get started:
 
