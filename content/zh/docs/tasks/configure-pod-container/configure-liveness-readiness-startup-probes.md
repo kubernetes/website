@@ -334,6 +334,95 @@ kubectl describe pod goproxy
 ```
 
 <!--
+## Define a gRPC liveness probe
+
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
+kubelet can be configured to use it for application liveness checks.
+You must enable the `GRPCContainerProbe`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+in order to configure checks that rely on gRPC.
+-->
+## 定义 gRPC 的存活探测 {#define-a-gRPC-liveness-probe}
+
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+如果你的应用程序实现了 [gRPC健康检测协议](https://github.com/grpc/grpc/blob/master/doc/health-checking.md)，
+kubelet可以用它来配置应用存活检测。
+你必须开启 `GRPCContainerProbe` 
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+才能使用gRPC来配置检测。
+
+<!--
+Here is an example manifest:
+
+{{< codenew file="pods/probe/grpc-liveness.yaml">}}
+
+To use a gRPC probe, `port` must be configured. If the health endpoint is configured
+on a non-default service, you must also specify the `service`.
+-->
+这有个示例如下：
+
+{{< codenew file="pods/probe/grpc-liveness.yaml">}}
+
+使用gRPC探测，`port`必须配置。如果在非默认的service上配置endpoint健康检测，你还必须指定 `service`。
+
+<!-- 
+Unlike HTTP and TCP probes, named ports cannot be used and custom host cannot be configured.
+-->
+{{< note >}}
+不像HTTP 和 TCP 探测，无法使用命名端口，也无法配置自定义主机。
+{{< /note >}}
+
+<!--
+Configuration problems (for example: incorrect port and service, unimplemented health checking protocol)
+are considered a probe failure, similar to HTTP and TCP probes.
+
+To try the gRPC liveness check, create a Pod using the command below.
+In the example below, the etcd pod is configured to use gRPC liveness probe.
+-->
+配置的问题（例如：不正确的 端口 和 service，未实现的健康检测协议）会被视为探测失败，类似于HTTP 和 TCP 探测。
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/probe/grpc-liveness.yaml
+```
+
+<!--
+After 15 seconds, view Pod events to verify that the liveness check has not failed:
+-->
+15秒后，查看Pod事件可验证 存活检测 没有失败：
+
+```shell
+kubectl describe pod etcd-with-grpc
+```
+
+<!--
+Before Kubernetes 1.23, gRPC health probes were often implemented using [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/),
+as described in the blog post [Health checking gRPC servers on Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/).
+The built-in gRPC probes behavior is similar to one implemented by grpc-health-probe.
+When migrating from grpc-health-probe to built-in probes, remember the following differences:
+
+- Built-in probes run against the pod IP address, unlike grpc-health-probe that often runs against `127.0.0.1`.
+  Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
+- Built-in probes do not support any authentication parameters (like `-tls`).
+- There are no error codes for built-in probes. All errors are considered as probe failures.
+- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not** respect the `timeoutSeconds` setting (which defaults to 1s),
+  while built-in probe would fail on timeout.
+-->
+在Kubernetes 1.23之前，通常用 [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/) 来实现gRPC健康探测，
+正如博客所述 [Health checking gRPC servers on Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/)。
+内置gRPC探测器的行为 类似与 通过grpc-health-probe实现的探测器的行为。
+当从grpc-health-probe探测器 迁移到 内置探测器时，请记住以下的区别：
+
+- 内置探测器是相对于pod IP地址运行的，而 grpc-health-probe 探测器通常是相对于 `127.0.0.1` 运行的。
+  确保将gRPC endpoint配置为侦听Pod的IP地址。
+- 内置探测器不支持任何身份验证参数（如：`-tls`）。
+- 内置探测器中没有代码错误。所有的错误被视为探测失败。
+- 如果`ExecProbeTimeout`特性门控设置为`false`，grpc-health-probe将**不再**遵循`timeoutSeconds`的设置（默认为1秒），
+  而内置探测器会在超时时失败。
+
+<!--
 ## Use a named port
 
 You can use a named
