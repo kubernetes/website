@@ -32,22 +32,80 @@ LoadBalancer, or with dynamic PersistentVolumes.
 
 ## {{% heading "prerequisites" %}}
 
+The prerequisites depend on which topology you have selected for your cluster's
+control plane:
 
-For both methods you need this infrastructure:
+{{< tabs name="prerequisite_tabs" >}}
+{{% tab name="Stacked etcd" %}}
+<!--
+    note to reviewers: these prerequisites should match the start of the
+    external etc tab
+-->
 
-- Three machines that meet [kubeadm's minimum requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
-  the control-plane nodes
-- Three machines that meet [kubeadm's minimum
+You need:
+
+- Three or more machines that meet [kubeadm's minimum requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
+  the control-plane nodes. Having an odd number of control plane nodes can help
+  with leader selection in the case of machine or zone failure.
+  - including a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, already set up and working
+- Three or more machines that meet [kubeadm's minimum
   requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for the workers
+  - including a container runtime, already set up and working
 - Full network connectivity between all machines in the cluster (public or
   private network)
-- sudo privileges on all machines
+- Superuser privileges on all machines using `sudo`
+  - You can use a different tool; this guide uses `sudo` in the examples.
 - SSH access from one device to all nodes in the system
-- `kubeadm` and `kubelet` installed on all machines. `kubectl` is optional.
+- `kubeadm` and `kubelet` already installed on all machines.
 
-For the external etcd cluster only, you also need:
+_See [Stacked etcd topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/#stacked-etcd-topology) for context._
 
-- Three additional machines for etcd members
+{{% /tab %}}
+{{% tab name="External etcd" %}}
+<!--
+    note to reviewers: these prerequisites should match the start of the
+    stacked etc tab
+-->
+You need:
+
+- Three or more machines that meet [kubeadm's minimum requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
+  the control-plane nodes. Having an odd number of control plane nodes can help
+  with leader selection in the case of machine or zone failure.
+  - including a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, already set up and working
+- Three or more machines that meet [kubeadm's minimum
+  requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for the workers
+  - including a container runtime, already set up and working
+- Full network connectivity between all machines in the cluster (public or
+  private network)
+- Superuser privileges on all machines using `sudo`
+  - You can use a different tool; this guide uses `sudo` in the examples.
+- SSH access from one device to all nodes in the system
+- `kubeadm` and `kubelet` already installed on all machines.
+
+<!-- end of shared prerequisites -->
+
+And you also need:
+- Three or more additional machines, that will become etcd cluster members.
+  Having an odd number of members in the etcd cluster is a requirement for achieving
+  optimal voting quorum.
+  - These machines again need to have `kubeadm` and `kubelet` installed.
+  - These machines also require a container runtime, that is already set up and working.
+
+_See [External etcd topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology) for context._
+{{% /tab %}}
+{{< /tabs >}}
+
+### Container images
+
+Each host should have access read and fetch images from the Kubernetes container image registry, `k8s.gcr.io`.
+If you want to deploy a highly-available cluster where the hosts do not have access to pull images, this is possible. You must ensure by some other means that the correct container images are already available on the relevant hosts.
+
+### Command line interface {#kubectl}
+
+To manage Kubernetes once your cluster is set up, you should
+[install kubectl](/docs/tasks/tools/#kubectl) on your PC. It is also useful
+to install the `kubectl` tool on each control plane node, as this can be
+helpful for troubleshooting.
 
 <!-- steps -->
 
