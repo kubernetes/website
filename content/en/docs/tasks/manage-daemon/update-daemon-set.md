@@ -40,7 +40,7 @@ You may want to set
 [`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) 
 (default to 0) and 
 [`.spec.maxSurge`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-surge) 
-(a beta feature and defaults to 25%) as well.
+(a beta feature and defaults to 0) as well.
 
 ### Creating a DaemonSet with `RollingUpdate` update strategy
 
