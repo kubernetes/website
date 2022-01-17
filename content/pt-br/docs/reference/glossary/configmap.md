@@ -2,7 +2,7 @@
 title: ConfigMap
 id: configmap
 date: 2021-08-24
-full_link: /docs/concepts/configuration/configmap
+full_link: /pt-br/docs/concepts/configuration/configmap
 short_description: >
   Um objeto da API usado para armazenar dados não-confidenciais em pares chave-valor. Pode ser consumido como variáveis de ambiente, argumentos de linha de comando, ou arquivos de configuração em um volume.
 
