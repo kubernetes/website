@@ -319,7 +319,8 @@ SSH is required if you want to control all nodes from a single machine.
 1. SSH between nodes to check that the connection is working correctly.
 
    - When you SSH to any node, add the `-A` flag. This flag allows the node that you
-     have logged into via SSH to access the SSH agent on your PC.
+     have logged into via SSH to access the SSH agent on your PC. Consider alternative
+     methods if you do not fully trust the security of your user session on the node.
 
      ```
      ssh -A 10.0.0.7
