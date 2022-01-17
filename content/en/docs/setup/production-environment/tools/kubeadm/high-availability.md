@@ -263,11 +263,12 @@ The following steps are similar to the stacked etcd setup:
 
 1.  Write the output join commands that are returned to a text file for later use.
 
-1.  Apply the CNI plugin of your choice. The given example is for Weave Net:
+1.  Apply the CNI plugin of your choice.
 
-    ```sh
-    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-    ```
+   {{< note >}}
+   You must pick a network plugin that suits your use case and deploy it before you move on to next step.
+   If you don't do this, you will not be able to launch your cluster properly.
+   {{< /note >}}
 
 ### Steps for the rest of the control plane nodes
 
