@@ -1,7 +1,7 @@
 ---
 reviewers:
 - sig-cluster-lifecycle
-title: Creating Highly Available clusters with kubeadm
+title: Creating Highly Available Clusters with kubeadm
 content_type: task
 weight: 60
 ---
@@ -17,12 +17,12 @@ cluster using kubeadm:
   control plane nodes and etcd members are separated.
 
 Before proceeding, you should carefully consider which approach best meets the needs of your applications
-and environment. [This comparison topic](/docs/setup/production-environment/tools/kubeadm/ha-topology/) outlines the advantages and disadvantages of each.
+and environment. [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) outlines the advantages and disadvantages of each.
 
 If you encounter issues with setting up the HA cluster, please provide us with feedback
 in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
 
-See also [The upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
+See also the [upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 
 {{< caution >}}
 This page does not address running your cluster on a cloud provider. In a cloud
@@ -350,7 +350,7 @@ SSH is required if you want to control all nodes from a single machine.
        scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
        scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
        scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
-       # Quote this line if you are using external etcd
+       # Skip the next line if you are using external etcd
        scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
    done
     ```
@@ -374,6 +374,6 @@ SSH is required if you want to control all nodes from a single machine.
    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
-   # Quote this line if you are using external etcd
+   # Skip the next line if you are using external etcd
    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
    ```
