@@ -167,14 +167,13 @@ option. Your cluster requirements may need a different configuration.
     {{< /caution >}}
 
 1.  Apply the CNI plugin of your choice:
-    [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
+    [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) 
     to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
-
-    In this example we are using Weave Net:
-
-    ```sh
-    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-    ```
+  
+  {{< note >}}
+  You must pick a network plugin that suits your use case and deploy it before you move on to next step.
+  If you don't do this, you will not be able to launch your cluster properly.
+  {{< /note >}}
 
 1.  Type the following and watch the pods of the control plane components get started:
 
