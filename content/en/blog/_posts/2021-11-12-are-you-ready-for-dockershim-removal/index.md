@@ -7,11 +7,16 @@ slug: are-you-ready-for-dockershim-removal
 
 **Author:** Sergey Kanzhelev, Google. With reviews from Davanum Srinivas, Elana Hashman, Noah Kantrowitz, Rey Lejano.
 
+{{% alert color="info" title="Poll closed" %}}
+This poll closed on January 7, 2022.
+{{% /alert %}}
+
 Last year we announced that Dockershim is being deprecated: [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/).
 Our current plan is to remove dockershim from the Kubernetes codebase soon.
 We are looking for feedback from you whether you are ready for dockershim
 removal and to ensure that you are ready when the time comes.
-**Please fill out this survey: https://forms.gle/svCJmhvTv78jGdSx8**.
+
+<del>Please fill out this survey: https://forms.gle/svCJmhvTv78jGdSx8</del>
 
 The dockershim component that enables Docker as a Kubernetes container runtime is
 being deprecated in favor of runtimes that directly use the [Container Runtime Interface](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)
@@ -25,7 +30,7 @@ are still not ready: [migrating telemetry and security agents](/docs/tasks/admin
 At this point, we believe that there is feature parity between Docker and the
 other runtimes. Many end-users have used our [migration guide](/docs/tasks/administer-cluster/migrating-from-dockershim/)
 and are running production workload using these different runtimes. The plan of
-record today is that dockershim will be removed in version 1.24, slated for 
+record today is that dockershim will be removed in version 1.24, slated for
 release around April of next year. For those developing or running alpha and
 beta versions, dockershim will be removed in December at the beginning of the
 1.24 release development cycle.
@@ -33,7 +38,7 @@ beta versions, dockershim will be removed in December at the beginning of the
 There is only one month left to give us feedback. We want you to tell us how
 ready you are.
 
-**We are collecting opinions through this survey: [https://forms.gle/svCJmhvTv78jGdSx8](https://forms.gle/svCJmhvTv78jGdSx8)**
+<del>We are collecting opinions through this survey: https://forms.gle/svCJmhvTv78jGdSx8</del>
 To better understand preparedness for the dockershim removal, our survey is
 asking the version of Kubernetes you are currently using, and an estimate of
 when you think you will adopt Kubernetes 1.24. All the aggregated information

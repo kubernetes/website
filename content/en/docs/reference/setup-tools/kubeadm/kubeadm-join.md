@@ -41,8 +41,6 @@ For control-plane nodes additional steps are performed:
 
 1. Adding new local etcd member.
 
-1. Adding this node to the ClusterStatus of the kubeadm cluster.
-
 ### Using join phases with kubeadm {#join-phases}
 
 Kubeadm allows you join a node to the cluster in phases using `kubeadm join phase`.
