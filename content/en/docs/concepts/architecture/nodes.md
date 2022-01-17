@@ -33,7 +33,7 @@ There are two main ways to have Nodes added to the {{< glossary_tooltip text="AP
 1. The kubelet on a node self-registers to the control plane
 2. You (or another human user) manually add a Node object
 
-After you create a Node object, or the kubelet on a node self-registers, the
+After you create a Node {{< glossary_tooltip text="object" term_id="object" >}}, or the kubelet on a node self-registers, the
 control plane checks whether the new Node object is valid. For example, if you
 try to create a Node from the following JSON manifest:
 

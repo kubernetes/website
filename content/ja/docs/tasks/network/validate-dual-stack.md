@@ -135,7 +135,7 @@ status:
   loadBalancer: {}
 ```
 
-`.spec.ipFamilies`内の配列の1番目の要素に`IPv6`を明示的に指定した、次のようなServiceを作成してみます。Kubernetesは`service-cluster-ip-range`で設定したIPv6の範囲からcluster IPを割り当てて、`.spec.ipFamilyPolicy`を`SingleStack`に設定します。
+`.spec.ipFamilies`内の配列の1番目の要素に`IPv6`を明示的に指定した、次のようなServiceを作成してみます。Kubernetesは`service-cluster-ip-range`で設定したIPv6の範囲からcluster IPを割り当てて、`.spec.ipFamilyPolicy`を`SingleStack`に設定します。
 
 {{< codenew file="service/networking/dual-stack-ipfamilies-ipv6.yaml" >}}
 
@@ -173,7 +173,7 @@ status:
   loadBalancer: {}
 ```
 
-`.spec.ipFamiliePolicy`に`PreferDualStack`を明示的に指定した、次のようなServiceを作成してみます。Kubernetesは(クラスターでデュアルスタックを有効化しているため)IPv4およびIPv6のアドレスの両方を割り当て、`.spec.ClusterIPs`のリストから、`.spec.ipFamilies`配列の最初の要素のアドレスファミリーに基づいた`.spec.ClusterIP`を設定します。
+`.spec.ipFamiliePolicy`に`PreferDualStack`を明示的に指定した、次のようなServiceを作成してみます。Kubernetesは(クラスターでデュアルスタックを有効化しているため)IPv4およびIPv6のアドレスの両方を割り当て、`.spec.ClusterIPs`のリストから、`.spec.ipFamilies`配列の最初の要素のアドレスファミリーに基づいた`.spec.ClusterIP`を設定します。
 
 {{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
 

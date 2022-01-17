@@ -53,7 +53,7 @@ different Kubernetes components.
 |---------|---------|-------|-------|-------|
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
-| `APIPriorityAndFairness` | `false` | Alpha | 1.17 | 1.19 |
+| `APIPriorityAndFairness` | `false` | Alpha | 1.18 | 1.19 |
 | `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
 | `APIResponseCompression` | `true` | Beta | 1.16 | |
@@ -167,8 +167,8 @@ different Kubernetes components.
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | |
-| `OpenAPIEnum` | `false` | Alpha | 1.23 | |
-| `OpenAPIv3` | `false` | Alpha | 1.23 | |
+| `OpenAPIEnums` | `false` | Alpha | 1.23 | |
+| `OpenAPIV3` | `false` | Alpha | 1.23 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | 1.21 |
 | `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | |
@@ -784,7 +784,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes).
 - `ExpandCSIVolumes`: Enable the expanding of CSI volumes.
 - `ExpandedDNSConfig`: Enable kubelet and kube-apiserver to allow more DNS
-  search paths and longer list of DNS search paths. See
+  search paths and longer list of DNS search paths. This feature requires container
+  runtime support(Containerd: v1.5.6 or higher, CRI-O: v1.22 or higher). See
   [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See
   [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
@@ -913,9 +914,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Must be used with `KubeletConfiguration.failSwapOn` set to false.
   For more details, please see [swap memory](/docs/concepts/architecture/nodes/#swap-memory)
 - `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
-- `OpenAPIEnum`: Enables populating "enum" fields of OpenAPI schemas in the 
+- `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the 
   spec returned from the API server.
-- `OpenAPIv3`: Enables the API server to publish OpenAPI v3.
+- `OpenAPIV3`: Enables the API server to publish OpenAPI v3.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
 - `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
