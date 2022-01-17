@@ -178,10 +178,11 @@ kubectl version --client
 
 kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
 
-Below are the procedures to set up autocompletion for Bash and Zsh.
+Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
