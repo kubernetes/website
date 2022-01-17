@@ -52,34 +52,43 @@ dependency on Docker:
 当用了替代的容器运行时之后，Docker 命令可能不工作，甚至产生意外的输出。
 这才是判定你是否依赖于 Docker 的方法。
 
-<!-- 
-1. Make sure no privileged Pods execute Docker commands.
-2. Check that scripts and apps running on nodes outside of Kubernetes
+<!--
+1. Make sure no privileged Pods execute Docker commands (like `docker ps`),
+   restart the Docker service (commands such as `systemctl restart docker.service`),
+   or modify Docker-specific files such as `/etc/docker/daemon.json`.
+1. Check for any private registries or image mirror settings in the Docker
+   configuration file (like `/etc/docker/daemon.json`). Those typically need to
+   be reconfigured for another container runtime.
+1. Check that scripts and apps running on nodes outside of your Kubernetes
    infrastructure do not execute Docker commands. It might be:
    - SSH to nodes to troubleshoot;
    - Node startup scripts;
    - Monitoring and security agents installed on nodes directly.
-3. Third-party tools that perform above mentioned privileged operations. See
+1. Third-party tools that perform above mentioned privileged operations. See
    [Migrating telemetry and security agents from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)
    for more information.
-4. Make sure there is no indirect dependencies on dockershim behavior.
+1. Make sure there is no indirect dependencies on dockershim behavior.
    This is an edge case and unlikely to affect your application. Some tooling may be configured
    to react to Docker-specific behaviors, for example, raise alert on specific metrics or search for
    a specific log message as part of troubleshooting instructions.
    If you have such tooling configured, test the behavior on test
    cluster before migration.
- -->
-1. 确认没有特权 Pod 执行 docker 命令。
-2. 检查 Kubernetes 基础架构外部节点上的脚本和应用，确认它们没有执行 Docker 命令。可能的命令有：
+-->
+1. 确认没有特权 Pod 执行 Docker 命令（如 `docker ps`）、重新启动 Docker
+   服务（如 `systemctl restart docker.service`）或修改
+   Docker 配置文件 `/etc/docker/daemon.json`。
+2. 检查 Docker 配置文件（如 `/etc/docker/daemon.json`）中容器镜像仓库的镜像（mirror）站点设置。
+   这些配置通常需要针对不同容器运行时来重新设置。
+3. 检查确保在 Kubernetes 基础设施之外的节点上运行的脚本和应用程序没有执行Docker命令。
+   可能的情况如：
    - SSH 到节点排查故障；
    - 节点启动脚本；
-   - 直接安装在节点上的监视和安全代理。
-3. 检查执行了上述特权操作的第三方工具。详细操作请参考:
-   [从 dockershim 迁移遥测和安全代理](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents/)
-4. 确认没有对 dockershim 行为的间接依赖。这是一种极端情况，不太可能影响你的应用。
+   - 直接安装在节点上的监控和安全代理。
+4. 检查执行上述特权操作的第三方工具。详细操作请参考：
+   [从 dockershim 迁移遥测和安全代理](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)
+5. 确认没有对 dockershim 行为的间接依赖。这是一种极端情况，不太可能影响你的应用。
    一些工具很可能被配置为使用了 Docker 特性，比如，基于特定指标发警报，或者在故障排查指令的一个环节中搜索特定的日志信息。
    如果你有此类配置的工具，需要在迁移之前，在测试集群上完成功能验证。
-
 
 <!-- 
 ## Dependency on Docker explained {#role-of-dockershim}  

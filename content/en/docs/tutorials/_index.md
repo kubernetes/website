@@ -47,12 +47,6 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
-## Clusters
-
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
-
-* [seccomp](/docs/tutorials/clusters/seccomp/)
-
 ## Services
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
@@ -61,7 +55,8 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
 * [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
-
+* [AppArmor](/docs/tutorials/security/apparmor/)
+* [seccomp](/docs/tutorials/security/seccomp/)
 ## {{% heading "whatsnext" %}}
 
 If you would like to write a tutorial, see

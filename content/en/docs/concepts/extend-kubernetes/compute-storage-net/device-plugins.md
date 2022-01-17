@@ -1,7 +1,6 @@
 ---
-reviewers:
 title: Device Plugins
-description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
+description: Device plugins let you configure your cluster with support for devices or resources that require vendor-specific setup, such as GPUs, NICs, FPGAs, or non-volatile main memory.
 content_type: concept
 weight: 20
 ---
@@ -48,12 +47,14 @@ For example, after a device plugin registers `hardware-vendor.example/foo` with 
 and reports two healthy devices on a node, the node status is updated
 to advertise that the node has 2 "Foo" devices installed and available.
 
-Then, users can request devices in a
-[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-specification as they request other types of resources, with the following limitations:
-
+Then, users can request devices as part of a Pod specification
+(see [`container`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)).
+Requesting extended resources is similar to how you manage requests and limits for
+other resources, with the following differences:
 * Extended resources are only supported as integer resources and cannot be overcommitted.
-* Devices cannot be shared among Containers.
+* Devices cannot be shared between containers.
+
+### Example {#example-pod}
 
 Suppose a Kubernetes cluster is running a device plugin that advertises resource `hardware-vendor.example/foo`
 on certain nodes. Here is an example of a pod requesting this resource to run a demo workload:
@@ -174,7 +175,7 @@ a Kubernetes release with a newer device plugin API version, upgrade your device
 to support both versions before upgrading these nodes. Taking that approach will
 ensure the continuous functioning of the device allocations during the upgrade.
 
-## Monitoring Device Plugin Resources
+## Monitoring device plugin resources
 
 {{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
@@ -310,7 +311,7 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 Support for the `PodResourcesLister service` requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 
-## Device Plugin integration with the Topology Manager
+## Device plugin integration with the Topology Manager
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
@@ -319,7 +320,7 @@ The Topology Manager is a Kubelet component that allows resources to be co-ordin
 
 ```gRPC
 message TopologyInfo {
-	repeated NUMANode nodes = 1;
+    repeated NUMANode nodes = 1;
 }
 
 message NUMANode {
@@ -337,6 +338,8 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 ```
 
 ## Device plugin examples {#examples}
+
+{{% thirdparty-content %}}
 
 Here are some examples of device plugin implementations:
 
@@ -357,5 +360,5 @@ Here are some examples of device plugin implementations:
 
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
-* Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
+* Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
