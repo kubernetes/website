@@ -571,14 +571,14 @@ The `master` branch holds content for the current release `{{< latest-version >}
 <!-- 
 ### Site strings in i18n/ 
 
-Localizations must include the contents of [`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) in a new language-specific file. Using German as an example: `data/i18n/de/de.toml`. 
+Localizations must include the contents of [`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en.toml) in a new language-specific file. Using German as an example: `data/i18n/de/de.toml`. 
 
 Add a new localization file to `i18n/`. For example, with German (`de`): 
 -->
 ### i18n/ 中的网站字符串 {#site-strings-in-i18n}
 
 本地化必须在新的语言特定文件中包含
-[`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml)
+[`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en.toml)
 的内容。以德语为例：`data/i18n/de/de.toml`。
 
 将新的本地化文件添加到 `i18n/`。例如德语 (`de`)：

@@ -669,12 +669,12 @@ HTML。
 ## Visualizations with Mermaid
 
 You can use [Mermaid JS](https://mermaidjs.github.io) visualizations.
-The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/master/layouts/partials/head.html)
+The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/main/layouts/partials/head.html)
 -->
 ## 使用 Mermaid 来可视化
 
 你可以使用 [Mermaid JS](https://mermaidjs.github.io) 来进行可视化展示。
-Mermaid JS 版本在 [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/master/layouts/partials/head.html)
+Mermaid JS 版本在 [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/main/layouts/partials/head.html)
 中设置。
 
 <!--
@@ -895,4 +895,3 @@ To add shortcodes to includes.
 ## 嵌入的 Katacoda 环境
 
 {{< kat-button >}}
-
