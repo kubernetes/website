@@ -79,15 +79,17 @@ might have to add an equivalent field or represent it as an annotation.
   * Beta API versions can replace earlier beta and alpha API versions, but *may not* replace GA API versions.
   * Alpha API versions can replace earlier alpha API versions, but *may not* replace GA or beta API versions.
 
-**Rule #4a: Other than the most recent API versions in each track, older API
-versions must be supported after their announced deprecation for a duration of
-no less than:**
+**Rule #4a: minimum API lifetime is determined by the API stability level**
 
-   * **GA: 12 months or 3 releases (whichever is longer)**
-   * **Beta: 9 months or 3 releases (whichever is longer)**
-   * **Alpha: 0 releases**
+   * **GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes**
+   * **Beta API versions must be supported for 9 months or 3 releases (whichever is longer) after deprecation**
+   * **Alpha API versions may be removed in any release without prior deprecation notice**
 
-This covers the [maximum supported version skew of 2 releases](/docs/setup/release/version-skew-policy/).
+This ensures beta API support covers the [maximum supported version skew of 2 releases](/docs/setup/release/version-skew-policy/).
+
+{{< note >}}
+There are no current plans for a major version revision of Kubernetes that removes GA APIs.
+{{< /note >}}
 
 {{< note >}}
 Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
@@ -237,7 +239,7 @@ API versions are supported in a series of subsequent releases.
       <td>
         <ul>
           <li>v2beta2 is deprecated, "action required" relnote</li>
-          <li>v1 is deprecated, "action required" relnote</li>
+          <li>v1 is deprecated in favor of v2, but will not be removed</li>
         </ul>
       </td>
     </tr>
@@ -264,22 +266,6 @@ API versions are supported in a series of subsequent releases.
       <td>
         <ul>
           <li>v2beta2 is removed, "action required" relnote</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>X+16</td>
-      <td>v2, v1 (deprecated)</td>
-      <td>v2</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>X+17</td>
-      <td>v2</td>
-      <td>v2</td>
-      <td>
-        <ul>
-          <li>v1 is removed, "action required" relnote</li>
         </ul>
       </td>
     </tr>
