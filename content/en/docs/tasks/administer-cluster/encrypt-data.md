@@ -27,6 +27,11 @@ The `kube-apiserver` process accepts an argument `--encryption-provider-config`
 that controls how API data is encrypted in etcd. An example configuration
 is provided below.
 
+{{< caution >}}
+**IMPORTANT:** For multi-master configurations (with two or more control plane nodes) the encryption configuration file must be the same!
+Otherwise, the kube-api-server will not be able to decrypt data stored inside the key-value store.
+{{< /caution >}}
+
 ## Understanding the encryption at rest configuration.
 
 ```yaml
