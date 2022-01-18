@@ -73,11 +73,11 @@ knows how to convert between them in both directions.  Additionally, any new
 field added in v2 must be able to round-trip to v1 and back, which means v1
 might have to add an equivalent field or represent it as an annotation.
 
-**Rule #3: An API version in a given track may not be deprecated until a new
-API version at least as stable is released.**
+**Rule #3: An API version in a given track may not be deprecated in favor of a less stable API version.**
 
-GA API versions can replace GA API versions as well as beta and alpha API
-versions.  Beta API versions *may not* replace GA API versions.
+  * GA API versions can replace beta and alpha API versions.
+  * Beta API versions can replace earlier beta and alpha API versions, but *may not* replace GA API versions.
+  * Alpha API versions can replace earlier alpha API versions, but *may not* replace GA or beta API versions.
 
 **Rule #4a: Other than the most recent API versions in each track, older API
 versions must be supported after their announced deprecation for a duration of
