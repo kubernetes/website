@@ -19,7 +19,7 @@ cluster using kubeadm:
 Before proceeding, you should carefully consider which approach best meets the needs of your applications
 and environment. [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) outlines the advantages and disadvantages of each.
 
-If you encounter issues with setting up the HA cluster, please provide us with feedback
+If you encounter issues with setting up the HA cluster, please report these
 in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
 
 See also the [upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
