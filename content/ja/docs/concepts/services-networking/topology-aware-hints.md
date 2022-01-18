@@ -1,7 +1,7 @@
 ---
 reviewers:
 - robscott
-title: Topology Aware Hints
+title: Topology Aware Hint
 content_type: concept
 weight: 45
 ---
@@ -11,7 +11,7 @@ weight: 45
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
-*Topology Aware Hints*は、クライアントがendpointをどのように使用するかについての提案を含めることにより、トポロジーを考慮したルーティングを可能にします。このアプローチでは、EndpointSliceおよび/またはEndpointオブジェクトの消費者が、これらのネットワークエンドポイントへのトラフィックを、それが発生した場所の近くにルーティングできるように、メタデータを追加します。
+*Topology Aware Hint*は、クライアントがendpointをどのように使用するかについての提案を含めることにより、トポロジーを考慮したルーティングを可能にします。このアプローチでは、EndpointSliceおよび/またはEndpointオブジェクトの消費者が、これらのネットワークエンドポイントへのトラフィックを、それが発生した場所の近くにルーティングできるように、メタデータを追加します。
 
 たとえば、ローカリティ内でトラフィックをルーティングすることで、コストを削減したり、ネットワークパフォーマンスを向上させたりできます。
 
@@ -20,9 +20,9 @@ weight: 45
 ## 動機
 
 Kubernetesクラスタは、マルチゾーン環境で展開されることが多くなっています。
-トポロジー・アウェア・ヒント_は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。endpointSliceコントローラは{{< glossary_tooltip term_id="Service" >}}のendpointを計算する際に、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
+*Topology Aware Hint*は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。endpointSliceコントローラは{{< glossary_tooltip term_id="Service" >}}のendpointを計算する際に、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
 EndpointSliceコントローラは、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに入力します。
-{{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}のようなクラスタコンポーネントは、次にこれらのヒントを消費し、それらを使用してトラフィックがルーティングされる方法に影響を与えることが可能です。(トポロジー的に近いendpointを優先する)。
+{{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}のようなクラスタコンポーネントは、次にこれらのヒントを消費し、それらを使用してトラフィックがルーティングされる方法に影響を与えることが可能です(トポロジー的に近いendpointを優先します)。
 
 
 ## Topology Aware Hintを使う
@@ -80,9 +80,9 @@ kube-proxyは、EndpointSliceコントローラーによって設定されたヒ
 
 2. **バランスの取れた割り当てを実現できません：** 場合によっては、ゾーン間でendpointのバランスの取れた割り当てを実現できないことがあります。たとえば、ゾーンaがゾーンbの2倍の大きさであるが、endpointが2つしかない場合、ゾーンaに割り当てられたendpointはゾーンbの2倍のトラフィックを受信する可能性があります。この「予想される過負荷」値が各ゾーンの許容しきい値を下回ることができない場合、コントローラーはヒントを割り当てません。重要なことに、これはリアルタイムのフィードバックに基づいていません。それでも、個々のendpointが過負荷になる可能性があります。
 
-3. **1つ以上のノードの情報が不十分です：**ノードに`topology.kubernetes.io/zone`ラベルがないか、割り当て可能なCPUの値を報告していない場合、コントロールプレーンはtopology-aware endpoint hintsを設定しないため、kube-proxyはendpointをゾーンでフィルタリングしません。
+3. **1つ以上のノードの情報が不十分です：** ノードに`topology.kubernetes.io/zone`ラベルがないか、割り当て可能なCPUの値を報告していない場合、コントロールプレーンはtopology-aware endpoint hintsを設定しないため、kube-proxyはendpointをゾーンでフィルタリングしません。
 
-4. **1つ以上のendpointにゾーンヒントが存在しません：** これが発生すると、kube-proxyはTopology Aware Hintsから、またはTopology Aware Hintsへの移行が進行中であると見なします。この状態のサービスに対してendpointをフィルタリングすることは危険であるため、kube-proxyはすべてのendpointを使用するようにフォールバックします。
+4. **1つ以上のendpointにゾーンヒントが存在しません：** これが発生すると、kube-proxyはTopology Aware Hintから、またはTopology Aware Hintへの移行が進行中であると見なします。この状態のサービスに対してendpointをフィルタリングすることは危険であるため、kube-proxyはすべてのendpointを使用するようにフォールバックします。
 
 5. **ゾーンはヒントで表されません：** kube-proxyが、実行中のゾーンをターゲットとするヒントを持つendpointを少なくとも1つ見つけることができない場合、すべてのゾーンのendpointを使用することになります。これは、既存のクラスターに新しいゾーンを追加するときに発生する可能性が最も高くなります。
 
