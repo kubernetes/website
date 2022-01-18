@@ -20,7 +20,7 @@ weight: 45
 ## 動機
 
 Kubernetesクラスタは、マルチゾーン環境で展開されることが多くなっています。
-トポロジー・アウェア・ヒント_は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。endpointSliceコントローラは{{< glossary_tooltip term_id="Service" >}のendpointを計算する際に、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
+トポロジー・アウェア・ヒント_は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。endpointSliceコントローラは{{< glossary_tooltip term_id="Service" >}}のendpointを計算する際に、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
 EndpointSliceコントローラは、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに入力します。
 {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}のようなクラスタコンポーネントは、次にこれらのヒントを消費し、それらを使用してトラフィックがルーティングされる方法に影響を与えることが可能です。(トポロジー的に近いendpointを優先する)。
 
