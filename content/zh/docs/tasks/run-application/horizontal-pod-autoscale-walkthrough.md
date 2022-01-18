@@ -492,9 +492,9 @@ status:
   - type: Resource
     resource:
       name: cpu
-    current:
-      averageUtilization: 0
-      averageValue: 0
+      current:
+        averageUtilization: 0
+        averageValue: 0
   - type: Object
     object:
       metric:
