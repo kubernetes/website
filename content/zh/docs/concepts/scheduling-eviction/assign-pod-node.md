@@ -625,13 +625,13 @@ In a three node cluster, a web application has in-memory cache such as redis. We
 ##### 始终放置在相同节点上
 
 在三节点集群中，一个 web 应用程序具有内存缓存，例如 redis。
-我们希望 web 服务器尽可能与缓存放置在同一位置。
+我们希望 web 服务器与缓存尽可能放置在同一节点上。
 
 <!--
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 -->
 下面是一个简单 redis Deployment 的 YAML 代码段，它有三个副本和选择器标签 `app=store`。
-Deployment 配置了 `PodAntiAffinity`，用来确保调度器不会将副本调度到单个节点上。
+Deployment 配置了 `PodAntiAffinity`，用来确保调度器不会将所有副本调度到同一节点上。
 
 ```yaml
 apiVersion: apps/v1
@@ -667,8 +667,8 @@ spec:
 The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that each web-server replica does not co-locate on a single node.
 -->
 下面 webserver Deployment 的 YAML 代码段中配置了 `podAntiAffinity` 和 `podAffinity`。
-这将通知调度器将它的所有副本与具有 `app=store` 选择器标签的 Pod 放置在一起。
-这还确保每个 web 服务器副本不会调度到单个节点上。
+这将通知调度器将 web-server 的所有副本与具有 `app=store` 选择器标签的 Pod 放置在一起。
+同时这还确保了不会有两个 web 服务器的副本被调度到同一节点上。
 
 ```yaml
 apiVersion: apps/v1
