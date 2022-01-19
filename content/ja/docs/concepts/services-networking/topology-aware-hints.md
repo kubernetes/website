@@ -1,7 +1,5 @@
 ---
-reviewers:
-- robscott
-title: Topology Aware Hint
+title: トポロジーを意識したヒント
 content_type: concept
 weight: 45
 ---
@@ -19,10 +17,10 @@ weight: 45
 
 ## 動機
 
-Kubernetesクラスタは、マルチゾーン環境で展開されることが多くなっています。
-*Topology Aware Hint*は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。endpointSliceコントローラは{{< glossary_tooltip term_id="Service" >}}のendpointを計算する際に、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
-EndpointSliceコントローラは、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに入力します。
-{{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}のようなクラスタコンポーネントは、次にこれらのヒントを消費し、それらを使用してトラフィックがルーティングされる方法に影響を与えることが可能です(トポロジー的に近いendpointを優先します)。
+Kubernetesクラスターは、マルチゾーン環境で展開されることが多くなっています。
+*Topology Aware Hint*は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。endpointSliceコントローラーは{{< glossary_tooltip term_id="Service" >}}のendpointを計算する際に、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
+EndpointSliceコントローラーは、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに入力します。
+{{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}のようなクラスターコンポーネントは、次にこれらのヒントを消費し、それらを使用してトラフィックがルーティングされる方法に影響を与えることが可能です(トポロジー的に近いendpointを優先します)。
 
 
 ## Topology Aware Hintを使う
@@ -40,7 +38,7 @@ EndpointSliceコントローラは、各endpointのトポロジー（地域と�
 コントローラーは、各ゾーンに比例した量のendpointを割り当てます。
 この割合は、そのゾーンで実行されているノードの[割り当て可能な](/ja/docs/task/administer-cluster/reserve-compute-resources/#node-allocatable)CPUコアを基に決定されます。
 
-たとえば、あるゾーンに2つのCPUコアがあり、別のゾーンに1つのCPUコアしかない場合、コントローラは2つのCPUコアを持つゾーンに2倍のendpointを割り当てます。
+たとえば、あるゾーンに2つのCPUコアがあり、別のゾーンに1つのCPUコアしかない場合、コントローラーは2つのCPUコアを持つゾーンに2倍のendpointを割り当てます。
 
 次の例は、ヒントが入力されたときのEndpointSliceの外観を示しています。
 
@@ -76,15 +74,15 @@ kube-proxyは、EndpointSliceコントローラーによって設定されたヒ
 
 各ノードのKubernetesコントロールプレーンとkube-proxyは、Topology Aware Hintを使用する前に、いくつかのセーフガードルールを適用します。これらがチェックアウトされない場合、kube-proxyは、ゾーンに関係なく、クラスター内のどこからでもendpointを選択します。
 
-1. **endpointの数が不十分です：** クラスター内のゾーンよりもendpointが少ない場合、コントローラーはヒントを割り当てません。
+1. **endpointの数が不十分です:** クラスター内のゾーンよりもendpointが少ない場合、コントローラーはヒントを割り当てません。
 
-2. **バランスの取れた割り当てを実現できません：** 場合によっては、ゾーン間でendpointのバランスの取れた割り当てを実現できないことがあります。たとえば、ゾーンaがゾーンbの2倍の大きさであるが、endpointが2つしかない場合、ゾーンaに割り当てられたendpointはゾーンbの2倍のトラフィックを受信する可能性があります。この「予想される過負荷」値が各ゾーンの許容しきい値を下回ることができない場合、コントローラーはヒントを割り当てません。重要なことに、これはリアルタイムのフィードバックに基づいていません。それでも、個々のendpointが過負荷になる可能性があります。
+2. **バランスの取れた割り当てを実現できません:** 場合によっては、ゾーン間でendpointのバランスの取れた割り当てを実現できないことがあります。たとえば、ゾーンaがゾーンbの2倍の大きさであるが、endpointが2つしかない場合、ゾーンaに割り当てられたendpointはゾーンbの2倍のトラフィックを受信する可能性があります。この「予想される過負荷」値が各ゾーンの許容しきい値を下回ることができない場合、コントローラーはヒントを割り当てません。重要なことに、これはリアルタイムのフィードバックに基づいていません。それでも、個々のendpointが過負荷になる可能性があります。
 
-3. **1つ以上のノードの情報が不十分です：** ノードに`topology.kubernetes.io/zone`ラベルがないか、割り当て可能なCPUの値を報告していない場合、コントロールプレーンはtopology-aware endpoint hintsを設定しないため、kube-proxyはendpointをゾーンでフィルタリングしません。
+3. **1つ以上のノードの情報が不十分です:** ノードに`topology.kubernetes.io/zone`ラベルがないか、割り当て可能なCPUの値を報告していない場合、コントロールプレーンはtopology-aware endpoint hintsを設定しないため、kube-proxyはendpointをゾーンでフィルタリングしません。
 
-4. **1つ以上のendpointにゾーンヒントが存在しません：** これが発生すると、kube-proxyはTopology Aware Hintから、またはTopology Aware Hintへの移行が進行中であると見なします。この状態のサービスに対してendpointをフィルタリングすることは危険であるため、kube-proxyはすべてのendpointを使用するようにフォールバックします。
+4. **1つ以上のendpointにゾーンヒントが存在しません:** これが発生すると、kube-proxyはTopology Aware Hintから、またはTopology Aware Hintへの移行が進行中であると見なします。この状態のサービスに対してendpointをフィルタリングすることは危険であるため、kube-proxyはすべてのendpointを使用するようにフォールバックします。
 
-5. **ゾーンはヒントで表されません：** kube-proxyが、実行中のゾーンをターゲットとするヒントを持つendpointを少なくとも1つ見つけることができない場合、すべてのゾーンのendpointを使用することになります。これは、既存のクラスターに新しいゾーンを追加するときに発生する可能性が最も高くなります。
+5. **ゾーンはヒントで表されません:** kube-proxyが、実行中のゾーンをターゲットとするヒントを持つendpointを少なくとも1つ見つけることができない場合、すべてのゾーンのendpointを使用することになります。これは、既存のクラスターに新しいゾーンを追加するときに発生する可能性が最も高くなります。
 
 ## Constraints
 
@@ -95,7 +93,7 @@ kube-proxyは、EndpointSliceコントローラーによって設定されたヒ
 * EndpointSliceコントローラーは、各ゾーンの比率を計算するときに、準備ができていないノードを無視します。ノードの大部分の準備ができていない場合、これは意図しない結果をもたらす可能性があります。
 
 * EndpointSliceコントローラーは、各ゾーンの比率を計算するデプロイ時に{{< glossary_tooltip
-  text="tolerations" term_id="toleration" >}}を考慮しません。サービスをバックアップするPodがクラスタ内のノードのサブセットに制限されている場合、これは考慮されません。
+  text="tolerations" term_id="toleration" >}}を考慮しません。サービスをバックアップするPodがクラスター内のノードのサブセットに制限されている場合、これは考慮されません。
 
 * これは、オートスケーリングと相性が悪いかもしれません。例えば、多くのトラフィックが1つのゾーンから発信されている場合、そのゾーンに割り当てられたendpointのみがそのトラフィックを処理することになります。その結果、{{< glossary_tooltip
   text="Horizontal Pod Autoscaler" term_id="horizontal-pod-autoscaler" >}}がこのイベントを拾えなくなったり、新しく追加されたPodが別のゾーンで開始されたりする可能性があります。
