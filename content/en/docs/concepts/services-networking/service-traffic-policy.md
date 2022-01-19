@@ -9,7 +9,7 @@ weight: 45
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 _Service Internal Traffic Policy_ enables internal traffic restrictions to only route
 internal traffic to endpoints within the node the traffic originated from. The
