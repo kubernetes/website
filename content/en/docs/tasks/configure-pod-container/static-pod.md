@@ -204,14 +204,13 @@ NAME                       READY     STATUS    RESTARTS   AGE
 static-web-my-node1        1/1       Running   0          12s
 ```
 
-Back on your node where the kubelet is running, you can try to stop the Docker
-container manually.
+Back on your node where the kubelet is running, you can try to stop the container manually.
 You'll see that, after a time, the kubelet will notice and will restart the Pod
 automatically:
 
 ```shell
 # Run these commands on the node where the kubelet is running
-docker stop f6d05272b57e # replace with the ID of your container
+crictl stop f6d05272b57e # replace with the ID of your container
 sleep 20
 crictl ps
 ```
