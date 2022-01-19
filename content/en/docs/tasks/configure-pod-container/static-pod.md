@@ -42,7 +42,7 @@ The `spec` of a static Pod cannot refer to other API objects
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-This page assumes you're using {{< glossary_tooltip term_id="docker" >}} to run Pods,
+This page assumes you're using {{< glossary_tooltip term_id="containerd" >}} to run Pods,
 and that your nodes are running the Fedora operating system.
 Instructions for other distributions or Kubernetes installations may vary.
 
@@ -156,7 +156,7 @@ already be running.
 You can view running containers (including static Pods) by running (on the node):
 ```shell
 # Run this command on the node where the kubelet is running
-docker ps
+crictl ps
 ```
 
 The output might be something like:
@@ -213,7 +213,7 @@ automatically:
 # Run these commands on the node where the kubelet is running
 docker stop f6d05272b57e # replace with the ID of your container
 sleep 20
-docker ps
+crictl ps
 ```
 ```
 CONTAINER ID        IMAGE         COMMAND                CREATED       ...
@@ -230,11 +230,11 @@ The running kubelet periodically scans the configured directory (`/etc/kubelet.d
 #
 mv /etc/kubelet.d/static-web.yaml /tmp
 sleep 20
-docker ps
+crictl ps
 # You see that no nginx container is running
 mv /tmp/static-web.yaml  /etc/kubelet.d/
 sleep 20
-docker ps
+crictl ps
 ```
 ```
 CONTAINER ID        IMAGE         COMMAND                CREATED           ...
