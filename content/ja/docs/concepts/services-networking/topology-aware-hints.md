@@ -18,14 +18,14 @@ weight: 45
 ## 動機
 
 Kubernetesクラスターは、マルチゾーン環境で展開されることが多くなっています。
-*Topology Aware Hint*は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。endpointSliceコントローラーは{{< glossary_tooltip term_id="Service" >}}のendpointを計算する際に、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
+*Topology Aware Hint*は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。EndpointSliceコントローラーは{{< glossary_tooltip term_id="Service" >}}のendpointを計算する際に、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
 EndpointSliceコントローラーは、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに入力します。
 {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}のようなクラスターコンポーネントは、次にこれらのヒントを消費し、それらを使用してトラフィックがルーティングされる方法に影響を与えることが可能です(トポロジー的に近いendpointを優先します)。
 
 
 ## Topology Aware Hintを使う
 
-`service.kubernetes.io/topology-aware-hints`アノテーションを`auto`に設定すると、サービスに対してTopology Aware Hintを有効にすることができます。これは、EndpointSliceコントローラーが安全と判断した場合に、トポロジーヒントを設定するように指示します。
+`service.kubernetes.io/topology-aware-hints`アノテーションを`auto`に設定すると、サービスに対してTopology Aware Hintを有効にすることができます。これはEndpointSliceコントローラーが安全と判断した場合に、トポロジーヒントを設定するように指示します。
 重要なのは、これはヒントが常に設定されることを保証するものではないことです。
 
 ## 使い方 {#implementation}
@@ -40,7 +40,7 @@ EndpointSliceコントローラーは、各endpointのトポロジー（地域�
 
 たとえば、あるゾーンに2つのCPUコアがあり、別のゾーンに1つのCPUコアしかない場合、コントローラーは2つのCPUコアを持つゾーンに2倍のendpointを割り当てます。
 
-次の例は、ヒントが入力されたときのEndpointSliceの外観を示しています。
+次の例は、ヒントが入力されたときのEndpointSliceの様子を示しています。
 
 ```yaml
 apiVersion: discovery.k8s.io/v1
@@ -68,7 +68,7 @@ endpoints:
 
 ### kube-proxy {#implementation-kube-proxy}
 
-kube-proxyは、EndpointSliceコントローラーによって設定されたヒントに基づいて、ルーティング先のendpointをフィルター処理します。ほとんどの場合、これは、kube-proxyが同じゾーン内のendpointにトラフィックをルーティングできることを意味します。コントローラーが別のゾーンからendpointを割り当てて、ゾーン間でendpointがより均等に分散されるようにする場合があります。これにより、一部のトラフィックが他のゾーンにルーティングされます。
+kube-proxyは、EndpointSliceコントローラーによって設定されたヒントに基づいて、ルーティング先のendpointをフィルター処理します。ほとんどの場合、これはkube-proxyが同じゾーン内のendpointにトラフィックをルーティングできることを意味します。コントローラーが別のゾーンからendpointを割り当てて、ゾーン間でendpointがより均等に分散されるようにする場合があります。これにより、一部のトラフィックが他のゾーンにルーティングされます。
 
 ## セーフガード
 
@@ -82,20 +82,20 @@ kube-proxyは、EndpointSliceコントローラーによって設定されたヒ
 
 4. **1つ以上のendpointにゾーンヒントが存在しません:** これが発生すると、kube-proxyはTopology Aware Hintから、またはTopology Aware Hintへの移行が進行中であると見なします。この状態のサービスに対してendpointをフィルタリングすることは危険であるため、kube-proxyはすべてのendpointを使用するようにフォールバックします。
 
-5. **ゾーンはヒントで表されません:** kube-proxyが、実行中のゾーンをターゲットとするヒントを持つendpointを少なくとも1つ見つけることができない場合、すべてのゾーンのendpointを使用することになります。これは、既存のクラスターに新しいゾーンを追加するときに発生する可能性が最も高くなります。
+5. **ゾーンはヒントで表されません:** kube-proxyが、実行中のゾーンをターゲットとするヒントを持つendpointを少なくとも1つ見つけることができない場合、すべてのゾーンのendpointを使用することになります。これは既存のクラスターに新しいゾーンを追加するときに発生する可能性が最も高くなります。
 
-## Constraints
+## 制約事項
 
 * サービスで`externalTrafficPolicy`または`internalTrafficPolicy`が`Local`に設定されている場合、Topology Aware Hintは使用されません。同じServiceではなく、異なるServiceの同じクラスターで両方の機能を使用することができます。
 
-* このアプローチは、ゾーンのサブセットから発信されるトラフィックの割合が高いサービスではうまく機能しません。代わりに、これは、着信トラフィックが各ゾーンのノードの容量にほぼ比例することを前提としています。
+* このアプローチは、ゾーンのサブセットから発信されるトラフィックの割合が高いサービスではうまく機能しません。代わりに、これは着信トラフィックが各ゾーンのノードの容量にほぼ比例することを前提としています。
 
 * EndpointSliceコントローラーは、各ゾーンの比率を計算するときに、準備ができていないノードを無視します。ノードの大部分の準備ができていない場合、これは意図しない結果をもたらす可能性があります。
 
 * EndpointSliceコントローラーは、各ゾーンの比率を計算するデプロイ時に{{< glossary_tooltip
   text="tolerations" term_id="toleration" >}}を考慮しません。サービスをバックアップするPodがクラスター内のノードのサブセットに制限されている場合、これは考慮されません。
 
-* これは、オートスケーリングと相性が悪いかもしれません。例えば、多くのトラフィックが1つのゾーンから発信されている場合、そのゾーンに割り当てられたendpointのみがそのトラフィックを処理することになります。その結果、{{< glossary_tooltip
+* これはオートスケーリングと相性が悪いかもしれません。例えば、多くのトラフィックが1つのゾーンから発信されている場合、そのゾーンに割り当てられたendpointのみがそのトラフィックを処理することになります。その結果、{{< glossary_tooltip
   text="Horizontal Pod Autoscaler" term_id="horizontal-pod-autoscaler" >}}がこのイベントを拾えなくなったり、新しく追加されたPodが別のゾーンで開始されたりする可能性があります。
 
 ## {{% heading "whatsnext" %}}
