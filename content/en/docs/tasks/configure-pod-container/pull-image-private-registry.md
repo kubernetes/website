@@ -82,7 +82,7 @@ secret) then you can customise the Secret before storing it.
 Be sure to:
 
 - set the name of the data item to `.dockerconfigjson`
-- base64 encode the docker file and paste that string, unbroken
+- base64 encode the Docker configuration file and then paste that string, unbroken
   as the value for field `data[".dockerconfigjson"]`
 - set `type` to `kubernetes.io/dockerconfigjson`
 
