@@ -117,7 +117,7 @@ with the additional entries specified at the bottom.
 
 ## Why does the kubelet manage the hosts file? {#why-does-kubelet-manage-the-hosts-file}
 
-The kubelet [manages](https://github.com/kubernetes/kubernetes/issues/14633) the
+The kubelet manages the
 `hosts` file for each container of the Pod to prevent the container runtime from
 modifying the file after the containers have already been started.
 For e.g. earlier Docker used to [modify](https://github.com/moby/moby/issues/17190) the `hosts` file after the containers start.
