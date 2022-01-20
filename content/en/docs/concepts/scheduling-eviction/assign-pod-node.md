@@ -324,7 +324,7 @@ spec:
         image: redis:3.2-alpine
 ```
 
-The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that each web-server replica does not co-locate on a single node.
+The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that there won't be more than one web-server replica co-located on a single node.
 
 ```yaml
 apiVersion: apps/v1
