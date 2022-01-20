@@ -71,20 +71,23 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `CSIMigration` | `false` | 알파 | 1.14 | 1.16 |
 | `CSIMigration` | `true` | 베타 | 1.17 | |
 | `CSIMigrationAWS` | `false` | 알파 | 1.14 | |
-| `CSIMigrationAWS` | `false` | 베타 | 1.17 | |
+| `CSIMigrationAWS` | `false` | 베타 | 1.17 | 1.22 |
+| `CSIMigrationAWS` | `true` | 베타 | 1.23 | |
 | `CSIMigrationAzureDisk` | `false` | 알파 | 1.15 | 1.18 |
-| `CSIMigrationAzureDisk` | `false` | 베타 | 1.19 | |
+| `CSIMigrationAzureDisk` | `false` | 베타 | 1.19 | 1.22 |
+| `CSIMigrationAzureDisk` | `true` | 베타 | 1.23 | |
 | `CSIMigrationAzureFile` | `false` | 알파 | 1.15 | 1.19 |
 | `CSIMigrationAzureFile` | `false` | 베타 | 1.21 | |
 | `CSIMigrationGCE` | `false` | 알파 | 1.14 | 1.16 |
-| `CSIMigrationGCE` | `false` | 베타 | 1.17 | |
+| `CSIMigrationGCE` | `false` | 베타 | 1.17 | 1.22 |
+| `CSIMigrationGCE` | `true` | 베타 | 1.23 | |
 | `CSIMigrationOpenStack` | `false` | 알파 | 1.14 | 1.17 |
 | `CSIMigrationOpenStack` | `true` | 베타 | 1.18 | |
 | `CSIMigrationvSphere` | `false` | 베타 | 1.19 | |
+| `CSIMigrationPortworx` | `false` | 알파 | 1.23 | |
+| `CSIMigrationRBD` | `false` | 알파 | 1.23 | |
 | `CSIStorageCapacity` | `false` | 알파 | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | 베타 | 1.21 | |
-| `CSIVolumeFSGroupPolicy` | `false` | 알파 | 1.19 | 1.19 |
-| `CSIVolumeFSGroupPolicy` | `true` | 베타 | 1.20 | |
 | `CSIVolumeHealth` | `false` | 알파 | 1.21 | |
 | `CSRDuration` | `true` | 베타 | 1.22 | |
 | `ConfigurableFSGroupPolicy` | `false` | 알파 | 1.18 | 1.19 |
@@ -92,6 +95,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ControllerManagerLeaderMigration` | `false` | 알파 | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | 베타 | 1.22 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | 알파 | 1.12 | |
+| `CustomResourceValidationExpressions` | `false` | 알파 | 1.23 | |
 | `DaemonSetUpdateSurge` | `false` | 알파 | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | 베타 | 1.22 | |
 | `DefaultPodTopologySpread` | `false` | 알파 | 1.19 | 1.19 |
@@ -108,7 +112,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `EfficientWatchResumption` | `true` | 베타 | 1.21 | |
 | `EndpointSliceTerminatingCondition` | `false` | 알파 | 1.20 | 1.21 |
 | `EndpointSliceTerminatingCondition` | `true` | 베타 | 1.22 | |
-| `EphemeralContainers` | `false` | 알파 | 1.16 | |
+| `EphemeralContainers` | `false` | 알파 | 1.16 | 1.22 |
+| `EphemeralContainers` | `true` | 베타 | 1.23 | |
 | `ExpandCSIVolumes` | `false` | 알파 | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | 베타 | 1.16 | |
 | `ExpandedDNSConfig` | `false` | 알파 | 1.22 | |
@@ -117,25 +122,24 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ExpandPersistentVolumes` | `false` | 알파 | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | 베타 | 1.11 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | 베타 | 1.5 | |
-| `GenericEphemeralVolume` | `false` | 알파 | 1.19 | 1.20 |
-| `GenericEphemeralVolume` | `true` | 베타 | 1.21 | |
 | `GracefulNodeShutdown` | `false` | 알파 | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | 베타 | 1.21 | |
+| `GRPCContainerProbe` | `false` | 알파 | 1.23 | |
 | `HPAContainerMetrics` | `false` | 알파 | 1.20 | |
 | `HPAScaleToZero` | `false` | 알파 | 1.16 | |
+| `IdentifyPodOS` | `false` | 알파 | 1.23 | |
 | `IndexedJob` | `false` | 알파 | 1.21 | 1.21 |
 | `IndexedJob` | `true` | 베타 | 1.22 | |
-| `IngressClassNamespacedParams` | `false` | 알파 | 1.21 | 1.21 |
-| `IngressClassNamespacedParams` | `true` | 베타 | 1.22 | |
 | `InTreePluginAWSUnregister` | `false` | 알파 | 1.21 | |
 | `InTreePluginAzureDiskUnregister` | `false` | 알파 | 1.21 | |
 | `InTreePluginAzureFileUnregister` | `false` | 알파 | 1.21 | |
 | `InTreePluginGCEUnregister` | `false` | 알파 | 1.21 | |
 | `InTreePluginOpenStackUnregister` | `false` | 알파 | 1.21 | |
 | `InTreePluginvSphereUnregister` | `false` | 알파 | 1.21 | |
-| `IPv6DualStack` | `false` | 알파 | 1.15 | 1.20 |
-| `IPv6DualStack` | `true` | 베타 | 1.21 | |
-| `JobTrackingWithFinalizers` | `false` | 알파 | 1.22 | |
+| `JobMutableNodeSchedulingDirectives` | `true` | 베타 | 1.23 | |
+| `JobReadyPods` | `false` | 알파 | 1.23 | |
+| `JobTrackingWithFinalizers` | `false` | 알파 | 1.22 | 1.22 |
+| `JobTrackingWithFinalizers` | `true` | 베타 | 1.23 | |
 | `KubeletCredentialProviders` | `false` | 알파 | 1.20 | |
 | `KubeletInUserNamespace` | `false` | 알파 | 1.22 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | 알파 | 1.21 | |
@@ -159,7 +163,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `PodAffinityNamespaceSelector` | `true` | 베타 | 1.22 | |
 | `PodOverhead` | `false` | 알파 | 1.16 | 1.17 |
 | `PodOverhead` | `true` | 베타 | 1.18 | |
-| `PodSecurity` | `false` | 알파 | 1.22 | |
+| `PodSecurity` | `false` | 알파 | 1.22 | 1.22 |
+| `PodSecurity` | `true` | 베타 | 1.23 | |
 | `PreferNominatedNode` | `false` | 알파 | 1.21 | 1.21 |
 | `PreferNominatedNode` | `true` | 베타 | 1.22 | |
 | `ProbeTerminationGracePeriod` | `false` | 알파 | 1.21 | 1.21 |
@@ -168,6 +173,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ProxyTerminatingEndpoints` | `false` | 알파 | 1.22 | |
 | `QOSReserved` | `false` | 알파 | 1.11 | |
 | `ReadWriteOncePod` | `false` | 알파 | 1.22 | |
+| `RecoverVolumeExpansionFailure` | `false` | 알파 | 1.23 | |
 | `RemainingItemCount` | `false` | 알파 | 1.15 | 1.15 |
 | `RemainingItemCount` | `true` | 베타 | 1.16 | |
 | `RemoveSelfLink` | `false` | 알파 | 1.16 | 1.19 |
@@ -183,22 +189,22 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ServiceLoadBalancerClass` | `true` | 베타 | 1.22 | |
 | `SizeMemoryBackedVolumes` | `false` | 알파 | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | 베타 | 1.22 | |
-| `StatefulSetMinReadySeconds` | `false` | 알파 | 1.22 | |
+| `StatefulSetMinReadySeconds` | `false` | 알파 | 1.22 | 1.22 |
+| `StatefulSetMinReadySeconds` | `true` | 베타 | 1.23 | |
 | `StorageVersionAPI` | `false` | 알파 | 1.20 | |
 | `StorageVersionHash` | `false` | 알파 | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | 베타 | 1.15 | |
 | `SuspendJob` | `false` | 알파 | 1.21 | 1.21 |
 | `SuspendJob` | `true` | 베타 | 1.22 | |
-| `TTLAfterFinished` | `false` | 알파 | 1.12 | 1.20 |
-| `TTLAfterFinished` | `true` | 베타 | 1.21 | |
-| `TopologyAwareHints` | `false` | 알파 | 1.21 | |
+| `TopologyAwareHints` | `false` | 알파 | 1.21 | 1.22 |
+| `TopologyAwareHints` | `true` | 베타 | 1.23 | |
 | `TopologyManager` | `false` | 알파 | 1.16 | 1.17 |
 | `TopologyManager` | `true` | 베타 | 1.18 | |
 | `VolumeCapacityPriority` | `false` | 알파 | 1.21 | - |
 | `WinDSR` | `false` | 알파 | 1.14 | |
 | `WinOverlay` | `false` | 알파 | 1.14 | 1.19 |
 | `WinOverlay` | `true` | 베타 | 1.20 | |
-| `WindowsHostProcessContainers` | `false` | 알파 | 1.22 | |
+| `WindowsHostProcessContainers` | `false` | 베타 | 1.23 | |
 {{< /table >}}
 
 ### GA 또는 사용 중단된 기능을 위한 기능 게이트
@@ -227,6 +233,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `BoundServiceAccountTokenVolume` | `false` | 알파 | 1.13 | 1.20 |
 | `BoundServiceAccountTokenVolume` | `true` | 베타 | 1.21 | 1.21 |
 | `BoundServiceAccountTokenVolume` | `true` | GA | 1.22 | - |
+| `ConfigurableFSGroupPolicy` | `true` | GA | 1.23 | |
 | `CRIContainerLogRotation` | `false` | 알파 | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | 베타 | 1.11 | 1.20 |
 | `CRIContainerLogRotation` | `true` | GA | 1.21 | - |
@@ -257,6 +264,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `CSIServiceAccountToken` | `false` | 알파 | 1.20 | 1.20 |
 | `CSIServiceAccountToken` | `true` | 베타 | 1.21 | 1.21 |
 | `CSIServiceAccountToken` | `true` | GA | 1.22 | |
+| `CSIVolumeFSGroupPolicy` | `false` | 알파 | 1.19 | 1.19 |
+| `CSIVolumeFSGroupPolicy` | `true` | 베타 | 1.20 | 1.22 |
+| `CSIVolumeFSGroupPolicy` | `true` | GA | 1.23 | |
 | `CronJobControllerV2` | `false` | 알파 | 1.20 | 1.20 |
 | `CronJobControllerV2` | `true` | 베타 | 1.21 | 1.21 |
 | `CronJobControllerV2` | `true` | GA | 1.22 | - |
@@ -311,6 +321,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | - |
 | `GCERegionalPersistentDisk` | `true` | 베타 | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
+| `GenericEphemeralVolume` | `false` | 알파 | 1.19 | 1.20 |
+| `GenericEphemeralVolume` | `true` | 베타 | 1.21 | 1.22 |
+| `GenericEphemeralVolume` | `true` | GA | 1.23 | - |
 | `HugePageStorageMediumSize` | `false` | 알파 | 1.18 | 1.18 |
 | `HugePageStorageMediumSize` | `true` | 베타 | 1.19 | 1.21 |
 | `HugePageStorageMediumSize` | `true` | GA | 1.22 | - |
@@ -325,8 +338,14 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ImmutableEphemeralVolumes` | `false` | 알파 | 1.18 | 1.18 |
 | `ImmutableEphemeralVolumes` | `true` | 베타 | 1.19 | 1.20 |
 | `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | |
+| `IngressClassNamespacedParams` | `false` | 알파 | 1.21 | 1.21 |
+| `IngressClassNamespacedParams` | `true` | 베타 | 1.22 | 1.22 |
+| `IngressClassNamespacedParams` | `true` | GA | 1.23 | - |
 | `Initializers` | `false` | 알파 | 1.7 | 1.13 |
 | `Initializers` | - | 사용중단 | 1.14 | - |
+| `IPv6DualStack` | `false` | 알파 | 1.15 | 1.20 |
+| `IPv6DualStack` | `true` | 베타 | 1.21 | 1.22 |
+| `IPv6DualStack` | `true` | GA | 1.23 | - |
 | `KubeletConfigFile` | `false` | 알파 | 1.8 | 1.9 |
 | `KubeletConfigFile` | - | 사용중단 | 1.10 | - |
 | `KubeletPluginsWatcher` | `false` | 알파 | 1.11 | 1.11 |
@@ -356,6 +375,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `PersistentLocalVolumes` | `false` | 알파 | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | 베타 | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
+| `PodAndContainerStatsFromCRI` | `false` | 알파 | 1.23 | |
 | `PodDisruptionBudget` | `false` | 알파 | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | 베타 | 1.5 | 1.20 |
 | `PodDisruptionBudget` | `true` | GA | 1.21 | - |
@@ -435,6 +455,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `SupportPodPidsLimit` | `true` | GA | 1.20 | - |
 | `Sysctls` | `true` | 베타 | 1.11 | 1.20 |
 | `Sysctls` | `true` | GA | 1.21 | |
+| `TTLAfterFinished` | `false` | 알파 | 1.12 | 1.20 |
+| `TTLAfterFinished` | `true` | 베타 | 1.21 | 1.22 |
+| `TTLAfterFinished` | `true` | GA | 1.23 | - |
 | `TaintBasedEvictions` | `false` | 알파 | 1.6 | 1.12 |
 | `TaintBasedEvictions` | `true` | 베타 | 1.13 | 1.17 |
 | `TaintBasedEvictions` | `true` | GA | 1.18 | - |
@@ -615,6 +638,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   GCE-PD 인-트리 플러그인에서 PD CSI 플러그인으로 라우팅할 수 있다. 노드에
   PD CSI 플러그인이 설치 및 구성이 되어 있지 않은 경우 인-트리 GCE 플러그인으로 폴백을
   지원한다. CSIMigration 기능 플래그가 필요하다.
+- `CSIMigrationRBD`: RBD 트리 내(in-tree) 플러그인으로 가는 볼륨 작업을 
+  Ceph RBD CSI 플러그인으로 라우트하는 심(shim)과 변환 로직을 활성화한다. 
+  클러스터에 CSIMigration 및 CSIMigrationRBD 기능 플래그가 활성화되어 있어야 하고, 
+  Ceph CSI 플러그인이 설치 및 설정되어 있어야 한다. 
+  이 플래그는 트리 내(in-tree) RBD 플러그인 등록을 금지시키는 
+  `InTreePluginRBDUnregister` 기능 플래그에 의해 
+  사용 중단되었다.
 - `CSIMigrationGCEComplete`: kubelet 및 볼륨 컨트롤러에서 GCE-PD
   인-트리 플러그인 등록을 중지하고 shim 및 변환 로직을 통해 볼륨 작업을 GCE-PD
   인-트리 플러그인에서 PD CSI 플러그인으로 라우팅할 수 있다.
@@ -641,6 +671,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   CSIMigrationvSphere 기능 플래그가 활성화되고 vSphere CSI 플러그인이
   클러스터의 모든 노드에 설치 및 구성이 되어 있어야 한다. 이 플래그는 인-트리 vsphere 플러그인의 등록을 막는 `InTreePluginvSphereUnregister` 기능 플래그로 인해
   더 이상 사용되지 않는다.
+- `CSIMigrationPortworx`: Portworx 트리 내(in-tree) 플러그인으로 가는 볼륨 작업을 
+  Portworx CSI 플러그인으로 라우트하는 심(shim)과 변환 로직을 활성화한다. 
+  Portworx CSI 드라이버가 설치 및 설정되어 있어야 하며, kube-controller-manager와 kubelet 환경 설정 내에 `CSIMigrationPortworx=true` 기능 게이트가 활성화되어 있어야 한다.
 - `CSINodeInfo`: csi.storage.k8s.io에서 CSINodeInfo API 오브젝트와 관련된 모든 로직을 활성화한다.
 - `CSIPersistentVolume`: [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   호환 볼륨 플러그인을 통해 프로비저닝된 볼륨을 감지하고
@@ -669,6 +702,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   동일한 컨트롤러의 버전 1이 선택된다.
 - `CustomCPUCFSQuotaPeriod`: [kubelet config](/docs/tasks/administer-cluster/kubelet-config-file/)에서
   `cpuCFSQuotaPeriod` 를 노드가 변경할 수 있도록 한다.
+- `CustomResourceValidationExpressions`: `x-kubernetes-validations` 확장 기능으로 작성된 검증 규칙을 기반으로 커스텀 리소스를 검증하는 표현 언어 검증(expression language validation)을 CRD에 활성화한다.
 - `CustomPodDNS`: `dnsConfig` 속성을 사용하여 파드의 DNS 설정을 사용자 정의할 수 있다.
   자세한 내용은 [파드의 DNS 설정](/ko/docs/concepts/services-networking/dns-pod-service/#pod-dns-config)을
   확인한다.
@@ -758,7 +792,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   파드를 정상적으로 종료하려고 시도한다. 자세한 내용은
   [Graceful Node Shutdown](/ko/docs/concepts/architecture/nodes/#그레이스풀-graceful-노드-셧다운)을
   참조한다.
-- `HPAContainerMetrics`: `HorizontalPodAutoscaler`를 활성화하여 대상 파드의
+- `GRPCContainerProbe`: 활성 프로브(Liveness Probe), 준비성 프로브(Readiness Probe), 스타트업 프로브(Startup Probe)에 대해 gRPC 프로브를 활성화한다. [활성/준비성/스타트업 프로브 구성하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)를 참조한다.
+- `HPAContainerMetrics`: `HorizontalPodAutoscaler` 를 활성화하여 대상 파드의
   개별 컨테이너 메트릭을 기반으로 확장한다.
 - `HPAScaleToZero`: 사용자 정의 또는 외부 메트릭을 사용할 때 `HorizontalPodAutoscaler` 리소스에 대해
   `minReplicas` 를 0으로 설정한다.
@@ -769,6 +804,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `HyperVContainer`: 윈도우 컨테이너를 위한
   [Hyper-V 격리](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/manage-containers/hyperv-container)
   기능을 활성화한다.
+- `IdentifyPodOS`: 파드 OS 필드를 지정할 수 있게 한다. 이를 통해 API 서버 관리 시 파드의 OS를 정석적인 방법으로 알 수 있다. 
+  쿠버네티스 {{< skew currentVersion >}}에서, `pod.spec.os.name` 에 사용할 수 있는 값은 `windows` 와 `linux` 이다.
 - `ImmutableEphemeralVolumes`: 안정성과 성능 향상을 위해 개별 시크릿(Secret)과 컨피그맵(ConfigMap)을
   변경할 수 없는(immutable) 것으로 표시할 수 있다.
 - `InTreePluginAWSUnregister`: kubelet 및 볼륨 컨트롤러에 aws-ebs 인-트리 
@@ -792,6 +829,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   비동기 조정을 허용한다.
 - `IPv6DualStack`: IPv6을 위한 [이중 스택](/ko/docs/concepts/services-networking/dual-stack/)
   기능을 활성화한다.
+- `JobMutableNodeSchedulingDirectives`: [잡](/ko/docs/concepts/workloads/controllers/job/)의 
+  파드 템플릿에 있는 노드 스케줄링 지시를 업데이트할 수 있게 한다.
+- `JobReadyPods`: 파드 [컨디션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-조건)이 
+  `Ready`인 파드의 수를 추적하는 기능을 활성화한다. 
+  `Ready`인 파드의 수는 [잡](/ko/docs/concepts/workloads/controllers/job/) 상태의 
+  [status](/docs/reference/kubernetes-api/workload-resources/job-v1/#JobStatus) 
+  필드에 기록된다.
 - `JobTrackingWithFinalizers`: 클러스터에 무제한으로 남아 있는 파드에 의존하지 않고 
   [잡](/ko/docs/concepts/workloads/controllers/job)의 완료를 추적할 수 있다.
   잡 컨트롤러는 완료된 파드를 추적하기 위해 
@@ -851,6 +895,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
    [파드 삭제 비용](/ko/docs/concepts/workloads/controllers/replicaset/#파드-삭제-비용) 기능을 활성화한다.
 - `PersistentLocalVolumes`: 파드에서 `local` 볼륨 유형의 사용을 활성화한다.
   `local` 볼륨을 요청하는 경우 파드 어피니티를 지정해야 한다.
+- `PodAndContainerStatsFromCRI`: kubelet이 컨테이너와 파드 통계(stat) 정보를 cAdvisor가 아니라 
+  CRI 컨테이너 런타임으로부터 수집하도록 설정한다.
 - `PodDisruptionBudget`: [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) 기능을 활성화한다.
 - `PodAffinityNamespaceSelector`: [파드 어피니티 네임스페이스 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#네임스페이스-셀렉터) 기능과
   [CrossNamespacePodAffinity](/ko/docs/concepts/policy/resource-quotas/#네임스페이스-간-파드-어피니티-쿼터) 쿼터 범위 기능을 활성화한다.
@@ -880,6 +926,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   (현재 메모리만 해당).
 - `ReadWriteOncePod`: `ReadWriteOncePod` 퍼시스턴트 볼륨 엑세스 모드를
   사용한다.
+- `RecoverVolumeExpansionFailure`: 이전에 실패했던 볼륨 확장으로부터 복구할 수 있도록, 
+  사용자가 PVC를 더 작은 크기로 변경할 수 있도록 한다. 
+  [볼륨 확장 시 오류 복구](/ko/docs/concepts/storage/persistent-volumes/#볼륨-확장-시-오류-복구)에서 
+  자세한 사항을 확인한다.
 - `RemainingItemCount`: API 서버가
   [청크(chunking) 목록 요청](/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks)에 대한
   응답에서 남은 항목 수를 표시하도록 허용한다.
