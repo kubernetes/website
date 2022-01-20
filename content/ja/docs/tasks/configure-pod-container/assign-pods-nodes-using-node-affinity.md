@@ -111,5 +111,5 @@ weight: 120
 
 ## {{% heading "whatsnext" %}}
 
-[Node Affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)についてさらに学ぶ。
+[Node Affinity](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)についてさらに学ぶ。
 
