@@ -120,7 +120,12 @@ with the additional entries specified at the bottom.
 The kubelet manages the
 `hosts` file for each container of the Pod to prevent the container runtime from
 modifying the file after the containers have already been started.
-For e.g. earlier Docker used to [modify](https://github.com/moby/moby/issues/17190) the `hosts` file after the containers start.
+Historically, Kubernetes always used Docker Engine as its container runtime, and Docker Engine would
+then modify the `/etc/hosts` file after each container had started.
+
+Current Kubernetes can use a variety of container runtimes; even so, the kubelet manages the
+hosts file within each container so that the outcome is as intended regardless of which
+container runtime you use.
 
 {{< caution >}}
 Avoid making manual changes to the hosts file inside a container.
