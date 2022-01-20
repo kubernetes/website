@@ -66,5 +66,5 @@ _スコアリング_ ステップでは、Podを割り当てるのに最も適�
 * [Podのオーバーヘッド](/docs/concepts/scheduling-eviction/pod-overhead/)について学んでください。
 * ボリュームを使用するPodのスケジューリングについて以下で学んでください。
   * [Volume Topology Support](/docs/concepts/storage/storage-classes/#volume-binding-mode)
-  * [ストレージ容量の追跡](/ja//docs/concepts/storage/storage-capacity/)
+  * [ストレージ容量の追跡](/ja//ja/docs/concepts/storage/storage-capacity/)
   * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)
