@@ -159,7 +159,7 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
 
 ### 셸 자동 완성 활성화
 
-kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
+kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
 
 다음은 Bash 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
 
