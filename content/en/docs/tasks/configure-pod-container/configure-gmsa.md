@@ -199,56 +199,17 @@ As Pod specs with GMSA fields populated (as described above) are applied in a cl
 
 1. The container runtime configures each Windows container with the specified GMSA credential spec so that the container can assume the identity of the GMSA in Active Directory and access services in the domain using that identity.
 
-## Containerd
+## Authenticating to network shares usinig hostname of FQDN
 
-On Windows Server 2019, in order to use GMSA with containerd, you must be running OS Build 17763.1817 (or later) which can be installed using the patch [KB5000822](https://support.microsoft.com/en-us/topic/march-9-2021-kb5000822-os-build-17763-1817-2eb6197f-e3b1-4f42-ab51-84345e063564).
+If you are experiencing issues connecting to SMB shares from Pods using hostname or FQDN, but are able to access the shares via their IPv4 address then make sure the following registry key is set on the Windows nodes.
 
-There is also a known issue with containerd that occurs when trying to connect to SMB shares from Pods. Once you have configured GMSA, the pod will be unable to connect to the share using the hostname or FQDN, but connecting to the share using an IP address works as expected.
-
-```PowerShell
-ping adserver.ad.local
+```cmd
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1
 ```
 
-and correctly resolves the hostname to an IPv4 address. The output is similar to:
-
-```PowerShell
-Pinging adserver.ad.local [192.168.111.18] with 32 bytes of data:
-Reply from 192.168.111.18: bytes=32 time=6ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-```
-
-However, when attempting to browse the directory using the hostname
-
-```PowerShell
-cd \\adserver.ad.local\test
-```
-
-you see an error that implies the target share doesn't exist:
-
-```PowerShell
-cd : Cannot find path '\\adserver.ad.local\test' because it does not exist.
-At line:1 char:1
-+ cd \\adserver.ad.local\test
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : ObjectNotFound: (\\adserver.ad.local\test:String) [Set-Location], ItemNotFoundException
-    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
-```
-
-but you notice that the error disappears if you browse to the share using its IPv4 address instead; for example:
-
-```PowerShell
-cd \\192.168.111.18\test
-```
-
-After you change into a directory within the share, you see a prompt similar to:
-
-```PowerShell
-Microsoft.PowerShell.Core\FileSystem::\\192.168.111.18\test>
-```
-
-To correct the behaviour you must run the following on the node `reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1` to add the required registry key. This node change will only take effect in newly created pods, meaning you must now recreate any running pods which require access to SMB shares.
+Running Pods will then need to be recreated to pick up the behavior changes.
+More information on how this registry key is used can be found [here](
+https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
 
 ## Troubleshooting
 
