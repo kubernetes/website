@@ -34,13 +34,13 @@ CPUは、一定期間の平均使用量を[CPU cores](/docs/concepts/configurati
 この値は、カーネルが提供する累積CPUカウンターの比率を取得することで得られます(LinuxとWindowsの両カーネルで)。
 kubeletは、比率計算のためのウィンドウを選択します。
 
-### メモリー
+### メモリ
 
-メモリーは、測定値が収集された時点のワーキングセットとして、バイト単位で報告されます。
-理想的な世界では、「ワーキングセット」は、メモリー不足で解放できない使用中のメモリー量です。
+メモリは、測定値が収集された時点のワーキングセットとして、バイト単位で報告されます。
+理想的な世界では、「ワーキングセット」は、メモリ不足で解放できない使用中のメモリ量です。
 しかし、ワーキングセットの計算はホストOSによって異なり、一般に推定値を生成するために経験則を多用しています。
-Kubernetesはスワップをサポートしていないため、すべての匿名(非ファイルバックアップ)メモリーが含まれます。
-ホストOSは常にそのようなページを再請求することができないため、メトリックには通常、一部のキャッシュされた(ファイルバックされた)メモリーも含まれます。
+Kubernetesはスワップをサポートしていないため、すべての匿名(非ファイルバックアップ)メモリが含まれます。
+ホストOSは常にそのようなページを再請求することができないため、メトリックには通常、一部のキャッシュされた(ファイルバックされた)メモリも含まれます。
 
 ## メトリクスサーバー
 
@@ -48,7 +48,7 @@ Kubernetesはスワップをサポートしていないため、すべての匿�
 デフォルトでは、`kube-up.sh`スクリプトで作成されたクラスターにDeploymentオブジェクトとしてデプロイされます。
 別のKubernetesセットアップ機構を使用する場合は、提供される[deployment components.yaml](https://github.com/kubernetes-sigs/metrics-server/releases)ファイルを使用してデプロイすることができます。
 メトリクスサーバーは、Summary APIからメトリクスを収集します。
-各ノードの[Kubelet](/docs/reference/command-line-tools-reference/kubelet/)から[Kubernetes aggregator](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)経由でメインAPIサーバに登録されるようになっています。
+各ノードの[Kubelet](/docs/reference/command-line-tools-reference/kubelet/)から[Kubernetes aggregator](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)経由でメインAPIサーバーに登録されるようになっています。
 
 メトリクスサーバーについては、[the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)で詳しく解説しています。
 
