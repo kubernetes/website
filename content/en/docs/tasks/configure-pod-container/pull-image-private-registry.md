@@ -9,7 +9,8 @@ weight: 100
 This page shows how to create a Pod that uses a
 {{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image 
 from a private container image registry or repository. There are many private 
-registries in use. This task uses Docker Hub as an example of the steps needed.
+registries in use. This task uses [Docker Hub](https://www.docker.com/products/docker-hub)
+as an example registry.
 
 {{% thirdparty-content single="true" %}}
 
