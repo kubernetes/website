@@ -55,7 +55,7 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
   만약 오직 디버깅의 목적으로 포트에 접근해야 한다면, [apiserver proxy](/ko/docs/tasks/access-application-cluster/access-cluster/#수작업으로-apiserver-proxy-url을-구축) 또는 [`kubectl port-forward`](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 사용할 수 있다.
 
-  만약 파드의 포트를 노드에서 명시적으로 노출해야 한다면, `hostPort`에 의존하기 전에 [NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 서비스를 사용하는 것을 고려할 수 있다.
+  만약 파드의 포트를 노드에서 명시적으로 노출해야 한다면, `hostPort`에 의존하기 전에 [NodePort](/ko/docs/concepts/services-networking/service/#type-nodeport) 서비스를 사용하는 것을 고려할 수 있다.
 
 - `hostPort`와 같은 이유로, `hostNetwork`를 사용하는 것을 피한다.
 
