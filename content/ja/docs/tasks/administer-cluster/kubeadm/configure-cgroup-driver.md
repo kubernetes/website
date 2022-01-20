@@ -6,7 +6,7 @@ weight: 10
 
 <!-- overview -->
 
-このページでは、kubeadmクラスタのコンテナランタイムcgroupドライバーに合わせて、kubelet cgroupドライバーを設定する方法について説明します。
+このページでは、kubeadmクラスターのコンテナランタイムcgroupドライバーに合わせて、kubelet cgroupドライバーを設定する方法について説明します。
 
 ## {{% heading "prerequisites" %}}
 
@@ -50,7 +50,7 @@ kubeadm init --config kubeadm-config.yaml
 ```
 
 {{< note >}}
-Kubeadmはクラスタ内の全ノードで同じ`KubeletConfiguration`を使用します。
+Kubeadmはクラスター内の全ノードで同じ`KubeletConfiguration`を使用します。
 
 `KubeletConfiguration`は`kube-system`名前空間下の[ConfigMap](/docs/concepts/configuration/configmap)オブジェクトに格納されます。
 
