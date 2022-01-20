@@ -13,8 +13,6 @@ weight: 98
 이해한다고 가정한다. 또한 기여하기 위한 더 많은 방법에 대해 배울 준비가 되었다고 가정한다. 이러한
 작업 중 일부에는 Git 커맨드 라인 클라이언트와 다른 도구를 사용해야 한다.
 
-
-
 <!-- body -->
 
 ## 개선 제안
@@ -29,8 +27,8 @@ website 스타일, 풀 리퀘스트 리뷰와 병합
 프로세스 또는 문서 작성의 다른 측면을 개선하기 위한 아이디어가 있을 수 있다. 투명성을 극대화하려면,
 이러한 유형의 제안을 SIG Docs 회의나
 [kubernetes-sig-docs 메일링리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에서 논의해야 한다.
-또한, 현재의 작업 방식과 과거의 결정이 왜 획기적인 변경을
-제안하기 전에 결정되었는지에 대한 맥락을 이해하는 데 실제로
+또한, 획기적인 변경을 제안하기 전에, 현재의 작업 방식과 과거의 결정이 
+어떻게 정해졌는지에 대한 맥락을 이해하는 데 실제로
 도움이 될 수 있다. 현재의 문서 작업이 어떻게 진행되는지에 대한 질문의
 답변을 얻는 가장 빠른 방법은 [kubernetes.slack.com](https://kubernetes.slack.com)의
 `#sig-docs` 슬랙 채널에 문의하는 것이다.
@@ -84,7 +82,7 @@ SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/
 새로운 기여자 홍보대사의 책임은 다음과 같다.
 
 - [#sig-docs 슬랙 채널](https://kubernetes.slack.com)에서 새로운 기여자의 질문을 모니터링한다.
-- PR 랭글러와 협력하여 새로운 기여자에게 좋은 첫 이슈를 파악한다.
+- PR 랭글러와 협력하여 새로운 기여자에게 [좋은 첫 이슈](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue)를 파악한다.
 - 문서 리포지터리에 대한 처음 몇 번의 PR을 통해 새로운 기여자를 멘토링한다.
 - 새로운 기여자가 쿠버네티스 멤버가 되기 위해 필요한 보다 복잡한 PR을 작성하도록 지원한다.
 - 쿠버네티스 멤버 가입을 위해 [기여자를 후원](/ko/docs/contribute/advanced/#새로운-기여자-후원)한다.
