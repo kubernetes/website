@@ -34,7 +34,7 @@ weight: 21 # just after persistent volumes
 各projectedボリュームソースは、specの`sources`にリストされています。パラメータは、2つの例外を除いてほぼ同じです。
 
 * secretについて、ConfigMapの命名と一致するように`secretName`フィールドが`name`に変更されました。
-* `defaultMode`はprojectedレベルでのみ指定でき、各ボリュームソースには指定できません。ただし上に示したように、個々の投影ごとに「モード」を明示的に設定できます。
+* `defaultMode`はprojectedレベルでのみ指定でき、各ボリュームソースには指定できません。ただし上に示したように、個々の投影ごとに`mode`を明示的に設定できます。
 
 `TokenRequestProjection`機能が有効になっている場合、現在の[サービスアカウント](/docs/reference/access-authn-authz/authentication/#service-account-tokens)のトークンを指定されたパスのPodに挿入できます。例えば:
 
