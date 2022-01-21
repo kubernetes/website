@@ -81,28 +81,27 @@ Podを削除します:
 kubectl delete pod default-mem-demo --namespace=default-mem-example
 ```
 
-## What if you specify a Container's limit, but not its request?
+## 制限を指定し、要求を指定しない場合
 
-Here's the configuration file for a Pod that has one Container. The Container
-specifies a memory limit, but not a request:
+以下は1つのコンテナを持つPodの設定ファイルです。コンテナはメモリ制限を指定しますが、メモリ要求は指定しません。
 
 {{< codenew file="admin/resource/memory-defaults-pod-2.yaml" >}}
 
-Create the Pod:
+Podを作成します:
 
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod-2.yaml --namespace=default-mem-example
 ```
 
-View detailed information about the Pod:
+Podの詳細情報を表示します:
 
 ```shell
 kubectl get pod default-mem-demo-2 --output=yaml --namespace=default-mem-example
 ```
 
-The output shows that the Container's memory request is set to match its memory limit.
-Notice that the Container was not assigned the default memory request value of 256Mi.
+コンテナのメモリ要求がそのメモリ制限に一致するように設定されていることを示しています。
+コンテナにはデフォルトのメモリリクエスト値である256Miが割り当てられていないことに注意してください。
 
 ```
 resources:
@@ -112,28 +111,26 @@ resources:
     memory: 1Gi
 ```
 
-## What if you specify a Container's request, but not its limit?
+## 要求を指定し、制限を指定しない場合
 
-Here's the configuration file for a Pod that has one Container. The Container
-specifies a memory request, but not a limit:
+1つのコンテナを持つPodの設定ファイルです。コンテナはメモリ要求を指定しますが、メモリ制限は指定しません。
 
 {{< codenew file="admin/resource/memory-defaults-pod-3.yaml" >}}
 
-Create the Pod:
+Podを作成します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod-3.yaml --namespace=default-mem-example
 ```
 
-View the Pod's specification:
+Podの詳細情報を表示します:
 
 ```shell
 kubectl get pod default-mem-demo-3 --output=yaml --namespace=default-mem-example
 ```
 
-The output shows that the Container's memory request is set to the value specified in the
-Container's configuration file. The Container's memory limit is set to 512Mi, which is the
-default memory limit for the namespace.
+コンテナのメモリ要求は、コンテナの設定ファイルで指定された値に設定されていることを示しています。
+コンテナのメモリ制限は、ネームスペースのデフォルトのメモリ制限である512Miに設定されています。
 
 ```
 resources:
@@ -143,21 +140,20 @@ resources:
     memory: 128Mi
 ```
 
-## Motivation for default memory limits and requests
+## デフォルトのメモリ制限と要求の動機
 
-If your namespace has a resource quota,
-it is helpful to have a default value in place for memory limit.
-Here are two of the restrictions that a resource quota imposes on a namespace:
+ネームスペースにリソースクォータがある場合、メモリ制限のデフォルト値を設定しておくと便利です。
 
-* Every Container that runs in the namespace must have its own memory limit.
-* The total amount of memory used by all Containers in the namespace must not exceed a specified limit.
+以下はリソースクォータがネームスペースに課す制限のうちの2つです。
 
-If a Container does not specify its own memory limit, it is given the default limit, and then
-it can be allowed to run in a namespace that is restricted by a quota.
+* ネームスペースで実行されるすべてのコンテナは、独自のメモリ制限を持つ必要があります。
+* ネームスペース内のすべてのコンテナで使用されるメモリの総量は、指定された制限を越えてはなりません。
 
-## Clean up
+コンテナが独自のメモリ制限を指定しない場合、デフォルトの制限が与えられ、その後、クォータによって制限されているネームスペースでの実行が許可されるようになります。
 
-Delete your namespace:
+## クリーンアップ
+
+ネームスペースを削除します:
 
 ```shell
 kubectl delete namespace default-mem-example
@@ -168,7 +164,7 @@ kubectl delete namespace default-mem-example
 ## {{% heading "whatsnext" %}}
 
 
-### For cluster administrators
+### クラスター管理者のため
 
 * [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
@@ -182,7 +178,7 @@ kubectl delete namespace default-mem-example
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-### For app developers
+### アプリケーション開発者のため
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
