@@ -19,7 +19,7 @@ This document highlights and consolidates configuration best practices that are 
 This is a living document. If you think of something that is not on this list but might be useful to others, please don't hesitate to file an issue or submit a PR.
 -->
 这是一份不断改进的文件。
-如果您认为某些内容缺失但可能对其他人有用，请不要犹豫，提交 Issue 或提交 PR。
+如果你认为某些内容缺失但可能对其他人有用，请不要犹豫，提交 Issue 或提交 PR。
 
 <!-- body -->
 <!--
@@ -36,7 +36,7 @@ This is a living document. If you think of something that is not on this list bu
 - Configuration files should be stored in version control before being pushed to the cluster. This allows you to quickly roll back a configuration change if necessary. It also aids cluster re-creation and restoration.
 -->
 - 在推送到集群之前，配置文件应存储在版本控制中。
- 这允许您在必要时快速回滚配置更改。
+ 这允许你在必要时快速回滚配置更改。
  它还有助于集群重新创建和恢复。 
 
 <!--
@@ -93,7 +93,7 @@ Deployment 既可以创建一个 ReplicaSet 来确保预期个数的 Pod 始终�
 <!--
 ## Services
 -->
-## 服务
+## 服务   {#services}
 
 <!--
 - Create a [Service](/docs/concepts/services-networking/service/) before its corresponding backend workloads (Deployments or ReplicaSets), and before any workloads that need to access it. When Kubernetes starts a container, it provides environment variables pointing to all the Services which were running when the container was started. For example, if a Service named `foo` exists, all containers will get the following variables in their initial environment:
@@ -128,20 +128,20 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
 - 除非绝对必要，否则不要为 Pod 指定 `hostPort`。
   将 Pod 绑定到`hostPort`时，它会限制 Pod 可以调度的位置数，因为每个
   `<hostIP, hostPort, protocol>`组合必须是唯一的。
-  如果您没有明确指定 `hostIP` 和 `protocol`，Kubernetes 将使用 `0.0.0.0` 作为默认
+  如果你没有明确指定 `hostIP` 和 `protocol`，Kubernetes 将使用 `0.0.0.0` 作为默认
   `hostIP` 和 `TCP` 作为默认 `protocol`。
 
 <!--
   If you only need access to the port for debugging purposes, you can use the [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) or [`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
 -->
-  如果您只需要访问端口以进行调试，则可以使用
+  如果你只需要访问端口以进行调试，则可以使用
   [apiserver proxy](/zh/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls)或
   [`kubectl port-forward`](/zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)。
 
 <!--
   If you explicitly need to expose a Pod's port on the node, consider using a [NodePort](/docs/concepts/services-networking/service/#type-nodeport) Service before resorting to `hostPort`.
 -->
-  如果您明确需要在节点上公开 Pod 的端口，请在使用 `hostPort` 之前考虑使用
+  如果你明确需要在节点上公开 Pod 的端口，请在使用 `hostPort` 之前考虑使用
   [NodePort](/zh/docs/concepts/services-networking/service/#type-nodeport) 服务。
 
 <!--
@@ -153,14 +153,14 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
 - Use [headless Services](/docs/concepts/services-networking/service/#headless-
 services) (which have a `ClusterIP` of `None`) for service discovery when you don't need `kube-proxy` load balancing.
 -->
-- 当您不需要 `kube-proxy` 负载均衡时，使用
+- 当你不需要 `kube-proxy` 负载均衡时，使用
   [无头服务](/zh/docs/concepts/services-networking/service/#headless-services)  
   (`ClusterIP` 被设置为 `None`)以便于服务发现。
 
 <!--
 ## Using Labels
 -->
-## 使用标签
+## 使用标签   {#using-labels}
 
 <!--
 - Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app for examples of this approach.
@@ -195,7 +195,7 @@ Deployment 描述了对象的期望状态，并且如果对该规范的更改被
 <!--
 - You can manipulate labels for debugging. Because Kubernetes controllers (such as ReplicaSet) and Services match to Pods using selector labels, removing the relevant labels from a Pod will stop it from being considered by a controller or from being served traffic by a Service. If you remove the labels of an existing Pod, its controller will create a new Pod to take its place. This is a useful way to debug a previously "live" Pod in a "quarantine" environment. To interactively remove or add labels, use [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
 -->
-- 您可以操纵标签进行调试。
+- 你可以操纵标签进行调试。
   由于 Kubernetes 控制器（例如 ReplicaSet）和服务使用选择器标签来匹配 Pod，
   从 Pod 中删除相关标签将阻止其被控制器考虑或由服务提供服务流量。
   如果删除现有 Pod 的标签，其控制器将创建一个新的 Pod 来取代它。
@@ -205,7 +205,7 @@ Deployment 描述了对象的期望状态，并且如果对该规范的更改被
 <!--
 ## Using kubectl
 -->
-## 使用 kubectl
+## 使用 kubectl   {#using-kubectl}
 
 <!--
 - Use `kubectl apply -f <directory>`. This looks for Kubernetes configuration in all `.yaml`, `.yml`, and `.json` files in `<directory>` and passes it to `apply`.
