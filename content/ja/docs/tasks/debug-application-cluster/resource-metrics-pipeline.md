@@ -50,7 +50,7 @@ Kubernetesはスワップをサポートしていないため、すべての匿�
 メトリクスサーバーは、Summary APIからメトリクスを収集します。
 各ノードの[Kubelet](/docs/reference/command-line-tools-reference/kubelet/)から[Kubernetes aggregator](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)経由でメインAPIサーバーに登録されるようになっています。
 
-メトリクスサーバーについては、[the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)で詳しく解説しています。
+メトリクスサーバーについては、[Design proposals](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md)で詳しく解説しています。
 
 
 ### Summary APIソース
