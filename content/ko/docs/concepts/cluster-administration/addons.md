@@ -49,7 +49,7 @@ content_type: concept
   리눅스 노드에서 실행되며, 
   시스템 이슈를 
   [이벤트](/docs/reference/kubernetes-api/cluster-resources/event-v1/) 또는 
-  [노드 컨디션](/docs/concepts/architecture/nodes/#condition) 형태로 보고한다.
+  [노드 컨디션](/ko/docs/concepts/architecture/nodes/#condition) 형태로 보고한다.
 
 ## 레거시 애드온
 
