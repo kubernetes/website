@@ -67,7 +67,7 @@ sudo sysctl --system
 자세한 내용은 [네트워크 플러그인 요구 사항](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#네트워크-플러그인-요구-사항) 페이지를 참고한다.
 
 ## 필수 포트 확인 {#check-required-ports}
-[필수 포트들](/docs/reference/ports-and-protocols/)은
+[필수 포트들](/ko/docs/reference/ports-and-protocols/)은
 쿠버네티스 컴포넌트들이 서로 통신하기 위해서 열려 있어야
 한다. 다음과 같이 telnet 명령을 이용하여 포트가 열려 있는지 확인해 볼 수 있다.
 

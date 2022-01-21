@@ -575,4 +575,4 @@ HorizontalPodAutoscaler에 대한 더 많은 정보는 아래를 참고한다.
 * [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 문서를 확인한다.
 * 커스텀 메트릭 어댑터를 직접 작성하고 싶다면, 
   [샘플](https://github.com/kubernetes-sigs/custom-metrics-apiserver)을 확인한다.
-* HorizontalPodAutoscaler [API 레퍼런스](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler/)를 확인한다.
+* HorizontalPodAutoscaler [API 레퍼런스](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)를 확인한다.
