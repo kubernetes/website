@@ -305,6 +305,12 @@ footer {
   padding-top: 1.5rem !important;
   top: 5rem !important;
 
+  @supports (position: sticky) {
+    position: sticky !important;
+    height: calc(100vh - 10rem);
+    overflow-y: auto;
+  }
+
   #TableOfContents {
     padding-top: 1rem;
   }
