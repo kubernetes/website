@@ -637,7 +637,7 @@ Events:
 사용자는 인그레스 리소스를 직접적으로 포함하지 않는 여러가지 방법으로 서비스를 노출할 수 있다.
 
 * [Service.Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer) 사용.
-* [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 사용.
+* [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#type-nodeport) 사용.
 
 
 
