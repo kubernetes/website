@@ -193,7 +193,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 1. Download the latest release with the command:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    ```
 
 1. Validate the binary (optional)
