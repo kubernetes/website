@@ -13,7 +13,7 @@ title: 트러블슈팅하기
 
 * [애플리케이션 트러블슈팅하기](/docs/tasks/debug-application-cluster/debug-application/) - 쿠버네티스에
   코드를 배포하였지만 제대로 동작하지 않는 사용자들에게 유용한 가이드이다.
-* [클러스터 트러블슈팅하기](/docs/tasks/debug-application-cluster/debug-cluster/) - 쿠버네티스 클러스터에
+* [클러스터 트러블슈팅하기](/ko/docs/tasks/debug-application-cluster/debug-cluster/) - 쿠버네티스 클러스터에
   문제를 겪고 있는 클러스터 관리자 혹은 기분이 나쁜 사람들에게 유용한 가이드이다.
 
 여러분이 현재 사용중인 릴리스에 대한 알려진 이슈들을 다음의 [릴리스](https://github.com/kubernetes/kubernetes/releases)
