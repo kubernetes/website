@@ -310,3 +310,114 @@ spec:
 
 
 [RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
+
+
+# Node-level troubleshooting {#troubleshooting-node}
+
+1. How do I know `start.ps1` completed successfully?
+
+   You should see kubelet, kube-proxy, and (if you chose Flannel as your networking
+   solution) flanneld host-agent processes running on your node, with running logs
+   being displayed in separate PowerShell windows. In addition to this, your Windows
+   node should be listed as "Ready" in your Kubernetes cluster.
+
+1. Can I configure the Kubernetes node processes to run in the background as services?
+
+   The kubelet and kube-proxy are already configured to run as native Windows Services,
+   offering resiliency by re-starting the services automatically in the event of
+   failure (for example a process crash). You have two options for configuring these
+   node components as services.
+
+    1. As native Windows Services
+
+        You can run the kubelet and kube-proxy as native Windows Services using `sc.exe`.
+
+        ```powershell
+        # Create the services for kubelet and kube-proxy in two separate commands
+        sc.exe create <component_name> binPath= "<path_to_binary> --service <other_args>"
+
+        # Please note that if the arguments contain spaces, they must be escaped.
+        sc.exe create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
+
+        # Start the services
+        Start-Service kubelet
+        Start-Service kube-proxy
+
+        # Stop the service
+        Stop-Service kubelet (-Force)
+        Stop-Service kube-proxy (-Force)
+
+        # Query the service status
+        Get-Service kubelet
+        Get-Service kube-proxy
+        ```
+
+    1. Using `nssm.exe`
+
+       You can also always use alternative service managers like
+       [nssm.exe](https://nssm.cc/) to run these processes (flanneld,
+       kubelet & kube-proxy) in the background for you. You can use this
+       [sample script](https://github.com/Microsoft/SDN/tree/master/Kubernetes/flannel/register-svc.ps1),
+       leveraging nssm.exe to register kubelet, kube-proxy, and flanneld.exe to run
+       as Windows services in the background.
+
+       ```powershell
+       register-svc.ps1 -NetworkMode <Network mode> -ManagementIP <Windows Node IP> -ClusterCIDR <Cluster subnet> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Directory to place logs>
+
+       # NetworkMode      = The network mode l2bridge (flannel host-gw, also the default value) or overlay (flannel vxlan) chosen as a network solution
+       # ManagementIP     = The IP address assigned to the Windows node. You can use ipconfig to find this
+       # ClusterCIDR      = The cluster subnet range. (Default value 10.244.0.0/16)
+       # KubeDnsServiceIP = The Kubernetes DNS service IP (Default value 10.96.0.10)
+       # LogDir           = The directory where kubelet and kube-proxy logs are redirected into their respective output files (Default value C:\k)
+       ```
+
+       If the above referenced script is not suitable, you can manually configure
+       `nssm.exe` using the following examples.
+
+       ```powershell
+       # Register flanneld.exe
+       nssm install flanneld C:\flannel\flanneld.exe
+       nssm set flanneld AppParameters --kubeconfig-file=c:\k\config --iface=<ManagementIP> --ip-masq=1 --kube-subnet-mgr=1
+       nssm set flanneld AppEnvironmentExtra NODE_NAME=<hostname>
+       nssm set flanneld AppDirectory C:\flannel
+       nssm start flanneld
+
+       # Register kubelet.exe
+       # Microsoft releases the pause infrastructure container at mcr.microsoft.com/oss/kubernetes/pause:3.6
+       nssm install kubelet C:\k\kubelet.exe
+       nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/oss/kubernetes/pause:3.6 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
+       nssm set kubelet AppDirectory C:\k
+       nssm start kubelet
+
+       # Register kube-proxy.exe (l2bridge / host-gw)
+       nssm install kube-proxy C:\k\kube-proxy.exe
+       nssm set kube-proxy AppDirectory c:\k
+       nssm set kube-proxy AppParameters --v=4 --proxy-mode=kernelspace --hostname-override=<hostname>--kubeconfig=c:\k\config --enable-dsr=false --log-dir=<log directory> --logtostderr=false
+       nssm.exe set kube-proxy AppEnvironmentExtra KUBE_NETWORK=cbr0
+       nssm set kube-proxy DependOnService kubelet
+       nssm start kube-proxy
+
+       # Register kube-proxy.exe (overlay / vxlan)
+       nssm install kube-proxy C:\k\kube-proxy.exe
+       nssm set kube-proxy AppDirectory c:\k
+       nssm set kube-proxy AppParameters --v=4 --proxy-mode=kernelspace --feature-gates="WinOverlay=true" --hostname-override=<hostname> --kubeconfig=c:\k\config --network-name=vxlan0 --source-vip=<source-vip> --enable-dsr=false --log-dir=<log directory> --logtostderr=false
+       nssm set kube-proxy DependOnService kubelet
+       nssm start kube-proxy
+       ```
+
+       For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
+
+       ```powershell
+       nssm set <Service Name> AppStdout C:\k\mysvc.log
+       nssm set <Service Name> AppStderr C:\k\mysvc.log
+       ```
+
+       For additional details, see [NSSM - the Non-Sucking Service Manager](https://nssm.cc/usage).
+
+1. My Pods are stuck at "Container Creating" or restarting over and over
+
+   Check that your pause image is compatible with your OS version. The
+   [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources)
+   assume that both the OS and the containers are version 1803. If you have a later
+   version of Windows, such as an Insider build, you need to adjust the images
+   accordingly. See [Pause container](#pause-container) for more details.
