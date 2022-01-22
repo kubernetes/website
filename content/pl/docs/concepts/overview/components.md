@@ -15,7 +15,7 @@ W wyniku instalacji Kubernetesa otrzymujesz klaster.
 
 {{< glossary_definition term_id="cluster" length="all" prepend="Klaster Kubernetes to">}}
 
-W tym dokumencie opisujemy składniki niezbędne do zbudowania kompletnego, poprawnie działającego klastra Kubernetes.
+W tym dokumencie opisujemy składniki niezbędne do zbudowania kompletnego, poprawnie działającego klastra Kubernetesa.
 
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Składniki Kubernetesa" caption="Części składowe klastra Kubernetes" class="diagram-large" >}}
 
