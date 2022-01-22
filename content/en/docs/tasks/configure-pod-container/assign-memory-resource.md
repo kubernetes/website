@@ -174,7 +174,7 @@ The output shows that the Container was killed because it is out of memory (OOM)
 ```shell
 lastState:
    terminated:
-     containerID: docker://65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
+     containerID: YOUR_CONTAINER_ID
      exitCode: 137
      finishedAt: 2017-06-20T20:52:19Z
      reason: OOMKilled
@@ -357,8 +357,3 @@ kubectl delete namespace mem-example
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
-
-
-
-
-
