@@ -330,7 +330,7 @@ the endpoints controller has truncated the number of endpoints to 1000.
 <!--
 ### EndpointSlices
 -->
-### EndpointSlice
+### EndpointSlices
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
@@ -345,12 +345,12 @@ endpoints.
 Endpoint Slices provide additional attributes and functionality which is
 described in detail in [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
 -->
-Endpoint 切片是一种 API 资源，可以为 Endpoint 提供更可扩展的替代方案。
-尽管从概念上讲与 Endpoint 非常相似，但 Endpoint 切片允许跨多个资源分布网络端点。
-默认情况下，一旦到达100个 Endpoint，该 Endpoint 切片将被视为“已满”，
-届时将创建其他 Endpoint 切片来存储任何其他 Endpoint。
+EndpointSlices 是一种 API 资源，可以为 Endpoints 提供更可扩展的替代方案。
+尽管从概念上讲与 Endpoints 非常相似，但 EndpointSlices 允许跨多个资源分布网络端点。
+默认情况下，一旦到达 100 个 Endpoint，该 EndpointSlice 将被视为“已满”，
+届时将创建其他 EndpointSlices 来存储任何其他 Endpoints。
 
-Endpoint 切片提供了附加的属性和功能，这些属性和功能在
+EndpointSlices 提供了附加的属性和功能，这些属性和功能在
 [EndpointSlices](/zh/docs/concepts/services-networking/endpoint-slices/)
 中有详细描述。
 
