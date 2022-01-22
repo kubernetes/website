@@ -220,7 +220,7 @@ for production clusters!
 
 ### 他のアドオンの参照
 
-See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization, and control of your Kubernetes cluster.
+See the [list of add-ons](/ja/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization, and control of your Kubernetes cluster.
 
 ## クリーンアップ
 
