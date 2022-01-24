@@ -80,7 +80,7 @@ are used to expand queries. To learn more about DNS queries, see
 [the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)
 -->
 DNS 查询可以使用 Pod 中的 `/etc/resolv.conf` 展开。kubelet 会为每个 Pod
-生成此文件。例如，对 `data` 的查询可能被展开为 `data.test.cluster.local`。
+生成此文件。例如，对 `data` 的查询可能被展开为 `data.test.svc.cluster.local`。
 `search` 选项的取值会被用来展开查询。要进一步了解 DNS 查询，可参阅
 [`resolv.conf` 手册页面](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)。
 
@@ -384,13 +384,13 @@ following pod-specific DNS policies. These policies are specified in the
 
 - "`Default`": The Pod inherits the name resolution configuration from the node
   that the pods run on.
-  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)
+  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for more details.
 - "`ClusterFirst`": Any DNS query that does not match the configured cluster
   domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
   nameserver inherited from the node. Cluster administrators may have extra
   stub-domain and upstream DNS servers configured.
-  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
+  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
   explicitly set its DNS policy "`ClusterFirstWithHostNet`".
@@ -405,11 +405,11 @@ DNS 策略可以逐个 Pod 来设定。目前 Kubernetes 支持以下特定 Pod 
 这些策略可以在 Pod 规约中的 `dnsPolicy` 字段设置：
 
 - "`Default`": Pod 从运行所在的节点继承名称解析配置。参考
-  [相关讨论](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)
+  [相关讨论](/zh/docs/tasks/administer-cluster/dns-custom-nameservers)
   获取更多信息。
 - "`ClusterFirst`": 与配置的集群域后缀不匹配的任何 DNS 查询（例如 "www.kubernetes.io"）
   都将转发到从节点继承的上游名称服务器。集群管理员可能配置了额外的存根域和上游 DNS 服务器。
-  参阅[相关讨论](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
+  参阅[相关讨论](/zh/docs/tasks/administer-cluster/dns-custom-nameservers)
   了解在这些场景中如何处理 DNS 查询的信息。
 - "`ClusterFirstWithHostNet`"：对于以 hostNetwork 方式运行的 Pod，应显式设置其 DNS 策略
   "`ClusterFirstWithHostNet`"。

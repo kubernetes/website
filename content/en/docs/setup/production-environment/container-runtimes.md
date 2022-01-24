@@ -15,12 +15,19 @@ what is involved and describes related tasks for setting up nodes.
 
 <!-- body -->
 
+Kubernetes {{< skew currentVersion >}} requires that you use a runtime that
+conforms with the 
+{{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI).
+
+See [CRI version support](#cri-versions) for more information.
+
 This page lists details for using several common container runtimes with
 Kubernetes, on Linux:
 
 - [containerd](#containerd)
 - [CRI-O](#cri-o)
-- [Docker](#docker)
+- [Docker Engine](#docker)
+- [Mirantis Container Runtime](#mcr)
 
 {{< note >}}
 For other operating systems, look for documentation specific to your platform.
@@ -94,9 +101,18 @@ In order to use it, cgroup v2 must be supported by the CRI runtime as well.
 Follow this [Migration guide](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
 if you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters.
 
+## CRI version support {#cri-versions}
+
+Your container runtime must support at least v1alpha2 of the container runtime interface.
+
+Kubernetes {{< skew currentVersion >}}  defaults to using v1 of the CRI API.
+If a container runtime does not support the v1 API, the kubelet falls back to
+using the (deprecated) v1alpha2 API instead.
+
 ## Container runtimes
 
 {{% thirdparty-content %}}
+
 
 ### containerd
 
@@ -394,44 +410,28 @@ Please also note the changed `conmon_cgroup`, which has to be set to the value
 cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
 
-### Docker
+### Docker Engine {#docker}
 
-1. On each of your nodes, install the Docker for your Linux distribution as per 
-[Install Docker Engine](https://docs.docker.com/engine/install/#server). 
-You can find the latest validated version of Docker in this 
-[dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
+Docker Engine is the container runtime that started it all. Formerly known just as Docker,
+this container runtime is available in various forms.
+[Install Docker Engine](https://docs.docker.com/engine/install/) explains your options
+for installing this runtime.
 
-2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
+Docker Engine is directly compatible with Kubernetes {{< skew currentVersion >}}, using the deprecated `dockershim` component. For more information
+and context, see the [Dockershim deprecation FAQ](/dockershim).
 
-   ```shell
-   sudo mkdir /etc/docker
-   cat <<EOF | sudo tee /etc/docker/daemon.json
-   {
-     "exec-opts": ["native.cgroupdriver=systemd"],
-     "log-driver": "json-file",
-     "log-opts": {
-       "max-size": "100m"
-     },
-     "storage-driver": "overlay2"
-   }
-   EOF
-   ```
+You can also find third-party adapters that let you use Docker Engine with Kubernetes
+through the supported {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}}
+(CRI).
 
-   {{< note >}}
-   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher, 
-   or RHEL or CentOS using version 3.10.0-514 and above.
-   {{< /note >}}
+The following CRI adaptors are designed to work with Docker Engine:
 
-3. Restart Docker and enable on boot:
+- [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) from Mirantis
 
-   ```shell
-   sudo systemctl enable docker
-   sudo systemctl daemon-reload
-   sudo systemctl restart docker
-   ```
+### Mirantis Container Runtime {#mcr}
 
-{{< note >}}
-For more information refer to
-  - [Configure the Docker daemon](https://docs.docker.com/config/daemon/)
-  - [Control Docker with systemd](https://docs.docker.com/config/daemon/systemd/)
-{{< /note >}}
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially
+available container runtime that was formerly known as Docker Enterprise Edition.
+
+You can use Mirantis Container Runtime with Kubernetes using the open source
+[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) component, included with MCR.

@@ -311,9 +311,9 @@ stringData:
 
 Secretを作成するには、いくつかのオプションがあります。
 
-- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [create Secret using `kubectl` command](/ja/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [create Secret from config file](/ja/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [create Secret using kustomize](/ja/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 ## Secretの編集
 
@@ -636,7 +636,7 @@ Kubernetesベータ機能*ImmutableSecrets and ConfigMaps*は、個々のSecrets
 - アプリケーションの停止を引き起こす可能性のある偶発的な（または不要な）更新からユーザーを保護します
 - imutableとしてマークされたSecretのウォッチを閉じることで、kube-apiserverの負荷を大幅に削減することができ、クラスターのパフォーマンスを向上させます。
 
-この機能は、`ImmutableEphemeralVolumes`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)によって制御されます。これは、v1.19以降デフォルトで有効になっています。`immutable`フィールドを`true`に設定することで、imutableのSecretを作成できます。例えば、
+この機能は、`ImmutableEphemeralVolumes`[feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)によって制御されます。これは、v1.19以降デフォルトで有効になっています。`immutable`フィールドを`true`に設定することで、imutableのSecretを作成できます。例えば、
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -662,7 +662,7 @@ kubeletはこの情報をPodのためにプライベートイメージをpullす
 
 #### imagePullSecretを手動で指定する
 
-`ImagePullSecrets`の指定の方法は[コンテナイメージのドキュメント](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)に記載されています。
+`ImagePullSecrets`の指定の方法は[コンテナイメージのドキュメント](/ja/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)に記載されています。
 
 ### imagePullSecretsが自動的にアタッチされるようにする
 
@@ -1006,7 +1006,7 @@ HTTPリクエストを扱い、複雑なビジネスロジックを処理し、�
 ### Secret APIを使用するクライアント
 
 Secret APIとやりとりするアプリケーションをデプロイするときには、[RBAC](
-/docs/reference/access-authn-authz/rbac/)のような[認可ポリシー](
+/ja/docs/reference/access-authn-authz/rbac/)のような[認可ポリシー](
 /docs/reference/access-authn-authz/authorization/)を使用して、アクセスを制限すべきです。
 Secretは様々な種類の重要な値を保持することが多く、サービスアカウントのトークンのようにKubernetes内部や、外部のシステムで昇格できるものも多くあります。個々のアプリケーションが、Secretの能力について推論することができたとしても、同じネームスペースの別のアプリケーションがその推定を覆すこともあります。
 

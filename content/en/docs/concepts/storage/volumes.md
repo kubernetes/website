@@ -858,7 +858,7 @@ operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
 glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this
 feature, the
 [Ceph CSI driver](https://github.com/ceph/ceph-csi)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationRBD`
+must be installed on the cluster and the `CSIMigration` and `csiMigrationRBD`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
 must be enabled.
 
@@ -1133,6 +1133,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
+      # The variable expansion uses round brackets (not curly brackets).
       subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:
