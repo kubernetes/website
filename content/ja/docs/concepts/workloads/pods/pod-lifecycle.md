@@ -89,7 +89,7 @@ PodにはPodStatusがあります。それはPodが成功したかどうかの�
 
 * `PodScheduled`: PodがNodeにスケジュールされました。
 * `ContainersReady`: Pod内のすべてのコンテナが準備できた状態です。
-* `Initialized`: すべての[Initコンテナ](/docs/concepts/workloads/pods/init-containers)が正常に実行されました。
+* `Initialized`: すべての[Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers)が正常に実行されました。
 * `Ready`: Podはリクエストを処理でき、一致するすべてのサービスの負荷分散プールに追加されます。
 
 フィールド名         | 内容

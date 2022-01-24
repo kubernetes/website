@@ -78,7 +78,7 @@ when you declare a Service resource that requires them.
 
 ## Authorization
 
-This section breaks down the access that the cloud controller managers requires
+This section breaks down the access that the cloud controller manager requires
 on various API objects, in order to perform its operations.
 
 ### Node controller {#authorization-node-controller}

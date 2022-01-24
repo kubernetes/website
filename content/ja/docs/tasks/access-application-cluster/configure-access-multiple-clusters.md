@@ -290,7 +290,7 @@ contexts:
   name: exp-scratch
 ```
 
-kubeconfigファイルに関するさらなる情報を参照するには、[kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を参照してください。
+kubeconfigファイルに関するさらなる情報を参照するには、[kubeconfigファイルを使ってクラスターへのアクセスを管理する](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を参照してください。
 
 ## $HOME/.kubeディレクトリの内容を確認する
 
