@@ -380,26 +380,6 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
-			<td style="white-space: nowrap">Non-root groups <em>(optional)</em></td>
-			<td>
-				<p>Containers should be forbidden from running with a root primary or supplementary GID.</p>
-				<p><strong>Restricted Fields</strong></p>
-				<ul>
-					<li><code>spec.securityContext.runAsGroup</code></li>
-					<li><code>spec.securityContext.supplementalGroups[*]</code></li>
-					<li><code>spec.securityContext.fsGroup</code></li>
-					<li><code>spec.containers[*].securityContext.runAsGroup</code></li>
-					<li><code>spec.initContainers[*].securityContext.runAsGroup</code></li>
-					<li><code>spec.ephemeralContainers[*].securityContext.runAsGroup</code></li>
-				</ul>
-				<p><strong>Allowed Values</strong></p>
-				<ul>
-					<li>Undefined/nil (except for <code>*.runAsGroup</code>)</li>
-					<li>Non-zero</li>
-				</ul>
-			</td>
-		</tr>
-		<tr>
   			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
   			<td>
   				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited.</p>
