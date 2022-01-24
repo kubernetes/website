@@ -85,7 +85,7 @@ body {
   font-weight: 300;
   /* letter-spacing:0.03em; */
   /* font-size:15px; */
-  margin: 0 auto;
+  margin: 0;
 
 }
 
@@ -636,11 +636,9 @@ h2:after {
 
   body {
     overflow-x: hidden;
-    line-height: 1.5em;
     margin-top: 1%;
     letter-spacing: 0.03em;
     /* font-size: 13px; */
-    margin: 0 auto;
 
   }
 
