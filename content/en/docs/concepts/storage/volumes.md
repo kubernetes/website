@@ -187,7 +187,7 @@ You must have your own Ceph server running with the share exported before you ca
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 
-### cinder
+### cinder (deprecated)
 
 {{< note >}}
 Kubernetes must be configured with the OpenStack cloud provider.
