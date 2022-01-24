@@ -20,9 +20,9 @@ cluster. This can help to reduce costs and improve performance.
 
 ## Using Service Internal Traffic Policy
 
-Using beta `ServiceInternalTrafficPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is already enabled by default,
-Only when the feature gate is enabled you can enable an internal-only traffic policy for a
+The `ServiceInternalTrafficPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is a Beta feature and enabled by default.
+When the feature is enabled, you can enable the internal-only traffic policy for a
 {{< glossary_tooltip text="Services" term_id="service" >}}, by setting its
 `.spec.internalTrafficPolicy` to `Local`.
 This tells kube-proxy to only use node local endpoints for cluster internal traffic.
