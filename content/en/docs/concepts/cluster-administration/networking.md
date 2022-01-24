@@ -104,6 +104,11 @@ network complexity required to deploy Kubernetes at scale within AWS.
 [Coil](https://github.com/cybozu-go/coil) is a CNI plugin designed for ease of integration, providing flexible egress networking.
 Coil operates with a low overhead compared to bare metal, and allows you to define arbitrary egress NAT gateways for external networks.
 
+### Contiv-VPP
+
+[Contiv-VPP](https://contivpp.io/) is a user-space, performance-oriented network plugin for
+Kubernetes, using the [fd.io](https://fd.io/) data plane.
+
 ### Contrail / Tungsten Fabric
 
 [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is a truly open, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with various orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide different isolation modes for virtual machines, containers/pods and bare metal workloads.
