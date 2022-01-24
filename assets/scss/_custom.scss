@@ -215,6 +215,10 @@ body.td-404 main .error-details {
   }
 }
 
+body > footer {
+  width: 100vw;
+}
+
 /* FOOTER */
 footer {
   background-color: #303030;
@@ -222,8 +226,14 @@ footer {
   padding: 1rem !important;
   min-height: initial !important;
 
-  .footer__links {
-    width: 100%;
+  > div, > p {
+    max-width: 95%;
+    @media only screen and (min-width: 768px) {
+      max-width: calc(min(80rem,90vw)); // avoid spreading too wide
+    }
+  }
+
+  > .footer__links {
     margin: auto;
     padding-bottom: 1rem;
 
@@ -233,6 +243,8 @@ footer {
     }
 
     @media only screen and (min-width: 768px) {
+      max-width: calc(min(60rem,90vw)); // avoid spreading too wide
+
       nav {
         display: flex;
         flex-direction: row;
