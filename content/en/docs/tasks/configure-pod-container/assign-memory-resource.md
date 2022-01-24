@@ -174,7 +174,7 @@ The output shows that the Container was killed because it is out of memory (OOM)
 ```shell
 lastState:
    terminated:
-     containerID: docker://65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
+     containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
      exitCode: 137
      finishedAt: 2017-06-20T20:52:19Z
      reason: OOMKilled

@@ -268,14 +268,15 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 <!-- 
 kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell which can save you a lot of typing.
 
-Below are the procedures to set up autocompletion for Bash and Zsh.
+Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 -->
 kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以为你节省大量的输入。
 
-下面是为 Bash 和 Zsh 设置自动补全功能的操作步骤。
+下面是为 Bash、Fish 和 Zsh 设置自动补全功能的操作步骤。
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 

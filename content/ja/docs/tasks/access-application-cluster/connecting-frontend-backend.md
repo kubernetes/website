@@ -143,7 +143,7 @@ service/frontend created
 
 {{< note >}}
 nginxの構成は、[コンテナイメージ](/examples/service/access/Dockerfile)に焼き付けられます。
-これを行うためのより良い方法は、[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)を使用して、構成をより簡単に変更できるようにすることです。
+これを行うためのより良い方法は、[ConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を使用して、構成をより簡単に変更できるようにすることです。
 {{< /note >}}
 
 ## フロントエンドServiceと対話

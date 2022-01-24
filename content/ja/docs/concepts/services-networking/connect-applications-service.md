@@ -62,7 +62,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 つまり、同じcontainerPortを使用して同じノードで複数のnginx Podを実行し、IPを使用してクラスター内の他のPodやノードからそれらにアクセスできます。
 Dockerと同様に、ポートは引き続きホストノードのインターフェイスに公開できますが、ネットワークモデルにより、この必要性は根本的に減少します。
 
-興味があれば、これを[どのように達成するか](/docs/concepts/cluster-administration/networking/#how-to-achieve-this)について詳しく読むことができます。
+興味があれば、これを[どのように達成するか](/ja/docs/concepts/cluster-administration/networking/#how-to-achieve-this)について詳しく読むことができます。
 
 ## Serviceを作成する
 
@@ -203,7 +203,7 @@ NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
 kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
-このセクションの残りの部分は、寿命の長いIP(my-nginx)を持つServiceと、そのIPに名前を割り当てたDNSサーバーがあることを前提にしています。ここではCoreDNSクラスターアドオン(アプリケーション名: `kube-dns`)を使用しているため、標準的なメソッド(`gethostbyname()`など) を使用してクラスター内の任意のPodからServiceに通信できます。CoreDNSが起動していない場合、[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)または[Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns)を参照し、有効にする事ができます。curlアプリケーションを実行して、これをテストしてみましょう。
+このセクションの残りの部分は、寿命の長いIP(my-nginx)を持つServiceと、そのIPに名前を割り当てたDNSサーバーがあることを前提にしています。ここではCoreDNSクラスターアドオン(アプリケーション名: `kube-dns`)を使用しているため、標準的なメソッド(`gethostbyname()`など) を使用してクラスター内の任意のPodからServiceに通信できます。CoreDNSが起動していない場合、[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)または[Installing CoreDNS](/ja/docs/tasks/administer-cluster/coredns/#installing-coredns)を参照し、有効にする事ができます。curlアプリケーションを実行して、これをテストしてみましょう。
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
@@ -232,7 +232,7 @@ Address 1: 10.0.162.149
 
 * https用の自己署名証明書(既にID証明書を持っている場合を除く)
 * 証明書を使用するように構成されたnginxサーバー
-* Podが証明書にアクセスできるようにする[Secret](/docs/concepts/configuration/secret/)
+* Podが証明書にアクセスできるようにする[Secret](/ja/docs/concepts/configuration/secret/)
 
 これらはすべて[nginx httpsの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/)から取得できます。
 これにはツールをインストールする必要があります。

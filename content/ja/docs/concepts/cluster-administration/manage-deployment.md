@@ -157,7 +157,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl`についてさらに知りたい場合は、[kubectlの概要](/docs/reference/kubectl/overview/)を参照してください。
+`kubectl`についてさらに知りたい場合は、[kubectlの概要](/ja/docs/reference/kubectl/overview/)を参照してください。
 
 ## ラベルを有効に使う
 
@@ -294,7 +294,7 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 
 このコマンドでは"app=nginx"というラベルのついた全てのPodを出力し、Podのtierという項目も表示します(`-L`または`--label-columns`で指定)。
 
-さらなる情報は、[ラベル](/docs/concepts/overview/working-with-objects/labels/)や[kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label)を参照してください。
+さらなる情報は、[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)や[kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label)を参照してください。
 
 ## アノテーションの更新
 
@@ -313,7 +313,7 @@ metadata:
 ...
 ```
 
-さらなる情報は、[アノテーション](/docs/concepts/overview/working-with-objects/annotations/) や、[kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate)を参照してください。
+さらなる情報は、[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/) や、[kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate)を参照してください。
 
 ## アプリケーションのスケール
 
@@ -443,7 +443,7 @@ deployment.apps/my-nginx scaled
 kubectl edit deployment/my-nginx
 ```
 
-できました!Deploymentはデプロイされたnginxのアプリケーションを宣言的にプログレッシブに更新します。更新途中では、決まった数の古いレプリカのみダウンし、一定数の新しいレプリカが希望するPod数以上作成されても良いことを保証します。詳細について学ぶには[Deployment page](/docs/concepts/workloads/controllers/deployment/)を参照してください。
+できました!Deploymentはデプロイされたnginxのアプリケーションを宣言的にプログレッシブに更新します。更新途中では、決まった数の古いレプリカのみダウンし、一定数の新しいレプリカが希望するPod数以上作成されても良いことを保証します。詳細について学ぶには[Deployment page](/ja/docs/concepts/workloads/controllers/deployment/)を参照してください。
 
 
 
