@@ -9,7 +9,7 @@ weight: 20
 
 クラスター内の各オブジェクトには、そのタイプのリソースに固有の[_名前_](#names)があります。すべてのKubernetesオブジェクトには、クラスター全体で一意の[_UID_](#uids)もあります。
 
-たとえば、同じ[名前空間](/docs/concepts/overview/working-with-objects/namespaces/)内に`myapp-1234`という名前のPodは1つしか含められませんが、`myapp-1234`という名前の1つのPodと1つのDeploymentを含めることができます。
+たとえば、同じ[名前空間](/ja/docs/concepts/overview/working-with-objects/namespaces/)内に`myapp-1234`という名前のPodは1つしか含められませんが、`myapp-1234`という名前の1つのPodと1つのDeploymentを含めることができます。
 
 ユーザーが一意ではない属性を付与するために、Kubernetesは[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)と[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を提供しています。
 

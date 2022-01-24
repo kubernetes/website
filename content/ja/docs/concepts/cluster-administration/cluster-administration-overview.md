@@ -31,7 +31,7 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 
 * [ノードの管理](/ja/docs/concepts/architecture/nodes/)方法について学んでください。
 
-* 共有クラスターにおける[リソースクォータ](/docs/concepts/policy/resource-quotas/)のセットアップと管理方法について学んでください。
+* 共有クラスターにおける[リソースクォータ](/ja/docs/concepts/policy/resource-quotas/)のセットアップと管理方法について学んでください。
 
 ## クラスターをセキュアにする
 

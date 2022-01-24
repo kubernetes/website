@@ -70,14 +70,9 @@ spec:
 
 Patch your Deployment:
 
-{{< tabs name="kubectl_patch_example" >}}
-{{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
-{{< /tab >}}
-{{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment patch-demo --patch $(Get-Content patch-file.yaml -Raw)
-{{< /tab >}}}
-{{< /tabs >}}
+```shell
+kubectl patch deployment patch-demo --patch-file patch-file.yaml
+```
 
 View the patched Deployment:
 
@@ -183,7 +178,7 @@ spec:
 Patch your Deployment:
 
 ```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file-tolerations.yaml)"
+kubectl patch deployment patch-demo --patch-file patch-file-tolerations.yaml
 ```
 
 View the patched Deployment:
@@ -249,7 +244,7 @@ spec:
 In your patch command, set `type` to `merge`:
 
 ```shell
-kubectl patch deployment patch-demo --type merge --patch "$(cat patch-file-2.yaml)"
+kubectl patch deployment patch-demo --type merge --patch-file patch-file-2.yaml
 ```
 
 View the patched Deployment:
@@ -308,14 +303,9 @@ spec:
 
 Patch your Deployment:
 
-{{< tabs name="kubectl_retainkeys_example" >}}
-{{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment retainkeys-demo --type merge --patch "$(cat patch-file-no-retainkeys.yaml)"
-{{< /tab >}}
-{{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment retainkeys-demo --type merge --patch $(Get-Content patch-file-no-retainkeys.yaml -Raw)
-{{< /tab >}}}
-{{< /tabs >}}
+```shell
+kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no-retainkeys.yaml
+```
 
 In the output, you can see that it is not possible to set `type` as `Recreate` when a value is defined for `spec.strategy.rollingUpdate`:
 
@@ -339,14 +329,9 @@ With this patch, we indicate that we want to retain only the `type` key of the `
 
 Patch your Deployment again with this new patch:
 
-{{< tabs name="kubectl_retainkeys2_example" >}}
-{{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment retainkeys-demo --type merge --patch "$(cat patch-file-retainkeys.yaml)"
-{{< /tab >}}
-{{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment retainkeys-demo --type merge --patch $(Get-Content patch-file-retainkeys.yaml -Raw)
-{{< /tab >}}}
-{{< /tabs >}}
+```shell
+kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-retainkeys.yaml
+```
 
 Examine the content of the Deployment:
 
@@ -425,10 +410,10 @@ The following commands are equivalent:
 
 
 ```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
+kubectl patch deployment patch-demo --patch-file patch-file.yaml
 kubectl patch deployment patch-demo --patch 'spec:\n template:\n  spec:\n   containers:\n   - name: patch-demo-ctr-2\n     image: redis'
 
-kubectl patch deployment patch-demo --patch "$(cat patch-file.json)"
+kubectl patch deployment patch-demo --patch-file patch-file.json
 kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"containers": [{"name": "patch-demo-ctr-2","image": "redis"}]}}}}'
 ```
 

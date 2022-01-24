@@ -178,4 +178,4 @@ flannel Podが実行されると、ノードは`Ready`状態になり、ワー�
 ## {{% heading "whatsnext" %}}
 
 
-- [Windows kubeadmノードのアップグレード](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
+- [Windows kubeadmノードのアップグレード](/ja/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)

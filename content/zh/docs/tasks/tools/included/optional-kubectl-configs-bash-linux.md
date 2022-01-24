@@ -62,29 +62,22 @@ Reload your shell and verify that bash-completion is correctly installed by typi
 -->
 ### 启动 kubectl 自动补全功能 {#enable-kubectl-autocompletion}
 
+#### Bash
+
 <!-- 
 You now need to ensure that the kubectl completion script gets sourced in all your shell sessions. There are two ways in which you can do this:
 -->
 你现在需要确保一点：kubectl 补全脚本已经导入（sourced）到 shell 会话中。
-这里有两种验证方法：
+可以通过以下两种方法进行设置：
 
-<!-- 
-- Source the completion script in your `~/.bashrc` file:
--->
-- 在文件 `~/.bashrc` 中导入（source）补全脚本：
-
-  ```bash
-  echo 'source <(kubectl completion bash)' >>~/.bashrc
-  ```
-
-<!-- 
-- Add the completion script to the `/etc/bash_completion.d` directory:
--->
-- 将补全脚本添加到目录 `/etc/bash_completion.d` 中：
-
-  ```bash
-  kubectl completion bash >/etc/bash_completion.d/kubectl
-  ```
+{{< tabs name="kubectl_bash_autocompletion" >}}
+{{{< tab name="当前用户" codelang="bash" >}}
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+{{< /tab >}}
+{{< tab name="系统全局" codelang="bash" >}}
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+{{< /tab >}}}
+{{< /tabs >}}
 
 <!-- 
 If you have an alias for kubectl, you can extend shell completion to work with that alias:
