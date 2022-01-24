@@ -305,34 +305,22 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Volume Types</td>
 			<td>
-				<p>In addition to restricting HostPath volumes, the restricted policy limits usage of non-core volume types to those defined through PersistentVolumes.</p>
+				<p>The restricted policy only permits the following volume types.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
-					<li><code>spec.volumes[*].hostPath</code></li>
-					<li><code>spec.volumes[*].gcePersistentDisk</code></li>
-					<li><code>spec.volumes[*].awsElasticBlockStore</code></li>
-					<li><code>spec.volumes[*].gitRepo</code></li>
-					<li><code>spec.volumes[*].nfs</code></li>
-					<li><code>spec.volumes[*].iscsi</code></li>
-					<li><code>spec.volumes[*].glusterfs</code></li>
-					<li><code>spec.volumes[*].rbd</code></li>
-					<li><code>spec.volumes[*].flexVolume</code></li>
-					<li><code>spec.volumes[*].cinder</code></li>
-					<li><code>spec.volumes[*].cephfs</code></li>
-					<li><code>spec.volumes[*].flocker</code></li>
-					<li><code>spec.volumes[*].fc</code></li>
-					<li><code>spec.volumes[*].azureFile</code></li>
-					<li><code>spec.volumes[*].vsphereVolume</code></li>
-					<li><code>spec.volumes[*].quobyte</code></li>
-					<li><code>spec.volumes[*].azureDisk</code></li>
-					<li><code>spec.volumes[*].portworxVolume</code></li>
-					<li><code>spec.volumes[*].scaleIO</code></li>
-					<li><code>spec.volumes[*].storageos</code></li>
-					<li><code>spec.volumes[*].photonPersistentDisk</code></li>
+					<li><code>spec.volumes[*]</code></li>
 				</ul>
 				<p><strong>Allowed Values</strong></p>
+				Every item in the <code>spec.volumes[*]</code> list must set one of the following fields to a non-null value:
 				<ul>
-					<li>Undefined/nil</li>
+					<li><code>spec.volumes[*].configMap</code></li>
+					<li><code>spec.volumes[*].csi</code></li>
+					<li><code>spec.volumes[*].downwardAPI</code></li>
+					<li><code>spec.volumes[*].emptyDir</code></li>
+					<li><code>spec.volumes[*].ephemeral</code></li>
+					<li><code>spec.volumes[*].persistentVolumeClaim</code></li>
+					<li><code>spec.volumes[*].projected</code></li>
+					<li><code>spec.volumes[*].secret</code></li>
 				</ul>
 			</td>
 		</tr>
