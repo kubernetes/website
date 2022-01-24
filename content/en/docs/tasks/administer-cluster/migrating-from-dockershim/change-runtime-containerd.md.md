@@ -1,46 +1,54 @@
 ---
-title: "Change Your Container Runtime from Docker Engine to containerd"
+title: "Changing the container runtime from Docker Engine to containerd"
 weight: 8
 content_type: task 
 ---
+This task outlines the steps needed to update your container runtime to containerd from Docker. It is applicable for cluster operators running Kubernetes 1.23 or earlier. 
 
-- Drain Node 
-```
-# replace <node-to-drain> with the name of your node you are draining
-kubectl drain <node-to-drain> --ignore-daemonsets
-```
-- Stop the Docker daemon
-```
-systemctl stop kubelet
-systemctl stop docker
-```
-- Install & start containerd 
+## Prerequisites 
+1. Install containerd. For more information see, [containerd's installation documentation](https://containerd.io/docs/getting-started/)
 
+
+2. Drain Node 
+   ```
+   # replace <node-to-drain> with the name of your node you are draining
+   kubectl drain <node-to-drain> --ignore-daemonsets
+   ```
+3. Stop the Docker daemon
+   ```
+   systemctl stop kubelet
+   systemctl stop docker
+   ```
+
+2.  Start containerd 
 
 ## Migrate a Linux node {#migration-linux}
 Use the following commands to install Containerd on your system:
 
-Install and configure prerequisites:
+1. Install and configure prerequisites:
 
-```shell
-cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# Setup required sysctl params, these persist across reboots.
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-# Apply sysctl params without reboot
-sudo sysctl --system
-```
+   ```shell
+   cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
+   overlay
+   br_netfilter
+   EOF
+   ```
+   ```shell
+   sudo modprobe overlay
+   sudo modprobe br_netfilter
+   ```
+2. Setup required sysctl params, these persist across reboots.
+   ```shell
+      cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+   net.bridge.bridge-nf-call-iptables  = 1
+   net.ipv4.ip_forward                 = 1
+   net.bridge.bridge-nf-call-ip6tables = 1
+   EOF
+   ```
+3. Apply sysctl params without reboot
+   ```shell
+   sudo sysctl --system
+   ```
 
 Install containerd:
 
