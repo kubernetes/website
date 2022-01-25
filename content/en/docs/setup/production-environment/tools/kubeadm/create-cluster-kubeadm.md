@@ -111,10 +111,9 @@ for all control-plane nodes. Such an endpoint can be either a DNS name or an IP 
 be passed to `kubeadm init`. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
 a provider-specific value. See [Installing a Pod network add-on](#pod-network).
-1. (Optional) Since version 1.14, `kubeadm` tries to detect the container runtime on Linux
-by using a list of well known domain socket paths. To use different container runtime or
-if there are more than one installed on the provisioned node, specify the `--cri-socket`
-argument to `kubeadm init`. See
+1. (Optional) `kubeadm` tries to detect the container runtime by using a list of well
+known endpoints. To use different container runtime or if there are more than one installed
+on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
 with the default gateway to set the advertise address for this particular control-plane node's API server.
@@ -384,8 +383,8 @@ A few seconds later, you should notice this node in the output from `kubectl get
 nodes` when run on the control-plane node.
 
 {{< note >}}
-As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run 
-on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods 
+As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run
+on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 {{< /note >}}
 
