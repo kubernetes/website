@@ -54,7 +54,7 @@ weight: 21 # just after persistent volumes
 
 ## SecurityContextの相互作用
 
-[サービスアカウントの投影ボリューム拡張でのファイル権限処理の提案]((https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#token-volume-projection))により、正しい所有者権限が設定された投影ファイルが導入されました。
+[サービスアカウントの投影ボリューム拡張でのファイル権限処理の提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal)により、正しい所有者権限が設定された投影ファイルが導入されました。
 
 ### Linux
 
