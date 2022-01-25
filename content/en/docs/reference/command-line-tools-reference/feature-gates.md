@@ -562,7 +562,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
-- `Accelerators`: Provided an early form of plugin to enable Nvidia GPU support when using Docker, no longer available. See [Device Plugins](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for more details. 
+- `Accelerators`: Provided an early form of plugin to enable Nvidia GPU support when using
+  Docker Engine; no longer available. See
+  [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) for
+  an alternative.
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
 - `AffinityInAnnotations`: Enable setting
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
