@@ -1,11 +1,15 @@
 schedules:
 - release: 1.23
   releaseDate: 2021-12-07
-  next: 1.23.3
-  cherryPickDeadline: 2022-01-24
-  targetDate: 2022-01-25
+  next: 1.23.4
+  cherryPickDeadline: 2022-02-11
+  targetDate: 2022-02-16
   endOfLifeDate: 2023-02-28
   previousPatches:
+    - release: 1.23.3
+      cherryPickDeadLine: 2022-01-24
+      targetDate: 2022-01-25
+      note: "Out-of-Bound Release https://groups.google.com/u/2/a/kubernetes.io/g/dev/c/Xl1sm-CItaY"
     - release: 1.23.2
       cherryPickDeadline: 2022-01-14
       targetDate: 2022-01-19
