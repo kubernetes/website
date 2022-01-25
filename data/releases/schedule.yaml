@@ -1,11 +1,14 @@
 schedules:
 - release: 1.23
   releaseDate: 2021-12-07
-  next: 1.23.2
-  cherryPickDeadline: 2022-01-14
-  targetDate: 2022-01-19
+  next: 1.23.3
+  cherryPickDeadline: 2022-01-24
+  targetDate: 2022-01-25
   endOfLifeDate: 2023-02-28
   previousPatches:
+    - release: 1.23.2
+      cherryPickDeadline: 2022-01-14
+      targetDate: 2022-01-19
     - release: 1.23.1
       cherryPickDeadline: 2021-12-14
       targetDate: 2021-12-16
