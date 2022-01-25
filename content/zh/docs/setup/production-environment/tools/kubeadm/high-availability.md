@@ -102,11 +102,11 @@ For the external etcd cluster only, you also need:
 
 ### 为 kube-apiserver 创建负载均衡器
 
-{{< note >}}
 <!--
 There are many configurations for load balancers. The following example is only one
 option. Your cluster requirements may need a different configuration.
 -->
+{{< note >}}
 使用负载均衡器需要许多配置。你的集群搭建可能需要不同的配置。
 下面的例子只是其中的一方面配置。
 {{< /note >}}
@@ -212,24 +212,24 @@ option. Your cluster requirements may need a different configuration.
       如果正好相反，你更喜欢手动地通过控制平面节点或者使用自动化
       工具复制证书，请删除此标志并参考如下部分[证书分配手册](#manual-certs)。
 
-    {{< note >}}
     <!--
     The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
     to use the [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/) you must add the `certificateKey` field in the appropriate config locations (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
     -->
+    {{< note >}}
     标志 `kubeadm init`、`--config` 和 `--certificate-key` 不能混合使用，
     因此如果你要使用
     [kubeadm 配置](/docs/reference/config-api/kubeadm-config.v1beta3/)，你必须在相应的配置文件
     （位于 `InitConfiguration` 和 `JoinConfiguration: controlPlane`）添加 `certificateKey` 字段。
     {{< /note >}}
 
-    {{< note >}}
     <!--
     Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
     some like Weave do not. See the [CNI network documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
     To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kubeadm configuration file
     set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
     -->
+    {{< note >}}
     一些 CNI 网络插件如 Calico 需要 CIDR 例如 `192.168.0.0/16` 和一些像 Weave 没有。参考
     [CNI 网络文档](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
     通过传递 `--pod-network-cidr` 标志添加 pod CIDR，或者你可以使用 kubeadm
@@ -278,18 +278,17 @@ option. Your cluster requirements may need a different configuration.
       ```shell
       kubeadm certs certificate-key
       ```
-
-    {{< note >}}
     <!--
     The `kubeadm-certs` Secret and decryption key expire after two hours.
     -->
+    {{< note >}}
     `kubeadm-certs` 密钥和解密密钥会在两个小时后失效。
     {{< /note >}}
 
-    {{< caution >}}
     <!--
     As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
     -->
+    {{< caution >}}
     正如命令输出中所述，证书密钥可访问群集敏感数据。请妥善保管！
     {{< /caution >}}
 
@@ -324,12 +323,12 @@ option. Your cluster requirements may need a different configuration.
 -->
 ### 其余控制平面节点的步骤
 
-{{< note >}}
 <!--
 Since kubeadm version 1.15 you can join multiple control-plane nodes in parallel.
 Prior to this version, you must join new control plane nodes sequentially, only after
 the first node has finished initializing.
 -->
+{{< note >}}
 从 kubeadm 1.15 版本开始，你可以并行加入多个控制平面节点。
 在此版本之前，你必须在第一个节点初始化后才能依序的增加新的控制平面节点。
 {{< /note >}}
@@ -451,13 +450,12 @@ in the kubeadm config file.
             certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
             keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
     ```
-
-    {{< note >}}
     <!--
     The difference between stacked etcd and external etcd here is that the external etcd setup requires
     a configuration file with the etcd endpoints under the `external` object for `etcd`.
     In the case of the stacked etcd topology this is managed automatically.
     -->
+    {{< note >}}
     这里的内部（stacked） etcd 和外部 etcd 之前的区别在于设置外部 etcd
     需要一个 `etcd` 的 `external` 对象下带有 etcd 端点的配置文件。
     如果是内部 etcd，是自动管理的。
@@ -627,13 +625,12 @@ SSH is required if you want to control all nodes from a single machine.
        scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
    done
    ```
-
-   {{< caution >}}
    <!--
    Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates
    with the required SANs for the joining control-plane instances. If you copy all the certificates by mistake,
    the creation of additional nodes could fail due to a lack of required SANs.
    -->
+   {{< caution >}}
    只需要复制上面列表中的证书。kubeadm 将负责生成其余证书以及加入控制平面实例所需的 SAN。
    如果你错误地复制了所有证书，由于缺少所需的 SAN，创建其他节点可能会失败。
    {{< /caution >}}
