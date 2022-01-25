@@ -106,10 +106,9 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 `172-17-0-3.default.pod.cluster.local`.
 
-Any pods created by a Deployment or DaemonSet exposed by a Service have the
-following DNS resolution available:
+Any pods exposed by a Service have the following DNS resolution available:
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 ### Pod's hostname and subdomain fields
 
