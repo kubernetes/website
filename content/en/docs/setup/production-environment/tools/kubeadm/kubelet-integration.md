@@ -36,7 +36,7 @@ using kubeadm, rather than managing the kubelet configuration for each Node manu
 ### Propagating cluster-level configuration to each kubelet
 
 You can provide the kubelet with default values to be used by `kubeadm init` and `kubeadm join`
-commands. Interesting examples include using a different CRI runtime or setting the default subnet
+commands. Interesting examples include using a different container runtime or setting the default subnet
 used by services.
 
 If you want your services to use the subnet `10.96.0.0/12` as the default for services, you can pass
@@ -51,7 +51,7 @@ by the kubelet, using the `--cluster-dns` flag. This setting needs to be the sam
 on every manager and Node in the cluster. The kubelet provides a versioned, structured API object
 that can configure most parameters in the kubelet and push out this configuration to each running
 kubelet in the cluster. This object is called
-[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/). 
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
 The `KubeletConfiguration` allows the user to specify flags such as the cluster DNS IP addresses expressed as
 a list of values to a camelCased key, illustrated by the following example:
 
@@ -78,14 +78,12 @@ networking, or other host-specific parameters. The following list provides a few
   unless you are using a cloud provider. You can use the `--hostname-override` flag to override the
   default behavior if you need to specify a Node name different from the machine's hostname.
 
-- Currently, the kubelet cannot automatically detect the cgroup driver used by the CRI runtime,
-  but the value of `--cgroup-driver` must match the cgroup driver used by the CRI runtime to ensure
+- Currently, the kubelet cannot automatically detect the cgroup driver used by the container runtime,
+  but the value of `--cgroup-driver` must match the cgroup driver used by the container runtime to ensure
   the health of the kubelet.
 
-- Depending on the CRI runtime your cluster uses, you may need to specify different flags to the kubelet.
-  For instance, when using Docker, you need to specify flags such as `--network-plugin=cni`, but if you
-  are using an external runtime, you need to specify `--container-runtime=remote` and specify the CRI
-  endpoint using the `--container-runtime-endpoint=<path>`.
+- To specify the container runtime you must set its endpoint with the
+`--container-runtime-endpoint=<path>` flag.
 
 You can specify these flags by configuring an individual kubelet's configuration in your service manager,
 such as systemd.
@@ -123,7 +121,7 @@ KUBELET_KUBEADM_ARGS="--flag1=value1 --flag2=value2 ..."
 ```
 
 In addition to the flags used when starting the kubelet, the file also contains dynamic
-parameters such as the cgroup driver and whether to use a different CRI runtime socket
+parameters such as the cgroup driver and whether to use a different container runtime socket
 (`--cri-socket`).
 
 After marshalling these two files to disk, kubeadm attempts to run the following two
