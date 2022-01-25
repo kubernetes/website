@@ -11,7 +11,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-Debes usar una versión de kubectl que esté dentro de una diferencia de versión menor de tu clúster. Por ejemplo, un v{{< skew latestVersion >}} La cliente puede comunicarse con v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, y v{{< skew nextMinorVersion >}} aviones de control.
+Debes usar una versión de kubectl que esté dentro de una diferencia de versión menor de tu clúster. Por ejemplo, un cliente v{{< skew latestVersion >}} puede comunicarse con v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, y v{{< skew nextMinorVersion >}} del plano de control.
 El uso de la última versión de kubectl ayuda a evitar problemas inesperados.
 
 ## Instalar kubectl en Linux
@@ -84,7 +84,7 @@ Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, es
    chmod +x kubectl
    mkdir -p ~/.local/bin/kubectl
    mv ./kubectl ~/.local/bin/kubectl
-   # y luego agrega ~/.local/bin/kubectl para $PATH
+   # y luego agregue ~/.local/bin/kubectl en el $PATH
    ```
 
    {{< /note >}}
