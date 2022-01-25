@@ -574,7 +574,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelets on Pod log requests.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
-- `AppArmor`: Enable AppArmor based mandatory access control on Linux nodes when using container runtime.
+- `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
   See [AppArmor Tutorial](/docs/tutorials/clusters/apparmor/) for more details.
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
