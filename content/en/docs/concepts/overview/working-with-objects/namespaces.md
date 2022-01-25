@@ -98,6 +98,9 @@ is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
 
+As a result, all namespace names must be valid
+[RFC 1123 DNS labels](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
+
 ## Not All Objects are in a Namespace
 
 Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are

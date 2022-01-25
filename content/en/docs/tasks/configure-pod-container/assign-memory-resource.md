@@ -174,7 +174,6 @@ The output shows that the Container was killed because it is out of memory (OOM)
 ```shell
 lastState:
    terminated:
-     containerID: YOUR_CONTAINER_ID
      exitCode: 137
      finishedAt: 2017-06-20T20:52:19Z
      reason: OOMKilled

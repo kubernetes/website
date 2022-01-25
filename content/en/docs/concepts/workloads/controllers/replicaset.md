@@ -313,7 +313,7 @@ ensures that a desired number of Pods with a matching label selector are availab
 When scaling down, the ReplicaSet controller chooses which pods to delete by sorting the available pods to
 prioritize scaling down pods based on the following general algorithm:
  1. Pending (and unschedulable) pods are scaled down first
- 2. If controller.kubernetes.io/pod-deletion-cost annotation is set, then
+ 2. If `controller.kubernetes.io/pod-deletion-cost` annotation is set, then
     the pod with the lower value will come first.
  3. Pods on nodes with more replicas come before pods on nodes with fewer replicas.
  4. If the pods' creation times differ, the pod that was created more recently

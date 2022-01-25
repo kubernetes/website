@@ -26,7 +26,7 @@ Currently, the following types of volume sources can be projected:
 * `serviceAccountToken`
 
 All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
+see the [all-in-one volume](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md) design document.
 
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
 
@@ -71,9 +71,7 @@ volume mount will not receive updates for those volume sources.
 
 ## SecurityContext interactions
 
-The [proposal for file permission handling in projected service account volume](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#token-volume-projection)
-enhancement introduced the projected files having the the correct owner
-permissions set.
+The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the the correct owner permissions set.
 
 ### Linux
 
