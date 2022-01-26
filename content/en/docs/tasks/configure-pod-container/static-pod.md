@@ -161,7 +161,7 @@ crictl ps
 
 The output might be something like:
 
-```
+```console
 CONTAINER           IMAGE                                CREATED             STATE               NAME                        ATTEMPT             POD ID
 129fd7d382018       docker.io/library/nginx@sha256:...   11 minutes ago      Running             web                         0                   34533c6729106
 ```
@@ -216,7 +216,7 @@ crictl stop 129fd7d382018 # replace with the ID of your container
 sleep 20
 crictl ps
 ```
-```
+```console
 CONTAINER           IMAGE                                CREATED             STATE               NAME                        ATTEMPT             POD ID
 89db4553e1eeb       docker.io/library/nginx@sha256:...   19 seconds ago      Running             web                         1                   34533c6729106
 ```
@@ -237,7 +237,7 @@ mv /tmp/static-web.yaml  /etc/kubelet.d/
 sleep 20
 crictl ps
 ```
-```
+```console
 CONTAINER           IMAGE                                CREATED             STATE               NAME                        ATTEMPT             POD ID
 f427638871c35       docker.io/library/nginx@sha256:...   19 seconds ago      Running             web                         1                   34533c6729106
 ```
