@@ -162,11 +162,14 @@ crictl ps
 The output might be something like:
 
 ```console
-CONTAINER           IMAGE                                CREATED             STATE               NAME                        ATTEMPT             POD ID
-129fd7d382018       docker.io/library/nginx@sha256:...   11 minutes ago      Running             web                         0                   34533c6729106
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+129fd7d382018   docker.io/library/nginx@sha256:...    11 minutes ago    Running    web     0          34533c6729106
 ```
 
-Note: `crictl` outputs the image URI and SHA-256 checksum. `NAME` will look more like: `docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`.
+{{< note >}}
+`crictl` outputs the image URI and SHA-256 checksum. `NAME` will look more like:
+`docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`.
+{{< /note >}}
 
 You can see the mirror Pod on the API server:
 
@@ -182,7 +185,6 @@ static-web   1/1     Running   0               2m
 Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See
 [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
 {{< /note >}}
-
 
 {{< glossary_tooltip term_id="label" text="Labels" >}} from the static Pod are
 propagated into the mirror Pod. You can use those labels as normal via
@@ -217,8 +219,8 @@ sleep 20
 crictl ps
 ```
 ```console
-CONTAINER           IMAGE                                CREATED             STATE               NAME                        ATTEMPT             POD ID
-89db4553e1eeb       docker.io/library/nginx@sha256:...   19 seconds ago      Running             web                         1                   34533c6729106
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+89db4553e1eeb   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
 
 ## Dynamic addition and removal of static pods
@@ -238,6 +240,6 @@ sleep 20
 crictl ps
 ```
 ```console
-CONTAINER           IMAGE                                CREATED             STATE               NAME                        ATTEMPT             POD ID
-f427638871c35       docker.io/library/nginx@sha256:...   19 seconds ago      Running             web                         1                   34533c6729106
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
