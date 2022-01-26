@@ -75,20 +75,20 @@ etcd 还实现了双向 TLS 来对客户端和对其他对等节点进行身份�
 <!--
 ## Where certificates are stored
 
-If you install Kubernetes with kubeadm, certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory.
+If you install Kubernetes with kubeadm, most certificates are stored in /etc/kubernetes/pki. All paths in this documentation are relative to that directory, with the exception of user account certificates which kubeadm places in /etc/kubernetes.
 -->
 ## 证书存放的位置
 
-如果你是通过 kubeadm 安装的 Kubernetes，所有证书都存放在 `/etc/kubernetes/pki` 目录下。本文所有相关的路径都是基于该路径的相对路径。
+如果你是通过 kubeadm 安装的 Kubernetes，大多数的证书都存放在 `/etc/kubernetes/pki` 目录下。本文所有相关的路径都是基于该路径的相对路径，kubeadm的用户账户证书是个例外，他存放在`/etc/kubernetes`下。
 
 <!--
 ## Configure certificates manually
 
-If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways.
+If you don't want kubeadm to generate the required certificates, you can create them using a single root CA or by providing all certificates. See Certificates for details on creating your own certificate authority. See Certificate Management with kubeadm for more on managing certificates.
 -->
 ## 手动配置证书
 
-如果你不想通过 kubeadm 生成这些必需的证书，你可以通过下面两种方式之一来手动创建他们。
+如果你不想通过 kubeadm 生成这些必需的证书，你可以通过使用单个根 CA 或提供所有证书来创建它们。有关创建自己的证书颁发机构的详细信息，请参阅[Certificates](/docs/tasks/administer-cluster/certificates/)。有关管理证书的详细信息，请参阅[Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
 
 <!--
 ### Single root CA
@@ -109,6 +109,16 @@ Required CAs:
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 On top of the above CAs, it is also necessary to get a public/private key pair for service account management, `sa.key` and `sa.pub`.
+The following example illustrates the CA key and certificate files shown in the previous table:
+
+```
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+```
 -->
 需要这些 CA：
 
@@ -119,7 +129,16 @@ On top of the above CAs, it is also necessary to get a public/private key pair f
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | 用于 [前端代理](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 上面的 CA 之外，还需要获取用于服务账户管理的密钥对，也就是 `sa.key` 和 `sa.pub`。
+以下示例说明了上表中显示的CA密钥和证书文件：
 
+```
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+```
 <!--
 ### All certificates
 
@@ -227,6 +246,61 @@ Same considerations apply for the service account key pair:
 |                              | sa.pub                      | kube-apiserver          | --service-account-key-file                  |
 
 <!--
+The following example illustrates the file paths [from the previous tables](/docs/setup/best-practices/certificates/#certificate-paths) you need to provide if you are generating all of your own keys and certificates:
+
+```
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/apiserver-etcd-client.key
+/etc/kubernetes/pki/apiserver-etcd-client.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/apiserver.key
+/etc/kubernetes/pki/apiserver.crt
+/etc/kubernetes/pki/apiserver-kubelet-client.key
+/etc/kubernetes/pki/apiserver-kubelet-client.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-client.key
+/etc/kubernetes/pki/front-proxy-client.crt
+/etc/kubernetes/pki/etcd/server.key
+/etc/kubernetes/pki/etcd/server.crt
+/etc/kubernetes/pki/etcd/peer.key
+/etc/kubernetes/pki/etcd/peer.crt
+/etc/kubernetes/pki/etcd/healthcheck-client.key
+/etc/kubernetes/pki/etcd/healthcheck-client.crt
+/etc/kubernetes/pki/sa.key
+/etc/kubernetes/pki/sa.pub
+```
+-->
+下面的示例说明了在生成自己的所有密钥和证书时需要提供的文件路径[上表](/docs/setup/best-practices/certificates/#certificate-paths):
+
+```
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/apiserver-etcd-client.key
+/etc/kubernetes/pki/apiserver-etcd-client.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/apiserver.key
+/etc/kubernetes/pki/apiserver.crt
+/etc/kubernetes/pki/apiserver-kubelet-client.key
+/etc/kubernetes/pki/apiserver-kubelet-client.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-client.key
+/etc/kubernetes/pki/front-proxy-client.crt
+/etc/kubernetes/pki/etcd/server.key
+/etc/kubernetes/pki/etcd/server.crt
+/etc/kubernetes/pki/etcd/peer.key
+/etc/kubernetes/pki/etcd/peer.crt
+/etc/kubernetes/pki/etcd/healthcheck-client.key
+/etc/kubernetes/pki/etcd/healthcheck-client.crt
+/etc/kubernetes/pki/sa.key
+/etc/kubernetes/pki/sa.pub
+```
+
+<!--
 ## Configure certificates for user accounts
 
 You must manually configure these administrator account and service accounts:
@@ -284,4 +358,23 @@ These files are used as follows:
 | kubelet.conf            | kubelet                 | 集群中的每个节点都需要一份                                                 |
 | controller-manager.conf | kube-controller-manager | 必需添加到 `manifests/kube-controller-manager.yaml` 清单中               |
 | scheduler.conf          | kube-scheduler          | 必需添加到 `manifests/kube-scheduler.yaml` 清单中                        |
+
+<!--
+The following files illustrate full paths to the files listed in the previous table:
+
+```
+/etc/kubernetes/admin.conf
+/etc/kubernetes/kubelet.conf
+/etc/kubernetes/controller-manager.conf
+/etc/kubernetes/scheduler.conf
+```
+-->
+以下文件说明了上表中列出的文件的完整路径
+
+```
+/etc/kubernetes/admin.conf
+/etc/kubernetes/kubelet.conf
+/etc/kubernetes/controller-manager.conf
+/etc/kubernetes/scheduler.conf
+```
 
