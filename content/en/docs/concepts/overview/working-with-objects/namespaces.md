@@ -101,6 +101,15 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 As a result, all namespace names must be valid
 [RFC 1123 DNS labels](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 
+{{< warning >}}
+By creating namespaces with the same name as [public
+TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt), services in these
+namespaces can have short DNS names that overlap with public DNS names.
+Workloads from any namespace performing a DNS lookup without a trailing dot will
+be redirected to those services. For this and many other reasons, creating
+namespaces is a highly-privileged operation and should be done with care.
+{{< /warning >}}
+
 ## Not All Objects are in a Namespace
 
 Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
