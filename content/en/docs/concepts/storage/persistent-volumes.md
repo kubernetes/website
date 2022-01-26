@@ -9,7 +9,7 @@ title: Persistent Volumes
 feature:
   title: Storage orchestration
   description: >
-    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
+    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph or Flocker.
 content_type: concept
 weight: 20
 ---
@@ -128,7 +128,7 @@ When a user is done with their volume, they can delete the PVC objects from the 
 
 The `Retain` reclaim policy allows for manual reclamation of the resource. When the PersistentVolumeClaim is deleted, the PersistentVolume still exists and the volume is considered "released". But it is not yet available for another claim because the previous claimant's data remains on the volume. An administrator can manually reclaim the volume with the following steps.
 
-1. Delete the PersistentVolume. The associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume) still exists after the PV is deleted.
+1. Delete the PersistentVolume. The associated storage asset in external infrastructure (such as an AWS EBS, GCE PD or Azure Disk) still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
 1. Manually delete the associated storage asset.
 
@@ -136,7 +136,7 @@ If you want to reuse the same storage asset, create a new PersistentVolume with 
 
 #### Delete
 
-For volume plugins that support the `Delete` reclaim policy, deletion removes both the PersistentVolume object from Kubernetes, as well as the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned inherit the [reclaim policy of their StorageClass](#reclaim-policy), which defaults to `Delete`. The administrator should configure the StorageClass according to users' expectations; otherwise, the PV must be edited or patched after it is created. See [Change the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
+For volume plugins that support the `Delete` reclaim policy, deletion removes both the PersistentVolume object from Kubernetes, as well as the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD or Azure Disk. Volumes that were dynamically provisioned inherit the [reclaim policy of their StorageClass](#reclaim-policy), which defaults to `Delete`. The administrator should configure the StorageClass according to users' expectations; otherwise, the PV must be edited or patched after it is created. See [Change the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
 
 #### Recycle
 
@@ -226,7 +226,6 @@ the following types of volumes:
 * azureDisk
 * azureFile
 * awsElasticBlockStore
-* cinder (deprecated)
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
 * gcePersistentDisk
@@ -371,8 +370,6 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 
 The following types of PersistentVolume are deprecated. This means that support is still available but will be removed in a future Kubernetes release.
 
-* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
-  (**deprecated** in v1.18)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** in v1.23)
 * [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
@@ -486,7 +483,6 @@ In the CLI, the access modes are abbreviated to:
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | AzureDisk            | &#x2713;               | -                     | -             | -                      |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| Cinder               | &#x2713;               | -                     | -             | -                      |
 | CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
@@ -521,9 +517,9 @@ Current reclaim policies are:
 
 * Retain -- manual reclamation
 * Recycle -- basic scrub (`rm -rf /thevolume/*`)
-* Delete -- associated storage asset such as AWS EBS, GCE PD, Azure Disk, or OpenStack Cinder volume is deleted
+* Delete -- associated storage asset such as AWS EBS, GCE PD or Azure Disk is deleted
 
-Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk, and Cinder volumes support deletion.
+Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD and Azure Disk support deletion.
 
 ### Mount Options
 
@@ -539,7 +535,6 @@ The following volume types support mount options:
 * AzureDisk
 * AzureFile
 * CephFS
-* Cinder (OpenStack block storage)
 * GCEPersistentDisk
 * Glusterfs
 * NFS
@@ -710,7 +705,6 @@ applicable:
 * GCEPersistentDisk
 * iSCSI
 * Local volume
-* OpenStack Cinder
 * RBD (Ceph Block Device)
 * VsphereVolume
 
