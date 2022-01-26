@@ -21,7 +21,7 @@ weight: 21 # just after persistent volumes
 * [`configMap`](/docs/concepts/storage/volumes/#configmap)
 * `serviceAccountToken`
 
-すべてのソースは、Podと同じnamespaceにある必要があります。詳細は[all-in-one volume designドキュメント](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md)を参照してください。
+すべてのソースは、Podと同じnamespaceにある必要があります。詳細は[all-in-one volume](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md) デザインドキュメントを参照してください。
 
 ### secret、downwardAPI、およびconfigMapを使用した構成例 {#example-configuration-secret-downwardapi-configmap}
 
