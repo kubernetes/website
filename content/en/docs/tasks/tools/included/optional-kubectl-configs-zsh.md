@@ -27,3 +27,13 @@ If you get an error like `complete:13: command not found: compdef`, then add the
 autoload -Uz compinit
 compinit
 ```
+
+If you get an error like:  
+```
+zsh compinit: insecure directories, run compaudit for list.
+Ignore insecure directories and continue [y] or abort compinit [n]?
+```
+This means that some of the directories that zsh uses are group-writable. To fix this, make sure the effected directories are not group-writable. Here is a one-liner to fix this:
+```
+compaudit | xargs chmod g-w
+```
