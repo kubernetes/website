@@ -98,4 +98,4 @@ IPv6が有効になった外部ロードバランサーをサポートしてい�
 
 ## {{% heading "whatsnext" %}}
 
-* [IPv4/IPv6デュアルスタックのネットワークを検証する](/docs/tasks/network/validate-dual-stack)
+* [IPv4/IPv6デュアルスタックのネットワークを検証する](/ja/docs/tasks/network/validate-dual-stack)
