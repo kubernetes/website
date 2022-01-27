@@ -10,7 +10,7 @@ content_type: concept
 이 문서는 클러스터 트러블슈팅에 대해 설명한다. 사용자가 겪고 있는 문제의 근본 원인으로서 사용자의 애플리케이션을 
 이미 배제했다고 가정한다.
 애플리케이션 디버깅에 대한 팁은 [애플리케이션 트러블슈팅 가이드](/docs/tasks/debug-application-cluster/debug-application/)를 참조한다.
-자세한 내용은 [트러블슈팅 문서](/docs/tasks/debug-application-cluster/troubleshooting/)를 참조한다.
+자세한 내용은 [트러블슈팅 문서](/ko/docs/tasks/debug-application-cluster/troubleshooting/)를 참조한다.
 
 <!-- body -->
 

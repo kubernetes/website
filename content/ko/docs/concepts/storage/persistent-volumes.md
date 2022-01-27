@@ -363,7 +363,7 @@ PVC 확장 실패의 사용자에 의한 복구는 쿠버네티스 1.23부터 �
 
 * [`cinder`](/ko/docs/concepts/storage/volumes/#cinder) - Cinder (오픈스택 블록 스토리지)
   (v1.18에서 **사용 중단**)
-* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+* [`flexVolume`](/ko/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (v1.23에서 **사용 중단**)
 * [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
   (v1.22에서 **사용 중단**)
