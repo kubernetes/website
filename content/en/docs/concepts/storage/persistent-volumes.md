@@ -535,19 +535,19 @@ Not all Persistent Volume types support mount options.
 
 The following volume types support mount options:
 
-* AWSElasticBlockStore
-* AzureDisk
-* AzureFile
-* CephFS
-* Cinder (OpenStack block storage)
-* GCEPersistentDisk
-* Glusterfs
-* NFS
-* Quobyte Volumes
-* RBD (Ceph Block Device)
-* StorageOS
-* VsphereVolume
-* iSCSI
+* `awsElasticBlockStore`
+* `azureDisk`
+* `azureFile`
+* `cephfs`
+* `cinder` (**deprecated** in v1.18)
+* `gcePersistentDisk`
+* `glusterfs`
+* `iscsi`
+* `nfs`
+* `quobyte` (**deprecated** in v1.22)
+* `rbd`
+* `storageos` (**deprecated** in v1.22)
+* `vsphereVolume`
 
 Mount options are not validated. If a mount option is invalid, the mount fails.
 
