@@ -50,11 +50,9 @@
     - securityContext
   - name: Beta level
     fields:
+    - ephemeralContainers
     - preemptionPolicy
     - overhead
-  - name: Alpha level
-    fields:
-    - ephemeralContainers
   - name: Deprecated
     fields:
     - serviceAccount
@@ -227,6 +225,9 @@
     - stdin
     - stdinOnce
     - tty
+  - name: Security context
+    fields:
+    - securityContext
   - name: Not allowed
     fields:
     - ports
@@ -234,7 +235,6 @@
     - lifecycle
     - livenessProbe
     - readinessProbe
-    - securityContext
     - startupProbe
 
 - definition: io.k8s.api.core.v1.ReplicationControllerSpec
