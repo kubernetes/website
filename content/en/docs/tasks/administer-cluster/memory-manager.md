@@ -138,7 +138,8 @@ The sum of their values will account for the total amount of reserved memory.
 A new `--reserved-memory` flag was added to Memory Manager to allow for this total reserved memory
 to be split (by a node administrator) and accordingly reserved across many NUMA nodes.
 
-The flag specifies a comma-separated list of memory reservations per NUMA node.
+The flag specifies a comma-separated list of memory reservations of different memory types per NUMA node.
+Memory reservations across multiple NUMA nodes can be specified using semicolon as separator.
 This parameter is only useful in the context of the Memory Manager feature.
 The Memory Manager will not use this reserved memory for the allocation of container workloads.
 
@@ -180,6 +181,10 @@ or
 
 `--reserved-memory 0:memory=1Gi --reserved-memory 1:memory=2Gi`
 
+or
+
+`--reserved-memory '0:memory=1Gi;1:memory=2Gi'`
+
 When you specify values for `--reserved-memory` flag, you must comply with the setting that
 you prior provided via Node Allocatable Feature flags.
 That is, the following rule must be obeyed for each memory type:
@@ -215,7 +220,7 @@ Here is an example of a correct configuration:
 --kube-reserved=cpu=4,memory=4Gi
 --system-reserved=cpu=1,memory=1Gi
 --memory-manager-policy=Static
---reserved-memory 0:memory=3Gi --reserved-memory 1:memory=2148Mi
+--reserved-memory '0:memory=3Gi;1:memory=2148Mi'
 ```
 
 Let us validate the configuration above:
