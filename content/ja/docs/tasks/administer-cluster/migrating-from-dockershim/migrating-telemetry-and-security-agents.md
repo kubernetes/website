@@ -56,7 +56,7 @@ kubectl get pods --all-namespaces \
 
 {{< note >}}
 Podがホスト上のDockerにアクセスするための代替方法があります。
-例えば、フルパスの代わりに親ディレクトリ`/var/run`をマウントすることができます(この例(https://gist.github.com/itaysk/7bc3e56d69c4d72a549286d98fd557dd) のように)。
+例えば、フルパスの代わりに親ディレクトリ`/var/run`をマウントすることができます([この例](https://gist.github.com/itaysk/7bc3e56d69c4d72a549286d98fd557dd) のように)。
 上記のスクリプトは、最も一般的な使用方法のみを検出します。
 {{< /note >}}
 
