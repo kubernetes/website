@@ -66,6 +66,5 @@ Podがホスト上のDockerにアクセスするための代替方法があり�
 
 ### テレメトリーとセキュリティエージェントのベンダー
 
-様々なテレメトリーおよびセキュリティエージェントベンダーのための移行指示のワークインプログレスバージョンを保管しています。
-を[Google doc](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#)でご覧ください。
+様々なテレメトリーおよびセキュリティエージェントベンダーのための移行指示の作業中バージョンを[Google doc](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#)に保管しています。
 dockershimからの移行に関する最新の手順については、各ベンダーにお問い合わせください。
