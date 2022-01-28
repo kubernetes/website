@@ -46,15 +46,16 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
-## Klastry
-
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
-
-* [seccomp](/docs/tutorials/clusters/seccomp/)
-
 ## Serwisy
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
+
+## Bezpieczeństwo
+
+* [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
+* [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
+* [AppArmor](/docs/tutorials/security/apparmor/)
+* [seccomp](/docs/tutorials/security/seccomp/)
 
 ## {{% heading "whatsnext" %}}
 
