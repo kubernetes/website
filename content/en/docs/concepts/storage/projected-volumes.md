@@ -51,6 +51,10 @@ into a Pod at a specified path. For example:
 
 {{< codenew file="pods/storage/projected-service-account-token.yaml" >}}
 
+By default, applications will authenticate as the `default` ServiceAccount in 
+the namespace they are running in. For instance, that an application running in 
+the `test` namespace will use the default `ServiceAccount` in the `test` namespace.
+
 The example Pod has a projected volume containing the injected service account
 token. This token can be used by a Pod's containers to access the Kubernetes API
 server. The `audience` field contains the intended audience of the
