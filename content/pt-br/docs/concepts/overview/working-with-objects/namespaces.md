@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-Em Kubernetes, _namespaces_ disponibilizam um mecanismo para isolar grupos de recursos dentro de um único cluster. Nomes de recursos precisam ser únicos dentro de um namespace, porém podem se repetir em diferentes namespaces. Escopos baseados em namespaces são aplicáveis apenas para objetos com namespace _(como: Deployments, Services, etc)_ e não em objetos que abrangem todo o cluster _(como: StorageClass, Nodes, PersistentVolumes, etc)_.
+No Kubernetes, _namespaces_ disponibilizam um mecanismo para isolar grupos de recursos dentro de um único cluster. Nomes de recursos precisam ser únicos dentro de um namespace, porém podem se repetir em diferentes namespaces. Escopos baseados em namespaces são aplicáveis apenas para objetos com namespace _(como: Deployments, Services, etc)_ e não em objetos que abrangem todo o cluster _(como: StorageClass, Nodes, PersistentVolumes, etc)_.
 
 <!-- body -->
 
@@ -44,7 +44,7 @@ kube-public       Active   1d
 kube-system       Active   1d
 ```
 
-Kubernetes se inicializa com quatro namespaces iniciais:
+O Kubernetes é inicializado com quatro namespaces:
 
    * `default` O namespace padrão para objetos sem namespace
    * `kube-system` O namespace para objetos criados pelo sistema Kubernetes
@@ -74,8 +74,8 @@ kubectl config view --minify | grep namespace:
 
 Quando você cria um [Serviço](/docs/concepts/services-networking/service/), ele cria uma
 [entrada DNS](/docs/concepts/services-networking/dns-pod-service/) correspondente.
-Esta entrada possui o formato: `<service-name>.<namespace-name>.svc.cluster.local`, de forma que se um container utilizar apenas `<service-name>` ele será resolvido para um serviço que é local ao namespace.
-Isso é útil para utilizar a mesma configuração em vários namespaces, por exemplo em Desenvolvimento, `Staging` e `Production`. Se você quiser acessar múltiplos namespaces, precisará utilizar um _Fully Qualified Domain Name_ (FQDN).
+Esta entrada possui o formato: `<service-name>.<namespace-name>.svc.cluster.local`, de forma que se um contêiner utilizar apenas `<service-name>` ele será resolvido para um serviço que é local ao namespace.
+Isso é útil para utilizar a mesma configuração em vários namespaces, por exemplo em Desenvolvimento, `Staging` e Produç. Se você quiser acessar múltiplos namespaces, precisará utilizar um _Fully Qualified Domain Name_ (FQDN).
 
 ## Nem todos os objetos pertencem a algum Namespace
 
