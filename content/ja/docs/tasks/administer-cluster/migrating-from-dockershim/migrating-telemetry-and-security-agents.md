@@ -30,7 +30,7 @@ Kubernetesはネットワークとスケジューリングを管理し、Docker�
 
 Dockerがコンテナランタイムとして非推奨になったため、これらのコマンドはもう使えません。
 
-### Dockerに依存するDaemonSetsの特定 {#identify-docker-dependency}
+### Dockerに依存するDaemonSetの特定 {#identify-docker-dependency}
 
 Podがノード上で動作している`dockerd`を呼び出したい場合、Podは以下のいずれかを行う必要があります。
 
