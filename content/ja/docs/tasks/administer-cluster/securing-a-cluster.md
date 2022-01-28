@@ -194,5 +194,4 @@ Kubernetesは1.7で導入された機能である[encryption at rest](/docs/task
 
 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)に参加してください。
 グループに参加すると、セキュリティアナウンスに関するメールを受け取ることができます。
-脆弱性の報告方法については、[security reporting](/docs/reference/issues-security/security/)
-ページに参照してください。
+脆弱性の報告方法については、[security reporting](/docs/reference/issues-security/security/)ページを参照してください。
