@@ -45,7 +45,7 @@ Podがノード上で動作している`dockerd`を呼び出したい場合、Po
 
 このスクリプトは、Podの名前空間と名前を出力します。
 
-`grep '/var/run/docker.sock'`を削除して、他のマウントを確認することができます。
+`grep '/var/run/docker.sock'`を削除して、他のマウントを確認することもできます。
 
 ```bash
 kubectl get pods --all-namespaces \
