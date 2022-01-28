@@ -38,7 +38,7 @@ Podがノード上で動作している`dockerd`を呼び出したい場合、Po
 
 - Dockerデーモンの特権ソケットの特定のパスを直接ボリュームとしてマウントします。
 
-例：COSイメージでは、DockerはそのUnixドメインソケットを`/var/run/docker.sock`に公開します。
+例: COSイメージでは、DockerはそのUnixドメインソケットを`/var/run/docker.sock`に公開します。
 つまり、Pod仕様には`/var/run/docker.sock`の`hostPath`ボリュームマウントが含まれることになります。
 
 以下は、Dockerソケットを直接マッピングしたマウントを持つPodを探すためのシェルスクリプトのサンプルです。
