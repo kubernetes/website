@@ -192,11 +192,11 @@ First, update the following fields in your YAML file:
 
 要在启用了 leader 选举的情况下运行多调度器，你必须执行以下操作：
 
-首先，更新上述 Deployment YAML（my-scheduler.yaml）文件中的以下字段：
+更新 KubeSchedulerConfiguration 中的以下字段 `my-scheduler-config` YAML 文件中的 ConfigMap
 
-* `--leader-elect=true`
-* `--lock-object-namespace=<lock-object-namespace>`
-* `--lock-object-name=<lock-object-name>`
+* `leaderElection.leaderElect`至`true`
+* `leaderElection.resourceNamespace`至`<lock-object-namespace>`
+* `leaderElection.resourceName`至`<lock-object-name>`
 
 {{< note >}}
 <!--
@@ -354,4 +354,3 @@ on the relevant control plane nodes.
 -->
 你也可以使用[自定义调度器配置](/zh/docs/reference/scheduling/config/#multiple-profiles)
 或自定义容器镜像，用于集群的主调度器，方法是在相关控制平面节点上修改其静态 pod 清单。
-
