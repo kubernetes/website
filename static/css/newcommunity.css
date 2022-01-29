@@ -306,8 +306,7 @@ a {
 
 .resources {
   width: 100%;
-  margin-top;
-  5%;
+  margin-top: 5%;
   margin-bottom: 3%;
   float: left;
 }
@@ -755,8 +754,7 @@ h2:after {
 
   .resources {
     width: 100%;
-    margin-top;
-    8%;
+    margin-top: 8%;
     margin-bottom: 8%;
     float: left;
   }
@@ -847,8 +845,5 @@ h2:after {
     padding: 3%;
     font-size: 0.7em !important;
   }
-
-
-
 
 }
