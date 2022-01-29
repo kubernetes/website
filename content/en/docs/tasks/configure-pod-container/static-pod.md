@@ -42,7 +42,7 @@ The `spec` of a static Pod cannot refer to other API objects
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-This page assumes you're using {{< glossary_tooltip term_id="docker" >}} to run Pods,
+This page assumes you're using {{< glossary_tooltip term_id="cri-o" >}} to run Pods,
 and that your nodes are running the Fedora operating system.
 Instructions for other distributions or Kubernetes installations may vary.
 
@@ -156,15 +156,20 @@ already be running.
 You can view running containers (including static Pods) by running (on the node):
 ```shell
 # Run this command on the node where the kubelet is running
-docker ps
+crictl ps
 ```
 
 The output might be something like:
 
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+129fd7d382018   docker.io/library/nginx@sha256:...    11 minutes ago    Running    web     0          34533c6729106
 ```
-CONTAINER ID IMAGE         COMMAND  CREATED        STATUS         PORTS     NAMES
-f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes             k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
-```
+
+{{< note >}}
+`crictl` outputs the image URI and SHA-256 checksum. `NAME` will look more like:
+`docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`.
+{{< /note >}}
 
 You can see the mirror Pod on the API server:
 
@@ -172,15 +177,14 @@ You can see the mirror Pod on the API server:
 kubectl get pods
 ```
 ```
-NAME                       READY     STATUS    RESTARTS   AGE
-static-web-my-node1        1/1       Running   0          2m
+NAME         READY   STATUS    RESTARTS        AGE
+static-web   1/1     Running   0               2m
 ```
 
 {{< note >}}
 Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See
 [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
 {{< /note >}}
-
 
 {{< glossary_tooltip term_id="label" text="Labels" >}} from the static Pod are
 propagated into the mirror Pod. You can use those labels as normal via
@@ -190,34 +194,33 @@ If you try to use `kubectl` to delete the mirror Pod from the API server,
 the kubelet _doesn't_ remove the static Pod:
 
 ```shell
-kubectl delete pod static-web-my-node1
+kubectl delete pod static-web
 ```
 ```
-pod "static-web-my-node1" deleted
+pod "static-web" deleted
 ```
 You can see that the Pod is still running:
 ```shell
 kubectl get pods
 ```
 ```
-NAME                       READY     STATUS    RESTARTS   AGE
-static-web-my-node1        1/1       Running   0          12s
+NAME         READY   STATUS    RESTARTS   AGE
+static-web   1/1     Running   0          4s
 ```
 
-Back on your node where the kubelet is running, you can try to stop the Docker
-container manually.
+Back on your node where the kubelet is running, you can try to stop the container manually.
 You'll see that, after a time, the kubelet will notice and will restart the Pod
 automatically:
 
 ```shell
 # Run these commands on the node where the kubelet is running
-docker stop f6d05272b57e # replace with the ID of your container
+crictl stop 129fd7d382018 # replace with the ID of your container
 sleep 20
-docker ps
+crictl ps
 ```
-```
-CONTAINER ID        IMAGE         COMMAND                CREATED       ...
-5b920cbaf8b1        nginx:latest  "nginx -g 'daemon of   2 seconds ago ...
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+89db4553e1eeb   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
 
 ## Dynamic addition and removal of static pods
@@ -230,14 +233,13 @@ The running kubelet periodically scans the configured directory (`/etc/kubelet.d
 #
 mv /etc/kubelet.d/static-web.yaml /tmp
 sleep 20
-docker ps
+crictl ps
 # You see that no nginx container is running
 mv /tmp/static-web.yaml  /etc/kubelet.d/
 sleep 20
-docker ps
+crictl ps
 ```
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
-CONTAINER ID        IMAGE         COMMAND                CREATED           ...
-e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
-```
-
