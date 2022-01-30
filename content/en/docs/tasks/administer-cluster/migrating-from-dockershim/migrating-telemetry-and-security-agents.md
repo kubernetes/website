@@ -8,7 +8,7 @@ weight: 70
 
 <!-- overview -->
 
-Docker is being deprecated. You can find a deprecation FAQ at [Don't Panic: Kubernetes and Docker](https://kubernetes.io/blog/2020/12/02/dont-panic-kubernetes-and-docker/). Most apps do not have a direct dependency on runtime hosting containers. However, there are still a lot of telemetry and monitoring agents that has a dependency on docker to collect containers metadata, logs and metrics. This document aggregates information on how to detect these dependencies and links on how to migrate these agents to use generic tools or alternative runtimes.
+Kubernetes' support for direct integration with Docker Engine is deprecated, and will be removed. Most apps do not have a direct dependency on runtime hosting containers. However, there are still a lot of telemetry and monitoring agents that has a dependency on docker to collect containers metadata, logs and metrics. This document aggregates information on how to detect these dependencies and links on how to migrate these agents to use generic tools or alternative runtimes.
 
 ## Telemetry and security agents
 
@@ -36,7 +36,7 @@ to receive streamed logs. If nodes in your existing cluster use
 Docker Engine, and you switch to a different container runtime,
 these commands will not work any longer.
 
-### Identify DaemonSets that depend on Docker {#identify-docker-dependency}
+### Identify DaemonSets that depend on Docker Engine {#identify-docker-dependency}
 
 If a pod wants to make calls to the `dockerd` running on the node, the pod must either:
 
