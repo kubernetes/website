@@ -12,19 +12,28 @@ Docker is being deprecated. You can find a deprecation FAQ at [Don't Panic: Kube
 
 ## Telemetry and security agents
 
-There are a few ways agents may be run on kubernetes cluster. Agents have a direct 
-dependency on Docker when they run on nodes or as daemonsets. Some telemetry and 
-security agents may rely on certain logs or metrics specific for Docker that would not 
-be available any longer. This document does not cover these cases.
+Within a Kubernetes cluster there are a few different ways to run telemetry or security agents.
+Some agents have a direct  dependency on Docker Engine when they as DaemonSets or
+directly on nodes.
 
-### Why do telemetry agents talk to Docker?
+### Why do some telemetry agents communicate with Docker Engine?
 
-Historically, Kubernetes was built on top of Docker. Kubernetes is managing networking and scheduling, Docker was placing and operating containers on a node. So you can get scheduling-related metadata like a pod name from Kubernetes and containers state information from Docker. Over time more runtimes were created to manage containers. Also there are projects and kubernetes features that generalize container status information extraction across many runtimes.
+Historically, Kubernetes was written to work specifically with Docker Engine.
+Kubernetes took care of networking and scheduling, relying on Docker Engine for launching
+and running containers (within Pods) on a node. Some information that is relevant to telemetry,
+such as a pod name, is only available from Kubernetes components. Other data, such as container
+metrics, is not the responsibility of the container runtime. Early yelemetry agents needed to query the
+container runtime **and** Kubernetes to report an accurate picture. Over time, Kubernetes gained
+the ability to support multiple runtimes, and now supports any runtime that is compatible with
+the container runtime interface.
 
-But some agents are still Docker-dependent. They may run commands like [`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/)
+Some telemetry agents rely specifically on Docker Engine tooling. For example, an agent
+might run a command such as
+[`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/)
 or [`docker top`](https://docs.docker.com/engine/reference/commandline/top/) to list
-containers and processes or [docker logs](https://docs.docker.com/engine/reference/commandline/logs/)
-to subscribe on docker logs. With the deprecating of Docker as a container runtime,
+containers and processes or [`docker logs`](https://docs.docker.com/engine/reference/commandline/logs/)
+to receive streamed logs. If nodes in your existing cluster use
+Docker Engine, and you switch to a different container runtime,
 these commands will not work any longer.
 
 ### Identify DaemonSets that depend on Docker {#identify-docker-dependency}
