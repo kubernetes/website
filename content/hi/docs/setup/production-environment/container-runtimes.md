@@ -352,7 +352,7 @@ sudo systemctl enable crio --now
 [CRI-O इंस्टॉलेशन गाइड](https://github.com/cri-o/cri-o/blob/master/install.md)
 
 
-#### cgroup driver
+#### cgroup ड्राइवर
 
 CRI-O डिफ़ॉल्ट रूप से systemd cgroup ड्राइवर का उपयोग करता है।
 `cgroupfs` cgroup ड्राइवर पर स्विच करने के लिए, या तो `/etc/crio/crio.conf` संपादित करें या `/etc/crio/crio.conf.d/02-cgroup-manager.conf` में ड्रॉप-इन कॉन्फ़िगरेशन रखें। उदाहरण के लिए:  
