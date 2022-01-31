@@ -100,4 +100,16 @@ shown in [the example](/docs/tasks/administer-cluster/dns-custom-nameservers/#ex
 The `node-local-dns` ConfigMap can also be modified directly with the stubDomain configuration
 in the Corefile format. Some cloud providers might not allow modifying `node-local-dns` ConfigMap directly.
 In those cases, the `kube-dns` ConfigMap can be updated.
- 
+
+## Setting Memory limits
+
+node-local-dns pods use memory for storing cache entries and processing queries. Since they do not watch Kubernetes objects, the cluster size or the number of Services/Endpoints do not affect memory usage. Memory usage is influenced by the DNS query pattern.
+From [CoreDNS docs](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
+`The default cache size is 10000 entries, which uses about 30 MB when completely filled.`
+
+This would be the memory usage for each server block (if the cache gets completely filled).
+Memory usage can be reduced by specifying smaller cache sizes.
+
+The number of concurrent queries can lead to additional memory usage (more goroutines). An upper limit can be set via the "max_concurrent" option in the forward plugin.
+
+If a node-local-dns pod gets OOMKilled, it will not cleanup the custom iptables rules added at startup time. The node-local-dns pod should get restarted(since it is part of a daemonset), but this will lead to a brief DNS downtime everytime the pod crashes. A suitable memory limit can be determined by running node-local-dns pods without a limit and measuring the peak usage.
