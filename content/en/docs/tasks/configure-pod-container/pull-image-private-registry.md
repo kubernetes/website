@@ -7,8 +7,10 @@ weight: 100
 <!-- overview -->
 
 This page shows how to create a Pod that uses a
-{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image from a
-private container image registry or repository.
+{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image 
+from a private container image registry or repository. There are many private 
+registries in use. This task uses [Docker Hub](https://www.docker.com/products/docker-hub)
+as an example registry.
 
 {{% thirdparty-content single="true" %}}
 
@@ -18,6 +20,8 @@ private container image registry or repository.
 
 * To do this exercise, you need the `docker` command line tool, and a
   [Docker ID](https://docs.docker.com/docker-id/) for which you know the password.
+* If you are using a different private container registry, you need the command 
+  line tool for that registry and any login information for the registry. 
 
 <!-- steps -->
 
@@ -59,12 +63,13 @@ The output contains a section similar to this:
 If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
 {{< /note >}}
 
-## Create a Secret based on existing Docker credentials {#registry-secret-existing-credentials}
+## Create a Secret based on existing credentials {#registry-secret-existing-credentials}
 
 A Kubernetes cluster uses the Secret of `kubernetes.io/dockerconfigjson` type to authenticate with
 a container registry to pull a private image.
 
-If you already ran `docker login`, you can copy that credential into Kubernetes:
+If you already ran `docker login`, you can copy
+that credential into Kubernetes:
 
 ```shell
 kubectl create secret generic regcred \
@@ -77,7 +82,7 @@ secret) then you can customise the Secret before storing it.
 Be sure to:
 
 - set the name of the data item to `.dockerconfigjson`
-- base64 encode the docker file and paste that string, unbroken
+- base64 encode the Docker configuration file and then paste that string, unbroken
   as the value for field `data[".dockerconfigjson"]`
 - set `type` to `kubernetes.io/dockerconfigjson`
 
@@ -213,4 +218,3 @@ kubectl get pod private-reg
 * Learn more about [adding image pull secrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * See [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
 * See the `imagePullSecrets` field within the [container definitions](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers) of a Pod
-
