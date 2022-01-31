@@ -85,7 +85,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    chmod +x kubectl
    mkdir -p ~/.local/bin/kubectl
    mv ./kubectl ~/.local/bin/kubectl
-   # and then add ~/.local/bin/kubectl to $PATH
+   # and then append (or prepend) ~/.local/bin to $PATH
    ```
 
    {{< /note >}}
