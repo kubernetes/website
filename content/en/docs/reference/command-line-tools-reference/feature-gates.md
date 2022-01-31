@@ -562,7 +562,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
-- `Accelerators`: Enable Nvidia GPU support when using Docker
+- `Accelerators`: Provided an early form of plugin to enable Nvidia GPU support when using
+  Docker Engine; no longer available. See
+  [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) for
+  an alternative.
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
 - `AffinityInAnnotations`: Enable setting
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
@@ -571,7 +574,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelets on Pod log requests.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
-- `AppArmor`: Enable AppArmor based mandatory access control on Linux nodes when using Docker.
+- `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
   See [AppArmor Tutorial](/docs/tutorials/clusters/apparmor/) for more details.
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.

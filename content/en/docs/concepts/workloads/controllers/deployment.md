@@ -842,6 +842,13 @@ Kubernetes marks a Deployment as _progressing_ when one of the following tasks i
 * The Deployment is scaling down its older ReplicaSet(s).
 * New Pods become ready or available (ready for at least [MinReadySeconds](#min-ready-seconds)).
 
+When the rollout becomes “progressing”, the Deployment controller adds a condition with the following
+attributes to the Deployment's `.status.conditions`:
+
+* `type: Progressing`
+* `status: "True"`
+* `reason: NewReplicaSetCreated` | `reason: FoundNewReplicaSet` | `reason: ReplicaSetUpdated`
+
 You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
 ### Complete Deployment
@@ -852,6 +859,17 @@ Kubernetes marks a Deployment as _complete_ when it has the following characteri
 updates you've requested have been completed.
 * All of the replicas associated with the Deployment are available.
 * No old replicas for the Deployment are running.
+
+When the rollout becomes “complete”, the Deployment controller sets a condition with the following
+attributes to the Deployment's `.status.conditions`:
+
+* `type: Progressing`
+* `status: "True"`
+* `reason: NewReplicaSetAvailable`
+
+This `Progressing` condition will retain a status value of `"True"` until a new rollout
+is initiated. The condition holds even when availability of replicas changes (which
+does instead affect the `Available` condition).
 
 You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed
 successfully, `kubectl rollout status` returns a zero exit code.
@@ -890,7 +908,7 @@ number of seconds the Deployment controller waits before indicating (in the Depl
 Deployment progress has stalled.
 
 The following `kubectl` command sets the spec with `progressDeadlineSeconds` to make the controller report
-lack of progress for a Deployment after 10 minutes:
+lack of progress of a rollout for a Deployment after 10 minutes:
 
 ```shell
 kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
@@ -902,15 +920,18 @@ deployment.apps/nginx-deployment patched
 Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following
 attributes to the Deployment's `.status.conditions`:
 
-* Type=Progressing
-* Status=False
-* Reason=ProgressDeadlineExceeded
+* `type: Progressing`
+* `status: "False"`
+* `reason: ProgressDeadlineExceeded`
+
+This condition can also fail early and is then set to status value of `"False"` due to reasons as `ReplicaSetCreateError`.
+Also, the deadline is not taken into account anymore once the Deployment rollout completes.
 
 See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 {{< note >}}
 Kubernetes takes no action on a stalled Deployment other than to report a status condition with
-`Reason=ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it and act accordingly, for
+`reason: ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it and act accordingly, for
 example, rollback the Deployment to its previous version.
 {{< /note >}}
 
@@ -984,7 +1005,7 @@ Conditions:
 You can address an issue of insufficient quota by scaling down your Deployment, by scaling down other
 controllers you may be running, or by increasing quota in your namespace. If you satisfy the quota
 conditions and the Deployment controller then completes the Deployment rollout, you'll see the
-Deployment's status update with a successful condition (`Status=True` and `Reason=NewReplicaSetAvailable`).
+Deployment's status update with a successful condition (`status: "True"` and `reason: NewReplicaSetAvailable`).
 
 ```
 Conditions:
@@ -994,11 +1015,11 @@ Conditions:
   Progressing   True    NewReplicaSetAvailable
 ```
 
-`Type=Available` with `Status=True` means that your Deployment has minimum availability. Minimum availability is dictated
-by the parameters specified in the deployment strategy. `Type=Progressing` with `Status=True` means that your Deployment
+`type: Available` with `status: "True"` means that your Deployment has minimum availability. Minimum availability is dictated
+by the parameters specified in the deployment strategy. `type: Progressing` with `status: "True"` means that your Deployment
 is either in the middle of a rollout and it is progressing or that it has successfully completed its progress and the minimum
 required new replicas are available (see the Reason of the condition for the particulars - in our case
-`Reason=NewReplicaSetAvailable` means that the Deployment is complete).
+`reason: NewReplicaSetAvailable` means that the Deployment is complete).
 
 You can check if a Deployment has failed to progress by using `kubectl rollout status`. `kubectl rollout status`
 returns a non-zero exit code if the Deployment has exceeded the progression deadline.
@@ -1155,8 +1176,8 @@ total number of Pods running at any time during the update is at most 130% of de
 
 `.spec.progressDeadlineSeconds` is an optional field that specifies the number of seconds you want
 to wait for your Deployment to progress before the system reports back that the Deployment has
-[failed progressing](#failed-deployment) - surfaced as a condition with `Type=Progressing`, `Status=False`.
-and `Reason=ProgressDeadlineExceeded` in the status of the resource. The Deployment controller will keep
+[failed progressing](#failed-deployment) - surfaced as a condition with `type: Progressing`, `status: "False"`.
+and `reason: ProgressDeadlineExceeded` in the status of the resource. The Deployment controller will keep
 retrying the Deployment. This defaults to 600. In the future, once automatic rollback will be implemented, the Deployment
 controller will roll back a Deployment as soon as it observes such a condition.
 
