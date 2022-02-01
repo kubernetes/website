@@ -105,7 +105,7 @@ APIサーバーの`--enable-bootstrap-token-auth`フラグで、Bootstrap Token 
 
 ブートストラップトークンの認証機能やコントローラーについての詳細な説明、`kubeadm`でこれらのトークンを管理する方法については、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)を参照してください。
 
-### サービスアカウントトークン
+### サービスアカウントトークン {#service-account-token}
 
 サービスアカウントは、自動的に有効化される認証機能で、署名されたBearerトークンを使ってリクエストを検証します。このプラグインは、オプションとして2つのフラグを取ります。
 
