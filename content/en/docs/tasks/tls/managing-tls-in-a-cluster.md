@@ -45,8 +45,15 @@ chain and adding the parsed certificates to the `RootCAs` field in the
 [`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
 
 {{< note >}}
-If the cluster was setup using kubeadm, by default, the custom CA will be the same as the ConfigMap kube-root-ca.crt
-already placed into the filesystem tree of each container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`
+Even though the custom CA certificate may be included in the filesystem by kubeadm (in the
+ConfigMap `kube-root-ca.crt`),
+you should not use that certificate authority for any purpose other than to verify internal
+Kubernetes endpoints. An example of an internal Kubernetes endpoint is the
+Service named `kubernetes` in the default namespace.
+
+If you want to use a custom certificate authority for your workloads, you should generate
+that CA separately, and distribute its CA certificate using a ConfigMap that your pods have access
+to read.
 {{< /note >}}
 
 You can distribute the CA certificate as a
