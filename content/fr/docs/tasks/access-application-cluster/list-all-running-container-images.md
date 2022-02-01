@@ -59,7 +59,7 @@ Lors de la récupération d'un seul pod par son nom, par exemple `kubectl get po
 Le formatage peut être contrôlé davantage en utilisant l'opération `range` pour parcourir les éléments individuellement.
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
 sort
 ```
 
@@ -69,7 +69,7 @@ Pour cibler uniquement les pods correspondant à un label spécifique, utilisez 
 Les éléments suivants correspondent uniquement aux pods avec les labels `app=nginx`.
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
 ## Filtrage des images de conteneur de liste par namespace de pod

@@ -92,6 +92,7 @@ End of Life for **1.23** is **2023-02-28**.
 
 | Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
+| 1.23.3        | 2022-01-24           | 2022-01-25  | [Out-of-Band Release](https://groups.google.com/u/2/a/kubernetes.io/g/dev/c/Xl1sm-CItaY) |
 | 1.23.2        | 2022-01-14           | 2022-01-19  |      |
 | 1.23.1        | 2021-12-14           | 2021-12-16  |      |
 

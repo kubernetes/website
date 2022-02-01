@@ -169,9 +169,9 @@ of each minor (1.Y) and patch (1.Y.Z) release
 GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
 
 - Aaron Crickenberger ([@spiffxp](https://github.com/spiffxp))
-- Amit Watve ([@amwat](https://github.com/amwat))
 - Benjamin Elder ([@BenTheElder](https://github.com/BenTheElder))
 - Grant McCloskey ([@MushuEE](https://github.com/MushuEE))
+- Juan Escobar ([@juanfescobar](https://github.com/juanfescobar))
 
 ## SIG Release Leads
 
