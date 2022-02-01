@@ -58,7 +58,9 @@ How many people does it take to turn on a light bulb?
 
 <p>In addition, Wink had other requirements: horizontal scalability, the ability to encrypt everything quickly, connections that could be easily brought back up if something went wrong. "Looking at this whole structure we started, we decided to make a secure socket-based service," says Klein. "We've always used, I would say, some sort of clustering technology to deploy our services and so the decision we came to was, this thing is going to be containerized, running on Docker."</p>
 
+ 
 <p>At the time – in 2015 – Docker wasn't yet widely used, but as Klein points out, "it was certainly understood by the people who were on the frontier of technology. We started looking at potential technologies that existed. One of the limiting factors was that we needed to deploy multi-port non-http/https services. It wasn't really appropriate for some of the early cluster technology. We liked the project a lot and we ended up using it on other stuff for a while, but initially it was too targeted toward http workloads."</p>
+
 
 <p>Once Wink's backend engineering team decided on a containerized workload, they had to make decisions about the OS and the container orchestration platform. "Obviously you can't just start the containers and hope everything goes well," Klein says with a laugh. "You need to have a system that is helpful [in order] to manage where the workloads are being distributed out to. And when the container inevitably dies or something like that, to restart it, you have a load balancer. All sorts of housekeeping work is needed to have a robust infrastructure."</p>
 

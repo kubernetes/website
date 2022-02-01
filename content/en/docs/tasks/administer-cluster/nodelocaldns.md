@@ -100,4 +100,31 @@ shown in [the example](/docs/tasks/administer-cluster/dns-custom-nameservers/#ex
 The `node-local-dns` ConfigMap can also be modified directly with the stubDomain configuration
 in the Corefile format. Some cloud providers might not allow modifying `node-local-dns` ConfigMap directly.
 In those cases, the `kube-dns` ConfigMap can be updated.
- 
+
+## Setting memory limits
+
+node-local-dns pods use memory for storing cache entries and processing queries. Since they do not watch Kubernetes objects, the cluster size or the number of Services/Endpoints do not directly affect memory usage. Memory usage is influenced by the DNS query pattern.
+From [CoreDNS docs](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
+> The default cache size is 10000 entries, which uses about 30 MB when completely filled.
+
+This would be the memory usage for each server block (if the cache gets completely filled).
+Memory usage can be reduced by specifying smaller cache sizes.
+
+The number of concurrent queries is linked to the memory demand, because each extra
+goroutine used for handling a query requires an amount of memory. You can set an upper limit
+using the `max_concurrent` option in the forward plugin.
+
+If a node-local-dns pod attempts to use more memory than is available (because of total system
+resources, or because of a configured
+[resource limit](/docs/concepts/configuration/manage-resources-containers/)), the operating system
+may shut down that pod's container.
+If this happens, the container that is terminated (“OOMKilled”) does not clean up the custom
+packet filtering rules that it previously added during startup.
+The node-local-dns container should get restarted (since managed as part of a DaemonSet), but this
+will lead to a brief DNS downtime each time that the container fails: the packet filtering rules direct
+DNS queries to a local Pod that is unhealthy.
+
+You can determine a suitable memory limit by running node-local-dns pods without a limit and
+measuring the peak usage. You can also set up and use a
+[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler)
+in _recommender mode_, and then check its recommendations.
