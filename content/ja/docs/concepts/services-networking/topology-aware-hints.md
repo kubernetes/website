@@ -92,7 +92,7 @@ kube-proxyは、EndpointSliceコントローラーによって設定されたヒ
 
 * EndpointSliceコントローラーは、各ゾーンの比率を計算するときに、準備ができていないノードを無視します。ノードの大部分の準備ができていない場合、これは意図しない結果をもたらす可能性があります。
 
-* EndpointSliceコントローラーは、各ゾーンの比率を計算するデプロイ時に{{< glossary_tooltip text="tolerations" term_id="toleration" >}}を考慮しません。サービスをバックアップするPodがクラスター内のノードのサブセットに制限されている場合、これは考慮されません。
+* EndpointSliceコントローラーは、各ゾーンの比率を計算するデプロイ時に{{< glossary_tooltip text="toleration" term_id="toleration" >}}を考慮しません。サービスをバックアップするPodがクラスター内のノードのサブセットに制限されている場合、これは考慮されません。
 
 * これはオートスケーリングと相性が悪いかもしれません。例えば、多くのトラフィックが1つのゾーンから発信されている場合、そのゾーンに割り当てられたendpointのみがそのトラフィックを処理することになります。その結果、{{< glossary_tooltip text="Horizontal Pod Autoscaler" term_id="horizontal-pod-autoscaler" >}}がこのイベントを拾えなくなったり、新しく追加されたPodが別のゾーンで開始されたりする可能性があります。
 
