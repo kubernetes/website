@@ -208,7 +208,7 @@ other = "Kubernetes authors consider this page to be outdated because REASON. We
 other = "it is more than a year old"
 
 [outdated_page_title]
-other = "Outdated page"
+other = "Outdated article"
 
 [post_create_issue]
 other = "Create an issue"
