@@ -202,6 +202,14 @@ other = "Objectives"
 [options_heading]
 other = "Options"
 
+[outdated_page_message]
+other = "Kubernetes authors consider this page to be outdated because REASON. We suggest that you use more recent resources."
+[outdated_page_reason]
+other = "it is more than a year old"
+
+[outdated_page_title]
+other = "Outdated page"
+
 [post_create_issue]
 other = "Create an issue"
 
