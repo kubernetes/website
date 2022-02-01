@@ -14,7 +14,7 @@
 {{ $msg := .Param "outdated_page.message" | default (T "outdated_page_message") -}}
 {{ $reason := .Param "outdated_page.reason" | default (T "outdated_page_reason") -}}
 {{ $msg = replaceRE "REASON" $reason $msg -}}
-<section id="deprecation-warning">
+<section id="deprecation-warning" class="blog-outdated-warning">
   <div class="content deprecation-warning pageinfo">
     <h3>{{ $title }}</h3>
     <p> {{ $msg }}</p>
