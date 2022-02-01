@@ -83,13 +83,17 @@ If systemd doesn't use cgroup v2 by default, you can configure the system to use
 `systemd.unified_cgroup_hierarchy=1` to the kernel command line.
 
 ```shell
-# dnf install -y grubby && \
+# This example is for a Linux OS that uses the DNF package manager
+# Your system might use a different method for setting the command line
+# that the Linux kernel uses.
+sudo dnf install -y grubby && \
   sudo grubby \
   --update-kernel=ALL \
   --args="systemd.unified_cgroup_hierarchy=1"
 ```
 
-To apply the configuration, it is necessary to reboot the node.
+If you change the command line for the kernel, you must reboot the node before your
+change takes effect.
 
 There should not be any noticeable difference in the user experience when switching to cgroup v2, unless
 users are accessing the cgroup file system directly, either on the node or from within the containers.
