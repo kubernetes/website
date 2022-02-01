@@ -29,7 +29,7 @@ is provided below.
 
 {{< caution >}}
 **IMPORTANT:** For multi-master configurations (with two or more control plane nodes) the encryption configuration file must be the same!
-Otherwise, the kube-api-server can't decrypt data stored inside the key-value store.
+Otherwise, the kube-apiserver can't decrypt data stored inside the key-value store.
 {{< /caution >}}
 
 ## Understanding the encryption at rest configuration.
