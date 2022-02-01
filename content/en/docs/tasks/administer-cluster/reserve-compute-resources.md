@@ -67,7 +67,7 @@ transient slices for resources that are supported by that init system.
 Depending on the configuration of the associated container runtime,
 operators may have to choose a particular cgroup driver to ensure
 proper system behavior. For example, if operators use the `systemd`
-cgroup driver provided by the `docker` runtime, the `kubelet` must
+cgroup driver provided by the `containerd` runtime, the `kubelet` must
 be configured to use the `systemd` cgroup driver.
 
 ### Kube Reserved

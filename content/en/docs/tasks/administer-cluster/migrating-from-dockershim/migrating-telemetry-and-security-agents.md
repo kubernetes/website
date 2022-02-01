@@ -8,37 +8,35 @@ weight: 70
 
 <!-- overview -->
 
-With Kubernetes 1.20 dockershim was deprecated. From the
-[Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/)
-you might already know that most apps do not have a direct dependency on runtime hosting
-containers. However, there are still a lot of telemetry and security agents
-that has a dependency on docker to collect containers metadata, logs and
-metrics. This document aggregates information on how to detect these
-dependencies and links on how to migrate these agents to use generic tools or
-alternative runtimes.
+Kubernetes' support for direct integration with Docker Engine is deprecated, and will be removed. Most apps do not have a direct dependency on runtime hosting containers. However, there are still a lot of telemetry and monitoring agents that has a dependency on docker to collect containers metadata, logs and metrics. This document aggregates information on how to detect these dependencies and links on how to migrate these agents to use generic tools or alternative runtimes.
 
 ## Telemetry and security agents
 
-There are a few ways agents may run on Kubernetes cluster. Agents may run on
-nodes directly or as DaemonSets.
+Within a Kubernetes cluster there are a few different ways to run telemetry or security agents.
+Some agents have a direct  dependency on Docker Engine when they as DaemonSets or
+directly on nodes.
 
-### Why do telemetry agents rely on Docker?
+### Why do some telemetry agents communicate with Docker Engine?
 
-Historically, Kubernetes was built on top of Docker. Kubernetes is managing
-networking and scheduling, Docker was placing and operating containers on a
-node. So you can get scheduling-related metadata like a pod name from Kubernetes
-and containers state information from Docker. Over time more runtimes were
-created to manage containers. Also there are projects and Kubernetes features
-that generalize container status information extraction across many runtimes.
+Historically, Kubernetes was written to work specifically with Docker Engine.
+Kubernetes took care of networking and scheduling, relying on Docker Engine for launching
+and running containers (within Pods) on a node. Some information that is relevant to telemetry,
+such as a pod name, is only available from Kubernetes components. Other data, such as container
+metrics, is not the responsibility of the container runtime. Early yelemetry agents needed to query the
+container runtime **and** Kubernetes to report an accurate picture. Over time, Kubernetes gained
+the ability to support multiple runtimes, and now supports any runtime that is compatible with
+the container runtime interface.
 
-Some agents are tied specifically to the Docker tool. The agents may run
-commands like [`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/)
+Some telemetry agents rely specifically on Docker Engine tooling. For example, an agent
+might run a command such as
+[`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/)
 or [`docker top`](https://docs.docker.com/engine/reference/commandline/top/) to list
-containers and processes or [docker logs](https://docs.docker.com/engine/reference/commandline/logs/)
-to subscribe on docker logs. With the deprecating of Docker as a container runtime,
+containers and processes or [`docker logs`](https://docs.docker.com/engine/reference/commandline/logs/)
+to receive streamed logs. If nodes in your existing cluster use
+Docker Engine, and you switch to a different container runtime,
 these commands will not work any longer.
 
-### Identify DaemonSets that depend on Docker {#identify-docker-dependency}
+### Identify DaemonSets that depend on Docker Engine {#identify-docker-dependency}
 
 If a pod wants to make calls to the `dockerd` running on the node, the pod must either:
 
