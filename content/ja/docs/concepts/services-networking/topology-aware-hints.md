@@ -11,15 +11,15 @@ weight: 45
 
 *Topology Aware Hint*は、クライアントがendpointをどのように使用するかについての提案を含めることにより、トポロジーを考慮したルーティングを可能にします。このアプローチでは、EndpointSliceおよび/またはEndpointオブジェクトの消費者が、これらのネットワークエンドポイントへのトラフィックを、それが発生した場所の近くにルーティングできるように、メタデータを追加します。
 
-たとえば、ローカリティ内でトラフィックをルーティングすることで、コストを削減したり、ネットワークパフォーマンスを向上させたりできます。
+たとえば、局所的にトラフィックをルーティングすることで、コストを削減したり、ネットワークパフォーマンスを向上させたりできます。
 
 <!-- body -->
 
 ## 動機
 
 Kubernetesクラスターは、マルチゾーン環境で展開されることが多くなっています。
-*Topology Aware Hint*は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。EndpointSliceコントローラーは{{< glossary_tooltip term_id="Service" >}}のendpointを計算する際に、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
-EndpointSliceコントローラーは、各endpointのトポロジー（地域とゾーン）を考慮し、ゾーンに割り当てるためのヒントフィールドに入力します。
+*Topology Aware Hint*は、トラフィックを発信元のゾーン内に留めておくのに役立つメカニズムを提供します。このコンセプトは、一般に「Topology Aware Routing」と呼ばれています。EndpointSliceコントローラーは{{< glossary_tooltip term_id="Service" >}}のendpointを計算する際に、各endpointのトポロジー(地域とゾーン)を考慮し、ゾーンに割り当てるためのヒントフィールドに値を入力します。
+EndpointSliceコントローラーは、各endpointのトポロジー(地域とゾーン)を考慮し、ゾーンに割り当てるためのヒントフィールドに入力します。
 {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}のようなクラスターコンポーネントは、次にこれらのヒントを消費し、それらを使用してトラフィックがルーティングされる方法に影響を与えることが可能です(トポロジー的に近いendpointを優先します)。
 
 
@@ -86,17 +86,15 @@ kube-proxyは、EndpointSliceコントローラーによって設定されたヒ
 
 ## 制約事項
 
-* サービスで`externalTrafficPolicy`または`internalTrafficPolicy`が`Local`に設定されている場合、Topology Aware Hintは使用されません。同じServiceではなく、異なるServiceの同じクラスターで両方の機能を使用することができます。
+* Serviceで`externalTrafficPolicy`または`internalTrafficPolicy`が`Local`に設定されている場合、Topology Aware Hintは使用されません。同じServiceではなく、異なるServiceの同じクラスターで両方の機能を使用することができます。
 
 * このアプローチは、ゾーンのサブセットから発信されるトラフィックの割合が高いサービスではうまく機能しません。代わりに、これは着信トラフィックが各ゾーンのノードの容量にほぼ比例することを前提としています。
 
 * EndpointSliceコントローラーは、各ゾーンの比率を計算するときに、準備ができていないノードを無視します。ノードの大部分の準備ができていない場合、これは意図しない結果をもたらす可能性があります。
 
-* EndpointSliceコントローラーは、各ゾーンの比率を計算するデプロイ時に{{< glossary_tooltip
-  text="tolerations" term_id="toleration" >}}を考慮しません。サービスをバックアップするPodがクラスター内のノードのサブセットに制限されている場合、これは考慮されません。
+* EndpointSliceコントローラーは、各ゾーンの比率を計算するデプロイ時に{{< glossary_tooltip text="tolerations" term_id="toleration" >}}を考慮しません。サービスをバックアップするPodがクラスター内のノードのサブセットに制限されている場合、これは考慮されません。
 
-* これはオートスケーリングと相性が悪いかもしれません。例えば、多くのトラフィックが1つのゾーンから発信されている場合、そのゾーンに割り当てられたendpointのみがそのトラフィックを処理することになります。その結果、{{< glossary_tooltip
-  text="Horizontal Pod Autoscaler" term_id="horizontal-pod-autoscaler" >}}がこのイベントを拾えなくなったり、新しく追加されたPodが別のゾーンで開始されたりする可能性があります。
+* これはオートスケーリングと相性が悪いかもしれません。例えば、多くのトラフィックが1つのゾーンから発信されている場合、そのゾーンに割り当てられたendpointのみがそのトラフィックを処理することになります。その結果、{{< glossary_tooltip text="Horizontal Pod Autoscaler" term_id="horizontal-pod-autoscaler" >}}がこのイベントを拾えなくなったり、新しく追加されたPodが別のゾーンで開始されたりする可能性があります。
 
 ## {{% heading "whatsnext" %}}
 
