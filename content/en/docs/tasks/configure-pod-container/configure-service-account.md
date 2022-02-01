@@ -297,10 +297,10 @@ command line arguments to `kube-apiserver`:
      File containing PEM-encoded x509 RSA or ECDSA private or public keys, used to verify ServiceAccount tokens. The specified file can contain multiple keys, and the flag can be specified multiple times with different files. If specified multiple times, tokens signed by any of the specified keys are considered valid by the Kubernetes API server.
 * `--service-account-signing-key-file`
 
-     Path to the file that contains the current private key of the service account token issuer. The issuer will sign issued ID tokens with this private key.
+     Path to the file that contains the current private key of the service account token issuer. The issuer signs issued ID tokens with this private key.
 * `--api-audiences` (can be omitted)
 
-     The service account token authenticator will validate that tokens used against the API are bound to at least one of these audiences. If `api-audiences` is specified multiple times, tokens for any of the specified audiences are considered valid by the Kubernetes API server. If the `--service-account-issuer` flag is configured and this flag is not, this field defaults to a single element list containing the issuer URL.
+     The service account token authenticator validates that tokens used against the API are bound to at least one of these audiences. If `api-audiences` is specified multiple times, tokens for any of the specified audiences are considered valid by the Kubernetes API server. If the `--service-account-issuer` flag is configured and this flag is not, this field defaults to a single element list containing the issuer URL.
 
 {{< /note >}}
 
