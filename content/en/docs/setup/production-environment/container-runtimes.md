@@ -172,7 +172,7 @@ installing the `containerd.io` package can be found at
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
-Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), 
+Start a Powershell session, set `$Version` to the desired version (ex: `$Version="1.4.3"`), 
 and then run the following commands:
 
 1. Download containerd:
