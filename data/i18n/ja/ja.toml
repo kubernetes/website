@@ -184,6 +184,12 @@ other = "購読する"
 [ui_search_placeholder]
 other = "検索"
 
+[thirdparty_message]
+other = """このセクションでは、Kubernetesが必要とする機能を提供するサードパーティープロジェクトにリンクしています。これらのプロジェクトはアルファベット順に記載されていて、Kubernetesプロジェクトの作者は責任を持ちません。このリストにプロジェクトを追加するには、変更を提出する前に<a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a>をお読みください。<a href="#third-party-content-disclaimer">詳細はこちら。</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>このページの項目は、Kubernetesが必要とする機能を提供するサードパーティー製品またはプロジェクトです。Kubernetesプロジェクトの作者は、それらのサードパーティー製品またはプロジェクトに責任を負いません。詳しくは、<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCFウェブサイトのガイドライン</a>をご覧ください。第三者のリンクを追加するような変更を提案する前に、<a href="/docs/contribute/style/content-guide/#third-party-content">コンテンツガイド</a>を読むべきです。</p>"""
+
 [version_check_mustbe]
 other = "作業するKubernetesサーバーは次のバージョンである必要があります: "
 

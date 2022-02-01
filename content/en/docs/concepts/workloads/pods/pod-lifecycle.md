@@ -229,7 +229,7 @@ when both the following statements apply:
 * All conditions specified in `readinessGates` are `True`.
 
 When a Pod's containers are Ready but at least one custom condition is missing or
-`False`, the kubelet sets the Pod's [condition](#pod-condition) to `ContainersReady`.
+`False`, the kubelet sets the Pod's [condition](#pod-conditions) to `ContainersReady`.
 
 ## Container probes
 

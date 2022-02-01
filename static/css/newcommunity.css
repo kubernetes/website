@@ -59,11 +59,6 @@ code {
   margin-top: 25px;
 }
 
-
-footer {
-  float: left !important;
-}
-
 p {
   font-weight: 300 !important;
 }
@@ -85,7 +80,7 @@ body {
   font-weight: 300;
   /* letter-spacing:0.03em; */
   /* font-size:15px; */
-  margin: 0 auto;
+  margin: 0;
 
 }
 
@@ -311,8 +306,7 @@ a {
 
 .resources {
   width: 100%;
-  margin-top;
-  5%;
+  margin-top: 5%;
   margin-bottom: 3%;
   float: left;
 }
@@ -491,13 +485,7 @@ h2:after {
     font-weight: bold;
 
   }
-
-  /* .fullbutton {
-
-    padding: 3% !important;
-
-
-  } */
+  
 }
 
 @media (max-width:1000px) {
@@ -636,11 +624,9 @@ h2:after {
 
   body {
     overflow-x: hidden;
-    line-height: 1.5em;
     margin-top: 1%;
     letter-spacing: 0.03em;
     /* font-size: 13px; */
-    margin: 0 auto;
 
   }
 
@@ -762,8 +748,7 @@ h2:after {
 
   .resources {
     width: 100%;
-    margin-top;
-    8%;
+    margin-top: 8%;
     margin-bottom: 8%;
     float: left;
   }
@@ -775,10 +760,6 @@ h2:after {
     margin-top: 3%;
     margin-left: 5%;
   }
-
-
-
-
 
   .contributor {
     float: left;
@@ -854,8 +835,5 @@ h2:after {
     padding: 3%;
     font-size: 0.7em !important;
   }
-
-
-
 
 }

@@ -263,12 +263,6 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 
 The Nuage platform uses overlays to provide seamless policy-based networking between Kubernetes Pods and non-Kubernetes environments (VMs and bare metal servers). Nuage's policy abstraction model is designed with applications in mind and makes it easy to declare fine-grained policies for applications.The platform's real-time analytics engine enables visibility and security monitoring for Kubernetes applications.
 
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) is a somewhat more mature but also
-complicated way to build an overlay network.  This is endorsed by several of the
-"Big Shops" for networking.
-
 ### OVN (Open Virtual Networking)
 
 OVN is an opensource network virtualization solution developed by the

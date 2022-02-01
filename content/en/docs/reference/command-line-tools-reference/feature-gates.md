@@ -88,7 +88,7 @@ different Kubernetes components.
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | |
-| `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
+| `csiMigrationRBD` | `false` | Alpha | 1.23 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
@@ -167,8 +167,8 @@ different Kubernetes components.
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | |
-| `OpenAPIEnum` | `false` | Alpha | 1.23 | |
-| `OpenAPIv3` | `false` | Alpha | 1.23 | |
+| `OpenAPIEnums` | `false` | Alpha | 1.23 | |
+| `OpenAPIV3` | `false` | Alpha | 1.23 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | 1.21 |
 | `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | |
@@ -562,7 +562,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
-- `Accelerators`: Enable Nvidia GPU support when using Docker
+- `Accelerators`: Provided an early form of plugin to enable Nvidia GPU support when using
+  Docker Engine; no longer available. See
+  [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) for
+  an alternative.
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
 - `AffinityInAnnotations`: Enable setting
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
@@ -571,7 +574,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelets on Pod log requests.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
-- `AppArmor`: Enable AppArmor based mandatory access control on Linux nodes when using Docker.
+- `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
   See [AppArmor Tutorial](/docs/tutorials/clusters/apparmor/) for more details.
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
@@ -653,9 +656,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling
   back to in-tree GCE plugin if a node does not have PD CSI plugin installed and
   configured. Requires CSIMigration feature flag enabled.
-- `CSIMigrationRBD`: Enables shims and translation logic to route volume
+- `csiMigrationRBD`: Enables shims and translation logic to route volume
   operations from the RBD in-tree plugin to Ceph RBD CSI plugin. Requires
-  CSIMigration and CSIMigrationRBD feature flags enabled and Ceph CSI plugin
+  CSIMigration and csiMigrationRBD feature flags enabled and Ceph CSI plugin
   installed and configured in the cluster. This flag has been deprecated in
   favor of the
   `InTreePluginRBDUnregister` feature flag which prevents the registration of
@@ -731,6 +734,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   on resources created from [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 - `DaemonSetUpdateSurge`: Enables the DaemonSet workloads to maintain
   availability during update per node.
+  See [Perform a Rolling Update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
   [default spreading](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
 - `DelegateFSGroupToCSIDriver`: If supported by the CSI driver, delegates the
@@ -784,7 +788,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes).
 - `ExpandCSIVolumes`: Enable the expanding of CSI volumes.
 - `ExpandedDNSConfig`: Enable kubelet and kube-apiserver to allow more DNS
-  search paths and longer list of DNS search paths. See
+  search paths and longer list of DNS search paths. This feature requires container
+  runtime support(Containerd: v1.5.6 or higher, CRI-O: v1.22 or higher). See
   [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See
   [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
@@ -913,9 +918,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Must be used with `KubeletConfiguration.failSwapOn` set to false.
   For more details, please see [swap memory](/docs/concepts/architecture/nodes/#swap-memory)
 - `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
-- `OpenAPIEnum`: Enables populating "enum" fields of OpenAPI schemas in the 
+- `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the 
   spec returned from the API server.
-- `OpenAPIv3`: Enables the API server to publish OpenAPI v3.
+- `OpenAPIV3`: Enables the API server to publish OpenAPI v3.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
 - `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)

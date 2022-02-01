@@ -174,6 +174,15 @@ of security defaults while preserving the functionality of the workload. It is
 possible that the default profiles differ between container runtimes and their
 release versions, for example when comparing those from CRI-O and containerd.
 
+{{< note >}}
+Enabling the feature will neither change the Kubernetes
+`securityContext.seccompProfile` API field nor add the deprecated annotations of
+the workload. This provides users the possibility to rollback anytime without
+actually changing the workload configuration. Tools like
+[`crictl inspect`](https://github.com/kubernetes-sigs/cri-tools) can be used to
+verify which seccomp profile is being used by a container.
+{{< /note >}}
+
 Some workloads may require a lower amount of syscall restrictions than others.
 This means that they can fail during runtime even with the `RuntimeDefault`
 profile. To mitigate such a failure, you can:
@@ -203,6 +212,51 @@ kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 featureGates:
   SeccompDefault: true
+nodes:
+  - role: control-plane
+    image: kindest/node:v1.23.0@sha256:49824ab1727c04e56a21a5d8372a402fcd32ea51ac96a2706a12af38934f81ac
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            seccomp-default: "true"
+  - role: worker
+    image: kindest/node:v1.23.0@sha256:49824ab1727c04e56a21a5d8372a402fcd32ea51ac96a2706a12af38934f81ac
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            feature-gates: SeccompDefault=true
+            seccomp-default: "true"
+```
+
+If the cluster is ready, then running a pod:
+
+```shell
+kubectl run --rm -it --restart=Never --image=alpine alpine -- sh
+```
+
+Should now have the default seccomp profile attached. This can be verified by
+using `docker exec` to run `crictl inspect` for the container on the kind
+worker:
+
+```shell
+docker exec -it kind-worker bash -c \
+    'crictl inspect $(crictl ps --name=alpine -q) | jq .info.runtimeSpec.linux.seccomp'
+```
+
+```json
+{
+  "defaultAction": "SCMP_ACT_ERRNO",
+  "architectures": ["SCMP_ARCH_X86_64", "SCMP_ARCH_X86", "SCMP_ARCH_X32"],
+  "syscalls": [
+    {
+      "names": ["..."]
+    }
+  ]
+}
 ```
 
 ## Create a Pod with a seccomp profile for syscall auditing

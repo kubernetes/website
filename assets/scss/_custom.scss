@@ -222,8 +222,14 @@ footer {
   padding: 1rem !important;
   min-height: initial !important;
 
-  .footer__links {
-    width: 100%;
+  > div, > p {
+    max-width: 95%;
+    @media only screen and (min-width: 768px) {
+      max-width: calc(min(80rem,90vw)); // avoid spreading too wide
+    }
+  }
+
+  > .footer__links {
     margin: auto;
     padding-bottom: 1rem;
 
@@ -233,6 +239,8 @@ footer {
     }
 
     @media only screen and (min-width: 768px) {
+      max-width: calc(min(60rem,90vw)); // avoid spreading too wide
+
       nav {
         display: flex;
         flex-direction: row;
@@ -304,6 +312,12 @@ footer {
 .td-toc {
   padding-top: 1.5rem !important;
   top: 5rem !important;
+
+  @supports (position: sticky) {
+    position: sticky !important;
+    height: calc(100vh - 10rem);
+    overflow-y: auto;
+  }
 
   #TableOfContents {
     padding-top: 1rem;

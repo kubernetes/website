@@ -7,7 +7,6 @@ feature:
     或 <a href="https://aws.amazon.com/products/storage/">AWS</a>
     之类公有云提供商所提供的存储或者诸如 NFS、iSCSI、Gluster、Ceph、Cinder
     或 Flocker 这类网络存储系统。
-
 content_type: concept
 weight: 20
 ---
@@ -23,7 +22,6 @@ feature:
   title: Storage orchestration
   description: >
     Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
-
 content_type: concept
 weight: 20
 -->
@@ -31,9 +29,9 @@ weight: 20
 <!-- overview -->
 
 <!--
-This document describes the current state of _persistent volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
+This document describes _persistent volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 -->
-本文描述 Kubernetes 中 _持久卷（Persistent Volume）_ 的当前状态。
+本文描述 Kubernetes 中的 _持久卷（Persistent Volume）_ 。
 建议先熟悉[卷（Volume）](/zh/docs/concepts/storage/volumes/)的概念。
 
 <!-- body -->
@@ -446,21 +444,21 @@ to `Retain`, including cases where you are reusing an existing PV.
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 <!--
-Support for expanding PersistentVolumeClaims (PVCs) is now enabled by default. You can expand
+Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
 -->
 现在，对扩充 PVC 申领的支持默认处于被启用状态。你可以扩充以下类型的卷：
 
-* gcePersistentDisk
+* azureDisk
+* azureFile
 * awsElasticBlockStore
-* Cinder
+* cinder (deprecated)
+* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* flexVolume (deprecated)
+* gcePersistentDisk
 * glusterfs
 * rbd
-* Azure File
-* Azure Disk
-* Portworx
-* FlexVolumes
-{{< glossary_tooltip text="CSI" term_id="csi" >}}
+* portworxVolume
 
 <!--
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
@@ -492,6 +490,24 @@ Kubernetes 不会创建新的 PV 卷来满足此申领的请求。
 与之相反，现有的卷会被调整大小。
 
 <!--
+Directly editing the size of a PersistentVolume can prevent an automatic resize of that volume.
+If you edit the capacity of a PersistentVolume, and then edit the `.spec` of a matching
+PersistentVolumeClaim to make the size of the PersistentVolumeClaim match the PersistentVolume,
+then no storage resize happens.
+The Kubernetes control plane will see that the desired state of both resources matches,
+conclude that the backing volume size has been manually
+increased and that no resize is necessary.
+-->
+{{< warning >}}
+直接编辑 PersistentVolume 的大小可以阻止该卷自动调整大小。
+如果对 PersistentVolume 的容量进行编辑，然后又将其所对应的
+PersistentVolumeClaim 的 `.spec` 进行编辑，使该 PersistentVolumeClaim
+的大小匹配 PersistentVolume 的话，则不会发生存储大小的调整。
+Kubernetes 控制平面将看到两个资源的所需状态匹配，并认为其后备卷的大小
+已被手动增加，无需调整。
+{{< /warning >}}
+
+<!--
 #### CSI Volume expansion
 -->
 #### CSI 卷的扩充     {#csi-volume-expansion}
@@ -518,8 +534,8 @@ When a volume contains a file system, the file system is only resized when a new
 the PersistentVolumeClaim in `ReadWrite` mode. File system expansion is either done when a Pod is starting up
 or when a Pod is running and the underlying file system supports online expansion.
 
-FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to `true`.
-The FlexVolume can be resized on Pod restart.
+FlexVolumes (deprecated since Kubernetes v1.23) allow resize if the driver is configured with the
+`RequiresFSResize` capability to `true`. The FlexVolume can be resized on Pod restart.
 -->
 当卷中包含文件系统时，只有在 Pod 使用 `ReadWrite` 模式来使用 PVC 申领的
 情况下才能重设其文件系统的大小。
@@ -527,7 +543,7 @@ The FlexVolume can be resized on Pod restart.
 扩充的前提下在 Pod 运行期间完成。
 
 如果 FlexVolumes 的驱动将 `RequiresFSResize` 能力设置为 `true`，则该
-FlexVolume 卷可以在 Pod 重启期间调整大小。
+FlexVolume 卷（于 Kubernetes v1.23 弃用）可以在 Pod 重启期间调整大小。
 
 <!--
 #### Resizing an in-use PersistentVolumeClaim
@@ -582,10 +598,20 @@ Expanding EBS volumes is a time-consuming operation. Also, there is a per-volume
 <!--
 #### Recovering from Failure when Expanding Volumes
 
-If expanding underlying storage fails, the cluster administrator can manually recover the Persistent Volume Claim (PVC) state and cancel the resize requests. Otherwise, the resize requests are continuously retried by the controller without administrator intervention.
+If a user specifies a new size that is too big to be satisfied by underlying storage system, expansion of PVC will be continuously retried until user or cluster administrator takes some action. This can be undesirable and hence Kubernetes provides following methods of recovering from such failures.
 -->
 #### 处理扩充卷过程中的失败      {#recovering-from-failure-when-expanding-volumes}
 
+如果用户指定的新大小过大，底层存储系统无法满足，PVC 的扩展将不断重试，
+直到用户或集群管理员采取一些措施。这种情况是不希望发生的，因此 Kubernetes
+提供了以下从此类故障中恢复的方法。
+
+{{< tabs name="recovery_methods" >}}
+{{% tab name="集群管理员手动处理" %}}
+
+<!--
+If expanding underlying storage fails, the cluster administrator can manually recover the Persistent Volume Claim (PVC) state and cancel the resize requests. Otherwise, the resize requests are continuously retried by the controller without administrator intervention.
+-->
 如果扩充下层存储的操作失败，集群管理员可以手动地恢复 PVC 申领的状态并
 取消重设大小的请求。否则，在没有管理员干预的情况下，控制器会反复重试
 重设大小的操作。
@@ -605,6 +631,53 @@ If expanding underlying storage fails, the cluster administrator can manually re
    这一操作将把新的 PVC 对象绑定到现有的 PV 卷。
 5. 不要忘记恢复 PV 卷上设置的回收策略。
 
+{{% /tab %}}
+{{% tab name="通过请求扩展为更小尺寸" %}}
+{{% feature-state for_k8s_version="v1.23" state="alpha" %}}
+
+<!--
+Recovery from failing PVC expansion by users is available as an alpha feature since Kubernetes 1.23. The `RecoverVolumeExpansionFailure` feature must be enabled for this feature to work. Refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+-->
+{{< note >}}
+Kubernetes 从 1.23 版本开始将允许用户恢复失败的 PVC 扩展这一能力作为
+alpha 特性支持。 `RecoverVolumeExpansionFailure` 必须被启用以允许使用此功能。
+可参考[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+文档了解更多信息。
+{{< /note >}}
+
+<!--
+If the feature gates `ExpandPersistentVolumes` and `RecoverVolumeExpansionFailure` are both
+enabled in your cluster, and expansion has failed for a PVC, you can retry expansion with a
+smaller size than the previously requested value. To request a new expansion attempt with a
+smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
+value you previously tried.
+This is useful if expansion to a higher value did not succeed because of capacity constraint.
+If that has happened, or you suspect that it might have, you can retry expansion by specifying a
+size that is within the capacity limits of underlying storage provider. You can monitor status of resize operation by watching `.status.resizeStatus` and events on the PVC.
+-->
+如果集群中的特性门控 `ExpandPersistentVolumes` 和 `RecoverVolumeExpansionFailure`
+都已启用，在 PVC 的扩展发生失败时，你可以使用比先前请求的值更小的尺寸来重试扩展。
+要使用一个更小的尺寸尝试请求新的扩展，请编辑该 PVC 的 `.spec.resources` 并选择
+一个比你之前所尝试的值更小的值。
+如果由于容量限制而无法成功扩展至更高的值，这将很有用。
+如果发生了这种情况，或者你怀疑可能发生了这种情况，你可以通过指定一个在底层存储供应容量
+限制内的尺寸来重试扩展。你可以通过查看 `.status.resizeStatus` 以及 PVC 上的事件
+来监控调整大小操作的状态。
+
+<!--
+Note that,
+although you can a specify a lower amount of storage than what was requested previously,
+the new value must still be higher than `.status.capacity`.
+Kubernetes does not support shrinking a PVC to less than its current size.
+-->
+请注意，
+尽管你可以指定比之前的请求更低的存储量，新值必须仍然高于 `.status.capacity`。
+Kubernetes 不支持将 PVC 缩小到小于其当前的尺寸。
+
+{{% /tab %}}
+{{% /tabs %}}
+
+
 <!--
 ## Types of Persistent Volumes
 
@@ -622,7 +695,6 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
 * [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
-* [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
 * [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
 * [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
@@ -642,7 +714,6 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 * [`cephfs`](/zh/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`csi`](/zh/docs/concepts/storage/volumes/#csi) - 容器存储接口 (CSI)
 * [`fc`](/zh/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 存储
-* [`flexVolume`](/zh/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
 * [`gcePersistentDisk`](/zh/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE 持久化盘
 * [`glusterfs`](/zh/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 卷
 * [`hostPath`](/zh/docs/concepts/storage/volumes/#hostpath) - HostPath 卷
@@ -660,6 +731,8 @@ The following types of PersistentVolume are deprecated. This means that support 
 
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
   (**deprecated** in v1.18)
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+  (**deprecated** in v1.23)
 * [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
   (**deprecated** in v1.22)
 * [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
@@ -671,6 +744,7 @@ The following types of PersistentVolume are deprecated. This means that support 
 以下的持久卷已被弃用。这意味着当前仍是支持的，但是 Kubernetes 将来的发行版会将其移除。
 
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder（OpenStack 块存储）（于 v1.18 **弃用**）
+* [`flexVolume`](/zh/docs/concepts/storage/volumes/#flexVolume) - FlexVolume （于 v1.23 **弃用**）
 * [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker 存储（于 v1.22 **弃用**）
 * [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte 卷
 （于 v1.22 **弃用**）
