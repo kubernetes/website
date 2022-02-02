@@ -450,6 +450,49 @@ or updating objects that contain Pod templates, such as Deployments, Jobs, State
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
 for more information.
 
+## pod-security.kubernetes.io/exempt
+
+Example: `pod-security.kubernetes.io/exempt: namespace`
+
+Used on: Event
+
+Value **must** be one of `user`, `namespace`, or `runtimeClass` which correspond to
+[Pod Security Exemption](/docs/concepts/security/pod-security-admission/#exemptions)
+dimensions. This annotation indicates on which dimension was based the exemption
+from the PodSecurity enforcement.
+
+## pod-security.kubernetes.io/enforce-policy
+
+Example: `pod-security.kubernetes.io/enforce-policy: restricted:latest`
+
+Used on: Event
+
+Value **must** be `privileged:<version>`, `baseline:<version>`,
+`restricted:<version>` which correspond to [Pod Security
+Standard](/docs/concepts/security/pod-security-standards) levels accompanied by
+a version which **must** be `latest` or a valid Kubernetes version in the format
+`v<MAJOR>.<MINOR>`. This annotations informs about the enforcement level that
+allowed or denied the pod during PodSecurity admission.
+
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+for more information.
+
+## pod-security.kubernetes.io/audit-violations
+
+Example:  `pod-security.kubernetes.io/audit-violations: would violate
+PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
+"example" must set securityContext.allowPrivilegeEscalation=false), ...`
+
+Used on: Event
+
+Value details an audit policy violation, it contains the
+[Pod Security Standard](/docs/concepts/security/pod-security-standards/) level
+that was transgressed as well as the specific policies on the fields that were
+violated from the PodSecurity enforcement.
+
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+for more information.
+
 ## seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
 
 This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
