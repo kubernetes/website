@@ -690,7 +690,7 @@ You can optionally disable node port allocation for a Service of `type=LoadBalan
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
 that route traffic directly to pods as opposed to using node ports. By default, `spec.allocateLoadBalancerNodePorts`
 is `true` and type LoadBalancer Services will continue to allocate node ports. If `spec.allocateLoadBalancerNodePorts`
-is set to `false` on an existing Service with allocated node ports, those node ports will NOT be de-allocated automatically.
+is set to `false` on an existing Service with allocated node ports, those node ports will **not** be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
 Your cluster must have the `ServiceLBNodePortControl`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
