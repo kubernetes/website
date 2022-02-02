@@ -10,12 +10,10 @@
   </div>
 </section>
 {{ else if and (eq .Section "blog") .Date (.Date.Before (now.AddDate -1 0 0)) -}}
-{{ $title := .Param "outdated_blog.title" | default (T "outdated_blog_title") -}}
-{{ $msg := .Param "outdated_blog.message" | default (T "outdated_blog_over_one_year_old")  -}}
-<section id="deprecation-warning" class="blog-outdated-warning">
+<section id="deprecation-warning" class="outdated-blog">
   <div class="content deprecation-warning pageinfo">
-    <h3>{{ $title }}</h3>
-    <p>{{ $msg }}</p>
+    <h3>{{ T "outdated_blog__title" }}</h3>
+    <p>{{ T "outdated_blog__message" }}</p>
   </div>
 </section>
 {{ end }}

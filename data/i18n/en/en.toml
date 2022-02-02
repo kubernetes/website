@@ -202,10 +202,10 @@ other = "Objectives"
 [options_heading]
 other = "Options"
 
-[outdated_blog_over_one_year_old]
+[outdated_blog__message]
 other = "The Kubernetes project considers this article to be outdated because it is more than one year old. Check that the information in the page has not become incorrect since its publication."
 
-[outdated_blog_title]
+[outdated_blog__title]
 other = "Outdated article"
 
 [post_create_issue]
