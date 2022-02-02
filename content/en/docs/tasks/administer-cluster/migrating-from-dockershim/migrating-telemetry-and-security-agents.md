@@ -72,8 +72,61 @@ In case your cluster nodes are customized and install additional security and
 telemetry agents on the node, make sure to check with the vendor of the agent whether it has dependency on Docker.
 
 ### Telemetry and security agent vendors
+This section is intended to collect information about various telemetry and security agents that may have dependency on containers runtime. Support matrix section outlines the supported runtimes and Migration from dockershim section is designed to help users transition from dockershim to other container runtimes.
 
 We keep the work in progress version of migration instructions for various telemetry and security agent vendors
 in [Google doc](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#).
 Please contact the vendor to get up to date instructions for migrating from dockershim.
 
+## Migration from DockerShim
+### ✅ [Aqua](https://www.aquasec.com)
+No changes are needed - everything should work seamlessly on the runtime switch
+### ✅ [Datadog](https://www.datadoghq.com/product/)
+How to migrate:
+[https://docs.datadoghq.com/agent/guide/docker-deprecation/](https://docs.datadoghq.com/agent/guide/docker-deprecation/)
+The pod accessing Docker may have name containing: 
+datadog-agent
+datadog
+dd-agent
+### ✅ [Dynatrace](https://www.dynatrace.com/)
+How to migrate:
+[Migrating from Docker-only to generic container metrics in Dynatrace](https://community.dynatrace.com/t5/Best-practices/Migrating-from-Docker-only-to-generic-container-metrics-in/m-p/167030#M49)
+Containerd support announcement: [Get automated full-stack visibility into
+containerd-based Kubernetes
+environments](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-containerd-based-kubernetes-environments/)
+CRI-O support announcement: [Get automated full-stack visibility into your CRI-O
+Kubernetes containers
+(Beta)](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-your-cri-o-kubernetes-containers-beta/)
+The pod accessing Docker may have name containing: 
+	- dynatrace-oneagent
+### ❓  [Falco](https://falco.org)
+How to migrate:
+[Migrate Falco from dockershim](https://falco.org/docs/getting-started/deployment/#docker-deprecation-in-kubernetes)
+Falco supports any CRI-compatible runtime (containerd is used in the default configuration); the documentation explains all details.
+The pod accessing Docker may have name containing: 
+		- falco
+### ✅   [Prisma Cloud](https://docs.paloaltonetworks.com/prisma/prisma-cloud.html) Compute
+Redeploy Defenders with a YAML file created with the `--cri` flag. This is a standard installation method, so documentation for this can be found here, under the "Install Prisma Cloud on a CRI (non-Docker) cluster" heading:
+[Install Prisma](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_kubernetes.html)
+The pod accessing Docker may be named like:
+	-	twistlock-defender-ds
+### ✅   [SignalFx (Splunk)](https://www.splunk.com/en_us/investor-relations/acquisitions/signalfx.html)
+The SignalFx Smart Agent uses several different monitors for Kuberentes including kubernetes-cluster, kubelet-stats/kubelet-metrics, and docker-container-stats. Monitor kubelet-stats is already deprecated for Kubernetes <1.18 in favor of kubelet-metrics. Docker-container-stats is the one affected by dockershim removal. It should NOT be used with other runtimes.
+
+
+How to migrate from Dockershim-dependant agent:
+1. Remove docker-container-stats from the list of [configured
+monitors](https://docs.signalfx.com/en/latest/integrations/agent/monitors/_monitor-config.html.)  Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics being reported when docker is installed on node and no metrics when docker is not installed.
+2. [Enable and
+configure](https://docs.signalfx.com/en/latest/integrations/agent/monitors/_monitor-config.html)
+[kubelet-metrics](https://docs.signalfx.com/en/latest/integrations/agent/monitors/kubelet-metrics.html) monitor.
+
+Note, the set of collected metrics will change. Please review your alerting rules and dashboards.
+
+The pod accessing Docker may be named like:
+ 
+  -  signalfx-agent
+### ❌ Yahoo Kubectl Flame
+
+Flame does not currently support non-dockershim runtimes. See
+[https://github.com/yahoo/kubectl-flame/issues/51](https://github.com/yahoo/kubectl-flame/issues/51)
