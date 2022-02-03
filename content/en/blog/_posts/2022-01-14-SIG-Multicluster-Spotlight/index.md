@@ -3,6 +3,7 @@ layout: blog
 title: "Spotlight on SIG Multicluster"
 date: 2022-02-04
 slug: sig-multicluster-spotlight-2022
+canonicalUrl: https://www.kubernetes.dev/blog/2022/02/04/sig-multicluster-spotlight-2022/
 ---
 
 **Authors:** Dewan Ahmed (Red Hat) and Chris Short (AWS)
