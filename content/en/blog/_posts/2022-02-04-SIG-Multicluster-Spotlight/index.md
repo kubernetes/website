@@ -6,7 +6,7 @@ slug: sig-multicluster-spotlight-2022
 canonicalUrl: https://www.kubernetes.dev/blog/2022/02/04/sig-multicluster-spotlight-2022/
 ---
 
-**Authors:** Dewan Ahmed (Red Hat) and Chris Short (AWS)
+**Authors:** Dewan Ahmed (Aiven) and Chris Short (AWS)
 
 ## Introduction
 
@@ -30,7 +30,7 @@ Okay, that's very straightforward and we know that we need to solve that. To get
 
 There's a few implementations of the MCS API out there and more are being developed. But, we didn't build an implementation because depending on how you're deploying things there could be hundreds of implementations. As long as you only need the basic Multicluster service functionality, it'll just work on whatever background you want, whether it's Submariner, GKE, or a service mesh.
 
-My favortie example of "then vs. now" is cluster ID. A few years ago, there was an effort to define a cluster ID. A lot of really good thought went into this concept, for example, how do we make a cluster ID is unique across multiple clysters. How do we make this ID globally unique so it'll work in every contact? Let's say, there's an acquisition or merger of teams - does the cluster IDs still remain unique for those teams? 
+My favorite example of "then vs. now" is cluster ID. A few years ago, there was an effort to define a cluster ID. A lot of really good thought went into this concept, for example, how do we make a cluster ID is unique across multiple clusters. How do we make this ID globally unique so it'll work in every contact? Let's say, there's an acquisition or merger of teams - does the cluster IDs still remain unique for those teams? 
 
 With Multicluster services, we found the need for an actual cluster ID, and it has a very specific need. To address this specific need, we're no longer considering every single Kubernetes cluster out there rather the ClusterSets - a grouping of clusters that work together in some kind of bounds. That's a much narrower scope than considering clusters everywhere in time and space. It also leaves flexibility for an implementer to define the boundary (a ClusterSet) beyond which this cluster ID will no longer be unique. 
 
