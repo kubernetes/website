@@ -102,7 +102,7 @@ EBSボリュームがパーティション化されている場合は、オプ�
 
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
-`awsElasticBlockStore`ストレージプラグインがコントローラーマネージャーとkubeletによってロードされないようにするには、`InTreePluginAWSUnregister`フラグを`true`に設定します。
+`awsElasticBlockStore`ストレージプラグインがコントローラーマネージャーとkubeletによって読み込まれないようにするには、`InTreePluginAWSUnregister`フラグを`true`に設定します。
 
 ### azureDisk {#azuredisk}
 
@@ -115,7 +115,7 @@ EBSボリュームがパーティション化されている場合は、オプ�
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 `azureDisk`の`CSIMigration`機能を有効にすると、すべてのプラグイン操作が既存のツリー内プラグインから`disk.csi.azure.com`Container Storage Interface(CSI)ドライバーにリダイレクトされます。
-この機能を利用するには、クラスタに[Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)をインストールし、`CSIMigration`および`CSIMigrationAzureDisk`機能を有効化する必要があります。
+この機能を利用するには、クラスターに[Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)をインストールし、`CSIMigration`および`CSIMigrationAzureDisk`機能を有効化する必要があります。
 
 ### azureFile {#azurefile}
 
@@ -127,8 +127,8 @@ EBSボリュームがパーティション化されている場合は、オプ�
 
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-`zureFile`の`CSIMigration`機能を有効にすると、既存のin-treeプラグインから`file.csi.azure.com`Container Storage Interface(CSI)Driverへすべてのプラグイン操作がリダイレクトされます。
-この機能を利用するには、クラスタに[Azure File CSI Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)をインストールし、`CSIMigration`および`CSIMigrationAzureFile`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。
+`zureFile`の`CSIMigration`機能を有効にすると、既存のツリー内プラグインから`file.csi.azure.com`Container Storage Interface(CSI)Driverへすべてのプラグイン操作がリダイレクトされます。
+この機能を利用するには、クラスターに[Azure File CSI Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)をインストールし、`CSIMigration`および`CSIMigrationAzureFile`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。
 
 Azure File CSIドライバーは、異なるfsgroupで同じボリュームを使用することをサポートしていません。AzurefileCSIの移行が有効になっている場合、異なるfsgroupで同じボリュームを使用することはまったくサポートされません。
 
@@ -181,10 +181,10 @@ spec:
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 Cinderの`CSIMigration`機能は、Kubernetes1.21ではデフォルトで有効になっています。
-既存のin-treeプラグインからのすべてのプラグイン操作を`cinder.csi.openstack.org`Container Storage Interface(CSI) Driverへリダイレクトします。
+既存のツリー内プラグインからのすべてのプラグイン操作を`cinder.csi.openstack.org`Container Storage Interface(CSI) Driverへリダイレクトします。
 [OpenStack Cinder CSIドライバー](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)をクラスターにインストールする必要があります。
-`CSIMigrationOpenStack`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を`false`に設定すると、クラスタのCinder CSIマイグレーションを無効化することができます。
-`CSIMigrationOpenStack`機能を無効にすると、in-treeのCinderボリュームプラグインがCinderボリュームのストレージ管理のすべての側面に責任を持つようになります。
+`CSIMigrationOpenStack`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を`false`に設定すると、クラスターのCinder CSIマイグレーションを無効化することができます。
+`CSIMigrationOpenStack`機能を無効にすると、ツリー内のCinderボリュームプラグインがCinderボリュームのストレージ管理のすべての側面に責任を持つようになります。
 
 ### configMap
 
@@ -193,7 +193,7 @@ ConfigMapに格納されたデータは、タイプ`configMap`のボリューム
 
 ConfigMapを参照するときは、ボリューム内のConfigMapの名前を指定します。
 ConfigMapの特定のエントリに使用するパスをカスタマイズできます。
-次の設定は、`log-config`ConfigMapを`configmap-pod`というPodにマウントする方法を示しています。
+次の設定は、`log-config` ConfigMapを`configmap-pod`というPodにマウントする方法を示しています。
 
 ```yaml
 apiVersion: v1
@@ -258,11 +258,11 @@ Pod内のすべてのコンテナは`emptyDir`ボリューム内の同じファ�
 
 環境に応じて、`emptyDir`ボリュームは、ディスクやSSD、ネットワークストレージなど、ノードをバックアップするあらゆる媒体に保存されます。
 ただし、`emptyDir.medium`フィールドを`"Memory"`に設定すると、Kubernetesは代わりにtmpfs(RAMベースのファイルシステム)をマウントします。
-tmpfsは非常に高速ですが、ディスクと違ってノードのリブート時にクリアされ、書き込んだファイルはコンテナのメモリ制限にカウントされることに注意してください。
+tmpfsは非常に高速ですが、ディスクと違ってノードのリブート時にクリアされ、書き込んだファイルはコンテナのメモリー制限にカウントされることに注意してください。
 
 {{< note >}}
-`SizeMemoryBackedVolumes`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、メモリバックアップボリュームにサイズを指定することができます。
-サイズが指定されていない場合、メモリでバックアップされたボリュームは、Linuxホストのメモリの50％のサイズになります。
+`SizeMemoryBackedVolumes`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、メモリーバックアップボリュームにサイズを指定することができます。
+サイズが指定されていない場合、メモリーでバックアップされたボリュームは、Linuxホストのメモリーの50％のサイズになります。
 {{< /note>}}
 
 #### emptyDirの設定例
@@ -328,7 +328,7 @@ Podを取り外すと消去される`emptyDir`とは異なり、PDの内容は�
 
 GCE永続ディスクの機能の1つは、永続ディスクへの同時読み取り専用アクセスです。`gcePersistentDisk`ボリュームを使用すると、複数のコンシューマーが永続ディスクを読み取り専用として同時にマウントできます。
 これはPDにデータセットを事前入力してから、必要な数のPodから並行して提供できることを意味します。
-残念ながらPDは読み取り/書き込みモードで1人のコンシューマーのみがマウントできます。同時書き込みは許可されていません。
+残念ながらPDは読み取り/書き込みモードで1つのコンシューマーのみがマウントできます。同時書き込みは許可されていません。
 
 PDが読み取り専用であるか、レプリカ数が0または1でない限り、ReplicaSetによって制御されるPodでGCE永続ディスクを使用すると失敗します。
 
@@ -364,8 +364,8 @@ spec:
 
 #### リージョン永続ディスク
 
- [リージョン永続ディスク](https://cloud.google.com/compute/docs/disks/#repds)機能を使用すると、同じリージョン内の2つのゾーンで使用できる永続ディスクを作成できます。
- この機能を使用するには、ボリュームをPersistentVolumeとしてプロビジョニングする必要があります。Podから直接ボリュームを参照することはサポートされていません。
+[リージョン永続ディスク](https://cloud.google.com/compute/docs/disks/#repds)機能を使用すると、同じリージョン内の2つのゾーンで使用できる永続ディスクを作成できます。
+この機能を使用するには、ボリュームをPersistentVolumeとしてプロビジョニングする必要があります。Podから直接ボリュームを参照することはサポートされていません。
 
 #### リージョンPD PersistentVolumeを手動でプロビジョニングする
 
@@ -409,19 +409,19 @@ spec:
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
-GCE PDの`CSIMigration`機能を有効にすると、すべてのプラグイン操作が既存のin-treeプラグインから`pd.csi.storage.gke.io`Container Storage Interface (CSI) Driverにリダイレクトされるようになります。
-この機能を使用するには、クラスタに[GCE PD CSI Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)がインストールされ、`CSIMigration`と`CSIMigrationGCE`のbeta機能が有効になっている必要があります。
+GCE PDの`CSIMigration`機能を有効にすると、すべてのプラグイン操作が既存のツリー内プラグインから`pd.csi.storage.gke.io`Container Storage Interface (CSI) Driverにリダイレクトされるようになります。
+この機能を使用するには、クラスターに[GCE PD CSI Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)がインストールされ、`CSIMigration`と`CSIMigrationGCE`のbeta機能が有効になっている必要があります。
 
 #### GCE CSIの移行の完了
 
 {{< feature-state for_k8s_version="v1.21" state="alpha" >}}
 
-`gcePersistentDisk`ストレージプラグインがコントローラーマネージャーとkubeletによってロードされないようにするには、`InTreePluginGCEUnregister`フラグを`true`に設定します。
+`gcePersistentDisk`ストレージプラグインがコントローラーマネージャーとkubeletによって読み込まれないようにするには、`InTreePluginGCEUnregister`フラグを`true`に設定します。
 
 ### gitRepo(非推奨) {#gitrepo}
 
 {{< warning >}}
-`gitRepo`ボリュームタイプは非推奨です。gitレポジトリを使用してコンテナをプロビジョニングするには、Gitを使用してレポジトリのクローンを作成するInitContainerに[EmptyDir](#emptydir)をマウントしてから、Podのコンテナに[EmptyDir](#emptydir)をマウントします。
+`gitRepo`ボリュームタイプは非推奨です。gitリポジトリを使用してコンテナをプロビジョニングするには、Gitを使用してリポジトリのクローンを作成するInitContainerに[EmptyDir](#emptydir)をマウントしてから、Podのコンテナに[EmptyDir](#emptydir)をマウントします。
 {{< /warning >}}
 
 `gitRepo`ボリュームは、ボリュームプラグインの一例です。このプラグインは空のディレクトリをマウントし、そのディレクトリにgitリポジトリをクローンしてPodで使えるようにします。
@@ -494,7 +494,7 @@ AdmissionPolicyによって特定のディレクトリへのHostPathアクセス
 
 このタイプのボリュームを使用するときは、以下の理由のため注意してください。
 
-* HostPath は、特権的なシステム認証情報(Kubeletなど)や特権的なAPI(コンテナランタイムソケットなど)を公開する可能性があり、コンテナのエスケープやクラスタの他の部分への攻撃に利用される可能性があります。
+* HostPath は、特権的なシステム認証情報(Kubeletなど)や特権的なAPI(コンテナランタイムソケットなど)を公開する可能性があり、コンテナのエスケープやクラスターの他の部分への攻撃に利用される可能性があります。
 * 同一構成のPod(PodTemplateから作成されたものなど)は、ノード上のファイルが異なるため、ノードごとに動作が異なる場合があります。
 * ホスト上に作成されたファイルやディレクトリは、rootでしか書き込みができません。[特権コンテナ](/docs/tasks/configure-pod-container/security-context/)内でrootとしてプロセスを実行するか、ホスト上のファイルのパーミッションを変更して`hostPath`ボリュームに書き込みができるようにする必要があります。
 
@@ -582,7 +582,7 @@ iSCSIの特徴として、複数のコンシューマーから同時に読み取
 `hostPath`ボリュームと比較して、`local`ボリュームは手動でノードにPodをスケジューリングすることなく、耐久性と移植性に優れた方法で使用することができます。
 システムはPersistentVolume上のノードアフィニティーを見ることで、ボリュームのノード制約を認識します。
 
-ただし、`loval`ボリュームは、基盤となるノードの可用性に左右されるため、すべてのアプリケーションに適しているわけではありません。
+ただし、`local`ボリュームは、基盤となるノードの可用性に左右されるため、すべてのアプリケーションに適しているわけではありません。
 ノードが異常になると、Podは`local`ボリュームにアクセスできなくなります。
 このボリュームを使用しているPodは実行できません。`local`ボリュームを使用するアプリケーションは、基盤となるディスクの耐久性の特性に応じて、この可用性の低下と潜在的なデータ損失に耐えられる必要があります。
 
@@ -613,14 +613,14 @@ spec:
           - example-node
 ```
 
-ローカルボリュームを使用する場合は、PersistentVolume`nodeAffinity`を設定する必要があります。
-KubernetesのスケジューラはPersistentVolume`nodeAffinity`を使用して、これらのPodを正しいノードにスケジューリングします。
+ローカルボリュームを使用する場合は、PersistentVolume `nodeAffinity`を設定する必要があります。
+KubernetesのスケジューラはPersistentVolume `nodeAffinity`を使用して、これらのPodを正しいノードにスケジューリングします。
 
-PersistentVolume`volumeMode`を(デフォルト値の「Filesystem」ではなく)「Block」に設定して、ローカルボリュームをrawブロックデバイスとして公開できます。
+PersistentVolume `volumeMode`を(デフォルト値の「Filesystem」ではなく)「Block」に設定して、ローカルボリュームをrawブロックデバイスとして公開できます。
 
 ローカルボリュームを使用する場合、`volumeBindingMode`を`WaitForFirstConsumer`に設定したStorageClassを作成することをお勧めします。
 詳細については、local [StorageClass](/docs/concepts/storage/storage-classes/#local)の例を参照してください。
-ボリュームバインディングを遅延させると、PersistentVolumeClaimバインディングの決定が、ノードリソース要件、ノードセレクタ、Podアフィニティ、Podアンチアフィニティなど、Podが持つ可能性のある他のノード制約も含めて評価されるようになります。
+ボリュームバインディングを遅延させると、PersistentVolumeClaimバインディングの決定が、ノードリソース要件、ノードセレクター、Podアフィニティ、Podアンチアフィニティなど、Podが持つ可能性のある他のノード制約も含めて評価されるようになります。
 
 ローカルボリュームのライフサイクルの管理を改善するために、外部の静的プロビジョナーを個別に実行できます。
 このプロビジョナーはまだ動的プロビジョニングをサポートしていないことに注意してください。
@@ -722,8 +722,8 @@ RBDの特徴として、複数のコンシューマーから同時に読み取�
 
 {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
 
-`RBD`の`CSIMigration`機能を有効にすると、既存のin-treeプラグインから`rbd.csi.ceph.com`{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーにすべてのプラグイン操作がリダイレクトされます。
-この機能を使用するには、クラスタに[Ceph CSIドライバー](https://github.com/ceph/ceph-csi)をインストールし、`CSIMigration`および`csiMigrationRBD`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にしておく必要があります。
+`RBD`の`CSIMigration`機能を有効にすると、既存のツリー内プラグインから`rbd.csi.ceph.com`{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーにすべてのプラグイン操作がリダイレクトされます。
+この機能を使用するには、クラスターに[Ceph CSIドライバー](https://github.com/ceph/ceph-csi)をインストールし、`CSIMigration`および`csiMigrationRBD`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にしておく必要があります。
 
 
 {{< note >}}
@@ -731,8 +731,8 @@ RBDの特徴として、複数のコンシューマーから同時に読み取�
 ストレージを管理するKubernetesクラスターオペレーターとして、RBD CSIドライバーへの移行を試みる前に完了する必要のある前提条件は次のとおりです。
 
 * Ceph CSIドライバー(`rbd.csi.ceph.com`)v3.5.0以降をKubernetesクラスターにインストールする必要があります。
-* CSIドライバーの動作に必要なパラメーターとして`clusterID`フィールドがありますが、in-tree StorageClassには`monitors`フィールドがあるため、Kubernetesストレージ管理者はCSI config mapでモニターハッシュ(例：`#echo -n '<monitors_string>' | md5sum`)に基づいたclusterIDを作成し、モニターをこのclusterID設定の下に保持しなければなりません。
-* また、in-tree Storageclassの`adminId`の値が`admin`と異なる場合、in-tree Storageclassに記載されている`adminSecretName`に`adminId`パラメーター値のbase64値をパッチしなければなりませんが、それ以外はスキップすることが可能です。
+* CSIドライバーの動作に必要なパラメーターとして`clusterID`フィールドがありますが、ツリー内StorageClassには`monitors`フィールドがあるため、Kubernetesストレージ管理者はCSI config mapでモニターハッシュ(例：`#echo -n '<monitors_string>' | md5sum`)に基づいたclusterIDを作成し、モニターをこのclusterID設定の下に保持しなければなりません。
+* また、ツリー内Storageclassの`adminId`の値が`admin`と異なる場合、ツリー内Storageclassに記載されている`adminSecretName`に`adminId`パラメーター値のbase64値をパッチしなければなりませんが、それ以外はスキップすることが可能です。
 {{< /note >}}
 
 ### secret
@@ -805,7 +805,7 @@ StorageOS、動的プロビジョニング、およびPersistentVolumeClaimの�
 ### vsphereVolume {#vspherevolume}
 
 {{< note >}}
-KubernetesvSphereクラウドプロバイダーを設定する必要があります。cloudproviderの設定については、[vSphere入門ガイド](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)を参照してください。
+KubernetesvSphereクラウドプロバイダーを設定する必要があります。クラウドプロバイダーの設定については、[vSphere入門ガイド](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)を参照してください。
 {{< /note >}}
 
 `vsphereVolume`は、vSphereVMDKボリュームをPodにマウントするために使用されます。
@@ -867,10 +867,10 @@ spec:
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-`vsphereVolume`の`CSIMigration`機能を有効にすると、既存のインツリープラグインから`csi.vsphere.vmware.com`{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーにすべてのプラグイン操作がリダイレクトされます。
-この機能を使用するには、クラスタに[vSphere CSIドライバー](https://github.com/kubernetes-sigs/vsphere-csi-driver)がインストールされ、`CSIMigration`および`CSIMigrationvSphere`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっていなければなりません。
+`vsphereVolume`の`CSIMigration`機能を有効にすると、既存のツリー内プラグインから`csi.vsphere.vmware.com`{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーにすべてのプラグイン操作がリダイレクトされます。
+この機能を使用するには、クラスターに[vSphere CSIドライバー](https://github.com/kubernetes-sigs/vsphere-csi-driver)がインストールされ、`CSIMigration`および`CSIMigrationvSphere`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっていなければなりません。
 
-また、vSphere vCenter/ESXiのバージョンが7.0u1以上、HWのバージョンがVM version 15以上であることが条件となります。
+また、vSphere vCenter/ESXiのバージョンが7.0u1以上、HWのバージョンがVM version 15以上であることが条件です。
 
 
 {{< note >}}
@@ -892,7 +892,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-`vsphereVolume`プラグインがコントローラーマネージャーとkubeletによってロードされないようにするには、`InTreePluginvSphereUnregister`機能フラグを`true`に設定する必要があります。すべてのワーカーノードに`csi.vsphere.vmware.com`{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーをインストールする必要があります。
+`vsphereVolume`プラグインがコントローラーマネージャーとkubeletによって読み込まれないようにするには、`InTreePluginvSphereUnregister`機能フラグを`true`に設定する必要があります。すべてのワーカーノードに`csi.vsphere.vmware.com`{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーをインストールする必要があります。
 
 #### Portworx CSIの移行
 {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
@@ -1013,7 +1013,7 @@ CSI仕様バージョン0.2および0.3のサポートは、Kubernetes v1.13で�
 CSIドライバーは、すべてのKubernetesリリース間で互換性があるとは限りません。各Kubernetesリリースでサポートされているデプロイ手順と互換性マトリックスについては、特定のCSIドライバーのドキュメントを確認してください。
 {{< /note >}}
 
-CSI互換のボリュームドライバーがKubernetesクラスタ上に展開されると、ユーザーは`csi`ボリュームタイプを使用して、CSIドライバーによって公開されたボリュームをアタッチまたはマウントすることができます。
+CSI互換のボリュームドライバーがKubernetesクラスター上に展開されると、ユーザーは`csi`ボリュームタイプを使用して、CSIドライバーによって公開されたボリュームをアタッチまたはマウントすることができます。
 
 `csi`ボリュームはPodで3つの異なる方法によって使用することができます。
 
@@ -1065,9 +1065,9 @@ CSIドライバーの開発方法の詳細については[kubernetes-csiドキ�
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
-FlexVolumeは、ストレージドライバーとのインターフェースにexecベースのモデルを使用するアウトオブツリープラグインインターフェースです。FlexVolumeドライバーのバイナリは、各ノード、場合によってはコントロールプレーンノードにも、あらかじめ定義されたボリュームプラグインパスにインストールする必要があります。
+FlexVolumeは、ストレージドライバーとのインターフェースにexecベースのモデルを使用するツリー外プラグインインターフェースです。FlexVolumeドライバーのバイナリは、各ノード、場合によってはコントロールプレーンノードにも、あらかじめ定義されたボリュームプラグインパスにインストールする必要があります。
 
-Podは`flexVolume`インツリーボリュームプラグインを通してFlexVolumeドライバーと対話します。
+Podは`flexVolume`ツリー内ボリュームプラグインを通してFlexVolumeドライバーと対話します。
 
 詳細については[FlexVolumeのREADME](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme)を参照してください。
 
