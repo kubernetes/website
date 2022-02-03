@@ -56,7 +56,7 @@ I think revisiting registry patterns will probably be a natural step after we ha
 
 **JOT**: I think it definitely got a little bit quieter during the pandemic. But for the most part; it's a very distributed group so whether you're calling in to our weekly meetings from a conference room or from your home, it doesn't make that huge of a difference. During the pandemic, a lot of people had time to focus on what's next for their scale and growth. I think that's what keeps people in the group - we have real problems that need to be solved which are very new in this space. And it's fun :)
 
-## Wrap Up
+## Wrap up
 
 **CS**: That's all we have for today. Thanks Jeremy for your time.
 
