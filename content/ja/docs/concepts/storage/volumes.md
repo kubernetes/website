@@ -653,7 +653,8 @@ PersistentVolumeClaimは、ユーザが特定のクラウド環境の詳細を�
 
 `portworxVolume`は、Kubernetesとハイパーコンバージドで動作するエラスティックブロックストレージレイヤーです。
 [Portworx](https://portworx.com/use-case/kubernetes-storage/)は、サーバー内のストレージをフィンガープリントを作成し、機能に応じて階層化し、複数のサーバーにまたがって容量を集約します。
-Portworxは、仮想マシンまたはベアメタルLinuxノードでゲスト内で動作します。
+Portworxは、仮想マシンまたはベアメタルのLinuxノードでゲスト内動作します。
+
 
 `portworxVolume`はKubernetesを通して動的に作成することができますが、事前にプロビジョニングしてPodの中で参照することもできます。
 以下は、事前にプロビジョニングされたPortworxボリュームを参照するPodの例です。
