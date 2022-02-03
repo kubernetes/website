@@ -3,6 +3,8 @@ title: Download Kubernetes
 type: docs
 ---
 
+## Core Kubernetes components
+
 Kubernetes ships binaries for each component as well as a standard set of client
 applications to bootstrap or interact with a cluster. Components like the
 Kube API Server are capable of running within container images inside of a
@@ -69,6 +71,11 @@ container image name, for example
 those derivations are signed in the same way as the multi-architecture manifest lists.
 
 <!-- TODO: describe how to use the signed images -->
+
+Full list of images that are signed can be found [here](/examples/admin/signed-images/auto-generated-list-of-all-signed-images.txt)
+
+To verify signed container images within a Kubernetes cluster, please refer to
+[the corresponding cluster administration documentation](/docs/tasks/administer-cluster/verify-signed-images).
 
 ## Binaries
 
