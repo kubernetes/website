@@ -68,7 +68,8 @@ container image name, for example
 [`k8s.gcr.io/kube-apiserver-arm64:{{< param "fullversion" >}}`][0-arm64]. All
 those derivations are signed in the same way as the multi-architecture manifest lists.
 
-<!-- TODO: describe how to use the signed images -->
+To verify signed container images within a Kubernetes cluster, please refer to
+[the corresponding cluster administration documentation](/docs/tasks/administer-cluster/verify-signed-images).
 
 ## Binaries
 
