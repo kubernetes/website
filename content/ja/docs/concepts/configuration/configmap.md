@@ -192,6 +192,6 @@ immutable: true
 
 ## {{% heading "whatsnext" %}}
 
-* [Secret](/docs/concepts/configuration/secret/)について読む。
+* [Secret](/ja/docs/concepts/configuration/secret/)について読む。
 * [Podを構成してConfigMapを使用する](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を読む。
 * コードを設定から分離する動機を理解するために[The Twelve-Factor App](https://12factor.net/ja/)を読む。

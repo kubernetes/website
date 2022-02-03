@@ -138,4 +138,5 @@ Stay tuned for what comes next, and if you have any questions, comments or sugge
 * Chat with us on the Kubernetes [Slack](http://slack.k8s.io/):[#cluster-api](https://kubernetes.slack.com/archives/C8TSNPY4T)
 * Join the SIG Cluster Lifecycle [Google Group](https://groups.google.com/g/kubernetes-sig-cluster-lifecycle) to receive calendar invites and gain access to documents
 * Join our [Zoom meeting](https://zoom.us/j/861487554), every Wednesday at 10:00 Pacific Time
-* Check out the [ClusterClass tutorial](https://cluster-api.sigs.k8s.io/tasks/experimental-features/cluster-classes.html) in the Cluster API book.
+* Check out the [ClusterClass quick-start](https://cluster-api.sigs.k8s.io/user/quick-start.html) for the Docker provider (CAPD) in the Cluster API book.
+* _UPDATE_: Check out the [ClusterClass experimental feature](https://cluster-api.sigs.k8s.io/tasks/experimental-features/cluster-class/index.html) documentation in the Cluster API book.

@@ -182,7 +182,8 @@ There are two types of system components: those that run in a container and thos
 that do not run in a container. For example:
 
 * The Kubernetes scheduler and kube-proxy run in a container.
-* The kubelet and container runtime, for example Docker, do not run in containers.
+* The kubelet and {{<glossary_tooltip term_id="container-runtime" text="container runtime">}}
+  do not run in containers.
 
 On machines with systemd, the kubelet and container runtime write to journald.
 Otherwise, they write to `.log` files in the `/var/log` directory.

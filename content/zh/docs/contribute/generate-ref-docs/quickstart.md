@@ -400,6 +400,6 @@ running the build targets, see the following guides:
 要手动设置所需的构造仓库，执行构建目标，以生成各个参考文档，可参考下面的指南：
 
 * [为 Kubernetes 组件和工具生成参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [为 kubeclt 命令生成参考文档](/zh/docs/contribute/generate-ref-docs/kubectl/)
+* [为 kubectl 命令生成参考文档](/zh/docs/contribute/generate-ref-docs/kubectl/)
 * [为 Kubernetes API 生成参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-api/)
 
