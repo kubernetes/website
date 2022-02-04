@@ -197,6 +197,8 @@ service PodResourcesLister {
 }
 ```
 
+### `List` gRPC 엔드포인트 {#grpc-endpoint-list}
+
 `List` 엔드포인트는 실행 중인 파드의 리소스에 대한 정보를 제공하며,
 독점적으로 할당된 CPU의 ID, 장치 플러그인에 의해 보고된 장치 ID,
 이러한 장치가 할당된 NUMA 노드의 ID와 같은 세부 정보를 함께 제공한다. 또한, NUMA 기반 머신의 경우, 컨테이너를 위해 예약된 메모리와 hugepage에 대한 정보를 포함한다.
@@ -246,9 +248,34 @@ message ContainerDevices {
     TopologyInfo topology = 3;
 }
 ```
+{{< note >}}
+`List` 엔드포인트의 `ContainerResources` 내부에 있는 cpu_ids은 특정 컨테이너에 할당된
+독점 CPU들에 해당한다. 만약 공유 풀(shared pool)에 있는 CPU들을 확인(evaluate)하는 것이 목적이라면, 해당 `List`
+엔드포인트는 다음에 설명된 것과 같이, `GetAllocatableResources` 엔드포인트와 함께 사용되어야
+한다.
+1. `GetAllocatableResources`를 호출하여 할당 가능한 모든 CPU 목록을 조회
+2. 시스템의 모든 `ContainerResources`에서 `GetCpuIds`를 호출
+3. `GetAllocateableResources` 호출에서 `GetCpuIds` 호출로 얻은 모든 CPU를 빼기
+{{< /note >}}
+
+### `GetAllocatableResources` gRPC 엔드포인트 {#grpc-endpoint-getallocatableresources}
+
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 GetAllocatableResources는 워커 노드에서 처음 사용할 수 있는 리소스에 대한 정보를 제공한다.
 kubelet이 APIServer로 내보내는 것보다 더 많은 정보를 제공한다.
+
+{{< note >}}
+`GetAllocatableResources`는 [할당 가능(allocatable)](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) 리소스를 확인(evaluate)하기 위해서만 
+사용해야 한다. 만약 목적이 free/unallocated 리소스를 확인하기 위한 것이라면
+List() 엔드포인트와 함께 사용되어야 한다. `GetAllocableResources`로 얻은 결과는 kubelet에
+노출된 기본 리소스가 변경되지 않는 한 동일하게 유지된다. 이러한 변경은 드물지만, 발생하게 된다면
+(예를 들면: hotplug/hotunplug, 장치 상태 변경) 클라이언트가 `GetAlloctableResources` 엔드포인트를
+호출할 것으로 가정한다.
+그러나 CPU 및/또는 메모리가 갱신된 경우 `GetAllocateableResources` 엔드포인트를 호출하는 것만으로는
+충분하지 않으며, Kubelet을 다시 시작하여 올바른 리소스 용량과 할당 가능(allocatable) 리소스를 반영해야 한다.
+{{< /note >}}
+
 
 ```gRPC
 // AllocatableResourcesResponses에는 kubelet이 알고 있는 모든 장치에 대한 정보가 포함된다.
@@ -259,6 +286,13 @@ message AllocatableResourcesResponse {
 }
 
 ```
+쿠버네티스 v1.23부터, `GetAllocatableResources`가 기본으로 활성화된다.
+이를 비활성화하려면 `KubeletPodResourcesGetAllocatable` [기능 게이트(feature gate)](/docs/reference/command-line-tools-reference/feature-gates/)를
+끄면 된다.
+
+쿠버네티스 v1.23 이전 버전에서 이 기능을 활성화하려면 `kubelet`이 다음 플래그를 가지고 시작되어야 한다. 
+
+`--feature-gates=KubeletPodResourcesGetAllocatable=true`
 
 `ContainerDevices` 는 장치가 어떤 NUMA 셀과 연관되는지를 선언하는 토폴로지 정보를 노출한다.
 NUMA 셀은 불분명한(opaque) 정수 ID를 사용하여 식별되며, 이 값은
