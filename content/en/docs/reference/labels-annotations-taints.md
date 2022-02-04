@@ -452,20 +452,30 @@ for more information.
 
 ## pod-security.kubernetes.io/exempt
 
+
 Example: `pod-security.kubernetes.io/exempt: namespace`
 
-Used on: Event
+Used on: `audit.k8s.io/Event`
 
 Value **must** be one of `user`, `namespace`, or `runtimeClass` which correspond to
 [Pod Security Exemption](/docs/concepts/security/pod-security-admission/#exemptions)
 dimensions. This annotation indicates on which dimension was based the exemption
 from the PodSecurity enforcement.
 
+{{< caution >}}
+This annotation is not used within the Kubernetes API. When you
+[enable auditing](/docs/tasks/debug-application-cluster/audit/) in your cluster,
+audit event data is written using `Event` from API group `audit.k8s.io`.
+The annotation applies to audit events. Audit events are different from objects in the
+[Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group
+`events.k8s.io`).
+{{< /caution >}}
+
 ## pod-security.kubernetes.io/enforce-policy
 
 Example: `pod-security.kubernetes.io/enforce-policy: restricted:latest`
 
-Used on: Event
+Used on: `audit.k8s.io/Event`
 
 Value **must** be `privileged:<version>`, `baseline:<version>`,
 `restricted:<version>` which correspond to [Pod Security
@@ -477,13 +487,22 @@ allowed or denied the pod during PodSecurity admission.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
 
+{{< caution >}}
+This annotation is not used within the Kubernetes API. When you
+[enable auditing](/docs/tasks/debug-application-cluster/audit/) in your cluster,
+audit event data is written using `Event` from API group `audit.k8s.io`.
+The annotation applies to audit events. Audit events are different from objects in the
+[Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group
+`events.k8s.io`).
+{{< /caution >}}
+
 ## pod-security.kubernetes.io/audit-violations
 
 Example:  `pod-security.kubernetes.io/audit-violations: would violate
 PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
 "example" must set securityContext.allowPrivilegeEscalation=false), ...`
 
-Used on: Event
+Used on: `audit.k8s.io/Event`
 
 Value details an audit policy violation, it contains the
 [Pod Security Standard](/docs/concepts/security/pod-security-standards/) level
@@ -492,6 +511,15 @@ violated from the PodSecurity enforcement.
 
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
+
+{{< caution >}}
+This annotation is not used within the Kubernetes API. When you
+[enable auditing](/docs/tasks/debug-application-cluster/audit/) in your cluster,
+audit event data is written using `Event` from API group `audit.k8s.io`.
+The annotation applies to audit events. Audit events are different from objects in the
+[Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group
+`events.k8s.io`).
+{{< /caution >}}
 
 ## seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
 
