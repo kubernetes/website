@@ -234,6 +234,8 @@ graph BT
 
 스케줄러는 신규 파드에 `spec.nodeSelector` 또는 `spec.affinity.nodeAffinity`가 정의되어 있는 경우, 부합하지 않는 노드들을 차이(skew) 계산에서 생략한다.
 
+### 예시: TopologySpreadConstraints와 노드 어피니티
+
 zoneA 에서 zoneC에 걸쳐있고, 5개의 노드를 가지는 클러스터가 있다고 가정한다.
 
 {{<mermaid>}}
@@ -349,12 +351,14 @@ defaultConstraints:
 비활성화된다.
 
 {{< note >}}
+`PodTopologySpread` 플러그인은 분배 제약 조건에 지정된 토폴로지 키가
+없는 노드에 점수를 매기지 않는다. 
+이로 인해 기본 토폴로지 제약을 사용하는 경우의 
+레거시 `SelectorSpread` 플러그인과는 기본 정책이 다를 수 있다.
+
 노드에 `kubernetes.io/hostname` 및 `topology.kubernetes.io/zone`
 레이블 세트 **둘 다**가 설정되지 않을 것으로 예상되는 경우, 쿠버네티스 기본값을 사용하는
 대신 자체 제약 조건을 정의한다.
-
-`PodTopologySpread` 플러그인은 분배 제약 조건에 지정된 토폴로지 키가
-없는 노드에 점수를 매기지 않는다.
 {{< /note >}}
 
 클러스터에 기본 파드 분배 제약 조건을 사용하지 않으려면,

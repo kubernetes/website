@@ -45,6 +45,11 @@ content_type: concept
 ## 인프라스트럭처
 
 * [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation)는 쿠버네티스에서 가상 머신을 실행하기 위한 애드온이다. 일반적으로 베어 메탈 클러스터에서 실행한다.
+* [node problem detector](https://github.com/kubernetes/node-problem-detector)는 
+  리눅스 노드에서 실행되며, 
+  시스템 이슈를 
+  [이벤트](/docs/reference/kubernetes-api/cluster-resources/event-v1/) 또는 
+  [노드 컨디션](/ko/docs/concepts/architecture/nodes/#condition) 형태로 보고한다.
 
 ## 레거시 애드온
 
