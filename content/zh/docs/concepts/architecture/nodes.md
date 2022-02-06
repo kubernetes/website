@@ -517,7 +517,7 @@ responsible for:
 The node controller checks the state of each node every `-node-monitor-period` seconds.
 -->
 第三个是监控节点的健康状况。 节点控制器是负责：
-- 在节点节点不可达的情况下，在 Node 的 `.status` 中更新 `NodeReady` 状况。
+- 在节点不可达的情况下，在 Node 的 `.status` 中更新 `NodeReady` 状况。
   在这种情况下，节点控制器将 `NodeReady` 状况更新为 `ConditionUnknown` 。
 - 如果节点仍然无法访问：对于不可达节点上的所有 Pod触发
   [API-发起的逐出](/zh/docs/concepts/scheduling-eviction/api-eviction/)。
