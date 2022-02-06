@@ -1,5 +1,5 @@
 ---
-title: Dockershim非推奨の影響を受けますか
+title: Dockershim非推奨の影響範囲を確認する
 content_type: task
 weight: 20
 ---
