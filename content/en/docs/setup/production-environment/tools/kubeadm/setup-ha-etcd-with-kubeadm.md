@@ -1,7 +1,7 @@
 ---
 reviewers:
 - sig-cluster-lifecycle
-title: Set up a High Availability etcd cluster with kubeadm
+title: Set up a High Availability etcd Cluster with kubeadm
 content_type: task
 weight: 70
 ---
@@ -19,7 +19,8 @@ aspects.
 By default, kubeadm runs a local etcd instance on each control plane node.
 It is also possible to treat the etcd cluster as external and provision
 etcd instances on separate hosts. The differences between the two approaches are covered in the
-[Options for Highly Available topology][/docs/setup/production-environment/tools/kubeadm/ha-topology] page.
+[Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology) page.
+
 This task walks through the process of creating a high availability external
 etcd cluster of three members that can be used by kubeadm during cluster creation.
 

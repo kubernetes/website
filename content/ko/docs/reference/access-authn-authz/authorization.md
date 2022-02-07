@@ -134,7 +134,7 @@ kubectl auth can-i list secrets --namespace dev --as dave
 no
 ```
 
-유사하게, `dev` 네임스페이스의 `dev-sa` 서비스 어카운트가 
+유사하게, `dev` 네임스페이스의 `dev-sa` 서비스어카운트가 
 `target` 네임스페이스의 파드 목록을 볼 수 있는지 확인하려면 다음을 실행한다.
 
 ```bash

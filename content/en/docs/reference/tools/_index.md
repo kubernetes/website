@@ -12,16 +12,17 @@ Kubernetes contains several tools to help you work with the Kubernetes system.
 
 <!-- body -->
 
-## Minikube
+## crictl
 
-[`minikube`](https://minikube.sigs.k8s.io/docs/) is a tool that
-runs a single-node Kubernetes cluster locally on your workstation for
-development and testing purposes.
+[`crictl`](https://github.com/kubernetes-sigs/cri-tools) is a command-line
+interface for inspecting and debugging {{<glossary_tooltip term_id="cri" text="CRI">}}-compatible
+container runtimes.
 
 ## Dashboard
 
 [`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
-to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself.
+to a Kubernetes cluster, troubleshoot them, and manage the cluster and its
+resources itself.
 
 ## Helm
 {{% thirdparty-content single="true" %}}
@@ -65,3 +66,9 @@ Kui lets you:
 * Query a {{< glossary_tooltip text="Job" term_id="job">}} and see its execution rendered
   as a waterfall diagram
 * Click through resources in your cluster using a tabbed UI 
+
+## Minikube
+
+[`minikube`](https://minikube.sigs.k8s.io/docs/) is a tool that
+runs a single-node Kubernetes cluster locally on your workstation for
+development and testing purposes.

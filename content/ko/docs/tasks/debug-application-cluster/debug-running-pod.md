@@ -73,23 +73,15 @@ kubectl exec -it cassandra -- sh
 
 ## 임시(ephemeral) 디버그 컨테이너를 사용해서 디버깅하기 {#ephemeral-container}
 
-{{< feature-state state="alpha" for_k8s_version="v1.18" >}}
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
-컨테이너가 크래시 됐거나 [distroless 이미지](https://github.com/GoogleContainerTools/distroless)처럼
-컨테이너 이미지에 디버깅 도구를 포함하고 있지 않아
-`kubectl exec`가 충분하지 않을 경우에는
+컨테이너가 크래시 됐거나 
+[distroless 이미지](https://github.com/GoogleContainerTools/distroless)처럼
+컨테이너 이미지에 디버깅 도구를 포함하고 있지 않아 `kubectl exec`로는 충분하지 않은 경우에는
 {{< glossary_tooltip text="임시(Ephemeral) 컨테이너" term_id="ephemeral-container" >}}를 사용하는 것이
-인터랙티브한 트러블슈팅에 유용하다. `kubectl` `v1.18` 
-버전부터는 임시 컨테이너를 생성할 수 있는 알파 단계의
-명령어가 있다.
+인터랙티브한 트러블슈팅에 유용하다.
 
 ### 임시 컨테이너를 사용한 디버깅 예시 {#ephemeral-container-example}
-
-{{< note >}}
-이 섹션에서 소개하는 예시를 사용하기 위해서는
-여러분의 클러스터에 `EphemeralContainers` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
-활성화되어 있어야 하고 `kubectl`의 버전이 v1.18 이상이어야 한다.
-{{< /note >}}
 
 `kubectl debug` 명령어를 사용해서 동작 중인 파드에 임시 컨테이너를 추가할 수 있다.
 먼저, 다음과 같이 파드를 추가한다.

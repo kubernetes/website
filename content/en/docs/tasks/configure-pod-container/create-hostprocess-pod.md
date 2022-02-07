@@ -31,7 +31,7 @@ as Windows server containers, meaning that the version of the base images does n
 to match that of the host. It is, however, recommended that you use the same base image
 version as your Windows Server container workloads to ensure you do not have any unused
 images taking up space on the node. HostProcess containers also support
-[volume mounts](./create-hostprocess-pod#volume-mounts) within the container volume.
+[volume mounts](#volume-mounts) within the container volume.
 
 ### When should I use a Windows HostProcess container?
 
@@ -73,19 +73,20 @@ documentation for more details.
 These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
 
 - HostProcess containers require containerd 1.6 or higher
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
+  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 - HostProcess pods can only contain HostProcess containers. This is a current limitation
-of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
+  of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
 - HostProcess containers run as a process on the host and do not have any degree of
-isolation other than resource constraints imposed on the HostProcess user account. Neither
-filesystem or Hyper-V isolation are supported for HostProcess containers.
-- Volume mounts are supported and are mounted under the container volume. See [Volume Mounts](#volume-mounts)
+  isolation other than resource constraints imposed on the HostProcess user account. Neither
+  filesystem or Hyper-V isolation are supported for HostProcess containers.
+- Volume mounts are supported and are mounted under the container volume. See
+  [Volume Mounts](#volume-mounts)
 - A limited set of host user accounts are available for HostProcess containers by default.
   See [Choosing a User Account](#choosing-a-user-account).
 - Resource limits (disk, memory, cpu count) are supported in the same fashion as processes
-on the host.
+  on the host.
 - Both Named pipe mounts and Unix domain sockets are **not** supported and should instead
-be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
+  be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 
 ## HostProcess Pod configuration requirements
 
