@@ -95,7 +95,7 @@ class A,B,C,D,E,F,G,H,M,Q,N,O,P,V grey
 class S,T,U spacewhite
 class first,second,third white
 {{</ mermaid >}}
-Figure 1. Getting started for a new contributor
+Figure 1. Getting started for a new contributor.
 
 Figure 1 outlines a roadmap for new contributors. You can follow some or all of the steps for `Sign up` and `Review`. Now you are ready to open PRs that achieve your contribution objectives with some listed under `Open PR`. Again, questions are always welcome!
 
@@ -136,7 +136,7 @@ class A,B,D,E,F,G grey
 class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
-Figure 2. Preparation for your first contribution
+Figure 2. Preparation for your first contribution.
 
 - Read the [Contribution overview](/docs/contribute/new-content/overview/) to
   learn about the different ways you can contribute.
