@@ -10,7 +10,7 @@ This task outlines the steps needed to update your container runtime to containe
 
 {{% thirdparty-content %}}
 
-Install containerd. For more information see, [containerd's installation documentation](https://containerd.io/docs/getting-started/) and for specific prerequisite follow [this](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)
+Install containerd. For more information see, [containerd's installation documentation](https://containerd.io/docs/getting-started/) and for specific prerequisite follow [this](docs/setup/production-environment/container-runtimes/#containerd).
 
 ## Drain the node 
 
@@ -27,7 +27,7 @@ systemctl disable docker.service --now
 
 ## Install Containerd
 
-This [page](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd) contains detailed steps on how to install containerd.
+This [page](/docs/setup/production-environment/container-runtimes/#containerd) contains detailed steps to install containerd.
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
