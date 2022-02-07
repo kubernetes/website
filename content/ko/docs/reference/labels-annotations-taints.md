@@ -36,10 +36,9 @@ Go에 의해 정의된 `runtime.GOOS` 값을 kubelet이 읽어서 이 레이블�
 
 적용 대상: 네임스페이스
 
-`NamespaceDefaultLabelName` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 
-활성화되어 있으면, 
-쿠버네티스 API 서버가 모든 네임스페이스에 이 레이블을 적용한다. 
-레이블의 값은 네임스페이스의 이름으로 적용된다.
+({{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}의 일부인) 
+쿠버네티스 API 서버가 이 레이블을 모든 네임스페이스에 설정한다. 
+레이블의 값은 네임스페이스의 이름으로 적용된다. 이 레이블의 값을 변경할 수는 없다.
 
 레이블 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}를 이용하여 특정 네임스페이스를 지정하고 싶다면 
 이 레이블이 유용할 수 있다.
@@ -62,6 +61,16 @@ kubelet이 호스트네임을 읽어서 이 레이블의 값으로 채운다. `k
 
 이 레이블은 토폴로지 계층의 일부로도 사용된다. [`topology.kubernetes.io/zone`](#topologykubernetesiozone)에서 세부 사항을 확인한다.
 
+
+## kubernetes.io/change-cause {#change-cause}
+
+예시: `kubernetes.io/change-cause=kubectl edit --record deployment foo`
+
+적용 대상: 모든 오브젝트
+
+이 어노테이션은 어떤 오브젝트가 왜 변경되었는지 그 이유를 담는다.
+
+어떤 오브젝트를 변경할 수도 있는 `kubectl` 명령에 `--record` 플래그를 사용하면 이 레이블이 추가된다.
 
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
@@ -426,3 +435,19 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 
 더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
 참고한다.
+
+## seccomp.security.alpha.kubernetes.io/pod (사용 중단됨) {#seccomp-security-alpha-kubernetes-io-pod}
+
+이 어노테이션은 쿠버네티스 v1.19부터 사용 중단되었으며 v1.25에서는 작동하지 않을 것이다. 
+파드의 보안 설정을 지정하려면, 파드 스펙에 `securityContext` 필드를 추가한다. 
+파드의 `.spec` 내의 [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) 필드는 파드 수준 보안 속성을 정의한다. 
+[파드의 보안 컨텍스트를 설정](/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)하면, 
+해당 설정이 파드 내의 모든 컨테이너에 적용된다.
+
+## container.seccomp.security.alpha.kubernetes.io/[이름] {#container-seccomp-security-alpha-kubernetes-io}
+
+이 어노테이션은 쿠버네티스 v1.19부터 사용 중단되었으며 v1.25에서는 작동하지 않을 것이다. 
+[seccomp를 이용하여 컨테이너의 syscall 제한하기](/docs/tutorials/clusters/seccomp/) 튜토리얼에서 
+seccomp 프로파일을 파드 또는 파드 내 컨테이너에 적용하는 단계를 확인한다. 
+튜토리얼에서는 쿠버네티스에 seccomp를 설정하기 위해 사용할 수 있는 방법을 소개하며, 
+이는 파드의 `.spec` 내에 `securityContext` 를 설정함으로써 가능하다.

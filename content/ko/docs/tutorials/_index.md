@@ -52,9 +52,15 @@ content_type: concept
 * [AppArmor](/ko/docs/tutorials/clusters/apparmor/)
 
 * [seccomp](/docs/tutorials/clusters/seccomp/)
+
 ## 서비스
 
 * [소스 IP 주소 이용하기](/ko/docs/tutorials/services/source-ip/)
+
+## 보안
+
+* [파드 보안 표준을 클러스터 수준으로 적용하기](/docs/tutorials/security/cluster-level-pss/)
+* [파드 보안 표준을 네임스페이스 수준으로 적용하기](/docs/tutorials/security/ns-level-pss/)
 
 ## {{% heading "whatsnext" %}}
 

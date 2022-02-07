@@ -244,7 +244,7 @@ kubectl create secret docker-registry secret-tiger-docker \
 
 `kubernetes.io/basic-auth` 타입은 기본 인증을 위한 자격 증명을 저장하기
 위해 제공된다. 이 시크릿 타입을 사용할 때는 시크릿의 `data` 필드가
-다음의 두 키를 포함해야 한다.
+다음의 두 키 중 하나를 포함해야 한다.
 
 - `username`: 인증을 위한 사용자 이름
 - `password`: 인증을 위한 암호나 토큰

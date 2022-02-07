@@ -56,8 +56,9 @@ Kubernetes implements horizontal pod autoscaling as a control loop that runs int
 (and the default interval is 15 seconds).
 
 Once during each period, the controller manager queries the resource utilization against the
-metrics specified in each HorizontalPodAutoscaler definition.  The controller manager
-obtains the metrics from either the resource metrics API (for per-pod resource metrics),
+metrics specified in each HorizontalPodAutoscaler definition.  The controller manager 
+finds the target resource defined by the `scaleTargetRef`,
+then selects the pods based on the target resource's `.spec.selector` labels, and obtains the metrics from either the resource metrics API (for per-pod resource metrics),
 or the custom metrics API (for all other metrics).
 
 * For per-pod resource metrics (like CPU), the controller fetches the metrics

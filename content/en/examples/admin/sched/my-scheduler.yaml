@@ -30,7 +30,6 @@ roleRef:
   name: system:volume-scheduler
   apiGroup: rbac.authorization.k8s.io
 ---
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -44,7 +43,6 @@ data:
       - schedulerName: my-scheduler
     leaderElection:
       leaderElect: false
-
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -76,13 +74,15 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 10251
+            port: 10259
+            scheme: HTTPS
           initialDelaySeconds: 15
         name: kube-second-scheduler
         readinessProbe:
           httpGet:
             path: /healthz
-            port: 10251
+            port: 10259
+            scheme: HTTPS
         resources:
           requests:
             cpu: '0.1'
