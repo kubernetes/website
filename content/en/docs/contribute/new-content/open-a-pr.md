@@ -61,7 +61,7 @@ class tasks,tasks2 white
 class id1 k8s
 {{</ mermaid >}}
 
-Figure 1. Steps for opening a PR using GitHub***
+Figure 1. Steps for opening a PR using GitHub
 
 1.  On the page where you see the issue, select the pencil icon at the top right.
     You can also scroll to the bottom of the page and select **Edit this page**.
@@ -152,7 +152,7 @@ class S,T spacewhite
 class changes,changes2 white
 {{</ mermaid >}}
 
-Figure 2. Working from a local fork to make your changes***
+Figure 2. Working from a local fork to make your changes
 
 ### Fork the kubernetes/website repository
 
@@ -381,7 +381,7 @@ class 1,2,3,4,5,6,7,8 grey
 class first,second white
 {{</ mermaid >}}
 
-Figure 3. Steps to open a PR from your fork to the K8s/website***
+Figure 3. Steps to open a PR from your fork to the K8s/website
 
 1. In a web browser, go to the [`kubernetes/website`](https://github.com/kubernetes/website/) repository.
 2. Select **New Pull Request**.
