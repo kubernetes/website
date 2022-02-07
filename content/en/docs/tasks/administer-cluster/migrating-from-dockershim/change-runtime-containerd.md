@@ -111,7 +111,7 @@ Note that new CRI socket paths must be prefixed with `unix://` ideally.
 systemctl start kubelet
 ```
 
-{{%heading "verify pods are running" %}}
+## Verify that the node is healthy
 
 Run `kubectl get nodes -o wide` and containerd appears as the runtime for the node we just changed.
 
