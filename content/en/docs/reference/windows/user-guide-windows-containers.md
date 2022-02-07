@@ -15,7 +15,6 @@ Windows applications constitute a large portion of the services and applications
 This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
 
 
-
 <!-- body -->
 
 ## Objectives

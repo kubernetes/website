@@ -11,9 +11,9 @@ weight: 75
 
 <!-- overview -->
 
-<!-- body -->
+This page outlines ithe differences in how resources are managed between Linux and Windows.
 
-# Resource management
+<!-- body -->
 
 On Linux nodes, {{< glossary_tooltip text="cgroups" term_id="cgroup" >}} are used
 as a pod boundary for resource control. Containers are created within that boundary
