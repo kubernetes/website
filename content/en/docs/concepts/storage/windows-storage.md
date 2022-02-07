@@ -11,9 +11,9 @@ weight: 75
 
 <!-- overview -->
 
-<!-- body -->
+This page describes storage/volume behaviors and functionality specific to the Windows operating system.
 
-# Persistent storage {#compatibility-storage}
+<!-- body -->
 
 Windows has a layered filesystem driver to mount container layers and create a copy
 filesystem based on NTFS. All file paths in the container are resolved only within
@@ -28,7 +28,7 @@ the context of that container.
   between the host & container, there's no mapping between them. All permissions are
   resolved within the context of the container.
 
-As a result, the following storage functionality is not supported on Windows nodes:
+As a result, the following storage functionality is **not** supported on Windows nodes:
 
 * Volume subpath mounts: only the entire volume can be mounted in a Windows container
 * Subpath volume mounting for Secrets
@@ -87,7 +87,7 @@ deployed as PowerShell scripts on the host, support Windows nodes:
 
 ## CSI plugins
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 Code associated with {{< glossary_tooltip text="CSI" term_id="csi" >}} plugins ship
 as out-of-tree scripts and binaries that are typically distributed as container

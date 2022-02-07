@@ -11,10 +11,8 @@ weight: 75
 
 <!-- overview -->
 
-Windows applications constitute a large portion of the services and applications that run in many organizations. 
+Windows applications constitute a large portion of the services and applications that run in many organizations.
 This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
-
-
 
 <!-- body -->
 

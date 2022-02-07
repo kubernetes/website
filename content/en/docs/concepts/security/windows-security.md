@@ -4,16 +4,16 @@ reviewers:
 - jsturtevant
 - marosset
 - perithompson
-title:    Securing Windows nodes
+title:    Security For Windows Nodes
 content_type: concept
 weight: 75
 ---
 
 <!-- overview -->
 
-<!-- body -->
+This page describes security considerations and best practices specific to the Windows operating system.
 
-# Security for Windows nodes {#security}
+<!-- body -->
 
 On Windows, data from Secrets are written out in clear text onto the node's local
 storage (as compared to using tmpfs / in-memory filesystems on Linux). As a cluster
@@ -30,4 +30,4 @@ processes as a node-default user. This is roughly equivalent to
 Linux-specific pod security context privileges such as SELinux, AppArmor, Seccomp, or capabilities (POSIX capabilities), and others are not supported.
 
 Privileged containers are [not supported](#compatibility-v1-pod-spec-containers-securitycontext) on Windows.
-
+Instead [HostProcess containers](/docs/tasks/configure-pod-container/create-hostprocess-pod) can be used on Windows to perform many of the tasks performed by privileged containers on Linux.
