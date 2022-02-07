@@ -67,7 +67,7 @@ class S,T spacewhite
 class third,fourth white
 {{</ mermaid >}}
 
-Figure 1. Review process steps
+Figure 1. Review process steps.
 
 1.  Go to
     [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
