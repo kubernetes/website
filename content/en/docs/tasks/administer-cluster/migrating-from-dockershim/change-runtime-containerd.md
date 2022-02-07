@@ -10,7 +10,7 @@ This task outlines the steps needed to update your container runtime to containe
 
 {{% thirdparty-content %}}
 
-Install containerd. For more information see, [containerd's installation documentation](https://containerd.io/docs/getting-started/) and for specific prerequisite follow [this](docs/setup/production-environment/container-runtimes/#containerd).
+Install containerd. For more information see, [containerd's installation documentation](https://containerd.io/docs/getting-started/) and for specific prerequisite follow [this](/docs/setup/production-environment/container-runtimes/#containerd).
 
 ## Drain the node 
 
@@ -93,16 +93,20 @@ Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtim
 
 For users using kubeadm should consider the following:
 
-- The `kubeadm` tool stores the CRI socket for each host as an annotation in the Node object for that host.
+The `kubeadm` tool stores the CRI socket for each host as an annotation in the Node object for that host.
 
 To change it you must do the following:
-- Execute `kubectl edit no <NODE-NAME>` on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
+
+Execute `kubectl edit no <NODE-NAME>` on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
 
 This will start a text editor where you can edit the Node object.
 
 To choose a text editor you can set the `KUBE_EDITOR` environment variable.
-- Change the value of `kubeadm.alpha.kubernetes.io/cri-socket` from `/var/run/dockershim.sock`to the CRI socket path of your chose (for example `unix:///run/containerd/containerd.sock`).
-Note that new CRI socket paths must be prefixed with `unix://` ideally.
+
+- Change the value of `kubeadm.alpha.kubernetes.io/cri-socket` from `/var/    run/dockershim.sock`to the CRI socket path of your chose (for example `unix:///run/containerd/containerd.sock`).
+
+   Note that new CRI socket paths must be prefixed with `unix://` ideally.
+
 - Save the changes in the text editor, which will update the Node object.
 
 ## Restart the kubelet
