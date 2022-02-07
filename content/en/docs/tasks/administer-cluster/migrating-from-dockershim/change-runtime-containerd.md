@@ -1,5 +1,5 @@
 ---
-title: "Changing the container runtime from Docker Engine to containerd"
+title: "Changing the Container Runtime on a Node from Docker Engine to containerd"
 weight: 8
 content_type: task 
 ---
@@ -12,20 +12,23 @@ This task outlines the steps needed to update your container runtime to containe
 
 Install containerd. For more information see, [containerd's installation documentation](https://containerd.io/docs/getting-started/) and for specific prerequisite follow [this](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)
 
-## {{% heading "Drain Node" %}} 
+## Drain the node 
+
 ```
 # replace <node-to-drain> with the name of your node you are draining
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
-## {{% heading "Stop the Docker daemon" %}}
+## Stop the Docker daemon
 
-```
+```shell
 systemctl stop kubelet
-systemctl stop docker
+systemctl disable docker.service --now
 ```
 
-## {{% heading "Install Containerd" %}} 
-This [page](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd) 
+## Install Containerd
+
+This [page](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd) contains detailed steps on how to install containerd.
+
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
 
@@ -84,13 +87,13 @@ Start a Powershell session, set `$Version` to the desired version (ex: `$Version
 {{% /tab %}}
 {{< /tabs >}}
 
-## Configure the kubelet to use containerd as its container runtime {#use-containerd-as-runtime}
+## Configure the kubelet to use containerd as its container runtime
 
 Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags. `--container-runtime=remote` and `--container-runtime-endpoint=unix:///run/containerd/containerd.sock"`
 
 For users using kubeadm should consider the following:
 
-- Kubeadm stores the CRI socket for each host as an annotation in the Node object for that host.
+- The `kubeadm` tool stores the CRI socket for each host as an annotation in the Node object for that host.
 
 To change it you must do the following:
 - Execute `kubectl edit no <NODE-NAME>` on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
@@ -102,27 +105,45 @@ To choose a text editor you can set the `KUBE_EDITOR` environment variable.
 Note that new CRI socket paths must be prefixed with `unix://` ideally.
 - Save the changes in the text editor, which will update the Node object.
 
-{{% heading "Restart kubelet" %}}
+## Restart the kubelet
 
-\```shell
+```shell
 systemctl start kubelet
-\```
+```
 
 {{%heading "verify pods are running" %}}
 
 Run `kubectl get nodes -o wide` and containerd appears as the runtime for the node we just changed.
 
-{{%heading "Remove Docker" %}}
+## Remove Docker Engine
 
 {{% thirdparty-content %}}
 
 Finally if everything goes well remove docker
-\```shell
-apt purge docker-ce docker-ce-cli
-OR
-yum remove docker-ce docker-ce-cli
-\```
 
+{{< tabs name="tab-remove-docker-enigine" >}}
+{{% tab name="CentOS" %}}
 
+```shell
+sudo yum remove docker-ce docker-ce-cli
+```
+{{% /tab %}}
+{{% tab name="Debian" %}}
 
+```shell
+sudo apt-get purge docker-ce docker-ce-cli
+```
+{{% /tab %}}
+{{% tab name="Fedora" %}}
 
+```shell
+sudo dnf remove docker-ce docker-ce-cli
+```
+{{% /tab %}}
+{{% tab name="Ubuntu" %}}
+
+```shell
+sudo apt-get purge docker-ce docker-ce-cli
+```
+{{% /tab %}}
+{{< /tabs >}}
