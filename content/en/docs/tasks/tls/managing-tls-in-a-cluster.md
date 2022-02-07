@@ -45,7 +45,7 @@ chain and adding the parsed certificates to the `RootCAs` field in the
 [`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
 
 {{< note >}}
-Even though the custom CA certificate may be included in the filesystem by kubeadm (in the
+Even though the custom CA certificate may be included in the filesystem (in the
 ConfigMap `kube-root-ca.crt`),
 you should not use that certificate authority for any purpose other than to verify internal
 Kubernetes endpoints. An example of an internal Kubernetes endpoint is the
