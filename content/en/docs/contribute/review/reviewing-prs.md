@@ -36,7 +36,7 @@ Before you start a review:
 
 ## Review process
 
-In general, review pull requests for content and style in English. The figure below outlines the steps for the review process. The details for each step follow.
+In general, review pull requests for content and style in English. Figure 1 outlines the steps for the review process. The details for each step follow.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -67,7 +67,7 @@ class S,T spacewhite
 class third,fourth white
 {{</ mermaid >}}
 
-***Figure - Review process steps***
+Figure 1. Review process steps
 
 1.  Go to
     [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
