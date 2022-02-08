@@ -15,7 +15,6 @@ Network plugins in Kubernetes come in a few flavors:
 
 * CNI plugins: adhere to the [Container Network Interface](https://github.com/containernetworking/cni) (CNI) specification, designed for interoperability.
   * Kubernetes follows the [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) release of the CNI specification.
-* Kubenet plugin: implements basic `cbr0` using the `bridge` and `host-local` CNI plugins
 
 <!-- body -->
 
@@ -129,37 +128,8 @@ metadata:
 ...
 ```
 
-### kubenet
-
-Kubenet is a very basic, simple network plugin, on Linux only.  It does not, of itself, implement more advanced features like cross-node networking or network policy.  It is typically used together with a cloud provider that sets up routing rules for communication between nodes, or in single-node environments.
-
-Kubenet creates a Linux bridge named `cbr0` and creates a veth pair for each pod with the host end of each pair connected to `cbr0`.  The pod end of the pair is assigned an IP address allocated from a range assigned to the node either through configuration or by the controller-manager.  `cbr0` is assigned an MTU matching the smallest MTU of an enabled normal interface on the host.
-
-The plugin requires a few things:
-
-* The standard CNI `bridge`, `lo` and `host-local` plugins are required, at minimum version 0.2.0. Kubenet will first search for them in `/opt/cni/bin`. Specify `cni-bin-dir` to supply additional search path. The first found match will take effect.
-* Kubelet must be run with the `--network-plugin=kubenet` argument to enable the plugin
-* Kubelet should also be run with the `--non-masquerade-cidr=<clusterCidr>` argument to ensure traffic to IPs outside this range will use IP masquerade.
-* The node must be assigned an IP subnet through either the `--pod-cidr` kubelet command-line option or the `--allocate-node-cidrs=true --cluster-cidr=<cidr>` controller-manager command-line options.
-
-### Customizing the MTU (with kubenet)
-
-The MTU should always be configured correctly to get the best networking performance.  Network plugins will usually try
-to infer a sensible MTU, but sometimes the logic will not result in an optimal MTU.  For example, if the
-Docker bridge or another interface has a small MTU, kubenet will currently select that MTU.  Or if you are
-using IPSEC encapsulation, the MTU must be reduced, and this calculation is out-of-scope for
-most network plugins.
-
-Where needed, you can specify the MTU explicitly with the `network-plugin-mtu` kubelet option.  For example,
-on AWS the `eth0` MTU is typically 9001, so you might specify `--network-plugin-mtu=9001`.  If you're using IPSEC you
-might reduce it to allow for encapsulation overhead; for example: `--network-plugin-mtu=8873`.
-
-This option is provided to the network-plugin; currently **only kubenet supports `network-plugin-mtu`**.
-
 ## Usage Summary
 
 * `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `--cni-bin-dir` (default `/opt/cni/bin`) and CNI plugin configuration located in `--cni-conf-dir` (default `/etc/cni/net.d`).
-* `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge`, `lo` and `host-local` plugins placed in `/opt/cni/bin` or `cni-bin-dir`.
-* `--network-plugin-mtu=9001` specifies the MTU to use, currently only used by the `kubenet` network plugin.
 
 ## {{% heading "whatsnext" %}}
