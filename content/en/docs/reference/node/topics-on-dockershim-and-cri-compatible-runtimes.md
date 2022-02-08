@@ -3,12 +3,11 @@ title: External Articles on dockershim Removal and on Using CRI-compatible Runti
 content_type: reference
 weight: 20
 ---
-<!-- overview -->
+
 This is a list of articles about:
 
-	- the Kubernetes' deprecation and removal of _dockershim_
-	- using CRI-compatible container runtimes
-<!-- body -->
+* the Kubernetes' deprecation and removal of _dockershim_
+* using CRI-compatible container runtimes
 
 ## Primary sources
 
