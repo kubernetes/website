@@ -1008,7 +1008,7 @@ kind: PodSecurityPolicy
 metadata:
   name: allow-flex-volumes
 spec:
-  # spec d的其他字段
+  # spec 的其他字段
   volumes:
     - flexVolume
   allowedFlexVolumes:
