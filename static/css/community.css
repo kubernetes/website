@@ -55,6 +55,10 @@ body.cid-community .community-section {
   text-align: center; /* overridden for paragraphs */
 }
 
+body.cid-community .community-section:first-child {
+  padding-top: max(3vh,1.5em);
+}
+
 body.cid-community #navigation-items {
   padding: 0.25em;
 
@@ -328,23 +332,40 @@ body.cid-community details > summary {
   color: #303030;
 }
 
-body.cid-community .cncf_coc_container {
-  padding-left: calc((100vw - min(75vw,100em))/2);
-  padding-right: calc((100vw - min(75vw,100em))/2);
-  padding-bottom: 8em;
+body.cid-community #cncf-code-of-conduct-intro,
+body.cid-community #cncf-code-of-conduct {
+  max-width: min(90vw, 100em);
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-body.cid-community .cncf_coc_container h1,
-body.cid-community .cncf_coc_container h2 {
-  margin-top: 1.5em;
+body.cid-community #cncf-code-of-conduct {
+  padding-bottom: 8em;
+  padding-top: 0.25em;
+  margin-top: 0;
+}
+
+/* duplication not needed */
+body.cid-community #values-legacy h1 {
+  display: none;
+}
+
+body.cid-community #values-legacy h2,
+body.cid-community #cncf-code-of-conduct h2 {
+  margin-top: 0.25em;
+  margin-bottom: 1em;
   color: #0662EE;
 }
 
-/* no need to repeat the heading */
-body.cid-community .cncf_coc_container h1:first-child {
-  visibility: hidden;
-  margin: 0;
+body.cid-community #values-legacy h2:before,
+body.cid-community #values-legacy h2:after,
+body.cid-community #cncf-code-of-conduct h2:before,
+body.cid-community #cncf-code-of-conduct h2:after {
+  display: none; /* skip decoration */
 }
+
 
 @media only screen and (max-width: 640px) {
   body.cid-community #navigation-items {
