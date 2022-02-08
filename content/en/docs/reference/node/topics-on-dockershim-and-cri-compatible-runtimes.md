@@ -1,39 +1,50 @@
 ---
-title: External Articles on dockershim Removal and on Using CRI-compatible Runtimes
+title: Articles on dockershim Removal and on Using CRI-compatible Runtimes
 content_type: reference
-weight: 20
 ---
 <!-- overview -->
-This is a list of articles about:
+This is a list of articles and other pages that are either
+about the Kubernetes' deprecation and removal of _dockershim_,
+or about using CRI-compatible container runtimes, in connection
+with that removal.
 
-	- the Kubernetes' deprecation and removal of _dockershim_
-	- using CRI-compatible container runtimes
 <!-- body -->
 
-## Primary sources
+## Kubernetes project
 
-* [Kubernetes Blog: "Dockershim Deprecation FAQ", 2020/12/02](/blog/2020/12/02/dockershim-faq/)
+* Kubernetes blog: [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/) (originally published 2020/12/02)
 
-* [Kubernetes Documentation: "Migrating from dockershim"](/docs/tasks/administer-cluster/migrating-from-dockershim/)
+* Kubernetes blog: [Kubernetes is Moving on From Dockershim: Commitments and Next Steps](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/) (published 2022/01/07)
 
-* [Kubernetes Documentation: "Container runtimes"](/docs/setup/production-environment/container-runtimes/)
+* Kubernetes blog: [Dockershim removal is coming. Are you ready?](/blog/2021/11/12/are-you-ready-for-dockershim-removal/) (published 2021/11/12)
 
-* [Kubernetes enhancement issue: "Removing dockershim from kubelet" (`kubernetes/enhancements#2221`)](https://github.com/kubernetes/enhancements/issues/2221)
+* Kubernetes documentation: [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/)
 
-* [Kubernetes enhancement proposal: "KEP-2221: Removing dockershim from kubelet"](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2221-remove-dockershim/README.md)
+* Kubernetes documentation: [Container runtimes](/docs/setup/production-environment/container-runtimes/)
 
-* [Kubernetes Blog: "Dockershim removal is coming. Are you ready?", 2021/11/12](/blog/2021/11/12/are-you-ready-for-dockershim-removal/)
+* Kubernetes enhancement proposal: [KEP-2221: Removing dockershim from kubelet](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2221-remove-dockershim/README.md)
 
-## Secondary sources
+* Kubernetes enhancement proposal issue: [Removing dockershim from kubelet](https://github.com/kubernetes/enhancements/issues/2221) (_k/enhancements#2221_)
 
-* [Docker.com blog: "What developers need to know about Docker, Docker Engine, and Kubernetes v1.20", 2020/12/04](https://www.docker.com/blog/what-developers-need-to-know-about-docker-docker-engine-and-kubernetes-v1-20/)
 
-* [Tripwire.com: "How Dockershim’s Forthcoming Deprecation Affects Your Kubernetes"](https://www.tripwire.com/state-of-security/security-data-protection/cloud/how-dockershim-forthcoming-deprecation-affects-your-kubernetes/)
+You can provide feedback via the GitHub issue [**Dockershim removal feedback & issues**](https://github.com/kubernetes/kubernetes/issues/106917).
 
-* [Amazon EKS documentation: "Dockershim deprecation"](https://docs.aws.amazon.com/eks/latest/userguide/dockershim-deprecation.html)
+## External sources {#third-party}
 
-* ["Google Open Source" channel on YouTube: "Learn Kubernetes with Google - Migrating from Dockershim to Containerd"](https://youtu.be/fl7_4hjT52g)
+<!-- sort these alphabetically -->
 
-* [Mirantis Blog: "The Future of Dockershim is cri-dockerd", 2021/04/21](https://www.mirantis.com/blog/the-future-of-dockershim-is-cri-dockerd/)
+* Amazon Web Services EKS documentation: [Dockershim deprecation](https://docs.aws.amazon.com/eks/latest/userguide/dockershim-deprecation.html)
 
-* [Github.com: "Mirantis/cri-dockerd" repo](https://github.com/Mirantis/cri-dockerd)
+* CNCF conference video: [Lessons Learned Migrating Kubernetes from Docker to containerd Runtime](https://www.youtube.com/watch?v=uDOu6rK4yOk) (Ana Caylin, at KubeCon Europe 2019)
+
+* Docker.com blog: [What developers need to know about Docker, Docker Engine, and Kubernetes v1.20](https://www.docker.com/blog/what-developers-need-to-know-about-docker-docker-engine-and-kubernetes-v1-20/) (published 2020/12/04)
+
+* "_Google Open Source_" channel on YouTube: [Learn Kubernetes with Google - Migrating from Dockershim to Containerd](https://youtu.be/fl7_4hjT52g)
+
+* Microsoft Apps on Azure blog: [Dockershim deprecation and AKS](https://techcommunity.microsoft.com/t5/apps-on-azure-blog/dockershim-deprecation-and-aks/ba-p/3055902) (published 2022/01/21)
+
+* Mirantis blog: [The Future of Dockershim is cri-dockerd](https://www.mirantis.com/blog/the-future-of-dockershim-is-cri-dockerd/) (published 2021/04/21)
+
+* Mirantis: [Mirantis/cri-dockerd](https://github.com/Mirantis/cri-dockerd) Git repository (on GitHub)
+
+* Tripwire: [How Dockershim’s Forthcoming Deprecation Affects Your Kubernetes](https://www.tripwire.com/state-of-security/security-data-protection/cloud/how-dockershim-forthcoming-deprecation-affects-your-kubernetes/)
