@@ -41,7 +41,7 @@ kubectl get services  --all-namespaces --field-selector metadata.namespace!=defa
 
 ## Seletores em cadeia
 
-Assim como [label](/docs/concepts/overview/working-with-objects/labels) e outros tipos de seletores, os seletores de campos podem ser utilizados em cadeia através de uma lista separada por vírgula. O comando `kubectl` a seguir seleciona todos os Pods nos quais `status.phase` não é igual a `Running` e `spec.restartPolicy` é igual a `Always`
+Assim como [label](/docs/concepts/overview/working-with-objects/labels) e outros tipos de seletores, podem ser utilizados em cadeia através de uma lista separada por vírgula. O comando `kubectl` a seguir seleciona todos os Pods nos quais `status.phase` não é igual a `Running` e `spec.restartPolicy` é igual a `Always`
 
 ```shell
 kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Always
