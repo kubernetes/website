@@ -25,7 +25,8 @@ on each Kubernetes component.
 Each Kubernetes component lets you enable or disable a set of feature gates that
 are relevant to that component.
 Use `-h` flag to see a full set of feature gates for all components.
-To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
+To set feature gates for a component, such as kubelet, use the `--feature-gates`
+flag assigned to a list of feature pairs:
 
 ```shell
 --feature-gates="...,GracefulNodeShutdown=true"
@@ -562,7 +563,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
-- `Accelerators`: Enable Nvidia GPU support when using Docker
+- `Accelerators`: Provided an early form of plugin to enable Nvidia GPU support when using
+  Docker Engine; no longer available. See
+  [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) for
+  an alternative.
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
 - `AffinityInAnnotations`: Enable setting
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
@@ -571,8 +575,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelets on Pod log requests.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
-- `AppArmor`: Enable AppArmor based mandatory access control on Linux nodes when using Docker.
-  See [AppArmor Tutorial](/docs/tutorials/clusters/apparmor/) for more details.
+- `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
+  See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
   See [dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits) for more details.
@@ -766,12 +770,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of
   nodes when scheduling Pods.
 - `EndpointSlice`: Enables EndpointSlices for more scalable and extensible
-   network endpoints. See [Enabling EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices/).
+   network endpoints. See [Enabling EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
 - `EndpointSliceNodeName`: Enables EndpointSlice `nodeName` field.
 - `EndpointSliceProxying`: When enabled, kube-proxy running
    on Linux will use EndpointSlices as the primary data source instead of
    Endpoints, enabling scalability and performance improvements. See
-   [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
+   [Enabling Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
 - `EndpointSliceTerminatingCondition`: Enables EndpointSlice `terminating` and `serving`
    condition fields.
 - `EphemeralContainers`: Enable the ability to add
@@ -1086,7 +1090,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WindowsEndpointSliceProxying`: When enabled, kube-proxy running on Windows
   will use EndpointSlices as the primary data source instead of Endpoints,
   enabling scalability and performance improvements. See
-  [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
+  [Enabling Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
 - `WindowsGMSA`: Enables passing of GMSA credential specs from pods to container runtimes.
 - `WindowsHostProcessContainers`: Enables support for Windows HostProcess containers.
 - `WindowsRunAsUserName` : Enable support for running applications in Windows containers

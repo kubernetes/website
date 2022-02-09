@@ -489,6 +489,12 @@ PodSpec is a description of a pod.
 ### Beta level
 
 
+- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
+
+  *Patch strategy: merge on key `name`*
+  
+  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+
 - **preemptionPolicy** (string)
 
   PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
@@ -496,15 +502,6 @@ PodSpec is a description of a pod.
 - **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
   Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
-
-### Alpha level
-
-
-- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
-
-  *Patch strategy: merge on key `name`*
-  
-  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 
 ### Deprecated
 
@@ -1220,82 +1217,8 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
 
   Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 
-### Not allowed
+### Security context
 
-
-- **ports** ([]ContainerPort)
-
-  *Patch strategy: merge on key `containerPort`*
-  
-  *Map: unique values on keys `containerPort, protocol` will be kept during a merge*
-  
-  Ports are not allowed for ephemeral containers.
-
-  <a name="ContainerPort"></a>
-  *ContainerPort represents a network port in a single container.*
-
-  - **ports.containerPort** (int32), required
-
-    Number of port to expose on the pod's IP address. This must be a valid port number, 0 \< x \< 65536.
-
-  - **ports.hostIP** (string)
-
-    What host IP to bind the external port to.
-
-  - **ports.hostPort** (int32)
-
-    Number of port to expose on the host. If specified, this must be a valid port number, 0 \< x \< 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
-
-  - **ports.name** (string)
-
-    If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
-
-  - **ports.protocol** (string)
-
-    Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-    
-    Possible enum values:
-     - `"SCTP"` is the SCTP protocol.
-     - `"TCP"` is the TCP protocol.
-     - `"UDP"` is the UDP protocol.
-
-- **resources** (ResourceRequirements)
-
-  Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
-
-  <a name="ResourceRequirements"></a>
-  *ResourceRequirements describes the compute resource requirements.*
-
-  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-- **lifecycle** (Lifecycle)
-
-  Lifecycle is not allowed for ephemeral containers.
-
-  <a name="Lifecycle"></a>
-  *Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.*
-
-  - **lifecycle.postStart** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
-
-    PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-
-  - **lifecycle.preStop** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
-
-    PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-
-- **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
-
-  Probes are not allowed for ephemeral containers.
-
-- **readinessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
-
-  Probes are not allowed for ephemeral containers.
 
 - **securityContext** (SecurityContext)
 
@@ -1414,6 +1337,83 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
     - **securityContext.windowsOptions.runAsUserName** (string)
 
       The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+
+### Not allowed
+
+
+- **ports** ([]ContainerPort)
+
+  *Patch strategy: merge on key `containerPort`*
+  
+  *Map: unique values on keys `containerPort, protocol` will be kept during a merge*
+  
+  Ports are not allowed for ephemeral containers.
+
+  <a name="ContainerPort"></a>
+  *ContainerPort represents a network port in a single container.*
+
+  - **ports.containerPort** (int32), required
+
+    Number of port to expose on the pod's IP address. This must be a valid port number, 0 \< x \< 65536.
+
+  - **ports.hostIP** (string)
+
+    What host IP to bind the external port to.
+
+  - **ports.hostPort** (int32)
+
+    Number of port to expose on the host. If specified, this must be a valid port number, 0 \< x \< 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
+
+  - **ports.name** (string)
+
+    If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
+
+  - **ports.protocol** (string)
+
+    Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+    
+    Possible enum values:
+     - `"SCTP"` is the SCTP protocol.
+     - `"TCP"` is the TCP protocol.
+     - `"UDP"` is the UDP protocol.
+
+- **resources** (ResourceRequirements)
+
+  Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
+
+  <a name="ResourceRequirements"></a>
+  *ResourceRequirements describes the compute resource requirements.*
+
+  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+- **lifecycle** (Lifecycle)
+
+  Lifecycle is not allowed for ephemeral containers.
+
+  <a name="Lifecycle"></a>
+  *Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.*
+
+  - **lifecycle.postStart** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
+
+    PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+
+  - **lifecycle.preStop** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
+
+    PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+
+- **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
+
+  Probes are not allowed for ephemeral containers.
+
+- **readinessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
+
+  Probes are not allowed for ephemeral containers.
 
 - **startupProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
 

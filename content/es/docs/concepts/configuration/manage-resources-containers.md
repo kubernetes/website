@@ -110,11 +110,11 @@ CPU es siempre solicitada como una cantidad absoluta, nunca como una cantidad re
 
 Los límites y peticiones de `memoria` son medidos en bytes. Puedes expresar la memoria como
 un número entero o como un número decimal usando alguno de estos sufijos:
-E, P, T, G, M, K. También puedes usar los equivalentes en potencia de dos: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k, m (millis). También puedes usar los equivalentes en potencia de dos: Ei, Pi, Ti, Gi,
 Mi, Ki. Por ejemplo, los siguientes valores representan lo mismo:
 
 ```shell
-128974848, 129e6, 129M, 123Mi
+128974848, 129e6, 129M, 128974848000m, 123Mi
 ```
 
 Aquí un ejemplo.

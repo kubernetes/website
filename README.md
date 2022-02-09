@@ -65,9 +65,9 @@ This will start the local Hugo server on port 1313. Open up your browser to <htt
 
 The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
 
-To update the reference pages for a new Kubernetes release (replace v1.20 in the following examples with the release to update to):
+To update the reference pages for a new Kubernetes release follow these steps:
 
-1. Pull the `kubernetes-resources-reference` submodule:
+1. Pull in the `api-ref-generator` submodule:
 
    ```bash
    git submodule update --init --recursive --depth 1
@@ -75,9 +75,9 @@ To update the reference pages for a new Kubernetes release (replace v1.20 in the
 
 2. Update the Swagger specification:
 
-```
-curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
-```
+   ```bash
+   curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
+   ```
 
 3. In `api-ref-assets/config/`, adapt the files `toc.yaml` and `fields.yaml` to reflect the changes of the new release.
 

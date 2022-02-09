@@ -91,6 +91,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 * `KUBERNETES_SERVICE_HOST` 환경 변수가 설정되어 있고,
 * `KUBERNETES_SERVICE_PORT` 환경 변수가 설정되어 있고,
 * kubectl 명령에 네임스페이스를 명시하지 않으면
+
 kubectl은 자신이 클러스터 내부에서 실행되고 있다고 가정한다. 
 kubectl은 해당 서비스어카운트의 네임스페이스(파드의 네임스페이스와 동일하다)를 인식하고 해당 네임스페이스에 대해 동작한다.
 이는 클러스터 외부에서 실행되었을 때와는 다른데, 
