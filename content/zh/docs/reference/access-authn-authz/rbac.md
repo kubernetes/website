@@ -559,7 +559,7 @@ Allow reading `"pods"` resources in the core
 -->
 #### Role 示例   {#role-examples}
 
-以下示例均为从 Role 或 CLusterRole 对象中截取出来，我们仅展示其 `rules` 部分。
+以下示例均为从 Role 或 ClusterRole 对象中截取出来，我们仅展示其 `rules` 部分。
 
 允许读取在核心 {{< glossary_tooltip text="API 组" term_id="api-group" >}}下的
 `"Pods"`：
