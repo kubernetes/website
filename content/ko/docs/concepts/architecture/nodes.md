@@ -385,7 +385,7 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
 자세한 내용은
 [노드의 컨트롤 토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)을 본다.
 
-## 그레이스풀(Graceful) 노드 셧다운 {#graceful-node-shutdown}
+## 그레이스풀(Graceful) 노드 셧다운(shutdown) {#graceful-node-shutdown}
 
 {{< feature-state state="beta" for_k8s_version="v1.21" >}}
 
@@ -402,7 +402,7 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 제어된다.
 
 기본적으로, 아래 설명된 두 구성 옵션,
-`ShutdownGracePeriod` 및 `ShutdownGracePeriodCriticalPods` 는 모두 0으로 설정되어 있으므로,
+`shutdownGracePeriod` 및 `shutdownGracePeriodCriticalPods` 는 모두 0으로 설정되어 있으므로,
 그레이스풀 노드 셧다운 기능이 활성화되지 않는다.
 기능을 활성화하려면, 두 개의 kubelet 구성 설정을 적절하게 구성하고 0이 아닌 값으로 설정해야 한다.
 
@@ -412,31 +412,115 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 2. 노드에서 실행 중인 [중요(critical) 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료시킨다.
 
 그레이스풀 노드 셧다운 기능은 두 개의 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) 옵션으로 구성된다.
-* `ShutdownGracePeriod`:
+* `shutdownGracePeriod`:
   * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 이것은 모든 일반 및 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 파드 종료에 필요한 총 유예 기간에 해당한다.
-* `ShutdownGracePeriodCriticalPods`:
-  * 노드 종료 중에 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `ShutdownGracePeriod` 보다 작아야 한다.
+* `shutdownGracePeriodCriticalPods`:
+  * 노드 종료 중에 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `shutdownGracePeriod` 보다 작아야 한다.
 
-예를 들어, `ShutdownGracePeriod=30s`,
-`ShutdownGracePeriodCriticalPods=10s` 인 경우, kubelet은 노드 종료를 30초까지
+예를 들어, `shutdownGracePeriod=30s`,
+`shutdownGracePeriodCriticalPods=10s` 인 경우, kubelet은 노드 종료를 30초까지
 지연시킨다. 종료하는 동안 처음 20(30-10)초는 일반 파드의
 유예 종료에 할당되고, 마지막 10초는
 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 종료에 할당된다.
 
 {{< note >}}
-그레이스풀 노드 셧다운 과정에서 축출된 파드는 `Failed` 라고 표시된다.
-`kubectl get pods` 명령을 실행하면 축출된 파드의 상태가 `Shutdown`으로 표시된다.
+그레이스풀 노드 셧다운 과정에서 축출된 파드는 셧다운(shutdown)된 것으로 표시된다.
+`kubectl get pods` 명령을 실행하면 축출된 파드의 상태가 `Terminated`으로 표시된다.
 그리고 `kubectl describe pod` 명령을 실행하면 노드 셧다운으로 인해 파드가 축출되었음을 알 수 있다.
 
 ```
-Status:         Failed
-Reason:         Shutdown
-Message:        Node is shutting, evicting pods
+Reason:         Terminated
+Message:        Pod was terminated in response to imminent node shutdown.
 ```
 
-실패한 파드 오브젝트는 명시적으로 삭제하거나 [가비지 콜렉션에 의해 정리](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)되기 전까지는 보존된다.
-이는 갑작스러운 노드 종료의 경우와 비교했을 때 동작에 차이가 있다.
 {{< /note >}}
+
+### 파드 우선순위 기반 그레이스풀 노드 셧다운 {#pod-priority-graceful-node-shutdown}
+
+{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+
+그레이스풀 노드 셧다운 시 파드 셧다운 순서에 더 많은 유연성을 제공할 수 있도록, 
+클러스터에 프라이어리티클래스(PriorityClass) 기능이 활성화되어 있으면 
+그레이스풀 노드 셧다운 과정에서 파드의 프라이어리티클래스가 고려된다. 
+이 기능으로 그레이스풀 노드 셧다운 시 파드가 종료되는 순서를 클러스터 관리자가 
+[프라이어리티클래스](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#프라이어리티클래스) 
+기반으로 명시적으로 정할 수 있다.
+
+위에서 기술된 것처럼, [그레이스풀 노드 셧다운](#graceful-node-shutdown) 기능은 파드를 
+중요하지 않은(non-critical) 파드와 
+중요한(critical) 파드 2단계(phase)로 구분하여 종료시킨다. 
+셧다운 시 파드가 종료되는 순서를 명시적으로 더 상세하게 정해야 한다면, 
+파드 우선순위 기반 그레이스풀 노드 셧다운을 사용할 수 있다.
+
+그레이스풀 노드 셧다운 과정에서 파드 우선순위가 고려되기 때문에, 
+그레이스풀 노드 셧다운이 여러 단계로 일어날 수 있으며, 
+각 단계에서 특정 프라이어리티 클래스의 파드를 종료시킨다. 
+정확한 단계와 단계별 셧다운 시간은 kubelet에 설정할 수 있다.
+
+다음과 같이 클러스터에 커스텀 파드 
+[프라이어리티 클래스](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#프라이어리티클래스)가 있다고 
+가정하자.
+
+|파드 프라이어리티 클래스 이름|파드 프라이어리티 클래스 값|
+|-------------------------|------------------------|
+|`custom-class-a`         | 100000                 |
+|`custom-class-b`         | 10000                  |
+|`custom-class-c`         | 1000                   |
+|`regular/unset`          | 0                      |
+
+[kubelet 환경 설정](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) 안의
+`shutdownGracePeriodByPodPriority` 설정은 다음과 같을 수 있다.
+
+|파드 프라이어리티 클래스 값|종료 대기 시간|
+|------------------------|---------------|
+| 100000                 |10 seconds     |
+| 10000                  |180 seconds    |
+| 1000                   |120 seconds    |
+| 0                      |60 seconds     |
+
+이를 나타내는 kubelet 환경 설정 YAML은 다음과 같다.
+
+```yaml
+shutdownGracePeriodByPodPriority:
+  - priority: 100000
+    shutdownGracePeriodSeconds: 10
+  - priority: 10000
+    shutdownGracePeriodSeconds: 180
+  - priority: 1000
+    shutdownGracePeriodSeconds: 120
+  - priority: 0
+    shutdownGracePeriodSeconds: 60
+```
+
+위의 표에 의하면 우선순위 값이 100000 이상인 파드는 종료까지 10초만 주어지며, 
+10000 이상 ~ 100000 미만이면 180초, 
+1000 이상 ~ 10000 미만이면 120초가 주어진다.
+마지막으로, 다른 모든 파드는 종료까지 60초가 주어질 것이다.
+
+모든 클래스에 대해 값을 명시할 필요는 없다. 
+예를 들어, 대신 다음과 같은 구성을 사용할 수도 있다.
+
+|파드 프라이어리티 클래스 값|종료 대기 시간|
+|------------------------|---------------|
+| 100000                 |300 seconds    |
+| 1000                   |120 seconds    |
+| 0                      |60 seconds     |
+
+
+위의 경우, custom-class-b에 속하는 파드와 custom-class-c에 속하는 파드는 
+동일한 종료 대기 시간을 갖게 될 것이다.
+
+특정 범위에 해당되는 파드가 없으면, 
+kubelet은 해당 범위에 해당되는 파드를 위해 기다려 주지 않는다. 
+대신, kubelet은 즉시 다음 프라이어리티 클래스 값 범위로 넘어간다.
+
+기능이 활성화되어 있지만 환경 설정이 되어 있지 않으면, 
+순서 지정 동작이 수행되지 않을 것이다.
+
+이 기능을 사용하려면 `GracefulNodeShutdownBasedOnPodPriority` 기능 게이트를 활성화해야 하고, 
+kubelet 환경 설정의 `ShutdownGracePeriodByPodPriority`를 
+파드 프라이어리티 클래스 값과 
+각 값에 대한 종료 대기 시간을 명시하여 지정해야 한다.
 
 ## 스왑(swap) 메모리 관리 {#swap-memory}
 
@@ -450,6 +534,11 @@ kubelet은 노드에서 스왑을 발견하지 못한 경우 시작과 동시에
 활성화되어야 하며, 명령줄 플래그 `--fail-swap-on` 또는
 [구성 설정](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)에서 `failSwapOn`가
 false로 지정되어야 한다.
+
+{{< warning >}}
+메모리 스왑 기능이 활성화되면, 시크릿 오브젝트의 내용과 같은 
+tmpfs에 기록되었던 쿠버네티스 데이터가 디스크에 스왑될 수 있다.
+{{< /warning >}}
 
 사용자는 또한 선택적으로 `memorySwap.swapBehavior`를 구성할 수 있으며, 
 이를 통해 노드가 스왑 메모리를 사용하는 방식을 명시한다. 예를 들면,

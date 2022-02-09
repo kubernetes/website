@@ -44,12 +44,21 @@ weight: 10
 
 볼륨을 사용하려면, `.spec.volumes` 에서 파드에 제공할 볼륨을 지정하고
 `.spec.containers[*].volumeMounts` 의 컨테이너에 해당 볼륨을 마운트할 위치를 선언한다.
-컨테이너의 프로세스는 도커 이미지와 볼륨으로 구성된 파일시스템
-뷰를 본다. [도커 이미지](https://docs.docker.com/userguide/dockerimages/)는
-파일시스템 계층의 루트에 있다. 볼륨은 이미지 내에 지정된 경로에
-마운트된다. 볼륨은 다른 볼륨에 마운트할 수 없거나 다른 볼륨에 대한 하드 링크를
-가질 수 없다. 파드 구성의 각 컨테이너는 각 볼륨을 마운트할 위치를 독립적으로
-지정해야 한다.
+컨테이너의 프로세스는 
+{{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}}의 최초 내용물과 
+컨테이너 안에 마운트된 볼륨(정의된 경우에 한함)으로 구성된 파일시스템을 보게 된다.
+프로세스는 컨테이너 이미지의 최초 내용물에 해당되는 루트 파일시스템을 
+보게 된다.
+쓰기가 허용된 경우, 해당 파일시스템에 쓰기 작업을 하면 
+추후 파일시스템에 접근할 때 변경된 내용을 보게 될 것이다.
+볼륨은 이미지의 [특정 경로](#using-subpath)에 
+마운트된다.
+파드에 정의된 각 컨테이너에 대해, 
+컨테이너가 사용할 각 볼륨을 어디에 마운트할지 명시해야 한다.
+
+볼륨은 다른 볼륨 안에 마운트될 수 없다 
+(하지만, [서브패스 사용](#using-subpath)에서 관련 메커니즘을 확인한다). 
+또한, 볼륨은 다른 볼륨에 있는 내용물을 가리키는 하드 링크를 포함할 수 없다.
 
 ## 볼륨 유형들 {#volume-types}
 
@@ -802,142 +811,7 @@ spec:
 ### projected
 
 `Projected` 볼륨은 여러 기존 볼륨 소스를 동일한 디렉터리에 매핑한다.
-
-현재, 다음 유형의 볼륨 소스를 프로젝티드한다.
-
-* [`secret`](#secret)
-* [`downwardAPI`](#downwardapi)
-* [`configMap`](#configmap)
-* `serviceAccountToken`
-
-모든 소스는 파드와 동일한 네임스페이스에 있어야 한다. 더 자세한 내용은
-[올인원 볼륨 디자인 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)를 본다.
-
-#### 시크릿, 다운워드 API 그리고 컨피그맵이 있는 구성 예시 {#example-configuration-secret-downwardapi-configmap}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: volume-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
-      readOnly: true
-  volumes:
-  - name: all-in-one
-    projected:
-      sources:
-      - secret:
-          name: mysecret
-          items:
-            - key: username
-              path: my-group/my-username
-      - downwardAPI:
-          items:
-            - path: "labels"
-              fieldRef:
-                fieldPath: metadata.labels
-            - path: "cpu_limit"
-              resourceFieldRef:
-                containerName: container-test
-                resource: limits.cpu
-      - configMap:
-          name: myconfigmap
-          items:
-            - key: config
-              path: my-group/my-config
-```
-
-#### 구성 예시: 기본값이 아닌 소유권 모드 설정의 시크릿 {#example-configuration-secrets-nondefault-permission-mode}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: volume-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
-      readOnly: true
-  volumes:
-  - name: all-in-one
-    projected:
-      sources:
-      - secret:
-          name: mysecret
-          items:
-            - key: username
-              path: my-group/my-username
-      - secret:
-          name: mysecret2
-          items:
-            - key: password
-              path: my-group/my-password
-              mode: 511
-```
-
-각각의 projected 볼륨 소스는 `source` 아래 사양 목록에 있다.
-파라미터는 두 가지 예외를 제외하고 거의 동일하다.
-
-* 시크릿의 경우 `secretName` 필드는 컨피그맵 이름과 일치하도록
-  `name` 으로 변경되었다.
-* `defaultMode` 는 각각의 볼륨 소스에 대해 projected 수준에서만
-  지정할 수 있다. 그러나 위에서 설명한 것처럼 각각의 개별 projection 에 대해 `mode`
-  를 명시적으로 설정할 수 있다.
-
-`TokenRequestProjection` 기능이 활성화 되면, 현재
-[서비스 어카운트](/docs/reference/access-authn-authz/authentication/#service-account-tokens)에
-대한 토큰을 파드의 지정된 경로에 주입할 수 있다. 예를 들면 다음과 같다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: sa-token-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: token-vol
-      mountPath: "/service-account"
-      readOnly: true
-  volumes:
-  - name: token-vol
-    projected:
-      sources:
-      - serviceAccountToken:
-          audience: api
-          expirationSeconds: 3600
-          path: token
-```
-
-예시 파드에 주입된 서비스 어카운트 토큰이 포함된 projected 볼륨이
-있다. 이 토큰은 파드의 컨테이너에서 쿠버네티스 API 서버에 접근하는데
-사용할 수 있다. `audience` 필드는 토큰에 의도하는 대상을
-포함한다. 토큰 수령은 토큰 대상에 지정된 식별자로 자신을 식별해야 하며,
-그렇지 않으면 토큰을 거부해야 한다. 이 필드는
-선택 사항이며 기본값은 API 서버의 식별자이다.
-
-`expirationSeconds` 는 서비스 어카운트 토큰의 예상 유효
-기간이다. 기본값은 1시간이며 최소 10분(600초)이어야 한다. 관리자는
-API 서버에 대해 `--service-account-max-token-expiration` 옵션을 지정해서
-최대 값을 제한할 수도 있다. `path` 필드는 projected 볼륨의 마운트 위치에 대한
-상대 경로를 지정한다.
-
-{{< note >}}
-projected 볼륨 소스를 [`subPath`](#subpath-사용하기) 볼륨으로 마운트해서 사용하는 컨테이너는 
-해당 볼륨 소스의 업데이트를 수신하지 않는다.
-{{< /note >}}
+더 자세한 사항은 [projected volumes](/docs/concepts/storage/projected-volumes/)를 참고한다.
 
 ### quobyte (사용 중단됨) {#quobyte}
 
@@ -974,6 +848,38 @@ RBD는 읽기-쓰기 모드에서 단일 고객만 마운트할 수 있다.
 
 더 자세한 내용은 [RBD 예시](https://github.com/kubernetes/examples/tree/master/volumes/rbd)를
 참고한다.
+
+#### RBD CSI 마이그레이션 {#rbd-csi-migration}
+
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+`RBD`를 위한 `CSIMigration` 기능이 활성화되어 있으면, 
+사용 중이 트리 내(in-tree) 플러그인의 모든 플러그인 동작을 
+`rbd.csi.ceph.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 
+드라이버로 리다이렉트한다. 
+이 기능을 사용하려면, 클러스터에 
+[Ceph CSI 드라이버](https://github.com/ceph/ceph-csi)가 설치되어 있고 
+`CSIMigration`, `CSIMigrationRBD` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
+
+{{< note >}}
+
+스토리지를 관리하는 쿠버네티스 클러스터 관리자는, 
+RBD CSI 드라이버로의 마이그레이션을 시도하기 전에 
+다음의 선행 사항을 완료해야 한다.
+
+* 쿠버네티스 클러스터에 Ceph CSI 드라이버 (`rbd.csi.ceph.com`) v3.5.0 
+  이상을 설치해야 한다.
+* CSI 드라이버가 동작하기 위해 `clusterID` 필드가 필수이지만 
+  트리 내(in-tree) 스토리지클래스는 `monitors` 필드가 필수임을 감안하여, 
+  쿠버네티스 저장소 관리자는 monitors 값의 
+  해시(예: `#echo -n '<monitors_string>' | md5sum`) 
+  기반으로 clusterID를 CSI 컨피그맵 내에 만들고 
+  이 clusterID 환경 설정 아래에 monitors 필드를 유지해야 한다.
+* 또한, 트리 내(in-tree) 스토리지클래스의 
+  `adminId` 값이 `admin`이 아니면, 트리 내(in-tree) 스토리지클래스의 
+  `adminSecretName` 값이 `adminId` 파라미터 값의 
+  base64 값으로 패치되어야 하며, 아니면 이 단계를 건너뛸 수 있다.
 
 ### secret
 
@@ -1144,6 +1050,16 @@ vSphere CSI 드라이버에서 생성된 새 볼륨은 이러한 파라미터를
 
 `vsphereVolume` 플러그인이 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 기능을 비활성화하려면, `InTreePluginvSphereUnregister` 기능 플래그를 `true` 로 설정해야 한다. 이를 위해서는 모든 워커 노드에 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버를 설치해야 한다.
 
+#### Portworx CSI 마이그레이션
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+Portworx를 위한 `CSIMigration` 기능이 쿠버네티스 1.23에 추가되었지만 
+알파 상태이기 때문에 기본적으로는 비활성화되어 있다. 
+이 기능은 사용 중이 트리 내(in-tree) 플러그인의 모든 플러그인 동작을 
+`pxd.portworx.com` CSI 드라이버로 리다이렉트한다. 
+이 기능을 사용하려면, 클러스터에 [Portworx CSI 드라이버](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)가 
+설치되어 있고, kube-controller-manager와 kubelet에 `CSIMigrationPortworx=true`로 설정해야 한다.
+
 ## subPath 사용하기 {#using-subpath}
 
 때로는 단일 파드에서 여러 용도의 한 볼륨을 공유하는 것이 유용하다.
@@ -1239,8 +1155,7 @@ spec:
 ## 아웃-오브-트리(out-of-tree) 볼륨 플러그인
 
 아웃-오브-트리 볼륨 플러그인에는
-{{< glossary_tooltip text="컨테이너 스토리지 인터페이스" term_id="csi" >}}(CSI) 그리고
-FlexVolume이 포함된다. 이러한 플러그인을 사용하면 스토리지 벤더들은 플러그인 소스 코드를 쿠버네티스 리포지터리에
+{{< glossary_tooltip text="컨테이너 스토리지 인터페이스" term_id="csi" >}}(CSI) 그리고 FlexVolume(사용 중단됨)이 포함된다. 이러한 플러그인을 사용하면 스토리지 벤더들은 플러그인 소스 코드를 쿠버네티스 리포지터리에
 추가하지 않고도 사용자 정의 스토리지 플러그인을 만들 수 있다.
 
 이전에는 모든 볼륨 플러그인이 "인-트리(in-tree)"에 있었다. "인-트리" 플러그인은 쿠버네티스 핵심 바이너리와
@@ -1373,13 +1288,21 @@ CSI 드라이버로 전환할 때 기존 스토리지 클래스, 퍼시스턴트
 
 ### flexVolume
 
-FlexVolume은 버전 1.2(CSI 이전) 이후 쿠버네티스에 존재하는
-아웃-오브-트리 플러그인 인터페이스이다. 이것은 exec 기반 모델을 사용해서 드라이버에
-접속한다. FlexVolume 드라이버 바이너리 파일은 각각의 노드와 일부 경우에 컨트롤 플레인 노드의
-미리 정의된 볼륨 플러그인 경로에 설치해야 한다.
+{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
+
+FlexVolume은 스토리지 드라이버와 인터페이싱하기 위해 exec 기반 모델을 사용하는 아웃-오브-트리 플러그인 인터페이스이다. 
+FlexVolume 드라이버 바이너리 파일은 각 노드의 미리 정의된 볼륨 플러그인 경로에 설치되어야 하며, 
+일부 경우에는 컨트롤 플레인 노드에도 설치되어야 한다.
 
 파드는 `flexvolume` 인-트리 볼륨 플러그인을 통해 FlexVolume 드라이버와 상호 작용한다.
-더 자세한 내용은 [FlexVolume](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) 예제를 참고한다.
+더 자세한 내용은 FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 문서를 참고한다.
+
+{{< note >}}
+FlexVolume은 사용 중단되었다. 쿠버네티스에 외부 스토리지를 연결하려면 아웃-오브-트리 CSI 드라이버를 사용하는 것을 권장한다.
+
+FlexVolume 드라이버 메인테이너는 CSI 드라이버를 구현하고 사용자들이 FlexVolume 드라이버에서 CSI로 마이그레이트할 수 있도록 지원해야 한다.
+FlexVolume 사용자는 워크로드가 동등한 CSI 드라이버를 사용하도록 이전해야 한다.
+{{< /note >}}
 
 ## 마운트 전파(propagation)
 
