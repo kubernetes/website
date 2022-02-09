@@ -27,7 +27,7 @@ rules:
   # Don't log watch requests by the "system:kube-proxy" on endpoints or services
   - level: None
     users: ["system:kube-proxy"]
-    verbs: ["watch"]
+    verb: ["watch"]
     resources:
     - group: "" # core API group
       resources: ["endpoints", "services"]
