@@ -260,7 +260,7 @@ None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-reso
 
 The node problem detector (see
 [Monitor Node Health](/docs/tasks/debug-application-cluster/monitor-node-health/))
-has perliminary support for Windows.
+has preliminary support for Windows.
 
 ### Pause container
 

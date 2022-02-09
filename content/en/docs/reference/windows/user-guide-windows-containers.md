@@ -155,7 +155,7 @@ Learn more about configuring and using GMSA for Windows containers [here](/docs/
 ## Taints and Tolerations
 
 Users today need to use some combination of taints and node selectors in order to 
-keep Linux and Windows workloads on their respective OS-specific nodes. 
+keep Linux and Windows workloads on their respective OS-specific nodes.
 This likely imposes a burden only on Windows users. The recommended approach is outlined below, 
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
  {{< note >}}
@@ -176,7 +176,7 @@ appropriate operating system.
 
 ### Ensuring OS-specific workloads land on the appropriate container host
 
-Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. 
+Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations.
 All Kubernetes nodes today have the following default labels:
 
 * kubernetes.io/os = [windows|linux]
@@ -195,7 +195,7 @@ it could easily be modified to automatically add a taint when running on Windows
 
 For example:  `--register-with-taints='os=windows:NoSchedule'`
 
-By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). 
+By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods).
 In order for a Windows Pod to be scheduled on a Windows node, 
 it would need both the nodeSelector and the appropriate matching toleration to choose Windows.
 
