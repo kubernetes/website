@@ -463,7 +463,7 @@ for a description of these different methods of authenticating Kubernetes users.
   -->
   - *基于角色的访问控制*（[RBAC](/zh/docs/reference/access-authn-authz/rbac/)）：
     让你通过为通过身份认证的用户授权特定的许可集合来控制集群访问。
-    访问许可可以针对某特定名字空间（Role）或者针对整个集群（CLusterRole）。
+    访问许可可以针对某特定名字空间（Role）或者针对整个集群（ClusterRole）。
     通过使用 RoleBinding 和 ClusterRoleBinding 对象，这些访问许可可以被
     关联到特定的用户身上。
   <!--
