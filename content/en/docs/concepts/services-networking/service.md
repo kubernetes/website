@@ -450,10 +450,7 @@ variables and DNS.
 ### Environment variables
 
 When a Pod is run on a Node, the kubelet adds a set of environment variables
-for each active Service.  It supports both [Docker links
-compatible](https://docs.docker.com/userguide/dockerlinks/) variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72))
-and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
-where the Service name is upper-cased and dashes are converted to underscores.
+for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables, where the Service name is upper-cased and dashes are converted to underscores. It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) that are compatible with Docker Engine's "_[legacy container links](https://docs.docker.com/network/links/)_" feature.
 
 For example, the Service `redis-master` which exposes TCP port 6379 and has been
 allocated cluster IP address 10.0.0.11, produces the following environment
@@ -687,21 +684,28 @@ The set of protocols that can be used for LoadBalancer type of Services is still
 
 #### Disabling load balancer NodePort allocation {#load-balancer-nodeport-allocation}
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-Starting in v1.20, you can optionally disable node port allocation for a Service Type=LoadBalancer by setting
+You can optionally disable node port allocation for a Service of `type=LoadBalancer`, by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
 that route traffic directly to pods as opposed to using node ports. By default, `spec.allocateLoadBalancerNodePorts`
 is `true` and type LoadBalancer Services will continue to allocate node ports. If `spec.allocateLoadBalancerNodePorts`
-is set to `false` on an existing Service with allocated node ports, those node ports will NOT be de-allocated automatically.
+is set to `false` on an existing Service with allocated node ports, those node ports will **not** be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
-You must enable the `ServiceLBNodePortControl` feature gate to use this field.
+Your cluster must have the `ServiceLBNodePortControl`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled to use this field.
+For Kubernetes v{{< skew currentVersion >}}, this feature gate is enabled by default,
+and you can use the `spec.allocateLoadBalancerNodePorts` field. For clusters running
+other versions of Kubernetes, check the documentation for that release.
 
 #### Specifying class of load balancer implementation {#load-balancer-class}
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default. This feature is available from v1.21, you must enable the `ServiceLoadBalancerClass` feature gate to use this field in v1.21, and the feature gate is enabled by default from v1.22 onwards.
+`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default.
+Your cluster must have the `ServiceLoadBalancerClass` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled to use this field. For Kubernetes v{{< skew currentVersion >}}, this feature gate is enabled by default. For clusters running
+other versions of Kubernetes, check the documentation for that release.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation if the cluster is configured with
 a cloud provider using the `--cloud-provider` component flag. 

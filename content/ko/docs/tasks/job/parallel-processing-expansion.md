@@ -178,13 +178,13 @@ kubectl delete job -l jobgroup=jobexample
 
 
 ```liquid
-{%- set params = [{ "name": "apple", "url": "http://dbpedia.org/resource/Apple", },
+{% set params = [{ "name": "apple", "url": "http://dbpedia.org/resource/Apple", },
                   { "name": "banana", "url": "http://dbpedia.org/resource/Banana", },
                   { "name": "cherry", "url": "http://dbpedia.org/resource/Cherry" }]
 %}
-{%- for p in params %}
-{%- set name = p["name"] %}
-{%- set url = p["url"] %}
+{% for p in params %}
+{% set name = p["name"] %}
+{% set url = p["url"] %}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -204,7 +204,7 @@ spec:
         image: busybox
         command: ["sh", "-c", "echo Processing URL {{ url }} && sleep 5"]
       restartPolicy: Never
-{%- endfor %}
+{% endfor %}
 ```
 
 위의 템플릿은 파이썬 딕셔너리(dicts)로 구성된 항목(1-4행)을 사용하여 각 잡 오브젝트에 대해

@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 임시(Ephemeral) 컨테이너
 content_type: concept
 weight: 80
@@ -6,21 +9,12 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 이 페이지는 임시 컨테이너에 대한 개요를 제공한다. 
 이 특별한 유형의 컨테이너는 트러블슈팅과 같은 사용자가 시작한 작업을 완료하기 위해 
 기존 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 임시적으로 실행된다. 
 임시 컨테이너는 애플리케이션을 빌드하는 경우보다는 서비스 점검과 같은 경우에 더 적합하다.
-
-{{< warning >}}
-임시 컨테이너 기능은 알파 상태이며,
-프로덕션 클러스터에는 적합하지 않다.
-[쿠버네티스 사용 중단(deprecation) 정책](/docs/reference/using-api/deprecation-policy/)에 따라
-이 알파 기능은 향후 크게 변경되거나, 완전히 제거될 수 있다.
-{{< /warning >}}
-
-
 
 <!-- body -->
 
