@@ -485,9 +485,7 @@ web traffic to the IP address of your Ingress controller can be matched without 
 virtual host being required.
 
 For example, the following Ingress routes traffic
-requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic
-to the IP address without a hostname defined in request (that is, without a request header being
-presented) to `service3`.
+requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic whose request host header doesn't match `first.bar.com` and `second.bar.com` to `service3`.
 
 {{< codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" >}}
 

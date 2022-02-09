@@ -709,13 +709,13 @@ Allocated resources:
   680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
 ```
 
-In the preceding output, you can see that if a Pod requests more than 1.120 CPUs,
+In the preceding output, you can see that if a Pod requests more than 1.120 CPUs
 or more than 6.23Gi of memory, that Pod will not fit on the node.
 
 By looking at the “Pods” section, you can see which Pods are taking up space on
 the node.
 
-The amount of resources available to Pods is less than the node capacity, because
+The amount of resources available to Pods is less than the node capacity because
 system daemons use a portion of the available resources. Within the Kubernetes API,
 each Node has a `.status.allocatable` field
 (see [NodeStatus](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus)
@@ -736,7 +736,7 @@ prevent one team from using so much of any resource that this over-use affects o
 
 You should also consider what access you grant to that namespace:
 **full** write access to a namespace allows someone with that access to remove any
-resource, include a configured ResourceQuota.
+resource, including a configured ResourceQuota.
 
 ### My container is terminated
 

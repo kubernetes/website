@@ -59,7 +59,7 @@ The following methods exist for installing kubectl on Windows:
      $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
      ```
 
-1. Add the binary in to your `PATH`.
+1. Append or prepend the kubectl binary folder to your `PATH` environment variable.
 
 1. Test to ensure the version of `kubectl` is the same as downloaded:
 
@@ -172,7 +172,7 @@ Below are the procedures to set up autocompletion for PowerShell.
      $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```
 
-1. Add the binary in to your `PATH`.
+1. Append or prepend the kubectl binary folder to your `PATH` environment variable.
 
 1. Verify plugin is successfully installed
 
