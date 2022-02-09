@@ -184,7 +184,7 @@ Container exit codes follow the same convention where 0 is success, and nonzero 
 The specific error codes may differ across Windows and Linux. However, exit codes
 passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
 
-##### Field compatibility for container specifications {#compatibility-v1-pod-spec-containers}
+#### Field compatibility for container specifications {#compatibility-v1-pod-spec-containers}
 
 The following list documents differences between how Pod container specifications
 work between Windows and Linux:
@@ -224,7 +224,7 @@ work between Windows and Linux:
    default value is `/dev/termination-log`, which does work because it does not
    exist on Windows by default.
 
-##### Field compatibility for Pod specifications {#compatibility-v1-pod}
+#### Field compatibility for Pod specifications {#compatibility-v1-pod}
 
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
@@ -252,7 +252,7 @@ The following list documents differences between how Pod specifications work bet
 * You cannot enable `mountPropagation` for volume mounts as this is not
   supported on Windows.
 
-##### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
+#### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
 
 None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
 
@@ -260,7 +260,7 @@ None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-reso
 
 The node problem detector (see
 [Monitor Node Health](/docs/tasks/debug-application-cluster/monitor-node-health/))
-is not compatible with Windows.
+has perliminary support for Windows.
 
 ### Pause container
 
@@ -346,8 +346,8 @@ any time you seek troubleshooting assistance from other contributors. Follow the
 instructions in the SIG Windows 
 [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 
-* [Troubleshooting Windows Networking](/docs/setup/windows/windows-networking#troubleshooting-network)
-* [Node-level Troubleshooting](/docs/setup/windows/user-guide-windows-containers#troubleshooting-node)
+* [Troubleshooting Windows Networking](/docs/reference/windows/windows-networking#troubleshooting-network)
+* [Node-level Troubleshooting](/docs/reference/windows/user-guide-windows-containers#troubleshooting-node)
 
 ### Further investigation
 
@@ -378,7 +378,6 @@ If filing a bug, please include detailed information about how to reproduce the 
 
 It helps if you tag the issue as **sig/windows**, by commenting on the issue with `/sig windows`. This helps to bring
 the issue to a SIG Windows member's attention
-
 
 ## {{% heading "whatsnext" %}}
 

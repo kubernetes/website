@@ -11,9 +11,9 @@ weight: 75
 
 <!-- overview -->
 
-<!-- body -->
+This page provides an overview to networking specific to the Windows operating system.
 
-# Networking on Windows nodes {#compatibility-networking}
+<!-- body -->
 
 Networking for Windows containers is exposed through
 [CNI plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
@@ -183,7 +183,7 @@ You can use IPv4/IPv6 dual-stack networking with `l2bridge` networks. See [confi
 Overlay (VXLAN) networks on Windows do not support dual-stack networking.
 {{< /note >}}
 
-# Network troubleshooting {#troubleshooting-network}
+## Network troubleshooting {#troubleshooting-network}
 
 1. My Windows Pods do not have network connectivity
 

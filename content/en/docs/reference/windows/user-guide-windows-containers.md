@@ -115,7 +115,7 @@ the container port 80 is exposed directly to the service.
     * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
 
 {{< note >}}
-Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. 
+Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack.
 Only Windows pods are able to access service IPs.
 {{< /note >}}
 
@@ -128,7 +128,7 @@ into the operational aspect of workloads and are a key ingredient to troubleshoo
 Because Windows containers and workloads inside Windows containers behave differently from Linux containers, 
 users had a hard time collecting logs, limiting operational visibility. 
 Windows workloads for example are usually configured to log to ETW (Event Tracing for Windows) 
-or push entries to the application event log. 
+or push entries to the application event log.
 [LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor), an open source tool by Microsoft, 
 is the recommended way to monitor configured log sources inside a Windows container. 
 LogMonitor supports monitoring event logs, ETW providers, and custom application logs, 
@@ -140,7 +140,7 @@ to all your containers and add the necessary entrypoints for LogMonitor to push 
 ## Using configurable Container usernames
 
 Starting with Kubernetes v1.16, Windows containers can be configured to run their entrypoints and processes 
-with different usernames than the image defaults. 
+with different usernames than the image defaults.
 The way this is achieved is a bit different from the way it is done for Linux containers. 
 Learn more about it [here](/docs/tasks/configure-pod-container/configure-runasusername/).
 
@@ -148,8 +148,8 @@ Learn more about it [here](/docs/tasks/configure-pod-container/configure-runasus
 
 Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). 
 Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, 
-simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. 
-Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. 
+simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers.
+Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA.
 Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa/).
 
 ## Taints and Tolerations
@@ -173,6 +173,7 @@ appropriate operating system.
  no effect on the scheduling of the Windows pods, so taints and tolerations and node selectors are still required
  to ensure that the Windows pods land onto appropriate Windows nodes.
  {{< /note >}}
+
 ### Ensuring OS-specific workloads land on the appropriate container host
 
 Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. 
@@ -223,15 +224,12 @@ Here are values used today for each Windows Server version.
 | Product Name                         |   Build Number(s)      |
 |--------------------------------------|------------------------|
 | Windows Server 2019                  | 10.0.17763             |
-| Windows Server version 1809          | 10.0.17763             |
-| Windows Server version 1903          | 10.0.18362             |
-
+| Windows Server 2022                  | 10.0.20348             |
 
 ### Simplifying with RuntimeClass
 
 [RuntimeClass] can be used to simplify the process of using taints and tolerations. 
 A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations.
-
 
 1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` 
 for the Windows OS, architecture, and version.
@@ -304,13 +302,9 @@ spec:
     app: iis-2019
 ```
 
-
-
-
 [RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
 
-
-# Node-level troubleshooting {#troubleshooting-node}
+## Node-level troubleshooting {#troubleshooting-node}
 
 1. How do I know `start.ps1` completed successfully?
 
