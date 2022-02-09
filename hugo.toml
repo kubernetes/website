@@ -511,3 +511,15 @@ languagedirection = "ltr"
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
 
+
+[languages.bn]
+title = "Kubernetes"
+description = "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
+languageName = "বাংলা Bengali"
+weight = 15
+contentDir = "content/bn"
+languagedirection = "ltr"
+
+[languages.bn.params]
+time_format_blog = "01.02.2006"
+language_alternatives = ["en"]
