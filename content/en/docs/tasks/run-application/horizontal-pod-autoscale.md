@@ -88,7 +88,7 @@ or the custom metrics API (for all other metrics).
 The common use for HorizontalPodAutoscaler is to configure it to fetch metrics from
 {{< glossary_tooltip text="aggregated APIs" term_id="aggregation-layer" >}}
 (`metrics.k8s.io`, `custom.metrics.k8s.io`, or `external.metrics.k8s.io`).  The `metrics.k8s.io` API is
-usually provided by an add on named Metrics Server, which needs to be launched separately.
+usually provided by an addon named Metrics Server, which needs to be launched separately.
 For more information about resource metrics, see
 [Metrics Server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server).
 
