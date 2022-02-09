@@ -78,7 +78,7 @@ We keep the work in progress version of migration instructions for various telem
 in [Google doc](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#).
 Please contact the vendor to get up to date instructions for migrating from dockershim.
 
-## Migration from DockerShim
+## Migration from dockershim
 ### ✅ [Aqua](https://www.aquasec.com)
 No changes are needed - everything should work seamlessly on the runtime switch
 ### ✅ [Datadog](https://www.datadoghq.com/product/)
@@ -99,7 +99,7 @@ Kubernetes containers
 (Beta)](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-your-cri-o-kubernetes-containers-beta/)
 The pod accessing Docker may have name containing: 
 	- dynatrace-oneagent
-### ❓  [Falco](https://falco.org)
+### ✅  [Falco](https://falco.org)
 How to migrate:
 [Migrate Falco from dockershim](https://falco.org/docs/getting-started/deployment/#docker-deprecation-in-kubernetes)
 Falco supports any CRI-compatible runtime (containerd is used in the default configuration); the documentation explains all details.
@@ -114,7 +114,7 @@ The pod accessing Docker may be named like:
 The SignalFx Smart Agent uses several different monitors for Kuberentes including kubernetes-cluster, kubelet-stats/kubelet-metrics, and docker-container-stats. Monitor kubelet-stats is already deprecated for Kubernetes <1.18 in favor of kubelet-metrics. Docker-container-stats is the one affected by dockershim removal. It should NOT be used with other runtimes.
 
 
-How to migrate from Dockershim-dependant agent:
+How to migrate from dockershim-dependant agent:
 1. Remove docker-container-stats from the list of [configured
 monitors](https://docs.signalfx.com/en/latest/integrations/agent/monitors/_monitor-config.html.)  Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics being reported when docker is installed on node and no metrics when docker is not installed.
 2. [Enable and
