@@ -436,7 +436,7 @@ and retention policies to the kubelet.
 
 ![Sidecar container with a logging agent](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
 -->
-### 具有日志代理功能的边车容器
+#### 具有日志代理功能的边车容器
 
 ![含日志代理的边车容器](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
 
