@@ -30,7 +30,7 @@ Routing". When calculating the endpoints for a {{< glossary_tooltip term_id="Ser
 the EndpointSlice controller considers the topology (region and zone) of each endpoint
 and populates the hints field to allocate it to a zone.
 Cluster components such as the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}
-can then consume those hints, and use them to influence how traffic to is routed
+can then consume those hints, and use them to influence how the traffic is routed
 (favoring topologically closer endpoints).
 
 ## Using Topology Aware Hints
