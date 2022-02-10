@@ -75,6 +75,7 @@ operator to use or manage a cluster.
 
 
 * [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
+* [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
   [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
 * [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) and
