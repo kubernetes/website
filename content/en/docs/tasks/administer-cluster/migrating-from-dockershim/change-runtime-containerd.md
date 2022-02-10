@@ -103,8 +103,8 @@ This will start a text editor where you can edit the Node object.
 
 To choose a text editor you can set the `KUBE_EDITOR` environment variable.
 
-- - Change the value of `kubeadm.alpha.kubernetes.io/cri-socket` from `/var/run/dockershim.sock`
-  to the CRI socket path of your chose (for example `unix:///run/containerd/containerd.sock`).
+- Change the value of `kubeadm.alpha.kubernetes.io/cri-socket` from `/var/run/dockershim.sock`
+   to the CRI socket path of your choice (for example `unix:///run/containerd/containerd.sock`).
    
    Note that new CRI socket paths must be prefixed with `unix://` ideally.
 
