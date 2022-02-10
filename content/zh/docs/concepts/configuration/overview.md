@@ -45,11 +45,11 @@ This is a living document. If you think of something that is not on this list bu
 - 使用 YAML 而不是 JSON 编写配置文件。虽然这些格式几乎可以在所有场景中互换使用，但 YAML 往往更加用户友好。
 
 <!--
-- Group related objects into a single file whenever it makes sense. One file is often easier to manage than several. See the [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml) file as an example of this syntax.
+- Group related objects into a single file whenever it makes sense. One file is often easier to manage than several. See the [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml) file as an example of this syntax.
 -->
 - 只要有意义，就将相关对象分组到一个文件中。
  一个文件通常比几个文件更容易管理。
- 请参阅[guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml) 文件作为此语法的示例。
+ 请参阅 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml) 文件作为此语法的示例。
 
 <!--
 - Note also that many `kubectl` commands can be called on a directory. For example, you can call `kubectl apply` on a directory of config files.
@@ -139,10 +139,10 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
   [`kubectl port-forward`](/zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)。
 
 <!--
-  If you explicitly need to expose a Pod's port on the node, consider using a [NodePort](/docs/concepts/services-networking/service/#nodeport) Service before resorting to `hostPort`.
+  If you explicitly need to expose a Pod's port on the node, consider using a [NodePort](/docs/concepts/services-networking/service/#type-nodeport) Service before resorting to `hostPort`.
 -->
   如果您明确需要在节点上公开 Pod 的端口，请在使用 `hostPort` 之前考虑使用
-  [NodePort](/zh/docs/concepts/services-networking/service/#nodeport) 服务。
+  [NodePort](/zh/docs/concepts/services-networking/service/#type-nodeport) 服务。
 
 <!--
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
@@ -163,13 +163,13 @@ services) (which have a `ClusterIP` of `None`) for service discovery when you do
 ## 使用标签
 
 <!--
-- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) app for examples of this approach.
+- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app for examples of this approach.
 -->
 - 定义并使用[标签](/zh/docs/concepts/overview/working-with-objects/labels/)来识别应用程序
   或 Deployment 的 __语义属性__，例如`{ app: myapp, tier: frontend, phase: test, deployment: v3 }`。
   你可以使用这些标签为其他资源选择合适的 Pod；
   例如，一个选择所有 `tier: frontend` Pod 的服务，或者 `app: myapp` 的所有 `phase: test` 组件。
-  有关此方法的示例，请参阅[guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 。
+  有关此方法的示例，请参阅 [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) 。
 
 <!--
 A Service can be made to span multiple Deployments by omitting release-specific labels from its selector. [Deployments](/docs/concepts/workloads/controllers/deployment/) make it easy to update a running service without downtime.
@@ -201,55 +201,6 @@ Deployment 描述了对象的期望状态，并且如果对该规范的更改被
   如果删除现有 Pod 的标签，其控制器将创建一个新的 Pod 来取代它。
   这是在"隔离"环境中调试先前"活跃"的 Pod 的有用方法。
   要以交互方式删除或添加标签，请使用 [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label)。
-
-<!--
-## Container Images
--->
-## 容器镜像
-
-<!--
-The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image affect when the [kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull the specified image.
--->
-[imagePullPolicy](/zh/docs/concepts/containers/images/#updating-images)和镜像标签会影响
-[kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 何时尝试拉取指定的镜像。
-
-<!--
-- `imagePullPolicy: IfNotPresent`: the image is pulled only if it is not already present locally.
-- `imagePullPolicy: Always`: the image is pulled every time the pod is started.
-- `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `imagePullPolicy` is automatically set to `Always`. Note that this will _not_ be updated to `IfNotPresent` if the tag changes value.
-- `imagePullPolicy` is omitted and the image tag is present but not `:latest`: `imagePullPolicy` is automatically set to `IfNotPresent`. Note that this will _not_ be updated to `Always` if the tag is later removed or changed to `:latest`.
-- `imagePullPolicy: Never`: the image is assumed to exist locally. No attempt is made to pull the image.
--->
-- `imagePullPolicy: IfNotPresent`：仅当镜像在本地不存在时才被拉取。
-- `imagePullPolicy: Always`：每次启动 Pod 的时候都会拉取镜像。
-- `imagePullPolicy` 省略时，镜像标签为 `:latest` 或不存在，其值自动被设置为 `Always`。注意，如果镜像标签的值发生改变，`imagePullPolicy` 的值不会被更新为 `IfNotPresent`。
-- `imagePullPolicy` 省略时，指定镜像标签并且不是 `:latest`，其值自动被设置为 `IfNotPresent`。注意，如果镜像标签的值之后被移除或者修改为 `latest`，`imagePullPolicy` 的值不会被更新为 `Always`。
-- `imagePullPolicy: Never`：假设镜像已经存在本地，不会尝试拉取镜像。
-
-<!--
-To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier), for example `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`. The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.
--->
-{{< note >}}
-要确保容器始终使用相同版本的镜像，你可以指定其
-[摘要](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)，
-例如 `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
-摘要唯一地标识出镜像的指定版本，因此除非您更改摘要值，否则 Kubernetes 永远不会更新它。
-{{< /note >}}
-
-<!--
-You should avoid using the `:latest` tag when deploying containers in production as it is harder to track which version of the image is running and more difficult to roll back properly.
--->
-{{< note >}}
-在生产中部署容器时应避免使用 `:latest` 标记，因为这样更难跟踪正在运行的镜像版本，并且更难以正确回滚。 
-{{< /note >}}
-
-<!--
-The caching semantics of the underlying image provider make even `imagePullPolicy: Always` efficient, as long as the registry is reliably accessible. With Docker, for example, if the image already exists, the pull attempt is fast because all image layers are cached and no image download is needed.
--->
-{{< note >}}
-只要镜像仓库是可访问的，底层镜像驱动程序的缓存语义能够使即便 `imagePullPolicy: Always` 的配置也很高效。
-例如，对于 Docker，如果镜像已经存在，则拉取尝试很快，因为镜像层都被缓存并且不需要下载。
-{{< /note >}}
 
 <!--
 ## Using kubectl
