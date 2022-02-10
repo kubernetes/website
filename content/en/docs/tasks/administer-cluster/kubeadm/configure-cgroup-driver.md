@@ -96,9 +96,7 @@ nodes before deleting the old nodes.
 
 ### Modify the kubelet ConfigMap
 
-- Find the kubelet ConfigMap name using `kubectl get cm -n kube-system | grep kubelet-config`.
-- Call `kubectl edit cm kubelet-config-x.yy -n kube-system` (replace `x.yy` with
-the Kubernetes version).
+- Call `kubectl edit cm kubelet-config -n kube-system`.
 - Either modify the existing `cgroupDriver` value or add a new field that looks like this:
 
   ```yaml
