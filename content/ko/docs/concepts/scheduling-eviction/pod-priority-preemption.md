@@ -106,7 +106,7 @@ description: "이 프라이어리티클래스는 XYZ 서비스 파드에만 사�
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-`PreemptionPolicy: Never` 를 가진 파드는 낮은 우선순위 파드의 스케줄링 대기열의
+`preemptionPolicy: Never` 를 가진 파드는 낮은 우선순위 파드의 스케줄링 대기열의
 앞쪽에 배치되지만,
 그 파드는 다른 파드를 축출할 수 없다.
 스케줄링 대기 중인 비-선점 파드는 충분한 리소스가 확보되고
@@ -122,17 +122,17 @@ description: "이 프라이어리티클래스는 XYZ 서비스 파드에만 사�
 비-선점 파드는 다른 우선순위가 높은 파드에 의해
 축출될 수 있다.
 
-`PreemptionPolicy` 는 기본값으로 `PreemptLowerPriority` 로 설정되어,
+`preemptionPolicy` 는 기본값으로 `PreemptLowerPriority` 로 설정되어,
 해당 프라이어리티클래스의 파드가 우선순위가 낮은 파드를 축출할 수
 있다(기존의 기본 동작과 동일).
-`PreemptionPolicy` 가 `Never` 로 설정된 경우,
+`preemptionPolicy` 가 `Never` 로 설정된 경우,
 해당 프라이어리티클래스의 파드는 비-선점될 것이다.
 
 예제 유스케이스는 데이터 과학 관련 워크로드이다.
 사용자는 다른 워크로드보다 우선순위가 높은 잡(job)을 제출할 수 있지만,
 실행 중인 파드를 축출하여 기존의 작업을 삭제하지는 않을 것이다.
 클러스터 리소스가 "자연스럽게" 충분히 사용할 수 있게 되면,
-`PreemptionPolicy: Never` 의 우선순위가 높은 잡이
+`preemptionPolicy: Never` 의 우선순위가 높은 잡이
 다른 대기 중인 파드보다 먼저 스케줄링된다.
 
 ### 비-선점 프라이어리티클래스 예제
