@@ -57,6 +57,14 @@ IPv4/IPv6 이중 스택을 구성하려면, 이중 스택 클러스터 네트워
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` IPv4의 기본값은 /24 이고 IPv6의 기본값은 /64 이다.
    * kube-proxy:
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+   * kubelet:
+      * `--cloud-provider`가 명시되지 않았다면 
+        관리자는 해당 노드에 듀얼 스택 `.status.addresses`를 수동으로 설정하기 위해 
+        쉼표로 구분된 IP 주소 쌍을 `--node-ip` 플래그로 전달할 수 있다.
+        해당 노드의 파드가 HostNetwork 모드로 실행된다면, 
+        파드는 이 IP 주소들을 자신의 `.status.podIPs` 필드에 보고한다.
+        노드의 모든 `podIPs`는 해당 노드의 `.status.addresses` 필드에 의해 정의된 
+        IP 패밀리 선호사항을 만족한다.
 
 {{< note >}}
 IPv4 CIDR의 예: `10.244.0.0/16` (자신의 주소 범위를 제공하더라도)
