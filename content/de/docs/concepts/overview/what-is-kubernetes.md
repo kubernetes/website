@@ -50,7 +50,7 @@ für Managementtools zu bieten, den Status von Kontrollpunkten zu ermitteln.
 
 Darüber hinaus basiert die [Kubernetes-Steuerungsebene](/docs/concepts/overview/components/) auf den gleichen APIs,
 die Entwicklern und Anwendern zur Verfügung stehen. Benutzer können ihre eigenen Controller, wie z.B.
-[Scheduler](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md), mit
+[Scheduler](https://github.com/kubernetes/community/blob/master/contributors/devel/scheduler.md), mit
 ihren [eigenen APIs](/docs/concepts/api-extension/custom-resources/) schreiben, die von einem
 universellen [Kommandozeilen-Tool](/docs/user-guide/kubectl-overview/) angesprochen werden können.
 
