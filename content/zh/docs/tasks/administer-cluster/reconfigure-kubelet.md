@@ -508,7 +508,7 @@ new ConfigMap, and then update the Node to use the new ConfigMap.
 #### 做出更多的改变   {#make-more-changes}
 
 按照下面的工作流程做出更多的改变并再次推送它们。
-你每次推送一个 ConfigMap 的新内容时，kubeclt 的 `--append-hash` 选项都会给
+你每次推送一个 ConfigMap 的新内容时，kubectl 的 `--append-hash` 选项都会给
 ConfigMap 创建一个新的名称。
 最安全的上线策略是首先创建一个新的 ConfigMap，然后更新节点以使用新的 ConfigMap。
 
