@@ -239,6 +239,10 @@ kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최�
 
 환경 변수로 사용되는 컨피그맵은 자동으로 업데이트되지 않으며 파드를 다시 시작해야 한다.
 
+{{< note >}}
+컨피그맵을 [subPath](/ko/docs/concepts/storage/volumes/#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 컨피그맵 업데이트를 받지 못할 것이다.
+{{< /note >}}
+
 ## 변경할 수 없는(immutable) 컨피그맵 {#configmap-immutable}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
