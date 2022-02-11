@@ -305,7 +305,7 @@ Patch your Deployment:
 
 {{< tabs name="kubectl_retainkeys_example" >}}
 {{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment retainkeys-demo  --type merge --patch "$(cat patch-file-no-retainkeys.yaml)"
+kubectl patch deployment retainkeys-demo --type strategic --patch "$(cat patch-file-no-retainkeys.yaml)"
 {{< /tab >}}
 {{< tab name="PowerShell" codelang="posh" >}}
 kubectl patch deployment retainkeys-demo  --type merge --patch $(Get-Content patch-file-no-retainkeys.yaml -Raw)
