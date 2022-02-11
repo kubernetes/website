@@ -131,7 +131,7 @@ kubeletはコンテナが問題なく動いていると判断します。
 
 200以上400未満のコードは成功とみなされ、その他のコードは失敗とみなされます。
 
-[server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go)
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
 にてサーバーのソースコードを確認することができます。
 
 コンテナが生きている初めの10秒間は、`/healthz`ハンドラーが200ステータスを返します。

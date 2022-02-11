@@ -29,7 +29,7 @@ StatefulSetは下記の1つ以上の項目を要求するアプリケーショ�
 
 ## 制限事項
 
-* 提供されたPodのストレージは、要求された`storage class`にもとづいて[PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md)によってプロビジョンされるか、管理者によって事前にプロビジョンされなくてはなりません。
+* 提供されたPodのストレージは、要求された`storage class`にもとづいて[PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)によってプロビジョンされるか、管理者によって事前にプロビジョンされなくてはなりません。
 * StatefulSetの削除もしくはスケールダウンをすることにより、StatefulSetに関連したボリュームは削除*されません* 。 これはデータ安全性のためで、関連するStatefulSetのリソース全てを自動的に削除するよりもたいてい有効です。
 * StatefulSetは現在、Podのネットワークアイデンティティーに責務をもつために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を要求します。ユーザーはこのServiceを作成する責任があります。
 * StatefulSetは、StatefulSetが削除されたときにPodの停止を行うことを保証していません。StatefulSetにおいて、規則的で安全なPodの停止を行う場合、削除のために事前にそのStatefulSetの数を0にスケールダウンさせることが可能です。
