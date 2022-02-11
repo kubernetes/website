@@ -104,10 +104,6 @@ definition to create an [immutable ConfigMap](#configmap-immutable).
 You can write a Pod `spec` that refers to a ConfigMap and configures the container(s)
 in that Pod based on the data in the ConfigMap. The Pod and the ConfigMap must be in
 the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
-
-Here's an example ConfigMap that has some keys with single values,
-and other keys where the value looks like a fragment of a configuration
-format.
 -->
 ## ConfigMaps 和 Pods
 
@@ -115,6 +111,20 @@ format.
 在该 Pod 中配置容器。这个 Pod 和 ConfigMap 必须要在同一个
 {{< glossary_tooltip text="名字空间" term_id="namespace" >}} 中。
 
+<!--
+The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a ConfigMap
+or any other API objects.
+-->
+{{< note >}}
+{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}} 中的 `spec`
+字段不能引用 ConfigMap 或任何其他 API 对象。
+{{< /note >}}
+
+<!--
+Here's an example ConfigMap that has some keys with single values,
+and other keys where the value looks like a fragment of a configuration
+format.
+-->
 这是一个 ConfigMap 的示例，它的一些键只有一个值，其他键的值看起来像是
 配置的片段格式。
 
@@ -380,6 +390,13 @@ ConfigMaps consumed as environment variables are not updated automatically and r
 -->
 以环境变量方式使用的 ConfigMap 数据不会被自动更新。
 更新这些数据需要重新启动 Pod。
+
+<!--
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
+-->
+{{< note >}}
+使用 ConfigMap 作为 [subPath](/zh/docs/concepts/storage/volumes#using-subpath) 卷挂载的容器将不会收到 ConfigMap 的更新。
+{{< /note >}}
 
 <!--
 ## Immutable ConfigMaps {#configmap-immutable}
