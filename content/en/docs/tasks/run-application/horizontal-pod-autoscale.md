@@ -88,7 +88,7 @@ or the custom metrics API (for all other metrics).
 The common use for HorizontalPodAutoscaler is to configure it to fetch metrics from
 {{< glossary_tooltip text="aggregated APIs" term_id="aggregation-layer" >}}
 (`metrics.k8s.io`, `custom.metrics.k8s.io`, or `external.metrics.k8s.io`).  The `metrics.k8s.io` API is
-usually provided by an addon named Metrics Server, which needs to be launched separately.
+usually provided by an add-on named Metrics Server, which needs to be launched separately.
 For more information about resource metrics, see
 [Metrics Server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server).
 
@@ -329,7 +329,7 @@ APIs, cluster administrators must ensure that:
 * The corresponding APIs are registered:
 
    * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
-     It can be launched as a cluster addon.
+     It can be launched as a cluster add-on.
 
    * For custom metrics, this is the `custom.metrics.k8s.io` API.  It's provided by "adapter" API servers provided by metrics solution vendors.
      Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
@@ -514,7 +514,7 @@ Finally, you can delete an autoscaler using `kubectl delete hpa`.
 
 In addition, there is a special `kubectl autoscale` command for creating a HorizontalPodAutoscaler object.
 For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
-will create an autoscaler for replication set *foo*, with target CPU utilization set to `80%`
+will create an autoscaler for ReplicaSet *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
 
 ## Implicit maintenance-mode deactivation
@@ -538,7 +538,7 @@ desired and could be troublesome when an HPA is active.
 
 Keep in mind that the removal of `spec.replicas` may incur a one-time
 degradation of Pod counts as the default value of this key is 1 (reference
-[Deployment Replicas](/docs/concepts/workloads/controllers/deployment#replicas).
+[Deployment Replicas](/docs/concepts/workloads/controllers/deployment#replicas)).
 Upon the update, all Pods except 1 will begin their termination procedures.  Any
 deployment application afterwards will behave as normal and respect a rolling
 update configuration as desired.  You can avoid this degradation by choosing one of the following two
