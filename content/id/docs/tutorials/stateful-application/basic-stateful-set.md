@@ -20,7 +20,7 @@ konsep-konsep Kubernetes sebagai berikut:
 * [DNS klaster](/id/docs/concepts/services-networking/dns-pod-service/)
 * [Service _headless_](/id/docs/concepts/services-networking/service/#service-headless)
 * [PersistentVolume](/id/docs/concepts/storage/persistent-volumes/)
-* [Penyediaan PersistentVolume](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+* [Penyediaan PersistentVolume](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 * [StatefulSet](/id/docs/concepts/workloads/controllers/statefulset/)
 * Alat baris perintah (_command line tool_) [kubectl](/docs/reference/kubectl/kubectl/)
 

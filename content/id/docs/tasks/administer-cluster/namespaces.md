@@ -297,6 +297,6 @@ Entri DNS ini dalam bentuk `<service-name>.<namespace-name>.svc.cluster.local`, 
 
 * Pelajari lebih lanjut mengenai [pengaturan preferensi Namespace](/id/docs/concepts/overview/working-with-objects/namespaces/#pengaturan-preferensi-namespace).
 * Pelajari lebih lanjut mengenai [pengaturan namespace untuk sebuah permintaan](/id/docs/concepts/overview/working-with-objects/namespaces/#pengaturan-namespace-untuk-sebuah-permintaan)
-* Baca [desain Namespace](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/architecture/namespaces.md).
+* Baca [desain Namespace](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md).
 
 
