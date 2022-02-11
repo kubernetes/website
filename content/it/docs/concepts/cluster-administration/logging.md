@@ -88,7 +88,7 @@ la rotazione e ci sono due file, uno da 10 MB e uno vuoto,
 `kubectl logs` restituirà una risposta vuota.
 {{< /note >}}
 
-[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
+[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh
 
 ### System component logs
 
