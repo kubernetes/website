@@ -204,12 +204,12 @@ about the [service proxy](/docs/concepts/services-networking/service/#virtual-ip
 
 Kubernetes supports 2 primary modes of finding a Service - environment variables
 and DNS. The former works out of the box while the latter requires the
-[CoreDNS cluster addon](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
+[CoreDNS cluster addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns).
 -->
 ## 访问 Service
 
 Kubernetes支持两种查找服务的主要模式: 环境变量和DNS。 前者开箱即用，而后者则需要[CoreDNS集群插件]
-[CoreDNS 集群插件](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
+[CoreDNS 集群插件](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns).
 
 <!--
 If the service environment variables are not desired (because possible clashing with expected program ones,
@@ -310,7 +310,7 @@ If it isn't running, you can [enable it](http://releases.k8s.io/{{< param "githu
 The rest of this section will assume you have a Service with a long lived IP
 (my-nginx), and a DNS server that has assigned a name to that IP. Here we use the CoreDNS cluster addon (application name `kube-dns`), so you can talk to the Service from any pod in your cluster using standard methods (e.g. `gethostbyname()`). If CoreDNS isn't running, you can enable it referring to the [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns). Let's run another curl application to test this:
 -->
-如果没有在运行，可以[启用它](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md#how-do-i-configure-it)。
+如果没有在运行，可以[启用它](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/kube-dns/README.md#how-do-i-configure-it)。
 本段剩余的内容，将假设已经有一个 Service，它具有一个长久存在的 IP（my-nginx），
 一个为该 IP 指派名称的 DNS 服务器。 这里我们使用 CoreDNS 集群插件（应用名为 `kube-dns`），
 所以可以通过标准做法，使在集群中的任何 Pod 都能与该 Service 通信（例如：`gethostbyname()`）。
@@ -351,7 +351,7 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 * An nginx server configured to use the certificates
 * A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
+You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
 -->
 
 ## 保护 Service {#securing-the-service}
@@ -363,7 +363,7 @@ You can acquire all these from the [nginx https example](https://github.com/kube
 * 使用证书配置的 Nginx 服务器
 * 使证书可以访问 Pod 的 [Secret](/zh/docs/concepts/configuration/secret/)
 
-你可以从 [Nginx https 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/)
+你可以从 [Nginx https 示例](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/)
 获取所有上述内容。你需要安装 go 和 make 工具。如果你不想安装这些软件，可以按照
 后文所述的手动执行步骤执行操作。简要过程如下：
 
@@ -470,7 +470,7 @@ Now modify your nginx replicas to start an https server using the certificate in
 Noteworthy points about the nginx-secure-app manifest:
 
 - It contains both Deployment and Service specification in the same file.
-- The [nginx server](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf)
+- The [nginx server](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)
   serves HTTP traffic on port 80 and HTTPS traffic on 443, and nginx Service
   exposes both ports.
 - Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
@@ -479,7 +479,7 @@ Noteworthy points about the nginx-secure-app manifest:
 关于 nginx-secure-app 清单，值得注意的几点如下：
 
 - 它在相同的文件中包含了 Deployment 和 Service 的规约
-- [nginx 服务器](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf)
+- [nginx 服务器](https://github.com/kubernetes/kubernetes/tree/master/staging/https-nginx/default.conf)
   处理 80 端口上的 HTTP 流量，以及 443  端口上的 HTTPS 流量，Nginx Service 暴露了这两个端口。
 - 每个容器访问挂载在 /etc/nginx/ssl 卷上的秘钥。这需要在 Nginx 服务器启动之前安装好。
 

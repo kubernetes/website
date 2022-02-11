@@ -154,9 +154,9 @@ k8s.gcr.io/node-test:0.2
 
 
 <!--
-Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md).
+Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/e2e-node-tests.md).
 -->
-节点一致性测试是[节点端到端测试](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md)的容器化版本。
+节点一致性测试是[节点端到端测试](https://github.com/kubernetes/community/blob/master/contributors/devel/e2e-node-tests.md)的容器化版本。
 <!--
 By default, it runs all conformance tests.
 -->
