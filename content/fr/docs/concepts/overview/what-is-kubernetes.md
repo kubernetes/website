@@ -46,7 +46,7 @@ C'est pourquoi Kubernetes a également été conçu pour servir de plate-forme e
 
 De plus, le [plan de contrôle Kubernetes (control
 plane)](/docs/concepts/overview/components/) est construit sur les mêmes [APIs](/docs/reference/using-api/api-overview/) que celles accessibles aux développeurs et utilisateurs.
-Les utilisateurs peuvent écrire leurs propres contrôleurs (controllers), tels que les [ordonnanceurs (schedulers)](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md),
+Les utilisateurs peuvent écrire leurs propres contrôleurs (controllers), tels que les [ordonnanceurs (schedulers)](https://github.com/kubernetes/community/blob/master/contributors/devel/scheduler.md),
 avec [leurs propres APIs](/docs/concepts/api-extension/custom-resources/) qui peuvent être utilisés par un [outil en ligne de commande](/docs/user-guide/kubectl-overview/).
 
 Ce choix de [conception](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) a permis de construire un ensemble d'autres systèmes par dessus Kubernetes.
