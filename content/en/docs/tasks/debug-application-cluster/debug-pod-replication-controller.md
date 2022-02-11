@@ -86,8 +86,8 @@ worker node, but it can't run on that machine. Again, the information from
 
 * Make sure that you have the name of the image correct.
 * Have you pushed the image to the repository?
-* Run a manual `docker pull <image>` on your machine to see if the image can be
-  pulled.
+* Try to manually pull the image to see if it can be pulled. For example, if you
+  use Docker on your PC, run `docker pull <image>`.
 
 ### My pod is crashing or otherwise unhealthy
 
