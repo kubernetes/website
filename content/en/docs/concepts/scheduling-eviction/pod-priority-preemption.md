@@ -104,7 +104,7 @@ description: "This priority class should be used for XYZ service pods only."
 
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Pods with `preemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
