@@ -32,12 +32,12 @@ Pod 使用哪个调度器。
 <!--
 A detailed description of how to implement a scheduler is outside the scope of this
 document. Please refer to the kube-scheduler implementation in
-[pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/pkg/scheduler)
+[pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/master/pkg/scheduler)
 in the Kubernetes source directory for a canonical example.
 -->
 关于实现调度器的具体细节描述超出了本文范围。
 请参考 kube-scheduler 的实现，规范示例代码位于
-[pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/pkg/scheduler)。
+[pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/master/pkg/scheduler)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -116,18 +116,33 @@ ReplicaSet 再管理 Pod，从而使调度器能够免受一些故障的影响�
 {{< codenew file="admin/sched/my-scheduler.yaml" >}}
 
 <!--
-An important thing to note here is that the name of the scheduler specified as an
-argument to the scheduler command in the container spec should be unique.
-This is the name that is matched against the value of the optional `spec.schedulerName`
-on pods, to determine whether this scheduler is responsible for scheduling a particular pod.
+In the above manifest, you use a [KubeSchedulerConfiguration](/docs/reference/scheduling/config/)
+to customize the behavior of your scheduler implementation. This configuration has been passed to
+the `kube-scheduler` during initialization with the `--config` option. The `my-scheduler-config` ConfigMap stores the configuration file. The Pod of the`my-scheduler` Deployment mounts the `my-scheduler-config` ConfigMap as a volume.
 -->
-这里需要注意的是，在容器规约中配置的调度器启动命令参数（--scheduler-name）所指定的
-调度器名称应该是唯一的。
-这个名称应该与 Pod 上的可选参数 `spec.schedulerName` 的值相匹配，也就是说调度器名称的匹配
-关系决定了 Pods 的调度任务由哪个调度器负责。
+在以上的清单中，你使用 [KubeSchedulerConfiguration](/zh/docs/reference/scheduling/config/) 
+来自定义调度器实现的行为。当使用 `--config` 选项进行初始化时，该配置被传递到 `kube-scheduler`。
+`my-scheduler-config` ConfigMap 存储配置数据。
+`my-scheduler` Deployment 的 Pod 将 `my-scheduler-config` ConfigMap 挂载为一个卷。
 
 <!--
-Note also that we created a dedicated service account `my-scheduler` and bind the cluster role
+In the aforementioned Scheduler Configuration, your scheduler implementation is represented via
+a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile).
+{{< note >}}
+To determine if a scheduler is responsible for scheduling a specific Pod, the `spec.schedulerName` field in a
+PodTemplate or Pod manifest must match the `schedulerName` field of the `KubeSchedulerProfile`.
+All schedulers running in the cluster must have unique names.
+{{< /note >}}
+-->
+在前面提到的调度器配置中，你的调度器通过 [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile) 进行实现。
+{{< note >}}
+要确定一个调度器是否可以调度特定的 Pod，PodTemplate 或 Pod 清单中的 `spec.schedulerName` 
+字段必须匹配 `KubeSchedulerProfile` 中的 `schedulerName` 字段。
+所有运行在集群中的调度器必须拥有唯一的名称。
+{{< /note >}}
+
+<!--
+Also, note that you create a dedicated service account `my-scheduler` and bind the ClusterRole
 `system:kube-scheduler` to it so that it can acquire the same privileges as `kube-scheduler`.
 -->
 还要注意，我们创建了一个专用服务账号 `my-scheduler` 并将集群角色 `system:kube-scheduler`
@@ -136,10 +151,13 @@ Note also that we created a dedicated service account `my-scheduler` and bind th
 <!--
 Please see the
 [kube-scheduler documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for
-detailed description of other command line arguments.
+detailed description of other command line arguments and
+[Scheduler Configuration reference](/docs/reference/config-api/kube-scheduler-config.v1beta3/) for
+detailed description of other customizable `kube-scheduler` configurations.
 -->
 请参阅 [kube-scheduler 文档](/docs/reference/command-line-tools-reference/kube-scheduler/)
-以获取其他命令行参数的详细说明。
+获取其他命令行参数以及 [Scheduler 配置参考](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+获取自定义 `kube-scheduler` 配置的详细说明。
 
 <!--
 ## Run the second scheduler in the cluster
@@ -186,17 +204,17 @@ pod in this list.
 
 To run multiple-scheduler with leader election enabled, you must do the following:
 
-First, update the following fields in your YAML file:
+Update the following fields for the KubeSchedulerConfiguration in the `my-scheduler-config` ConfigMap in your YAML file:
 -->
 ### 启用领导者选举
 
 要在启用了 leader 选举的情况下运行多调度器，你必须执行以下操作：
 
-首先，更新上述 Deployment YAML（my-scheduler.yaml）文件中的以下字段：
+更新你的 YAML 文件中的 `my-scheduler-config` ConfigMap 里的 KubeSchedulerConfiguration 相关字段如下：
 
-* `--leader-elect=true`
-* `--lock-object-namespace=<lock-object-namespace>`
-* `--lock-object-name=<lock-object-name>`
+* `leaderElection.leaderElect` to `true`
+* `leaderElection.resourceNamespace` to `<lock-object-namespace>`
+* `leaderElection.resourceName` to `<lock-object-name>`
 
 {{< note >}}
 <!--
@@ -288,12 +306,11 @@ scheduler in that pod spec. Let's look at three examples.
 
   <!--
   In this case, we specify that this pod should be scheduled using the scheduler that we
-  deployed - `my-scheduler`. Note that the value of `spec.schedulerName` should match the name supplied to the scheduler
-  command as an argument in the deployment config for the scheduler.
+  deployed - `my-scheduler`. Note that the value of `spec.schedulerName` should match the name supplied for the scheduler
+  in the `schedulerName` field of the mapping `KubeSchedulerProfile`.
   -->
-  在这种情况下，我们指定此 pod 使用我们部署的 `my-scheduler` 来调度。
-  请注意，`spec.schedulerName` 参数的值应该与 Deployment 中配置的提供给
-  scheduler 命令的参数名称匹配。
+  在这种情况下，我们指定此 Pod 使用我们部署的 `my-scheduler` 来调度。
+  请注意，`spec.schedulerName` 参数的值应该与调度器提供的 `KubeSchedulerProfile` 中的 `schedulerName` 字段相匹配。
 
   <!--
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
