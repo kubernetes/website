@@ -60,7 +60,7 @@ You can request the response format using request headers as follows:
 
 完整的 API 细节是用 [OpenAPI](https://www.openapis.org/) 来表述的。
 
-Kubernetes API 服务器通过 `/openapi/v2` 末端提供 OpenAPI 规范。
+Kubernetes API 服务器通过 `/openapi/v2` 端点提供 OpenAPI 规范。
 你可以按照下表所给的请求头部，指定响应的格式：
 
 <!--
