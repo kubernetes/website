@@ -84,10 +84,12 @@ No changes are needed - everything should work seamlessly on the runtime switch
 ### ✅ [Datadog](https://www.datadoghq.com/product/)
 How to migrate:
 [https://docs.datadoghq.com/agent/guide/docker-deprecation/](https://docs.datadoghq.com/agent/guide/docker-deprecation/)
-The pod accessing Docker may have name containing: 
-datadog-agent
-datadog
-dd-agent
+The pod that accesses Docker Engine may have a name containing any of:
+
+- `datadog-agent`
+- `datadog`
+- `dd-agent`
+
 ### ✅ [Dynatrace](https://www.dynatrace.com/)
 How to migrate:
 [Migrating from Docker-only to generic container metrics in Dynatrace](https://community.dynatrace.com/t5/Best-practices/Migrating-from-Docker-only-to-generic-container-metrics-in/m-p/167030#M49)
