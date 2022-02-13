@@ -114,7 +114,7 @@ Redeploy Defenders with a YAML file created with the `--cri` flag. This is a sta
 The pod accessing Docker may be named like:
 	-	twistlock-defender-ds
 ### ✅   [SignalFx (Splunk)](https://www.splunk.com/en_us/investor-relations/acquisitions/signalfx.html)
-The SignalFx Smart Agent uses several different monitors for Kuberentes including kubernetes-cluster, kubelet-stats/kubelet-metrics, and docker-container-stats. Monitor kubelet-stats is already deprecated for Kubernetes <1.18 in favor of kubelet-metrics. Docker-container-stats is the one affected by dockershim removal. It should NOT be used with other runtimes.
+The SignalFx Smart Agent uses several different monitors for Kubernetes including kubernetes-cluster, kubelet-stats/kubelet-metrics, and docker-container-stats. The kubelet-stats monitor was previously deprecated by the vendor, in favor of kubelet-metrics. The docker-container-stats monitor is the one affected by dockershim removal. You should not use the `docker-container-stats` with container runtimes other than Docker Engine.
 
 
 How to migrate from dockershim-dependant agent:
@@ -130,5 +130,5 @@ The pod accessing Docker may be named like:
   -  signalfx-agent
 ### ❌ Yahoo Kubectl Flame
 
-Flame does not currently support non-dockershim runtimes. See
+Flame does not support container runtimes other than dockershim. See
 [https://github.com/yahoo/kubectl-flame/issues/51](https://github.com/yahoo/kubectl-flame/issues/51)
