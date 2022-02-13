@@ -111,13 +111,13 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 2. Download the Google Cloud public signing key:
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
    ```
 
 3. Add the Kubernetes `apt` repository:
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. Update `apt` package index with the new repository and install kubectl:
