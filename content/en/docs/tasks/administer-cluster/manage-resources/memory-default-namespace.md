@@ -16,7 +16,7 @@ A Kubernetes cluster can be divided into namespaces. Once you have a namespace t
 has a default memory
 [limit](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits),
 and you then try to create a Pod with a container that does not specify its own memory
-limit its own memory limit, then the
+limit, then the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}} assigns the default
 memory limit to that container.
 
