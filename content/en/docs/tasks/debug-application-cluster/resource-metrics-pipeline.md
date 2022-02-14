@@ -1,7 +1,7 @@
 ---
 reviewers:
 - fgrzadkowski
-- piosz 
+- piosz
 title: Resource metrics pipeline 
 content_type: concept
 ---
@@ -59,11 +59,17 @@ Figure 1. Resource Metrics Pipeline
 
 The architecture components, from right to left in the figure, consist of the following:
 
-* [cAdvisor](https://github.com/google/cadvisor) - Daemon for collecting, aggregating and exposing container metrics included in Kubelet. cAdvisor reads metrics from cgroups allowing out of the box support for Docker. Note that non-container runtimes need to support [Container Metrics RPS](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md) for metrics to be available.
-* [kubelet](https://kubernetes.io/docs/concepts/overview/components/#kubelet) - Node agent for managing container resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet API endpoints. 
-* [Summary API](#summary-api-source) - Kubelet API for discovering and retrieving per-node summarized stats available through the `/stats` endpoint. 
-* [metrics-server](#metrics-server) - Cluster addon component that collects and aggregates resource metrics pulled from each kubelet. The K8s API server serves up the Metric API endpoints for use by HPA, VPA and the `kubectl top` command.
-* [Metrics API](#metrics-api) - Kubernetes API supporting access to CPU and memory used for workload autoscaling. Metrics Server is the default implementation provided with many popular K8s distributions, however it can be replaced by alternative adapters based on your preferred monitoring solution.
+* [cAdvisor](https://github.com/google/cadvisor): Daemon for collecting, aggregating and exposing container metrics included in Kubelet.
+* [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet API endpoints.
+* [Summary API](#summary-api-source): API provided by the kubelet for discovering and retrieving per-node summarized stats available through the `/stats` endpoint.
+* [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource metrics pulled from each kubelet. The API server serves Metrics API for use by HPA, VPA, and by the `kubectl top` command. Metrics Server is a reference implementation of the Metrics API.
+* [Metrics API](#metrics-api): Kubernetes API supporting access to CPU and memory used for workload autoscaling. To make this work in your cluster, you need an API extension server that provides the Metrics API.
+  
+  {{< note >}}
+  cAdvisor supports reading metrics from cgroups, which works with typical container runtimes on Linux.
+  If you use a container runtime that uses another resource isolation mechanism, for example virtualization, then that container runtime must support [CRI Container Metrics](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md) in order for metrics to be available to the kubelet.
+  {{< /note >}}
+
   
 <!-- body -->
 
@@ -198,3 +204,6 @@ Here is the same API call using `curl`:
 ```shell
 curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
 ```
+{{< note >}}
+The summary API `/stats/summary` endpoint will be replaced by the `/metrics/resource` endpoint beginning with metrics-server 0.6.x.
+{{< /note >}}
