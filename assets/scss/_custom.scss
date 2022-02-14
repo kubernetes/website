@@ -329,6 +329,11 @@ main {
   .td-content>table td {
     word-break: break-word;
   }
+
+  table.no-word-break td,
+  table.no-word-break code {
+    word-break: normal;
+  }
 }
 
 
