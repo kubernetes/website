@@ -137,7 +137,7 @@ kubelet отправляет запрос HTTP GET на сервер, котор
 Любой код, больший или равный 200 и меньший 400, означает успех. Любой другой код интерпретируется как ошибка.
 
 Вы можете посмотреть исходные коды сервера в
-[server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go).
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
 
 В течение первых 10 секунд жизни контейнера обработчик `/healthz`
 возвращает статус 200. После обработчик возвращает статус 500.

@@ -347,7 +347,7 @@ spec:
 Directly update the `replicas` field in the live configuration by using `kubectl scale`.
 This does not use `kubectl apply`:
 -->
-通过 `kubeclt scale` 命令直接更新现时配置中的 `replicas` 字段。
+通过 `kubectl scale` 命令直接更新现时配置中的 `replicas` 字段。
 这一命令没有使用 `kubectl apply`：
 
 ```shell
