@@ -12,7 +12,9 @@ weight: 60
 Application logs can help you understand what is happening inside your application. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism. Likewise, container engines are designed to support logging. The easiest and most adopted logging method for containerized applications is writing to standard output and standard error streams.
 
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution.
+
 For example, you may want to access your application's logs if a container crashes, a pod gets evicted, or a node dies.
+
 In a cluster, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level logging_.
 
 <!-- body -->
@@ -141,7 +143,7 @@ as a `DaemonSet`.
 
 Node-level logging creates only one agent per node and doesn't require any changes to the applications running on the node.
 
-Containers write stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
+Containers write to stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
 
 ### Using a sidecar container with the logging agent {#sidecar-container-with-logging-agent}
 
