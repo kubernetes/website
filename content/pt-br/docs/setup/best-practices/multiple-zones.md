@@ -31,7 +31,7 @@ uma solução de balanceamento de carga de terceiros com verificação de integr
 ## Comportamento do nó
 
 Kubernetes espalha automaticamente os Pods para
-recursos de carga de trabalho (tais como {{< glossary_tooltip text="Deployment" term_id="deployment" >}} ou {{{{< glossário_tooltip text="StatefulSet" termo_id="statefulset" >}}) através de diferentes nós em um cluster. Esta propagação ajuda
+recursos de carga de trabalho (tais como {{< glossary_tooltip text="Deployment" term_id="deployment" >}} ou {{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}) através de diferentes nós em um cluster. Esta propagação ajuda
 reduzir o impacto das falhas.
 
 Quando os nós são iniciados, o kubelet em cada nó adiciona automaticamente {{< glossary_tooltip text="labels" term_id="label" >}} para o objeto Node que representa esse kubelet específico na API do Kubernetes. Esses rótulos podem incluir [informação sobre zonas](/docs/reference/labels-annotations-taints/#topologykubernetesiozone).
