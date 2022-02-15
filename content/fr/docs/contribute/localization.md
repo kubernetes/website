@@ -147,7 +147,7 @@ La dernière version est **{{< latest-version >}}**, donc la branche de la relea
 
 ### Chaînes de sites en i18n/
 
-Les localisations doivent inclure le contenu des éléments suivants [`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) dans un nouveau fichier spécifique à la langue.
+Les localisations doivent inclure le contenu des éléments suivants [`i18n/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en.toml) dans un nouveau fichier spécifique à la langue.
 Prenons l'allemand comme exemple : `i18n/de.toml`.
 
 Ajouter un nouveau fichier de localisation dans `i18n/`. Par exemple, avec l'allemand (de) :
@@ -230,5 +230,3 @@ Une fois qu'une traduction répond aux exigences de logistique et à une couvert
 
 - Activer la sélection de la langue sur le site Web
 - Publier la disponibilité de la traduction via les canaux de la [Cloud Native Computing Foundation](https://www.cncf.io/), y compris sur le blog de [Kubernetes](https://kubernetes.io/blog/).
-
-
