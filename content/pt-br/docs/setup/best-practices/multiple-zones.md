@@ -1,9 +1,5 @@
 ---
-reviewers:
-- jlowdermilk
-- justinsb
-- quinton-hoole
-  title: Running in multiple zones
+  title: Executando em múltiplas zonas
   weight: 20
   content_type: concept
 ---
