@@ -96,16 +96,15 @@ API 请求则或者与某普通用户相关联，或者与某服务账号相关�
 <!--
 ## Authentication strategies
 
-Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
+Kubernetes uses client certificates, bearer tokens, or an authenticating proxy to
 authenticate API requests through authentication plugins. As HTTP requests are
 made to the API server, plugins attempt to associate the following attributes
 with the request:
 -->
 ## 身份认证策略  {#authentication-strategies}
 
-Kubernetes 使用身份认证插件利用客户端证书、持有者令牌（Bearer Token）、身份认证代理（Proxy）
-或者 HTTP 基本认证机制来认证 API 请求的身份。HTTP 请求发给 API 服务器时，
-插件会将以下属性关联到请求本身：
+Kubernetes 通过身份认证插件利用客户端证书、持有者令牌（Bearer Token）或身份认证代理（Proxy）
+来认证 API 请求的身份。HTTP 请求发给 API 服务器时，插件会将以下属性关联到请求本身：
 
 <!--
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
@@ -126,8 +125,8 @@ when interpreted by an [authorizer](/docs/reference/access-authn-authz/authoriza
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
 
- - service account tokens for service accounts
- - at least one other method for user authentication.
+- service account tokens for service accounts
+- at least one other method for user authentication.
 -->
 所有（属性）值对于身份认证系统而言都是不透明的，只有被
 [鉴权组件](/zh/docs/reference/access-authn-authz/authorization/)
@@ -189,18 +188,18 @@ openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app
 <!--
 This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
 
-See [Managing Certificates](/docs/concepts/cluster-administration/certificates/) for how to generate a client cert.
+See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert.
 -->
 此命令将使用用户名 `jbeda` 生成一个证书签名请求（CSR），且该用户属于 "app" 和
 "app2" 两个用户组。
 
-参阅[管理证书](/zh/docs/concepts/cluster-administration/certificates/)了解如何生成客户端证书。
+参阅[管理证书](/zh/docs/tasks/administer-cluster/certificates/)了解如何生成客户端证书。
 
 <!--
 ### Static Token File
 
 The API server reads bearer tokens from a file when given the `-token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
-changed without restarting API server.
+changed without restarting the API server.
 
 The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
 followed by optional group names.
@@ -382,9 +381,9 @@ spec:
 <!--
 Service account bearer tokens are perfectly valid to use outside the cluster and
 can be used to create identities for long standing jobs that wish to talk to the
-Kubernetes API. To manually create a service account, simply use the `kubectl
-create serviceaccount (NAME)` command. This creates a service account in the
-current namespace and an associated secret.
+Kubernetes API. To manually create a service account, use the `kubectl create
+serviceaccount (NAME)` command. This creates a service account in the current
+namespace and an associated secret.
 -->
 在集群外部使用服务账号持有者令牌也是完全合法的，且可用来为长时间运行的、需要与
 Kubernetes  API 服务器通信的任务创建标识。要手动创建服务账号，可以使用
@@ -568,25 +567,23 @@ sequenceDiagram
 
 <!--
 Since all of the data needed to validate who you are is in the `id_token`, Kubernetes doesn't need to
-"phone home" to the identity provider.  In a model where every request is stateless this provides a very scalable
-solution for authentication.  It does offer a few challenges:
+"phone home" to the identity provider.  In a model where every request is stateless this provides a very scalable solution for authentication.  It does offer a few challenges:
 -->
-由于用来验证你是谁的所有数据都在 `id_token` 中，Kubernetes 不需要再去联系
-身份服务。在一个所有请求都是无状态请求的模型中，这一工作方式可以使得身份认证
-的解决方案更容易处理大规模请求。不过，此访问也有一些挑战：
+由于用来验证你是谁的所有数据都在 `id_token` 中，Kubernetes 不需要再去联系身份服务。
+在一个所有请求都是无状态请求的模型中，这一工作方式可以使得身份认证的解决方案更容易处理大规模请求。
+不过，此访问也有一些挑战：
 
 <!--
-1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
-2.  The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes.
-3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`.
+1. Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
+2. The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes.
+3. To authenticate to the Kubernetes dashboard, you must use the `kubectl proxy` command or a reverse proxy that injects the `id_token`.
 -->
-1.  Kubernetes 没有提供用来触发身份认证过程的 "Web 界面"。
-    因为不存在用来收集用户凭据的浏览器或用户接口，你必须自己先行完成
-    对身份服务的认证过程。
-2.  `id_token` 令牌不可收回。因其属性类似于证书，其生命期一般很短（只有几分钟），
-    所以，每隔几分钟就要获得一个新的令牌这件事可能很让人头疼。
-3.  如果不使用 `kubectl proxy` 命令或者一个能够注入 `id_token` 的反向代理，
-    向 Kubernetes 控制面板执行身份认证是很困难的。
+1. Kubernetes 没有提供用来触发身份认证过程的 "Web 界面"。
+   因为不存在用来收集用户凭据的浏览器或用户接口，你必须自己先行完成对身份服务的认证过程。
+2. `id_token` 令牌不可收回。因其属性类似于证书，其生命期一般很短（只有几分钟），
+   所以，每隔几分钟就要获得一个新的令牌这件事可能很让人头疼。
+3. 如果需要向 Kubernetes 控制面板执行身份认证，你必须使用 `kubectl proxy`
+   命令或者一个能够注入 `id_token` 的反向代理。
 
 <!--
 #### Configuring the API Server
@@ -643,7 +640,7 @@ You can use an existing public OpenID Connect Identity Provider (such as Google,
 Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex),
 [Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
-Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
+Tremolo Security's [OpenUnison](https://openunison.github.io/).
 -->
 Kubernetes 并未提供 OpenID Connect 的身份服务。
 你可以使用现有的公共的 OpenID Connect 身份服务（例如 Google 或者
@@ -652,8 +649,7 @@ Kubernetes 并未提供 OpenID Connect 的身份服务。
 CoreOS [dex](https://github.com/coreos/dex)、
 [Keycloak](https://github.com/keycloak/keycloak)、
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa) 或者
-Tremolo Security 的
-[OpenUnison](https://github.com/tremolosecurity/openunison)。
+Tremolo Security 的 [OpenUnison](https://openunison.github.io/)。
 
 <!--
 For an identity provider to work with Kubernetes it must:
@@ -765,13 +761,13 @@ users:
 Once your `id_token` expires, `kubectl` will attempt to refresh your `id_token` using your `refresh_token` and `client_secret` storing the new values for the `refresh_token` and `id_token` in your `.kube/config`.
 -->
 当你的 `id_token` 过期时，`kubectl` 会尝试使用你的 `refresh_token` 来刷新你的
-`id_token`，并且在 `client_secret` 中存放 `refresh_token` 的新值，同时把
-`id_token` 的新值写入到 `.kube/config` 文件中。
+`id_token`，并且在 `.kube/config` 文件的 `client_secret` 中存放 `refresh_token`
+和 `id_token` 的新值。
 
 <!--
 ##### Option 2 - Use the `--token` Option
 
-The `kubectl` command lets you pass in a token using the `--token` option.  Simply copy and paste the `id_token` into this option:
+The `kubectl` command lets you pass in a token using the `--token` option. Copy and paste the `id_token` into this option:
 -->
 ##### 选项二 - 使用 `--token` 选项
 
@@ -819,7 +815,7 @@ clusters:
   - name: name-of-remote-authn-service
     cluster:
       certificate-authority: /path/to/ca.pem         # CA for verifying the remote service.
-      server: https://authn.example.com/authenticate # URL of remote service to query. Must use 'https'.
+      server: https://authn.example.com/authenticate # URL of remote service to query. 'https' recommended for production.
 
 # users refers to the API server's webhook configuration.
 users:
@@ -847,7 +843,7 @@ clusters:
   - name: name-of-remote-authn-service
     cluster:
       certificate-authority: /path/to/ca.pem         # 用来验证远程服务的 CA
-      server: https://authn.example.com/authenticate # 要查询的远程服务 URL。必须使用 'https'。
+      server: https://authn.example.com/authenticate # 要查询的远程服务 URL。生产环境中建议使用 'https'。
 
 # users 指代 API 服务的 Webhook 配置
 users:
@@ -1148,8 +1144,9 @@ to the impersonated user info.
 The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
-* `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User"
+* `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User".
 * `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
+* `Impersonate-Uid`: A unique identifier that represents the user being impersonated. Optional. Requires "Impersonate-User". Kubernetes does not impose any format requirements on this string.
 -->
 以下 HTTP 头部字段可用来执行伪装请求：
 
@@ -1161,6 +1158,9 @@ The following HTTP headers can be used to performing an impersonation request:
   `<附加名称>`部分必须是小写字符，如果有任何字符不是
   [合法的 HTTP 头部标签字符](https://tools.ietf.org/html/rfc7230#section-3.2.6)，
   则必须是 utf8 字符，且转换为[百分号编码](https://tools.ietf.org/html/rfc3986#section-2.1)。
+* `Impersonate-Uid`：一个唯一标识符，用来表示所伪装的用户。此头部可选。
+  如果设置，则要求 "Impersonate-User" 也存在。
+  Kubernetes 对此字符串没有格式要求。
 
 <!--
 Prior to 1.11.3 (and 1.10.7, 1.9.11), `( extra name )` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
@@ -1170,10 +1170,29 @@ Prior to 1.11.3 (and 1.10.7, 1.9.11), `( extra name )` could only contain charac
 合法的 HTTP 标签字符。
 {{< /note >}}
 
+{{< note >}}
 <!--
-An example set of headers:
+`Impersonate-Uid` is only available in versions 1.22.0 and higher.
 -->
-头部字段集合的示例：
+`Impersonate-Uid` 仅在 1.22.0 及更高版本中可用。
+{{< /note >}}
+
+<!--
+An example of the impersonation headers used when impersonating a user with groups:
+-->
+伪装带有用户组的用户时，所使用的伪装头部字段示例：
+
+```http
+Impersonate-User: jane.doe@example.com
+Impersonate-Group: developers
+Impersonate-Group: admins
+```
+
+<!--
+An example of the impersonation headers used when impersonating a user with a UID and
+extra fields:
+-->
+伪装带有 UID 和附加字段的用户时，所使用的伪装头部字段示例：
 
 ```http
 Impersonate-User: jane.doe@example.com
@@ -1214,17 +1233,24 @@ node/mynode cordoned
 node/mynode drained
 ```
 
+{{< note >}}
 <!--
-To impersonate a user, group, or set extra fields, the impersonating user must
+`kubectl` cannot impersonate extra fields or UIDs.
+-->
+`kubectl` 不能对附加字段或 UID 执行伪装。
+{{< /note >}}
+
+<!--
+To impersonate a user, group, user identifier (UID) or extra fields, the impersonating user must
 have the ability to perform the "impersonate" verb on the kind of attribute
-being impersonated ("user", "group", etc.). For clusters that enable the RBAC
+being impersonated ("user", "group", "uid", etc.). For clusters that enable the RBAC
 authorization plugin, the following ClusterRole encompasses the rules needed to
 set user and group impersonation headers:
 -->
-要伪装成某个用户、某个组或者设置附加字段，执行伪装操作的用户必须具有对所伪装的
-类别（“user”、“group” 等）执行 “impersonate” 动词操作的能力。
-对于启用了 RBAC 鉴权插件的集群，下面的 ClusterRole 封装了设置用户和组伪装字段
-所需的规则：
+若要伪装成某个用户、某个组、用户标识符（UID））或者设置附加字段，
+执行伪装操作的用户必须具有对所伪装的类别（“user”、“group”、“uid” 等）执行 “impersonate”
+动词操作的能力。
+对于启用了 RBAC 鉴权插件的集群，下面的 ClusterRole 封装了设置用户和组伪装字段所需的规则：
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -1238,22 +1264,24 @@ rules:
 ```
 
 <!--
+For impersonation, extra fields and impersonated UIDs are both under the "authentication.k8s.io" `apiGroup`.
 Extra fields are evaluated as sub-resources of the resource "userextras". To
-allow a user to use impersonation headers for the extra field "scopes", a user
-should be granted the following role:
+allow a user to use impersonation headers for the extra field "scopes" and
+for UIDs, a user should be granted the following role:
 -->
+为了执行伪装，附加字段和所伪装的 UID 都位于 "authorization.k8s.io" `apiGroup` 中。
 附加字段会被作为 `userextras` 资源的子资源来执行权限评估。
-如果要允许用户为附加字段 “scopes” 设置伪装头部，该用户需要被授予以下规则：
+如果要允许用户为附加字段 “scopes” 和 UID 设置伪装头部，该用户需要被授予以下角色：
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: scopes-impersonator
+  name: scopes-and-uid-impersonator
 rules:
-# 可以设置 "Impersonate-Extra-scopes" 头部
+# 可以设置 "Impersonate-Extra-scopes" 和 "Impersonate-Uid" 头部
 - apiGroups: ["authentication.k8s.io"]
-  resources: ["userextras/scopes"]
+  resources: ["userextras/scopes", "uids"]
   verbs: ["impersonate"]
 ```
 
@@ -1286,6 +1314,12 @@ rules:
   resources: ["userextras/scopes"]
   verbs: ["impersonate"]
   resourceNames: ["view", "development"]
+
+# 可以伪装 UID "06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["uids"]
+  verbs: ["impersonate"]
+  resourceNames: ["06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"]
 ```
 
 <!--
@@ -1293,7 +1327,7 @@ rules:
 -->
 ## client-go 凭据插件  {#client-go-credential-plugins}
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 <!--
 `k8s.io/client-go` and tools using it such as `kubectl` and `kubelet` are able to execute an
@@ -1359,6 +1393,9 @@ as part of the user fields.
 凭据插件通过 [kubectl 配置文件](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 来作为 user 字段的一部分设置。
 
+{{< tabs name="exec_plugin_kubeconfig_example_1" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
+
 <!--
 ```yaml
 apiVersion: v1
@@ -1375,8 +1412,9 @@ users:
       # The API version returned by the plugin MUST match the version listed here.
       #
       # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
-      # set an environment variable or pass an argument to the tool that indicates which version the exec plugin expects.
-      apiVersion: "client.authentication.k8s.io/v1beta1"
+      # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
+      # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
+      apiVersion: "client.authentication.k8s.io/v1"
 
       # Environment variables to set when executing the plugin. Optional.
       env:
@@ -1405,6 +1443,13 @@ users:
       # very large CA data, to this exec plugin as a part of the KUBERNETES_EXEC_INFO
       # environment variable.
       provideClusterInfo: true
+
+      # The contract between the exec plugin and the standard input I/O stream. If the
+      # contract cannot be satisfied, this plugin will not be run and an error will be
+      # returned. Valid values are "Never" (this exec plugin never uses standard input),
+      # "IfAvailable" (this exec plugin wants to use standard input if it is available),
+      # or "Always" (this exec plugin requires standard input to function). Required.
+      interactiveMode: Never
 clusters:
 - name: my-cluster
   cluster:
@@ -1439,8 +1484,9 @@ users:
       # 插件返回的 API 版本必需与这里列出的版本匹配。
       #
       # 要与支持多个版本的工具（如 client.authentication.k8sio/v1alpha1）集成，
-      # 可以设置一个环境变量或者向工具传递一个参数标明 exec 插件所期望的版本。
-      apiVersion: "client.authentication.k8s.io/v1beta1"
+      # 可以设置一个环境变量或者向工具传递一个参数标明 exec 插件所期望的版本，
+      # 或者从 KUBERNETES_EXEC_INFO 环境变量的 ExecCredential 对象中读取版本信息。
+      apiVersion: "client.authentication.k8s.io/v1"
 
       # 执行此插件时要设置的环境变量。可选字段。
       env:
@@ -1467,6 +1513,157 @@ users:
       # 是否使用 KUBERNETES_EXEC_INFO 环境变量的一部分向这个 exec 插件
       # 提供集群信息（可能包含非常大的 CA 数据）
       provideClusterInfo: true
+
+      # Exec 插件与标准输入 I/O 数据流之间的协议。如果协议无法满足，
+      # 则插件无法运行并会返回错误信息。合法的值包括 "Never" （Exec 插件从不使用标准输入），
+      # "IfAvailable" （Exec 插件希望在可以的情况下使用标准输入），
+      # 或者 "Always" （Exec 插件需要使用标准输入才能工作）。必需字段。
+      interactiveMode: Never
+clusters:
+- name: my-cluster
+  cluster:
+    server: "https://172.17.4.100:6443"
+    certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: client.authentication.k8s.io/exec # 为每个集群 exec 配置保留的扩展名
+      extension:
+        arbitrary: config
+        this: 在设置 provideClusterInfo 时可通过环境变量 KUBERNETES_EXEC_INFO 指定
+        you: ["can", "put", "anything", "here"]
+contexts:
+- name: my-cluster
+  context:
+    cluster: my-cluster
+    user: my-user
+current-context: my-cluster
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
+<!--
+```yaml
+apiVersion: v1
+kind: Config
+users:
+- name: my-user
+  user:
+    exec:
+      # Command to execute. Required.
+      command: "example-client-go-exec-plugin"
+
+      # API version to use when decoding the ExecCredentials resource. Required.
+      #
+      # The API version returned by the plugin MUST match the version listed here.
+      #
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
+      # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
+      # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
+      apiVersion: "client.authentication.k8s.io/v1beta1"
+
+      # Environment variables to set when executing the plugin. Optional.
+      env:
+      - name: "FOO"
+        value: "bar"
+
+      # Arguments to pass when executing the plugin. Optional.
+      args:
+      - "arg1"
+      - "arg2"
+
+      # Text shown to the user when the executable doesn't seem to be present. Optional.
+      installHint: |
+        example-client-go-exec-plugin is required to authenticate
+        to the current cluster.  It can be installed:
+
+        On macOS: brew install example-client-go-exec-plugin
+
+        On Ubuntu: apt-get install example-client-go-exec-plugin
+
+        On Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
+      # Whether or not to provide cluster information, which could potentially contain
+      # very large CA data, to this exec plugin as a part of the KUBERNETES_EXEC_INFO
+      # environment variable.
+      provideClusterInfo: true
+
+      # The contract between the exec plugin and the standard input I/O stream. If the
+      # contract cannot be satisfied, this plugin will not be run and an error will be
+      # returned. Valid values are "Never" (this exec plugin never uses standard input),
+      # "IfAvailable" (this exec plugin wants to use standard input if it is available),
+      # or "Always" (this exec plugin requires standard input to function). Optional.
+      # Defaults to "IfAvailable".
+      interactiveMode: Never
+clusters:
+- name: my-cluster
+  cluster:
+    server: "https://172.17.4.100:6443"
+    certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: client.authentication.k8s.io/exec # reserved extension name for per cluster exec config
+      extension:
+        arbitrary: config
+        this: can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo
+        you: ["can", "put", "anything", "here"]
+contexts:
+- name: my-cluster
+  context:
+    cluster: my-cluster
+    user: my-user
+current-context: my-cluster
+```
+-->
+```yaml
+apiVersion: v1
+kind: Config
+users:
+- name: my-user
+  user:
+    exec:
+      # 要执行的命令。必需。
+      command: "example-client-go-exec-plugin"
+
+      # 解析 ExecCredentials 资源时使用的 API 版本。必需。
+      #
+      # 插件返回的 API 版本必需与这里列出的版本匹配。
+      #
+      # 要与支持多个版本的工具（如 client.authentication.k8sio/v1alpha1）集成，
+      # 可以设置一个环境变量或者向工具传递一个参数标明 exec 插件所期望的版本，
+      # 或者从 KUBERNETES_EXEC_INFO 环境变量的 ExecCredential 对象中读取版本信息。
+      apiVersion: "client.authentication.k8s.io/v1"
+
+      # 执行此插件时要设置的环境变量。可选字段。
+      env:
+      - name: "FOO"
+        value: "bar"
+
+      # 执行插件时要传递的参数。可选字段。
+      args:
+      - "arg1"
+      - "arg2"
+
+      # 当可执行文件不存在时显示给用户的文本。可选的。
+      installHint: |
+        需要 example-client-go-exec-plugin 来在当前集群上执行身份认证。可以通过以下命令安装：
+
+        MacOS: brew install example-client-go-exec-plugin
+
+        Ubuntu: apt-get install example-client-go-exec-plugin
+
+        Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
+      # 是否使用 KUBERNETES_EXEC_INFO 环境变量的一部分向这个 exec 插件
+      # 提供集群信息（可能包含非常大的 CA 数据）
+      provideClusterInfo: true
+
+      # Exec 插件与标准输入 I/O 数据流之间的协议。如果协议无法满足，
+      # 则插件无法运行并会返回错误信息。合法的值包括 "Never" （Exec 插件从不使用标准输入），
+      # "IfAvailable" （Exec 插件希望在可以的情况下使用标准输入），
+      # 或者 "Always" （Exec 插件需要使用标准输入才能工作）。可选字段。
+      # 默认值为 "IfAvailable"。
+      interactiveMode: Never
 clusters:
 - name: my-cluster
   cluster:
@@ -1486,6 +1683,9 @@ contexts:
 current-context: my-cluster
 ```
 
+{{% /tab %}}
+{{< /tabs >}}
+
 <!--
 Relative command paths are interpreted as relative to the directory of the config file. If
 KUBECONFIG is set to `/home/jane/kubeconfig` and the exec command is `./bin/example-client-go-exec-plugin`,
@@ -1502,7 +1702,8 @@ the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
     exec:
       # 对 kubeconfig 目录而言的相对路径
       command: "./bin/example-client-go-exec-plugin"
-      apiVersion: "client.authentication.k8s.io/v1beta1"
+      apiVersion: "client.authentication.k8s.io/v1"
+      interactiveMode: Never
 ```
 
 <!--
@@ -1510,26 +1711,77 @@ the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
 
 The executed command prints an `ExecCredential` object to `stdout`. `k8s.io/client-go`
 authenticates against the Kubernetes API using the returned credentials in the `status`.
-
-When run from an interactive session, `stdin` is exposed directly to the plugin. Plugins should use a
-[TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal) to determine if it's
-appropriate to prompt a user interactively.
-
-To use bearer token credentials, the plugin returns a token in the status of the `ExecCredential`.
+The executed command is passed an `ExecCredential` object as input via the `KUBERNETES_EXEC_INFO`
+environment variable. This input contains helpful information like the expected API version
+of the returned `ExecCredential` object and whether or not the plugin can use `stdin` to interact
+with the user.
 -->
 ### 输出和输出格式   {#input-and-output-formats}
 
 所执行的命令会在 `stdout` 打印 `ExecCredential` 对象。
-`k8s.io/client-go` 使用 `status` 中返回的凭据信息向 Kubernetes API 服务器
-执行身份认证。
+`k8s.io/client-go` 使用 `status` 中返回的凭据信息向 Kubernetes API 服务器执行身份认证。
+所执行的命令会通过环境变量 `KUBERNETES_EXEC_INFO` 收到一个 `ExecCredential` 对象作为其输入。
+此输入中包含类似于所返回的 `ExecCredential` 对象的预期 API 版本，
+以及是否插件可以使用 `stdin` 与用户交互这类信息。
 
-在交互式会话中运行时，`stdin` 是直接暴露给插件使用的。
-插件应该使用
-[TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal)
-来确定是否适合用交互方式请求用户输入。
+<!--
+When run from an interactive session (i.e., a terminal), `stdin` can be exposed directly
+to the plugin. Plugins should use the `spec.interactive` field of the input
+`ExecCredential` object from the `KUBERNETES_EXEC_INFO` environment variable in order to
+determine if `stdin` has been provided. A plugin's `stdin` requirements (i.e., whether
+`stdin` is optional, strictly required, or never used in order for the plugin
+to run successfully) is declared via the `user.exec.interactiveMode` field in the
+[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) (see table
+below for valid values). The `user.exec.interactiveMode` field is optional in `client.authentication.k8s.io/v1beta1`
+and required in `client.authentication.k8s.io/v1`.
+-->
 
-与使用持有者令牌凭据，插件在 `ExecCredential` 的状态中返回一个令牌：
+在交互式会话（即，某终端）中运行时，`stdin` 是直接暴露给插件使用的。
+插件应该使用来自 `KUBERNETES_EXEC_INFO` 环境变量的 `ExecCredential`
+输入对象中的 `spec.interactive` 字段来确定是否提供了 `stdin`。
+插件的 `stdin` 需求（即，为了能够让插件成功运行，是否 `stdin` 是可选的、
+必须提供的或者从不会被使用的）是通过 
+[kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+中的 `user.exec.interactiveMode` 来声明的（参见下面的表格了解合法值）。
+字段 `user.exec.interactiveMode` 在 `client.authentication.k8s.io/v1beta1`
+中是可选的，在 `client.authentication.k8s.io/v1` 中是必需的。
 
+
+<!--
+| `interactiveMode` Value | Meaning |
+| ----------------------- | ------- |
+| `Never` | This exec plugin never needs to use standard input, and therefore the exec plugin will be run regardless of whether standard input is available for user input. |
+| `IfAvailable` | This exec plugin would like to use standard input if it is available, but can still operate if standard input is not available. Therefore, the exec plugin will be run regardless of whether stdin is available for user input. If standard input is available for user input, then it will be provided to this exec plugin. |
+| `Always` | This exec plugin requires standard input in order to run, and therefore the exec plugin will only be run if standard input is available for user input. If standard input is not available for user input, then the exec plugin will not be run and an error will be returned by the exec plugin runner. |
+-->
+{{< table caption="interactiveMode 取值" >}}
+| `interactiveMode` 取值  | 含义    |
+| ----------------------- | ------- |
+| `Never` | 此 exec 插件从不需要使用标准输入，因此如论是否有标准输入提供给用户输入，该 exec 插件都能运行。 |
+| `IfAvailable` | 此 exec 插件希望在标准输入可用的情况下使用标准输入，但在标准输入不存在时也可运行。因此，无论是否存在给用户提供输入的标准输入，此 exec 插件都会运行。如果存在供用户输入的标准输入，则该标准输入会被提供给 exec 插件。 |
+| `Always` | 此 exec 插件需要标准输入才能正常运行，因此只有存在供用户输入的标准输入时，此 exec 插件才会运行。如果不存在供用户输入的标准输入，则 exec 插件无法运行，并且 exec 插件的执行者会因此返回错误信息。 |
+{{< /table >}}
+
+<!--
+To use bearer token credentials, the plugin returns a token in the status of the
+[`ExecCredential`](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
+-->
+与使用持有者令牌凭据，插件在 [`ExecCredential`](/zh/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
+的状态中返回一个令牌：
+
+{{< tabs name="exec_plugin_ExecCredential_example_1" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1",
+  "kind": "ExecCredential",
+  "status": {
+    "token": "my-bearer-token"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "client.authentication.k8s.io/v1beta1",
@@ -1539,6 +1791,8 @@ To use bearer token credentials, the plugin returns a token in the status of the
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 Alternatively, a PEM-encoded client certificate and key can be returned to use TLS client auth.
@@ -1558,6 +1812,20 @@ If specified, `clientKeyData` and `clientCertificateData` must both must be pres
 `clientCertificateData` 字段可能包含一些要发送给服务器的中间证书（Intermediate
 Certificates）。
 
+{{< tabs name="exec_plugin_ExecCredential_example_2" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1",
+  "kind": "ExecCredential",
+  "status": {
+    "clientCertificateData": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "clientKeyData": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "client.authentication.k8s.io/v1beta1",
@@ -1568,6 +1836,8 @@ Certificates）。
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 Optionally, the response can include the expiry of the credential formatted as a
@@ -1587,6 +1857,20 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
 - 如果未指定到期时间，则持有者令牌和 TLS 凭据会被缓存，直到服务器返回 401
   HTTP 状态码或者进程退出。
 
+{{< tabs name="exec_plugin_ExecCredential_example_3" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1",
+  "kind": "ExecCredential",
+  "status": {
+    "token": "my-bearer-token",
+    "expirationTimestamp": "2018-03-05T17:30:20-08:00"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "client.authentication.k8s.io/v1beta1",
@@ -1597,23 +1881,46 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
-The plugin can optionally be called with an environment variable, `KUBERNETES_EXEC_INFO`,
-that contains information about the cluster for which this plugin is obtaining
-credentials. This information can be used to perform cluster-specific credential
-acquisition logic. In order to enable this behavior, the `provideClusterInfo` field must
-be set on the exec user field in the
-[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/). Here is an
-example of the aforementioned `KUBERNETES_EXEC_INFO` environment variable.
+To enable the exec plugin to obtain cluster-specific information, set `provideClusterInfo` on the `user.exec`
+field in the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
+The plugin will then be supplied this cluster-specific information in the `KUBERNETES_EXEC_INFO` environment variable.
+Information from this environment variable can be used to perform cluster-specific
+credential acquisition logic.
+The following `ExecCredential` manifest describes a cluster information sample.
 -->
+为了让 exec 插件能够获得特定与集群的信息，可以在
+[kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+中的 `user.exec` 设置 `provideClusterInfo`。
+这一特定于集群的信息就会通过 `KUBERNETES_EXEC_INFO` 环境变量传递给插件。
+此环境变量中的信息可以用来执行特定于集群的凭据获取逻辑。
+下面的 `ExecCredential` 清单描述的是一个示例集群信息。
 
-调用此插件时可以选择性地设置环境变量 `KUBERNETES_EXEC_INFO`。
-该变量包含了此插件获取凭据所针对的集群信息。此信息可用于执行群集特定的凭据获取逻辑。
-为了启用此行为，必须在 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-中的 exec user 字段上设置`provideClusterInfo`字段。
-下面是上述 `KUBERNETES_EXEC_INFO` 环境变量的示例。
-
+{{< tabs name="exec_plugin_ExecCredential_example_4" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1",
+  "kind": "ExecCredential",
+  "spec": {
+    "cluster": {
+      "server": "https://172.17.4.100:6443",
+      "certificate-authority-data": "LS0t...",
+      "config": {
+        "arbitrary": "config",
+        "this": "可以在设置 provideClusterInfo 时通过 KUBERNETES_EXEC_INFO 环境变量提供",
+        "you": ["can", "put", "anything", "here"]
+      }
+    },
+    "interactive": true
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "client.authentication.k8s.io/v1beta1",
@@ -1624,10 +1931,23 @@ example of the aforementioned `KUBERNETES_EXEC_INFO` environment variable.
       "certificate-authority-data": "LS0t...",
       "config": {
         "arbitrary": "config",
-        "this": "在设置 provideClusterInfo 时可通过环境变量 KUBERNETES_EXEC_INFO 指定",
+        "this": "可以在设置 provideClusterInfo 时通过 KUBERNETES_EXEC_INFO 环境变量提供",
         "you": ["can", "put", "anything", "here"]
       }
-    }
+    },
+    "interactive": true
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+
+## {{% heading "whatsnext" %}}
+
+<!--
+* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+* Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
+-->
+* 阅读[客户端认证参考文档 (v1beta1)](/zh/docs/reference/config-api/client-authentication.v1beta1/)
+* 阅读[客户端认证参考文档 (v1)](/zh/docs/reference/config-api/client-authentication.v1/)
+
