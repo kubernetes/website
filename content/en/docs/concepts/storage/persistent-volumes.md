@@ -339,7 +339,7 @@ If that has happened, or you suspect that it might have, you can retry expansion
 size that is within the capacity limits of underlying storage provider. You can monitor status of resize operation by watching `.status.resizeStatus` and events on the PVC.
 
 Note that,
-although you can a specify a lower amount of storage than what was requested previously,
+although you can specify a lower amount of storage than what was requested previously,
 the new value must still be higher than `.status.capacity`.
 Kubernetes does not support shrinking a PVC to less than its current size.
 {{% /tab %}}
