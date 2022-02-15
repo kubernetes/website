@@ -120,8 +120,8 @@ their authors, not the Kubernetes team.
 | Scala                | [github.com/hagay3/skuber](https://github.com/hagay3/skuber) |
 | Scala                | [github.com/joan38/kubernetes-client](https://github.com/joan38/kubernetes-client) |
 -->
-| 语言                 | 客户端库                                  |
-| -------------------- | ---------------------------------------- |
+| 语言                   | 客户端库                                  |
+|----------------------| ---------------------------------------- |
 | Clojure              | [github.com/yanatan16/clj-kubernetes-api](https://github.com/yanatan16/clj-kubernetes-api) |
 | DotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
@@ -143,6 +143,7 @@ their authors, not the Kubernetes team.
 | PHP                  | [github.com/travisghansen/kubernetes-client-php](https://github.com/travisghansen/kubernetes-client-php) |
 | PHP                  | [github.com/renoki-co/php-k8s](https://github.com/renoki-co/php-k8s) |
 | Python               | [github.com/fiaas/k8s](https://github.com/fiaas/k8s) |
+| Python               | [github.com/gtsystem/lightkube](https://github.com/gtsystem/lightkube) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
 | Python               | [github.com/tomplus/kubernetes_asyncio](https://github.com/tomplus/kubernetes_asyncio) |
 | Python               | [github.com/Frankkkkk/pykorm](https://github.com/Frankkkkk/pykorm) |
