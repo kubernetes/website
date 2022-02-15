@@ -23,10 +23,10 @@ componente.
 
 Ao implantar um plano de controle de cluster, coloque réplicas de componentes do plano de controle em várias zonas de falha. Se a disponibilidade for uma preocupação importante, selecione pelo menos três zonas de falha e replique cada componente individualmente do plano de controle (servidor de API, agendador, etcd, gerenciador do controlador de cluster) em pelo menos três zonas de falha. Se você estiver executando um gerenciador de controlador de nuvem, deverá também replicar isso em todas as zonas de falha que você selecionou.
 
-{{< nota >}}
+{{< note >}}
 O Kubernetes não fornece resiliência entre zonas para o servidor de API em endpoints. Você pode usar várias técnicas para melhorar a disponibilidade para o servidor de API do cluster como DNS round-robin, registros SRV ou
 uma solução de balanceamento de carga de terceiros com verificação de integridade.
-{{< /nota >}}
+{{< /note >}}
 
 ## Comportamento do nó
 
