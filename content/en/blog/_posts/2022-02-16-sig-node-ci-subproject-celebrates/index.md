@@ -2,6 +2,8 @@
 layout: blog
 title: 'SIG Node CI Subproject Celebrates Two Years of Test Improvements'
 date: 2022-02-16
+slug: sig-node-ci-subproject-celebrates
+canonicalUrl: https://www.kubernetes.dev/blog/2022/02/16/sig-node-ci-subproject-celebrates-two-years-of-test-improvements/
 ---
 
 **Authors:** Sergey Kanzhelev (Google), Elana Hashman (Red Hat)
