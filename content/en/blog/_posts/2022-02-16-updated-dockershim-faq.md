@@ -10,11 +10,11 @@ This pages in an update to the [Dockershim Deprecation FAQ](/blog/2020/12/02/doc
 
 This document goes over some frequently asked questions regarding the Dockershim
 deprecation [announced as a part of the Kubernetes v1.20 release](/blog/2020/12/08/kubernetes-1-20-release-announcement/). For more detail
-on the deprecation of Docker as a container runtime for Kubernetes kubelets, and
+on the removal of Docker as a container runtime for Kubernetes kubelets, and
 what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
 
-Also, you can read [check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to determine how impactful dockershim's removal to you or your organization.
+Also, you can read [check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to determine how impactful dockershim's removal to you or your organization.
 
 As the Kubernetes 1.24 release has become imminent, we've been working hard to try to make this a smooth transition.
 
