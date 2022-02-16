@@ -86,6 +86,7 @@ Responsibilities for New Contributor Ambassadors include:
 - Mentoring new contributors through their first few PRs to the docs repo.
 - Helping new contributors create the more complex PRs they need to become Kubernetes members.
 - [Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members.
+- Hosting a monthly meeting with an existing SIG Docs contributor for new contributors.
 
 Current New Contributor Ambassadors are announced at each SIG-Docs meeting and in the [Kubernetes #sig-docs channel](https://kubernetes.slack.com).
 
