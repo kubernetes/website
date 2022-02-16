@@ -397,7 +397,7 @@ deployment.apps/my-nginx configured
 rm /tmp/nginx.yaml
 ```
 
-이를 통해 보다 중요한 변경을 더 쉽게 ​​수행할 수 있다. 참고로 `EDITOR` 또는 `KUBE_EDITOR` 환경 변수를 사용하여 편집기를 지정할 수 있다.
+이를 통해 보다 중요한 변경을 더 쉽게 수행할 수 있다. 참고로 `EDITOR` 또는 `KUBE_EDITOR` 환경 변수를 사용하여 편집기를 지정할 수 있다.
 
 더 자세한 내용은, [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) 문서를 참고하길 바란다.
 
