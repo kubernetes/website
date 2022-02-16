@@ -329,7 +329,7 @@ In a cluster that includes Windows nodes, you can use the following types of Ser
 
 {{< warning >}}
 There are known issue with NodePort services on overlay networking, if the target destination node is running Windows Server 2022.
-To avoid the issue entirely, you can configure the service with externalTrafficPolicy:Local.
+To avoid the issue entirely, you can configure the service with `externalTrafficPolicy: Local`.
 
 There are known issue with pod to pod connectivity on l2bridge network on Windows Server 2022 with KB5005619 or higher installed.
 To workaround the issue and restore pod-pod connectivity, you can disable the WinDSR feature in kube-proxy.
