@@ -55,7 +55,7 @@ Você pode aplicar [restrições de selecção de nó](/docs/concepções/concep
 ## Acesso de armazenamento para zonas
 
 Quando são criados volumes persistentes, `PersistentVolumeLabel`, o [controlador de admissão](/docs/reference/access-authn-authz/admission-controllers/) adiciona automaticamente etiquetas de zona a quaisquer Volumes Persistentes que estejam ligados a um
-zona. O {{{{< glossário_tooltip text="scheduler" term_id="kube-scheduler" >}} garante então, através do seu atributo `NoVolumeZoneConflict`, que os pods que reivindicam um determinados volumes persistentes sejam colocados apenas na mesma zona que esse volume.
+zona. O {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} garante então, através do seu atributo `NoVolumeZoneConflict`, que os pods que reivindicam um determinados volumes persistentes sejam colocados apenas na mesma zona que esse volume.
 
 Resultados de tradução
 Você pode especificar um {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} para o PersistentVolumeClaims que especifica os domínios de falha (zonas) que o armazenamento nessa classe pode ser utilizado. Para saber como configurar um StorageClass que reconhece domínios ou zonas de falha,
