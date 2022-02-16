@@ -1,17 +1,27 @@
 ---
 layout: blog
-title: "Dockershim Deprecation FAQ"
-date: 2020-12-02
-slug: dockershim-faq
+title: "Updated: Dockershim Removal FAQ"
+date: 2022-02-22
+slug: updated-dockershim-faq
+aliases: [ '/dockershim' ]
 ---
 
+This pages in an update to the [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/) created in late 2020.
+
 This document goes over some frequently asked questions regarding the Dockershim
-deprecation announced as a part of the Kubernetes v1.20 release. For more detail
+deprecation [announced as a part of the Kubernetes v1.20 release](/blog/2020/12/08/kubernetes-1-20-release-announcement/). For more detail
 on the deprecation of Docker as a container runtime for Kubernetes kubelets, and
 what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
 
-Also, you can read [check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to check whether it does.
+Also, you can read [check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to determine how impactful dockershim's removal to you or your organization.
+
+As the Kubernetes 1.24 release has become imminent, we've been working hard to try to make this a smooth transition.
+
+- We've written a blog post detailing our [commitment and next steps](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/).
+- We believe there are no major blockers to migration to [other container runtimes](/docs/setup/production-environment/container-runtimes/#container-runtimes).
+- There is also a [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) guide available.
+- We've also created a page to cover [Articles on dockershim Removal and on Using CRI-compatible Runtimes](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/) that include some of the already mentioned docs as well as those from external sources (including vendor guides).
 
 ### Why is dockershim being deprecated?
 
@@ -38,38 +48,28 @@ startup if using Docker as the runtime.
 
 [kubelet]: /docs/reference/command-line-tools-reference/kubelet/
 
-
 ### When will dockershim be removed?
 
 Given the impact of this change, we are using an extended deprecation timeline.
-It will not be removed before Kubernetes 1.22, meaning the earliest release without
-dockershim would be 1.23 in late 2021. 
-_Update_: removal of dockershim is scheduled for Kubernetes v1.24, see 
-[Dockershim Removal Kubernetes Enhancement Proposal][drkep].
-We will be working closely with vendors and other ecosystem groups to ensure a smooth transition and will evaluate 
-things as the situation evolves.
-
+Removal of dockershim is scheduled for Kubernetes v1.24, see [Dockershim Removal Kubernetes Enhancement Proposal][drkep].
+We will be working closely with vendors and other ecosystem groups to ensure a smooth transition and will evaluate things as the situation evolves.
 
 ### Can I still use dockershim after it is removed from Kubernetes?
 
-Update:
 Mirantis and Docker have [committed][mirantis] to maintaining the dockershim after
 it is removed from Kubernetes.
 
 [mirantis]: https://www.mirantis.com/blog/mirantis-to-take-over-support-of-kubernetes-dockershim-2/
-
 
 ### Will my existing Docker images still work?
 
 Yes, the images produced from `docker build` will work with all CRI implementations.
 All your existing images will still work exactly the same.
 
-
 ### What about private images?
 
 Yes. All CRI runtimes support the same pull secrets configuration used in
 Kubernetes, either via the PodSpec or ServiceAccount.
-
 
 ### Are Docker and containers the same thing?
 
@@ -79,7 +79,6 @@ for a long time. The container ecosystem has grown to be much broader than just
 Docker. Standards like OCI and CRI have helped many tools grow and thrive in our
 ecosystem, some replacing aspects of Docker while others enhance existing
 functionality.
-
 
 ### Are there examples of folks using other runtimes in production today?
 
@@ -95,13 +94,13 @@ using the [CRI-O] runtime in production since June 2019.
 
 For other examples and references you can look at the adopters of containerd and
 CRI-O, two container runtimes under the Cloud Native Computing Foundation ([CNCF]).
+
 - [containerd](https://github.com/containerd/containerd/blob/master/ADOPTERS.md)
 - [CRI-O](https://github.com/cri-o/cri-o/blob/master/ADOPTERS.md)
 
 [CRI-O]: https://cri-o.io/
 [kind]: https://kind.sigs.k8s.io/
 [CNCF]: https://cncf.io
-
 
 ### People keep referencing OCI, what is that?
 
@@ -117,7 +116,6 @@ provide an end-to-end standard for managing containers.
 [runc]: https://github.com/opencontainers/runc
 [containerd]: https://containerd.io/
 
-
 ### Which CRI implementation should I use?
 
 That’s a complex question and it depends on a lot of factors. If Docker is
@@ -127,7 +125,6 @@ to explore all the options from the [CNCF landscape] in case another would be an
 even better fit for your environment.
 
 [CNCF landscape]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
-
 
 ### What should I look out for when changing CRI implementations?
 
@@ -172,7 +169,6 @@ Kubernetes documentation on [Container Runtimes]
 
 [Container Runtimes]: /docs/setup/production-environment/container-runtimes
 
-
 ### What if I have more questions?
 
 If you use a vendor-supported Kubernetes distribution, you can ask them about
@@ -185,8 +181,6 @@ discussion of the changes.
 
 [dep]: https://dev.to/inductor/wait-docker-is-deprecated-in-kubernetes-now-what-do-i-do-e4m
 
-
 ### Can I have a hug?
 
-Always and whenever you want!  🤗🤗
-
+Yes, we're still giving hugs as requested. 🤗🤗🤗
