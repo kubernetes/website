@@ -6,7 +6,7 @@ slug: dockershim-faq
 ---
 
 
-_**Update**: There is a [newer version](/blog/2022/02/16/dockershim-faq/) of this article available._
+_**Update**: There is a [newer version](/blog/2022/02/17/dockershim-faq/) of this article available._
 
 This document goes over some frequently asked questions regarding the Dockershim
 deprecation announced as a part of the Kubernetes v1.20 release. For more detail

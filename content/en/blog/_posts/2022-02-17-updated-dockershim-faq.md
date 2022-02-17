@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Updated: Dockershim Removal FAQ"
-date: 2022-02-22
+date: 2022-02-17
 slug: dockershim-faq
 aliases: [ '/dockershim' ]
 ---
