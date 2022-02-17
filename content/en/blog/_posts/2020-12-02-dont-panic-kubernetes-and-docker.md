@@ -101,4 +101,4 @@ questions regardless of experience level or complexity! Our goal is to make sure
 everyone is educated as much as possible on the upcoming changes. We hope
 this has answered most of your questions and soothed some anxieties! ❤️
 
-Looking for more answers? Check out our accompanying [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/).
+Looking for more answers? Check out our accompanying [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/) _(updated February 2022)_.
