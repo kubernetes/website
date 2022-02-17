@@ -53,10 +53,10 @@ those areas.
 
 [drkep]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim
 
-### Can I still use Docker in Kubernetes 1.20?
+### Can I still use Docker Engine in Kubernetes 1.23?
 
-Yes, the only thing changing in 1.20 is a single warning log printed at [kubelet]
-startup if using Docker as the runtime.
+Yes, the only thing changed in 1.20 is a single warning log printed at [kubelet]
+startup if using Docker Engine as the runtime. You'll see this warning in all versions up to 1.23. The dockershim removal occurs in Kubernetes 1.24.
 
 [kubelet]: /docs/reference/command-line-tools-reference/kubelet/
 
