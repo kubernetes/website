@@ -16,7 +16,9 @@ as a part of the Kubernetes v1.20 release. For more detail
 on what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
 
-Also, you can read [check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to determine how impactful dockershim's removal to you or your organization.
+Also, you can read [check whether dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+to determine how much impact the removal of dockershim would have for you
+or for your organization.
 
 As the Kubernetes 1.24 release has become imminent, we've been working hard to try to make this a smooth transition.
 
@@ -28,16 +30,21 @@ As the Kubernetes 1.24 release has become imminent, we've been working hard to t
   That list includes some of the already mentioned docs, and also covers selected external sources
   (including vendor guides).
 
-### Why is dockershim being deprecated?
+### Why is the dockershim being removed from Kubernetes?
 
-Maintaining dockershim has become a heavy burden on the Kubernetes maintainers.
-The CRI standard was created to reduce this burden and allow smooth interoperability
-of different container runtimes. Docker itself doesn't currently implement CRI,
-thus the problem.
+Early versions of Kubernetes only worked with a specific container runtime:
+Docker Engine. Later, Kubernetes added support for working with other container runtimes.
+The CRI standard was [created](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) to
+enable interoperability between orchestrators (like Kubernetes) and many different container
+runtimes.
+Docker Engine doesn't implement that interface (CRI), so the Kubernetes project created
+special code to help with the transition, and made that _dockershim_ code part of Kubernetes
+itself.
 
-Dockershim was always intended to be a temporary solution (hence the name: shim).
+The dockershim code was always intended to be a temporary solution (hence the name: shim).
 You can read more about the community discussion and planning in the
 [Dockershim Removal Kubernetes Enhancement Proposal][drkep].
+In fact, maintaining dockershim had become a heavy burden on the Kubernetes maintainers.
 
 Additionally, features that were largely incompatible with the dockershim, such
 as cgroups v2 and user namespaces are being implemented in these newer CRI
@@ -60,7 +67,11 @@ Removal of dockershim is scheduled for Kubernetes v1.24, see [Dockershim Removal
 The Kubernetes project will be working closely with vendors and other ecosystem groups to ensure
 a smooth transition and will evaluate things as the situation evolves.
 
-### Can I still use dockershim after it is removed from Kubernetes?
+### Can I still use Docker Engine as my container runtime?
+
+First off, if you use Docker on your own PC to develop or test containers: nothing changes.
+You can still use Docker locally no matter what container runtime(s) you use for your
+Kubernetes clusters. Containers make this kind of interoperability possible.
 
 Mirantis and Docker have [committed][mirantis] to maintaining a replacement adapter for
 Docker Engine, and to maintain that adapter even after the in-tree dockershim is removed
@@ -68,12 +79,12 @@ from Kubernetes. The replacement adapter is named [`cri-dockerd`](https://github
 
 [mirantis]: https://www.mirantis.com/blog/mirantis-to-take-over-support-of-kubernetes-dockershim-2/
 
-### Will my existing Docker images still work?
+### Will my existing container images still work?
 
 Yes, the images produced from `docker build` will work with all CRI implementations.
 All your existing images will still work exactly the same.
 
-### What about private images?
+#### What about private images?
 
 Yes. All CRI runtimes support the same pull secrets configuration used in
 Kubernetes, either via the PodSpec or ServiceAccount.
@@ -143,15 +154,17 @@ common things to consider when migrating are:
 - Runtime resource limitations
 - Node provisioning scripts that call docker or use docker via it's control socket
 - Kubectl plugins that require docker CLI or the control socket
-- Kubernetes tools that require direct access to Docker (e.g. kube-imagepuller)
+- Tools from the Kubernetes project that require direct access to Docker Engine
+  (for example: the deprecated `kube-imagepuller` tool)
 - Configuration of functionality like `registry-mirrors` and insecure registries 
-- Other support scripts or daemons that expect Docker to be available and are run
+- Other support scripts or daemons that expect Docker Engine to be available and are run
+  outside of Kubernetes (for example, monitoring or security agents)
   outside of Kubernetes (e.g. monitoring or security agents)
 - GPUs or special hardware and how they integrate with your runtime and Kubernetes
 
 If you use Kubernetes resource requests/limits or file-based log collection
 DaemonSets then they will continue to work the same, but if you’ve customized
-your dockerd configuration, you’ll need to adapt that for your new container
+your `dockerd` configuration, you’ll need to adapt that for your new container
 runtime where possible.
 
 Another thing to look out for is anything expecting to run for system maintenance
@@ -174,7 +187,7 @@ options are available as you migrate things over.
 For instructions on how to use containerd and CRI-O with Kubernetes, see the
 Kubernetes documentation on [Container Runtimes]
 
-[Container Runtimes]: /docs/setup/production-environment/container-runtimes
+[Container Runtimes]: /docs/setup/production-environment/container-runtimes/
 
 ### What if I have more questions?
 
