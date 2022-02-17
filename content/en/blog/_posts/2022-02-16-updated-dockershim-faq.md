@@ -23,7 +23,10 @@ As the Kubernetes 1.24 release has become imminent, we've been working hard to t
 - We've written a blog post detailing our [commitment and next steps](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/).
 - We believe there are no major blockers to migration to [other container runtimes](/docs/setup/production-environment/container-runtimes/#container-runtimes).
 - There is also a [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) guide available.
-- We've also created a page to cover [Articles on dockershim Removal and on Using CRI-compatible Runtimes](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/) that include some of the already mentioned docs as well as those from external sources (including vendor guides).
+- We've also created a page to list
+  [articles on dockershim removal and on using CRI-compatible runtimes](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/).
+  That list includes some of the already mentioned docs, and also covers selected external sources
+  (including vendor guides).
 
 ### Why is dockershim being deprecated?
 
