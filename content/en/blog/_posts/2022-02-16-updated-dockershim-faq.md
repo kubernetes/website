@@ -53,7 +53,8 @@ startup if using Docker as the runtime.
 
 Given the impact of this change, we are using an extended deprecation timeline.
 Removal of dockershim is scheduled for Kubernetes v1.24, see [Dockershim Removal Kubernetes Enhancement Proposal][drkep].
-We will be working closely with vendors and other ecosystem groups to ensure a smooth transition and will evaluate things as the situation evolves.
+The Kubernetes project will be working closely with vendors and other ecosystem groups to ensure
+a smooth transition and will evaluate things as the situation evolves.
 
 ### Can I still use dockershim after it is removed from Kubernetes?
 
