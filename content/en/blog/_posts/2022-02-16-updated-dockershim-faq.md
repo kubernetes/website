@@ -57,8 +57,9 @@ We will be working closely with vendors and other ecosystem groups to ensure a s
 
 ### Can I still use dockershim after it is removed from Kubernetes?
 
-Mirantis and Docker have [committed][mirantis] to maintaining the dockershim after
-it is removed from Kubernetes.
+Mirantis and Docker have [committed][mirantis] to maintaining a replacement adapter for
+Docker Engine, and to maintain that adapter even after the in-tree dockershim is removed
+from Kubernetes. The replacement adapter is named [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).
 
 [mirantis]: https://www.mirantis.com/blog/mirantis-to-take-over-support-of-kubernetes-dockershim-2/
 
