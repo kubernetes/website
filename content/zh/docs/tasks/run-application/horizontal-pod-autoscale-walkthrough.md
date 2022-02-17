@@ -447,7 +447,7 @@ you could update the definition above using `kubectl edit` to look like this:
 将上述 Horizontal Pod Autoscaler 的定义更改为：
 
 ```yaml
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta12
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
