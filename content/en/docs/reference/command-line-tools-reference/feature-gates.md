@@ -756,8 +756,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
 - `DynamicAuditing`: Used to enable dynamic auditing before v1.19.
-- `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See
-  [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
+- `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. The
+  feature is no longer supported outside of supported skew policy. The feature
+  gate was removed from kubelet in 1.24. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of
   volume topology and handle PV provisioning.
   This feature is superseded by the `VolumeScheduling` feature completely in v1.12.
@@ -920,7 +921,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Must be used with `KubeletConfiguration.failSwapOn` set to false.
   For more details, please see [swap memory](/docs/concepts/architecture/nodes/#swap-memory)
 - `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
-- `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the 
+- `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the
   spec returned from the API server.
 - `OpenAPIV3`: Enables the API server to publish OpenAPI v3.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
