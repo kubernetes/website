@@ -282,8 +282,8 @@ CSR 서명자를 가지고 있는지 문의하는 것을 추천한다.
 
 {{% thirdparty-content %}}
 
-제 3 자 커스텀 컨트롤러도 사용될 수 있다.
-- [kubelet-rubber-stamp](https://github.com/kontena/kubelet-rubber-stamp)
+써드파티 커스텀 컨트롤러도 사용될 수 있다.
+- [kubelet-csr-approver](https://github.com/postfinance/kubelet-csr-approver)
 
 이러한 컨트롤러는 CSR의 CommonName과 요청된 IPs 및 도메인 네임을
 모두 검증하지 않는 한, 보안이 되는 메커니즘이 아니다. 이것을 통해 악의적 행위자가

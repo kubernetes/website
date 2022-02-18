@@ -214,7 +214,7 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 
 ## 클러스터에서 실행되는 서비스로 접근
 
-이전 섹션에서는 쿠버네티스 API 서버에 연결하는 방법을 소개하였다. 쿠버네티스 클러스터에서 실행되는 다른 서비스에 연결하는 방법은 [클러스터 접근](/ko/docs/tasks/access-application-cluster/access-cluster/) 페이지를 참조한다.
+이전 섹션에서는 쿠버네티스 API 서버에 연결하는 방법을 소개하였다. 쿠버네티스 클러스터에서 실행되는 다른 서비스에 연결하는 방법은 [클러스터 서비스에 접근](/ko/docs/tasks/administer-cluster/access-cluster-services/) 페이지를 참조한다.
 
 ## redirect 요청하기
 
