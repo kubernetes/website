@@ -1,0 +1,37 @@
+# This is a modified version of the original Dockerfile in this repository,
+# edited to install Hugo Extended from a tarball in a way that works with arm64
+# architectures.
+
+FROM golang:1.16-alpine
+
+RUN apk add --no-cache \
+    curl \
+    gcc \
+    g++ \
+    git \
+    musl-dev \
+    openssh-client \
+    rsync \
+    build-base \
+    libc6-compat \
+    npm && \
+    npm install -D autoprefixer postcss-cli
+
+ARG HUGO_VERSION
+
+RUN mkdir $HOME/src && \
+    cd $HOME/src && \
+    curl -L https://github.com/gohugoio/hugo/archive/refs/tags/v${HUGO_VERSION}.tar.gz | tar -xz && \
+    cd "hugo-${HUGO_VERSION}" && \
+    go install --tags extended && \
+    cp /go/bin/hugo /usr/local/bin/hugo && \
+    mkdir -p /usr/local/src && \
+    cd /usr/local/src && \
+    addgroup -Sg 1000 hugo && \
+    adduser -Sg hugo -u 1000 -h /src hugo
+
+WORKDIR /src
+
+USER hugo:hugo
+
+EXPOSE 1313
