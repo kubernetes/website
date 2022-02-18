@@ -159,6 +159,11 @@ You can run your own controller as a set of Pods,
 or externally to Kubernetes. What fits best will depend on what that particular
 controller does.
 
+## Way to stop the controller
+
+To stop a controller, we use `kubectl delete`. This command will scale down the
+controller to zero and then, delete all the pods before deleting the controller itself.
+
 ## {{% heading "whatsnext" %}}
 
 * Read about the [Kubernetes control plane](/docs/concepts/overview/components/#control-plane-components)
