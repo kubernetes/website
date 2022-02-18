@@ -25,7 +25,8 @@ card:
 각 쿠버네티스 컴포넌트를 사용하면 해당 컴포넌트와 관련된 기능 게이트 집합을
 활성화 또는 비활성화할 수 있다.
 모든 컴포넌트에 대한 전체 기능 게이트 집합을 보려면 `-h` 플래그를 사용한다.
-kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 쌍 목록에 지정된 `--feature-gates` 플래그를 사용한다.
+kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 
+기능 쌍 목록에 지정된 `--feature-gates` 플래그를 사용한다.
 
 ```shell
 --feature-gates="...,GracefulNodeShutdown=true"
@@ -53,7 +54,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 |---------|---------|-------|-------|-------|
 | `APIListChunking` | `false` | 알파 | 1.8 | 1.8 |
 | `APIListChunking` | `true` | 베타 | 1.9 | |
-| `APIPriorityAndFairness` | `false` | 알파 | 1.17 | 1.19 |
+| `APIPriorityAndFairness` | `false` | 알파 | 1.18 | 1.19 |
 | `APIPriorityAndFairness` | `true` | 베타 | 1.20 | |
 | `APIResponseCompression` | `false` | 알파 | 1.7 | 1.15 |
 | `APIResponseCompression` | `true` | 베타 | 1.16 | |
@@ -65,7 +66,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ControllerManagerLeaderMigration` | `false` | 알파 | 1.21 | |
 | `CPUManager` | `false` | 알파 | 1.8 | 1.9 |
 | `CPUManager` | `true` | 베타 | 1.10 | |
-| `CPUManagerPolicyOptions` | `false` | 알파 | 1.22 | |
+| `CPUManagerPolicyAlphaOptions` | `false` | 알파 | 1.23 | |
+| `CPUManagerPolicyBetaOptions` | `true` | 베타 | 1.23 | |
+| `CPUManagerPolicyOptions` | `false` | 알파 | 1.22 | 1.22 |
+| `CPUManagerPolicyOptions` | `true` | 베타 | 1.23 | |
 | `CSIInlineVolume` | `false` | 알파 | 1.15 | 1.15 |
 | `CSIInlineVolume` | `true` | 베타 | 1.16 | - |
 | `CSIMigration` | `false` | 알파 | 1.14 | 1.16 |
@@ -85,13 +89,11 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `CSIMigrationOpenStack` | `true` | 베타 | 1.18 | |
 | `CSIMigrationvSphere` | `false` | 베타 | 1.19 | |
 | `CSIMigrationPortworx` | `false` | 알파 | 1.23 | |
-| `CSIMigrationRBD` | `false` | 알파 | 1.23 | |
+| `csiMigrationRBD` | `false` | 알파 | 1.23 | |
 | `CSIStorageCapacity` | `false` | 알파 | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | 베타 | 1.21 | |
 | `CSIVolumeHealth` | `false` | 알파 | 1.21 | |
 | `CSRDuration` | `true` | 베타 | 1.22 | |
-| `ConfigurableFSGroupPolicy` | `false` | 알파 | 1.18 | 1.19 |
-| `ConfigurableFSGroupPolicy` | `true` | 베타 | 1.20 | |
 | `ControllerManagerLeaderMigration` | `false` | 알파 | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | 베타 | 1.22 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | 알파 | 1.12 | |
@@ -100,12 +102,14 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `DaemonSetUpdateSurge` | `true` | 베타 | 1.22 | |
 | `DefaultPodTopologySpread` | `false` | 알파 | 1.19 | 1.19 |
 | `DefaultPodTopologySpread` | `true` | 베타 | 1.20 | |
-| `DelegateFSGroupToCSIDriver` | `false` | 알파 | 1.22 | |
+| `DelegateFSGroupToCSIDriver` | `false` | 알파 | 1.22 | 1.22 |
+| `DelegateFSGroupToCSIDriver` | `true` | 베타 | 1.23 | |
 | `DevicePlugins` | `false` | 알파 | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | 베타 | 1.10 | |
 | `DisableAcceleratorUsageMetrics` | `false` | 알파 | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | 베타 | 1.20 | |
 | `DisableCloudProviders` | `false` | 알파 | 1.22 | |
+| `DisableKubeletCloudCredentialProviders` | `false` | 알파 | 1.23 | |
 | `DownwardAPIHugePages` | `false` | 알파 | 1.20 | 1.20 |
 | `DownwardAPIHugePages` | `false` | 베타 | 1.21 | |
 | `EfficientWatchResumption` | `false` | 알파 | 1.20 | 1.20 |
@@ -124,7 +128,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | 베타 | 1.5 | |
 | `GracefulNodeShutdown` | `false` | 알파 | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | 베타 | 1.21 | |
+| `GracefulNodeShutdownBasedOnPodPriority` | `false` | 알파 | 1.23 | |
 | `GRPCContainerProbe` | `false` | 알파 | 1.23 | |
+| `HonorPVReclaimPolicy` | `false` | 알파 | 1.23 | |
 | `HPAContainerMetrics` | `false` | 알파 | 1.20 | |
 | `HPAScaleToZero` | `false` | 알파 | 1.16 | |
 | `IdentifyPodOS` | `false` | 알파 | 1.23 | |
@@ -135,6 +141,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `InTreePluginAzureFileUnregister` | `false` | 알파 | 1.21 | |
 | `InTreePluginGCEUnregister` | `false` | 알파 | 1.21 | |
 | `InTreePluginOpenStackUnregister` | `false` | 알파 | 1.21 | |
+| `InTreePluginPortworxUnregister` | `false` | 알파 | 1.23 | |
+| `InTreePluginRBDUnregister` | `false` | 알파 | 1.23 | |
 | `InTreePluginvSphereUnregister` | `false` | 알파 | 1.21 | |
 | `JobMutableNodeSchedulingDirectives` | `true` | 베타 | 1.23 | |
 | `JobReadyPods` | `false` | 알파 | 1.23 | |
@@ -142,7 +150,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `JobTrackingWithFinalizers` | `true` | 베타 | 1.23 | |
 | `KubeletCredentialProviders` | `false` | 알파 | 1.20 | |
 | `KubeletInUserNamespace` | `false` | 알파 | 1.22 | |
-| `KubeletPodResourcesGetAllocatable` | `false` | 알파 | 1.21 | |
+| `KubeletPodResources` | `false` | 알파 | 1.13 | 1.14 |
+| `KubeletPodResources` | `true` | 베타 | 1.15 | |
+| `KubeletPodResourcesGetAllocatable` | `false` | 알파 | 1.21 | 1.22 |
+| `KubeletPodResourcesGetAllocatable` | `false` | 베타 | 1.23 | |
 | `LocalStorageCapacityIsolation` | `false` | 알파 | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | 베타 | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | 알파 | 1.15 | |
@@ -157,10 +168,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `NodeSwap` | `false` | 알파 | 1.22 | |
 | `NonPreemptingPriority` | `false` | 알파 | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | 베타 | 1.19 | |
-| `PodDeletionCost` | `false` | 알파 | 1.21 | 1.21 |
-| `PodDeletionCost` | `true` | 베타 | 1.22 | |
+| `OpenAPIEnums` | `false` | 알파 | 1.23 | |
+| `OpenAPIV3` | `false` | 알파 | 1.23 | |
+| `PodAndContainerStatsFromCRI` | `false` | 알파 | 1.23 | |
 | `PodAffinityNamespaceSelector` | `false` | 알파 | 1.21 | 1.21 |
 | `PodAffinityNamespaceSelector` | `true` | 베타 | 1.22 | |
+| `PodDeletionCost` | `false` | 알파 | 1.21 | 1.21 |
+| `PodDeletionCost` | `true` | 베타 | 1.22 | |
 | `PodOverhead` | `false` | 알파 | 1.16 | 1.17 |
 | `PodOverhead` | `true` | 베타 | 1.18 | |
 | `PodSecurity` | `false` | 알파 | 1.22 | 1.22 |
@@ -189,6 +203,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ServiceLoadBalancerClass` | `true` | 베타 | 1.22 | |
 | `SizeMemoryBackedVolumes` | `false` | 알파 | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | 베타 | 1.22 | |
+| `StatefulSetAutoDeletePVC` | `false` | 알파 | 1.22 | |
 | `StatefulSetMinReadySeconds` | `false` | 알파 | 1.22 | 1.22 |
 | `StatefulSetMinReadySeconds` | `true` | 베타 | 1.23 | |
 | `StorageVersionAPI` | `false` | 알파 | 1.20 | |
@@ -197,13 +212,14 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `SuspendJob` | `false` | 알파 | 1.21 | 1.21 |
 | `SuspendJob` | `true` | 베타 | 1.22 | |
 | `TopologyAwareHints` | `false` | 알파 | 1.21 | 1.22 |
-| `TopologyAwareHints` | `true` | 베타 | 1.23 | |
+| `TopologyAwareHints` | `false` | 베타 | 1.23 | |
 | `TopologyManager` | `false` | 알파 | 1.16 | 1.17 |
 | `TopologyManager` | `true` | 베타 | 1.18 | |
 | `VolumeCapacityPriority` | `false` | 알파 | 1.21 | - |
 | `WinDSR` | `false` | 알파 | 1.14 | |
 | `WinOverlay` | `false` | 알파 | 1.14 | 1.19 |
 | `WinOverlay` | `true` | 베타 | 1.20 | |
+| `WindowsHostProcessContainers` | `false` | 알파 | 1.22 | 1.22 |
 | `WindowsHostProcessContainers` | `false` | 베타 | 1.23 | |
 {{< /table >}}
 
@@ -233,6 +249,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `BoundServiceAccountTokenVolume` | `false` | 알파 | 1.13 | 1.20 |
 | `BoundServiceAccountTokenVolume` | `true` | 베타 | 1.21 | 1.21 |
 | `BoundServiceAccountTokenVolume` | `true` | GA | 1.22 | - |
+| `ConfigurableFSGroupPolicy` | `false` | 알파 | 1.18 | 1.19 |
+| `ConfigurableFSGroupPolicy` | `true` | 베타 | 1.20 | 1.22 |
 | `ConfigurableFSGroupPolicy` | `true` | GA | 1.23 | |
 | `CRIContainerLogRotation` | `false` | 알파 | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | 베타 | 1.11 | 1.20 |
@@ -312,12 +330,12 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `EndpointSliceProxying` | `false` | 알파 | 1.18 | 1.18 |
 | `EndpointSliceProxying` | `true` | 베타 | 1.19 | 1.21 |
 | `EndpointSliceProxying` | `true` | GA | 1.22 | - |
-| `ExperimentalCriticalPodAnnotation` | `false` | 알파 | 1.5 | 1.12 |
-| `ExperimentalCriticalPodAnnotation` | `false` | 사용중단 | 1.13 | - |
 | `EvenPodsSpread` | `false` | 알파 | 1.16 | 1.17 |
 | `EvenPodsSpread` | `true` | 베타 | 1.18 | 1.18 |
 | `EvenPodsSpread` | `true` | GA | 1.19 | - |
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
+| `ExperimentalCriticalPodAnnotation` | `false` | 알파 | 1.5 | 1.12 |
+| `ExperimentalCriticalPodAnnotation` | `false` | 사용중단 | 1.13 | - |
 | `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | - |
 | `GCERegionalPersistentDisk` | `true` | 베타 | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
@@ -330,9 +348,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `HugePages` | `false` | 알파 | 1.8 | 1.9 |
 | `HugePages` | `true` | 베타| 1.10 | 1.13 |
 | `HugePages` | `true` | GA | 1.14 | - |
-| `HugePageStorageMediumSize` | `false` | 알파 | 1.18 | 1.18 |
-| `HugePageStorageMediumSize` | `true` | 베타 | 1.19 | 1.21 |
-| `HugePageStorageMediumSize` | `true` | GA | 1.22 | - |
 | `HyperVContainer` | `false` | 알파 | 1.10 | 1.19 |
 | `HyperVContainer` | `false` | 사용중단 | 1.20 | - |
 | `ImmutableEphemeralVolumes` | `false` | 알파 | 1.18 | 1.18 |
@@ -351,9 +366,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `KubeletPluginsWatcher` | `false` | 알파 | 1.11 | 1.11 |
 | `KubeletPluginsWatcher` | `true` | 베타 | 1.12 | 1.12 |
 | `KubeletPluginsWatcher` | `true` | GA | 1.13 | - |
-| `KubeletPodResources` | `false` | 알파 | 1.13 | 1.14 |
-| `KubeletPodResources` | `true` | 베타 | 1.15 | |
-| `KubeletPodResources` | `true` | GA | 1.20 | |
 | `LegacyNodeRoleBehavior` | `false` | 알파 | 1.16 | 1.18 |
 | `LegacyNodeRoleBehavior` | `true` | 베타 | 1.19 | 1.20 |
 | `LegacyNodeRoleBehavior` | `false` | GA | 1.21 | - |
@@ -375,7 +387,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `PersistentLocalVolumes` | `false` | 알파 | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | 베타 | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
-| `PodAndContainerStatsFromCRI` | `false` | 알파 | 1.23 | |
 | `PodDisruptionBudget` | `false` | 알파 | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | 베타 | 1.5 | 1.20 |
 | `PodDisruptionBudget` | `true` | GA | 1.21 | - |
@@ -497,7 +508,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `WindowsGMSA` | `false` | 알파 | 1.14 | 1.15 |
 | `WindowsGMSA` | `true` | 베타 | 1.16 | 1.17 |
 | `WindowsGMSA` | `true` | GA | 1.18 | - |
-| `WindowsHostProcessContainers` | `false` | 알파 | 1.22 |
 | `WindowsRunAsUserName` | `false` | 알파 | 1.16 | 1.16 |
 | `WindowsRunAsUserName` | `true` | 베타 | 1.17 | 1.17 |
 | `WindowsRunAsUserName` | `true` | GA | 1.18 | - |
@@ -553,7 +563,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `APIResponseCompression`: `LIST` 또는 `GET` 요청에 대한 API 응답을 압축한다.
 - `APIServerIdentity`: 클러스터의 각 API 서버에 ID를 할당한다.
 - `APIServerTracing`: API 서버에서 분산 추적(tracing)에 대한 지원을 추가한다.
-- `Accelerators`: 도커 사용 시 Nvidia GPU 지원 활성화한다.
+- `Accelerators`: 도커 엔진 사용 시 Nvidia GPU 지원을 활성화하는 
+  플러그인의 초기 형태를 제공하였으며, 사용 중단되었다. 
+  대안을 위해서는 [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)을 
+  확인한다.
 - `AdvancedAuditing`: [고급 감사](/docs/tasks/debug-application-cluster/audit/#advanced-audit) 기능을 활성화한다.
 - `AffinityInAnnotations`: [파드 어피니티 또는 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
   설정을 활성화한다.
@@ -562,8 +575,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   TLS 확인을 건너뛸 수 있도록 한다.
 - `AnyVolumeDataSource`: {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}의
   `DataSource` 로 모든 사용자 정의 리소스 사용을 활성화한다.
-- `AppArmor`: 도커를 사용할 때 리눅스 노드에서 AppArmor 기반의 필수 접근 제어를 활성화한다.
-  자세한 내용은 [AppArmor 튜토리얼](/ko/docs/tutorials/clusters/apparmor/)을 참고한다.
+- `AppArmor`: 리눅스 노드에서 실행되는 파드에 대한 AppArmor 필수 접근 제어의 사용을 활성화한다.
+  자세한 내용은 [AppArmor 튜토리얼](/ko/docs/tutorials/security/apparmor/)을 참고한다.
 - `AttachVolumeLimit`: 볼륨 플러그인이 노드에 연결될 수 있는 볼륨 수에
   대한 제한을 보고하도록 한다.
   자세한 내용은 [동적 볼륨 제한](/ko/docs/concepts/storage/storage-limits/#동적-볼륨-한도)을 참고한다.
@@ -586,6 +599,12 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   리더 마이그레이션(Leader Migration)을 활성화한다.
 - `CPUManager`: 컨테이너 수준의 CPU 어피니티 지원을 활성화한다.
   [CPU 관리 정책](/docs/tasks/administer-cluster/cpu-management-policies/)을 참고한다.
+- `CPUManagerPolicyAlphaOptions`: CPUManager 정책 중 실험적이며 알파 품질인 옵션의 미세 조정을 허용한다. 
+  이 기능 게이트는 품질 수준이 알파인 CPUManager 옵션의 *그룹*을 보호한다.
+  이 기능 게이트는 베타 또는 안정(stable) 상태로 변경되지 않을 것이다.
+- `CPUManagerPolicyBetaOptions`: CPUManager 정책 중 실험적이며 베타 품질인 옵션의 미세 조정을 허용한다. 
+  이 기능 게이트는 품질 수준이 베타인 CPUManager 옵션의 *그룹*을 보호한다.
+  이 기능 게이트는 안정(stable) 상태로 변경되지 않을 것이다.
 - `CPUManagerPolicyOptions`: CPUManager 정책의 미세 조정을 허용한다.
 - `CRIContainerLogRotation`: cri 컨테이너 런타임에 컨테이너 로그 로테이션을 활성화한다. 로그 파일 사이즈 기본값은 10MB이며,
 컨테이너 당 최대 로그 파일 수 기본값은 5이다. 이 값은 kubelet 환경설정으로 변경할 수 있다.
@@ -638,9 +657,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   GCE-PD 인-트리 플러그인에서 PD CSI 플러그인으로 라우팅할 수 있다. 노드에
   PD CSI 플러그인이 설치 및 구성이 되어 있지 않은 경우 인-트리 GCE 플러그인으로 폴백을
   지원한다. CSIMigration 기능 플래그가 필요하다.
-- `CSIMigrationRBD`: RBD 트리 내(in-tree) 플러그인으로 가는 볼륨 작업을 
+- `csiMigrationRBD`: RBD 트리 내(in-tree) 플러그인으로 가는 볼륨 작업을 
   Ceph RBD CSI 플러그인으로 라우트하는 심(shim)과 변환 로직을 활성화한다. 
-  클러스터에 CSIMigration 및 CSIMigrationRBD 기능 플래그가 활성화되어 있어야 하고, 
+  클러스터에 CSIMigration 및 csiMigrationRBD 기능 플래그가 활성화되어 있어야 하고, 
   Ceph CSI 플러그인이 설치 및 설정되어 있어야 한다. 
   이 플래그는 트리 내(in-tree) RBD 플러그인 등록을 금지시키는 
   `InTreePluginRBDUnregister` 기능 플래그에 의해 
@@ -716,6 +735,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   생성된 리소스에 대해 웹 훅 기반의 변환을 활성화한다.
 - `DaemonSetUpdateSurge`: 노드당 업데이트 중 가용성을 유지하도록 
   데몬셋 워크로드를 사용하도록 설정한다.
+  [데몬셋에서 롤링 업데이트 수행](/ko/docs/tasks/manage-daemon/update-daemon-set/)을 참고한다.
 - `DefaultPodTopologySpread`: `PodTopologySpread` 스케줄링 플러그인을 사용하여
   [기본 분배](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/#내부-기본-제약)를 수행한다.
 - `DelegateFSGroupToCSIDriver`: CSI 드라이버가 지원할 경우, NodeStageVolume 및 NodePublishVolume CSI 호출을 통해 
@@ -728,6 +748,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `DisableCloudProviders`: `kube-apiserver`,  `kube-controller-manager`, 
   `--cloud-provider` 컴포넌트 플래그와 관련된 `kubelet`의 
   모든 기능을 비활성화한다.
+- `DisableKubeletCloudCredentialProviders`: 이미지 풀 크리덴셜을 위해 
+  클라우드 프로바이더 컨테이너 레지스트리에 인증을 수행하는 kubelet 내부(in-tree) 기능을 비활성화한다.
 - `DownwardAPIHugePages`: [다운워드 API](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)에서
   hugepages 사용을 활성화한다.
 - `DryRun`: 서버 측의 [dry run](/docs/reference/using-api/api-concepts/#dry-run) 요청을
@@ -768,6 +790,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `ExpandCSIVolumes`: CSI 볼륨 확장을 활성화한다.
 - `ExpandedDNSConfig`: 더 많은 DNS 검색 경로와 더 긴 DNS 검색 경로 목록을 허용하려면 
   kubelet과 kube-apiserver를 사용하도록 설정한다.
+  이 기능을 사용하려면 컨테이너 런타임이 지원해야 한다(Containerd: v1.5.6 이상, CRI-O: v1.22 이상).
   [확장된 DNS 구성](/ko/docs/concepts/services-networking/dns-pod-service/#확장된-dns-환경-설정)을 참고한다.
 - `ExpandInUsePersistentVolumes`: 사용 중인 PVC를 확장할 수 있다.
   [사용 중인 퍼시스턴트볼륨클레임 크기 조정](/ko/docs/concepts/storage/persistent-volumes/#사용-중인-퍼시스턴트볼륨클레임-크기-조정)을 참고한다.
@@ -792,7 +815,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   파드를 정상적으로 종료하려고 시도한다. 자세한 내용은
   [Graceful Node Shutdown](/ko/docs/concepts/architecture/nodes/#그레이스풀-graceful-노드-셧다운)을
   참조한다.
+- `GracefulNodeShutdownBasedOnPodPriority`: 그레이스풀(graceful) 노드 셧다운을 할 때 
+  kubelet이 파드 우선순위를 체크할 수 있도록 활성화한다.
 - `GRPCContainerProbe`: 활성 프로브(Liveness Probe), 준비성 프로브(Readiness Probe), 스타트업 프로브(Startup Probe)에 대해 gRPC 프로브를 활성화한다. [활성/준비성/스타트업 프로브 구성하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)를 참조한다.
+- `HonorPVReclaimPolicy`: 퍼시스턴트 볼륨 회수 정책이 `Delete`인 경우 PV-PVC 삭제 순서와 상관없이 정책을 준수한다.
 - `HPAContainerMetrics`: `HorizontalPodAutoscaler` 를 활성화하여 대상 파드의
   개별 컨테이너 메트릭을 기반으로 확장한다.
 - `HPAScaleToZero`: 사용자 정의 또는 외부 메트릭을 사용할 때 `HorizontalPodAutoscaler` 리소스에 대해
@@ -817,6 +843,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `InTreePluginGCEUnregister`: kubelet 및 볼륨 컨트롤러에 gce-pd 인-트리 
   플러그인의 등록을 중지한다.
 - `InTreePluginOpenStackUnregister`: kubelet 및 볼륨 컨트롤러에 오픈스택 cinder 인-트리 
+  플러그인의 등록을 중지한다.
+- `InTreePluginPortworxUnregister`: kubelet 및 볼륨 컨트롤러에 Portworx 인-트리 
+  플러그인의 등록을 중지한다.
+- `InTreePluginRBDUnregister`: kubelet 및 볼륨 컨트롤러에 RBD 인-트리 
   플러그인의 등록을 중지한다.
 - `InTreePluginvSphereUnregister`: kubelet 및 볼륨 컨트롤러에 vSphere 인-트리 
   플러그인의 등록을 중지한다.
@@ -889,6 +919,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   반드시 `KubeletConfiguration.failSwapOn`를 false로 설정한 후 사용해야 한다.
   더 자세한 정보는 [스왑 메모리](/ko/docs/concepts/architecture/nodes/#swap-memory)를 참고한다.
 - `NonPreemptingPriority`: 프라이어리티클래스(PriorityClass)와 파드에 `preemptionPolicy` 필드를 활성화한다.
+- `OpenAPIEnums`: API 서버로부터 리턴된 스펙 내 OpenAPI 스키마의 
+  "enum" 필드 채우기를 활성화한다.
+- `OpenAPIV3`: API 서버의 OpenAPI v3 발행을 활성화한다.
 - `PVCProtection`: 파드에서 사용 중일 때 퍼시스턴트볼륨클레임(PVC)이
   삭제되지 않도록 한다.
 - `PodDeletionCost`: 레플리카셋 다운스케일 시 삭제될 파드의 우선순위를 사용자가 조절할 수 있도록,
