@@ -254,7 +254,7 @@ Patch your Deployment:
 对 Deployment 执行 patch 操作：
 
 ```
-kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
+kubectl patch deployment patch-demo --patch "$(cat patch-file-tolerations.yaml)"
 ```
 
 <!--
