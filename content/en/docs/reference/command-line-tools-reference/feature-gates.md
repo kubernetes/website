@@ -400,7 +400,7 @@ different Kubernetes components.
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | 1.16 |
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
 | `RequestManagement` | `false` | Alpha | 1.15 | 1.16 |
-| `RequestManagement` | - | Derecated | 1.17 | - |
+| `RequestManagement` | - | Deprecated | 1.17 | - |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | 1.18 |
 | `ResourceLimitsPriorityFunction` | - | Deprecated | 1.19 | - |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
@@ -815,7 +815,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   and gracefully terminate pods running on the node. See
   [Graceful Node Shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown)
   for more details.
-= `GracefulNodeShutdownBasedOnPodPriority`: Enables the kubelet to check Pod priorities
+- `GracefulNodeShutdownBasedOnPodPriority`: Enables the kubelet to check Pod priorities
   when shutting down a node gracefully.
 - `GRPCContainerProbe`: Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe. See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
 - `HonorPVReclaimPolicy`: Honor persistent volume reclaim policy when it is `Delete` irrespective of PV-PVC deletion ordering.
