@@ -25,7 +25,8 @@ on each Kubernetes component.
 Each Kubernetes component lets you enable or disable a set of feature gates that
 are relevant to that component.
 Use `-h` flag to see a full set of feature gates for all components.
-To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
+To set feature gates for a component, such as kubelet, use the `--feature-gates`
+flag assigned to a list of feature pairs:
 
 ```shell
 --feature-gates="...,GracefulNodeShutdown=true"
@@ -399,7 +400,7 @@ different Kubernetes components.
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | 1.16 |
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
 | `RequestManagement` | `false` | Alpha | 1.15 | 1.16 |
-| `RequestManagement` | - | Derecated | 1.17 | - |
+| `RequestManagement` | - | Deprecated | 1.17 | - |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | 1.18 |
 | `ResourceLimitsPriorityFunction` | - | Deprecated | 1.19 | - |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
@@ -575,7 +576,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
 - `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
-  See [AppArmor Tutorial](/docs/tutorials/clusters/apparmor/) for more details.
+  See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
   See [dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits) for more details.
@@ -769,12 +770,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of
   nodes when scheduling Pods.
 - `EndpointSlice`: Enables EndpointSlices for more scalable and extensible
-   network endpoints. See [Enabling EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices/).
+   network endpoints. See [Enabling EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
 - `EndpointSliceNodeName`: Enables EndpointSlice `nodeName` field.
 - `EndpointSliceProxying`: When enabled, kube-proxy running
    on Linux will use EndpointSlices as the primary data source instead of
    Endpoints, enabling scalability and performance improvements. See
-   [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
+   [Enabling Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
 - `EndpointSliceTerminatingCondition`: Enables EndpointSlice `terminating` and `serving`
    condition fields.
 - `EphemeralContainers`: Enable the ability to add
@@ -814,7 +815,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   and gracefully terminate pods running on the node. See
   [Graceful Node Shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown)
   for more details.
-= `GracefulNodeShutdownBasedOnPodPriority`: Enables the kubelet to check Pod priorities
+- `GracefulNodeShutdownBasedOnPodPriority`: Enables the kubelet to check Pod priorities
   when shutting down a node gracefully.
 - `GRPCContainerProbe`: Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe. See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
 - `HonorPVReclaimPolicy`: Honor persistent volume reclaim policy when it is `Delete` irrespective of PV-PVC deletion ordering.
@@ -1089,7 +1090,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WindowsEndpointSliceProxying`: When enabled, kube-proxy running on Windows
   will use EndpointSlices as the primary data source instead of Endpoints,
   enabling scalability and performance improvements. See
-  [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
+  [Enabling Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
 - `WindowsGMSA`: Enables passing of GMSA credential specs from pods to container runtimes.
 - `WindowsHostProcessContainers`: Enables support for Windows HostProcess containers.
 - `WindowsRunAsUserName` : Enable support for running applications in Windows containers

@@ -188,10 +188,9 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 `172-17-0-3.default.pod.cluster.local`.
 
-Any pods created by a Deployment or DaemonSet exposed by a Service have the
-following DNS resolution available:
+Any pods exposed by a Service have the following DNS resolution available:
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 -->
 ### A/AAAA 记录
 
@@ -204,10 +203,9 @@ following DNS resolution available:
 
 `172-17-0-3.default.pod.cluster.local`.
 
-Deployment 或通过 Service 暴露出来的 DaemonSet 所创建的 Pod 会有如下 DNS
-解析名称可用：
+通过 Service 暴露出来的所有 Pod 都会有如下 DNS 解析名称可用：
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 <!--
 ### Pod's hostname and subdomain fields

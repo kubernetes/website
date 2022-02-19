@@ -65,7 +65,7 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
   * [kube-scheduler 프로파일](/ko/docs/reference/scheduling/config/#여러-프로파일)
 
 * 컨트롤 플레인과 워커 노드에서 꼭 열어야 하는
-  [포트와 프로토콜](/docs/reference/ports-and-protocols/) 리스트
+  [포트와 프로토콜](/ko/docs/reference/ports-and-protocols/) 리스트
 ## API 설정
 
 이 섹션은 쿠버네티스 구성요소 또는 도구를 환경설정하는 데에 사용되는
@@ -73,10 +73,10 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
 사용/관리하는 데에 중요하지만, 이들 API의 대부분은 아직 API 서버가
 제공하지 않는다.
 
-* [kube-apiserver 환경설정 (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
+* [kube-apiserver 환경설정 (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/)
 * [kubelet 환경설정 (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kube-scheduler 환경설정 (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
 * [kube-scheduler 환경설정 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+* [kube-scheduler 환경설정 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * [kube-scheduler 정책 레퍼런스 (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 * [kube-proxy 환경설정 (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
