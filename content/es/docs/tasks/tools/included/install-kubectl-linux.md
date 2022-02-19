@@ -51,7 +51,7 @@ Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, es
    Valide el binario kubectl con el archivo de comprobación:
 
    ```bash
-   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    Si es válido, la salida es:
