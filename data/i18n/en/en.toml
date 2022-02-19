@@ -87,6 +87,9 @@ other = ","
 [input_placeholder_email_address]
 other = "email address"
 
+[javascript_required]
+other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
+
 [latest_release]
 other = "Latest Release:"
 
