@@ -159,7 +159,6 @@ common things to consider when migrating are:
 - Configuration of functionality like `registry-mirrors` and insecure registries 
 - Other support scripts or daemons that expect Docker Engine to be available and are run
   outside of Kubernetes (for example, monitoring or security agents)
-  outside of Kubernetes (e.g. monitoring or security agents)
 - GPUs or special hardware and how they integrate with your runtime and Kubernetes
 
 If you use Kubernetes resource requests/limits or file-based log collection
