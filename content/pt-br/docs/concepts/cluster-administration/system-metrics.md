@@ -109,10 +109,10 @@ O [`DisableAcceleratorUsageMetrics` _feature gate_](/docs/reference/command-line
 ### Métricas do _kube-controller-manager_
 
 As métricas do _controller manager_ fornecem informações importantes sobre o desempenho e a integridade do _controller manager_.
-Essas métricas incluem métricas comuns do agente de execução da linguagem Go, tais como a quantidade de _go_routine_ e métricas específicas do _controller_, como latência de requisições etcd ou latência da _API_ dos provedores de serviços de nuvem (AWS, GCE, OpenStack), que podem ser usadas para medir a integridade de um _cluster_
+Essas métricas incluem métricas comuns do agente de execução da linguagem Go, tais como a quantidade de _go_routine_ e métricas específicas do _controller_, como latência de requisições etcd ou latência da _API_ dos provedores de serviços de nuvem (AWS, GCE, OpenStack), que podem ser usadas para medir a integridade de um _cluster_.
 
 A partir do Kubernetes 1.7, métricas detalhadas de provedores de serviços de nuvem estão disponíveis para operações de armazenamento para o GCE, AWS, Vsphere e OpenStack.
-Essas métricas podem ser usadas para monitorar a integridade das operações de volumes persistentes
+Essas métricas podem ser usadas para monitorar a integridade das operações de volumes persistentes.
 
 Por exemplo, para o GCE as seguintes métricas são chamadas:
 
@@ -134,10 +134,10 @@ O _scheduler_ expõe métricas opcionais que relatam os recursos solicitados e o
 O _kube-scheduler_ identifica as requisições de [recursos e limites](/docs/concepts/configuration/manage-resources-containers/) configurado para cada _Pod_; quando uma requisição ou limite é diferente de zero o _kube-scheduler_ relata uma _timeseries_ de métricas. Essa _timeseries_ é etiquetada por:
 
 - _namespace_
-- nome do pod
+- nome do _pod_
 - o nó onde o _pod_ está programado ou uma _string_ vazia caso ainda não esteja programado
 - prioridade
-- o _scheduler_ atribuído para esse pod
+- o _scheduler_ atribuído para esse _pod_
 - o nome do recurso (por exemplo, `cpu`)
 - a unidade do recurso, se conhecida (por exemplo, `cores`)
 
@@ -147,14 +147,14 @@ As métricas são expostas no _endpoint_ HTTP `/metrics/resources` e requerem a 
 
 ## Desativando métricas
 
-Você pode desativar explicitamente as métricas via linha de comando utilizando a _flag_ `--disabled-metrics`. Isso pode ser desejado se, por exemplo, uma métrica estiver causando um problema de desempenho. A entrada é uma lista de métricas desabilitadas (ou seja, `--disabled-metrics=metric1,metric2`)
+Você pode desativar explicitamente as métricas via linha de comando utilizando a _flag_ `--disabled-metrics`. Isso pode ser desejado se, por exemplo, uma métrica estiver causando um problema de desempenho. A entrada é uma lista de métricas desabilitadas (ou seja, `--disabled-metrics=metric1,metric2`).
 
 ## Aplicação de cardinalidade de métrica
 
 As métricas com dimensões sem limites podem causar problemas de memória nos componentes que elas instrumentam. Para limitar a utilização de recursos você pode usar a opção de linha de comando `--allow-label-value` para dinamicamente configurar uma lista de permissões de valores de _label_ para uma métrica.
 
 No estágio alfa, a _flag_ pode receber apenas uma série de mapeamentos como lista de permissões de _labels_ para uma métrica.
-Cada mapeamento tem o formato `<metric_name>,<label_name>=<allowed_labels>` onde `<allowed_labels>` é uma lista separada por vírgulas de nomes aceitáveis para a _label_
+Cada mapeamento tem o formato `<metric_name>,<label_name>=<allowed_labels>` onde `<allowed_labels>` é uma lista separada por vírgulas de nomes aceitáveis para a _label_.
 
 O formato geral se parece com:
 `--allow-label-value <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...`.
