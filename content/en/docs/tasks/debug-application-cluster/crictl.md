@@ -19,15 +19,14 @@ Kubernetes node. `crictl` and its source are hosted in the
 
 ## {{% heading "prerequisites" %}}
 
-
 `crictl` requires a Linux operating system with a CRI runtime.
 
 <!-- steps -->
 
 ## Installing crictl
 
-You can download a compressed archive `crictl` from the cri-tools [release
-page](https://github.com/kubernetes-sigs/cri-tools/releases), for several
+You can download a compressed archive `crictl` from the cri-tools
+[release page](https://github.com/kubernetes-sigs/cri-tools/releases), for several
 different architectures. Download the version that corresponds to your version
 of Kubernetes. Extract it and move it to a location on your system path, such as
 `/usr/local/bin/`.
@@ -85,6 +84,7 @@ List all pods:
 ```shell
 crictl pods
 ```
+
 The output is similar to this:
 
 ```
@@ -100,6 +100,7 @@ List pods by name:
 ```shell
 crictl pods --name nginx-65899c769f-wv2gp
 ```
+
 The output is similar to this:
 
 ```
@@ -112,6 +113,7 @@ List pods by label:
 ```shell
 crictl pods --label run=nginx
 ```
+
 The output is similar to this:
 
 ```
@@ -126,6 +128,7 @@ List all images:
 ```shell
 crictl images
 ```
+
 The output is similar to this:
 
 ```
@@ -141,6 +144,7 @@ List images by repository:
 ```shell
 crictl images nginx
 ```
+
 The output is similar to this:
 
 ```
@@ -153,6 +157,7 @@ Only list image IDs:
 ```shell
 crictl images -q
 ```
+
 The output is similar to this:
 
 ```
@@ -169,6 +174,7 @@ List all containers:
 ```shell
 crictl ps -a
 ```
+
 The output is similar to this:
 
 ```
@@ -181,9 +187,10 @@ CONTAINER ID        IMAGE                                                       
 
 List running containers:
 
-```
+```shell
 crictl ps
 ```
+
 The output is similar to this:
 
 ```
@@ -198,6 +205,7 @@ CONTAINER ID        IMAGE                                                       
 ```shell
 crictl exec -i -t 1f73f2d81bf98 ls
 ```
+
 The output is similar to this:
 
 ```
@@ -211,6 +219,7 @@ Get all container logs:
 ```shell
 crictl logs 87d3992f84f74
 ```
+
 The output is similar to this:
 
 ```
@@ -224,6 +233,7 @@ Get only the latest `N` lines of logs:
 ```shell
 crictl logs --tail=1 87d3992f84f74
 ```
+
 The output is similar to this:
 
 ```
@@ -236,29 +246,29 @@ Using `crictl` to run a pod sandbox is useful for debugging container runtimes.
 On a running Kubernetes cluster, the sandbox will eventually be stopped and
 deleted by the Kubelet.
 
-1.  Create a JSON file like the following:
+1. Create a JSON file like the following:
 
-      ```json
-      {
-          "metadata": {
-              "name": "nginx-sandbox",
-              "namespace": "default",
-              "attempt": 1,
-              "uid": "hdishd83djaidwnduwk28bcsb"
-          },
-          "logDirectory": "/tmp",
-          "linux": {
-          }
-      }
-      ```
+   ```json
+   {
+     "metadata": {
+       "name": "nginx-sandbox",
+       "namespace": "default",
+       "attempt": 1,
+       "uid": "hdishd83djaidwnduwk28bcsb"
+     },
+     "logDirectory": "/tmp",
+     "linux": {
+     }
+   }
+   ```
 
-2.  Use the `crictl runp` command to apply the JSON and run the sandbox.
+2. Use the `crictl runp` command to apply the JSON and run the sandbox.
 
-      ```shell
-      crictl runp pod-config.json
-      ```
+   ```shell
+   crictl runp pod-config.json
+   ```
 
-      The ID of the sandbox is returned.
+   The ID of the sandbox is returned.
 
 ### Create a container
 
@@ -266,68 +276,73 @@ Using `crictl` to create a container is useful for debugging container runtimes.
 On a running Kubernetes cluster, the sandbox will eventually be stopped and
 deleted by the Kubelet.
 
-1.  Pull a busybox image
+1. Pull a busybox image
 
-      ```shell
-      crictl pull busybox
-      Image is up to date for busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47
-      ```
+   ```shell
+   crictl pull busybox
+   ```
+   ```none
+   Image is up to date for busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47
+   ```
 
-2.  Create configs for the pod and the container:
+2. Create configs for the pod and the container:
 
-      **Pod config**:
-      ```yaml
-      {
-          "metadata": {
-              "name": "nginx-sandbox",
-              "namespace": "default",
-              "attempt": 1,
-              "uid": "hdishd83djaidwnduwk28bcsb"
-          },
-          "log_directory": "/tmp",
-          "linux": {
-          }
-      }
-      ```
+   **Pod config**:
 
-      **Container config**:
-      ```yaml
-      {
-        "metadata": {
-            "name": "busybox"
-        },
-        "image":{
-            "image": "busybox"
-        },
-        "command": [
-            "top"
-        ],
-        "log_path":"busybox.log",
-        "linux": {
-        }
-      }
-      ```
+   ```json
+   {
+     "metadata": {
+       "name": "nginx-sandbox",
+       "namespace": "default",
+       "attempt": 1,
+       "uid": "hdishd83djaidwnduwk28bcsb"
+     },
+     "log_directory": "/tmp",
+     "linux": {
+     }
+   }
+   ```
 
-3.  Create the container, passing the ID of the previously-created pod, the
-    container config file, and the pod config file. The ID of the container is
-    returned.
+   **Container config**:
 
-      ```shell
-      crictl create f84dd361f8dc51518ed291fbadd6db537b0496536c1d2d6c05ff943ce8c9a54f container-config.json pod-config.json
-      ```
+   ```json
+   {
+     "metadata": {
+       "name": "busybox"
+     },
+     "image":{
+       "image": "busybox"
+     },
+     "command": [
+       "top"
+     ],
+     "log_path":"busybox.log",
+     "linux": {
+     }
+   }
+   ```
 
-4.  List all containers and verify that the newly-created container has its
-    state set to `Created`.
+3. Create the container, passing the ID of the previously-created pod, the
+   container config file, and the pod config file. The ID of the container is
+   returned.
 
-      ```shell
-      crictl ps -a
-      ```
-      The output is similar to this:
+   ```shell
+   crictl create f84dd361f8dc51518ed291fbadd6db537b0496536c1d2d6c05ff943ce8c9a54f container-config.json pod-config.json
+   ```
+
+4. List all containers and verify that the newly-created container has its
+   state set to `Created`.
+
+   ```shell
+   crictl ps -a
+   ```
+
+   The output is similar to this:
       
-      ```
-      CONTAINER ID        IMAGE               CREATED             STATE               NAME                ATTEMPT
-      3e025dd50a72d       busybox             32 seconds ago      Created             busybox             0
-      ```
+   ```
+   CONTAINER ID        IMAGE               CREATED             STATE               NAME                ATTEMPT
+   3e025dd50a72d       busybox             32 seconds ago      Created             busybox             0
+   ```
 
 ### Start a container
 
@@ -336,6 +351,7 @@ To start a container, pass its ID to `crictl start`:
 ```shell
 crictl start 3e025dd50a72d956c4f14881fbb5b1080c9275674e95fb67f965f6478a957d60
 ```
+
 The output is similar to this:
 
 ```
@@ -350,13 +366,12 @@ crictl ps
 The output is similar to this:
 
 ```
-CONTAINER ID        IMAGE               CREATED              STATE               NAME                ATTEMPT
-3e025dd50a72d       busybox             About a minute ago   Running             busybox             0
+CONTAINER ID   IMAGE    CREATED              STATE    NAME     ATTEMPT
+3e025dd50a72d  busybox  About a minute ago   Running  busybox  0
 ```
 
 ## {{% heading "whatsnext" %}}
 
 * [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [Map `docker` CLI commands to `crictl`](/reference/tools/map-crictl-dockercli/).
+* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
 
-<!-- discussion -->
