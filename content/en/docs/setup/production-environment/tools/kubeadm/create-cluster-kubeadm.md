@@ -209,7 +209,8 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
 `system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
 Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
-them a kubeconfig file using the `kubeadm kubeconfig user` command.
+them a kubeconfig file using the `kubeadm kubeconfig user` command. For more details see
+[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 {{< /warning >}}
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You

@@ -7,9 +7,13 @@ weight: 15
 
 <!--Overview-->
 
-This guide shows you how to create, edit and share diagrams using the Mermaid Javascript library. Mermaid.js allows you to generate diagrams using a simple markdown-like syntax inside Markdown files. You can also use Mermaid to generate `.svg` or `.png` image files that you can add to your documentation.
+This guide shows you how to create, edit and share diagrams using the Mermaid
+Javascript library. Mermaid.js allows you to generate diagrams using a simple
+markdown-like syntax inside Markdown files. You can also use Mermaid to
+generate `.svg` or `.png` image files that you can add to your documentation.
 
-The target audience for this guide is anybody wishing to learn about Mermaid and/or how to create and add diagrams to Kubernetes documentation.
+The target audience for this guide is anybody wishing to learn about Mermaid
+and/or how to create and add diagrams to Kubernetes documentation.
 
 Figure 1 outlines the topics covered in this section. 
 
@@ -54,11 +58,12 @@ All you need to begin working with Mermaid is the following:
 * Using the Mermaid live editor.
 * Using [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 * Using the [Hugo {{</* figure */>}} shortcode](https://gohugo.io/content-management/shortcodes/#figure).   
-* Performing [Hugo local previews](https://kubernetes.io/docs/contribute/new-content/open-a-pr/#preview-locally).
+* Performing [Hugo local previews](/docs/contribute/new-content/open-a-pr/#preview-locally).
 * Familiar with the [Contributing new content](/docs/contribute/new-content/) process.
 
 {{< note >}}
-You can click on each diagram in this section to view the code and rendered diagram in the Mermaid live editor.
+You can click on each diagram in this section to view the code and rendered
+diagram in the Mermaid live editor.
 {{< /note >}}
 
 <!--body-->
@@ -69,21 +74,32 @@ Diagrams improve documentation clarity and comprehension. There are advantages f
 
 The user benefits include:
 
-* __Friendly landing spot__. A detailed text-only greeting page could intimidate users, in particular, first-time Kubernetes users. 
-* __Faster grasp of concepts__. A diagram can help users understand the key points of a complex topic. Your diagram can serve as a visual learning guide to dive into the topic details. 
+* __Friendly landing spot__. A detailed text-only greeting page could
+  intimidate users, in particular, first-time Kubernetes users. 
+* __Faster grasp of concepts__. A diagram can help users understand the key
+  points of a complex topic. Your diagram can serve as a visual learning guide
+  to dive into the topic details. 
 * __Better retention__. For some, it is easier to recall pictures rather than text.
 
 The contributor benefits include:
 
-* __Assist in developing the structure and content__ of your contribution. For example, you can start with a simple diagram covering the high-level points and then dive into details.  
-* __Expand and grow the user community__. Easily consumed documentation augmented with diagrams attracts new users who might previously have been reluctant to engage due to perceived complexities. 
+* __Assist in developing the structure and content__ of your contribution. For
+  example, you can start with a simple diagram covering the high-level points
+  and then dive into details.  
+* __Expand and grow the user community__. Easily consumed documentation
+  augmented with diagrams attracts new users who might previously have been
+  reluctant to engage due to perceived complexities. 
 
-You should consider your target audience. In addition to experienced K8s users, you will have many who are new to Kubernetes. Even a simple diagram can assist new users in absorbing Kubernetes concepts. They become emboldened and more confident to further explore Kubernetes and the documentation.  
-
+You should consider your target audience. In addition to experienced K8s
+users, you will have many who are new to Kubernetes. Even a simple diagram can
+assist new users in absorbing Kubernetes concepts. They become emboldened and
+more confident to further explore Kubernetes and the documentation.  
 
 ## Mermaid
 
-[Mermaid](https://mermaid-js.github.io/mermaid/#/) is an open source JavaScript library that allows you to create, edit and easily share diagrams using a simple, markdown-like syntax configured inline in Markdown files.
+[Mermaid](https://mermaid-js.github.io/mermaid/#/) is an open source
+JavaScript library that allows you to create, edit and easily share diagrams
+using a simple, markdown-like syntax configured inline in Markdown files.
 
 The following lists features of Mermaid: 
 
@@ -93,34 +109,39 @@ The following lists features of Mermaid:
 * Easy collaboration with colleagues by sharing a per-diagram URL. 
 * Broad selection of shapes, lines, themes and styling. 
 
-
 The following lists advantages of using Mermaid:
 
 * No need for separate, non-Mermaid diagram tools.
-* Adheres to existing PR workflow. You can think of Mermaid code as just Markdown text included in your PR.
-* Simple tool builds simple diagrams. You don't want to get bogged down (re)crafting an overly complex and detailed picture. Keep it simple! 
+* Adheres to existing PR workflow. You can think of Mermaid code as just
+  Markdown text included in your PR.
+* Simple tool builds simple diagrams. You don't want to get bogged down
+  (re)crafting an overly complex and detailed picture. Keep it simple! 
 
-Mermaid provides a simple, open and transparent method for the SIG communities to add, edit and collaborate on diagrams for new or existing documentation.
+Mermaid provides a simple, open and transparent method for the SIG communities
+to add, edit and collaborate on diagrams for new or existing documentation.
 
 {{< note >}}
-You can still use Mermaid to create/edit diagrams even if it's not supported in your environment. This method is called __Mermaid+SVG__ and is explained below.
+You can still use Mermaid to create/edit diagrams even if it's not supported
+in your environment. This method is called __Mermaid+SVG__ and is explained
+below.
 {{< /note >}}
 
 ### Live editor
 
-The [Mermaid live editor](https://mermaid-js.github.io/mermaid-live-editor) is a web-based tool that enables you to create, edit and review diagrams. 
+The [Mermaid live editor](https://mermaid-js.github.io/mermaid-live-editor) is
+a web-based tool that enables you to create, edit and review diagrams. 
 
 The following lists live editor functions:
 
 * Displays Mermaid code and rendered diagram. 
-* Generates a URL for each saved diagram. The URL is displayed in the URL field of your browser. You can share the URL with colleagues who can access and modify the diagram. 
+* Generates a URL for each saved diagram. The URL is displayed in the URL
+  field of your browser. You can share the URL with colleagues who can access
+  and modify the diagram. 
 * Option to download `.svg` or `.png` files. 
-
 
 {{< note >}}
 The live editor is the easiest and fastest way to create and edit Mermaid diagrams. 
 {{< /note >}}
-
 
 ## Methods for creating diagrams
 
@@ -157,7 +178,8 @@ Figure 2. Methods to create diagrams.
 
 ### Inline
 
-Figure 3 outlines the steps to follow for adding a diagram using the Inline method. 
+Figure 3 outlines the steps to follow for adding a diagram using the Inline
+method. 
 
 {{< mermaid >}}
 graph LR
@@ -182,7 +204,6 @@ click D "https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3Jh
 
 
 
-
 {{< /mermaid >}}
 
 Figure 3. Inline Method steps.
@@ -196,8 +217,11 @@ The following lists the steps you should follow for adding a diagram using the I
 4. Add a caption below the diagram using Markdown text.
 
 A Hugo build runs the Mermaid code and turns it into a diagram.
+
 {{< note >}}
-You may find keeping track of diagram URLs is cumbersome. If so, make a note in the `.md` file that the Mermaid code is self-documenting. Contributors can copy the Mermaid code to and from the live editor for diagram edits.
+You may find keeping track of diagram URLs is cumbersome. If so, make a note
+in the `.md` file that the Mermaid code is self-documenting. Contributors can
+copy the Mermaid code to and from the live editor for diagram edits.
 {{< /note >}}
 
 Here is a sample code snippet contained in an `.md` file:    
@@ -218,7 +242,9 @@ Figure 17. A to B
 more text
 ```
 {{< note >}}
-You must include the `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}` shortcode tags at the start and end of the Mermaid code block. You should add a diagram caption below the diagram. 
+You must include the `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}` shortcode
+tags at the start and end of the Mermaid code block. You should add a diagram
+caption below the diagram. 
 {{< /note >}}
 
 For more details on diagram captions, see [How to use captions](#how-to-use-captions).
@@ -230,10 +256,13 @@ The following lists advantages of the Inline method:
 * No need for separate `.svg` image file handling.
 * Content text, diagram code and diagram caption contained in the same `.md` file.
 
-You should use the [local](https://kubernetes.io/docs/contribute/new-content/open-a-pr/#preview-locally) and Netlify previews to verify the diagram is properly rendered. 
+You should use the [local](/docs/contribute/new-content/open-a-pr/#preview-locally)
+and Netlify previews to verify the diagram is properly rendered. 
 
 {{< caution >}}
-The Mermaid live editor feature set may not support the K8s/website Mermaid feature set. You might see a syntax error or a blank screen after the Hugo build. If that is the case, consider using the Mermaid+SVG method. 
+The Mermaid live editor feature set may not support the K8s/website Mermaid feature set. 
+You might see a syntax error or a blank screen after the Hugo build.
+If that is the case, consider using the Mermaid+SVG method. 
 {{< /caution >}}
 
 ### Mermaid+SVG
@@ -281,9 +310,13 @@ The following lists the steps you should follow for adding a diagram using the M
 4. Use the `{{</* figure */>}}` shortcode to reference the diagram in the `.md` file. 
 5. Add a caption using the `{{</* figure */>}}` shortcode's `caption` parameter.
 
-For example, use the live editor to create a diagram called `boxnet`. Store the diagram URL somewhere for later access. Generate and download a `boxnet.svg` file to the appropriate `../images/` folder. 
+For example, use the live editor to create a diagram called `boxnet`.
+Store the diagram URL somewhere for later access. Generate and download a
+`boxnet.svg` file to the appropriate `../images/` folder. 
 
-Use the `{{</* figure */>}}` shortcode in your PR's `.md` file to reference the `.svg` image file and add a caption.
+Use the `{{</* figure */>}}` shortcode in your PR's `.md` file to reference
+the `.svg` image file and add a caption.
+
 ```json
 {{</* figure src="/static/images/boxnet.svg" alt="Boxnet figure" class="diagram-large" caption="Figure 14. Boxnet caption" */>}}
 ```
@@ -291,10 +324,14 @@ Use the `{{</* figure */>}}` shortcode in your PR's `.md` file to reference the 
 For more details on diagram captions, see [How to use captions](#how-to-use-captions).
 
 {{< note >}}
-The `{{</* figure */>}}` shortcode is the preferred method for adding `.svg` image files to your documentation. You can also use the standard markdown image syntax like so: `![my boxnet diagram](static/images/boxnet.svg)`. And you will need to add a caption below the diagram. 
+The `{{</* figure */>}}` shortcode is the preferred method for adding `.svg` image files
+to your documentation. You can also use the standard markdown image syntax like so:
+`![my boxnet diagram](static/images/boxnet.svg)`.
+And you will need to add a caption below the diagram. 
 {{< /note >}}
 
-You should add the live editor URL as a comment block in the `.svg` image file using a text editor. For example, you would include the following at the beginning of the `.svg` image file:
+You should add the live editor URL as a comment block in the `.svg` image file using a text editor.
+For example, you would include the following at the beginning of the `.svg` image file:
 
 ```
 <!-- To view or edit the mermaid code, use the following URL: -->
@@ -308,13 +345,17 @@ The following lists advantages of the Mermaid+SVG method:
 * Employ existing K8s/website methods for handling `.svg` image files.
 * Environment doesn't require Mermaid support.
 
-Be sure to check that your diagram renders properly using the [local](https://kubernetes.io/docs/contribute/new-content/open-a-pr/#preview-locally) and Netlify previews.
+Be sure to check that your diagram renders properly using the
+[local](/docs/contribute/new-content/open-a-pr/#preview-locally)
+and Netlify previews.
 
 ### External tool
 
 Figure 5 outlines the steps to follow for adding a diagram using the External Tool method. 
 
-First, use your external tool to create the diagram and save it as an `.svg` or `.png` image file. After that, use the same steps as the __Mermaid+SVG__ method for adding `.svg` image files.
+First, use your external tool to create the diagram and save it as an `.svg`
+or `.png` image file. After that, use the same steps as the __Mermaid+SVG__
+method for adding `.svg` image files.
 
 {{< mermaid >}}
 flowchart LR
@@ -350,8 +391,11 @@ Figure 5. External Tool method steps
 The following lists the steps you should follow for adding a diagram using the External Tool method:
 
 1. Use your external tool to create a diagram. 
-2. Save the diagram coordinates for contributor access. For example, your tool may offer a link to the diagram image, or you could place the source code file, such as an `.xml` file, in a public repository for later contributor access.
-3. Generate and save the diagram as an `.svg` or `.png` image file. Download this file to the appropriate `../images/` folder.
+2. Save the diagram coordinates for contributor access. For example, your tool
+   may offer a link to the diagram image, or you could place the source code
+   file, such as an `.xml` file, in a public repository for later contributor access.
+3. Generate and save the diagram as an `.svg` or `.png` image file.
+   Download this file to the appropriate `../images/` folder.
 4. Use the `{{</* figure */>}}` shortcode to reference the diagram in the `.md` file.
 5. Add a caption using the `{{</* figure */>}}` shortcode's `caption` parameter.
 
@@ -362,30 +406,40 @@ Here is the `{{</* figure */>}}` shortcode for the `images/apple.svg` diagram:
 
 If your external drawing tool permits:
 
-* You can incorporate multiple `.svg` or `.png` logos, icons and images into your diagram. However, make sure you observe copyright and follow the Kubernetes documentation
+* You can incorporate multiple `.svg` or `.png` logos, icons and images into your diagram.
+  However, make sure you observe copyright and follow the Kubernetes documentation
   [guidelines](/docs/contribute/style/content-guide/) on the use of third party content.
-* You should save the diagram source coordinates for later contributor access. For example, your tool may offer a link to the diagram image, or you could place the source code file, such as an `.xml` file, somewhere for contributor access.
+* You should save the diagram source coordinates for later contributor access.
+  For example, your tool may offer a link to the diagram image, or you could
+  place the source code file, such as an `.xml` file, somewhere for contributor access.
 
-For more information on K8s and CNCF logos and images, check out [CNCF Artwork](https://github.com/cncf/artwork).
+For more information on K8s and CNCF logos and images, check out
+[CNCF Artwork](https://github.com/cncf/artwork).
 
 The following lists advantages of the External Tool method: 
 
 * Contributor familiarity with external tool.
 * Diagrams require more detail than what Mermaid can offer.
 
-Don't forget to check that your diagram renders correctly using the [local](https://kubernetes.io/docs/contribute/new-content/open-a-pr/#preview-locally) and Netlify previews.
+Don't forget to check that your diagram renders correctly using the
+[local](/docs/contribute/new-content/open-a-pr/#preview-locally) and Netlify previews.
 
 ## Examples
 
 This section shows several examples of Mermaid diagrams. 
 
 {{< note >}}
-The code block examples omit the Hugo  `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}` shortcode tags. This allows you to copy the code block into the live editor to experiment on your own. Note that the live editor doesn't recognize Hugo shortcodes. 
+The code block examples omit the Hugo  `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}`
+shortcode tags. This allows you to copy the code block into the live editor
+to experiment on your own.
+Note that the live editor doesn't recognize Hugo shortcodes. 
 {{< /note >}}
 
 ### Example 1 - Pod topology spread constraints
 
-Figure 6 shows the diagram appearing in the [Pod Topology Spread Constraints](https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#node-labels) page.
+Figure 6 shows the diagram appearing in the
+[Pod topology pread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#node-labels)
+page.
 
 {{< mermaid >}}
     graph TB
@@ -417,6 +471,7 @@ click n2 "https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3J
 Figure 6. Pod Topology Spread Constraints.
 
 Code block:
+
 ``` 
 graph TB
    subgraph "zoneB"
@@ -437,7 +492,7 @@ graph TB
 
 ### Example 2 - Ingress
 
-Figure 7 shows the diagram appearing in the [What is Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress) page.
+Figure 7 shows the diagram appearing in the [What is Ingress](/docs/concepts/services-networking/ingress/#what-is-ingress) page.
 
 {{< mermaid >}}
 graph LR;
@@ -491,13 +546,15 @@ graph LR;
 
 ### Example 3 - K8s system flow
 
-Figure 8 depicts a Mermaid sequence diagram showing the system flow between K8s components to start a container. 
+Figure 8 depicts a Mermaid sequence diagram showing the system flow between
+K8s components to start a container. 
 
 {{< figure src="/docs/images/diagram-guide-example-3.svg" alt="K8s system flow diagram" class="diagram-large" caption="Figure 8. K8s system flow diagram" link="https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiJSV7aW5pdDp7XCJ0aGVtZVwiOlwibmV1dHJhbFwifX0lJVxuc2VxdWVuY2VEaWFncmFtXG4gICAgYWN0b3IgbWVcbiAgICBwYXJ0aWNpcGFudCBhcGlTcnYgYXMgY29udHJvbCBwbGFuZTxicj48YnI-YXBpLXNlcnZlclxuICAgIHBhcnRpY2lwYW50IGV0Y2QgYXMgY29udHJvbCBwbGFuZTxicj48YnI-ZXRjZCBkYXRhc3RvcmVcbiAgICBwYXJ0aWNpcGFudCBjbnRybE1nciBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5jb250cm9sbGVyPGJyPm1hbmFnZXJcbiAgICBwYXJ0aWNpcGFudCBzY2hlZCBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5zY2hlZHVsZXJcbiAgICBwYXJ0aWNpcGFudCBrdWJlbGV0IGFzIG5vZGU8YnI-PGJyPmt1YmVsZXRcbiAgICBwYXJ0aWNpcGFudCBjb250YWluZXIgYXMgbm9kZTxicj48YnI-Y29udGFpbmVyPGJyPnJ1bnRpbWVcbiAgICBtZS0-PmFwaVNydjogMS4ga3ViZWN0bCBjcmVhdGUgLWYgcG9kLnlhbWxcbiAgICBhcGlTcnYtLT4-ZXRjZDogMi4gc2F2ZSBuZXcgc3RhdGVcbiAgICBjbnRybE1nci0-PmFwaVNydjogMy4gY2hlY2sgZm9yIGNoYW5nZXNcbiAgICBzY2hlZC0-PmFwaVNydjogNC4gd2F0Y2ggZm9yIHVuYXNzaWduZWQgcG9kcyhzKVxuICAgIGFwaVNydi0-PnNjaGVkOiA1LiBub3RpZnkgYWJvdXQgcG9kIHcgbm9kZW5hbWU9XCIgXCJcbiAgICBzY2hlZC0-PmFwaVNydjogNi4gYXNzaWduIHBvZCB0byBub2RlXG4gICAgYXBpU3J2LS0-PmV0Y2Q6IDcuIHNhdmUgbmV3IHN0YXRlXG4gICAga3ViZWxldC0-PmFwaVNydjogOC4gbG9vayBmb3IgbmV3bHkgYXNzaWduZWQgcG9kKHMpXG4gICAgYXBpU3J2LT4-a3ViZWxldDogOS4gYmluZCBwb2QgdG8gbm9kZVxuICAgIGt1YmVsZXQtPj5jb250YWluZXI6IDEwLiBzdGFydCBjb250YWluZXJcbiAgICBrdWJlbGV0LT4-YXBpU3J2OiAxMS4gdXBkYXRlIHBvZCBzdGF0dXNcbiAgICBhcGlTcnYtLT4-ZXRjZDogMTIuIHNhdmUgbmV3IHN0YXRlIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjp0cnVlfQ" >}}
 
 
 
 Code block:
+
 ```
 %%{init:{"theme":"neutral"}}%%
 sequenceDiagram
@@ -524,29 +581,43 @@ sequenceDiagram
 
 ## How to style diagrams
 
-You can style one or more diagram elements using well-known CSS nomenclature. You accomplish this using two types of statements in the Mermaid code.
+You can style one or more diagram elements using well-known CSS nomenclature.
+You accomplish this using two types of statements in the Mermaid code.
 
 * `classDef` defines a class of style attributes.
 * `class` defines one or more elements to apply the class to. 
 
-In the code for [figure 7](https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3JhcGggIExSXG4gIGNsaWVudChbY2xpZW50XSktLiBJbmdyZXNzLW1hbmFnZWQgPGJyPiBsb2FkIGJhbGFuY2VyIC4tPmluZ3Jlc3NbSW5ncmVzc107XG4gIGluZ3Jlc3MtLT58cm91dGluZyBydWxlfHNlcnZpY2VbU2VydmljZV07XG4gIHN1YmdyYXBoIGNsdXN0ZXJcbiAgaW5ncmVzcztcbiAgc2VydmljZS0tPnBvZDFbUG9kXTtcbiAgc2VydmljZS0tPnBvZDJbUG9kXTtcbiAgZW5kXG4gIGNsYXNzRGVmIHBsYWluIGZpbGw6I2RkZCxzdHJva2U6I2ZmZixzdHJva2Utd2lkdGg6NHB4LGNvbG9yOiMwMDA7XG4gIGNsYXNzRGVmIGs4cyBmaWxsOiMzMjZjZTUsc3Ryb2tlOiNmZmYsc3Ryb2tlLXdpZHRoOjRweCxjb2xvcjojZmZmO1xuICBjbGFzc0RlZiBjbHVzdGVyIGZpbGw6I2ZmZixzdHJva2U6I2JiYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiMzMjZjZTU7XG4gIGNsYXNzIGluZ3Jlc3Msc2VydmljZSxwb2QxLHBvZDIgazhzO1xuICBjbGFzcyBjbGllbnQgcGxhaW47XG4gIGNsYXNzIGNsdXN0ZXIgY2x1c3RlcjtcbiIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6dHJ1ZX0), you can see examples of both.
+In the code for
+[figure 7](https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3JhcGggIExSXG4gIGNsaWVudChbY2xpZW50XSktLiBJbmdyZXNzLW1hbmFnZWQgPGJyPiBsb2FkIGJhbGFuY2VyIC4tPmluZ3Jlc3NbSW5ncmVzc107XG4gIGluZ3Jlc3MtLT58cm91dGluZyBydWxlfHNlcnZpY2VbU2VydmljZV07XG4gIHN1YmdyYXBoIGNsdXN0ZXJcbiAgaW5ncmVzcztcbiAgc2VydmljZS0tPnBvZDFbUG9kXTtcbiAgc2VydmljZS0tPnBvZDJbUG9kXTtcbiAgZW5kXG4gIGNsYXNzRGVmIHBsYWluIGZpbGw6I2RkZCxzdHJva2U6I2ZmZixzdHJva2Utd2lkdGg6NHB4LGNvbG9yOiMwMDA7XG4gIGNsYXNzRGVmIGs4cyBmaWxsOiMzMjZjZTUsc3Ryb2tlOiNmZmYsc3Ryb2tlLXdpZHRoOjRweCxjb2xvcjojZmZmO1xuICBjbGFzc0RlZiBjbHVzdGVyIGZpbGw6I2ZmZixzdHJva2U6I2JiYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiMzMjZjZTU7XG4gIGNsYXNzIGluZ3Jlc3Msc2VydmljZSxwb2QxLHBvZDIgazhzO1xuICBjbGFzcyBjbGllbnQgcGxhaW47XG4gIGNsYXNzIGNsdXN0ZXIgY2x1c3RlcjtcbiIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6dHJ1ZX0),
+you can see examples of both.
+
 ```
 classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff; // defines style for the k8s class
 class ingress,service,pod1,pod2 k8s; // k8s class is applied to elements ingress, service, pod1 and pod2.
 ```
-You can include one or multiple `classDef` and `class` statements in your diagram. You can also use the official K8s `#326ce5` hex color code for K8s components in your diagram.
 
-For more information on styling and classes, see [Mermaid Styling and classes docs](https://mermaid-js.github.io/mermaid/#/flowchart?id=styling-and-classes).
+You can include one or multiple `classDef` and `class` statements in your diagram.
+You can also use the official K8s `#326ce5` hex color code for K8s components in your diagram.
+
+For more information on styling and classes, see
+[Mermaid Styling and classes docs](https://mermaid-js.github.io/mermaid/#/flowchart?id=styling-and-classes).
 
 ## How to use captions
 
-A caption is a brief description of a diagram. A title or a short description of the diagram are examples of captions. Captions aren't meant to replace explanatory text you have in your documentation. Rather, they serve as a "context link" between that text and your diagram. 
+A caption is a brief description of a diagram. A title or a short description
+of the diagram are examples of captions. Captions aren't meant to replace
+explanatory text you have in your documentation. Rather, they serve as a
+"context link" between that text and your diagram. 
 
-The combination of some text and a diagram tied together with a caption help provide a concise representation of the information you wish to convey to the user. 
+The combination of some text and a diagram tied together with a caption help
+provide a concise representation of the information you wish to convey to the
+user. 
 
-Without captions, you are asking the user to scan the text above or below the diagram to figure out a meaning. This can be frustrating for the user. 
+Without captions, you are asking the user to scan the text above or below the
+diagram to figure out a meaning. This can be frustrating for the user. 
 
-Figure 9 lays out the three components for proper captioning: diagram, diagram caption and the diagram referral.
+Figure 9 lays out the three components for proper captioning: diagram, diagram
+caption and the diagram referral.
 
 {{< mermaid >}}
 flowchart
@@ -574,94 +645,131 @@ You should always add a caption to each diagram in your documentation.
 
 The `Mermaid+SVG` and `External Tool` methods generate `.svg` image files.
 
-Here is the `{{</* figure */>}}` shortcode for the diagram defined in an `.svg` image file saved to `/images/docs/components-of-kubernetes.svg`:
-```text
+Here is the `{{</* figure */>}}` shortcode for the diagram defined in an
+`.svg` image file saved to `/images/docs/components-of-kubernetes.svg`:
+
+```none
 {{</* figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes pod running inside a cluster" class="diagram-large" caption="Figure 4. Kubernetes Architecture Components */>}}
 ```
-You should pass the `src`, `alt`, `class` and `caption` values into the `{{</* figure */>}}` shortcode. You can adjust the size of the diagram using `diagram-large`, `diagram-medium` and `diagram-small` classes.  
+
+You should pass the `src`, `alt`, `class` and `caption` values into the
+`{{</* figure */>}}` shortcode. You can adjust the size of the diagram using
+`diagram-large`, `diagram-medium` and `diagram-small` classes.  
 
 {{< note >}}
-Diagrams created using the `Inline` method don't use the `{{</* figure */>}}` shortcode. The Mermaid code defines how the diagram will render on your page.
+Diagrams created using the `Inline` method don't use the `{{</* figure */>}}`
+shortcode. The Mermaid code defines how the diagram will render on your page.
 {{< /note >}}
 
-See [Methods for creating diagrams](#methods-for-creating-diagrams) for more information on the different methods for creating diagrams.
+See [Methods for creating diagrams](#methods-for-creating-diagrams)
+for more information on the different methods for creating diagrams.
 
 **Diagram Caption**
 
 Next, add a diagram caption.
 
-If you define your diagram in an `.svg` image file, then you should use the `{{</* figure */>}}` shortcode's `caption` parameter.
+If you define your diagram in an `.svg` image file, then you should use the
+`{{</* figure */>}}` shortcode's `caption` parameter.
 
-```text
+```none
 {{</* figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes pod running inside a cluster" class="diagram-large" caption="Figure 4. Kubernetes Architecture Components" */>}}
 ```
+
 If you define your diagram using inline Mermaid code, then you should use Markdown text.
-```text
+
+```none
 Figure 4. Kubernetes Architecture Components
 ```
 
 The following lists several items to consider when adding diagram captions: 
 
-* Use the `{{</* figure */>}}` shortcode to add a diagram caption for `Mermaid+SVG` and `External Tool` diagrams. 
+* Use the `{{</* figure */>}}` shortcode to add a diagram caption for `Mermaid+SVG`
+  and `External Tool` diagrams. 
 * Use simple Markdown text to add a diagram caption for the `Inline` method.
-* Prepend your diagram caption with `Figure NUMBER.`. You must use `Figure`  and the number must be unique for each diagram in your documentation page. Add a period after the number.  
-* Add your diagram caption text after the `Figure NUMBER.` on the same line. You must puncuate the caption with a period. Keep the caption text short.
+* Prepend your diagram caption with `Figure NUMBER.`. You must use `Figure`
+  and the number must be unique for each diagram in your documentation page.
+  Add a period after the number.  
+* Add your diagram caption text after the `Figure NUMBER.` on the same line.
+  You must puncuate the caption with a period. Keep the caption text short.
 * Position your diagram caption __BELOW__ your diagram.
 
 **Diagram Referral**
 
-Finally, you can add a diagram referral. This is used inside your text and should precede the diagram itself. It allows a user to connect your text with the associated diagram. The `Figure NUMBER` in your referral and caption must match.   
+Finally, you can add a diagram referral. This is used inside your text and
+should precede the diagram itself. It allows a user to connect your text with
+the associated diagram. The `Figure NUMBER` in your referral and caption must
+match.   
 
-You should avoid using spatial references such as `..the image below..` or `..the following figure ..` 
+You should avoid using spatial references such as `..the image below..` or
+`..the following figure ..` 
 
 Here is an example of a diagram referral:
+
 ```text
-Figure 10 depicts the components of the Kubernetes architecture. The control plane ...
+Figure 10 depicts the components of the Kubernetes architecture.
+The control plane ...
 ```
-Diagram referrals are optional and there are cases where they might not be suitable. If you are not sure, add a diagram referral to your text to see if it looks and sounds okay. When in doubt, use a diagram referral.
+Diagram referrals are optional and there are cases where they might not be
+suitable. If you are not sure, add a diagram referral to your text to see if
+it looks and sounds okay. When in doubt, use a diagram referral.
 
 **Complete picture**
 
-Figure 10 shows the Kubernetes Architecture diagram that includes the diagram, diagram caption and diagram referral. The `{{</* figure */>}}` shortcode renders the diagram, adds the caption and includes the optional `link` parameter so you can hyperlink the diagram. The diagram referral is contained in this paragraph. 
+Figure 10 shows the Kubernetes Architecture diagram that includes the diagram,
+diagram caption and diagram referral. The `{{</* figure */>}}` shortcode
+renders the diagram, adds the caption and includes the optional `link`
+parameter so you can hyperlink the diagram. The diagram referral is contained
+in this paragraph. 
 
 Here is the `{{</* figure */>}}` shortcode for this diagram:
+
 ```
 {{</* figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes pod running inside a cluster" class="diagram-large" caption="Figure 10. Kubernetes Architecture." link="https://kubernetes.io/docs/concepts/overview/components/" */>}}
 ```
 
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes pod running inside a cluster" class="diagram-large" caption="Figure 10. Kubernetes Architecture." link="https://kubernetes.io/docs/concepts/overview/components/" >}}
 
-
 ## Tips
 
 * Always use the live editor to create/edit your diagram. 
   
-* Always use Hugo local and Netlify previews to check out how the diagram appears in the documentation.
+* Always use Hugo local and Netlify previews to check out how the diagram
+  appears in the documentation.
   
-* Include diagram source pointers such as a URL, source code location, or indicate the code is self-documenting.
+* Include diagram source pointers such as a URL, source code location, or
+  indicate the code is self-documenting.
   
 * Always use diagram captions.
   
-* Very helpful to include the diagram `.svg` or `.png` image and/or Mermaid source code in issues and PRs.
+* Very helpful to include the diagram `.svg` or `.png` image and/or Mermaid
+  source code in issues and PRs.
 
-* With the `Mermaid+SVG` and `External Tool` methods, use `.svg` image files because they stay sharp when you zoom in on the diagram.
+* With the `Mermaid+SVG` and `External Tool` methods, use `.svg` image files
+  because they stay sharp when you zoom in on the diagram.
 
 * Best practice for `.svg` files is to load it into an SVG editing tool and use the
-  “Convert text to paths” function. This ensures that the diagram renders the same on all systems, regardless of font availability and font rendering support.
+  "Convert text to paths" function.
+  This ensures that the diagram renders the same on all systems, regardless of font
+  availability and font rendering support.
   
 * No Mermaid support for additional icons or artwork.
   
 * Hugo Mermaid shortcodes don't work in the live editor.
   
-* Any time you modify a diagram in the live editor, you __must save__ it to generate a new URL for the diagram.
+* Any time you modify a diagram in the live editor, you __must__ save it
+  to generate a new URL for the diagram.
   
-* Click on the diagrams in this section to view the code and diagram rendering in the live editor.
+* Click on the diagrams in this section to view the code and diagram rendering
+  in the live editor.
 
 * Look over the source code of this page, `diagram-guide.md`, for more examples.
   
-* Check out the [Mermaid docs](https://mermaid-js.github.io/mermaid/#/) for explanations and examples.
+* Check out the [Mermaid docs](https://mermaid-js.github.io/mermaid/#/)
+  for explanations and examples.
 
-Most important, __Keep Diagrams Simple__. This will save time for you and fellow contributors, and allow for easier reading by new and experienced users.
+Most important, __Keep Diagrams Simple__.
+This will save time for you and fellow contributors, and allow for easier reading
+by new and experienced users.
 
 
 

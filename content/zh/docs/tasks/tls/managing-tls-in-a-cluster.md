@@ -231,14 +231,24 @@ Events: <none>
 <!--
 ## Get the Certificate Signing Request Approved
 
-Approving the certificate signing request is either done by an automated
-approval process or on a one off basis by a cluster administrator. More
-information on what this involves is covered below.
+Approving the [certificate signing request](/docs/reference/access-authn-authz/certificate-signing-requests/)
+is either done by an automated approval process or on a one off basis by a cluster
+administrator. If you're authorized to approve a certificate request, you can do that
+manually using `kubectl`; for example:
 -->
 ## 批准证书签名请求
 
-批准证书签名请求是通过自动批准过程完成的，或由集群管理员一次性完成。
-有关这方面涉及的更多信息，请参见下文。
+[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)
+的批准或者是通过自动批准过程完成的，或由集群管理员一次性完成。
+如果你被授权批准证书请求，你可以使用 `kubectl` 来手动完成此操作；例如：
+
+```shell
+kubectl certificate approve my-svc.my-namespace
+```
+
+```none
+certificatesigningrequest.certificates.k8s.io/my-svc.my-namespace approved
+```
 
 <!--
 ## Download the Certificate and Use It

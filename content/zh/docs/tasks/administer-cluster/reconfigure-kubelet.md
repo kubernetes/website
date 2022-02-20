@@ -17,13 +17,13 @@ content_type: task
 
 <!--
 {{< caution >}}
-[Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
+The [Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/281-dynamic-kubelet-configuration)
 feature is deprecated and should not be used.
 Please switch to alternative means distributing configuration to the Nodes of your cluster.
 {{< /caution >}}
 -->
 {{< caution >}}
-[动态 kubelet 配置](https://github.com/kubernetes/enhancements/issues/281)
+[动态 kubelet 配置](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/281-dynamic-kubelet-configuration)
 已经废弃不建议使用。请选择其他方法将配置分发到集群中的节点。
 {{< /caution >}}
 
@@ -57,22 +57,15 @@ fields is available in the inline
 
 <!--
 You need to have a Kubernetes cluster.
-You also need kubectl v1.11 or higher, configured to communicate with your cluster.
+You also need `kubectl`, [installed](/docs/tasks/tools/#kubectl) and configured to communicate with your cluster.
+Make sure that you are using a version of `kubectl` that is
+[compatible](/releases/version-skew-policy/) with your cluster.
 {{< version-check >}}
-Your cluster API server version (eg v1.12) must be no more than one minor
-version away from the version of kubectl that you are using. For example,
-if your cluster is running v1.16 then you can use kubectl v1.15, v1.16
-or v1.17; other combinations
-[aren't supported](/docs/setup/release/version-skew-policy/#kubectl).
 -->
 你需要一个 Kubernetes 集群。
-你需要 v1.11 或更高版本的 kubectl，并配置好与集群的通信。
+你还需要 `kubectl`，[安装](/zh/docs/tasks/tools/#kubectl)并配置好与集群的通信。
 {{< version-check >}}
-你的集群 API 服务器版本（如 v1.12）不能和你的 kubectl
-版本相差超过一个小版本号。
-例如，如果你的集群在运行 v1.16，那么你可以使用 v1.15、v1.16、v1.17 的 kubectl，
-所有其他的组合都是
-[不支持的](/zh/docs/setup/release/version-skew-policy/#kubectl)。
+确保你使用的 `kubectl` 版本与集群 [兼容](/releases/version-skew-policy/)。
 
 <!--
 Some of the examples use the command line tool
@@ -508,7 +501,7 @@ new ConfigMap, and then update the Node to use the new ConfigMap.
 #### 做出更多的改变   {#make-more-changes}
 
 按照下面的工作流程做出更多的改变并再次推送它们。
-你每次推送一个 ConfigMap 的新内容时，kubeclt 的 `--append-hash` 选项都会给
+你每次推送一个 ConfigMap 的新内容时，kubectl 的 `--append-hash` 选项都会给
 ConfigMap 创建一个新的名称。
 最安全的上线策略是首先创建一个新的 ConfigMap，然后更新节点以使用新的 ConfigMap。
 
@@ -658,15 +651,15 @@ internal failure, see Kubelet log for details | 在对配置进行同步的循�
 ## {{% heading "whatsnext" %}}
 
 <!--
-- For more information on configuring the kubelet via a configuration file, see
-[Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file).
-- See the reference documentation for [`NodeConfigSource`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core)
+- [Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file)
+  explains the supported way to configure a kubelet.
+- See the reference documentation for Node, including the `configSource` field within
+  the Node's [.spec](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeSpec)
 - Learn more about kubelet configuration by checking the
   [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
   reference.
 -->
-- 关于如何通过配置文件来配置 kubelet 的更多细节信息，可参阅
-  [使用配置文件设置 kubelet 参数](/zh/docs/tasks/administer-cluster/kubelet-config-file).
-- 阅读 API 文档中 [`NodeConfigSource`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core) 说明
+- [使用配置文件设置 kubelet 参数](/zh/docs/tasks/administer-cluster/kubelet-config-file)说明了配置 kubelet 的方法。
+- 阅读 Node 的参考文档，包括 [.spec](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeSpec) 里的 `configSource` 字段
 - 查阅[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)文献进一步了解 kubelet 
   配置信息。

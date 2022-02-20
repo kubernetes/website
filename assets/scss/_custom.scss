@@ -402,6 +402,11 @@ body {
     color: #000;
 }
 
+.deprecation-warning.outdated-blog, .pageinfo.deprecation-warning.outdated-blog {
+    background-color: $blue;
+    color: $white;
+}
+
 body.td-home .deprecation-warning, body.td-blog .deprecation-warning, body.td-documentation .deprecation-warning {
     border-radius: 3px;
 }
