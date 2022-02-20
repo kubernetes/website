@@ -83,7 +83,7 @@ tries to make the pod schedulable by preempting other Pods.
 
 ### PreScore {#pre-score}
 
-These plugins are used to perform "pre-scoring" work, which generates a sharable
+These plugins are used to perform "pre-scoring" work, which generates a shareable
 state for Score plugins to use. If a PreScore plugin returns an error, the
 scheduling cycle is aborted.
 
