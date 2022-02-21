@@ -307,9 +307,9 @@ kubectl top pod POD_NAME --containers               # 特定のPodとそのコ�
 ## ノードおよびクラスターとの対話処理
 
 ```bash
-kubectl cordon my-node                                                # my-nodeをスケーリングされないように設定します
+kubectl cordon my-node                                                # my-nodeをスケジューリング不能に設定します
 kubectl drain my-node                                                 # メンテナンスの準備としてmy-nodeで動作中のPodを空にします
-kubectl uncordon my-node                                              # my-nodeをスケーリングされるように設定します
+kubectl uncordon my-node                                              # my-nodeをスケジューリング可能に設定します
 kubectl top node my-node                                              # 特定のノードのメトリクスを表示します
 kubectl cluster-info                                                  # Kubernetesクラスターのマスターとサービスのアドレスを表示します
 kubectl cluster-info dump                                             # 現在のクラスター状態を標準出力にダンプします
