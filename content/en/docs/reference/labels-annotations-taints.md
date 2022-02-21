@@ -72,6 +72,14 @@ This annotation is a best guess at why something was changed.
 
 It is populated when adding `--record` to a `kubectl` command that may change an object.
 
+## kubernetes.io/description {#description}
+
+Example: `kubernetes.io/description: "Description of K8s object."`
+
+Used on: All Objects
+
+This annotation is used for describing specific behaviour of given object.
+
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
 Example: `controller.kubernetes.io/pod-deletion-cost=10`
