@@ -16,7 +16,7 @@
 ##########
 # This script verifies mispellings in location. Today it only supports
 # verifying English locale but can be modified in a future to support
-# also other locales.
+# other locales also
 # You need to run this script inside the root directory of "website" git repo.
 #
 # Syntax: verify-spelling.sh LOCALE
@@ -35,7 +35,6 @@ set -o pipefail
 TOOL_VERSION="v0.3.4"
 
 KUBE_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
-export KUBE_ROOT
 
 LANGUAGE="${1:-en}"
 # cd to the root path
