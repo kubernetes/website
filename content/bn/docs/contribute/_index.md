@@ -31,7 +31,7 @@ Kubernetes ডকুমেন্টেশন অবদানকারী:
 
 <!-- body -->
 
-## শুরু করুন (Get Started)
+## শুরু করুন 
 
 যে কেউ ডকুমেন্টেশন সম্পর্কে একটি সমস্যা (issue)  খুলতে পারে, বা   পরিবর্তন করতে পারে
  পুল রিকুয়েস্ট(Pull Request) দেয়ার মাধ্যমে
@@ -106,7 +106,7 @@ class first,second,third white
 
 
 
-## আপনার প্রথম অবদান (Your first Contribution)
+## আপনার প্রথম অবদান 
 
 আপনি আগে থেকে বেশ কয়েকটি ধাপ পর্যালোচনা করে আপনার প্রথম অবদানের জন্য প্রস্তুত করতে পারেন। নীচের চিত্রটি ধাপগুলিকে রূপরেখা দেয় এবং বিশদগুলি অনুসরণ করে৷
 
@@ -155,7 +155,7 @@ class first,second white
 - [পৃষ্ঠা বিষয়বস্তুর প্রকার](/docs/contribute/style/page-content-types/) সম্পর্কে জানুন
   এবং [Hugo শর্ট কোডস](/docs/contribute/style/hugo-shortcodes/)।
 
-## পরবর্তী পদক্ষেপ (Next steps)
+## পরবর্তী পদক্ষেপ 
 
 - ভান্ডার থেকে শিখুন  [একটি স্থানীয় ক্লোন (local clone) থেকে কাজ করা](/docs/contribute/new-content/open-a-pr/#fork-the-repo) ।
 -  ডকুমেনটেশন কর [একটি রিলিজের বৈশিষ্ট্য](/docs/contribute/new-content/new-features/)।
@@ -164,7 +164,7 @@ class first,second white
                        
 - একটি [স্থানীয়করণ](/docs/contribute/localization/) দিয়ে শুরু করুন বা সাহায্য করুন।
 
-## SIG ডক্সের সাথে জড়িত হন (Get involved with SIG Docs)
+## SIG ডক্সের সাথে জড়িত হন 
 
 [SIG ডক্স](/docs/contribute/participate/) হল অবদানকারীদের গ্রুপ যারা
 Kubernetes ডকুমেন্টেশন এবং ওয়েবসাইট প্রকাশ এবং বজায় রাখে । কুবারনেটিস অবদানকারীদের জন্য একটি দুর্দান্ত উপায়  
@@ -180,8 +180,7 @@ SIG ডক্স বিভিন্ন পদ্ধতির সাথে যো
 - [সাপ্তাহিক SIG ডক্স ভিডিও মিটিং](https://github.com/kubernetes/community/tree/master/sig-docs) যোগ দিন। মিটিংগুলি সর্বদা `#sig-docs`-এ ঘোষণা করা হয় এবং [Kubernetes সম্প্রদায় মিটিং ক্যালেন্ডার](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/-এ যোগ করা হয়) লস এঞ্জেলেস). আপনাকে [জুম ক্লায়েন্ট](https://zoom.us/download) ডাউনলোড করতে হবে বা ফোন ব্যবহার করে ডায়াল করতে হবে।
 - সেই সপ্তাহগুলিতে যখন ব্যক্তিগত জুম ভিডিও মিটিং হয় না তখন SIG ডক্স অ্যাসিঙ্ক স্ল্যাক স্ট্যান্ডআপ মিটিংয়ে যোগ দিন। সভাগুলি সর্বদা `#sig-docs`-এ ঘোষণা করা হয়। আপনি মিটিংয়ের ঘোষণার 24 ঘন্টা পর্যন্ত থ্রেডের যেকোনো একটিতে অবদান রাখতে পারেন।
 
-## অবদান রাখার অন্যান্য উপায় (Other ways to contribute)
-
+## অবদান রাখার অন্যান্য উপায় 
 - [Kubernetes কমিউনিটি সাইট](/community/) দেখুন। টুইটার বা স্ট্যাক ওভারফ্লোতে অংশগ্রহণ করুন, স্থানীয় কুবারনেট মিটআপ এবং ইভেন্ট এবং আরও অনেক কিছু সম্পর্কে জানুন।
 - Kubernetes ফিচার ডেভেলপমেন্টের সাথে যুক্ত হতে [কন্ট্রিবিউটর চিটশীট](https://www.kubernetes.dev/docs/contributor-cheatsheet/) পড়ুন।
 - [Kubernetes Contributors](https://www.kubernetes.dev/) এবং [অতিরিক্ত অবদানকারী সংস্থান](https://www.kubernetes.dev/resources/) সম্পর্কে আরও জানতে অবদানকারীর সাইটে যান।
