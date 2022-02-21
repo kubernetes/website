@@ -48,12 +48,99 @@ Kubernetes ডকুমেন্টেশন অবদানকারী:
 3. নিশ্চিত করুন যে আপনি প্রাথমিক প্রক্রিয়াগুলি বুঝতে পেরেছেন৷
    [একটি পুল অনুরোধ খোলার](/docs/contribute/new-content/open-a-pr/) এবং
    [পরিবর্তন পর্যালোচনা করার](/docs/contribute/review/reviewing-prs/)।
-   
+
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart TB
+subgraph third[পুল রিকোয়েস্ট খুলুন]
+direction TB
+U[ ] -.-
+Q[বিষয়বস্তু উন্নত] --- N[সামগ্রী তৈরি করুন]
+N --- O[Translate docs]
+O --- P[ডক্সের অংশগুলি পরিচালনা/প্রকাশ করুন<br>K8s রিলিজ চক্রের থেকে]
+
+end
+
+subgraph second[পুনঃমূল্যায়ন]
+direction TB
+   T[ ] -.-
+   D[দেখুন<br>K8s/website<br>ভান্ডার] --- E[দেখুন<br>Hugo static সাইট<br>generator]
+   E --- F[মৌলিক <br>GitHub কমান্ড বুঝুন]
+   F --- G[পর্যালোচনা করো খোলা পুল রিকোয়েস্ট<br>এবং পর্যালোচনা পরিবর্তন করুন <br>প্রসেস]
+end
+
+subgraph first[Sign up]
+    direction TB
+    S[ ] -.-
+    B[স্বাক্ষর করুন CNCF<br>অবদানকারী<br>লাইসেন্স চুক্তি] --- C[সিগ-ডক্সে যোগ দিন<br>Slack channel] 
+    C --- V[kubernetes-sig-docs-এ যোগ দিন<br>মেইলিং তালিকা]
+    V --- M[সাপ্তাহিকভাবে যোগদান করুন<br>সিগ-ডক্স কল<br>অথবা slack বৈঠক]
+end
+
+A([fa:fa-user নতুন<br>অবদানকারী]) --> first
+A --> second
+A --> third
+A --> H[প্রশ্ন করো!!!]
+
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class A,B,C,D,E,F,G,H,M,Q,N,O,P,V grey
+class S,T,U spacewhite
+class first,second,third white
+{{</ mermaid >}}
+***চিত্র - একজন নতুন অবদানকারীর জন্য শুরু করা***
+
+উপরের চিত্রটি নতুন অবদানকারীদের জন্য একটি রোডম্যাপের রূপরেখা দেয়৷ আপনি `Sign up` এবং `Review` এর জন্য কিছু বা সমস্ত ধাপ অনুসরণ করতে পারেন। এখন আপনি 'Open PR'-এর অধীনে তালিকাভুক্ত কিছু সহ আপনার অবদানের উদ্দেশ্যগুলি অর্জনকারী PR খুলতে প্রস্তুত। আবার,আমরা প্রশ্ন সবসময় স্বাগত জানাই!
+
+
+
 কিছু কাজের জন্য Kubernetes সংস্থায় আরও বিশ্বাস এবং আরও অ্যাক্সেসের প্রয়োজন।
 এ সম্পর্কে আরো বিস্তারিত জানার জন্য [SIG ডক্সে অংশগ্রহণ করে](/docs/contribute/participate/) দেখুন
 ভূমিকা এবং অনুমতি সমুহ।
 
+
+
+
 ## আপনার প্রথম অবদান (Your first Contribution)
+
+আপনি আগে থেকে বেশ কয়েকটি ধাপ পর্যালোচনা করে আপনার প্রথম অবদানের জন্য প্রস্তুত করতে পারেন। নীচের চিত্রটি ধাপগুলিকে রূপরেখা দেয় এবং বিশদগুলি অনুসরণ করে৷
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+    subgraph second[প্রথম অবদান]
+    direction TB
+    S[ ] -.-
+    G[অন্যদের থেকে পুল রিকোয়েস্ট পর্যালোচনা করুন<br>K8s সদস্যদের মধ্য থেকে] -->
+    A[K8s/website চেক করুন<br> সমস্যা তালিকার জন্য<br>ভাল প্রথম পুল রিকোয়েস্ট (good first PRs)] --> B[একটি পুল রিকোয়েস্ট খুলুন!!]
+    end
+    subgraph first[প্রস্তাবিত প্রস্তুতি]
+    direction TB
+       T[ ] -.-
+       D[অবদান ওভারভিউ পড়ুন] -->E[K8s বিষয়বস্তু পড়ুন<br>এবং শৈলী গাইড]
+       E --> F[Hugo পাতা সম্পর্কে জানুন<br>বিষয়বস্তুর প্রকার<br>এবং শর্টকোড]
+    end
+    
+
+    first ----> second
+     
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class A,B,D,E,F,G grey
+class S,T spacewhite
+class first,second white
+{{</ mermaid >}}
+***চিত্র - আপনার প্রথম অবদানের জন্য প্রস্তুতি***
+
 
 - [কন্ট্রিবিউশন ওভারভিউ](/docs/contribute/new-content/overview/) পড়ুন এবং
   আপনি  যেসব উপায়ে অবদান রাখতে পারেন সেসব সম্পর্কে জানুন । 
@@ -91,10 +178,11 @@ SIG ডক্স বিভিন্ন পদ্ধতির সাথে যো
 - [`kubernetes-sig-docs` মেইলিং তালিকায় যোগ দিন](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   যেখানে বিস্তৃত আলোচনা সঞ্চালিত হয় এবং অফিসিয়াল সিদ্ধান্ত রেকর্ড করা হয়।
 - [সাপ্তাহিক SIG ডক্স ভিডিও মিটিং](https://github.com/kubernetes/community/tree/master/sig-docs) যোগ দিন। মিটিংগুলি সর্বদা `#sig-docs`-এ ঘোষণা করা হয় এবং [Kubernetes সম্প্রদায় মিটিং ক্যালেন্ডার](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/-এ যোগ করা হয়) লস এঞ্জেলেস). আপনাকে [জুম ক্লায়েন্ট](https://zoom.us/download) ডাউনলোড করতে হবে বা ফোন ব্যবহার করে ডায়াল করতে হবে।
-
+- সেই সপ্তাহগুলিতে যখন ব্যক্তিগত জুম ভিডিও মিটিং হয় না তখন SIG ডক্স অ্যাসিঙ্ক স্ল্যাক স্ট্যান্ডআপ মিটিংয়ে যোগ দিন। সভাগুলি সর্বদা `#sig-docs`-এ ঘোষণা করা হয়। আপনি মিটিংয়ের ঘোষণার 24 ঘন্টা পর্যন্ত থ্রেডের যেকোনো একটিতে অবদান রাখতে পারেন।
 
 ## অবদান রাখার অন্যান্য উপায় (Other ways to contribute)
 
 - [Kubernetes কমিউনিটি সাইট](/community/) দেখুন। টুইটার বা স্ট্যাক ওভারফ্লোতে অংশগ্রহণ করুন, স্থানীয় কুবারনেট মিটআপ এবং ইভেন্ট এবং আরও অনেক কিছু সম্পর্কে জানুন।
-- Kubernetes ফিচার ডেভেলপমেন্টের সাথে জড়িত হতে [কন্ট্রিবিউটর চিটশিট](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) পড়ুন।
+- Kubernetes ফিচার ডেভেলপমেন্টের সাথে যুক্ত হতে [কন্ট্রিবিউটর চিটশীট](https://www.kubernetes.dev/docs/contributor-cheatsheet/) পড়ুন।
+- [Kubernetes Contributors](https://www.kubernetes.dev/) এবং [অতিরিক্ত অবদানকারী সংস্থান](https://www.kubernetes.dev/resources/) সম্পর্কে আরও জানতে অবদানকারীর সাইটে যান।
 - একটি [ব্লগ পোস্ট বা কেস স্টাডি](/docs/contribute/new-content/blogs-case-studies/) জমা দিন।
