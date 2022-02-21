@@ -44,8 +44,8 @@ Kubernetes ডকুমেন্টেশন অবদানকারী:
 ডকুমেন্টেশনের সাথে জড়িত হতে:
 
 1. CNCF [কন্ট্রিবিউটর লাইসেন্স চুক্তি](https://github.com/kubernetes/community/blob/master/CLA.md) স্বাক্ষর করুন।
-1. [ডকুমেন্টেশন রিপোজিটরি](https://github.com/kubernetes/website) এবং ওয়েবসাইটের [স্ট্যাটিক সাইট জেনারেটর](https://gohugo.io) এর সাথে নিজেকে পরিচিত করুন । 
-1. নিশ্চিত করুন যে আপনি প্রাথমিক প্রক্রিয়াগুলি বুঝতে পেরেছেন৷
+2. [ডকুমেন্টেশন রিপোজিটরি](https://github.com/kubernetes/website) এবং ওয়েবসাইটের [স্ট্যাটিক সাইট জেনারেটর](https://gohugo.io) এর সাথে নিজেকে পরিচিত করুন । 
+3. নিশ্চিত করুন যে আপনি প্রাথমিক প্রক্রিয়াগুলি বুঝতে পেরেছেন৷
    [একটি পুল অনুরোধ খোলার](/docs/contribute/new-content/open-a-pr/) এবং
    [পরিবর্তন পর্যালোচনা করার](/docs/contribute/review/reviewing-prs/)।
    
