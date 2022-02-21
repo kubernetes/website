@@ -44,7 +44,7 @@ telepresenceを「--swap-deployment」で実行するには、次のように入
 
 `telepresence --swap-deployment $DEPLOYMENT_NAME`
 
-ここで、$DEPLOYMENT_NAMEは既存のディプロイメントの名前です。
+ここで、$DEPLOYMENT_NAMEは既存のDeploymentの名前です。
 
 このコマンドを実行すると、シェルが起動します。そのシェルで、サービスを起動します。
 そして、ローカルでソースコードの編集を行い、保存すると、すぐに変更が反映されるのを確認できます。
