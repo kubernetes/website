@@ -63,7 +63,7 @@ One way to create a Deployment using a `.yaml` file like the one above is to use
 in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 ```
 
 The output is similar to this:

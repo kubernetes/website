@@ -11,7 +11,8 @@ dockershim to other container runtimes.
 
 Since the announcement of [dockershim deprecation](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 in Kubernetes 1.20, there were questions on how this will affect various workloads and Kubernetes
-installations. You can find this blog post useful to understand the problem better: [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/)
+installations. Our [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/) is there to help you
+to understand the problem better.
 
 It is recommended to migrate from dockershim to alternative container runtimes.
 Check out [container runtimes](/docs/setup/production-environment/container-runtimes/)
