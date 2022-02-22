@@ -1,7 +1,7 @@
 ---
 reviewers:
-- tallclair
-- dchen1107
+  - tallclair
+  - dchen1107
 title: Runtime Class
 content_type: concept
 weight: 20
@@ -15,9 +15,6 @@ This page describes the RuntimeClass resource and runtime selection mechanism.
 
 RuntimeClass is a feature for selecting the container runtime configuration. The container runtime
 configuration is used to run a Pod's containers.
-
-
-
 
 <!-- body -->
 
@@ -62,12 +59,12 @@ The RuntimeClass resource currently only has 2 significant fields: the RuntimeCl
 (`metadata.name`) and the handler (`handler`). The object definition looks like this:
 
 ```yaml
-apiVersion: node.k8s.io/v1  # RuntimeClass is defined in the node.k8s.io API group
+apiVersion: node.k8s.io/v1 # RuntimeClass is defined in the node.k8s.io API group
 kind: RuntimeClass
 metadata:
-  name: myclass  # The name the RuntimeClass will be referenced by
+  name: myclass # The name the RuntimeClass will be referenced by
   # RuntimeClass is a non-namespaced resource
-handler: myconfiguration  # The name of the corresponding CRI configuration
+handler: myconfiguration # The name of the corresponding CRI configuration
 ```
 
 The name of a RuntimeClass object must be a valid
@@ -167,9 +164,7 @@ Pod overhead is defined in RuntimeClass through the `overhead` fields. Through t
 you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
 are accounted for in Kubernetes.
 
-
 ## {{% heading "whatsnext" %}}
-
 
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
