@@ -394,6 +394,10 @@ You can also set the maximum session sticky time by setting
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` appropriately.
 (the default value is 10800, which works out to be 3 hours).
 
+{{< note >}}
+On Windows, setting the maximum session sticky time for Services is not supported.
+{{< /note >}}
+
 ## Multi-Port Services
 
 For some Services, you need to expose more than one port.
