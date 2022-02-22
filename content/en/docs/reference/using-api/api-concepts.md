@@ -984,13 +984,17 @@ corresponding HTTP `Content-Type` header:
 
 `application/strategic-merge-patch+json`
 : Strategic Merge Patch (a Kubernetes-specific extension based on JSON).
-  Strategic Merge Patch is a custom implementation of JSON Merge Patch.  
-  To Kubernetes, this is a **patch** operation.
+  Strategic Merge Patch is a custom implementation of JSON Merge Patch.
+  You can only use Strategic Merge Patch with built-in APIs, or with aggregated
+  API servers that have special support for it. You cannot use
+  `application/strategic-merge-patch+json` with any API
+  defined using a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}.
+  
+  {{< note >}}
+  The Kubernetes _server side apply_ mechanism has superseded Strategic Merge
+  Patch.
+  {{< /note >}}
 
-{{< note >}}
-The Kubernetes _server side apply_ mechanism has superseded Strategic Merge
-Patch.
-{{< /note >}}
 
 Kubernetes' [Server Side Apply](/docs/reference/using-api/server-side-apply/)
 feature allows the control plane to track managed fields for newly created objects.
