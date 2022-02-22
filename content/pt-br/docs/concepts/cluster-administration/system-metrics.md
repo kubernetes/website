@@ -28,7 +28,7 @@ Em um ambiente de produção, você pode querer configurar o [Servidor Prometheu
 
 Observe que o {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} também expõe métricas nos _endpoints_ `/metrics/cadvisor`, `/metrics/resource` e `/metrics/probes`. Essas métricas não possuem o mesmo ciclo de vida.
 
-Se o seu _cluster_ usa {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, ler as métricas requer autorização por meio de um usuário, grupo ou conta de serviço com um _ClusterRole_ que conceda o acesso ao `/metrics`.
+Se o seu _cluster_ usa {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, ler as métricas requer autorização por meio de um usuário, grupo ou _ServiceAccount_ com um _ClusterRole_ que conceda o acesso ao `/metrics`.
 
 Por exemplo:
 
@@ -46,17 +46,17 @@ rules:
 
 ## Ciclo de vida da métrica
 
-métrica alfa → métrica estável → Métrica ultrapassada → métrica oculta → métrica excluída
+Métrica alfa → Métrica estável → Métrica ultrapassada → Métrica oculta → Métrica excluída
 
 A métrica alfa não tem garantias de estabilidade. Essas métricas podem ser modificadas ou deletadas a qualquer momento.
 
 Métricas estáveis possuem a garantia de que não serão alteradas. Isso significa:
 
-- Uma métrica estável sem uma assinatura ultrapassada não será deletada ou renomeada.
+- Uma métrica estável sem uma assinatura ultrapassada não será deletada ou renomeada
 - O tipo de uma métrica estável não será modificado
 
 As métricas ultrapassadas estão programadas para exclusão, mas ainda estão disponíveis para uso.
-Essas métricas incluem uma anotação sobre a versão em que se tornaram ultrapassadas.
+Essas métricas incluem uma anotação sobre a versão em que se tornarão ultrapassadas.
 
 Por exemplo:
 
@@ -82,7 +82,7 @@ Métricas excluídas não estão mais disponíveis e não podem mais ser usadas.
 
 ## Mostrar métricas ocultas
 
-Como descrito anteriormente, administradores podem habilitar métricas ocultas por meio de uma _flag_ de linha de comando em um binário específico. Isso pode ser usado como uma saída de emergência para os administradores caso percam a migração das métricas ultrapassadas na última migração.
+Como descrito anteriormente, administradores podem habilitar métricas ocultas por meio de uma _flag_ de linha de comando em um binário específico. Isso pode ser usado como uma saída de emergência para os administradores caso percam a migração das métricas ultrapassadas na última versão.
 
 A _flag_ `show-hidden-metrics-for-version` usa uma versão para a qual você deseja mostrar métricas ultrapassadas nessa versão. A versão é expressada como x.y, onde x é a versão principal e y a versão secundária. A versão de _patch_ não é necessária mesmo que uma métrica possa ser descontinuada em uma versão de _patch_, o motivo é que a política de descontinuação de métricas é executada na versão secundária.
 
