@@ -335,7 +335,7 @@ the same time:
   (default 0.01) per second.
 
 The reason these policies are implemented per availability zone is because one
-availability zone might become partitioned from the control plane node(s) while the others remain
+availability zone might become partitioned from the control plane while the others remain
 connected. If your cluster does not span multiple cloud provider availability zones,
 then the eviction mechanism does not take per-zone unavailability into account.
 
