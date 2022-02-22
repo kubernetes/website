@@ -365,7 +365,7 @@ restoration, critical components will lose leader lock and restart themselves.
 ## Upgrading etcd clusters
 
 {{< note >}}
-Before you starting an upgrade, Please Backing up your Etcd cluster firstly,
+Before you start an upgrade, please back up your Etcd cluster first,
 check the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) docs for the version 
 you actually intend to upgrade and read through the guide to prepare.
 {{< /note >}}
