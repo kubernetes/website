@@ -12,7 +12,7 @@ with that removal.
 
 ## Kubernetes project
 
-* Kubernetes blog: [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/) (originally published 2020/12/02)
+* Kubernetes blog: [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/) (originally published 2022/02/17)
 
 * Kubernetes blog: [Kubernetes is Moving on From Dockershim: Commitments and Next Steps](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/) (published 2022/01/07)
 
