@@ -86,12 +86,36 @@ The output is similar to this:
 
 ### Without kubectl proxy
 
-Use `kubectl describe secret...` to get the token for the default service account with grep/cut:
+Use `kubectl apply` and `kubectl describe secret...` to create a token for the default service account with grep/cut:
+
+First, create the Secret, requesting a token for the default ServiceAccount:
+
+```shell
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+```
+
+Next, wait for the token controller to populate the Secret with a token:
+
+```shell
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+```
+
+Capture and use the generated token:
 
 ```shell
 APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
-SECRET_NAME=$(kubectl get secrets | grep ^default | cut -f1 -d ' ')
-TOKEN=$(kubectl describe secret $SECRET_NAME | grep -E '^token' | cut -f2 -d':' | tr -d " ")
+TOKEN=$(kubectl describe secret default-token | grep -E '^token' | cut -f2 -d':' | tr -d " ")
 
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
@@ -117,8 +141,7 @@ Using `jsonpath`:
 
 ```shell
 APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-SECRET_NAME=$(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}')
-TOKEN=$(kubectl get secret $SECRET_NAME -o jsonpath='{.data.token}' | base64 --decode)
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
 
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
