@@ -75,7 +75,7 @@ only the termination message:
 
         kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
 
-1. If you are running a multi-container pod, you can use a Go template to include the container's name. By doing so, you can discover which of the containers is failing (please note that the `multi-container-pod` creation is not covered in this exercise):
+ If you are running a multi-container pod, you can use a Go template to include the container's name. By doing so, you can discover which of the containers is failing (please note that the `multi-container-pod` creation is not covered in this exercise):
 
         kubectl get pod multi-container-pod -o go-template='{{range .status.containerStatuses}}{{printf "%s:\n%s\n\n" .name .lastState.terminated.message}}{{end}}'
 
