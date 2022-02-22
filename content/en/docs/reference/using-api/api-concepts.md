@@ -183,7 +183,7 @@ and starting the **watch** from the `resourceVersion` that was returned.
 
 For subscribing to collections, Kubernetes client libraries typically offer some form
 of standard tool for this **list**-then-**watch** logic. (In the Go client library,
-this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
+this is called a `Reflector` and is located in the `k8s.io/client-go/tools/cache` package.)
 
 ### Watch bookmarks
 
