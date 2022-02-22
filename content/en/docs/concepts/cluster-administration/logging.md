@@ -57,7 +57,9 @@ The output is:
 ...
 ```
 
-You can use `kubectl logs --previous` to retrieve logs from a previous instantiation of a container. If your pod has multiple containers, specify which container's logs you want to access by appending a container name to the command, with a -c flag, like so:
+You can use `kubectl logs --previous` to retrieve logs from a previous instantiation of a container.
+If your pod has multiple containers, specify which container's logs you want to access by
+appending a container name to the command, with a `-c` flag, like so:
 
 ```console
 kubectl logs counter -c count
