@@ -145,7 +145,7 @@ CRD 오브젝트의 이름은 유효한
 
 ## API 서버 애그리게이션
 
-일반적으로 쿠버네티스 API의 각 리소스에는 REST 요청을 처리하고 오브젝트의 퍼시스턴트 스토리지를 관리하는 코드가 필요하다. 주요 쿠버네티스 API 서버는 *파드* 및 *서비스* 와 같은 빌트인 리소스를 처리하고, 일반적으로 [CRD](#커스텀리소스데피니션)를 통해 커스텀 리소스를 처리할 수 ​​있다.
+일반적으로 쿠버네티스 API의 각 리소스에는 REST 요청을 처리하고 오브젝트의 퍼시스턴트 스토리지를 관리하는 코드가 필요하다. 주요 쿠버네티스 API 서버는 *파드* 및 *서비스* 와 같은 빌트인 리소스를 처리하고, 일반적으로 [CRD](#커스텀리소스데피니션)를 통해 커스텀 리소스를 처리할 수 있다.
 
 [애그리게이션 레이어](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 사용하면 자체 API 서버를
 작성하고 배포하여 커스텀 리소스에 대한 특수한 구현을 제공할 수 있다.
@@ -180,7 +180,7 @@ CRD는 애그리게이트 API보다 생성하기가 쉽다.
 | ------- | ----------- | ---- | -------------- |
 | 유효성 검사 | 사용자가 오류를 방지하고 클라이언트와 독립적으로 API를 발전시킬 수 있도록 도와준다. 이러한 기능은 동시에 많은 클라이언트를 모두 업데이트할 수 없는 경우에 아주 유용하다. | 예. [OpenAPI v3.0 유효성 검사](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation)를 사용하여 CRD에서 대부분의 유효성 검사를 지정할 수 있다. [웹훅 유효성 검사](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)를 추가해서 다른 모든 유효성 검사를 지원한다. | 예, 임의의 유효성 검사를 지원한다. |
 | 기본 설정 | 위를 참고하자. | 예, [OpenAPI v3.0 유효성 검사](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)의 `default` 키워드(1.17에서 GA) 또는 [웹훅 변형(mutating)](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)(이전 오브젝트의 etcd에서 읽을 때는 실행되지 않음)을 통해 지원한다. | 예 |
-| 다중 버전 관리 | 두 가지 API 버전을 통해 동일한 오브젝트를 제공할 수 있다. 필드 이름 바꾸기와 같은 API 변경을 쉽게 할 수 있다. 클라이언트 버전을 제어하는 ​​경우는 덜 중요하다. | [예](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning) | 예 |
+| 다중 버전 관리 | 두 가지 API 버전을 통해 동일한 오브젝트를 제공할 수 있다. 필드 이름 바꾸기와 같은 API 변경을 쉽게 할 수 있다. 클라이언트 버전을 제어하는 경우는 덜 중요하다. | [예](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning) | 예 |
 | 사용자 정의 스토리지 | 다른 성능 모드(예를 들어, 키-값 저장소 대신 시계열 데이터베이스)나 보안에 대한 격리(예를 들어, 암호화된 시크릿이나 다른 암호화) 기능을 가진 스토리지가 필요한 경우 | 아니오 | 예 |
 | 사용자 정의 비즈니스 로직 | 오브젝트를 생성, 읽기, 업데이트 또는 삭제를 할 때 임의의 점검 또는 조치를 수행한다. | 예, [웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)을 사용한다. | 예 |
 | 서브리소스 크기 조정 | HorizontalPodAutoscaler 및 PodDisruptionBudget과 같은 시스템이 새로운 리소스와 상호 작용할 수 있다. | [예](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)  | 예 |
