@@ -103,10 +103,9 @@ for more information on the individual fields.
 ### Workflow when using `kubeadm init`
 
 When you call `kubeadm init`, the kubelet configuration is marshalled to disk
-at `/var/lib/kubelet/config.yaml`, and also uploaded to a ConfigMap in the cluster. The ConfigMap
-is named `kubelet-config-1.X`, where `X` is the minor version of the Kubernetes version you are
-initializing. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf` with the
-baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
+at `/var/lib/kubelet/config.yaml`, and also uploaded to a `kubelet-config` ConfigMap in the `kube-system`
+namespace of the cluster. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf`
+with the baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
 points to the client certificates that allow the kubelet to communicate with the API server. This
 addresses the need to
 [propagate cluster-level configuration to each kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
@@ -137,7 +136,7 @@ If the reload and restart are successful, the normal `kubeadm init` workflow con
 
 When you run `kubeadm join`, kubeadm uses the Bootstrap Token credential to perform
 a TLS bootstrap, which fetches the credential needed to download the
-`kubelet-config-1.X` ConfigMap and writes it to `/var/lib/kubelet/config.yaml`. The dynamic
+`kubelet-config` ConfigMap and writes it to `/var/lib/kubelet/config.yaml`. The dynamic
 environment file is generated in exactly the same way as `kubeadm init`.
 
 Next, `kubeadm` runs the following two commands to load the new configuration into the kubelet:
