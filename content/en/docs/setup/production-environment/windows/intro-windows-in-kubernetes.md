@@ -748,7 +748,7 @@ SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes
 
 1. DNS resolution is not properly working
 
-   Check the DNS limitations for Windows in this [section](/docs/reference/windows/windows-networking#dns-limitations).
+   Check the DNS limitations for Windows in this [section](/docs/concepts/services-networking/dns-pod-service/windows-networking#dns-windows).
 
 1. `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
 
