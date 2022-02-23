@@ -42,7 +42,7 @@ cd website
 
 
 ```bash
-# pull in the Docsy submodule
+# ডকসি সাবমডিউল পুল করুন
 git submodule update --init --recursive --depth 1
 ```
 
@@ -66,7 +66,7 @@ make container-serve
 স্থানীয়ভাবে সাইট তৈরি এবং পরীক্ষা করতে, চালান:
 
 ```bash
-# install dependencies
+# নির্ভরতা গুলি ইনস্টল করুন
 npm ci
 make serve
 ```
