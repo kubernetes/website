@@ -160,15 +160,3 @@ balancing behavior:
 | IPv4/IPv6 dual-stack networking | Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster | v1.19+ | Windows Server, version 2019 | See [IPv4/IPv6 dual-stack](#ipv4ipv6-dual-stack) |
 | Client IP preservation | Ensures that source IP of incoming ingress traffic gets preserved. Also disables node-node forwarding. | v1.20+ | Windows Server, version 2019  | Set `service.spec.externalTrafficPolicy` to "Local" and enable DSR in kube-proxy |
 {{< /table >}}
-
-### IPv6 networking
-
-Kubernetes on Windows does not support single-stack "IPv6-only" networking. However,
-dual-stack IPv4/IPv6 networking for pods and nodes with single-family services
-is supported.
-
-You can use IPv4/IPv6 dual-stack networking with `l2bridge` networks. See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack) for more details.
-
-{{< note >}}
-Overlay (VXLAN) networks on Windows do not support dual-stack networking.
-{{< /note >}}
