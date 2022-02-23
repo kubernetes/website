@@ -161,11 +161,6 @@ balancing behavior:
 | Client IP preservation | Ensures that source IP of incoming ingress traffic gets preserved. Also disables node-node forwarding. | v1.20+ | Windows Server, version 2019  | Set `service.spec.externalTrafficPolicy` to "Local" and enable DSR in kube-proxy |
 {{< /table >}}
 
-#### Session affinity
-
-Setting the maximum session sticky time for Windows services using
-`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` is not supported.
-
 ### IPv6 networking
 
 Kubernetes on Windows does not support single-stack "IPv6-only" networking. However,
