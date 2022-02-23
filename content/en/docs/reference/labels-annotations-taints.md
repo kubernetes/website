@@ -80,6 +80,14 @@ Used on: All Objects
 
 This annotation is used for describing specific behaviour of given object.
 
+## kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
+
+Example: `kubernetes.io/enforce-mountable-secrets: "true"`
+
+Used on: ServiceAccount
+
+The value for this annotation must be **true** to take effect. This annotation indicates that a ServiceAccount should enforce mountable secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods.
+
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
 Example: `controller.kubernetes.io/pod-deletion-cost=10`
