@@ -116,7 +116,7 @@ make serve
 
 ## সমস্যা সমাধান
 
-### ত্রুটি: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): এই বৈশিষ্ট্যটি আপনার বর্তমান Hugo সংস্করণে উপস্থিত নয়৷
+### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
 
 
 প্রযুক্তিগত কারণে হুগোকে দুই সেট বাইনারিতে পাঠানো হয়েছে। বর্তমান ওয়েবসাইটটি শুধুমাত্র **Hugo Extended** সংস্করণের উপর ভিত্তি করে চলে। [রিলিজ পৃষ্ঠা](https://github.com/gohugoio/hugo/releases) নামের মধ্যে `বর্ধিত(extended)` সহ সংরক্ষণাগারগুলি খুঁজুন। নিশ্চিত করতে, `হুগো সংস্করণ (hugo version)` চালান এবং `বর্ধিত (extended)` শব্দটি সন্ধান করুন।
