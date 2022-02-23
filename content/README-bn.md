@@ -14,7 +14,7 @@
 * MD Shahriyar Al Mustakim Mitul ([LinkedIn](https://www.linkedin.com/in/md-shahriyar-al-mustakim-mitul-9084b31a0/), [Twitter](https://twitter.com/ShahriyarMitul), [GitHub](https://github.com/mitul3737))
 * MD Ikramul Kayes ([LinkedIn](https://www.linkedin.com/in/md-ikramul-kayes-753674214/), [Twitter](https://twitter.com/IkramulKayes), [GitHub](https://github.com/ikramulkayes))
 * Umme Abira Azmary ([LinkedIn](https://www.linkedin.com/in/umme-abira-azmary-68404a1bb/), [Twitter](https://twitter.com/AbiraAzmary), [GitHub](https://github.com/Mouly22))
-* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-bn)
+* [Slack চ্যানেল](https://kubernetes.slack.com/messages/kubernetes-docs-bn)
 
 
 
