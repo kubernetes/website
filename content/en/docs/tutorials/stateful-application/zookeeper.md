@@ -971,7 +971,8 @@ Keep watching the `StatefulSet`'s Pods in the first terminal and drain the node 
 `zk-1` is scheduled.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data "kubernetes-node-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
+"kubernetes-node-ixsl" cordoned
 ```
 
 ```
