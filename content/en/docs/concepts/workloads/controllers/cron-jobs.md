@@ -69,7 +69,7 @@ takes you through this example in more detail).
 # │ │ │ ┌───────────── month (1 - 12)
 # │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
 # │ │ │ │ │                                   7 is also Sunday on some systems)
-# │ │ │ │ │
+# │ │ │ │ │                                   OR sun, mon, tue, wed, thu, fri, sat
 # │ │ │ │ │
 # * * * * *
 ```
