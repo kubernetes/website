@@ -742,14 +742,14 @@ that your application's processes are unhealthy and it should restart them.
 The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
 
 ```yaml
- livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - "zookeeper-ready 2181"
-          initialDelaySeconds: 15
-          timeoutSeconds: 5
+  livenessProbe:
+    exec:
+      command:
+      - sh
+      - -c
+      - "zookeeper-ready 2181"
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
 ```
 
 The probe calls a bash script that uses the ZooKeeper `ruok` four letter
@@ -860,16 +860,16 @@ kubernetes-node-2g2d
 This is because the Pods in the `zk` `StatefulSet` have a `PodAntiAffinity` specified.
 
 ```yaml
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: "app"
-                    operator: In
-                    values:
-                    - zk
-              topologyKey: "kubernetes.io/hostname"
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app"
+              operator: In
+              values:
+                - zk
+        topologyKey: "kubernetes.io/hostname"
 ```
 
 The `requiredDuringSchedulingIgnoredDuringExecution` field tells the
@@ -1010,7 +1010,7 @@ zk-1      0/1       Pending   0         0s
 zk-1      0/1       Pending   0         0s
 ```
 
-Continue to watch the Pods of the stateful set, and drain the node on which
+Continue to watch the Pods of the StatefulSet, and drain the node on which
 `zk-2` is scheduled.
 
 ```shell
