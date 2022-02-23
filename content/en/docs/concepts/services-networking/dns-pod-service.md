@@ -226,6 +226,7 @@ following pod-specific DNS policies. These policies are specified in the
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
   explicitly set its DNS policy "`ClusterFirstWithHostNet`".
+    - Note: This is not supported on Windows. See [below](#dns-windows) for details
 - "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
   environment. All DNS settings are supposed to be provided using the
   `dnsConfig` field in the Pod Spec.
@@ -333,6 +334,22 @@ The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
 | 1.10 | Beta (on by default)|
 | 1.9 | Alpha |
 
+## Windows {#dns-windows}
+
+- ClusterFirstWithHostNet is not supported. Windows treats all names with a
+  `.` as a FQDN and skips FQDN resolution.
+- On Windows, there are multiple DNS resolvers that can be used. As these come with
+  slightly different behaviors, using the
+  [`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname)
+  powershell cmdlet for name query resolutions is recommended.
+- On Linux, you have a DNS suffix list, which is used when trying to resolve PQDNs. On
+  Windows, you can only have 1 DNS suffix, which is the DNS suffix associated with that
+  pod's namespace (mydns.svc.cluster.local for example). Windows can resolve FQDNs
+  and services or names resolvable with just that suffix. For example, a pod spawned
+  in the default namespace, will have the DNS suffix **default.svc.cluster.local**.
+  Inside a Windows pod, you can resolve both **kubernetes.default.svc.cluster.local**
+  and **kubernetes**, but not the in-betweens, like **kubernetes.default** or
+  **kubernetes.default.svc**.
 
 ## {{% heading "whatsnext" %}}
 

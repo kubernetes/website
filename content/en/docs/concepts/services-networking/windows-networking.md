@@ -166,22 +166,6 @@ balancing behavior:
 Setting the maximum session sticky time for Windows services using
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` is not supported.
 
-### DNS {#dns-limitations}
-
-* ClusterFirstWithHostNet is not supported for DNS. Windows treats all names with a
-  `.` as a FQDN and skips FQDN resolution
-* On Linux, you have a DNS suffix list, which is used when trying to resolve PQDNs. On
-  Windows, you can only have 1 DNS suffix, which is the DNS suffix associated with that
-  pod's namespace (mydns.svc.cluster.local for example). Windows can resolve FQDNs
-  and services or names resolvable with just that suffix. For example, a pod spawned
-  in the default namespace, will have the DNS suffix **default.svc.cluster.local**.
-  Inside a Windows pod, you can resolve both **kubernetes.default.svc.cluster.local**
-  and **kubernetes**, but not the in-betweens, like **kubernetes.default** or
-  **kubernetes.default.svc**.
-* On Windows, there are multiple DNS resolvers that can be used. As these come with
-  slightly different behaviors, using the `Resolve-DNSName` utility for name query
-  resolutions is recommended.
-
 ### IPv6 networking
 
 Kubernetes on Windows does not support single-stack "IPv6-only" networking. However,
