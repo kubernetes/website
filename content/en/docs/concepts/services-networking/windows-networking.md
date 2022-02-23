@@ -4,7 +4,7 @@ reviewers:
 - jsturtevant
 - marosset
 - perithompson
-title: Networking on Windows nodes
+title: Networking on Windows
 content_type: concept
 weight: 75
 ---
@@ -14,6 +14,7 @@ weight: 75
 This page provides an overview to networking specific to the Windows operating system.
 
 <!-- body -->
+## Container networking on Windows {#networking}
 
 Networking for Windows containers is exposed through
 [CNI plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
@@ -29,8 +30,6 @@ is responsible for the management of networking resources such as:
 * Namespaces
 * Policies including packet encapsulations, load-balancing rules, ACLs, and NAT rules.
 
-## Container networking {#networking}
-
 The Windows HNS and vSwitch implement namespacing and can
 create virtual NICs as needed for a pod or container. However, many configurations such
 as DNS, routes, and metrics are stored in the Windows registry database rather than as
@@ -40,6 +39,8 @@ the host into a container don't have the same effect they would on Linux. These 
 be configured using Windows APIs run in the context of that container. Therefore
 CNI implementations need to call the HNS instead of relying on file mappings to pass
 network details into the pod or container.
+
+### Limitations
 
 The following networking functionality is _not_ supported on Windows nodes:
 
