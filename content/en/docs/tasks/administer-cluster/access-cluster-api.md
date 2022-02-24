@@ -95,8 +95,25 @@ export CLUSTER_NAME="some_server_name"
 # Point to the API server referring the cluster name
 APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$CLUSTER_NAME\")].cluster.server}")
 
-# Gets the token value
-TOKEN=$(kubectl get secrets -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='default')].data.token}"|base64 --decode)
+# Create a secret to hold a token for the default service account
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+
+# Wait for the token controller to populate the secret with a token:
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+
+# Get the token value
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
 
 # Explore the API with TOKEN
 curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
@@ -105,26 +122,6 @@ curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 The output is similar to this:
 
 ```json
-{
-  "kind": "APIVersions",
-  "versions": [
-    "v1"
-  ],
-  "serverAddressByClientCIDRs": [
-    {
-      "clientCIDR": "0.0.0.0/0",
-      "serverAddress": "10.0.1.149:443"
-    }
-  ]
-}
-```
-
-Using `jsonpath` approach:
-
-```shell
-APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
-curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
   "versions": [
