@@ -161,9 +161,10 @@ and are mounted into Pods using a [projected volume](/docs/reference/access-auth
 The tokens obtained using this method have bounded lifetimes, and are automatically
 invalidated when the Pod they are mounted into is deleted.
 
-Service account token secrets can still be created manually if you need a token that never expires,
+Service account token secrets can still be [created manually](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
+if you need a token that never expires.
 However, using the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
-API to obtain a token to access the API is recommended instead.
+subresource to obtain a token to access the API is recommended instead.
 {{< /note >}}
 
 ### Docker config Secrets
