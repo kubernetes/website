@@ -212,10 +212,10 @@ kubectl diff -f ./my-manifest.yaml
 
 # Produce a period-delimited tree of all keys returned for nodes
 # Helpful when locating a key within a complex nested JSON structure
-kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get nodes -o json | jq -c 'paths|join(".")'
 
 # Produce a period-delimited tree of all keys returned for pods, etc
-kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get pods -o json | jq -c 'paths|join(".")'
 
 # Produce ENV for all pods, assuming you have a default container for the pods, default namespace and the `env` command is supported.
 # Helpful when running any supported command across all pods, not just `env`
