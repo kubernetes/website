@@ -369,3 +369,5 @@ Before you start an upgrade, please back up your etcd cluster first,
 check the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) docs for the version 
 you actually intend to upgrade and read through the guide to prepare.
 {{< /note >}}
+
+For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
