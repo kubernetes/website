@@ -7,8 +7,10 @@ weight: 100
 <!-- overview -->
 
 이 페이지는 프라이빗 컨테이너 레지스트리나 리포지터리로부터 이미지를 받아오기 위해 
-{{< glossary_tooltip text="시크릿(Secret)" term_id="secret" >}}을 
-사용하는 파드를 생성하는 방법을 보여준다.
+{{< glossary_tooltip text="시크릿(Secret)" term_id="secret" >}}을 사용하는 
+파드를 생성하는 방법을 보여준다. 
+현재 많은 곳에서 프라이빗 레지스트리가 사용되고 있다. 
+여기서는 예시 레지스트리로 [Docker Hub](https://www.docker.com/products/docker-hub)을 사용한다.
 
 {{% thirdparty-content single="true" %}}
 
@@ -17,7 +19,9 @@ weight: 100
 * {{< include "task-tutorial-prereqs.md" >}}
 
 * 이 실습을 수행하기 위해, `docker` 명령줄 도구와
-[도커 ID](https://docs.docker.com/docker-id/) 및 비밀번호가 필요하다.
+  [도커 ID](https://docs.docker.com/docker-id/) 및 비밀번호가 필요하다.
+* 다른 프라이빗 컨테이너 레지스트리를 사용하는 경우, 
+  해당 레지스트리를 위한 명령줄 도구 및 레지스트리 로그인 정보가 필요하다.
 
 <!-- steps -->
 
@@ -59,12 +63,13 @@ cat ~/.docker/config.json
 도커 자격 증명 저장소를 사용하는 경우, `auth` 항목이 아닌, 저장소의 이름을 값으로 사용하는 `credsStore` 항목을 확인할 수 있다.
 {{< /note >}}
 
-## 기존의 도커 자격 증명을 기반으로 시크릿 생성하기 {#registry-secret-existing-credentials}
+## 기존의 자격 증명을 기반으로 시크릿 생성하기 {#registry-secret-existing-credentials}
 
 쿠버네티스 클러스터는 프라이빗 이미지를 받아올 때, 컨테이너 레지스트리에 인증하기 위하여 
 `kubernetes.io/dockerconfigjson` 타입의 시크릿을 사용한다.
 
-만약 이미 `docker login` 을 수행하였다면, 이 때 생성된 자격 증명을 쿠버네티스 클러스터로 복사할 수 있다.
+만약 이미 `docker login` 을 수행하였다면, 
+이 때 생성된 자격 증명을 쿠버네티스 클러스터로 복사할 수 있다.
 
 ```shell
 kubectl create secret generic regcred \
@@ -77,7 +82,7 @@ kubectl create secret generic regcred \
 다음을 확인하자.
 
 - 데이터 항목의 이름을 `.dockerconfigjson` 으로 설정한다
-- 도커 파일을 base64로 인코딩하고 그 문자열을 `data[".dockerconfigjson"]` 
+- 도커 구성 파일을 base64로 인코딩하고 그 문자열을 `data[".dockerconfigjson"]` 
   필드에 자르지 않고 한 줄로 이어서 붙여넣는다
 - `type` 을 `kubernetes.io/dockerconfigjson` 으로 설정한다
 
