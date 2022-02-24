@@ -215,6 +215,8 @@ url = "https://v1-19.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
+# # Enable to fold the side bar menu for a better view.
+sidebar_menu_foldable = true
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
 # https://github.com/gohugoio/hugo/issues/8918#issuecomment-903314696
