@@ -86,7 +86,7 @@ Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 
 Used on: ServiceAccount
 
-The value for this annotation must be **true** to take effect. This annotation indicates that a ServiceAccount should enforce mountable secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods.
+The value for this annotation must be **true** to take effect. This annotation indicates that pods running as this service account may only reference Secret API objects specified in the service account's `secrets` field.
 
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
