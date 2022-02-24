@@ -76,16 +76,11 @@ cat <<EOF | cfssl genkey - | cfssljson -bare server
     "192.0.2.24",
     "10.0.34.2"
   ],
-  "CN": "system:node:my-pod.my-namespace.pod.cluster.local",
+  "CN": "my-pod.my-namespace.pod.cluster.local",
   "key": {
     "algo": "ecdsa",
     "size": 256
-  },
-  "names": [
-    {
-      "O": "system:nodes"
-    }
-  ]
+  }
 }
 EOF
 ```
@@ -93,13 +88,13 @@ EOF
 여기서 `192.0.2.24`는 서비스의 클러스터 IP, 
 `my-svc.my-namespace.svc.cluster.local`은 서비스의 DNS 이름, 
 `10.0.34.2`는 파드의 IP,`my-pod.my-namespace.pod.cluster.local`은 
-파드의 DNS 이름이다. 다음 출력이 표시되어야 한다.
+파드의 DNS 이름이다. 다음과 비슷한 출력이 표시되어야 한다.
 
 ```
-2017/03/21 06:48:17 [INFO] generate received request
-2017/03/21 06:48:17 [INFO] received CSR
-2017/03/21 06:48:17 [INFO] generating key: ecdsa-256
-2017/03/21 06:48:17 [INFO] encoded CSR
+2022/02/01 11:45:32 [INFO] generate received request
+2022/02/01 11:45:32 [INFO] received CSR
+2022/02/01 11:45:32 [INFO] generating key: ecdsa-256
+2022/02/01 11:45:32 [INFO] encoded CSR
 ```
 
 이 명령은 두 개의 파일을 생성한다. PEM으로 
@@ -120,7 +115,7 @@ metadata:
   name: my-svc.my-namespace
 spec:
   request: $(cat server.csr | base64 | tr -d '\n')
-  signerName: kubernetes.io/kubelet-serving
+  signerName: example.com/serving
   usages:
   - digital signature
   - key encipherment
@@ -130,7 +125,7 @@ EOF
 
 1단계에서 만든 `server.csr` 파일은 base64로 인코딩되고 
 `.spec.request` 필드에 숨겨져 있다.
-또한 `kubernetes.io/kubelet-serving` 서명자가 서명한 
+또한 예시 `example.com/serving` 서명자가 서명한 
 "digitalSignature", "keyEnciperment" 및 "serverAuth" 키 사용(keyUsage)이 있는 인증서를 요청한다.
 특정 `signerName`을 요청해야 한다.
 자세한 내용은 [지원되는 서명자 이름](/docs/reference/access-authn-authz/certificate-signing-requests/#signers) 
@@ -147,14 +142,16 @@ kubectl describe csr my-svc.my-namespace
 Name:                   my-svc.my-namespace
 Labels:                 <none>
 Annotations:            <none>
-CreationTimestamp:      Tue, 21 Mar 2017 07:03:51 -0700
+CreationTimestamp:      Tue, 01 Feb 2022 11:49:15 -0500
 Requesting User:        yourname@example.com
+Signer:                 example.com/serving
 Status:                 Pending
 Subject:
-        Common Name:    my-svc.my-namespace.svc.cluster.local
+        Common Name:    my-pod.my-namespace.pod.cluster.local
         Serial Number:
 Subject Alternative Names:
-        DNS Names:      my-svc.my-namespace.svc.cluster.local
+        DNS Names:      my-pod.my-namespace.pod.cluster.local
+                        my-svc.my-namespace.svc.cluster.local
         IP Addresses:   192.0.2.24
                         10.0.34.2
 Events: <none>
@@ -175,30 +172,136 @@ kubectl certificate approve my-svc.my-namespace
 certificatesigningrequest.certificates.k8s.io/my-svc.my-namespace approved
 ```
 
-
-## 인증서 다운로드 및 사용
-
-CSR이 서명되고 승인되면 다음이 표시된다.
+출력은 다음과 같을 것이다.
 
 ```shell
 kubectl get csr
 ```
 
 ```none
-NAME                  AGE       REQUESTOR               CONDITION
-my-svc.my-namespace   10m       yourname@example.com    Approved,Issued
+NAME                  AGE   SIGNERNAME            REQUESTOR              REQUESTEDDURATION   CONDITION
+my-svc.my-namespace   10m   example.com/serving   yourname@example.com   <none>              Approved
 ```
 
-다음을 실행하여 발급된 인증서를 다운로드하고 `server.crt` 파일에 
-저장할 수 있다.
+이는 즉 인증서 요청이 승인되었으며 
+요청받은 서명자의 서명을 기다리고 있음을 나타낸다.
+
+## 인증서 서명 요청에 서명하기
+
+다음으로, 인증서 서명자로서, 인증서를 발급하고, 이를 API에 업로드할 것이다.
+
+서명자는 일반적으로 인증서 서명 요청 API를 조회하여 오브젝트의 `signerName`을 확인하고, 
+요청이 승인되었는지 체크하고, 해당 요청에 대해 인증서에 서명하고, 
+발급된 인증서로 API 오브젝트 상태를 업데이트한다.
+
+### 인증 기관 생성하기
+
+먼저: 다음을 실행하여 서명 인증서를 생성한다.
+
+```shell
+cat <<EOF | cfssl gencert -initca - | cfssljson -bare ca
+{
+  "CN": "My Example Signer",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  }
+}
+EOF
+```
+
+출력은 다음과 같을 것이다.
+
+```none
+2022/02/01 11:50:39 [INFO] generating a new CA key and certificate from CSR
+2022/02/01 11:50:39 [INFO] generate received request
+2022/02/01 11:50:39 [INFO] received CSR
+2022/02/01 11:50:39 [INFO] generating key: rsa-2048
+2022/02/01 11:50:39 [INFO] encoded CSR
+2022/02/01 11:50:39 [INFO] signed certificate with serial number 263983151013686720899716354349605500797834580472
+```
+
+이제 인증 기관 키 파일(`ca-key.pem`)과 인증서(`ca.pem`)가 생성되었다.
+
+### 인증서 발급하기
+
+{{< codenew file="tls/server-signing-config.json" >}}
+
+`server-signing-config.json` 서명 구성 파일, 인증 기관 키 파일 및 인증서를 사용하여 
+인증서 요청에 서명한다.
+
+```shell
+kubectl get csr my-svc.my-namespace -o jsonpath='{.spec.request}' | \
+  base64 --decode | \
+  cfssl sign -ca ca.pem -ca-key ca-key.pem -config server-signing-config.json - | \
+  cfssljson -bare ca-signed-server
+```
+
+출력은 다음과 같을 것이다.
+
+```
+2022/02/01 11:52:26 [INFO] signed certificate with serial number 576048928624926584381415936700914530534472870337
+```
+
+이제 서명된 제공(serving) 인증서 파일 `ca-signed-server.pem`이 생성되었다.
+
+### 서명된 인증서 업로드하기
+
+마지막으로, 서명된 인증서를 API 오브젝트의 상태에 기재한다.
+
+```shell
+kubectl get csr my-svc.my-namespace -o json | \
+  jq '.status.certificate = "'$(base64 ca-signed-server.pem | tr -d '\n')'"' | \
+  kubectl replace --raw /apis/certificates.k8s.io/v1/certificatesigningrequests/my-svc.my-namespace/status -f -
+```
+
+{{< note >}}
+위의 명령에서 `.status.certificate` 필드에 base64로 인코딩된 내용을 채우기 위해 [jq](https://stedolan.github.io/jq/) 명령줄 도구를 사용하였다.
+`jq`가 없다면, JSON 출력을 파일에 저장하고, 해당 필드를 수동으로 채우고, 그 결과 파일을 업로드할 수도 있다.
+{{< /note >}}
+
+인증서 서명 요청이 승인되고 서명된 인증서가 업로드되면 다음과 같은 출력을 볼 수 있을 것이다.
+
+```shell
+kubectl get csr
+```
+
+```none
+NAME                  AGE   SIGNERNAME            REQUESTOR              REQUESTEDDURATION   CONDITION
+my-svc.my-namespace   20m   example.com/serving   yourname@example.com   <none>              Approved,Issued
+```
+
+## 인증서 다운로드 및 사용
+
+이제, 요청하는 사용자로서, 다음 명령을 실행하여 
+발급된 인증서를 다운로드하고 `server.crt` 파일에 저장할 수 있다.
 
 ```shell
 kubectl get csr my-svc.my-namespace -o jsonpath='{.status.certificate}' \
     | base64 --decode > server.crt
 ```
 
-이제 `server.crt` 및 `server-key.pem`을 키페어(keypair)로 사용하여 
-HTTPS 서버를 시작할 수 있다.
+이제 `server.crt` 및 `server-key.pem`의 내용으로 시크릿을 생성하고 파드에 마운트하여
+HTTPS 서버를 시작하는 데 필요한 키페어로 사용할 수 있다.
+
+```shell
+kubectl create secret tls server --cert server.crt --key server-key.pem 
+```
+
+```none
+secret/server created
+```
+
+마지막으로, `ca.pem`의 내용으로 컨피그맵을 생성하여 
+제공(serving) 인증서 검증에 필요한 신뢰 루트로 사용할 수 있다.
+
+```shell
+kubectl create configmap example-serving-ca --from-file ca.crt=ca.pem 
+```
+
+```none
+configmap/example-serving-ca created
+```
 
 ## 인증서 서명 요청 승인
 
