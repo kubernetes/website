@@ -170,7 +170,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-3.ya
 ```
 
 The output shows that the Pod does not get created, because it defines an unacceptable container.
-That container is not acceptable because it specifies a CPU limit that is lower than the
+That container is not acceptable because it specifies a CPU request that is lower than the
 enforced minimum:
 
 ```

@@ -199,7 +199,7 @@ As Pod specs with GMSA fields populated (as described above) are applied in a cl
 
 1. The container runtime configures each Windows container with the specified GMSA credential spec so that the container can assume the identity of the GMSA in Active Directory and access services in the domain using that identity.
 
-## Authenticating to network shares usinig hostname of FQDN
+## Authenticating to network shares using hostname or FQDN
 
 If you are experiencing issues connecting to SMB shares from Pods using hostname or FQDN, but are able to access the shares via their IPv4 address then make sure the following registry key is set on the Windows nodes.
 
@@ -225,7 +225,7 @@ kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
 
 `nltest.exe /parentdomain` results in the following error:
 
-```PowerShell
+```output
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
@@ -245,7 +245,7 @@ nltest.exe /query
 
 Results in the following output:
 
-```PowerShell
+```output
 I_NetLogonControl failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
@@ -257,7 +257,7 @@ nltest /sc_reset:domain.example
 
 If the command is successful you will see and output similar to this:
 
-```PowerShell
+```output
 Flags: 30 HAS_IP  HAS_TIMESERV
 Trusted DC Name \\dc10.domain.example
 Trusted DC Connection Status Status = 0 0x0 NERR_Success
