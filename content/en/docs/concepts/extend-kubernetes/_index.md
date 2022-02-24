@@ -39,6 +39,7 @@ Customization approaches can be broadly divided into *configuration*, which only
 *Configuration files* and *flags* are documented in the Reference section of the online documentation, under each binary:
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
