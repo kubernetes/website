@@ -59,6 +59,7 @@ The following broad classes of Kubernetes volume plugins are supported on Window
 
 * [`FlexVolume plugins`](/docs/concepts/storage/volumes/#flexVolume)
   * Please note that FlexVolumes have been deprecated as of 1.23
+* [`CSI Plugins`](/docs/concepts/storage/volumes/#csi)
 
 ##### In-tree volume plugins
 
@@ -75,29 +76,3 @@ persistent storage on Windows nodes:
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile)
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume)
-
-#### CSI plugins
-
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-Code associated with {{< glossary_tooltip text="CSI" term_id="csi" >}} plugins ship
-as out-of-tree scripts and binaries that are typically distributed as container
-images and deployed using standard Kubernetes constructs like DaemonSets and
-StatefulSets.
-CSI plugins handle a wide range of volume management actions in Kubernetes:
-provisioning/de-provisioning/resizing of volumes, attaching/detaching of volumes
-to/from a Kubernetes node and mounting/dismounting a volume to/from individual
-containers in a pod, backup/restore of persistent data using snapshots and cloning.
-CSI plugins typically consist of node plugins (that run on each node as a DaemonSet)
-and controller plugins.
-
-CSI node plugins (especially those associated with persistent volumes exposed as
-either block devices or over a shared file-system) need to perform various privileged
-operations like scanning of disk devices, mounting of file systems, etc. These
-operations differ for each host operating system. For Linux worker nodes, containerized
-CSI node plugins are typically deployed as privileged containers. For Windows worker
-nodes, privileged operations for containerized CSI node plugins is supported using
-[csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
-stand-alone binary that needs to be pre-installed on each Windows node.
-
-For more details, refer to the deployment guide of the CSI plugin you wish to deploy.
