@@ -191,7 +191,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
 1. Descargue la última versión con el comando:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    ```
 
 1. Valide el binario (opcional)
