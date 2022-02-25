@@ -244,7 +244,7 @@ kind: Pod
 
 ## Kubernetes.io word list
 
-A list of Kubernetes-specific terms and words to be used consistently across the site.
+A list of Kubernetes-specific terms and words to be used consistently in text across the site.
 
 {{< table caption = "Kubernetes.io word list" >}}
 Term | Usage
