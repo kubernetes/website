@@ -125,7 +125,7 @@ applied to workload resources, only to the resulting pod objects.
 
 ## Exemptions
 
-You can define _exemptions_ from pod security enforcement in order allow the creation of pods that
+You can define _exemptions_ from pod security enforcement in order to allow the creation of pods that
 would have otherwise been prohibited due to the policy associated with a given namespace.
 Exemptions can be statically configured in the
 [Admission Controller configuration](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller).
