@@ -447,3 +447,80 @@ Verbosity | Description
 * Also read [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use kubectl in reusable scripts.
 
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
+
+
+# Fast makeing yamls
+
+kubectl create deployment my-dep --image=busybox --port=5701 --dry-run=none -o yaml >foo2.yaml
+
+kubectl create secret docker-registry foo --dry-run="none" --docker-username=foo --docker-password=foo --docker-server=127.0.0.1 -o yaml >foo3.yaml
+
+kubectl run nginx --image=nginx --restart=Never -n mynamespace  --dry-run=client -o yaml>nginx.yaml
+
+kubectl run busybox --image=busybox --command --restart=Never --dry-run=client -o yaml -- env
+
+kubectl create quota myrq --hard=cpu=1,memory=1G,pods=2 --dry-run=client -o yaml
+
+kubectl run busybox --image=busybox --command  --rm -it --restart=Never -- wget -O- 172.17.0.16:80
+
+kubectl run busybox --image=busybox --restart=Never --rm --command -it -- echo "hello world"
+
+kubectl run nginx --image=nginx --rm --env=var1=val1
+
+kubectl run busybox1 --image=busybox --command "echo hello; sleep 3600" busybox2 --image=busybox --command "echo hello; sleep 3600" --dry-run=client -o yaml
+
+kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run=client -- /bin/sh -c 'echo hello;sleep 3600' > pod.yaml
+
+kubectl run web --image=nginx --restart=Never --port=80 --dry-run=client -o yaml > pod-init.yaml
+
+kubectl run box-test --image=busybox --restart=Never --rm -it -- wget -O- 172.17.0.7:80
+
+kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1 --dry-run=client -o yaml
+
+for i in `seq 1 3`; do kubectl run nginx$i --image=nginx -l app=v1 ; done
+
+kubectl create deployment nginx --image=nginx:1.18.0 --replicas=2 --port=80 --dry-run=client -o yaml >deploy.yaml
+
+kubectl get rs -l run=nginx.
+
+kubectl create job busybox --image=busybox --dry-run=client -o yaml -- /bin/sh -c 'while true; do echo hello; sleep 10;done' > job.yaml
+
+kubectl create configmap config --from-literal=foo=lala --from-literal=foo2=lolo --dry-run=client -o yaml
+
+kubectl run nginx --image=nginx --restart=Never --dry-run=client -o yaml >nginx-cm.yam.
+
+kubectl run pod nginx-vol --image=nginx --restart=Never --dry-run=client -o yaml >nginx-vol.yaml
+
+kubectl run nginx --image=nginx --restart=Never --dry-run=client -o yaml>ng-live.yaml
+
+kubectl run nginx --image=nginx --restart=Never --port=80 --expose --dry-run=client -o yaml
+
+kubectl create deployment foo --image=dgkanatsios/simpleapp --port=8080 --replicas=3 --dry-run=client -o yaml >>deploy-test.yaml.
+
+kubectl run busybox --image=busybox -it --rm --restart=Never -- sh
+
+kubectl run busybox --image=busybox --rm -it --restart=Never -- wget -O- http://nginx:80 --timeout 2                          
+
+kubectl run simple-pod --image=mhausenblas/simpleservice:0.5.0 --labels=env=production,tair=backend --dry-run=client -o yaml 
+
+kubectl run nginx --image=nginx --labels=env=production,tair=backend --dry-run=client -o yaml 
+
+kubectl create deployment simple-deployment --image=mhausenblas/simpleservice:0.4.0 --port=9876 --dry-run=client --replicas=2 -o yaml> 01-simple-deployment.yml
+
+kubectl run simple-deployment --image=mhausenblas/simpleservice:0.4.0 --port=9876 --dry-run=client --expose  -o yaml
+
+kubectl create ingress simple-ingress --annotation=nginx.ingress.kubernetes.io/ssl-redirect="false" --default-backend=simple-internal-service:80 --dry-run=none -o 
+yaml >ingress.yaml
+
+kubectl run busybox --image=busybox --restart=Never --dry-run=client -o yaml --command -- env
+
+kubectl run busybox --image=busybox --rm -it --restart=Never -- wget -O- $(kubectl get pod nginx -o jsonpath='{.status.podIP}:{.spec.containers[0].ports[0].containerPort}')
+
+kubectl run nginx --image=nginx --restart=Never --dry-run=client -n mynamespace -o yaml
+
+
+
+
+
+
+
