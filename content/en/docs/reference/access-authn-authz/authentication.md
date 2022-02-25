@@ -1144,7 +1144,9 @@ If specified, `clientKeyData` and `clientCertificateData` must both must be pres
 {{< /tabs >}}
 
 Optionally, the response can include the expiry of the credential formatted as a
-RFC3339 timestamp. Presence or absence of an expiry has the following impact:
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp.
+
+Presence or absence of an expiry has the following impact:
 
 - If an expiry is included, the bearer token and TLS credentials are cached until
   the expiry time is reached, or if the server responds with a 401 HTTP status code,
