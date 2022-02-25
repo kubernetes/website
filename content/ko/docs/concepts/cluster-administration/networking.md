@@ -118,7 +118,7 @@ Azure CNI는 [Azure 쿠버네티스 서비스(Azure Kubernetes Service, AKS)](ht
 
 ### 화웨이의 CNI-Genie
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)는 쿠버네티스가 런타임 시 [쿠버네티스 네트워크 모델](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model)의 [서로 다른 구현에 동시에 접근](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)할 수 있는 CNI 플러그인이다. 여기에는 [플라넬(Flannel)](https://github.com/coreos/flannel#flannel), [캘리코](https://docs.projectcalico.org/), [로마나(Romana)](https://romana.io), [위브넷(Weave-net)](https://www.weave.works/products/weave-net/)과 같은 [CNI 플러그인](https://github.com/containernetworking/cni#3rd-party-plugins)으로 실행되는 모든 구현이 포함된다.
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)는 쿠버네티스가 런타임 시 [쿠버네티스 네트워크 모델](/ko/docs/concepts/cluster-administration/networking/#쿠버네티스-네트워크-모델)의 [서로 다른 구현에 동시에 접근](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)할 수 있는 CNI 플러그인이다. 여기에는 [플라넬(Flannel)](https://github.com/coreos/flannel#flannel), [캘리코](https://docs.projectcalico.org/), [로마나(Romana)](https://romana.io), [위브넷(Weave-net)](https://www.weave.works/products/weave-net/)과 같은 [CNI 플러그인](https://github.com/containernetworking/cni#3rd-party-plugins)으로 실행되는 모든 구현이 포함된다.
 
 CNI-Genie는 각각 다른 CNI 플러그인에서 [하나의 파드에 여러 IP 주소를 할당](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod)하는 것도 지원한다.
 
