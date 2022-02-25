@@ -49,7 +49,7 @@ detailed config file information.
 kubectl config view # Show Merged kubeconfig settings.
 
 # use multiple kubeconfig files at the same time and view merged config
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
@@ -58,7 +58,7 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
-kubectl config get-contexts                          # display list of contexts 
+kubectl config get-contexts                          # display list of contexts
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
@@ -92,10 +92,10 @@ kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 
 # create a Job which prints "Hello World"
-kubectl create job hello --image=busybox -- echo "Hello World" 
+kubectl create job hello --image=busybox -- echo "Hello World"
 
 # create a CronJob that prints "Hello World" every minute
-kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"    
+kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"
 
 kubectl explain pods                           # get the documentation for pod manifests
 
@@ -173,8 +173,8 @@ kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
 
 # Get all worker nodes (use a selector to exclude results that have a label
-# named 'node-role.kubernetes.io/master')
-kubectl get node --selector='!node-role.kubernetes.io/master'
+# named 'node-role.kubernetes.io/control-plane')
+kubectl get node --selector='!node-role.kubernetes.io/control-plane'
 
 # Get all running pods in the namespace
 kubectl get pods --field-selector=status.phase=Running
@@ -226,7 +226,7 @@ for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo 
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
-kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision 
+kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
@@ -318,7 +318,7 @@ kubectl run nginx --image=nginx                     # Run pod nginx and write it
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
-kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case) 
+kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
