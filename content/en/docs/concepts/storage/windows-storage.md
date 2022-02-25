@@ -57,6 +57,9 @@ or protocol is shipped in the form of a Kubernetes volume
 [plugin](/docs/concepts/storage/volumes/#types-of-volumes).
 The following broad classes of Kubernetes volume plugins are supported on Windows:
 
+* [`FlexVolume plugins`](/docs/concepts/storage/volumes/#flexVolume)
+  * Please note that FlexVolumes have been deprecated as of 1.23
+
 ##### In-tree volume plugins
 
 Code associated with in-tree volume plugins ship as part of the core Kubernetes code
@@ -72,21 +75,6 @@ persistent storage on Windows nodes:
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile)
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume)
-
-#### FlexVolume plugins
-
-Code associated with [FlexVolume](/docs/concepts/storage/volumes/#flexVolume)
-plugins ship as out-of-tree scripts or binaries that need to be deployed directly
-on the host. FlexVolume plugins handle attaching/detaching of volumes to/from a
-Kubernetes node and mounting/dismounting a volume to/from individual containers
-in a pod. Provisioning/De-provisioning of persistent volumes associated
-with FlexVolume plugins may be handled through an external provisioner that
-is typically separate from the FlexVolume plugins. The following FlexVolume
-[plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
-deployed as PowerShell scripts on the host, support Windows nodes:
-
-* [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
-* [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
 
 #### CSI plugins
 
