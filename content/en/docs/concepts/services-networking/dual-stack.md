@@ -251,7 +251,7 @@ You can use IPv4/IPv6 dual-stack networking with `l2bridge` networks.
 Overlay (VXLAN) networks on Windows **do not** support dual-stack networking.
 {{< /note >}}
 
-More information on the different network modes for Windows can be found [here](/docs/concepts/services-networking/windows-networking#network-modes).
+You can read more about the different network modes for Windows within the [Networking on Windows](/docs/concepts/services-networking/windows-networking#network-modes) topic.
 
 ## {{% heading "whatsnext" %}}
 

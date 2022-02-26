@@ -395,7 +395,7 @@ You can also set the maximum session sticky time by setting
 (the default value is 10800, which works out to be 3 hours).
 
 {{< note >}}
-Setting the maximum session sticky time for services that run on Windows is not supported.
+Setting the maximum session sticky time for Services connected to Pods running on Windows is not supported.
 {{< /note >}}
 
 ## Multi-Port Services
