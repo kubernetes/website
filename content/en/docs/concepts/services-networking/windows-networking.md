@@ -11,6 +11,8 @@ weight: 75
 
 <!-- overview -->
 
+Kubernetes supports running nodes on either Linux or Windows. You can mix both kinds of node
+within a single cluster.
 This page provides an overview to networking specific to the Windows operating system.
 
 <!-- body -->
@@ -40,30 +42,10 @@ be configured using Windows APIs run in the context of that container. Therefore
 CNI implementations need to call the HNS instead of relying on file mappings to pass
 network details into the pod or container.
 
-### Limitations
-
-The following networking functionality is _not_ supported on Windows nodes:
-
-* Host networking mode
-* Local NodePort access from the node itself (works for other nodes or external clients)
-* More than 64 backend pods (or unique destination addresses) for a single Service
-* IPv6 communication between Windows pods connected to overlay networks
-* Local Traffic Policy in non-DSR mode
-* Outbound communication using the ICMP protocol via the `win-overlay`, `win-bridge`, or using the Azure-CNI plugin.\
-  Specifically, the Windows data plane ([VFP](https://www.microsoft.com/research/project/azure-virtual-filtering-platform/)) doesn't support ICMP packet transpositions, and this means:
-  * ICMP packets directed to destinations within the same network (such as pod to pod communication via ping) work as expected and without any limitations;
-  * TCP/UDP packets work as expected and without any limitations;
-  * ICMP packets directed to pass through a remote network (e.g. pod to external internet communication via ping) cannot be transposed and thus will not be routed back to their source;
-  * Since TCP/UDP packets can still be transposed, you can substitute `ping <destination>` with `curl <destination>` to get some debugging insight into connectivity with the outside world.
-
-Overlay networking support in kube-proxy is a beta feature. In addition, it requires
-[KB4482887](https://support.microsoft.com/help/4482887/windows-10-update-kb4482887)
-to be installed on Windows Server 2019.
-
-### Network modes
+## Network modes
 
 Windows supports five different networking drivers/modes: L2bridge, L2tunnel,
-Overlay (beta), Transparent, and NAT. In a heterogeneous cluster with Windows and Linux
+Overlay (Beta), Transparent, and NAT. In a heterogeneous cluster with Windows and Linux
 worker nodes, you need to select a networking solution that is compatible on both
 Windows and Linux. The following out-of-tree plugins are supported on Windows,
 with recommendations on when to use each CNI:
@@ -72,14 +54,14 @@ with recommendations on when to use each CNI:
 | -------------- | ----------- | ------------------------------ | --------------- | ------------------------------ |
 | L2bridge       | Containers are attached to an external vSwitch. Containers are attached to the underlay network, although the physical network doesn't need to learn the container MACs because they are rewritten on ingress/egress. | MAC is rewritten to host MAC, IP may be rewritten to host IP using HNS OutboundNAT policy. | [win-bridge](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-bridge), [Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md), Flannel host-gateway uses win-bridge | win-bridge uses L2bridge network mode, connects containers to the underlay of hosts, offering best performance. Requires user-defined routes (UDR) for inter-node connectivity. |
 | L2Tunnel | This is a special case of l2bridge, but only used on Azure. All packets are sent to the virtualization host where SDN policy is applied. | MAC rewritten, IP visible on the underlay network | [Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) | Azure-CNI allows integration of containers with Azure vNET, and allows them to leverage the set of capabilities that [Azure Virtual Network provides](https://azure.microsoft.com/en-us/services/virtual-network/). For example, securely connect to Azure services or use Azure NSGs. See [azure-cni for some examples](https://docs.microsoft.com/azure/aks/concepts-network#azure-cni-advanced-networking) |
-| Overlay (Overlay networking for Windows in Kubernetes is in *alpha* stage) | Containers are given a vNIC connected to an external vSwitch. Each overlay network gets its own IP subnet, defined by a custom IP prefix.The overlay network driver uses VXLAN encapsulation. | Encapsulated with an outer header. | [win-overlay](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay), Flannel VXLAN (uses win-overlay) | win-overlay should be used when virtual container networks are desired to be isolated from underlay of hosts (e.g. for security reasons). Allows for IPs to be re-used for different overlay networks (which have different VNID tags)  if you are restricted on IPs in your datacenter.  This option requires [KB4489899](https://support.microsoft.com/help/4489899) on Windows Server 2019. |
+| Overlay | Containers are given a vNIC connected to an external vSwitch. Each overlay network gets its own IP subnet, defined by a custom IP prefix.The overlay network driver uses VXLAN encapsulation. | Encapsulated with an outer header. | [win-overlay](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay), Flannel VXLAN (uses win-overlay) | win-overlay should be used when virtual container networks are desired to be isolated from underlay of hosts (e.g. for security reasons). Allows for IPs to be re-used for different overlay networks (which have different VNID tags)  if you are restricted on IPs in your datacenter.  This option requires [KB4489899](https://support.microsoft.com/help/4489899) on Windows Server 2019. |
 | Transparent (special use case for [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)) | Requires an external vSwitch. Containers are attached to an external vSwitch which enables intra-pod communication via logical networks (logical switches and routers). | Packet is encapsulated either via [GENEVE](https://datatracker.ietf.org/doc/draft-gross-geneve/) or [STT](https://datatracker.ietf.org/doc/draft-davie-stt/) tunneling to reach pods which are not on the same host.  <br/> Packets are forwarded or dropped via the tunnel metadata information supplied by the ovn network controller. <br/> NAT is done for north-south communication. | [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes) | [Deploy via ansible](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib). Distributed ACLs can be applied via Kubernetes policies. IPAM support. Load-balancing can be achieved without kube-proxy. NATing is done without using iptables/netsh. |
 | NAT (*not used in Kubernetes*) | Containers are given a vNIC connected to an internal vSwitch. DNS/DHCP is provided using an internal component called [WinNAT](https://techcommunity.microsoft.com/t5/virtualization/windows-nat-winnat-capabilities-and-limitations/ba-p/382303) | MAC and IP is rewritten to host MAC/IP. | [nat](https://github.com/Microsoft/windows-container-networking/tree/master/plugins/nat) | Included here for completeness |
 
 As outlined above, the [Flannel](https://github.com/coreos/flannel)
 CNI [meta plugin](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel)
 is also [supported](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel#windows-support-experimental) on Windows via the
-[VXLAN network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) (**alpha support** ; delegates to win-overlay)
+[VXLAN network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) (**Beta support** ; delegates to win-overlay)
 and [host-gateway network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#host-gw) (stable support; delegates to win-bridge).
 
 This plugin supports delegating to one of the reference CNI plugins (win-overlay,
@@ -103,19 +85,7 @@ TCP/UDP traffic:
 * Node → Pod
 * Pod → Node
 
-### CNI plugin limitations
-
-* Windows reference network plugins win-bridge and win-overlay do not implement
-  [CNI spec](https://github.com/containernetworking/cni/blob/master/SPEC.md) v0.4.0,
-  due to a missing `CHECK` implementation.
-* The Flannel VXLAN CNI plugin has the following limitations on Windows:
-
-1. Node-pod connectivity isn't possible by design. It's only possible for local pods with Flannel v0.12.0 (or higher).
-2. Flannel is restricted to using VNI 4096 and UDP port 4789. See the official
-   [Flannel VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)
-   backend docs for more details on these parameters.
-
-### IP address management (IPAM) {#ipam}
+## IP address management (IPAM) {#ipam}
 
 The following IPAM options are supported on Windows:
 
@@ -123,7 +93,7 @@ The following IPAM options are supported on Windows:
 * HNS IPAM (Inbox platform IPAM, this is a fallback when no IPAM is set)
 * [azure-vnet-ipam](https://github.com/Azure/azure-container-networking/blob/master/docs/ipam.md) (for azure-cni only)
 
-### Load balancing and Services
+## Load balancing and Services
 
 A Kubernetes {{< glossary_tooltip text="Service" term_id="service" >}} is an abstraction
 that defines a logical set of Pods and a means to access them over a network.
@@ -134,20 +104,8 @@ In a cluster that includes Windows nodes, you can use the following types of Ser
 * `LoadBalancer`
 * `ExternalName`
 
-{{< warning >}}
-There are known issue with NodePort services on overlay networking, if the target destination node is running Windows Server 2022.
-To avoid the issue entirely, you can configure the service with `externalTrafficPolicy: Local`.
-
-There are known issues with pod to pod connectivity on l2bridge network on Windows Server 2022 with KB5005619 or higher installed.
-To workaround the issue and restore pod-pod connectivity, you can disable the WinDSR feature in kube-proxy.
-
-These issues require OS fixes.
-Please follow https://github.com/microsoft/Windows-Containers/issues/204 for updates.
-{{< /warning >}}
-
 Windows container networking differs in some important ways from Linux networking.
-The [Microsoft documentation for Windows Container Networking](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture) provides
-additional details and background.
+The [Microsoft documentation for Windows Container Networking](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture) provides additional details and background.
 
 On Windows, you can use the following settings to configure Services and load
 balancing behavior:
@@ -161,3 +119,42 @@ balancing behavior:
 | IPv4/IPv6 dual-stack networking | Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster | v1.19+ | Windows Server, version 2019 | See [IPv4/IPv6 dual-stack](#ipv4ipv6-dual-stack) |
 | Client IP preservation | Ensures that source IP of incoming ingress traffic gets preserved. Also disables node-node forwarding. | v1.20+ | Windows Server, version 2019  | Set `service.spec.externalTrafficPolicy` to "Local" and enable DSR in kube-proxy |
 {{< /table >}}
+
+
+{{< warning >}}
+There are known issue with NodePort Services on overlay networking, if the target destination node is running Windows Server 2022.
+To avoid the issue entirely, you can configure the service with `externalTrafficPolicy: Local`.
+
+There are known issues with Pod to Pod connectivity on l2bridge network on Windows Server 2022 with KB5005619 or higher installed.
+To workaround the issue and restore Pod to Pod connectivity, you can disable the WinDSR feature in kube-proxy.
+
+These issues require OS fixes.
+Please follow https://github.com/microsoft/Windows-Containers/issues/204 for updates.
+{{< /warning >}}
+
+## Limitations
+
+The following networking functionality is _not_ supported on Windows nodes:
+
+* Host networking mode
+* Local NodePort access from the node itself (works for other nodes or external clients)
+* More than 64 backend pods (or unique destination addresses) for a single Service
+* IPv6 communication between Windows pods connected to overlay networks
+* Local Traffic Policy in non-DSR mode
+* Outbound communication using the ICMP protocol via the `win-overlay`, `win-bridge`, or using the Azure-CNI plugin.\
+  Specifically, the Windows data plane ([VFP](https://www.microsoft.com/research/project/azure-virtual-filtering-platform/)) doesn't support ICMP packet transpositions, and this means:
+  * ICMP packets directed to destinations within the same network (such as pod to pod communication via ping) work as expected and without any limitations;
+  * TCP/UDP packets work as expected and without any limitations;
+  * ICMP packets directed to pass through a remote network (e.g. pod to external internet communication via ping) cannot be transposed and thus will not be routed back to their source;
+  * Since TCP/UDP packets can still be transposed, you can substitute `ping <destination>` with `curl <destination>` to get some debugging insight into connectivity with the outside world.
+
+Other limitations:
+
+* Windows reference network plugins win-bridge and win-overlay do not implement
+  [CNI spec](https://github.com/containernetworking/cni/blob/master/SPEC.md) v0.4.0,
+  due to a missing `CHECK` implementation.
+* The Flannel VXLAN CNI plugin has the following limitations on Windows:
+  * Node-pod connectivity isn't possible by design. It's only possible for local pods with Flannel v0.12.0 (or higher).
+  * Flannel is restricted to using VNI 4096 and UDP port 4789. See the official
+   [Flannel VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)
+   backend docs for more details on these parameters.
