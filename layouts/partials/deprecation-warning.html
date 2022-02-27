@@ -12,7 +12,6 @@
 {{ else if and (eq .Section "blog") .Date (.Date.Before (now.AddDate -1 0 0)) -}}
 <section id="deprecation-warning">
   <div class="content deprecation-warning pageinfo outdated-blog">
-    <h3>{{ T "outdated_blog__title" }}</h3>
     <p>{{ T "outdated_blog__message" }}</p>
   </div>
 </section>
