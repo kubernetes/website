@@ -12,16 +12,17 @@ no_list: true
 
 <!-- body -->
 
-## Minikube
+## crictl
 
-[`minikube`](https://minikube.sigs.k8s.io/docs/)는 개발과 테스팅 목적으로
-단일 노드 쿠버네티스 클러스터를 로컬 워크스테이션에서
-실행하는 도구이다.
+[`crictl`](https://github.com/kubernetes-sigs/cri-tools)은 
+{{<glossary_tooltip term_id="cri" text="CRI">}}-호환 컨테이너 런타임의 조사 및 디버깅을 위한 
+명령줄 인터페이스이다.
 
 ## 대시보드
 
-[`대시보드`](/ko/docs/tasks/access-application-cluster/web-ui-dashboard/), 는 쿠버네티스의 웹기반 유저 인터페이스이며 컨테이너화된 애플리케이션을 쿠버네티스 클러스터로 배포하고
-클러스터 및 클러스터 자원의 문제를 해결하며 관리할 수 있게 해준다.
+[`대시보드`](/ko/docs/tasks/access-application-cluster/web-ui-dashboard/)는 
+쿠버네티스의 웹기반 유저 인터페이스이며 
+컨테이너화된 애플리케이션을 쿠버네티스 클러스터로 배포하고 클러스터 및 클러스터 자원의 문제를 해결하며 관리할 수 있게 해 준다.
 
 ## Helm
 {{% thirdparty-content single="true" %}}
@@ -65,3 +66,9 @@ Kui를 사용하면 다음의 작업이 가능하다.
 * {{< glossary_tooltip text="잡" term_id="job">}}을 조회하여
   실행 형상을 워터폴 그림으로 확인한다.
 * 탭이 있는 UI를 이용하여 클러스터의 자원을 클릭 동작으로 확인할 수 있다.
+
+## Minikube
+
+[`minikube`](https://minikube.sigs.k8s.io/docs/)는 개발과 테스팅 목적으로
+단일 노드 쿠버네티스 클러스터를 로컬 워크스테이션에서
+실행하는 도구이다.
