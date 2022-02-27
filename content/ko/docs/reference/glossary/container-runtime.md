@@ -15,7 +15,7 @@ tags:
 
 <!--more-->
 
-쿠버네티스는 여러 컨테이너 런타임을 지원한다. {{< glossary_tooltip term_id="docker">}},
-{{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}}
-그리고 [Kubernetes CRI (컨테이너 런타임
-인터페이스)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)를 구현한 모든 소프트웨어.
+쿠버네티스는 {{< glossary_tooltip term_id="containerd" >}}, 
+{{< glossary_tooltip term_id="cri-o" >}}와 같은 컨테이너 런타임 및 
+모든 [Kubernetes CRI (컨테이너 런타임 인터페이스)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) 
+구현체를 지원한다.
