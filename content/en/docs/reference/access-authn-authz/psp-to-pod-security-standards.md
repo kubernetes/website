@@ -20,6 +20,9 @@ Anything outside the allowed values for those profiles would fall under the
 [Privileged](/docs/concepts/security/pod-security-standards/#priveleged) profile. "No opinion"
 means all values are allowed under all Pod Security Standards.
 
+For a step-by-step migration guide, see
+[Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
+
 <!-- body -->
 
 ## PodSecurityPolicy Spec
