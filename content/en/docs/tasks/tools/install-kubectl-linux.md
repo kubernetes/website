@@ -95,6 +95,11 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```bash
    kubectl version --client
    ```
+   Or use this for detailed view of version:
+
+   ```cmd
+   kubectl version --client --output=yaml    
+   ```
 
 ### Install using native package management
 
