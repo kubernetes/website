@@ -401,8 +401,8 @@ body {
 }
 
 .deprecation-warning, .pageinfo.deprecation-warning {
-    padding: 20px;
-    margin: 20px 0;
+    padding: clamp(10px, 2vmin, 20px);
+    margin: clamp(10px, 1vh, 20px) 0;
     background-color: #faf5b6;
     color: #000;
 }
@@ -416,6 +416,9 @@ body.td-home .deprecation-warning, body.td-blog .deprecation-warning, body.td-do
     border-radius: 3px;
 }
 
+.deprecation-warning p:only-child {
+  margin-bottom: 0;
+}
 
 .td-documentation .td-content > .highlight {
   max-width: initial;
