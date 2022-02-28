@@ -80,7 +80,6 @@ different Kubernetes components.
 | `CSIMigrationGCE` | `false` | Beta | 1.17 | |
 | `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
-| `CSIMigrationOpenStack` | `true` | Beta | 1.18 | |
 | `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
 | `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | |
