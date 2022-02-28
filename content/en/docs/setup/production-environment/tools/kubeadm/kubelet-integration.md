@@ -161,12 +161,6 @@ Kubeadm deletes the `/etc/kubernetes/bootstrap-kubelet.conf` file after completi
 `kubeadm` ships with configuration for how systemd should run the kubelet.
 Note that the kubeadm CLI command never touches this drop-in file.
 
-{{< note >}}
-The contents below are just an example. If you don't want to use a package manager
-follow the guide outlined in the [Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
-section.
-{{< /note >}}
-
 This configuration file installed by the `kubeadm`
 [DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf) or
 [RPM package](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubeadm/10-kubeadm.conf) is written to
@@ -174,6 +168,12 @@ This configuration file installed by the `kubeadm`
 It augments the basic
 [`kubelet.service` for RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) or
 [`kubelet.service` for DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service):
+
+{{< note >}}
+The contents below are just an example. If you don't want to use a package manager
+follow the guide outlined in the [Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+section.
+{{< /note >}}
 
 ```none
 [Service]
