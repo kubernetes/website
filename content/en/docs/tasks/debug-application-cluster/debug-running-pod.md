@@ -256,6 +256,15 @@ If you don't see a command prompt, try pressing enter.
 / #
 ```
 
+You can view a newly created pod `myapp-debug` with using `kubectl get`:
+
+```
+kubectl get pod
+NAME          READY   STATUS    RESTARTS   AGE
+myapp         1/1     Running   0          52s
+myapp-debug   2/2     Running   0          15s
+```
+
 Now you have an interactive shell that you can use to perform tasks like
 checking filesystem paths or running the container command manually.
 
