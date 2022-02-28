@@ -51,7 +51,7 @@ by the kubelet, using the `--cluster-dns` flag. This setting needs to be the sam
 on every manager and Node in the cluster. The kubelet provides a versioned, structured API object
 that can configure most parameters in the kubelet and push out this configuration to each running
 kubelet in the cluster. This object is called
-[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/). 
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
 The `KubeletConfiguration` allows the user to specify flags such as the cluster DNS IP addresses expressed as
 a list of values to a camelCased key, illustrated by the following example:
 
@@ -171,8 +171,7 @@ It augments the basic
 
 ```none
 [Service]
-Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf
---kubeconfig=/etc/kubernetes/kubelet.conf"
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 # This is a file that "kubeadm init" and "kubeadm join" generate at runtime, populating
 the KUBELET_KUBEADM_ARGS variable dynamically
@@ -206,5 +205,3 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 | `kubelet`    | Installs the kubelet binary in `/usr/bin` and CNI binaries in `/opt/cni/bin`. |
 | `kubectl`    | Installs the `/usr/bin/kubectl` binary. |
 | `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-sigs/cri-tools). |
-
-
