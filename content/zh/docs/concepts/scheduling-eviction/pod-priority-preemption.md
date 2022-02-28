@@ -657,11 +657,11 @@ kubelet 使用优先级来确定
 * Read about using ResourceQuotas in connection with PriorityClasses: 
   [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 * Learn about [Pod Disruption](/docs/concepts/workloads/pods/disruptions/)
-* Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
+* Learn about [API-initiated Eviction](/docs/reference/generated/kubernetes-api/v1.23/)
 * Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 -->
 * 阅读有关将 ResourceQuota 与 PriorityClass 结合使用的信息：
   [默认限制优先级消费](/zh/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 * 了解 [Pod 干扰](/zh/docs/concepts/workloads/pods/disruptions/)
-* 了解 [API 发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)
+* 了解 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)
 * 了解[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)
