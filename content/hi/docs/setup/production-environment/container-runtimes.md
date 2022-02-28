@@ -101,7 +101,7 @@ EOF
 sudo sysctl --system
 ```
 
-Containerd इंस्टॉल करें::
+Containerd इंस्टॉल करें:
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
