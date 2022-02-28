@@ -3,6 +3,7 @@ layout: blog
 title: "Kubernetes 1.17: Stability"
 date: 2019-12-09T13:00:00-08:00
 slug: kubernetes-1-17-release-announcement
+evergreen: true
 ---
 
 **Authors:** [Kubernetes 1.17 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.17/release_team.md)

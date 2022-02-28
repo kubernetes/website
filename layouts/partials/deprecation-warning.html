@@ -9,7 +9,7 @@
     </p>
   </div>
 </section>
-{{ else if and (eq .Section "blog") .Date (.Date.Before (now.AddDate -1 0 0)) -}}
+{{ else if and (eq .Section "blog") (not .Params.evergreen) .Date (.Date.Before (now.AddDate -1 0 0)) -}}
 <section id="deprecation-warning">
   <div class="content deprecation-warning pageinfo outdated-blog">
     <p>{{ T "outdated_blog__message" }}</p>
