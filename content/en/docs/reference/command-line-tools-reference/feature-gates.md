@@ -188,8 +188,6 @@ different Kubernetes components.
 | `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
-| `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
-| `RemoveSelfLink` | `true` | Beta | 1.20 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `SeccompDefault` | `false` | Alpha | 1.22 | |
@@ -400,6 +398,9 @@ different Kubernetes components.
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | 1.16 |
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
+| `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
+| `RemoveSelfLink` | `true` | Beta | 1.20 | 1.23 |
+| `RemoveSelfLink` | `true` | GA | 1.24 | - |
 | `RequestManagement` | `false` | Alpha | 1.15 | 1.16 |
 | `RequestManagement` | - | Deprecated | 1.17 | - |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | 1.18 |
@@ -967,8 +968,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `RemainingItemCount`: Allow the API servers to show a count of remaining
   items in the response to a
   [chunking list request](/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks).
-- `RemoveSelfLink`: Deprecates and removes `selfLink` from ObjectMeta and
-  ListMeta.
+- `RemoveSelfLink`: Sets the `.metadata.selfLink` field to blank (empty string) for all
+  objects and collections. This field has been deprecated since the Kubernetes v1.16
+  release. When this feature is enabled, the `.metadata.selfLink` field remains part of
+  the Kubernetes API, but is always unset.
 - `RequestManagement`: Enables managing request concurrency with prioritization and fairness
   at each API server. Deprecated by `APIPriorityAndFairness` since 1.17.
 - `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
