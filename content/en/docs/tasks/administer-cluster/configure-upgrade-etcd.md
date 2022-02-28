@@ -361,3 +361,12 @@ We also recommend restarting any components (e.g. `kube-scheduler`,
 stale data. Note that in practice, the restore takes a bit of time.  During the
 restoration, critical components will lose leader lock and restart themselves.
 {{< /note >}}
+
+## Upgrading etcd clusters
+
+
+For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
+
+{{< note >}}
+Before you start an upgrade, please back up your etcd cluster first.
+{{< /note >}}
