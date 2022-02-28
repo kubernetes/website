@@ -24,7 +24,7 @@ Anyone can write a blog post and submit it for review.
 
 ### Submit a Post
 
-Blog posts should not be commercial in nature and should consist of content that will apply broadly to the Kubernetes community.
+Blog posts should not be commercial in nature and should consist of original content that applies broadly to the Kubernetes community.
 Appropriate blog content includes:
 
 - New Kubernetes capabilities
@@ -41,7 +41,7 @@ Unsuitable content includes:
 - Partner updates without an integration and customer story
 - Syndicated posts (language translations ok)
 
-To submit a blog post, follow the steps below.
+To submit a blog post, follow these steps:
 
 1. [Sign the CLA](https://kubernetes.io/docs/contribute/start/#sign-the-cla) if you have not yet done so.
 1. Have a look at the Markdown format for existing blog posts in the [website repository](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts).
