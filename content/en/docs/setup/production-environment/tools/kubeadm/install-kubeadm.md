@@ -219,8 +219,7 @@ sudo systemctl enable --now kubelet
 
   - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
   Type `uname -m` to see that value.
-  Supported architectures include x86_64, aarch64, armhfp, ppc64le, and s390x.
-  So, for x86_64, the `baseurl` would be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
+  For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
 
 {{% /tab %}}
 {{% tab name="Without a package manager" %}}
