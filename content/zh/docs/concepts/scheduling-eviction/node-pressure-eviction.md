@@ -449,7 +449,7 @@ QoS 不适用于临时存储（EphemeralStorage）请求，
 `Guaranteed` pods are guaranteed only when requests and limits are specified for
 all the containers and they are equal. These pods will never be evicted because
 of another pod's resource consumption. If a system daemon (such as `kubelet`,
-`docker`, and `journald`) is consuming more resources than were reserved via 
+and `journald`) is consuming more resources than were reserved via 
 `system-reserved` or `kube-reserved` allocations, and the node only has
 `Guaranteed` or `Burstable` pods using less resources than requests left on it,
 then the kubelet must choose to evict one of these pods to preserve node stability
@@ -458,7 +458,7 @@ will choose to evict pods of lowest Priority first.
 -->
 仅当 `Guaranteed` Pod 中所有容器都被指定了请求和限制并且二者相等时，才保证 Pod 不被驱逐。
 这些 Pod 永远不会因为另一个 Pod 的资源消耗而被驱逐。
-如果系统守护进程（例如 `kubelet`、`docker` 和 `journald`）
+如果系统守护进程（例如 `kubelet` 和 `journald`）
 消耗的资源比通过 `system-reserved` 或 `kube-reserved` 分配保留的资源多，
 并且该节点只有 `Guaranteed` 或 `Burstable` Pod 使用的资源少于其上剩余的请求，
 那么 kubelet 必须选择驱逐这些 Pod 中的一个以保持节点稳定性并减少资源匮乏对其他 Pod 的影响。 
