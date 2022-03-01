@@ -225,6 +225,10 @@ sudo systemctl enable --now kubelet
 
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
+  - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
+  Type `uname -m` to see that value.
+  For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
+
 {{% /tab %}}
 {{% tab name="Without a package manager" %}}
 Install CNI plugins (required for most pod network):
