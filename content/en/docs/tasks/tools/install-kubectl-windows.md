@@ -79,7 +79,10 @@ If you have installed Docker Desktop before, you may need to place your `PATH` e
 
 ### Install on Windows using Chocolatey or Scoop
 
-1. To install kubectl on Windows you can use either [Winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/) windows package manager or [Chocolatey](https://chocolatey.org) package manager or [Scoop](https://scoop.sh) command-line installer.
+ 1. To install kubectl on Windows you can use either the
+    [Winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/) Windows
+    package manager, the [Chocolatey](https://chocolatey.org) package manager, or the
+    [Scoop](https://scoop.sh) command-line installer.
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
