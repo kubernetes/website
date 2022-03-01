@@ -725,7 +725,7 @@ For example:
       properties:
         spec:
           type: object
-          x-kubernetes-validation-rules:
+          x-kubernetes-validations:
             - rule: "self.minReplicas <= self.replicas"
               message: "replicas should be greater than or equal to minReplicas."
             - rule: "self.replicas <= self.maxReplicas"
@@ -829,7 +829,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
       ...
       openAPIV3Schema:
         type: object
-        x-kubernetes-validation-rules:
+        x-kubernetes-validations:
           - rule: "self.status.availableReplicas >= self.spec.minReplicas"
         properties:
             spec:
@@ -856,7 +856,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
         properties:
           spec:
             type: object
-            x-kubernetes-validation-rules:
+            x-kubernetes-validations:
               - rule: "has(self.foo)"
             properties:
               ...
@@ -874,7 +874,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
         properties:
           spec:
             type: object
-            x-kubernetes-validation-rules:
+            x-kubernetes-validations:
               - rule: "self['xyz'].foo > 0"
             additionalProperties:
               ...
@@ -894,7 +894,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
           ...
           foo:
             type: array
-            x-kubernetes-validation-rules:
+            x-kubernetes-validations:
               - rule: "size(self) == 1"
             items:
               type: string
@@ -912,7 +912,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
               ...
               foo:
                 type: integer
-                x-kubernetes-validation-rules:
+                x-kubernetes-validations:
                 - rule: "self > 0"
   ```
 Examples:
