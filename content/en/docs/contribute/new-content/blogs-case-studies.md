@@ -83,6 +83,15 @@ To submit a blog post follow these directions:
       - _initial commit_
       - _draft post_
   - The blog team will then review your PR and give you comments on things you might need to fix. After that the bot will merge your PR and your blog post will be published. 
+  - If the content of the blog post contains only content that is not expected to require updates to stay accurate for the reader, it can be marked as evergreen and exempted from the automatic warning about outdated content added to blog posts older than one year.
+    - To mark a blog post as evergreen, add this to the front matter:
+      
+      ```yaml
+      evergreen: true
+      ```
+    - Examples of content that should not be marked evergreen:
+      - **Tutorials** that only apply to specific releases or versions and not all future versions
+      - References to pre-GA APIs or features
 
 
 ## Submit a case study

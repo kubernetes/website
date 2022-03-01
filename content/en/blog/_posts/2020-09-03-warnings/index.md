@@ -3,9 +3,10 @@ layout: blog
 title: "Warning: Helpful Warnings Ahead"
 date: 2020-09-03
 slug: warnings
+evergreen: true
 ---
 
-**Author**: Jordan Liggitt (Google)
+**Author**: [Jordan Liggitt](https://github.com/liggitt) (Google)
 
 As Kubernetes maintainers, we're always looking for ways to improve usability while preserving compatibility.
 As we develop features, triage bugs, and answer support questions, we accumulate information that would be helpful for Kubernetes users to know.
@@ -327,7 +328,3 @@ A couple areas we're looking at next are warning about [known problematic values
 we cannot reject outright for compatibility reasons, and warning about use of deprecated fields or field values
 (like selectors using beta os/arch node labels, [deprecated in v1.14](/docs/reference/labels-annotations-taints/#beta-kubernetes-io-arch-deprecated)).
 I'm excited to see progress in this area, continuing to make it easier to use Kubernetes.
-
----
-
-_[Jordan Liggitt](https://twitter.com/liggitt) is a software engineer at Google, and helps lead Kubernetes authentication, authorization, and API efforts._

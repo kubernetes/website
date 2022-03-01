@@ -147,9 +147,9 @@ In the v1 API, the per endpoint `topology` was effectively removed in favor of
 the dedicated fields `nodeName` and `zone`.
 
 Setting arbitrary topology fields on the `endpoint` field of an `EndpointSlice`
-resource has been deprecated and is not be supported in the v1 API. Instead,
-the v1 API supports setting individual `nodeName` and `zone` fields. These
-fields are automatically translated between API versions. For example, the
+resource has been deprecated and is not supported in the v1 API.
+Instead, the v1 API supports setting individual `nodeName` and `zone` fields.
+These fields are automatically translated between API versions. For example, the
 value of the `"topology.kubernetes.io/zone"` key in the `topology` field in
 the v1beta1 API is accessible as the `zone` field in the v1 API.
 {{< /note >}}
