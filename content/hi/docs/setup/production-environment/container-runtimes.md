@@ -1,4 +1,4 @@
-
+---
 title: कंटेनर रनटाइम
 content_type: concept
 weight: 20
@@ -20,7 +20,7 @@ weight: 20
 - [Docker](#docker)
 
 {{< note >}}
-अन्य ऑपरेटिंग सिस्टम के लिए, अपने प्लेटफ़ॉर्म के लिए अनुसार विशिष्ट प्रलेखन देखें।
+अन्य ऑपरेटिंग सिस्टम के लिए, अपने प्लेटफ़ॉर्म के अनुसार विशिष्ट प्रलेखन देखें।
 {{< /note >}}
 
 ## Cgroup ड्राइवर 
@@ -29,7 +29,7 @@ weight: 20
 
 जब Linux वातावरण के लिए init सिस्टम, [systemd]
 (https://www.freedesktop.org/wiki/Software/systemd/)
-को चुना जाता है, तब init प्रक्रिया रुट(root) control group (`cgroup`) उत्पन्न करती है और उपभोग करती है तथा cgroup मैनेजर  की तरह काम करता है।
+को चुना जाता है, तब init प्रक्रिया रुट(root) control group (`cgroup`) उत्पन्न करती है और उपभोग करती है तथा cgroup मैनेजर की तरह काम करता है।
 
 
 Systemd और cgroups एकीकृत हैं और प्रत्येक systemd यूनिट को एक cgroup आवंटित होता है। अपने कन्टैनर रनटाइम और kubelet को `cgroupfs` प्रयोग करने के लिए कॉन्फ़िगर करना संभव है। systemd के साथ `cgroupfs` प्रयोग करने के कारण दो अलग cgroup मैनेजर होंगे।
