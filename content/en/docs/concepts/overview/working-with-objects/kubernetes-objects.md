@@ -83,10 +83,19 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 
 The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API Reference](https://kubernetes.io/docs/reference/kubernetes-api/) can help you find the spec format for all of the objects you can create using Kubernetes.
 
-For example, the reference for Pod details the [`spec` field](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-for a Pod in the API, and the reference for Deployment details the [`spec` field](/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec) for Deployments.
-In those API reference pages you'll see mention of PodSpec and DeploymentSpec. These names are implementation details of the Golang code that Kubernetes uses to implement its API.
-
+For example, see the [`spec` field](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+for the Pod API reference.
+For each Pod, the `.spec` field specifies the pod and its desired state (such as the container image name for
+each container within that pod).
+Another example of an object specification is the
+[`spec` field](/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)
+for the StatefulSet API. For StatefulSet, the `.spec` field specifies the StatefulSet and
+its desired state.
+Within the `.spec` of a StatefulSet is a [template](/docs/concepts/workloads/pods/#pod-templates)
+for Pod objects. That template describes Pods that the StatefulSet controller will create in order to
+satisfy the StatefulSet specification.
+Different kinds of object can also have different `.status`; again, the API reference pages
+detail the structure of that `.status` field, and its content for each different type of object.
 
 ## {{% heading "whatsnext" %}}
 
