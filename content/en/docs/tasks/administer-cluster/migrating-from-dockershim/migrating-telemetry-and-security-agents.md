@@ -91,12 +91,13 @@ dd-agent
 ### ✅ [Dynatrace](https://www.dynatrace.com/)
 How to migrate:
 [Migrating from Docker-only to generic container metrics in Dynatrace](https://community.dynatrace.com/t5/Best-practices/Migrating-from-Docker-only-to-generic-container-metrics-in/m-p/167030#M49)
+
 Containerd support announcement: [Get automated full-stack visibility into
 containerd-based Kubernetes
 environments](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-containerd-based-kubernetes-environments/)
-CRI-O support announcement: [Get automated full-stack visibility into your CRI-O
-Kubernetes containers
-(Beta)](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-your-cri-o-kubernetes-containers-beta/)
+
+CRI-O support announcement: [Get automated full-stack visibility into your CRI-O Kubernetes containers (Beta)](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-your-cri-o-kubernetes-containers-beta/)
+
 The pod accessing Docker may have name containing: 
 	- dynatrace-oneagent
 ### ✅  [Falco](https://falco.org)
@@ -115,11 +116,10 @@ The SignalFx Smart Agent uses several different monitors for Kuberentes includin
 
 
 How to migrate from dockershim-dependant agent:
-1. Remove docker-container-stats from the list of [configured
-monitors](https://docs.signalfx.com/en/latest/integrations/agent/monitors/_monitor-config.html.)  Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics being reported when docker is installed on node and no metrics when docker is not installed.
-2. [Enable and
-configure](https://docs.signalfx.com/en/latest/integrations/agent/monitors/_monitor-config.html)
-[kubelet-metrics](https://docs.signalfx.com/en/latest/integrations/agent/monitors/kubelet-metrics.html) monitor.
+1. Remove docker-container-stats from the list of [configured monitors](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md)
+Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics being reported when docker is installed on node and no metrics when docker is not installed.
+2. [Enable and configure kubelet-metrics](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitors/kubelet-metrics.md) monitor.
+
 
 Note, the set of collected metrics will change. Please review your alerting rules and dashboards.
 
