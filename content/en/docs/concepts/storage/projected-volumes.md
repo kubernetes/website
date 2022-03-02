@@ -23,7 +23,7 @@ Currently, the following types of volume sources can be projected:
 * [`secret`](/docs/concepts/storage/volumes/#secret)
 * [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi)
 * [`configMap`](/docs/concepts/storage/volumes/#configmap)
-* [`serviceAccountToken`](/docs/conecpts/storage/projected-volumes/#service-account-token)
+* [`serviceAccountToken`](#service-account-token)
 
 All sources are required to be in the same namespace as the Pod. For more details,
 see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
@@ -44,7 +44,8 @@ parameters are nearly the same with two exceptions:
 * The `defaultMode` can only be specified at the projected level and not for each
   volume source. However, as illustrated above, you can explicitly set the `mode`
   for each individual projection.
-{#service-account-token}
+
+## serviceAccountToken projected volumes {#serviceaccounttoken}
 When the `TokenRequestProjection` feature is enabled, you can inject the token
 for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 into a Pod at a specified path. For example:
@@ -53,7 +54,8 @@ into a Pod at a specified path. For example:
 
 The example Pod has a projected volume containing the injected service account
 token. Containers in this Pod can use that token to access the Kubernetes API
-server, authenticating with the identity of the pod's ServiceAccount.
+server, authenticating with the identity of [the pod's ServiceAccount]
+(/docs/tasks/configure-pod-container/configure-service-account/).
 The `audience` field contains the intended audience of the
 token. A recipient of the token must identify itself with an identifier specified
 in the audience of the token, and otherwise should reject the token. This field
