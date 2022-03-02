@@ -148,6 +148,8 @@ The [fix](https://github.com/kubernetes/kubernetes/pull/74840) is available in v
 However, for the users that are affected by this bug, there is a way to mitigate the
 problem by applying the following rule in your cluster.
 
+Note :  With worker node kernel version 4.14 and above, the path mentioned in the script to set the sysctl might be different. Recommendation would be to test running the command `echo 1 > /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_be_liberal` on your worker node by using an SSH connection. If the command returns `No such file or directory`, that means the netfilter directory on your worker most likely uses the following sysctl path`/proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal`. Update the command in the daemonset below to use the correct path. 
+  
 ```yaml
 apiVersion: extensions/v1beta1
 kind: DaemonSet
