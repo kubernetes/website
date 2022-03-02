@@ -87,6 +87,9 @@ other = ","
 [input_placeholder_email_address]
 other = "email address"
 
+[javascript_required]
+other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
+
 [latest_release]
 other = "Latest Release:"
 
@@ -203,10 +206,7 @@ other = "Objectives"
 other = "Options"
 
 [outdated_blog__message]
-other = "The Kubernetes project considers this article to be outdated because it is more than one year old. Check that the information in the page has not become incorrect since its publication."
-
-[outdated_blog__title]
-other = "Outdated article"
+other = "This article is more than one year old. Older articles may contain outdated content. Check that the information in the page has not become incorrect since its publication."
 
 [post_create_issue]
 other = "Create an issue"

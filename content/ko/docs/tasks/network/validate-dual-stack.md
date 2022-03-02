@@ -3,7 +3,7 @@
 
 
 
-min-kubernetes-server-version: v1.20
+min-kubernetes-server-version: v1.23
 title: IPv4/IPv6 이중 스택 검증
 content_type: task
 ---
@@ -21,6 +21,9 @@ content_type: task
 
 {{< version-check >}}
 
+{{< note >}}
+v1.23 이전 버전에서도 검증을 수행할 수 있지만 GA 기능으로만 제공되며, v1.23부터 공식적으로 지원된다.
+{{< /note >}}
 
 
 <!-- steps -->

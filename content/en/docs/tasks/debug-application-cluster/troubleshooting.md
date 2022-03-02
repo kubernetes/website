@@ -45,8 +45,9 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/
 Someone else from the community may have already asked a similar question or may
 be able to help with your problem. The Kubernetes team will also monitor
 [posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes).
-If there aren't any existing questions that help, please
-[ask a new one](https://stackoverflow.com/questions/ask?tags=kubernetes)!
+If there aren't any existing questions that help, **please [ensure that your question is on-topic on Stack Overflow](https://stackoverflow.com/help/on-topic)
+and that you read through the guidance on [how to ask a new question](https://stackoverflow.com/help/how-to-ask)**,
+before [asking a new one](https://stackoverflow.com/questions/ask?tags=kubernetes)!
 
 ### Slack
 
@@ -100,7 +101,7 @@ If filing a bug, please include detailed information about how to reproduce the
 problem, such as:
 
 * Kubernetes version: `kubectl version`
-* Cloud provider, OS distro, network configuration, and Docker version
+* Cloud provider, OS distro, network configuration, and container runtime version
 * Steps to reproduce the problem
 
 

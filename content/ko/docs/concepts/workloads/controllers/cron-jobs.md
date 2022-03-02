@@ -17,8 +17,6 @@ _크론잡은_ 반복 일정에 따라 {{< glossary_tooltip term_id="job" text="
 하나의 크론잡 오브젝트는 _크론탭_ (크론 테이블) 파일의 한 줄과 같다.
 크론잡은 잡을 [크론](https://ko.wikipedia.org/wiki/Cron) 형식으로 쓰여진 주어진 일정에 따라 주기적으로 동작시킨다.
 
-추가로, 크론잡 스케줄은 타임존(timezone) 처리를 지원해서, 크론잡 스케줄 시작 부분에 "CRON_TZ=<time zone>"을 추가해서 타임존을 명기할 수 있으며, 항상 `CRON_TZ`를 설정하는 것을 권장한다.
-
 {{< caution >}}
 모든 **크론잡** `일정:` 시간은
 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}의 시간대를 기준으로 한다.
@@ -26,6 +24,16 @@ _크론잡은_ 반복 일정에 따라 {{< glossary_tooltip term_id="job" text="
 컨트롤 플레인이 파드 또는 베어 컨테이너에서 kube-controller-manager를 실행하는 경우,
 kube-controller-manager 컨테이너에 설정된 시간대는
 크론잡 컨트롤러가 사용하는 시간대로 결정한다.
+{{< /caution >}}
+
+{{< caution >}}
+[v1 CronJob API](/docs/reference/kubernetes-api/workload-resources/cron-job-v1/)은 
+위에서 설명한 타임존 설정을 공식적으로 지원하지는 않는다.
+
+`CRON_TZ` 또는 `TZ` 와 같은 변수를 설정하는 것은 쿠버네티스 프로젝트에서 공식적으로 지원하지는 않는다.
+`CRON_TZ` 또는 `TZ` 와 같은 변수를 설정하는 것은 
+크론탭을 파싱하고 다음 잡 생성 시간을 계산하는 내부 라이브러리의 구현 상세사항이다.
+프로덕션 클러스터에서는 사용을 권장하지 않는다.
 {{< /caution >}}
 
 크론잡 리소스에 대한 매니페스트를 생성할 때에는 제공하는 이름이
@@ -55,16 +63,15 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 ### 크론 스케줄 문법
 
 ```
-#      ┌────────────────── 타임존 (옵션)
-#      |      ┌───────────── 분 (0 - 59)
-#      |      │ ┌───────────── 시 (0 - 23)
-#      |      │ │ ┌───────────── 일 (1 - 31)
-#      |      │ │ │ ┌───────────── 월 (1 - 12)
-#      |      │ │ │ │ ┌───────────── 요일 (0 - 6) (일요일부터 토요일까지;
-#      |      │ │ │ │ │                           특정 시스템에서는 7도 일요일)
-#      |      │ │ │ │ │
-#      |      │ │ │ │ │
-# CRON_TZ=UTC * * * * *
+# ┌───────────── 분 (0 - 59)
+# │ ┌───────────── 시 (0 - 23)
+# │ │ ┌───────────── 일 (1 - 31)
+# │ │ │ ┌───────────── 월 (1 - 12)
+# │ │ │ │ ┌───────────── 요일 (0 - 6) (일요일부터 토요일까지;
+# │ │ │ │ │                                   특정 시스템에서는 7도 일요일)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
 ```
 
 
@@ -78,9 +85,9 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 
 
 
-예를 들면, 다음은 해당 작업이 매주 금요일 자정에 시작되어야 하고, 매월 13일 자정(UTC 기준)에도 시작되어야 한다는 뜻이다.
+예를 들면, 다음은 해당 작업이 매주 금요일 자정에 시작되어야 하고, 매월 13일 자정에도 시작되어야 한다는 뜻이다.
 
-`CRON_TZ=UTC 0 0 13 * 5`
+`0 0 13 * 5`
 
 크론잡 스케줄 표현을 생성하기 위해서 [crontab.guru](https://crontab.guru/)와 같은 웹 도구를 사용할 수도 있다.
 
@@ -144,6 +151,8 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 * 크론잡을 생성하고 다루기 위한 지침 및
   크론잡 매니페스트의 예제로
   [크론잡으로 자동화된 작업 실행](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)를 읽는다.
+* 실패했거나 완료된 잡을 자동으로 정리하도록 하려면, 
+  [완료된 잡을 자동으로 정리](/ko/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)를 확인한다.
 * `CronJob`은 쿠버네티스 REST API의 일부이다.
   {{< api-reference page="workload-resources/cron-job-v1" >}}
   오브젝트 정의를 읽고 쿠버네티스 크론잡 API에 대해 이해한다.

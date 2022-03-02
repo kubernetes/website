@@ -58,7 +58,8 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 
 * Make sure that you have the name of the image correct.
 * Have you pushed the image to the registry?
-* Run a manual `docker pull <image>` on your machine to see if the image can be pulled.
+* Try to manually pull the image to see if the image can be pulled. For example,
+  if you use Docker on your PC, run `docker pull <image>`.
 
 #### My pod is crashing or otherwise unhealthy
 

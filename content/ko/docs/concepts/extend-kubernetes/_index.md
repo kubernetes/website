@@ -77,7 +77,7 @@ no_list: true
 웹훅 모델에서 쿠버네티스는 원격 서비스에 네트워크 요청을 한다.
 *바이너리 플러그인* 모델에서 쿠버네티스는 바이너리(프로그램)를 실행한다.
 바이너리 플러그인은 kubelet(예:
-[Flex Volume 플러그인](/ko/docs/concepts/storage/volumes/#flexVolume)과
+[Flex Volume 플러그인](/ko/docs/concepts/storage/volumes/#flexvolume)과
 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))과
 kubectl에서 사용한다.
 
@@ -145,7 +145,7 @@ API를 추가해도 기존 API(예: 파드)의 동작에 직접 영향을 미치
 
 ### 인가
 
-[인가](/docs/reference/access-authn-authz/webhook/)는 특정 사용자가 API 리소스에서 읽고, 쓰고, 다른 작업을 수행할 수 있는지를 결정한다. 전체 리소스 레벨에서 작동하며 임의의 오브젝트 필드를 기준으로 구별하지 않는다. 빌트인 인증 옵션이 사용자의 요구를 충족시키지 못하면 [인가 웹훅](/docs/reference/access-authn-authz/webhook/)을 통해 사용자가 제공한 코드를 호출하여 인증 결정을 내릴 수 있다.
+[인가](/docs/reference/access-authn-authz/authorization/)는 특정 사용자가 API 리소스에서 읽고, 쓰고, 다른 작업을 수행할 수 있는지를 결정한다. 전체 리소스 레벨에서 작동하며 임의의 오브젝트 필드를 기준으로 구별하지 않는다. 빌트인 인증 옵션이 사용자의 요구를 충족시키지 못하면 [인가 웹훅](/docs/reference/access-authn-authz/webhook/)을 통해 사용자가 제공한 코드를 호출하여 인증 결정을 내릴 수 있다.
 
 
 ### 동적 어드미션 컨트롤
@@ -162,6 +162,8 @@ API를 추가해도 기존 API(예: 파드)의 동작에 직접 영향을 미치
 [Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md)을 사용하면
 Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도록 함으로써
 빌트인 지원 없이 볼륨 유형을 마운트 할 수 있다.
+
+FlexVolume은 쿠버네티스 v1.23부터 사용 중단(deprecated)되었다. Out-of-tree CSI 드라이버가 쿠버네티스에서 볼륨 드라이버를 작성할 때 추천하는 방식이다. 자세한 정보는 [스토리지 업체를 위한 쿠버네티스 볼륨 플러그인 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)에서 찾을 수 있다.
 
 
 ### 장치 플러그인

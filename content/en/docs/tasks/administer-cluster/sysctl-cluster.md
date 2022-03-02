@@ -70,7 +70,7 @@ The following sysctls are supported in the _safe_ set:
 - `kernel.shm_rmid_forced`,
 - `net.ipv4.ip_local_port_range`,
 - `net.ipv4.tcp_syncookies`,
-- `net.ipv4.ping_group_range` (since Kubernetes 1.18).
+- `net.ipv4.ping_group_range` (since Kubernetes 1.18),
 - `net.ipv4.ip_unprivileged_port_start` (since Kubernetes 1.22).
 
 {{< note >}}

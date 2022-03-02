@@ -3,6 +3,7 @@ layout: blog
 title: 'Kubernetes 1.20: The Raddest Release'
 date: 2020-12-08
 slug: kubernetes-1-20-release-announcement
+evergreen: true
 ---
 
 **Authors:** [Kubernetes 1.20 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.20/release_team.md)

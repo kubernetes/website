@@ -1,5 +1,5 @@
 ---
-title: Web 界面 (Dashboard)
+title: 部署和访问 Kubernetes 仪表板（Dashboard）
 content_type: concept
 weight: 10
 card:
@@ -11,8 +11,7 @@ card:
 reviewers:
 - bryk
 - mikedanese
-- rf232
-title: Web UI (Dashboard)
+title: Deploy and Access the Kubernetes Dashboard
 content_type: concept
 weight: 10
 card:
@@ -56,7 +55,7 @@ The Dashboard UI is not deployed by default. To deploy it, run the following com
 默认情况下不会部署 Dashboard。可以通过以下命令部署：
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
 ```
 
 <!--
@@ -67,7 +66,7 @@ Currently, Dashboard only supports logging in with a Bearer Token.
 To create a token for this demo, you can follow our guide on
 [creating a sample user](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user).
 -->
-## 访问 Dashboard UI
+## 访问 Dashboard 用户界面
 
 为了保护你的集群数据，默认情况下，Dashboard 会使用最少的 RBAC 配置进行部署。
 当前，Dashboard 仅支持使用 Bearer 令牌登录。
@@ -85,11 +84,12 @@ The sample user created in the tutorial will have administrative privileges and 
 <!--
 ### Command line proxy
 
-You can access Dashboard using the kubectl command-line tool by running the following command:
+You can enable access to the Dashboard using the `kubectl` command-line tool,
+by running the following command:
 -->
 ### 命令行代理
 
-你可以使用 kubectl 命令行工具访问 Dashboard，命令如下：
+你可以使用 `kubectl` 命令行工具来启用 Dashboard 访问，命令如下：
 
 ```
 kubectl proxy
@@ -106,10 +106,11 @@ The UI can _only_ be accessed from the machine where the command is executed. Se
 UI _只能_ 通过执行这条命令的机器进行访问。更多选项参见 `kubectl proxy --help`。
 
 <!--
-Kubeconfig Authentication method does NOT support external identity providers or x509 certificate-based authentication.
+The kubeconfig authentication method does **not** support external identity providers
+or X.509 certificate-based authentication.
 -->
 {{< note >}}
-Kubeconfig 身份验证方法不支持外部身份提供程序或基于 x509 证书的身份验证。
+Kubeconfig 身份验证方法**不**支持外部身份提供程序或基于 x509 证书的身份验证。
 {{< /note >}}
 
 <!--
@@ -133,11 +134,14 @@ When you access Dashboard on an empty cluster, you'll see the welcome page. This
 <!--
 ## Deploying containerized applications
 
-Dashboard lets you create and deploy a containerized application as a Deployment and optional Service with a simple wizard. You can either manually specify application details, or upload a YAML or JSON file containing application configuration.
+Dashboard lets you create and deploy a containerized application as a Deployment and optional Service with a simple wizard.
+You can either manually specify application details, or upload a YAML or JSON _manifest_ file containing application configuration.
 -->
 ## 部署容器化应用
 
-通过一个简单的部署向导，你可以使用 Dashboard 将容器化应用作为一个 Deployment 和可选的 Service 进行创建和部署。可以手工指定应用的详细配置，或者上传一个包含应用配置的 YAML 或 JSON 文件。
+通过一个简单的部署向导，你可以使用 Dashboard 将容器化应用作为一个 Deployment 和可选的
+Service 进行创建和部署。你可以手工指定应用的详细配置，或者上传一个包含应用配置的 YAML
+或 JSON _清单_文件。
 
 <!--
 Click the **CREATE** button in the upper right corner of any page to begin.
@@ -336,17 +340,22 @@ If needed, you can expand the **Advanced options** section where you can specify
 <!--
 ### Uploading a YAML or JSON file
 
-Kubernetes supports declarative configuration. In this style, all configuration is stored in YAML or JSON configuration files using the Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
+Kubernetes supports declarative configuration.
+In this style, all configuration is stored in manifests (YAML or JSON configuration files).
+The manifests use the Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
 -->
 ### 上传 YAML 或者 JSON 文件
 
-Kubernetes 支持声明式配置。所有的配置都存储在遵循 Kubernetes
-[API](/zh/docs/concepts/overview/kubernetes-api/) 规范的 YAML 或者 JSON 配置文件中。
+Kubernetes 支持声明式配置。所有的配置都存储在清单文件
+（YAML 或者 JSON 配置文件）中。这些
+清单使用 Kubernetes [API](/zh/docs/concepts/overview/kubernetes-api/) 定义的资源模式。
 
 <!--
-As an alternative to specifying application details in the deploy wizard, you can define your application in YAML or JSON files, and upload the files using Dashboard:
+As an alternative to specifying application details in the deploy wizard,
+you can define your application one or more manifests, and upload the files using Dashboard.
 -->
-作为一种替代在部署向导中指定应用详情的方式，你可以在 YAML 或者 JSON 文件中定义应用，并且使用 Dashboard 上传文件：
+作为一种替代在部署向导中指定应用详情的方式，你可以在一个或多个清单文件中定义应用，并且使用
+Dashboard 上传文件。
 
 <!--
 ## Using Dashboard
@@ -375,7 +384,10 @@ Dashboard 展示大部分 Kubernetes 对象，并将它们分组放在几个菜�
 <!--
 #### Admin Overview
 
-For cluster and namespace administrators, Dashboard lists Nodes, Namespaces and Persistent Volumes and has detail views for them. Node list view contains CPU and memory usage metrics aggregated across all Nodes. The details view shows the metrics for a Node, its specification, status, allocated resources, events and pods running on the node.
+For cluster and namespace administrators, Dashboard lists Nodes, Namespaces and PersistentVolumes and has detail views for them.
+Node list view contains CPU and memory usage metrics aggregated across all Nodes.
+The details view shows the metrics for a Node, its specification, status,
+allocated resources, events and pods running on the node.
 -->
 #### 管理概述
 
@@ -385,22 +397,31 @@ For cluster and namespace administrators, Dashboard lists Nodes, Namespaces and 
 
 <!--
 #### Workloads
-Shows all applications running in the selected namespace. The view lists applications by workload kind (e.g., Deployments, Replica Sets, Stateful Sets, etc.) and each workload kind can be viewed separately. The lists summarize actionable information about the workloads, such as the number of ready pods for a Replica Set or current memory usage for a Pod.
+
+Shows all applications running in the selected namespace.
+The view lists applications by workload kind (e.g., Deployments, ReplicaSets, Stateful Sets, etc.).
+Each workload kind can be viewed separately.
+The lists summarize actionable information about the workloads,
+such as the number of ready pods for a ReplicaSet or current memory usage for a Pod.
  -->
 #### 负载
 
 显示选中的名字空间中所有运行的应用。
 视图按照负载类型（如 Deployment、ReplicaSet、StatefulSet 等）罗列应用，并且每种负载都可以单独查看。
-列表总结了关于负载的可执行信息，比如一个 ReplicaSet 的准备状态的 Pod 数量，或者目前一个 Pod 的内存使用量。
+列表总结了关于负载的可执行信息，比如一个 ReplicaSet 的就绪状态的 Pod 数量，或者目前一个 Pod 的内存用量。
 
 <!--
-Detail views for workloads show status and specification information and surface relationships between objects. For example, Pods that Replica Set is controlling or New Replica Sets and Horizontal Pod Autoscalers for Deployments.
+Detail views for workloads show status and specification information and
+surface relationships between objects.
+For example, Pods that Replica Set is controlling or New ReplicaSets and HorizontalPodAutoscalers for Deployments.
 -->
 工作负载的详情视图展示了对象的状态、详细信息和相互关系。
-例如，ReplicaSet 所控制的 Pod，或者 Deployment 关联的 新 ReplicaSet 和 Pod 水平扩展控制器。
+例如，ReplicaSet 所控制的 Pod，或者 Deployment 所关联的新 ReplicaSet 和
+HorizontalPodAutoscalers。
 
 <!--
 #### Services
+
 Shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and external endpoints for external users.
 -->
 #### 服务
@@ -411,7 +432,7 @@ Shows Kubernetes resources that allow for exposing services to external world an
 <!--
 #### Storage
 
-Storage view shows Persistent Volume Claim resources which are used by applications for storing data.
+Storage view shows PersistentVolumeClaim resources which are used by applications for storing data.
 -->
 #### 存储
 
@@ -425,7 +446,7 @@ Shows all Kubernetes resources that are used for live configuration of applicati
 #### ConfigMap 和 Secret
 
 展示的所有 Kubernetes 资源是在集群中运行的应用程序的实时配置。
-通过这个视图可以编辑和管理配置对象，并显示那些默认隐藏的 secret。
+通过这个视图可以编辑和管理配置对象，并显示那些默认隐藏的 Secret。
 
 <!--
 #### Logs viewer
@@ -434,7 +455,8 @@ Pod lists and detail pages link to logs viewer that is built into Dashboard. The
 -->
 #### 日志查看器
 
-Pod 列表和详细信息页面可以链接到 Dashboard 内置的日志查看器。查看器可以钻取属于同一个 Pod 的不同容器的日志。
+Pod 列表和详细信息页面可以链接到 Dashboard 内置的日志查看器。
+查看器可以深入查看属于同一个 Pod 的不同容器的日志。
 
 <!--
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)

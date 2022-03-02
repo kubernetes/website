@@ -550,7 +550,7 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
 * `ClusterIP`: 서비스를 클러스터-내부 IP에 노출시킨다. 이 값을 선택하면
   클러스터 내에서만 서비스에 도달할 수 있다. 이것은
   `ServiceTypes`의 기본 값이다.
-* [`NodePort`](#nodeport): 고정 포트 (`NodePort`)로 각 노드의 IP에 서비스를
+* [`NodePort`](#type-nodeport): 고정 포트 (`NodePort`)로 각 노드의 IP에 서비스를
   노출시킨다. `NodePort` 서비스가 라우팅되는 `ClusterIP` 서비스가
   자동으로 생성된다. `<NodeIP>:<NodePort>`를 요청하여,
   클러스터 외부에서
@@ -568,7 +568,7 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
 [인그레스](/ko/docs/concepts/services-networking/ingress/)를 사용하여 서비스를 노출시킬 수도 있다. 인그레스는 서비스 유형이 아니지만, 클러스터의 진입점 역할을 한다. 동일한 IP 주소로 여러 서비스를
 노출시킬 수 있기 때문에 라우팅 규칙을 단일 리소스로 통합할 수 있다.
 
-### NodePort 유형 {#nodeport}
+### NodePort 유형 {#type-nodeport}
 
 `type` 필드를 `NodePort`로 설정하면, 쿠버네티스 컨트롤 플레인은
 `--service-node-port-range` 플래그로 지정된 범위에서 포트를 할당한다 (기본값 : 30000-32767).

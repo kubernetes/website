@@ -8,7 +8,7 @@
 
 title: 볼륨 스냅샷 클래스
 content_type: concept
-weight: 30
+weight: 41 # just after volume snapshots
 ---
 
 <!-- overview -->

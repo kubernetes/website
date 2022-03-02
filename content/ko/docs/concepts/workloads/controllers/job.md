@@ -25,7 +25,8 @@ weight: 50
 
 잡을 사용하면 여러 파드를 병렬로 실행할 수도 있다.
 
-잡을 스케줄에 따라 구동하고 싶은 경우(단일 작업이든, 여러 작업의 병렬 수행이든), [크론잡(CronJob)](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 참고한다.
+잡을 스케줄에 따라 구동하고 싶은 경우(단일 작업이든, 여러 작업의 병렬 수행이든), 
+[크론잡(CronJob)](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 참고한다.
 
 <!-- body -->
 
@@ -206,6 +207,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
     있다면, 잡에 속한 파드는 DNS를 이용하여 서로를 디스커버 하기 위해 사전에 결정된 
     호스트네임을 사용할 수 있다.
   - 컨테이너화된 태스크의 경우, `JOB_COMPLETION_INDEX` 환경 변수.
+
   각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
   간주된다. 이 모드를 사용하는 방법에 대한 자세한 내용은
   [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
@@ -249,7 +251,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 {{< note >}}
 만약 잡에 `restartPolicy = "OnFailure"` 가 있는 경우 잡 백오프 한계에
-도달하면 잡을 실행 중인 컨테이너가 종료된다. 이로 인해 잡 실행 파일의 디버깅이
+도달하면 잡을 실행 중인 파드가 종료된다. 이로 인해 잡 실행 파일의 디버깅이
 더 어려워질 수 있다. 디버깅하거나 로깅 시스템을 사용해서 실패한 작업의 결과를 실수로 손실되지 않도록
 하려면 `restartPolicy = "Never"` 로 설정하는 것을 권장한다.
 {{< /note >}}
@@ -344,6 +346,25 @@ spec:
 삭제되도록 할 수 있다. 만약 필드를 설정하지 않으면, 이 잡이 완료된
 후에 TTL 컨트롤러에 의해 정리되지 않는다.
 
+{{< note >}}
+`ttlSecondsAfterFinished` 필드를 설정하는 것을 권장하는데, 
+이는 관리되지 않는 잡(직접 생성한, 
+크론잡 등 다른 워크로드 API를 통해 간접적으로 생성하지 않은 잡)의 
+기본 삭제 정책이 `orphanDependents`(관리되지 않는 잡이 완전히 삭제되어도 
+해당 잡에 의해 생성된 파드를 남겨둠)이기 때문이다.
+삭제된 잡의 파드가 실패하거나 완료된 뒤 
+{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}이 언젠가 
+[가비지 콜렉션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)을 한다고 해도, 
+이렇게 남아 있는 파드는 클러스터의 성능을 저하시키거나 
+최악의 경우에는 이 성능 저하로 인해 클러스터가 중단될 수도 있다.
+
+[리밋 레인지(Limit Range)](/ko/docs/concepts/policy/limit-range/)와 
+[리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 사용하여 
+특정 네임스페이스가 사용할 수 있는 자원량을 제한할 수 
+있다.
+{{< /note >}}
+
+
 ## 잡 패턴
 
 잡 오브젝트를 사용해서 신뢰할 수 있는 파드의 병렬 실행을 지원할 수 있다.  잡 오브젝트는 과학
@@ -415,8 +436,11 @@ spec:
 잡이 생성되면, 잡 컨트롤러는 잡의 요구 사항을 충족하기 위해
 즉시 파드 생성을 시작하고 잡이 완료될 때까지
 계속한다. 그러나, 잡의 실행을 일시적으로 중단하고 나중에
-다시 시작할 수도 있다. 잡을 일시 중지하려면, 잡의 `.spec.suspend` 필드를 true로
-업데이트할 수 있다. 나중에, 다시 재개하려면, false로 업데이트한다.
+재개하거나, 잡을 중단 상태로 생성하고 언제 시작할지를 
+커스텀 컨트롤러가 나중에 결정하도록 하고 싶을 수도 있다. 
+
+잡을 일시 중지하려면, 잡의 `.spec.suspend` 필드를 true로
+업데이트할 수 있다. 이후에, 다시 재개하려면, false로 업데이트한다.
 `.spec.suspend` 로 설정된 잡을 생성하면 일시 중지된 상태로
 생성된다.
 
@@ -501,6 +525,32 @@ Events:
 파드가 생성되지 않았지만, 잡이 재개되자마자 파드 생성이 다시
 시작되었음을 알 수 있다.
 
+### 가변적 스케줄링 지시
+
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+
+{{< note >}}
+이 기능을 사용하려면, 
+[API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)에 
+`JobMutableNodeSchedulingDirectives` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+이 기능은 기본적으로 활성화되어 있다.
+{{< /note >}}
+
+병렬 잡에서 대부분의 경우 파드를 특정 제약 조건 하에서 실행하고 싶을 것이다. 
+(예를 들면 동일 존에서 실행하거나, 또는 GPU 모델 x 또는 y를 사용하지만 둘을 혼합하지는 않는 등)
+
+[suspend](#suspending-a-job) 필드는 이러한 목적을 달성하기 위한 첫 번째 단계이다. 
+이 필드를 사용하면 커스텀 큐(queue) 컨트롤러가 잡이 언제 시작될지를 결정할 수 있다. 
+그러나, 잡이 재개된 이후에는, 커스텀 큐 컨트롤러는 잡의 파드가 실제로 어디에 할당되는지에 대해서는 영향을 주지 않는다.
+
+이 기능을 이용하여 잡이 실행되기 전에 잡의 스케줄링 지시를 업데이트할 수 있으며, 
+이를 통해 커스텀 큐 컨트롤러가 파드 배치에 영향을 줌과 동시에 
+노드로의 파드 실제 할당 작업을 kube-scheduler로부터 경감시켜 줄 수 있도록 한다. 
+이는 이전에 재개된 적이 없는 중지된 잡에 대해서만 허용된다.
+
+잡의 파드 템플릿 필드 중, 노드 어피니티(node affinity), 노드 셀렉터(node selector), 
+톨러레이션(toleration), 레이블(label), 어노테이션(annotation)은 업데이트가 가능하다.
+
 ### 자신의 파드 셀렉터를 지정하기
 
 일반적으로 잡 오브젝트를 생성할 때 `.spec.selector` 를 지정하지 않는다.
@@ -570,17 +620,17 @@ spec:
 
 ### 종료자(finalizers)를 이용한 잡 추적
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
 이 기능을 이용하기 위해서는 
 [API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)와 
 [컨트롤러 매니저](/docs/reference/command-line-tools-reference/kube-controller-manager/)에 대해 
 `JobTrackingWithFinalizers` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 
-기본적으로는 비활성화되어 있다.
+기본적으로는 활성화되어 있다.
 
 이 기능이 활성화되면, 컨트롤 플레인은 아래에 설명할 동작을 이용하여 새로운 잡이 생성되는지 추적한다. 
-기존에 존재하던 잡은 영향을 받지 않는다. 
+이 기능이 활성화되기 이전에 생성된 잡은 영향을 받지 않는다. 
 사용자가 느낄 수 있는 유일한 차이점은 컨트롤 플레인이 잡 종료를 좀 더 정확하게 추적할 수 있다는 것이다.
 {{< /note >}}
 

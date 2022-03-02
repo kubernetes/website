@@ -105,7 +105,7 @@ Para desactivar el complemento de almacenamiento `awsElasticBlockStore` de ser c
 
 El tipo de volumen `azureDisk` monta un [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) de Microsoft Azure en el Pod.
 
-Para más detalles, mira el [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
+Para más detalles, mira el [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md).
 
 #### Migración CSI azureDisk
 
@@ -119,7 +119,7 @@ de complemento desde el complemento existente dentro del árbol existente al con
 
 El tipo de volumen `azureFile` monta un volumen de ficheros de Microsoft Azure (SMB 2.1 and 3.0) en un Pod.
 
-Para más detalles, mira el [`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
+Para más detalles, mira el [`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md).
 
 #### Migración CSI azureFile CSI
 
@@ -141,7 +141,7 @@ A diferencia de `emptydir`, que es borrado cuando se remueve el Pod, el contenid
 Debes tener tu propio servidor Ceph corriendo con el recurso compartido exportado antes de usarlo.
 {{< /note >}}
 
-Mira el [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) para más detalles.
+Mira el [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) para más detalles.
 
 ### cinder
 
@@ -292,7 +292,7 @@ Debes configurar FC SAN zoning para asignar y enmascarar esos (volúmenes) LUNs 
 para que los hosts Kubernetes pueda acceder a ellos.
 {{< /note >}}
 
-Revisa el [ejemplo de canal de fibra](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) para más detalles.
+Revisa el [ejemplo de canal de fibra](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) para más detalles.
 
 ### flocker (deprecado) {#flocker}
 
@@ -306,7 +306,7 @@ de nuevo por Flocker al nodo donde el Pod está programado. Esto significa que l
 Debes tener una instalación propia de Flocker ejecutándose antes de poder usarla.
 {{< /note >}}
 
-Mira el [ejemplo de Flocker ](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker) para más detalles.
+Mira el [ejemplo de Flocker ](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) para más detalles.
 
 ### gcePersistentDisk
 
@@ -453,7 +453,7 @@ y que los datos pueden ser compartidos entre pods. GlusterFS puede ser montado p
 Debes tener tu propia instalación de GlusterFS ejecutándose antes de poder usarla.
 {{< /note >}}
 
-Mira el [ejemplo de GlusterFS](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs) para más detalles.
+Mira el [ejemplo de GlusterFS](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs) para más detalles.
 
 ### hostPath {#hostpath}
 
@@ -560,7 +560,7 @@ Esto significa que puedes pre-poblar un volumen con tu conjunto de datos y servi
 Desafortunadamente, los volúmenes ISCSI solo se pueden montar por un único consumidor en modo lectura-escritura.
 Escritores simultáneos no está permitido.
 
-Mira el [ejemplo iSCSI](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) para más detalles.
+Mira el [ejemplo iSCSI](https://github.com/kubernetes/examples/tree/master/volumes/iscsi) para más detalles.
 
 ### local
 
@@ -634,7 +634,7 @@ NFS puede ser montado por múltiples escritores simultáneamente.
 Debes tener tu propio servidor NFS en ejecución con el recurso compartido exportado antes de poder usarlo.
 {{< /note >}}
 
-Mira el [ ejemplo NFS ](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs) para más información.
+Mira el [ ejemplo NFS ](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) para más información.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -674,7 +674,7 @@ spec:
 Asegúrate de tener un PortworxVolume con el nombre `pxvol` antes de usarlo en el Pod.
 {{< /note >}}
 
-Para más detalles, mira los ejemplos de [volumen Portworx](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md).
+Para más detalles, mira los ejemplos de [volumen Portworx](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md).
 
 ### projected
 
@@ -687,7 +687,7 @@ Actualmente, se pueden los siguientes tipos de volúmenes:
 - [`configMap`](#configmap)
 - `serviceAccountToken`
 
-Se requiere que todas las fuentes estén en el mismo namespace que el Pod. Para más detalles mira el [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
+Se requiere que todas las fuentes estén en el mismo namespace que el Pod. Para más detalles mira el [all-in-one volume design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
 
 #### Configuración de ejemplo con un secret, un downwardAPI, y un configMap {#example-configuration-secret-downwardapi-configmap}
 
@@ -828,7 +828,7 @@ Debes tener una instalación de Ceph ejecutándose antes de usar RBD.
 Una función de RBD es que solo se puede montar como de solo lectura por múltiples consumidores simultáneamente.
 Esto significa que puedes pre-poblar un volumen con tu conjunto de datos y luego servirlo en paralelo desde tantos pods como necesites. Desafortunadamente, los volúmenes RBD solo se pueden montar por un único consumidor en modo lectura-escritura. No se permiten escritores simultáneos.
 
-Mira el [ejemplo RBD](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd) para más detalles.
+Mira el [ejemplo RBD](https://github.com/kubernetes/examples/tree/master/volumes/rbd) para más detalles.
 
 ### scaleIO (deprecado) {#scaleio}
 
@@ -865,7 +865,7 @@ spec:
         fsType: xfs
 ```
 
-Para más detalles, mira los ejemplos de [ScaleIO](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio)
+Para más detalles, mira los ejemplos de [ScaleIO](https://github.com/kubernetes/examples/tree/master/staging/volumes/scaleio)
 
 ### secret
 
