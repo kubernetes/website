@@ -52,13 +52,10 @@ Kubernetes endpoints. An example of an internal Kubernetes endpoint is the
 Service named `kubernetes` in the default namespace.
 
 If you want to use a custom certificate authority for your workloads, you should generate
-that CA separately, and distribute its CA certificate using a ConfigMap that your pods have access
-to read.
+that CA separately, and distribute its CA certificate using a 
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your pods 
+have access to read.
 {{< /note >}}
-
-You can distribute the CA certificate as a
-[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your
-pods have access to use.
 
 ## Requesting a Certificate
 
