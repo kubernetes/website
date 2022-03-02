@@ -28,8 +28,8 @@ API-initiated eviction is the process by which you use the [Eviction API](/docs/
 to create an `Eviction` object that triggers graceful pod termination.
 -->
 API 发起的驱逐是一个先调用
-[Eviction API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/create-eviction-pod-v1-core)
-创建驱逐对象，再由该对象体面地中止 Pod 的过程。
+[Eviction API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)
+创建 `Eviction` 对象，再由该对象体面地中止 Pod 的过程。
 
 <!--more-->
 
