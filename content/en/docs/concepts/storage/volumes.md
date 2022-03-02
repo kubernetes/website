@@ -1302,6 +1302,14 @@ provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
 are listed in [Types of Volumes](#volume-types).
 
+The following in-tree plugins support persistent storage on Windows nodes:
+
+* [`awsElasticBlockStore`](#awselasticblockstore)
+* [`azureDisk`](#azuredisk)
+* [`azureFile`](#azurefile)
+* [`gcePersistentDisk`](#gcepersistentdisk)
+* [`vsphereVolume`](#vspherevolume)
+
 ### flexVolume
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
