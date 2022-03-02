@@ -210,7 +210,8 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
 `system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
 Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
-them a kubeconfig file using the `kubeadm kubeconfig user` command.
+them a kubeconfig file using the `kubeadm kubeconfig user` command. For more details see
+[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 {{< /warning >}}
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
@@ -282,6 +283,15 @@ And once the CoreDNS Pod is up and running, you can continue by joining your nod
 If your network is not working or CoreDNS is not in the `Running` state, check out the
 [troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
 for `kubeadm`.
+
+### Managed node labels
+
+By default, kubeadm enables the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+admission controller that restricts what labels can be self-applied by kubelets on node registration.
+The admission controller documentation covers what labels are permitted to be used with the kubelet `--node-labels` option.
+The `node-role.kubernetes.io/control-plane` label is such a restricted label and kubeadm manually applies it using
+a privileged client after a node has been created. To do that manually you can do the same by using `kubectl label`
+and ensure it is using a privileged kubeconfig such as the kubeadm managed `/etc/kubernetes/admin.conf`.
 
 ### Control plane node isolation
 
@@ -384,8 +394,8 @@ A few seconds later, you should notice this node in the output from `kubectl get
 nodes` when run on the control-plane node.
 
 {{< note >}}
-As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run 
-on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods 
+As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run
+on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 {{< /note >}}
 

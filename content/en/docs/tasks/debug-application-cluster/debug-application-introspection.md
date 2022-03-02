@@ -40,70 +40,77 @@ kubectl get pods
 ```
 
 ```none
-NAME                                READY     STATUS    RESTARTS   AGE
-nginx-deployment-1006230814-6winp   1/1       Running   0          11s
-nginx-deployment-1006230814-fmgu3   1/1       Running   0          11s
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-67d4bdd6f5-cx2nz   1/1     Running   0          13s
+nginx-deployment-67d4bdd6f5-w6kd7   1/1     Running   0          13s
 ```
 
 We can retrieve a lot more information about each of these pods using `kubectl describe pod`. For example:
 
 ```shell
-kubectl describe pod nginx-deployment-1006230814-6winp
+kubectl describe pod nginx-deployment-67d4bdd6f5-w6kd7
 ```
 
 ```none
-Name:		nginx-deployment-1006230814-6winp
-Namespace:	default
-Node:		kubernetes-node-wul5/10.240.0.9
-Start Time:	Thu, 24 Mar 2016 01:39:49 +0000
-Labels:		app=nginx,pod-template-hash=1006230814
-Annotations:    kubernetes.io/created-by={"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicaSet","namespace":"default","name":"nginx-deployment-1956810328","uid":"14e607e7-8ba1-11e7-b5cb-fa16" ...
-Status:		Running
-IP:		10.244.0.6
-Controllers:	ReplicaSet/nginx-deployment-1006230814
+Name:         nginx-deployment-67d4bdd6f5-w6kd7
+Namespace:    default
+Priority:     0
+Node:         kube-worker-1/192.168.0.113
+Start Time:   Thu, 17 Feb 2022 16:51:01 -0500
+Labels:       app=nginx
+              pod-template-hash=67d4bdd6f5
+Annotations:  <none>
+Status:       Running
+IP:           10.88.0.3
+IPs:
+  IP:           10.88.0.3
+  IP:           2001:db8::1
+Controlled By:  ReplicaSet/nginx-deployment-67d4bdd6f5
 Containers:
   nginx:
-    Container ID:	docker://90315cc9f513c724e9957a4788d3e625a078de84750f244a40f97ae355eb1149
-    Image:		nginx
-    Image ID:		docker://6f62f48c4e55d700cf3eb1b5e33fa051802986b77b874cc351cce539e5163707
-    Port:		80/TCP
-    QoS Tier:
-      cpu:	Guaranteed
-      memory:	Guaranteed
+    Container ID:   containerd://5403af59a2b46ee5a23fb0ae4b1e077f7ca5c5fb7af16e1ab21c00e0e616462a
+    Image:          nginx
+    Image ID:       docker.io/library/nginx@sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Thu, 17 Feb 2022 16:51:05 -0500
+    Ready:          True
+    Restart Count:  0
     Limits:
-      cpu:	500m
-      memory:	128Mi
+      cpu:     500m
+      memory:  128Mi
     Requests:
-      memory:		128Mi
-      cpu:		500m
-    State:		Running
-      Started:		Thu, 24 Mar 2016 01:39:51 +0000
-    Ready:		True
-    Restart Count:	0
-    Environment:        <none>
+      cpu:        500m
+      memory:     128Mi
+    Environment:  <none>
     Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from default-token-5kdvl (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-bgsgp (ro)
 Conditions:
-  Type          Status
-  Initialized   True
-  Ready         True
-  PodScheduled  True
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
 Volumes:
-  default-token-4bcbi:
-    Type:	Secret (a volume populated by a Secret)
-    SecretName:	default-token-4bcbi
-    Optional:   false
-QoS Class:      Guaranteed
-Node-Selectors: <none>
-Tolerations:    <none>
+  kube-api-access-bgsgp:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Guaranteed
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
 Events:
-  FirstSeen	LastSeen	Count	From					SubobjectPath		Type		Reason		Message
-  ---------	--------	-----	----					-------------		--------	------		-------
-  54s		54s		1	{default-scheduler }						Normal		Scheduled	Successfully assigned nginx-deployment-1006230814-6winp to kubernetes-node-wul5
-  54s		54s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Pulling		pulling image "nginx"
-  53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Pulled		Successfully pulled image "nginx"
-  53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Created		Created container with docker id 90315cc9f513
-  53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Started		Started container with docker id 90315cc9f513
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  34s   default-scheduler  Successfully assigned default/nginx-deployment-67d4bdd6f5-w6kd7 to kube-worker-1
+  Normal  Pulling    31s   kubelet            Pulling image "nginx"
+  Normal  Pulled     30s   kubelet            Successfully pulled image "nginx" in 1.146417389s
+  Normal  Created    30s   kubelet            Created container nginx
+  Normal  Started    30s   kubelet            Started container nginx
 ```
 
 Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.).
@@ -203,18 +210,22 @@ kubectl get pod nginx-deployment-1006230814-6winp -o yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  annotations:
-    kubernetes.io/created-by: |
-      {"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicaSet","namespace":"default","name":"nginx-deployment-1006230814","uid":"4c84c175-f161-11e5-9a78-42010af00005","apiVersion":"extensions","resourceVersion":"133434"}}
-  creationTimestamp: 2016-03-24T01:39:50Z
-  generateName: nginx-deployment-1006230814-
+  creationTimestamp: "2022-02-17T21:51:01Z"
+  generateName: nginx-deployment-67d4bdd6f5-
   labels:
     app: nginx
-    pod-template-hash: "1006230814"
-  name: nginx-deployment-1006230814-6winp
+    pod-template-hash: 67d4bdd6f5
+  name: nginx-deployment-67d4bdd6f5-w6kd7
   namespace: default
-  resourceVersion: "133447"
-  uid: 4c879808-f161-11e5-9a78-42010af00005
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: nginx-deployment-67d4bdd6f5
+    uid: 7d41dfd4-84c0-4be4-88ab-cedbe626ad82
+  resourceVersion: "1364"
+  uid: a6501da1-0447-4262-98eb-c03d4002222e
 spec:
   containers:
   - image: nginx
@@ -231,42 +242,88 @@ spec:
         cpu: 500m
         memory: 128Mi
     terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
     volumeMounts:
     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-      name: default-token-4bcbi
+      name: kube-api-access-bgsgp
       readOnly: true
   dnsPolicy: ClusterFirst
-  nodeName: kubernetes-node-wul5
+  enableServiceLinks: true
+  nodeName: kube-worker-1
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
   restartPolicy: Always
+  schedulerName: default-scheduler
   securityContext: {}
   serviceAccount: default
   serviceAccountName: default
   terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
   volumes:
-  - name: default-token-4bcbi
-    secret:
-      secretName: default-token-4bcbi
+  - name: kube-api-access-bgsgp
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
 status:
   conditions:
   - lastProbeTime: null
-    lastTransitionTime: 2016-03-24T01:39:51Z
+    lastTransitionTime: "2022-02-17T21:51:01Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-02-17T21:51:06Z"
     status: "True"
     type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-02-17T21:51:06Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-02-17T21:51:01Z"
+    status: "True"
+    type: PodScheduled
   containerStatuses:
-  - containerID: docker://90315cc9f513c724e9957a4788d3e625a078de84750f244a40f97ae355eb1149
-    image: nginx
-    imageID: docker://6f62f48c4e55d700cf3eb1b5e33fa051802986b77b874cc351cce539e5163707
+  - containerID: containerd://5403af59a2b46ee5a23fb0ae4b1e077f7ca5c5fb7af16e1ab21c00e0e616462a
+    image: docker.io/library/nginx:latest
+    imageID: docker.io/library/nginx@sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767
     lastState: {}
     name: nginx
     ready: true
     restartCount: 0
+    started: true
     state:
       running:
-        startedAt: 2016-03-24T01:39:51Z
-  hostIP: 10.240.0.9
+        startedAt: "2022-02-17T21:51:05Z"
+  hostIP: 192.168.0.113
   phase: Running
-  podIP: 10.244.0.6
-  startTime: 2016-03-24T01:39:49Z
+  podIP: 10.88.0.3
+  podIPs:
+  - ip: 10.88.0.3
+  - ip: 2001:db8::1
+  qosClass: Guaranteed
+  startTime: "2022-02-17T21:51:01Z"
 ```
 
 ## Example: debugging a down/unreachable node
@@ -279,114 +336,175 @@ kubectl get nodes
 
 ```none
 NAME                     STATUS       ROLES     AGE     VERSION
-kubernetes-node-861h     NotReady     <none>    1h      v1.13.0
-kubernetes-node-bols     Ready        <none>    1h      v1.13.0
-kubernetes-node-st6x     Ready        <none>    1h      v1.13.0
-kubernetes-node-unaj     Ready        <none>    1h      v1.13.0
+kube-worker-1            NotReady     <none>    1h      v1.23.3
+kubernetes-node-bols     Ready        <none>    1h      v1.23.3
+kubernetes-node-st6x     Ready        <none>    1h      v1.23.3
+kubernetes-node-unaj     Ready        <none>    1h      v1.23.3
 ```
 
 ```shell
-kubectl describe node kubernetes-node-861h
+kubectl describe node kube-worker-1
 ```
 
 ```none
-Name:			kubernetes-node-861h
-Role
-Labels:		 kubernetes.io/arch=amd64
-           kubernetes.io/os=linux
-           kubernetes.io/hostname=kubernetes-node-861h
-Annotations:        node.alpha.kubernetes.io/ttl=0
-                    volumes.kubernetes.io/controller-managed-attach-detach=true
-Taints:             <none>
-CreationTimestamp:	Mon, 04 Sep 2017 17:13:23 +0800
-Phase:
+Name:               kube-worker-1
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=kube-worker-1
+                    kubernetes.io/os=linux
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Thu, 17 Feb 2022 16:46:30 -0500
+Taints:             node.kubernetes.io/unreachable:NoExecute
+                    node.kubernetes.io/unreachable:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  kube-worker-1
+  AcquireTime:     <unset>
+  RenewTime:       Thu, 17 Feb 2022 17:13:09 -0500
 Conditions:
-  Type		Status		LastHeartbeatTime			LastTransitionTime			Reason					Message
-  ----    ------    -----------------     ------------------      ------          -------
-  OutOfDisk             Unknown         Fri, 08 Sep 2017 16:04:28 +0800         Fri, 08 Sep 2017 16:20:58 +0800         NodeStatusUnknown       Kubelet stopped posting node status.
-  MemoryPressure        Unknown         Fri, 08 Sep 2017 16:04:28 +0800         Fri, 08 Sep 2017 16:20:58 +0800         NodeStatusUnknown       Kubelet stopped posting node status.
-  DiskPressure          Unknown         Fri, 08 Sep 2017 16:04:28 +0800         Fri, 08 Sep 2017 16:20:58 +0800         NodeStatusUnknown       Kubelet stopped posting node status.
-  Ready                 Unknown         Fri, 08 Sep 2017 16:04:28 +0800         Fri, 08 Sep 2017 16:20:58 +0800         NodeStatusUnknown       Kubelet stopped posting node status.
-Addresses:	10.240.115.55,104.197.0.26
+  Type                 Status    LastHeartbeatTime                 LastTransitionTime                Reason              Message
+  ----                 ------    -----------------                 ------------------                ------              -------
+  NetworkUnavailable   False     Thu, 17 Feb 2022 17:09:13 -0500   Thu, 17 Feb 2022 17:09:13 -0500   WeaveIsUp           Weave pod has set this
+  MemoryPressure       Unknown   Thu, 17 Feb 2022 17:12:40 -0500   Thu, 17 Feb 2022 17:13:52 -0500   NodeStatusUnknown   Kubelet stopped posting node status.
+  DiskPressure         Unknown   Thu, 17 Feb 2022 17:12:40 -0500   Thu, 17 Feb 2022 17:13:52 -0500   NodeStatusUnknown   Kubelet stopped posting node status.
+  PIDPressure          Unknown   Thu, 17 Feb 2022 17:12:40 -0500   Thu, 17 Feb 2022 17:13:52 -0500   NodeStatusUnknown   Kubelet stopped posting node status.
+  Ready                Unknown   Thu, 17 Feb 2022 17:12:40 -0500   Thu, 17 Feb 2022 17:13:52 -0500   NodeStatusUnknown   Kubelet stopped posting node status.
+Addresses:
+  InternalIP:  192.168.0.113
+  Hostname:    kube-worker-1
 Capacity:
- cpu:           2
- hugePages:     0
- memory:        4046788Ki
- pods:          110
+  cpu:                2
+  ephemeral-storage:  15372232Ki
+  hugepages-2Mi:      0
+  memory:             2025188Ki
+  pods:               110
 Allocatable:
- cpu:           1500m
- hugePages:     0
- memory:        1479263Ki
- pods:          110
+  cpu:                2
+  ephemeral-storage:  14167048988
+  hugepages-2Mi:      0
+  memory:             1922788Ki
+  pods:               110
 System Info:
- Machine ID:                    8e025a21a4254e11b028584d9d8b12c4
- System UUID:                   349075D1-D169-4F25-9F2A-E886850C47E3
- Boot ID:                       5cd18b37-c5bd-4658-94e0-e436d3f110e0
- Kernel Version:                4.4.0-31-generic
- OS Image:                      Debian GNU/Linux 8 (jessie)
- Operating System:              linux
- Architecture:                  amd64
- Container Runtime Version:     docker://1.12.5
- Kubelet Version:               v1.6.9+a3d1dfa6f4335
- Kube-Proxy Version:            v1.6.9+a3d1dfa6f4335
-ExternalID:                     15233045891481496305
-Non-terminated Pods:            (9 in total)
-  Namespace                     Name                                            CPU Requests    CPU Limits      Memory Requests Memory Limits
-  ---------                     ----                                            ------------    ----------      --------------- -------------
-......
+  Machine ID:                 9384e2927f544209b5d7b67474bbf92b
+  System UUID:                aa829ca9-73d7-064d-9019-df07404ad448
+  Boot ID:                    5a295a03-aaca-4340-af20-1327fa5dab5c
+  Kernel Version:             5.13.0-28-generic
+  OS Image:                   Ubuntu 21.10
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.5.9
+  Kubelet Version:            v1.23.3
+  Kube-Proxy Version:         v1.23.3
+Non-terminated Pods:          (4 in total)
+  Namespace                   Name                                 CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                 ------------  ----------  ---------------  -------------  ---
+  default                     nginx-deployment-67d4bdd6f5-cx2nz    500m (25%)    500m (25%)  128Mi (6%)       128Mi (6%)     23m
+  default                     nginx-deployment-67d4bdd6f5-w6kd7    500m (25%)    500m (25%)  128Mi (6%)       128Mi (6%)     23m
+  kube-system                 kube-proxy-dnxbz                     0 (0%)        0 (0%)      0 (0%)           0 (0%)         28m
+  kube-system                 weave-net-gjxxp                      100m (5%)     0 (0%)      200Mi (10%)      0 (0%)         28m
 Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
-  CPU Requests  CPU Limits      Memory Requests         Memory Limits
-  ------------  ----------      ---------------         -------------
-  900m (60%)    2200m (146%)    1009286400 (66%)        5681286400 (375%)
-Events:         <none>
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                1100m (55%)  1 (50%)
+  memory             456Mi (24%)  256Mi (13%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+Events:
+...
 ```
 
 ```shell
-kubectl get node kubernetes-node-861h -o yaml
+kubectl get node kube-worker-1 -o yaml
 ```
 
 ```yaml
 apiVersion: v1
 kind: Node
 metadata:
-  creationTimestamp: 2015-07-10T21:32:29Z
+  annotations:
+    kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
+    node.alpha.kubernetes.io/ttl: "0"
+    volumes.kubernetes.io/controller-managed-attach-detach: "true"
+  creationTimestamp: "2022-02-17T21:46:30Z"
   labels:
-    kubernetes.io/hostname: kubernetes-node-861h
-  name: kubernetes-node-861h
-  resourceVersion: "757"
-  uid: 2a69374e-274b-11e5-a234-42010af0d969
-spec:
-  externalID: "15233045891481496305"
-  podCIDR: 10.244.0.0/24
-  providerID: gce://striped-torus-760/us-central1-b/kubernetes-node-861h
+    beta.kubernetes.io/arch: amd64
+    beta.kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    kubernetes.io/hostname: kube-worker-1
+    kubernetes.io/os: linux
+  name: kube-worker-1
+  resourceVersion: "4026"
+  uid: 98efe7cb-2978-4a0b-842a-1a7bf12c05f8
+spec: {}
 status:
   addresses:
-  - address: 10.240.115.55
+  - address: 192.168.0.113
     type: InternalIP
-  - address: 104.197.0.26
-    type: ExternalIP
+  - address: kube-worker-1
+    type: Hostname
+  allocatable:
+    cpu: "2"
+    ephemeral-storage: "14167048988"
+    hugepages-2Mi: "0"
+    memory: 1922788Ki
+    pods: "110"
   capacity:
-    cpu: "1"
-    memory: 3800808Ki
-    pods: "100"
+    cpu: "2"
+    ephemeral-storage: 15372232Ki
+    hugepages-2Mi: "0"
+    memory: 2025188Ki
+    pods: "110"
   conditions:
-  - lastHeartbeatTime: 2015-07-10T21:34:32Z
-    lastTransitionTime: 2015-07-10T21:35:15Z
-    reason: Kubelet stopped posting node status.
-    status: Unknown
+  - lastHeartbeatTime: "2022-02-17T22:20:32Z"
+    lastTransitionTime: "2022-02-17T22:20:32Z"
+    message: Weave pod has set this
+    reason: WeaveIsUp
+    status: "False"
+    type: NetworkUnavailable
+  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+    lastTransitionTime: "2022-02-17T22:13:25Z"
+    message: kubelet has sufficient memory available
+    reason: KubeletHasSufficientMemory
+    status: "False"
+    type: MemoryPressure
+  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+    lastTransitionTime: "2022-02-17T22:13:25Z"
+    message: kubelet has no disk pressure
+    reason: KubeletHasNoDiskPressure
+    status: "False"
+    type: DiskPressure
+  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+    lastTransitionTime: "2022-02-17T22:13:25Z"
+    message: kubelet has sufficient PID available
+    reason: KubeletHasSufficientPID
+    status: "False"
+    type: PIDPressure
+  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+    lastTransitionTime: "2022-02-17T22:15:15Z"
+    message: kubelet is posting ready status. AppArmor enabled
+    reason: KubeletReady
+    status: "True"
     type: Ready
+  daemonEndpoints:
+    kubeletEndpoint:
+      Port: 10250
   nodeInfo:
-    bootID: 4e316776-b40d-4f78-a4ea-ab0d73390897
-    containerRuntimeVersion: docker://Unknown
-    kernelVersion: 3.16.0-0.bpo.4-amd64
-    kubeProxyVersion: v0.21.1-185-gffc5a86098dc01
-    kubeletVersion: v0.21.1-185-gffc5a86098dc01
-    machineID: ""
-    osImage: Debian GNU/Linux 7 (wheezy)
-    systemUUID: ABE5F6B4-D44B-108B-C46A-24CCE16C8B6E
+    architecture: amd64
+    bootID: 22333234-7a6b-44d4-9ce1-67e31dc7e369
+    containerRuntimeVersion: containerd://1.5.9
+    kernelVersion: 5.13.0-28-generic
+    kubeProxyVersion: v1.23.3
+    kubeletVersion: v1.23.3
+    machineID: 9384e2927f544209b5d7b67474bbf92b
+    operatingSystem: linux
+    osImage: Ubuntu 21.10
+    systemUUID: aa829ca9-73d7-064d-9019-df07404ad448
 ```
-
 
 
 ## {{% heading "whatsnext" %}}

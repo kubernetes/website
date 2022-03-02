@@ -72,6 +72,22 @@ This annotation is a best guess at why something was changed.
 
 It is populated when adding `--record` to a `kubectl` command that may change an object.
 
+## kubernetes.io/description {#description}
+
+Example: `kubernetes.io/description: "Description of K8s object."`
+
+Used on: All Objects
+
+This annotation is used for describing specific behaviour of given object.
+
+## kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
+
+Example: `kubernetes.io/enforce-mountable-secrets: "true"`
+
+Used on: ServiceAccount
+
+The value for this annotation must be **true** to take effect. This annotation indicates that pods running as this service account may only reference Secret API objects specified in the service account's `secrets` field.
+
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
 Example: `controller.kubernetes.io/pod-deletion-cost=10`

@@ -81,11 +81,12 @@ on every resource object.
 | `app.kubernetes.io/managed-by`      | 用于管理应用程序的工具 | `helm` | 字符串 |
 | `app.kubernetes.io/created-by`      | 创建该资源的控制器或者用户 | `controller-manager` | 字符串 |
 <!--
-To illustrate these labels in action, consider the following StatefulSet object:
+To illustrate these labels in action, consider the following {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} object:
 -->
-为说明这些标签的实际使用情况，请看下面的 StatefulSet 对象：
+为说明这些标签的实际使用情况，请看下面的 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} 对象：
 
 ```yaml
+# 这是一段节选
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:

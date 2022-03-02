@@ -28,6 +28,7 @@ weight: 40
   컨트롤러다.
 * [Apache APISIX 인그레스 컨트롤러](https://github.com/apache/apisix-ingress-controller)는 [Apache APISIX](https://github.com/apache/apisix) 기반의 인그레스 컨트롤러이다.
 * [Avi 쿠버네티스 오퍼레이터](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)는 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)을 사용하는 L4-L7 로드 밸런싱을 제공한다.
+* [BFE Ingress Controller](https://github.com/bfenetworks/ingress-bfe)는 [BFE](https://www.bfe-networks.net) 기반 인그레스 컨트롤러다.
 * [Citrix 인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller#readme)는
   Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.

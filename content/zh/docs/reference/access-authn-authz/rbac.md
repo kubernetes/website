@@ -559,7 +559,7 @@ Allow reading `"pods"` resources in the core
 -->
 #### Role 示例   {#role-examples}
 
-以下示例均为从 Role 或 CLusterRole 对象中截取出来，我们仅展示其 `rules` 部分。
+以下示例均为从 Role 或 ClusterRole 对象中截取出来，我们仅展示其 `rules` 部分。
 
 允许读取在核心 {{< glossary_tooltip text="API 组" term_id="api-group" >}}下的
 `"Pods"`：
@@ -2079,11 +2079,11 @@ are running with no RBAC denial messages in the server logs, you can remove the 
 在服务器日志中没有出现 RBAC 拒绝消息，就可以删除 ABAC 鉴权器。
 
 <!--
-## Permissive RBAC Permissions
+### Permissive RBAC Permissions
 
 You can replicate a permissive policy using RBAC role bindings.
 -->
-## 宽松的 RBAC 权限   {#permissive-rbac-permissions}
+### 宽松的 RBAC 权限   {#permissive-rbac-permissions}
 
 你可以使用 RBAC 角色绑定在多个场合使用宽松的策略。
 

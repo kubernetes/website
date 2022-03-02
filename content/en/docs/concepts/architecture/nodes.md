@@ -93,7 +93,7 @@ For self-registration, the kubelet is started with the following options:
     No-op if `register-node` is false.
   - `--node-ip` - IP address of the node.
   - `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
-  - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
+  - `--node-status-update-frequency` - Specifies how often kubelet posts its node status to the API server.
 
 When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
@@ -335,7 +335,7 @@ the same time:
   (default 0.01) per second.
 
 The reason these policies are implemented per availability zone is because one
-availability zone might become partitioned from the master while the others remain
+availability zone might become partitioned from the control plane while the others remain
 connected. If your cluster does not span multiple cloud provider availability zones,
 then the eviction mechanism does not take per-zone unavailability into account.
 

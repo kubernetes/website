@@ -96,15 +96,16 @@ out.
 First install the volume-data-source-validator controller.
 
 ```terminal
-kubectl apply -f https://github.com/kubernetes-csi/volume-data-source-validator/blob/master/deploy/kubernetes/rbac-data-source-validator.yaml
-kubectl apply -f https://github.com/kubernetes-csi/volume-data-source-validator/blob/master/deploy/kubernetes/setup-data-source-validator.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/volume-data-source-validator/master/client/config/crd/populator.storage.k8s.io_volumepopulators.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/volume-data-source-validator/master/deploy/kubernetes/rbac-data-source-validator.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/volume-data-source-validator/master/deploy/kubernetes/setup-data-source-validator.yaml
 ```
 
 Next install the example populator.
 
 ```terminal
-kubectl apply -f https://github.com/kubernetes-csi/lib-volume-populator/blob/master/example/hello-populator/crd.yaml
-kubectl apply -f https://github.com/kubernetes-csi/lib-volume-populator/blob/master/example/hello-populator/deploy.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/lib-volume-populator/master/example/hello-populator/crd.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/lib-volume-populator/master/example/hello-populator/deploy.yaml
 ```
 
 Create an instance of the `Hello` CR, with some text.
