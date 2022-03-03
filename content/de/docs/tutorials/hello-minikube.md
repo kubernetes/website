@@ -105,7 +105,7 @@ Der Pod führt einen Container basierend auf dem bereitgestellten Docker-Image a
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. Cluster Events anzigen:
+4. Cluster Events anzeigen:
 
     ```shell
     kubectl get events
