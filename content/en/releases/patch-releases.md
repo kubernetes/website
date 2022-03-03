@@ -78,10 +78,10 @@ releases may also occur in between these.
 
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| February 2022         | 2022-02-11           | 2022-02-16  |
 | March 2022            | 2022-03-11           | 2022-03-16  |
 | April 2022            | 2022-04-08           | 2022-04-13  |
 | May 2022              | 2022-05-13           | 2022-05-18  |
+| June 2022             | 2022-06-10           | 2022-06-15  |
 
 ## Detailed Release History for Active Branches
 
@@ -93,6 +93,7 @@ End of Life for **1.23** is **2023-02-28**.
 
 | Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
+| 1.23.5        | 2022-03-11           | 2022-03-16  |      |
 | 1.23.4        | 2022-02-11           | 2022-02-16  |      |
 | 1.23.3        | 2022-01-24           | 2022-01-25  | [Out-of-Band Release](https://groups.google.com/u/2/a/kubernetes.io/g/dev/c/Xl1sm-CItaY) |
 | 1.23.2        | 2022-01-14           | 2022-01-19  |      |
@@ -106,6 +107,7 @@ End of Life for **1.22** is **2022-10-28**
 
 | Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
+| 1.22.8        | 2022-03-11           | 2022-03-16  |      |
 | 1.22.7        | 2022-02-11           | 2022-02-16  |      |
 | 1.22.6        | 2022-01-14           | 2022-01-19  |      |
 | 1.22.5        | 2021-12-10           | 2021-12-15  |      |
@@ -122,6 +124,7 @@ End of Life for **1.21** is **2022-06-28**
 
 | Patch Release | Cherry Pick Deadline | Target Date | Note |
 | ------------- | -------------------- | ----------- | ---------------------------------------------------------------------- |
+| 1.21.11       | 2022-03-11           | 2022-03-16  |                                                                        |
 | 1.21.10       | 2022-02-11           | 2022-02-16  |                                                                        |
 | 1.21.9        | 2022-01-14           | 2022-01-19  |                                                                        |
 | 1.21.8        | 2021-12-10           | 2021-12-15  |                                                                        |
@@ -133,38 +136,13 @@ End of Life for **1.21** is **2022-06-28**
 | 1.21.2        | 2021-06-12           | 2021-06-16  |                                                                        |
 | 1.21.1        | 2021-05-07           | 2021-05-12  | [Regression](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs) |
 
-### 1.20
-
-**1.20** enters maintenance mode on **2021-12-28**
-
-End of Life for **1.20** is **2022-02-28**
-
-| Patch Release | Cherry Pick Deadline | Target Date | Note |
-| ------------- | -------------------- | ----------- | ----------------------------------------------------------------------------------- |
-| 1.20.16       | 2022-02-11           | 2022-02-16  | If there is critical/blocker patches to be released                                 |
-| 1.20.15       | 2022-01-14           | 2022-01-19  |                                                                                     |
-| 1.20.14       | 2021-12-10           | 2021-12-15  |                                                                                     |
-| 1.20.13       | 2021-11-12           | 2021-11-17  |                                                                                     |
-| 1.20.12       | 2021-10-22           | 2021-10-27  |                                                                                     |
-| 1.20.11       | 2021-09-10           | 2021-09-15  |                                                                                     |
-| 1.20.10       | 2021-08-07           | 2021-08-11  |                                                                                     |
-| 1.20.9        | 2021-07-10           | 2021-07-14  |                                                                                     |
-| 1.20.8        | 2021-06-12           | 2021-06-16  |                                                                                     |
-| 1.20.7        | 2021-05-07           | 2021-05-12  | [Regression](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs)              |
-| 1.20.6        | 2021-04-09           | 2021-04-14  |                                                                                     |
-| 1.20.5        | 2021-03-12           | 2021-03-17  |                                                                                     |
-| 1.20.4        | 2021-02-12           | 2021-02-18  |                                                                                     |
-| 1.20.3        | 2021-02-12           | 2021-02-17  | [Conformance Tests Issue](https://groups.google.com/g/kubernetes-dev/c/oUpY9vWgzJo) |
-| 1.20.2        | 2021-01-08           | 2021-01-13  |                                                                                     |
-| 1.20.1        | 2020-12-11           | 2020-12-18  | [Tagging Issue](https://groups.google.com/g/kubernetes-dev/c/dNH2yknlCBA)           |
-
-
 ## Non-Active Branch History
 
 These releases are no longer supported.
 
 | Minor Version | Final Patch Release | EOL Date   | Note                                                                   |
 | ------------- | ------------------- | ---------- | ---------------------------------------------------------------------- |
+| 1.20          | 1.20.15             | 2022-02-28 |                                                                        |
 | 1.19          | 1.19.16             | 2021-10-28 |                                                                        |
 | 1.18          | 1.18.20             | 2021-06-18 | Created to resolve regression introduced in 1.18.19                    |
 | 1.18          | 1.18.19             | 2021-05-12 | [Regression](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs) |
