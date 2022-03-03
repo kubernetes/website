@@ -22,6 +22,34 @@ Most of the blog's content is about things happening in the core project, but we
 
 Anyone can write a blog post and submit it for review.
 
+### Submit a Post
+
+Blog posts should not be commercial in nature and should consist of original content that applies broadly to the Kubernetes community.
+Appropriate blog content includes:
+
+- New Kubernetes capabilities
+- Kubernetes projects updates
+- Updates from Special Interest Groups
+- Tutorials and walkthroughs
+- Thought leadership around Kubernetes
+- Kubernetes Partner OSS integration
+- **Original content only**
+
+Unsuitable content includes:
+
+- Vendor product pitches
+- Partner updates without an integration and customer story
+- Syndicated posts (language translations ok)
+
+To submit a blog post, follow these steps:
+
+1. [Sign the CLA](https://kubernetes.io/docs/contribute/start/#sign-the-cla) if you have not yet done so.
+1. Have a look at the Markdown format for existing blog posts in the [website repository](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts).
+1. Write out your blog post in a text editor of your choice.
+1. On the same link from step 2, click the Create new file button. Paste your content into the editor. Name the file to match the proposed title of the blog post, but don’t put the date in the file name. The blog reviewers will work with you on the final file name and the date the blog will be published.
+1. When you save the file, GitHub will walk you through the pull request process.
+1. A blog post reviewer will review your submission and work with you on feedback and final details. When the blog post is approved, the blog will be scheduled for publication.
+
 ### Guidelines and expectations
 
 - Blog posts should not be vendor pitches. 

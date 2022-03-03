@@ -404,7 +404,7 @@ Deployment 创建 `pod-b` 的替代 Pod `pod-e`。
 
 |    node-1 *drained*  |       node-2        |       node-3       | *no node*          |
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
-|                      | pod-b *available*   | pod-c *available*  | pod-e *pending*    |
+|                      | pod-b *terminating* | pod-c *available*  | pod-e *pending*    |
 |                      | pod-d *available*   | pod-y              |                    |
 
 <!--
