@@ -2,6 +2,7 @@
 title: Command line tool (kubectl)
 content_type: reference
 weight: 60
+no_list: true
 card:
   name: reference
   weight: 20
@@ -23,6 +24,7 @@ For details about each command, including all the supported flags and subcommand
 
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
 for a quick guide, see the [cheat sheet](/docs/reference/kubectl/cheatsheet/).
+If you're used to using the `docker` command-line tool, [`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/) explains some equivalent commands for Kubernetes.
 
 <!-- body -->
 
@@ -545,7 +547,10 @@ Current user: plugins-user
 
 ## {{% heading "whatsnext" %}}
 
-* Read the `kubectl` [command reference](/docs/reference/kubectl/kubectl/).
-* Read the `kubectl` [command line arguments](/docs/reference/kubectl/kubectl/) reference.
-* Read about how to [extend kubectl with plugins](/docs/tasks/extend-kubectl/kubectl-plugins).
+* Read the `kubectl` reference documentation:
+  * the kubectl [command reference](/docs/reference/kubectl/kubectl/)
+  * the [command line arguments](/docs/reference/generated/kubectl/kubectl-commands/) reference
+* Learn about [`kubectl` usage conventions](/docs/reference/kubectl/conventions/)
+* Read about [JSONPath support](/docs/reference/kubectl/jsonpath/) in kubectl
+* Read about how to [extend kubectl with plugins](/docs/tasks/extend-kubectl/kubectl-plugins)
   * To find out more about plugins, take a look at the [example CLI plugin](https://github.com/kubernetes/sample-cli-plugin).
