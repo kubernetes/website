@@ -167,7 +167,7 @@ To do so, add an `addedAffinity` to the args of the [`NodeAffinity` plugin](/doc
 in the [scheduler configuration](/docs/reference/scheduling/config/). For example:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
