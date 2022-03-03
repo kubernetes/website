@@ -52,8 +52,8 @@ fail validation.
 	<caption style="display:none">Baseline policy specification</caption>
 	<tbody>
 		<tr>
-			<td><strong>Control</strong></td>
-			<td><strong>Policy</strong></td>
+			<th>Control</th>
+			<th>Policy</th>
 		</tr>
 		<tr>
 			<td style="white-space: nowrap">HostProcess</td>

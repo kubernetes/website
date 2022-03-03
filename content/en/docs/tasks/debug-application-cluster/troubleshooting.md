@@ -101,7 +101,7 @@ If filing a bug, please include detailed information about how to reproduce the
 problem, such as:
 
 * Kubernetes version: `kubectl version`
-* Cloud provider, OS distro, network configuration, and Docker version
+* Cloud provider, OS distro, network configuration, and container runtime version
 * Steps to reproduce the problem
 
 

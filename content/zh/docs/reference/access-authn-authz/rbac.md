@@ -2079,11 +2079,11 @@ are running with no RBAC denial messages in the server logs, you can remove the 
 在服务器日志中没有出现 RBAC 拒绝消息，就可以删除 ABAC 鉴权器。
 
 <!--
-## Permissive RBAC Permissions
+### Permissive RBAC Permissions
 
 You can replicate a permissive policy using RBAC role bindings.
 -->
-## 宽松的 RBAC 权限   {#permissive-rbac-permissions}
+### 宽松的 RBAC 权限   {#permissive-rbac-permissions}
 
 你可以使用 RBAC 角色绑定在多个场合使用宽松的策略。
 
