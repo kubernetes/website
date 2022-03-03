@@ -139,7 +139,7 @@ Service IPは完全に仮想的なもので、ホスト側のネットワーク�
 ## Serviceにアクセスする
 
 Kubernetesは、環境変数とDNSの2つの主要なService検索モードをサポートしています。
-前者はそのまま使用でき、後者は[CoreDNSクラスタアドオン](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns)を必要とします。
+前者はそのまま使用でき、後者は[CoreDNSクラスタアドオン](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)を必要とします。
 {{< note >}}
 サービス環境変数が望ましくない場合(予想されるプログラム変数と衝突する可能性がある、処理する変数が多すぎる、DNSのみを使用するなど)、[Pod仕様](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)で`enableServiceLinks`フラグを`false`に設定することでこのモードを無効にできます。
 {{< /note >}}
@@ -234,7 +234,7 @@ Address 1: 10.0.162.149
 * 証明書を使用するように構成されたnginxサーバー
 * Podが証明書にアクセスできるようにする[Secret](/ja/docs/concepts/configuration/secret/)
 
-これらはすべて[nginx httpsの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/)から取得できます。
+これらはすべて[nginx httpsの例](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/)から取得できます。
 これにはツールをインストールする必要があります。
 これらをインストールしたくない場合は、後で手動の手順に従ってください。つまり:
 
@@ -309,7 +309,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 nginx-secure-appマニフェストに関する注目すべき点:
 
 - 同じファイルにDeploymentとServiceの両方が含まれています。
-- [nginxサーバー](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf)はポート80のHTTPトラフィックと443のHTTPSトラフィックを処理し、nginx Serviceは両方のポートを公開します。
+- [nginxサーバー](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)はポート80のHTTPトラフィックと443のHTTPSトラフィックを処理し、nginx Serviceは両方のポートを公開します。
 - 各コンテナは`/etc/nginx/ssl`にマウントされたボリュームを介してキーにアクセスできます。
   これは、nginxサーバーが起動する*前に*セットアップされます。
 

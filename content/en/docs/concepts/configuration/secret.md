@@ -146,20 +146,26 @@ data:
   extra: YmFyCg==
 ```
 
-When creating a `Pod`, Kubernetes automatically creates a service account Secret
-and automatically modifies your Pod to use this Secret. The service account token
-Secret contains credentials for accessing the API.
-
-The automatic creation and use of API credentials can be disabled or
-overridden if desired. However, if all you need to do is securely access the
-API server, this is the recommended workflow.
-
 See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
 documentation for more information on how service accounts work.
 You can also check the `automountServiceAccountToken` field and the
 `serviceAccountName` field of the
 [`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 for information on referencing service account from Pods.
+
+{{< note >}}
+Automatic creation of API credentials in secrets to mount into running pods
+is no longer used in v1.22 and newer versions. Instead, API credentials are 
+obtained directly by using the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API,
+and are mounted into Pods using a [projected volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume).
+The tokens obtained using this method have bounded lifetimes, and are automatically
+invalidated when the Pod they are mounted into is deleted.
+
+Service account token secrets can still be [created manually](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
+if you need a token that never expires.
+However, using the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+subresource to obtain a token to access the API is recommended instead.
+{{< /note >}}
 
 ### Docker config Secrets
 

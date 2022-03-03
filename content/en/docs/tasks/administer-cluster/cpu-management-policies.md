@@ -46,7 +46,8 @@ management policies to determine some placement preferences on the node.
 ### Configuration
 
 The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
-option. There are two supported policies:
+flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
+There are two supported policies:
 
 * [`none`](#none-policy): the default policy.
 * [`static`](#static-policy): allows pods with certain resource characteristics to be
@@ -67,6 +68,27 @@ The policy options are split into two groups: alpha quality (hidden by default) 
 and `CPUManagerPolicyBetaOptions` feature gates. Diverging from the Kubernetes standard, these
 feature gates guard groups of options, because it would have been too cumbersome to add a feature
 gate for each individual option.
+
+### Changing the CPU Manager Policy
+
+Since the CPU manger policy can only be applied when kubelet spawns new pods, simply changing from
+"none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
+policy on a node, perform the following steps:
+
+1. [Drain](/docs/tasks/administer-cluster/safely-drain-node) the node.
+2. Stop kubelet.
+3. Remove the old CPU manager state file. The path to this file is
+`/var/lib/kubelet/cpu_manager_state` by default. This clears the state maintained by the
+CPUManager so that the cpu-sets set up by the new policy won’t conflict with it.
+4. Edit the kubelet configuration to change the CPU manager policy to the desired value.
+5. Start kubelet.
+
+Repeat this process for every node that needs its CPU manager policy changed. Skipping this
+process will result in kubelet crashlooping with the following error:
+
+```
+could not restore state from checkpoint: configured policy "static" differs from state checkpoint policy "none", please drain this node and delete the CPU manager checkpoint file "/var/lib/kubelet/cpu_manager_state" before restarting Kubelet
+```
 
 ### None policy
 
