@@ -4,21 +4,11 @@ content_type: concept
 weight: 40
 ---
 
-{{< feature-state for_k8s_version="v1.19" state="stable" >}}
-<!-- leave this shortcode in place until the note about EvenPodsSpread is
-obsolete -->
 
 <!-- overview -->
 
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 
-{{< note >}}
-In versions of Kubernetes before v1.18, you must enable the `EvenPodsSpread`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on
-the [API server](/docs/concepts/overview/components/#kube-apiserver) and the
-[scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) in order to use Pod
-topology spread constraints.
-{{< /note >}}
 
 <!-- body -->
 
@@ -85,7 +75,7 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   It must be greater than zero. Its semantics differs according to the value of `whenUnsatisfiable`:
   - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
     permitted difference between the number of matching pods in the target
-    topology and the global minimum 
+    topology and the global minimum
     (the minimum number of pods that match the label selector in a topology domain. For example, if you have 3 zones with 0, 2 and 3 matching pods respectively, The global minimum is 0).
   - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
     precedence to topologies that would help reduce the skew.
@@ -319,21 +309,17 @@ profiles:
 ```
 
 {{< note >}}
-The score produced by default scheduling constraints might conflict with the
-score produced by the
-[`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins).
-It is recommended that you disable this plugin in the scheduling profile when
-using default constraints for `PodTopologySpread`.
+[`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
+is disabled by default. It's recommended to use `PodTopologySpread` to achieve similar
+behavior.
 {{< /note >}}
 
-#### Internal default constraints
+#### Built-in default constraints {#internal-default-constraints}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-With the `DefaultPodTopologySpread` feature gate, enabled by default, the
-legacy `SelectorSpread` plugin is disabled.
-kube-scheduler uses the following default topology constraints for the
-`PodTopologySpread` plugin configuration:
+If you don't configure any cluster-level default constraints for pod topology spreading,
+then kube-scheduler acts as if you specified the following default topology constraints:
 
 ```yaml
 defaultConstraints:
@@ -346,7 +332,7 @@ defaultConstraints:
 ```
 
 Also, the legacy `SelectorSpread` plugin, which provides an equivalent behavior,
-is disabled.
+is disabled by default.
 
 {{< note >}}
 If your nodes are not expected to have **both** `kubernetes.io/hostname` and
@@ -392,7 +378,7 @@ for more details.
 
 ## Known Limitations
 
-- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution. 
+- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution.
 You can use [Descheduler](https://github.com/kubernetes-sigs/descheduler) to rebalance the Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
