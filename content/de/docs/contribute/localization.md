@@ -213,7 +213,7 @@ Die neueste Version ist {{< latest-version >}}, so dass der neueste Versionszwei
 
 ### Seitenverlinkung in der Internationalisierung
 
-Lokalisierungen müssen den Inhalt von [`i18n/de.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) in einer neuen sprachspezifischen Datei enthalten. Als Beispiel: `i18n/de.toml`.
+Lokalisierungen müssen den Inhalt von [`i18n/de.toml`](https://github.com/kubernetes/website/blob/main/i18n/en.toml) in einer neuen sprachspezifischen Datei enthalten. Als Beispiel: `i18n/de.toml`.
 
 Füge eine neue Lokalisierungsdatei zu `i18n/` hinzu. Zum Beispiel mit Deutsch (`de`):
 
@@ -278,7 +278,7 @@ Die Teams müssen den lokalisierten Inhalt in demselben Versionszweig zusammenf�
 
 Ein Genehmiger muss einen Entwicklungszweig aufrechterhalten, indem er seinen Quellzweig auf dem aktuellen Stand hält und Merge-Konflikte auflöst. Je länger ein Entwicklungszweig geöffnet bleibt, desto mehr Wartung erfordert er in der Regel. Ziehe in Betracht, regelmäßig Entwicklungszweige zusammenzuführen und neue zu eröffnen, anstatt einen extrem lang laufenden Entwicklungszweig zu unterhalten.
 
-Zu Beginn jedes Team-Meilensteins ist es hilfreich, ein Problem [Vergleich der Upstream-Änderungen](https://github.com/kubernetes/website/blob/master/scripts/upstream_changes.py) zwischen dem vorherigen Entwicklungszweig und dem aktuellen Entwicklungszweig zu öffnen.
+Zu Beginn jedes Team-Meilensteins ist es hilfreich, ein Problem [Vergleich der Upstream-Änderungen](https://github.com/kubernetes/website/blob/main/scripts/upstream_changes.py) zwischen dem vorherigen Entwicklungszweig und dem aktuellen Entwicklungszweig zu öffnen.
 
  Während nur Genehmiger einen neuen Entwicklungszweig eröffnen und Pull-Anfragen zusammenführen können, kann jeder eine Pull-Anfrage für einen neuen Entwicklungszweig eröffnen. Es sind keine besonderen Genehmigungen erforderlich.
 
@@ -301,5 +301,3 @@ Sobald eine Lokalisierung die Anforderungen an den Arbeitsablauf und die Mindest
 
 - Die Sprachauswahl auf der Website aktivieren
 - Die Verfügbarkeit der Lokalisierung über die Kanäle der [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF), einschließlich des [Kubernetes Blogs](https://kubernetes.io/blog/) veröffentlichen.
-
-
