@@ -22,30 +22,30 @@ Da Mitwirkende nicht ihren eigenen Pull Request freigeben können, brauchst du m
 
 Alle Lokalisierungsteams müssen sich mit ihren eigenen Ressourcen selbst tragen. Die Kubernetes-Website ist gerne bereit, deine Arbeit zu beherbergen, aber es liegt an dir, sie zu übersetzen.
 
-### Finden deinen Zwei-Buchstaben-Sprachcode
+### Ermittlung deines Zwei-Buchstaben-Sprachcodes
 
 Rufe den [ISO 639-1 Standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) auf und finde deinen Zwei-Buchstaben-Ländercode zur Lokalisierung. Zum Beispiel ist der Zwei-Buchstaben-Code für Korea `ko`.
 
-### Duplizieren und klonen des Repositories
+### Duplizieren und Klonen des Repositories
 
-Als erstes [erstells du dir deine eigenes Duplikat](/docs/contribute/new-content/new-content/#fork-the-repo) vom [kubernetes/website] Repository.
+Als erstes [erstellst du dir deine eigenes Duplikat](/docs/contribute/new-content/new-content/#fork-the-repo) vom [kubernetes/website] Repository.
 
-Dann klonst du das Duplikat und `cd` hinein:
+Dann klonst du das Duplikat und wechselst in das neu erstellte Verzeichnis:
 
 ```shell
 git clone https://github.com/<username>/website
 cd website
 ```
 
-### Eröffne ein Pull Request
+### Eröffnen eines Pull Requests
 
 Als nächstes [eröffnest du einen Pull Request](/docs/contribute/new-content/open-a-pr/#open-a-pr) (PR) um eine Lokalisierung zum `kubernetes/website` Repository hinzuzufügen.
 
-Der PR muss die [minimalen Inhaltsanforderungen](#mindestanforderungen) erfüllen bevor dieser genehmigt werden kann.
+Der PR muss die [minimalen Inhaltsanforderungen](#mindestanforderungen) erfüllen, bevor dieser genehmigt werden kann.
 
-Wie der PR für eine neue Lokalisierung aussieht kannst du dir an dem PR für die [Französische Dokumentation](https://github.com/kubernetes/website/pull/12548) ansehen.
+Wie der PR für eine neue Lokalisierung aussieht, kannst du dir an dem PR für die [Französische Dokumentation](https://github.com/kubernetes/website/pull/12548) ansehen.
 
-### Trete der Kubernetes GitHub Organisation bei
+### Tritt der Kubernetes GitHub Organisation bei
 
 Sobald du eine Lokalisierungs-PR eröffnet hast, kannst du Mitglied der Kubernetes GitHub Organisation werden. Jede Person im Team muss einen eigenen [Antrag auf Mitgliedschaft in der Organisation](https://github.com/kubernetes/org/issues/new/choose) im `kubernetes/org`-Repository erstellen.
 
@@ -94,9 +94,9 @@ contentDir = "content/de"
 weight = 3
 ```
 
-Wenn du deinem Block einen Parameter `weight` zuweist, suche den Sprachblock mit dem höchsten Gewicht und addiere  1 zu diesem Wert.
+Wenn du deinem Block einen Parameter `weight` zuweist, suche den Sprachblock mit dem höchsten Gewicht und addiere 1 zu diesem Wert.
 
-Weitere Informationen zu Hugos Multilingualen Support findest du unter "[Multilingual Mode](https://gohugo.io/content-management/multilingual/)" auf in der Hugo Dokumentation.
+Weitere Informationen zu Hugos multilingualem Support findest du unter "[Multilingual Mode](https://gohugo.io/content-management/multilingual/)" auf in der Hugo Dokumentation.
 
 ### Neuen Lokalisierungsordner erstellen
 
