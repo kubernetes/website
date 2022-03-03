@@ -1,3 +1,8 @@
+---
+title: 使用 Antrea 提供 NetworkPolicy
+content_type: task
+weight: 10
+---
 <!--
 ---
 title: Use Antrea for NetworkPolicy
@@ -5,11 +10,6 @@ content_type: task
 weight: 10
 ---
 -->
----
-title: 使用 Antrea 提供 NetworkPolicy
-content_type: task
-weight: 10
----
 
 <!-- overview -->
 <!--
