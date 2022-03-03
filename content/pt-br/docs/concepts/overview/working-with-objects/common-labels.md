@@ -1,5 +1,5 @@
 ---
-title: Recommended Labels
+title: Labels Recomendadas
 content_type: concept
 ---
 
