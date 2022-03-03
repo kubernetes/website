@@ -104,8 +104,8 @@ Pod 会终止，Deployment 将创建新的 Pod，且使用不同的 IP。这正�
 
 Kubernetes Service 从逻辑上定义了运行在集群中的一组 Pod，这些 Pod 提供了相同的功能。
 当每个 Service 创建时，会被分配一个唯一的 IP 地址（也称为 clusterIP）。
-这个 IP 地址与一个 Service 的生命周期绑定在一起，当 Service 存在的时候它也不会改变。
-可以配置 Pod 使它与 Service 进行通信，Pod 知道与 Service 通信将被自动地负载均衡到该 Service 中的某些 Pod 上。
+这个 IP 地址与一个 Service 的生命周期绑定在一起，在 Service 存活期间它不会改变。
+Pod 可以配置为与 Service 进行通信，并且知道与 Service 的通信将被自动地负载均衡到该 Service 中的某些 Pod 上。
 
 可以使用 `kubectl expose` 命令为 2个 Nginx 副本创建一个 Service：
 
