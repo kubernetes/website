@@ -306,7 +306,7 @@ _Permit_ 插件在每个 Pod 调度周期的最后调用，用于防止或延迟
     If any Permit plugin denies a Pod, it is returned to the scheduling queue.
     This will trigger [Unreserve](#unreserve) plugins.
 -->
-1.  **拒绝** \
+2.  **拒绝** \
     如果任何 Permit 插件拒绝 Pod，则该 Pod 将被返回到调度队列。
     这将触发[Unreserve](#unreserve) 插件。
 
@@ -318,7 +318,7 @@ _Permit_ 插件在每个 Pod 调度周期的最后调用，用于防止或延迟
     and the Pod is returned to the scheduling queue, triggering [Unreserve](#unreserve)
     plugins.
 -->
-1.  **等待**（带有超时） \
+1.  **等待**（带有超时) \
     如果一个 Permit 插件返回 “等待” 结果，则 Pod 将保持在一个内部的 “等待中”
     的 Pod 列表，同时该 Pod 的绑定周期启动时即直接阻塞直到得到
     [批准](#frameworkhandle)。如果超时发生，**等待** 变成 **拒绝**，并且 Pod
