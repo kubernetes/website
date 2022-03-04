@@ -22,7 +22,7 @@ During a node-pressure eviction, the kubelet sets the `PodPhase` for the
 selected pods to `Failed`. This terminates the pods. 
 
 Node-pressure eviction is not the same as 
-[API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
+[API-initiated eviction](/docs/reference/generated/kubernetes-api/v1.23/).
 -->
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}
 监控集群节点的 CPU、内存、磁盘空间和文件系统的 inode 等资源。
