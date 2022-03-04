@@ -1,5 +1,5 @@
 ---
-title: ノードの健康状態を監視します
+title: ノードの健全性を監視します
 content_type: task
 reviewers:
 - ptux
@@ -7,10 +7,10 @@ reviewers:
 
 <!-- overview -->
 
-*Node Problem Detector* は、ノードの健全性を監視し、報告するためのデーモンです。
+*Node Problem Detector*は、ノードの健全性を監視し、報告するためのデーモンです。
 `Node Problem Detector`は`DaemonSet`として、あるいはスタンドアロンデーモンとして実行することができます。
 
-`Node Problem Detector`は様々なデーモンからノードの問題に関する情報を収集し、これらの状態を[NodeCondition](/ja/docs/concepts/architecture/nodes/#condition)および[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)としてAPIサーバにレポートします。
+`Node Problem Detector`は様々なデーモンからノードの問題に関する情報を収集し、これらの状態を[NodeCondition](/ja/docs/concepts/architecture/nodes/#condition)および[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)としてAPIサーバーにレポートします。
 `Node Problem Detector`のインストール方法と使用方法については、[Node Problem Detectorプロジェクトドキュメント](https://github.com/kubernetes/node-problem-detector)を参照してください。
 
 ## {{% heading "prerequisites" %}}
@@ -21,10 +21,10 @@ reviewers:
 
 ## 制限事項
 
-* Node Problem Detector は、ファイルベースのカーネルログのみをサポートします。
+* Node Problem Detectorは、ファイルベースのカーネルログのみをサポートします。
   `journald`のようなログツールはサポートされていません。
 
-* Node Problem Detector は、カーネルの問題を報告するためにカーネルログフォーマットを使用します。
+* Node Problem Detectorは、カーネルの問題を報告するためにカーネルログフォーマットを使用します。
   カーネルログフォーマットを拡張する方法については、[Add support for another log format](#support-other-log-format) を参照してください。
 
 ## ノード問題検出の有効化
@@ -87,7 +87,7 @@ reviewers:
 この方法は `kubectl` で起動された Node Problem Detector にのみ適用されます。
 {{< /note >}}
 
-ノード問題検出装置がクラスタアドオンとして実行されている場合、設定の上書きはサポートされていません。
+ノード問題検出装置がクラスターアドオンとして実行されている場合、設定の上書きはサポートされていません。
 `Addon Manager`は、`ConfigMap`をサポートしていません。
 
 ## Kernel Monitor
@@ -126,7 +126,7 @@ reviewers:
 
 ご使用のオペレーティングシステム(OS)ディストリビューションのカーネルログパスをご確認ください。
 Linuxカーネルの[ログデバイス](https://www.kernel.org/doc/Documentation/ABI/testing/dev-kmsg)は通常`/dev/kmsg`として表示されます。
-しかし，OSのディストリビューションによって，ログパスの位置は異なります。
+しかし、OSのディストリビューションによって、ログパスの位置は異なります。
 `config/kernel-monitor.json`の`log`フィールドは、コンテナ内のログパスを表します。
 `log`フィールドは、`Node Problem Detector`で見たデバイスパスと一致するように設定することができます。
 
@@ -139,7 +139,7 @@ Kernel monitorは[`Translator`](https://github.com/kubernetes/node-problem-detec
 
 ## 推奨・制限事項
 
-ノードの健全性を監視するために、クラスタでNode Problem Detectorを実行することが推奨されます。
+ノードの健全性を監視するために、クラスターでNode Problem Detectorを実行することが推奨されます。
 `Node Problem Detector`を実行する場合、各ノードで余分なリソースのオーバーヘッドが発生することが予想されます。
 
 通常これは問題ありません。
