@@ -32,7 +32,7 @@ You add a taint to a node using [kubectl taint](/docs/reference/generated/kubect
 For example,
 
 ```shell
-kubectl taint nodes node1 key1=value1:NoSchedule
+kubectl taint nodes node1 key1/value1:NoSchedule-
 ```
 
 places a taint on node `node1`. The taint has key `key1`, value `value1`, and taint effect `NoSchedule`.
@@ -40,7 +40,7 @@ This means that no pod will be able to schedule onto `node1` unless it has a mat
 
 To remove the taint added by the command above, you can run:
 ```shell
-kubectl taint nodes node1 key1=value1:NoSchedule-
+kubectl taint nodes node1 key1/value1:NoSchedule-
 ```
 
 You specify a toleration for a pod in the PodSpec. Both of the following tolerations "match" the
