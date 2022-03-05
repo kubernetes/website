@@ -99,9 +99,9 @@ stateful tasks.
 一个插件可以在多个扩展点处注册，以执行更复杂或有状态的任务。
 
 <!--
-{{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" >}}
+{{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" class="diagram-large">}}
 -->
-{{< figure src="/images/docs/scheduling-framework-extensions.png" title="调度框架扩展点" >}}
+{{< figure src="/images/docs/scheduling-framework-extensions.png" title="调度框架扩展点" class="diagram-large">}}
 
 <!--
 ### QueueSort {#queue-sort}
@@ -113,27 +113,27 @@ These plugins are used to sort Pods in the scheduling queue. A queue sort plugin
 essentially provides a `less(Pod1, Pod2)` function. Only one queue sort
 plugin may be enabled at a time.
 -->
-队列排序插件用于对调度队列中的 Pod 进行排序。
+这些插件用于对调度队列中的 Pod 进行排序。
 队列排序插件本质上提供 `less(Pod1, Pod2)` 函数。
 一次只能启动一个队列插件。
 
 <!--
 ### PreFilter {#pre-filter}
 -->
-### 前置过滤 {#pre-filter}
+### PreFilter {#pre-filter}
 
 <!--
 These plugins are used to pre-process info about the Pod, or to check certain
 conditions that the cluster or the Pod must meet. If a PreFilter plugin returns
 an error, the scheduling cycle is aborted.
 -->
-前置过滤插件用于预处理 Pod 的相关信息，或者检查集群或 Pod 必须满足的某些条件。
+这些插件用于预处理 Pod 的相关信息，或者检查集群或 Pod 必须满足的某些条件。
 如果 PreFilter 插件返回错误，则调度周期将终止。
 
 <!--
 ### Filter
 -->
-### 过滤
+### Filter
 
 <!--
 These plugins are used to filter out nodes that cannot run the Pod. For each
@@ -141,14 +141,14 @@ node, the scheduler will call filter plugins in their configured order. If any
 filter plugin marks the node as infeasible, the remaining plugins will not be
 called for that node. Nodes may be evaluated concurrently.
 -->
-过滤插件用于过滤出不能运行该 Pod 的节点。对于每个节点，
+这些插件用于过滤出不能运行该 Pod 的节点。对于每个节点，
 调度器将按照其配置顺序调用这些过滤插件。如果任何过滤插件将节点标记为不可行，
 则不会为该节点调用剩下的过滤插件。节点可以被同时进行评估。
 
 <!--
 ### PostFilter {#post-filter}
 -->
-### 后置过滤 {#post-filter}
+### PostFilter  {#post-filter}
 
 <!--
 These plugins are called after Filter phase, but only when no feasible nodes
@@ -157,29 +157,28 @@ any postFilter plugin marks the node as `Schedulable`, the remaining plugins
 will not be called. A typical PostFilter implementation is preemption, which
 tries to make the pod schedulable by preempting other Pods.
 -->
-
-这些插件在筛选阶段后调用，但仅在该 Pod 没有可行的节点时调用。
-插件按其配置的顺序调用。如果任何后过滤器插件标记节点为“可调度”，
-则其余的插件不会调用。典型的后筛选实现是抢占，试图通过抢占其他 Pod
+这些插件在 Filter 阶段后调用，但仅在该 Pod 没有可行的节点时调用。
+插件按其配置的顺序调用。如果任何 PostFilter 插件标记节点为“Schedulable”，
+则其余的插件不会调用。典型的 PostFilter 实现是抢占，试图通过抢占其他 Pod
 的资源使该 Pod 可以调度。
 
 <!--
 ### PreScore {#pre-score}
  -->
-### 前置评分 {#pre-score}
+### PreScore {#pre-score}
 
 <!--
 These plugins are used to perform "pre-scoring" work, which generates a sharable
 state for Score plugins to use. If a PreScore plugin returns an error, the
 scheduling cycle is aborted.
  -->
-前置评分插件用于执行 “前置评分” 工作，即生成一个可共享状态供评分插件使用。
+这些插件用于执行 “前置评分（pre-scoring）” 工作，即生成一个可共享状态供 Score 插件使用。
 如果 PreScore 插件返回错误，则调度周期将终止。
 
 <!--
 ### Score {#scoring}
  -->
-### 评分 {#scoring}
+### Score  {#scoring}
 
 <!--
 These plugins are used to rank nodes that have passed the filtering phase. The
@@ -188,7 +187,7 @@ defined range of integers representing the minimum and maximum scores. After the
 [NormalizeScore](#normalize-scoring) phase, the scheduler will combine node
 scores from all plugins according to the configured plugin weights.
 -->
-评分插件用于对通过过滤阶段的节点进行排名。调度器将为每个节点调用每个评分插件。
+这些插件用于对通过过滤阶段的节点进行排序。调度器将为每个节点调用每个评分插件。
 将有一个定义明确的整数范围，代表最小和最大分数。
 在[标准化评分](#normalize-scoring)阶段之后，调度器将根据配置的插件权重
 合并所有插件的节点分数。
@@ -196,7 +195,7 @@ scores from all plugins according to the configured plugin weights.
 <!--
 ### NormalizeScore {#normalize-scoring}
 -->
-### 标准化评分 {#normalize-scoring}
+### NormalizeScore   {#normalize-scoring}
 
 <!--
 These plugins are used to modify scores before the scheduler computes a final
@@ -204,8 +203,8 @@ ranking of Nodes. A plugin that registers for this extension point will be
 called with the [Score](#scoring) results from the same plugin. This is called
 once per plugin per scheduling cycle.
 -->
-标准化评分插件用于在调度器计算节点的排名之前修改分数。
-在此扩展点注册的插件将使用同一插件的[评分](#scoring) 结果被调用。
+这些插件用于在调度器计算 Node 排名之前修改分数。
+在此扩展点注册的插件被调用时会使用同一插件的 [Score](#scoring) 结果。
 每个插件在每个调度周期调用一次。
 
 <!--
@@ -278,8 +277,8 @@ state, it will either trigger [Unreserve](#unreserve) plugins (on failure) or
 [PostBind](#post-bind) plugins (on success) at the end of the binding cycle.
 -->
 这个是调度周期的最后一步。
-一旦 Pod 处于保留状态，它将在绑定周期结束时触发[不保留](#unreserve) 插件
-（失败时）或 [绑定后](#post-bind) 插件（成功时）。
+一旦 Pod 处于保留状态，它将在绑定周期结束时触发 [Unreserve](#unreserve) 插件
+（失败时）或 [PostBind](#post-bind) 插件（成功时）。
 
 <!--
 ### Permit
@@ -335,28 +334,28 @@ is approved, it is sent to the [PreBind](#pre-bind) phase.
 尽管任何插件可以访问 “等待中” 状态的 Pod 列表并批准它们
 (查看 [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle))。
 我们期望只有允许插件可以批准处于 “等待中” 状态的预留 Pod 的绑定。
-一旦 Pod 被批准了，它将发送到[预绑定](#pre-bind) 阶段。
+一旦 Pod 被批准了，它将发送到 [PreBind](#pre-bind) 阶段。
 {{< /note >}}
 
 <!--
 ### Pre-bind {#pre-bind}
 -->
-### 预绑定 {#pre-bind}
+### PreBind  {#pre-bind}
 
 <!--
 These plugins are used to perform any work required before a Pod is bound. For
 example, a pre-bind plugin may provision a network volume and mount it on the
 target node before allowing the Pod to run there.
 -->
-预绑定插件用于执行 Pod 绑定前所需的任何工作。
-例如，一个预绑定插件可能需要提供网络卷并且在允许 Pod 运行在该节点之前
+这些插件用于执行 Pod 绑定前所需的所有工作。
+例如，一个 PreBind 插件可能需要制备网络卷并且在允许 Pod 运行在该节点之前
 将其挂载到目标节点上。
 
 <!--
 If any PreBind plugin returns an error, the Pod is [rejected](#unreserve) and
 returned to the scheduling queue.
 -->
-如果任何 PreBind 插件返回错误，则 Pod 将被[拒绝](#unreserve) 并且
+如果任何 PreBind 插件返回错误，则 Pod 将被 [拒绝](#unreserve) 并且
 退回到调度队列中。
 
 <!--
@@ -372,13 +371,13 @@ Pod. If a bind plugin chooses to handle a Pod, **the remaining bind plugins are
 skipped**.
 -->
 Bind 插件用于将 Pod 绑定到节点上。直到所有的 PreBind 插件都完成，Bind 插件才会被调用。
-各绑定插件按照配置顺序被调用。绑定插件可以选择是否处理指定的 Pod。
-如果绑定插件选择处理 Pod，**剩余的绑定插件将被跳过**。
+各 Bind 插件按照配置顺序被调用。Bind 插件可以选择是否处理指定的 Pod。
+如果某 Bind 插件选择处理某 Pod，**剩余的 Bind 插件将被跳过**。
 
 <!--
 ### PostBind {#post-bind}
 -->
-### 绑定后 {#post-bind}
+### PostBind  {#post-bind}
 
 <!--
 This is an informational extension point. Post-bind plugins are called after a
@@ -386,7 +385,7 @@ Pod is successfully bound. This is the end of a binding cycle, and can be used
 to clean up associated resources.
 -->
 这是个信息性的扩展点。
-绑定后插件在 Pod 成功绑定后被调用。这是绑定周期的结尾，可用于清理相关的资源。
+PostBind 插件在 Pod 成功绑定后被调用。这是绑定周期的结尾，可用于清理相关的资源。
 
 <!--
 ### Unreserve
@@ -406,7 +405,7 @@ Unreserve 插件应该清楚保留 Pod 的相关状态。
 Plugins that use this extension point usually should also use
 [Reserve](#reserve).
 -->
-使用此扩展点的插件通常也使用[Reserve](#reserve)。
+使用此扩展点的插件通常也使用 [Reserve](#reserve)。
 
 <!--
 ## Plugin API
@@ -461,7 +460,7 @@ plugins and get them configured along with default plugins. You can visit
 [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins) for more details.
  -->
 除了默认的插件，你还可以实现自己的调度插件并且将它们与默认插件一起配置。
-你可以访问[scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins)
+你可以访问 [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins)
 了解更多信息。
 
 <!--
@@ -472,3 +471,5 @@ Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-pr
 如果你正在使用 Kubernetes v1.18 或更高版本，你可以将一组插件设置为
 一个调度器配置文件，然后定义不同的配置文件来满足各类工作负载。
 了解更多关于[多配置文件](/zh/docs/reference/scheduling/config/#multiple-profiles)。
+
+
