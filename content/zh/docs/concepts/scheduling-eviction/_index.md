@@ -49,5 +49,5 @@ of terminating one or more Pods on Nodes.
 ## Pod 干扰
 
 * [Pod 优先级和抢占](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* [节点压力驱逐](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+* [节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 * [API发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)
