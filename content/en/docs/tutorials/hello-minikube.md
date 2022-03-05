@@ -136,7 +136,7 @@ Pod runs a Container based on the provided Docker image.
     ```
 
 {{< note >}}
-For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/overview/).
+For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/).
 {{< /note >}}
 
 ## Create a Service
