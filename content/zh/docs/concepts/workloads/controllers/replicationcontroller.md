@@ -607,7 +607,7 @@ ReplicationController。
 -->
 ## 接下来
 
-- 了解关于Pods[/zh/docs/concepts/workloads/pods]。
-- 了解[Depolyment](/zh/docs/concepts/workloads/controllers/deployment/)，ReplicationController的替代品。
-- `ReplicationController`是Kubernetes REST API 的一部分，阅读 {{< api-reference page="workload-resources/replication-controller-v1" >}}
-  对象定义以了解replication controllers的 API。
+- 了解关于 Pods[/zh/docs/concepts/workloads/pods]。
+- 了解 [Depolyment](/zh/docs/concepts/workloads/controllers/deployment/)，ReplicationController 的替代品。
+- `ReplicationController`是 Kubernetes REST API 的一部分，阅读 {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  对象定义以了解 replication controllers 的 API。
