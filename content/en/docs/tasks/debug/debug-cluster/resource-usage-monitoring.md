@@ -41,8 +41,11 @@ memory usage. The kubelet acts as a bridge between the Kubernetes master and
 the nodes, managing the pods and containers running on a machine. The kubelet 
 translates each pod into its constituent containers and fetches individual 
 container usage statistics from the container runtime through the container 
-runtime interface. The kubelet fetches this information from the integrated 
-cAdvisor for the legacy Docker integration.  It then exposes the aggregated pod 
+runtime interface. If you use a container runtime that uses Linux cgroups and
+namespaces to implement containers, and the container runtime does not publish
+usage statistics, then the kubelet can look up those statistics directly
+(using code from [cAdvisor](https://github.com/google/cadvisor)).
+No matter how those statistics arrive, the kubelet then exposes the aggregated pod
 resource usage statistics through the metrics-server Resource Metrics API.
 This API is served at `/metrics/resource/v1beta1` on the kubelet's authenticated and 
 read-only ports. 
