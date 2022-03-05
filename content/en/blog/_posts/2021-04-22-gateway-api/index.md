@@ -38,7 +38,7 @@ The Gateway API introduces a few new resource types:
 
 ### Gateway Controller Implementations
 
-The good news is that although Gateway is in [Alpha](https://github.com/kubernetes-sigs/gateway-api/releases), there are already several [Gateway controller implementations](https://gateway-api.sigs.k8s.io/references/implementations/) that you can run. Since it’s a standardized spec, the following example could be run on any of them and should function the exact same way. Check out [getting started](https://gateway-api.sigs.k8s.io/guides/getting-started/) to see how to install and use one of these Gateway controllers.
+The good news is that although Gateway is in [Alpha](https://github.com/kubernetes-sigs/gateway-api/releases), there are already several [Gateway controller implementations](https://gateway-api.sigs.k8s.io/implementations/) that you can run. Since it’s a standardized spec, the following example could be run on any of them and should function the exact same way. Check out [getting started](https://gateway-api.sigs.k8s.io/guides/getting-started/) to see how to install and use one of these Gateway controllers.
 
 ## Getting Hands-on with the Gateway API
 
@@ -193,5 +193,5 @@ When you put it all together, you have a single load balancing infrastructure th
 There are many resources to check out to learn more. 
 
 *   Check out the [user guides](https://gateway-api.sigs.k8s.io/guides/getting-started/) to see what use-cases can be addressed. 
-*   Try out one of the [existing Gateway controllers ](https://gateway-api.sigs.k8s.io/references/implementations/)
+*   Try out one of the [existing Gateway controllers ](https://gateway-api.sigs.k8s.io/implementations/)
 *   Or [get involved](https://gateway-api.sigs.k8s.io/contributing/community/) and help design and influence the future of Kubernetes service networking!
