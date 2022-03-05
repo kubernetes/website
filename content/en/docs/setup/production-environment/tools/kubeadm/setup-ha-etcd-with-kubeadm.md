@@ -267,8 +267,8 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 
     ```sh
     root@HOST0 $ kubeadm init phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    root@HOST1 $ kubeadm init phase etcd local --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    root@HOST2 $ kubeadm init phase etcd local --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    root@HOST1 $ kubeadm init phase etcd local --config=$HOME/kubeadmcfg.yaml
+    root@HOST2 $ kubeadm init phase etcd local --config=$HOME/kubeadmcfg.yaml
     ```
 
 1. Optional: Check the cluster health

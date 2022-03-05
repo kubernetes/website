@@ -306,7 +306,7 @@ replication controllers, replica sets or stateful sets that the Pod belongs to.
 An example configuration might look like follows:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -366,7 +366,7 @@ you can disable those defaults by setting `defaultingType` to `List` and leaving
 empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:

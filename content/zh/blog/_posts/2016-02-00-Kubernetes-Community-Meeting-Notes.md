@@ -8,7 +8,7 @@ slug: kubernetes-community-meeting-notes
 title: " Kubernetes community meeting notes - 20160204 "
 date: 2016-02-09
 slug: kubernetes-community-meeting-notes
-url: /blog/2016/02/Kubernetes-Community-Meeting-Notes
+url: /zh/blog/2016/02/Kubernetes-Community-Meeting-Notes
 ---
 -->
 <!--

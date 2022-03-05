@@ -545,5 +545,5 @@ arbitrary tolerations to DaemonSets.
 * Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) and how you can configure it
 * Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 -->
-* 阅读[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)，以及如何配置其行为
+* 阅读[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)，以及如何配置其行为
 * 阅读 [Pod 优先级](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)

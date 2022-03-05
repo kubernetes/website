@@ -11,9 +11,13 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
-PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25. It has been replaced by
-[Pod Security Admission](/docs/concepts/security/pod-security-admission/). For more information on the deprecation,
+{{< caution >}}
+PodSecurityPolicy is deprecated as of Kubernetes v1.21, and **will be removed in v1.25**. We recommend migrating to
+[Pod Security Admission](/docs/concepts/security/pod-security-admission/), or a 3rd party admission plugin.
+For a migration guide, see [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
+For more information on the deprecation,
 see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
+{{< /caution >}}
 
 Pod Security Policies enable fine-grained authorization of pod creation and
 updates.

@@ -9,7 +9,7 @@ url: /zh/blog/2018/03/Principles-Of-Container-App-Design
 title: "Principles of Container-based Application Design"
 date: 2018-03-15
 slug: principles-of-container-app-design
-url: /blog/2018/03/Principles-Of-Container-App-Design
+url: /zh/blog/2018/03/Principles-Of-Container-App-Design
 ---
 -->
 
