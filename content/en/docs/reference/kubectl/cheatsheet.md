@@ -5,6 +5,7 @@ reviewers:
 - krousey
 - clove
 content_type: concept
+weight: 10 # highlight it
 card:
   name: reference
   weight: 30
@@ -423,7 +424,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-More examples in the kubectl [reference documentation](/docs/reference/kubectl/overview/#custom-columns).
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
 
 ### Kubectl output verbosity and debugging
 
@@ -444,7 +445,7 @@ Verbosity | Description
 
 ## {{% heading "whatsnext" %}}
 
-* Read the [kubectl overview](/docs/reference/kubectl/overview/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
+* Read the [kubectl overview](/docs/reference/kubectl/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 
