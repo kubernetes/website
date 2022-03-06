@@ -68,7 +68,7 @@ This example assumes the following:
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
 Services, and Deployments used by the cluster.
 -->
-1. 理解默认名字空间
+## 理解默认名字空间
 
 默认情况下，Kubernetes 集群会在配置集群时实例化一个默认名字空间，用以存放集群所使用的默认
 Pod、Service 和 Deployment 集合。
