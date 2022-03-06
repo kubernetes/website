@@ -112,8 +112,11 @@ scheduler.
 `shape` 用于指定 `RequestedToCapacityRatioPriority` 函数的行为。
 
 ```yaml
- {"utilization": 0, "score": 0},
- {"utilization": 100, "score": 10}
+shape:
+ - utilization: 0
+   score: 0
+ - utilization: 100
+   score: 10
 ```
 
 <!--
@@ -125,8 +128,11 @@ The above arguments give the node a score of 0 if utilization is 0% and 10 for u
 要启用最少请求（least requested）模式，必须按如下方式反转得分值。
 
 ```yaml
- {"utilization": 0, "score": 10},
- {"utilization": 100, "score": 0}
+ shape:
+  - utilization: 0
+    score: 10
+  - utilization: 100
+    score: 0
 ```
 
 <!--
@@ -135,10 +141,11 @@ The above arguments give the node a score of 0 if utilization is 0% and 10 for u
 `resources` 是一个可选参数，默认情况下设置为：
 
 ``` yaml
-"resources": [
-    {"name": "CPU", "weight": 1},
-    {"name": "Memory", "weight": 1}
-]
+resources:
+  - name: cpu
+    weight: 1
+  - name: memory
+    weight: 1
 ```
 
 <!--
@@ -147,11 +154,13 @@ It can be used to add extended resources as follows:
 它可以用来添加扩展资源，如下所示：
 
 ```yaml
-"resources": [
-    {"name": "intel.com/foo", "weight": 5},
-    {"name": "CPU", "weight": 3},
-    {"name": "Memory", "weight": 1}
-]
+resources:
+  - name: intel.com/foo
+    weight: 5
+  - name: cpu
+    weight: 3
+  - name: memory
+    weight: 1
 ```
 
 <!--
@@ -161,14 +170,14 @@ weight 参数是可选的，如果未指定，则设置为 1。
 同时，weight 不能设置为负值。
 
 <!--
-### How the RequestedToCapacityRatioResourceAllocation Priority Function Scores Nodes
+### Node scoring for capacity allocation
 
 This section is intended for those who want to understand the internal details
 of this feature.
 Below is an example of how the node score is calculated for a given set of values.
 -->
 
-### RequestedToCapacityRatioResourceAllocation 优先级函数如何对节点评分
+### 节点容量分配的评分
 
 本节适用于希望了解此功能的内部细节的人员。
 以下是如何针对给定的一组值来计算节点得分的示例。
@@ -176,15 +185,15 @@ Below is an example of how the node score is calculated for a given set of value
 ```
 请求的资源
 
-intel.com/foo: 2
-Memory: 256MB
-CPU: 2
+intel.com/foo : 2
+memory: 256MB
+cpu: 2
 
 资源权重
 
-intel.com/foo: 5
-Memory: 1
-CPU: 3
+intel.com/foo : 5
+memory: 1
+cpu: 3
 
 FunctionShapePoint {{0, 0}, {100, 10}}
 
@@ -192,13 +201,13 @@ FunctionShapePoint {{0, 0}, {100, 10}}
 
 可用：
   intel.com/foo : 4
-  Memory : 1 GB
-  CPU: 8
+  memory : 1 GB
+  cpu: 8
 
 已用：
   intel.com/foo: 1
-  Memory: 256MB
-  CPU: 1
+  memory: 256MB
+  cpu: 1
 
 节点得分：
 
@@ -209,13 +218,13 @@ intel.com/foo  = resourceScoringFunction((2+1),4)
                = rawScoringFunction(75)
                = 7
 
-Memory         = resourceScoringFunction((256+256),1024)
+memory         = resourceScoringFunction((256+256),1024)
                = (100 -((1024-512)*100/1024))
                = 50
                = rawScoringFunction(50)
                = 5
 
-CPU            = resourceScoringFunction((2+1),8)
+cpu            = resourceScoringFunction((2+1),8)
                = (100 -((8-3)*100/8))
                = 37.5
                = rawScoringFunction(37.5)
@@ -229,13 +238,13 @@ NodeScore   =  (7 * 5) + (5 * 1) + (3 * 3) / (5 + 1 + 3)
 
 可用：
   intel.com/foo: 8
-  Memory: 1GB
-  CPU: 8
+  memory: 1GB
+  cpu: 8
 
 已用：
   intel.com/foo: 2
-  Memory: 512MB
-  CPU: 6
+  memory: 512MB
+  cpu: 6
 
 节点得分：
 
@@ -246,13 +255,13 @@ intel.com/foo  = resourceScoringFunction((2+2),8)
                = rawScoringFunction(50)
                = 5
 
-Memory         = resourceScoringFunction((256+512),1024)
+memory         = resourceScoringFunction((256+512),1024)
                = (100 -((1024-768)*100/1024))
                = 75
                = rawScoringFunction(75)
                = 7
 
-CPU            = resourceScoringFunction((2+6),8)
+cpu            = resourceScoringFunction((2+6),8)
                = (100 -((8-8)*100/8))
                = 100
                = rawScoringFunction(100)
