@@ -1,5 +1,5 @@
 ---
-title: 已完成作业的自动清理
+title: 已完成Job的自动清理
 content_type: concept
 weight: 70
 ---
@@ -19,7 +19,7 @@ TTL (time to live) mechanism to limit the lifetime of resource objects that
 have finished execution. TTL controller only handles 
 {{< glossary_tooltip text="Jobs" term_id="job" >}}.
 -->
-TTL-after-finished {{<glossary_tooltip text="controller" term_id="controller">}} 提供了一种 TTL 机制来限制已完成执行的资源对象的生命周期。
+TTL-after-finished {{<glossary_tooltip text="controller" term_id="控制器">}} 提供了一种 TTL 机制来限制已完成执行的资源对象的生命周期。
 TTL 控制器目前只处理 {{< glossary_tooltip text="Job" term_id="job" >}}。
 
 
