@@ -142,11 +142,11 @@ Azure CNI 可以在
 <!--
 ### Calico
 
-[Calico](https://docs.projectcalico.org/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
+[Calico](https://projectcalico.docs.tigera.io/about/about-calico/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
 -->
 ### Calico
 
-[Calico](https://docs.projectcalico.org/) 是一个开源的联网及网络安全方案，
+[Calico](https://projectcalico.docs.tigera.io/about/about-calico/) 是一个开源的联网及网络安全方案，
 用于基于容器、虚拟机和本地主机的工作负载。
 Calico 支持多个数据面，包括：纯 Linux eBPF 的数据面、标准的 Linux 联网数据面
 以及 Windows HNS 数据面。Calico 在提供完整的联网堆栈的同时，还可与
@@ -170,22 +170,22 @@ Cilium 支持 L7/HTTP，可以在 L3-L7 上通过使用与网络分离的基于�
 <!--
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](https://docs.projectcalico.org/), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/cni-genie/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](https://projectcalico.docs.tigera.io/about/about-calico/), [Weave-net](https://www.weave.works/oss/net/).
 
-CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
+CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 -->
 ### 华为的 CNI-Genie
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) 是一个 CNI 插件，
+[CNI-Genie](https://github.com/cni-genie/CNI-Genie) 是一个 CNI 插件，
 可以让 Kubernetes 在运行时使用不同的[网络模型](#the-kubernetes-network-model)的
-[实现同时被访问](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)。
+[实现同时被访问](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)。
 这包括以
 [CNI 插件](https://github.com/containernetworking/cni#3rd-party-plugins)运行的任何实现，比如
 [Flannel](https://github.com/coreos/flannel#flannel)、
-[Calico](https://docs.projectcalico.org/)、
-[Weave-net](https://www.weave.works/products/weave-net/)。
+[Calico](https://projectcalico.docs.tigera.io/about/about-calico/)、
+[Weave-net](https://www.weave.works/oss/net/)。
 
-CNI-Genie 还支持[将多个 IP 地址分配给 Pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multi-ip-addresses-per-pod)，
+CNI-Genie 还支持[将多个 IP 地址分配给 Pod](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod)，
 每个都来自不同的 CNI 插件。
 
 <!--
@@ -232,6 +232,15 @@ Coil operates with a low overhead compared to bare metal, and allows you to defi
 与裸机相比，Coil 的额外操作开销低，并允许针对外部网络的出站流量任意定义 NAT 网关。
 
 <!--
+### Contiv-VPP
+
+[Contiv-VPP](https://contivpp.io/) is a user-space, performance-oriented network plugin for
+Kubernetes, using the [fd.io](https://fd.io/) data plane.
+-->
+### Contiv-VPP
+[Contiv-VPP](https://contivpp.io/) 是用于 Kubernetes 的用户空间、面向性能的网络插件，使用 [fd.io](https://fd.io/) 数据平面。
+
+<!--
 ### Contrail/Tungsten Fabric
 
 [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is a truly open, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with various orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide different isolation modes for virtual machines, containers/pods and bare metal workloads.
@@ -272,13 +281,13 @@ With this toolset DANM is able to provide multiple separated network interfaces,
 <!--
 ### Flannel
 
-[Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
+[Flannel](https://github.com/flannel-io/flannel#flannel) is a very simple overlay
 network that satisfies the Kubernetes requirements. Many
 people have reported success with Flannel and Kubernetes.
 -->
 ### Flannel
 
-[Flannel](https://github.com/coreos/flannel#flannel) 是一个非常简单的能够满足
+[Flannel](https://github.com/flannel-io/flannel#flannel) 是一个非常简单的能够满足
 Kubernetes 所需要的覆盖网络。已经有许多人报告了使用 Flannel 和 Kubernetes 的成功案例。
 
 <!--
@@ -429,7 +438,7 @@ OVN 是一个由 Open vSwitch 社区开发的开源的网络虚拟化解决方�
 <!--
 ### Weave Net from Weaveworks
 
-[Weave Net](https://www.weave.works/products/weave-net/) is a
+[Weave Net](https://www.weave.works/oss/net/) is a
 resilient and simple to use network for Kubernetes and its hosted applications.
 Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)
 or stand-alone.  In either version, it doesn't require any configuration or extra code
@@ -437,7 +446,7 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 -->
 ### Weaveworks 的 Weave Net
 
-[Weave Net](https://www.weave.works/products/weave-net/) 是 Kubernetes 及其
+[Weave Net](https://www.weave.works/oss/net/) 是 Kubernetes 及其
 托管应用程序的弹性且易于使用的网络系统。
 Weave Net 可以作为 [CNI 插件](https://www.weave.works/docs/net/latest/cni-plugin/) 运行或者独立运行。
 在这两种运行方式里，都不需要任何配置或额外的代码即可运行，并且在两种情况下，
