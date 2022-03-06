@@ -544,16 +544,14 @@ Note that we recommend using Deployments instead of directly using Replica Sets,
 <!--
 ### Deployment (Recommended)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods
-in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want the rolling update functionality,
-because unlike `kubectl rolling-update`, they are declarative, server-side, and have additional features.
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods.
+Deployments are recommended if you want the rolling update functionality,
+because they are declarative, server-side, and have additional features.
 -->
 ### Deployment （推荐）
 
-[`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/) 是一种更高级别的 API 对象，
-它以类似于 `kubectl rolling-update` 的方式更新其底层 ReplicaSet 及其 Pod。
-如果你想要这种滚动更新功能，那么推荐使用 Deployment，因为与 `kubectl rolling-update` 不同，
-它们是声明式的、服务端的，并且具有其它特性。
+[`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/) 是一种更高级别的 API 对象用于更新其底层 ReplicaSet 及其 Pod。
+如果你想要这种滚动更新功能，那么推荐使用 Deployment，因为它们是声明式的、服务端的，并且具有其它特性。
 
 <!--
 ### Bare Pods
@@ -607,7 +605,8 @@ ReplicationController。
 -->
 ## 接下来
 
-- 了解关于 Pods[/zh/docs/concepts/workloads/pods]。
-- 了解 [Depolyment](/zh/docs/concepts/workloads/controllers/deployment/)，ReplicationController 的替代品。
+- 了解关于Pods[/zh/docs/concepts/workloads/pods]。
+- 了解[Depolyment](/zh/docs/concepts/workloads/controllers/deployment/)，ReplicationController的替代品。
 - `ReplicationController`是 Kubernetes REST API 的一部分，阅读 {{< api-reference page="workload-resources/replication-controller-v1" >}}
   对象定义以了解 replication controllers 的 API。
+
