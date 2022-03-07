@@ -70,6 +70,7 @@ Customization approaches can be broadly divided into *configuration*, which only
 *Configuration files* and *flags* are documented in the Reference section of the online documentation, under each binary:
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
@@ -80,6 +81,7 @@ Customization approaches can be broadly divided into *configuration*, which only
 *配置文件*和*参数标志*的说明位于在线文档的参考章节，按可执行文件组织：
 
 * [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/zh/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
 * [kube-scheduler](/zh/docs/reference/command-line-tools-reference/kube-scheduler/).
@@ -114,17 +116,17 @@ API 通常用于托管的 Kubernetes 服务和受控的 Kubernetes 安装环境�
 Extensions are software components that extend and deeply integrate with Kubernetes.
 They adapt it to support new types and new kinds of hardware.
 
-Most cluster administrators will use a hosted or distribution
-instance of Kubernetes. As a result, most Kubernetes users will not need to
-install extensions and fewer will need to author new ones.
+Many cluster administrators use a hosted or distribution instance of Kubernetes.
+These clusters come with extensions pre-installed. As a result, most Kubernetes
+users will not need to install extensions and even fewer users will need to author new ones.
 -->
 ## 扩展    {#extensions}
 
 扩展（Extensions）是一些扩充 Kubernetes 能力并与之深度集成的软件组件。
 它们调整 Kubernetes 的工作方式使之支持新的类型和新的硬件种类。
 
-大多数集群管理员会使用一种托管的 Kubernetes 服务或者其某种发行版本。
-因此，大多数 Kubernetes 用户不需要安装扩展，
+大多数集群管理员会使用一种托管的 Kubernetes 服务或者其某种发行版本，
+这些集群预装了扩展。因此，大多数 Kubernetes 用户不需要安装扩展，
 至于需要自己编写新的扩展的情况就更少了。
 
 <!--
@@ -345,11 +347,11 @@ Kubernetes 提供若干种内置的认证方法，以及
 <!--
 ### Authorization
 
-[Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It works at the level of whole resources - it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
+[Authorization](/docs/reference/access-authn-authz/authorization/) determines whether specific users can read, write, and do other operations on API resources. It works at the level of whole resources - it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 -->
 ### 鉴权    {#authorization}
 
-[鉴权](/zh/docs/reference/access-authn-authz/webhook/)操作负责确定特定的用户
+[鉴权](/zh/docs/reference/access-authn-authz/authorization/)操作负责确定特定的用户
 是否可以读、写 API 资源或对其执行其他操作。
 此操作仅在整个资源集合的层面进行。
 换言之，它不会基于对象的特定字段作出不同的判决。
@@ -385,6 +387,8 @@ After a request is authorized, if it is a write operation, it also goes through 
 [Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
 ) allow users to mount volume types without built-in support by having the
 Kubelet call a Binary Plugin to mount the volume.
+
+FlexVolume is deprecated since Kubernetes v1.23. The Out-of-tree CSI driver is the recommended way to write volume drivers in Kubernetes. See [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors) for more information.
 -->
 ## 基础设施扩展    {#infrastructure-extensions}
 
@@ -394,6 +398,11 @@ Kubelet call a Binary Plugin to mount the volume.
 )
 卷可以让用户挂载无需内建支持的卷类型，kubelet 会调用可执行文件插件
 来挂载对应的存储卷。
+
+FlexVolume 自 Kubernetes v1.23 起被弃用。 
+Out-of-tree CSI 驱动程序是在 Kubernetes 中编写卷驱动程序的推荐方式，
+请参阅[针对存储供应商的 Kubernetes 卷插件常见问题解答](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage -供应商）
+了解更多信息。
 
 <!--
 ### Device Plugins
@@ -466,5 +475,3 @@ the nodes chosen for a pod.
   * [设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * 了解 [kubectl 插件](/zh/docs/tasks/extend-kubectl/kubectl-plugins/)
 * 了解 [Operator 模式](/zh/docs/concepts/extend-kubernetes/operator/)
-
-
