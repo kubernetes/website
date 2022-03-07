@@ -550,7 +550,7 @@ because they are declarative, server-side, and have additional features.
 -->
 ### Deployment （推荐）
 
-[`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/) 是一种更高级别的 API 对象用于更新其底层 ReplicaSet 及其 Pod。
+[`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/) 是一种更高级别的 API 对象，用于更新其底层 ReplicaSet 及其 Pod。
 如果你想要这种滚动更新功能，那么推荐使用 Deployment，因为它们是声明式的、服务端的，并且具有其它特性。
 
 <!--
