@@ -369,7 +369,7 @@ source /usr/share/bash-completion/bash_completion
 
 ```bash
 echo 'alias k=kubectl' >>~/.bashrc
-echo 'complete -F __start_kubectl k' >>~/.bashrc
+echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 ```
 
 {{< note >}}
@@ -458,7 +458,7 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 
    ```bash
    echo 'alias k=kubectl' >>~/.bash_profile
-   echo 'complete -F __start_kubectl k' >>~/.bash_profile
+   echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
    ```
 
 - kubectlをHomwbrewでインストールした場合([前述](#homebrewを使用してmacosへインストールする)のとおり)、kubectlの補完スクリプトはすでに`/usr/local/etc/bash_completion.d/kubectl`に格納されているでしょう。この場合、なにも操作する必要はありません。

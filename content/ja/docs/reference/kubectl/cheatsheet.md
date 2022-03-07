@@ -25,7 +25,7 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc # bashシェルでのコ�
 
 ```bash
 alias k=kubectl
-complete -F __start_kubectl k
+complete -o default -F __start_kubectl k
 ```
 
 ### ZSH

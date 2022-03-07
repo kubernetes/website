@@ -33,7 +33,7 @@ Bạn có thể dùng một alias cho `kubectl` cũng hoạt động với compl
 
 ```bash
 alias k=kubectl
-complete -F __start_kubectl k
+complete -o default -F __start_kubectl k
 ```
 
 ### ZSH

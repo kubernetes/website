@@ -359,7 +359,7 @@ Jika kamu menggunakan alias untuk `kubectl`, kamu masih dapat menggunakan fitur 
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
     ```
 
 {{< note >}}
@@ -447,7 +447,7 @@ Sekarang kamu harus memastikan bahwa skrip penyelesaian untuk `kubectl` sudah di
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
     ```
 - Jika kamu menginstal `kubectl` dengan Homebrew (seperti yang sudah dijelaskan [di atas](#install-with-homebrew-on-macos)), maka skrip penyelesaian untuk `kubectl` sudah berada di `/usr/local/etc/bash_completion.d/kubectl`. Kamu tidak perlu melakukan apa-apa lagi.
 

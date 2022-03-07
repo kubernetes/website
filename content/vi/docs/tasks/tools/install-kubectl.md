@@ -356,7 +356,7 @@ Bây giờ bạn cần đảm bảo rằng kubectl completion script được so
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
     ```
 
 {{< note >}}
@@ -424,7 +424,7 @@ Bây giờ bạn phải đảm bảo rằng kubectl completion script đã đư�
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
     ```
     
 - Nếu bạn đã cài kubectl với Homebrew (như đã giới thiệu [bên trên](#install-with-homebrew-on-macos))) thì kubectl completion script sẽ có trong `/usr/local/etc/bash_completion.d/kubectl`. Trong trường hợp này thì bạn không cần làm gì cả.

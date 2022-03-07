@@ -31,7 +31,7 @@ Sie können auch ein Abkürzungsalias für `kubectl` verwenden, welches auch mit
 
 ```bash
 alias k=kubectl
-complete -F __start_kubectl k
+complete -o default -F __start_kubectl k
 ```
 
 ### ZSH

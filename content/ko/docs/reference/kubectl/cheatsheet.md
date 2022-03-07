@@ -29,7 +29,7 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc # 자동 완성을 bash �
 
 ```bash
 alias k=kubectl
-complete -F __start_kubectl k
+complete -o default -F __start_kubectl k
 ```
 
 ### ZSH

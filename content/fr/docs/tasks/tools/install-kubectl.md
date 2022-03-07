@@ -363,7 +363,7 @@ Vous devez maintenant vérifier que le script de completion de kubectl est bien 
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
     ```
 
 {{< note >}}
@@ -431,7 +431,7 @@ Si vous n'avez pas installé via Homebrew, vous devez maintenant vous assurer qu
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
     ```
     
 Si vous avez installé kubectl avec Homebrew (comme expliqué [ici](#installer-avec-homebrew-sur-macos)), alors le script de complétion a été automatiquement installé dans `/usr/local/etc/bash_completion.d/kubectl`. Dans ce cas, vous n'avez rien à faire.

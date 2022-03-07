@@ -368,7 +368,7 @@ source /usr/share/bash-completion/bash_completion
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
     ```
 
 {{< note >}}
@@ -435,7 +435,7 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
     ```
 
 Если вы установили kubectl с помощью Homebrew (как описано [выше](#install-with-homebrew-on-macos)), то скрипт дополнения ввода kubectl уже должен быть находится в `/usr/local/etc/bash_completion.d/kubectl`. В этом случае вам не нужно ничего делать.
