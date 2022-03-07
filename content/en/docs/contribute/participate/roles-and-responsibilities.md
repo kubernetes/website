@@ -70,7 +70,7 @@ After submitting at least 5 substantial pull requests and meeting the other
    [sponsor](/docs/contribute/advanced#sponsor-a-new-contributor) your
    membership.
 
-   Ask for sponsorship in the [#sig-docs channel on Slack](https://kubernetes.slack.com) or on the
+   For example, if your contribution is more related to documentation，you can ask for sponsorship in the [#sig-docs channel on Slack](https://kubernetes.slack.com) or on the
    [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
    {{< note >}}
