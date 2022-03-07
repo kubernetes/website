@@ -222,10 +222,8 @@ kubectl create secret docker-registry secret-tiger-docker \
   --docker-server=my-registry.example:5000
 ```
 
-This command creates a Secret of type `kubernetes.io/dockerconfigjson`.
-If you dump the `.dockerconfigjson` content from the `data` field, you will
-get the following JSON content which is a valid Docker configuration created
-on the fly:
+This command creates a Secret of type `kubernetes.io/dockerconfigjson`. The
+contents are similar to the one below:
 
 ```json
 {
@@ -243,7 +241,23 @@ on the fly:
     },
     "type": "kubernetes.io/dockerconfigjson"
 }
+```
 
+If you dump the `.dockerconfigjson` content from the `data` field and decode it
+from the base64 format, you will get the following JSON content which is a valid
+Docker configuration created on the fly:
+
+```json
+{
+  "auths":{
+    "my-registry:5000":{
+      "username":"tiger",
+      "password":"pass113",
+      "email":"tiger@acme.com",
+      "auth":"dGlnZXI6cGFzczExMw=="
+    }
+  }
+}
 ```
 
 ### Basic authentication Secret
