@@ -32,6 +32,8 @@ To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+<!--
 该文件是使用通用 Go 源码自动生成的组件[生成器](https://github.com/kubernetes-sigs/reference-docs/)。
 学习如何生成参考文档，请阅读[贡献参考文档](/docs/contribute/generate-ref-docs/)。
 更新参考内容，请按照[贡献上游](/docs/contribute/generate-ref-docs/contribute-upstream/)指南。
