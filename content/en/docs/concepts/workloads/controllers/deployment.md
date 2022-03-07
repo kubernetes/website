@@ -255,10 +255,11 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
     Deployment also ensures that only a certain number of Pods are created above the desired number of Pods.
     By default, it ensures that at most 125% of the desired number of Pods are up (25% max surge).
 
-    For example, if you look at the above Deployment closely, you will see that it first created a new Pod,
-    then deleted some old Pods, and created new ones. It does not kill old Pods until a sufficient number of
+    For example, if you look at the above Deployment closely, you will see that it first creates a new Pod,
+    then deletes an old Pod, and creates another new one. It does not kill old Pods until a sufficient number of
     new Pods have come up, and does not create new Pods until a sufficient number of old Pods have been killed.
-    It makes sure that at least 2 Pods are available and that at max 4 Pods in total are available.
+    It makes sure that at least 3 Pods are available and that at max 4 Pods in total are available. In case of
+    a Deployment with 4 replicas, the number of Pods would be between 3 and 5.
 
 * Get details of your Deployment:
   ```shell
@@ -305,10 +306,17 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
     ```
     Here you see that when you first created the Deployment, it created a ReplicaSet (nginx-deployment-2035384211)
     and scaled it up to 3 replicas directly. When you updated the Deployment, it created a new ReplicaSet
-    (nginx-deployment-1564180365) and scaled it up to 1 and then scaled down the old ReplicaSet to 2, so that at
-    least 2 Pods were available and at most 4 Pods were created at all times. It then continued scaling up and down
-    the new and the old ReplicaSet, with the same rolling update strategy. Finally, you'll have 3 available replicas
-    in the new ReplicaSet, and the old ReplicaSet is scaled down to 0.
+    (nginx-deployment-1564180365) and scaled it up to 1 and waited for it to come up. Then it scaled down the old ReplicaSet
+    to 2 and scaled up the new ReplicaSet to 2 so that at least 3 Pods were available and at most 4 Pods were created at all times.
+    It then continued scaling up and down the new and the old ReplicaSet, with the same rolling update strategy.
+    Finally, you'll have 3 available replicas in the new ReplicaSet, and the old ReplicaSet is scaled down to 0.
+
+{{< note >}}
+Kubernetes doesn't count terminating Pods when calculating the number of `availableReplicas`, which must be between
+`replicas - maxUnavailable` and `replicas + maxSurge`. As a result, you might notice that there are more Pods than
+expected during a rollout, and that the total resources consumed by the Deployment is more than `replicas + maxSurge`
+until the `terminationGracePeriodSeconds` of the terminating Pods expires.
+{{< /note >}}
 
 ### Rollover (aka multiple updates in-flight)
 

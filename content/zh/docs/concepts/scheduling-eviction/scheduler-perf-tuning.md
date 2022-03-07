@@ -85,7 +85,7 @@ To change the value, edit the
 and then restart the scheduler.
 In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`
  -->
-要修改这个值，先编辑 [kube-scheduler 的配置文件](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+要修改这个值，先编辑 [kube-scheduler 的配置文件](/zh/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 然后重启调度器。
 大多数情况下，这个配置文件是 `/etc/kubernetes/config/kube-scheduler.yaml`。
 
@@ -298,6 +298,6 @@ After going over all the Nodes, it goes back to Node 1.
 
 ## {{% heading "whatsnext" %}}
 
-<!-- * Check the [kube-scheduler configuration reference (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) -->
+<!-- * Check the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) -->
 
-* 参见 [kube-scheduler 配置参考 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+* 参见 [kube-scheduler 配置参考 (v1beta3)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta3/)
