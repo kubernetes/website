@@ -8,6 +8,8 @@ weight: 70
 
 <!-- overview -->
 
+{{% thirdparty-content %}}
+
 Kubernetes' support for direct integration with Docker Engine is deprecated, and will be removed. Most apps do not have a direct dependency on runtime hosting containers. However, there are still a lot of telemetry and monitoring agents that has a dependency on docker to collect containers metadata, logs and metrics. This document aggregates information on how to detect these dependencies and links on how to migrate these agents to use generic tools or alternative runtimes.
 
 ## Telemetry and security agents
@@ -72,6 +74,7 @@ In case your cluster nodes are customized and install additional security and
 telemetry agents on the node, make sure to check with the vendor of the agent whether it has dependency on Docker.
 
 ### Telemetry and security agent vendors
+
 This section is intended to collect information about various telemetry and security agents that may have dependency on containers runtime. Support matrix section outlines the supported runtimes and Migration from dockershim section is designed to help users transition from dockershim to other container runtimes.
 
 We keep the work in progress version of migration instructions for various telemetry and security agent vendors
@@ -79,9 +82,12 @@ in [Google doc](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lF
 Please contact the vendor to get up to date instructions for migrating from dockershim.
 
 ## Migration from dockershim
+
 ### ✅ [Aqua](https://www.aquasec.com)
+
 No changes are needed - everything should work seamlessly on the runtime switch
 ### ✅ [Datadog](https://www.datadoghq.com/product/)
+
 How to migrate:
 [https://docs.datadoghq.com/agent/guide/docker-deprecation/](https://docs.datadoghq.com/agent/guide/docker-deprecation/)
 The pod that accesses Docker Engine may have a name containing any of:
@@ -91,6 +97,7 @@ The pod that accesses Docker Engine may have a name containing any of:
 - `dd-agent`
 
 ### ✅ [Dynatrace](https://www.dynatrace.com/)
+
 How to migrate:
 [Migrating from Docker-only to generic container metrics in Dynatrace](https://community.dynatrace.com/t5/Best-practices/Migrating-from-Docker-only-to-generic-container-metrics-in/m-p/167030#M49)
 
@@ -102,18 +109,24 @@ CRI-O support announcement: [Get automated full-stack visibility into your CRI-O
 
 The pod accessing Docker may have name containing: 
 	- dynatrace-oneagent
+
 ### ✅  [Falco](https://falco.org)
+
 How to migrate:
 [Migrate Falco from dockershim](https://falco.org/docs/getting-started/deployment/#docker-deprecation-in-kubernetes)
 Falco supports any CRI-compatible runtime (containerd is used in the default configuration); the documentation explains all details.
 The pod accessing Docker may have name containing: 
 		- falco
+
 ### ✅   [Prisma Cloud](https://docs.paloaltonetworks.com/prisma/prisma-cloud.html) Compute
+
 Redeploy Defenders with a YAML file created with the `--cri` flag. This is a standard installation method, so documentation for this can be found here, under the "Install Prisma Cloud on a CRI (non-Docker) cluster" heading:
 [Install Prisma](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_kubernetes.html)
 The pod accessing Docker may be named like:
 	-	twistlock-defender-ds
+
 ### ✅   [SignalFx (Splunk)](https://www.splunk.com/en_us/investor-relations/acquisitions/signalfx.html)
+
 The SignalFx Smart Agent uses several different monitors for Kubernetes including kubernetes-cluster, kubelet-stats/kubelet-metrics, and docker-container-stats. The kubelet-stats monitor was previously deprecated by the vendor, in favor of kubelet-metrics. The docker-container-stats monitor is the one affected by dockershim removal. You should not use the `docker-container-stats` with container runtimes other than Docker Engine.
 
 
@@ -128,6 +141,7 @@ Note, the set of collected metrics will change. Please review your alerting rule
 The pod accessing Docker may be named like:
  
   -  signalfx-agent
+
 ### ❌ Yahoo Kubectl Flame
 
 Flame does not support container runtimes other than dockershim. See
