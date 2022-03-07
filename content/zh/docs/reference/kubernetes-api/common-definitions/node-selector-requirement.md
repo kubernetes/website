@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "NodeSelectorRequirement"
 content_type: "api_reference"
-description: "节点选择器是一个需要包含键、值以及一个将键与值关联起来的运算符的选择器"
+description: "节点选择器是要求包含键、值和关联键和值的运算符的选择器"
 title: "NodeSelectorRequirement"
 weight: 5
 auto_generated: true
@@ -32,12 +32,10 @@ To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-<!--
-该文件是使用通用Go源码自动生成的组件 [生成器](https://github.com/kubernetes-sigs/reference-docs/)。
-学习如何生成参考文档，请阅读 [贡献参考文档](/docs/contribute/generate-ref-docs/)。
-更新参考内容，请按照 [贡献上游](/docs/contribute/generate-ref-docs/contribute-upstream/)。
-针对文档格式化，可以参考 [参考文档](https://github.com/kubernetes-sigs/reference-docs/)。
+该文件是使用通用 Go 源码自动生成的组件[生成器](https://github.com/kubernetes-sigs/reference-docs/)。
+学习如何生成参考文档，请阅读[贡献参考文档](/docs/contribute/generate-ref-docs/)。
+更新参考内容，请按照[贡献上游](/docs/contribute/generate-ref-docs/contribute-upstream/)指南。
+你可以针对[参考文档](https://github.com/kubernetes-sigs/reference-docs/)提交文档格式错误。
 -->
 
 
@@ -46,7 +44,7 @@ guide. You can file document formatting bugs against the
 <!--
 A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 -->
-   节点选择器是一个需要包含键、值以及一个将键与值关联起来的运算符的选择器。
+   节点选择器是要求包含键、值和关联键和值的运算符的选择器。
 
 <hr>
 
@@ -55,9 +53,9 @@ A node selector requirement is a selector that contains values, a key, and an op
   
   The label key that the selector applies to.
 -->
-- **key**（字符串），必选项
+- **key** (string), 必选
 
-   key是一种被选择器使用的标签。
+   选择器适用的标签键。
 
 <!--
 - **operator** (string), required
@@ -72,11 +70,11 @@ A node selector requirement is a selector that contains values, a key, and an op
    - `"Lt"`
    - `"NotIn"` 
 -->
-- **operator** (字符串), 必选项
+- **operator** (string), 必选
 
-  operator是表示键与一组值的关系的运算符。有效的运算符包括：In、NotIn、Exists、DoesNotExist、Gt和Lt。
+  表示键与一组值的关系的运算符。有效的运算符包括：In、NotIn、Exists、DoesNotExist、Gt 和 Lt。
 
-  可用的取值:
+  可选值:
    - `"DoesNotExist"`
    - `"Exists"`
    - `"Gt"`
@@ -89,8 +87,11 @@ A node selector requirement is a selector that contains values, a key, and an op
 
   An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 -->
-- **values** （字符串数组）
+- **values** ([]string)
 
-   values是一个字符串数组。如果运算符为In或NotIn，则该数组必须为非空。如果运算符为Exists或DoesNotExist，则该数组必须为空。如果运算符为Gt或Lt，则数组必须有一个元素，该元素将被看作整数。该数组会在合入全局补丁时被替换。
+   字符串数组。如果运算符为 In 或 NotIn，则数组必须为非空。
+   如果运算符为 Exists 或 DoesNotExist，则数组必须为空。
+   如果运算符为 Gt 或 Lt，则数组必须有一个元素，该元素将被译为整数。
+   该数组在合并计划补丁时将被替换。
 
 
