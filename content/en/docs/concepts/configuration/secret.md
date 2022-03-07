@@ -167,7 +167,7 @@ However, using the [TokenRequest](/docs/reference/kubernetes-api/authentication-
 subresource to obtain a token to access the API is recommended instead.
 {{< /note >}}
 
-### Docker config Secrets
+### Docker Registry config Secrets
 
 You can use one of the following `type` values to create a Secret to
 store the credentials for accessing a Docker registry for images.
