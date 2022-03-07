@@ -1,5 +1,5 @@
 ---
-title: 已完成Job的自动清理
+title: 已完成 Job 的自动清理
 content_type: concept
 weight: 70
 ---
@@ -19,7 +19,7 @@ TTL (time to live) mechanism to limit the lifetime of resource objects that
 have finished execution. TTL controller only handles 
 {{< glossary_tooltip text="Jobs" term_id="job" >}}.
 -->
-TTL-after-finished {{<glossary_tooltip text="controller" term_id="控制器">}} 提供了一种 TTL 机制来限制已完成执行的资源对象的生命周期。
+TTL-after-finished {{<glossary_tooltip text="控制器" term_id="controller">}} 提供了一种 TTL 机制来限制已完成执行的资源对象的生命周期。
 TTL 控制器目前只处理 {{< glossary_tooltip text="Job" term_id="job" >}}。
 
 
@@ -90,9 +90,9 @@ returns a successful API response.
 -->
 ## 警告
 
-### 更新 TTL 秒
+### 更新 TTL 秒数
 
-请注意，在创建作业或已经执行结束后，仍可以修改其 TTL 周期，例如 Job 的
+请注意，在创建 Job 或已经执行结束后，仍可以修改其 TTL 周期，例如 Job 的
 `.spec.ttlSecondsAfterFinished` 字段。
 但是一旦 Job 变为可被删除状态（当其 TTL 已过期时），即使您通过 API 增加其 TTL
 时长得到了成功的响应，系统也不保证 Job 将被保留。
