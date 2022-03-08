@@ -108,7 +108,9 @@ See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl
 如果 Pod 有多个容器，你应该为该命令附加容器名以访问对应容器的日志，
 使用 `-c` 标志来指定要访问的容器的日志，如下所示：
 ```console
+
 kubectl logs counter -c count
+
 ```
 详见 [kubectl logs 文档](/zh/docs/reference/generated/kubectl/kubectl-commands#logs)。
 <!--
