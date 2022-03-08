@@ -43,7 +43,7 @@ If you have an alias for kubectl, you can extend shell completion to work with t
 
 ```bash
 echo 'alias k=kubectl' >>~/.bashrc
-echo 'complete -F __start_kubectl k' >>~/.bashrc
+echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 ```
 
 {{< note >}}

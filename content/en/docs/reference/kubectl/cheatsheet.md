@@ -30,7 +30,7 @@ You can also use a shorthand alias for `kubectl` that also works with completion
 
 ```bash
 alias k=kubectl
-complete -F __start_kubectl k
+complete -o default -F __start_kubectl k
 ```
 
 ### ZSH
