@@ -33,7 +33,7 @@ Kubernetes [Pod 安全性标准（Security Standards）](/zh/docs/concepts/secur
 为 Pod 定义不同的隔离级别。这些标准能够让你以一种清晰、一致的方式定义如何限制 Pod 行为。
 
 <!--
-As an Beta feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
+As a Beta feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
 text="admission controller" term_id="admission-controller" >}}, the successor
 to [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/). Pod security restrictions
 are applied at the {{< glossary_tooltip text="namespace" term_id="namespace" >}} level when pods
@@ -238,7 +238,7 @@ Pod 通常是通过创建 {{< glossary_tooltip term_id="deployment" >}} 或
 <!--
 ## Exemptions
 
-You can define _exemptions_ from pod security enforcement in order allow the creation of pods that
+You can define _exemptions_ from pod security enforcement in order to allow the creation of pods that
 would have otherwise been prohibited due to the policy associated with a given namespace.
 Exemptions can be statically configured in the
 [Admission Controller configuration](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller).

@@ -29,7 +29,7 @@ To set feature gates for a component, such as kubelet, use the `--feature-gates`
 flag assigned to a list of feature pairs:
 
 ```shell
---feature-gates="...,GracefulNodeShutdown=true"
+--feature-gates=...,GracefulNodeShutdown=true
 ```
 
 The following tables are a summary of the feature gates that you can set on
