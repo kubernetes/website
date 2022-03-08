@@ -166,10 +166,15 @@ It augments the basic
 [`kubelet.service` for RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) or
 [`kubelet.service` for DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service):
 
+{{< note >}}
+The contents below are just an example. If you don't want to use a package manager
+follow the guide outlined in the [Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+section.
+{{< /note >}}
+
 ```none
 [Service]
-Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf
---kubeconfig=/etc/kubernetes/kubelet.conf"
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 # This is a file that "kubeadm init" and "kubeadm join" generate at runtime, populating
 the KUBELET_KUBEADM_ARGS variable dynamically
@@ -203,5 +208,3 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 | `kubelet`    | Installs the kubelet binary in `/usr/bin` and CNI binaries in `/opt/cni/bin`. |
 | `kubectl`    | Installs the `/usr/bin/kubectl` binary. |
 | `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-sigs/cri-tools). |
-
-

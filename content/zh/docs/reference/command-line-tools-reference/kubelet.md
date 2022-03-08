@@ -77,7 +77,7 @@ If true, adds the file directory to the header
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address for the Kubelet to serve on (set to `0.0.0.0` for all IPv4 interfaces and `::` for all IPv6 interfaces)  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The IP address for the Kubelet to serve on (set to <code>0.0.0.0</code> for all IPv4 interfaces and <code>::</code> for all IPv6 interfaces)  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 kubelet 用来提供服务的 IP 地址（设置为<code>0.0.0.0</code> 表示使用所有 IPv4 接口，
 设置为 <code>::</code> 表示使用所有 IPv6 接口）。已弃用：应在 <code>--config</code> 所给的
@@ -91,11 +91,11 @@ kubelet 用来提供服务的 IP 地址（设置为<code>0.0.0.0</code> 表示�
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Comma-separated whitelist of unsafe sysctls or unsafe sysctl patterns (ending in `*`). Use these at your own risk. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Comma-separated whitelist of unsafe sysctls or unsafe sysctl patterns (ending in <code>*</code>). Use these at your own risk. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 用逗号分隔的字符串序列设置允许使用的非安全的 sysctls 或 sysctl 模式（以 <code>*</code> 结尾) 。
 使用此参数时风险自担。已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
-（<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）.
+（<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
 </tr>
 
@@ -117,7 +117,7 @@ log to standard error as well as files
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Enables anonymous requests to the Kubelet server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of `system:anonymous`, and a group name of `system:unauthenticated`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Enables anonymous requests to the Kubelet server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of <code>system:anonymous</code>, and a group name of <code>system:unauthenticated</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置为 true 表示 kubelet 服务器可以接受匿名请求。未被任何认证组件拒绝的请求将被视为匿名请求。
 匿名请求的用户名为 <code>system:anonymous</code>，用户组为 <code>system:unauthenticated</code>。
@@ -160,7 +160,7 @@ The duration to cache responses from the webhook token authenticator. (default 2
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Authorization mode for Kubelet server. Valid options are `AlwaysAllow` or `Webhook`. `Webhook` mode uses the `SubjectAccessReview` API to determine authorization. (default "AlwaysAllow" when `--config` flag is not provided; "Webhook" when `--config` flag presents.) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Authorization mode for Kubelet server. Valid options are <code>AlwaysAllow</code> or <code>Webhook</code>. <code>Webhook</code> mode uses the <code>SubjectAccessReview</code> API to determine authorization. (default "AlwaysAllow" when <code>--config</code> flag is not provided; "Webhook" when <code>--config</code> flag presents.) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 kubelet 服务器的鉴权模式。可选值包括：<code>AlwaysAllow</code>、<code>Webhook</code>。<code>Webhook</code> 模式使用 <code>SubjectAccessReview</code> API 鉴权。
 当 <code>--config</code> 参数未被设置时，默认值为 <code>AlwaysAllow</code>，当使用了
@@ -176,7 +176,7 @@ kubelet 服务器的鉴权模式。可选值包括：<code>AlwaysAllow</code>、
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The duration to cache 'authorized' responses from the webhook authorizer. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The duration to cache 'authorized' responses from the webhook authorizer. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 对 Webhook 认证组件所返回的 “Authorized（已授权）” 应答的缓存时间。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -185,12 +185,12 @@ The duration to cache 'authorized' responses from the webhook authorizer. (DEPRE
 </tr>
 
 <tr>
-<td colspan="2">--authorization-webhook-cache-unauthorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `30s`-->默认值：<code>30s</code></td>
+<td colspan="2">--authorization-webhook-cache-unauthorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>30s</code>-->默认值：<code>30s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The duration to cache 'unauthorized' responses from the webhook authorizer. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The duration to cache 'unauthorized' responses from the webhook authorizer. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 对 Webhook 认证组件所返回的 “Unauthorized（未授权）” 应答的缓存时间。
 <code>--config</code> 时，默认值为 <code>Webhook</code>。
@@ -217,7 +217,7 @@ Path to the file container Azure container registry configuration information.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeconfig file that will be used to get client certificate for kubelet. If the file specified by `--kubeconfig` does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On success, a kubeconfig file referencing the generated client certificate and key is written to the path specified by `--kubeconfig`. The client certificate and key file will be stored in the directory pointed by `--cert-dir`.
+Path to a kubeconfig file that will be used to get client certificate for kubelet. If the file specified by <code>--kubeconfig</code> does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On success, a kubeconfig file referencing the generated client certificate and key is written to the path specified by <code>--kubeconfig</code>. The client certificate and key file will be stored in the directory pointed by <code>--cert-dir</code>.
 -->
 某 kubeconfig 文件的路径，该文件将用于获取 kubelet 的客户端证书。
 如果 <code>--kubeconfig</code> 所指定的文件不存在，则使用引导所用 kubeconfig
@@ -228,12 +228,12 @@ Path to a kubeconfig file that will be used to get client certificate for kubele
 </tr>
 
 <tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `/var/lib/kubelet/pki`-->默认值：<code>/var/lib/kubelet/pki</code></td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>/var/lib/kubelet/pki</code>-->默认值：<code>/var/lib/kubelet/pki</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The directory where the TLS certs are located. If `--tls-cert-file` and `--tls-private-key-file` are provided, this flag will be ignored.
+The directory where the TLS certs are located. If <code>--tls-cert-file</code> and <code>--tls-private-key-file</code> are provided, this flag will be ignored.
 -->
 TLS 证书所在的目录。如果设置了 <code>--tls-cert-file</code> 和 <code>--tls-private-key-file</code>，
 则此标志将被忽略。
@@ -241,22 +241,22 @@ TLS 证书所在的目录。如果设置了 <code>--tls-cert-file</code> 和 <co
 </tr>
 
 <tr>
-<td colspan="2">--cgroup-driver string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: `cgroupfs`-->默认值：<code>cgroupfs</code></td>
+<td colspan="2">--cgroup-driver string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: <code>cgroupfs</code>-->默认值：<code>cgroupfs</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Driver that the kubelet uses to manipulate cgroups on the host.  Possible values: `cgroupfs`, `systemd`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Driver that the kubelet uses to manipulate cgroups on the host.  Possible values: <code>cgroupfs</code>, <code>systemd</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 kubelet 用来操作本机 cgroup 时使用的驱动程序。支持的选项包括 <code>cgroupfs</code>
 和 <code>systemd</code>。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
-/td>
+</td>
 </tr>
 
 <tr>
-<td colspan="2">--cgroup-root string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `''`-->默认值：<code>""</code></td>
+<td colspan="2">--cgroup-root string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>''</code>-->默认值：<code>""</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -271,12 +271,12 @@ Optional root cgroup to use for pods. This is handled by the container runtime o
 </tr>
 
 <tr>
-<td colspan="2">--cgroups-per-qos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: `true`-->默认值：<code>true</code></td>
+<td colspan="2">--cgroups-per-qos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Enable creation of QoS cgroup hierarchy, if true top level QoS and pod cgroups are created. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Enable creation of QoS cgroup hierarchy, if true top level QoS and pod cgroups are created. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 启用创建 QoS cgroup 层次结构。此值为 true 时 kubelet 为 QoS 和 Pod 创建顶级的 cgroup。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -345,7 +345,7 @@ The provider for cloud services. Set to empty string for running with no cloud p
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Comma-separated list of DNS server IP address. This value is used for containers DNS server in case of Pods with "dnsPolicy=ClusterFirst". Note: all DNS servers appearing in the list MUST serve the same set of records otherwise name resolution within the cluster may not work correctly. There is no guarantee as to which DNS server may be contacted for name resolution. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Comma-separated list of DNS server IP address. This value is used for containers DNS server in case of Pods with "dnsPolicy=ClusterFirst". Note: all DNS servers appearing in the list MUST serve the same set of records otherwise name resolution within the cluster may not work correctly. There is no guarantee as to which DNS server may be contacted for name resolution. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 DNS 服务器的 IP 地址，以逗号分隔。此标志值用于 Pod 中设置了 “<code>dnsPolicy=ClusterFirst</code>”
 时为容器提供 DNS 服务。注意：列表中出现的所有 DNS 服务器必须包含相同的记录组，
@@ -363,7 +363,7 @@ DNS 服务器的 IP 地址，以逗号分隔。此标志值用于 Pod 中设置�
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Domain for this cluster. If set, kubelet will configure all containers to search this domain in addition to the host's search domains (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Domain for this cluster. If set, kubelet will configure all containers to search this domain in addition to the host's search domains (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 集群的域名。如果设置了此值，kubelet 除了将主机的搜索域配置到所有容器之外，还会为其
 配置所搜这里指定的域名。
@@ -374,12 +374,12 @@ Domain for this cluster. If set, kubelet will configure all containers to search
 </tr>
 
 <tr>
-<td colspan="2">--cni-bin-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: `/opt/cni/bin`-->默认值：<code>/opt/cni/bin</code></td>
+<td colspan="2">--cni-bin-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: <code>/opt/cni/bin</code>-->默认值：<code>/opt/cni/bin</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Alpha feature&gt; A comma-separated list of full paths of directories in which to search for CNI plugin binaries. This docker-specific flag only works when container-runtime is set to `docker`.
+&lt;Warning: Alpha feature&gt; A comma-separated list of full paths of directories in which to search for CNI plugin binaries. This docker-specific flag only works when container-runtime is set to <code>docker</code>.
 -->
 &lt;警告：alpha 特性&gt; 此值为以逗号分隔的完整路径列表。
 kubelet 将在所指定路径中搜索 CNI 插件的可执行文件。
@@ -388,12 +388,12 @@ kubelet 将在所指定路径中搜索 CNI 插件的可执行文件。
 </tr>
 
 <tr>
-<td colspan="2">--cni-cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: `/var/lib/cni/cache`-->默认值：<code>/var/lib/cni/cache</code></td>
+<td colspan="2">--cni-cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: <code>/var/lib/cni/cache</code>-->默认值：<code>/var/lib/cni/cache</code></td>
 </tr>
 <tr>                                            
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Alpha feature&gt; The full path of the directory in which CNI should store cache files. This docker-specific flag only works when container-runtime is set to `docker`.
+&lt;Warning: Alpha feature&gt; The full path of the directory in which CNI should store cache files. This docker-specific flag only works when container-runtime is set to <code>docker</code>.
 -->
 &lt;警告：alpha 特性&gt; 此值为一个目录的全路径名。CNI 将在其中缓存文件。
 仅当容器运行环境设置为 <code>docker</code> 时，此特定于 docker 的参数才有效。
@@ -401,12 +401,12 @@ kubelet 将在所指定路径中搜索 CNI 插件的可执行文件。
 </tr>
 
 <tr>
-<td colspan="2">--cni-conf-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: `/etc/cni/net.d`-->默认值：<code>/etc/cni/net.d</code></td>
+<td colspan="2">--cni-conf-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: <code>/etc/cni/net.d</code>-->默认值：<code>/etc/cni/net.d</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Alpha feature&gt; The full path of the directory in which to search for CNI config files. This docker-specific flag only works when container-runtime is set to `docker`.
+&lt;Warning: Alpha feature&gt; The full path of the directory in which to search for CNI config files. This docker-specific flag only works when container-runtime is set to <code>docker</code>.
 -->
 &lt;警告：alpha 特性&gt; 此值为某目录的全路径名。kubelet 将在其中搜索 CNI 配置文件。
 仅当容器运行环境设置为 <code>docker</code> 时，此特定于 docker 的参数才有效。
@@ -433,7 +433,7 @@ kubelet 将从此标志所指的文件中加载其初始配置。此路径可以
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Set the maximum number of container log files that can be present for a container. The number must be &ge; 2. This flag can only be used with `--container-runtime=remote`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Set the maximum number of container log files that can be present for a container. The number must be &ge; 2. This flag can only be used with <code>--container-runtime=remote</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置容器的日志文件个数上限。此值必须不小于 2。
 此标志只能与 <code>--container-runtime=remote</code> 标志一起使用。
@@ -443,12 +443,12 @@ Set the maximum number of container log files that can be present for a containe
 </tr>    
 
 <tr>
-<td colspan="2">--container-log-max-size string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: `10Mi`-->默认值：<code>10Mi</code></td>
+<td colspan="2">--container-log-max-size string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: <code>10Mi</code>-->默认值：<code>10Mi</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Set the maximum size (e.g. 10Mi) of container log file before it is rotated. This flag can only be used with `--container-runtime=remote`.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Set the maximum size (e.g. 10Mi) of container log file before it is rotated. This flag can only be used with <code>--container-runtime=remote</code>.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置容器日志文件在轮换生成新文件时之前的最大值（例如，<code>10Mi</code>）。
 此标志只能与 <code>--container-runtime=remote</code> 标志一起使用。
@@ -458,24 +458,24 @@ Set the maximum size (e.g. 10Mi) of container log file before it is rotated. Thi
 </tr>
 
 <tr>
-<td colspan="2">--container-runtime string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `docker`-->默认值：<code>docker</code></td>
+<td colspan="2">--container-runtime string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>docker</code>-->默认值：<code>docker</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The container runtime to use. Possible values: `docker`, `remote`.
+The container runtime to use. Possible values: <code>docker</code>, <code>remote</code>.
 -->
 要使用的容器运行时。目前支持 <code>docker<code>、</code>remote</code>。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--container-runtime-endpoint string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `unix:///var/run/dockershim.sock`-->默认值：<code>unix:///var/run/dockershim.sock</code></td>
+<td colspan="2">--container-runtime-endpoint string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>unix:///var/run/dockershim.sock</code>-->默认值：<code>unix:///var/run/dockershim.sock</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[Experimental] The endpoint of remote runtime service. Currently unix socket endpoint is supported on Linux, while npipe and tcp endpoints are supported on windows. Examples: `unix:///var/run/dockershim.sock`, `npipe:////./pipe/dockershim`.
+[Experimental] The endpoint of remote runtime service. Currently unix socket endpoint is supported on Linux, while npipe and tcp endpoints are supported on windows. Examples: <code>unix:///var/run/dockershim.sock</code>, <code>npipe:////./pipe/dockershim</code>.
 -->
 [实验性特性] 远程运行时服务的端点。目前支持 Linux 系统上的 UNIX 套接字和
 Windows 系统上的 npipe 和 TCP 端点。例如：
@@ -499,12 +499,12 @@ Enable lock contention profiling, if profiling is enabled (DEPRECATED: This para
 </tr>
 
 <tr>
-<td colspan="2">--cpu-cfs-quota&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `true`-->默认值：<code>true</code></td>
+<td colspan="2">--cpu-cfs-quota&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Enable CPU CFS quota enforcement for containers that specify CPU limits (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Enable CPU CFS quota enforcement for containers that specify CPU limits (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 为设置了 CPU 限制的容器启用 CPU CFS 配额保障。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -513,12 +513,12 @@ Enable CPU CFS quota enforcement for containers that specify CPU limits (DEPRECA
 </tr>
 
 <tr>
-<td colspan="2">--cpu-cfs-quota-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `100ms`-->默认值：<code>100ms</code></td>
+<td colspan="2">--cpu-cfs-quota-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>100ms</code>-->默认值：<code>100ms</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Sets CPU CFS quota period value, `cpu.cfs_period_us`, defaults to Linux Kernel default. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Sets CPU CFS quota period value, <code>cpu.cfs_period_us</code>, defaults to Linux Kernel default. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置 CPU CFS 配额周期 <code>cpu.cfs_period_us</code>。默认使用 Linux 内核所设置的默认值 。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -541,12 +541,12 @@ CPU Manager policy to use. Possible values: 'none', 'static'. Default: 'none' (d
 </tr>
 
 <tr>
-<td colspan="2">--cpu-manager-reconcile-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `10s`-->默认值：<code>10s</code></td>
+<td colspan="2">--cpu-manager-reconcile-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>10s</code>-->默认值：<code>10s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Alpha feature&gt; CPU Manager reconciliation period. Examples: `10s`, or `1m`. If not supplied, defaults to node status update frequency. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+&lt;Warning: Alpha feature&gt; CPU Manager reconciliation period. Examples: <code>10s</code>, or <code>1m</code>. If not supplied, defaults to node status update frequency. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 &lt;警告：alpha 特性&gt; 设置 CPU 管理器的调和时间。例如：<code>10s</code> 或者 <code>1m</code>。
 如果未设置，默认使用节点状态更新频率。
@@ -556,12 +556,12 @@ CPU Manager policy to use. Possible values: 'none', 'static'. Default: 'none' (d
 </tr>
 
 <tr>
-<td colspan="2">--docker-endpoint string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `unix:///var/run/docker.sock`-->默认值：<code>unix:///var/run/docker.sock</code></td>
+<td colspan="2">--docker-endpoint string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>unix:///var/run/docker.sock</code>-->默认值：<code>unix:///var/run/docker.sock</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Use this for the `docker` endpoint to communicate with. This docker-specific flag only works when container-runtime is set to `docker`.
+Use this for the <code>docker</code> endpoint to communicate with. This docker-specific flag only works when container-runtime is set to <code>docker</code>.
 -->
 使用这里的端点与 docker 端点通信。
 仅当容器运行环境设置为 <code>docker</code> 时，此特定于 docker 的参数才有效。
@@ -574,7 +574,7 @@ Use this for the `docker` endpoint to communicate with. This docker-specific fla
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The Kubelet will use this directory for checkpointing downloaded configurations and tracking configuration health. The Kubelet will create this directory if it does not already exist. The path may be absolute or relative; relative paths start at the Kubelet's current working directory. Providing this flag enables dynamic Kubelet configuration. The `DynamicKubeletConfig` feature gate must be enabled to pass this flag; this gate currently defaults to `true` because the feature is beta.
+The Kubelet will use this directory for checkpointing downloaded configurations and tracking configuration health. The Kubelet will create this directory if it does not already exist. The path may be absolute or relative; relative paths start at the Kubelet's current working directory. Providing this flag enables dynamic Kubelet configuration. The <code>DynamicKubeletConfig</code> feature gate must be enabled to pass this flag; this gate currently defaults to <code>true</code> because the feature is beta.
 -->
 kubelet 使用此目录来保存所下载的配置，跟踪配置运行状况。
 如果目录不存在，则 kubelet 创建该目录。此路径可以是绝对路径，也可以是相对路径。
@@ -586,7 +586,7 @@ kubelet 使用此目录来保存所下载的配置，跟踪配置运行状况。
 </tr>
 
 <tr>
-<td colspan="2">--enable-controller-attach-detach&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `true`-->默认值：<code>true</code></td>
+<td colspan="2">--enable-controller-attach-detach&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -598,7 +598,7 @@ Enables the Attach/Detach controller to manage attachment/detachment of volumes 
 </tr>
 
 <tr>
-<td colspan="2">--enable-debugging-handlers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `true`</td>
+<td colspan="2">--enable-debugging-handlers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -612,12 +612,12 @@ Enables server endpoints for log collection and local running of containers and 
 </tr>
 
 <tr>
-<td colspan="2">--enable-server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: `true`--></td>
+<td colspan="2">--enable-server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: <code>true</code>--></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Enable the Kubelet's server. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Enable the Kubelet's server. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 启用 kubelet 服务器。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -626,12 +626,12 @@ Enable the Kubelet's server. (DEPRECATED: This parameter should be set via the c
 </tr>
 
 <tr>
-<td colspan="2">--enforce-node-allocatable strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `pods`</td>
+<td colspan="2">--enforce-node-allocatable strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>pods</code>-->默认值：<code>pods</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are `none`, `pods`, `system-reserved`, and `kube-reserved`. If the latter two options are specified, `--system-reserved-cgroup` and `--kube-reserved-cgroup` must also be set, respectively. If `none` is specified, no additional options should be set. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are <code>none</code>, <code>pods</code>, <code>system-reserved</code>, and <code>kube-reserved</code>. If the latter two options are specified, <code>--system-reserved-cgroup</code> and <code>--kube-reserved-cgroup</code> must also be set, respectively. If <code>none</code> is specified, no additional options should be set. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 用逗号分隔的列表，包含由 kubelet 强制执行的节点可分配资源级别。
 可选配置为：<code>none</code>、<code>pods</code>、<code>system-reserved</code> 和 <code>kube-reserved</code>。
@@ -650,7 +650,7 @@ A comma separated list of levels of node allocatable enforcement to be enforced 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Maximum size of a bursty event records, temporarily allows event records to burst to this number, while still not exceeding `--event-qps`. Only used if `--event-qps` &gt; 0. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Maximum size of a bursty event records, temporarily allows event records to burst to this number, while still not exceeding <code>--event-qps</code>. Only used if <code>--event-qps</code> &gt; 0. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 事件记录的个数的突发峰值上限，在遵从 <code>--event-qps</code> 阈值约束的前提下
 临时允许事件记录达到此数目。仅在 <code>--event-qps</code> 大于 0 时使用。
@@ -660,12 +660,12 @@ Maximum size of a bursty event records, temporarily allows event records to burs
 </tr>
 
 <tr>
-<td colspan="2">--event-qps int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
+<td colspan="2">--event-qps int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 5-->默认值：5</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If &gt; `0`, limit event creations per second to this value. If `0`, unlimited. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+If &gt; <code>0</code>, limit event creations per second to this value. If <code>0</code>, unlimited. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置大于 0 的值表示限制每秒可生成的事件数量。设置为 0 表示不限制。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -674,12 +674,12 @@ If &gt; `0`, limit event creations per second to this value. If `0`, unlimited. 
 </tr>
 
 <tr>
-<td colspan="2">--eviction-hard string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `imagefs.available<15%,memory.available<100Mi,nodefs.available<10%`-->默认值：<code>imagefs.available&lt;15%,memory.available&lt;100Mi,nodefs.available&lt;10%</code></td>
+<td colspan="2">--eviction-hard string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>imagefs.available<15%,memory.available<100Mi,nodefs.available<10%</code>-->默认值：<code>imagefs.available&lt;15%,memory.available&lt;100Mi,nodefs.available&lt;10%</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of eviction thresholds (e.g. `memory.available<1Gi`) that if met would trigger a pod eviction. On a Linux node, the default value also includes `nodefs.inodesFree<5%`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of eviction thresholds (e.g. <code>memory.available<1Gi</code>) that if met would trigger a pod eviction. On a Linux node, the default value also includes <code>nodefs.inodesFree<5%</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 触发 Pod 驱逐操作的一组硬性门限（例如：<code>memory.available&lt;1Gi</code>
 （内存可用值小于 1 G））设置。在 Linux 节点上，默认值还包括
@@ -695,7 +695,7 @@ A set of eviction thresholds (e.g. `memory.available<1Gi`) that if met would tri
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Maximum allowed grace period (in seconds) to use when terminating pods in response to a soft eviction threshold being met. If negative, defer to pod specified value. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Maximum allowed grace period (in seconds) to use when terminating pods in response to a soft eviction threshold being met. If negative, defer to pod specified value. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 响应满足软性驱逐阈值（Soft Eviction Threshold）而终止 Pod 时使用的最长宽限期（以秒为单位）。
 如果设置为负数，则遵循 Pod 的指定值。
@@ -710,7 +710,7 @@ Maximum allowed grace period (in seconds) to use when terminating pods in respon
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of minimum reclaims (e.g. `imagefs.available=2Gi`) that describes the minimum amount of resource the kubelet will reclaim when performing a pod eviction if that resource is under pressure. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of minimum reclaims (e.g. <code>imagefs.available=2Gi</code>) that describes the minimum amount of resource the kubelet will reclaim when performing a pod eviction if that resource is under pressure. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 当某资源压力过大时，kubelet 将执行 Pod 驱逐操作。
 此参数设置软性驱逐操作需要回收的资源的最小数量（例如：<code>imagefs.available=2Gi</code>）。
@@ -720,12 +720,12 @@ A set of minimum reclaims (e.g. `imagefs.available=2Gi`) that describes the mini
 </tr>
 
 <tr>
-<td colspan="2">--eviction-pressure-transition-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `5m0s`-->默认值：<code>5m0s</code></td>
+<td colspan="2">--eviction-pressure-transition-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>5m0s</code>-->默认值：<code>5m0s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Duration for which the kubelet has to wait before transitioning out of an eviction pressure condition. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Duration for which the kubelet has to wait before transitioning out of an eviction pressure condition. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 kubelet 在驱逐压力状况解除之前的最长等待时间。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -739,7 +739,7 @@ kubelet 在驱逐压力状况解除之前的最长等待时间。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of eviction thresholds (e.g. `memory.available>1.5Gi`) that if met over a corresponding grace period would trigger a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of eviction thresholds (e.g. <code>memory.available>1.5Gi</code>) that if met over a corresponding grace period would trigger a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置一组驱逐阈值（例如：<code>memory.available&lt;1.5Gi</code>）。
 如果在相应的宽限期内达到该阈值，则会触发 Pod 驱逐操作。
@@ -754,7 +754,7 @@ A set of eviction thresholds (e.g. `memory.available>1.5Gi`) that if met over a 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of eviction grace periods (e.g. `memory.available=1m30s`) that correspond to how long a soft eviction threshold must hold before triggering a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of eviction grace periods (e.g. <code>memory.available=1m30s</code>) that correspond to how long a soft eviction threshold must hold before triggering a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置一组驱逐宽限期（例如，<code>memory.available=1m30s</code>），对应于触发软性 Pod
 驱逐操作之前软性驱逐阈值所需持续的时间长短。
@@ -776,12 +776,12 @@ Whether kubelet should exit upon lock-file contention.
 </tr>
 
 <tr>
-<td colspan="2">--experimental-allocatable-ignore-eviction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `false`-->默认值：<code>false</code></td>
+<td colspan="2">--experimental-allocatable-ignore-eviction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>false</code>-->默认值：<code>false</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-When set to `true`, Hard eviction thresholds will be ignored while calculating node allocatable. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (DEPRECATED: will be removed in 1.23)
+When set to <code>true</code>, Hard eviction thresholds will be ignored while calculating node allocatable. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (DEPRECATED: will be removed in 1.23)
 -->
 设置为 <code>true</code> 表示在计算节点可分配资源数量时忽略硬性逐出阈值设置。
 参考<a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/">
@@ -808,7 +808,7 @@ When set to `true`, Hard eviction thresholds will be ignored while calculating n
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[Experimental] if set to `true`, the kubelet will check the underlying node for required components (binaries, etc.) before performing the mount (DEPRECATED: will be removed in 1.23, in favor of using CSI.)
+[Experimental] if set to <code>true</code>, the kubelet will check the underlying node for required components (binaries, etc.) before performing the mount (DEPRECATED: will be removed in 1.23, in favor of using CSI.)
 -->
 [实验性特性] 设置为 <code>true</code> 表示 kubelet 在进行挂载卷操作之前要
 在本节点上检查所需的组件（如可执行文件等）是否存在。
@@ -822,7 +822,7 @@ When set to `true`, Hard eviction thresholds will be ignored while calculating n
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If enabled, the kubelet will integrate with the kernel memcg notification to determine if memory eviction thresholds are crossed rather than polling. This flag will be removed in 1.23. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+If enabled, the kubelet will integrate with the kernel memcg notification to determine if memory eviction thresholds are crossed rather than polling. This flag will be removed in 1.23. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置为 true 表示 kubelet 将会集成内核的 memcg 通知机制而不是使用轮询机制来
 判断是否达到了内存驱逐阈值。
@@ -848,12 +848,12 @@ If enabled, the kubelet will integrate with the kernel memcg notification to det
 </tr>
 
 <tr>
-<td colspan="2">--experimental-mounter-path string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `mount`-->默认值：<code>mount</code></td>
+<td colspan="2">--experimental-mounter-path string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>mount</code>-->默认值：<code>mount</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[Experimental] Path of mounter binary. Leave empty to use the default `mount`. (DEPRECATED: will be removed in 1.23, in favor of using CSI.)
+[Experimental] Path of mounter binary. Leave empty to use the default <code>mount</code>. (DEPRECATED: will be removed in 1.23, in favor of using CSI.)
 -->
 [实验性特性] 卷挂载器（mounter）的可执行文件的路径。设置为空表示使用默认挂载器 <code>mount</code>。
 已弃用：将在 1.23 版本移除以支持 CSI。
@@ -861,12 +861,12 @@ If enabled, the kubelet will integrate with the kernel memcg notification to det
 </tr>
 
 <tr>
-<td colspan="2">--fail-swap-on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `true`-->默认值：<code>true</code></td>
+<td colspan="2">--fail-swap-on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Makes the Kubelet fail to start if swap is enabled on the node. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Makes the Kubelet fail to start if swap is enabled on the node. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置为 true 表示如果主机启用了交换分区，kubelet 将直接失败。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -880,7 +880,7 @@ Makes the Kubelet fail to start if swap is enabled on the node. (DEPRECATED: Thi
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of `key=value` pairs that describe feature gates for alpha/experimental features. Options are:<br/>
+A set of <code>key=value</code> pairs that describe feature gates for alpha/experimental features. Options are:<br/>
 APIListChunking=true|false (BETA - default=true)<br/>
 APIPriorityAndFairness=true|false (BETA - default=true)<br/>
 APIResponseCompression=true|false (BETA - default=true)<br/>
@@ -953,25 +953,23 @@ RootCAConfigMap=true|false (BETA - default=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
 RunAsGroup=true|false (BETA - default=true)<br/>
 ServerSideApply=true|false (BETA - default=true)<br/>
-ServiceAccountIssuerDiscovery=true|false (BETA - default=true)<br/>
-ServiceLBNodePortControl=true|false (ALPHA - default=false)<br/>
-ServiceNodeExclusion=true|false (BETA - default=true)<br/>
-ServiceTopology=true|false (ALPHA - default=false)<br/>
-SetHostnameAsFQDN=true|false (BETA - default=true)<br/>
-SizeMemoryBackedVolumes=true|false (ALPHA - default=false)<br/>
+SeccompDefault=true|false (ALPHA - default=false)<br/>
+ServiceInternalTrafficPolicy=true|false (BETA - default=true)<br/>
+ServiceLBNodePortControl=true|false (BETA - default=true)<br/>
+ServiceLoadBalancerClass=true|false (BETA - default=true)<br/>
+SizeMemoryBackedVolumes=true|false (BETA - default=true)<br/>
+StatefulSetAutoDeletePVC=true|false (ALPHA - default=false)<br/>
+StatefulSetMinReadySeconds=true|false (BETA - default=true)<br/>
 StorageVersionAPI=true|false (ALPHA - default=false)<br/>
 StorageVersionHash=true|false (BETA - default=true)<br/>
-Sysctls=true|false (BETA - default=true)<br/>
-TTLAfterFinished=true|false (ALPHA - default=false)<br/>
 TopologyManager=true|false (BETA - default=true)<br/>
-ValidateProxyRedirects=true|false (BETA - default=true)<br/>
-WarningHeaders=true|false (BETA - default=true)<br/>
 WinDSR=true|false (ALPHA - default=false)<br/>
 WinOverlay=true|false (BETA - default=true)<br/>
-WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
-(DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
+csiMigrationRBD=true|false (ALPHA - default=false)<br/>
+(DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 -->
-用于 alpha 实验性质的特性开关组，每个开关以 key=value 形式表示。当前可用开关包括：
+用于 alpha 实验性特性的特性开关组，每个开关以 key=value 形式表示。当前可用开关包括：</br>
 APIListChunking=true|false (BETA - 默认值为 true)<br/>
 APIPriorityAndFairness=true|false (BETA - 默认值为 true)<br/>
 APIResponseCompression=true|false (BETA - 默认值为 true)<br/>
@@ -1043,35 +1041,35 @@ RemoveSelfLink=true|false (BETA - 默认值为 true)<br/>
 RootCAConfigMap=true|false (BETA - 默认值为 true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - 默认值为 true)<br/>
 RunAsGroup=true|false (BETA - 默认值为 true)<br/>
-ServerSideApply=true|false (BETA - 默认值为 true)<br/>
-ServiceAccountIssuerDiscovery=true|false (BETA - 默认值为 true)<br/>
-ServiceLBNodePortControl=true|false (ALPHA - 默认值为 false)<br/>
-ServiceNodeExclusion=true|false (BETA - 默认值为 true)<br/>
-ServiceTopology=true|false (ALPHA - 默认值为 false)<br/>
-SetHostnameAsFQDN=true|false (BETA - 默认值为 true)<br/>
-SizeMemoryBackedVolumes=true|false (ALPHA - 默认值为 false)<br/>
+SeccompDefault=true|false (ALPHA - 默认值为 false)<br/>
+ServiceInternalTrafficPolicy=true|false (BETA - 默认值为 true)<br/>
+ServiceLBNodePortControl=true|false (BETA - 默认值为 true)<br/>
+ServiceLoadBalancerClass=true|false (BETA - 默认值为 true)<br/>
+SizeMemoryBackedVolumes=true|false (BETA - 默认值为 true)<br/>
+StatefulSetAutoDeletePVC=true|false (ALPHA - 默认值为 false)<br/>
+StatefulSetMinReadySeconds=true|false (BETA - 默认值为 true)<br/>
 StorageVersionAPI=true|false (ALPHA - 默认值为 false)<br/>
 StorageVersionHash=true|false (BETA - 默认值为 true)<br/>
-Sysctls=true|false (BETA - 默认值为 true)<br/>
-TTLAfterFinished=true|false (ALPHA - 默认值为 false)<br/>
+SuspendJob=true|false (BETA - 默认值为 true)<br/>
+TopologyAwareHints=true|false (BETA - 默认值为 true)<br/>
 TopologyManager=true|false (BETA - 默认值为 true)<br/>
-ValidateProxyRedirects=true|false (BETA - 默认值为 true)<br/>
-WarningHeaders=true|false (BETA - 默认值为 true)<br/>
+VolumeCapacityPriority=true|false (ALPHA - 默认值为 false)<br/>
 WinDSR=true|false (ALPHA - 默认值为 false)<br/>
 WinOverlay=true|false (BETA - 默认值为 true)<br/>
-WindowsEndpointSliceProxying=true|false (ALPHA - 默认值为 false)<br/>
-已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
-（<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
+WindowsHostProcessContainers=true|false (BETA - 默认值为 true)<br/>
+csiMigrationRBD=true|false (ALPHA - 默认值为 false)<br/>
+已弃用: 应在 <code>--config</code> 所给的配置文件中进行设置。
+（<a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file">进一步了解</a>）
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--file-check-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `20s`-->默认值：<code>20s</code></td>
+<td colspan="2">--file-check-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>20s</code>-->默认值：<code>20s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Duration between checking config files for new data. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Duration between checking config files for new data. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 检查配置文件中新数据的时间间隔。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1080,28 +1078,28 @@ Duration between checking config files for new data. (DEPRECATED: This parameter
 </tr>
 
 <tr>
-<td colspan="2">--hairpin-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `promiscuous-bridge`-->默认值：<code>promiscuous-bridge</code></td>
+<td colspan="2">--hairpin-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>promiscuous-bridge</code>-->默认值：<code>promiscuous-bridge</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-How should the kubelet setup hairpin NAT. This allows endpoints of a Service to load balance back to themselves if they should try to access their own Service. Valid values are `promiscuous-bridge`, `hairpin-veth` and `none`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+How should the kubelet setup hairpin NAT. This allows endpoints of a Service to load balance back to themselves if they should try to access their own Service. Valid values are <code>promiscuous-bridge</code>, <code>hairpin-veth</code> and <code>none</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置 kubelet 执行发夹模式（hairpin）网络地址转译的方式。
 该模式允许后端端点对其自身服务的访问能够再次经由负载均衡转发回自身。
-可选项包括 “<code>promiscuous-bridge</code>”、“<code>hairpin-veth</code>” 和 “<code>none</code>”。
+可选项包括 <code>promiscuous-bridge</code>、<code>hairpin-veth</code> 和 <code>none</code>。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--healthz-bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `127.0.0.1`-->默认值：<code>127.0.0.1</code></td>
+<td colspan="2">--healthz-bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>127.0.0.1</code>-->默认值：<code>127.0.0.1</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address for the healthz server to serve on (set to `0.0.0.0` for all IPv4 interfaces and `::` for all IPv6 interfaces). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The IP address for the healthz server to serve on (set to <code>0.0.0.0</code> for all IPv4 interfaces and <code>::</code> for all IPv6 interfaces). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 用于运行 healthz 服务器的 IP 地址（设置为 <code>0.0.0.0</code> 表示使用所有 IPv4 接口，
 设置为 <code>::</code> 表示使用所有 IPv6 接口。
@@ -1116,7 +1114,7 @@ The IP address for the healthz server to serve on (set to `0.0.0.0` for all IPv4
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The port of the localhost healthz endpoint (set to `0` to disable). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The port of the localhost healthz endpoint (set to <code>0</code> to disable). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 本地 healthz 端点使用的端口（设置为 0 表示禁用）。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1142,7 +1140,7 @@ kubelet 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If non-empty, will use this string as identification instead of the actual hostname. If `--cloud-provider` is set, the cloud provider determines the name of the node (consult cloud provider documentation to determine if and how the hostname is used).
+If non-empty, will use this string as identification instead of the actual hostname. If <code>--cloud-provider</code> is set, the cloud provider determines the name of the node (consult cloud provider documentation to determine if and how the hostname is used).
 -->
 如果为非空，将使用此字符串而不是实际的主机名作为节点标识。如果设置了
 <code>--cloud-provider</code>，则云驱动将确定节点的名称
@@ -1151,7 +1149,7 @@ If non-empty, will use this string as identification instead of the actual hostn
 </tr>
 
 <tr>
-<td colspan="2">--housekeeping-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `10s`-->默认值：<code>10s</code></td>
+<td colspan="2">--housekeeping-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>10s</code>-->默认值：<code>10s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1163,12 +1161,12 @@ Interval between container housekeepings (default 10s)
 </tr>
 
 <tr>
-<td colspan="2">--http-check-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `20s`-->默认值：<code>20s</code></td>
+<td colspan="2">--http-check-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>20s</code>-->默认值：<code>20s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Duration between checking HTTP for new data. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Duration between checking HTTP for new data. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 HTTP 服务以获取新数据的时间间隔。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1205,7 +1203,7 @@ The path to the credential provider plugin config file.</td>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The percent of disk usage after which image garbage collection is always run. Values must be within the range [0, 100], To disable image garbage collection, set to 100.   (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The percent of disk usage after which image garbage collection is always run. Values must be within the range [0, 100], To disable image garbage collection, set to 100.   (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 镜像垃圾回收上限。磁盘使用空间达到该百分比时，镜像垃圾回收将持续工作。
 值必须在 [0，100] 范围内。要禁用镜像垃圾回收，请设置为 100。
@@ -1220,7 +1218,7 @@ The percent of disk usage after which image garbage collection is always run. Va
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The percent of disk usage before which image garbage collection is never run. Lowest disk usage to garbage collect to. Values must be within the range [0, 100] and should not be larger than that of `--image-gc-high-threshold`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The percent of disk usage before which image garbage collection is never run. Lowest disk usage to garbage collect to. Values must be within the range [0, 100] and should not be larger than that of <code>--image-gc-high-threshold</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 镜像垃圾回收下限。磁盘使用空间在达到该百分比之前，镜像垃圾回收操作不会运行。
 值必须在 [0，100] 范围内，并且不得大于 <code>--image-gc-high-threshold</code>的值。
@@ -1230,12 +1228,12 @@ The percent of disk usage before which image garbage collection is never run. Lo
 </tr>
 
 <tr>
-<td colspan="2">--image-pull-progress-deadline duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `1m0s`-->默认值：<code>1m0s</code></td>
+<td colspan="2">--image-pull-progress-deadline duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>1m0s</code>-->默认值：<code>1m0s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If no pulling progress is made before this deadline, the image pulling will be cancelled. This docker-specific flag only works when container-runtime is set to `docker`.
+If no pulling progress is made before this deadline, the image pulling will be cancelled. This docker-specific flag only works when container-runtime is set to <code>docker</code>.
 -->
 如果在该参数值所设置的期限之前没有拉取镜像的进展，镜像拉取操作将被取消。
 仅当容器运行环境设置为 <code>docker</code> 时，此特定于 docker 的参数才有效。
@@ -1248,7 +1246,7 @@ If no pulling progress is made before this deadline, the image pulling will be c
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[Experimental] The endpoint of remote image service. If not specified, it will be the same with `--container-runtime-endpoint` by default. Currently UNIX socket endpoint is supported on Linux, while npipe and TCP endpoints are supported on Windows.  Examples: `unix:///var/run/dockershim.sock`, `npipe:////./pipe/dockershim`
+[Experimental] The endpoint of remote image service. If not specified, it will be the same with <code>--container-runtime-endpoint</code> by default. Currently UNIX socket endpoint is supported on Linux, while npipe and TCP endpoints are supported on Windows.  Examples: <code>unix:///var/run/dockershim.sock</code>, <code>npipe:////./pipe/dockershim</code>
 -->
 [实验性特性] 远程镜像服务的端点。若未设定则默认情况下使用 <code>--container-runtime-endpoint</code>
 的值。目前支持的类型包括在 Linux 系统上的 UNIX 套接字端点和 Windows 系统上的 npipe 和 TCP 端点。
@@ -1262,7 +1260,7 @@ If no pulling progress is made before this deadline, the image pulling will be c
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The bit of the `fwmark` space to mark packets for dropping. Must be within the range [0, 31]. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The bit of the <code>fwmark</code> space to mark packets for dropping. Must be within the range [0, 31]. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 标记数据包将被丢弃的 fwmark 位设置。必须在 [0，31] 范围内。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1276,7 +1274,7 @@ The bit of the `fwmark` space to mark packets for dropping. Must be within the r
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The bit of the `fwmark` space to mark packets for SNAT. Must be within the range [0, 31]. Please match this parameter with corresponding parameter in `kube-proxy`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The bit of the <code>fwmark</code> space to mark packets for SNAT. Must be within the range [0, 31]. Please match this parameter with corresponding parameter in <code>kube-proxy</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 标记数据包将进行 SNAT 的 fwmark 空间位设置。必须在 [0，31] 范围内。
 请将此参数与 <code>kube-proxy</code> 中的相应参数匹配。
@@ -1304,7 +1302,7 @@ Keep terminated pod volumes mounted to the node after the pod terminates. Can be
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If enabled, the kubelet will integrate with the kernel memcg notification to determine if memory eviction thresholds are crossed rather than polling. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+If enabled, the kubelet will integrate with the kernel memcg notification to determine if memory eviction thresholds are crossed rather than polling. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 若启用，则 kubelet 将与内核中的 memcg 通知机制集成，不再使用轮询的方式来判定
 是否 Pod 达到内存驱逐阈值。
@@ -1328,7 +1326,7 @@ Burst to use while talking with kubernetes apiserver. (DEPRECATED: This paramete
 </tr>
 
 <tr>
-<td colspan="2">--kube-api-content-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `application/vnd.kubernetes.protobuf`-->默认值：<code>application/vnd.kubernetes.protobuf</code></td>
+<td colspan="2">--kube-api-content-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>application/vnd.kubernetes.protobuf</code>-->默认值：<code>application/vnd.kubernetes.protobuf</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1347,9 +1345,11 @@ Content type of requests sent to apiserver. (default "application/vnd.kubernetes
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-QPS to use while talking with kubernetes apiserver. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+QPS to use while talking with kubernetes API server. The number must be &gt;= 0. If 0 will use default QPS (5). Doesn't cover events and node heartbeat apis which rate limiting is controlled by a different set of flags. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 与 apiserver 通信的每秒查询个数（QPS）。
+此值必须 &gt;= 0。如果为 0， 则使用默认 QPS（5）。
+不包含事件和节点心跳 api，它们的速率限制是由一组不同的标志所控制。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
@@ -1361,7 +1361,7 @@ QPS to use while talking with kubernetes apiserver. (DEPRECATED: This parameter 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`) pairs that describe resources reserved for kubernetes system components. Currently `cpu`, `memory` and local `ephemeral-storage` for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of <code><resource name>=<resource quantity></code> (e.g. <code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>) pairs that describe resources reserved for kubernetes system components. Currently <code>cpu</code>, <code>memory</code> and local <code>ephemeral-storage</code> for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 kubernetes 系统预留的资源配置，以一组 <code>资源名称=资源数量</code> 格式表示。
 （例如：<code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>）。
@@ -1373,12 +1373,12 @@ kubernetes 系统预留的资源配置，以一组 <code>资源名称=资源数�
 </tr>
 
 <tr>
-<td colspan="2">--kube-reserved-cgroup string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `''`-->默认值：<code>""</code></td>
+<td colspan="2">--kube-reserved-cgroup string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>''</code>-->默认值：<code>""</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Absolute name of the top level cgroup that is used to manage kubernetes components for which compute resources were reserved via `--kube-reserved` flag. Ex. `/kube-reserved`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Absolute name of the top level cgroup that is used to manage kubernetes components for which compute resources were reserved via <code>--kube-reserved</code> flag. Ex. <code>/kube-reserved</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 给出某个顶层 cgroup 绝对名称，该 cgroup 用于管理通过标志 <code>--kube-reserved</code>
 为 kubernetes 组件所预留的计算资源。例如：<code>"/kube-reserved"</code>。
@@ -1393,7 +1393,7 @@ Absolute name of the top level cgroup that is used to manage kubernetes componen
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeconfig file, specifying how to connect to the API server. Providing `--kubeconfig` enables API server mode, omitting `--kubeconfig` enables standalone mode. 
+Path to a kubeconfig file, specifying how to connect to the API server. Providing <code>--kubeconfig</code> enables API server mode, omitting <code>--kubeconfig</code> enables standalone mode. 
 -->
 kubeconfig 配置文件的路径，指定如何连接到 API 服务器。
 提供 <code>--kubeconfig</code> 将启用 API 服务器模式，而省略 <code>--kubeconfig</code> 将启用独立模式。
@@ -1427,15 +1427,16 @@ Optional absolute name of cgroups to create and run the Kubelet in. (DEPRECATED:
 </tr>
 
 <tr>
-<td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `:0`-->默认值：<code>:0</code></td>
+<td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>:0</code>-->默认值：<code>:0</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-When logging hits line `<file>:<N>`, emit a stack trace.
+When logging hits line <code><file>:<N></code>, emit a stack trace. (DEPRECATED: will be removed in a future release, see https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 -->
 形式为 <code>&lt;file&gt;:&lt;N&gt;</code>。
 当日志逻辑执行到命中 &lt;file&gt; 的第 &lt;N&gt; 行时，转储调用堆栈。
+（已弃用：将在未来的版本中删除，<a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">进一步了解</a>）
 </td>
 </tr>
 
@@ -1445,9 +1446,10 @@ When logging hits line `<file>:<N>`, emit a stack trace.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If non-empty, write log files in this directory
+If non-empty, write log files in this directory. (DEPRECATED: will be removed in a future release, see https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 -->
 如果此值为非空，则在所指定的目录中写入日志文件。
+（已弃用：将在未来的版本中删除，<a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">进一步了解</a>）
 </td>
 </tr>
 
@@ -1469,14 +1471,15 @@ If non-empty, use this log file
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Defines the maximum size a log file can grow to. Unit is megabytes. If the value is 0, the maximum file size is unlimited.
+Defines the maximum size a log file can grow to. Unit is megabytes. If the value is 0, the maximum file size is unlimited. (DEPRECATED: will be removed in a future release, see https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 -->
 设置日志文件的最大值。单位为兆字节（M）。如果值为 0，则表示文件大小无限制。
+（已弃用：将在未来的版本中删除，<a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">进一步了解</a>）
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `5s`-->默认值：<code>5s</code></td>
+<td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>5s</code>-->默认值：<code>5s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1488,12 +1491,42 @@ Maximum number of seconds between log flushes
 </tr>
 
 <tr>
-<td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `text`-->默认值：<code>"text"</code></td>
+<td colspan="2">--log-json-info-buffer-size string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>'0'</code>-->默认值：<code>'0'</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Sets the log format. Permitted formats: `text`, `json`.\nNon-default formats don't honor these flags: `--add-dir-header`, `--alsologtostderr`, `--log-backtrace-at`, `--log_dir`, `--log-file`, `--log-file-max-size`, `--logtostderr`, `--skip_headers`, `--skip_log_headers`, `--stderrthreshold`, `--log-flush-frequency`.\nNon-default choices are currently alpha and subject to change without warning. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+[Experimental] In JSON format with split output streams, the info messages can be buffered for a while to increase performance. The default value of zero bytes disables buffering. The size can be specified as number of bytes (512), multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+-->
+[实验性特性]在具有拆分输出流的 JSON 格式中，可以将信息消息缓冲一段时间以提高性能。
+零字节的默认值禁用缓冲。大小可以指定为字节数（512）、1000 的倍数（1K）、1024 的倍数（2Ki） 或这些（3M、4G、5Mi、6Gi）的幂。
+已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
+（<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--log-json-split-stream</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+[Experimental] In JSON format, write error messages to stderr and info messages to stdout. The default is to write a single stream to stdout. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+-->
+[实验性特性]以 JSON 格式，将错误消息写入 stderr，将 info 消息写入 stdout。 
+默认是将单个流写入标准输出。
+已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
+（<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>text</code>-->默认值：<code>"text"</code></td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Sets the log format. Permitted formats: <code>text</code>, <code>json</code>.<br/>Non-default formats don't honor these flags: <code>--add-dir-header</code>, <code>--alsologtostderr</code>, <code>--log-backtrace-at</code>, <code>--log-dir</code>, <code>--log-file</code>, <code>--log-file-max-size</code>, <code>--logtostderr</code>, <code>--skip_headers</code>, <code>--skip_log_headers</code>, <code>--stderrthreshold</code>, <code>--log-flush-frequency</code>.<br/>Non-default choices are currently alpha and subject to change without warning. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置日志文件格式。可以设置的格式有：<code>"text"</code>、<code>"json"</code>。
 非默认的格式不会使用以下标志的配置：<code>--add-dir-header</code>, <code>--alsologtostderr</code>,
@@ -1507,24 +1540,26 @@ Sets the log format. Permitted formats: `text`, `json`.\nNon-default formats don
 </tr>
 
 <tr>
-<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `true`-->默认值：<code>true</code></td>
+<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-log to standard error instead of files (default true)
+log to standard error instead of files. (DEPRECATED: will be removed in a future release, see https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 -->
 日志输出到 stderr 而不是文件。
+（已弃用：将会在未来的版本删除，
+<a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">进一步了解</a>）
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--make-iptables-util-chains&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `true`-->默认值：<code>true</code></td>
+<td colspan="2">--make-iptables-util-chains&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If true, kubelet will ensure `iptables` utility rules are present on host. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+If true, kubelet will ensure <code>iptables</code> utility rules are present on host. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置为 true 表示 kubelet 将确保 <code>iptables</code> 规则在主机上存在。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1538,7 +1573,7 @@ If true, kubelet will ensure `iptables` utility rules are present on host. (DEPR
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-URL for accessing additional Pod specifications to run (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+URL for accessing additional Pod specifications to run (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 用于访问要运行的其他 Pod 规范的 URL。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1552,7 +1587,7 @@ URL for accessing additional Pod specifications to run (DEPRECATED: This paramet
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Comma-separated list of HTTP headers to use when accessing the URL provided to `--manifest-url`. Multiple headers with the same name will be added in the same order provided. This flag can be repeatedly invoked. For example: `--manifest-url-header 'a:hello,b:again,c:world' --manifest-url-header 'b:beautiful'` (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Comma-separated list of HTTP headers to use when accessing the URL provided to <code>--manifest-url</code>. Multiple headers with the same name will be added in the same order provided. This flag can be repeatedly invoked. For example: <code>--manifest-url-header 'a:hello,b:again,c:world' --manifest-url-header 'b:beautiful'</code> (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 取值为由 HTTP 头部组成的逗号分隔列表，在访问 <code>--manifest-url</code> 所给出的 URL 时使用。
 名称相同的多个头部将按所列的顺序添加。该参数可以多次使用。例如：
@@ -1562,7 +1597,7 @@ Comma-separated list of HTTP headers to use when accessing the URL provided to `
 </td>
 </tr>
 <tr>
-<td colspan="2">--master-service-namespace string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `default`-->默认值：<code>default</code></td>
+<td colspan="2">--master-service-namespace string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>default</code>-->默认值：<code>default</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1580,7 +1615,7 @@ kubelet 向 Pod 注入 Kubernetes 主控服务信息时使用的命名空间。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Number of files that can be opened by Kubelet process. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Number of files that can be opened by Kubelet process. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 kubelet 进程可以打开的最大文件数量。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1594,7 +1629,7 @@ kubelet 进程可以打开的最大文件数量。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Number of Pods that can run on this Kubelet. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Number of Pods that can run on this Kubelet. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 此 kubelet 能运行的 Pod 最大数量。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1608,7 +1643,7 @@ Number of Pods that can run on this Kubelet. (DEPRECATED: This parameter should 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Maximum number of old instances of containers to retain globally. Each container takes up some disk space. To disable, set to a negative number. (DEPRECATED: Use `--eviction-hard` or `--eviction-soft` instead. Will be removed in a future version.)
+Maximum number of old instances of containers to retain globally. Each container takes up some disk space. To disable, set to a negative number. (DEPRECATED: Use <code>--eviction-hard</code> or <code>--eviction-soft</code> instead. Will be removed in a future version.)
 -->
 设置全局可保留的已停止容器实例个数上限。
 每个实例会占用一些磁盘空间。要禁用，请设置为负数。
@@ -1632,6 +1667,20 @@ Maximum number of old instances to retain per container. Each container takes up
 </tr>
 
 <tr>
+<td colspan="2">--memory-manager-policy string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>None</code>-->默认值：<code>None</code></td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Memory Manager policy to use. Possible values: <code>'None'</code>, <code>'Static'</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+-->
+内存管理器策略使用。可选值：<code>'None'</code>, <code>'Static'</code>。
+已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
+（<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--minimum-container-ttl-duration duration</td>
 </tr>
 <tr>
@@ -1647,12 +1696,12 @@ Minimum age for a finished container before it is garbage collected.  Examples: 
 </tr>
 
 <tr>
-<td colspan="2">--minimum-image-ttl-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `2m0s`-->默认值：<code>2m0s</code></td>
+<td colspan="2">--minimum-image-ttl-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>2m0s</code>-->默认值：<code>2m0s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Minimum age for an unused image before it is garbage collected.  Examples: `300ms`, `10s` or `2h45m`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Minimum age for an unused image before it is garbage collected.  Examples: <code>300ms</code>, <code>10s</code> or <code>2h45m</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 不再使用的镜像在被垃圾回收清理之前的最少存活时间。
 例如：<code>300ms</code>、<code>10s</code> 或者 <code>2h45m</code>。
@@ -1680,11 +1729,12 @@ Minimum age for an unused image before it is garbage collected.  Examples: `300m
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-<Warning: Alpha feature> The MTU to be passed to the network plugin, to override the default. Set to 0 to use the default 1460 MTU. This docker-specific flag only works when container-runtime is set to docker.
+<Warning: Alpha feature> The MTU to be passed to the network plugin, to override the default. Set to 0 to use the default 1460 MTU. This docker-specific flag only works when container-runtime is set to docker. (DEPRECATED: will be removed along with dockershim.)
 -->
 &lt;警告：alpha 特性&gt; 传递给网络插件的 MTU 值，将覆盖默认值。
 设置为 0 则使用默认的 MTU 1460。仅当容器运行环境设置为 <code>docker</code> 时，
 此特定于 docker 的参数才有效。
+（已弃用：将会随着 dockershim 一起删除。）
 </td>
 </tr>
 
@@ -1694,9 +1744,11 @@ Minimum age for an unused image before it is garbage collected.  Examples: `300m
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-IP address of the node. If set, kubelet will use this IP address for the node
+IP address (or comma-separated dual-stack IP addresses) of the node. If unset, kubelet will use the node's default IPv4 address, if any, or its default IPv6 address if it has no IPv4 addresses. You can pass <code>'::'</code> to make it prefer the default IPv6 address rather than the default IPv4 address.
 -->
-节点的 IP 地址。如果设置，kubelet 将使用该 IP 地址作为节点的 IP 地址。
+节点的 IP 地址（或逗号分隔的双栈 IP 地址）。
+如果未设置，kubelet 将使用节点的默认 IPv4 地址（如果有）或默认 IPv6 地址（如果它没有 IPv4 地址）。
+你可以传值 <code>'::'</code> 使其偏向于默认的 IPv6 地址而不是默认的 IPv4 地址。
 </td>
 </tr>
 
@@ -1706,7 +1758,7 @@ IP address of the node. If set, kubelet will use this IP address for the node
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Alpha feature&gt;Labels to add when registering the node in the cluster. Labels must be `key=value pairs` separated by `,`. Labels in the `kubernetes.io` namespace must begin with an allowed prefix (`kubelet.kubernetes.io`, `node.kubernetes.io`) or be in the specifically allowed set (`beta.kubernetes.io/arch`, `beta.kubernetes.io/instance-type`, `beta.kubernetes.io/os`, `failure-domain.beta.kubernetes.io/region`, `failure-domain.beta.kubernetes.io/zone`, `kubernetes.io/arch`, `kubernetes.io/hostname`, `kubernetes.io/os`, `node.kubernetes.io/instance-type`, `topology.kubernetes.io/region`, `topology.kubernetes.io/zone`)
+&lt;Warning: Alpha feature&gt;Labels to add when registering the node in the cluster. Labels must be <code>key=value pairs</code> separated by <code>','</code>. Labels in the <code>'kubernetes.io'</code> namespace must begin with an allowed prefix (<code>'kubelet.kubernetes.io'</code>, <code>'node.kubernetes.io'</code>) or be in the specifically allowed set (<code>'beta.kubernetes.io/arch'</code>, <code>'beta.kubernetes.io/instance-type'</code>, <code>'beta.kubernetes.io/os'</code>, <code>'failure-domain.beta.kubernetes.io/region'</code>, <code>'failure-domain.beta.kubernetes.io/zone'</code>, <code>'kubernetes.io/arch'</code>, <code>'kubernetes.io/hostname'</code>, <code>'kubernetes.io/os'</code>, <code>'node.kubernetes.io/instance-type'</code>, <code>'topology.kubernetes.io/region'</code>, <code>'topology.kubernetes.io/zone'</code>))
 -->
 &lt;警告：alpha 特性&gt; kubelet 在集群中注册本节点时设置的标签。标签以
 <code>key=value</code> 的格式表示，多个标签以逗号分隔。名字空间 <code>kubernetes.io</code>
@@ -1727,7 +1779,7 @@ IP address of the node. If set, kubelet will use this IP address for the node
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The maximum number of images to report in `node.status.images`. If `-1` is specified, no cap will be applied. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The maximum number of images to report in <code>node.status.images</code>. If <code>-1</code> is specified, no cap will be applied. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 在 <code>node.status.images</code> 中可以报告的最大镜像数量。如果指定为 -1，则不设上限。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1736,12 +1788,12 @@ The maximum number of images to report in `node.status.images`. If `-1` is speci
 </tr>
 
 <tr>
-<td colspan="2">--node-status-update-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `10s`-->默认值：<code>10s</code></td>
+<td colspan="2">--node-status-update-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>10s</code>-->默认值：<code>10s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specifies how often kubelet posts node status to master. Note: be cautious when changing the constant, it must work with nodeMonitorGracePeriod in Node controller. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Specifies how often kubelet posts node status to master. Note: be cautious when changing the constant, it must work with nodeMonitorGracePeriod in Node controller. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 指定 kubelet 向主控节点汇报节点状态的时间间隔。注意：更改此常量时请务必谨慎，
 它必须与节点控制器中的 <code>nodeMonitorGracePeriod</code> 一起使用。
@@ -1751,7 +1803,7 @@ Specifies how often kubelet posts node status to master. Note: be cautious when 
 </tr>
 
 <tr>
-<td colspan="2">--non-masquerade-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `10.0.0.0/8`-->默认值：<code>10.0.0.0/8</code></td>
+<td colspan="2">--non-masquerade-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>10.0.0.0/8</code>-->默认值：<code>10.0.0.0/8</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1771,10 +1823,12 @@ kubelet 向该 IP 段之外的 IP 地址发送的流量将使用 IP 伪装技术
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If true, only write logs to their native severity level (vs also writing to each lower severity level.
+If true, only write logs to their native severity level (vs also writing to each lower severity level. (DEPRECATED: will be removed in a future release, see https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 -->
 如果设置此标志为 <code>true</code>，则仅将日志写入其原来的严重性级别中，
 而不是同时将其写入更低严重性级别中。
+已弃用：将在未来的版本中删除，
+（<a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">进一步了解</a>）
 </td>
 </tr>
 
@@ -1798,7 +1852,7 @@ kubelet 进程的 oom-score-adj 参数值。有效范围为 <code>[-1000，1000]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The CIDR to use for pod IP addresses, only used in standalone mode. In cluster mode, this is obtained from the master. For IPv6, the maximum number of IP's allocated is 65536 (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The CIDR to use for pod IP addresses, only used in standalone mode. In cluster mode, this is obtained from the master. For IPv6, the maximum number of IP's allocated is 65536 (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 用于给 Pod 分配 IP 地址的 CIDR 地址池，仅在独立运行模式下使用。
 在集群模式下，CIDR 设置是从主服务器获取的。对于 IPv6，分配的 IP 的最大数量为 65536。
@@ -1808,12 +1862,12 @@ The CIDR to use for pod IP addresses, only used in standalone mode. In cluster m
 </tr>
 
 <tr>
-<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `k8s.gcr.io/pause:3.2`-->默认值：<code>k8s.gcr.io/pause:3.2</code></td>
+<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>k8s.gcr.io/pause:3.2</code>-->默认值：<code>k8s.gcr.io/pause:3.2</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
- Specified image will not be pruned by the image garbage collector. When container-runtime is set to `docker`, all containers in each pod will use the network/ipc namespaces from this image. Other CRI implementations have their own configuration to set this image.
+ Specified image will not be pruned by the image garbage collector. When container-runtime is set to <code>docker</code>, all containers in each pod will use the network/ipc namespaces from this image. Other CRI implementations have their own configuration to set this image.
 -->
 所指定的镜像不会被镜像垃圾收集器删除。
 当容器运行环境设置为 <code>docker</code> 时，各个 Pod 中的所有容器都会
@@ -1828,7 +1882,7 @@ The CIDR to use for pod IP addresses, only used in standalone mode. In cluster m
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to the directory containing static pod files to run, or the path to a single static pod file. Files starting with dots will be ignored. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Path to the directory containing static pod files to run, or the path to a single static pod file. Files starting with dots will be ignored. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置包含要运行的静态 Pod 的文件的路径，或单个静态 Pod 文件的路径。以点（<code>.</code>）
 开头的文件将被忽略。
@@ -1843,7 +1897,7 @@ Path to the directory containing static pod files to run, or the path to a singl
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Set the maximum number of processes per pod.  If `-1`, the kubelet defaults to the node allocatable PID capacity. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Set the maximum number of processes per pod.  If <code>-1</code>, the kubelet defaults to the node allocatable PID capacity. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置每个 Pod 中的最大进程数目。如果为 -1，则 kubelet 使用节点可分配的 PID 容量作为默认值。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1857,7 +1911,7 @@ Set the maximum number of processes per pod.  If `-1`, the kubelet defaults to t
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Number of Pods per core that can run on this Kubelet. The total number of Pods on this Kubelet cannot exceed `--max-pods`, so `--max-pods` will be used if this calculation results in a larger number of Pods allowed on the Kubelet. A value of `0` disables this limit. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Number of Pods per core that can run on this Kubelet. The total number of Pods on this Kubelet cannot exceed <code>--max-pods</code>, so <code>--max-pods</code> will be used if this calculation results in a larger number of Pods allowed on the Kubelet. A value of <code>0</code> disables this limit. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 kubelet 在每个处理器核上可运行的 Pod 数量。此 kubelet 上的 Pod 总数不能超过
 <code>--max-pods</code> 标志值。因此，如果此计算结果导致在 kubelet 
@@ -1902,7 +1956,7 @@ kubelet 默认值不同时，kubelet 都会出错。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Unique identifier for identifying the node in a machine database, i.e cloud provider. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Unique identifier for identifying the node in a machine database, i.e cloud provider. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置主机数据库（即，云驱动）中用来标识节点的唯一标识。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1916,7 +1970,7 @@ Unique identifier for identifying the node in a machine database, i.e cloud prov
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Alpha feature&gt; A set of `<resource name>=<percentage>` (e.g. `memory=50%`) pairs that describe how pod resource requests are reserved at the QoS level. Currently only memory is supported. Requires the `QOSReserved` feature gate to be enabled. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+&lt;Warning: Alpha feature&gt; A set of <code><resource name>=<percentage></code> (e.g. <code>memory=50%</code>) pairs that describe how pod resource requests are reserved at the QoS level. Currently only memory is supported. Requires the <code>QOSReserved</code> feature gate to be enabled. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 &lt;警告：alpha 特性&gt; 设置在指定的 QoS 级别预留的 Pod 资源请求，以一组
 <code>"资源名称=百分比"</code> 的形式进行设置，例如 <code>memory=50%</code>。
@@ -1932,7 +1986,7 @@ Unique identifier for identifying the node in a machine database, i.e cloud prov
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The read-only port for the Kubelet to serve on with no authentication/authorization (set to `0` to disable). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The read-only port for the Kubelet to serve on with no authentication/authorization (set to <code>0</code> to disable). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 kubelet 可以在没有身份验证/鉴权的情况下提供只读服务的端口（设置为 0 表示禁用）。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -1954,43 +2008,27 @@ If true, when panics occur crash. Intended for testing. (DEPRECATED: will be rem
 </tr>
 
 <tr>
-<td colspan="2">--redirect-container-streaming</td>
+<td colspan="2">--register-node&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Enables container streaming redirect. If false, kubelet will proxy container streaming data between the API server and container runtime; if `true`, kubelet will return an HTTP redirect to the API server, and the API server will access container runtime directly. The proxy approach is more secure, but introduces some overhead. The redirect approach is more performant, but less secure because the connection between apiserver and container runtime may not be authenticated. (DEPRECATED: Container streaming redirection will be removed from the kubelet in v1.20, and this flag will be removed in v1.22. For more details, see http://git.k8s.io/enhancements/keps/sig-node/20191205-container-streaming-requests.md)
+Register the node with the API server. If <code>--kubeconfig</code> is not provided, this flag is irrelevant, as the Kubelet won't have an API server to register with. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
-启用容器流数据重定向。如果设置为 false，则 kubelet 将在 apiserver 和容器运行时
-之间转发容器流数据；如果设置为 true，则 kubelet 将返回指向 apiserver 的 HTTP 重定向信息，
-而 apiserver 将直接访问容器运行时。代理方法更安全，但会带来一些开销。
-重定向方法性能更高，但安全性较低，因为 apiserver 和容器运行时之间的连接可能未通过身份验证。<br/>
-已弃用：容器流数据重定向会在 v1.20 中从 kubelet 中移除，此标志会在 v1.22
-中移除。
-相关信息可参见<a href="http://git.k8s.io/enhancements/keps/sig-node/20191205-container-streaming-requests.md">改进说明</a>。
+向 API 服务器注册节点，如果未提供 <code>--kubeconfig</code>，此标志无关紧要，
+因为 Kubelet 没有 API 服务器可注册。
+已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
+（<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--register-node&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `true`-->默认值：<code>true</code></td>
+<td colspan="2">--register-schedulable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Register the node with the API server. If `--kubeconfig` is not provided, this flag is irrelevant, as the Kubelet won't have an API server to register with.
--->
-将本节点注册到 API 服务器。如果未提供 <code>--kubeconfig</code> 标志设置，
-则此参数无关紧要，因为 kubelet 将没有要注册的 API 服务器。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--register-schedulable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `true`-->默认值：true</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Register the node as schedulable. Won't have any effect if `--register-node` is false. (DEPRECATED: will be removed in a future version)
+Register the node as schedulable. Won't have any effect if <code>--register-node</code> is <code>false</code>. (DEPRECATED: will be removed in a future version)
 -->
 注册本节点为可调度的节点。当 <code>--register-node</code>标志为 false 时此设置无效。
 已弃用：此参数将在未来的版本中删除。
@@ -2003,7 +2041,7 @@ Register the node as schedulable. Won't have any effect if `--register-node` is 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Register the node with the given list of taints (comma separated `<key>=<value>:<effect>`). No-op if `--register-node` is `false`. (DEPRECATED: will be removed in a future version)
+Register the node with the given list of taints (comma separated <code><key>=<value>:<effect></code>). No-op if <code>--register-node</code> is <code>false</code>. (DEPRECATED: will be removed in a future version)
 -->
 设置本节点的污点标记，格式为 <code>&lt;key&gt;=&lt;value&gt;:&lt;effect&gt;</code>，
 以逗号分隔。当 <code>--register-node</code> 为 false 时此标志无效。
@@ -2017,7 +2055,7 @@ Register the node with the given list of taints (comma separated `<key>=<value>:
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Maximum size of a bursty pulls, temporarily allows pulls to burst to this number, while still not exceeding `--registry-qps`. Only used if `--registry-qps > 0`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Maximum size of a bursty pulls, temporarily allows pulls to burst to this number, while still not exceeding <code>--registry-qps</code>. Only used if <code>--registry-qps > 0</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置突发性镜像拉取的个数上限，在不超过 <code>--registration-qps</code> 设置值的前提下
 暂时允许此参数所给的镜像拉取个数。仅在 <code>--registry-qps</code> 大于 0 时使用。
@@ -2027,12 +2065,12 @@ Maximum size of a bursty pulls, temporarily allows pulls to burst to this number
 </tr>
 
 <tr>
-<td colspan="2">--registry-qps int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
+<td colspan="2">--registry-qps int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 5-->默认值：5</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If &gt; 0, limit registry pull QPS to this value.  If `0`, unlimited. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+If &gt; 0, limit registry pull QPS to this value.  If <code>0</code>, unlimited. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 如此值大于 0，可用来限制镜像仓库的 QPS 上限。设置为 0，表示不受限制。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -2046,7 +2084,7 @@ If &gt; 0, limit registry pull QPS to this value.  If `0`, unlimited. (DEPRECATE
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A comma-separated list of CPUs or CPU ranges that are reserved for system and kubernetes usage. This specific list will supersede cpu counts in `--system-reserved` and `--kube-reserved`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A comma-separated list of CPUs or CPU ranges that are reserved for system and kubernetes usage. This specific list will supersede cpu counts in <code>--system-reserved</code> and <code>--kube-reserved</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 用逗号分隔的一组 CPU 或 CPU 范围列表，给出为系统和 Kubernetes 保留使用的 CPU。
 此列表所给出的设置优先于通过 <code>--system-reserved</code> 和
@@ -2057,12 +2095,28 @@ A comma-separated list of CPUs or CPU ranges that are reserved for system and ku
 </tr>
 
 <tr>
-<td colspan="2">--resolv-conf string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `/etc/resolv.conf`-->默认值：<code>/etc/resolv.conf</code></td>
+<td colspan="2">--reserved-memory string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Resolver configuration file used as the basis for the container DNS resolution configuration. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A comma-separated list of memory reservations for NUMA nodes. (e.g. <code>--reserved-memory 0:memory=1Gi,hugepages-1M=2Gi --reserved-memory 1:memory=2Gi</code>). The total sum for each memory type should be equal to the sum of <code>--kube-reserved</code>, <code>--system-reserved</code> and <code>--eviction-threshold</code>. See https://kubernetes.io/docs/tasks/administer-cluster/memory-manager/#reserved-memory-flag for more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+-->
+以逗号分隔的 NUMA 节点内存预留列表。（例如 <code>--reserved-memory 0:memory=1Gi,hugepages-1M=2Gi --reserved-memory 1:memory=2Gi</code>）。 
+每种内存类型的总和应该等于<code>--kube-reserved</code>、<code>--system-reserved</code>和<code>--eviction-threshold</之和 代码>。
+<a href="https://kubernetes.io/docs/tasks/administer-cluster/memory-manager/#reserved-memory-flag">了解更多详细信息。</a>
+已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
+（<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--resolv-conf string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>/etc/resolv.conf</code>-->默认值：<code>/etc/resolv.conf</code></td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Resolver configuration file used as the basis for the container DNS resolution configuration. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 名字解析服务的配置文件名，用作容器 DNS 解析配置的基础。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -2071,7 +2125,7 @@ Resolver configuration file used as the basis for the container DNS resolution c
 </tr>
 
 <tr>
-<td colspan="2">--root-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `/var/lib/kubelet`-->默认值：<code>/var/lib/kubelet</code></td>
+<td colspan="2">--root-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>/var/lib/kubelet</code>-->默认值：<code>/var/lib/kubelet</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -2088,7 +2142,7 @@ Directory path for managing kubelet files (volume mounts, etc).
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Beta feature&gt; Auto rotate the kubelet client certificates by requesting new certificates from the `kube-apiserver` when the certificate expiration approaches. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+&lt;Warning: Beta feature&gt; Auto rotate the kubelet client certificates by requesting new certificates from the <code>kube-apiserver</code> when the certificate expiration approaches. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 &lt;警告：Beta 特性&gt; 设置当客户端证书即将过期时 kubelet 自动从
 <code>kube-apiserver</code> 请求新的证书进行轮换。
@@ -2103,7 +2157,7 @@ Directory path for managing kubelet files (volume mounts, etc).
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Auto-request and rotate the kubelet serving certificates by requesting new certificates from the `kube-apiserver` when the certificate expiration approaches. Requires the `RotateKubeletServerCertificate` feature gate to be enabled, and approval of the submitted `CertificateSigningRequest` objects. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Auto-request and rotate the kubelet serving certificates by requesting new certificates from the <code>kube-apiserver</code> when the certificate expiration approaches. Requires the <code>RotateKubeletServerCertificate</code> feature gate to be enabled, and approval of the submitted <code>CertificateSigningRequest</code> objects. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 当 kubelet 的服务证书即将过期时自动从 kube-apiserver 请求新的证书进行轮换。
 要求启用 <code>RotateKubeletServerCertificate</code> 特性门控，以及对提交的
@@ -2119,7 +2173,7 @@ Auto-request and rotate the kubelet serving certificates by requesting new certi
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If `true`, exit after spawning pods from local manifests or remote urls. Exclusive with `--enable-server` (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+If <code>true</code>, exit after spawning pods from local manifests or remote urls. Exclusive with <code>--enable-server</code> (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置为 true 表示从本地清单或远程 URL 创建完 Pod 后立即退出 kubelet 进程。
 与 <code>--enable-server</code> 标志互斥。
@@ -2141,12 +2195,12 @@ Optional absolute name of cgroups to create and run the runtime in.
 </tr>
 
 <tr>
-<td colspan="2">--runtime-request-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `2m0s`-->默认值：<code>2m0s</code></td>
+<td colspan="2">--runtime-request-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>2m0s</code>-->默认值：<code>2m0s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Timeout of all runtime requests except long running request - `pull`, `logs`, `exec` and `attach`. When timeout exceeded, kubelet will cancel the request, throw out an error and retry later. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Timeout of all runtime requests except long running request - <code>pull</code>, <code>logs</code>, <code>exec</code> and <code>attach</code>. When timeout exceeded, kubelet will cancel the request, throw out an error and retry later. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置除了长时间运行的请求（包括 <code>pull</code>、<code>logs</code>、<code>exec</code>
 和 <code>attach</code> 等操作）之外的其他运行时请求的超时时间。
@@ -2157,12 +2211,12 @@ Timeout of all runtime requests except long running request - `pull`, `logs`, `e
 </tr>
 
 <tr>
-<td colspan="2">--seccomp-profile-root string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `/var/lib/kubelet/seccomp`-->默认值：<code>/var/lib/kubelet/seccomp</code></td>
+<td colspan="2">--seccomp-profile-root string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>/var/lib/kubelet/seccomp</code>-->默认值：<code>/var/lib/kubelet/seccomp</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Alpha feature&gt; Directory path for seccomp profiles. (DEPRECATED: will be removed in 1.23, in favor of using the `<root-dir>/seccomp` directory)
+&lt;Warning: Alpha feature&gt; Directory path for seccomp profiles. (DEPRECATED: will be removed in 1.23, in favor of using the <code><root-dir>/seccomp</code> directory)
 -->
 &lt;警告：alpha 特性&gt; seccomp 配置文件目录。
 已弃用：将在 1.23 版本中移除，以使用 <code>&lt;root-dir&gt;/seccomp</code> 目录。
@@ -2170,12 +2224,12 @@ Timeout of all runtime requests except long running request - `pull`, `logs`, `e
 </tr>
 
 <tr>
-<td colspan="2">--serialize-image-pulls&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `true`-->默认值：<code>true</code></td>
+<td colspan="2">--serialize-image-pulls&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Pull images one at a time. We recommend *not* changing the default value on nodes that run docker daemon with version &lt; 1.9 or an `aufs` storage backend. Issue #10959 has more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Pull images one at a time. We recommend *not* changing the default value on nodes that run docker daemon with version &lt; 1.9 or an <code>aufs</code> storage backend. Issue #10959 has more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 逐一拉取镜像。建议 *不要* 在 docker 守护进程版本低于 1.9 或启用了 Aufs 存储后端的节点上
 更改默认值。
@@ -2190,9 +2244,10 @@ Pull images one at a time. We recommend *not* changing the default value on node
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If true, avoid header prefixes in the log messages
+If true, avoid header prefixes in the log messages. (DEPRECATED: will be removed in a future release, see https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 -->
 设置为 true 时在日志消息中去掉标头前缀。
+（已弃用：将在未来的版本中删除，<a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">进一步了解</a>）
 </td>
 </tr>
 
@@ -2202,9 +2257,10 @@ If true, avoid header prefixes in the log messages
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If true, avoid headers when opening log files
+If true, avoid headers when opening log files. (DEPRECATED: will be removed in a future release, see https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 -->
 设置为 true，打开日志文件时去掉标头。
+（已弃用：将在未来的版本中删除，<a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">进一步了解</a>）
 </td>
 </tr>
 
@@ -2214,34 +2270,36 @@ If true, avoid headers when opening log files
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-logs at or above this threshold go to stderr.
+logs at or above this threshold go to stderr. (DEPRECATED: will be removed in a future release, see https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 -->
 设置严重程度达到或超过此阈值的日志输出到标准错误输出。
+（已弃用：将在未来的版本中删除，<a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">进一步了解</a>）
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--streaming-connection-idle-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `4h0m0s`-->默认值：<code>4h0m0s</code></td>
+<td colspan="2">--streaming-connection-idle-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>4h0m0s</code>-->默认值：<code>4h0m0s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Maximum time a streaming connection can be idle before the connection is automatically closed. `0` indicates no timeout. Example: `5m`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Maximum time a streaming connection can be idle before the connection is automatically closed. <code>0</code> indicates no timeout. Example: <code>5m</code>. Note: All connections to the kubelet server have a maximum duration of 4 hours.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置流连接在自动关闭之前可以空闲的最长时间。0 表示没有超时限制。
 例如：<code>5m</code>。
+注意：与 kubelet 服务器的所有连接最长持续时间为 4 小时。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--sync-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `1m0s`-->默认值：<code>1m0s</code></td>
+<td colspan="2">--sync-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>1m0s</code>-->默认值：<code>1m0s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Max period between synchronizing running containers and config. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Max period between synchronizing running containers and config. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 在运行中的容器与其配置之间执行同步操作的最长时间间隔。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -2255,7 +2313,7 @@ Max period between synchronizing running containers and config. (DEPRECATED: Thi
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Optional absolute name of cgroups in which to place all non-kernel processes that are not already inside a cgroup under `/`. Empty for no container. Rolling back the flag requires a reboot. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Optional absolute name of cgroups in which to place all non-kernel processes that are not already inside a cgroup under <code>/</code>. Empty for no container. Rolling back the flag requires a reboot. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 此标志值为一个 cgroup 的绝对名称，用于所有尚未放置在根目录下某 cgroup 内的非内核进程。
 空值表示不指定 cgroup。回滚该参数需要重启机器。
@@ -2270,7 +2328,7 @@ Optional absolute name of cgroups in which to place all non-kernel processes tha
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`) pairs that describe resources reserved for non-kubernetes components. Currently only `cpu` and `memory` are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of <code><resource name>=<resource quantity></code> (e.g. <code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>) pairs that describe resources reserved for non-kubernetes components. Currently only <code>cpu</code> and <code>memory</code> are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 系统预留的资源配置，以一组 <code>资源名称=资源数量</code> 的格式表示，
 （例如：<code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>）。
@@ -2283,12 +2341,12 @@ A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephe
 </tr>
 
 <tr>
-<td colspan="2">--system-reserved-cgroup string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `''`-->默认值：<code>""</code></td>
+<td colspan="2">--system-reserved-cgroup string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>''</code>-->默认值：<code>""</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Absolute name of the top level cgroup that is used to manage non-kubernetes components for which compute resources were reserved via `--system-reserved` flag. Ex. `/system-reserved`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Absolute name of the top level cgroup that is used to manage non-kubernetes components for which compute resources were reserved via <code>--system-reserved</code> flag. Ex. <code>/system-reserved</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 此标志给出一个顶层 cgroup 绝对名称，该 cgroup 用于管理非 kubernetes 组件，
 这些组件的计算资源通过 <code>--system-reserved</code> 标志进行预留。
@@ -2304,7 +2362,7 @@ Absolute name of the top level cgroup that is used to manage non-kubernetes comp
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-File containing x509 Certificate used for serving HTTPS (with intermediate certs, if any, concatenated after server cert). If `--tls-cert-file` and `--tls-private-key-file` are not provided, a self-signed certificate and key are generated for the public address and saved to the directory passed to `--cert-dir`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+File containing x509 Certificate used for serving HTTPS (with intermediate certs, if any, concatenated after server cert). If <code>--tls-cert-file</code> and <code>--tls-private-key-file</code> are not provided, a self-signed certificate and key are generated for the public address and saved to the directory passed to <code>--cert-dir</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 包含 x509 证书的文件路径，用于 HTTPS 认证。
 如果有中间证书，则中间证书要串接在在服务器证书之后。
@@ -2322,10 +2380,18 @@ kubelet 会为公开地址生成自签名证书和密钥，并将其保存到通
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used. Possible values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_RC4_128_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_RC4_128_SHA (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used.<br/>
+Preferred values:
+TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384<br/>
+Insecure values:
+TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_RC4_128_SHA.
+(DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 服务器端加密算法列表，以逗号分隔。如果不设置，则使用 Go 语言加密包的默认算法列表。<br/>
-可选加密算法包括：TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_RC4_128_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_RC4_128_SHA <br/>
+首选算法：
+TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384 <br/>
+不安全算法：
+TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_RC4_128_SHA。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
@@ -2337,7 +2403,7 @@ Comma-separated list of cipher suites for the server. If omitted, the default Go
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Minimum TLS version supported. Possible values: `VersionTLS10`, `VersionTLS11`, `VersionTLS12`, `VersionTLS13` (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Minimum TLS version supported. Possible values: <code>VersionTLS10</code>, <code>VersionTLS11</code>, <code>VersionTLS12</code>, <code>VersionTLS13</code> (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置支持的最小 TLS 版本号，可选的版本号包括：<code>VersionTLS10</code>、
 <code>VersionTLS11</code>、<code>VersionTLS12</code> 和 <code>VersionTLS13</code>。
@@ -2352,7 +2418,7 @@ Minimum TLS version supported. Possible values: `VersionTLS10`, `VersionTLS11`, 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-File containing x509 private key matching `--tls-cert-file`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+File containing x509 private key matching <code>--tls-cert-file</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 包含与 <code>--tls-cert-file</code> 对应的 x509 私钥文件路径。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -2361,12 +2427,12 @@ File containing x509 private key matching `--tls-cert-file`. (DEPRECATED: This p
 </tr>
 
 <tr>
-<td colspan="2">--topology-manager-policy string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `none`-->默认值：<code>none</code></td>
+<td colspan="2">--topology-manager-policy string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>none</code>-->默认值：<code>none</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Topology Manager policy to use. Possible values: `none`, `best-effort`, `restricted`, `single-numa-node`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Topology Manager policy to use. Possible values: <code>none</code>, <code>best-effort</code>, <code>restricted</code>, <code>single-numa-node</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置拓扑管理策略（Topology Manager policy）。可选值包括：<code>none</code>、
 <code>best-effort</code>、<code>restricted</code> 和 <code>single-numa-node</code>。
@@ -2376,7 +2442,7 @@ Topology Manager policy to use. Possible values: `none`, `best-effort`, `restric
 </tr>
 
 <tr>
-<td colspan="2">--topology-manager-scope string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `container`-->默认值：<code>container</code></td>
+<td colspan="2">--topology-manager-scope string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>container</code>-->默认值：<code>container</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -2421,19 +2487,19 @@ Print version information and quit
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Comma-separated list of `pattern=N` settings for file-filtered logging
+Comma-separated list of <code>pattern=N</code> settings for file-filtered logging
 -->
 以逗号分隔的 <code>pattern=N</code> 设置列表，用于文件过滤的日志记录
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--volume-plugin-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`-->默认值：<code>/usr/libexec/kubernetes/kubelet-plugins/volume/exec/</code></td>
+<td colspan="2">--volume-plugin-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>/usr/libexec/kubernetes/kubelet-plugins/volume/exec/</code>-->默认值：<code>/usr/libexec/kubernetes/kubelet-plugins/volume/exec/</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The full path of the directory in which to search for additional third party volume plugins. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+The full path of the directory in which to search for additional third party volume plugins. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 用来搜索第三方存储卷插件的目录。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -2442,12 +2508,12 @@ The full path of the directory in which to search for additional third party vol
 </tr>
 
 <tr>
-<td colspan="2">--volume-stats-agg-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `1m0s`-->默认值：<code>1m0s</code></td>
+<td colspan="2">--volume-stats-agg-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>1m0s</code>-->默认值：<code>1m0s</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes. To disable volume calculations, set to `0`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes. To disable volume calculations, set to <code>0</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 指定 kubelet 计算和缓存所有 Pod 和卷的磁盘用量总值的时间间隔。要禁用磁盘用量计算，
 请设置为 0。

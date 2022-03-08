@@ -2,6 +2,7 @@
 title: Well-Known Labels, Annotations and Taints
 content_type: concept
 weight: 20
+no_list: true
 ---
 
 <!-- overview -->
@@ -12,7 +13,7 @@ This document serves both as a reference to the values and as a coordination poi
 
 <!-- body -->
 
-## Core
+## Labels, annotations and taints used on API objects
 
 ### kubernetes.io/arch
 
@@ -481,6 +482,14 @@ The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/clus
 you through the steps you follow to apply a seccomp profile to a Pod or to one of
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
+
+## Annotations used for audit
+
+- [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
+- [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
+
+See more details on the [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/) page.
 
 ## kubeadm
 

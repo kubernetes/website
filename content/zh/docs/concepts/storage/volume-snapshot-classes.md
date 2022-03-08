@@ -41,6 +41,11 @@ The name of a VolumeSnapshotClass object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
 of a class when first creating VolumeSnapshotClass objects, and the objects cannot
 be updated once they are created.
+
+{{< note >}}
+Installation of the CRDs is the responsibility of the Kubernetes distribution. Without the required CRDs present, the creation of a VolumeSnapshotClass fails.  
+{{< /note >}}
+
 -->
 ## VolumeSnapshotClass 资源  {#the-volumesnapshortclass-resource}
 
@@ -50,6 +55,10 @@ be updated once they are created.
 VolumeSnapshotClass 对象的名称很重要，是用户可以请求特定类的方式。
 管理员在首次创建 VolumeSnapshotClass 对象时设置类的名称和其他参数，
 对象一旦创建就无法更新。
+
+{{< note >}}
+CRD 的安装是 Kubernetes 发行版的责任。 如果不存在所需的 CRD，则 VolumeSnapshotClass 的创建将失败。
+{{< /note >}}
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1
@@ -119,4 +128,3 @@ the volume snapshot class. Different parameters may be accepted depending on the
 ## 参数 {#parameters}
 
 卷快照类具有描述属于该卷快照类的卷快照的参数，可根据 `driver` 接受不同的参数。
-

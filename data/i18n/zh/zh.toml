@@ -49,8 +49,23 @@ other = "我是..."
 [docs_label_users]
 other = "用户"
 
+[docs_version_current]
+other = "（本文档）"
+
+[docs_version_latest_heading]
+other = "最新版本"
+
+[docs_version_other_heading]
+other = "较老版本"
+
+[end_of_life]
+other = "不再支持："
+
 [envvars_heading]
 other = "环境变量"
+
+[error_404_were_you_looking_for]
+other = "你是否在搜索："
 
 [examples_heading]
 other = "示例"
@@ -67,8 +82,18 @@ other = "此页是否对您有帮助？"
 [feedback_yes]
 other = "是"
 
+[inline_list_separator]
+other = "、"
+
 [input_placeholder_email_address]
 other = "电子邮件地址"
+
+[javascript_required]
+other = "必须[启用](https://www.enable-javascript.com/) JavaScript 才能查看此页内容"
+
+[latest_release]
+other = "最新发行版本："
+
 
 [latest_version]
 other = "最新版本。"
@@ -173,7 +198,11 @@ other = "页面最后一次修改于"
 other = "了解"
 
 [main_read_more]
-other = "了解更多"
+other = "进一步了解"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "不适用"
 
 [note]
 other = "说明："
@@ -184,11 +213,31 @@ other = "教程目标"
 [options_heading]
 other = "选项"
 
+[outdated_blog__message]
+other = "Kubernetes 项目认为此文章已经过时，因为该页面已经超过一年未修订。请检查页面中的信息是否从发表以来尚未变得不正确。"
+
+[outdated_blog__title]
+other = "过时的文章"
+
 [post_create_child_page]
 other = "创建子页面"
 
+[post_create_issue]
+other = "登记问题"
+
 [prerequisites_heading]
 other = "准备开始"
+
+[previous_patches]
+other = "补丁版本："
+
+[release_date_after]
+other = "）"
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
 
 [seealso_heading]
 other = "另请参见"
@@ -201,6 +250,15 @@ other = "简介"
 
 [thirdparty_message]
 other = """本部分链接到提供 Kubernetes 所需功能的第三方项目。Kubernetes 项目作者不负责这些项目。此页面遵循<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>，按字母顺序列出项目。要将项目添加到此列表中，请在提交更改之前阅读<a href="/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。"""
+
+[thirdparty_message_edit_disclaimer]
+other="""第三方内容建议"""
+
+[thirdparty_message_single_item]
+other = """&#128711; 本条目指向第三方项目或产品，而该项目（产品）不是 Kubernetes 的一部分。<a class="alert-more-info" href="#third-party-content-disclaimer">更多信息</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>本页面中的条目引用了第三方产品或项目，这些产品（项目）提供了 Kubernetes 所需的功能。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。请参阅<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>了解更多细节。</p><p>在提交更改建议，向本页添加新的第三方链接之前，你应该先阅读<a href="/zh/docs/contribute/style/content-guide/#third-party-content">内容指南。</p>"""
 
 [ui_search_placeholder]
 other = "搜索"
@@ -223,11 +281,3 @@ other = "警告："
 [whatsnext_heading]
 other = "接下来"
 
-[docs_version_latest_heading]
-other = "当前版本"
-
-[docs_version_other_heading]
-other = "往期版本"
-
-[docs_version_current]
-other = "(此文档)"
