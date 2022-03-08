@@ -184,6 +184,16 @@ Used on: PersistentVolumeClaim
 
 This annotation has been deprecated.
 
+### volume.beta.kubernetes.io/mount-options (deprecated) {#mount-options}
+
+Example : `volume.beta.kubernetes.io/mount-options: "ro,soft"`
+
+Used on: PersistentVolume
+
+A Kubernetes administrator can specify additional [mount options](/docs/concepts/storage/persistent-volumes/#mount-options) for when a PersistentVolume is mounted on a node.
+
+This annotation has been deprecated.
+
 ### volume.kubernetes.io/storage-provisioner
 
 Used on: PersistentVolumeClaim
