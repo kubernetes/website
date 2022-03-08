@@ -216,6 +216,22 @@ Used on: Service
 
 Kubernetes uses this label to differentiate multiple Services. Used currently for `ELB`(Elastic Load Balancer) only.
 
+### kubernetes.io/service-account.name
+
+Example: `kubernetes.io/service-account.name: "sa-name"`
+
+Used on: Secret
+
+This annotation is used to set service account name by which the token identifies.
+
+### kubernetes.io/service-account.uid
+
+Example: `kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da`
+
+Used on: Secret
+
+This annotation is used to set the UID of the service account by which the token identifies.
+
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Example: `endpointslice.kubernetes.io/managed-by="controller"`
