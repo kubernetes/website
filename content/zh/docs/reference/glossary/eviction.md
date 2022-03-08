@@ -30,9 +30,9 @@ Eviction is the process of terminating one or more Pods on Nodes.
 <!--
 There are two kinds of eviction:
 * [Node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
-* [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/)
+* [API-initiated eviction](/docs/reference/generated/kubernetes-api/v1.23/)
 -->
 驱逐的两种类型
-* [节点压力驱逐](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)
-* [API 发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)
+* [节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)
 

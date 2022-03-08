@@ -340,7 +340,7 @@ respectively.
 `kubelet` 默认对 Pod 执行 'Allocatable' 约束。
 无论何时，如果所有 Pod 的总用量超过了 'Allocatable'，驱逐 Pod 的措施将被执行。
 有关驱逐策略的更多细节可以在
-[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)页找到。
+[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)页找到。
 可通过设置 kubelet `--enforce-node-allocatable` 标志值为 `pods` 控制这个措施。
 
 可选地，通过在同一标志中同时指定 `kube-reserved` 和 `system-reserved` 值，

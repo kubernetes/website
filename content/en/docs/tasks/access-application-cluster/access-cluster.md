@@ -27,8 +27,8 @@ kubectl config view
 ```
 
 Many of the [examples](/docs/reference/kubectl/cheatsheet/) provide an introduction to using
-kubectl and complete documentation is found in the
-[kubectl manual](/docs/reference/kubectl/overview/).
+`kubectl`, and complete documentation is found in the
+[kubectl reference](/docs/reference/kubectl/).
 
 ## Directly accessing the REST API
 
