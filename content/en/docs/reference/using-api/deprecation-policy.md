@@ -85,7 +85,7 @@ might have to add an equivalent field or represent it as an annotation.
    * **Beta API versions must be supported for 9 months or 3 releases (whichever is longer) after deprecation**
    * **Alpha API versions may be removed in any release without prior deprecation notice**
 
-This ensures beta API support covers the [maximum supported version skew of 2 releases](/docs/setup/release/version-skew-policy/).
+This ensures beta API support covers the [maximum supported version skew of 2 releases](/releases/version-skew-policy/).
 
 {{< note >}}
 There are no current plans for a major version revision of Kubernetes that removes GA APIs.

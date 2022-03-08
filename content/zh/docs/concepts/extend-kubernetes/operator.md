@@ -212,6 +212,7 @@ Operator.
 {{% thirdparty-content %}}
 
 * [Charmed Operator Framework](https://juju.is/)
+* [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
@@ -225,6 +226,7 @@ you implement yourself
 {{% thirdparty-content %}}
 
 * [Charmed Operator Framework](https://juju.is/)
+* [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes 通用声明式 Operator)

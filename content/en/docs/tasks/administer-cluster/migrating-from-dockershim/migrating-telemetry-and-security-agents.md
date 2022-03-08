@@ -22,7 +22,7 @@ Historically, Kubernetes was written to work specifically with Docker Engine.
 Kubernetes took care of networking and scheduling, relying on Docker Engine for launching
 and running containers (within Pods) on a node. Some information that is relevant to telemetry,
 such as a pod name, is only available from Kubernetes components. Other data, such as container
-metrics, is not the responsibility of the container runtime. Early yelemetry agents needed to query the
+metrics, is not the responsibility of the container runtime. Early telemetry agents needed to query the
 container runtime **and** Kubernetes to report an accurate picture. Over time, Kubernetes gained
 the ability to support multiple runtimes, and now supports any runtime that is compatible with
 the container runtime interface.

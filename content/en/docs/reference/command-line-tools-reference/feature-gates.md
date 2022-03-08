@@ -29,7 +29,7 @@ To set feature gates for a component, such as kubelet, use the `--feature-gates`
 flag assigned to a list of feature pairs:
 
 ```shell
---feature-gates="...,GracefulNodeShutdown=true"
+--feature-gates=...,GracefulNodeShutdown=true
 ```
 
 The following tables are a summary of the feature gates that you can set on
@@ -619,8 +619,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   operations from in-tree plugins to corresponding pre-installed CSI plugins
 - `CSIMigrationAWS`: Enables shims and translation logic to route volume
   operations from the AWS-EBS in-tree plugin to EBS CSI plugin. Supports
-  falling back to in-tree EBS plugin if a node does not have EBS CSI plugin
-  installed and configured. Requires CSIMigration feature flag enabled.
+  falling back to in-tree EBS plugin for mount operations to nodes that have
+  the feature disabled or that do not have EBS CSI plugin installed and
+  configured. Does not support falling back for provision operations, for those
+  the CSI plugin must be installed and configured.
 - `CSIMigrationAWSComplete`: Stops registering the EBS in-tree plugin in
   kubelet and volume controllers and enables shims and translation logic to
   route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin.
@@ -630,9 +632,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   which prevents the registration of in-tree EBS plugin.
 - `CSIMigrationAzureDisk`: Enables shims and translation logic to route volume
   operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin.
-  Supports falling back to in-tree AzureDisk plugin if a node does not have
-  AzureDisk CSI plugin installed and configured. Requires CSIMigration feature
-  flag enabled.
+  Supports falling back to in-tree AzureDisk plugin for mount operations to
+  nodes that have the feature disabled or that do not have AzureDisk CSI plugin
+  installed and configured. Does not support falling back for provision
+  operations, for those the CSI plugin must be installed and configured.
+  Requires CSIMigration feature flag enabled.
 - `CSIMigrationAzureDiskComplete`: Stops registering the Azure-Disk in-tree
   plugin in kubelet and volume controllers and enables shims and translation
   logic to route volume operations from the Azure-Disk in-tree plugin to
@@ -642,9 +646,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   `InTreePluginAzureDiskUnregister` feature flag which prevents the registration of in-tree AzureDisk plugin.
 - `CSIMigrationAzureFile`: Enables shims and translation logic to route volume
   operations from the Azure-File in-tree plugin to AzureFile CSI plugin.
-  Supports falling back to in-tree AzureFile plugin if a node does not have
-  AzureFile CSI plugin installed and configured. Requires CSIMigration feature
-  flag enabled.
+  Supports falling back to in-tree AzureFile plugin for mount operations to
+  nodes that have the feature disabled or that do not have AzureFile CSI plugin
+  installed and configured. Does not support falling back for provision
+  operations, for those the CSI plugin must be installed and configured.
+  Requires CSIMigration feature flag enabled.
 - `CSIMigrationAzureFileComplete`: Stops registering the Azure-File in-tree
   plugin in kubelet and volume controllers and enables shims and translation
   logic to route volume operations from the Azure-File in-tree plugin to
@@ -655,8 +661,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
    of in-tree AzureFile plugin.
 - `CSIMigrationGCE`: Enables shims and translation logic to route volume
   operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling
-  back to in-tree GCE plugin if a node does not have PD CSI plugin installed and
-  configured. Requires CSIMigration feature flag enabled.
+  back to in-tree GCE plugin for mount operations to nodes that have the
+  feature disabled or that do not have PD CSI plugin installed and configured.
+  Does not support falling back for provision operations, for those the CSI
+  plugin must be installed and configured. Requires CSIMigration feature flag
+  enabled.
 - `csiMigrationRBD`: Enables shims and translation logic to route volume
   operations from the RBD in-tree plugin to Ceph RBD CSI plugin. Requires
   CSIMigration and csiMigrationRBD feature flags enabled and Ceph CSI plugin
@@ -672,8 +681,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   been deprecated in favor of the `InTreePluginGCEUnregister` feature flag which prevents the registration of in-tree GCE PD plugin.
 - `CSIMigrationOpenStack`: Enables shims and translation logic to route volume
   operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports
-  falling back to in-tree Cinder plugin if a node does not have Cinder CSI
-  plugin installed and configured. Requires CSIMigration feature flag enabled.
+  falling back to in-tree Cinder plugin for mount operations to nodes that have
+  the feature disabled or that do not have Cinder CSI plugin installed and
+  configured. Does not support falling back for provision operations, for those
+  the CSI plugin must be installed and configured. Requires CSIMigration
+  feature flag enabled.
 - `CSIMigrationOpenStackComplete`: Stops registering the Cinder in-tree plugin in
   kubelet and volume controllers and enables shims and translation logic to route
   volume operations from the Cinder in-tree plugin to Cinder CSI plugin.
@@ -681,9 +693,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
   CSI plugin installed and configured on all nodes in the cluster. This flag has
   been deprecated in favor of the `InTreePluginOpenStackUnregister` feature flag which prevents the registration of in-tree openstack cinder plugin.
 - `CSIMigrationvSphere`: Enables shims and translation logic to route volume operations
-  from the vSphere in-tree plugin to vSphere CSI plugin.
-  Supports falling back to in-tree vSphere plugin if a node does not have vSphere
-  CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+  from the vSphere in-tree plugin to vSphere CSI plugin. Supports falling back
+  to in-tree vSphere plugin for mount operations to nodes that have the feature
+  disabled or that do not have vSphere CSI plugin installed and configured.
+  Does not support falling back for provision operations, for those the CSI
+  plugin must be installed and configured. Requires CSIMigration feature flag
+  enabled.
 - `CSIMigrationvSphereComplete`: Stops registering the vSphere in-tree plugin in kubelet
   and volume controllers and enables shims and translation logic to route volume operations
   from the vSphere in-tree plugin to vSphere CSI plugin. Requires CSIMigration and

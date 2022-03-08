@@ -215,7 +215,7 @@ The StatefulSet controller creates three Pods, and each Pod has a container with
 a [ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) server.
 -->
 StatefulSet 控制器创建 3 个 Pods，每个 Pod 包含一个
-[ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) 服务器。
+[ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) 服务容器。
 
 <!--
 ### Facilitating Leader Election
@@ -670,10 +670,10 @@ The `volumeMounts` section of the `StatefulSet`'s container `template` mounts th
 StatefulSet 的容器 `template` 中的 `volumeMounts` 一节使得
 PersistentVolumes 被挂载到 ZooKeeper 服务器的数据目录。
 
-```shell
+```yaml
 volumeMounts:
-        - name: datadir
-          mountPath: /var/lib/zookeeper
+- name: datadir
+  mountPath: /var/lib/zookeeper
 ```
 
 <!--
@@ -682,7 +682,7 @@ same `PersistentVolume` mounted to the ZooKeeper server's data directory.
 Even when the Pods are rescheduled, all the writes made to the ZooKeeper
 servers' WALs, and all their snapshots, remain durable.
 -->
-当 `zk` StatefulSet 中的一个 Pod 被（重新）调度时，它总是拥有相同的 PersistentVolume，
+当 `zk` `StatefulSet` 中的一个 Pod 被（重新）调度时，它总是拥有相同的 PersistentVolume，
 挂载到 ZooKeeper 服务器的数据目录。
 即使在 Pods 被重新调度时，所有对 ZooKeeper 服务器的 WALs 的写入和它们的
 全部快照都仍然是持久的。
@@ -1110,17 +1110,17 @@ The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
 许多场景下，一个系统进程可以是活动状态但不响应请求，或者是不健康状态。
 你应该使用存活性探针来通知 Kubernetes 你的应用进程处于不健康状态，需要被重启。
 
-`zk` StatefulSet 的 Pod 的 `template` 一节指定了一个存活探针。
+`zk` `StatefulSet` 的 Pod 的 `template` 一节指定了一个存活探针。
 
 ```yaml
- livenessProbe:
-   exec:
-     command:
-       - sh
-       - -c
-       - "zookeeper-ready 2181"
-   initialDelaySeconds: 15
-   timeoutSeconds: 5
+  livenessProbe:
+    exec:
+      command:
+      - sh
+      - -c
+      - "zookeeper-ready 2181"
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
 ```
 
 <!--
@@ -1249,7 +1249,7 @@ By default, Kubernetes may co-locate Pods in a `StatefulSet` on the same node.
 For the three server ensemble you created, if two servers are on the same node, and that node fails,
 the clients of your ZooKeeper service will experience an outage until at least one of the Pods can be rescheduled.
 -->
-默认情况下，Kubernetes 可以把 StatefulSet 的 Pods 部署在相同节点上。
+默认情况下，Kubernetes 可以把 `StatefulSet` 的 Pods 部署在相同节点上。
 对于你创建的 3 个服务器的 ensemble 来说，如果有两个服务器并存于
 相同的节点上并且该节点发生故障时，ZooKeeper 服务将中断，
 直至至少一个 Pods 被重新调度。
@@ -1268,7 +1268,7 @@ Use the command below to get the nodes for Pods in the `zk` `StatefulSet`.
 ZooKeeper 服务器为止。
 但是，如果希望你的服务在容忍节点故障时无停服时间，你应该设置 `podAntiAffinity`。
 
-获取 `zk` Stateful Set 中的 Pods 的节点。
+使用下面的命令获取 `zk` `StatefulSet` 中的 Pods 的节点。
 
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
@@ -1450,7 +1450,7 @@ zk-0      1/1       Running   0         1m
 Keep watching the `StatefulSet`'s Pods in the first terminal and drain the node on which
 `zk-1` is scheduled.
 -->
-在第一个终端中持续观察 StatefulSet 的 Pods 并腾空 `zk-1` 调度所在的节点。
+在第一个终端中持续观察 `StatefulSet` 的 Pods 并腾空 `zk-1` 调度所在的节点。
 
 ```shell
 kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force -delete-emptydir-data "kubernetes-node-ixsl" cordoned
@@ -1467,7 +1467,7 @@ The `zk-1` Pod cannot be scheduled because the `zk` `StatefulSet` contains a `Po
 co-location of the Pods, and as only two nodes are schedulable, the Pod will remain in a Pending state.
 -->
 `zk-1` Pod 不能被调度，这是因为 `zk` `StatefulSet` 包含了一个防止 Pods
-共存的 PodAntiAffinity 规则，而且只有两个节点可用于调度，
+共存的 `PodAntiAffinity` 规则，而且只有两个节点可用于调度，
 这个 Pod 将保持在 Pending 状态。
 
 ```shell
@@ -1498,7 +1498,7 @@ zk-1      0/1       Pending             0          0s
 ```
 
 <!--
-Continue to watch the Pods of the stateful set, and drain the node on which
+Continue to watch the Pods of the StatefulSet, and drain the node on which
 `zk-2` is scheduled.
 -->
 继续观察 StatefulSet 中的 Pods 并腾空 `zk-2` 调度所在的节点。
@@ -1522,7 +1522,7 @@ You cannot drain the third node because evicting `zk-2` would violate `zk-budget
 
 Use `zkCli.sh` to retrieve the value you entered during the sanity test from `zk-0`.
 -->
-使用 `CRTL-C` 终止 kubectl。
+使用 `CTRL-C` 终止 kubectl。
 
 你不能腾空第三个节点，因为驱逐 `zk-2` 将和 `zk-budget` 冲突。
 然而这个节点仍然处于隔离状态（Cordoned）。
@@ -1536,7 +1536,7 @@ kubectl exec zk-0 zkCli.sh get /hello
 <!--
 The service is still available because its `PodDisruptionBudget` is respected.
 -->
-由于遵守了 PodDisruptionBudget，服务仍然可用。
+由于遵守了 `PodDisruptionBudget`，服务仍然可用。
 
 ```
 WatchedEvent state:SyncConnected type:None path:null
