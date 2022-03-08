@@ -204,7 +204,7 @@ running such processes via a DaemonSet:
 - Same config language and tools (e.g. Pod templates, `kubectl`) for daemons and applications.
 - Running daemons in containers with resource limits increases isolation between daemons from app
   containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod
-  (e.g. start directly via Docker).
+  warning about code samples potentially breaking. Test code samples on a cluster with a different runtime and on a cluster with cri-dockerd and Docker.
 
 ### Bare Pods
 
