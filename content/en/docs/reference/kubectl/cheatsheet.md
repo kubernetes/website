@@ -5,6 +5,7 @@ reviewers:
 - krousey
 - clove
 content_type: concept
+weight: 10 # highlight it
 card:
   name: reference
   weight: 30
@@ -73,6 +74,10 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
 
 kubectl config unset users.foo                       # delete user foo
+
+# short alias to set/show context/namespace (only works for bash and bash-compatible shells, current context to be set before using kn to set namespace) 
+alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
+alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
 ```
 
 ## Kubectl apply
@@ -212,10 +217,10 @@ kubectl diff -f ./my-manifest.yaml
 
 # Produce a period-delimited tree of all keys returned for nodes
 # Helpful when locating a key within a complex nested JSON structure
-kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get nodes -o json | jq -c 'paths|join(".")'
 
 # Produce a period-delimited tree of all keys returned for pods, etc
-kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get pods -o json | jq -c 'paths|join(".")'
 
 # Produce ENV for all pods, assuming you have a default container for the pods, default namespace and the `env` command is supported.
 # Helpful when running any supported command across all pods, not just `env`
@@ -419,7 +424,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-More examples in the kubectl [reference documentation](/docs/reference/kubectl/overview/#custom-columns).
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
 
 ### Kubectl output verbosity and debugging
 
@@ -440,7 +445,7 @@ Verbosity | Description
 
 ## {{% heading "whatsnext" %}}
 
-* Read the [kubectl overview](/docs/reference/kubectl/overview/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
+* Read the [kubectl overview](/docs/reference/kubectl/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 

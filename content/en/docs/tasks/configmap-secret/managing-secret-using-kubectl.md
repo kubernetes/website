@@ -130,6 +130,12 @@ The output is similar to:
 Now you can decode the `password` data:
 
 ```shell
+# This is an example for documentation purposes.
+# If you did things this way, the data 'MWYyZDFlMmU2N2Rm' could be stored in
+# your shell history.
+# Someone with access to you computer could find that remembered command
+# and base-64 decode the secret, perhaps without your knowledge.
+# It's usually better to combine the steps, as shown later in the page.
 echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 
@@ -138,6 +144,15 @@ The output is similar to:
 ```
 1f2d1e2e67df
 ```
+
+In order to avoid storing a secret encoded value in your shell history, you can
+run the following command:
+
+```shell
+kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
+```
+
+The output shall be similar as above.
 
 ## Clean Up
 

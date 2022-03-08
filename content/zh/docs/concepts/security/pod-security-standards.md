@@ -46,8 +46,8 @@ Pod 安全性标准定义了三种不同的 _策略（Policy）_，以广泛覆�
 ### Privileged
 
 <!--
-**The _Privileged_ policy is purposely-open, and entirely unrestricted.** This type of policy is typically
-aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
+**The _Privileged_ policy is purposely-open, and entirely unrestricted.** This type of policy is
+typically aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
 The privileged policy is defined by an absence of restrictions. For allow-by-default enforcement
 mechanisms (such as gatekeeper), the privileged profile may be an absence of applied constraints
@@ -69,17 +69,18 @@ Privileged 策略应该默认允许所有控制（即，禁止所有限制）。
 preventing known privilege escalations.** This policy is targeted at application operators and
 developers of non-critical applications. The following listed controls should be
 enforced/disallowed:
-
-In this table, wildcards (`*`) indicate all elements in a list. For example,
-`spec.containers[*].securityContext` refers to the Security Context object for _all defined
-containers_. If any of the listed containers fails to meet the requirements, the entire pod will
-fail validation.
 -->
 **_Baseline_ 策略的目标是便于常见的容器化应用采用，同时禁止已知的特权提升。**
 此策略针对的是应用运维人员和非关键性应用的开发人员。
 下面列举的控制应该被实施（禁止）：
 
 {{< note >}}
+<!--
+In this table, wildcards (`*`) indicate all elements in a list. For example,
+`spec.containers[*].securityContext` refers to the Security Context object for _all defined
+containers_. If any of the listed containers fails to meet the requirements, the entire pod will
+fail validation.
+-->
 在下述表格中，通配符（`*`）意味着一个列表中的所有元素。
 例如 `spec.containers[*].securityContext` 表示 _所定义的所有容器_ 的安全性上下文对象。
 如果所列出的任一容器不能满足要求，整个 Pod 将无法通过校验。
@@ -90,8 +91,8 @@ fail validation.
 	<caption style="display:none">Baseline 策略规范</caption>
 	<tbody>
 		<tr>
-			<td width="30%"><strong>控制（Control）</strong></td>
-			<td><strong>策略（Policy）</strong></td>
+			<td>控制（Control）</td>
+			<td>策略（Policy）</td>
 		</tr>
     <tr>
 			<!-- <td style="white-space: nowrap">HostProcess</td> -->
@@ -564,31 +565,19 @@ fail validation.
 				<p>In addition to restricting HostPath volumes, the restricted policy limits usage of non-core volume types to those defined through PersistentVolumes.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
-					<li><code>spec.volumes[*].hostPath</code></li>
-					<li><code>spec.volumes[*].gcePersistentDisk</code></li>
-					<li><code>spec.volumes[*].awsElasticBlockStore</code></li>
-					<li><code>spec.volumes[*].gitRepo</code></li>
-					<li><code>spec.volumes[*].nfs</code></li>
-					<li><code>spec.volumes[*].iscsi</code></li>
-					<li><code>spec.volumes[*].glusterfs</code></li>
-					<li><code>spec.volumes[*].rbd</code></li>
-					<li><code>spec.volumes[*].flexVolume</code></li>
-					<li><code>spec.volumes[*].cinder</code></li>
-					<li><code>spec.volumes[*].cephfs</code></li>
-					<li><code>spec.volumes[*].flocker</code></li>
-					<li><code>spec.volumes[*].fc</code></li>
-					<li><code>spec.volumes[*].azureFile</code></li>
-					<li><code>spec.volumes[*].vsphereVolume</code></li>
-					<li><code>spec.volumes[*].quobyte</code></li>
-					<li><code>spec.volumes[*].azureDisk</code></li>
-					<li><code>spec.volumes[*].portworxVolume</code></li>
-					<li><code>spec.volumes[*].scaleIO</code></li>
-					<li><code>spec.volumes[*].storageos</code></li>
-					<li><code>spec.volumes[*].photonPersistentDisk</code></li>
+					<li><code>spec.volumes[*]</code></li>
 				</ul>
 				<p><strong>Allowed Values</strong></p>
+				Every item in the <code>spec.volumes[*]</code> list must set one of the following fields to a non-null value:
 				<ul>
-					<li>Undefined/nil</li>
+					<li><code>spec.volumes[*].configMap</code></li>
+					<li><code>spec.volumes[*].csi</code></li>
+					<li><code>spec.volumes[*].downwardAPI</code></li>
+					<li><code>spec.volumes[*].emptyDir</code></li>
+					<li><code>spec.volumes[*].ephemeral</code></li>
+					<li><code>spec.volumes[*].persistentVolumeClaim</code></li>
+					<li><code>spec.volumes[*].projected</code></li>
+					<li><code>spec.volumes[*].secret</code></li>
 				</ul>
 			</td> -->
 			<td>卷类型</td>
@@ -596,31 +585,19 @@ fail validation.
         <p>除了限制 HostPath 卷之外，此类策略还限制可以通过 PersistentVolumes 定义的非核心卷类型。</p>
 				<p><strong>限制的字段</strong></p>
 				<ul>
-					<li><code>spec.volumes[*].hostPath</code></li>
-					<li><code>spec.volumes[*].gcePersistentDisk</code></li>
-					<li><code>spec.volumes[*].awsElasticBlockStore</code></li>
-					<li><code>spec.volumes[*].gitRepo</code></li>
-					<li><code>spec.volumes[*].nfs</code></li>
-					<li><code>spec.volumes[*].iscsi</code></li>
-					<li><code>spec.volumes[*].glusterfs</code></li>
-					<li><code>spec.volumes[*].rbd</code></li>
-					<li><code>spec.volumes[*].flexVolume</code></li>
-					<li><code>spec.volumes[*].cinder</code></li>
-					<li><code>spec.volumes[*].cephfs</code></li>
-					<li><code>spec.volumes[*].flocker</code></li>
-					<li><code>spec.volumes[*].fc</code></li>
-					<li><code>spec.volumes[*].azureFile</code></li>
-					<li><code>spec.volumes[*].vsphereVolume</code></li>
-					<li><code>spec.volumes[*].quobyte</code></li>
-					<li><code>spec.volumes[*].azureDisk</code></li>
-					<li><code>spec.volumes[*].portworxVolume</code></li>
-					<li><code>spec.volumes[*].scaleIO</code></li>
-					<li><code>spec.volumes[*].storageos</code></li>
-					<li><code>spec.volumes[*].photonPersistentDisk</code></li>
+					<li><code>spec.volumes[*]</code></li>
 				</ul>
 				<p><strong>允许的值</strong></p>
+				<code>spec.volumes[*]</code> 列表中的每个条目必须将下面字段之一设置为非空值：
 				<ul>
-					<li>未定义/nil</li>
+					<li><code>spec.volumes[*].configMap</code></li>
+					<li><code>spec.volumes[*].csi</code></li>
+					<li><code>spec.volumes[*].downwardAPI</code></li>
+					<li><code>spec.volumes[*].emptyDir</code></li>
+					<li><code>spec.volumes[*].ephemeral</code></li>
+					<li><code>spec.volumes[*].persistentVolumeClaim</code></li>
+					<li><code>spec.volumes[*].projected</code></li>
+					<li><code>spec.volumes[*].secret</code></li>
 				</ul>
 			</td>
 		</tr>
@@ -696,40 +673,36 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
-			<!-- <td style="white-space: nowrap">Non-root groups <em>(optional)</em></td> -->
-			<td style="white-space: nowrap">非 root 组<em>（可选）</em></td>
+			<!-- <td style="white-space: nowrap">Running as Non-root user (v1.23+)</td> -->
+			<td style="white-space: nowrap">非 root 用户（v1.23+）</td>
 			<td>
-				<!-- <td>
-				<p>Containers should be forbidden from running with a root primary or supplementary GID.</p>
+				<!--
+				<p>Containers must not set <tt>runAsUser</tt> to 0</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
-					<li><code>spec.securityContext.runAsGroup</code></li>
-					<li><code>spec.securityContext.supplementalGroups[*]</code></li>
-					<li><code>spec.securityContext.fsGroup</code></li>
-					<li><code>spec.containers[*].securityContext.runAsGroup</code></li>
-					<li><code>spec.initContainers[*].securityContext.runAsGroup</code></li>
-					<li><code>spec.ephemeralContainers[*].securityContext.runAsGroup</code></li>
+					<li><code>spec.securityContext.runAsUser</code></li>
+					<li><code>spec.containers[*].securityContext.runAsUser</code></li>
+					<li><code>spec.initContainers[*].securityContext.runAsUser</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.runAsUser</code></li>
 				</ul>
 				<p><strong>Allowed Values</strong></p>
 				<ul>
-					<li>Undefined/nil (except for <code>*.runAsGroup</code>)</li>
-					<li>Non-zero</li>
+					<li>any non-zero value</li>
+					<li><code>undefined/null</code></li>
 				</ul>
 			</td> -->
-        <p>禁止容器使用 root 作为主要或辅助 GID 来运行。</p>
+				<p>Containers 不可以将 <tt>runAsUser</tt> 设置为 0</p>
 				<p><strong>限制的字段</strong></p>
 				<ul>
-					<li><code>spec.securityContext.runAsGroup</code></li>
-					<li><code>spec.securityContext.supplementalGroups[*]</code></li>
-					<li><code>spec.securityContext.fsGroup</code></li>
-					<li><code>spec.containers[*].securityContext.runAsGroup</code></li>
-					<li><code>spec.initContainers[*].securityContext.runAsGroup</code></li>
-					<li><code>spec.ephemeralContainers[*].securityContext.runAsGroup</code></li>
+					<li><code>spec.securityContext.runAsUser</code></li>
+					<li><code>spec.containers[*].securityContext.runAsUser</code></li>
+					<li><code>spec.initContainers[*].securityContext.runAsUser</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.runAsUser</code></li>
 				</ul>
-				<p><strong>允许的值</strong></p>
+				<p><strong>允许的字段</strong></p>
 				<ul>
-					<li>未定义/nil（<code>*.runAsGroup</code> 除外）</li>
-					<li>非零值</li>
+					<li>any non-zero value</li>
+					<li><code>未定义/空值</code></li>
 				</ul>
 			</td>
 		</tr>
@@ -859,11 +832,11 @@ of individual policies are not defined here.
 
 [**Pod 安全性准入控制器**](/zh/docs/concepts/security/pod-security-admission/)
 
-- {{< example file="security/podsecurity-privileged.yaml" >}}Privileged namespace{{< /example >}}
-- {{< example file="security/podsecurity-baseline.yaml" >}}Baseline namespace{{< /example >}}
-- {{< example file="security/podsecurity-restricted.yaml" >}}Restricted namespace{{< /example >}}
+- {{< example file="security/podsecurity-privileged.yaml" >}}Privileged 名字空间{{< /example >}}
+- {{< example file="security/podsecurity-baseline.yaml" >}}Baseline 名字空间{{< /example >}}
+- {{< example file="security/podsecurity-restricted.yaml" >}}Restricted 名字空间{{< /example >}}
 
-[**PodSecurityPolicy**](/zh/docs/concepts/policy/pod-security-policy/)
+[**PodSecurityPolicy**](/zh/docs/concepts/policy/pod-security-policy/) （已弃用）
 
 - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
