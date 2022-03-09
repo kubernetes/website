@@ -68,7 +68,7 @@ overview:
 #   description: This website contains documentation for the current and previous 4 versions of Kubernetes.
 cards:
 - name: concepts
-  title: "了解Kubernetes"
+  title: "了解 Kubernetes"
   description: "了解 Kubernetes 和其基础概念。"
   button: "查看概念"
   button_path: "/zh/docs/concepts"
