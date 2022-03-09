@@ -159,7 +159,7 @@ operator to use or manage a cluster.
 * [kube-apiserver 加密 (v1)](/zh/docs/reference/config-api/apiserver-encryption.v1/)
 * [kubelet 配置 (v1alpha1)](/zh/docs/reference/config-api/kubelet-config.v1alpha1/) 和
   [kubelet 配置 (v1beta1)](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kubelet credential providers (v1alpha1)](/zh/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
+* [kubelet 凭据驱动 (v1alpha1)](/zh/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
 * [kube-scheduler 配置 (v1beta2)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2/) 和
   [kube-scheduler 配置 (v1beta3)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * [kube-proxy 配置 (v1alpha1)](/zh/docs/reference/config-api/kube-proxy-config.v1alpha1/)
