@@ -174,7 +174,7 @@ Kubernetes allows you to automatically mount a storage system of your choice, su
 
 <!--
 * **Automated rollouts and rollbacks**
-You can describe the desired state for your deployed containers using Kubernetes, and it can change the actual state to the desired state at a controlled rate. For example, you can automate Kubernetes to create new containers for your deployment, remove existing containers and adopt all their resources to the new container.
+You can describe the desired state for your deployed containers using Kubernetes, and it can change the actual state to the desired state at a controlled rate. For example, you can automate Kubernetes to create new containers for your deployment, remove existing containers, and adopt all their resources to the new container.
 -->
 * **自动部署和回滚**
 
@@ -202,7 +202,7 @@ Kubernetes restarts containers that fail, replaces containers, kills containers 
 
 <!--
 * **Secret and configuration management**
-Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. You can deploy and update secrets and application configuration without rebuilding your container images, and without exposing secrets in your stack configuration.
+Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and Secure Shell Protocol (SSH) keys. You can deploy and update secrets and application configuration without rebuilding your container images, and without exposing secrets in your stack configuration.
 -->
 * **密钥与配置管理**
 
@@ -247,7 +247,7 @@ Kubernetes：
 * Does not dictate logging, monitoring, or alerting solutions. It provides some integrations as proof of concept, and mechanisms to collect and export metrics.
 * Does not provide nor mandate a configuration language/system (for example, jsonnet). It provides a declarative API that may be targeted by arbitrary forms of declarative specifications.
 * Does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
-* Additionally, Kubernetes is not a mere orchestration system. In fact, it eliminates the need for orchestration. The technical definition of orchestration is execution of a defined workflow: first do A, then B, then C. In contrast, Kubernetes comprises a set of independent, composable control processes that continuously drive the current state towards the provided desired state. It shouldn’t matter how you get from A to C. Centralized control is also not required. This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
+* Additionally, Kubernetes is not a mere orchestration system. In fact, it eliminates the need for orchestration. The technical definition of orchestration is the execution of a defined workflow: first do A, then B, then C. In contrast, Kubernetes comprises a set of independent, composable control processes that continuously drive the current state towards the provided desired state. It shouldn’t matter how you get from A to C. Centralized control is also not required. This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
 -->
 * 不要求日志记录、监视或警报解决方案。
   它提供了一些集成作为概念证明，并提供了收集和导出指标的机制。
