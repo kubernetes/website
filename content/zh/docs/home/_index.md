@@ -24,9 +24,9 @@ overview:
   Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、 扩缩和管理。该项目托管在 <a href="https://www.cncf.io/about">CNCF</a>。
 # cards:
 # - name: concepts
-#   title: "Understand the basics"
+#   title: "Understand Kubernetes"
 #   description: "Learn about Kubernetes and its fundamental concepts."
-#   button: "Learn Concepts"
+#   button: "View Concepts"
 #   button_path: "/docs/concepts"
 # - name: tutorials
 #   title: "Try Kubernetes"
@@ -68,9 +68,9 @@ overview:
 #   description: This website contains documentation for the current and previous 4 versions of Kubernetes.
 cards:
 - name: concepts
-  title: "了解基本知识"
+  title: "了解 Kubernetes"
   description: "了解 Kubernetes 和其基础概念。"
-  button: "了解概念"
+  button: "查看概念"
   button_path: "/zh/docs/concepts"
 - name: tutorials
   title: "尝试 Kubernetes"
@@ -106,7 +106,7 @@ cards:
   title: K8s 发布说明
   description: 如果你正在安装或升级 Kubernetes，最好参考最新的发布说明。
   button: "下载 Kubernetes"
-  button_path: "/zh/docs/setup/release/notes"
+  button_path: "/releases/download"
 - name: about
   title: 关于文档
   description: 本网站包含了当前及前 4 个版本的 Kubernetes 文档。
