@@ -96,18 +96,6 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 
 * [运行 ZooKeeper，CP 分布式系统](/zh/docs/tutorials/stateful-application/zookeeper/)
 
-<!--
-## Clusters
-
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
-
-* [seccomp](/docs/tutorials/clusters/seccomp/)
--->
-## 集群  {#clusters}
-
-* [AppArmor](/zh/docs/tutorials/clusters/apparmor/)
-
-* [seccomp](/zh/docs/tutorials/clusters/seccomp/)
 
 <!--
 ## Services
@@ -123,11 +111,15 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 
 * [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
 * [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
+* [AppArmor](/docs/tutorials/security/apparmor/)
+* [seccomp](/docs/tutorials/security/seccomp/)
 -->
 ## 安全  {#security}
 
 * [在集群级别应用 Pod 安全标准](/zh/docs/tutorials/security/cluster-level-pss/)
 * [在名字空间级别应用 Pod 安全标准](/zh/docs/tutorials/security/ns-level-pss/)
+* [AppArmor](/zh/docs/tutorials/security/apparmor/)
+* [seccomp](/zh/docs/tutorials/security/seccomp/)
 
 ## {{% heading "whatsnext" %}}
 
