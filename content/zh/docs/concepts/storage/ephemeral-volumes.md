@@ -33,7 +33,7 @@ services are often limited by memory size and can move infrequently
 used data into storage that is slower than memory with little impact
 on overall performance.
 -->
-有些应用程序需要额外的存储，但并不关心数据在重启后仍然可用，既是否被持久地保存。
+有些应用程序需要额外的存储，但并不关心数据在重启后仍然可用，即是否被持久地保存。
 例如，缓存服务经常受限于内存大小，将不常用的数据转移到比内存慢、但对总体性能的影响很小的存储中。
 
 <!--
