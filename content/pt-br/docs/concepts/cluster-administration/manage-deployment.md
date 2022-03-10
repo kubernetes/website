@@ -68,7 +68,7 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-No caso de dois recursos, você pode especificar ambos na linha de comando usando a syntaxe _resource/name_: 
+No caso de dois recursos, você pode especificar ambos na linha de comando usando a syntaxe _resource/name_:
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -115,7 +115,7 @@ project/k8s/development
     └── my-pvc.yaml
 ```
 
-Por padrão, executar uma operação em massa em `project/k8s/development` irá parar no primeiro nível do diretório, não processando nenhum subdiretório. Se tivéssemos tentado criar os recursos neste diretório usando o seguinte comando, teríamos encrotado um erro:
+Por padrão, executar uma operação em massa em `project/k8s/development` irá parar no primeiro nível do diretório, não processando nenhum subdiretório. Se tivéssemos tentado criar os recursos neste diretório usando o seguinte comando, teríamos encontrado um erro:
 
 ```shell
 kubectl apply -f project/k8s/development
@@ -125,7 +125,7 @@ kubectl apply -f project/k8s/development
 error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
 ```
 
-Em invés disso, utilize a _flag_ `--recursive` ou `-R` com a _flag_ `--filename,-f` assim:
+Ao invés disso, utilize a _flag_ `--recursive` ou `-R` com a _flag_ `--filename,-f` assim:
 
 ```shell
 kubectl apply -f project/k8s/development --recursive
@@ -157,33 +157,32 @@ Se você está interessado em aprender mais sobre `kubectl`, vá em frente e lei
 
 ## Usando _labels_ efetivamente
 
-
 Os exemplos que usamos até agora aplicam no máximo uma única _label_ a qualquer recurso. Há muitos cenários em que múltiplas _labels_ devem ser usadas ​​para distinguir conjuntos uns dos outros.
 
 Por exemplo, diferentes aplicações podem usar diferentes valores para a _label_ `app`, mas uma aplicação multi-nível, como [_guestbook example_](https://github.com/kubernetes/examples/tree/master/guestbook/), também precisaria distinguir cada _tier_. O _frontend_ pode carregar as seguintes _labels_:
 
 ```yaml
-     labels:
-        app: guestbook
-        tier: frontend
+labels:
+  app: guestbook
+  tier: frontend
 ```
 
-Enquanto o Redis _master_ e _slave_ teriam _labels_ de diferentes `tier`, e talvez até uma label adicional para `role`:
+Enquanto o Redis primário e o secundário teriam _labels_ de diferentes `tier`, e talvez até uma label adicional para `role`:
 
 ```yaml
-     labels:
-        app: guestbook
-        tier: backend
-        role: master
+labels:
+  app: guestbook
+  tier: backend
+  role: master
 ```
 
 e
 
 ```yaml
-     labels:
-        app: guestbook
-        tier: backend
-        role: slave
+labels:
+  app: guestbook
+  tier: backend
+  role: slave
 ```
 
 As _labels_ nos permitem destrinchar nossos recursos em qualquer dimensão especificada por uma _label_:
@@ -208,6 +207,7 @@ my-nginx-o0ef1                 1/1       Running   0          29m       nginx   
 ```shell
 kubectl get pods -lapp=guestbook,role=slave
 ```
+
 ```shell
 NAME                          READY     STATUS    RESTARTS   AGE
 guestbook-redis-slave-2q2yf   1/1       Running   0          3m
@@ -220,7 +220,7 @@ Outro cenário onde múltiplas _labels_ são necessárias é o de distinguir _de
 
 Por exemplo, você pode usar a _label_ `track` para distinguir diferentes _releases_.
 
-A versão _stable_ poderia ter uma _label_ `track`  com o valor de `stable`:
+A versão _stable_ poderia ter uma _label_ `track` com o valor de `stable`:
 
 ```yaml
      name: frontend
@@ -247,12 +247,13 @@ E, em seguida, você pode criar uma nova _release_ do _guestbook frontend_ que c
      ...
      image: gb-frontend:v4
 ```
+
 O serviço _frontend_ cobriria ambos os conjuntos de réplicas selecionando o subconjunto comum de suas _labels_ (ou seja, omitindo a _label_ `track`), para que o trafégo seja redirecionado para ambas as aplicações:
 
 ```yaml
-  selector:
-     app: guestbook
-     tier: frontend
+selector:
+  app: guestbook
+  tier: frontend
 ```
 
 Você pode ajustar o número de réplicas da _release_ _stable_ e da _release_ _canary_ para determinar a proporção de tráfego de produção recebido por cada _release_(nesse caso, 3:1).
@@ -281,6 +282,7 @@ Para ver as _labels_ que foram adicionadas aos _pods_, execute:
 ```shell
 kubectl get pods -l app=nginx -L tier
 ```
+
 ```shell
 NAME                        READY     STATUS    RESTARTS   AGE       TIER
 my-nginx-2035384211-j5fhi   1/1       Running   0          23m       fe
@@ -334,6 +336,7 @@ kubectl get pods -l app=nginx
 NAME                        READY     STATUS    RESTARTS   AGE
 my-nginx-2035384211-j5fhi   1/1       Running   0          30m
 ```
+
 Para que o sistema escolha automaticamente o número de réplicas nginx de acordo com o necessário, variando de 3 para 1, faça:
 
 ```shell
@@ -348,8 +351,7 @@ Agora as suas réplicas do nginx vão aumentar e diminuir conforme necessário, 
 
 Para mais informações, por favor veja os documentos [kubectl _scale_](/docs/reference/generated/kubectl/kubectl-commands/#scale), [kubectl _autoscale_](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) e [horizontal _pod autoscaler_](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
-
-## Atualização _in-place_ de recursos
+## Atualização de recursos em execução
 
 Às vezes, é necessário fazer atualizações restritas e sem interrupções nos recursos que você criou.
 
@@ -374,7 +376,6 @@ Atualmente, os recursos são criados sem essa anotação, portanto, a primeira c
 Todas as chamadas subsequente para `kubectl apply`, e outros comandos que modificam a configuração, como `kubectl replace` e `kubectl edit`, irão atualizar a anotação, permitindo que chamadas subsequentes para `kubectl apply` detectem e executem exclusões usando uma _three-way diff_.
 
 ### kubectl _edit_
-
 
 Alternativamente, você também pode atualizar recursos com `kubectl edit`:
 
@@ -454,9 +455,7 @@ kubectl edit deployment/my-nginx
 
 É isso! O _Deployment_ irá atualizar declarativamente a aplicação nginx _deployed_ progressivamente por trás das cenas. Ele garante que apenas um certo número de réplicas antigas possam estar inativas enquanto estão sendo atualizadas e que apenas um certo número de réplicas pode ser criado acima do número de _pods_ desejados. Para saber mais detalhes sobre isso, visite a [página de _Deployment_](/docs/concepts/workloads/controllers/deployment/).
 
-
 ## {{% heading "whatsnext" %}}
 
 - Aprenda sobre [como usar `kubectl` para _introspection_ e _debugging_ de aplicações](/docs/tasks/debug-application-cluster/debug-application-introspection/).
 - Veja [Melhores práticas e dicas de configuração](/docs/concepts/configuration/overview/).
-
