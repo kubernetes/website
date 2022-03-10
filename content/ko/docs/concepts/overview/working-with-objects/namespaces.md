@@ -106,7 +106,7 @@ kubectl config view --minify | grep namespace:
 해당 네임스페이스 내의 서비스의 짧은 DNS 이름이 공개 DNS 레코드와 겹칠 수 있다. 
 어떠한 네임스페이스 내의 워크로드가 
 [접미점(trailing dot)](https://datatracker.ietf.org/doc/html/rfc1034#page-8) 없이 DNS 룩업을 수행하면 
-공개 DNS 레코드가 아니라 이러한 서비스로 리다이렉트될 것이다.
+공개 DNS 레코드보다 우선하여 해당 서비스로 리다이렉트될 것이다.
 
 이를 방지하기 위해, 신뢰하는 사용자만 네임스페이스를 
 생성할 수 있도록 권한을 제한한다. 
