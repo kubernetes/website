@@ -23,25 +23,8 @@ auto_generated: true
 ---
 -->
 
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-<!--
-该文件是使用通用 Go 源码自动生成的组件[生成器](https://github.com/kubernetes-sigs/reference-docs/)。
-学习如何生成参考文档，请阅读[贡献参考文档](/docs/contribute/generate-ref-docs/)。
-更新参考内容，请按照[贡献上游](/docs/contribute/generate-ref-docs/contribute-upstream/)指南。
-你可以针对[参考文档](https://github.com/kubernetes-sigs/reference-docs/)提交文档格式错误。
--->
-
-
 `import "k8s.io/api/core/v1"`
+
 
 <!--
 A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
