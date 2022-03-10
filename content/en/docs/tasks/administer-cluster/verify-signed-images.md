@@ -15,12 +15,12 @@ min-kubernetes-server-version: v1.24
 - [cosign](https://docs.sigstore.dev/cosign/installation/)
 
 ## Verifying image signatures
-For a complete list of images that are signed please refer to [releases](releases/download.md) page.
+For a complete list of images that are signed please refer to [releases](/releases/download/) page.
 
 Let's pick one image from this list and verify its signature using `cosign verify` command.
 
 ```shell
-cosign verify us.gcr.io/k8s-artifacts-prod/kube-apiserver:v1.24.0
+COSIGN_EXPERIMENTAL=1 cosign verify k8s.gcr.io/kube-apiserver-amd64:v1.24.0
 ```
 ### All control plane images
 
@@ -34,4 +34,3 @@ do
   COSIGN_EXPERIMENTAL=1 cosign verify "$image"
 done < "$input"
 ```
-
