@@ -54,9 +54,9 @@ metadata:
 
 ## Aplicações e Instâncias de Aplicações
 
-Um aplicativo pode ser instalado uma ou mais vezes em um cluster Kubernetes e,em alguns casos, com o mesmo *namespace*. Por exemplo, WordPress pode ser instalado mais de uma vez, sendo que diferentes sites são diferentes instalaçãoes do Wordpress.
+Um aplicativo pode ser instalado uma ou mais vezes em um cluster Kubernetes e,em alguns casos, com o mesmo *namespace*. Por exemplo, o WordPress pode ser instalado mais de uma vez, sendo que diferentes sites são diferentes instalaçãoes do Wordpress.
 
-O nome da aplicação e o nome da instância são gravadas separadamente, Por exemplo, o Wordpress tem a`app.kubernetes.io/name` do `wordpress` enquanto tem o nome da instância representada por `app.kubernetes.io/instance` com o valor de `wordpress-abcxzy`. Isso permite que a aplicação e a instância da aplicação possa ser identificada. Toda instância de aplicação deve ter um nome único.
+O nome da aplicação e o nome da instância são gravadas separadamente, Por exemplo, o Wordpress tem a `app.kubernetes.io/name` do `wordpress` enquanto tem o nome da instância representada por `app.kubernetes.io/instance` com o valor de `wordpress-abcxzy`. Isso permite que a aplicação e a instância da aplicação possa ser identificada. Toda instância de aplicação deve ter um nome único.
 
 ## Exemplos
 
@@ -124,7 +124,7 @@ metadata:
 ...
 ```
 
-O MySQL é exposto como um StatefulSet com metadados para ele e para o aplicativo maior ao qual ele pertence: 
+O MySQL é exposto como um `StatefulSet` com metadados para ele e para o aplicativo maior ao qual ele pertence: 
 
 ```yaml
 apiVersion: apps/v1
