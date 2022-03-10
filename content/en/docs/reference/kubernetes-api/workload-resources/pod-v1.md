@@ -405,7 +405,7 @@ PodSpec is a description of a pod.
 
   - **securityContext.seccompProfile** (SeccompProfile)
 
-    The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+    The seccomp options to use by the containers in this pod. May also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="SeccompProfile"></a>
     *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
@@ -880,7 +880,7 @@ A single application container that you want to run within a pod.
 
   - **securityContext.seccompProfile** (SeccompProfile)
 
-    The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+    The seccomp options to use by this container. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 
     <a name="SeccompProfile"></a>
     *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
