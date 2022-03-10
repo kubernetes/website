@@ -85,10 +85,6 @@ The kubelet supports the following filesystem partitions:
 Kubelet auto-discovers these filesystems and ignores other filesystems. Kubelet
 does not support other configurations.
 
-{{<note>}}
-Some kubelet garbage collection features are deprecated in favor of eviction.
-For a list of the deprecated features, see [kubelet garbage collection deprecation](/docs/concepts/cluster-administration/kubelet-garbage-collection/#deprecation).
-{{</note>}}
 
 ### Eviction thresholds
 
