@@ -2,7 +2,7 @@
 title: 가비지(Garbage) 수집
 id: garbage-collection
 date: 2022-01-14
-full_link: /ko/docs/concepts/workloads/controllers/garbage-collection/
+full_link: /ko/docs/concepts/architecture/garbage-collection/
 short_description: >
   쿠버네티스가 클러스터 자원을 정리하기 위해 사용하는 다양한 방법을 종합한 용어이다.
 
