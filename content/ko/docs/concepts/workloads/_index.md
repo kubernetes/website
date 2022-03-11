@@ -70,7 +70,7 @@ _모든_ 파드가 가용한 경우가 아닌 경우 멈추고 싶다면(아마�
 
 다음은 쿠버네티스가 애플리케이션의 파드를 어떻게 관리하는지를 알 수 있게 해주는
 두 가지 개념이다.
-* [가비지(Garbage) 수집](/ko/docs/concepts/workloads/controllers/garbage-collection/)은 _소유하는 리소스_ 가
+* [가비지(Garbage) 수집](/ko/docs/concepts/architecture/garbage-collection/)은 _소유하는 리소스_ 가
   제거된 후 클러스터에서 오브젝트를 정리한다.
 * [_time-to-live after finished_ 컨트롤러](/ko/docs/concepts/workloads/controllers/ttlafterfinished/)는
   잡이 완료된 이후에 정의된 시간이 경과되면 잡을 제거한다.
