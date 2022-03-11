@@ -143,29 +143,8 @@ In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the
 
 First, create the Secret, requesting a token for the default ServiceAccount:
 
-```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Secret
-metadata:
-  name: default-token
-  annotations:
-    kubernetes.io/service-account.name: default
-type: kubernetes.io/service-account-token
-EOF
-```
-
-Next, wait for the token controller to populate the Secret with a token:
-
-```shell
-while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
-  echo "waiting for token..." >&2
-  sleep 1
-done
-```
-
-Capture and use the generated token:
 -->
+
 ### 不使用 kubectl proxy
 
 在 Kubernetes 1.3 或更高版本中，`kubectl config view` 不再显示 token。
@@ -183,6 +162,12 @@ metadata:
 type: kubernetes.io/service-account-token
 EOF
 ```
+
+<!--
+Next, wait for the token controller to populate the Secret with a token:
+
+Capture and use the generated token:
+-->
 接下来，等待令牌控制器使用令牌填充 Secret：
 ```shell
 while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
