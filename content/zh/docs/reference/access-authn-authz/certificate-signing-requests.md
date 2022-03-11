@@ -277,7 +277,7 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
 <!--
 1. `kubernetes.io/kubelet-serving`: signs serving certificates that are honored as a valid kubelet serving certificate
    by the API server, but has no other guarantees.
-   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
+   Never auto-approved by {{< glossary_tooltip term_id="kube-.
    1. Trust distribution: signed certificates must be honored by the kube-apiserver as valid to terminate connections to a kubelet. The CA bundle is not distributed by any other means.
    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
