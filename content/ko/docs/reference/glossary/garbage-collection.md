@@ -16,7 +16,7 @@ tags:
 <!--more-->
 
 쿠버네티스는 [사용되지 않는 컨테이너와 이미지](/ko/docs/concepts/workloads/controllers/garbage-collection/#containers-images),
-[실패한 파드](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection),
+[실패한 파드](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection),
 [타겟 리소스가 소유한 오브젝트](/docs/concepts/overview/working-with-objects/owners-dependents/),
 [종료된 잡](/ko/docs/concepts/workloads/controllers/ttlafterfinished/), 그리고
 만료되거나 실패한 리소스를 정리하기 위해 가비지 수집을 사용한다.
