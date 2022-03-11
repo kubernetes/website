@@ -153,7 +153,7 @@ command=GET
 ## Type=NodePort 类型 Services 的 Source IP
 
 
-从 Kubernetes 1.5 开始，发送给类型为 [Type=NodePort](/zh/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT。你可以通过创建一个 `NodePort` Service 来进行测试：
+从 Kubernetes 1.5 开始，发送给类型为 [Type=NodePort](/zh/docs/user-guide/services/#nodeport) Services 的数据包默认进行源地址 NAT。你可以通过创建一个 `NodePort` Service 来进行测试：
 
 ```console
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort

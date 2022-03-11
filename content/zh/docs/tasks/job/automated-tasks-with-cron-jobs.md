@@ -30,6 +30,7 @@ Cron jobs can also schedule individual tasks for a specific time, such as if you
 -->
 
 在Kubernetes v1.21 版本中，CronJob 被提升为通用版本。如果你使用的是旧版本的 Kubernetes，请参考你正在使用的 Kubernetes 版本的文档，这样你就能看到准确的信息。旧的 Kubernetes 版本不支持`batch/v1` CronJob API。
+
 你可以利用 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
 
 CronJobs 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。CronJobs 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
@@ -43,6 +44,7 @@ For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-j
 CronJobs 有一些限制和特点。
 例如，在特定状况下，同一个 CronJob 可以创建多个任务。
 因此，任务应该是幂等的。
+
 查看更多限制，请参考 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs)。
 
 ## {{% heading "prerequisites" %}}
@@ -134,16 +136,14 @@ hello   */1 * * * *   False     0        50s             75s
 ```
 
 <!--
-You should see that the cron job "hello" successfully scheduled a job at the time specified in `LAST-SCHEDULE`.
-There are currently 0 active jobs, meaning that the job has completed or failed.
+You should see that the cron job `hello` successfully scheduled a job at the time specified in `LAST SCHEDULE`. There are currently 0 active jobs, meaning that the job has completed or failed.
 
 Now, find the pods that the last scheduled job created and view the standard output of one of the pods.
-Note that the job name and pod name are different.
 -->
-你应该能看到 “hello” CronJob 在 `LAST-SCHEDULE` 声明的时间点成功的调度了一次任务。
+你应该能看到 `hello` CronJob 在 `LAST SCHEDULE` 声明的时间点成功的调度了一次任务。
 有 0 个活跃的任务意味着任务执行完毕或者执行失败。
 
-现在，找到最后一次调度任务创建的 Pod 并查看一个 Pod 的标准输出。请注意任务名称和 Pod 名称是不同的。
+现在，找到最后一次调度任务创建的 Pod 并查看一个 Pod 的标准输出。
 
 <!--
 The job name and pod name are different.
@@ -165,6 +165,10 @@ Show pod log:
 ```shell
 kubectl logs $pods
 ```
+<!--
+The output is similar to this:
+-->
+输出与此类似：
 
 ```
 Fri Feb 22 11:02:09 UTC 2019
@@ -359,6 +363,6 @@ By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corres
 
 `.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit`是可选的。
 这两个字段指定应保留多少已完成和失败的任务。
-默认设置为3和1。限制设置为0代表相应类型的任务完成后不会保留。
+默认设置为3和1。限制设置为 `0` 代表相应类型的任务完成后不会保留。
 
 
