@@ -684,8 +684,8 @@ Before you start an upgrade, please back up your etcd cluster first.
 {{< /note >}}
 -->
 ## 升级 etcd 集群
-有关 etcd 升级的更多详细信息，请参阅 [etcd 升级](https://etcd.io/docs/latest/upgrades/) 文档。
+有关 etcd 升级的更多详细信息，请参阅 [etcd 升级](https://etcd.io/docs/latest/upgrades/)文档。
 {{< note >}}
-在开始升级之前，请先备份您的 etcd 集群。
+在开始升级之前，请先备份你的 etcd 集群。
 {{< /note >}}
 
