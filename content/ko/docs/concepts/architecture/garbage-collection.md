@@ -62,14 +62,14 @@ v1.20 이상에서, 가비지 수집기가 잘못된 교차 네임스페이스 `
 이 과정을 `캐스케이딩 삭제`라고 한다.
 캐스케이딩 삭제에는 다음과 같은 두 가지 종류가 있다.
 
-  * 포어그라운드 캐스케이딩 삭제(Foreground cascading deletion)
+  * 포그라운드 캐스케이딩 삭제(Foreground cascading deletion)
   * 백그라운드 캐스케이딩 삭제(Background cascading deletion)
 
 또한 쿠버네티스의 {{<glossary_tooltip text="finalizers" term_id="finalizer">}}를 사용하여 가비지 수집이 소유자 참조가 있는 자원을 언제 어떻게 삭제할 것인지 제어할 수 있다.
 
-### 포어그라운드 캐스케이딩 삭제 {#foreground-deletion}
+### 포그라운드 캐스케이딩 삭제 {#foreground-deletion}
 
-포어그라운드 캐스케이딩 삭제에서는 삭제하려는 소유자 오브젝트가 먼저
+포그라운드 캐스케이딩 삭제에서는 삭제하려는 소유자 오브젝트가 먼저
 *삭제 중* 상태가 된다. 이 상태에서는 소유자 오브젝트에게 다음과 같은 일이
 일어난다:
 
@@ -83,7 +83,7 @@ v1.20 이상에서, 가비지 수집기가 잘못된 교차 네임스페이스 `
 모든 종속 오브젝트들이 삭제되고나면, 컨트롤러가 소유자 오브젝트를 삭제한다.
 이 시점에서 오브젝트는 더 이상 쿠버네티스 API를 통해 조회할 수 없다.
 
-포어그라운드 캐스케이딩 삭제 중에 소유자 오브젝트의 삭제를 막는
+포그라운드 캐스케이딩 삭제 중에 소유자 오브젝트의 삭제를 막는
 종속 오브젝트는`ownerReference.blockOwnerDeletion=true`필드를 가진 오브젝트다.
 더 자세한 내용은 [Use foreground cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)를
 참고한다.
@@ -92,7 +92,7 @@ v1.20 이상에서, 가비지 수집기가 잘못된 교차 네임스페이스 `
 
 백그라운드 캐스케이딩 삭제에서는 쿠버네티스 API 서버가 소유자 오브젝트를 즉시 삭제하고
 백그라운드에서 컨트롤러가 종속 오브젝트들을 삭제한다.
-쿠버네티스는 수동으로 포어그라운드 삭제를 사용하거나 종속 오브젝트를 분리하지 않는다면, 기본적으로 백그라운드 캐스케이딩 삭제를 사용한다.
+쿠버네티스는 수동으로 포그라운드 삭제를 사용하거나 종속 오브젝트를 분리하지 않는다면, 기본적으로 백그라운드 캐스케이딩 삭제를 사용한다.
 
 더 자세한 내용은 [Use background cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)를
 참고한다.
@@ -118,7 +118,7 @@ v1.20 이상에서, 가비지 수집기가 잘못된 교차 네임스페이스 `
 
 ### 컨테이너 이미지 라이프사이클
 
-쿠버네티스는 Kubelet의 일부인 *이미지 관리자*가 cadvisor와 협동하여
+쿠버네티스는 Kubelet의 일부인 *이미지 관리자*가 {{< glossary_tooltip text="cadvisor" term_id="cadvisor" >}}와 협동하여
 모든 이미지의 라이프사이클을 관리한다.
 Kubelet은 가비지 수집 결정을 내릴 때, 다음 디스크 사용량 제한을 고려한다.
 
@@ -148,7 +148,7 @@ Kubelet은 사용자가 정의할 수 있는 다음 변수들을 기반으로 �
 서로 충돌이 발생할 수 있다.
 이 상황에서 Kubelet은 충돌을 해결하기 위해 `MaxPodPerContainer`를 조절한다.
 최악의 시나리오에서는 `MaxPerPodContainer`를 `1`로 다운그레이드하고
-가장 오래된 컨테이너들을 쫓아낸다.
+가장 오래된 컨테이너들을 축출한다.
 또한, 삭제된 파드가 소유한 컨테이너들은 `MinAge`보다 오래되었을 때 삭제된다.
 
 {{<note>}}
