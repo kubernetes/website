@@ -170,9 +170,9 @@ The supported formats for the `<service_name>` segment of the URL are:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
 如果还没有为你的端口指定名称，你可以不用在 URL 中指定 *port_name*。
-对于命名和未命名端口，您还可以使用端口号代替 *port_name*。
+对于命名和未命名端口，你还可以使用端口号代替 *port_name*。
 
-默认情况下，API 服务器使用 HTTP 代理您的服务。 要使用 HTTPS，请在服务名称前加上 `https:`：
+默认情况下，API 服务器使用 HTTP 为你的服务提供代理。 要使用 HTTPS，请在服务名称前加上 `https:`：
 `http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
 URL 的 `<service_name>` 段支持的格式为：
 * `<service_name>` - 使用 http 代理到默认或未命名端口
