@@ -26,7 +26,7 @@ to understand the problem better.
 自从 Kubernetes 1.20 宣布
 [弃用 dockershim](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)，
 各类疑问随之而来：这对各类工作负载和 Kubernetes 部署会产生什么影响。
-我们的 [弃用  Dockershim 常见问题](/blog/2022/02/17/dockershim-faq/) 可以帮助你更好地理解这个问题。
+我们的[弃用  Dockershim 常见问题](/blog/2022/02/17/dockershim-faq/)可以帮助你更好地理解这个问题。
 
 <!-- It is recommended to migrate from dockershim to alternative container runtimes.
 Check out [container runtimes](/docs/setup/production-environment/container-runtimes/)
