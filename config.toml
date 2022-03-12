@@ -489,7 +489,7 @@ language_alternatives = ["en"]
 [languages.bn]
 title = "Kubernetes"
 description = "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
-languageName = "Bengali"
+languageName = "বাংলা Bengali"
 weight = 15
 contentDir = "content/bn"
 languagedirection = "ltr"
