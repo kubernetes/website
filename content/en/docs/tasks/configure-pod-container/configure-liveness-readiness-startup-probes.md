@@ -59,7 +59,7 @@ and restarts it.
 When the container starts, it executes this command:
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 For the first 30 seconds of the container's life, there is a `/tmp/healthy` file.
