@@ -39,7 +39,7 @@ mutating admission controllers are run. In the second phase, validating
 admission controllers are run. Note again that some of the controllers are
 both.
 
-If any of the controllers in either phase reject the request, the entire
+If any of the controllers in either phase rejects the request, the entire
 request is rejected immediately and an error is returned to the end-user.
 
 Finally, in addition to sometimes mutating the object in question, admission
