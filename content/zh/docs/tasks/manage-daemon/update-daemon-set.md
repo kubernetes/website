@@ -73,7 +73,8 @@ You may want to set
 你可能想设置
 [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh/docs/concepts/workloads/controllers/deployment/#max-unavailable) (默认为 1)，
 [`.spec.minReadySeconds`](/zh/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (默认为 0) 和
-[`.spec.updateStrategy.rollingUpdate.maxSurge`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (一种 Beta 阶段的特性，默认为 0) 
+[`.spec.updateStrategy.rollingUpdate.maxSurge`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
+（一种 Beta 阶段的特性，默认为 0）。 
 
 <!--
 ### Creating a DaemonSet with `RollingUpdate` update strategy
