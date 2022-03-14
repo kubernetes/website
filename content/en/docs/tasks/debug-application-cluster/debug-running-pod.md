@@ -73,6 +73,8 @@ For more details, see [Get a Shell to a Running Container](
 
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
+<!-- TODO(@verb): Document debug profiles -->
+
 {{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
