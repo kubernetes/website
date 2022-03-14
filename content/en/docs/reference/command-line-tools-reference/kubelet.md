@@ -297,7 +297,7 @@ kubelet [flags]
 <td colspan="2">--dynamic-config-dir string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The Kubelet will use this directory for checkpointing downloaded configurations and tracking configuration health. The Kubelet will create this directory if it does not already exist. The path may be absolute or relative; relative paths start at the Kubelet's current working directory. Providing this flag enables dynamic Kubelet configuration. The <code>DynamicKubeletConfig</code> feature gate must be enabled to pass this flag. (DEPRECATED: Feature DynamicKubeletConfig is deprecated in 1.22 and will not move to GA. It is planned to be removed from Kubernetes in the version 1.23. Please use alternative ways to update kubelet configuration.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">The Kubelet will use this directory for checkpointing downloaded configurations and tracking configuration health. The Kubelet will create this directory if it does not already exist. The path may be absolute or relative; relative paths start at the Kubelet's current working directory. Providing this flag enables dynamic Kubelet configuration. The <code>DynamicKubeletConfig</code> feature gate must be enabled to pass this flag. (DEPRECATED: Feature DynamicKubeletConfig is deprecated in 1.22 and will not move to GA. It is planned to be removed from Kubernetes in the version 1.24 or later. Please use alternative ways to update kubelet configuration.)</td>
 </tr>
 
 <tr>
