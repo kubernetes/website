@@ -119,9 +119,9 @@ The following methods exist for installing kubectl on Windows:
    kubectl version --client
    ```
    或者使用下面命令来查看版本的详细信息：
-    ```cmd
-     kubectl version --client --output=yaml     
-    ```
+   ```cmd
+   kubectl version --client --output=yaml     
+   ```
 
 
 <!-- 
