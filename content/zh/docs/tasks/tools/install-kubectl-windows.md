@@ -106,17 +106,23 @@ The following methods exist for installing kubectl on Windows:
      ```
 
    <!-- 
-   1. Add the binary in to your `PATH`.
+   1. Append or prepend the kubectl binary folder to your `PATH` environment variable.
 
    1. Test to ensure the version of `kubectl` is the same as downloaded:
+      Or use this for detailed view of version:
    -->
-1. 将可执行文件的路径添加到 `PATH`。
+1. 将 kubectl 二进制文件夹附加或添加到你的 `PATH` 环境变量中。
 
 1. 测试一下，确保此 `kubectl` 的版本和期望版本一致：
 
    ```cmd
    kubectl version --client
    ```
+   或者使用下面命令来查看版本的详细信息：
+    ```cmd
+     kubectl version --client --output=yaml     
+    ```
+
 
 <!-- 
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to `PATH`.
@@ -289,11 +295,11 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
      ```
 
 <!--
-1. Add the binary in to your `PATH`.
+1.  Append or prepend the kubectl binary folder to your `PATH` environment variable.
 
 1. Verify plugin is successfully installed
 -->
-1. 将可执行文件添加到你的 `PATH` 环境变量。
+1. 将 kubectl 二进制文件夹附加或添加到你的 `PATH` 环境变量中。
 
 1. 验证插件是否安装成功
 
