@@ -328,7 +328,7 @@ adding the labels manually (or adding support for `PersistentVolumeLabel`). With
 在 Node 上：`kubelet` 或外部`cloud-controller-manager` 使用 `cloudprovider` 提供的信息填充它。仅当你使用 `cloudprovider` 时才会设置此项。
 但是，如果它在你的拓扑中有意义，你应该考虑在 Node 上设置它。
 
-在 PersistentVolume 上：拓扑感知卷配置器将自动在 `PersistentVolumes` 上设置 Node 亲和性约束。
+在 PersistentVolume 上：拓扑感知卷配置器将自动在 `PersistentVolume` 上设置 Node 亲和性约束。
 
 一个 Zone 代表一个逻辑故障域。 Kubernetes 集群通常跨越多个 Zone 以提高可用性。虽然 Zone 的确切定义留给基础设施实现，
 但 Zone 的常见属性包括 Zone 内非常低的网络延迟、 Zone 内的免费网络流量以及与其他 Zone 的故障独立性。
@@ -340,9 +340,9 @@ adding the labels manually (or adding support for `PersistentVolumeLabel`). With
 
 Kubernetes 对 Zone 和 Region 的结构做了一些假设：
 
-1) Zone 和 Region 是分层的： Zone 是 Region 的严格子集，没有 Zone 可以在两个 Region 中
+1. Zone 和 Region 是分层的： Zone 是 Region 的严格子集，没有 Zone 可以在两个 Region 中
 
-2) Zone 名称跨 Region 是唯一的；例如， Region “africa-east-1”可能由 Zone “africa-east-1a”和“africa-east-1b”组成
+2. Zone 名称跨 Region 是唯一的；例如， Region “africa-east-1”可能由 Zone “africa-east-1a”和“africa-east-1b”组成
 
 假设拓扑标签不会改变应该是安全的。尽管标签是严格可变的，但它们的消费者可以假设给定 Node 不会在 Zone 之间移动而不会被销毁和重新创建。
 
@@ -354,7 +354,7 @@ _SelectorSpreadPriority_ 是一个尽力而为的布局。如果集群中的 Zon
 
 调度程序（通过 _VolumeZonePredicate_ 谓词）还将确保声明给定卷的 Pod 仅布局在与该卷相同的 Zone 中。卷不能跨 Zone 挂接。
 
-如果 `PersistentVolumeLabel` 不支持你的 PersistentVolumes 的自动标签，你应该考虑手动添加标签（或添加对 `PersistentVolumeLabel` 的支持）。使用 `PersistentVolumeLabel` ，
+如果 `PersistentVolumeLabel` 不支持你的 PersistentVolume 的自动标签，你应该考虑手动添加标签（或添加对 `PersistentVolumeLabel` 的支持）。使用 `PersistentVolumeLabel` ，
 调度程序可以防止 Pod 将卷安装在不同的 Zone 中。如果你的基础架构没有此限制，则根本不需要将 Zone 标签添加到卷中。
 
 <!--
@@ -478,7 +478,7 @@ The kube-proxy has this label for custom proxy, which delegates service control 
 
 用于：Endpoint
 
-可以在 Endpoints 资源上将标签设置为 `"true"` ，以指示 EndpointSliceMirroring 控制器不应使用 EndpointSlices 镜像此资源。
+可以在 Endpoint 资源上将标签设置为 `"true"` ，以指示 EndpointSliceMirroring 控制器不应使用 EndpointSlice 镜像此资源。
 
 ### service.kubernetes.io/service-proxy-name {#servicekubernetesioservice-proxy-name}
 
