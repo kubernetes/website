@@ -7,13 +7,9 @@ content_type: task
 This page shows how to change the reclaim policy of a Kubernetes
 PersistentVolume.
 
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -81,8 +77,6 @@ kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\"
     `default/claim3` has reclaim policy `Retain`. It will not be automatically
     deleted when a user deletes claim `default/claim3`.
 
-
-
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
@@ -91,8 +85,6 @@ kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\"
 ### References {#reference}
 
 * {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
-  * Pay attention to the `.spec.persistentVolumeReclaimPolicy` [field](https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec) of PersistentVolume.
+  * Pay attention to the `.spec.persistentVolumeReclaimPolicy` [field](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec) of PersistentVolume.
 * {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
-
-
 
