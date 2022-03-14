@@ -208,3 +208,71 @@ You can disable this feature by removing the DaemonSet, using `kubectl delete -f
 此 Pod 在缓存模式下运行 [CoreDNS](https://github.com/coredns/coredns) ，因此每个节点都可以使用不同插件公开的所有 CoreDNS 指标。
 
 如果要禁用该功能，你可以使用 `kubectl delete -f <manifest>` 来删除 DaemonSet。你还应该恢复你对 kubelet 配置所做的所有改动。
+
+<!--
+## StubDomains and Upstream server Configuration
+-->
+## 存根域和上游服务器配置
+
+<!--
+StubDomains and upstream servers specified in the `kube-dns` ConfigMap in the `kube-system` namespace
+are automatically picked up by `node-local-dns` pods. The ConfigMap contents need to follow the format
+shown in [the example](/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1).
+The `node-local-dns` ConfigMap can also be modified directly with the stubDomain configuration
+in the Corefile format. Some cloud providers might not allow modifying `node-local-dns` ConfigMap directly.
+In those cases, the `kube-dns` ConfigMap can be updated.
+-->
+在 `kube-system` 命名空间中的 `kube-dns` ConfigMap 中指定的存根域以及上游服务器，会被 `node-local-dns` pods 自动采用。
+其中，ConfigMap 的内容需要遵循[示例](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#示例-1)中的格式。
+也可以将存根域的配置以 Corefile 的格式直接写入 `node-local-dns` ConfigMap 中。不过一些云供应商可能会不允许直接修改 `node-local-dns` ConfigMap，在那种情况下，可以转而更新 `kube-dns` ConfigMap。
+
+<!--
+## Setting memory limits
+-->
+## 设置内存限制
+
+<!--
+node-local-dns pods use memory for storing cache entries and processing queries. Since they do not watch Kubernetes objects, the cluster size or the number of Services/Endpoints do not directly affect memory usage. Memory usage is influenced by the DNS query pattern.
+From [CoreDNS docs](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
+> The default cache size is 10000 entries, which uses about 30 MB when completely filled.
+
+This would be the memory usage for each server block (if the cache gets completely filled).
+Memory usage can be reduced by specifying smaller cache sizes.
+-->
+node-local-dns pods 使用内存来缓存记录和处理查询请求。因为不需要监视 Kubernetes 对象，所以集群的规模或是 Services/Endpoints 的数量不会直接影响内存用量。内存用量受 DNS 查询模式的影响。
+[CoreDNS 文档](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md)中有以下描述，
+> 默认缓存大小为 10000 条记录，当填满时将会使用大约 30 MB 内存。
+
+这会是每个服务器的内存用量(如果缓存被填满的话)。可以通过缩小缓存大小来减少内存用量。
+
+<!--
+The number of concurrent queries is linked to the memory demand, because each extra
+goroutine used for handling a query requires an amount of memory. You can set an upper limit
+using the `max_concurrent` option in the forward plugin.
+-->
+因为每一个额外的用于处理一次查询请求的 goroutine 都会消耗一定量的内存，所以同时发生的查询数会影响内存需求。
+你可以通过设置转发插件中的 `max_concurrent` 选项来设置查询数的上限。
+
+<!--
+If a node-local-dns pod attempts to use more memory than is available (because of total system
+resources, or because of a configured
+[resource limit](/docs/concepts/configuration/manage-resources-containers/)), the operating system
+may shut down that pod's container.
+If this happens, the container that is terminated (“OOMKilled”) does not clean up the custom
+packet filtering rules that it previously added during startup.
+The node-local-dns container should get restarted (since managed as part of a DaemonSet), but this
+will lead to a brief DNS downtime each time that the container fails: the packet filtering rules direct
+DNS queries to a local Pod that is unhealthy.
+-->
+如果一个 node-local-dns pod 尝试使用的内存超出了可用范围 (因为系统资源总量的限制，或是配置了[资源限制](/zh/docs/concepts/configuration/manage-resources-containers/))，操作系统可能会关停该 pod 的容器。
+在这种情况下，被关停的容器 (“OOMKilled”) 不会清理它于启动时添加的自定义包过滤规则。
+关停之后 node-local-dns 容器应会自动启动 (因为它是 DaemonSet 的一部分)，但是每一次的关停都会导致DNS短时间的停工，因为：包过滤规则将 DNS 查询请求传给了一个不健康的本地 Pod。
+
+<!--
+You can determine a suitable memory limit by running node-local-dns pods without a limit and
+measuring the peak usage. You can also set up and use a
+[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler)
+in _recommender mode_, and then check its recommendations.
+-->
+你可以通过运行无限制的 node-local-dns pods 并计测内存峰值用量的方式来决定一个合适的内存限制。
+你也可以设置并使用 _recommender 模式_ 的 [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler)，然后检查其推荐。
