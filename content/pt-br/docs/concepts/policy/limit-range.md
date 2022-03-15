@@ -1,5 +1,5 @@
 ---
-title: Limit Ranges
+title: Intervalos de limite
 content_type: concept
 weight: 10
 ---
@@ -19,7 +19,7 @@ Um _LimitRange_ fornece restrições que podem:
 
 ## Ativando o LimitRange
 
-O suporte a _LimitRange_ foi ativado por padrão desde o Kubernetes 1.10.
+O suporte ao _LimitRange_ foi ativado por padrão desde o Kubernetes 1.10.
 
 Um _LimitRange_ é aplicado em um _namespace_ específico quando há um objeto _LimitRange_ nesse _namespace_.
 
@@ -30,16 +30,16 @@ O nome de um objeto _LimitRange_ deve ser um [nome de subdomínio DNS](/docs/con
 - O administrador cria um _LimitRange_ em um _namespace_.
 - Os usuários criam recursos como pods, contêineres e _PersistentVolumeClaims_ no _namespace_.
 - O controlador de admissão `LimitRanger` impõe padrões e limites para todos os pods e contêineres que não definem os requisitos de recursos computacionais e rastreia o uso para garantir que não exceda o mínimo, o máximo e a proporção de recursos definidos em qualquer _LimitRange_ presente no _namespace_.
-- Se estiver criando ou atualizando um recurso (Pod, Container, _PersistentVolumeClaim_) que viola uma restrição LimitRange, a solicitação ao servidor da API falhará com um código de status HTTP `403 FORBIDDEN` e uma mensagem explicando a restrição violada.
+- Se estiver criando ou atualizando um recurso (Pod, Container, _PersistentVolumeClaim_) que viola uma restrição _LimitRange_, a solicitação ao servidor da API falhará com um código de status HTTP `403 FORBIDDEN` e uma mensagem explicando a restrição violada.
 - Se um _LimitRange_ for ativado em um _namespace_ para recursos computacionais como `cpu` e `memória`, os usuários deverão especificar solicitações ou limites para esses valores. Caso contrário, o sistema pode rejeitar a criação do pod.
 - As validações de _LimitRange_ ocorrem apenas no estágio de Admissão de Pod, não em Pods em Execução.
 
-Alguns exemplos de politicas que podem ser criadas utilizando os intervalos de limite são:
+Alguns exemplos de políticas que podem ser criadas utilizando os intervalos de limite são:
 
 - Em um cluster de 2 nós com capacidade de 8 GiB de RAM e 16 núcleos, restrinja os Pods em um namespace para solicitar 100m de CPU com um limite máximo de 500m para CPU e solicitar 200Mi para memória com um limite máximo de 600Mi para memória.
 - Defina o limite e a solicitação de CPU padrão para 150m e a solicitação padrão de memória para 300Mi para contêineres iniciados sem solicitações de CPU e memória em suas especificações.
 
-Caso os limites totais do namespace sejam menores que a soma dos limites dos Pods/Contêineres, pode haver contenção por recursos. Nesse caso, os contêiners ou Pods não serão criados.
+Caso os limites totais do namespace sejam menores que a soma dos limites dos Pods/Contêineres, pode haver contenção por recursos. Nesse caso, os contêineres ou Pods não serão criados.
 
 Nem a contenção nem as alterações em um _LimitRange_ afetarão os recursos já criados.
 
@@ -49,10 +49,10 @@ Consulte o [documento de design LimitRanger](https://git.k8s.io/community/contri
 
 Para exemplos de uso de limites, leia:
 
-- [Como configurar restrições mínimas e máximas de CPU por _namespace_](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-_namespace_/).
-- [Como configurar restrições de memória mínima e máxima por _namespace_](/docs/tasks/administer-cluster/manage-resources/memory-constraint-_namespace_/).
-- [como configurar solicitações e limites de CPU padrão por _namespace_](/docs/tasks/administer-cluster/manage-resources/cpu-default-_namespace_/).
-- [como configurar solicitações e limites de memória padrão por _namespace_](/docs/tasks/administer-cluster/manage-resources/memory-default-_namespace_/).
+- [Como configurar restrições mínimas e máximas de CPU por _namespace_](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/).
+- [Como configurar restrições de memória mínima e máxima por _namespace_](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/).
+- [como configurar solicitações e limites de CPU padrão por _namespace_](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/).
+- [como configurar solicitações e limites de memória padrão por _namespace_](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
 - [como configurar o consumo mínimo e máximo de armazenamento por _namespace_](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage).
-- Um [exemplo detalhado de configuração de cota por _namespace_](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-_namespace_/).
+- Um [exemplo detalhado de configuração de cota por _namespace_](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/).
 

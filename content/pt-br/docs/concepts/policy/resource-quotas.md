@@ -1,5 +1,5 @@
 ---
-title: Resource Quotas
+title: Cotas de Recursos
 content_type: concept
 weight: 20
 ---
@@ -79,7 +79,7 @@ Tome o recurso GPU como exemplo, se o nome do recurso for `nvidia.com/gpu` e voc
 
 * `requests.nvidia.com/gpu: 4`
 
-Veja [Viewing and Setting Quotas](#viewing-and-setting-quotas) para mais informações.
+Veja [como visualizar e definir cotas](#viewing-and-setting-quotas) para mais informações.
 
 
 ## Cota de recursos de armazenamento
@@ -451,7 +451,7 @@ Esse recurso é beta e ativado por padrão. Você pode desativá-lo usando o [fe
 
 ## Solicitações comparadas aos limites {#requests-vs-limits}
 
-Ao alocar recursos compuacionais, cada contêiner pode especificar uma solicitação e um valor limite para CPU ou memória. A cota pode ser configurada para cotar qualquer valor.
+Ao alocar recursos computacionais, cada contêiner pode especificar uma solicitação e um valor limite para CPU ou memória. A cota pode ser configurada para cotar qualquer valor.
 
 Se a cota tiver um valor especificado para `requests.cpu` ou `requests.memory`, ela exigirá que cada container faça uma solicitação explícita para esses recursos. Se a cota tiver um valor especificado para `limits.cpu` ou `limits.memory`, em seguida exige que cada contêiner de entrada especifique um limite explícito para esses recursos.
 
@@ -639,11 +639,11 @@ Nesse caso, a criação de um pod será permitida se:
 1. O `priorityClassName` do pod é especificado com um valor diferente de `cluster-services`.
 1. O `priorityClassName` do pod está definido como `cluster-services`, ele deve ser criado no namespace `kube-system` e passou na verificação de cota de recursos.
 
-Uma solicitação de criação de pod é rejeitada se seu `priorityClassName` estiver definido como `cluster-services` e deve ser criado em um _namespace_ diferente de `kube-system`.
+Uma solicitação de criação de pod é rejeitada caso seu `priorityClassName` estiver definido como `cluster-services` e deve ser criado em um _namespace_ diferente de `kube-system`.
 
 ## {{% heading "whatsnext" %}}
 
 - Veja [Documento de design de ResourceQuota](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) para mais informações.
 - Veja um [exemplo detalhado de como usar a cota de recursos](/docs/tasks/administer-cluster/quota-api-object/).
 - Leia [documento de design de suporte de cota para prioridade de classe](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md).
-- Veja [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)
+- Veja [Recursos Limitados](https://github.com/kubernetes/kubernetes/pull/36765)
