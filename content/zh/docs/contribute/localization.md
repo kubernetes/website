@@ -501,7 +501,7 @@ Releases | [All heading and subheading URLs](/releases)
 安装 | [所有标题和副标题网址](/zh/docs/setup/)
 教程 | [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/), [Hello Minikube](/zh/docs/tutorials/hello-minikube/)
 网站字符串 | [所有网站字符串](#Site-strings-in-i18n)
-发布 | [所有标题和副标题 URL](/releases)
+发行版本 | [所有标题和副标题 URL](/releases)
 <!-- 
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source: 
 -->
@@ -626,11 +626,11 @@ Per CNCF policy, the localization teams must upload their meetings to the SIG Do
 
 -->
 
-### 特定语言的缩放会议
+### 特定语言的 Zoom 缩放会议
 
 如果本地化项目需要单独的会议时间， 
 请联系 SIG Docs 联合主席或技术主管以创建新的重复 Zoom 会议和日历邀请。 
-仅当团队足够大以维持并需要单独的会议时才需要这样做。
+仅当团队维持在足够大的规模并需要单独的会议时才需要这样做。
 
 根据 CNCF 政策，本地化团队必须将他们的会议上传到 SIG Docs YouTube 播放列表。
 SIG Docs 联合主席或技术主管可以帮助完成该过程，直到 SIG Docs 实现自动化。
