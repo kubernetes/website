@@ -340,31 +340,37 @@ Kubernetes 对 Zone 和 Region 的结构做了一些假设：
 <!--
 It should be safe to assume that topology labels do not change.  Even though labels are strictly mutable, consumers of them can assume that a given node is not going to be moved between zones without being destroyed and recreated.
 -->
-假设拓扑标签不会改变应该是安全的。尽管标签是严格可变的，但它们的消费者可以假设给定 Node 不会在不被销毁和重新创建的情况下在 Zone 之间移动。
+你可以大胆假设拓扑标签不会改变。尽管严格地讲标签是可变的，但节点的用户可以假设给定
+节点只能通过销毁和重新创建才能完成 Zone 间移动。
 
 <!--
 Kubernetes can use this information in various ways.  For example, the scheduler automatically tries to spread the Pods in a ReplicaSet across nodes in a single-zone cluster (to reduce the impact of node failures, see [kubernetes.io/hostname](#kubernetesiohostname)). With multiple-zone clusters, this spreading behavior also applies to zones (to reduce the impact of zone failures). This is achieved via _SelectorSpreadPriority_.
 -->
-Kubernetes 可以通过多种方式使用这些信息。例如，调度程序会自动尝试将 ReplicaSet 中的 Pod 分布在单 Zone 集群中的 Node 之间（为了减少 Node 故障的影响，请参阅 [kubernetes.io/hostname](#kubernetesiohostname)）。
-对于多 Zone 集群，这种传播行为也适用于 Zone （以减少 Zone 故障的影响）。这是通过_SelectorSpreadPriority_ 实现的。
+Kubernetes 可以通过多种方式使用这些信息。例如，调度程序会自动尝试将 ReplicaSet 中的 Pod
+分布在单 Zone 集群中的多个节点上（以便减少节点故障的影响，请参阅 [kubernetes.io/hostname](#kubernetesiohostname)）。
+对于多 Zone 集群，这种分布行为也适用于 Zone（以减少 Zone 故障的影响）。
+Zone 级别的 Pod 分布是通过 _SelectorSpreadPriority_ 实现的。
 
 <!--
 _SelectorSpreadPriority_ is a best effort placement. If the zones in your cluster are heterogeneous (for example: different numbers of nodes, different types of nodes, or different pod resource requirements), this placement might prevent equal spreading of your Pods across zones. If desired, you can use homogenous zones (same number and types of nodes) to reduce the probability of unequal spreading.
 -->
-_SelectorSpreadPriority_ 是一个尽力而为的布局。如果集群中的 Zone 是异构的（例如：不同数量的节点、不同类型的 Node 或不同的 Pod 资源需求），这种布局可能会阻止你的 Pod 跨 Zone 均匀分布。
-如果需要，你可以使用同质 Zone （相同数量和类型的节点）来减少不均匀分布的可能性。
+_SelectorSpreadPriority_ 是一个尽力而为的放置机制。如果集群中的 Zone 是异构的
+（例如：节点数量不同、节点类型不同或 Pod 资源需求有别等），这种放置机制可能会让你的
+Pod 无法实现跨 Zone 均匀分布。
+如果需要，你可以使用同质 Zone（节点数量和类型均相同）来减少不均匀分布的可能性。
 
 <!--
 The scheduler (through the _VolumeZonePredicate_ predicate) also will ensure that Pods, that claim a given volume, are only placed into the same zone as that volume. Volumes cannot be attached across zones.
 -->
-调度程序（通过 _VolumeZonePredicate_ 谓词）还将确保声明给定卷的 Pod 仅布局在与该卷相同的 Zone 中。卷不能跨 Zone 挂接。
+调度程序还将（通过 _VolumeZonePredicate_ 条件）确保申领给定卷的 Pod 仅被放置在与该卷相同的 Zone 中。
+卷不能跨 Zone 挂接。
 
 <!--
 If `PersistentVolumeLabel` does not support automatic labeling of your PersistentVolumes, you should consider
 adding the labels manually (or adding support for `PersistentVolumeLabel`). With `PersistentVolumeLabel`, the scheduler prevents Pods from mounting volumes in a different zone. If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
 -->
-如果 `PersistentVolumeLabel` 不支持你的 PersistentVolume 的自动标签，你应该考虑手动添加标签（或添加对 `PersistentVolumeLabel` 的支持）。使用 `PersistentVolumeLabel` ，
-调度程序可以防止 Pod 将卷安装在不同的 Zone 中。如果你的基础架构没有此限制，则根本不需要将 Zone 标签添加到卷中。
+你应该考虑手动添加标签（或添加对 `PersistentVolumeLabel` 的支持）。
+基于 `PersistentVolumeLabel` ，调度程序可以防止 Pod 挂载来自其他 Zone 的卷。如果你的基础架构没有此限制，则不需要将 Zone 标签添加到卷上。
 
 <!--
 ### volume.beta.kubernetes.io/storage-provisioner (deprecated)
@@ -394,7 +400,7 @@ This annotation will be added to dynamic provisioning required PVC.
 
 用于：PersistentVolumeClaim
 
-此注解将添加到动态配置所需的 PVC。
+此注解将被添加到根据需要动态制备的 PVC 上。
 
 <!--
 ### node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
@@ -413,7 +419,7 @@ The label's value is in the format "MajorVersion.MinorVersion.BuildNumber".
 
 用于：Node
 
-当 kubelet 在 Microsoft Windows 上运行时，它会自动标记其 Node 以记录正在使用的 Windows Server 的版本。
+当 kubelet 在 Microsoft Windows 上运行时，它会自动标记其所在节点以记录所使用的 Windows Server 的版本。
 
 标签的值采用 “MajorVersion.MinorVersion.BuildNumber” 格式。
 
@@ -432,7 +438,7 @@ The control plane adds this label to an Endpoints object when the owning Service
 
 用于：Service
 
-当拥有的 Service 是无头类型时，控制平面将此标签添加到 Endpoint 对象。
+当拥有的 Service 是无头类型时，控制平面将此标签添加到 Endpoints 对象。
 
 <!--
 ### kubernetes.io/service-name {#kubernetesioservice-name}
@@ -466,7 +472,8 @@ The label is used to indicate the controller or entity that manages an EndpointS
 
 用于：EndpointSlice
 
-用于指示管理 EndpointSlice 的控制器或实体。该标签旨在使不同的 EndpointSlice 对象能够由同一集群内的不同控制器或实体管理。
+用于标示管理 EndpointSlice 的控制器或实体。该标签旨在使不同的 EndpointSlice
+对象能够由同一集群内的不同控制器或实体管理。
 
 <!--
 ### endpointslice.kubernetes.io/skip-mirror {#endpointslicekubernetesioskip-mirror}
@@ -481,9 +488,10 @@ The label can be set to `"true"` on an Endpoints resource to indicate that the E
 
 例子：`endpointslice.kubernetes.io/skip-mirror="true"`
 
-用于：Endpoint
+用于：Endpoints
 
-可以在 Endpoint 资源上将标签设置为 `"true"` ，以指示 EndpointSliceMirroring 控制器不应使用 EndpointSlice 镜像此资源。
+可以在 Endpoints 资源上将此标签设置为 `"true"`，以指示 EndpointSliceMirroring
+控制器不应使用 EndpointSlice 镜像此 Endpoints 资源。
 
 <!--
 ### service.kubernetes.io/service-proxy-name {#servicekubernetesioservice-proxy-name}
@@ -511,14 +519,14 @@ Used on: Pod
 
 The annotation is used to run Windows containers with Hyper-V isolation. To use Hyper-V isolation feature and create a Hyper-V isolated container, the kubelet should be started with feature gates HyperVContainer=true and the Pod should include the annotation experimental.windows.kubernetes.io/isolation-type=hyperv.
 -->
-### experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
+### experimental.windows.kubernetes.io/isolation-type (已弃用) {#experimental-windows-kubernetes-io-isolation-type}
 
 例子：`experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
 用于：Pod
 
-注解用于运行具有 Hyper-V 隔离的 Windows 容器。要使用 Hyper-V 隔离功能并创建 Hyper-V 隔离容器，kubelet 应该以特性开关 HyperVContainer=true 启动，
-并且 Pod 应该包含注解 experimental.windows.kubernetes.io/isolation-type=hyperv。
+注解用于运行具有 Hyper-V 隔离的 Windows 容器。要使用 Hyper-V 隔离功能并创建 Hyper-V
+隔离容器，kubelet 启动时应该需要设置特性门控 HyperVContainer=true。
 
 <!--
 You can only set this annotation on Pods that have a single container.
@@ -526,7 +534,7 @@ Starting from v1.20, this annotation is deprecated. Experimental Hyper-V support
 -->
 {{< note >}}
 你只能在具有单个容器的 Pod 上设置此注解。
-从 v1.20 开始，此注解已弃用。 在 1.21 中删除了实验性 Hyper-V 支持。
+从 v1.20 开始，此注解已弃用。1.21 中删除了实验性 Hyper-V 支持。
 {{</note>}}
 
 <!--
@@ -544,7 +552,8 @@ When a single IngressClass resource has this annotation set to `"true"`, new Ing
 
 用于：IngressClass
 
-当单个 IngressClass 资源将此注解设置为 `"true"`时，未指定类的新 Ingress 资源将被分配此默认类。
+当单个 IngressClass 资源将此注解设置为 `"true"`时，新的未指定 Ingress 类的 Ingress
+资源将被设置为此默认类。
 
 <!--
 ### kubernetes.io/ingress.class (deprecated)
@@ -554,7 +563,7 @@ Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassN
 ### kubernetes.io/ingress.class (已弃用) {#kubernetes-io-ingress-class}
 
 {{< note >}}
-从 v1.18 开始，不推荐使用此注解以支持 `spec.ingressClassName`。
+从 v1.18 开始，不推荐使用此注解以鼓励使用 `spec.ingressClassName`。
 {{</note>}}
 
 <!--
@@ -573,7 +582,8 @@ resource without a class specified will be assigned this default class.
 
 用于：StorageClass
 
-当单个 StorageClass 资源将此注解设置为 `"true"` 时，未指定类的新 PersistentVolumeClaim 资源将被分配此默认类。
+当单个 StorageClass 资源将此注解设置为 `"true"` 时，新的未指定存储类的 PersistentVolumeClaim
+资源将被设置为此默认类。
 
 <!--
 ### alpha.kubernetes.io/provided-node-ip
@@ -594,8 +604,8 @@ When kubelet is started with the "external" cloud provider, it sets this annotat
 
 kubelet 可以在 Node 上设置此注解来表示其配置的 IPv4 地址。
 
-当 kubelet 使用“外部”云提供商启动时，它会在 Node 上设置此注解以表示从命令行标志 ( `--node-ip` ) 设置的 IP 地址。
-云控制器管理器通过云提供商验证此 IP 是否有效。
+当使用“外部”云驱动启动时，kubelet 会在 Node 上设置此注解以表示从命令行标志 ( `--node-ip` ) 设置的 IP 地址。
+云控制器管理器通过云驱动验证此 IP 是否有效。
 
 <!--
 ### batch.kubernetes.io/job-completion-index
@@ -613,7 +623,9 @@ created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/
 
 用于：Pod
 
-kube-controller-manager 中的 Job 控制器为使用 Indexed [完成模式](/zh/docs/concepts/workloads/controllers/job/#completion-mode) 创建的 Pod 设置此注解。
+kube-controller-manager 中的 Job 控制器为使用 Indexed
+[完成模式](/zh/docs/concepts/workloads/controllers/job/#completion-mode)创建的 Pod
+设置此注解。
 
 <!--
 ### kubectl.kubernetes.io/default-container
@@ -626,7 +638,8 @@ The value of the annotation is the container name that is default for this Pod. 
 
 例子：`kubectl.kubernetes.io/default-container: "front-end-app"`
 
-此注解的值是此 Pod 的默认容器名称。例如，没有 `-c` 或 `--container` 标志的 `kubectl logs` 或 `kubectl exec` 将使用此默认容器。
+此注解的值是此 Pod 的默认容器名称。例如，未指定 `-c` 或 `--container` 标志时执行
+`kubectl logs` 或 `kubectl exec` 命令将使用此默认容器。
 
 <!--
 ### endpoints.kubernetes.io/over-capacity
@@ -641,10 +654,11 @@ In Kubernetes clusters v1.22 (or later), the Endpoints controller adds this anno
 
 例子：`endpoints.kubernetes.io/over-capacity:truncated`
 
-用于：Endpoint
+用于：Endpoints
 
-在 Kubernetes 集群 v1.22（或更高版本）中，如果 Endpoint 资源超过 1000 个， Endpoint 控制器会将此注解添加到 Endpoint 资源。
-注解表示 Endpoint 资源已超出容量，并且已将 Endpoint 数截断为 1000。
+在 Kubernetes 集群 v1.22（或更高版本）中，如果 Endpoints 资源超过 1000 个，Endpoints
+控制器会将此注解添加到 Endpoints 资源。
+注解表示 Endpoints 资源已超出容量，并且已将 Endpoints 数截断为 1000。
 
 <!--
 ### batch.kubernetes.io/job-tracking
@@ -663,8 +677,8 @@ You should **not** manually add or remove this annotation.
 
 用于：Job
 
-作业上存在此注解表明控制平面正在[使用 Finalizer 追踪 Job](/zh/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)。
-你应该**不**手动添加或删除此注解。
+Job 上存在此注解表明控制平面正在[使用 Finalizer 追踪 Job](/zh/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)。
+你 **不** 可以手动添加或删除此注解。
 
 <!--
 ### scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
@@ -681,8 +695,9 @@ Use [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-tolera
 
 用于：Node
 
-此注解需要 [NodePreferAvoidPods 调度插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)被启用。该插件自 Kubernetes 1.22 起已弃用。
-请改用 [污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+此注解需要启用 [NodePreferAvoidPods 调度插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)。
+该插件自 Kubernetes 1.22 起已被弃用。
+请改用[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 
 **下面列出的污点总是在 Node 上使用**
 
@@ -709,7 +724,8 @@ Node 控制器通过监控 Node 的健康状况来检测 Node 是否准备就绪
 
 例子：`node.kubernetes.io/unreachable:NoExecute`
 
-Node 控制器将污点添加到与 [节点状况](/zh/docs/concepts/architecture/nodes/#condition) `Ready` 为 `Unknown` 对应的 Node。
+Node 控制器将此污点添加到对应[节点状况](/zh/docs/concepts/architecture/nodes/#condition) `Ready`
+为 `Unknown` 的 Node 上。
 
 <!--
 ### node.kubernetes.io/unschedulable
@@ -722,7 +738,7 @@ The taint will be added to a node when initializing the node to avoid race condi
 
 例子：`node.kubernetes.io/unschedulable:NoSchedule`
 
-在初始化 Node 以避免竞争条件时，污点将被添加到 Node 。
+在初始化 Node 期间，为避免竞争条件，此污点将被添加到 Node 上。
 
 <!--
 ### node.kubernetes.io/memory-pressure
@@ -736,7 +752,7 @@ The kubelet detects memory pressure based on `memory.available` and `allocatable
 例子：`node.kubernetes.io/memory-pressure:NoSchedule`
 
 kubelet 根据在 Node 上观察到的 `memory.available` 和 `allocatableMemory.available` 检测内存压力。
-然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/删除 Node 条件和污点。 
+然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/删除 Node 状况和污点。
 
 <!--
 ### node.kubernetes.io/disk-pressure
@@ -750,7 +766,7 @@ The kubelet detects disk pressure based on `imagefs.available`, `imagefs.inodesF
 例子：`node.kubernetes.io/disk-pressure:NoSchedule`
 
 kubelet 根据在 Node 上观察到的 `imagefs.available`、`imagefs.inodesFree`、`nodefs.available` 和 `nodefs.inodesFree`（仅限 Linux ）检测磁盘压力。
-然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/删除 Node 条件和污点。
+然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/删除 Node 状况和污点。
 
 <!--
 ### node.kubernetes.io/network-unavailable
@@ -763,7 +779,8 @@ This is initially set by the kubelet when the cloud provider used indicates a re
 
 例子：`node.kubernetes.io/network-unavailable:NoSchedule`
 
-当使用的云提供商指示需要额外的网络配置时，注解最初由 kubelet 设置。只有云上的路由配置正确，污点才会被云提供商移除。
+当使用的云驱动指示需要额外的网络配置时，此注解最初由 kubelet 设置。
+只有云上的路由被正确地配置了，此污点才会被云驱动移除
 
 <!--
 ### node.kubernetes.io/pid-pressure
@@ -776,8 +793,9 @@ The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PID
 
 例子：`node.kubernetes.io/pid-pressure:NoSchedule`
 
-kubelet 检查 `/proc/sys/kernel/pid_max` 大小的 D 值和 Kubernetes 在 Node 上消耗的 PID，以获取 `pid.available` 指标的可用 PID 数量。
-然后将该指标与在 kubelet 上设置的相应阈值进行比较，以确定是否应该添加/删除 Node 条件和污点。
+kubelet 检查 `/proc/sys/kernel/pid_max` 大小的 D 值和 Kubernetes 在 Node 上消耗的 PID，
+以获取可用 PID 数量，并将其作为 `pid.available` 指标值。
+然后该指标与在 kubelet 上设置的相应阈值进行比较，以确定是否应该添加/删除 Node 状况和污点。
 
 <!--
 ### node.cloudprovider.kubernetes.io/uninitialized
@@ -790,7 +808,8 @@ Sets this taint on a node to mark it as unusable, when kubelet is started with t
 
 例子：`node.cloudprovider.kubernetes.io/uninitialized:NoSchedule`
 
-在使用“外部”云提供商启动 kubelet 时，在 Node 上设置此污点以将其标记为不可用，直到来自 cloud-controller-manager 的控制器初始化此 Node，然后移除污点。
+在使用“外部”云驱动启动 kubelet 时，在 Node 上设置此污点以将其标记为不可用，直到来自
+cloud-controller-manager 的控制器初始化此 Node，然后移除污点。
 
 <!--
 ### node.cloudprovider.kubernetes.io/shutdown
@@ -803,7 +822,8 @@ If a Node is in a cloud provider specified shutdown state, the Node gets tainted
 
 例子：`node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
-如果 Node 处于云提供商指定的关闭状态，则 Node 会相应地被 `node.cloudprovider.kubernetes.io/shutdown` 和 `NoSchedule` 的污染效果污染。
+如果 Node 处于云驱动所指定的关闭状态，则 Node 会相应地被设置污点，对应的污点和效果为
+`node.cloudprovider.kubernetes.io/shutdown` 和 `NoSchedule`。
 
 <!--
 ### pod-security.kubernetes.io/enforce
@@ -826,10 +846,11 @@ for more information.
 
 用于：Namespace
 
-值**必须**是 `privileged` 、 `baseline` 或 `restricted` 之一，它们对应于
-[ Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别。具体来说，`enforce` 标签 _禁止_ 在带标签的 Namespace 中创建任何不符合指示级别概述要求的 Pod。
+值**必须**是 `privileged`、`baseline` 或 `restricted` 之一，它们对应于
+[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别。
+特别地，`enforce` 标签 **禁止** 在带标签的 Namespace 中创建任何不符合指示级别要求的 Pod。
 
-请参阅 [在 Namespace 级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/enforce-version
@@ -852,9 +873,9 @@ for more information.
 用于：Namespace
 
 值**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
-这决定了在验证提交的 Pod 时要应用的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 策略的版本。
+此注解决定了在验证提交的 Pod 时要应用的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)策略的版本。
 
-请参阅 [在命名空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/audit
@@ -877,10 +898,12 @@ for more information.
 
 用于：Namespace
 
-值**必须**是与 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别相对应的 `privileged`、`baseline` 或 `restricted` 之一。
-具体来说，`audit` 标签不会阻止在带标签的 Namespace 中创建不符合指示级别概述要求的 Pod，但会向该 Pod 添加审计注解。
+值**必须**是与 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别相对应的
+`privileged`、`baseline` 或 `restricted` 之一。
+具体来说，`audit` 标签不会阻止在带标签的 Namespace 中创建不符合指示级别要求的 Pod，
+但会向该 Pod 添加审计注解。
 
-请参阅 [在 Namespace 级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/audit-version
@@ -903,9 +926,9 @@ for more information.
 用于：Namespace
 
 值**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
-这决定了在验证提交的 Pod 时要应用的  [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)策略的版本。
+此注解决定了在验证提交的 Pod 时要应用的  [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)策略的版本。
 
-请参阅 [在 Namespace 级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/warn
@@ -930,11 +953,12 @@ for more information.
 
 用于：Namespace
 
-值**必须**是与 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)级别相对应的 `privileged`、`baseline` 或 `restricted` 之一。具体来说，
+值**必须**是与 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)级别相对应的
+`privileged`、`baseline` 或 `restricted` 之一。特别地，
 `warn` 标签不会阻止在带标签的 Namespace 中创建不符合指示级别概述要求的 Pod，但会在这样做后向用户返回警告。
 请注意，在创建或更新包含 Pod 模板的对象时也会显示警告，例如 Deployment、Jobs、StatefulSets 等。
 
-请参阅 [在 Namespace 级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/warn-version
@@ -958,10 +982,11 @@ for more information.
 用于：Namespace
 
 值**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
-这决定了在验证提交的 Pod 时要应用的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)策略的版本。请注意，在创建或更新包含 Pod 模板的对象时也会显示警告，
+此注解决定了在验证提交的 Pod 时要应用的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)策略的版本。
+请注意，在创建或更新包含 Pod 模板的对象时也会显示警告，
 例如 Deployment、Jobs、StatefulSets 等。
 
-请参阅 [在 Namespace 级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
@@ -976,8 +1001,10 @@ the settings you specify apply to all containers in that Pod.
 
 此注解自 Kubernetes v1.19 起已被弃用，将在 v1.25 中失效。
 要为 Pod 指定安全设置，请在 Pod 规范中包含 `securityContext` 字段。
-Pod 的 `.spec` 中的 [`securityContext`](/zh/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) 字段定义了 pod 级别的安全属性。
-当你 [指定 Pod 的安全上下文](/zh/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod) 时，你指定的设置适用于该 Pod 中的所有容器。
+Pod 的 `.spec` 中的 [`securityContext`](/zh/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+字段定义了 Pod 级别的安全属性。
+你[为 Pod 设置安全上下文](/zh/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod) 时，
+你所给出的设置适用于该 Pod 中的所有容器。
 
 <!--
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
@@ -991,7 +1018,8 @@ based on setting `securityContext` within the Pod's `.spec`.
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
 
 此注解自 Kubernetes v1.19 起已被弃用，将在 v1.25 中失效。
-教程 [使用 seccomp 限制容器的系统调用](/zh/docs/tutorials/clusters/seccomp/) 将引导你完成将 seccomp 配置文件应用于 Pod 或其容器的步骤。
+教程[使用 seccomp 限制容器的系统调用](/zh/docs/tutorials/clusters/seccomp/)将引导你完成将
+seccomp 配置文件应用于 Pod 或其容器的步骤。
 该教程介绍了在 Kubernetes 中配置 seccomp 的支持机制，基于在 Pod 的 `.spec` 中设置 `securityContext`。
 
 <!--
@@ -1003,7 +1031,7 @@ based on setting `securityContext` within the Pod's `.spec`.
 
 See more details on the [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/) page.
 -->
-## 用于审计的注解
+## 用于审计的注解    {#annonations-used-for-audit}
 
 - [`pod-security.kubernetes.io/exempt`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 - [`pod-security.kubernetes.io/enforce-policy`](/zh/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)

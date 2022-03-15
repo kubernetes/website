@@ -13,7 +13,7 @@ This page serves as a reference for the audit annotations of the kubernetes.io
 namespace. These annotations apply to `Event` object from API group
 `audit.k8s.io`.
 -->
-该页面作为 kubernetes.io Namespace的审计注解的参考。这些注解适用于 API 组 `audit.k8s.io` 中的 `Event` 对象。
+该页面作为 kubernetes.io 名字空间的审计注解的参考。这些注解适用于 API 组 `audit.k8s.io` 中的 `Event` 对象。
 
 <!--
 The following annotations are not used within the Kubernetes API. When you
@@ -24,8 +24,10 @@ The annotations apply to audit events. Audit events are different from objects i
 `events.k8s.io`).
 -->
 {{< note >}}
-Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh/docs/tasks/debug-application-cluster/audit/) 时，审计事件数据将使用 API 组 `audit.k8s.io` 中的 `Event` 写入。
-注解适用于审计事件。审计事件不同于 [事件 API ](/zh/docs/reference/kubernetes-api/cluster-resources/event-v1/)（API 组 `events.k8s.io`）中的对象。
+Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh/docs/tasks/debug-application-cluster/audit/)时，
+审计事件数据将使用 API 组 `audit.k8s.io` 中的 `Event` 写入。
+注解适用于审计事件。审计事件不同于[事件 API ](/zh/docs/reference/kubernetes-api/cluster-resources/event-v1/)
+（API 组 `events.k8s.io`）中的对象。
 {{</note>}}
 
 <!-- body -->
@@ -43,7 +45,8 @@ from the PodSecurity enforcement.
 
 例子：`pod-security.kubernetes.io/exempt: namespace`
 
-值**必须**是对应于 [Pod 安全豁免](/zh/docs/concepts/security/pod-security-admission/#exemptions) 维度的 `user`、`namespace` 或 `runtimeClass` 之一。
+值**必须**是对应于 [Pod 安全豁免](/zh/docs/concepts/security/pod-security-admission/#exemptions)维度的 
+`user`、`namespace` 或 `runtimeClass` 之一。
 此注解指示 PodSecurity 基于哪个维度的强制豁免执行。
 
 <!--
@@ -65,8 +68,10 @@ for more information.
 
 例子：`pod-security.kubernetes.io/enforce-policy: restricted:latest`
 
-值**必须**是对应于 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别的 `privileged:<version>` 、 `baseline:<version>` 、 `restricted:<version>`，
-附带**必须**是 `最新 `的版本或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。此注解通知有关在 PodSecurity 准入期间允许或拒绝 Pod 的执行级别。
+值**必须**是对应于 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别的
+`privileged:<版本>`、`baseline:<版本>`、`restricted:<版本>`，
+关联的版本**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
+此注解通知有关在 PodSecurity 准入期间允许或拒绝 Pod 的执行级别。
 
 有关详细信息，请参阅 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
 
@@ -91,6 +96,7 @@ for more information
 PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
 "example" must set securityContext.allowPrivilegeEscalation=false), ...`
 
-值详细说明审计策略违规，它包含违反的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)级别以及 PodSecurity 执行中违反的字段特定策略。
+注解值给出审计策略违规的详细说明，它包含所违反的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)级别以及
+PodSecurity 执行中违反的特定策略及对应字段。
 
 有关详细信息，请参阅 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
