@@ -34,7 +34,7 @@ Kubernetes {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}}
 这一抽象概念能够解决这两个问题。
 
 <!--
-Familiarity with [Pods](/docs/user-guide/pods) is suggested.
+Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 -->
 阅读本文前建议你熟悉一下 [Pods](/zh/docs/concepts/workloads/pods)。 
 
@@ -59,8 +59,8 @@ Docker 提供卷驱动程序，但是其功能非常有限。
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
 Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
-the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes; 
-however, Kubernetes does not destroy persistent volumes. 
+the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
+however, Kubernetes does not destroy persistent volumes.
 For any kind of volume in a given pod, data is preserved across container restarts.
 -->
 Kubernetes 支持很多类型的卷。
@@ -82,20 +82,35 @@ volume type used.
 <!--
 To use a volume, specify the volumes to provide for the Pod in `.spec.volumes`
 and declare where to mount those volumes into containers in `.spec.containers[*].volumeMounts`.
-A process in a container sees a filesystem view composed from their Docker
-image and volumes. The [Docker image](https://docs.docker.com/userguide/dockerimages/)
-is at the root of the filesystem hierarchy. Volumes mount at the specified paths within
-the image. Volumes can not mount onto other volumes or have hard links to
-other volumes. Each Container in the Pod's configuration must independently specify where to
-mount each volume.
+A process in a container sees a filesystem view composed from the initial contents of
+the {{< glossary_tooltip text="container image" term_id="image" >}}, plus volumes
+(if defined) mounted inside the container.
+The process sees a root filesystem that initially matches the contents of the container
+image.
+Any writes to within that filesystem hierarchy, if allowed, affect what that process views
+when it performs a subsequent filesystem access.
 -->
 使用卷时, 在 `.spec.volumes` 字段中设置为 Pod 提供的卷，并在
 `.spec.containers[*].volumeMounts` 字段中声明卷在容器中的挂载位置。
-容器中的进程看到的是由它们的 Docker 镜像和卷组成的文件系统视图。
-[Docker 镜像](https://docs.docker.com/userguide/dockerimages/) 
-位于文件系统层次结构的根部。各个卷则挂载在镜像内的指定路径上。
-卷不能挂载到其他卷之上，也不能与其他卷有硬链接。
+容器中的进程看到的文件系统视图是由它们的 {{< glossary_tooltip text="容器镜像" term_id="image" >}}
+的初始内容以及挂载在容器中的卷（如果定义了的话）所组成的。
+其中根文件系统同容器镜像的内容相吻合。
+任何在该文件系统下的写入操作，如果被允许的话，都会影响接下来容器中进程访问文件系统时所看到的内容。
+
+<!--
+Volumes mount at the [specified paths](#using-subpath) within
+the image.
+For each container defined within a Pod, you must independently specify where
+to mount each volume that the container uses.
+
+Volumes cannot mount within other volumes (but see [Using subPath](#using-subpath)
+for a related mechanism). Also, a volume cannot contain a hard link to anything in
+a different volume.
+-->
+卷中 [指定的路径](#using-subpath) 将会被挂载。
 Pod 配置中的每个容器必须独立指定各个卷的挂载位置。
+
+卷不能挂载到其他卷之上（不过存在一种相关的机制 [使用 subPath](#using-subpath)），也不能与其他卷有硬链接。
 
 <!--
 ## Types of Volumes
@@ -375,7 +390,7 @@ It redirects all plugin operations from the existing in-tree plugin to the
 `cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
 [OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster.
-You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack` 
+You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
 If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
 for all aspects of Cinder volume storage management.
@@ -1324,192 +1339,13 @@ For more details, see the [Portworx volume](https://github.com/kubernetes/exampl
 
 更多详情可以参考 [Portworx 卷](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md)。
 
-### projected
+### projected （投射）
 
 <!--
-A `projected` volume maps several existing volume sources into the same directory.
-
-Currently, the following types of volume sources can be projected:
+A projected volume maps several existing volume sources into the same
+directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
 -->
-`projected` 卷类型能将若干现有的卷来源映射到同一目录上。
-
-目前，可以映射的卷来源类型如下：
-
-- [`secret`](#secret)
-- [`downwardAPI`](#downwardapi)
-- [`configMap`](#configmap)
-- `serviceAccountToken`
-
-<!--
-All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
--->
-所有的卷来源需要和 Pod 处于相同的命名空间。
-更多详情请参考[一体化卷设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)。
-
-<!--
-#### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
--->
-
-#### 包含 Secret、downwardAPI 和 configMap 的 Pod 示例  {#example-configuration-secret-downwardapi-configmap}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: volume-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
-      readOnly: true
-  volumes:
-  - name: all-in-one
-    projected:
-      sources:
-      - secret:
-          name: mysecret
-          items:
-            - key: username
-              path: my-group/my-username
-      - downwardAPI:
-          items:
-            - path: "labels"
-              fieldRef:
-                fieldPath: metadata.labels
-            - path: "cpu_limit"
-              resourceFieldRef:
-                containerName: container-test
-                resource: limits.cpu
-      - configMap:
-          name: myconfigmap
-          items:
-            - key: config
-              path: my-group/my-config
-```
-
-<!--
-#### Example configuration: secrets with a non-default permission mode set {#example-configuration-secrets-nondefault-permission-mode}
--->
-
-下面是一个带有非默认访问权限设置的多个 secret 的 Pod 示例：
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: volume-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
-      readOnly: true
-  volumes:
-  - name: all-in-one
-    projected:
-      sources:
-      - secret:
-          name: mysecret
-          items:
-            - key: username
-              path: my-group/my-username
-      - secret:
-          name: mysecret2
-          items:
-            - key: password
-              path: my-group/my-password
-              mode: 511
-```
-<!--
-Each projected volume source is listed in the spec under `sources`. The
-parameters are nearly the same with two exceptions:
-
-* For secrets, the `secretName` field has been changed to `name` to be consistent
-  with ConfigMap naming.
-* The `defaultMode` can only be specified at the projected level and not for each
-  volume source. However, as illustrated above, you can explicitly set the `mode`
-  for each individual projection.
--->
-每个被投射的卷来源都在规约中的 `sources` 内列出。参数几乎相同，除了两处例外：
-
-* 对于 `secret`，`secretName` 字段已被变更为 `name` 以便与 ConfigMap 命名一致。
-* `defaultMode` 只能在整个投射卷级别指定，而无法针对每个卷来源指定。
-  不过，如上所述，你可以显式地为每个投射项设置 `mode` 值。
-
-<!--
-When the `TokenRequestProjection` feature is enabled, you can inject the token
-for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
-into a Pod at a specified path. Below is an example:
--->
-
-当开启 `TokenRequestProjection` 功能时，可以将当前
-[服务帐号](/zh/docs/reference/access-authn-authz/authentication/#service-account-tokens)
-的令牌注入 Pod 中的指定路径。
-下面是一个例子：
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: sa-token-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: token-vol
-      mountPath: "/service-account"
-      readOnly: true
-  volumes:
-  - name: token-vol
-    projected:
-      sources:
-      - serviceAccountToken:
-          audience: api
-          expirationSeconds: 3600
-          path: token
-```
-
-<!--
-The example Pod has a projected volume containing the injected service account
-token. This token can be used by a Pod's containers to access the Kubernetes API
-server. The `audience` field contains the intended audience of the
-token. A recipient of the token must identify itself with an identifier specified
-in the audience of the token, and otherwise should reject the token. This field
-is optional and it defaults to the identifier of the API server.
--->
-示例 Pod 具有包含注入服务帐户令牌的映射卷。
-该令牌可以被 Pod 中的容器用来访问 Kubernetes API 服务器。
-`audience` 字段包含令牌的预期受众。
-令牌的接收者必须使用令牌的受众中指定的标识符来标识自己，否则应拒绝令牌。
-此字段是可选的，默认值是 API 服务器的标识符。
-
-<!--
-The `expirationSeconds` is the expected duration of validity of the service account
-token. It defaults to 1 hour and must be at least 10 minutes (600 seconds). An administrator
-can also limit its maximum value by specifying the `-service-account-max-token-expiration`
-option for the API server. The `path` field specifies a relative path to the mount point
-of the projected volume.
--->
-`expirationSeconds` 是服务帐户令牌的有效期时长。
-默认值为 1 小时，必须至少 10 分钟（600 秒）。
-管理员还可以通过设置 API 服务器的 `--service-account-max-token-expiration` 选项来
-限制其最大值。
-`path` 字段指定相对于映射卷的挂载点的相对路径。
-
-{{< note >}}
-<!--
-A container using a projected volume source as a [subPath](#using-subpath) volume mount will not
-receive updates for those volume sources.
--->
-使用投射卷源作为 [subPath](#using-subpath) 卷挂载的容器将不会接收这些卷源的更新。
-{{< /note >}}
+投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考 [投射卷](/zh/docs/concepts/storage/projected-volumes/)。
 
 ### quobyte (已弃用) {#quobyte}
 
@@ -1542,11 +1378,11 @@ Quobyte 的 GitHub 项目包含以 CSI 形式部署 Quobyte 的
 
 <!--
 An `rbd` volume allows a
-[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) volume to mount into your
-Pod.  Unlike `emptyDir`, which is erased when a Pod is removed, the contents of
-a `rbd` volume are preserved and the volume is merely unmounted.  This
-means that a RBD volume can be pre-populated with data, and that data can
-be shared between pods.
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount
+into your Pod. Unlike `emptyDir`, which is erased when a pod is removed, the
+contents of an `rbd` volume are preserved and the volume is unmounted. This
+means that a RBD volume can be pre-populated with data, and that data can be
+shared between pods.
 -->
 `rbd` 卷允许将 [Rados 块设备](https://docs.ceph.com/en/latest/rbd/) 卷挂载到你的 Pod 中.
 不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`rbd` 卷的内容在删除 Pod 时
@@ -1554,20 +1390,21 @@ be shared between pods.
 这意味着 `rbd` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
 
 <!--
-You must have your own Ceph installation running before you can use RBD.
+You must have a Ceph installation running before you can use RBD.
 -->
-{{< caution >}}
+{{< note >}}
 在使用 RBD 之前，你必须安装运行 Ceph。
-{{< /caution >}}
+{{< /note >}}
 
 <!--
 A feature of RBD is that it can be mounted as read-only by multiple consumers
-simultaneously.  This means that you can pre-populate a volume with your dataset
-and then serve it in parallel from as many Pods as you need.  Unfortunately,
+simultaneously. This means that you can pre-populate a volume with your dataset
+and then serve it in parallel from as many pods as you need. Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode.
 Simultaneous writers are not allowed.
 
-See the [RBD example](https://github.com/kubernetes/examples/tree/master/volumes/rbd) for more details.
+See the [RBD example](https://github.com/kubernetes/examples/tree/master/volumes/rbd)
+for more details.
 -->
 RBD 的一个特性是它可以同时被多个用户以只读方式挂载。
 这意味着你可以用数据集预先填充卷，然后根据需要在尽可能多的 Pod 中并行地使用卷。
@@ -1575,6 +1412,59 @@ RBD 的一个特性是它可以同时被多个用户以只读方式挂载。
 
 更多详情请参考
 [RBD 示例](https://github.com/kubernetes/examples/tree/master/volumes/rbd)。
+
+<!--
+#### RBD CSI migration
+-->
+#### RBD CSI 迁移 {#rbd-csi-migration}
+
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+<!--
+The `CSIMigration` feature for `RBD`, when enabled, redirects all plugin
+operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
+glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this
+feature, the
+[Ceph CSI driver](https://github.com/ceph/ceph-csi)
+must be installed on the cluster and the `CSIMigration` and `csiMigrationRBD`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled.
+-->
+启用 RBD 的 `CSIMigration` 功能后，所有插件操作从现有的树内插件重定向到
+`rbd.csi.ceph.com` {{<glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序。
+要使用该功能，必须在集群内安装 [Ceph CSI driver](https://github.com/ceph/ceph-csi)
+并启用 `CSIMigration` 和 `csiMigrationRBD` 
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+
+<!--
+As a Kubernetes cluster operator that administers storage, here are the
+prerequisites that you must complete before you attempt migration to the
+RBD CSI driver:
+
+* You must install the Ceph CSI driver (`rbd.csi.ceph.com`), v3.5.0 or above,
+  into your Kubernetes cluster.
+* considering the `clusterID` field is a required parameter for CSI driver for
+  its operations, but in-tree StorageClass has `monitors` field as a required
+  parameter, a Kubernetes storage admin has to create a clusterID based on the
+  monitors hash ( ex:`#echo -n
+  '<monitors_string>' | md5sum`) in the CSI config map and keep the monitors
+  under this clusterID configuration.
+* Also, if the value of `adminId` in the in-tree Storageclass is different from
+ `admin`, the `adminSecretName` mentioned in the in-tree Storageclass has to be
+  patched with the base64 value of the `adminId` parameter value, otherwise this
+  step can be skipped.
+-->
+{{< note >}}
+作为一位管理存储的 Kubernetes 集群操作者，在尝试迁移到 RBD CSI 驱动前，你必须完成下列先决事项：
+
+* 你必须在集群中安装 v3.5.0 或更高版本的 Ceph CSI 驱动（`rbd.csi.ceph.com`）。
+* 因为 `clusterID` 是 CSI 驱动程序必需的参数，而树内存储类又将 `monitors` 作为一个必需的参数，
+  所以 Kubernetes 存储管理者需要根据 `monitors` 的哈希值
+  （例：`#echo -n '<monitors_string>' | md5sum`）来创建 `clusterID`，
+  并保持该 `monitors` 存在于该 `clusterID` 的配置中。
+* 同时，如果树内存储类的 `adminId` 的值与 `admin` 不同，那么其 `adminSecretName` 就需要
+  被修改成 `adminId` 的 base64 编码后的值。
+{{< /note >}}
 
 ### secret
 
@@ -1838,13 +1728,35 @@ To turn off the `vsphereVolume` plugin from being loaded by the controller manag
 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。
 
 <!--
+#### Portworx CSI migration
+-->
+#### Portworx CSI 迁移
+
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+<!--
+The `CSIMigration` feature for Portworx has been added but disabled by default in Kubernetes 1.23 since it's in alpha state.
+It redirects all plugin operations from the existing in-tree plugin to the
+`pxd.portworx.com` Container Storage Interface (CSI) Driver.
+[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)
+must be installed on the cluster.
+To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
+-->
+Kubernetes 1.23 中加入了 Portworx 的 `CSIMigration` 功能，但默认不会启用，因为该功能仍处于 alpha 阶段。
+该功能会将所有的插件操作从现有的树内插件重定向到
+`pxd.portworx.com` 容器存储接口（Container Storage Interface, CSI）驱动程序。
+集群中必须安装
+[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)。
+要启用此功能，请在 kube-controller-manager 和 kubelet 中设置 `CSIMigrationPortworx=true`。
+
+<!--
 ## Using subPath {#using-subpath}
 
 Sometimes, it is useful to share one volume for multiple uses in a single Pod.
 The `volumeMounts.subPath` property specifies a sub-path inside the referenced volume
 instead of its root.
 -->
-## 使用 subPath  {#using-path}
+## 使用 subPath  {#using-subpath}
 
 有时，在单个 Pod 中共享卷以供多方使用是很有用的。
 `volumeMounts.subPath` 属性可用于指定所引用的卷内的子路径，而不是其根路径。
@@ -1934,6 +1846,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
+      # 包裹变量名的是小括号，而不是大括号
       subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:
@@ -1970,16 +1883,15 @@ To learn about requesting space using a resource specification, see
 ## Out-of-Tree Volume Plugins
 
 The out-of-tree volume plugins include
-{{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI)
-and FlexVolume. They enable storage vendors to create custom storage plugins
-without adding them to the Kubernetes repository.
+{{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI), and also FlexVolume (which is deprecated). These plugins enable storage vendors to create custom storage plugins
+without adding their plugin source code to the Kubernetes repository.
 -->
 ## 树外（Out-of-Tree）卷插件    {#out-of-tree-volume-plugins}
 
 Out-of-Tree 卷插件包括
 {{< glossary_tooltip text="容器存储接口（CSI）" term_id="csi" >}} (CSI)
-和 FlexVolume。
-它们使存储供应商能够创建自定义存储插件，而无需将它们添加到 Kubernetes 代码仓库。
+和 FlexVolume （已弃用）。
+它们使存储供应商能够创建自定义存储插件，而无需将插件源码添加到 Kubernetes 代码仓库。
 
 <!--
 Previously, all volume plugins were "in-tree". The "in-tree" plugins were built, linked, compiled,
@@ -2252,22 +2164,35 @@ are listed in [Types of Volumes](#volume-types).
 
 ### flexVolume
 
-<!--
-FlexVolume is an out-of-tree plugin interface that has existed in Kubernetes
-since version 1.2 (before CSI). It uses an exec-based model to interface with
-drivers. The FlexVolume driver binaries must be installed in a pre-defined volume
-plugin path on each node (and in some cases master).
+{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
-Pods interact with FlexVolume drivers through the `flexvolume` in-tree plugin.
-More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md).
+<!--
+FlexVolume is an out-of-tree plugin interface that uses an exec-based model to interface
+with storage drivers. The FlexVolume driver binaries must be installed in a pre-defined
+volume plugin path on each node and in some cases the control plane nodes as well.
+
+Pods interact with FlexVolume drivers through the `flexVolume` in-tree volume plugin.
+For more details, see the FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) document.
 -->
-FlexVolume 是一个自 1.2 版本（在 CSI 之前）以来在 Kubernetes 中一直存在的树外插件接口。
-它使用基于 exec 的模型来与驱动程序对接。
-用户必须在每个节点（在某些情况下是主控节点）上的预定义卷插件路径中安装
-FlexVolume 驱动程序可执行文件。
+FlexVolume 是一个使用基于 exec 的模型来与驱动程序对接的树外插件接口。
+用户必须在每个节点上的预定义卷插件路径中安装FlexVolume 驱动程序可执行文件，
+在某些情况下，控制平面节点中也要安装。
 
 Pod 通过 `flexvolume` 树内插件与 Flexvolume 驱动程序交互。
-更多详情请参考 [FlexVolume](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) 示例。
+更多详情请参考 FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 文档。
+
+<!--
+FlexVolume is deprecated. Using an out-of-tree CSI driver is the recommended way to integrate external storage with Kubernetes.
+
+Maintainers of FlexVolume driver should implement a CSI Driver and help to migrate users of FlexVolume drivers to CSI.
+Users of FlexVolume should move their workloads to use the equivalent CSI Driver.
+-->
+{{< note >}}
+FlexVolume 已弃用。推荐使用树外 CSI 驱动来将外部存储整合进 Kubernetes。
+
+FlexVolume 驱动的维护者应开发一个 CSI 驱动并帮助用户从 FlexVolume 驱动迁移到 CSI。
+FlexVolume 用户应迁移工作负载以使用对等的 CSI 驱动。
+{{< /note >}}
 
 <!--
 ## Mount propagation
