@@ -3,7 +3,7 @@ title: Download Kubernetes
 type: docs
 ---
 
-## Core Kubernetes components
+# Core Kubernetes components
 
 Kubernetes ships binaries for each component as well as a standard set of client
 applications to bootstrap or interact with a cluster. Components like the
@@ -74,8 +74,9 @@ those derivations are signed in the same way as the multi-architecture manifest 
 
 Full list of images that are signed can be found [here](/examples/admin/signed-images/auto-generated-list-of-all-signed-images.txt)
 
-To verify signed container images within a Kubernetes cluster, please refer to
+To manually verify signed container images of Kubernetes core components, please refer to
 [the corresponding cluster administration documentation](/docs/tasks/administer-cluster/verify-signed-images).
+Once verified, please use the same image digest of verified images to spin up your Kubernetes cluster.
 
 ## Binaries
 
