@@ -626,7 +626,7 @@ Per CNCF policy, the localization teams must upload their meetings to the SIG Do
 
 -->
 
-### 特定语言的 Zoom 缩放会议
+### 特定语言的 Zoom 会议
 
 如果本地化项目需要单独的会议时间， 
 请联系 SIG Docs 联合主席或技术主管以创建新的重复 Zoom 会议和日历邀请。 
