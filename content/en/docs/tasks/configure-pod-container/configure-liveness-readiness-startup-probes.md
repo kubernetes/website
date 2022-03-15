@@ -406,7 +406,11 @@ If you have pods that are impacted from the default 1 second timeout,
 you should update their probe timeout so that you're ready for the
 eventual removal of that feature gate.
 
+<<<<<<< HEAD
 With the fix of the defect, for exec probes, on Kubernetes `1.20+` with the `docker` container runtime,
+=======
+With the fix of the defect, for exec probes, on Kubernetes `1.20+` with the `containerd` container runtime,
+>>>>>>> 4d5c692cd (sample outputs created without docker working with kubernetes v1.24)
 the process inside the container may keep running even after probe returned failure because of the timeout.
 {{< /note >}}
 {{< caution >}}
