@@ -37,9 +37,9 @@ Example: `kubernetes.io/metadata.name=mynamespace`
 
 Used on: Namespaces
 
-The Kubernetes API server (part of the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}) 
+The Kubernetes API server (part of the {{< glossary_tooltip text="control plane" term_id="control-plane" >}})
 sets this label on all namespaces. The label value is set
-to the name of the namespace. You can't change this label's value. 
+to the name of the namespace. You can't change this label's value.
 
 This is useful if you want to target a specific namespace with a label
 {{< glossary_tooltip text="selector" term_id="selector" >}}.
@@ -69,7 +69,7 @@ Example: `kubernetes.io/change-cause=kubectl edit --record deployment foo`
 
 Used on: All Objects
 
-This annotation is a best guess at why something was changed. 
+This annotation is a best guess at why something was changed.
 
 It is populated when adding `--record` to a `kubectl` command that may change an object.
 
@@ -404,7 +404,7 @@ Example: `pod-security.kubernetes.io/enforce-version: {{< skew latestVersion >}}
 Used on: Namespace
 
 Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
-This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards) 
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards)
 policies to apply when validating a submitted Pod.
 
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
@@ -431,7 +431,7 @@ Example: `pod-security.kubernetes.io/audit-version: {{< skew latestVersion >}}`
 Used on: Namespace
 
 Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
-This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards) 
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards)
 policies to apply when validating a submitted Pod.
 
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
@@ -445,7 +445,7 @@ Used on: Namespace
 
 Value **must** be one of `privileged`, `baseline`, or `restricted` which correspond to
 [Pod Security Standard](/docs/concepts/security/pod-security-standards) levels. Specifically,
-the `warn` label does not prevent the creation of a Pod in the labeled Namespace which does not meet the 
+the `warn` label does not prevent the creation of a Pod in the labeled Namespace which does not meet the
 requirements outlined in the indicated level, but returns a warning to the user after doing so.
 Note that warnings are also displayed when creating or updating objects that contain Pod templates,
 such as Deployments, Jobs, StatefulSets, etc.
@@ -478,7 +478,7 @@ the settings you specify apply to all containers in that Pod.
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
 
 This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
-The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/clusters/seccomp/) takes
+The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/) takes
 you through the steps you follow to apply a seccomp profile to a Pod or to one of
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
