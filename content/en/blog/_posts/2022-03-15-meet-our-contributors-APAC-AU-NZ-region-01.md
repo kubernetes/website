@@ -10,7 +10,7 @@ canonicalUrl: https://www.kubernetes.dev/blog/2022/03/14/meet-our-contributors-a
 
 ---
 
-Good day, everyone :wave:
+Good day, everyone 👋
 
 Welcome back to the second episode of the "Meet Our Contributors" blog post series for APAC.
 
@@ -72,7 +72,7 @@ He asserts the best thing a new contributor can do is to "start contributing". N
 If you have any recommendations/suggestions for who we should interview next, please let us know in #sig-contribex. Your suggestions would be much appreciated. We're thrilled to have additional folks assisting us in reaching out to even more wonderful individuals of the community.
 
 
-We'll see you all in the next one. Everyone, till then, have a happy contributing! :wave: 
+We'll see you all in the next one. Everyone, till then, have a happy contributing! 👋
 
 
 
