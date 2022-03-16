@@ -10,7 +10,17 @@ weight: 13
 auto_generated: true
 ---
 <!--
+---
+api_metadata:
+  apiVersion: ""
+  import: "k8s.io/api/core/v1"
+  kind: "TypedLocalObjectReference"
+content_type: "api_reference"
 description: "TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace."
+title: "TypedLocalObjectReference"
+weight: 13
+auto_generated: true
+---
 -->
 
 <!--
