@@ -26,7 +26,7 @@ Podのオーバーヘッドを有効にした場合、Podのスケジューリ�
 
 ## 使用例
 
-Podのオーバーヘッド機能を使用するためには、`overhead`フィールドが定義されたRuntimeClassが必要です。例として、仮想マシンとゲストOSにPodあたり約120MiBを使用する仮想化コンテナーランタイムで、次のようなRuntimeClassを定義できます。
+Podのオーバーヘッド機能を使用するためには、`overhead`フィールドが定義されたRuntimeClassが必要です。例として、仮想マシンとゲストOSにPodあたり約120MiBを使用する仮想化コンテナランタイムで、次のようなRuntimeClassを定義できます。
 
 ```yaml
 ---
@@ -81,22 +81,22 @@ kubectl get pod test-pod -o jsonpath='{.spec.overhead}'
 ```
 map[cpu:250m memory:120Mi]
 ```
-ResourceQuotaが定義されている場合、コンテナー要求の合計と`オーバーヘッド`フィールドがカウントされます。
+ResourceQuotaが定義されている場合、コンテナ要求の合計と`オーバーヘッド`フィールドがカウントされます。
 
-kube-schedulerが新しいPodを実行すべきNodeを決定する際、スケジューラーはそのPodの`オーバーヘッド`と、そのPodに対するコンテナー要求の合計を考慮します。この例だと、スケジューラーは、要求とオーバーヘッドを追加し、2.25CPUと320MiBのメモリを持つNodeを探します。
+kube-schedulerが新しいPodを実行すべきNodeを決定する際、スケジューラーはそのPodの`オーバーヘッド`と、そのPodに対するコンテナ要求の合計を考慮します。この例だと、スケジューラーは、要求とオーバーヘッドを追加し、2.25CPUと320MiBのメモリを持つNodeを探します。
 
-PodがNodeにスケジュールされると、そのNodeのkubeletはPodのために新しい{{< glossary_tooltip text="cgroup" term_id="cgroup" >}}を生成します。基盤となるコンテナーランタイムがコンテナーを作成するのは、このPod内です。
+PodがNodeにスケジュールされると、そのNodeのkubeletはPodのために新しい{{< glossary_tooltip text="cgroup" term_id="cgroup" >}}を生成します。基盤となるコンテナランタイムがコンテナを作成するのは、このPod内です。
 
-リソースにコンテナごとの制限が定義されている場合(制限が定義されているGuaranteed QoSまたはBustrable QoS)、kubeletはそのリソース(CPUはcpu.cfs_quota_us、メモリはmemory.limit_in_bytes)に関連するPodのcgroupの上限を設定します。この上限は、コンテナーの制限とPodSpecで定義された`オーバーヘッド`の合計に基づきます。
+リソースにコンテナごとの制限が定義されている場合(制限が定義されているGuaranteed QoSまたはBustrable QoS)、kubeletはそのリソース(CPUはcpu.cfs_quota_us、メモリはmemory.limit_in_bytes)に関連するPodのcgroupの上限を設定します。この上限は、コンテナの制限とPodSpecで定義された`オーバーヘッド`の合計に基づきます。
 
-CPUについては、PodがGuaranteedまたはBurstable QoSの場合、kubeletはコンテナーの要求の合計とPodSpecに定義された`オーバーヘッド`に基づいて`cpu.share`を設定します。
+CPUについては、PodがGuaranteedまたはBurstable QoSの場合、kubeletはコンテナの要求の合計とPodSpecに定義された`オーバーヘッド`に基づいて`cpu.share`を設定します。
 
-次の例より、ワークロードに対するコンテナーの要求を確認できます。
+次の例より、ワークロードに対するコンテナの要求を確認できます。
 ```bash
 kubectl get pod test-pod -o jsonpath='{.spec.containers[*].resources.limits}'
 ```
 
-コンテナーの要求の合計は、CPUは2000m、メモリーは200MiBです。
+コンテナの要求の合計は、CPUは2000m、メモリーは200MiBです。
 ```
 map[cpu: 500m memory:100Mi] map[cpu:1500m memory:100Mi]
 ```
@@ -115,7 +115,7 @@ kubectl describe node | grep test-pod -B2
 
 ## Podのcgroupの制限を確認
 
-ワークロードで実行中のNode上にある、Podのメモリーのcgroupを確認します。次に示す例では、CRI互換のコンテナーランタイムのCLIを提供するNodeで[`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)を使用しています。これはPodのオーバーヘッドの動作を示すための高度な例であり、ユーザーがNode上で直接cgroupsを確認する必要はありません。
+ワークロードで実行中のNode上にある、Podのメモリーのcgroupを確認します。次に示す例では、CRI互換のコンテナランタイムのCLIを提供するNodeで[`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)を使用しています。これはPodのオーバーヘッドの動作を示すための高度な例であり、ユーザーがNode上で直接cgroupsを確認する必要はありません。
 
 まず、特定のNodeで、Podの識別子を決定します。
 
@@ -130,7 +130,7 @@ POD_ID="$(sudo crictl pods --name test-pod -q)"
 sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 ```
 
-結果のcgroupパスにはPodの`ポーズ中`コンテナーも含まれます。Podレベルのcgroupは１つ上のディレクトリです。
+結果のcgroupパスにはPodの`ポーズ中`コンテナも含まれます。Podレベルのcgroupは１つ上のディレクトリです。
 ```
         "cgroupsPath": "/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/7ccf55aee35dd16aca4189c952d83487297f3cd760f1bbf09620e206e7d0c27a"
 ```
