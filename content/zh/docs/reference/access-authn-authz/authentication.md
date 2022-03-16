@@ -1841,7 +1841,8 @@ Certificates）。
 
 <!--
 Optionally, the response can include the expiry of the credential formatted as a
-RFC3339 timestamp. Presence or absence of an expiry has the following impact:
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp.
+Presence or absence of an expiry has the following impact:
 
 - If an expiry is included, the bearer token and TLS credentials are cached until
   the expiry time is reached, or if the server responds with a 401 HTTP status code,
@@ -1849,7 +1850,9 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
 - If an expiry is omitted, the bearer token and TLS credentials are cached until
   the server responds with a 401 HTTP status code or until the process exits.
 -->
-作为一种可选方案，响应中还可以包含以 RFC3339 时间戳格式给出的证书到期时间。
+作为一种可选方案，响应中还可以包含以
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
+时间戳格式给出的证书到期时间。
 证书到期时间的有无会有如下影响：
 
 - 如果响应中包含了到期时间，持有者令牌和 TLS 凭据会被缓存，直到到期期限到来、
