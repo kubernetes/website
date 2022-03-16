@@ -38,10 +38,9 @@ IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
 
 The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack Kubernetes clusters:
 
-   * Kubernetes 1.20 or later  
-     For information about using dual-stack services with earlier
-     Kubernetes versions, refer to the documentation for that version
-     of Kubernetes.
+   * Kubernetes v{{< skew currentVersion >}}.
++    If you are not running Kubernetes v{{< skew currentVersion >}}, check the documentation for
++    that version of Kubernetes. {{< version-check >}}
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
    * A network plugin that supports dual-stack (such as Kubenet or Calico)
 
@@ -88,7 +87,7 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 * `RequireDualStack`: Allocates Service `.spec.ClusterIPs` from both IPv4 and IPv6 address ranges.
   * Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family of the first element in the `.spec.ipFamilies` array.
 
-If you would like to define which IP family to use for single stack or define the order of IP families for dual-stack, you can choose the address families by setting an optional field, `.spec.ipFamilies`, on the Service. 
+If you would like to define which IP family to use for single stack or define the order of IP families for dual-stack, you can choose the address families by setting an optional field, `.spec.ipFamilies`, on the Service.
 
 {{< note >}}
 The `.spec.ipFamilies` field is immutable because the `.spec.ClusterIP` cannot be reallocated on a Service that already exists. If you want to change `.spec.ipFamilies`, delete and recreate the Service.
@@ -114,9 +113,9 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
 1. This Service specification explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. When you create this Service on a dual-stack cluster, Kubernetes assigns both IPv4 and IPv6 addresses for the service. The control plane updates the `.spec` for the Service to record the IP address assignments. The field `.spec.ClusterIPs` is the primary field, and contains both assigned IP addresses; `.spec.ClusterIP` is a secondary field with its value calculated from `.spec.ClusterIPs`.
-   
-      * For the `.spec.ClusterIP` field, the control plane records the IP address that is from the same address family as the first service cluster IP range. 
-      * On a single-stack cluster, the `.spec.ClusterIPs` and `.spec.ClusterIP` fields both only list one address. 
+
+      * For the `.spec.ClusterIP` field, the control plane records the IP address that is from the same address family as the first service cluster IP range.
+      * On a single-stack cluster, the `.spec.ClusterIPs` and `.spec.ClusterIP` fields both only list one address.
       * On a cluster with dual-stack enabled, specifying `RequireDualStack` in `.spec.ipFamilyPolicy` behaves the same as `PreferDualStack`.
 
 {{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
