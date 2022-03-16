@@ -15,7 +15,7 @@ weight: 45
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 <!-- 
 _Service Internal Traffic Policy_ enables internal traffic restrictions to only route
@@ -35,16 +35,16 @@ _服务内部流量策略_ 开启了内部流量限制，只路由内部流量�
 ## 使用服务内部流量策略 {#using-service-internal-traffic-policy}
 
 <!-- 
-Once you have enabled the `ServiceInternalTrafficPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-you can enable an internal-only traffic policy for a
+The `ServiceInternalTrafficPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is a Beta feature and enabled by default.
+When the feature is enabled, you can enable the internal-only traffic policy for a
 {{< glossary_tooltip text="Services" term_id="service" >}}, by setting its
 `.spec.internalTrafficPolicy` to `Local`.
 This tells kube-proxy to only use node local endpoints for cluster internal traffic.
 -->
-一旦你启用了 `ServiceInternalTrafficPolicy` 这个
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/),
-你就可以通过将 {{< glossary_tooltip text="Services" term_id="service" >}} 的 
+`ServiceInternalTrafficPolicy` 
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/) 是 Beta 功能，默认启用。
+启用该功能后，你就可以通过将 {{< glossary_tooltip text="Services" term_id="service" >}} 的 
 `.spec.internalTrafficPolicy` 项设置为 `Local`，
 来为它指定一个内部专用的流量策略。
 此设置就相当于告诉 kube-proxy 对于集群内部流量只能使用本地的服务端口。

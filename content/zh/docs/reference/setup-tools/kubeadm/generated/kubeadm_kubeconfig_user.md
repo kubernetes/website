@@ -1,25 +1,33 @@
-
 <!--
-### Synopsis
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
-### 概要
 
 <!--
+Output a kubeconfig file for an additional user
+
+### Synopsis
+
 Output a kubeconfig file for an additional user.
 -->
-为其他用户输出 kubeconfig 文件。
+为其他用户输出一个 kubeconfig 文件。
 
-<!--
-Alpha Disclaimer: this command is currently alpha.
--->
-Alpha 免责声明：此命令当前为 Alpha 功能。
+### 概要
+
+为其他用户输出一个 kubeconfig 文件。
 
 ```
 kubeadm alpha kubeconfig user [flags]
 ```
 
 <!--
-### Examples # Output a kubeconfig file for an additional user named foo
+### Examples
 
 ```
   # Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
@@ -30,7 +38,7 @@ kubeadm alpha kubeconfig user [flags]
 
 ```
 # 使用名为 bar 的 kubeadm 配置文件为名为 foo 的另一用户输出 kubeconfig 文件
-kubeadm alpha kubeconfig user --client-name=foo --config=bar
+kubeadm kubeconfig user --client-name=foo --config=bar
 ```
 
 <!--
@@ -82,7 +90,7 @@ user 操作的帮助命令
 </tr>
 
 <tr>
-<td colspan="2">--org stringSlice</td>
+<td colspan="2">--org strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -102,9 +110,20 @@ The orgnizations of the client certificate. It will be used as the O if client c
 <!--
 The token that should be used as the authentication mechanism for this kubeconfig, instead of client certificates
 -->
-应该用此 kubeconfig 的身份验证机制的令牌，而不是客户端证书
+应该用此令牌做为 kubeconfig 的身份验证机制，而不是客户端证书
 </td>
 </tr>
+
+<tr>
+<td colspan="2">--validity-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 8760h0m0s</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><!--The validity period of the client certificate. It is an offset from the current time.-->
+<p>
+客户证书的合法期限。所设置值为相对当前时间的偏移。
+</p></td>
+</tr>
+
 
 </tbody>
 </table>
