@@ -106,10 +106,10 @@ Volumes cannot mount within other volumes (but see [Using subPath](#using-subpat
 for a related mechanism). Also, a volume cannot contain a hard link to anything in
 a different volume.
 -->
-卷中 [指定的路径](#using-subpath) 将会被挂载。
+卷挂载在镜像中的[指定路径](#using-subpath)下。
 Pod 配置中的每个容器必须独立指定各个卷的挂载位置。
 
-卷不能挂载到其他卷之上（不过存在一种相关的机制 [使用 subPath](#using-subpath)），也不能与其他卷有硬链接。
+卷不能挂载到其他卷之上（不过存在一种[使用 subPath](#using-subpath) 的相关机制），也不能与其他卷有硬链接。
 
 <!--
 ## Types of Volumes
@@ -1271,8 +1271,7 @@ A `persistentVolumeClaim` volume is used to mount a
 are a way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 -->
-`persistentVolumeClaim` 卷用来将
-[持久卷](/zh/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
+`persistentVolumeClaim` 卷用来将[持久卷](/zh/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
 持久卷申领（PersistentVolumeClaim）是用户在不知道特定云环境细节的情况下“申领”持久存储（例如
 GCE PersistentDisk 或者 iSCSI 卷）的一种方法。
 
@@ -1343,7 +1342,7 @@ For more details, see the [Portworx volume](https://github.com/kubernetes/exampl
 A projected volume maps several existing volume sources into the same
 directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
 -->
-投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考 [投射卷](/zh/docs/concepts/storage/projected-volumes/)。
+投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh/docs/concepts/storage/projected-volumes/)。
 
 ### quobyte (已弃用) {#quobyte}
 
@@ -1382,7 +1381,7 @@ contents of an `rbd` volume are preserved and the volume is unmounted. This
 means that a RBD volume can be pre-populated with data, and that data can be
 shared between pods.
 -->
-`rbd` 卷允许将 [Rados 块设备](https://docs.ceph.com/en/latest/rbd/) 卷挂载到你的 Pod 中。
+`rbd` 卷允许将 [Rados 块设备](https://docs.ceph.com/en/latest/rbd/)卷挂载到你的 Pod 中。
 不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`rbd` 卷的内容在删除 Pod 时会被保存，卷只是被卸载。
 这意味着 `rbd` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
 
@@ -1430,7 +1429,7 @@ must be enabled.
 启用 RBD 的 `CSIMigration` 功能后，所有插件操作从现有的树内插件重定向到
 `rbd.csi.ceph.com` {{<glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序。
 要使用该功能，必须在集群内安装
-[Ceph CSI driver](https://github.com/ceph/ceph-csi)，并启用 `CSIMigration` 和 `csiMigrationRBD` 
+[Ceph CSI 驱动](https://github.com/ceph/ceph-csi)，并启用 `CSIMigration` 和 `csiMigrationRBD` 
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
@@ -1459,8 +1458,8 @@ RBD CSI driver:
   作为一个必需的参数，所以 Kubernetes 存储管理者需要根据 `monitors`
   的哈希值（例：`#echo -n '<monitors_string>' | md5sum`）来创建
   `clusterID`，并保持该 `monitors` 存在于该 `clusterID` 的配置中。
-* 同时，如果树内存储类的 `adminId` 的值与 `admin` 不同，那么其 `adminSecretName`
-  就需要被修改成 `adminId` 的 base64 编码后的值。
+* 同时，如果树内存储类的 `adminId` 的值不是 `admin`，那么其 `adminSecretName`
+  就需要被修改成 `adminId` 参数的 base64 编码值。
 {{< /note >}}
 
 ### secret
@@ -1742,7 +1741,7 @@ Kubernetes 1.23 中加入了 Portworx 的 `CSIMigration` 功能，但默认不�
 该功能会将所有的插件操作从现有的树内插件重定向到
 `pxd.portworx.com` 容器存储接口（Container Storage Interface, CSI）驱动程序。
 集群中必须安装
-[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)。
+[Portworx CSI 驱动](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)。
 要启用此功能，请在 kube-controller-manager 和 kubelet 中设置 `CSIMigrationPortworx=true`。
 
 <!--
@@ -1885,7 +1884,7 @@ without adding their plugin source code to the Kubernetes repository.
 
 Out-of-Tree 卷插件包括
 {{< glossary_tooltip text="容器存储接口（CSI）" term_id="csi" >}}
-和 FlexVolume （已弃用）。
+和 FlexVolume（已弃用）。
 它们使存储供应商能够创建自定义存储插件，而无需将插件源码添加到 Kubernetes 代码仓库。
 
 <!--
@@ -1998,7 +1997,7 @@ persistent volume:
 -->
 - `volumeHandle`：唯一标识卷的字符串值。
   该值必须与 CSI 驱动在 `CreateVolumeResponse` 的 `volume_id` 字段中返回的值相对应；接口定义在
-  [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume) 中。
+  [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume) 中。
   在所有对 CSI 卷驱动程序的调用中，引用该 CSI 卷时都使用此值作为 `volume_id` 参数。
 
 <!--
@@ -2170,7 +2169,7 @@ FlexVolume 是一个使用基于 exec 的模型来与驱动程序对接的树外
 用户必须在每个节点上的预定义卷插件路径中安装 FlexVolume
 驱动程序可执行文件，在某些情况下，控制平面节点中也要安装。
 
-Pod 通过 `flexvolume` 树内插件与 Flexvolume 驱动程序交互。
+Pod 通过 `flexvolume` 树内插件与 FlexVolume 驱动程序交互。
 更多详情请参考 FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 文档。
 
 <!--
