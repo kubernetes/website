@@ -851,14 +851,14 @@ for more details.
 
 #### RBD CSI migration {#rbd-csi-migration}
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 The `CSIMigration` feature for `RBD`, when enabled, redirects all plugin
 operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
 glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this
 feature, the
 [Ceph CSI driver](https://github.com/ceph/ceph-csi)
-must be installed on the cluster and the `CSIMigration` and `csiMigrationRBD`
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationRBD`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
 must be enabled.
 
