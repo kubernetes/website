@@ -666,7 +666,7 @@ size that is within the capacity limits of underlying storage provider. You can 
 
 <!--
 Note that,
-although you can a specify a lower amount of storage than what was requested previously,
+although you can specify a lower amount of storage than what was requested previously,
 the new value must still be higher than `.status.capacity`.
 Kubernetes does not support shrinking a PVC to less than its current size.
 -->
@@ -810,7 +810,7 @@ Helper programs relating to the volume type may be required for consumption of a
 <!--
 ### Capacity
 
-Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) to understand the units expected by `capacity`.
+Generally, a PV will have a specific storage capacity. This is set using the PV's `capacity` attribute. Read the glossary term [Quantity](/docs/reference/glossary/?all=true#term-quantity) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
 -->
@@ -818,9 +818,9 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 一般而言，每个 PV 卷都有确定的存储容量。
 容量属性是使用 PV 对象的 `capacity` 属性来设置的。
-参考 Kubernetes
-[资源模型（Resource Model）](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md)
-设计提案，了解 `capacity` 字段可以接受的单位。
+参考词汇表中的
+[量纲（Quantity）](/zh/docs/reference/glossary/?all=true#term-quantity)
+词条，了解 `capacity` 字段可以接受的单位。
 
 目前，存储大小是可以设置和请求的唯一资源。
 未来可能会包含 IOPS、吞吐量等属性。
@@ -1038,19 +1038,19 @@ The following volume types support mount options:
 -->
 以下卷类型支持挂载选项：
 
-* AWSElasticBlockStore
-* AzureDisk
-* AzureFile
-* CephFS
-* Cinder （OpenStack 块存储）
-* GCEPersistentDisk
-* Glusterfs
-* NFS
-* Quobyte 卷
-* RBD （Ceph 块设备）
-* StorageOS
-* VsphereVolume
-* iSCSI
+* `awsElasticBlockStore`
+* `azureDisk`
+* `azureFile`
+* `cephfs`
+* `cinder` (**已弃用**于 v1.18)
+* `gcePersistentDisk`
+* `glusterfs`
+* `iscsi`
+* `nfs`
+* `quobyte` (**已弃用**于 v1.22)
+* `rbd`
+* `storageos` (**已弃用**于 v1.22)
+* `vsphereVolume`
 
 <!--
 Mount options are not validated, If a mount option is invalid, the mount fails.
