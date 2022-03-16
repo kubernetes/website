@@ -4,8 +4,8 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "TypedLocalObjectReference"
 content_type: "api_reference"
-description: "类型化局部对象引用包含足够的信息，可以让您在同一个名称空间中定位类型化引用对象。"
-title: "类型化局部对象引用"
+description: "TypedLocalObjectReference 包含足够的信息，可以让您在同一个名称空间中定位类型化引用对象。"
+title: "TypedLocalObjectReference"
 weight: 13
 auto_generated: true
 ---
@@ -25,8 +25,26 @@ guide. You can file document formatting bugs against the
 
 `import "k8s.io/api/core/v1"`
 
-类型化局部对象引用包含足够的信息，可以让您在同一个名称空间中定位类型化引用对象。
+<!--
+TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
+-->
 
+TypedLocalObjectReference 包含足够的信息，可以让您在同一个名称空间中定位类型化引用对象。
+<!--
+<hr>
+
+- **kind** (string), required
+
+  Kind is the type of resource being referenced
+
+- **name** (string), required
+
+  Name is the name of resource being referenced
+
+- **apiGroup** (string)
+
+  APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+-->
 
 <hr>
 
