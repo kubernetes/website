@@ -4,11 +4,14 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "TypedLocalObjectReference"
 content_type: "api_reference"
-description: "TypedLocalObjectReference 包含足够的信息，可以让您在同一个名称空间中定位类型化引用对象。"
+description: "TypedLocalObjectReference 包含足够的信息，可以让你在同一个名称空间中定位指定类型的引用对象。"
 title: "TypedLocalObjectReference"
 weight: 13
 auto_generated: true
 ---
+<!--
+description: "TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace."
+-->
 
 <!--
 The file is auto-generated from the Go source code of the component using a generic
@@ -29,7 +32,7 @@ guide. You can file document formatting bugs against the
 TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
 -->
 
-TypedLocalObjectReference 包含足够的信息，可以让您在同一个名称空间中定位类型化引用对象。
+TypedLocalObjectReference 包含足够的信息，可以让你在同一个名称空间中定位特定类型的引用对象。
 <!--
 <hr>
 
@@ -48,11 +51,11 @@ TypedLocalObjectReference 包含足够的信息，可以让您在同一个名称
 
 <hr>
 
-- **kind** (string), 必须的
+- **kind** (string), 必需
 
   Kind 是被引用的资源的类型
 
-- **name** (string), 必须的
+- **name** (string), 必需
 
   Name 是被引用的资源的名称
 
