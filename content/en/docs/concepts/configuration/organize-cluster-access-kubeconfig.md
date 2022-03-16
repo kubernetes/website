@@ -156,7 +156,7 @@ You can configure `kubectl` to use proxy by setting `proxy-url` in the kubeconfi
 apiVersion: v1
 kind: Config
 
-proxy-url: https://proxy.host/3128
+proxy-url: https://proxy.host:3128
 
 clusters:
 - cluster:
