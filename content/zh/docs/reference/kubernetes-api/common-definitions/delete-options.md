@@ -1,15 +1,3 @@
-<!--
-api_metadata:
-  apiVersion: ""
-  import: "k8s.io/apimachinery/pkg/apis/meta/v1"
-  kind: "DeleteOptions"
-content_type: "api_reference"
-description: "DeleteOptions may be provided when deleting an API object."
-title: "DeleteOptions"
-weight: 1
-auto_generated: true
--->
-
 ---
 api_metadata:
   apiVersion: ""
@@ -22,10 +10,22 @@ weight: 1
 auto_generated: true
 ---
 
+<!--
+api_metadata:
+  apiVersion: ""
+  import: "k8s.io/apimachinery/pkg/apis/meta/v1"
+  kind: "DeleteOptions"
+content_type: "api_reference"
+description: "DeleteOptions may be provided when deleting an API object."
+title: "DeleteOptions"
+weight: 1
+auto_generated: true
+-->
+
 `import "k8s.io/apimachinery/pkg/apis/meta/v1"`
 
 <!--DeleteOptions may be provided when deleting an API object.-->
-删除 API 对象时可能会提供删除选项。
+删除 API 对象时可能会提供 DeleteOptions。
 
 <hr>
 
@@ -38,9 +38,7 @@ auto_generated: true
 - **apiVersion** (string)
 
   `APIVersion` 定义对象表示的版本化模式。
-  
   服务器应将已识别的模式转换为最新的内部值，并可能拒绝无法识别的值。
-  
   更多信息：https ://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 <!--
@@ -52,8 +50,9 @@ auto_generated: true
 - **dryRun** ([]string)
 
   该值如果存在，则表示不应保留修改。
-  
-  无效或无法识别的 `dryRun` 指令将导致错误响应并且不会进一步处理请求。有效值为： - `All`：处理所有试运行阶段（Dry Run Stages）
+  无效或无法识别的 `dryRun` 指令将导致错误响应并且不会进一步处理请求。有效值为：
+   
+   - `All`：处理所有试运行阶段（Dry Run Stages）
 
 <!--
 - **gracePeriodSeconds** (int64)
@@ -64,7 +63,6 @@ auto_generated: true
 - **gracePeriodSeconds** (int64)
 
   表示对象被删除之前的持续时间（以秒为单位）。
-  
   值必须是非负整数。零值表示立即删除。如果此值为 `nil`，则将使用指定类型的默认宽限期。如果未指定，则为每个对象的默认值。
 
 <!--
@@ -75,10 +73,8 @@ auto_generated: true
 
 - **kind** (string)
 
-  `Kind` 是一个字符串值，表示此对象代表的 REST 资源。
-  
+  `kind` 是一个字符串值，表示此对象代表的 REST 资源。
   服务器可以从客户端提交请求的端点推断出此值。此值无法更新，是驼峰的格式。
-  
   更多信息：https ://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 。
 
 <!--
@@ -89,11 +85,9 @@ auto_generated: true
 
 - **orphanDependents** (boolean)
 
-  已弃用：该字段将在 1.7 中弃用，请使用 `PropagationPolicy` 字段。
-  
-  表示依赖对象是否应该是孤儿。如果为真/假，“孤儿”终结器（Finalizer）将会被从对象终结器（Finalizer）列表中添加上或者移除掉。
-  
-  可以设置此字段或者设置 `PropagationPolicy` 字段，但不能同时设置以上两个字段。
+  已弃用：该字段将在 1.7 中弃用，请使用 `propagationPolicy` 字段。
+  该字段表示依赖对象是否应该是孤儿。如果为 true/false，对象的 finalizers 列表中会被添加上或者移除掉 “orphan” 终结器（Finalizer）。
+  可以设置此字段或者设置 `propagationPolicy` 字段，但不能同时设置以上两个字段。
 
 <!--
 - **preconditions** (Preconditions)
@@ -114,18 +108,18 @@ auto_generated: true
   
 - **preconditions** (Preconditions)
 
-  先决条件必须在执行删除之前完成。如果不是，将返回 409（冲突）状态。
+  先决条件必须在执行删除之前完成。如果无法满足这些条件，将返回 409（冲突）状态。
   
   <a name="Preconditions"></a>
-  *执行操作（更新、删除等）之前必须完成先决条件。*
+  *执行操作（更新、删除等）之前必须满足先决条件。*
 
   - **preconditions.resourceVersion** (string)
 
-    指定目标资源版本（ResourceVersion）。
+    指定目标资源版本（resourceVersion）。
 
   - **preconditions.uid** (string)
 
-    指定目标 `UID`.
+    指定目标 UID.
 
 <!--
 - **propagationPolicy** (string)
@@ -135,11 +129,9 @@ auto_generated: true
 
 - **propagationPolicy** (string)
 
-  表示是否以及如何执行垃圾收集。可以设置此字段或 `OrphanDependents` 字段，但不能同时设置。
-  
-  默认策略由 `metadata.finalizers` 中设置的现有终结器（Finalizer）和特定资源的默认策略决定。
-  
-  可接受的值为： `Orphan` - 依赖对象是孤儿；`Background` - 允许垃圾收集器在后台删除依赖项；`Foreground` - 一个级联策略，删除前台中的所有依赖项。
+  表示是否以及如何执行垃圾收集。可以设置此字段或 `orphanDependents` 字段，但不能同时设置二者。
+  默认策略由 `metadata.finalizers` 中现有终结器（Finalizer）集合和特定资源的默认策略决定。
+  可接受的值为： `Orphan` - 令依赖对象成为孤儿对象；`Background` - 允许垃圾收集器在后台删除依赖项；`Foreground` - 一个级联策略，前台删除所有依赖项。
 
 
 
