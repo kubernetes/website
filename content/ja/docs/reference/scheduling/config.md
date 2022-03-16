@@ -47,7 +47,7 @@ clientConnection:
 1. `preFilter`: これらのプラグインは、フィルタリングをする前にPodやクラスターの情報のチェックや
    前処理のために使用されます。これらのプラグインは、設定された順序で呼び出されます。
 1. `filter`: これらのプラグインは、スケジューリングポリシーにおけるPredicatesに相当するもので、
-   Podを実行不可能なNodeをフィルターするために使用されます。
+   Podの実行不可能なNodeをフィルターするために使用されます。
    もし全てのNodeがフィルターされてしまった場合、Podはunschedulableとしてマークされます。
 1. `postFilter`:これらのプラグインは、Podの実行可能なNodeが見つからなかった場合、
    設定された順序で呼び出されます。もし`postFilter`プラグインのいずれかが、Podを __スケジュール可能__
@@ -84,13 +84,13 @@ profiles:
           weight: 1
 ```
 
-`disabled`配列の`name`として`*`を使用することで、その拡張点の全てのデフォルトプラグインを無効化できます。また、必要に応じてプラグインの順序を入れ替える場合にも使用されます。
+`disabled`配列の`name`フィールドに`*`を使用することで、その拡張点の全てのデフォルトプラグインを無効化できます。また、必要に応じてプラグインの順序を入れ替える場合にも使用されます。
 
 ### Scheduling plugins {#scheduling-plugins}
 
 以下のプラグインはデフォルトで有効化されており、1つ以上の拡張点に実装されています。
 
-- `ImageLocality`:Podが実行するコンテナーイメージを既に持っているNodeを優先します。
+- `ImageLocality`:Podが実行するコンテナイメージを既に持っているNodeを優先します。
   拡張点:`score`
 - `TaintToleration`:[TaintsとTolerations](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を実行します。
   実装する拡張点:`filter`、`preScore`、`score`
@@ -134,11 +134,11 @@ profiles:
 - `InterPodAffinity`:[Pod間のaffinityとanti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
   を実行します。
   拡張点:`preFilter`、`filter`、`preScore`、`score`
-- `PrioritySort`:デフォルトの優先順位に基づくソートを提供する。
+- `PrioritySort`:デフォルトの優先順位に基づくソートを提供します。
   拡張点:`queueSort`.
-- `DefaultBinder`:デフォルトのバインディングメカニズムを提供する。
+- `DefaultBinder`:デフォルトのバインディングメカニズムを提供します。
   拡張点:`bind`
-- `DefaultPreemption`:デフォルトのプリエンプションメカニズムを提供する。
+- `DefaultPreemption`:デフォルトのプリエンプションメカニズムを提供します。
   拡張点:`postFilter`
 
 また、コンポーネント設定のAPIにより、以下のプラグインを有効にすることができます。
@@ -149,14 +149,14 @@ profiles:
   {{< glossary_tooltip text="ステートフルセット" term_id="statefulset" >}}、
   に属するPodのNode間の拡散を優先します。
   拡張点:`preScore`、`score`
-- `CinderLimits`:Nodeが[OpenStack Cinder](https://docs.openstack.org/cinder/)
+- `CinderLimits`:Nodeが[`OpenStack Cinder`](https://docs.openstack.org/cinder/)
   ボリューム制限を満たせるかチェックします。
   拡張点:`filter`
 
 ### 複数のプロファイル {#multiple-profiles}
 
 `kube-scheduler`は複数のプロファイルを実行するように設定することができます。
-各プラグインは関連するスケジューラー名を持ち、その[拡張点](#extension-points)に異なるプラグインを
+各プラグインは関連するー名を持ち、その[拡張点](#extension-points)に異なるプラグインを
 設定することが可能です。
 
 以下のサンプル設定では、スケジューラーは2つのプロファイルで実行されます。1つはデフォルトプラグインで、
@@ -177,18 +177,18 @@ profiles:
         - name: '*'
 ```
 
-特定のプロファイルに従ってスケジュールさせたいPodは、その`.spec.schedulerName`に、対応するスケジューラ名を含めることができます。
+特定のプロファイルに従ってスケジュールさせたいPodは、その`.spec.schedulerName`に、対応するスケジューラー名を含めることができます。
 
 デフォルトでは、スケジューラー名`default-scheduler`としてプロファイルが生成されます。
 このプロファイルは、上記のデフォルトプラグインを含みます。複数のプロファイルを宣言する場合は、
-それぞれユニークなスケジューラ-名にする必要があります。
+それぞれユニークなスケジューラー名にする必要があります。
 
 もしPodがスケジューラー名を指定しない場合、kube-apiserverは`default-scheduler`を設定します。
 従って、これらのPodをスケジュールするために、このスケジューラー名を持つプロファイルが存在する必要があります。
 
 {{< note >}}
 Podのスケジューリングイベントには、ReportingControllerとして`.spec.schedulerName`が設定されています。
-リーダー選出のイベントには、リスト先頭のプロファイルのスケジューラ名が使用されます。
+リーダー選出のイベントには、リスト先頭のプロファイルのスケジューラー名が使用されます。
 {{< /note >}}
 
 {{< note >}}
@@ -197,7 +197,7 @@ Podのスケジューリングイベントには、ReportingControllerとして`
 
 ### 複数の拡張点に適用されるプラグイン {#multipoint}
 
-`kubescheduler.config.k8s.io/v1beta3`からは、プロファイル設定に`multiPoint`というフィールドが追加され、複数の拡張ポイントでプラグインを簡単に有効・無効化できるようになりました。
+`kubescheduler.config.k8s.io/v1beta3`からは、プロファイル設定に`multiPoint`というフィールドが追加され、複数の拡張点でプラグインを簡単に有効・無効化できるようになりました。
 `multiPoint`設定の目的は、カスタムプロファイルを使用する際に、ユーザーや管理者が必要とする設定を簡素化することです。
 
 `MyPlugin`というプラグインがあり、`preScore`、`score`、`preFilter`、`filter`拡張点を実装しているとします。
@@ -398,7 +398,7 @@ profiles:
 
 * v1beta2で有効化されたプラグインは、そのプラグインのデフォルトの設定より優先されます。
 
-* スケジューラーの、ヘルスとメトリクスのバインドアドレスに設定されている`host`や`port`が無効な場合、バリデーションに失敗します。
+* スケジューラーのヘルスとメトリクスのバインドアドレスに設定されている`host`や`port`が無効な場合、バリデーションに失敗します。
 {{% /tab %}}
 
 {{% tab name="v1beta2 → v1beta3" %}}
