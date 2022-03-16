@@ -69,7 +69,7 @@ spec:
         memory: 100Mi
 ```
 
-アドミッション時、RuntimeClass[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)は、RuntimeClass内に記述された`オーバーヘッド`を含むようにワークロードのPodSpecを更新します。もし既にPodSpec内にこのフィールドが定義済みの場合、そのPodは拒否されます。この例では、RuntimeClassの名前しか指定されていないので、アドミッションコントローラーは`オーバーヘッド`を含むようにPodを変更します。
+アドミッション時、RuntimeClass[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)は、RuntimeClass内に記述された`オーバーヘッド`を含むようにワークロードのPodSpecを更新します。もし既にPodSpec内にこのフィールドが定義済みの場合、そのPodは拒否されます。この例では、RuntimeClassの名前しか指定されていないため、アドミッションコントローラーは`オーバーヘッド`を含むようにPodを変更します。
 
 RuntimeClassのアドミッションコントローラーの後、更新されたPodSpecを確認できます。
 
