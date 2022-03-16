@@ -154,7 +154,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-If you're interested in learning more about `kubectl`, go ahead and read [kubectl Overview](/docs/reference/kubectl/overview/).
+If you're interested in learning more about `kubectl`, go ahead and read [Command line tool (kubectl)](/docs/reference/kubectl/).
 
 ## Using labels effectively
 

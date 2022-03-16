@@ -3,6 +3,7 @@ layout: blog
 title: "Remembering Dan Kohn"
 date: 2020-11-02
 slug: remembering-dan-kohn
+evergreen: true
 ---
 
 **Author**: The Kubernetes Steering Committee
