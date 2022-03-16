@@ -73,12 +73,14 @@ Write operations:
 Auth-related operations:
 -->
 
-* 对于基于 TLS 的启动引导过程时使用的 [certificationsigningrequests API](/zh/docs/reference/access-authn-authz/certificate-signing-requests/) 的读/写权限
-* 为委派的身份验证/授权检查创建 Tokenreviews 和 Subjectaccessreviews 的能力
+* 对于基于 TLS 的启动引导过程时使用的
+  [certificationsigningrequests API](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)
+  的读/写权限
+* 为委派的身份验证/授权检查创建 TokenReviews 和 SubjectAccessReviews 的能力
 
 <!--
 * read/write access to the [CertificateSigningRequests API](/docs/reference/access-authn-authz/certificate-signing-requests/) for TLS bootstrapping
-* the ability to create Tokenreviews and Subjectaccessreviews for delegated authentication/authorization checks
+* the ability to create TokenReviews and SubjectAccessReviews for delegated authentication/authorization checks
 -->
 
 在将来的版本中，节点鉴权器可能会添加或删除权限，以确保 kubelet 具有正确操作所需的最小权限集。
