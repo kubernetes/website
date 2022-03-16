@@ -43,7 +43,7 @@ Kubernetes concepts.
 - [集群 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
 - [无头服务（Headless Service）](/zh/docs/concepts/services-networking/service/#headless-services)
 - [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
-- [PersistentVolume 制备](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+- [PersistentVolume 制备](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 - [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)
 - [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
 - [PodAntiAffinity](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#亲和与反亲和)

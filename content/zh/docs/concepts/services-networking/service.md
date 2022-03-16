@@ -753,7 +753,7 @@ Kubernetes 支持两种基本的服务发现模式 —— 环境变量和 DNS。
 When a Pod is run on a Node, the kubelet adds a set of environment variables
 for each active Service.  It supports both [Docker links
 compatible](https://docs.docker.com/userguide/dockerlinks/) variables (see
-[makeLinkVariables](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49))
+[makeLinkVariables](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/kubelet/envvars/envvars.go#L49))
 and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
 where the Service name is upper-cased and dashes are converted to underscores.
 
@@ -765,7 +765,7 @@ variables:
 
 当 Pod 运行在 `Node` 上，kubelet 会为每个活跃的 Service 添加一组环境变量。
 它同时支持 [Docker links兼容](https://docs.docker.com/userguide/dockerlinks/) 变量
-（查看 [makeLinkVariables](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49)）、
+（查看 [makeLinkVariables](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/kubelet/envvars/envvars.go#L49)）、
 简单的 `{SVCNAME}_SERVICE_HOST` 和 `{SVCNAME}_SERVICE_PORT` 变量。
 这里 Service 的名称需大写，横线被转换成下划线。
 
