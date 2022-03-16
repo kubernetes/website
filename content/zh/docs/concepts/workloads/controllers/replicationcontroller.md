@@ -331,7 +331,7 @@ kubectl 将 ReplicationController 缩放为 0 并等待以便在删除 Replicati
 
 You can delete a ReplicationController without affecting any of its pods.
 
-Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
+Using kubectl, specify the `--cascade=orphan` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
 
 When using the REST API or Go client library, simply delete the ReplicationController object.
 -->
@@ -339,7 +339,7 @@ When using the REST API or Go client library, simply delete the ReplicationContr
 
 你可以删除一个 ReplicationController 而不影响它的任何 Pod。
 
-使用 kubectl，为 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 指定 `--cascade=false` 选项。
+使用 kubectl，为 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 指定 `--cascade=orphan` 选项。
 
 当使用 REST API 或 Go 客户端库时，只需删除 ReplicationController 对象。
 
@@ -501,12 +501,12 @@ ReplicationController 永远被限制在这个狭隘的职责范围内。
 我们甚至计划考虑批量创建 Pod 的机制（查阅 [#170](https://issue.k8s.io/170)）。
 
 <!--
-The ReplicationController is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale, rolling-update) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](http://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
+The ReplicationController is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale, rolling-update) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](https://netflixtechblog.com/asgard-web-based-cloud-management-and-deployment-2c9fc4e4d3a1) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
 -->
 ReplicationController 旨在成为可组合的构建基元。
 我们希望在它和其他补充原语的基础上构建更高级别的 API 或者工具，以便于将来的用户使用。
 kubectl 目前支持的 "macro" 操作（运行、缩放、滚动更新）就是这方面的概念示例。
-例如，我们可以想象类似于 [Asgard](https://techblog.netflix.com/2012/06/asgaard-web-based-cloud-management-and.html)
+例如，我们可以想象类似于 [Asgard](https://netflixtechblog.com/asgard-web-based-cloud-management-and-deployment-2c9fc4e4d3a1)
 的东西管理 ReplicationController、自动定标器、服务、调度策略、金丝雀发布等。
 
 <!--
@@ -544,16 +544,14 @@ Note that we recommend using Deployments instead of directly using Replica Sets,
 <!--
 ### Deployment (Recommended)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods
-in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality,
-because unlike `kubectl rolling-update`, they are declarative, server-side, and have additional features.
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods.
+Deployments are recommended if you want the rolling update functionality,
+because they are declarative, server-side, and have additional features.
 -->
 ### Deployment （推荐）
 
-[`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/) 是一种更高级别的 API 对象，
-它以类似于 `kubectl rolling-update` 的方式更新其底层 ReplicaSet 及其 Pod。
-如果你想要这种滚动更新功能，那么推荐使用 Deployment，因为与 `kubectl rolling-update` 不同，
-它们是声明式的、服务端的，并且具有其它特性。
+[`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/) 是一种更高级别的 API 对象，用于更新其底层 ReplicaSet 及其 Pod。
+如果你想要这种滚动更新功能，那么推荐使用 Deployment，因为它们是声明式的、服务端的，并且具有其它特性。
 
 <!--
 ### Bare Pods
@@ -596,11 +594,19 @@ ReplicationController。
 并且在机器准备重新启动或者关闭时安全地终止。
 
 <!--
-## For more information
+## {{% heading "whatsnext" %}}
 
-Read [Run Stateless AP Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Learn about [Deployment](/docs/concepts/workloads/controllers/deployment/), the replacement
+  for ReplicationController.
+* `ReplicationController` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  object definition to understand the API for replication controllers.
 -->
-## 更多信息
+## {{% heading "whatsnext" %}}
 
-请阅读[运行无状态的 ReplicationController](/zh/docs/tasks/run-application/run-stateless-application-deployment/)。
+- 了解 [Pods](/zh/docs/concepts/workloads/pods)。
+- 了解 [Depolyment](/zh/docs/concepts/workloads/controllers/deployment/)，ReplicationController 的替代品。
+- `ReplicationController` 是 Kubernetes REST API 的一部分，阅读 {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  对象定义以了解 replication controllers 的 API。
 

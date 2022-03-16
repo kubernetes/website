@@ -478,7 +478,7 @@ the settings you specify apply to all containers in that Pod.
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
 
 This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
-The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/clusters/seccomp/) takes
+The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/) takes
 you through the steps you follow to apply a seccomp profile to a Pod or to one of
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.

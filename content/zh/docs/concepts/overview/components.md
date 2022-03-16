@@ -57,13 +57,13 @@ Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
 [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
-for an example control plane setup that runs across multiple VMs.
+for an example control plane setup that runs across multiple machines.
  -->
 控制平面组件可以在集群中的任何节点上运行。
 然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，
 并且不会在此计算机上运行用户容器。
 请参阅[使用 kubeadm 构建高可用性集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
-中关于多 VM 控制平面设置的示例。
+中关于跨多机器控制平面设置的示例。
 
 ### kube-apiserver
 
