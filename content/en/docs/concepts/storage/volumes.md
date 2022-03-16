@@ -1247,6 +1247,14 @@ persistent volume:
   `NodePublishVolume` call. This field is optional, and may be empty if no
   secret is required. If the secret object contains more than one secret, all
   secrets are passed.
+* `nodeExpandSecretRef`: A reference to the secret object containing
+  sensitive information to pass to the CSI driver to complete the CSI
+  `NodeExpandVolume` call. This field is optional, and may be empty if no
+  secret is required. If the secret object contains more than one secret, all
+  secrets are passed. To use this field in `NodeExpandVolume` call to the
+  CSI driver, the cluster should be running kubernetes version 1.24 atleast
+  and the feature flag `CSINodeExpandSecret` has to be enabled in the kube
+  API server and in the kubelet configuration.
 
 #### CSI raw block volume support
 
