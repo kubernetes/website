@@ -20,7 +20,6 @@ running `kube-scheduler --policy-config-file <filename>` or `kube-scheduler --po
 This scheduling policy is not supported since Kubernetes v1.23. Associated flags `policy-config-file`, `policy-configmap`, `policy-configmap-namespace` and `use-legacy-policy-config` are also not supported. Instead, use the [Scheduler Configuration](/docs/reference/scheduling/config/) to achieve similar behavior.
 -->
 
-<!-- 概述 -->
 在 Kubernetes v1.23 版本之前，可以使用调度策略来指定 *predicates* 和 *priorities* 进程。
 例如，可以通过运行 `kube-scheduler --policy-config-file <filename>` 或者
  `kube-scheduler --policy-configmap <ConfigMap>` 设置调度策略。
