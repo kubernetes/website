@@ -6,7 +6,7 @@ weight: 10
 
 <!-- overview -->
 
-Por padrão, os cointêineres são executados com [recursos computacionais]((/docs/concepts/configuration/manage-resources-containers/)) ilimitados em um cluster Kubernetes. Com cotas de recursos, os administradores de cluster podem restringir o consumo e a criação de recursos baseado no {{< glossary_tooltip text="namespace" term_id="namespace" >}}. Dentro de um _namespace_, pod ou contêiner pode haver o consumo de quantidade de CPU e memória definidos de acordo com a cota de recursos do _namespace_. Existe a preocupação de que um Pod ou contêiner possa monopolizar todos os recursos disponíveis, justamente por conta disso existe o conceito de _Limit Range_, ou intervalos de limite, que pode ser definido como uma política utilizada para a restrição de alocação de recursos (para pods ou contêineres) em um _namespace_.
+Por padrão, os cointêineres são executados com [recursos computacionais](/docs/concepts/configuration/manage-resources-containers/) ilimitados em um cluster Kubernetes. Com cotas de recursos, os administradores de cluster podem restringir o consumo e a criação de recursos baseado no {{< glossary_tooltip text="namespace" term_id="namespace" >}}. Dentro de um _namespace_, pod ou contêiner pode haver o consumo de quantidade de CPU e memória definidos de acordo com a cota de recursos do _namespace_. Existe a preocupação de que um Pod ou contêiner possa monopolizar todos os recursos disponíveis, justamente por conta disso existe o conceito de _Limit Range_, ou intervalos de limite, que pode ser definido como uma política utilizada para a restrição de alocação de recursos (para pods ou contêineres) em um _namespace_.
 
 <!-- body -->
 
