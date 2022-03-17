@@ -36,12 +36,24 @@ Example: `kubernetes.io/metadata.name=mynamespace`
 
 Used on: Namespaces
 
-The Kubernetes API server (part of the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}) 
+The Kubernetes API server (part of the {{< glossary_tooltip text="control plane" term_id="control-plane" >}})
 sets this label on all namespaces. The label value is set
-to the name of the namespace. You can't change this label's value. 
+to the name of the namespace. You can't change this label's value.
 
 This is useful if you want to target a specific namespace with a label
 {{< glossary_tooltip text="selector" term_id="selector" >}}.
+
+## kubernetes.io/limit-ranger
+
+Example: `kubernetes.io/limit-ranger: LimitRanger plugin set: cpu, memory request for container nginx; cpu, memory limit for container nginx`
+
+Used on: Namespace
+
+Kubernetes by default doesn't provide any resource limit, that means unless you explicitly define limits,
+your container can consume unlimited CPU and memory.
+We can define default limit for pods by creating a LimitRange in the relevant namespace.
+Pods deployed after this LimitRange will have these limits applied to them.
+`limit-ranger` automatically adds the limits that were requested for the pod.
 
 ## beta.kubernetes.io/arch (deprecated)
 
@@ -68,7 +80,7 @@ Example: `kubernetes.io/change-cause=kubectl edit --record deployment foo`
 
 Used on: All Objects
 
-This annotation is a best guess at why something was changed. 
+This annotation is a best guess at why something was changed.
 
 It is populated when adding `--record` to a `kubectl` command that may change an object.
 
@@ -403,7 +415,7 @@ Example: `pod-security.kubernetes.io/enforce-version: {{< skew latestVersion >}}
 Used on: Namespace
 
 Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
-This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards) 
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards)
 policies to apply when validating a submitted Pod.
 
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
@@ -430,7 +442,7 @@ Example: `pod-security.kubernetes.io/audit-version: {{< skew latestVersion >}}`
 Used on: Namespace
 
 Value **must** be `latest` or a valid Kubernetes version in the format `v<MAJOR>.<MINOR>`.
-This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards) 
+This determines the version of the [Pod Security Standard](/docs/concepts/security/pod-security-standards)
 policies to apply when validating a submitted Pod.
 
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
@@ -444,7 +456,7 @@ Used on: Namespace
 
 Value **must** be one of `privileged`, `baseline`, or `restricted` which correspond to
 [Pod Security Standard](/docs/concepts/security/pod-security-standards) levels. Specifically,
-the `warn` label does not prevent the creation of a Pod in the labeled Namespace which does not meet the 
+the `warn` label does not prevent the creation of a Pod in the labeled Namespace which does not meet the
 requirements outlined in the indicated level, but returns a warning to the user after doing so.
 Note that warnings are also displayed when creating or updating objects that contain Pod templates,
 such as Deployments, Jobs, StatefulSets, etc.
