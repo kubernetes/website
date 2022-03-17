@@ -643,7 +643,7 @@ Uma solicitação de criação de pod é rejeitada caso seu `priorityClassName` 
 
 ## {{% heading "whatsnext" %}}
 
-- Veja [Documento de design de ResourceQuota](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) para mais informações.
+- Veja [Documento de design de cota de recursos](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) para mais informações.
 - Veja um [exemplo detalhado de como usar a cota de recursos](/docs/tasks/administer-cluster/quota-api-object/).
-- Leia [documento de design de suporte de cota para prioridade de classe](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md).
-- Veja [Recursos Limitados](https://github.com/kubernetes/kubernetes/pull/36765)
+- Leia o [documento de design de suporte de cota para prioridade de classe](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md).
+- Veja [recursos limitados](https://github.com/kubernetes/kubernetes/pull/36765)
