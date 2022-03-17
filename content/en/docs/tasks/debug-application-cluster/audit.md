@@ -14,7 +14,7 @@ the sequence of actions in a cluster. The cluster audits the activities generate
 by applications that use the Kubernetes API, and by the control plane itself.
 
 Auditing allows cluster administrators to answer the following questions:
-
+ - how to enable ?
  - what happened?
  - when did it happen?
  - who initiated it?
@@ -24,6 +24,8 @@ Auditing allows cluster administrators to answer the following questions:
  - to where was it going?
 
 <!-- body -->
+
+In order to enable the auditing  , two flags must be added to api server configuration as explained below :audit-log-path and audit-policy-file
 
 Audit records begin their lifecycle inside the
 [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
