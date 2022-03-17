@@ -49,7 +49,7 @@ runtimes can have different ways to implement the same restrictions.
 {{< note >}}
 If a container specifies its own memory limit, but does not specify a memory request, Kubernetes
 automatically assigns a memory request that matches the limit. Similarly, if a container specifies its own
-CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
+CPU limit (or any other resource limit), but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
 the limit.
 {{< /note >}}
 
