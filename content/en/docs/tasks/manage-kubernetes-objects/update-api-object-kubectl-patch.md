@@ -189,11 +189,11 @@ kubectl get deployment patch-demo --output yaml
 
 The output shows that the PodSpec in the Deployment has only one Toleration:
 
-```shell
+```yaml
 tolerations:
-      - effect: NoSchedule
-        key: disktype
-        value: ssd
+- effect: NoSchedule
+  key: disktype
+  value: ssd
 ```
 
 Notice that the `tolerations` list in the PodSpec was replaced, not merged. This is because
