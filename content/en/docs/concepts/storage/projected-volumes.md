@@ -71,18 +71,24 @@ A container using a projected volume source as a [`subPath`](/docs/concepts/stor
 volume mount will not receive updates for those volume sources.
 {{< /note >}}
 
-## SecurityContext interactions
+### serviceAccountToken and securityContext
 
 The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the the correct owner permissions set.
 
-### Linux
+#### Linux
 
-In Linux pods that have a projected volume and `RunAsUser` set in the Pod
-[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context),
-the projected files have the correct ownership set including container user
-ownership.
+Kubernetes will improve security for serviceAccountToken files when all containers
+have the same `runAsUser` set in
+[`PodSecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+or container
+[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)
+by setting the file owner to the `runAsUser` and the file mode to `0600`.
 
-### Windows
+Note that {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
+aren't present when the pod is created. Adding an ephemeral container to a pod
+will not change the permissions that were set when the pod was created.
+
+#### Windows
 
 In Windows pods that have a projected volume and `RunAsUsername` set in the
 Pod `SecurityContext`, the ownership is not enforced due to the way user
