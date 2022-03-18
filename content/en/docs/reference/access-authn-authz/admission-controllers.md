@@ -666,6 +666,7 @@ plugins:
 {{< /tabs >}}
 
 #### Configuration Annotation Format
+
 `PodNodeSelector` uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
 
 ```yaml
@@ -678,6 +679,7 @@ metadata:
 ```
 
 #### Internal Behavior
+
 This admission controller has the following behavior:
 
 1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
@@ -746,7 +748,8 @@ metadata:
 
 ### Priority {#priority}
 
-The priority admission controller uses the `priorityClassName` field and populates the integer value of the priority. If the priority class is not found, the Pod is rejected.
+The priority admission controller uses the `priorityClassName` field and populates the integer value of the priority.
+If the priority class is not found, the Pod is rejected.
 
 ### ResourceQuota {#resourcequota}
 
@@ -754,19 +757,20 @@ This admission controller will observe the incoming request and ensure that it d
 enumerated in the `ResourceQuota` object in a `Namespace`.  If you are using `ResourceQuota`
 objects in your Kubernetes deployment, you MUST use this admission controller to enforce quota constraints.
 
-See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
+See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)
+and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 
 ### RuntimeClass {#runtimeclass}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-If you enable the `PodOverhead` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), and define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) configured, this admission controller checks incoming
-Pods. When enabled, this admission controller rejects any Pod create requests that have the overhead already set.
-For Pods that have a  RuntimeClass is configured and selected in their `.spec`, this admission controller sets `.spec.overhead` in the Pod based on the value defined in the corresponding RuntimeClass.
-
-{{< note >}}
-The `.spec.overhead` field for Pod and the `.overhead` field for RuntimeClass are both in beta. If you do not enable the `PodOverhead` feature gate, all Pods are treated as if `.spec.overhead` is unset.
-{{< /note >}}
+If you define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
+configured, this admission controller checks incoming Pods.
+When enabled, this admission controller rejects any Pod create requests
+that have the overhead already set.
+For Pods that have a RuntimeClass configured and selected in their `.spec`,
+this admission controller sets `.spec.overhead` in the Pod based on the value
+defined in the corresponding RuntimeClass.
 
 See also [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 for more information.
@@ -823,11 +827,11 @@ If you disable the ValidatingAdmissionWebhook, you must also disable the
 group/version via the `--runtime-config` flag (both are on by default in
 versions 1.9 and later).
 
-
 ## Is there a recommended set of admission controllers to use?
 
-Yes. The recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
+Yes. The recommended admission controllers are enabled by default
+(shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)),
+so you do not need to explicitly specify them.
+You can enable additional admission controllers beyond the default set using the
+`--enable-admission-plugins` flag (**order doesn't matter**).
 
-{{< note >}}
-`--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
-{{< /note >}}
