@@ -11,8 +11,9 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
-파드시큐리티폴리시(PodSecurityPolicy)는 쿠버네티스 v1.21부터 더이상 사용되지 않으며, v1.25에서 제거된다. 사용 중단에 대한 상세 사항은
-[파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)를 참조한다.
+파드시큐리티폴리시(PodSecurityPolicy)는 쿠버네티스 v1.21부터 더 이상 사용되지 않으며, v1.25에서 제거될 예정이다. 
+파드시큐리티폴리시는 [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)으로 대체되었다.
+사용 중단에 대한 상세 사항은 [파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)를 참조한다.
 
 파드 시큐리티 폴리시를 사용하면 파드 생성 및 업데이트에 대한 세분화된 권한을
 부여할 수 있다.

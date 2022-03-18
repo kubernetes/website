@@ -235,7 +235,7 @@ QoS는 EphemeralStorage 요청에 적용되지 않으므로,
 `Guaranteed` 파드는 모든 컨테이너에 대해 자원 요청량과 제한이 명시되고 
 그 둘이 동일할 때에만 보장(guaranteed)된다. 다른 파드의 자원 사용으로 인해 
 `Guaranteed` 파드가 축출되는 일은 발생하지 않는다. 만약 시스템 데몬(예: 
-`kubelet`, `docker`, `journald`)이 `system-reserved` 또는 `kube-reserved` 
+`kubelet`, `journald`)이 `system-reserved` 또는 `kube-reserved` 
 할당을 통해 예약된 것보다 더 많은 자원을 소비하고, 노드에는 요청량보다 적은 양의 
 자원을 사용하고 있는 `Guaranteed` / `Burstable` 파드만 존재한다면, 
 kubelet은 노드 안정성을 유지하고 자원 고갈이 다른 파드에 미칠 영향을 통제하기 위해 
