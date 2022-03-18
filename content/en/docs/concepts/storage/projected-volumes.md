@@ -75,10 +75,16 @@ The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-s
 
 ### Linux
 
-In Linux pods that have a projected volume and `RunAsUser` set in the Pod
-[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context),
-the projected files have the correct ownership set including container user
-ownership.
+If you specify the same `runAsUser` for all containers using
+[`PodSecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+or container
+[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)
+when the pod is created, then the system will override normal file permissions
+to set the file owner to the 'runAsUser' and the file mode to `0600`.
+
+Note that {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
+aren't present when the pod is created. Adding an ephemeral container to a pod
+will not change the permissions that were set when the pod was created.
 
 ### Windows
 
