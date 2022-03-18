@@ -36,7 +36,7 @@ accomplish commonly used tasks, and [Tutorials](/docs/tutorials/) are more
 comprehensive walkthroughs of real-world, industry-specific, or end-to-end
 development scenarios. The [Reference](/docs/reference/) section provides
 detailed documentation on the [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/overview/).
+and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/).
 
 ## Help! My question isn't covered!  I need help now!
 
@@ -101,7 +101,7 @@ If filing a bug, please include detailed information about how to reproduce the
 problem, such as:
 
 * Kubernetes version: `kubectl version`
-* Cloud provider, OS distro, network configuration, and Docker version
+* Cloud provider, OS distro, network configuration, and container runtime version
 * Steps to reproduce the problem
 
 

@@ -3,6 +3,7 @@ title: Pod 安全策略
 content_type: concept
 weight: 30
 ---
+
 <!--
 reviewers:
 - pweil-
@@ -14,12 +15,20 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
+{{< caution >}}
 <!--
-PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25. For more information on the deprecation,
+PodSecurityPolicy is deprecated as of Kubernetes v1.21, and **will be removed in v1.25**. We recommend migrating to
+[Pod Security Admission](/docs/concepts/security/pod-security-admission/), or a 3rd party admission plugin.
+For a migration guide, see [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
+For more information on the deprecation,
 see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
 -->
-PodSecurityPolicy 在 Kubernetes v1.21 版本中被弃用，将在 v1.25 中删除。
+PodSecurityPolicy 在 Kubernetes v1.21 版本中被弃用，**将在 v1.25 中删除**。
+我们建议迁移到 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission)，
+或者第三方的准入插件。
+若需了解迁移指南，可参阅[从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh/docs/tasks/configure-pod-container/migrate-from-psp/)。
 关于弃用的更多信息，请查阅 [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
+{{< /caution >}}
 
 <!--
 Pod Security Policies enable fine-grained authorization of pod creation and
@@ -1228,13 +1237,13 @@ denoted as the string `Unmasked`.
 ### AppArmor
 
 Controlled via annotations on the PodSecurityPolicy. Refer to the [AppArmor
-documentation](/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations).
+documentation](/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations).
 -->
 ### AppArmor
 
 通过 PodSecurityPolicy 上的注解来控制。
 详情请参阅
-[AppArmor 文档](/zh/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations)。
+[AppArmor 文档](/zh/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations)。
 
 
 <!--
