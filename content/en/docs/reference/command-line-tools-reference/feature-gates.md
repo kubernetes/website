@@ -180,7 +180,8 @@ different Kubernetes components.
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
 | `SeccompDefault` | `true` | Beta | 1.25 | |
-| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | - |
+| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | 1.24 |
+| `ServerSideFieldValidation` | `true` | Beta | 1.25 | |
 | `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
 | `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | |
 | `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | |
