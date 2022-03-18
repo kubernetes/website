@@ -717,7 +717,7 @@ The set of protocols that can be used for LoadBalancer type of Services is still
 
 #### Disabling load balancer NodePort allocation {#load-balancer-nodeport-allocation}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 You can optionally disable node port allocation for a Service of `type=LoadBalancer`, by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
@@ -725,12 +725,6 @@ that route traffic directly to pods as opposed to using node ports. By default, 
 is `true` and type LoadBalancer Services will continue to allocate node ports. If `spec.allocateLoadBalancerNodePorts`
 is set to `false` on an existing Service with allocated node ports, those node ports will **not** be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
-Your cluster must have the `ServiceLBNodePortControl`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled to use this field.
-For Kubernetes v{{< skew currentVersion >}}, this feature gate is enabled by default,
-and you can use the `spec.allocateLoadBalancerNodePorts` field. For clusters running
-other versions of Kubernetes, check the documentation for that release.
 
 #### Specifying class of load balancer implementation {#load-balancer-class}
 
