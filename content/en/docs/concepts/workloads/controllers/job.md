@@ -425,13 +425,7 @@ Here, `W` is the number of work items.
 
 ### Suspending a Job
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
-
-{{< note >}}
-In Kubernetes version 1.21, this feature was in alpha, which required additional
-steps to enable this feature; make sure to read the [right documentation for the
-version of Kubernetes you're using](/docs/home/supported-doc-versions/).
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 When a Job is created, the Job controller will immediately begin creating Pods
 to satisfy the Job's requirements and will continue to do so until the Job is
