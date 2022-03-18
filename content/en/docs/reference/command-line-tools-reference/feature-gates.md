@@ -366,6 +366,7 @@ different Kubernetes components.
 | `LegacyNodeRoleBehavior` | `false` | Alpha | 1.16 | 1.18 |
 | `LegacyNodeRoleBehavior` | `true` | Beta | 1.19 | 1.20 |
 | `LegacyNodeRoleBehavior` | `false` | GA | 1.21 | - |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | |
 | `MountContainers` | `false` | Alpha | 1.9 | 1.16 |
 | `MountContainers` | `false` | Deprecated | 1.17 | - |
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
@@ -906,6 +907,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and
   node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the
   feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`.
+- `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
+  [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 - `LocalStorageCapacityIsolation`: Enable the consumption of
   [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/)
   and also the `sizeLimit` property of an
