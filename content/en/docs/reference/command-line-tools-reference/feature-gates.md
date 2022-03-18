@@ -203,8 +203,6 @@ different Kubernetes components.
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
-| `SuspendJob` | `false` | Alpha | 1.21 | 1.21 |
-| `SuspendJob` | `true` | Beta | 1.22 | |
 | `TopologyAwareHints` | `false` | Alpha | 1.21 | 1.22 |
 | `TopologyAwareHints` | `false` | Beta | 1.23 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
@@ -467,6 +465,9 @@ different Kubernetes components.
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
 | `SupportPodPidsLimit` | `true` | Beta | 1.14 | 1.19 |
 | `SupportPodPidsLimit` | `true` | GA | 1.20 | - |
+| `SuspendJob` | `false` | Alpha | 1.21 | 1.21 |
+| `SuspendJob` | `true` | Beta | 1.22 | 1.23 |
+| `SuspendJob` | `true` | GA | 1.24 | |
 | `Sysctls` | `true` | Beta | 1.11 | 1.20 |
 | `Sysctls` | `true` | GA | 1.21 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | 1.20 |
