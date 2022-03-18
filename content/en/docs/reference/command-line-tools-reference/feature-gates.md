@@ -175,8 +175,6 @@ different Kubernetes components.
 | `PodOverhead` | `true` | Beta | 1.18 | |
 | `PodSecurity` | `false` | Alpha | 1.22 | 1.22 |
 | `PodSecurity` | `true` | Beta | 1.23 | |
-| `PreferNominatedNode` | `false` | Alpha | 1.21 | 1.21 |
-| `PreferNominatedNode` | `true` | Beta | 1.22 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
 | `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
@@ -399,6 +397,9 @@ different Kubernetes components.
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | 1.16 |
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
+| `PreferNominatedNode` | `false` | Alpha | 1.21 | 1.21 |
+| `PreferNominatedNode` | `true` | Beta | 1.22 | 1.23 |
+| `PreferNominatedNode` | `true` | GA | 1.24 | - |
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | Beta | 1.20 | 1.23 |
 | `RemoveSelfLink` | `true` | GA | 1.24 | - |
