@@ -201,6 +201,7 @@ different Kubernetes components.
 | `ServiceLBNodePortControl` | `true` | Beta | 1.22 | |
 | `ServiceLoadBalancerClass` | `false` | Alpha | 1.21 | 1.21 |
 | `ServiceLoadBalancerClass` | `true` | Beta | 1.22 | |
+| `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
@@ -1031,6 +1032,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceTopology`: Enable service to route traffic based upon the Node
   topology of the cluster. See
   [ServiceTopology](/docs/concepts/services-networking/service-topology/)
+  for more details.
+- `ServiceIPStaticSubrange`: Enable a new strategy for Services ClusterIP allocations, so users can subdivide the ClusterIP range. Dynamic allocated ClusterIP addresses will be allocated preferently from the upper range allowing users to assign static ClusterIPs from the lower range with a low risk of collision. See
+  [ServiceIPStaticSubrange](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/3070-reserved-service-ip-range#proposed-services-clusterips-allocation-model)
   for more details.
 - `SetHostnameAsFQDN`: Enable the ability of setting Fully Qualified Domain
   Name(FQDN) as the hostname of a pod. See
