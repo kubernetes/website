@@ -442,7 +442,7 @@ pods        0     10
 
 ### Cross-namespace Pod Affinity Quota
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Operators can use `CrossNamespacePodAffinity` quota scope to limit which namespaces are allowed to
 have pods with affinity terms that cross namespaces. Specifically, it controls which pods are allowed
@@ -492,10 +492,6 @@ plugins:
 With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
 if the namespace where they are created have a resource quota object with 
 `CrossNamespaceAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
-
-This feature is beta and enabled by default. You can disable it using the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
 
 ## Requests compared to Limits {#requests-vs-limits}
 
