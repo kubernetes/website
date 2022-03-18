@@ -33,7 +33,7 @@ services are often limited by memory size and can move infrequently
 used data into storage that is slower than memory with little impact
 on overall performance.
 -->
-有些应用程序需要额外的存储，但并不关心数据在重启后仍然可用，既是否被持久地保存。
+有些应用程序需要额外的存储，但并不关心数据在重启后仍然可用。
 例如，缓存服务经常受限于内存大小，将不常用的数据转移到比内存慢、但对总体性能的影响很小的存储中。
 
 <!--
@@ -219,15 +219,7 @@ As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/pol
 -->
 ### 通用临时卷 {#generic-ephemeral-volumes}
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
-
-<!--
-This feature requires the `GenericEphemeralVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled. Because this is a beta feature, it is enabled by default.
--->
-这个特性需要启用 `GenericEphemeralVolume` 
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-因为这是一个 beta 特性，默认情况下启用。
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 <!--
 Generic ephemeral volumes are similar to `emptyDir` volumes in the
@@ -419,7 +411,6 @@ two choices:
 如果这不符合他们的安全模型，他们有如下选择：
 
 <!--
-- Explicitly disable the feature through the feature gate.
 - Use a [Pod Security
   Policy](/docs/concepts/policy/pod-security-policy/) where the
   `volumes` list does not contain the `ephemeral` volume type
@@ -473,11 +464,8 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 
 - For more information on the design, see the
 [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
-- For more information on further development of this feature, see the [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698).
 -->
 ### 通用临时卷 {#generic-ephemeral-volumes}
 
 - 有关设计的更多信息，参阅
   [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md)。
-- 关于本特性下一步开发的更多信息，参阅
-  [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698)。

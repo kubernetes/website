@@ -1145,7 +1145,7 @@ The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
 * `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User".
-* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
+* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` must be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
 * `Impersonate-Uid`: A unique identifier that represents the user being impersonated. Optional. Requires "Impersonate-User". Kubernetes does not impose any format requirements on this string.
 -->
 以下 HTTP 头部字段可用来执行伪装请求：
@@ -1841,7 +1841,8 @@ Certificates）。
 
 <!--
 Optionally, the response can include the expiry of the credential formatted as a
-RFC3339 timestamp. Presence or absence of an expiry has the following impact:
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp.
+Presence or absence of an expiry has the following impact:
 
 - If an expiry is included, the bearer token and TLS credentials are cached until
   the expiry time is reached, or if the server responds with a 401 HTTP status code,
@@ -1849,7 +1850,9 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
 - If an expiry is omitted, the bearer token and TLS credentials are cached until
   the server responds with a 401 HTTP status code or until the process exits.
 -->
-作为一种可选方案，响应中还可以包含以 RFC3339 时间戳格式给出的证书到期时间。
+作为一种可选方案，响应中还可以包含以
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
+时间戳格式给出的证书到期时间。
 证书到期时间的有无会有如下影响：
 
 - 如果响应中包含了到期时间，持有者令牌和 TLS 凭据会被缓存，直到到期期限到来、

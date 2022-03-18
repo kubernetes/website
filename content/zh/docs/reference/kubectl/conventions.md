@@ -70,58 +70,6 @@ You can use the `--dry-run=client` flag to preview the object that would be sent
 -->
 你可以使用 `--dry-run=client` 参数来预览而不真正提交即将下发到集群的对象实例：
 
-{{< note >}}
-<!--
-All `kubectl run` generators are deprecated.
-See the Kubernetes v1.17 documentation for a [list](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) of generators and how they were used.
--->
-所有的 `kubectl run` 生成器已弃用。
-查阅 Kubernetes v1.17 文档中的生成器[列表](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators)以及它们的用法。
-{{< /note >}}
-
-<!--
-#### Generators
--->
-#### 生成器
-<!--
-You can generate the following resources with a kubectl command, `kubectl create --dry-run=client -o yaml`:
-
-* `clusterrole`: Create a ClusterRole.
-* `clusterrolebinding`: Create a ClusterRoleBinding for a particular ClusterRole.
-* `configmap`: Create a ConfigMap from a local file, directory or literal value.
-* `cronjob`: Create a CronJob with the specified name.
-* `deployment`: Create a Deployment with the specified name.
-* `job`: Create a Job with the specified name.
-* `namespace`: Create a Namespace with the specified name.
-* `poddisruptionbudget`: Create a PodDisruptionBudget with the specified name.
-* `priorityclass`: Create a PriorityClass with the specified name.
-* `quota`: Create a Quota with the specified name.
-* `role`: Create a Role with single rule.
-* `rolebinding`: Create a RoleBinding for a particular Role or ClusterRole.
-* `secret`: Create a Secret using specified subcommand.
-* `service`: Create a Service using specified subcommand.
-* `serviceaccount`: Create a ServiceAccount with the specified name.
-
--->
-你可以使用 kubectl 命令生成以下资源， `kubectl create --dry-run=client -o yaml`：
-
-* `clusterrole`:         创建 ClusterRole。
-* `clusterrolebinding`:  为特定的 ClusterRole 创建 ClusterRoleBinding。
-* `configmap`:           使用本地文件、目录或文本值创建 Configmap。
-* `cronjob`:             使用指定的名称创建 Cronjob。
-* `deployment`:          使用指定的名称创建 Deployment。
-* `job`:                 使用指定的名称创建 Job。
-* `namespace`:           使用指定的名称创建名称空间。
-* `poddisruptionbudget`: 使用指定名称创建 Pod 干扰预算。
-* `priorityclass`:       使用指定的名称创建 Priorityclass。
-* `quota`:               使用指定的名称创建配额。
-* `role`:                使用单一规则创建角色。
-* `rolebinding`:         为特定角色或 ClusterRole 创建 RoleBinding。
-* `secret`:              使用指定的子命令创建 Secret。
-* `service`:             使用指定的子命令创建服务。
-* `serviceaccount`:      使用指定的名称创建服务帐户。
-
-
 ### `kubectl apply`
 
 <!--

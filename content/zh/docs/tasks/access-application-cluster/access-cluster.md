@@ -1,4 +1,4 @@
-﻿---
+---
 title: 访问集群
 weight: 20
 content_type: concept
@@ -50,10 +50,10 @@ kubectl config view
 
 <!--
 Many of the [examples](/docs/user-guide/kubectl-cheatsheet) provide an introduction to using
-kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl-overview).
+`kubectl` and complete documentation is found in the [kubectl reference](/docs/reference/kubectl/).
 -->
 有许多 [例子](/zh/docs/reference/kubectl/cheatsheet/) 介绍了如何使用 kubectl，
-可以在 [kubectl手册](/zh/docs/reference/kubectl/overview/) 中找到更完整的文档。
+可以在 [kubectl 参考](/zh/docs/reference/kubectl/overview/) 中找到更完整的文档。
 
 <!--
 ## Directly accessing the REST API
@@ -139,18 +139,47 @@ curl http://localhost:8080/api/
 <!--
 ### Without kubectl proxy
 
-In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the token. Use `kubectl describe secret...` to get the token for the default service account, like this:
+In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the token. Use `kubectl apply` and `kubectl describe secret...` to create a token for the default service account with grep/cut:
+
+First, create the Secret, requesting a token for the default ServiceAccount:
+
 -->
+
 ### 不使用 kubectl proxy
 
 在 Kubernetes 1.3 或更高版本中，`kubectl config view` 不再显示 token。
-使用 `kubectl describe secret ...` 来获取默认服务帐户的 token，如下所示：
-
+使用 `kubectl apply` 和 `kubectl describe secret ...` 及 grep 和剪切操作来为 default 服务帐户创建令牌，如下所示：
 `grep/cut` 方法实现：
+首先，创建 Secret，请求默认 ServiceAccount 的令牌：
+```shell
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+```
 
+<!--
+Next, wait for the token controller to populate the Secret with a token:
+
+Capture and use the generated token:
+-->
+接下来，等待令牌控制器使用令牌填充 Secret：
+```shell
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+```
+
+捕获并使用生成的令牌：
 ```shell
 APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d ' ')
+TOKEN=$(kubectl describe secret default-token | grep -E '^token' | cut -f2 -d':' | tr -d ' ')
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 ```json
@@ -172,7 +201,7 @@ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 
 ```shell
 APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode )
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 
