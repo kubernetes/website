@@ -149,6 +149,7 @@ different Kubernetes components.
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
 | `MemoryManager` | `true` | Beta | 1.22 | |
 | `MemoryQoS` | `false` | Alpha | 1.22 | |
+| `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |
@@ -989,6 +990,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   NUMA topology.
 - `MemoryQoS`: Enable memory protection and usage throttle on pod / container using
   cgroup v2 memory controller.
+- `MinDomainsInPodTopologySpread`: Enable `minDomains` in Pod
+  [topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 - `MountContainers`: Enable using utility containers on host as the volume mounter.

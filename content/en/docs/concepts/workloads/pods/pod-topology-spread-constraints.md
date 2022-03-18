@@ -73,16 +73,42 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
 
 - **maxSkew** describes the degree to which Pods may be unevenly distributed.
   It must be greater than zero. Its semantics differs according to the value of `whenUnsatisfiable`:
+
   - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
     permitted difference between the number of matching pods in the target
     topology and the global minimum
-    (the minimum number of pods that match the label selector in a topology domain. For example, if you have 3 zones with 0, 2 and 3 matching pods respectively, The global minimum is 0).
+    (the minimum number of pods that match the label selector in a topology domain.
+    For example, if you have 3 zones with 0, 2 and 3 matching pods respectively,
+    The global minimum is 0).
   - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
     precedence to topologies that would help reduce the skew.
+
+- **minDomains** indicates a minimum number of eligible domains.
+  A domain is a particular instance of a topology. An eligible domain is a domain whose
+  nodes match the node selector.
+
+  - The value of `minDomains` must be greater than 0, when specified.
+  - When the number of eligible domains with match topology keys is less than `minDomains`,
+    Pod topology spread treats "global minimum" as 0, and then the calculation of `skew` is performed.
+    The "global minimum" is the minimum number of matching Pods in an eligible domain,
+    or zero if the number of eligible domains is less than `minDomains`.
+  - When the number of eligible domains with matching topology keys equals or is greater than 
+    `minDomains`, this value has no effect on scheduling.
+  - When `minDomains` is nil, the constraint behaves as if `minDomains` is 1.
+  - When `minDomains` is not nil, the value of `whenUnsatisfiable` must be "`DoNotSchedule`".
+
+  {{< note >}}
+  The `minDomains` field is an alpha field added in 1.24. You have to enable the
+  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in order to use it.
+  {{< /note >}}
+
 - **topologyKey** is the key of node labels. If two Nodes are labelled with this key and have identical values for that label, the scheduler treats both Nodes as being in the same topology. The scheduler tries to place a balanced number of Pods into each topology domain.
+
 - **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
   - `DoNotSchedule` (default) tells the scheduler not to schedule it.
   - `ScheduleAnyway` tells the scheduler to still schedule it while prioritizing nodes that minimize the skew.
+
 - **labelSelector** is used to find matching Pods. Pods that match this label selector are counted to determine the number of Pods in their corresponding topology domain. See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) for more details.
 
 When a Pod defines more than one `topologySpreadConstraint`, those constraints are ANDed: The kube-scheduler looks for a node for the incoming Pod that satisfies all the constraints.
