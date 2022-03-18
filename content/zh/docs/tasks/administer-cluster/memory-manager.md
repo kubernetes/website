@@ -287,7 +287,8 @@ Kubernetes 调度器在优化 Pod 调度过程时，会考虑“可分配的”�
 并完成跨 NUMA 节点的预留操作。
 
 <!--
-The flag specifies a comma-separated list of memory reservations per NUMA node.
+The flag specifies a comma-separated list of memory reservations of different memory types per NUMA node.
+Memory reservations across multiple NUMA nodes can be specified using semicolon as separator.
 This parameter is only useful in the context of the Memory Manager feature. 
 The Memory Manager will not use this reserved memory for the allocation of container workloads.
 
@@ -295,7 +296,8 @@ For example, if you have a NUMA node "NUMA0" with `10Gi` of memory available, an
 the `--reserved-memory` was specified to reserve `1Gi` of memory at "NUMA0",
 the Memory Manager assumes that only `9Gi` is available for containers.
 -->
-标志设置的值是一个按 NUMA 节点所给的内存预留的值的列表，用逗号分开。
+标志设置的值是一个按 NUMA 节点的不同内存类型所给的内存预留的值的列表，用逗号分开。
+可以使用分号作为分隔符来指定跨多个 NUMA 节点的内存预留。
 只有在内存管理器特性被启用的语境下，这个参数才有意义。
 内存管理器不会使用这些预留的内存来为容器负载分配内存。
 
@@ -426,7 +428,7 @@ Here is an example of a correct configuration:
 --kube-reserved=cpu=4,memory=4Gi 
 --system-reserved=cpu=1,memory=1Gi 
 --memory-manager-policy=Static 
---reserved-memory 0:memory=3Gi --reserved-memory 1:memory=2148Mi
+--reserved-memory '0:memory=3Gi;1:memory=2148Mi'
 ```
 
 <!--

@@ -35,7 +35,7 @@ template.
 -->
 ## ReplicaSet 的工作原理 {#how-a-replicaset-works}
 
-RepicaSet 是通过一组字段来定义的，包括一个用来识别可获得的 Pod
+ReplicaSet 是通过一组字段来定义的，包括一个用来识别可获得的 Pod
 的集合的选择算符、一个用来标明应该维护的副本个数的数值、一个用来指定应该创建新 Pod
 以满足副本个数条件时要使用的 Pod 模板等等。
 每个 ReplicaSet 都通过根据需要创建和 删除 Pod 以使得副本个数达到期望值，

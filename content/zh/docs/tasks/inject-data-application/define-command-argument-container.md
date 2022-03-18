@@ -46,8 +46,7 @@ with your new arguments.
 如果在配置文件中设置了容器启动时要执行的命令及其参数，那么容器镜像中自带的命令与参数将会被覆盖而不再执行。如果配置文件中只是设置了参数，却没有设置其对应的命令，那么容器镜像中自带的命令会使用该新参数作为其执行时的参数。
 
 <!--
-The `command` field corresponds to `entrypoint` in some container
-runtimes. Refer to the [Notes](#notes) below.
+The `command` field corresponds to `entrypoint` in some container runtimes. 
 -->
 {{< note >}}
 在有些容器运行时中，`command` 字段对应 `entrypoint`，请参阅下面的
@@ -160,73 +159,6 @@ script. To run your command in a shell, wrap it like this:
 command: ["/bin/sh"]
 args: ["-c", "while true; do echo hello; sleep 10;done"]
 ```
-
-<!--
-## Notes
-
-This table summarizes the field names used by Docker and Kubernetes.
-
-|              Description               |    Docker field name   | Kubernetes field name |
-|----------------------------------------|------------------------|---------------------|
-|  The command run by the container      |   Entrypoint           |      command        |
-|  The arguments passed to the command   |   Cmd                  |      args           |
--->
-## 说明事项  {#notes}
-
-下表给出了 Docker 与 Kubernetes 中对应的字段名称。
-
-|       描述         |   Docker 字段名称  | Kubernetes 字段名称    |
-|--------------------|--------------------|-----------------------|
-| 容器执行的命令     |   Entrypoint       |      command          |
-| 传给命令的参数     |   Cmd              |      args             |
-
-<!--
-When you override the default Entrypoint and Cmd, these rules apply:
-
-* If you do not supply `command` or `args` for a Container, the defaults defined
-in the Docker image are used.
-
-* If you supply a `command` but no `args` for a Container, only the supplied
-`command` is used. The default EntryPoint and the default Cmd defined in the Docker
-image are ignored.
-
-* If you supply only `args` for a Container, the default Entrypoint defined in
-the Docker image is run with the `args` that you supplied.
-
-* If you supply a `command` and `args`, the default Entrypoint and the default
-Cmd defined in the Docker image are ignored. Your `command` is run with your
-`args`.
--->
-如果要覆盖默认的 Entrypoint 与 Cmd，需要遵循如下规则：
-
-* 如果在容器配置中没有设置 `command` 或者 `args`，那么将使用 Docker 镜像自带的命令及其参数。
-
-* 如果在容器配置中只设置了 `command` 但是没有设置 `args`，那么容器启动时只会执行该命令，
-  Docker 镜像中自带的命令及其参数会被忽略。
-
-* 如果在容器配置中只设置了 `args`，那么 Docker 镜像中自带的命令会使用该新参数作为其执行时的参数。
-
-* 如果在容器配置中同时设置了 `command` 与 `args`，那么 Docker 镜像中自带的命令及其参数会被忽略。
-  容器启动时只会执行配置中设置的命令，并使用配置中设置的参数作为命令的参数。
-
-<!--
-Here are some examples:
-
-| Image Entrypoint   |    Image Cmd     | Container command   |  Container args    |    Command run   |
-|--------------------|------------------|---------------------|--------------------|------------------|
-|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |   &lt;not set&gt;  | `[ep-1 foo bar]` |
-|     `[/ep-1]`      |   `[foo bar]`    |      `[/ep-2]`      |   &lt;not set&gt;  |     `[ep-2]`     |
-|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |     `[zoo boo]`    | `[ep-1 zoo boo]` |
-|     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
--->
-下面是一些例子：
-
-|   镜像 Entrypoint  |     镜像 Cmd     |     容器 command    |     容器 args      |     命令执行      |
-|--------------------|------------------|---------------------|--------------------|------------------|
-|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |   &lt;not set&gt;  | `[ep-1 foo bar]` |
-|     `[/ep-1]`      |   `[foo bar]`    |      `[/ep-2]`      |   &lt;not set&gt;  |     `[ep-2]`     |
-|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |     `[zoo boo]`    | `[ep-1 zoo boo]` |
-|     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
 
 
 ## {{% heading "whatsnext" %}}

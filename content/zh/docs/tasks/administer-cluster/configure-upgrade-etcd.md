@@ -672,3 +672,20 @@ ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
 依赖一些过时的数据。请注意，实际中还原会花费一些时间。
 在还原过程中，关键组件将丢失领导锁并自行重启。
 {{< /note >}}
+
+<!--
+
+## Upgrading etcd clusters
+
+For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
+
+{{< note >}}
+Before you start an upgrade, please back up your etcd cluster first.
+{{< /note >}}
+-->
+## 升级 etcd 集群
+有关 etcd 升级的更多详细信息，请参阅 [etcd 升级](https://etcd.io/docs/latest/upgrades/)文档。
+{{< note >}}
+在开始升级之前，请先备份你的 etcd 集群。
+{{< /note >}}
+
