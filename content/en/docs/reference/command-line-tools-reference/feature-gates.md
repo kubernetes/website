@@ -167,8 +167,6 @@ different Kubernetes components.
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | |
 | `OpenAPIV3` | `false` | Alpha | 1.23 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
-| `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | 1.21 |
-| `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
@@ -387,6 +385,9 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
+| `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | 1.21 |
+| `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | 1.23 |
+| `PodAffinityNamespaceSelector` | `true` | GA | 1.24 | - |
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | 1.20 |
 | `PodDisruptionBudget` | `true` | GA | 1.21 | - |
