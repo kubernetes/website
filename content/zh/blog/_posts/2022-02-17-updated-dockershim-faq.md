@@ -17,7 +17,7 @@ aliases: [ '/dockershim' ]
 **This is an update to the original [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article,
 published in late 2020.**
 -->
-**本文是针对2020年末发布的[弃用 Dockershim 的常见问题](/blog/2020/12/02/dockershim-faq/)博客的更新。**
+**本文是针对2020年末发布的[弃用 Dockershim 的常见问题](/zh/blog/2020/12/02/dockershim-faq/)的博客更新。**
 
 <!--
 This document goes over some frequently asked questions regarding the
@@ -27,22 +27,22 @@ as a part of the Kubernetes v1.20 release. For more detail
 on what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
 -->
-本文回顾了自 Kubernetes v1.20 版本[宣布](/blog/2020/12/08/kubernetes-1-20-release-announcement/)弃用
-Dockershim 以来所引发的一些常见问题。 关于弃用细节以及这些细节背后的含义，请参考博文
-[别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
+本文回顾了自 Kubernetes v1.20 版本[宣布](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/)弃用
+Dockershim 以来所引发的一些常见问题。关于弃用细节以及这些细节背后的含义，请参考博文
+[别慌: Kubernetes 和 Docker](/zh/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
 
 <!--
 Also, you can read [check whether dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
 to determine how much impact the removal of dockershim would have for you
 or for your organization.
 -->
-您还可以查阅：[检查弃用 Dockershim 对你的影响](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)这篇文章，
-以确定弃用 dockershim 会对您或您的组织带来多大的影响。
+你还可以查阅：[检查弃用 Dockershim 对你的影响](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)这篇文章，
+以确定弃用 dockershim 会对你或你的组织带来多大的影响。
 
 <!--
 As the Kubernetes 1.24 release has become imminent, we've been working hard to try to make this a smooth transition.
 -->
-Kubernetes 1.24 版本的即将发布，我们一直在使其能平稳升级过度上进行努力工作。
+随着 Kubernetes 1.24 版本的发布迫在眉睫，我们一直在努力尝试使其能够平稳升级顺利过渡。
 
 <!--
 - We've written a blog post detailing our [commitment and next steps](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/).
@@ -54,15 +54,15 @@ Kubernetes 1.24 版本的即将发布，我们一直在使其能平稳升级过�
   (including vendor guides).
 -->
 - 我们已经写了一篇博文，详细说明了我们的[承诺和后续操作](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/)。
-- 我们相信迁移到其他[容器运行时](/docs/setup/production-environment/container-runtimes/#container-runtimes)不存在严重障碍。
-- 我们撰写了[ dockershim 迁移指南](/docs/tasks/administer-cluster/migrating-from-dockershim/)供您参考。
-- 我们还创建了一个页面来列出[有关 dockershim 移除和使用CRI兼容运行时的文章](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)。
+- 我们我们相信可以无障碍的迁移到其他[容器运行时](/zh/docs/setup/production-environment/container-runtimes/#container-runtimes)。
+- 我们撰写了[ dockershim 迁移指南](/docs/tasks/administer-cluster/migrating-from-dockershim/)供你参考。
+- 我们还创建了一个页面来列出[有关 dockershim 移除和使用 CRI 兼容运行时的文章](/zh/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)。
 该列表包括一些已经提到的文档，还涵盖了选定的外部资源（包括供应商指南）。
 
 <!--
 ### Why is the dockershim being removed from Kubernetes?
 -->
-### 为什么 dockershim 会从 Kubernetes 中移除？
+### 为什么会从 Kubernetes 中移除 dockershim ？
 
 <!--
 Early versions of Kubernetes only worked with a specific container runtime:
@@ -86,7 +86,7 @@ You can read more about the community discussion and planning in the
 In fact, maintaining dockershim had become a heavy burden on the Kubernetes maintainers.
 -->
 dockershim 代码一直是一个临时解决方案（因此得名：shim）。 
-您可以阅读[ Kubernetes 移除 Dockershim 增强方案][drkep] 以了解相关的社区讨论和计划。
+你可以阅读[ Kubernetes 移除 Dockershim 增强方案][drkep]以了解相关的社区讨论和计划。
 事实上，维护 dockershim 已经成为 Kubernetes 维护者的沉重负担。
 
 <!--
@@ -103,14 +103,14 @@ those areas.
 <!--
 ### Can I still use Docker Engine in Kubernetes 1.23?
 -->
-### Kubernetes 1.23 版本中还可以使用 Docker Engine 吗？
+### 在 Kubernetes 1.23 版本中还可以使用 Docker Engine 吗？
 
 <!--
 Yes, the only thing changed in 1.20 is a single warning log printed at [kubelet]
 startup if using Docker Engine as the runtime. You'll see this warning in all versions up to 1.23. The dockershim removal occurs in Kubernetes 1.24.
 -->
 可以使用，在 1.20 版本中唯一的改动是，如果使用Docker Engine，在 [kubelet] 启动时会打印一个警告日志。
-您将在 1.23 版本及以前看到此警告。将在 Kubernetes 1.24 版本中移除 dockershim。
+你将在 1.23 版本及以前版本看到此警告。dockershim 将在 Kubernetes 1.24 版本中移除 。
 
 [kubelet]: /docs/reference/command-line-tools-reference/kubelet/
 
@@ -139,8 +139,8 @@ First off, if you use Docker on your own PC to develop or test containers: nothi
 You can still use Docker locally no matter what container runtime(s) you use for your
 Kubernetes clusters. Containers make this kind of interoperability possible.
 -->
-首先，如果您在自己的电脑上使用 Docker 用来做开发或测试容器：它将与之前没有任何变化。
-无论您为 Kubernetes 集群使用什么容器运行时，您都可以在本地使用 Docker。容器使这种交互成为可能。
+首先，如果你在自己的电脑上使用 Docker 用来做开发或测试容器：它将与之前没有任何变化。
+无论你为 Kubernetes 集群使用什么容器运行时，你都可以在本地使用 Docker。容器使这种交互成为可能。
 
 <!--
 Mirantis and Docker have [committed][mirantis] to maintaining a replacement adapter for
@@ -162,7 +162,7 @@ Yes, the images produced from `docker build` will work with all CRI implementati
 All your existing images will still work exactly the same.
 -->
 当然可以，`docker build` 创建的镜像适用于任何 CRI 实现。
-所有您的现有镜像将和往常一样工作。
+所有你的现有镜像将和往常一样工作。
 
 <!--
 #### What about private images?
@@ -190,7 +190,7 @@ ecosystem, some replacing aspects of Docker while others enhance existing
 functionality.
 -->
 Docker 普及了 Linux 容器模式，并在开发底层技术方面发挥了重要作用，
-但是 Linux 中的容器已经存在了很长时间。容器的生态相比于 Docker，具有更宽广的领域。
+但是 Linux 中的容器已经存在了很长时间。容器的生态相比于 Docker 具有更宽广的领域。
 OCI 和 CRI 等标准帮助许多工具在我们的生态系统中发展壮大，
 其中一些替代了 Docker 的某些方面，而另一些则增强了现有功能。
 
@@ -213,7 +213,7 @@ related projects follow a similar pattern as well, demonstrating the stability a
 usability of other container runtimes. As an example, OpenShift 4.x has been
 using the [CRI-O] runtime in production since June 2019.
 -->
-此外，[kind] 项目使用 containerd 已经有一段时间了，并且其用例的稳定性有所提高。
+此外，[kind] 项目使用 containerd 已经有一段时间了，并且提高了其用例的稳定性。
 每天都会多次使用 Kind 和 containerd 来验证对 Kubernetes 代码库的任何更改。
 其他相关项目也遵循同样的模式，从而展示了其他容器运行时的稳定性和可用性。
 例如，OpenShift 4.x 从 2019 年 6 月以来，就一直在生产环境中使用 [CRI-O] 运行时。
@@ -223,7 +223,7 @@ For other examples and references you can look at the adopters of containerd and
 CRI-O, two container runtimes under the Cloud Native Computing Foundation ([CNCF]).
 -->
 至于其他示例和参考资料，你可以查看 containerd 和 CRI-O 的使用者列表，
-这两个容器运行时是云原生基金会（[CNCF]）下的项目。
+这两个容器运行时是云原生基金会（ [CNCF] ）下的项目。
 
 - [containerd](https://github.com/containerd/containerd/blob/master/ADOPTERS.md)
 - [CRI-O](https://github.com/cri-o/cri-o/blob/master/ADOPTERS.md)
@@ -269,8 +269,8 @@ to explore all the options from the [CNCF landscape] in case another would be an
 even better fit for your environment.
 -->
 这是一个复杂的问题，依赖于许多因素。
-如果您正在使用 Docker ，迁移到 containerd 应该是一个相对容易地转换，并将获得更好的性能和更少的开销。
-然而，我们鼓励您探索 [CNCF landscape]  提供的所有选项，做出更适合你的选择。
+如果你正在使用 Docker ，迁移到 containerd 应该是一个相对容易地转换，并将获得更好的性能和更少的开销。
+然而，我们鼓励你探索 [CNCF landscape]  提供的所有选项，做出更适合你的选择。
 
 [CNCF landscape]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
 
@@ -303,7 +303,7 @@ common things to consider when migrating are:
 - 运行时的资源限制
 - 调用 docker 或通过其控制套接字使用 docker 的节点配置脚本
 - 需要访问 docker 命令或控制套接字的 kubectl 插件
-- 需要直接访问 Docker Engine 的 Kubernetes 工具（例如:已弃用的' kube-imagepuller '工具）
+- 需要直接访问 Docker Engine 的 Kubernetes 工具（例如：已弃用的' kube-imagepuller '工具）
 - `registry-mirrors` 和不安全注册表等功能的配置
 - 保障 Docker Engine 可用、且运行在 Kubernetes 之外的脚本或守护进程（例如：监视或安全代理）
 - GPU 或特殊硬件，以及它们如何与你的运行时和 Kubernetes 集成
@@ -340,7 +340,7 @@ latter you can use newer container build options like [img], [buildah],
 For containerd, you can start with their [documentation] to see what configuration
 options are available as you migrate things over.
 -->
-对于 containerd，您可查阅有关它的[文档][documentation]，获取迁移时可用的配置选项。
+对于 containerd，你可查阅有关它的[文档][documentation]，获取迁移时可用的配置选项。
 
 [documentation]: https://github.com/containerd/cri/blob/master/docs/registry.md
 
@@ -362,7 +362,7 @@ If you use a vendor-supported Kubernetes distribution, you can ask them about
 upgrade plans for their products. For end-user questions, please post them
 to our end user community forum: https://discuss.kubernetes.io/. 
 -->
-如果您使用了供应商支持的 Kubernetes 发行版，您可以咨询供应商他们产品的升级计划。
+如果你使用了供应商支持的 Kubernetes 发行版，你可以咨询供应商他们产品的升级计划。
 对于最终用户的问题，请把问题发到我们的最终用户社区的论坛：https://discuss.kubernetes.io/。
 
 <!--
@@ -370,7 +370,7 @@ You can also check out the excellent blog post
 [Wait, Docker is deprecated in Kubernetes now?][dep] a more in-depth technical
 discussion of the changes.
 -->
-您也可以看看这篇优秀的博客文章：[等等，Docker 被 Kubernetes 弃用了?][dep]
+你也可以看看这篇优秀的博客文章：[等等，Docker 被 Kubernetes 弃用了?][dep]
 对这些变化进行更深入的技术讨论。
 
 [dep]: https://dev.to/inductor/wait-docker-is-deprecated-in-kubernetes-now-what-do-i-do-e4m
