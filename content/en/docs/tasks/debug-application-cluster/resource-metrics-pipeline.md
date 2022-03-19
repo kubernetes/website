@@ -2,7 +2,7 @@
 reviewers:
 - fgrzadkowski
 - piosz
-title: Resource metrics pipeline 
+title: Resource metrics pipeline
 content_type: concept
 ---
 
@@ -64,18 +64,20 @@ The architecture components, from right to left in the figure, consist of the fo
 * [Summary API](#summary-api-source): API provided by the kubelet for discovering and retrieving per-node summarized stats available through the `/stats` endpoint.
 * [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource metrics pulled from each kubelet. The API server serves Metrics API for use by HPA, VPA, and by the `kubectl top` command. Metrics Server is a reference implementation of the Metrics API.
 * [Metrics API](#metrics-api): Kubernetes API supporting access to CPU and memory used for workload autoscaling. To make this work in your cluster, you need an API extension server that provides the Metrics API.
-  
+
   {{< note >}}
   cAdvisor supports reading metrics from cgroups, which works with typical container runtimes on Linux.
   If you use a container runtime that uses another resource isolation mechanism, for example virtualization, then that container runtime must support [CRI Container Metrics](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md) in order for metrics to be available to the kubelet.
   {{< /note >}}
 
-  
+
 <!-- body -->
 
 ## Metrics API
 
-The metrics-server implements the Metrics API. This API allows you to access CPU and memory usage for the nodes and pods in your cluster. Its primary role is to feed resource usage metrics to K8s autoscaler components. 
+The metrics-server implements the Metrics API. This API allows you to access CPU and memory usage for the nodes and pods in your cluster. Its primary role is to feed resource usage metrics to K8s autoscaler components.
+
+{{< note >}} Metrics API is `beta`. {{< /note >}}
 
 Here is an example of the Metrics API request for a `minikube` node piped through `jq` for easier reading:
 ```shell
@@ -159,7 +161,7 @@ To learn more about how Kubernetes allocates and measures CPU resources, see [me
 
 Memory is reported as the working set, measured in bytes, at the instant the metric was collected.
 
-In an ideal world, the "working set" is the amount of memory in-use that cannot be freed under memory pressure. However, calculation of the working set varies by host OS, and generally makes heavy use of heuristics to produce an estimate. 
+In an ideal world, the "working set" is the amount of memory in-use that cannot be freed under memory pressure. However, calculation of the working set varies by host OS, and generally makes heavy use of heuristics to produce an estimate.
 
 The Kubernetes model for a container's working set expects that the container runtime counts anonymous memory associated with the container in question. The working set metric typically also includes some cached (file-backed) memory, because the host OS cannot always reclaim pages.
 
