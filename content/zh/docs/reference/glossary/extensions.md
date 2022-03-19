@@ -32,9 +32,10 @@ tags:
 <!--more-->
 
 <!--
-Most cluster administrators will use a hosted or distribution instance of Kubernetes. As a result, most Kubernetes users will need to install [extensions](/docs/concepts/extend-kubernetes/extend-cluster/#extensions) and fewer will need to author new ones.
+Many cluster administrators use a hosted or distribution instance of Kubernetes. These clusters come with extensions pre-installed. As a result, most Kubernetes users will not need to install [extensions](/docs/concepts/extend-kubernetes/extend-cluster/#extensions) and even fewer users will need to author new ones.
 -->
 
-大多数集群管理员会使用托管的 Kubernetes 或其某种发行包。因此，大多数 Kubernetes 用户将需要
+许多集群管理员会使用托管的 Kubernetes 或其某种发行包，这些集群预装了扩展。
+因此，大多数 Kubernetes 用户将不需要
 安装[扩展组件](/zh/docs/concepts/extend-kubernetes/extend-cluster/#extensions)，
-较少用户会需要编写新的扩展组件。
+需要编写新的扩展组件的用户就更少了。
