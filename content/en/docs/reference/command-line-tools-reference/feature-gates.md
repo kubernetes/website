@@ -206,7 +206,8 @@ different Kubernetes components.
 | `SuspendJob` | `false` | Alpha | 1.21 | 1.21 |
 | `SuspendJob` | `true` | Beta | 1.22 | |
 | `TopologyAwareHints` | `false` | Alpha | 1.21 | 1.22 |
-| `TopologyAwareHints` | `false` | Beta | 1.23 | |
+| `TopologyAwareHints` | `false` | Beta | 1.23 | 1.23 |
+| `TopologyAwareHints` | `true` | Beta | 1.24 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
 | `TopologyManager` | `true` | Beta | 1.18 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
