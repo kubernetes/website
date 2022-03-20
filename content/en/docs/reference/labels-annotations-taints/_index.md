@@ -485,7 +485,7 @@ The [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1
 When you [specify the security context for a Pod](/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod),
 the settings you specify apply to all containers in that Pod.
 
-### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
+### container.seccomp.security.alpha.kubernetes.io/[NAME] (deprecated) {#container-seccomp-security-alpha-kubernetes-io}
 
 This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
 The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/) takes
