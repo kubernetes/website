@@ -99,10 +99,10 @@ and a memory limit of 200 MiB.
 ```yaml
 ...
 resources:
-  limits:
-    memory: 200Mi
   requests:
     memory: 100Mi
+  limits:
+    memory: 200Mi
 ...
 ```
 
