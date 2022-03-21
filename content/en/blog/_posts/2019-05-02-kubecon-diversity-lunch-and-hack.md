@@ -2,6 +2,7 @@
 title: "Join us for the 2019 KubeCon Diversity Lunch & Hack"
 date: 2019-05-02
 slug: kubecon-diversity-lunch-and-hack
+evergreen: false
 ---
 
 **Authors:** Kiran Oliver, Podcast Producer, The New Stack
