@@ -5,7 +5,7 @@ date: 2022-03-31
 slug: ready-for-dockershim-removal
 ---
 
-**Author:** Kat Cosgrove (Pulumi)
+**Author:** Kat Cosgrove
 
 
 Way back in December of 2020, Kubernetes announced the [deprecation of Dockershim](/blog/2020/12/02/dont-panic-kubernetes-and-docker/). In Kubernetes, dockershim is a software shim that allows you to use the entire Docker engine as your container runtime within Kubernetes. In the upcoming v1.24 release, we are removing Dockershim - the delay between deprecation and removal in line with the project’s policy of supporting features for at least one year after deprecation. If you are a cluster operator, this guide includes the practical realities of what you need to know going into this release. Also, what you need to do to make sure your cluster doesn’t fall over!
@@ -20,7 +20,7 @@ Regardless of whether you are rolling your own cluster or using a managed Kubern
 
 ## I have a Docker dependency. What now?
 
-If your Kubernetes cluster does depend on Docker Engine and you intend to upgrade to Kubernetes v1.24 (which you should do for security), you will need to either change your container runtime from Docker Engine to something else, or use [cri-dockerd](https://github.com/Mirantis/cri-dockerd). Since [containerd](https://containerd.io/) is a graduated CNCF project and the runtime within Docker itself, it’s a safe bet. Fortunately, the Kubernetes project has already documented the process of [changing a node’s container runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/), using containerd as the example. Instructions are similar for switching to one of the other supported runtimes.
+If your Kubernetes cluster does depend on Docker Engine and you intend to upgrade to Kubernetes v1.24 (which you should eventually do for security and similar reasons), you will need to either change your container runtime from Docker Engine to something else, or use [cri-dockerd](https://github.com/Mirantis/cri-dockerd). Since [containerd](https://containerd.io/) is a graduated CNCF project and the runtime within Docker itself, it’s a safe bet as an alternative container runtime. Fortunately, the Kubernetes project has already documented the process of [changing a node’s container runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/), using containerd as the example. Instructions are similar for switching to one of the other supported runtimes.
 
 ## I want to upgrade Kubernetes, and I need to maintain compatibility with Docker as a runtime. What are my options?
 
