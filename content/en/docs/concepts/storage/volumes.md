@@ -295,15 +295,17 @@ keyed with `log_level`.
 
 ### downwardAPI {#downwardapi}
 
-A `downwardAPI` volume makes downward API data available to applications.
-It mounts a directory and writes the requested data in plain text files.
+A `downwardAPI` volume makes {{< glossary_tooltip term_id="downward-api" text="downward API" >}}
+data available to applications. Within the volume, you can find the exposed
+data as read-only files in plain text format.
 
 {{< note >}}
-A container using the downward API as a [`subPath`](#using-subpath) volume mount will not
-receive downward API updates.
+A container using the downward API as a [`subPath`](#using-subpath) volume mount does not
+receive updates when field values change.
 {{< /note >}}
 
-See the [downward API example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/) for more details.
+See [Expose Pod Information to Containers Through Files](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+to learn more.
 
 ### emptyDir {#emptydir}
 
