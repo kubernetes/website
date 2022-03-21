@@ -3,6 +3,7 @@ layout: blog
 title: 'Kubernetes 1.13: Simplified Cluster Management with Kubeadm, Container Storage Interface (CSI), and CoreDNS as Default DNS are Now Generally Available'
 date: 2018-12-03
 slug: kubernetes-1-13-release-announcement
+evergreen: true
 ---
 
 **Author**: The 1.13 [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.13/release_team.md)

@@ -3,6 +3,7 @@ title: "Kubernetes 1.2: Even more performance upgrades, plus easier application 
 date: 2016-03-17
 slug: kubernetes-1.2-even-more-performance-upgrades-plus-easier-application-deployment-and-management
 url: /blog/2016/03/Kubernetes-1-2-Even-More-Performance-Upgrades-Plus-Easier-Application-Deployment-And-Management
+evergreen: true
 ---
 **Author:** David Aronchick (Google)
 

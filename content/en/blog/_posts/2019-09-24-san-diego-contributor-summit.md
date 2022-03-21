@@ -3,6 +3,7 @@ layout: blog
 title: "Contributor Summit San Diego Registration Open!"
 date: 2019-09-24
 slug: san-diego-contributor-summit
+evergreen: true
 ---
 
 **Authors:** Paris Pittman (Google), Jeffrey Sica (Red Hat), Jonas Rosland (VMware)

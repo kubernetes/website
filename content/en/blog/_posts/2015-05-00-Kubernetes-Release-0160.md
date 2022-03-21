@@ -3,6 +3,7 @@ title: "Kubernetes Release: 0.16.0"
 date: 2015-05-11
 slug: kubernetes-release-0160
 url: /blog/2015/05/Kubernetes-Release-0160
+evergreen: true
 ---
 Release Notes:
 

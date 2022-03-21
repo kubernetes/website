@@ -3,6 +3,7 @@ title: " Kubernetes 1.8: Security, Workloads and Feature Depth "
 date: 2017-09-29
 slug: kubernetes-18-security-workloads-and
 url: /blog/2017/09/Kubernetes-18-Security-Workloads-And
+evergreen: true
 ---
 
 **Authors:** Kubernetes v1.8 release team
