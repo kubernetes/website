@@ -4,7 +4,8 @@ date: 2017-09-29
 slug: kubernetes-18-security-workloads-and
 url: /blog/2017/09/Kubernetes-18-Security-Workloads-And
 ---
-_Editor's note: today's post is by Aparna Sinha, Group Product Manager, Kubernetes, Google; Ihor Dvoretskyi, Developer Advocate, CNCF; Jaice Singer DuMars, Kubernetes Ambassador, Microsoft; and Caleb Miles, Technical Program Manager, CoreOS on the latest release of Kubernetes 1.8._  
+
+**Authors:** Kubernetes v1.8 release team
 
 
 We’re pleased to announce the delivery of Kubernetes 1.8, our third release this year. Kubernetes 1.8 represents a snapshot of many exciting enhancements and refinements underway. In addition to functional improvements, we’re increasing project-wide focus on maturing [process](https://github.com/kubernetes/sig-release), formalizing [architecture](https://github.com/kubernetes/community/tree/master/sig-architecture), and strengthening Kubernetes’ [governance model](https://github.com/kubernetes/community/tree/master/community/elections/2017). The evolution of mature processes clearly signals that sustainability is a driving concern, and helps to ensure that Kubernetes is a viable and thriving project far into the future.  
@@ -50,7 +51,7 @@ The [Release team](https://github.com/kubernetes/features/blob/master/release-1.
 As the Kubernetes community has grown, our release process has become an amazing demonstration of collaboration in open source software development. Kubernetes continues to gain new users at a rapid clip. This growth creates a positive feedback cycle where more contributors commit code creating a more vibrant ecosystem.  
 
 
-## User Highlights
+## User highlights
 
 According to [Redmonk](http://redmonk.com/fryan/2017/09/10/cloud-native-technologies-in-the-fortune-100/), 54 percent of Fortune 100 companies are running Kubernetes in some form with adoption coming from every sector across the world. Recent user stories from the community include:   
 
@@ -91,3 +92,6 @@ The simplest way to get involved with Kubernetes is by joining one of the many [
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
 - Chat with the community on [Slack](http://slack.k8s.io/).
 - [Share your Kubernetes story.](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
+
+
+_Editor's note: this announcement was authored by Aparna Sinha (Google), Ihor Dvoretskyi (CNCF), Jaice Singer DuMars (Microsoft), and Caleb Miles (CoreOS)._

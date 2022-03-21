@@ -1,9 +1,10 @@
 ---
-title: " Announcing the First Kubernetes Enterprise Training Course "
+title: "Announcing the First Kubernetes Enterprise Training Course"
 date: 2015-07-08
 slug: announcing-first-kubernetes-enterprise
 url: /blog/2015/07/Announcing-First-Kubernetes-Enterprise
 ---
+
 At Google we rely on Linux application containers to run our core infrastructure. Everything from Search to Gmail runs in containers. &nbsp;In fact, we like containers so much that even our Google Compute Engine VMs run in containers! &nbsp;Because containers are critical to our business, we have been working with the community on many of the basic container technologies (from cgroups to Docker’s LibContainer) and even decided to build the next generation of Google’s container scheduling technology, Kubernetes, in the open.
 
 

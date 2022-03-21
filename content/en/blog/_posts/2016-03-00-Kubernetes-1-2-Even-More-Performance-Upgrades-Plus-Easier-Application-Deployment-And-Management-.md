@@ -1,17 +1,19 @@
 ---
-title: " Kubernetes 1.2: Even more performance upgrades, plus easier application deployment and management  "
+title: "Kubernetes 1.2: Even more performance upgrades, plus easier application deployment and management"
 date: 2016-03-17
 slug: kubernetes-1.2-even-more-performance-upgrades-plus-easier-application-deployment-and-management
 url: /blog/2016/03/Kubernetes-1-2-Even-More-Performance-Upgrades-Plus-Easier-Application-Deployment-And-Management
 ---
-Today we released Kubernetes 1.2. This release represents significant improvements for large organizations building distributed systems. Now with over 680 unique contributors to the project, this release represents our largest yet.  
+**Author:** David Aronchick (Google)
+
+Today the Kubernetes project released Kubernetes 1.2. This release represents significant improvements for large organizations building distributed systems. Now with over 680 unique contributors to the project, this release represents our largest yet.  
 
 From the beginning, our mission has been to make building distributed systems easy and accessible for all. With the Kubernetes 1.2 release we’ve made strides towards our goal by increasing scale, decreasing latency and overall simplifying the way applications are deployed and managed. Now, developers at organizations of all sizes can build production scale apps more easily than ever before.&nbsp;
 
-### What’s new:&nbsp;
+## What’s new
 
 - **Significant scale improvements**. Increased cluster scale by 400% to 1,000 nodes and 30,000 containers per cluster.
-- **Simplified application deployment and management**.&nbsp;
+- **Simplified application deployment and management**.
 
   - Dynamic Configuration (via the ConfigMap API) enables applications to pull their configuration when they run rather than packaging it in at build time.&nbsp;
   - Turnkey Deployments (via the Beta Deployment API) let you declare your application and Kubernetes will do the rest. It handles versioning, multiple simultaneous rollouts, aggregating status across all pods, maintaining application availability and rollback.&nbsp;
@@ -28,15 +30,15 @@ From the beginning, our mission has been to make building distributed systems ea
 
 - **And many more**. For a complete list of updates, see the [release notes on github](https://github.com/kubernetes/kubernetes/releases/tag/v1.2.0).&nbsp;
 
-#### Community&nbsp;
+## Community
 
-All these improvements would not be possible without our enthusiastic and global community. The momentum is astounding. We’re seeing over 400 pull requests per week, a 50% increase since the previous 1.1 release. There are meetups and conferences discussing Kubernetes nearly every day, on top of the 85 Kubernetes related [meetup groups](http://www.meetup.com/topics/kubernetes/) around the world. We’ve also seen significant participation in the community in the form of Special Interest Groups, with 18 active SIGs that cover topics from AWS and OpenStack to big data and scalability, to get involved [join or start a new SIG](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)). Lastly, we’re proud that Kubernetes is the first project to be accepted to the Cloud Native Computing Foundation (CNCF), read more about the announcement [here](https://cncf.io/news/announcement/2016/03/cloud-native-computing-foundation-accepts-kubernetes-first-hosted-projec-0).&nbsp;
+All these improvements would not be possible without our enthusiastic and global community. The momentum is astounding. We’re seeing over 400 pull requests per week, a 50% increase since the previous 1.1 release. There are meetups and conferences discussing Kubernetes nearly every day, on top of the 85 Kubernetes related [meetup groups](http://www.meetup.com/topics/kubernetes/) around the world. We’ve also seen significant participation in the community in the form of Special Interest Groups, with 18 active SIGs that cover topics from AWS and OpenStack to big data and scalability, to get involved [join or start a new SIG](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)). Lastly, we’re proud that Kubernetes is the first project to be accepted to the Cloud Native Computing Foundation (CNCF), read more about the announcement [here](https://cncf.io/news/announcement/2016/03/cloud-native-computing-foundation-accepts-kubernetes-first-hosted-projec-0).
 
 
 
-#### Documentation&nbsp;
+## Documentation
 
-With Kubernetes 1.2 comes a relaunch of our website at [kubernetes.io](http://kubernetes.io/). We’ve slimmed down the docs contribution process so that all you have to do is fork/clone and send a PR. And the site works the same whether you’re staging it on your laptop, on github.io, or viewing it in production. It’s a pure GitHub Pages project; no scripts, no plugins.&nbsp;
+With Kubernetes 1.2 comes a relaunch of our website at [kubernetes.io](http://kubernetes.io/). We’ve slimmed down the docs contribution process so that all you have to do is fork/clone and send a PR. And the site works the same whether you’re staging it on your laptop, on github.io, or viewing it in production. It’s a pure GitHub Pages project; no scripts, no plugins.
 
 
 
@@ -48,7 +50,7 @@ To entice you even further to contribute, we’re also announcing our new bounty
 
 
 
-#### Roadmap&nbsp;
+## Roadmap
 
 All of our work is done in the open, to learn the latest about the project j[oin the weekly community meeting](https://groups.google.com/forum/#!forum/kubernetes-community-video-chat) or [watch a recorded hangout](https://www.youtube.com/playlist?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ). In keeping with our major release schedule of every three to four months, here are just a few items that are in development for [next release and beyond](https://github.com/kubernetes/kubernetes/wiki/Release-1.3):&nbsp;
 
@@ -64,7 +66,7 @@ Kubernetes 1.2 is available for download at [get.k8s.io](http://get.k8s.io/) and
 
 
 
-#### Connect&nbsp;
+## Connect
 
 We’d love to hear from you and see you participate in this growing community:&nbsp;
 
@@ -73,8 +75,7 @@ We’d love to hear from you and see you participate in this growing community:&
 - &nbsp;Connect with the community on [Slack](http://slack.kubernetes.io/)&nbsp;
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates&nbsp;
 
-Thank you for your support!&nbsp;
+Thank you for your support!
 
 
 
-&nbsp;-&nbsp;_David Aronchick, Senior Product Manager for Kubernetes, Google_
