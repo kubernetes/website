@@ -55,7 +55,7 @@ As the Kubernetes 1.24 release has become imminent, we've been working hard to t
 -->
 - 我们已经写了一篇博文，详细说明了我们的[承诺和后续操作](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/)。
 - 我们我们相信可以无障碍的迁移到其他[容器运行时](/zh/docs/setup/production-environment/container-runtimes/#container-runtimes)。
-- 我们撰写了[ dockershim 迁移指南](/docs/tasks/administer-cluster/migrating-from-dockershim/)供你参考。
+- 我们撰写了 [dockershim 迁移指南](/docs/tasks/administer-cluster/migrating-from-dockershim/)供你参考。
 - 我们还创建了一个页面来列出[有关 dockershim 移除和使用 CRI 兼容运行时的文章](/zh/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)。
 该列表包括一些已经提到的文档，还涵盖了选定的外部资源（包括供应商指南）。
 
@@ -75,7 +75,7 @@ special code to help with the transition, and made that _dockershim_ code part o
 itself.
 -->
 Kubernetes 的早期版本仅适用于特定的容器运行时：Docker Engine。
-后来，Kubernetes 增加了对使用其他容器运行时的支持。创建[ CRI ](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) 
+后来，Kubernetes 增加了对使用其他容器运行时的支持。[创建](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) CRI 
 标准是为了实现编排器（如 Kubernetes）和许多不同的容器运行时之间交互操作。
 Docker Engine 没有实现（CRI）接口，因此 Kubernetes 项目创建了特殊代码来帮助过渡，并使 dockershim 代码成为 Kubernetes 的一部分。
 
@@ -86,7 +86,8 @@ You can read more about the community discussion and planning in the
 In fact, maintaining dockershim had become a heavy burden on the Kubernetes maintainers.
 -->
 dockershim 代码一直是一个临时解决方案（因此得名：shim）。 
-你可以阅读[ Kubernetes 移除 Dockershim 增强方案][drkep]以了解相关的社区讨论和计划。
+你可以阅读 [Kubernetes 移除 Dockershim 增强方案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim)
+以了解相关的社区讨论和计划。
 事实上，维护 dockershim 已经成为 Kubernetes 维护者的沉重负担。
 
 <!--
@@ -98,8 +99,6 @@ those areas.
 此外，在较新的 CRI 运行时中实现了与 dockershim 不兼容的功能，例如 cgroups v2 和用户命名空间。
 取消对 dockershim 的支持将加速这些领域的发展。
 
-[drkep]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim
-
 <!--
 ### Can I still use Docker Engine in Kubernetes 1.23?
 -->
@@ -109,10 +108,9 @@ those areas.
 Yes, the only thing changed in 1.20 is a single warning log printed at [kubelet]
 startup if using Docker Engine as the runtime. You'll see this warning in all versions up to 1.23. The dockershim removal occurs in Kubernetes 1.24.
 -->
-可以使用，在 1.20 版本中唯一的改动是，如果使用Docker Engine，在 [kubelet] 启动时会打印一个警告日志。
+可以使用，在 1.20 版本中唯一的改动是，如果使用 Docker Engine，在 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
+启动时会打印一个警告日志。
 你将在 1.23 版本及以前版本看到此警告。dockershim 将在 Kubernetes 1.24 版本中移除 。
-
-[kubelet]: /docs/reference/command-line-tools-reference/kubelet/
 
 <!--
 ### When will dockershim be removed?
@@ -126,7 +124,8 @@ The Kubernetes project will be working closely with vendors and other ecosystem 
 a smooth transition and will evaluate things as the situation evolves.
 -->
 考虑到此变更带来的影响，我们使用了一个加长的废弃时间表。
-dockershim 计划在 Kubernetes v1.24 中进行移除，参见[ Kubernetes 移除 Dockershim 增强方案][drkep]。
+dockershim 计划在 Kubernetes v1.24 中进行移除，
+参见 [Kubernetes 移除 Dockershim 增强方案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim) 。
 Kubernetes 项目将与供应商和其他生态系统组织密切合作，以确保平稳过渡，并将依据事态的发展评估后续事项。
 
 <!--
@@ -147,10 +146,10 @@ Mirantis and Docker have [committed][mirantis] to maintaining a replacement adap
 Docker Engine, and to maintain that adapter even after the in-tree dockershim is removed
 from Kubernetes. The replacement adapter is named [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).
 -->
-Mirantis 和 Docker 已[承诺][mirantis]为 Docker Engine 维护一个替代适配器，并在 dockershim 从 Kubernetes 移除后维护该适配器。
+Mirantis 和 Docker 已[承诺](https://www.mirantis.com/blog/mirantis-to-take-over-support-of-kubernetes-dockershim-2/)
+为 Docker Engine 维护一个替代适配器，
+并在 dockershim 从 Kubernetes 移除后维护该适配器。
 替代适配器名为 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) 。
-
-[mirantis]: https://www.mirantis.com/blog/mirantis-to-take-over-support-of-kubernetes-dockershim-2/
 
 <!--
 ### Will my existing container images still work?
@@ -213,24 +212,20 @@ related projects follow a similar pattern as well, demonstrating the stability a
 usability of other container runtimes. As an example, OpenShift 4.x has been
 using the [CRI-O] runtime in production since June 2019.
 -->
-此外，[kind] 项目使用 containerd 已经有一段时间了，并且提高了其用例的稳定性。
-每天都会多次使用 Kind 和 containerd 来验证对 Kubernetes 代码库的任何更改。
+此外，[kind](https://kind.sigs.k8s.io/) 项目使用 containerd 已经有一段时间了，并且提高了其用例的稳定性。
+Kind 和 containerd 每天都会被多次使用来验证对 Kubernetes 代码库的任何更改。
 其他相关项目也遵循同样的模式，从而展示了其他容器运行时的稳定性和可用性。
-例如，OpenShift 4.x 从 2019 年 6 月以来，就一直在生产环境中使用 [CRI-O] 运行时。
+例如，OpenShift 4.x 从 2019 年 6 月以来，就一直在生产环境中使用 [CRI-O](https://cri-o.io/) 运行时。
 
 <!--
 For other examples and references you can look at the adopters of containerd and
 CRI-O, two container runtimes under the Cloud Native Computing Foundation ([CNCF]).
 -->
 至于其他示例和参考资料，你可以查看 containerd 和 CRI-O 的使用者列表，
-这两个容器运行时是云原生基金会（ [CNCF] ）下的项目。
+这两个容器运行时是云原生基金会（ [CNCF](https://cncf.io)）下的项目。
 
 - [containerd](https://github.com/containerd/containerd/blob/master/ADOPTERS.md)
 - [CRI-O](https://github.com/cri-o/cri-o/blob/master/ADOPTERS.md)
-
-[CRI-O]: https://cri-o.io/
-[kind]: https://kind.sigs.k8s.io/
-[CNCF]: https://cncf.io
 
 <!--
 ### People keep referencing OCI, what is that?
@@ -246,15 +241,12 @@ in the form of [runc], which is the underlying default runtime for both
 [containerd] and [CRI-O]. The CRI builds on these low-level specifications to
 provide an end-to-end standard for managing containers.
 -->
-OCI 是 [Open Container Initiative] 的缩写，它标准化了容器工具和底层实现（technologies）之间的大量接口。
-它们维护了打包容器镜像（OCI image-spec）和运行容器（OCI runtime-spec）的标准规范。
-它们还以 [runc] 的形式维护了一个 runtime-spec 的真实实现，
-这也是 [containerd] 和 [CRI-O] 依赖的默认运行时。
+OCI 是 [Open Container Initiative](https://opencontainers.org/about/overview/) 的缩写，
+它标准化了容器工具和底层实现之间的大量接口。
+它们维护了打包容器镜像（OCI image）和运行时（OCI runtime）的标准规范。
+它们还以 [runc](https://github.com/opencontainers/runc) 的形式维护了一个 runtime-spec 的真实实现，
+这也是 [containerd](https://containerd.io/) 和 [CRI-O](https://cri-o.io/) 依赖的默认运行时。
 CRI 建立在这些底层规范之上，为管理容器提供端到端的标准。
-
-[Open Container Initiative]: https://opencontainers.org/about/overview/
-[runc]: https://github.com/opencontainers/runc
-[containerd]: https://containerd.io/
 
 <!--
 ### Which CRI implementation should I use?
@@ -270,9 +262,8 @@ even better fit for your environment.
 -->
 这是一个复杂的问题，依赖于许多因素。
 如果你正在使用 Docker ，迁移到 containerd 应该是一个相对容易地转换，并将获得更好的性能和更少的开销。
-然而，我们鼓励你探索 [CNCF landscape]  提供的所有选项，做出更适合你的选择。
-
-[CNCF landscape]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
+然而，我们鼓励你探索 [CNCF landscape](https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category)
+提供的所有选项，做出更适合你的选择。
 
 <!--
 ### What should I look out for when changing CRI implementations?
@@ -325,32 +316,25 @@ latter you can use newer container build options like [img], [buildah],
 [kaniko], or [buildkit-cli-for-kubectl] that don’t require Docker.
 -->
 另外还有一个需要关注的点，那就是当创建镜像时，系统维护或嵌入容器方面的任务将无法工作。
-对于前者，可以用 [`crictl`][cr]工具作为临时替代方案
+对于前者，可以用 [`crictl`](https://github.com/kubernetes-sigs/cri-tools) 工具作为临时替代方案
 (参阅 [从 docker cli 到 crictl 的映射](https://kubernetes.io/zh/docs/tasks/debug-application-cluster/crictl/#mapping-from-docker-cli-to-crictl)) 。
-对于后者，可以用新的容器创建选项，例如 [img]、[buildah]、[kaniko] 或 [buildkit-cli-for-kubectl]，
+对于后者，可以用新的容器创建选项，例如 [img](https://github.com/genuinetools/img) 、
+[buildah](https://github.com/containers/buildah) 、[kaniko](https://github.com/GoogleContainerTools/kaniko)
+或 [buildkit-cli-for-kubectl](https://github.com/vmware-tanzu/buildkit-cli-for-kubectl) ，
 他们都不需要 Docker。
-
-[cr]: https://github.com/kubernetes-sigs/cri-tools
-[img]: https://github.com/genuinetools/img
-[buildah]: https://github.com/containers/buildah
-[kaniko]: https://github.com/GoogleContainerTools/kaniko
-[buildkit-cli-for-kubectl]: https://github.com/vmware-tanzu/buildkit-cli-for-kubectl
 
 <!-- 
 For containerd, you can start with their [documentation] to see what configuration
 options are available as you migrate things over.
 -->
-对于 containerd，你可查阅有关它的[文档][documentation]，获取迁移时可用的配置选项。
-
-[documentation]: https://github.com/containerd/cri/blob/master/docs/registry.md
+对于 containerd，你可查阅有关它的[文档](https://github.com/containerd/cri/blob/master/docs/registry.md) ，
+获取迁移时可用的配置选项。
 
 <!--
 For instructions on how to use containerd and CRI-O with Kubernetes, see the
 Kubernetes documentation on [Container Runtimes]
 -->
-有关如何在 Kubernetes 中使用 containerd 和 CRI-O 的说明，请参阅 Kubernetes 相关文档 [Container Runtimes]
-
-[Container Runtimes]: /docs/setup/production-environment/container-runtimes/
+有关如何在 Kubernetes 中使用 containerd 和 CRI-O 的说明，请参阅 [Kubernetes 相关文档](/docs/setup/production-environment/container-runtimes/)
 
 <!--
 ### What if I have more questions?
@@ -370,10 +354,8 @@ You can also check out the excellent blog post
 [Wait, Docker is deprecated in Kubernetes now?][dep] a more in-depth technical
 discussion of the changes.
 -->
-你也可以看看这篇优秀的博客文章：[等等，Docker 被 Kubernetes 弃用了?][dep]
+你也可以看看这篇优秀的博客文章：[等等，Docker 被 Kubernetes 弃用了?](https://dev.to/inductor/wait-docker-is-deprecated-in-kubernetes-now-what-do-i-do-e4m)
 对这些变化进行更深入的技术讨论。
-
-[dep]: https://dev.to/inductor/wait-docker-is-deprecated-in-kubernetes-now-what-do-i-do-e4m
 
 <!--
 ### Can I have a hug?
