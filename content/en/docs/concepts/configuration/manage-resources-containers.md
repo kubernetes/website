@@ -143,8 +143,8 @@ or 400 megabytes (`400M`).
 The following Pod has two containers. Both containers are defined with a request for
 0.25 CPU
 and 64MiB (2<sup>26</sup> bytes) of memory. Each container has a limit of 0.5
-CPU and 128MiB of memory. You can say the Pod has a request of 0.5 CPU and 128
-MiB of memory, and a limit of 1 CPU and 256MiB of memory.
+CPU and 128MiB of memory. You can say the Pod has a request of 0.25 CPU and 64
+MiB of memory, and a limit of 0.5 CPU and 128MiB of memory.
 
 ```yaml
 ---
