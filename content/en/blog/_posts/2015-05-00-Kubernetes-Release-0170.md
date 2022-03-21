@@ -1,5 +1,5 @@
 ---
-title: " Kubernetes Release: 0.17.0 "
+title: "Kubernetes Release: 0.17.0"
 date: 2015-05-15
 slug: kubernetes-release-0170
 url: /blog/2015/05/Kubernetes-Release-0170
