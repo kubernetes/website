@@ -39,7 +39,7 @@ LocalObjectReference 包含足够的信息，可以让你在同一命名空间�
 - **name** (string)
 
   引用者的名称。
-  更多信息: https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/#names 。
+  更多信息: https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/#names。
 
 
 
