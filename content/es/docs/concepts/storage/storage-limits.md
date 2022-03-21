@@ -3,15 +3,15 @@ reviewers:
 - edithturn
 - raelga
 - electrocucaracha
-title: Límites de volumen específicos del nodo
+title: Límites de Volumen específicos del Nodo
 content_type: concept
 ---
 
 <!-- overview -->
 
-Esta página describe la cantidad máxima de Volúmenes que se pueden adjuntar a un nodo para varios proveedores de nube.
+Esta página describe la cantidad máxima de Volúmenes que se pueden adjuntar a un Nodo para varios proveedores de nube.
 
-Los proveedores de la nube como Google, Amazon y Microsoft suelen tener un límite en la cantidad de Volúmenes que se pueden adjuntar a un Nodo. Es importante que Kubernetes respete esos límites. De lo contrario, los pods planificados en un Nodo podrían quedarse atascados esperando que se conecten los volúmenes.
+Los proveedores de la nube como Google, Amazon y Microsoft suelen tener un límite en la cantidad de Volúmenes que se pueden adjuntar a un Nodo. Es importante que Kubernetes respete esos límites. De lo contrario, los pods planificados en un Nodo podrían quedarse atascados esperando que se conecten los Volúmenes.
 
 
 
@@ -19,7 +19,7 @@ Los proveedores de la nube como Google, Amazon y Microsoft suelen tener un lími
 
 ## Límites predeterminados de Kubernetes
 
-El Planificador de Kubernetes tiene límites predeterminados en la cantidad de volúmenes que se pueden adjuntar a un Nodo:
+El Planificador de Kubernetes tiene límites predeterminados en la cantidad de Volúmenes que se pueden adjuntar a un Nodo:
 
 <table>
   <tr><th>Servicio de almacenamiento en la nube</th><th>Volúmenes máximos por Nodo</th></tr>
@@ -47,7 +47,7 @@ Los límites de Volumen dinámico son compatibles con los siguientes tipos de Vo
 - Azure Disk
 - CSI
 
-Para los Volúmenes administrados por complementos de Volumen en árbol, Kubernetes determina automáticamente el tipo de Nodo y aplica la cantidad máxima adecuada de volúmenes para el Nodo. Por ejemplo:
+Para los Volúmenes administrados por complementos de Volumen en árbol, Kubernetes determina automáticamente el tipo de Nodo y aplica la cantidad máxima adecuada de Volúmenes para el Nodo. Por ejemplo:
 
 * En
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
@@ -59,7 +59,7 @@ Kubernetes permite adjuntar 39 Volúmenes a un Nodo.
 
 * En Azure, se pueden conectar hasta 64 discos a un Nodo, según el tipo de Nodo. Para obtener más detalles, consulte [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 
-* Si un controlador de almacenamiento CSI anuncia una cantidad máxima de Volúmenes para un Nodo (usando `NodeGetInfo`), the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} respeta ese límite.
+* Si un controlador de almacenamiento CSI anuncia una cantidad máxima de Volúmenes para un Nodo (usando `NodeGetInfo`), el {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} respeta ese límite.
 Consulte las especificaciones de [CSI specifications](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) para obtener más información.
 
 * Para los Volúmenes administrados por complementos en árbol que se han migrado a un controlador CSI, la cantidad máxima de Volúmenes será la que informe el controlador CSI.
