@@ -2,6 +2,7 @@
 layout: blog
 title: "Kubernetes 2018 North American Contributor Summit"
 date: 2018-10-16
+evergreen: true
 ---
 
 **Authors:**

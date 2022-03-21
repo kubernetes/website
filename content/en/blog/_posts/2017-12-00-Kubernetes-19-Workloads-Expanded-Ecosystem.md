@@ -3,6 +3,7 @@ title: "Kubernetes 1.9: Apps Workloads GA and Expanded Ecosystem"
 date: 2017-12-15
 slug: kubernetes-19-workloads-expanded-ecosystem
 url: /blog/2017/12/Kubernetes-19-Workloads-Expanded-Ecosystem
+evergreen: true
 ---
 
 **Authors:** Kubernetes v1.9 release team

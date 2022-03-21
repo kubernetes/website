@@ -3,6 +3,7 @@ title: "Kubernetes 1.3: Bridging Cloud Native and Enterprise Workloads"
 date: 2016-07-06
 slug: kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads
 url: /blog/2016/07/Kubernetes-1-3-Bridging-Cloud-Native-And-Enterprise-Workloads
+evergreen: true
 ---
 
 **Author:** Aparna Sinha, Google

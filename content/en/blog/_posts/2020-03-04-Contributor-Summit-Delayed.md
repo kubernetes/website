@@ -3,6 +3,7 @@ layout: blog
 title: Contributor Summit Amsterdam Postponed
 date: 2020-03-04
 slug: Contributor-Summit-Delayed
+evergreen: true
 ---
 
 **Authors:** Dawn Foster (VMware), Jorge Castro (VMware)

@@ -3,6 +3,7 @@ title: "Kubernetes 1.1 Performance upgrades, improved tooling and a growing comm
 date: 2015-11-09
 slug: kubernetes-1-1-performance-upgrades-improved-tooling-and-a-growing-community
 url: /blog/2015/11/Kubernetes-1-1-Performance-Upgrades-Improved-Tooling-And-A-Growing-Community
+evergreen: true
 ---
 
 **Author:** David Aronchick (Google)
