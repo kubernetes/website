@@ -18,7 +18,7 @@ auto_generated: true
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig)
 -->
-## 资源类型 {#kubelet-config-k8s-io-v1alpha1-ResourceTypes}
+## 资源类型 {#resource-types}
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig)
 
@@ -143,7 +143,7 @@ and URL path.</p>
 <td>
    <p>matchImages 是一个必填的字符串列表，用于匹配镜像以确定是否应调用此提供程序。
 如果其中一个字符串与来自 Kubelet 的请求镜像匹配，则将调用插件并有机会提供凭据。
-镜像应包含 Registry 域和 URL 路径。</p>
+镜像应包含仓库的域名和 URL 路径。</p>
 
 <!--
 <p>Each entry in matchImages is a pattern which can optionally contain a port and a path.
@@ -154,9 +154,9 @@ a single subdomain segment, so *.io does not match *.k8s.io.</p>
 <p>A match exists between an image and a matchImage when all of the below are true:</p>
 -->
 <p>matchImages 中的每个条目都是一个模式，可以选择包含一个端口和一个路径。
-Glob 可以在域中使用，但不能在端口或路径中使用。
-支持 Glob 作为子域，如 “<em>.k8s.io” 或 “k8s.</em>.io”，以及顶级域，如 “k8s.<em>”。
-支持匹配部分子域，如 “app</em>.k8s.io”。每个 Glob 只能匹配单个子域段，因此 *.io 不匹配 *.k8s.io。</p>
+域名中可以使用 Glob 模式字符串，但不能在端口或路径中使用
+使用 Glob 作为子域名也是支持的，如 “*.k8s.io” 或 “k8s.*.io”，以及顶级域，如 “k8s.*”。
+支持匹配部分子域，如 “app*.k8s.io”。每个 Glob 只能匹配单个子域段，因此 '*.io' 不匹配 '*.k8s.io'。</p>
 <p>当以下所有条件都为真时，镜像和 matchImage 之间存在匹配：</p>
 
 <!--
@@ -177,7 +177,7 @@ Glob 可以在域中使用，但不能在端口或路径中使用。
 </tr>
 -->
 <ul>
-<li>两者都包含相同数量的域部分，并且每个部分都匹配。</li>
+<li>两者都包含相同数量的域名组成部分，并且每个部分都匹配。</li>
 <li>imageMatch 的 URL 路径必须是目标镜像 URL 路径的前缀。</li>
 <li>如果 imageMatch 包含一个端口，那么该端口也必须与镜像匹配。</li>
 </ul>
@@ -186,7 +186,7 @@ Glob 可以在域中使用，但不能在端口或路径中使用。
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
 <li>*.azurecr.io</li>
 <li>gcr.io</li>
-<li><em>.</em>.registry.io</li>
+<li>*.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
@@ -373,7 +373,7 @@ credential plugin.</p>
 <a href="#JSONOptions"><code>JSONOptions</code></a>
 </td>
 <td>
-   <p>[实验特性] JSON 包含日志格式选项 &quot;json&quot;。</p>
+    <p>[实验特性] JSON 包含日志格式 &quot;json&quot; 对应的选项。</p>
 </td>
 </tr>
 </tbody>
@@ -402,7 +402,7 @@ credential plugin.</p>
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
 -->
-<p>JSONOptions 包含日志格式选项 &quot;json&quot;。</p>
+<p>JSONOptions 包含日志格式 &quot;json&quot; 对应的选项。</p>
 
 
 <table class="table">
@@ -423,8 +423,8 @@ both to stdout, without buffering.</p>
 <code>bool</code>
 </td>
 <td>
-   <p>[实验特性] SplitStream 将 Error 消息重定向到 stderr，而 Info 消息通过缓冲发送到 stdout。
-   默认是把 Error 与 Info 消息都没有缓冲的输出到 stdout。</p>
+    <p>[实验特性] SplitStream 将错误消息重定向到 stderr，而提示消息通过缓冲发送到 stdout。
+   默认是将错误与提示消息都输出到 stdout，且不提供缓存。</p>
 </td>
 
 <!--
