@@ -11,7 +11,11 @@ package: apiserver.config.k8s.io/v1
 auto_generated: true
 -->
 
-v1 包中包含 API 的 v1 版本。
+<!--
+<p>Package v1 is the v1 version of the API.</p>
+-->
+
+<p>v1 包中包含 API 的 v1 版本。</p>
 
 <!--
 ## Resource Types
@@ -23,9 +27,9 @@ v1 包中包含 API 的 v1 版本。
 ## `AdmissionConfiguration`     {#apiserver-config-k8s-io-v1-AdmissionConfiguration}
 
 <!--
-AdmissionConfiguration provides versioned configuration for admission controllers.
+<p>AdmissionConfiguration provides versioned configuration for admission controllers.</p>
 -->
-AdmissionConfiguration 为准入控制器提供版本化的配置。
+<p>AdmissionConfiguration 为准入控制器提供版本化的配置。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -39,9 +43,9 @@ AdmissionConfiguration 为准入控制器提供版本化的配置。
 </td>
 <td>
   <!--
-   Plugins allows specifying a configuration per admission control plugin.
+   <p>Plugins allows specifying a configuration per admission control plugin.</p>
    -->
-  <code>plugins</code> 字段允许为每个准入控制插件设置配置选项。
+  <p><code>plugins</code> 字段允许为每个准入控制插件设置配置选项。</p>
 </td>
 </tr>
 
@@ -58,9 +62,9 @@ AdmissionConfiguration 为准入控制器提供版本化的配置。
 - [AdmissionConfiguration](#apiserver-config-k8s-io-v1-AdmissionConfiguration)
 
 <!--
-AdmissionPluginConfiguration provides the configuration for a single plug-in.
+<p>AdmissionPluginConfiguration provides the configuration for a single plug-in.</p>
 -->
-AdmissionPluginConfiguration 为某个插件提供配置信息。
+<p>AdmissionPluginConfiguration 为某个插件提供配置信息。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!-- Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -71,10 +75,10 @@ AdmissionPluginConfiguration 为某个插件提供配置信息。
 </td>
 <td>
   <!--
-   Name is the name of the admission controller.
-It must match the registered admission plugin name.
+   <p>Name is the name of the admission controller.
+It must match the registered admission plugin name.</p>
   -->
-  <code>name</code> 是准入控制器的名称。它必须与所注册的准入插件名称匹配。
+  <p><code>name</code> 是准入控制器的名称。它必须与所注册的准入插件名称匹配。</p>
 </td>
 </tr>
 
@@ -83,23 +87,23 @@ It must match the registered admission plugin name.
 </td>
 <td>
   <!--
-  Path is the path to a configuration file that contains the plugin's
-configuration
+  <p>Path is the path to a configuration file that contains the plugin's
+configuration</p>
   -->
-  <code>path</code> 是指向包含插件配置信息的配置文件的路径。
+  <p><code>path</code> 是指向包含插件配置信息的配置文件的路径。</p>
 </td>
 </tr>
 
 <tr><td><code>configuration</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
   <!--
-   Configuration is an embedded configuration object to be used as the plugin's
-configuration. If present, it will be used instead of the path to the configuration file.
+   <p>Configuration is an embedded configuration object to be used as the plugin's
+configuration. If present, it will be used instead of the path to the configuration file.</p>
   -->
-  <code>configuration</code> 是一个内嵌的配置对象，用来保存插件的配置信息。
-  如果存在，则使用这里的配置信息而不是指向配置文件的路径。
+  <p><code>configuration</code> 是一个内嵌的配置对象，用来保存插件的配置信息。
+  如果存在，则使用这里的配置信息而不是指向配置文件的路径。</p>
 </td>
 </tr>
 
