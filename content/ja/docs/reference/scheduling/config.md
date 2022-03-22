@@ -30,8 +30,7 @@ clientConnection:
 
 ## プロファイル
 
-スケジューリングプロファイルは、{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}でスケジューリングの
-異なるステージを設定することができます。
+スケジューリングプロファイルは、{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}でスケジューリングの異なるステージを設定することができます。
 各ステージは[拡張点](#extension-points)に公開されています。
 [プラグイン](#scheduling-plugins)をそれらの拡張点に1つ以上実装することで、スケジューリングの振る舞いを変更できます。
 
