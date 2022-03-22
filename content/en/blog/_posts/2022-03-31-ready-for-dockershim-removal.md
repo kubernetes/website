@@ -8,7 +8,7 @@ slug: ready-for-dockershim-removal
 **Author:** Kat Cosgrove
 
 
-Way back in December of 2020, Kubernetes announced the [deprecation of Dockershim](/blog/2020/12/02/dont-panic-kubernetes-and-docker/). In Kubernetes, dockershim is a software shim that allows you to use the entire Docker engine as your container runtime within Kubernetes. In the upcoming v1.24 release, we are removing Dockershim - the delay between deprecation and removal in line with the project’s policy of supporting features for at least one year after deprecation. If you are a cluster operator, this guide includes the practical realities of what you need to know going into this release. Also, what do you need to do to ensure your cluster doesn’t fall over!
+Way back in December of 2020, Kubernetes announced the [deprecation of Dockershim](/blog/2020/12/02/dont-panic-kubernetes-and-docker/). In Kubernetes, dockershim is a software shim that allows you to use the entire Docker engine as your container runtime within Kubernetes. In the upcoming v1.24 release, we are removing Dockershim - the delay between deprecation and removal in line with the [project’s policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) of supporting features for at least one year after deprecation. If you are a cluster operator, this guide includes the practical realities of what you need to know going into this release. Also, what do you need to do to ensure your cluster doesn’t fall over!
 
 ## First, does this even affect you?
 
@@ -29,6 +29,6 @@ Fear not, you aren’t being left out in the cold and you don’t have to take t
 ## Is that it?
 
 
-Yes. As long as you go into this release aware of the changes being made and the details of your own clusters, and you make sure to communicate clearly with your development teams, it will be minimally dramatic. You may have some changes to make to your cluster, application code, or scripts, but all of these requirements are documented. Switching from using Docker Engine as your runtime to using containerd effectively means removing the middleman since containerd is the runtime used by Docker itself. From a practical perspective, this removal is better both for you and for Kubernetes maintainers in the long-run.
+Yes. As long as you go into this release aware of the changes being made and the details of your own clusters, and you make sure to communicate clearly with your development teams, it will be minimally dramatic. You may have some changes to make to your cluster, application code, or scripts, but all of these requirements are documented. Switching from using Docker Engine as your runtime to using [one of the other supported container runtimes](/docs/setup/production-environment/container-runtimes/) effectively means removing the middleman, since the purpose of dockershim is to access the container runtime used by Docker itself. From a practical perspective, this removal is better both for you and for Kubernetes maintainers in the long-run.
 
 If you still have questions, please first check the [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/).
