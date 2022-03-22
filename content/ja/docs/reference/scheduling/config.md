@@ -264,7 +264,7 @@ profiles:
 `v1beta3`では、`MultiPoint`を通じて、内部的に全ての[デフォルトプラグイン](#scheduling-plugins)が有効化されています。
 しかしながら、デフォルト値(並び順やスコアの重みなど)を柔軟に設定し直せるように、個別の拡張点は用意されています。
 例えば、2つのスコアプラグイン`DefaultScore1`と`DefaultScore2`に、重み1が設定されているとします。
-その場合、次のようにに重さを変更し、並べ替えることができます
+その場合、次のように重さを変更し、並べ替えることができます
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta3
