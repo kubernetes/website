@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<META charset="UTF-8">
+<TITLE>Kubernetes API Reference Docs</TITLE>
+<LINK rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+<LINK rel="stylesheet" href="/css/bootstrap-4.3.1.min.css">
+<LINK rel="stylesheet" href="/css/fontawesome-4.7.0.min.css" type="text/css">
+<LINK rel="stylesheet" href="/css/style_apiref.css" type="text/css">
+</HEAD>
+<BODY>
+<DIV id="wrapper" class="container-fluid">
+<DIV class="row">
+<DIV id="sidebar-wrapper" class="col-xs-4 col-sm-3 col-md-2 side-nav side-bar-nav">
+<UL>
+ <LI class="nav-level-1 strong-nav"><A href="#-strong-api-overview-strong-" class="nav-item"><STRONG>Overview</STRONG></A></LI>
+</UL>
+<UL>
+ <LI class="nav-level-1 strong-nav"><A href="#-strong-api-groups-strong-" class="nav-item"><STRONG>API Groups</STRONG></A></LI>
+</UL>
+<UL>
+ <LI class="nav-level-1 strong-nav"><A href="#-strong-workloads-apis-strong-" class="nav-item"><STRONG>WORKLOADS APIS</STRONG></A></LI>
+</UL>
+<UL>
+ <LI class="nav-level-1 strong-nav"><A href="#-strong-service-apis-strong-" class="nav-item"><STRONG>SERVICE APIS</STRONG></A></LI>
+</UL>
+<UL>
+ <LI class="nav-level-1 strong-nav"><A href="#-strong-config-and-storage-apis-strong-" class="nav-item"><STRONG>CONFIG AND STORAGE APIS</STRONG></A></LI>
+</UL>
+<UL>
+ <LI class="nav-level-1 strong-nav"><A href="#-strong-metadata-apis-strong-" class="nav-item"><STRONG>METADATA APIS</STRONG></A></LI>
+</UL>
+<UL>
+ <LI class="nav-level-1 strong-nav"><A href="#-strong-cluster-apis-strong-" class="nav-item"><STRONG>CLUSTER APIS</STRONG></A></LI>
+</UL>
+<UL>
+ <LI class="nav-level-1 strong-nav"><A href="#-strong-definitions-strong-" class="nav-item"><STRONG>DEFINITIONS</STRONG></A></LI>
+</UL>
+<UL>
+ <LI class="nav-level-1 strong-nav"><A href="#-strong-old-api-versions-strong-" class="nav-item"><STRONG>OLD API VERSIONS</STRONG></A></LI>
+</UL>
+</DIV>
+<DIV id="page-content-wrapper" class="col-xs-8 offset-xs-4 col-sm-9 offset-sm-3 col-md-10 offset-md-2 body-content">
+<DIV class="row">
+  <DIV class="col-md-6 copyright">
+ <a href="https://github.com/kubernetes/kubernetes">Copyright 2016-2022 The Kubernetes Authors.</a>
+  </DIV>
+  <DIV class="col-md-6 text-right">
+    <DIV>Generated at: 2022-03-22 16:18:13 (PDT)</DIV>
+    <DIV>API Version: <a href="https://github.com/kubernetes/kubernetes/blob/release-1.24/api/openapi-spec/swagger.json">v1.24.0</a></DIV>
+  </DIV>
+</DIV><H1 id="-strong-api-overview-strong-"><STRONG>API OVERVIEW</STRONG></H1>
+
+<P>Welcome to the Kubernetes API.  You can use the Kubernetes API to read
+and write Kubernetes resource objects via a Kubernetes API endpoint.</P>
+
+<H2 id="resource-categories">Resource Categories</H2>
+
+<P>This is a high-level overview of the basic types of resources provide by the Kubernetes API and their primary functions.</P>
+<P><B>Workloads</B> are objects you use to manage and run your containers on the cluster.</P>
+<P><B>Discovery &amp; LB</B> resources are objects you use to "stitch" your workloads together into an externally accessible, load-balanced Service.</P>
+<P><B>Config &amp; Storage</B> resources are objects you use to inject initialization data into your applications, and to persist data that is external to your container.</P>
+<P><B>Cluster</B> resources objects define how the cluster itself is configured; these are typically used only by cluster operators.</P>
+<P><B>Metadata</B> resources are objects you use to configure the behavior of other resources within the cluster, such as <code>HorizontalPodAutoscaler</code> for scaling workloads.</P>
+
+<HR />
+
+<H2 id="resource-objects">Resource Objects</H2>
+
+<P>Resource objects typically have 3 components:</P>
+<UL>
+<LI><B>Resource ObjectMeta</B>: This is metadata about the resource, such as its name, type, api version, annotations, and labels.  This contains
+fields that maybe updated both by the end user and the system (e.g. annotations).</LI>
+<LI><B>ResourceSpec</B>: This is defined by the user and describes the desired state of system.  Fill this in when creating or updating an object.</LI>
+<LI><B>ResourceStatus</B>: This is filled in by the server and reports the current state of the system.  In most cases, users don't need to change this.</LI>
+</UL>
+
+<HR />
+
+<H2 id="resource-operations">Resource Operations</H2>
+
+<P>Most resources provide the following Operations:</P>
+
+<H4 id="resource-operations-create">Create</H4>
+
+<P>Create operations will create the resource in the storage backend.  After a resource is create the system will apply
+the desired state.</P>
+
+<H4 id="resource-operations-update">Update</H4>
+
+<P>Updates come in 2 forms: <B>Replace</B> and <B>Patch</B>:
+
+<UL>
+<LI><B>Replace</B>:
+Replacing a resource object will update the resource by replacing the existing spec with the provided one.  For
+read-then-write operations this is safe because an optimistic lock failure will occur if the resource was modified
+between the read and write. <I>Note</I>: The <I>ResourceStatus</I> will be ignored by the system and will not be updated.
+To update the status, one must invoke the specific status update operation.<BR />
+
+Note: Replacing a resource object may not result immediately in changes being propagated to downstream objects.  For instance
+replacing a <CODE>ConfigMap</CODE> or <CODE>Secret</CODE> resource will not result in all <I>Pod</I>s seeing the changes unless the <I>Pod</I>s are
+restarted out of band.</P></LI>
+
+<LI><B>Patch</B>:
+Patch will apply a change to a specific field.  How the change is merged is defined per field.  Lists may either be
+replaced or merged.  Merging lists will not preserve ordering.<BR />
+
+<B>Patches will never cause optimistic locking failures, and the last write will win.</B>  Patches are recommended
+when the full state is not read before an update, or when failing on optimistic locking is undesirable. <I>When patching
+complex types, arrays and maps, how the patch is applied is defined on a per-field basis and may either replace
+the field's current value, or merge the contents into the current value.</I></LI>
+</UL>
+
+<H4 id="resource-operations-read">Read</H4>
+
+<P>Reads come in 3 forms: <B>Get</B>, <B>List</B> and <B>Watch</B>:<P>
+
+<UL>
+<LI><B>Get</B>: Get will retrieve a specific resource object by name.</LI>
+<LI><B>List</B>: List will retrieve all resource objects of a specific type within a namespace, and the results can be restricted to resources matching a selector query.<BR />
+<B>List All Namespaces</B>: Like <B>List</B> but retrieves resources across all namespaces.</LI>
+<LI><B>Watch</B>: Watch will stream results for an object(s) as it is updated.  Similar to a callback, watch is used to respond to resource changes.</LI>
+</UL>
+
+<H4 id="resource-operations-read">Delete</H4>
+
+<P>Delete will delete a resource.  Depending on the specific resource, child objects may or may not be garbage collected by the server.  See
+notes on specific resource objects for details.</P>
+
+<H4 id="resource-operations-additional">Additional Operations</H4>
+
+<P>Resources may define additional operations specific to that resource type.</P>
+
+<UL>
+	<LI><B>Rollback</B>: Rollback a PodTemplate to a previous version.  Only available for some resource types.</LI>
+	<LI><B>Read / Write Scale</B>: Read or Update the number of replicas for the given resource.  Only available for some resource types.</LI>
+	<LI><B>Read / Write Status</B>: Read or Update the Status for a resource object.  The Status can only changed through these update operations.</LI>
+</UL>
+<HR />
+<H1 id="-strong-api-groups-strong-"><STRONG>API Groups</STRONG></H1>
+<P>The API Groups and their versions are summarized in the following table.</P><TABLE class="col-md-8">
+<THEAD><TR><TH>Group</TH><TH>Version</TH></TR></THEAD>
+<TBODY>
+</TBODY>
+</TABLE>
+<H1 id="-strong-workloads-apis-strong-"><STRONG>WORKLOADS</STRONG></H1>
+
+<P>Workloads resources are responsible for managing and running your containers on the cluster. <A href="#container-v1-core">Containers</A> are created
+by Controllers through <A href="#pod-v1-core">Pods</A>. Pods run Containers and provide environmental dependencies such as shared or
+persistent storage <A href="#volume-v1-core">Volumes</A> and <A href="#configmap-v1-core">Configuration</A> or <A href="#secret-v1-core">Secret</A>
+data injected into the container.</P>
+
+<P>The most common Controllers are:</P>
+<UL>
+<LI><A href="#deployment-v1-apps">Deployments</A> for stateless persistent apps (e.g. HTTP servers).</LI>
+<LI><A href="#statefulset-v1-apps">StatefulSets</A> for stateful persistent apps (e.g. databases).</LI>
+<LI><A href="#job-v1-batch">Jobs</A> for run-to-completion apps (e.g. batch Jobs).</LI>
+</UL>
+
+<HR />
+<H1 id="-strong-service-apis-strong-"><STRONG>SERVICE APIs</STRONG></H1>
+
+<P>Service API resources are responsible for stitching your workloads together into an accessible Loadbalanced Service.  By default,
+<A href="#-strong-workloads-strong">Workloads</A> are only accessible within the cluster, and they must be exposed externally using a either
+a *LoadBalancer* or *NodePort* <A href="#service-v1-core">Service</A>.  For development, internally accessible
+Workloads can be accessed via proxy through the api master using the <code>kubectl proxy</code> command.</P>
+
+<P>Common resource types:</P>
+
+<UL>
+	<LI><A href="#service-v1-core">Services</A> for providing a single ip endpoint loadbalanced across multiple Workload replicas.</LI>
+	<LI><A href="#ingress-v1beta1-extensions">Ingress</A> for providing a https(s) endpoint http(s) routed to one or more *Services*.</LI>
+</UL>
+<HR />
+<H1 id="-strong-config-and-storage-apis-strong-"><STRONG>CONFIG & STORAGE</STRONG></H1>
+
+<P>Config and Storage resources are responsible for injecting data into your applications and persisting data externally to your container.</P>
+
+<P>Common resource types:</P>
+<UL>
+<LI><A href="#configmap-v1-core">ConfigMaps</A> for providing text key value pairs injected into the application through environment variables, command line arguments, or files</LI>
+<LI><A href="#secret-v1-core">Secrets</A> for providing binary data injected into the application through files</LI>
+<LI><A href="#volume-v1-core">Volumes</A> for providing a filesystem external to the Container.  Maybe shared across Containers within the same Pod and have a lifetime persisting beyond a Container or Pod.</LI>
+</UL>
+<HR />
+<H1 id="-strong-metadata-apis-strong-"><STRONG>METADATA</STRONG></H1>
+
+<P>Metadata resources are responsible for configuring behavior of your other Resources within the Cluster.</P>
+
+<P>Common resource types:</P>
+<UL>
+<LI><A href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</A> (HPA) for automatically scaling the replicacount of your workloads in response to load.</LI>
+<LI><A href="#poddisruptionbudget-v1alpha1">PodDisruptionBudget</A> for configuring how many replicas in a given workload maybe made concurrently unavailable when performing maintenance.</LI>
+<LI><A href="#event-v1-core">Event</A> for notification of resource lifecycle events in the cluster.</LI>
+</UL>
+<HR />
+<H1 id="-strong-cluster-apis-strong-"><strong>CLUSTER</strong></H1>
+
+<P>Cluster resources are responsible for defining configuration of the cluster itself, and are generally only used by cluster operators.</P>
+
+<HR />
+<H1 id="-strong-definitions-strong-"><STRONG>DEFINITIONS</STRONG></H1>
+
+<P>This section contains definitions for objects used in the Kubernetes APIs.</P>
+<H1 id="-strong-old-api-versions-strong-"><STRONG>OLD API VERSIONS</STRONG></H1>
+
+<P>This section contains older versions of resources shown above.</P>
+
+</DIV>
+</DIV>
+</DIV>
+<SCRIPT src="/js/jquery-3.3.1.min.js"></SCRIPT>
+<SCRIPT src="/js/jquery.scrollTo-2.1.2.min.js"></SCRIPT>
+<SCRIPT src="/js/bootstrap-4.3.1.min.js"></SCRIPT>
+<SCRIPT src="js/navData.js"></SCRIPT>
+<SCRIPT src="/js/scroll-apiref.js"></SCRIPT>
+</BODY>
+</HTML>
