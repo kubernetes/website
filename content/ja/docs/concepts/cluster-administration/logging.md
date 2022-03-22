@@ -178,7 +178,7 @@ CPUとメモリの使用量が少ない(CPUの場合は数ミリコアのオー�
 サイドカーコンテナでロギングエージェントを使用すると、大量のリソースが消費される可能性があります。さらに、これらのログはkubeletによって制御されていないため、`kubectl logs`を使用してこれらのログにアクセスすることができません。
 {{< /note >}}
 
-ロギングエージェントを使用したサイドカーコンテナを実装するために使用できる、2つの構成ファイルを次に示します。最初のファイルには、fluentdを設定するための[`ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/)が含まれています。
+ロギングエージェントを使用したサイドカーコンテナを実装するために使用できる、2つの構成ファイルを次に示します。最初のファイルには、fluentdを設定するための[`ConfigMap`](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)が含まれています。
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 
