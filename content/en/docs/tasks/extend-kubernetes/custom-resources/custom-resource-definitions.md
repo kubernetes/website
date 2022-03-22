@@ -716,6 +716,8 @@ CustomResourceDefinition schemas using the `x-kubernetes-validations` extension.
 The Rule is scoped to the location of the `x-kubernetes-validations` extension in the schema.
 And `self` variable in the CEL expression is bound to the scoped value.
 
+Note all the validation rules are scoped to the current object, no cross-object or stateful validation rules are supported.
+
 For example:
 
 ```yaml
@@ -994,7 +996,75 @@ Here is the declarations type mapping between OpenAPIv3 and CEL type:
 xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values), [OpenAPI
 types](https://swagger.io/specification/#data-types), [Kubernetes Structural Schemas](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
 
+#### Function Library
 
+Functions available include:
+  - CEL standard functions, defined in the[list of standard definitions](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)
+  - CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
+  - CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
+  - Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0-alpha.4/pkg/apiserver/schema/cel/library#pkg-functions)
+
+#### Transition Rules
+
+A rule that contains an expression referencing the identifier `oldSelf` is implicitly considered a
+"transition rule". Transition rules allow schema authors to prevent certain transitions between two
+otherwise valid states. For example:
+
+```yaml
+type: string
+enum: ["low", "medium", "high"]
+x-kubernetes-validations:
+- rule: "!(self == 'high' && oldSelf == 'low') && !(self == 'low' && oldSelf == 'high')"
+  message: cannot transition directly between 'low' and 'high'
+```
+
+Unlike other rules, transition rules apply only to operations meeting the following criteria:
+
+- The operation updates an existing object. Transition rules never apply to create operations.
+
+- Both an old and a new value exist. It remains possible to check if a value has been added or
+  removed by placing a transition rule on the parent node. Transition rules are never applied to
+  custom resource creation. When placed on an optional field, a transition rule will not apply to
+  update operations that set or unset the field.
+
+- The path to the schema node being validated by a transition rule must resolve to a node that is
+  comparable between the old object and the new object. For example, list items and their
+  descendants (`spec.foo[10].bar`) can't necessarily be correlated between an existing object and a
+  later update to the same object.
+
+Errors will be generated on CRD writes if a schema node contains a transition rule that can never be
+applied, e.g. "*path*: update rule *rule* cannot be set on schema because the schema or its parent
+schema is not mergeable".
+
+Transition rules are only allowed on "correlatable" portions of a schema.
+A portion of the schema is correlatable if all `array` parent schemas are of type `x-kubernetes-list-type=map`; any `set`or `atomic`array parent schemas make it impossible to unambiguously correlate a `self` with `oldSelf`.
+
+##### Use Cases
+
+| Use Case                                                          | Rule
+| --------                                                          | --------
+| Immutability                                                      | `self.foo == oldSelf.foo`
+| Prevent modification/removal once assigned                        | `oldSelf != 'bar' \|\| self == 'bar'` or `!has(oldSelf.field) \|\| has(self.field)`
+| Append-only set                                                   | `self.all(element, element in oldSelf)`
+| If previous value was X, new value can only be A or B, not Y or Z | `oldSelf != 'X' \|\| self in ['A', 'B']`
+| Nondecreasing counters                                            | `self >= oldSelf`
+
+#### Resource Constraints
+
+CEL expressions have the potential to consume unacceptable amounts of API server resources. We constrain the resource utilization in following ways:
+- Validation of CEL expression's "cost" when a CEL expression is written to a field in a CRD (at CRD creation/update time)
+- Runtime cost budget during CEL evaluation
+  - CEL validation might fail due to runtime cost budget exceed with error message `validation failed due to running out of cost budget, no further validation rules will be run`
+  - CEL validation might fail due to cost limit exceed per expression with message `operation cancelled: actual cost limit exceeded: no further validation rules will be run due to call cost exceeds limit for rule:{$rule}`
+- Go context cancellation to bound CEL expression evaluation to the request lifetime
+
+Guidelines for working with estimated limits:
+- Adding MaxItems, MaxProperties and MaxLength limits on all data accessed by CEL rules is the best practice.
+- O(n) - For simple rules, it is possible to iterate across a single map/list/string without exceeding the limit, but adding limits on all data accessed by CEL rules is the best practice
+- O(n^2)+ the product of the max lengths usually needs to be <1,000,000.  E.g. 1000 for 2 levels of nesting, 100 for 3 levels of nesting
+- O(n^3) - should generally be avoided
+
+// TODO: edit info for cost estimation
 
 ### Defaulting
 
