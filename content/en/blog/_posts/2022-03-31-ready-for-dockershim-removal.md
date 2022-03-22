@@ -29,4 +29,6 @@ Fear not, you aren’t being left out in the cold and you don’t have to take t
 ## Is that it?
 
 
-Yes. As long as you go into this release aware of the changes being made and the details of your own clusters, as well as communicate clearly with your development teams, it will be minimally dramatic. You may have some changes to make to your cluster, your application code, or some scripts, but all of these requirements are documented. Switching from using Docker Engine as your runtime to using containerd effectively means removing the middleman, since containerd is the runtime used by Docker itself. From a practical perspective, this removal is better both for you and for Kubernetes maintainers in the long-run. If you still have questions, please first check the [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/).
+Yes. As long as you go into this release aware of the changes being made and the details of your own clusters, and you make sure to communicate clearly with your development teams, it will be minimally dramatic. You may have some changes to make to your cluster, application code, or scripts, but all of these requirements are documented. Switching from using Docker Engine as your runtime to using containerd effectively means removing the middleman since containerd is the runtime used by Docker itself. From a practical perspective, this removal is better both for you and for Kubernetes maintainers in the long-run.
+
+If you still have questions, please first check the [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/).
