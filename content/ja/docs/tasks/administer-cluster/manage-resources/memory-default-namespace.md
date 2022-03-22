@@ -164,7 +164,7 @@ kubectl delete namespace default-mem-example
 ## {{% heading "whatsnext" %}}
 
 
-### クラスター管理者のため
+### クラスター管理者向け
 
 * [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
