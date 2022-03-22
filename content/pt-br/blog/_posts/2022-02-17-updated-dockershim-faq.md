@@ -148,7 +148,7 @@ pode funcionar ainda melhor para o seu ambiente.
 
 ### O que devo ficar atento ao mudar a minha implementação de CRI utilizada?
 
-Embora o código de conteinerização base seja o mesmo entre o Docker e a maioria
+Embora o código de conteinerização base seja o mesmo entre o Docker e a maioria dos
 CRIs (incluindo containerd), existem algumas poucas diferenças. Alguns
 pontos a se considerar ao migrar são:
 
