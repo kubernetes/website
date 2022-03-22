@@ -178,7 +178,7 @@ kubectl delete namespace default-mem-example
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-### アプリケーション開発者のため
+### アプリケーション開発者向け
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
