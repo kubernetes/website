@@ -38,13 +38,13 @@ The following methods exist for installing kubectl on Windows:
 
 1. Validate the binary (optional)
 
-   Download the kubectl checksum file:
+   Download the `kubectl` checksum file:
 
    ```powershell
    curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
-   Validate the kubectl binary against the checksum file:
+   Validate the `kubectl` binary against the checksum file:
 
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
 
@@ -59,7 +59,7 @@ The following methods exist for installing kubectl on Windows:
      $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
      ```
 
-1. Append or prepend the kubectl binary folder to your `PATH` environment variable.
+1. Append or prepend the `kubectl` binary folder to your `PATH` environment variable.
 
 1. Test to ensure the version of `kubectl` is the same as downloaded:
 
@@ -156,13 +156,13 @@ Below are the procedures to set up autocompletion for PowerShell.
 
 1. Validate the binary (optional)
 
-   Download the kubectl-convert checksum file:
+   Download the `kubectl-convert` checksum file:
 
    ```powershell
    curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
-   Validate the kubectl-convert binary against the checksum file:
+   Validate the `kubectl-convert` binary against the checksum file:
 
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
 
@@ -177,7 +177,7 @@ Below are the procedures to set up autocompletion for PowerShell.
      $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```
 
-1. Append or prepend the kubectl binary folder to your `PATH` environment variable.
+1. Append or prepend the `kubectl-convert` binary folder to your `PATH` environment variable.
 
 1. Verify plugin is successfully installed
 
