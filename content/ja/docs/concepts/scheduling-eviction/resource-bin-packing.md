@@ -38,7 +38,7 @@ profiles:
       - name: intel.com/bar
         weight: 5
 ```
-スケジューラには、kube-schedulerフラグ`--config=/path/to/config/file`を使用して`KubeSchedulerConfiguration`のファイルを指定することで渡すことができます。
+スケジューラーには、kube-schedulerフラグ`--config=/path/to/config/file`を使用して`KubeSchedulerConfiguration`のファイルを指定することで渡すことができます。
 
 **この機能はデフォルトで無効化されています**
 
