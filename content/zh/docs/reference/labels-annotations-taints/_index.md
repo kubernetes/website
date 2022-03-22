@@ -1033,7 +1033,7 @@ Pod 的 [`.spec.securityContext`](/docs/reference/kubernetes-api/workload-resour
 你设定的配置会被应用到该 Pod 的所有容器中。
 
 <!--
-### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
+### container.seccomp.security.alpha.kubernetes.io/[NAME] (deprecated) {#container-seccomp-security-alpha-kubernetes-io}
 
 This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
 The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/) takes
@@ -1041,7 +1041,7 @@ you through the steps you follow to apply a seccomp profile to a Pod or to one o
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
 -->
-### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
+### container.seccomp.security.alpha.kubernetes.io/[NAME]（已弃用）{#container-seccomp-security-alpha-kubernetes-io}
 
 此注解已于 Kubernetes v1.19 起被弃用，且将于 v1.25 失效。
 [使用 seccomp 限制容器的系统调用](/zh/docs/tutorials/security/seccomp/)教程会指导你完成对
