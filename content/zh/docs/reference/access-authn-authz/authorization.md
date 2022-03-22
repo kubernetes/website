@@ -263,7 +263,7 @@ no
 ```
 
 <!--
-Similarly, to check whether a Service Account named `dev-sa` in Namespace `dev`
+Similarly, to check whether a ServiceAccount named `dev-sa` in Namespace `dev`
 can list Pods in the Namespace `target`:
 -->
 类似地，检查名字空间 `dev` 里的 `dev-sa` 服务账号是否可以列举名字空间 `target` 里的 Pod：
