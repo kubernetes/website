@@ -8,14 +8,19 @@ content_type: concept
 
 <!-- overview -->
 
-For Kubernetes, the _Metrics API_ offers a basic set of metrics to support automatic scaling and similar use cases.
-This API makes information available about resource usage for node and pod, including metrics for CPU and memory.
-If you deploy the Metrics API into your cluster, clients of the Kubernetes API can then query for this information, and
-you can use Kubernetes' access control mechanisms to manage permissions to do so.
+For Kubernetes, the _Metrics API_ offers a basic set of metrics to support automatic scaling and
+similar use cases.  This API makes information available about resource usage for node and pod,
+including metrics for CPU and memory.  If you deploy the Metrics API into your cluster, clients of
+the Kubernetes API can then query for this information, and you can use Kubernetes' access control
+mechanisms to manage permissions to do so.
 
-The [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)  (HPA) and [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA) use data from the metrics API to adjust workload replicas and resources to meet customer demand.
+The [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)  (HPA) and
+[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)
+use data from the metrics API to adjust workload replicas and resources to meet customer demand.
 
-You can also view the resource metrics using the [`kubectl top`](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#top) command.
+You can also view the resource metrics using the
+[`kubectl top`](/docs/reference/generated/kubectl/kubectl-commands#top)
+command.
 
 {{< note >}}
 The Metrics API, and the metrics pipeline that it enables, only offers the minimum
@@ -59,34 +64,51 @@ Figure 1. Resource Metrics Pipeline
 
 The architecture components, from right to left in the figure, consist of the following:
 
-* [cAdvisor](https://github.com/google/cadvisor): Daemon for collecting, aggregating and exposing container metrics included in Kubelet.
-* [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet API endpoints.
-* [Summary API](#summary-api-source): API provided by the kubelet for discovering and retrieving per-node summarized stats available through the `/stats` endpoint.
-* [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource metrics pulled from each kubelet. The API server serves Metrics API for use by HPA, VPA, and by the `kubectl top` command. Metrics Server is a reference implementation of the Metrics API.
-* [Metrics API](#metrics-api): Kubernetes API supporting access to CPU and memory used for workload autoscaling. To make this work in your cluster, you need an API extension server that provides the Metrics API.
+* [cAdvisor](https://github.com/google/cadvisor): Daemon for collecting, aggregating and exposing
+  container metrics included in Kubelet.
+* [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container
+  resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet
+  API endpoints.
+* [Summary API](#summary-api-source): API provided by the kubelet for discovering and retrieving
+  per-node summarized stats available through the `/stats` endpoint.
+* [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource
+  metrics pulled from each kubelet. The API server serves Metrics API for use by HPA, VPA, and by
+  the `kubectl top` command. Metrics Server is a reference implementation of the Metrics API.
+* [Metrics API](#metrics-api): Kubernetes API supporting access to CPU and memory used for
+  workload autoscaling. To make this work in your cluster, you need an API extension server that
+  provides the Metrics API.
   
   {{< note >}}
   cAdvisor supports reading metrics from cgroups, which works with typical container runtimes on Linux.
-  If you use a container runtime that uses another resource isolation mechanism, for example virtualization, then that container runtime must support [CRI Container Metrics](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md) in order for metrics to be available to the kubelet.
+  If you use a container runtime that uses another resource isolation mechanism, for example
+  virtualization, then that container runtime must support
+  [CRI Container Metrics](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md)
+  in order for metrics to be available to the kubelet.
   {{< /note >}}
-
   
 <!-- body -->
 
 ## Metrics API
 
-The metrics-server implements the Metrics API. This API allows you to access CPU and memory usage for the nodes and pods in your cluster. Its primary role is to feed resource usage metrics to K8s autoscaler components. 
+The metrics-server implements the Metrics API. This API allows you to access CPU and memory usage
+for the nodes and pods in your cluster. Its primary role is to feed resource usage metrics to K8s
+autoscaler components. 
 
-Here is an example of the Metrics API request for a `minikube` node piped through `jq` for easier reading:
+Here is an example of the Metrics API request for a `minikube` node piped through `jq` for easier
+reading:
+
 ```shell
 kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes/minikube" | jq '.'
 ```
 
 Here is the same API call using `curl`:
+
 ```shell
 curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/nodes/minikube
 ```
-Sample reply:
+
+Sample response:
+
 ```json
 {
   "kind": "NodeMetrics",
@@ -104,16 +126,22 @@ Sample reply:
   }
 }
 ```
-Here is an example of the Metrics API request for a `kube-scheduler-minikube` pod contained in the `kube-system` namespace and piped through `jq` for easier reading:
+
+Here is an example of the Metrics API request for a `kube-scheduler-minikube` pod contained in the
+`kube-system` namespace and piped through `jq` for easier reading:
 
 ```shell
 kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube" | jq '.'
 ```
+
 Here is the same API call using `curl`:
+
 ```shell
 curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube
 ```
-Sample reply:
+
+Sample response:
+
 ```json
 {
   "kind": "PodMetrics",
@@ -138,47 +166,72 @@ Sample reply:
 }
 ```
 
-The Metrics API is defined in the [k8s.io/metrics](https://github.com/kubernetes/metrics) repository. You must enable the [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) and register an [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/) for the `metrics.k8s.io` API.
+The Metrics API is defined in the [k8s.io/metrics](https://github.com/kubernetes/metrics)
+repository. You must enable the [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+and register an [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)
+for the `metrics.k8s.io` API.
 
-To learn more about the Metrics API, see [resource metrics API design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md), the [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server) and the [resource metrics API](https://github.com/kubernetes/metrics#resource-metrics-api).
+To learn more about the Metrics API, see [resource metrics API design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md),
+the [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server) and the
+[resource metrics API](https://github.com/kubernetes/metrics#resource-metrics-api).
 
 
-{{< note >}} You must deploy the metrics-server or alternative adapter that serves the Metrics API to be able to access it. {{< /note >}}
+{{< note >}}
+You must deploy the metrics-server or alternative adapter that serves the Metrics API to be able
+to access it.
+{{< /note >}}
 
 ## Measuring resource usage
 
 ### CPU
 
-CPU is reported as the average core usage measured in cpu units. One cpu, in Kubernetes, is equivalent to 1 vCPU/Core for cloud providers, and 1 hyper-thread on bare-metal Intel processors.
+CPU is reported as the average core usage measured in cpu units. One cpu, in Kubernetes, is
+equivalent to 1 vCPU/Core for cloud providers, and 1 hyper-thread on bare-metal Intel processors.
 
-This value is derived by taking a rate over a cumulative CPU counter provided by the kernel (in both Linux and Windows kernels). The time window used to calculate CPU is shown under window field in Metrics API.
+This value is derived by taking a rate over a cumulative CPU counter provided by the kernel (in
+both Linux and Windows kernels). The time window used to calculate CPU is shown under window field
+in Metrics API.
 
-To learn more about how Kubernetes allocates and measures CPU resources, see [meaning of CPU](/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu).
+To learn more about how Kubernetes allocates and measures CPU resources, see
+[meaning of CPU](/docs/concepts/configuration/manage-resources-container/#meaning-of-cpu).
 
 ### Memory
 
 Memory is reported as the working set, measured in bytes, at the instant the metric was collected.
 
-In an ideal world, the "working set" is the amount of memory in-use that cannot be freed under memory pressure. However, calculation of the working set varies by host OS, and generally makes heavy use of heuristics to produce an estimate. 
+In an ideal world, the "working set" is the amount of memory in-use that cannot be freed under
+memory pressure. However, calculation of the working set varies by host OS, and generally makes
+heavy use of heuristics to produce an estimate. 
 
-The Kubernetes model for a container's working set expects that the container runtime counts anonymous memory associated with the container in question. The working set metric typically also includes some cached (file-backed) memory, because the host OS cannot always reclaim pages.
+The Kubernetes model for a container's working set expects that the container runtime counts
+anonymous memory associated with the container in question. The working set metric typically also
+includes some cached (file-backed) memory, because the host OS cannot always reclaim pages.
 
-To learn more about how Kubernetes allocates and measures memory resources, see [meaning of memory](/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-memory).
+To learn more about how Kubernetes allocates and measures memory resources, see
+[meaning of memory](/docs/concepts/configuration/manage-resources-container/#meaning-of-memory).
 
 ## Metrics Server
 
-The metrics-server fetches resource metrics from the kubelets and exposes them in the Kubernetes API server through the Metrics API for use by the HPA and VPA. You can also view these metrics using the `kubectl top` command.
+The metrics-server fetches resource metrics from the kubelets and exposes them in the Kubernetes
+API server through the Metrics API for use by the HPA and VPA. You can also view these metrics
+using the `kubectl top` command.
 
-The metrics-server uses the Kubernetes API to track nodes and pods in your cluster. The metrics-server queries each node over HTTP to fetch metrics. The metrics-server also builds an internal view of pod metadata, and keeps a cache of pod health. That cached pod health information is available via the extension API that the metrics-server makes available.
+The metrics-server uses the Kubernetes API to track nodes and pods in your cluster. The
+metrics-server queries each node over HTTP to fetch metrics. The metrics-server also builds an
+internal view of pod metadata, and keeps a cache of pod health. That cached pod health information
+is available via the extension API that the metrics-server makes available.
 
-For example with an HPA query, the metrics-server needs to identify which pods fulfill the label selectors in the deployment.
+For example with an HPA query, the metrics-server needs to identify which pods fulfill the label
+selectors in the deployment.
 
-The metrics-server calls the [kubelet](/docs/reference/command-line-tools-reference/kubelet/) API to collect metrics from each node. Depending on the metrics-server version it uses:
+The metrics-server calls the [kubelet](/docs/reference/command-line-tools-reference/kubelet/) API
+to collect metrics from each node. Depending on the metrics-server version it uses:
+
 * Metrics resource endpoint `/metrics/resource` in version v0.6.0+ or
 * Summary API endpoint `/stats/summary` in older versions
 
-
-To learn more about the metrics-server, see the [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server).
+To learn more about the metrics-server, see the
+[metrics-server repository](https://github.com/kubernetes-sigs/metrics-server).
 
 You can also check out the following:
 
@@ -190,20 +243,25 @@ You can also check out the following:
 
 ### Summary API source
 
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) gathers stats at the node, volume, pod and container level, and emits this information in
+The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) gathers stats at the node,
+volume, pod and container level, and emits this information in
 the [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
 for consumers to read.
 
 Here is an example of a Summary API request for a `minikube` node:
 
-
 ```shell
 kubectl get --raw "/api/v1/nodes/minikube/proxy/stats/summary"
 ```
+
 Here is the same API call using `curl`:
+
 ```shell
 curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
 ```
+
 {{< note >}}
-The summary API `/stats/summary` endpoint will be replaced by the `/metrics/resource` endpoint beginning with metrics-server 0.6.x.
+The summary API `/stats/summary` endpoint will be replaced by the `/metrics/resource` endpoint
+beginning with metrics-server 0.6.x.
 {{< /note >}}
+
