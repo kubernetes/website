@@ -67,7 +67,7 @@ clientConnection:
 1. `multiPoint`: このフィールドは設定のみ可能で、プラグインが適用されるすべての拡張点に対して
    同時に有効化または無効化することができます。
 
-次の例のように、それぞれの拡張点に対して、特定の[デフォルトプラグイン](#scheduling-plugins)を無効化、または自作のプラグイン有効化することができます。
+次の例のように、それぞれの拡張点に対して、特定の[デフォルトプラグイン](#scheduling-plugins)を無効化、または自作のプラグインを有効化することができます。
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta2
