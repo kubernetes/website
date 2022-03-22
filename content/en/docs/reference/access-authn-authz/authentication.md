@@ -282,33 +282,10 @@ from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_
 as a bearer token.  See [above](#putting-a-bearer-token-in-a-request) for how the token
 is included in a request.
 
-{{< mermaid >}}
-sequenceDiagram
-    participant user as User
-    participant idp as Identity Provider
-    participant kube as Kubectl
-    participant api as API Server
 
-    user ->> idp: 1. Login to IdP
-    activate idp
-    idp -->> user: 2. Provide access_token,<br>id_token, and refresh_token
-    deactivate idp
-    activate user
-    user ->> kube: 3. Call Kubectl<br>with --token being the id_token<br>OR add tokens to .kube/config
-    deactivate user
-    activate kube
-    kube ->> api: 4. Authorization: Bearer...
-    deactivate kube
-    activate api
-    api ->> api: 5. Is JWT signature valid?
-    api ->> api: 6. Has the JWT expired? (iat+exp)
-    api ->> api: 7. User authorized?
-    api -->> kube: 8. Authorized: Perform<br>action and return result
-    deactivate api
-    activate kube
-    kube --x user: 9. Return result
-    deactivate kube
-{{< /mermaid >}}
+ <!-- Mermaid Live Editor link - https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNp9U9uO0zAQ_ZWRn0C0RtwhQl0tF4kCEtUuiJdKaBpP0tEmdrCdsstq_x1PkiZCKeTFmfGZM-eM7VuVO0MqU4F-tmRzesdYeqy3FtLXoI-cc4M2QhvIAwb4ltb5LptGNteGbOR4AxvvDmxOIa_aHQn0U1rzWM0B2LDsn2_WcEn-IBw9qFOwXK2kWQaPNHx2JVuILrXd9BDMIx8wkkD6jAhbSpFUZ_BYH6UlbE4h_Ijuiuzi9c6v2AwBoDXgqfAU9n2q5zI05x8z7TiXUadYzeCJhrdYVUfD0ukXx31S1VHDjtiWEPdC2ncTyJcLQGOgi4N41ML2MHe24HImZ2o-pgTep7qJi5402Qyeajhv4955_o2Rnc3gDaEnr7We0U4cYypxDJl0TCPpMw3rAB-_f4XApcXYeoIDVmzOToCfa_iQDlgcSwVdN-zJnME9xvggRfdP1LzQ3cUDHKTTX8zTsF9O7shksCFfOF_LQMWBs8PRJoE2LaGt4sz05PBfo1xeD7fplYaL_3IJXi1UTb5GNumZ3Qpkq5L3mrYqS7-GCpRStbV3Cdo2JhW-NxydV1mBVaCFSq7d5Y3NVRZ9S0fQ8FQH1N0fx_ZDMw -->
+
+![Token Diagram](/images/token_diagram.svg)
 
 1.  Login to your identity provider
 2.  Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
