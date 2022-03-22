@@ -72,7 +72,7 @@ Saat kamu menjalankan perintah [`kubectl logs`](/docs/reference/generated/kubect
 Saat ini, jika suatu sistem eksternal telah melakukan rotasi, hanya konten dari berkas log terbaru yang akan tersedia melalui perintah `kubectl logs`. Contoh, jika terdapat sebuah berkas 10MB, `logrotate` akan melakukan rotasi sehingga akan ada dua buah berkas, satu dengan ukuran 10MB, dan satu berkas lainnya yang kosong. Maka `kubectl logs` akan mengembalikan respon kosong.
 {{< /note >}}
 
-[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
+[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh
 
 ### Komponen sistem log
 

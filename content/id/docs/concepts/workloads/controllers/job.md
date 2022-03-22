@@ -491,7 +491,7 @@ dan memiliki integrasi terbatas dengan Kubernetes.
 
 Salah satu contoh dari pola ini adalah sebuah Job yang akan menginisiasi sebuah Pod 
 yang menjalankan _script_ yang kemudian akan 
-menjalankan _controller_ master Spark (kamu dapat melihatnya di [contoh Spark](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/spark/README.md)), 
+menjalankan _controller_ master Spark (kamu dapat melihatnya di [contoh Spark](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)), 
 yang menjalankan _driver_ Spark, dan kemudian melakukan mekanisme _clean up_.
 
 Keuntungan dari pendekatan ini adalah proses keseluruhan yang memiliki jaminan _completion_ 

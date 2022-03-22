@@ -17,7 +17,7 @@ Laman ini menjelaskan tentang bagaimana menjalankan sebuah klaster dalam beberap
 Kubernetes 1.2 menambahkan dukungan untuk menjalankan sebuah klaster dalam beberapa zona kegagalan (_multiple failure zones_)
 (GCE secara sederhana menyebutnya sebagai _"zones"_, AWS menyebutnya sebagai _"availability zones"_, dan di sini kita akan menyebutnya sebagai "zona").
 Fitur ini adalah versi sederhana dari fitur federasi klaster yang lebih luas (yang sebelumnya ditujukan pada
-sebuah nama panggilan yang ramah (_affectionate nickname_) ["Ubernetes"](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/multicluster/federation.md)).
+sebuah nama panggilan yang ramah (_affectionate nickname_) ["Ubernetes"](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multicluster/federation.md)).
 Federasi klaster yang penuh memungkinkan untuk menggabungkan
 klaster Kubernetes terpisah, yang berjalan pada wilayah atau penyedia cloud yang berbeda
 (baik dalam _datacenter_ atau _on-premise_). Namun banyak
