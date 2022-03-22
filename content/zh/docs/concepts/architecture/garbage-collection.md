@@ -69,7 +69,7 @@ to the labels, each `EndpointSlice` that is managed on behalf of a Service has
 an owner reference. Owner references help different parts of Kubernetes avoid
 interfering with objects they don’t control.
 -->
-属主关系与某些资源所使用的的[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)
+属主关系与某些资源所使用的[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)
 不同。例如，考虑一个创建 `EndpointSlice` 对象的 {{<glossary_tooltip text="Service" term_id="service">}}
 对象。Service 对象使用*标签*来允许控制面确定哪些 `EndpointSlice` 对象被该
 Service 使用。除了标签，每个被 Service 托管的 `EndpointSlice` 对象还有一个属主引用属性。
