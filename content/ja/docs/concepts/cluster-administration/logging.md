@@ -58,7 +58,7 @@ kubectl logs counter
 
 ![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
 
-コンテナエンジンは、生成された出力を処理して、コンテナ化されたアプリケーションの`stdout`と`stderr`ストリームにリダイレクトします。たとえば、Dockerコンテナエンジンは、これら2つのストリームを[ロギングドライバ](https://docs.docker.com/engine/admin/logging/overvie)にリダイレクトします。ロギングドライバは、JSON形式でファイルに書き込むようにKubernetesで設定されています。
+コンテナエンジンは、生成された出力を処理して、コンテナ化されたアプリケーションの`stdout`と`stderr`ストリームにリダイレクトします。たとえば、Dockerコンテナエンジンは、これら2つのストリームを[ロギングドライバー](https://docs.docker.com/engine/admin/logging/overview)にリダイレクトします。ロギングドライバーは、JSON形式でファイルに書き込むようにKubernetesで設定されています。
 
 {{< note >}}
 Docker JSONロギングドライバーは、各行を個別のメッセージとして扱います。Dockerロギングドライバーを使用する場合、複数行メッセージを直接サポートすることはできません。ロギングエージェントレベルあるいはそれ以上のレベルで、複数行のメッセージを処理する必要があります。
