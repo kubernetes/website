@@ -278,7 +278,9 @@ Kubernetes supports specifying container image registry keys on a Pod.
 
 #### Creating a Secret with a Docker config
 
-Using a Docker registry as an example, run the following command, substituting the appropriate uppercase values:
+You need to know the username, registry password and client email address for authenticating
+to the registry, as well as its hostname.
+Run the following command, substituting the appropriate uppercase values:
 
 ```shell
 kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
