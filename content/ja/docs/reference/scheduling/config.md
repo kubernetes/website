@@ -17,8 +17,7 @@ weight: 20
 異なるステージを設定することができます。
 各ステージは、拡張点に公開されています。プラグインをそれらの拡張点に1つ以上実装することで、スケジューリングの振る舞いを変更できます。
 
-KubeSchedulerConfiguration([`v1beta2`](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-か[`v1beta3`](/docs/reference/config-api/kube-scheduler-config.v1beta3/))構造体を使用して、`kube-scheduler --config <filename>`を実行することで、スケジューリングプロファイルを指定することができます。
+KubeSchedulerConfiguration([`v1beta2`](/docs/reference/config-api/kube-scheduler-config.v1beta2/)か[`v1beta3`](/docs/reference/config-api/kube-scheduler-config.v1beta3/))構造体を使用して、`kube-scheduler --config <filename>`を実行することで、スケジューリングプロファイルを指定することができます。
 
 最小限の設定は次の通りです。
 
