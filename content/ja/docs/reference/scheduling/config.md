@@ -13,8 +13,7 @@ weight: 20
 
 <!-- body -->
 
-スケジューリングプロファイルは、{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}でスケジューリングの
-異なるステージを設定することができます。
+スケジューリングプロファイルは、{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}でスケジューリングの異なるステージを設定することができます。
 各ステージは、拡張点に公開されています。プラグインをそれらの拡張点に1つ以上実装することで、スケジューリングの振る舞いを変更できます。
 
 KubeSchedulerConfiguration([`v1beta2`](/docs/reference/config-api/kube-scheduler-config.v1beta2/)か[`v1beta3`](/docs/reference/config-api/kube-scheduler-config.v1beta3/))構造体を使用して、`kube-scheduler --config <filename>`を実行することで、スケジューリングプロファイルを指定することができます。
@@ -41,28 +40,17 @@ clientConnection:
 スケジューリングは一連のステージで行われ、以下の拡張点に公開されています。
 
 1. `queueSort`: これらのプラグインは、スケジューリングキューにある`pending`状態のPodをソートするための順序付け関数を提供します。同時に有効化できるプラグインは1つだけです。
-1. `preFilter`: これらのプラグインは、フィルタリングをする前にPodやクラスターの情報のチェックや
-   前処理のために使用されます。これらのプラグインは、設定された順序で呼び出されます。
-1. `filter`: これらのプラグインは、スケジューリングポリシーにおけるPredicatesに相当するもので、
-   Podの実行不可能なNodeをフィルターするために使用されます。
-   もし全てのNodeがフィルターされてしまった場合、Podはunschedulableとしてマークされます。
-1. `postFilter`:これらのプラグインは、Podの実行可能なNodeが見つからなかった場合、
-   設定された順序で呼び出されます。もし`postFilter`プラグインのいずれかが、Podを __スケジュール可能__
-   とマークした場合、残りの`postFilter`プラグインは呼び出されません。
+1. `preFilter`: これらのプラグインは、フィルタリングをする前にPodやクラスターの情報のチェックや前処理のために使用されます。これらのプラグインは、設定された順序で呼び出されます。
+1. `filter`: これらのプラグインは、スケジューリングポリシーにおけるPredicatesに相当するもので、Podの実行不可能なNodeをフィルターするために使用されます。もし全てのNodeがフィルターされてしまった場合、Podはunschedulableとしてマークされます。
+1. `postFilter`:これらのプラグインは、Podの実行可能なNodeが見つからなかった場合、設定された順序で呼び出されます。もし`postFilter`プラグインのいずれかが、Podを __スケジュール可能__ とマークした場合、残りの`postFilter`プラグインは呼び出されません。
 1. `preScore`: これは、スコアリング前の作業を行う際に使用できる情報提供のための拡張点です。
-1. `score`: これらのプラグインはフィルタリングフェーズを通過してきたそれぞれのNodeに対して
-   スコア付けを行います。その後スケジューラーは、最も高い重み付きスコアの合計を持つノードを選択します。
-1. `reserve`: これは、指定されたPodのためにリソースが予約された際に、プラグインに通知する、
-   情報提供のための拡張点です。また、プラグインは`Reserve`中に失敗した際、または`Reserve`の後に
-   呼び出される`Unreserve`も実装しています。
+1. `score`: これらのプラグインはフィルタリングフェーズを通過してきたそれぞれのNodeに対してスコア付けを行います。その後スケジューラーは、最も高い重み付きスコアの合計を持つノードを選択します。
+1. `reserve`: これは、指定されたPodのためにリソースが予約された際に、プラグインに通知する、情報提供のための拡張点です。また、プラグインは`Reserve`中に失敗した際、または`Reserve`の後に呼び出される`Unreserve`も実装しています。
 1. `permit`: これらのプラグインではPodのバインディングを拒む、または遅延させることができます。
 1. `preBind`: これらのプラグインは、Podがバインドされる前に必要な処理を実行できます。
-1. `bind`: これらのプラグインはPodをNodeにバインドします。`bind`プラグインは順番に呼び出され、
-   1つのプラグインがバインドを完了すると、残りのプラグインはスキップされます。`bind`プラグインは
-   少なくとも1つは必要です。
+1. `bind`: これらのプラグインはPodをNodeにバインドします。`bind`プラグインは順番に呼び出され、1つのプラグインがバインドを完了すると、残りのプラグインはスキップされます。`bind`プラグインは少なくとも1つは必要です。
 1. `postBind`: これは、Podがバインドされた後に呼び出される情報提供のための拡張点です。
-1. `multiPoint`: このフィールドは設定のみ可能で、プラグインが適用されるすべての拡張点に対して
-   同時に有効化または無効化することができます。
+1. `multiPoint`: このフィールドは設定のみ可能で、プラグインが適用されるすべての拡張点に対して同時に有効化または無効化することができます。
 
 次の例のように、それぞれの拡張点に対して、特定の[デフォルトプラグイン](#scheduling-plugins)を無効化、または自作のプラグインを有効化することができます。
 
@@ -95,22 +83,17 @@ profiles:
   拡張点:`filter`
 - `NodePorts`:要求されたPodのポートに対して、Nodeが空きポートを持っているかチェックします。
   拡張点:`preFilter`、`filter`
-- `NodeAffinity`:[nodeselectors](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
-  と[Nodeアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
-  を実行します。
+- `NodeAffinity`:[nodeselectors](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)と[Nodeアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)を実行します。
   拡張点:`filter`、`score`
 - `PodTopologySpread`:[Podトポロジーの分散制約](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)を実行します。
   拡張点:`preFilter`、`filter`、`preScore`、`score`
 - `NodeUnschedulable`:`.spec.unschedulable`がtrueに設定されているNodeをフィルタリングします。
   拡張点:`filter`.
-- `NodeResourcesFit`:Podが要求しているすべてのリソースがNodeにあるかをチェックします。
-  スコアは3つのストラテジのうちの1つを使用します:`LeastAllocated`(デフォルト)、`MostAllocated`、 と`RequestedToCapacityRatio`
+- `NodeResourcesFit`:Podが要求しているすべてのリソースがNodeにあるかをチェックします。スコアは3つのストラテジのうちの1つを使用します:`LeastAllocated`(デフォルト)、`MostAllocated`、 と`RequestedToCapacityRatio`
   拡張点:`preFilter`、`filter`、`score`
-- `NodeResourcesBalancedAllocation`:Podがスケジュールされた場合に、よりバランスの取れた
-  リソース使用量となるNodeを優先します。
+- `NodeResourcesBalancedAllocation`:Podがスケジュールされた場合に、よりバランスの取れたリソース使用量となるNodeを優先します。
   拡張点:`score`
-- `VolumeBinding`:Nodeが、要求された{{< glossary_tooltip text="ボリューム" term_id="volume" >}}
-  を持っている、もしくはバインドしているかチェックします。
+- `VolumeBinding`:Nodeが、要求された{{< glossary_tooltip text="ボリューム" term_id="volume" >}}を持っている、もしくはバインドしているかチェックします。
   拡張点:`preFilter`、`filter`、`reserve`、`preBind`、`score`
   {{< note >}}
   `score`拡張点は、`VolumeCapacityPriority`機能が有効になっている時に有効化されます。
@@ -128,8 +111,7 @@ profiles:
   拡張点:`filter`
 - `AzureDiskLimits`:NodeのAzureディスクボリューム制限を満たすかどうかをチェックします。
   拡張点:`filter`
-- `InterPodAffinity`:[Pod間のaffinityとanti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
-  を実行します。
+- `InterPodAffinity`:[Pod間のaffinityとanti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)を実行します。
   拡張点:`preFilter`、`filter`、`preScore`、`score`
 - `PrioritySort`:デフォルトの優先順位に基づくソートを提供します。
   拡張点:`queueSort`.
@@ -141,23 +123,17 @@ profiles:
 また、コンポーネント設定のAPIにより、以下のプラグインを有効にすることができます。
 デフォルトでは有効になっていません。
 
-- `SelectorSpread`:{{< glossary_tooltip text="サービス" term_id="service" >}}と
-  {{< glossary_tooltip text="レプリカセット" term_id="replica-set" >}}、
-  {{< glossary_tooltip text="ステートフルセット" term_id="statefulset" >}}、
-  に属するPodのNode間の拡散を優先します。
+- `SelectorSpread`:{{< glossary_tooltip text="サービス" term_id="service" >}}と{{< glossary_tooltip text="レプリカセット" term_id="replica-set" >}}、{{< glossary_tooltip text="ステートフルセット" term_id="statefulset" >}}、に属するPodのNode間の拡散を優先します。
   拡張点:`preScore`、`score`
-- `CinderLimits`:Nodeが[`OpenStack Cinder`](https://docs.openstack.org/cinder/)
-  ボリューム制限を満たせるかチェックします。
+- `CinderLimits`:Nodeが[`OpenStack Cinder`](https://docs.openstack.org/cinder/)ボリューム制限を満たせるかチェックします。
   拡張点:`filter`
 
 ### 複数のプロファイル {#multiple-profiles}
 
 `kube-scheduler`は複数のプロファイルを実行するように設定することができます。
-各プロファイルは関連するスケジューラー名を持ち、その[拡張点](#extension-points)に異なるプラグインを
-設定することが可能です。
+各プロファイルは関連するスケジューラー名を持ち、その[拡張点](#extension-points)に異なるプラグインを設定することが可能です。
 
-以下のサンプル設定では、スケジューラーは2つのプロファイルで実行されます。1つはデフォルトプラグインで、
-もう1つはすべてのスコアリングプラグインを無効にしたものです。
+以下のサンプル設定では、スケジューラーは2つのプロファイルで実行されます。1つはデフォルトプラグインで、もう1つはすべてのスコアリングプラグインを無効にしたものです。
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta2
@@ -177,8 +153,7 @@ profiles:
 特定のプロファイルに従ってスケジュールさせたいPodは、その`.spec.schedulerName`に、対応するスケジューラー名を含めることができます。
 
 デフォルトでは、スケジューラー名`default-scheduler`としてプロファイルが生成されます。
-このプロファイルは、上記のデフォルトプラグインを含みます。複数のプロファイルを宣言する場合は、
-それぞれユニークなスケジューラー名にする必要があります。
+このプロファイルは、上記のデフォルトプラグインを含みます。複数のプロファイルを宣言する場合は、それぞれユニークなスケジューラー名にする必要があります。
 
 もしPodがスケジューラー名を指定しない場合、kube-apiserverは`default-scheduler`を設定します。
 従って、これらのPodをスケジュールするために、このスケジューラー名を持つプロファイルが存在する必要があります。
@@ -233,13 +208,11 @@ profiles:
         - name: MyPlugin
 ```
 
-`multiPoint`を使用する利点の一つは、将来的に`MyPlugin`が別の拡張点を実装した場合に、
-`multiPoint`設定が自動的に新しい拡張点に対しても有効化されることです。
+`multiPoint`を使用する利点の一つは、将来的に`MyPlugin`が別の拡張点を実装した場合に、`multiPoint`設定が自動的に新しい拡張点に対しても有効化されることです。
 
 特定の拡張点は、その拡張点の`disabled`フィールドを使用して、`MultiPoint`の展開から除外することができます。
-これは、デフォルトのプラグインを無効にしたり、デフォルト以外のプラグインを無効にしたり、
-ワイルドカード(`'*'`)を使ってすべてのプラグインを無効にしたりする場合に有効です。
-この例として、`Score`と`PreScore`を無効にするためには、次のようにします。
+これは、デフォルトのプラグインを無効にしたり、デフォルト以外のプラグインを無効にしたり、ワイルドカード(`'*'`)を使ってすべてのプラグインを無効にしたりする場合に有効です。
+`Score`と`PreScore`を無効にするためには、次の例のようにします。
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta3
@@ -261,7 +234,7 @@ profiles:
 `v1beta3`では、`MultiPoint`を通じて、内部的に全ての[デフォルトプラグイン](#scheduling-plugins)が有効化されています。
 しかしながら、デフォルト値(並び順やスコアの重みなど)を柔軟に設定し直せるように、個別の拡張点は用意されています。
 例えば、2つのスコアプラグイン`DefaultScore1`と`DefaultScore2`に、重み1が設定されているとします。
-その場合、次のように重さを変更し、並べ替えることができます
+その場合、次のように重さを変更し、並べ替えることができます。
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta3
@@ -285,6 +258,7 @@ profiles:
 3. デフォルトプラグインとそのデフォルト設定
 
 上記の優先順位を示すために、次の例はこれらのプラグインをベースにします。
+
 |プラグイン|拡張点|
 |---|---|
 |`DefaultQueueSort`|`QueueSort`|
@@ -326,7 +300,7 @@ profiles:
 * カスタムの`queueSort`プラグインを有効にし、デフォルトのプラグインを無効にする。
 * `CustomPlugin1`と`CustomPlugin2`を有効にし、この拡張点のプラグイン内で、最初に実行されるようにする。
 * `filter`拡張点でのみ、`DefaultPlugin1`を無効にする。
-* `score`拡張点で`DefaultPlugin2`が最初に実行されるように並べ替える(カスタムプラグインより先に)
+* `score`拡張点で`DefaultPlugin2`が最初に実行されるように並べ替える(カスタムプラグインより先に)。
 
 `v1beta3`以前のバージョンで、`multiPoint`がない場合、上記の設定例は、次のものと同等になります。
 
@@ -370,8 +344,7 @@ profiles:
 {{% tab name="v1beta1 → v1beta2" %}}
 * v1beta2`のバージョン`の設定では、新しい`NodeResourcesFit`プラグインをスコア拡張点で使用できます。
   この新しい拡張機能は、`NodeResourcesLeastAllocated`、`NodeResourcesMostAllocated`、 `RequestedToCapacityRatio`プラグインの機能を組み合わせたものです。
-  例えば、以前は`NodeResourcesMostAllocated`プラグインを使っていたなら、代わりに`NodeResourcesFitプラグイン
-  を使用し(デフォルトで有効)、`pluginConfig`に次のような`scoreStrategy`を追加することになるでしょう。
+  例えば、以前は`NodeResourcesMostAllocated`プラグインを使っていたなら、代わりに`NodeResourcesFitプラグインを使用し(デフォルトで有効)、`pluginConfig`に次のような`scoreStrategy`を追加することになるでしょう。
 
   ```yaml
   apiVersion: kubescheduler.config.k8s.io/v1beta2
