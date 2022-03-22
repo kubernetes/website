@@ -40,7 +40,7 @@ Kubernetesチームも[Kubernetesタグが付けられた投稿](https://stackov
 ### Slack
 
 Kubernetesコミュニティの多くの人々は、Kubernetes Slackの`#kubernetes-users`チャンネルに集まっています。
-Slackは登録が必要です。[request an invitation](https://slack.kubernetes.io)ことができ、登録は誰でも可能です）。
+Slackは登録が必要です。[招待をリクエストする](https://slack.kubernetes.io)ことができ、登録は誰でも可能です）。
 お気軽にお越しいただき、何でも質問してください。
 登録が完了したら、WebブラウザまたはSlackの専用アプリから[Kubernetes organization in Slack](https://kubernetes.slack.com)にアクセスします。
 
