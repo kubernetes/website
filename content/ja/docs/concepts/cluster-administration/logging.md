@@ -68,7 +68,7 @@ Docker JSONロギングドライバーは、各行を個別のメッセージと
 
 ノードレベルロギングでの重要な考慮事項は、ノードで使用可能な全てのストレージをログが消費しないように、ログローテーションを実装することです。Kubernetesはログのローテーションを担当しませんが、デプロイツールでそれに対処するソリューションを構築する必要があります。たとえば、`kube-up.sh`スクリプトによってデプロイされたKubernetesクラスターには、1時間ごとに実行するように構成された[`logrotate`](https://linux.die.net/man/8/logrotate)があります。アプリケーションのログを自動的にローテーションするようにコンテナランタイムを構築することもできます。
 
-例として、[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)に対応するスクリプトである`kube-up.sh`が、どのようにGCPでCOSイメージのロギングを構築しているかについて、詳細な情報を見つけることができます。
+例として、[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)に対応するスクリプトである`kube-up.sh`が、どのようにGCPでCOSイメージのロギングを構築しているかについて、詳細な情報を見つけることができます。
 
 **CRIコンテナランタイム**を使用する場合、kubeletはログのローテーションとログディレクトリ構造の管理を担当します。kubeletはこの情報をCRIコンテナランタイムに送信し、ランタイムはコンテナログを指定された場所に書き込みます。2つのkubeletパラメーター、`container-log-max-size`と`container-log-max-files`を使うことで、各ログファイルの最大サイズと各コンテナで許可されるファイルの最大数をそれぞれ設定できます。
 
