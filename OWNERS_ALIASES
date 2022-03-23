@@ -9,11 +9,9 @@ aliases:
     - sftim
     - nate-double-u
   sig-docs-bn-owners: #A dmins for Bengali content
-    - ikramulkayes
     - mitul3737
     - Mouly22
   sig-docs-bn-reviews: # PR reviews for Bengali content
-    - ikramulkayes
     - mitul3737
     - Mouly22
   sig-docs-de-owners: # Admins for German content
