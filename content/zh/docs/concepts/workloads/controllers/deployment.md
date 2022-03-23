@@ -24,24 +24,18 @@ weight: 10
 A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 -->
-一个 _Deployment_ 为 {{< glossary_tooltip text="Pods" term_id="pod" >}}
-和 {{< glossary_tooltip term_id="replica-set" text="ReplicaSets" >}}
-提供声明式的更新能力。
+一个 _Deployment_ 为 {{< glossary_tooltip text="Pods" term_id="pod" >}} 和 {{< glossary_tooltip term_id="replica-set" text="ReplicaSets" >}} 提供声明式的更新能力。
 
 <!--
 You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_tooltip term_id="controller" >}} changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 -->
-你负责描述 Deployment 中的 _目标状态_，而 Deployment {{< glossary_tooltip term_id="controller" >}}
-以受控速率更改实际状态，
-使其变为期望状态。你可以定义 Deployment 以创建新的 ReplicaSet，或删除现有 Deployment，
-并通过新的 Deployment 收养其资源。
+你负责描述 Deployment 中的 _目标状态_，而 Deployment {{< glossary_tooltip term_id="controller" >}} 将以受控的速率更改实际状态，直到达到期望状态。你可以通过定义 Deployment 来创建新的 ReplicaSet，或删除现有 Deployment，然后通过新的 Deployment 重用其资源。
 
 <!--
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 -->
 {{< note >}}
-不要管理 Deployment 所拥有的 ReplicaSet 。
-如果存在下面未覆盖的使用场景，请考虑在 Kubernetes 仓库中提出 Issue。
+不要管理 Deployment 所拥有的 ReplicaSet 。 如果存在下面未描述的使用场景，请考虑在 Kubernetes 仓库中提出 Issue。
 {{< /note >}}
 
 <!-- body -->
@@ -69,13 +63,13 @@ The following are typical use cases for Deployments:
 * 通过更新 Deployment 的 PodTemplateSpec，[声明 Pod 的新状态](#updating-a-deployment) 。
   新的 ReplicaSet 会被创建，Deployment 以受控速率将 Pod 从旧 ReplicaSet 迁移到新 ReplicaSet。
   每个新的 ReplicaSet 都会更新 Deployment 的修订版本。
-* 如果 Deployment 的当前状态不稳定，[回滚到较早的 Deployment 版本](#rolling-back-a-deployment)。
+* 如果 Deployment 的当前状态不稳定，[可以回滚到较早的 Deployment 版本](#rolling-back-a-deployment)。
   每次回滚都会更新 Deployment 的修订版本。
 * [扩大 Deployment 规模以承担更多负载](#scaling-a-deployment)。
 * [暂停 Deployment ](#pausing-and-resuming-a-deployment) 以应用对 PodTemplateSpec 所作的多项修改，
   然后恢复其执行以启动新的上线版本。
-* [使用 Deployment 状态](#deployment-status) 来判定上线过程是否出现停滞。
-* [清理较旧的不再需要的 ReplicaSet](#clean-up-policy) 。
+* [使用 Deployment 状态](#deployment-status) 来判定上线过程中是否出现停滞。
+* [清理较旧的、不再需要的 ReplicaSet](#clean-up-policy) 。
 
 <!--
  ## Creating a Deployment
@@ -107,8 +101,8 @@ In this example:
   as long as the Pod template itself satisfies the rule.
 -->
 * `selector` 字段定义 Deployment 如何查找要管理的 Pods。
-  在这里，你选择在 Pod 模板中定义的标签（`app: nginx`）。
-  不过，更复杂的选择规则是也可能的，只要 Pod 模板本身满足所给规则即可。
+  在这个例子中，你选择在 Pod 模板中定义的标签（`app: nginx`）。
+  当然，更复杂的选择规则也是可以的，只要 Pod 模板本身满足所给规则即可。
 
   {{< note >}}
   <!--
@@ -120,7 +114,7 @@ In this example:
   `spec.selector.matchLabels` 字段是 `{key,value}` 键值对映射。
   在 `matchLabels` 映射中的每个 `{key,value}` 映射等效于 `matchExpressions` 中的一个元素，
   即其 `key` 字段是 “key”，`operator` 为 “In”，`values` 数组仅包含 “value”。
-  在 `matchLabels` 和 `matchExpressions` 中给出的所有条件都必须满足才能匹配。
+  在 `matchLabels` 和 `matchExpressions` 中给出的所有条件都满足时才能正确匹配。
   {{< /note >}}
 
 <!--
@@ -135,13 +129,13 @@ In this example:
   * Pod 被使用 `labels` 字段打上 `app: nginx` 标签。
   * Pod 模板规约（即 `.template.spec` 字段）指示 Pods 运行一个 `nginx` 容器，
     该容器运行版本为 1.14.2 的 `nginx` [Docker Hub](https://hub.docker.com/)镜像。
-  * 创建一个容器并使用 `name` 字段将其命名为 `nginx`。
+  * 创建一个容器并根据 `name` 字段将其命名为 `nginx`。
 
 <!--
 Before you begin, make sure your Kubernetes cluster is up and running.
 Follow the steps given below to create the above Deployment:
 -->
-开始之前，请确保的 Kubernetes 集群已启动并运行。
+开始之前，请确保你的 Kubernetes 集群已启动并运行。
 按照以下步骤创建上述 Deployment ：
 
 <!--
@@ -158,8 +152,8 @@ Follow the steps given below to create the above Deployment:
    For example, to see the commands executed in each Deployment revision.
    -->
    {{< note >}}
-   你可以设置 `--record` 标志将所执行的命令写入资源注解 `kubernetes.io/change-cause` 中。
-   这对于以后的检查是有用的。例如，要查看针对每个 Deployment 修订版本所执行过的命令。
+   你可以通过设置 `--record` 标志将所执行的命令写入至资源注解 `kubernetes.io/change-cause` 中。
+   这对于后续的运行检查是非常有用的。例如，当你要查看在每个 Deployment 修订版本中所执行过的命令时。
    {{< /note >}}
 
 <!--
@@ -169,14 +163,14 @@ Follow the steps given below to create the above Deployment:
    则输出类似于：
 
    ```
-   NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-   nginx-deployment   3         0         0            0           1s
+   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+   nginx-deployment   0/3     3            0           12s
    ```
 
    <!--
    When you inspect the Deployments in your cluster, the following fields are displayed:
    -->
-   在检查集群中的 Deployment 时，所显示的字段有：
+   检查集群中的 Deployment 时，所显示的字段有：
 
    <!--
    * `NAME` lists the names of the Deployments in the cluster.
@@ -216,8 +210,8 @@ Follow the steps given below to create the above Deployment:
 4. 几秒钟后再次运行 `kubectl get deployments`。输出类似于：
 
    ```
-   NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-   nginx-deployment   3         3         3            3           18s
+   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+   nginx-deployment   3/3     3            3           2m19s
    ```
 
    <!--
@@ -249,8 +243,7 @@ Follow the steps given below to create the above Deployment:
    ReplicaSet 输出中包含以下字段：
 
    * `NAME` 列出名字空间中 ReplicaSet 的名称；
-   * `DESIRED` 显示应用的期望副本个数，即在创建 Deployment 时所定义的值。
-     此为期望状态；
+   * `DESIRED` 显示应用的期望副本个数，即在创建 Deployment 时所定义的值。此为期望状态；
    * `CURRENT` 显示当前运行状态中的副本个数；
    * `READY` 显示应用中有多少副本可以为用户提供服务；
    * `AGE` 显示应用已经运行的时间长度。
@@ -277,7 +270,7 @@ Follow the steps given below to create the above Deployment:
    <!--
    The created ReplicaSet ensures that there are three `nginx` Pods.
    -->
-   所创建的 ReplicaSet 确保总是存在三个 `nginx` Pod。
+   所创建的 ReplicaSet 确保 `nginx` Pod 的数量总是期望值。
 
 <!--
 You must specify an appropriate selector and Pod template labels in a Deployment (in this case,
@@ -288,8 +281,7 @@ and if multiple controllers have overlapping selectors those controllers might c
 {{< note >}}
 你必须在 Deployment 中指定适当的选择算符和 Pod 模板标签（在本例中为 `app: nginx`）。
 标签或者选择算符不要与其他控制器（包括其他 Deployment 和 StatefulSet）重叠。
-Kubernetes 不会阻止你这样做，但是如果多个控制器具有重叠的选择算符，它们可能会发生冲突
-执行难以预料的操作。
+Kubernetes 不会阻止你这样做，但是如果多个控制器具有重叠的选择算符，它们可能会发生冲突，最终的执行结果难以预料。
 {{< /note >}}
 
 <!--
@@ -306,16 +298,14 @@ Kubernetes 不会阻止你这样做，但是如果多个控制器具有重叠的
 The `pod-template-hash` label is added by the Deployment controller to every ReplicaSet
 that a Deployment creates or adopts.
 -->
-Deployment 控制器将 `pod-template-hash` 标签添加到 Deployment 所创建或收留的
-每个 ReplicaSet 。
+Deployment 控制器将 `pod-template-hash` 标签添加到 Deployment 所创建或收留的每个 ReplicaSet 。
 
 <!--
 This label ensures that child ReplicaSets of a Deployment do not overlap. It is generated by hashing the `PodTemplate` of the ReplicaSet and using the resulting hash as the label value that is added to the ReplicaSet selector, Pod template labels,
 and in any existing Pods that the ReplicaSet might have.
 -->
 此标签可确保 Deployment 的子 ReplicaSets 不重叠。
-标签是通过对 ReplicaSet 的 `PodTemplate` 进行哈希处理。
-所生成的哈希值被添加到 ReplicaSet 选择算符、Pod 模板标签，并存在于在 ReplicaSet
+此标签是通过对 ReplicaSet 的 `PodTemplate` 进行哈希处理后，将所生成的哈希值添加到 ReplicaSet 选择算符、Pod 模板标签中，其存在于在 ReplicaSet
 可能拥有的任何现有 Pod 中。
 
 <!--
@@ -328,8 +318,7 @@ and in any existing Pods that the ReplicaSet might have.
 is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 -->
 {{< note >}}
-仅当 Deployment Pod 模板（即 `.spec.template`）发生改变时，例如模板的标签或容器镜像被更新，
-才会触发 Deployment 上线。
+仅当 Deployment Pod 模板（即 `.spec.template`）发生改变时，例如模板的标签或容器镜像被更新，才会触发 Deployment 上线。
 其他更新（如对 Deployment 执行扩缩容的操作）不会触发上线动作。
 {{< /note >}}
 
@@ -415,8 +404,8 @@ Get more details on your updated Deployment:
   输出类似于：
 
   ```shell
-  NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-  nginx-deployment   3         3         3            3           36s
+  NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+  nginx-deployment   3/3     3            3           24m
   ```
 
 <!--
@@ -435,8 +424,8 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
 
   ```
   NAME                          DESIRED   CURRENT   READY   AGE
-  nginx-deployment-1564180365   3         3         3       6s
-  nginx-deployment-2035384211   0         0         0       36s
+  nginx-deployment-6b474476c4   0         0         0       25m
+  nginx-deployment-7b45d69949   3         3         3       4m52s
   ```
 
 <!--
@@ -473,8 +462,8 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   Deployment also ensures that only a certain number of Pods are created above the desired number of Pods.
   By default, it ensures that at most 25% of the desired number of Pods are up (25% max surge).
   -->
-  Deployment 还确保仅所创建 Pod 数量只可能比期望 Pods 数高一点点。
-  默认情况下，它可确保启动的 Pod 个数比期望个数最多多出 25%（最大峰值 25%）。
+  Deployment 还确保所创建 Pod 数量只可能比期望 Pods 数高一定数值。
+  默认情况下，它确保启动的 Pod 个数比期望个数最多多出 25%（最大峰值 25%）。
 
   <!--   
   For example, if you look at the above Deployment closely, you will see that it first created a new Pod,
@@ -483,9 +472,8 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   It makes sure that at least 2 Pods are available and that at max 4 Pods in total are available.
   -->
   例如，如果仔细查看上述 Deployment ，将看到它首先创建了一个新的 Pod，然后删除了一些旧的 Pods，
-  并创建了新的 Pods。它不会杀死老 Pods，直到有足够的数量新的 Pods 已经出现。
-  在足够数量的旧 Pods 被杀死前并没有创建新 Pods。它确保至少 2 个 Pod 可用，同时
-  最多总共 4 个 Pod 可用。
+  并创建了一些新的 Pods。在有足够数量的新 Pods 出现前，它不会杀死老旧的 Pods。
+  在足够数量的旧 Pods 被杀死前不会创建新的 Pods。它确保至少 2 个 Pod 可用，最多总共 4 个 Pod 可用。
 
 <!--
 * Get details of your Deployment:
@@ -502,9 +490,11 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   ```
   Name:                   nginx-deployment
   Namespace:              default
-  CreationTimestamp:      Thu, 30 Nov 2017 10:56:25 +0000
+  CreationTimestamp:      Wed, 23 Mar 2022 11:13:07 +0800
   Labels:                 app=nginx
-  Annotations:            deployment.kubernetes.io/revision=2
+  Annotations:            deployment.kubernetes.io/revision: 2
+                          kubernetes.io/change-cause:
+                            kubectl deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
   Selector:               app=nginx
   Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
   StrategyType:           RollingUpdate
@@ -512,30 +502,31 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   RollingUpdateStrategy:  25% max unavailable, 25% max surge
   Pod Template:
     Labels:  app=nginx
-     Containers:
-      nginx:
-        Image:        nginx:1.16.1
-        Port:         80/TCP
-        Environment:  <none>
-        Mounts:       <none>
-      Volumes:        <none>
-    Conditions:
-      Type           Status  Reason
-      ----           ------  ------
-      Available      True    MinimumReplicasAvailable
-      Progressing    True    NewReplicaSetAvailable
-    OldReplicaSets:  <none>
-    NewReplicaSet:   nginx-deployment-1564180365 (3/3 replicas created)
-    Events:
-      Type    Reason             Age   From                   Message
-      ----    ------             ----  ----                   -------
-      Normal  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-2035384211 to 3
-      Normal  ScalingReplicaSet  24s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 1
-      Normal  ScalingReplicaSet  22s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 2
-      Normal  ScalingReplicaSet  22s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 2
-      Normal  ScalingReplicaSet  19s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 1
-      Normal  ScalingReplicaSet  19s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 3
-      Normal  ScalingReplicaSet  14s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 0
+    Containers:
+     nginx:
+      Image:        nginx:1.16.1
+      Port:         80/TCP
+      Host Port:    0/TCP
+      Environment:  <none>
+      Mounts:       <none>
+    Volumes:        <none>
+  Conditions:
+    Type           Status  Reason
+    ----           ------  ------
+    Progressing    True    NewReplicaSetAvailable
+    Available      True    MinimumReplicasAvailable
+  OldReplicaSets:  <none>
+  NewReplicaSet:   nginx-deployment-7b45d69949 (3/3 replicas created)
+  Events:
+    Type    Reason             Age   From                   Message
+    ----    ------             ----  ----                   -------
+    Normal  ScalingReplicaSet  37m   deployment-controller  Scaled up replica set nginx-deployment-6b474476c4 to 3
+    Normal  ScalingReplicaSet  17m   deployment-controller  Scaled up replica set nginx-deployment-7b45d69949 to 1
+    Normal  ScalingReplicaSet  15m   deployment-controller  Scaled down replica set nginx-deployment-6b474476c4 to 2
+    Normal  ScalingReplicaSet  15m   deployment-controller  Scaled up replica set nginx-deployment-7b45d69949 to 2
+    Normal  ScalingReplicaSet  14m   deployment-controller  Scaled down replica set nginx-deployment-6b474476c4 to 1
+    Normal  ScalingReplicaSet  14m   deployment-controller  Scaled up replica set nginx-deployment-7b45d69949 to 3
+    Normal  ScalingReplicaSet  14m   deployment-controller  Scaled down replica set nginx-deployment-6b474476c4 to 0
   ```
 
   <!--
@@ -546,12 +537,12 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   the new and the old ReplicaSet, with the same rolling update strategy. Finally, you'll have 3 available replicas
   in the new ReplicaSet, and the old ReplicaSet is scaled down to 0.
   -->
-  可以看到，当第一次创建 Deployment 时，它创建了一个 ReplicaSet（nginx-deployment-2035384211）
+  可以看到，当第一次创建 Deployment 时，它创建了一个 ReplicaSet（nginx-deployment-6b474476c4）
   并将其直接扩容至 3 个副本。更新 Deployment 时，它创建了一个新的 ReplicaSet
-  （nginx-deployment-1564180365），并将其扩容为 1，然后将旧 ReplicaSet 缩容到 2，
+  （nginx-deployment-7b45d69949），并将其扩容为 1，然后将旧 ReplicaSet 缩容到 2，
   以便至少有 2 个 Pod 可用且最多创建 4 个 Pod。
   然后，它使用相同的滚动更新策略继续对新的 ReplicaSet 扩容并对旧的 ReplicaSet 缩容。
-  最后，你将有 3 个可用的副本在新的 ReplicaSet 中，旧 ReplicaSet 将缩容到 0。
+  最后，你将在新的 ReplicaSet 中拥有 3 个可用的副本，旧的 ReplicaSet 将缩容到 0。
 
 <!--
 ### Rollover (aka multiple updates in-flight)
@@ -563,19 +554,17 @@ ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 -->
 ### 翻转（多 Deployment 动态更新）
 
-Deployment 控制器每次注意到新的 Deployment 时，都会创建一个 ReplicaSet 以启动所需的 Pods。
-如果更新了 Deployment，则控制标签匹配 `.spec.selector` 但模板不匹配 `.spec.template` 的
-Pods 的现有 ReplicaSet 被缩容。最终，新的 ReplicaSet 缩放为 `.spec.replicas` 个副本，
-所有旧 ReplicaSets 缩放为 0 个副本。
+每次 Deployment 控制器观察到新的 Deployment 时，都会创建一个 ReplicaSet 以启动所需的 Pods。
+如果更新了 Deployment，则控制那些标签匹配 `.spec.selector` 但模板不匹配 `.spec.template` 的Pods 的现有 ReplicaSet 将被缩容。
+最终，新的 ReplicaSet 将缩放至 `.spec.replicas` 个副本，所有旧 ReplicaSets 将缩放至 0 个副本。
 
 <!--
 If you update a Deployment while an existing rollout is in progress, the Deployment creates a new ReplicaSet
 as per the update and start scaling that up, and rolls over the ReplicaSet that it was scaling up previously
 - it will add it to its list of old ReplicaSets and start scaling it down.
 -->
-当 Deployment 正在上线时被更新，Deployment 会针对更新创建一个新的 ReplicaSet
-并开始对其扩容，之前正在被扩容的 ReplicaSet 会被翻转，添加到旧 ReplicaSets 列表
-并开始缩容。
+若 Deployment 正在上线时被更新，Deployment 会针对更新创建一个新的 ReplicaSet
+并开始对其扩容，之前正在被扩容的 ReplicaSet 会被翻转，添加到旧 ReplicaSets 列表并开始缩容。
 
 <!--
 For example, suppose you create a Deployment to create 5 replicas of `nginx:1.14.2`,
@@ -585,11 +574,10 @@ killing the 3 `nginx:1.7.9` Pods that it had created, and starts creating
 `nginx:1.9.1` Pods. It does not wait for the 5 replicas of `nginx:1.14.2` to be created
 before changing course.
 -->
-例如，假定你在创建一个 Deployment 以生成 `nginx:1.14.2` 的 5 个副本，但接下来
-更新 Deployment 以创建 5 个 `nginx:1.16.1` 的副本，而此时只有 3 个`nginx:1.14.2`
-副本已创建。在这种情况下，Deployment 会立即开始杀死 3 个 `nginx:1.14.2` Pods，
-并开始创建 `nginx:1.16.1` Pods。它不会等待 `nginx:1.14.2` 的 5 个副本都创建完成
-后才开始执行变更动作。
+例如，假定你在创建一个 Deployment 以生成 `nginx:1.14.2` 的 5 个副本时，你又更新 Deployment 
+去创建 5 个 `nginx:1.16.1` 的副本，而此时只有 3 个`nginx:1.14.2`副本被创建。
+在这种情况下，Deployment 会立即开始杀死 3 个 `nginx:1.14.2` Pods，并开始创建 `nginx:1.16.1` Pods。
+它不会等待 `nginx:1.14.2` 的 5 个副本都创建完成之后再执行变更动作。
 
 <!--
 ### Label selector updates
@@ -601,14 +589,13 @@ all of the implications.
 ### 更改标签选择算符
 
 通常不鼓励更新标签选择算符。建议你提前规划选择算符。
-在任何情况下，如果需要更新标签选择算符，请格外小心，并确保自己了解
-这背后可能发生的所有事情。
+在任何情况下，如果需要更新标签选择算符，请格外小心，除非你知道自己在干什么。
 
 <!--
 In API version `apps/v1`, a Deployment's label selector is immutable after it gets created.
 -->
 {{< note >}}
-在 API 版本 `apps/v1` 中，Deployment 标签选择算符在创建后是不可变的。
+在 API 版本 `apps/v1` 中，Deployment 标签选择算符一旦创建将不可变。
 {{< /note >}}
 
 <!--
@@ -623,9 +610,9 @@ removed label still exists in any existing Pods and ReplicaSets.
 -->
 * 添加选择算符时要求使用新标签更新 Deployment 规约中的 Pod 模板标签，否则将返回验证错误。
   此更改是非重叠的，也就是说新的选择算符不会选择使用旧选择算符所创建的 ReplicaSet 和 Pod，
-  这会导致创建新的 ReplicaSet 时所有旧 ReplicaSet 都会被孤立。
+  这会导致一个新的 ReplicaSet 被创建，同时所有旧 ReplicaSet 被孤立。
 * 选择算符的更新如果更改了某个算符的键名，这会导致与添加算符时相同的行为。
-* 删除选择算符的操作会删除从 Deployment 选择算符中删除现有算符。
+* 删除选择算符的操作会从 Deployment 选择算符中删除现有算符。
   此操作不需要更改 Pod 模板标签。现有 ReplicaSet 不会被孤立，也不会因此创建新的 ReplicaSet，
   但请注意已删除的标签仍然存在于现有的 Pod 和 ReplicaSet 中。
 
@@ -653,10 +640,9 @@ rolled back.
 -->
 {{< note >}}
 Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版本。
-这意味着仅当 Deployment 的 Pod 模板（`.spec.template`）发生更改时，才会创建新修订版本
--- 例如，模板的标签或容器镜像发生变化。
-其他更新，如 Deployment 的扩缩容操作不会创建 Deployment 修订版本。
-这是为了方便同时执行手动缩放或自动缩放。
+这意味着仅当 Deployment 的 Pod 模板（`.spec.template`）发生更改时，才会创建新修订版本。
+例如，模板的标签或容器镜像发生变化。
+其他更新，如 Deployment 的扩缩容操作不会创建 Deployment 修订版本。以便您可以同时进行手动或自动缩放。
 换言之，当你回滚到较早的修订版本时，只有 Deployment 的 Pod 模板部分会被回滚。
 {{< /note >}}
 
@@ -690,7 +676,7 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
   输出类似于：
 
   ```
-  Waiting for rollout to finish: 1 out of 3 new replicas have been updated...
+  Waiting for deployment "nginx-deployment" rollout to finish: 1 out of 3 new replicas have been updated...
   ```
 
 <!--
@@ -714,9 +700,9 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
 
   ```shell
   NAME                          DESIRED   CURRENT   READY   AGE
-  nginx-deployment-1564180365   3         3         3       25s
-  nginx-deployment-2035384211   0         0         0       36s
-  nginx-deployment-3066724191   1         1         0       6s
+  nginx-deployment-6b474476c4   0         0         0       71m
+  nginx-deployment-777654c9c    1         1         0       65s
+  nginx-deployment-7b45d69949   3         3         3       51m
   ```
 
 <!--
@@ -732,11 +718,11 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
   输出类似于：
 
   ```shell
-  NAME                                READY     STATUS             RESTARTS   AGE
-  nginx-deployment-1564180365-70iae   1/1       Running            0          25s
-  nginx-deployment-1564180365-jbqqo   1/1       Running            0          25s
-  nginx-deployment-1564180365-hysrc   1/1       Running            0          25s
-  nginx-deployment-3066724191-08mng   0/1       ImagePullBackOff   0          6s
+  NAME                                READY   STATUS             RESTARTS   AGE
+  nginx-deployment-777654c9c-mxwjt    0/1     ImagePullBackOff   0          108s
+  nginx-deployment-7b45d69949-fw4kj   1/1     Running            1          49m
+  nginx-deployment-7b45d69949-rcnts   1/1     Running            1          52m
+  nginx-deployment-7b45d69949-xk58k   1/1     Running            1          50m
   ```
 
   <!--
@@ -745,8 +731,8 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
   Kubernetes by default sets the value to 25%.
   -->
   {{< note >}}
-  Deployment 控制器自动停止有问题的上线过程，并停止对新的 ReplicaSet 扩容。
-  这行为取决于所指定的 rollingUpdate 参数（具体为 `maxUnavailable`）。
+  Deployment 控制器会自动停止有问题的上线过程，并停止对新 ReplicaSet 的扩容。
+  具体行为取决于所指定的 rollingUpdate 参数（具体为 `maxUnavailable`）。
   默认情况下，Kubernetes 将此值设置为 25%。
   {{< /note >}}
 
@@ -763,20 +749,22 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
   输出类似于：
 
   ```shell
-  Name:           nginx-deployment
-  Namespace:      default
-  CreationTimestamp:  Tue, 15 Mar 2016 14:48:04 -0700
-  Labels:         app=nginx
-  Selector:       app=nginx
-  Replicas:       3 desired | 1 updated | 4 total | 3 available | 1 unavailable
-  StrategyType:       RollingUpdate
-  MinReadySeconds:    0
+  Name:                   nginx-deployment
+  Namespace:              default
+  CreationTimestamp:      Wed, 23 Mar 2022 11:13:07 +0800
+  Labels:                 app=nginx
+  Annotations:            deployment.kubernetes.io/revision: 3
+                          kubernetes.io/change-cause: kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+  Selector:               app=nginx
+  Replicas:               3 desired | 1 updated | 4 total | 3 available | 1 unavailable
+  StrategyType:           RollingUpdate
+  MinReadySeconds:        0
   RollingUpdateStrategy:  25% max unavailable, 25% max surge
   Pod Template:
     Labels:  app=nginx
     Containers:
      nginx:
-      Image:        nginx:1.91
+      Image:        nginx:1.161
       Port:         80/TCP
       Host Port:    0/TCP
       Environment:  <none>
@@ -787,19 +775,18 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
     ----           ------  ------
     Available      True    MinimumReplicasAvailable
     Progressing    True    ReplicaSetUpdated
-  OldReplicaSets:     nginx-deployment-1564180365 (3/3 replicas created)
-  NewReplicaSet:      nginx-deployment-3066724191 (1/1 replicas created)
+  OldReplicaSets:  nginx-deployment-7b45d69949 (3/3 replicas created)
+  NewReplicaSet:   nginx-deployment-777654c9c (1/1 replicas created)
   Events:
-    FirstSeen LastSeen    Count   From                    SubobjectPath   Type        Reason              Message
-    --------- --------    -----   ----                    -------------   --------    ------              -------
-    1m        1m          1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-2035384211 to 3
-    22s       22s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 1
-    22s       22s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 2
-    22s       22s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 2
-    21s       21s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 1
-    21s       21s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 3
-    13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 0
-    13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 1
+    Type    Reason             Age    From                   Message
+    ----    ------             ----   ----                   -------
+    Normal  ScalingReplicaSet  54m    deployment-controller  Scaled up replica set nginx-deployment-7b45d69949 to 1
+    Normal  ScalingReplicaSet  52m    deployment-controller  Scaled down replica set nginx-deployment-6b474476c4 to 2
+    Normal  ScalingReplicaSet  52m    deployment-controller  Scaled up replica set nginx-deployment-7b45d69949 to 2
+    Normal  ScalingReplicaSet  52m    deployment-controller  Scaled down replica set nginx-deployment-6b474476c4 to 1
+    Normal  ScalingReplicaSet  52m    deployment-controller  Scaled up replica set nginx-deployment-7b45d69949 to 3
+    Normal  ScalingReplicaSet  51m    deployment-controller  Scaled down replica set nginx-deployment-6b474476c4 to 0
+    Normal  ScalingReplicaSet  4m11s  deployment-controller  Scaled up replica set nginx-deployment-777654c9c to 1
   ```
 
   <!--
@@ -829,11 +816,11 @@ Follow the steps given below to check the rollout history:
    输出类似于：
 
    ```shell
-   deployments "nginx-deployment"
-   REVISION    CHANGE-CAUSE
-   1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-   2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
-   3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+   deployment.apps/nginx-deployment 
+   REVISION  CHANGE-CAUSE
+   1         <none>
+   2         kubectl deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+   3         kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
    ```
 
    <!--
@@ -863,21 +850,22 @@ Follow the steps given below to check the rollout history:
    <!-- The output is similar to this: -->
    输出类似于：
 
-   ```shell
-   deployments "nginx-deployment" revision 2
-     Labels:       app=nginx
-             pod-template-hash=1159050644
-     Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
-     Containers:
-      nginx:
-       Image:      nginx:1.16.1
-       Port:       80/TCP
-        QoS Tier:
-           cpu:      BestEffort
-           memory:   BestEffort
-       Environment Variables:      <none>
-     No volumes.
-   ```
+  ```shell
+  deployment.apps/nginx-deployment with revision #2
+  Pod Template:
+    Labels:       app=nginx
+          pod-template-hash=7b45d69949
+    Annotations:  kubernetes.io/change-cause:
+            kubectl deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+    Containers:
+     nginx:
+      Image:      nginx:1.16.1
+      Port:       80/TCP
+      Host Port:  0/TCP
+      Environment:        <none>
+      Mounts:     <none>
+  Volumes:      <none>
+  ```
 
 <!--
 ### Rolling Back to a Previous Revision
@@ -928,8 +916,8 @@ Follow the steps given below to rollback the Deployment from the current version
    The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event
    for rolling back to revision 2 is generated from Deployment controller.
    -->
-   现在，Deployment 正在回滚到以前的稳定版本。正如你所看到的，Deployment 控制器生成了
-   回滚到修订版本 2 的 `DeploymentRollback` 事件。
+   现在，Deployment 正在回滚到以前的稳定版本。正如你所看到的，Deployment 控制器生成了回滚到修订版本
+   2 的 `DeploymentRollback` 事件。
 
 <!--
  2. Check if the rollback was successful and the Deployment is running as expected, run:
@@ -944,8 +932,8 @@ Follow the steps given below to rollback the Deployment from the current version
    输出类似于：
 
    ```shell
-   NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-   nginx-deployment   3         3         3            3           30m
+   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+   nginx-deployment   3/3     3            3           80m
    ```
 
 <!--
@@ -963,10 +951,11 @@ Follow the steps given below to rollback the Deployment from the current version
    ```
    Name:                   nginx-deployment
    Namespace:              default
-   CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
+   CreationTimestamp:      Wed, 23 Mar 2022 11:13:07 +0800
    Labels:                 app=nginx
-   Annotations:            deployment.kubernetes.io/revision=4
-                           kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+   Annotations:            deployment.kubernetes.io/revision: 4
+                           kubernetes.io/change-cause:
+                             kubectl deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
    Selector:               app=nginx
    Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
    StrategyType:           RollingUpdate
@@ -988,20 +977,17 @@ Follow the steps given below to rollback the Deployment from the current version
      Available      True    MinimumReplicasAvailable
      Progressing    True    NewReplicaSetAvailable
    OldReplicaSets:  <none>
-   NewReplicaSet:   nginx-deployment-c4747d96c (3/3 replicas created)
+   NewReplicaSet:   nginx-deployment-7b45d69949 (3/3 replicas created)
    Events:
-     Type    Reason              Age   From                   Message
-     ----    ------              ----  ----                   -------
-     Normal  ScalingReplicaSet   12m   deployment-controller  Scaled up replica set nginx-deployment-75675f5897 to 3
-     Normal  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-c4747d96c to 1
-     Normal  ScalingReplicaSet   11m   deployment-controller  Scaled down replica set nginx-deployment-75675f5897 to 2
-     Normal  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-c4747d96c to 2
-     Normal  ScalingReplicaSet   11m   deployment-controller  Scaled down replica set nginx-deployment-75675f5897 to 1
-     Normal  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-c4747d96c to 3
-     Normal  ScalingReplicaSet   11m   deployment-controller  Scaled down replica set nginx-deployment-75675f5897 to 0
-     Normal  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-595696685f to 1
-     Normal  DeploymentRollback  15s   deployment-controller  Rolled back deployment "nginx-deployment" to revision 2
-     Normal  ScalingReplicaSet   15s   deployment-controller  Scaled down replica set nginx-deployment-595696685f to 0
+     Type    Reason             Age    From                   Message
+     ----    ------             ----   ----                   -------
+     Normal  ScalingReplicaSet  59m    deployment-controller  Scaled down replica set nginx-deployment-6b474476c4 to 2
+     Normal  ScalingReplicaSet  59m    deployment-controller  Scaled up replica set nginx-deployment-7b45d69949 to 2
+     Normal  ScalingReplicaSet  58m    deployment-controller  Scaled down replica set nginx-deployment-6b474476c4 to 1
+     Normal  ScalingReplicaSet  58m    deployment-controller  Scaled up replica set nginx-deployment-7b45d69949 to 3
+     Normal  ScalingReplicaSet  58m    deployment-controller  Scaled down replica set nginx-deployment-6b474476c4 to 0
+     Normal  ScalingReplicaSet  10m    deployment-controller  Scaled up replica set nginx-deployment-777654c9c to 1
+     Normal  ScalingReplicaSet  2m39s  deployment-controller  Scaled down replica set nginx-deployment-777654c9c to 0
    ```
 
 <!--
