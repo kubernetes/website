@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: with-node-affinity
+  name: with-affinity-anti-affinity
 spec:
   affinity:
     nodeAffinity:
@@ -16,10 +16,17 @@ spec:
       - weight: 1
         preference:
           matchExpressions:
-          - key: another-node-label-key
+          - key: label-1
             operator: In
             values:
-            - another-node-label-value
+            - key-1
+      - weight: 50
+        preference:
+          matchExpressions:
+          - key: label-2
+            operator: In
+            values:
+            - key-2
   containers:
   - name: with-node-affinity
     image: k8s.gcr.io/pause:2.0
