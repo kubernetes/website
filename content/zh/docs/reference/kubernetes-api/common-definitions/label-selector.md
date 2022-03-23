@@ -1,14 +1,3 @@
-<!--
-api_metadata:
-  apiVersion: ""
-  import: "k8s.io/apimachinery/pkg/apis/meta/v1"
-  kind: "LabelSelector"
-content_type: "api_reference"
-description: "A label selector is a label query over a set of resources."
-title: "LabelSelector"
-weight: 2
--->
-
 ---
 api_metadata:
   apiVersion: ""
@@ -20,6 +9,17 @@ title: "标签选择器"
 weight: 2
 auto_generated: true
 ---
+
+<!--
+api_metadata:
+  apiVersion: ""
+  import: "k8s.io/apimachinery/pkg/apis/meta/v1"
+  kind: "LabelSelector"
+content_type: "api_reference"
+description: "A label selector is a label query over a set of resources."
+title: "LabelSelector"
+weight: 2
+-->
 
 `import "k8s.io/apimachinery/pkg/apis/meta/v1"`
 

@@ -1,5 +1,5 @@
 ---
-title: 审计注解
+title: "审计注解"
 weight: 1
 ---
 <!--
@@ -8,14 +8,12 @@ weight: 1
 -->
 
 <!-- overview -->
-
 <!--
 This page serves as a reference for the audit annotations of the kubernetes.io
 namespace. These annotations apply to `Event` object from API group
 `audit.k8s.io`.
 -->
-此页面是 kubernetes.io 命名空间中的审计注解的参考文档。
-这些注解会被应用到 `audit.k8s.io` API 组中的 `Event` 对象中。
+该页面作为 kubernetes.io 名字空间的审计注解的参考。这些注解适用于 API 组 `audit.k8s.io` 中的 `Event` 对象。
 
 <!--
 The following annotations are not used within the Kubernetes API. When you
@@ -26,15 +24,13 @@ The annotations apply to audit events. Audit events are different from objects i
 `events.k8s.io`).
 -->
 {{< note >}}
-下列注解并未用在 Kubernetes API 中。
-当你在集群中[启用审计](/zh/docs/tasks/debug-application-cluster/audit/)时，审计事件的数据将通过
-`audit.k8s.io` API 组中的 `Event` 对象来记录。
-注解会被应用到审计事件中。审计事件与
-[Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/)（`events.k8s.io` API 组）中的对象不同。
-{{< /note >}}
+Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh/docs/tasks/debug-application-cluster/audit/)时，
+审计事件数据将使用 API 组 `audit.k8s.io` 中的 `Event` 写入。
+注解适用于审计事件。审计事件不同于[事件 API ](/zh/docs/reference/kubernetes-api/cluster-resources/event-v1/)
+（API 组 `events.k8s.io`）中的对象。
+{{</note>}}
 
 <!-- body -->
-
 <!--
 ## pod-security.kubernetes.io/exempt
 
@@ -45,13 +41,13 @@ Value **must** be one of `user`, `namespace`, or `runtimeClass` which correspond
 dimensions. This annotation indicates on which dimension was based the exemption
 from the PodSecurity enforcement.
 -->
-## pod-security.kubernetes.io/exempt
+## pod-security.kubernetes.io/exempt {#pod-security-kubernetes-io-exempt}
 
-示例：`pod-security.kubernetes.io/exempt: namespace`
+例子：`pod-security.kubernetes.io/exempt: namespace`
 
-此注解的值**必须**是 `user`、`namespace`、`runtimeClass` 之一，对应
-[Pod 安全性豁免](/zh/docs/concepts/security/pod-security-admission/#exemptions)维度。
-此注解标示了 Pod 安全性豁免的维度。
+值**必须**是对应于 [Pod 安全豁免](/zh/docs/concepts/security/pod-security-admission/#exemptions)维度的 
+`user`、`namespace` 或 `runtimeClass` 之一。
+此注解指示 PodSecurity 基于哪个维度的强制豁免执行。
 
 <!--
 ## pod-security.kubernetes.io/enforce-policy
@@ -68,16 +64,16 @@ allowed or denied the pod during PodSecurity admission.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
 -->
-## pod-security.kubernetes.io/enforce-policy
+## pod-security.kubernetes.io/enforce-policy {#pod-security-kubernetes-io-enforce-policy}
 
-示例：`pod-security.kubernetes.io/enforce-policy: restricted:latest`
+例子：`pod-security.kubernetes.io/enforce-policy: restricted:latest`
 
-此注解的值**必须**是 `privileged:<version>`、`baseline:<version>`、`restricted:<version>`
-之一，对应 [Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards)中定义的级别。
-`<version>` **必须**是 `latest` 或一个以 `v<MAJOR>.<MINOR>` 格式表示的有效的 Kubernets 版本号。
-此注解标示了 Pod 安全性准入过程中执行批准或拒绝的级别。
+值**必须**是对应于 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别的
+`privileged:<版本>`、`baseline:<版本>`、`restricted:<版本>`，
+关联的版本**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
+此注解通知有关在 PodSecurity 准入期间允许或拒绝 Pod 的执行级别。
 
-更多信息请查阅 [Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards)。
+有关详细信息，请参阅 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
 
 <!--
 ## pod-security.kubernetes.io/audit-violations
@@ -92,15 +88,15 @@ that was transgressed as well as the specific policies on the fields that were
 violated from the PodSecurity enforcement.
 
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
-for more information.
+for more information
 -->
-## pod-security.kubernetes.io/audit-violations
+## pod-security.kubernetes.io/audit-violations {#pod-security-kubernetes-io-audit-violations}
 
-示例：`pod-security.kubernetes.io/audit-violations: would violate
+例子：`pod-security.kubernetes.io/audit-violations: would violate
 PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
 "example" must set securityContext.allowPrivilegeEscalation=false), ...`
 
-此注解详细描述了一次审计策略的违背信息，其中包含了所触犯的
-[Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards)级别以及具体的策略。
+注解值给出审计策略违规的详细说明，它包含所违反的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)级别以及
+PodSecurity 执行中违反的特定策略及对应字段。
 
-更多信息请查阅 [Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards)。
+有关详细信息，请参阅 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
