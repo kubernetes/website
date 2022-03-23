@@ -236,10 +236,10 @@ persistentvolumeclaim/my-pvc created
 ```
 
 <!--
-If you're interested in learning more about `kubectl`, go ahead and read [kubectl Overview](/docs/reference/kubectl/overview/).
- -->
+If you're interested in learning more about `kubectl`, go ahead and read [Command line tool (kubectl)](/docs/reference/kubectl/).
+-->
 如果你有兴趣进一步学习关于 `kubectl` 的内容，请阅读
-[kubectl 概述](/zh/docs/reference/kubectl/overview/)。
+[命令行工具（kubectl）](/zh/docs/reference/kubectl/)。
 
 <!--
 ## Using labels effectively

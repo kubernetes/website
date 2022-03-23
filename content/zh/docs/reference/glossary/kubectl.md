@@ -4,9 +4,10 @@ id: kubectl
 date: 2018-04-12
 full_link: /docs/user-guide/kubectl-overview/
 short_description: >
-  kubectl 是用来和 Kubernetes API 服务器进行通信的命令行工具。
+  kubectl 是用来和 Kubernetes 集群进行通信的命令行工具。
 
 aka: 
+- kubectl
 tags:
 - tool
 - fundamental
@@ -19,9 +20,10 @@ id: kubectl
 date: 2018-04-12
 full_link: /docs/user-guide/kubectl-overview/
 short_description: >
-  A command line tool for communicating with a Kubernetes API server.
+  A command line tool for communicating with a Kubernetes cluster.
 
 aka: 
+- kubectl
 tags:
 - tool
 - fundamental
@@ -29,15 +31,17 @@ tags:
 -->
 
 <!--
- A command line tool for communicating with a {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}} server.
+Command line tool for communicating with a Kubernetes cluster's
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}},
+using the Kubernetes API.
 -->
 
- kubectl 是用来和 {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}} 服务器进行通信的命令行工具。
-
+kubectl 是使用 Kubernetes API 与 Kubernetes 
+集群的{{<glossary_tooltip text="控制面" term_id="control-plane" >}}进行通信的命令行工具。
 <!--more--> 
 
 <!--
-You can use kubectl to create, inspect, update, and delete Kubernetes objects.
+You can use `kubectl` to create, inspect, update, and delete Kubernetes objects.
 -->
 
-您可以使用 kubectl 创建、检查、更新和删除 Kubernetes 对象。
+你可以使用 `kubectl` 创建、检视、更新和删除 Kubernetes 对象。
