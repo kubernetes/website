@@ -316,7 +316,7 @@ spec:
   parameters:
     # The parameters for this IngressClass are specified in an
     # IngressParameter (API group k8s.example.com) named "external-config",
-    # that's in the "external-configuration" configuration namespace.
+    # that's in the "external-configuration" namespace.
     scope: Namespace
     apiGroup: k8s.example.com
     kind: IngressParameter
