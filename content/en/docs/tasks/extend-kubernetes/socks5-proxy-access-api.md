@@ -20,7 +20,7 @@ This page shows how to use SOCKS5 proxying to access the API of a remote Kuberne
 This example tunnels traffic using SSH, with the SSH client and server acting as a SOCKS proxy. You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOCKS#SOCKS5) proxy.
 {{</ note >}}
 
-The following diagram represents what we're going to achieve in this tutorial:
+Figure 1 represents what we're going to achieve in this tutorial.
 
 * We've got a _client machine_ from where we're going to create requests to talk to the Kubernetes API
 * The Kubernetes server/API is hosted on a _remote server_.
@@ -46,6 +46,7 @@ graph LR;
   class client plain;
   class cluster cluster;
 {{</ mermaid >}}
+Figure 1. SOCKS5 tutorial components
 
 ## Using ssh to create a SOCKS5 proxy
 
