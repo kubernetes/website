@@ -93,6 +93,7 @@ different Kubernetes components.
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
+| `ContextualLogging` | `false` | Alpha | 1.24 | |
 | `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
@@ -737,6 +738,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for fsGroups when mounting a volume in a Pod. See
   [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)
   for more details.
+- `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
+   contextual logging add extra detail to log output.
 - `ControllerManagerLeaderMigration`: Enables leader migration for
   `kube-controller-manager` and `cloud-controller-manager`.
 - `CronJobControllerV2`: Use an alternative implementation of the
