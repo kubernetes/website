@@ -45,11 +45,10 @@ ObjectFieldSelector 选择对象的 APIVersioned 字段。
 
 - **fieldPath** (string), 必需的
 
-  在指定API版本中要选择的字段的路径。
+  在指定 API 版本中要选择的字段的路径。
 
 - **apiVersion** (string)
 
-  字段路径所使用的模式版本默认为 "v1"。
-
+  `fieldPath` 写入时所使用的模式版本，默认为 "v1"。
 
 
