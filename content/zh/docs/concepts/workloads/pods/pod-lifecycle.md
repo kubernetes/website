@@ -591,7 +591,7 @@ with the Pod's `restartPolicy`.
 If you'd like your container to be killed and restarted if a probe fails, then
 specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
 -->
-如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活态探针; 
+如果容器中的进程能够在遇到问题或不健康的情况下自行恢复，则不一定需要存活态探针; 
 `kubelet` 将根据 Pod 的`restartPolicy` 自动执行修复操作。
 
 如果你希望容器在探测失败时被杀死并重新启动，那么请指定一个存活态探针，
