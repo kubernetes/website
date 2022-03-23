@@ -364,7 +364,7 @@ is changed, for example if the labels or container images of the template are up
    ```
 
    <!--
-   Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
+   Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1`:
    -->
    或者，可以 `edit`  Deployment 并将 `.spec.template.spec.containers[0].image` 从
    `nginx:1.14.2` 更改至 `nginx:1.16.1`。
@@ -580,9 +580,9 @@ as per the update and start scaling that up, and rolls over the ReplicaSet that 
 <!--
 For example, suppose you create a Deployment to create 5 replicas of `nginx:1.14.2`,
 but then update the Deployment to create 5 replicas of `nginx:1.16.1`, when only 3
-replicas of `nginx:1.7.9` had been created. In that case, the Deployment immediately starts
-killing the 3 `nginx:1.7.9` Pods that it had created, and starts creating
-`nginx:1.9.1` Pods. It does not wait for the 5 replicas of `nginx:1.14.2` to be created
+replicas of `nginx:1.14.2` had been created. In that case, the Deployment immediately starts
+killing the 3 `nginx:1.14.2` Pods that it had created, and starts creating
+`nginx:1.16.1` Pods. It does not wait for the 5 replicas of `nginx:1.14.2` to be created
 before changing course.
 -->
 例如，假定你在创建一个 Deployment 以生成 `nginx:1.14.2` 的 5 个副本，但接下来
@@ -776,7 +776,7 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
     Labels:  app=nginx
     Containers:
      nginx:
-      Image:        nginx:1.91
+      Image:        nginx:1.16.1
       Port:         80/TCP
       Host Port:    0/TCP
       Environment:  <none>
@@ -832,8 +832,8 @@ Follow the steps given below to check the rollout history:
    deployments "nginx-deployment"
    REVISION    CHANGE-CAUSE
    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-   2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
-   3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+   2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+   3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
    ```
 
    <!--
@@ -843,11 +843,11 @@ Follow the steps given below to check the rollout history:
    复制动作发生在修订版本创建时。你可以通过以下方式设置 `CHANGE-CAUSE` 消息：
 
    <!--
-   * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"`
+   * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
    * Append the `-record` flag to save the `kubectl` command that is making changes to the resource.
    * Manually editing the manifest of the resource.
    -->
-   * 使用 `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"` 为 Deployment 添加注解。
+   * 使用 `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"` 为 Deployment 添加注解。
    * 追加 `--record` 命令行标志以保存正在更改资源的 `kubectl` 命令。
    * 手动编辑资源的清单。
 
