@@ -13,7 +13,7 @@ seguinte diagrama:
 
 ![Diagram of request handling steps for Kubernetes API request](/images/docs/admin/access-control-overview.svg)
 
-## Transport security
+## Segurança de transporte
 
 Em um cluster típico do Kubernetes, a API atende na porta 443, protegida por TLS. O servidor de API apresenta um certificado. Este certificado pode ser assinado usando uma autoridade de certificação privada (CA), ou com base em uma infraestrutura de chave pública vinculada para uma CA geralmente reconhecida.
 
@@ -21,7 +21,7 @@ Se seu cluster usa uma autoridade de certificação privada, você precisa de um
 
 Seu cliente pode apresentar um certificado de cliente TLS nesta fase.
 
-## Authentication
+## Autenticação
 
 Depois que o TLS é estabelecido, a solicitação HTTP passa para a etapa de autenticação. Isso é mostrado como etapa **1** no diagrama. O script de criação do cluster ou o administrador do cluster configura o servidor de API para ser executado um ou mais módulos autenticadores. Os autenticadores são descritos com mais detalhes em [Autenticação](/docs/reference/access-authn-authz/authentication/).
 
@@ -37,7 +37,7 @@ não.
 Enquanto o Kubernetes usa nomes de usuário para decisões de controle de acesso e no registro de solicitações, ele não possui um objeto `User` nem armazena nomes de usuários ou outras informações sobre
 usuários em sua API.
 
-## Authorization
+## Autorização
 
 Depois que a solicitação é autenticada como proveniente de um usuário específico, a solicitação deve ser autorizada. Isso é mostrado como etapa **2** no diagrama.
 
@@ -82,7 +82,7 @@ O Kubernetes oferece suporte a vários módulos de autorização, como o modo AB
 Para saber mais sobre a autorização do Kubernetes, incluindo detalhes sobre como criar políticas usando os módulos de autorização compatíveis, consulte [Autorização](/docs/reference/access-authn-authz/authorization/).
 
 
-## Admission control
+## Controle de Admissão
 
 Os módulos de controle de admissão são módulos de software que podem modificar ou rejeitar solicitações.
 Além dos atributos disponíveis para os módulos de Autorização, os módulos de controle de admissão podem acessar o conteúdo do objeto que está sendo criado ou modificado.
@@ -102,7 +102,7 @@ Os módulos de Controle de Admissão disponíveis estão descritos em [Controlad
 Depois que uma solicitação passa por todos os controladores de admissão, ela é validada usando as rotinas de validação para o objeto de API correspondente e, em seguida, gravados no armazenamento de objetos (mostrado como etapa **4**).
 
 
-## API server ports and IPs
+## Portas e IPs do servidor de API
 
 A discussão anterior se aplica a solicitações enviadas para a porta segura do servidor de API
 (o caso típico). O servidor de API pode servir em 2 portas:
@@ -131,25 +131,25 @@ Por padrão, o servidor da API Kubernetes atende HTTP em 2 portas:
 
 ## {{% heading "whatsnext" %}}
 
-Read more documentation on authentication, authorization and API access control:
+Leia mais documentação sobre autenticação, autorização e controle de acesso à API:
 
-- [Authenticating](/docs/reference/access-authn-authz/authentication/)
-   - [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
-- [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
-   - [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-- [Authorization](/docs/reference/access-authn-authz/authorization/)
-   - [Role Based Access Control](/docs/reference/access-authn-authz/rbac/)
-   - [Attribute Based Access Control](/docs/reference/access-authn-authz/abac/)
-   - [Node Authorization](/docs/reference/access-authn-authz/node/)
-   - [Webhook Authorization](/docs/reference/access-authn-authz/webhook/)
-- [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/)
-   - including [CSR approval](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
-     and [certificate signing](/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
-- Service accounts
-  - [Developer guide](/docs/tasks/configure-pod-container/configure-service-account/)
-  - [Administration](/docs/reference/access-authn-authz/service-accounts-admin/)
+- [Autenticação](/docs/reference/access-authn-authz/authentication/)
+   - [Autenticação com tokens do Bootstrap](/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [Controladores de admissão](/docs/reference/access-authn-authz/admission-controllers/)
+   - [Controle dinâmico de admissão](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [Autorização](/docs/reference/access-authn-authz/authorization/)
+   - [Controle de acesso baseado em função](/docs/reference/access-authn-authz/rbac/)
+   - [Controle de acesso baseado em atributos](/docs/reference/access-authn-authz/abac/)
+   - [Autorização de nó](/docs/reference/access-authn-authz/node/)
+   - [Autorização de webhook](/docs/reference/access-authn-authz/webhook/)
+- [Solicitações de assinatura de certificado](/docs/reference/access-authn-authz/certificate-signing-requests/)
+   - incluindo [aprovação de CSR](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
+     e [assinatura de certificado](/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
+- Contas de serviço
+  - [Guia do desenvolvedor](/docs/tasks/configure-pod-container/configure-service-account/)
+  - [Administração](/docs/reference/access-authn-authz/service-accounts-admin/)
 
-You can learn about:
-- how Pods can use
-  [Secrets](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
-  to obtain API credentials.
+Você pode aprender sobre:
+- como os pods podem usar
+  [Segredos](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
+  para obter credenciais de API.
