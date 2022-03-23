@@ -187,6 +187,11 @@ You must have your own Ceph server running with the share exported before you ca
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 
+
+#### cephfs CSI migration
+
+// todo: fill
+
 ### cinder
 
 {{< note >}}
