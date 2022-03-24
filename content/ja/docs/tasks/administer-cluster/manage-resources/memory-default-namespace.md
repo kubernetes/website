@@ -37,7 +37,7 @@ kubectl create namespace default-mem-example
 
 ## LimitRangeとPodの作成
 
-以下は、LimitRangeの設定ファイルです。デフォルトのメモリ要求とデフォルトのメモリ制限を指定しています。
+以下は、{{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}のマニフェストの例です。このマニフェストでは、デフォルトのメモリ要求とデフォルトのメモリ制限を指定しています。
 
 {{< codenew file="admin/resource/memory-defaults.yaml" >}}
 
