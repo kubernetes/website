@@ -410,12 +410,12 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
 * Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
 * See the `kops` [docs](https://github.com/kubernetes/kops) section for tutorials, best practices and advanced configuration options.
 -->
 * 了解有关 Kubernetes 的[概念](/zh/docs/concepts/) 和
-  [`kubectl`](/zh/docs/reference/kubectl/overview/) 有关的更多信息。
+  [`kubectl`](/zh/docs/reference/kubectl/) 有关的更多信息。
 * 了解 `kops` [高级用法](https://github.com/kubernetes/kops)。
 * 请参阅 `kops` [文档](https://github.com/kubernetes/kops) 获取教程、
   最佳做法和高级配置选项。
