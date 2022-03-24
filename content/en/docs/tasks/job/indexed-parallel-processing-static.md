@@ -5,7 +5,7 @@ min-kubernetes-server-version: v1.21
 weight: 30
 ---
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!-- overview -->
 
