@@ -70,6 +70,6 @@ See [Auditing](/blog/2021/12/09/pod-security-admission-beta/#auditing) for more 
 
 Example: `authorization.k8s.io/decision: "Human-readable reason for the decision"`
 
-This annotation gives reason for the [decision](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision) in Kubernetes audit logs.
+This annotation gives reason for the [decision](#authorization-k8s-io-decision) in Kubernetes audit logs.
 
 See [Auditing](/blog/2021/12/09/pod-security-admission-beta/#auditing) for more information.
