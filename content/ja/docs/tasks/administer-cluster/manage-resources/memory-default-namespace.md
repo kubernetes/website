@@ -47,8 +47,9 @@ default-mem-exampleネームスペースにLimitRangeを作成します:
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults.yaml --namespace=default-mem-example
 ```
 
-default-mem-example名前空間でコンテナを作成し、コンテナがメモリ要求とメモリ制限の値を独自に指定しない場合、コンテナにはデフォルトのメモリ要求256MiBとデフォルトのメモリ制限512MiBが与えられます。
-以下は、コンテナを1つ持つPodの設定ファイルです。コンテナは、メモリ要求とメモリ制限を指定していません。
+default-mem-exampleネームスペースでPodを作成し、そのPod内のコンテナがメモリ要求とメモリ制限の値を独自に指定しない場合、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はデフォルト値のメモリ要求256MiBとメモリ制限512MiBを適用します。
+
+以下は、コンテナを1つ持つPodのマニフェストの例です。コンテナは、メモリ要求とメモリ制限を指定していません。
 
 {{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
 
