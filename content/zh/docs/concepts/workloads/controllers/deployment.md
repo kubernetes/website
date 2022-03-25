@@ -1564,7 +1564,7 @@ Deployment 的 `.status.conditions` 中：
 This condition can also fail early and is then set to status value of `"False"` due to reasons as `ReplicaSetCreateError`.
 Also, the deadline is not taken into account anymore once the Deployment rollout completes.
 -->
-此条件也可快速失败，随后将状态值设置为 `"False"` ，失败原因为 `ReplicaSetCreateError`。
+此状况也可快速失败，随后将状态值设置为 `"False"` ，失败原因为 `ReplicaSetCreateError`。
 此外，一旦部署部署完成，就不再考虑截止日期。
 
 <!--
