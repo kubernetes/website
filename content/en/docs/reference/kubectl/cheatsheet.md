@@ -102,10 +102,10 @@ kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 
 # create a Job which prints "Hello World"
-kubectl create job hello --image=busybox -- echo "Hello World" 
+kubectl create job hello --image=busybox:1.28 -- echo "Hello World" 
 
 # create a CronJob that prints "Hello World" every minute
-kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"    
+kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"    
 
 kubectl explain pods                           # get the documentation for pod manifests
 
@@ -118,7 +118,7 @@ metadata:
 spec:
   containers:
   - name: busybox
-    image: busybox
+    image: busybox:1.28
     args:
     - sleep
     - "1000000"
@@ -130,7 +130,7 @@ metadata:
 spec:
   containers:
   - name: busybox
-    image: busybox
+    image: busybox:1.28
     args:
     - sleep
     - "1000"
@@ -320,7 +320,7 @@ kubectl logs my-pod -c my-container --previous      # dump pod container logs (s
 kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
-kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
+kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactive shell
 kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
 kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
 --dry-run=client -o yaml > pod.yaml
