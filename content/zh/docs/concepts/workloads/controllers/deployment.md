@@ -547,7 +547,7 @@ until the `terminationGracePeriodSeconds` of the terminating Pods expires.
 
 {{< note >}}
 Kubernetes 在计算 `availableReplicas` 的数值时不计算正在终止的 Pod 数量，
-因此其必定落于 `replicas - maxUnavailable`和 `replicas + maxSurge` 之间。
+因此其必定落于 `replicas - maxUnavailable` 和 `replicas + maxSurge` 之间。
 因此，你可能会注意到在上线期间 Pod 会比预期的多，并且 Deployment 消耗的总资源超过了
 `replicas + maxSurge`，
 直到所有被终止的 Pod 的 `terminationGracePeriodSeconds` 过期。
