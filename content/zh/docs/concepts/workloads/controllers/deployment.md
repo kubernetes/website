@@ -1269,7 +1269,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 <!--
 * Get the rollout status to verify that the existing ReplicaSet has not changed:
 -->
-* 获取上线状态验证现存 ReplicaSet 的状态没有发生更改：
+* 获取上线状态，验证现存 ReplicaSet 的状态没有发生更改：
 
   ```shell
   kubectl get rs
