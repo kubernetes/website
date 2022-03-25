@@ -115,7 +115,7 @@ In this example:
   `spec.selector.matchLabels` 字段是 `{key,value}` 键值对映射。
   在 `matchLabels` 映射中的每个 `{key,value}` 映射等效于 `matchExpressions` 中的一个元素，
   即其 `key` 字段是 “key”，`operator` 为 “In”，`values` 数组仅包含 “value”。
-  在 `matchLabels` 和 `matchExpressions` 中给出的所有条件都满足时才能正确匹配。
+  在 `matchLabels` 和 `matchExpressions` 中给出的所有条件都满足时才能匹配。
   {{< /note >}}
 
 <!--
