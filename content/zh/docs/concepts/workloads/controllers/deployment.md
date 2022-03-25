@@ -564,7 +564,8 @@ ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 ### 翻转（多 Deployment 动态更新）
 
 每次 Deployment 控制器观察到新的 Deployment 时，都会创建一个 ReplicaSet 以启动所需的 Pods。
-如果更新了 Deployment，则控制那些标签匹配 `.spec.selector` 但模板不匹配 `.spec.template` 的Pods 的现有 ReplicaSet 将被缩容。
+如果更新了 Deployment，则控制那些标签匹配 `.spec.selector` 但模板不匹配 `.spec.template` 的
+Pods 的现有 ReplicaSet 将被缩容。
 最终，新的 ReplicaSet 将缩放至 `.spec.replicas` 个副本，所有旧 ReplicaSets 将缩放至 0 个副本。
 
 <!--
