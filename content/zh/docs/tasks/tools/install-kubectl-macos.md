@@ -178,11 +178,16 @@ The following methods exist for installing kubectl on macOS:
 
 <!-- 
 1. Test to ensure the version you installed is up-to-date:
+Or use this for detailed view of version:
 -->
 5. 测试一下，确保你安装的是最新的版本：
 
    ```bash
    kubectl version --client
+   ```
+   或者使用下面命令来查看版本的详细信息：
+   ```cmd
+   kubectl version --client --output=yaml
    ```
 
 <!-- 
