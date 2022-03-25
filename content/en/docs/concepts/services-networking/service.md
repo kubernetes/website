@@ -266,6 +266,7 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 - The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.  For example, if your operating system doesn't allow you to run iptables commands, the standard kernel kube-proxy implementation will not work.  Likewise, if you have an operating system which doesn't support `netsh`, it will not run in Windows userspace mode.
 
 ### User space proxy mode {#proxy-mode-userspace}
+{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
 In this (legacy) mode, kube-proxy watches the Kubernetes control plane for the addition and
 removal of Service and Endpoint objects. For each Service it opens a
@@ -277,8 +278,6 @@ account when deciding which backend Pod to use.
 Lastly, the user-space proxy installs iptables rules which capture traffic to
 the Service's `clusterIP` (which is virtual) and `port`. The rules
 redirect that traffic to the proxy port which proxies the backend Pod.
-
-{{< note >}} Kube-proxy in userspace mode is deprecated. {{< /note >}}
 
 By default, kube-proxy in userspace mode chooses a backend via a round-robin algorithm.
 
