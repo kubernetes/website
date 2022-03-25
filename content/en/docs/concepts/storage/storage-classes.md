@@ -241,8 +241,8 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: failure-domain.beta.kubernetes.io/zone
     values:
-    - us-central1-a
-    - us-central1-b
+    - us-central-1a
+    - us-central-1b
 ```
 
 ## Parameters
