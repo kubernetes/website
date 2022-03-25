@@ -31,7 +31,10 @@ A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/
 <!--
 You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_tooltip term_id="controller" >}} changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 -->
-你负责描述 Deployment 中的 _目标状态_，而 Deployment {{< glossary_tooltip term_id="controller" >}} 将以受控的速率更改实际状态，直到达到期望状态。你可以通过定义 Deployment 来创建新的 ReplicaSet，或删除现有 Deployment，然后通过新的 Deployment 重用其资源。
+你负责描述 Deployment 中的 _目标状态_，而 Deployment {{< glossary_tooltip term_id="controller" >}}
+将以受控的速率更改实际状态，直到达到期望状态。
+你可以通过定义 Deployment 来创建新的 ReplicaSet，或删除现有 Deployment，
+然后通过新的 Deployment 重用其资源。
 
 <!--
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
