@@ -60,11 +60,11 @@ for more information.
 
 ## authorization.k8s.io/decision
 
-Example: `authorization.k8s.io/decision: {allow, forbid}`
+Example: `authorization.k8s.io/decision: "forbid"`
 
 This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
 
-See [Auditing](/blog/2021/12/09/pod-security-admission-beta/#auditing) for more information.
+See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
 
 ## authorization.k8s.io/reason
 
@@ -72,4 +72,4 @@ Example: `authorization.k8s.io/decision: "Human-readable reason for the decision
 
 This annotation gives reason for the [decision](#authorization-k8s-io-decision) in Kubernetes audit logs.
 
-See [Auditing](/blog/2021/12/09/pod-security-admission-beta/#auditing) for more information.
+See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
