@@ -1470,7 +1470,7 @@ is initiated. The condition holds even when availability of replicas changes (wh
 does instead affect the `Available` condition).
 -->
 在新上线发起之前，此 `Progressing` 状况都将保留 `"True"` 状态值。
-即使副本的可用性发生变化（这会影响 `Available` 状态），该状态值仍然保持不变。
+即使副本的可用性发生变化（这会影响 `Available` 状况），该状态值仍然保持不变。
 
 <!--
 You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed
