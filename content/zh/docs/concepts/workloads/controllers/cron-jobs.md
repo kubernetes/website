@@ -115,19 +115,7 @@ This example CronJob manifest prints the current time and a hello message every 
 # │ │ ┌───────────── 月的某天 (1 - 31)
 # │ │ │ ┌───────────── 月份 (1 - 12)
 # │ │ │ │ ┌───────────── 周的某天 (0 - 6)（周日到周一；在某些系统上，7 也是星期日）
-# │ │ │ │ │
-# │ │ │ │ │
-# │ │ │ │ │
-# * * * * *
-```
-
-```
-# ┌───────────── 分钟 (0 - 59)
-# │ ┌───────────── 小时 (0 - 23)
-# │ │ ┌───────────── 月的某天 (1 - 31)
-# │ │ │ ┌───────────── 月份 (1 - 12)
-# │ │ │ │ ┌───────────── 周的某天 (0 - 6) （周日到周一；在某些系统上，7 也是星期日）
-# │ │ │ │ │
+# │ │ │ │ │                          或者是 sun，mon，tue，web，thu，fri，sat
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * *
@@ -276,6 +264,8 @@ and set this flag to `false`. For example:
 * For instructions on creating and working with CronJobs, and for an example
   of a CronJob manifest,
   see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
+* For instructions to clean up failed or completed jobs automatically,
+  see [Clean up Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 * `CronJob` is part of the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
   object definition to understand the API for Kubernetes cron jobs.
@@ -285,6 +275,7 @@ and set this flag to `false`. For example:
 * 阅读 CronJob `.spec.schedule` 字段的[格式](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)。
 * 有关创建和使用 CronJob 的说明及示例规约文件，请参见
   [使用 CronJob 运行自动化任务](/zh/docs/tasks/job/automated-tasks-with-cron-jobs/)。
+* 有关自动清理失败或完成作业的说明，请参阅[自动清理作业](/zh/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 * `CronJob` 是 Kubernetes REST API 的一部分，
    阅读 {{< api-reference page="workload-resources/cron-job-v1" >}}
    对象定义以了解关于该资源的 API。

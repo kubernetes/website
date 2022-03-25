@@ -1813,8 +1813,8 @@ webhooks:
 <!--
 Admission webhooks created using `admissionregistration.k8s.io/v1` default `failurePolicy` to `Fail`.
 -->
-使用 `admissionregistration.k8s.io/v1beta1` 创建的准入 Webhook 将
-`failurePolicy` 默认设置为 `Ignore`。
+使用 `admissionregistration.k8s.io/v1` 创建的准入 Webhook 将
+`failurePolicy` 默认设置为 `Fail`。
 
 {{% /tab %}}
 {{% tab name="admissionregistration.k8s.io/v1beta1" %}}

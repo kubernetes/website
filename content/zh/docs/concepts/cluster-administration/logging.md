@@ -22,7 +22,7 @@ Application logs can help you understand what is happening inside your applicati
 
 <!--
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution.
-For example, you may want access your application's logs if a container crashes; a pod gets evicted; or a node dies,
+For example, you may want to access your application's logs if a container crashes; a pod gets evicted; or a node dies,
 In a cluster, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_.
 -->
 但是，由容器引擎或运行时提供的原生功能通常不足以构成完整的日志记录方案。
@@ -94,12 +94,25 @@ The output is:
 ```
 
 <!--
-You can use `kubectl logs --previous` to retrieve logs from a previous instantiation of a container..If your pod has multiple containers, specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+You can use `kubectl logs --previous` to retrieve logs from a previous instantiation of a container.
+If your pod has multiple containers, specify which container's logs you want to access by
+appending a container name to the command, with a `-c` flag, like so:
+```console
+kubectl logs counter -c count
+```
+See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
 -->
 你可以使用命令 `kubectl logs --previous` 检索之前容器实例的日志。
 如果 Pod 中有多个容器，你应该为该命令附加容器名以访问对应容器的日志。
 详见 [`kubectl logs` 文档](/docs/reference/generated/kubectl/kubectl-commands#logs)。
+如果 Pod 有多个容器，你应该为该命令附加容器名以访问对应容器的日志，
+使用 `-c` 标志来指定要访问的容器的日志，如下所示：
+```console
 
+kubectl logs counter -c count
+
+```
+详见 [kubectl logs 文档](/zh/docs/reference/generated/kubectl/kubectl-commands#logs)。
 <!--
 ## Logging at the node level
 
@@ -280,7 +293,7 @@ Node-level logging creates only one agent per node, and doesn't require any chan
 节点级日志在每个节点上仅创建一个代理，不需要对节点上的应用做修改。
 
 <!--
-Containers write stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
+Containers write to stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
 -->
 容器向标准输出和标准错误输出写出数据，但在格式上并不统一。
 节点级代理

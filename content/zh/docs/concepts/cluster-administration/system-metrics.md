@@ -128,7 +128,7 @@ For example:
 <!--
 * After deprecation
 -->
-* 被启用之后：
+* 被弃用之后：
 
   ```
   # HELP some_counter (Deprecated since 1.15.0) this counts things
