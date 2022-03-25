@@ -1,7 +1,7 @@
 ---
 linktitle: প্রকাশের ইতিহাস
-Title: প্রকাশনাসমূহ
-Type: docs
+title: প্রকাশনাসমূহ
+type: docs
 ---
 
 
