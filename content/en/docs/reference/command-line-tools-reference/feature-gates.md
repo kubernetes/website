@@ -120,7 +120,8 @@ different Kubernetes components.
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | |
-| `GRPCContainerProbe` | `false` | Alpha | 1.23 | |
+| `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
+| `GRPCContainerProbe` | `true` | Beta | 1.24 | |
 | `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
@@ -949,7 +950,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Must be used with `KubeletConfiguration.failSwapOn` set to false.
   For more details, please see [swap memory](/docs/concepts/architecture/nodes/#swap-memory)
 - `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
-- `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the 
+- `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the
   spec returned from the API server.
 - `OpenAPIV3`: Enables the API server to publish OpenAPI v3.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
