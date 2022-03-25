@@ -64,7 +64,7 @@ The following are typical use cases for Deployments:
 * 通过更新 Deployment 的 PodTemplateSpec，[声明 Pod 的新状态](#updating-a-deployment) 。
   新的 ReplicaSet 会被创建，Deployment 以受控速率将 Pod 从旧 ReplicaSet 迁移到新 ReplicaSet。
   每个新的 ReplicaSet 都会更新 Deployment 的修订版本。
-* 如果 Deployment 的当前状态不稳定，[可以回滚到较早的 Deployment 版本](#rolling-back-a-deployment)。
+* 如果 Deployment 的当前状态不稳定，可以[回滚到较早的 Deployment 版本](#rolling-back-a-deployment)。
   每次回滚都会更新 Deployment 的修订版本。
 * [扩大 Deployment 规模以承担更多负载](#scaling-a-deployment)。
 * [暂停 Deployment ](#pausing-and-resuming-a-deployment) 以应用对 PodTemplateSpec 所作的多项修改，
