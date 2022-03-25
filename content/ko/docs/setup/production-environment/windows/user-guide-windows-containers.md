@@ -290,4 +290,4 @@ spec:
 
 
 
-[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
+[RuntimeClass]: https://kubernetes.io/ko/docs/concepts/containers/runtime-class/

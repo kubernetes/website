@@ -416,10 +416,10 @@ spec:
 | [정적 작업 할당을 사용한 인덱싱된 잡]             |          W          |        any           |
 | [잡 템플릿 확장]                             |          1          |     1이어야 함         |
 
-[작업 항목 당 파드가 있는 큐]: /docs/tasks/job/coarse-parallel-processing-work-queue/
-[가변 파드 수를 가진 큐]: /docs/tasks/job/fine-parallel-processing-work-queue/
+[작업 항목 당 파드가 있는 큐]: /ko/docs/tasks/job/coarse-parallel-processing-work-queue/
+[가변 파드 수를 가진 큐]: /ko/docs/tasks/job/fine-parallel-processing-work-queue/
 [정적 작업 할당을 사용한 인덱싱된 잡]: /docs/tasks/job/indexed-parallel-processing-static/
-[잡 템플릿 확장]: /docs/tasks/job/parallel-processing-expansion/
+[잡 템플릿 확장]: /ko/docs/tasks/job/parallel-processing-expansion/
 
 ## 고급 사용법
 
