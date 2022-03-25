@@ -90,8 +90,6 @@ different Kubernetes components.
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | |
 | `csiMigrationRBD` | `false` | Alpha | 1.23 | |
-| `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
-| `CSIStorageCapacity` | `true` | Beta | 1.21 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | |
@@ -265,6 +263,9 @@ different Kubernetes components.
 | `CSIServiceAccountToken` | `false` | Alpha | 1.20 | 1.20 |
 | `CSIServiceAccountToken` | `true` | Beta | 1.21 | 1.21 |
 | `CSIServiceAccountToken` | `true` | GA | 1.22 | |
+| `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
+| `CSIStorageCapacity` | `true` | Beta | 1.21 | 1.23 |
+| `CSIStorageCapacity` | `true` | GA | 1.24 | |
 | `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | 1.19 |
 | `CSIVolumeFSGroupPolicy` | `true` | Beta | 1.20 | 1.22 |
 | `CSIVolumeFSGroupPolicy` | `true` | GA | 1.23 | |
