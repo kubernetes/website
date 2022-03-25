@@ -2,7 +2,7 @@
 title: kube-scheduler
 id: kube-scheduler
 date: 2018-04-12
-full_link: /docs/reference/generated/kube-scheduler/
+full_link: /zh/docs/reference/command-line-tools-reference/kube-scheduler/
 short_description: >
   控制平面组件，负责监视新创建的、未指定运行节点的 Pod，选择节点让 Pod 在上面运行。
 
@@ -17,7 +17,7 @@ tags:
 title: kube-scheduler
 id: kube-scheduler
 date: 2018-04-12
-full_link: /docs/reference/generated/kube-scheduler/
+full_link: /docs/reference/command-line-tools-reference/kube-scheduler/
 short_description: >
   Control plane component that watches for newly created pods with no assigned node, and selects a node for them to run on.
 

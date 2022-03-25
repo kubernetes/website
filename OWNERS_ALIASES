@@ -24,12 +24,14 @@ aliases:
     - jimangel
     - jlbutler
     - kbhawkey
+    - natalisucks
     - onlydole
     - pi-victor
     - reylejano
     - savitharaghunathan
     - sftim
     - tengqm
+    - zacharysarah
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - celestehorgan
@@ -38,11 +40,13 @@ aliases:
     - jimangel
     - kbhawkey
     - mehabhalodiya
+    - natalisucks
     - onlydole
     - rajeshdeshpande02
     - sftim
     - shannonxtreme
     - tengqm
+    - zacharysarah
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - electrocucaracha
