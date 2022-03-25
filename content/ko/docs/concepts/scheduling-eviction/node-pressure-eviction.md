@@ -87,7 +87,7 @@ Kubelet은 다른 구성은 지원하지 않는다.
 
 {{<note>}}
 일부 kubelet 가비지 수집 기능은 더 이상 사용되지 않으며 축출로 대체되었다.
-사용 중지된 기능의 목록은 [kubelet 가비지 수집 사용 중단](/ko/docs/concepts/cluster-administration/kubelet-garbage-collection/#사용-중단-deprecation)을 참조한다.
+사용 중지된 기능의 목록은 [kubelet 가비지 수집 사용 중단](/ko/docs/concepts/architecture/garbage-collection/#containers-images)을 참조한다.
 {{</note>}}
 
 ### 축출 임계값
