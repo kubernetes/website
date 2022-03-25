@@ -238,7 +238,7 @@ kubectl rollout status -w deployment/frontend                    # Watch rolling
 kubectl rollout restart deployment/frontend                      # Rolling restart of the "frontend" deployment
 
 
-cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into std
+cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
 kubectl replace --force -f ./pod.json

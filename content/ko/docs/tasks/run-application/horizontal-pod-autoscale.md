@@ -51,7 +51,7 @@ Horizontal Pod Autoscaling을 활용하는
 
 쿠버네티스는 Horizontal Pod Autoscaling을 
 간헐적으로(intermittently) 실행되는 
-컨트롤 루프 형태로 구현했다(지숙적인 프로세스가 아니다). 
+컨트롤 루프 형태로 구현했다(지속적인 프로세스가 아니다). 
 실행 주기는 [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)의 
 `--horizontal-pod-autoscaler-sync-period` 파라미터에 의해 설정된다(기본 주기는 15초이다).
 

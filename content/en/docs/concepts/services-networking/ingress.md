@@ -88,13 +88,13 @@ has all the information needed to configure a load balancer or proxy server. Mos
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP(S) traffic.
 
-If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class) 
+If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class)
 should be defined.
 
-There are some ingress controllers, that work without the definition of a 
-default `IngressClass`. For example, the Ingress-NGINX controller can be 
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class) 
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the 
+There are some ingress controllers, that work without the definition of a
+default `IngressClass`. For example, the Ingress-NGINX controller can be
+configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
 default `IngressClass` as shown [below](#default-ingress-class).
 
 ### Ingress rules
@@ -118,8 +118,14 @@ match a path in the spec.
 
 ### DefaultBackend {#default-backend}
 
-An Ingress with no rules sends all traffic to a single default backend. The `defaultBackend` is conventionally a configuration option
-of the [Ingress controller](/docs/concepts/services-networking/ingress-controllers) and is not specified in your Ingress resources.
+An Ingress with no rules sends all traffic to a single default backend and `.spec.defaultBackend`
+is the backend that should handle requests in that case.
+The `defaultBackend` is conventionally a configuration option of the
+[Ingress controller](/docs/concepts/services-networking/ingress-controllers) and
+is not specified in your Ingress resources.
+If no `.spec.rules` are specified, `.spec.defaultBackend` must be specified.
+If `defaultBackend` is not set, the handling of requests that do not match any of the rules will be up to the
+ingress controller (consult the documentation for your ingress controller to find out how it handles this case).
 
 If none of the hosts or paths match the HTTP request in the Ingress objects, the traffic is
 routed to your default backend.
@@ -310,7 +316,7 @@ spec:
   parameters:
     # The parameters for this IngressClass are specified in an
     # IngressParameter (API group k8s.example.com) named "external-config",
-    # that's in the "external-configuration" configuration namespace.
+    # that's in the "external-configuration" namespace.
     scope: Namespace
     apiGroup: k8s.example.com
     kind: IngressParameter

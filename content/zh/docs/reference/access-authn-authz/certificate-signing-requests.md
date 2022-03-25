@@ -3,7 +3,7 @@ title: 证书签名请求
 content_type: concept
 weight: 20
 ---
-<!-- 
+<!--
 reviewers:
 - liggitt
 - mikedanese
@@ -18,22 +18,22 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
-<!-- 
+<!--
 The Certificates API enables automation of
 [X.509](https://www.itu.int/rec/T-REC-X.509) credential provisioning by providing
 a programmatic interface for clients of the Kubernetes API to request and obtain
-X.509 {{< glossary_tooltip term_id="certificate" text="certificates" >}} 
+X.509 {{< glossary_tooltip term_id="certificate" text="certificates" >}}
 from a Certificate Authority (CA).
 
 A CertificateSigningRequest (CSR) resource is used to request that a certificate be signed
 by a denoted signer, after which the request may be approved or denied before
 finally being signed.
 -->
-证书 API 支持 
-[X.509](https://www.itu.int/rec/T-REC-X.509) 
+证书 API 支持
+[X.509](https://www.itu.int/rec/T-REC-X.509)
 的自动化配置，
 它为 Kubernetes API 的客户端提供一个编程接口，
-用于从证书颁发机构（CA）请求并获取 X.509 
+用于从证书颁发机构（CA）请求并获取 X.509
 {{< glossary_tooltip term_id="certificate" text="证书" >}}。
 
 CertificateSigningRequest（CSR）资源用来向指定的签名者申请证书签名，
@@ -41,7 +41,7 @@ CertificateSigningRequest（CSR）资源用来向指定的签名者申请证书�
 
 <!-- body -->
 
-<!-- 
+<!--
 ## Request signing process
 
 The CertificateSigningRequest resource type allows a client to ask for an X.509 certificate
@@ -64,13 +64,13 @@ CertificateSigningRequest 使用 `spec.signerName` 字段标示 _签名者_（�
 在 Kubernetes v1.22 和以后的版本，客户可以可选地设置 `spec.expirationSeconds`
 字段来为颁发的证书设定一个特定的有效期。该字段的最小有效值是 `600`，也就是 10 分钟。
 
-<!-- 
+<!--
 Once created, a CertificateSigningRequest must be approved before it can be signed.
 Depending on the signer selected, a CertificateSigningRequest may be automatically approved
 by a {{< glossary_tooltip text="controller" term_id="controller" >}}.
-Otherwise, a CertificateSigningRequest must be manually approved 
+Otherwise, a CertificateSigningRequest must be manually approved
 either via the REST API (or client-go)
-or by running `kubectl certificate approve`. 
+or by running `kubectl certificate approve`.
 Likewise, a CertificateSigningRequest may also be denied,
 which tells the configured signer that it must not sign the request.
 -->
@@ -83,13 +83,13 @@ which tells the configured signer that it must not sign the request.
 这就相当于通知了指定的签名者，这个证书不能签名。
 
 <!--  
-For certificates that have been approved, the next step is signing. 
+For certificates that have been approved, the next step is signing.
 The relevant signing controller
 first validates that the signing conditions are met and then creates a certificate.
-The signing controller then updates the CertificateSigningRequest, 
+The signing controller then updates the CertificateSigningRequest,
 storing the new certificate into
 the `status.certificate` field of the existing CertificateSigningRequest object. The
-`status.certificate` field is either empty or contains a X.509 certificate, 
+`status.certificate` field is either empty or contains a X.509 certificate,
 encoded in PEM format.
 The CertificateSigningRequest `status.certificate` field is empty until the signer does this.
 -->
@@ -100,8 +100,8 @@ The CertificateSigningRequest `status.certificate` field is empty until the sign
 此时，字段 `status.certificate` 要么为空，要么包含一个用 PEM 编码的 X.509 证书。
 直到签名完成前，CertificateSigningRequest 的字段 `status.certificate` 都为空。
 
-<!-- 
-Once the `status.certificate` field has been populated, 
+<!--
+Once the `status.certificate` field has been populated,
 the request has been completed and clients can now
 fetch the signed certificate PEM data from the CertificateSigningRequest resource.
 The signers can instead deny certificate signing if the approval conditions are not met.
@@ -110,10 +110,10 @@ The signers can instead deny certificate signing if the approval conditions are 
 客户端现在可以从 CertificateSigningRequest 资源中获取已签名的证书的 PEM 数据。
 当然如果不满足签名条件，签名者可以拒签。
 
-<!-- 
-In order to reduce the number of old CertificateSigningRequest resources left 
+<!--
+In order to reduce the number of old CertificateSigningRequest resources left
 in a cluster, a garbage collection
-controller runs periodically. 
+controller runs periodically.
 The garbage collection removes CertificateSigningRequests that have not changed
 state for some duration:
 
@@ -133,10 +133,10 @@ state for some duration:
 * 挂起的请求：24小时后自动删除
 * 所有请求：在颁发的证书过期后自动删除
 
-<!-- 
+<!--
 ## Signers
 
-Custom signerNames can also be specified. All signers should provide information about how they work 
+Custom signerNames can also be specified. All signers should provide information about how they work
 so that clients can predict what will happen to their CSRs.
 This includes:
 -->
@@ -147,18 +147,18 @@ This includes:
 以便客户端可以预期到他们的 CSR 将发生什么。
 此类信息包括：
 
-<!-- 
+<!--
 1. **Trust distribution**: how trust (CA bundles) are distributed.
-2.  **Permitted subjects**: any restrictions on and behavior 
+2.  **Permitted subjects**: any restrictions on and behavior
    when a disallowed subject is requested.
-3. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames, 
-   Email subjectAltNames, URI subjectAltNames etc, 
+3. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames,
+   Email subjectAltNames, URI subjectAltNames etc,
    and behavior when a disallowed extension is requested.
-4. **Permitted key usages / extended key usages**: any restrictions on and behavior 
+4. **Permitted key usages / extended key usages**: any restrictions on and behavior
    when usages different than the signer-determined usages are specified in the CSR.
 5. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR `spec.expirationSeconds` field, etc
    and the behavior when the signer-determined expiration is different from the CSR `spec.expirationSeconds` field.
-6. **CA bit allowed/disallowed**: and behavior if a CSR contains a request 
+6. **CA bit allowed/disallowed**: and behavior if a CSR contains a request
    a for a CA certificate when the signer does not permit it.
 -->
 1. **信任分发**：信任（CA 证书包）是如何分发的。
@@ -171,7 +171,7 @@ This includes:
    以及签名者决定的过期时间与 CSR `spec.expirationSeconds` 字段不同时的应对手段。
 6. **允许/不允许 CA 位**：当 CSR 包含一个签名者并不允许的 CA 证书的请求时，相应的应对手段。
 
-<!-- 
+<!--
 Commonly, the `status.certificate` field contains a single PEM-encoded X.509
 certificate once the CSR is approved and the certificate is issued. Some
 signers store multiple certificates into the `status.certificate` field. In
@@ -211,7 +211,7 @@ Kubernetes API servers prior to v1.22 will silently drop this field when the obj
 v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
 {{< /note >}}
 
-<!-- 
+<!--
 ### Kubernetes signers
 
 Kubernetes provides built-in signers that each have a well-known `signerName`:
@@ -220,7 +220,7 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
 
 Kubernetes提供了内置的签名者，每个签名者都有一个众所周知的 `signerName`:
 
-<!-- 
+<!--
 1. `kubernetes.io/kube-apiserver-client`: signs certificates that will be honored as client certificates by the API server.
   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
     1. Trust distribution: signed certificates must be honored as client-certificates by the kube-apiserver. The CA bundle is not distributed by any other means.
@@ -250,7 +250,7 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
       设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
 
-<!-- 
+<!--
 1. `kubernetes.io/kube-apiserver-client-kubelet`: signs client certificates that will be honored as client certificates by the
    API server.
    May be auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
@@ -274,7 +274,7 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
       设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
 
-<!-- 
+<!--
 1. `kubernetes.io/kubelet-serving`: signs serving certificates that are honored as a valid kubelet serving certificate
    by the API server, but has no other guarantees.
    Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
@@ -294,12 +294,12 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
    1. 许可的 x509 扩展：允许 key usage、DNSName/IPAddress subjectAltName 等扩展，
       禁止  EmailAddress、URI subjectAltName 等扩展，并丢弃其他扩展。
       至少有一个 DNS 或 IP 的 SubjectAltName 存在。
-   1. 许可的密钥用途：必须是 `["key encipherment", "digital signature", "client auth"]`
+   1. 许可的密钥用途：必须是 `["key encipherment", "digital signature", "server auth"]`
    1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
       设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
 
-<!-- 
+<!--
 1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some third-party distributions of Kubernetes
    may honor client certificates signed by it. The stable CertificateSigningRequest API (version `certificates.k8s.io/v1` and later)
    does not allow to set the `signerName` as `kubernetes.io/legacy-unknown`.
@@ -340,7 +340,7 @@ Kubernetes API servers prior to v1.22 will silently drop this field when the obj
 v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
 {{< /note >}}
 
-<!-- 
+<!--
 Distribution of trust happens out of band for these signers.  Any trust outside of those described above are strictly
 coincidental. For instance, some distributions may honor `kubernetes.io/legacy-unknown` as client certificates for the
 kube-apiserver, but this is not a standard.
@@ -353,7 +353,7 @@ guaranteed to verify a connection to the API server using the default service (`
 这些用途都没有以任何方式涉及到 ServiceAccount 中的 Secrets `.data[ca.crt]`。
 此 CA 证书包只保证使用默认的服务（`kubernetes.default.svc`）来验证到 API 服务器的连接。
 
-<!-- 
+<!--
 ## Authorization
 
 To allow creating a CertificateSigningRequest and retrieving any CertificateSigningRequest:
@@ -366,7 +366,7 @@ For example:
 
 授权创建 CertificateSigningRequest 和检索 CertificateSigningRequest:
 
-* verbs（动词）: `create`、`get`、`list`、`watch`, 
+* verbs（动词）: `create`、`get`、`list`、`watch`,
   group（组）：`certificates.k8s.io`，
   resources：`certificatesigningrequests`
 
@@ -374,7 +374,7 @@ For example:
 
 {{< codenew file="access/certificate-signing-request/clusterrole-create.yaml" >}}
 
-<!-- 
+<!--
 To allow approving a CertificateSigningRequest:
 
 * Verbs: `get`, `list`, `watch`, group: `certificates.k8s.io`, resource: `certificatesigningrequests`
@@ -400,7 +400,7 @@ For example:
 
 {{< codenew file="access/certificate-signing-request/clusterrole-approve.yaml" >}}
 
-<!-- 
+<!--
 To allow signing a CertificateSigningRequest:
 
 * Verbs: `get`, `list`, `watch`, group: `certificates.k8s.io`, resource: `certificatesigningrequests`
@@ -422,7 +422,7 @@ To allow signing a CertificateSigningRequest:
 
 {{< codenew file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
 
-<!-- 
+<!--
 ## Normal User
 
 A few steps are required in order to get a normal user to be able to
@@ -435,7 +435,7 @@ by the Kubernetes cluster, and then present that certificate to the Kubernetes A
 首先，该用户必须拥有 Kubernetes 集群签发的证书，
 然后将该证书提供给 Kubernetes API。
 
-<!-- 
+<!--
 ### Create private key
 
 The following scripts show how to generate PKI private key and CSR. It is
@@ -454,10 +454,10 @@ openssl genrsa -out myuser.key 2048
 openssl req -new -key myuser.key -out myuser.csr
 ```
 
-<!-- 
+<!--
 ### Create CertificateSigningRequest
 
-Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. 
+Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl.
 Below is a script to generate the CertificateSigningRequest.
 -->
 ### 创建 CertificateSigningRequest {#create-certificatesigningrequest}
@@ -480,7 +480,7 @@ spec:
 EOF
 ```
 
-<!-- 
+<!--
 Some points to note:
 
 - `usages` has to be '`client auth`'
@@ -495,7 +495,7 @@ Some points to note:
 - `request` 字段是 CSR 文件内容的 base64 编码值。
   要得到该值，可以执行命令 `cat myuser.csr | base64 | tr -d "\n"`。
 
-<!-- 
+<!--
 ### Approve certificate signing request
 
 Use kubectl to create a CSR and approve it.
@@ -512,7 +512,7 @@ Get the list of CSRs:
 kubectl get csr
 ```
 
-<!-- 
+<!--
 Approve the CSR:
 -->
 批准 CSR：
@@ -521,7 +521,7 @@ Approve the CSR:
 kubectl certificate approve myuser
 ```
 
-<!-- 
+<!--
 ### Get the certificate
 
 Retrieve the certificate from the CSR.
@@ -534,7 +534,7 @@ Retrieve the certificate from the CSR.
 kubectl get csr/myuser -o yaml
 ```
 
-<!-- 
+<!--
 The Certificate value is in Base64-encoded format under `status.certificate`.
 
 Export the issued certificate from the CertificateSigningRequest.
@@ -567,7 +567,7 @@ Role 和 RoleBinding 了。
 kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
 ```
 
-<!-- 
+<!--
 This is a sample command to create a RoleBinding for this new user:
 -->
 下面是为这个新用户创建 RoleBinding 的示例命令：
@@ -576,7 +576,7 @@ This is a sample command to create a RoleBinding for this new user:
 kubectl create rolebinding developer-binding-myuser --role=developer --user=myuser
 ```
 
-<!-- 
+<!--
 ### Add to kubeconfig
 
 The last step is to add this user into the kubeconfig file.
@@ -595,7 +595,7 @@ kubectl config set-credentials myuser --client-key=myuser.key --client-certifica
 
 ```
 
-<!-- 
+<!--
 Then, you need to add the context:
 -->
 然后，你需要添加上下文：
@@ -604,7 +604,7 @@ Then, you need to add the context:
 kubectl config set-context myuser --cluster=kubernetes --user=myuser
 ```
 
-<!-- 
+<!--
 To test it, change the context to `myuser`:
 -->
 来测试一下，把上下文切换为 `myuser`：
@@ -613,7 +613,7 @@ To test it, change the context to `myuser`:
 kubectl config use-context myuser
 ```
 
-<!-- 
+<!--
 ## Approval or rejection   {#approval-rejection}
 
 ### Control plane automated approval {#approval-rejection-control-plane}
@@ -628,13 +628,13 @@ in order to check authorization for certificate approval.
 
 ### 控制平面的自动化批准 {#approval-rejection-control-plane}
 
-kube-controller-manager 内建了一个证书批准者，其 signerName 为 
+kube-controller-manager 内建了一个证书批准者，其 signerName 为
 `kubernetes.io/kube-apiserver-client-kubelet`，
 该批准者将 CSR 上用于节点凭据的各种权限委托给权威认证机构。
 kube-controller-manager 将 SubjectAccessReview 资源发送（POST）到 API 服务器，
 以便检验批准证书的授权。
 
-<!-- 
+<!--
 ### Approval or rejection using `kubectl` {#approval-rejection-kubectl}
 
 A Kubernetes administrator (with appropriate permissions) can manually approve
@@ -654,8 +654,8 @@ Kubernetes 管理员（拥有足够的权限）可以手工批准（或驳回）
 kubectl certificate approve <certificate-signing-request-name>
 ```
 
-<!-- 
-Likewise, to deny a CSR: 
+<!--
+Likewise, to deny a CSR:
 -->
 同样地，驳回一个 CSR：
 
@@ -663,7 +663,7 @@ Likewise, to deny a CSR:
 kubectl certificate deny <certificate-signing-request-name>
 ```
 
-<!-- 
+<!--
 ### Approval or rejection using the Kubernetes API {#approval-rejection-api-client}
 
 Users of the REST API can approve CSRs by submitting an UPDATE request to the `approval`
@@ -699,10 +699,10 @@ status:
     reason: ApprovedByMyPolicy # You can set this to any string
     type: Approved
 ```
-<!-- 
+<!--
 For `Denied` CSRs:
 -->
-驳回（`Denied`）的 CRS：
+驳回（`Denied`）的 CSR：
 
 ```yaml
 apiVersion: certificates.k8s.io/v1
@@ -717,7 +717,7 @@ status:
     type: Denied
 ```
 
-<!-- 
+<!--
 It's usual to set `status.conditions.reason` to a machine-friendly reason
 code using TitleCase; this is a convention but you can set it to anything
 you like. If you want to add a note for human consumption, use the
@@ -727,7 +727,7 @@ you like. If you want to add a note for human consumption, use the
 这是一个命名约定，但你也可以随你的个人喜好设置。
 如果你想添加一个供人类使用的注释，那就用 `status.conditions.message`  字段。
 
-<!-- 
+<!--
 ## Signing
 
 ### Control plane signer {#signer-control-plane}
@@ -743,7 +743,7 @@ were marked as approved.
 
 ### 控制平面签名者    {#signer-control-plane}
 
-Kubernetes 控制平面实现了每一个 
+Kubernetes 控制平面实现了每一个
 [Kubernetes 签名者](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)，
 每个签名者的实现都是 kube-controller-manager 的一部分。
 
@@ -761,7 +761,7 @@ Kubernetes API servers prior to v1.22 will silently drop this field when the obj
 v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
 {{< /note >}}
 
-<!-- 
+<!--
 ### API-based signers {#signer-api}
 
 Users of the REST API can sign CSRs by submitting an UPDATE request to the `status`
@@ -811,7 +811,7 @@ M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
 -----END CERTIFICATE-----
 ```
 
-<!-- 
+<!--
 Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
 to allow for explanatory text as described in section 5.2 of RFC7468.
 
@@ -834,7 +834,7 @@ status:
 
 ## {{% heading "whatsnext" %}}
 
-<!-- 
+<!--
 * Read [Manage TLS Certificates in a Cluster](/docs/tasks/tls/managing-tls-in-a-cluster/)
 * View the source code for the kube-controller-manager built in [signer](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)
 * View the source code for the kube-controller-manager built in [approver](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)
