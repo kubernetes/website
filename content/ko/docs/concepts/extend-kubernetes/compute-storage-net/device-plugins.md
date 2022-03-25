@@ -288,7 +288,7 @@ message AllocatableResourcesResponse {
 
 ```
 쿠버네티스 v1.23부터, `GetAllocatableResources`가 기본으로 활성화된다.
-이를 비활성화하려면 `KubeletPodResourcesGetAllocatable` [기능 게이트(feature gate)](/docs/reference/command-line-tools-reference/feature-gates/)를
+이를 비활성화하려면 `KubeletPodResourcesGetAllocatable` [기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 끄면 된다.
 
 쿠버네티스 v1.23 이전 버전에서 이 기능을 활성화하려면 `kubelet`이 다음 플래그를 가지고 시작되어야 한다. 

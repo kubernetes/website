@@ -456,5 +456,5 @@ Kubelet은 모든 `imagePullSecrets` 파일을 하나의 가상 `.docker/config.
 ## {{% heading "whatsnext" %}}
 
 * [OCI 이미지 매니페스트 명세](https://github.com/opencontainers/image-spec/blob/master/manifest.md) 읽어보기.
-* [컨테이너 이미지 가비지 수집(garbage collection)](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)에 대해 배우기.
+* [컨테이너 이미지 가비지 수집(garbage collection)](/ko/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)에 대해 배우기.
 * [프라이빗 레지스트리에서 이미지 받아오기](/ko/docs/tasks/configure-pod-container/pull-image-private-registry)
