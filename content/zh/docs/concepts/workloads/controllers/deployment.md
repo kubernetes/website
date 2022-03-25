@@ -610,7 +610,7 @@ all of the implications.
 In API version `apps/v1`, a Deployment's label selector is immutable after it gets created.
 -->
 {{< note >}}
-在 API 版本 `apps/v1` 中，Deployment 标签选择算符一旦创建将不可变。
+在 API 版本 `apps/v1` 中，Deployment 标签选择算符在创建后是不可变的。
 {{< /note >}}
 
 <!--
@@ -829,13 +829,13 @@ Follow the steps given below to check the rollout history:
    <!-- The output is similar to this: -->
    输出类似于：
 
-    ```shell
-    deployments "nginx-deployment"
-    REVISION    CHANGE-CAUSE
-    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
-    2           kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
-    3           kubectl set image deployment/nginx-deployment nginx=nginx:1.161
-    ```
+   ```shell
+   deployments "nginx-deployment"
+   REVISION    CHANGE-CAUSE
+   1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
+   2           kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
+   3           kubectl set image deployment/nginx-deployment nginx=nginx:1.161
+   ```
 
    <!--
    `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You can specify the`CHANGE-CAUSE` message by:
@@ -847,8 +847,8 @@ Follow the steps given below to check the rollout history:
    * Annotating the Deployment with `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
    * Manually editing the manifest of the resource.
    -->
-  * 使用 `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"` 为 Deployment 添加注解。
-  * 手动编辑资源的清单。
+   * 使用 `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"` 为 Deployment 添加注解。
+   * 手动编辑资源的清单。
 
 <!--
 2. To see the details of each revision, run:
@@ -1304,7 +1304,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
   the Deployment will not have any effect as long as the Deployment rollout is paused.
   -->
   暂停 Deployment 之前的初始状态将继续发挥作用，
-  注意：在 Deployment 的暂停状态持续期间，对 Deployment 的更新操作将不会产生任何效果。
+  但只要 Deployment 的上线状态是暂停， Deployment 的新更新就不会产生任何效果。
 
 <!--
 * Eventually, resume the Deployment rollout and observe a new ReplicaSet coming up with all the new updates:
@@ -1414,13 +1414,8 @@ Kubernetes marks a Deployment as _progressing_ when one of the following tasks i
 When the rollout becomes “progressing”, the Deployment controller adds a condition with the following
 attributes to the Deployment's `.status.conditions`:
 -->
-当上线状态变为 “progressing” 时，Deployment 控制器会为 Deployment 的 `.status.conditions` 添加一个具有以下属性的条件：
+当上线状态变为 “progressing” 时，Deployment 控制器会为 Deployment 的 `.status.conditions` 添加一个具有以下属性的状况：
 
-<--
-* `type: Progressing`
-* `status: "True"`
-* `reason: NewReplicaSetCreated` | `reason: FoundNewReplicaSet` | `reason: ReplicaSetUpdated`
-  -->
 * `type: Progressing`
 * `status: "True"`
 * `reason: NewReplicaSetCreated` | `reason: FoundNewReplicaSet` | `reason: ReplicaSetUpdated`
@@ -1453,13 +1448,8 @@ updates you've requested have been completed.
 When the rollout becomes “complete”, the Deployment controller sets a condition with the following
 attributes to the Deployment's `.status.conditions`:
 -->
-当上线状态变为 “complete” 时，Deployment 控制器会为 Deployment 的 `.status.conditions` 设置一个具有以下属性的状态：
+当上线状态变为 “complete” 时，Deployment 控制器会为 Deployment 的 `.status.conditions` 设置一个具有以下属性的状况：
 
-<!--
-* `type: Progressing`
-* `status: "True"`
-* `reason: NewReplicaSetAvailable`
--->
 * `type: Progressing`
 * `status: "True"`
 * `reason: NewReplicaSetAvailable`
