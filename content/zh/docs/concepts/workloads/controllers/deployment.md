@@ -1469,7 +1469,7 @@ This `Progressing` condition will retain a status value of `"True"` until a new 
 is initiated. The condition holds even when availability of replicas changes (which
 does instead affect the `Available` condition).
 -->
-在新上线发起之前，此 `Progressing` 状态都将保留 `"True"` 状态值。
+在新上线发起之前，此 `Progressing` 状况都将保留 `"True"` 状态值。
 即使副本的可用性发生变化（这会影响 `Available` 状态），该状态值仍然保持不变。
 
 <!--
