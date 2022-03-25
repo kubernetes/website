@@ -264,7 +264,7 @@ Follow the steps given below to create the above Deployment:
    <!--
    The created ReplicaSet ensures that there are three `nginx` Pods.
    -->
-   所创建的 ReplicaSet 确保 `nginx` Pod 的数量总是期望值。
+   所创建的 ReplicaSet 确保总是存在三个 `nginx` Pod。
 
 <!--
 You must specify an appropriate selector and Pod template labels in a Deployment (in this case,
@@ -300,7 +300,8 @@ This label ensures that child ReplicaSets of a Deployment do not overlap. It is 
 and in any existing Pods that the ReplicaSet might have.
 -->
 此标签可确保 Deployment 的子 ReplicaSets 不重叠。
-此标签是通过对 ReplicaSet 的 `PodTemplate` 进行哈希处理后，将所生成的哈希值添加到 ReplicaSet 选择算符、Pod 模板标签中，其存在于在 ReplicaSet
+此标签是通过对 ReplicaSet 的 `PodTemplate` 进行哈希处理后，
+将所生成的哈希值添加到 ReplicaSet 选择算符、Pod 模板标签中，其存在于在 ReplicaSet
 可能拥有的任何现有 Pod 中。
 
 <!--
@@ -313,7 +314,8 @@ and in any existing Pods that the ReplicaSet might have.
 is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 -->
 {{< note >}}
-仅当 Deployment Pod 模板（即 `.spec.template`）发生改变时，例如模板的标签或容器镜像被更新，才会触发 Deployment 上线。
+仅当 Deployment Pod 模板（即 `.spec.template`）发生改变时，
+例如模板的标签或容器镜像被更新，才会触发 Deployment 上线。
 其他更新（如对 Deployment 执行扩缩容的操作）不会触发上线动作。
 {{< /note >}}
 
@@ -456,7 +458,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   Deployment also ensures that only a certain number of Pods are created above the desired number of Pods.
   By default, it ensures that at most 25% of the desired number of Pods are up (25% max surge).
   -->
-  Deployment 还确保所创建 Pod 数量只可能比期望 Pods 数高一定数值。
+  Deployment 还确保所创建 Pod 数量只可能比期望 Pods 数高一点点。
   默认情况下，它确保启动的 Pod 个数比期望个数最多多出 25%（最大峰值 25%）。
 
   <!--   
@@ -1849,7 +1851,7 @@ Instead, allow the Kubernetes
 
 如果你手动对 Deployment 进行拓展之后，（例如通过 `kubectl scale deployment deployment --replicas=X` 命令），
 你又重新通过资源清单更新了该 Deployment （例如通过 `kubectl apply -f deployment.yaml` 命令），
-注意：应用资源清单更新会覆盖你之前所做的手动缩放。
+那么你之前所做的手动缩放操作会被直接覆盖。
 
 如果一个 Deployment 的副本数量正在由 [Pod 水平自动扩缩容](/zh/docs/tasks/run-application/horizontal-pod-autoscale/)
 (或任何用于水平缩放的类似 API) 管理，请不要设置 `.spec.replicas` 字段。
@@ -1894,8 +1896,9 @@ another Deployment, or by creating another controller such as a ReplicaSet or a 
 do so, the first Deployment thinks that it created these other Pods. Kubernetes does not stop you from doing this.
 -->
 {{< note >}}
-您不应直接通过创建另一个 Deployment 或通过创建另一个控制器（例如 ReplicaSet 或 ReplicationController）来创建标签与此选择器匹配的其他 Pod。
-如果这样做，第一个 Deployment 会认为是它创建了这些 Pod。
+你不应直接创建、或者通过创建另一个 Deployment，或者创建类似 ReplicaSet
+或 ReplicationController 这类控制器来创建标签与此选择算符匹配的 Pod。
+如果这样做，第一个 Deployment 会认为它创建了这些 Pod。
 Kubernetes 不会阻止你这么做。
 {{< /note >}}
 
@@ -1903,7 +1906,7 @@ Kubernetes 不会阻止你这么做。
 If you have multiple controllers that have overlapping selectors, the controllers will fight with each
 other and won't behave correctly.
 -->
-如果你有多个具有重叠选择器的控制器，则控制器之间会因冲突而无法正常工作。
+如果有多个控制器的选择算符发生重叠，则控制器之间会因冲突而无法正常工作。
 
 <!--
 ### Strategy
@@ -1935,8 +1938,9 @@ the rolling update process.
 -->
 #### 滚动更新 Deployment   {#rolling-update-deployment}
 
-Deployment 会在 `.spec.strategy.type==RollingUpdate`时，采取滚动更新的方式更新 Pods。
-你通过指定 `maxUnavailable` 和 `maxSurge` 的方式来控制滚动更新的过程。
+Deployment 会在 `.spec.strategy.type==RollingUpdate`时，采取
+滚动更新的方式更新 Pods。你可以指定 `maxUnavailable` 和 `maxSurge` 来控制滚动更新
+过程。
 
 <!--
 ##### Max Unavailable
