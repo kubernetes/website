@@ -24,7 +24,9 @@ weight: 10
 A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 -->
-一个 _Deployment_ 为 {{< glossary_tooltip text="Pods" term_id="pod" >}} 和 {{< glossary_tooltip term_id="replica-set" text="ReplicaSets" >}} 提供声明式的更新能力。
+一个 _Deployment_ 为 {{< glossary_tooltip text="Pods" term_id="pod" >}}
+和 {{< glossary_tooltip term_id="replica-set" text="ReplicaSets" >}}
+提供声明式的更新能力。
 
 <!--
 You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_tooltip term_id="controller" >}} changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
@@ -130,7 +132,7 @@ In this example:
   * Pod 被使用 `labels` 字段打上 `app: nginx` 标签。
   * Pod 模板规约（即 `.template.spec` 字段）指示 Pods 运行一个 `nginx` 容器，
     该容器运行版本为 1.14.2 的 `nginx` [Docker Hub](https://hub.docker.com/)镜像。
-  * 创建一个容器并根据 `name` 字段将其命名为 `nginx`。
+  * 创建一个容器并使用 `name` 字段将其命名为 `nginx`。
 
 <!--
 Before you begin, make sure your Kubernetes cluster is up and running.
@@ -171,11 +173,11 @@ Follow the steps given below to create the above Deployment:
    * `AVAILABLE` displays how many replicas of the application are available to your users.
    * `AGE` displays the amount of time that the application has been running.
    -->
-  * `NAME` 列出了集群中 Deployment 的名称。
-  * `READY` 显示应用程序的可用的 _副本_ 数。显示的模式是“就绪个数/期望个数”。
-  * `UP-TO-DATE` 显示为了达到期望状态已经更新的副本数。
-  * `AVAILABLE` 显示应用可供用户使用的副本数。
-  * `AGE` 显示应用程序运行的时间。
+   * `NAME` 列出了集群中 Deployment 的名称。
+   * `READY` 显示应用程序的可用的 _副本_ 数。显示的模式是“就绪个数/期望个数”。
+   * `UP-TO-DATE` 显示为了达到期望状态已经更新的副本数。
+   * `AVAILABLE` 显示应用可供用户使用的副本数。
+   * `AGE` 显示应用程序运行的时间。
 
    <!--
    Notice how the number of desired replicas is 3 according to `.spec.replicas` field.
@@ -234,11 +236,11 @@ Follow the steps given below to create the above Deployment:
    -->
    ReplicaSet 输出中包含以下字段：
 
-  * `NAME` 列出名字空间中 ReplicaSet 的名称；
-  * `DESIRED` 显示应用的期望副本个数，即在创建 Deployment 时所定义的值。此为期望状态；
-  * `CURRENT` 显示当前运行状态中的副本个数；
-  * `READY` 显示应用中有多少副本可以为用户提供服务；
-  * `AGE` 显示应用已经运行的时间长度。
+   * `NAME` 列出名字空间中 ReplicaSet 的名称；
+   * `DESIRED` 显示应用的期望副本个数，即在创建 Deployment 时所定义的值。此为期望状态；
+   * `CURRENT` 显示当前运行状态中的副本个数；
+   * `READY` 显示应用中有多少副本可以为用户提供服务；
+   * `AGE` 显示应用已经运行的时间长度。
 
    <!--
    Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. The random string is
