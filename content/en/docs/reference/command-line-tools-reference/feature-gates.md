@@ -784,8 +784,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
 - `DynamicAuditing`: Used to enable dynamic auditing before v1.19.
-- `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See
-  [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
+- `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. The
+  feature is no longer supported outside of supported skew policy. The feature
+  gate was removed from kubelet in 1.24. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of
   volume topology and handle PV provisioning.
   This feature is superseded by the `VolumeScheduling` feature completely in v1.12.
