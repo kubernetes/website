@@ -275,7 +275,8 @@ and if multiple controllers have overlapping selectors those controllers might c
 {{< note >}}
 你必须在 Deployment 中指定适当的选择算符和 Pod 模板标签（在本例中为 `app: nginx`）。
 标签或者选择算符不要与其他控制器（包括其他 Deployment 和 StatefulSet）重叠。
-Kubernetes 不会阻止你这样做，但是如果多个控制器具有重叠的选择算符，它们可能会发生冲突，最终的执行结果难以预料。
+Kubernetes 不会阻止你这样做，但是如果多个控制器具有重叠的选择算符，它们可能会发生冲突，
+执行难以预料的操作。
 {{< /note >}}
 
 <!--
