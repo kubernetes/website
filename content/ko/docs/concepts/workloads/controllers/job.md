@@ -25,7 +25,8 @@ weight: 50
 
 잡을 사용하면 여러 파드를 병렬로 실행할 수도 있다.
 
-잡을 스케줄에 따라 구동하고 싶은 경우(단일 작업이든, 여러 작업의 병렬 수행이든), [크론잡(CronJob)](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 참고한다.
+잡을 스케줄에 따라 구동하고 싶은 경우(단일 작업이든, 여러 작업의 병렬 수행이든), 
+[크론잡(CronJob)](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 참고한다.
 
 <!-- body -->
 
@@ -206,6 +207,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
     있다면, 잡에 속한 파드는 DNS를 이용하여 서로를 디스커버 하기 위해 사전에 결정된 
     호스트네임을 사용할 수 있다.
   - 컨테이너화된 태스크의 경우, `JOB_COMPLETION_INDEX` 환경 변수.
+  
   각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
   간주된다. 이 모드를 사용하는 방법에 대한 자세한 내용은
   [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
@@ -249,7 +251,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 {{< note >}}
 만약 잡에 `restartPolicy = "OnFailure"` 가 있는 경우 잡 백오프 한계에
-도달하면 잡을 실행 중인 컨테이너가 종료된다. 이로 인해 잡 실행 파일의 디버깅이
+도달하면 잡을 실행 중인 파드가 종료된다. 이로 인해 잡 실행 파일의 디버깅이
 더 어려워질 수 있다. 디버깅하거나 로깅 시스템을 사용해서 실패한 작업의 결과를 실수로 손실되지 않도록
 하려면 `restartPolicy = "Never"` 로 설정하는 것을 권장한다.
 {{< /note >}}
@@ -344,6 +346,25 @@ spec:
 삭제되도록 할 수 있다. 만약 필드를 설정하지 않으면, 이 잡이 완료된
 후에 TTL 컨트롤러에 의해 정리되지 않는다.
 
+{{< note >}}
+`ttlSecondsAfterFinished` 필드를 설정하는 것을 권장하는데, 
+이는 관리되지 않는 잡(직접 생성한, 
+크론잡 등 다른 워크로드 API를 통해 간접적으로 생성하지 않은 잡)의 
+기본 삭제 정책이 `orphanDependents`(관리되지 않는 잡이 완전히 삭제되어도 
+해당 잡에 의해 생성된 파드를 남겨둠)이기 때문이다.
+삭제된 잡의 파드가 실패하거나 완료된 뒤 
+{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}이 언젠가 
+[가비지 콜렉션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)을 한다고 해도, 
+이렇게 남아 있는 파드는 클러스터의 성능을 저하시키거나 
+최악의 경우에는 이 성능 저하로 인해 클러스터가 중단될 수도 있다.
+
+[리밋 레인지(Limit Range)](/ko/docs/concepts/policy/limit-range/)와 
+[리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 사용하여 
+특정 네임스페이스가 사용할 수 있는 자원량을 제한할 수 
+있다.
+{{< /note >}}
+
+
 ## 잡 패턴
 
 잡 오브젝트를 사용해서 신뢰할 수 있는 파드의 병렬 실행을 지원할 수 있다.  잡 오브젝트는 과학
@@ -395,10 +416,10 @@ spec:
 | [정적 작업 할당을 사용한 인덱싱된 잡]             |          W          |        any           |
 | [잡 템플릿 확장]                             |          1          |     1이어야 함         |
 
-[작업 항목 당 파드가 있는 큐]: /docs/tasks/job/coarse-parallel-processing-work-queue/
-[가변 파드 수를 가진 큐]: /docs/tasks/job/fine-parallel-processing-work-queue/
+[작업 항목 당 파드가 있는 큐]: /ko/docs/tasks/job/coarse-parallel-processing-work-queue/
+[가변 파드 수를 가진 큐]: /ko/docs/tasks/job/fine-parallel-processing-work-queue/
 [정적 작업 할당을 사용한 인덱싱된 잡]: /docs/tasks/job/indexed-parallel-processing-static/
-[잡 템플릿 확장]: /docs/tasks/job/parallel-processing-expansion/
+[잡 템플릿 확장]: /ko/docs/tasks/job/parallel-processing-expansion/
 
 ## 고급 사용법
 

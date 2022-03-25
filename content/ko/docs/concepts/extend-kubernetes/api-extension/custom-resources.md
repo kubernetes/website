@@ -146,9 +146,9 @@ CRD 오브젝트의 이름은 유효한
 
 일반적으로 쿠버네티스 API의 각 리소스에는 REST 요청을 처리하고 오브젝트의 퍼시스턴트 스토리지를 관리하는 코드가 필요하다. 주요 쿠버네티스 API 서버는 *파드* 및 *서비스* 와 같은 빌트인 리소스를 처리하고, 일반적으로 [CRD](#커스텀리소스데피니션)를 통해 커스텀 리소스를 처리할 수 ​​있다.
 
-[애그리게이션 레이어](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 사용하면 자체 독립형 API 서버를
+[애그리게이션 레이어](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 사용하면 자체 API 서버를
 작성하고 배포하여 커스텀 리소스에 대한 특수한 구현을 제공할 수 있다.
-기본 API 서버는 처리하는 커스텀 리소스에 대한 요청을 사용자에게 위임하여
+기본 API 서버는 처리하는 커스텀 리소스에 대한 요청을 자체 API 서버에게 위임하여
 모든 클라이언트가 사용할 수 있게 한다.
 
 ## 커스텀 리소스를 추가할 방법 선택

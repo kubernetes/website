@@ -26,7 +26,7 @@ weight: 40
 ## 인그레스란?
 
 [인그레스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)는 클러스터 외부에서 클러스터 내부
-{{< link text="서비스" url="/docs/concepts/services-networking/service/" >}}로 HTTP와 HTTPS 경로를 노출한다.
+{{< link text="서비스" url="/ko/docs/concepts/services-networking/service/" >}}로 HTTP와 HTTPS 경로를 노출한다.
 트래픽 라우팅은 인그레스 리소스에 정의된 규칙에 의해 컨트롤된다.
 
 다음은 인그레스가 모든 트래픽을 하나의 서비스로 보내는 간단한 예시이다.
@@ -51,7 +51,7 @@ graph LR;
 인그레스는 외부에서 서비스로 접속이 가능한 URL, 로드 밸런스 트래픽, SSL / TLS 종료 그리고 이름-기반의 가상 호스팅을 제공하도록 구성할 수 있다. [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 일반적으로 로드 밸런서를 사용해서 인그레스를 수행할 책임이 있으며, 트래픽을 처리하는데 도움이 되도록 에지 라우터 또는 추가 프런트 엔드를 구성할 수도 있다.
 
 인그레스는 임의의 포트 또는 프로토콜을 노출시키지 않는다. HTTP와 HTTPS 이외의 서비스를 인터넷에 노출하려면 보통
-[Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 또는
+[Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#type-nodeport) 또는
 [Service.Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer) 유형의 서비스를 사용한다.
 
 ## 전제 조건들
@@ -231,6 +231,11 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 `Scope` 필드의 기본값은 `Cluster` 이다. 즉, 기본값은 클러스터 범위의
 리소스이다. `Scope` 를 `Namespace` 로 설정하고 `Namespace` 필드를
 설정하면 특정 네임스페이스의 파라미터 리소스를 참조한다.
+
+네임스페이스 범위의 파라미터를 사용하면 파라미터 리소스에 대해 
+클러스터 범위의 CustomResourceDefinition이 필요하지 않다. 
+또한, 클러스터 범위의 리소스에 권한을 부여하는 데 필요한 
+RBAC 관련 리소스도 필요하지 않게 만든다.
 
 {{< codenew file="service/networking/namespaced-params.yaml" >}}
 
@@ -559,7 +564,7 @@ Events:
 사용자는 인그레스 리소스를 직접적으로 포함하지 않는 여러가지 방법으로 서비스를 노출할 수 있다.
 
 * [Service.Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer) 사용.
-* [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 사용.
+* [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#type-nodeport) 사용.
 
 
 

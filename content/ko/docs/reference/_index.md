@@ -26,7 +26,7 @@ no_list: true
 * [쿠버네티스 {{< param "version" >}}용 원페이지(One-page) API 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [쿠버네티스 API 사용](/ko/docs/reference/using-api/) - 쿠버네티스 API에 대한 개요
 * [API 접근 제어](/ko/docs/reference/access-authn-authz/) - 쿠버네티스가 API 접근을 제어하는 방법에 대한 세부사항
-* [잘 알려진 레이블, 어노테이션과 테인트](/docs/reference/labels-annotations-taints/)
+* [잘 알려진 레이블, 어노테이션과 테인트](/ko/docs/reference/labels-annotations-taints/)
 
 ## 공식적으로 지원되는 클라이언트 라이브러리
 
@@ -65,7 +65,7 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
   * [kube-scheduler 프로파일](/ko/docs/reference/scheduling/config/#여러-프로파일)
 
 * 컨트롤 플레인과 워커 노드에서 꼭 열어야 하는
-  [포트와 프로토콜](/docs/reference/ports-and-protocols/) 리스트
+  [포트와 프로토콜](/ko/docs/reference/ports-and-protocols/) 리스트
 ## API 설정
 
 이 섹션은 쿠버네티스 구성요소 또는 도구를 환경설정하는 데에 사용되는

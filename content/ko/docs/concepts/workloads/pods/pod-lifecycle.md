@@ -159,7 +159,7 @@ kubelet은 해당 컨테이너의 재시작 백오프 타이머를 재설정한�
 * `PodScheduled`: 파드가 노드에 스케줄되었다.
 * `ContainersReady`: 파드의 모든 컨테이너가 준비되었다.
 * `Initialized`: 모든 [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)가
-  성공적으로 시작되었다.
+  성공적으로 완료(completed)되었다.
 * `Ready`: 파드는 요청을 처리할 수 있으며 일치하는 모든 서비스의 로드
   밸런싱 풀에 추가되어야 한다.
 

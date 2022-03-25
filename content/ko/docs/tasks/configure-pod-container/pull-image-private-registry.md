@@ -6,29 +6,36 @@ weight: 100
 
 <!-- overview -->
 
-이 페이지는 프라이빗 도커 레지스트리나 리포지터리로부터 이미지를 받아오기 위해 시크릿(Secret)을 
+이 페이지는 프라이빗 컨테이너 레지스트리나 리포지터리로부터 이미지를 받아오기 위해 
+{{< glossary_tooltip text="시크릿(Secret)" term_id="secret" >}}을 
 사용하는 파드를 생성하는 방법을 보여준다.
+
+{{% thirdparty-content single="true" %}}
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* {{< include "task-tutorial-prereqs.md" >}}
 
-* 이 실습을 수행하기 위해, 
-[도커 ID](https://docs.docker.com/docker-id/)와 비밀번호가 필요하다.
+* 이 실습을 수행하기 위해, `docker` 명령줄 도구와
+[도커 ID](https://docs.docker.com/docker-id/) 및 비밀번호가 필요하다.
 
 <!-- steps -->
 
-## 도커 로그인
+## 도커 허브 로그인
 
 노트북에 프라이빗 이미지를 받아오기 위하여 레지스트리 인증을 필수로 수행해야 한다.
+
+`docker` 도구를 사용하여 도커 허브에 로그인한다. 자세한 정보는 
+[도커 ID 계정](https://docs.docker.com/docker-id/#log-in)의 _로그 인_ 섹션을 참조한다.
 
 ```shell
 docker login
 ```
 
-프롬프트가 나타나면, 도커 사용자 이름(username)과 비밀번호(password)를 입력하자.
+프롬프트가 나타나면, 도커 ID를 입력한 다음, 사용하려는 자격증명(액세스 토큰, 
+또는 도커 ID의 비밀번호)을 입력한다.
 
-로그인 프로세스는 권한 토큰 정보를 가지고 있는 `config.json` 파일을 생성하거나 업데이트 한다.
+로그인 프로세스를 수행하면 권한 토큰 정보를 가지고 있는 `config.json` 파일이 생성되거나 업데이트된다. [쿠버네티스가 이 파일을 어떻게 해석하는지](/ko/docs/concepts/containers/images#config-json) 참고한다.
 
 `config.json` 파일을 확인하자.
 
@@ -171,14 +178,14 @@ janedoe:xxxxxxxxxxx
 
 ## 시크릿을 사용하는 파드 생성하기
 
-다음은 `regcred` 에 있는 도커 자격 증명에 접근해야 하는 파드의 구성 파일이다.
+다음은 `regcred` 에 있는 도커 자격 증명에 접근해야 하는 예제 파드의 매니페스트이다.
 
 {{< codenew file="pods/private-reg-pod.yaml" >}}
 
-아래의 파일을 다운로드받는다.
+위 파일을 컴퓨터에 다운로드한다.
 
 ```shell
-wget -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
+curl -L -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
 ```
 
 `my-private-reg-pod.yaml` 파일 안에서, `<your-private-image>` 값을 다음과 같은 프라이빗 저장소 안의 이미지 경로로 변경한다.
@@ -200,9 +207,10 @@ kubectl get pod private-reg
 
 ## {{% heading "whatsnext" %}}
 
-* [시크릿](/ko/docs/concepts/configuration/secret/)에 대해 더 배워 보기.
+* [시크릿](/ko/docs/concepts/configuration/secret/)에 대해 더 배워 보기
+  * 또는 {{< api-reference page="config-and-storage-resources/secret-v1" >}} API 레퍼런스 읽어보기
 * [프라이빗 레지스트리 사용](/ko/docs/concepts/containers/images/#프라이빗-레지스트리-사용)에 대해 더 배워 보기.
 * [서비스 어카운트에 풀 시크릿(pull secret) 추가하기](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)에 대해 더 배워 보기.
 * [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)에 대해 읽어보기.
-* [시크릿](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)에 대해 읽어보기.
-* [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)의 `imagePullSecrets` 필드에 대해 읽어보기.
+* 파드의 [컨테이너 정의](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers)의 `imagePullSecrets` 필드에 대해 읽어보기
+

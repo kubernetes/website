@@ -31,9 +31,7 @@ weight: 30
 및 실행을 자동화할 수 있고, *또한* 쿠버네티스가 수행하는 방식을
 자동화할 수 있다.
 
-쿠버네티스의 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}
-개념을 통해 쿠버네티스 코드 자체를 수정하지 않고도 클러스터의 동작을
-확장할 수 있다.
+쿠버네티스의 {{< glossary_tooltip text="오퍼레이터 패턴" term_id="operator-pattern" >}} 개념을 통해, {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}를 커스텀 리소스와 연계시켜 쿠버네티스 코드 자체를 수정하지 않고도 클러스터의 동작을 확장할 수 있다.
 오퍼레이터는 [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)의
 컨트롤러 역할을 하는 쿠버네티스 API의 클라이언트이다.
 

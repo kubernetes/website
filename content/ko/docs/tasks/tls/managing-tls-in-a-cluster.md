@@ -1,6 +1,10 @@
 ---
 title: 클러스터에서 TLS 인증서 관리
 content_type: task
+
+
+
+
 ---
 
 <!-- overview -->
@@ -158,9 +162,19 @@ Events: <none>
 
 ## 인증서 서명 요청 승인 받기
 
-인증서 서명 요청을 승인하는 것은 자동화된 승인 프로세스나
-클러스터 관리자에 의해 일회성으로 수행한다. 여기에 
-관련된 내용에 대한 자세한 내용은 아래에서 설명한다.
+[인증서 서명 요청](/docs/reference/access-authn-authz/certificate-signing-requests/) 승인은 
+자동화된 승인 프로세스 또는 클러스터 관리자의 일회성 승인으로 수행된다. 
+인증서 요청을 승인할 수 있는 권한이 있다면, 
+다음과 같이 `kubectl`을 사용하여 수동으로 수행할 수 있다.
+
+```shell
+kubectl certificate approve my-svc.my-namespace
+```
+
+```none
+certificatesigningrequest.certificates.k8s.io/my-svc.my-namespace approved
+```
+
 
 ## 인증서 다운로드 및 사용
 

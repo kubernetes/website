@@ -402,7 +402,7 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 제어된다.
 
 기본적으로, 아래 설명된 두 구성 옵션,
-`ShutdownGracePeriod` 및 `ShutdownGracePeriodCriticalPods` 는 모두 0으로 설정되어 있으므로,
+`shutdownGracePeriod` 및 `shutdownGracePeriodCriticalPods` 는 모두 0으로 설정되어 있으므로,
 그레이스풀 노드 셧다운 기능이 활성화되지 않는다.
 기능을 활성화하려면, 두 개의 kubelet 구성 설정을 적절하게 구성하고 0이 아닌 값으로 설정해야 한다.
 
@@ -412,13 +412,13 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 2. 노드에서 실행 중인 [중요(critical) 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료시킨다.
 
 그레이스풀 노드 셧다운 기능은 두 개의 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) 옵션으로 구성된다.
-* `ShutdownGracePeriod`:
+* `shutdownGracePeriod`:
   * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 이것은 모든 일반 및 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 파드 종료에 필요한 총 유예 기간에 해당한다.
-* `ShutdownGracePeriodCriticalPods`:
-  * 노드 종료 중에 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `ShutdownGracePeriod` 보다 작아야 한다.
+* `shutdownGracePeriodCriticalPods`:
+  * 노드 종료 중에 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `shutdownGracePeriod` 보다 작아야 한다.
 
-예를 들어, `ShutdownGracePeriod=30s`,
-`ShutdownGracePeriodCriticalPods=10s` 인 경우, kubelet은 노드 종료를 30초까지
+예를 들어, `shutdownGracePeriod=30s`,
+`shutdownGracePeriodCriticalPods=10s` 인 경우, kubelet은 노드 종료를 30초까지
 지연시킨다. 종료하는 동안 처음 20(30-10)초는 일반 파드의
 유예 종료에 할당되고, 마지막 10초는
 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 종료에 할당된다.
@@ -450,6 +450,11 @@ kubelet은 노드에서 스왑을 발견하지 못한 경우 시작과 동시에
 활성화되어야 하며, 명령줄 플래그 `--fail-swap-on` 또는
 [구성 설정](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)에서 `failSwapOn`가
 false로 지정되어야 한다.
+
+{{< warning >}}
+메모리 스왑 기능이 활성화되면, 시크릿 오브젝트의 내용과 같은 
+tmpfs에 기록되었던 쿠버네티스 데이터가 디스크에 스왑될 수 있다.
+{{< /warning >}}
 
 사용자는 또한 선택적으로 `memorySwap.swapBehavior`를 구성할 수 있으며, 
 이를 통해 노드가 스왑 메모리를 사용하는 방식을 명시한다. 예를 들면,

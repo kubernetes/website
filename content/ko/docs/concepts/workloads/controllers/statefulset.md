@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 title: 스테이트풀셋
 content_type: concept
 weight: 30
@@ -166,9 +173,7 @@ N개의 레플리카가 있는 스테이트풀셋은 스테이트풀셋에 있�
 
 ### 안정된 스토리지
 
-쿠버네티스는 각 VolumeClaimTemplate마다 하나의 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)을
-생성한다. 위의 nginx 예시에서 각 파드는 `my-storage-class` 라는 스토리지 클래스와
-1 Gib의 프로비전된 스토리지를 가지는 단일 퍼시스턴트 볼륨을 받게 된다. 만약 스토리지 클래스가
+쿠버네티스는 각 VolumeClaimTemplate마다 하나의 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)을 생성한다. 위의 nginx 예시에서 각 파드는 `my-storage-class` 라는 스토리지 클래스와 1 Gib의 프로비전된 스토리지를 가지는 단일 퍼시스턴트 볼륨을 받게 된다. 만약 스토리지 클래스가
 명시되지 않은 경우, 기본 스토리지 클래스가 사용된다. 파드가 노드에서 스케줄 혹은 재스케줄이 되면
 파드의 `volumeMounts` 는 퍼시스턴트 볼륨 클레임과 관련된 퍼시스턴트 볼륨이 마운트 된다.
 참고로, 파드 퍼시스턴트 볼륨 클레임과 관련된 퍼시스턴트 볼륨은
@@ -285,18 +290,28 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 
 `.spec.minReadySeconds`는 새로 생성된 파드가 사용가능하다고 간주되도록 
 컨테이너가 충돌되지 않고 준비되는 최소 시간 초를 지정하는 선택적 필드이다.
-기본값은 0이다(파드는 준비되는 대로 사용 가능한 것으로 간주된다).
-파드가 준비가 되는 시기에 대해 더 자세히 알아보고 싶다면,
-[컨테이너 프로브](/ko/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)를 참고한다.
+기본값은 0이다(파드는 준비되는 대로 사용 가능한 것으로 간주된다). 파드가 준비가 되는 시기에 대해 
+더 자세히 알아보고 싶다면, [컨테이너 프로브](/ko/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)를 참고한다.
 
 이 필드는 `StatefulSetMinReadySeconds` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하도록 설정한 경우에만 작동한다.
 
+### 레플리카
+
+`.spec.replicas` 은 필요한 파드의 수를 지정하는 선택적 필드이다. 기본값은 1이다.
+
+예를 들어 `kubectl scale deployment deployment --replicas=X` 명령으로 
+디플로이먼트의 크기를 수동으로 조정한 뒤, 
+매니페스트를 이용하여 디플로이먼트를 업데이트하면(예: `kubectl apply -f deployment.yaml` 실행), 
+수동으로 설정했던 디플로이먼트의 크기가 
+오버라이드된다.
+
+[HorizontalPodAutoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)(또는 수평 스케일링을 위한 유사 API)가 
+디플로이먼트 크기를 관리하고 있다면, `.spec.replicas` 를 설정해서는 안 된다.
+대신, 쿠버네티스 
+{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}이 
+`.spec.replicas` 필드를 자동으로 관리한다.
+
 ## {{% heading "whatsnext" %}}
-
-
-* [스테이트풀 애플리케이션의 배포](/ko/docs/tutorials/stateful-application/basic-stateful-set/)의 예시를 따른다.
-* [카산드라와 스테이트풀셋 배포](/ko/docs/tutorials/stateful-application/cassandra/)의 예시를 따른다.
-* [레플리케이티드(replicated) 스테이트풀 애플리케이션 실행하기](/docs/tasks/run-application/run-replicated-stateful-application/)의 예시를 따른다.
 
 * [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
 * 스테이트풀셋을 사용하는 방법을 알아본다.
@@ -306,10 +321,9 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
   * [스테이트풀셋 확장하기](/docs/tasks/run-application/scale-stateful-set/)에 대해 배운다.
   * [스테이트풀셋을 삭제하면](/ko/docs/tasks/run-application/delete-stateful-set/) 어떤 일이 수반되는지를 배운다.
   * [스토리지의 볼륨을 사용하는 파드 구성](/ko/docs/tasks/configure-pod-container/configure-volume-storage/)을 하는 방법을 배운다.
-  * [스토리지로 퍼시스턴트볼륨(PersistentVolume)을 사용하도록 파드 설정](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)하는 방법을 배운다.
+  * [스토리지로 퍼시스턴트볼륨(PersistentVolume)을 사용하도록 파드 설정](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)하는 방법을 배운다.
 * `StatefulSet`은 쿠버네티스 REST API의 상위-수준 리소스이다.
   스테이트풀셋 API에 대해 이해하기 위해 
-  {{< api-reference page="workload-resources/stateful-set-v1" >}}
-  오브젝트 정의를 읽는다.
+  {{< api-reference page="workload-resources/stateful-set-v1" >}} 오브젝트 정의를 읽는다.
 * [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과
   이를 사용해서 어떻게 중단 중에 애플리케이션 가용성을 관리할 수 있는지에 대해 읽는다.

@@ -36,10 +36,9 @@ Go에 의해 정의된 `runtime.GOOS` 값을 kubelet이 읽어서 이 레이블�
 
 적용 대상: 네임스페이스
 
-`NamespaceDefaultLabelName` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 
-활성화되어 있으면, 
-쿠버네티스 API 서버가 모든 네임스페이스에 이 레이블을 적용한다. 
-레이블의 값은 네임스페이스의 이름으로 적용된다.
+({{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}의 일부인) 
+쿠버네티스 API 서버가 이 레이블을 모든 네임스페이스에 설정한다. 
+레이블의 값은 네임스페이스의 이름으로 적용된다. 이 레이블의 값을 변경할 수는 없다.
 
 레이블 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}를 이용하여 특정 네임스페이스를 지정하고 싶다면 
 이 레이블이 유용할 수 있다.
@@ -62,6 +61,16 @@ kubelet이 호스트네임을 읽어서 이 레이블의 값으로 채운다. `k
 
 이 레이블은 토폴로지 계층의 일부로도 사용된다. [`topology.kubernetes.io/zone`](#topologykubernetesiozone)에서 세부 사항을 확인한다.
 
+
+## kubernetes.io/change-cause {#change-cause}
+
+예시: `kubernetes.io/change-cause=kubectl edit --record deployment foo`
+
+적용 대상: 모든 오브젝트
+
+이 어노테이션은 어떤 오브젝트가 왜 변경되었는지 그 이유를 담는다.
+
+어떤 오브젝트를 변경할 수도 있는 `kubectl` 명령에 `--record` 플래그를 사용하면 이 레이블이 추가된다.
 
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 

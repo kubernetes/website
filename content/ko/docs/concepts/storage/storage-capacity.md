@@ -7,7 +7,7 @@
 
 title: 스토리지 용량
 content_type: concept
-weight: 45
+weight: 70
 ---
 
 <!-- overview -->
@@ -16,7 +16,6 @@ weight: 45
 예를 들어, 일부 노드에서 NAS(Network Attached Storage)에 접근할 수 없는 경우가 있을 수 있으며,
 또는 각 노드에 종속적인 로컬 스토리지를 사용하는 경우일 수도 있다.
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 이 페이지에서는 쿠버네티스가 어떻게 스토리지 용량을 추적하고
