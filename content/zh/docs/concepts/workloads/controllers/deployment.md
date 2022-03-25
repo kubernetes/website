@@ -466,7 +466,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   It makes sure that at least 3 Pods are available and that at max 4 Pods in total are available. In case of
   a Deployment with 4 replicas, the number of Pods would be between 3 and 5.
   -->
-  例如，如果仔细查看上述 Deployment ，将看到它首先创建了一个新 Pod，然后删除了一个旧 Pod，
+  例如，如果仔细查看上述 Deployment，将看到它首先创建了一个新 Pod，然后删除了一个旧 Pod，
   紧接着又创建了一个新 Pod。在有足够数量的新 Pods 出现前，它不会全部杀死老旧的 Pods。
   在足够数量的旧 Pods 被杀死前不会创建新的 Pods。
   它确保至少有 3 个 Pod 可用，最多总共 4 个 Pod 可用。
