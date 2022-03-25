@@ -1852,7 +1852,8 @@ Instead, allow the Kubernetes
 如果一个 Deployment 的副本数量正在由 [Pod 水平自动扩缩容](/zh/docs/tasks/run-application/horizontal-pod-autoscale/)
 (或任何用于水平缩放的类似 API) 管理，请不要设置 `.spec.replicas` 字段。
 
-相反，应让 Kubernetes {{<glossary_tooltip text="control plane" term_id="control-plane" >}} 自动管理 `.spec.replicas` 字段。
+相反，应让 Kubernetes {{<glossary_tooltip text="控制面" term_id="control-plane" >}}自动管理
+`.spec.replicas` 字段。
 
 <!--
 ### Selector
