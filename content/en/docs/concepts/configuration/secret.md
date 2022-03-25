@@ -392,6 +392,7 @@ when new keys are projected to the Pod can be as long as the kubelet sync period
 propagation delay, where the cache propagation delay depends on the chosen cache type
 (following the same order listed in the previous paragraph, these are:
 watch propagation delay, the configured cache TTL, or zero for direct polling).
+You can trigger an immediate refresh by updating one of the Pod's annotations.
 
 ### Using Secrets as environment variables
 

@@ -235,7 +235,8 @@ all requests directly to the API server.
 As a result, the total delay from the moment when the ConfigMap is updated to the moment
 when new keys are projected to the Pod can be as long as the kubelet sync period + cache
 propagation delay, where the cache propagation delay depends on the chosen cache type
-(it equals to watch propagation delay, ttl of cache, or zero correspondingly).
+(it equals to watch propagation delay, ttl of cache, or zero correspondingly). You can
+trigger an immediate refresh by updating one of the Pod's annotations.
 
 ConfigMaps consumed as environment variables are not updated automatically and require a pod restart. 
 
