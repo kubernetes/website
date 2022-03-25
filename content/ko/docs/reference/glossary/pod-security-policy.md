@@ -2,7 +2,7 @@
 title: 파드 시큐리티 폴리시(Pod Security Policy)
 id: pod-security-policy
 date: 2018-04-12
-full_link: /docs/concepts/policy/pod-security-policy/
+full_link: /ko/docs/concepts/policy/pod-security-policy/
 short_description: >
   파드 생성과 업데이트에 대한 세밀한 인가를 활성화한다.
 

@@ -2,7 +2,7 @@
 title: 컨테이너 런타임
 id: container-runtime
 date: 2019-06-05
-full_link: /docs/setup/production-environment/container-runtimes
+full_link: /ko/docs/setup/production-environment/container-runtimes/
 short_description: >
  컨테이너 런타임은 컨테이너 실행을 담당하는 소프트웨어이다.
 
