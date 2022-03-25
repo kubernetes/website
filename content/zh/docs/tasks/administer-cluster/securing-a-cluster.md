@@ -254,7 +254,7 @@ to the metadata API, and avoid using provisioning data to deliver secrets.
 -->
 ### 限制云 metadata API 访问
 
-云平台（AWS,  Azure, GCE 等）经常讲 metadate 本地服务暴露给实例。
+云平台（AWS,  Azure, GCE 等）经常将 metadata 本地服务暴露给实例。
 默认情况下，这些 API 可由运行在实例上的 Pod 访问，并且可以包含
 该云节点的凭据或配置数据（如 kubelet 凭据）。
 这些凭据可以用于在集群内升级或在同一账户下升级到其他云服务。

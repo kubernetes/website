@@ -51,7 +51,9 @@ which are configured in the API.
 
 <!--
 Admission controllers may be "validating", "mutating", or both. Mutating
-controllers may modify the objects they admit; validating controllers may not.
+controllers may modify related objects to the requests they admit; validating controllers may not.
+
+Admission controllers limit requests to create, delete, modify objects or connect to proxy. They do not limit requests to read objects.
 
 The admission control process proceeds in two phases. In the first phase,
 mutating admission controllers are run. In the second phase, validating
@@ -62,7 +64,9 @@ If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
 -->
 准入控制器可以执行 “验证（Validating）” 和/或 “变更（Mutating）” 操作。
-变更（mutating）控制器可以修改被其接受的对象；验证（validating）控制器则不行。
+变更（mutating）控制器可以根据被其接受的请求修改相关对象；验证（validating）控制器则不行。
+
+准入控制器限制创建、删除、修改对象或连接到代理的请求，不限制读取对象的请求。
 
 准入控制过程分为两个阶段。第一阶段，运行变更准入控制器。第二阶段，运行验证准入控制器。
 再次提醒，某些控制器既是变更准入控制器又是验证准入控制器。
@@ -995,10 +999,11 @@ This admission controller implements additional validations for checking incomin
 
 {{< note >}}
 <!--
-Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
+Support for volume resizing is available as a beta feature. As a cluster administrator,
+you must ensure that the feature gate `ExpandPersistentVolumes` is set
 to `true` to enable resizing.
 -->
-对调整卷大小的支持是一种 Alpha 特性。管理员必须将特性门控 `ExpandPersistentVolumes`
+对调整卷大小的支持是一种 Beta 特性。作为集群管理员，你必须确保特性门控 `ExpandPersistentVolumes`
 设置为 `true` 才能启用调整大小。
 {{< /note >}}
 
@@ -1173,7 +1178,7 @@ PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
 
 ### PodSecurity {#podsecurity}
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 <!--
 This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller

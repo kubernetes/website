@@ -83,7 +83,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 
    ```bash
    chmod +x kubectl
-   mkdir -p ~/.local/bin/kubectl
+   mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
    # and then append (or prepend) ~/.local/bin to $PATH
    ```
@@ -94,6 +94,11 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 
    ```bash
    kubectl version --client
+   ```
+   Or use this for detailed view of version:
+
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 ### Install using native package management

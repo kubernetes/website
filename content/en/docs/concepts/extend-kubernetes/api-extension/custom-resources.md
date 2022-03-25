@@ -26,7 +26,7 @@ many core Kubernetes functions are now built using custom resources, making Kube
 Custom resources can appear and disappear in a running cluster through dynamic registration,
 and cluster admins can update custom resources independently of the cluster itself.
 Once a custom resource is installed, users can create and access its objects using
-[kubectl](/docs/reference/kubectl/overview/), just as they do for built-in resources like
+[kubectl](/docs/reference/kubectl/), just as they do for built-in resources like
 *Pods*.
 
 ## Custom controllers

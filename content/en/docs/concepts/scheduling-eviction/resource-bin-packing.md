@@ -38,7 +38,7 @@ Below is an example configuration that sets
 resources `intel.com/foo` and `intel.com/bar`.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
 # ...

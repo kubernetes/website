@@ -166,7 +166,7 @@ flag.
 It is recommended that the kubernetes system daemons are placed under a top
 level control group (`runtime.slice` on systemd machines for example). Each
 system daemon should ideally run within its own child control group. Refer to
-[the design proposal](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)
+[the design proposal](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md#recommended-cgroups-setup)
 for more details on recommended control group hierarchy.
 
 Note that Kubelet **does not** create `--kube-reserved-cgroup` if it doesn't
@@ -179,7 +179,7 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 `runtime.slice`）。
 理想情况下每个系统守护进程都应该在其自己的子控制组中运行。
 请参考
-[这个设计方案](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)，
+[这个设计方案](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md#recommended-cgroups-setup)，
 进一步了解关于推荐控制组层次结构的细节。
 
 请注意，如果 `--kube-reserved-cgroup` 不存在，Kubelet 将 **不会** 创建它。
@@ -340,7 +340,7 @@ respectively.
 `kubelet` 默认对 Pod 执行 'Allocatable' 约束。
 无论何时，如果所有 Pod 的总用量超过了 'Allocatable'，驱逐 Pod 的措施将被执行。
 有关驱逐策略的更多细节可以在
-[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)页找到。
+[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)页找到。
 可通过设置 kubelet `--enforce-node-allocatable` 标志值为 `pods` 控制这个措施。
 
 可选地，通过在同一标志中同时指定 `kube-reserved` 和 `system-reserved` 值，
