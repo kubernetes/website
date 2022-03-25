@@ -217,10 +217,10 @@ In the example above, traffic is routed to the single endpoint defined in
 the YAML: `192.0.2.42:9376` (TCP).
 
 {{< note >}}
-The Kubernetes API server does not allow proxying to endpoints that are not mapped to 
-pods. Actions such as `kubectl proxy <service-name>` where the service has no 
-selector will fail due to this constraint. This prevents the Kubernetes API server 
-from being used as a proxy to endpoints the caller may not be authorized to access. 
+The Kubernetes API server does not allow proxying to endpoints that are not mapped to
+pods. Actions such as `kubectl proxy <service-name>` where the service has no
+selector will fail due to this constraint. This prevents the Kubernetes API server
+from being used as a proxy to endpoints the caller may not be authorized to access.
 {{< /note >}}
 
 An ExternalName Service is a special case of Service that does not have
@@ -284,7 +284,7 @@ There are a few reasons for using proxying for Services:
 
 Later in this page you can read about various kube-proxy implementations work. Overall,
 you should note that, when running `kube-proxy`, kernel level rules may be
-modified (for example, iptables rules might get created), which won't get cleaned up, 
+modified (for example, iptables rules might get created), which won't get cleaned up,
 in some cases until you reboot.  Thus, running kube-proxy is something that should
 only be done by an administrator which understands the consequences of having a
 low level, privileged network proxying service on a computer.  Although the `kube-proxy`
@@ -299,6 +299,7 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 - The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.  For example, if your operating system doesn't allow you to run iptables commands, the standard kernel kube-proxy implementation will not work.  Likewise, if you have an operating system which doesn't support `netsh`, it will not run in Windows userspace mode.
 
 ### User space proxy mode {#proxy-mode-userspace}
+{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
 In this (legacy) mode, kube-proxy watches the Kubernetes control plane for the addition and
 removal of Service and Endpoint objects. For each Service it opens a
@@ -741,13 +742,13 @@ Your cluster must have the `ServiceLoadBalancerClass` [feature gate](/docs/refer
 other versions of Kubernetes, check the documentation for that release.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation if the cluster is configured with
-a cloud provider using the `--cloud-provider` component flag. 
+a cloud provider using the `--cloud-provider` component flag.
 If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
 implementation that matches the specified class is watching for Services.
 Any default load balancer implementation (for example, the one provided by
 the cloud provider) will ignore Services that have this field set.
 `spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
-Once set, it cannot be changed. 
+Once set, it cannot be changed.
 The value of `spec.loadBalancerClass` must be a label-style identifier,
 with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
 Unprefixed names are reserved for end-users.
@@ -1030,7 +1031,7 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
 
         service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
         # A list of existing security groups to be configured on the ELB created. Unlike the annotation
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other security groups previously assigned to the ELB and also overrides the creation 
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other security groups previously assigned to the ELB and also overrides the creation
         # of a uniquely generated security group for this ELB.
         # The first security group ID on this list is used as a source to permit incoming traffic to target worker nodes (service traffic and health checks).
         # If multiple ELBs are configured with the same security group ID, only a single permit line will be added to the worker node security groups, that means if you delete any
@@ -1040,7 +1041,7 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
         #  A list of additional security groups to be added to the created ELB, this leaves the uniquely generated security group in place, this ensures that every ELB
         # has a unique security group ID and a matching permit line to allow traffic to the target worker nodes (service traffic and health checks).
-        # Security groups defined here can be shared between services. 
+        # Security groups defined here can be shared between services.
 
         service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
         # A comma separated list of key-value pairs which are used
