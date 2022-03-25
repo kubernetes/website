@@ -219,17 +219,17 @@ spec:
 
 #### OpenStack CSI migration
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-The `CSIMigration` feature for Cinder is enabled by default in Kubernetes 1.21.
+The `CSIMigration` feature for Cinder is enabled by default since Kubernetes 1.21.
 It redirects all plugin operations from the existing in-tree plugin to the
 `cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
 [OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster.
-You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
-If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
-for all aspects of Cinder volume storage management.
+
+To disable the in-tree Cinder plugin from being loaded by the controller manager
+and the kubelet, you can enable the `InTreePluginOpenStackUnregister`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 ### configMap
 
