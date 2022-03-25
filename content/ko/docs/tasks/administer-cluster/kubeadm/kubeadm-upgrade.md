@@ -16,10 +16,10 @@ weight: 20
 이전 버전의 kubeadm을 사용하여 생성된 클러스터 업그레이드에 대한 정보를 보려면,
 이 페이지 대신 다음의 페이지들을 참고한다.
 
-- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -2 >}}에서 {{< skew currentVersionAddMinor -1 >}}로 업그레이드](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -3 >}}에서 {{< skew currentVersionAddMinor -2 >}}로 업그레이드](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -4 >}}에서 {{< skew currentVersionAddMinor -3 >}}로 업그레이드](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -5 >}}에서 {{< skew currentVersionAddMinor -4 >}}으로 업그레이드](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -2 >}}에서 {{< skew currentVersionAddMinor -1 >}}로 업그레이드](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -3 >}}에서 {{< skew currentVersionAddMinor -2 >}}로 업그레이드](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -4 >}}에서 {{< skew currentVersionAddMinor -3 >}}로 업그레이드](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -5 >}}에서 {{< skew currentVersionAddMinor -4 >}}으로 업그레이드](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 
 추상적인 업그레이드 작업 절차는 다음과 같다.
 
