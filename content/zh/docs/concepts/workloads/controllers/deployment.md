@@ -35,7 +35,8 @@ You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 -->
 {{< note >}}
-不要管理 Deployment 所拥有的 ReplicaSet 。 如果存在下面未描述的使用场景，请考虑在 Kubernetes 仓库中提出 Issue。
+不要管理 Deployment 所拥有的 ReplicaSet。
+如果存在下面未描述的使用场景，请考虑在 Kubernetes 仓库中登记问题（Issue）。
 {{< /note >}}
 
 <!-- body -->
