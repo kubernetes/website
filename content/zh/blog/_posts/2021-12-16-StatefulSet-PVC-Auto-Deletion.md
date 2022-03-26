@@ -124,7 +124,7 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
     这可能用于临时的 StatefulSet，例如在 CI 实例或 ETL 管道中，
     StatefulSet 上的数据仅在 StatefulSet 生命周期内才需要，但在任务运行时数据不易重构。
     任何保留状态对于所有先缩小后扩大的副本都是必需的。
-  * 
+
 <!--
   * **`whenDeleted` and `whenScaled` are both `Delete`.** PVCs are deleted immediately when their
     replica is no longer needed. Note this does not include when a Pod is deleted and a new version
