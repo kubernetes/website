@@ -190,9 +190,9 @@ the StatefulSet controller may fight with custom controllers that set their own
 references. Fortunately, maintaining the existing retention behavior does not involve any new owner
 references, so default behavior will be compatible.
 -->
-我很好奇这个所有者引用机制在实践中是否有效。例如，我们意识到 Kubernetes 中没有可以知道谁设置了引用的机制，
+我很好奇这个属主引用机制在实践中是否有效。例如，我们意识到 Kubernetes 中没有可以知道谁设置了引用的机制，
 因此 StatefulSet 控制器可能会与设置自己的引用的自定义控制器发生冲突。
-幸运的是，维护现有的保留行为不涉及任何新的所有者引用，因此默认行为是兼容的。
+幸运的是，维护现有的保留行为不涉及任何新属主引用，因此默认行为是兼容的。
 
 <!--
 Please tag any issues you report with the label `sig/apps` and assign them to Matthew Cary
