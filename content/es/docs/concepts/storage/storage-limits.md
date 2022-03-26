@@ -47,7 +47,7 @@ Los límites de Volumen dinámico son compatibles con los siguientes tipos de Vo
 - Azure Disk
 - CSI
 
-Para los Volúmenes administrados por complementos de Volumen en árbol, Kubernetes determina automáticamente el tipo de Nodo y aplica la cantidad máxima adecuada de Volúmenes para el Nodo. Por ejemplo:
+Para los Volúmenes administrados por in-tree plugins de Volumen, Kubernetes determina automáticamente el tipo de Nodo y aplica la cantidad máxima adecuada de Volúmenes para el Nodo. Por ejemplo:
 
 * En
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
