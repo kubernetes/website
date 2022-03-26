@@ -100,7 +100,7 @@ which allows users to influence ReplicaSet downscaling order. The annotation par
 
 ### kubernetes.io/ingress-bandwidth
 
-Example: `"kubernetes.io/ingress-bandwidth": "10M"`
+Example: `kubernetes.io/ingress-bandwidth: 10M`
 
 Used on: Pod
 
@@ -111,7 +111,7 @@ speed using `kubernetes.io/ingress-bandwidth` annotation.
 
 ### kubernetes.io/egress-bandwidth
 
-Example: `"kubernetes.io/egress-bandwidth": "10M"`
+Example: `kubernetes.io/egress-bandwidth: 10M`
 
 Used on: Pod
 
