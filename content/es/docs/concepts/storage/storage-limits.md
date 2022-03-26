@@ -53,7 +53,7 @@ Para los Volúmenes administrados por in-tree plugins de Volumen, Kubernetes det
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
 se pueden adjuntar hasta 127 Volúmenes a un Nodo, [según el tipo de Nodo](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
 
-* Para los discos de  Amazon EBS en los tipos de instancias M5,C5,R5,T3 y Z1D, Kubernetes permite que solo se adjunten 25 Volúmenes a un Nodo. Para otros tipos de instancias en 
+* Para los discos de Amazon EBS en los tipos de instancias M5,C5,R5,T3 y Z1D, Kubernetes permite que solo se adjunten 25 Volúmenes a un Nodo. Para otros tipos de instancias en 
 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
 Kubernetes permite adjuntar 39 Volúmenes a un Nodo.
 
