@@ -60,7 +60,7 @@ accomplish commonly used tasks, and [Tutorials](/docs/tutorials/) are more
 comprehensive walkthroughs of real-world, industry-specific, or end-to-end
 development scenarios. The [Reference](/docs/reference/) section provides
 detailed documentation on the [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-and command-line interfaces (CLIs), such as [`kubectl`](/docs/user-guide/kubectl-overview/).
+and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/).
 -->
 ### 问题  {#questions}
 
@@ -71,7 +71,7 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/user-guide/kubectl
 [教程](/zh/docs/tutorials/)部分则提供对现实世界、特定行业或端到端开发场景的更全面的演练。
 [参考](/zh/docs/reference/)部分提供了详细的
 [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 文档
-和命令行 (CLI) 接口的文档，例如[`kubectl`](/zh/docs/reference/kubectl/overview/)。
+和命令行 (CLI) 接口的文档，例如[`kubectl`](/zh/docs/reference/kubectl/)。
 
 <!--
 ## Help! My question isn't covered!  I need help now!
@@ -84,14 +84,18 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/user-guide/kubectl
 Someone else from the community may have already asked a similar question or may
 be able to help with your problem. The Kubernetes team will also monitor
 [posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes).
-If there aren't any existing questions that help, please
-[ask a new one](https://stackoverflow.com/questions/ask?tags=kubernetes)!
+If there aren't any existing questions that help, **please [ensure that your question is on-topic on Stack Overflow](https://stackoverflow.com/help/on-topic)
+and that you read through the guidance on [how to ask a new question](https://stackoverflow.com/help/how-to-ask)**,
+before [asking a new one](https://stackoverflow.com/questions/ask?tags=kubernetes)!
 -->
 ### Stack Overflow    {#stack-overflow}
 
 社区中的其他人可能已经问过和你类似的问题，也可能能够帮助解决你的问题。
 Kubernetes 团队还会监视[带有 Kubernetes 标签的帖子](https://stackoverflow.com/questions/tagged/kubernetes)。
-如果现有的问题对你没有帮助，请[问一个新问题](https://stackoverflow.com/questions/ask?tags=kubernetes)!
+如果现有的问题对你没有帮助，在[问一个新问题](https://stackoverflow.com/questions/ask?tags=kubernetes)
+之前，**请[确保你的问题是关于 Stack Overflow 的主题](https://stackoverflow.com/help/on-topic)
+并且你需要阅读关于[如何提出新问题](https://stackoverflow.com/help/how-to-ask)
+的指南。**
 
 <!--
 ### Slack
