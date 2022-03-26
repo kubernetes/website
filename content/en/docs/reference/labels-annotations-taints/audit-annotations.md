@@ -57,3 +57,19 @@ violated from the PodSecurity enforcement.
 
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
+
+## authorization.k8s.io/decision
+
+Example: `authorization.k8s.io/decision: "forbid"`
+
+This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
+
+See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
+
+## authorization.k8s.io/reason
+
+Example: `authorization.k8s.io/decision: "Human-readable reason for the decision"`
+
+This annotation gives reason for the [decision](#authorization-k8s-io-decision) in Kubernetes audit logs.
+
+See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
