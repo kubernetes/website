@@ -148,8 +148,11 @@ aliases:
     - divya-mohan0209
     - jimangel
     - kbhawkey
+    - natalisucks
     - onlydole
+    - reylejano
     - sftim
+    - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
     # chenopis
     - chenrui333
@@ -242,7 +245,6 @@ aliases:
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
     - cpanato # SIG Technical Lead
-    - hasheddan # SIG Technical Lead
     - jeremyrickard # SIG Technical Lead
     - justaugustus # SIG Chair
     - LappleApple # SIG Program Manager
