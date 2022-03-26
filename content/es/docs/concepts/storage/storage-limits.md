@@ -1,8 +1,4 @@
 ---
-reviewers:
-- edithturn
-- raelga
-- electrocucaracha
 title: Límites de Volumen específicos del Nodo
 content_type: concept
 ---
