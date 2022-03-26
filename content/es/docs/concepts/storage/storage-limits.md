@@ -58,6 +58,6 @@ Kubernetes permite adjuntar 39 Volúmenes a un Nodo.
 * Si un controlador de almacenamiento CSI anuncia una cantidad máxima de Volúmenes para un Nodo (usando `NodeGetInfo`), el {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} respeta ese límite.
 Consulte las [especificaciones de CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) para obtener más información.
 
-* Para los Volúmenes administrados por complementos en árbol que se han migrado a un controlador CSI, la cantidad máxima de Volúmenes será la que informe el controlador CSI.
+* Para los Volúmenes administrados por in-tree plugins que han sido migrados a un controlador CSI, la cantidad máxima de Volúmenes será la que informe el controlador CSI.
 
 
