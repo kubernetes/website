@@ -108,14 +108,16 @@ The following methods exist for installing kubectl on macOS:
 
 1. Test to ensure the version you installed is up-to-date:
 
-   ```bash
+   ```zsh
    kubectl version --client
    ```
    Or use this for detailed view of version:
 
-   ```cmd
-   kubectl version --client --output=yaml
+   ```zsh
+   kubectl version --client --output <format> # yaml or json
+
    ```
+  [Some More About Output Options](https://kubernetes.io/docs/reference/kubectl/overview/#output-options)
 
 ### Install with Homebrew on macOS
 
