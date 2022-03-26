@@ -11,7 +11,7 @@ content_type: concept
 
 Esta página describe la cantidad máxima de Volúmenes que se pueden adjuntar a un Nodo para varios proveedores de nube.
 
-Los proveedores de la nube como Google, Amazon y Microsoft suelen tener un límite en la cantidad de Volúmenes que se pueden adjuntar a un Nodo. Es importante que Kubernetes respete esos límites. De lo contrario, los pods planificados en un Nodo podrían quedarse atascados esperando que se conecten los Volúmenes.
+Los proveedores de la nube como Google, Amazon y Microsoft suelen tener un límite en la cantidad de Volúmenes que se pueden adjuntar a un Nodo. Es importante que Kubernetes respete esos límites. De lo contrario, los Pods planificados en un Nodo podrían quedarse atascados esperando que los Volúmenes se conecten.
 
 
 
