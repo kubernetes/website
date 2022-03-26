@@ -1,15 +1,15 @@
-<!--
-layout: blog
-title: 'Kubernetes 1.23: StatefulSet PVC Auto-Deletion (alpha)'
-date: 2021-12-16
-slug: kubernetes-1-23-statefulset-pvc-auto-deletion
--->
 ---
 layout: blog
 title: 'Kubernetes 1.23: StatefulSet PVC 自动删除 (alpha)'
 date: 2021-12-16
 slug: kubernetes-1-23-statefulset-pvc-auto-deletion
 ---
+<!--
+layout: blog
+title: 'Kubernetes 1.23: StatefulSet PVC Auto-Deletion (alpha)'
+date: 2021-12-16
+slug: kubernetes-1-23-statefulset-pvc-auto-deletion
+-->
 
 <!--
 **Author:** Matthew Cary (Google)
@@ -24,7 +24,7 @@ StatefulSet spec template for cases when they should be deleted automatically wh
 is deleted or pods in the StatefulSet are scaled down.
 -->
 Kubernetes v1.23 为 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/)
-引入了一个新的 alpha 级策略，它用来控制由 StatefulSet 规范模板生成的
+引入了一个新的 alpha 级策略，用来控制由 StatefulSet 规约模板生成的
 [PersistentVolumeClaims](/zh/docs/concepts/storage/persistent-volumes/) (PVCs) 的生命周期，
 用于当删除 StatefulSet 或减少 StatefulSet 中的 Pods 数量时 PVCs 应该被自动删除的场景。
 
@@ -43,9 +43,9 @@ manually or through tools such as Helm, is that the PVCs are tracked by the tool
 with explicit lifecycle. Workflows that use StatefulSets must determine on their own what PVCs are
 created by a StatefulSet and what their lifecycle should be.
 -->
-StatefulSet 规范包含 Pod 和 PVC 的模板。当首次创建副本时，如果 PVC 还不存在，
-那么Kubernetes 控制层会为该副本自动创建一个PVC。在 Kubernetes 1.23 版本之前，
-控制层不会删除 StatefulSet 创建的 PVCs——这依赖集群管理员或你需要部署一些额外的适用的自动化工具来处理。
+StatefulSet 规约中可以包含 Pod 和 PVC 的模板。当副本先被创建时，如果 PVC 还不存在，
+Kubernetes 控制面会为该副本自动创建一个 PVC。在 Kubernetes 1.23 版本之前，
+控制面不会删除 StatefulSet 创建的 PVCs——这依赖集群管理员或你需要部署一些额外的适用的自动化工具来处理。
 管理 PVC 的常见模式是通过手动或使用 Helm 等工具，PVC 的具体生命周期由管理它的工具跟踪。
 使用 StatefulSet 时必须自行确定 StatefulSet 创建哪些 PVC，以及它们的生命周期应该是什么。
 
@@ -58,10 +58,10 @@ reconstructed from another source. In those cases, PVCs and their backing volume
 their StatefulSet or replicas have been deleted are not necessary, incur cost, and require manual
 cleanup.
 -->
-在这个新特性之前，当一个 StatefulSet 管理的副本消失时，要么是因为 StatefulSet 减少了它的副本数，
-要么是因为它的 StatefulSet 被删除了，但是 PVC 及其备份卷仍然存在，需要手动删除。
+在这个新特性之前，当一个 StatefulSet 管理的副本消失时，无论是因为 StatefulSet 减少了它的副本数，
+还是因为它的 StatefulSet 被删除了，PVC 及其下层的卷仍然存在，需要手动删除。
 当存储数据比较重要时，这样做是合理的，但在许多情况下，这些 PVC 中的持久化数据要么是临时的，
-要么可以从另一个源端重建。在这些情况下，删除 StatefulSet 或减少副本后留下的 PVC 及其备份卷是不必要的，
+要么可以从另一个源端重建。在这些情况下，删除 StatefulSet 或减少副本后留下的 PVC 及其下层的卷是不必要的，
 还会产生成本，需要手动清理。
 
 <!--
@@ -75,8 +75,8 @@ policy.  This is used to control if and when PVCs created from a StatefulSet’s
 are deleted.  This first iteration of the retention policy contains two situations where PVCs may be
 deleted.
 -->
-如果你启用这个新 alpha 特性，StatefulSet 规范具有一个 PersistentVolumeClaim 保留策略。
-该策略用于控制是否以及何时删除从 StatefulSet 的 `volumeClaimTemplate` 属性创建的 PVCs。
+如果你启用这个新 alpha 特性，StatefulSet 规约中就可以包含 PersistentVolumeClaim 的保留策略。
+该策略用于控制是否以及何时删除基于 StatefulSet 的 `volumeClaimTemplate` 属性所创建的 PVCs。
 保留策略的首次迭代包含两种可能删除 PVC 的情况。
 
 <!--
@@ -92,7 +92,7 @@ retention policies for the underlying PV are respected.
 第二种情况是 StatefulSet 缩小时，即删除 StatefulSet 部分副本，这由 `whenScaled` 策略控制。
 在这两种情况下，策略即可以是 `Retain` 不涉及相应 PVCs 的改变，也可以是 `Delete` 即删除对应的 PVCs。
 删除是通过普通的[对象删除](/zh/docs/concepts/architecture/garbage-collection/)完成的，
-因此，底层 PV 的所有保留策略都应重视。
+因此，的所有保留策略都会被遵照执行。
 
 <!--
 This policy forms a matrix with four cases. I’ll walk through and give an example for each one.
@@ -135,10 +135,10 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
     is more important than quick scale-up, or perhaps that when a new replica is created, any data
     from a previous replica is not usable and must be reconstructed anyway.
 -->
-  * **`whenDeleted` 和 `whenScaled` 都是 `Delete`。** 当不再需要它们的副本时，PVCs 会立即被删除。
-    注意，这并不包括删除 Pod 和重新调度新版本的情况，例如当节点耗尽 Pod 需要迁移到别处时。
-    只有当副本不再需要时，如按比例缩小或删除 StatefulSet 时，才会删除 PVC。
-    此策略适用于数据生命周期小于副本生命周期的情况。即数据很容易重构，
+  * **`whenDeleted` 和 `whenScaled` 都是 `Delete`。** 当其副本不再被需要时，PVCs 会立即被删除。
+    注意，这并不包括 Pod 被删除且有新版本被调度的情况，例如当节点被腾空而 Pod 需要迁移到别处时。
+    只有当副本不再被需要时，如按比例缩小或删除 StatefulSet 时，才会删除 PVC。
+    此策略适用于数据生命周期短于副本生命周期的情况。即数据很容易重构，
     且删除未使用的 PVC 所节省的成本比快速增加副本更重要，或者当创建一个新的副本时，
     来自以前副本的任何数据都不可用，必须重新构建。
 
@@ -168,7 +168,8 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
 [documentation](docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies) to
 see all the details.
 -->
-查阅[文档](docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies)获取更多详细信息。
+查阅[文档](/zh/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies)
+获取更多详细信息。
 
 <!--
 ## What’s next?
