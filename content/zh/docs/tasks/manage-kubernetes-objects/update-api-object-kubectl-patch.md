@@ -283,13 +283,11 @@ containers:
   name: patch-demo-ctr
   ...
 ```
-```shell
-
-
+```yaml
 tolerations:
-      - effect: NoSchedule
-        key: disktype
-        value: ssd
+  - effect: NoSchedule
+    key: disktype
+    value: ssd
 ```
 
 <!--
