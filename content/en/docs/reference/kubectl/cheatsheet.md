@@ -451,21 +451,43 @@ Verbosity | Description
 
 # Creating yaml manifests with kubectl
 
+# Creating deployment my-dep in yaml file foo2.yaml and listen on port 5710
+
 kubectl create deployment my-dep --image=busybox --port=5701 --dry-run=none -o yaml >foo2.yaml
+
+# Creating secret for docker-registry
 
 kubectl create secret docker-registry foo --dry-run="none" --docker-username=foo --docker-password=foo --docker-server=127.0.0.1 -o yaml >foo3.yaml
 
+# Creating secret in yaml format
+
+kubectl create secret generic name-secret --from-literal=username=user --from-literal=password=pass
+
+# Creating pod in yaml format in namespace mynamespace
+
 kubectl run nginx --image=nginx --restart=Never -n mynamespace  --dry-run=client -o yaml>nginx.yaml
+
+# Creating pod to list env in yaml format 
 
 kubectl run busybox --image=busybox --command --restart=Never --dry-run=client -o yaml -- env
 
+# Creating quota myrq in yaml format
+
 kubectl create quota myrq --hard=cpu=1,memory=1G,pods=2 --dry-run=client -o yaml
+
+# Creating testing pod for wget to ip and port an removed avter exec
 
 kubectl run busybox --image=busybox --command  --rm -it --restart=Never -- wget -O- 172.17.0.16:80
 
+# Creating testing pod for echo "hello world" en delete after exec
+
 kubectl run busybox --image=busybox --restart=Never --rm --command -it -- echo "hello world"
 
-kubectl run nginx --image=nginx --rm --env=var1=val1
+# Creating pod in yaml format with env
+
+kubectl run nginx --image=nginx --env=var1=val1 --dry-run=client -o yaml
+
+# Creating testing pod in ymal format
 
 kubectl run busybox1 --image=busybox --command "echo hello; sleep 3600" busybox2 --image=busybox --command "echo hello; sleep 3600" --dry-run=client -o yaml
 
@@ -475,50 +497,55 @@ kubectl run web --image=nginx --restart=Never --port=80 --dry-run=client -o yaml
 
 kubectl run box-test --image=busybox --restart=Never --rm -it -- wget -O- 172.17.0.7:80
 
+kubectl run busybox --image=busybox --restart=Never --dry-run=client -o yaml --command -- env
+
+kubectl run busybox --image=busybox --rm -it --restart=Never -- wget -O- $(kubectl get pod nginx -o jsonpath='{.status.podIP}:{.spec.containers[0].ports[0].containerPort}')
+
+# Creating pod in ymal format with labels
+
 kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1 --dry-run=client -o yaml
-
-for i in `seq 1 3`; do kubectl run nginx$i --image=nginx -l app=v1 ; done
-
-kubectl create deployment nginx --image=nginx:1.18.0 --replicas=2 --port=80 --dry-run=client -o yaml >deploy.yaml
-
-kubectl get rs -l run=nginx.
-
-kubectl create job busybox --image=busybox --dry-run=client -o yaml -- /bin/sh -c 'while true; do echo hello; sleep 10;done' > job.yaml
-
-kubectl create configmap config --from-literal=foo=lala --from-literal=foo2=lolo --dry-run=client -o yaml
-
-kubectl run nginx --image=nginx --restart=Never --dry-run=client -o yaml >nginx-cm.yam.
-
-kubectl run pod nginx-vol --image=nginx --restart=Never --dry-run=client -o yaml >nginx-vol.yaml
-
-kubectl run nginx --image=nginx --restart=Never --dry-run=client -o yaml>ng-live.yaml
-
-kubectl run nginx --image=nginx --restart=Never --port=80 --expose --dry-run=client -o yaml
-
-kubectl create deployment foo --image=dgkanatsios/simpleapp --port=8080 --replicas=3 --dry-run=client -o yaml >>deploy-test.yaml.
-
-kubectl run busybox --image=busybox -it --rm --restart=Never -- sh
-
-kubectl run busybox --image=busybox --rm -it --restart=Never -- wget -O- http://nginx:80 --timeout 2                          
 
 kubectl run simple-pod --image=mhausenblas/simpleservice:0.5.0 --labels=env=production,tair=backend --dry-run=client -o yaml 
 
 kubectl run nginx --image=nginx --labels=env=production,tair=backend --dry-run=client -o yaml 
 
+# Creating tree pods in ymal format with tree labels
+
+for i in `seq 1 3`; do kubectl run nginx$i --image=nginx -l app=v$i ; done
+
+# Creating deployment with two replicas and listen on port 80 in yaml format
+
+kubectl create deployment nginx --image=nginx:1.18.0 --replicas=2 --port=80 --dry-run=client -o yaml >deploy.yaml
+
+# List replicas sets
+
+kubectl get rs -l run=nginx.
+
+# Creating job in yaml format
+
+kubectl create job busybox --image=busybox --dry-run=client -o yaml -- /bin/sh -c 'while true; do echo hello; sleep 10;done' > job.yaml
+
+# Creating configmap in yaml format
+
+kubectl create configmap config --from-literal=foo=lala --from-literal=foo2=lolo --dry-run=client -o yaml
+
+# Creating pod in ymal format and make service
+
+kubectl run nginx --image=nginx --restart=Never --port=80 --expose --dry-run=client -o yaml
+
+# Creating testing pod for wget to ip and port an removed avter exec
+
+kubectl run busybox --image=busybox --rm -it --restart=Never -- wget -O- http://nginx:80 --timeout 2                          
+
+# Creating deployment simple-deployment in yaml file foo2.yaml and listen on port 9876 with two replicas
+
 kubectl create deployment simple-deployment --image=mhausenblas/simpleservice:0.4.0 --port=9876 --dry-run=client --replicas=2 -o yaml> 01-simple-deployment.yml
 
-kubectl run simple-deployment --image=mhausenblas/simpleservice:0.4.0 --port=9876 --dry-run=client --expose  -o yaml
+# Creating ingress in yaml format
 
 kubectl create ingress simple-ingress --annotation=nginx.ingress.kubernetes.io/ssl-redirect="false" --default-backend=simple-internal-service:80 --dry-run=none -o 
 yaml >ingress.yaml
 
-kubectl run busybox --image=busybox --restart=Never --dry-run=client -o yaml --command -- env
-
-kubectl run busybox --image=busybox --rm -it --restart=Never -- wget -O- $(kubectl get pod nginx -o jsonpath='{.status.podIP}:{.spec.containers[0].ports[0].containerPort}')
-
-kubectl run nginx --image=nginx --restart=Never --dry-run=client -n mynamespace -o yaml
-
-kubectl create secret generic name-secret --from-literal=username=user --from-literal=password=pass
 
 #Some aliases that can come in handy.
 
