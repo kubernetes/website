@@ -151,7 +151,7 @@ A camada de gerenciamento reflete os recursos de endpoints a não ser que:
 
 * O recurso de endpoint possua o rótulo `endpointslice.kubernetes.io/skip-mirror` como `true`.
 * O recurso de endpoint possua a anotação de `control-plane.alpha.kubernetes.io/leader`.
-* O respectivo recurso de serviço não exita.
+* O respectivo recurso de serviço não exista.
 * O respectivo recurso de serviço possua um seletor não nulo.
 
 Recursos individuais de endpoints podem ser traduzidos para multiplos EndpointSlices. Isso irá ocorrer se um recurso de endpoints possuir multiplos subconjuntos ou incluir endpoints com multiplas famílias de IP (IPv4 e IPv6). Um máximo de 1000 endereçõs por subconjunto será redirecionado ao EndpointSlices.
