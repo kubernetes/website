@@ -15,7 +15,7 @@ card:
 [새 기능 문서화](/docs/contribute/new-content/new-features/)를 참고한다.
 {{< /note >}}
 
-새 콘텐츠 페이지를 기여하거나 기존 콘텐츠 페이지를 개선하려면, 풀 리퀘스트(PR)를 연다. [시작하기 전에](/ko/docs/contribute/new-content/overview/#before-you-begin) 섹션의 모든 요구 사항을 준수해야 한다.
+새 콘텐츠 페이지를 기여하거나 기존 콘텐츠 페이지를 개선하려면, 풀 리퀘스트(PR)를 연다. [시작하기 전에](/ko/docs/contribute/new-content/#before-you-begin) 섹션의 모든 요구 사항을 준수해야 한다.
 
 변경 사항이 작거나, git에 익숙하지 않은 경우, [GitHub을 사용하여 변경하기](#github을-사용하여-변경하기)를 읽고 페이지를 편집하는 방법을 알아보자.
 
@@ -28,7 +28,40 @@ card:
 ## GitHub을 사용하여 변경하기
 
 git 워크플로에 익숙하지 않은 경우, 풀 리퀘스트를
-여는 쉬운 방법이 있다.
+여는 쉬운 방법이 있다. 아래의 그림은 각 단계를 보여주며, 상세사항은 그 아래에 나온다.
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+A([fa:fa-user 신규<br>기여자]) --- id1[(K8s/Website<br>GitHub)]
+subgraph tasks[GitHub 상에서 변경하기]
+direction TB
+    0[ ] -.-
+    1[1. '페이지 편집' 누르기] --> 2[2. GitHub 마크다운<br>편집기로 편집하기]
+    2 --> 3[3. 'Propose file change'에<br>추가 내용 기재하기]
+
+end
+subgraph tasks2[ ]
+direction TB
+4[4. 'Propose changes' 누르기] --> 5[5. 'Create pull request' 누르기] --> 6[6. 'Open a pull request'에<br>추가 내용 기재하기]
+6 --> 7[7. 'Create pull request' 누르기] 
+end
+
+id1 --> tasks --> tasks2
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:1px,color:#fff;
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class A,1,2,3,4,5,6,7 grey
+class 0 spacewhite
+class tasks,tasks2 white
+class id1 k8s
+{{</ mermaid >}}
+
+***그림 - GitHub 상에서 PR을 여는 단계***
 
 1.  이슈가 있는 페이지에서, 오른쪽 상단에 있는 연필 아이콘을 선택한다.
     페이지 하단으로 스크롤 하여 **페이지 편집하기** 를 선택할 수도 있다.
@@ -88,6 +121,37 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
 로컬 포크로 작업한다.
 
 컴퓨터에 [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)이 설치되어 있는지 확인한다. git UI 애플리케이션을 사용할 수도 있다.
+
+아래 그림은 로컬 포크에서 작업할 때의 단계를 나타낸다. 상세 사항도 소개되어 있다.
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+1[K8s/website<br>저장소 포크하기] --> 2[로컬 클론 생성<br>및 upstream 설정]
+subgraph changes[당신의 변경사항]
+direction TB
+S[ ] -.-
+3[브랜치 생성<br>예: my_new_branch] --> 3a[텍스트 편집기로<br>변경사항 만들기] --> 4["Hugo (localhost:1313)<br>를 이용하거나<br>컨테이너 이미지를 빌드하여<br>변경사항을 로컬에서 미리보기"]
+end
+subgraph changes2[커밋 / 푸시]
+direction TB
+T[ ] -.-
+5[변경사항 커밋하기] --> 6[커밋을<br>origin/my_new_branch<br>로 푸시하기]
+end
+
+2 --> changes --> changes2
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:1px,color:#fff;
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class 1,2,3,3a,4,5,6 grey
+class S,T spacewhite
+class changes,changes2 white
+{{</ mermaid >}}
+***그림 - 로컬 포크에서 변경 사항 작업하기***
 
 ### kubernetes/website 리포지터리 포크하기
 
@@ -230,7 +294,6 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 1.  로컬에서 이미지를 빌드한다.
 
       ```bash
-      make docker-image
       # docker 사용(기본값)
       make container-image
 
@@ -243,7 +306,6 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 2. 로컬에서 `kubernetes-hugo` 이미지를 빌드한 후, 사이트를 빌드하고 서비스한다.
 
       ```bash
-      make docker-serve
       # docker 사용(기본값)
       make container-serve
 
@@ -291,6 +353,34 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 
 ### 포크에서 kubernetes/website로 풀 리퀘스트 열기 {#open-a-pr}
 
+아래 그림은 당신의 포크에서 K8s/website 저장소로 PR을 여는 단계를 보여 준다. 상세 사항은 아래에 등장한다.
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+subgraph first[ ]
+direction TB
+1[1. K8s/website 저장소로 이동] --> 2[2. 'New Pull Request' 클릭]
+2 --> 3[3. 'Compare across forks' 클릭]
+3 --> 4[4. 'head repository' 드롭다운 메뉴에서<br>당신의 포크 선택]
+end
+subgraph second [ ]
+direction TB
+5[5. 'compare' 드롭다운 메뉴에서<br>당신의 브랜치 선택] --> 6[6. 'Create Pull Request' 클릭]
+6 --> 7[7. PR 본문에 상세 설명 기재]
+7 --> 8[8. 'Create pull request' 클릭]
+end
+
+first --> second
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+class 1,2,3,4,5,6,7,8 grey
+class first,second white
+{{</ mermaid >}}
+***그림 - 당신의 포크에서 K8s/website 저장소로 PR을 여는 단계***
+
 1. 웹 브라우저에서 [`kubernetes/website`](https://github.com/kubernetes/website/) 리포지터리로 이동한다.
 2. **New Pull Request** 를 선택한다.
 3. **compare across forks** 를 선택한다.
@@ -305,7 +395,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 
 8. **Create pull request** 버튼을 선택한다.
 
-  축하한다! 여러분의 풀 리퀘스트가 [풀 리퀘스트](https://github.com/kubernetes/website/pulls)에 열렸다.
+축하한다! 여러분의 풀 리퀘스트가 [풀 리퀘스트](https://github.com/kubernetes/website/pulls)에 열렸다.
 
 
 PR을 연 후, GitHub는 자동 테스트를 실행하고 [Netlify](https://www.netlify.com/)를 사용하여 미리보기를 배포하려고 시도한다.
@@ -416,7 +506,6 @@ PR을 연 후, GitHub는 자동 테스트를 실행하고 [Netlify](https://www.
 
     풀 리퀘스트에 더 이상 충돌이 표시되지 않는다.
 
-
 ### 커밋 스쿼시하기
 
 {{< note >}}
@@ -501,8 +590,6 @@ PR에 여러 커밋이 있는 경우, PR을 병합하기 전에 해당 커밋을
 대부분의 리포지터리에는 이슈와 PR 템플릿이 사용된다. 팀의 프로세스에 대한
 느낌을 얻으려면 열린 이슈와 PR을 살펴보자. 이슈나 PR을 제출할 때
 가능한 한 상세하게 템플릿의 내용을 작성한다.
-
-
 
 ## {{% heading "whatsnext" %}}
 

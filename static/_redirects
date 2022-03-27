@@ -38,8 +38,8 @@
 /docs/admin/etcd_upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/admin/extensible-admission-controllers.md     /docs/reference/access-authn-authz/extensible-admission-controllers/ 301
 /docs/admin/garbage-collection/     /docs/concepts/cluster-administration/kubelet-garbage-collection/ 301
-/docs/admin/ha-master-gce/     /docs/tasks/administer-cluster/highly-available-master/ 301
-/docs/admin/ha-master-gce.md/     /docs/tasks/administer-cluster/highly-available-master/ 301
+/docs/admin/ha-master-gce/     /docs/setup/production-environment/#production-control-plane 301
+/docs/admin/ha-master-gce.md/     /docs/setup/production-environment/#production-control-plane 301
 /docs/admin/high-availability/      /docs/setup/production-environment/tools/kubeadm/high-availability/   301
 /docs/admin/kubelet-authentication-authorization/     /docs/reference/command-line-tools-reference/kubelet-authentication-authorization/ 301
 /docs/admin/kubelet-tls-bootstrapping/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
@@ -169,6 +169,7 @@
 /docs/contribute/write-new-topic/        /docs/home/contribute/write-new-topic/ 301
 /docs/contribute/start/        /docs/contribute/ 301
 /docs/contribute/intermediate/        /docs/contribute/ 301
+/docs/contribute/new-content/overview/        /docs/contribute/new-content/ 301
 
 /docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
@@ -213,6 +214,7 @@
 
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
+/docs/reference/kubectl/overview/    /docs/reference/kubectl/ 301
 /docs/reference/kubectl/kubectl-cmds/     /docs/reference/generated/kubectl/kubectl-commands/ 301!
 /docs/reference/kubectl/kubectl/kubectl_*    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
@@ -226,7 +228,8 @@
 
 /docs/reference/kubernetes-api/labels-annotations-taints/ /docs/reference/labels-annotations-taints/ 301
 
-/docs/reporting-security-issues/     /security/ 301
+/docs/reporting-security-issues/     /docs/reference/issues-security/security/ 301
+/security/ /docs/reference/issues-security/security/ 302
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /docs/samples/     /docs/tutorials/ 301
@@ -242,6 +245,7 @@
 /docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/     /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/ 301
 /docs/tasks/access-kubernetes-api/setup-extension-api-server/     /docs/tasks/extend-kubernetes/setup-extension-api-server/ 301
 
+/docs/tasks/administer-cluster/access-cluster-services/     /docs/tasks/access-application-cluster/access-cluster-services/ 301
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
 /docs/tasks/administer-cluster/calico-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/ 301
@@ -257,6 +261,7 @@
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
 /docs/tasks/administer-cluster/enabling-endpointslices/ /docs/concepts/services-networking/endpoint-slices/ 301
+/docs/tasks/administer-cluster/highly-available-control-plane/    /docs/setup/production-environment/#production-control-plane 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
@@ -332,6 +337,8 @@
 /docs/tutorials/kubernetes-basics/expose-intro/     /docs/tutorials/kubernetes-basics/expose/expose-intro/ 301
 /docs/tutorials/kubernetes-basics/scale-interactive/     /docs/tutorials/kubernetes-basics/scale/scale-interactive/ 301
 /docs/tutorials/kubernetes-basics/scale-intro/     /docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
+/docs/tutorials/clusters/apparmor/     /docs/tutorials/security/apparmor/   301
+/docs/tutorials/clusters/seccomp/      /docs/tutorials/security/seccomp/    301
 /ja/docs/tutorials/kubernetes-basics/scale-intro/     /ja/docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
 /ko/docs/tutorials/kubernetes-basics/scale-intro/     /ko/docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
 /docs/tutorials/kubernetes-basics/update-interactive/    /docs/tutorials/kubernetes-basics/update/update-interactive/ 301
@@ -395,7 +402,7 @@
 /docs/user-guide/jobs/work-queue-1/     /docs/tasks/job/coarse-parallel-processing-work-queue/ 301
 /docs/user-guide/jobs/work-queue-2/     /docs/tasks/job/fine-parallel-processing-work-queue/ 301
 /docs/user-guide/kubeconfig-file/     /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
-/docs/user-guide/kubectl-overview/     /docs/reference/kubectl/overview/
+/docs/user-guide/kubectl-overview/     /docs/reference/kubectl/ 301
 /docs/user-guide/kubectl/     /docs/reference/generated/kubectl/kubectl-options/
 /docs/user-guide/kubectl-conventions/     /docs/reference/kubectl/conventions/
 /docs/user-guide/kubectl-cheatsheet/     /docs/reference/kubectl/cheatsheet/

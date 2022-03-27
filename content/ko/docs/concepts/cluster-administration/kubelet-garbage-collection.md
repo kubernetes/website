@@ -6,6 +6,18 @@ weight: 70
 
 <!-- overview -->
 
+
+{{< note >}}
+이 한글 문서는 더 이상 관리되지 않습니다.
+
+이 문서의 기반이 된 영어 원문은 삭제되었으며,
+[Garbage Collection](/docs/concepts/architecture/garbage-collection/)에 병합되었습니다.
+
+[Garbage Collection](/docs/concepts/architecture/garbage-collection/)의 한글화가 완료되면,
+이 문서는 삭제될 수 있습니다.
+{{< /note >}}
+
+
 가비지 수집은 사용되지 않는 
 [이미지](/ko/docs/concepts/containers/#컨테이너-이미지)들과 
 [컨테이너](/ko/docs/concepts/containers/)들을 정리하는 kubelet의 유용한 기능이다. Kubelet은 
@@ -93,5 +105,5 @@ kubelet이 관리하지 않는 컨테이너는 컨테이너 가비지 수집 대
 
 ## {{% heading "whatsnext" %}}
 
-자세한 내용은 [리소스 부족 처리 구성](/docs/concepts/scheduling-eviction/node-pressure-eviction/)를 
+자세한 내용은 [리소스 부족 처리 구성](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)를 
 본다.

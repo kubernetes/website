@@ -46,9 +46,9 @@ In cases when objects represent a physical entity, like a Node representing a ph
 {{< /note >}}
 
 <!--
-Below are three types of commonly used name constraints for resources.
+Below are four types of commonly used name constraints for resources.
 -->
-以下是比较常见的三种资源命名约束。
+以下是比较常见的四种资源命名约束。
 
 <!--
 ### DNS Subdomain Names
@@ -86,14 +86,37 @@ This means the name must:
 - start with an alphanumeric character
 - end with an alphanumeric character
 -->
-### DNS 标签名    {#dns-label-names}
+### RFC 1123 标签名    {#dns-label-names}
 
 某些资源类型需要其名称遵循 [RFC 1123](https://tools.ietf.org/html/rfc1123)
 所定义的 DNS 标签标准。也就是命名必须满足如下规则：
 
-- 最多63个字符
-- 只能包含小写字母、数字，以及'-'
+- 最多 63 个字符
+- 只能包含小写字母、数字，以及 '-'
 - 须以字母数字开头
+- 须以字母数字结尾
+
+
+<!--
+### RFC 1035 Label Names
+
+Some resource types require their names to follow the DNS
+label standard as defined in [RFC 1035](https://tools.ietf.org/html/rfc1035).
+This means the name must:
+
+- contain at most 63 characters
+- contain only lowercase alphanumeric characters or '-'
+- start with an alphabetic character
+- end with an alphanumeric character
+-->
+### RFC 1035 标签名   {#rfc-1035-label-names}
+
+某些资源类型需要其名称遵循 [RFC 1035](https://tools.ietf.org/html/rfc1035)
+所定义的 DNS 标签标准。也就是命名必须满足如下规则：
+
+- 最多 63 个字符
+- 只能包含小写字母、数字，以及 '-'
+- 须以字母开头
 - 须以字母数字结尾
 
 <!--

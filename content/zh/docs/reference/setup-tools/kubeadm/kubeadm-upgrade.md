@@ -27,7 +27,7 @@ behind one command, with support for both planning an upgrade and actually perfo
 ## kubeadm upgrade 指南
 
 <!--
-The steps for performing a upgrade using kubeadm are outlined in [this document](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
+The steps for performing an upgrade using kubeadm are outlined in [this document](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 For older versions of kubeadm, please refer to older documentation sets of the Kubernetes website.
 -->
 [本文档](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)概述

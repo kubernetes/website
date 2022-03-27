@@ -10,20 +10,19 @@ weight: 20
 
 This page shows how to configure [Group Managed Service Accounts](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) (GMSA) for Pods and containers that will run on Windows nodes. Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers.
 
-In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope as Custom Resources. Windows Pods, as well as individual containers within a Pod, can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication) when interacting with other Windows services. As of v1.16, the Docker runtime supports GMSA for Windows workloads.
-
-
+In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope as Custom Resources. Windows Pods, as well as individual containers within a Pod, can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication) when interacting with other Windows services.
 
 ## {{% heading "prerequisites" %}}
-
 
 You need to have a Kubernetes cluster and the `kubectl` command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes. This section covers a set of initial steps required once for each cluster:
 
 ### Install the GMSACredentialSpec CRD
+
 A [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD) for GMSA credential spec resources needs to be configured on the cluster to define the custom resource type `GMSACredentialSpec`. Download the GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) and save it as gmsa-crd.yaml.
 Next, install the CRD with `kubectl apply -f gmsa-crd.yaml`
 
 ### Install webhooks to validate GMSA users
+
 Two webhooks need to be configured on the Kubernetes cluster to populate and validate GMSA credential spec references at the Pod or container level:
 
 1. A mutating webhook that expands references to GMSAs (by name from a Pod specification) into the full credential spec in JSON form within the Pod spec.
@@ -36,23 +35,23 @@ Installing the above webhooks and associated objects require the steps below:
 
 1. Install a secret with the certificate from above.
 
-1. Create a deployment for the core webhook logic. 
+1. Create a deployment for the core webhook logic.
 
-1. Create the validating and mutating webhook configurations referring to the deployment. 
+1. Create the validating and mutating webhook configurations referring to the deployment.
 
 A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a ```--dry-run=server``` option to allow you to review the changes that would be made to your cluster.
 
 The [YAML template](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) used by the script may also be used to deploy the webhooks and associated objects manually (with appropriate substitutions for the parameters)
 
-
-
 <!-- steps -->
 
 ## Configure GMSAs and Windows nodes in Active Directory
+
 Before Pods in Kubernetes can be configured to use GMSAs, the desired GMSAs need to be provisioned in Active Directory as described in the [Windows GMSA documentation](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). Windows worker nodes (that are part of the Kubernetes cluster) need to be configured in Active Directory to access the secret credentials associated with the desired GMSA as described in the [Windows GMSA documentation](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet)
 
 ## Create GMSA credential spec resources
-With the GMSACredentialSpec CRD installed (as described earlier), custom resources containing GMSA credential specs can be configured. The GMSA credential spec does not contain secret or sensitive data. It is information that a container runtime can use to describe the desired GMSA of a container to Windows. GMSA credential specs can be generated in YAML format with a utility [PowerShell script](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1). 
+
+With the GMSACredentialSpec CRD installed (as described earlier), custom resources containing GMSA credential specs can be configured. The GMSA credential spec does not contain secret or sensitive data. It is information that a container runtime can use to describe the desired GMSA of a container to Windows. GMSA credential specs can be generated in YAML format with a utility [PowerShell script](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1).
 
 Following are the steps for generating a GMSA credential spec YAML manually in JSON format and then converting it:
 
@@ -60,14 +59,14 @@ Following are the steps for generating a GMSA credential spec YAML manually in J
 
 1. Create a credential spec in JSON format using `New-CredentialSpec`. To create a GMSA credential spec named WebApp1, invoke `New-CredentialSpec -Name WebApp1 -AccountName WebApp1 -Domain $(Get-ADDomain -Current LocalComputer)`
 
-1. Use `Get-CredentialSpec` to show the path of the JSON file. 
+1. Use `Get-CredentialSpec` to show the path of the JSON file.
 
-1. Convert the credspec file from JSON to YAML format and apply the necessary header fields `apiVersion`, `kind`, `metadata` and `credspec` to make it a GMSACredentialSpec custom resource that can be configured in Kubernetes. 
+1. Convert the credspec file from JSON to YAML format and apply the necessary header fields `apiVersion`, `kind`, `metadata` and `credspec` to make it a GMSACredentialSpec custom resource that can be configured in Kubernetes.
 
 The following YAML configuration describes a GMSA credential spec named `gmsa-WebApp1`:
 
 ```yaml
-apiVersion: windows.k8s.io/v1alpha1
+apiVersion: windows.k8s.io/v1
 kind: GMSACredentialSpec
 metadata:
   name: gmsa-WebApp1  #This is an arbitrary name but it will be used as a reference
@@ -92,6 +91,7 @@ credspec:
 The above credential spec resource may be saved as `gmsa-Webapp1-credspec.yaml` and applied to the cluster using: `kubectl apply -f gmsa-Webapp1-credspec.yml`
 
 ## Configure cluster role to enable RBAC on specific GMSA credential specs
+
 A cluster role needs to be defined for each GMSA credential spec resource. This authorizes the `use` verb on a specific GMSA resource by a subject which is typically a service account. The following example shows a cluster role that authorizes usage of the `gmsa-WebApp1` credential spec from above. Save the file as gmsa-webapp1-role.yaml and apply using `kubectl apply -f gmsa-webapp1-role.yaml`
 
 ```yaml
@@ -108,6 +108,7 @@ rules:
 ```
 
 ## Assign role to service accounts to use specific GMSA credspecs
+
 A service account (that Pods will be configured with) needs to be bound to the cluster role create above. This authorizes the service account to use the desired GMSA credential spec resource. The following shows the default service account being bound to a cluster role `webapp1-role` to use `gmsa-WebApp1` credential spec resource created above.
 
 ```yaml
@@ -127,6 +128,7 @@ roleRef:
 ```
 
 ## Configure GMSA credential spec reference in Pod spec
+
 The Pod spec field `securityContext.windowsOptions.gmsaCredentialSpecName` is used to specify references to desired GMSA credential spec custom resources in Pod specs. This configures all containers in the Pod spec to use the specified GMSA. A sample Pod spec with the annotation populated to refer to `gmsa-WebApp1`:
 
 ```yaml
@@ -197,55 +199,17 @@ As Pod specs with GMSA fields populated (as described above) are applied in a cl
 
 1. The container runtime configures each Windows container with the specified GMSA credential spec so that the container can assume the identity of the GMSA in Active Directory and access services in the domain using that identity.
 
-## Containerd 
+## Authenticating to network shares using hostname or FQDN
 
-On Windows Server 2019, in order to use GMSA with containerd, you must be running OS Build 17763.1817 (or later) which can be installed using the patch [KB5000822](https://support.microsoft.com/en-us/topic/march-9-2021-kb5000822-os-build-17763-1817-2eb6197f-e3b1-4f42-ab51-84345e063564). 
+If you are experiencing issues connecting to SMB shares from Pods using hostname or FQDN, but are able to access the shares via their IPv4 address then make sure the following registry key is set on the Windows nodes.
 
-There is also a known issue with containerd that occurs when trying to connect to SMB shares from Pods. Once you have configured GMSA, the pod will be unable to connect to the share using the hostname or FQDN, but connecting to the share using an IP address works as expected. 
-
-```PowerShell
-ping adserver.ad.local
-```
-and correctly resolves the hostname to an IPv4 address. The output is similar to:
-
-```
-Pinging adserver.ad.local [192.168.111.18] with 32 bytes of data:
-Reply from 192.168.111.18: bytes=32 time=6ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
+```cmd
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1
 ```
 
-However, when attempting to browse the directory using the hostname
-
-```PowerShell
-cd \\adserver.ad.local\test
-```
-
-you see an error that implies the target share doesn't exist:
-
-```
-cd : Cannot find path '\\adserver.ad.local\test' because it does not exist.
-At line:1 char:1
-+ cd \\adserver.ad.local\test
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : ObjectNotFound: (\\adserver.ad.local\test:String) [Set-Location], ItemNotFoundException
-    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
-```
-
-but you notice that the error disappears if you browse to the share using its IPv4 address instead; for example:
-
-```PowerShell
-cd \\192.168.111.18\test
-```
-
-After you change into a directory within the share, you see a prompt similar to:
-
-```
-Microsoft.PowerShell.Core\FileSystem::\\192.168.111.18\test>
-```
-
-To correct the behaviour you must run the following on the node `reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1` to add the required registry key. This node change will only take effect in newly created pods, meaning you must now recreate any running pods which require access to SMB shares.
+Running Pods will then need to be recreated to pick up the behavior changes.
+More information on how this registry key is used can be found [here](
+https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
 
 ## Troubleshooting
 
@@ -258,8 +222,10 @@ In the example below the Pod did not get the credspec correctly:
 ```PowerShell
 kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
 ```
-nltest.exe /parentdomain` results in the following error:
-```
+
+`nltest.exe /parentdomain` results in the following error:
+
+```output
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
@@ -278,7 +244,8 @@ nltest.exe /query
 ```
 
 Results in the following output:
-```
+
+```output
 I_NetLogonControl failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
@@ -289,7 +256,8 @@ nltest /sc_reset:domain.example
 ```
 
 If the command is successful you will see and output similar to this:
-```
+
+```output
 Flags: 30 HAS_IP  HAS_TIMESERV
 Trusted DC Name \\dc10.domain.example
 Trusted DC Connection Status Status = 0 0x0 NERR_Success

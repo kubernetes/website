@@ -127,6 +127,11 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
     - **subsets.ports.protocol** (string)
 
       The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+      
+      Possible enum values:
+       - `"SCTP"` is the SCTP protocol.
+       - `"TCP"` is the TCP protocol.
+       - `"UDP"` is the UDP protocol.
 
     - **subsets.ports.name** (string)
 
@@ -378,6 +383,11 @@ POST /api/v1/namespaces/{namespace}/endpoints
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -430,6 +440,11 @@ PUT /api/v1/namespaces/{namespace}/endpoints/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -478,6 +493,11 @@ PATCH /api/v1/namespaces/{namespace}/endpoints/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

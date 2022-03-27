@@ -230,7 +230,7 @@ Calico, Canal, and Flannel CNI providers are verified to support HostPort.
 For more information, see the [CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
-services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
+services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
 -->
 ## `HostPort` 服务无法工作
 
@@ -242,7 +242,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 有关更多信息，请参考 [CNI portmap 文档](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 如果你的网络提供商不支持 portmap CNI 插件，你或许需要使用
-[NodePort 服务的功能](/zh/docs/concepts/services-networking/service/#nodeport)
+[NodePort 服务的功能](/zh/docs/concepts/services-networking/service/#type-nodeport)
 或者使用 `HostNetwork=true`。
 
 <!--
@@ -390,13 +390,22 @@ the `ca.key` you must sign the embedded certificates in the `kubelet.conf` exter
 3. 将得到的 `kubelet.conf` 文件复制到故障节点上，作为 `/etc/kubernetes/kubelet.conf`。
 4. 在故障节点上重启 kubelet（`systemctl restart kubelet`），等待 `/var/lib/kubelet/pki/kubelet-client-current.pem` 重新创建。
 <!--
-1. Run `kubeadm init phase kubelet-finalize all` on the failed node. This will make the new
-`kubelet.conf` file use `/var/lib/kubelet/pki/kubelet-client-current.pem` and will restart the kubelet.
+1. Manually edit the `kubelet.conf` to point to the rotated kubelet client certificates, by replacing
+`client-certificate-data` and `client-key-data` with:
+-->
+5. 手动编辑 `kubelet.conf` 指向轮换的 kubelet 客户端证书，方法是将 `client-certificate-data` 和 `client-key-data` 替换为：
+
+    ```yaml
+    client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
+    client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
+    ```
+
+<!--
+1. Restart the kubelet.
 1. Make sure the node becomes `Ready`.
 -->
-5. 在故障节点上运行 `kubeadm init phase kubelet-finalize all`。
-   这将使新的 `kubelet.conf` 文件使用 `/var/lib/kubelet/pki/kubelet-client-current.pem` 并将重新启动 kubelet。
-6. 确保节点状况变为 `Ready`。
+6. 重新启动 kubelet。
+7. 确保节点状况变为 `Ready`。
 
 ## 在 Vagrant 中使用 flannel 作为 pod 网络时的默认 NIC
 
@@ -435,7 +444,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   When using DigitalOcean, it can be the public one (assigned to `eth0`) or
   the private one (assigned to `eth1`) should you want to use the optional
   private network. The `kubeletExtraArgs` section of the kubeadm
-  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta2/#kubeadm-k8s-io-v1beta2-NodeRegistrationOptions)
+  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
   can be used for this.
   
   Then restart `kubelet`:
@@ -468,7 +477,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
   解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 Digital Ocean 时，可以是公网IP（分配给 `eth0`的），
   或者是私网IP（分配给 `eth1` 的）。私网 IP 是可选的。
-  [kubadm `NodeRegistrationOptions` 结构](/zh/docs/reference/config-api/kubeadm-config.v1beta2/#kubeadm-k8s-io-v1beta2-NodeRegistrationOptions) 
+  [kubadm `NodeRegistrationOptions` 结构](/zh/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions) 
   的 `KubeletExtraArgs` 部分被用来处理这种情况。
 
   然后重启 `kubelet`：
@@ -595,7 +604,7 @@ Alternatively, you can try separating the `key=value` pairs like so:
 `-apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
-A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta2/).
+A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
 -->
 ## 无法将以逗号分隔的值列表传递给 `--component-extra-args` 标志内的参数
 
@@ -613,7 +622,7 @@ kube-apiserver 这样的控制平面组件。然而，由于解析 (`mapStringSt
 但这将导致键 `enable-admission-plugins` 仅有值 `NamespaceExists`。
 
 已知的解决方法是使用 kubeadm
-[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta2/)。
+[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 <!--
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
@@ -667,6 +676,7 @@ For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/c
 Kubernetes components like the kubelet and kube-controller-manager use the default path of
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
 for the feature to work.
+(**Note**: FlexVolume was deprecated in the Kubernetes v1.23 release)
 -->
 ## 节点上的 `/usr` 被以只读方式挂载 {#usr-mounted-read-only}
 
@@ -676,16 +686,16 @@ for the feature to work.
 类似 kubelet 和 kube-controller-manager 这类 Kubernetes 组件使用默认路径
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
 而 FlexVolume 的目录 _必须是可写入的_，该功能特性才能正常工作。
+（**注意**：FlexVolume 在 Kubernetes v1.23 版本中已被弃用）
 
 <!--
 To workaround this issue you can configure the flex-volume directory using the kubeadm
-[configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3).
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 On the primary control-plane Node (created using `kubeadm init`) pass the following
 file using `--config`:
 -->
-为了解决这个问题，你可以使用 kubeadm 的[配置文件](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)
-来配置 FlexVolume 的目录。
+为了解决这个问题，你可以使用 kubeadm 的[配置文件](/docs/reference/config-api/kubeadm-config.v1beta3/) 来配置 FlexVolume 的目录。
 
 在（使用 `kubeadm init` 创建的）主控制节点上，使用 `-config`
 参数传入如下文件：
@@ -775,8 +785,8 @@ If you want to use TLS between the metrics-server and the kubelet there is a pro
 since kubeadm deploys a self-signed serving certificate for the kubelet. This can cause the following errors
 on the side of the metrics-server:
 -->
-如果你需要在 metrics-server 和 kubelt 之间使用 TLS，会有一个问题，
-kubeadm 为 kubelt 部署的是自签名的服务证书。这可能会导致 metrics-server
+如果你需要在 metrics-server 和 kubelet 之间使用 TLS，会有一个问题，
+kubeadm 为 kubelet 部署的是自签名的服务证书。这可能会导致 metrics-server
 端报告下面的错误信息：
 
 ```

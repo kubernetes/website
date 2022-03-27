@@ -31,6 +31,13 @@ API 서버에서 제어될 수는 없다.
 을 사용하는 것이 바람직하다.
 {{< /note >}}
 
+{{< note >}}
+스태틱 파드의 `spec`은 다른 API 오브젝트(예를 들면,
+{{< glossary_tooltip text="서비스어카운트" term_id="service-account" >}},
+{{< glossary_tooltip text="컨피그맵" term_id="configmap" >}},
+{{< glossary_tooltip text="시크릿" term_id="secret" >}}, 등)가 참조할 수 없다.
+{{< /note >}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}

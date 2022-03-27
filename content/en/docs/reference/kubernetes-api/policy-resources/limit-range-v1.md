@@ -66,6 +66,11 @@ LimitRangeSpec defines a min/max usage limit for resources that match on kind.
   - **limits.type** (string), required
 
     Type of resource that this limit applies to.
+    
+    Possible enum values:
+     - `"Container"` Limit that applies to all containers in a namespace
+     - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
+     - `"Pod"` Limit that applies to all pods in a namespace
 
   - **limits.default** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -329,6 +334,11 @@ POST /api/v1/namespaces/{namespace}/limitranges
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -381,6 +391,11 @@ PUT /api/v1/namespaces/{namespace}/limitranges/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -429,6 +444,11 @@ PATCH /api/v1/namespaces/{namespace}/limitranges/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

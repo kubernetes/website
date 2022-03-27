@@ -26,13 +26,15 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 ## Konfiguracja
 
-[Konfiguracja  serwera Redis z użyciem ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
+
+* [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Aplikacje bezstanowe *(Stateless Applications)*
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [Example: Deploying PHP Guestbook application with MongoDB](/docs/tutorials/stateless-application/guestbook/)
+* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
 
 ## Aplikacje stanowe *(Stateful Applications)*
 
@@ -44,13 +46,16 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
-## Klastry
-
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
-
 ## Serwisy
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
+
+## Bezpieczeństwo
+
+* [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
+* [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
+* [AppArmor](/docs/tutorials/security/apparmor/)
+* [seccomp](/docs/tutorials/security/seccomp/)
 
 ## {{% heading "whatsnext" %}}
 

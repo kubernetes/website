@@ -51,7 +51,7 @@ by the kubelet, using the `--cluster-dns` flag. This setting needs to be the sam
 on every manager and Node in the cluster. The kubelet provides a versioned, structured API object
 that can configure most parameters in the kubelet and push out this configuration to each running
 kubelet in the cluster. This object is called
-[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/). 
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
 The `KubeletConfiguration` allows the user to specify flags such as the cluster DNS IP addresses expressed as
 a list of values to a camelCased key, illustrated by the following example:
 
@@ -151,8 +151,10 @@ systemctl daemon-reload && systemctl restart kubelet
 After the kubelet loads the new configuration, kubeadm writes the
 `/etc/kubernetes/bootstrap-kubelet.conf` KubeConfig file, which contains a CA certificate and Bootstrap
 Token. These are used by the kubelet to perform the TLS Bootstrap and obtain a unique
-credential, which is stored in `/etc/kubernetes/kubelet.conf`. When this file is written, the kubelet
-has finished performing the TLS Bootstrap.
+credential, which is stored in `/etc/kubernetes/kubelet.conf`.
+
+When the `/etc/kubernetes/kubelet.conf` file is written, the kubelet has finished performing the TLS Bootstrap.
+Kubeadm deletes the `/etc/kubernetes/bootstrap-kubelet.conf` file after completing the TLS Bootstrap.
 
 ##  The kubelet drop-in file for systemd
 
@@ -167,10 +169,15 @@ It augments the basic
 [`kubelet.service` for RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) or
 [`kubelet.service` for DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service):
 
+{{< note >}}
+The contents below are just an example. If you don't want to use a package manager
+follow the guide outlined in the [Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+section.
+{{< /note >}}
+
 ```none
 [Service]
-Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf
---kubeconfig=/etc/kubernetes/kubelet.conf"
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 # This is a file that "kubeadm init" and "kubeadm join" generate at runtime, populating
 the KUBELET_KUBEADM_ARGS variable dynamically
@@ -201,8 +208,7 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 | Package name | Description |
 |--------------|-------------|
 | `kubeadm`    | Installs the `/usr/bin/kubeadm` CLI tool and the [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
-| `kubelet`    | Installs the kubelet binary in `/usr/bin` and CNI binaries in `/opt/cni/bin`. |
+| `kubelet`    | Installs the `/usr/bin/kubelet` binary. |
 | `kubectl`    | Installs the `/usr/bin/kubectl` binary. |
 | `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-sigs/cri-tools). |
-
-
+| `kubernetes-cni` | Installs the `/opt/cni/bin` binaries from the [plugins git repository](https://github.com/containernetworking/plugins). |

@@ -249,6 +249,7 @@ Home | [All heading and subheading URLs](/docs/home/)
 Setup | [All heading and subheading URLs](/docs/setup/)
 Tutorials | [Kubernetes Basics](/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/hello-minikube/)
 Site strings | [All site strings](#Site-strings-in-i18n) in a new localized TOML file
+Releases | [All heading and subheading URLs](/releases)
 
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source:
 
@@ -346,7 +347,7 @@ Teams must merge localized content into the same branch from which the content w
 
 For example:
 - a localization branch sourced from `main` must be merged into `main`.
-- a localization branch sourced from `release-{{ skew "prevMinorVersion" }}` must be merged into `release-{{ skew "prevMinorVersion" }}`.
+- a localization branch sourced from `release-{{% skew "prevMinorVersion" %}}` must be merged into `release-{{% skew "prevMinorVersion" %}}`.
 
 {{< note >}}
 If your localization branch was created from `main` branch but it is not merged into `main` before new release branch `{{< release-branch >}}` created, merge it into both `main` and new release branch `{{< release-branch >}}`. To merge your localization branch into new release branch `{{< release-branch >}}`, you need to switch upstream branch of your localization branch to `{{< release-branch >}}`.
@@ -361,5 +362,4 @@ For more information about working from forks or directly from the repository, s
 ## Upstream contributions
 
 SIG Docs welcomes upstream contributions and corrections to the English source.
-
-
+                                                                                                                                      

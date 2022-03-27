@@ -70,7 +70,7 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
 - **resources** (ResourceRequirements)
 
-  Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+  Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 
   <a name="ResourceRequirements"></a>
   *ResourceRequirements describes the compute resource requirements.*
@@ -125,6 +125,10 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 
   AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 
+- **allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+  The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
   Represents the actual resources of the underlying volume.
@@ -143,6 +147,12 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 
   - **conditions.type** (string), required
 
+    
+    
+    
+    Possible enum values:
+     - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
+     - `"Resizing"` - a user trigger resize of pvc has been started
 
   - **conditions.lastProbeTime** (Time)
 
@@ -169,6 +179,15 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 - **phase** (string)
 
   Phase represents the current phase of PersistentVolumeClaim.
+  
+  Possible enum values:
+   - `"Bound"` used for PersistentVolumeClaims that are bound
+   - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
+   - `"Pending"` used for PersistentVolumeClaims that are not yet bound
+
+- **resizeStatus** (string)
+
+  ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 
 
 
@@ -445,6 +464,11 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -497,6 +521,11 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -547,6 +576,11 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -595,6 +629,11 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
@@ -650,6 +689,11 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

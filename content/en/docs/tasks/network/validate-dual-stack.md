@@ -3,7 +3,7 @@ reviewers:
 - lachie83
 - khenidak
 - bridgetkromhout
-min-kubernetes-server-version: v1.20
+min-kubernetes-server-version: v1.23
 title: Validate IPv4/IPv6 dual-stack
 content_type: task
 ---
@@ -21,6 +21,9 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 
 {{< version-check >}}
 
+{{< note >}}
+While you can validate with an earlier version, the feature is only GA and officially supported since v1.23.
+{{< /note >}}
 
 
 <!-- steps -->

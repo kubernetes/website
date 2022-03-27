@@ -31,7 +31,7 @@ min-kubernetes-server-version: v1.10
 1. MongoDB를 실행하기 위해 디플로이먼트를 생성한다.
 
     ```shell
-    kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
+    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-deployment.yaml
     ```
 
     성공적인 명령어의 출력은 디플로이먼트가 생성됐다는 것을 확인해준다.
@@ -84,7 +84,7 @@ min-kubernetes-server-version: v1.10
 2. MongoDB를 네트워크에 노출시키기 위해 서비스를 생성한다.
 
     ```shell
-    kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
+    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-service.yaml
     ```
 
     성공적인 커맨드의 출력은 서비스가 생성되었다는 것을 확인해준다.

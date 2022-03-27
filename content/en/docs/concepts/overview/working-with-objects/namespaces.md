@@ -10,8 +10,7 @@ weight: 30
 
 <!-- overview -->
 
-Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-These virtual clusters are called namespaces.
+In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 
 <!-- body -->
 
@@ -98,6 +97,24 @@ that if a container only uses `<service-name>`, it will resolve to the service w
 is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
+
+As a result, all namespace names must be valid
+[RFC 1123 DNS labels](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
+
+{{< warning >}}
+By creating namespaces with the same name as [public top-level
+domains](https://data.iana.org/TLD/tlds-alpha-by-domain.txt), Services in these
+namespaces can have short DNS names that overlap with public DNS records.
+Workloads from any namespace performing a DNS lookup without a [trailing dot](https://datatracker.ietf.org/doc/html/rfc1034#page-8) will
+be redirected to those services, taking precedence over public DNS. 
+
+To mitigate this, limit privileges for creating namespaces to trusted users. If
+required, you could additionally configure third-party security controls, such
+as [admission
+webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/),
+to block creating any namespace with the name of [public
+TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
+{{< /warning >}}
 
 ## Not All Objects are in a Namespace
 

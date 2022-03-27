@@ -60,7 +60,7 @@ _모든_ 파드가 가용한 경우가 아닌 경우 멈추고 싶다면(아마�
 
 각 리소스에 대해 읽을 수 있을 뿐만 아니라, 리소스와 관련된 특정 작업에 대해서도 알아볼 수 있다.
 
-* [`Deployment` 를 사용하여 스테이트리스(stateless) 애플리케이션 실행](/docs/tasks/run-application/run-stateless-application-deployment/)
+* [`Deployment` 를 사용하여 스테이트리스(stateless) 애플리케이션 실행](/ko/docs/tasks/run-application/run-stateless-application-deployment/)
 * 스테이트풀(stateful) 애플리케이션을 [단일 인스턴스](/ko/docs/tasks/run-application/run-single-instance-stateful-application/)
   또는 [복제된 세트](/docs/tasks/run-application/run-replicated-stateful-application/)로 실행
 * [`CronJob` 을 사용하여 자동화된 작업 실행](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)

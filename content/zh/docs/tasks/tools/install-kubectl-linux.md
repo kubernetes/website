@@ -22,13 +22,13 @@ card:
 ## {{% heading "prerequisites" %}}
 
 <!-- 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew latestVersion >}} client can communicate with v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, and v{{< skew nextMinorVersion >}} control planes.
-Using the latest version of kubectl helps avoid unforeseen issues.
+You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
 kubectl 版本和集群版本之间的差异必须在一个小版本号内。
-例如：v{{< skew latestVersion >}} 版本的客户端能与 v{{< skew prevMinorVersion >}}、
-v{{< skew latestVersion >}} 和 v{{< skew nextMinorVersion >}} 版本的控制面通信。
-用最新版的 kubectl 有助于避免不可预见的问题。
+例如：v{{< skew currentVersion >}} 版本的客户端能与 v{{< skew currentVersionAddMinor -1 >}}、
+v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}} 版本的控制面通信。
+用最新兼容版的 kubectl 有助于避免不可预见的问题。
 
 <!-- 
 ## Install kubectl on Linux
@@ -98,7 +98,7 @@ The following methods exist for installing kubectl on Linux:
    基于校验和文件，验证 kubectl 的可执行文件：
 
    ```bash
-   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    <!-- 
@@ -144,19 +144,25 @@ The following methods exist for installing kubectl on Linux:
 
    ```bash
    chmod +x kubectl
-   mkdir -p ~/.local/bin/kubectl
+   mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # 之后将 ~/.local/bin/kubectl 添加到 $PATH
+   # 之后将 ~/.local/bin 附加（或前置）到 $PATH
    ```
    {{< /note >}}
 
 <!-- 
 1. Test to ensure the version you installed is up-to-date:
+Or use this for detailed view of version:
 -->
 4. 执行测试，以保障你安装的版本是最新的：
 
    ```bash
    kubectl version --client
+   ```
+   
+   或者使用如下命令来查看版本的详细信息：
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 <!-- 
@@ -165,50 +171,50 @@ The following methods exist for installing kubectl on Linux:
 ### 用原生包管理工具安装 {#install-using-native-package-management}
 
 {{< tabs name="kubectl_install" >}}
-{{< tab name="Ubuntu、Debian 或 HypriotOS" codelang="bash" >}}
+{{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 
-<!--
-1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
--->
-1. 更新 `apt` 包索引，并安装使用 Kubernetes `apt` 仓库锁需要的包：
+  <!--
+  1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+  -->
+  1. 更新 `apt` 包索引，并安装使用 Kubernetes `apt` 仓库所需要的包：
 
-   ```shell
-   sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
-   ```
+     ```shell
+     sudo apt-get update
+     sudo apt-get install -y apt-transport-https ca-certificates curl
+     ```
+  <!--
+  2. Download the Google Cloud public signing key:
+  -->
+  2. 下载 Google Cloud 公开签名秘钥：
 
-<!--
-2. Download the Google Cloud public signing key:
--->
-2. 下载 Google Cloud 公开签名秘钥：
+     ```shell
+     sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+     ```
 
-   ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-   ```
+  <!--
+  3. Add the Kubernetes `apt` repository:
+  -->
+  3. 添加 Kubernetes `apt` 仓库：
 
-<!--
-3. Add the Kubernetes `apt` repository:
--->
-3. 添加 Kubernetes `apt` 仓库：
+     ```shell
+     echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+     ```
 
-   ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-   ```
+  <!--
+  4. Update `apt` package index with the new repository and install kubectl:
+  -->
+  4. 更新 `apt` 包索引，使之包含新的仓库并安装 kubectl：
 
-<!--
-4. Update `apt` package index with the new repository and install kubectl:
--->
-4. 更新 `apt` 包索引，使之包含新的仓库并安装 kubectl：
+     ```shell
+     sudo apt-get update
+     sudo apt-get install -y kubectl
+     ```
+{{% /tab %}}
 
-   ```shell
-   sudo apt-get update
-   sudo apt-get install -y kubectl
-   ```
+{{% tab name="基于 Red Hat 的发行版" %}}
 
-{{< /tab >}}
-
-{{< tab name="基于 Red Hat 的发行版" codelang="bash" >}}
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+```shell
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -217,8 +223,10 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
-yum install -y kubectl
-{{< /tab >}}
+sudo yum install -y kubectl
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 <!-- 
@@ -276,16 +284,17 @@ kubectl version --client
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
 <!-- 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
 
-Below are the procedures to set up autocompletion for Bash and Zsh.
+Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 -->
-kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的负担。
+kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以为你节省大量的输入。
 
-下面是为 Bash 和 Zsh 设置自动补全功能的操作步骤。
+下面是为 Bash、Fish 和 Zsh 设置自动补全功能的操作步骤。
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
@@ -302,14 +311,14 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的�
 1. 用以下命令下载最新发行版：
 
    ```bash
-   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    ```
 <!--
-1. Validate the binary (optional)
+2. Validate the binary (optional)
 
    Download the kubectl-convert checksum file:
 -->
-1. 验证该可执行文件（可选步骤）
+2. 验证该可执行文件（可选步骤）
    
    下载 kubectl-convert 校验和文件：
    
@@ -323,7 +332,7 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的�
    基于校验和，验证 kubectl-convert 的可执行文件：
 
    ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
    <!--
@@ -352,18 +361,18 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的�
    {{< /note >}}
 
 <!--
-1. Install kubectl-convert
+3. Install kubectl-convert
 -->
-1. 安装 kubectl-convert
+3. 安装 kubectl-convert
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
    ```
 
 <!--
-1. Verify plugin is successfully installed
+4. Verify plugin is successfully installed
 -->
-1. 验证插件是否安装成功
+4. 验证插件是否安装成功
 
    ```shell
    kubectl convert --help

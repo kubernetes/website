@@ -49,7 +49,7 @@ metadata:
   name: standard
 provisioner: kubernetes.io/aws-ebs
 parameters:
-  type: gp2
+  type: gp3
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 mountOptions:
@@ -87,7 +87,7 @@ for provisioning PVs. This field must be specified.
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
-which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)
+which are independent programs that follow a [specification](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
 run, what volume plugin it uses (including Flex), etc. The repository
@@ -241,8 +241,8 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: failure-domain.beta.kubernetes.io/zone
     values:
-    - us-central1-a
-    - us-central1-b
+    - us-central-1a
+    - us-central-1b
 ```
 
 ## Parameters
@@ -271,9 +271,9 @@ parameters:
   fsType: ext4
 ```
 
-* `type`: `io1`, `gp2`, `sc1`, `st1`. See
+* `type`: `io1`, `gp2`, `gp3`, `sc1`, `st1`. See
   [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
-  for details. Default: `gp2`.
+  for details. Default: `gp3`.
 * `zone` (Deprecated): AWS zone. If neither `zone` nor `zones` is specified, volumes are
   generally round-robin-ed across all active zones where Kubernetes cluster
   has a node. `zone` and `zones` parameters must not be used at the same time.
@@ -434,7 +434,7 @@ provisioner: example.com/external-nfs
 parameters:
   server: nfs-server.example.com
   path: /share
-  readOnly: false
+  readOnly: "false"
 ```
 
 * `server`: Server is the hostname or IP address of the NFS server.
@@ -470,14 +470,14 @@ This internal provisioner of OpenStack is deprecated. Please use [the external c
 
 There are two types of provisioners for vSphere storage classes: 
 
-- [CSI provisioner](#csi-provisioner): `csi.vsphere.vmware.com`
+- [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
 In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#csi-migration-5).
 
 #### CSI Provisioner {#vsphere-provisioner-csi}
 
-The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For an example, refer to the [vSphere CSI repository](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml).
+The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For an example, refer to the [vSphere CSI repository](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml).
 
 #### vCP Provisioner 
 
@@ -797,7 +797,7 @@ parameters:
   storagePool: sp1
   storageMode: ThinProvisioned
   secretRef: sio-secret
-  readOnly: false
+  readOnly: "false"
   fsType: xfs
 ```
 

@@ -22,7 +22,7 @@ During a node-pressure eviction, the kubelet sets the `PodPhase` for the
 selected pods to `Failed`. This terminates the pods. 
 
 Node-pressure eviction is not the same as 
-[API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
+[API-initiated eviction](/docs/reference/generated/kubernetes-api/v1.23/).
 -->
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}
 监控集群节点的 CPU、内存、磁盘空间和文件系统的 inode 等资源。
@@ -31,7 +31,7 @@ kubelet 可以主动地使节点上一个或者多个 Pod 失效，以回收资�
 
 在节点压力驱逐期间，kubelet 将所选 Pod 的 `PodPhase` 设置为 `Failed`。这将终止 Pod。
 
-节点压力驱逐不同于 [API 发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)。
+节点压力驱逐不同于 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)。
 
 <!-- 
 The kubelet does not respect your configured `PodDisruptionBudget` or the pod's
@@ -449,7 +449,7 @@ QoS 不适用于临时存储（EphemeralStorage）请求，
 `Guaranteed` pods are guaranteed only when requests and limits are specified for
 all the containers and they are equal. These pods will never be evicted because
 of another pod's resource consumption. If a system daemon (such as `kubelet`,
-`docker`, and `journald`) is consuming more resources than were reserved via 
+and `journald`) is consuming more resources than were reserved via 
 `system-reserved` or `kube-reserved` allocations, and the node only has
 `Guaranteed` or `Burstable` pods using less resources than requests left on it,
 then the kubelet must choose to evict one of these pods to preserve node stability
@@ -458,7 +458,7 @@ will choose to evict pods of lowest Priority first.
 -->
 仅当 `Guaranteed` Pod 中所有容器都被指定了请求和限制并且二者相等时，才保证 Pod 不被驱逐。
 这些 Pod 永远不会因为另一个 Pod 的资源消耗而被驱逐。
-如果系统守护进程（例如 `kubelet`、`docker` 和 `journald`）
+如果系统守护进程（例如 `kubelet` 和 `journald`）
 消耗的资源比通过 `system-reserved` 或 `kube-reserved` 分配保留的资源多，
 并且该节点只有 `Guaranteed` 或 `Burstable` Pod 使用的资源少于其上剩余的请求，
 那么 kubelet 必须选择驱逐这些 Pod 中的一个以保持节点稳定性并减少资源匮乏对其他 Pod 的影响。 
@@ -765,13 +765,13 @@ to estimate or measure an optimal memory limit value for that container.
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
+* Learn about [API-initiated Eviction](/docs/reference/generated/kubernetes-api/v1.23/)
 * Learn about [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 * Learn about [PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
 * Learn about [Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/) (QoS)
 * Check out the [Eviction API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)
 -->
-* 了解 [API 发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)
+* 了解 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)
 * 了解 [Pod 优先级和驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 * 了解 [PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
 * 了解[服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)（QoS）

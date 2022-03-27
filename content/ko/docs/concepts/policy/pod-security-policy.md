@@ -695,7 +695,7 @@ spec:
 - `allowedUnsafeSysctls` - `forbiddenSysctls`에 나열되지 않는 한 기본 목록에서 허용하지 않은 특정 sysctls를 허용한다.
 
 [Sysctl 문서](
-/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)를 참고하길 바란다.
+/ko/docs/tasks/administer-cluster/sysctl-cluster/#파드시큐리티폴리시-podsecuritypolicy)를 참고하길 바란다.
 
 ## {{% heading "whatsnext" %}}
 

@@ -185,15 +185,13 @@ To make use of that label prefix for node isolation:
 前缀设置或修改标签。要使用该标签前缀进行节点隔离：
 
 <!--
-1. Check that you're using Kubernetes v1.11+ so that NodeRestriction is available.
-2. Ensure you are using the [Node authorizer](/docs/reference/access-authn-authz/node/) and have _enabled_ the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction).
-3. Add labels under the `node-restriction.kubernetes.io/` prefix to your Node objects, and use those labels in your node selectors.
+1. Ensure you are using the [Node authorizer](/docs/reference/access-authn-authz/node/) and have _enabled_ the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction).
+2. Add labels under the `node-restriction.kubernetes.io/` prefix to your Node objects, and use those labels in your node selectors.
 For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
 -->
-1. 检查是否在使用 Kubernetes v1.11+，以便 NodeRestriction 功能可用。
-2. 确保你在使用[节点授权](/zh/docs/reference/access-authn-authz/node/)并且已经_启用_
+1. 确保你在使用[节点授权](/zh/docs/reference/access-authn-authz/node/)并且已经 _启用_ 
    [NodeRestriction 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)。
-3. 将 `node-restriction.kubernetes.io/` 前缀下的标签添加到 Node 对象，
+2. 将 `node-restriction.kubernetes.io/` 前缀下的标签添加到 Node 对象，
    然后在节点选择器中使用这些标签。
    例如，`example.com.node-restriction.kubernetes.io/fips=true` 或
    `example.com.node-restriction.kubernetes.io/pci-dss=true`。
@@ -216,7 +214,7 @@ feature, greatly expands the types of constraints you can express. The key enhan
 3. you can constrain against labels on other pods running on the node (or other topological domain),
    rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located
 -->
-1. 语言更具表现力（不仅仅是“对完全匹配规则的 AND”）
+1. 语言表达能力更强（不仅仅是“对完全匹配规则的 AND”）
 2. 你可以发现规则是“软需求”/“偏好”，而不是硬性要求，因此，
    如果调度器无法满足该要求，仍然调度该 Pod
 3. 你可以使用节点上（或其他拓扑域中）的 Pod 的标签来约束，而不是使用
@@ -369,7 +367,7 @@ in the [scheduler configuration](/docs/reference/scheduling/config/). For exampl
 例如：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -625,13 +623,13 @@ In a three node cluster, a web application has in-memory cache such as redis. We
 ##### 始终放置在相同节点上
 
 在三节点集群中，一个 web 应用程序具有内存缓存，例如 redis。
-我们希望 web 服务器尽可能与缓存放置在同一位置。
+我们希望 web 服务器与缓存尽可能放置在同一节点上。
 
 <!--
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 -->
 下面是一个简单 redis Deployment 的 YAML 代码段，它有三个副本和选择器标签 `app=store`。
-Deployment 配置了 `PodAntiAffinity`，用来确保调度器不会将副本调度到单个节点上。
+Deployment 配置了 `PodAntiAffinity`，用来确保调度器不会将所有副本调度到同一节点上。
 
 ```yaml
 apiVersion: apps/v1
@@ -667,8 +665,8 @@ spec:
 The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that each web-server replica does not co-locate on a single node.
 -->
 下面 webserver Deployment 的 YAML 代码段中配置了 `podAntiAffinity` 和 `podAffinity`。
-这将通知调度器将它的所有副本与具有 `app=store` 选择器标签的 Pod 放置在一起。
-这还确保每个 web 服务器副本不会调度到单个节点上。
+这将通知调度器将 web-server 的所有副本与具有 `app=store` 选择器标签的 Pod 放置在一起。
+同时这还确保了不会有两个 web 服务器的副本被调度到同一节点上。
 
 ```yaml
 apiVersion: apps/v1

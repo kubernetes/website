@@ -12,11 +12,13 @@ Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content
 
 ## Feature state
 
-In a Markdown page (`.md` file) on this site, you can add a shortcode to display version and state of the documented feature.
+In a Markdown page (`.md` file) on this site, you can add a shortcode to
+display version and state of the documented feature.
 
 ### Feature state demo
 
-Below is a demo of the feature state snippet, which displays the feature as stable in the latest Kubernetes version.
+Below is a demo of the feature state snippet, which displays the feature as
+stable in the latest Kubernetes version.
 
 ```
 {{</* feature-state state="stable" */>}}
@@ -50,16 +52,22 @@ Renders to:
 
 There are two glossary shortcodes: `glossary_tooltip` and `glossary_definition`.
 
-You can reference glossary terms with an inclusion that automatically updates and replaces content with the relevant links from [our glossary](/docs/reference/glossary/). When the glossary term is moused-over, the glossary entry displays a tooltip. The glossary term also displays as a link.
+You can reference glossary terms with an inclusion that automatically updates
+and replaces content with the relevant links from [our glossary](/docs/reference/glossary/).
+When the glossary term is moused-over, the glossary entry displays a tooltip.
+The glossary term also displays as a link.
 
 As well as inclusions with tooltips, you can reuse the definitions from the glossary in
 page content.
 
-The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary), with a content file for each glossary term.
+The raw data for glossary terms is stored at
+[the glossary directory](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary),
+with a content file for each glossary term.
 
 ### Glossary demo
 
-For example, the following include within the Markdown renders to {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
+For example, the following include within the Markdown renders to
+{{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
 
 ```
 {{</* glossary_tooltip text="cluster" term_id="cluster" */>}}
@@ -83,9 +91,44 @@ You can also include a full definition:
 which renders as:
 {{< glossary_definition term_id="cluster" length="all" >}}
 
+## Links to API Reference
+
+You can link to a page of the Kubernetes API reference using the
+`api-reference` shortcode, for example to the
+{{< api-reference page="workload-resources/pod-v1" >}} reference:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" */>}}
+```
+
+The content of the `page` parameter is the suffix of the URL of the API reference page.
+
+
+You can link to a specific place into a page by specifying an `anchor`
+parameter, for example to the {{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}}
+reference or the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" >}}
+section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="PodSpec" */>}}
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" */>}}
+```
+
+
+You can change the text of the link by specifying a `text` parameter, for
+example by linking to the
+{{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variables">}}
+section of the page:
+
+```
+{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variable" */>}}
+```
+
 ## Table captions
 
-You can make tables more accessible to screen readers by adding a table caption. To add a [caption](https://www.w3schools.com/tags/tag_caption.asp) to a table, enclose the table with a `table` shortcode and specify the caption with the `caption` parameter.
+You can make tables more accessible to screen readers by adding a table caption. To add a
+[caption](https://www.w3schools.com/tags/tag_caption.asp) to a table,
+enclose the table with a `table` shortcode and specify the caption with the `caption` parameter.
 
 {{< note >}}
 Table captions are visible to screen readers but invisible when viewed in standard HTML.
@@ -111,7 +154,8 @@ Parameter | Description | Default
 `logLevel` | The log level for log output | `INFO`
 {{< /table >}}
 
-If you inspect the HTML for the table, you should see this element immediately after the opening `<table>` element:
+If you inspect the HTML for the table, you should see this element immediately
+after the opening `<table>` element:
 
 ```html
 <caption style="display: none;">Configuration parameters</caption>
@@ -119,14 +163,25 @@ If you inspect the HTML for the table, you should see this element immediately a
 
 ## Tabs
 
-In a markdown page (`.md` file) on this site, you can add a tab set to display multiple flavors of a given solution.
+In a markdown page (`.md` file) on this site, you can add a tab set to display
+multiple flavors of a given solution.
 
 The `tabs` shortcode takes these parameters:
 
 * `name`: The name as shown on the tab.
-* `codelang`: If you provide inner content to the `tab` shortcode, you can tell Hugo what code language to use for highlighting.
-* `include`: The file to include in the tab. If the tab lives in a Hugo [leaf bundle](https://gohugo.io/content-management/page-bundles/#leaf-bundles), the file -- which can be any MIME type supported by Hugo -- is looked up in the bundle itself. If not, the content page that needs to be included is looked up relative to the current page. Note that with the `include`, you do not have any shortcode inner content and must use the self-closing syntax. For example, <code>{{</* tab name="Content File #1" include="example1" /*/>}}</code>. The language needs to be specified under `codelang` or the language is taken based on the file name. Non-content files are code-highlighted by default.
-* If your inner content is markdown, you must use the `%`-delimiter to surround the tab. For example, `{{%/* tab name="Tab 1" %}}This is **markdown**{{% /tab */%}}`
+* `codelang`: If you provide inner content to the `tab` shortcode, you can tell Hugo
+  what code language to use for highlighting.
+* `include`: The file to include in the tab. If the tab lives in a Hugo
+  [leaf bundle](https://gohugo.io/content-management/page-bundles/#leaf-bundles),
+  the file -- which can be any MIME type supported by Hugo -- is looked up in the bundle itself.
+  If not, the content page that needs to be included is looked up relative to the current page.
+  Note that with the `include`, you do not have any shortcode inner content and must use the
+  self-closing syntax. For example,
+  `{{</* tab name="Content File #1" include="example1" /*/>}}`. The language needs to be specified
+  under `codelang` or the language is taken based on the file name.
+  Non-content files are code-highlighted by default.
+* If your inner content is markdown, you must use the `%`-delimiter to surround the tab.
+  For example, `{{%/* tab name="Tab 1" %}}This is **markdown**{{% /tab */%}}`
 * You can combine the variations mentioned above inside a tab set.
 
 Below is a demo of the tabs shortcode.
@@ -215,6 +270,43 @@ Renders to:
 {{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
+## Third party content marker
+
+Running Kubernetes requires third-party software. For example: you
+usually need to add a
+[DNS server](/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)
+to your cluster so that name resolution works.
+
+When we link to third-party software, or otherwise mention it,
+we follow the [content guide](/docs/contribute/style/content-guide/)
+and we also mark those third party items.
+
+Using these shortcodes adds a disclaimer to any documentation page
+that uses them.
+
+### Lists {#third-party-content-list}
+
+For a list of several third-party items, add:
+```
+{{%/* thirdparty-content */%}}
+```
+just below the heading for the section that includes all items.
+
+### Items {#third-party-content-item}
+
+If you have a list where most of the items refer to in-project
+software (for example: Kubernetes itself, and the separate
+[Descheduler](https://github.com/kubernetes-sigs/descheduler)
+component), then there is a different form to use.
+
+Add the shortcode:
+```
+{{%/* thirdparty-content single="true" */%}}
+```
+
+before the item, or just below the heading for the specific item.
+
+
 ## Version strings
 
 To generate a version string for inclusion in the documentation, you can choose from
@@ -224,13 +316,17 @@ The two most commonly used version parameters are `latest` and `version`.
 
 ### `{{</* param "version" */>}}`
 
-The `{{</* param "version" */>}}` shortcode generates the value of the current version of
-the Kubernetes documentation from the `version` site parameter. The `param` shortcode accepts the name of one site parameter, in this case: `version`.
+The `{{</* param "version" */>}}` shortcode generates the value of the current
+version of the Kubernetes documentation from the `version` site parameter. The
+`param` shortcode accepts the name of one site parameter, in this case:
+`version`.
 
 {{< note >}}
-In previously released documentation, `latest` and `version` parameter values are not equivalent.
-After a new version is released, `latest` is incremented and the value of `version` for the documentation set remains unchanged. For example, a previously released version of the documentation displays `version` as
-`v1.19` and `latest` as `v1.20`.
+In previously released documentation, `latest` and `version` parameter values
+are not equivalent.  After a new version is released, `latest` is incremented
+and the value of `version` for the documentation set remains unchanged. For
+example, a previously released version of the documentation displays `version`
+as `v1.19` and `latest` as `v1.20`.
 {{< /note >}}
 
 Renders to:
@@ -249,7 +345,8 @@ Renders to:
 
 ### `{{</* latest-semver */>}}`
 
-The `{{</* latest-semver */>}}` shortcode generates the value of `latest` without the "v" prefix.
+The `{{</* latest-semver */>}}` shortcode generates the value of `latest`
+without the "v" prefix.
 
 Renders to:
 
@@ -266,8 +363,9 @@ Renders to:
 
 ### `{{</* latest-release-notes */>}}`
 
-The `{{</* latest-release-notes */>}}` shortcode generates a version string from `latest` and removes
-the "v" prefix. The shortcode prints a new URL for the release note CHANGELOG page with the modified version string.
+The `{{</* latest-release-notes */>}}` shortcode generates a version string
+from `latest` and removes the "v" prefix. The shortcode prints a new URL for
+the release note CHANGELOG page with the modified version string.
 
 Renders to:
 
@@ -280,3 +378,4 @@ Renders to:
 * Learn about [page content types](/docs/contribute/style/page-content-types/).
 * Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
 * Learn about [advanced contributing](/docs/contribute/advanced/).
+

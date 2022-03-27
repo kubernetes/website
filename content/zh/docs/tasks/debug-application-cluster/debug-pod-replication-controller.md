@@ -127,7 +127,7 @@ the pod can be scheduled. In most cases, `hostPort` is unnecessary; try using a
 service object to expose your pod. If you do require `hostPort` then you can
 only schedule as many pods as there are nodes in your container cluster. 
 -->
-#### 使用hostPort
+#### 使用 hostPort
 
 当你将一个 Pod 绑定到某 `hostPort` 时，这个 Pod 能被调度的位置数量有限。
 在大多数情况下，`hostPort` 是不必要的; 尝试使用服务对象来暴露你的 Pod。

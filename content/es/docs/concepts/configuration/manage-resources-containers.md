@@ -110,11 +110,11 @@ CPU es siempre solicitada como una cantidad absoluta, nunca como una cantidad re
 
 Los límites y peticiones de `memoria` son medidos en bytes. Puedes expresar la memoria como
 un número entero o como un número decimal usando alguno de estos sufijos:
-E, P, T, G, M, K. También puedes usar los equivalentes en potencia de dos: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k, m (millis). También puedes usar los equivalentes en potencia de dos: Ei, Pi, Ti, Gi,
 Mi, Ki. Por ejemplo, los siguientes valores representan lo mismo:
 
 ```shell
-128974848, 129e6, 129M, 123Mi
+128974848, 129e6, 129M, 128974848000m, 123Mi
 ```
 
 Aquí un ejemplo.
@@ -329,6 +329,9 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+      - name: ephemeral
+        mountPath: "/tmp"
   - name: log-aggregator
     image: images.my-company.example/log-aggregator:v6
     resources:
@@ -336,6 +339,12 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+      - name: ephemeral
+        mountPath: "/tmp"
+  volumes:
+    - name: ephemeral
+      emptyDir: {}
 ```
 
 ### Como son programados los Pods con solicitudes de almacenamiento efímero
@@ -754,4 +763,4 @@ Puedes ver que el Contenedor fué terminado a causa de `reason:OOM Killed`, dond
 
 * Lee [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) referencia de API
 
-* Lee sobre [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) en XFS
+* Lee sobre [cuotas de proyecto](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F) en XFS

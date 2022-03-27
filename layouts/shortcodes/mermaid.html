@@ -1,10 +1,11 @@
+<figure>
 <div class="mermaid">
     {{.Inner}}
 </div>
+</figure>
 <!-- Hide content and error if JS is disabled. -->
 <noscript>
-    <style type="text/css">
-    .mermaid { display:none; }
-    </style>
-    <h4>[JavaScript must be <a href="https://www.enable-javascript.com/">enabled</a> to view content]</h4>
+  <div class="alert alert-secondary callout" role="alert">
+    <em class="javascript-required">{{ T "javascript_required" | markdownify }}</em>
+  </div>
 </noscript>

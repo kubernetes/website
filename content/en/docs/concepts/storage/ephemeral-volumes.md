@@ -7,7 +7,7 @@ reviewers:
 - pohly
 title: Ephemeral Volumes
 content_type: concept
-weight: 50
+weight: 30
 ---
 
 <!-- overview -->
@@ -107,7 +107,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/data"
         name: my-csi-inline-vol
@@ -125,15 +125,20 @@ driver. These attributes are specific to each driver and not
 standardized. See the documentation of each CSI driver for further
 instructions.
 
+### CSI driver restrictions
+ 
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
 As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
 [`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
 
+{{< note >}}
+PodSecurityPolicy is deprecated and will be removed in the Kubernetes v1.25 release.
+{{< /note >}}
+
 ### Generic ephemeral volumes
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
-
-This feature requires the `GenericEphemeralVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled. Because this is a beta feature, it is enabled by default.
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 Generic ephemeral volumes are similar to `emptyDir` volumes in the
 sense that they provide a per-pod directory for scratch data that is
@@ -146,7 +151,7 @@ features:
   parameters.
 - Typical operations on volumes are supported assuming that the driver
   supports them, including
-  ([snapshotting](/docs/concepts/storage/volume-snapshots/),
+  [snapshotting](/docs/concepts/storage/volume-snapshots/),
   [cloning](/docs/concepts/storage/volume-pvc-datasource/),
   [resizing](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
   and [storage capacity tracking](/docs/concepts/storage/storage-capacity/).
@@ -161,7 +166,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/scratch"
         name: scratch-volume
@@ -245,7 +250,6 @@ PVCs indirectly if they can create Pods, even if they do not have
 permission to create PVCs directly. Cluster administrators must be
 aware of this. If this does not fit their security model, they have
 two choices:
-- Explicitly disable the feature through the feature gate.
 - Use a [Pod Security
   Policy](/docs/concepts/policy/pod-security-policy/) where the
   `volumes` list does not contain the `ephemeral` volume type
@@ -274,4 +278,3 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 
 - For more information on the design, see the
 [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
-- For more information on further development of this feature, see the [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698).

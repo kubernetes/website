@@ -39,6 +39,7 @@ Customization approaches can be broadly divided into *configuration*, which only
 *Configuration files* and *flags* are documented in the Reference section of the online documentation, under each binary:
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
@@ -52,9 +53,9 @@ Flags and configuration files may not always be changeable in a hosted Kubernete
 Extensions are software components that extend and deeply integrate with Kubernetes.
 They adapt it to support new types and new kinds of hardware.
 
-Most cluster administrators will use a hosted or distribution
-instance of Kubernetes. As a result, most Kubernetes users will not need to
-install extensions and fewer will need to author new ones.
+Many cluster administrators use a hosted or distribution instance of Kubernetes. 
+These clusters come with extensions pre-installed. As a result, most Kubernetes 
+users will not need to install extensions and even fewer users will need to author new ones.
 
 ## Extension Patterns
 
@@ -77,7 +78,7 @@ failure.
 In the webhook model, Kubernetes makes a network request to a remote service.
 In the *Binary Plugin* model, Kubernetes executes a binary (program).
 Binary plugins are used by the kubelet (e.g.
-[Flex Volume Plugins](/docs/concepts/storage/volumes/#flexVolume)
+[Flex Volume Plugins](/docs/concepts/storage/volumes/#flexvolume)
 and [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))
 and by kubectl.
 
@@ -145,7 +146,7 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 
 ### Authorization
 
-[Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
+[Authorization](/docs/reference/access-authn-authz/authorization/) determines whether specific users can read, write, and do other operations on API resources. It works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 
 
 ### Dynamic Admission Control
@@ -162,6 +163,8 @@ After a request is authorized, if it is a write operation, it also goes through 
 [Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
 ) allow users to mount volume types without built-in support by having the
 Kubelet call a Binary Plugin to mount the volume.
+
+FlexVolume is deprecated since Kubernetes v1.23. The Out-of-tree CSI driver is the recommended way to write volume drivers in Kubernetes. See [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors) for more information.
 
 
 ### Device Plugins

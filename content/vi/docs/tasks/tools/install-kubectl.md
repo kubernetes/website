@@ -450,7 +450,7 @@ Nếu bạn có alias cho kubectl, bạn có thể mở rộng shell completion 
 
 ```shell
 echo 'alias k=kubectl' >>~/.zshrc
-echo 'complete -F __start_kubectl k' >>~/.zshrc
+echo 'compdef __start_kubectl k' >>~/.zshrc
 ```
     
 Sau khi tải lại shell, kubectl autocompletion sẽ hoạt động.

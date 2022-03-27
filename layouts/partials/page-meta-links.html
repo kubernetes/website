@@ -24,6 +24,10 @@
 
     {{ if not (.Param "auto_generated") }}
     <a href="{{ $editURL }}" target="_blank"><i class="fa fa-edit fa-fw"></i> {{ T "post_edit_this" }}</a>
+    {{- if .HasShortcode "thirdparty-content" -}}
+    <a href="#third-party-content-disclaimer" class="third-party-disclaimer-link"><i class="fa fa-icon-circle fa-fw"></i> {{ T "thirdparty_message_edit_disclaimer" | safeHTML }}</a>
+    {{- end }}
+
     <a href="{{ $newPageURL }}" target="_blank"><i class="fa fa-edit fa-fw"></i> {{ T "post_create_child_page" }}</a>
     {{ end }}
 

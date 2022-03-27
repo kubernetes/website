@@ -41,7 +41,7 @@ Start an Nginx Pod which is assigned a Pod IP:
 让我们从一个 Nginx Pod 开始，该 Pod 被分配一个 IP：
 
 ```shell
-kubectl run nginx --image nginx --generator=run-pod/v1
+kubectl run nginx --image nginx
 ```
 
 ```
@@ -112,7 +112,7 @@ You can start a Pod with that configuration by running:
 你可以使用以下命令用此配置启动 Pod：
 
 ```shell
-kubectl apply -f hostaliases-pod.yaml
+kubectl apply -f https://k8s.io/examples/service/networking/hostaliases-pod.yaml
 ```
 
 ```

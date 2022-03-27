@@ -142,7 +142,7 @@ GA 버전과 중복된 사용 중단(deprecated)된 여러 베타 API가 1.22에
 
 # 다가오는 릴리스 웨비나
 
-이번 릴리스에 대한 중요 기능뿐만 아니라 업그레이드 계획을 위해 필요한 사용 중지된 사항이나 제거에 대한 사항을 학습하고 싶다면, 2021년 9월 7일에 쿠버네티스 1.22 릴리스 팀 웨비나에 참여하세요. 더 자세한 정보와 등록에 대해서는 CNCF 온라인 프로그램 사이트의 [이벤트 페이지](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-122-release/)를 확인하세요.
+이번 릴리스에 대한 중요 기능뿐만 아니라 업그레이드 계획을 위해 필요한 사용 중지된 사항이나 제거에 대한 사항을 학습하고 싶다면, 2021년 10월 5일에 쿠버네티스 1.22 릴리스 팀 웨비나에 참여하세요. 더 자세한 정보와 등록에 대해서는 CNCF 온라인 프로그램 사이트의 [이벤트 페이지](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-122-release/)를 확인하세요.
 
 # 참여하기
 

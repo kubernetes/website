@@ -12,8 +12,8 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다. 예를 들어, v{{< skew latestVersion >}} 클라이언트는 v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, v{{< skew nextMinorVersion >}}의 컨트롤 플레인과 연동될 수 있다.
-최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
+클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다. 예를 들어, v{{< skew currentVersion >}} 클라이언트는 v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersion >}}, v{{< skew currentVersionAddMinor 1 >}}의 컨트롤 플레인과 연동될 수 있다.
+호환되는 최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
 
 ## macOS에 kubectl 설치
 
@@ -159,7 +159,7 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
 
 ### 셸 자동 완성 활성화
 
-kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
+kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
 
 다음은 Bash 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
 
@@ -228,7 +228,7 @@ kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력
 1. kubectl-convert 바이너리를 시스템 `PATH` 의 파일 위치로 옮긴다.
 
    ```bash
-   sudo mv ./kubectl /usr/local/bin/kubectl-convert
+   sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
    sudo chown root: /usr/local/bin/kubectl-convert
    ```
 

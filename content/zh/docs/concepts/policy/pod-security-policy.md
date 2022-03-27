@@ -3,6 +3,7 @@ title: Pod 安全策略
 content_type: concept
 weight: 30
 ---
+
 <!--
 reviewers:
 - pweil-
@@ -14,10 +15,20 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
+{{< caution >}}
 <!--
-PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25.
+PodSecurityPolicy is deprecated as of Kubernetes v1.21, and **will be removed in v1.25**. We recommend migrating to
+[Pod Security Admission](/docs/concepts/security/pod-security-admission/), or a 3rd party admission plugin.
+For a migration guide, see [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
+For more information on the deprecation,
+see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
 -->
-PodSecurityPolicy 在 Kubernetes v1.21 版本中被弃用，将在 v1.25 中删除。
+PodSecurityPolicy 在 Kubernetes v1.21 版本中被弃用，**将在 v1.25 中删除**。
+我们建议迁移到 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission)，
+或者第三方的准入插件。
+若需了解迁移指南，可参阅[从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh/docs/tasks/configure-pod-container/migrate-from-psp/)。
+关于弃用的更多信息，请查阅 [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
+{{< /caution >}}
 
 <!--
 Pod Security Policies enable fine-grained authorization of pod creation and
@@ -92,17 +103,16 @@ _Pod 安全策略_ 由设置和策略组成，它们能够控制 Pod 访问的�
 <!--
 ## Enabling Pod Security Policies
 
-Pod security policy control is implemented as an optional (but recommended)
-[admission
-controller](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy). PodSecurityPolicies
-are enforced by [enabling the admission
+Pod security policy control is implemented as an optional [admission
+controller](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy).
+PodSecurityPolicies are enforced by [enabling the admission
 controller](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in),
-but doing so without authorizing any policies **will prevent any pods from being
-created** in the cluster.
+but doing so without authorizing any policies **will prevent any pods from being created** in the
+cluster.
 -->
 ## 启用 Pod 安全策略
 
-Pod 安全策略实现为一种可选（但是建议启用）的
+Pod 安全策略实现为一种可选的
 [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy)。
 [启用了准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in)
 即可强制实施 Pod 安全策略，不过如果没有授权认可策略之前即启用
@@ -206,7 +216,11 @@ roleRef:
   name: <role name>
   apiGroup: rbac.authorization.k8s.io
 subjects:
-# Authorize specific service accounts:
+# Authorize all service accounts in a namespace (recommended):
+- kind: Group
+  apiGroup: rbac.authorization.k8s.io
+  name: system:serviceaccounts:<authorized namespace>
+# Authorize specific service accounts (not recommended):
 - kind: ServiceAccount
   name: <authorized service account name>
   namespace: <authorized pod namespace>
@@ -222,20 +236,24 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: <绑定名称>
+  name: <binding name>
 roleRef:
   kind: ClusterRole
-  name: <角色名称>
+  name: <role name>
   apiGroup: rbac.authorization.k8s.io
 subjects:
-# 授权特定的服务账号
+# 授权命名空间下的所有服务账号（推荐）：
+- kind: Group
+  apiGroup: rbac.authorization.k8s.io
+  name: system:serviceaccounts:<authorized namespace>
+# 授权特定的服务账号（不建议这样操作）：
 - kind: ServiceAccount
-  name: <要授权的服务账号名称>
+  name: <authorized service account name>
   namespace: <authorized pod namespace>
-# 授权特定的用户（不建议这样操作）
+# 授权特定的用户（不建议这样操作）：
 - kind: User
   apiGroup: rbac.authorization.k8s.io
-  name: <要授权的用户名>
+  name: <authorized user name>
 ```
 
 <!--
@@ -279,6 +297,77 @@ For a complete example of authorizing a PodSecurityPolicy, see
 参阅[下文](#example)，查看对 PodSecurityPolicy 进行授权的完整示例。
 
 <!--
+### Recommended Practice
+
+PodSecurityPolicy is being replaced by a new, simplified `PodSecurity` {{< glossary_tooltip
+text="admission controller" term_id="admission-controller" >}}. For more details on this change, see
+[PodSecurityPolicy Deprecation: Past, Present, and
+Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/). Follow these
+guidelines to simplify migration from PodSecurityPolicy to the new admission controller:
+-->
+## 推荐实践   {#recommended-practice}
+
+PodSecurityPolicy 正在被一个新的、简化的 `PodSecurity` {{< glossary_tooltip
+text="准入控制器" term_id="admission-controller" >}}替代。
+有关此变更的更多详细信息，请参阅 [PodSecurityPolicy Deprecation: Past, Present, and
+Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
+参照下述指导，简化从 PodSecurityPolicy 迁移到新的准入控制器步骤：
+
+<!--
+1. Limit your PodSecurityPolicies to the policies defined by the [Pod Security Standards](/docs/concepts/security/pod-security-standards):
+    - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
+    - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
+    - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
+
+2. Only bind PSPs to entire namespaces, by using the `system:serviceaccounts:<namespace>` group
+   (where `<namespace>` is the target namespace). For example:
+
+    ```yaml
+    apiVersion: rbac.authorization.k8s.io/v1
+    # This cluster role binding allows all pods in the "development" namespace to use the baseline PSP.
+    kind: ClusterRoleBinding
+    metadata:
+      name: psp-baseline-namespaces
+    roleRef:
+      kind: ClusterRole
+      name: psp-baseline
+      apiGroup: rbac.authorization.k8s.io
+    subjects:
+    - kind: Group
+      name: system:serviceaccounts:development
+      apiGroup: rbac.authorization.k8s.io
+    - kind: Group
+      name: system:serviceaccounts:canary
+      apiGroup: rbac.authorization.k8s.io
+    ```
+-->
+1. 将 PodSecurityPolicies 限制为 [Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards)所定义的策略：
+    - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
+    - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
+    - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
+2. 通过配置 `system:serviceaccounts:<namespace>` 组（`<namespace>` 是目标命名空间），仅将 PSP 绑定到整个命名空间。示例：
+
+    ```yaml
+    apiVersion: rbac.authorization.k8s.io/v1
+    # This cluster role binding allows all pods in the "development" namespace to use the baseline PSP.
+    kind: ClusterRoleBinding
+    metadata:
+      name: psp-baseline-namespaces
+    roleRef:
+      kind: ClusterRole
+      name: psp-baseline
+      apiGroup: rbac.authorization.k8s.io
+    subjects:
+    - kind: Group
+      name: system:serviceaccounts:development
+      apiGroup: rbac.authorization.k8s.io
+    - kind: Group
+      name: system:serviceaccounts:canary
+      apiGroup: rbac.authorization.k8s.io
+    ```
+<!--
+
+
 ### Troubleshooting
 
 - The [Controller Manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) must be run
@@ -1148,13 +1237,13 @@ denoted as the string `Unmasked`.
 ### AppArmor
 
 Controlled via annotations on the PodSecurityPolicy. Refer to the [AppArmor
-documentation](/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations).
+documentation](/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations).
 -->
 ### AppArmor
 
 通过 PodSecurityPolicy 上的注解来控制。
 详情请参阅
-[AppArmor 文档](/zh/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations)。
+[AppArmor 文档](/zh/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations)。
 
 
 <!--
@@ -1230,10 +1319,17 @@ By default, all safe sysctls are allowed.
 ## {{% heading "whatsnext" %}}
 
 <!--
+- See [PodSecurityPolicy Deprecation: Past, Present, and
+  Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/) to learn about
+  the future of pod security policy.
+
 - See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
 
 - Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 -->
+- 参阅 [PodSecurityPolicy Deprecation: Past, Present, and
+  Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)，了解 Pod 安全策略的未来。
+
 - 参阅[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
   了解策略建议。
 - 阅读 [Pod 安全策略参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)了解 API 细节。

@@ -67,7 +67,7 @@ transient slices for resources that are supported by that init system.
 Depending on the configuration of the associated container runtime,
 operators may have to choose a particular cgroup driver to ensure
 proper system behavior. For example, if operators use the `systemd`
-cgroup driver provided by the `docker` runtime, the `kubelet` must
+cgroup driver provided by the `containerd` runtime, the `kubelet` must
 be configured to use the `systemd` cgroup driver.
 
 ### Kube Reserved
@@ -91,7 +91,7 @@ flag.
 It is recommended that the kubernetes system daemons are placed under a top
 level control group (`runtime.slice` on systemd machines for example). Each
 system daemon should ideally run within its own child control group. Refer to
-[the design proposal](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)
+[the design proposal](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md#recommended-cgroups-setup)
 for more details on recommended control group hierarchy.
 
 Note that Kubelet **does not** create `--kube-reserved-cgroup` if it doesn't

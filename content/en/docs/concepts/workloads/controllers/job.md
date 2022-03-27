@@ -25,6 +25,9 @@ due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
 
+If you want to run a Job (either a single task, or several in parallel) on a schedule,
+see [CronJob](/docs/concepts/workloads/controllers/cron-jobs/).
+
 <!-- body -->
 
 ## Running an example Job
@@ -204,6 +207,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
     the deterministic hostnames to address each other via DNS.
   - From the containarized task, in the environment variable `JOB_COMPLETION_INDEX`.
+  
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
@@ -246,7 +250,7 @@ back-off count is reset when a Job's Pod is deleted or successful without any
 other Pods for the Job failing around that time.
 
 {{< note >}}
-If your job has `restartPolicy = "OnFailure"`, keep in mind that your container running the Job
+If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
 will be terminated once the job backoff limit has been reached. This can make debugging the Job's executable more difficult. We suggest setting
 `restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
 from failed Jobs is not lost inadvertently.
@@ -304,7 +308,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
 ### TTL mechanism for finished Jobs
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 Another way to clean up finished Jobs (either `Complete` or `Failed`)
 automatically is to use a TTL mechanism provided by a
@@ -341,6 +345,25 @@ seconds after it finishes.
 If the field is set to `0`, the Job will be eligible to be automatically deleted
 immediately after it finishes. If the field is unset, this Job won't be cleaned
 up by the TTL controller after it finishes.
+
+{{< note >}}
+It is recommended to set `ttlSecondsAfterFinished` field because unmanaged jobs
+(Jobs that you created directly, and not indirectly through other workload APIs
+such as CronJob) have a default deletion
+policy of `orphanDependents` causing Pods created by an unmanaged Job to be left around
+after that Job is fully deleted.
+Even though the {{< glossary_tooltip text="control plane" term_id="control-plane" >}} eventually
+[garbage collects](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+the Pods from a deleted Job after they either fail or complete, sometimes those
+lingering pods may cause cluster performance degradation or in worst case cause the
+cluster to go offline due to this degradation.
+
+You can use [LimitRanges](/docs/concepts/policy/limit-range/) and
+[ResourceQuotas](/docs/concepts/policy/resource-quotas/) to place a
+cap on the amount of resources that a particular namespace can
+consume.
+{{< /note >}}
+
 
 ## Job patterns
 
@@ -413,7 +436,10 @@ version of Kubernetes you're using](/docs/home/supported-doc-versions/).
 When a Job is created, the Job controller will immediately begin creating Pods
 to satisfy the Job's requirements and will continue to do so until the Job is
 complete. However, you may want to temporarily suspend a Job's execution and
-resume it later. To suspend a Job, you can update the `.spec.suspend` field of
+resume it later, or start Jobs in suspended state and have a custom controller
+decide later when to start them.
+
+To suspend a Job, you can update the `.spec.suspend` field of
 the Job to true; later, when you want to resume it again, update it to false.
 Creating a Job with `.spec.suspend` set to true will create it in the suspended
 state.
@@ -499,6 +525,32 @@ directly a result of toggling the `.spec.suspend` field. In the time between
 these two events, we see that no Pods were created, but Pod creation restarted
 as soon as the Job was resumed.
 
+### Mutable Scheduling Directives
+
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+
+{{< note >}}
+In order to use this behavior, you must enable the `JobMutableNodeSchedulingDirectives`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
+It is enabled by default.
+{{< /note >}}
+
+In most cases a parallel job will want the pods to run with constraints, 
+like all in the same zone, or all either on GPU model x or y but not a mix of both.
+
+The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a 
+custom queue controller to decide when a job should start; However, once a job is unsuspended,
+a custom queue controller has no influence on where the pods of a job will actually land.
+
+This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
+controllers the ability to influence pod placement while at the same time offloading actual 
+pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never 
+been unsuspended before.
+
+The fields in a Job's pod template that can be updated are node affinity, node selector, 
+tolerations, labels and annotations.
+
 ### Specifying your own Pod selector
 
 Normally, when you create a Job object, you do not specify `.spec.selector`.
@@ -523,7 +575,7 @@ to keep running, but you want the rest of the Pods it creates
 to use a different pod template and for the Job to have a new name.
 You cannot update the Job because these fields are not updatable.
 Therefore, you delete Job `old` but _leave its pods
-running_, using `kubectl delete jobs/old --cascade=false`.
+running_, using `kubectl delete jobs/old --cascade=orphan`.
 Before deleting it, you make a note of what selector it uses:
 
 ```shell
@@ -563,23 +615,24 @@ spec:
 ```
 
 The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010af00002`.  Setting
-`manualSelector: true` tells the system to that you know what you are doing and to allow this
+`manualSelector: true` tells the system that you know what you are doing and to allow this
 mismatch.
 
 ### Job tracking with finalizers
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
 In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-It is disabled by default.
+It is enabled by default.
 
 When enabled, the control plane tracks new Jobs using the behavior described
-below. Existing Jobs are unaffected. As a user, the only difference you would
-see is that the control plane tracking of Job completion is more accurate.
+below. Jobs created before the feature was enabled are unaffected. As a user,
+the only difference you would see is that the control plane tracking of Job
+completion is more accurate.
 {{< /note >}}
 
 When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}
@@ -638,6 +691,19 @@ driver, and then cleans up.
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but maintains complete control over what Pods are created and how work is assigned to them.
 
-## Cron Jobs {#cron-jobs}
+## {{% heading "whatsnext" %}}
 
-You can use a [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) to create a Job that will run at specified times/dates, similar to the Unix tool `cron`.
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Read about different ways of running Jobs:
+   * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
+   * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
+   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/) (beta)
+   * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
+* Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
+  to learn more about how your cluster can clean up completed and / or failed tasks.
+* `Job` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/job-v1" >}}
+  object definition to understand the API for jobs.
+* Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
+  can use to define a series of Jobs that will run based on a schedule, similar to
+  the Unix tool `cron`.

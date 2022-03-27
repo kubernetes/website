@@ -213,6 +213,13 @@ In order to highlight the full range of configuration, the Service you created
 here uses a different port number than the Pods.  For many real-world
 Services, these values might be the same.
 
+## Any Network Policy Ingress rules affecting the target Pods?
+
+If you have deployed any Network Policy Ingress rules which may affect incoming
+traffic to `hostnames-*` Pods, these need to be reviewed.
+
+Please refer to [Network Policies](/docs/concepts/services-networking/network-policies/) for more details.
+
 ## Does the Service work by DNS name?
 
 One of the most common ways that clients consume a Service is through a DNS

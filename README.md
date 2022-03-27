@@ -65,9 +65,9 @@ This will start the local Hugo server on port 1313. Open up your browser to <htt
 
 The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
 
-To update the reference pages for a new Kubernetes release (replace v1.20 in the following examples with the release to update to):
+To update the reference pages for a new Kubernetes release follow these steps:
 
-1. Pull the `kubernetes-resources-reference` submodule:
+1. Pull in the `api-ref-generator` submodule:
 
    ```bash
    git submodule update --init --recursive --depth 1
@@ -75,9 +75,9 @@ To update the reference pages for a new Kubernetes release (replace v1.20 in the
 
 2. Update the Swagger specification:
 
-```
-curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
-```
+   ```bash
+   curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
+   ```
 
 3. In `api-ref-assets/config/`, adapt the files `toc.yaml` and `fields.yaml` to reflect the changes of the new release.
 
@@ -146,7 +146,8 @@ Learn more about SIG Docs Kubernetes community and meetings on the [community pa
 
 You can also reach the maintainers of this project at:
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs) [Get an invite for this Slack](https://slack.k8s.io/)
+- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+  - [Get an invite for this Slack](https://slack.k8s.io/)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 ## Contributing to the docs
@@ -165,6 +166,14 @@ For more information about contributing to the Kubernetes documentation, see:
 - [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
 - [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
 - [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+
+### New contributor ambassadors
+
+If you need help at any point when contributing, the [New Contributor Ambassadors](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador) are a good point of contact. These are SIG Docs approvers whose responsibilities include mentoring new contributors and helping them through their first few pull requests. The best place to contact the New Contributors Ambassadors would be on the [Kubernetes Slack](https://slack.k8s.io/). Current New Contributors Ambassadors for SIG Docs:
+
+| Name                       | Slack                      | GitHub                     |                   
+| -------------------------- | -------------------------- | -------------------------- |
+| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
 
 ## Localization `README.md`'s
 

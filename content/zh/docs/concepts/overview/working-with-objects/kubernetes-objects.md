@@ -160,6 +160,7 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 * `apiVersion` - Which version of the Kubernetes API you're using to create this object
 * `kind` - What kind of object you want to create
 * `metadata` - Data that helps uniquely identify the object, including a `name` string, `UID`, and optional `namespace`
+* `spec` - What state you desire for the object
 -->
 ### 必需字段  {#required-fields}
 
@@ -168,25 +169,23 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 * `apiVersion` - 创建该对象所使用的 Kubernetes API 的版本
 * `kind` - 想要创建的对象的类别
 * `metadata` - 帮助唯一性标识对象的一些数据，包括一个 `name` 字符串、UID 和可选的 `namespace`
+* `spec` - 你所期望的该对象的状态
 
 <!--
-You'll also need to provide the object `spec` field. The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) can help you find the spec format for all of the objects you can create using Kubernetes.
-For example, the `spec` format for a `Pod` can be found
-[here](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core),
-and the `spec` format for a `Deployment` can be found
-[here](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
--->
-你也需要提供对象的 `spec` 字段。
-对象 `spec` 的精确格式对每个 Kubernetes 对象来说是不同的，包含了特定于该对象的嵌套字段。
-[Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-能够帮助我们找到任何我们想创建的对象的 spec 格式。
-例如，可以从
-[core/v1 PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-查看 `Pod` 的 `spec` 格式，
-并且可以从
-[apps/v1 DeploymentSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)
-查看 `Deployment` 的 `spec` 格式。
+The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API Reference](https://kubernetes.io/docs/reference/kubernetes-api/) can help you find the spec format for all of the objects you can create using Kubernetes.
 
+For example, the reference for Pod details the [`spec` field](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+for a Pod in the API, and the reference for Deployment details the [`spec` field](/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec) for Deployments.
+In those API reference pages you'll see mention of PodSpec and DeploymentSpec. These names are implementation details of the Golang code that Kubernetes uses to implement its API.
+-->
+对象 `spec` 的精确格式对每个 Kubernetes 对象来说是不同的，包含了特定于该对象的嵌套字段。
+[Kubernetes API 参考](https://kubernetes.io/docs/reference/kubernetes-api/)
+能够帮助我们找到任何我们想创建的对象的规约格式。
+
+例如，Pod 参考文档详细说明了 API 中 Pod 的 [`spec` 字段](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)，
+Deployment 的参考文档则详细说明了 Deployment 的 [`spec` 字段](/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec)。
+在这些 API 参考页面中，你将看到提到的 PodSpec 和 DeploymentSpec。
+这些名字是 Kubernetes 用来实现其 API 的 Golang 代码的实现细节。
 
 ## {{% heading "whatsnext" %}}
 

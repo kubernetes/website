@@ -2,7 +2,7 @@
 title: Kubelet
 id: kubelet
 date: 2020-04-19
-full_link: /docs/reference/generated/kubelet
+full_link: /docs/reference/command-line-tools-reference/kubelet
 short_description: >
   Um agente que é executado em cada node no cluster. Ele garante que os contêineres estejam sendo executados em um pod.
 

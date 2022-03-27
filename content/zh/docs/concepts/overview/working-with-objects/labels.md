@@ -70,11 +70,10 @@ Example labels:
 * `"track" : "daily"`, `"track" : "weekly"`
 
 <!--
-These are just examples of commonly used labels; 
-you are free to develop your own conventions. 
-Keep in mind that label Key must be unique for a given object.
+These are examples of [commonly used labels](/docs/concepts/overview/working-with-objects/common-labels/); you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
 -->
-这些只是常用标签的例子; 你可以任意制定自己的约定。请记住，对于给定对象标签的键必须是唯一的。
+有一些[常用标签](/zh/docs/concepts/overview/working-with-objects/common-labels/)的例子; 你可以任意制定自己的约定。
+请记住，标签的 Key 对于给定对象必须是唯一的。
 
 <!--
 ## Syntax and character set
@@ -83,7 +82,7 @@ _Labels_ are key/value pairs. Valid label keys have two segments: an optional pr
 
 If the prefix is omitted, the label Key is presumed to be private to the user. Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl`, or other third-party automation) which add labels to end-user objects must specify a prefix.
 
-The `kubernetes.io/` prefix is reserved for Kubernetes core components.
+The `kubernetes.io/` and `k8s.io/` prefixes are [reserved](/docs/reference/labels-annotations-taints/) for Kubernetes core components.
 -->
 ## 语法和字符集
 
@@ -97,7 +96,7 @@ _标签_ 是键值对。有效的标签键有两个段：可选的前缀和名�
 向最终用户对象添加标签的自动系统组件（例如 `kube-scheduler`、`kube-controller-manager`、
 `kube-apiserver`、`kubectl` 或其他第三方自动化工具）必须指定前缀。
 
-`kubernetes.io/` 前缀是为 Kubernetes 核心组件保留的。
+`kubernetes.io/` 和 `k8s.io/` 前缀是为 Kubernetes 核心组件[保留的](/zh/docs/reference/labels-annotations-taints/)。
 
 <!--
 Valid label value:

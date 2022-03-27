@@ -122,5 +122,5 @@ ContainerAdministrator
 
 * [쿠버네티스에서 윈도우 컨테이너 스케줄링을 위한 가이드](/ko/docs/setup/production-environment/windows/user-guide-windows-containers/)
 * [그룹 매니지드 서비스 어카운트를 이용하여 워크로드 신원 관리하기](/ko/docs/setup/production-environment/windows/user-guide-windows-containers/#그룹-매니지드-서비스-어카운트를-이용하여-워크로드-신원-관리하기)
-* [윈도우 파드와 컨테이너의 GMSA 구성](/docs/tasks/configure-pod-container/configure-gmsa/)
+* [윈도우 파드와 컨테이너의 GMSA 구성](/ko/docs/tasks/configure-pod-container/configure-gmsa/)
 

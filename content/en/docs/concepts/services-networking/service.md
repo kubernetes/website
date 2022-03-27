@@ -109,12 +109,45 @@ field.
 {{< /note >}}
 
 Port definitions in Pods have names, and you can reference these names in the
-`targetPort` attribute of a Service. This works even if there is a mixture
-of Pods in the Service using a single configured name, with the same network
-protocol available via different port numbers.
-This offers a lot of flexibility for deploying and evolving your Services.
-For example, you can change the port numbers that Pods expose in the next
-version of your backend software, without breaking clients.
+`targetPort` attribute of a Service. For example, we can bind the `targetPort`
+of the Service to the Pod port in the following way:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app.kubernetes.io/name: proxy
+spec:
+  containers:
+  - name: nginx
+    image: nginx:11.14.2
+    ports:
+      - containerPort: 80
+        name: http-web-svc
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: proxy
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+```
+
+
+This works even if there is a mixture of Pods in the Service using a single
+configured name, with the same network protocol available via different 
+port numbers. This offers a lot of flexibility for deploying and evolving 
+your Services. For example, you can change the port numbers that Pods expose 
+in the next version of your backend software, without breaking clients.
 
 The default protocol for Services is TCP; you can also use any other
 [supported protocol](#protocol-support).
@@ -182,6 +215,13 @@ as a destination.
 Accessing a Service without a selector works the same as if it had a selector.
 In the example above, traffic is routed to the single endpoint defined in
 the YAML: `192.0.2.42:9376` (TCP).
+
+{{< note >}}
+The Kubernetes API server does not allow proxying to endpoints that are not mapped to 
+pods. Actions such as `kubectl proxy <service-name>` where the service has no 
+selector will fail due to this constraint. This prevents the Kubernetes API server 
+from being used as a proxy to endpoints the caller may not be authorized to access. 
+{{< /note >}}
 
 An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
@@ -414,7 +454,7 @@ endpoints, the kube-proxy does not forward any traffic for the relevant Service.
 {{< feature-state for_k8s_version="v1.22" state="alpha" >}}
 If you enable the `ProxyTerminatingEndpoints`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`ProxyTerminatingEndpoints` for the kube-proxy, the kube-proxy checks if the node
+for the kube-proxy, the kube-proxy checks if the node
 has local endpoints and whether or not all the local endpoints are marked as terminating.
 If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
 any external traffic policy of `Local`. Instead, whilst the node-local endpoints remain as all
@@ -443,11 +483,7 @@ variables and DNS.
 ### Environment variables
 
 When a Pod is run on a Node, the kubelet adds a set of environment variables
-for each active Service.  It supports both [Docker links
-compatible](https://docs.docker.com/userguide/dockerlinks/) variables (see
-[makeLinkVariables](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/kubelet/envvars/envvars.go#L49))
-and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
-where the Service name is upper-cased and dashes are converted to underscores.
+for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables, where the Service name is upper-cased and dashes are converted to underscores. It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) that are compatible with Docker Engine's "_[legacy container links](https://docs.docker.com/network/links/)_" feature.
 
 For example, the Service `redis-master` which exposes TCP port 6379 and has been
 allocated cluster IP address 10.0.0.11, produces the following environment
@@ -544,7 +580,7 @@ The default is `ClusterIP`.
 * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value
   makes the Service only reachable from within the cluster. This is the
   default `ServiceType`.
-* [`NodePort`](#nodeport): Exposes the Service on each Node's IP at a static port
+* [`NodePort`](#type-nodeport): Exposes the Service on each Node's IP at a static port
   (the `NodePort`). A `ClusterIP` Service, to which the `NodePort` Service
   routes, is automatically created.  You'll be able to contact the `NodePort` Service,
   from outside the cluster,
@@ -562,7 +598,7 @@ The default is `ClusterIP`.
 You can also use [Ingress](/docs/concepts/services-networking/ingress/) to expose your Service. Ingress is not a Service type, but it acts as the entry point for your cluster. It lets you consolidate your routing rules
 into a single resource as it can expose multiple services under the same IP address.
 
-### Type NodePort {#nodeport}
+### Type NodePort {#type-nodeport}
 
 If you set the `type` field to `NodePort`, the Kubernetes control plane
 allocates a port from a range specified by `--service-node-port-range` flag (default: 30000-32767).
@@ -681,21 +717,28 @@ The set of protocols that can be used for LoadBalancer type of Services is still
 
 #### Disabling load balancer NodePort allocation {#load-balancer-nodeport-allocation}
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-Starting in v1.20, you can optionally disable node port allocation for a Service Type=LoadBalancer by setting
+You can optionally disable node port allocation for a Service of `type=LoadBalancer`, by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
 that route traffic directly to pods as opposed to using node ports. By default, `spec.allocateLoadBalancerNodePorts`
 is `true` and type LoadBalancer Services will continue to allocate node ports. If `spec.allocateLoadBalancerNodePorts`
-is set to `false` on an existing Service with allocated node ports, those node ports will NOT be de-allocated automatically.
+is set to `false` on an existing Service with allocated node ports, those node ports will **not** be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
-You must enable the `ServiceLBNodePortControl` feature gate to use this field.
+Your cluster must have the `ServiceLBNodePortControl`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled to use this field.
+For Kubernetes v{{< skew currentVersion >}}, this feature gate is enabled by default,
+and you can use the `spec.allocateLoadBalancerNodePorts` field. For clusters running
+other versions of Kubernetes, check the documentation for that release.
 
 #### Specifying class of load balancer implementation {#load-balancer-class}
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default. This feature is available from v1.21, you must enable the `ServiceLoadBalancerClass` feature gate to use this field in v1.21, and the feature gate is enabled by default from v1.22 onwards.
+`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default.
+Your cluster must have the `ServiceLoadBalancerClass` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled to use this field. For Kubernetes v{{< skew currentVersion >}}, this feature gate is enabled by default. For clusters running
+other versions of Kubernetes, check the documentation for that release.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation if the cluster is configured with
 a cloud provider using the `--cloud-provider` component flag. 
@@ -1066,6 +1109,9 @@ in those modified security groups.
 
 {{< /note >}}
 
+Further documentation on annotations for Elastic IPs and other common use-cases may be found
+in the [AWS Load Balancer Controller documentation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/).
+
 #### Other CLB annotations on Tencent Kubernetes Engine (TKE)
 
 There are other annotations for managing Cloud Load Balancers on TKE as shown below.
@@ -1122,7 +1168,7 @@ spec:
 ```
 
 {{< note >}}
-ExternalName accepts an IPv4 address string, but as a DNS names comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
+ExternalName accepts an IPv4 address string, but as a DNS name comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
 is intended to specify a canonical DNS name. To hardcode an IP address, consider using
 [headless Services](#headless-services).
 {{< /note >}}

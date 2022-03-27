@@ -20,6 +20,24 @@ deprecated API versions to newer and more stable API versions.
 
 ## Removed APIs by release
 
+### v1.26
+
+The **v1.26** release will stop serving the following deprecated API versions:
+
+#### Flow control resources {#flowcontrol-resources-v126}
+
+The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.26.
+
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta2** API version, available since v1.23.
+* All existing persisted objects are accessible via the new API
+* No notable changes
+
+#### HorizontalPodAutoscaler {#horizontalpodautoscaler-v126}
+
+The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler will no longer be served in v1.26.
+
+* Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
+* All existing persisted objects are accessible via the new API
 
 ### v1.25
 
@@ -59,6 +77,13 @@ The **events.k8s.io/v1beta1** API version of Event will no longer be served in v
     * use `series.count` instead of the deprecated `count` field (which is renamed to `deprecatedCount` and not permitted in new **events.k8s.io/v1** Events)
     * use `reportingController` instead of the deprecated `source.component` field (which is renamed to `deprecatedSource.component` and not permitted in new **events.k8s.io/v1** Events)
     * use `reportingInstance` instead of the deprecated `source.host` field (which is renamed to `deprecatedSource.host` and not permitted in new **events.k8s.io/v1** Events)
+
+#### HorizontalPodAutoscaler {#horizontalpodautoscaler-v125}
+
+The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler will no longer be served in v1.25.
+
+* Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
+* All existing persisted objects are accessible via the new API
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 

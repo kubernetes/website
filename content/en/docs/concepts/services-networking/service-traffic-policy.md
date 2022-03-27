@@ -9,7 +9,7 @@ weight: 45
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 _Service Internal Traffic Policy_ enables internal traffic restrictions to only route
 internal traffic to endpoints within the node the traffic originated from. The
@@ -20,9 +20,9 @@ cluster. This can help to reduce costs and improve performance.
 
 ## Using Service Internal Traffic Policy
 
-Once you have enabled the `ServiceInternalTrafficPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-you can enable an internal-only traffic policy for a
+The `ServiceInternalTrafficPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is a Beta feature and enabled by default.
+When the feature is enabled, you can enable the internal-only traffic policy for a
 {{< glossary_tooltip text="Services" term_id="service" >}}, by setting its
 `.spec.internalTrafficPolicy` to `Local`.
 This tells kube-proxy to only use node local endpoints for cluster internal traffic.
@@ -68,6 +68,6 @@ When the [feature gate](/docs/reference/command-line-tools-reference/feature-gat
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [enabling Topology Aware Hints](/docs/tasks/administer-cluster/enabling-topology-aware-hints)
+* Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)

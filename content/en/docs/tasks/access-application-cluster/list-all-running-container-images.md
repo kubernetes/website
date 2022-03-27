@@ -70,7 +70,7 @@ The formatting can be controlled further by using the `range` operation to
 iterate over elements individually.
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
 sort
 ```
 
@@ -80,7 +80,7 @@ To target only Pods matching a specific label, use the -l flag.  The
 following matches only Pods with labels matching `app=nginx`.
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
 ## List Container images filtering by Pod namespace

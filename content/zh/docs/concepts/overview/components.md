@@ -26,12 +26,11 @@ card:
 When you deploy Kubernetes, you get a cluster.
 {{</* glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of" */>}}
 
-This document outlines the various components you need to have
+This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
-Here's the diagram of a Kubernetes cluster with all the components tied together.
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
 
-![Components of Kubernetes](/images/docs/components-of-kubernetes.svg)
 -->
 <!-- overview -->
 当你部署完 Kubernetes, 即拥有了一个完整的集群。
@@ -39,9 +38,7 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 
 本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
 
-这张图表展示了包含所有相互关联组件的 Kubernetes 集群。
-
-![Kubernetes 组件](/images/docs/components-of-kubernetes.svg)
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes 的组件" caption="Kubernetes 集群的组件" class="diagram-large" >}}
 
 <!-- body -->
 
@@ -60,13 +57,13 @@ Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
 [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
-for an example control plane setup that runs across multiple VMs.
+for an example control plane setup that runs across multiple machines.
  -->
 控制平面组件可以在集群中的任何节点上运行。
 然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，
 并且不会在此计算机上运行用户容器。
 请参阅[使用 kubeadm 构建高可用性集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
-中关于多 VM 控制平面设置的示例。
+中关于跨多机器控制平面设置的示例。
 
 ### kube-apiserver
 

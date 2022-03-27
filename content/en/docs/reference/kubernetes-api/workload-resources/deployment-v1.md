@@ -88,6 +88,10 @@ DeploymentSpec is the specification of the desired behavior of the Deployment.
   - **strategy.type** (string)
 
     Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+    
+    Possible enum values:
+     - `"Recreate"` Kill all existing pods before creating new ones.
+     - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
 
   - **strategy.rollingUpdate** (RollingUpdateDeployment)
 
@@ -142,7 +146,7 @@ DeploymentStatus is the most recently observed status of the Deployment.
 
 - **readyReplicas** (int32)
 
-  Total number of ready pods targeted by this deployment.
+  readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
 
 - **unavailableReplicas** (int32)
 
@@ -474,6 +478,11 @@ POST /apis/apps/v1/namespaces/{namespace}/deployments
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -526,6 +535,11 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -576,6 +590,11 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -624,6 +643,11 @@ PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
@@ -679,6 +703,11 @@ PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

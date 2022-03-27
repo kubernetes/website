@@ -69,7 +69,7 @@
           {{ range . }}
             {{ with (where $.section.Translations ".Lang" . ) -}}
               {{ $p := index . 0 -}}
-              {{ $pages =  $pages | lang.Merge (union $p.Pages $p.Sections) -}}
+              {{ $pages = where ( $pages | lang.Merge (union $p.Pages $p.Sections)) ".Params.toc_hide" "!=" true -}}
             {{ end -}}
           {{ end -}}
         {{ end -}}

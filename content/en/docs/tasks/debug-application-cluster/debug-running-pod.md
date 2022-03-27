@@ -73,7 +73,7 @@ For more details, see [Get a Shell to a Running Container](
 
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
 are useful for interactive troubleshooting when `kubectl exec` is insufficient
@@ -82,12 +82,6 @@ utilities, such as with [distroless images](
 https://github.com/GoogleContainerTools/distroless).
 
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
-
-{{< note >}}
-The examples in this section require the `EphemeralContainers` [feature gate](
-/docs/reference/command-line-tools-reference/feature-gates/) enabled in your
-cluster and `kubectl` version v1.22 or later.
-{{< /note >}}
 
 You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
@@ -116,7 +110,7 @@ specify the `-i`/`--interactive` argument, `kubectl` will automatically attach
 to the console of the Ephemeral Container.
 
 ```shell
-kubectl debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
+kubectl debug -it ephemeral-demo --image=busybox:1.28 --target=ephemeral-demo
 ```
 
 ```
@@ -188,7 +182,7 @@ but you need debugging utilities not included in `busybox`. You can simulate
 this scenario using `kubectl run`:
 
 ```shell
-kubectl run myapp --image=busybox --restart=Never -- sleep 1d
+kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 ```
 
 Run this command to create a copy of `myapp` named `myapp-debug` that adds a
@@ -231,7 +225,7 @@ To simulate a crashing application, use `kubectl run` to create a container
 that immediately exits:
 
 ```
-kubectl run --image=busybox myapp -- false
+kubectl run --image=busybox:1.28 myapp -- false
 ```
 
 You can see using `kubectl describe pod myapp` that this container is crashing:
@@ -289,7 +283,7 @@ additional utilities.
 As an example, create a Pod using `kubectl run`:
 
 ```
-kubectl run myapp --image=busybox --restart=Never -- sleep 1d
+kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 ```
 
 Now use `kubectl debug` to make a copy and change its container image

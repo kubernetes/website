@@ -81,12 +81,11 @@ deployment.apps/nginx-deployment created
 * `metadata` - `이름` 문자열, `UID`, 그리고 선택적인 `네임스페이스`를 포함하여 오브젝트를 유일하게 구분지어 줄 데이터
 * `spec` - 오브젝트에 대해 어떤 상태를 의도하는지
 
-오브젝트 `spec`에 대한 정확한 포맷은 모든 쿠버네티스 오브젝트마다 다르고, 그 오브젝트 특유의 중첩된 필드를 포함한다. [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 는 쿠버네티스를 이용하여 생성할 수 있는 오브젝트에 대한 모든 spec 포맷을 살펴볼 수 있도록 해준다. 
-예를 들어, 파드에 대한 `spec` 포맷은 
-[PodSpec v1 Core](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-에서 확인할 수 있고, 디플로이먼트에 대한 `spec` 포맷은 
-[DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)에서 확인할 수 있다.
+오브젝트 `spec`에 대한 정확한 포맷은 모든 쿠버네티스 오브젝트마다 다르고, 그 오브젝트 특유의 중첩된 필드를 포함한다. [쿠버네티스 API 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 는 쿠버네티스를 이용하여 생성할 수 있는 오브젝트에 대한 모든 spec 포맷을 살펴볼 수 있도록 해준다.
 
+예를 들어, API 내 파드에 대한 상세 정보는 [`spec` 필드](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)에 대한 레퍼런스에서,
+디플로이먼트에 대한 상세 정보는 [`spec` 필드](/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec)에 대한 레퍼런스에서 확인할 수 있다.
+해당 API 레퍼런스 페이지에서 PodSpec과 DeploymentSpec에 대해 언급된 내용을 볼 수 있다. 이 이름들은 쿠버네티스가 API를 구현하는데 사용한 Go 언어 코드 구현의 세부 내용이다.
 
 
 ## {{% heading "whatsnext" %}}

@@ -19,15 +19,13 @@ This page describes Kubernetes security and disclosure information.
 
 Join the [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce) group for emails about security and major API announcements.
 
-You can also subscribe to an RSS feed of the above using [this link](https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss_v2_0.xml?num=50).
-
 ## Report a Vulnerability
 
 We're extremely grateful for security researchers and users that report vulnerabilities to the Kubernetes Open Source Community. All reports are thoroughly investigated by a set of community volunteers.
 
 To make a report, submit your vulnerability to the [Kubernetes bug bounty program](https://hackerone.com/kubernetes). This allows triage and handling of the vulnerability with standardized response times.
 
-You can also email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md).
+You can also email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://github.com/kubernetes/kubernetes/blob/master/.github/ISSUE_TEMPLATE/bug-report.yaml).
 
 You may encrypt your email to this list using the GPG keys of the [Security Response Committee members](https://git.k8s.io/security/README.md#product-security-committee-psc). Encryption using GPG is NOT required to make a disclosure.
 

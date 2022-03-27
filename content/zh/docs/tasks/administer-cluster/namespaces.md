@@ -108,14 +108,16 @@ A namespace can be in one of two phases:
 * `Active` the namespace is in use
 * `Terminating` the namespace is being deleted, and can not be used for new objects
 
-See the [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases) for more details. -->
+For more details, see [Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)
+in the API reference.
+ -->
 
 名字空间可以处于下列两个阶段中的一个:
 
 * `Active` 名字空间正在被使用中
 * `Terminating` 名字空间正在被删除，且不能被用于新对象。
 
-参见[设计文档](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases) 查看更多细节。
+更多细节，参阅 API 参考中的[命名空间](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)。
 
 <!-- ## Creating a new namespace -->
 ## 创建名字空间
@@ -312,11 +314,11 @@ kubectl delete namespaces <insert-some-namespace-name>
    ```
 
    <!--
-   We have just created a deployment whose replica size is 2 that is running the pod
-   called `snowflake` with a basic container that just serves the hostname.
+   We have created a deployment whose replica size is 2 that is running the pod
+   called `snowflake` with a basic container that serves the hostname.
    -->
-   我们刚刚创建了一个副本个数为 2 的 Deployment，运行名为 `snowflake` 的
-   Pod，其中包含一个仅负责提供主机名的基本容器。
+   我们创建了一个副本个数为 2 的 Deployment，运行名为 `snowflake` 的
+   Pod，其中包含一个负责提供主机名的基本容器。
 
    ```shell
    kubectl get deployment -n=development
@@ -486,7 +488,7 @@ Use cases include:
 <!--
 When you create a [Service](/docs/concepts/services-networking/service/), it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
-that if a container just uses `<service-name>` it will resolve to the service which
+that if a container uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
@@ -494,7 +496,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 当你创建[服务](/zh/docs/concepts/services-networking/service/)时，Kubernetes
 会创建相应的 [DNS 条目](/zh/docs/concepts/services-networking/dns-pod-service/)。
 此条目的格式为 `<服务名称>.<名字空间名称>.svc.cluster.local`。
-这意味着如果容器只使用 `<服务名称>`，它将解析为名字空间本地的服务。
+这意味着如果容器使用 `<服务名称>`，它将解析为名字空间本地的服务。
 这对于在多个名字空间（如开发、暂存和生产）中使用相同的配置非常有用。
 如果要跨名字空间访问，则需要使用完全限定的域名（FQDN）。
 
@@ -503,10 +505,10 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 <!--
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* See [namespaces design](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/architecture/namespaces.md).
+* See [namespaces design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md).
 -->
 
 * 进一步了解[设置名字空间偏好](/zh/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference)
 * 进一步了解[设置请求的名字空间](/zh/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* 参阅[名字空间的设计文档](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/architecture/namespaces.md)
+* 参阅[名字空间的设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md)
 

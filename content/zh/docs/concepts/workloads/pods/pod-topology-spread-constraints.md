@@ -368,25 +368,88 @@ To overcome this situation, you can either increase the `maxSkew` or modify one 
 `whenUnsatisfiable: ScheduleAnyway`。
 
 <!--
-### Conventions
+### Interaction With Node Affinity and Node Selectors
+
+The scheduler will skip the non-matching nodes from the skew calculations if the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined.
+-->
+### 节点亲和性与节点选择器的相互作用   {#interaction-with-node-affinity-and-node-selectors}
+
+如果 Pod 定义了 `spec.nodeSelector` 或 `spec.affinity.nodeAffinity`，调度器将从倾斜计算中跳过不匹配的节点。
+
+<!--
+    Suppose you have a 5-node cluster ranging from zoneA to zoneC:
+
+    and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
+
+    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+-->
+    假设你有一个跨越 zoneA 到 zoneC 的 5 节点集群：
+
+    {{<mermaid>}}
+    graph BT
+        subgraph "zoneB"
+            p3(Pod) --> n3(Node3)
+            n4(Node4)
+        end
+        subgraph "zoneA"
+            p1(Pod) --> n1(Node1)
+            p2(Pod) --> n2(Node2)
+        end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class p4 plain;
+    class zoneA,zoneB cluster;
+    {{< /mermaid >}}
+
+    {{<mermaid>}}
+    graph BT
+        subgraph "zoneC"
+            n5(Node5)
+        end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n5 k8s;
+    class zoneC cluster;
+    {{< /mermaid >}}
+
+    而且你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 yaml，
+    以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector`
+    也要一样处理。
+
+    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+
+<!--
+The scheduler doesn't have prior knowledge of all the zones or other topology domains that a cluster has. They are determined from the existing nodes in the cluster. This could lead to a problem in autoscaled clusters, when a node pool (or node group) is scaled to zero nodes and the user is expecting them to scale up, because, in this case, those topology domains won't be considered until there is at least one node in them.
+-->
+调度器不会预先知道集群拥有的所有区域和其他拓扑域。拓扑域由集群中存在的节点确定。
+在自动伸缩的集群中，如果一个节点池（或节点组）的节点数量为零，
+而用户正期望其扩容时，可能会导致调度出现问题。
+因为在这种情况下，调度器不会考虑这些拓扑域信息，因为它们是空的，没有节点。
+
+<!--
+### Other Noticeable Semantics
 
 There are some implicit conventions worth noting here:
 -->
-### 约定   {#conventions}
+### 其他值得注意的语义   {#other-noticeable-semantics}
 
 这里有一些值得注意的隐式约定：
 
 <!--
 - Only the Pods holding the same namespace as the incoming Pod can be matching candidates.
 
-- Nodes without `topologySpreadConstraints[*].topologyKey` present will be bypassed. It implies that:
+- The scheduler will bypass the nodes without `topologySpreadConstraints[*].topologyKey` present. This implies that:
 
-    1. the Pods located on those nodes do not impact `maxSkew` calculation - in the above example, suppose "node1" does not have label "zone", then the 2 Pods will be disregarded, hence the incomingPod will be scheduled into "zoneA".
-
-    2. the incoming Pod has no chances to be scheduled onto this kind of nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
+  1. the Pods located on those nodes do not impact `maxSkew` calculation - in the above example, suppose "node1" does not have label "zone", then the 2 Pods will be disregarded, hence the incoming Pod will be scheduled into "zoneA".
+  2. the incoming Pod has no chances to be scheduled onto this kind of nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
 -->
 - 只有与新的 Pod 具有相同命名空间的 Pod 才能作为匹配候选者。
-- 没有 `topologySpreadConstraints[*].topologyKey` 的节点将被忽略。这意味着：
+- 调度器会忽略没有 `topologySpreadConstraints[*].topologyKey` 的节点。这意味着：
   1. 位于这些节点上的 Pod 不影响 `maxSkew` 的计算。
      在上面的例子中，假设 "node1" 没有标签 "zone"，那么 2 个 Pod 将被忽略，
      因此传入的 Pod 将被调度到 "zoneA" 中。
@@ -405,56 +468,6 @@ There are some implicit conventions worth noting here:
   zoneB 有 1 个带有 {foo:bar} 标签的 Pod。
   因此，如果这不是你所期望的，建议工作负载的 `topologySpreadConstraints[*].labelSelector`
   与其自身的标签匹配。
-
-<!--
-- If the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined, nodes not matching them will be bypassed.
-    Suppose you have a 5-node cluster ranging from zoneA to zoneC:
--->
-- 如果新 Pod 定义了 `spec.nodeSelector` 或 `spec.affinity.nodeAffinity`，则
-  不匹配的节点会被忽略。
-
-  假设你有一个跨越 zoneA 到 zoneC 的 5 节点集群：
-
-  {{<mermaid>}}
-  graph BT
-      subgraph "zoneB"
-          p3(Pod) --> n3(Node3)
-          n4(Node4)
-      end
-      subgraph "zoneA"
-          p1(Pod) --> n1(Node1)
-          p2(Pod) --> n2(Node2)
-      end
-
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class n1,n2,n3,n4,p1,p2,p3 k8s;
-  class p4 plain;
-  class zoneA,zoneB cluster;
-  {{< /mermaid >}}
-
-  {{<mermaid>}}
-  graph BT
-      subgraph "zoneC"
-          n5(Node5)
-      end
-
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class n5 k8s;
-  class zoneC cluster;
-  {{< /mermaid >}}
-
-  <!--
-  and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
-  -->
-  而且你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 yaml，
-  以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector`
-  也要一样处理。
-
-  {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
 <!--
 ### Cluster-level default constraints

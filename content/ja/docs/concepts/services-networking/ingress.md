@@ -18,7 +18,7 @@ weight: 40
 * ノード: Kubernetes内のワーカーマシンで、クラスターの一部です。
 * クラスター: Kubernetesによって管理されているコンテナ化されたアプリケーションを実行させるノードの集合です。この例や、多くのKubernetesによるデプロイでは、クラスター内のノードはインターネットに公開されていません。
 * エッジルーター: クラスターでファイアウォールのポリシーを強制するルーターです。クラウドプロバイダーが管理するゲートウェイや、物理的なハードウェアの一部である場合もあります。
-* クラスターネットワーク: 物理的または論理的な繋がりの集合で、Kubernetesの[ネットワークモデル](/docs/concepts/cluster-administration/networking/)によって、クラスター内でのコミュニケーションを司るものです。
+* クラスターネットワーク: 物理的または論理的な繋がりの集合で、Kubernetesの[ネットワークモデル](/ja/docs/concepts/cluster-administration/networking/)によって、クラスター内でのコミュニケーションを司るものです。
 * Service: {{< glossary_tooltip text="ラベル" term_id="label" >}}セレクターを使ったPodの集合を特定するKubernetes {{< glossary_tooltip term_id="service" >}}です。特に指定がない限り、Serviceはクラスターネットワーク内でのみ疎通可能な仮想IPを持つものとして扱われます。
 
 ## Ingressとは何か
@@ -66,7 +66,7 @@ Ingressリソースの最小構成の例は以下のとおりです。
 
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
-他の全てのKubernetesリソースと同様に、Ingressには`apiVersion`、`kind`や`metadata`フィールドが必要です。Ingressオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。設定ファイルに関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/)を参照してください。Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを一般的に使用します。例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)などがあります。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶためには、使用するIngressコントローラーのドキュメントを確認してください。
+他の全てのKubernetesリソースと同様に、Ingressには`apiVersion`、`kind`や`metadata`フィールドが必要です。Ingressオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。設定ファイルに関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/ja/docs/concepts/cluster-administration/manage-deployment/)を参照してください。Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを一般的に使用します。例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)などがあります。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶためには、使用するIngressコントローラーのドキュメントを確認してください。
 
 Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)は、ロードバランサーやプロキシーサーバーを設定するために必要な全ての情報を持っています。最も重要なものとして、外部からくる全てのリクエストに対して一致したルールのリストを含みます。IngressリソースはHTTP(S)トラフィックに対してのルールのみサポートしています。
 
@@ -346,7 +346,7 @@ IngressでこのSecretを参照すると、クライアントとロードバラ�
 
 Ingressコントローラーは、負荷分散アルゴリズムやバックエンドの重みスキームなど、すべてのIngressに適用されるいくつかの負荷分散ポリシーの設定とともにブートストラップされます。発展した負荷分散のコンセプト(例: セッションの永続化、動的重み付けなど)はIngressによってサポートされていません。代わりに、それらの機能はService用のロードバランサーを介して利用できます。
 
-Ingressによってヘルスチェックの機能が直接に公開されていない場合でも、Kubernetesにおいて、同等の機能を提供する[Readiness Probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のようなコンセプトが存在することは注目に値します。コントローラーがどのようにヘルスチェックを行うかについては、コントローラーのドキュメントを参照してください(例えば[nginx](https://git.k8s.io/ingress-nginx/README.md)、または[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks))。
+Ingressによってヘルスチェックの機能が直接に公開されていない場合でも、Kubernetesにおいて、同等の機能を提供する[Readiness Probe](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のようなコンセプトが存在することは注目に値します。コントローラーがどのようにヘルスチェックを行うかについては、コントローラーのドキュメントを参照してください(例えば[nginx](https://git.k8s.io/ingress-nginx/README.md)、または[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks))。
 
 ## Ingressの更新
 
@@ -451,4 +451,4 @@ Ingressリソースを直接含まない複数の方法でサービスを公開�
 ## {{% heading "whatsnext" %}}
 * [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)について学ぶ
 * [Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)について学ぶ
-* [MinikubeとNGINXコントローラーでIngressのセットアップを行う](/docs/tasks/access-application-cluster/ingress-minikube/)
+* [MinikubeとNGINXコントローラーでIngressのセットアップを行う](/ja/docs/tasks/access-application-cluster/ingress-minikube/)

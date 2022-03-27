@@ -48,6 +48,15 @@ Annotations, like labels, are key/value maps:
 }
 ```
 
+{{<note>}}
+<!--
+The keys and the values in the map must be strings. In other words, you cannot use
+numeric, boolean, list or other types for either the keys or the values.
+-->
+Map 中的键和值必须是字符串。
+换句话说，你不能使用数字、布尔值、列表或其他类型的键或值。
+{{</note>}}
+
 <!--
 Here are some examples of information that could be recorded in annotations:
 -->

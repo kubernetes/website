@@ -233,7 +233,7 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 Menginstal crictl (dibutuhkan untuk kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
-CRICTL_VERSION="v1.17.0"
+CRICTL_VERSION="v1.22.0"
 ARCH="amd64"
 mkdir -p /opt/bin
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz

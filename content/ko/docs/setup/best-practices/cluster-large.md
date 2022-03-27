@@ -121,3 +121,6 @@ _A_ 영역에 있는 컨트롤 플레인 호스트로만 전달한다. 단일 �
 [클러스터 오토스케일러](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)는
 여러 클라우드 프로바이더와 통합되어 클러스터의 리소스 요구 수준에 맞는
 노드 수를 실행할 수 있도록 도와준다.
+
+[addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)는 
+클러스터 스케일이 변경될 때 자동으로 애드온 크기를 조정할 수 있도록 도와준다.

@@ -43,20 +43,6 @@ kube-proxy [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--add-dir-header</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>true로 되어 있으면, 로그 메시지의 헤더에 파일 디렉터리를 기재한다.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--alsologtostderr</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그를 파일뿐만 아니라 표준 에러(standard error)로도 출력한다.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--azure-container-registry-config string</td>
 </tr>
 <tr>
@@ -82,6 +68,13 @@ kube-proxy [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>boot-id를 위해 확인할 파일 목록(쉼표로 분리). 가장 먼저 발견되는 항목을 사용한다.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--boot_id_file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: "/proc/sys/kernel/random/boot_id"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>boot-id를 체크할 파일들의 콤마로 구분된 목록. 목록 중에서, 존재하는 첫 번째 파일을 사용한다.</p></td>
 </tr>
 
 <tr>
@@ -179,7 +172,7 @@ kube-proxy [flags]
 <td colspan="2">--feature-gates mapStringBool</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>알파/실험 기능에 대한 기능 게이트를 설명하는 키=값 쌍 집합. 옵션은 다음과 같다.<br/>APIListChunking=true|false (BETA - 기본값=true)<br/>APIPriorityAndFairness=true|false (BETA - 기본값=true)<br/>APIResponseCompression=true|false (BETA - 기본값=true)<br/>APIServerIdentity=true|false (ALPHA - 기본값=false)<br/>AllAlpha=true|false (ALPHA - 기본값=false)<br/>AllBeta=true|false (BETA - 기본값=false)<br/>AnyVolumeDataSource=true|false (ALPHA - 기본값=false)<br/>AppArmor=true|false (BETA - 기본값=true)<br/>BalanceAttachedNodeVolumes=true|false (ALPHA - 기본값=false)<br/>BoundServiceAccountTokenVolume=true|false (BETA - 기본값=true)<br/>CPUManager=true|false (BETA - 기본값=true)<br/>CSIInlineVolume=true|false (BETA - 기본값=true)<br/>CSIMigration=true|false (BETA - 기본값=true)<br/>CSIMigrationAWS=true|false (BETA - 기본값=false)<br/>CSIMigrationAzureDisk=true|false (BETA - 기본값=false)<br/>CSIMigrationAzureFile=true|false (BETA - 기본값=false)<br/>CSIMigrationGCE=true|false (BETA - 기본값=false)<br/>CSIMigrationOpenStack=true|false (BETA - 기본값=true)<br/>CSIMigrationvSphere=true|false (BETA - 기본값=false)<br/>CSIMigrationvSphereComplete=true|false (BETA - 기본값=false)<br/>CSIServiceAccountToken=true|false (BETA - 기본값=true)<br/>CSIStorageCapacity=true|false (BETA - 기본값=true)<br/>CSIVolumeFSGroupPolicy=true|false (BETA - 기본값=true)<br/>CSIVolumeHealth=true|false (ALPHA - 기본값=false)<br/>ConfigurableFSGroupPolicy=true|false (BETA - 기본값=true)<br/>ControllerManagerLeaderMigration=true|false (ALPHA - 기본값=false)<br/>CronJobControllerV2=true|false (BETA - 기본값=true)<br/>CustomCPUCFSQuotaPeriod=true|false (ALPHA - 기본값=false)<br/>DaemonSetUpdateSurge=true|false (ALPHA - 기본값=false)<br/>DefaultPodTopologySpread=true|false (BETA - 기본값=true)<br/>DevicePlugins=true|false (BETA - 기본값=true)<br/>DisableAcceleratorUsageMetrics=true|false (BETA - 기본값=true)<br/>DownwardAPIHugePages=true|false (BETA - 기본값=false)<br/>DynamicKubeletConfig=true|false (BETA - 기본값=true)<br/>EfficientWatchResumption=true|false (BETA - 기본값=true)<br/>EndpointSliceProxying=true|false (BETA - 기본값=true)<br/>EndpointSliceTerminatingCondition=true|false (ALPHA - 기본값=false)<br/>EphemeralContainers=true|false (ALPHA - 기본값=false)<br/>ExpandCSIVolumes=true|false (BETA - 기본값=true)<br/>ExpandInUsePersistentVolumes=true|false (BETA - 기본값=true)<br/>ExpandPersistentVolumes=true|false (BETA - 기본값=true)<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - 기본값=false)<br/>GenericEphemeralVolume=true|false (BETA - 기본값=true)<br/>GracefulNodeShutdown=true|false (BETA - 기본값=true)<br/>HPAContainerMetrics=true|false (ALPHA - 기본값=false)<br/>HPAScaleToZero=true|false (ALPHA - 기본값=false)<br/>HugePageStorageMediumSize=true|false (BETA - 기본값=true)<br/>IPv6DualStack=true|false (BETA - 기본값=true)<br/>InTreePluginAWSUnregister=true|false (ALPHA - 기본값=false)<br/>InTreePluginAzureDiskUnregister=true|false (ALPHA - 기본값=false)<br/>InTreePluginAzureFileUnregister=true|false (ALPHA - 기본값=false)<br/>InTreePluginGCEUnregister=true|false (ALPHA - 기본값=false)<br/>InTreePluginOpenStackUnregister=true|false (ALPHA - 기본값=false)<br/>InTreePluginvSphereUnregister=true|false (ALPHA - 기본값=false)<br/>IndexedJob=true|false (ALPHA - 기본값=false)<br/>IngressClassNamespacedParams=true|false (ALPHA - 기본값=false)<br/>KubeletCredentialProviders=true|false (ALPHA - 기본값=false)<br/>KubeletPodResources=true|false (BETA - 기본값=true)<br/>KubeletPodResourcesGetAllocatable=true|false (ALPHA - 기본값=false)<br/>LocalStorageCapacityIsolation=true|false (BETA - 기본값=true)<br/>LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - 기본값=false)<br/>LogarithmicScaleDown=true|false (ALPHA - 기본값=false)<br/>MemoryManager=true|false (ALPHA - 기본값=false)<br/>MixedProtocolLBService=true|false (ALPHA - 기본값=false)<br/>NamespaceDefaultLabelName=true|false (BETA - 기본값=true)<br/>NetworkPolicyEndPort=true|false (ALPHA - 기본값=false)<br/>NonPreemptingPriority=true|false (BETA - 기본값=true)<br/>PodAffinityNamespaceSelector=true|false (ALPHA - 기본값=false)<br/>PodDeletionCost=true|false (ALPHA - 기본값=false)<br/>PodOverhead=true|false (BETA - 기본값=true)<br/>PreferNominatedNode=true|false (ALPHA - 기본값=false)<br/>ProbeTerminationGracePeriod=true|false (ALPHA - 기본값=false)<br/>ProcMountType=true|false (ALPHA - 기본값=false)<br/>QOSReserved=true|false (ALPHA - 기본값=false)<br/>RemainingItemCount=true|false (BETA - 기본값=true)<br/>RemoveSelfLink=true|false (BETA - 기본값=true)<br/>RotateKubeletServerCertificate=true|false (BETA - 기본값=true)<br/>ServerSideApply=true|false (BETA - 기본값=true)<br/>ServiceInternalTrafficPolicy=true|false (ALPHA - 기본값=false)<br/>ServiceLBNodePortControl=true|false (ALPHA - 기본값=false)<br/>ServiceLoadBalancerClass=true|false (ALPHA - 기본값=false)<br/>ServiceTopology=true|false (ALPHA - 기본값=false)<br/>SetHostnameAsFQDN=true|false (BETA - 기본값=true)<br/>SizeMemoryBackedVolumes=true|false (ALPHA - 기본값=false)<br/>StorageVersionAPI=true|false (ALPHA - 기본값=false)<br/>StorageVersionHash=true|false (BETA - 기본값=true)<br/>SuspendJob=true|false (ALPHA - 기본값=false)<br/>TTLAfterFinished=true|false (BETA - 기본값=true)<br/>TopologyAwareHints=true|false (ALPHA - 기본값=false)<br/>TopologyManager=true|false (BETA - 기본값=true)<br/>ValidateProxyRedirects=true|false (BETA - 기본값=true)<br/>VolumeCapacityPriority=true|false (ALPHA - 기본값=false)<br/>WarningHeaders=true|false (BETA - 기본값=true)<br/>WinDSR=true|false (ALPHA - 기본값=false)<br/>WinOverlay=true|false (BETA - 기본값=true)<br/>WindowsEndpointSliceProxying=true|false (BETA - 기본값=true)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false (BETA - default=true)<br/>APIPriorityAndFairness=true|false (BETA - default=true)<br/>APIResponseCompression=true|false (BETA - default=true)<br/>APIServerIdentity=true|false (ALPHA - default=false)<br/>APIServerTracing=true|false (ALPHA - default=false)<br/>AllAlpha=true|false (ALPHA - default=false)<br/>AllBeta=true|false (BETA - default=false)<br/>AnyVolumeDataSource=true|false (ALPHA - default=false)<br/>AppArmor=true|false (BETA - default=true)<br/>CPUManager=true|false (BETA - default=true)<br/>CPUManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>CPUManagerPolicyOptions=true|false (BETA - default=true)<br/>CSIInlineVolume=true|false (BETA - default=true)<br/>CSIMigration=true|false (BETA - default=true)<br/>CSIMigrationAWS=true|false (BETA - default=true)<br/>CSIMigrationAzureDisk=true|false (BETA - default=true)<br/>CSIMigrationAzureFile=true|false (BETA - default=false)<br/>CSIMigrationGCE=true|false (BETA - default=true)<br/>CSIMigrationOpenStack=true|false (BETA - default=true)<br/>CSIMigrationPortworx=true|false (ALPHA - default=false)<br/>CSIMigrationvSphere=true|false (BETA - default=false)<br/>CSIStorageCapacity=true|false (BETA - default=true)<br/>CSIVolumeHealth=true|false (ALPHA - default=false)<br/>CSRDuration=true|false (BETA - default=true)<br/>ControllerManagerLeaderMigration=true|false (BETA - default=true)<br/>CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>CustomResourceValidationExpressions=true|false (ALPHA - default=false)<br/>DaemonSetUpdateSurge=true|false (BETA - default=true)<br/>DefaultPodTopologySpread=true|false (BETA - default=true)<br/>DelegateFSGroupToCSIDriver=true|false (BETA - default=true)<br/>DevicePlugins=true|false (BETA - default=true)<br/>DisableAcceleratorUsageMetrics=true|false (BETA - default=true)<br/>DisableCloudProviders=true|false (ALPHA - default=false)<br/>DisableKubeletCloudCredentialProviders=true|false (ALPHA - default=false)<br/>DownwardAPIHugePages=true|false (BETA - default=true)<br/>EfficientWatchResumption=true|false (BETA - default=true)<br/>EndpointSliceTerminatingCondition=true|false (BETA - default=true)<br/>EphemeralContainers=true|false (BETA - default=true)<br/>ExpandCSIVolumes=true|false (BETA - default=true)<br/>ExpandInUsePersistentVolumes=true|false (BETA - default=true)<br/>ExpandPersistentVolumes=true|false (BETA - default=true)<br/>ExpandedDNSConfig=true|false (ALPHA - default=false)<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>GRPCContainerProbe=true|false (ALPHA - default=false)<br/>GracefulNodeShutdown=true|false (BETA - default=true)<br/>GracefulNodeShutdownBasedOnPodPriority=true|false (ALPHA - default=false)<br/>HPAContainerMetrics=true|false (ALPHA - default=false)<br/>HPAScaleToZero=true|false (ALPHA - default=false)<br/>HonorPVReclaimPolicy=true|false (ALPHA - default=false)<br/>IdentifyPodOS=true|false (ALPHA - default=false)<br/>InTreePluginAWSUnregister=true|false (ALPHA - default=false)<br/>InTreePluginAzureDiskUnregister=true|false (ALPHA - default=false)<br/>InTreePluginAzureFileUnregister=true|false (ALPHA - default=false)<br/>InTreePluginGCEUnregister=true|false (ALPHA - default=false)<br/>InTreePluginOpenStackUnregister=true|false (ALPHA - default=false)<br/>InTreePluginPortworxUnregister=true|false (ALPHA - default=false)<br/>InTreePluginRBDUnregister=true|false (ALPHA - default=false)<br/>InTreePluginvSphereUnregister=true|false (ALPHA - default=false)<br/>IndexedJob=true|false (BETA - default=true)<br/>JobMutableNodeSchedulingDirectives=true|false (BETA - default=true)<br/>JobReadyPods=true|false (ALPHA - default=false)<br/>JobTrackingWithFinalizers=true|false (BETA - default=true)<br/>KubeletCredentialProviders=true|false (ALPHA - default=false)<br/>KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>KubeletPodResources=true|false (BETA - default=true)<br/>KubeletPodResourcesGetAllocatable=true|false (BETA - default=true)<br/>LocalStorageCapacityIsolation=true|false (BETA - default=true)<br/>LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>LogarithmicScaleDown=true|false (BETA - default=true)<br/>MemoryManager=true|false (BETA - default=true)<br/>MemoryQoS=true|false (ALPHA - default=false)<br/>MixedProtocolLBService=true|false (ALPHA - default=false)<br/>NetworkPolicyEndPort=true|false (BETA - default=true)<br/>NodeSwap=true|false (ALPHA - default=false)<br/>NonPreemptingPriority=true|false (BETA - default=true)<br/>OpenAPIEnums=true|false (ALPHA - default=false)<br/>OpenAPIV3=true|false (ALPHA - default=false)<br/>PodAffinityNamespaceSelector=true|false (BETA - default=true)<br/>PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>PodDeletionCost=true|false (BETA - default=true)<br/>PodOverhead=true|false (BETA - default=true)<br/>PodSecurity=true|false (BETA - default=true)<br/>PreferNominatedNode=true|false (BETA - default=true)<br/>ProbeTerminationGracePeriod=true|false (BETA - default=false)<br/>ProcMountType=true|false (ALPHA - default=false)<br/>ProxyTerminatingEndpoints=true|false (ALPHA - default=false)<br/>QOSReserved=true|false (ALPHA - default=false)<br/>ReadWriteOncePod=true|false (ALPHA - default=false)<br/>RecoverVolumeExpansionFailure=true|false (ALPHA - default=false)<br/>RemainingItemCount=true|false (BETA - default=true)<br/>RemoveSelfLink=true|false (BETA - default=true)<br/>RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>SeccompDefault=true|false (ALPHA - default=false)<br/>ServerSideFieldValidation=true|false (ALPHA - default=false)<br/>ServiceInternalTrafficPolicy=true|false (BETA - default=true)<br/>ServiceLBNodePortControl=true|false (BETA - default=true)<br/>ServiceLoadBalancerClass=true|false (BETA - default=true)<br/>SizeMemoryBackedVolumes=true|false (BETA - default=true)<br/>StatefulSetAutoDeletePVC=true|false (ALPHA - default=false)<br/>StatefulSetMinReadySeconds=true|false (BETA - default=true)<br/>StorageVersionAPI=true|false (ALPHA - default=false)<br/>StorageVersionHash=true|false (BETA - default=true)<br/>SuspendJob=true|false (BETA - default=true)<br/>TopologyAwareHints=true|false (BETA - default=false)<br/>TopologyManager=true|false (BETA - default=true)<br/>VolumeCapacityPriority=true|false (ALPHA - default=false)<br/>WinDSR=true|false (ALPHA - default=false)<br/>WinOverlay=true|false (BETA - default=true)<br/>WindowsHostProcessContainers=true|false (BETA - default=true)<br/>csiMigrationRBD=true|false (ALPHA - default=false)</p></td>
 </tr>
 
 <tr>
@@ -309,49 +302,14 @@ kube-proxy [flags]
 </tr>
 
 <tr>
-<td colspan="2">--log-backtrace-at &lt;'file:N' 형태의 문자열&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: :0</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로깅 과정에서 file:N 번째 라인에 도달하면 스택 트레이스를 출력한다.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--log-dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그 파일이 저장될 디렉터리</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--log-file string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>사용할 로그 파일</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 1800</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그 파일의 최대 크기(단위: MB). 0으로 설정하면 무제한이다.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 5s</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그 플러시 사이의 최대 시간</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: true</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그를 파일에 기록하지 않고 표준 에러로만 출력</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--machine-id-file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: "/etc/machine-id,/var/lib/dbus/machine-id"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>machine-id를 위해 확인할 파일 목록(쉼표로 분리). 가장 먼저 발견되는 항목을 사용한다.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--machine_id_file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: "/etc/machine-id,/var/lib/dbus/machine-id"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>machine-id를 위해 확인할 파일 목록(쉼표로 분리). 가장 먼저 발견되는 항목을 사용한다.</p></td>
@@ -383,13 +341,6 @@ kube-proxy [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>NodePort에 사용할 주소를 지정하는 값의 문자열 조각. 값은 유효한 IP 블록(예: 1.2.3.0/24, 1.2.3.4/32). 기본값인 빈 문자열 조각값은([]) 모든 로컬 주소를 사용하는 것을 의미한다.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--one-output</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>true이면, 해당 로그가 속하는 심각성 레벨에만 각 로그를 기록한다(원래는 하위 심각성 레벨에도 기록한다).</p></td>
 </tr>
 
 <tr>
@@ -428,27 +379,6 @@ kube-proxy [flags]
 </tr>
 
 <tr>
-<td colspan="2">--skip-headers</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>true이면, 로그 메시지에서 헤더 접두사를 붙이지 않는다.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--skip-log-headers</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>true이면, 로그 파일을 열 때 헤더를 붙이지 않는다.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--stderrthreshold int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 2</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>이 값 이상의 로그는 표준 에러(stderr)로 출력되도록 한다.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--udp-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 250ms</td>
 </tr>
 <tr>
@@ -456,24 +386,10 @@ kube-proxy [flags]
 </tr>
 
 <tr>
-<td colspan="2">-v, --v int</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그 상세 레벨(verbosity)</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>버전 정보를 출력하고 종료</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--vmodule &lt;쉼표로 구분된 'pattern=N' 설정&gt;</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>파일-필터된 로깅을 위한 'pattern=N' 설정들(쉼표로 구분됨)</p></td>
 </tr>
 
 <tr>

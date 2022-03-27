@@ -330,7 +330,7 @@ the endpoints controller has truncated the number of endpoints to 1000.
 <!--
 ### EndpointSlices
 -->
-### EndpointSlice
+### EndpointSlices
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
@@ -345,12 +345,12 @@ endpoints.
 Endpoint Slices provide additional attributes and functionality which is
 described in detail in [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
 -->
-Endpoint 切片是一种 API 资源，可以为 Endpoint 提供更可扩展的替代方案。
-尽管从概念上讲与 Endpoint 非常相似，但 Endpoint 切片允许跨多个资源分布网络端点。
-默认情况下，一旦到达100个 Endpoint，该 Endpoint 切片将被视为“已满”，
-届时将创建其他 Endpoint 切片来存储任何其他 Endpoint。
+EndpointSlices 是一种 API 资源，可以为 Endpoints 提供更可扩展的替代方案。
+尽管从概念上讲与 Endpoints 非常相似，但 EndpointSlices 允许跨多个资源分布网络端点。
+默认情况下，一旦到达 100 个 Endpoint，该 EndpointSlice 将被视为“已满”，
+届时将创建其他 EndpointSlices 来存储任何其他 Endpoints。
 
-Endpoint 切片提供了附加的属性和功能，这些属性和功能在
+EndpointSlices 提供了附加的属性和功能，这些属性和功能在
 [EndpointSlices](/zh/docs/concepts/services-networking/endpoint-slices/)
 中有详细描述。
 
@@ -936,7 +936,7 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型，默认是
 * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value
   makes the Service only reachable from within the cluster. This is the
   default `ServiceType`.
-* [`NodePort`](#nodeport): Exposes the Service on each Node's IP at a static port
+* [`NodePort`](#type-nodeport): Exposes the Service on each Node's IP at a static port
   (the `NodePort`). A `ClusterIP` Service, to which the `NodePort` Service
   routes, is automatically created.  You'll be able to contact the `NodePort` Service,
   from outside the cluster,
@@ -953,7 +953,7 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型，默认是
 -->
 * `ClusterIP`：通过集群的内部 IP 暴露服务，选择该值时服务只能够在集群内部访问。
   这也是默认的 `ServiceType`。
-* [`NodePort`](#nodeport)：通过每个节点上的 IP 和静态端口（`NodePort`）暴露服务。
+* [`NodePort`](#type-nodeport)：通过每个节点上的 IP 和静态端口（`NodePort`）暴露服务。
   `NodePort` 服务会路由到自动创建的 `ClusterIP` 服务。
   通过请求 `<节点 IP>:<节点端口>`，你可以从集群的外部访问一个 `NodePort` 服务。
 * [`LoadBalancer`](#loadbalancer)：使用云提供商的负载均衡器向外部暴露服务。
@@ -974,7 +974,7 @@ Ingress 不是一种服务类型，但它充当集群的入口点。
 它可以将路由规则整合到一个资源中，因为它可以在同一IP地址下公开多个服务。
 
 <!--
-### Type NodePort {#nodeport}
+### Type NodePort {#type-nodeport}
 
 If you set the `type` field to `NodePort`, the Kubernetes control plane
 allocates a port from a range specified by `--service-node-port-range` flag (default: 30000-32767).
@@ -989,7 +989,7 @@ to particular IP block(s).
 
 This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`) to specify IP address ranges that kube-proxy should consider as local to this node.
 -->
-### NodePort 类型  {#nodeport}
+### NodePort 类型  {#type-nodeport}
 
 如果你将 `type` 字段设置为 `NodePort`，则 Kubernetes 控制平面将在
 `--service-node-port-range` 标志指定的范围内分配端口（默认值：30000-32767）。
@@ -1719,6 +1719,13 @@ in those modified security groups.
 {{< /note >}}
 
 <!--
+Further documentation on annotations for Elastic IPs and other common use-cases may be found
+in the [AWS Load Balancer Controller documentation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/).
+-->
+有关弹性 IP 注解和更多其他常见用例，
+请参阅[AWS负载均衡控制器文档](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)。
+
+<!--
 #### Other CLB annotations on Tencent Kubernetes Engine (TKE)
 
 There are other annotations for managing Cloud Load Balancers on TKE as shown below.
@@ -1819,7 +1826,7 @@ spec:
 ```
 
 <!--
-ExternalName accepts an IPv4 address string, but as a DNS names comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
+ExternalName accepts an IPv4 address string, but as a DNS name comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
 is intended to specify a canonical DNS name. To hardcode an IP address, consider using
 [headless Services](#headless-services).
 -->

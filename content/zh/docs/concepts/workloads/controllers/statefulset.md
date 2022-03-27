@@ -63,7 +63,7 @@ that provides a set of stateless replicas.
 ## 限制  {#limitations}
 
 <!--
-* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
+* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
 * StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is deleted. To achieve ordered and graceful termination of the pods in the StatefulSet, it is possible to scale the StatefulSet down to 0 prior to deletion.
@@ -73,7 +73,7 @@ that provides a set of stateless replicas.
   [manual intervention to repair](#forced-rollback).
 -->
 * 给定 Pod 的存储必须由
-  [PersistentVolume 驱动](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md)
+  [PersistentVolume 驱动](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)
   基于所请求的 `storage class` 来提供，或者由管理员预先提供。
 * 删除或者收缩 StatefulSet 并*不会*删除它关联的存储卷。
   这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
@@ -289,9 +289,7 @@ Cluster Domain will be set to `cluster.local` unless
 <!--
 ### Stable Storage
 
-Kubernetes creates one [PersistentVolume](/docs/concepts/storage/persistent-volumes/) for each
-VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume
-with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
+For each VolumeClaimTemplate entry defined in a StatefulSet, each Pod receives one PersistentVolumeClaim. In the nginx example above, each Pod receives a single PersistentVolume with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
 is specified, then the default StorageClass will be used. When a Pod is (re)scheduled
 onto a node, its `volumeMounts` mount the PersistentVolumes associated with its
 PersistentVolume Claims. Note that, the PersistentVolumes associated with the
@@ -300,9 +298,9 @@ This must be done manually.
 -->
 ### 稳定的存储  {#stable-storage}
 
-Kubernetes 为每个 VolumeClaimTemplate 创建一个 [PersistentVolume](/zh/docs/concepts/storage/persistent-volumes/)。
-在上面的 nginx 示例中，每个 Pod 将会得到基于 StorageClass `my-storage-class` 提供的
-1 Gib 的 PersistentVolume。如果没有声明 StorageClass，就会使用默认的 StorageClass。
+对于 StatefulSet 中定义的每个 VolumeClaimTemplate，每个 Pod 接收到一个 PersistentVolumeClaim。在上面的 nginx 示例中，每个 Pod 将会得到基于 StorageClass `my-storage-class` 提供的
+1 Gib 的 PersistentVolume。
+如果没有声明 StorageClass，就会使用默认的 StorageClass。
 当一个 Pod 被调度（重新调度）到节点上时，它的 `volumeMounts` 会挂载与其 
 PersistentVolumeClaims 相关联的 PersistentVolume。
 请注意，当 Pod 或者 StatefulSet 被删除时，与 PersistentVolumeClaims 相关联的 
@@ -411,52 +409,56 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 <!--
 ## Update Strategies
 
-In Kubernetes 1.7 and later, StatefulSet's `.spec.updateStrategy` field allows you to configure
+A StatefulSet's `.spec.updateStrategy` field allows you to configure
 and disable automated rolling updates for containers, labels, resource request/limits, and
-annotations for the Pods in a StatefulSet.
+annotations for the Pods in a StatefulSet. There are two possible values:
 -->
 ## 更新策略  {#update-strategies}
 
-在 Kubernetes 1.7 及以后的版本中，StatefulSet 的 `.spec.updateStrategy` 字段让
+StatefulSet 的 `.spec.updateStrategy` 字段让
 你可以配置和禁用掉自动滚动更新 Pod 的容器、标签、资源请求或限制、以及注解。
-
+有两个允许的值：
 <!--
-### On Delete
+`OnDelete`
+: When a StatefulSet's `.spec.updateStrategy.type` is set to `OnDelete`,
+  the StatefulSet controller will not automatically update the Pods in a
+  StatefulSet. Users must manually delete Pods to cause the controller to
+  create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
 
-The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior. When a StatefulSet's
-`.spec.updateStrategy.type` is set to `OnDelete`, the StatefulSet controller will not automatically
-update the Pods in a StatefulSet. Users must manually delete Pods to cause the controller to
-create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
+`RollingUpdate`
+: The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a StatefulSet. This is the default update strategy.
 -->
-### 关于删除策略  {#on-delete}
+`OnDelete`
+: 当 StatefulSet 的 `.spec.updateStrategy.type` 设置为 `OnDelete` 时，
+  它的控制器将不会自动更新 StatefulSet 中的 Pod。
+  用户必须手动删除 Pod 以便让控制器创建新的 Pod，以此来对 StatefulSet 的
+  `.spec.template` 的变动作出反应。
 
-`OnDelete` 更新策略实现了 1.6 及以前版本的历史遗留行为。当 StatefulSet 的
-`.spec.updateStrategy.type` 设置为 `OnDelete` 时，它的控制器将不会自动更新
-StatefulSet 中的 Pod。
-用户必须手动删除 Pod 以便让控制器创建新的 Pod，以此来对 StatefulSet 的
-`.spec.template` 的变动作出反应。
-
+`RollingUpdate`
+: `RollingUpdate` 更新策略对 StatefulSet 中的 Pod 执行自动的滚动更新。这是默认的更新策略。
+ 
 <!--
-### Rolling Updates
+## Rolling Updates
 
-The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a
-StatefulSet. It is the default strategy when `.spec.updateStrategy` is left unspecified. When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
+When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
 StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed
 in the same order as Pod termination (from the largest ordinal to the smallest), updating
-each Pod one at a time. It will wait until an updated Pod is Running and Ready prior to
-updating its predecessor.
--->
-### 滚动更新 {#rolling-updates}
+each Pod one at a time.
 
-`RollingUpdate` 更新策略对 StatefulSet 中的 Pod 执行自动的滚动更新。
-在没有声明 `.spec.updateStrategy` 时，`RollingUpdate` 是默认配置。
+The Kubernetes control plane waits until an updated Pod is Running and Ready prior
+to updating its predecessor. If you have set `.spec.minReadySeconds` (see [Minimum Ready Seconds](#minimum-ready-seconds)), the control plane additionally waits that amount of time after the Pod turns ready, before moving on.
+-->
+## 滚动更新 {#rolling-updates}
+
 当 StatefulSet 的 `.spec.updateStrategy.type` 被设置为 `RollingUpdate` 时，
 StatefulSet 控制器会删除和重建 StatefulSet 中的每个 Pod。
 它将按照与 Pod 终止相同的顺序（从最大序号到最小序号）进行，每次更新一个 Pod。
-它会等到被更新的 Pod 进入 Running 和 Ready 状态，然后再更新其前身。
+
+Kubernetes 控制面会等到被更新的 Pod 进入 Running 和 Ready 状态，然后再更新其前身。
+如果你设置了 `.spec.minReadySeconds`（查看[最短就绪秒数](#minimum-ready-seconds)），控制面在 Pod 就绪后会额外等待一定的时间再执行下一步。
 
 <!--
-#### Partitions
+### Partitioned rolling updates {#partitions}
 
 The `RollingUpdate` update strategy can be partitioned, by specifying a
 `.spec.updateStrategy.rollingUpdate.partition`. If a partition is specified, all Pods with an
@@ -468,7 +470,7 @@ updates to its `.spec.template` will not be propagated to its Pods.
 In most cases you will not need to use a partition, but they are useful if you want to stage an
 update, roll out a canary, or perform a phased roll out.
 -->
-#### 分区   {#partitions}
+### 分区滚动更新   {#partitions}
 
 通过声明 `.spec.updateStrategy.rollingUpdate.partition` 的方式，`RollingUpdate`
 更新策略可以实现分区。
@@ -481,7 +483,7 @@ update, roll out a canary, or perform a phased roll out.
 分阶段上线，则这些分区会非常有用。
 
 <!--
-#### Forced Rollback
+### Forced Rollback
 
 When using [Rolling Updates](#rolling-updates) with the default
 [Pod Management Policy](#pod-management-policies) (`OrderedReady`),
@@ -491,7 +493,7 @@ If you update the Pod template to a configuration that never becomes Running and
 Ready (for example, due to a bad binary or application-level configuration error),
 StatefulSet will stop the rollout and wait.
 -->
-#### 强制回滚 {#forced-rollback}
+### 强制回滚 {#forced-rollback}
 
 在默认 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 下使用
 [滚动更新](#rolling-updates) ，可能进入需要人工干预才能修复的损坏状态。
@@ -517,13 +519,52 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 恢复模板后，还必须删除 StatefulSet 尝试使用错误的配置来运行的 Pod。这样，
 StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 
+<!--
+### Minimum ready seconds
+
+`.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
+created Pod should be ready without any of its containers crashing, for it to be considered available.
+This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
+a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+
+Please note that this field only works if you enable the `StatefulSetMinReadySeconds` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+### 最短就绪秒数   {#minimum-ready-seconds}
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+`.spec.minReadySeconds` 是一个可选字段，用于指定新创建的 Pod 就绪（没有任何容器崩溃）后被认为可用的最小秒数。
+默认值是 0（Pod 就绪时就被认为可用）。要了解 Pod 何时被认为已就绪，请参阅[容器探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。 
+
+请注意只有当你启用 `StatefulSetMinReadySeconds` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)时，该字段才会生效。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
-* Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
-* Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Find out how to use StatefulSets
+  * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
+  * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
+  * Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
+  * Learn how to [scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
+  * Learn what's involved when you [delete a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
+  * Learn how to [configure a Pod to use a volume for storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
+  * Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+* `StatefulSet` is a top-level resource in the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/stateful-set-v1" >}}
+  object definition to understand the API for stateful sets.
+* Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
+  you can use it to manage application availability during disruptions.
 -->
-* 示例一：[部署有状态应用](/zh/docs/tutorials/stateful-application/basic-stateful-set/)。
-* 示例二：[使用 StatefulSet 部署 Cassandra](/zh/docs/tutorials/stateful-application/cassandra/)。
-* 示例三：[运行多副本的有状态应用程序](/zh/docs/tasks/run-application/run-replicated-stateful-application/)。
+* 了解 [Pods](/zh/docs/concepts/workloads/pods)。
+* 了解如何使用 StatefulSet
+  * 跟随示例[部署有状态应用](/zh/docs/tutorials/stateful-application/basic-stateful-set/)。
+  * 跟随示例[使用 StatefulSet 部署 Cassandra](/zh/docs/tutorials/stateful-application/cassandra/)。
+  * 跟随示例[运行多副本的有状态应用程序](/zh/docs/tasks/run-application/run-replicated-stateful-application/)。
+  * 了解如何[扩缩 StatefulSet](/zh/docs/tasks/run-application/scale-stateful-set/)。
+  * 了解[删除 StatefulSet](/zh/docs/tasks/run-application/delete-stateful-set/)涉及到的操作。
+  * 了解如何[配置 Pod 以使用卷进行存储](/zh/docs/tasks/configure-pod-container/configure-volume-storage/)。
+  * 了解如何[配置 Pod 以使用 PersistentVolume 作为存储](/zh/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
+* `StatefulSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/stateful-set-v1" >}}
+   对象定义理解关于该资源的 API。
+* 阅读[Pod 干扰预算（Disruption Budget）](/zh/docs/concepts/workloads/pods/disruptions/)，了解如何在干扰下运行高度可用的应用。

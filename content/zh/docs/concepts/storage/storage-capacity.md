@@ -1,7 +1,7 @@
 ---
 title: 存储容量
 content_type: concept
-weight: 45
+weight: 70
 ---
 
 <!-- overview -->
@@ -10,7 +10,6 @@ Storage capacity is limited and may vary depending on the node on
 which a pod runs: network-attached storage might not be accessible by
 all nodes, or storage is local to a node to begin with.
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 This page describes how Kubernetes keeps track of storage capacity and
@@ -27,7 +26,6 @@ text="Container Storage Interface" term_id="csi" >}} (CSI) drivers and
 存储容量是有限的，并且会因为运行 Pod 的节点不同而变化：
 网络存储可能并非所有节点都能够访问，或者对于某个节点存储是本地的。
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 本页面描述了 Kubernetes 如何跟踪存储容量以及调度程序如何为了余下的尚未挂载的卷使用该信息将

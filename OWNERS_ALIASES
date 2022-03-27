@@ -2,10 +2,12 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - onlydole
     - mrbobbytables
+    - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - mrbobbytables
     - onlydole
     - sftim
+    - nate-double-u
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -18,25 +20,33 @@ aliases:
     - annajung
     - bradtopol
     - celestehorgan
+    - divya-mohan0209
     - jimangel
     - jlbutler
     - kbhawkey
+    - natalisucks
     - onlydole
     - pi-victor
     - reylejano
     - savitharaghunathan
     - sftim
     - tengqm
+    - zacharysarah
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - celestehorgan
     - daminisatya
+    - divya-mohan0209
     - jimangel
     - kbhawkey
+    - mehabhalodiya
+    - natalisucks
     - onlydole
     - rajeshdeshpande02
     - sftim
+    - shannonxtreme
     - tengqm
+    - zacharysarah
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - electrocucaracha
@@ -79,6 +89,7 @@ aliases:
     - anubha-v-ardhan
     - divya-mohan0209
     - mittalyashu
+    - verma-kunal
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
     - danninov
@@ -120,6 +131,7 @@ aliases:
     - ClaudiaJKang
     - gochist
     - ianychoi
+    - jihoon-seo
     - seokho-son
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
@@ -133,16 +145,21 @@ aliases:
     - yoonian
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
+    - divya-mohan0209
     - jimangel
     - kbhawkey
+    - natalisucks
     - onlydole
+    - reylejano
     - sftim
+    - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
     # chenopis
     - chenrui333
     # dchen1107
     # haibinxie
     # hanjiayao
+    - howieyuen
     # lichuqiang
     - SataQiu
     - tanjunchen
@@ -162,6 +179,7 @@ aliases:
     - xichengliudui
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
+    - edsoncelio
     - femrtnz
     - jailton
     - jcjesus
@@ -170,6 +188,7 @@ aliases:
     - rikatz
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
+    - edsoncelio
     - femrtnz
     - jailton
     - jcjesus
@@ -217,16 +236,15 @@ aliases:
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - cblecker
-    - derekwaynecarr
     - dims
+    - justaugustus
     - liggitt
     - mrbobbytables
-    - nikhita
     - parispittman
+    - tpepper
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
     - cpanato # SIG Technical Lead
-    - hasheddan # SIG Technical Lead
     - jeremyrickard # SIG Technical Lead
     - justaugustus # SIG Chair
     - LappleApple # SIG Program Manager
@@ -234,19 +252,18 @@ aliases:
     - saschagrunert # SIG Chair
   release-engineering-approvers:
     - cpanato # Release Manager
-    - hasheddan # subproject owner / Release Manager
+    - palnabarun # Release Manager
     - puerco # Release Manager
     - saschagrunert # subproject owner / Release Manager
     - justaugustus # subproject owner / Release Manager
+    - Verolop # Release Manager
     - xmudrii # Release Manager
   release-engineering-reviewers:
     - ameukam # Release Manager Associate
     - jimangel # Release Manager Associate
     - markyjackson-taulia # Release Manager Associate
     - mkorbi # Release Manager Associate
-    - palnabarun # Release Manager Associate
     - onlydole # Release Manager Associate
     - sethmccombs # Release Manager Associate
     - thejoycekung # Release Manager Associate
-    - verolop # Release Manager Associate
     - wilsonehusin # Release Manager Associate

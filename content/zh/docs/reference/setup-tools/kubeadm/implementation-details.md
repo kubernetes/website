@@ -683,52 +683,6 @@ a local etcd instance running in a Pod with following attributes:
    命令单独为本地 etcd 生成静态 Pod 清单
 
 <!--
-### Optional Dynamic Kubelet Configuration
--->
-### 可选的动态 Kubelet 配置  {#optional-dynamic-kubelet-configuration}
-
-<!--  
-To use this functionality call `kubeadm alpha kubelet config enable-dynamic`. It writes the kubelet init configuration
-into `/var/lib/kubelet/config/init/kubelet` file.
--->
-要使用这个功能，请执行 `kubeadm alpha kubelet config enable-dynamic`。
-它将 kubelet 的初始化配置写入 `/var/lib/kubelet/config/init/kubelet` 文件。
-
-<!--  
-The init configuration is used for starting the kubelet on this specific node, providing an alternative for the kubelet drop-in file;
-such configuration will be replaced by the kubelet base configuration as described in following steps.
-See [set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file) for additional information.
--->
-初始化配置用于在这个特定节点上启动 kubelet，从而为 kubelet 插件文件提供了
-一种替代方法。如以下步骤中所述，这种配置将由 kubelet 基本配置所替代。
-请参阅[通过配置文件设置 Kubelet 参数](/zh/docs/tasks/administer-cluster/kubelet-config-file)
-了解更多信息。
-
-<!-- Please note that: -->
-请注意：
-
-<!--  
-1. To make dynamic kubelet configuration work, flag `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` should be specified
-   in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
-1. The kubelet configuration can be changed by passing a `KubeletConfiguration` object to `kubeadm init` or `kubeadm join` by using
-   a configuration file `--config some-file.yaml`. The `KubeletConfiguration` object can be separated from other objects such
-   as `InitConfiguration` using the `---` separator. For more details have a look at the `kubeadm config print-default` command.
--->
-1. 要使动态 kubelet 配置生效，应在 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
-   中指定 `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` 标志。
-1. 通过使用配置文件 `--config some-file.yaml` 将 `KubeletConfiguration` 对象传递给
-   `kubeadm init` 或 `kubeadm join` 来更改 kubelet 配置。
-   可以使用 `---` 分隔符将 `KubeletConfiguration` 对象与其他对象（例如 `InitConfiguration`）
-   分开。更多的详细信息，请查看 `kubeadm config print-default` 命令。
-
-<!--
-For more details about the `KubeletConfiguration` struct, take a look at the
-[`KubeletConfiguration` reference](/docs/reference/config-api/kubelet-config.v1beta1/).
--->
-有关 `KubeletConfiguration` 结构的详细信息，可参阅
-[`KubeletConfiguration` 参考文档](/docs/reference/config-api/kubelet-config.v1beta1/)。
-
-<!--
 ### Wait for the control plane to come up
 -->
 ### 等待控制平面启动  {#wait-for-the-control-plane-to-come-up}
@@ -749,30 +703,6 @@ After the control plane is up, kubeadm completes the tasks described in followin
 -->
 kubeadm 依靠 kubelet 拉取控制平面镜像并将其作为静态 Pod 正确运行。
 控制平面启动后，kubeadm 将完成以下段落中描述的任务。
-
-<!--
-### (optional) Write base kubelet configuration
--->
-### （可选）编写基本 kubelet 配置  {#write-base-kubelet-configuration}
-
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
-
-<!--
-If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
--->
-如果带 `--feature-gates=DynamicKubeletConfig` 参数调用 kubeadm，则 kubeadm：
-
-<!--  
-1. Write the kubelet base configuration into the `kubelet-base-config-v1.9` ConfigMap in the `kube-system` namespace
-2. Creates RBAC rules for granting read access to that ConfigMap to all bootstrap tokens and all kubelet instances
-   (that is `system:bootstrappers:kubeadm:default-node-token` and `system:nodes` groups)
-3. Enable the dynamic kubelet configuration feature for the initial control-plane node by pointing `Node.spec.configSource` to the newly-created ConfigMap
--->
-1. 将 kubelet 基本配置写入 `kube-system` 名字空间的 `kubelet-base-config-v1.9` ConfigMap 中。
-2. 创建 RBAC 规则，以授予对所有引导令牌和所有 kubelet 实例对该 ConfigMap 的读取访问权限
-  （即 `system:bootstrappers:kubeadm:default-node-token` 组和 `system:nodes` 组）
-3. 通过将 `Node.spec.configSource` 指向新创建的 ConfigMap，为初始控制平面节点启用动态
-   kubelet 配置功能。
 
 <!--
 ### Save the kubeadm ClusterConfiguration in a ConfigMap for later reference
@@ -1228,37 +1158,4 @@ kubelet 加入集群，同时删除 `bootstrap-kubelet.conf`。
 - 临时身份验证解析到 `system:bootstrappers:kubeadm:default-node-token` 组的一个用户成员，
   该成员在 `kubeadm init` 过程中被授予对 CSR API 的访问权
 - 根据 `kubeadm init` 过程的配置，自动 CSR 审批由 csrapprover 控制器管理
-
-<!--
-### (optional) Write init kubelet configuration
--->
-### （可选）写入初始的 kubelet 配置  {#write-init-kubelet-configuration}
-
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
-
-<!--
-If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
--->
-如果带 `--feature-gates=DynamicKubeletConfig` 参数调用 kubeadm，则 kubeadm：
-
-<!--  
-1. Read the kubelet base configuration from the `kubelet-base-config-v1.x` ConfigMap in the `kube-system` namespace  using the
-   Bootstrap Token credentials, and write it to disk as kubelet init configuration file  `/var/lib/kubelet/config/init/kubelet`
-2. As soon as kubelet starts with the Node's own credential (`/etc/kubernetes/kubelet.conf`), update current node configuration
-   specifying that the source for the node/kubelet configuration is the above ConfigMap.
--->
-1. 使用引导令牌凭证从 `kube-system` 名字空间中 ConfigMap `kubelet-base-config-v1.x`
-   中读取 kubelet 基本配置，
-   并将其作为 kubelet 初始配置文件 `/var/lib/kubelet/config/init/kubelet` 写入磁盘。
-2. 一旦 kubelet 开始使用节点自己的凭据（`/etc/kubernetes/kubelet.conf`），
-   就更新当前节点配置，指定该节点或 kubelet 配置来自上述 ConfigMap。
-
-<!-- Please note that: -->
-请注意：
-
-<!-- 
-1. To make dynamic kubelet configuration work, flag `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` should be specified in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` 
--->
-1. 要使动态 kubelet 配置生效，应在 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
-   中指定 `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` 标志。
 

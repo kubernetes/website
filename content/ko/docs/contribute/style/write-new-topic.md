@@ -105,7 +105,7 @@ YAML 블록이다. 여기 예시가 있다.
   포함할 수 있다.
 - 이 코드의 목적은 더 큰 파일의 일부를 강조하는 것이기 때문에
   불완전한 예제다. 예를 들어 몇 가지 이유로
-  [PodSecurityPolicy](/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)
+  [PodSecurityPolicy](/ko/docs/tasks/administer-cluster/sysctl-cluster/#파드시큐리티폴리시-podsecuritypolicy)
   를 사용자 정의 방법을 설명할 때 문서 파일에서 직접 짧은 요약 정보를 제공할 수 있다.
 - 이 코드는 사용자가 다른 이유로 시도하기 위한 것이 아니다. 예를 들어
   `kubectl edit` 명령을 사용하여 리소스에 새 속성을 추가하는 방법을

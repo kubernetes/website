@@ -17,21 +17,16 @@ You can use it to inspect and debug container runtimes and applications on a
 Kubernetes node. `crictl` and its source are hosted in the
 [cri-tools](https://github.com/kubernetes-sigs/cri-tools) repository.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 `crictl` requires a Linux operating system with a CRI runtime.
-
-
 
 <!-- steps -->
 
 ## Installing crictl
 
-You can download a compressed archive `crictl` from the cri-tools [release
-page](https://github.com/kubernetes-sigs/cri-tools/releases), for several
+You can download a compressed archive `crictl` from the cri-tools
+[release page](https://github.com/kubernetes-sigs/cri-tools/releases), for several
 different architectures. Download the version that corresponds to your version
 of Kubernetes. Extract it and move it to a location on your system path, such as
 `/usr/local/bin/`.
@@ -41,26 +36,36 @@ of Kubernetes. Extract it and move it to a location on your system path, such as
 The `crictl` command has several subcommands and runtime flags. Use
 `crictl help` or `crictl <subcommand> help` for more details.
 
-`crictl` connects to `unix:///var/run/dockershim.sock` by default. For other
-runtimes, you can set the endpoint in multiple different ways:
+You can set the endpoint for `crictl` by doing one of the following:
 
-- By setting flags `--runtime-endpoint` and `--image-endpoint`
-- By setting environment variables `CONTAINER_RUNTIME_ENDPOINT` and `IMAGE_SERVICE_ENDPOINT`
-- By setting the endpoint in the config file `--config=/etc/crictl.yaml`
+* Set the `--runtime-endpoint` and `--image-endpoint` flags.
+* Set the `CONTAINER_RUNTIME_ENDPOINT` and `IMAGE_SERVICE_ENDPOINT` environment
+  variables.
+* Set the endpoint in the configuration file `/etc/crictl.yaml`. To specify a
+  different file, use the `--config=PATH_TO_FILE` flag when you run `crictl`.
+
+{{<note>}}
+If you don't set an endpoint, `crictl` attempts to connect to a list of known
+endpoints, which might result in an impact to performance.
+{{</note>}}
 
 You can also specify timeout values when connecting to the server and enable or
 disable debugging, by specifying `timeout` or `debug` values in the configuration
 file or using the `--timeout` and `--debug` command-line flags.
 
-To view or edit the current configuration, view or edit the contents of `/etc/crictl.yaml`.
+To view or edit the current configuration, view or edit the contents of
+`/etc/crictl.yaml`. For example, the configuration when using the `containerd`
+container runtime would be similar to this:
 
-```shell
-cat /etc/crictl.yaml
-runtime-endpoint: unix:///var/run/dockershim.sock
-image-endpoint: unix:///var/run/dockershim.sock
+```
+runtime-endpoint: unix:///var/run/containerd/containerd.sock
+image-endpoint: unix:///var/run/containerd/containerd.sock
 timeout: 10
 debug: true
 ```
+
+To learn more about `crictl`, refer to the [`crictl`
+documentation](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md).
 
 ## Example crictl commands
 
@@ -79,6 +84,7 @@ List all pods:
 ```shell
 crictl pods
 ```
+
 The output is similar to this:
 
 ```
@@ -94,6 +100,7 @@ List pods by name:
 ```shell
 crictl pods --name nginx-65899c769f-wv2gp
 ```
+
 The output is similar to this:
 
 ```
@@ -106,6 +113,7 @@ List pods by label:
 ```shell
 crictl pods --label run=nginx
 ```
+
 The output is similar to this:
 
 ```
@@ -120,6 +128,7 @@ List all images:
 ```shell
 crictl images
 ```
+
 The output is similar to this:
 
 ```
@@ -135,6 +144,7 @@ List images by repository:
 ```shell
 crictl images nginx
 ```
+
 The output is similar to this:
 
 ```
@@ -147,6 +157,7 @@ Only list image IDs:
 ```shell
 crictl images -q
 ```
+
 The output is similar to this:
 
 ```
@@ -163,6 +174,7 @@ List all containers:
 ```shell
 crictl ps -a
 ```
+
 The output is similar to this:
 
 ```
@@ -175,9 +187,10 @@ CONTAINER ID        IMAGE                                                       
 
 List running containers:
 
-```
+```shell
 crictl ps
 ```
+
 The output is similar to this:
 
 ```
@@ -192,6 +205,7 @@ CONTAINER ID        IMAGE                                                       
 ```shell
 crictl exec -i -t 1f73f2d81bf98 ls
 ```
+
 The output is similar to this:
 
 ```
@@ -205,6 +219,7 @@ Get all container logs:
 ```shell
 crictl logs 87d3992f84f74
 ```
+
 The output is similar to this:
 
 ```
@@ -218,6 +233,7 @@ Get only the latest `N` lines of logs:
 ```shell
 crictl logs --tail=1 87d3992f84f74
 ```
+
 The output is similar to this:
 
 ```
@@ -230,29 +246,29 @@ Using `crictl` to run a pod sandbox is useful for debugging container runtimes.
 On a running Kubernetes cluster, the sandbox will eventually be stopped and
 deleted by the Kubelet.
 
-1.  Create a JSON file like the following:
+1. Create a JSON file like the following:
 
-      ```json
-      {
-          "metadata": {
-              "name": "nginx-sandbox",
-              "namespace": "default",
-              "attempt": 1,
-              "uid": "hdishd83djaidwnduwk28bcsb"
-          },
-          "logDirectory": "/tmp",
-          "linux": {
-          }
-      }
-      ```
+   ```json
+   {
+     "metadata": {
+       "name": "nginx-sandbox",
+       "namespace": "default",
+       "attempt": 1,
+       "uid": "hdishd83djaidwnduwk28bcsb"
+     },
+     "logDirectory": "/tmp",
+     "linux": {
+     }
+   }
+   ```
 
-2.  Use the `crictl runp` command to apply the JSON and run the sandbox.
+2. Use the `crictl runp` command to apply the JSON and run the sandbox.
 
-      ```shell
-      crictl runp pod-config.json
-      ```
+   ```shell
+   crictl runp pod-config.json
+   ```
 
-      The ID of the sandbox is returned.
+   The ID of the sandbox is returned.
 
 ### Create a container
 
@@ -260,68 +276,73 @@ Using `crictl` to create a container is useful for debugging container runtimes.
 On a running Kubernetes cluster, the sandbox will eventually be stopped and
 deleted by the Kubelet.
 
-1.  Pull a busybox image
+1. Pull a busybox image
 
-      ```shell
-      crictl pull busybox
-      Image is up to date for busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47
-      ```
+   ```shell
+   crictl pull busybox
+   ```
+   ```none
+   Image is up to date for busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47
+   ```
 
-2.  Create configs for the pod and the container:
+2. Create configs for the pod and the container:
 
-      **Pod config**:
-      ```yaml
-      {
-          "metadata": {
-              "name": "nginx-sandbox",
-              "namespace": "default",
-              "attempt": 1,
-              "uid": "hdishd83djaidwnduwk28bcsb"
-          },
-          "log_directory": "/tmp",
-          "linux": {
-          }
-      }
-      ```
+   **Pod config**:
 
-      **Container config**:
-      ```yaml
-      {
-        "metadata": {
-            "name": "busybox"
-        },
-        "image":{
-            "image": "busybox"
-        },
-        "command": [
-            "top"
-        ],
-        "log_path":"busybox.log",
-        "linux": {
-        }
-      }
-      ```
+   ```json
+   {
+     "metadata": {
+       "name": "nginx-sandbox",
+       "namespace": "default",
+       "attempt": 1,
+       "uid": "hdishd83djaidwnduwk28bcsb"
+     },
+     "log_directory": "/tmp",
+     "linux": {
+     }
+   }
+   ```
 
-3.  Create the container, passing the ID of the previously-created pod, the
-    container config file, and the pod config file. The ID of the container is
-    returned.
+   **Container config**:
 
-      ```shell
-      crictl create f84dd361f8dc51518ed291fbadd6db537b0496536c1d2d6c05ff943ce8c9a54f container-config.json pod-config.json
-      ```
+   ```json
+   {
+     "metadata": {
+       "name": "busybox"
+     },
+     "image":{
+       "image": "busybox"
+     },
+     "command": [
+       "top"
+     ],
+     "log_path":"busybox.log",
+     "linux": {
+     }
+   }
+   ```
 
-4.  List all containers and verify that the newly-created container has its
-    state set to `Created`.
+3. Create the container, passing the ID of the previously-created pod, the
+   container config file, and the pod config file. The ID of the container is
+   returned.
 
-      ```shell
-      crictl ps -a
-      ```
-      The output is similar to this:
+   ```shell
+   crictl create f84dd361f8dc51518ed291fbadd6db537b0496536c1d2d6c05ff943ce8c9a54f container-config.json pod-config.json
+   ```
+
+4. List all containers and verify that the newly-created container has its
+   state set to `Created`.
+
+   ```shell
+   crictl ps -a
+   ```
+
+   The output is similar to this:
       
-      ```
-      CONTAINER ID        IMAGE               CREATED             STATE               NAME                ATTEMPT
-      3e025dd50a72d       busybox             32 seconds ago      Created             busybox             0
-      ```
+   ```
+   CONTAINER ID        IMAGE               CREATED             STATE               NAME                ATTEMPT
+   3e025dd50a72d       busybox             32 seconds ago      Created             busybox             0
+   ```
 
 ### Start a container
 
@@ -330,6 +351,7 @@ To start a container, pass its ID to `crictl start`:
 ```shell
 crictl start 3e025dd50a72d956c4f14881fbb5b1080c9275674e95fb67f965f6478a957d60
 ```
+
 The output is similar to this:
 
 ```
@@ -344,68 +366,12 @@ crictl ps
 The output is similar to this:
 
 ```
-CONTAINER ID        IMAGE               CREATED              STATE               NAME                ATTEMPT
-3e025dd50a72d       busybox             About a minute ago   Running             busybox             0
+CONTAINER ID   IMAGE    CREATED              STATE    NAME     ATTEMPT
+3e025dd50a72d  busybox  About a minute ago   Running  busybox  0
 ```
 
+## {{% heading "whatsnext" %}}
 
+* [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
+* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
 
-
-<!-- discussion -->
-
-See [kubernetes-sigs/cri-tools](https://github.com/kubernetes-sigs/cri-tools)
-for more information.
-
-## Mapping from docker cli to crictl
-
-The exact versions for below mapping table are for docker cli v1.40 and crictl v1.19.0. Please note that the list is not exhaustive. For example, it doesn't include experimental commands of docker cli.
-
-{{< note >}}
-The output format of CRICTL is similar to Docker CLI, despite some missing columns for some CLI. Make sure to check output for the specific command if your script output parsing.
-{{< /note >}}
-
-### Retrieve Debugging Information
-
-{{< table caption="mapping from docker cli to crictl - retrieve debugging information" >}}
-docker cli | crictl | Description | Unsupported Features
--- | -- | -- | --
-`attach` | `attach` | Attach to a running container | `--detach-keys`, `--sig-proxy`
-`exec` | `exec` | Run a command in a running container | `--privileged`, `--user`, `--detach-keys`
-`images` | `images` | List images |  
-`info` | `info` | Display system-wide information |  
-`inspect` | `inspect`, `inspecti` | Return low-level information on a container, image or task |  
-`logs` | `logs` | Fetch the logs of a container | `--details`
-`ps` | `ps` | List containers |  
-`stats` | `stats` | Display a live stream of container(s) resource usage statistics | Column: NET/BLOCK I/O, PIDs
-`version` | `version` | Show the runtime (Docker, ContainerD, or others) version information |  
-{{< /table >}}
-
-### Perform Changes
-
-{{< table caption="mapping from docker cli to crictl - perform changes" >}}
-docker cli | crictl | Description | Unsupported Features
--- | -- | -- | --
-`create` | `create` | Create a new container |  
-`kill` | `stop` (timeout = 0) | Kill one or more running container | `--signal`
-`pull` | `pull` | Pull an image or a repository from a registry | `--all-tags`, `--disable-content-trust`
-`rm` | `rm` | Remove one or more containers |  
-`rmi` | `rmi` | Remove one or more images |  
-`run` | `run` | Run a command in a new container |  
-`start` | `start` | Start one or more stopped containers | `--detach-keys`
-`stop` | `stop` | Stop one or more running containers |  
-`update` | `update` | Update configuration of one or more containers | `--restart`, `--blkio-weight` and some other resource limit not supported by CRI.
-{{< /table >}}
-
-### Supported only in crictl
-
-{{< table caption="mapping from docker cli to crictl - supported only in crictl" >}}
-crictl | Description
--- | --
-`imagefsinfo` | Return image filesystem info
-`inspectp` | Display the status of one or more pods
-`port-forward` | Forward local port to a pod
-`pods` | List pods
-`runp` | Run a new pod
-`rmp` | Remove one or more pods
-`stopp` | Stop one or more running pods
-{{< /table >}}

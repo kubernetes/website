@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 서비스와 애플리케이션 연결하기
 content_type: concept
 weight: 30
@@ -50,13 +54,13 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 클러스터의 모든 노드로 ssh 접속하고 두 IP로 curl을 할수 있어야 한다. 컨테이너는 노드의 포트 80을 사용하지 *않으며* , 트래픽을 파드로 라우팅하는 특별한 NAT 규칙도 없다는 것을 참고한다. 이것은 동일한 containerPort를 사용해서 동일한 노드에서 여러 nginx 파드를 실행하고 IP를 사용해서 클러스터의 다른 파드나 노드에서 접근할 수 있다는 의미이다. 도커와 마찬가지로 포트는 여전히 호스트 노드의 인터페이스에 게시될 수 있지만, 네트워킹 모델로 인해 포트의 필요성이 크게 줄어든다.
 
-만약 궁금하다면 [우리가 이것을 달성하는 방법](/ko/docs/concepts/cluster-administration/networking/#쿠버네티스-네트워크-모델의-구현-방법)을 자세히 읽어본다.
+만약 궁금하다면 [쿠버네티스 네트워킹 모델](/ko/docs/concepts/cluster-administration/networking/#쿠버네티스-네트워크-모델)을 자세히 읽어본다.
 
 ## 서비스 생성하기
 
 평평하고 넓은 클러스터 전체의 주소 공간에서 nginx를 실행하는 파드가 있다고 가정하자. 이론적으로는 이러한 파드와 직접 대화할 수 있지만, 노드가 죽으면 어떻게 되는가? 파드가 함께 죽으면 디플로이먼트에서 다른 IP를 가진 새로운 파드를 생성한다. 이 문제를 서비스가 해결한다.
 
-쿠버네티스 서비스는 클러스터 어딘가에서 실행되는 논리적인 파드 집합을 정의하고 추상화함으로써 모두 동일한 기능을 제공한다. 생성시 각 서비스에는 고유한 IP 주소(clusterIP라고도 한다)가 할당된다. 이 주소는 서비스의 수명과 연관되어 있으며, 서비스가 활성화 되어있는 동안에는 변경되지 않는다. 파드는 서비스와 통신하도록 구성할 수 있으며, 서비스와의 통신은 서비스의 맴버 중 일부 파드에 자동적으로 로드-밸런싱 된다.
+쿠버네티스 서비스는 클러스터 어딘가에서 실행되는 논리적인 파드 집합을 정의하고 추상화함으로써 모두 동일한 기능을 제공한다. 생성시 각 서비스에는 고유한 IP 주소(clusterIP라고도 한다)가 할당된다. 이 주소는 서비스의 수명과 연관되어 있으며, 서비스가 활성화 되어 있는 동안에는 변경되지 않는다. 파드는 서비스와 통신하도록 구성할 수 있으며, 서비스와의 통신은 서비스의 맴버 중 일부 파드에 자동적으로 로드-밸런싱 된다.
 
 `kubectl expose` 를 사용해서 2개의 nginx 레플리카에 대한 서비스를 생성할 수 있다.
 
@@ -129,7 +133,7 @@ curl을 할 수 있을 것이다. 서비스 IP는 완전히 가상이므로 외�
 
 쿠버네티스는 서비스를 찾는 두 가지 기본 모드인 환경 변수와 DNS를
 지원한다. 전자는 기본적으로 작동하지만 후자는
-[CoreDNS 클러스터 애드온](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns)이 필요하다.
+[CoreDNS 클러스터 애드온](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)이 필요하다.
 {{< note >}}
 만약 서비스 환경 변수가 필요하지 않은 경우(소유한 프로그램과의 예상되는 충돌 가능성,
 처리할 변수가 너무 많은 경우, DNS만 사용하는 경우 등) [파드 사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)에서
@@ -227,7 +231,7 @@ Address 1: 10.0.162.149
 * 인증서를 사용하도록 구성된 nginx 서버
 * 파드에 접근할 수 있는 인증서를 만드는 [시크릿](/ko/docs/concepts/configuration/secret/)
 
-[nginx https 예제](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/)에서 이 모든 것을 얻을 수 있다. 이를 위해서는 도구를 설치해야 한다. 만약 설치하지 않으려면 나중에 수동으로 단계를 수행한다. 한마디로:
+[nginx https 예제](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/)에서 이 모든 것을 얻을 수 있다. 이를 위해서는 도구를 설치해야 한다. 만약 설치하지 않으려면 나중에 수동으로 단계를 수행한다. 한마디로:
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -299,7 +303,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 nginx-secure-app의 매니페스트에 대한 주목할만한 점:
 
 - 이것은 동일한 파일에 디플로이먼트와 서비스의 사양을 모두 포함하고 있다.
-- [nginx 서버](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf)
+- [nginx 서버](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)
   는 포트 80에서 HTTP 트래픽을 443에서 HTTPS 트래픽 서비스를 제공하고, nginx 서비스는
   두 포트를 모두 노출한다.
 - 각 컨테이너는 `/etc/nginx/ssl` 에 마운트된 볼륨을 통해 키에 접근할 수 있다.
@@ -346,7 +350,7 @@ kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert 
 노출할 수 있다. 쿠버네티스는 이를 수행하는 2가지 방법인 NodePorts와
 LoadBalancers를지원한다. 마지막 섹션에서 생성된 서비스는 이미 `NodePort` 를 사용했기에
 노드에 공용 IP가 있는경우 nginx HTTPS 레플리카가 인터넷 트래픽을 처리할
-준비가 되어있다.
+준비가 되어 있다.
 
 ```shell
 kubectl get svc my-nginx -o yaml | grep nodePort -C 5

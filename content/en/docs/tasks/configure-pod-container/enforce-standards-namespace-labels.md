@@ -13,7 +13,7 @@ Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts
 
 {{% version-check %}}
 
-- Enable the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features).
+- Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
 
 ## Requiring the `baseline` Pod Security Standard with namespace labels
 

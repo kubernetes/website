@@ -46,7 +46,7 @@ Having a local cache will help improve the latency in such scenarios.
 This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 
 
-{{< figure src="/images/docs/nodelocaldns.svg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCache flow" caption="This image shows how NodeLocal DNSCache handles DNS queries." >}}
+{{< figure src="/images/docs/nodelocaldns.svg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCache flow" caption="This image shows how NodeLocal DNSCache handles DNS queries." class="diagram-medium" >}}
 
 ## Configuration
 {{< note >}} The local listen IP address for NodeLocal DNSCache can be any address that can be guaranteed to not collide with any existing IP in your cluster. It's recommended to use an address with a local scope, per example, from the link-local range 169.254.0.0/16 for IPv4 or from the Unique Local Address range in IPv6 fd00::/8.
@@ -91,4 +91,40 @@ If you are using the sample manifest from the previous point, this will require 
 Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
 
 You can disable this feature by removing the DaemonSet, using `kubectl delete -f <manifest>` . You should also revert any changes you made to the kubelet configuration.
- 
+
+## StubDomains and Upstream server Configuration
+
+StubDomains and upstream servers specified in the `kube-dns` ConfigMap in the `kube-system` namespace
+are automatically picked up by `node-local-dns` pods. The ConfigMap contents need to follow the format
+shown in [the example](/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1).
+The `node-local-dns` ConfigMap can also be modified directly with the stubDomain configuration
+in the Corefile format. Some cloud providers might not allow modifying `node-local-dns` ConfigMap directly.
+In those cases, the `kube-dns` ConfigMap can be updated.
+
+## Setting memory limits
+
+node-local-dns pods use memory for storing cache entries and processing queries. Since they do not watch Kubernetes objects, the cluster size or the number of Services/Endpoints do not directly affect memory usage. Memory usage is influenced by the DNS query pattern.
+From [CoreDNS docs](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
+> The default cache size is 10000 entries, which uses about 30 MB when completely filled.
+
+This would be the memory usage for each server block (if the cache gets completely filled).
+Memory usage can be reduced by specifying smaller cache sizes.
+
+The number of concurrent queries is linked to the memory demand, because each extra
+goroutine used for handling a query requires an amount of memory. You can set an upper limit
+using the `max_concurrent` option in the forward plugin.
+
+If a node-local-dns pod attempts to use more memory than is available (because of total system
+resources, or because of a configured
+[resource limit](/docs/concepts/configuration/manage-resources-containers/)), the operating system
+may shut down that pod's container.
+If this happens, the container that is terminated (“OOMKilled”) does not clean up the custom
+packet filtering rules that it previously added during startup.
+The node-local-dns container should get restarted (since managed as part of a DaemonSet), but this
+will lead to a brief DNS downtime each time that the container fails: the packet filtering rules direct
+DNS queries to a local Pod that is unhealthy.
+
+You can determine a suitable memory limit by running node-local-dns pods without a limit and
+measuring the peak usage. You can also set up and use a
+[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler)
+in _recommender mode_, and then check its recommendations.

@@ -22,13 +22,13 @@ card:
 ## {{% heading "prerequisites" %}}
 
 <!-- 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew latestVersion >}} client can communicate with v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, and v{{< skew nextMinorVersion >}} control planes.
-Using the latest version of kubectl helps avoid unforeseen issues.
+You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
 kubectl 版本和集群版本之间的差异必须在一个小版本号内。
-例如：v{{< skew latestVersion >}} 版本的客户端能与 v{{< skew prevMinorVersion >}}、
-v{{< skew latestVersion >}} 和 v{{< skew nextMinorVersion >}} 版本的控制面通信。
-用最新版的 kubectl 有助于避免不可预见的问题。
+例如：v{{< skew currentVersion >}} 版本的客户端能与 v{{< skew currentVersionAddMinor -1 >}}、
+v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}} 版本的控制面通信。
+用最新兼容版的 kubectl 有助于避免不可预见的问题。
 
 <!-- 
 ## Install kubectl on Windows
@@ -58,7 +58,7 @@ The following methods exist for installing kubectl on Windows:
    如果你已安装了 `curl`,也可以使用此命令：
 
    ```powershell
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
    ```
 
    <!-- 
@@ -78,7 +78,7 @@ The following methods exist for installing kubectl on Windows:
    下载 kubectl 校验和文件：
 
    ```powershell
-   curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256
+   curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    <!-- 
@@ -106,17 +106,23 @@ The following methods exist for installing kubectl on Windows:
      ```
 
    <!-- 
-   1. Add the binary in to your `PATH`.
+   1. Append or prepend the kubectl binary folder to your `PATH` environment variable.
 
    1. Test to ensure the version of `kubectl` is the same as downloaded:
+      Or use this for detailed view of version:
    -->
-1. 将可执行文件的路径添加到 `PATH`。
+1. 将 kubectl 二进制文件夹附加或添加到你的 `PATH` 环境变量中。
 
 1. 测试一下，确保此 `kubectl` 的版本和期望版本一致：
 
    ```cmd
    kubectl version --client
    ```
+   或者使用下面命令来查看版本的详细信息：
+   ```cmd
+   kubectl version --client --output=yaml     
+   ```
+
 
 <!-- 
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to `PATH`.
@@ -225,16 +231,16 @@ Edit the config file with a text editor of your choice, such as Notepad.
 
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
-<!-- 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+<!--
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
 
-Below are the procedures to set up autocompletion for Zsh, if you are running that on Windows.
+Below are the procedures to set up autocompletion for PowerShell.
 -->
-kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的负担。
+kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以为你节省大量的输入。
 
-下面是设置 Zsh 自动补全功能的操作步骤，前提是你在 Windows 上面运行的是 Zsh。
+下面是设置 PowerShell 自动补全功能的操作步骤。
 
-{{< include "included/optional-kubectl-configs-zsh.md" >}}
+{{< include "included/optional-kubectl-configs-pwsh.md" >}}
 
 <!--
 ### Install `kubectl convert` plugin
@@ -249,7 +255,7 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的�
 1. 用以下命令下载最新发行版：
 
    ```powershell
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe
+   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 <!--
@@ -262,7 +268,7 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的�
    下载 kubectl-convert 校验和文件：
 
    ```powershell
-   curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256
+   curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    <!--
@@ -289,11 +295,11 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，可以减轻许多输入的�
      ```
 
 <!--
-1. Add the binary in to your `PATH`.
+1.  Append or prepend the kubectl binary folder to your `PATH` environment variable.
 
 1. Verify plugin is successfully installed
 -->
-1. 将可执行文件添加到你的 `PATH` 环境变量。
+1. 将 kubectl 二进制文件夹附加或添加到你的 `PATH` 环境变量中。
 
 1. 验证插件是否安装成功
 

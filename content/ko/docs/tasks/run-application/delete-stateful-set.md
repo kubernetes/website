@@ -80,11 +80,11 @@ kubectl delete pvc -l app=myapp
 
 ### 스테이트풀셋 파드의 강제 삭제
 
-스테이트풀셋의 일부 파드가 오랫동안 'Terminating' 또는 'Unknown' 상태에 있는 경우, apiserver에 수동적으로 개입하여 파드를 강제 삭제할 수도 있다. 이것은 잠재적으로 위험한 작업이다. 자세한 설명은 [스테이트풀셋 파드 강제 삭제하기](/docs/tasks/run-application/force-delete-stateful-set-pod/)를 참고한다.
+스테이트풀셋의 일부 파드가 오랫동안 'Terminating' 또는 'Unknown' 상태에 있는 경우, apiserver에 수동적으로 개입하여 파드를 강제 삭제할 수도 있다. 이것은 잠재적으로 위험한 작업이다. 자세한 설명은 [스테이트풀셋 파드 강제 삭제하기](/ko/docs/tasks/run-application/force-delete-stateful-set-pod/)를 참고한다.
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-[스테이트풀셋 파드 강제 삭제하기](/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대해 더 알아보기.
+[스테이트풀셋 파드 강제 삭제하기](/ko/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대해 더 알아보기.

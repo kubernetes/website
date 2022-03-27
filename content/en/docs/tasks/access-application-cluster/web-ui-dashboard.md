@@ -1,6 +1,8 @@
 ---
 reviewers:
-- bryk
+- floreks
+- maciaszczykm
+- shu-mutou
 - mikedanese
 title: Deploy and Access the Kubernetes Dashboard
 description: >-
@@ -35,7 +37,7 @@ Dashboard also provides information on the state of Kubernetes resources in your
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
 ```
 
 ## Accessing the Dashboard UI
@@ -219,7 +221,7 @@ allocated resources, events and pods running on the node.
 
 Shows all applications running in the selected namespace.
 The view lists applications by workload kind (for example: Deployments, ReplicaSets, StatefulSets).
-and each workload kind can be viewed separately.
+Each workload kind can be viewed separately.
 The lists summarize actionable information about the workloads,
 such as the number of ready pods for a ReplicaSet or current memory usage for a Pod.
 

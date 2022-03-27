@@ -206,7 +206,7 @@ objects.
 
 All of this is best illustrated by examples.  Imagine a Kubernetes release,
 version X, which introduces a new API group.  A new Kubernetes release is made
-every approximately 3 months (4 per year).  The following table describes which
+every approximately 4 months (3 per year).  The following table describes which
 API versions are supported in a series of subsequent releases.
 -->
 用户必须能够升级到 Kubernetes 新的发行版本，之后再回滚到前一个发行版本，且
@@ -215,7 +215,7 @@ API versions are supported in a series of subsequent releases.
 就对象的存储表示而言，这一点尤其是不言自明的。
 
 以上所有规则最好通过例子来说明。假定现有 Kubernetes 发行版本为 X，其中引入了
-新的 API 组。大约每隔 3 个月会有一个新的 Kubernetes 版本被发布（每年 4 个版本）。
+新的 API 组。大约每隔 4 个月会有一个新的 Kubernetes 版本被发布（每年 3 个版本）。
 下面的表格描述了在一系列后续的发布版本中哪些 API 版本是受支持的。
 
 <table>

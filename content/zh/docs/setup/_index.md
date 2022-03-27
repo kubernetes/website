@@ -55,7 +55,7 @@ If you don't want to manage a Kubernetes cluster yourself, you could pick a mana
 [certified platforms](/docs/setup/production-environment/turnkey-solutions/).
 There are also other standardized and custom solutions across a wide range of cloud and
 bare metal environments.
--->。
+-->
 可以[下载 Kubernetes](/releases/download/)，在本地机器、云或你自己的数据中心上部署 Kubernetes 集群。
 如果你不想自己管理 Kubernetes 集群，则可以选择托管服务，包括[经过认证的平台](/zh/docs/setup/production-environment/turnkey-solutions/)。
 在各种云和裸机环境中，还有其他标准化和定制的解决方案。

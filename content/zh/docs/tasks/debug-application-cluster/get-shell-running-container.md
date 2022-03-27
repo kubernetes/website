@@ -122,7 +122,7 @@ root@shell-demo:/# ps aux | grep nginx
 ## Writing the root page for nginx
 -->
 
-## 编写 nginx 的 根页面
+## 编写 nginx 的根页面
 
 <!--
 Look again at the configuration file for your Pod. The Pod

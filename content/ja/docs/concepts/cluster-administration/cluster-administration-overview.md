@@ -31,11 +31,11 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 
 * [ノードの管理](/ja/docs/concepts/architecture/nodes/)方法について学んでください。
 
-* 共有クラスターにおける[リソースクォータ](/docs/concepts/policy/resource-quotas/)のセットアップと管理方法について学んでください。
+* 共有クラスターにおける[リソースクォータ](/ja/docs/concepts/policy/resource-quotas/)のセットアップと管理方法について学んでください。
 
 ## クラスターをセキュアにする
 
-* [Certificates](/docs/concepts/cluster-administration/certificates/)では、異なるツールチェインを使用して証明書を作成する方法を説明します。
+* [Certificates](/ja/docs/concepts/cluster-administration/certificates/)では、異なるツールチェインを使用して証明書を作成する方法を説明します。
 
 * [Kubernetes コンテナの環境](/ja/docs/concepts/containers/container-environment/)では、Kubernetesノード上でのKubeletが管理するコンテナの環境について説明します。
 

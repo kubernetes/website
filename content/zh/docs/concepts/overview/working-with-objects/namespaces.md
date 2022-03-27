@@ -101,20 +101,24 @@ kube-public   Active    1d
 <!--
 Kubernetes starts with four initial namespaces:
 
-* `default` The default namespace for objects with no other namespace
-* `kube-system` The namespace for objects created by the Kubernetes system
-* `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
-* `kube-node-lease` This namespace for the lease objects associated with each node which improves the performance of the node heartbeats as the cluster scales.
+   * `default` The default namespace for objects with no other namespace
+   * `kube-system` The namespace for objects created by the Kubernetes system
+   * `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
+   * `kube-node-lease` This namespace holds [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
+      objects associated with each node. Node leases allow the kubelet to send
+      [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane
+      can detect node failure.
 -->
 Kubernetes 会创建四个初始名字空间：
 
-* `default` 没有指明使用其它名字空间的对象所使用的默认名字空间
-* `kube-system` Kubernetes 系统创建对象所使用的名字空间
-* `kube-public` 这个名字空间是自动创建的，所有用户（包括未经过身份验证的用户）都可以读取它。
-  这个名字空间主要用于集群使用，以防某些资源在整个集群中应该是可见和可读的。
-  这个名字空间的公共方面只是一种约定，而不是要求。
-* `kube-node-lease` 此名字空间用于与各个节点相关的租期（Lease）对象；
-  此对象的设计使得集群规模很大时节点心跳检测性能得到提升。
+   * `default` 没有指明使用其它名字空间的对象所使用的默认名字空间
+   * `kube-system` Kubernetes 系统创建对象所使用的名字空间
+   * `kube-public` 这个名字空间是自动创建的，所有用户（包括未经过身份验证的用户）都可以读取它。
+      这个名字空间主要用于集群使用，以防某些资源在整个集群中应该是可见和可读的。
+      这个名字空间的公共方面只是一种约定，而不是要求。
+   * `kube-node-lease` 此名字空间用于与各个节点相关的
+     [租约（Lease）](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)对象。
+      节点租期允许 kubelet 发送[心跳](/zh/docs/concepts/architecture/nodes/#heartbeats)，由此控制面能够检测到节点故障。
 
 <!--
 ### Setting the namespace for a request

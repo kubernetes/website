@@ -1,0 +1,858 @@
+div.community_main h1, h2, h3 {
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+div.community_main {
+  padding: 50px 100px;
+}
+
+div.community_main ul, 
+div.community_main li {
+  list-style: disc;
+  list-style-position: inside;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+.SandboxRoot.env-bp-430 .timeline-Tweet-text {
+
+  font-size: 13pt !important;
+}
+
+#section.talkToUs {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.tablet {
+  display: none;
+
+}
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+.twittercol1 {
+  width: 60%;
+  margin-left: 20%;
+  float: left;
+  padding: 2%
+}
+
+code {
+  font-size: 90%;
+  opacity: 0.95;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace !important;
+}
+
+.fa {
+  font-size: 25px;
+  color: #FFFFFF;
+}
+
+.panel-title {
+  font-size: 25px;
+  color: #FFFFFF;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.panel-heading {
+  background-color: #1da1f2 !important;
+  ;
+  color: #1da1f2 !important;
+  ;
+}
+
+.panel {
+  margin-top: 25px;
+}
+
+p {
+  font-weight: 300 !important;
+}
+
+.mobile {
+
+  display: none;
+
+}
+
+.desktop {
+  display: block;
+
+}
+
+body {
+  line-height: 1.5em;
+  margin-top: 1%;
+  font-weight: 300;
+  /* letter-spacing:0.03em; */
+  /* font-size:15px; */
+  margin: 0;
+
+}
+
+.banner1 {
+  position:relative;
+  float:left;
+  width:100%;
+  padding-left: 0 !important;
+}
+
+
+
+.intro {
+  float: left;
+  width: 75%;
+  margin-left: 12.5%;
+  text-align: left;
+  line-height: 1.6em;
+  margin-bottom: 2%;
+  margin-top: 3%;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+
+}
+
+.community__navbar {
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  word-spacing: 3%;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #303030;
+  font-size: 14px;
+  margin-top: 1%;
+  margin-bottom: 4%;
+  width: 100%;
+  float: left;
+  letter-spacing: 0.07em;
+  border-bottom: 1px solid #aaaaaa;
+  border-top: 1px solid #aaaaaa;
+}
+
+a {
+  text-decoration: none;
+  color: #303030;
+}
+
+
+.imagecols {
+  text-align: center;
+  margin: 0 auto;
+  width: 80%;
+  margin-left: 10%;
+  float: left;
+  margin-bottom: 2%;
+
+}
+
+.imagecol {
+  margin-right: 1%;
+  float: left;
+  width: 32%;
+
+}
+
+
+.events {
+  background-image: url('/images/community/event-bg.jpg');
+  float: left;
+  width: 100%;
+  margin-top: 3%;
+
+}
+
+.eventcontainer {
+  width: 80%;
+  margin-top: 5%;
+  margin-bottom: 3%;
+  margin-left: 10%;
+}
+
+.event {
+  width: 23%;
+  color: white !important;
+  font-size: 1.1em !important;
+  padding-top: 1%;
+  padding-bottom: 8%;
+  text-align: center;
+  float: left;
+  margin: 1%;
+}
+
+.event a {
+
+  color: white !important;
+  font-weight: bold !important;
+  display: block;
+  padding-bottom: 2%;
+}
+
+.searchbar {
+  height: 50px;
+  width: 40%;
+  background-color: white;
+  float: left;
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+  margin-left: 30%;
+  margin-top: 3%;
+  margin-bottom: 5%;
+}
+
+.meetups {
+  background: url('/images/community/kubernetes-community-final.jpg');
+  background-size: 100% auto;
+  float: left;
+  background-position: center;
+  width: 100%;
+  padding: 5%;
+  padding-bottom: 7%;
+}
+
+.meetupcol {
+  z-index: 99;
+  width: 37%;
+  margin-left: 5%;
+  text-align: left;
+}
+
+.meetuptext {
+  color: white;
+  margin-bottom: 7%;
+
+}
+
+.button {
+  background-color: #0662EE;
+  color: white;
+  font-size: 18px;
+  padding-top: 3%;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-bottom: 3%;
+  border-radius: 0px;
+  margin-top: 1%;
+  float: left;
+  letter-spacing: 0.07em;
+  font-weight: bold;
+
+}
+
+.fullbutton {
+  display: inline-block;
+  margin: auto;
+  margin-top: 2rem;
+  background-color: #0662EE;
+  color: white;
+  font-size: 18px;
+  padding: 2% 2.5%;
+  letter-spacing: 0.07em;
+  font-weight: bold;
+
+}
+
+
+.newcommunitywrapper h1 {
+  font-size: 42px;
+  font-weight: 300;
+  margin-top: 4%;
+  line-height: 1.1em;
+  margin-bottom: 3%;
+  text-align: center;
+
+}
+
+.videos {
+  float: left;
+  width: 100%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background-color: #eeeeee;
+
+}
+
+.videocontainer {
+  float: left;
+  margin-left: 10%;
+  width: 80%;
+
+}
+
+
+.video {
+  margin-right: 2%;
+  float: left;
+  width: 31%;
+
+}
+
+
+.videotext {
+  margin-top: 3%;
+  text-align: center;
+  padding-top: 4%;
+
+}
+
+.videocta {
+  text-align: center;
+  padding: 3%;
+  color: #0662EE;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  line-height: 1.3em;
+  padding-top: 5%;
+}
+
+
+
+.resources {
+  width: 100%;
+  margin-top: 5%;
+  margin-bottom: 3%;
+  float: left;
+}
+
+
+.resourcecontainer {
+  width: 90%;
+  margin-top: 3%;
+  margin-left: 10%;
+}
+
+
+.resourcebox {
+  float: left;
+  margin: 1%;
+  border: 1px solid grey;
+  padding: 2%;
+  font-size: 1em;
+  color: #0662EE;
+  height: 100%;
+  vertical-align: middle;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 1.3em;
+  letter-spacing: 0.05em;
+  width: 20%;
+  min-height: 330px;
+  text-align: center;
+
+}
+
+
+.contributor {
+  float: left;
+  width: 100%;
+  background: url('/images/community/kubernetes-community-contributor.jpg');
+  background-size: 100% auto;
+  float: left;
+  background-position: center;
+
+}
+
+.contributortext {
+  color: white;
+  margin-left: 0%;
+  margin-right: 6%;
+  padding: 4%;
+  float: right;
+  width: 40%;
+  text-align: left;
+  margin-bottom: 3%;
+
+}
+
+
+.contributorimage {
+  margin-left: 4%;
+  margin-right: 0%;
+  padding: 3%;
+  float: left;
+  width: 40%;
+  text-align: left;
+
+}
+
+.conduct {
+  float: left;
+  width: 100%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  text-align: center;
+  font-weight: 300;
+}
+
+.conducttext {
+  float: left;
+  width: 70%;
+  margin-bottom: 3%;
+  margin-left: 15%;
+  text-align: center;
+  font-weight: 300;
+}
+
+
+h2 {
+  overflow: hidden;
+  font-weight: 200;
+  margin-top: 5%;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+h2:before,
+h2:after {
+  background-color: #aaaaaa;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 35%;
+}
+
+h2:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+h2:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+
+
+.news {
+  float: left;
+  width: 80%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin-left: 10%;
+  text-align: center;
+
+}
+
+.newscol {
+  float: left;
+  width: 30%;
+  font-weight: 300;
+}
+
+.resourcebox {
+
+  height: 100%;
+  min-height: 370px;
+}
+
+
+@media (max-width:1500px) and (min-width:1100px) {
+
+
+  .resourcebox {
+    min-height: 320px;
+    height: 100%;
+
+  }
+}
+
+@media (max-width:1500px) and (min-width:800px) {
+
+
+  .tablet {
+    display: block;
+
+  }
+}
+
+@media (max-width:1100px) {
+
+
+  .resourcebox {
+    min-height: 270px;
+    height: 100%;
+
+  }
+
+  .button {
+    background-color: #0662EE;
+    color: white;
+    font-size: 16px;
+    padding: 4% !important;
+    margin-top: 0%;
+    float: none;
+    margin-top: 0%;
+    margin-bottom: 5%;
+    letter-spacing: 0.07em;
+    font-weight: bold;
+
+  }
+  
+}
+
+@media (max-width:1000px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+}
+
+
+@media (min-width:600px) and (max-width:750px) {
+
+  .resourcebox {
+    float: left;
+    margin: 3%;
+    border: 1px solid grey;
+    padding: 1%;
+    font-size: 1.4em;
+    color: #0662EE;
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-weight: bold;
+    min-height: 375px;
+    letter-spacing: 0.01em;
+    width: 43% !important;
+    line-height: 1.5em;
+    text-align: center;
+
+  }
+}
+
+@media (min-width:450px) and (max-width:600px) {
+
+  .resourcebox {
+    float: left;
+    margin: 3%;
+    border: 1px solid grey;
+    padding: 1%;
+    font-size: 1.1em;
+    ;
+    color: #0662EE;
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-weight: bold;
+    min-height: 280px;
+    letter-spacing: 0.01em;
+    width: 43% !important;
+    line-height: 1.5em;
+    text-align: center;
+
+  }
+
+
+}
+
+
+@media (max-width:450px) {
+
+  .resourcebox {
+    float: left;
+    margin: 3%;
+    border: 1px solid grey;
+    padding: 1%;
+    font-size: 1.1em;
+    color: #0662EE;
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-weight: bold;
+    height: 100% !important;
+    letter-spacing: 0.01em;
+    width: 43% !important;
+    line-height: 1.5em;
+    text-align: center;
+
+  }
+
+
+}
+
+@media (max-width:750px) {
+
+
+  .twittercol1 {
+    width: 95%;
+    float: left;
+    padding: 2%
+  }
+
+  .conducttextnobutton {
+    margin-bottom: 4%;
+  }
+
+  .intro {
+    float: left;
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+    line-height: 1.6em;
+    margin-bottom: 1%;
+    margin-top: 7%;
+    margin-bottom: 7%;
+    letter-spacing: 0.04em;
+
+  }
+
+  .banner1 {
+    position: relative;
+    height: 300%;
+    float: left;
+
+
+  }
+
+  .mobile {
+
+    display: block;
+
+
+  }
+
+  .desktop {
+
+    display: none;
+
+  }
+
+  h1 {
+    text-align: center !important;
+    /* font-size: 2.1em; */
+    margin-bottom: 5%;
+    margin-top: 7%;
+  }
+
+  body {
+    overflow-x: hidden;
+    margin-top: 1%;
+    letter-spacing: 0.03em;
+    /* font-size: 13px; */
+
+  }
+
+
+  .community__navbar {
+    display: none;
+  }
+
+  .events {
+    float: left;
+    width: 100%;
+    background-color: #eeeeee;
+    margin-top: 3%;
+    padding-bottom: 5%;
+
+  }
+
+  .eventcontainer {
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    margin-left: 0%;
+  }
+
+  .event {
+
+    width: 80%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    color: white;
+    text-align: center;
+    float: left;
+    margin: 1%;
+    font-size: 1.1em;
+    line-height: 1.4em;
+    margin-left: 10%;
+  }
+
+  .meetups {
+    background-color: navy !important;
+    background-size: 100% auto;
+    float: left;
+    background-position: center;
+    width: 100%;
+    padding: 5%;
+  }
+
+  .meetupcol {
+    z-index: 99;
+    width: 90%;
+    margin-left: 5%;
+    text-align: center;
+  }
+
+  .meetuptext {
+    color: white;
+    margin-bottom: 7%;
+
+  }
+
+  .button {
+    background-color: #0662EE;
+    color: white;
+    font-size: 16px;
+    padding: 4%;
+    margin-top: 1%;
+    float: none;
+    margin-bottom: 5%;
+    letter-spacing: 0.07em;
+    font-weight: bold;
+
+  }
+
+  .videos {
+    float: left;
+    width: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background-color: #eeeeee;
+
+  }
+
+  .videocontainer {
+    float: left;
+    width: 90%;
+
+  }
+
+
+  .video {
+    margin-right: 2%;
+    margin-left: 0%;
+    float: left;
+    width: 90%;
+
+  }
+
+
+  .videotext {
+    margin-top: 3%;
+    text-align: center;
+    padding-top: 4%;
+    padding-bottom: 2%;
+
+  }
+
+  .videocta {
+    text-align: center;
+    padding: 3%;
+    padding-top: 5%;
+    line-height: 1.3em;
+    color: #0662EE;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-bottom: 8%;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+  }
+
+  .resources {
+    width: 100%;
+    margin-top: 8%;
+    margin-bottom: 8%;
+    float: left;
+  }
+
+
+  .resourcecontainer {
+    width: 90%;
+    text-align: center;
+    margin-top: 3%;
+    margin-left: 5%;
+  }
+
+  .contributor {
+    float: left;
+    width: 100%;
+    background: url('/images/community/kubernetes-community-contributor.jpg');
+    background-size: 100% auto;
+    float: left;
+    background-position: center;
+
+  }
+
+  .contributortext {
+    color: white;
+    margin-left: 5%;
+    float: left;
+    text-align: center !important;
+    width: 80%;
+    text-align: left;
+    margin-bottom: 3%;
+
+  }
+
+  .conduct {
+    float: left;
+    width: 100%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    text-align: center;
+    margin-bottom: 12%;
+  }
+
+  .conducttext {
+    float: left;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    text-align: center;
+  }
+
+  .fullbutton {
+    background-color: #0662EE;
+    color: white;
+    font-size: 16px;
+    padding: 4%;
+    margin-top: 8% !important;
+    /* float: none; */
+    /* margin-left: 0%; */
+    margin-bottom: 9%;
+    letter-spacing: 0.07em;
+    font-weight: bold;
+
+
+  }
+
+  .searchbar {
+    height: 50px;
+    width: 85%;
+    background-color: white;
+    float: left;
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 7.5%;
+    margin-top: 5%;
+    margin-bottom: 7%;
+  }
+
+  .resourceboxtext {
+    width: 90% !important;
+    margin-left: 5% !important;
+    font-weight: 400 !important;
+    margin-top: 5% !important;
+    padding: 3%;
+    font-size: 0.7em !important;
+  }
+
+}

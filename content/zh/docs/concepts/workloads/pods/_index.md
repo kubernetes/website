@@ -480,21 +480,26 @@ Pod 中的容器所看到的系统主机名与为 Pod 配置的 `name` 属性值
 <!--
 ## Privileged mode for containers
 
-Any container in a Pod can enable privileged mode, using the `privileged` flag on
-the [security context](/docs/tasks/configure-pod-container/security-context/) of the container spec. This is useful for containers that want to use operating system administrative capabilities such as manipulating the network stack or accessing hardware devices.
-Processes within a privileged container get almost the same privileges that are available to processes outside a container.
+In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag on the [security context](/docs/tasks/configure-pod-container/security-context/) of the container spec. This is useful for containers that want to use operating system administrative capabilities such as manipulating the network stack or accessing hardware devices.
+
+If your cluster has the `WindowsHostProcessContainers` feature enabled, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the `windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used to perform administrative tasks as is done with Linux privileged containers.
 -->
 ## 容器的特权模式     {#privileged-mode-for-containers}
 
-Pod 中的任何容器都可以使用容器规约中的
+在 Linux 中，Pod 中的任何容器都可以使用容器规约中的
 [安全性上下文](/zh/docs/tasks/configure-pod-container/security-context/)中的
-`privileged` 参数启用特权模式。
+`privileged`（Linux）参数启用特权模式。
 这对于想要使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问设备）
 的容器很有用。
-容器内的进程几乎可以获得与容器外的进程相同的特权。
+
+如果你的集群启用了 `WindowsHostProcessContainers` 特性，你可以使用 Pod 规约中安全上下文的
+`windowsOptions.hostProcess` 参数来创建
+[Windows HostProcess Pod](/zh/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
+这些 Pod 中的所有容器都必须以 Windows HostProcess 容器方式运行。
+HostProcess Pod 可以直接运行在主机上，它也能像 Linux 特权容器一样，用于执行管理任务。
 
 <!--
-Your {< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must support the concept of a privileged container for this setting to be relevant.
+Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must support the concept of a privileged container for this setting to be relevant.
 -->
 {{< note >}}
 你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}必须支持
@@ -538,6 +543,38 @@ but cannot be controlled from there.
 这意味着在节点上运行的 Pod 在 API 服务器上是可见的，但不可以通过 API
 服务器来控制。
 
+{{< note >}}
+<!--
+The `spec` of a static Pod cannot refer to other API objects
+(e.g., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
+{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
+-->
+静态 Pod 的 `spec` 不能引用其他的 API 对象（例如：{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}、{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、{{< glossary_tooltip text="Secret" term_id="secret" >}}等）。
+{{< /note >}}
+
+<!--
+## Container probes
+
+A _probe_ is a diagnostic performed periodically by the kubelet on a container. To perform a diagnostic, the kubelet can invoke different actions:
+
+- `ExecAction` (performed with the help of the container runtime)
+- `TCPSocketAction` (checked directly by the kubelet)
+- `HTTPGetAction` (checked directly by the kubelet)
+
+You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) 
+in the Pod Lifecycle documentation.
+-->
+## 容器探针   {#container-probes}
+
+_Probe_ 是由 kubelet 对容器执行的定期诊断。要执行诊断，kubelet 可以执行三种动作：
+    
+- `ExecAction`（借助容器运行时执行）
+- `TCPSocketAction`（由 kubelet 直接检测）
+- `HTTPGetAction`（由 kubelet 直接检测）
+
+你可以参阅 Pod 的生命周期文档中的[探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)部分。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -545,22 +582,22 @@ but cannot be controlled from there.
 * Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
   configure different Pods with different container runtime configurations.
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
-* Read about [PodDisruptionBudget](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.
-* Pod is a top-level resource in the Kubernetes REST API.  
-  The [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+* Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.
+* Pod is a top-level resource in the Kubernetes REST API.
+  The {{< api-reference page="workload-resources/pod-v1" >}}
   object definition describes the object in detail.
-* [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) explains common layouts for Pods with more than one container.
---
+* [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
+-->
 * 了解 [Pod 生命周期](/zh/docs/concepts/workloads/pods/pod-lifecycle/)
 * 了解 [RuntimeClass](/zh/docs/concepts/containers/runtime-class/)，以及如何使用它
   来配置不同的 Pod 使用不同的容器运行时配置
 * 了解 [Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * 了解 [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/)，以及你
-  如何可以利用它在出现干扰因素时管理应用的可用性
-* Pod 在 Kubernetes REST API 中是一个顶层资源；
-  [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+  如何可以利用它在出现干扰因素时管理应用的可用性。
+* Pod 在 Kubernetes REST API 中是一个顶层资源。
+  {{< api-reference page="workload-resources/pod-v1" >}}
   对象的定义中包含了更多的细节信息。
-* 博客 [分布式系统工具箱：复合容器模式](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
+* 博客 [分布式系统工具箱：复合容器模式](/blog/2015/06/the-distributed-system-toolkit-patterns/)
   中解释了在同一 Pod 中包含多个容器时的几种常见布局。
 
 <!--

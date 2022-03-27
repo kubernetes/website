@@ -42,7 +42,7 @@ that lets you store configuration for other objects to use. Unlike most
 Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
 fields. These fields accept key-value pairs as their values.  Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
-contain UTF-8 byte sequences while the `binaryData` field is designed to
+contain UTF-8 strings while the `binaryData` field is designed to
 contain binary data as base64-encoded strings.
 
 The name of a ConfigMap must be a valid
@@ -238,6 +238,10 @@ propagation delay, where the cache propagation delay depends on the chosen cache
 (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 
 ConfigMaps consumed as environment variables are not updated automatically and require a pod restart. 
+
+{{< note >}}
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
+{{< /note >}}
 
 ## Immutable ConfigMaps {#configmap-immutable}
 

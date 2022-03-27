@@ -96,7 +96,7 @@ _서비스 토폴로지_ 를 활성화 하면 서비스는 클러스터의 노�
 
 * 유효한 토폴로지 키는 현재 `kubernetes.io/hostname`,
   `topology.kubernetes.io/zone` 그리고 `topology.kubernetes.io/region` 로
-  제한되어있지만, 앞으로 다른 노드 레이블로 일반화 될 것이다.
+  제한되어 있지만, 앞으로 다른 노드 레이블로 일반화 될 것이다.
 
 * 토폴로지 키는 유효한 레이블 키이어야 하며 최대 16개의 키를 지정할 수 있다.
 

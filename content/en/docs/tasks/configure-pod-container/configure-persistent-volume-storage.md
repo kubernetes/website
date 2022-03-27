@@ -236,8 +236,14 @@ sudo rmdir /mnt/data
 
 You can now close the shell to your Node.
 
+## Mounting the same persistentVolume in two places
 
+{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
 
+You can perform 2 volume mounts on your nginx container:
+
+`/usr/share/nginx/html` for the static website
+`/etc/nginx/nginx.conf` for the default config
 
 <!-- discussion -->
 

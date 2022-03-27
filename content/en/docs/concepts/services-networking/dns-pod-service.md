@@ -39,7 +39,7 @@ namespace.
 
 DNS queries may be expanded using the pod's `/etc/resolv.conf`. Kubelet 
 sets this file for each pod. For example, a query for just `data` may be 
-expanded to `data.test.cluster.local`. The values of the `search` option 
+expanded to `data.test.svc.cluster.local`. The values of the `search` option 
 are used to expand queries. To learn more about DNS queries, see 
 [the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) 
 
@@ -106,10 +106,9 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 `172-17-0-3.default.pod.cluster.local`.
 
-Any pods created by a Deployment or DaemonSet exposed by a Service have the
-following DNS resolution available:
+Any pods exposed by a Service have the following DNS resolution available:
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 ### Pod's hostname and subdomain fields
 
@@ -217,13 +216,13 @@ following pod-specific DNS policies. These policies are specified in the
 
 - "`Default`": The Pod inherits the name resolution configuration from the node
   that the pods run on.
-  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)
+  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for more details.
 - "`ClusterFirst`": Any DNS query that does not match the configured cluster
   domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
   nameserver inherited from the node. Cluster administrators may have extra
   stub-domain and upstream DNS servers configured.
-  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)
+  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
   explicitly set its DNS policy "`ClusterFirstWithHostNet`".

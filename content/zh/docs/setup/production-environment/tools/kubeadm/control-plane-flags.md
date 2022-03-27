@@ -17,15 +17,15 @@ weight: 40
 
 <!--
 This page covers how to customize the components that kubeadm deploys. For control plane components
-you can use flags in the `ClusteConfiguration` structure or patches per-node. For the kubelet
+you can use flags in the `ClusterConfiguration` structure or patches per-node. For the kubelet
 and kube-proxy you can use `KubeletConfiguration` and `KubeProxyConfiguration`, accordingly.
 
 All of these options are possible via the kubeadm configuration API.
 For more details on each field in the configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3).
+[API reference pages](/docs/reference/config-api/kubeadm-config.v1beta3/).
 -->
 本页面介绍了如何自定义 kubeadm 部署的组件。
-你可以使用 `ClusteConfiguration` 结构中定义的参数，或者在每个节点上应用补丁来定制控制平面组件。
+你可以使用 `ClusterConfiguration` 结构中定义的参数，或者在每个节点上应用补丁来定制控制平面组件。
 你可以使用 `KubeletConfiguration` 和 `KubeProxyConfiguration` 结构分别定制 kubelet 和 kube-proxy 组件。
 
 所有这些选项都可以通过 kubeadm 配置 API 实现。
@@ -235,9 +235,8 @@ Kubeadm 允许将包含补丁文件的目录传递给各个节点上的 `InitCon
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
-nodeRegistration:
-  patches:
-    directory: /home/user/somedir
+patches:
+  directory: /home/user/somedir
 ```
 
 {{< note >}}
@@ -256,9 +255,8 @@ You can pass this file to `kubeadm join` with `--config <YOUR CONFIG YAML>`:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
-nodeRegistration:
-  patches:
-    directory: /home/user/somedir
+patches:
+  directory: /home/user/somedir
 ```
 
 <!--
@@ -332,7 +330,7 @@ For more details see [Configuring each kubelet in your cluster using kubeadm](/d
 To customize kube-proxy you can pass a `KubeProxyConfiguration` next your `ClusterConfiguration` or
 `InitConfiguration` to `kubeadm init` separated by `---`.
 
-For more details you can navigate to our [API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3).
+For more details you can navigate to our [API reference pages](/docs/reference/config-api/kubeadm-config.v1beta3/).
 -->
 ## 自定义 kube-proxy   {#customizing-kube-proxy}
 

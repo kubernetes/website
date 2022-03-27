@@ -6,6 +6,18 @@ weight: 60
 
 <!-- overview -->
 
+
+{{< note >}}
+이 한글 문서는 더 이상 관리되지 않습니다.
+
+이 문서의 기반이 된 영어 원문은 삭제되었으며,
+[Garbage Collection](/docs/concepts/architecture/garbage-collection/)에 병합되었습니다.
+
+[Garbage Collection](/docs/concepts/architecture/garbage-collection/)의 한글화가 완료되면,
+이 문서는 삭제될 수 있습니다.
+{{< /note >}}
+
+
 쿠버네티스의 가비지 수집기는 한때 소유자가 있었지만, 더 이상
 소유자가 없는 오브젝트들을 삭제하는 역할을 한다.
 

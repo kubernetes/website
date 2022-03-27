@@ -93,7 +93,7 @@ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Alway
 <!--
 ## Multiple resource types
 
-You use field selectors across multiple resource types. This `kubectl` command selects all Statefulsets and Services that are not in the `default` namespace:
+You can use field selectors across multiple resource types. This `kubectl` command selects all Statefulsets and Services that are not in the `default` namespace:
 -->
 ## 多种资源类型   {#multiple-resource-types}
 

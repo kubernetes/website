@@ -22,13 +22,13 @@ card:
 ## {{% heading "prerequisites" %}}
 
 <!-- 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew latestVersion >}} client can communicate with v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, and v{{< skew nextMinorVersion >}} control planes.
-Using the latest version of kubectl helps avoid unforeseen issues.
+You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
 kubectl 版本和集群之间的差异必须在一个小版本号之内。
-例如：v{{< skew latestVersion >}} 版本的客户端能与 v{{< skew prevMinorVersion >}}、
-v{{< skew latestVersion >}} 和 v{{< skew nextMinorVersion >}} 版本的控制面通信。
-用最新版本的 kubectl 有助于避免不可预见的问题。
+例如：v{{< skew currentVersion >}} 版本的客户端能与 v{{< skew currentVersionAddMinor -1 >}}、
+v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}} 版本的控制面通信。
+用最新兼容版本的 kubectl 有助于避免不可预见的问题。
 
 <!-- 
 ## Install kubectl on macOS
@@ -122,7 +122,7 @@ The following methods exist for installing kubectl on macOS:
    根据校验和文件，验证 kubectl：
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
+   echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
    <!-- 
    If valid, the output is:
@@ -178,11 +178,16 @@ The following methods exist for installing kubectl on macOS:
 
 <!-- 
 1. Test to ensure the version you installed is up-to-date:
+Or use this for detailed view of version:
 -->
 5. 测试一下，确保你安装的是最新的版本：
 
    ```bash
    kubectl version --client
+   ```
+   或者使用下面命令来查看版本的详细信息：
+   ```cmd
+   kubectl version --client --output=yaml
    ```
 
 <!-- 
@@ -250,13 +255,6 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
    ```
 
 <!-- 
-### Install on macOS as part of the Google Cloud SDK {#install-on-macos-as-part-of-the-google-cloud-sdk}
--->
-### 作为谷歌云 SDK 的一部分，在 macOS 上安装 {#install-on-macos-as-part-of-the-google-cloud-sdk}
-
-{{< include "included/install-kubectl-gcloud.md" >}}
-
-<!-- 
 ## Verify kubectl configuration {#verify-kubectl-configuration}
 -->
 ## 验证 kubectl 配置 {#verify-kubectl-configuration}
@@ -273,16 +271,17 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
 <!-- 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell which can save you a lot of typing.
 
-Below are the procedures to set up autocompletion for Bash and Zsh.
+Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 -->
-kubectl 为 Bash 和 Zsh 提供自动补全功能，这可以节省许多输入的麻烦。
+kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以为你节省大量的输入。
 
-下面是为 Bash 和 Zsh 设置自动补全功能的操作步骤。
+下面是为 Bash、Fish 和 Zsh 设置自动补全功能的操作步骤。
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
@@ -331,7 +330,7 @@ kubectl 为 Bash 和 Zsh 提供自动补全功能，这可以节省许多输入�
    基于校验和，验证 kubectl-convert 的可执行文件：
 
    ```bash
-   echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
+   echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
    
    <!--

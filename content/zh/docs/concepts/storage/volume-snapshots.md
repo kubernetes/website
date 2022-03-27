@@ -1,13 +1,13 @@
 ---
 title: 卷快照
 content_type: concept
-weight: 20
+weight: 40
 ---
 
 <!--
 title: Volume Snapshots
 content_type: concept
-weight: 20
+weight: 40
 -->
 
 <!-- overview -->

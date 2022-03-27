@@ -46,7 +46,8 @@ management policies to determine some placement preferences on the node.
 ### Configuration
 
 The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
-option. There are two supported policies:
+flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
+There are two supported policies:
 
 * [`none`](#none-policy): the default policy.
 * [`static`](#static-policy): allows pods with certain resource characteristics to be
@@ -60,6 +61,34 @@ duration as `--node-status-update-frequency`.
 
 The behavior of the static policy can be fine-tuned using the `--cpu-manager-policy-options` flag.
 The flag takes a comma-separated list of `key=value` policy options.
+This feature can be disabled completely using the `CPUManagerPolicyOptions` feature gate.
+
+The policy options are split into two groups: alpha quality (hidden by default) and beta quality
+(visible by default). The groups are guarded respectively by the `CPUManagerPolicyAlphaOptions`
+and `CPUManagerPolicyBetaOptions` feature gates. Diverging from the Kubernetes standard, these
+feature gates guard groups of options, because it would have been too cumbersome to add a feature
+gate for each individual option.
+
+### Changing the CPU Manager Policy
+
+Since the CPU manger policy can only be applied when kubelet spawns new pods, simply changing from
+"none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
+policy on a node, perform the following steps:
+
+1. [Drain](/docs/tasks/administer-cluster/safely-drain-node) the node.
+2. Stop kubelet.
+3. Remove the old CPU manager state file. The path to this file is
+`/var/lib/kubelet/cpu_manager_state` by default. This clears the state maintained by the
+CPUManager so that the cpu-sets set up by the new policy won’t conflict with it.
+4. Edit the kubelet configuration to change the CPU manager policy to the desired value.
+5. Start kubelet.
+
+Repeat this process for every node that needs its CPU manager policy changed. Skipping this
+process will result in kubelet crashlooping with the following error:
+
+```
+could not restore state from checkpoint: configured policy "static" differs from state checkpoint policy "none", please drain this node and delete the CPU manager checkpoint file "/var/lib/kubelet/cpu_manager_state" before restarting Kubelet
+```
 
 ### None policy
 
@@ -218,8 +247,17 @@ equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 #### Static policy options
 
+You can toggle groups of options on and off based upon their maturity level
+using the following feature gates:
+* `CPUManagerPolicyBetaOptions` default enabled. Disable to hide beta-level options.
+* `CPUManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
+You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
+
+The following policy options exist for the static `CPUManager` policy:
+* `full-pcpus-only` (beta, visible by default)
+* `distribute-cpus-across-numa` (alpha, hidden by default)
+
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
-You can enable this option by adding `full-pcups-only=true` to the CPUManager policy options.
 By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.
 On SMT enabled systems, the policy can allocate individual virtual cores, which correspond to hardware threads.
 This can lead to different containers sharing the same physical cores; this behaviour in turn contributes
@@ -227,3 +265,24 @@ to the [noisy neighbours problem](https://en.wikipedia.org/wiki/Cloud_computing_
 With the option enabled, the pod will be admitted by the kubelet only if the CPU request of all its containers
 can be fulfilled by allocating full physical cores.
 If the pod does not pass the admission, it will be put in Failed state with the message `SMTAlignmentError`.
+
+If the `distribute-cpus-across-numa`policy option is specified, the static
+policy will evenly distribute CPUs across NUMA nodes in cases where more than
+one NUMA node is required to satisfy the allocation.
+By default, the `CPUManager` will pack CPUs onto one NUMA node until it is
+filled, with any remaining CPUs simply spilling over to the next NUMA node.
+This can cause undesired bottlenecks in parallel code relying on barriers (and
+similar synchronization primitives), as this type of code tends to run only as
+fast as its slowest worker (which is slowed down by the fact that fewer CPUs
+are available on at least one NUMA node).
+By distributing CPUs evenly across NUMA nodes, application developers can more
+easily ensure that no single worker suffers from NUMA effects more than any
+other, improving the overall performance of these types of applications.
+
+The `full-pcpus-only` option can be enabled by adding `full-pcups-only=true` to
+the CPUManager policy options.
+Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
+`distribute-cpus-across-numa=true` to the CPUManager policy options.
+When both are set, they are "additive" in the sense that CPUs will be
+distributed across NUMA nodes in chunks of full-pcpus rather than individual
+cores.

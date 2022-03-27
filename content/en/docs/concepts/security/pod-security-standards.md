@@ -52,8 +52,8 @@ fail validation.
 	<caption style="display:none">Baseline policy specification</caption>
 	<tbody>
 		<tr>
-			<td><strong>Control</strong></td>
-			<td><strong>Policy</strong></td>
+			<th>Control</th>
+			<th>Policy</th>
 		</tr>
 		<tr>
 			<td style="white-space: nowrap">HostProcess</td>
@@ -305,34 +305,22 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Volume Types</td>
 			<td>
-				<p>In addition to restricting HostPath volumes, the restricted policy limits usage of non-core volume types to those defined through PersistentVolumes.</p>
+				<p>The restricted policy only permits the following volume types.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
-					<li><code>spec.volumes[*].hostPath</code></li>
-					<li><code>spec.volumes[*].gcePersistentDisk</code></li>
-					<li><code>spec.volumes[*].awsElasticBlockStore</code></li>
-					<li><code>spec.volumes[*].gitRepo</code></li>
-					<li><code>spec.volumes[*].nfs</code></li>
-					<li><code>spec.volumes[*].iscsi</code></li>
-					<li><code>spec.volumes[*].glusterfs</code></li>
-					<li><code>spec.volumes[*].rbd</code></li>
-					<li><code>spec.volumes[*].flexVolume</code></li>
-					<li><code>spec.volumes[*].cinder</code></li>
-					<li><code>spec.volumes[*].cephfs</code></li>
-					<li><code>spec.volumes[*].flocker</code></li>
-					<li><code>spec.volumes[*].fc</code></li>
-					<li><code>spec.volumes[*].azureFile</code></li>
-					<li><code>spec.volumes[*].vsphereVolume</code></li>
-					<li><code>spec.volumes[*].quobyte</code></li>
-					<li><code>spec.volumes[*].azureDisk</code></li>
-					<li><code>spec.volumes[*].portworxVolume</code></li>
-					<li><code>spec.volumes[*].scaleIO</code></li>
-					<li><code>spec.volumes[*].storageos</code></li>
-					<li><code>spec.volumes[*].photonPersistentDisk</code></li>
+					<li><code>spec.volumes[*]</code></li>
 				</ul>
 				<p><strong>Allowed Values</strong></p>
+				Every item in the <code>spec.volumes[*]</code> list must set one of the following fields to a non-null value:
 				<ul>
-					<li>Undefined/nil</li>
+					<li><code>spec.volumes[*].configMap</code></li>
+					<li><code>spec.volumes[*].csi</code></li>
+					<li><code>spec.volumes[*].downwardAPI</code></li>
+					<li><code>spec.volumes[*].emptyDir</code></li>
+					<li><code>spec.volumes[*].ephemeral</code></li>
+					<li><code>spec.volumes[*].persistentVolumeClaim</code></li>
+					<li><code>spec.volumes[*].projected</code></li>
+					<li><code>spec.volumes[*].secret</code></li>
 				</ul>
 			</td>
 		</tr>
@@ -374,22 +362,20 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
-			<td style="white-space: nowrap">Non-root groups <em>(optional)</em></td>
+			<td style="white-space: nowrap">Running as Non-root user (v1.23+)</td>
 			<td>
-				<p>Containers should be forbidden from running with a root primary or supplementary GID.</p>
+				<p>Containers must not set <tt>runAsUser</tt> to 0</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
-					<li><code>spec.securityContext.runAsGroup</code></li>
-					<li><code>spec.securityContext.supplementalGroups[*]</code></li>
-					<li><code>spec.securityContext.fsGroup</code></li>
-					<li><code>spec.containers[*].securityContext.runAsGroup</code></li>
-					<li><code>spec.initContainers[*].securityContext.runAsGroup</code></li>
-					<li><code>spec.ephemeralContainers[*].securityContext.runAsGroup</code></li>
+					<li><code>spec.securityContext.runAsUser</code></li>
+					<li><code>spec.containers[*].securityContext.runAsUser</code></li>
+					<li><code>spec.initContainers[*].securityContext.runAsUser</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.runAsUser</code></li>
 				</ul>
 				<p><strong>Allowed Values</strong></p>
 				<ul>
-					<li>Undefined/nil (except for <code>*.runAsGroup</code>)</li>
-					<li>Non-zero</li>
+					<li>any non-zero value</li>
+					<li><code>undefined/null</code></li>
 				</ul>
 			</td>
 		</tr>
@@ -466,7 +452,7 @@ of individual policies are not defined here.
 - {{< example file="security/podsecurity-baseline.yaml" >}}Baseline namespace{{< /example >}}
 - {{< example file="security/podsecurity-restricted.yaml" >}}Restricted namespace{{< /example >}}
 
-[**PodSecurityPolicy**](/docs/concepts/profile/pod-security-profile/) (Deprecated)
+[**PodSecurityPolicy**](/docs/concepts/policy/pod-security-policy/) (Deprecated)
 
 - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified."
 title: "HorizontalPodAutoscaler v2beta2"
-weight: 12
+weight: 13
 auto_generated: true
 ---
 
@@ -411,7 +411,15 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
 <hr>
 
-- **conditions** ([]HorizontalPodAutoscalerCondition), required
+- **currentReplicas** (int32), required
+
+  currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
+
+- **desiredReplicas** (int32), required
+
+  desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
+
+- **conditions** ([]HorizontalPodAutoscalerCondition)
 
   conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
 
@@ -440,14 +448,6 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
   - **conditions.reason** (string)
 
     reason is the reason for the condition's last transition.
-
-- **currentReplicas** (int32), required
-
-  currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
-
-- **desiredReplicas** (int32), required
-
-  desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
 
 - **currentMetrics** ([]MetricStatus)
 
@@ -951,6 +951,11 @@ POST /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1003,6 +1008,11 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1053,6 +1063,11 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1101,6 +1116,11 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
@@ -1156,6 +1176,11 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

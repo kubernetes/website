@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 title: IPv4/IPv6 이중 스택
 feature:
   title: IPv4/IPv6 이중 스택
@@ -11,7 +16,7 @@ weight: 70
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 IPv4/IPv6 이중 스택 네트워킹을 사용하면 {{< glossary_tooltip text="파드" term_id="pod" >}}와 {{< glossary_tooltip text="서비스" term_id="service" >}}에 IPv4와 IPv6 주소를 모두 할당할 수 있다.
 
@@ -42,8 +47,6 @@ IPv4/IPv6 이중 스택 쿠버네티스 클러스터를 활용하려면 다음�
 
 ## IPv4/IPv6 이중 스택 구성
 
-IPv4/IPv6 이중 스택을 사용하려면, 클러스터의 관련 구성 요소에 대해 `IPv6DualStack` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한다. (1.21부터 IPv4/IPv6 이중 스택이 기본적으로 활성화된다.)
-
 IPv4/IPv6 이중 스택을 구성하려면, 이중 스택 클러스터 네트워크 할당을 설정한다.
 
    * kube-apiserver:
@@ -60,9 +63,6 @@ IPv4 CIDR의 예: `10.244.0.0/16` (자신의 주소 범위를 제공하더라도
 
 IPv6 CIDR의 예: `fdXY:IJKL:MNOP:15::/64` (이 형식으로 표시되지만, 유효한 주소는 아니다 - [RFC 4193](https://tools.ietf.org/html/rfc4193)을 본다.)
 
-1.21부터, IPv4/IPv6 이중 스택은 기본적으로 활성화된다.
-필요한 경우 kube-apiserver, kube-controller-manager, kubelet 및 kube-proxy 커맨드 라인에
-`--feature-gates="IPv6DualStack=false"` 를 지정하여 비활성화할 수 있다.
 {{< /note >}}
 
 ## 서비스
@@ -76,7 +76,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
 
 * `SingleStack`: 단일 스택 서비스. 컨트롤 플레인은 첫 번째로 구성된 서비스 클러스터 IP 범위를 사용하여 서비스에 대한 클러스터 IP를 할당한다.
 * `PreferDualStack`:
-  * 서비스에 IPv4 및 IPv6 클러스터 IP를 할당한다. (클러스터에 `--feature-gates="IPv6DualStack=false"` 가 있는 경우, 이 설정은 `SingleStack` 과 동일한 동작을 따른다.)
+  * 서비스에 IPv4 및 IPv6 클러스터 IP를 할당한다.
 * `RequireDualStack`: IPv4 및 IPv6 주소 범위 모두에서 서비스 `.spec.ClusterIPs`를 할당한다.
   * `.spec.ipFamilies` 배열의 첫 번째 요소의 주소 계열을 기반으로 `.spec.ClusterIPs` 목록에서 `.spec.ClusterIP`를 선택한다.
 
@@ -119,7 +119,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
 
 #### 기존 서비스의 이중 스택 기본값
 
-이 예제는 서비스가 이미 있는 클러스터에서 이중 스택이 새로 활성화된 경우의 기본 동작을 보여준다. (`--feature-gates="IPv6DualStack=false"` 가 설정되지 않은 경우 기존 클러스터를 1.21로 업그레이드하면 이중 스택이 활성화된다.)
+이 예제는 서비스가 이미 있는 클러스터에서 이중 스택이 새로 활성화된 경우의 기본 동작을 보여준다. (기존 클러스터를 1.21 이상으로 업그레이드하면 이중 스택이 활성화된다.)
 
 1. 클러스터에서 이중 스택이 활성화된 경우 기존 서비스 (`IPv4` 또는 `IPv6`)는 컨트롤 플레인이 `.spec.ipFamilyPolicy`를 `SingleStack`으로 지정하고 `.spec.ipFamilies`를 기존 서비스의 주소 계열로 설정한다. 기존 서비스 클러스터 IP는 `.spec.ClusterIPs`에 저장한다.
 

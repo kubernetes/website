@@ -16,7 +16,7 @@ weight: 70
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 IPv4/IPv6 dual-stack networking enables the allocation of both IPv4 and IPv6 addresses to {{< glossary_tooltip text="Pods" term_id="pod" >}} and {{< glossary_tooltip text="Services" term_id="service" >}}.
 
@@ -47,8 +47,6 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 
 ## Configure IPv4/IPv6 dual-stack
 
-To use IPv4/IPv6 dual-stack, ensure the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for the relevant components of your cluster. (Starting in 1.21, IPv4/IPv6 dual-stack defaults to enabled.)
-
 To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 
    * kube-apiserver:
@@ -59,15 +57,20 @@ To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
    * kube-proxy:
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+   * kubelet:
+      * when there is no `--cloud-provider` the administrator can pass a comma-separated pair
+        of IP addresses via `--node-ip` to manually configure dual-stack `.status.addresses`
+        for that Node.
+        If a Pod runs on that node in HostNetwork mode, the Pod reports these IP addresses in its
+        `.status.podIPs` field.
+        All `podIPs` in a node match the IP family preference defined by the
+        `.status.addresses` field for that Node.
 
 {{< note >}}
 An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own address range)
 
 An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
 
-Starting in 1.21, IPv4/IPv6 dual-stack defaults to enabled.
-You can disable it when necessary by specifying `--feature-gates="IPv6DualStack=false"`
-on the kube-apiserver, kube-controller-manager, kubelet, and kube-proxy command line.
 {{< /note >}}
 
 ## Services
@@ -81,7 +84,7 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 
 * `SingleStack`: Single-stack service. The control plane allocates a cluster IP for the Service, using the first configured service cluster IP range.
 * `PreferDualStack`:
-  * Allocates IPv4 and IPv6 cluster IPs for the Service. (If the cluster has `--feature-gates="IPv6DualStack=false"`, this setting follows the same behavior as `SingleStack`.)
+  * Allocates IPv4 and IPv6 cluster IPs for the Service.
 * `RequireDualStack`: Allocates Service `.spec.ClusterIPs` from both IPv4 and IPv6 address ranges.
   * Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family of the first element in the `.spec.ipFamilies` array.
 
@@ -124,7 +127,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 
 #### Dual-stack defaults on existing Services
 
-These examples demonstrate the default behavior when dual-stack is newly enabled on a cluster where Services already exist. (Upgrading an existing cluster to 1.21 will enable dual-stack unless `--feature-gates="IPv6DualStack=false"` is set.)
+These examples demonstrate the default behavior when dual-stack is newly enabled on a cluster where Services already exist. (Upgrading an existing cluster to 1.21 or beyond will enable dual-stack.)
 
 1. When dual-stack is enabled on a cluster, existing Services (whether `IPv4` or `IPv6`) are configured by the control plane to set `.spec.ipFamilyPolicy` to `SingleStack` and set `.spec.ipFamilies` to the address family of the existing Service. The existing Service cluster IP will be stored in `.spec.ClusterIPs`.
 

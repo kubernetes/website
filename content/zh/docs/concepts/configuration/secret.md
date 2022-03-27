@@ -23,46 +23,57 @@ weight: 30
 <!-- overview -->
 
 <!--
-Kubernetes `secret` objects let you store and manage sensitive information, such
-as passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
-is safer and more flexible than putting it verbatim in a
-{{< glossary_tooltip term_id="pod" >}} definition or in a
-{{< glossary_tooltip text="container image" term_id="image" >}}.
-See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
--->
-
-`Secret` 对象类型用来保存敏感信息，例如密码、OAuth 令牌和 SSH 密钥。
-将这些信息放在 `secret` 中比放在 {{< glossary_tooltip term_id="pod" >}} 的定义或者 {{< glossary_tooltip text="容器镜像" term_id="image" >}} 中来说更加安全和灵活。
-参阅 [Secret 设计文档](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) 获取更多详细信息。
-
-<!--
 A Secret is an object that contains a small amount of sensitive data such as
 a password, a token, or a key. Such information might otherwise be put in a
-Pod specification or in an image. Users can create Secrets and the system
-also creates some Secrets.
+{{< glossary_tooltip term_id="pod" >}} specification or in a
+{{< glossary_tooltip text="container image" term_id="image" >}}. Using a
+Secret means that you don't need to include confidential data in your
+application code.
 -->
 Secret 是一种包含少量敏感信息例如密码、令牌或密钥的对象。
-这样的信息可能会被放在 Pod 规约中或者镜像中。
-用户可以创建 Secret，同时系统也创建了一些 Secret。
+这样的信息可能会被放在 {{< glossary_tooltip term_id="pod" >}} 规约中或者镜像中。
+使用 Secret 意味着你不需要在应用程序代码中包含机密数据。
+
+<!-- 
+Because Secrets can be created independently of the Pods that use them, there
+is less risk of the Secret (and its data) being exposed during the workflow of
+creating, viewing, and editing Pods. Kubernetes, and applications that run in
+your cluster, can also take additional precautions with Secrets, such as
+avoiding writing confidential data to nonvolatile storage.
+
+Secrets are similar to {{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}
+but are specifically intended to hold confidential data.
+-->
+由于创建 Secret 可以独立于使用它们的 Pod，
+因此在创建、查看和编辑 Pod 的工作流程中暴露 Secret（及其数据）的风险较小。
+Kubernetes 和在集群中运行的应用程序也可以对 Secret 采取额外的预防措施，
+例如避免将机密数据写入非易失性存储。
+
+Secret 类似于 {{<glossary_tooltip text="ConfigMap" term_id="configmap" >}}
+但专门用于保存机密数据。
 
 {{< caution >}}
 <!--
-Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
-strings. By default they can be retrieved - as plain text - by anyone with API
-access, or anyone with access to Kubernetes' underlying data store, etcd. In
-order to safely use Secrets, it is recommended you (at a minimum):
+Kubernetes Secrets are, by default, stored unencrypted in the API server's underlying data store (etcd). Anyone with API access can retrieve or modify a Secret, and so can anyone with access to etcd.
+Additionally, anyone who is authorized to create a Pod in a namespace can use that access to read any Secret in that namespace; this includes indirect access such as the ability to create a Deployment.
 
-1. [Enable Encryption at Rest](/zh/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
-2. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that restrict reading and writing the Secret. Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+In order to safely use Secrets, take at least the following steps:
+
+1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
+2. Enable or configure [RBAC rules](/docs/reference/access-authn-authz/authorization/) that
+   restrict reading data in Secrets (including via indirect means).
+3. Where appropriate, also use mechanisms such as RBAC to limit which principals are allowed to create new Secrets or replace existing ones.
 -->
-Kubernetes Secret 默认情况下存储为 base64-编码的、非加密的字符串。
-默认情况下，能够访问 API 的任何人，或者能够访问 Kubernetes 下层数据存储（etcd）
-的任何人都可以以明文形式读取这些数据。
-为了能够安全地使用 Secret，我们建议你（至少）：
+默认情况下，Kubernetes Secret 未加密地存储在 API 服务器的底层数据存储（etcd）中。 
+任何拥有 API 访问权限的人都可以检索或修改 Secret，任何有权访问 etcd 的人也可以。
+此外，任何有权限在命名空间中创建 Pod 的人都可以使用该访问权限读取该命名空间中的任何 Secret；
+这包括间接访问，例如创建 Deployment 的能力。
+
+为了安全地使用 Secret，请至少执行以下步骤：
 
 1. 为 Secret [启用静态加密](/zh/docs/tasks/administer-cluster/encrypt-data/)；
-2. [启用 或配置 RBAC 规则](/zh/docs/reference/access-authn-authz/authorization/)来限制对 Secret 的读写操作。
-   要注意，任何被允许创建 Pod 的人都默认地具有读取 Secret 的权限。
+2. 启用或配置 [RBAC 规则](/zh/docs/reference/access-authn-authz/authorization/)来限制读取 Secret 的数据（包括通过间接方式）。
+3. 在适当的情况下，还可以使用 RBAC 等机制来限制允许哪些主体创建新 Secret 或替换现有 Secret。
 {{< /caution >}}
 
 <!-- body -->
@@ -89,6 +100,15 @@ Pod 可以用三种方式之一来使用 Secret：
 - 作为[容器的环境变量](#using-secrets-as-environment-variables)
 - 由 [kubelet 在为 Pod 拉取镜像时使用](#using-imagepullsecrets)
 
+<!-- 
+The Kubernetes control plane also uses Secrets; for example,
+[bootstrap token Secrets](#bootstrap-token-secrets) are a mechanism to
+help automate node registration.
+-->
+Kubernetes 控制平面也使用 Secret；
+例如，[引导令牌 Secret](#bootstrap-token-secrets)
+是一种帮助自动化节点注册的机制。
+
 <!--
 The name of a Secret object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -108,9 +128,9 @@ Secret 对象的名称必须是合法的 [DNS 子域名](/zh/docs/concepts/overv
 ## Types of Secret {#secret-types}
 
 When creating a Secret, you can specify its type using the `type` field of
-the [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-resource, or certain equivalent `kubectl` command line flags (if available).
-The Secret type is used to facilitate programmatic handling of the Secret data.
+a Secret resource, or certain equivalent `kubectl` command line flags (if available).
+The `type` of a Secret is used to facilitate programmatic handling of different
+kinds of confidential data.
 
 Kubernetes provides several builtin types for some common usage scenarios.
 These types vary in terms of the validations performed and the constraints
@@ -118,10 +138,9 @@ Kubernetes imposes on them.
 -->
 ## Secret 的类型  {#secret-types}
 
-在创建 Secret 对象时，你可以使用
-[`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-资源的 `type` 字段，或者与其等价的 `kubectl` 命令行参数（如果有的话）为其设置类型。
-Secret 的类型用来帮助编写程序处理 Secret 数据。
+创建 Secret 时，你可以使用 Secret 资源的 `type` 字段，
+或者与其等价的 `kubectl` 命令行参数（如果有的话）为其设置类型。
+Secret 的 `type` 有助于对不同类型机密数据的编程处理。
 
 Kubernetes 提供若干种内置的类型，用于一些常见的使用场景。
 针对这些类型，Kubernetes 所执行的合法性检查操作以及对其所实施的限制各不相同。
@@ -553,13 +572,13 @@ kubectl create secret tls my-tls-secret \
 ```
 
 <!--
-The public/private key pair must exist before hand. The public key certificate
+The public/private key pair must exist beforehand. The public key certificate
 for `--cert` must be .PEM encoded (Base64-encoded DER format), and match the
 given private key for `--key`.
 The private key must be in what is commonly called PEM private key format,
 unencrypted. In both cases, the initial and the last lines from PEM (for
 example, `--------BEGIN CERTIFICATE-----` and `-------END CERTIFICATE----` for
-a cetificate) are *not* included.
+a certificate) are *not* included.
 -->
 这里的公钥/私钥对都必须事先已存在。用于 `--cert` 的公钥证书必须是 .PEM 编码的
 （Base64 编码的 DER 格式），且与 `--key` 所给定的私钥匹配。
@@ -1334,6 +1353,8 @@ This includes any pods created using kubectl, or indirectly via a replication
 controller.  It does not include pods created via the kubelets
 `--manifest-url` flag, its `--config` flag, or its REST API (these are
 not common ways to create pods.)
+The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a Secret
+or any other API objects.
 -->
 每个 Secret 的大小限制为 1MB。这是为了防止创建非常大的 Secret 导致 API 服务器
 和 kubelet 的内存耗尽。然而，创建过多较小的 Secret 也可能耗尽内存。
@@ -1343,6 +1364,8 @@ kubelet 仅支持从 API 服务器获得的 Pod 使用 Secret。
 这包括使用 `kubectl` 创建的所有 Pod，以及间接通过副本控制器创建的 Pod。
 它不包括通过 kubelet `--manifest-url` 标志，`--config` 标志或其 REST API
 创建的 Pod（这些不是创建 Pod 的常用方法）。
+{{<glossary_tooltip text="静态 Pod" term_id="static-pod" >}}
+的 `spec` 不能引用 Secret 或任何其他 API 对象。
 
 <!--
 Secrets must be created before they are consumed in pods as environment
@@ -1829,7 +1852,7 @@ limited using [authorization policies](
 Secrets often hold values that span a spectrum of importance, many of which can
 cause escalations within Kubernetes (e.g. service account tokens) and to
 external systems. Even if an individual app can reason about the power of the
-secrets it expects to interact with, other apps within the same namespace can
+Secrets it expects to interact with, other apps within the same namespace can
 render those assumptions invalid.
 
 For these reasons `watch` and `list` requests for secrets within a namespace are
@@ -1953,10 +1976,6 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
  - A user who can create a pod that uses a secret can also see the value of that secret.  Even
    if apiserver policy does not allow that user to read the secret object, the user could
    run a pod which exposes the secret.
- - Currently, anyone with root on any node can read _any_ secret from the apiserver,
-   by impersonating the kubelet.  It is a planned feature to only send secrets to
-   nodes that actually require them, to restrict the impact of a root exploit on a
-   single node.
 -->
 ### 风险
 
@@ -1968,9 +1987,6 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
 - 如果您将 Secret 数据编码为 base64 的清单（JSON 或 YAML）文件，共享该文件或将其检入代码库，该密码将会被泄露。 Base64 编码不是一种加密方式，应该视同纯文本。
 - 应用程序在从卷中读取 Secret 后仍然需要保护 Secret 的值，例如不会意外将其写入日志或发送给不信任方。
 - 可以创建使用 Secret 的 Pod 的用户也可以看到该 Secret 的值。即使 API 服务器策略不允许用户读取 Secret 对象，用户也可以运行 Pod 导致 Secret 暴露。
-- 目前，任何节点的 root 用户都可以通过模拟 kubelet 来读取 API 服务器中的任何 Secret。
-  仅向实际需要 Secret 的节点发送 Secret 数据才能限制节点的 root 账号漏洞的影响，
-  该功能还在计划中。
 
 ## {{% heading "whatsnext" %}}
 
@@ -1978,8 +1994,10 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
 - Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Read the [API reference](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/) for `Secret`
 -->
 - 学习如何[使用 `kubectl` 管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - 学习如何[使用配置文件管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - 学习如何[使用 kustomize 管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- 阅读 [API 参考](/zh/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)了解 `Secret`
 

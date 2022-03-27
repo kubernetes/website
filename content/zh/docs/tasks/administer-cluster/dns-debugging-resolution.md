@@ -109,13 +109,13 @@ If the `nslookup` command fails, check the following:
 ### Check the local DNS configuration first
 
 Take a look inside the resolv.conf file.
-(See [Inheriting DNS from the node](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node) and
+(See [Customizing DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers) and
 [Known issues](#known-issues) below for more information)
 -->
 ### 先检查本地的 DNS 配置
 
 查看 resolv.conf 文件的内容
-（阅读[从节点继承 DNS 配置](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
+（阅读[定制 DNS 服务](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
 后文的[已知问题](#known-issues) ，获取更多信息)
 
 ```shell
@@ -471,6 +471,14 @@ Kubernetes 需要占用一个 `nameserver` 记录和三个`search`记录。
 要想修复 DNS `search` 记录个数限制问题，可以考虑升级你的 Linux 发行版本，或者
 升级 glibc 到一个不再受此困扰的版本。
 
+{{< note >}}
+<!--
+With [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration),
+Kubernetes allows more DNS `search` records.
+-->
+使用[扩展 DNS 设置](/zh/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration)，
+Kubernetes 允许更多的 `search` 记录。
+{{< /note >}}
 <!--
 If you are using Alpine version 3.3 or earlier as your base image, DNS may not
 work properly owing to a known issue with Alpine.

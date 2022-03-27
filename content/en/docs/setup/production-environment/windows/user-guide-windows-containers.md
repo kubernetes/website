@@ -29,7 +29,7 @@ This guide walks you through the steps to configure and deploy a Windows contain
 control plane and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 * It is important to note that creating and deploying services and workloads on Kubernetes 
 behaves in much the same way for Linux and Windows containers. 
-[Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. 
+[Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical. 
 The example in the section below is provided to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows container
@@ -160,7 +160,21 @@ Users today need to use some combination of taints and node selectors in order t
 keep Linux and Windows workloads on their respective OS-specific nodes. 
 This likely imposes a burden only on Windows users. The recommended approach is outlined below, 
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
+ {{< note >}}
+If the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled, you can (and should) set `.spec.os.name` for a Pod to indicate the operating system
+that the containers in that Pod are designed for. For Pods that run Linux containers, set
+`.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
+to Windows.
 
+The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should
+use normal Kubernetes mechanisms for
+[assigning pods to nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
+to ensure that the control plane for your cluster places pods onto nodes that are running the
+appropriate operating system.
+ no effect on the scheduling of the Windows pods, so taints and tolerations and node selectors are still required
+ to ensure that the Windows pods land onto appropriate Windows nodes.
+ {{< /note >}}
 ### Ensuring OS-specific workloads land on the appropriate container host
 
 Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. 

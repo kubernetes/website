@@ -67,7 +67,7 @@ kubectl create secret generic db-user-pass \
 다음 커맨드를 실행한다.
 
 ```shell
-kubectl create secret generic dev-db-secret \
+kubectl create secret generic db-user-pass \
   --from-literal=username=devuser \
   --from-literal=password='S!B\*d$zDsb='
 ```

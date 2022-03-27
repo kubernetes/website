@@ -32,7 +32,7 @@ GitHub 계정을 가진 누구나 쿠버네티스에 기여할 수 있다. SIG D
 - [슬랙](https://slack.k8s.io/) 또는
   [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에 개선을 제안한다.
 
-[CLA에 서명](/ko/docs/contribute/new-content/overview/#sign-the-cla) 후에 누구나 다음을 할 수 있다.
+[CLA에 서명](/ko/docs/contribute/new-content/#sign-the-cla) 후에 누구나 다음을 할 수 있다.
 
 - 기존 콘텐츠를 개선하거나, 새 콘텐츠를 추가하거나, 블로그 게시물 또는 사례연구 작성을 위해 풀 리퀘스트를 연다.
 - 다이어그램, 그래픽 자산 그리고 포함할 수 있는 스크린캐스트와 비디오를 제작한다.
@@ -144,7 +144,7 @@ LGTM은 "Looks good to me"의 약자이며 풀 리퀘스트가 기술적으로
 지원하려면, 다음을 수행한다.
 
 1. `kubernetes/website` 리포지터리 내
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) 파일의 섹션에
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) 파일의 섹션에
    여러분의 GitHub 사용자 이름을 추가하는 풀 리퀘스트를 연다.
    
      {{< note >}}
@@ -216,7 +216,7 @@ PR은 자동으로 병합된다. SIG Docs 승인자는 추가적인 기술 리�
 지원하려면 다음을 수행한다.
 
 1. `kubernetes/website` 리포지터리 내
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
    파일의 섹션에 자신을 추가하는 풀 리퀘스트를 연다.
 
     {{< note >}}

@@ -54,7 +54,7 @@ platform for additional features such as topological routing.
 -->
 由于任一服务的所有网络端点都保存在同一个 Endpoints 资源中，这类资源可能变得
 非常巨大，而这一变化会影响到 Kubernetes 组件（比如主控组件）的性能，并
-在 Endpoints 变化时需要处理大量的网络流量和处理。
+在 Endpoints 变化时产生大量的网络流量和额外的处理。
 EndpointSlice 能够帮助你缓解这一问题，还能为一些诸如拓扑路由这类的额外
 功能提供一个可扩展的平台。
 
@@ -257,9 +257,9 @@ the dedicated fields `nodeName` and `zone`.
 
 <!--
 Setting arbitrary topology fields on the `endpoint` field of an `EndpointSlice`
-resource has been deprecated and is not be supported in the v1 API. Instead,
-the v1 API supports setting individual `nodeName` and `zone` fields. These
-fields are automatically translated between API versions. For example, the
+resource has been deprecated and is not supported in the v1 API. 
+Instead, the v1 API supports setting individual `nodeName` and `zone` fields. 
+These fields are automatically translated between API versions. For example, the
 value of the `"topology.kubernetes.io/zone"` key in the `topology` field in
 the v1beta1 API is accessible as the `zone` field in the v1 API.
 -->
