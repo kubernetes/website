@@ -66,7 +66,7 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
-   Or use this for detailed view of version: [Some More About Output Options](/docs/reference/kubectl/overview/#output-options)
+   Or use this for detailed view of version ([available output options](/docs/reference/kubectl/#output-options)):
 
    ```powershell
    kubectl version --client --output <format> # yaml or json
