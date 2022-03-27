@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: busybox-cnt01
-    image: busybox
+    image: busybox:1.28
     resources:
       limits:
         memory: "300Mi"

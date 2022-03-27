@@ -5,6 +5,6 @@ metadata:
 spec:
   containers:
   - name: count
-    image: busybox
+    image: busybox:1.28
     args: [/bin/sh, -c,
             'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 1; done']
