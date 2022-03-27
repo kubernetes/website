@@ -111,13 +111,11 @@ The following methods exist for installing kubectl on macOS:
    ```zsh
    kubectl version --client
    ```
-   Or use this for detailed view of version:
+   Or use this for detailed view of version: [Some More About Output Options](https://kubernetes.io/docs/reference/kubectl/overview/#output-options)
 
    ```zsh
    kubectl version --client --output <format> # yaml or json
-
    ```
-  [Some More About Output Options](https://kubernetes.io/docs/reference/kubectl/overview/#output-options)
 
 ### Install with Homebrew on macOS
 

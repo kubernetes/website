@@ -66,12 +66,11 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
-   Or use this for detailed view of version:
+   Or use this for detailed view of version: [Some More About Output Options](/docs/reference/kubectl/overview/#output-options)
 
-   ```ps
+   ```powershell
    kubectl version --client --output <format> # yaml or json
    ```
-  [Some More About Output Options](https://kubernetes.io/docs/reference/kubectl/overview/#output-options)
 
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to `PATH`.
