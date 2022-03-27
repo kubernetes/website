@@ -449,7 +449,7 @@ Verbosity | Description
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
 
-# Fast makeing yamls
+# Creating yaml manifests with kubectl
 
 kubectl create deployment my-dep --image=busybox --port=5701 --dry-run=none -o yaml >foo2.yaml
 
