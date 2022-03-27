@@ -317,11 +317,17 @@ automatically responds to changes in the number of replicas of the corresponding
 <!--
 ## Create the PDB object
 
-You can create the PDB object with a command like `kubectl apply -f mypdb.yaml`.
+You can create or update the PDB object using kubectl.
+```shell
+kubectl apply -f mypdb.yaml
+```
 -->
 ## 创建 PDB 对象
 
-你可以通过类似 `kubectl apply -f mypdb.yaml` 的命令来创建 PDB。
+你可以使用 kubectl 创建或更新 PDB 对象。
+```shell
+kubectl apply -f mypdb.yaml
+```
 
 <!--
 You cannot update PDB objects.  They must be deleted and re-created.
