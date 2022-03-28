@@ -87,7 +87,7 @@ for provisioning PVs. This field must be specified.
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
-which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)
+which are independent programs that follow a [specification](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
 run, what volume plugin it uses (including Flex), etc. The repository
@@ -241,8 +241,8 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: failure-domain.beta.kubernetes.io/zone
     values:
-    - us-central1-a
-    - us-central1-b
+    - us-central-1a
+    - us-central-1b
 ```
 
 ## Parameters

@@ -70,16 +70,17 @@ Customization approaches can be broadly divided into *configuration*, which only
 *Configuration files* and *flags* are documented in the Reference section of the online documentation, under each binary:
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 -->
+## 配置   {#configuration}
 
-## Configuration
-
-*配置文件*和*参数标志*的说明位于在线文档的参考章节，按可执行文件组织：
+配置文件和参数标志的说明位于在线文档的参考章节，按可执行文件组织：
 
 * [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/zh/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
 * [kube-scheduler](/zh/docs/reference/command-line-tools-reference/kube-scheduler/).
@@ -94,19 +95,19 @@ Flags and configuration files may not always be changeable in a hosted Kubernete
 有鉴于此，通常应该在没有其他替代方案时才应考虑更改参数标志和配置文件。
 
 <!--
-*Built-in Policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), are built-in Kubernetes APIs. APIs are typically used with hosted Kubernetes services and with managed Kubernetes installations. They are declarative and use the same conventions as other Kubernetes resources like pods, so new cluster configuration can be repeatable and be managed the same way as applications. And, where they are stable, they enjoy a [defined support policy](/docs/reference/deprecation-policy/) like other Kubernetes APIs. For these reasons, they are preferred over *configuration files* and *flags* where suitable.
+*Built-in Policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), are built-in Kubernetes APIs. APIs are typically used with hosted Kubernetes services and with managed Kubernetes installations. They are declarative and use the same conventions as other Kubernetes resources like pods, so new cluster configuration can be repeatable and be managed the same way as applications. And, where they are stable, they enjoy a [defined support policy](/docs/reference/using-api/deprecation-policy/) like other Kubernetes APIs. For these reasons, they are preferred over *configuration files* and *flags* where suitable.
 -->
 *内置的策略 API*，例如[ResourceQuota](/zh/docs/concepts/policy/resource-quotas/)、
 [PodSecurityPolicies](/zh/docs/concepts/policy/pod-security-policy/)、
 [NetworkPolicy](/zh/docs/concepts/services-networking/network-policies/)
-和基于角色的访问控制（[RBAC](/zh/docs/reference/access-authn-authz/rbac/)）等等
-都是内置的 Kubernetes API。
+和基于角色的访问控制（[RBAC](/zh/docs/reference/access-authn-authz/rbac/)）
+等等都是内置的 Kubernetes API。
 API 通常用于托管的 Kubernetes 服务和受控的 Kubernetes 安装环境中。
-这些 API 是声明式的，与 Pod 这类其他 Kubernetes 资源遵从相同的约定，所以
-新的集群配置是可复用的，并且可以当作应用程序来管理。
-此外，对于稳定版本的 API 而言，它们与其他 Kubernetes API 一样，采纳的是
-一种[预定义的支持策略](/zh/docs/reference/using-api/deprecation-policy/)。
-出于以上原因，在条件允许的情况下，基于 API 的方案应该优先于*配置文件*和*参数标志*。
+这些 API 是声明式的，与 Pod 这类其他 Kubernetes 资源遵从相同的约定，
+所以新的集群配置是可复用的，并且可以当作应用程序来管理。
+此外，对于稳定版本的 API 而言，它们与其他 Kubernetes API 一样，
+采纳的是一种[预定义的支持策略](/zh/docs/reference/using-api/deprecation-policy/)。
+出于以上原因，在条件允许的情况下，基于 API 的方案应该优先于配置文件和参数标志。
 
 <!--
 ## Extensions
@@ -114,9 +115,9 @@ API 通常用于托管的 Kubernetes 服务和受控的 Kubernetes 安装环境�
 Extensions are software components that extend and deeply integrate with Kubernetes.
 They adapt it to support new types and new kinds of hardware.
 
-Most cluster administrators will use a hosted or distribution
-instance of Kubernetes. As a result, most Kubernetes users will not need to
-install extensions and fewer will need to author new ones.
+Many cluster administrators use a hosted or distribution instance of Kubernetes. 
+These clusters come with extensions pre-installed. As a result, most Kubernetes 
+users will not need to install extensions and even fewer users will need to author new ones.
 -->
 ## 扩展    {#extensions}
 
@@ -124,7 +125,7 @@ install extensions and fewer will need to author new ones.
 它们调整 Kubernetes 的工作方式使之支持新的类型和新的硬件种类。
 
 大多数集群管理员会使用一种托管的 Kubernetes 服务或者其某种发行版本。
-因此，大多数 Kubernetes 用户不需要安装扩展，
+这类集群通常都预先安装了扩展。因此，大多数 Kubernetes 用户不需要安装扩展，
 至于需要自己编写新的扩展的情况就更少了。
 
 <!--
@@ -155,31 +156,29 @@ calls out to a remote service, it is called a *Webhook*. The remote service
 is called a *Webhook Backend*. Like Controllers, Webhooks do add a point of
 failure.
 -->
-编写客户端程序有一种特殊的 *Controller(控制器)* 模式，能够与 Kubernetes 很好地
-协同工作。控制器通常会读取某个对象的 `.spec`，或许还会执行一些操作，之后更新
-对象的 `.status`。
-*Controller（控制器）* 是 Kubernetes 的客户端。
+编写客户端程序有一种特殊的 Controller（控制器）模式，能够与 Kubernetes
+很好地协同工作。控制器通常会读取某个对象的 `.spec`，或许还会执行一些操作，
+之后更新对象的 `.status`。
 
-当 Kubernetes 充当客户端，调用某远程服务时，对应
-的远程组件称作*Webhook*。 远程服务称作*Webhook 后端*。 
+Controller 是 Kubernetes 的客户端。当 Kubernetes 充当客户端，
+调用某远程服务时，对应的远程组件称作 *Webhook*，远程服务称作 Webhook 后端。
 与控制器模式相似，Webhook 也会在整个架构中引入新的失效点（Point of Failure）。
 
 <!--
 In the webhook model, Kubernetes makes a network request to a remote service.
 In the *Binary Plugin* model, Kubernetes executes a binary (program).
-Binary plugins are used by the kubelet (e.g. [Flex Volume
-Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
-and [Network
-Plugins](/docs/concepts/cluster-administration/network-plugins/))
+Binary plugins are used by the kubelet (e.g.
+[Flex Volume Plugins](/docs/concepts/storage/volumes/#flexvolume)
+and [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))
 and by kubectl.
 
 Below is a diagram showing how the extension points interact with the
 Kubernetes control plane.
 -->
 在 Webhook 模式中，Kubernetes 向远程服务发起网络请求。
-在 *可执行文件插件（Binary Plugin）* 模式中，Kubernetes 执行某个可执行文件（程序）。
-可执行文件插件在 kubelet （例如，
-[FlexVolume 插件](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
+在 **可执行文件插件（Binary Plugin）** 模式中，Kubernetes
+执行某个可执行文件（程序）。可执行文件插件在 kubelet （例如，
+[FlexVolume 插件](/zh/docs/concepts/storage/volumes/#flexvolume))
 和[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)）
 和 kubectl 中使用。
 
@@ -223,12 +222,11 @@ If you are unsure where to start, this flowchart can help. Note that some soluti
 
 2. API 服务器处理所有请求。API 服务器中的几种扩展点能够使用户对请求执行身份认证、
    基于其内容阻止请求、编辑请求内容、处理删除操作等等。
-   这些扩展点在 [API 访问扩展](#api-access-extensions)
-   节详述。
+   这些扩展点在 [API 访问扩展](#api-access-extensions)节详述。
 
-3. API 服务器向外提供不同类型的*资源（resources）*。
-   *内置的资源类型*，如 `pods`，是由 Kubernetes 项目所定义的，无法改变。
-   你也可以添加自己定义的或者其他项目所定义的称作*自定义资源（Custom Resources）*
+3. API 服务器向外提供不同类型的资源（resources）。
+   内置的资源类型，如 `pods`，是由 Kubernetes 项目所定义的，无法改变。
+   你也可以添加自己定义的或者其他项目所定义的称作自定义资源（Custom Resources）
    的资源，正如[自定义资源](#user-defined-types)节所描述的那样。
    自定义资源通常与 API 访问扩展点结合使用。
 
@@ -236,12 +234,12 @@ If you are unsure where to start, this flowchart can help. Note that some soluti
    有几种方式来扩展调度行为。这些方法将在
    [调度器扩展](#scheduler-extensions)节中展开。
 
-5. Kubernetes 中的很多行为都是通过称为控制器（Controllers）的程序来实现的，这些程序也都是 API 服务器
-   的客户端。控制器常常与自定义资源结合使用。
+5. Kubernetes 中的很多行为都是通过称为控制器（Controllers）的程序来实现的，
+   这些程序也都是 API 服务器的客户端。控制器常常与自定义资源结合使用。
 
 6. 组件 kubelet 运行在各个节点上，帮助 Pod 展现为虚拟的服务器并在集群网络中拥有自己的 IP。
-   [网络插件](#network-plugins)使得 Kubernetes 能够采用
-   不同实现技术来连接 Pod 网络。
+   [网络插件](#network-plugins)使得 Kubernetes 能够采用不同实现技术来连接
+   Pod 网络。
 
 7. 组件 kubelet 也会为容器增加或解除存储卷的挂载。
    通过[存储插件](#storage-plugins)，可以支持新的存储类型。
@@ -320,9 +318,8 @@ Kubernetes has several built-in authentication methods that it supports. It can 
 
 这些步骤中都存在扩展点。
 
-Kubernetes 提供若干内置的身份认证方法。
-它也可以运行在某中身份认证代理的后面，并且可以将来自鉴权头部的令牌发送到
-某个远程服务（Webhook）来执行验证操作。
+Kubernetes 提供若干内置的身份认证方法。它也可以运行在某种身份认证代理的后面，
+并且可以将来自鉴权头部的令牌发送到某个远程服务（Webhook）来执行验证操作。
 所有这些方法都在[身份认证文档](/zh/docs/reference/access-authn-authz/authentication/)
 中有详细论述。
 
@@ -345,12 +342,12 @@ Kubernetes 提供若干种内置的认证方法，以及
 <!--
 ### Authorization
 
-[Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It works at the level of whole resources - it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
+[Authorization](/docs/reference/access-authn-authz/authorization/) determines whether specific users can read, write, and do other operations on API resources. It works at the level of whole resources - it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 -->
 ### 鉴权    {#authorization}
 
-[鉴权](/zh/docs/reference/access-authn-authz/webhook/)操作负责确定特定的用户
-是否可以读、写 API 资源或对其执行其他操作。
+[鉴权](/zh/docs/reference/access-authn-authz/authorization/)
+操作负责确定特定的用户是否可以读、写 API 资源或对其执行其他操作。
 此操作仅在整个资源集合的层面进行。
 换言之，它不会基于对象的特定字段作出不同的判决。
 如果内置的鉴权选项无法满足你的需要，你可以使用
@@ -371,10 +368,10 @@ After a request is authorized, if it is a write operation, it also goes through 
 [准入控制](/zh/docs/reference/access-authn-authz/admission-controllers/)处理步骤。
 除了内置的处理步骤，还存在一些扩展点：
 
-* [Image Policy webhook](/zh/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
+* [镜像策略 Webhook](/zh/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
   能够限制容器中可以运行哪些镜像。
 * 为了执行任意的准入控制，可以使用一种通用的
-  [Admission webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) 
+  [准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) 
   机制。这类 Webhook 可以拒绝对象创建或更新请求。
 
 <!--
@@ -392,8 +389,15 @@ Kubelet call a Binary Plugin to mount the volume.
 
 [FlexVolumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
 )
-卷可以让用户挂载无需内建支持的卷类型，kubelet 会调用可执行文件插件
-来挂载对应的存储卷。
+卷可以让用户挂载无需内建支持的卷类型，
+kubelet 会调用可执行文件插件来挂载对应的存储卷。
+
+<!--
+FlexVolume is deprecated since Kubernetes v1.23. The Out-of-tree CSI driver is the recommended way to write volume drivers in Kubernetes. See [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors) for more information.
+-->
+从 Kubernetes v1.23 开始，FlexVolume 被弃用。
+在 Kubernetes 中编写卷驱动的推荐方式是使用树外（Out-of-tree）CSI 驱动。
+详细信息可参阅 [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)。
 
 <!--
 ### Device Plugins
@@ -413,8 +417,8 @@ Different networking fabrics can be supported via node-level [Network Plugins](/
 
 ### 网络插件   {#network-plugins}
 
-通过节点层面的[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)，可以支持
-不同的网络设施。
+通过节点层面的[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)，
+可以支持不同的网络设施。
 
 <!--
 ### Scheduler Extensions
@@ -447,7 +451,6 @@ the nodes chosen for a pod.
 [Webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)，
 允许使用某种 Webhook 后端（调度器扩展）来为 Pod 可选的节点执行过滤和优先排序操作。
 
-
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -466,5 +469,4 @@ the nodes chosen for a pod.
   * [设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * 了解 [kubectl 插件](/zh/docs/tasks/extend-kubectl/kubectl-plugins/)
 * 了解 [Operator 模式](/zh/docs/concepts/extend-kubernetes/operator/)
-
 

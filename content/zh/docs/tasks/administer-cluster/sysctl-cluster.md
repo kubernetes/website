@@ -122,7 +122,7 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.ip_local_port_range`
 - `net.ipv4.tcp_syncookies`
 - `net.ipv4.ping_group_range` （从 Kubernetes 1.18 开始）
-- `net.ipv4.ip_unprivileged_port_start` (从 Kubernetes 1.22 开始).
+- `net.ipv4.ip_unprivileged_port_start` （从 Kubernetes 1.22 开始）。
 
 <!--
 The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.

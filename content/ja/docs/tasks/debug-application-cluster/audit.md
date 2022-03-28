@@ -149,6 +149,7 @@ volumeMounts:
 最後に`hostPath`を設定します:
 ```yaml
 ...
+volumes:
 - name: audit
   hostPath:
     path: /etc/kubernetes/audit-policy.yaml
@@ -158,7 +159,6 @@ volumeMounts:
   hostPath:
     path: /var/log/audit.log
     type: FileOrCreate
-
 ```
 
 ### Webhookバックエンド

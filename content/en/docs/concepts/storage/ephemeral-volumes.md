@@ -107,7 +107,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/data"
         name: my-csi-inline-vol
@@ -125,8 +125,16 @@ driver. These attributes are specific to each driver and not
 standardized. See the documentation of each CSI driver for further
 instructions.
 
+### CSI driver restrictions
+ 
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
 As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
 [`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
+
+{{< note >}}
+PodSecurityPolicy is deprecated and will be removed in the Kubernetes v1.25 release.
+{{< /note >}}
 
 ### Generic ephemeral volumes
 
@@ -158,7 +166,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/scratch"
         name: scratch-volume
