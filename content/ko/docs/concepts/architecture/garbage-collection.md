@@ -161,7 +161,7 @@ Kubelet은 자신이 관리하는 컨테이너에 대한 가비지 수집만을 
 다음 페이지에서 어떻게 가비지 수집을 구성할 수 있는지 확인할 수 있다:
 
   * [쿠버네티스 오브젝트의 캐스케이딩 삭제 구성하기](/docs/tasks/administer-cluster/use-cascading-deletion/)
-  * [완료된 잡 자동 정리하기](/docs/concepts/workloads/controllers/ttlafterfinished/)
+  * [완료된 잡 자동 정리하기](/ko/docs/concepts/workloads/controllers/ttlafterfinished/)
   
 <!-- * [Configuring unused container and image garbage collection](/docs/tasks/administer-cluster/reconfigure-kubelet/) -->
 
@@ -169,4 +169,4 @@ Kubelet은 자신이 관리하는 컨테이너에 대한 가비지 수집만을 
 
 * [쿠버네티스 오브젝트의 소유권](/docs/concepts/overview/working-with-objects/owners-dependents/)에 대해 알아보자.
 * 쿠버네티스 [finalizers](/docs/concepts/overview/working-with-objects/finalizers/)에 대해 알아보자.
-* 완료된 잡을 정리하는 [TTL 컨트롤러](/docs/concepts/workloads/controllers/ttlafterfinished/) (beta) 에 대해 알아보자.
+* 완료된 잡을 정리하는 [TTL 컨트롤러](/ko/docs/concepts/workloads/controllers/ttlafterfinished/) (beta) 에 대해 알아보자.
