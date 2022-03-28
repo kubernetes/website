@@ -203,6 +203,7 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 | Package name | Description |
 |--------------|-------------|
 | `kubeadm`    | Installs the `/usr/bin/kubeadm` CLI tool and the [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
-| `kubelet`    | Installs the kubelet binary in `/usr/bin` and CNI binaries in `/opt/cni/bin`. |
+| `kubelet`    | Installs the `/usr/bin/kubelet` binary. |
 | `kubectl`    | Installs the `/usr/bin/kubectl` binary. |
 | `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-sigs/cri-tools). |
+| `kubernetes-cni` | Installs the `/opt/cni/bin` binaries from the [plugins git repository](https://github.com/containernetworking/plugins). |

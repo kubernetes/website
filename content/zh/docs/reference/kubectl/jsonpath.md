@@ -1,13 +1,11 @@
 ---
 title: JSONPath 支持
 content_type: concept
-weight: 25
 ---
 <!--
 ---
 title: JSONPath Support
 content_type: concept
-weight: 25
 ---
 -->
 

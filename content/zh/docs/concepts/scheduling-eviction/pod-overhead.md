@@ -32,11 +32,6 @@ _POD 开销_ 是一个特性，用于计算 Pod 基础设施在容器请求和�
 
 <!-- body -->
 
-<!--
-## Pod Overhead
--->
-
-## Pod 开销
 
 <!--
 In Kubernetes, the Pod's overhead is set at

@@ -109,12 +109,45 @@ field.
 {{< /note >}}
 
 Port definitions in Pods have names, and you can reference these names in the
-`targetPort` attribute of a Service. This works even if there is a mixture
-of Pods in the Service using a single configured name, with the same network
-protocol available via different port numbers.
-This offers a lot of flexibility for deploying and evolving your Services.
-For example, you can change the port numbers that Pods expose in the next
-version of your backend software, without breaking clients.
+`targetPort` attribute of a Service. For example, we can bind the `targetPort`
+of the Service to the Pod port in the following way:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app.kubernetes.io/name: proxy
+spec:
+  containers:
+  - name: nginx
+    image: nginx:11.14.2
+    ports:
+      - containerPort: 80
+        name: http-web-svc
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: proxy
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+```
+
+
+This works even if there is a mixture of Pods in the Service using a single
+configured name, with the same network protocol available via different 
+port numbers. This offers a lot of flexibility for deploying and evolving 
+your Services. For example, you can change the port numbers that Pods expose 
+in the next version of your backend software, without breaking clients.
 
 The default protocol for Services is TCP; you can also use any other
 [supported protocol](#protocol-support).

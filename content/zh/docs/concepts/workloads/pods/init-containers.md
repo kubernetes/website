@@ -183,7 +183,7 @@ Here are some ideas for how to use init containers:
 * 等待一个 Service 完成创建，通过类似如下 shell 命令：
 
   ```shell
-  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; exit 1
+  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
   ```
 
 * 注册这个 Pod 到远程服务器，通过在命令中调用 API，类似如下：
