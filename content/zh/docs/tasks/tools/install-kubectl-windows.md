@@ -71,20 +71,20 @@ The following methods exist for installing kubectl on Windows:
    <!-- 
    1. Validate the binary (optional)
 
-      Download the kubectl checksum file:
+      Download the `kubectl` checksum file:
    -->
 1. 验证该可执行文件（可选步骤）
    
-   下载 kubectl 校验和文件：
+   下载 `kubectl` 校验和文件：
 
    ```powershell
    curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    <!-- 
-   Validate the kubectl binary against the checksum file:
+   Validate the `kubectl` binary against the checksum file:
    -->
-   基于校验和文件，验证 kubectl 的可执行文件：
+   基于校验和文件，验证 `kubectl` 的可执行文件：
 
    <!-- 
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
@@ -106,12 +106,12 @@ The following methods exist for installing kubectl on Windows:
      ```
 
    <!-- 
-   1. Append or prepend the kubectl binary folder to your `PATH` environment variable.
+   1. Append or prepend the `kubectl` binary folder to your `PATH` environment variable.
 
    1. Test to ensure the version of `kubectl` is the same as downloaded:
       Or use this for detailed view of version:
    -->
-1. 将 kubectl 二进制文件夹附加或添加到你的 `PATH` 环境变量中。
+1. 将 `kubectl` 二进制文件夹追加或插入到你的 `PATH` 环境变量中。
 
 1. 测试一下，确保此 `kubectl` 的版本和期望版本一致：
 
@@ -261,22 +261,22 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 1. Validate the binary (optional)
 
-   Download the kubectl-convert checksum file:
+   Download the `kubectl-convert` checksum file:
 -->
 1. 验证该可执行文件（可选步骤）
    
-   下载 kubectl-convert 校验和文件：
+   下载 `kubectl-convert` 校验和文件：
 
    ```powershell
    curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    <!--
-   Validate the kubectl-convert binary against the checksum file:
+   Validate the `kubectl-convert` binary against the checksum file:
 
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
    -->
-   基于校验和，验证 kubectl-convert 的可执行文件：
+   基于校验和，验证 `kubectl-convert` 的可执行文件：
 
    - 用提示的命令对 `CertUtil` 的输出和下载的校验和文件进行手动比较。
    
@@ -295,11 +295,11 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
      ```
 
 <!--
-1.  Append or prepend the kubectl binary folder to your `PATH` environment variable.
+1.  Append or prepend the `kubectl-convert` binary folder to your `PATH` environment variable.
 
 1. Verify plugin is successfully installed
 -->
-1. 将 kubectl 二进制文件夹附加或添加到你的 `PATH` 环境变量中。
+1. 将 `kubectl-convert` 二进制文件夹附加或添加到你的 `PATH` 环境变量中。
 
 1. 验证插件是否安装成功
 
