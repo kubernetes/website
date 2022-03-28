@@ -1,3 +1,22 @@
+div.community_main h1, h2, h3 {
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+div.community_main {
+  padding: 50px 100px;
+}
+
+div.community_main ul, 
+div.community_main li {
+  list-style: disc;
+  list-style-position: inside;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: 400;
+}
 .SandboxRoot.env-bp-430 .timeline-Tweet-text {
 
   font-size: 13pt !important;

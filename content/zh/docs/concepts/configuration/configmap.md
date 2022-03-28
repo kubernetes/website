@@ -77,8 +77,8 @@ ConfigMap 是一个 API [对象](/zh/docs/concepts/overview/working-with-objects
 让你可以存储其他对象所需要使用的配置。
 和其他 Kubernetes 对象都有一个 `spec` 不同的是，ConfigMap 使用 `data` 和
 `binaryData` 字段。这些字段能够接收键-值对作为其取值。`data` 和 `binaryData`
-字段都是可选的。`data` 字段设计用来保存 UTF-8 字节序列，而 `binaryData` 则
-被设计用来保存二进制数据作为 base64 编码的字串。
+字段都是可选的。`data` 字段设计用来保存 UTF-8 字节序列，而 `binaryData`
+则被设计用来保存二进制数据作为 base64 编码的字串。
 
 ConfigMap 的名字必须是一个合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
@@ -92,11 +92,11 @@ Starting from v1.19, you can add an `immutable` field to a ConfigMap
 definition to create an [immutable ConfigMap](#configmap-immutable).
 -->
 `data` 或 `binaryData` 字段下面的每个键的名称都必须由字母数字字符或者
-`-`、`_` 或 `.` 组成。在 `data` 下保存的键名不可以与在 `binaryData` 下
-出现的键名有重叠。
+`-`、`_` 或 `.` 组成。在 `data` 下保存的键名不可以与在 `binaryData`
+下出现的键名有重叠。
 
-从 v1.19 开始，你可以添加一个 `immutable` 字段到 ConfigMap 定义中，创建
-[不可变更的 ConfigMap](#configmap-immutable)。
+从 v1.19 开始，你可以添加一个 `immutable` 字段到 ConfigMap 定义中，
+创建[不可变更的 ConfigMap](#configmap-immutable)。
 
 <!--
 ## ConfigMaps and Pods
@@ -107,8 +107,8 @@ the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 -->
 ## ConfigMaps 和 Pods
 
-你可以写一个引用 ConfigMap 的 Pod 的 `spec`，并根据 ConfigMap 中的数据
-在该 Pod 中配置容器。这个 Pod 和 ConfigMap 必须要在同一个
+你可以写一个引用 ConfigMap 的 Pod 的 `spec`，并根据 ConfigMap 中的数据在该
+Pod 中配置容器。这个 Pod 和 ConfigMap 必须要在同一个
 {{< glossary_tooltip text="名字空间" term_id="namespace" >}} 中。
 
 <!--
@@ -183,10 +183,9 @@ technique also lets you access a ConfigMap in a different namespace.
 Here's an example Pod that uses values from `game-demo` to configure a Pod:
 -->
 第四种方法意味着你必须编写代码才能读取 ConfigMap 和它的数据。然而，
-由于你是直接使用 Kubernetes API，因此只要 ConfigMap 发生更改，你的
-应用就能够通过订阅来获取更新，并且在这样的情况发生的时候做出反应。
-通过直接进入 Kubernetes API，这个技术也可以让你能够获取到不同的名字空间
-里的 ConfigMap。
+由于你是直接使用 Kubernetes API，因此只要 ConfigMap 发生更改，
+你的应用就能够通过订阅来获取更新，并且在这样的情况发生的时候做出反应。
+通过直接进入 Kubernetes API，这个技术也可以让你能够获取到不同的名字空间里的 ConfigMap。
 
 下面是一个 Pod 的示例，它通过使用 `game-demo` 中的值来配置一个 Pod：
 
@@ -243,16 +242,16 @@ definition specifies an `items` array in the `volumes` section.
 If you omit the `items` array entirely, every key  in the ConfigMap becomes
 a file with the same name as the key, and you get 4 files.
 -->
-ConfigMap 不会区分单行属性值和多行类似文件的值，重要的是 Pods 和其他对象
-如何使用这些值。
+ConfigMap 不会区分单行属性值和多行类似文件的值，重要的是 Pods
+和其他对象如何使用这些值。
 
 上面的例子定义了一个卷并将它作为 `/config` 文件夹挂载到 `demo` 容器内，
 创建两个文件，`/config/game.properties` 和
 `/config/user-interface.properties`，
 尽管 ConfigMap 中包含了四个键。
 这是因为 Pod 定义中在 `volumes` 节指定了一个 `items` 数组。
-如果你完全忽略 `items` 数组，则 ConfigMap 中的每个键都会变成一个与
-该键同名的文件，因此你会得到四个文件。
+如果你完全忽略 `items` 数组，则 ConfigMap 中的每个键都会变成一个与该键同名的文件，
+因此你会得到四个文件。
 
 <!--
 ## Using ConfigMaps
@@ -263,9 +262,8 @@ ConfigMaps can hold data that other parts of the system should use for configura
 -->
 ## 使用 ConfigMap   {#using-configmaps}
 
-ConfigMap 可以作为数据卷挂载。ConfigMap 也可被系统的其他组件使用，而
-不一定直接暴露给 Pod。例如，ConfigMap 可以保存系统中其他组件要使用
-的配置数据。
+ConfigMap 可以作为数据卷挂载。ConfigMap 也可被系统的其他组件使用，
+而不一定直接暴露给 Pod。例如，ConfigMap 可以保存系统中其他组件要使用的配置数据。
 
 <!--
 The most common way to use ConfigMaps is to configure settings for
@@ -308,8 +306,8 @@ To consume a ConfigMap in a volume in a Pod:
 1. 创建一个 ConfigMap 对象或者使用现有的 ConfigMap 对象。多个 Pod 可以引用同一个
    ConfigMap。
 1. 修改 Pod 定义，在 `spec.volumes[]` 下添加一个卷。
-   为该卷设置任意名称，之后将 `spec.volumes[].configMap.name` 字段设置为对
-   你的 ConfigMap 对象的引用。
+   为该卷设置任意名称，之后将 `spec.volumes[].configMap.name` 字段设置为对你的
+   ConfigMap 对象的引用。
 1. 为每个需要该 ConfigMap 的容器添加一个 `.spec.containers[].volumeMounts[]`。
    设置 `.spec.containers[].volumeMounts[].readOnly=true` 并将
    `.spec.containers[].volumeMounts[].mountPath` 设置为一个未使用的目录名，
@@ -349,8 +347,8 @@ own `volumeMounts` block, but only one `.spec.volumes` is needed per ConfigMap.
 -->
 你希望使用的每个 ConfigMap 都需要在 `spec.volumes` 中被引用到。
 
-如果 Pod 中有多个容器，则每个容器都需要自己的 `volumeMounts` 块，但针对
-每个 ConfigMap，你只需要设置一个 `spec.volumes` 块。
+如果 Pod 中有多个容器，则每个容器都需要自己的 `volumeMounts` 块，但针对每个
+ConfigMap，你只需要设置一个 `spec.volumes` 块。
 
 <!--
 #### Mounted ConfigMaps are updated automatically
@@ -367,7 +365,7 @@ the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1be
 kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否为最新。
 不过，kubelet 使用的是其本地的高速缓存来获得 ConfigMap 的当前值。
 高速缓存的类型可以通过
-[KubeletConfiguration 结构](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)
+[KubeletConfiguration 结构](/zh/docs/reference/config-api/kubelet-config.v1beta1/).
 的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
 
 <!--
@@ -380,8 +378,8 @@ propagation delay, where the cache propagation delay depends on the chosen cache
 -->
 ConfigMap 既可以通过 watch 操作实现内容传播（默认形式），也可实现基于 TTL
 的缓存，还可以直接经过所有请求重定向到 API 服务器。
-因此，从 ConfigMap 被更新的那一刻算起，到新的主键被投射到 Pod 中去，这一
-时间跨度可能与 kubelet 的同步周期加上高速缓存的传播延迟相等。
+因此，从 ConfigMap 被更新的那一刻算起，到新的主键被投射到 Pod 中去，
+这一时间跨度可能与 kubelet 的同步周期加上高速缓存的传播延迟相等。
 这里的传播延迟取决于所选的高速缓存类型
 （分别对应 watch 操作的传播延迟、高速缓存的 TTL 时长或者 0）。
 
@@ -390,6 +388,14 @@ ConfigMaps consumed as environment variables are not updated automatically and r
 -->
 以环境变量方式使用的 ConfigMap 数据不会被自动更新。
 更新这些数据需要重新启动 Pod。
+
+{{< note >}}
+<!--
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
+-->
+将 ConfigMap 作为 [subPath](/docs/concepts/storage/volumes#using-subpath)
+卷挂载的容器无法收到 ConfigMap 更新。
+{{< /note >}}
 
 <!--
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
@@ -412,8 +418,8 @@ individual Secrets and ConfigMaps as immutable. For clusters that extensively us
 data has the following advantages:
 -->
 Kubernetes 特性 _不可变更的 Secret 和 ConfigMap_ 提供了一种将各个
-Secret 和 ConfigMap 设置为不可变更的选项。对于大量使用 ConfigMap 的
-集群（至少有数万个各不相同的 ConfigMap 给 Pod 挂载）而言，禁止更改
+Secret 和 ConfigMap 设置为不可变更的选项。对于大量使用 ConfigMap 的集群
+（至少有数万个各不相同的 ConfigMap 给 Pod 挂载）而言，禁止更改
 ConfigMap 的数据有以下好处：
 
 <!--
@@ -422,8 +428,8 @@ ConfigMap 的数据有以下好处：
   closing watches for ConfigMaps marked as immutable.
 -->
 - 保护应用，使之免受意外（不想要的）更新所带来的负面影响。
-- 通过大幅降低对 kube-apiserver 的压力提升集群性能，这是因为系统会关闭
-  对已标记为不可变更的 ConfigMap 的监视操作。
+- 通过大幅降低对 kube-apiserver 的压力提升集群性能，
+  这是因为系统会关闭对已标记为不可变更的 ConfigMap 的监视操作。
 
 <!--
 This feature is controlled by the `ImmutableEphemeralVolumes`
@@ -432,8 +438,8 @@ You can create an immutable ConfigMap by setting the `immutable` field to `true`
 For example:
 -->
 此功能特性由 `ImmutableEphemeralVolumes`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-来控制。你可以通过将 `immutable` 字段设置为 `true` 创建不可变更的 ConfigMap。
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)来控制。
+你可以通过将 `immutable` 字段设置为 `true` 创建不可变更的 ConfigMap。
 例如：
 
 ```yaml
@@ -454,8 +460,7 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 -->
 一旦某 ConfigMap 被标记为不可变更，则 _无法_ 逆转这一变化，，也无法更改
 `data` 或 `binaryData` 字段的内容。你只能删除并重建 ConfigMap。
-因为现有的 Pod 会维护一个对已删除的 ConfigMap 的挂载点，建议重新创建
-这些 Pods。
+因为现有的 Pod 会维护一个对已删除的 ConfigMap 的挂载点，建议重新创建这些 Pods。
 
 ## {{% heading "whatsnext" %}}
 
@@ -466,6 +471,6 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
   separating code from configuration.
 -->
 * 阅读 [Secret](/zh/docs/concepts/configuration/secret/)。
-* 阅读 [配置 Pod 来使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
-* 阅读 [Twelve-Factor 应用](https://12factor.net/) 来了解将代码和配置分开的动机。
+* 阅读[配置 Pod 使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 阅读 [Twelve-Factor 应用](https://12factor.net/zh_cn/)来了解将代码和配置分开的动机。
 

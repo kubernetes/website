@@ -702,7 +702,7 @@ status:
 <!--
 For `Denied` CSRs:
 -->
-驳回（`Denied`）的 CRS：
+驳回（`Denied`）的 CSR：
 
 ```yaml
 apiVersion: certificates.k8s.io/v1

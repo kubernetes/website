@@ -29,8 +29,7 @@ and possibly a port number as well; for example: `fictional.registry.example:104
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
-After the image name part you can add a _tag_ (as also using with commands such
-as `docker` and `podman`).
+After the image name part you can add a _tag_ (in the same way you would when using with commands like `docker` or `podman`).
 Tags let you identify different versions of the same series of images.
 
 Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
@@ -91,7 +90,7 @@ the image's digest;
 replace `<image-name>:<tag>` with `<image-name>@<digest>`
 (for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
 
-When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
+When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image by digest fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
 
 There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
 that mutate Pods (and pod templates) when they are created, so that the
@@ -175,95 +174,11 @@ These options are explained in more detail below.
 
 ### Configuring nodes to authenticate to a private registry
 
-If you run Docker on your nodes, you can configure the Docker container
-runtime to authenticate to a private container registry.
+Specific instructions for setting credentials depends on the container runtime and registry you chose to use. You should refer to your solution's documentation for the most accurate information.
 
-This approach is suitable if you can control node configuration.
-
-{{< note >}}
-Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
-Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
-{{< /note >}}
-
-
-Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
-in the search paths list below, kubelet uses it as the credential provider when pulling images.
-
-* `{--root-dir:-/var/lib/kubelet}/config.json`
-* `{cwd of kubelet}/config.json`
-* `${HOME}/.docker/config.json`
-* `/.docker/config.json`
-* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-* `{cwd of kubelet}/.dockercfg`
-* `${HOME}/.dockercfg`
-* `/.dockercfg`
-
-{{< note >}}
-You may have to set `HOME=/root` explicitly in the environment of the kubelet process.
-{{< /note >}}
-
-Here are the recommended steps to configuring your nodes to use a private registry.  In this
-example, run these on your desktop/laptop:
-
-   1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
-   1. View `$HOME/.docker/config.json` in an editor to ensure it contains only the credentials you want to use.
-   1. Get a list of your nodes; for example:
-      - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
-      - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
-   1. Copy your local `.docker/config.json` to one of the search paths list above.
-      - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
-
-{{< note >}}
-For production clusters, use a configuration management tool so that you can apply this
-setting to all the nodes where you need it.
-{{< /note >}}
-
-Verify by creating a Pod that uses a private image; for example:
-
-```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: private-image-test-1
-spec:
-  containers:
-    - name: uses-private-image
-      image: $PRIVATE_IMAGE_NAME
-      imagePullPolicy: Always
-      command: [ "echo", "SUCCESS" ]
-EOF
-```
-```
-pod/private-image-test-1 created
-```
-
-If everything is working, then, after a few moments, you can run:
-
-```shell
-kubectl logs private-image-test-1
-```
-and see that the command outputs:
-```
-SUCCESS
-```
-
-If you suspect that the command failed, you can run:
-```shell
-kubectl describe pods/private-image-test-1 | grep 'Failed'
-```
-In case of failure, the output is similar to:
-```
-  Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
-```
-
-
-You must ensure all nodes in the cluster have the same `.docker/config.json`.  Otherwise, pods will run on
-some nodes and fail to run on others.  For example, if you use node autoscaling, then each instance
-template needs to include the `.docker/config.json` or mount a drive that contains it.
-
-All pods will have read access to images in any private registry once private
-registry keys are added to the `.docker/config.json`.
+For an example of configuring a private container image registry, see the
+[Pull an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry)
+task. That example uses a private registry in Docker Hub.
 
 ### Interpretation of config.json {#config-json}
 
@@ -332,6 +247,7 @@ If now a container specifies an image `my-registry.io/images/subpath/my-image`
 to be pulled, then the kubelet will try to download them from both
 authentication sources if one of them fails.
 
+
 ### Pre-pulled images
 
 {{< note >}}
@@ -362,6 +278,8 @@ Kubernetes supports specifying container image registry keys on a Pod.
 
 #### Creating a Secret with a Docker config
 
+You need to know the username, registry password and client email address for authenticating
+to the registry, as well as its hostname.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
@@ -426,14 +344,13 @@ There are a number of solutions for configuring private registries.  Here are so
 common use cases and suggested solutions.
 
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
-   - Use public images on the Docker hub.
+   - Use public images from a public registry
      - No configuration required.
      - Some cloud providers automatically cache or mirror public images, which improves availability and reduces the time to pull images.
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
-   - Use a hosted private [Docker registry](https://docs.docker.com/registry/).
-     - It may be hosted on the [Docker Hub](https://hub.docker.com/signup), or elsewhere.
-     - Manually configure .docker/config.json on each node as described above.
+   - Use a hosted private registry
+     - Manual configuration may be required on the nodes that need to access to private registry
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
    - Use a hosted container image registry service that controls image access
@@ -450,8 +367,6 @@ common use cases and suggested solutions.
 
 
 If you need access to multiple registries, you can create one secret for each registry.
-Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
-
 
 ## {{% heading "whatsnext" %}}
 
