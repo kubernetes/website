@@ -72,7 +72,7 @@ spec:
   runtimeClassName: kata-fc
   containers:
   - name: busybox-ctr
-    image: busybox
+    image: busybox:1.28
     stdin: true
     tty: true
     resources:

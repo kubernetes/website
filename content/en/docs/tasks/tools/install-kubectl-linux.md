@@ -52,7 +52,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    Validate the kubectl binary against the checksum file:
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    If valid, the output is:
@@ -212,7 +212,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    Validate the kubectl-convert binary against the checksum file:
 
    ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
    If valid, the output is:

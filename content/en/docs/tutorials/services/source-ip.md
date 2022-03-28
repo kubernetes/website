@@ -119,7 +119,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 And hitting the `ClusterIP` from a pod in the same cluster:
 
 ```shell
-kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
 ```
 The output is similar to this:
 ```
