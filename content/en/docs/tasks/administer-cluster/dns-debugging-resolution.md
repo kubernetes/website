@@ -258,18 +258,18 @@ CoreDNS must be able to list {{< glossary_tooltip text="service"
 term_id="service" >}} and {{< glossary_tooltip text="endpoint"
 term_id="endpoint" >}} related resources to properly resolve service names.
 
-Sample Error Message:
+Sample error message:
 ```
 2022-03-18T07:12:15.699431183Z [INFO] 10.96.144.227:52299 - 3686 "A IN serverproxy.contoso.net.cluster.local. udp 52 false 512" SERVFAIL qr,aa,rd 145 0.000091221s
 ```
 
 First, get the current ClusterRole of `system:coredns`:
 
-```
+```shell
 kubectl describe clusterrole system:coredns -n kube-system
 ```
 
-Expected Output:
+Expected output:
 ```
 PolicyRule:
   Resources                        Non-Resource URLs  Resource Names  Verbs
@@ -284,11 +284,11 @@ PolicyRule:
 
 If any permissions are missing, edit the ClusterRole to add them:
 
-```
+```shell
 kubectl edit clusterrole system:coredns -n kube-system
 ```
 
-Example Insertion of EndpointSlices Permissions:
+Example insertion of EndpointSlices permissions:
 ```
 ...
 - apiGroups:
