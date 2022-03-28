@@ -2,11 +2,12 @@
 title: Use a SOCKS5 Proxy to Access the Kubernetes API
 content_type: task
 weight: 42
-min-kubernetes-server-version: v1.24.0
+min-kubernetes-server-version: v1.24
 ---
 
 <!-- overview -->
-This page shows how to use SOCKS5 proxying to access the API of a remote Kubernetes cluster. This is useful when the cluster you want to access does not expose its API directly on the public internet.
+This page shows how to use SOCKS5 proxying to access the API of a remote Kubernetes cluster.
+This is useful when the cluster you want to access does not expose its API directly on the public internet.
 
 ## {{% heading "prerequisites" %}}
 
@@ -17,14 +18,15 @@ This page shows how to use SOCKS5 proxying to access the API of a remote Kuberne
 ## Overview
 
 {{< note >}}
-This example tunnels traffic using SSH, with the SSH client and server acting as a SOCKS proxy. You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOCKS#SOCKS5) proxy.
+This example tunnels traffic using SSH, with the SSH client and server acting as a SOCKS proxy.
+You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOCKS#SOCKS5) proxy.
 {{</ note >}}
 
 Figure 1 represents what we're going to achieve in this tutorial.
 
-* We've got a _client machine_ from where we're going to create requests to talk to the Kubernetes API
-* The Kubernetes server/API is hosted on a _remote server_.
-* We leverage SSH to create a secure SOCKS5 tunnel between the _local_ and the _remote server_ on top of which the HTTPS traffic between the client and the Kubernetes API will flow.
+* We've got a client machine from where we're going to create requests to talk to the Kubernetes API
+* The Kubernetes server/API is hosted on a remote server.
+* We leverage SSH to create a secure SOCKS5 tunnel between the local and the remote server on top of which the HTTPS traffic between the client and the Kubernetes API will flow.
 
 {{< mermaid >}}
 graph LR;
@@ -50,7 +52,7 @@ Figure 1. SOCKS5 tutorial components
 
 ## Using ssh to create a SOCKS5 proxy
 
-This command starts a SOCKS5 proxy between your _client machine_ and the _remote server_ where the Kubernetes API is listening:
+This command starts a SOCKS5 proxy between your client machine and the remote server where the Kubernetes API is listening:
 
 ```shell
 ssh -D 8080 -q -N username@kubernetes-jump-box.example
@@ -71,10 +73,12 @@ for command-line tools, set the `https_proxy` environment variable in your and p
 export https_proxy=socks5://localhost:8080
 ```
 
-When you set the `https_proxy` variable, tool such as `curl` route HTTPS traffic through the proxy that you configured. For this to work, the tool must support SOCKS5 proxying.
+When you set the `https_proxy` variable, tool such as `curl` route HTTPS traffic through the proxy that you configured.
+For this to work, the tool must support SOCKS5 proxying.
 
 {{< note >}}
-In this example localhost will not be the localhost of the _client machine_ but the localhost of the _remote server_. It could also be replaced by a hostname that is known by the _remote server_ and hosted further in the remote infrastructure.
+In this example localhost will not be the localhost of the client machine but the localhost of the remote server.
+It could also be replaced by a hostname that is known by the remote server.
 {{</ note >}}
 
 ```shell
