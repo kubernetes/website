@@ -175,6 +175,66 @@ spec:
 
 However, the particular path specified in the custom recycler Pod template in the `volumes` part is replaced with the particular path of the volume that is being recycled.
 
+### PersistentVolume deletion protection finalizer
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+
+Finalizers can be added on a PersistentVolume to ensure that PersistentVolumes
+having `Delete` reclaim policy are deleted only after the backing storage are deleted.
+
+The finalizer `kubernetes.io/pv-controller` is added to in-tree plugin volumes. The following is an example
+
+```shell
+kubectl describe pv task-pv-volume
+Name:            task-pv-volume
+Labels:          type=local
+Annotations:     <none>
+Finalizers:      [kubernetes.io/pv-protection, kubernetes.io/pv-controller]
+StorageClass:    standard
+Status:          Bound
+Claim:
+Reclaim Policy:  Delete
+Access Modes:    RWO
+Capacity:        1Gi
+Message:
+Source:
+    Type:          HostPath (bare host directory volume)
+    Path:          /tmp/data
+    HostPathType:
+Events:            <none>
+```
+
+The finalizer `external-provisioner.volume.kubernetes.io/finalizer` is added for CSI volumes.
+The following is an example:
+```shell
+Name:            pvc-2f0bab97-85a8-4552-8044-eb8be45cf48d
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: csi.vsphere.vmware.com
+Finalizers:      [kubernetes.io/pv-protection external-provisioner.volume.kubernetes.io/finalizer]
+StorageClass:    fast
+Status:          Bound
+Claim:           demo-app/nginx-logs
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        200Mi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:              CSI (a Container Storage Interface (CSI) volume source)
+    Driver:            csi.vsphere.vmware.com
+    FSType:            ext4
+    VolumeHandle:      44830fa8-79b4-406b-8b58-621ba25353fd
+    ReadOnly:          false
+    VolumeAttributes:      storage.kubernetes.io/csiProvisionerIdentity=1648442357185-8081-csi.vsphere.vmware.com
+                           type=vSphere CNS Block Volume
+Events:                <none>
+```
+
+Enabling the `CSIMigration` feature for a specific in-tree volume plugin will remove
+the `kubernetes.io/pv-controller` finalizer, while adding the `external-provisioner.volume.kubernetes.io/finalizer`
+finalizer. Similarly, disabling `CSIMigration` will remove the `external-provisioner.volume.kubernetes.io/finalizer`
+finalizer, while adding the `kubernetes.io/pv-controller` finalizer.
+
 ### Reserving a PersistentVolume
 
 The control plane can [bind PersistentVolumeClaims to matching PersistentVolumes](#binding) in the
