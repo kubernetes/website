@@ -25,6 +25,10 @@ The following methods exist for installing kubectl on Linux:
 
 ### Install kubectl binary with curl on Linux
 
+## {{% heading "prerequisites" %}}
+
+`curl` tool is a prerequisites for installing kubectl binary with curl on Linux method.
+
 1. Download the latest release with the command:
 
    ```bash
