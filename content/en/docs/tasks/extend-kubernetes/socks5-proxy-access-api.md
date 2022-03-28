@@ -26,7 +26,8 @@ Figure 1 represents what we're going to achieve in this tutorial.
 
 * We've got a client machine from where we're going to create requests to talk to the Kubernetes API
 * The Kubernetes server/API is hosted on a remote server.
-* We leverage SSH to create a secure SOCKS5 tunnel between the local and the remote server on top of which the HTTPS traffic between the client and the Kubernetes API will flow.
+* We leverage SSH to create a secure SOCKS5 tunnel between the local and the remote server on top of
+  which the HTTPS traffic between the client and the Kubernetes API will flow.
 
 {{< mermaid >}}
 graph LR;
@@ -66,7 +67,8 @@ ssh -D 8080 -q -N username@kubernetes-jump-box.example
 
 ## Client configuration
 
-To explore the Kubernetes API you'll first need to instruct your clients to send their queries through the SOCKS5 proxy we created earlier.
+To explore the Kubernetes API you'll first need to instruct your clients to send their queries through
+the SOCKS5 proxy we created earlier.
 
 For command-line tools, set the `https_proxy` environment variable and pass it to commands that you run.
 
@@ -78,7 +80,8 @@ When you set the `https_proxy` variable, tools such as `curl` route HTTPS traffi
 you configured. For this to work, the tool must support SOCKS5 proxying.
 
 {{< note >}}
-In this example localhost will not be the localhost of the client machine but the localhost of the remote server.
+In this example localhost will not be the localhost of the client machine but the localhost of
+the remote server.
 It could also be replaced by a hostname that is known by the remote server.
 {{</ note >}}
 
@@ -86,7 +89,8 @@ It could also be replaced by a hostname that is known by the remote server.
 curl -k -v https://localhost/api
 ```
 
-To use the official Kubernetes client `kubectl` with a proxy, set the `proxy-url` element for the relevant `cluster` entry within  your `~/.kube/config` file. For example:
+To use the official Kubernetes client `kubectl` with a proxy, set the `proxy-url` element
+for the relevant `cluster` entry within  your `~/.kube/config` file. For example:
 
 ```yaml
 apiVersion: v1
