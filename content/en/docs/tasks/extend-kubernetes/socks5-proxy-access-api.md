@@ -6,7 +6,7 @@ min-kubernetes-server-version: v1.24
 ---
 
 <!-- overview -->
-This page shows how to use SOCKS5 proxying to access the API of a remote Kubernetes cluster.
+This page shows how to use a SOCKS5 proxy to access the API of a remote Kubernetes cluster.
 This is useful when the cluster you want to access does not expose its API directly on the public internet.
 
 ## {{% heading "prerequisites" %}}
@@ -19,7 +19,7 @@ This is useful when the cluster you want to access does not expose its API direc
 
 {{< note >}}
 This example tunnels traffic using SSH, with the SSH client and server acting as a SOCKS proxy.
-You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOCKS#SOCKS5) proxy.
+You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOCKS#SOCKS5) proxies.
 {{</ note >}}
 
 Figure 1 represents what we're going to achieve in this tutorial.
@@ -52,7 +52,8 @@ Figure 1. SOCKS5 tutorial components
 
 ## Using ssh to create a SOCKS5 proxy
 
-This command starts a SOCKS5 proxy between your client machine and the remote server where the Kubernetes API is listening:
+This command starts a SOCKS5 proxy between your client machine and the remote server
+where the Kubernetes API is listening:
 
 ```shell
 ssh -D 8080 -q -N username@kubernetes-jump-box.example
@@ -65,16 +66,16 @@ ssh -D 8080 -q -N username@kubernetes-jump-box.example
 
 ## Client configuration
 
-To explore the Kubernetes API you'll first need to instruct your clients to send their queries through the SOCKS5 proxy we created earlier:
+To explore the Kubernetes API you'll first need to instruct your clients to send their queries through the SOCKS5 proxy we created earlier.
 
-for command-line tools, set the `https_proxy` environment variable in your and pass it to commands that you run.
+For command-line tools, set the `https_proxy` environment variable and pass it to commands that you run.
 
 ```shell
 export https_proxy=socks5://localhost:8080
 ```
 
-When you set the `https_proxy` variable, tool such as `curl` route HTTPS traffic through the proxy that you configured.
-For this to work, the tool must support SOCKS5 proxying.
+When you set the `https_proxy` variable, tools such as `curl` route HTTPS traffic through the proxy
+you configured. For this to work, the tool must support SOCKS5 proxying.
 
 {{< note >}}
 In this example localhost will not be the localhost of the client machine but the localhost of the remote server.
