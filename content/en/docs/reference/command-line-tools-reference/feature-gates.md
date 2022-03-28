@@ -158,6 +158,7 @@ different Kubernetes components.
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | |
 | `OpenAPIV3` | `false` | Alpha | 1.23 | |
+| `PDBPodHealthyPolicy` | `false` | Alpha | 1.24 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
