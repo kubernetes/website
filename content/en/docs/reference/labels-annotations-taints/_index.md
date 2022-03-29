@@ -98,6 +98,12 @@ Used on: Pod
 This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
 
+{{< note >}}
+Both ingress and egress traffic shaping annotations are experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+ {{< /note >}}
+
 ### kubernetes.io/ingress-bandwidth
 
 Example: `kubernetes.io/ingress-bandwidth: 10M`
@@ -107,7 +113,7 @@ Used on: Pod
 You can apply quality-of-service traffic shaping to a pod and effectively limit its available bandwidth.
 Ingress traffic (to the pod) is handled by shaping queued packets to effectively handle data.
 To limit the bandwidth on a pod: write an object definition JSON file, and specify the data traffic
-speed using `kubernetes.io/ingress-bandwidth` annotation.
+speed using `kubernetes.io/ingress-bandwidth` annotation. Unit used for specifying traffic speed is Megabits per second, written as M in annotation.
 
 ### kubernetes.io/egress-bandwidth
 
@@ -118,7 +124,7 @@ Used on: Pod
 Egress traffic (from the pod) is handled by policing, which simply drops packets in excess of the configured rate.
 The limits you place on a pod do not affect the bandwidth of other pods.
 To limit the bandwidth on a pod: write an object definition JSON file, and specify the data traffic
-speed using `kubernetes.io/egress-bandwidth` annotation.
+speed using `kubernetes.io/egress-bandwidth` annotation. Unit used for specifying traffic speed is Megabits per second, written as M in annotation.
 
 ### beta.kubernetes.io/instance-type (deprecated)
 
