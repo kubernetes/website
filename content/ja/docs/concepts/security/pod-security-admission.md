@@ -1,5 +1,5 @@
 ---
-title: Podセキュリティのアドミッション
+title: Podのセキュリティアドミッション
 content_type: concept
 weight: 20
 min-kubernetes-server-version: v1.22
@@ -52,7 +52,7 @@ kubectl apply -k .
 
 ## Podのセキュリティレベル
 
-Pod Securityアドミッションは、Podの[Security Context](/docs/tasks/configure-pod-container/security-context/)とその他の関連フィールドに、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)で定義された3つのレベル、`privileged`、`baseline`、`restricted`に従って要件を設定するものです。
+Podのセキュリティアドミッションは、Podの[Security Context](/docs/tasks/configure-pod-container/security-context/)とその他の関連フィールドに、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)で定義された3つのレベル、`privileged`、`baseline`、`restricted`に従って要件を設定するものです。
 これらの要件の詳細については、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)のページを参照してください。
 
 ## Podの名前空間に対するセキュリティアドミッションラベル
