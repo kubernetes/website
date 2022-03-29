@@ -155,7 +155,8 @@ different Kubernetes components.
 | `NetworkPolicyEndPort` | `true` | Beta | 1.22 |  |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
-| `OpenAPIEnums` | `false` | Alpha | 1.23 | |
+| `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
+| `OpenAPIEnums` | `false` | Beta | 1.24 | |
 | `OpenAPIV3` | `false` | Alpha | 1.23 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
