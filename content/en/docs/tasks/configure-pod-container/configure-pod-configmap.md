@@ -256,7 +256,8 @@ data:
   lives: "3"
 ```
 
-Starting with Kubernetes v1.23,`kubectl` supports the `--from-env-file` argument multiple times to create a ConfigMap from multiple data sources. 
+Starting with Kubernetes v1.23, `kubectl` supports the `--from-env-file` argument to be
+specified multiple times to create a ConfigMap from multiple data sources.
 
 ```shell
 kubectl create configmap config-multi-env-files \
