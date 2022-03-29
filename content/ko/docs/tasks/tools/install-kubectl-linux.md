@@ -52,7 +52,7 @@ card:
    kubectl 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.
@@ -85,7 +85,7 @@ card:
    chmod +x kubectl
    mkdir -p ~/.local/bin/kubectl
    mv ./kubectl ~/.local/bin/kubectl
-   # 그리고 ~/.local/bin/kubectl을 $PATH에 추가
+   # 그리고 ~/.local/bin 을 $PATH의 앞부분 또는 뒷부분에 추가
    ```
 
    {{< /note >}}
@@ -178,10 +178,11 @@ kubectl version --client
 
 kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
 
-다음은 Bash 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
+다음은 Bash, Fish, 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
@@ -192,7 +193,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
 1. 다음 명령으로 최신 릴리스를 다운로드한다.
 
    ```bash
-   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    ```
 
 1. 바이너리를 검증한다. (선택 사항)
