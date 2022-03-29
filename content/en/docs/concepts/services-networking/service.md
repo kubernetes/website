@@ -734,11 +734,9 @@ other versions of Kubernetes, check the documentation for that release.
 
 #### Specifying class of load balancer implementation {#load-balancer-class}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 `spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default.
-Your cluster must have the `ServiceLoadBalancerClass` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled to use this field. For Kubernetes v{{< skew currentVersion >}}, this feature gate is enabled by default. For clusters running
-other versions of Kubernetes, check the documentation for that release.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation if the cluster is configured with
 a cloud provider using the `--cloud-provider` component flag. 
