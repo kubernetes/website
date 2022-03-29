@@ -59,7 +59,7 @@ card:
      $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
      ```
 
-1. `PATH`로 설정된 디렉터리 중 하나에 kubectl 바이너리를 추가한다.
+1. kubectl 바이너리가 있는 폴더를 `PATH` 환경 변수의 앞부분 또는 뒷부분에 추가
 
 1. `kubectl` 의 버전이 다운로드한 버전과 같은지 확인한다.
 
@@ -172,7 +172,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
      $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```
 
-1. `PATH`로 설정된 디렉터리 중 하나에 kubectl-convert 바이너리를 추가한다.
+1. kubectl 바이너리가 있는 폴더를 `PATH` 환경 변수의 앞부분 또는 뒷부분에 추가
 
 1. 플러그인이 정상적으로 설치되었는지 확인한다.
 
