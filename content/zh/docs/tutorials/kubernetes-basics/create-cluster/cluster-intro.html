@@ -72,7 +72,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
                 <p><b> Master 负责管理整个集群。</b> Master 协调集群中的所有活动，例如调度应用、维护应用的所需状态、应用扩容以及推出新的更新。</p>
-                <p><b> Node 是一个虚拟机或者物理机，它在 Kubernetes 集群中充当工作机器的角色</b> 每个Node都有 Kubelet , 它管理 Node 而且是 Node 与 Master 通信的代理。 Node 还应该具有用于​​处理容器操作的工具，例如 Docker 或 rkt 。处理生产级流量的 Kubernetes 集群至少应具有三个 Node 。</p>
+                <p><b> Node 是一个虚拟机或者物理机，它在 Kubernetes 集群中充当工作机器的角色</b> 每个Node都有 Kubelet , 它管理 Node 而且是 Node 与 Master 通信的代理。 Node 还应该具有用于​​处理容器操作的工具，例如 Docker 或 rkt 。处理生产级流量的 Kubernetes 集群至少应具有三个 Node，因为如果一个 Node 出现故障其对应的 etcd 成员和控制平面实例都会丢失，并且冗余会受到影响。 你可以通过添加更多控制平面节点来降低这种风险 。</p>
 
             </div>
             <div class="col-md-4">
