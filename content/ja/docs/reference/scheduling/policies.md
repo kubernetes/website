@@ -15,5 +15,5 @@ sitemap:
 ## {{% heading "whatsnext" %}}
 
 * [スケジューリング](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)について学ぶ
-* [kube-scheduler設定](/ja/docs/reference/scheduling/config/)
+* [kube-scheduler設定](/ja/docs/reference/scheduling/config/)について学ぶ
 * [kube-scheduler設定リファレンス(v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)について読む
