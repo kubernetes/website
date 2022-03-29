@@ -580,16 +580,12 @@ subresource of the referenced *owner* can change it.
 
 ### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
 
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
+
 This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
 
-{{< note >}}
-Support for volume resizing is available as a beta feature. As a cluster administrator,
-you must ensure that the feature gate `ExpandPersistentVolumes` is set
-to `true` to enable resizing.
-{{< /note >}}
-
-After enabling the `ExpandPersistentVolumes` feature gate, enabling the `PersistentVolumeClaimResize` admission
-controller is recommended, too. This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
+Enabling the `PersistentVolumeClaimResize` admission controller is recommended.
+This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
  explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
 
 For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
