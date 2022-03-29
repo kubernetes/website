@@ -174,6 +174,8 @@ different Kubernetes components.
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `SeccompDefault` | `false` | Alpha | 1.22 | |
+| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | 1.23 |
+| `ServerSideFieldValidation` | `true` | Beta | 1.24 | |
 | `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
 | `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | |
 | `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | |
@@ -1092,6 +1094,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
   of resource schema is performed at the API server side rather than the client side
   (for example, the `kubectl create` or `kubectl apply` command line).
+  For more details, see [Field Validation](/docs/reference/using-api/api-concepts/#field-validation).
 - `ServiceAccountIssuerDiscovery`: Enable OIDC discovery endpoints (issuer and
   JWKS URLs) for the service account issuer in the API server. See
   [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)
