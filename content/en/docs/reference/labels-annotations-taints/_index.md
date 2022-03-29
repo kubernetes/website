@@ -222,7 +222,8 @@ Example: `kubernetes.io/service-account.name: "sa-name"`
 
 Used on: Secret
 
-This annotation is used to set service account name by which the token identifies.
+This annotation records the {{< glossary_tooltip term_id="name" text="name">}} of the
+ServiceAccount that the token (stored in the Secret) represents.
 
 ### kubernetes.io/service-account.uid
 
