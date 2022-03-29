@@ -110,13 +110,7 @@ different Kubernetes components.
 | `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | 1.22 |
 | `EphemeralContainers` | `true` | Beta | 1.23 | |
-| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
-| `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
 | `ExpandedDNSConfig` | `false` | Alpha | 1.22 | |
-| `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
-| `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | |
-| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
-| `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
@@ -331,6 +325,15 @@ different Kubernetes components.
 | `EvenPodsSpread` | `true` | Beta | 1.18 | 1.18 |
 | `EvenPodsSpread` | `true` | GA | 1.19 | - |
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
+| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
+| `ExpandCSIVolumes` | `true` | Beta | 1.16 | 1.23 |
+| `ExpandCSIVolumes` | `true` | GA | 1.24 | - |
+| `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
+| `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | 1.23 |
+| `ExpandInUsePersistentVolumes` | `true` | GA | 1.24 | - |
+| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
+| `ExpandPersistentVolumes` | `true` | Beta | 1.11 | 1.23 |
+| `ExpandPersistentVolumes` | `true` | GA | 1.24 |- |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | 1.12 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Deprecated | 1.13 | - |
 | `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | - |
