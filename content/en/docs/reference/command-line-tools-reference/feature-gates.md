@@ -159,6 +159,7 @@ different Kubernetes components.
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |
 | `NetworkPolicyEndPort` | `true` | Beta | 1.22 |  |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
+| `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | |
 | `OpenAPIV3` | `false` | Alpha | 1.23 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
@@ -951,6 +952,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NodeDisruptionExclusion`: Enable use of the Node label `node.kubernetes.io/exclude-disruption`
   which prevents nodes from being evacuated during zone failures.
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
+- `NodeOutOfServiceVolumeDetach`: When a Node is marked out-of-service using the
+  `node.kubernetes.io/out-of-service` taint, Pods on the node will be forcefully deleted
+   if they can not tolerate this taint, and the volume detach operations for Pods terminating
+   on the node will happen immediately. The deleted Pods can recover quickly on different nodes.
 - `NodeSwap`: Enable the kubelet to allocate swap memory for Kubernetes workloads on a node.
   Must be used with `KubeletConfiguration.failSwapOn` set to false.
   For more details, please see [swap memory](/docs/concepts/architecture/nodes/#swap-memory)
