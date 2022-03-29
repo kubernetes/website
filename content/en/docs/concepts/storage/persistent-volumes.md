@@ -284,17 +284,12 @@ FlexVolumes (deprecated since Kubernetes v1.23) allow resize if the driver is co
 
 #### Resizing an in-use PersistentVolumeClaim
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
-
-{{< note >}}
-Expanding in-use PVCs is available as beta since Kubernetes 1.15, and as alpha since 1.11. The `ExpandInUsePersistentVolumes` feature must be enabled, which is the case automatically for many clusters for beta features. Refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
 Any in-use PVC automatically becomes available to its Pod as soon as its file system has been expanded.
 This feature has no effect on PVCs that are not in use by a Pod or deployment. You must create a Pod that
 uses the PVC before the expansion can complete.
-
 
 Similar to other volume types - FlexVolume volumes can also be expanded when in-use by a Pod.
 
@@ -329,7 +324,7 @@ If expanding underlying storage fails, the cluster administrator can manually re
 Recovery from failing PVC expansion by users is available as an alpha feature since Kubernetes 1.23. The `RecoverVolumeExpansionFailure` feature must be enabled for this feature to work. Refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
-If the feature gates `ExpandPersistentVolumes` and `RecoverVolumeExpansionFailure` are both
+If the feature gates `RecoverVolumeExpansionFailure` is
 enabled in your cluster, and expansion has failed for a PVC, you can retry expansion with a
 smaller size than the previously requested value. To request a new expansion attempt with a
 smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
