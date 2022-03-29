@@ -231,7 +231,8 @@ Example: `kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800d
 
 Used on: Secret
 
-This annotation is used to set the UID of the service account by which the token identifies.
+This annotation records the {{< glossary_tooltip term_id="uid" text="unique ID" >}} of the
+ServiceAccount that the token (stored in the Secret) represents.
 
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
