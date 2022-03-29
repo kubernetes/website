@@ -159,7 +159,7 @@ Each port definition can have the same `protocol`, or a different one.
 ### Services without selectors
 
 Services most commonly abstract access to Kubernetes Pods thanks to the selector,
-but when used without a selector, the Service can abstract other kinds of backends, 
+but when used with a corresponding Endpoints object and without a selector, the Service can abstract other kinds of backends, 
 including ones that run outside the cluster. For example:
 
 * You want to have an external database cluster in production, but in your
