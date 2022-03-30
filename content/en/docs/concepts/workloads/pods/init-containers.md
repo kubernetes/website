@@ -325,9 +325,7 @@ reasons:
   to garbage collection.
 
 The Pod will not be restarted when the init container image is changed, or the
-init container completion record has been lost due to garbage collection. This
-applies for Kubernetes v1.20 and later. If you are using an earlier version of
-Kubernetes, consult the documentation for the version you are using.
+init container completion record has been lost due to garbage collection.
 
 ## {{% heading "whatsnext" %}}
 
