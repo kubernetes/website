@@ -1051,20 +1051,115 @@ A portion of the schema is correlatable if all `array` parent schemas are of typ
 
 #### Resource Constraints
 
-CEL expressions have the potential to consume unacceptable amounts of API server resources. We constrain the resource utilization in following ways:
-- Validation of CEL expression's "cost" when a CEL expression is written to a field in a CRD (at CRD creation/update time)
-- Runtime cost budget during CEL evaluation
-  - CEL validation might fail due to runtime cost budget exceed with error message `validation failed due to running out of cost budget, no further validation rules will be run`
-  - CEL validation might fail due to cost limit exceed per expression with message `operation cancelled: actual cost limit exceeded: no further validation rules will be run due to call cost exceeds limit for rule:{$rule}`
-- Go context cancellation to bound CEL expression evaluation to the request lifetime
+Resource consumption of validation rules is checked at CustomResourceDefinition creation and update time. If a rule is estimated to be prohibitively expensive to execute, it will result in a validation error. A similar 
+system is used at runtime that observes the actions the interpreter takes. If the interpreter executes
+too many instructions, execution of the rule will be halted, and an error will result.
+Each CustomResourceDefinition is also allowed a certain amount of resources to finish executing all of 
+its validation rules. If the sum total of its rules are estimated at creation time to go over that limit, 
+then a validation error will also occur.
 
-Guidelines for working with estimated limits:
-- Adding MaxItems, MaxProperties and MaxLength limits on all data accessed by CEL rules is the best practice.
-- O(n) - For simple rules, it is possible to iterate across a single map/list/string without exceeding the limit, but adding limits on all data accessed by CEL rules is the best practice
-- O(n^2)+ the product of the max lengths usually needs to be <1,000,000.  E.g. 1000 for 2 levels of nesting, 100 for 3 levels of nesting
-- O(n^3) - should generally be avoided
+In general, both systems will allow rules that do not need to iterate; these rules will
+always take the same amount of time regardless of how large their input is. `self.foo == 1` will be allowed.
+But if `foo` is a string and we instead have `self.foo.contains("someString")`, our rule will take 
+longer to execute depending on how long `foo` is. Another example would be if `foo` was an array, and we
+had a rule `self.foo.all(x, x > 5)`. The cost system will always assume the worst-case scenario if
+a limit on the length of `foo` is not given, and this will happen for anything that can be iterated
+over (lists, maps, etc.).
 
-// TODO: edit info for cost estimation
+Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and 
+`maxLength` for anything that will be processed in a validation rule in order to prevent validation errors during cost estimation. For example, given this schema with one rule:
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      items:
+        type: string
+      x-kubernetes-validations:
+        - rule: "self.all(x, x.contains('a string'))"
+```
+
+The cost system will not allow this rule. Using `self.all` means calling `contains` on every string in `foo`,
+which in turn will check the given string to see if it contains `'a string'`. Without limits, this is a very
+expensive rule: 
+
+```
+ spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden: 
+ CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and 
+ maxLength where arrays, maps, and strings are used)
+```
+
+Without limits being set, the estimated cost of this rule will exceed the per-rule cost limit. But if we 
+add limits in the appropriate places, the rule will be allowed:
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      maxItems: 25
+      items:
+        type: string
+        maxLength: 10
+      x-kubernetes-validations:
+        - rule: "self.all(x, x.contains('a string'))"
+```
+
+The cost estimation system takes into account how many times the rule will be executed in addition to the
+estimated cost of the rule itself. For instance, the following rule will have the same estimated cost as the
+previous example (despite the rule now being defined on the individual array items):
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      maxItems: 25
+      items:
+        type: string
+        x-kubernetes-validations:
+          - rule: "self.contains('a string'))"
+        maxLength: 10
+```
+
+If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive 
+than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
+the following rule is allowed:
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      items:
+        type: integer
+    x-kubernetes-validations:
+      - rule: "self.all(x, x == 5)"
+```
+
+But the same rule on the following schema (with a nested array added) produces a validation error:
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      items:
+        type: array
+        items:
+          type: integer
+        x-kubernetes-validations:
+          - rule: "self.all(x, x == 5)"
+```
+
+This is because each item of `foo` is itself an array, and each subarray in turn calls `self.all`. Avoid nested
+lists and maps if possible where validation rules are used.
 
 ### Defaulting
 
