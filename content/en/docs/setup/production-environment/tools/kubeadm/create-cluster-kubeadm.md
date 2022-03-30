@@ -551,7 +551,7 @@ Example:
 
 ### kubeadm's skew against kubeadm
 
-There are certain limitations on how kubeadm commands can operate on existing nodes or whole cluster
+There are certain limitations on how kubeadm commands can operate on existing nodes or whole clusters
 managed by kubeadm.
 
 If new nodes are joined to the cluster, the kubeadm binary used for `kubeadm join` must match
