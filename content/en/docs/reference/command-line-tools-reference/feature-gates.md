@@ -78,9 +78,6 @@ different Kubernetes components.
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Beta | 1.17 | 1.22 |
 | `CSIMigrationAWS` | `true` | Beta | 1.23 | |
-| `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | 1.18 |
-| `CSIMigrationAzureDisk` | `false` | Beta | 1.19 | 1.22 |
-| `CSIMigrationAzureDisk` | `true` | Beta | 1.23 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.19 |
 | `CSIMigrationAzureFile` | `false` | Beta | 1.21 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
@@ -240,6 +237,10 @@ different Kubernetes components.
 | `CSIDriverRegistry` | `true` | GA | 1.18 | |
 | `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationAWSComplete` | - | Deprecated | 1.21 | - |
+| `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | 1.18 |
+| `CSIMigrationAzureDisk` | `false` | Beta | 1.19 | 1.22 |
+| `CSIMigrationAzureDisk` | `true` | Beta | 1.23 | 1.23 |
+| `CSIMigrationAzureDisk` | `true` | GA | 1.24 | |
 | `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationAzureDiskComplete` | - | Deprecated | 1.21 | - |
 | `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | 1.20 |
