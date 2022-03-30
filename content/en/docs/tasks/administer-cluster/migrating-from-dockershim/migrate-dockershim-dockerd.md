@@ -7,11 +7,13 @@ content_type: task
 {{% thirdparty-content %}}
 
 This page shows you how to migrate your Docker Engine nodes to use `cri-dockerd`
-instead of dockershim. If you want to switch away from using dockershim and still
-use Docker Engine to run containers in Kubernetes, you can follow these steps.
-If you want to upgrade to Kubernetes v{{< skew currentVersion >}} and your
-existing cluster relies on dockershim, you will have to migrate away and
-`cri-dockerd` is one of your options.
+instead of dockershim. You should follow these steps in these scenarios:
+
+ * You want to switch away from dockershim and still use Docker Engine to run
+    containers in Kubernetes.
+ * You want to upgrade to Kubernetes v{{< skew currentVersion >}} and your
+    existing cluster relies on dockershim, in which case you must migrate 
+    from dockershim and `cri-dockerd` is one of your options.
 
 To learn more about the removal of dockershim, read the [FAQ page](/dockershim).
 
