@@ -93,7 +93,7 @@ in the control plane. To modify this socket for each affected node:
 ## Restart the kubelet
 
 ```shell
-systemctl start kubelet
+systemctl restart kubelet
 ```
 
 ## Verify that the node is healthy
