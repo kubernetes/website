@@ -13,7 +13,7 @@ allows the clean up of resources like the following:
   * [Objects without owner references](#owners-dependents)
   * [Unused containers and container images](#containers-images)
   * [Dynamically provisioned PersistentVolumes with a StorageClass reclaim policy of Delete](/docs/concepts/storage/persistent-volumes/#delete)
-  * [Stale or expired CertificateSigningRequests (CSRs)](/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
+  * [Stale or expired CertificateSigningRequests (CSRs)](/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
   * {{<glossary_tooltip text="Nodes" term_id="node">}} deleted in the following scenarios:
     * On a cloud when the cluster uses a [cloud controller manager](/docs/concepts/architecture/cloud-controller/)
     * On-premises when the cluster uses an addon similar to a cloud controller

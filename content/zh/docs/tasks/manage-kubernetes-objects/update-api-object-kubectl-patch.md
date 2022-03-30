@@ -283,13 +283,11 @@ containers:
   name: patch-demo-ctr
   ...
 ```
-```shell
-
-
+```yaml
 tolerations:
-      - effect: NoSchedule
-        key: disktype
-        value: ssd
+  - effect: NoSchedule
+    key: disktype
+    value: ssd
 ```
 
 <!--
@@ -615,10 +613,10 @@ The following commands are equivalent:
 以下命令是等价的：
 
 ```shell
-kubectl patch deployment patch-demo --patch-file patch-file.yaml"
+kubectl patch deployment patch-demo --patch-file patch-file.yaml
 kubectl patch deployment patch-demo --patch 'spec:\n template:\n  spec:\n   containers:\n   - name: patch-demo-ctr-2\n     image: redis'
 
-kubectl patch deployment patch-demo --patch-file patch-file.json"
+kubectl patch deployment patch-demo --patch-file patch-file.json
 kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"containers": [{"name": "patch-demo-ctr-2","image": "redis"}]}}}}'
 ```
 

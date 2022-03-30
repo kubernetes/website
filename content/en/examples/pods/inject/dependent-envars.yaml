@@ -10,7 +10,7 @@ spec:
       command:
         - sh
         - -c
-      image: busybox
+      image: busybox:1.28
       env:
         - name: SERVICE_PORT
           value: "80"

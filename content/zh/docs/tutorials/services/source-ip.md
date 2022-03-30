@@ -104,7 +104,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 从相同集群中的一个 pod 访问这个 `ClusterIP`：
 
 ```shell
-kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
 ```
 输出结果与以下结果类似：
 ```
