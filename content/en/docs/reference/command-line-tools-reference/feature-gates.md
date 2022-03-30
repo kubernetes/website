@@ -429,6 +429,7 @@ different Kubernetes components.
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | 1.21 |
 | `ServerSideApply` | `true` | GA | 1.22 | - |
+| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | - |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | 1.19 |
 | `ServiceAccountIssuerDiscovery` | `true` | Beta | 1.20 | 1.20 |
 | `ServiceAccountIssuerDiscovery` | `true` | GA | 1.21 | - |
@@ -1046,6 +1047,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   cache to accelerate list operations.
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
   feature on the API Server.
+- `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
+  of resource schema is performed at the API server side rather than the client side
+  (for example, the `kubectl create` or `kubectl apply` command line).
 - `ServiceAccountIssuerDiscovery`: Enable OIDC discovery endpoints (issuer and
   JWKS URLs) for the service account issuer in the API server. See
   [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)
