@@ -131,7 +131,8 @@ different Kubernetes components.
 | `InTreePluginRBDUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
 | `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
-| `JobReadyPods` | `false` | Alpha | 1.23 | |
+| `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
+| `JobReadyPods` | `true` | Beta | 1.24 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.23 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
