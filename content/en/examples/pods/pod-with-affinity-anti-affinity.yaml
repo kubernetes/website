@@ -12,6 +12,7 @@ spec:
             operator: In
             values:
             - linux
+            - macOs
       preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 1
         preference:
