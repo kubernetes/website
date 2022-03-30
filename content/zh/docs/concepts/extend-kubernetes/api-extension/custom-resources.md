@@ -51,7 +51,7 @@ many core Kubernetes functions are now built using custom resources, making Kube
 Custom resources can appear and disappear in a running cluster through dynamic registration,
 and cluster admins can update custom resources independently of the cluster itself.
 Once a custom resource is installed, users can create and access its objects using
-[kubectl](/docs/reference/kubectl/overview/), just as they do for built-in resources like
+[kubectl](/docs/reference/kubectl/), just as they do for built-in resources like
 *Pods*.
 -->
 *定制资源（Custom Resource）* 是对 Kubernetes API 的扩展，不一定在默认的
@@ -61,7 +61,7 @@ Kubernetes 安装中就可用。定制资源所代表的是对特定 Kubernetes 
 
 定制资源可以通过动态注册的方式在运行中的集群内或出现或消失，集群管理员可以独立于集群
 更新定制资源。一旦某定制资源被安装，用户可以使用 
-[kubectl](/zh/docs/reference/kubectl/overview/)
+[kubectl](/docs/reference/kubectl/)
 来创建和访问其中的对象，就像他们为 *pods* 这种内置资源所做的一样。
 
 <!--
@@ -323,7 +323,7 @@ making them available to all of its clients.
 -->
 ## API 服务器聚合  {#api-server-aggregation}
 
-通常，Kubernetes API 中的每个都需要处理 REST 请求和管理对象持久性存储的代码。
+通常，Kubernetes API 中的每个资源都需要处理 REST 请求和管理对象持久性存储的代码。
 Kubernetes API 主服务器能够处理诸如 *pods* 和 *services* 这些内置资源，也可以
 按通用的方式通过 [CRD](#customresourcedefinitions) 来处理定制资源。
 
