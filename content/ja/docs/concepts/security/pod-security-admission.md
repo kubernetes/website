@@ -99,7 +99,7 @@ Podは、{{< glossary_tooltip term_id="deployment" >}}や{{< glossary_tooltip te
 
 ## 適用除外(Exemption) {#exemptions}
 
-Podセキュリティの施行から _exemption_ を定義することで、特定の名前空間に関連するポリシーのために禁止されていたPodの作成を許可することができます。
+Podセキュリティの施行から _exemptions_ を定義することで、特定の名前空間に関連するポリシーのために禁止されていたPodの作成を許可することができます。
 Exemptionは[アドミッションコントローラーの設定](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)で静的に設定することができます。
 
 Exemptionは明示的に列挙する必要があります。
