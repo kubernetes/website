@@ -9,7 +9,7 @@ content_type: concept
 
 <!-- body -->
 [Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)には`kubectl`やクライアントライブラリ、あるいはRESTリクエストを用いてアクセスします。
- APIアクセスには、人間のユーザーと[Kubernetesサービスアカウント](/docs/tasks/configure-pod-container/configure-service-account/)の両方が認証可能です。
+APIアクセスには、人間のユーザーと[Kubernetesサービスアカウント](/docs/tasks/configure-pod-container/configure-service-account/)の両方が認証可能です。
 リクエストがAPIに到達すると、次の図のようにいくつかの段階を経ます。
 
 ![Kubernetes APIリクエストの処理手順図](/images/docs/admin/access-control-overview-ja.svg)
@@ -93,9 +93,9 @@ Kubernetesは、ABACモード、RBACモード、Webhookモードなど、複数�
 サポートされている認可モジュールを使用したポリシー作成の詳細を含む、Kubernetesの認可については、[認可](/docs/reference/access-authn-authz/authorization/)を参照してください。
 
 
-## Admission Control
-Admission Controlモジュールは、リクエストを変更したり拒否したりすることができるソフトウェアモジュールです。
-認可モジュールが利用できる属性に加えて、Admission Controlモジュールは、作成または修正されるオブジェクトのコンテンツにアクセスすることができます。
+## アドミッションコントロール
+アドミッションコントロールモジュールは、リクエストを変更したり拒否したりすることができるソフトウェアモジュールです。
+認可モジュールが利用できる属性に加えて、アドミッションコントロールモジュールは、作成または修正されるオブジェクトのコンテンツにアクセスすることができます。
 
 アドミッションコントローラーは、オブジェクトの作成、変更、削除、または接続(プロキシ)を行うリクエストに対して動作します。
 アドミッションコントローラーは、単にオブジェクトを読み取るだけのリクエストには動作しません。
@@ -107,9 +107,9 @@ Admission Controlモジュールは、リクエストを変更したり拒否し
 
 オブジェクトを拒否するだけでなく、アドミッションコントローラーは、フィールドに複雑なデフォルトを設定することもできます。
 
-利用可能なAdmission Controlモジュールは、[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)に記載されています。
+利用可能なアドミッションコントロールモジュールは、[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)に記載されています。
 
-リクエストがすべてのアドミッションコントローラーを通過すると、対応するAPIオブジェクトの検証ルーチンを使って検証され、オブジェクトストアに書き込まれます(図のステップ **4**に該当します)。
+リクエストがすべてのアドミッションコントローラーを通過すると、対応するAPIオブジェクトの検証ルーチンを使って検証され、オブジェクトストアに書き込まれます(図のステップ**4**に該当します)。
 
 
 ## APIサーバーのIPとポート
@@ -122,12 +122,12 @@ APIサーバーは、実際には2つのポートでサービスを提供する�
 
   1. `localhost`ポート:
 
-      - テストとブートストラップ用で、マスターノードの他のコンポーネント(スケジューラ、コントローラマネージャ)がAPIと通信するためのものです。
+      - テストとブートストラップ用で、マスターノードの他のコンポーネント(スケジューラ、コントローラマネージャー)がAPIと通信するためのものです。
       - TLSは使用しません。
       - デフォルトポートは8080です。
       - デフォルトのIPはlocalhostですが、`--insecure-bind-address`フラグで変更することができます。
       - リクエストは認証と認可のモジュールを**バイパス**します。
-      - リクエストは、Admission Controlモジュールによって処理されます。
+      - リクエストは、アドミッションコントロールモジュールによって処理されます。
       - ホストにアクセスする必要があるため、保護されています。
 
   2. “セキュアポート”:
@@ -137,7 +137,7 @@ APIサーバーは、実際には2つのポートでサービスを提供する�
       - デフォルトポートは6443です。`--secure-port`フラグで変更することができます。.
       - デフォルトのIPは、最初の非localhostのネットワークインターフェースです。`--bind-address`フラグで変更することができます。
       - リクエストは、認証・認可モジュールによって処理されます。
-      - リクエストは、Admission Controlモジュールによって処理されます。
+      - リクエストは、アドミッションコントロールモジュールによって処理されます。
       - 認証・認可モジュールが実行されます。
 
 ## {{% heading "whatsnext" %}}
@@ -147,7 +147,7 @@ APIサーバーは、実際には2つのポートでサービスを提供する�
 - [認証](/ja/docs/reference/access-authn-authz/authentication/)
    - [ブートストラップトークンでの認証](/docs/reference/access-authn-authz/bootstrap-tokens/)
 - [アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)
-   - [動的Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+   - [動的アドミッションコントロール](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 - [認可](/docs/reference/access-authn-authz/authorization/)
    - [ロールに基づいたアクセス制御](/ja/docs/reference/access-authn-authz/rbac/)
    - [属性に基づいたアクセス制御](/docs/reference/access-authn-authz/abac/)
