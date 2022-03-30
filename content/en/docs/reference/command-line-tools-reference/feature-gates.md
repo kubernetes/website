@@ -61,7 +61,8 @@ different Kubernetes components.
 | `APIServerIdentity` | `false` | Alpha | 1.20 | |
 | `APIServerTracing` | `false` | Alpha | 1.22 | |
 | `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | |
-| `AnyVolumeDataSource` | `false` | Alpha | 1.18 | |
+| `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
+| `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | |
