@@ -7,17 +7,20 @@ content_type: task
 {{% thirdparty-content %}}
 
 This page shows you how to migrate your Docker Engine nodes to use `cri-dockerd`
-instead of dockershim. Follow these steps if your clusters run Kubernetes 1.23
-or earlier and you want to continue using Docker Engine after
-you upgrade to Kubernetes 1.24 and later, or if you just want to move off the
-dockershim component.
+instead of dockershim. If you want to switch away from using dockershim and still
+use Docker Engine to run containers in Kubernetes, you can follow these steps.
+If you want to upgrade to Kubernetes v{{< skew currentVersion >}} and your
+existing cluster relies on dockershim, you will have to migrate away and
+`cri-dockerd` is one of your options.
+
+To learn more about the removal of dockershim, read the [FAQ page](/dockershim).
 
 ## What is cri-dockerd? {#what-is-cri-dockerd}
 
-In Kubernetes 1.23 and earlier, Docker Engine used a component called the
-dockershim to interact with Kubernetes system components such as the kubelet.
-The dockershim component is deprecated and will be removed in Kubernetes 1.24. A
-third-party replacement, `cri-dockerd`, is available. The `cri-dockerd` adapter
+In Kubernetes 1.23 and earlier, you could use Docker Engine with Kubernetes,
+relying on a built-in component of Kubernetes named _dockershim_.
+The dockershim component was removed in the Kubernetes 1.24 release; however,
+a third-party replacement, `cri-dockerd`, is available. The `cri-dockerd` adapter
 lets you use Docker Engine through the {{<glossary_tooltip term_id="cri" text="Container Runtime Interface">}}.
 
 {{<note>}}
@@ -93,7 +96,7 @@ in the control plane. To modify this socket for each affected node:
 ## Restart the kubelet
 
 ```shell
-systemctl start kubelet
+systemctl restart kubelet
 ```
 
 ## Verify that the node is healthy
