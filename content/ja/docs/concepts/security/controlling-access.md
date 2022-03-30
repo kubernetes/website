@@ -1,10 +1,10 @@
 ---
-title: Kubernetes APIへのアクセス制御
+title: Kubernetes APIへのアクセスコントロール
 content_type: concept
 ---
 
 <!-- overview -->
-このページではKubernetes APIへのアクセス制御の概要を説明します。
+このページではKubernetes APIへのアクセスコントロールの概要を説明します。
 
 
 <!-- body -->
@@ -39,7 +39,7 @@ Authenticatorについては、[認証](/ja/docs/reference/access-authn-authz/au
 そうでなければ、ユーザーは特定の`username`として認証され、そのユーザー名は後続のステップでの判断に使用できるようになります。
 また、ユーザーのグループメンバーシップを提供する認証機関と、提供しない認証機関があります。
 
-Kubernetesはアクセス制御の決定やリクエストログにユーザー名を使用しますが、`User`オブジェクトを持たず、ユーザー名やその他のユーザーに関する情報をAPIはに保存しません。
+Kubernetesはアクセスコントロールの決定やリクエストログにユーザー名を使用しますが、`User`オブジェクトを持たず、ユーザー名やその他のユーザーに関する情報をAPIはに保存しません。
 
 ## 認可
 
@@ -82,8 +82,8 @@ Bobが次のようなリクエストをした場合、Bobは名前空間`project
 Bobが名前空間`projectCaribou`のオブジェクトに書き込み(`create`または`update`)のリクエストをした場合、承認は拒否されます。
 また、もしボブが`projectFish`のような別の名前空間にあるオブジェクトを読み込む(`get`)リクエストをした場合も、承認は拒否されます。
 
-Kubernetesの認可では、組織全体またはクラウドプロバイダー全体の既存のアクセス制御システムと対話するために、共通のREST属性を使用する必要があります。
-これらの制御システムは、Kubernetes API以外のAPIとやり取りする可能性があるため、REST形式を使用することが重要です。
+Kubernetesの認可では、組織全体またはクラウドプロバイダー全体の既存のアクセスコントロールシステムと対話するために、共通のREST属性を使用する必要があります。
+これらのコントロールシステムは、Kubernetes API以外のAPIとやり取りする可能性があるため、REST形式を使用することが重要です。
 
 Kubernetesは、ABACモード、RBACモード、Webhookモードなど、複数の認可モジュールをサポートしています。
 管理者はクラスターを作成する際に、APIサーバーで使用する認証モジュールを設定します。
@@ -142,15 +142,15 @@ APIサーバーは、実際には2つのポートでサービスを提供する�
 
 ## {{% heading "whatsnext" %}}
 
-認証、認可、APIアクセス制御に関する詳しいドキュメントはこちらをご覧ください。
+認証、認可、APIアクセスコントロールに関する詳しいドキュメントはこちらをご覧ください。
 
 - [認証](/ja/docs/reference/access-authn-authz/authentication/)
    - [ブートストラップトークンでの認証](/docs/reference/access-authn-authz/bootstrap-tokens/)
 - [アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)
    - [動的アドミッションコントロール](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 - [認可](/docs/reference/access-authn-authz/authorization/)
-   - [ロールに基づいたアクセス制御](/ja/docs/reference/access-authn-authz/rbac/)
-   - [属性に基づいたアクセス制御](/docs/reference/access-authn-authz/abac/)
+   - [ロールに基づいたアクセスコントロール](/ja/docs/reference/access-authn-authz/rbac/)
+   - [属性に基づいたアクセスコントロール](/docs/reference/access-authn-authz/abac/)
    - [Nodeの認可](/docs/reference/access-authn-authz/node/)
    - [Webhookの認可](/docs/reference/access-authn-authz/webhook/)
 - [証明書の署名要求](/docs/reference/access-authn-authz/certificate-signing-requests/)
