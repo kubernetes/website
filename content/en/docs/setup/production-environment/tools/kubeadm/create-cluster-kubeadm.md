@@ -524,15 +524,56 @@ options.
 
 ## Version skew policy {#version-skew-policy}
 
-The `kubeadm` tool of version v{{< skew latestVersion >}} may deploy clusters with a control plane of version v{{< skew latestVersion >}} or v{{< skew prevMinorVersion >}}.
-`kubeadm` v{{< skew latestVersion >}} can also upgrade an existing kubeadm-created cluster of version v{{< skew prevMinorVersion >}}.
+While kubeadm allows version skew against some components that it manages, it is recommended that you
+match the kubeadm version with the versions of the control plane components, kube-proxy and kubelet.
 
-Due to that we can't see into the future, kubeadm CLI v{{< skew latestVersion >}} may or may not be able to deploy v{{< skew nextMinorVersion >}} clusters.
+### kubeadm's skew against the Kubernetes version
 
-These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
+kubeadm can be used with Kubernetes components that are the same version as kubeadm
+or one version older. The Kubernetes version can be specified to kubeadm by using the
+`--kubernetes-version` flag of `kubeadm init` or the
+[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta3/)
+field when using `--config`. This option will control the versions
+of kube-apiserver, kube-controller-manager, kube-scheduler and kube-proxy.
 
-* Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+Example:
+* kubeadm is at {{< skew latestVersion >}}
+* `kubernetesVersion` must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+
+### kubeadm's skew against the kubelet
+
+Similarly to the Kubernetes version, kubeadm can be used with a kubelet version that is the same
+version as kubeadm or one version older.
+
+Example:
+* kubeadm is at {{< skew latestVersion >}}
+* kubelet on the host must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+
+### kubeadm's skew against kubeadm
+
+There are certain limitations on how kubeadm commands can operate on existing nodes or whole clusters
+managed by kubeadm.
+
+If new nodes are joined to the cluster, the kubeadm binary used for `kubeadm join` must match
+the last version of kubeadm used to either create the cluster with `kubeadm init` or to upgrade
+the same node with `kubeadm upgrade`. Similar rules apply to the rest of the kubeadm commands
+with the exception of `kubeadm upgrade`.
+
+Example for `kubeadm join`:
+* kubeadm version {{< skew latestVersion >}} was used to create a cluster with `kubeadm init`
+* Joining nodes must use a kubeadm binary that is at version {{< skew latestVersion >}}
+
+Nodes that are being upgraded must use a version of kubeadm that is the same MINOR
+version or one MINOR version newer than the version of kubeadm used for managing the
+node.
+
+Example for `kubeadm upgrade`:
+* kubeadm version {{< skew prevMinorVersion >}} was used to create or upgrade the node
+* The version of kubeadm used for upgrading the node must be at {{< skew prevMinorVersion >}}
+or {{< skew latestVersion >}}
+
+To learn more about the version skew between the different Kubernetes component see
+the [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
 
 ## Limitations {#limitations}
 
