@@ -19,7 +19,9 @@ Kubernetesは、このトピックで後ほど説明する特定の条件下で�
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+クラスターにネームスペースを作成するには、アクセス権が必要です。
 
 クラスターの各ノードには、最低でも2GiBのメモリが必要です。
 
