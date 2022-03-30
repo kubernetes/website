@@ -175,7 +175,7 @@ require internet access to update the vulnerability database.
 
 ### Pod Security Policies
 
-Since Kubernetes v1.21, the [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) 
+Since Kubernetes v1.21, the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) 
 API and related features are [deprecated](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/),
 but some of the guidance in this section will still apply for the next few years, until cluster operators
 upgrade their clusters to newer Kubernetes versions.
