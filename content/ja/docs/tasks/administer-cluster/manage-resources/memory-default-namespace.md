@@ -86,7 +86,7 @@ Podを削除します:
 kubectl delete pod default-mem-demo --namespace=default-mem-example
 ```
 
-## 制限を指定し、要求を指定しない場合
+## コンテナの制限を指定し、要求を指定しない場合
 
 以下は1つのコンテナを持つPodのマニフェストです。コンテナはメモリ制限を指定しますが、メモリ要求は指定しません。
 
