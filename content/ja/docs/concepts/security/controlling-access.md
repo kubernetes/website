@@ -12,7 +12,7 @@ content_type: concept
  APIアクセスには、人間のユーザーと[Kubernetesサービスアカウント](/docs/tasks/configure-pod-container/configure-service-account/)の両方が認証可能です。
 リクエストがAPIに到達すると、次の図のようにいくつかの段階を経ます。
 
-![Kubernetes APIリクエストの処理手順図](/images/docs/admin/access-control-overview.svg)
+![Kubernetes APIリクエストの処理手順図](/images/docs/admin/access-control-overview-ja.svg)
 
 ## トランスポート層のセキュリティ
 一般的なKubernetesクラスターでは、APIはTLSで保護された443番ポートで提供されます。
