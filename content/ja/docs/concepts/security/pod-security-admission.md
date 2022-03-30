@@ -103,7 +103,7 @@ Podセキュリティの施行から _exemption_ を定義することで、特�
 Exemptionは[アドミッションコントローラーの設定](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)で静的に設定することができます。
 
 Exemptionは明示的に列挙する必要があります。
-Exemptionを満たしたリクエストは、アドミッションコントローラーによって _ignored_ されます(`enforce`、`audit`、`warn`のすべての動作がスキップされます)。Exemptionの次元は以下の通りです。
+Exemptionを満たしたリクエストは、アドミッションコントローラーによって _無視_ されます(`enforce`、`audit`、`warn`のすべての動作がスキップされます)。Exemptionの次元は以下の通りです。
 
 - **Usernames:** 認証されていない(あるいは偽装された)ユーザー名を持つユーザーからの要求は無視されます。
 - **RuntimeClassNames:** Podと[ワークロードリソース](#workload-resources-and-pod-templates)で指定された除外ランタイムクラス名は、無視されます。
@@ -112,7 +112,7 @@ Exemptionを満たしたリクエストは、アドミッションコントロ�
 {{< caution >}}
 
 ほとんどのPodは、[ワークロードリソース](#workload-resources-and-pod-templates)に対応してコントローラーが作成します。つまり、エンドユーザーを適用除外にするのはPodを直接作成する場合のみで、ワークロードリソースを作成する場合は適用除外になりません。
-コントローラサービスアカウント(`system:serviceaccount:kube-system:replicaset-controller`など)は通常、除外してはいけません。そうした場合、対応するワークロードリソースを作成できるすべてのユーザーを暗黙的に除外してしまうためです。
+コントローラーサービスアカウント(`system:serviceaccount:kube-system:replicaset-controller`など)は通常、除外してはいけません。そうした場合、対応するワークロードリソースを作成できるすべてのユーザーを暗黙的に除外してしまうためです。
 
 {{< /caution >}}
 
