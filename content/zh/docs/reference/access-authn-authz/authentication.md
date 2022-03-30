@@ -233,7 +233,7 @@ token,user,uid,"group1,group2,group3"
 
 When using bearer token authentication from an http client, the API
 server expects an `Authorization` header with a value of `Bearer
-THETOKEN`.  The bearer token must be a character sequence that can be
+<token>`.  The bearer token must be a character sequence that can be
 put in an HTTP header value using no more than the encoding and
 quoting facilities of HTTP.  For example: if the bearer token is
 `31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
@@ -242,7 +242,7 @@ header as shown below.
 #### 在请求中放入持有者令牌   {#putting-a-bearer-token-in-a-request}
 
 当使用持有者令牌来对某 HTTP 客户端执行身份认证时，API 服务器希望看到
-一个名为 `Authorization` 的 HTTP 头，其值格式为 `Bearer THETOKEN`。
+一个名为 `Authorization` 的 HTTP 头，其值格式为 `Bearer <token>`。
 持有者令牌必须是一个可以放入 HTTP 头部值字段的字符序列，至多可使用
 HTTP 的编码和引用机制。
 例如：如果持有者令牌为 `31ada4fd-adec-460c-809a-9e56ceb75269`，则其
