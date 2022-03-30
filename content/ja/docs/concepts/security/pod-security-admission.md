@@ -23,7 +23,7 @@ PodSecurityPolicy APIは非推奨であり、v1.25でKubernetesから[削除](/d
 
 <!-- body -->
 
-## `PodSecurity`アドミッションプラグインの有効化
+## `PodSecurity`アドミッションプラグインの有効化 {#enabling-the-podsecurity-admission-plugin}
 v1.23において、`PodSecurity`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)はベータ版の機能で、デフォルトで有効化されています。
 v1.22において、`PodSecurity`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)はアルファ版の機能で、組み込みのアドミッションプラグインを使用するには、`kube-apiserver`で有効にする必要があります。
 
@@ -50,12 +50,12 @@ kubectl apply -k .
 生成された証明書の有効期限は2年間です。有効期限が切れる前に、証明書を再生成するか、内蔵のアドミッションプラグインを使用してWebhookを削除してください。
 {{< /note >}}
 
-## Podのセキュリティレベル
+## Podのセキュリティレベル {#pod-security-levels}
 
 Podのセキュリティアドミッションは、Podの[Security Context](/docs/tasks/configure-pod-container/security-context/)とその他の関連フィールドに、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)で定義された3つのレベル、`privileged`、`baseline`、`restricted`に従って要件を設定するものです。
 これらの要件の詳細については、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)のページを参照してください。
 
-## Podの名前空間に対するセキュリティアドミッションラベル
+## Podの名前空間に対するセキュリティアドミッションラベル {#pod-security-admission-labels-for-namespaces}
 
 この機能を有効にするか、Webhookをインストールすると、名前空間を設定して、各名前空間でPodセキュリティに使用したいadmission controlモードを定義できます。
 Kubernetesは、名前空間に使用したい定義済みのPodセキュリティの標準レベルのいずれかを適用するために設定できる{{< glossary_tooltip term_id="label" text="ラベル" >}}のセットを用意しています。
@@ -90,14 +90,14 @@ pod-security.kubernetes.io/<MODE>-version: <VERSION>
 [名前空間ラベルでのPodセキュリティの標準の適用](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)で使用例を確認できます。
 
 
-## WorkloadのリソースとPodテンプレート
+## WorkloadのリソースとPodテンプレート {#workload-resources-and-pod-templates}
 
 Podは、{{< glossary_tooltip term_id="deployment" >}}や{{< glossary_tooltip term_id="job">}}のような[ワークロードオブジェクト](/ja/docs/concepts/workloads/controllers/)を作成することによって、しばしば間接的に生成されます。
 ワークロードオブジェクトは_Pod template_を定義し、ワークロードリソースの{{< glossary_tooltip term_id="controller" text="コントローラー" >}}はそのテンプレートに基づきPodを作成します。
 違反の早期発見を支援するために、auditモードとwarningモードは、ワークロードリソースに適用されます。
 ただし、enforceモードはワークロードリソースには**適用されず**、結果としてのPodオブジェクトにのみ適用されます。
 
-## 適用除外(Exemptions)
+## 適用除外(Exemptions) {#exemptions}
 
 Podセキュリティの施行から _exemptions_ を定義することで、特定の名前空間に関連するポリシーのために禁止されていたPodの作成を許可することができます。
 Exemptionsは[アドミッションコントローラーの設定](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)で静的に設定することができます。
