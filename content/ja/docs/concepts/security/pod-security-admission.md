@@ -13,7 +13,7 @@ min-kubernetes-server-version: v1.22
 Kubernetesの[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)はPodに対して異なる分離レベルを定義します。
 これらの標準によって、Podの動作をどのように制限したいかを、明確かつ一貫した方法で定義することができます。
 
-ベータ版機能として、Kubernetesは[PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/)の後継である組み込みの _Pod Security_ {{< glossary_tooltip text="アドミッションコントローラー" term_id="admission-controller" >}}を提供しています。
+ベータ版機能として、Kubernetesは[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)の後継である組み込みの _Pod Security_ {{< glossary_tooltip text="アドミッションコントローラー" term_id="admission-controller" >}}を提供しています。
 Podセキュリティの制限は、Pod作成時に{{< glossary_tooltip text="名前空間" term_id="namespace" >}}レベルで適用されます。
 
 {{< note >}}
@@ -97,13 +97,13 @@ Podは、{{< glossary_tooltip term_id="deployment" >}}や{{< glossary_tooltip te
 違反の早期発見を支援するために、auditモードとwarningモードは、ワークロードリソースに適用されます。
 ただし、enforceモードはワークロードリソースには**適用されず**、結果としてのPodオブジェクトにのみ適用されます。
 
-## 適用除外(Exemptions) {#exemptions}
+## 適用除外(Exemption) {#exemptions}
 
-Podセキュリティの施行から _exemptions_ を定義することで、特定の名前空間に関連するポリシーのために禁止されていたPodの作成を許可することができます。
-Exemptionsは[アドミッションコントローラーの設定](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)で静的に設定することができます。
+Podセキュリティの施行から _exemption_ を定義することで、特定の名前空間に関連するポリシーのために禁止されていたPodの作成を許可することができます。
+Exemptionは[アドミッションコントローラーの設定](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)で静的に設定することができます。
 
-Exemptionsは明示的に列挙する必要があります。
-Exemptionsを満たしたリクエストは、アドミッションコントローラーによって _ignored_ されます(`enforce`、`audit`、`warn`のすべての動作がスキップされます)。Exemptionの次元は以下の通りです。
+Exemptionは明示的に列挙する必要があります。
+Exemptionを満たしたリクエストは、アドミッションコントローラーによって _ignored_ されます(`enforce`、`audit`、`warn`のすべての動作がスキップされます)。Exemptionの次元は以下の通りです。
 
 - **Usernames:** 認証されていない(あるいは偽装された)ユーザー名を持つユーザーからの要求は無視されます。
 - **RuntimeClassNames:** Podと[ワークロードリソース](#workload-resources-and-pod-templates)で指定された除外ランタイムクラス名は、無視されます。
