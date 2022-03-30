@@ -65,7 +65,7 @@ Podの詳細情報を表示します:
 kubectl get pod default-mem-demo --output=yaml --namespace=default-mem-example
 ```
 
-出力はPodのコンテナのメモリ要求が256MiBで、メモリ制限が512MiBであることを示しています。
+この出力は、Podのコンテナのメモリ要求が256MiBで、メモリ制限が512MiBであることを示しています。
 これらはLimitRangeで指定されたデフォルト値です。
 
 ```shell
