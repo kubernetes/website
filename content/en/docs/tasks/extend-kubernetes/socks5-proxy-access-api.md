@@ -4,8 +4,10 @@ content_type: task
 weight: 42
 min-kubernetes-server-version: v1.24
 ---
-
 <!-- overview -->
+
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
+
 This page shows how to use a SOCKS5 proxy to access the API of a remote Kubernetes cluster.
 This is useful when the cluster you want to access does not expose its API directly on the public internet.
 
