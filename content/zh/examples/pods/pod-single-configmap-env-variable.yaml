@@ -8,12 +8,12 @@ spec:
       image: k8s.gcr.io/busybox
       command: [ "/bin/sh", "-c", "env" ]
       env:
-        # Define the environment variable
+        # 定义环境变量
         - name: SPECIAL_LEVEL_KEY
           valueFrom:
             configMapKeyRef:
-              # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+              # ConfigMap 包含你要赋给 SPECIAL_LEVEL_KEY 的值
               name: special-config
-              # Specify the key associated with the value
+              # 指定与取值相关的键名
               key: special.how
   restartPolicy: Never

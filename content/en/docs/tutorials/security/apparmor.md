@@ -264,7 +264,7 @@ metadata:
 spec:
   containers:
   - name: hello
-    image: busybox
+    image: busybox:1.28
     command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
 EOF
 pod/hello-apparmor-2 created

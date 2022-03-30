@@ -125,7 +125,7 @@ spec:
     image: nginx:11.14.2
     ports:
       - containerPort: 80
-        name: http-web-service
+        name: http-web-svc
         
 ---
 apiVersion: v1
@@ -139,7 +139,7 @@ spec:
   - name: name-of-service-port
     protocol: TCP
     port: 80
-    targetPort: http-web-service
+    targetPort: http-web-svc
 ```
 
 

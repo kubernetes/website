@@ -273,11 +273,9 @@ of provisioning.
 
 <!--
 Bootstrap tokens are a simpler and more easily managed method to authenticate kubelets, and do not require any additional flags when starting kube-apiserver.
-Using bootstrap tokens is currently __beta__ as of Kubernetes version 1.12.
 -->
 启动引导令牌是一种对 kubelet 进行身份认证的方法，相对简单且容易管理，
 且不需要在启动 kube-apiserver 时设置额外的标志。
-启动引导令牌从 Kubernetes 1.12 开始是一种 __Beta__ 功能特性。
 
 <!--
 Whichever method you choose, the requirement is that the kubelet be able to authenticate as a user with the rights to:

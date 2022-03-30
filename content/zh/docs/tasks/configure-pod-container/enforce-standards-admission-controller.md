@@ -68,7 +68,7 @@ plugins:
       # 要豁免的已认证用户名列表
       usernames: []
       # 要豁免的运行时类名称列表
-      runtimeClassNames: []
+      runtimeClasses: []
       # 要豁免的名字空间列表
       namespaces: []
 ```
