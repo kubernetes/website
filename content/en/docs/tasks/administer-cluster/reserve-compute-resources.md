@@ -183,7 +183,7 @@ respectively.
 ## General Guidelines
 
 System daemons are expected to be treated similar to 
-['Guaranteed' pods](/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed). 
+[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed). 
 System daemons can burst within their bounding control groups and this behavior needs
 to be managed as part of kubernetes deployments. For example, `kubelet` should
 have its own control group and share `kube-reserved` resources with the
