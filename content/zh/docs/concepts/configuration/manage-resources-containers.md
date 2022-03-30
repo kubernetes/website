@@ -254,7 +254,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 ```
 
 <!--
-Take care about case for suffixes. If you request `400m` of memory, this is a request
+Pay attention to the case of the suffixes. If you request `400m` of memory, this is a request
 for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
 or 400 megabytes (`400M`).
 -->
