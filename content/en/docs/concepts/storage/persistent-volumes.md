@@ -844,17 +844,12 @@ spec:
 
 ## Volume populators and data sources
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
-{{< note >}}
-Kubernetes supports custom volume populators; this alpha feature was introduced
-in Kubernetes 1.18. Kubernetes 1.22 reimplemented the mechanism with a redesigned API.
-Check that you are reading the version of the Kubernetes documentation that matches your
-cluster. {{% version-check %}}
+Kubernetes supports custom volume populators.
 To use custom volume populators, you must enable the `AnyVolumeDataSource`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for
 the kube-apiserver and kube-controller-manager.
-{{< /note >}}
 
 Volume populators take advantage of a PVC spec field called `dataSourceRef`. Unlike the
 `dataSource` field, which can only contain either a reference to another PersistentVolumeClaim
@@ -872,6 +867,7 @@ contents.
 
 There are two differences between the `dataSourceRef` field and the `dataSource` field that
 users should be aware of:
+
 * The `dataSource` field ignores invalid values (as if the field was blank) while the
   `dataSourceRef` field never ignores values and will cause an error if an invalid value is
   used. Invalid values are any core object (objects with no apiGroup) except for PVCs.
