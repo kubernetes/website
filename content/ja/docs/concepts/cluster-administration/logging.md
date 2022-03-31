@@ -25,7 +25,7 @@ weight: 60
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
-このポッドを実行するには、次のコマンドを使用します:
+このPodを実行するには、次のコマンドを使用します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
