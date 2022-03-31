@@ -184,7 +184,7 @@ options are available as you migrate things over.
 [documentation]: https://github.com/containerd/cri/blob/master/docs/registry.md
 
 For instructions on how to use containerd and CRI-O with Kubernetes, see the
-Kubernetes documentation on [Container Runtimes]
+Kubernetes documentation on [Container Runtimes].
 
 [Container Runtimes]: /docs/setup/production-environment/container-runtimes/
 
