@@ -80,7 +80,7 @@ kubectl cluster-info dump
     - レプリケーションコントローラが別の場所で新しいPodを起動する
   - クラスターオペレーターエラー
     - PodやServiceなどの損失
-    - apiserverのバッキングストアの紛失
+    - apiserverのバックエンドストレージの紛失
     - ユーザーがAPIを読めなくなる
     - その他
 
