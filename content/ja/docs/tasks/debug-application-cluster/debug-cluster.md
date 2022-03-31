@@ -96,7 +96,7 @@ kubectl cluster-info dump
 - 対処法: [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/)構成を使用します
   - 異常: コントロールプレーンノードのシャットダウンまたはコントロールプレーンコンポーネント(スケジューラー、APIサーバー、コントローラーマネージャー)のクラッシュ
     - 1つ以上のノードまたはコンポーネントの同時故障に耐えることができる
-  - 異常 APIサーバーのバックアップストレージ（etcdのデータディレクトリなど）が消失
+  - 異常: APIサーバーのバックアップストレージ(etcdのデータディレクトリーなど)が消失
     - HA(高可用性) etcdの構成を想定しています
 
 - 対処法: apiserver PDs/EBS-volumesを定期的にスナップショットする
