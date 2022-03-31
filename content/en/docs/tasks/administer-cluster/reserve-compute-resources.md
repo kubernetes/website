@@ -87,7 +87,7 @@ kubernetes system daemons.
 To optionally enforce `kube-reserved` on kubernetes system daemons, specify the parent
 control group for kube daemons as the value for `--kube-reserved-cgroup` kubelet
 flag.  If `kube-reserved` is enforced, kubelet will evict processes 
-of the specified cgroup if a threshold is exceeded.
+of the specified cgroup if the threshold is exceeded.
 
 It is recommended that the kubernetes system daemons are placed under a top
 level control group (`runtime.slice` on systemd machines for example). Each
@@ -116,7 +116,7 @@ daemons.
 To optionally enforce `system-reserved` on system daemons, specify the parent
 control group for OS system daemons as the value for `--system-reserved-cgroup`
 kubelet flag. If `system-reserved` is enforced, kubelet will evict processes 
-of the specified cgroup if a threshold is exceeded.
+of the specified cgroup if the threshold is exceeded.
 
 It is recommended that the OS system daemons are placed under a top level
 control group (`system.slice` on systemd machines for example).
