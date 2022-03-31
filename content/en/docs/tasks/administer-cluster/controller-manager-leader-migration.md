@@ -7,10 +7,9 @@ linkTitle: "Migrate Replicated Control Plane To Use Cloud Controller Manager"
 content_type: task
 ---
 
-
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.22" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable"  >}}
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="The cloud-controller-manager is">}}
 
@@ -95,7 +94,7 @@ controllerLeaders:
     component: cloud-controller-manager
 ```
 
-When creating control plane nodes of version N + 1, the content should be deploy to `/etc/leadermigration.conf`. The manifest of `cloud-controller-manager` should be updated to mount the configuration file in the same manner as `kube-controller-manager` of version N. Similarly, add `--feature-gates=ControllerManagerLeaderMigration=true`,`--enable-leader-migration`, and `--leader-migration-config=/etc/leadermigration.conf` to the arguments of `cloud-controller-manager`.
+When creating control plane nodes of version N + 1, the content should be deploy to `/etc/leadermigration.conf`. The manifest of `cloud-controller-manager` should be updated to mount the configuration file in the same manner as `kube-controller-manager` of version N. Similarly, add `--enable-leader-migration` and `--leader-migration-config=/etc/leadermigration.conf` to the arguments of `cloud-controller-manager`.
 
 Create a new control plane node of version N + 1 with the updated `cloud-controller-manager` manifest, and with the `--cloud-provider` flag unset for `kube-controller-manager`. `kube-controller-manager` of version N + 1 MUST NOT have Leader Migration enabled because, with an external cloud provider, it does not run the migrated controllers anymore and thus it is not involved in the migration.
 
@@ -123,4 +122,5 @@ For `kube-controller-manager` and `cloud-controller-manager`, if there are no fl
 
 ## {{% heading "whatsnext" %}}
 
-- Read the [Controller Manager Leader Migration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cloud-provider/2436-controller-manager-leader-migration) enhancement proposal
+- Read the [Controller Manager Leader Migration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cloud-provider/2436-controller-manager-leader-migration) enhancement proposal.
+
