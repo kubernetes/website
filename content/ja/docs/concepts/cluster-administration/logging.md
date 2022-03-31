@@ -134,7 +134,7 @@ Kubernetesはクラスターレベルロギングのネイティブソリュー�
 
 {{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
 
-これで、このポッドを実行するときに、次のコマンドを実行して、各ログストリームに個別にアクセスできます:
+これで、このPodを実行するときに、次のコマンドを実行して、各ログストリームに個別にアクセスできます:
 
 ```shell
 kubectl logs counter count-log-1
