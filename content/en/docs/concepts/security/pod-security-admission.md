@@ -55,7 +55,7 @@ are available at [https://git.k8s.io/pod-security-admission/webhook](https://git
 
 To install:
 ```shell
-git clone git@github.com:kubernetes/pod-security-admission.git
+git clone https://github.com/kubernetes/pod-security-admission.git
 cd pod-security-admission/webhook
 make certs
 kubectl apply -k .
