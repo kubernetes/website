@@ -88,6 +88,7 @@ different Kubernetes components.
 | `CSIMigrationGCE` | `true` | Beta | 1.23 | |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | |
+| `CSIMigrationPortworx` | `false` | Beta | 1.24 | |
 | `csiMigrationRBD` | `false` | Alpha | 1.23 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
