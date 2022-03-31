@@ -57,7 +57,7 @@ kubectl cluster-info dump
 
 ### 具体的なシナリオ
 
-  - Apiserver VMのシャットダウンまたはApiserverのクラッシュ
+  - apiserver VMのシャットダウンまたはapiserverのクラッシュ
     - 新しいPod、サービス、レプリケーションコントローラの停止、更新、起動ができない
     - Kubernetes APIに依存していない限り、既存のPodやサービスは正常に動作し続けるはずです
   - Apiserverのバックアップストレージが失われた
