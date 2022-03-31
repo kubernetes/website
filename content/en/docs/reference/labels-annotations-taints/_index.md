@@ -508,6 +508,18 @@ you through the steps you follow to apply a seccomp profile to a Pod or to one o
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
 
+### snapshot.storage.kubernetes.io/allowVolumeModeChange
+
+Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: true`
+
+Used on: VolumeSnapshotContent
+
+Value can either be `true` or `false`.
+This determines whether a user can modify the mode of the source volume when a `PVC` is being created from a `VolumeSnapshot`.
+
+See [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode) for more information.
+
+
 ## Annotations used for audit
 
 <!-- sorted by annotation -->

@@ -120,6 +120,7 @@ spec:
   driver: hostpath.csi.k8s.io
   source:
     volumeHandle: ee0cfb94-f8d4-11e9-b2d8-0242ac110002
+  sourceVolumeMode: Filesystem
   volumeSnapshotClassName: csi-hostpath-snapclass
   volumeSnapshotRef:
     name: new-snapshot-test
@@ -141,12 +142,43 @@ spec:
   driver: hostpath.csi.k8s.io
   source:
     snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+  sourceVolumeMode: Filesystem
   volumeSnapshotRef:
     name: new-snapshot-test
     namespace: default
 ```
 
 `snapshotHandle` is the unique identifier of the volume snapshot created on the storage backend. This field is required for the pre-provisioned snapshots. It specifies the CSI snapshot id on the storage system that this `VolumeSnapshotContent` represents.
+
+`sourceVolumeMode` is the mode of the volume whose snapshot is taken. The value of the `sourceVolumeMode` field can be either `Filesystem` or `Block`. If the source volume mode is not specified, Kubernetes treats the snapshot as if the source volume's mode is unknown. Support for this field can only be enabled in VolumeSnapshot client v6.0.0 and higher. Visit the [VolumeSnapshot Release page](https://github.com/kubernetes-csi/external-snapshotter/releases) for more information.
+
+## Converting the volume mode of a Snapshot {#convert-volume-mode}
+
+This feature is only present for `VolumeSnapshotContents` created with client version `v6.0.0` onwards.
+The volume mode can be either `Filesystem` or `Block`. If not specified, it indicates the volume mode is unknown.
+If you want to allow users to create a `PersistentVolumeClaim` from an existing `VolumeSnapshot`, but with a 
+different volume mode than the source, the annotation `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"` 
+needs to be added to the `VolumeSnapshotContent` that corresponds to the `VolumeSnapshot`. For pre-provisioned snapshots,
+`Spec.SourceVolumeMode` needs to be populated by the cluster administrator.
+An example `VolumeSnapshotContent` resource with this feature enabled would look like:
+
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: new-snapshot-content-test
+  annotations:
+    - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
+spec:
+  deletionPolicy: Delete
+  driver: hostpath.csi.k8s.io
+  source:
+    snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+  sourceVolumeMode: Filesystem
+  volumeSnapshotRef:
+    name: new-snapshot-test
+    namespace: default
+```
 
 ## Provisioning Volumes from Snapshots
 
