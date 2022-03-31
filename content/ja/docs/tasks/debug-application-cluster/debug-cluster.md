@@ -90,7 +90,7 @@ kubectl cluster-info dump
   - 異常: Apiserver VMのシャットダウンまたはApiserverのクラッシュ
   - 異常: サポートサービスのVMシャットダウンまたはクラッシュ
 
-- 対処法: IaaSプロバイダーの信頼できるストレージ（GCE PDやAWS EBSボリュームなど）をapiserver+etcdを使用するVMに使用する
+- 対処法: IaaSプロバイダーの信頼できるストレージ(GCE PDやAWS EBSボリュームなど)をapiserver+etcdを使用するVMに使用する
   - 異常: Apiserverのバッキングストレージが失われる
 
 - 対処法: [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/)構成を使用します
