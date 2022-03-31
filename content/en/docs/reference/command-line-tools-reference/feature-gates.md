@@ -64,8 +64,6 @@ different Kubernetes components.
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
-| `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
@@ -225,7 +223,10 @@ different Kubernetes components.
 | `BoundServiceAccountTokenVolume` | `true` | GA | 1.22 | - |
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | 1.19 |
 | `ConfigurableFSGroupPolicy` | `true` | Beta | 1.20 | 1.22 |
-| `ConfigurableFSGroupPolicy` | `true` | GA | 1.23 | |
+| `ConfigurableFSGroupPolicy` | `true` | GA | 1.23 | - |
+| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
+| `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | 1.23 |
+| `ControllerManagerLeaderMigration` | `true` | GA | 1.24 | - |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta | 1.11 | 1.20 |
 | `CRIContainerLogRotation` | `true` | GA | 1.21 | - |
@@ -234,7 +235,7 @@ different Kubernetes components.
 | `CSIBlockVolume` | `true` | GA | 1.18 | - |
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | 1.17 |
-| `CSIDriverRegistry` | `true` | GA | 1.18 | |
+| `CSIDriverRegistry` | `true` | GA | 1.18 | - |
 | `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationAWSComplete` | - | Deprecated | 1.21 | - |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | 1.18 |
@@ -256,16 +257,16 @@ different Kubernetes components.
 | `CSIMigrationvSphereComplete` | - | Deprecated | 1.22 | - |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | 1.16 |
-| `CSINodeInfo` | `true` | GA | 1.17 | |
+| `CSINodeInfo` | `true` | GA | 1.17 | - |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
 | `CSIServiceAccountToken` | `false` | Alpha | 1.20 | 1.20 |
 | `CSIServiceAccountToken` | `true` | Beta | 1.21 | 1.21 |
-| `CSIServiceAccountToken` | `true` | GA | 1.22 | |
+| `CSIServiceAccountToken` | `true` | GA | 1.22 | - |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | 1.23 |
-| `CSIStorageCapacity` | `true` | GA | 1.24 | |
+| `CSIStorageCapacity` | `true` | GA | 1.24 | - |
 | `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | 1.19 |
 | `CSIVolumeFSGroupPolicy` | `true` | Beta | 1.20 | 1.22 |
 | `CSIVolumeFSGroupPolicy` | `true` | GA | 1.23 | |
@@ -316,7 +317,7 @@ different Kubernetes components.
 | `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
 | `EndpointSlice` | `false` | Beta | 1.17 | 1.17 |
 | `EndpointSlice` | `true` | Beta | 1.18 | 1.20 |
-| `EndpointSlice` | `true` | GA | 1.21 | -  |
+| `EndpointSlice` | `true` | GA | 1.21 | - |
 | `EndpointSliceNodeName` | `false` | Alpha | 1.20 | 1.20 |
 | `EndpointSliceNodeName` | `true` | GA | 1.21 | - |
 | `EndpointSliceProxying` | `false` | Alpha | 1.18 | 1.18 |
@@ -489,9 +490,9 @@ different Kubernetes components.
 | `SupportPodPidsLimit` | `true` | GA | 1.20 | - |
 | `SuspendJob` | `false` | Alpha | 1.21 | 1.21 |
 | `SuspendJob` | `true` | Beta | 1.22 | 1.23 |
-| `SuspendJob` | `true` | GA | 1.24 | |
+| `SuspendJob` | `true` | GA | 1.24 | - |
 | `Sysctls` | `true` | Beta | 1.11 | 1.20 |
-| `Sysctls` | `true` | GA | 1.21 | |
+| `Sysctls` | `true` | GA | 1.21 | - |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | 1.20 |
 | `TTLAfterFinished` | `true` | Beta | 1.21 | 1.22 |
 | `TTLAfterFinished` | `true` | GA | 1.23 | - |
