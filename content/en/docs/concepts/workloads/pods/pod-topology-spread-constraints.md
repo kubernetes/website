@@ -85,7 +85,7 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   It must be greater than zero. Its semantics differs according to the value of `whenUnsatisfiable`:
   - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
     permitted difference between the number of matching pods in the target
-    topology and the global minimum 
+    topology and the global minimum
     (the minimum number of pods that match the label selector in a topology domain. For example, if you have 3 zones with 0, 2 and 3 matching pods respectively, The global minimum is 0).
   - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
     precedence to topologies that would help reduce the skew.
@@ -94,6 +94,8 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   - `DoNotSchedule` (default) tells the scheduler not to schedule it.
   - `ScheduleAnyway` tells the scheduler to still schedule it while prioritizing nodes that minimize the skew.
 - **labelSelector** is used to find matching Pods. Pods that match this label selector are counted to determine the number of Pods in their corresponding topology domain. See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) for more details.
+- **NodeAffinityPolicy**
+- **NodeTaintsPolicy**
 
 When a Pod defines more than one `topologySpreadConstraint`, those constraints are ANDed: The kube-scheduler looks for a node for the incoming Pod that satisfies all the constraints.
 
@@ -392,7 +394,7 @@ for more details.
 
 ## Known Limitations
 
-- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution. 
+- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution.
 You can use [Descheduler](https://github.com/kubernetes-sigs/descheduler) to rebalance the Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
