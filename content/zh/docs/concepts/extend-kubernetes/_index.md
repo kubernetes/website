@@ -98,7 +98,7 @@ Flags and configuration files may not always be changeable in a hosted Kubernete
 *Built-in Policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), are built-in Kubernetes APIs. APIs are typically used with hosted Kubernetes services and with managed Kubernetes installations. They are declarative and use the same conventions as other Kubernetes resources like pods, so new cluster configuration can be repeatable and be managed the same way as applications. And, where they are stable, they enjoy a [defined support policy](/docs/reference/using-api/deprecation-policy/) like other Kubernetes APIs. For these reasons, they are preferred over *configuration files* and *flags* where suitable.
 -->
 *内置的策略 API*，例如[ResourceQuota](/zh/docs/concepts/policy/resource-quotas/)、
-[PodSecurityPolicies](/zh/docs/concepts/policy/pod-security-policy/)、
+[PodSecurityPolicies](/zh/docs/concepts/security/pod-security-policy/)、
 [NetworkPolicy](/zh/docs/concepts/services-networking/network-policies/)
 和基于角色的访问控制（[RBAC](/zh/docs/reference/access-authn-authz/rbac/)）
 等等都是内置的 Kubernetes API。
