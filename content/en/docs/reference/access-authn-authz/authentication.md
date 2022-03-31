@@ -121,7 +121,7 @@ token,user,uid,"group1,group2,group3"
 
 When using bearer token authentication from an http client, the API
 server expects an `Authorization` header with a value of `Bearer
-THETOKEN`.  The bearer token must be a character sequence that can be
+<token>`.  The bearer token must be a character sequence that can be
 put in an HTTP header value using no more than the encoding and
 quoting facilities of HTTP.  For example: if the bearer token is
 `31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP

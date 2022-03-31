@@ -281,7 +281,7 @@ the policy will be applied only for the single `port` field.
 
 ## Targeting a Namespace by its name
 
-{{< feature-state state="beta" for_k8s_version="1.21" >}}
+{{< feature-state for_k8s_version="1.22" state="stable" >}}
 
 The Kubernetes control plane sets an immutable label `kubernetes.io/metadata.name` on all
 namespaces, provided that the `NamespaceDefaultLabelName`
