@@ -8,7 +8,7 @@ weight: 50
 ガベージコレクションは、Kubernetesがクラスターリソースをクリーンアップするために使用するさまざまなメカニズムの総称です。これにより、次のようなリソースのクリーンアップが可能になります:
 
   * [失敗したPod](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
-  * [完了したJob](/docs/concepts/workloads/controllers/ttlafterfinished/)
+  * [完了したJob](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)
   * [owner referenceのないオブジェクト](#owners-dependents)
   * [未使用のコンテナとコンテナイメージ](#containers-images)
   * [StorageClassの再利用ポリシーがDeleteである動的にプロビジョニングされたPersistentVolume](/docs/concepts/storage/persistent-volumes/#delete)
