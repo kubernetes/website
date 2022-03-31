@@ -186,7 +186,7 @@ CPUとメモリの使用量が少ない(CPUの場合は数ミリコアのオー�
 fluentdの構成については、[fluentd documentation](https://docs.fluentd.org/)を参照してください。
 {{< /note >}}
 
-2番目のファイルは、fluentdを実行しているサイドカーコンテナを持つポッドを示しています。ポッドは、fluentdが構成データを取得できるボリュームをマウントします。
+2番目のファイルは、fluentdを実行しているサイドカーコンテナを持つPodを示しています。Podは、fluentdが構成データを取得できるボリュームをマウントします。
 
 {{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
 
