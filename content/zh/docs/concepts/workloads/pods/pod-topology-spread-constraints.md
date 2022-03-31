@@ -534,7 +534,7 @@ It is recommended that you disable this plugin in the scheduling profile when
 using default constraints for `PodTopologySpread`.
 -->
 默认调度约束所生成的评分可能与
-[`SelectorSpread` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins).
+[`SelectorSpread` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)
 所生成的评分有冲突。
 建议你在为 `PodTopologySpread` 设置默认约束是禁用调度方案中的该插件。
 {{< /note >}}
