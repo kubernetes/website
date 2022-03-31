@@ -38,7 +38,7 @@ kubectl cluster-info dump
    * `/var/log/kube-scheduler.log` - スケジューリング決定責任者であるスケジューラーのログ
    * `/var/log/kube-controller-manager.log` - レプリケーションコントローラーを管理するコントローラーのログ
 
-### Worker ノード
+### ワーカーノード
 
    * `/var/log/kubelet.log` - ノード上でコンテナの実行を担当するKubeletのログ
    * `/var/log/kube-proxy.log` - サービスのロードバランシングを担うKube Proxyのログ
