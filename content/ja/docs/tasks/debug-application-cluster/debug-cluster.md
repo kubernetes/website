@@ -86,7 +86,7 @@ kubectl cluster-info dump
 
 ### 軽減策
 
-- 対処法: IaaSプロバイダの自動VM再起動機能をIaaS VMに使用する
+- 対処法: IaaSプロバイダーの自動VM再起動機能をIaaS VMに使用する
   - 異常: Apiserver VMのシャットダウンまたはApiserverのクラッシュ
   - 異常: サポートサービスのVMシャットダウンまたはクラッシュ
 
