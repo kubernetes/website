@@ -133,4 +133,4 @@ kubeletは、次の変数に基づいて未使用のコンテナをガベージ�
 
 * [Kubernetes オブジェクトの所有権](/docs/concepts/overview/working-with-objects/owners-dependents/)を学びます。
 * Kubernetes [finalizer](/docs/concepts/overview/working-with-objects/finalizers/)を学びます。
-* 完了したジョブをクリーンアップする[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/)(beta)について学びます。
+* 完了したジョブをクリーンアップする[TTL controller](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)(beta)について学びます。
