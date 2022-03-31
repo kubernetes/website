@@ -98,7 +98,7 @@ It’s important to ensure that any security component in a cluster is well conf
 <!--
 ### Secure cluster configuration for admission control
 -->
-### 准入控制的安全集群配置
+### 为准入控制保护集群配置
 
 <!--
 In most cases, the admission controller webhook used by a cluster will be installed as a workload in the cluster. As a result, it’s important to ensure that Kubernetes' security features that could impact its operation are well configured.
@@ -110,21 +110,21 @@ In most cases, the admission controller webhook used by a cluster will be instal
 * **Restrict [RBAC](/docs/reference/access-authn-authz/rbac/) rights**. Any user who has rights which would allow them to modify the configuration of the webhook objects or the workload that the admission controller uses could disrupt its operation. So it’s important to make sure that only cluster administrators have those rights.
 -->
 * **限制 [RBAC](/zh/docs/reference/access-authn-authz/rbac/) 权限**。
-  任何有权修改 webhook 对象的配置或准入控制器使用的工作负载的用户都可能会中断其操作。
+  任何有权修改 webhook 对象的配置或准入控制器使用的工作负载的用户都可以破坏其运行。
   因此，确保只有集群管理员拥有这些权限非常重要。
 <!--
 * **Prevent privileged workloads**. One of the realities of container systems is that if a workload is given certain privileges, it will be possible to break out to the underlying cluster node and impact other containers on that node. Where admission controller services run in the cluster they’re protecting, it’s important to ensure that any requirement for privileged workloads is carefully reviewed and restricted as much as possible.
 -->  
 * **防止特权工作负载**。
   容器系统的一个现实是，如果工作负载被赋予某些特权，
-  则有可能突破到底层集群节点并影响该节点上的其他容器。
+  则有可能逃逸到下层的集群节点并影响该节点上的其他容器。
   如果准入控制器服务在它们所保护的集群上运行，
-  一定要确保对特权工作负载的任何要求都要经过仔细审查并尽可能地加以限制。
+  一定要确保对特权工作负载的所有请求都要经过仔细审查并尽可能地加以限制。
 <!--
 * **Strictly control external system access**. As a security service in a cluster admission controller systems will have access to sensitive information like credentials. To reduce the risk of this information being sent outside the cluster, [network policies](/docs/concepts/services-networking/network-policies/) should be used to restrict the admission controller services access to external networks.
 -->  
 * **严格控制外部系统访问**。
-  作为集群准入控制器系统中的安全服务，将有权访问敏感信息，如凭证。
+  作为集群中的安全服务，准入控制器系统将有权访问敏感信息，如凭证。
   为了降低此信息被发送到集群外的风险，
   应使用[网络策略](/zh/docs/concepts/services-networking/network-policies/) 
   来限制准入控制器服务对外部网络的访问。
@@ -132,7 +132,7 @@ In most cases, the admission controller webhook used by a cluster will be instal
 * **Each cluster has a dedicated webhook**. Whilst it may be possible to have admission controller webhooks that serve multiple clusters, there is a risk when using that model that an attack on the webhook service would have a larger impact where it’s shared. Also where multiple clusters use an admission controller there will be increased complexity and access requirements, making it harder to secure.
 -->  
 * **每个集群都有一个专用的 webhook**。
-  虽然可能有服务于多个集群的准入控制器 webhook，
+  虽然可能让准入控制器 webhook 服务于多个集群的，
   但在使用该模型时存在对 webhook 服务的攻击会对共享它的地方产生更大影响的风险。
   此外，在多个集群使用准入控制器的情况下，复杂性和访问要求也会增加，从而更难保护其安全。
 
@@ -144,8 +144,8 @@ In most cases, the admission controller webhook used by a cluster will be instal
 <!--
 A key element of any admission controller used for Kubernetes security is the rulebase it uses. The rules need to be able to accurately meet their goals avoiding false positive and false negative results. 
 -->
-任何用于 Kubernetes 安全的准入控制器的一个关键元素是它使用的规则库。
-规则需要能够准确地满足其目标，避免误报和误报结果。
+对于用于 Kubernetes 安全的所有准入控制器而言，一个关键元素是它使用的规则库。
+规则需要能够准确地满足其目标，避免假阳性和假阴性结果。
 
 <!--
 * **Regularly test and review rules**. Admission controller rules need to be tested to ensure their accuracy. They also need to be regularly reviewed as the Kubernetes API will change with each new version, and rules need to be assessed with each Kubernetes release to understand any changes that may be required to keep them up to date.
