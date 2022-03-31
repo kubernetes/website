@@ -23,13 +23,13 @@ spec:
       mountPath: /var/log
   - name: count-log-1
     image: busybox:1.28
-    args: [/bin/sh, -c, 'tail -n+1 -f /var/log/1.log']
+    args: [/bin/sh, -c, 'tail -n+1 -F /var/log/1.log']
     volumeMounts:
     - name: varlog
       mountPath: /var/log
   - name: count-log-2
     image: busybox:1.28
-    args: [/bin/sh, -c, 'tail -n+1 -f /var/log/2.log']
+    args: [/bin/sh, -c, 'tail -n+1 -F /var/log/2.log']
     volumeMounts:
     - name: varlog
       mountPath: /var/log
