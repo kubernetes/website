@@ -120,7 +120,7 @@ For more information about these limtations, check [here](https://support.micros
 ## {{% heading "whatsnext" %}}
 
 
-* [Guide for scheduling Windows containers in Kubernetes](/docs/setup/production-environment/windows/user-guide-windows-containers/)
-* [Managing Workload Identity with Group Managed Service Accounts (GMSA)](/docs/setup/production-environment/windows/user-guide-windows-containers/#managing-workload-identity-with-group-managed-service-accounts)
+* [Guide for scheduling Windows containers in Kubernetes](/docs/concepts/windows/user-guide/)
+* [Managing Workload Identity with Group Managed Service Accounts (GMSA)](/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
 * [Configure GMSA for Windows pods and containers](/docs/tasks/configure-pod-container/configure-gmsa/)
 
