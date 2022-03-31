@@ -28,7 +28,7 @@ Kubernetesは、owner referenceを使用して、コントロールプレーン�
 Ownershipは、一部のリソースでも使用される[ラベルおよびセレクター](/docs/concepts/overview/working-with-objects/labels/)メカニズムとは異なります。
 たとえば、`EndpointSlice`オブジェクトを作成する{{<glossary_tooltip text="Service" term_id="service">}}を考えます。
 Serviceは*ラベル*を使用して、コントロールプレーンがServiceに使用されている`EndpointSlice`オブジェクトを判別できるようにします。
-ラベルに加えて、サービスに代わって管理される各`EndpointSlice`には、owner referenceがあります。
+ラベルに加えて、Serviceに代わって管理される各`EndpointSlice`には、owner referenceがあります。
 owner referenceは、Kubernetesのさまざまな部分が制御していないオブジェクトへの干渉を回避するのに役立ちます。
 
 {{< note >}}
