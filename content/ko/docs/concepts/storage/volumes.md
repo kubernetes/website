@@ -859,7 +859,7 @@ RBD는 읽기-쓰기 모드에서 단일 고객만 마운트할 수 있다.
 드라이버로 리다이렉트한다. 
 이 기능을 사용하려면, 클러스터에 
 [Ceph CSI 드라이버](https://github.com/ceph/ceph-csi)가 설치되어 있고 
-`CSIMigration`, `CSIMigrationRBD` 
+`CSIMigration`, `csiMigrationRBD` 
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
 
 {{< note >}}
@@ -1133,6 +1133,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
+      # 변수 확장에는 괄호를 사용한다(중괄호 아님).
       subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:
