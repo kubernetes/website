@@ -7,7 +7,7 @@
 FROM golang:1.16-alpine
 
 LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
-
+RUN sed -i 's!http://dl-cdn.alpinelinux.org/!https://mirrors.ustc.edu.cn/!g' /etc/apk/repositories
 RUN apk add --no-cache \
     curl \
     gcc \
@@ -25,7 +25,7 @@ RUN mkdir $HOME/src && \
     go install --tags extended
 
 FROM golang:1.16-alpine
-
+RUN sed -i 's!http://dl-cdn.alpinelinux.org/!https://mirrors.ustc.edu.cn/!g' /etc/apk/repositories
 RUN apk add --no-cache \
     git \
     openssh-client \
