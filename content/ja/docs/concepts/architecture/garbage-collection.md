@@ -16,7 +16,7 @@ weight: 50
   * 次のシナリオで削除された{{<glossary_tooltip text="Node" term_id="node">}}:
     * クラウド上でクラスターが[クラウドコントローラーマネージャー](/ja/docs/concepts/architecture/cloud-controller/)を使用する場合
     * オンプレミスでクラスターがクラウドコントローラーマネージャーと同様のアドオンを使用する場合
-  * [Node Leaseオブジェクト](/docs/concepts/architecture/nodes/#heartbeats)
+  * [Node Leaseオブジェクト](/ja/docs/concepts/architecture/nodes/#heartbeats)
 
 ## オーナーとdependent {#owners-dependents}
 
