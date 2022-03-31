@@ -125,7 +125,7 @@ kubeletは、次の変数に基づいて未使用のコンテナをガベージ�
 これらのリソースを管理するコントローラーに固有のオプションを設定することにより、リソースのガベージコレクションを調整できます。次のページは、ガベージコレクションを設定する方法を示しています。
 
   * [Kubernetesオブジェクトのカスケード削除の設定](/docs/tasks/administer-cluster/use-cascading-deletion/)
-  * [完了したジョブのクリーンアップの設定](/docs/concepts/workloads/controllers/ttlafterfinished/)
+  * [完了したジョブのクリーンアップの設定](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)
   
 <!-- * [Configuring unused container and image garbage collection](/docs/tasks/administer-cluster/reconfigure-kubelet/) -->
 
