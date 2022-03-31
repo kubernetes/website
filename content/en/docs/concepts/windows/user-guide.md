@@ -3,7 +3,6 @@ reviewers:
 - jayunit100
 - jsturtevant
 - marosset
-- perithompson
 title: Guide for scheduling Windows containers in Kubernetes
 content_type: concept
 weight: 75
@@ -11,31 +10,29 @@ weight: 75
 
 <!-- overview -->
 
-Windows applications constitute a large portion of the services and applications that run in many organizations. 
-This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
-
-
+Windows applications constitute a large portion of the services and applications that run in many organizations.
+This guide walks you through the steps to configure and deploy Windows containers in Kubernetes.
 
 <!-- body -->
 
 ## Objectives
 
 * Configure an example deployment to run Windows containers on the Windows node
-* (Optional) Configure an Active Directory Identity for your Pod using Group Managed Service Accounts (GMSA)
+* Highlight Windows specific funcationality in Kubernetes
 
 ## Before you begin
 
-* Create a Kubernetes cluster that includes a 
+* Create a Kubernetes cluster that includes a
 control plane and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
-* It is important to note that creating and deploying services and workloads on Kubernetes 
-behaves in much the same way for Linux and Windows containers. 
-[Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical. 
+* It is important to note that creating and deploying services and workloads on Kubernetes
+behaves in much the same way for Linux and Windows containers.
+[Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
 The example in the section below is provided to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows container
 
-To deploy a Windows container on Kubernetes, you must first create an example application. 
-The example YAML file below creates a simple webserver application. 
+The example YAML file below deploys a simple webserver application running inside a Windows container.
+
 Create a service spec named `win-webserver.yaml` with the contents below:
 
 ```yaml
@@ -83,8 +80,8 @@ spec:
 ```
 
 {{< note >}}
-Port mapping is also supported, but for simplicity in this example 
-the container port 80 is exposed directly to the service.
+Port mapping is also supported, but for simplicity this example exposes
+port 80 of the container directly to the Service.
 {{< /note >}}
 
 1. Check that all nodes are healthy:
@@ -104,20 +101,19 @@ the container port 80 is exposed directly to the service.
 
 1. Check that the deployment succeeded. To verify:
 
-    * Two containers per pod on the Windows node, use `docker ps` 
-    * Two pods listed from the Linux control plane node, use `kubectl get pods` 
-    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node 
+    * Two pods listed from the Linux control plane node, use `kubectl get pods`
+    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node
       to check for a web server response
-    * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) 
+    * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node)
       using docker exec or kubectl exec
-    * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) 
+    * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`)
       from the Linux control plane node and from individual pods
     * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
     * Inbound connectivity, `curl` the NodePort from the Linux control plane node or machines outside of the cluster
     * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
 
 {{< note >}}
-Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. 
+Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack.
 Only Windows pods are able to access service IPs.
 {{< /note >}}
 
@@ -125,49 +121,55 @@ Only Windows pods are able to access service IPs.
 
 ### Capturing logs from workloads
 
-Logs are an important element of observability; they enable users to gain insights 
-into the operational aspect of workloads and are a key ingredient to troubleshooting issues. 
-Because Windows containers and workloads inside Windows containers behave differently from Linux containers, 
-users had a hard time collecting logs, limiting operational visibility. 
-Windows workloads for example are usually configured to log to ETW (Event Tracing for Windows) 
-or push entries to the application event log. 
-[LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor), an open source tool by Microsoft, 
-is the recommended way to monitor configured log sources inside a Windows container. 
-LogMonitor supports monitoring event logs, ETW providers, and custom application logs, 
+Logs are an important element of observability; they enable users to gain insights
+into the operational aspect of workloads and are a key ingredient to troubleshooting issues.
+Because Windows containers and workloads inside Windows containers behave differently from Linux containers,
+users had a hard time collecting logs, limiting operational visibility.
+Windows workloads for example are usually configured to log to ETW (Event Tracing for Windows)
+or push entries to the application event log.
+[LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor), an open source tool by Microsoft,
+is the recommended way to monitor configured log sources inside a Windows container.
+LogMonitor supports monitoring event logs, ETW providers, and custom application logs,
 piping them to STDOUT for consumption by `kubectl logs <pod>`.
 
-Follow the instructions in the LogMonitor GitHub page to copy its binaries and configuration files 
+Follow the instructions in the LogMonitor GitHub page to copy its binaries and configuration files
 to all your containers and add the necessary entrypoints for LogMonitor to push your logs to STDOUT.
 
-## Using configurable Container usernames
+## Configuring container user
 
-Starting with Kubernetes v1.16, Windows containers can be configured to run their entrypoints and processes 
-with different usernames than the image defaults. 
-The way this is achieved is a bit different from the way it is done for Linux containers. 
+### Using configurable Container usernames
+
+Windows containers can be configured to run their entrypoints and processes
+with different usernames than the image defaults.
 Learn more about it [here](/docs/tasks/configure-pod-container/configure-runasusername/).
 
-## Managing Workload Identity with Group Managed Service Accounts
+### Managing Workload Identity with Group Managed Service Accounts
 
-Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). 
-Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, 
-simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. 
-Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. 
+Windows container workloads can be configured to use Group Managed Service Accounts (GMSA).
+Group Managed Service Accounts are a specific type of Active Directory account that provide automatic password management,
+simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers.
+Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA.
 Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa/).
 
 ## Taints and Tolerations
 
-Users today need to use some combination of taints and node selectors in order to 
-keep Linux and Windows workloads on their respective OS-specific nodes. 
-This likely imposes a burden only on Windows users. The recommended approach is outlined below, 
+Users need to use some combination of taints and node selectors in order to
+schedule Linux and Windows workloads to their respective OS-specific nodes.
+The recommended approach is outlined below,
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 
+<<<<<<< HEAD:content/en/docs/setup/production-environment/windows/user-guide-windows-containers.md
 
+=======
+{{< note >}}
+>>>>>>> Moving windows containers user guide out of /setup/production-environment/:content/en/docs/concepts/windows/user-guide.md
 If the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
 enabled, you can (and should) set `.spec.os.name` for a Pod to indicate the operating system
 that the containers in that Pod are designed for. For Pods that run Linux containers, set
 `.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
 to Windows.
 
+<<<<<<< HEAD:content/en/docs/setup/production-environment/windows/user-guide-windows-containers.md
 {{< note >}}
 Starting from 1.24, the `IdentifyPodOS` feature is in Beta stage and defaults to be enabled.
 {{< /note >}}
@@ -181,29 +183,37 @@ appropriate operating system.
 The `.spec.os.name` value has no effect on the scheduling of the Windows pods,
 so taints and tolerations and node selectors are still required
  to ensure that the Windows pods land onto appropriate Windows nodes.
+=======
+The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes.
+You should use normal Kubernetes mechanisms for
+[assigning pods to nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
+to ensure that the control plane for your cluster places pods onto nodes that are running the
+appropriate operating system.
+{{< /note >}}
+>>>>>>> Moving windows containers user guide out of /setup/production-environment/:content/en/docs/concepts/windows/user-guide.md
 
 ### Ensuring OS-specific workloads land on the appropriate container host
 
-Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. 
+Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations.
 All Kubernetes nodes today have the following default labels:
 
 * kubernetes.io/os = [windows|linux]
 * kubernetes.io/arch = [amd64|arm64|...]
 
-If a Pod specification does not specify a nodeSelector like `"kubernetes.io/os": windows`, 
-it is possible the Pod can be scheduled on any host, Windows or Linux. 
-This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux. 
+If a Pod specification does not specify a nodeSelector like `"kubernetes.io/os": windows`,
+it is possible the Pod can be scheduled on any host, Windows or Linux.
+This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux.
 The best practice is to use a nodeSelector.
 
-However, we understand that in many cases users have a pre-existing large number of deployments for Linux containers, 
-as well as an ecosystem of off-the-shelf configurations, such as community Helm charts, and programmatic Pod generation cases, such as with Operators. 
-In those situations, you may be hesitant to make the configuration change to add nodeSelectors. 
-The alternative is to use Taints. Because the kubelet can set Taints during registration, 
+However, we understand that in many cases users have a pre-existing large number of deployments for Linux containers,
+as well as an ecosystem of off-the-shelf configurations, such as community Helm charts, and programmatic Pod generation cases, such as with Operators.
+In those situations, you may be hesitant to make the configuration change to add nodeSelectors.
+The alternative is to use Taints. Because the kubelet can set Taints during registration,
 it could easily be modified to automatically add a taint when running on Windows only.
 
 For example:  `--register-with-taints='os=windows:NoSchedule'`
 
-By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). 
+By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods).
 In order for a Windows Pod to be scheduled on a Windows node, 
 it would need both the nodeSelector and the appropriate matching toleration to choose Windows.
 
@@ -223,26 +233,24 @@ tolerations:
 The Windows Server version used by each pod must match that of the node. If you want to use multiple Windows
 Server versions in the same cluster, then you should set additional node labels and nodeSelectors.
 
-Kubernetes 1.17 automatically adds a new label `node.kubernetes.io/windows-build` to simplify this. 
+Kubernetes 1.17 automatically adds a new label `node.kubernetes.io/windows-build` to simplify this.
 If you're running an older version, then it's recommended to add this label manually to Windows nodes.
 
-This label reflects the Windows major, minor, and build number that need to match for compatibility. 
+This label reflects the Windows major, minor, and build number that need to match for compatibility.
 Here are values used today for each Windows Server version.
 
 | Product Name                         |   Build Number(s)      |
 |--------------------------------------|------------------------|
 | Windows Server 2019                  | 10.0.17763             |
-| Windows Server version 1809          | 10.0.17763             |
-| Windows Server version 1903          | 10.0.18362             |
-
+| Windows Server, Version 20H2         | 10.0.19042             |
+| Windows Server 2022                  | 10.0.20348             |
 
 ### Simplifying with RuntimeClass
 
-[RuntimeClass] can be used to simplify the process of using taints and tolerations. 
+[RuntimeClass] can be used to simplify the process of using taints and tolerations.
 A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations.
 
-
-1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` 
+1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector`
 for the Windows OS, architecture, and version.
 
 ```yaml
@@ -312,8 +320,5 @@ spec:
   selector:
     app: iis-2019
 ```
-
-
-
 
 [RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
