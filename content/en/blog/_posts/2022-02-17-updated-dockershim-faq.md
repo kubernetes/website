@@ -200,6 +200,12 @@ discussion of the changes.
 
 [dep]: https://dev.to/inductor/wait-docker-is-deprecated-in-kubernetes-now-what-do-i-do-e4m
 
+### Is there any tooling that can help me find Dockershim in use
+
+Yes! The [Detector for Docker Socket (DDS)][dds] is a kubectl plugin to detect if active Kubernetes workloads are mounting the docker socket (docker.sock) volume. Find more details and usage patterns in the [DDS project's README][dds]
+
+[dds]: https://github.com/aws-containers/kubectl-detector-for-docker-socket
+
 ### Can I have a hug?
 
 Yes, we're still giving hugs as requested. 🤗🤗🤗
