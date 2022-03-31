@@ -93,7 +93,7 @@ kubectl cluster-info dump
 - 対処法: IaaSプロバイダーの信頼できるストレージ(GCE PDやAWS EBSボリュームなど)をapiserver+etcdを使用するVMに使用する
   - 異常: Apiserverのバックエンドストレージが失われる
 
-- 対処法: [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/)構成を使用します
+- 対処法: [高可用性](/docs/setup/production-environment/tools/kubeadm/high-availability/)構成を使用します
   - 異常: コントロールプレーンノードのシャットダウンまたはコントロールプレーンコンポーネント(スケジューラー、APIサーバー、コントローラーマネージャー)のクラッシュ
     - 1つ以上のノードまたはコンポーネントの同時故障に耐えることができる
   - 異常: APIサーバーのバックアップストレージ(etcdのデータディレクトリーなど)が消失
