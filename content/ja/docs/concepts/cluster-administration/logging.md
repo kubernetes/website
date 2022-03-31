@@ -1,5 +1,4 @@
 ---
-reviewrs:
 title: ロギングのアーキテクチャ
 content_type: concept
 weight: 60
