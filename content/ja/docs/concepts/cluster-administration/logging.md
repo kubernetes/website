@@ -52,7 +52,7 @@ kubectl logs counter
 ...
 ```
 
-コンテナの以前のインスタンスからログを取得するために、`kubectl logs --previous`を使用できます。ポッドに複数のコンテナがある場合は、コマンドにコンテナ名を追加して、アクセスするコンテナのログを指定します。詳細については、[`kubectl logs` ドキュメント](/docs/reference/generated/kubectl/kubectl-commands#logs)を参照してください。
+コンテナの以前のインスタンスからログを取得するために、`kubectl logs --previous`を使用できます。Podに複数のコンテナがある場合は、コマンドにコンテナ名を追加して、アクセスするコンテナのログを指定します。詳細については、[`kubectl logs` ドキュメント](/docs/reference/generated/kubectl/kubectl-commands#logs)を参照してください。
 
 ## ノードレベルでのロギング
 
