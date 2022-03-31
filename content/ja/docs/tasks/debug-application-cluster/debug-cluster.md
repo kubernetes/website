@@ -36,7 +36,7 @@ kubectl cluster-info dump
 
    * `/var/log/kube-apiserver.log` - APIの提供を担当するAPIサーバーのログ
    * `/var/log/kube-scheduler.log` - スケジューリング決定責任者であるスケジューラーのログ
-   * `/var/log/kube-controller-manager.log` - レプリケーションコントローラを管理するコントローラのログ
+   * `/var/log/kube-controller-manager.log` - レプリケーションコントローラーを管理するコントローラーのログ
 
 ### Worker ノード
 
