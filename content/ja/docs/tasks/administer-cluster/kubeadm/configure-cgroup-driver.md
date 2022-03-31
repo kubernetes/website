@@ -18,7 +18,7 @@ Kubernetesの[コンテナランタイムの要件](/docs/setup/production-envir
 
 [Container runtimes](/docs/setup/production-environment/container-runtimes)ページから、kubeadmベースのセットアップでは`cgroupfs`ドライバーではなく、`systemd`ドライバーが推奨されると説明されています。
 
-このページでは、デフォルトで`systemd`ドライバーを使用して多くの異なるコンテナランタイムをセットアップする方法についての詳細も説明されています。
+このページでは、デフォルトの`systemd`ドライバーを使用して多くの異なるコンテナランタイムをセットアップする方法についての詳細も説明されています。
 
 ## kubelet cgroupドライバーの設定
 
