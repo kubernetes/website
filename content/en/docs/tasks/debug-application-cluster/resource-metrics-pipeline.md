@@ -89,7 +89,7 @@ The architecture components, from right to left in the figure, consist of the fo
 <!-- body -->
 
 ## Metrics API
-{{< feature-state for_k8s_version="1.24" state="beta" >}}
+{{< feature-state for_k8s_version="1.8" state="beta" >}}
 
 The metrics-server implements the Metrics API. This API allows you to access CPU and memory usage
 for the nodes and pods in your cluster. Its primary role is to feed resource usage metrics to K8s
