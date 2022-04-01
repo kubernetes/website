@@ -126,10 +126,10 @@ standardized. See the documentation of each CSI driver for further
 instructions.
 
 ### CSI driver restrictions
- 
+
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
-As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
+As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
 [`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
 
 {{< note >}}
@@ -250,13 +250,12 @@ PVCs indirectly if they can create Pods, even if they do not have
 permission to create PVCs directly. Cluster administrators must be
 aware of this. If this does not fit their security model, they have
 two choices:
-- Use a [Pod Security
-  Policy](/docs/concepts/policy/pod-security-policy/) where the
-  `volumes` list does not contain the `ephemeral` volume type
-  (deprecated in Kubernetes 1.21).
 - Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  which rejects objects like Pods that have a generic ephemeral
+  that rejects objects like Pods that have a generic ephemeral
   volume.
+- Use a [Pod Security Policy](/docs/concepts/security/pod-security-policy/)
+  where the `volumes` list does not contain the `ephemeral` volume type
+  (deprecated since Kubernetes 1.21).
 
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so
 even if users are allowed to use this new mechanism, they cannot use
