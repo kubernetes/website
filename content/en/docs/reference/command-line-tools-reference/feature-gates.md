@@ -174,6 +174,7 @@ different Kubernetes components.
 | `SeccompDefault` | `false` | Alpha | 1.22 | |
 | `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
 | `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | |
+| `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
@@ -1100,6 +1101,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceTopology`: Enable service to route traffic based upon the Node
   topology of the cluster. See
   [ServiceTopology](/docs/concepts/services-networking/service-topology/)
+  for more details.
+- `ServiceIPStaticSubrange`: Enables a strategy for Services ClusterIP allocations, whereby the
+  ClusterIP range is subdivided. Dynamic allocated ClusterIP addresses will be allocated preferently
+  from the upper range allowing users to assign static ClusterIPs from the lower range with a low
+  risk of collision. See
+  [Avoiding collisions](/docs/concepts/services-networking/service/#avoiding-collisions)
   for more details.
 - `SetHostnameAsFQDN`: Enable the ability of setting Fully Qualified Domain
   Name(FQDN) as the hostname of a pod. See
