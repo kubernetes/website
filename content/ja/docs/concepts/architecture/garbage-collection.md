@@ -18,7 +18,7 @@ weight: 50
     * オンプレミスでクラスターがクラウドコントローラーマネージャーと同様のアドオンを使用する場合
   * [Node Leaseオブジェクト](/ja/docs/concepts/architecture/nodes/#heartbeats)
 
-## オーナーとdependent {#owners-dependents}
+## オーナーの依存関係 {#owners-dependents}
 
 Kubernetesの多くのオブジェクトは、[*owner reference*](/docs/concepts/overview/working-with-objects/owners-dependents/)を介して相互にリンクしています。
 owner referenceは、どのオブジェクトが他のオブジェクトに依存しているかをコントロールプレーンに通知します。
@@ -33,14 +33,14 @@ owner referenceは、Kubernetesのさまざまな部分が制御していない�
 
 {{< note >}}
 namespace間のowner referenceは、設計上許可されていません。
-namespaceのdependentは、クラスタースコープまたはnamespaceのオーナーを指定できます。
-namespaceのオーナーは、dependentと同じnamespaceに**存在する必要があります**。
-そうでない場合、owner referenceは不在として扱われ、すべてのオーナーが不在であることが確認されると、dependentは削除される可能性があります。
+namespaceの依存関係は、クラスタースコープまたはnamespaceのオーナーを指定できます。
+namespaceのオーナーは、依存関係と同じnamespaceに**存在する必要があります**。
+そうでない場合、owner referenceは不在として扱われ、すべてのオーナーが不在であることが確認されると、依存関係は削除される可能性があります。
 
-クラスタースコープのdependentは、クラスタースコープのオーナーのみを指定できます。
-v1.20以降では、クラスタースコープのdependentがnamespaceを持つkindをオーナーとして指定している場合、それは解決できないowner referenceを持つものとして扱われ、ガベージコレクションを行うことはできません。
+クラスタースコープの依存関係は、クラスタースコープのオーナーのみを指定できます。
+v1.20以降では、クラスタースコープの依存関係がnamespaceを持つkindをオーナーとして指定している場合、それは解決できないowner referenceを持つものとして扱われ、ガベージコレクションを行うことはできません。
 
-V1.20以降では、ガベージコレクタは無効な名前空間間の`ownerReference`、またはnamespaceのkindを参照する`ownerReference`をもつクラスター・スコープのdependentを検出した場合、無効なdependentの`OwnerRefInvalidNamespace`と`involvedObject`を理由とする警告イベントが報告されます。
+V1.20以降では、ガベージコレクタは無効な名前空間間の`ownerReference`、またはnamespaceのkindを参照する`ownerReference`をもつクラスター・スコープの依存関係を検出した場合、無効な依存関係の`OwnerRefInvalidNamespace`と`involvedObject`を理由とする警告イベントが報告されます。
 以下のコマンドを実行すると、そのようなイベントを確認できます。
 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`
 {{< /note >}}
@@ -48,7 +48,7 @@ V1.20以降では、ガベージコレクタは無効な名前空間間の`owner
 ## カスケード削除 {#cascading-deletion}
 
 Kubernetesは、ReplicaSetを削除したときに残されたPodなど、owner referenceがなくなったオブジェクトをチェックして削除します。
-オブジェクトを削除する場合、カスケード削除と呼ばれるプロセスで、Kubernetesがオブジェクトのdependentを自動的に削除するかどうかを制御できます。
+オブジェクトを削除する場合、カスケード削除と呼ばれるプロセスで、Kubernetesがオブジェクトの依存関係を自動的に削除するかどうかを制御できます。
 カスケード削除には、次の2つのタイプがあります。
 
   * フォアグラウンドカスケード削除
@@ -65,11 +65,11 @@ Kubernetesは、ReplicaSetを削除したときに残されたPodなど、owner 
   * Kubernetes APIサーバーは、`metadata.finalizers`フィールドを`foregroundDeletion`に設定します。
   * オブジェクトは、削除プロセスが完了するまで、KubernetesAPIを介して表示されたままになります。
 
-オーナーオブジェクトが削除進行中の状態に入ると、コントローラーはdependentを削除します。
-すべてのdependentオブジェクトを削除した後、コントローラーはオーナーオブジェクトを削除します。
+オーナーオブジェクトが削除進行中の状態に入ると、コントローラーは依存関係を削除します。
+すべての依存関係オブジェクトを削除した後、コントローラーはオーナーオブジェクトを削除します。
 この時点で、オブジェクトはKubernetesAPIに表示されなくなります。
 
-フォアグラウンドカスケード削除中に、オーナーの削除をブロックするdependentは、`ownerReference.blockOwnerDeletion=true`フィールドを持つdependentのみです。
+フォアグラウンドカスケード削除中に、オーナーの削除をブロックする依存関係は、`ownerReference.blockOwnerDeletion=true`フィールドを持つ依存関係のみです。
 詳細については、[フォアグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)を参照してください。
 
 ### バックグラウンドカスケード削除 {#background-deletion}
@@ -79,10 +79,10 @@ Kubernetesは、ReplicaSetを削除したときに残されたPodなど、owner 
 
 詳細については、[バックグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)を参照してください。
 
-### Orphaned dependents
+### 孤立した依存関係
 
-Kubernetesがオーナーオブジェクトを削除すると、残されたdependentは*orphan*オブジェクトと呼ばれます。
-デフォルトでは、Kubernetesはdependentオブジェクトを削除します。この動作をオーバーライドする方法については、[オーナーオブジェクトと孤立したdependentの削除](/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)を参照してください。
+Kubernetesがオーナーオブジェクトを削除すると、残された依存関係は*orphan*オブジェクトと呼ばれます。
+デフォルトでは、Kubernetesは依存関係オブジェクトを削除します。この動作をオーバーライドする方法については、[オーナーオブジェクトと孤立した依存関係の削除](/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)を参照してください。
 
 ## 未使用のコンテナとイメージのガベージコレクション {#containers-images}
 
