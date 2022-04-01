@@ -1246,7 +1246,8 @@ someone else's choice.  That is an isolation failure.
 
 In order to allow you to choose a port number for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
-Service its own IP address.
+Service its own IP address from within the `service-cluster-ip-range`
+CIDR range that is configured for the API server.
 
 To ensure each Service receives a unique IP, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
@@ -1259,6 +1260,25 @@ map (needed to support migrating from older versions of Kubernetes that used
 in-memory locking). Kubernetes also uses controllers to check for invalid
 assignments (eg due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
+
+#### IP address ranges for `type: ClusterIP` Services {#service-ip-static-sub-range}
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+However, there is a problem with this `ClusterIP` allocation strategy, because a user
+can also [choose their own address for the service](#choosing-your-own-ip-address).
+This could result in a conflict if the internal allocator selects the same IP address
+for another Service.
+
+If you enable the `ServiceIPStaticSubrange`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the allocation strategy divides the `ClusterIP` range into two bands, based on
+the size of the configured `service-cluster-ip-range` by using the following formula
+`min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
+with a graduated step function between them_. Dynamic IP allocations will be preferentially
+chosen from the upper band, reducing risks of conflicts with the IPs
+assigned from the lower band.
+This allows users to use the lower band of the `service-cluster-ip-range` for their
+Services with static IPs assigned with a very low risk of running into conflicts.
 
 ### Service IP addresses {#ips-and-vips}
 
