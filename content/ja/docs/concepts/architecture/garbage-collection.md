@@ -12,7 +12,7 @@ weight: 50
   * [owner referenceのないオブジェクト](#owners-dependents)
   * [未使用のコンテナとコンテナイメージ](#containers-images)
   * [StorageClassの再利用ポリシーがDeleteである動的にプロビジョニングされたPersistentVolume](/docs/concepts/storage/persistent-volumes/#delete)
-  * [失効または期限切れのCertificateSigningRequests (CSRs)](/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
+  * [失効または期限切れのCertificateSigningRequests (CSRs)](/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
   * 次のシナリオで削除された{{<glossary_tooltip text="Node" term_id="node">}}:
     * クラウド上でクラスターが[クラウドコントローラーマネージャー](/ja/docs/concepts/architecture/cloud-controller/)を使用する場合
     * オンプレミスでクラスターがクラウドコントローラーマネージャーと同様のアドオンを使用する場合
