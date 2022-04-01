@@ -11,7 +11,7 @@ weight: 50
   * [完了したJob](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)
   * [owner referenceのないオブジェクト](#owners-dependents)
   * [未使用のコンテナとコンテナイメージ](#containers-images)
-  * [StorageClassの再利用ポリシーがDeleteである動的にプロビジョニングされたPersistentVolume](/docs/concepts/storage/persistent-volumes/#delete)
+  * [StorageClassの再利用ポリシーがDeleteである動的にプロビジョニングされたPersistentVolume](/ja/docs/concepts/storage/persistent-volumes/#delete)
   * [失効または期限切れのCertificateSigningRequests (CSRs)](/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
   * 次のシナリオで削除された{{<glossary_tooltip text="Node" term_id="node">}}:
     * クラウド上でクラスターが[クラウドコントローラーマネージャー](/ja/docs/concepts/architecture/cloud-controller/)を使用する場合
