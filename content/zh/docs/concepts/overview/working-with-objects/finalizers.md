@@ -48,7 +48,7 @@ and does the following:
 
   * 修改对象，将你开始执行删除的时间添加到 `metadata.deletionTimestamp` 字段。
   * 禁止对象被删除，直到其 `metadata.finalizers` 字段为空。
-  * 返回 `202` 作为状态码（HTTP "Accepted"）。
+  * 返回 `202` 状态码（HTTP "Accepted"）。
 
 <!--
 The controller managing that finalizer notices the update to the object setting the
