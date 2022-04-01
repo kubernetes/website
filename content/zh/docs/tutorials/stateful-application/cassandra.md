@@ -19,18 +19,20 @@ Cassandra, a database, needs persistent storage to provide data durability (appl
 In this example, a custom Cassandra seed provider lets the database discover new Cassandra instances as they join the Cassandra cluster.
 -->
 本教程描述拉如何在 Kubernetes 上运行 [Apache Cassandra](https://cassandra.apache.org/)。
-数据库 Cassandra 需要永久性存储提供数据持久性（应用 _状态_）。
-在此示例中，自定义 Cassandra seed provider 使数据库在加入 Cassandra 集群时发现新的 Cassandra 实例。
+数据库 Cassandra 需要永久性存储提供数据持久性（应用“状态”）。
+在此示例中，自定义 Cassandra seed provider 使数据库在加入 Cassandra
+集群时发现新的 Cassandra 实例。
 
 <!--
 *StatefulSets* make it easier to deploy stateful applications into your Kubernetes cluster.
 For more information on the features used in this tutorial, see
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 -->
-使用 *StatefulSets* 可以更轻松地将有状态的应用程序部署到你的 Kubernetes 集群中。
+使用"StatefulSets"可以更轻松地将有状态的应用程序部署到你的 Kubernetes 集群中。
 有关本教程中使用的功能的更多信息，
 参阅 [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)。
 
+{{< note >}}
 <!--
 Cassandra and Kubernetes both use the term _node_ to mean a member of a cluster. In this
 tutorial, the Pods that belong to the StatefulSet are Cassandra nodes and are members
@@ -38,9 +40,8 @@ of the Cassandra cluster (called a _ring_). When those Pods run in your Kubernet
 the Kubernetes control plane schedules those Pods onto Kubernetes
 {{< glossary_tooltip text="Nodes" term_id="node" >}}.
 -->
-{{< note >}}
-Cassandra 和 Kubernetes 都使用术语 _node_ 来表示集群的成员。
-在本教程中，属于 StatefulSet 的 Pod 是 Cassandra 节点，并且是 Cassandra 集群的成员（称为 _ring_）。
+Cassandra 和 Kubernetes 都使用术语“节点（node）”来表示集群的成员。
+在本教程中，属于 StatefulSet 的 Pod 是 Cassandra 节点，并且是 Cassandra 集群的成员（称为 “ring”）。
 当这些 Pod 在你的 Kubernetes 集群中运行时，Kubernetes 控制平面会将这些 Pod 调度到 Kubernetes 的
 {{< glossary_tooltip text="节点" term_id="node" >}}上。
 
@@ -51,7 +52,8 @@ This tutorial deploys a custom Cassandra seed provider that lets the database di
 new Cassandra Pods as they appear inside your Kubernetes cluster.
 -->
 当 Cassandra 节点启动时，使用 _seed列表_ 来引导发现 ring 中其他节点。
-本教程部署了一个自定义的 Cassandra seed provider，使数据库可以发现新的 Cassandra Pod 出现在 Kubernetes 集群中。
+本教程部署了一个自定义的 Cassandra seed provider，使数据库可以发现新的 Cassandra Pod
+出现在 Kubernetes 集群中。
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
@@ -69,7 +71,6 @@ new Cassandra Pods as they appear inside your Kubernetes cluster.
 * 修改 StatefulSet。
 * 删除 StatefulSet 及其 {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 
-
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -81,7 +82,8 @@ To complete this tutorial, you should already have a basic familiarity with
 {{< glossary_tooltip text="StatefulSets" term_id="StatefulSet" >}}.
 -->
 要完成本教程，你应该已经熟悉 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
-{{< glossary_tooltip text="Service" term_id="service" >}}和 {{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}}。
+{{< glossary_tooltip text="Service" term_id="service" >}} 和
+{{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}}。
 
 <!--
 ### Additional Minikube setup instructions
@@ -158,7 +160,7 @@ If you don't see a Service named `cassandra`, that means creation failed. Read
 for help troubleshooting common issues.
 -->
 如果没有看到名为 `cassandra` 的服务，则表示创建失败。
-请阅读[Debug Services](/zh/docs/tasks/debug-application-cluster/debug-service/)，以解决常见问题。
+请阅读[调试服务](/zh/docs/tasks/debug-application-cluster/debug-service/)，以解决常见问题。
 
 <!--
 ## Using a StatefulSet to create a Cassandra ring
@@ -212,83 +214,85 @@ kubectl apply -f cassandra-statefulset.yaml
 -->
 ## 验证 Cassandra StatefulSet
 
-1.获取 Cassandra StatefulSet:
+1. 获取 Cassandra StatefulSet:
 
-    ```shell
-    kubectl get statefulset cassandra
-    ```
+   ```shell
+   kubectl get statefulset cassandra
+   ```
    
-<!--
+   <!--
    The response should be similar to:
--->
+   -->
    响应应该与此类似：
 
-    ```
-    NAME        DESIRED   CURRENT   AGE
-    cassandra   3         0         13s
-    ```
+   ```
+   NAME        DESIRED   CURRENT   AGE
+   cassandra   3         0         13s
+   ```
 
-<!--
+   <!--
    The `StatefulSet` resource deploys Pods sequentially.
-
-1. Get the Pods to see the ordered creation status:
--->
+   -->
    `StatefulSet` 资源会按顺序部署 Pod。
 
-2.获取 Pod 查看已排序的创建状态：
-   
-    ```shell
-    kubectl get pods -l="app=cassandra"
-    ```
-
 <!--
-   The response should be similar to:
+1. Get the Pods to see the ordered creation status:
 -->
+2. 获取 Pod 查看已排序的创建状态：
+   
+   ```shell
+   kubectl get pods -l="app=cassandra"
+   ```
+
+   <!--
+   The response should be similar to:
+   -->
    响应应该与此类似：
 
-    ```shell
-    NAME          READY     STATUS              RESTARTS   AGE
-    cassandra-0   1/1       Running             0          1m
-    cassandra-1   0/1       ContainerCreating   0          8s
-    ```
+   ```
+   NAME          READY     STATUS              RESTARTS   AGE
+   cassandra-0   1/1       Running             0          1m
+   cassandra-1   0/1       ContainerCreating   0          8s
+   ```
 
-<!--
+   <!--
    It can take several minutes for all three Pods to deploy. Once they are deployed, the same command
    returns output similar to:
--->
+   -->
    这三个 Pod 要花几分钟的时间才能部署。部署之后，相同的命令将返回类似于以下的输出：
 
-    ```
-    NAME          READY     STATUS    RESTARTS   AGE
-    cassandra-0   1/1       Running   0          10m
-    cassandra-1   1/1       Running   0          9m
-    cassandra-2   1/1       Running   0          8m
-    ```
+   ```
+   NAME          READY     STATUS    RESTARTS   AGE
+   cassandra-0   1/1       Running   0          10m
+   cassandra-1   1/1       Running   0          9m
+   cassandra-2   1/1       Running   0          8m
+   ```
 <!--
 3. Run the Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool) inside the first Pod, to
    display the status of the ring.
 -->
-3.运行第一个 Pod 中的 Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool)，以显示 ring 的状态。
+3. 运行第一个 Pod 中的 Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool)，
+   以显示 ring 的状态。
 
-    ```shell
-    kubectl exec -it cassandra-0 -- nodetool status
-    ```
+   ```shell
+   kubectl exec -it cassandra-0 -- nodetool status
+   ```
 
-<!--
+   <!--
    The response should be similar to:
--->
+   -->
    响应应该与此类似：
 
-    ```
-    Datacenter: DC1-K8Demo
-    ======================
-    Status=Up/Down
-    |/ State=Normal/Leaving/Joining/Moving
-    --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
-    UN  172.17.0.5  83.57 KiB  32           74.0%             e2dd09e6-d9d3-477e-96c5-45094c08db0f  Rack1-K8Demo
-    UN  172.17.0.4  101.04 KiB  32           58.8%             f89d6835-3a42-4419-92b3-0e62cae1479c  Rack1-K8Demo
-    UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
-    ```
+   ```
+   Datacenter: DC1-K8Demo
+   ======================
+   Status=Up/Down
+   |/ State=Normal/Leaving/Joining/Moving
+   --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
+   UN  172.17.0.5  83.57 KiB  32           74.0%             e2dd09e6-d9d3-477e-96c5-45094c08db0f  Rack1-K8Demo
+   UN  172.17.0.4  101.04 KiB  32           58.8%             f89d6835-3a42-4419-92b3-0e62cae1479c  Rack1-K8Demo
+   UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
+   ```
 
 <!--
 ## Modifying the Cassandra StatefulSet
@@ -301,16 +305,16 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 使用 `kubectl edit` 修改 Cassandra StatefulSet 的大小。
 
-1.运行以下命令：
+1. 运行以下命令：
 
-    ```shell
-    kubectl edit statefulset cassandra
-    ```
+   ```shell
+   kubectl edit statefulset cassandra
+   ```
 
-<!--
+   <!--
    This command opens an editor in your terminal. The line you need to change is the `replicas` field.
    The following sample is an excerpt of the StatefulSet file:
--->
+   -->
    此命令你的终端中打开一个编辑器。需要更改的是 `replicas` 字段。下面是 StatefulSet 文件的片段示例：
 
     ```yaml
@@ -340,65 +344,65 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 1. Get the Cassandra StatefulSet to verify your change:
 -->
-2.将副本数 (replicas) 更改为 4，然后保存清单。
+2. 将副本数（replicas）更改为 4，然后保存清单。
 
    StatefulSet 现在可以扩展到运行 4 个 Pod。
 
-3.获取 Cassandra StatefulSet 验证更改：
+3. 获取 Cassandra StatefulSet 验证更改：
 
-    ```shell
-    kubectl get statefulset cassandra
-    ```
+   ```shell
+   kubectl get statefulset cassandra
+   ```
 
-<!--
+   <!--
    The response should be similar to:
--->
+   -->
    响应应该与此类似：
 
-    ```
-    NAME        DESIRED   CURRENT   AGE
-    cassandra   4         4         36m
-    ```
+   ```
+   NAME        DESIRED   CURRENT   AGE
+   cassandra   4         4         36m
+   ```
 
 ## {{% heading "cleanup" %}}
 
 <!--
 Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet.
 This setting is for your safety because your data is more valuable than automatically purging all related StatefulSet resources.
-
-{{< warning >}}
-Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes
-to also be deleted. Never assume you'll be able to access data if its volume claims are deleted.
-{{< /warning >}}
-
-1. Run the following commands (chained together into a single command) to delete everything in the Cassandra StatefulSet:
 -->
 删除或缩小 StatefulSet 不会删除与 StatefulSet 关联的卷。
 这个设置是出于安全考虑，因为你的数据比自动清除所有相关的 StatefulSet 资源更有价值。
 
 {{< warning >}}
+<!--
+Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes
+to also be deleted. Never assume you'll be able to access data if its volume claims are deleted.
+-->
 根据存储类和回收策略，删除 *PersistentVolumeClaims* 可能导致关联的卷也被删除。
 千万不要认为其容量声明被删除，你就能访问数据。
 {{< /warning >}}
 
-1.运行以下命令（连在一起成为一个单独的命令）删除 Cassandra StatefulSet 中的所有内容：
+<!--
+1. Run the following commands (chained together into a single command) to delete everything in the Cassandra StatefulSet:
+-->
+1. 运行以下命令（连在一起成为一个单独的命令）删除 Cassandra StatefulSet 中的所有内容：
 
-    ```shell
-    grace=$(kubectl get pod cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
-      && kubectl delete statefulset -l app=cassandra \
-      && echo "Sleeping ${grace} seconds" 1>&2 \
-      && sleep $grace \
-      && kubectl delete persistentvolumeclaim -l app=cassandra
-    ```
+   ```shell
+   grace=$(kubectl get pod cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
+     && kubectl delete statefulset -l app=cassandra \
+     && echo "Sleeping ${grace} seconds" 1>&2 \
+     && sleep $grace \
+     && kubectl delete persistentvolumeclaim -l app=cassandra
+   ```
 
 <!--
 1. Run the following command to delete the Service you set up for Cassandra:
 -->
-2.运行以下命令，删除你为 Cassandra 设置的 Service：
+2. 运行以下命令，删除你为 Cassandra 设置的 Service：
 
-    ```shell
-    kubectl delete service -l app=cassandra
-    ```
+   ```shell
+   kubectl delete service -l app=cassandra
+   ```
 
 <!--
 ## Cassandra container environment variables
@@ -412,20 +416,20 @@ This image includes a standard Cassandra installation from the Apache Debian rep
 By using environment variables you can change values that are inserted into `cassandra.yaml`.
 -->
 ## Cassandra 容器环境变量
-本教程中的 Pod 使用来自 Google [container registry](https://cloud.google.com/container-registry/docs/)
-的 [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 镜像。
-上面的 Docker 镜像基于 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)，并且包含 OpenJDK 8。
+
+本教程中的 Pod 使用来自 Google [容器镜像库](https://cloud.google.com/container-registry/docs/)
+的 [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
+镜像。上面的 Docker 镜像基于 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)，
+并且包含 OpenJDK 8。
 
 该映像包括来自 Apache Debian 存储库的标准 Cassandra 安装。
 通过使用环境变量，您可以更改插入到 `cassandra.yaml` 中的值。
 
-| Environment variable     | Default value    |
+| 环境变量                 | 默认值           |
 | ------------------------ |:---------------: |
 | `CASSANDRA_CLUSTER_NAME` | `'Test Cluster'` |
 | `CASSANDRA_NUM_TOKENS`   | `32`             |
 | `CASSANDRA_RPC_ADDRESS`  | `0.0.0.0`        |
-
-
 
 ## {{% heading "whatsnext" %}}
 
@@ -437,3 +441,4 @@ By using environment variables you can change values that are inserted into `cas
 * 了解如何[扩缩 StatefulSet](/docs/tasks/run-application/scale-stateful-set/)。
 * 了解有关 [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 的更多信息
 * 查看更多自定义 [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
+
