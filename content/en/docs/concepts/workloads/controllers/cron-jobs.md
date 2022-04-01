@@ -91,6 +91,21 @@ For example, the line below states that the task must be started every Friday at
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
+## Time zones
+For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
+Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
+timezone).
+
+When you have the feature enabled, you can set `spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) name. For example, setting
+`spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
+
+A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
+
 ## CronJob limitations {#cron-job-limitations}
 
 A cron job creates a job object _about_ once per execution time of its schedule. We say "about" because there
