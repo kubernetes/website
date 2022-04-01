@@ -114,7 +114,7 @@ kubeletは、次の変数に基づいて未使用のコンテナをガベージ�
 
 `MaxPerPodContainer`と`MaxContainer`は、Podごとのコンテナーの最大数(`MaxPerPodContainer`)を保持すると、グローバルなデッドコンテナの許容合計(`MaxContainers`)を超える状況で、互いに競合する可能性があります。
 この状況では、kubeletは`MaxPodPerContainer`を調整して競合に対処します。最悪のシナリオは、`MaxPerPodContainer`を1にダウングレードし、最も古いコンテナーを削除することです。
-さらに、削除されたポッドが所有するコンテナは、`MinAge`より古くなると削除されます。
+さらに、削除されたPodが所有するコンテナは、`MinAge`より古くなると削除されます。
 
 {{<note>}}
  kubeletがガベージコレクションするのは、自分が管理するコンテナーのみです。
