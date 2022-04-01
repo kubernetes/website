@@ -101,24 +101,24 @@ node stability (section [Reserved memory flag](#reserved-memory-flag)).
 
 Memory Manager supports two policies. You can select a policy via a `kubelet` flag `--memory-manager-policy`:
 
-* `None` (default)
-* `Static`
+* `none` (default)
+* `static`
 
 #### None policy {#policy-none}
 
 This is the default policy and does not affect the memory allocation in any way.
 It acts the same as if the Memory Manager is not present at all.
 
-The `None` policy returns default topology hint. This special hint denotes that Hint Provider
+The `none` policy returns default topology hint. This special hint denotes that Hint Provider
 (Memory Manger in this case) has no preference for NUMA affinity with any resource.
 
 #### Static policy {#policy-static}
 
-In the case of the `Guaranteed` pod, the `Static` Memory Manger policy returns topology hints
+In the case of the `Guaranteed` pod, the `static` Memory Manger policy returns topology hints
 relating to the set of NUMA nodes where the memory can be guaranteed,
 and reserves the memory through updating the internal [NodeMap][2] object.
 
-In the case of the `BestEffort` or `Burstable` pod, the `Static` Memory Manager policy sends back
+In the case of the `BestEffort` or `Burstable` pod, the `static` Memory Manager policy sends back
 the default topology hint as there is no request for the guaranteed memory,
 and does not reserve the memory in the internal [NodeMap][2] object.
 
