@@ -107,7 +107,7 @@ kubectl delete pod qos-demo --namespace=qos-example
 A Pod is given a QoS class of Burstable if:
 
 * The Pod does not meet the criteria for QoS class Guaranteed.
-* At least one Container in the Pod has a memory or CPU request.
+* At least one Container in the Pod has a memory or CPU request or limit.
 
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit of 200 MiB
 and a memory request of 100 MiB.
