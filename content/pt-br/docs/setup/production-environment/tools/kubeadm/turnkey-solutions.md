@@ -1,13 +1,11 @@
 ---
-title: Turnkey Cloud Solutions
+title: Soluções de Nuvem Prontas para uso
 content_type: concept
 weight: 30
 ---
 <!-- overview -->
 
-This page provides a list of Kubernetes certified solution providers. From each
-provider page, you can learn how to install and setup production
-ready clusters.
+Essa página fornece uma lista de provedores de soluções certificadas do Kubernetes. Na página de cada provedor, você pode aprender como instalar e configurar clusters prontos para produção.
 
 <!-- body -->
 
