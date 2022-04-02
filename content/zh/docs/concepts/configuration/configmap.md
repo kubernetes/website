@@ -65,7 +65,7 @@ that lets you store configuration for other objects to use. Unlike most
 Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
 fields. These fields accept key-value pairs as their values.  Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
-contain UTF-8 byte sequences while the `binaryData` field is designed to
+contain UTF-8 strings while the `binaryData` field is designed to
 contain binary data as base64-encoded strings.
 
 The name of a ConfigMap must be a valid
@@ -77,7 +77,7 @@ ConfigMap 是一个 API [对象](/zh/docs/concepts/overview/working-with-objects
 让你可以存储其他对象所需要使用的配置。
 和其他 Kubernetes 对象都有一个 `spec` 不同的是，ConfigMap 使用 `data` 和
 `binaryData` 字段。这些字段能够接收键-值对作为其取值。`data` 和 `binaryData`
-字段都是可选的。`data` 字段设计用来保存 UTF-8 字节序列，而 `binaryData`
+字段都是可选的。`data` 字段设计用来保存 UTF-8 字符串，而 `binaryData`
 则被设计用来保存二进制数据作为 base64 编码的字串。
 
 ConfigMap 的名字必须是一个合法的
