@@ -280,6 +280,33 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 命令行上的文件引用是相对于当前工作目录的。
 在 `$HOME/.kube/config` 中，相对路径按相对路径存储，绝对路径按绝对路径存储。
 
+<!--
+## Proxy
+ 
+You can configure `kubectl` to use proxy by setting `proxy-url` in the kubeconfig file, like:
+-->
+## 代理
+你可以通过在 kubeconfig 文件中设置 `proxy-url` 来配置 `kubectl` 以使用代理，例如：
+
+```yaml
+apiVersion: v1
+kind: Config
+
+proxy-url: https://proxy.host:3128
+
+clusters:
+- cluster:
+  name: development
+
+users:
+- name: developer
+
+contexts:
+- context:
+  name: development
+
+```
+
 ## {{% heading "whatsnext" %}}
 
 <!--
