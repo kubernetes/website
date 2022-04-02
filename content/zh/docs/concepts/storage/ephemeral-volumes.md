@@ -183,7 +183,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/data"
         name: my-csi-inline-vol
@@ -202,17 +202,31 @@ driver. These attributes are specific to each driver and not
 standardized. See the documentation of each CSI driver for further
 instructions.
 
-As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
+### CSI driver restrictions
+
+As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
 [`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
+
+{{< note >}}
+PodSecurityPolicy is deprecated and will be removed in the Kubernetes v1.25 release.
+{{< /note >}}
 -->
 `volumeAttributes` 决定驱动程序准备什么样的卷。这些属性特定于每个驱动程序，且没有实现标准化。
 有关进一步的说明，请参阅每个 CSI 驱动程序的文档。
 
+### CSI 驱动程序限制
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
 作为一个集群管理员，你可以使用 
-[PodSecurityPolicy](/zh/docs/concepts/policy/pod-security-policy/) 
+[PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/) 
 来控制在 Pod 中可以使用哪些 CSI 驱动程序，
 具体则是通过 [`allowedCSIDrivers` 字段](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy)
 指定。
+
+{{< note >}}
+PodSecurityPolicy 已弃用，并将在 Kubernetes v1.25 版本中移除。
+{{< /note >}}
+
 
 <!--
 ### Generic ephemeral volumes
@@ -262,7 +276,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/scratch"
         name: scratch-volume
@@ -411,20 +425,20 @@ two choices:
 如果这不符合他们的安全模型，他们有如下选择：
 
 <!--
+- Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  that rejects objects like Pods that have a generic ephemeral
+  volume.
 - Use a [Pod Security
   Policy](/docs/concepts/policy/pod-security-policy/) where the
   `volumes` list does not contain the `ephemeral` volume type
   (deprecated in Kubernetes 1.21).
-- Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  which rejects objects like Pods that have a generic ephemeral
-  volume.
 -->
 - 通过特性门控显式禁用该特性。
+- 使用一个[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  拒绝包含通用临时卷的 Pods。
 - 当 `volumes` 列表不包含 `ephemeral` 卷类型时，使用
   [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)。
   （这一方式在 Kubernetes 1.21 版本已经弃用）
-- 使用一个[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  拒绝包含通用临时卷的 Pods。
 
 <!--
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so
