@@ -127,6 +127,7 @@ aliases:
     # MasayaAoyama
     - nasa9084
     # oke-py
+    - ptux
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
