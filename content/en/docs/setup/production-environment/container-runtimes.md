@@ -2,7 +2,7 @@
 reviewers:
 - vincepri
 - bart0sh
-title: Container runtimes
+title: Container Runtimes
 content_type: concept
 weight: 20
 ---
@@ -13,7 +13,6 @@ You need to install a
 into each node in the cluster so that Pods can run there. This page outlines
 what is involved and describes related tasks for setting up nodes.
 
-<!-- body -->
 
 Kubernetes {{< skew currentVersion >}} requires that you use a runtime that
 conforms with the
@@ -21,8 +20,8 @@ conforms with the
 
 See [CRI version support](#cri-versions) for more information.
 
-This page lists details for using several common container runtimes with
-Kubernetes, on Linux:
+This page provides an outline of how to use several common container runtimes with
+Kubernetes.
 
 - [containerd](#containerd)
 - [CRI-O](#cri-o)
@@ -30,25 +29,27 @@ Kubernetes, on Linux:
 - [Mirantis Container Runtime](#mcr)
 
 {{< note >}}
-Dockershim, the portion of code in Kubernetes that provided direct
-integration with Docker in prior releases, was removed from Kubernetes
-version 1.24. This removal was announced as a [deprecation in Kubernetes v 1.20](
-/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
-You can check out this [documentation](
-/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-to understand how this deprecation might affect you. To migrate from
-dockershim you can follow [this migration guide](
-/docs/tasks/administer-cluster/migrating-from-dockershim/)
-to migrate from dockershim.
+Kubernetes releases before v1.24 included a direct integration with Docker Engine,
+using a component named _dockershim_. That special direct integration is no longer
+part of Kubernetes (this removal was
+[announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
+as part of the v1.20 release).
+You can read
+[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to understand how this removal might
+affect you. To learn about migrating from using dockershim, see
+[Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
+
+If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
+check the documentation for that version.
 {{< /note >}}
 
-{{< note >}}
-For other operating systems, look for documentation specific to your platform.
-{{< /note >}}
+
+<!-- body -->
 
 ## Cgroup drivers
 
-Control groups are used to constrain resources that are allocated to processes.
+On Linux, {{< glossary_tooltip text="control groups" term_id="cgroup" >}}
+are used to constrain resources that are allocated to processes.
 
 When [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is chosen as the init
 system for a Linux distribution, the init process generates and consumes a root control group
@@ -77,7 +78,7 @@ If you have automation that makes it feasible, replace the node with another usi
 configuration, or reinstall it using automation.
 {{< /caution >}}
 
-## Cgroup v2
+### Cgroup version 2 {#cgroup-v2}
 
 Cgroup v2 is the next version of the cgroup Linux API.  Differently than cgroup v1, there is a single
 hierarchy instead of a different one for each controller.
@@ -115,8 +116,8 @@ In order to use it, cgroup v2 must be supported by the CRI runtime as well.
 
 ### Migrating to the `systemd` driver in kubeadm managed clusters
 
-Follow this [Migration guide](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
-if you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters.
+If you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters,
+follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 
 ## CRI version support {#cri-versions}
 
@@ -133,96 +134,51 @@ using the (deprecated) v1alpha2 API instead.
 
 ### containerd
 
-This section contains the necessary steps to use containerd as CRI runtime.
+This section outlines the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
 
-Install and configure prerequisites:
+1. Install and configure prerequisites:
 
-```shell
-cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# Setup required sysctl params, these persist across reboots.
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-# Apply sysctl params without reboot
-sudo sysctl --system
-```
-
-Install containerd:
-
-{{< tabs name="tab-cri-containerd-installation" >}}
-{{% tab name="Linux" %}}
-
-1. Install the `containerd.io` package from the [official containerd website](
-   https://containerd.io/downloads/).Instructions for setting up the Docker
-   repository for your respective Linux distribution and
-   installing the `containerd.io` package can be found at
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
-
-2. Configure containerd:
+   (these instructions apply to Linux nodes only)
 
    ```shell
-   sudo mkdir -p /etc/containerd
-   containerd config default | sudo tee /etc/containerd/config.toml
+   cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
+   overlay
+   br_netfilter
+   EOF
+
+   sudo modprobe overlay
+   sudo modprobe br_netfilter
+
+   # Setup required sysctl params, these persist across reboots.
+   cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+   net.bridge.bridge-nf-call-iptables  = 1
+   net.ipv4.ip_forward                 = 1
+   net.bridge.bridge-nf-call-ip6tables = 1
+   EOF
+
+   # Apply sysctl params without reboot
+   sudo sysctl --system
    ```
 
-3. Restart containerd:
+1. Install containerd:
 
-   ```shell
-   sudo systemctl restart containerd
-   ```
+   Visit
+   [Getting started with containerd](https://containerd.io/docs/getting-started/#starting-containerd)
+   and follow the instructions there, up to the point where you have a valid
+   configuration file (on Linux: `/etc/containerd/config.toml`).
 
-{{% /tab %}}
-{{% tab name="Windows (PowerShell)" %}}
-
-Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`),
-and then run the following commands:
-
-1. Download containerd:
-
+   If you are running Windows, you might want to exclude containerd from Windows Defender Scans
    ```powershell
-   curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
-   tar.exe xvf .\containerd-windows-amd64.tar.gz
-   ```
-
-2. Extract and configure:
-
-   ```powershell
-   Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
-   cd $Env:ProgramFiles\containerd\
-   .\containerd.exe config default | Out-File config.toml -Encoding ascii
-
-   # Review the configuration. Depending on setup you may want to adjust:
-   # - the sandbox_image (Kubernetes pause image)
-   # - cni bin_dir and conf_dir locations
-   Get-Content config.toml
-
-   # (Optional - but highly recommended) Exclude containerd from Windows Defender Scans
+   # If excluding containerd from Windows Defender scans, consider how else
+   # you will make sure that the executable is genuine.
    Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
    ```
 
-3. Start containerd:
+For containerd, the CRI socket is `/run/containerd/containerd.sock` by default.
 
-   ```powershell
-   .\containerd.exe --register-service
-   Start-Service containerd
-   ```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-#### Using the `systemd` cgroup driver {#containerd-systemd}
+#### Configuring the `systemd` cgroup driver {#containerd-systemd}
 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
 
@@ -233,7 +189,7 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
     SystemdCgroup = true
 ```
 
-If you apply this change make sure to restart containerd again:
+If you apply this change, make sure to restart containerd:
 
 ```shell
 sudo systemctl restart containerd
@@ -246,176 +202,14 @@ When using kubeadm, manually configure the
 
 This section contains the necessary steps to install CRI-O as a container runtime.
 
-Use the following commands to install CRI-O on your system:
-
-{{< note >}}
-The CRI-O major and minor versions must match the Kubernetes major and minor versions.
-For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes).
-{{< /note >}}
-
-Install and configure prerequisites:
-
-```shell
-# Create the .conf file to load the modules at bootup
-cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# Set up required sysctl params, these persist across reboots.
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-sudo sysctl --system
-```
-
-{{< tabs name="tab-cri-cri-o-installation" >}}
-{{% tab name="Debian" %}}
-
-To install CRI-O on the following operating systems, set the environment variable `OS`
-to the appropriate value from the following table:
-
-| Operating system | `$OS`             |
-| ---------------- | ----------------- |
-| Debian Unstable  | `Debian_Unstable` |
-| Debian Testing   | `Debian_Testing`  |
-
-<br />
-Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
-You can pin your installation to a specific release.
-To install version 1.20.0, set `VERSION=1.20:1.20.0`.
-<br />
-
-Then run
-```shell
-cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
-EOF
-cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
-deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
-EOF
-
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
-
-sudo apt-get update
-sudo apt-get install cri-o cri-o-runc
-```
-
-{{% /tab %}}
-
-{{% tab name="Ubuntu" %}}
-
-To install on the following operating systems, set the environment variable `OS`
-to the appropriate field in the following table:
-
-| Operating system | `$OS`             |
-| ---------------- | ----------------- |
-| Ubuntu 20.04     | `xUbuntu_20.04`   |
-| Ubuntu 19.10     | `xUbuntu_19.10`   |
-| Ubuntu 19.04     | `xUbuntu_19.04`   |
-| Ubuntu 18.04     | `xUbuntu_18.04`   |
-
-<br />
-Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
-You can pin your installation to a specific release.
-To install version 1.20.0, set `VERSION=1.20:1.20.0`.
-<br />
-
-Then run
-```shell
-cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
-EOF
-cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
-deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
-EOF
-
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers-cri-o.gpg add -
-
-sudo apt-get update
-sudo apt-get install cri-o cri-o-runc
-```
-{{% /tab %}}
-
-{{% tab name="CentOS" %}}
-
-To install on the following operating systems, set the environment variable `OS`
-to the appropriate field in the following table:
-
-| Operating system | `$OS`             |
-| ---------------- | ----------------- |
-| Centos 8         | `CentOS_8`        |
-| Centos 8 Stream  | `CentOS_8_Stream` |
-| Centos 7         | `CentOS_7`        |
-
-<br />
-Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
-You can pin your installation to a specific release.
-To install version 1.20.0, set `VERSION=1.20:1.20.0`.
-<br />
-
-Then run
-```shell
-sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
-sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
-sudo yum install cri-o
-```
-
-{{% /tab %}}
-
-{{% tab name="openSUSE Tumbleweed" %}}
-
-```shell
-sudo zypper install cri-o
-```
-{{% /tab %}}
-{{% tab name="Fedora" %}}
-
-Set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.20, `VERSION=1.20`.
-
-You can find available versions with:
-```shell
-sudo dnf module list cri-o
-```
-CRI-O does not support pinning to specific releases on Fedora.
-
-Then run
-```shell
-sudo dnf module enable cri-o:$VERSION
-sudo dnf install cri-o
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-Start CRI-O:
-
-```shell
-sudo systemctl daemon-reload
-sudo systemctl enable crio --now
-```
-
-Refer to the [CRI-O installation guide](https://github.com/cri-o/cri-o/blob/master/install.md)
-for more information.
-
+To install CRI-O, follow [CRI-O Install Instructions](https://github.com/cri-o/cri-o/blob/main/install.md#readme).
 
 #### cgroup driver
 
-CRI-O uses the systemd cgroup driver per default. To switch to the `cgroupfs`
-cgroup driver, either edit `/etc/crio/crio.conf` or place a drop-in
-configuration in `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example:
+CRI-O uses the systemd cgroup driver per default, which is likely to work fine
+for you. To switch to the `cgroupfs` cgroup driver, either editi
+`/etc/crio/crio.conf` or place a drop-in configuration in
+`/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example:
 
 ```toml
 [crio.runtime]
@@ -423,29 +217,28 @@ conmon_cgroup = "pod"
 cgroup_manager = "cgroupfs"
 ```
 
-Please also note the changed `conmon_cgroup`, which has to be set to the value
+You should also note the changed `conmon_cgroup`, which has to be set to the value
 `pod` when using CRI-O with `cgroupfs`. It is generally necessary to keep the
 cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
 
+For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
+
 ### Docker Engine {#docker}
 
-On each of your nodes, install Docker for your Linux distribution as per
-[Install Docker Engine](https://docs.docker.com/engine/install/#server).
-
-Docker Engine is directly compatible with Kubernetes {{< skew currentVersion >}}, using the deprecated `dockershim` component. For more information
-and context, see the [Dockershim deprecation FAQ](/dockershim).
-
-You can also find third-party adapters that let you use Docker Engine with Kubernetes
-through the supported {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}}
-(CRI).
-
 {{< note >}}
-`overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher,
-or RHEL or CentOS using version 3.10.0-514 and above.
+These instructions assume that you are using the
+[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) adapter to integrate
+Docker Engine with Kubernetes.
 {{< /note >}}
 
-- [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) from Mirantis
+1. On each of your nodes, install Docker for your Linux distribution as per
+  [Install Docker Engine](https://docs.docker.com/engine/install/#server).
+
+2. Install [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd), following
+   the instructions in that source code repository.
+
+For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 
 ### Mirantis Container Runtime {#mcr}
 
@@ -454,3 +247,14 @@ available container runtime that was formerly known as Docker Enterprise Edition
 
 You can use Mirantis Container Runtime with Kubernetes using the open source
 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) component, included with MCR.
+
+To learn more about how to install Mirantis Container Runtime,
+visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html).
+
+Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
+socket.
+
+## {{% heading "whatsnext" %}}
+
+As well as a container runtime, your cluster will need a working
+[network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
