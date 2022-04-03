@@ -207,7 +207,7 @@ To install CRI-O, follow [CRI-O Install Instructions](https://github.com/cri-o/c
 #### cgroup driver
 
 CRI-O uses the systemd cgroup driver per default, which is likely to work fine
-for you. To switch to the `cgroupfs` cgroup driver, either editi
+for you. To switch to the `cgroupfs` cgroup driver, either edit
 `/etc/crio/crio.conf` or place a drop-in configuration in
 `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example:
 
