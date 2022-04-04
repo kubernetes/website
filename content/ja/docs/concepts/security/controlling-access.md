@@ -116,7 +116,7 @@ Kubernetesは、ABACモード、RBACモード、Webhookモードなど、複数�
 Kubernetesの監査は、クラスター内の一連のアクションを文書化した、セキュリティに関連する時系列の記録を提供します。
 クラスターは、ユーザー、Kubernetes APIを使用するアプリケーション、およびコントロールプレーン自身によって生成されるアクティビティを監査します。
 
-詳しくは[監査](/docs/tasks/debug-application-cluster/audit/)をご覧ください。
+詳しくは[監査](/ja/docs/tasks/debug-application-cluster/audit/)をご覧ください。
 
 ## APIサーバーのIPとポート {#api-server-ports-and-ips}
 
