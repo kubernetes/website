@@ -199,7 +199,7 @@ Use the following phase to configure bootstrap tokens.
 {{< tab name="bootstrap-token" include="generated/kubeadm_init_phase_bootstrap-token.md" />}}
 {{< /tabs >}}
 
-## kubeadm init phase kubelet-finialize {#cmd-phase-kubelet-finalize-all}
+## kubeadm init phase kubelet-finalize {#cmd-phase-kubelet-finalize-all}
 
 <!-- 
 Use the following phase to update settings relevant to the kubelet after TLS
@@ -210,9 +210,9 @@ phases.
 你可以使用 `all` 子命令来运行所有 `kubelet-finalize` 阶段。
 
 {{< tabs name="tab-kubelet-finalize" >}}
-{{< tab name="kublet-finalize" include="generated/kubeadm_init_phase_kubelet-finalize.md" />}}
-{{< tab name="kublet-finalize-all" include="generated/kubeadm_init_phase_kubelet-finalize_all.md" />}}
-{{< tab name="kublet-finalize-cert-rotation" include="generated/kubeadm_init_phase_kubelet-finalize_experimental-cert-rotation.md" />}}
+{{< tab name="kubelet-finalize" include="generated/kubeadm_init_phase_kubelet-finalize.md" />}}
+{{< tab name="kubelet-finalize-all" include="generated/kubeadm_init_phase_kubelet-finalize_all.md" />}}
+{{< tab name="kubelet-finalize-cert-rotation" include="generated/kubeadm_init_phase_kubelet-finalize_experimental-cert-rotation.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -234,11 +234,11 @@ install them selectively.
 {{< /tabs >}}
 
 <!--
-For more details on each field in the `v1beta2` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
+For more details on each field in the `v1beta3` configuration you can navigate to our
+[API reference pages.](/docs/reference/config-api/kubeadm-config.v1beta3/)
 -->
-有关 `v1beta2` 配置中每个字段的更多详细信息，可以访问
-[API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)。
+有关 `v1beta3` 配置中每个字段的更多详细信息，可以访问
+[API](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 ## {{% heading "whatsnext" %}}
 
