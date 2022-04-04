@@ -114,7 +114,8 @@ different Kubernetes components.
 | `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | |
 | `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
 | `GRPCContainerProbe` | `true` | Beta | 1.24 | |
-| `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 | |
+| `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 | 1.23 |
+| `HonorPVReclaimPolicy` | `true` | Beta | 1.24 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
@@ -880,8 +881,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   when shutting down a node gracefully.
 - `GRPCContainerProbe`: Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe.
   See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
-- `HonorPVReclaimPolicy`: Honor persistent volume reclaim policy when it is `Delete`
-  irrespective of PV-PVC deletion ordering.
+- `HonorPVReclaimPolicy`: Honor persistent volume reclaim policy when it is `Delete` irrespective of PV-PVC deletion ordering.
+  For more details, check the
+  [PersistentVolume deletion protection finalizer](/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer)
+  documentation.
 - `HPAContainerMetrics`: Enable the `HorizontalPodAutoscaler` to scale based on
   metrics from individual containers in target pods.
 - `HPAScaleToZero`: Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler`
