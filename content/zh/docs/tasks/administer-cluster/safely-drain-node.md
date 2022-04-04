@@ -52,7 +52,7 @@ configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
 
 If availability is important for any applications that run or could run on the node(s)
 that you are draining, [configure a PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
-first and the continue following this guide.
+first and then continue following this guide.
 -->
 ## （可选） 配置干扰预算 {#configure-poddisruptionbudget}
 
