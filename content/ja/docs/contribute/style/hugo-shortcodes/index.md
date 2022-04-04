@@ -255,7 +255,7 @@ println "これはタブ2です。"
 Kubernetesの実行にはサードパーティーのソフトウェアが必要です。
 例えば、名前解決を行うためにはクラスターに[DNSサーバー](/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)を追加する必要があります。
 
-私たちがサードパーティーソフトウェアにリンクするときや言及するときは、[コンテンツガイド](/docs/contribute/style/content-guide/)に従い、サードパーティーのものに印をつけます。
+私たちがサードパーティーソフトウェアにリンクするときや言及するときは、[コンテンツガイド](/ja/docs/contribute/style/content-guide/)に従い、サードパーティーのものに印をつけます。
 
 これらのショートコードを使用すると、それらを使用しているドキュメントページに免責事項が追加されます。
 
