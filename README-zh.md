@@ -123,7 +123,7 @@ Hugo is shipped in two set of binaries for technical reasons. The current websit
 
 由于技术原因，Hugo 会发布两套二进制文件。
 当前网站仅基于 **Hugo Extended** 版本运行。
-在 [发布页面](https://github.com/gohugoio/hugo/releases) 中查找名称为 `extended` 的归档。可以运行 `huge version` 查看是否有单词 `extended` 来确认。
+在 [发布页面](https://github.com/gohugoio/hugo/releases) 中查找名称为 `extended` 的归档。可以运行 `hugo version` 查看是否有单词 `extended` 来确认。
 
 <!--
 ### Troubleshooting macOS for too many open files

@@ -66,15 +66,14 @@ you can see the `spec.serviceAccountName` field has been
 
 <!--
 You can access the API from inside a pod using automatically mounted service account credentials,
-as described in [Accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
+as described in [Accessing the Cluster](/docs/tasks/accessing-application-cluster/access-cluster/).
 The API permissions of the service account depend on the [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
 
 In version 1.6+, you can opt out of automounting API credentials for a service account by setting
 `automountServiceAccountToken: false` on the service account:
 -->
 你可以使用自动挂载给 Pod 的服务账户凭据访问 API，
-[访问集群](/zh/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod)
-中有相关描述。
+[访问集群](/zh/docs/tasks/access-application-cluster/access-cluster/)页面中有相关描述。
 服务账户的 API 许可取决于你所使用的
 [鉴权插件和策略](/zh/docs/reference/access-authn-authz/authorization/#authorization-modules)。
 
@@ -172,7 +171,7 @@ The output is similar to this:
 -->
 输出类似于：
 
-```yaml
+```none
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -237,7 +236,6 @@ metadata:
     kubernetes.io/service-account.name: build-robot
 type: kubernetes.io/service-account-token
 EOF
-secret/build-robot-secret created
 ```
 
 <!--
@@ -246,7 +244,6 @@ Now you can confirm that the newly built secret is populated with an API token f
 Any tokens for non-existent service accounts will be cleaned up by the token controller.
 -->
 现在，你可以确认新构建的 Secret 中填充了 "build-robot" 服务帐户的 API 令牌。
-
 令牌控制器将清理不存在的服务帐户的所有令牌。
 
 ```shell
@@ -312,10 +309,10 @@ The content of `token` is elided here.
   <!-- The output is similar to this: -->
   输出类似于：
 
-   ```
-   NAME             TYPE                              DATA    AGE
-   myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
-   ```
+  ```
+  NAME             TYPE                              DATA    AGE
+  myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
+  ```
 
 <!--
 ### Add image pull secret to service account
@@ -324,7 +321,7 @@ Next, modify the default service account for the namespace to use this secret as
 -->
 ### 将镜像拉取 Secret 添加到服务账号
 
-接着修改命名空间的 `default` 服务帐户，以将该 Secret 用作 imagePullSecret。
+接着修改命名空间的 `default` 服务帐户，以将该 Secret 用作 `imagePullSecret`。
 
 ```shell
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
@@ -394,8 +391,8 @@ Now, when a new Pod is created in the current namespace and using the default Se
 -->
 ### 验证镜像拉取 Secret 已经被添加到 Pod 规约
 
-现在，在当前命名空间中创建的每个使用默认服务账号的新 Pod，新 Pod 都会自动
-设置其 `.spec.imagePullSecrets` 字段：
+现在，在当前命名空间中创建使用默认服务账号的新 Pod 时，新 Pod
+会自动设置其 `.spec.imagePullSecrets` 字段：
 
 ```shell
 kubectl run nginx --image=nginx --restart=Never
@@ -419,22 +416,65 @@ myregistrykey
 <!--
 To enable and use token request projection, you must specify each of the following
 command line arguments to `kube-apiserver`:
-
-* `--service-account-issuer`
-* `--service-account-key-file`
-* `--service-account-signing-key-file`
-* `--api-audiences` (can be omitted)
-
 -->
-{{< note >}}
 为了启用令牌请求投射，你必须为 `kube-apiserver` 设置以下命令行参数：
 
+<!--
 * `--service-account-issuer`
-* `--service-account-key-file`
-* `--service-account-signing-key-file`
-* `--api-audiences`（可以省略）
+  It can be used as the Identifier of the service account token issuer. You can specify the
+  `--service-account-issuer` argument multiple times, this can be useful to enable a non-disruptive
+  change of the issuer. When this flag is specified multiple times, the first is used to generate
+  tokens and all are used to determine which issuers are accepted. You must be running Kubernetes
+  v1.22 or later to be able to specify `--service-account-issuer` multiple times.
+-->
+* `--service-account-issuer`
 
-{{< /note >}}
+  此参数可作为服务账户令牌发放者的身份标识（Identifier）。你可以多次指定
+  `--service-account-issuer` 参数，对于要变更发放者而又不想带来业务中断的场景，
+  这样做是有用的。如果这个参数被多次指定，则第一个参数值会被用来生成令牌，
+  而所有参数值都会被用来确定哪些发放者是可接受的。你所运行的 Kubernetes
+  集群必须是 v1.22 或更高版本，才能多次指定 `--service-account-issuer`。
+
+<!--
+* `--service-account-key-file`
+  File containing PEM-encoded x509 RSA or ECDSA private or public keys, used to verify
+  ServiceAccount tokens. The specified file can contain multiple keys, and the flag can be specified
+  multiple times with different files. If specified multiple times, tokens signed by any of the
+  specified keys are considered valid by the Kubernetes API server.
+-->
+* `--service-account-key-file`
+
+  包含 PEM 编码的 x509 RSA 或 ECDSA 私钥或公钥，用来检查 ServiceAccount
+  的令牌。所指定的文件中可以包含多个秘钥，并且你可以多次使用此参数，
+  每次参数值为不同的文件。多次使用此参数时，由所给的秘钥之一签名的令牌会被
+  Kubernetes API 服务器认为是合法令牌。
+
+<!--
+* `--service-account-signing-key-file`
+  Path to the file that contains the current private key of the service account token issuer. The
+  issuer signs issued ID tokens with this private key.
+-->
+* `--service-account-signing-key-file`
+
+  指向包含当前服务账户令牌发放者的私钥的文件路径。
+  此发放者使用此私钥来签署所发放的 ID 令牌。
+
+<!--
+* `--api-audiences` (can be omitted)
+  The service account token authenticator validates that tokens used against the API are bound to
+  at least one of these audiences. If `api-audiences` is specified multiple times, tokens for any of
+  the specified audiences are considered valid by the Kubernetes API server. If the
+  `--service-account-issuer` flag is configured and this flag is not, this field defaults to a
+  single element list containing the issuer URL.
+-->
+* `--api-audiences` (can be omitted)
+
+  服务账号令牌身份检查组件会检查针对 API 访问所使用的令牌，
+  确认令牌至少是被绑定到这里所给的受众（audiences）之一。
+  如果此参数被多次指定，则针对所给的多个受众中任何目标的令牌都会被
+  Kubernetes API 服务器当做合法的令牌。如果 `--service-account-issuer`
+  参数被设置，而这个参数未指定，则这个参数的默认值为一个只有一个元素的列表，
+  且该元素为令牌发放者的 URL。
 
 <!--
 The kubelet can also project a service account token into a Pod. You can
@@ -443,9 +483,9 @@ duration. These properties are not configurable on the default service account
 token. The service account token will also become invalid against the API when
 the Pod or the ServiceAccount is deleted.
 -->
-kubelet 还可以将服务帐户令牌投影到 Pod 中。
-你可以指定令牌的所需属性，例如受众和有效持续时间。
-这些属性在默认服务帐户令牌上无法配置。
+kubelet 还可以将服务帐户令牌投射到 Pod 中。
+你可以指定令牌的期望属性，例如受众和有效期限。
+这些属性在 default 服务帐户令牌上无法配置。
 当删除 Pod 或 ServiceAccount 时，服务帐户令牌也将对 API 无效。
 
 <!--
@@ -476,13 +516,14 @@ The kubelet proactively rotates the token if it is older than 80% of its total T
 
 The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most use cases.
 -->
-`kubelet` 组件会替 Pod 请求令牌并将其保存起来，通过将令牌存储到一个可配置的
-路径使之在 Pod 内可用，并在令牌快要到期的时候刷新它。
-`kubelet` 会在令牌存在期达到其 TTL 的 80% 的时候或者令牌生命期超过 24 小时
-的时候主动轮换它。
+`kubelet` 组件会替 Pod 请求令牌并将其保存起来，
+通过将令牌存储到一个可配置的路径使之在 Pod 内可用，
+并在令牌快要到期的时候刷新它。
+`kubelet` 会在令牌存在期达到其 TTL 的 80% 的时候或者令牌生命期超过
+24 小时的时候主动轮换它。
 
-应用程序负责在令牌被轮换时重新加载其内容。对于大多数使用场景而言，周期性地
-（例如，每隔 5 分钟）重新加载就足够了。
+应用程序负责在令牌被轮换时重新加载其内容。对于大多数使用场景而言，
+周期性地（例如，每隔 5 分钟）重新加载就足够了。
 
 <!--
 ## Service Account Issuer Discovery
@@ -496,8 +537,8 @@ The Service Account Issuer Discovery feature is enabled when the Service Account
 Token Projection feature is enabled, as described
 [above](#service-account-token-volume-projection).
 -->
-当启用服务账号令牌投射时启用发现服务账号分发者（Service Account Issuer Discovery）这一功能特性，
-如[上文所述](#service-account-token-volume-projection)。
+当启用服务账号令牌投射时启用发现服务账号分发者（Service Account Issuer Discovery）
+这一功能特性，如[上文所述](#service-account-token-volume-projection)。
 
 <!--
 The issuer URL must comply with the
@@ -508,16 +549,14 @@ provider configuration at `{service-account-issuer}/.well-known/openid-configura
 If the URL does not comply, the `ServiceAccountIssuerDiscovery` endpoints will
 not be registered, even if the feature is enabled.
 -->
-{{< note >}}
 分发者的 URL 必须遵从
 [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)。
 这意味着 URL 必须使用 `https` 模式，并且必须在
 `{service-account-issuer}/.well-known/openid-configuration`
-路径提供 OpenID 提供者（Provider）配置。
+路径给出 OpenID 提供者（Provider）配置。
 
 如果 URL 没有遵从这一规范，`ServiceAccountIssuerDiscovery` 末端就不会被注册，
 即使该特性已经被启用。
-{{< /note >}}
 
 <!--
 The Service Account Issuer Discovery feature enables federation of Kubernetes
@@ -530,13 +569,13 @@ JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
 is sometimes referred to as the _discovery document_.
 -->
 发现服务账号分发者这一功能使得用户能够用联邦的方式结合使用 Kubernetes 
-集群（_Identity Provider_，标识提供者）与外部系统（_relying parties_，
+集群（“Identity Provider”，标识提供者）与外部系统（“Relying Parties”，
 依赖方）所分发的服务账号令牌。
 
 当此功能被启用时，Kubernetes API 服务器会在 `/.well-known/openid-configuration`
 提供一个 OpenID 提供者配置文档，并在 `/openid/v1/jwks` 处提供与之关联的
 JSON Web Key Set（JWKS）。
-这里的 OpenID 提供者配置有时候也被称作 _发现文档（Discovery Document）_。
+这里的 OpenID 提供者配置有时候也被称作“发现文档（Discovery Document）”。
 
 <!--
 Clusters include a default RBAC ClusterRole called
@@ -550,7 +589,8 @@ requirements and which external systems they intend to federate with.
 -->
 集群包括一个的默认 RBAC ClusterRole, 名为 `system:service-account-issuer-discovery`。 
 默认的 RBAC ClusterRoleBinding 将此角色分配给 `system:serviceaccounts` 组，
-所有服务帐户隐式属于该组。这使得集群上运行的 Pod 能够通过它们所挂载的服务帐户令牌访问服务帐户发现文档。
+所有服务帐户隐式属于该组。这使得集群上运行的 Pod
+能够通过它们所挂载的服务帐户令牌访问服务帐户发现文档。
 此外，管理员可以根据其安全性需要以及期望集成的外部系统选择是否将该角色绑定到
 `system:authenticated` 或 `system:unauthenticated`。
 
@@ -560,11 +600,9 @@ The responses served at `/.well-known/openid-configuration` and
 compliant. Those documents contain only the parameters necessary to perform
 validation of Kubernetes service account tokens.
 -->
-{{< note >}}
 对 `/.well-known/openid-configuration` 和 `/openid/v1/jwks` 路径请求的响应
 被设计为与 OIDC 兼容，但不是完全与其一致。
 返回的文档仅包含对 Kubernetes 服务账号令牌进行验证所必须的参数。
-{{< /note >}}
 
 <!--
 The JWKS response contains public keys that a relying party can use to validate
@@ -573,8 +611,7 @@ OpenID Provider Configuration, and use the `jwks_uri` field in the response to
 find the JWKS.
 -->
 JWKS 响应包含依赖方可以用来验证 Kubernetes 服务账号令牌的公钥数据。
-依赖方先会查询 OpenID 提供者配置，之后使用返回响应中的 `jwks_uri` 来查找
-JWKS。
+依赖方先会查询 OpenID 提供者配置，之后使用返回响应中的 `jwks_uri` 来查找 JWKS。
 
 <!--
 In many cases, Kubernetes API servers are not available on the public internet,
@@ -592,7 +629,6 @@ JWKS URI is required to use the `https` scheme.
 这时需要向 API 服务器传递 `--service-account-jwks-uri` 参数。
 与分发者 URL 类似，此 JWKS URI 也需要使用 `https` 模式。
 
-
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -607,3 +643,4 @@ See also:
 - [服务账号的集群管理员指南](/zh/docs/reference/access-authn-authz/service-accounts-admin/)
 - [服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
 - [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)
+
