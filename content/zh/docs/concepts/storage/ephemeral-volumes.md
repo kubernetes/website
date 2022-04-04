@@ -131,6 +131,7 @@ is managed by kubelet, or injecting different data.
 ### CSI ephemeral volumes
 -->
 ### CSI 临时卷 {#csi-ephemeral-volumes}
+
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 <!--
@@ -142,12 +143,12 @@ The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/drivers.
 shows which drivers support ephemeral volumes.
 -->
 
-该特性需要启用参数 `CSIInlineVolume` 
+该特性需要启用参数 `CSIInlineVolume`
 [特性门控（feature gate）](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 该参数从 Kubernetes 1.16 开始默认启用。
 
 {{< note >}}
-只有一部分 CSI 驱动程序支持 CSI 临时卷。Kubernetes CSI 
+只有一部分 CSI 驱动程序支持 CSI 临时卷。Kubernetes CSI
 [驱动程序列表](https://kubernetes-csi.github.io/docs/drivers.html)
 显示了支持临时卷的驱动程序。
 {{< /note >}}
@@ -170,7 +171,7 @@ Here's an example manifest for a Pod that uses CSI ephemeral storage:
 从概念上讲，CSI 临时卷类似于 `configMap`、`downwardAPI` 和 `secret` 类型的卷：
 其存储在每个节点本地管理，并在将 Pod 调度到节点后与其他本地资源一起创建。
 在这个阶段，Kubernetes 没有重新调度 Pods 的概念。卷创建不太可能失败，否则 Pod 启动将会受阻。
-特别是，这些卷 *不* 支持[感知存储容量的 Pod 调度](/zh/docs/concepts/storage/storage-capacity/)。
+特别是，这些卷 **不** 支持[感知存储容量的 Pod 调度](/zh/docs/concepts/storage/storage-capacity/)。
 它们目前也没包括在 Pod 的存储资源使用限制中，因为 kubelet 只能对它自己管理的存储强制执行。
 
 下面是使用 CSI 临时存储的 Pod 的示例清单：
@@ -202,31 +203,51 @@ driver. These attributes are specific to each driver and not
 standardized. See the documentation of each CSI driver for further
 instructions.
 
+-->
+
+`volumeAttributes` 决定驱动程序准备什么样的卷。这些属性特定于每个驱动程序，且没有实现标准化。
+有关进一步的说明，请参阅每个 CSI 驱动程序的文档。
+
+<!--
 ### CSI driver restrictions
 
 As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
 [`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
+-->
 
+### CSI 驱动程序限制 {#csi-driver-restrictions}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
+作为一个集群管理员，你可以使用
+[PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/)
+来控制在 Pod 中可以使用哪些 CSI 驱动程序，
+具体则是通过 [`allowedCSIDrivers` 字段](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy)
+指定。
+
+<!--
 {{< note >}}
 PodSecurityPolicy is deprecated and will be removed in the Kubernetes v1.25 release.
 {{< /note >}}
 -->
-`volumeAttributes` 决定驱动程序准备什么样的卷。这些属性特定于每个驱动程序，且没有实现标准化。
-有关进一步的说明，请参阅每个 CSI 驱动程序的文档。
-
-### CSI 驱动程序限制
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
-
-作为一个集群管理员，你可以使用 
-[PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/) 
-来控制在 Pod 中可以使用哪些 CSI 驱动程序，
-具体则是通过 [`allowedCSIDrivers` 字段](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy)
-指定。
 
 {{< note >}}
 PodSecurityPolicy 已弃用，并将在 Kubernetes v1.25 版本中移除。
 {{< /note >}}
 
+
+<!--
+{{< note >}}
+CSI ephemeral volumes are only supported by a subset of CSI drivers.
+The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/drivers.html)
+shows which drivers support ephemeral volumes.
+{{< /note >}}
+-->
+
+{{< note >}}
+CSI 临时卷仅有 CSI 驱动程序的一个子集支持。
+Kubernetes CSI [驱动列表](https://kubernetes-csi.github.io/docs/drivers.html)显示了哪些驱动程序支持临时卷。
+{{< /note >}}
 
 <!--
 ### Generic ephemeral volumes
@@ -326,8 +347,8 @@ because then the scheduler is free to choose a suitable node for
 the Pod. With immediate binding, the scheduler is forced to select a node that has
 access to the volume once it is available.
 -->
-如上设置将触发卷的绑定与/或准备操作，相应动作或者在 
-{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} 
+如上设置将触发卷的绑定与/或准备操作，相应动作或者在
+{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
 使用即时卷绑定时立即执行，
 或者当 Pod 被暂时性调度到某节点时执行 (`WaitForFirstConsumer` 卷绑定模式)。
 对于常见的临时卷，建议采用后者，这样调度器就可以自由地为 Pod 选择合适的节点。
@@ -340,7 +361,7 @@ that provide that ephemeral storage. When the Pod is deleted,
 the Kubernetes garbage collector deletes the PVC, which then usually
 triggers deletion of the volume because the default reclaim policy of
 storage classes is to delete volumes. You can create quasi-ephemeral local storage
-using a StorageClass with a reclaim policy of `retain`: the storage outlives the Pod, 
+using a StorageClass with a reclaim policy of `retain`: the storage outlives the Pod,
 and in this case you need to ensure that volume clean up happens separately.
 -->
 就[资源所有权](/zh/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)而言，
