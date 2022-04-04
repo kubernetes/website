@@ -70,6 +70,9 @@ other = "你是否在搜索："
 [examples_heading]
 other = "示例"
 
+[feature_state]
+other = "特性状态："
+
 [feedback_heading]
 other = "反馈"
 
