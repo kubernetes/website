@@ -131,7 +131,7 @@ contentDir = "content/de"
 weight = 8
 ```
 
-Assign "language name in native alphabets (language name in English alphabets)" to `languageName`, for example, `languageName = "한국어 (Korean)"`. Also, assign "language name in Latin script" to `languageNameLatinScript`, for example, `languageNameLatinScript ="Korean"`.
+The value for `languageName` will be listed in language selection bar. Assign "language name in native script (language name in latin script)" to `languageName`, for example, `languageName = "한국어 (Korean)"`. `languageNameLatinScript` can be used to access the language name in latin script and use it in the theme. Assign "language name in latin script" to `languageNameLatinScript`, for example, `languageNameLatinScript ="Korean"`. 
 
 When assigning a `weight` parameter for your block, find the language block with the highest weight and add 1 to that value.
 
