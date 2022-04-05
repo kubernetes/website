@@ -132,6 +132,29 @@ directory should be rotated. In Kubernetes clusters brought up by
 the `kube-up.sh` script, those logs are configured to be rotated by
 the `logrotate` tool daily or once the size exceeds 100MB.
 
+## Node Log Viewer
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+Kubernetes v1.25 offers initial support for viewing node logs using kubectl.
+This is an alpha feature and can be enabled
+by turning on the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+named `NodeLogViewer` for the kubelet component.
+
+With the feature enabled you can use `kubectl alpha node-logs` to view the logs
+of system services and log files in `/var/log/` on both Linux and Windows nodes.
+
+Example usage:
+```
+  # Show kubelet logs from all worker nodes
+  kubectl alpha node-logs --role worker -u kubelet
+
+  # See what logs are available in a worker node called w1 in /var/logs
+  kubectl alpha node-logs w1 --path=/
+```
+
+More details can be found in the kubectl help i.e. `kubectl alpha node-logs --help`.
+
 ## Cluster-level logging architectures
 
 While Kubernetes does not provide a native solution for cluster-level logging, there are several common approaches you can consider. Here are some options:
