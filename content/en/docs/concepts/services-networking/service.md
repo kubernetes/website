@@ -701,17 +701,19 @@ Specify the assigned IP address as loadBalancerIP. Ensure that you have updated 
 
 #### Load balancers with mixed protocol types
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 By default, for LoadBalancer type of Services, when there is more than one port defined, all
 ports must have the same protocol, and the protocol must be one which is supported
 by the cloud provider.
 
-If the feature gate `MixedProtocolLBService` is enabled for the kube-apiserver it is allowed to use different protocols when there is more than one port defined.
+The feature gate `MixedProtocolLBService` (enabled by default for the kube-apiserver as of v1.24) allows the use of
+different protocols for LoadBalancer type of Services, when there is more than one port defined.
 
 {{< note >}}
 
-The set of protocols that can be used for LoadBalancer type of Services is still defined by the cloud provider.
+The set of protocols that can be used for LoadBalancer type of Services is still defined by the cloud provider. If a
+cloud provider does not support mixed protocols they will provide only a single protocol.
 
 {{< /note >}}
 
