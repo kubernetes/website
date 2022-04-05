@@ -1,9 +1,9 @@
 ---
 reviewers:
+- aravindhp
 - jayunit100
 - jsturtevant
 - marosset
-- perithompson
 title: Networking on Windows
 content_type: concept
 weight: 75
@@ -59,8 +59,8 @@ with recommendations on when to use each CNI:
 | NAT (*not used in Kubernetes*) | Containers are given a vNIC connected to an internal vSwitch. DNS/DHCP is provided using an internal component called [WinNAT](https://techcommunity.microsoft.com/t5/virtualization/windows-nat-winnat-capabilities-and-limitations/ba-p/382303) | MAC and IP is rewritten to host MAC/IP. | [nat](https://github.com/Microsoft/windows-container-networking/tree/master/plugins/nat) | Included here for completeness |
 
 As outlined above, the [Flannel](https://github.com/coreos/flannel)
-CNI [meta plugin](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel)
-is also [supported](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel#windows-support-experimental) on Windows via the
+[CNI plugin](https://github.com/flannel-io/cni-plugin)
+is also [supported](https://github.com/flannel-io/cni-plugin#windows-support-experimental) on Windows via the
 [VXLAN network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) (**Beta support** ; delegates to win-overlay)
 and [host-gateway network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#host-gw) (stable support; delegates to win-bridge).
 
