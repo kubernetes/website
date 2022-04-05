@@ -442,9 +442,8 @@ The Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) a
 
 ## Getting help and troubleshooting {#troubleshooting}
 
-Your main source of help for troubleshooting your Kubernetes cluster should start
-with the [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting/)
-page.
+For help with debugging and troubleshooting your Kubernetes cluster and/or workloads please start  
+with the [Troubleshooting](/docs/tasks/debug-application-cluster/) section.
 
 Some additional, Windows-specific troubleshooting help is included
 in this section. Logs are an important element of troubleshooting
@@ -453,6 +452,7 @@ troubleshooting assistance from other contributors. Follow the
 instructions in the
 SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 
+<<<<<<< HEAD
 ### Node-level troubleshooting {#troubleshooting-node}
 
 1. How do I know `start.ps1` completed successfully?
@@ -692,28 +692,16 @@ If these steps don't resolve your problem, you can get help running Windows cont
 * Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
 * Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/sig-windows)
 
+=======
+>>>>>>> move-windows-troubleshooting-1.24
 ### Reporting issues and feature requests
 
 If you have what looks like a bug, or you would like to
-make a feature request, please use the
-[GitHub issue tracking system](https://github.com/kubernetes/kubernetes/issues).
-You can open issues on
-[GitHub](https://github.com/kubernetes/kubernetes/issues/new/choose) and assign
-them to SIG-Windows. You should first search the list of issues in case it was
+make a feature request, please follow the [SIG Windows contributing guide](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) to create a new issue.
+You should first search the list of issues in case it was
 reported previously and comment with your experience on the issue and add additional
 logs. SIG-Windows Slack is also a great avenue to get some initial support and
 troubleshooting ideas prior to creating a ticket.
-
-If filing a bug, please include detailed information about how to reproduce the problem, such as:
-
-* Kubernetes version: output from `kubectl version`
-* Environment details: Cloud provider, OS distro, networking choice and configuration, and Docker version
-* Detailed steps to reproduce the problem
-* [Relevant logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)
-
-It helps if you tag the issue as **sig/windows**, by commenting on the issue with `/sig windows`. This helps to bring
-the issue to a SIG Windows member's attention
-
 
 ## {{% heading "whatsnext" %}}
 
