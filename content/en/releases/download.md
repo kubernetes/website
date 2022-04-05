@@ -70,13 +70,16 @@ container image name, for example
 [`k8s.gcr.io/kube-apiserver-arm64:{{< param "fullversion" >}}`][0-arm64]. All
 those derivations are signed in the same way as the multi-architecture manifest lists.
 
-<!-- TODO: describe how to use the signed images -->
+The Kubernetes project publishes a list of signed Kubernetes container images
+in SBoM (Software Bill of Materials) format.
+You can fetch that list using:
 
-Full list of images that are signed can be found [here](/examples/admin/signed-images/auto-generated-list-of-all-signed-images.txt)
+```shell
+curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: k8s.gcr.io/' | awk '{print $2}'
+```
 
 To manually verify signed container images of Kubernetes core components, please refer to
-[the corresponding cluster administration documentation](/docs/tasks/administer-cluster/verify-signed-images).
-Once verified, please use the same image digest of verified images to spin up your Kubernetes cluster.
+[Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-images).
 
 ## Binaries
 
