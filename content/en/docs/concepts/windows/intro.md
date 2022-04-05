@@ -32,7 +32,8 @@ scheduling Linux-based containers.
 
 In order to run Windows containers, your Kubernetes cluster must include
 multiple operating systems.
-While you can only run the {{< glossary_tooltip text="control plane" term_id="control-plane" >}} on Linux, you can deploy worker nodes running either Windows or Linux depending on your workload needs.
+While you can only run the {{< glossary_tooltip text="control plane" term_id="control-plane" >}} on Linux,
+you can deploy worker nodes running either Windows or Linux.
 
 Windows {{< glossary_tooltip text="nodes" term_id="node" >}} are
 [supported](#windows-os-version-support) provided that the operating system is
@@ -65,7 +66,7 @@ functionality which are outlined in this section.
 ### Comparison with Linux {#compatibility-linux-similarities}
 
 Key Kubernetes elements work the same way in Windows as they do in Linux. This
-section refers to several key workload enablers and how they map to Windows.
+section refers to several key workload abstractions and how they map to Windows.
 
 * [Pods](/docs/concepts/workloads/pods/)
 
@@ -78,7 +79,7 @@ section refers to several key workload enablers and how they map to Windows.
   * Single or multiple containers per Pod with process isolation and volume sharing
   * Pod `status` fields
   * Readiness and Liveness probes
-  * postStart & preStop container lifecycle events
+  * postStart & preStop container lifecycle hooks
   * ConfigMap, Secrets: as environment variables or volumes
   * `emptyDir` volumes
   * Named pipe host mounts
@@ -86,8 +87,7 @@ section refers to several key workload enablers and how they map to Windows.
   * OS field: 
 
     The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
-    The `IdentifyPodOS` feature gate needs to be enabled for this field to be recognized and used by control plane
-    components and kubelet.
+    The `IdentifyPodOS` feature gate needs to be enabled for this field to be recognized.
 
     {{< note >}}
     Starting from 1.24, the `IdentifyPodOS` feature gate is in Beta stage and defaults to be enabled.
@@ -124,8 +124,8 @@ section refers to several key workload enablers and how they map to Windows.
 
 * [Workload resources](/docs/concepts/workloads/controllers/) including:
   * ReplicaSet
-  * Deployments
-  * StatefulSets
+  * Deployment
+  * StatefulSet
   * DaemonSet
   * Job
   * CronJob
@@ -146,10 +146,12 @@ environment. Kubernetes also supports:
 
 ### Command line options for the kubelet {#kubelet-compatibility}
 
-The behavior of some kubelet command line options behave differently on Windows, as described below:
+Some kubelet command line options behave differently on Windows, as described below:
 
-* The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process (see [CPU resource management](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu))
-* The `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+* The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process
+  (see [CPU resource management](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu))
+* The `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update
+  [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 * Eviction by using `--enforce-node-allocable` is not implemented
 * Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
 * A kubelet running on a Windows node does not have memory
@@ -161,10 +163,8 @@ The behavior of some kubelet command line options behave differently on Windows,
 
 ### API compatibility {#api}
 
-There are no differences in how most of the Kubernetes APIs work for Windows. The
-subtleties around what's different come down to differences in the OS and container
-runtime. In certain situations, some properties on workload resources were designed
-under the assumption that they would be implemented on Linux, and fail to run on Windows.
+There are subtle differences in the way the Kubernetes APIs work for Windows due to the OS
+and container runtime. Some workload properties were designed for Linux, and fail to run on Windows.
 
 At a high level, these OS concepts are different:
 
