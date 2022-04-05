@@ -181,26 +181,34 @@ However, the particular path specified in the custom recycler Pod template in th
 Finalizers can be added on a PersistentVolume to ensure that PersistentVolumes
 having `Delete` reclaim policy are deleted only after the backing storage are deleted.
 
+The newly introduced finalizers `kubernetes.io/pv-controller` and `external-provisioner.volume.kubernetes.io/finalizer` 
+are only added to dynamically provisioned volumes.
+
 The finalizer `kubernetes.io/pv-controller` is added to in-tree plugin volumes. The following is an example
 
 ```shell
-kubectl describe pv task-pv-volume
-Name:            task-pv-volume
-Labels:          type=local
-Annotations:     <none>
-Finalizers:      [kubernetes.io/pv-protection, kubernetes.io/pv-controller]
-StorageClass:    standard
+kubectl describe pv pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Name:            pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Labels:          <none>
+Annotations:     kubernetes.io/createdby: vsphere-volume-dynamic-provisioner
+                 pv.kubernetes.io/bound-by-controller: yes
+                 pv.kubernetes.io/provisioned-by: kubernetes.io/vsphere-volume
+Finalizers:      [kubernetes.io/pv-protection kubernetes.io/pv-controller]
+StorageClass:    vcp-sc
 Status:          Bound
-Claim:
+Claim:           default/vcp-pvc-1
 Reclaim Policy:  Delete
 Access Modes:    RWO
+VolumeMode:      Filesystem
 Capacity:        1Gi
-Message:
+Node Affinity:   <none>
+Message:         
 Source:
-    Type:          HostPath (bare host directory volume)
-    Path:          /tmp/data
-    HostPathType:
-Events:            <none>
+    Type:               vSphereVolume (a Persistent Disk resource in vSphere)
+    VolumePath:         [vsanDatastore] d49c4a62-166f-ce12-c464-020077ba5d46/kubernetes-dynamic-pvc-74a498d6-3929-47e8-8c02-078c1ece4d78.vmdk
+    FSType:             ext4
+    StoragePolicyName:  vSAN Default Storage Policy
+Events:                 <none>
 ```
 
 The finalizer `external-provisioner.volume.kubernetes.io/finalizer` is added for CSI volumes.
