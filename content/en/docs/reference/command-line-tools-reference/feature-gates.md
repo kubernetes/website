@@ -130,6 +130,7 @@ different Kubernetes components.
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | |
+| `GracefulNodeShutdownBasedOnPodPriority` | `true` | Beta | 1.24 | |
 | `GRPCContainerProbe` | `false` | Alpha | 1.23 | |
 | `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
