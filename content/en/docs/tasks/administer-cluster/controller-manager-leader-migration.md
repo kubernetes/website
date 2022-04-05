@@ -57,9 +57,8 @@ Leader Migration can be enabled without a configuration. Please see [Default Con
 
 ```yaml
 kind: LeaderMigrationConfiguration
-apiVersion: controllermanager.config.k8s.io/v1beta1
+apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
-resourceLock: leases
 controllerLeaders:
   - name: route
     component: kube-controller-manager
@@ -67,6 +66,22 @@ controllerLeaders:
     component: kube-controller-manager
   - name: cloud-node-lifecycle
     component: kube-controller-manager
+```
+
+Alternatively, because the controllers can run under either controller managers, setting `component` to `*` for both side makes the configuration file consistent between both parties of the migration.
+
+```yaml
+# wildcard version
+kind: LeaderMigrationConfiguration
+apiVersion: controllermanager.config.k8s.io/v1
+leaderName: cloud-provider-extraction-migration
+controllerLeaders:
+  - name: route
+    component: *
+  - name: service
+    component: *
+  - name: cloud-node-lifecycle
+    component: *
 ```
 
 On each control plane node, save the content to `/etc/leadermigration.conf`, and update the manifest of `kube-controller-manager` so that the file is mounted inside the container at the same location. Also, update the same manifest to add the following arguments:
@@ -78,13 +93,12 @@ Restart `kube-controller-manager` on each node. At this moment, `kube-controller
 
 ### Deploy Cloud Controller Manager
 
-In version N + 1, the desired state of controller-to-manager assignment can be represented by a new configuration file, shown as follows. Please note `component` field of each `controllerLeaders` changing from `kube-controller-manager` to `cloud-controller-manager`.
+In version N + 1, the desired state of controller-to-manager assignment can be represented by a new configuration file, shown as follows. Please note `component` field of each `controllerLeaders` changing from `kube-controller-manager` to `cloud-controller-manager`. Alternatively, use the wildcard version mentioned above, which has the same effect.
 
 ```yaml
 kind: LeaderMigrationConfiguration
-apiVersion: controllermanager.config.k8s.io/v1beta1
+apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
-resourceLock: leases
 controllerLeaders:
   - name: route
     component: cloud-controller-manager
@@ -119,6 +133,26 @@ Starting Kubernetes 1.22, Leader Migration provides a default configuration suit
 The default configuration can be enabled by setting `--enable-leader-migration` but without `--leader-migration-config=`.
 
 For `kube-controller-manager` and `cloud-controller-manager`, if there are no flags that enable any in-tree cloud provider or change ownership of controllers, the default configuration can be used to avoid manual creation of the configuration file.
+
+### Special Case: Migrating Node IPAM Controller
+
+If your cloud provider provides an implementation of Node IPAM controller, you should switch to the implementation in `cloud-controller-manager`. Disable Node IPAM controller in `kube-controller-manager` of version N + 1 by adding `--controllers=*,-nodeipam` to its flags. Then add `nodeipam` to the list of migrated controllers.
+
+```yaml
+# wildcard version, with nodeipam
+kind: LeaderMigrationConfiguration
+apiVersion: controllermanager.config.k8s.io/v1
+leaderName: cloud-provider-extraction-migration
+controllerLeaders:
+  - name: route
+    component: *
+  - name: service
+    component: *
+  - name: cloud-node-lifecycle
+    component: *
+  - name: nodeipam
+-   component: *
+```
 
 ## {{% heading "whatsnext" %}}
 
