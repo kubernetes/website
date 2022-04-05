@@ -41,7 +41,7 @@ Authenticatorについては、[認証](/ja/docs/reference/access-authn-authz/au
 
 Kubernetesはアクセスコントロールの決定やリクエストログにユーザー名を使用しますが、`User`オブジェクトを持たず、ユーザー名やその他のユーザーに関する情報をAPIはに保存しません。
 
-## 認可 {#Authorization}
+## 認可 {#authorization}
 
 リクエストが特定のユーザーからのものであると認証された後、そのリクエストは認可される必要があります。
 これは図のステップ**2**に該当します。
