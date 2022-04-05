@@ -1,43 +1,42 @@
 ---
-reviewers:
-- derekwaynecarr
-title: Manage HugePages
+revisores:
+- jakspok
+titulo: Administrar HugePages
 content_type: task
-description: Configure and manage huge pages as a schedulable resource in a cluster.
+descripción: Configure y administre páginas grandes como un recurso programable en un clúster.
 ---
 
 <!-- overview -->
 {{< feature-state state="stable" >}}
 
-Kubernetes supports the allocation and consumption of pre-allocated huge pages
-by applications in a Pod. This page describes how users can consume huge pages.
+Kubernetes admite la asignación y el consumo de páginas enormes preasignadas
+por aplicaciones en un Pod. Esta página describe cómo los usuarios pueden consumir páginas enormes.
 
 ## {{% heading "prerequisites" %}}
 
 
-1. Kubernetes nodes must pre-allocate huge pages in order for the node to report
-   its huge page capacity. A node can pre-allocate huge pages for multiple
-   sizes.
+1. Los nodos de Kubernetes deben preasignar páginas grandes para que el nodo informe
+   su enorme capacidad de página. Un nodo puede preasignar páginas grandes para múltiples
+   tamaños
 
-The nodes will automatically discover and report all huge page resources as
-schedulable resources.
-
+Los nodos descubrirán e informarán automáticamente todos los recursos de páginas grandes como
+recursos programables.
 
 
 <!-- steps -->
 
 ## API
 
-Huge pages can be consumed via container level resource requirements using the
-resource name `hugepages-<size>`, where `<size>` is the most compact binary
-notation using integer values supported on a particular node. For example, if a
-node supports 2048KiB and 1048576KiB page sizes, it will expose a schedulable
-resources `hugepages-2Mi` and `hugepages-1Gi`. Unlike CPU or memory, huge pages
-do not support overcommit. Note that when requesting hugepage resources, either
-memory or CPU resources must be requested as well.
+Se pueden consumir páginas enormes a través de los requisitos de recursos a nivel de contenedor utilizando el
+nombre del recurso `hugepages-<tamaño>`, donde `<tamaño>` es el binario más compacto
+notación que utiliza valores enteros admitidos en un nodo particular. Por ejemplo, si un
+nodo admite tamaños de página de 2048 KiB y 1048576 KiB, expondrá un programable
+recursos `hugepages-2Mi` y `hugepages-1Gi`. A diferencia de la CPU o la memoria, las páginas enormes
+no admita compromisos excesivos. Tenga en cuenta que al solicitar recursos de página enorme, ya sea
+También se deben solicitar recursos de memoria o CPU.
 
-A pod may consume multiple huge page sizes in a single pod spec. In this case it
-must use `medium: HugePages-<hugepagesize>` notation for all volume mounts.
+Un pod puede consumir varios tamaños de página enormes en una única especificación de pod. En este caso
+debe usar la notación `medium: HugePages-<hugepagesize>` para todos los montajes de volumen.
 
 
 ```yaml
@@ -73,7 +72,7 @@ spec:
       medium: HugePages-1Gi
 ```
 
-A pod may use `medium: HugePages` only if it requests huge pages of one size.
+Un pod puede usar `medium: HugePages` solo si solicita páginas enormes de un tamaño.
 
 ```yaml
 apiVersion: v1
@@ -102,15 +101,15 @@ spec:
       medium: HugePages
 ```
 
-- Huge page requests must equal the limits. This is the default if limits are
-  specified, but requests are not.
-- Huge pages are isolated at a container scope, so each container has own
-  limit on their cgroup sandbox as requested in a container spec.
-- EmptyDir volumes backed by huge pages may not consume more huge page memory
-  than the pod request.
-- Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must
-  run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`.
-- Huge page usage in a namespace is controllable via ResourceQuota similar
-  to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
-  token.
+- Las solicitudes de páginas grandes deben igualar los límites. Este es el valor predeterminado si los límites son
+  especificado, pero las solicitudes no lo son.
+- Las páginas enormes están aisladas en el ámbito de un contenedor, por lo que cada contenedor tiene su propio
+  límite en su sandbox de cgroup según lo solicitado en una especificación de contenedor.
+- Es posible que los volúmenes de EmptyDir respaldados por páginas grandes no consuman más memoria de página grande
+  que la solicitud de pod.
+- Las aplicaciones que consumen páginas grandes a través de `shmget()` con `SHM_HUGETLB` deben
+  ejecutar con un grupo complementario que coincida con `proc/sys/vm/hugetlb_shm_group`.
+- El gran uso de la página en un espacio de nombres se puede controlar a través de ResourceQuota similar
+  a otros recursos informáticos como `cpu` o `memory` utilizando `hugepages-<size>`
+  simbólico.
 
