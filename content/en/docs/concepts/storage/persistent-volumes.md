@@ -176,7 +176,7 @@ spec:
 However, the particular path specified in the custom recycler Pod template in the `volumes` part is replaced with the particular path of the volume that is being recycled.
 
 ### PersistentVolume deletion protection finalizer
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
 
 Finalizers can be added on a PersistentVolume to ensure that PersistentVolumes
 having `Delete` reclaim policy are deleted only after the backing storage are deleted.
