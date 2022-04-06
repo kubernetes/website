@@ -24,7 +24,7 @@ Die Add-Ons in den einzelnen Kategorien sind alphabetisch sortiert - Die Reihenf
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install) vereint Flannel und Calico um Networking- und Network-Policies bereitzustellen.
 * [Cilium](https://github.com/cilium/cilium) ist ein L3 Network- and Network-Policy-Plugin welches das transparent HTTP/API/L7-Policies durchsetzen kann. Sowohl Routing- als auch Overlay/Encapsulation-Modes werden uterstützt. Außerdem kann Cilium auf andere CNI-Plugins aufsetzen.
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) ermöglicht das nahtlose Verbinden von Kubernetes mit einer Reihe an CNI-Plugins wie z.B. Calico, Canal, Flannel, Romana, oder Weave.
-* [Contiv](http://contiv.github.io) bietet konfigurierbares Networking (Native L3 auf BGP, Overlay mit vxlan, Klassisches L2, Cisco-SDN/ACI) für verschiedene Anwendungszwecke und auch umfangreiches Policy-Framework. Das Contiv-Projekt ist vollständig [Open Source](http://github.com/contiv). Der [installer](http://github.com/contiv/install) bietet sowohl kubeadm als auch nicht-kubeadm basierte Installationen.
+* [Contiv](https://contivpp.io/) bietet konfigurierbares Networking (Native L3 auf BGP, Overlay mit vxlan, Klassisches L2, Cisco-SDN/ACI) für verschiedene Anwendungszwecke und auch umfangreiches Policy-Framework. Das Contiv-Projekt ist vollständig [Open Source](http://github.com/contiv). Der [installer](http://github.com/contiv/install) bietet sowohl kubeadm als auch nicht-kubeadm basierte Installationen.
 * [Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), basierend auf [Tungsten Fabric](https://tungsten.io), ist eine Open Source, multi-Cloud Netzwerkvirtualisierungs- und Policy-Management Plattform. Contrail und Tungsten Fabric sind mit Orechstratoren wie z.B. Kubernetes, OpenShift, OpenStack und Mesos integriert und bieten Isolationsmodi für Virtuelle Maschinen, Container (bzw. Pods) und Bare Metal workloads.
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) ist ein Overlay-Network-Provider der mit Kubernetes genutzt werden kann.
 * [Knitter](https://github.com/ZTE/Knitter/) ist eine Network-Lösung die Mehrfach-Network in Kubernetes ermöglicht.
@@ -52,5 +52,3 @@ Die Add-Ons in den einzelnen Kategorien sind alphabetisch sortiert - Die Reihenf
 Es gibt einige weitere Add-Ons die in dem abgekündigten [cluster/addons](https://git.k8s.io/kubernetes/cluster/addons)-Verzeichnis dokumentiert sind.
 
 Add-Ons die ordentlich gewartet werden dürfen gerne hier aufgezählt werden. Wir freuen uns auf PRs!
-
-

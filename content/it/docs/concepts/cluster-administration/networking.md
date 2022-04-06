@@ -153,7 +153,7 @@ complessità della rete richiesta per implementare Kubernetes su larga scala all
 
 226/5000
 [Contiv](https://github.com/contiv/netplugin) fornisce un networking configurabile (nativo l3 usando BGP,
-overlay usando vxlan, classic l2 o Cisco-SDN / ACI) per vari casi d'uso. [Contiv](http://contiv.io) è tutto aperto.
+overlay usando vxlan, classic l2 o Cisco-SDN / ACI) per vari casi d'uso. [Contiv](https://contivpp.io/) è tutto aperto.
 
 ### Contrail / Tungsten Fabric
 
