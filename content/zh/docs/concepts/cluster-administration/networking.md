@@ -385,7 +385,7 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 -->
 ### Multus (a Multi Network plugin)
 
-[Multus](https://github.com/Intel-Corp/multus-cni) 是一个多 CNI 插件，
+[Multus](https://github.com/k8snetworkplumbingwg/multus-cni) 是一个多 CNI 插件，
 使用 Kubernetes 中基于 CRD 的网络对象来支持实现 Kubernetes 多网络系统。
 
 Multus 支持所有[参考插件](https://github.com/containernetworking/plugins)（比如：

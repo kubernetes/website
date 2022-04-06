@@ -179,7 +179,7 @@ Ikuti bagian "With Linux Bridge devices" dari [tutorial yang sangat bagus ini](h
 
 ### Multus (plugin Multi-Jaringan)
 
-[Multus](https://github.com/Intel-Corp/multus-cni) adalah plugin Multi CNI untuk mendukung fitur Banyak Jaringan di Kubernetes menggunakan objek jaringan berbasis CRD di Kubernetes.
+[Multus](https://github.com/k8snetworkplumbingwg/multus-cni) adalah plugin Multi CNI untuk mendukung fitur Banyak Jaringan di Kubernetes menggunakan objek jaringan berbasis CRD di Kubernetes.
 
 Multus mendukung semua [plugin referensi](https://github.com/containernetworking/plugins) (mis. [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main / macvlan)) yang mengimplementasikan spesifikasi CNI dan plugin pihak ke-3 (mis. [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave ), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). Selain itu, Multus mendukung [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS- DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) beban kerja di Kubernetes dengan aplikasi cloud asli dan aplikasi berbasis NFV di Kubernetes.
 
@@ -221,5 +221,3 @@ Calico juga dapat dijalankan dalam mode penegakan kebijakan bersama dengan solus
 
 
 Desain awal model jaringan dan alasannya, dan beberapa rencana masa depan dijelaskan secara lebih rinci dalam [dokumen desain jaringan](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
-
-
