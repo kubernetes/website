@@ -115,8 +115,7 @@ different Kubernetes components.
 | `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | |
 | `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
 | `GRPCContainerProbe` | `true` | Beta | 1.24 | |
-| `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 | 1.23 |
-| `HonorPVReclaimPolicy` | `true` | Beta | 1.24 | |
+| `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 |  |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
