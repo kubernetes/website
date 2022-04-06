@@ -46,7 +46,7 @@ Take a look at the [Is Your Cluster Ready for v1.24?](/blog/2022/03/31/ready-for
 
 Kubernetes contains a large number of components that evolve over time. In some cases, this 
 evolution results in APIs, flags, or entire features, being removed. To prevent users from facing 
-breaking changes, Kubernetes adopted a feature [deprecation policy](/docs/reference/using-api/deprecation-policy/). 
+breaking changes, Kubernetes contributors adopted a feature [deprecation policy](/docs/reference/using-api/deprecation-policy/). 
 This policy ensures that stable APIs may only be deprecated when a newer stable version of that 
 same API is available and that APIs have a minimum lifetime as indicated by the following stability levels: 
 
@@ -58,14 +58,14 @@ Removals follow the same deprecation policy regardless of whether an API is remo
 graduating to stable or because that API was not proven to be successful. Kubernetes will continue to make 
 sure migration options are documented whenever APIs are removed. 
 
-**Deprecated** APIs are thos that have been marked for removal in a future Kubernetes release. **Removed** 
+**Deprecated** APIs are those that have been marked for removal in a future Kubernetes release. **Removed** 
 APIs are those that are no longer available for use in current, supported Kubernetes versions after having 
 been deprecated. These removals have been superseded by newer, stable/generally available (GA) APIs. 
 
 ## API removals, deprecations, and other changes for Kubernetes 1.24
 
-* [Dynamic kubelet configuration](https://github.com/kubernetes/enhancements/issues/281): `DynamicKubeletConfig` is used to enable the dynamic configuration of kubelet. The `DynamicKubeletConfig` flag was deprecated in Kubernetes 1.22. As of v1.24, the feature gate was removed from kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/). Refer to the ["Dynamic kubelet config is removed" KEP](https://github.com/kubernetes/enhancements/issues/281) for more information. 
-* [Dynamic log sanitization](https://github.com/kubernetes/kubernetes/pull/107207): The experimental dynamic log sanitization feature is deprecated as of v1.24. This feature introduced a logging filter that could be applied to all Kubernetes system components logs to prevent various types of sensitive information from leaking via logs. Refer to [KEP-1753: Kubernetes system components logs sanitization](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#deprecation) for more information and an [alternative approach](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#alternatives=). 
+* [Dynamic kubelet configuration](https://github.com/kubernetes/enhancements/issues/281): `DynamicKubeletConfig` is used to enable the dynamic configuration of the kubelet. The `DynamicKubeletConfig` flag was deprecated in Kubernetes 1.22. As of v1.24, the feature gate was removed from the kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/). Refer to the ["Dynamic kubelet config is removed" KEP](https://github.com/kubernetes/enhancements/issues/281) for more information. 
+* [Dynamic log sanitization](https://github.com/kubernetes/kubernetes/pull/107207): The experimental dynamic log sanitization feature is deprecated and was removed in v1.24. This feature introduced a logging filter that could be applied to all Kubernetes system components logs to prevent various types of sensitive information from leaking via logs. Refer to [KEP-1753: Kubernetes system components logs sanitization](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#deprecation) for more information and an [alternative approach](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#alternatives=).
 * In-tree provisioner to CSI driver migration: This applies to a number of in-tree plugins, including [Portworx](https://github.com/kubernetes/enhancements/issues/2589). Refer to the [In-tree Storage Plugin to CSI Migration Design Doc](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/csi-migration.md#background-and-motivations) for more information. 
 * [Removing Dockershim from kubelet](https://github.com/kubernetes/enhancements/issues/2221): the Container Runtime Interface (CRI) for Docker (i.e. Dockershim) is currently a built-in container runtime in the kubelet code base. It was deprecated in v1.20. As of v1.24, dockershim has been removed from kubelet. Check out this blog on [what you need to do be ready for v1.24](/blog/2022/03/31/ready-for-dockershim-removal/). 
 * [Storage capacity tracking for pod scheduling](https://github.com/kubernetes/enhancements/issues/1472): The CSIStorageCapacity API supports exposing currently available storage capacity via CSIStorageCapacity objects and enhances scheduling of pods that use CSI volumes with late binding. The CSIStorageCapacity API is stable as of v1.24. The v1beta1 CSIStorageCapacity API is deprecated in v1.24. Refer to the [Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1472-storage-capacity-tracking) for more information. 
