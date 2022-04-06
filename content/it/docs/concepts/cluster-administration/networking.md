@@ -127,7 +127,7 @@ di [avere simultaneamente accesso a diverse implementazioni](https://github.com/
 del [modello di rete Kubernetes](https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime.
 Ciò include qualsiasi implementazione che funziona come un [plugin CNI](https://github.com/containernetworking/cni#3rd-party-plugins),
 come [Flannel](https://github.com/coreos/flannel#flanella), [Calico](http://docs.projectcalico.org/),
-[Romana](http://romana.io), [Weave-net](https://www.weave.works/products/tessere-net/).
+[Romana](https://github.com/romana/romana), [Weave-net](https://www.weave.works/products/tessere-net/).
 
 CNI-Genie supporta anche [assegnando più indirizzi IP a un pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-indirizzi-per-pod), ciascuno da un diverso plugin CNI.
 
@@ -316,7 +316,7 @@ Flannel, alias [canal](https://github.com/tigera/canal) o native GCE, AWS o netw
 
 ### Romana
 
-[Romana](http://romana.io) è una soluzione di automazione della sicurezza e della rete open source che consente di
+[Romana](https://github.com/romana/romana) è una soluzione di automazione della sicurezza e della rete open source che consente di
 distribuire Kubernetes senza una rete di overlay. Romana supporta Kubernetes
 [Politica di rete](/docs/concepts/services-networking/network-policies/) per fornire isolamento tra gli spazi dei nomi
 di rete.

@@ -93,7 +93,7 @@ Terbaru ini BCF diakui oleh Gartner sebagai visioner dalam [_Magic Quadrant_](ht
 
 ### CNI-Genie dari Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) adalah _plugin_ CNI yang memungkinkan Kubernetes [secara bersamaan memiliki akses ke berbagai implementasi](https://github.com/Huawei-PaaS /CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) dari [model jaringan Kubernetes] (https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) dalam _runtime_. Ini termasuk setiap implementasi yang berjalan sebagai [_plugin_ CNI](https://github.com/containernetworking/cni#3rd-party-plugins), seperti [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) adalah _plugin_ CNI yang memungkinkan Kubernetes [secara bersamaan memiliki akses ke berbagai implementasi](https://github.com/Huawei-PaaS /CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) dari [model jaringan Kubernetes] (https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) dalam _runtime_. Ini termasuk setiap implementasi yang berjalan sebagai [_plugin_ CNI](https://github.com/containernetworking/cni#3rd-party-plugins), seperti [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](https://github.com/romana/romana), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie juga mendukung [menetapkan beberapa alamat IP ke sebuah Pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-address-per-pod), masing-masing dari _plugin_ CNI yang berbeda.
 
@@ -209,7 +209,7 @@ Calico juga dapat dijalankan dalam mode penegakan kebijakan bersama dengan solus
 
 ### Romana
 
-[Romana](http://romana.io) adalah jaringan sumber terbuka dan solusi otomasi keamanan yang memungkinkan kamu menggunakan Kubernetes tanpa jaringan hamparan. Romana mendukung Kubernetes [Kebijakan Jaringan](/id/docs/concepts/services-networking/network-policies/) untuk memberikan isolasi di seluruh ruang nama jaringan.
+[Romana](https://github.com/romana/romana) adalah jaringan sumber terbuka dan solusi otomasi keamanan yang memungkinkan kamu menggunakan Kubernetes tanpa jaringan hamparan. Romana mendukung Kubernetes [Kebijakan Jaringan](/id/docs/concepts/services-networking/network-policies/) untuk memberikan isolasi di seluruh ruang nama jaringan.
 
 ### Weave Net dari Weaveworks
 

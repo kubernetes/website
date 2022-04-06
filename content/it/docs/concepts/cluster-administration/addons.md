@@ -31,7 +31,7 @@ I componenti aggiuntivi in ogni sezione sono ordinati alfabeticamente - l'ordine
 * Multus è un multi-plugin per il supporto di più reti in Kubernetes per supportare tutti i plugin CNI (es. Calico, Cilium, Contiv, Flannel), oltre a SRIOV, DPDK, OVS-DPDK e carichi di lavoro basati su VPP in Kubernetes.
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in (NCP) fornisce l'integrazione tra VMware NSX-T e orchestratori di contenitori come Kubernetes, oltre all'integrazione tra NSX-T e piattaforme CaaS / PaaS basate su container come Pivotal Container Service (PKS) e OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1/docs/kubernetes-1-installation.rst) è una piattaforma SDN che fornisce una rete basata su policy tra i pod di Kubernetes e non Kubernetes con visibilità e monitoraggio della sicurezza.
-* [Romana](http://romana.io) è una soluzione di rete Layer 3 per pod network che supporta anche [API NetworkPolicy](/docs/concepts/services-networking/network-policies/). Dettagli di installazione del componente aggiuntivo di Kubeadm disponibili [qui](https://github.com/romana/romana/tree/master/containerize).
+* [Romana](https://github.com/romana/romana) è una soluzione di rete Layer 3 per pod network che supporta anche [API NetworkPolicy](/docs/concepts/services-networking/network-policies/). Dettagli di installazione del componente aggiuntivo di Kubeadm disponibili [qui](https://github.com/romana/romana/tree/master/containerize).
 * [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) fornisce i criteri di rete e di rete, continuerà a funzionare su entrambi i lati di una partizione di rete e non richiede un database esterno.
 
 ## Service Discovery
