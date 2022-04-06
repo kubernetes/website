@@ -115,7 +115,7 @@ The name of a StatefulSet object must be a valid
 
 ### Pod Selector
 
-You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
+You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
 
 ### Volume Claim Templates
 
@@ -226,7 +226,7 @@ is completely shutdown, but prior to web-1's termination, web-1 would not be ter
 until web-0 is Running and Ready.
 
 ### Pod Management Policies
-In Kubernetes 1.7 and later, StatefulSet allows you to relax its ordering guarantees while
+StatefulSet allows you to relax its ordering guarantees while
 preserving its uniqueness and identity guarantees via its `.spec.podManagementPolicy` field.
 
 #### OrderedReady Pod Management
