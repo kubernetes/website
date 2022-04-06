@@ -972,8 +972,7 @@ For more information about StorageOS, dynamic provisioning, and PersistentVolume
 ### vsphereVolume {#vspherevolume}
 
 {{< note >}}
-You must configure the Kubernetes vSphere Cloud Provider. For cloudprovider
-configuration, refer to the [vSphere Getting Started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
+The following documentation assumes that the [Kubernetes vSphere Cloud Provider](https://github.com/kubernetes/cloud-provider-vsphere) is configured. See also the [VMware vSphere Container Storage Plug-in Documentation](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/index.html).
 {{< /note >}}
 
 A `vsphereVolume` is used to mount a vSphere VMDK volume into your Pod.  The contents
