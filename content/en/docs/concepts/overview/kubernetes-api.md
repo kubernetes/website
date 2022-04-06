@@ -82,18 +82,42 @@ packages that define the API objects.
 
 ### OpenAPI V3
 
-{{< feature-state state="alpha"  for_k8s_version="v1.23" >}}
+{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
 
-Kubernetes v1.23 offers initial support for publishing its APIs as OpenAPI v3; this is an
-alpha feature that is disabled by default.
-You can enable the alpha feature by turning on the
+Kubernetes v1.24 offers beta support for publishing its APIs as OpenAPI v3; this is a
+beta feature that is enabled by default.
+You can disable the beta feature by turning off the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
 for the kube-apiserver component.
 
-With the feature enabled, the Kubernetes API server serves an
-aggregated OpenAPI v3 spec per Kubernetes group version at the
-`/openapi/v3/apis/<group>/<version>` endpoint. Please refer to the
-table below for accepted request headers.
+A discovery endpoint `/openapi/v3` is provided to see a list of all
+group/versions available. This endpoint only returns JSON. These group/versions
+are provided in the following format:
+```json
+{
+    "paths": {
+        ...
+        "api/v1": {
+            "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF"
+        },
+        "apis/admissionregistration.k8s.io/v1": {
+            "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597"
+        },
+        ...
+}
+```
+
+The relative URLs are pointing to immutable OpenAPI descriptions, in
+order to improve client-side caching. The proper HTTP caching headers
+are also set by the apiserver for that purpose (`Expire` to 1 year in
+the future, and `Cache-Control` to `immutable`). When an obsolete URL is
+used, the apiserver will return a redirect to the newest URL.
+
+The Kubernetes API server proxies an OpenAPI v3 spec per Kubernetes
+group version at the `/openapi/v3/apis/<group>/<version>?hash=<hash>`
+endpoint.
+
+Please refer to the table below for accepted request headers.
 
 <table>
   <caption style="display:none">Valid request header values for OpenAPI v3 queries</caption>
@@ -125,9 +149,6 @@ table below for accepted request headers.
      </tr>
   </tbody>
 </table>
-
-A discovery endpoint `/openapi/v3` is provided to see a list of all
-group/versions available. This endpoint only returns JSON.
 
 ## Persistence
 
