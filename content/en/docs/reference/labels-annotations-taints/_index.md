@@ -112,7 +112,7 @@ Used on: Pod
 
 You can apply quality-of-service traffic shaping to a pod and effectively limit its available bandwidth.
 Ingress traffic (to the pod) is handled by shaping queued packets to effectively handle data.
-To limit the bandwidth on a pod: write an object definition JSON file, and specify the data traffic
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
 speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for specifying ingress
 rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
 For example, `10M` means 10 megabits per second.
@@ -131,7 +131,7 @@ Used on: Pod
 
 Egress traffic (from the pod) is handled by policing, which simply drops packets in excess of the configured rate.
 The limits you place on a pod do not affect the bandwidth of other pods.
-To limit the bandwidth on a pod: write an object definition JSON file, and specify the data traffic
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
 speed using `kubernetes.io/egress-bandwidth` annotation. The unit used for specifying egress
 rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
 For example, `10M` means 10 megabits per second.
