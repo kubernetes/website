@@ -117,7 +117,7 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 일부 파드에는 {{< glossary_tooltip text="앱 컨테이너" term_id="app-container" >}} 뿐만 아니라 {{< glossary_tooltip text="초기화 컨테이너" term_id="init-container" >}}를 갖고 있다. 초기화 컨테이너는 앱 컨테이너가 시작되기 전에 실행되고 완료된다.
 
 파드는 기본적으로 파드에 속한 컨테이너에 [네트워킹](#파드-네트워킹)과 [스토리지](#pod-storage)라는
-두 가지 종류의 공유 ​​리소스를 제공한다.
+두 가지 종류의 공유 리소스를 제공한다.
 
 ## 파드 작업
 
