@@ -25,7 +25,7 @@ and can load-balance across them.
 ## Motivation
 
 Kubernetes {{< glossary_tooltip term_id="pod" text="Pods" >}} are created and destroyed
-to match the state of your cluster. Pods are nonpermanent resources.
+to match the desired state of your cluster. Pods are nonpermanent resources.
 If you use a {{< glossary_tooltip term_id="deployment" >}} to run your app,
 it can create and destroy Pods dynamically.
 
