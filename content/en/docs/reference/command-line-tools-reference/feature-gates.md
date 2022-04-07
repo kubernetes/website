@@ -146,6 +146,7 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
+| `MaxUnavailableStatefulSet` | `false` | Alpha | 1.24 | |
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
 | `MemoryManager` | `true` | Beta | 1.22 | |
 | `MemoryQoS` | `false` | Alpha | 1.22 | |
@@ -980,6 +981,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   filesystem walk for better performance and accuracy.
 - `LogarithmicScaleDown`: Enable semi-random selection of pods to evict on controller scaledown
   based on logarithmic bucketing of pod timestamps.
+- `MaxUnavailableStatefulSet`: Enables setting the `maxUnavailable` field for the
+  [rolling update strategy](/docs/concepts/workloads/controllers/statefulset/#rolling-updates)
+  of a StatefulSet. The field specifies the maximum number of Pods
+  that can be unavailable during the update.
 - `MemoryManager`: Allows setting memory affinity for a container based on
   NUMA topology.
 - `MemoryQoS`: Enable memory protection and usage throttle on pod / container using
