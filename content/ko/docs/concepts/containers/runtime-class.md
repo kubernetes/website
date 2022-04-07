@@ -109,6 +109,11 @@ CRI 런타임 설치에 대한 자세한 내용은 [CRI 설치](/ko/docs/setup/p
 
 #### dockershim
 
+{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
+
+dockershim은 쿠버네티스 v1.20에서 사용 중단되었으며, v1.24에서 제거될 것이다. 상세 사항은 
+[dockershim 사용 중단](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)을 참고한다.
+
 dockershim을 사용하는 경우 RuntimeClass는 런타임 핸들러를 `docker`로 고정한다.
 dockershim은 사용자 정의 런타임 핸들러를 지원하지 않는다.
 

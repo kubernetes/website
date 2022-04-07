@@ -151,6 +151,13 @@ Storage Interface (CSI) Driver. In order to use this feature, the
 [Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
 must be installed on the cluster and the `CSIMigration` feature must be enabled.
 
+#### azureDisk CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `azureDisk` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
+
 ### azureFile {#azurefile}
 
 The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
@@ -171,6 +178,13 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFi
 
 Azure File CSI driver does not support using same volume with different fsgroups. If
 `CSIMigrationAzureFile` is enabled, using same volume with different fsgroups won't be supported at all.
+
+#### azureFile CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `azureFile` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 
 ### cephfs
 

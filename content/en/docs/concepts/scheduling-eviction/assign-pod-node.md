@@ -124,8 +124,8 @@ For example, consider the following Pod spec:
 
 In this example, the following rules apply:
 
-  * The node *must* have a label with the key `kubernetes.io/e2e-az-name` and
-    the value is either `e2e-az1` or `e2e-az2`.
+  * The node *must* have a label with the key `kubernetes.io/os` and
+    the value `linux`.
   * The node *preferably* has a label with the key `another-node-label-key` and
     the value `another-node-label-value`.
 
