@@ -1,7 +1,6 @@
 ---
-
 title: 장치 플러그인
-description: GPU, NIC, FPGA, InfiniBand 및 공급 업체별 설정이 필요한 유사한 리소스를 위한 플러그인을 구현하는데 쿠버네티스 장치 플러그인 프레임워크를 사용한다.
+description: 장치 플러그인을 사용하여 GPU, NIC, FPGA, 또는 비휘발성 주 메모리와 같이 공급 업체별 설정이 필요한 장치 또는 리소스를 클러스터에서 지원하도록 설정할 수 있다.
 content_type: concept
 weight: 20
 ---
@@ -48,12 +47,14 @@ service Registration {
 노드에 두 개의 정상 장치를 보고하고 나면, 노드 상태가 업데이트되어
 노드에 2개의 "Foo" 장치가 설치되어 사용 가능함을 알릴 수 있다.
 
-그러고 나면, 사용자가
-[컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) 명세에 있는 장치를 요청할 수 있다.
-다만, 다른 종류의 리소스를 요청하는 것이므로 다음과 같은 제한이 있다.
-
+그러고 나면, 사용자가 장치를 파드 스펙의 일부로 요청할 수 
+있다([`container`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) 참조). 
+확장 리소스를 요청하는 것은 다른 자원의 요청 및 제한을 관리하는 것과 비슷하지만, 
+다음과 같은 차이점이 존재한다.
 * 확장된 리소스는 정수(integer) 형태만 지원되며 오버커밋(overcommit) 될 수 없다.
 * 컨테이너간에 장치를 공유할 수 없다.
+
+### 예제 {#example-pod}
 
 쿠버네티스 클러스터가 특정 노드에서 `hardware-vendor.example/foo` 리소스를 알리는 장치 플러그인을 실행한다고
 가정해 보자. 다음은 데모 워크로드를 실행하기 위해 이 리소스를 요청하는 파드의 예이다.
@@ -287,7 +288,7 @@ message AllocatableResourcesResponse {
 
 ```
 쿠버네티스 v1.23부터, `GetAllocatableResources`가 기본으로 활성화된다.
-이를 비활성화하려면 `KubeletPodResourcesGetAllocatable` [기능 게이트(feature gate)](/docs/reference/command-line-tools-reference/feature-gates/)를
+이를 비활성화하려면 `KubeletPodResourcesGetAllocatable` [기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 끄면 된다.
 
 쿠버네티스 v1.23 이전 버전에서 이 기능을 활성화하려면 `kubelet`이 다음 플래그를 가지고 시작되어야 한다. 
@@ -302,7 +303,7 @@ NUMA 셀은 불분명한(opaque) 정수 ID를 사용하여 식별되며, 이 값
 gRPC 서비스는 `/var/lib/kubelet/pod-resources/kubelet.sock` 의 유닉스 소켓을 통해 제공된다.
 장치 플러그인 리소스에 대한 모니터링 에이전트는 데몬 또는 데몬셋으로 배포할 수 있다.
 표준 디렉터리 `/var/lib/kubelet/pod-resources` 에는 특권을 가진 접근이 필요하므로, 모니터링
-에이전트는 특권을 가진 ​​보안 컨텍스트에서 실행해야 한다. 장치 모니터링 에이전트가
+에이전트는 특권을 가진 보안 컨텍스트에서 실행해야 한다. 장치 모니터링 에이전트가
 데몬셋으로 실행 중인 경우, 해당 장치 모니터링 에이전트의 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서
 `/var/lib/kubelet/pod-resources` 를
 {{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
@@ -338,6 +339,8 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 
 ## 장치 플러그인 예시 {#examples}
 
+{{% thirdparty-content %}}
+
 다음은 장치 플러그인 구현의 예이다.
 
 * [AMD GPU 장치 플러그인](https://github.com/RadeonOpenCompute/k8s-device-plugin)
@@ -357,5 +360,5 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 
 * 장치 플러그인을 사용한 [GPU 리소스 스케줄링](/ko/docs/tasks/manage-gpus/scheduling-gpus/)에 대해 알아보기
 * 노드에서의 [확장 리소스 알리기](/ko/docs/tasks/administer-cluster/extended-resource-node/)에 대해 배우기
-* 쿠버네티스에서 [TLS 수신에 하드웨어 가속](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 사용에 대해 읽기
 * [토폴로지 관리자](/docs/tasks/administer-cluster/topology-manager/)에 대해 알아보기
+* 쿠버네티스에서 [TLS 인그레스에 하드웨어 가속](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 사용에 대해 읽기

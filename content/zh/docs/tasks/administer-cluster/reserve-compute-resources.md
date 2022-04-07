@@ -166,7 +166,7 @@ flag.
 It is recommended that the kubernetes system daemons are placed under a top
 level control group (`runtime.slice` on systemd machines for example). Each
 system daemon should ideally run within its own child control group. Refer to
-[the design proposal](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)
+[the design proposal](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md#recommended-cgroups-setup)
 for more details on recommended control group hierarchy.
 
 Note that Kubelet **does not** create `--kube-reserved-cgroup` if it doesn't
@@ -179,7 +179,7 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 `runtime.slice`）。
 理想情况下每个系统守护进程都应该在其自己的子控制组中运行。
 请参考
-[这个设计方案](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)，
+[这个设计方案](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md#recommended-cgroups-setup)，
 进一步了解关于推荐控制组层次结构的细节。
 
 请注意，如果 `--kube-reserved-cgroup` 不存在，Kubelet 将 **不会** 创建它。
@@ -351,8 +351,9 @@ respectively.
 <!--
 ## General Guidelines
 
-System daemons are expected to be treated similar to 'Guaranteed' pods. System
-daemons can burst within their bounding control groups and this behavior needs
+System daemons are expected to be treated similar to
+[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed). 
+System daemons can burst within their bounding control groups and this behavior needs
 to be managed as part of kubernetes deployments. For example, `kubelet` should
 have its own control group and share `Kube-reserved` resources with the
 container runtime. However, Kubelet cannot burst and use up all available Node
@@ -360,7 +361,9 @@ resources if `kube-reserved` is enforced.
 -->
 ## 一般原则   {#general-guidelines}
 
-系统守护进程一般会被按照类似 'Guaranteed' Pod 一样对待。
+系统守护进程一般会被按照类似
+[Guaranteed pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed)
+一样对待。
 系统守护进程可以在与其对应的控制组中出现突发资源用量，这一行为要作为
 kubernetes 部署的一部分进行管理。
 例如，`kubelet` 应该有它自己的控制组并和容器运行时共享 `Kube-reserved` 资源。

@@ -33,9 +33,9 @@ There are two main ways to have Nodes added to the {{< glossary_tooltip text="AP
 1. The kubelet on a node self-registers to the control plane
 2. You (or another human user) manually add a Node object
 
-After you create a Node {{< glossary_tooltip text="object" term_id="object" >}}, or the kubelet on a node self-registers, the
-control plane checks whether the new Node object is valid. For example, if you
-try to create a Node from the following JSON manifest:
+After you create a Node {{< glossary_tooltip text="object" term_id="object" >}},
+or the kubelet on a node self-registers, the control plane checks whether the new Node object is
+valid. For example, if you try to create a Node from the following JSON manifest:
 
 ```json
 {
@@ -85,19 +85,23 @@ register itself with the API server.  This is the preferred pattern, used by mos
 
 For self-registration, the kubelet is started with the following options:
 
-  - `--kubeconfig` - Path to credentials to authenticate itself to the API server.
-  - `--cloud-provider` - How to talk to a {{< glossary_tooltip text="cloud provider" term_id="cloud-provider" >}} to read metadata about itself.
-  - `--register-node` - Automatically register with the API server.
-  - `--register-with-taints` - Register the node with the given list of {{< glossary_tooltip text="taints" term_id="taint" >}} (comma separated `<key>=<value>:<effect>`).
+- `--kubeconfig` - Path to credentials to authenticate itself to the API server.
+- `--cloud-provider` - How to talk to a {{< glossary_tooltip text="cloud provider" term_id="cloud-provider" >}}
+  to read metadata about itself.
+- `--register-node` - Automatically register with the API server.
+- `--register-with-taints` - Register the node with the given list of
+  {{< glossary_tooltip text="taints" term_id="taint" >}} (comma separated `<key>=<value>:<effect>`).
 
-    No-op if `register-node` is false.
-  - `--node-ip` - IP address of the node.
-  - `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
-  - `--node-status-update-frequency` - Specifies how often kubelet posts its node status to the API server.
+  No-op if `register-node` is false.
+- `--node-ip` - IP address of the node.
+- `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node
+  in the cluster (see label restrictions enforced by the
+  [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
+- `--node-status-update-frequency` - Specifies how often kubelet posts its node status to the API server.
 
 When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
-[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
-kubelets are only authorized to create/modify their own Node resource.
+[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+are enabled, kubelets are only authorized to create/modify their own Node resource.
 
 {{< note >}}
 As mentioned in the [Node name uniqueness](#node-name-uniqueness) section,
@@ -168,8 +172,10 @@ Each section of the output is described below.
 
 The usage of these fields varies depending on your cloud provider or bare metal configuration.
 
-* HostName: The hostname as reported by the node's kernel. Can be overridden via the kubelet `--hostname-override` parameter.
-* ExternalIP: Typically the IP address of the node that is externally routable (available from outside the cluster).
+* HostName: The hostname as reported by the node's kernel. Can be overridden via the kubelet
+  `--hostname-override` parameter.
+* ExternalIP: Typically the IP address of the node that is externally routable (available from
+  outside the cluster).
 * InternalIP: Typically the IP address of the node that is routable only within the cluster.
 
 
@@ -289,7 +295,6 @@ and for updating their related Leases.
   updates to the Node's `.status`. If the Lease update fails, the kubelet retries,
   using exponential backoff that starts at 200 milliseconds and capped at 7 seconds.
 
-
 ## Node controller
 
 The node {{< glossary_tooltip text="controller" term_id="controller" >}} is a
@@ -306,6 +311,7 @@ controller deletes the node from its list of nodes.
 
 The third is monitoring the nodes' health. The node controller is
 responsible for:
+
 - In the case that a node becomes unreachable, updating the NodeReady condition
   of within the Node's `.status`. In this case the node controller sets the
   NodeReady condition to `ConditionUnknown`.
@@ -327,6 +333,7 @@ The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
 are unhealthy (NodeReady condition is `ConditionUnknown` or `ConditionFalse`) at
 the same time:
+
 - If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold`
   (default 0.55), then the eviction rate is reduced.
 - If the cluster is small (i.e. has less than or equal to
@@ -391,7 +398,9 @@ for more information.
 
 The kubelet attempts to detect node system shutdown and terminates pods running on the node.
 
-Kubelet ensures that pods follow the normal [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) during the node shutdown.
+Kubelet ensures that pods follow the normal
+[pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+during the node shutdown.
 
 The Graceful node shutdown feature depends on systemd since it takes advantage of
 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to
@@ -404,18 +413,26 @@ enabled by default in 1.21.
 Note that by default, both configuration options described below,
 `shutdownGracePeriod` and `shutdownGracePeriodCriticalPods` are set to zero,
 thus not activating Graceful node shutdown functionality.
-To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
+To activate the feature, the two kubelet config settings should be configured appropriately and
+set to non-zero values.
 
 During a graceful shutdown, kubelet terminates pods in two phases:
 
 1. Terminate regular pods running on the node.
-2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
+2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+   running on the node.
 
-Graceful node shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
+Graceful node shutdown feature is configured with two
+[`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
+
 * `shutdownGracePeriod`:
-  * Specifies the total duration that the node should delay the shutdown by. This is the total grace period for pod termination for both regular and [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+  * Specifies the total duration that the node should delay the shutdown by. This is the total
+    grace period for pod termination for both regular and
+    [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 * `shutdownGracePeriodCriticalPods`:
-  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `shutdownGracePeriod`.
+  * Specifies the duration used to terminate
+    [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+    during a node shutdown. This value should be less than `shutdownGracePeriod`.
 
 For example, if `shutdownGracePeriod=30s`, and
 `shutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
@@ -443,8 +460,8 @@ To provide more flexibility during graceful node shutdown around the ordering
 of pods during shutdown, graceful node shutdown honors the PriorityClass for
 Pods, provided that you enabled this feature in your cluster. The feature
 allows cluster administers to explicitly define the ordering of pods
-during graceful node shutdown based on [priority
-classes](docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
+during graceful node shutdown based on
+[priority classes](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
 
 The [Graceful Node Shutdown](#graceful-node-shutdown) feature, as described
 above, shuts down pods in two phases, non-critical pods, followed by critical
@@ -457,8 +474,8 @@ graceful node shutdown in multiple phases, each phase shutting down a
 particular priority class of pods. The kubelet can be configured with the exact
 phases and shutdown time per phase.
 
-Assuming the following custom pod [priority
-classes](docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
+Assuming the following custom pod
+[priority classes](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
 in a cluster,
 
 |Pod priority class name|Pod priority class value|
@@ -492,7 +509,7 @@ shutdownGracePeriodByPodPriority:
     shutdownGracePeriodSeconds: 60
 ```
 
-The above table implies that any pod with priority value >= 100000 will get
+The above table implies that any pod with `priority` value >= 100000 will get
 just 10 seconds to stop, any pod with value >= 10000 and < 100000 will get 180
 seconds to stop, any pod with value >= 1000 and < 10000 will get 120 seconds to stop.
 Finally, all other pods will get 60 seconds to stop.
@@ -507,8 +524,8 @@ example, you could instead use these settings:
 | 0                      |60 seconds     |
 
 
-In the above case, the pods with custom-class-b will go into the same bucket
-as custom-class-c for shutdown.
+In the above case, the pods with `custom-class-b` will go into the same bucket
+as `custom-class-c` for shutdown.
 
 If there are no pods in a particular range, then the kubelet does not wait
 for pods in that priority range. Instead, the kubelet immediately skips to the
@@ -521,6 +538,9 @@ Using this feature, requires enabling the
 `GracefulNodeShutdownBasedOnPodPriority` feature gate, and setting the kubelet
 config's `ShutdownGracePeriodByPodPriority` to the desired configuration
 containing the pod priority class values and their respective shutdown periods.
+
+Metrics `graceful_shutdown_start_time_seconds` and `graceful_shutdown_end_time_seconds`
+are emitted under the kubelet subsystem to monitor node shutdowns.
 
 ## Swap memory management {#swap-memory}
 
@@ -577,3 +597,4 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+

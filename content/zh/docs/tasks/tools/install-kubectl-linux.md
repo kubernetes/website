@@ -98,7 +98,7 @@ The following methods exist for installing kubectl on Linux:
    基于校验和文件，验证 kubectl 的可执行文件：
 
    ```bash
-   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    <!-- 
@@ -144,19 +144,25 @@ The following methods exist for installing kubectl on Linux:
 
    ```bash
    chmod +x kubectl
-   mkdir -p ~/.local/bin/kubectl
+   mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # 之后将 ~/.local/bin/kubectl 添加到 $PATH
+   # 之后将 ~/.local/bin 附加（或前置）到 $PATH
    ```
    {{< /note >}}
 
 <!-- 
 1. Test to ensure the version you installed is up-to-date:
+Or use this for detailed view of version:
 -->
 4. 执行测试，以保障你安装的版本是最新的：
 
    ```bash
    kubectl version --client
+   ```
+   
+   或者使用如下命令来查看版本的详细信息：
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 <!-- 
@@ -305,7 +311,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 1. 用以下命令下载最新发行版：
 
    ```bash
-   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    ```
 <!--
 2. Validate the binary (optional)
@@ -326,7 +332,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    基于校验和，验证 kubectl-convert 的可执行文件：
 
    ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
    <!--

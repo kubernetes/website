@@ -44,9 +44,6 @@ The above bullets are not a complete set of security context settings -- please 
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 for a comprehensive list.
 
-For more information about security mechanisms in Linux, see
-[Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
-
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
@@ -487,6 +484,8 @@ kubectl delete pod security-context-demo-4
 * [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
-* [Pod Security Policies](/docs/concepts/policy/pod-security-policy/)
+* [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/)
 * [AllowPrivilegeEscalation design
   document](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
+* For more information about security mechanisms in Linux, see
+[Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features) (Note: Some information is out of date)

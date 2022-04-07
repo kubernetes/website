@@ -52,7 +52,7 @@ configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
 
 If availability is important for any applications that run or could run on the node(s)
 that you are draining, [configure a PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
-first and the continue following this guide.
+first and then continue following this guide.
 -->
 ## （可选） 配置干扰预算 {#configure-poddisruptionbudget}
 
@@ -174,154 +174,16 @@ replicas to fall below the specified budget are blocked.
 
 If you prefer not to use [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain) (such as
 to avoid calling to an external command, or to get finer control over the pod
-eviction process), you can also programmatically cause evictions using the eviction API.
+eviction process), you can also programmatically cause evictions using the
+eviction API.
+For more information, see [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
 -->
 ## 驱逐 API {#the-eviction-api}
 如果你不喜欢使用
 [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)
 （比如避免调用外部命令，或者更细化地控制 pod 驱逐过程），
 你也可以用驱逐 API 通过编程的方式达到驱逐的效果。
-
-<!-- 
-You should first be familiar with using [Kubernetes language clients](/docs/tasks/administer-cluster/access-cluster-api/#programmatic-access-to-the-api).
-
-The eviction subresource of a
-pod can be thought of as a kind of policy-controlled DELETE operation on the pod
-itself. To attempt an eviction (perhaps more REST-precisely, to attempt to
-*create* an eviction), you POST an attempted operation. Here's an example:
--->
-首先应该熟悉使用 
-[Kubernetes 语言客户端](/zh/docs/tasks/administer-cluster/access-cluster-api/#programmatic-access-to-the-api)。
-
-Pod 的 Eviction 子资源可以看作是一种策略控制的 DELETE 操作，作用于 Pod 本身。
-要尝试驱逐（更准确地说，尝试 *创建* 一个 Eviction），需要用 POST 发出所尝试的操作。这里有一个例子：
-
-{{< tabs name="Eviction_example" >}}
-{{% tab name="policy/v1" %}}
-<!--
-{{< note >}}
-`policy/v1` Eviction is available in v1.22+. Use `policy/v1beta1` with prior releases.
-{{< /note >}}
--->
-{{< note >}}
-`policy/v1` 驱逐在 v1.22+ 中可用。在之前版本中请使用 `policy/v1beta1` 。
-{{< /note >}}
-
-
-```json
-{
-  "apiVersion": "policy/v1",
-  "kind": "Eviction",
-  "metadata": {
-    "name": "quux",
-    "namespace": "default"
-  }
-}
-```
-{{% /tab %}}
-{{% tab name="policy/v1beta1" %}}
-<!--
-{{< note >}}
-Deprecated in v1.22 in favor of `policy/v1`
-{{< /note >}}
--->
-{{< note >}}
-在 v1.22 中已弃用，以 `policy/v1` 取代
-{{< /note >}}
-
-```json
-{
-  "apiVersion": "policy/v1beta1",
-  "kind": "Eviction",
-  "metadata": {
-    "name": "quux",
-    "namespace": "default"
-  }
-}
-```
-{{% /tab %}}
-{{< /tabs >}}
-
-<!-- 
-You can attempt an eviction using `curl`:
--->
-你可以使用 `curl` 尝试驱逐：
-
-```bash
-curl -v -H 'Content-type: application/json' http://127.0.0.1:8080/api/v1/namespaces/default/pods/quux/eviction -d @eviction.json
-```
-
-<!-- 
-The API can respond in one of three ways:
-
-- If the eviction is granted, then the Pod is deleted as if you sent
-  a `DELETE` request to the Pod's URL and received back `200 OK`.
-- If the current state of affairs wouldn't allow an eviction by the rules set
-  forth in the budget, you get back `429 Too Many Requests`. This is
-  typically used for generic rate limiting of *any* requests, but here we mean
-  that this request isn't allowed *right now* but it may be allowed later.
-  Currently, callers do not get any `Retry-After` advice, but they may in
-  future versions.
-- If there is some kind of misconfiguration, like multiple budgets pointing at
-  the same pod, you will get `500 Internal Server Error`.
--->
-API 可以通过以下三种方式之一进行响应：
-
-- 如果驱逐被授权，那么 Pod 将被删掉，并且你会收到 `200 OK`，
-  就像你向 Pod 的 URL 发送了 `DELETE` 请求一样。
-- 如果按照预算中规定，目前的情况不允许的驱逐，你会收到 `429 Too Many Requests`。
-  这通常用于对 *一些* 请求进行通用速率限制，
-  但这里我们的意思是：此请求 *现在* 不允许，但以后可能会允许。
-  目前，调用者不会得到任何 `Retry-After` 的提示，但在将来的版本中可能会得到。
-- 如果有一些错误的配置，比如多个预算指向同一个 Pod，你将得到 `500 Internal Server Error`。
-
-<!-- 
-For a given eviction request, there are two cases:
-
-- There is no budget that matches this pod. In this case, the server always
-  returns `200 OK`.
-- There is at least one budget. In this case, any of the three above responses may
-   apply.
--->
-对于一个给定的驱逐请求，有两种情况：
-
-- 没有匹配这个 Pod 的预算。这种情况，服务器总是返回 `200 OK`。
-- 至少匹配一个预算。在这种情况下，上述三种回答中的任何一种都可能适用。
-
-<!-- 
-## Stuck evictions
-
-In some cases, an application may reach a broken state, one where unless you intervene the
-eviction API will never return anything other than 429 or 500.
-
-For example: this can happen if ReplicaSet is creating Pods for your application but
-the replacement Pods do not become `Ready`. You can also see similar symptoms if the
-last Pod evicted has a very long termination grace period.
--->
-## 驱逐阻塞
-
-在某些情况下，应用程序可能会到达一个中断状态，除了 429 或 500 之外，它将永远不会返回任何内容。
-例如 ReplicaSet 创建的替换 Pod 没有变成就绪状态，或者被驱逐的最后一个
-Pod 有很长的终止宽限期，就会发生这种情况。
-
-<!--
-In this case, there are two potential solutions:
-
-- Abort or pause the automated operation. Investigate the reason for the stuck application,
-  and restart the automation.
-- After a suitably long wait, `DELETE` the Pod from your cluster's control plane, instead
-  of using the eviction API.
-
-Kubernetes does not specify what the behavior should be in this case; it is up to the
-application owners and cluster owners to establish an agreement on behavior in these cases.
--->
-在这种情况下，有两种可能的解决方案：
-
-- 中止或暂停自动操作。调查应用程序卡住的原因，并重新启动自动化。
-- 经过适当的长时间等待后，从集群中删除 Pod 而不是使用驱逐 API。
-
-Kubernetes 并没有具体说明在这种情况下应该采取什么行为，
-这应该由应用程序所有者和集群所有者紧密沟通，并达成对行动一致意见。
+更多信息，请参阅 [API 发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)。
 
 ## {{% heading "whatsnext" %}}
 

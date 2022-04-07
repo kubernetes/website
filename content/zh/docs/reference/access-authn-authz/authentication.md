@@ -233,7 +233,7 @@ token,user,uid,"group1,group2,group3"
 
 When using bearer token authentication from an http client, the API
 server expects an `Authorization` header with a value of `Bearer
-THETOKEN`.  The bearer token must be a character sequence that can be
+<token>`.  The bearer token must be a character sequence that can be
 put in an HTTP header value using no more than the encoding and
 quoting facilities of HTTP.  For example: if the bearer token is
 `31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
@@ -242,7 +242,7 @@ header as shown below.
 #### 在请求中放入持有者令牌   {#putting-a-bearer-token-in-a-request}
 
 当使用持有者令牌来对某 HTTP 客户端执行身份认证时，API 服务器希望看到
-一个名为 `Authorization` 的 HTTP 头，其值格式为 `Bearer THETOKEN`。
+一个名为 `Authorization` 的 HTTP 头，其值格式为 `Bearer <token>`。
 持有者令牌必须是一个可以放入 HTTP 头部值字段的字符序列，至多可使用
 HTTP 的编码和引用机制。
 例如：如果持有者令牌为 `31ada4fd-adec-460c-809a-9e56ceb75269`，则其
@@ -1145,7 +1145,7 @@ The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
 * `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User".
-* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
+* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` must be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
 * `Impersonate-Uid`: A unique identifier that represents the user being impersonated. Optional. Requires "Impersonate-User". Kubernetes does not impose any format requirements on this string.
 -->
 以下 HTTP 头部字段可用来执行伪装请求：
@@ -1841,7 +1841,8 @@ Certificates）。
 
 <!--
 Optionally, the response can include the expiry of the credential formatted as a
-RFC3339 timestamp. Presence or absence of an expiry has the following impact:
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp.
+Presence or absence of an expiry has the following impact:
 
 - If an expiry is included, the bearer token and TLS credentials are cached until
   the expiry time is reached, or if the server responds with a 401 HTTP status code,
@@ -1849,7 +1850,9 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
 - If an expiry is omitted, the bearer token and TLS credentials are cached until
   the server responds with a 401 HTTP status code or until the process exits.
 -->
-作为一种可选方案，响应中还可以包含以 RFC3339 时间戳格式给出的证书到期时间。
+作为一种可选方案，响应中还可以包含以
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
+时间戳格式给出的证书到期时间。
 证书到期时间的有无会有如下影响：
 
 - 如果响应中包含了到期时间，持有者令牌和 TLS 凭据会被缓存，直到到期期限到来、

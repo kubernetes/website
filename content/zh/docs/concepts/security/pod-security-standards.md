@@ -836,7 +836,7 @@ of individual policies are not defined here.
 - {{< example file="security/podsecurity-baseline.yaml" >}}Baseline 名字空间{{< /example >}}
 - {{< example file="security/podsecurity-restricted.yaml" >}}Restricted 名字空间{{< /example >}}
 
-[**PodSecurityPolicy**](/zh/docs/concepts/policy/pod-security-policy/) （已弃用）
+[**PodSecurityPolicy**](/zh/docs/concepts/security/pod-security-policy/) （已弃用）
 
 - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
@@ -895,7 +895,7 @@ ecosystem, such as:
 -->
 安全策略则是控制面用来对安全上下文以及安全性上下文之外的参数实施某种设置的机制。
 在 2020 年 7 月，
-[Pod 安全性策略](/zh/docs/concepts/policy/pod-security-policy/)已被废弃，
+[Pod 安全性策略](/zh/docs/concepts/security/pod-security-policy/)已被废弃，
 取而代之的是内置的 [Pod 安全性准入控制器](/zh/docs/concepts/security/pod-security-admission/)。
 
 Kubernetes 生态系统中还在开发一些其他的替代方案，例如

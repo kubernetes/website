@@ -85,7 +85,11 @@ class third,fourth white
     - PR 설명을 통해 변경 사항을 이해하고, 연결된 이슈 읽기
     - 다른 리뷰어의 의견 읽기
     - **Files changed** 탭을 클릭하여 변경된 파일과 행 보기
-    - **Conversation** 탭의 맨 아래에 있는 PR의 빌드 확인 섹션으로 스크롤하여 **deploy/netlify** 행의 **Details** 링크를 클릭하고 Netlify 미리보기 빌드의 변경 사항을 확인
+    - **Conversation** 탭의 맨 아래에 있는 PR의 빌드 확인 섹션으로 스크롤하여 Netlify 미리보기 빌드의 변경 사항을 확인. 
+      다음은 스크린샷이다(GitHub 데스크탑 사이트이며, 
+      태블릿 또는 스마트폰 장치에서 리뷰하는 경우 GitHub 웹 UI가 약간 다르다).
+      {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="Netlify 미리보기 링크를 포함하는 GitHub PR 상세 사항" >}}
+      미리보기를 열려면, 체크 목록의 **deploy/netlify** 행의 **Details** 링크를 클릭한다.
 
 4.  **Files changed** 탭으로 이동하여 리뷰를 시작한다.
     1. 코멘트을 달려는 줄 옆에 있는 `+` 기호를 클릭한다.

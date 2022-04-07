@@ -209,7 +209,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ### 通过默认调度器调度   {#scheduled-by-default-scheduler}
 
-{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
+{{< feature-state for_kubernetes_version="1.17" state="stable" >}}
 
 <!--
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the

@@ -3,6 +3,7 @@ title: Pod 安全策略
 content_type: concept
 weight: 30
 ---
+
 <!--
 reviewers:
 - pweil-
@@ -1236,13 +1237,13 @@ denoted as the string `Unmasked`.
 ### AppArmor
 
 Controlled via annotations on the PodSecurityPolicy. Refer to the [AppArmor
-documentation](/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations).
+documentation](/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations).
 -->
 ### AppArmor
 
 通过 PodSecurityPolicy 上的注解来控制。
 详情请参阅
-[AppArmor 文档](/zh/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations)。
+[AppArmor 文档](/zh/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations)。
 
 
 <!--

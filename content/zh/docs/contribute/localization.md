@@ -493,6 +493,7 @@ Home | [All heading and subheading URLs](/docs/home/)
 Setup | [All heading and subheading URLs](/docs/setup/)
 Tutorials | [Kubernetes Basics](/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/hello-minikube/)
 Site strings | [All site strings](#Site-strings-in-i18n) in a new localized TOML file
+Releases | [All heading and subheading URLs](/releases)
 -->
 描述 | 网址
 -----|-----
@@ -500,7 +501,7 @@ Site strings | [All site strings](#Site-strings-in-i18n) in a new localized TOML
 安装 | [所有标题和副标题网址](/zh/docs/setup/)
 教程 | [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/), [Hello Minikube](/zh/docs/tutorials/hello-minikube/)
 网站字符串 | [所有网站字符串](#Site-strings-in-i18n)
-
+发行版本 | [所有标题和副标题 URL](/releases)
 <!-- 
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source: 
 -->
@@ -616,6 +617,24 @@ Some language teams have their own language-specific style guide and glossary. F
 一些语言团队有自己的特定语言样式指南和词汇表。
 例如，请参见[中文本地化指南](/zh/docs/contribute/localization_zh/)。
 
+<!--
+### Language specific Zoom meetings
+
+If the localization project needs a separate meeting time, contact a SIG Docs Co-Chair or Tech Lead to create a new reoccurring Zoom meeting and calendar invite. This is only needed when the the team is large enough to sustain and require a separate meeting.
+
+Per CNCF policy, the localization teams must upload their meetings to the SIG Docs YouTube playlist. A SIG Docs Co-Chair or Tech Lead can help with the process until SIG Docs automates it.
+
+-->
+
+### 特定语言的 Zoom 会议
+
+如果本地化项目需要单独的会议时间， 
+请联系 SIG Docs 联合主席或技术主管以创建新的重复 Zoom 会议和日历邀请。 
+仅当团队维持在足够大的规模并需要单独的会议时才需要这样做。
+
+根据 CNCF 政策，本地化团队必须将他们的会议上传到 SIG Docs YouTube 播放列表。
+SIG Docs 联合主席或技术主管可以帮助完成该过程，直到 SIG Docs 实现自动化。
+
 <!-- 
 ## Branching strategy 
 
@@ -685,7 +704,7 @@ Teams must merge localized content into the same branch from which the content w
 For example:
 
 - a localization branch sourced from `main` must be merged into `main`.
-- a localization branch sourced from `release-{{ skew "prevMinorVersion" }}` must be merged into `release-{{ skew "prevMinorVersion" }}`.
+- a localization branch sourced from `release-{{% skew "prevMinorVersion" %}}` must be merged into `release-{{% skew "prevMinorVersion" %}}`.
 
 {{< note >}}
 If your localization branch was created from `main` branch but it is not merged into `main` before new release branch `{{< release-branch >}}` created, merge it into both `main` and new release branch `{{< release-branch >}}`. To merge your localization branch into new release branch `{{< release-branch >}}`, you need to switch upstream branch of your localization branch to `{{< release-branch >}}`.

@@ -110,15 +110,13 @@ SIG Docs [리뷰어](/ko/docs/contribute/participate/roles-and-responsibilities/
 
 ## SIG 공동 의장으로 봉사
 
-SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)는
+SIG Docs [멤버](/ko/docs/contribute/participate/roles-and-responsibilities/#멤버)는
 SIG Docs의 공동 의장 역할을 할 수 있다.
 
 ### 전제 조건
 
-승인자는 공동 의장이 되려면 다음의 요구 사항을 충족해야 한다.
+쿠버네티스 멤버가 공동 의장이 되려면 다음의 요구 사항을 충족해야 한다.
 
-- 6개월 이상 SIG Docs 승인자로 활동한다.
-- [쿠버네티스 문서 릴리스 주도](/ko/docs/contribute/advanced/#쿠버네티스-릴리스를-위한-문서-조정) 또는 두 개의 릴리스에서 섀도잉을 수행한다.
 - SIG Docs 워크플로와 툴링을 이해한다(git, Hugo, 현지화, 블로그 하위 프로젝트).
 - [k/org의 팀](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
   [k/community의 프로세스](https://github.com/kubernetes/community/tree/master/sig-docs),
@@ -126,6 +124,8 @@ SIG Docs의 공동 의장 역할을 할 수 있다.
   [SIG 아키텍처](https://github.com/kubernetes/community/tree/master/sig-architecture)의
   역할을 포함하여 다른 쿠버네티스 SIG와 리포지터리가 SIG Docs 워크플로에 미치는
   영향을 이해한다.
+  추가로, [쿠버네티스 문서 릴리스 프로세스](/ko/docs/contribute/advanced/#쿠버네티스-릴리스를-위한-문서-조정)가 어떻게 동작하는지 이해한다.
+- SIG Docs 커뮤니티에 이해 직접적으로 또는 lazy consensus(특정 기간 내에 아무런 의견이 없으면 통과)를 통해 승인된다.
 - 최소 6개월 동안 일주일에 5시간 이상(대부분 더)을 역할에 책임진다.
 
 ### 책임

@@ -34,7 +34,8 @@ they are allowed to perform is the first line of defense.
 -->
 ## 控制对 Kubernetes API 的访问
 
-因为 Kubernetes 是完全通过 API 驱动的，所以，控制和限制谁可以通过 API 访问集群，以及允许这些访问者执行什么样的 API 动作，就成为了安全控制的第一道防线。
+因为 Kubernetes 是完全通过 API 驱动的，所以，控制和限制谁可以通过 API 访问集群，
+以及允许这些访问者执行什么样的 API 动作，就成为了安全控制的第一道防线。
 
 <!--
 ### Use Transport Layer Security (TLS) for all API traffic
@@ -47,7 +48,10 @@ potentially unsecured traffic.
 -->
 ### 为所有 API 交互使用传输层安全 （TLS）
 
-Kubernetes 期望集群中所有的 API 通信在默认情况下都使用 TLS 加密，大多数安装方法也允许创建所需的证书并且分发到集群组件中。请注意，某些组件和安装方法可能使用 HTTP 来访问本地端口， 管理员应该熟悉每个组件的设置，以识别潜在的不安全的流量。
+Kubernetes 期望集群中所有的 API 通信在默认情况下都使用 TLS 加密，
+大多数安装方法也允许创建所需的证书并且分发到集群组件中。
+请注意，某些组件和安装方法可能使用 HTTP 来访问本地端口，
+管理员应该熟悉每个组件的设置，以识别可能不安全的流量。
 
 <!--
 ### API Authentication
@@ -90,10 +94,10 @@ actions a client might want to perform. It is recommended that you use the [Node
 一旦通过身份认证，每个 API 的调用都将通过鉴权检查。
 Kubernetes 集成[基于角色的访问控制（RBAC）](/zh/docs/reference/access-authn-authz/rbac/)组件，
 将传入的用户或组与一组绑定到角色的权限匹配。
-这些权限将动作（get，create，delete）和资源（pod，service, node）在命名空间或者集群范围内结合起来，
-根据客户可能希望执行的操作，提供了一组提供合理的违约责任分离的外包角色。
-建议你将[节点](/zh/docs/reference/access-authn-authz/node/) 和
-[RBAC](/zh/docs/reference/access-authn-authz/rbac/) 一起作为授权者，再与
+这些权限将动作（get、create、delete）和资源（Pod、Service、Node）进行组合，并可在名字空间或者集群范围生效。
+Kubernetes 提供了一组可直接使用的角色，这些角色根据客户可能希望执行的操作提供合理的责任划分。
+建议你同时使用 [Node](/zh/docs/reference/access-authn-authz/node/) 和
+[RBAC](/zh/docs/reference/access-authn-authz/rbac/) 两个鉴权组件，再与
 [NodeRestriction](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 准入插件结合使用。
 
@@ -103,7 +107,7 @@ more users interact with the cluster, it may become necessary to separate teams 
 namespaces with more limited roles.
 -->
 与身份验证一样，简单而广泛的角色可能适合于较小的集群，但是随着更多的用户与集群交互，
-可能需要将团队划分成有更多角色限制的单独的命名空间。
+可能需要将团队划分到有更多角色限制的、单独的名字空间中去。
 
 <!--
 With authorization, it is important to understand how updates on one object may cause actions in
@@ -116,12 +120,12 @@ to prevent accidental escalation. You can make roles specific to your use case i
 
 Consult the [authorization reference section](/docs/reference/access-authn-authz/authorization/) for more information.
 -->
-就鉴权而言，理解怎么样更新一个对象可能导致在其它地方的发生什么样的行为是非常重要的。
-例如，用户可能不能直接创建 Pod，但允许他们通过创建一个 Deployment 来创建这些 Pod，
+就鉴权而言，很重要的一点是理解对象上的更新操作如何导致在其它地方发生对应行为。
+例如，用户可能不能直接创建 Pod，但允许他们通过创建 Deployment 来创建这些 Pod，
 这将让他们间接创建这些 Pod。
 同样地，从 API 删除一个节点将导致调度到这些节点上的 Pod 被中止，并在其他节点上重新创建。
-原生的角色设计代表了灵活性和常见用例之间的平衡，但有限制的角色应该仔细审查，
-以防止意外升级。如果外包角色不满足你的需求，则可以为用例指定特定的角色。
+原生的角色设计代表了灵活性和常见用例之间的平衡，但须限制的角色应该被仔细审查，
+以防止意外的权限升级。如果内置的角色无法满足你的需求，则可以根据使用场景需要创建特定的角色。
 
 如果你希望获取更多信息，请参阅[鉴权参考](/zh/docs/reference/access-authn-authz/authorization/)。
 
@@ -136,12 +140,12 @@ Consult the [Kubelet authentication/authorization reference](/docs/admin/kubelet
 -->
 ## 控制对 Kubelet 的访问
 
-Kubelet 公开 HTTPS 端点，这些端点授予节点和容器强大的控制权。
+Kubelet 公开 HTTPS 端点，这些端点提供了对节点和容器的强大的控制能力。
 默认情况下，Kubelet 允许对此 API 进行未经身份验证的访问。
 
-生产级别的集群应启用 Kubelet 身份验证和授权。
+生产级别的集群应启用 Kubelet 身份认证和授权。
 
-如果你希望获取更多信息，请参考
+进一步的信息，请参考
 [Kubelet 身份验证/授权参考](/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)。
 
 <!--
@@ -153,8 +157,8 @@ cluster, themselves, and other resources.
 -->
 ## 控制运行时负载或用户的能力
 
-Kubernetes 中的授权故意设置为了高层级，它侧重于对资源的粗粒度行为。
-更强大的控制是以通过用例限制这些对象如何作用于集群、自身和其他资源上的**策略**存在的。
+Kubernetes 中的授权故意设计成较高抽象级别，侧重于对资源的粗粒度行为。
+更强大的控制是 **策略** 的形式呈现的，根据使用场景限制这些对象如何作用于集群、自身和其他资源。
 
 <!--
 ### Limiting resource usage on a cluster
@@ -170,14 +174,13 @@ reserved resources like memory, or to provide default limits when none are speci
 -->
 ### 限制集群上的资源使用
 
-[资源配额](/zh/docs/concepts/policy/resource-quotas/)
-限制了授予命名空间的资源的数量或容量。
-这通常用于限制命名空间可以分配的 CPU、内存或持久磁盘的数量，但也可以控制
-每个命名空间中有多少个 Pod、服务或卷的存在。
+[资源配额（Resource Quota）](/zh/docs/concepts/policy/resource-quotas/)限制了赋予命名空间的资源的数量或容量。
+资源配额通常用于限制名字空间可以分配的 CPU、内存或持久磁盘的数量，
+但也可以控制每个名字空间中存在多少个 Pod、Service 或 Volume。
 
-[限制范围](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)限制
-上述某些资源的最大值或者最小值，以防止用户使用类似内存这样的通用保留资源时请求
-不合理的过高或过低的值，或者在没有指定的情况下提供默认限制。
+[限制范围（Limit Range）](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+限制上述某些资源的最大值或者最小值，以防止用户使用类似内存这样的通用保留资源时请求不合理的过高或过低的值，
+或者在没有指定的情况下提供默认限制。
 
 <!--
 ### Controlling what privileges containers run with
@@ -191,11 +194,11 @@ can limit which users or service accounts can provide dangerous security context
 ### 控制容器运行的特权
 
 Pod 定义包含了一个[安全上下文](/zh/docs/tasks/configure-pod-container/security-context/)，
-用于描述允许它请求访问某个节点上的特定 Linux 用户（如 root）、获得特权或访问主机网络、
-以及允许它在主机节点上不受约束地运行的其它控件。
+用于描述一些访问请求，如以某个节点上的特定 Linux 用户（如 root）身份运行，
+以特权形式运行，访问主机网络，以及一些在宿主节点上不受约束地运行的其它控制权限等等。
 [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)
 可以限制哪些用户或服务帐户可以提供危险的安全上下文设置。
-例如，Pod 的安全策略可以限制卷挂载，尤其是 `hostpath`，这些都是 Pod 应该控制的一些方面。
+例如，Pod 的安全策略可以限制卷挂载，尤其是 `hostpath`，这些都是 Pod 应该被控制的一些方面。
 
 <!--
 Generally, most application workloads need limited access to host resources so they can
@@ -205,10 +208,10 @@ containers to run as a non-root user. Similarly, administrators who wish to prev
 client applications from escaping their containers should use a restrictive pod security
 policy.
 -->
-一般来说，大多数应用程序需要限制对主机资源的访问，
-他们可以在不能访问主机信息的情况下成功以根进程（UID 0）运行。
+一般来说，大多数应用程序需要对主机资源的有限制的访问，
+这样它们可以在不访问主机信息的情况下，成功地以 root 账号（UID 0）运行。
 但是，考虑到与 root 用户相关的特权，在编写应用程序容器时，你应该使用非 root 用户运行。
-类似地，希望阻止客户端应用程序逃避其容器的管理员，应该使用限制性的 pod 安全策略。
+类似地，希望阻止客户端应用程序从其容器中逃逸的管理员，应该使用限制性较强的 Pod 安全策略。
 
 <!--
 ### Restricting network access
@@ -220,10 +223,10 @@ now respect network policy.
 -->
 ### 限制网络访问
 
-基于命名空间的[网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
-允许应用程序作者限制其它命名空间中的哪些 Pod 可以访问它们命名空间内的 Pod 和端口。
+基于名字空间的[网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
+允许应用程序作者限制其它名字空间中的哪些 Pod 可以访问自身名字空间内的 Pod 和端口。
 现在已经有许多支持网络策略的
-[Kubernetes 网络供应商](/zh/docs/concepts/cluster-administration/networking/)。
+[Kubernetes 网络驱动](/zh/docs/concepts/cluster-administration/networking/)。
 
 <!--
 Quota and limit ranges can also be used to control whether users may request node ports or
@@ -234,11 +237,11 @@ Additional protections may be available that control network rules on a per-plug
 per-environment basis, such as per-node firewalls, physically separating cluster nodes to
 prevent cross talk, or advanced networking policy.
 -->
-对于可以控制用户的应用程序是否在集群之外可见的许多集群，配额和限制范围也可用于
-控制用户是否可以请求节点端口或负载均衡服务。
+配额（Quota）和限制范围（Limit Range）也可用于控制用户是否可以请求节点端口或负载均衡服务。
+在很多集群上，节点端口和负载均衡服务也可控制用户的应用程序是否在集群之外可见。
 
-在插件或者环境基础上控制网络规则可以增加额外的保护措施，比如节点防火墙、物理分离
-群集节点以防止串扰、或者高级的网络策略。
+此外也可能存在一些基于插件或基于环境的网络规则，能够提供额外的保护能力。
+例如各节点上的防火墙、物理隔离群集节点以防止串扰或者高级的网络策略等。
 
 <!--
 ### Restricting cloud metadata API access
@@ -252,16 +255,16 @@ When running Kubernetes on a cloud platform, limit permissions given to instance
 [network policies](/docs/tasks/administer-cluster/declare-network-policy/) to restrict pod access
 to the metadata API, and avoid using provisioning data to deliver secrets.
 -->
-### 限制云 metadata API 访问
+### 限制云元数据 API 访问
 
-云平台（AWS,  Azure, GCE 等）经常讲 metadate 本地服务暴露给实例。
+云平台（AWS,  Azure, GCE 等）经常将 metadata 本地服务暴露给实例。
 默认情况下，这些 API 可由运行在实例上的 Pod 访问，并且可以包含
 该云节点的凭据或配置数据（如 kubelet 凭据）。
 这些凭据可以用于在集群内升级或在同一账户下升级到其他云服务。
 
-在云平台上运行 Kubernetes 时，限制对实例凭据的权限，使用
+在云平台上运行 Kubernetes 时，需要限制对实例凭据的权限，使用
 [网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
-限制对 metadata API 的 pod 访问，并避免使用配置数据来传递机密。
+限制 Pod 对元数据 API 的访问，并避免使用配置数据来传递机密信息。
 
 <!--
 ### Controlling which nodes pods may access
@@ -276,17 +279,17 @@ As an administrator, a beta admission plugin `PodNodeSelector` can be used to fo
 within a namespace to default or require a specific node selector, and if end users cannot
 alter namespaces, this can strongly limit the placement of all of the pods in a specific workload.
 -->
-### 控制 Pod 可以访问哪些节点
+### 控制 Pod 可以访问的节点
 
-默认情况下，对哪些节点可以运行 pod 没有任何限制。
+默认情况下，对 Pod 可以运行在哪些节点上是没有任何限制的。
 Kubernetes 给最终用户提供了
-[一组丰富的策略用于控制 pod 放在节点上的位置](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)，
+一组丰富的策略用于[控制 Pod 所放置的节点位置](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)，
 以及[基于污点的 Pod 放置和驱逐](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
-对于许多集群，可以约定由作者采用或者强制通过工具使用这些策略来分离工作负载。
+对于许多集群，使用这些策略来分离工作负载可以作为一种约定，要求作者遵守或者通过工具强制。
 
-对于管理员，Beta 阶段的准入插件 `PodNodeSelector` 可用于强制命名空间中的 Pod
-使用默认或需要使用特定的节点选择器。
-如果最终用户无法改变命名空间，这可以强烈地限制所有的 pod 在特定工作负载的位置。
+对于管理员，Beta 阶段的准入插件 `PodNodeSelector` 可用于强制某名字空间中的 Pod
+使用默认的或特定的节点选择算符。
+如果最终用户无法改变名字空间，这一机制可以有效地限制特定工作负载中所有 Pod 的放置位置。
 
 <!--
 ## Protecting cluster components from compromise
@@ -295,7 +298,7 @@ This section describes some common patterns for protecting clusters from comprom
 -->
 ## 保护集群组件免受破坏
 
-本节描述保护集群免受破坏的一些常见模式。
+本节描述保护集群免受破坏的一些常用模式。
 
 <!--
 ### Restrict access to etcd
@@ -315,16 +318,17 @@ access to a subset of the keyspace is strongly recommended.
 -->
 ### 限制访问 etcd
 
-对于 API 来说，拥有 etcd 后端的写访问权限，相当于获得了整个集群的 root 权限，
-并且可以使用写访问权限来相当快速地升级。
-从 API 服务器访问它们的 etcd 服务器，管理员应该使用广受信任的凭证，
-如通过 TLS 客户端证书的相互认证。
-通常，我们建议将 etcd 服务器隔离到只有API服务器可以访问的防火墙后面。
+拥有对 API 的 etcd 后端的写访问权限相当于获得了整个集群的 root 权限，
+读访问权限也可能被利用，实现相当快速的权限提升。
+对于从 API 服务器访问其 etcd 服务器，管理员应该总是使用比较强的凭证，如通过 TLS
+客户端证书来实现双向认证。
+通常，我们建议将 etcd 服务器隔离到只有 API 服务器可以访问的防火墙后面。
 
 {{< caution >}}
-允许集群中其它组件拥有读或写全空间的权限去访问 etcd 实例，相当于授予群集管理员访问的权限。
-对于非主控组件，强烈推荐使用单独的 etcd 实例，或者使用 etcd 的访问控制列表
-去限制只能读或者写空间的一个子集。
+允许集群中其它组件对整个主键空间（keyspace）拥有读或写权限去访问 etcd 实例，
+相当于授予这些组件群集管理员的访问权限。
+对于非主控组件，强烈推荐使用不同的 etcd 实例，或者使用 etcd 的访问控制列表
+来限制这些组件只能读或写主键空间的一个子集。
 {{< /caution >}}
 
 <!--
@@ -334,7 +338,7 @@ The [audit logger](/docs/tasks/debug-application-cluster/audit/) is a beta featu
 API for later analysis in the event of a compromise. It is recommended to enable audit logging
 and archive the audit file on a secure server.
 -->
-### 开启审计日志
+### 启用审计日志
 
 [审计日志](/zh/docs/tasks/debug-application-cluster/audit/)是 Beta 特性，
 负责记录 API 操作以便在发生破坏时进行事后分析。
@@ -351,7 +355,7 @@ do not use.
 ### 限制使用 alpha 和 beta 特性
 
 Kubernetes 的 alpha 和 beta 特性还在努力开发中，可能存在导致安全漏洞的缺陷或错误。
-要始终评估 alpha 和 beta 特性可能为你的安全态势带来的风险。
+要始终评估 alpha 和 beta 特性可能给你的安全态势带来的风险。
 当你怀疑存在风险时，可以禁用那些不需要使用的特性。
 
 <!--
@@ -363,13 +367,14 @@ an authentication provider that can control how long issued tokens are available
 lifetimes where possible. If you use service-account tokens in external integrations, plan to
 rotate those tokens frequently. For example, once the bootstrap phase is complete, a bootstrap token used for setting up nodes should be revoked or its authorization removed.
 -->
-### 频繁回收基础设施证书
+### 经常轮换基础设施证书
 
-一个 Secret 或凭据的寿命越短，攻击者就越难使用该凭据。
-在证书上设置短生命周期并实现自动回收，是控制安全的一个好方法。
-因此，使用身份验证提供程序时，应该要求可以控制发布令牌的可用时间，并尽可能使用短寿命。
-如果在外部集成中使用服务帐户令牌，则应该频繁地回收这些令牌。
-例如，一旦引导阶段完成，就应该撤销用于设置节点的引导令牌，或者取消它的授权。
+一项机密信息或凭据的生命期越短，攻击者就越难使用该凭据。
+在证书上设置较短的生命期并实现自动轮换是控制安全的一个好方法。
+使用身份验证提供程序时，应该使用那些可以控制所发布令牌的合法时长的提供程序，
+并尽可能设置较短的生命期。
+如果在外部集成场景中使用服务帐户令牌，则应该经常性地轮换这些令牌。
+例如，一旦引导阶段完成，就应该撤销用于配置节点的引导令牌，或者取消它的授权。
 
 <!--
 ### Review third party integrations before enabling them
@@ -387,16 +392,16 @@ or run with elevated permissions if those service accounts are granted access to
 -->
 ### 在启用第三方集成之前，请先审查它们
 
-许多集成到 Kubernetes 的第三方都可以改变你集群的安全配置。
+许多集成到 Kubernetes 的第三方软件或服务都可能改变你的集群的安全配置。
 启用集成时，在授予访问权限之前，你应该始终检查扩展所请求的权限。
-例如，许多安全集成可以请求访问来查看集群上的所有 Secret，
-从而有效地使该组件成为集群管理。
-当有疑问时，如果可能的话，将集成限制在单个命名空间中运行。
+例如，许多安全性集成中可能要求查看集群上的所有 Secret 的访问权限，
+本质上该组件便成为了集群的管理员。
+当有疑问时，如果可能的话，将要集成的组件限制在某指定名字空间中运行。
 
-如果组件创建的 Pod 能够在命名空间中做一些类似 `kube-system` 命名空间中的事情，
-那么它也可能是出乎意料的强大。
-因为这些 Pod 可以访问服务账户的 Secret，或者，如果这些服务帐户被授予访问许可的
-[Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)的权限，它们能以高权限运行。
+如果执行 Pod 创建操作的组件能够在 `kube-system` 这类名字空间中创建 Pod，
+则这类组件也可能获得意外的权限，因为这些 Pod 可以访问服务账户的 Secret，
+或者，如果对应服务帐户被授权访问宽松的 [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)，
+它们就能以较高的权限运行。
 
 <!--
 ### Encrypt secrets at rest
@@ -415,13 +420,15 @@ are not encrypted or an attacker gains read access to etcd.
 ### 对 Secret 进行静态加密
 
 一般情况下，etcd 数据库包含了通过 Kubernetes API 可以访问到的所有信息，
-并且可以授予攻击者对集群状态的可见性。
-始终使用经过良好审查的备份和加密解决方案来加密备份，并考虑在可能的情况下使用全磁盘加密。
+并且可能为攻击者提供对你的集群的状态的较多的可见性。
+你要始终使用经过充分审查的备份和加密方案来加密备份数据，
+并考虑在可能的情况下使用全盘加密。
 
-Kubernetes 支持 [静态数据加密](/zh/docs/tasks/administer-cluster/encrypt-data/)，
-该功能在 1.7 版本引入，并在 1.13 版本成为 Beta。它会加密 etcd 里面的 `Secret` 资源，以防止某一方通过查看
-etcd 的备份文件查看到这些 Secret 的内容。虽然目前这还只是 Beta 阶段的功能，
-但是在备份没有加密或者攻击者获取到 etcd 的读访问权限的时候，它能提供额外的防御层级。
+Kubernetes 支持[静态数据加密](/zh/docs/tasks/administer-cluster/encrypt-data/)。
+该功能在 1.7 版本引入，并在 1.13 版本成为 Beta。
+它会加密 etcd 里面的 `Secret` 资源，以防止某一方通过查看 etcd 的备份文件查看到这些
+Secret 的内容。虽然目前该功能还只是 Beta 阶段，
+在备份未被加密或者攻击者获取到 etcd 的读访问权限时，它仍能提供额外的防御层级。
 
 <!--
 ### Receiving alerts for security updates and reporting vulnerabilities
@@ -432,10 +439,7 @@ page for more on how to report vulnerabilities.
 -->
 ### 接收安全更新和报告漏洞的警报
 
-加入 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)
-组，能够获取有关安全公告的邮件。有关如何报告漏洞的更多信息，请参见
-[安全报告](/zh/docs/reference/issues-security/security/)页面。
-
-
-
+请加入 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)
+组，这样你就能够收到有关安全公告的邮件。有关如何报告漏洞的更多信息，
+请参见[安全报告](/zh/docs/reference/issues-security/security/)页面。
 

@@ -201,7 +201,7 @@ spec:
     spec:
       containers:
       - name: c
-        image: busybox
+        image: busybox:1.28
         command: ["sh", "-c", "echo Processing URL {{ url }} && sleep 5"]
       restartPolicy: Never
 {% endfor %}

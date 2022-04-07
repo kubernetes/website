@@ -31,7 +31,6 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install) unites Flannel and Calico, providing networking and network policy.
 * [Cilium](https://github.com/cilium/cilium) is a L3 network and network policy plugin that can enforce HTTP/API/L7 policies transparently. Both routing and overlay/encapsulation mode are supported.
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) enables Kubernetes to seamlessly connect to a choice of CNI plugins, such as Calico, Canal, Flannel, Romana, or Weave.
-* [Contiv](http://contiv.github.io) provides configurable networking (native L3 using BGP, overlay using vxlan, classic L2, and Cisco-SDN/ACI) for various use cases and a rich policy framework. Contiv project is fully [open sourced](http://github.com/contiv). The [installer](http://github.com/contiv/install) provides both kubeadm and non-kubeadm based installation options.
 * [Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is an open source, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide isolation modes for virtual machines, containers/pods and bare metal workloads.
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) is an overlay network provider that can be used with Kubernetes.
 * [Knitter](https://github.com/ZTE/Knitter/) is a network solution supporting multiple networking in Kubernetes.
@@ -55,9 +54,6 @@ Add-ons 扩展了 Kubernetes 的功能。
   同时支持路由（routing）和覆盖/封装（overlay/encapsulation）模式。
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) 使 Kubernetes 无缝连接到一种 CNI 插件，
   例如：Flannel、Calico、Canal、Romana 或者 Weave。
-* [Contiv](https://contiv.github.io) 为多种用例提供可配置网络（使用 BGP 的原生 L3，使用 vxlan 的覆盖网络，
-  经典 L2 和 Cisco-SDN/ACI）和丰富的策略框架。Contiv 项目完全[开源](https://github.com/contiv)。
-  [安装工具](https://github.com/contiv/install)同时提供基于和不基于 kubeadm 的安装选项。
 * 基于 [Tungsten Fabric](https://tungsten.io) 的
   [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)
   是一个开源的多云网络虚拟化和策略管理平台，Contrail 和 Tungsten Fabric 与业务流程系统

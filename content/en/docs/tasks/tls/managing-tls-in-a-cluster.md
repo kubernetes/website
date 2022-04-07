@@ -308,7 +308,7 @@ kubectl create secret tls server --cert server.crt --key server-key.pem
 secret/server created
 ```
 
-Finally, you can populate `ca.pem` into a {< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
+Finally, you can populate `ca.pem` into a {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
 and use it as the trust root to verify the serving certificate:
 
 ```shell

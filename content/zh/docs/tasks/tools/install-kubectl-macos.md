@@ -122,7 +122,7 @@ The following methods exist for installing kubectl on macOS:
    根据校验和文件，验证 kubectl：
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
+   echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
    <!-- 
    If valid, the output is:
@@ -178,11 +178,16 @@ The following methods exist for installing kubectl on macOS:
 
 <!-- 
 1. Test to ensure the version you installed is up-to-date:
+Or use this for detailed view of version:
 -->
 5. 测试一下，确保你安装的是最新的版本：
 
    ```bash
    kubectl version --client
+   ```
+   或者使用下面命令来查看版本的详细信息：
+   ```cmd
+   kubectl version --client --output=yaml
    ```
 
 <!-- 
@@ -325,7 +330,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    基于校验和，验证 kubectl-convert 的可执行文件：
 
    ```bash
-   echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
+   echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
    
    <!--

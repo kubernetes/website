@@ -51,7 +51,9 @@ which are configured in the API.
 
 <!--
 Admission controllers may be "validating", "mutating", or both. Mutating
-controllers may modify the objects they admit; validating controllers may not.
+controllers may modify related objects to the requests they admit; validating controllers may not.
+
+Admission controllers limit requests to create, delete, modify objects or connect to proxy. They do not limit requests to read objects.
 
 The admission control process proceeds in two phases. In the first phase,
 mutating admission controllers are run. In the second phase, validating
@@ -62,7 +64,9 @@ If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
 -->
 准入控制器可以执行 “验证（Validating）” 和/或 “变更（Mutating）” 操作。
-变更（mutating）控制器可以修改被其接受的对象；验证（validating）控制器则不行。
+变更（mutating）控制器可以根据被其接受的请求修改相关对象；验证（validating）控制器则不行。
+
+准入控制器限制创建、删除、修改对象或连接到代理的请求，不限制读取对象的请求。
 
 准入控制过程分为两个阶段。第一阶段，运行变更准入控制器。第二阶段，运行验证准入控制器。
 再次提醒，某些控制器既是变更准入控制器又是验证准入控制器。
@@ -995,10 +999,11 @@ This admission controller implements additional validations for checking incomin
 
 {{< note >}}
 <!--
-Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
+Support for volume resizing is available as a beta feature. As a cluster administrator,
+you must ensure that the feature gate `ExpandPersistentVolumes` is set
 to `true` to enable resizing.
 -->
-对调整卷大小的支持是一种 Alpha 特性。管理员必须将特性门控 `ExpandPersistentVolumes`
+对调整卷大小的支持是一种 Beta 特性。作为集群管理员，你必须确保特性门控 `ExpandPersistentVolumes`
 设置为 `true` 才能启用调整大小。
 {{< /note >}}
 
@@ -1173,7 +1178,7 @@ PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
 
 ### PodSecurity {#podsecurity}
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 <!--
 This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
@@ -1203,10 +1208,10 @@ based on the requested security context and the available Pod Security Policies.
 安全策略确定是否可以执行请求。
 
 <!--
-See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-policy/)
+See also the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation
 for more information.
 -->
-查看 [Pod 安全策略文档](/zh/docs/concepts/policy/pod-security-policy/)
+查看 [Pod 安全策略文档](/zh/docs/concepts/security/pod-security-policy/)
 了解更多细节。
 
 ### PodTolerationRestriction {#podtolerationrestriction}
@@ -1323,22 +1328,29 @@ Pod 的 `.spec.overhead` 字段和 RuntimeClass 的 `.overhead` 字段均为处�
 ### SecurityContextDeny {#securitycontextdeny}
 
 <!--
-This admission controller will deny any pod that attempts to set certain escalating
+This admission controller will deny any Pod that attempts to set certain escalating
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 fields, as shown in the
 [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
 task.
-This should be enabled if a cluster doesn't utilize 
-[pod security policies](/docs/concepts/policy/pod-security-policy/)
-to restrict the set of values a security context can take.
+If you don't use [Pod Security admission]((/docs/concepts/security/pod-security-admission/),
+[PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), nor any external enforcement mechanism,
+then you could use this admission controller to restrict the set of values a security context can take.
+
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for more context on restricting
+pod privileges.
 -->
 该准入控制器将拒绝任何试图设置特定提升
 [SecurityContext](/zh/docs/tasks/configure-pod-container/security-context/)
 字段的 Pod，正如任务
 [为 Pod 或 Container 配置安全上下文](/zh/docs/tasks/configure-pod-container/security-context/)
 中所展示的那样。
-如果集群没有使用 [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)
-来限制安全上下文所能获取的值集，那么应该启用这个功能。
+如果集群没有使用 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission/)、
+[PodSecurityPolicies](/zh/docs/concepts/security/pod-security-policy/)，
+也没有任何外部执行机制，那么你可以使用此准入控制器来限制安全上下文所能获取的值集。
+
+有关限制 Pod 权限的更多内容，请参阅 
+[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
 
 ### ServiceAccount {#serviceaccount}
 
