@@ -156,16 +156,16 @@ plugin offered by the CNI plugin team or use your own plugin with bandwidth cont
 If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file
 (default `/etc/cni/net.d`) and ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
 -->
-#### 支持流量整形
+#### 支持流量控制
 
-**实验功能**
+**实验性功能**
 
-CNI 网络插件还支持 pod 入口和出口流量整形。
+CNI 网络插件还支持 pod 入口和出口流量控制。
 你可以使用 CNI 插件团队提供的
 [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
 插件，也可以使用你自己的具有带宽控制功能的插件。
 
-如果你想要启用流量整形支持，你必须将 `bandwidth` 插件添加到 CNI 配置文件
+如果你想要启用流量控制支持，你必须将 `bandwidth` 插件添加到 CNI 配置文件
 （默认是 `/etc/cni/net.d`）并保证该可执行文件包含在你的 CNI 的 bin
 文件夹内 (默认为 `/opt/cni/bin`)。
 
@@ -232,7 +232,7 @@ The plugin requires a few things:
 
 Kubenet 是一个非常基本的、简单的网络插件，仅适用于 Linux。
 它本身并不实现更高级的功能，如跨节点网络或网络策略。
-它通常与云驱动一起使用，云驱动为节点间或单节点环境中的通信设置路由规则。
+它通常与云提供商一起使用，云提供商为节点间或单节点环境中的通信设置路由规则。
 
 Kubenet 创建名为 `cbr0` 的网桥，并为每个 pod 创建了一个 veth 对，
 每个 Pod 的主机端都连接到 `cbr0`。
