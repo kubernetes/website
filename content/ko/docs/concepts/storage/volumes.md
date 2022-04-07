@@ -273,7 +273,7 @@ spec:
 * [컨피그맵](/docs/tasks/configure-pod-container/configure-pod-configmap/)을 사용하기 위해서는
   먼저 컨피그맵을 생성해야 한다.
 
-* 컨피그맵을 [`subPath`](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 컨피그맵
+* 컨피그맵을 [`subPath`](#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 컨피그맵
 업데이트를 수신하지 않는다.
 
 * 텍스트 데이터는 UTF-8 문자 인코딩을 사용하는 파일로 노출된다. 다른 문자 인코딩의 경우, `binaryData` 를 사용한다.
@@ -285,7 +285,7 @@ spec:
 이것은 디렉터리를 마운트하고 요청된 데이터를 일반 텍스트 파일로 작성한다.
 
 {{< note >}}
-다운워드 API를 [`subPath`](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 다운워드 API
+다운워드 API를 [`subPath`](#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 다운워드 API
 업데이트를 수신하지 않는다.
 {{< /note >}}
 
@@ -859,7 +859,7 @@ RBD는 읽기-쓰기 모드에서 단일 고객만 마운트할 수 있다.
 드라이버로 리다이렉트한다. 
 이 기능을 사용하려면, 클러스터에 
 [Ceph CSI 드라이버](https://github.com/ceph/ceph-csi)가 설치되어 있고 
-`CSIMigration`, `CSIMigrationRBD` 
+`CSIMigration`, `csiMigrationRBD` 
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
 
 {{< note >}}
@@ -894,7 +894,7 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 {{< /note >}}
 
 {{< note >}}
-시크릿을 [`subPath`](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 시크릿
+시크릿을 [`subPath`](#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 시크릿
 업데이트를 수신하지 못한다.
 {{< /note >}}
 
@@ -1133,6 +1133,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
+      # 변수 확장에는 괄호를 사용한다(중괄호 아님).
       subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:

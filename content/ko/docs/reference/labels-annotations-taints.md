@@ -159,6 +159,20 @@ _SelectorSpreadPriority_ 는 최선 노력(best effort) 배치 방법이다. 클
 `PersistentVolumeLabel`이 퍼시스턴트볼륨의 자동 레이블링을 지원하지 않는다면, 레이블을 수동으로 추가하거나 `PersistentVolumeLabel`이 동작하도록 변경할 수 있다. 
 `PersistentVolumeLabel`이 설정되어 있으면, 스케줄러는 파드가 다른 영역에 있는 볼륨에 마운트하는 것을 막는다. 만약 사용 중인 인프라에 이러한 제약이 없다면, 볼륨에 영역 레이블을 추가할 필요가 전혀 없다.
 
+## volume.beta.kubernetes.io/storage-provisioner (사용 중단됨)
+
+예시: `volume.beta.kubernetes.io/storage-provisioner: k8s.io/minikube-hostpath`
+
+적용 대상: PersistentVolumeClaim
+
+이 어노테이션은 사용 중단되었다.
+
+## volume.kubernetes.io/storage-provisioner
+
+적용 대상: PersistentVolumeClaim
+
+이 어노테이션은 동적 프로비저닝이 요구되는 PVC에 추가될 예정이다.
+
 ## node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
 
 예시: `node.kubernetes.io/windows-build=10.0.17763`

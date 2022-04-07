@@ -15,7 +15,7 @@ weight: 50
 {{< glossary_tooltip text="파드" term_id="pod" >}}들과 컨테이너들을 
 구동할 수 있다.
 
-{{< glossary_definition term_id="container-runtime-interface" length="all" >}}
+{{< glossary_definition prepend="컨테이너 런타임 인터페이스(CRI)는" term_id="container-runtime-interface" length="all" >}}
 
 <!-- body -->
 

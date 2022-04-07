@@ -87,7 +87,7 @@ Kubelet은 다른 구성은 지원하지 않는다.
 
 {{<note>}}
 일부 kubelet 가비지 수집 기능은 더 이상 사용되지 않으며 축출로 대체되었다.
-사용 중지된 기능의 목록은 [kubelet 가비지 수집 사용 중단](/ko/docs/concepts/cluster-administration/kubelet-garbage-collection/#사용-중단-deprecation)을 참조한다.
+사용 중지된 기능의 목록은 [kubelet 가비지 수집 사용 중단](/ko/docs/concepts/architecture/garbage-collection/#containers-images)을 참조한다.
 {{</note>}}
 
 ### 축출 임계값
@@ -235,7 +235,7 @@ QoS는 EphemeralStorage 요청에 적용되지 않으므로,
 `Guaranteed` 파드는 모든 컨테이너에 대해 자원 요청량과 제한이 명시되고 
 그 둘이 동일할 때에만 보장(guaranteed)된다. 다른 파드의 자원 사용으로 인해 
 `Guaranteed` 파드가 축출되는 일은 발생하지 않는다. 만약 시스템 데몬(예: 
-`kubelet`, `docker`, `journald`)이 `system-reserved` 또는 `kube-reserved` 
+`kubelet`, `journald`)이 `system-reserved` 또는 `kube-reserved` 
 할당을 통해 예약된 것보다 더 많은 자원을 소비하고, 노드에는 요청량보다 적은 양의 
 자원을 사용하고 있는 `Guaranteed` / `Burstable` 파드만 존재한다면, 
 kubelet은 노드 안정성을 유지하고 자원 고갈이 다른 파드에 미칠 영향을 통제하기 위해 
