@@ -30,11 +30,11 @@
 # leave the "announcements" key in place
 announcements:
 
-- name: Dockershim removal coming in Kubernetes 1.24
+- name: Dockershim removal
   startTime: 2022-04-13T00:00:00 # Added in PR: 
   endTime: 2022-05-13T00:00:00 # Expires 2022-05-19
   style: "background: #3d4cb7"
-  title: "Dockershim removal: Read the FAQ"
+  title: "Dockershim removal set for Kubernetes 1.24"
   message: |
     As of Kubernetes 1.24, Dockershim will no longer be included in Kubernetes.
     Read the [Dockershim Removal FAQ](https://kubernetes.io/blog/2022/02/17/dockershim-faq/) to see what this means to you.
