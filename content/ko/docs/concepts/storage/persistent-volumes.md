@@ -73,8 +73,8 @@ API 서버 커맨드라인 플래그에 대한 자세한 정보는
 
 일단 사용자에게 클레임이 있고 그 클레임이 바인딩되면, 바인딩된 PV는 사용자가 필요로 하는 한 사용자에게 속한다. 사용자는 파드의 `volumes` 블록에 `persistentVolumeClaim`을 포함하여 파드를 스케줄링하고 클레임한 PV에 접근한다. 이에 대한 자세한 내용은 [볼륨으로 클레임하기](#볼륨으로-클레임하기)를 참고하길 바란다.
 
-### 사용 중인 스토리지 오브젝트 ​​보호
-사용 중인 스토리지 오브젝트 ​​보호 기능의 목적은 PVC에 바인딩된 파드와 퍼시스턴트볼륨(PV)이 사용 중인 퍼시스턴트볼륨클레임(PVC)을 시스템에서 삭제되지 않도록 하는 것이다. 삭제되면 이로 인해 데이터의 손실이 발생할 수 있기 때문이다.
+### 사용 중인 스토리지 오브젝트 보호
+사용 중인 스토리지 오브젝트 보호 기능의 목적은 PVC에 바인딩된 파드와 퍼시스턴트볼륨(PV)이 사용 중인 퍼시스턴트볼륨클레임(PVC)을 시스템에서 삭제되지 않도록 하는 것이다. 삭제되면 이로 인해 데이터의 손실이 발생할 수 있기 때문이다.
 
 {{< note >}}
 PVC를 사용하는 파드 오브젝트가 존재하면 파드가 PVC를 사용하고 있는 상태이다.
@@ -254,6 +254,16 @@ PVC에 대해 더 큰 볼륨을 요청하려면 PVC 오브젝트를 수정하여
 지정한다. 이는 기본 퍼시스턴트볼륨을 지원하는 볼륨의 확장을 트리거한다. 클레임을 만족시키기 위해
 새로운 퍼시스턴트볼륨이 생성되지 않고 기존 볼륨의 크기가 조정된다.
 
+{{< warning >}}
+퍼시스턴트볼륨의 크기를 직접 변경하면 자동 볼륨 리사이즈 기능을 이용할 수 없게 된다. 
+퍼시스턴트볼륨의 크기를 변경하고, 
+퍼시스턴트볼륨에 해당되는 퍼시스턴트볼륨클레임의 `.spec`에 적혀 있는 크기를 동일하게 변경하면, 
+스토리지 리사이즈가 발생하지 않는다.
+쿠버네티스 컨트롤 플레인은 
+두 리소스의 목표 상태(desired state)가 일치하는 것을 확인하고, 
+배후(backing) 볼륨 크기가 수동으로 증가되어 리사이즈가 필요하지 않다고 판단할 것이다.
+{{< /warning >}}
+
 #### CSI 볼륨 확장
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
@@ -412,7 +422,7 @@ spec:
 
 ### 용량
 
-일반적으로 PV는 특정 저장 용량을 가진다. 이것은 PV의 `capacity` 속성을 사용하여 설정된다. `capacity`가 사용하는 단위를 이해하려면 쿠버네티스 [리소스 모델](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md)을 참고한다.
+일반적으로 PV는 특정 저장 용량을 가진다. 이것은 PV의 `capacity` 속성을 사용하여 설정된다. `capacity`가 사용하는 단위를 이해하려면 용어집에 있는 [수량](/ko/docs/reference/glossary/?all=true#term-quantity) 항목을 참고한다.
 
 현재 스토리지 용량 크기는 설정하거나 요청할 수 있는 유일한 리소스이다. 향후 속성에 IOPS, 처리량 등이 포함될 수 있다.
 
@@ -525,19 +535,19 @@ PV는 `storageClassName` 속성을
 
 다음 볼륨 유형은 마운트 옵션을 지원한다.
 
-* AWSElasticBlockStore
-* AzureDisk
-* AzureFile
-* CephFS
-* Cinder (OpenStack 블록 스토리지)
-* GCEPersistentDisk
-* Glusterfs
-* NFS
-* Quobyte Volumes
-* RBD (Ceph Block Device)
-* StorageOS
-* VsphereVolume
-* iSCSI
+* `awsElasticBlockStore`
+* `azureDisk`
+* `azureFile`
+* `cephfs`
+* `cinder` (v1.18에서 **사용 중단됨**)
+* `gcePersistentDisk`
+* `glusterfs`
+* `iscsi`
+* `nfs`
+* `quobyte` (v1.22에서 **사용 중단됨**)
+* `rbd`
+* `storageos` (v1.22에서 **사용 중단됨**)
+* `vsphereVolume`
 
 마운트 옵션의 유효성이 검사되지 않는다. 마운트 옵션이 유효하지 않으면, 마운트가 실패한다.
 
