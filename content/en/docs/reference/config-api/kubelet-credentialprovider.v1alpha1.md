@@ -81,7 +81,7 @@ Global. If an invalid value is specified, the response will NOT be used by the k
     
   
 <tr><td><code>cacheDuration</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    cacheDuration indicates the duration the provided credentials should be cached for.
