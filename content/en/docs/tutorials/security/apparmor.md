@@ -264,7 +264,7 @@ metadata:
 spec:
   containers:
   - name: hello
-    image: busybox
+    image: busybox:1.28
     command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
 EOF
 pod/hello-apparmor-2 created
@@ -350,7 +350,7 @@ node with the required profile.
 
 {{< note >}}
 PodSecurityPolicy is deprecated in Kubernetes v1.21, and will be removed in v1.25.
-See [PodSecurityPolicy documentation](/docs/concepts/policy/pod-security-policy/) for more information.
+See [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation for more information.
 {{< /note >}}
 
 If the PodSecurityPolicy extension is enabled, cluster-wide AppArmor restrictions can be applied. To
@@ -382,27 +382,13 @@ If you do not want AppArmor to be available on your cluster, it can be disabled 
 ```
 
 When disabled, any Pod that includes an AppArmor profile will fail validation with a "Forbidden"
-error. Note that by default docker always enables the "docker-default" profile on non-privileged
-pods (if the AppArmor kernel module is enabled), and will continue to do so even if the feature-gate
-is disabled. The option to disable AppArmor will be removed when AppArmor graduates to general
+error.
+
+{{<note>}}
+Even if the Kubernetes feature is disabled, runtimes may still enforce the default profile. The
+option to disable the AppArmor feature will be removed when AppArmor graduates to general
 availability (GA).
-
-### Upgrading to Kubernetes v1.4 with AppArmor
-
-No action is required with respect to AppArmor to upgrade your cluster to v1.4. However, if any
-existing pods had an AppArmor annotation, they will not go through validation (or PodSecurityPolicy
-admission). If permissive profiles are loaded on the nodes, a malicious user could pre-apply a
-permissive profile to escalate the pod privileges above the docker-default. If this is a concern, it
-is recommended to scrub the cluster of any pods containing an annotation with
-`apparmor.security.beta.kubernetes.io`.
-
-### Upgrade path to General Availability
-
-When AppArmor is ready to be graduated to general availability (GA), the options currently specified
-through annotations will be converted to fields. Supporting all the upgrade and downgrade paths
-through the transition is very nuanced, and will be explained in detail when the transition
-occurs. We will commit to supporting both fields and annotations for at least 2 releases, and will
-explicitly reject the annotations for at least 2 releases after that.
+{{</note>}}
 
 ## Authoring Profiles
 
@@ -414,10 +400,6 @@ tools to help with that:
   [AppArmor documentation](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools).
 * [bane](https://github.com/jfrazelle/bane) is an AppArmor profile generator for Docker that uses a
   simplified profile language.
-
-It is recommended to run your application through Docker on a development workstation to generate
-the profiles, but there is nothing preventing running the tools on the Kubernetes node where your
-Pod is running.
 
 To debug problems with AppArmor, you can check the system logs to see what, specifically, was
 denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be found in the system
@@ -441,9 +423,8 @@ Specifying the profile a container will run with:
 - `runtime/default`: Refers to the default runtime profile.
   - Equivalent to not specifying a profile (without a PodSecurityPolicy default), except it still
     requires AppArmor to be enabled.
-  - For Docker, this resolves to the
-    [`docker-default`](https://docs.docker.com/engine/security/apparmor/) profile for non-privileged
-    containers, and unconfined (no profile) for privileged containers.
+  - In practice, many container runtimes use the same OCI default profile, defined here:
+    https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
 - `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
   - The possible profile names are detailed in the
     [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
@@ -474,5 +455,3 @@ Additional resources:
 
 * [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
-
-

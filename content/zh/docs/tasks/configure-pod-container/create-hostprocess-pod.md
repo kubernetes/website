@@ -46,7 +46,7 @@ as Windows server containers, meaning that the version of the base images does n
 to match that of the host. It is, however, recommended that you use the same base image
 version as your Windows Server container workloads to ensure you do not have any unused
 images taking up space on the node. HostProcess containers also support
-[volume mounts](./create-hostprocess-pod#volume-mounts) within the container volume.
+[volume mounts](#volume-mounts) within the container volume.
 -->
 类似于安装安全补丁、事件日志收集等这类管理性质的任务可以在不需要集群操作员登录到每个
 Windows 节点的前提下执行。HostProcess 容器可以以主机上存在的任何用户账户来运行，
@@ -58,7 +58,7 @@ Windows 节点的前提下执行。HostProcess 容器可以以主机上存在的
 这意味着基础镜像的版本不必与主机操作系统的版本匹配。
 不过，仍然建议你像使用 Windows 服务器容器负载那样，使用相同的基础镜像版本，
 这样你就不会有一些未使用的镜像占用节点上的存储空间。HostProcess 容器也支持
-在容器卷内执行[卷挂载](./create-hostprocess-pod#volume-mounts)。
+在容器卷内执行[卷挂载](#volume-mounts)。
 
 <!--
 ### When should I use a Windows HostProcess container?
@@ -130,12 +130,12 @@ These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
 
 <!--
 - HostProcess containers require containerd 1.6 or higher
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
+  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 - HostProcess pods can only contain HostProcess containers. This is a current limitation
-of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
+  of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
 - HostProcess containers run as a process on the host and do not have any degree of
-isolation other than resource constraints imposed on the HostProcess user account. Neither
-filesystem or Hyper-V isolation are supported for HostProcess containers.
+  isolation other than resource constraints imposed on the HostProcess user account. Neither
+  filesystem or Hyper-V isolation are supported for HostProcess containers.
 -->
 - HostProcess 容器需要 containerd 1.6 或更高版本的
   {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}。
@@ -145,13 +145,14 @@ filesystem or Hyper-V isolation are supported for HostProcess containers.
   用户账号所实施的资源约束外，不提供任何形式的隔离。HostProcess 容器不支持文件系统或
   Hyper-V 隔离。
 <!--
-- Volume mounts are supported and are mounted under the container volume. See [Volume Mounts](#volume-mounts)
+- Volume mounts are supported and are mounted under the container volume. See
+  [Volume Mounts](#volume-mounts)
 - A limited set of host user accounts are available for HostProcess containers by default.
   See [Choosing a User Account](#choosing-a-user-account).
 - Resource limits (disk, memory, cpu count) are supported in the same fashion as processes
-on the host.
+  on the host.
 - Both Named pipe mounts and Unix domain sockets are **not** supported and should instead
-be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
+  be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 -->
 - 卷挂载是被支持的，并且要花在到容器卷下。参见[卷挂载](#volume-mounts)。
 - 默认情况下有一组主机用户账户可供 HostProcess 容器使用。

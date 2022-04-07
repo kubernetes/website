@@ -95,7 +95,26 @@ kubectl config view --minify | grep namespace:
 이 엔트리는 `<서비스-이름>.<네임스페이스-이름>.svc.cluster.local`의 형식을 갖는데,
 이는 컨테이너가 `<서비스-이름>`만 사용하는 경우, 네임스페이스 내에 국한된 서비스로 연결된다.
 개발, 스테이징, 운영과 같이 여러 네임스페이스 내에서 동일한 설정을 사용하는 경우에 유용하다.
-네임스페이스를 넘어서 접근하기 위해서는, 전체 주소 도메인 이름(FQDN)을 사용해야 한다.
+네임스페이스를 넘어서 접근하기 위해서는, 
+전체 주소 도메인 이름(FQDN)을 사용해야 한다.
+
+그렇기 때문에, 모든 네임스페이스 이름은 유효한 
+[RFC 1123 DNS 레이블](/ko/docs/concepts/overview/working-with-objects/names/#dns-label-names)이어야 한다.
+
+{{< warning >}}
+네임스페이스의 이름을 [공개 최상위 도메인](https://data.iana.org/TLD/tlds-alpha-by-domain.txt) 중 하나와 동일하게 만들면, 
+해당 네임스페이스 내의 서비스의 짧은 DNS 이름이 공개 DNS 레코드와 겹칠 수 있다. 
+어떠한 네임스페이스 내의 워크로드가 
+[접미점(trailing dot)](https://datatracker.ietf.org/doc/html/rfc1034#page-8) 없이 DNS 룩업을 수행하면 
+공개 DNS 레코드보다 우선하여 해당 서비스로 리다이렉트될 것이다.
+
+이를 방지하기 위해, 신뢰하는 사용자만 네임스페이스를 
+생성할 수 있도록 권한을 제한한다. 
+필요한 경우, 추가적으로 써드파티 보안 컨트롤을 구성할 수 있으며, 
+예를 들어 [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 이용하여 
+[공개 TLD](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)와 
+동일한 이름의 네임스페이스 생성을 금지시킬 수 있다.
+{{< /warning >}}
 
 ## 모든 오브젝트가 네임스페이스에 속하지는 않음
 

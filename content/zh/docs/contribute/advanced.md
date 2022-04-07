@@ -44,7 +44,7 @@ the documentation, the website style, the processes for reviewing and merging
 pull requests, or other aspects of the documentation. For maximum transparency,
 these types of proposals need to be discussed in a SIG Docs meeting or on the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
-In addition, it can really help to have some context about the way things
+In addition, it can help to have some context about the way things
 currently work and why past decisions have been made before proposing sweeping
 changes. The quickest way to get answers to questions about how the documentation
 currently works is to ask in the `#sig-docs` Slack channel on
@@ -55,7 +55,7 @@ currently works is to ask in the `#sig-docs` Slack channel on
 评审和合并 PR 的流程或者文档的其他方面产生改进的想法。
 为了尽可能透明化，这些提议都需要在 SIG Docs 会议或
 [kubernetes-sig-docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)上讨论。
-此外，在提出全面的改进之前，这些讨论能真正帮助我们了解有关“当前工作如何运作”和“以往的决定是为何做出”的背景。
+此外，在提出全面的改进之前，这些讨论能帮助我们了解有关“当前工作如何运作”和“以往的决定是为何做出”的背景。
 想了解文档的当前运作方式，最快的途径是咨询 [kubernetes.slack.com](https://kubernetes.slack.com)
 中的 `#sig-docs` 聊天群组。
 
@@ -96,7 +96,7 @@ refer to
 The SIG Docs representative for a given release coordinates the following tasks:
 
 - Monitor the feature-tracking spreadsheet for new or changed features with an
-  impact on documentation. If documentation for a given feature won't be ready
+  impact on documentation. If the documentation for a given feature won't be ready
   for the release, the feature may not be allowed to go into the release.
 - Attend sig-release meetings regularly and give updates on the status of the
   docs for the release.
@@ -151,19 +151,21 @@ SIG Docs [批准人（Approvers）](/zh/docs/contribute/participating/#approvers
 
 <!--
 - Being available on the [Kubernetes #sig-docs channel](https://kubernetes.slack.com) to answer questions from new contributors.
-- Working with PR wranglers to identify good first issues for new contributors. 
+- Working with PR wranglers to identify [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue) for new contributors. 
 - Mentoring new contributors through their first few PRs to the docs repo. 
 - Helping new contributors create the more complex PRs they need to become Kubernetes members.
-- [Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members.
+-[Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members.
+- Hosting a monthly meeting to help and mentor new contributors.
 -->
 - 监听 [Kubernetes #sig-docs 频道](https://kubernetes.slack.com) 上新贡献者的 Issue。
-- 与 PR 管理者合作为新参与者寻找合适的第一个 issues。 
+- 与 PR 管理者合作为新参与者寻找[合适的第一个 issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue) 。 
 - 通过前几个 PR 指导新贡献者为文档存储库作贡献。 
 - 帮助新的贡献者创建成为 Kubernetes 成员所需的更复杂的 PR。
 - [为贡献者提供保荐](#sponsor-a-new-contributor)，使其成为 Kubernetes 成员。
+- 每月召开一次会议，帮助和指导新的贡献者。
 
 <!--
-Current New Contributor Ambassadors are announced at each SIG-Docs meeting, and in the [Kubernetes #sig-docs channel](https://kubernetes.slack.com).
+Current New Contributor Ambassadors are announced at each SIG-Docs meeting and in the [Kubernetes #sig-docs channel](https://kubernetes.slack.com).
 -->
 当前新贡献者大使将在每次 SIG 文档会议上以及 [Kubernetes #sig-docs 频道](https://kubernetes.slack.com)中宣布。
 
@@ -205,37 +207,37 @@ membership in the Kubernetes organization.
 <!--
 ## Serve as a SIG Co-chair
 
-SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve a term as a co-chair of SIG Docs.
+SIG Docs [members](/docs/contribute/participate/roles-and-responsibilities/#members)
+can serve a term as a co-chair of SIG Docs.
 
 ### Prerequisites
 -->
 ## 担任 SIG 联合主席
 
-SIG Docs [批准人（Approvers）](/zh/docs/contribute/participate/roles-and-responsibilities/#approvers)
+SIG Docs [成员（Members）](/zh/docs/contribute/participate/roles-and-responsibilities/#members)
 可以担任 SIG Docs 的联合主席。
 
 ### 前提条件
 
 <!--
-Approvers must meet the following requirements to be a co-chair:
+A Kubernetes member must meet the following requirements to be a co-chair:
 
-- Have been a SIG Docs approver for at least 6 months
-- Have [led a Kubernetes docs release](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) or shadowed two releases
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
-- Understand how other Kubernetes SIGs and repositories affect the SIG Docs workflow, including: [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs), plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture). 
+- Understand how other Kubernetes SIGs and repositories affect the SIG Docs workflow, including: [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs), plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
+  In addition, understand how the [Kubernetes docs release process](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) works.
+- Approved by the SIG Docs community either directly or via lazy consensus.
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
 -->
-Approvers 必须满足以下要求才能成为联合主席：
+Kubernetes 成员必须满足以下要求才能成为联合主席：
 
-- 已维持 SIG Docs approver 身份至少 6 个月
-- [曾领导 Kubernetes 文档发布](/zh/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release)
-  或者在两个版本发布中有实习经历
 - 理解 SIG Docs 工作流程和工具：git、Hugo、本地化、博客子项目
 - 理解其他 Kubernetes SIG 和仓库会如何影响 SIG Docs 工作流程，包括：
   [k/org 中的团队](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml)、
   [k/community 中的流程](https://github.com/kubernetes/community/tree/master/sig-docs)、
   [k/test-infra](https://github.com/kubernetes/test-infra/) 中的插件、
   [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture) 中的角色。 
+  此外，了解 [Kubernetes 文档发布流程](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) 的工作原理。
+- 由 SIG Docs 社区直接或通过惰性共识批准。
 - 在至少 6 个月的时段内，确保每周至少投入 5 个小时（通常更多）
 
 <!--

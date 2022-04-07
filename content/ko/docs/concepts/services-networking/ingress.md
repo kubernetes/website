@@ -26,7 +26,7 @@ weight: 40
 ## 인그레스란?
 
 [인그레스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)는 클러스터 외부에서 클러스터 내부
-{{< link text="서비스" url="/docs/concepts/services-networking/service/" >}}로 HTTP와 HTTPS 경로를 노출한다.
+{{< link text="서비스" url="/ko/docs/concepts/services-networking/service/" >}}로 HTTP와 HTTPS 경로를 노출한다.
 트래픽 라우팅은 인그레스 리소스에 정의된 규칙에 의해 컨트롤된다.
 
 다음은 인그레스가 모든 트래픽을 하나의 서비스로 보내는 간단한 예시이다.
@@ -80,13 +80,22 @@ graph LR;
 설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
  인그레스는 종종 어노테이션을 이용해서 인그레스 컨트롤러에 따라 몇 가지 옵션을 구성하는데,
  그 예시는 [재작성-타겟 어노테이션](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)이다.
-다른 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 다른 어노테이션을 지원한다.
+서로 다른 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 서로 다른 어노테이션을 지원한다.
  지원되는 어노테이션을 확인하려면 선택한 인그레스 컨트롤러의 설명서를 검토한다.
 
 인그레스 [사양](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 에는 로드 밸런서 또는 프록시 서버를 구성하는데 필요한 모든 정보가 있다. 가장 중요한 것은,
 들어오는 요청과 일치하는 규칙 목록을 포함하는 것이다. 인그레스 리소스는 HTTP(S) 트래픽을
 지시하는 규칙만 지원한다.
+
+`ingressClassName`을 생략하려면, [기본 인그레스 클래스](#default-ingress-class)가 
+정의되어 있어야 한다.
+
+몇몇 인그레스 컨트롤러는 기본 `IngressClass`가 정의되어 있지 않아도 동작한다. 
+예를 들어, Ingress-NGINX 컨트롤러는 `--watch-ingress-without-class` 
+[플래그](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)를 이용하여 구성될 수 있다. 
+하지만 [아래](#default-ingress-class)에 나와 있는 것과 같이 기본 `IngressClass`를 명시하는 것을 
+[권장](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)한다.
 
 ### 인그레스 규칙
 
@@ -339,6 +348,14 @@ spec:
 기본값으로 표시하도록 해서 이 문제를 해결할 수 있다.
 {{< /caution >}}
 
+몇몇 인그레스 컨트롤러는 기본 `IngressClass`가 정의되어 있지 않아도 동작한다. 
+예를 들어, Ingress-NGINX 컨트롤러는 `--watch-ingress-without-class` 
+[플래그](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)를 이용하여 구성될 수 있다. 
+하지만 다음과 같이 기본 `IngressClass`를 명시하는 것을 
+[권장](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)한다.
+
+{{< codenew file="service/networking/default-ingressclass.yaml" >}}
+
 ## 인그레스 유형들
 
 ### 단일 서비스로 지원되는 인그레스 {#single-service-ingress}
@@ -468,9 +485,7 @@ graph LR;
 트래픽을 일치 시킬 수 있다.
 
 예를 들어, 다음 인그레스는 `first.bar.com`에 요청된 트래픽을
-`service1`로, `second.bar.com`는 `service2`로, 호스트 이름이 정의되지
-않은(즉, 요청 헤더가 표시 되지 않는) IP 주소로의 모든
-트래픽은 `service3`로 라우팅 한다.
+`service1`로, `second.bar.com`는 `service2`로, 그리고 요청 헤더가 `first.bar.com` 또는 `second.bar.com`에 해당되지 않는 모든 트래픽을 `service3`로 라우팅한다.
 
 {{< codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" >}}
 

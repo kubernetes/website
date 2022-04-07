@@ -405,7 +405,7 @@ spec:
   * [스테이트풀셋 확장하기](/ko/docs/tasks/run-application/scale-stateful-set/)에 대해 배운다.
   * [스테이트풀셋을 삭제하면](/ko/docs/tasks/run-application/delete-stateful-set/) 어떤 일이 수반되는지를 배운다.
   * [스토리지의 볼륨을 사용하는 파드 구성](/ko/docs/tasks/configure-pod-container/configure-volume-storage/)을 하는 방법을 배운다.
-  * [스토리지로 퍼시스턴트볼륨(PersistentVolume)을 사용하도록 파드 설정](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)하는 방법을 배운다.
+  * [스토리지로 퍼시스턴트볼륨(PersistentVolume)을 사용하도록 파드 설정](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)하는 방법을 배운다.
 * `StatefulSet`은 쿠버네티스 REST API의 상위-수준 리소스이다.
   스테이트풀셋 API에 대해 이해하기 위해 
   {{< api-reference page="workload-resources/stateful-set-v1" >}} 오브젝트 정의를 읽는다.

@@ -51,14 +51,15 @@ Horizontal Pod Autoscaling을 활용하는
 
 쿠버네티스는 Horizontal Pod Autoscaling을 
 간헐적으로(intermittently) 실행되는 
-컨트롤 루프 형태로 구현했다(지숙적인 프로세스가 아니다). 
+컨트롤 루프 형태로 구현했다(지속적인 프로세스가 아니다). 
 실행 주기는 [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)의 
 `--horizontal-pod-autoscaler-sync-period` 파라미터에 의해 설정된다(기본 주기는 15초이다).
 
-각 주기마다, 컨트롤러 관리자는 각 HorizontalPodAutoscaler 정의에
-지정된 메트릭에 대해 리소스 사용률을 질의한다. 컨트롤러 관리자는 리소스
-메트릭 API(파드 단위 리소스 메트릭 용)
-또는 사용자 지정 메트릭 API(다른 모든 메트릭 용)에서 메트릭을 가져온다.
+각 주기마다, 컨트롤러 매니저는 각 HorizontalPodAutoscaler 정의에 지정된 메트릭에 대해 리소스 사용률을 질의한다. 
+컨트롤러 매니저는 `scaleTargetRef`에 의해 정의된 타겟 리소스를 찾고 나서, 
+타겟 리소스의 `.spec.selector` 레이블을 보고 파드를 선택하며, 
+리소스 메트릭 API(파드 단위 리소스 메트릭 용) 또는 
+커스텀 메트릭 API(그 외 모든 메트릭 용)로부터 메트릭을 수집한다.
 
 * 파드 단위 리소스 메트릭(예 : CPU)의 경우 컨트롤러는 HorizontalPodAutoscaler가
   대상으로하는 각 파드에 대한 리소스 메트릭 API에서 메트릭을 가져온다.

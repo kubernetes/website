@@ -151,7 +151,17 @@ See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/ac
 As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`[https:]service_name[:port_name]`*`/proxy`
 
-If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
+If you haven't specified a name for your port, you don't have to specify *port_name* in the URL. You can also use the port number in place of the *port_name* for both named and unnamed ports.
+
+By default, the API server proxies to your service using HTTP. To use HTTPS, prefix the service name with `https:`:
+`http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
+
+The supported formats for the `<service_name>` segment of the URL are:
+
+* `<service_name>` - proxies to the default or unnamed port using http
+* `<service_name>:<port_name>` - proxies to the specified port name or port number using http
+* `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
+* `https:<service_name>:<port_name>` - proxies to the specified port name or port number using https
 -->
 #### 手动构建 API 服务器代理 URLs   {#manually-constructing-apiserver-proxy-urls}
 
@@ -160,6 +170,15 @@ If you haven't specified a name for your port, you don't have to specify *port_n
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
 如果还没有为你的端口指定名称，你可以不用在 URL 中指定 *port_name*。
+对于命名和未命名端口，你还可以使用端口号代替 *port_name*。
+
+默认情况下，API 服务器使用 HTTP 为你的服务提供代理。 要使用 HTTPS，请在服务名称前加上 `https:`：
+`http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
+URL 的 `<service_name>` 段支持的格式为：
+* `<service_name>` - 使用 http 代理到默认或未命名端口
+* `<service_name>:<port_name>` - 使用 http 代理到指定的端口名称或端口号
+* `https:<service_name>:` -  使用 https 代理到默认或未命名端口（注意尾随冒号）
+* `https:<service_name>:<port_name>` - 使用 https 代理到指定的端口名称或端口号
 
 <!--
 ##### Examples

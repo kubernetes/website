@@ -218,6 +218,7 @@ Use the option `--from-env-file` to create a ConfigMap from an env-file, for exa
 
 # Download the sample files into `configure-pod-container/configmap/` directory
 wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
+wget https://kubernetes.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
 
 # The env-file `game-env-file.properties` looks like below
 cat configure-pod-container/configmap/game-env-file.properties
@@ -255,17 +256,10 @@ data:
   lives: "3"
 ```
 
-{{< caution >}}
-When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used.
-{{< /caution >}}
-
-The behavior of passing `--from-env-file` multiple times is demonstrated by:
+Starting with Kubernetes v1.23, `kubectl` supports the `--from-env-file` argument to be
+specified multiple times to create a ConfigMap from multiple data sources.
 
 ```shell
-# Download the sample files into `configure-pod-container/configmap/` directory
-wget https://kubernetes.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
-
-# Create the configmap
 kubectl create configmap config-multi-env-files \
         --from-env-file=configure-pod-container/configmap/game-env-file.properties \
         --from-env-file=configure-pod-container/configmap/ui-env-file.properties
@@ -288,8 +282,11 @@ metadata:
   resourceVersion: "810136"
   uid: 252c4572-eb35-11e7-887b-42010a8002b8
 data:
+  allowed: '"true"'
   color: purple
+  enemies: aliens
   how: fairlyNice
+  lives: "3"
   textmode: "true"
 ```
 

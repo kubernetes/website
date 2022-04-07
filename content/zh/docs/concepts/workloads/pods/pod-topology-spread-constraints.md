@@ -25,23 +25,6 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 之间的分布，例如区域（Region）、可用区（Zone）、节点和其他用户自定义拓扑域。
 这样做有助于实现高可用并提升资源利用率。
 
-<!--
-{{< note >}}
-In versions of Kubernetes before v1.18, you must enable the `EvenPodsSpread`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on
-the [API server](/docs/concepts/overview/components/#kube-apiserver) and the
-[scheduler](/docs/reference/generated/kube-scheduler/) in order to use Pod
-topology spread constraints.
-{{< /note >}}
--->
-
-{{< note >}}
-在 v1.18 之前的 Kubernetes 版本中，如果要使用 Pod 拓扑扩展约束，你必须在
-[API 服务器](/zh/docs/concepts/overview/components/#kube-apiserver)
-和[调度器](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
-中启用 `EvenPodsSpread` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-{{< /note >}}
-
 <!-- body -->
 
 <!--
@@ -75,7 +58,7 @@ node4   Ready    <none>   2m43s   v1.16.0   node=node4,zone=zoneB
 <!--
 Then the cluster is logically viewed as below:
 -->
-然后从逻辑上看集群如下：
+那么，从逻辑上看集群如下：
 
 {{<mermaid>}}
 graph TB
@@ -96,11 +79,9 @@ graph TB
 {{< /mermaid >}}
 
 <!--
-
 Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/labels-annotations-taints/) that are created and populated automatically on most clusters.
 -->
-你可以复用在大多数集群上自动创建和填充的
-[常用标签](/zh/docs/reference/labels-annotations-taints/)，
+你可以复用在大多数集群上自动创建和填充的[常用标签](/zh/docs/reference/labels-annotations-taints/)，
 而不是手动添加标签。
 
 <!--
@@ -168,6 +149,12 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
 - **labelSelector** 用于查找匹配的 pod。匹配此标签的 Pod 将被统计，以确定相应
   拓扑域中 Pod 的数量。
   有关详细信息，请参考[标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
+
+<!--
+When a Pod defines more than one `topologySpreadConstraint`, those constraints are ANDed: The kube-scheduler looks for a node for the incoming Pod that satisfies all the constraints.
+-->
+当 Pod 定义了不止一个 `topologySpreadConstraint`，这些约束之间是逻辑与的关系。
+kube-scheduler 会为新的 Pod 寻找一个能够满足所有约束的节点。
 
 <!--
 You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints`.
@@ -353,7 +340,6 @@ graph BT
     class zoneA,zoneB cluster;
 {{< /mermaid >}}
 
-
 <!--
 If you apply "two-constraints.yaml" to this cluster, you will notice "mypod" stays in `Pending` state. This is because: to satisfy the first constraint, "mypod" can only be put to "zoneB"; while in terms of the second constraint, "mypod" can only put to "node2". Then a joint result of "zoneB" and "node2" returns nothing.
 -->
@@ -374,54 +360,59 @@ The scheduler will skip the non-matching nodes from the skew calculations if the
 -->
 ### 节点亲和性与节点选择器的相互作用   {#interaction-with-node-affinity-and-node-selectors}
 
-如果 Pod 定义了 `spec.nodeSelector` 或 `spec.affinity.nodeAffinity`，调度器将从倾斜计算中跳过不匹配的节点。
+如果 Pod 定义了 `spec.nodeSelector` 或 `spec.affinity.nodeAffinity`，
+调度器将在偏差计算中跳过不匹配的节点。
 
 <!--
-    Suppose you have a 5-node cluster ranging from zoneA to zoneC:
+### Example: TopologySpreadConstraints with NodeAffinity
 
-    and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
-
-    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 -->
-    假设你有一个跨越 zoneA 到 zoneC 的 5 节点集群：
+### 示例：TopologySpreadConstraints 与 NodeAffinity
 
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneB"
-            p3(Pod) --> n3(Node3)
-            n4(Node4)
-        end
-        subgraph "zoneA"
-            p1(Pod) --> n1(Node1)
-            p2(Pod) --> n2(Node2)
-        end
+假设你有一个跨越 zoneA 到 zoneC 的 5 节点集群：
 
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n1,n2,n3,n4,p1,p2,p3 k8s;
-    class p4 plain;
-    class zoneA,zoneB cluster;
-    {{< /mermaid >}}
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
 
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneC"
-            n5(Node5)
-        end
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n1,n2,n3,n4,p1,p2,p3 k8s;
+class p4 plain;
+class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n5 k8s;
-    class zoneC cluster;
-    {{< /mermaid >}}
+{{<mermaid>}}
+graph BT
+    subgraph "zoneC"
+        n5(Node5)
+    end
 
-    而且你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 yaml，
-    以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector`
-    也要一样处理。
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n5 k8s;
+class zoneC cluster;
+{{< /mermaid >}}
 
-    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+
+<!--
+and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
+-->
+而且你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 YAML，
+以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector`
+也要一样处理。
+
+{{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
 <!--
 The scheduler doesn't have prior knowledge of all the zones or other topology domains that a cluster has. They are determined from the existing nodes in the cluster. This could lead to a problem in autoscaled clusters, when a node pool (or node group) is scaled to zero nodes and the user is expecting them to scale up, because, in this case, those topology domains won't be considered until there is at least one node in them.
@@ -503,7 +494,7 @@ An example configuration might look like follows:
 配置的示例可能看起来像下面这个样子：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -526,7 +517,7 @@ It is recommended that you disable this plugin in the scheduling profile when
 using default constraints for `PodTopologySpread`.
 -->
 默认调度约束所生成的评分可能与
-[`SelectorSpread` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins).
+[`SelectorSpread` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)
 所生成的评分有冲突。
 建议你在为 `PodTopologySpread` 设置默认约束是禁用调度方案中的该插件。
 {{< /note >}}
@@ -565,20 +556,24 @@ is disabled.
 -->
 此外，原来用于提供等同行为的 `SelectorSpread` 插件也会被禁用。
 
+{{< note >}}
+<!--
+The `PodTopologySpread` plugin does not score the nodes that don't have
+the topology keys specified in the spreading constraints. This might result
+in a different default behavior compared to the legacy `SelectorSpread` plugin when
+using the default topology constraints.
+-->
+对于分布约束中所指定的拓扑键而言，`PodTopologySpread` 插件不会为不包含这些主键的节点评分。
+这可能导致在使用默认拓扑约束时，其行为与原来的 `SelectorSpread` 插件的默认行为不同，
+
 <!--
 If your nodes are not expected to have **both** `kubernetes.io/hostname` and
 `topology.kubernetes.io/zone` labels set, define your own constraints
 instead of using the Kubernetes defaults.
-
-The `PodTopologySpread` plugin does not score the nodes that don't have
-the topology keys specified in the spreading constraints.
 -->
-{{< note >}}
 如果你的节点不会 **同时** 设置 `kubernetes.io/hostname` 和
 `topology.kubernetes.io/zone` 标签，你应该定义自己的约束而不是使用
 Kubernetes 的默认约束。
-
-插件 `PodTopologySpread` 不会为未设置分布约束中所给拓扑键的节点评分。
 {{< /note >}}
 
 <!--
@@ -586,11 +581,11 @@ If you don't want to use the default Pod spreading constraints for your cluster,
 you can disable those defaults by setting `defaultingType` to `List` and leaving
 empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
 -->
-如果你不想为集群使用默认的 Pod 分布约束，你可以通过设置 `defaultingType` 参数为 `List` 和
-将 `PodTopologySpread` 插件配置中的 `defaultConstraints` 参数置空来禁用默认 Pod 分布约束。
+如果你不想为集群使用默认的 Pod 分布约束，你可以通过设置 `defaultingType` 参数为 `List`
+并将 `PodTopologySpread` 插件配置中的 `defaultConstraints` 参数置空来禁用默认 Pod 分布约束。
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -613,9 +608,9 @@ scheduled - more packed or more scattered.
 
 <!--
 - For `PodAffinity`, you can try to pack any number of Pods into qualifying
-topology domain(s)
+  topology domain(s)
 - For `PodAntiAffinity`, only one Pod can be scheduled into a
-single topology domain.
+  single topology domain.
 -->
 - 对于 `PodAffinity`，你可以尝试将任意数量的 Pod 集中到符合条件的拓扑域中。
 - 对于 `PodAntiAffinity`，只能将一个 Pod 调度到某个拓扑域中。
@@ -627,12 +622,6 @@ cost-saving. This can also help on rolling update workloads and scaling out
 replicas smoothly. See
 [Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)
 for more details.
-
-
-The "EvenPodsSpread" feature provides flexible options to distribute Pods evenly across different
-topology domains - to achieve high availability or cost-saving. This can also help on rolling update
-workloads and scaling out replicas smoothly.
-See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-pod-topology-spread.md#motivation) for more details.
 -->
 要实现更细粒度的控制，你可以设置拓扑分布约束来将 Pod 分布到不同的拓扑域下，
 从而实现高可用性或节省成本。这也有助于工作负载的滚动更新和平稳地扩展副本规模。
@@ -642,13 +631,19 @@ See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig
 <!--
 ## Known Limitations
 
-- Scaling down a Deployment may result in imbalanced Pods distribution.
+- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution.
+You can use [Descheduler](https://github.com/kubernetes-sigs/descheduler) to rebalance the Pods distribution.
+
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 -->
 ## 已知局限性
 
-- Deployment 缩容操作可能导致 Pod 分布不平衡。
-- 具有污点的节点上的 Pods 也会被统计。
+- 当 Pod 被移除时，无法保证约束仍被满足。例如，缩减某 Deployment 的规模时，
+  Pod 的分布可能不再均衡。
+  你可以使用 [Descheduler](https://github.com/kubernetes-sigs/descheduler)
+  来重新实现 Pod 分布的均衡。
+
+- 具有污点的节点上匹配的 Pods 也会被统计。
   参考 [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)。
 
 ## {{% heading "whatsnext" %}}
