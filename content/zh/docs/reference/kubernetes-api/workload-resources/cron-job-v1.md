@@ -7,7 +7,7 @@ content_type: "api_reference"
 description: "CronJob 代表单个定时作业的配置。"
 title: "CronJob"
 weight: 10
-auto_generated: true
+auto_generated: false
 ---
 
 <!--
@@ -129,13 +129,13 @@ CronJobSpec describes how the job execution will look like and when it will actu
       Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
 
-  - **jobTemplate.spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
+  - **jobTemplate.spec** (<a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
 
     作业所需行为的规范。
     更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     
   <!--
-   - **jobTemplate.spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
+   - **jobTemplate.spec** (<a href="{{< ref "../en/docs/reference/kubernetes-api/workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
    
        Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
@@ -376,23 +376,23 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
   
 <!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
   
 <!--
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
 
@@ -434,22 +434,22 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
 
@@ -488,112 +488,112 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
   
   <!--
   - **namespace** (*in path*): string，必填
   
-    <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+    <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
   -->
 
 
 - **allowWatchBookmarks** （*查询参数*）: boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 <!--
 - **allowWatchBookmarks** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 -->
 
 - **continue** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#continue" >}}">continue</a>
 
 <!--
 - **continue** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#continue" >}}">continue</a>
 -->
 
 - **fieldSelector** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
 <!--
 - **fieldSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 -->
 
 - **limit** （*查询参数*）: integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#limit" >}}">limit</a>
 
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **limit** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#limit" >}}">limit</a>
 
 
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
 - **resourceVersion** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 
 - **resourceVersionMatch** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
 - **resourceVersion** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 
 - **resourceVersionMatch** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
 
 - **timeoutSeconds** （*查询参数*）: integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 - **watch** （*查询参数*）: boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 - **watch** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 
 #### 响应
@@ -632,102 +632,102 @@ GET /apis/batch/v1/cronjobs
 
 - **allowWatchBookmarks** （*查询参数*）: boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
 - **continue** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#continue" >}}">continue</a>
 
 <!--
 - **allowWatchBookmarks** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
 - **continue** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#continue" >}}">continue</a>
 -->
 
 - **fieldSelector** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
 - **labelSelector** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 <!--
 - **fieldSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
 - **labelSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 -->
 
 - **limit** （*查询参数*）: integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#limit" >}}">limit</a>
 
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **limit** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#limit" >}}">limit</a>
 
 
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
 - **resourceVersion** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 
 - **resourceVersionMatch** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
 - **resourceVersion** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 
 - **resourceVersionMatch** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
 
 - **timeoutSeconds** （*查询参数*）: integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 - **watch** （*查询参数*）: boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 - **watch** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 
 #### 响应
@@ -767,7 +767,7 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 - **namespace** (*in path*): string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
@@ -775,7 +775,7 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 <!--
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>，必填
@@ -784,42 +784,42 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 - **dryRun** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **dryRun** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
 
 - **fieldValidation** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
 #### 响应
@@ -876,7 +876,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>，必填
@@ -884,7 +884,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
@@ -894,42 +894,42 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **dryRun** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **dryRun** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
 
 - **fieldValidation** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
 #### 响应
@@ -982,7 +982,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>，必填
@@ -990,7 +990,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 <!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
@@ -998,42 +998,42 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 - **dryRun** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **dryRun** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
 
 - **fieldValidation** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
 #### 响应
@@ -1089,7 +1089,7 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必填
@@ -1097,7 +1097,7 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -1107,53 +1107,53 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **dryRun** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
   
 <!--
 - **dryRun** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->  
 
 
 - **fieldValidation** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** （*查询参数*）: boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#force" >}}">force</a>
 
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#force" >}}">force</a>
 
 
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
 #### 响应
@@ -1205,7 +1205,7 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必填
@@ -1213,7 +1213,7 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 <!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -1222,52 +1222,52 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 - **dryRun** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **dryRun** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **fieldManager** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
 
 - **fieldValidation** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** （*查询参数*）: boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#force" >}}">force</a>
 
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#force" >}}">force</a>
 
 
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
 #### 响应
@@ -1320,7 +1320,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -1328,7 +1328,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -1337,51 +1337,51 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **dryRun** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **gracePeriodSeconds** （*查询参数*）: integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
 - **dryRun** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
 - **gracePeriodSeconds** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 -->
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 - **propagationPolicy** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 <!--
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 - **propagationPolicy** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
 
 
 #### 响应
 
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
+202 (<a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401：未授权
 
@@ -1389,9 +1389,9 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../en/docs/reference/kubernetes-api/common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
+202 (<a href="{{< ref "../en/docs/reference/kubernetes-api/common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
 -->
@@ -1416,7 +1416,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 - **namespace** （*路径参数*）: string，必填
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -1424,7 +1424,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 <!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -1433,119 +1433,119 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 - **continue** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#continue" >}}">continue</a>
 
 
 - **dryRun** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **continue** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#continue" >}}">continue</a>
 
 
 - **dryRun** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 -->
 
 - **fieldSelector** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
 - **gracePeriodSeconds** （*查询参数*）: integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
 - **fieldSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
 - **gracePeriodSeconds** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 -->
 
 - **labelSelector** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
 - **limit** （*查询参数*）: integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#limit" >}}">limit</a>
 
 <!--
 - **labelSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
 - **limit** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#limit" >}}">limit</a>
 -->
 
 - **pretty** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 - **propagationPolicy** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 <!--
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 - **propagationPolicy** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
 
 - **resourceVersion** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 
 - **resourceVersionMatch** （*查询参数*）: string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
 - **resourceVersion** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 
 - **resourceVersionMatch** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
 
 - **timeoutSeconds** （*查询参数*）: integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  <a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  <a href="{{< ref "../en/docs/reference/kubernetes-api/common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
 
 
 #### 响应
 
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../../../../../en/docs/reference/kubernetes-api/common-definitions/status#Status" >}}">Status</a>): OK
 
 401：未授权
 
@@ -1553,7 +1553,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 #### Response
 
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../en/docs/reference/kubernetes-api/common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
 -->
