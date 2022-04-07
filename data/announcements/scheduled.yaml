@@ -31,8 +31,8 @@
 announcements:
 
 - name: Dockershim removal
-  startTime: 2022-04-13T00:00:00 # Added in PR: 
-  endTime: 2022-05-13T00:00:00 # Expires 2022-05-19
+  startTime: 2022-04-13T00:00:00 # Added in PR: https://github.com/kubernetes/website/pull/32805
+  endTime: 2022-05-19T00:00:00 # Expires 2022-05-19
   style: "background: #3d4cb7"
   title: "Dockershim removal set for Kubernetes 1.24"
   message: |
