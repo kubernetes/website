@@ -2097,6 +2097,7 @@ This is not a recommended policy.
 下面的策略允许 **所有** 服务帐户充当集群管理员。
 容器中运行的所有应用程序都会自动收到服务帐户的凭据，可以对 API 执行任何操作，
 包括查看 Secrets 和修改权限。这一策略是不被推荐的。
+{{< /warning >}}
 
 ```shell
 kubectl create clusterrolebinding permissive-binding \
@@ -2105,12 +2106,10 @@ kubectl create clusterrolebinding permissive-binding \
   --user=kubelet \
   --group=system:serviceaccounts
 ```
-{{< /warning >}}
 
 <!--
 After you have transitioned to use RBAC, you should adjust the access controls
 for your cluster to ensure that these meet your information security needs.
 -->
-在你完成到 RBAC 的迁移后，应该调整集群的访问控制，确保相关的策略满足你的
-信息安全需求。
+在你完成到 RBAC 的迁移后，应该调整集群的访问控制，确保相关的策略满足你的信息安全需求。
 
