@@ -434,7 +434,7 @@ provisioner: example.com/external-nfs
 parameters:
   server: nfs-server.example.com
   path: /share
-  readOnly: false
+  readOnly: "false"
 ```
 
 * `server`: NFS 서버의 호스트네임 또는 IP 주소.
@@ -797,7 +797,7 @@ parameters:
   storagePool: sp1
   storageMode: ThinProvisioned
   secretRef: sio-secret
-  readOnly: false
+  readOnly: "false"
   fsType: xfs
 ```
 

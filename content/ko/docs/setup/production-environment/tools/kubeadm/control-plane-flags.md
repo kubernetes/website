@@ -144,7 +144,6 @@ Kubeadm을 사용하면 패치 파일이 있는 디렉토리를 개별 노드에
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
-nodeRegistration:
   patches:
     directory: /home/user/somedir
 ```
@@ -159,7 +158,6 @@ nodeRegistration:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
-nodeRegistration:
   patches:
     directory: /home/user/somedir
 ```

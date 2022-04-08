@@ -416,10 +416,10 @@ spec:
 | [정적 작업 할당을 사용한 인덱싱된 잡]             |          W          |        any           |
 | [잡 템플릿 확장]                             |          1          |     1이어야 함         |
 
-[작업 항목 당 파드가 있는 큐]: /docs/tasks/job/coarse-parallel-processing-work-queue/
-[가변 파드 수를 가진 큐]: /docs/tasks/job/fine-parallel-processing-work-queue/
+[작업 항목 당 파드가 있는 큐]: /ko/docs/tasks/job/coarse-parallel-processing-work-queue/
+[가변 파드 수를 가진 큐]: /ko/docs/tasks/job/fine-parallel-processing-work-queue/
 [정적 작업 할당을 사용한 인덱싱된 잡]: /docs/tasks/job/indexed-parallel-processing-static/
-[잡 템플릿 확장]: /docs/tasks/job/parallel-processing-expansion/
+[잡 템플릿 확장]: /ko/docs/tasks/job/parallel-processing-expansion/
 
 ## 고급 사용법
 
@@ -615,8 +615,8 @@ spec:
 ```
 
 새 잡 자체는 `a8f3d00d-c6d2-11e5-9f87-42010af00002` 와 다른 uid 를 가지게 될 것이다.
-`manualSelector: true` 를 설정하면 시스템에게 사용자가 무엇을 하는지 알고 있음을 알리고, 이런
-불일치를 허용한다.
+`manualSelector: true` 를 설정하면 시스템에게 사용자가 무엇을 하는지 알고 있으며 
+이런 불일치를 허용한다고 알릴 수 있다.
 
 ### 종료자(finalizers)를 이용한 잡 추적
 

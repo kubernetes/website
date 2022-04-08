@@ -2,7 +2,7 @@
 title: 범위 제한(LimitRange)
 id: limitrange
 date: 2019-04-15
-full_link:  /docs/concepts/policy/limit-range/
+full_link: /ko/docs/concepts/policy/limit-range/
 short_description: >
   네임스페이스 내에 컨테이너나 파드당 리소스 소비를 한정하는 제약 조건을 제공한다.
 

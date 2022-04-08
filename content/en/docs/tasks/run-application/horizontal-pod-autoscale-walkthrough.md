@@ -37,7 +37,7 @@ httpd running some PHP code.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}} If you're running an older
 release of Kubernetes, refer to the version of the documentation for that release (see
-[available documentation versions](/docs/home/supported-doc-versions/).
+[available documentation versions](/docs/home/supported-doc-versions/)).
 
 To follow this walkthrough, you also need to use a cluster that has a
 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server#readme) deployed and configured.
