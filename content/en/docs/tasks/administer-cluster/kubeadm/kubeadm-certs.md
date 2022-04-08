@@ -173,7 +173,7 @@ The built-in signer is part of [`kube-controller-manager`](/docs/reference/comma
 
 To activate the built-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
 
-If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3):
+If you're creating a new cluster, you can use a kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3):
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
