@@ -2,8 +2,9 @@
 reviewers:
 - mikedanese
 - thockin
-title: Troubleshoot Applications
+title: Debug Pods
 content_type: concept
+weight: 10
 ---
 
 <!-- overview -->
@@ -64,7 +65,7 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 #### My pod is crashing or otherwise unhealthy
 
 Once your pod has been scheduled, the methods described in [Debug Running Pods](
-/docs/tasks/debug-application-cluster/debug-running-pod/) are available for debugging.
+/docs/tasks/debug-application-cluster/applications/debug-running-pod/) are available for debugging.
 
 #### My pod is running but not doing what I told it to do
 
@@ -145,12 +146,12 @@ Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 
 #### Network traffic is not forwarded
 
-Please see [debugging service](/docs/tasks/debug-application-cluster/debug-service/) for more information.
+Please see [debugging service](/docs/tasks/debug-application-cluster/applications/debug-service/) for more information.
 
 ## {{% heading "whatsnext" %}}
 
 If none of the above solves your problem, follow the instructions in
-[Debugging Service document](/docs/tasks/debug-application-cluster/debug-service/)
+[Debugging Service document](/docs/tasks/debug-application-cluster/applications/debug-service/)
 to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are
 actually serving; you have DNS working, iptables rules installed, and kube-proxy
 does not seem to be misbehaving.

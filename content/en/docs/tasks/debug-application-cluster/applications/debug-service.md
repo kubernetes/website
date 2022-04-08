@@ -4,6 +4,7 @@ reviewers:
 - bowei
 content_type: concept
 title: Debug Services
+weight: 20
 ---
 
 <!-- overview -->

@@ -2,14 +2,16 @@
 reviewers:
 - davidopp
 title: Troubleshoot Clusters
+description: Debugging common cluster issues.
 content_type: concept
+weight: 30
 ---
 
 <!-- overview -->
 
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
 problem you are experiencing. See
-the [application troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application) for tips on application debugging.
+the [application troubleshooting guide](/docs/tasks/debug-application-cluster/applications/debug-application) for tips on application debugging.
 You may also visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/) for more information.
 
 <!-- body -->
@@ -31,6 +33,188 @@ To get detailed information about the overall health of your cluster, you can ru
 ```shell
 kubectl cluster-info dump
 ```
+
+### Example: debugging a down/unreachable node
+
+Sometimes when debugging it can be useful to look at the status of a node -- for example, because you've noticed strange behavior of a Pod that's running on the node, or to find out why a Pod won't schedule onto the node. As with Pods, you can use `kubectl describe node` and `kubectl get node -o yaml` to retrieve detailed information about nodes. For example, here's what you'll see if a node is down (disconnected from the network, or kubelet dies and won't restart, etc.). Notice the events that show the node is NotReady, and also notice that the pods are no longer running (they are evicted after five minutes of NotReady status).
+
+```shell
+kubectl get nodes
+```
+
+```none
+NAME                     STATUS       ROLES     AGE     VERSION
+kube-worker-1            NotReady     <none>    1h      v1.23.3
+kubernetes-node-bols     Ready        <none>    1h      v1.23.3
+kubernetes-node-st6x     Ready        <none>    1h      v1.23.3
+kubernetes-node-unaj     Ready        <none>    1h      v1.23.3
+```
+
+```shell
+kubectl describe node kube-worker-1
+```
+
+```none
+Name:               kube-worker-1
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=kube-worker-1
+                    kubernetes.io/os=linux
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Thu, 17 Feb 2022 16:46:30 -0500
+Taints:             node.kubernetes.io/unreachable:NoExecute
+                    node.kubernetes.io/unreachable:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  kube-worker-1
+  AcquireTime:     <unset>
+  RenewTime:       Thu, 17 Feb 2022 17:13:09 -0500
+Conditions:
+  Type                 Status    LastHeartbeatTime                 LastTransitionTime                Reason              Message
+  ----                 ------    -----------------                 ------------------                ------              -------
+  NetworkUnavailable   False     Thu, 17 Feb 2022 17:09:13 -0500   Thu, 17 Feb 2022 17:09:13 -0500   WeaveIsUp           Weave pod has set this
+  MemoryPressure       Unknown   Thu, 17 Feb 2022 17:12:40 -0500   Thu, 17 Feb 2022 17:13:52 -0500   NodeStatusUnknown   Kubelet stopped posting node status.
+  DiskPressure         Unknown   Thu, 17 Feb 2022 17:12:40 -0500   Thu, 17 Feb 2022 17:13:52 -0500   NodeStatusUnknown   Kubelet stopped posting node status.
+  PIDPressure          Unknown   Thu, 17 Feb 2022 17:12:40 -0500   Thu, 17 Feb 2022 17:13:52 -0500   NodeStatusUnknown   Kubelet stopped posting node status.
+  Ready                Unknown   Thu, 17 Feb 2022 17:12:40 -0500   Thu, 17 Feb 2022 17:13:52 -0500   NodeStatusUnknown   Kubelet stopped posting node status.
+Addresses:
+  InternalIP:  192.168.0.113
+  Hostname:    kube-worker-1
+Capacity:
+  cpu:                2
+  ephemeral-storage:  15372232Ki
+  hugepages-2Mi:      0
+  memory:             2025188Ki
+  pods:               110
+Allocatable:
+  cpu:                2
+  ephemeral-storage:  14167048988
+  hugepages-2Mi:      0
+  memory:             1922788Ki
+  pods:               110
+System Info:
+  Machine ID:                 9384e2927f544209b5d7b67474bbf92b
+  System UUID:                aa829ca9-73d7-064d-9019-df07404ad448
+  Boot ID:                    5a295a03-aaca-4340-af20-1327fa5dab5c
+  Kernel Version:             5.13.0-28-generic
+  OS Image:                   Ubuntu 21.10
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.5.9
+  Kubelet Version:            v1.23.3
+  Kube-Proxy Version:         v1.23.3
+Non-terminated Pods:          (4 in total)
+  Namespace                   Name                                 CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                 ------------  ----------  ---------------  -------------  ---
+  default                     nginx-deployment-67d4bdd6f5-cx2nz    500m (25%)    500m (25%)  128Mi (6%)       128Mi (6%)     23m
+  default                     nginx-deployment-67d4bdd6f5-w6kd7    500m (25%)    500m (25%)  128Mi (6%)       128Mi (6%)     23m
+  kube-system                 kube-proxy-dnxbz                     0 (0%)        0 (0%)      0 (0%)           0 (0%)         28m
+  kube-system                 weave-net-gjxxp                      100m (5%)     0 (0%)      200Mi (10%)      0 (0%)         28m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                1100m (55%)  1 (50%)
+  memory             456Mi (24%)  256Mi (13%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+Events:
+...
+```
+
+```shell
+kubectl get node kube-worker-1 -o yaml
+```
+
+```yaml
+apiVersion: v1
+kind: Node
+metadata:
+  annotations:
+    kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
+    node.alpha.kubernetes.io/ttl: "0"
+    volumes.kubernetes.io/controller-managed-attach-detach: "true"
+  creationTimestamp: "2022-02-17T21:46:30Z"
+  labels:
+    beta.kubernetes.io/arch: amd64
+    beta.kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    kubernetes.io/hostname: kube-worker-1
+    kubernetes.io/os: linux
+  name: kube-worker-1
+  resourceVersion: "4026"
+  uid: 98efe7cb-2978-4a0b-842a-1a7bf12c05f8
+spec: {}
+status:
+  addresses:
+  - address: 192.168.0.113
+    type: InternalIP
+  - address: kube-worker-1
+    type: Hostname
+  allocatable:
+    cpu: "2"
+    ephemeral-storage: "14167048988"
+    hugepages-2Mi: "0"
+    memory: 1922788Ki
+    pods: "110"
+  capacity:
+    cpu: "2"
+    ephemeral-storage: 15372232Ki
+    hugepages-2Mi: "0"
+    memory: 2025188Ki
+    pods: "110"
+  conditions:
+  - lastHeartbeatTime: "2022-02-17T22:20:32Z"
+    lastTransitionTime: "2022-02-17T22:20:32Z"
+    message: Weave pod has set this
+    reason: WeaveIsUp
+    status: "False"
+    type: NetworkUnavailable
+  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+    lastTransitionTime: "2022-02-17T22:13:25Z"
+    message: kubelet has sufficient memory available
+    reason: KubeletHasSufficientMemory
+    status: "False"
+    type: MemoryPressure
+  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+    lastTransitionTime: "2022-02-17T22:13:25Z"
+    message: kubelet has no disk pressure
+    reason: KubeletHasNoDiskPressure
+    status: "False"
+    type: DiskPressure
+  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+    lastTransitionTime: "2022-02-17T22:13:25Z"
+    message: kubelet has sufficient PID available
+    reason: KubeletHasSufficientPID
+    status: "False"
+    type: PIDPressure
+  - lastHeartbeatTime: "2022-02-17T22:20:15Z"
+    lastTransitionTime: "2022-02-17T22:15:15Z"
+    message: kubelet is posting ready status. AppArmor enabled
+    reason: KubeletReady
+    status: "True"
+    type: Ready
+  daemonEndpoints:
+    kubeletEndpoint:
+      Port: 10250
+  nodeInfo:
+    architecture: amd64
+    bootID: 22333234-7a6b-44d4-9ce1-67e31dc7e369
+    containerRuntimeVersion: containerd://1.5.9
+    kernelVersion: 5.13.0-28-generic
+    kubeProxyVersion: v1.23.3
+    kubeletVersion: v1.23.3
+    machineID: 9384e2927f544209b5d7b67474bbf92b
+    operatingSystem: linux
+    osImage: Ubuntu 21.10
+    systemUUID: aa829ca9-73d7-064d-9019-df07404ad448
+```
+
+
 ## Looking at logs
 
 For now, digging deeper into the cluster requires logging into the relevant machines.  Here are the locations

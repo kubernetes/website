@@ -9,6 +9,7 @@ reviewers:
 - smarterclayton
 title: Debug Init Containers
 content_type: task
+weight: 40
 ---
 
 <!-- overview -->
