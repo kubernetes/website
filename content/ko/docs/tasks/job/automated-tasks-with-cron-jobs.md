@@ -127,7 +127,7 @@ kubectl delete cronjob hello
 ```
 
 크론 잡을 삭제하면 생성된 모든 잡과 파드가 제거되고 추가 잡 생성이 중지된다.
-[가비지(garbage) 수집](/ko/docs/concepts/workloads/controllers/garbage-collection/)에서 잡 제거에 대해 상세한 내용을 읽을 수 있다.
+[가비지(garbage) 수집](/ko/docs/concepts/architecture/garbage-collection/)에서 잡 제거에 대해 상세한 내용을 읽을 수 있다.
 
 ## 크론 잡 명세 작성
 

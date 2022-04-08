@@ -696,7 +696,7 @@ operator, you should take both of the following additional measures:
 [RunAsUsername](/docs/tasks/configure-pod-container/configure-runasusername)
 can be specified for Windows Pods or containers to execute the container
 processes as a node-default user. This is roughly equivalent to
-[RunAsUser](/docs/concepts/policy/pod-security-policy/#users-and-groups).
+[RunAsUser](/docs/concepts/security/pod-security-policy/#users-and-groups).
 
 Linux-specific pod security context privileges such as SELinux, AppArmor, Seccomp, or capabilities (POSIX capabilities), and others are not supported.
 

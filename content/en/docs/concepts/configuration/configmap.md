@@ -15,7 +15,6 @@ If the data you want to store are confidential, use a
 or use additional (third party) tools to keep your data private.
 {{< /caution >}}
 
-
 <!-- body -->
 ## Motivation
 
@@ -282,5 +281,3 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 * Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
-
-

@@ -40,7 +40,7 @@ The kubelet exports a `Registration` gRPC service:
 
 ```gRPC
 service Registration {
-	rpc Register(RegisterRequest) returns (Empty) {}
+ rpc Register(RegisterRequest) returns (Empty) {}
 }
 ```
 
@@ -63,7 +63,7 @@ and reports two healthy devices on a node, the node status is updated
 to advertise that the node has 2 "Foo" devices installed and available.
 -->
 设备插件可以通过此 gRPC 服务在 kubelet 进行注册。在注册期间，设备插件需要发送下面几样内容：
-  
+
 * 设备插件的 Unix 套接字。
 * 设备插件的 API 版本。
 * `ResourceName` 是需要公布的。这里 `ResourceName` 需要遵循
@@ -92,12 +92,14 @@ specification as they request other types of resources, with the following limit
 * 扩展资源仅可作为整数资源使用，并且不能被过量使用
 * 设备不能在容器之间共享
 
+### 示例 {#example-pod}
+
 <!--
 Suppose a Kubernetes cluster is running a device plugin that advertises resource `hardware-vendor.example/foo`
 on certain nodes. Here is an example of a pod requesting this resource to run a demo workload:
 -->
 假设 Kubernetes 集群正在运行一个设备插件，该插件在一些节点上公布的资源为 `hardware-vendor.example/foo`。
-下面就是一个 Pod 示例，请求此资源以运行某演示负载：
+下面就是一个 Pod 示例，请求此资源以运行一个工作负载的示例：
 
 ```yaml
 ---
@@ -140,8 +142,12 @@ The general workflow of a device plugin includes the following steps:
   一个 gRPC 服务，该服务实现以下接口：
 
   <!--
+
   ```gRPC
   service DevicePlugin {
+        // GetDevicePluginOptions returns options to be communicated with Device Manager.
+        rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+
         // ListAndWatch returns a stream of List of Devices
         // Whenever a Device state change or a Device disappears, ListAndWatch
         // returns the new list
@@ -168,6 +174,9 @@ The general workflow of a device plugin includes the following steps:
   -->
   ```gRPC
   service DevicePlugin {
+        // GetDevicePluginOptions 返回与设备管理器沟通的选项。
+        rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+
         // ListAndWatch 返回 Device 列表构成的数据流。
         // 当 Device 状态发生变化或者 Device 消失时，ListAndWatch
         // 会返回新的列表。
@@ -331,10 +340,12 @@ service PodResourcesLister {
 }
 ```
 
+### `List` gRPC 端点 {#grpc-endpoint-list}
+
 <!--
 The `List` endpoint provides information on resources of running pods, with details such as the
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
-the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains 
+the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains
 the information about memory and hugepages reserved for a container.
 -->
 这一 `List` 端点提供运行中 Pods 的资源信息，包括类似独占式分配的
@@ -388,12 +399,56 @@ message ContainerDevices {
 ```
 
 <!--
+{{< note >}}
+cpu_ids in the `ContainerResources` in the `List` endpoint correspond to exclusive CPUs allocated
+to a partilar container. If the goal is to evaluate CPUs that belong to the shared pool, the `List`
+endpoint needs to be used in conjunction with the `GetAllocatableResources` endpoint as explained
+below:
+1. Call `GetAllocatableResources` to get a list of all the allocatable CPUs
+2. Call `GetCpuIds` on all `ContainerResources` in the system
+3. Subtract out all of the CPUs from the `GetCpuIds` calls from the `GetAllocatableResources` call
+{{< /note >}}
+-->
+{{< note >}}
+`List` 端点中的 `ContainerResources` 中的 cpu_ids 对应于分配给某个容器的专属 CPU。
+如果要统计共享池中的 CPU，`List` 端点需要与 `GetAllocatableResources` 端点一起使用，如下所述:
+
+1. 调用 `GetAllocatableResources` 获取所有可用的 CPUs。
+2. 在系统中所有的 `ContainerResources` 上调用 `GetCpuIds`。
+3. 用 `GetAllocatableResources` 获取的 CPU 数减去 `GetCpuIds` 获取的 CPU 数。
+{{< /note >}}
+
+### `GetAllocatableResources` gRPC 端点 {#grpc-endpoint-getallocatableresources}
+
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+
+<!--
+{{< note >}}
+`GetAllocatableResources` should only be used to evaluate [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+resources on a node. If the goal is to evaluate free/unallocated resources it should be used in
+conjunction with the List() endpoint. The result obtained by `GetAllocatableResources` would remain
+the same unless the underlying resources exposed to kubelet change. This happens rarely but when
+it does (for example: hotplug/hotunplug, device health changes), client is expected to call
+`GetAlloctableResources` endpoint.
+However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
+update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
+{{< /note >}}
+-->
+{{< note >}}
+`GetAllocatableResources` 应该仅被用于评估一个节点上的[可分配的](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+资源。如果目标是评估空闲/未分配的资源，此调用应该与 List() 端点一起使用。
+除非暴露给 kubelet 的底层资源发生变化 否则 `GetAllocatableResources` 得到的结果将保持不变。
+这种情况很少发生，但当发生时（例如：热插拔，设备健康状况改变），客户端应该调用 `GetAlloctableResources` 端点。
+然而，调用 `GetAllocatableResources` 端点在 cpu、内存被更新的情况下是不够的，
+Kubelet 需要重新启动以获取正确的资源容量和可分配的资源。
+{{< /note >}}
+
+<!--
 GetAllocatableResources provides information on resources initially available on the worker node.
 It provides more information than kubelet exports to APIServer.
 -->
 端点 `GetAllocatableResources` 提供最初在工作节点上可用的资源的信息。
 此端点所提供的信息比导出给 API 服务器的信息更丰富。
-
 
 ```gRPC
 // AllocatableResourcesResponses 包含 kubelet 所了解到的所有设备的信息
@@ -404,6 +459,23 @@ message AllocatableResourcesResponse {
 }
 
 ```
+
+<!--
+Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
+You can disable it by turning off the
+`KubeletPodResourcesGetAllocatable` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
+
+`--feature-gates=KubeletPodResourcesGetAllocatable=true`
+-->
+从 Kubernetes v1.23 开始，`GetAllocatableResources` 被默认启用。
+你可以通过关闭 `KubeletPodResourcesGetAllocatable`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/) 来禁用。
+
+在 Kubernetes v1.23 之前，要启用这一功能，`kubelet` 必须用以下标志启动：
+
+`--feature-gates=KubeletPodResourcesGetAllocatable=true`
 
 <!--
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is affine.
@@ -457,7 +529,7 @@ The Topology Manager is a Kubelet component that allows resources to be co-ordin
 
 ```gRPC
 message TopologyInfo {
-	repeated NUMANode nodes = 1;
+ repeated NUMANode nodes = 1;
 }
 
 message NUMANode {
@@ -507,14 +579,15 @@ Here are some examples of device plugin implementations:
 ## 设备插件示例 {#examples}
 
 下面是一些设备插件实现的示例：
- 
+
 * [AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes) 支持 Intel GPU、FPGA 和 QuickAssist 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins) 用于硬件辅助的虚拟化
 * The [NVIDIA GPU 设备插件](https://github.com/NVIDIA/k8s-device-plugin)
-    * 需要 [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0，以允许运行 Docker 容器的时候启用 GPU。
+* 需要 [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0，以允许运行 Docker 容器的时候启用 GPU。
 * [为 Container-Optimized OS 所提供的 NVIDIA GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 设备插件](https://github.com/hustcat/k8s-rdma-device-plugin)
+* [SocketCAN 设备插件](https://github.com/collabora/k8s-socketcan)
 * [Solarflare 设备插件](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [SR-IOV 网络设备插件](https://github.com/intel/sriov-network-device-plugin)
 * [Xilinx FPGA 设备插件](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin)
@@ -529,7 +602,5 @@ Here are some examples of device plugin implementations:
 -->
 * 查看[调度 GPU 资源](/zh/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
 * 查看在上如何[公布节点上的扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)
-* 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 
+* 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
 * 学习[拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)
-
-

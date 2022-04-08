@@ -159,7 +159,8 @@
 /docs/concepts/workloads/pods/pod-overview/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
 
-/docs/consumer-guideline/pod-security-coverage/     /docs/concepts/policy/pod-security-policy/ 301
+/docs/concepts/policy/pod-security-policy/      /docs/concepts/security/pod-security-policy/ 301
+/docs/consumer-guideline/pod-security-coverage/     /docs/concepts/security/pod-security-policy/ 301
 
 /docs/contribute/create-pull-request/     /docs/home/contribute/create-pull-request/ 301
 /docs/contribute/page-templates/     /docs/home/contribute/page-templates/ 301
@@ -424,7 +425,7 @@
 /docs/user-guide/persistent-volumes/index     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index.md     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/walkthrough/     /docs/tasks/configure-pod-container/configure-persistent-volume-storage/ 301
-/docs/user-guide/pod-security-policy/     /docs/concepts/policy/pod-security-policy/ 301
+/docs/user-guide/pod-security-policy/     /docs/concepts/security/pod-security-policy/ 301
 /docs/user-guide/pod-states/     /docs/concepts/workloads/pods/pod-lifecycle/ 301
 /docs/user-guide/pod-templates/     /docs/concepts/workloads/pods/#pod-templates 301
 /docs/user-guide/pods/     /docs/concepts/workloads/pods/pod/ 301

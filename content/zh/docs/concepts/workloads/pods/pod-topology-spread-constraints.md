@@ -25,23 +25,6 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 之间的分布，例如区域（Region）、可用区（Zone）、节点和其他用户自定义拓扑域。
 这样做有助于实现高可用并提升资源利用率。
 
-<!--
-{{< note >}}
-In versions of Kubernetes before v1.18, you must enable the `EvenPodsSpread`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on
-the [API server](/docs/concepts/overview/components/#kube-apiserver) and the
-[scheduler](/docs/reference/generated/kube-scheduler/) in order to use Pod
-topology spread constraints.
-{{< /note >}}
--->
-
-{{< note >}}
-在 v1.18 之前的 Kubernetes 版本中，如果要使用 Pod 拓扑扩展约束，你必须在
-[API 服务器](/zh/docs/concepts/overview/components/#kube-apiserver)
-和[调度器](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
-中启用 `EvenPodsSpread` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-{{< /note >}}
-
 <!-- body -->
 
 <!--
@@ -534,7 +517,7 @@ It is recommended that you disable this plugin in the scheduling profile when
 using default constraints for `PodTopologySpread`.
 -->
 默认调度约束所生成的评分可能与
-[`SelectorSpread` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins).
+[`SelectorSpread` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)
 所生成的评分有冲突。
 建议你在为 `PodTopologySpread` 设置默认约束是禁用调度方案中的该插件。
 {{< /note >}}

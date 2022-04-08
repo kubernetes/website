@@ -140,7 +140,7 @@ in the `kubectl` command-line interface, passing the `.yaml` file as an argument
 将 `.yaml` 文件作为参数。下面是一个示例：
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 ```
 
 <!--
@@ -173,19 +173,35 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 
 <!--
 The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API Reference](https://kubernetes.io/docs/reference/kubernetes-api/) can help you find the spec format for all of the objects you can create using Kubernetes.
-
-For example, the reference for Pod details the [`spec` field](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-for a Pod in the API, and the reference for Deployment details the [`spec` field](/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec) for Deployments.
-In those API reference pages you'll see mention of PodSpec and DeploymentSpec. These names are implementation details of the Golang code that Kubernetes uses to implement its API.
 -->
 对象 `spec` 的精确格式对每个 Kubernetes 对象来说是不同的，包含了特定于该对象的嵌套字段。
 [Kubernetes API 参考](https://kubernetes.io/docs/reference/kubernetes-api/)
 能够帮助我们找到任何我们想创建的对象的规约格式。
 
-例如，Pod 参考文档详细说明了 API 中 Pod 的 [`spec` 字段](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)，
-Deployment 的参考文档则详细说明了 Deployment 的 [`spec` 字段](/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec)。
-在这些 API 参考页面中，你将看到提到的 PodSpec 和 DeploymentSpec。
-这些名字是 Kubernetes 用来实现其 API 的 Golang 代码的实现细节。
+<!--
+For example, see the [`spec` field](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+for the Pod API reference.
+For each Pod, the `.spec` field specifies the pod and its desired state (such as the container image name for
+each container within that pod).
+Another example of an object specification is the
+[`spec` field](/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)
+for the StatefulSet API. For StatefulSet, the `.spec` field specifies the StatefulSet and
+its desired state.
+Within the `.spec` of a StatefulSet is a [template](/docs/concepts/workloads/pods/#pod-templates)
+for Pod objects. That template describes Pods that the StatefulSet controller will create in order to
+satisfy the StatefulSet specification.
+Different kinds of object can also have different `.status`; again, the API reference pages
+detail the structure of that `.status` field, and its content for each different type of object.
+-->
+例如，参阅 Pod API 参考文档中
+[`spec` 字段](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)。
+对于每个 Pod，其 `.spec` 字段设置了 Pod 及其期望状态（例如 Pod 中每个容器的容器镜像名称）。
+另一个对象规约的例子是 StatefulSet API 中的
+[`spec` 字段](/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)。
+对于 StatefulSet 而言，其 `.spec` 字段设置了 StatefulSet 及其期望状态。
+在 StatefulSet 的 `.spec` 内，有一个为 Pod 对象提供的[模板](/zh/docs/concepts/workloads/pods/#pod-templates)。该模板描述了 StatefulSet 控制器为了满足 StatefulSet 规约而要创建的 Pod。
+不同类型的对象可以由不同的 `.status` 信息。API 参考页面给出了 `.status` 字段的详细结构，
+以及针对不同类型 API 对象的具体内容。
 
 ## {{% heading "whatsnext" %}}
 

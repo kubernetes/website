@@ -43,8 +43,8 @@ on general patterns for running stateful applications in Kubernetes.
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{< include "default-storage-class-prereqs.md" >}}
+* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* {{< include "default-storage-class-prereqs.md" >}}
 
 <!--
 * This tutorial assumes you are familiar with
@@ -146,7 +146,7 @@ resolving `<pod-name>.mysql` from within any other Pod in the same Kubernetes
 cluster and namespace. 
 -->
 这个无头服务给 StatefulSet 控制器为集合中每个 Pod 创建的 DNS 条目提供了一个宿主。
-因为服务名为 `mysql`，所以可以通过在同一 Kubernetes 集群和名字中的任何其他 Pod
+因为无头服务名为 `mysql`，所以可以通过在同一 Kubernetes 集群和命名空间中的任何其他 Pod
 内解析 `<Pod 名称>.mysql` 来访问 Pod。
 
 <!--
@@ -274,7 +274,7 @@ controller into the domain of MySQL server IDs, which require the same
 properties. 
 -->
 该脚本通过从 Pod 名称的末尾提取索引来确定自己的序号索引，而 Pod 名称由 `hostname` 命令返回。
-然后将序数（带有数字偏移量以避免保留值）保存到 MySQL conf.d 目录中的文件 server-id.cnf。
+然后将序数（带有数字偏移量以避免保留值）保存到 MySQL `conf.d` 目录中的文件 `server-id.cnf`。
 这一操作将 StatefulSet 所提供的唯一、稳定的标识转换为 MySQL 服务器的 ID，
 而这些 ID 也是需要唯一性、稳定性保证的。
 
@@ -290,7 +290,7 @@ Combined with the StatefulSet controller's
 this ensures the primary MySQL server is Ready before creating replicas, so they can begin
 replicating.
 -->
-通过将内容复制到 conf.d 中，`init-mysql` 容器中的脚本也可以应用 ConfigMap 中的
+通过将内容复制到 `conf.d` 中，`init-mysql` 容器中的脚本也可以应用 ConfigMap 中的
 `primary.cnf` 或 `replica.cnf`。
 由于示例部署结构由单个 MySQL 主节点和任意数量的副本节点组成，
 因此脚本仅将序数 `0` 指定为主节点，而将其他所有节点指定为副本节点。
@@ -341,7 +341,7 @@ Ready before starting Pod `N+1`.
 MySQL 本身不提供执行此操作的机制，因此本示例使用了一种流行的开源工具 Percona XtraBackup。
 在克隆期间，源 MySQL 服务器性能可能会受到影响。
 为了最大程度地减少对 MySQL 主服务器的影响，该脚本指示每个 Pod 从序号较低的 Pod 中克隆。
-可以这样做的原因是 StatefulSet 控制器始终确保在启动 Pod N + 1 之前 Pod N 已准备就绪。
+可以这样做的原因是 StatefulSet 控制器始终确保在启动 Pod `N + 1` 之前 Pod `N` 已准备就绪。
 
 <!--
 ### Starting replication 

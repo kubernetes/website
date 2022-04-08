@@ -68,7 +68,7 @@ kubelet은 비율 계산에 사용할 윈도우를 선택한다.
 
 ### 요약(Summary) API 소스
 [Kubelet](/docs/reference/command-line-tools-reference/kubelet/)은 노드, 볼륨, 파드, 컨테이너 수준의 통계를 수집하며, 
-소비자(consumer)가 읽을 수 있도록 이를 
+소비자(consumer)가 읽을 수 있도록 이 통계를 
 [요약 API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)에 기록한다.
 
 1.23 이전에는 이러한 자원들은 기본적으로 [cAdvisor](https://github.com/google/cadvisor)에 의해 수집되었다. 

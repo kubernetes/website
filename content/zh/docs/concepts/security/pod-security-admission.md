@@ -35,13 +35,13 @@ Kubernetes [Pod 安全性标准（Security Standards）](/zh/docs/concepts/secur
 <!--
 As a Beta feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
 text="admission controller" term_id="admission-controller" >}}, the successor
-to [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/). Pod security restrictions
+to [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/). Pod security restrictions
 are applied at the {{< glossary_tooltip text="namespace" term_id="namespace" >}} level when pods
 are created.
 -->
 作为一项 Beta 功能特性，Kubernetes 提供一种内置的 _Pod 安全性_ 
 {{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}，
-作为 [PodSecurityPolicies](/zh/docs/concepts/policy/pod-security-policy/)
+作为 [PodSecurityPolicies](/zh/docs/concepts/security/pod-security-policy/)
 特性的后继演化版本。Pod 安全性限制是在 Pod 被创建时在
 {{< glossary_tooltip text="名字空间" term_id="namespace" >}}层面实施的。
 

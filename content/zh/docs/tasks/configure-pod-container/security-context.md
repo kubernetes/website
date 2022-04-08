@@ -70,16 +70,10 @@ a Pod or Container. Security context settings include, but are not limited to:
 The above bullets are not a complete set of security context settings - please see
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 for a comprehensive list.
-
-For more information about security mechanisms in Linux, see
-[Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
 -->
 以上条目不是安全上下文设置的完整列表 -- 请参阅
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 了解其完整列表。
-
-关于在 Linux 系统中的安全机制的更多信息，可参阅
-[Linux 内核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -779,15 +773,19 @@ kubectl delete pod security-context-demo-4
 * [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
-* [Pod Security Policies](/docs/concepts/policy/pod-security-policy/)
+* [Pod Security Policies](/docs/concepts/security/pod-security-policy/)
 * [AllowPrivilegeEscalation design
   document](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
+* For more information about security mechanisms in Linux, see
+  [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
 -->
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core) API 定义
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core) API 定义
 * [使用最新的安全性增强来调优 Docker（英文）](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [安全上下文的设计文档（英文）](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
 * [属主管理的设计文档（英文）](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
-* [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)
+* [Pod 安全策略](/zh/docs/concepts/security/pod-security-policy/)
 * [AllowPrivilegeEscalation 的设计文档（英文）](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
+* 关于在 Linux 系统中的安全机制的更多信息，可参阅
+  [Linux 内核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)。
 

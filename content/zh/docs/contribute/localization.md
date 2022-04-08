@@ -268,10 +268,21 @@ Kubernetes 网站使用 Hugo 作为其 Web 框架。网站的 Hugo 配置位于
 [languages.de]
 title = "Kubernetes"
 description = "Produktionsreife Container-Verwaltung"
-languageName = "Deutsch"
+languageName = "Deutsch (German)"
+languageNameLatinScript = "German"
 contentDir = "content/de"
-weight = 3
+weight = 8
 ```
+
+<!--
+The value for `languageName` will be listed in language selection bar. Assign "language name in native script (language name in latin script)" to `languageName`, for example, `languageName = "한국어 (Korean)"`. `languageNameLatinScript` can be used to access the language name in latin script and use it in the theme. Assign "language name in latin script" to `languageNameLatinScript`, for example, `languageNameLatinScript ="Korean"`.
+-->
+`languageName` 的值将列在语言选择栏中。
+将 `languageName` 赋值为“本地脚本中的语言名称（拉丁脚本中的语言名称）”。
+例如，`languageName = "한국어 (Korean)"`。
+`languageNameLatinScript` 可用于访问拉丁脚本中的语言名称并在主题中使用。
+将 `languageNameLatinScript` 赋值为“拉丁脚本中的语言名称”。
+例如，`languageNameLatinScript ="Korean"`。
 
 <!-- 
 When assigning a `weight` parameter for your block, find the language block with the highest weight and add 1 to that value.

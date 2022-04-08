@@ -25,7 +25,7 @@ and can load-balance across them.
 ## Motivation
 
 Kubernetes {{< glossary_tooltip term_id="pod" text="Pods" >}} are created and destroyed
-to match the state of your cluster. Pods are nonpermanent resources.
+to match the desired state of your cluster. Pods are nonpermanent resources.
 If you use a {{< glossary_tooltip term_id="deployment" >}} to run your app,
 it can create and destroy Pods dynamically.
 
@@ -158,9 +158,9 @@ Each port definition can have the same `protocol`, or a different one.
 
 ### Services without selectors
 
-Services most commonly abstract access to Kubernetes Pods, but they can also
-abstract other kinds of backends.
-For example:
+Services most commonly abstract access to Kubernetes Pods thanks to the selector,
+but when used with a corresponding Endpoints object and without a selector, the Service can abstract other kinds of backends, 
+including ones that run outside the cluster. For example:
 
 * You want to have an external database cluster in production, but in your
   test environment you use your own databases.
