@@ -969,7 +969,7 @@ spec:
 For more information about StorageOS, dynamic provisioning, and PersistentVolumeClaims, see the
 [StorageOS examples](https://github.com/kubernetes/examples/blob/master/volumes/storageos).
 
-### vsphereVolume {#vspherevolume}
+### vsphereVolume (deprecated) {#vspherevolume}
 
 {{< note >}}
 You must configure the Kubernetes vSphere Cloud Provider. For cloudprovider
@@ -1040,8 +1040,10 @@ from the existing in-tree plugin to the `csi.vsphere.vmware.com` {{< glossary_to
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+Follow the official VMware documentation [here](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 
-This also requires minimum vSphere vCenter/ESXi Version to be 7.0u1 and minimum HW Version to be VM version 15.
+For vSphere CSI migration, vSphere releases less than 7.0u2 are deprecated as of Kubernetes v1.24. 
+Please consider upgrading vSphere to 7.0u2 or above. vSphere CSI migration requires minimum vSphere 7.0u2.
 
 {{< note >}}
 The following StorageClass parameters from the built-in `vsphereVolume` plugin are not supported by the vSphere CSI driver:
