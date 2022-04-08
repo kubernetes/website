@@ -36,6 +36,9 @@ other = " documentation is no longer actively maintained. The version you are cu
 [deprecation_file_warning]
 other = "Deprecated"
 
+[dockershim_message]
+other = """The dockershim code required to run Docker Engine has been removed from the Kubernetes project as of release 1.24. Read the <a href="/dockershim">Dockershim Removal FAQ</a> for further details."""
+
 [docs_label_browse]
 other = "Browse Docs"
 
