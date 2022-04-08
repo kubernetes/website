@@ -5,6 +5,7 @@ date: {{ .Date }}
 draft: true
 slug: <seo-friendly-version-of-title-separated-by-dashes>
 ---
+nitin
 
 **Author:** <your name> (<your organization name>), <another author's name> (<their organization>)
 
