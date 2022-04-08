@@ -125,10 +125,13 @@ Add a configuration block for the new language to `config.toml`, under the exist
 [languages.de]
 title = "Kubernetes"
 description = "Produktionsreife Container-Verwaltung"
-languageName = "Deutsch"
+languageName = "Deutsch (German)"
+languageNameLatinScript = "German"
 contentDir = "content/de"
-weight = 3
+weight = 8
 ```
+
+The value for `languageName` will be listed in language selection bar. Assign "language name in native script (language name in latin script)" to `languageName`, for example, `languageName = "한국어 (Korean)"`. `languageNameLatinScript` can be used to access the language name in latin script and use it in the theme. Assign "language name in latin script" to `languageNameLatinScript`, for example, `languageNameLatinScript ="Korean"`. 
 
 When assigning a `weight` parameter for your block, find the language block with the highest weight and add 1 to that value.
 

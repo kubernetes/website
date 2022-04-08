@@ -154,5 +154,4 @@ kubectl exec -i -t my-pod --container main-app -- /bin/bash
 ## {{% heading "whatsnext" %}}
 
 
-* [kubectl
-* exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)를참고한다.
+* [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)를 참고한다.

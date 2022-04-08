@@ -11,8 +11,9 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
-파드시큐리티폴리시(PodSecurityPolicy)는 쿠버네티스 v1.21부터 더이상 사용되지 않으며, v1.25에서 제거된다. 사용 중단에 대한 상세 사항은
-[파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)를 참조한다.
+파드시큐리티폴리시(PodSecurityPolicy)는 쿠버네티스 v1.21부터 더 이상 사용되지 않으며, v1.25에서 제거될 예정이다. 
+파드시큐리티폴리시는 [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)으로 대체되었다.
+사용 중단에 대한 상세 사항은 [파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)를 참조한다.
 
 파드 시큐리티 폴리시를 사용하면 파드 생성 및 업데이트에 대한 세분화된 권한을
 부여할 수 있다.
@@ -21,7 +22,7 @@ weight: 30
 
 ## 파드 시큐리티 폴리시란?
 
-_Pod Security Policy_ 는 파드 명세의 보안 관련 측면을 제어하는 ​​클러스터-레벨의
+_Pod Security Policy_ 는 파드 명세의 보안 관련 측면을 제어하는 클러스터-레벨의
 리소스이다. [파드시큐리티폴리시](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 오브젝트는
 관련 필드에 대한 기본값뿐만 아니라 시스템에 적용하기 위해 파드가 실행해야만 하는
 조건 셋을 정의한다. 관리자는
@@ -195,7 +196,7 @@ API 서버 접근 제어에 대한 자세한 내용은
 ## 정책 순서
 
 파드 생성 및 업데이트를 제한할 뿐만 아니라 파드 시큐리티 폴리시를 사용하여
-제어하는 ​​많은 필드에 기본값을 제공할 수도 있다. 여러 정책을
+제어하는 많은 필드에 기본값을 제공할 수도 있다. 여러 정책을
 사용할 수 있는 경우 파드 시큐리티 폴리시 컨트롤러는
 다음 기준에 따라 정책을 선택한다.
 

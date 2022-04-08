@@ -539,6 +539,9 @@ Using this feature, requires enabling the
 config's `ShutdownGracePeriodByPodPriority` to the desired configuration
 containing the pod priority class values and their respective shutdown periods.
 
+Metrics `graceful_shutdown_start_time_seconds` and `graceful_shutdown_end_time_seconds`
+are emitted under the kubelet subsystem to monitor node shutdowns.
+
 ## Swap memory management {#swap-memory}
 
 {{< feature-state state="alpha" for_k8s_version="v1.22" >}}

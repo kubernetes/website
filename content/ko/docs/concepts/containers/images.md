@@ -436,7 +436,7 @@ imagePullSecrets을 셋팅하여 자동화할 수 있다.
      - 위에 설명된 바와 같이 수동으로 .docker/config.json을 구성한다.
    - 또는, 방화벽 뒤에서 읽기 접근 권한을 가진 내부 프라이빗 레지스트리를 실행한다.
      - 쿠버네티스 구성은 필요 없다.
-   - 이미지 접근을 제어하는 ​​호스팅된 컨테이너 이미지 레지스트리 서비스를 사용한다.
+   - 이미지 접근을 제어하는 호스팅된 컨테이너 이미지 레지스트리 서비스를 사용한다.
      - 그것은 수동 노드 구성에 비해서 클러스터 오토스케일링과 더 잘 동작할 것이다.
    - 또는, 노드의 구성 변경이 불편한 클러스터에서는, `imagePullSecrets`를 사용한다.
 1. 독점 이미지를 가진 클러스터로, 그 중 일부가 더 엄격한 접근 제어를 필요로 하는 경우.
@@ -456,5 +456,5 @@ Kubelet은 모든 `imagePullSecrets` 파일을 하나의 가상 `.docker/config.
 ## {{% heading "whatsnext" %}}
 
 * [OCI 이미지 매니페스트 명세](https://github.com/opencontainers/image-spec/blob/master/manifest.md) 읽어보기.
-* [컨테이너 이미지 가비지 수집(garbage collection)](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)에 대해 배우기.
+* [컨테이너 이미지 가비지 수집(garbage collection)](/ko/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)에 대해 배우기.
 * [프라이빗 레지스트리에서 이미지 받아오기](/ko/docs/tasks/configure-pod-container/pull-image-private-registry)

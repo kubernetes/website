@@ -26,7 +26,7 @@ no_list: true
 * [쿠버네티스 {{< param "version" >}}용 원페이지(One-page) API 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [쿠버네티스 API 사용](/ko/docs/reference/using-api/) - 쿠버네티스 API에 대한 개요
 * [API 접근 제어](/ko/docs/reference/access-authn-authz/) - 쿠버네티스가 API 접근을 제어하는 방법에 대한 세부사항
-* [잘 알려진 레이블, 어노테이션과 테인트](/docs/reference/labels-annotations-taints/)
+* [잘 알려진 레이블, 어노테이션과 테인트](/ko/docs/reference/labels-annotations-taints/)
 
 ## 공식적으로 지원되는 클라이언트 라이브러리
 
@@ -73,14 +73,16 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
 사용/관리하는 데에 중요하지만, 이들 API의 대부분은 아직 API 서버가
 제공하지 않는다.
 
-* [kube-apiserver 환경설정 (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/)
-* [kubelet 환경설정 (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kube-scheduler 환경설정 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-* [kube-scheduler 환경설정 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-* [kube-scheduler 정책 레퍼런스 (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
+
+* [kube-apiserver 환경설정 (v1)](/docs/reference/config-api/apiserver-config.v1/)
+* [kubelet 환경설정 (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) 및
+  [kubelet 환경설정 (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
+* [kube-scheduler 환경설정 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) 및
+  [kube-scheduler 환경설정 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * [kube-proxy 환경설정 (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [클라이언트 인증 API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+* [클라이언트 인증 API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) 및 
+  [클라이언트 인증 API (v1)](/docs/reference/config-api/client-authentication.v1/)
 * [WebhookAdmission 환경설정 (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 
 ## kubeadm을 위한 API 설정

@@ -61,7 +61,7 @@ _서비스_ 로 들어가보자.
 
 애플리케이션에서 서비스 디스커버리를 위해 쿠버네티스 API를 사용할 수 있는 경우,
 서비스 내 파드 세트가 변경될 때마다 업데이트되는 엔드포인트를 {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}에
-질의할 수 ​​있다.
+질의할 수 있다.
 
 네이티브 애플리케이션이 아닌 (non-native applications) 경우, 쿠버네티스는 애플리케이션과 백엔드 파드 사이에 네트워크 포트 또는 로드
 밸런서를 배치할 수 있는 방법을 제공한다.
@@ -449,11 +449,8 @@ kube-proxy는 마치 외부 트래픽 정책이 `Cluster`로 설정되어 있는
 
 ### 환경 변수
 
-파드가 노드에서 실행될 때, kubelet은 각 활성화된 서비스에 대해
-환경 변수 세트를 추가한다. [도커 링크
-호환](https://docs.docker.com/userguide/dockerlinks/) 변수 ([makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72) 참조)와
-보다 간단한 `{SVCNAME}_SERVICE_HOST` 및 `{SVCNAME}_SERVICE_PORT` 변수를 지원하고,
-이때 서비스 이름은 대문자이고 대시는 밑줄로 변환된다.
+파드가 노드에서 실행될 때, kubelet은 각 활성화된 서비스에 대해 환경 변수 세트를 추가한다. 
+`{SVCNAME}_SERVICE_HOST` 및 `{SVCNAME}_SERVICE_PORT` 환경 변수가 추가되는데, 이 때 서비스 이름은 대문자로, 하이픈(`-`)은 언더스코어(`_`)로 변환하여 사용한다. 또한 도커 엔진의 "_[레거시 컨테이너 연결](https://docs.docker.com/network/links/)_" 기능과 호환되는 변수([makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72) 참조)도 지원한다.
 
 예를 들어, TCP 포트 6379를 개방하고
 클러스터 IP 주소 10.0.0.11이 할당된 서비스 `redis-master`는,
@@ -687,21 +684,28 @@ kube-apiserver에 대해 기능 게이트 `MixedProtocolLBService`가 활성화�
 
 #### 로드밸런서 NodePort 할당 비활성화
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-v1.20부터는 `spec.allocateLoadBalancerNodePorts` 필드를 `false`로 설정하여 서비스 Type=LoadBalancer에
-대한 노드 포트 할당을 선택적으로 비활성화 할 수 있다.
-노드 포트를 사용하는 대신 트래픽을 파드로 직접 라우팅하는 로드 밸런서 구현에만 사용해야 한다.
-기본적으로 `spec.allocateLoadBalancerNodePorts`는 `true`이며 로드밸런서 서비스 유형은 계속해서 노드 포트를 할당한다.
-노드 포트가 할당된 기존 서비스에서 `spec.allocateLoadBalancerNodePorts`가 `false`로 설정된 경우 해당 노드 포트는 자동으로 할당 해제되지 않는다.
+`type=LoadBalancer` 서비스에 대한 노드 포트 할당을 선택적으로 비활성화할 수 있으며, 
+이는 `spec.allocateLoadBalancerNodePorts` 필드를 `false`로 설정하면 된다. 
+노드 포트를 사용하지 않고 트래픽을 파드로 직접 라우팅하는 로드 밸런서 구현에만 사용해야 한다.
+기본적으로 `spec.allocateLoadBalancerNodePorts`는 `true`이며 로드밸런서 서비스 유형은 계속해서 노드 포트를 할당할 것이다.
+노드 포트가 할당된 기존 서비스에서 `spec.allocateLoadBalancerNodePorts`가 `false`로 설정된 경우 
+해당 노드 포트는 자동으로 할당 해제되지 **않는다**.
 이러한 노드 포트를 할당 해제하려면 모든 서비스 포트에서 `nodePorts` 항목을 명시적으로 제거해야 한다.
-이 필드를 사용하려면 `ServiceLBNodePortControl` 기능 게이트를 활성화해야 한다.
+이 필드를 사용하려면 클러스터에 `ServiceLBNodePortControl` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
+쿠버네티스 v{{< skew currentVersion >}}에서, 이 기능 게이트는 기본적으로 활성화되어 있으므로, 
+`spec.allocateLoadBalancerNodePorts` 필드를 사용할 수 있다. 
+다른 버전의 쿠버네티스를 실행하는 클러스터에 대해서는, 해당 릴리스의 문서를 참조한다.
 
 #### 로드 밸런서 구현 클래스 지정 {#load-balancer-class}
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-`spec.loadBalancerClass` 필드를 설정하여 클라우드 제공자가 설정한 기본값 이외의 로드 밸런서 구현을 사용할 수 있다. 이 기능은 v1.21부터 사용할 수 있으며, v1.21에서는 이 필드를 사용하기 위해 `ServiceLoadBalancerClass` 기능 게이트를 활성화해야 하지만, v1.22부터는 해당 기능 게이트가 기본적으로 활성화되어 있다.
+`spec.loadBalancerClass` 필드를 설정하여 클라우드 제공자가 설정한 기본값 이외의 로드 밸런서 구현을 사용할 수 있다. 
+이 필드를 사용하기 위해서는 클러스터에 `ServiceLoadBalancerClass` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다. 
+쿠버네티스 v{{< skew currentVersion >}}에서, 이 기능 게이트는 기본적으로 활성화되어 있다. 다른 버전의 쿠버네티스를 실행하는 클러스터에 대해서는, 해당 릴리스의 문서를 참조한다.
 기본적으로, `spec.loadBalancerClass` 는 `nil` 이고, 
 클러스터가 클라우드 제공자의 로드밸런서를 이용하도록 `--cloud-provider` 컴포넌트 플래그를 이용하여 설정되어 있으면 
 `LoadBalancer` 유형의 서비스는 클라우드 공급자의 기본 로드 밸런서 구현을 사용한다.
