@@ -230,6 +230,9 @@ kubectl get pods -o json | jq -c 'paths|join(".")'
 # Produce ENV for all pods, assuming you have a default container for the pods, default namespace and the `env` command is supported.
 # Helpful when running any supported command across all pods, not just `env`
 for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod -- env; done
+
+# Get a deployment's status subresource
+kubectl get deployment nginx-deployment --subresource=status
 ```
 
 ## Updating resources
@@ -276,6 +279,9 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 
 # Add a new element to a positional array
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
+
+# Update a deployment's replicas count by patching it's scale subresource
+kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 ```
 
 ## Editing resources
