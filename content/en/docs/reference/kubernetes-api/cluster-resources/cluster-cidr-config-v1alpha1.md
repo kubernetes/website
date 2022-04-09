@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "LimitRange"
+  apiVersion: "networking.k8s.io/v1alpha1"
+  import: "k8s.io/api/networking/v1alpha1"
+  kind: "ClusterCIDRConfig"
 content_type: "api_reference"
-description: "LimitRange sets resource usage limits for each kind of resource in a Namespace."
-title: "LimitRange"
-weight: 1
+description: "ClusterCIDRConfig is the Schema for the clustercidrconfigs API."
+title: "ClusterCIDRConfig v1alpha1"
+weight: 11
 auto_generated: true
 ---
 
@@ -21,95 +21,112 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: v1`
+`apiVersion: networking.k8s.io/v1alpha1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/networking/v1alpha1"`
 
 
-## LimitRange {#LimitRange}
+## ClusterCIDRConfig {#ClusterCIDRConfig}
 
-LimitRange sets resource usage limits for each kind of resource in a Namespace.
+ClusterCIDRConfig is the Schema for the clustercidrconfigs API.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: networking.k8s.io/v1alpha1
 
 
-- **kind**: LimitRange
+- **kind**: ClusterCIDRConfig
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRangeSpec" >}}">LimitRangeSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfigSpec" >}}">ClusterCIDRConfigSpec</a>)
 
-  Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  Spec is the desired state of the ClusterCIDRConfig. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
+- **status** (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfigStatus" >}}">ClusterCIDRConfigStatus</a>)
 
-
-
-
-## LimitRangeSpec {#LimitRangeSpec}
-
-LimitRangeSpec defines a min/max usage limit for resources that match on kind.
-
-<hr>
-
-- **limits** ([]LimitRangeItem), required
-
-  Limits is the list of LimitRangeItem objects that are enforced.
-
-  <a name="LimitRangeItem"></a>
-  *LimitRangeItem defines a min/max usage limit for any resource that matches on kind.*
-
-  - **limits.type** (string), required
-
-    Type of resource that this limit applies to.
-
-  - **limits.default** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Default resource requirement limit value by resource name if resource limit is omitted.
-
-  - **limits.defaultRequest** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
-
-  - **limits.max** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Max usage constraints on this kind by resource name.
-
-  - **limits.maxLimitRequestRatio** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    MaxLimitRequestRatio if specified, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value; this represents the max burst for the named resource.
-
-  - **limits.min** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Min usage constraints on this kind by resource name.
+  Status is the current state of the ClusterCIDRConfig. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## LimitRangeList {#LimitRangeList}
+## ClusterCIDRConfigSpec {#ClusterCIDRConfigSpec}
 
-LimitRangeList is a list of LimitRange items.
+ClusterCIDRConfigSpec defines the desired state of ClusterCIDRConfig.
 
 <hr>
 
-- **apiVersion**: v1
+- **ipv4CIDR** (string)
+
+  IPv4CIDR defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). This field is immutable.
+
+- **ipv6CIDR** (string)
+
+  IPv6CIDR defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). This field is immutable.
+
+- **nodeSelector** (NodeSelector)
+
+  NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector functions as a default that applies to all nodes. This field is immutable.
+
+  <a name="NodeSelector"></a>
+  *A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.*
+
+  - **nodeSelector.nodeSelectorTerms** ([]NodeSelectorTerm), required
+
+    Required. A list of node selector terms. The terms are ORed.
+
+    <a name="NodeSelectorTerm"></a>
+    *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
+
+    - **nodeSelector.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+
+      A list of node selector requirements by node's labels.
+
+    - **nodeSelector.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+
+      A list of node selector requirements by node's fields.
+
+- **perNodeHostBits** (int32)
+
+  PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example and IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. For a /24 mask for IPv4 or a /120 for IPv6, configure PerNodeHostBits=8 This field is immutable.
 
 
-- **kind**: LimitRangeList
+
+
+
+## ClusterCIDRConfigStatus {#ClusterCIDRConfigStatus}
+
+ClusterCIDRConfigStatus defines the observed state of ClusterCIDRConfig.
+
+<hr>
+
+
+
+
+
+## ClusterCIDRConfigList {#ClusterCIDRConfigList}
+
+ClusterCIDRConfigList contains a list of ClusterCIDRConfig.
+
+<hr>
+
+- **apiVersion**: networking.k8s.io/v1alpha1
+
+
+- **kind**: ClusterCIDRConfigList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>), required
 
-  Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+  Items is the list of ClusterCIDRConfigs.
 
 
 
@@ -126,23 +143,18 @@ LimitRangeList is a list of LimitRange items.
 
 
 
-### `get` read the specified LimitRange
+### `get` read the specified ClusterCIDRConfig
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/limitranges/{name}
+GET /apis/networking.k8s.io/v1alpha1/clustercidrconfigs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LimitRange
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  name of the ClusterCIDRConfig
 
 
 - **pretty** (*in query*): string
@@ -154,89 +166,16 @@ GET /api/v1/namespaces/{namespace}/limitranges/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): OK
+200 (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind LimitRange
+### `list` list or watch objects of kind ClusterCIDRConfig
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/limitranges
-
-#### Parameters
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **allowWatchBookmarks** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
-
-
-- **continue** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
-
-
-- **fieldSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
-
-- **limit** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
-
-
-- **watch** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRangeList" >}}">LimitRangeList</a>): OK
-
-401: Unauthorized
-
-
-### `list` list or watch objects of kind LimitRange
-
-#### HTTP Request
-
-GET /api/v1/limitranges
+GET /apis/networking.k8s.io/v1alpha1/clustercidrconfigs
 
 #### Parameters
 
@@ -295,26 +234,21 @@ GET /api/v1/limitranges
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRangeList" >}}">LimitRangeList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfigList" >}}">ClusterCIDRConfigList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a LimitRange
+### `create` create a ClusterCIDRConfig
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/limitranges
+POST /apis/networking.k8s.io/v1alpha1/clustercidrconfigs
 
 #### Parameters
 
 
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>, required
 
   
 
@@ -343,35 +277,30 @@ POST /api/v1/namespaces/{namespace}/limitranges
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): OK
+200 (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): Created
+201 (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>): Created
 
-202 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified LimitRange
+### `update` replace the specified ClusterCIDRConfig
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/limitranges/{name}
+PUT /apis/networking.k8s.io/v1alpha1/clustercidrconfigs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LimitRange
+  name of the ClusterCIDRConfig
 
 
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>, required
 
   
 
@@ -400,30 +329,25 @@ PUT /api/v1/namespaces/{namespace}/limitranges/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): OK
+200 (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): Created
+201 (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified LimitRange
+### `patch` partially update the specified ClusterCIDRConfig
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/limitranges/{name}
+PATCH /apis/networking.k8s.io/v1alpha1/clustercidrconfigs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LimitRange
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  name of the ClusterCIDRConfig
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -460,30 +384,25 @@ PATCH /api/v1/namespaces/{namespace}/limitranges/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): OK
+200 (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): Created
+201 (<a href="{{< ref "../cluster-resources/cluster-cidr-config-v1alpha1#ClusterCIDRConfig" >}}">ClusterCIDRConfig</a>): Created
 
 401: Unauthorized
 
 
-### `delete` delete a LimitRange
+### `delete` delete a ClusterCIDRConfig
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/limitranges/{name}
+DELETE /apis/networking.k8s.io/v1alpha1/clustercidrconfigs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LimitRange
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  name of the ClusterCIDRConfig
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -522,18 +441,13 @@ DELETE /api/v1/namespaces/{namespace}/limitranges/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of LimitRange
+### `deletecollection` delete collection of ClusterCIDRConfig
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/limitranges
+DELETE /apis/networking.k8s.io/v1alpha1/clustercidrconfigs
 
 #### Parameters
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
