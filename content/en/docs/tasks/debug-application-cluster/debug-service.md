@@ -461,6 +461,9 @@ other error, such as the Service selecting for `app=hostnames`, but the
 Deployment specifying `run=hostnames`, as in versions previous to 1.18, where
 the `kubectl run` command could have been also used to create a Deployment.
 
+Another reason for the `ENDPOINTS` column being `<none>` might be different 
+port names provided in service and deployment.
+
 ## Are the Pods working?
 
 At this point, you know that your Service exists and has selected your Pods.
