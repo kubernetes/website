@@ -22,9 +22,9 @@ You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} so that it
 There are several ways to do this, and the recommended approaches all use
 [label selectors](/docs/concepts/overview/working-with-objects/labels/) to facilitate the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
-(e.g. spread your pods across nodes so as not place the pod on a node with insufficient free resources, etc.)
-but there are some circumstances where you may want more control on a node where a pod lands, for example to ensure
-that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
+(for example, spreading your Pods across nodes so as not place Pods on a node with insufficient free resources).
+However, there are some circumstances where you may want to control which node
+the Pod deploys to, for example, to ensure that a Pod ends up on a node with an SSD attached to it, or to co-locate Pods from two different
 services that communicate a lot into the same availability zone.
 -->
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 只能在特定的
@@ -38,243 +38,194 @@ Pod 停靠的节点，例如，确保 Pod 最终落在连接了 SSD 的机器上
 
 <!-- body -->
 
+<!--
+You can use any of the following methods to choose where Kubernetes schedules
+specific Pods:
+
+  * [nodeSelector](#nodeselector) field matching against [node labels](#built-in-node-labels)
+  * [Affinity and anti-affinity](#affinity-and-anti-affinity)
+  * [nodeName](#nodename) field
+-->
+
+你可以使用以下任何一种方法来把 Pod 调度到 Kubernetes 的特定节点。
+
+  * [nodeSelector](#nodeselector) 字段与 [node labels](#built-in-node-labels) 匹配
+  * [亲和性与反亲和性](#affinity-and-anti-affinity)
+  * [nodeName](#nodename) 字段
+
+<!--
+## Node labels {#built-in-node-labels}
+
+Like many other Kubernetes objects, nodes have
+[labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
+Kubernetes also populates a standard set of labels on all nodes in a cluster. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
+for a list of common node labels.
+
+{{<note>}}
+The value of these labels is cloud provider specific and is not guaranteed to be reliable.
+For example, the value of `kubernetes.io/hostname` may be the same as the node name in some environments
+and a different value in other environments.
+{{</note>}}
+-->
+
+## 节点标签 {#built-in-node-labels}
+
+类似于 Kubernetes 的其它对象，节点拥有
+[标签](/docs/concepts/overview/working-with-objects/labels/)。你可以 [手动附加标签](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)。
+Kubernetes 还在集群中的所有节点上填充了一套标准的标签。常见节点标签列表见
+[常见的标签、注释和污点](/docs/reference/labels-annotations-taints/)
+
+{{<note>}}
+这些标签的价值是由云提供商特定的，不保证可靠。
+例如，`kubernetes.io/hostname` 的值在某些环境中可能与节点名称相同，而在其他环境中则是不同的值。
+{{</note>}}
+
+<!--
+### Node isolation/restriction
+
+Adding labels to nodes allows you to target Pods for scheduling on specific
+nodes or groups of nodes. You can use this functionality to ensure that specific
+Pods only run on nodes with certain isolation, security, or regulatory
+properties.
+
+If you use labels for node isolation, choose label keys that the {{<glossary_tooltip text="kubelet" term_id="kubelet">}}
+cannot modify. This prevents a compromised node from setting those labels on
+itself so that the scheduler schedules workloads onto the compromised node.
+
+The [`NodeRestriction` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+prevents the kubelet from setting or modifying labels with a
+`node-restriction.kubernetes.io/` prefix.
+
+To make use of that label prefix for node isolation:
+
+1. Ensure you are using the [Node authorizer](/docs/reference/access-authn-authz/node/) and have _enabled_ the `NodeRestriction` admission plugin.
+2. Add labels with the `node-restriction.kubernetes.io/` prefix to your nodes, and use those labels in your [node selectors](#nodeselector).
+   For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
+
+-->
+
+### 节点隔离/限制
+
+向节点添加标签允许你在特定的节点或节点组上针对 Pods 进行调度。
+你可以使用这个功能来确保特定的 Pods 只在具有某些隔离、安全或监管属性的节点上运行。
+
+如果你使用标签进行节点隔离，选择 {{<glossary_tooltip text="kubelet" term_id="kubelet">}} 不能修改的标签键。
+这可以防止被破坏的节点在自己身上设置这些标签，从而使调度器将工作负载调度到被破坏的节点上。
+
+[`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+插件防止 kubelet 设置或修改带有 `node-restriction.kubernetes.io/`前缀的标签。
+
+使用该标签前缀进行节点隔离：
+
+1. 确保你正在使用 [节点授权器](/docs/reference/access-authn-authz/node/)，并且已经 _启用_ 了 `NodeRestriction` 插件。
+2. 为你的节点添加带有 `node-restriction.kubernetes.io/` 前缀的标签，并在 [节点选择器](#nodeselector) 中使用这些标签。
+   比如:
+
+   `example.com.node-restriction.kubernetes.io/fips=true` 或 `example.com.node-restriction.kubernetes.io/pci-dss=true`。
+
 ## nodeSelector
 
 <!--
 `nodeSelector` is the simplest recommended form of node selection constraint.
-`nodeSelector` is a field of PodSpec. It specifies a map of key-value pairs. For the pod to be eligible
-to run on a node, the node must have each of the indicated key-value pairs as labels (it can have
-additional labels as well). The most common usage is one key-value pair.
+You can add the `nodeSelector` field to your Pod specification and specify the
+[node labels](#built-in-node-labels) you want the target node to have.
+Kubernetes only schedules the Pod onto nodes that have each of the labels you
+specify.
 -->
 
-`nodeSelector` 是节点选择约束的最简单推荐形式。`nodeSelector` 是 PodSpec 的一个字段。
-它包含键值对的映射。为了使 pod 可以在某个节点上运行，该节点的标签中
-必须包含这里的每个键值对（它也可以具有其他标签）。
-最常见的用法的是一对键值对。
-
-<!--
-Let's walk through an example of how to use `nodeSelector`.
--->
-让我们来看一个使用 `nodeSelector` 的例子。
-
-<!--
-### Step Zero: Prerequisites
-
-This example assumes that you have a basic understanding of Kubernetes pods and that you have [set up a Kubernetes cluster](/docs/setup/).
--->
-### 步骤零：先决条件
-
-本示例假设你已基本了解 Kubernetes 的 Pod 并且已经[建立一个 Kubernetes 集群](/zh/docs/setup/)。
-
-<!--
-### Step One: Attach label to the node
-
-Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the one that you want to add a label to, and then run `kubectl label nodes <node-name> <label-key>=<label-value>` to add a label to the node you've chosen. For example, if my node name is 'kubernetes-foo-node-1.c.a-robinson.internal' and my desired label is 'disktype=ssd', then I can run `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`.
--->
-### 步骤一：添加标签到节点 {#attach-labels-to-node}
-
-执行 `kubectl get nodes` 命令获取集群的节点名称。
-选择一个你要增加标签的节点，然后执行
-`kubectl label nodes <node-name> <label-key>=<label-value>`
-命令将标签添加到你所选择的节点上。
-例如，如果你的节点名称为 'kubernetes-foo-node-1.c.a-robinson.internal'
-并且想要的标签是 'disktype=ssd'，则可以执行
-`kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd` 命令。
-
-<!--
-You can verify that it worked by re-running `kubectl get nodes -show-labels` and checking that the node now has a label. You can also use `kubectl describe node "nodename"` to see the full list of labels of the given node.
--->
-你可以通过重新运行 `kubectl get nodes --show-labels`，
-查看节点当前具有了所指定的标签来验证它是否有效。
-你也可以使用 `kubectl describe node "nodename"` 命令查看指定节点的标签完整列表。
-
-<!--
-### Step Two: Add a nodeSelector field to your pod configuration
-
-Take whatever pod config file you want to run, and add a nodeSelector section to it, like this. For example, if this is my pod config:
--->
-### 步骤二：添加 nodeSelector 字段到 Pod 配置中
-
-选择任何一个你想运行的 Pod 的配置文件，并且在其中添加一个 nodeSelector 部分。
-例如，如果下面是我的 pod 配置：
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-  labels:
-    env: test
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-```
-
-<!--
-Then add a nodeSelector like so:
--->
-然后像下面这样添加 nodeSelector：
-
-{{< codenew file="pods/pod-nginx.yaml" >}}
-
-<!--
-When you then run `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`,
-the Pod will get scheduled on the node that you attached the label to. You can
-verify that it worked by running `kubectl get pods -o wide` and looking at the
-"NODE" that the Pod was assigned to.
--->
-当你之后运行 `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml` 命令，
-Pod 将会调度到将标签添加到的节点上。
-你可以通过运行 `kubectl get pods -o wide` 并查看分配给 pod 的 “NODE” 来验证其是否有效。
-
-<!--
-## Interlude: built-in node labels {#built-in-node-labels}
-
-In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes come pre-populated
-with a standard set of labels. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/) for a list of these.
--->
-## 插曲：内置的节点标签 {#built-in-node-labels}
-
-除了你[添加](#step-one-attach-label-to-the-node)的标签外，节点还预制了一组标准标签。
-参见这些[常用的标签，注解以及污点](/zh/docs/reference/labels-annotations-taints/)：
-
-* [`kubernetes.io/hostname`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-hostname)
-* [`failure-domain.beta.kubernetes.io/zone`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesiozone)
-* [`failure-domain.beta.kubernetes.io/region`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesioregion)
-* [`topology.kubernetes.io/zone`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
-* [`topology.kubernetes.io/region`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
-* [`beta.kubernetes.io/instance-type`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#beta-kubernetes-io-instance-type)
-* [`node.kubernetes.io/instance-type`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
-* [`kubernetes.io/os`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-os)
-* [`kubernetes.io/arch`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-arch)
-
-{{< note >}}
-<!--
-The value of these labels is cloud provider specific and is not guaranteed to be reliable.
-For example, the value of `kubernetes.io/hostname` may be the same as the Node name in some environments
-and a different value in other environments.
--->
-这些标签的值是特定于云供应商的，因此不能保证可靠。
-例如，`kubernetes.io/hostname` 的值在某些环境中可能与节点名称相同，
-但在其他环境中可能是一个不同的值。
-{{< /note >}}
-
-<!--
-## Node isolation/restriction
-
-Adding labels to Node objects allows targeting pods to specific nodes or groups of nodes.
-This can be used to ensure specific pods only run on nodes with certain isolation, security, or regulatory properties.
-When using labels for this purpose, choosing label keys that cannot be modified by the kubelet process on the node is strongly recommended.
-This prevents a compromised node from using its kubelet credential to set those labels on its own Node object,
-and influencing the scheduler to schedule workloads to the compromised node.
--->
-## 节点隔离/限制  {#node-isolation-restriction}
-
-向 Node 对象添加标签可以将 pod 定位到特定的节点或节点组。
-这可以用来确保指定的 Pod 只能运行在具有一定隔离性，安全性或监管属性的节点上。
-当为此目的使用标签时，强烈建议选择节点上的 kubelet 进程无法修改的标签键。
-这可以防止受感染的节点使用其 kubelet 凭据在自己的 Node 对象上设置这些标签，
-并影响调度器将工作负载调度到受感染的节点。
-
-<!--
-The `NodeRestriction` admission plugin prevents kubelets from setting or modifying labels with a `node-restriction.kubernetes.io/` prefix.
-To make use of that label prefix for node isolation:
--->
-`NodeRestriction` 准入插件防止 kubelet 使用 `node-restriction.kubernetes.io/`
-前缀设置或修改标签。要使用该标签前缀进行节点隔离：
-
-<!--
-1. Ensure you are using the [Node authorizer](/docs/reference/access-authn-authz/node/) and have _enabled_ the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction).
-2. Add labels under the `node-restriction.kubernetes.io/` prefix to your Node objects, and use those labels in your node selectors.
-For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
--->
-1. 确保你在使用[节点授权](/zh/docs/reference/access-authn-authz/node/)并且已经 _启用_ 
-   [NodeRestriction 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)。
-2. 将 `node-restriction.kubernetes.io/` 前缀下的标签添加到 Node 对象，
-   然后在节点选择器中使用这些标签。
-   例如，`example.com.node-restriction.kubernetes.io/fips=true` 或
-   `example.com.node-restriction.kubernetes.io/pci-dss=true`。
+`nodeSelector` 是节点选择约束的最简单推荐形式。
+你可以在你的Pod规范中添加`nodeSelector`字段，并指定你希望目标节点拥有的 [节点标签](#built-in-node-labels)。
+Kubernetes 只将 Pod 调度到拥有你指定的每个标签的节点上。
 
 <!--
 ## Affinity and anti-affinity
 
-`nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
-feature, greatly expands the types of constraints you can express. The key enhancements are
+`nodeSelector` is the simplest way to constrain Pods to nodes with specific
+labels. Affinity and anti-affinity expands the types of constraints you can
+define. Some of the benefits of affinity and anti-affinity include：
+
+* The affinity/anti-affinity language is more expressive. `nodeSelector` only
+  selects nodes with all the specified labels. Affinity/anti-affinity gives you
+  more control over the selection logic.
+* You can indicate that a rule is *soft* or *preferred*, so that the scheduler
+  still schedules the Pod even if it can't find a matching node.
+* You can constrain a Pod using labels on other Pods running on the node (or other topological domain),
+  instead of just node labels, which allows you to define rules for which Pods
+  can be co-located on a node.
 -->
 ## 亲和性与反亲和性
 
 `nodeSelector` 提供了一种非常简单的方法来将 Pod 约束到具有特定标签的节点上。
-亲和性/反亲和性功能极大地扩展了你可以表达约束的类型。关键的增强点包括：
+亲和性/反亲和性扩展了你可以定义的约束类型。亲和性/反亲和性的一些好处包括：
 
-<!--
-1. the language is more expressive (not just "AND of exact match")
-2. you can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
-   can't satisfy it, the pod will still be scheduled
-3. you can constrain against labels on other pods running on the node (or other topological domain),
-   rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located
--->
-1. 语言表达能力更强（不仅仅是“对完全匹配规则的 AND”）
-2. 你可以发现规则是“软需求”/“偏好”，而不是硬性要求，因此，
-   如果调度器无法满足该要求，仍然调度该 Pod
-3. 你可以使用节点上（或其他拓扑域中）的 Pod 的标签来约束，而不是使用
-   节点本身的标签，来允许哪些 pod 可以或者不可以被放置在一起。
-
-<!--
-The affinity feature consists of two types of affinity, "node affinity" and "inter-pod affinity/anti-affinity".
-Node affinity is like the existing `nodeSelector` (but with the first two benefits listed above),
-while inter-pod affinity/anti-affinity constrains against pod labels rather than node labels, as
-described in the third item listed above, in addition to having the first and second properties listed above.
--->
-亲和性功能包含两种类型的亲和性，即“节点亲和性”和“Pod 间亲和性/反亲和性”。
-节点亲和性就像现有的 `nodeSelector`（但具有上面列出的前两个好处），然而
-Pod 间亲和性/反亲和性约束 Pod 标签而不是节点标签（在上面列出的第三项中描述，
-除了具有上面列出的第一和第二属性）。
+* 亲和性/反亲和性的语言表达能力更强。`nodeSelector` 只选择具有所有指定标签的节点。
+  亲和性/反亲和性让你对选择逻辑有更多控制。
+* 你可以指定一个规则是 *soft* 或 *preferred*，以便调度器在找不到匹配的节点时也会调度这个 Pod。
+* 你可以使用在节点（或其他拓扑域）上运行的其他 Pod 的标签来约束一个 Pod。而不仅仅是节点标签，
+  这允许你定义那些允许多个 Pod 在一个节点上共处的规则。
 
 <!--
 ### Node affinity
 
-Node affinity is conceptually similar to `nodeSelector` -- it allows you to constrain which nodes your
-pod is eligible to be scheduled on, based on labels on the node.
+Node affinity is conceptually similar to `nodeSelector`， allowing you to constrain which nodes your
+Pod can be scheduled on based on node labels. There are two types of node
+affinity:
 -->
 ### 节点亲和性   {#node-affinity}
 
-节点亲和性概念上类似于 `nodeSelector`，它使你可以根据节点上的标签来约束
-Pod 可以调度到哪些节点。
+节点亲和性概念上类似于 `nodeSelector`，它允许你限制你的 Pod 根据节点标签来安排。
+有两种类型的节点亲和性。
+<!--
+  * `requiredDuringSchedulingIgnoredDuringExecution`: The scheduler can't
+    schedule the Pod unless the rule is met. This functions like `nodeSelector`,
+    but with a more expressive syntax.
+  * `preferredDuringSchedulingIgnoredDuringExecution`: The scheduler tries to
+    find a node that meets the rule. If a matching node is not available, the
+    scheduler still schedules the Pod.
+-->
+
+  * `requiredDuringSchedulingIgnoredDuringExecution`: 除非满足规则，否则调度器不能调度 Pod。
+    这个方法类似 `nodeSelector`，但是该方法拥有更多的表达语法。
+  * `preferredDuringSchedulingIgnoredDuringExecution`: 调度器试图找到一个符合该规则的节点。
+    如果没有匹配的节点，调度器仍然会对Pod进行调度。
 
 <!--
-There are currently two types of node affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
-`preferredDuringSchedulingIgnoredDuringExecution`. You can think of them as "hard" and "soft" respectively,
-in the sense that the former specifies rules that *must* be met for a pod to be scheduled onto a node (similar to
-`nodeSelector` but using a more expressive syntax), while the latter specifies *preferences* that the scheduler
-will try to enforce but will not guarantee. The "IgnoredDuringExecution" part of the names means that, similar
-to how `nodeSelector` works, if labels on a node change at runtime such that the affinity rules on a pod are no longer
-met, the pod continues to run on the node. In the future we plan to offer
-`requiredDuringSchedulingRequiredDuringExecution` which will be identical to `requiredDuringSchedulingIgnoredDuringExecution`
-except that it will evict pods from nodes that cease to satisfy the pods' node affinity requirements.
+{{<note>}}
+In the preceding types, `IgnoredDuringExecution` means that if the node labels
+change after Kubernetes schedules the Pod, the Pod continues to run.
+{{</note>}}
 -->
-目前有两种类型的节点亲和性，分别为 `requiredDuringSchedulingIgnoredDuringExecution` 和
-`preferredDuringSchedulingIgnoredDuringExecution`。
-你可以视它们为“硬需求”和“软需求”，意思是，前者指定了将 Pod 调度到一个节点上
-*必须*满足的规则（就像 `nodeSelector` 但使用更具表现力的语法），
-后者指定调度器将尝试执行但不能保证的*偏好*。
-名称的“IgnoredDuringExecution”部分意味着，类似于 `nodeSelector` 的工作原理，
-如果节点的标签在运行时发生变更，从而不再满足 Pod 上的亲和性规则，那么 Pod
-将仍然继续在该节点上运行。
-将来我们计划提供 `requiredDuringSchedulingRequiredDuringExecution`，
-它将与 `requiredDuringSchedulingIgnoredDuringExecution` 完全相同，
-只是它会将 Pod 从不再满足 Pod 的节点亲和性要求的节点上驱逐。
+{{<note>}}
+在前面的类型中，`IgnoredDuringExecution` 意味着如果节点标签发生变化，该 Pod 将继续运行。
+{{</note>}}
 
 <!--
-Thus an example of `requiredDuringSchedulingIgnoredDuringExecution` would be "only run the pod on nodes with Intel CPUs"
-and an example `preferredDuringSchedulingIgnoredDuringExecution` would be "try to run this set of pods in failure
-zone XYZ, but if it's not possible, then allow some to run elsewhere".
+You can specify node affinities using the `.spec.affinity.nodeAffinity` field in
+your Pod spec.
+
+For example, consider the following Pod spec:
+
+{{<codenew file="pods/pod-with-node-affinity.yaml">}}
+
+In this example, the following rules apply:
+
+  * The node *must* have a label with the key `kubernetes.io/e2e-az-name` and
+    the value is either `e2e-az1` or `e2e-az2`.
+  * The node *preferably* has a label with the key `another-node-label-key` and
+    the value `another-node-label-value`.
 -->
-因此，`requiredDuringSchedulingIgnoredDuringExecution` 的示例将是
-“仅将 Pod 运行在具有 Intel CPU 的节点上”，而
-`preferredDuringSchedulingIgnoredDuringExecution` 的示例为
-“尝试将这组 Pod 运行在 XYZ 故障区域，如果这不可能的话，则允许一些
-Pod 在其他地方运行”。
+
+你可以使用 Pod 规约中的`.spec.affinity.nodeAffinity` 字段指定节点亲和力。
+
+例如，考虑以下 Pod 规约：
+
+{{<codenew file="pods/pod-with-node-affinity.yaml">}}
+
+在这个例子中，适用以下规则：
+
+  * 该节点 *必须* 有一个键为 `kubernetes.io/e2e-az-name`，值为
+    `e2e-az1` 或 `e2e-az2` 的标签。
+  * 该节点 *最好* 有一个标签，其键为 `another-note-label-key`，值为 `another-note-label-value`。
 
 <!--
 Node affinity is specified as field `nodeAffinity` of field `affinity` in the PodSpec.
