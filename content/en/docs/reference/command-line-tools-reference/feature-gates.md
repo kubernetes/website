@@ -112,7 +112,8 @@ different Kubernetes components.
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
-| `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | |
+| `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | 1.23 |
+| `GracefulNodeShutdownBasedOnPodPriority` | `true` | Beta | 1.24 | |
 | `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
 | `GRPCContainerProbe` | `true` | Beta | 1.24 | |
 | `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 |  |

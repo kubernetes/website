@@ -534,10 +534,18 @@ next priority class value range.
 If this feature is enabled and no configuration is provided, then no ordering
 action will be taken.
 
-Using this feature, requires enabling the
-`GracefulNodeShutdownBasedOnPodPriority` feature gate, and setting the kubelet
-config's `ShutdownGracePeriodByPodPriority` to the desired configuration
-containing the pod priority class values and their respective shutdown periods.
+Using this feature requires enabling the `GracefulNodeShutdownBasedOnPodPriority`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+, and setting `ShutdownGracePeriodByPodPriority` in the
+[kubelet config](/docs/reference/config-api/kubelet-config.v1beta1/)
+to the desired configuration containing the pod priority class values and
+their respective shutdown periods.
+
+{{< note >}}
+The ability to take Pod priority into account during graceful node shutdown was introduced
+as an Alpha feature in Kubernetes v1.23. In Kubernetes {{< skew currentVersion >}}
+the feature is Beta and is enabled by default.
+{{< /note >}}
 
 Metrics `graceful_shutdown_start_time_seconds` and `graceful_shutdown_end_time_seconds`
 are emitted under the kubelet subsystem to monitor node shutdowns.
