@@ -68,7 +68,8 @@ controllerLeaders:
     component: kube-controller-manager
 ```
 
-Alternatively, because the controllers can run under either controller managers, setting `component` to `*` for both side makes the configuration file consistent between both parties of the migration.
+Alternatively, because the controllers can run under either controller managers, setting `component` to `*`
+for both sides makes the configuration file consistent between both parties of the migration.
 
 ```yaml
 # wildcard version
