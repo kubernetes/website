@@ -199,27 +199,6 @@ List of components currently supporting JSON format:
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
-### Log sanitization
-
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
-
-{{<warning >}}
-Log sanitization might incur significant computation overhead and therefore should not be enabled in production.
-{{< /warning >}}
-
-The `--experimental-logging-sanitization` flag enables the klog sanitization filter.
-If enabled all log arguments are inspected for fields tagged as sensitive data (e.g. passwords, keys, tokens) and logging of these fields will be prevented.
-
-List of components currently supporting log sanitization:
-* kube-controller-manager
-* kube-apiserver
-* kube-scheduler
-* kubelet
-
-{{< note >}}
-The Log sanitization filter does not prevent user workload logs from leaking sensitive data.
-{{< /note >}}
-
 ### Log verbosity level
 
 The `-v` flag controls log verbosity. Increasing the value increases the number of logged events. Decreasing the value decreases the number of logged events.
