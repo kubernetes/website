@@ -13,56 +13,249 @@ content_type: concept
 <!-- overview -->
 
 <!--
-Resource usage metrics, such as container CPU and memory usage,
-are available in Kubernetes through the Metrics API. These metrics can be accessed either directly
-by the user with the `kubectl top` command, or by a controller in the cluster, for example
-Horizontal Pod Autoscaler, to make decisions.
+For Kubernetes, the _Metrics API_ offers a basic set of metrics to support automatic scaling and
+similar use cases.  This API makes information available about resource usage for node and pod,
+including metrics for CPU and memory.  If you deploy the Metrics API into your cluster, clients of
+the Kubernetes API can then query for this information, and you can use Kubernetes' access control
+mechanisms to manage permissions to do so.
+
+The [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)  (HPA) and
+[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)
+use data from the metrics API to adjust workload replicas and resources to meet customer demand.
+
+You can also view the resource metrics using the
+[`kubectl top`](/docs/reference/generated/kubectl/kubectl-commands#top)
+command.
 -->
-资源使用指标，例如容器 CPU 和内存使用率，可通过 Metrics API 在 Kubernetes 中获得。
-这些指标可以直接被用户访问，比如使用 `kubectl top` 命令行，或者被集群中的控制器
-（例如 Horizontal Pod Autoscalers) 使用来做决策。
+
+对于 Kubernetes，_Metrics API_ 提供了一组基本的指标，以支持自动伸缩和类似的用例。
+该 API 提供有关节点和 Pod 的资源使用情况的信息，
+包括 CPU 和内存的指标。如果将 Metrics API 部署到集群中，
+那么 Kubernetes API 的客户端就可以查询这些信息，并且可以使用 Kubernetes 的访问控制机制来管理权限。
+
+[HorizontalPodAutoscaler](/zh/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) 和 
+[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA) 
+使用 metrics API 中的数据调整工作负载副本和资源，以满足客户需求。
+
+你也可以通过 [`kubectl top`](/zh/docs/reference/generated/kubectl/kubectl-commands#top) 命令来查看资源指标。
+
+{{< note >}}
+<!--
+The Metrics API, and the metrics pipeline that it enables, only offers the minimum
+CPU and memory metrics to enable automatic scaling using HPA and / or VPA.
+If you would like to provide a more complete set of metrics, you can complement
+the simpler Metrics API by deploying a second
+[metrics pipeline](/docs/tasks/debug-application-cluster/resource-usage-monitoring/#full-metrics-pipeline)
+that uses the _Custom Metrics API_.
+-->
+Metrics API 及其启用的指标管道仅提供最少的 CPU 和内存指标，以启用使用 HPA 和/或 VPA 的自动扩展。
+如果你想提供更完整的指标集，你可以通过部署使用 _Custom Metrics API_ 的第二个
+[指标管道](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/#full-metrics-pipeline) 来作为简单的 Metrics API 的补充。
+{{< /note >}}
+
+<!--
+Figure 1 illustrates the architecture of the resource metrics pipeline.
+-->
+图 1 说明了资源指标管道的架构。
+
+{{< mermaid >}}
+flowchart RL
+subgraph cluster[Cluster]
+direction RL
+S[ <br><br> ]
+A[Metrics-<br>Server]
+subgraph B[Nodes]
+direction TB
+D[cAdvisor] --> C[kubelet]
+E[Container<br>runtime] --> D
+E1[Container<br>runtime] --> D
+P[pod data] -.- C
+end
+L[API<br>server]
+W[HPA]
+C ---->|Summary<br>API| A -->|metrics<br>API| L --> W
+end
+L ---> K[kubectl<br>top]
+classDef box fill:#fff,stroke:#000,stroke-width:1px,color:#000;
+class W,B,P,K,cluster,D,E,E1 box
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class S spacewhite
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:1px,color:#fff;
+class A,L,C k8s
+{{< /mermaid >}}
+
+<!--
+Figure 1. Resource Metrics Pipeline
+
+The architecture components, from right to left in the figure, consist of the following:
+
+* [cAdvisor](https://github.com/google/cadvisor): Daemon for collecting, aggregating and exposing
+  container metrics included in Kubelet.
+* [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container
+  resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet
+  API endpoints.
+* [Summary API](#summary-api-source): API provided by the kubelet for discovering and retrieving
+  per-node summarized stats available through the `/stats` endpoint.
+* [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource
+  metrics pulled from each kubelet. The API server serves Metrics API for use by HPA, VPA, and by
+  the `kubectl top` command. Metrics Server is a reference implementation of the Metrics API.
+* [Metrics API](#metrics-api): Kubernetes API supporting access to CPU and memory used for
+  workload autoscaling. To make this work in your cluster, you need an API extension server that
+  provides the Metrics API.
+-->
+图 1. 资源指标管道
+
+图中从右到左的架构组件包括以下内容：
+
+* [cAdvisor](https://github.com/google/cadvisor): 用于收集、聚合和公开 Kubelet 中包含的容器指标的守护程序。
+* [kubelet](/zh/docs/concepts/overview/components/#kubelet): 用于管理容器资源的节点代理。
+  可以使用 `/metrics/resource` 和 `/stats` kubelet API 端点访问资源指标。
+* [Summary API](#summary-api-source): kubelet 提供的 API，用于发现和检索可通过 `/stats` 端点获得的每个节点的汇总统计信息。
+* [metrics-server](#metrics-server): 集群插件组件，用于收集和聚合从每个 kubelet 中提取的资源指标。
+  API 服务器提供 Metrics API 以供 HPA、VPA 和 `kubectl top` 命令使用。 Metrics Server 是 Metrics API 的参考实现。
+* [Metrics API](#metrics-api): Kubernetes API 支持访问用于工作负载自动缩放的 CPU 和内存。
+  要在你的集群中进行这项工作，你需要一个提供 Metrics API 的 API 扩展服务器。
+
+  <!--
+  cAdvisor supports reading metrics from cgroups, which works with typical container runtimes on Linux.
+  If you use a container runtime that uses another resource isolation mechanism, for example
+  virtualization, then that container runtime must support
+  [CRI Container Metrics](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md)
+  in order for metrics to be available to the kubelet.
+  -->
+  {{< note >}}
+  cAdvisor 支持从 cgroups 读取指标，它适用于 Linux 上的典型容器运行时。
+  如果你使用基于其他资源隔离机制的容器运行时，例如虚拟化，那么该容器运行时必须支持
+  [CRI 容器指标](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md)
+  以便 kubelet 可以使用指标。
+  {{< /note >}}
 
 <!-- body -->
 
 <!--
-## The Metrics API
+## Metrics API
 
-Through the Metrics API, you can get the amount of resource currently used
-by a given node or a given pod. This API doesn't store the metric values,
-so it's not possible, for example, to get the amount of resources used by a
-given node 10 minutes ago.
+The metrics-server implements the Metrics API. This API allows you to access CPU and memory usage
+for the nodes and pods in your cluster. Its primary role is to feed resource usage metrics to K8s
+autoscaler components.
+
+Here is an example of the Metrics API request for a `minikube` node piped through `jq` for easier
+reading:
+
 -->
 ## Metrics API   {#the-metrics-api}
 
-通过 Metrics API，你可以获得指定节点或 Pod 当前使用的资源量。
-此 API 不存储指标值，因此想要获取某个指定节点 10 分钟前的
-资源使用量是不可能的。
+{{< feature-state for_k8s_version="1.8" state="beta" >}}
+
+metrics-server 实现了 Metrics API。此 API 允许你访问集群中节点和 Pod 的 CPU 和内存使用情况。
+它的主要作用是将资源使用指标提供给 K8s 自动缩放器组件。
+
+下面是一个 `minikube` 节点的 Metrics API 请求示例，通过 `jq` 管道处理以便于阅读：
+
+```shell
+kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes/minikube" | jq '.'
+```
+
+<!-- Here is the same API call using `curl`: -->
+这是使用 `curl` 来执行的相同 API 调用：
+
+```shell
+curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/nodes/minikube
+```
+
+<!-- Sample response: -->
+响应示例：
+
+```json
+{
+  "kind": "NodeMetrics",
+  "apiVersion": "metrics.k8s.io/v1beta1",
+  "metadata": {
+    "name": "minikube",
+    "selfLink": "/apis/metrics.k8s.io/v1beta1/nodes/minikube",
+    "creationTimestamp": "2022-01-27T18:48:43Z"
+  },
+  "timestamp": "2022-01-27T18:48:33Z",
+  "window": "30s",
+  "usage": {
+    "cpu": "487558164n",
+    "memory": "732212Ki"
+  }
+}
+```
 
 <!--
-The API is no different from any other API:
+Here is an example of the Metrics API request for a `kube-scheduler-minikube` pod contained in the
+`kube-system` namespace and piped through `jq` for easier reading:
 -->
-此 API 与其他 API 没有区别：
+
+下面是一个 `kube-system` 命名空间中的 `kube-scheduler-minikube` Pod 的 Metrics API 请求示例，
+通过 `jq` 管道处理以便于阅读：
+
+```shell
+kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube" | jq '.'
+```
+
+<!-- Here is the same API call using `curl`: -->
+这是使用 `curl` 来完成的相同 API 调用：
+
+```shell
+curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube
+```
+
+<!-- Sample response: -->
+响应示例：
+
+```json
+{
+  "kind": "PodMetrics",
+  "apiVersion": "metrics.k8s.io/v1beta1",
+  "metadata": {
+    "name": "kube-scheduler-minikube",
+    "namespace": "kube-system",
+    "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube",
+    "creationTimestamp": "2022-01-27T19:25:00Z"
+  },
+  "timestamp": "2022-01-27T19:24:31Z",
+  "window": "30s",
+  "containers": [
+    {
+      "name": "kube-scheduler",
+      "usage": {
+        "cpu": "9559630n",
+        "memory": "22244Ki"
+      }
+    }
+  ]
+}
+```
 
 <!--
-- it is discoverable through the same endpoint as the other Kubernetes APIs under the path: `/apis/metrics.k8s.io/`
-- it offers the same security, scalability, and reliability guarantees
+The Metrics API is defined in the [k8s.io/metrics](https://github.com/kubernetes/metrics)
+repository. You must enable the [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+and register an [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)
+for the `metrics.k8s.io` API.
+
+To learn more about the Metrics API, see [resource metrics API design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md),
+the [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server) and the
+[resource metrics API](https://github.com/kubernetes/metrics#resource-metrics-api).
 -->
-- 此 API 和其它 Kubernetes API 一起位于同一端点（endpoint）之下且可发现，
-  路径为 `/apis/metrics.k8s.io/` 
-- 它具有相同的安全性、可扩展性和可靠性保证
+
+Metrics API 在 [k8s.io/metrics](https://github.com/kubernetes/metrics) 代码库中定义。
+你必须启用 [API 聚合层](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/)并为 
+`metrics.k8s.io` API 注册一个 [APIService](/zh/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)。
+
+要了解有关 Metrics API 的更多信息，
+请参阅资源 [Resource Metrics API Design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md)、
+[metrics-server 代码库](https://github.com/kubernetes-sigs/metrics-server) 和
+[Resource Metrics API](https://github.com/kubernetes/metrics#resource-metrics-api)。
 
 <!--
-The API is defined in [k8s.io/metrics](https://github.com/kubernetes/metrics/blob/master/pkg/apis/metrics/v1beta1/types.go)
-repository. You can find more information about the API there.
--->
-Metrics API 在 [k8s.io/metrics](https://github.com/kubernetes/metrics/blob/master/pkg/apis/metrics/v1beta1/types.go)
-仓库中定义。你可以在那里找到有关 Metrics API 的更多信息。
-
-<!--
-The API requires metrics server to be deployed in the cluster. Otherwise it will be not available.
+You must deploy the metrics-server or alternative adapter that serves the Metrics API to be able
+to access it.
 -->
 {{< note >}}
-Metrics API 需要在集群中部署 Metrics Server。否则它将不可用。
+你必须部署提供 Metrics API 服务的 metrics-server 或其他适配器才能访问它。
 {{< /note >}}
 
 <!--
@@ -70,75 +263,119 @@ Metrics API 需要在集群中部署 Metrics Server。否则它将不可用。
 
 ### CPU
 
-CPU is reported as the average usage, in
-[CPU cores](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu),
-over a period of time. This value is derived by taking a rate over a cumulative CPU counter
-provided by the kernel (in both Linux and Windows kernels).
-The kubelet chooses the window for the rate calculation.
+CPU is reported as the average core usage measured in cpu units. One cpu, in Kubernetes, is
+equivalent to 1 vCPU/Core for cloud providers, and 1 hyper-thread on bare-metal Intel processors.
+
+This value is derived by taking a rate over a cumulative CPU counter provided by the kernel (in
+both Linux and Windows kernels). The time window used to calculate CPU is shown under window field
+in Metrics API.
+
+To learn more about how Kubernetes allocates and measures CPU resources, see
+[meaning of CPU](/docs/concepts/configuration/manage-resources-container/#meaning-of-cpu).
 -->
 ## 度量资源用量   {#measuring-resource-usage}
 
 ### CPU
 
-CPU 用量按其一段时间内的平均值统计，单位为
-[CPU 核](/zh/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)。
-此度量值通过在内核（包括 Linux 和 Windows）提供的累积 CPU 计数器乘以一个系数得到。
-`kubelet` 组件负责选择计算系数所使用的窗口大小。
+CPU 报告为以 cpu 为单位测量的平均核心使用率。在 Kubernetes 中，
+一个 cpu 相当于云提供商的 1 个 vCPU/Core，以及裸机 Intel 处理器上的 1 个超线程。
+
+该值是通过对内核提供的累积 CPU 计数器（在 Linux 和 Windows 内核中）取一个速率得出的。
+用于计算 CPU 的时间窗口显示在 Metrics API 的窗口字段下。
+
+要了解更多关于 Kubernetes 如何分配和测量 CPU 资源的信息，请参阅
+[CPU 的含义](/zh/docs/concepts/configuration/manage-resources-container/#meaning-of-cpu)。
 
 <!--
 ### Memory
 
-Memory is reported as the working set, in bytes, at the instant the metric was collected.
-In an ideal world, the "working set" is the amount of memory in-use that cannot be freed under memory pressure.
-However, calculation of the working set varies by host OS, and generally makes heavy use of heuristics to produce an estimate.
-It includes all anonymous (non-file-backed) memory since Kubernetes does not support swap.
-The metric typically also includes some cached (file-backed) memory, because the host OS cannot always reclaim such pages.
+Memory is reported as the working set, measured in bytes, at the instant the metric was collected.
+
+In an ideal world, the "working set" is the amount of memory in-use that cannot be freed under
+memory pressure. However, calculation of the working set varies by host OS, and generally makes
+heavy use of heuristics to produce an estimate.
+
+The Kubernetes model for a container's working set expects that the container runtime counts
+anonymous memory associated with the container in question. The working set metric typically also
+includes some cached (file-backed) memory, because the host OS cannot always reclaim pages.
+
+To learn more about how Kubernetes allocates and measures memory resources, see
+[meaning of memory](/docs/concepts/configuration/manage-resources-container/#meaning-of-memory).
 -->
 ### 内存  {#memory}
 
-内存用量按工作集（Working Set）的大小字节数统计，其数值为收集度量值的那一刻的内存用量。
-如果一切都很理想化，“工作集” 是任务在使用的内存总量，该内存是不可以在内存压力较大
-的情况下被释放的。
-不过，具体的工作集计算方式取决于宿主 OS，有很大不同，且通常都大量使用启发式
-规则来给出一个估计值。
-其中包含所有匿名内存使用（没有后台文件提供存储者），因为 Kubernetes 不支持交换分区。
-度量值通常包含一些高速缓存（有后台文件提供存储）内存，因为宿主操作系统并不是总能
-回收这些页面。
+内存报告为在收集度量标准的那一刻的工作集大小，以字节为单位。
+
+在理想情况下，“工作集”是在内存压力下无法释放的正在使用的内存量。
+然而，工作集的计算因主机操作系统而异，并且通常大量使用启发式算法来产生估计。
+
+Kubernetes 模型中，容器工作集是由容器运行时计算的与相关容器关联的匿名内存。
+工作集指标通常还包括一些缓存（文件支持）内存，因为主机操作系统不能总是回收页面。
+
+要了解有关 Kubernetes 如何分配和测量内存资源的更多信息，
+请参阅[内存的含义](/zh/docs/concepts/configuration/manage-resources-container/#meaning-of-memory)。
 
 <!--
 ## Metrics Server
 
-[Metrics Server](https://github.com/kubernetes-sigs/metrics-server) is a cluster-wide aggregator of resource usage data.
-By default, it is deployed in clusters created by `kube-up.sh` script
-as a Deployment object. If you use a different Kubernetes setup mechanism you can deploy it using the provided
-[deployment components.yaml](https://github.com/kubernetes-sigs/metrics-server/releases) file.
+The metrics-server fetches resource metrics from the kubelets and exposes them in the Kubernetes
+API server through the Metrics API for use by the HPA and VPA. You can also view these metrics
+using the `kubectl top` command.
+
+The metrics-server uses the Kubernetes API to track nodes and pods in your cluster. The
+metrics-server queries each node over HTTP to fetch metrics. The metrics-server also builds an
+internal view of pod metadata, and keeps a cache of pod health. That cached pod health information
+is available via the extension API that the metrics-server makes available.
+
+For example with an HPA query, the metrics-server needs to identify which pods fulfill the label
+selectors in the deployment.
 -->
 ## Metrics 服务器    {#metrics-server}
 
-[Metrics 服务器](https://github.com/kubernetes-sigs/metrics-server)
-是集群范围资源用量数据的聚合器。
-默认情况下，在由 `kube-up.sh` 脚本创建的集群中会以 Deployment 的形式被部署。
-如果你使用其他 Kubernetes 安装方法，则可以使用提供的
-[部署组件 components.yaml](https://github.com/kubernetes-sigs/metrics-server/releases)
-来部署。
+metrics-server 从 kubelet 中获取资源指标，并通过 Metrics API 在 Kubernetes API 服务器中公开它们，以供 HPA 和 VPA 使用。
+你还可以使用 `kubectl top` 命令查看这些指标。
+
+metrics-server 使用 Kubernetes API 来跟踪集群中的节点和 Pod。metrics-server 服务器通过 HTTP 查询每个节点以获取指标。
+metrics-server 还构建了 Pod 元数据的内部视图，并维护 Pod 健康状况的缓存。
+缓存的 Pod 健康信息可通过 metrics-server 提供的扩展 API 获得。
+
+例如，对于 HPA 查询，metrics-server 需要确定哪些 Pod 满足 Deployment 中的标签选择器。
 
 <!--
-Metric server collects metrics from the Summary API, exposed by
-[Kubelet](/docs/reference/command-line-tools-reference/kubelet/) on each node, and is registered with the main API server via
-[Kubernetes aggregator](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+The metrics-server calls the [kubelet](/docs/reference/command-line-tools-reference/kubelet/) API
+to collect metrics from each node. Depending on the metrics-server version it uses:
+
+* Metrics resource endpoint `/metrics/resource` in version v0.6.0+ or
+* Summary API endpoint `/stats/summary` in older versions
 -->
-Metric 服务器从每个节点上的 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
-公开的 Summary API 中采集指标信息。
-该 API 通过
-[Kubernetes 聚合器](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-注册到主 API 服务器上。
+metrics-server 调用 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) API
+从每个节点收集指标。根据它使用的度量服务器版本：
+
+* 版本 v0.6.0+ 中，使用指标资源端点 `/metrics/resource`
+* 旧版本中使用 Summary  API 端点 `/stats/summary`
 
 <!--
-Learn more about the metrics server in
-[the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
+To learn more about the metrics-server, see the
+[metrics-server repository](https://github.com/kubernetes-sigs/metrics-server).
+
+You can also check out the following:
+
+* [metrics-server design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)
+* [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
+* [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
+* [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
+* [Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
 -->
-在[设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)
-中可以了解到有关 Metrics 服务器的更多信息。
+
+了解更多 metrics-server，参阅 [metrics-server 代码库](https://github.com/kubernetes-sigs/metrics-server)。
+
+你还可以查看以下内容：
+
+* [metrics-server 设计](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)
+* [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
+* [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
+* [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
+* [Horizontal Pod Autoscaling](/zh/docs/tasks/run-application/horizontal-pod-autoscale/)
 
 <!--
 ### Summary API Source
@@ -148,19 +385,33 @@ them in the [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e01
 for consumers to read.
 -->
 
-### 摘要 API 来源
+### Summary API 来源
 
-[Kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 在节点、卷、pod 和容器级别收集统计信息，
-并在[摘要API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go) 
+[Kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 在节点、卷、Pod 和容器级别收集统计信息，
+并在[Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
 中提供它们的统计信息供消费者阅读。
 
 <!--
-Pre-1.23, these resources have been primarily gathered from [cAdvisor](https://github.com/google/cadvisor). However, in 1.23 with the
-introduction of the `PodAndContainerStatsFromCRI` FeatureGate, container and pod level stats can be gathered by the CRI implementation.
-Note: this also requires support from the CRI implementations (containerd >= 1.6.0, CRI-O >= 1.23.0).
+Here is an example of a Summary API request for a `minikube` node:
 -->
 
-在 1.23 版本前，这些资源主要来自 [cAdvisor](https://github.com/google/cadvisor)。但在 1.23 版本中
-引入了 `PodAndContainerStatsFromCRI` FeatureGate，
-CRI 实现了可以收集容器和 pod 级别的统计信息。
-注意：这需要 CRI 实现的支持（containerd >= 1.6.0，CRI-O >= 1.23.0）。
+下面是一个 `minikube` 节点的 Summary API 请求示例：
+
+```shell
+kubectl get --raw "/api/v1/nodes/minikube/proxy/stats/summary"
+```
+
+<!-- Here is the same API call using `curl`: -->
+这是使用 `curl` 来执行的相同 API 调用：
+
+```shell
+curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
+```
+
+{{< note >}}
+<!--
+The summary API `/stats/summary` endpoint will be replaced by the `/metrics/resource` endpoint
+beginning with metrics-server 0.6.x.
+-->
+从 metrics-server 0.6.x 开始，Summary API `/stats/summary` 端点被 `/metrics/resource` 端点替换。
+{{< /note >}}
