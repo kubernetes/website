@@ -593,21 +593,18 @@ For some parts of your application (for example, frontends) you may want to expo
 Service onto an external IP address, that's outside of your cluster.
 
 Kubernetes `ServiceTypes` allow you to specify what kind of Service you want.
-The default is `ClusterIP`.
 
 `Type` values and their behaviors are:
 
 * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value
   makes the Service only reachable from within the cluster. This is the
-  default `ServiceType`.
+  default that is used if you don't explicitly specify a `type` for a Service.
 * [`NodePort`](#type-nodeport): Exposes the Service on each Node's IP at a static port
-  (the `NodePort`). A `ClusterIP` Service, to which the `NodePort` Service
-  routes, is automatically created.  You'll be able to contact the `NodePort` Service,
-  from outside the cluster,
-  by requesting `<NodeIP>:<NodePort>`.
+  (the `NodePort`).
+  To make the node port available, Kubernetes sets up a cluster IP address,
+  the same as if you had requested a Service of `type: ClusterIP`.
 * [`LoadBalancer`](#loadbalancer): Exposes the Service externally using a cloud
-  provider's load balancer. `NodePort` and `ClusterIP` Services, to which the external
-  load balancer routes, are automatically created.
+  provider's load balancer.
 * [`ExternalName`](#externalname): Maps the Service to the contents of the
   `externalName` field (e.g. `foo.bar.example.com`), by returning a `CNAME` record
   with its value. No proxying of any kind is set up.
@@ -627,20 +624,18 @@ allocates a port from a range specified by `--service-node-port-range` flag (def
 Each node proxies that port (the same port number on every Node) into your Service.
 Your Service reports the allocated port in its `.spec.ports[*].nodePort` field.
 
-If you want to specify particular IP(s) to proxy the port, you can set the
-`--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
-field of the
-[kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
-to particular IP block(s).
+Using a NodePort gives you the freedom to set up your own load balancing solution,
+to configure environments that are not fully supported by Kubernetes, or even
+to expose one or more nodes' IP addresses directly.
 
-This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`)
-to specify IP address ranges that kube-proxy should consider as local to this node.
+For a node port Service, Kubernetes additionally allocates a port (TCP, UDP or
+SCTP to match the protocol of the Service). Every node in the cluster configures
+itself to listen on that assigned port and to forward traffic to one of the ready
+endpoints associated with that Service. You'll be able to contact the `type: NodePort`
+Service, from outside the cluster, by connecting to any node using the appropriate
+protocol (for example: TCP), and the appropriate port (as assigned to that Service).
 
-For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag,
-kube-proxy only selects the loopback interface for NodePort Services.
-The default for `--nodeport-addresses` is an empty list.
-This means that kube-proxy should consider all available network interfaces for NodePort.
-(That's also compatible with earlier Kubernetes releases).
+#### Choosing your own port {#nodeport-custom-port}
 
 If you want a specific port number, you can specify a value in the `nodePort`
 field. The control plane will either allocate you that port or report that
@@ -649,16 +644,8 @@ This means that you need to take care of possible port collisions yourself.
 You also have to use a valid port number, one that's inside the range configured
 for NodePort use.
 
-Using a NodePort gives you the freedom to set up your own load balancing solution,
-to configure environments that are not fully supported by Kubernetes, or even
-to expose one or more nodes' IPs directly.
-
-Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
-and `.spec.clusterIP:spec.ports[*].port`.
-If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
-in the kube-proxy configuration file is set, `<NodeIP>` would be filtered node IP(s).
-
-For example:
+Here is an example manifest for a Service of `type: NodePort` that specifies
+a NodePort value (30007, in this example).
 
 ```yaml
 apiVersion: v1
@@ -677,6 +664,33 @@ spec:
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
       nodePort: 30007
 ```
+
+#### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
+
+You can set up nodes in your cluster to use a particular IP address for serving node port
+services. You might want to do this if each node is connected to multiple networks (for example:
+one network for application traffic, and another network for traffic between nodes and the
+control plane).
+
+If you want to specify particular IP address(es) to proxy the port, you can set the
+`--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
+field of the
+[kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+to particular IP block(s).
+
+This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`)
+to specify IP address ranges that kube-proxy should consider as local to this node.
+
+For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag,
+kube-proxy only selects the loopback interface for NodePort Services.
+The default for `--nodeport-addresses` is an empty list.
+This means that kube-proxy should consider all available network interfaces for NodePort.
+(That's also compatible with earlier Kubernetes releases.)
+Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
+and `.spec.clusterIP:spec.ports[*].port`.
+If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
+in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered node IP address (or possibly IP addresses).
+
 
 ### Type LoadBalancer {#loadbalancer}
 
@@ -715,6 +729,16 @@ with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not s
 the loadBalancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
 but your cloud provider does not support the feature, the `loadbalancerIP` field that you
 set is ignored.
+
+To implement a Service of `type: LoadBalancer`, Kubernetes typically starts off
+by making the changes that are equivalent to you requesting a Service of
+`type: NodePort`. The cloud-controller-manager component then configures the external load balancer to
+forward traffic to that assigned node port.
+
+_As an alpha feature_, you can configure a load balanced Service to
+[omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
+cloud provider implementation supports this.
+
 
 {{< note >}}
 
@@ -1292,7 +1316,7 @@ a load balancer or node-port.
 The `Type` field is designed as nested functionality - each level adds to the
 previous.  This is not strictly required on all cloud providers (e.g. Google Compute Engine does
 not need to allocate a `NodePort` to make `LoadBalancer` work, but AWS does)
-but the current API requires it.
+but the Kubernetes API design for Service requires it anyway.
 
 ## Virtual IP implementation {#the-gory-details-of-virtual-ips}
 
