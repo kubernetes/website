@@ -1211,3 +1211,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 
 * The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
   the project's approach to removing features and components.
+* Since Kubernetes 1.24, new beta APIs are not enabled by default.  When enabling a beta
+  feature, you will also need to enable any associated API resources.
+  For example, to enable a particular resource like
+  `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`.
+  See [API Versioning](/docs/reference/using-api/#api-versioning) for more details on the command line flags.
