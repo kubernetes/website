@@ -289,15 +289,17 @@ Here's an example of a pod that uses node affinity:
 {{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
 <!--
-This node affinity rule says the pod can only be placed on a node with a label whose key is
-`kubernetes.io/e2e-az-name` and whose value is either `e2e-az1` or `e2e-az2`. In addition,
-among nodes that meet that criteria, nodes with a label whose key is `another-node-label-key` and whose
-value is `another-node-label-value` should be preferred.
+In this example, the following rules apply:
+  * The node *must* have a label with the key `kubernetes.io/os` and
+    the value `linux`.
+  * The node *preferably* has a label with the key `another-node-label-key` and
+    the value `another-node-label-value`.
 -->
-此节点亲和性规则表示，Pod 只能放置在具有标签键 `kubernetes.io/e2e-az-name`
-且标签值为 `e2e-az1` 或 `e2e-az2` 的节点上。
-另外，在满足这些标准的节点中，具有标签键为 `another-node-label-key`
-且标签值为 `another-node-label-value` 的节点应该优先使用。
+在这个实例中应用了如下的规则:
+ * 该节点*必须*有一个标签键为 `kubernetes.io/os` 
+   且标签值为 `linux`。
+ * 其中具有标签键为 `another-node-label-key`
+   且标签值为 `another-node-label-value` 的节点应该优先使用。
 
 <!--
 You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
