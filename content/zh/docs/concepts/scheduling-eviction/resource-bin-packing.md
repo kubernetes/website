@@ -69,7 +69,7 @@ resources `intel.com/foo` and `intel.com/bar`.
 `intel.com/foo` 和 `intel.com/bar` 的装箱行为
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
 # ...
