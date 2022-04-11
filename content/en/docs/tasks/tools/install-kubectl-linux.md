@@ -152,7 +152,7 @@ sudo yum install -y kubectl
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-If you are on Ubuntu or another Linux distribution that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Ubuntu or another Linux distribution that supports the [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
 
 ```shell
 snap install kubectl --classic

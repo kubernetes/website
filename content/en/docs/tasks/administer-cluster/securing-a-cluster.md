@@ -243,7 +243,7 @@ like the `kube-system` namespace, because those pods can gain access to service 
 or run with elevated permissions if those service accounts are granted access to permissive
 [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
 
-If you use [Pod Security admission]((/docs/concepts/security/pod-security-admission/) and allow
+If you use [Pod Security admission](/docs/concepts/security/pod-security-admission/) and allow
 any component to create Pods within a namespace that permits privileged Pods, those Pods may
 be able to escape their containers and use this widened access to elevate their privileges.
 
