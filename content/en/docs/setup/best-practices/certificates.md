@@ -23,7 +23,7 @@ Kubernetes requires PKI for the following operations:
 
 * Client certificates for the kubelet to authenticate to the API server
 * Kubelet [server certificates](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#client-and-serving-certificates)
-  for the the API server to talk to the kubelets
+  for the API server to talk to the kubelets
 * Server certificate for the API server endpoint
 * Client certificates for administrators of the cluster to authenticate to the API server
 * Client certificates for the API server to talk to the kubelets
@@ -91,7 +91,7 @@ Required certificates:
 the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-where `kind` maps to one or more of the [x509 key usage](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) types:
+where `kind` maps to one or more of the [x509 key usage](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage) types:
 
 | kind   | Key usage                                                                       |
 |--------|---------------------------------------------------------------------------------|

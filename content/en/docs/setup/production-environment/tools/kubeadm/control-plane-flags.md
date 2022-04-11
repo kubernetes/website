@@ -24,9 +24,12 @@ you can skip the default CoreDNS deployment and deploy your own variant.
 For more details on that see [Using init phases with kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
 {{< /note >}}
 
-<!-- body -->
+{{< note >}}
+To reconfigure a cluster that has already been created see
+[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
+{{< /note >}}
 
-{{< feature-state for_k8s_version="v1.12" state="stable" >}}
+<!-- body -->
 
 ## Customizing the control plane with flags in `ClusterConfiguration`
 
