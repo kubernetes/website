@@ -162,6 +162,9 @@ To customize control plane components, including optional IPv6 assignment to liv
 for control plane components and etcd server, provide extra arguments to each component as documented in
 [custom arguments](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/).
 
+To reconfigure a cluster that has already been created see
+[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
+
 To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
 
 If you join a node with a different architecture to your cluster, make sure that your deployed DaemonSets

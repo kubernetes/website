@@ -1,5 +1,5 @@
 ---
-title: 保护集群安全
+title: 保护集群
 content_type: task
 ---
 <!--
@@ -104,10 +104,11 @@ Kubernetes 提供了一组可直接使用的角色，这些角色根据客户可
 <!--
 As with authentication, simple and broad roles may be appropriate for smaller clusters, but as
 more users interact with the cluster, it may become necessary to separate teams into separate
-namespaces with more limited roles.
+{{< glossary_tooltip text="namespaces" term_id="namespace" >}} with more limited roles.
 -->
 与身份验证一样，简单而广泛的角色可能适合于较小的集群，但是随着更多的用户与集群交互，
-可能需要将团队划分到有更多角色限制的、单独的名字空间中去。
+可能需要将团队划分到有更多角色限制的、
+单独的{{< glossary_tooltip text="名字空间" term_id="namespace" >}}中去。
 
 <!--
 With authorization, it is important to understand how updates on one object may cause actions in
@@ -188,30 +189,37 @@ reserved resources like memory, or to provide default limits when none are speci
 A pod definition contains a [security context](/docs/tasks/configure-pod-container/security-context/)
 that allows it to request access to run as a specific Linux user on a node (like root),
 access to run privileged or access the host network, and other controls that would otherwise
-allow it to run unfettered on a hosting node. [Pod security policies](/docs/concepts/policy/pod-security-policy/)
-can limit which users or service accounts can provide dangerous security context settings. For example, pod security policies can limit volume mounts, especially `hostPath`, which are aspects of a pod that should be controlled.
+allow it to run unfettered on a hosting node.
+
+You can configure [Pod security admission](/docs/concepts/security/pod-security-admission/)
+to enforce use of a particular [Pod Security Standard](/docs/concepts/security/pod-security-standards/)
+in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}, or to detect breaches.
 -->
 ### 控制容器运行的特权
 
 Pod 定义包含了一个[安全上下文](/zh/docs/tasks/configure-pod-container/security-context/)，
 用于描述一些访问请求，如以某个节点上的特定 Linux 用户（如 root）身份运行，
 以特权形式运行，访问主机网络，以及一些在宿主节点上不受约束地运行的其它控制权限等等。
-[Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)
-可以限制哪些用户或服务帐户可以提供危险的安全上下文设置。
-例如，Pod 的安全策略可以限制卷挂载，尤其是 `hostpath`，这些都是 Pod 应该被控制的一些方面。
+
+你可以配置 [Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)来在某个
+{{< glossary_tooltip text="名字空间" term_id="namespace" >}}中
+强制实施特定的
+[Pod 安全标准（Pod Security Standard）](/zh/docs/concepts/security/pod-security-standards/)，
+或者检查安全上的缺陷。
 
 <!--
 Generally, most application workloads need limited access to host resources so they can
 successfully run as a root process (uid 0) without access to host information. However,
 considering the privileges associated with the root user, you should write application
 containers to run as a non-root user. Similarly, administrators who wish to prevent
-client applications from escaping their containers should use a restrictive pod security
-policy.
+client applications from escaping their containers should apply the **Baseline**
+or **Restricted** Pod Security Standard.
 -->
 一般来说，大多数应用程序需要对主机资源的有限制的访问，
 这样它们可以在不访问主机信息的情况下，成功地以 root 账号（UID 0）运行。
 但是，考虑到与 root 用户相关的特权，在编写应用程序容器时，你应该使用非 root 用户运行。
-类似地，希望阻止客户端应用程序从其容器中逃逸的管理员，应该使用限制性较强的 Pod 安全策略。
+类似地，希望阻止客户端应用程序从其容器中逃逸的管理员，应该应用 **Baseline**
+或 **Restricted** Pod 安全标准。
 
 <!--
 ### Restricting network access
@@ -388,7 +396,7 @@ restrict the integration to functioning in a single namespace if possible.
 Components that create pods may also be unexpectedly powerful if they can do so inside namespaces
 like the `kube-system` namespace, because those pods can gain access to service account secrets
 or run with elevated permissions if those service accounts are granted access to permissive
-[pod security policies](/docs/concepts/policy/pod-security-policy/).
+[PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
 -->
 ### 在启用第三方集成之前，请先审查它们
 
@@ -400,8 +408,26 @@ or run with elevated permissions if those service accounts are granted access to
 
 如果执行 Pod 创建操作的组件能够在 `kube-system` 这类名字空间中创建 Pod，
 则这类组件也可能获得意外的权限，因为这些 Pod 可以访问服务账户的 Secret，
-或者，如果对应服务帐户被授权访问宽松的 [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)，
+或者，如果对应服务帐户被授权访问宽松的
+[PodSecurityPolicy](/zh/docs/concepts/policy/pod-security-policy/)，
 它们就能以较高的权限运行。
+
+<!--
+If you use [Pod Security admission](/docs/concepts/security/pod-security-admission/) and allow
+any component to create Pods within a namespace that permits privileged Pods, those Pods may
+be able to escape their containers and use this widened access to elevate their privileges.
+-->
+如果你使用 [Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)，
+并且允许任何组件在一个允许执行特权 Pod 的名字空间中创建 Pod，这些 Pod
+就可能从所在的容器中逃逸，利用被拓宽的访问权限来实现特权提升。
+
+<!--
+You should not allow untrusted components to create Pods in any system namespace (those with
+names that start with `kube-`) nor in any namespace where that access grant allows the possibility
+of privilege escalation.
+-->
+你不应该允许不可信的组件在任何系统名字空间（名字以 `kube-` 开头）中创建 Pod，
+也不允许它们在访问权限授权可被利用来提升特权的名字空间中创建 Pod。
 
 <!--
 ### Encrypt secrets at rest
