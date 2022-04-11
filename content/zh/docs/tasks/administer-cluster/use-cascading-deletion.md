@@ -11,11 +11,12 @@ content_type: task
 <!--overview-->
 
 <!--
-This page shows you how to specify the type of [cascading deletion](/docs/concepts/workloads/controllers/garbage-collection/#cascading-deletion)
+This page shows you how to specify the type of
+[cascading deletion](/docs/concepts/architecture/garbage-collection/#cascading-deletion)
 to use in your cluster during {{<glossary_tooltip text="garbage collection" term_id="garbage-collection">}}.
 -->
 本页面向你展示如何设置在你的集群执行{{<glossary_tooltip text="垃圾收集" term_id="garbage-collection">}}
-时要使用的[级联删除](/zh/docs/concepts/workloads/controllers/garbage-collection/#cascading-deletion)
+时要使用的[级联删除](/zh/docs/concepts/architecture/garbage-collection/#cascading-deletion)
 类型。
 
 ## {{% heading "prerequisites" %}}
@@ -64,14 +65,14 @@ apiVersion: v1
 <!--
 ## Use foreground cascading deletion {#use-foreground-cascading-deletion}
 
-By default, Kubernetes uses [background cascading deletion](/docs/concepts/workloads/controllers/garbage-collection/#background-deletion)
+By default, Kubernetes uses [background cascading deletion](/docs/concepts/architecture/garbage-collection/#background-deletion)
 to delete dependents of an object. You can switch to foreground cascading deletion
 using either `kubectl` or the Kubernetes API, depending on the Kubernetes
 version your cluster runs. {{<version-check>}}
 -->
 ## 使用前台级联删除    {#use-foreground-cascading-deletion}
 
-默认情况下，Kubernetes 使用[后台级联删除](/zh/docs/concepts/workloads/controllers/garbage-collection/#background-deletion)
+默认情况下，Kubernetes 使用[后台级联删除](/zh/docs/concepts/architecture/garbage-collection/#background-deletion)
 以删除依赖某对象的其他对象。取决于你的集群所运行的 Kubernetes 版本，
 你可以使用 `kubectl` 或者 Kubernetes API 来切换到前台级联删除。
 {{<version-check>}}
@@ -188,7 +189,7 @@ For details, read the [documentation for your Kubernetes version](/docs/home/sup
    输出中包含 `foregroundDeletion` {{<glossary_tooltip text="finalizer" term_id="finalizer">}}，
    类似这样：
 
-   ```none
+   ```
    "kind": "Deployment",
    "apiVersion": "apps/v1",
    "metadata": {
@@ -528,5 +529,5 @@ kubectl get pods -l app=nginx
 -->
 * 了解 Kubernetes 中的[属主与依赖](/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
 * 了解 Kubernetes [finalizers](/zh/docs/concepts/overview/working-with-objects/finalizers/)
-* 了解[垃圾收集](/zh/docs/concepts/workloads/controllers/garbage-collection/).
+* 了解[垃圾收集](/zh/docs/concepts/architecture/garbage-collection/).
 
