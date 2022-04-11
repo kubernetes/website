@@ -112,4 +112,3 @@ kubectl cluster-info dump
   - 異常: ノードのシャットダウン
   - 異常: Kubeletソフトウェア障害
 
-
