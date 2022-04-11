@@ -3,7 +3,7 @@ reviewers:
 - mikedanese
 content_type: concept
 title: Tools for Monitoring Resources
-weight: 10
+weight: 15
 ---
 
 <!-- overview -->

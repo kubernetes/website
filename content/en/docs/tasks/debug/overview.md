@@ -3,7 +3,7 @@ reviewers:
 - brendandburns
 - davidopp
 content_type: concept
-title: Troubleshooting
+title: Debugging overview
 description: General overview and how to get help.
 weight: 10
 ---
@@ -13,9 +13,9 @@ weight: 10
 Sometimes things go wrong. This guide is aimed at making them right. It has
 two sections:
 
-* [Troubleshooting your application](/docs/tasks/debug-application-cluster/applications/debug-application/) - Useful
+* [Debugging your application](/docs/tasks/debug/debug-application/) - Useful
   for users who are deploying code into Kubernetes and wondering why it is not working.
-* [Troubleshooting your cluster](/docs/tasks/debug-application-cluster/debug-cluster/) - Useful
+* [Debugging your cluster](/docs/tasks/debug/debug-cluster/) - Useful
   for cluster administrators and people whose Kubernetes cluster is unhappy.
 
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)

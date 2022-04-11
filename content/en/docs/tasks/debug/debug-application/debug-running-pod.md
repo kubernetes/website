@@ -15,8 +15,8 @@ This page explains how to debug Pods running (or crashing) on a Node.
 
 
 * Your {{< glossary_tooltip text="Pod" term_id="pod" >}} should already be
-  scheduled and running. If your Pod is not yet running, start with [Troubleshoot
-  Pods](/docs/tasks/debug-application-cluster/debug-application/).
+  scheduled and running. If your Pod is not yet running, start with [Debugging
+  Pods](/docs/tasks/debug/debug-application/).
 * For some of the advanced debugging steps you need to know on which Node the
   Pod is running and have shell access to run commands on that Node. You don't
   need that access to run the standard debug steps that use `kubectl`.
@@ -374,7 +374,7 @@ kubectl exec -it cassandra -- sh
 ```
 
 For more details, see [Get a Shell to a Running Container](
-/docs/tasks/debug-application-cluster/get-shell-running-container/).
+/docs/tasks/debug/debug-application/get-shell-running-container/).
 
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 

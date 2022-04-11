@@ -4,7 +4,7 @@ reviewers:
 title: Troubleshoot Clusters
 description: Debugging common cluster issues.
 content_type: concept
-weight: 30
+weight: 10
 ---
 
 <!-- overview -->
