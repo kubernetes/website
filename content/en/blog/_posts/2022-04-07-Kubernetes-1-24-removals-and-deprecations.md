@@ -9,12 +9,15 @@ slug: upcoming-changes-in-kubernetes-1-24
 
 As Kubernetes evolves, features and APIs are regularly revisited and removed. New features may offer
 an alternative or improved approach to solving existing problems, motivating the team to remove the
-old approach. Old APIs are first deprecated and then removed according to the [Kubernetes Deprecation Policy](/docs/reference/using-api/deprecation-policy/). 
+old approach. 
 
 We want to make sure you are aware of the changes coming in the Kubernetes 1.24 release. The release will 
 **deprecate** several (beta) APIs in favor of stable versions of the same APIs. The major change coming 
-in the Kubernetes 1.24 release is the [removal of Dockershim](https://github.com/kubernetes/enhancements/issues/2221). This is discussed 
-below and will be explored in more depth at release time. For an  early look at the changes coming in Kubernetes 1.24, take a look at the in-progress [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md).
+in the Kubernetes 1.24 release is the 
+[removal of Dockershim](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim). 
+This is discussed below and will be explored in more depth at release time. For an early look at the 
+changes coming in Kubernetes 1.24, take a look at the in-progress 
+[CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md).
 
 ## A note about Dockershim
 
@@ -64,15 +67,27 @@ been deprecated. These removals have been superseded by newer, stable/generally 
 
 ## API removals, deprecations, and other changes for Kubernetes 1.24
 
-* [Dynamic kubelet configuration](https://github.com/kubernetes/enhancements/issues/281): `DynamicKubeletConfig` is used to enable the dynamic configuration of the kubelet. The `DynamicKubeletConfig` flag was deprecated in Kubernetes 1.22. As of v1.24, the feature gate was removed from the kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/). Refer to the ["Dynamic kubelet config is removed" KEP](https://github.com/kubernetes/enhancements/issues/281) for more information. 
-* [Dynamic log sanitization](https://github.com/kubernetes/kubernetes/pull/107207): The experimental dynamic log sanitization feature is deprecated and was removed in v1.24. This feature introduced a logging filter that could be applied to all Kubernetes system components logs to prevent various types of sensitive information from leaking via logs. Refer to [KEP-1753: Kubernetes system components logs sanitization](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#deprecation) for more information and an [alternative approach](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#alternatives=).
+* [Dynamic kubelet configuration](https://github.com/kubernetes/enhancements/issues/281): `DynamicKubeletConfig` is used to enable the dynamic configuration of the kubelet. The `DynamicKubeletConfig` flag was deprecated in Kubernetes 1.22. In v1.24, this feature gate will be removed from the kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/). Refer to the ["Dynamic kubelet config is removed" KEP](https://github.com/kubernetes/enhancements/issues/281) for more information. 
+* [Dynamic log sanitization](https://github.com/kubernetes/kubernetes/pull/107207): The experimental dynamic log sanitization feature is deprecated and will be removed in v1.24. This feature introduced a logging filter that could be applied to all Kubernetes system components logs to prevent various types of sensitive information from leaking via logs. Refer to [KEP-1753: Kubernetes system components logs sanitization](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#deprecation) for more information and an [alternative approach](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#alternatives=).
 * In-tree provisioner to CSI driver migration: This applies to a number of in-tree plugins, including [Portworx](https://github.com/kubernetes/enhancements/issues/2589). Refer to the [In-tree Storage Plugin to CSI Migration Design Doc](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/csi-migration.md#background-and-motivations) for more information. 
-* [Removing Dockershim from kubelet](https://github.com/kubernetes/enhancements/issues/2221): the Container Runtime Interface (CRI) for Docker (i.e. Dockershim) is currently a built-in container runtime in the kubelet code base. It was deprecated in v1.20. As of v1.24, dockershim has been removed from kubelet. Check out this blog on [what you need to do be ready for v1.24](/blog/2022/03/31/ready-for-dockershim-removal/). 
-* [Storage capacity tracking for pod scheduling](https://github.com/kubernetes/enhancements/issues/1472): The CSIStorageCapacity API supports exposing currently available storage capacity via CSIStorageCapacity objects and enhances scheduling of pods that use CSI volumes with late binding. The CSIStorageCapacity API is stable as of v1.24. The v1beta1 CSIStorageCapacity API is deprecated in v1.24. Refer to the [Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1472-storage-capacity-tracking) for more information. 
+* [Removing Dockershim from kubelet](https://github.com/kubernetes/enhancements/issues/2221): the Container Runtime Interface (CRI) for Docker (i.e. Dockershim) is currently a built-in container runtime in the kubelet code base. It was deprecated in v1.20. As of v1.24, the kubelet will no longer have dockershim. Check out this blog on [what you need to do be ready for v1.24](/blog/2022/03/31/ready-for-dockershim-removal/). 
+* [Storage capacity tracking for pod scheduling](https://github.com/kubernetes/enhancements/issues/1472): The CSIStorageCapacity API supports exposing currently available storage capacity via CSIStorageCapacity objects and enhances scheduling of pods that use CSI volumes with late binding. In v1.24, the CSIStorageCapacity API will be stable. The API graduating to stable initates the deprecation of the v1beta1 CSIStorageCapacity API. Refer to the [Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1472-storage-capacity-tracking) for more information. 
 * [The `master` label is no longer present on kubeadm control plane nodes](https://github.com/kubernetes/kubernetes/pull/107533). For new clusters, the label 'node-role.kubernetes.io/master' will no longer be added to control plane nodes, only the label 'node-role.kubernetes.io/control-plane' will be added. For more information, refer to [KEP-2067: Rename the kubeadm "master" label and taint](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cluster-lifecycle/kubeadm/2067-rename-master-label-taint).
-* [VolumeSnapshot v1beta1 CRD will be removed in v1.24](https://github.com/kubernetes/enhancements/issues/177). Volume snapshot and restore functionality for Kubernetes and the [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI), which provides standardized APIs design (CRDs) and adds PV snapshot/restore support for CSI volume drivers, entered beta in v1.20. VolumeSnapshot v1beta1 was deprecated in v1.21 and is now unsupported. Refer to [KEP-177: CSI Snapshot](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/177-volume-snapshot#kep-177-csi-snapshot) and [kubernetes-csi/external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter/releases/tag/v4.1.0) for more information. 
+* [VolumeSnapshot v1beta1 CRD will be removed](https://github.com/kubernetes/enhancements/issues/177). Volume snapshot and restore functionality for Kubernetes and the [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI), which provides standardized APIs design (CRDs) and adds PV snapshot/restore support for CSI volume drivers, entered beta in v1.20. VolumeSnapshot v1beta1 was deprecated in v1.21 and is now unsupported. Refer to [KEP-177: CSI Snapshot](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/177-volume-snapshot#kep-177-csi-snapshot) and [kubernetes-csi/external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter/releases/tag/v4.1.0) for more information. 
 
 ## What to do
+
+### Dockershim removal
+
+As stated earlier, there are several guides about 
+[Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/). 
+You can start with [Finding what container runtime are on your nodes](/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/).
+If your nodes are using dockershim, there are other possible Docker Engine dependencies such as 
+Pods or third-party tools executing Docker commands or private registries in the Docker configuration file. You can follow the 
+[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) guide to review possible 
+Docker Engine dependencies. Before upgrading to v1.24, you decide to either remain using Docker Engine and 
+[Migrate Docker Engine nodes from dockershim to cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/) or migrate to a CRI-compatible runtime. Here's a guide to 
+[change the container runtime on a node from Docker Engine to containerd](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/).
 
 ### `kubectl convert`
 

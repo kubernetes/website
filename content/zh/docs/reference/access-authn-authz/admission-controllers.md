@@ -1333,7 +1333,7 @@ This admission controller will deny any Pod that attempts to set certain escalat
 fields, as shown in the
 [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
 task.
-If you don't use [Pod Security admission]((/docs/concepts/security/pod-security-admission/),
+If you don't use [Pod Security admission](/docs/concepts/security/pod-security-admission/),
 [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), nor any external enforcement mechanism,
 then you could use this admission controller to restrict the set of values a security context can take.
 
