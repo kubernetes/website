@@ -135,7 +135,7 @@ The default configuration can be enabled by setting `--enable-leader-migration` 
 
 For `kube-controller-manager` and `cloud-controller-manager`, if there are no flags that enable any in-tree cloud provider or change ownership of controllers, the default configuration can be used to avoid manual creation of the configuration file.
 
-### Special Case: Migrating Node IPAM Controller
+### Special case: migrating the Node IPAM controller {#node-ipam-controller-migration}
 
 If your cloud provider provides an implementation of Node IPAM controller, you should switch to the implementation in `cloud-controller-manager`. Disable Node IPAM controller in `kube-controller-manager` of version N + 1 by adding `--controllers=*,-nodeipam` to its flags. Then add `nodeipam` to the list of migrated controllers.
 
