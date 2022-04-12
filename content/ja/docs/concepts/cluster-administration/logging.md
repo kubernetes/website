@@ -75,7 +75,7 @@ Docker JSONロギングドライバーは、各行を個別のメッセージと
 
 例として、[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)に対応するスクリプトである`kube-up.sh`が、どのようにGCPでCOSイメージのロギングを構築しているかについて、詳細な情報を見つけることができます。
 
-**CRIコンテナランタイム**を使用する場合、kubeletはログのローテーションとログディレクトリ構造の管理を担当します。kubeletはこの情報をCRIコンテナランタイムに送信し、ランタイムはコンテナログを指定された場所に書き込みます。2つのkubeletパラメーター、`container-log-max-size`と`container-log-max-files`を使うことで、各ログファイルの最大サイズと各コンテナで許可されるファイルの最大数をそれぞれ設定できます。
+**CRIコンテナランタイム**を使用する場合、kubeletはログのローテーションとログディレクトリ構造の管理を担当します。kubeletはこの情報をCRIコンテナランタイムに送信し、ランタイムはコンテナログを指定された場所に書き込みます。2つのkubeletパラメーター、[`container-log-max-size`と`container-log-max-files`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)を[kubelet設定ファイル](/docs/tasks/administer-cluster/kubelet-config-file/)で使うことで、各ログファイルの最大サイズと各コンテナで許可されるファイルの最大数をそれぞれ設定できます。
 
 基本的なロギングの例のように、[`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)を実行すると、ノード上のkubeletがリクエストを処理し、ログファイルから直接読み取ります。kubeletはログファイルの内容を返します。
 
