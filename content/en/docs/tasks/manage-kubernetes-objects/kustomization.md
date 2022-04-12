@@ -99,7 +99,7 @@ Here is an example of generating a ConfigMap with a data item from a `.env` file
 # BAZ will be populated from the local environment variable $BAZ
 cat <<EOF >.env
 FOO=Bar
-BAZ
+BAZ=Qux
 EOF
 
 cat <<EOF >./kustomization.yaml
