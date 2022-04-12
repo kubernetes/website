@@ -167,7 +167,7 @@ CPUとメモリの使用量が少ない(CPUの場合は数ミリコアのオー�
 
 サイドカーコンテナを使用して、アプリケーション自体ではローテーションできないログファイルをローテーションすることもできます。このアプローチの例は、`logrotate`を定期的に実行する小さなコンテナです。しかし、`stdout`と`stderr`を直接使い、ローテーションと保持のポリシーをkubeletに任せることをおすすめします。
 
-#### ロギングエージェントを使用したサイドカーコンテナ
+#### ロギングエージェントを使用したサイドカーコンテナ {#sidecar-container-with-a-logging-agent}
 
 ![Sidecar container with a logging agent](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
 
