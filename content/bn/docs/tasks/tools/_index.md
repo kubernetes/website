@@ -1,6 +1,6 @@
 ---
 title: "টুল ইনস্টল করুন"
-description: আপনার কম্পিউটারে Kubernetes টুল সেট আপ করুন।
+description: আপনার কম্পিউটারে কুবারনেটিস টুল সেট আপ করুন।
 weight: 10
 no_list: true
 ---
