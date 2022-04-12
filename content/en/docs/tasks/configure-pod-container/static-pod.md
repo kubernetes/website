@@ -90,7 +90,7 @@ For example, this is how to start a simple web server as a static Pod:
     EOF
     ```
 
-3. Restart the kubelet is usualy not necessary, since the kubelet scans the directory and creates and evicts pods accordingly.
+3. Restarting the kubelet is usually not necessary because the kubelet scans the directory and creates and evicts pods accordingly.
 
 ### Web-hosted static pod manifest {#pods-created-via-http}
 
