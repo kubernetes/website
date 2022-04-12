@@ -246,6 +246,7 @@
 /docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/     /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/ 301
 /docs/tasks/access-kubernetes-api/setup-extension-api-server/     /docs/tasks/extend-kubernetes/setup-extension-api-server/ 301
 
+/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/   /docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/ 301  
 /docs/tasks/administer-cluster/access-cluster-services/     /docs/tasks/access-application-cluster/access-cluster-services/ 301
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301

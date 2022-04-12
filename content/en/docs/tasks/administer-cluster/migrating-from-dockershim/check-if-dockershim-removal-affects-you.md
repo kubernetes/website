@@ -1,5 +1,5 @@
 ---
-title: Check whether Dockershim deprecation affects you
+title: Check whether dockershim removal affects you
 content_type: task
 reviewers:
 - SergeyKanzhelev
@@ -10,11 +10,11 @@ weight: 20
 
 The `dockershim` component of Kubernetes allows to use Docker as a Kubernetes's
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
-Kubernetes' built-in `dockershim` component was deprecated in release v1.20.
+Kubernetes' built-in `dockershim` component was removed in release v1.24.
 
 This page explains how your cluster could be using Docker as a container runtime,
 provides details on the role that `dockershim` plays when in use, and shows steps
-you can take to check whether any workloads could be affected by `dockershim` deprecation.
+you can take to check whether any workloads could be affected by `dockershim` removal.
 
 ## Finding if your app has a dependencies on Docker {#find-docker-dependencies}
 
