@@ -158,7 +158,7 @@ different Kubernetes components.
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIEnums` | `false` | Beta | 1.24 | |
-| `OpenAPIV3` | `false` | Alpha | 1.23 | |
+| `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIV3` | `true` | Beta | 1.24 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |

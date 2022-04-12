@@ -84,7 +84,7 @@ packages that define the API objects.
 
 {{< feature-state state="beta"  for_k8s_version="v1.24" >}}
 
-Kubernetes v1.24 offers beta support for publishing its APIs as OpenAPI v3; this is a
+Kubernetes {{< param "version" >}} offers beta support for publishing its APIs as OpenAPI v3; this is a
 beta feature that is enabled by default.
 You can disable the beta feature by turning off the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
