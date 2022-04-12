@@ -51,7 +51,7 @@ Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernete
 通过创建对象，本质上是在告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的，
 这就是 Kubernetes 集群的 **期望状态（Desired State）**。
 
-操作 Kubernetes 对象 —— 无论是创建、修改，或者删除 —— 需要使用
+操作 Kubernetes 对象 —— 无论是创建、修改或者删除 —— 需要使用
 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api)。
 比如，当使用 `kubectl` 命令行接口时，CLI 会执行必要的 Kubernetes API 调用，
 也可以在程序中使用
