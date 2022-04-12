@@ -187,7 +187,7 @@ that updates those files from a remote source, as in the following diagram:
 -->
 
 例如，你可能有一个容器，为共享卷中的文件提供 Web 服务器支持，以及一个单独的
-“sidecar（挂斗）”容器负责从远端更新这些文件，如下图所示：
+“sidecar（边车）”容器负责从远端更新这些文件，如下图所示：
 
 {{< figure src="/images/docs/pod.svg" alt="example pod diagram" width="50%" >}}
 
