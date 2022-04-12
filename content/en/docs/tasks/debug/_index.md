@@ -1,6 +1,6 @@
 ---
-title: "Debugging"
-description: Debugging a cluster or a containerized application.
+title: "Monitoring, Logging, and Debugging"
+description: Set up monitoring and logging to troubleshoot a cluster, or debug a containerized application.
 weight: 20
 ---
 

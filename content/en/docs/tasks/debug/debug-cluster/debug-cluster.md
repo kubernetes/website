@@ -1,7 +1,7 @@
 ---
 reviewers:
 - davidopp
-title: Troubleshoot Clusters
+title: Troubleshooting Clusters
 description: Debugging common cluster issues.
 content_type: concept
 weight: 10
@@ -20,7 +20,7 @@ You may also visit [troubleshooting document](/docs/tasks/debug-application-clus
 
 The first thing to debug in your cluster is if your nodes are all registered correctly.
 
-Run
+Run the following command:
 
 ```shell
 kubectl get nodes
@@ -220,7 +220,7 @@ status:
 For now, digging deeper into the cluster requires logging into the relevant machines.  Here are the locations
 of the relevant log files.  (note that on systemd-based systems, you may need to use `journalctl` instead)
 
-### Master
+### Control Plane nodes
 
    * `/var/log/kube-apiserver.log` - API Server, responsible for serving the API
    * `/var/log/kube-scheduler.log` - Scheduler, responsible for making scheduling decisions
@@ -235,7 +235,7 @@ of the relevant log files.  (note that on systemd-based systems, you may need to
 
 This is an incomplete list of things that could go wrong, and how to adjust your cluster setup to mitigate the problems.
 
-### Root causes:
+### Root causes
 
   - VM(s) shutdown
   - Network partition within cluster, or between cluster and users
@@ -243,7 +243,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
   - Operator error, for example misconfigured Kubernetes software or application software
 
-### Specific scenarios:
+### Specific scenarios
 
   - Apiserver VM shutdown or apiserver crashing
     - Results
@@ -277,7 +277,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
       - users unable to read API
       - etc.
 
-### Mitigations:
+### Mitigations
 
 - Action: Use IaaS provider's automatic VM restarting feature for IaaS VMs
   - Mitigates: Apiserver VM shutdown or apiserver crashing
