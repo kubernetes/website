@@ -115,7 +115,7 @@ Kubernetesはクラスターレベルロギングのネイティブソリュー�
 * サイドカーコンテナは、アプリケーションログを自身の`stdout`にストリーミングします。
 * サイドカーコンテナは、アプリケーションコンテナからログを取得するように設定されたロギングエージェントを実行します。
 
-#### ストリーミングサイドカーコンテナ
+#### ストリーミングサイドカーコンテナ {#streaming-sidecar-container}
 
 ![Sidecar container with a streaming container](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
 
