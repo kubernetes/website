@@ -57,6 +57,7 @@ You can configure a static Pod with either a [file system hosted configuration f
 Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the
 [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/),
 which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
+According to the [well-known paths](docs/reference/setup-tools/kubeadm/implementation-details/#constants-and-well-known-values-and-paths) this directory is `/etc/kubernetes/manifests`.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 
 For example, this is how to start a simple web server as a static Pod:
@@ -67,12 +68,11 @@ For example, this is how to start a simple web server as a static Pod:
     ssh my-node1
     ```
 
-2. Choose a directory, say `/etc/kubelet.d` and place a web server Pod definition there, for example `/etc/kubelet.d/static-web.yaml`:
+2. Create a web server Pod definition, for example `/etc/kubernetes/manifests/static-web.yaml`:
 
     ```shell
     # Run this command on the node where kubelet is running
-    mkdir /etc/kubelet.d/
-    cat <<EOF >/etc/kubelet.d/static-web.yaml
+    cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -90,20 +90,7 @@ For example, this is how to start a simple web server as a static Pod:
     EOF
     ```
 
-3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
-
-   ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
-   ```
-   or add the `staticPodPath: <the directory>` field in the
-   [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
-
-4. Restart the kubelet. On Fedora, you would run:
-
-   ```shell
-   # Run this command on the node where the kubelet is running
-   systemctl restart kubelet
-   ```
+3. Restart the kubelet is usualy not necessary, since the kubelet scans the directory and creates and evicts pods accordingly.
 
 ### Web-hosted static pod manifest {#pods-created-via-http}
 
@@ -224,17 +211,17 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 
 ## Dynamic addition and removal of static pods
 
-The running kubelet periodically scans the configured directory (`/etc/kubelet.d` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
+The running kubelet periodically scans the configured directory for changes and adds/removes Pods as files appear/disappear in this directory.
 
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration
 # Run these commands on the node where the kubelet is running
 #
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
 # You see that no nginx container is running
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests
 sleep 20
 crictl ps
 ```
