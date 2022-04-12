@@ -191,7 +191,7 @@ fluentdの構成については、[fluentd documentation](https://docs.fluentd.o
 
 サンプル構成では、fluentdを任意のロギングエージェントに置き換えて、アプリケーションコンテナ内の任意のソースから読み取ることができます。
 
-### アプリケーションから直接ログを公開する
+### アプリケーションから直接ログを公開する {#exposing-logs-directly-from-the-application}
 
 ![Exposing logs directly from the application](/images/docs/user-guide/logging/logging-from-application.png)
 
