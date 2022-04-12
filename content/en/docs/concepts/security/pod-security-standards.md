@@ -478,7 +478,7 @@ in the Pod manifest, and represent parameters to the container runtime.
 
 Security profiles are control plane mechanisms to enforce specific settings in the Security Context,
 as well as other related parameters outside the Security Context. As of July 2021, 
-[Pod Security Policies](/docs/concepts/profile/pod-security-profile/) are deprecated in favor of the
+[Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
 built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
 
 {{% thirdparty-content %}}
