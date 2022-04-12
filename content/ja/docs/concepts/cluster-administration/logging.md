@@ -96,7 +96,7 @@ Kubernetesはクラスターレベルロギングのネイティブソリュー�
 * アプリケーションのPodにログインするための専用のサイドカーコンテナを含めます。
 * アプリケーション内からバックエンドに直接ログを送信します。
 
-### ノードロギングエージェントの使用
+### ノードロギングエージェントの使用 {#using-a-node-logging-agent}
 
 ![Using a node level logging agent](/images/docs/user-guide/logging/logging-with-node-agent.png)
 
