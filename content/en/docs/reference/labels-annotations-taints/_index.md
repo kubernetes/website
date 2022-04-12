@@ -381,6 +381,21 @@ Example: `node.kubernetes.io/pid-pressure:NoSchedule`
 
 The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PIDs consumed by Kubernetes on a node to get the number of available PIDs that referred to as the `pid.available` metric. The metric is then compared to the corresponding threshold that can be set on the kubelet to determine if the node condition and taint should be added/removed.
 
+### node.kubernetes.io/out-of-service
+
+Example: `node.kubernetes.io/out-of-service:NoExecute`
+
+A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node. 
+
+{{< caution >}}
+Refer to
+[Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+for further details about when and how to use this taint.
+{{< /caution >}}
+
+
 ### node.cloudprovider.kubernetes.io/uninitialized
 
 Example: `node.cloudprovider.kubernetes.io/uninitialized:NoSchedule`
