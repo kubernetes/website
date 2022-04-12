@@ -111,13 +111,13 @@ The relative URLs are pointing to immutable OpenAPI descriptions, in
 order to improve client-side caching. The proper HTTP caching headers
 are also set by the API server for that purpose (`Expires` to 1 year in
 the future, and `Cache-Control` to `immutable`). When an obsolete URL is
-used, the API server will return a redirect to the newest URL.
+used, the API server returns a redirect to the newest URL.
 
 The Kubernetes API server publishes an OpenAPI v3 spec per Kubernetes
 group version at the `/openapi/v3/apis/<group>/<version>?hash=<hash>`
 endpoint.
 
-Please refer to the table below for accepted request headers.
+Refer to the table below for accepted request headers.
 
 <table>
   <caption style="display:none">Valid request header values for OpenAPI v3 queries</caption>
