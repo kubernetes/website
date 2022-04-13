@@ -73,13 +73,13 @@ in SBoM (Software Bill of Materials) format.
 You can fetch that list using:
 
 ```shell
-curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: k8s.gcr.io/' | awk '{print $2}'
+curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release"  | awk '/PackageName: k8s.gcr.io\// {print $2}'
 ```
 For Kubernetes v{{< skew currentVersion >}}, the only kind of code artifact that
 you can verify integrity for is a container image, using the experimental
 signing support.
 
-To manually verify signed container images of Kubernetes core components, please refer to
+To manually verify signed container images of Kubernetes core components, refer to
 [Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-images).
 
 
