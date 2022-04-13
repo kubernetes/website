@@ -65,7 +65,7 @@ Network policies are an exciting feature, which the Kubernetes community has wor
 
 
 
-There are only a few policy-capable networking backends available for Kubernetes today: [Romana](http://romana.io/), [Calico](http://projectcalico.org/), and [Canal](https://github.com/tigera/canal); with [Weave](http://www.weave.works/) indicating support in the near future. Red Hat’s OpenShift includes network policy features as well.
+There are only a few policy-capable networking backends available for Kubernetes today: [Romana](https://github.com/romana/romana), [Calico](http://projectcalico.org/), and [Canal](https://github.com/tigera/canal); with [Weave](http://www.weave.works/) indicating support in the near future. Red Hat’s OpenShift includes network policy features as well.
 
 
 
@@ -189,4 +189,4 @@ These tests were performed using Romana as the backend policy provider and other
 
 
 
-If you wish to try it for yourself, we invite you to check out [Romana](http://romana.io/). In our [GitHub repo](https://github.com/romana/romana) you can find an easy to use installer, which works with AWS, Vagrant VMs or any other servers. You can use it to quickly get you started with a Romana powered Kubernetes or OpenStack cluster.
+If you wish to try it for yourself, we invite you to check out [Romana](https://github.com/romana/romana). In our [GitHub repo](https://github.com/romana/romana) you can find an easy to use installer, which works with AWS, Vagrant VMs or any other servers. You can use it to quickly get you started with a Romana powered Kubernetes or OpenStack cluster.
