@@ -3,11 +3,9 @@ title: Download Kubernetes
 type: docs
 ---
 
-# Core Kubernetes components
-
 Kubernetes ships binaries for each component as well as a standard set of client
 applications to bootstrap or interact with a cluster. Components like the
-Kube API Server are capable of running within container images inside of a
+API server are capable of running within container images inside of a
 cluster. Those components are also shipped in container images as part of the
 official release process. All binaries as well as container images are available
 for multiple operating systems as well as hardware architectures.
@@ -20,7 +18,7 @@ container registry.
 
 {{< feature-state for_k8s_version="v1.24" state="alpha" >}}
 
-From the beginning of Kubernetes {{< param "version" >}}, the following
+For Kubernetes {{< param "version" >}}, the following
 container images are signed using [cosign](https://github.com/sigstore/cosign)
 signatures:
 
@@ -75,13 +73,13 @@ in SBoM (Software Bill of Materials) format.
 You can fetch that list using:
 
 ```shell
-curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: k8s.gcr.io/' | awk '{print $2}'
+curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release"  | awk '/PackageName: k8s.gcr.io\// {print $2}'
 ```
 For Kubernetes v{{< skew currentVersion >}}, the only kind of code artifact that
 you can verify integrity for is a container image, using the experimental
 signing support.
 
-To manually verify signed container images of Kubernetes core components, please refer to
+To manually verify signed container images of Kubernetes core components, refer to
 [Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-images).
 
 
