@@ -153,6 +153,7 @@ different Kubernetes components.
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |
 | `NetworkPolicyEndPort` | `true` | Beta | 1.22 |  |
+| `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
@@ -1003,6 +1004,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   on all namespaces, containing the namespace name.
 - `NetworkPolicyEndPort`: Enable use of the field `endPort` in NetworkPolicy objects,
   allowing the selection of a port range instead of a single port.
+- `NetworkPolicyStatus`: Enable the `status` subresource for NetworkPolicy objects.
 - `NodeDisruptionExclusion`: Enable use of the Node label `node.kubernetes.io/exclude-disruption`
   which prevents nodes from being evacuated during zone failures.
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
