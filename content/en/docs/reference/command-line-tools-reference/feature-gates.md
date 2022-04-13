@@ -88,8 +88,6 @@ different Kubernetes components.
 | `csiMigrationRBD` | `false` | Alpha | 1.23 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
-| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
-| `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
