@@ -271,7 +271,7 @@ both Linux and Windows kernels). The time window used to calculate CPU is shown 
 in Metrics API.
 
 To learn more about how Kubernetes allocates and measures CPU resources, see
-[meaning of CPU](/docs/concepts/configuration/manage-resources-container/#meaning-of-cpu).
+[meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu).
 -->
 ## 度量资源用量   {#measuring-resource-usage}
 
@@ -284,7 +284,7 @@ CPU 报告为以 cpu 为单位测量的平均核心使用率。在 Kubernetes �
 用于计算 CPU 的时间窗口显示在 Metrics API 的窗口字段下。
 
 要了解更多关于 Kubernetes 如何分配和测量 CPU 资源的信息，请参阅
-[CPU 的含义](/zh/docs/concepts/configuration/manage-resources-container/#meaning-of-cpu)。
+[CPU 的含义](/zh/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)。
 
 <!--
 ### Memory
@@ -300,7 +300,7 @@ anonymous memory associated with the container in question. The working set metr
 includes some cached (file-backed) memory, because the host OS cannot always reclaim pages.
 
 To learn more about how Kubernetes allocates and measures memory resources, see
-[meaning of memory](/docs/concepts/configuration/manage-resources-container/#meaning-of-memory).
+[meaning of memory](/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory).
 -->
 ### 内存  {#memory}
 
@@ -313,7 +313,7 @@ Kubernetes 模型中，容器工作集是由容器运行时计算的与相关容
 工作集指标通常还包括一些缓存（文件支持）内存，因为主机操作系统不能总是回收页面。
 
 要了解有关 Kubernetes 如何分配和测量内存资源的更多信息，
-请参阅[内存的含义](/zh/docs/concepts/configuration/manage-resources-container/#meaning-of-memory)。
+请参阅[内存的含义](/zh/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)。
 
 <!--
 ## Metrics Server
