@@ -3,11 +3,9 @@ title: Download Kubernetes
 type: docs
 ---
 
-# Core Kubernetes components
-
 Kubernetes ships binaries for each component as well as a standard set of client
 applications to bootstrap or interact with a cluster. Components like the
-Kube API Server are capable of running within container images inside of a
+API server are capable of running within container images inside of a
 cluster. Those components are also shipped in container images as part of the
 official release process. All binaries as well as container images are available
 for multiple operating systems as well as hardware architectures.
