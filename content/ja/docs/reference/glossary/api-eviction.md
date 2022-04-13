@@ -14,6 +14,6 @@ APIを起点とした退避は、[Eviction API](/docs/reference/generated/kubern
 
 <!--more-->
 
-`kubectl drain`コマンドのようなkube-apiserverのクライアントを使用し、退避APIを直接呼び出すことで、退避を要求することができます。`退避`オブジェクトが生成された時、APIサーバーは対象のPodを終了させます。
+`kubectl drain`コマンドのようなkube-apiserverのクライアントを使用し、退避APIを直接呼び出すことで、退避を要求することができます。`Eviction`オブジェクトが生成された時、APIサーバーは対象のPodを終了させます。
 
 APIを起点とした退避は、[Node不足による退避](/docs/concepts/scheduling-eviction/eviction/#kubelet-eviction)とは異なります。
