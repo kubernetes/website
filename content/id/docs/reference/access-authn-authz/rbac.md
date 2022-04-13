@@ -248,7 +248,7 @@ rules:
 
 Kamu juga dapat merujuk ke sumber daya dengan nama untuk permintaan tertentu melalui daftar `resourceNames`.
 Ketika nama dicantumkan, permintaan dapat dibatasi untuk setiap objek sumber daya.
-Berikut adalah contoh yang membatasi subjeknya hanya untuk melakukan `get` atau` update` pada sebuah
+Berikut adalah contoh yang membatasi subjeknya hanya untuk melakukan `get` atau `update` pada sebuah
 {{< glossary_tooltip term_id="ConfigMap" >}} bernama `my-configmap`:
 
 ```yaml
@@ -268,7 +268,7 @@ rules:
 ```
 
 {{< note >}}
-Kamu tidak dapat membatasi permintaan `create` atau` deletecollection` dengan nama sumber daya. Untuk `create`, 
+Kamu tidak dapat membatasi permintaan `create` atau `deletecollection` dengan nama sumber daya. Untuk `create`, 
 keterbatasan ini dikarenakan nama objek tidak diketahui pada waktu otorisasi.
 {{< /note >}}
 
