@@ -18,7 +18,7 @@ container registry.
 
 {{< feature-state for_k8s_version="v1.24" state="alpha" >}}
 
-From the beginning of Kubernetes {{< param "version" >}}, the following
+For Kubernetes {{< param "version" >}}, the following
 container images are signed using [cosign](https://github.com/sigstore/cosign)
 signatures:
 
