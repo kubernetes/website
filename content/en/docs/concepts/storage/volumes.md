@@ -66,6 +66,8 @@ Kubernetes supports several types of volumes.
 
 ### awsElasticBlockStore {#awselasticblockstore}
 
+{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
+
 An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS)
 [EBS volume](https://aws.amazon.com/ebs/) into your pod. Unlike
 `emptyDir`, which is erased when a pod is removed, the contents of an EBS
