@@ -157,7 +157,7 @@ Dans la plupart des cas, le contrôleur de noeud limite le taux d’expulsion à
 
 Le comportement d'éviction de noeud change lorsqu'un noeud d'une zone de disponibilité donnée devient défaillant.
 Le contrôleur de nœud vérifie quel pourcentage de nœuds de la zone est défaillant (la condition NodeReady est ConditionUnknown ou ConditionFalse) en même temps.
-Si la fraction de nœuds défaillant est au moins `--unhealthy-zone-threshold` (valeur par défaut de 0,55), le taux d'expulsion est réduit: si le cluster est petit (c'est-à-dire inférieur ou égal à ` --large-cluster-size-threshold` noeuds - valeur par défaut 50) puis les expulsions sont arrêtées, sinon le taux d'expulsion est réduit à `--secondary-node-eviction-rate` (valeur par défaut de 0,01) par seconde.
+Si la fraction de nœuds défaillant est au moins `--unhealthy-zone-threshold` (valeur par défaut de 0,55), le taux d'expulsion est réduit: si le cluster est petit (c'est-à-dire inférieur ou égal à `--large-cluster-size-threshold` noeuds - valeur par défaut 50) puis les expulsions sont arrêtées, sinon le taux d'expulsion est réduit à `--secondary-node-eviction-rate` (valeur par défaut de 0,01) par seconde.
 
 Ces stratégies sont implémentées par zone de disponibilité car une zone de disponibilité peut être partitionnée à partir du master, tandis que les autres restent connectées.
 Si votre cluster ne s'étend pas sur plusieurs zones de disponibilité de fournisseur de cloud, il n'existe qu'une seule zone de disponibilité (la totalité du cluster).
