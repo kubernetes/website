@@ -93,7 +93,7 @@ Terbaru ini BCF diakui oleh Gartner sebagai visioner dalam [_Magic Quadrant_](ht
 
 ### CNI-Genie dari Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) adalah _plugin_ CNI yang memungkinkan Kubernetes [secara bersamaan memiliki akses ke berbagai implementasi](https://github.com/Huawei-PaaS /CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) dari [model jaringan Kubernetes] (https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) dalam _runtime_. Ini termasuk setiap implementasi yang berjalan sebagai [_plugin_ CNI](https://github.com/containernetworking/cni#3rd-party-plugins), seperti [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) adalah _plugin_ CNI yang memungkinkan Kubernetes [secara bersamaan memiliki akses ke berbagai implementasi](https://github.com/Huawei-PaaS /CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) dari [model jaringan Kubernetes] (https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) dalam _runtime_. Ini termasuk setiap implementasi yang berjalan sebagai [_plugin_ CNI](https://github.com/containernetworking/cni#3rd-party-plugins), seperti [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](https://github.com/romana/romana), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie juga mendukung [menetapkan beberapa alamat IP ke sebuah Pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-address-per-pod), masing-masing dari _plugin_ CNI yang berbeda.
 
@@ -105,7 +105,7 @@ Plugin ini dirancang untuk secara langsung mengkonfigurasi dan _deploy_ dalam VP
 
 ### Contiv
 
-[Contiv](https://github.com/contiv/netplugin) menyediakan jaringan yang dapat dikonfigurasi (_native_ l3 menggunakan BGP, _overlay_ menggunakan vxlan, classic l2, atau Cisco-SDN / ACI) untuk berbagai kasus penggunaan. [Contiv](http://contiv.io) semuanya open sourced.
+[Contiv](https://github.com/contiv/netplugin) menyediakan jaringan yang dapat dikonfigurasi (_native_ l3 menggunakan BGP, _overlay_ menggunakan vxlan, classic l2, atau Cisco-SDN / ACI) untuk berbagai kasus penggunaan. [Contiv](https://contivpp.io/) semuanya open sourced.
 
 ### Contrail / Tungsten Fabric
 
@@ -179,7 +179,7 @@ Ikuti bagian "With Linux Bridge devices" dari [tutorial yang sangat bagus ini](h
 
 ### Multus (plugin Multi-Jaringan)
 
-[Multus](https://github.com/Intel-Corp/multus-cni) adalah plugin Multi CNI untuk mendukung fitur Banyak Jaringan di Kubernetes menggunakan objek jaringan berbasis CRD di Kubernetes.
+[Multus](https://github.com/k8snetworkplumbingwg/multus-cni) adalah plugin Multi CNI untuk mendukung fitur Banyak Jaringan di Kubernetes menggunakan objek jaringan berbasis CRD di Kubernetes.
 
 Multus mendukung semua [plugin referensi](https://github.com/containernetworking/plugins) (mis. [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main / macvlan)) yang mengimplementasikan spesifikasi CNI dan plugin pihak ke-3 (mis. [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave ), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). Selain itu, Multus mendukung [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS- DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) beban kerja di Kubernetes dengan aplikasi cloud asli dan aplikasi berbasis NFV di Kubernetes.
 
@@ -209,7 +209,7 @@ Calico juga dapat dijalankan dalam mode penegakan kebijakan bersama dengan solus
 
 ### Romana
 
-[Romana](http://romana.io) adalah jaringan sumber terbuka dan solusi otomasi keamanan yang memungkinkan kamu menggunakan Kubernetes tanpa jaringan hamparan. Romana mendukung Kubernetes [Kebijakan Jaringan](/id/docs/concepts/services-networking/network-policies/) untuk memberikan isolasi di seluruh ruang nama jaringan.
+[Romana](https://github.com/romana/romana) adalah jaringan sumber terbuka dan solusi otomasi keamanan yang memungkinkan kamu menggunakan Kubernetes tanpa jaringan hamparan. Romana mendukung Kubernetes [Kebijakan Jaringan](/id/docs/concepts/services-networking/network-policies/) untuk memberikan isolasi di seluruh ruang nama jaringan.
 
 ### Weave Net dari Weaveworks
 
@@ -221,5 +221,3 @@ Calico juga dapat dijalankan dalam mode penegakan kebijakan bersama dengan solus
 
 
 Desain awal model jaringan dan alasannya, dan beberapa rencana masa depan dijelaskan secara lebih rinci dalam [dokumen desain jaringan](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
-
-
