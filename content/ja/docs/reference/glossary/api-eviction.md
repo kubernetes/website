@@ -9,7 +9,7 @@ aka:
 tags:
 - operation
 ---
-APIを起点とした退避は、[退避API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)を使用して退避オブジェクトを作成し、Podの正常終了を起動させるプロセスです。
+APIを起点とした退避は、[Eviction API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)を使用して退避オブジェクトを作成し、Podの正常終了を起動させるプロセスです。
 
 
 <!--more-->
