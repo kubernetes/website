@@ -59,7 +59,7 @@ parla con altre macchine virtuali nel tuo progetto. Questo è lo stesso modello 
 
 Gli indirizzi IP di Kubernetes esistono nello scope `Pod` - contenitori all'interno di un 'Pod`
 condividere i loro spazi dei nomi di rete, compreso il loro indirizzo IP. Ciò significa che
-i contenitori all'interno di un `Pod` possono raggiungere tutti gli altri porti su` localhost`. Questo
+i contenitori all'interno di un `Pod` possono raggiungere tutti gli altri porti su `localhost`. Questo
 significa anche che i contenitori all'interno di un 'Pod` devono coordinare l'utilizzo della porta, ma questo
 non è diverso dai processi in una VM. Questo è chiamato il modello "IP-per-pod".
 
@@ -195,10 +195,10 @@ Docker è avviato con:
 DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
 ```
 
-Questo bridge è creato da Kubelet (controllato da `--network-plugin = kubenet` flag) in base al `Nodo` .spec.podCIDR`.
+Questo bridge è creato da Kubelet (controllato da `--network-plugin = kubenet` flag) in base al Nodo `.spec.podCIDR`.
 
 Docker ora assegna gli IP dal blocco `cbr-cidr`. I contenitori possono raggiungere l'un l'altro e `Nodi` sul
-ponte` cbr0`. Questi IP sono tutti instradabili all'interno della rete del progetto GCE.
+ponte `cbr0`. Questi IP sono tutti instradabili all'interno della rete del progetto GCE.
 
 GCE non sa nulla di questi IP, quindi non lo farà loro per il traffico internet in uscita. Per ottenere ciò viene
 utilizzata una regola iptables masquerade (aka SNAT - per far sembrare che i pacchetti provengano dal `Node` stesso)
