@@ -150,16 +150,16 @@ are stored absolutely.
 
 ## Proxy
 
-You can configure `kubectl` to use proxy by setting `proxy-url` in the kubeconfig file, like:
+You can configure `kubectl` to use a proxy per cluster using `proxy-url` in your kubeconfig file, like this:
 
 ```yaml
 apiVersion: v1
 kind: Config
 
-proxy-url: https://proxy.host:3128
-
 clusters:
 - cluster:
+    proxy-url: http://proxy.example.org:3128
+    server: https://k8s.example.org/k8s/clusters/c-xxyyzz
   name: development
 
 users:
@@ -167,8 +167,7 @@ users:
 
 contexts:
 - context:
-  name: development
-
+   name: development
 ```
 
 
