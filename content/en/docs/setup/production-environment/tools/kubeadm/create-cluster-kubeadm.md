@@ -72,7 +72,8 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 
 ### Preparing the hosts
 
-Install {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}  and kubeadm on all the hosts. For detailed instructions and other prerequisites, see ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+Install a {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}} and kubeadm on all the hosts.
+For detailed instructions and other prerequisites, see ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 {{< note >}}
 If you have already installed kubeadm, run `apt-get update &&
