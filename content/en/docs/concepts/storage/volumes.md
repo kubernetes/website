@@ -392,6 +392,8 @@ See the [Flocker example](https://github.com/kubernetes/examples/tree/master/sta
 
 ### gcePersistentDisk
 
+{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
+
 A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE)
 [persistent disk](https://cloud.google.com/compute/docs/disks) (PD) into your Pod.
 Unlike `emptyDir`, which is erased when a pod is removed, the contents of a PD are
