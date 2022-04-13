@@ -18,7 +18,7 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
 {{< warning >}}
-Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure.
 If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
 {{< /warning>}}
 
@@ -53,7 +53,7 @@ clusters and namespaces.
 A *context* element in a kubeconfig file is used to group access parameters
 under a convenient name. Each context has three parameters: cluster, namespace, and user.
 By default, the `kubectl` command-line tool uses parameters from
-the *current context* to communicate with the cluster. 
+the *current context* to communicate with the cluster.
 
 To choose the current context:
 ```
@@ -167,7 +167,7 @@ users:
 
 contexts:
 - context:
-   name: development
+  name: development
 ```
 
 
