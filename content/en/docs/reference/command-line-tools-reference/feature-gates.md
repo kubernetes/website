@@ -101,7 +101,8 @@ different Kubernetes components.
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
 | `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
-| `DownwardAPIHugePages` | `false` | Beta | 1.21 | |
+| `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
+| `DownwardAPIHugePages` | `true` | Beta | 1.22 | |
 | `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | 1.21 |
 | `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | 1.22 |
@@ -137,7 +138,7 @@ different Kubernetes components.
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
-| `KubeletPodResourcesGetAllocatable` | `false` | Beta | 1.23 | |
+| `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
@@ -155,7 +156,7 @@ different Kubernetes components.
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
-| `OpenAPIEnums` | `false` | Beta | 1.24 | |
+| `OpenAPIEnums` | `true` | Beta | 1.24 | |
 | `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIV3` | `true` | Beta | 1.24 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
@@ -198,7 +199,7 @@ different Kubernetes components.
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
 | `WindowsHostProcessContainers` | `false` | Alpha | 1.22 | 1.22 |
-| `WindowsHostProcessContainers` | `false` | Beta | 1.23 | |
+| `WindowsHostProcessContainers` | `true` | Beta | 1.23 | |
 {{< /table >}}
 
 ### Feature gates for graduated or deprecated features
