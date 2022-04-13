@@ -3,7 +3,7 @@ title: Download Kubernetes
 type: docs
 ---
 
-# Core Kubernetes components
+## Core Kubernetes components
 
 Kubernetes ships binaries for each component as well as a standard set of client
 applications to bootstrap or interact with a cluster. Components like the
@@ -12,7 +12,7 @@ cluster. Those components are also shipped in container images as part of the
 official release process. All binaries as well as container images are available
 for multiple operating systems as well as hardware architectures.
 
-## Container Images
+### Container Images
 
 All Kubernetes container images are deployed to the
 [k8s.gcr.io](https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/GLOBAL)
@@ -77,6 +77,7 @@ You can fetch that list using:
 ```shell
 curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: k8s.gcr.io/' | awk '{print $2}'
 ```
+
 For Kubernetes v{{< skew currentVersion >}}, the only kind of code artifact that
 you can verify integrity for is a container image, using the experimental
 signing support.
@@ -84,15 +85,13 @@ signing support.
 To manually verify signed container images of Kubernetes core components, please refer to
 [Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-images).
 
-
-
-## Binaries
+### Binaries
 
 Find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
 
 Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture.
 
-### kubectl
+#### kubectl
 
 <!-- overview -->
 
