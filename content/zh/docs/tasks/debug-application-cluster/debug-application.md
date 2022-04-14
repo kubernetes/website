@@ -102,8 +102,9 @@ If a Pod is stuck in the `Waiting` state, then it has been scheduled to a worker
 Again, the information from `kubectl describe ...` should be informative.  The most common cause of `Waiting` pods is a failure to pull the image.  There are three things to check:
 
 * Make sure that you have the name of the image correct.
-* Have you pushed the image to the repository?
-* Run a manual `docker pull <image>` on your machine to see if the image can be pulled.
+* Have you pushed the image to the registry?
+* Try to manually pull the image to see if the image can be pulled. For example,
+  if you use Docker on your PC, run `docker pull <image>`.
 -->
 #### Pod 停滞在 Waiting 状态
 
@@ -113,7 +114,7 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 
 * 确保镜像名字拼写正确
 * 确保镜像已被推送到镜像仓库
-* 用手动命令 `docker pull <镜像>` 试试看镜像是否可拉取
+* 尝试手动是否能拉取镜像。例如，如果你在你的 PC 上使用 Docker，请运行 `docker pull <镜像>`。
 
 <!--
 #### My pod is crashing or otherwise unhealthy
