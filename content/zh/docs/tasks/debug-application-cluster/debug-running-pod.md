@@ -169,7 +169,7 @@ specify the `-i`/`--interactive` argument, `kubectl` will automatically attach
 to the console of the Ephemeral Container.
 
 ```shell
-kubectl debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
+kubectl debug -it ephemeral-demo --image=busybox:1.28 --target=ephemeral-demo
 ```
 
 ```
@@ -192,7 +192,7 @@ OCI runtime exec failed: exec failed: container_linux.go:346: starting container
 如果你指定 `-i` 或者 `--interactive` 参数，`kubectl` 将自动挂接到临时容器的控制台。
 
 ```shell
-kubectl debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
+kubectl debug -it ephemeral-demo --image=busybox:1.28 --target=ephemeral-demo
 ```
 
 ```
@@ -298,7 +298,7 @@ this scenario using `kubectl run`:
 你可以使用 `kubectl run` 模拟这个场景:
 
 ```shell
-kubectl run myapp --image=busybox --restart=Never -- sleep 1d
+kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 ```
 <!--
 Run this command to create a copy of `myapp` named `myapp-debug` that adds a
@@ -366,7 +366,7 @@ that immediately exits:
 为了模拟应用崩溃的场景，使用 `kubectl run` 命令创建一个立即退出的容器：
 
 ```
-kubectl run --image=busybox myapp -- false
+kubectl run --image=busybox:1.28 myapp -- false
 ```
 
 <!--
@@ -453,7 +453,7 @@ As an example, create a Pod using `kubectl run`:
 下面的例子，用 `kubectl run`创建一个 Pod：
 
 ```
-kubectl run myapp --image=busybox --restart=Never -- sleep 1d
+kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 ```
 <!--
 Now use `kubectl debug` to make a copy and change its container image
