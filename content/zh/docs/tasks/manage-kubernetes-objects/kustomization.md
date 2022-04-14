@@ -133,15 +133,28 @@ metadata:
 ```
 
 <!--
-To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a `.env` file:
+To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. This can also be used to set values from local environment variables by omitting the `=` and the value.
 -->
 要从 env 文件生成 ConfigMap，请在 `configMapGenerator` 中的 `envs` 列表中添加一个条目。
+这也可以用于通过省略 `=` 和值来设置本地环境变量的值。
+
+<!--
+It's recommended to use the local environment variable population functionality sparingly - an overlay with a patch is often more maintainable. Setting values from the environment may be useful when they cannot easily be predicted, such as a git SHA.
+-->
+建议谨慎使用本地环境变量填充功能 —— 用补丁覆盖通常更易于维护。 
+当无法轻松预测变量的值时，从环境中设置值可能很有用，例如 git SHA。
+
+<!--
+Here is an example of generating a ConfigMap with a data item from a `.env` file:
+-->
 下面是一个用来自 `.env` 文件的数据生成 ConfigMap 的例子：
 
 ```shell
 # 创建一个 .env 文件
+# BAZ 将使用本地环境变量 $BAZ 的取值填充
 cat <<EOF >.env
 FOO=Bar
+BAZ
 EOF
 
 cat <<EOF >./kustomization.yaml
@@ -158,7 +171,7 @@ The generated ConfigMap can be examined with the following command:
 可以使用以下命令检查生成的 ConfigMap：
 
 ```shell
-kubectl kustomize ./
+BAZ=Qux kubectl kustomize ./
 ```
 
 <!--
@@ -169,10 +182,11 @@ The generated ConfigMap is:
 ```yaml
 apiVersion: v1
 data:
+  BAZ: Qux
   FOO: Bar
 kind: ConfigMap
 metadata:
-  name: example-configmap-1-42cfbf598f
+  name: example-configmap-1-892ghb99c8
 ```
 
 <!--
@@ -398,7 +412,7 @@ type: Opaque
 ```
 
 <!--
-Like ConfigMaps, generated Secrets can be used in Deployments by refering to the name of the secretGenerator:
+Like ConfigMaps, generated Secrets can be used in Deployments by referring to the name of the secretGenerator:
 -->
 与 ConfigMaps 一样，生成的 Secrets 可以通过引用 secretGenerator 的名称在部署中使用：
 
