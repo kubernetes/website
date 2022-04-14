@@ -194,7 +194,7 @@ both Linux and Windows kernels). The time window used to calculate CPU is shown 
 in Metrics API.
 
 To learn more about how Kubernetes allocates and measures CPU resources, see
-[meaning of CPU](/docs/concepts/configuration/manage-resources-container/#meaning-of-cpu).
+[meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu).
 
 ### Memory
 
@@ -209,7 +209,7 @@ anonymous memory associated with the container in question. The working set metr
 includes some cached (file-backed) memory, because the host OS cannot always reclaim pages.
 
 To learn more about how Kubernetes allocates and measures memory resources, see
-[meaning of memory](/docs/concepts/configuration/manage-resources-container/#meaning-of-memory).
+[meaning of memory](/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory).
 
 ## Metrics Server
 

@@ -1,6 +1,7 @@
 ---
 layout: blog
 title: "Updated: Dockershim Removal FAQ"
+linkTitle: "Dockershim Removal FAQ"
 date: 2022-02-17
 slug: dockershim-faq
 aliases: [ '/dockershim' ]
@@ -184,7 +185,7 @@ options are available as you migrate things over.
 [documentation]: https://github.com/containerd/cri/blob/master/docs/registry.md
 
 For instructions on how to use containerd and CRI-O with Kubernetes, see the
-Kubernetes documentation on [Container Runtimes]
+Kubernetes documentation on [Container Runtimes].
 
 [Container Runtimes]: /docs/setup/production-environment/container-runtimes/
 
@@ -192,13 +193,25 @@ Kubernetes documentation on [Container Runtimes]
 
 If you use a vendor-supported Kubernetes distribution, you can ask them about
 upgrade plans for their products. For end-user questions, please post them
-to our end user community forum: https://discuss.kubernetes.io/. 
+to our end user community forum: https://discuss.kubernetes.io/.
+
+You can discuss the decision to remove dockershim via a dedicated
+[GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917).
 
 You can also check out the excellent blog post
 [Wait, Docker is deprecated in Kubernetes now?][dep] a more in-depth technical
 discussion of the changes.
 
 [dep]: https://dev.to/inductor/wait-docker-is-deprecated-in-kubernetes-now-what-do-i-do-e4m
+
+### Is there any tooling that can help me find dockershim in use
+
+Yes! The [Detector for Docker Socket (DDS)][dds] is a kubectl plugin that you can
+install and then use to check your cluster. DDS can detect if active Kubernetes workloads
+are mounting the Docker Engine socket (`docker.sock`) as a volume.
+Find more details and usage patterns in the DDS project's [README][dds].
+
+[dds]: https://github.com/aws-containers/kubectl-detector-for-docker-socket
 
 ### Can I have a hug?
 
