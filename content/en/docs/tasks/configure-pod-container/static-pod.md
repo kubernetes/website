@@ -71,7 +71,7 @@ For example, this is how to start a simple web server as a static Pod:
 
     ```shell
     # Run this command on the node where kubelet is running
-    mkdir /etc/kubernetes/manifests/
+    mkdir -p /etc/kubernetes/manifests/
     cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
     apiVersion: v1
     kind: Pod
@@ -224,7 +224,7 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 
 ## Dynamic addition and removal of static pods
 
-The running kubelet periodically scans the configured directory (`/etc/kubelet.d` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
+The running kubelet periodically scans the configured directory (`/etc/kubernetes/manifests` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
 
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration
