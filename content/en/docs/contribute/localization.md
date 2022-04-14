@@ -126,12 +126,14 @@ Add a configuration block for the new language to `config.toml`, under the exist
 title = "Kubernetes"
 description = "Produktionsreife Container-Verwaltung"
 languageName = "Deutsch (German)"
-languageNameLatinScript = "German"
+languageNameLatinScript = "Deutsch"
 contentDir = "content/de"
 weight = 8
 ```
 
-The value for `languageName` will be listed in language selection bar. Assign "language name in native script (language name in latin script)" to `languageName`, for example, `languageName = "한국어 (Korean)"`. `languageNameLatinScript` can be used to access the language name in latin script and use it in the theme. Assign "language name in latin script" to `languageNameLatinScript`, for example, `languageNameLatinScript ="Korean"`. 
+The value for `languageName` will be listed in language selection bar. Assign "language name in native script and language (English language name in latin script)" to `languageName`. For example, `languageName = "한국어 (Korean)"` or `languageName = "Deutsch (German)"`.
+
+`languageNameLatinScript` can be used to access the language name in latin script and use it in the theme. Assign "language name in latin script" to `languageNameLatinScript`. For example, `languageNameLatinScript ="Korean"` or `languageNameLatinScript = "Deutsch"`. 
 
 When assigning a `weight` parameter for your block, find the language block with the highest weight and add 1 to that value.
 
@@ -365,4 +367,3 @@ For more information about working from forks or directly from the repository, s
 ## Upstream contributions
 
 SIG Docs welcomes upstream contributions and corrections to the English source.
-                                                                                                                                      

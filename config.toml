@@ -303,7 +303,8 @@ languagedirection = "ltr"
 [languages.zh]
 title = "Kubernetes"
 description = "生产级别的容器编排系统"
-languageName = "中文 Chinese"
+languageName = "中文 (Chinese)"
+languageNameLatinScript = "Chinese"
 weight = 2
 contentDir = "content/zh"
 languagedirection = "ltr"
@@ -315,7 +316,8 @@ language_alternatives = ["en"]
 [languages.ko]
 title = "Kubernetes"
 description = "운영 수준의 컨테이너 오케스트레이션"
-languageName = "한국어 Korean"
+languageName = "한국어 (Korean)"
+languageNameLatinScript = "Korean"
 weight = 3
 contentDir = "content/ko"
 languagedirection = "ltr"
@@ -327,7 +329,8 @@ language_alternatives = ["en"]
 [languages.ja]
 title = "Kubernetes"
 description = "プロダクショングレードのコンテナ管理基盤"
-languageName = "日本語 Japanese"
+languageName = "日本語 (Japanese)"
+languageNameLatinScript = "Japanese"
 weight = 4
 contentDir = "content/ja"
 languagedirection = "ltr"
@@ -339,7 +342,8 @@ language_alternatives = ["en"]
 [languages.fr]
 title = "Kubernetes"
 description = "Solution professionnelle d’orchestration de conteneurs"
-languageName ="Français"
+languageName ="Français (French)"
+languageNameLatinScript = "Français"
 weight = 5
 contentDir = "content/fr"
 languagedirection = "ltr"
@@ -352,7 +356,8 @@ language_alternatives = ["en"]
 [languages.it]
 title = "Kubernetes"
 description = "Orchestrazione di Container in produzione"
-languageName = "Italiano"
+languageName = "Italiano (Italian)"
+languageNameLatinScript = "Italiano"
 weight = 6
 contentDir = "content/it"
 languagedirection = "ltr"
@@ -365,7 +370,8 @@ language_alternatives = ["en"]
 [languages.no]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="Norsk"
+languageName ="Norsk (Norwegian)"
+languageNameLatinScript = "Norsk"
 weight = 7
 contentDir = "content/no"
 languagedirection = "ltr"
@@ -378,7 +384,8 @@ language_alternatives = ["en"]
 [languages.de]
 title = "Kubernetes"
 description = "Produktionsreife Container-Orchestrierung"
-languageName ="Deutsch"
+languageName ="Deutsch (German)"
+languageNameLatinScript = "Deutsch"
 weight = 8
 contentDir = "content/de"
 languagedirection = "ltr"
@@ -391,7 +398,8 @@ language_alternatives = ["en"]
 [languages.es]
 title = "Kubernetes"
 description = "Orquestación de contenedores para producción"
-languageName ="Español"
+languageName ="Español (Spanish)"
+languageNameLatinScript = "Español"
 weight = 9
 contentDir = "content/es"
 languagedirection = "ltr"
@@ -404,7 +412,8 @@ language_alternatives = ["en"]
 [languages.pt-br]
 title = "Kubernetes"
 description = "Orquestração de contêineres em nível de produção"
-languageName ="Português"
+languageName ="Português (Portuguese)"
+languageNameLatinScript = "Português"
 weight = 9
 contentDir = "content/pt-br"
 languagedirection = "ltr"
@@ -418,6 +427,7 @@ language_alternatives = ["en"]
 title = "Kubernetes"
 description = "Orkestrasi Kontainer dengan Skala Produksi"
 languageName ="Bahasa Indonesia"
+languageNameLatinScript = "Bahasa Indonesia"
 weight = 10
 contentDir = "content/id"
 languagedirection = "ltr"
@@ -430,7 +440,8 @@ language_alternatives = ["en"]
 [languages.hi]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName = "Hindi"
+languageName = "हिन्दी (Hindi)"
+languageNameLatinScript = "Hindi"
 weight = 11
 contentDir = "content/hi"
 languagedirection = "ltr"
@@ -442,7 +453,8 @@ language_alternatives = ["en"]
 [languages.vi]
 title = "Kubernetes"
 description = "Giải pháp điều phối container trong môi trường production"
-languageName = "Tiếng Việt"
+languageName = "Tiếng Việt (Vietnamese)"
+languageNameLatinScript = "Tiếng Việt"
 contentDir = "content/vi"
 weight = 12
 languagedirection = "ltr"
@@ -450,7 +462,8 @@ languagedirection = "ltr"
 [languages.ru]
 title = "Kubernetes"
 description = "Первоклассная оркестрация контейнеров"
-languageName = "Русский"
+languageName = "Русский (Russian)"
+languageNameLatinScript = "Russian"
 weight = 12
 contentDir = "content/ru"
 languagedirection = "ltr"
@@ -463,7 +476,8 @@ language_alternatives = ["en"]
 [languages.pl]
 title = "Kubernetes"
 description = "Produkcyjny system zarządzania kontenerami"
-languageName = "Polski"
+languageName = "Polski (Polish)"
+languageNameLatinScript = "Polski"
 weight = 13
 contentDir = "content/pl"
 languagedirection = "ltr"
@@ -476,7 +490,8 @@ language_alternatives = ["en"]
 [languages.uk]
 title = "Kubernetes"
 description = "Довершена система оркестрації контейнерів"
-languageName = "Українська"
+languageName = "Українська (Ukrainian)"
+languageNameLatinScript = "Ukrainian"
 weight = 14
 contentDir = "content/uk"
 languagedirection = "ltr"
