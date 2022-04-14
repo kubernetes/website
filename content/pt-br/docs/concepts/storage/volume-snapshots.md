@@ -13,7 +13,7 @@ No Kubernetes, um _VolumeSnapshot_ representa uma cópia de volume instantâneo 
 
 <!-- body -->
 
-## Introduction
+## Introdução
 
 Semelhante à forma como os recursos de API `PersistentVolume` e `PersistentVolumeClaim` são usados ​​para provisionar volumes para usuários e administradores, os recursos de API `VolumeSnapshotContent` e `VolumeSnapshot` são fornecidos para criar cópias instantâneas de volume para usuários e administradores.
 
@@ -34,18 +34,18 @@ Ao usar esse recurso, os usuários precisam estar cientes do seguinte :
 * Os drivers CSI podem ou não ter implementado a funcionalidade de cópia instantânea de volume. Os drivers CSI que forneceram suporte para cópia instantânea de volume provavelmente usarão o csi-snapshotter. Consulte [documentação do driver CSI](https://kubernetes-csi.github.io/docs/) para obter detalhes.
 * As instalações dos CRDs e do controlador de snapshot são de responsabilidade da distribuição do Kubernetes.
 
-## Lifecycle of a volume snapshot and volume snapshot content
+## Ciclo de vida de cópias de volume instantâneo e seu conteúdo
 
 `VolumeSnapshotContents` são recursos no cluster. `VolumeSnapshots` são solicitações para esses recursos. A interação entre `VolumeSnapshotContents` e `VolumeSnapshots` segue este ciclo de vida:
 
-### Provisioning Volume Snapshot
+### Provisionando cópias de volume instantâneo
 
 Há duas maneiras pelas quais os instantâneos podem ser provisionados: pré-provisionados ou provisionados dinamicamente.
 
-#### Pre-provisioned {#static}
+#### Pré-provisionado {#static}
 Um administrador de cluster cria vários `VolumeSnapshotContents`. Eles carregam os detalhes da cópia instantânea do volume real no sistema de armazenamento que está disponível para uso pelos usuários do cluster. Eles existem na API do Kubernetes e estão disponíveis para consumo.
 
-#### Dynamic
+#### Dinâmica
 Em vez de usar uma cópia instantânea pré-existente, você pode solicitar que um instantâneo seja obtido dinamicamente de um PersistentVolumeClaim. O [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) especifica parâmetros específicos do provedor de armazenamento a serem usados ao tirar um instantâneo.
 
 ### Binding
@@ -54,14 +54,14 @@ O controlador de instantâneo lida com a associação de um objeto `VolumeSnapsh
 
 No caso de associação pré-provisionada, o VolumeSnapshot permanecerá desvinculado até que o objeto `VolumeSnapshotContent` solicitado seja criado.
 
-### Persistent Volume Claim as Snapshot Source Protection
+### Reivindicação de volume persistente como proteção de origem de volume instantâneo
 
 O objetivo desta proteção é garantir que em uso
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} objetos de API não são removidos do sistema enquanto uma cópia instantânea está sendo tirada dele (pois isso pode resultar em perda de dados).
 
 Enquanto uma cópia está sendo tirada de um `PersistentVolumeClaim`, esse `PersistentVolumeClaim` está em uso. Se você excluir um objeto de API `PersistentVolumeClaim` em uso ativo como fonte de cópia instantânea, o objeto `PersistentVolumeClaim` não será removido imediatamente. Em vez disso, a remoção do objeto é adiada até que a cópia seja readyToUse ou abortado.
 
-### Delete
+### Exclusão
 
 A exclusão é acionada pela exclusão do objeto `VolumeSnapshot`, e a `DeletionPolicy` será seguida. Se o `DeletionPolicy` for `Delete`, a cópia instantânea de armazenamento subjacente será excluída junto com o objeto `VolumeSnapshotContent`. Se o `DeletionPolicy` for `Retain`, tanto o snapshot subjacente quanto o `VolumeSnapshotContent` permanecerão.
 
@@ -97,7 +97,7 @@ spec:
     volumeSnapshotContentName: test-content
 ```
 
-## Volume Snapshot Contents
+## Conteúdo de cópias de volumes instantâneos
 
 Cada `VolumeSnapshotContent` contém uma especificação e um status. No provisionamento dinâmico, o controlador comum de instantâneo cria objetos `VolumeSnapshotContent`. Como por exemplo:
 
@@ -139,7 +139,7 @@ spec:
 
 `snapshotHandle` é o identificador exclusivo da cópia instantânea de volume criado no back-end de armazenamento. Este campo é obrigatório para as cópias pré-provisionadas. Ele especifica o ID da cópia CSI no sistema de armazenamento que este `VolumeSnapshotContent` representa.
 
-## Provisioning Volumes from Snapshots
+## Provisionando volumes de cópias instantâneas
 
 Você pode provisionar um novo volume, pré-preenchido com dados de uma cópia instantânea, usando
 o campo *dataSource* no objeto `PersistentVolumeClaim`.
