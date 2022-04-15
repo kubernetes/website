@@ -47,16 +47,18 @@ existentes.
 
 {{< /caution >}}
 
+Consulte [Segurança da informação para Secrets](#information-security-for-secrets)
+para mais detalhes.
+
 <!-- body -->
 
-## Visão Geral de Secrets
+## Usos para Secrets
 
-Para utilizar um Secret, um Pod precisa referenciar o Secret.
-Um Secret pode ser utilizado em um Pod de três maneiras diferentes:
-- Como um [arquivo](#using-secrets-as-files-from-a-pod) em um
+Existem três formas principais para um Pod utilizar um Secret:
+- Como [arquivos](#using-secrets-as-files-from-a-pod) em um
 {{< glossary_tooltip text="volume" term_id="volume" >}} montado em um ou mais de
 seus contêineres.
-- Como uma [variável de ambiente](#using-secrets-as-environment-variables) em um
+- Como uma [variável de ambiente](#using-secrets-as-environment-variables) de um
 contêiner.
 - Pelo [kubelet ao baixar imagens de contêiner](#using-imagepullsecrets) para o
 Pod.
@@ -65,7 +67,54 @@ A camada de gerenciamento do Kubernetes também utiliza Secrets. Por exemplo,
 os [Secrets de tokens de autoinicialização](#bootstrap-token-secrets) são um
 mecanismo que auxilia a automação do registro de nós.
 
+### Alternativas a Secrets
+
+Ao invés de utilizar um Secret para proteger dados confidenciais, você pode
+escolher uma maneira alternativa. Algumas das opções são:
+
+- se o seu componente cloud native precisa autenticar-se a outra aplicação que
+está rodando no mesmo cluster Kubernetes, você pode utilizar uma
+[ServiceAccount](/pt-br/docs/reference/access-authn-authz/authentication/#tokens-de-contas-de-serviço)
+e seus tokens para identificar seu cliente.
+- existem ferramentas fornecidas por terceiros que você pode rodar, no seu
+cluster ou externamente, que providenciam gerenciamento de Secrets. Por exemplo,
+um serviço que Pods accessam via HTTPS, que revelam um Secret se o cliente
+autenticar-se corretamente (por exemplo, utilizando um token de ServiceAccount).
+- para autenticação, você pode implementar um serviço de assinatura de
+certificados X.509 personalizado, e utilizar
+[CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/)
+para permitir ao serviço personalizado emitir certificados a pods que os
+necessitam.
+- você pode utilizar um [plugin de dispositivo](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+para expor a um Pod específico um hardware de encriptação conectado a um nó. Por
+exemplo, você pode agendar Pods confiáveis em nós que oferecem um _Trusted
+Platform Module_, configurado em um fluxo de dados independente.
+
+Você pode também combinar duas ou mais destas opções, incluindo a opção de
+utilizar objetos do tipo Secret.
+
+Por exemplo: implemente (ou instale) um
+{{< glossary_tooltip text="operador" term_id="operator-pattern" >}}
+que solicite tokens de sessão de curta duração a um serviço externo, e crie
+Secrets baseado nestes tokens. Pods rodando no seu cluster podem fazer uso de
+tokens de sessão, e o operador garante que estes permanecem válidos. Esta
+separação significa que você pode rodar Pods que não precisam ter conhecimento
+do mecanismo exato para geração e atualização de tais tokens de sessão.
+
+## Trabalhando com Secrets
+
+### Criando um Secret
+
+Existem diversas formas de criar um Secret:
+
+- [crie um Secret utilizando o comando `kubectl`](/pt-br/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [crie um Secret a partir de um arquivo de configuração](/pt-br/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [crie um Secret utilizando a ferramenta kustomize](/pt-br/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+
+#### Restrições de nomes de Secret e dados {#restriction-names-data}
+
 O nome de um Secret deve ser um [subdomínio DNS válido](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 Você pode especificar o campo `data` e/ou o campo `stringData` na criação de um
 arquivo de configuração de um Secret. Ambos os campos `data` e `stringData` são
 opcionais. Os valores das chaves no campo `data` devem ser strings codificadas
@@ -77,6 +126,398 @@ As chaves dos campos `data` e `stringData` devem consistir de caracteres
 alfanuméricos, `-`, `_`, ou `.`. Todos os pares chave-valor no campo `stringData`
 são internamente combinados com os dados do campo `data`. Se uma chave aparece
 em ambos os campos, o valor informado no campo `stringData` toma a precedência.
+
+#### Limite de tamanho {#restriction-data-size}
+
+Secrets individuais são limitados a 1MiB em tamanho. Esta limitação tem por
+objetivo desencorajar a criação de Secrets muito grandes que possam exaurir o
+servidor da API e a memória do kubelet. No entanto, a criação de vários Secrets
+pequenos pode também exaurir a memória. Você pode utilizar uma
+[quota de recurso](/docs/concepts/policy/resource-quotas/) a fim de limitar o
+número de Secrets (ou outros recursos) em um namespace.
+
+### Editando um Secret
+
+Você pode editar um Secret existente utilizando kubectl:
+
+```shell
+kubectl edit secrets mysecret
+```
+
+Este comando abre o seu editor padrão configurado e permite a modificação dos
+valores do Secret codificados em base64 no campo `data`. Por exemplo:
+
+```yaml
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file, it will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
+kind: Secret
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: { ... }
+  creationTimestamp: 2016-01-22T18:41:56Z
+  name: mysecret
+  namespace: default
+  resourceVersion: "164619"
+  uid: cfee02d6-c137-11e5-8d73-42010af00002
+type: Opaque
+```
+
+Este manifesto de exemplo define um Secret com duas chaves no campo `data`:
+`username` and `password`.
+Os valores são strings codificadas em formato base64. No entanto, quando um
+Secret é utilizado em um Pod, o kubelet fornece os dados _decodificados_ ao Pod
+e seus contêineres.
+
+Você pode especificar muitas chaves e valores em um Secret só, ou utilizar
+muitos Secrets. Escolha a opção que for mais conveniente para o caso de uso.
+
+### Utilizando Secrets
+
+Secrets podem ser montados como volumes de dados ou expostos como
+{{< glossary_tooltip text="variáveis de ambiente" term_id="container-env-variables" >}}
+para serem utilizados num container de um Pod. Secrets também podem ser
+utilizados por outras partes do sistema, sem serem diretamente expostos ao Pod.
+Por exemplo, Secrets podem conter credenciais que outras partes do sistema devem
+utilizar para interagir com sistemas externos no lugar do usuário.
+
+Secrets montados como volumes são verificados para garantir que o nome
+referenciado realmente é um objeto do tipo Secret. Portanto, um Secret deve ser
+criado antes de quaisquer Pods que o referenciam.
+
+Se um Secret não puder ser encontrado (porque não existe, ou devido a um problema
+de conectividade com o servidor da API) o kubelet tenta periodicamente reiniciar
+aquele Pod. O kubelet também relata um evento para aquele Pod, incluindo detalhes
+do problema ao buscar o Secret.
+
+### Utilizando Secrets como arquivos em um Pod {#using-secrets-as-files-from-a-pod}
+
+Para consumir um Secret em um volume em um Pod:
+1. Crie um Secret ou utilize um previamente existente. Múltiplos Pods podem
+referenciar o mesmo secret.
+1. Modifique sua definição de Pod para adicionar um volume na lista
+`.spec.volumes[]`. Escolha um nome qualquer para o seu volume e adicione um
+campo `.spec.volumes[].secret.secretName` com o mesmo valor do seu objeto
+Secret.
+1. Adicione um ponto de montagem de volume à lista
+`.spec.containers[].volumeMounts[]` de cada contêiner que requer o Secret.
+Especifique `.spec.containers[].volumeMounts[].readOnly = true` e especifique o
+valor do campo `.spec.containers[].volumeMounts[].mountPath` com o nome de um
+diretório não utilizado onde você deseja que os Secrets apareçam.
+1. Modifique sua imagem ou linha de comando de modo que o programa procure por
+arquivos naquele diretório. Cada chave no campo `data` se torna um nome de
+arquivo no diretório especificado em `mountPath`.
+
+Este é um exemplo de Pod que monta um Secret em um volume:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+```
+
+Cada Secret que você deseja utilizar deve ser referenciado na lista
+`.spec.volumes`.
+
+Se existirem múltiplos contêineres em um Pod, cada um dos contêineres necessitará
+seu próprio bloco `volumeMounts`, mas somente um volume na lista `.spec.volumes`
+é necessário por Secret.
+
+Você pode armazenar vários arquivos em um Secret ou utilizar vários Secrets
+distintos, o que for mais conveniente.
+
+#### Projeção de chaves de Secrets a caminhos específicos
+
+Você pode também controlar os caminhos dentro do volume onde as chaves do Secret
+são projetadas. Você pode utilizar o campo `.spec.volumes[].secret.items` para
+mudar o caminho de destino de cada chave:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      items:
+      - key: username
+        path: my-group/my-username
+```
+
+Neste caso:
+* O valor da chave `username` é armazenado no arquivo
+`/etc/foo/my-group/my-username` ao invés de `/etc/foo/username`.
+* O valor da chave `password` não é projetado no sistema de arquivos.
+
+Se `.spec.volumes[].secret.items` for utilizado, somente chaves especificadas
+na lista `items` são projetadas. Para consumir todas as chaves do Secret, deve
+haver um item para cada chave no campo `items`. Todas as chaves listadas precisam
+existir no Secret correspondente. Caso contrário, o volume não é criado.
+
+#### Permissões de arquivos de Secret
+
+Você pode trocar os bits de permissão de uma chave avulsa de Secret.
+Se nenhuma permissão for especificada, `0644` é utilizado por padrão.
+Você pode também especificar uma permissão padrão para o volume inteiro de
+Secret e sobrescrever esta permissão por chave, se necessário.
+
+Por exemplo, você pode especificar uma permissão padrão da seguinte maneira:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      defaultMode: 0400
+```
+
+Dessa forma, o Secret será montado em `/etc/foo` e todos os arquivos criados
+no volume terão a permissão `0400`.
+
+Note que a especificação JSON não suporta notação octal. Neste caso, utilize o
+valor 256 para permissões equivalentes a 0400. Se você utilizar YAML ao invés
+de JSON para o Pod, você pode utilizar notação octal para especificar permissões
+de uma forma mais natural.
+
+Perceba que se você acessar o Pod com `kubectl exec`, você precisará seguir o
+vínculo simbólico para encontrar a permissão esperada. Por exemplo,
+
+Verifique as permissões do arquivo de Secret no pod.
+```
+kubectl exec mypod -it sh
+
+cd /etc/foo
+ls -l
+```
+
+O resultado é semelhante ao abaixo:
+```
+total 0
+lrwxrwxrwx 1 root root 15 May 18 00:18 password -> ..data/password
+lrwxrwxrwx 1 root root 15 May 18 00:18 username -> ..data/username
+```
+
+Siga o vínculo simbólico para encontrar a permissão correta do arquivo.
+```
+cd /etc/foo/..data
+ls -l
+```
+
+O resultado é semelhante ao abaixo:
+```
+total 8
+-r-------- 1 root root 12 May 18 00:18 password
+-r-------- 1 root root  5 May 18 00:18 username
+```
+
+Você pode também utilizar mapeamento, como no exemplo anterior, e especificar
+permissões diferentes para arquivos diferentes conforme abaixo:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      items:
+      - key: username
+        path: my-group/my-username
+        mode: 0777
+```
+
+Neste caso, o arquivo resultante em `/etc/foo/my-group/my-username` terá as
+permissões `0777`. Se você utilizar JSON, devido às limitações do formato,
+você precisará informar as permissões em base decimal, ou o valor `511` neste
+exemplo.
+
+Note que os valores de permissões podem ser exibidos em formato decimal se você
+ler essa informação posteriormente.
+
+#### Consumindo valores de Secrets em volumes
+
+Dentro do contêiner que monta um volume de Secret, as chaves deste Secret
+aparecem como arquivos e os valores dos Secrets são decodificados do formato
+base64 e armazenados dentro destes arquivos. Ao executar comandos dentro do
+contêiner do exemplo anterior, obteremos os seguintes resultados:
+
+```shell
+ls /etc/foo
+```
+
+O resultado é semelhante a:
+```
+username
+password
+```
+
+```shell
+cat /etc/foo/username
+```
+
+O resultado é semelhante a:
+```
+admin
+```
+
+```shell
+cat /etc/foo/password
+```
+
+O resultado é semelhante a:
+```
+1f2d1e2e67df
+```
+
+A aplicação rodando dentro do contêiner é responsável pela leitura dos Secrets
+dentro dos arquivos.
+
+#### Secrets montados são atualizados automaticamente
+
+Quando um Secret que está sendo consumido a partir de um volume é atualizado, as
+chaves projetadas são atualizadas após algum tempo também. O kubelet verifica
+se o Secret montado está atualizado a cada sincronização periódica. No entanto,
+o kubelet utiliza seu cache local para buscar o valor corrente de um Secret. O
+tipo do cache é configurável utilizando o campo `ConfigMapAndSecretChangeDetectionStrategy`
+na estrutura [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
+Um Secret pode ser propagado através de um _watch_ (comportamento padrão), que
+é o sistema de propagação de mudanças incrementais em objetos do Kubernetes;
+baseado em TTL (_time to live_, ou tempo de expiração); ou redirecionando todas
+as requisições diretamente para o servidor da API.
+
+Como resultado, o tempo decorrido total entre o momento em que o Secret foi
+atualizado até o momento em que as novas chaves são projetadas nos Pods pode
+ser tão longo quanto o tempo de sincronização do kubelet somado ao tempo de
+propagação do cache, onde o tempo de propagação do cache depende do tipo de
+cache escolhido: o tempo de propagação pode ser igual ao tempo de propagação
+do _watch_, TTL do cache, ou zero, de acordo com cada um dos tipos de cache.
+
+{{< note >}}
+Um contêiner que utiliza Secrets através de um ponto de montagem com a
+propriedade
+[subPath](/docs/concepts/storage/volumes#using-subpath) não recebe atualizações
+deste Secret.
+{{< /note >}}
+
+### Utilizando Secrets como variáveis de ambiente {#using-secrets-as-environment-variables}
+
+Para utilizar um secret em uma {{< glossary_tooltip text="variável de ambiente" term_id="container-env-variables" >}}
+em um Pod:
+
+1. Crie um Secret ou utilize um já existente. Múltiplos Pods podem referenciar o
+mesmo Secret.
+1. Modifique a definição de cada contêiner do Pod em que desejar consumir o
+Secret, adicionando uma variável de ambiente para cada uma das chaves que deseja
+consumir.
+A variável de ambiente que consumir o valor da chave em questão deverá popular o
+nome do Secret e a sua chave correspondente no campo
+`env[].valueFrom.secretKeyRef`.
+1. Modifique sua imagem de contêiner ou linha de comando de forma que o programa
+busque os valores nas variáveis de ambiente especificadas.
+
+Este é um exemplo de um Pod que utiliza Secrets em variáveis de ambiente:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-env-pod
+spec:
+  containers:
+  - name: mycontainer
+    image: redis
+    env:
+    - name: SECRET_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: username
+    - name: SECRET_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: password
+  restartPolicy: Never
+```
+
+#### Consumindo valores de Secret em variáveis de ambiente
+
+Dentro de um contêiner que consome um Secret em variáveis de ambiente, a chave
+do Secret aparece como uma variável de ambiente comum, contendo os dados do
+Secret decodificados do formato base64. Ao executar comandos no contêiner do
+exemplo anterior, obteremos os resultados abaixo:
+
+```shell
+echo $SECRET_USERNAME
+```
+
+O resultado é semelhante a:
+
+```
+admin
+```
+
+```shell
+echo $SECRET_PASSWORD
+```
+
+O resultado é semelhante a:
+
+```
+1f2d1e2e67df
+```
+
+#### Variáveis de ambiente não são atualizadas após uma atualização no Secret
+
+Se um contêiner já consome um Secret em uma variável de ambiente, uma atualização
+dos valores do Secret não será refletida no contêiner a menos que o contêiner
+seja reiniciado.
+Existem ferramentas de terceiros que oferecem reinicializações automáticas
+quando Secrets são atualizados.
 
 ## Tipos de Secrets {#secret-types}
 
@@ -444,376 +885,6 @@ stringData:
   # e pode ser utilizado para assinaturas
   usage-bootstrap-signing: "true"
 ```
-
-## Criando um Secret
-
-Há várias formas diferentes de criar um Secret:
-- [criar um Secret utilizando o comando `kubectl`](/pt-br/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [criar um Secret a partir de um arquivo de configuração](/pt-br/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [criar um Secret utilizando a ferramenta kustomize](/pt-br/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
-
-## Editando um Secret
-
-Um Secret existente no cluster pode ser editado com o seguinte comando:
-```shell
-kubectl edit secrets mysecret
-```
-
-Este comando abrirá o editor padrão configurado e permitirá a modificação dos
-valores codificados em base64 no campo `data`:
-```yaml
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file will be
-# reopened with the relevant failures.
-#
-apiVersion: v1
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-kind: Secret
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: { ... }
-  creationTimestamp: 2016-01-22T18:41:56Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "164619"
-  uid: cfee02d6-c137-11e5-8d73-42010af00002
-type: Opaque
-```
-
-## Utilizando Secrets
-
-Secrets podem ser montados como volumes de dados ou expostos como
-{{< glossary_tooltip text="variáveis de ambiente" term_id="container-env-variables" >}}
-para serem utilizados num container de um Pod. Secrets também podem ser
-utilizados por outras partes do sistema, sem serem diretamente expostos ao Pod.
-Por exemplo, Secrets podem conter credenciais que outras partes do sistema devem
-utilizar para interagir com sistemas externos no lugar do usuário.
-
-### Utilizando Secrets como arquivos em um Pod {#using-secrets-as-files-from-a-pod}
-
-Para consumir um Secret em um volume em um Pod:
-1. Crie um Secret ou utilize um previamente existente. Múltiplos Pods podem
-referenciar o mesmo secret.
-1. Modifique sua definição de Pod para adicionar um volume na lista
-`.spec.volumes[]`. Escolha um nome qualquer para o seu volume e adicione um
-campo `.spec.volumes[].secret.secretName` com o mesmo valor do seu objeto
-Secret.
-1. Adicione um ponto de montagem de volume à lista
-`.spec.containers[].volumeMounts[]` de cada contêiner que requer o Secret.
-Especifique `.spec.containers[].volumeMounts[].readOnly = true` e especifique o
-valor do campo `.spec.containers[].volumeMounts[].mountPath` com o nome de um
-diretório não utilizado onde você deseja que os Secrets apareçam.
-1. Modifique sua imagem ou linha de comando de modo que o programa procure por
-arquivos naquele diretório. Cada chave no campo `data` se torna um nome de
-arquivo no diretório especificado em `mountPath`.
-
-Este é um exemplo de Pod que monta um Secret em um volume:
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mypod
-spec:
-  containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-      readOnly: true
-  volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-```
-
-Cada Secret que você deseja utilizar deve ser referenciado na lista
-`.spec.volumes`.
-
-Se existirem múltiplos contêineres em um Pod, cada um dos contêineres necessitará
-seu próprio bloco `volumeMounts`, mas somente um volume na lista `.spec.volumes`
-é necessário por Secret.
-
-Você pode armazenar vários arquivos em um Secret ou utilizar vários Secrets
-distintos, o que for mais conveniente.
-
-#### Projeção de chaves de Secrets a caminhos específicos
-
-Você pode também controlar os caminhos dentro do volume onde as chaves do Secret
-são projetadas. Você pode utilizar o campo `.spec.volumes[].secret.items` para
-mudar o caminho de destino de cada chave:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mypod
-spec:
-  containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-      readOnly: true
-  volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      items:
-      - key: username
-        path: my-group/my-username
-```
-
-Neste caso:
-* O valor da chave `username` é armazenado no arquivo
-`/etc/foo/my-group/my-username` ao invés de `/etc/foo/username`.
-* O valor da chave `password` não é projetado no sistema de arquivos.
-
-Se `.spec.volumes[].secret.items` for utilizado, somente chaves especificadas
-na lista `items` são projetadas. Para consumir todas as chaves do Secret, deve
-haver um item para cada chave no campo `items`. Todas as chaves listadas precisam
-existir no Secret correspondente. Caso contrário, o volume não é criado.
-
-#### Permissões de arquivos de Secret
-
-Você pode trocar os bits de permissão de uma chave avulsa de Secret.
-Se nenhuma permissão for especificada, `0644` é utilizado por padrão.
-Você pode também especificar uma permissão padrão para o volume inteiro de
-Secret e sobrescrever esta permissão por chave, se necessário.
-
-Por exemplo, você pode especificar uma permissão padrão da seguinte maneira:
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mypod
-spec:
-  containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-  volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      defaultMode: 0400
-```
-
-Dessa forma, o Secret será montado em `/etc/foo` e todos os arquivos criados
-no volume terão a permissão `0400`.
-
-Note que a especificação JSON não suporta notação octal. Neste caso, utilize o
-valor 256 para permissões equivalentes a 0400. Se você utilizar YAML ao invés
-de JSON para o Pod, você pode utilizar notação octal para especificar permissões
-de uma forma mais natural.
-
-Perceba que se você acessar o Pod com `kubectl exec`, você precisará seguir o
-vínculo simbólico para encontrar a permissão esperada. Por exemplo,
-
-Verifique as permissões do arquivo de Secret no pod.
-```
-kubectl exec mypod -it sh
-
-cd /etc/foo
-ls -l
-```
-
-O resultado é semelhante ao abaixo:
-```
-total 0
-lrwxrwxrwx 1 root root 15 May 18 00:18 password -> ..data/password
-lrwxrwxrwx 1 root root 15 May 18 00:18 username -> ..data/username
-```
-
-Siga o vínculo simbólico para encontrar a permissão correta do arquivo.
-```
-cd /etc/foo/..data
-ls -l
-```
-
-O resultado é semelhante ao abaixo:
-```
-total 8
--r-------- 1 root root 12 May 18 00:18 password
--r-------- 1 root root  5 May 18 00:18 username
-```
-
-Você pode também utilizar mapeamento, como no exemplo anterior, e especificar
-permissões diferentes para arquivos diferentes conforme abaixo:
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mypod
-spec:
-  containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-  volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      items:
-      - key: username
-        path: my-group/my-username
-        mode: 0777
-```
-
-Neste caso, o arquivo resultante em `/etc/foo/my-group/my-username` terá as
-permissões `0777`. Se você utilizar JSON, devido às limitações do formato,
-você precisará informar as permissões em base decimal, ou o valor `511` neste
-exemplo.
-
-Note que os valores de permissões podem ser exibidos em formato decimal se você
-ler essa informação posteriormente.
-
-#### Consumindo valores de Secrets em volumes
-
-Dentro do contêiner que monta um volume de Secret, as chaves deste Secret
-aparecem como arquivos e os valores dos Secrets são decodificados do formato
-base64 e armazenados dentro destes arquivos. Ao executar comandos dentro do
-contêiner do exemplo anterior, obteremos os seguintes resultados:
-
-```shell
-ls /etc/foo
-```
-
-O resultado é semelhante a:
-```
-username
-password
-```
-
-```shell
-cat /etc/foo/username
-```
-
-O resultado é semelhante a:
-```
-admin
-```
-
-```shell
-cat /etc/foo/password
-```
-
-O resultado é semelhante a:
-```
-1f2d1e2e67df
-```
-
-A aplicação rodando dentro do contêiner é responsável pela leitura dos Secrets
-dentro dos arquivos.
-
-#### Secrets montados são atualizados automaticamente
-
-Quando um Secret que está sendo consumido a partir de um volume é atualizado, as
-chaves projetadas são atualizadas após algum tempo também. O kubelet verifica
-se o Secret montado está atualizado a cada sincronização periódica. No entanto,
-o kubelet utiliza seu cache local para buscar o valor corrente de um Secret. O
-tipo do cache é configurável utilizando o campo `ConfigMapAndSecretChangeDetectionStrategy`
-na estrutura [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
-Um Secret pode ser propagado através de um _watch_ (comportamento padrão), que
-é o sistema de propagação de mudanças incrementais em objetos do Kubernetes;
-baseado em TTL (_time to live_, ou tempo de expiração); ou redirecionando todas
-as requisições diretamente para o servidor da API.
-
-Como resultado, o tempo decorrido total entre o momento em que o Secret foi
-atualizado até o momento em que as novas chaves são projetadas nos Pods pode
-ser tão longo quanto o tempo de sincronização do kubelet somado ao tempo de
-propagação do cache, onde o tempo de propagação do cache depende do tipo de
-cache escolhido: o tempo de propagação pode ser igual ao tempo de propagação
-do _watch_, TTL do cache, ou zero, de acordo com cada um dos tipos de cache.
-
-{{< note >}}
-Um contêiner que utiliza Secrets através de um ponto de montagem com a
-propriedade
-[subPath](/docs/concepts/storage/volumes#using-subpath) não recebe atualizações
-deste Secret.
-{{< /note >}}
-
-### Utilizando Secrets como variáveis de ambiente {#using-secrets-as-environment-variables}
-
-Para utilizar um secret em uma {{< glossary_tooltip text="variável de ambiente" term_id="container-env-variables" >}}
-em um Pod:
-
-1. Crie um Secret ou utilize um já existente. Múltiplos Pods podem referenciar o
-mesmo Secret.
-1. Modifique a definição de cada contêiner do Pod em que desejar consumir o
-Secret, adicionando uma variável de ambiente para cada uma das chaves que deseja
-consumir.
-A variável de ambiente que consumir o valor da chave em questão deverá popular o
-nome do Secret e a sua chave correspondente no campo
-`env[].valueFrom.secretKeyRef`.
-1. Modifique sua imagem de contêiner ou linha de comando de forma que o programa
-busque os valores nas variáveis de ambiente especificadas.
-
-Este é um exemplo de um Pod que utiliza Secrets em variáveis de ambiente:
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-env-pod
-spec:
-  containers:
-  - name: mycontainer
-    image: redis
-    env:
-    - name: SECRET_USERNAME
-      valueFrom:
-        secretKeyRef:
-          name: mysecret
-          key: username
-    - name: SECRET_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: mysecret
-          key: password
-  restartPolicy: Never
-```
-
-#### Consumindo valores de Secret em variáveis de ambiente
-
-Dentro de um contêiner que consome um Secret em variáveis de ambiente, a chave
-do Secret aparece como uma variável de ambiente comum, contendo os dados do
-Secret decodificados do formato base64. Ao executar comandos no contêiner do
-exemplo anterior, obteremos os resultados abaixo:
-
-```shell
-echo $SECRET_USERNAME
-```
-
-O resultado é semelhante a:
-
-```
-admin
-```
-
-```shell
-echo $SECRET_PASSWORD
-```
-
-O resultado é semelhante a:
-
-```
-1f2d1e2e67df
-```
-
-#### Variáveis de ambiente não são atualizadas após uma atualização no Secret
-
-Se um contêiner já consome um Secret em uma variável de ambiente, uma atualização
-dos valores do Secret não será refletida no contêiner a menos que o contêiner
-seja reiniciado.
-Existem ferramentas de terceiros que oferecem reinicializações automáticas
-quando Secrets são atualizados.
 
 ## Secrets imutáveis {#secret-immutable}
 
