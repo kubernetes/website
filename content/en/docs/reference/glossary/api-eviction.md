@@ -15,9 +15,9 @@ to create an `Eviction` object that triggers graceful pod termination.
 
 <!--more-->
 
-You can request eviction either by directly calling the Eviction API
-using a client of the kube-apiserver, like the `kubectl drain` command.
-When an `Eviction` object is created, the API server terminates the Pod.
+You can request eviction either by directly calling the Eviction API 
+using a client of the kube-apiserver, like the `kubectl drain` command. 
+When an `Eviction` object is created, the API server terminates the Pod. 
 
 API-initiated evictions respect your configured [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/)
 and [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination).
