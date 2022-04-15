@@ -327,6 +327,7 @@ Use the option `--from-env-file` to create a ConfigMap from an env-file, for exa
 
 # Download the sample files into `configure-pod-container/configmap/` directory
 wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
+wget https://kubernetes.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
 
 # The env-file `game-env-file.properties` looks like below
 cat configure-pod-container/configmap/game-env-file.properties
@@ -345,6 +346,7 @@ Env 文件包含环境变量列表。其中适用以下语法规则:
 
 ```shell
 wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
+wget https://kubernetes.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
 ```
 
 Env 文件 `game-env-file.properties` 如下所示：
@@ -395,11 +397,10 @@ data:
 ```
 
 <!--
-When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
+Starting with Kubernetes v1.23, `kubectl` supports the `--from-env-file` argument to be
+specified multiple times to create a ConfigMap from multiple data sources.
 -->
-{{< caution >}}
-当多次使用 `--from-env-file` 来从多个数据源创建 ConfigMap 时，仅仅最后一个 env 文件有效。
-{{< /caution >}}
+从 Kubernetes 1.23 版本开始，`kubectl` 支持多次指定 `--from-env-file` 参数来从多个数据源创建 ConfigMap。
 
 <!--
 The behavior of passing `--from-env-file` multiple times is demonstrated by:
@@ -408,20 +409,12 @@ The behavior of passing `--from-env-file` multiple times is demonstrated by:
 
 <!--
 ```shell
-# Download the sample files into `configure-pod-container/configmap/` directory
-wget https://k8s.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
-
-# Create the configmap
 kubectl create configmap config-multi-env-files \
         --from-env-file=configure-pod-container/configmap/game-env-file.properties \
         --from-env-file=configure-pod-container/configmap/ui-env-file.properties
 ```
 -->
 ```shell
-# 将示例文件下载到 `configure-pod-container/configmap/` 目录
-wget https://k8s.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
-
-# 创建 ConfigMap
 kubectl create configmap config-multi-env-files \
         --from-env-file=configure-pod-container/configmap/game-env-file.properties \
         --from-env-file=configure-pod-container/configmap/ui-env-file.properties
@@ -452,8 +445,11 @@ metadata:
   selfLink: /api/v1/namespaces/default/configmaps/config-multi-env-files
   uid: 252c4572-eb35-11e7-887b-42010a8002b8
 data:
+  allowed: '"true"'
   color: purple
+  enemies: aliens
   how: fairlyNice
+  lives: "3"
   textmode: "true"
 ```
 
