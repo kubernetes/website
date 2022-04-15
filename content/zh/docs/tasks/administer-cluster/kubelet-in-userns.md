@@ -35,7 +35,7 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 这种技术也叫做 _rootless 模式（Rootless mode）_。
 
 {{< note >}}
-这个文档描述了怎么以非 root 用户身份运行 Kubernetes 节点组件以及 Pod。  
+这个文档描述了怎么以非 root 用户身份运行 Kubernetes 节点组件以及 Pod。
 如果你只是想了解如何以非 root 身份运行 Pod，请参阅 [SecurityContext](/zh/docs/tasks/configure-pod-container/security-context/)。
 {{< /note >}}
 
@@ -100,6 +100,51 @@ Rootless Podman is not supported.
 <!-- Supporting rootless podman is discussed in https://github.com/kubernetes/minikube/issues/8719 -->
 
 <!--
+## Running Kubernetes inside Unprivileged Containers
+
+{{% thirdparty-content %}}
+
+### sysbox
+
+-->
+
+## 在非特权容器内运行 Kubernetes
+
+{{% thirdparty-content %}}
+
+### sysbox
+
+<!--
+[Sysbox](https://github.com/nestybox/sysbox) is an open-source container runtime
+(similar to "runc") that supports running system-level workloads such as Docker
+and Kubernetes inside unprivileged containers isolated with the Linux user
+namespace.
+-->
+
+[Sysbox](https://github.com/nestybox/sysbox) 是一个开源容器运行时
+(类似于 “runc”），支持在 Linux 用户命名空间隔离的非特权容器内运行系统级工作负载，
+比如 Docker 和 Kubernetes。
+
+<!--
+See [Sysbox Quick Start Guide: Kubernetes-in-Docker](https://github.com/nestybox/sysbox/blob/master/docs/quickstart/kind.md) for more info.
+-->
+
+查看 [Sysbox 快速入门指南: Kubernetes-in-Docker](https://github.com/nestybox/sysbox/blob/master/docs/quickstart/kind.md)
+了解更多细节。
+
+<!--
+Sysbox supports running Kubernetes inside unprivileged containers without
+requiring Cgroup v2 and without the `KubeletInUserNamespace` feature gate. It
+does this by exposing specially crafted `/proc` and `/sys` filesystems inside
+the container plus several other advanced OS virtualization techniques.
+-->
+
+Sysbox 支持在非特权容器内运行 Kubernetes，
+而不需要 Cgroup v2 和 “KubeletInUserNamespace” 特性门控。
+Sysbox 通过在容器内暴露特定的 `/proc` 和 `/sys` 文件系统，
+以及其它一些先进的操作系统虚拟化技术来实现。
+
+<!--
 ## Running Rootless Kubernetes directly on a host
 
 {{% thirdparty-content %}}
@@ -131,7 +176,7 @@ See [the Usernetes repo](https://github.com/rootless-containers/usernetes) for t
 页面中的用法.
 
 ### Usernetes
-[Usernetes](https://github.com/rootless-containers/usernetes) 是 Kubernetes 的一个参考发行版， 
+[Usernetes](https://github.com/rootless-containers/usernetes) 是 Kubernetes 的一个参考发行版，
 它可以在不使用 root 特权的情况下安装在 `$HOME` 目录下。
 
 Usernetes 支持使用 containerd 和 CRI-O 作为 CRI 运行时。
@@ -446,7 +491,7 @@ This feature gate also allows kube-proxy to ignore an error during setting `RLIM
 The `KubeletInUserNamespace` feature gate was introduced in Kubernetes v1.22 with "alpha" status.
 
 Running kubelet in a user namespace without using this feature gate is also possible
-by mounting a specially crafted proc filesystem, but not officially supported.
+by mounting a specially crafted proc filesystem (as done by [Sysbox](https://github.com/nestybox/sysbox)), but not officially supported.
 -->
 
 ### 配置 kubelet
@@ -478,7 +523,8 @@ cgroupDriver: "cgroupfs"
 
 `KubeletInUserNamespace` 特性门控从 Kubernetes v1.22 被引入， 标记为 "alpha" 状态。
 
-通过挂载特制的 proc 文件系统，也可以在不使用这个特性门控的情况下在用户命名空间运行 kubelet，但这不受官方支持。
+通过挂载特制的 proc 文件系统 （比如 [Sysbox](https://github.com/nestybox/sysbox)），
+也可以在不使用这个特性门控的情况下在用户命名空间运行 kubelet，但这不受官方支持。
 
 <!--
 ### Configuring kube-proxy
@@ -531,7 +577,7 @@ on the rootlesscontaine.rs website.
 ## 注意事项   {#caveats}
 
 - 大部分“非本地”的卷驱动（例如 `nfs` 和 `iscsi`）不能正常工作。
-已知诸如 `local`、`hostPath`、`emptyDir`、`configMap`、`secret` 和 `downwardAPI` 
+已知诸如 `local`、`hostPath`、`emptyDir`、`configMap`、`secret` 和 `downwardAPI`
 这些本地卷是能正常工作的。
 
 - 一些 CNI 插件可能不正常工作。已知 Flannel (VXLAN) 是能正常工作的。
