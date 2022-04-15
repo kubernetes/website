@@ -530,7 +530,7 @@ kubectl get pod mysql-2
 <!--
 Look for `1/2` in the `READY` column: 
 -->
-在 `READY` 列中查找 ` 1/2` ：
+在 `READY` 列中查找 `1/2`：
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
