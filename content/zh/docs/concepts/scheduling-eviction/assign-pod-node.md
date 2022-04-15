@@ -310,7 +310,7 @@ For example, consider the following Pod spec:
 
 例如，考虑下面的 Pod 规约：
 
-{{<codenew file="pods/pod-with-affinity-anti-affinity.yaml">}}
+{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
 <!--
 If there are two possible nodes that match the
