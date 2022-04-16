@@ -14,4 +14,4 @@ Dockershim is a component of Kubernetes version 1.23 and earlier. It allowed Kub
 
 <!--more-->
 
-Starting with version 1.24, dockershim has been removed from Kubernetes. For more information, see [Dockershim FAQ](/blog/2022/02/17/dockershim-faq).
+Starting with version 1.24, dockershim has been removed from Kubernetes. For more information, see [Dockershim FAQ](/dockershim).
