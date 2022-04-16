@@ -10,3 +10,4 @@ card:
 
 This website contains documentation for the current version of Kubernetes
 and the four previous versions of Kubernetes.
+Information on support period can be found [here](https://kubernetes.io/releases/patch-releases/#support-period).
