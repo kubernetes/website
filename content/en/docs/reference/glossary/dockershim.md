@@ -4,7 +4,7 @@ id: dockershim
 date: 2022-04-15
 full_link: /blog/2022/02/17/dockershim-faq/
 short_description: >
-  Dockershim is a component of Kubernetes v1.23 and earlier, which allows Kubernetes system components to communicate with Docker Engine.
+   A component of Kubernetes v1.23 and earlier, which allows Kubernetes system components to communicate with Docker Engine.
 
 aka:
 tags:
