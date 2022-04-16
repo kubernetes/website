@@ -2,7 +2,7 @@
 title: Dockershim
 id: dockershim
 date: 2022-04-15
-full_link: /blog/2022/02/17/dockershim-faq/
+Either omit the `full_link`, or change it to `/dockershim`.
 short_description: >
    A component of Kubernetes v1.23 and earlier, which allows Kubernetes system components to communicate with Docker Engine.
 
