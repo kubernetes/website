@@ -77,7 +77,7 @@ To the newcomers, Arsh helps plan their early contributions sustainably.
 <!--
 Kunal Kushwaha is a core member of the Kubernetes marketing council. He is also a CNCF ambassador and one of the founders of the [CNCF Students Program](https://community.cncf.io/cloud-native-students/).. He also served as a Communications role shadow during the 1.22 release cycle.
 -->
-Kunal Kushwaha 是 Kubernetes 营销委员会的核心成员。他同时也是 [CNCF学生计划](https://community.cncf.io/cloud-native-students/) 的创始人之一。他还在 1.22 版本周期中担任通信经理一职。
+Kunal Kushwaha 是 Kubernetes 营销委员会的核心成员。他同时也是 [CNCF 学生计划](https://community.cncf.io/cloud-native-students/) 的创始人之一。他还在 1.22 版本周期中担任通信经理一职。
 
 <!--
 At the end of his first year, Kunal began contributing to the [fabric8io kubernetes-client](https://github.com/fabric8io/kubernetes-client) project. He was then selected to work on the same project as part of Google Summer of Code. Kunal mentored people on the same project, first through Google Summer of Code then through Google Code-in. 
@@ -117,7 +117,7 @@ Among several significant contributions are his recent efforts toward the Archiv
 <!--
 In addition to his technical efforts, Madhav oversees many projects aimed at assisting new contributors. He organises bi-weekly "KEP reading club" sessions to help newcomers understand the process of adding new features, deprecating old ones, and making other key changes to the upstream project. He has also worked on developing [Katacoda scenarios](https://github.com/kubernetes-sigs/contributor-katacoda) to assist new contributors to become acquainted with the process of contributing to k/k. In addition to his current efforts to meet with community members every week, he has organised several [new contributors workshops (NCW)](https://www.youtube.com/watch?v=FgsXbHBRYIc).
 -->
-除了在技术方面的贡献，Madhav 还监督许多旨在帮助新贡献者的项目。他每两周组织一次的“KEP 阅读俱乐部”会议，帮助新人了解添加新功能、摒弃旧功能以及对上游项目进行其他关键更改的过程。他还致力于开发 [Katacoda场景](https://github.com/kubernetes-sigs/contributor-katacoda) ，以帮助新的贡献者在为 k/k 做贡献的过程更加熟练。目前除了每周与社区成员会面外，他还组织了几个 [新贡献者讲习班（NCW）](https://www.youtube.com/watch?v=FgsXbHBRYIc) 。
+除了在技术方面的贡献，Madhav 还监督许多旨在帮助新贡献者的项目。他每两周组织一次的“KEP 阅读俱乐部”会议，帮助新人了解添加新功能、摒弃旧功能以及对上游项目进行其他关键更改的过程。他还致力于开发 [Katacoda 场景](https://github.com/kubernetes-sigs/contributor-katacoda) ，以帮助新的贡献者在为 k/k 做贡献的过程更加熟练。目前除了每周与社区成员会面外，他还组织了几个 [新贡献者讲习班（NCW）](https://www.youtube.com/watch?v=FgsXbHBRYIc) 。
 
 <!--
 > _I initially did not know much about Kubernetes. I joined because the community was
