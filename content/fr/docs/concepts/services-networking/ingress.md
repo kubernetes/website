@@ -91,7 +91,7 @@ spec:
               number: 80
 ```
 
-Comme pour toutes les autres ressources Kubernetes, un Ingress (une entrée) a besoin des champs `apiVersion`,` kind` et `metadata`.
+Comme pour toutes les autres ressources Kubernetes, un Ingress (une entrée) a besoin des champs `apiVersion`, `kind` et `metadata`.
  Pour des informations générales sur l'utilisation des fichiers de configuration, voir [déployer des applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configurer des conteneurs](/docs/tasks/configure-pod-container/configure-pod-configmap/), [gestion des ressources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress utilise fréquemment des annotations pour configurer certaines options en fonction du contrôleur Ingress, dont un exemple
  est l'annotation [rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
@@ -223,7 +223,7 @@ Events:
   Normal   ADD     22s                loadbalancer-controller  default/test
 ```
 
-Le contrôleur d’Ingress fournit une implémentation spécifique aux load-balancers qui satisfait l'Ingress, tant que les services (`s1`,` s2`) existent.
+Le contrôleur d’Ingress fournit une implémentation spécifique aux load-balancers qui satisfait l'Ingress, tant que les services (`s1`, `s2`) existent.
 Lorsque cela est fait, vous pouvez voir l’adresse du load-balancer sur le champ d'adresse.
 
 {{< note >}}
@@ -272,7 +272,7 @@ spec:
               number: 80
 ```
 
-Si vous créez une ressource Ingress sans aucun hôte défini dans les règles, tout trafic Web à destination de l'adresse IP de votre contrôleur d'Ingress peut être mis en correspondance sans qu'un hôte virtuel basé sur le nom ne soit requis. Par exemple, la ressource Ingress suivante acheminera le trafic demandé pour `first.bar.com` au `service1` `second.foo.com` au `service2`, et à tout trafic à l'adresse IP sans nom d'hôte défini dans la demande (c'est-à-dire sans en-tête de requête présenté) au `service3`.
+Si vous créez une ressource Ingress sans aucun hôte défini dans les règles, tout trafic Web à destination de l'adresse IP de votre contrôleur d'Ingress peut être mis en correspondance sans qu'un hôte virtuel basé sur le nom ne soit requis. Par exemple, la ressource Ingress suivante acheminera le trafic demandé pour `first.bar.com` au `service1`, `second.foo.com` au `service2`, et à tout trafic à l'adresse IP sans nom d'hôte défini dans la demande (c'est-à-dire sans en-tête de requête présenté) au `service3`.
 
 ```yaml
 apiVersion: networking.k8s.io/v1

@@ -27,7 +27,7 @@ Un cluster HA empilé est une [topologie réseau](https://fr.wikipedia.org/wiki/
 où le cluster de stockage de données distribuées est fourni par etcd et est superposé au
 cluster formé par les noeuds gérés par kubeadm qui exécute les composants du control plane.
 
-Chaque nœud du control plane exécute une instance de `kube-apiserver`,` kube-scheduler` et
+Chaque nœud du control plane exécute une instance de `kube-apiserver`, `kube-scheduler` et
 `kube-controller-manager`.
 Le `kube-apiserver` est exposé aux nœuds à l'aide d'un loadbalancer.
 
@@ -47,7 +47,7 @@ Par conséquent, vous devez exécuter au moins trois nœuds de control plane emp
 en haute disponibilité.
 
 C'est la topologie par défaut dans kubeadm. Un membre etcd local est créé automatiquement
-sur les noeuds du control plane en utilisant `kubeadm init` et` kubeadm join --experimental-control-plane`.
+sur les noeuds du control plane en utilisant `kubeadm init` et `kubeadm join --experimental-control-plane`.
 
 Schéma de la [Topologie etcd empilée](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
 
@@ -59,7 +59,7 @@ distribuées fourni par etcd est externe au cluster formé par les nœuds qui ex
 du control plane.
 
 Comme la topologie etcd empilée, chaque nœud du control plane d'une topologie etcd externe exécute
-une instance de `kube-apiserver`,` kube-scheduler` et `kube-controller-manager`. Et le `kube-apiserver`
+une instance de `kube-apiserver`, `kube-scheduler` et `kube-controller-manager`. Et le `kube-apiserver`
 est exposé aux nœuds workers à l’aide d’un load-balancer. Cependant, les membres etcd s'exécutent sur
 des hôtes distincts et chaque hôte etcd communique avec le `kube-apiserver` de chaque nœud du control plane.
 
