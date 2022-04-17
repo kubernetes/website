@@ -19,7 +19,7 @@ This document serves both as a reference to the values and as a coordination poi
 
 Example: `app.kubernetes.io/component=database`
 
-Used on: All Objects
+Used on: All Objects (typically used on [Workload Resources](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/)).
 
 The component within the architecture.
 
@@ -29,7 +29,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/created-by=controller-manager`
 
-Used on: All Objects
+Used on: All Objects (typically used on [Workload Resources](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/)).
 
 The controller/user who created this resource.
 
@@ -39,9 +39,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/instance=mysql-abcxzy`
 
-Used on: All Objects
+Used on: All Objects (typically used on [Workload Resources](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/)).
 
-A unique name identifying the instance of an application.
+A unique name identifying the instance of an application. If you want to declare what application this is part of but not in a unique way, use [app.kubernetes.io/name](##app-kubernetes-io-name).
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
@@ -49,7 +49,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/managed-by=helm`
 
-Used on: All Objects
+Used on: All Objects (typically used on [Workload Resources](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/)).
 
 The tool being used to manage the operation of an application.
 
@@ -59,9 +59,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/name=mysql`
 
-Used on: All Objects
+Used on: All Objects (typically used on [Workload Resources](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/)).
 
-The name of the application.
+The name of the application. Note that this label is typically used on [Workload Resources](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/).
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
@@ -69,7 +69,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/part-of=wordpress`
 
-Used on: All Objects
+Used on: All Objects (typically used on [Workload Resources](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/)).
 
 The name of a higher level application this one is part of.
 
@@ -79,9 +79,14 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/version="5.7.21"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [Workload Resources](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/)).
 
-The current version of the application (e.g., a semantic version, revision hash, etc.).
+The current version of the application. The values for this field are up to you.
+
+Common forms of values include:
+
+- [semantic version](https://semver.org/spec/v1.0.0.html)
+- the Git [revision hash](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#_single_revisions) for the source code.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
