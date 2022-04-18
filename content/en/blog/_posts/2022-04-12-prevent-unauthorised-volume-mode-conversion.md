@@ -5,31 +5,63 @@ date: 2022-04-12
 slug: prevent-unauthorised-volume-mode-conversion-alpha
 ---
 
-**Author:** Raunak Shah (Mirantis)
+**Author:** Raunak Pradip Shah (Mirantis)
 
-Kubernetes v1.24 introduces a new alpha-level feature that prevents unauthorised users from modifying the volume mode of a [`PeristentVolumeClaim`](/docs/concepts/storage/persistent-volumes.md). This feature requires [`VolumeSnapshot`](/docs/concepts/storage/volume-snapshots.md) APIs with version `v6.0.0` onwards and `external-provisioner` version `v3.2.0` onwards.  
+Kubernetes v1.24 introduces a new alpha-level feature that prevents unauthorised users 
+from modifying the volume mode of a [`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/) created from an 
+existing [`VolumeSnapshot`](/docs/concepts/storage/volumesnapshots/) in the Kubernetes cluster.  
+
+
 
 ### The problem
 
-As of Kubernetes 1.23, users can leverage the `VolumeSnapshot` feature, which GA'd in Kubernetes 1.20, to create a `PersistentVolumeClaim` (or `PVC`) from a previously taken `VolumeSnapshot`. This is done by pointing the `Spec.dataSource` parameter of the `PVC` to an existing `VolumeSnapshot` instance. 
-There is no logic that validates whether the original volume mode of the `PVC`, whose snapshot was taken, matches the volume mode of the newly created `PVC`, that is being created from the existing `VolumeSnapshot`.
+The [Volume Mode](/docs/concepts/storage/persistent-volumes/#volume-mode) determines whether a volume 
+is formatted into a filesystem or presented as a raw block device.   
 
-There is logic in allowing this, as many popular storage backup vendors convert the volume mode, during the course of a backup operation, for efficiency purposes.
+Users can leverage the `VolumeSnapshot` feature, which has been stable since Kubernetes v1.20, 
+to create a `PersistentVolumeClaim` (shortened as PVC) from an existing `VolumeSnapshot` in
+the Kubernetes cluster. The PVC spec includes a `dataSource` field, which can point to an 
+existing `VolumeSnapshot` instance.
+Visit [Create a PersistentVolumeClaim from a Volume Snapshot](/docs/concepts/storage/persistent-volumes/#create-persistent-volume-claim-from-volume-snapshot) for more details.
 
-However this also presents a security gap that allows malicious users to potentially exploit an as-yet-unknown CVE in the kernel.
+When leveraging the above capability, there is no logic that validates whether the mode of the
+original volume, whose snapshot was taken, matches the mode of the newly created volume.
+
+This presents a security gap that allows malicious users to potentially exploit an 
+as-yet-unknown vulnerability in the host operating system.
+
+Many popular storage backup vendors convert the volume mode during the course of a 
+backup operation, for efficiency purposes, which prevents Kubernetes from blocking
+the operation completely and presents a challenge in distinguishing trusted
+users from malicious ones.
 
 ### Preventing unauthorised users from converting the volume mode
 
-If the alpha feature is enabled in `snapshot-controller` and `external-provisioner`, then unauthorised users will not be allowed to modify the volume mode of a `PVC` when it is being created from a `VolumeSnapshot`.
-An unauthorised user is defined as one who does not have existing permissions to alter the cluster-scoped `VolumeSnapshotContent` resource.
-Backup vendors normally have this permission on clusters where a backup is to be performed. 
+In this context, an authorised user is one who has access rights to perform `Update` 
+or `Patch` operations on `VolumeSnapshotContents`, which is a cluster-level resource.  
+It is upto the cluster administrator to provide these rights only to trusted users
+or applications, like backup vendors.
+
+If the alpha feature is [enabled](https://kubernetes-csi.github.io/docs/) in 
+`snapshot-controller` and `external-provisioner`, then unauthorised users will
+not be allowed to modify the volume mode of a PVC when it is being created from
+a `VolumeSnapshot`.
 
 To convert the volume mode, an authorised user must do the following:
 
-1. Identify the `VolumeSnapshot` that is to be used as the data source for a newly created `PVC`. 
+1. Identify the `VolumeSnapshot` that is to be used as the data source for a newly 
+created PVC in the given namespace. 
 2. Identify the `VolumeSnapshotContent` bound to the above `VolumeSnapshot`.
-3. Add a new annotation `snapshot.storage.kubernetes.io/allowVolumeModeChange` to the `VolumeSnapshotContent`. 
-This annotation can be added either via software or manually by the backup vendor. The VolumeSnapshotContent must look like below after this change:
+
+```yaml
+$ kubectl get volumesnapshot -n <namespace>
+```
+
+3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/content/en/docs/reference/labels-annotations-taints/_index.md) 
+to the `VolumeSnapshotContent`. 
+
+4. This annotation can be added either via software or manually by the authorised
+user. The `VolumeSnapshotContent` must look like below after this change:
 
 ```yaml
 kind: VolumeSnapshotContent 
@@ -38,13 +70,19 @@ metadata:
 		- snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
 ...
 ```
-NOTE: For pre-provisioned `VolumeSnapshotContents`, the user has an additional step of setting `Spec.SourceVolumeMode` field to either `Filesystem` or `Block`, depending on the volume from which this snapshot was taken.
+
+NOTE: For pre-provisioned `VolumeSnapshotContents`, the user has an additional 
+step of setting `spec.SourceVolumeMode` field to either `Filesystem` or `Block`,
+depending on the volume from which this snapshot was taken.
+
 An example is shown below:
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotContent
 metadata:
+  annotations:
+  - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
   name: new-snapshot-content-test
 spec:
   deletionPolicy: Delete
@@ -57,27 +95,19 @@ spec:
     namespace: default
 ```
 
-Repeat (1)-(3) for all `VolumeSnapshotContent`s whose volume mode needs to be converted during a backup or restore operation.
+Repeat (1)-(3) for all `VolumeSnapshotContents` whose volume mode needs to be 
+converted during a backup or restore operation.
 
-If the above annotation is present on a `VolumeSnapshotContent` object, Kubernetes will not prevent the volume mode from being converted.
-Users should keep this in mind before they attempt to add the annotation to any `VolumeSnapshotContent`. 
-
-
-### How to enable the feature
-
-This feature can be enabled by setting `prevent-volume-mode-conversion` flag to `true` in the `snapshot-controller` and `external-provisioner` spec, as shown below:
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-...
-spec:
-      containers:
-      - args:
-        - --leader-election=true
-        - --prevent-volume-mode-conversion=true
-        image: snapshot-controller:v6.0.0
-...
-```
+If the above annotation is present on a `VolumeSnapshotContent` object, 
+Kubernetes will not prevent the volume mode from being converted.
+Users should keep this in mind before they attempt to add the annotation 
+to any `VolumeSnapshotContent`. 
 
 
+### What's next
+
+[Enable this feature](https://kubernetes-csi.github.io/docs/) and let us know what you think!
+
+We hope this feature causes no disruption to existing workflows while preventing malicious users from exploiting security vulnerabilities in their clusters. 
+
+For any issues, create a thread in the #sig-storage slack channel or an issue in the CSI external-snapshotter sidecar [repository](https://github.com/kubernetes-csi/external-snapshotter) and assign it to [@RaunakShah](https://github.com/RaunakShah).
