@@ -9,7 +9,7 @@ slug: prevent-unauthorised-volume-mode-conversion-alpha
 
 Kubernetes v1.24 introduces a new alpha-level feature that prevents unauthorised users 
 from modifying the volume mode of a [`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/) created from an 
-existing [`VolumeSnapshot`](/docs/concepts/storage/volumesnapshots/) in the Kubernetes cluster.  
+existing [`VolumeSnapshot`](/docs/concepts/storage/volume-snapshots/) in the Kubernetes cluster.  
 
 
 
@@ -57,7 +57,7 @@ created PVC in the given namespace.
 $ kubectl get volumesnapshot -n <namespace>
 ```
 
-3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/content/en/docs/reference/labels-annotations-taints/_index.md) 
+3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/content/en/docs/reference/labels-annotations-taints/)
 to the `VolumeSnapshotContent`. 
 
 4. This annotation can be added either via software or manually by the authorised
@@ -106,8 +106,12 @@ to any `VolumeSnapshotContent`.
 
 ### What's next
 
-[Enable this feature](https://kubernetes-csi.github.io/docs/) and let us know what you think!
+[Enable this feature](https://kubernetes-csi.github.io/docs/) and let us know 
+what you think!
 
-We hope this feature causes no disruption to existing workflows while preventing malicious users from exploiting security vulnerabilities in their clusters. 
+We hope this feature causes no disruption to existing workflows while preventing
+malicious users from exploiting security vulnerabilities in their clusters. 
 
-For any issues, create a thread in the #sig-storage slack channel or an issue in the CSI external-snapshotter sidecar [repository](https://github.com/kubernetes-csi/external-snapshotter) and assign it to [@RaunakShah](https://github.com/RaunakShah).
+For any issues, create a thread in the #sig-storage slack channel or an issue
+in the CSI external-snapshotter sidecar [repository](https://github.com/kubernetes-csi/external-snapshotter) 
+and assign it to [@RaunakShah](https://github.com/RaunakShah).
