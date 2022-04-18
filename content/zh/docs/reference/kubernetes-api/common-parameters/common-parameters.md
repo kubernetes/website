@@ -30,7 +30,10 @@ allowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do 
 
 <hr>
 -->
-allowWatchBookmarks 字段请求类型为 BOOKMARK 的监视事件。没有定义书签的服务器可能会忽略这个标志，并根据服务器的判断发送书签。客户端不应该假设书签会在任何特定的时间间隔返回，也不应该假设服务器会在会话期间发送任何书签事件。如果这不是监视事件，则忽略该字段。
+allowWatchBookmarks 字段请求类型为 BOOKMARK 的监视事件。
+没有实现书签的服务器可能会忽略这个标志，并根据服务器的判断发送书签。
+客户端不应该假设书签会在任何特定的时间间隔返回，也不应该假设服务器会在会话期间发送任何书签事件。
+如果当前请求不是 watch 请求，则忽略该字段。
 <hr>
 
 ## continue {#continue}
