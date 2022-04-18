@@ -28,7 +28,7 @@ permintaan terhadap kapasitas. Hal ini memungkinkan pengguna untuk _bin pack_
 sumber daya tambahan dengan menggunakan parameter yang sesuai untuk meningkatkan
 pemanfaatan sumber daya yang langka dalam klaster yang besar. Perilaku 
 `RequestedToCapacityRatioResourceAllocation` dari fungsi prioritas dapat 
-dikontrol melalui pilihan konfigurasi yang disebut ` RequestToCapacityRatioArguments`.
+dikontrol melalui pilihan konfigurasi yang disebut `RequestToCapacityRatioArguments`.
 Argumen ini terdiri dari dua parameter yaitu `shape` dan `resources`. Shape 
 memungkinkan pengguna untuk menyempurnakan fungsi menjadi yang paling tidak 
 diminta atau paling banyak diminta berdasarkan nilai `utilization` dan `score`. 
@@ -36,7 +36,7 @@ Sumber daya terdiri dari `name` yang menentukan sumber daya mana yang dipertimba
 selama penilaian dan `weight` yang menentukan bobot masing-masing sumber daya.
 
 Di bawah ini adalah contoh konfigurasi yang menetapkan `requestedToCapacityRatioArguments` 
-pada perilaku _bin packing_ untuk sumber daya tambahan` intel.com/foo` dan `intel.com/bar`
+pada perilaku _bin packing_ untuk sumber daya tambahan `intel.com/foo` dan `intel.com/bar`
 
 ```json
 {
