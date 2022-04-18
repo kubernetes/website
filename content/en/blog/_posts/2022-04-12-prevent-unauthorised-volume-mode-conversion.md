@@ -66,8 +66,8 @@ user. The `VolumeSnapshotContent` must look like below after this change:
 ```yaml
 kind: VolumeSnapshotContent 
 metadata: 
-	annotations: 
-		- snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
+  annotations: 
+    - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
 ...
 ```
 
