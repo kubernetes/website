@@ -89,9 +89,9 @@ The ResourceQuota places these requirements on the quota-mem-cpu-example namespa
 ResourceQuota 在 quota-mem-cpu-example 命名空间中设置了如下要求：
 
 * 每个容器必须有内存请求和限制，以及 CPU 请求和限制。
-* 所有容器的内存请求总和不能超过1 GiB。
+* 所有容器的内存请求总和不能低于1 GiB。
 * 所有容器的内存限制总和不能超过2 GiB。
-* 所有容器的 CPU 请求总和不能超过1 cpu。
+* 所有容器的 CPU 请求总和不能低于1 cpu。
 * 所有容器的 CPU 限制总和不能超过2 cpu。
 
 <!--
