@@ -27,6 +27,8 @@ For information on how to create a cluster with kubeadm once you have performed 
 有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，请参见
 [使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 页面。
 
+{{% dockershim-removal %}}
+
 ## {{% heading "prerequisites" %}}
 
 <!--
@@ -365,6 +367,13 @@ sudo systemctl enable --now kubelet
   你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
 
 - 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定 kubeadm 不支持的部分配置
+
+<!-- - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
+Type `uname -m` to see that value.
+For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`. -->
+- 如果' baseurl '失败，因为你的基于红帽的分发不能解析' basearch '，将' \$basearch '替换你的计算机架构。
+  输入' uname -m '查看该值。
+  例如，' x86_64 '的' baseurl ' URL可以是:' https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64 '。
 
 {{% /tab %}}
 {{% tab name="无包管理器的情况" %}}
