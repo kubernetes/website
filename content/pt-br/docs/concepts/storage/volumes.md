@@ -1,14 +1,3 @@
----
-
-revisores:
-
-- jsafrane
-- saad-ali
-- thockin
-- msau42 title: Volumes content_type: concept weight: 10
-
----
-
 <!-- overview -->
 Os arquivos em disco em um contêiner são efêmeros, o que apresenta alguns problemas para aplicativos não triviais quando executados em contêineres. Um problema é a perda de arquivos quando um contêiner cai. O kubelet reinicia o contêiner, mas em um estado limpo. Um segundo problema ocorre ao compartilhar arquivos entre contêineres que são executados juntos em um `Pod`. A abstração de {{\< glossary_tooltip text="volume" term_id="volume" >}} do Kubernetes resolve ambos os problemas. Sugere-se familiaridade com [Pods](/docs/concepts/workloads/pods/) .
 
