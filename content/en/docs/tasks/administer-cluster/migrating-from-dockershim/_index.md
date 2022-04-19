@@ -14,7 +14,9 @@ in Kubernetes 1.20, there were questions on how this will affect various workloa
 installations. Our [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/) is there to help you
 to understand the problem better.
 
-It is recommended to migrate from dockershim to alternative container runtimes.
+Dockershim was removed from Kubernetes with the release of v1.24.
+If you use Docker via dockershim as your container runtime, and wish to upgrade to v1.24,
+it is recommended that you either migrate to another runtime or find an alternative means to obtain Docker Engine support.
 Check out [container runtimes](/docs/setup/production-environment/container-runtimes/)
 section to know your options. Make sure to
 [report issues](https://github.com/kubernetes/kubernetes/issues) you encountered
