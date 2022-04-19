@@ -158,14 +158,15 @@ source volume's mode is unknown. Support for this field can only be enabled in
 
 ## Converting the volume mode of a Snapshot {#convert-volume-mode}
 
-This feature is only present for `VolumeSnapshots` API with version `v6.0.0` onwards. To check if your 
-cluster has capability for this feature, run the following command:
+If the `VolumeSnapshots` API installed on your cluster supports the `sourceVolumeMode`
+field, then the API has the capability to prevent unauthorized users from converting 
+the mode of a volume.
+
+To check if your cluster has capability for this feature, run the following command:
 
 ```yaml
 $ kubectl get crd volumesnapshotcontent -o yaml
 ```
-
-If a field called `sourceVolumeMode` is present in the output, then the API supports this feature.
 
 If you want to allow users to create a `PersistentVolumeClaim` from an existing 
 `VolumeSnapshot`, but with a different volume mode than the source, the annotation 
