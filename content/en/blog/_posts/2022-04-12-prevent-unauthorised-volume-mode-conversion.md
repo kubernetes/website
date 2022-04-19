@@ -113,5 +113,4 @@ We hope this feature causes no disruption to existing workflows while preventing
 malicious users from exploiting security vulnerabilities in their clusters. 
 
 For any issues, create a thread in the #sig-storage slack channel or an issue
-in the CSI external-snapshotter sidecar [repository](https://github.com/kubernetes-csi/external-snapshotter) 
-and assign it to [@RaunakShah](https://github.com/RaunakShah).
+in the CSI external-snapshotter [repository](https://github.com/kubernetes-csi/external-snapshotter).
