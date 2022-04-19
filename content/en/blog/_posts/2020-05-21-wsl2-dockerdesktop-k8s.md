@@ -360,7 +360,7 @@ So let's fix the issue by installing the missing package:
 sudo apt install -y conntrack
 ```
 
-![minikube-install-conntrack](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-install conntrack.png)
+![minikube-install-conntrack](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-install-conntrack.png)
 
 Let's try to launch it again:
 

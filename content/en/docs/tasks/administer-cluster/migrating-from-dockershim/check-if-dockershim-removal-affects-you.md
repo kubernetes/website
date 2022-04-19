@@ -88,3 +88,8 @@ You can still pull images or build them using `docker build` command. But images
 built or pulled by Docker would not be visible to container runtime and
 Kubernetes. They needed to be pushed to some registry to allow them to be used
 by Kubernetes.
+
+## {{% heading "whatsnext" %}}
+
+- Read [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) to understand your next steps
+- Read the [dockershim deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article for more information.

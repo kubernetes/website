@@ -250,7 +250,7 @@ ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
-Installez `kubeadm`,` kubelet`, `kubectl` et ajoutez un service systemd` kubelet`:
+Installez `kubeadm`, `kubelet`, `kubectl` et ajoutez un service systemd `kubelet`:
 
 RELEASE_VERSION="v0.6.0"
 

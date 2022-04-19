@@ -131,13 +131,13 @@ status:
   qosClass: Guaranteed
 ```
 
+{{< note >}}
 <!--
 If a Container specifies its own memory limit, but does not specify a memory request, Kubernetes
 automatically assigns a memory request that matches the limit. Similarly, if a Container specifies its own
 CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
 the limit.
 -->
-{{< note >}}
 如果容器指定了自己的内存限制，但没有指定内存请求，Kubernetes 会自动为它指定与内存限制匹配的内存请求。
 同样，如果容器指定了自己的 CPU 限制，但没有指定 CPU 请求，Kubernetes 会自动为它指定与 CPU 限制匹配的 CPU 请求。
 {{< /note >}}
@@ -158,7 +158,7 @@ kubectl delete pod qos-demo --namespace=qos-example
 A Pod is given a QoS class of Burstable if:
 
 * The Pod does not meet the criteria for QoS class Guaranteed.
-* At least one Container in the Pod has a memory or CPU request.
+* At least one Container in the Pod has a memory or CPU request or limit.
 
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit of 200 MiB
 and a memory request of 100 MiB.
@@ -168,7 +168,7 @@ and a memory request of 100 MiB.
 如果满足下面条件，将会指定 Pod 的 QoS 类为 Burstable：
 
 * Pod 不符合 Guaranteed QoS 类的标准。
-* Pod 中至少一个容器具有内存或 CPU 请求。
+* Pod 中至少一个容器具有内存或 CPU 的请求或限制。
 
 下面是包含一个容器的 Pod 配置文件。
 容器设置了内存限制 200 MiB 和内存请求 100 MiB。
