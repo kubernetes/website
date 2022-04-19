@@ -27,6 +27,8 @@ For information on how to create a cluster with kubeadm once you have performed 
 有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，请参见
 [使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 页面。
 
+{{% dockershim-removal %}}
+
 ## {{% heading "prerequisites" %}}
 
 <!--
@@ -117,15 +119,15 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 ## Check required ports
 These
 [required ports](/docs/reference/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other. You can use telnet to check if a port is open. For example:
+need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
 -->
 
 ## 检查所需端口{#check-required-ports}
 
-启用这些[必要的端口](/zh/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。可以使用 telnet 来检查端口是否启用，例如：
+启用这些[必要的端口](/zh/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。可以使用 netcat 之类的工具来检查端口是否启用，例如：
 
 ```shell
-telnet 127.0.0.1 6443
+nc 127.0.0.1 6443
 ```
 
 <!--
@@ -156,7 +158,7 @@ to interface with your chosen container runtime.
 
 If you don't specify a runtime, kubeadm automatically tries to detect an installed
 container runtime by scanning through a list of well known Unix domain sockets.
-The following table lists container runtimes and their associated socket paths:
+The following table lists container runtimes that kubeadm looks for, and their associated socket paths:
 
 | Runtime    | Domain Socket                   |
 |------------|---------------------------------|
@@ -170,33 +172,33 @@ The following table lists container runtimes and their associated socket paths:
 
 如果你不指定运行时，则 kubeadm 会自动尝试检测到系统上已经安装的运行时，
 方法是扫描一组众所周知的 Unix 域套接字。
-下面的表格列举了一些容器运行时及其对应的套接字路径：
+下面的表格列举了一些 kubeadm 查找的容器运行时及其对应的套接字路径：
 
 | 运行时     | 域套接字                         |
 |------------|----------------------------------|
-| Docker     | /var/run/dockershim.sock             |
-| containerd | /run/containerd/containerd.sock  |
-| CRI-O      | /var/run/crio/crio.sock          |
+| Docker Engine  | `/var/run/dockershim.sock`        |
+| containerd     | `/run/containerd/containerd.sock` |
+| CRI-O          | `/var/run/crio/crio.sock`         |
 
 <!--
 <br />
-If both Docker and containerd are detected, Docker takes precedence. This is
+If both Docker Engine and containerd are detected, kubeadm will give precedence to Docker Engine. This is
 needed because Docker 18.09 ships with containerd and both are detectable even if you only
 installed Docker.
-If any other two or more runtimes are detected, kubeadm exits with an error.
+**If any other two or more runtimes are detected, kubeadm exits with an error.**
 
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
+The kubelet can integrate with Docker Engine using the deprecated `dockershim` adapter (the dockershim is part of the kubelet itself).
 
 See [container runtimes](/docs/setup/production-environment/container-runtimes/)
 for more information.
 -->
 <br/>
-如果同时检测到 Docker 和 containerd，则优先选择 Docker。
+如果同时检测到 Docker Engine 和 containerd，kubeadm 将优先考虑 Docker Engine。
 这是必然的，因为 Docker 18.09 附带了 containerd 并且两者都是可以检测到的，
 即使你仅安装了 Docker。
-如果检测到其他两个或多个运行时，kubeadm 输出错误信息并退出。
+**如果检测到其他两个或多个运行时，kubeadm 输出错误信息并退出。**
 
-kubelet 通过内置的 `dockershim` CRI 实现与 Docker 集成。
+kubelet 可以使用已弃用的 dockershim 适配器与 Docker Engine 集成（dockershim 是 kubelet 本身的一部分）。
 
 参阅[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
 以了解更多信息。
@@ -205,13 +207,13 @@ kubelet 通过内置的 `dockershim` CRI 实现与 Docker 集成。
 {{% tab name="其它操作系统" %}}
 <!--
 By default, kubeadm uses {{< glossary_tooltip term_id="docker" >}} as the container runtime.
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
+The kubelet can integrate with Docker Engine using the deprecated `dockershim` adapter (the dockershim is part of the kubelet itself).
 
 See [container runtimes](/docs/setup/production-environment/container-runtimes/)
 for more information.
 -->
 默认情况下， kubeadm 使用 {{< glossary_tooltip term_id="docker" >}} 作为容器运行时。
-kubelet 通过内置的 `dockershim` CRI 实现与 Docker 集成。
+kubelet 可以使用已弃用的 dockershim 适配器与 Docker Engine 集成（dockershim 是 kubelet 本身的一部分）。
 参阅[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
 以了解更多信息。
 
@@ -355,6 +357,9 @@ sudo systemctl enable --now kubelet
     You have to do this until SELinux support is improved in the kubelet.
 
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
+  - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
+    Type `uname -m` to see that value.
+    For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
 -->
 **请注意：**
 
@@ -365,6 +370,9 @@ sudo systemctl enable --now kubelet
   你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
 
 - 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定 kubeadm 不支持的部分配置
+- 如果由于该 Red Hat 的发行版无法解析 `basearch` 导致获取 `baseurl` 失败，请将 `\$basearch` 替换为你计算机的架构。
+  输入 `uname -m` 以查看该值。
+  例如，`x86_64` 的 `baseurl` URL 可以是：`https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`。
 
 {{% /tab %}}
 {{% tab name="无包管理器的情况" %}}
