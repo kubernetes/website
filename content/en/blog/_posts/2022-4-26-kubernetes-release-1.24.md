@@ -11,13 +11,34 @@ slug: kubernetes-1-24-release-announcement
 
 We are excited to announce the release of Kubernetes 1.24, the first release of 2022!
 
-This release consists of 46 enhancements: 15 enhancements have graduated to stable, 15 enhancements are moving to beta, and 13 enhancements are entering alpha. Also, 2 features have been deprecated, and the [dockershim has been removed](https://kubernetes.io/blog/2022/02/17/dockershim-faq/).     
+This release consists of 46 enhancements: fifteen enhancements have graduated to stable, fifteen enhancements are moving to beta, and thirteen enhancements are entering alpha. Also, two features have been deprecated, and the [dockershim has been removed](https://kubernetes.io/blog/2022/02/17/dockershim-faq/).     
 
 
 ## Major Themes
 
 ### Dockershim Removed from kubelet
-After an initial deprecation in v1.20, the dockershim has been removed from the kubelet. From v1.24 and up, if you are currently relying on Docker Engine as your container runtime, you will need to either use one of the other supported runtimes (such as containerd or CRI-O) or use cri-dockerd. For more information about ensuring your cluster is ready for this removal, please see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/). 
+After an initial deprecation in v1.20, the dockershim has been removed from the kubelet in favor of runtimes that comply with the Container Runtime Interface (CRI) designed for Kubernetes. From v1.24 and up, if you are currently relying on Docker Engine as your container runtime, you will need to either use one of the other supported runtimes (such as containerd or CRI-O) or use cri-dockerd. For more information about ensuring your cluster is ready for this removal, please see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/). 
+
+### Graduations to Stable
+This release saw fifteen enhancements promoted to stable. 
+
+* [CSI Volume Expansion](https://github.com/kubernetes/enhancements/issues/284)
+* [PodOverhead](https://github.com/kubernetes/enhancements/issues/688)
+* [Non-preempting Priority to GA](https://github.com/kubernetes/enhancements/issues/596)
+* [Storage Capacity Tracking](https://github.com/kubernetes/enhancements/issues/1472)
+* [Azure disk in-tree to CSI driver migration](https://github.com/kubernetes/enhancements/issues/1489)
+* [OpenStack in-tree to CSI driver migration](https://github.com/kubernetes/enhancements/issues/1490)
+* [Efficient Watch Resumption](https://github.com/kubernetes/enhancements/issues/1904)
+* [Service Type=LoadBalancer class](https://github.com/kubernetes/enhancements/issues/1959)
+* [Indexed Job Semantics in Jobs ABI](https://github.com/kubernetes/enhancements/issues/2232)
+* [batch/v1: add suspend field to Jobs API](https://github.com/kubernetes/enhancements/issues/2232)
+* [Pod affinity NamespaceSelector to GA](https://github.com/kubernetes/enhancements/issues/2249)
+* [Leader Migration to GA](https://github.com/kubernetes/enhancements/issues/2436)
+* [CSR Duration](https://github.com/kubernetes/enhancements/issues/2784)
+* [Beta APIs are off by Default](https://github.com/kubernetes/enhancements/issues/3136)
+* [Dockershim Removal](https://github.com/kubernetes/enhancements/issues/2221)
+
+
 
 ### gRPC Probes Graduates to Beta
 With Kubernetes 1.24, the gRPC probes functionality has entered beta and is available by default.
