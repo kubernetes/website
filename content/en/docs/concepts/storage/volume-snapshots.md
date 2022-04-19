@@ -150,16 +150,31 @@ spec:
 
 `snapshotHandle` is the unique identifier of the volume snapshot created on the storage backend. This field is required for the pre-provisioned snapshots. It specifies the CSI snapshot id on the storage system that this `VolumeSnapshotContent` represents.
 
-`sourceVolumeMode` is the mode of the volume whose snapshot is taken. The value of the `sourceVolumeMode` field can be either `Filesystem` or `Block`. If the source volume mode is not specified, Kubernetes treats the snapshot as if the source volume's mode is unknown. Support for this field can only be enabled in VolumeSnapshot client v6.0.0 and higher. Visit the [VolumeSnapshot Release page](https://github.com/kubernetes-csi/external-snapshotter/releases) for more information.
+`sourceVolumeMode` is the mode of the volume whose snapshot is taken. The value 
+of the `sourceVolumeMode` field can be either `Filesystem` or `Block`. If the 
+source volume mode is not specified, Kubernetes treats the snapshot as if the 
+source volume's mode is unknown. Support for this field can only be enabled in 
+`VolumeSnapshot` API v6.0.0 and higher. Visit the [VolumeSnapshot Release page](https://github.com/kubernetes-csi/external-snapshotter/releases) for more information.
 
 ## Converting the volume mode of a Snapshot {#convert-volume-mode}
 
-This feature is only present for `VolumeSnapshotContents` created with client version `v6.0.0` onwards.
-The volume mode can be either `Filesystem` or `Block`. If not specified, it indicates the volume mode is unknown.
-If you want to allow users to create a `PersistentVolumeClaim` from an existing `VolumeSnapshot`, but with a 
-different volume mode than the source, the annotation `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"` 
-needs to be added to the `VolumeSnapshotContent` that corresponds to the `VolumeSnapshot`. For pre-provisioned snapshots,
-`Spec.SourceVolumeMode` needs to be populated by the cluster administrator.
+This feature is only present for `VolumeSnapshots` API with version `v6.0.0` onwards. To check if your 
+cluster has capability for this feature, run the following command:
+
+```yaml
+$ kubectl get crd volumesnapshotcontent -o yaml
+```
+
+If a field called `sourceVolumeMode` is present in the output, then the API supports this feature.
+
+If you want to allow users to create a `PersistentVolumeClaim` from an existing 
+`VolumeSnapshot`, but with a different volume mode than the source, the annotation 
+`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`needs to be added to 
+the `VolumeSnapshotContent` that corresponds to the `VolumeSnapshot`. 
+
+For pre-provisioned snapshots, `Spec.SourceVolumeMode` needs to be populated 
+by the cluster administrator.
+
 An example `VolumeSnapshotContent` resource with this feature enabled would look like:
 
 ```yaml
