@@ -153,8 +153,7 @@ spec:
 `sourceVolumeMode` is the mode of the volume whose snapshot is taken. The value 
 of the `sourceVolumeMode` field can be either `Filesystem` or `Block`. If the 
 source volume mode is not specified, Kubernetes treats the snapshot as if the 
-source volume's mode is unknown. Support for this field can only be enabled in 
-`VolumeSnapshot` API v6.0.0 and higher. Visit the [VolumeSnapshot Release page](https://github.com/kubernetes-csi/external-snapshotter/releases) for more information.
+source volume's mode is unknown.
 
 ## Converting the volume mode of a Snapshot {#convert-volume-mode}
 
