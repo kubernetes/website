@@ -179,6 +179,7 @@ different Kubernetes components.
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `SeccompDefault` | `false` | Alpha | 1.22 | |
+| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | - |
 | `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
 | `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | |
 | `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | |
@@ -400,14 +401,14 @@ different Kubernetes components.
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | 1.23 |
 | `NonPreemptingPriority` | `true` | GA | 1.24 | - |
-| `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | 1.21 |
-| `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | 1.23 |
-| `PodAffinityNamespaceSelector` | `true` | GA | 1.24 | - |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | - |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
+| `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | 1.21 |
+| `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | 1.23 |
+| `PodAffinityNamespaceSelector` | `true` | GA | 1.24 | - |
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | 1.20 |
 | `PodDisruptionBudget` | `true` | GA | 1.21 | - |
@@ -458,7 +459,6 @@ different Kubernetes components.
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | 1.21 |
 | `ServerSideApply` | `true` | GA | 1.22 | - |
-| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | - |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | 1.19 |
 | `ServiceAccountIssuerDiscovery` | `true` | Beta | 1.20 | 1.20 |
 | `ServiceAccountIssuerDiscovery` | `true` | GA | 1.21 | - |
