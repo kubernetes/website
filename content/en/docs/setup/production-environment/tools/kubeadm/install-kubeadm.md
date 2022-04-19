@@ -14,7 +14,7 @@ card:
 This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
-
+{{% dockershim-removal %}}
 
 ## {{% heading "prerequisites" %}}
 
