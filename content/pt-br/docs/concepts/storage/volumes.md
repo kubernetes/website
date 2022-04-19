@@ -678,13 +678,17 @@ Um `vsphereVolume` é usado para montar um volume VMDK do vSphere em seu Pod.  O
 
 Escolha um dos seguintes métodos para criar um VMDK.
 
-{{\< tabs name="tabs_volumes" >}} {{% tab name="Create using vmkfstools" %}} Primeiro acesse ESX via ssh, depois use o seguinte comando para criar um VMDK:
+{{\< tabs name="tabs_volumes" >}}
+{{% tab name="Create using vmkfstools" %}} 
+Primeiro acesse ESX via ssh, depois use o seguinte comando para criar um VMDK:
 
 ```shell
 vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 ```
 
-{{% /tab %}} {{% tab name="Create using vmware-vdiskmanager" %}} Utilize o seguinte comando para criar um VMDK:
+{{% /tab %}}
+{{% tab name="Create using vmware-vdiskmanager" %}}
+Utilize o seguinte comando para criar um VMDK:
 
 ```shell
 vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
@@ -692,7 +696,7 @@ vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 
 {{% /tab %}}
 
-{{\< /tabs >}}
+{{< /tabs >}}
 
 #### Exemplo de configuração do VMDK no vSphere {#vsphere-vmdk-configuration}
 
