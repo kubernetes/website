@@ -14,11 +14,14 @@ weight: 100
 
 <!--
 This page shows how to create a Pod that uses a
-{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image from a
-private container image registry or repository.
+{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image 
+from a private container image registry or repository. There are many private 
+registries in use. This task uses [Docker Hub](https://www.docker.com/products/docker-hub)
 -->
 本文介绍如何使用 {{< glossary_tooltip text="Secret" term_id="secret" >}} 
 从私有的镜像仓库或代码仓库拉取镜像来创建 Pod。
+有很多私有镜像仓库正在使用中。这个任务使用的镜像仓库是
+[Docker Hub](https://www.docker.com/products/docker-hub)
 
 {{% thirdparty-content single="true" %}}
 
@@ -29,10 +32,13 @@ private container image registry or repository.
 <!--
 * To do this exercise, you need the `docker` command line tool, and a
   [Docker ID](https://docs.docker.com/docker-id/) for which you know the password.
+* If you are using a different private container registry, you need the command 
+  line tool for that registry and any login information for the registry. 
 -->
 
-要进行此练习，你需要 `docker` 命令行工具和一个知道密码的 
+* 要进行此练习，你需要 `docker` 命令行工具和一个知道密码的 
 [Docker ID](https://docs.docker.com/docker-id/)。
+* 如果你要使用不同的私有的镜像仓库，你需要有对应镜像仓库的命令行工具和登录信息。
 
 <!-- steps -->
 
@@ -41,7 +47,7 @@ private container image registry or repository.
 
 On your laptop, you must authenticate with a registry in order to pull a private image:
 -->
-## 登录 Docker 镜像仓库
+## 登录 Docker 镜像仓库  {#log-in-to-docker}
 
 在个人电脑上，要想拉取私有镜像必须在镜像仓库上进行身份验证。
 
@@ -92,15 +98,77 @@ If you use a Docker credentials store, you won't see that `auth` entry but a `cr
 {{< /note >}}
 
 <!--
-## Create a Secret in the cluster that holds your authorization token
+## Create a Secret based on existing credentials {#registry-secret-existing-credentials}
 
-A Kubernetes cluster uses the Secret of `docker-registry` type to authenticate with a container registry to pull a private image.
+A Kubernetes cluster uses the Secret of `kubernetes.io/dockerconfigjson` type to authenticate with
+a container registry to pull a private image.
+
+If you already ran `docker login`, you can copy
+that credential into Kubernetes:
+-->
+## 创建一个基于现有凭证的 Secret  {#registry-secret-existing-credentials}
+
+Kubernetes 集群使用 `kubernetes.io/dockerconfigjson` 类型的
+Secret 来通过镜像仓库的身份验证，进而提取私有镜像。
+
+如果你已经运行了 `docker login` 命令，你可以复制该镜像仓库的凭证到 Kubernetes:
+
+```shell
+kubectl create secret generic regcred \
+    --from-file=.dockerconfigjson=<path/to/.docker/config.json> \
+    --type=kubernetes.io/dockerconfigjson
+```
+
+<!--
+If you need more control (for example, to set a namespace or a label on the new
+secret) then you can customise the Secret before storing it.
+Be sure to:
+
+- set the name of the data item to `.dockerconfigjson`
+- base64 encode the Docker configuration file and then paste that string, unbroken
+  as the value for field `data[".dockerconfigjson"]`
+- set `type` to `kubernetes.io/dockerconfigjson`
+
+Example:
+-->
+如果你需要更多的设置（例如，为新 Secret 设置名字空间或标签），
+则可以在存储 Secret 之前对它进行自定义。
+请务必：
+
+- 将 data 项中的名称设置为 `.dockerconfigjson`
+- 使用 base64 编码方法对 Docker 配置文件进行编码，然后粘贴该字符串的内容，作为字段
+  `data[".dockerconfigjson"]` 的值
+- 将 `type` 设置为 `kubernetes.io/dockerconfigjson`
+
+示例：
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: myregistrykey
+  namespace: awesomeapps
+data:
+  .dockerconfigjson: UmVhbGx5IHJlYWxseSByZWVlZWVlZWVlZWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGx5eXl5eXl5eXl5eXl5eXl5eXl5eSBsbGxsbGxsbGxsbGxsbG9vb29vb29vb29vb29vb29vb29vb29vb29vb25ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubmdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2cgYXV0aCBrZXlzCg==
+type: kubernetes.io/dockerconfigjson
+```
+
+<!--
+If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
+If you get an error message like `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`, it means
+the base64 encoded string in the data was successfully decoded, but could not be parsed as a `.docker/config.json` file.
+-->
+如果你收到错误消息：`error: no objects passed to create`，
+这可能意味着 base64 编码的字符串是无效的。 如果你收到类似
+`Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`
+的错误消息，则表示数据中的 base64 编码字符串已成功解码，但无法解析为 `.docker/config.json` 文件。
+
+<!--
+## Create a Secret by providing credentials on the command line
 
 Create this Secret, naming it `regcred`:
 -->
-## 在集群中创建保存授权令牌的 Secret
-
-Kubernetes 集群使用 `docker-registry` 类型的 Secret 来通过容器仓库的身份验证，进而提取私有映像。
+## 在命令行上提供凭证来创建 Secret  {#create-a-secret-by-providing-credentials-on-the-command-line}
 
 创建 Secret，命名为 `regcred`：
 
@@ -137,11 +205,21 @@ You have successfully set your Docker credentials in the cluster as a Secret cal
 这样你就成功地将集群中的 Docker 凭证设置为名为 `regcred` 的 Secret。
 
 <!--
+Typing secrets on the command line may store them in your shell history unprotected, and
+those secrets might also be visible to other users on your PC during the time that
+`kubectl` is running.
+-->
+{{< note >}}
+在命令行上键入 Secret 可能会将它们存储在你的 shell 历史记录中而不受保护，
+并且这些 Secret 信息也可能在 `kubectl` 运行期间对你 PC 上的其他用户可见。
+{{< /note >}}
+
+<!--
 ## Inspecting the Secret `regcred`
 
 To understand the contents of the `regcred` Secret you created, start by viewing the Secret in YAML format:
 -->
-## 检查 Secret `regcred`
+## 检查 Secret `regcred`  {#inspecting-the-secret-regcred}
 
 要了解你创建的 `regcred` Secret 的内容，可以用 YAML 格式进行查看：
 
@@ -217,7 +295,7 @@ You have successfully set your Docker credentials as a Secret called `regcred` i
 
 Here is a manifest for an example Pod that needs access to your Docker credentials in `regcred`:
 -->
-## 创建一个使用你的 Secret 的 Pod
+## 创建一个使用你的 Secret 的 Pod  {#create-a-pod-that-uses-your-secret}
 
 下面是一个 Pod 配置清单示例，该示例中 Pod 需要访问你的 Docker 凭证 `regcred`：
 

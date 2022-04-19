@@ -47,7 +47,7 @@ $ kubectl logs counter
 ...
 ```
 
-You can use `kubectl logs` to retrieve logsPuoi usare `kubectl logs` per recuperare i log da una precedente istanziazione di un contenitore con il flag` --previous`, nel caso in cui il contenitore si sia arrestato in modo anomalo. Se il pod ha più contenitori, è necessario specificare i registri del contenitore a cui si desidera accedere aggiungendo un nome contenitore al comando. Vedi la documentazione [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) per maggiori dettagli. from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+You can use `kubectl logs` to retrieve logsPuoi usare `kubectl logs` per recuperare i log da una precedente istanziazione di un contenitore con il flag `--previous`, nel caso in cui il contenitore si sia arrestato in modo anomalo. Se il pod ha più contenitori, è necessario specificare i registri del contenitore a cui si desidera accedere aggiungendo un nome contenitore al comando. Vedi la documentazione [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) per maggiori dettagli. from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
 
 ## Logging at the node level
 
@@ -105,7 +105,7 @@ bypassando il meccanismo di registrazione predefinito. Usano il [klog] [klog]
 biblioteca di registrazione. È possibile trovare le convenzioni per la gravità della registrazione per quelli
 componenti nel [documento di sviluppo sulla registrazione](https://git.k8s.io/community/contributors/devel/logging.md).
 
-Analogamente ai log del contenitore, i log dei componenti di sistema sono in /var/log`
+Analogamente ai log del contenitore, i log dei componenti di sistema sono in `/var/log`
 la directory dovrebbe essere ruotata. Nei cluster di Kubernetes allevati da
 lo script `kube-up.sh`, quei log sono configurati per essere ruotati da
 lo strumento `logrotate` al giorno o una volta che la dimensione supera i 100 MB.
@@ -143,7 +143,7 @@ Puoi utilizzare un contenitore sidecar in uno dei seguenti modi:
 
 ![Sidecar container with a streaming container](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
 
-Facendo scorrere i propri contenitori sidecar sul proprio `stdout` e` stderr`
+Facendo scorrere i propri contenitori sidecar sul proprio `stdout` e `stderr`
 flussi, è possibile sfruttare il kubelet e l'agente di registrazione che
 già eseguito su ciascun nodo. I contenitori del sidecar leggono i log da un file, un socket,
 o il diario. Ogni singolo contenitore sidecar stampa il log nel proprio `stdout`
@@ -151,16 +151,16 @@ o flusso `stderr`.
 
 Questo approccio consente di separare diversi flussi di log da diversi
 parti della tua applicazione, alcune delle quali possono mancare di supporto
-per scrivere su `stdout` o` stderr`. La logica dietro il reindirizzamento dei registri
+per scrivere su `stdout` o `stderr`. La logica dietro il reindirizzamento dei registri
 è minimo, quindi non è un sovraccarico significativo. Inoltre, perché
-`stdout` e` stderr` sono gestiti da kubelet, puoi usare gli strumenti integrati
+`stdout` e `stderr` sono gestiti da kubelet, puoi usare gli strumenti integrati
 come `log di kubectl`.
 
 Considera il seguente esempio. Un pod esegue un singolo contenitore e il contenitore
 scrive su due file di registro diversi, utilizzando due formati diversi. Ecco un
 file di configurazione per il pod:
 
-{{<codenew file = "admin/logging/two-files-counter-pod.yaml">}}
+{{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
 
 Sarebbe un disastro avere voci di registro di diversi formati nello stesso registro
 stream, anche se si è riusciti a reindirizzare entrambi i componenti al flusso `stdout` di
@@ -170,7 +170,7 @@ i registri al proprio flusso `stdout`.
 
 Ecco un file di configurazione per un pod con due contenitori sidecar:
 
-{{<codenew file = "admin/logging/two-files-counter-pod-streaming-sidecar.yaml">}}
+{{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
 
 Ora quando si esegue questo pod, è possibile accedere separatamente a ciascun flusso di log
 eseguendo i seguenti comandi:
@@ -205,7 +205,7 @@ approccio contenitore.
 I contenitori del sidecar possono anche essere usati per ruotare i file di log che non possono essere
 ruotato dall'applicazione stessa. [Un esempio](https://github.com/samsung-cnct/logrotate)
 di questo approccio è un piccolo contenitore che esegue periodicamente logrotate.
-Tuttavia, si raccomanda di usare `stdout` e` stderr` direttamente e lasciare la rotazione
+Tuttavia, si raccomanda di usare `stdout` e `stderr` direttamente e lasciare la rotazione
 e politiche di conservazione al kubelet.
 
 
