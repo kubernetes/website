@@ -15,7 +15,6 @@ You need to install a
 into each node in the cluster so that Pods can run there. This page outlines
 what is involved and describes related tasks for setting up nodes.
 
-
 Kubernetes {{< skew currentVersion >}} requires that you use a runtime that
 conforms with the
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI).
