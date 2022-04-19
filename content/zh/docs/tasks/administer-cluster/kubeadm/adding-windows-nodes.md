@@ -25,9 +25,10 @@ You can use Kubernetes to run a mixture of Linux and Windows nodes, so you can m
 混合使用运行于 Linux 上的 Pod 和运行于 Windows 上的 Pod。
 本页面展示如何将 Windows 节点注册到你的集群。
 
-## {{% heading "prerequisites" %}}
+{{% dockershim-removal %}}
 
-{{< version-check >}}
+## {{% heading "prerequisites" %}}
+ {{< version-check >}}
 
 <!--
 * Obtain a [Windows Server 2019 license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)
