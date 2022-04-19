@@ -14,7 +14,7 @@ card:
 This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
-
+{{% dockershim-removal %}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -69,10 +69,10 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 ## Check required ports
 These
 [required ports](/docs/reference/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other. You can use telnet to check if a port is open. For example:
+need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
 
 ```shell
-telnet 127.0.0.1 6443
+nc 127.0.0.1 6443
 ```
 
 The pod network plugin you use (see below) may also require certain ports to be

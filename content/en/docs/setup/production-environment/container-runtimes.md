@@ -8,11 +8,12 @@ weight: 20
 ---
 <!-- overview -->
 
+{{% dockershim-removal %}}
+
 You need to install a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 into each node in the cluster so that Pods can run there. This page outlines
 what is involved and describes related tasks for setting up nodes.
-
 
 Kubernetes {{< skew currentVersion >}} requires that you use a runtime that
 conforms with the
