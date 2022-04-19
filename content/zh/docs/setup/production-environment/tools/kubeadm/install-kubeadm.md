@@ -373,7 +373,7 @@ Type `uname -m` to see that value.
 For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`. -->
 - 如果 `baseurl` 失败，因为你的基于红帽的分发不能解析 `basearch` ，将 `\$basearch` 替换你的计算机架构。
   输入 `uname -m` 查看该值。
-  例如， `x86_64` 的 `baseurl`  URL可以是:' https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64 '。
+  例如， `x86_64` 的 `baseurl`  URL可以是: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`
 
 {{% /tab %}}
 {{% tab name="无包管理器的情况" %}}
