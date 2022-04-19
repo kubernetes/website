@@ -132,7 +132,8 @@ different Kubernetes components.
 | `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
 | `JobReadyPods` | `true` | Beta | 1.24 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
-| `JobTrackingWithFinalizers` | `true` | Beta | 1.23 | |
+| `JobTrackingWithFinalizers` | `true` | Beta | 1.23 | 1.23 |
+| `JobTrackingWithFinalizers` | `false` | Beta | 1.24 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
 | `KubeletCredentialProviders` | `true` | Beta | 1.24 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
@@ -360,6 +361,9 @@ different Kubernetes components.
 | `HugePages` | `true` | GA | 1.14 | - |
 | `HyperVContainer` | `false` | Alpha | 1.10 | 1.19 |
 | `HyperVContainer` | `false` | Deprecated | 1.20 | - |
+| `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
+| `IPv6DualStack` | `true` | Beta | 1.21 | 1.22 |
+| `IPv6DualStack` | `true` | GA | 1.23 | - |
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
 | `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | 1.20 |
 | `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | |
@@ -371,9 +375,6 @@ different Kubernetes components.
 | `IngressClassNamespacedParams` | `true` | GA | 1.23 | - |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | - |
-| `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
-| `IPv6DualStack` | `true` | Beta | 1.21 | 1.22 |
-| `IPv6DualStack` | `true` | GA | 1.23 | - |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletConfigFile` | - | Deprecated | 1.10 | - |
 | `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
@@ -388,14 +389,14 @@ different Kubernetes components.
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
 | `MountPropagation` | `true` | GA | 1.12 | - |
+| `NamespaceDefaultLabelName` | `true` | Beta | 1.21 | 1.21 |
+| `NamespaceDefaultLabelName` | `true` | GA | 1.22 | - |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | 1.18 |
 | `NodeDisruptionExclusion` | `true` | Beta | 1.19 | 1.20 |
 | `NodeDisruptionExclusion` | `true` | GA | 1.21 | - |
 | `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
 | `NodeLease` | `true` | Beta | 1.14 | 1.16 |
 | `NodeLease` | `true` | GA | 1.17 | - |
-| `NamespaceDefaultLabelName` | `true` | Beta | 1.21 | 1.21 |
-| `NamespaceDefaultLabelName` | `true` | GA | 1.22 | - |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | 1.23 |
 | `NonPreemptingPriority` | `true` | GA | 1.24 | - |
