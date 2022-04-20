@@ -377,11 +377,11 @@ that are not enabled by default:
   实现的扩展点：`preScore`，`score`。
 
 <!--
--`CinderLimits`: Checks that [OpenStack Cinder](https://docs.openstack.org/cinder/)
+- `CinderLimits`: Checks that [OpenStack Cinder](https://docs.openstack.org/cinder/)
   volume limits can be satisfied for the node.
   Extension points: `filter`.
 -->
--`CinderLimits`：检查是否可以满足节点的 [OpenStack Cinder](https://docs.openstack.org/cinder/)
+- `CinderLimits`：检查是否可以满足节点的 [OpenStack Cinder](https://docs.openstack.org/cinder/)
 卷限制
 
 
