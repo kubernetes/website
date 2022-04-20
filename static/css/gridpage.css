@@ -23,6 +23,10 @@
     min-height: 152px;
   
 }
+/* 
+ * Remove the height of the H2 element pseudo-class and set the appropriate spacing 
+ * to avoid mistakenly overriding the styles of other elements 
+ */
 .launch-card h2::before {
     margin-top: 1rem ;
     height: 0 ;
