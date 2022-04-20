@@ -232,7 +232,6 @@ For example, `10M` means 10 megabits per second. -->
 速率单位是每秒，作为 [数量](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)。
 例如，`10M`表示每秒 10 兆比特。
 
-
 <!-- ### kubernetes.io/egress-bandwidth
 
 {{< note >}}
@@ -270,7 +269,6 @@ For example, `10M` means 10 megabits per second. -->
 使用 `kubernetes.io/egress-bandwidth` 注释速度。 用于指定出口的
 速率单位是每秒，作为 [数量](/docs/reference/kubernetes-api/common-definitions/quantity/)。
 例如，`10M` 表示每秒 10 兆比特。
-
 
 <!-- ### beta.kubernetes.io/instance-type (deprecated) -->
 ### beta.kubernetes.io/instance-type (已弃用) {#beta-kubernetes-io-instance-type}
