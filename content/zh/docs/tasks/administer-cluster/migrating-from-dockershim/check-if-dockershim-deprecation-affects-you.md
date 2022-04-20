@@ -178,6 +178,7 @@ by Kubernetes.
 
 - Read [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) to understand your next steps
 - Read the [dockershim deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article for more information. -->
-## {{% 标题 "下一步" %}}
+## {{% heading "whatsnext" %}}
+
 - 阅读 [从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/) 以了解您的后续步骤
 - 阅读 [dockershim 弃用常见问题解答](/zh/blog/2020/12/02/dockershim-faq/) 文章了解更多信息。
