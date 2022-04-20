@@ -107,7 +107,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ### Scheduled by default scheduler
 
-{{< feature-state for_kubernetes_version="1.17" state="stable" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
 node that a Pod runs on is selected by the Kubernetes scheduler. However,
