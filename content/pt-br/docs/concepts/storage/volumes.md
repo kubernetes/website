@@ -1,18 +1,26 @@
 <!-- overview -->
-Os arquivos em disco em um contêiner são efêmeros, o que apresenta alguns problemas para aplicativos não triviais quando executados em contêineres. Um problema é a perda de arquivos quando um contêiner cai. O kubelet reinicia o contêiner, mas em um estado limpo. Um segundo problema ocorre ao compartilhar arquivos entre contêineres que são executados juntos em um `Pod`. A abstração de {{< glossary_tooltip text="volume" term_id="volume" >}} do Kubernetes resolve ambos os problemas. Sugere-se familiaridade com [Pods](/docs/concepts/workloads/pods/) .
+
+Os arquivos em disco em um contêiner são efêmeros, o que apresenta alguns problemas para 
+aplicativos não triviais quando executados em contêineres. Um problema é a perda de arquivos 
+quando um contêiner cai. O kubelet reinicia o contêiner, mas em um estado limpo. Um segundo 
+problema ocorre ao compartilhar arquivos entre contêineres que são executados juntos em 
+um `Pod`. A abstração de {{< glossary_tooltip text="volume" term_id="volume" >}} 
+do Kubernetes resolve ambos os problemas. Sugere-se familiaridade com [Pods](/docs/concepts/workloads/pods/) .
 
 <!-- body -->
 ## Contexto
 
-Docker tem um conceito de [volumes](https://docs.docker.com/storage/), embora seja um pouco mais simples e menos gerenciado. Um volume Docker é um diretório em disco ou em outro contêiner. O Docker oferece drivers de volume, mas a funcionalidade é um pouco limitada.
+Docker tem um conceito de [volumes](https://docs.docker.com/storage/), embora seja um pouco mais 
+simples e menos gerenciado. Um volume Docker é um diretório em disco ou em outro contêiner. 
+O Docker oferece drivers de volume, mas a funcionalidade é um pouco limitada.
 
-O Kubernetes suporta muitos tipos de volumes. Um {{< glossary_tooltip term_id="pod" text="Pod" >}} é capaz de utilizar qualquer quantidade de tipos de volumes simultaneamente. Os tipos de volume efêmero têm uma vida útil de um pod, mas os volumes persistentes existem além da vida útil de um pod. Quando um pod deixa de existir, o Kubernetes destrói volumes efêmeros; no entanto, o Kubernetes não destrói volumes persistentes. Para qualquer tipo de volume em um determinado pod, os dados são preservados entre as reinicializações do contêiner.
+O Kubernetes suporta muitos tipos de volumes. Um {{< glossary_tooltip term_id="pod" text="Pod" >}} é capaz de utilizar qualquer quantidade de tipos de volumes simultaneamente. Os tipos de volume efêmeros têm a mesma vida útil do pod, mas os volumes persistentes existem além da vida útil de um pod. Quando um pod deixa de existir, o Kubernetes destrói volumes efêmeros; no entanto, o Kubernetes não destrói volumes persistentes. Para qualquer tipo de volume em um determinado pod, os dados são preservados entre as reinicializações do contêiner.
 
 Em sua essência, um volume é um diretório, eventualmente com alguns dados dentro dele, que é acessível aos contêineres de um Pod. Como esse diretório vem a ser, o meio que o suporta e o conteúdo do mesmo são determinados pelo tipo particular de volume utilizado.
 
-Para utilizar um volume, especifique os volumes que serão disponibilizados para o Pod em `.spec.volumes` e declare onde montar esses volumes dentro dos contêineres em `.spec.containers[*].volumeMounts`. Um processo em um contêiner enxerga uma visualização do sistema de arquivos composta a partir do conteúdo inicial da{{< glossary_tooltip text="imagem do contêiner" term_id="image" >}}, mais os volumes (se definido) montados dentro do contêiner. O processo enxerga um sistema de arquivos raiz que inicialmente corresponde ao conteúdo da imagem do contêiner. Qualquer gravação dentro dessa hierarquia do sistema de arquivos, se permitida, afetará o que esse processo enxerga quando ele executa um acesso subseqüente ao sistema de arquivos. Os volumes são montados nos [caminhos especificados](#using-subpath) dentro da imagem. Para cada contêiner definido num Pod, você deve especificar independentemente onde montar cada volume utilizado pelo contêiner.
+Para utilizar um volume, especifique os volumes que serão disponibilizados para o Pod em `.spec.volumes` e declare onde montar esses volumes dentro dos contêineres em `.spec.containers[*].volumeMounts`. Um processo em um contêiner enxerga uma visualização do sistema de arquivos composta pelo do conteúdo inicial da {{< glossary_tooltip text="imagem do contêiner" term_id="image" >}} mais os volumes (se definidos) montados dentro do contêiner. O processo enxerga um sistema de arquivos raiz que inicialmente corresponde ao conteúdo da imagem do contêiner. Qualquer gravação dentro dessa hierarquia do sistema de arquivos, se permitida, afetará o que esse processo enxerga quando ele executa um acesso subseqüente ao sistema de arquivos. Os volumes são montados nos [caminhos especificados](#using-subpath) dentro da imagem. Para cada contêiner definido num Pod, você deve especificar independentemente onde montar cada volume utilizado pelo contêiner.
 
-Os volumes não podem ser montados dentro de outros volumes (mas consulte [Usando o subPath](#using-subpath) para um mecanismo relacionado). Além disso, um volume não pode conter uma hard link para qualquer coisa em um volume diferente.
+Volumes não podem ser montados dentro de outros volumes (mas você pode consultar [Utilizando subPath](#using-subpath) para um mecanismo relacionado). Além disso, um volume não pode conter uma hard link para qualquer coisa em um volume diferente.
 
 ## Tipos de Volumes {#volume-types}
 
@@ -20,7 +28,7 @@ Kubernetes suporta vários tipos de volumes.
 
 ### awsElasticBlockStore {#awselasticblockstore}
 
-Um volume `awsElasticBlockStore` monta um [volume EBS](https://aws.amazon.com/ebs/) do Amazon Web Services (AWS)em seu pod. Ao contrário do `emptyDir`que é apagado quando um pod é removido, o conteúdo de um volume EBS preservados e o volume é desmontado. Isto significa que um volume EBS pode ser alimentado previamente com dados e que os dados podem ser partilhados entre Pods.
+Um volume `awsElasticBlockStore` monta um [volume EBS](https://aws.amazon.com/ebs/) da Amazon Web Services (AWS) em seu pod. Ao contrário do `emptyDir`que é apagado quando um pod é removido, o conteúdo de um volume EBS é preservado e o volume é desmontado. Isto significa que um volume EBS pode ser alimentado previamente com dados e que os dados podem ser partilhados entre Pods.
 
 {{< note >}}
 Você precisa criar um volume EBS usando `aws ec2 create-volume` ou pela API da AWS antes que você consiga utilizá-lo. 
@@ -29,7 +37,7 @@ Você precisa criar um volume EBS usando `aws ec2 create-volume` ou pela API da 
 Existem algumas restrições ao utilizar um volume `awsElasticBlockStore`:
 
 * Os nós nos quais os Pods estão sendo executados devem ser instâncias AWS EC2
-* Estas instâncias têm de estar na mesma região e na mesma zona de disponibilidade que o volume EBS
+* Estas instâncias devem estar na mesma região e na mesma zona de disponibilidade que o volume EBS
 * O EBS suporta montar um volume em apenas uma única instância EC2
 
 #### Criando um volume AWS EBS
@@ -64,7 +72,7 @@ spec:
       fsType: ext4
 ```
 
-Se o volume EBS estiver particionado, pode informar o campo opcional `partition: "<partition number>"` para especificar em que parição deve ser montado.
+Se o volume EBS estiver particionado, pode informar o campo opcional `partition: "<partition number>"` para especificar em que partição deve ser montado.
 
 #### Migração de CSI do AWS EBS
 
@@ -88,7 +96,7 @@ Para obter mais detalhes, consulte [plugin de volume `azureDisk`](https://github
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-Quando o recurso `CSIMigration` para `azureDisk` está habilitado, todas as operações de plugin do tipo in-tree são redirecionadas para o Driver de Cointainer Storage Interface (CSI) `disk.csi.azure.com`. Para utilizar esta funcionalidade, o [Driver CSI do Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) precisa estar instalado no cluster e os recursos `CSIMigration` e `CSIMigrationAzureDisk` precisam estar ativados.
+Quando o recurso `CSIMigration` para `azureDisk` está habilitado, todas as operações de plugin do tipo in-tree são redirecionadas para o Driver de Cointainer Storage Interface (CSI) `disk.csi.azure.com`. Para utilizar este recurso, o [Driver CSI Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) deve estar instalado no cluster e os recursos `CSIMigration` e `CSIMigrationAzureDisk` devem estar ativados.
 
 #### Migração CSI azureDisk concluída
 
@@ -108,7 +116,7 @@ Para obter mais detalhes, consulte [plugin de volume `azureFile`](https://github
 
 Quando o recurso `CSIMigration` para `azureFile` está habilitado, todas as operações de plugin do tipo in-tree são redirecionadas para o Driver de Cointainer Storage Interface (CSI) `file.csi.azure.com`. Para utilizar este recurso, o [Driver CSI do Azure Disk](https://github.com/kubernetes-sigs/azurefile-csi-driver) deve estar instalado no cluster e as [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `CSIMigration` e `CSIMigrationAzureFile` devem estar habilitadas.
 
-O driver de CSI do Azure File não oferece suporte ao uso do mesmo volume com fsgroups diferentes, se a migração de CSI Azurefile estiver habilitada, o uso do mesmo volume com fsgroups diferentes não será suportado.
+O driver de CSI do Azure File não oferece suporte ao uso do mesmo volume por fsgroups diferentes, se a migração de CSI Azurefile estiver habilitada, o uso do mesmo volume por fsgroups diferentes não será suportado.
 
 #### Migração do CSI azureFile concluída
 
@@ -120,7 +128,7 @@ Para desabilitar o carregamento do plugin de armazenamento `azureFile` pelo gere
 
 Um volume `cephfs` permite que um volume CephFS existente seja montado no seu Pod. Ao contrário do `emptyDir` que é apagado quando um pod é removido, o conteúdo de um volume `cephfs` é preservado e o volume é simplesmente desmontado. Isto significa que um volume `cephfs` pode ser alimentado previamente com dados e que os dados podem ser partilhados entre os Pods. O volume `cephfs` pode ser montado por vários gravadores simultaneamente.
 
-{{< note >}} Você deve ter seu próprio servidor Ceph funcionando com o compartilhamento exportado antes de poder utilizá-lo. {{< /note >}}
+{{< note >}} Você deve ter seu próprio servidor Ceph funcionando com o compartilhamento acessível antes de poder utilizá-lo. {{< /note >}}
 
 Consulte o [ exemplo CephFS](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) para mais detalhes.
 
@@ -205,7 +213,7 @@ Consulte [o exemplo de downward API](/docs/tasks/inject-data-application/downwar
 
 ### emptyDir {#emptydir}
 
-Um volume `emptyDir` é criado pela primeira vez quando um Pod é atribuído a um nó e existe enquanto esse Pod estiver a sendo executado nesse nó. Como o nome diz, o volume `emptyDir` está inicialmente vazio. Todos os contêineres no Pod podem ler e gravar os mesmos arquivos no volume `emptyDir`, embora esse volume possa ser montado no mesmo ou em caminhos diferentes em cada contêiner. Quando um Pod é removido de um nó por qualquer motivo, os dados no `emptyDir` são eliminados permanentemente.
+Um volume `emptyDir` é criado pela primeira vez quando um Pod é atribuído a um nó e existe enquanto esse Pod estiver a sendo executado nesse nó. Como o nome diz, o volume `emptyDir` está inicialmente vazio. Todos os contêineres no Pod podem ler e gravar os mesmos arquivos no volume `emptyDir`, embora esse volume possa ser montado no mesmo caminho ou em caminhos diferentes em cada contêiner. Quando um Pod é removido de um nó por qualquer motivo, os dados no `emptyDir` são eliminados permanentemente.
 
 {{< note >}} A falha de um contêiner *não* remove um Pod de um nó. Os dados num volume `emptyDir` são mantidos em caso de falha do contêiner. {{< /note >}}
 
@@ -215,7 +223,7 @@ Alguns usos para um `emptyDir` são:
 * ponto de verificação de um processamento longo para recuperação de falhas.
 * manter arquivos que um contêiner gerenciador de conteúdo busca enquanto um contêiner de webserver entrega os dados
 
-Dependendo do seu ambiente, os volumes `emptyDir` são armazenados em qualquer meio suporte nó, como disco ou SSD, ou armazenamento de rede. No entanto, se você definir o campo `emptyDir.medium` como `"Memory"`, o Kubernetes monta um tmpfs (sistema de arquivos com suporte de RAM) para você. Embora o tmpfs seja muito rápido, tenha em atenção que, ao contrário dos discos, o tmpfs é limpo na reinicialização do nó e quaisquer arquivos que grave consomem o limite de memória do seu contêiner.
+Dependendo do seu ambiente, os volumes `emptyDir` são armazenados em qualquer media que componha o nó, como disco ou SSD, ou armazenamento de rede. No entanto, se você definir o campo `emptyDir.medium` como `"Memory"`, o Kubernetes monta um tmpfs (sistema de arquivos com suporte de RAM) para você. Embora o tmpfs seja muito rápido, tenha em atenção que, ao contrário dos discos, o tmpfs é limpo na reinicialização do nó e quaisquer arquivos que grave consomem o limite de memória do seu contêiner.
 
 {{< note >}} Se a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `SizeMemoryBackedVolumes` estiver habilitada, é possível especificar um tamanho para volumes mantidos em memória.  Se nenhum tamanho for especificado, os volumes mantidos em memória são dimensionados para 50% da memória em um host Linux. {{< /note>}}
 
@@ -267,7 +275,7 @@ Existem algumas restrições ao utilizar um `gcePersistentDisk`:
 * Os nós nos quais os Pods estão sendo executados devem ser VMs GCE
 * Essas VMs precisam estar no mesmo projeto e zona GCE que o disco persistente
 
-Um recurso do disco persistente GCE é o acesso simultâneo somente leitura a um disco persistente. Um volume `gcePersistentDisk` permite que vários consumidores montem simultaneamente um disco persistente como somente leitura. Isto significa que pode pré-popular um PD com o seu conjunto de dados e, em seguida, disponibilizá-lo em paralelo a quantos Pods necessitar. Infelizmente, os PDs só podem ser montados por um único consumidor no modo de leitura e escrita. Não são permitidos gravadores simultâneos.
+Uma característica do disco persistente GCE é o acesso simultâneo somente leitura a um disco persistente. Um volume `gcePersistentDisk` permite que vários consumidores montem simultaneamente um disco persistente como somente leitura. Isto significa que é possível alimentar previamente um PD com o seu conjunto de dados e, em seguida, disponibilizá-lo em paralelo a quantos Pods necessitar. Infelizmente, os PDs só podem ser montados por um único consumidor no modo de leitura e escrita. Não são permitidos gravadores simultâneos.
 
 O uso de um disco persistente GCE com um Pod controlado por um ReplicaSet falhará, a menos que o PD seja somente leitura ou a contagem de réplica seja 0 ou 1.
 
@@ -346,7 +354,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
-Quando o recurso `CSIMigration` para o GCE PD é ativado, todas as operações de plugin do plugin in-tree existente são redirecionados para o Driver de Cointainer Storage Interface (CSI) `pd.csi.storage.gke.io`. Para utilizar este recurso, o [Driver CSI GCE PD](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) deve ser instalado no cluster e os recursos beta `CSIMigration` e `CSIMigrationGCE` devem estar habilitados.
+Quando o recurso `CSIMigration` para o GCE PD é habilitado, todas as operações de plugin do plugin in-tree existente são redirecionadas para o Driver de Cointainer Storage Interface (CSI) `pd.csi.storage.gke.io`. Para utilizar este recurso, o [Driver CSI GCE PD](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) deve ser instalado no cluster e os recursos beta `CSIMigration` e `CSIMigrationGCE` devem estar habilitados.
 
 #### Migração de CSI GCE concluída
 
@@ -414,7 +422,7 @@ Os valores suportados para o campo `type` são:
 | `Directory`| Um diretório deve existir no caminho indicado|
 | `FileOrCreate`| Se não houver nada no caminho indicado, um arquivo vazio será criado lá, conforme necessário, com permissão definida para 0644, tendo o mesmo grupo e propriedade com Kubelet.|
 | `File`| Um arquivo deve existir no caminho indicado|
-| `Socket`| Um socket UNIX tem de existir no caminho indicado|
+| `Socket`| Um socket UNIX deve existir no caminho indicado|
 | `CharDevice`| Deve existir um dispositivo de caracteres no caminho indicado|
 | `BlockDevice`| Deve existir um dispositivo de bloco no caminho indicado|
 
@@ -495,7 +503,7 @@ Os volumes locais só podem ser usados como um PersistentVolume criado estaticam
 
 Em comparação com volumes `hostPath`, os volumes `local` são usados de forma durável e portátil, sem escalonamento manual dos Pods para os nós. O sistema está ciente das restrições de nós do volume, observando a afinidade do nó com o PersistentVolume.
 
-No entanto, os volumes `local` estão sujeitos à disponibilidade do nó subjacente e não são adequados para todas as aplicações. Se um nó não está íntegro, então o volume `local` torna-se inacessível pelo pod. O pod que utiliza este volume não consegue ser executado. Os aplicativos que usam volumes `local` devem ser capazes de tolerar essa disponibilidade reduzida, bem como uma possível perda de dados, dependendo das caraterísticas de durabilidade do disco subjacente.
+No entanto, os volumes `local` estão sujeitos à disponibilidade do nó que o comporta e não são adequados para todas as aplicações. Se um nó não está íntegro, então o volume `local` torna-se inacessível pelo pod. O pod que utiliza este volume não consegue ser executado. Os aplicativos que usam volumes `local` devem ser capazes de tolerar essa disponibilidade reduzida, bem como uma possível perda de dados, dependendo das caraterísticas de durabilidade do disco subjacente.
 
 O exemplo a seguir mostra um PersistentVolume usando um volume `local` e `nodeAffinity`:
 
@@ -524,7 +532,7 @@ spec:
           - example-node
 ```
 
-Tem de definir a propriedade `nodeAffinity` do PersistentVolume ao utilizar volumes `local`. O escalonador do Kubernetes usa o PersistentVolume `nodeAffinity` para escalonar esses pods para o nó correto.
+É preciso definir a propriedade `nodeAffinity` do PersistentVolume ao utilizar volumes `local`. O escalonador do Kubernetes usa o PersistentVolume `nodeAffinity` para escalonar esses pods para o nó correto.
 
 A propriedade `volumeMode` do PersistentVolume pode ser definida como "Block" (ao invés do valor padrão "Filesystem") para expor o volume local como um dispositivo de bloco bruto.
 
@@ -532,27 +540,27 @@ Ao usar volumes locais, é recomendável criar uma StorageClass com a propriedad
 
 Um provisionador estático externo pode ser executado separadamente para uma melhor gestão do ciclo de vida do volume local. Observe que este provisionador ainda não suporta o provisionamento dinâmico. Para um exemplo sobre como executar um provisionador local externo, veja o [manual do usuário do provisionador local do volume](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 
-{{< note >}} O PersistentVolume local exige limpeza e remoção manual pelo usuário se o provisionador estático externo não for utilizado para gerenciar o ciclo de vida do volume. {{< /note >}}
+{{< note >}} O PersistentVolume local exige que o usuário faça limpeza e remoção manual se o provisionador estático externo não for utilizado para gerenciar o ciclo de vida do volume. {{< /note >}}
 
 ### nfs
 
 Um volume `nfs` permite que um compartilhamento NFS (Network File System) existente seja montado em um Pod. Ao contrário do `emptyDir` que é apagado quando um Pod é removido, o conteúdo de um volume `nfs` é preservado e o volume é simplesmente desmontado. Isto significa que um volume NFS pode ser alimentado previamente com dados e que os dados podem ser partilhados entre os Pods. O NFS pode ser montado por vários gravadores simultaneamente.
 
-{{< note >}} Você deve ter seu próprio servidor NFS rodando com o compartilhamento externo antes de poder utilizá-lo. {{< /note >}}
+{{< note >}} Você deve ter seu próprio servidor NFS rodando com o compartilhamento acessível antes de poder utilizá-lo. {{< /note >}}
 
 Consulte o [exemplo NFS](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) para obter mais detalhes.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
-Um volume `persistentVolumeClaim` é usado para montar um [PersistentVolume](/docs/concepts/storage/persistent-volumes/) em um Pod. PersistentVolumeClaims são uma forma de os usuários "solicitarem" armazenamento durável (como um GCE PersistentDisk ou um volume iSCSI) sem conhecerem os detalhes do ambiente de nuvem em particular.
+Um volume `persistentVolumeClaim` é usado para montar um [PersistentVolume](/pt-br/docs/concepts/storage/persistent-volumes/) em um Pod. PersistentVolumeClaims são uma forma de os usuários "solicitarem" armazenamento durável (como um GCE PersistentDisk ou um volume iSCSI) sem conhecerem os detalhes do ambiente de nuvem em particular.
 
-Consulte as informações sobre [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) para obter mais detalhes.
+Consulte as informações sobre [PersistentVolumes](/pt-br/docs/concepts/storage/persistent-volumes/) para obter mais detalhes.
 
 ### portworxVolume {#portworxvolume}
 
-A `portworxVolume` é uma camada de armazenamento em bloco extensível que funciona hiperconvergente com Kubernetes. O [Portworx](https://portworx.com/use-case/kubernetes-storage/) tira as impressões digitais de um armazenamento em um servidor, organiza com base nas capacidades e agrega capacidade em múltiplos servidores. Portworx funciona em máquinas virtuais ou em nós Linux bare-metal.
+Um `portworxVolume` é uma camada de armazenamento em bloco extensível que funciona hiperconvergente com Kubernetes. O [Portworx](https://portworx.com/use-case/kubernetes-storage/) tira as impressões digitais de um armazenamento em um servidor, organiza com base nas capacidades e agrega capacidade em múltiplos servidores. Portworx funciona em máquinas virtuais ou em nós Linux bare-metal.
 
-Um `portworxVolume` pode ser criado dinamicamente através de Kubernetes ou também pode ser pré-provisionado e referenciado dentro de um Pod. Aqui está um exemplo de um Pod referenciando um volume Portworx pré-provisionado:
+Um `portworxVolume` pode ser criado dinamicamente através do Kubernetes ou também pode ser previamente provisionado e referenciado dentro de um Pod. Aqui está um exemplo de um Pod referenciando um volume Portworx pré-provisionado:
 
 ```yaml
 apiVersion: v1
@@ -622,7 +630,7 @@ Um volume `secret` é usado para passar informações sensíveis, tais como senh
 
 {{< note >}} Um contêiner que utiliza um Secret como ponto de montagem para a propriedade [`subPath`](#using-subpath) não receberá atualizações deste Secret. {{< /note >}}
 
-Para obter mais detalhes, consulte [Configurando Secrets](/docs/concepts/configuration/secret/).
+Para obter mais detalhes, consulte [Configurando Secrets](/pt-br/docs/concepts/configuration/secret/).
 
 ### storageOS (descontinuado) {#storageos}
 
@@ -634,7 +642,7 @@ Em sua essência, o StorageOS fornece armazenamento em bloco para containers, ac
 
 O Container StorageOS requer Linux de 64 bits e não possui dependências adicionais. Uma licença para desenvolvedores está disponível gratuitamente.
 
-{{< caution >}} Você deve executar o container StorageOS em cada nó que deseja acessar os volumes do StorageOS ou que contribuirá com a capacidade de armazenamento para o pool. Para obter instruções de instalação, consulte a[documentação do StorageOS](https://docs.storageos.com). {{< /caution >}}
+{{< caution >}} Você deve executar o container StorageOS em cada nó que deseja acessar os volumes do StorageOS ou que contribuirá com a capacidade de armazenamento para o pool. Para obter instruções de instalação, consulte a [documentação do StorageOS](https://docs.storageos.com). {{< /caution >}}
 
 O exemplo a seguir é uma configuração do Pod com StorageOS:
 
@@ -672,7 +680,7 @@ Para obter mais informações sobre StorageOS, provisionamento dinâmico e Persi
 
 {{< note >}} Você deve configurar o Kubernetes vSphere Cloud Provider. Para obter informações sobre a configuração do cloudprovider, consulte o [Guia Introdutório do vSphere](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/). {{< /note >}}
 
-Um `vsphereVolume` é usado para montar um volume VMDK do vSphere em seu Pod.  O conteúdo de um volume é preservado quando é desmontado. Ele suporta datastores tanto do tipo VMFS quanto do tipo VSAN.
+Um `vsphereVolume` é usado para montar um volume VMDK do vSphere em seu Pod.  O conteúdo de um volume é preservado quando é desmontado. Ele suporta sistemas de armazenamento de dados tanto do tipo VMFS quanto do tipo VSAN.
 
 {{< note >}} Você deve criar o volume do VMDK vSphere usando um dos métodos a seguir antes de usar com um Pod. {{< /note >}}
 
@@ -681,15 +689,15 @@ Um `vsphereVolume` é usado para montar um volume VMDK do vSphere em seu Pod.  O
 Escolha um dos seguintes métodos para criar um VMDK.
 
 {{< tabs name="tabs_volumes" >}}
-{{% tab name="Create using vmkfstools" %}} 
-Primeiro acesse ESX via ssh, depois use o seguinte comando para criar um VMDK:
+{{% tab name="Criar usando vmkfstools" %}} 
+Primeiro acesse o ESX via ssh, depois use o seguinte comando para criar um VMDK:
 
 ```shell
 vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 ```
 
 {{% /tab %}}
-{{% tab name="Create using vmware-vdiskmanager" %}}
+{{% tab name="Criar usando vmware-vdiskmanager" %}}
 Utilize o seguinte comando para criar um VMDK:
 
 ```shell
@@ -748,7 +756,7 @@ Os volumes existentes criados usando esses parâmetros serão migrados para o dr
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-Para desativar o carregamento do plugin de armazenamento `vsphereVolume` pelo gerenciador de controladores e pelo kubelet, defina a flag `InTreePluginvSphereUnregister` como `true`. Você precisa instalar o driver `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} em todos os nós worker.
+Para desativar o carregamento do plugin de armazenamento `vsphereVolume` pelo gerenciador de controladores e pelo kubelet, defina a flag `InTreePluginvSphereUnregister` como `true`. Você precisa instalar o driver `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} em todos os nós de processamento.
 
 #### Migração de driver CSI do Portworx
 
@@ -830,13 +838,13 @@ spec:
 
 ## Recursos
 
-A media de armazenamento de um (como Disco ou SSD) volume `emptyDir` é determinado por meio do sistema de arquivos que mantém o diretório raiz do kubelet (normalmente `/var/lib/kubelet`). Não há limite quanto espaço um volume `emptyDir` ou `hostPath` podem consumir, e não há isolamento entre contêineres ou entre pods.
+A media de armazenamento(como Disco ou SSD) de um  volume `emptyDir` é determinada por meio do sistema de arquivos que mantém o diretório raiz do kubelet (normalmente `/var/lib/kubelet`). Não há limite para quanto espaço um volume `emptyDir` ou `hostPath` podem consumir, e não há isolamento entre contêineres ou entre pods.
 
-Para saber mais sobre como solicitar espaço usando uma especificação de recursos, consulte [como gerenciar recursos](/docs/concepts/configuration/manage-resources-containers/).
+Para saber mais sobre como solicitar espaço usando uma especificação de recursos, consulte [como gerenciar recursos](/pt-br/docs/concepts/configuration/manage-resources-containers/).
 
 ## Plugins de volume out-of-tree
 
-Os plugins de volume out-of-tree incluem {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI) e também o FlexVolume (que foi descontinuado). Esses plugins permitem que os fornecedores de armazenamento criem plugins de armazenamento personalizados sem adicionar seu código-fonte do plugin ao repositório Kubernetes.
+Os plugins de volume out-of-tree incluem o {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI) e também o FlexVolume (que foi descontinuado). Esses plugins permitem que os fornecedores de armazenamento criem plugins de armazenamento personalizados sem adicionar seu código-fonte do plugin ao repositório Kubernetes.
 
 Anteriormente, todos os plugins de volume eram "in-tree". Os plugins "in-tree" eram construídos, vinculados, compilados e distribuídos com o código principal dos binários do Kubernetes. Isto significava que a adição de um novo sistema de armazenamento ao Kubernetes (um plugin de volume) exigia uma validação do código no repositório central de código Kubernetes.
 
@@ -846,7 +854,7 @@ Para fornecedores de armazenamento que procuram criar um plugin de volume out-of
 
 ### csi
 
-A [Cointainer Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) define uma interface padrão para sistemas de orquestração de contêineres (como Kubernetes) para expor sistemas de armazenamento arbitrários a suas cargas de trabalho de container.
+O [Cointainer Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) define uma interface padrão para sistemas de orquestração de contêineres (como Kubernetes) para expor sistemas de armazenamento arbitrários a suas cargas de trabalho de container.
 
 Leia a [proposta de design CSI](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) para obter mais informações.
 
@@ -864,7 +872,7 @@ Um volume `csi` pode ser utilizado num Pod de três formas diferentes:
 
 Os seguintes campos estão disponíveis para administradores de armazenamento configurarem um volume persistente de CSI:
 
-* `driver`: Um valor do tipo string que especifica o nome do driver de volume a ser usado. Este valor deve corresponder ao valor retornado no `GetPluginInfoResponse` pelo driver CSI, conforme definido na [especificação CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo). Ele é usado pelo Kubernetes para identificar qual driver CSI chamar, e por componentes de driver CSI para identificar quais objetos PV pertencem ao driver CSI.
+* `driver`: Um valor do tipo string que especifica o nome do driver de volume a ser usado. Este valor deve corresponder ao valor retornado no `GetPluginInfoResponse` pelo driver CSI, conforme definido na [especificação CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo). Ele é usado pelo Kubernetes para identificar qual driver CSI chamar, e pelos componentes do driver CSI para identificar quais objetos PV pertencem ao driver CSI.
 * `volumeHandle`: Um valor do tipo string que identifica exclusivamente o volume. Este valor deve corresponder ao valor retornado no campo `volume.id` em `CreateVolumeResponse` pelo driver CSI, conforme definido na [especificação CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume). O valor é passado como `volume_id` em todas as chamadas para o driver de volume CSI quando se faz referência ao volume.
 * `readOnly`: Um valor booleano opcional que indica se o volume deve ser "ControllerPublished" (anexado) como somente leitura. O valor padrão é false. Este valor é passado para o driver CSI através do campo `readonly` em `ControllerPublishVolumeRequest`.
 * `fsType`: Se o `VolumeMode` do PV for `Filesystem` então este campo pode ser usado para especificar o sistema de arquivos que deve ser usado para montar o volume. Se o volume não tiver sido formatado e a formatação for suportada, este valor será utilizado para formatar o volume. Este valor é passado para o driver CSI através do campo `VolumeCapability` nas propriedades `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest` e `NodePublishVolumeRequest`.
@@ -879,13 +887,13 @@ Os seguintes campos estão disponíveis para administradores de armazenamento co
 
 Os fornecedores com drivers CSI externos podem implementar o suporte de volume de blocos brutos nas cargas de trabalho Kubernetes.
 
-Pode configurar o [PersistentVolume/PersistentVolumeClaim com suporte de volume de bloco bruto](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support) , como habitualmente, sem quaisquer alterações específicas de CSI.
+Pode configurar o [PersistentVolume/PersistentVolumeClaim com suporte de volume de bloco bruto](/pt-br/docs/concepts/storage/persistent-volumes/#suporte-a-volume-de-bloco-bruto) , como habitualmente, sem quaisquer alterações específicas de CSI.
 
 #### Volumes efêmeros de CSI
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-Pode configurar diretamente volumes CSI dentro da especificação do Pod. Os volumes especificados desta forma são efêmeros e não persistem nas reinicializações do pod. Consulte [Volumes efêmeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) para obter mais informações.
+É possível configurar diretamente volumes CSI dentro da especificação do Pod. Os volumes especificados desta forma são efêmeros e não persistem nas reinicializações do pod. Consulte [Volumes efêmeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) para obter mais informações.
 
 Para obter mais informações sobre como desenvolver um driver CSI, consulte a [documentação kubernetes-csi](https://kubernetes-csi.github.io/docs/)
 
@@ -903,7 +911,7 @@ Plugins in-tree que suportam `CSIMigration` e têm um driver CSI correspondente 
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
-O FlexVolume é uma interface de plugin out-of-tree que usa um modelo baseado em execução para fazer interface com drivers de armazenamento. Os binários do driver FlexVolume devem ser instalados em um caminho de plugin de volume predefinido em cada nó e, em alguns casos, também nos nós do control plane.
+O FlexVolume é uma interface de plugin out-of-tree que usa um modelo baseado em execução para fazer interface com drivers de armazenamento. Os binários do driver FlexVolume devem ser instalados em um caminho de plugin de volume predefinido em cada nó e, em alguns casos, também nos nós da camada de gerenciamento.
 
 Os Pods interagem com os drivers do FlexVolume através do plugin de volume in-tree `flexVolume`. Para obter mais detalhes, consulte o documento [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) do FlexVolume.
 
@@ -917,7 +925,7 @@ A propagação de montagem permite compartilhar volumes montados por um contêin
 
 A propagação de montagem de um volume é controlada pelo campo `mountPropagation` na propriedade `Container.volumeMounts`. Os seus valores são:
 
-* `None` - Este volume de montagem não receberá do host nenhuma montagem subseqüente que seja montada para este volume ou qualquer um de seus subdiretórios. De forma semelhante, nenhum ponto de montagem criado pelo contêiner será visível no host. Este é o modo padrão.
+* `None` - Este volume de montagem não receberá do host nenhuma montagem posterior que seja montada para este volume ou qualquer um de seus subdiretórios. De forma semelhante, nenhum ponto de montagem criado pelo contêiner será visível no host. Este é o modo padrão.
   
   Este modo é igual à propagação de montagem `private` conforme descrito na [documentação do kernel Linux](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
 
@@ -935,7 +943,7 @@ A propagação de montagem de um volume é controlada pelo campo `mountPropagati
   
   Este modo é igual à propagação de montagem `rshared` conforme descrito na [documentação do kernel Linux](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
   
-  {{< warning >}} A propagação de montagem `Bidirectional` pode ser perigosa. Ela pode danificar o sistema operacional do host e, portanto, ela só é permitido em contêineres privilegiados. A familiaridade com o comportamento do kernel Linux é fortemente recomendada. Além disso, quaisquer montagens de volume criadas por contêineres em pods devem ser destruídas ( desmontadas) pelos contêineres no final. {{< /warning >}}
+  {{< warning >}} A propagação de montagem `Bidirectional` pode ser perigosa. Ela pode danificar o sistema operacional do host e, portanto, ela só é permitida em contêineres privilegiados. A familiaridade com o comportamento do kernel Linux é fortemente recomendada. Além disso, quaisquer montagens de volume criadas por contêineres em pods devem ser destruídas ( desmontadas) pelos contêineres no final. {{< /warning >}}
 
 ### Configuração
 
