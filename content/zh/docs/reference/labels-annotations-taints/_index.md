@@ -185,8 +185,6 @@ Used on: Pod
 
 This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
-
-### beta.kubernetes.io/instance-type (deprecated)
 -->
 ### controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
@@ -196,6 +194,85 @@ which allows users to influence ReplicaSet downscaling order. The annotation par
 
 该注解用于设置 [Pod 删除成本](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost) 允许用户影响 ReplicaSet 缩减顺序。注解解析为 `int32` 类型。
 
+<!-- ### kubernetes.io/ingress-bandwidth
+
+{{< note >}}
+Ingress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+{{< /note >}}
+
+Example: `kubernetes.io/ingress-bandwidth: 10M`
+
+Used on: Pod
+
+You can apply quality-of-service traffic shaping to a pod and effectively limit its available bandwidth.
+Ingress traffic (to the pod) is handled by shaping queued packets to effectively handle data.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for specifying ingress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second. -->
+
+### kubernetes.io/ingress-bandwidth
+
+{{< note >}}
+入口流量控制注释是一项实验性功能。
+如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）和
+确保二进制文件包含在您的 CNI bin 目录中（默认为`/opt/cni/bin`）。
+{{< /note >}}
+
+示例：`kubernetes.io/ingress-bandwidth: 10M`
+
+用于：Pod
+
+您可以对 Pod 应用服务质量流量控制并有效限制其可用带宽。
+入口流量（到 pod）通过控制排队的数据包来处理，以有效地处理数据。
+要限制 pod 的带宽，请编写对象定义 JSON 文件并指定数据流量
+使用 `kubernetes.io/ingress-bandwidth` 注释的速度。 用于指定入口的
+速率单位是每秒，作为 [数量](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)。
+例如，`10M`表示每秒 10 兆比特。
+
+
+<!-- ### kubernetes.io/egress-bandwidth
+
+{{< note >}}
+Egress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+{{< /note >}}
+
+Example: `kubernetes.io/egress-bandwidth: 10M`
+
+Used on: Pod
+
+Egress traffic (from the pod) is handled by policing, which simply drops packets in excess of the configured rate.
+The limits you place on a pod do not affect the bandwidth of other pods.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/egress-bandwidth` annotation. The unit used for specifying egress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second. -->
+
+### kubernetes.io/egress-bandwidth
+
+{{< note >}}
+出口流量控制注释是一项实验性功能。
+如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）和
+确保二进制文件包含在您的 CNI bin 目录中（默认为`/opt/cni/bin`）。
+{{< /note >}}
+
+示例：`kubernetes.io/egress-bandwidth: 10M`
+
+用于：Pod
+
+出口流量（来自 pod）由策略处理，策略只是丢弃超过配置速率的数据包。
+您对 pod 设置的限制不会影响其他 pod 的带宽。
+要限制 pod 的带宽，请编写对象定义 JSON 文件并指定数据流量
+使用 `kubernetes.io/egress-bandwidth` 注释速度。 用于指定出口的
+速率单位是每秒，作为 [数量](/docs/reference/kubernetes-api/common-definitions/quantity/)。
+例如，`10M` 表示每秒 10 兆比特。
+
+
+<!-- ### beta.kubernetes.io/instance-type (deprecated) -->
 ### beta.kubernetes.io/instance-type (已弃用) {#beta-kubernetes-io-instance-type}
 
 <!--
@@ -1025,16 +1102,20 @@ seccomp 配置文件应用于 Pod 或其容器的步骤。
 <!--
 ## Annotations used for audit
 
-- [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
-- [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
+- [`authorization.k8s.io/reason`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
 - [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
+- [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 See more details on the [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/) page.
 -->
 ## 用于审计的注解    {#annonations-used-for-audit}
 
-- [`pod-security.kubernetes.io/exempt`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
-- [`pod-security.kubernetes.io/enforce-policy`](/zh/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`authorization.k8s.io/decision`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
+- [`authorization.k8s.io/reason`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
 - [`pod-security.kubernetes.io/audit-violations`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
+- [`pod-security.kubernetes.io/enforce-policy`](/zh/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/exempt`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 在[审计注解](/zh/docs/reference/labels-annotations-taints/audit-annotations/)页面上查看更多详细信息。
