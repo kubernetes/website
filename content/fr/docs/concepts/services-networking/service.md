@@ -209,7 +209,7 @@ Cela signifie que vous évitez d'envoyer du trafic via kube-proxy vers un pod co
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
-En mode `ipvs`, kube-proxy surveille les Services et Endpoints Kubernetes. kube-proxy appelle l'interface` netlink` pour créer les règles IPVS en conséquence et synchronise périodiquement les règles IPVS avec les Services et Endpoints Kubernetes.
+En mode `ipvs`, kube-proxy surveille les Services et Endpoints Kubernetes. kube-proxy appelle l'interface `netlink` pour créer les règles IPVS en conséquence et synchronise périodiquement les règles IPVS avec les Services et Endpoints Kubernetes.
 Cette boucle de contrôle garantit que l'état IPVS correspond à l'état souhaité.
 Lors de l'accès à un service, IPVS dirige le trafic vers l'un des pods backend.
 
@@ -364,11 +364,11 @@ Les valeurs de `Type` et leurs comportements sont:
      Le choix de cette valeur rend le service uniquement accessible à partir du cluster.
      Il s'agit du `ServiceType` par défaut.
    * [`NodePort`](#type-nodeport): Expose le service sur l'IP de chaque nœud sur un port statique (le `NodePort`).
-     Un service `ClusterIP`, vers lequel le service` NodePort` est automatiquement créé.
+     Un service `ClusterIP`, vers lequel le service `NodePort` est automatiquement créé.
      Vous pourrez contacter le service `NodePort`, depuis l'extérieur du cluster, en demandant `<NodeIP>: <NodePort>`.
    * [`LoadBalancer`](#loadbalancer): Expose le service en externe à l'aide de l'équilibreur de charge d'un fournisseur de cloud.
      Les services `NodePort` et `ClusterIP`, vers lesquels les itinéraires de l'équilibreur de charge externe, sont automatiquement créés.
-   * [`ExternalName`](#externalname): Mappe le service au contenu du champ `externalName` (par exemple` foo.bar.example.com`), en renvoyant un enregistrement `CNAME` avec sa valeur.
+   * [`ExternalName`](#externalname): Mappe le service au contenu du champ `externalName` (par exemple `foo.bar.example.com`), en renvoyant un enregistrement `CNAME` avec sa valeur.
      Aucun proxy d'aucune sorte n'est mis en place.
      {{< note >}}
      Vous avez besoin de CoreDNS version 1.7 ou supérieure pour utiliser le type `ExternalName`.

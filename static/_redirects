@@ -488,7 +488,6 @@
 /editdocs/     /docs/contribute/     301
 /docs/home/editdocs/  /docs/contribute/ 301
 
-
 /docs/admin/accessing-the-api/     /docs/concepts/overview/kubernetes-api/ 301
 /docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301
 /docs/admin/authentication/     /docs/reference/access-authn-authz/authentication/ 301
@@ -502,8 +501,13 @@
 /docs/admin/authorization/webhook/     /docs/reference/access-authn-authz/webhook/ 301
 /docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301
 /docs/admin/high-availability/building/     /docs/setup/production-environment/tools/kubeadm/high-availability/   301
+
 /code-of-conduct/     /community/code-of-conduct/   301
 /values/     /community/values/   302
+
+/dockershim /blog/2022/02/17/dockershim-faq/ 302
+/dockershim/ /blog/2022/02/17/dockershim-faq/ 302
+
 
 /docs/setup/release/notes/     /releases/notes/   302
 /docs/setup/release/                 /releases/   301

@@ -49,6 +49,25 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 			<td><strong>項目</strong></td>
 			<td><strong>ポリシー</strong></td>
 		</tr>
+    <tr>
+			<td>ホストのプロセス</td>
+			<td>
+        <p>Windows Podは、Windowsノードへの特権的なアクセスを可能にする<a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess</a>コンテナ</a>を実行する機能を提供します。ベースラインポリシーでは、ホストへの特権的なアクセスは禁止されています。HostProcess Podは、Kubernetes v1.22時点ではアルファ版の機能です。
+				ホストのネームスペースの共有は無効化すべきです。</p>
+				<p><strong>制限されるフィールド</strong></p>
+				<ul>
+					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.containers[*].securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.initContainers[*].securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.windowsOptions.hostProcess</code></li>
+				</ul>
+				<p><strong>認められる値</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>false</code></li>
+				</ul>
+			</td>
+		</tr>
 		<tr>
 			<td>ホストのネームスペース</td>
 			<td>
@@ -57,7 +76,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				spec.hostNetwork<br>
 				spec.hostPID<br>
 				spec.hostIPC<br>
-				<br><b>認められる値:</b> false<br>
+				<br><b>認められる値:</b> false, Undefined/nil<br>
 			</td>
 		</tr>
 		<tr>
@@ -67,6 +86,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				<br><b>制限されるフィールド:</b><br>
 				spec.containers[*].securityContext.privileged<br>
 				spec.initContainers[*].securityContext.privileged<br>
+        spec.ephemeralContainers[*].securityContext.privileged<br>
 				<br><b>認められる値:</b> false, undefined/nil<br>
 			</td>
 		</tr>
@@ -77,7 +97,22 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				<br><b>制限されるフィールド:</b><br>
 				spec.containers[*].securityContext.capabilities.add<br>
 				spec.initContainers[*].securityContext.capabilities.add<br>
-				<br><b>認められる値:</b> 空 (または既知のリストに限定)<br>
+        spec.ephemeralContainers[*].securityContext.capabilities.add<br>
+				<br><b>認められる値:</b>
+					Undefined/nil<br>
+					AUDIT_WRITE<br>
+					CHOWN<br>
+					DAC_OVERRIDE<br>
+					FOWNER<br>
+					FSETID<br>
+					KILL<br>
+					MKNOD<br>
+					NET_BIND_SERVICE<br>
+					SETFCAP<br>
+					SETGID<br>
+					SETPCAP<br>
+					SETUID<br>
+					SYS_CHROOT<br>
 			</td>
 		</tr>
 		<tr>
@@ -96,16 +131,17 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				<br><b>制限されるフィールド:</b><br>
 				spec.containers[*].ports[*].hostPort<br>
 				spec.initContainers[*].ports[*].hostPort<br>
+        spec.ephemeralContainers[*].ports[*].hostPort<br>
 				<br><b>認められる値:</b> 0, undefined (または既知のリストに限定)<br>
 			</td>
 		</tr>
 		<tr>
-			<td>AppArmor <em>(任意)</em></td>
+			<td>AppArmor<em>(任意)</em></td>
 			<td>
 				サポートされるホストでは、AppArmorの'runtime/default'プロファイルがデフォルトで適用されます。デフォルトのポリシーはポリシーの上書きや無効化を防ぎ、許可されたポリシーのセットを上書きできないよう制限すべきです。<br>
 				<br><b>制限されるフィールド:</b><br>
 				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
-				<br><b>認められる値:</b> 'runtime/default', undefined<br>
+				<br><b>認められる値:</b> 'runtime/default', undefined, localhost/*<br>
 			</td>
 		</tr>
 		<tr>
@@ -116,7 +152,24 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				spec.securityContext.seLinuxOptions<br>
 				spec.containers[*].securityContext.seLinuxOptions<br>
 				spec.initContainers[*].securityContext.seLinuxOptions<br>
-				<br><b>認められる値:</b> undefined/nil<br>
+        spec.ephemeralContainers[*].securityContext.seLinuxOptions.type<br>
+				<br><b>認められる値:</b>undefined/nil<br>
+        Undefined/""<br>
+        container_t<br>
+        container_init_t<br>
+        container_kvm_t<br>
+        <hr />
+        <br><b>制限されるフィールド:</b><br>
+        spec.securityContext.seLinuxOptions.user<br>
+        spec.containers[*].securityContext.seLinuxOptions.user<br>
+        spec.initContainers[*].securityContext.seLinuxOptions.user<br>
+        spec.ephemeralContainers[*].securityContext.seLinuxOptions.user<br>
+        spec.securityContext.seLinuxOptions.role<br>
+        spec.containers[*].securityContext.seLinuxOptions.role<br>
+        spec.initContainers[*].securityContext.seLinuxOptions.role<br>
+        spec.ephemeralContainers[*].securityContext.seLinuxOptions.role<br>
+        <br><b>認められる値:</b>undefined/nil<br>
+        Undefined/""        
 			</td>
 		</tr>
 		<tr>
@@ -126,9 +179,29 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				<br><b>制限されるフィールド:</b><br>
 				spec.containers[*].securityContext.procMount<br>
 				spec.initContainers[*].securityContext.procMount<br>
-				<br><b>認められる値:</b> undefined/nil, 'Default'<br>
+        spec.ephemeralContainers[*].securityContext.procMount<br>
+				<br><b>認められる値:</b>undefined/nil, 'Default'<br>
 			</td>
 		</tr>
+    <tr>
+      <td>Seccomp</td>
+  			<td>
+          <p>Seccompプロファイルを明示的に<code>Unconfined</code>に設定することはできません。</p>
+  				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.seccompProfile.type</code></li>
+					<li><code>spec.containers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.initContainers[*].securityContext.seccompProfile.type</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.seccompProfile.type</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>RuntimeDefault</code></li>
+					<li><code>Localhost</code></li>
+				</ul>
+  			</td>
+    </tr>
 		<tr>
 			<td>Sysctl</td>
 			<td>
@@ -169,27 +242,27 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 			<td>
 				HostPathボリュームの制限に加え、制限プロファイルではコアでない種類のボリュームの利用をPersistentVolumeにより定義されたものに限定します。<br>
 				<br><b>制限されるフィールド:</b><br>
-				spec.volumes[*].hostPath<br>
-				spec.volumes[*].gcePersistentDisk<br>
-				spec.volumes[*].awsElasticBlockStore<br>
-				spec.volumes[*].gitRepo<br>
-				spec.volumes[*].nfs<br>
-				spec.volumes[*].iscsi<br>
-				spec.volumes[*].glusterfs<br>
-				spec.volumes[*].rbd<br>
-				spec.volumes[*].flexVolume<br>
-				spec.volumes[*].cinder<br>
-				spec.volumes[*].cephFS<br>
-				spec.volumes[*].flocker<br>
-				spec.volumes[*].fc<br>
-				spec.volumes[*].azureFile<br>
-				spec.volumes[*].vsphereVolume<br>
-				spec.volumes[*].quobyte<br>
-				spec.volumes[*].azureDisk<br>
-				spec.volumes[*].portworxVolume<br>
-				spec.volumes[*].scaleIO<br>
-				spec.volumes[*].storageos<br>
-				spec.volumes[*].csi<br>
+				  spec.volumes[*].hostPath<br>
+          spec.volumes[*].gcePersistentDisk<br>
+          spec.volumes[*].awsElasticBlockStore<br>
+          spec.volumes[*].gitRepo<br>
+          spec.volumes[*].nfs<br>
+          spec.volumes[*].iscsi<br>
+          spec.volumes[*].glusterfs<br>
+          spec.volumes[*].rbd<br>
+          spec.volumes[*].flexVolume<br>
+          spec.volumes[*].cinder<br>
+          spec.volumes[*].cephfs<br>
+          spec.volumes[*].flocker<br>
+          spec.volumes[*].fc<br>
+          spec.volumes[*].azureFile<br>
+          spec.volumes[*].vsphereVolume<br>
+          spec.volumes[*].quobyte<br>
+          spec.volumes[*].azureDisk<br>
+          spec.volumes[*].portworxVolume<br>
+          spec.volumes[*].scaleIO<br>
+          spec.volumes[*].storageos<br>
+          spec.volumes[*].photonPersistentDisk<br>
 				<br><b>認められる値:</b> undefined/nil<br>
 			</td>
 		</tr>
@@ -200,6 +273,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				<br><b>制限されるフィールド:</b><br>
 				spec.containers[*].securityContext.allowPrivilegeEscalation<br>
 				spec.initContainers[*].securityContext.allowPrivilegeEscalation<br>
+        spec.ephemeralContainers[*].securityContext.allowPrivilegeEscalation<br>
 				<br><b>認められる値:</b> false<br>
 			</td>
 		</tr>
@@ -211,6 +285,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				spec.securityContext.runAsNonRoot<br>
 				spec.containers[*].securityContext.runAsNonRoot<br>
 				spec.initContainers[*].securityContext.runAsNonRoot<br>
+        spec.ephemeralContainers[*].securityContext.runAsNonRoot<br>
 				<br><b>認められる値:</b> true<br>
 			</td>
 		</tr>
@@ -240,6 +315,36 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				<br><b>認められる値:</b><br>
 				'runtime/default'<br>
 				undefined / nil<br>
+			</td>
+		</tr>
+    <tr>
+			<td style="white-space: nowrap">Capabilities (v1.22+)</td>
+			<td>
+				<p>
+					コンテナはすべてのケイパビリティを削除する必要があり、<code>NET_BIND_SERVICE</code>ケイパビリティを追加することだけが許可されています。
+				</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.capabilities.drop</code></li>
+					<li><code>spec.initContainers[*].securityContext.capabilities.drop</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.capabilities.drop</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Any list of capabilities that includes <code>ALL</code></li>
+				</ul>
+				<hr />
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.initContainers[*].securityContext.capabilities.add</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.capabilities.add</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>NET_BIND_SERVICE</code></li>
+				</ul>
 			</td>
 		</tr>
 	</tbody>
@@ -283,6 +388,14 @@ Gatekeeper](https://github.com/open-policy-agent/gatekeeper)があります。
 Kubernetesでは、Linuxベースのワークロードと比べてWindowsの使用は制限や差異があります。
 特に、PodのSecurityContextフィールドは[Windows環境では効果がありません](/ja/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
 したがって、現段階では標準化されたセキュリティポリシーは存在しません。
+
+Windows Podに制限付きプロファイルを適用すると、実行時にPodに影響が出る場合があります。
+制限付きプロファイルでは、Linux固有の制限(seccompプロファイルや特権昇格の不許可など)を適用する必要があります。
+kubeletおよび/またはそのコンテナランタイムがこれらのLinux固有の値を無視した場合、Windows Podは制限付きプロファイル内で正常に動作します。
+ただし、強制力がないため、Windows コンテナを使用するPodについては、ベースラインプロファイルと比較して追加の制限はありません。
+
+HostProcess Podを作成するためのHostProcessフラグの使用は、特権的なポリシーに沿ってのみ行われるべきです。
+Windows HostProcess Podの作成は、ベースラインおよび制限されたポリシーの下でブロックされているため、いかなるHostProcess Podも特権的であるとみなされるべきです。
 
 ### サンドボックス化されたPodはどのように扱えばよいでしょうか?
 

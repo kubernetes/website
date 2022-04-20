@@ -15,6 +15,76 @@ This document serves both as a reference to the values and as a coordination poi
 
 ## Labels, annotations and taints used on API objects
 
+### app.kubernetes.io/component
+
+Example: `app.kubernetes.io/component=database`
+
+Used on: All Objects
+
+The component within the architecture.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/created-by
+
+Example: `app.kubernetes.io/created-by=controller-manager`
+
+Used on: All Objects
+
+The controller/user who created this resource.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/instance
+
+Example: `app.kubernetes.io/instance=mysql-abcxzy`
+
+Used on: All Objects
+
+A unique name identifying the instance of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/managed-by
+
+Example: `app.kubernetes.io/managed-by=helm`
+
+Used on: All Objects
+
+The tool being used to manage the operation of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/name
+
+Example: `app.kubernetes.io/name=mysql`
+
+Used on: All Objects
+
+The name of the application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/part-of
+
+Example: `app.kubernetes.io/part-of=wordpress`
+
+Used on: All Objects
+
+The name of a higher level application this one is part of.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/version
+
+Example: `app.kubernetes.io/version="5.7.21"`
+
+Used on: All Objects
+
+The current version of the application (e.g., a semantic version, revision hash, etc.).
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
 ### kubernetes.io/arch
 
 Example: `kubernetes.io/arch=amd64`

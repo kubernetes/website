@@ -647,6 +647,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"service/networking": {
 			"curlpod":                                 {&apps.Deployment{}},
 			"custom-dns":                              {&api.Pod{}},
+			"default-ingressclass":                    {&networking.IngressClass{}},
 			"dual-stack-default-svc":                  {&api.Service{}},
 			"dual-stack-ipfamilies-ipv6":              {&api.Service{}},
 			"dual-stack-ipv6-svc":                     {&api.Service{}},
@@ -662,6 +663,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"name-virtual-host-ingress":               {&networking.Ingress{}},
 			"name-virtual-host-ingress-no-third-host": {&networking.Ingress{}},
 			"namespaced-params":                       {&networking.IngressClass{}},
+			"networkpolicy":                           {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-egress":         {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-ingress":        {&networking.NetworkPolicy{}},
 			"network-policy-default-deny-egress":      {&networking.NetworkPolicy{}},

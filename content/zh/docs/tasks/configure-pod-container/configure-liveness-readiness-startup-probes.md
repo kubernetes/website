@@ -358,7 +358,7 @@ kubelet 可以配置为使用该协议来执行应用活跃性检查。
 
 下面是一个示例清单：
 
-{{< codenew file="pods/probe/grpc-liveness.yaml">}}
+{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
 
 <!--
 To use a gRPC probe, `port` must be configured. If the health endpoint is configured
