@@ -78,7 +78,7 @@ by the kubelet, using the `--cluster-dns` flag. This setting needs to be the sam
 on every manager and Node in the cluster. The kubelet provides a versioned, structured API object
 that can configure most parameters in the kubelet and push out this configuration to each running
 kubelet in the cluster. This object is called
-[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/). 
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
 The `KubeletConfiguration` allows the user to specify flags such as the cluster DNS IP addresses expressed as
 a list of values to a camelCased key, illustrated by the following example:
 
@@ -186,7 +186,7 @@ for more information on the individual fields.
 通过调用 `kubeadm config print init-defaults --component-configs KubeletConfiguration`，
 你可以看到此结构中的所有默认值。
 
-也可以阅读 [KubeletConfiguration 参考](/docs/reference/config-api/kubelet-config.v1beta1/)
+也可以阅读 [KubeletConfiguration 参考](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
 来获取有关各个字段的更多信息。
 
 <!--
@@ -308,10 +308,15 @@ It augments the basic
 [`kubelet.service` for RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) or
 [`kubelet.service` for DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service):
 
+{{< note >}}
+The contents below are just an example. If you don't want to use a package manager
+follow the guide outlined in the [Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+section.
+{{< /note >}}
+
 ```none
 [Service]
-Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf
---kubeconfig=/etc/kubernetes/kubelet.conf"
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 # This is a file that "kubeadm init" and "kubeadm join" generate at runtime, populating
 the KUBELET_KUBEADM_ARGS variable dynamically
@@ -347,10 +352,15 @@ This file specifies the default locations for all of the files managed by kubead
 或者 [DEB 版本 `kubelet.service`](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service)
 作了增强：
 
+{{< note >}}
+下面的内容只是一个例子。 如果您不想使用包管理器，
+请遵循[没有包管理器](/zh/docs/setup/productionenvironment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+部分中叙述的指南。
+{{< /note >}}
+
 ```none
 [Service]
-Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf
---kubeconfig=/etc/kubernetes/kubelet.conf"
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 # 这是 "kubeadm init" 和 "kubeadm join" 运行时生成的文件，动态地填充 KUBELET_KUBEADM_ARGS 变量
 EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
@@ -381,9 +391,10 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 | Package name   | Description |
 |----------------|-------------|
 | `kubeadm`      | Installs the `/usr/bin/kubeadm` CLI tool and the [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
-| `kubelet`      | Installs the kubelet binary in `/usr/bin` and CNI binaries in `/opt/cni/bin`. |
+| `kubelet`      | Installs the `/usr/bin/kubelet` binary. |
 | `kubectl`      | Installs the `/usr/bin/kubectl` binary. |
 | `cri-tools`    | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-sigs/cri-tools). |
+| `kubernetes-cni` | Installs the `/opt/cni/bin` binaries from the [plugins git repository](https://github.com/containernetworking/plugins). |
 -->
 ## Kubernetes 可执行文件和软件包内容
 
@@ -392,7 +403,8 @@ Kubernetes 版本对应的 DEB 和 RPM 软件包是：
 | Package name | Description |
 |--------------|-------------|
 | `kubeadm`    | 给 kubelet 安装 `/usr/bin/kubeadm` CLI 工具和 [kubelet 的 systemd 文件](#the-kubelet-drop-in-file-for-systemd)。 |
-| `kubelet`    | 安装 kubelet 可执行文件到 `/usr/bin` 路径，安装 CNI 可执行文件到 `/opt/cni/bin` 路径。 |
+| `kubelet`    | 安装 `/usr/bin/kubelet` 可执行文件。 |
 | `kubectl`    | 安装 `/usr/bin/kubectl` 可执行文件。 |
 | `cri-tools` | 从 [cri-tools git 仓库](https://github.com/kubernetes-sigs/cri-tools)中安装 `/usr/bin/crictl` 可执行文件。 |
+| `kubernetes-cni` | 从 [plugins git 仓库](https://github.com/containernetworking/plugins)中安装 `/opt/cni/bin` 可执行文件。|
 
