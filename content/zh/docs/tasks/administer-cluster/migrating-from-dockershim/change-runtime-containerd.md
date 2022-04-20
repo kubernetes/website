@@ -1,6 +1,8 @@
+---
 title: 将节点上的容器运行时从 Docker Engine 改为 containerd
 weight: 8
 content_type: task 
+---
 
 <!--
 title: "Changing the Container Runtime on a Node from Docker Engine to containerd"
@@ -9,7 +11,10 @@ content_type: task
 -->
 
 <!--
-This task outlines the steps needed to update your container runtime to containerd from Docker. It is applicable for cluster operators running Kubernetes 1.23 or earlier. Also  this covers an example scenario for migrating from dockershim to containerd and alternative container runtimes can be picked from this [page](https://kubernetes.io/docs/setup/production-environment/container-runtimes/).
+This task outlines the steps needed to update your container runtime to containerd from Docker. It
+is applicable for cluster operators running Kubernetes 1.23 or earlier. Also  this covers an
+example scenario for migrating from dockershim to containerd and alternative container runtimes
+can be picked from this [page](/docs/setup/production-environment/container-runtimes/).
 -->
 本任务给出将容器运行时从 Docker 改为 containerd 所需的步骤。
 此任务适用于运行 1.23 或更早版本 Kubernetes 的集群操作人员。
@@ -22,26 +27,31 @@ This task outlines the steps needed to update your container runtime to containe
 {{% thirdparty-content %}}
 
 <!--
-Install containerd. For more information see, [containerd's installation documentation](https://containerd.io/docs/getting-started/) and for specific prerequisite follow [this](/docs/setup/production-environment/container-runtimes/#containerd).
+Install containerd. For more information see
+[containerd's installation documentation](https://containerd.io/docs/getting-started/)
+and for specific prerequisite follow
+[the containerd guide](/docs/setup/production-environment/container-runtimes/#containerd).
 -->
 安装 containerd。进一步的信息可参见
 [containerd 的安装文档](https://containerd.io/docs/getting-started/)。
-关于一些特定的环境准备工作，请参阅[此页面](/zh/docs/setup/production-environment/container-runtimes/#containerd)。
+关于一些特定的环境准备工作，请遵循 [containerd 指南](/zh/docs/setup/production-environment/container-runtimes/#containerd)。
 
 <!--
 ## Drain the node 
 
-```
-# replace <node-to-drain> with the name of your node you are draining
+```shell
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
+
+Replace `<node-to-drain>` with the name of your node you are draining.
 -->
 ## 腾空节点    {#drain-the-node}
 
-```
-# 将 <node-to-drain> 替换为你所要腾空的节点的名称
+```shell
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
+
+将 `<node-to-drain>` 替换为你所要腾空的节点的名称
 
 <!--
 ## Stop the Docker daemon
@@ -56,27 +66,29 @@ systemctl disable docker.service --now
 <!--
 ## Install Containerd
 
-This [page](/docs/setup/production-environment/container-runtimes/#containerd) contains detailed steps to install containerd.
+Follow the [guide](/docs/setup/production-environment/container-runtimes/#containerd)
+for detailed steps to install containerd.
 -->
 ## 安装 Containerd    {#install-containerd}
 
-此[页面](/zh/docs/setup/production-environment/container-runtimes/#containerd)
-包含安装 containerd 的详细步骤。
+遵循此[指南](/zh/docs/setup/production-environment/container-runtimes/#containerd)
+了解安装 containerd 的详细步骤。
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
 
 <!--
 1. Install the `containerd.io` package from the official Docker repositories. 
-Instructions for setting up the Docker repository for your respective Linux distribution and installing the `containerd.io` package can be found at 
-[Install Docker Engine](https://docs.docker.com/engine/install/#server).
+   Instructions for setting up the Docker repository for your respective Linux distribution and
+   installing the `containerd.io` package can be found at 
+   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 -->
 1. 从官方的 Docker 仓库安装 `containerd.io` 包。关于为你所使用的 Linux 发行版来设置
    Docker 仓库，以及安装 `containerd.io` 包的详细说明，可参见
    [Install Docker Engine](https://docs.docker.com/engine/install/#server)。
 
 <!--
-2. Configure containerd:
+1. Configure containerd:
 -->
 2. 配置 containerd：
 
@@ -86,19 +98,19 @@ Instructions for setting up the Docker repository for your respective Linux dist
    ```
 
 <!--
-3. Restart containerd:
+1. Restart containerd:
 -->
 3. 重启 containerd：
 
    ```shell
    sudo systemctl restart containerd
    ```
-
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
 <!--
-Start a Powershell session, set `$Version` to the desired version (ex: `$Version="1.4.3"`), and then run the following commands:
+Start a Powershell session, set `$Version` to the desired version (ex: `$Version="1.4.3"`), and
+then run the following commands:
 -->
 启动一个 Powershell 会话，将 `$Version` 设置为期望的版本（例如：`$Version="1.4.3"`），
 之后运行下面的命令：
@@ -148,7 +160,9 @@ Start a Powershell session, set `$Version` to the desired version (ex: `$Version
 <!--
 ## Configure the kubelet to use containerd as its container runtime
 
-Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags. `--container-runtime=remote` and `--container-runtime-endpoint=unix:///run/containerd/containerd.sock"`
+Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags.
+`--container-runtime=remote` and
+`--container-runtime-endpoint=unix:///run/containerd/containerd.sock"`.
 -->
 ## 配置 kubelet 使用 containerd 作为其容器运行时
 
@@ -158,21 +172,19 @@ Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtim
 <!--
 For users using kubeadm should consider the following:
 
-The `kubeadm` tool stores the CRI socket for each host as an annotation in the Node object for that host.
+Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socket for each host as
+an annotation in the Node object for that host. To change it you can execute the following command
+on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
 -->
 对于使用 kubeadm 的用户，可以考虑下面的问题：
 
 `kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的 Node 对象的注解中。
+使用 `kubeadm` 的用户应该知道，`kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的 Node 对象的注解中。
+要更改这一注解信息，你可以在一台包含 kubeadm `/etc/kubernetes/admin.conf` 文件的机器上执行以下命令：
 
-<!--
-To change it you must do the following:
-
-Execute `kubectl edit no <NODE-NAME>` on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
--->
-要更改这一注解信息，你必须执行下面的操作：
-
-在一台包含 `/etc/kubernetes/admin.conf` 文件的机器上，执行
-`kubectl edit no <节点名称>`。
+```shell
+kubectl edit no <node-name>
+```
 
 <!--
 This will start a text editor where you can edit the Node object.
@@ -180,9 +192,9 @@ This will start a text editor where you can edit the Node object.
 To choose a text editor you can set the `KUBE_EDITOR` environment variable.
 
 - Change the value of `kubeadm.alpha.kubernetes.io/cri-socket` from `/var/run/dockershim.sock`
-   to the CRI socket path of your choice (for example `unix:///run/containerd/containerd.sock`).
+  to the CRI socket path of your choice (for example `unix:///run/containerd/containerd.sock`).
    
-   Note that new CRI socket paths must be prefixed with `unix://` ideally.
+  Note that new CRI socket paths must be prefixed with `unix://` ideally.
 
 - Save the changes in the text editor, which will update the Node object.
 -->
@@ -220,7 +232,7 @@ Run `kubectl get nodes -o wide` and containerd appears as the runtime for the no
 {{% thirdparty-content %}}
 
 <!--
-Finally if everything goes well remove docker
+Finally if everything goes well, remove Docker.
 -->
 最后，在一切顺利时删除 Docker。
 

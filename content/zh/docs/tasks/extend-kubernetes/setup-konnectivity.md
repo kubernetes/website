@@ -13,7 +13,17 @@ Konnectivity 服务为控制平面提供集群通信的 TCP 级别代理。
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}}
+<!--
+You need to have a Kubernetes cluster, and the kubectl command-line tool must
+be configured to communicate with your cluster. It is recommended to run this
+tutorial on a cluster with at least two nodes that are not acting as control
+plane hosts. If you do not already have a cluster, you can create one by using
+[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
+-->
+你需要有一个 Kubernetes 集群，并且 kubectl 命令可以与集群通信。
+建议在至少有两个不充当控制平面主机的节点的集群上运行本教程。
+如果你还没有集群，可以使用
+[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/) 创建一个集群。
 
 <!-- steps -->
 <!--
@@ -32,15 +42,8 @@ You need to configure the API Server to use the Konnectivity service
 and direct the network traffic to the cluster nodes:
 
 1. Make sure that
-the `ServiceAccountTokenVolumeProjection` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled. You can enable
-[service account token volume protection](/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
-by providing the following flags to the kube-apiserver:
-   ```
-   --service-account-issuer=api
-   --service-account-signing-key-file=/etc/kubernetes/pki/sa.key
-   --api-audiences=system:konnectivity-server
-   ```
+[Service Account Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
+feature enabled in your cluster. It is enabled by default since Kubernetes v1.20.
 1. Create an egress configuration file such as `admin/konnectivity/egress-selector-configuration.yaml`.
 1. Set the `--egress-selector-config-file` flag of the API Server to the path of
 your API Server egress configuration file.
@@ -61,16 +64,8 @@ your API Server egress configuration file.
 -->
 你需要配置 API 服务器来使用 Konnectivity 服务，并将网络流量定向到集群节点：
 
-1. 确保 `ServiceAccountTokenVolumeProjection`
-   [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-   被启用。你可以通过为 kube-apiserver 提供以下标志启用
-   [服务账号令牌卷保护](/zh/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)：
-
-   ```
-   --service-account-issuer=api
-   --service-account-signing-key-file=/etc/kubernetes/pki/sa.key
-   --api-audiences=system:konnectivity-server
-   ```
+确保[服务账号令牌卷投射](/zh/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
+特性被启用。该特性自 Kubernetes v1.20 起默认已被启用。
 
 1. 创建一个出站流量配置文件，比如 `admin/konnectivity/egress-selector-configuration.yaml`。
 1. 将 API 服务器的 `--egress-selector-config-file` 参数设置为你的 API 服务器的

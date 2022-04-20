@@ -185,7 +185,7 @@ delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).  Kubectl wi
 for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
 command is interrupted, it can be restarted.
 
-When using the REST API or Go client library, you need to do the steps explicitly (scale replicas to
+When using the REST API or [client library](/docs/reference/using-api/client-libraries), you need to do the steps explicitly (scale replicas to
 0, wait for pod deletions, then delete the ReplicationController).
 
 ### Deleting only a ReplicationController
@@ -194,7 +194,7 @@ You can delete a ReplicationController without affecting any of its pods.
 
 Using kubectl, specify the `--cascade=orphan` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
 
-When using the REST API or Go client library, you can delete the ReplicationController object.
+When using the REST API or [client library](/docs/reference/using-api/client-libraries), you can delete the ReplicationController object.
 
 Once the original is deleted, you can create a new ReplicationController to replace it.  As long
 as the old and new `.spec.selector` are the same, then the new one will adopt the old pods.

@@ -233,7 +233,7 @@ in order to configure checks that rely on gRPC.
 
 Here is an example manifest:
 
-{{< codenew file="pods/probe/grpc-liveness.yaml">}}
+{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
 
 To use a gRPC probe, `port` must be configured. If the health endpoint is configured
 on a non-default service, you must also specify the `service`.

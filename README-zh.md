@@ -131,7 +131,7 @@ Hugo is shipped in two set of binaries for technical reasons. The current websit
 If you run `make serve` on macOS and receive the following error:
 
 -->
-### 对 macOs 上打开太多文件的故障排除
+### 对 macOS 上打开太多文件的故障排除
 
 如果在 macOS 上运行 `make serve` 收到以下错误：
 
