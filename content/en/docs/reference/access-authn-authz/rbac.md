@@ -384,11 +384,11 @@ rules:
 ```
 
 Allow reading/writing Deployments (at the HTTP level: objects with `"deployments"`
-in the resource part of their URL) in both the `"extensions"` and `"apps"` API groups:
+in the resource part of their URL) in the `"apps"` API groups:
 
 ```yaml
 rules:
-- apiGroups: ["extensions", "apps"]
+- apiGroups: ["apps"]
   #
   # at the HTTP level, the name of the resource for accessing Deployment
   # objects is "deployments"
@@ -397,7 +397,7 @@ rules:
 ```
 
 Allow reading Pods in the core API group, as well as reading or writing Job
-resources in the `"batch"` or `"extensions"` API groups:
+resources in the `"batch"` API group:
 
 ```yaml
 rules:
@@ -407,7 +407,7 @@ rules:
   # objects is "pods"
   resources: ["pods"]
   verbs: ["get", "list", "watch"]
-- apiGroups: ["batch", "extensions"]
+- apiGroups: ["batch"]
   #
   # at the HTTP level, the name of the resource for accessing Job
   # objects is "jobs"
