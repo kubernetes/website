@@ -5,7 +5,7 @@ date: 2022-04-18
 slug: volume-expansion-ga
 ---
 
-**Author:** Hemant Kumar
+**Author:** Hemant Kumar (Red Hat)
 
 ## Introduction
 
