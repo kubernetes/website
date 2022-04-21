@@ -181,5 +181,5 @@ by Kubernetes.
 -->
 ## {{% heading "whatsnext" %}}
 
-- 阅读 [从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/) 以了解你的下一步工作
-- 阅读 [dockershim 弃用常见问题解答](/zh/blog/2020/12/02/dockershim-faq/)文章了解更多信息。
+- 阅读[从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)以了解你的下一步工作
+- 阅读[dockershim 弃用常见问题解答](/zh/blog/2020/12/02/dockershim-faq/)文章了解更多信息。
