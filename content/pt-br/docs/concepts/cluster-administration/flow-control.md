@@ -11,13 +11,13 @@ min-kubernetes-server-version: v1.18
 Controlar o comportamento do servidor da API Kubernetes em uma situação de sobrecarga
 é uma tarefa chave para administradores de cluster. O {{< glossary_tooltip
 term_id="kube-apiserver" text="kube-apiserver" >}} tem alguns controles disponíveis
-(ou seja, as _flags_ `--max-requests-inflight` e `--max-mutating-requests-inflight`) 
-para limitar a quantidade de trabalho pendente que será aceito, 
+(ou seja, as _flags_ `--max-requests-inflight` e `--max-mutating-requests-inflight`)
+para limitar a quantidade de trabalho pendente que será aceito,
 evitando que uma grande quantidade de solicitações de entrada sobrecarreguem, e
 potencialmente travando o servidor da API, mas essas _flags_ não são suficientes para garantir
 que as solicitações mais importantes cheguem em um período de alto tráfego.
 
-O recurso de prioridade e imparcialidade da API (APF) é uma alternativa que melhora
+O recurso de prioridade e imparcialidade da API (do inglês _API Priority and Fairness_, APF) é uma alternativa que melhora
 as limitações mencionadas acima. A APF classifica
 e isola os pedidos de uma forma mais refinada. Também introduz
 uma quantidade limitada de filas, para que nenhuma solicitação seja rejeitada nos casos
@@ -31,7 +31,7 @@ usam informantes e reagem a falhas de solicitações da API com exponencial
 back-off, e outros clientes que também funcionam desta forma.
 
 {{< caution >}}
-Solicitações classificadas como "de longa duração" — principalmente relógios — não são
+Solicitações classificadas como "de longa duração" — principalmente _watches_ — não são
 sujeitas ao filtro da prioridade e imparcialidade da API. Isso também é verdade para
 a _flag_ `--max-requests-inflight` sem o recurso da APF ativado.
 {{< /caution >}}
@@ -40,14 +40,14 @@ a _flag_ `--max-requests-inflight` sem o recurso da APF ativado.
 
 ## Ativando/Desativando a prioridade e imparcialidade da API
 
-O recurso de prioridade e imparcialidade da API é controlado por um portão de recurso
+O recurso de prioridade e imparcialidade da API é controlado por um feature gate
 e está habilitado por padrão. Veja [Portões de Recurso](/docs/reference/command-line-tools-reference/feature-gates/)
 para uma explicação geral dos portões de recursos e como habilitar e
 desativá-los. O nome da porta de recurso para APF é
 "APIPriorityAndFairness". Este recurso também envolve um {{<
 glossary_tooltip term_id="api-group" text="API Group" >}} com: (a) um
 Versão `v1alpha1`, desabilitada por padrão, e (b) `v1beta1` e
-Versões `v1beta2`, habilitadas por padrão. Você pode desativar o portão de recurso
+Versões `v1beta2`, habilitadas por padrão. Você pode desativar o feature gate
 e versões beta do grupo de APIs adicionando a seguinte
 _flag_ para sua invocação `kube-apiserver`:
 
@@ -66,7 +66,7 @@ recurso de prioridade e imparcialidade da API, mesmo que outras _flags_ o tenha 
 
 ## Conceitos
 
-Existem vários recursos distintos envolvidos na APF. 
+Existem vários recursos distintos envolvidos na APF.
 As solicitações recebidas são classificadas por atributos da solicitação usando
 _FlowSchemas_ e atribuídos a níveis de prioridade. Os níveis de prioridade adicionam um grau de
 isolamento mantendo limites de simultaneidade separados, para que as solicitações atribuídas
@@ -166,7 +166,7 @@ PriorityLevelConfiguration é maior do que o permitido por seu nível de simulta
 O campo `type` de sua especificação determina o que acontecerá com solicitações extras.
 Um tipo de 'Reject' significa que o excesso de tráfego será imediatamente rejeitado com
 um erro HTTP 429 (Too Many Requests). Um tipo de `Queue` significa que as solicitações
-acima do limite será enfileirado, com as técnicas de 
+acima do limite será enfileirado, com as técnicas de
 _shuffle sharding_ e _fair queuing_ usadas
 para equilibrar o progresso entre os fluxos de solicitação.
 
@@ -174,15 +174,15 @@ A configuração de enfileiramento permite ajustar o algoritmo de _fair queuing_
 nível de prioridade. Os detalhes do algoritmo podem ser lidos no
 [proposta de melhoria](#whats-next), mas resumindo:
 
-* Aumentar as 'filas' reduz a taxa de colisões entre diferentes fluxos,
+- Aumentar as 'filas' reduz a taxa de colisões entre diferentes fluxos,
   o custo do aumento do uso de memória. Um valor de 1 aqui efetivamente desabilita a
   lógica de _fair queuing_, mas ainda permite que as solicitações sejam enfileiradas.
 
-* Aumentar o `queueLengthLimit` permite que tráfegos maiores sejam
+- Aumentar o `queueLengthLimit` permite que tráfegos maiores sejam
   sustentados sem deixar de lado nenhum pedido, ao custo de aumento
   latência e uso de memória.
 
-* Alterar `handSize` permite ajustar a probabilidade de colisões entre
+- Alterar `handSize` permite ajustar a probabilidade de colisões entre
   fluxos diferentes e a simultaneidade geral disponível para um único fluxo em um
   situação de sobrecarga.
 
@@ -235,7 +235,7 @@ certifique-se de que dois FlowSchemas não tenham o mesmo `matchingPrecedence`.
 {{< /caution >}}
 
 Um FlowSchema corresponde a uma determinada solicitação se pelo menos uma de suas `regras`
-são correspondidas. Uma regra corresponde se pelo menos um de seus `assuntos` *e* pelo menos
+são correspondidas. Uma regra corresponde se pelo menos um de seus `assuntos` _e_ pelo menos
 uma de suas `resourceRules` ou `nonResourceRules` (dependendo se a
 solicitação de entrada é para um recurso ou URL de não-recurso) corresponde à solicitação.
 
@@ -262,18 +262,18 @@ obrigatória e sugerida.
 ### Objetos de configuração obrigatórios
 
 Os quatro objetos de configuração obrigatórios refletem no
-comportamento de guarda-corpo. Este é o comportamento que os servidores tinham antes
+comportamento do _guardrail_ embutido. Este é o comportamento que os servidores tinham antes
 desses objetos existirem e, quando esses objetos existem, suas especificações refletem
 esse comportamento. Os quatro objetos obrigatórios são os seguintes.
 
-* O nível de prioridade obrigatório `exempt` é usado para solicitações que são
+- O nível de prioridade obrigatório `exempt` é usado para solicitações que são
   não sujeito a controle de fluxo: eles sempre serão despachados
   imediatamente. O FlowSchema obrigatório `exempt` classifica todos
   solicitações do grupo `system:masters` para este nível de prioridade.
   Você pode definir outros FlowSchemas que direcionam outras solicitações
   a este nível de prioridade, se apropriado.
 
-* O nível de prioridade obrigatório `catch-all` é usado em combinação com
+- O nível de prioridade obrigatório `catch-all` é usado em combinação com
   o FlowSchema `catch-all` obrigatório para garantir que todas as solicitações
   recebam algum tipo de classificação. Normalmente você não deve confiar
   nesta configuração catch-all, e deve criar seu próprio FlowSchema catch-all
@@ -293,28 +293,28 @@ configuração funcionará melhor.
 
 A configuração sugerida agrupa as solicitações em seis níveis de prioridade:
 
-* O nível de prioridade `node-high` é para atualizações de integridade dos nós.
+- O nível de prioridade `node-high` é para atualizações de integridade dos nós.
 
-* O nível de prioridade `system` é para solicitações não relacionadas à integridade do
+- O nível de prioridade `system` é para solicitações não relacionadas à integridade do
   grupo `system:nodes`, ou seja, Kubelets, que deve ser capaz de contatar
   o servidor de API para que as cargas de trabalho possam ser agendadas
   eles.
 
-* O nível de prioridade `leader-election` é para solicitações de eleição de líder de
+- O nível de prioridade `leader-election` é para solicitações de eleição de líder de
   controladores embutidos (em particular, solicitações para `endpoints`, `configmaps`,
   ou `leases` vindo do `system:kube-controller-manager` ou
-  usuários `system:kube-scheduler` e contas de serviço no namespace `kube-system`). 
+  usuários `system:kube-scheduler` e contas de serviço no namespace `kube-system`).
   Estes são importantes para isolar de outro tráfego porque as falhas
   na eleição do líder fazem com que seus controladores falhem e reiniciem, o que por sua vez
   causa tráfego mais caro à medida que os novos controladores sincronizam seus informantes.
 
-* O nível de prioridade `workload-high` é para outras solicitações de controladores built-in.
+- O nível de prioridade `workload-high` é para outras solicitações de controladores built-in.
 
-* O nível de prioridade `workload-low` é para solicitações de qualquer outra conta de serviço,
- que normalmente incluirá todas as solicitações de controladores em execução
+- O nível de prioridade `workload-low` é para solicitações de qualquer outra conta de serviço,
+  que normalmente incluirá todas as solicitações de controladores em execução
   _Pods_.
 
-* O nível de prioridade `global-default` trata de todos os outros tráfegos, por exemplo,
+- O nível de prioridade `global-default` trata de todos os outros tráfegos, por exemplo,
   comandos `kubectl` interativos executados por usuários não privilegiados.
 
 Os FlowSchemas sugeridos servem para direcionar as solicitações para os
@@ -375,7 +375,7 @@ nem sugeridos, mas são anotados
 
 ## Isenção de simultaneidade da verificação de integridade
 
-A configuração sugerida não dá nenhum tratamento especial à saúde
+A configuração sugerida não dá nenhum tratamento especial a checagem de saúde das requisições
 verifique solicitações em kube-apiservers de seus kubelets locais --- que
 tendem a usar a porta segura, mas não fornecem credenciais. Com o
 configuração sugerida, essas solicitações são atribuídas ao `global-default`
@@ -387,7 +387,7 @@ solicitações de limitação de taxa.
 
 {{< caution >}}
 Fazer essa alteração também permite que qualquer parte hostil envie
-solicitações de verificação de integridade que correspondam a este FlowSchema, em qualquer volume. 
+solicitações de verificação de integridade que correspondam a este FlowSchema, em qualquer volume.
 Se você tiver um filtro de tráfego da Web ou outro mecanismo de segurança externa semelhante
 para proteger o servidor de API do seu cluster do trafego geral de internet,
 você pode configurar regras para bloquear qualquer solicitação de verificação de integridade
@@ -429,27 +429,27 @@ exporta métricas adicionais. Monitorá-los pode ajudá-lo a determinar se a sua
 configuração está limitando indevidamente o tráfego importante, ou encontrar
 cargas de trabalho mal comportadas que podem estar prejudicando a integridade do sistema.
 
-* `apiserver_flowcontrol_rejected_requests_total` é um vetor de contador
+- `apiserver_flowcontrol_rejected_requests_total` é um vetor de contador
   (cumulativo desde o início do servidor) de solicitações que foram rejeitadas,
   dividido pelos rótulos `flow_schema` (indicando aquele que
   correspondeu ao pedido), `priority_level` (indicando aquele para o qual
   a solicitação foi atribuída) e `reason`. A _label_ `reason` pode
   ter um dos seguintes valores:
 
-  * `queue-full`, indicando que muitos pedidos já foram enfileirados,
-  * `concurrency-limit`, indicando que o
+  - `queue-full`, indicando que muitos pedidos já foram enfileirados,
+  - `concurrency-limit`, indicando que o
     PriorityLevelConfiguration está configurado para rejeitar em vez de
     enfileirar solicitações em excesso ou
-  * `time-out`, indicando que a solicitação ainda estava na fila
+  - `time-out`, indicando que a solicitação ainda estava na fila
     quando seu limite de tempo de fila expirou.
 
-* `apiserver_flowcontrol_dispatched_requests_total` é um vetor contador
+- `apiserver_flowcontrol_dispatched_requests_total` é um vetor contador
   (cumulativo desde o início do servidor) de solicitações que começaram
   executando, dividido pelos rótulos `flow_schema` (indicando o
   um que corresponda à solicitação) e `priority_level` (indicando o
   aquele ao qual o pedido foi atribuído).
 
-* `apiserver_current_inqueue_requests` é um vetor de medidor de
+- `apiserver_current_inqueue_requests` é um vetor de medidor de
   limites máximos do número de solicitações enfileiradas, agrupadas por uma
   _label_ chamado `request_kind` cujo valor é `mutating` ou `readOnly`.
   Essas marcas d'água altas descrevem o maior número visto em uma
@@ -458,14 +458,14 @@ cargas de trabalho mal comportadas que podem estar prejudicando a integridade do
   marca d'água alta da última janela de número de solicitações sendo ativamente
   servido.
 
-* `apiserver_flowcontrol_read_vs_write_request_count_samples` é um
+- `apiserver_flowcontrol_read_vs_write_request_count_samples` é um
   vetor de histograma de observações do número atual de
   solicitações, divididas pelos rótulos `phase` (que assume o
   valores `waiting` e `executing`) e `request_kind` (que assume
   os valores `mutating` e `readOnly`). As observações são feitas
   periodicamente a uma taxa elevada.
 
-* `apiserver_flowcontrol_read_vs_write_request_count_watermarks` é um
+- `apiserver_flowcontrol_read_vs_write_request_count_watermarks` é um
   vetor de histograma de marcas d'água altas ou baixas do número de
   solicitações divididas pelos rótulos `phase` (que assume o
   valores `waiting` e `executing`) e `request_kind` (que assume
@@ -475,27 +475,27 @@ cargas de trabalho mal comportadas que podem estar prejudicando a integridade do
   `apiserver_flowcontrol_read_vs_write_request_count_samples`. Esses
   marcas d'água mostram o intervalo de valores que ocorreram entre as amostras.
 
-* `apiserver_flowcontrol_current_inqueue_requests` é um vetor de medidor
+- `apiserver_flowcontrol_current_inqueue_requests` é um vetor de medidor
   mantendo o número instantâneo de solicitações enfileiradas (não em execução),
   dividido pelos rótulos `priority_level` e `flow_schema`.
 
-* `apiserver_flowcontrol_current_executing_requests` é um vetor de medidor
+- `apiserver_flowcontrol_current_executing_requests` é um vetor de medidor
   segurando o número instantâneo de execução (não esperando em uma
   queue), divididas pelos rótulos `priority_level` e
   `flow_schema`.
 
-* `apiserver_flowcontrol_request_concurrency_in_use` é um vetor de medidor
+- `apiserver_flowcontrol_request_concurrency_in_use` é um vetor de medidor
   ocupando o número instantâneo de assentos ocupados, diferenciados pelas
   _labels_ `priority_level` e `flow_schema`.
 
-* `apiserver_flowcontrol_priority_level_request_count_samples` é um
+- `apiserver_flowcontrol_priority_level_request_count_samples` é um
   vetor de histograma de observações do número atual de
   solicitações divididas pelas _labels_ `phase` (que assume o
   valores `waiting` e `executing`) e `priority_level`. Cada
   histograma obtém observações feitas periodicamente, até a última
   atividade do tipo relevante. As observações são feitas em nota alta.
 
-* `apiserver_flowcontrol_priority_level_request_count_watermarks` é um
+- `apiserver_flowcontrol_priority_level_request_count_watermarks` é um
   vetor de histograma de marcas d'água altas ou baixas do número de
   solicitações divididas pelas _labels_ `phase` (que assume o
   valores `waiting` e `executing`) e `priority_level`; a _label_
@@ -505,7 +505,7 @@ cargas de trabalho mal comportadas que podem estar prejudicando a integridade do
   `apiserver_flowcontrol_priority_level_request_count_samples`. Esses
   marcas d'água mostram o intervalo de valores que ocorreram entre as amostras.
 
-* `apiserver_flowcontrol_request_queue_length_after_enqueue` é um
+- `apiserver_flowcontrol_request_queue_length_after_enqueue` é um
   vetor de histograma de comprimentos de fila para as filas, dividido pelas
   _labels_ `priority_level` e `flow_schema`, conforme mostrado pelas
   solicitações enfileiradas. Cada solicitação enfileirada contribui com uma
@@ -522,11 +522,11 @@ cargas de trabalho mal comportadas que podem estar prejudicando a integridade do
   aumentar os compartilhamentos de simultaneidade desse PriorityLevelConfiguration.
   {{< /note >}}
 
-* `apiserver_flowcontrol_request_concurrency_limit` é um vetor de medidor
+- `apiserver_flowcontrol_request_concurrency_limit` é um vetor de medidor
   mantendo o limite de simultaneidade calculado (com base no limite total de simultaneidade do servidor da API
   e na simultaneidade de PriorityLevelConfigurations share), divididos pela _label_ `priority_level`.
 
-* `apiserver_flowcontrol_request_wait_duration_seconds` é um vetor de histograma
+- `apiserver_flowcontrol_request_wait_duration_seconds` é um vetor de histograma
   de quanto tempo as solicitações ficaram na fila, divididas pelas _labels_
   `flow_schema` (indicando qual corresponde à solicitação),
   `priority_level` (indicando aquele para o qual o pedido foi
@@ -540,7 +540,7 @@ cargas de trabalho mal comportadas que podem estar prejudicando a integridade do
   solicitações atribuídas a esse nível de prioridade.
   {{< /note >}}
 
-* `apiserver_flowcontrol_request_execution_seconds` é um vetor de histograma
+- `apiserver_flowcontrol_request_execution_seconds` é um vetor de histograma
   de quanto tempo as solicitações levaram para realmente serem executadas, divididas pelas
   _labels_ `flow_schema` (indicando qual corresponde à solicitação)
   e `priority_level` (indicando aquele para o qual o pedido foi
@@ -604,7 +604,7 @@ serve os seguintes caminhos adicionais em suas portas HTTP[S].
   exempt,            <none>,         <none>,     <none>,              <none>,                <none>,
   system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:26:57.179170694Z,
   ```
-  
+
   Além das solicitações enfileiradas, a saída inclui uma linha fantasma
   para cada nível de prioridade isento de limitação.
 
@@ -621,10 +621,10 @@ serve os seguintes caminhos adicionais em suas portas HTTP[S].
   system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   ```
-  
+
 ## {{% heading "whatsnext" %}}
 
-Para obter informações básicas sobre detalhes de design para prioridade e justiça da API, consulte 
+Para obter informações básicas sobre detalhes de design para prioridade e justiça da API, consulte
 a [proposta de aprimoramento](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 Você pode fazer sugestões e solicitações de recursos por meio do [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
 ou do [canal do slack](https://kubernetes.slack.com/messages/api-priority-and-fairness).
