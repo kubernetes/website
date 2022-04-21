@@ -26,15 +26,151 @@ Kubernetes 将所有标签和注解保留在 kubernetes.io Namespace中。
 <!--
 ## Labels, annotations and taints used on API objects
 
+### app.kubernetes.io/component
+
+Example: `app.kubernetes.io/component=database`
+
+Used on: All Objects
+
+The component within the architecture.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+-->
+## API 对象上使用的标签、注解和污点
+
+### app.kubernetes.io/component
+
+例子: `app.kubernetes.io/component=database`
+
+用于: 所有对象
+
+体系中的组件
+
+[推荐标签]之一 (/zh/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+<!-- ### app.kubernetes.io/created-by
+
+Example: `app.kubernetes.io/created-by=controller-manager`
+
+Used on: All Objects
+
+The controller/user who created this resource.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/created-by
+
+示例：`app.kubernetes.io/created-by=controller-manager`
+
+用于：所有对象
+
+创建此资源的控制器/用户。
+
+[推荐标签]之一（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+
+<!-- ### app.kubernetes.io/instance
+
+Example: `app.kubernetes.io/instance=mysql-abcxzy`
+
+Used on: All Objects
+
+A unique name identifying the instance of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/instance
+
+示例：`app.kubernetes.io/instance=mysql-abcxzy`
+
+用于：所有对象
+
+标识应用程序实例的唯一名称。
+
+[推荐标签]之一（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+
+<!-- ### app.kubernetes.io/managed-by
+
+Example: `app.kubernetes.io/managed-by=helm`
+
+Used on: All Objects
+
+The tool being used to manage the operation of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/managed-by
+
+示例：`app.kubernetes.io/managed-by=helm`
+
+用于：所有对象
+
+用于管理应用程序操作的工具。
+
+[推荐标签]之一（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+
+<!-- ### app.kubernetes.io/name
+
+Example: `app.kubernetes.io/name=mysql`
+
+Used on: All Objects
+
+The name of the application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+
+### app.kubernetes.io/name
+
+示例：`app.kubernetes.io/name=mysql`
+
+用于：所有对象
+
+应用程序的名称。
+
+[推荐标签]之一（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+
+<!-- ### app.kubernetes.io/part-of
+
+Example: `app.kubernetes.io/part-of=wordpress`
+
+Used on: All Objects
+
+The name of a higher level application this one is part of.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/part-of
+
+示例：`app.kubernetes.io/part-of=wordpress`
+
+用于：所有对象
+
+此应用程序所属的更高级别应用程序的名称。
+
+[推荐标签]之一（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+
+<!-- ### app.kubernetes.io/version
+
+Example: `app.kubernetes.io/version="5.7.21"`
+
+Used on: All Objects
+
+The current version of the application (e.g., a semantic version, revision hash, etc.).
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/version
+
+示例：`app.kubernetes.io/version="5.7.21"`
+
+用于：所有对象
+
+应用程序的当前版本（例如，语义版本、修订哈希等）。
+
+[推荐标签]之一（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+
+<!-- 
 ### kubernetes.io/arch
 
 Example: `kubernetes.io/arch=amd64`
 
 Used on: Node
 
-The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be handy if you are mixing arm and x86 nodes.
--->
-## API 对象上使用的标签、注解和污点
+The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be handy if you are mixing arm and x86 nodes. -->
 
 ### kubernetes.io/arch {#kubernetes-io-arch}
 
