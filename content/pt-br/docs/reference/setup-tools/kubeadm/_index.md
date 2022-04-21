@@ -2,7 +2,7 @@
 title: "Kubeadm"
 weight: 10
 no_list: true
-content_type: cenceito
+content_type: conceito
 card:
   name: reference
   weight: 40
