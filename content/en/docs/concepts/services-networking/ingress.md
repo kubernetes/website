@@ -30,7 +30,7 @@ For clarity, this guide defines the following terms:
 Traffic routing is controlled by rules defined on the Ingress resource.
 
 Here is a simple example where an Ingress sends all its traffic to one Service:
-{{< mermaid >}}
+```mermaid
 graph LR;
   client([client])-. Ingress-managed <br> load balancer .->ingress[Ingress];
   ingress-->|routing rule|service[Service];
@@ -45,7 +45,7 @@ graph LR;
   class ingress,service,pod1,pod2 k8s;
   class client plain;
   class cluster cluster;
-{{</ mermaid >}}
+```
 
 
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
