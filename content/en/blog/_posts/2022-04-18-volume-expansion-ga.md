@@ -16,7 +16,7 @@ This feature allows Kubernetes users to simply edit their `PersistentVolumeClaim
 using storage backend and also expand the underlying file system in-use by the Pod without requiring any downtime at all if possible.
 
 
-### How to use volume expansion feature
+### How to use volume expansion
 
 Using volume expansion is as simple as editing `storage` field of pvc spec and specifying new size. For example - given following PVC:
 
