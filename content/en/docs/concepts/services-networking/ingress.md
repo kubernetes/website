@@ -74,7 +74,7 @@ A minimal Ingress resource example:
 
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
-As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
+An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields.
 The name of an Ingress object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).

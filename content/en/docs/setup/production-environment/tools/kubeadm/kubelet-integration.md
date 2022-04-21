@@ -10,8 +10,6 @@ weight: 80
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
-{{% dockershim-removal %}}
-
 The lifecycle of the kubeadm CLI tool is decoupled from the
 [kubelet](/docs/reference/command-line-tools-reference/kubelet), which is a daemon that runs
 on each node within the Kubernetes cluster. The kubeadm CLI tool is executed by the user when Kubernetes is
