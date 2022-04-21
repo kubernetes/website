@@ -18,7 +18,8 @@ using storage backend and also expand the underlying file system in-use by the P
 
 ### How to use volume expansion
 
-Using volume expansion is as simple as editing `storage` field of pvc spec and specifying new size. For example - given following PVC:
+You can trigger expansion for a PersistentVolume by editing the `spec` field of a PVC, specifying a different
+(and larger) storage request. For example, given following PVC:
 
 ```
 kind: PersistentVolumeClaim
