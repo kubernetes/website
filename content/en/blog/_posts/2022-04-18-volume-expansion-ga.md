@@ -7,7 +7,6 @@ slug: volume-expansion-ga
 
 **Author:** Hemant Kumar (Red Hat)
 
-## Introduction
 
 Volume expansion was introduced as a alpha feature in Kubernetes 1.8 and it went beta in 1.11 and with Kubernetes 1.24 we are excited to announce general availability(GA)
 of volume expansion.
