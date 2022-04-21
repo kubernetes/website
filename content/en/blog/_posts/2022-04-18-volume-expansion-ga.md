@@ -10,7 +10,7 @@ slug: volume-expansion-ga
 ## Introduction
 
 Volume expansion was introduced as a alpha feature in Kubernetes 1.8 and it went beta in 1.11 and with Kubernetes 1.24 we are excited to announce general availability(GA)
-of volume expansion feature.
+of volume expansion.
 
 This feature allows Kubernetes users to simply edit their `PersistentVolumeClaim` objects and specify new size in PVC Spec and Kubernetes will automatically expand the volume
 using storage backend and also expand the underlying file system in-use by the Pod without requiring any downtime at all if possible.
