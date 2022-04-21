@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Volume expansion going GA in v1.24"
+title: "Volume expansion now available as stable feature in Kubernetes 1.24"
 date: 2022-04-18
 slug: volume-expansion-ga
 ---
@@ -30,7 +30,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi --> specify new size here
+      storage: 1Gi # specify new size here
 ```
 
 Users can request expansion of the underlying volume by specifying a new value instead of old `1Gi` size. Once expansion is initiated - pvc's conditions can be monitored
@@ -40,13 +40,13 @@ When Kubernetes starts expanding the volume - it will add `Resizing` condition t
 expansion operation can also be obtained by monitoring events associated with the PVC:
 
 ```
-~> kubectl describe pvc <pvc>
+kubectl describe pvc <pvc>
 ```
 
 ### Storage driver support
 
 Not every volume type however is expandable by default. Some volume types such as - intree hostpath volumes are not expandable at all. For CSI volumes - the CSI driver
-must have capability `EXPAND_VOLUME` in controller or node service (or both if appropriate). For CSI volumes - please refer to documentation of your CSI driver, to find out
+must have capability `EXPAND_VOLUME` in controller or node service (or both if appropriate). Please refer to documentation of your CSI driver, to find out
 if it supports volume expansion.
 
 Please refer to volume expansion documentation for intree volume types which support volume expansion - [Expanding Persistent Volumes](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)
