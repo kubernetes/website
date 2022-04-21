@@ -517,22 +517,13 @@ subjects:
   namespace: kube-system
 ```
 
-For all service accounts in the "qa" group in any namespace:
+For all service accounts in the "qa" namespace:
 
 ```yaml
 subjects:
 - kind: Group
   name: system:serviceaccounts:qa
   apiGroup: rbac.authorization.k8s.io
-```
-For all service accounts in the "dev" group in the "development" namespace:
-
-```yaml
-subjects:
-- kind: Group
-  name: system:serviceaccounts:dev
-  apiGroup: rbac.authorization.k8s.io
-  namespace: development
 ```
 
 For all service accounts in any namespace:
