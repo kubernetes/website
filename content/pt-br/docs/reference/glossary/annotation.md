@@ -16,6 +16,3 @@ tags:
 
 Os metadados em uma anotação podem ser pequenos ou grandes, estruturados ou não estruturados, e podem incluir caracteres não permitidos pelos {{< glossary_tooltip text="rótulos" term_id="label" >}}. Clientes como ferramentas e bibliotecas podem recuperar esses metadados.
 
-
-
- [-]
