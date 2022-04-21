@@ -162,7 +162,8 @@ With the additional entries specified at the bottom.
 -->
 在最下面额外添加了一些条目。
 
-<!-- ## Why does the kubelet manage the hosts file? {#why-does-kubelet-manage-the-hosts-file}
+<!-- 
+## Why does the kubelet manage the hosts file? {#why-does-kubelet-manage-the-hosts-file}
 
 The kubelet manages the
 `hosts` file for each container of the Pod to prevent the container runtime from
@@ -172,13 +173,16 @@ then modify the `/etc/hosts` file after each container had started.
 
 Current Kubernetes can use a variety of container runtimes; even so, the kubelet manages the
 hosts file within each container so that the outcome is as intended regardless of which
-container runtime you use. -->
+container runtime you use.
+-->
 ## 为什么 kubelet 管理 hosts 文件？{#why-does-kubelet-manage-the-hosts-file}
 
 kubelet 管理每个Pod 容器的 `hosts` 文件，以防止容器运行时在容器已经启动后修改文件。
-从历史上看，Kubernetes 总是使用 Docker Engine 作为其容器运行时，而 Docker Engine 将在容器启动后修改 `/etc/hosts` 文件。
+由于历史原因，Kubernetes 总是使用 Docker Engine 作为其容器运行时，而 Docker Engine 
+将在容器启动后修改 `/etc/hosts` 文件。
 
-当前的 Kubernetes 可以使用多种容器运行时；即便如此，kubelet 管理在每个容器中创建 hosts文件，以便您使用任何容器运行时运行容器，结果都符合预期。
+当前的 Kubernetes 可以使用多种容器运行时；即便如此，kubelet 管理在每个容器中创建 hosts文件，
+以便您使用任何容器运行时运行容器，结果都符合预期。
 
 {{< caution >}}
 <!--
