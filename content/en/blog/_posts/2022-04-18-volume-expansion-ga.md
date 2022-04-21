@@ -55,7 +55,8 @@ Please refer to volume expansion documentation for intree volume types which sup
 
 In general to provide some degree of control over volumes that can be expanded, only dynamically provisioned PVCs whose storage class has `allowVolumeExpansion` parameter set to `true` are expandable.
 
-A Kubernetes admin must edit storage class object and set `allowVolumeExpansion` field to true. For example:
+A Kubernetes cluster administrator must edit the appropriate StorageClass object and set
+the `allowVolumeExpansion` field to `true`. For example:
 
 ```
 apiVersion: storage.k8s.io/v1
