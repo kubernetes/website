@@ -113,7 +113,7 @@ requests and the overhead, then looks for a node that has 2.25 CPU and 320 MiB o
 Once a Pod is scheduled to a node, the kubelet on that node creates a new {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}
 for the Pod. It is within this pod that the underlying container runtime will create containers.
 
-If the resource has a limit defined for each container (Guaranteed QoS or Bustrable QoS with limits defined),
+If the resource has a limit defined for each container (Guaranteed QoS or Burstable QoS with limits defined),
 the kubelet will set an upper limit for the pod cgroup associated with that resource (cpu.cfs_quota_us for CPU
 and memory.limit_in_bytes memory). This upper limit is based on the sum of the container limits plus the `overhead`
 defined in the PodSpec.
