@@ -363,8 +363,9 @@ For example, `10M` means 10 megabits per second.
 
 你可以对 Pod 应用服务质量流量控制并有效限制其可用带宽。
 入站流量（到 Pod）通过控制排队的数据包来处理，以有效地处理数据。
-要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/ingress-bandwidth` 注解指定数据流量速度。 用于指定入站的速率单位是每秒，
-作为 [量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)。
+要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/ingress-bandwidth`
+注解指定数据流量速度。 用于指定入站的速率单位是每秒，
+作为[量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)。
 例如，`10M`表示每秒 10 兆比特。
 
 <!-- 
@@ -401,7 +402,7 @@ For example, `10M` means 10 megabits per second.
 出站流量（来自 pod）由策略控制，策略只是丢弃超过配置速率的数据包。
 你为一个 Pod 所设置的限制不会影响其他 Pod 的带宽。
 要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/egress-bandwidth` 注解指定数据流量速度。
-用于指定出站的速率单位是每秒，
+用于指定出站的速率单位是每秒比特数，
 以[量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)的形式给出。
 例如，`10M` 表示每秒 10 兆比特。
 
