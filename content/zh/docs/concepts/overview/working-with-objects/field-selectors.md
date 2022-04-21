@@ -10,7 +10,7 @@ weight: 60
 <!--
 _Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some example field selector queries:
 -->
-_字段选择器（Field selectors_）允许你根据一个或多个资源字段的值
+_字段选择器（Field selectors）_ 允许你根据一个或多个资源字段的值
 [筛选 Kubernetes 资源](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects)。
 下面是一些使用字段选择器查询的例子：
 
