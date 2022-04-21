@@ -6,7 +6,9 @@ full_link: /docs/reference/access-authn-authz/rbac/
 short_description: >
   Gerencia decisões de autorização, permitindo que os administradores configurem dinamicamente políticas de acesso por meio da API do Kubernetes.
 
-aka: 
+aka:
+ - Role Based Access Control
+ - Controle de Acesso Baseado em Funções
 tags:
 - security
 - fundamental
