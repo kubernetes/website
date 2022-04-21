@@ -44,9 +44,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 用于: 所有对象
 
-架构中的组件
+架构中的组件。
 
-[推荐标签] (/zh/docs/concepts/overview/working-with-objects/common-labels/#labels).
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
 <!-- ### app.kubernetes.io/created-by
 
@@ -65,7 +65,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 创建此资源的控制器/用户。
 
-[推荐标签]（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)。
 
 <!-- ### app.kubernetes.io/instance
 
@@ -84,7 +84,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 标识应用程序实例的唯一名称。
 
-[推荐标签]（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)。
 
 <!-- ### app.kubernetes.io/managed-by
 
@@ -103,7 +103,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 用于管理应用程序操作的工具。
 
-[推荐标签]（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)。
 
 <!-- ### app.kubernetes.io/name
 
@@ -123,7 +123,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 应用程序的名称。
 
-[推荐标签]之一（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)。
 
 <!-- ### app.kubernetes.io/part-of
 
@@ -142,7 +142,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 此应用程序所属的更高级别应用程序的名称。
 
-[推荐标签]之一（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)。
 
 <!-- ### app.kubernetes.io/version
 
@@ -161,7 +161,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 应用程序的当前版本（例如，语义版本、修订哈希等）。
 
-[推荐标签]之一（/zh/docs/concepts/overview/working-with-objects/common-labels/#labels）。
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)。
 
 <!-- 
 ### kubernetes.io/arch
@@ -354,14 +354,14 @@ For example, `10M` means 10 megabits per second. -->
 {{< note >}}
 入口流量控制注释是一项实验性功能。
 如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
-并确保二进制文件包含在您的 CNI bin 目录中（默认为`/opt/cni/bin`）。
+并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
 {{< /note >}}
 
 示例：`kubernetes.io/ingress-bandwidth: 10M`
 
 用于：Pod
 
-您可以对 Pod 应用服务质量流量控制并有效限制其可用带宽。
+你可以对 Pod 应用服务质量流量控制并有效限制其可用带宽。
 入口流量（到 pod）通过控制排队的数据包来处理，以有效地处理数据。
 要限制 pod 的带宽，请编写对象定义 JSON 文件并指定数据流量
 使用 `kubernetes.io/ingress-bandwidth` 注释的速度。 用于指定入口的
@@ -392,7 +392,7 @@ For example, `10M` means 10 megabits per second. -->
 {{< note >}}
 出口流量控制注释是一项实验性功能。
 如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
-并确保二进制文件包含在您的 CNI bin 目录中（默认为`/opt/cni/bin`）。
+并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
 {{< /note >}}
 
 示例：`kubernetes.io/egress-bandwidth: 10M`
@@ -402,7 +402,7 @@ For example, `10M` means 10 megabits per second. -->
 出站流量（来自 pod）由策略控制，策略只是丢弃超过配置速率的数据包。
 你为一个 Pod 所设置的限制不会影响其他 Pod 的带宽。
 要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/egress-bandwidth`
-注解指定数据流量速度。速率单位是每秒比特数，以[量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)的形式给出。
+注解指定数据流量速度。速率单位是每秒比特数，以[量纲(Quantity)](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)的形式给出。
 例如，`10M` 表示每秒 10 兆比特。
 
 <!-- ### beta.kubernetes.io/instance-type (deprecated) -->
