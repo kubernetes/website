@@ -17,8 +17,6 @@ min-kubernetes-server-version: 1.7
 
 <!-- overview -->
 
-{{% dockershim-removal %}}
-
 <!--
 Adding entries to a Pod's /etc/hosts file provides Pod-level override of hostname resolution when DNS and other options are not applicable. You can add these custom entries with the HostAliases field in PodSpec.
 
