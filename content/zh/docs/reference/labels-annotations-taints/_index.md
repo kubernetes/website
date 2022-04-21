@@ -330,13 +330,12 @@ which allows users to influence ReplicaSet downscaling order. The annotation par
 
 该注解用于设置 [Pod 删除成本](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)允许用户影响 ReplicaSet 缩减顺序。注解解析为 `int32` 类型。
 
-<!-- ### kubernetes.io/ingress-bandwidth
+<!-- 
+### kubernetes.io/ingress-bandwidth
 
-{{< note >}}
 Ingress traffic shaping annotation is an experimental feature.
 If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
 ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
-{{< /note >}}
 
 Example: `kubernetes.io/ingress-bandwidth: 10M`
 
@@ -347,7 +346,8 @@ Ingress traffic (to the pod) is handled by shaping queued packets to effectively
 To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
 speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for specifying ingress
 rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
-For example, `10M` means 10 megabits per second. -->
+For example, `10M` means 10 megabits per second. 
+-->
 
 ### kubernetes.io/ingress-bandwidth
 
@@ -367,13 +367,12 @@ For example, `10M` means 10 megabits per second. -->
 作为 [量纲(Quantity)](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)。
 例如，`10M`表示每秒 10 兆比特。
 
-<!-- ### kubernetes.io/egress-bandwidth
+<!-- 
+### kubernetes.io/egress-bandwidth
 
-{{< note >}}
 Egress traffic shaping annotation is an experimental feature.
 If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
 ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
-{{< /note >}}
 
 Example: `kubernetes.io/egress-bandwidth: 10M`
 
@@ -384,7 +383,8 @@ The limits you place on a pod do not affect the bandwidth of other pods.
 To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
 speed using `kubernetes.io/egress-bandwidth` annotation. The unit used for specifying egress
 rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
-For example, `10M` means 10 megabits per second. -->
+For example, `10M` means 10 megabits per second. 
+-->
 
 ### kubernetes.io/egress-bandwidth
 
