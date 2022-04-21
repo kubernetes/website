@@ -38,7 +38,7 @@ Users can request expansion of the underlying volume by specifying a new value i
 for completion of volume expansion operation.
 
 When Kubernetes starts expanding the volume - it will add `Resizing` condition to the PVC, which will be removed once expansion completes. More information about progress of
-expansion operation can also be obtained by monitoring events associated with pvc:
+expansion operation can also be obtained by monitoring events associated with the PVC:
 
 ```
 ~> kubectl describe pvc <pvc>
