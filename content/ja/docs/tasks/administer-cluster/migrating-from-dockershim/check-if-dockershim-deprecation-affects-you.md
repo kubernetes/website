@@ -5,7 +5,7 @@ weight: 20
 ---
 
 <!-- overview -->
-Kubernetesの`dockershim`コンポーネントは、DockerをKubernetesの{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}として使用することを可能にします。
+Kubernetesの`dockershim`コンポーネントは、DockerをKubernetesの{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}として使用することを可能にします。
 
 Kubernetesの組み込みコンポーネントである`dockershim`はリリースv1.20で非推奨となりました。
 
