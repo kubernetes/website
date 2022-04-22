@@ -758,28 +758,15 @@ subjects:
 ```
 
 <!--
-For all service accounts in the "qa" group in any namespace:
+For all service accounts in the "qa" namespace:
 -->
-对于任何名称空间中的 "qa" 组中所有的服务账户：
+对于 "qa" 名称空间中的所有服务账户：
 
 ```yaml
 subjects:
 - kind: Group
   name: system:serviceaccounts:qa
   apiGroup: rbac.authorization.k8s.io
-```
-
-<!-- 
-For all service accounts in the "dev" group in the "development" namespace:
--->
-对于 "development" 名称空间中 "dev" 组中的所有服务帐户：
-
-```yaml
-subjects:
-- kind: Group
-  name: system:serviceaccounts:dev
-  apiGroup: rbac.authorization.k8s.io
-  namespace: development
 ```
 
 <!--
