@@ -3,6 +3,7 @@ layout: blog
 title: 'Kubernetes 1.18: Fit & Finish'
 date: 2020-03-25
 slug: kubernetes-1-18-release-announcement
+evergreen: true
 ---
 
 <!--
