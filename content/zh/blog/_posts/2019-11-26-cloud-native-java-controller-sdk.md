@@ -84,9 +84,11 @@ Take maven project as example, adding the following dependencies into your depen
 <!--
 Then we can make use of the provided builder libraries to write your own controller.
 For example, the following one is a simple controller prints out node information
-on watch notification, see complete example [here](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/ControllerExample.java):
+on watch notification, see complete example [here](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-13/src/main/java/io/kubernetes/client/examples/ControllerExample.java):
 -->
-然后我们可以使用提供的生成器库来编写自己的控制器。例如，下面是一个简单的控制，它打印出关于监视通知的节点信息，请看完整的例子：
+然后我们可以使用提供的生成器库来编写自己的控制器。例如，下面是一个简单的控制，它打印出关于监视通知的节点信息，
+在[此处](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-13/src/main/java/io/kubernetes/client/examples/ControllerExample.java)
+查看完整的例子：
 ```java
 ...
     Reconciler reconciler = new Reconciler() {
