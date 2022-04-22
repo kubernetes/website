@@ -4,13 +4,13 @@ id: wg
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#master-working-group-list
 short_description: >
-  Facilita a discussão e/ou implementação de um projeto de curta duração, curto ou dissociado para um comitê, SIG ou cross-SIG.
+  Facilita a discussão e/ou implementação de um projeto de curta duração, pontual ou dissociado para um comitê, envolvendo um ou mais SIG (grupos de interesse especial).
 
 aka: 
 tags:
 - community
 ---
- Facilita a discussão e/ou implementação de um projeto de curta duração, curto ou dissociado para um comitê, {{< glossary_tooltip text="SIG" term_id="sig" >}} ou cross-SIG.
+ Facilita a discussão e/ou implementação de um projeto de curta duração, pontual ou dissociado para um comitê, envolvendo um ou mais {{< glossary_tooltip text="SIG" term_id="sig" >}} (grupos de interesse especial).
 
 <!--more-->
 
