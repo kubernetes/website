@@ -2,20 +2,32 @@
 title: ネームスペースのデフォルトのメモリー要求と制限を設定する
 content_type: task
 weight: 10
+description: >-
+  ネームスペースのデフォルトのメモリーリソース制限を定義して、そのネームスペース内のすべての新しいPodにメモリーリソース制限が設定されるようにします。
 ---
 
 <!-- overview -->
 
+<<<<<<< HEAD
 このページでは、ネームスペースのデフォルト・メモリー要求と制限を設定する方法を説明します。
 デフォルトのメモリー制限を持つネームスペースにコンテナが作成され、コンテナが独自のメモリー制限を指定しない場合、コンテナにはデフォルトのメモリー制限が割り当てられます。
 Kubernetesは、このトピックで後ほど説明する特定の条件下で、デフォルトのメモリー要求を割り当てます。
+=======
+このページでは、{{< glossary_tooltip text="ネームスペース" term_id="namespace" >}}のデフォルトのメモリー要求と制限を設定する方法を説明します。
+
+Kubernetesクラスターはネームスペースに分割することができます。デフォルトのメモリー[制限](/ja/docs/concepts/configuration/manage-resources-containers/#%E8%A6%81%E6%B1%82%E3%81%A8%E5%88%B6%E9%99%90)を持つネームスペースがあり、独自のメモリー制限を指定しないコンテナでPodを作成しようとすると、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はそのコンテナにデフォルトのメモリー制限を割り当てます。
+
+Kubernetesは、このトピックで後ほど説明する特定の条件下で、デフォルトのメモリー要求を割り当てます。
+>>>>>>> 4bd5cfe5f323311bedb03fb1f512b5edcf9b4508
 
 
 
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+クラスターにネームスペースを作成するには、アクセス権が必要です。
 
 クラスターの各ノードには、最低でも2GiBのメモリーが必要です。
 
@@ -33,7 +45,11 @@ kubectl create namespace default-mem-example
 
 ## LimitRangeとPodの作成
 
+<<<<<<< HEAD
 以下は、LimitRangeの設定ファイルです。デフォルトのメモリー要求とデフォルトのメモリー制限を指定しています。
+=======
+以下は、{{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}のマニフェストの例です。このマニフェストでは、デフォルトのメモリー要求とデフォルトのメモリー制限を指定しています。
+>>>>>>> 4bd5cfe5f323311bedb03fb1f512b5edcf9b4508
 
 {{< codenew file="admin/resource/memory-defaults.yaml" >}}
 
@@ -43,8 +59,14 @@ default-mem-exampleネームスペースにLimitRangeを作成します:
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults.yaml --namespace=default-mem-example
 ```
 
+<<<<<<< HEAD
 default-mem-example名前空間でコンテナを作成し、コンテナがメモリー要求とメモリー制限の値を独自に指定しない場合、コンテナにはデフォルトのメモリー要求256MiBとデフォルトのメモリー制限512MiBが与えられます。
 以下は、コンテナを1つ持つPodの設定ファイルです。コンテナは、メモリー要求とメモリー制限を指定していません。
+=======
+default-mem-exampleネームスペースでPodを作成し、そのPod内のコンテナがメモリー要求とメモリー制限の値を独自に指定しない場合、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はデフォルト値のメモリー要求256MiBとメモリー制限512MiBを適用します。
+
+以下は、コンテナを1つ持つPodのマニフェストの例です。コンテナは、メモリー要求とメモリー制限を指定していません。
+>>>>>>> 4bd5cfe5f323311bedb03fb1f512b5edcf9b4508
 
 {{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
 
@@ -60,7 +82,11 @@ Podの詳細情報を表示します:
 kubectl get pod default-mem-demo --output=yaml --namespace=default-mem-example
 ```
 
+<<<<<<< HEAD
 出力はPodのコンテナのメモリー要求が256MiBで、メモリー制限が512MiBであることを示しています。
+=======
+この出力は、Podのコンテナのメモリー要求が256MiBで、メモリー制限が512MiBであることを示しています。
+>>>>>>> 4bd5cfe5f323311bedb03fb1f512b5edcf9b4508
 これらはLimitRangeで指定されたデフォルト値です。
 
 ```shell
@@ -81,9 +107,13 @@ Podを削除します:
 kubectl delete pod default-mem-demo --namespace=default-mem-example
 ```
 
-## 制限を指定し、要求を指定しない場合
+## コンテナの制限を指定し、要求を指定しない場合
 
+<<<<<<< HEAD
 以下は1つのコンテナを持つPodの設定ファイルです。コンテナはメモリー制限を指定しますが、メモリー要求は指定しません。
+=======
+以下は1つのコンテナを持つPodのマニフェストです。コンテナはメモリー制限を指定しますが、メモリー要求は指定しません。
+>>>>>>> 4bd5cfe5f323311bedb03fb1f512b5edcf9b4508
 
 {{< codenew file="admin/resource/memory-defaults-pod-2.yaml" >}}
 
@@ -100,8 +130,13 @@ Podの詳細情報を表示します:
 kubectl get pod default-mem-demo-2 --output=yaml --namespace=default-mem-example
 ```
 
+<<<<<<< HEAD
 コンテナのメモリー要求がそのメモリー制限に一致するように設定されていることを示しています。
 コンテナにはデフォルトのメモリーリクエスト値である256Miが割り当てられていないことに注意してください。
+=======
+この出力は、コンテナのメモリー要求がそのメモリー制限に一致するように設定されていることを示しています。
+コンテナにはデフォルトのメモリー要求値である256Miが割り当てられていないことに注意してください。
+>>>>>>> 4bd5cfe5f323311bedb03fb1f512b5edcf9b4508
 
 ```
 resources:
@@ -111,9 +146,13 @@ resources:
     memory: 1Gi
 ```
 
-## 要求を指定し、制限を指定しない場合
+## コンテナの要求を指定し、制限を指定しない場合
 
+<<<<<<< HEAD
 1つのコンテナを持つPodの設定ファイルです。コンテナはメモリー要求を指定しますが、メモリー制限は指定しません。
+=======
+1つのコンテナを持つPodのマニフェストです。コンテナはメモリー要求を指定しますが、メモリー制限は指定しません。
+>>>>>>> 4bd5cfe5f323311bedb03fb1f512b5edcf9b4508
 
 {{< codenew file="admin/resource/memory-defaults-pod-3.yaml" >}}
 
@@ -129,8 +168,8 @@ Podの詳細情報を表示します:
 kubectl get pod default-mem-demo-3 --output=yaml --namespace=default-mem-example
 ```
 
-コンテナのメモリー要求は、コンテナの設定ファイルで指定された値に設定されていることを示しています。
-コンテナのメモリー制限は、ネームスペースのデフォルトのメモリー制限である512Miに設定されています。
+この出力は、コンテナのメモリー要求が、コンテナのマニフェストで指定された値に設定されていることを示しています。
+コンテナは512MiB以下のメモリーを使用するように制限されていて、これはネームスペースのデフォルトのメモリー制限と一致します。
 
 ```
 resources:
@@ -142,14 +181,17 @@ resources:
 
 ## デフォルトのメモリー制限と要求の動機
 
-ネームスペースにリソースクォータがある場合、メモリー制限のデフォルト値を設定しておくと便利です。
+ネームスペースにメモリー{{< glossary_tooltip text="リソースクォータ" term_id="resource-quota" >}}が設定されている場合、メモリー制限のデフォルト値を設定しておくと便利です。
 
 以下はリソースクォータがネームスペースに課す制限のうちの2つです。
 
-* ネームスペースで実行されるすべてのコンテナは、独自のメモリー制限を持つ必要があります。
-* ネームスペース内のすべてのコンテナで使用されるメモリーの総量は、指定された制限を越えてはなりません。
+* ネームスペースで実行されるすべてのPodについて、Podとその各コンテナにメモリー制限を設ける必要があります(Pod内のすべてのコンテナに対してメモリー制限を指定すると、Kubernetesはそのコンテナの制限を合計することでPodレベルのメモリー制限を推測することができます)。
+* メモリー制限は、当該Podがスケジュールされているノードのリソース予約を適用します。ネームスペース内のすべてのPodに対して予約されるメモリーの総量は、指定された制限を超えてはなりません。
+* また、ネームスペース内のすべてのPodが実際に使用するメモリーの総量も、指定された制限を超えてはなりません。
 
-コンテナが独自のメモリー制限を指定しない場合、デフォルトの制限が与えられ、その後、クォータによって制限されているネームスペースでの実行が許可されるようになります。
+LimitRangeの追加時:
+
+コンテナを含む、そのネームスペース内のいずれかのPodが独自のメモリー制限を指定していない場合、コントロールプレーンはそのコンテナにデフォルトのメモリー制限を適用し、メモリーのResourceQuotaによって制限されているネームスペース内でPodを実行できるようにします。
 
 ## クリーンアップ
 
@@ -164,7 +206,7 @@ kubectl delete namespace default-mem-example
 ## {{% heading "whatsnext" %}}
 
 
-### クラスター管理者のため
+### クラスター管理者向け
 
 * [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
@@ -178,7 +220,7 @@ kubectl delete namespace default-mem-example
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-### アプリケーション開発者のため
+### アプリケーション開発者向け
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
