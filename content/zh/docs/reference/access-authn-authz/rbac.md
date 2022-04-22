@@ -760,7 +760,7 @@ subjects:
 <!--
 For all service accounts in the "qa" namespace:
 -->
-对于 "qa" 名称空间中组的所有服务账户：
+对于 "qa" 名称空间中的所有服务账户：
 
 ```yaml
 subjects:
