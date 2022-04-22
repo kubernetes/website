@@ -1,6 +1,6 @@
 ---
 title: kubeadm alpha
-content_type: concept
+content_type: conceito
 weight: 90
 ---
 
