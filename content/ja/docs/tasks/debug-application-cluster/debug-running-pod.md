@@ -248,7 +248,7 @@ kubectl run myapp --image=busybox --restart=Never -- sleep 1d
 kubectl debug myapp --copy-to=myapp-debug --set-image=*=ubuntu
 ```
 
-`set-image`のシンタックスは、`kubectl set image`と同じ`container_name=image`のシンタックスを使用します。`*=ubuntu`は、全てのコンテナのイメージを`ubuntu`に変更することを意味します。
+`set-image`の構文は、`kubectl set image`と同じ`container_name=image`の構文を使用します。`*=ubuntu`は、全てのコンテナのイメージを`ubuntu`に変更することを意味します。
 
 デバッグが終わったら、Podの後始末をするのを忘れないでください。
 
