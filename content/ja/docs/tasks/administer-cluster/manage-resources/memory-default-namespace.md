@@ -228,6 +228,3 @@ kubectl delete namespace default-mem-example
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-
-
-
