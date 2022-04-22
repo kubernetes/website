@@ -59,7 +59,7 @@ kubectl exec cassandra -- cat /var/log/cassandra/system.log
 kubectl exec -it cassandra -- sh
 ```
 
-詳しくは、[実行中のコンテナにシェルを取得する](/docs/tasks/debug-application-cluster/get-shell-running-container/)を参照してください。
+詳しくは、[実行中のコンテナのシェルを取得する](/docs/tasks/debug-application-cluster/get-shell-running-container/)を参照してください。
 
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
