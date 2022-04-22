@@ -14,4 +14,4 @@ tags:
 
 <!--more--> 
 
-Os CLAs ajudam a resolver disputas legais envolvendo material contribuído e propriedade intelectual (do inglês - intellectual property IP).
+Os CLAs ajudam a resolver disputas legais envolvendo material contribuído e propriedade intelectual.
