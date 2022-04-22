@@ -227,4 +227,3 @@ kubectl delete namespace default-mem-example
 * [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
