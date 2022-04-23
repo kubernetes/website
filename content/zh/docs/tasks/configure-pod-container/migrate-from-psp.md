@@ -608,7 +608,7 @@ appropriate Pod Security profile is applied to new namespaces.
 <!--
 You can also statically configure the Pod Security admission controller to set a default enforce,
 audit, and/or warn level for unlabeled namespaces. See
-[Configure the Admission Controller](docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
+[Configure the Admission Controller](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
 for more information.
 -->
 你也可以静态配置 Pod 安全性准入控制器，为尚未打标签的名字空间设置默认的
