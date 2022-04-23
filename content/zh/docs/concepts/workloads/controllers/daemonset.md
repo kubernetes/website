@@ -147,7 +147,7 @@ unintentional orphaning of Pods, and it was found to be confusing to users.
 `.spec.selector` 字段表示 Pod 选择算符，它与
 [Job](/zh/docs/concepts/workloads/controllers/job/) 的 `.spec.selector` 的作用是相同的。
 
-您必须指定与 `.spec.template` 的标签匹配的 Pod 选择算符。
+你必须指定与 `.spec.template` 的标签匹配的 Pod 选择算符。
 此外，一旦创建了 DaemonSet，它的 `.spec.selector` 就不能修改。
 修改 Pod 选择算符可能导致 Pod 意外悬浮，并且这对用户来说是费解的。
 
