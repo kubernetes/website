@@ -9,7 +9,7 @@ weight: 50
 ---
 reviewers:
 - sig-cluster-lifecycle
-title: Options for Highly Available topology
+title: Options for Highly Available Topology
 content_type: concept
 weight: 50
 ---
