@@ -1,12 +1,10 @@
 #!/usr/bin/env python
-
 import os
 import json
 
 import click
 import requests
 from jinja2 import Template
-
 
 @click.command()
 @click.argument("path")
