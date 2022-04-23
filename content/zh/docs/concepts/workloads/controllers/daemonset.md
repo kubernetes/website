@@ -136,9 +136,9 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workl
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
 a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
 
-As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the
-`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector
-defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created,
+You must specify a pod selector that matches the labels of the
+`.spec.template`.
+Also, once a DaemonSet is created,
 its `.spec.selector` can not be mutated. Mutating the pod selector can lead to the
 unintentional orphaning of Pods, and it was found to be confusing to users.
 -->
@@ -147,9 +147,7 @@ unintentional orphaning of Pods, and it was found to be confusing to users.
 `.spec.selector` 字段表示 Pod 选择算符，它与
 [Job](/zh/docs/concepts/workloads/controllers/job/) 的 `.spec.selector` 的作用是相同的。
 
-从 Kubernetes 1.8 开始，您必须指定与 `.spec.template` 的标签匹配的 Pod 选择算符。
-用户不指定 Pod 选择算符时，该字段不再有默认值。
-选择算符的默认值生成结果与 `kubectl apply` 不兼容。 
+你必须指定与 `.spec.template` 的标签匹配的 Pod 选择算符。
 此外，一旦创建了 DaemonSet，它的 `.spec.selector` 就不能修改。
 修改 Pod 选择算符可能导致 Pod 意外悬浮，并且这对用户来说是费解的。
 
@@ -175,11 +173,11 @@ When the two are specified the result is ANDed.
 当上述两个字段都指定时，结果会按逻辑与（AND）操作处理。
 
 <!--
-If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.
-Config with these not matching will be rejected by the API.
+The `.spec.selector` must match the `.spec.template.metadata.labels`.
+Config with these two not matching will be rejected by the API.
 -->
-如果指定了 `.spec.selector`，必须与 `.spec.template.metadata.labels` 相匹配。
-如果与后者不匹配，则 DeamonSet 会被 API 拒绝。
+`.spec.selector` 必须与 `.spec.template.metadata.labels` 相匹配。
+如果配置中这两个字段不匹配，则会被 API 拒绝。
 
 <!--
 ### Running Pods on Only Some Nodes
