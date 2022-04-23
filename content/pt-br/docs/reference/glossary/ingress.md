@@ -12,9 +12,8 @@ tags:
 - architecture
 - extension
 ---
- Um objeto API que gerencia o acesso externo aos serviços em um cluster, normalmente HTTP.
+ Um objeto API (do inglês "Application Programming Interface") que gerencia o acesso externo aos serviços em um cluster, normalmente HTTP.
 
 <!--more--> 
 
-Ingress may provide load balancing, SSL termination and name-based virtual hosting.
 O Ingress pode fornecer um balanceamento de carga, descriptografia SSL e hospedagem virtual baseada em nome.
