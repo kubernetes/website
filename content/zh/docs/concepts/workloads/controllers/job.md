@@ -915,7 +915,7 @@ The fields in a Job's pod template that can be updated are node affinity, node s
 tolerations, labels and annotations.
 -->
 Job 的 Pod 模板中可以更新的字段是节点亲和性、节点选择器、
-容人、标签和注释。
+容忍、标签和注释。
 
 
 
