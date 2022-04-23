@@ -177,7 +177,7 @@ The `.spec.selector` must match the `.spec.template.metadata.labels`.
 Config with these two not matching will be rejected by the API.
 -->
 `.spec.selector` 必须与 `.spec.template.metadata.labels` 相匹配。
-这两个配置不匹配，则会被 API 拒绝。
+如果配置中这两个字段不匹配，则会被 API 拒绝。
 
 <!--
 ### Running Pods on Only Some Nodes
