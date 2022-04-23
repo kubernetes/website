@@ -15,7 +15,7 @@ creating new clusters or joining new nodes to an existing cluster.  It was built
 to support [kubeadm](/docs/reference/setup-tools/kubeadm/), but can be used in other contexts
 for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the
-[Kubelet TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) system.
+[Kubelet TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) system.
 
 
 <!-- body -->

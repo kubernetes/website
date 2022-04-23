@@ -13,14 +13,9 @@ content_type: task
 This document covers topics related to protecting a cluster from accidental or malicious access
 and provides recommendations on overall security.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -77,11 +72,13 @@ Consult the [authorization reference section](/docs/reference/access-authn-authz
 
 ## Controlling access to the Kubelet
 
-Kubelets expose HTTPS endpoints which grant powerful control over the node and containers. By default Kubelets allow unauthenticated access to this API.
+Kubelets expose HTTPS endpoints which grant powerful control over the node and containers.
+By default Kubelets allow unauthenticated access to this API.
 
 Production clusters should enable Kubelet authentication and authorization.
 
-Consult the [Kubelet authentication/authorization reference](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization) for more information.
+Consult the [Kubelet authentication/authorization reference](/docs/reference/access-authn-authz/kubelet-authn-authz/)
+for more information.
 
 ## Controlling the capabilities of a workload or user at runtime
 
