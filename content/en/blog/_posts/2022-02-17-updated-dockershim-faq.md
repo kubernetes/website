@@ -7,8 +7,10 @@ slug: dockershim-faq
 aliases: [ '/dockershim' ]
 ---
 
-**This supersedes the original [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article,
-published in late 2020.**
+**This supersedes the original
+[Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article,
+published in late 2020. The article includes updates from the v1.24
+release of Kubernetes.**
 
 ---
 
