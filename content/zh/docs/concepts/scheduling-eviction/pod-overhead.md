@@ -178,13 +178,13 @@ for the Pod. It is within this pod that the underlying container runtime will cr
 Pod 中创建容器。
 
 <!--
-If the resource has a limit defined for each container (Guaranteed QoS or Bustrable QoS with limits defined),
+If the resource has a limit defined for each container (Guaranteed QoS or Burstable QoS with limits defined),
 the kubelet will set an upper limit for the pod cgroup associated with that resource (cpu.cfs_quota_us for CPU
 and memory.limit_in_bytes memory). This upper limit is based on the sum of the container limits plus the `overhead`
 defined in the PodSpec.
 -->
 如果该资源对每一个容器都定义了一个限制（定义了限制值的 Guaranteed QoS 或者
-Bustrable QoS），kubelet 会为与该资源（CPU 的 `cpu.cfs_quota_us` 以及内存的
+Burstable QoS），kubelet 会为与该资源（CPU 的 `cpu.cfs_quota_us` 以及内存的
 `memory.limit_in_bytes`）
 相关的 Pod cgroup 设定一个上限。该上限基于 PodSpec 中定义的容器限制总量与 `overhead` 之和。
 
