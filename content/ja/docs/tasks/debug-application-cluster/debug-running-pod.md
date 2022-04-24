@@ -59,12 +59,11 @@ kubectl exec -it cassandra -- sh
 
 詳しくは、[実行中のコンテナのシェルを取得する](/docs/tasks/debug-application-cluster/get-shell-running-container/)を参照してください。
 
-## エフェメラルデバッグコンテナによるデバッグ {#ephemeral-container}
+## エフェメラルコンテナによるデバッグ {#ephemeral-container}
 
 {{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
-{{< glossary_tooltip text="エフェメラルコンテナ" term_id="ephemeral-container" >}}
-は、コンテナがクラッシュしたり、コンテナイメージにデバッグユーティリティが含まれていないなどの理由で`kubectl exec`が不十分な場合に、対話的にトラブルシューティングを行うのに便利です([ディストロ・イメージ](
+{{< glossary_tooltip text="エフェメラルコンテナ" term_id="ephemeral-container" >}}は、コンテナがクラッシュしたり、コンテナイメージにデバッグユーティリティが含まれていないなどの理由で`kubectl exec`が不十分な場合に、対話的にトラブルシューティングを行うのに便利です([ディストロ・イメージ](
 https://github.com/GoogleContainerTools/distroless)の場合など)。
 
 ### エフェメラルコンテナを使用したデバッグ例 {#ephemeral-container-example}
