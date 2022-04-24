@@ -896,9 +896,9 @@ The [suspend](#suspending-a-job) field is the first step towards achieving those
 custom queue controller to decide when a job should start; However, once a job is unsuspended,
 a custom queue controller has no influence on where the pods of a job will actually land.
 -->
-[suspend](#suspend-a-job) 字段是实现这些语义的第一步。暂停允许
-自定义队列控制器，以决定工作何时开始;然而，一旦工作不被暂停，
-自定义队列控制器对工作的 Pods 实际放置的位置没有影响。
+[suspend](#suspend-a-job) 字段是实现这些语义的第一步。
+suspend 允许自定义队列控制器，以决定工作何时开始；然而，一旦工作被取消暂停，
+自定义队列控制器对 Job 中 Pods 的实际放置位置没有影响。
 
 <!--
 This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
