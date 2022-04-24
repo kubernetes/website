@@ -906,7 +906,9 @@ controllers the ability to influence pod placement while at the same time offloa
 pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never 
 been unsuspended before.
 -->
-该特性允许在Job开始之前更新调度指令，从而提供定制队列
+此特性允许在 Job 开始之前更新调度指令，从而为定制队列提供影响 Pod
+放置的能力，同时将 Pod 与节点间的分配关系留给 kube-scheduler 决定。
+这一特性仅适用于之前从未被暂停过的、已暂停的 Job。
 控制器能够影响 Pod 放置，同时参考实际
 pod-to-node 分配给 kube-scheduler。 这仅适用于从未暂停的Jobs。
 
