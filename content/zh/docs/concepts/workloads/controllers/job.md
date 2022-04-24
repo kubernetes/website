@@ -889,7 +889,7 @@ In most cases a parallel job will want the pods to run with constraints,
 like all in the same zone, or all either on GPU model x or y but not a mix of both.
 -->
 在大多数情况下，并行作业会希望 Pod 在一定约束条件下运行，
-比如所有的都在同一个区域，或者所有的都在GPU模型 x 或 y 上，但不是两者的混合。
+比如所有的 Pod 都在同一个区域，或者所有的 Pod 都在 GPU 型号 x 或 y 上，而不是两者的混合。
 
 <!--
 The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a 
