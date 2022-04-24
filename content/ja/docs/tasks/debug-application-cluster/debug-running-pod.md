@@ -105,7 +105,7 @@ If you don't see a command prompt, try pressing enter.
 / #
 ```
 
-このコマンドは新しいbusyboxコンテナを追加し、それにアタッチします。`target`パラメータは、他のコンテナのプロセス名前空間をターゲットにします。これは`kubectl run`が作成するPodで[process namespace sharing](/docs/tasks/configure-pod-container/share-process-namespace/)を有効にしないため、ここで必要です。
+このコマンドは新しいbusyboxコンテナを追加し、それにアタッチします。`target`パラメータは、他のコンテナのプロセス名前空間をターゲットにします。これは`kubectl run`が作成するPodで[process namespace sharing](/docs/tasks/configure-pod-container/share-process-namespace/)を有効にしないため、指定する必要があります。
 
 {{< note >}}
 `target` パラメータは {{< glossary_tooltip text="Container Runtime" term_id="container-runtime" >}} でサポートされている必要があります。サポートされていない場合、エフェメラルコンテナは起動されないか、`ps`が他のコンテナ内のプロセスを表示しないように孤立したプロセス名前空間を使用して起動されます。
