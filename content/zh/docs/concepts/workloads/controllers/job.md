@@ -878,9 +878,8 @@ on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/
 It is enabled by default.
 -->
 {{< note >}}
-为了使用此功能，你必须在[API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
+为了使用此功能，你必须在 [API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
 `JobMutableNodeSchedulingDirectives` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-。
 默认情况下启用。
 {{< /note >}}
 
@@ -910,7 +909,7 @@ been unsuspended before.
 放置的能力，同时将 Pod 与节点间的分配关系留给 kube-scheduler 决定。
 这一特性仅适用于之前从未被暂停过的、已暂停的 Job。
 控制器能够影响 Pod 放置，同时参考实际
-pod-to-node 分配给 kube-scheduler。 这仅适用于从未暂停的Jobs。
+pod-to-node 分配给 kube-scheduler。这仅适用于从未暂停的 Jobs。
 
 <!--
 The fields in a Job's pod template that can be updated are node affinity, node selector, 
