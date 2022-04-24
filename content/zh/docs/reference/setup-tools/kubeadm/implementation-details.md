@@ -594,7 +594,7 @@ API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
 #### 控制器管理器  {#controller-manager}
 
 <!-- 
-The static Pod manifest for the controller-manager is affected by following parameters provided by the users: 
+The static Pod manifest for the controller manager is affected by following parameters provided by the users: 
 -->
 控制器管理器的静态 Pod 清单受用户提供的以下参数的影响:
 
