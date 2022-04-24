@@ -1,6 +1,4 @@
 ---
-reviewers:
-- ptux
 title: 実行中のPodのデバッグ
 content_type: task
 ---
@@ -61,15 +59,13 @@ kubectl exec -it cassandra -- sh
 
 詳しくは、[実行中のコンテナのシェルを取得する](/docs/tasks/debug-application-cluster/get-shell-running-container/)を参照してください。
 
-## Debugging with an ephemeral debug container {#ephemeral-container}
+## エフェメラルデバッグコンテナによるデバッグ {#ephemeral-container}
 
 {{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
-{{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
-are useful for interactive troubleshooting when `kubectl exec` is insufficient
-because a container has crashed or a container image doesn't include debugging
-utilities, such as with [distroless images](
-https://github.com/GoogleContainerTools/distroless).
+{{< glossary_tooltip text="エフェメラルコンテナ" term_id="ephemeral-container" >}}
+は、コンテナがクラッシュしたり、コンテナイメージにデバッグユーティリティが含まれていないなどの理由で`kubectl exec`が不十分な場合に、対話的にトラブルシューティングを行うのに便利です([ディストロ・イメージ](
+https://github.com/GoogleContainerTools/distroless)の場合など)。
 
 ### エフェメラルコンテナを使用したデバッグ例 {#ephemeral-container-example}
 
@@ -105,10 +101,10 @@ If you don't see a command prompt, try pressing enter.
 / #
 ```
 
-このコマンドは新しいbusyboxコンテナを追加し、それにアタッチします。`target`パラメータは、他のコンテナのプロセス名前空間をターゲットにします。これは`kubectl run`が作成するPodで[process namespace sharing](/docs/tasks/configure-pod-container/share-process-namespace/)を有効にしないため、指定する必要があります。
+このコマンドは新しいbusyboxコンテナを追加し、それにアタッチします。`target`パラメーターは、他のコンテナのプロセス名前空間をターゲットにします。これは`kubectl run`が作成するPodで[process namespace sharing](/docs/tasks/configure-pod-container/share-process-namespace/)を有効にしないため、指定する必要があります。
 
 {{< note >}}
-`target` パラメータは {{< glossary_tooltip text="Container Runtime" term_id="container-runtime" >}} でサポートされている必要があります。サポートされていない場合、エフェメラルコンテナは起動されないか、`ps`が他のコンテナ内のプロセスを表示しないように孤立したプロセス名前空間を使用して起動されます。
+`target` パラメーターは {{< glossary_tooltip text="Container Runtime" term_id="container-runtime" >}} でサポートされている必要があります。サポートされていない場合、エフェメラルコンテナは起動されないか、`ps`が他のコンテナ内のプロセスを表示しないように孤立したプロセス名前空間を使用して起動されます。
 {{< /note >}}
 
 新しく作成されたエフェメラルコンテナの状態は`kubectl describe`を使って見ることができます。
