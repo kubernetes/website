@@ -398,7 +398,7 @@ metadata:
 spec:
   containers:
   - name: hello
-    image: busybox
+    image: busybox:1.28
     command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
 EOF
 pod/hello-apparmor-2 created
@@ -510,10 +510,10 @@ Pod 在具有所需配置文件的节点上运行。
 {{< note >}}
 <!-- 
 PodSecurityPolicy is deprecated in Kubernetes v1.21, and will be removed in v1.25.
-See [PodSecurityPolicy documentation](/docs/concepts/policy/pod-security-policy/) for more information.
+See [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation for more information.
 -->
 PodSecurityPolicy 在 Kubernetes v1.21 版本中已被废弃，将在 v1.25 版本移除。
-查看 [PodSecurityPolicy 文档](/zh/docs/concepts/policy/pod-security-policy/)获取更多信息。
+查看 [PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/) 文档获取更多信息。
 {{< /note >}}
 
 <!-- 
@@ -559,47 +559,21 @@ specification.
 
 <!-- 
 When disabled, any Pod that includes an AppArmor profile will fail validation with a "Forbidden"
-error. Note that by default docker always enables the "docker-default" profile on non-privileged
-pods (if the AppArmor kernel module is enabled), and will continue to do so even if the feature-gate
-is disabled. The option to disable AppArmor will be removed when AppArmor graduates to general
-availability (GA). 
+error. 
 -->
 禁用时，任何包含 AppArmor 配置文件的 Pod 都将导致验证失败，且返回 “Forbidden” 错误。
-注意，默认情况下，docker 总是在非特权 Pod 上启用 “docker-default” 配置文件（如果 AppArmor 内核模块已启用），
-并且即使特性门控已禁用，也将继续启用该配置文件。
-当 AppArmor 升级到正式发布（GA）阶段时，禁用 Apparmor 的选项将被删除。
 
-<!-- ### Upgrading to Kubernetes v1.4 with AppArmor -->
-### 使用 AppArmor 升级到 Kubernetes v1.4
-
-<!-- 
-No action is required with respect to AppArmor to upgrade your cluster to v1.4. However, if any
-existing pods had an AppArmor annotation, they will not go through validation (or PodSecurityPolicy
-admission). If permissive profiles are loaded on the nodes, a malicious user could pre-apply a
-permissive profile to escalate the pod privileges above the docker-default. If this is a concern, it
-is recommended to scrub the cluster of any pods containing an annotation with
-`apparmor.security.beta.kubernetes.io`. 
+{{<note>}}
+<!--
+Even if the Kubernetes feature is disabled, runtimes may still enforce the default profile. The
+option to disable the AppArmor feature will be removed when AppArmor graduates to general
+availability (GA).
 -->
-不需要对 AppArmor 执行任何操作即可将集群升级到 v1.4。但是，
-如果任何现有的 Pod 有一个 AppArmor 注解，
-它们将无法通过合法性检查（或 PodSecurityPolicy 准入控制）。
-如果节点上加载了宽松的配置文件，恶意用户可以预先应用宽松的配置文件，
-将 Pod 权限提升到 docker-default 权限之上。
-如果存在这个问题，建议清除集群中包含 `apparmor.security.beta.kubernetes.io` 注解的所有 Pod。
+即使此 Kubernetes 特性被禁用，运行时仍可能强制执行默认配置文件。
+当 AppArmor 升级为正式版 (GA) 时，禁用 AppArmor 功能的选项将被删除。
 
-<!-- ### Upgrade path to General Availability -->
-### 升级到正式发布的途径 {#upgrade-path-to-general-availability}
+{{</note>}}
 
-<!-- 
-When AppArmor is ready to be graduated to general availability (GA), the options currently specified
-through annotations will be converted to fields. Supporting all the upgrade and downgrade paths
-through the transition is very nuanced, and will be explained in detail when the transition
-occurs. We will commit to supporting both fields and annotations for at least 2 releases, and will
-explicitly reject the annotations for at least 2 releases after that. 
--->
-当 Apparmor 准备升级到正式发布（GA）状态时，当前通过注解指定的选项将转换为字段。
-通过转换支持所有升级和降级路径是非常微妙的，并将在转换发生时详细解释。
-我们将承诺在至少两个发行版本中同时支持字段和注解，并在之后的至少两个版本中显式拒绝注解。
 
 <!-- ## Authoring Profiles -->
 ## 编写配置文件 {#authoring-profiles}
@@ -622,14 +596,6 @@ tools to help with that:
   [AppArmor 文档](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools)提供了进一步的指导。
 * [bane](https://github.com/jfrazelle/bane)
   是一个用于 Docker的 AppArmor 配置文件生成器，它使用一种简化的画像语言（profile language）
-
-<!-- 
-It is recommended to run your application through Docker on a development workstation to generate
-the profiles, but there is nothing preventing running the tools on the Kubernetes node where your
-Pod is running. 
--->
-建议在开发工作站上通过 Docker 运行应用程序以生成配置文件，
-不过在运行 Pod 的 Kubernetes 节点上运行这些工具也是可以的。
 
 <!-- 
 To debug problems with AppArmor, you can check the system logs to see what, specifically, was
@@ -669,9 +635,8 @@ AppArmor 将详细消息记录到 `dmesg`，
 - `runtime/default`: Refers to the default runtime profile.
   - Equivalent to not specifying a profile (without a PodSecurityPolicy default), except it still
     requires AppArmor to be enabled.
-  - For Docker, this resolves to the
-    [`docker-default`](https://docs.docker.com/engine/security/apparmor/) profile for non-privileged
-    containers, and unconfined (no profile) for privileged containers.
+  - In practice, many container runtimes use the same OCI default profile, defined here:
+    https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
 - `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
   - The possible profile names are detailed in the
     [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
@@ -679,9 +644,8 @@ AppArmor 将详细消息记录到 `dmesg`，
 -->
 - `runtime/default`: 指默认运行时配置文件。
   - 等同于不指定配置文件（没有 PodSecurityPolicy 默认值），只是它仍然需要启用 AppArmor。
-  - 对于 Docker，针对非特权容器时解析为
-    [`Docker default`](https://docs.docker.com/engine/security/apparmor/) 配置文件，
-    针对特权容器时解析为 unconfined（无配置文件）。
+  - 实际上，许多容器运行时使用相同的 OCI 默认配置文件，在此处定义：
+    https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
 - `localhost/<profile_name>`: 按名称引用加载到节点（localhost）上的配置文件。
   - 可能的配置文件名在[核心策略参考](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications)。
 - `unconfined`: 这相当于为容器禁用 AppArmor。
