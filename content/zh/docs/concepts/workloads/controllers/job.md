@@ -561,7 +561,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
 ### 已完成 Job 的 TTL 机制  {#ttl-mechanisms-for-finished-jobs}
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 <!--
 Another way to clean up finished Jobs (either `Complete` or `Failed`)
@@ -733,15 +733,21 @@ version of Kubernetes you're using](/docs/home/supported-doc-versions/).
 When a Job is created, the Job controller will immediately begin creating Pods
 to satisfy the Job's requirements and will continue to do so until the Job is
 complete. However, you may want to temporarily suspend a Job's execution and
-resume it later. To suspend a Job, you can update the `.spec.suspend` field of
+resume it later, or start Jobs in suspended state and have a custom controller
+decide later when to start them.
+-->
+Job 被创建时，Job 控制器会马上开始执行 Pod 创建操作以满足 Job 的需求，
+并持续执行此操作直到 Job 完成为止。
+不过你可能想要暂时挂起 Job 执行，或启动处于挂起状态的job，
+并拥有一个自定义控制器以后再决定什么时候开始。
+
+<!-- 
+To suspend a Job, you can update the `.spec.suspend` field of
 the Job to true; later, when you want to resume it again, update it to false.
 Creating a Job with `.spec.suspend` set to true will create it in the suspended
 state.
 -->
-Job 被创建时，Job 控制器会马上开始执行 Pod 创建操作以满足 Job 的需求，
-并持续执行此操作直到 Job 完成为止。
-不过你可能想要暂时挂起 Job 执行，之后再恢复其执行。
-要挂起一个 Job，你可以将 Job 的 `.spec.suspend` 字段更新为 true。
+要挂起一个 Job，你可以更新 `.spec.suspend` 字段为 true，
 之后，当你希望恢复其执行时，将其更新为 false。
 创建一个 `.spec.suspend` 被设置为 true 的 Job 本质上会将其创建为被挂起状态。
 
@@ -859,6 +865,61 @@ as soon as the Job was resumed.
 Job 被恢复执行时，Pod 创建操作立即被重启执行。
 
 <!--
+### Mutable Scheduling Directives
+-->
+### 可变调度指令 {#mutable-scheduling-directives}
+
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+
+<!--
+In order to use this behavior, you must enable the `JobMutableNodeSchedulingDirectives`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
+It is enabled by default.
+-->
+{{< note >}}
+为了使用此功能，你必须在 [API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
+`JobMutableNodeSchedulingDirectives` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+默认情况下启用。
+{{< /note >}}
+
+<!--
+In most cases a parallel job will want the pods to run with constraints, 
+like all in the same zone, or all either on GPU model x or y but not a mix of both.
+-->
+在大多数情况下，并行作业会希望 Pod 在一定约束条件下运行，
+比如所有的 Pod 都在同一个区域，或者所有的 Pod 都在 GPU 型号 x 或 y 上，而不是两者的混合。
+
+<!--
+The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a 
+custom queue controller to decide when a job should start; However, once a job is unsuspended,
+a custom queue controller has no influence on where the pods of a job will actually land.
+-->
+[suspend](#suspend-a-job) 字段是实现这些语义的第一步。
+suspend 允许自定义队列控制器，以决定工作何时开始；然而，一旦工作被取消暂停，
+自定义队列控制器对 Job 中 Pods 的实际放置位置没有影响。
+
+<!--
+This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
+controllers the ability to influence pod placement while at the same time offloading actual 
+pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never 
+been unsuspended before.
+-->
+此特性允许在 Job 开始之前更新调度指令，从而为定制队列提供影响 Pod
+放置的能力，同时将 Pod 与节点间的分配关系留给 kube-scheduler 决定。
+这一特性仅适用于之前从未被暂停过的、已暂停的 Job。
+控制器能够影响 Pod 放置，同时参考实际
+pod-to-node 分配给 kube-scheduler。这仅适用于从未暂停的 Jobs。
+
+<!--
+The fields in a Job's pod template that can be updated are node affinity, node selector, 
+tolerations, labels and annotations.
+-->
+Job 的 Pod 模板中可以更新的字段是节点亲和性、节点选择器、容忍、标签和注解。
+
+
+
+<!--
 ### Specifying your own Pod selector {#specifying-your-own-pod-selector}
 
 Normally, when you create a Job object, you do not specify `.spec.selector`.
@@ -964,7 +1025,7 @@ spec:
 
 <!--
 The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010af00002`.  Setting
-`manualSelector: true` tells the system to that you know what you are doing and to allow this
+`manualSelector: true` tells the system that you know what you are doing and to allow this
 mismatch.
 -->
 新的 Job 自身会有一个不同于 `a8f3d00d-c6d2-11e5-9f87-42010af00002` 的唯一 ID。
@@ -978,24 +1039,25 @@ In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-It is disabled by default.
+It is enabled by default.
 
 When enabled, the control plane tracks new Jobs using the behavior described
-below. Existing Jobs are unaffected. As a user, the only difference you would
-see is that the control plane tracking of Job completion is more accurate.
+below. Jobs created before the feature was enabled are unaffected. As a user,
+the only difference you would see is that the control plane tracking of Job
+completion is more accurate.
 -->
 ### 使用 Finalizer 追踪 Job   {#job-tracking-with-finalizers}
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
 要使用该行为，你必须为 [API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
 和[控制器管理器](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
 启用 `JobTrackingWithFinalizers`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-默认是禁用的。
+默认是启用的。
 
-启用后，控制面基于下述行为追踪新的 Job。现有 Job 不受影响。
+启用后，控制面基于下述行为追踪新的 Job。在启用该特性之前创建的 Job 不受影响。
 作为用户，你会看到的唯一区别是控制面对 Job 完成情况的跟踪更加准确。
 {{< /note >}}
 
