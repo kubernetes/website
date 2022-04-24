@@ -916,8 +916,7 @@ pod-to-node 分配给 kube-scheduler。 这仅适用于从未暂停的Jobs。
 The fields in a Job's pod template that can be updated are node affinity, node selector, 
 tolerations, labels and annotations.
 -->
-Job 的 Pod 模板中可以更新的字段是节点亲和性、节点选择器、
-容忍、标签和注释。
+Job 的 Pod 模板中可以更新的字段是节点亲和性、节点选择器、容忍、标签和注解。
 
 
 
