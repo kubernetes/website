@@ -878,9 +878,9 @@ on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/
 It is enabled by default.
 -->
 {{< note >}}
-为了使用此功能，你必须启用 `JobMutableNodeSchedulingDirectives`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-在[API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)上。
+为了使用此功能，你必须在[API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
+`JobMutableNodeSchedulingDirectives` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+。
 默认情况下启用。
 {{< /note >}}
 
