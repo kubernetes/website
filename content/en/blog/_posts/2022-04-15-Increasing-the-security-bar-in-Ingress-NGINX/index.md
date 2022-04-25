@@ -14,9 +14,11 @@ TLS certificates and their private keys).
 
 While it is a risky component in your architecture, it is still required to properly expose your services.
 
-Ingress NGINX has been part of security assessments that figured out we have a big problem: we don't do all proper sanitization before turning the configuration into an nginx.conf file, which may lead to users being able to extract information.
+Ingress-NGINX has been part of security assessments that figured out we have a big problem: we don't
+do all proper sanitization before turning the configuration into an `nginx.conf` file, which may lead to information
+disclosure risks.
 
-While we understand this risk and the real need to fix this, it's not an easy process to do, so we took another approach to reduce (but not remove!) this risk in the next release.
+While we understand this risk and the real need to fix this, it's not an easy process to do, so we took another approach to reduce (but not remove!) this risk in the current (v1.2.0) release.
 
 ## Meet Ingress NGINX v1.2.0 and the chrooted NGINX process
 
@@ -49,8 +51,8 @@ You can read about cgroups in the Kubernetes glossary: [`cgroup`](https://kubern
 While this increases the security, we made this feature an opt-in in this release so users may have time to make the right adjustments in their environments. This feature is only available from release v1.2.0
 
 There are two required changes in your deployments to use this feature:
-* In the image name, add the suffix "-chroot" as the following: gcr.io/k8s-staging-ingress-nginx/controller-chroot:v1.2.0
-* In your manifest, with the capability NET_BIND_SERVICE add the capability SYS_CHROOT so this configuration in the manifest will be like:
+* Append the suffix "-chroot" to the container image name. For example: `gcr.io/k8s-staging-ingress-nginx/controller-chroot:v1.2.0`
+* In your Pod template for the Ingress controller, find where you add the capability `NET_BIND_SERVICE` and add the capability `SYS_CHROOT`. After you edit the manifest, you'll see a snippet like:
 
 ```yaml
 capabilities:
@@ -61,7 +63,8 @@ capabilities:
   - SYS_CHROOT
 ```
 
-If you use the Helm Chart, in your `values.yaml`, change the following:
+If you deploy the controller using the official Helm chart then change the following setting in
+`values.yaml`:
 
 ```yaml
 controller:
@@ -69,11 +72,13 @@ controller:
     chroot: true
 ```
 
-** Check with your cluster admin if you can use "SYS_CHROOT" capability before enabling it in your deployment! **
+Ingress controllers are normally set up cluster-wide (the IngressClass API is cluster scoped). If you manage the
+Ingress-NGINX controller but you're not the overall cluster operator, then check with your cluster admin about
+whether you can use the `SYS_CHROOT` capability, **before** you enable it in your deployment.
 
-## OK, but how does this increase the security of my Ingress Controller?
+## OK, but how does this increase the security of my Ingress controller?
 
-Take the following configuration snippet and imagine, for some reason it was added to your nginx.conf:
+Take the following configuration snippet and imagine, for some reason it was added to your `nginx.conf`:
 ```
 location /randomthing/ {
       alias /;
@@ -81,11 +86,11 @@ location /randomthing/ {
 }
 ```
 
-With this configuration, one can call "http://website.com/randomthing" and get some listing (and access) to the whole filesystem.
+If you deploy this configuration, someone can call `http://website.example/randomthing` and get some listing (and access) to the whole filesystem of the Ingress controller.
 
 Now, can you spot the difference between chrooted and non chrooted Nginx on the listings below?
 
-| not chrooted             | chrooted |
+| Without extra `chroot()`             | With extra `chroot()` |
 |--------------------------|------|
 | bin                      | bin  |
 | dev                      | dev  |
@@ -112,11 +117,17 @@ The one in left side is not chrooted. So NGINX has full access to the filesystem
 
 ## What about other security improvements in this release?
 
-We know that the chroot improvement solves some portion of the risk, but still, someone can try to inject commands to read, for example, nginx.conf file and extract sensitive information.
+We know that the new `chroot()` mechanism helps address some portion of the risk, but still, someone
+can try to inject commands to read, for example, the `nginx.conf` file and extract sensitive information.
 
-So, another change in this release (this is opt-out!) is the deep inspector. We know some directives and regexes may be dangerous to NGINX, so the deep inspector will check all fields from an Ingress object (during its reconciliation, and also with admission webhook!) to verify if some field contains these dangerous directives.
+So, another change in this release (this is opt-out!) is the _deep inspector_.
+We know that some directives or regular expressions may be dangerous to NGINX, so the deep inspector
+checks all fields from an Ingress object (during its reconciliation, and also with a
+[validating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook))
+to verify if any fields contains these dangerous directives.
 
-We already do this for annotations, and the plan/goal is to move this validation to inside deep inspection in future releases.
+The ingress controller already does this for annotations, and our goal is to move this existing validation to happen inside
+deep inspection as part of a future release.
 
 You can take a look into the existing rules in <https://github.com/kubernetes/ingress-nginx/blob/main/internal/ingress/inspector/rules.go>
 
@@ -124,11 +135,17 @@ Due to the nature of inspecting and matching all strings in all objects, this ne
 
 ## What's next?
 
-This is not our final goal. Our final goal is to split the control plane and the data plane processes. In fact, doing so will help us also achieve the GatewayAPI implementation, as we may have a different controller as soon as it "knows" what to provide to the Data Plane (we need some help here!!)
+This is not our final goal. Our final goal is to split the control plane and the data plane processes.
+In fact, doing so will help us also achieve a [Gateway](https://gateway-api.sigs.k8s.io/) API implementation,
+as we may have a different controller as soon as it "knows" what to provide to the data plane
+(we need some help here!!)
 
-Some other projects in Kubernetes already take this approach (like [KPNG, the new Kube Proxy](​​https://github.com/kubernetes-sigs/kpng) and we plan to align with them and get the same experience for Ingress NGINX
+Some other projects in Kubernetes already take this approach
+(like [KPNG](​​https://github.com/kubernetes-sigs/kpng), the proposed replacement for `kube-proxy`),
+and we plan to align with them and get the same experience for Ingress-NGINX.
 
-## References
+## Further reading
+``
 
 References
 
