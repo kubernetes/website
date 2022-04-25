@@ -20,7 +20,8 @@ While we understand this risk and the real need to fix this, it's not an easy pr
 
 ## Meet Ingress NGINX v1.2.0 and the chrooted NGINX process
 
-One of the main problems is that we run our proxy server (NGINX) together with the controller (the component that has access to Kubernetes API Server and created the nginx.conf file). 
+One of the main challenges is that Ingress-NGINX runs the web proxy server (NGINX) alongside the Ingress
+controller (the component that has access to Kubernetes API that and that creates the `nginx.conf` file).
 
 So, NGINX does have the same access to the filesystem of the controller (and Kubernetes service account token, and other configurations from the container). While splitting those components is our end goal, we needed a fast response, that lead to the chroot idea.
 
