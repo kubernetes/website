@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Increasing the security bar in Ingress-NGINX'
-date: 2022-04-15
+date: 2022-04-18
 slug: ingress-nginx-security-release
 ---
 
