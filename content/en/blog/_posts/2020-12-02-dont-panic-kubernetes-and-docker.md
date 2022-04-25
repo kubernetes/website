@@ -32,7 +32,7 @@ shouldn’t, use Docker as a development tool anymore. Docker is still a useful
 tool for building containers, and the images that result from running `docker
 build` can still run in your Kubernetes cluster. 
  
-If you’re using a managed Kubernetes service like GKE, EKS, or AKS (which [defaults to containerd](https://github.com/Azure/AKS/releases/tag/2020-11-16)) you will need to
+If you’re using a managed Kubernetes service like AKS, EkS or GKE, you will need to
 make sure your worker nodes are using a supported container runtime before
 Docker support is removed in a future version of Kubernetes. If you have node
 customizations you may need to update them based on your environment and runtime
