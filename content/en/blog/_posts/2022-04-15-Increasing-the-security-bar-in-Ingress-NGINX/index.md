@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Increasing the security bar in Ingress-NGINX v1.2.0
+title: 'Increasing the security bar in Ingress-NGINX v1.2.0'
 date: 2022-04-18
 slug: ingress-nginx-1-2-0
 ---
@@ -12,7 +12,7 @@ of Kubernetes. An Ingress typically defines an HTTP reverse proxy, exposed to th
 multiple websites, and with some privileged access to Kubernetes API (such as to read Secrets relating to
 TLS certificates and their private keys).
 
-While it is a risky component in your architecture, it is still required to properly expose your services.
+While it is a risky component in your architecture, it is still the most popular way to properly expose your services.
 
 Ingress-NGINX has been part of security assessments that figured out we have a big problem: we don't
 do all proper sanitization before turning the configuration into an `nginx.conf` file, which may lead to information
@@ -94,27 +94,27 @@ If you deploy this configuration, someone can call `http://website.example/rando
 Now, can you spot the difference between chrooted and non chrooted Nginx on the listings below?
 
 | Without extra `chroot()`             | With extra `chroot()` |
-|--------------------------|------|
-| bin                      | bin  |
-| dev                      | dev  |
-| etc                      | etc  |
-| home                     |      |
-| lib                      | lib  |
-| media                    |      |
-| mnt                      |      |
-| opt                      | opt  |
-| proc                     | proc |
-| root                     |      |
-| run                      | run  |
-| sbin                     |      |
-| srv                      |      |
-| sys                      |      |
-| tmp                      | tmp  |
-| usr                      | usr  |
-| var                      | var  |
-| dbg                      |      |
-| nginx-ingress-controller |      |
-| wait-shutdown            |      |
+|----------------------------|--------|
+| `bin`                      | `bin`  |
+| `dev`                      | `dev`  |
+| `etc`                      | `etc`  |
+| `home`                     |        |
+| `lib`                      | `lib`  |
+| `media`                    |        |
+| `mnt`                      |        |
+| `opt`                      | `opt`  |
+| `proc`                     | `proc` |
+| `root`                     |        |
+| `run`                      | `run`  |
+| `sbin`                     |        |
+| `srv`                      |        |
+| `sys`                      |        |
+| `tmp`                      | `tmp`  |
+| `usr`                      | `usr`  |
+| `var`                      | `var`  |
+| `dbg`                      |        |
+| `nginx-ingress-controller` |        |
+| `wait-shutdown`            |        |
 
 The one in left side is not chrooted. So NGINX has full access to the filesystem. The one in right side is chrooted, so a new filesystem with only the required files to make NGINX work is created.
 
@@ -148,9 +148,8 @@ Some other projects in Kubernetes already take this approach
 and we plan to align with them and get the same experience for Ingress-NGINX.
 
 ## Further reading
-``
 
-References
-
-If you want to take a look into how chrooting was done in Ingress NGINX, take a look into <https://github.com/kubernetes/ingress-nginx/pull/8337>
-The release v1.2.0 containing all the changes can be found at <https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.2.0>
+If you want to take a look into how chrooting was done in Ingress NGINX, take a look 
+into [https://github.com/kubernetes/ingress-nginx/pull/8337](https://github.com/kubernetes/ingress-nginx/pull/8337)
+The release v1.2.0 containing all the changes can be found at 
+[https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.2.0](https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.2.0)
