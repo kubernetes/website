@@ -644,8 +644,8 @@ Renders to:
 * Learn about [advanced contributing](/docs/contribute/advanced/).
 -->
 
-* 了解[Hugo](https://gohugo.io/)。
+* 了解 [Hugo](https://gohugo.io/)。
 * 了解[撰写新的话题](/zh/docs/contribute/style/write-new-topic/)。
 * 了解[使用页面内容类型](/zh/docs/contribute/style/page-content-types/)。
 * 了解[发起 PR](/zh/docs/contribute/new-content/open-a-pr/)。
-* 了解[高级贡献](/zh/docs/contribute/advanced/)。
+* 了解[进阶贡献](/zh/docs/contribute/advanced/)。
