@@ -15,7 +15,7 @@ primary resources via the standard HTTP verbs (POST, PUT, PATCH, DELETE,
 GET).
 
 For some resources, the API includes additional subresources that allow
-fine grained authorization (such as separate viewing details for a Pod from
+fine grained authorization (such as separate views for Pod details and
 retrieving its logs), and can accept and serve those resources in different
 representations for convenience or efficiency.
 
