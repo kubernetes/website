@@ -27,7 +27,7 @@ controller (the component that has access to Kubernetes API that and that create
 
 So, NGINX does have the same access to the filesystem of the controller (and Kubernetes service account token, and other configurations from the container). While splitting those components is our end goal, the project needed a fast response; that lead us to the idea of using `chroot()`.
 
-Let's take a look into what an Ingress Controller container looked like before this change:
+Let's take a look into what an Ingress-NGINX container looked like before this change:
 
 ![Ingress NGINX pre chroot](ingress-pre-chroot.png)
 
@@ -37,7 +37,8 @@ Now, meet the new architecture:
 
 ![Ingress NGINX post chroot](ingress-post-chroot.png)
 
-What does all of this mean? A good summary is: that we are running a new container inside our own container.
+What does all of this mean? A basic summary is: that we are isolating the NGINX service as a container inside the
+controller container.
 
 While this is not strictly true, to understand what was done here, it's good to understand how
 Linux containers (and underlying mechanisms such as kernel namespaces) work.
@@ -48,7 +49,9 @@ You can read about cgroups in the Kubernetes glossary: [`cgroup`](https://kubern
 
 ## Skip the talk, what do I need to use this new approach?
 
-While this increases the security, we made this feature an opt-in in this release so users may have time to make the right adjustments in their environments. This feature is only available from release v1.2.0
+While this increases the security, we made this feature an opt-in in this release so you can have
+time to make the right adjustments in your environment(s). This new feature is only available from
+release v1.2.0 of the Ingress-NGINX controller.
 
 There are two required changes in your deployments to use this feature:
 * Append the suffix "-chroot" to the container image name. For example: `gcr.io/k8s-staging-ingress-nginx/controller-chroot:v1.2.0`
