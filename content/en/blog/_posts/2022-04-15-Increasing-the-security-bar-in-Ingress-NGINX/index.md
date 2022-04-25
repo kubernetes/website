@@ -23,7 +23,7 @@ While we understand this risk and the real need to fix this, it's not an easy pr
 One of the main challenges is that Ingress-NGINX runs the web proxy server (NGINX) alongside the Ingress
 controller (the component that has access to Kubernetes API that and that creates the `nginx.conf` file).
 
-So, NGINX does have the same access to the filesystem of the controller (and Kubernetes service account token, and other configurations from the container). While splitting those components is our end goal, we needed a fast response, that lead to the chroot idea.
+So, NGINX does have the same access to the filesystem of the controller (and Kubernetes service account token, and other configurations from the container). While splitting those components is our end goal, the project needed a fast response; that lead us to the idea of using `chroot()`.
 
 Let's take a look into what an Ingress Controller container looked like before this change:
 
