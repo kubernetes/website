@@ -72,7 +72,14 @@ allowVolumeExpansion: true
 
 ### Online expansion compared to offline expansion
 
-By default Kubernetes attempts to expand volumes immediately after user requests new size. Expansion happens online if one or more Pods are using the volume and as a result volume expansion requires no application downtime. File System expansion on the node is also performed online and hence does not require shutting down the Pod that was using the PVC.
+By default, Kubernetes attempts to expand volumes immediately after user requests a resize.
+If one or more Pods are using the volume, Kubernetes tries to expands the volume using an online resize;
+as a result volume expansion usually requires no application downtime.
+Filesystem expansion on the node is also performed online and hence does not require shutting
+down any Pod that was using the PVC.
+
+If you expand a PersistentVolume that is not in use, Kubernetes does an offline resize (and,
+because the volume isn't in use, there is again no workload disruption).
 
 In some cases though - if underlying Storage Driver can only support offline expansion, users of the PVC must take down their Pod before expansion can succeed. Please refer to documentation of your storage
 provider to find out - what mode of volume expansion it supports.
