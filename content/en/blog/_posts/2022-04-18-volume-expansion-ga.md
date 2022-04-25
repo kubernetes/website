@@ -83,7 +83,7 @@ his behaviour has been changed and Kubernetes tries its best to fulfil any resiz
 of whether the underlying PersistentVolume volume is online or offline. If your storage provider supports
 online expansion then no Pod restart should be necessary for volume expansion to finish.
 
-### ## What’s next?
+## Next steps
 
 Although Volume expansion is going GA with 1.24 - we are continously working to make it simpler for users of Kubernetes to expand their persistent volumes. Kubernetes 1.23 introduced feature `RecoverVolumeExpansionFailure` - so as users can themselves recover from volume expansion failures (usually recovering from volume expansion requires admin intervention) whenever possible. See - [Rcovering from volume expansion failure](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes) for more details.
 
