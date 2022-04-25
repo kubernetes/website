@@ -92,7 +92,11 @@ online expansion then no Pod restart should be necessary for volume expansion to
 
 ## Next steps
 
-Although Volume expansion is going GA with 1.24 - we are continously working to make it simpler for users of Kubernetes to expand their persistent volumes. Kubernetes 1.23 introduced feature `RecoverVolumeExpansionFailure` - so as users can themselves recover from volume expansion failures (usually recovering from volume expansion requires admin intervention) whenever possible. See - [Rcovering from volume expansion failure](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes) for more details.
+Although volume expansion is now stable as part of the recent v1.24 release,
+SIG Storage are working to make it even simpler for users of Kubernetes to expand their persistent storage.
+Kubernetes 1.23 introduced features for triggering recovery from failed volume expansion, allowing users
+to attempt self-service healing after a failed resize.
+See [Recovering from volume expansion failure](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes) for more details.
 
 The Kubernetes contributor community is also discussing the potential for StatefulSet-driven storage expansion. This proposed
 feature would let you trigger expansion for all underlying PVs that are providing storage to a StatefulSet,
