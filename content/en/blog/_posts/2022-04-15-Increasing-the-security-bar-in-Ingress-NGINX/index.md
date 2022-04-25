@@ -134,7 +134,7 @@ deep inspection as part of a future release.
 
 You can take a look into the existing rules in [https://github.com/kubernetes/ingress-nginx/blob/main/internal/ingress/inspector/rules.go](https://github.com/kubernetes/ingress-nginx/blob/main/internal/ingress/inspector/rules.go).
 
-Due to the nature of inspecting and matching all strings in all objects, this new feature may consume a bit more CPU, and can be disabled with the flag --deep-inspect=false
+Due to the nature of inspecting and matching all strings within relevant Ingress objects, this new feature may consume a bit more CPU. You can disable it by running the ingress controller with the command line argument `--deep-inspect=false`.
 
 ## What's next?
 
