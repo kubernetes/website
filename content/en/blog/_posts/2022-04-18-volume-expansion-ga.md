@@ -33,8 +33,9 @@ spec:
       storage: 1Gi # specify new size here
 ```
 
-Users can request expansion of the underlying volume by specifying a new value instead of old `1Gi` size. Once expansion is initiated - pvc's conditions can be monitored
-for completion of volume expansion operation.
+You can request expansion of the underlying PersistentVolume by specifying a new value instead of old `1Gi` size.
+Once you've changed the requested size, watch the `status.conditions` field of the PVC to see if the
+resize has completed.
 
 When Kubernetes starts expanding the volume - it will add `Resizing` condition to the PVC, which will be removed once expansion completes. More information about progress of
 expansion operation can also be obtained by monitoring events associated with the PVC:
