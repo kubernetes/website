@@ -15,7 +15,7 @@ weight: 15
 
 <!--
 This guide shows you how to create, edit and share diagrams using the Mermaid
-Javascript library. Mermaid.js allows you to generate diagrams using a simple
+JavaScript library. Mermaid.js allows you to generate diagrams using a simple
 markdown-like syntax inside Markdown files. You can also use Mermaid to
 generate `.svg` or `.png` image files that you can add to your documentation.
 
@@ -24,7 +24,7 @@ and/or how to create and add diagrams to Kubernetes documentation.
 
 Figure 1 outlines the topics covered in this section. 
 -->
-本指南为你展示如何创建、编辑和分享基于 Mermaid Javascript 库的图表。
+本指南为你展示如何创建、编辑和分享基于 Mermaid JavaScript 库的图表。
 Mermaid.js 允许你使用简单的、类似于 Markdown 的语法来在 Markdown 文件中生成图表。
 你也可以使用 Mermaid 来创建 `.svg` 或 `.png` 图片文件，将其添加到你的文档中。
 
