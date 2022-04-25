@@ -351,8 +351,9 @@ respectively.
 <!--
 ## General Guidelines
 
-System daemons are expected to be treated similar to 'Guaranteed' pods. System
-daemons can burst within their bounding control groups and this behavior needs
+System daemons are expected to be treated similar to
+[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed). 
+System daemons can burst within their bounding control groups and this behavior needs
 to be managed as part of kubernetes deployments. For example, `kubelet` should
 have its own control group and share `Kube-reserved` resources with the
 container runtime. However, Kubelet cannot burst and use up all available Node
@@ -360,7 +361,9 @@ resources if `kube-reserved` is enforced.
 -->
 ## 一般原则   {#general-guidelines}
 
-系统守护进程一般会被按照类似 'Guaranteed' Pod 一样对待。
+系统守护进程一般会被按照类似
+[Guaranteed pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed)
+一样对待。
 系统守护进程可以在与其对应的控制组中出现突发资源用量，这一行为要作为
 kubernetes 部署的一部分进行管理。
 例如，`kubelet` 应该有它自己的控制组并和容器运行时共享 `Kube-reserved` 资源。

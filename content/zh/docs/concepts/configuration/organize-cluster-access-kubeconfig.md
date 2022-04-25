@@ -32,7 +32,7 @@ It does not mean that there is a file named `kubeconfig`.
 
 <!--
 {{< warning >}}
-Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure.
 If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
 {{< /warning>}}
 -->
@@ -96,7 +96,7 @@ clusters and namespaces.
 A *context* element in a kubeconfig file is used to group access parameters
 under a convenient name. Each context has three parameters: cluster, namespace, and user.
 By default, the `kubectl` command-line tool uses parameters from
-the *current context* to communicate with the cluster. 
+the *current context* to communicate with the cluster.
 -->
 通过 kubeconfig 文件中的 *context* 元素，使用简便的名称来对访问参数进行分组。每个上下文都有三个参数：cluster、namespace 和 user。默认情况下，`kubectl` 命令行工具使用 *当前上下文* 中的参数与集群进行通信。
 
@@ -104,7 +104,8 @@ the *current context* to communicate with the cluster.
 To choose the current context:
 -->
 选择当前上下文
-```
+
+```shell
 kubectl config use-context
 ```
 
@@ -175,7 +176,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
      Even if the second file has non-conflicting entries under `red-user`, discard them.
 -->
 1. 如果设置了 `--kubeconfig` 参数，则仅使用指定的文件。不进行合并。此参数只能使用一次。
-   
+
    否则，如果设置了 `KUBECONFIG` 环境变量，将它用作应合并的文件列表。根据以下规则合并 `KUBECONFIG` 环境变量中列出的文件：
 
    * 忽略空文件名。
@@ -280,6 +281,34 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 命令行上的文件引用是相对于当前工作目录的。
 在 `$HOME/.kube/config` 中，相对路径按相对路径存储，绝对路径按绝对路径存储。
 
+<!--
+## Proxy
+
+You can configure `kubectl` to use proxy by setting `proxy-url` in the kubeconfig file, like:
+-->
+## 代理
+
+你可以在 `kubeconfig` 文件中设置 `proxy-url` 来为 `kubectl` 使用代理，例如:
+
+```yaml
+apiVersion: v1
+kind: Config
+
+proxy-url: https://proxy.host:3128
+
+clusters:
+- cluster:
+  name: development
+
+users:
+- name: developer
+
+contexts:
+- context:
+  name: development
+
+```
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -288,4 +317,3 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 --->
 * [配置对多集群的访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
-

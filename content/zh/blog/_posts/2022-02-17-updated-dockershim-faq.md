@@ -3,7 +3,6 @@ layout: blog
 title: "更新：弃用 Dockershim 的常见问题"
 date: 2022-02-17
 slug: dockershim-faq
-aliases: [ '/dockershim' ]
 ---
 <!-- 
 layout: blog

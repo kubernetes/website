@@ -137,7 +137,7 @@ A minimal Ingress resource example:
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
 <!-- 
-As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
+An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields.
 The name of an Ingress object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
@@ -146,7 +146,7 @@ For general information about working with config files, see [deploying applicat
 Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 -->
-与所有其他 Kubernetes 资源一样，Ingress 需要指定 `apiVersion`、`kind` 和 `metadata` 字段。
+Ingress 需要指定 `apiVersion`、`kind`、 `metadata`和 `spec` 字段。
 Ingress 对象的命名必须是合法的 [DNS 子域名名称](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 关于如何使用配置文件，请参见[部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)、
 [配置容器](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)、

@@ -34,7 +34,7 @@ Currently, the following types of volume sources can be projected:
 * [`secret`](/docs/concepts/storage/volumes/#secret)
 * [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi)
 * [`configMap`](/docs/concepts/storage/volumes/#configmap)
-* `serviceAccountToken`
+* [`serviceAccountToken`](#serviceaccounttoken)
 -->
 ## 介绍    {#introduction}
 
@@ -45,7 +45,7 @@ Currently, the following types of volume sources can be projected:
 * [`secret`](/zh/docs/concepts/storage/volumes/#secret)
 * [`downwardAPI`](/zh/docs/concepts/storage/volumes/#downwardapi)
 * [`configMap`](/zh/docs/concepts/storage/volumes/#configmap)
-* `serviceAccountToken`
+* [`serviceAccountToken`](#serviceaccounttoken)
 
 <!--
 All sources are required to be in the same namespace as the Pod. For more details,
@@ -85,10 +85,12 @@ parameters are nearly the same with two exceptions:
   你可以显式地为每个投射单独设置 `mode` 属性。 
 
 <!--
+## serviceAccountToken projected volumes {#serviceaccounttoken}
 When the `TokenRequestProjection` feature is enabled, you can inject the token
 for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 into a Pod at a specified path. For example:
 -->
+## serviceAccountToken 投射卷 {#serviceaccounttoken}
 当 `TokenRequestProjection` 特性被启用时，你可以将当前
 [服务账号](/zh/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 的令牌注入到 Pod 中特定路径下。例如：
@@ -97,14 +99,17 @@ into a Pod at a specified path. For example:
 
 <!--
 The example Pod has a projected volume containing the injected service account
-token. This token can be used by a Pod's containers to access the Kubernetes API
-server. The `audience` field contains the intended audience of the
+token. Containers in this Pod can use that token to access the Kubernetes API
+server, authenticating with the identity of [the pod's ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/).
+The `audience` field contains the intended audience of the
 token. A recipient of the token must identify itself with an identifier specified
 in the audience of the token, and otherwise should reject the token. This field
 is optional and it defaults to the identifier of the API server.
 -->
-示例 Pod 中包含一个投射卷，其中包含注入的服务账号令牌。该令牌可以被 Pod
-中的容器用来访问 Kubernetes API 服务器。`audience` 字段包含令牌所针对的受众。
+示例 Pod 中包含一个投射卷，其中包含注入的服务账号令牌。
+此 Pod 中的容器可以使用该令牌访问 Kubernetes API 服务器， 使用 
+[pod 的 ServiceAccount](/zh/docs/tasks/configure-pod-container/configure-service-account/)
+进行身份验证。`audience` 字段包含令牌所针对的受众。
 收到令牌的主体必须使用令牌受众中所指定的某个标识符来标识自身，否则应该拒绝该令牌。
 此字段是可选的，默认值为 API 服务器的标识。
 

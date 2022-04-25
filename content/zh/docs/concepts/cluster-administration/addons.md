@@ -31,6 +31,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install) unites Flannel and Calico, providing networking and network policy.
 * [Cilium](https://github.com/cilium/cilium) is a L3 network and network policy plugin that can enforce HTTP/API/L7 policies transparently. Both routing and overlay/encapsulation mode are supported.
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) enables Kubernetes to seamlessly connect to a choice of CNI plugins, such as Calico, Canal, Flannel, Romana, or Weave.
+* [Contiv](https://contivpp.io/) provides configurable networking (native L3 using BGP, overlay using vxlan, classic L2, and Cisco-SDN/ACI) for various use cases and a rich policy framework. Contiv project is fully [open sourced](https://github.com/contiv). The [installer](https://github.com/contiv/install) provides both kubeadm and non-kubeadm based installation options.
 * [Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is an open source, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide isolation modes for virtual machines, containers/pods and bare metal workloads.
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) is an overlay network provider that can be used with Kubernetes.
 * [Knitter](https://github.com/ZTE/Knitter/) is a network solution supporting multiple networking in Kubernetes.
@@ -39,7 +40,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) is an SDN platform that provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.
-* [Romana](http://romana.io) is a Layer 3 networking solution for pod networks that also supports the [NetworkPolicy API](/docs/concepts/services-networking/network-policies/). Kubeadm add-on installation details available [here](https://github.com/romana/romana/tree/master/containerize).
+* **Romana** is a Layer 3 networking solution for pod networks that also supports the [NetworkPolicy API](/docs/concepts/services-networking/network-policies/). Kubeadm add-on installation details available [here](https://github.com/romana/romana/tree/master/containerize).
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) provides networking and network policy, will carry on working on both sides of a network partition, and does not require an external database.
 -->
 ## 网络和网络策略
@@ -54,6 +55,10 @@ Add-ons 扩展了 Kubernetes 的功能。
   同时支持路由（routing）和覆盖/封装（overlay/encapsulation）模式。
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) 使 Kubernetes 无缝连接到一种 CNI 插件，
   例如：Flannel、Calico、Canal、Romana 或者 Weave。
+* [Contiv](https://contivpp.io/) 为各种用例和丰富的策略框架提供可配置的网络
+  （使用 BGP 的本机 L3、使用 vxlan 的覆盖、标准 L2 和 Cisco-SDN/ACI）。
+  Contiv 项目完全[开源](https://github.com/contiv)。
+  [安装程序](https://github.com/contiv/install) 提供了基于 kubeadm 和非 kubeadm 的安装选项。
 * 基于 [Tungsten Fabric](https://tungsten.io) 的
   [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)
   是一个开源的多云网络虚拟化和策略管理平台，Contrail 和 Tungsten Fabric 与业务流程系统
@@ -79,8 +84,8 @@ Add-ons 扩展了 Kubernetes 的功能。
   CaaS / PaaS 平台（例如关键容器服务（PKS）和 OpenShift）之间的集成。
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)
   是一个 SDN 平台，可在 Kubernetes Pods 和非 Kubernetes 环境之间提供基于策略的联网，并具有可视化和安全监控。
-* [Romana](https://romana.io) 是一个 pod 网络的第三层解决方案，并支持[
-  NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/)。
+* Romana 是一个 pod 网络的第三层解决方案，并支持
+  [NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/)。
   Kubeadm add-on 安装细节可以在[这里](https://github.com/romana/romana/tree/master/containerize)找到。
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
   提供在网络分组两端参与工作的网络和网络策略，并且不需要额外的数据库。

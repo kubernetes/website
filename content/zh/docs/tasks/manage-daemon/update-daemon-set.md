@@ -62,17 +62,17 @@ To enable the rolling update feature of a DaemonSet, you must set its
 
 <!--
 You may want to set 
-[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) 
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) 
 (default to 1),
-[`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) 
+[`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) 
 (default to 0) and 
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (a beta feature and defaults to 0) as well.
 
 -->
 你可能想设置
-[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh/docs/concepts/workloads/controllers/deployment/#max-unavailable) (默认为 1)，
-[`.spec.minReadySeconds`](/zh/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (默认为 0) 和
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 1)，
+[`.spec.minReadySeconds`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 0) 和
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 （一种 Beta 阶段的特性，默认为 0）。 
 

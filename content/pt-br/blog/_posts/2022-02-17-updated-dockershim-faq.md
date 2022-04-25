@@ -3,7 +3,6 @@ layout: blog
 title: "Atualizado: Perguntas frequentes (FAQ) sobre a remoção do Dockershim"
 date: 2022-02-17
 slug: dockershim-faq
-aliases: [ '/dockershim' ]
 ---
 
 **Esta é uma atualização do artigo original [FAQ sobre a depreciação do Dockershim](/blog/2020/12/02/dockershim-faq/),

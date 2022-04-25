@@ -564,8 +564,8 @@ El {{< glossary_tooltip text="planificador" term_id="kube-scheduler" >}} se enca
 la cantidad disponible sea asignada simultáneamente a los Pods.
 
 El servidor de API restringe las cantidades de recursos extendidos a números enteros.
-Ejemplos de cantidades _validas_ son `3`,` 3000m` y `3Ki`. Ejemplos de
-_cantidades no válidas_ son `0.5` y` 1500m`.
+Ejemplos de cantidades _validas_ son `3`, `3000m` y `3Ki`. Ejemplos de
+_cantidades no válidas_ son `0.5` y `1500m`.
 
 {{< note >}}
 Los recursos extendidos reemplazan los Recursos Integrales Opacos.
@@ -630,7 +630,7 @@ está pendiente con un mensaje de este tipo, hay varias cosas para probar:
 - Añadir más nodos al clúster.
 - Terminar Pods innecesarios para hacer hueco a los Pods en estado pendiente.
 - Compruebe que el Pod no sea más grande que todos los nodos. Por ejemplo, si todos los
-  los nodos tienen una capacidad de `cpu: 1`, entonces un Pod con una solicitud de` cpu: 1.1`
+  los nodos tienen una capacidad de `cpu: 1`, entonces un Pod con una solicitud de `cpu: 1.1`
   nunca se programará.
 
 Puedes comprobar las capacidades del nodo y cantidad utilizada con el comando 

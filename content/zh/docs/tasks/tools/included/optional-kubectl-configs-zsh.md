@@ -26,24 +26,19 @@ source <(kubectl completion zsh)
 ```
 
 <!-- 
-If you have an alias for kubectl, you can extend shell completion to work with that alias:
+If you have an alias for kubectl, kubectl autocompletion will automatically work with it.
 -->
-如果你为 kubectl 定义了别名，可以扩展脚本补全，以兼容该别名。
-
-```zsh
-echo 'alias k=kubectl' >>~/.zshrc
-echo 'compdef __start_kubectl k' >>~/.zshrc
-```
+如果你为 kubectl 定义了别名，kubectl 自动补全将自动使用它。
 
 <!-- 
 After reloading your shell, kubectl autocompletion should be working.
 
 If you get an error like `complete:13: command not found: compdef`, then add the following to the beginning of your `~/.zshrc` file:
+If you get an error like `2: command not found: compdef`, then add the following to the beginning of your `~/.zshrc` file:
 -->
 重新加载 shell 后，kubectl 自动补全功能将立即生效。
 
-如果你收到 `complete:13: command not found: compdef` 这样的错误提示，那请将下面内容添加到 `~/.zshrc` 文件的开头：
-
+如果你收到 `2: command not found: compdef` 这样的错误提示，那请将下面内容添加到 `~/.zshrc` 文件的开头：
 ```zsh
 autoload -Uz compinit
 compinit

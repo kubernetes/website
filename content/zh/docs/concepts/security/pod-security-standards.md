@@ -836,7 +836,7 @@ of individual policies are not defined here.
 - {{< example file="security/podsecurity-baseline.yaml" >}}Baseline 名字空间{{< /example >}}
 - {{< example file="security/podsecurity-restricted.yaml" >}}Restricted 名字空间{{< /example >}}
 
-[**PodSecurityPolicy**](/zh/docs/concepts/policy/pod-security-policy/) （已弃用）
+[**PodSecurityPolicy**](/zh/docs/concepts/security/pod-security-policy/) （已弃用）
 
 - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
@@ -884,7 +884,7 @@ in the Pod manifest, and represent parameters to the container runtime.
 <!--
 Security profiles are control plane mechanisms to enforce specific settings in the Security Context,
 as well as other related parameters outside the Security Context. As of July 2021, 
-[Pod Security Policies](/docs/concepts/profile/pod-security-profile/) are deprecated in favor of the
+[Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
 built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
 
 Other alternatives for enforcing security profiles are being developed in the Kubernetes
@@ -895,7 +895,7 @@ ecosystem, such as:
 -->
 安全策略则是控制面用来对安全上下文以及安全性上下文之外的参数实施某种设置的机制。
 在 2020 年 7 月，
-[Pod 安全性策略](/zh/docs/concepts/policy/pod-security-policy/)已被废弃，
+[Pod 安全性策略](/zh/docs/concepts/security/pod-security-policy/)已被废弃，
 取而代之的是内置的 [Pod 安全性准入控制器](/zh/docs/concepts/security/pod-security-admission/)。
 
 Kubernetes 生态系统中还在开发一些其他的替代方案，例如

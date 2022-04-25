@@ -89,7 +89,7 @@ my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
 Con i suddetti comandi, prima creiamo le risorse sotto `examples/application/nginx/` e stampiamo le risorse create con il formato di output `-o name`
-(stampa ogni risorsa come risorsa / nome). Quindi `grep` solo il" servizio ", e poi lo stampiamo con` kubectl get`.
+(stampa ogni risorsa come risorsa / nome). Quindi `grep` solo il" servizio ", e poi lo stampiamo con `kubectl get`.
 
 Se si organizzano le risorse su più sottodirectory all'interno di una particolare directory, è possibile eseguire ricorsivamente anche le operazioni nelle sottodirectory, specificando `--recursive` o` -R` accanto al flag `--filename, -f`.
 
@@ -112,7 +112,7 @@ $ kubectl create -f project/k8s/development
 error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
 ```
 
-Invece, specifica il flag `--recursive` o` -R` con il flag `--filename, -f` come tale:
+Invece, specifica il flag `--recursive` o `-R` con il flag `--filename, -f` come tale:
 
 ```shell
 $ kubectl create -f project/k8s/development --recursive
@@ -121,7 +121,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-Il flag `--recursive` funziona con qualsiasi operazione che accetta il flag` --filename, -f` come: `kubectl {crea, ottieni, cancella, descrivi, implementa} ecc .`
+Il flag `--recursive` funziona con qualsiasi operazione che accetta il flag `--filename, -f` come: `kubectl {crea, ottieni, cancella, descrivi, implementa} ecc .`
 
 Il flag `--recursive` funziona anche quando sono forniti più argomenti` -f`:
 
@@ -195,7 +195,7 @@ modo che la nuova versione possa ricevere il traffico di produzione in tempo rea
 
 Ad esempio, puoi usare un'etichetta `track` per differenziare le diverse versioni.
 
-La versione stabile e primaria avrebbe un'etichetta `track` con valore come` stable`:
+La versione stabile e primaria avrebbe un'etichetta `track` con valore come `stable`:
 
 ```yaml
      name: frontend
@@ -210,7 +210,7 @@ La versione stabile e primaria avrebbe un'etichetta `track` con valore come` sta
 ```
 
 e quindi puoi creare una nuova versione del frontend del guestbook che porta l'etichetta `track` con un valore diverso
-(ad esempio` canary`), in modo che due gruppi di pod non si sovrappongano:
+(ad esempio `canary`), in modo che due gruppi di pod non si sovrappongano:
 
 ```yaml
      name: frontend-canary
@@ -266,7 +266,7 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 ```
 
 questo produce tutti i pod "app = nginx", con un'ulteriore colonna di etichette del livello dei pod (specificata
-con `-L` o` --label-columns`).
+con `-L` o `--label-columns`).
 
 Per ulteriori informazioni, consultare [labels](/docs/concepts/overview/working-with-objects/labels/) e
 [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
@@ -353,7 +353,7 @@ non è in grado di rilevare l'eliminazione delle proprietà impostate al momento
 motivo, non li rimuoverà.
 
 Tutte le chiamate successive a `kubectl apply`, e altri comandi che modificano la configurazione, come `kubectl replace`
-e `kubectl edit`, aggiorneranno l'annotazione, consentendo le successive chiamate a` kubectl apply` per rilevare ed
+e `kubectl edit`, aggiorneranno l'annotazione, consentendo le successive chiamate a `kubectl apply` per rilevare ed
 eseguire cancellazioni usando un tre via diff.
 
 {{< note >}}
@@ -368,7 +368,7 @@ In alternativa, puoi anche aggiornare le risorse con `kubectl edit`:
 $ kubectl edit deployment/my-nginx
 ```
 
-Questo equivale a prima "get` la risorsa, modificarla nell'editor di testo e quindi" applicare "la risorsa con la
+Questo equivale a prima `get` la risorsa, modificarla nell'editor di testo e quindi `apply` la risorsa con la
 versione aggiornata:
 
 ```shell
@@ -381,7 +381,7 @@ $ rm /tmp/nginx.yaml
 ```
 
 Questo ti permette di fare più cambiamenti significativi più facilmente. Nota che puoi specificare l'editor con le
-variabili di ambiente `EDITOR` o` KUBE_EDITOR`.
+variabili di ambiente `EDITOR` o `KUBE_EDITOR`.
 
 Per ulteriori informazioni, consultare il documento [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit).
 

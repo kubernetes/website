@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: count
-    image: busybox
+    image: busybox:1.28
     args:
     - /bin/sh
     - -c

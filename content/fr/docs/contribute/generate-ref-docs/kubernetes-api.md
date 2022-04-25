@@ -122,7 +122,7 @@ On branch master
 
 ### Valider votre fichier édité
 
-Exécutez `git add` et ` git commit` pour valider les modifications que vous avez apportées jusqu'à présent.
+Exécutez `git add` et `git commit` pour valider les modifications que vous avez apportées jusqu'à présent.
 Dans l'étape suivante, vous ferez un deuxième commit.
 Il est important de séparer vos modifications en deux commits.
 
@@ -152,7 +152,7 @@ Voir le contenu de `api/openapi-spec/swagger.json` pour vous assurer que la faut
 Par exemple, vous pouvez exécuter `git diff -a api/openapi-spec/swagger.json`.
 Ceci est important, car `swagger.json` sera l’entrée de la seconde étape du processus de génération de doc.
 
-Exécutez `git add` et ` git commit` pour valider vos modifications.
+Exécutez `git add` et `git commit` pour valider vos modifications.
 Vous avez maintenant deux validations: une avec le fichier `types.go` édité et une avec les spécifications OpenAPI générées et les fichiers associés.
 Gardez ces deux commits séparés.
 C'est-à-dire, ne faites pas un squash de vos commits.

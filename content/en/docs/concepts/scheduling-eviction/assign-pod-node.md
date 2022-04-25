@@ -33,7 +33,7 @@ specific Pods:
 ## Node labels {#built-in-node-labels}
 
 Like many other Kubernetes objects, nodes have
-[labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/confiure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
+[labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
 Kubernetes also populates a standard set of labels on all nodes in a cluster. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
 for a list of common node labels.
 
@@ -120,12 +120,12 @@ your Pod spec.
 
 For example, consider the following Pod spec:
 
-{{<codenew file="pods/pod-with-node-affinity.yaml">}}
+{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
 In this example, the following rules apply:
 
-  * The node *must* have a label with the key `kubernetes.io/e2e-az-name` and
-    the value is either `e2e-az1` or `e2e-az2`.
+  * The node *must* have a label with the key `kubernetes.io/os` and
+    the value `linux`.
   * The node *preferably* has a label with the key `another-node-label-key` and
     the value `another-node-label-value`.
 
@@ -167,7 +167,7 @@ scheduling decision for the Pod.
 
 For example, consider the following Pod spec: 
 
-{{<codenew file="pods/pod-with-affinity-anti-affinity.yaml">}}
+{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
 If there are two possible nodes that match the
 `requiredDuringSchedulingIgnoredDuringExecution` rule, one with the

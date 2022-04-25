@@ -23,7 +23,7 @@ The Kubernetes API lets you query and manipulate the state of API objects in Kub
 (for example: Pods, Namespaces, ConfigMaps, and Events).
 
 Most operations can be performed through the
-[kubectl](/docs/reference/kubectl/overview/) command-line interface or other
+[kubectl](/docs/reference/kubectl/) command-line interface or other
 command-line tools, such as
 [kubeadm](/docs/reference/setup-tools/kubeadm/), which in turn use the
 API. However, you can also access the API directly using REST calls.
@@ -35,7 +35,7 @@ API 服务器负责提供 HTTP API，以供用户、集群中的不同部分和�
 Kubernetes API 使你可以查询和操纵 Kubernetes API
 中对象（例如：Pod、Namespace、ConfigMap 和 Event）的状态。
 
-大部分操作都可以通过 [kubectl](/zh/docs/reference/kubectl/overview/) 命令行接口或
+大部分操作都可以通过 [kubectl](/zh/docs/reference/kubectl/) 命令行接口或
 类似 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 这类命令行工具来执行，
 这些工具在背后也是调用 API。不过，你也可以使用 REST 调用来访问这些 API。
 
@@ -53,14 +53,19 @@ if you are writing an application using the Kubernetes API.
 
 Complete API details are documented using [OpenAPI](https://www.openapis.org/).
 
-The Kubernetes API server serves an OpenAPI spec via the `/openapi/v2` endpoint.
-You can request the response format using request headers as follows:
+### OpenAPI V2
+
+The Kubernetes API server serves an aggregated OpenAPI v2 spec via the
+`/openapi/v2` endpoint. You can request the response format using
+request headers as follows:
 -->
 ## OpenAPI 规范     {#api-specification}
 
 完整的 API 细节是用 [OpenAPI](https://www.openapis.org/) 来表述的。
 
-Kubernetes API 服务器通过 `/openapi/v2` 末端提供 OpenAPI 规范。
+### OpenAPI V2
+
+Kubernetes API 服务器通过 `/openapi/v2` 端点提供聚合的 OpenAPI v2 规范。
 你可以按照下表所给的请求头部，指定响应的格式：
 
 <!--
@@ -138,6 +143,71 @@ Kubernetes 为 API 实现了一种基于 Protobuf 的序列化格式，主要用
 [Kubernetes Protobuf 序列化](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)
 设计提案。每种模式对应的接口描述语言（IDL）位于定义 API 对象的 Go 包中。
 
+### OpenAPI V3
+
+{{< feature-state state="alpha"  for_k8s_version="v1.23" >}}
+
+<!--
+Kubernetes v1.23 offers initial support for publishing its APIs as OpenAPI v3; this is an
+alpha feature that is disabled by default.
+You can enable the alpha feature by turning on the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
+for the kube-apiserver component.
+-->
+Kubernetes v1.23 提供将其 API 以 OpenAPI v3 形式发布的初始支持；这一功能特性处于 Alpha
+状态，默认被禁用。
+你可以通过为 kube-apiserver 组件启用 `OpenAPIV3`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)来启用此
+Alpha 特性。
+
+<!--
+With the feature enabled, the Kubernetes API server serves an
+aggregated OpenAPI v3 spec per Kubernetes group version at the
+`/openapi/v3/apis/<group>/<version>` endpoint. Please refer to the
+table below for accepted request headers.
+-->
+特性被启用时，Kubernetes API 服务器会在端点 `/openapi/v3/apis/<group>/<version>`
+提供按 Kubernetes 组版本聚合的 OpenAPI v3 规范。
+请参阅下表了解可接受的请求头部。
+
+<table>
+  <caption style="display:none"><!--Valid request header values for OpenAPI v3 queries-->OpenAPI v3 查询的合法请求头部值</caption>
+  <thead>
+     <tr>
+        <th><!--Header-->头部</th>
+        <th style="min-width: 50%;"><!--Possible values-->可选值</th>
+        <th><!--Notes-->说明</th>
+     </tr>
+  </thead>
+  <tbody>
+     <tr>
+        <td><code>Accept-Encoding</code></td>
+        <td><code>gzip</code></td>
+        <td><em><!--not supplying this header is also acceptable-->不提供此头部也是可接受的</em></td>
+     </tr>
+     <tr>
+        <td rowspan="3"><code>Accept</code></td>
+        <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
+        <td><em><!--mainly for intra-cluster use-->主要用于集群内部使用</em></td>
+     </tr>
+     <tr>
+        <td><code>application/json</code></td>
+        <td><em><!--default-->默认</em></td>
+     </tr>
+     <tr>
+        <td><code>*</code></td>
+        <td><em><!--serves-->以</em> <code>application/json</code> 形式返回</td>
+     </tr>
+  </tbody>
+</table>
+
+<!--
+A discovery endpoint `/openapi/v3` is provided to see a list of all
+group/versions available. This endpoint only returns JSON.
+-->
+发现端点 `/openapi/v3` 被提供用来查看可用的所有组、版本列表。
+此列表仅返回 JSON。
+
 <!--
 ## API changes
 
@@ -145,13 +215,6 @@ Any system that is successful needs to grow and change as new use cases emerge o
 Therefore, Kubernetes has designed its features to allow the Kubernetes API to continuously change and grow.
 The Kubernetes project aims to _not_ break compatibility with existing clients, and to maintain that
 compatibility for a length of time so that other projects have an opportunity to adapt.
-
-In general, new API resources and new resource fields can be added often and frequently.
-Elimination of resources or fields requires following the
-[API deprecation policy](/docs/reference/using-api/deprecation-policy/).
-
-What constitutes a compatible change, and how to change the API, are detailed in
-[API changes](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme).
 -->
 ## API 变更     {#api-changes}
 
@@ -160,67 +223,44 @@ What constitutes a compatible change, and how to change the API, are detailed in
 Kubernetes 项目的目标是 _不要_ 引发现有客户端的兼容性问题，并在一定的时期内
 维持这种兼容性，以便其他项目有机会作出适应性变更。
 
+<!--
+In general, new API resources and new resource fields can be added often and frequently.
+Elimination of resources or fields requires following the
+[API deprecation policy](/docs/reference/using-api/deprecation-policy/).
+-->
 一般而言，新的 API 资源和新的资源字段可以被频繁地添加进来。
 删除资源或者字段则要遵从
 [API 废弃策略](/zh/docs/reference/using-api/deprecation-policy/)。
 
-关于什么是兼容性的变更、如何变更 API 等详细信息，可参考
-[API 变更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)。
-
 <!--
-## API groups and versioning
-
-To make it easier to eliminate fields or restructure resource representations,
-Kubernetes supports multiple API versions, each at a different API path, such
-as `/api/v1` or `/apis/rbac.authorization.k8s.io/v1alpha1`.
+Kubernetes makes a strong commitment to maintain compatibility for official Kubernetes APIs
+once they reach general availability (GA), typically at API version `v1`. Additionally,
+Kubernetes keeps compatibility even for _beta_ API versions wherever feasible:
+if you adopt a beta API you can continue to interact with your cluster using that API,
+even after the feature goes stable.
 -->
-## API 组和版本   {#api-groups-and-versioning}
+Kubernetes 对维护达到正式发布（GA）阶段的官方 API 的兼容性有着很强的承诺，
+通常这一 API 版本为 `v1`。此外，Kubernetes 在可能的时候还会保持 Beta API
+版本的兼容性：如果你采用了 Beta API，你可以继续在集群上使用该 API，
+即使该功能特性已进入稳定期也是如此。
 
-为了简化删除字段或者重构资源表示等工作，Kubernetes 支持多个 API 版本，
-每一个版本都在不同 API 路径下，例如 `/api/v1` 或
-`/apis/rbac.authorization.k8s.io/v1alpha1`。
-
+{{< note >}}
 <!--
-Versioning is done at the API level rather than at the resource or field level
-to ensure that the API presents a clear, consistent view of system resources
-and behavior, and to enable controlling access to end-of-life and/or
-experimental APIs.
+Although Kubernetes also aims to maintain compatibility for _alpha_ APIs versions, in some
+circumstances this is not possible. If you use any alpha API versions, check the release notes
+for Kubernetes when upgrading your cluster, in case the API did change.
 -->
-版本化是在 API 级别而不是在资源或字段级别进行的，目的是为了确保 API
-为系统资源和行为提供清晰、一致的视图，并能够控制对已废止的和/或实验性 API 的访问。
-
-<!--
-To make it easier to evolve and to extend its API, Kubernetes implements
-[API groups](/docs/reference/using-api/#api-groups) that can be
-[enabled or disabled](/docs/reference/using-api/#enabling-or-disabling).
--->
-为了便于演化和扩展其 API，Kubernetes 实现了
-可被[启用或禁用](/zh/docs/reference/using-api/#enabling-or-disabling)的
-[API 组](/zh/docs/reference/using-api/#api-groups)。
-
-<!--
-API resources are distinguished by their API group, resource type, namespace
-(for namespaced resources), and name. The API server may serve the same
-underlying data through multiple API version and handle the conversion between
-API versions transparently. All these different versions are actually
-representations of the same resource. For example, suppose there are two
-versions `v1` and `v1beta1` for the same resource. An object created by the
-`v1beta1` version can then be read, updated, and deleted by either the
-`v1beta1` or the `v1` versions.
--->
-API 资源之间靠 API 组、资源类型、名字空间（对于名字空间作用域的资源而言）和
-名字来相互区分。API 服务器可能通过多个 API 版本来向外提供相同的下层数据，
-并透明地完成不同 API 版本之间的转换。所有这些不同的版本实际上都是同一资源
-的（不同）表现形式。例如，假定同一资源有 `v1` 和 `v1beta1` 版本，
-使用 `v1beta1` 创建的对象则可以使用 `v1beta1` 或者 `v1` 版本来读取、更改
-或者删除。
+尽管 Kubernetes 也努力为 Alpha API 版本维护兼容性，在有些场合兼容性是无法做到的。
+如果你使用了任何 Alpha API 版本，需要在升级集群时查看 Kubernetes 发布说明，
+以防 API 的确发生变更。
+{{< /note >}}
 
 <!--
 Refer to [API versions reference](/docs/reference/using-api/#api-versioning)
 for more details on the API version level definitions.
 -->
-关于 API 版本级别的详细定义，请参阅
-[API 版本参考](/zh/docs/reference/using-api/#api-versioning)。
+关于 API 版本分级的定义细节，请参阅
+[API 版本参考](/zh/docs/reference/using-api/#api-versioning)页面。
 
 <!--
 ## API Extension
@@ -252,12 +292,15 @@ The Kubernetes API can be extended in one of two ways:
   how the cluster manages authentication and authorization for API access.
 - Learn about API endpoints, resource types and samples by reading
   [API Reference](/docs/reference/kubernetes-api/).
+- Learn about what constitutes a compatible change, and how to change the API, from
+  [API changes](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme).
 -->
 - 了解如何通过添加你自己的
   [CustomResourceDefinition](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
   来扩展 Kubernetes API。
-- [控制 Kubernetes API 访问](/zh/docs/concepts/security/controlling-access/)
-  页面描述了集群如何针对 API 访问管理身份认证和鉴权。
-- 通过阅读 [API 参考](/zh/docs/reference/kubernetes-api/)
-  了解 API 端点、资源类型以及示例。
+- [控制 Kubernetes API 访问](/zh/docs/concepts/security/controlling-access/)页面描述了集群如何针对
+  API 访问管理身份认证和鉴权。
+- 通过阅读 [API 参考](/zh/docs/reference/kubernetes-api/)了解 API 端点、资源类型以及示例。
+- 阅读 [API 变更（英文）](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)
+  以了解什么是兼容性的变更以及如何变更 API。
 

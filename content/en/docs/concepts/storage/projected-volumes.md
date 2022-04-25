@@ -54,8 +54,7 @@ into a Pod at a specified path. For example:
 
 The example Pod has a projected volume containing the injected service account
 token. Containers in this Pod can use that token to access the Kubernetes API
-server, authenticating with the identity of [the pod's ServiceAccount]
-(/docs/tasks/configure-pod-container/configure-service-account/).
+server, authenticating with the identity of [the pod's ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/).
 The `audience` field contains the intended audience of the
 token. A recipient of the token must identify itself with an identifier specified
 in the audience of the token, and otherwise should reject the token. This field

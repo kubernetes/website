@@ -93,7 +93,8 @@ Kubernetes API 服务器。也就是说，Pod 可以使用 `kubernetes.default.s
 
 <!--
 The recommended way to authenticate to the API server is with a
-[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential. By default, a Pod
+[service account](/docs/tasks/configure-pod-container/configure-service-account/)
+credential. By default, a Pod
 is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that Pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
