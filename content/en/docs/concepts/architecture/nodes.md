@@ -312,16 +312,18 @@ controller deletes the node from its list of nodes.
 The third is monitoring the nodes' health. The node controller is
 responsible for:
 
-- In the case that a node becomes unreachable, updating the NodeReady condition
-  of within the Node's `.status`. In this case the node controller sets the
-  NodeReady condition to `ConditionUnknown`.
+- In the case that a node becomes unreachable, updating the `Ready` condition
+  in the Node's `.status` field. In this case the node controller sets the
+  `Ready` condition to `Unknown`.
 - If a node remains unreachable: triggering
   [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/)
   for all of the Pods on the unreachable node. By default, the node controller
-  waits 5 minutes between marking the node as `ConditionUnknown` and submitting
+  waits 5 minutes between marking the node as `Unknown` and submitting
   the first eviction request.
 
-The node controller checks the state of each node every `--node-monitor-period` seconds.
+By default, the node controller checks the state of each node every 5 seconds.
+This period can be configured using the `--node-monitor-period` flag on the
+`kube-controller-manager` component.
 
 ### Rate limits on eviction
 
@@ -331,7 +333,7 @@ from more than 1 node per 10 seconds.
 
 The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
-are unhealthy (NodeReady condition is `ConditionUnknown` or `ConditionFalse`) at
+are unhealthy (the `Ready` condition is `Unknown` or `False`) at
 the same time:
 
 - If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold`
@@ -384,7 +386,7 @@ If you want to explicitly reserve resources for non-Pod processes, see
 
 ## Node topology
 
-{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
+{{< feature-state state="beta" for_k8s_version="v1.18" >}}
 
 If you have enabled the `TopologyManager`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
@@ -412,7 +414,7 @@ enabled by default in 1.21.
 
 Note that by default, both configuration options described below,
 `shutdownGracePeriod` and `shutdownGracePeriodCriticalPods` are set to zero,
-thus not activating Graceful node shutdown functionality.
+thus not activating the graceful node shutdown functionality.
 To activate the feature, the two kubelet config settings should be configured appropriately and
 set to non-zero values.
 
