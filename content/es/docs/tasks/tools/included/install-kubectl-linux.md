@@ -51,7 +51,7 @@ Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, es
    Valide el binario kubectl con el archivo de comprobación:
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    Si es válido, la salida es:
@@ -205,7 +205,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
    Valide el binario kubectl-convert con el archivo de comprobación:
 
    ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
    Si es válido, la salida es:
