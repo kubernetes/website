@@ -132,7 +132,7 @@ to verify if any fields contains these dangerous directives.
 The ingress controller already does this for annotations, and our goal is to move this existing validation to happen inside
 deep inspection as part of a future release.
 
-You can take a look into the existing rules in <https://github.com/kubernetes/ingress-nginx/blob/main/internal/ingress/inspector/rules.go>
+You can take a look into the existing rules in [https://github.com/kubernetes/ingress-nginx/blob/main/internal/ingress/inspector/rules.go](https://github.com/kubernetes/ingress-nginx/blob/main/internal/ingress/inspector/rules.go).
 
 Due to the nature of inspecting and matching all strings in all objects, this new feature may consume a bit more CPU, and can be disabled with the flag --deep-inspect=false
 
