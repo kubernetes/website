@@ -77,7 +77,11 @@ By default Kubernetes attempts to expand volumes immediately after user requests
 In some cases though - if underlying Storage Driver can only support offline expansion, users of the PVC must take down their Pod before expansion can succeed. Please refer to documentation of your storage
 provider to find out - what mode of volume expansion it supports.
 
-When volume expansion was introduced as an alpha feature, it only supported offline file system expansion on the node and hence required users to restart their pods for file system resizing to finish. This behaviour has been changed and Kubernetes tries its best to full-fill user's request regardless of the fact that if volume is online or offline. If Storage Provider supports online expansion - no Pod restart should be necessary for volume expansion to finish.
+When volume expansion was introduced as an alpha feature, Kubernetes only supported offline filesystem
+expansion on the node and hence required users to restart their pods for file system resizing to finish. 
+his behaviour has been changed and Kubernetes tries its best to fulfil any resize request regardless
+of whether the underlying PersistentVolume volume is online or offline. If your storage provider supports
+online expansion then no Pod restart should be necessary for volume expansion to finish.
 
 ### ## What’s next?
 
