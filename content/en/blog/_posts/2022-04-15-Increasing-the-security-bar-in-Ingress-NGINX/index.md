@@ -7,7 +7,10 @@ slug: ingress-nginx-security-release
 
 **Authors:** Ricardo Katz (VMware), James Strong (Chainguard)
 
-Ingress may be one of the most targeted components of Kubernetes. In fact, it usually is an HTTP Proxy, exposed to the Internet, containing multiple websites, and with some privileged access to Kubernetes API (mainly secret access for TLS certificates).
+The [Ingress](/docs/concepts/services-networking/ingress/) may be one of the most targeted components
+of Kubernetes. An Ingress typically defines an HTTP reverse proxy, exposed to the Internet, containing
+multiple websites, and with some privileged access to Kubernetes API (such as to read Secrets relating to
+TLS certificates and their private keys).
 
 While it is a risky component in your architecture, it is still required to properly expose your services.
 
