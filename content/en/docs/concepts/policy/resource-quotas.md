@@ -22,8 +22,7 @@ be consumed by resources in that namespace.
 
 Resource quotas work like this:
 
-- Different teams work in different namespaces.  Currently this is voluntary, but
-  support for making this mandatory via ACLs is planned.
+- Different teams work in different namespaces. This can be enforced with [RBAC](/docs/reference/access-authn-authz/rbac/).
 
 - The administrator creates one ResourceQuota for each namespace.
 
