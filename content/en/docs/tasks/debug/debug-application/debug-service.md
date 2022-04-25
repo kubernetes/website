@@ -734,7 +734,7 @@ Contact us on
 
 ## {{% heading "whatsnext" %}}
 
-Visit [troubleshooting document](/docs/tasks/debug/overview/)
+Visit the [troubleshooting overview document](/docs/tasks/debug/overview/)
 for more information.
 
 
