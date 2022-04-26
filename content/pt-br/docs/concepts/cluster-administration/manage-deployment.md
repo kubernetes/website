@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-Você realizou o _deploy_ da sua aplicação e a disponibilizou por meio de um serviço. E agora ? O Kubernetes fornece uma variedade de ferramentas para te ajudar a gerenciar o _deployment_ da sua aplicação, incluindo _scaling_ e atualizações. Entre as funcionalidades que iremos discutir com mais profundidade estão os [arquivos de configurações](/pt-br/docs/concepts/configuration/overview/) e as [_labels_](/docs/concepts/overview/working-with-objects/labels/).
+Você realizou o _deploy_ da sua aplicação e a disponibilizou por meio de um serviço. E agora? O Kubernetes fornece uma variedade de ferramentas para te ajudar a gerenciar o _deployment_ da sua aplicação, incluindo escalonamento e atualizações. Entre as funcionalidades que iremos discutir com mais profundidade estão os [arquivos de configurações](/pt-br/docs/concepts/configuration/overview/) e as [_labels_](/docs/concepts/overview/working-with-objects/labels/).
 
 <!-- body -->
 
@@ -27,7 +27,7 @@ service/my-nginx-svc created
 deployment.apps/my-nginx created
 ```
 
-Os recursos serão criados na mesma ordem em que aparecem no arquivo. Portanto, é melhor especificar o _service_ primeiro, pois isso irá garantir que o _scheduler_ possa distribuir os _pods_ associados ao serviço à medida que são criados pelo(s) _controller(s)_, como _Deployment_.
+Os recursos serão criados na mesma ordem em que aparecem no arquivo. Portanto, é melhor especificar o _service_ primeiro, pois isso irá garantir que o escalonador possa distribuir os _pods_ associados ao serviço à medida que são criados pelo(s) _controller(s)_, como _Deployment_.
 
 `kubectl apply` também aceita mútiplos `-f` como argumento:
 
@@ -43,7 +43,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 
 `kubectl` lerá qualquer arquivo com sufixos `.yaml`, `.yml`, or `.json`.
 
-É uma prática recomendada colocar recursos relacionados ao mesmo microsserviço ou _tier_ de aplicação no mesmo arquivo, e agrupar todos os arquivos associados com sua aplicação no mesmo diretório. Se os níveis da sua aplicação se ligarem uns com os outros usando DNS, você pode realizar o _deploy_ de todos os componentes da sua _stack_ juntos.
+É uma prática recomendada colocar recursos relacionados ao mesmo microsserviço ou camada de aplicação no mesmo arquivo, e agrupar todos os arquivos associados com sua aplicação no mesmo diretório. Se as camadas da sua aplicação comunicarem-se entre si usando DNS, você pode realizar o _deploy_ de todos os componentes da sua _stack_ juntos.
 
 Uma URL também pode ser utilizada como fonte de configuração, o que é útil para realizar o _deploy_ diretamente de arquivos de configurações encontrados no GitHub:
 
@@ -68,7 +68,7 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-No caso de dois recursos, você pode especificar ambos na linha de comando usando a syntaxe _resource/name_:
+No caso de dois recursos, você pode especificar ambos na linha de comando usando a sintaxe _resource/name_:
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -97,13 +97,12 @@ NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-Com os comandos acima, primeiro criamos recursos em `examples/application/nginx/` e exibimos os recursos criados com `-o name` com o formato de saída
-(imprimindo cada recurso como _resource/name_). Em seguida `grep` apenas o "serviço", e então o imprimimos com `kubectl get`.
+Com os comandos acima, primeiro criamos recursos em `examples/application/nginx/exibimos os recursos criados com `-o name`com o formato de saída (imprimindo cada recurso no formato _resource/name_). Em seguida filtramos apenas o recurso _Service_, utilizando a ferramenta `grep`, e então o imprimimos com `kubectl get`.
 
 Se você organizar seus recursos em vários subdiretórios dentro de um diretório específico, você também pode executar recursivamente as operações nos subdiretórios, especificando
 com `--recursive` ou `-R` junto com a _flag_ `--filename,-f`.
 
-Por exemplo, suponha que exista um diretório `project/k8s/development` que contém todos os {{< glossary_tooltip text="manifests" term_id="manifest" >}} necessários para o ambiente de desenvolvimento, organizados por tipo de recurso:
+Por exemplo, suponha que exista um diretório `project/k8s/development` que contém todos os {{< glossary_tooltip text="manifestos" term_id="manifest" >}} necessários para o ambiente de desenvolvimento, organizados por tipo de recurso:
 
 ```
 project/k8s/development
@@ -153,7 +152,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-Se você está interessado em aprender mais sobre `kubectl`, vá em frente e leia [kubectl _Overview_](/docs/reference/kubectl/overview/).
+Se você está interessado em aprender mais sobre `kubectl`, leia [Visão geral do kubectl](/docs/reference/kubectl/overview/).
 
 ## Usando _labels_ efetivamente
 
@@ -257,7 +256,7 @@ selector:
 ```
 
 Você pode ajustar o número de réplicas da _release_ _stable_ e da _release_ _canary_ para determinar a proporção de tráfego de produção recebido por cada _release_(nesse caso, 3:1).
-Quando estiver confiante, você pode atualizar a _track_ _stable_ para a nova _release_ da aplicação e remover a _caranary_.
+Quando estiver confiante, você pode atualizar a _track_ _stable_ para a nova _release_ da aplicação e remover a _canary_.
 
 Para um examplo mais concreto, consulte o [_tutorial of deploying Ghost_](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
 
@@ -296,7 +295,7 @@ Para mais informações, por favor visite [_labels_](/docs/concepts/overview/wor
 
 ## Atualizando anotações
 
-Às vezes, você gostaria de anexar anotações aos recursos. Anotações são metadados arbitrários não identificadores para serem utilizadas pelos clientes da API como ferramentas, bibliotecas, etc. Isso pode ser feito com `kubectl annotate`. Por exemplo:
+Às vezes, você gostaria de anexar anotações aos recursos. Anotações são metadados arbitrários não identificadores para serem utilizados pelos clientes da API como ferramentas, bibliotecas, etc. Isso pode ser feito com `kubectl annotate`. Por exemplo:
 
 ```shell
 kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
@@ -355,9 +354,9 @@ Para mais informações, por favor veja os documentos [kubectl _scale_](/docs/re
 
 Às vezes, é necessário fazer atualizações restritas e sem interrupções nos recursos que você criou.
 
-### kubectl _apply_
+### kubectl apply
 
-É sugerido manter um conjunto de arquivos de configuração no control de origem
+É sugerido manter um conjunto de arquivos de configuração no sistema de controle de versão de código-fonte
 (veja [_configuration as code_](https://martinfowler.com/bliki/InfrastructureAsCode.html)),
 para que eles possam ser mantidos e versionados junto com o código para os recursos que eles configuram.
 Então, você pode usar [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) para enviar suas alterações de configuração para o cluster.
@@ -375,7 +374,7 @@ Atualmente, os recursos são criados sem essa anotação, portanto, a primeira c
 
 Todas as chamadas subsequente para `kubectl apply`, e outros comandos que modificam a configuração, como `kubectl replace` e `kubectl edit`, irão atualizar a anotação, permitindo que chamadas subsequentes para `kubectl apply` detectem e executem exclusões usando uma _three-way diff_.
 
-### kubectl _edit_
+### kubectl edit
 
 Alternativamente, você também pode atualizar recursos com `kubectl edit`:
 
@@ -383,7 +382,7 @@ Alternativamente, você também pode atualizar recursos com `kubectl edit`:
 kubectl edit deployment/my-nginx
 ```
 
-Isso é equivalente a primeiro `get` o recurso, editá-lo no editor de texto e depois `apply` o recurso com a versão atualizada:
+Isso é equivalente a primeiro obter o recurso através de `kubectl get`, editá-lo no editor de texto e depois aplicar as alterações no cluster, utilizando `kubectl apply` com a versão atualizada:
 
 ```shell
 kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
@@ -400,7 +399,7 @@ Isso permite que você faça alterações mais significativas com mais facilidad
 
 Para mais informações, por favor veja o documento [kubectl _edit_](/docs/reference/generated/kubectl/kubectl-commands/#edit).
 
-### kubectl _patch_
+### kubectl patch
 
 Você pode usar `kubectl patch` para atualizar os objetos da API _in place_. Este comando suporta JSON _patch_,
 JSON _merge patch_, e _strategic merge patch_. Veja
@@ -423,7 +422,7 @@ deployment.apps/my-nginx replaced
 
 ## Atualizando sua aplicação sem interrupção do serviço
 
-Em algum ponto, você eventualmente precisará atualizar suas aplicações _deployed_, normalmente especificando uma nova imagem ou uma nova _tag_ de imagem, como no cenário de _canary deployment_ acima. `kubectl` suporta várias operações de atualização, cada uma aplicável a diferentes cenários.
+Em algum ponto, você eventualmente precisará atualizar suas aplicações instaladas, normalmente especificando uma nova imagem ou uma nova _tag_ de imagem, como no cenário de _canary deployment_ acima. `kubectl` suporta várias operações de atualização, cada uma aplicável a diferentes cenários.
 
 Vamos orientá-lo sobre como criar e atualizar seus aplicativos com _Deployments_.
 
@@ -453,9 +452,9 @@ Para atualizar para a versão 1.16.1, altere `.spec.template.spec.containers[0].
 kubectl edit deployment/my-nginx
 ```
 
-É isso! O _Deployment_ irá atualizar declarativamente a aplicação nginx _deployed_ progressivamente por trás das cenas. Ele garante que apenas um certo número de réplicas antigas possam estar inativas enquanto estão sendo atualizadas e que apenas um certo número de réplicas pode ser criado acima do número de _pods_ desejados. Para saber mais detalhes sobre isso, visite a [página de _Deployment_](/docs/concepts/workloads/controllers/deployment/).
+É isso! O _Deployment_ irá atualizar declarativamente a aplicação nginx instalada progressivamente por trás das cenas. Ele garante que apenas um certo número de réplicas antigas possam estar inativas enquanto estão sendo atualizadas e que apenas um certo número de réplicas pode ser criado acima do número de _pods_ desejados. Para saber mais detalhes sobre isso, visite a [página de _Deployment_](/docs/concepts/workloads/controllers/deployment/).
 
 ## {{% heading "whatsnext" %}}
 
-- Aprenda sobre [como usar `kubectl` para _introspection_ e _debugging_ de aplicações](/docs/tasks/debug-application-cluster/debug-application-introspection/).
+- Aprenda sobre [como usar `kubectl` para introspecção e depuração de aplicações](/docs/tasks/debug-application-cluster/debug-application-introspection/).
 - Veja [Melhores práticas e dicas de configuração](/docs/concepts/configuration/overview/).
