@@ -591,7 +591,8 @@ This period can be configured using the `--node-monitor-period` flag on the
   [API-发起的逐出](/zh/docs/concepts/scheduling-eviction/api-eviction/)。
   默认情况下，节点控制器在将节点标记为 `Unknown` 后等待 5 分钟提交第一个驱逐请求。
 
-默认情况下，节点控制器每5秒检查一次节点状态，可以使用 `kube-controller-manager` 组件上的 `--node-monitor-period` 参数来配置周期。
+默认情况下，节点控制器每 5 秒检查一次节点状态，可以使用 `kube-controller-manager`
+组件上的 `--node-monitor-period` 参数来配置周期。
 
 <!--
 ### Rate limits on eviction
