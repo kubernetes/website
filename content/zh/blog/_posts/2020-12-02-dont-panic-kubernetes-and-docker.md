@@ -13,6 +13,15 @@ slug: dont-panic-kubernetes-and-docker
 
 **作者：** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
 
+<!--
+_Update: Kubernetes support for Docker via `dockershim` is now deprecated.
+For more information, read the [deprecation notice](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation).
+You can also discuss the deprecation via a dedicated [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)._
+-->
+_更新：Kubernetes 通过 `dockershim` 对 Docker 的支持现已弃用。
+有关更多信息，请阅读[弃用通知](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)。
+你还可以通过专门的 [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917) 讨论弃用。_
+
 <!-- 
 Kubernetes is [deprecating
 Docker](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)
@@ -204,7 +213,7 @@ Kubernetes 有很多变化中的功能，没有人是100%的专家。
 我们希望这已经回答了你的大部分问题，并缓解了一些焦虑！❤️
 
 <!-- 
-Looking for more answers? Check out our accompanying [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/).
+Looking for more answers? Check out our accompanying [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/) _(updated February 2022)_.
 -->
 还在寻求更多答案吗？请参考我们附带的
-[弃用 Dockershim 的常见问题](/zh/blog/2020/12/02/dockershim-faq/)。
+[移除 Dockershim 的常见问题](/zh/blog/2020/12/02/dockershim-faq/) _(2022年2月更新)_。
