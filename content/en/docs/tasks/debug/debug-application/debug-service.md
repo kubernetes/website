@@ -4,6 +4,7 @@ reviewers:
 - bowei
 content_type: concept
 title: Debug Services
+weight: 20
 ---
 
 <!-- overview -->
@@ -441,7 +442,7 @@ they are running fine and not crashing.
 
 The "RESTARTS" column says that these pods are not crashing frequently or being
 restarted.  Frequent restarts could lead to intermittent connectivity issues.
-If the restart count is high, read more about how to [debug pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods).
+If the restart count is high, read more about how to [debug pods](/docs/tasks/debug/debug-application/debug-pods).
 
 Inside the Kubernetes system is a control loop which evaluates the selector of
 every Service and saves the results into a corresponding Endpoints object.
@@ -727,13 +728,13 @@ Service is not working.  Please let us know what is going on, so we can help
 investigate!
 
 Contact us on
-[Slack](/docs/tasks/debug-application-cluster/troubleshooting/#slack) or
+[Slack](/docs/tasks/debug/overview/#slack) or
 [Forum](https://discuss.kubernetes.io) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 
 ## {{% heading "whatsnext" %}}
 
-Visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/)
+Visit the [troubleshooting overview document](/docs/tasks/debug/overview/)
 for more information.
 
 

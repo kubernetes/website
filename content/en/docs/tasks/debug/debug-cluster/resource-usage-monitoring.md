@@ -3,6 +3,7 @@ reviewers:
 - mikedanese
 content_type: concept
 title: Tools for Monitoring Resources
+weight: 15
 ---
 
 <!-- overview -->
@@ -58,4 +59,14 @@ then exposes them to Kubernetes via an adapter by implementing either the
 [Prometheus](https://prometheus.io), a CNCF project, can natively monitor Kubernetes, nodes, and Prometheus itself.
 Full metrics pipeline projects that are not part of the CNCF are outside the scope of Kubernetes documentation.  
 
+## {{% heading "whatsnext" %}}
 
+
+Learn about additional debugging tools, including:
+
+* [Logging](/docs/concepts/cluster-administration/logging/)
+* [Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+* [Getting into containers via `exec`](/docs/tasks/debug-application-cluster/applications/get-shell-running-container/)
+* [Connecting to containers via proxies](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
+* [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* [Inspect Kubernetes node with crictl](/docs/tasks/debug-application-cluster/monitoring/crictl/)

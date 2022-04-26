@@ -111,7 +111,8 @@ different Kubernetes components.
 | `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | |
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | |
+| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
+| `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
@@ -485,6 +486,7 @@ different Kubernetes components.
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | 1.21 |
 | `ServerSideApply` | `true` | GA | 1.22 | - |
+| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | - |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | 1.19 |
 | `ServiceAccountIssuerDiscovery` | `true` | Beta | 1.20 | 1.20 |
 | `ServiceAccountIssuerDiscovery` | `true` | GA | 1.21 | - |

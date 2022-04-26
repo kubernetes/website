@@ -5,6 +5,7 @@ reviewers:
 - mrunalp
 title: Debugging Kubernetes nodes with crictl
 content_type: task
+weight: 30
 ---
 
 

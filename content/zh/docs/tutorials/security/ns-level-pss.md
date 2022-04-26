@@ -16,15 +16,16 @@ weight: 10
 {{% /alert %}}
 
 <!--
-Pod Security admission (PSA) is enabled by default in v1.23 and later, as it [graduated
-to beta](/blog/2021/12/09/pod-security-admission-beta/). Pod Security Admission
+Pod Security admission (PSA) is enabled by default in v1.23 and later, as it
+[graduated to beta](/blog/2021/12/09/pod-security-admission-beta/). Pod Security Admission
 is an admission controller that applies 
-[Pod Security Standards](docs/concepts/security/pod-security-standards/) 
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/) 
 when pods are created. In this tutorial, you will enforce the `baseline` Pod Security Standard,
 one namespace at a time.
 
 You can also apply Pod Security Standards to multiple namespaces at once at the cluster
-level. For instructions, refer to [Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss).
+level. For instructions, refer to 
+[Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss).
 -->
 Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
 因为它[升级到测试版（beta）](/blog/2021/12/09/pod-security-admission-beta/)。
@@ -41,12 +42,12 @@ Pod 安全准入是在创建 Pod 时应用
 Install the following on your workstation:
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](/docs/tasks/tools/)
 -->
 在你的工作站中安装以下内容：
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](/zh/docs/tasks/tools/)
 
 <!--
 ## Create cluster
@@ -104,8 +105,10 @@ Create a new namespace called `example`:
 ```shell
 kubectl create ns example
 ```
+
 <!-- The output is similar to this: -->
 输出类似于：
+
 ```
 namespace/example created
 ```
@@ -190,11 +193,14 @@ namespace/example created
 1. Apply the pod spec to the cluster in `default` namespace:
 -->
 3. 将 Pod 规约应用到集群中的 `default` 名字空间中：
-    ```shell
-    kubectl apply -n default -f /tmp/pss/nginx-pod.yaml
-    ```
+
+   ```shell
+   kubectl apply -n default -f /tmp/pss/nginx-pod.yaml
+   ```
+
    <!-- Output is similar to this: -->
    输出类似于：
+
    ```
    pod/nginx created
    ```
@@ -222,6 +228,7 @@ Run `kind delete cluster -name psa-ns-level` to delete the cluster created.
 - Run a
   [shell script](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
   to perform all the preceding steps all at once.
+
   1. Create KinD cluster
   2. Create new namespace
   3. Apply `baseline` Pod Security Standard in `enforce` mode while applying
@@ -232,12 +239,14 @@ Run `kind delete cluster -name psa-ns-level` to delete the cluster created.
 - [Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss/)
 -->
 - 运行一个 [shell 脚本](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
-   一次执行所有前面的步骤。
+  一次执行所有前面的步骤。
+
    1. 创建 KinD 集群
    2. 创建新的名字空间
    3. 在 `enforce` 模式下应用 `baseline` Pod 安全标准，
       同时在 `warn` 和 `audit` 模式下应用 `restricted` Pod 安全标准。
    4. 创建一个应用以下 Pod 安全标准的新 Pod
+
 - [Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)
 - [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
 - [在集群级别应用 Pod 安全标准](/zh/docs/tutorials/security/cluster-level-pss/)
