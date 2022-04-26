@@ -4,6 +4,7 @@ reviewers:
 - piosz
 title: Resource metrics pipeline
 content_type: concept
+weight: 15
 ---
 
 <!-- overview -->
