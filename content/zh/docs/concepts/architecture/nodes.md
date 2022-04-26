@@ -570,26 +570,28 @@ controller deletes the node from its list of nodes.
 The third is monitoring the nodes' health. The node controller is
 responsible for:
 
-- In the case that a node becomes unreachable, updating the NodeReady condition
-  of within the Node's `.status`. In this case the node controller sets the
-  NodeReady condition to `ConditionUnknown`.
+- In the case that a node becomes unreachable, updating the `Ready` condition
+  in the Node's `.status` field. In this case the node controller sets the
+  `Ready` condition to `Unknown`.
 - If a node remains unreachable: triggering
   [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/)
   for all of the Pods on the unreachable node. By default, the node controller
-  waits 5 minutes between marking the node as `ConditionUnknown` and submitting
+  waits 5 minutes between marking the node as `Unknown` and submitting
   the first eviction request.
 
-The node controller checks the state of each node every `-node-monitor-period` seconds.
+By default, the node controller checks the state of each node every 5 seconds.
+This period can be configured using the `--node-monitor-period` flag on the
+`kube-controller-manager` component.
 -->
 第三个是监控节点的健康状况。节点控制器负责：
 
-- 在节点不可达的情况下，在 Node 的 `.status` 中更新 NodeReady 状况。
+- 在节点不可达的情况下，在 Node 的 `.status` 中更新 `Ready` 状况。
   在这种情况下，节点控制器将 NodeReady 状况更新为 `Unknown` 。
 - 如果节点仍然无法访问：对于不可达节点上的所有 Pod 触发
   [API-发起的逐出](/zh/docs/concepts/scheduling-eviction/api-eviction/)。
   默认情况下，节点控制器在将节点标记为 `Unknown` 后等待 5 分钟提交第一个驱逐请求。
 
-节点控制器每隔 `--node-monitor-period` 秒检查每个节点的状态。
+默认情况下，节点控制器每5秒检查一次节点状态，可以使用 `kube-controller-manager` 组件上的 `--node-monitor-period` 参数来配置周期。
 
 <!--
 ### Rate limits on eviction
@@ -606,11 +608,11 @@ from more than 1 node per 10 seconds.
 <!--
 The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
-are unhealthy (NodeReady condition is `ConditionUnknown` or `ConditionFalse`) at
+are unhealthy (the `Ready` condition is `Unknown` or `False`) at
 the same time:
 -->
 当一个可用区域（Availability Zone）中的节点变为不健康时，节点的驱逐行为将发生改变。
-节点控制器会同时检查可用区域中不健康（NodeReady 状况为 `Unknown` 或 `False`）
+节点控制器会同时检查可用区域中不健康（`Ready` 状况为 `Unknown` 或 `False`）
 的节点的百分比：
 
 <!--
@@ -713,7 +715,7 @@ If you want to explicitly reserve resources for non-Pod processes, follow this t
 -->
 ## 节点拓扑  {#node-topology}
 
-{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
+{{< feature-state state="beta" for_k8s_version="v1.18" >}}
 
 <!--
 If you have enabled the `TopologyManager`
@@ -766,7 +768,7 @@ enabled by default in 1.21.
 <!--
 Note that by default, both configuration options described below,
 `ShutdownGracePeriod` and `ShutdownGracePeriodCriticalPods` are set to zero,
-thus not activating Graceful node shutdown functionality.
+thus not activating the graceful node shutdown functionality.
 To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
 -->
 注意，默认情况下，下面描述的两个配置选项，`ShutdownGracePeriod` 和
