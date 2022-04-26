@@ -230,9 +230,6 @@ parts:
   - name: ComponentStatus
     group: ""
     version: v1
-  - name: ClusterCIDRConfig
-    group: networking.k8s.io
-    version: v1alpha1
 - name: Common Definitions
   chapters:
   - name: DeleteOptions
