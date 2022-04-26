@@ -25,7 +25,7 @@
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/apparmor/     /docs/tutorials/clusters/apparmor/ 301
-/docs/admin/audit/     /docs/tasks/debug-application-cluster/audit/ 301
+/docs/admin/audit/     /docs/tasks/debug/debug-cluster/audit/ 301
 /docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
 /docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
 /docs/admin/cluster-management/     /docs/tasks/administer-cluster/ 302
@@ -82,7 +82,7 @@
 /docs/concepts/containers/overview/     /docs/concepts/containers/ 301
 /docs/concepts/cluster-administration/cluster-administration-overview/     /docs/concepts/cluster-administration/ 301
 /docs/concepts/cluster-administration/access-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
-/docs/concepts/cluster-administration/audit/     /docs/tasks/debug-application-cluster/audit/ 301
+/docs/concepts/cluster-administration/audit/     /docs/tasks/debug/debug-cluster/audit/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
 /docs/concepts/cluster-administration/cluster-management/     /docs/tasks/administer-cluster/ 302
 /docs/concepts/cluster-administration/configure-etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
