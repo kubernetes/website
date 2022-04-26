@@ -74,7 +74,10 @@ Check out the full details of the Kubernetes 1.24 release in our [release notes]
     
 ### Availability
 
-Kubernetes 1.24 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.24.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/) or run local Kubernetes clusters using Docker container “nodes” with [kind](https://kind.sigs.k8s.io/). You can also easily install 1.24 using [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/). 
+Kubernetes 1.24 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.24.0).
+To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/) or run local 
+Kubernetes clusters using containers as “nodes”, with [kind](https://kind.sigs.k8s.io/).
+You can also easily install 1.24 using [kubeadm](/docs/setup/independent/create-cluster-kubeadm/).
 
 ### Release Team
 
