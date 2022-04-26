@@ -3,14 +3,12 @@ layout: blog
 title: "弃用 Dockershim 的常见问题"
 date: 2020-12-02
 slug: dockershim-faq
-aliases: [ '/dockershim' ]
 ---
 <!-- 
 layout: blog
 title: "Dockershim Deprecation FAQ"
 date: 2020-12-02
 slug: dockershim-faq
-aliases: [ '/dockershim' ]
 -->
 
 <!--
