@@ -40,7 +40,7 @@ This release saw fifteen enhancements promoted to stable.
 
 
 
-### gRPC Probes Graduates to Beta
+### gRPC Probes Graduate to Beta
 With Kubernetes 1.24, the gRPC probes functionality has entered beta and is available by default.
 
 You can now configure startup, liveness, and readiness probes for your gRPC app without exposing an HTTP endpoint or using an extra executable, natively within Kubernetes.
