@@ -124,7 +124,7 @@ Events:            <none>
 1. ストレージアセットに関連するのデータを手動で適切にクリーンアップします。
 1. 関連するストレージアセットを手動で削除するか、同じストレージアセットを再利用したい場合、新しいストレージアセット定義と共にPersistentVolumeを作成します。
 
-#### 削除
+#### 削除 {#delete}
 
 `Delete`再クレームポリシーをサポートするボリュームプラグインの場合、削除するとPersistentVolumeオブジェクトがKubernetesから削除されるだけでなく、AWS EBS、GCE PD、Azure Disk、Cinderボリュームなどの外部インフラストラクチャーの関連ストレージアセットも削除されます。動的にプロビジョニングされたボリュームは、[StorageClassの再クレームポリシー](#reclaim-policy)を継承します。これはデフォルトで削除です。管理者は、ユーザーの需要に応じてStorageClassを構成する必要があります。そうでない場合、PVは作成後に編集またはパッチを適用する必要があります。[PersistentVolumeの再クレームポリシーの変更](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)を参照してください。
 

@@ -148,7 +148,28 @@ File references on the command line are relative to the current working director
 In `$HOME/.kube/config`, relative paths are stored relatively, and absolute paths
 are stored absolutely.
 
+## Proxy
 
+You can configure `kubectl` to use proxy by setting `proxy-url` in the kubeconfig file, like:
+
+```yaml
+apiVersion: v1
+kind: Config
+
+proxy-url: https://proxy.host:3128
+
+clusters:
+- cluster:
+  name: development
+
+users:
+- name: developer
+
+contexts:
+- context:
+  name: development
+
+```
 
 
 ## {{% heading "whatsnext" %}}

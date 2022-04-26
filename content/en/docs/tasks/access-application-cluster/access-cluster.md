@@ -205,39 +205,16 @@ See documentation for other libraries for how they authenticate.
 ## Accessing the API from a Pod
 
 When accessing the API from a pod, locating and authenticating
-to the apiserver are somewhat different.
+to the API server are somewhat different.
 
-The recommended way to locate the apiserver within the pod is with
-the `kubernetes.default.svc` DNS name, which resolves to a Service IP which in turn
-will be routed to an apiserver.
-
-The recommended way to authenticate to the apiserver is with a
-[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential. By kube-system, a pod
-is associated with a service account, and a credential (token) for that
-service account is placed into the filesystem tree of each container in that pod,
-at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
-
-If available, a certificate bundle is placed into the filesystem tree of each
-container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, and should be
-used to verify the serving certificate of the apiserver.
-
-Finally, the default namespace to be used for namespaced API operations is placed in a file
-at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
-
-From within a pod the recommended ways to connect to API are:
-
-  - Run `kubectl proxy` in a sidecar container in the pod, or as a background
-    process within the container. This proxies the
-    Kubernetes API to the localhost interface of the pod, so that other processes
-    in any container of the pod can access it.
-  - Use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
-    They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
-
-In each case, the credentials of the pod are used to communicate securely with the apiserver.
+Please check [Accessing the API from within a Pod](/docs/tasks/run-application/access-api-from-pod/)
+for more details.
 
 ## Accessing services running on the cluster
 
-The previous section describes how to connect to the Kubernetes API server. For information about connecting to other services running on a Kubernetes cluster, see [Access Cluster Services.](/docs/tasks/administer-cluster/access-cluster-services/)
+The previous section describes how to connect to the Kubernetes API server.
+For information about connecting to other services running on a Kubernetes cluster, see
+[Access Cluster Services](/docs/tasks/access-application-cluster/access-cluster-services/).
 
 ## Requesting redirects
 

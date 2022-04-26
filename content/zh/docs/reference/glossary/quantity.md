@@ -17,7 +17,7 @@ id: quantity
 date: 2018-08-07
 full_link:
 short_description: >
-  A whole-number representation of small or large numbers using SI suffixes.
+  A whole-number representation of small or large numbers using [SI](https://en.wikipedia.org/wiki/International_System_of_Units) suffixes.
 
 aka: 
 tags:
@@ -27,7 +27,7 @@ tags:
 <!--
 A whole-number representation of small or large numbers using SI suffixes.
 -->
-使用全数字来表示较小数值或使用 SI 后缀表示较大数值的表示法。
+使用全数字来表示较小数值或使用 [SI](https://zh.wikipedia.org/wiki/International_System_of_Units) 后缀表示较大数值的表示法。
 
 <!--more-->
 

@@ -16,12 +16,12 @@ weight: 30
 <!-- overview -->
 
 <!--
-Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-These virtual clusters are called namespaces.
+In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 -->
-Kubernetes 支持多个虚拟集群，它们底层依赖于同一个物理集群。
-这些虚拟集群被称为名字空间。
-在一些文档里名字空间也称为命名空间。
+在 Kubernetes 中，“名字空间（Namespace）”提供一种机制，将同一集群中的资源划分为相互隔离的组。
+同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
+名字空间作用域仅针对带有名字空间的对象，例如 Deployment、Service 等，
+这种作用域对集群访问的对象不适用，例如 StorageClass、Node、PersistentVolume 等。
 
 <!-- body -->
 
@@ -174,6 +174,42 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 该条目的形式是 `<服务名称>.<名字空间名称>.svc.cluster.local`，这意味着如果容器只使用
 `<服务名称>`，它将被解析到本地名字空间的服务。这对于跨多个名字空间（如开发、分级和生产）
 使用相同的配置非常有用。如果你希望跨名字空间访问，则需要使用完全限定域名（FQDN）。
+
+<!--
+As a result, all namespace names must be valid
+[RFC 1123 DNS labels](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
+-->
+因此，所有的名字空间名称都必须是合法的
+[RFC 1123 DNS 标签](/zh/docs/concepts/overview/working-with-objects/names/#dns-label-names)。
+
+{{< warning >}}
+<!--
+By creating namespaces with the same name as [public top-level
+domains](https://data.iana.org/TLD/tlds-alpha-by-domain.txt), Services in these
+namespaces can have short DNS names that overlap with public DNS records.
+Workloads from any namespace performing a DNS lookup without a [trailing dot](https://datatracker.ietf.org/doc/html/rfc1034#page-8) will
+be redirected to those services, taking precedence over public DNS.
+-->
+通过创建与[公共顶级域名](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
+同名的名字空间，这些名字空间中的服务可以拥有与公共 DNS 记录重叠的、较短的 DNS 名称。
+所有名字空间中的负载在执行 DNS 查找时，如果查找的名称没有
+[尾部句点](https://datatracker.ietf.org/doc/html/rfc1034#page-8)，
+就会被重定向到这些服务上，因此呈现出比公共 DNS 更高的优先序。
+
+<!--
+To mitigate this, limit privileges for creating namespaces to trusted users. If
+required, you could additionally configure third-party security controls, such
+as [admission
+webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/),
+to block creating any namespace with the name of [public
+TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
+-->
+为了缓解这类问题，需要将创建名字空间的权限授予可信的用户。
+如果需要，你可以额外部署第三方的安全控制机制，例如以
+[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+的形式，阻止用户创建与公共 [TLD](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
+同名的名字空间。
+{{< /warning >}}
 
 <!--
 ## Not All Objects are in a Namespace

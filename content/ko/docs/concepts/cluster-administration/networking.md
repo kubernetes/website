@@ -30,46 +30,7 @@ weight: 50
 찾는 방법 등을 알아야 한다. 쿠버네티스는 이런 것들을 다루는 대신
 다른 접근법을 취한다.
 
-## 쿠버네티스 네트워크 모델
-
-모든 `Pod` 에는 고유의 IP 주소가 있다. 즉, `Pod` 간에 링크를 명시적으로
-생성할 필요가 없으며 컨테이너 포트를 호스트 포트에 매핑할
-필요가 거의 없다. 이렇게 하면 포트 할당, 이름 지정, 서비스 검색, 로드 밸런싱,
-애플리케이션 구성 및 마이그레이션 관점에서 `Pod` 를 VM 또는
-물리적 호스트처럼 취급할 수 있는 깔끔하고, 하위 호환성
-있는 모델이 생성된다.
-
-쿠버네티스는 모든 네트워크 구현에 다음과 같은
-기본 요구 사항을 적용한다(의도적 네트워크 세분화 정책 제외).
-
-   * 노드의 파드는 NAT 없이 모든 노드의 모든 파드와 통신할 수 있다.
-   * 노드의 에이전트(예: 시스템 데몬, kubelet)는 해당 노드의 모든
-     파드와 통신할 수 있다.
-
-참고: 호스트 네트워크에서 실행되는 `Pod` 를 지원하는 리눅스와 같은 플랫폼의 경우, 다음의 요구 사항을
-적용한다.
-
-   * 노드의 호스트 네트워크에 있는 파드는 NAT 없이 모든 노드에 있는 모든
-     파드와 통신할 수 있다.
-
-이 모델은 전체적으로 덜 복잡할 뿐만 아니라, 쿠버네티스를 위해 VM에서
-컨테이너로 애플리케이션을 포팅할 때 충돌이 적게 구현하려는 요구와
-주로 호환된다. 잡이 이전에 VM에서 실행된 경우, VM에 IP가 있고
-프로젝트의 다른 VM과 통신할 수 있다. 이것은 동일한 기본 모델이다.
-
-쿠버네티스의 IP 주소는 그것의 IP 주소와 MAC 주소를 포함하여 `Pod` 범위에 존재한다(`Pod` 내
-컨테이너는 네트워크 네임스페이스를 공유함). 이것은 `Pod` 내 컨테이너가 모두
-`localhost` 에서 서로의 포트에 도달할 수 있다는 것을 의미한다. 또한
-`Pod` 내부의 컨테이너 포트의 사용을 조정해야하는 것을 의미하지만, 이것도
-VM 내의 프로세스와 동일하다. 이것을 "IP-per-pod(파드별 IP)" 모델이라고 
-한다.
-
-이것이 어떻게 구현되는 지는 사용 중인 특정 컨테이너 런타임의 세부 사항이다. 비슷하게, 사용자가 선택한 네트워킹 옵션이 [IPv4/IPv6 이중 스택](/ko/docs/concepts/services-networking/dual-stack/)을 지원할 수도 있으며, 구현 방법은 다양할 수 있다.
-
-`Pod` 로 전달하는 `Node` 자체의 포트(호스트 포트라고 함)를
-요청할 수 있지만, 이는 매우 틈새 작업이다. 전달이 구현되는 방법은
-컨테이너 런타임의 세부 사항이기도 하다. `Pod` 자체는
-호스트 포트의 존재 여부에 대해 인식하지 못한다.
+쿠버네티스 네트워킹 모델에 대한 상세 정보는 [여기](/ko/docs/concepts/services-networking/)를 참고한다.
 
 ## 쿠버네티스 네트워크 모델의 구현 방법
 
@@ -106,7 +67,7 @@ Azure CNI는 [Azure 쿠버네티스 서비스(Azure Kubernetes Service, AKS)](ht
 
 ### 캘리코
 
-[캘리코](https://docs.projectcalico.org/)는 컨테이너, 가상 시스템 및 기본 호스트 기반 워크로드를 위한 오픈소스 네트워킹 및 네트워크 보안 솔루션이다. 캘리코는 순수 리눅스 eBPF 데이터플레인, 표준 리눅스 네트워킹 데이터플레인, 윈도우 HNS 데이터플레인을 포함한 여러 데이터플레인을 지원한다. 캘리코는 완전한 네트워킹 스택을 제공하지만, [클라우드 제공자 CNI](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations)와 함께 사용하여 네트워크 정책 시행을 제공할 수도 있다.
+[캘리코](https://projectcalico.docs.tigera.io/about/about-calico/)는 컨테이너, 가상 시스템 및 기본 호스트 기반 워크로드를 위한 오픈소스 네트워킹 및 네트워크 보안 솔루션이다. 캘리코는 순수 리눅스 eBPF 데이터플레인, 표준 리눅스 네트워킹 데이터플레인, 윈도우 HNS 데이터플레인을 포함한 여러 데이터플레인을 지원한다. 캘리코는 완전한 네트워킹 스택을 제공하지만, [클라우드 제공자 CNI](https://projectcalico.docs.tigera.io/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations)와 함께 사용하여 네트워크 정책 시행을 제공할 수도 있다.
 
 ### 실리움(Cilium)
 
@@ -118,9 +79,9 @@ Azure CNI는 [Azure 쿠버네티스 서비스(Azure Kubernetes Service, AKS)](ht
 
 ### 화웨이의 CNI-Genie
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)는 쿠버네티스가 런타임 시 [쿠버네티스 네트워크 모델](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model)의 [서로 다른 구현에 동시에 접근](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)할 수 있는 CNI 플러그인이다. 여기에는 [플라넬(Flannel)](https://github.com/coreos/flannel#flannel), [캘리코](https://docs.projectcalico.org/), [로마나(Romana)](https://romana.io), [위브넷(Weave-net)](https://www.weave.works/products/weave-net/)과 같은 [CNI 플러그인](https://github.com/containernetworking/cni#3rd-party-plugins)으로 실행되는 모든 구현이 포함된다.
+[CNI-Genie](https://github.com/cni-genie/CNI-Genie)는 쿠버네티스가 런타임 시 [쿠버네티스 네트워크 모델](/ko/docs/concepts/cluster-administration/networking/#쿠버네티스-네트워크-모델)의 [서로 다른 구현에 동시에 접근](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)할 수 있는 CNI 플러그인이다. 여기에는 [플라넬(Flannel)](https://github.com/flannel-io/flannel#flannel), [캘리코](https://projectcalico.docs.tigera.io/about/about-calico/), [위브넷(Weave-net)](https://www.weave.works/oss/net/)과 같은 [CNI 플러그인](https://github.com/containernetworking/cni#3rd-party-plugins)으로 실행되는 모든 구현이 포함된다.
 
-CNI-Genie는 각각 다른 CNI 플러그인에서 [하나의 파드에 여러 IP 주소를 할당](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod)하는 것도 지원한다.
+CNI-Genie는 각각 다른 CNI 플러그인에서 [하나의 파드에 여러 IP 주소를 할당](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod)하는 것도 지원한다.
 
 ### cni-ipvlan-vpc-k8s
 [cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s)는
@@ -143,9 +104,10 @@ VPC 라우팅 테이블을 조정하여 각 호스트에 인스턴스별 서브�
 [Coil](https://github.com/cybozu-go/coil)은 통합이 용이하도록 설계된 CNI 플러그인으로 유연한 이그레스(egress) 네트워킹을 제공한다.
 Coil은 베어메탈에 비해 낮은 오버헤드로 작동하며, 외부 네트워크에 대해 임의의 이그레스 NAT 게이트웨이를 정의할 수 있다.
 
-### 콘티브(Contiv)
+### 콘티브-VPP(Contiv-VPP)
 
-[콘티브](https://github.com/contiv/netplugin)는 다양한 적용 사례에서 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3, vxlan을 사용하는 오버레이, 클래식 L2 또는 Cisco-SDN/ACI)을 제공한다.
+[Contiv-VPP](https://contivpp.io/)는 유저 스페이스에서 동작하고 성능을 중시하는 쿠버네티스 네트워크 플러그인이며, 
+데이터 플레인으로 [fd.io](https://fd.io/)를 사용한다.
 
 ### 콘트레일(Contrail) / 텅스텐 패브릭(Tungsten Fabric)
 
@@ -165,9 +127,13 @@ Coil은 베어메탈에 비해 낮은 오버헤드로 작동하며, 외부 네�
 
 ### 플라넬
 
-[플라넬](https://github.com/coreos/flannel#flannel)은 쿠버네티스 요구 사항을
+[플라넬](https://github.com/flannel-io/flannel#flannel)은 쿠버네티스 요구 사항을
 충족하는 매우 간단한 오버레이 네트워크이다. 많은
 경우에 쿠버네티스와 플라넬은 성공적으로 적용이 가능하다.
+
+### Hybridnet
+
+[Hybridnet](https://github.com/alibaba/hybridnet)은 하이브리드 클라우드를 위해 디자인된 오픈소스 CNI 플러그인이며 하나 또는 다수의 클러스터에 있는 컨테이너를 위한 오버레이 및 언더레이 네트워킹을 제공한다. 오버레이 및 언더레이 컨테이너는 동일한 노드에서 실행될 수 있으며 클러스터 범위의 양방향 네트워크 연결성을 가진다.
 
 ### 재규어(Jaguar)
 
@@ -227,7 +193,7 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 
 ### Weaveworks의 위브넷
 
-[위브넷](https://www.weave.works/products/weave-net/)은
+[위브넷](https://www.weave.works/oss/net/)은
 쿠버네티스 및 호스팅된 애플리케이션을 위한 탄력적이고 사용하기 쉬운 네트워크이다.
 위브넷은 [CNI 플러그인](https://www.weave.works/docs/net/latest/cni-plugin/) 또는
 독립형으로 실행된다. 두 버전에서, 실행하기 위해 구성이나 추가 코드가 필요하지 않으며,

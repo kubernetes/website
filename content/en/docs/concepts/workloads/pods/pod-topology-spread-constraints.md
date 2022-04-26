@@ -12,14 +12,6 @@ obsolete -->
 
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 
-{{< note >}}
-In versions of Kubernetes before v1.18, you must enable the `EvenPodsSpread`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on
-the [API server](/docs/concepts/overview/components/#kube-apiserver) and the
-[scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) in order to use Pod
-topology spread constraints.
-{{< /note >}}
-
 <!-- body -->
 
 ## Prerequisites
@@ -310,7 +302,8 @@ apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - pluginConfig:
+  - schedulerName: default-scheduler
+    pluginConfig:
       - name: PodTopologySpread
         args:
           defaultConstraints:
@@ -370,7 +363,8 @@ apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - pluginConfig:
+  - schedulerName: default-scheduler
+    pluginConfig:
       - name: PodTopologySpread
         args:
           defaultConstraints: []

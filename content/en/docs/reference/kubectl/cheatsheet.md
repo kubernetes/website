@@ -39,6 +39,11 @@ complete -F __start_kubectl k
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
 echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
+### A Note on --all-namespaces
+
+Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
+
+```kubectl -A```
 
 ## Kubectl context and configuration
 
@@ -97,10 +102,10 @@ kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 
 # create a Job which prints "Hello World"
-kubectl create job hello --image=busybox -- echo "Hello World" 
+kubectl create job hello --image=busybox:1.28 -- echo "Hello World" 
 
 # create a CronJob that prints "Hello World" every minute
-kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"    
+kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"    
 
 kubectl explain pods                           # get the documentation for pod manifests
 
@@ -113,7 +118,7 @@ metadata:
 spec:
   containers:
   - name: busybox
-    image: busybox
+    image: busybox:1.28
     args:
     - sleep
     - "1000000"
@@ -125,7 +130,7 @@ metadata:
 spec:
   containers:
   - name: busybox
-    image: busybox
+    image: busybox:1.28
     args:
     - sleep
     - "1000"
@@ -238,7 +243,7 @@ kubectl rollout status -w deployment/frontend                    # Watch rolling
 kubectl rollout restart deployment/frontend                      # Rolling restart of the "frontend" deployment
 
 
-cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into std
+cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
 kubectl replace --force -f ./pod.json
@@ -315,7 +320,7 @@ kubectl logs my-pod -c my-container --previous      # dump pod container logs (s
 kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
-kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
+kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactive shell
 kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
 kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
 --dry-run=client -o yaml > pod.yaml

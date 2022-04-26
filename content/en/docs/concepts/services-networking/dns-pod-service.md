@@ -323,17 +323,6 @@ If the feature gate `ExpandedDNSConfig` is enabled for the kube-apiserver and
 the kubelet, it is allowed for Kubernetes to have at most 32 search domains and
 a list of search domains of up to 2048 characters.
 
-### Feature availability
-
-The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
-
-| k8s version | Feature support |
-| :---------: |:-----------:|
-| 1.14 | Stable |
-| 1.10 | Beta (on by default)|
-| 1.9 | Alpha |
-
-
 ## {{% heading "whatsnext" %}}
 
 

@@ -9,7 +9,7 @@ weight: 45
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 _서비스 내부 트래픽 정책_ 을 사용하면 내부 트래픽 제한이 트래픽이 시작된 
 노드 내의 엔드포인트로만 내부 트래픽을 라우팅하도록 한다. 
@@ -20,9 +20,9 @@ _서비스 내부 트래픽 정책_ 을 사용하면 내부 트래픽 제한이 
 
 ## 서비스 내부 트래픽 정책 사용
 
-
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에서 
-`ServiceInternalTrafficPolicy`를 활성화한 후에 
+`ServiceInternalTrafficPolicy` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)는 
+베타 기능이며 기본적으로 활성화되어 있다. 
+이 기능이 활성화되어 있으면, 
 {{< glossary_tooltip text="서비스" term_id="service" >}}의 
 `.spec.internalTrafficPolicy`를 `Local`로 설정하여 내부 전용 트래픽 정책을 활성화 할 수 있다.
 이것은 kube-proxy가 클러스터 내부 트래픽을 위해 노드 내부 엔드포인트로만 사용하도록 한다.

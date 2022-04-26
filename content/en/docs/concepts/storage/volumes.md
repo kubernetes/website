@@ -152,6 +152,13 @@ Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
 features must be enabled.
 
+#### azureDisk CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `azureDisk` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
+
 ### azureFile {#azurefile}
 
 The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
@@ -171,6 +178,13 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFi
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
 
 Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
+
+#### azureFile CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `azureFile` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 
 ### cephfs
 
@@ -251,7 +265,7 @@ metadata:
 spec:
   containers:
     - name: test
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
         - name: config-vol
           mountPath: /etc/config
@@ -1128,7 +1142,7 @@ spec:
         fieldRef:
           apiVersion: v1
           fieldPath: metadata.name
-    image: busybox
+    image: busybox:1.28
     command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
     volumeMounts:
     - name: workdir1

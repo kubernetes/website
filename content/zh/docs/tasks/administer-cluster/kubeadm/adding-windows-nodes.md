@@ -25,9 +25,9 @@ You can use Kubernetes to run a mixture of Linux and Windows nodes, so you can m
 混合使用运行于 Linux 上的 Pod 和运行于 Windows 上的 Pod。
 本页面展示如何将 Windows 节点注册到你的集群。
 
-## {{% heading "prerequisites" %}}
 
-{{< version-check >}}
+## {{% heading "prerequisites" %}}
+ {{< version-check >}}
 
 <!--
 * Obtain a [Windows Server 2019 license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)
@@ -289,10 +289,10 @@ Install-WindowsFeature -Name containers
 ```
 <!--
 Install Docker
-Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://hub.docker.com/editions/enterprise/docker-ee-server-windows).
+Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker).
 -->
 安装 Docker
-操作指南在 [Install Docker Engine - Enterprise on Windows Servers](https://hub.docker.com/editions/enterprise/docker-ee-server-windows)。
+操作指南在 [Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker)。
 
 <!--
 #### Install wins, kubelet, and kubeadm.

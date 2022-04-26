@@ -243,7 +243,7 @@ pointing to. This IP address is accessible only within the cluster.
 
 If you want guests to be able to access your guestbook, you must configure the
 frontend Service to be externally visible, so a client can request the Service
-from outside the Kubernetes cluster. However a Kubernetes user you can use
+from outside the Kubernetes cluster. However a Kubernetes user can use
 `kubectl port-forward` to access the service even though it uses a
 `ClusterIP`.
 

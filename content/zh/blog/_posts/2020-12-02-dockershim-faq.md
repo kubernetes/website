@@ -3,6 +3,7 @@ layout: blog
 title: "弃用 Dockershim 的常见问题"
 date: 2020-12-02
 slug: dockershim-faq
+aliases: [ '/dockershim' ]
 ---
 <!-- 
 layout: blog
@@ -12,16 +13,26 @@ slug: dockershim-faq
 aliases: [ '/dockershim' ]
 -->
 
+<!--
+_**Update**: There is a [newer version](/blog/2022/02/17/dockershim-faq/) of this article available._
+-->
+_**更新**：本文有[较新版本](/zh/blog/2022/02/17/dockershim-faq/)。_
+
 <!-- 
 This document goes over some frequently asked questions regarding the Dockershim
 deprecation announced as a part of the Kubernetes v1.20 release. For more detail
 on the deprecation of Docker as a container runtime for Kubernetes kubelets, and
 what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
+
+Also, you can read [check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to check whether it does.
 -->
 本文回顾了自 Kubernetes v1.20 版宣布弃用 Dockershim 以来所引发的一些常见问题。
 关于 Kubernetes kubelets 从容器运行时的角度弃用 Docker 的细节以及这些细节背后的含义，请参考博文
 [别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
+
+此外，你可以阅读 [检查 Dockershim 弃用是否影响你](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+以检查它是否会影响你。
 
 <!-- 
 ### Why is dockershim being deprecated?

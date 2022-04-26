@@ -62,15 +62,15 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 
 必要な証明書:
 
-| デフォルトCN                    | 親認証局                   | 組織 　　　　　　| 種類                                   | ホスト名 (SAN)                                 |
-|-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`                        |
+| デフォルトCN                    | 親認証局                   | 組織 　　　　　　| 種類                                   | ホスト名 (SAN)                                          |
+|-------------------------------|---------------------------|----------------|----------------------------------------|-----------------------------------------------------|
+| kube-etcd                     | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
-| kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
-| kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
-| kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]` |
-| kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
-| front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
+| kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                                     |
+| kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                                     |
+| kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]`  |
+| kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                                     |
+| front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                                     |
 
 [1]: クラスターに接続するIPおよびDNS名( [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様、ロードバランサーのIPおよびDNS名、`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`)
 

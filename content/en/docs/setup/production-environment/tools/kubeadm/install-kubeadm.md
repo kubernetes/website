@@ -15,7 +15,6 @@ This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
 
-
 ## {{% heading "prerequisites" %}}
 
 
@@ -69,10 +68,10 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 ## Check required ports
 These
 [required ports](/docs/reference/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other. You can use telnet to check if a port is open. For example:
+need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
 
 ```shell
-telnet 127.0.0.1 6443
+nc 127.0.0.1 6443
 ```
 
 The pod network plugin you use (see below) may also require certain ports to be
@@ -93,30 +92,30 @@ to interface with your chosen container runtime.
 
 If you don't specify a runtime, kubeadm automatically tries to detect an installed
 container runtime by scanning through a list of well known Unix domain sockets.
-The following table lists container runtimes and their associated socket paths:
+The following table lists container runtimes that kubeadm looks for, and their associated socket paths:
 
 {{< table caption = "Container runtimes and their socket paths" >}}
-| Runtime    | Path to Unix domain socket        |
-|------------|-----------------------------------|
-| Docker     | `/var/run/dockershim.sock`        |
-| containerd | `/run/containerd/containerd.sock` |
-| CRI-O      | `/var/run/crio/crio.sock`         |
+| Runtime        | Path to Unix domain socket        |
+|----------------|-----------------------------------|
+| Docker Engine  | `/var/run/dockershim.sock`        |
+| containerd     | `/run/containerd/containerd.sock` |
+| CRI-O          | `/var/run/crio/crio.sock`         |
 {{< /table >}}
 
 <br />
-If both Docker and containerd are detected, Docker takes precedence. This is
+If both Docker Engine and containerd are detected, kubeadm will give precedence to Docker Engine. This is
 needed because Docker 18.09 ships with containerd and both are detectable even if you only
 installed Docker.
-If any other two or more runtimes are detected, kubeadm exits with an error.
+**If any other two or more runtimes are detected, kubeadm exits with an error.**
 
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
+The kubelet can integrate with Docker Engine using the deprecated `dockershim` adapter (the dockershim is part of the kubelet itself).
 
 See [container runtimes](/docs/setup/production-environment/container-runtimes/)
 for more information.
 {{% /tab %}}
 {{% tab name="other operating systems" %}}
 By default, kubeadm uses {{< glossary_tooltip term_id="docker" >}} as the container runtime.
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
+The kubelet can integrate with Docker Engine using the deprecated `dockershim` adapter (the dockershim is part of the kubelet itself).
 
 See [container runtimes](/docs/setup/production-environment/container-runtimes/)
 for more information.

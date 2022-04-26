@@ -7,6 +7,10 @@ slug: dont-panic-kubernetes-and-docker
 
 **Authors:** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
 
+_Update: Kubernetes support for Docker via `dockershim` is now deprecated.
+For more information, read the [deprecation notice](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation).
+You can also discuss the deprecation via a dedicated [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)._
+
 Kubernetes is [deprecating
 Docker](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)
 as a container runtime after v1.20.

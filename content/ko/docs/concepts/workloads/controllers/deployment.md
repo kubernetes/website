@@ -842,6 +842,13 @@ nginx-deployment-618515232    11        11        11        7m
 * 디플로이먼트로 기존 레플리카셋을 스케일 다운.
 * 새 파드가 준비되거나 이용할 수 있음(최소 [준비 시간(초)](#최소-대기-시간-초) 동안 준비됨).
 
+롤아웃이 "진행 중" 상태가 되면, 
+디플로이먼트 컨트롤러는 디플로이먼트의 `.status.conditions`에 다음 속성을 포함하는 컨디션을 추가한다.
+
+* `type: Progressing`
+* `status: "True"`
+* `reason: NewReplicaSetCreated` | `reason: FoundNewReplicaSet` | `reason: ReplicaSetUpdated`
+
 `kubectl rollout status` 를 사용해서 디플로이먼트의 진행사황을 모니터할 수 있다.
 
 ### 디플로이먼트 완료
@@ -852,6 +859,17 @@ nginx-deployment-618515232    11        11        11        7m
 즉, 요청한 모든 업데이트가 완료되었을 때.
 * 디플로이먼트와 관련한 모든 레플리카를 사용할 수 있을 때.
 * 디플로이먼트에 대해 이전 복제본이 실행되고 있지 않을 때.
+
+롤아웃이 "완료" 상태가 되면, 
+디플로이먼트 컨트롤러는 디플로이먼트의 `.status.conditions`에 다음 속성을 포함하는 컨디션을 추가한다.
+
+* `type: Progressing`
+* `status: "True"`
+* `reason: NewReplicaSetAvailable`
+
+이 `Progressing` 컨디션은 새로운 롤아웃이 시작되기 전까지는 `"True"` 상태값을 유지할 것이다. 
+레플리카의 가용성이 변경되는 경우에도(이 경우 `Available` 컨디션에 영향을 미침) 
+컨디션은 유지된다.
 
 `kubectl rollout status` 를 사용해서 디플로이먼트가 완료되었는지 확인할 수 있다.
 만약 롤아웃이 성공적으로 완료되면 `kubectl rollout status` 는 종료 코드로 0이 반환된다.
@@ -890,7 +908,7 @@ echo $?
 대기하는 시간(초)를 나타낸다.
 
 다음 `kubectl` 명령어로 `progressDeadlineSeconds` 를 설정해서 컨트롤러가
-10분 후 디플로이먼트에 대한 진행 상태의 부족에 대한 리포트를 수행하게 한다.
+10분 후 디플로이먼트 롤아웃에 대한 진행 상태의 부족에 대한 리포트를 수행하게 한다.
 
 ```shell
 kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
@@ -902,14 +920,17 @@ deployment.apps/nginx-deployment patched
 만약 데드라인을 넘어서면 디플로이먼트 컨트롤러는 디플로이먼트의 `.status.conditions` 속성에 다음의
 디플로이먼트 컨디션(DeploymentCondition)을 추가한다.
 
-* Type=Progressing
-* Status=False
-* Reason=ProgressDeadlineExceeded
+* `type: Progressing`
+* `status: "False"`
+* `reason: ProgressDeadlineExceeded`
+
+이 컨디션은 일찍 실패할 수도 있으며 이러한 경우 `ReplicaSetCreateError`를 이유로 상태값을 `"False"`로 설정한다.
+또한, 디플로이먼트 롤아웃이 완료되면 데드라인은 더 이상 고려되지 않는다.
 
 컨디션 상태에 대한 자세한 내용은 [쿠버네티스 API 규칙](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties)을 참고한다.
 
 {{< note >}}
-쿠버네티스는 `Reason=ProgressDeadlineExceeded` 과 같은 상태 조건을
+쿠버네티스는 `reason: ProgressDeadlineExceeded` 과 같은 상태 조건을
 보고하는 것 이외에 정지된 디플로이먼트에 대해 조치를 취하지 않는다. 더 높은 수준의 오케스트레이터는 이를 활용할 수 있으며,
 예를 들어 디플로이먼트를 이전 버전으로 롤백할 수 있다.
 {{< /note >}}
@@ -984,7 +1005,7 @@ Conditions:
 디플로이먼트를 스케일 다운하거나, 실행 중인 다른 컨트롤러를 스케일 다운하거나,
 네임스페이스에서 할당량을 늘려서 할당량이 부족한 문제를 해결할 수 있다.
 만약 할당량 컨디션과 디플로이먼트 롤아웃이 완료되어 디플로이먼트 컨트롤러를 만족한다면
-성공한 컨디션의 디플로이먼트 상태가 업데이트를 볼 수 있다(`Status=True` 와 `Reason=NewReplicaSetAvailable`).
+성공한 컨디션의 디플로이먼트 상태가 업데이트를 볼 수 있다(`status: "True"` 와 `reason: NewReplicaSetAvailable`).
 
 ```
 Conditions:
@@ -994,11 +1015,11 @@ Conditions:
   Progressing   True    NewReplicaSetAvailable
 ```
 
-`Type=Available` 과 `Status=True` 는 디플로이먼트가 최소한의 가용성을 가지고 있는 것을 의미한다.
-최소한의 가용성은 디플로이먼트 계획에 명시된 파라미터에 의해 결정된다. `Type=Progressing` 과 `Status=True` 는 디플로이먼트가
+`type: Available` 과 `status: "True"` 는 디플로이먼트가 최소한의 가용성을 가지고 있는 것을 의미한다.
+최소한의 가용성은 디플로이먼트 계획에 명시된 파라미터에 의해 결정된다. `type: Progressing` 과 `status: "True"` 는 디플로이먼트가
 롤아웃 도중에 진행 중 이거나, 성공적으로 완료되었으며, 진행 중 최소한으로 필요한 새로운 레플리카를 이용 가능하다는 것이다.
 (자세한 내용은 특정 조건의 이유를 참조한다.
-이 경우 `Reason=NewReplicaSetAvailable` 는 배포가 완료되었음을 의미한다.)
+이 경우 `reason: NewReplicaSetAvailable` 는 배포가 완료되었음을 의미한다.)
 
 `kubectl rollout status` 를 사용해서 디플로이먼트의 진행이 실패되었는지 확인할 수 있다.
 `kubectl rollout status` 는 디플로이먼트의 진행 데드라인을 초과하면 0이 아닌 종료 코드를 반환한다.
@@ -1131,7 +1152,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 `.spec.strategy.rollingUpdate.maxUnavailable` 은 업데이트 프로세스 중에 사용할 수 없는 최대 파드의 수를 지정하는 선택적 필드이다.
 이 값은 절대 숫자(예: 5) 또는 의도한 파드 비율(예: 10%)이 될 수 있다.
-절대 값은 반올림해서 백분율로 계산한다.
+절대 값은 내림해서 백분율로 계산한다.
 만약 `.spec.strategy.rollingUpdate.maxSurge` 가 0이면 값이 0이 될 수 없다. 기본 값은 25% 이다.
 
 예를 들어 이 값을 30%로 설정하면 롤링업데이트 시작시 즉각 이전 레플리카셋의 크기를
@@ -1144,7 +1165,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 `.spec.strategy.rollingUpdate.maxSurge` 는 의도한 파드의 수에 대해 생성할 수 있는 최대 파드의 수를 지정하는 선택적 필드이다.
 이 값은 절대 숫자(예: 5) 또는 의도한 파드 비율(예: 10%)이 될 수 있다.
 `MaxUnavailable` 값이 0이면 이 값은 0이 될 수 없다.
-절대 값은 반올림해서 백분율로 계산한다. 기본 값은 25% 이다.
+절대 값은 올림해서 백분율로 계산한다. 기본 값은 25% 이다.
 
 예를 들어 이 값을 30%로 설정하면 롤링업데이트 시작시 새 레플리카셋의 크기를 즉시 조정해서
 기존 및 새 파드의 전체 갯수를 의도한 파드의 130%를 넘지 않도록 한다.
@@ -1153,8 +1174,8 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 ### 진행 기한 시간(초)
 
-`.spec.progressDeadlineSeconds` 는 디플로어먼트가 표면적으로 `Type=Progressing`, `Status=False`의
-상태 그리고 리소스가 `Reason=ProgressDeadlineExceeded` 상태로 [진행 실패](#디플로이먼트-실패)를 보고하기 전에
+`.spec.progressDeadlineSeconds` 는 디플로어먼트가 표면적으로 `type: Progressing`, `status: "False"`의
+상태 그리고 리소스가 `reason: ProgressDeadlineExceeded` 상태로 [진행 실패](#디플로이먼트-실패)를 보고하기 전에
 디플로이먼트가 진행되는 것을 대기시키는 시간(초)를 명시하는 선택적 필드이다.
 디플로이먼트 컨트롤러는 디플로이먼트를 계속 재시도 한다. 기본값은 600(초)이다.
 미래에 자동화된 롤백이 구현된다면 디플로이먼트 컨트롤러는 상태를 관찰하고,

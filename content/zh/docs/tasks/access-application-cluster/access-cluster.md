@@ -1,4 +1,4 @@
-﻿---
+---
 title: 访问集群
 weight: 20
 content_type: concept
@@ -50,10 +50,10 @@ kubectl config view
 
 <!--
 Many of the [examples](/docs/user-guide/kubectl-cheatsheet) provide an introduction to using
-kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl-overview).
+`kubectl` and complete documentation is found in the [kubectl reference](/docs/reference/kubectl/).
 -->
 有许多 [例子](/zh/docs/reference/kubectl/cheatsheet/) 介绍了如何使用 kubectl，
-可以在 [kubectl手册](/zh/docs/reference/kubectl/overview/) 中找到更完整的文档。
+可以在 [kubectl 参考](/zh/docs/reference/kubectl/overview/) 中找到更完整的文档。
 
 <!--
 ## Directly accessing the REST API
@@ -139,18 +139,47 @@ curl http://localhost:8080/api/
 <!--
 ### Without kubectl proxy
 
-In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the token. Use `kubectl describe secret...` to get the token for the default service account, like this:
+In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the token. Use `kubectl apply` and `kubectl describe secret...` to create a token for the default service account with grep/cut:
+
+First, create the Secret, requesting a token for the default ServiceAccount:
+
 -->
+
 ### 不使用 kubectl proxy
 
 在 Kubernetes 1.3 或更高版本中，`kubectl config view` 不再显示 token。
-使用 `kubectl describe secret ...` 来获取默认服务帐户的 token，如下所示：
-
+使用 `kubectl apply` 和 `kubectl describe secret ...` 及 grep 和剪切操作来为 default 服务帐户创建令牌，如下所示：
 `grep/cut` 方法实现：
+首先，创建 Secret，请求默认 ServiceAccount 的令牌：
+```shell
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+```
 
+<!--
+Next, wait for the token controller to populate the Secret with a token:
+
+Capture and use the generated token:
+-->
+接下来，等待令牌控制器使用令牌填充 Secret：
+```shell
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+```
+
+捕获并使用生成的令牌：
 ```shell
 APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d ' ')
+TOKEN=$(kubectl describe secret default-token | grep -E '^token' | cut -f2 -d':' | tr -d ' ')
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 ```json
@@ -172,7 +201,7 @@ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 
 ```shell
 APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode )
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 
@@ -287,82 +316,32 @@ Python 客户端可以像 kubectl CLI 一样使用相同的
 ## Accessing the API from a Pod
 
 When accessing the API from a pod, locating and authenticating
-to the apiserver are somewhat different.
-
-The recommended way to locate the apiserver within the pod is with
-the `kubernetes.default.svc` DNS name, which resolves to a Service IP which in turn
-will be routed to an apiserver.
-
-The recommended way to authenticate to the apiserver is with a
-[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential. By kube-system, a pod
-is associated with a service account, and a credential (token) for that
-service account is placed into the filesystem tree of each container in that pod,
-at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
+to the API server are somewhat different.
 -->
 ### 从 Pod 中访问 API   {#accessing-the-api-from-a-pod}
 
-当你从 Pod 中访问 API 时，定位和验证 apiserver 会有些许不同。
-
-在 Pod 中定位 apiserver 的推荐方式是通过 `kubernetes.default.svc`
-这个 DNS 名称，该名称将会解析为服务 IP，然后服务 IP 将会路由到 apiserver。
-
-向 apiserver 进行身份验证的推荐方法是使用
-[服务帐户](/zh/docs/tasks/configure-pod-container/configure-service-account/) 凭据。
-通过 kube-system，Pod 与服务帐户相关联，并且该服务帐户的凭证（token）
-被放置在该 Pod 中每个容器的文件系统中，位于
-`/var/run/secrets/kubernetes.io/serviceaccount/token`。
+当你从 Pod 中访问 API 时，定位和验证 API 服务器会有些许不同。
 
 <!--
-If available, a certificate bundle is placed into the filesystem tree of each
-container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, and should be
-used to verify the serving certificate of the apiserver.
-
-Finally, the default namespace to be used for namespaced API operations is placed in a file
-at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
+Please check [Accessing the API from within a Pod](/docs/tasks/run-application/access-api-from-pod/)
+for more details.
 -->
-如果可用，则将证书放入每个容器的文件系统中的
-`/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`，
-并且应该用于验证 apiserver 的服务证书。
-
-最后，名字空间作用域的 API 操作所使用的 default 名字空间将被放置在
-每个容器的 `/var/run/secrets/kubernetes.io/serviceaccount/namespace`
-文件中。
-
-<!--
-From within a pod the recommended ways to connect to API are:
-
-  - run `kubectl proxy` in a sidecar container in the pod, or as a background
-    process within the container. This proxies the
-    Kubernetes API to the localhost interface of the pod, so that other processes
-    in any container of the pod can access it.
-  - use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
-    They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
-
-In each case, the credentials of the pod are used to communicate securely with the apiserver.
--->
-在 Pod 中，建议连接 API 的方法是：
-
-- 在 Pod 的边车容器中运行 `kubectl proxy`，或者以后台进程的形式运行。
-  这将把 Kubernetes API 代理到当前 Pod 的 localhost 接口，
-  所以 Pod 中的所有容器中的进程都能访问它。
-- 使用 Go 客户端库，并使用 `rest.InClusterConfig()` 和
-  `kubernetes.NewForConfig()` 函数创建一个客户端。
-  他们处理 apiserver 的定位和身份验证。
-  [示例](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
-
-在每种情况下，Pod 的凭证都是为了与 apiserver 安全地通信。
+请参阅[从 Pod 中访问 API](/zh/docs/tasks/run-application/access-api-from-pod/)
+了解更多详情。
 
 <!--
 ## Accessing services running on the cluster
 
-The previous section describes how to connect to the Kubernetes API server. For information about connecting to other services running on a Kubernetes cluster, see [Access Cluster Services.](/docs/tasks/administer-cluster/access-cluster-services/)
+The previous section describes how to connect to the Kubernetes API server. 
+For information about connecting to other services running on a Kubernetes cluster, see
+[Access Cluster Services](/docs/tasks/administer-cluster/access-cluster-services/).
 -->
 
 ## 访问集群上运行的服务  {#accessing-services-running-on-the-cluster}
 
 上一节介绍了如何连接到 Kubernetes API 服务器。
-有关连接到 Kubernetes 集群上运行的其他服务的信息，请参阅[访问集群服务](/zh/docs/tasks/administer-cluster/access-cluster-services/)。
-
+有关连接到 Kubernetes 集群上运行的其他服务的信息，请参阅
+[访问集群服务](/zh/docs/tasks/administer-cluster/access-cluster-services/)。
 
 <!--
 ## Requesting redirects

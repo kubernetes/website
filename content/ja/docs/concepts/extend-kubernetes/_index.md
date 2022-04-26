@@ -19,14 +19,11 @@ Kubernetesは柔軟な設定が可能で、高い拡張性を持っています�
 
 *設定ファイル* と *フラグ* はオンラインドキュメントのリファレンスセクションの中の、各項目に記載されています:
 
-* [kubelet](/docs/admin/kubelet/)
-* [kube-apiserver](/docs/admin/kube-apiserver/)
-* [kube-controller-manager](/docs/admin/kube-controller-manager/)
-* [kube-scheduler](/docs/admin/kube-scheduler/)
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 ホスティングされたKubernetesサービスやマネージドなKubernetesでは、フラグと設定ファイルが常に変更できるとは限りません。変更可能な場合でも、通常はクラスターの管理者のみが変更できます。また、それらは将来のKubernetesバージョンで変更される可能性があり、設定変更にはプロセスの再起動が必要になるかもしれません。これらの理由により、この方法は他の選択肢が無いときにのみ利用するべきです。
 
