@@ -187,7 +187,7 @@ URL 的 `<service_name>` 段支持的格式为：
 -->
 ##### 示例
 
-* 如要访问 Elasticsearch 服务末端 `_search?q=user:kimchy`，你可以使用： 
+* 如要访问 Elasticsearch 服务末端 `_search?q=user:kimchy`，你可以使用：
 
   ```
   http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
@@ -199,7 +199,7 @@ URL 的 `<service_name>` 段支持的格式为：
 * 如要访问 Elasticsearch 集群健康信息`_cluster/health?pretty=true`，你会使用：
 
   ```
-  https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true` 
+  https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true`
   ```
 
   <!--
@@ -246,8 +246,7 @@ You may be able to put an apiserver proxy URL into the address bar of a browser.
 - Some web apps may not work, particularly those with client side javascript that construct URLs in a
     way that is unaware of the proxy path prefix.
 -->
-- Web 服务器通常不能传递令牌，所以你可能需要使用基本（密码）认证。 
+- Web 服务器通常不能传递令牌，所以你可能需要使用基本（密码）认证。
   API 服务器可以配置为接受基本认证，但你的集群可能并没有这样配置。
 - 某些 Web 应用可能无法工作，特别是那些使用客户端 Javascript 构造 URL 的
   应用，所构造的 URL 可能并不支持代理路径前缀。
-

@@ -168,6 +168,44 @@ Used on: Pod
 This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
 
+### kubernetes.io/ingress-bandwidth
+
+{{< note >}}
+Ingress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+{{< /note >}}
+
+Example: `kubernetes.io/ingress-bandwidth: 10M`
+
+Used on: Pod
+
+You can apply quality-of-service traffic shaping to a pod and effectively limit its available bandwidth.
+Ingress traffic (to the pod) is handled by shaping queued packets to effectively handle data.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for specifying ingress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second.
+
+### kubernetes.io/egress-bandwidth
+
+{{< note >}}
+Egress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+{{< /note >}}
+
+Example: `kubernetes.io/egress-bandwidth: 10M`
+
+Used on: Pod
+
+Egress traffic (from the pod) is handled by policing, which simply drops packets in excess of the configured rate.
+The limits you place on a pod do not affect the bandwidth of other pods.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/egress-bandwidth` annotation. The unit used for specifying egress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second.
+
 ### beta.kubernetes.io/instance-type (deprecated)
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [node.kubernetes.io/instance-type](#nodekubernetesioinstance-type). {{< /note >}}

@@ -1,5 +1,5 @@
 ---
-title: Developing and debugging services locally
+title: Developing and debugging services locally using telepresence
 content_type: task
 ---
 

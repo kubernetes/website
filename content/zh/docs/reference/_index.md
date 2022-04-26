@@ -42,8 +42,8 @@ This section of the Kubernetes documentation contains references.
 
 * [术语表](/zh/docs/reference/glossary/) -  一个全面的标准化的 Kubernetes 术语表
 
-* [Kubernetes API 单页参考](/zh/docs/reference/kubernetes-api/)
-* [Kubernetes API 参考 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
+* [Kubernetes API 参考](/zh/docs/reference/kubernetes-api/)
+* [Kubernetes API 单页参考 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
 * [使用 Kubernetes API ](/zh/docs/reference/using-api/) - Kubernetes 的 API 概述
 * [API 的访问控制](/zh/docs/reference/access-authn-authz/) - 关于 Kubernetes 如何控制 API 访问的详细信息
 * [常见的标签、注解和污点](/zh/docs/reference/labels-annotations-taints/)
