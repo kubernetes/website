@@ -36,7 +36,7 @@ announcements:
   style: "background: #326ce5"
   title: "Dockershim removed from Kubernetes"
   message: |
-    As of Kubernetes 1.24, Dockershim is longer included in Kubernetes.
+    As of Kubernetes 1.24, Dockershim is no longer included in Kubernetes.
     Read the [Dockershim Removal FAQ](/dockershim) to see what this means to you.
 
 - name: Kubecon 2020 NA
