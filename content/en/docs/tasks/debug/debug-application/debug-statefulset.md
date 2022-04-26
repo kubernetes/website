@@ -9,6 +9,7 @@ reviewers:
 - smarterclayton
 title: Debug a StatefulSet
 content_type: task
+weight: 30
 ---
 
 <!-- overview -->
@@ -34,9 +35,9 @@ If you find that any Pods listed are in `Unknown` or `Terminating` state for an 
 refer to the [Deleting StatefulSet Pods](/docs/tasks/run-application/delete-stateful-set/) task for
 instructions on how to deal with them.
 You can debug individual Pods in a StatefulSet using the
-[Debugging Pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/) guide.
+[Debugging Pods](/docs/tasks/debug/debug-application/debug-pods/) guide.
 
 ## {{% heading "whatsnext" %}}
 
-Learn more about [debugging an init-container](/docs/tasks/debug-application-cluster/debug-init-containers/).
+Learn more about [debugging an init-container](/docs/tasks/debug/debug-application/debug-init-containers/).
 

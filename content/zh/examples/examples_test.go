@@ -149,16 +149,15 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	podValidationOptions := validation.PodValidationOptions{
-		AllowMultipleHugePageResources: true,
-		AllowDownwardAPIHugePages:      true,
+		AllowDownwardAPIHugePages:       true,
+		AllowInvalidPodDeletionCost:     false,
+		AllowIndivisibleHugePagesValues: true,
+		AllowWindowsHostProcessField:    true,
+		AllowExpandedDNSConfig:          true,
 	}
 
 	quotaValidationOptions := validation.ResourceQuotaValidationOptions{
 		AllowPodAffinityNamespaceSelector: true,
-	}
-
-	pspValidationOptions := policy_validation.PodSecurityPolicyValidationOptions{
-		AllowEphemeralVolumeType: true,
 	}
 
 	// Enable CustomPodDNS for testing
@@ -182,20 +181,23 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	case *api.Namespace:
 		errors = validation.ValidateNamespace(t)
 	case *api.PersistentVolume:
-		errors = validation.ValidatePersistentVolume(t)
+		opts := validation.PersistentVolumeSpecValidationOptions{
+			AllowReadWriteOncePod: true,
+		}
+		errors = validation.ValidatePersistentVolume(t, opts)
 	case *api.PersistentVolumeClaim:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidatePersistentVolumeClaim(t)
+		opts := validation.PersistentVolumeClaimSpecValidationOptions{
+			AllowReadWriteOncePod: true,
+		}
+		errors = validation.ValidatePersistentVolumeClaim(t, opts)
 	case *api.Pod:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		opts := validation.PodValidationOptions{
-			AllowMultipleHugePageResources: true,
-		}
-		errors = validation.ValidatePodCreate(t, opts)
+		errors = validation.ValidatePodCreate(t, podValidationOptions)
 	case *api.PodList:
 		for i := range t.Items {
 			errors = append(errors, validateObject(&t.Items[i])...)
@@ -277,11 +279,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		gv := schema.GroupVersion{
-			Group:   networking.GroupName,
-			Version: legacyscheme.Scheme.PrioritizedVersionsForGroup(networking.GroupName)[0].Version,
-		}
-		errors = networking_validation.ValidateIngressCreate(t, gv)
+		errors = networking_validation.ValidateIngressCreate(t)
 	case *networking.IngressClass:
 		/*
 			if t.Namespace == "" {
@@ -295,7 +293,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		errors = networking_validation.ValidateIngressClass(t)
 
 	case *policy.PodSecurityPolicy:
-		errors = policy_validation.ValidatePodSecurityPolicy(t, pspValidationOptions)
+		errors = policy_validation.ValidatePodSecurityPolicy(t)
 	case *apps.ReplicaSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -399,7 +397,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"admin/dns": {
 			"busybox":                   {&api.Pod{}},
-			"dns-horizontal-autoscaler": {&apps.Deployment{}},
+			"dns-horizontal-autoscaler": {&api.ServiceAccount{}, &rbac.ClusterRole{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
 			"dnsutils":                  {&api.Pod{}},
 		},
 		"admin/logging": {
@@ -447,7 +445,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"admin/sched": {
 			"clusterrole":  {&rbac.ClusterRole{}},
-			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
+			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &api.ConfigMap{}, &apps.Deployment{}},
 			"pod1":         {&api.Pod{}},
 			"pod2":         {&api.Pod{}},
 			"pod3":         {&api.Pod{}},
@@ -558,6 +556,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-projected-svc-token":             {&api.Pod{}},
 			"pod-rs":                              {&api.Pod{}, &api.Pod{}},
 			"pod-single-configmap-env-variable":   {&api.Pod{}},
+			"pod-with-affinity-anti-affinity":     {&api.Pod{}},
 			"pod-with-node-affinity":              {&api.Pod{}},
 			"pod-with-pod-affinity":               {&api.Pod{}},
 			"pod-with-toleration":                 {&api.Pod{}},
@@ -586,6 +585,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"pods/probe": {
 			"exec-liveness":                   {&api.Pod{}},
+			"grpc-liveness":                   {&api.Pod{}},
 			"http-liveness":                   {&api.Pod{}},
 			"pod-with-http-healthcheck":       {&api.Pod{}},
 			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
@@ -614,11 +614,15 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"security-context-4": {&api.Pod{}},
 		},
 		"pods/storage": {
-			"projected": {&api.Pod{}},
-			"pv-claim":  {&api.PersistentVolumeClaim{}},
-			"pv-pod":    {&api.Pod{}},
-			"pv-volume": {&api.PersistentVolume{}},
-			"redis":     {&api.Pod{}},
+			"projected":                                    {&api.Pod{}},
+			"projected-secret-downwardapi-configmap":       {&api.Pod{}},
+			"projected-secrets-nondefault-permission-mode": {&api.Pod{}},
+			"projected-service-account-token":              {&api.Pod{}},
+			"pv-claim":                                     {&api.PersistentVolumeClaim{}},
+			"pv-duplicate":                                 {&api.Pod{}},
+			"pv-pod":                                       {&api.Pod{}},
+			"pv-volume":                                    {&api.PersistentVolume{}},
+			"redis":                                        {&api.Pod{}},
 		},
 		"policy": {
 			"baseline-psp":                 {&policy.PodSecurityPolicy{}},
@@ -643,6 +647,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"service/networking": {
 			"curlpod":                                 {&apps.Deployment{}},
 			"custom-dns":                              {&api.Pod{}},
+			"default-ingressclass":                    {&networking.IngressClass{}},
 			"dual-stack-default-svc":                  {&api.Service{}},
 			"dual-stack-ipfamilies-ipv6":              {&api.Service{}},
 			"dual-stack-ipv6-svc":                     {&api.Service{}},
@@ -658,6 +663,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"name-virtual-host-ingress":               {&networking.Ingress{}},
 			"name-virtual-host-ingress-no-third-host": {&networking.Ingress{}},
 			"namespaced-params":                       {&networking.IngressClass{}},
+			"networkpolicy":                           {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-egress":         {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-ingress":        {&networking.NetworkPolicy{}},
 			"network-policy-default-deny-egress":      {&networking.NetworkPolicy{}},

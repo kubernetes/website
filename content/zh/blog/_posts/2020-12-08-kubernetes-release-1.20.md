@@ -3,6 +3,7 @@ layout: blog
 title: 'Kubernetes 1.20: 最新版本'
 date: 2020-12-08
 slug: kubernetes-1-20-release-announcement
+evergreen: true
 ---
 
 <!-- ---
@@ -10,6 +11,7 @@ layout: blog
 title: 'Kubernetes 1.20: The Raddest Release'
 date: 2020-12-08
 slug: kubernetes-1-20-release-announcement
+evergreen: true
 --- -->
 
 **作者:** [Kubernetes 1.20 发布团队](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.20/release_team.md)

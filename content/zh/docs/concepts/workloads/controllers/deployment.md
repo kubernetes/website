@@ -340,7 +340,7 @@ Follow the steps given below to update your Deployment:
 1. 先来更新 nginx Pod 以使用 `nginx:1.16.1` 镜像，而不是 `nginx:1.14.2` 镜像。
 
    ```shell
-   kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
+   kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
    ```
    <!--
    or use the following command:

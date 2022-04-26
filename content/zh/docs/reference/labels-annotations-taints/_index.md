@@ -26,15 +26,151 @@ Kubernetes 将所有标签和注解保留在 kubernetes.io Namespace中。
 <!--
 ## Labels, annotations and taints used on API objects
 
+### app.kubernetes.io/component
+
+Example: `app.kubernetes.io/component=database`
+
+Used on: All Objects
+
+The component within the architecture.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+-->
+## API 对象上使用的标签、注解和污点
+
+### app.kubernetes.io/component
+
+例子: `app.kubernetes.io/component=database`
+
+用于: 所有对象
+
+架构中的组件。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/created-by
+
+Example: `app.kubernetes.io/created-by=controller-manager`
+
+Used on: All Objects
+
+The controller/user who created this resource.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/created-by
+
+示例：`app.kubernetes.io/created-by=controller-manager`
+
+用于：所有对象
+
+创建此资源的控制器/用户。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/instance
+
+Example: `app.kubernetes.io/instance=mysql-abcxzy`
+
+Used on: All Objects
+
+A unique name identifying the instance of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/instance
+
+示例：`app.kubernetes.io/instance=mysql-abcxzy`
+
+用于：所有对象
+
+标识应用实例的唯一名称。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/managed-by
+
+Example: `app.kubernetes.io/managed-by=helm`
+
+Used on: All Objects
+
+The tool being used to manage the operation of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/managed-by
+
+示例：`app.kubernetes.io/managed-by=helm`
+
+用于：所有对象
+
+用于管理应用操作的工具。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/name
+
+Example: `app.kubernetes.io/name=mysql`
+
+Used on: All Objects
+
+The name of the application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+
+### app.kubernetes.io/name
+
+示例：`app.kubernetes.io/name=mysql`
+
+用于：所有对象
+
+应用的名称。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/part-of
+
+Example: `app.kubernetes.io/part-of=wordpress`
+
+Used on: All Objects
+
+The name of a higher level application this one is part of.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/part-of
+
+示例：`app.kubernetes.io/part-of=wordpress`
+
+用于：所有对象
+
+此应用所属的更高级别应用的名称。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/version
+
+Example: `app.kubernetes.io/version="5.7.21"`
+
+Used on: All Objects
+
+The current version of the application (e.g., a semantic version, revision hash, etc.).
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/version
+
+示例：`app.kubernetes.io/version="5.7.21"`
+
+用于：所有对象
+
+应用的当前版本（例如，语义版本、修订哈希等）。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- 
 ### kubernetes.io/arch
 
 Example: `kubernetes.io/arch=amd64`
 
 Used on: Node
 
-The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be handy if you are mixing arm and x86 nodes.
--->
-## API 对象上使用的标签、注解和污点
+The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be handy if you are mixing arm and x86 nodes. -->
 
 ### kubernetes.io/arch {#kubernetes-io-arch}
 
@@ -185,8 +321,6 @@ Used on: Pod
 
 This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
-
-### beta.kubernetes.io/instance-type (deprecated)
 -->
 ### controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
@@ -194,8 +328,85 @@ which allows users to influence ReplicaSet downscaling order. The annotation par
 
 用于：Pod
 
-该注解用于设置 [Pod 删除成本](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost) 允许用户影响 ReplicaSet 缩减顺序。注解解析为 `int32` 类型。
+该注解用于设置 [Pod 删除成本](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)允许用户影响 ReplicaSet 缩减顺序。注解解析为 `int32` 类型。
 
+<!-- 
+### kubernetes.io/ingress-bandwidth
+
+Ingress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+
+Example: `kubernetes.io/ingress-bandwidth: 10M`
+
+Used on: Pod
+
+You can apply quality-of-service traffic shaping to a pod and effectively limit its available bandwidth.
+Ingress traffic (to the pod) is handled by shaping queued packets to effectively handle data.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for specifying ingress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second. 
+-->
+
+### kubernetes.io/ingress-bandwidth
+
+{{< note >}}
+入站流量控制注解是一项实验性功能。
+如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
+并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
+{{< /note >}}
+
+示例：`kubernetes.io/ingress-bandwidth: 10M`
+
+用于：Pod
+
+你可以对 Pod 应用服务质量流量控制并有效限制其可用带宽。
+入站流量（到 Pod）通过控制排队的数据包来处理，以有效地处理数据。
+要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/ingress-bandwidth`
+注解指定数据流量速度。 用于指定入站的速率单位是每秒，
+作为[量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)。
+例如，`10M`表示每秒 10 兆比特。
+
+<!-- 
+### kubernetes.io/egress-bandwidth
+
+Egress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+
+Example: `kubernetes.io/egress-bandwidth: 10M`
+
+Used on: Pod
+
+Egress traffic (from the pod) is handled by policing, which simply drops packets in excess of the configured rate.
+The limits you place on a pod do not affect the bandwidth of other pods.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/egress-bandwidth` annotation. The unit used for specifying egress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second. 
+-->
+
+### kubernetes.io/egress-bandwidth
+
+{{< note >}}
+出站流量控制注解是一项实验性功能。
+如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
+并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
+{{< /note >}}
+
+示例：`kubernetes.io/egress-bandwidth: 10M`
+
+用于：Pod
+
+出站流量（来自 pod）由策略控制，策略只是丢弃超过配置速率的数据包。
+你为一个 Pod 所设置的限制不会影响其他 Pod 的带宽。
+要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/egress-bandwidth` 注解指定数据流量速度。
+用于指定出站的速率单位是每秒比特数，
+以[量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)的形式给出。
+例如，`10M` 表示每秒 10 兆比特。
+
+<!-- ### beta.kubernetes.io/instance-type (deprecated) -->
 ### beta.kubernetes.io/instance-type (已弃用) {#beta-kubernetes-io-instance-type}
 
 <!--
@@ -1025,16 +1236,20 @@ seccomp 配置文件应用于 Pod 或其容器的步骤。
 <!--
 ## Annotations used for audit
 
-- [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
-- [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
+- [`authorization.k8s.io/reason`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
 - [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
+- [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 See more details on the [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/) page.
 -->
 ## 用于审计的注解    {#annonations-used-for-audit}
 
-- [`pod-security.kubernetes.io/exempt`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
-- [`pod-security.kubernetes.io/enforce-policy`](/zh/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`authorization.k8s.io/decision`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
+- [`authorization.k8s.io/reason`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
 - [`pod-security.kubernetes.io/audit-violations`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
+- [`pod-security.kubernetes.io/enforce-policy`](/zh/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/exempt`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 在[审计注解](/zh/docs/reference/labels-annotations-taints/audit-annotations/)页面上查看更多详细信息。
