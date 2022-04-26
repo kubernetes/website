@@ -364,10 +364,10 @@ Les valeurs de `Type` et leurs comportements sont:
      Le choix de cette valeur rend le service uniquement accessible à partir du cluster.
      Il s'agit du `ServiceType` par défaut.
    * [`NodePort`](#type-nodeport): Expose le service sur l'IP de chaque nœud sur un port statique (le `NodePort`).
-     Un service `ClusterIP`, vers lequel le service `NodePort` est automatiquement créé.
+     Un service `ClusterIP`, vers lequel le service `NodePort` renvoi est automatiquement créé.
      Vous pourrez contacter le service `NodePort`, depuis l'extérieur du cluster, en demandant `<NodeIP>: <NodePort>`.
    * [`LoadBalancer`](#loadbalancer): Expose le service en externe à l'aide de l'équilibreur de charge d'un fournisseur de cloud.
-     Les services `NodePort` et `ClusterIP`, vers lesquels les itinéraires de l'équilibreur de charge externe, sont automatiquement créés.
+     Les services `NodePort` et `ClusterIP`, vers lesquels les itinéraires de l'équilibreur de charge externe renvoient, sont automatiquement créés.
    * [`ExternalName`](#externalname): Mappe le service au contenu du champ `externalName` (par exemple `foo.bar.example.com`), en renvoyant un enregistrement `CNAME` avec sa valeur.
      Aucun proxy d'aucune sorte n'est mis en place.
      {{< note >}}
