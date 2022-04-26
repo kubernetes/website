@@ -273,6 +273,21 @@ features must be enabled.
 [Azure 磁盘 CSI 驱动程序](https://github.com/kubernetes-sigs/azuredisk-csi-driver)，
 并且 `CSIMigration` 和 `CSIMigrationAzureDisk` 功能必须被启用。
 
+<!--
+#### azureDisk CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `azureDisk` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
+-->
+#### azureDisk CSI 迁移完成
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+要禁止控制器管理器和 kubelet 加载 `azureDisk` 存储插件，
+请将 `InTreePluginAzureDiskUnregister` 标志设置为 `true`。
+
 ### azureFile {#azurefile}
 
 <!--
@@ -311,6 +326,21 @@ Azure File CSI driver does not support using same volume with different fsgroups
 -->
 Azure 文件 CSI 驱动尚不支持为同一卷设置不同的 fsgroup。
 如果 AzureFile CSI 迁移被启用，用不同的 fsgroup 来使用同一卷也是不被支持的。
+
+<!--
+#### azureDisk CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `azureDisk` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
+-->
+#### azureDisk CSI 迁移完成
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+要禁止控制器管理器和 kubelet 加载 `azureDisk` 存储插件，
+请将 `InTreePluginAzureDiskUnregister` 标志设置为 `true`。
 
 ### cephfs {#cephfs}
 
