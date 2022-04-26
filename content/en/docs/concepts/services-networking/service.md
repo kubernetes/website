@@ -192,6 +192,7 @@ where it's running, by adding an Endpoints object manually:
 apiVersion: v1
 kind: Endpoints
 metadata:
+  # the name here should match the name of the Service
   name: my-service
 subsets:
   - addresses:
