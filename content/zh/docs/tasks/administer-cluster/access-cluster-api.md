@@ -228,12 +228,12 @@ describes how you can configure this as a cluster administrator.
 <!--
 ### Programmatic access to the API
 
-Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [Javascript](#javascript-client), and [Haskell](#haskell-client). There are other client libraries that are provided and maintained by their authors, not the Kubernetes team. See [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages and how they authenticate.
+Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [JavaScript](#javascript-client), and [Haskell](#haskell-client). There are other client libraries that are provided and maintained by their authors, not the Kubernetes team. See [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages and how they authenticate.
 -->
 ### 编程方式访问 API
 
 Kubernetes 官方支持 [Go](#go-client)、[Python](#python-client)、[Java](#java-client)、
-[dotnet](#dotnet-client)、[Javascript](#javascript-client) 和 [Haskell](#haskell-client)
+[dotnet](#dotnet-client)、[JavaScript](#javascript-client) 和 [Haskell](#haskell-client)
 语言的客户端库。还有一些其他客户端库由对应作者而非 Kubernetes 团队提供并维护。
 参考[客户端库](/zh/docs/reference/using-api/client-libraries/)了解如何使用其他语言
 来访问 API 以及如何执行身份认证。
