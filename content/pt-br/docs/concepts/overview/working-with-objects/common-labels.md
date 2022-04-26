@@ -4,9 +4,9 @@ content_type: concept
 ---
 
 <!-- overview -->
-Você pode visualizar e gerenciar objetos Kubernetes com mais ferramentas do que kubectl e um *dashboard*. Um conjunto comum de *labels* permite que as ferramentas funcionem de forma interoperável, descrevendo os objetos de uma maneira em comum, permitindo que todas ferramentas entendam.
+Você pode visualizar e gerenciar objetos Kubernetes com mais ferramentas do que kubectl e um *dashboard*. Um conjunto comum de *labels* permite que as ferramentas funcionem de forma interoperável, descrevendo os objetos de uma maneira em padronizada, permitindo que todas ferramentas entendam.
 
-Além de ferramentas de suporte, as *labels* recomendadas descrevem aplicativos de uma forma que permitem a consulta.
+Além de ferramentas de suporte, as *labels* recomendadas descrevem aplicativos de uma forma que permite a consulta.
 
 
 <!-- body -->
@@ -23,19 +23,19 @@ As anotações e as *labels* compartilhadas possuem um prefixo em comum:`app.kub
 
 ## Labels
 
-Para tirar o máximo proveito do uso das *labels*, elas devem ser aplicadas em todos *resource object*.
+Para tirar o máximo proveito do uso das *labels*, elas devem ser aplicadas em todos objetos gerados por recursos do Kubernetes.
 
 | Key                                 | Descrição           | Exemplo  | Tipo |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | Nome da aplicação | `mysql` | string |
-| `app.kubernetes.io/instance`        | Atributo único indicando a instância da aplicação | `mysql-abcxzy` | string |
-| `app.kubernetes.io/version`         | A versão atual da aplicação (e.g., um versionamento semântico, um *hash* de revisão, etc.) | `5.7.21` | string |
-| `app.kubernetes.io/component`       | O componente com a arquitetura | `database` | string |
+| `app.kubernetes.io/instance`        | Nome único indicando a instância da aplicação | `mysql-abcxzy` | string |
+| `app.kubernetes.io/version`         | A versão atual da aplicação (e.g., uma versão semântica, um *hash* de revisão, etc.) | `5.7.21` | string |
+| `app.kubernetes.io/component`       | O componente da arquitetura | `database` | string |
 | `app.kubernetes.io/part-of`         | O nome da aplicação de alto nível que esta faz parte | `wordpress` | string |
 | `app.kubernetes.io/managed-by`      | A ferramenta usada para gerenciar a operação de uma aplicação | `helm` | string |
-| `app.kubernetes.io/created-by`      | A controller/user criadora desse recurso | `controller-manager` | string |
+| `app.kubernetes.io/created-by`      | O controlador ou usuário que criou esse recurso | `controller-manager` | string |
 
-Para demonstrar essas *labels* na prática, considerando o seguinte {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} objeto:
+Para demonstrar essas *labels* na prática, considerando o seguinte objeto {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}:
 
 ```yaml
 # This is an excerpt
@@ -54,17 +54,17 @@ metadata:
 
 ## Aplicações e Instâncias de Aplicações
 
-Um aplicativo pode ser instalado uma ou mais vezes em um cluster Kubernetes e,em alguns casos, com o mesmo *namespace*. Por exemplo, o WordPress pode ser instalado mais de uma vez, sendo que diferentes sites são diferentes instalaçãoes do Wordpress.
+Um aplicativo pode ser instalado uma ou mais vezes em um cluster Kubernetes e, em alguns casos, com o mesmo *namespace*. Por exemplo, o WordPress pode ser instalado mais de uma vez, sendo que diferentes sites são diferentes instalações do Wordpress.
 
-O nome da aplicação e o nome da instância são gravadas separadamente, Por exemplo, o Wordpress tem a `app.kubernetes.io/name` do `wordpress` enquanto tem o nome da instância representada por `app.kubernetes.io/instance` com o valor de `wordpress-abcxzy`. Isso permite que a aplicação e a instância da aplicação possa ser identificada. Toda instância de aplicação deve ter um nome único.
+O nome da aplicação e o nome da instância são gravados separadamente. Por exemplo, o Wordpress tem a `app.kubernetes.io/name` do `Wordpress` enquanto tem o nome da instância representada por `app.kubernetes.io/instance` com o valor de `wordpress-abcxzy`. Isso permite que a aplicação e a instância da aplicação possa ser identificada. Toda instância de aplicação deve ter um nome único.
 
 ## Exemplos
 
-Para ilustrar as diferentes maneiras de utilizar as *labels*, os exemplos abaixo apresentção uma complexidade variada. 
+Para ilustrar as diferentes maneiras de utilizar as *labels*, os exemplos abaixo apresentação uma complexidade variada. 
 
 ### Um simples *Stateless Service*
 
-Considerando o case de um simples *stateless service* implantado utilizando os objetos `Deployment` e `Service`, os 2 trechos abaixo representam como as *labels* podem ser utilizadas da maneira mais simples possível.
+Considerando o caso de um simples *stateless service* implantado utilizando os objetos `Deployment` e `Service`, os 2 trechos abaixo representam como as *labels* podem ser utilizadas da maneira mais simples possível.
 
 O `Deployment` é usado para supervisionar os *pods* que autoexecutam a aplicação.
 ```yaml
@@ -90,9 +90,9 @@ metadata:
 
 ### Aplicação Web com Banco de Dados
 
-Considerando uma aplicação razoavelmente complicada: uma aplicação web (WordPress) utilizando um banco de dados (MySQL), instalada com Helm. Os trechos a seguir mostra como iniciar os objetos usados para implantar a aplicação.
+Considerando uma aplicação uma aplicação um pouco mais complicada: uma aplicação web (WordPress) utilizando um banco de dados (MySQL), instalada com Helm. Os trechos a seguir mostram a parte inicial dos objetos usados para implantar a aplicação.
 
-Para iniciar exibindo como o `Deployment` é usado para o WordPress:
+Esta é a parte inicial do `Deployment` usado para o WordPress:
 
 ```yaml
 apiVersion: apps/v1
@@ -156,5 +156,5 @@ metadata:
 ...
 ```
 
-Utilizando os comandos MySQL, `StatefulSet` e `Service`, você receberá notificação sobre ambos, MySQL e WordPress, o aplicativo maior está incluso.
+No `StatefulSet` e no `Service` do MySQL, você observará que informações sobre ambos, MySQL e WordPress, o aplicativo maior está incluso.
 
