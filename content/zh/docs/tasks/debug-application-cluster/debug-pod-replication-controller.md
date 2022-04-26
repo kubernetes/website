@@ -143,8 +143,8 @@ worker node, but it can't run on that machine. Again, the information from
 
 * Make sure that you have the name of the image correct.
 * Have you pushed the image to the repository?
-* Run a manual `docker pull <image>` on your machine to see if the image can be
-  pulled.
+* Try to manually pull the image to see if it can be pulled. For example, if you
+  use Docker on your PC, run `docker pull <image>`.
 -->
 ### 我的 Pod 一直在 Waiting
 
@@ -154,7 +154,7 @@ worker node, but it can't run on that machine. Again, the information from
 
 * 确保你的镜像的名称正确。
 * 你是否将镜像推送到存储库？
-* 在你的机器上手动运行 `docker pull <image>`，看看是否可以拉取镜像。
+* 尝试手动拉取镜像，看能否拉取。例如，如果你在 PC 上使用 Docker，运行 `docker pull <image>`。
 
 <!-- 
 ### My pod is crashing or otherwise unhealthy 

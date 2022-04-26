@@ -2,15 +2,16 @@
 reviewers:
 - mikedanese
 - thockin
-title: Troubleshoot Applications
+title: Debug Pods
 content_type: concept
+weight: 10
 ---
 
 <!-- overview -->
 
 This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.
 This is *not* a guide for people who want to debug their cluster.  For that you should check out
-[this guide](/docs/tasks/debug-application-cluster/debug-cluster).
+[this guide](/docs/tasks/debug/debug-cluster).
 
 <!-- body -->
 
@@ -64,7 +65,7 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 #### My pod is crashing or otherwise unhealthy
 
 Once your pod has been scheduled, the methods described in [Debug Running Pods](
-/docs/tasks/debug-application-cluster/debug-running-pod/) are available for debugging.
+/docs/tasks/debug/debug-applications/debug-running-pod/) are available for debugging.
 
 #### My pod is running but not doing what I told it to do
 
@@ -145,15 +146,15 @@ Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 
 #### Network traffic is not forwarded
 
-Please see [debugging service](/docs/tasks/debug-application-cluster/debug-service/) for more information.
+Please see [debugging service](/docs/tasks/debug/debug-applications/debug-service/) for more information.
 
 ## {{% heading "whatsnext" %}}
 
 If none of the above solves your problem, follow the instructions in
-[Debugging Service document](/docs/tasks/debug-application-cluster/debug-service/)
+[Debugging Service document](/docs/tasks/debug/debug-applications/debug-service/)
 to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are
 actually serving; you have DNS working, iptables rules installed, and kube-proxy
 does not seem to be misbehaving.
 
-You may also visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/) for more information.
+You may also visit [troubleshooting document](/docs/tasks/debug/overview/) for more information.
 

@@ -357,13 +357,13 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
 
    ```yaml
-   - path: /v2
-     pathType: Prefix
-     backend:
-       service:
-         name: web2
-         port:
-           number: 8080
+              - path: /v2
+                pathType: Prefix
+                backend:
+                  service:
+                    name: web2
+                    port:
+                      number: 8080
    ```
 
 <!--

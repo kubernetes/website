@@ -27,7 +27,6 @@ For information on how to create a cluster with kubeadm once you have performed 
 有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，请参见
 [使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 页面。
 
-{{% dockershim-removal %}}
 
 ## {{% heading "prerequisites" %}}
 

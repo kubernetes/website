@@ -1,5 +1,5 @@
 ---
-title: 高级贡献
+title: 进阶贡献
 slug: advanced
 content_type: concept
 weight: 98

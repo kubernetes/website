@@ -142,37 +142,41 @@ might have to add an equivalent field or represent it as an annotation.
 添加一个新的等效字段或者将其表现为一个注解。
 
 <!--
-**Rule #3: An API version in a given track may not be deprecated until a new
-API version at least as stable is released.**
+**Rule #3: An API version in a given track may not be deprecated in favor of a less stable API version.**
 
-GA API versions can replace GA API versions as well as beta and alpha API
-versions.  Beta API versions *may not* replace GA API versions.
+  * GA API versions can replace beta and alpha API versions.
+  * Beta API versions can replace earlier beta and alpha API versions, but *may not* replace GA API versions.
+  * Alpha API versions can replace earlier alpha API versions, but *may not* replace GA or beta API versions.
 -->
-**规则 #3：给定类别的 API 版本在新的、稳定性未降低的 API 版本发布之前不可被废弃。**
+**规则 #3：给定类别的 API 版本不可被弃用以支持稳定性更差的 API 版本。**
 
-一个正式发布的（GA）API 版本可替换现有的正式 API 版本或 alpha、beta API 版本。
-Beta API 版本 *不可以* 替代正式的 API 版本。
+  * 一个正式发布的（GA）API 版本可替换 beta 或 alpha API 版本。
+  * Beta API 版本可以替换早期的 beta 和 alpha API 版本，但 **不可以** 替换正式的 API 版本。
+  * Alpha API 版本可以替换早期的 alpha API 版本，但 **不可以** 替换正式的或 beta API 版本。
 
 <!--
-**Rule #4a: Other than the most recent API versions in each track, older API
-versions must be supported after their announced deprecation for a duration of
-no less than:**
+**Rule #4a: minimum API lifetime is determined by the API stability level**
 
-   * **GA: 12 months or 3 releases (whichever is longer)**
-   * **Beta: 9 months or 3 releases (whichever is longer)**
-   * **Alpha: 0 releases**
+   * **GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes**
+   * **Beta API versions must be supported for 9 months or 3 releases (whichever is longer) after deprecation**
+   * **Alpha API versions may be removed in any release without prior deprecation notice**
 
-This covers the [maximum supported version skew of 2 releases](/docs/setup/release/version-skew-policy/).
+This ensures beta API support covers the [maximum supported version skew of 2 releases](/releases/version-skew-policy/).
 -->
-**规则 #4a：除了每类 API 版本中的最新版本，旧的 API 版本在其被宣布被废弃之后
-至少以下时长内仍需被支持：**
+**规则 #4a：最短 API 生命周期由 API 稳定性级别决定**
 
-   * **GA：12 个月或者 3 个发布版本（取其较长者）**
-   * **Beta: 9 个月或者 3 个发布版本（取其较长者）**
-   * **Alpha: 0 个发布版本**
+   * **GA API 版本可以被标记为已弃用，但不得在 Kubernetes 的主要版本中删除**
+   * **Beta API 版本必须支持 9 个月或弃用后的 3 个版本（以较长者为准）**
+   * **Alpha API 版本可能会在任何版本中被删除，不另行通知**
 
-这里也包含了关于[最大支持 2 个发布版本的版本偏差](/zh/docs/setup/release/version-skew-policy/)
-的约定。
+这确保了 beta API 支持涵盖了[最多 2 个版本的支持版本偏差](/zh/releases/version-skew-policy/)。
+
+{{< note >}}
+<!--
+There are no current plans for a major version revision of Kubernetes that removes GA APIs.
+-->
+目前没有删除正式版本 API 的 Kubernetes 主要版本修订计划。
+{{< /note >}}
 
 <!--
 Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
@@ -363,9 +367,9 @@ API versions are supported in a series of subsequent releases.
       <td>
         <ul>
           <!-- li>v2beta2 is deprecated, "action required" relnote</li>
-          <li>v1 is deprecated, "action required" relnote</li -->
+          <li>v1 is deprecated in favor of v2, but will not be removed</li -->
           <li>v2beta2 已被弃用，发布说明中包含对应的 "action required（采取行动）" 说明</li>
-          <li>v1 已被弃用，发布说明中包含对应的 "action required（采取行动）" 说明</li>
+          <li>v1 已被弃用，取而代之的是 v2，但不会被删除</li>
         </ul>
       </td>
     </tr>
@@ -397,23 +401,6 @@ API versions are supported in a series of subsequent releases.
         <ul>
           <!-- li>v2beta2 is removed, "action required" relnote</li -->
           <li>v2beta2 被删除，发布说明中包含对应的 "action required（采取行动）" 说明</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>X+16</td>
-      <!-- td>v2, v1 (deprecated)</td -->
-      <td>v2、v1（已弃用）</td>
-      <td>v2</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>X+17</td>
-      <td>v2</td>
-      <td>v2</td>
-      <td>
-        <ul>
-          <li>v1 被删除，发布说明中包含对应的 "action required（采取行动）" 说明</li>
         </ul>
       </td>
     </tr>
