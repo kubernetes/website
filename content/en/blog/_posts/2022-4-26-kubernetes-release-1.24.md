@@ -59,7 +59,10 @@ A Service `ClusterIP` can be assigned:
 
 Service `ClusterIP` are unique, hence, trying to create a Service with a `ClusterIP` that has already been allocated will return an error.
 
-Kubernetes 1.24 introduces a new Feature Gate `ServiceIPStaticSubrange` that allows to use a different IP allocation strategy for Services, reducing the risk of collision.
+Kubernetes 1.24 introduces a new way to soft-reserve a range for static IP address assignments
+to Services. If you use the new feature (which you must manually enable), your cluster prefers
+automatic assignment from the remaining pool of Service IP addresses, reducing the risk of a
+collision.
 
 
 ## Other Updates
