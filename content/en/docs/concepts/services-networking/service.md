@@ -205,7 +205,7 @@ The name of the Endpoints object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 When you create an [Endpoints](docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-object for a Service, you set the name of the new Endpoints to be the same as the
+object for a Service, you set the name of the new Endpoints object to be the same as the
 name of the Service.
 
 {{< note >}}
