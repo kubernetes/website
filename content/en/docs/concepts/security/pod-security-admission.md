@@ -19,7 +19,7 @@ The Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-sta
 different isolation levels for Pods. These standards let you define how you want to restrict the
 behavior of pods in a clear, consistent fashion.
 
-As a Beta feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
+As a beta feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
 text="admission controller" term_id="admission-controller" >}}, the successor
 to [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/). Pod security restrictions
 are applied at the {{< glossary_tooltip text="namespace" term_id="namespace" >}} level when pods
@@ -30,25 +30,21 @@ The PodSecurityPolicy API is deprecated and will be
 [removed](/docs/reference/using-api/deprecation-guide/#v1-25) from Kubernetes in v1.25.
 {{< /note >}}
 
-<!-- body -->
 
-## Enabling the `PodSecurity` admission plugin
+## {{% heading "prerequisites" %}}
 
-In v1.23, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is a Beta feature and is enabled by default.
+To use this mechanism, your cluster must enforce Pod Security admission.
 
-In v1.22, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is an Alpha feature and must be enabled in `kube-apiserver` in order to use the built-in admission plugin.
+### Built-in Pod Security admission enforcement
 
-```shell
---feature-gates="...,PodSecurity=true"
-```
+In Kubernetes v{{< skew currentVersion >}}, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is a beta feature and is enabled by default. You must have this feature gate enabled.
+If you are running a different version of Kubernetes, consult the documentation for that release.
 
-## Alternative: installing the `PodSecurity` admission webhook {#webhook}
+### Alternative: installing the `PodSecurity` admission webhook {#webhook}
 
-For environments where the built-in `PodSecurity` admission plugin cannot be used,
-either because the cluster is older than v1.22, or the `PodSecurity` feature cannot be enabled,
-the `PodSecurity` admission logic is also available as a Beta [validating admission webhook](https://git.k8s.io/pod-security-admission/webhook).
+The `PodSecurity` admission logic is also available as a [validating admission webhook](https://git.k8s.io/pod-security-admission/webhook). This implementation is also beta.
+For environments where the built-in `PodSecurity` admission plugin cannot be enabled, you can instead enable that logic via a validating admission webhook.
 
 A pre-built container image, certificate generation scripts, and example manifests
 are available at [https://git.k8s.io/pod-security-admission/webhook](https://git.k8s.io/pod-security-admission/webhook).
@@ -65,6 +61,8 @@ kubectl apply -k .
 The generated certificate is valid for 2 years. Before it expires,
 regenerate the certificate or remove the webhook in favor of the built-in admission plugin.
 {{< /note >}}
+
+<!-- body -->
 
 ## Pod Security levels
 
