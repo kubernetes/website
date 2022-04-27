@@ -24,7 +24,6 @@ Before you upgrade to Kubernetes 1.24, if you use a [Container Network Interface
 This issue applies to the following container runtimes:
 * containerd v1.6.0 and later
 * CRI-O 1.24 and later
-* cri-dockerd [vTBD] and later
 
 ### Beta APIs Off by Default 
 [New beta APIs will not be enabled in clusters by default](https://github.com/kubernetes/enhancements/issues/3136). Existing beta APIs and new versions of existing beta APIs, will continue to be enabled by default.
