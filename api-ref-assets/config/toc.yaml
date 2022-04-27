@@ -124,7 +124,7 @@ parts:
     version: v1
   - name: CSIStorageCapacity
     group: storage.k8s.io
-    version: v1beta1
+    version: v1
 - name: Authentication Resources
   chapters:
   - name: ServiceAccount

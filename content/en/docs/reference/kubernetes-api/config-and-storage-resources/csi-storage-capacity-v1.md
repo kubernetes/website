@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "storage.k8s.io/v1beta1"
-  import: "k8s.io/api/storage/v1beta1"
+  apiVersion: "storage.k8s.io/v1"
+  import: "k8s.io/api/storage/v1"
   kind: "CSIStorageCapacity"
 content_type: "api_reference"
 description: "CSIStorageCapacity stores the result of one CSI GetCapacity call."
-title: "CSIStorageCapacity v1beta1"
+title: "CSIStorageCapacity"
 weight: 10
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: storage.k8s.io/v1beta1`
+`apiVersion: storage.k8s.io/v1`
 
-`import "k8s.io/api/storage/v1beta1"`
+`import "k8s.io/api/storage/v1"`
 
 
 ## CSIStorageCapacity {#CSIStorageCapacity}
@@ -36,11 +36,11 @@ The following three cases all imply that no capacity is available for a certain 
 
 The producer of these objects can decide which approach is more suitable.
 
-They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
+They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1beta1
+- **apiVersion**: storage.k8s.io/v1
 
 
 - **kind**: CSIStorageCapacity
@@ -62,7 +62,7 @@ They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature g
 
   Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
   
-  The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable and treated like zero capacity.
+  The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
 
 - **maximumVolumeSize** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -84,7 +84,7 @@ CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1beta1
+- **apiVersion**: storage.k8s.io/v1
 
 
 - **kind**: CSIStorageCapacityList
@@ -94,7 +94,7 @@ CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
 
   Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>), required
+- **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>), required
 
   *Map: unique values on key name will be kept during a merge*
   
@@ -119,7 +119,7 @@ CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{name}
+GET /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 #### Parameters
 
@@ -143,7 +143,7 @@ GET /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{na
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
 
 401: Unauthorized
 
@@ -152,7 +152,7 @@ GET /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{na
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
+GET /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 
 #### Parameters
 
@@ -216,7 +216,7 @@ GET /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacityList" >}}">CSIStorageCapacityList</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacityList" >}}">CSIStorageCapacityList</a>): OK
 
 401: Unauthorized
 
@@ -225,7 +225,7 @@ GET /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1beta1/csistoragecapacities
+GET /apis/storage.k8s.io/v1/csistoragecapacities
 
 #### Parameters
 
@@ -284,7 +284,7 @@ GET /apis/storage.k8s.io/v1beta1/csistoragecapacities
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacityList" >}}">CSIStorageCapacityList</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacityList" >}}">CSIStorageCapacityList</a>): OK
 
 401: Unauthorized
 
@@ -293,7 +293,7 @@ GET /apis/storage.k8s.io/v1beta1/csistoragecapacities
 
 #### HTTP Request
 
-POST /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
+POST /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 
 #### Parameters
 
@@ -303,7 +303,7 @@ POST /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>, required
+- **body**: <a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>, required
 
   
 
@@ -332,11 +332,11 @@ POST /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Accepted
+202 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Accepted
 
 401: Unauthorized
 
@@ -345,7 +345,7 @@ POST /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
 
 #### HTTP Request
 
-PUT /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{name}
+PUT /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 #### Parameters
 
@@ -360,7 +360,7 @@ PUT /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{na
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>, required
+- **body**: <a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>, required
 
   
 
@@ -389,9 +389,9 @@ PUT /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{na
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Created
 
 401: Unauthorized
 
@@ -400,7 +400,7 @@ PUT /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{na
 
 #### HTTP Request
 
-PATCH /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{name}
+PATCH /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 #### Parameters
 
@@ -449,9 +449,9 @@ PATCH /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Created
 
 401: Unauthorized
 
@@ -460,7 +460,7 @@ PATCH /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{name}
+DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 #### Parameters
 
@@ -515,7 +515,7 @@ DELETE /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
+DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 
 #### Parameters
 

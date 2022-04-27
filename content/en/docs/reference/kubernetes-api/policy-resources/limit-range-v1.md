@@ -66,11 +66,6 @@ LimitRangeSpec defines a min/max usage limit for resources that match on kind.
   - **limits.type** (string), required
 
     Type of resource that this limit applies to.
-    
-    Possible enum values:
-     - `"Container"` Limit that applies to all containers in a namespace
-     - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
-     - `"Pod"` Limit that applies to all pods in a namespace
 
   - **limits.default** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
