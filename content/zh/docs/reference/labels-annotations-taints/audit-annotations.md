@@ -100,3 +100,37 @@ PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
 PodSecurity 执行中违反的特定策略及对应字段。
 
 有关详细信息，请参阅 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
+
+<!--
+## authorization.k8s.io/decision
+
+Example: `authorization.k8s.io/decision: "forbid"`
+
+This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
+
+See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
+-->
+## authorization.k8s.io/decision {# authorization-k8s-io-decision}
+
+例子：`authorization.k8s.io/decision: "forbid"`
+
+此注解表示 Kubernetes 审计日志中的请求是否被授权。
+
+有关详细信息，请参阅[审计](/zh/docs/tasks/debug-application-cluster/audit/)。
+
+<!--
+## authorization.k8s.io/reason
+
+Example: `authorization.k8s.io/decision: "Human-readable reason for the decision"`
+
+This annotation gives reason for the [decision](#authorization-k8s-io-decision) in Kubernetes audit logs.
+
+See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
+-->
+## authorization.k8s.io/reason {# authorization-k8s-io-reason}
+
+例子：`authorization.k8s.io/decision: "Human-readable reason for the decision"`
+
+这个注解给出了 Kubernetes 审计日志中的 [decision](#authorization-k8s-io-decision) 的原因。
+
+有关详细信息，请参阅[审计](/zh/docs/tasks/debug-application-cluster/audit/)。
