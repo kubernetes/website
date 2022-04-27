@@ -705,7 +705,7 @@ Privileged containers are [not supported](#compatibility-v1-pod-spec-containers-
 ## Getting help and troubleshooting {#troubleshooting}
 
 Your main source of help for troubleshooting your Kubernetes cluster should start
-with the [Troubleshooting](/docs/tasks/debug/debug-cluster/)
+with the [Troubleshooting](/docs/tasks/debug/)
 page.
 
 Some additional, Windows-specific troubleshooting help is included
