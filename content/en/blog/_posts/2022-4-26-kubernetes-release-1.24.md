@@ -43,7 +43,9 @@ This release saw fifteen enhancements promoted to stable.
 ### gRPC Probes Graduate to Beta
 With Kubernetes 1.24, the gRPC probes functionality has entered beta and is available by default.
 
-You can now configure startup, liveness, and readiness probes for your gRPC app without exposing an HTTP endpoint or using an extra executable, natively within Kubernetes.
+You can now [configure startup, liveness, and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)
+for your gRPC app natively within Kubernetes, without exposing an HTTP endpoint or
+using an extra executable.
 
 ### Kubelet Credential Provider graduates to Beta
 Released as Alpha in Kubernetes v1.20, the Kubelet Credential Provider has now graduated to Beta. This allows the kubelet to dynamically retrieve credentials for a container image registry using exec plugins, communicating through stdio using Kubernetes versioned APIs, rather than storing them statically on disk.
