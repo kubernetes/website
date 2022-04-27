@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.24: <release name>"
+title: "Kubernetes 1.24: Stargazer"
 date: 2022-05-03
 slug: kubernetes-1-24-release-announcement
 ---
