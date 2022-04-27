@@ -329,7 +329,7 @@ identifying containers using `pod`, `namespace`, and `container` prometheus labe
 The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata
 for these devices:
 -->
-kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且还未这些设备提供了元数据：
+kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且还为这些设备提供了元数据：
 
 ```gRPC
 // PodResourcesLister 是一个由 kubelet 提供的服务，用来提供供节点上 
