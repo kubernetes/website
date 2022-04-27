@@ -49,7 +49,7 @@ metadata:
   name: standard
 provisioner: kubernetes.io/aws-ebs
 parameters:
-  type: gp3
+  type: gp2
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 mountOptions:
@@ -271,9 +271,9 @@ parameters:
   fsType: ext4
 ```
 
-* `type`: `io1`, `gp2`, `gp3`, `sc1`, `st1`. See
+* `type`: `io1`, `gp2`, `sc1`, `st1`. See
   [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
-  for details. Default: `gp3`.
+  for details. Default: `gp2`.
 * `zone` (Deprecated): AWS zone. If neither `zone` nor `zones` is specified, volumes are
   generally round-robin-ed across all active zones where Kubernetes cluster
   has a node. `zone` and `zones` parameters must not be used at the same time.
