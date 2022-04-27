@@ -628,7 +628,7 @@ in sync.
  -->
 另请注意更改后的 `conmon_cgroup`，将 CRI-O 与 `cgroupfs` 一起使用时，
 必须将其设置为 `pod`。通常有必要保持 kubelet 的 cgroup 驱动程序配置
-（通常透过 kubeadm 完成）和 CRI-O 一致。
+（通常通过 kubeadm 完成）和 CRI-O 一致。
 
 ### Docker
 
