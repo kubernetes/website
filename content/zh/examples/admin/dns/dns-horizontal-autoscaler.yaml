@@ -18,7 +18,7 @@ rules:
   - apiGroups: ["apps"]
     resources: ["deployments/scale", "replicasets/scale"]
     verbs: ["get", "update"]
-# 修复以下问题后，请删除 Configmaps:
+# 待以下 issue 修复后，请删除 Configmaps
 # kubernetes-incubator/cluster-proportional-autoscaler#16
   - apiGroups: [""]
     resources: ["configmaps"]
