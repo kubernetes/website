@@ -4,13 +4,13 @@ id: sig
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#master-sig-list
 short_description: >
-  Membros da comunidade que gerenciam coletivamente uma parte ou continuamente um projeto maior de código aberto do Kubernetes.
+  Membros da comunidade que gerenciam coletivamente e continuamente uma parte ou um projeto maior de código aberto do Kubernetes.
 
 aka: 
 tags:
 - community
 ---
-  {{< glossary_tooltip text="Membros da comunidade" term_id="member" >}} que gerenciam coletivamente uma parte ou continuamente um projeto maior de código aberto do Kubernetes.
+  {{< glossary_tooltip text="Membros da comunidade" term_id="member" >}} que gerenciam coletivamente e continuamente uma parte ou um projeto maior de código aberto do Kubernetes.
 
 <!--more--> 
 
