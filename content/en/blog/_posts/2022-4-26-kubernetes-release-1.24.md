@@ -11,19 +11,12 @@ slug: kubernetes-1-24-release-announcement
 
 We are excited to announce the release of Kubernetes 1.24, the first release of 2022!
 
-This release consists of 46 enhancements: fifteen enhancements have graduated to stable, fifteen enhancements are moving to beta, and thirteen enhancements are entering alpha. Also, two features have been deprecated, and the [dockershim has been removed](https://kubernetes.io/blog/2022/02/17/dockershim-faq/).     
+This release consists of 46 enhancements: fifteen enhancements have graduated to stable, fifteen enhancements are moving to beta, and thirteen enhancements are entering alpha. Also, two features have been deprecated, and the [dockershim has been removed](/dockershim).     
 
 ## Major Themes
 
 ### Dockershim Removed from kubelet
 After an initial deprecation in Kubernetes 1.20, the dockershim has been removed from the kubelet in favor of runtimes that comply with the Container Runtime Interface (CRI) designed for Kubernetes. From Kubernetes 1.24 and up, if you are currently relying on Docker Engine as your container runtime, you will need to either use one of the other supported runtimes (such as containerd or CRI-O) or use cri-dockerd. For more information about ensuring your cluster is ready for this removal, please see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/). 
-  
-### CNI Version-Related Breaking Change
-Before you upgrade to Kubernetes 1.24, if you use a [Container Network Interface (CNI)](https://github.com/containernetworking/cni) network plugin that complies with CNI versions earlier than v1.0.0 and you plan to use any of the following container runtimes, you must specify the CNI version as described in [Declaring the CNI version of your plugin](TBD). Otherwise, your network will break. 
-
-This issue applies to the following container runtimes:
-* containerd v1.6.0 and later
-* CRI-O 1.24 and later
 
 ### Beta APIs Off by Default 
 [New beta APIs will not be enabled in clusters by default](https://github.com/kubernetes/enhancements/issues/3136). Existing beta APIs and new versions of existing beta APIs, will continue to be enabled by default.
@@ -43,12 +36,44 @@ and there is experimental support for [verifying image signatures](/docs/tasks/a
 ### NonPreemptingPriority to Stable
 This feature adds [a new option to PriorityClasses](https://github.com/kubernetes/enhancements/issues/902), which can enable or disable pod preemption. 
 
-### Storage plugin migration
+### Storage Plugin Migration
 There is work under way to [migrate the internals of in-tree storage plugins](https://github.com/kubernetes/enhancements/issues/625) to call out to CSI Plugins,
 while maintaining the original API.
 The [Azure Disk](https://github.com/kubernetes/enhancements/issues/1490)
 and [OpenStack Cinder](https://github.com/kubernetes/enhancements/issues/1489) plugins
 have both been migrated.
+
+### gRPC Probes Graduate to Beta
+With Kubernetes 1.24, the [gRPC probes functionality](https://github.com/kubernetes/enhancements/issues/2727) has entered beta and is available by default. You can now [configure startup, liveness, and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes) for your gRPC app natively within Kubernetes, without exposing an HTTP endpoint or
+using an extra executable.
+
+### Kubelet Credential Provider graduates to Beta
+Released as Alpha in Kubernetes 1.20, the [Kubelet Credential Provider](https://github.com/kubernetes/enhancements/issues/2133) has now graduated to Beta. This allows the kubelet to dynamically retrieve credentials for a container image registry using exec plugins, communicating through stdio using Kubernetes versioned APIs, rather than storing them statically on disk.
+
+### Contextual Logging in Alpha
+Kubernetes 1.24 has introduced [contextual logging](https://github.com/kubernetes/enhancements/issues/3077) that enables the caller of a function to control all aspects of logging (output formatting, verbosity, additional values and names).
+
+### Avoiding Collisions in IP allocation to Services
+Kubernetes 1.24 introduces a new Feature Gate `ServiceIPStaticSubrange` that allows users to [soft-reserve a range for static IP address assignments](https://github.com/kubernetes/enhancements/issues/3070). If you use the new feature (which you must manually enable), your cluster prefers automatic assignment from the remaining pool of Service IP addresses, reducing the risk of a collision.
+  
+A Service `ClusterIP` can be assigned:
+
+* dynamically, which means the cluster will automatically pick a free IP within the configured Service IP range.
+* statically, which means the user will set one IP within the configured Service IP range.
+
+Service `ClusterIP` are unique, hence, trying to create a Service with a `ClusterIP` that has already been allocated will return an error.
+
+## CNI Version-Related Breaking Change
+Before you upgrade to Kubernetes 1.24, please verify that you are using/upgrading to a container runtime that has been tested to work correctly with this release.
+
+The following container runtimes have been tested with Kubernetes 1.24:
+
+* containerd v1.6.4 and later, v1.5.11 and later
+* CRI-O 1.24 and later
+
+Service issues exist for pod CNI network setup and tear down in containerd v1.6.0-v1.6.3 when the CNI plugins have not been upgraded and/or the CNI config version is not declared in the CNI config files. These issues are resolved in containerd v1.6.4.  (we can add a link to the description if need and reduce that description to just for v160-163)
+
+## Other Updates
 
 ### Graduations to Stable
 This release saw fifteen enhancements promoted to stable: 
@@ -66,37 +91,13 @@ This release saw fifteen enhancements promoted to stable:
 * [Pod Affinity NamespaceSelector](https://github.com/kubernetes/enhancements/issues/2249): Add a `namespaceSelector` field for to pod affinity/anti-affinity spec.
 * [Leader Migration for Controller Managers](https://github.com/kubernetes/enhancements/issues/2436): kube-controller-manager and cloud-controller-manager can apply new controller-to-controller-manager assignment in HA control plane without downtime.
 * [CSR Duration](https://github.com/kubernetes/enhancements/issues/2784): Extend the CertificateSigningRequest API with a mechanism to allow clients to request a specific duration for the issued certificate.
-* [Beta APIs are off by Default](https://github.com/kubernetes/enhancements/issues/3136)
-* [Dockershim Removal](https://github.com/kubernetes/enhancements/issues/2221)
-
-### gRPC Probes Graduate to Beta
-With Kubernetes 1.24, the [gRPC probes functionality](https://github.com/kubernetes/enhancements/issues/2727) has entered beta and is available by default. You can now [configure startup, liveness, and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes) for your gRPC app natively within Kubernetes, without exposing an HTTP endpoint or
-using an extra executable.
-
-### Kubelet Credential Provider graduates to Beta
-Released as Alpha in Kubernetes 1.20, the [Kubelet Credential Provider](https://github.com/kubernetes/enhancements/issues/2133) has now graduated to Beta. This allows the kubelet to dynamically retrieve credentials for a container image registry using exec plugins, communicating through stdio using Kubernetes versioned APIs, rather than storing them statically on disk.
-
-### Contextual Logging in Alpha
-Kubernetes 1.24 has introduced [contextual logging](https://github.com/kubernetes/enhancements/issues/3077) that enables the caller of a function to control all aspects of logging (output formatting, verbosity, additional values and names).
-
-### Avoiding Collisions in IP allocation to Services
-Kubernetes 1.24 introduces a new Feature Gate `ServiceIPStaticSubrange` that allows users to [soft-reserve a range for static IP address assignments](https://github.com/kubernetes/enhancements/issues/3070). If you use the new feature (which you must manually enable), your cluster prefers automatic assignment from the remaining pool of Service IP addresses, reducing the risk of a collision.
-  
-  
-A Service `ClusterIP` can be assigned:
-
-* dynamically, which means the cluster will automatically pick a free IP within the configured Service IP range.
-* statically, which means the user will set one IP within the configured Service IP range.
-
-Service `ClusterIP` are unique, hence, trying to create a Service with a `ClusterIP` that has already been allocated will return an error.
-
-
-## Other Updates
-### Graduated to Stable
-* To do: Add all enhancements that graduated to stable
 
 ### Major Changes
-* To do: Add information about Dockershim
+This release saw two major changes: 
+
+* [Dockershim Removal](https://github.com/kubernetes/enhancements/issues/2221)
+* [Beta APIs are off by Default](https://github.com/kubernetes/enhancements/issues/3136)
+
 
 ### Release Notes
 Check out the full details of the Kubernetes 1.24 release in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md).
@@ -117,6 +118,12 @@ Special thanks to James Laverack, our release lead, for guiding us through a suc
 ### Release Theme and Logo 
 
 **Kubernetes 1.24: Stargazer**
+
+The theme for Kubernetes 1.24 is _Stargazer_.
+Generations of people have looked to the stars in awe and wonder, from ancient astronomers to the scientists who built the James Webb Space Telescope. The stars have inspired us, set our imagination alight, and guided us through long nights on difficult seas.
+With this release we gaze upwards, to what is possible when our community comes together. Kubernetes is the work of hundreds of contributors across the globe, and thousands of end-users supporting applications that serve millions. Every one is a star in our sky, helping us chart our course.
+The release logo is made by Britnee Laverack, and depicts a telescope set upon starry skies and the Pleiades, often known in mythology as the “Seven Sisters”. The number seven is especially auspicious for the Kubernetes project, and is a reference back to our original “Project Seven” name.
+This release of Kubernetes is named for those that would look towards the night sky and wonder — for all the stargazers out there. :sparkles:
    
 ### User Highlights
 * Check out how leading retail e-commerce company [La Redoute used Kubernetes, alongside other CNCF projects, to transform and streamline its software delivery lifecycle](https://www.cncf.io/case-studies/la-redoute/) - from development to operations. 
@@ -142,6 +149,7 @@ In the v1.24 release cycle, which [ran for 18 weeks](https://github.com/kubernet
 Join members of the Kubernetes 1.24 release team on <date> to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](#) on the CNCF Online Programs site.
 
 ## Get Involved
+
 The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below:
 
 * Find out more about contributing to Kubernetes at the [Kubernetes Contributors](https://www.kubernetes.dev/) website
