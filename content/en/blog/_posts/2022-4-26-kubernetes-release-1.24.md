@@ -119,6 +119,8 @@ Special thanks to James Laverack, our release lead, for guiding us through a suc
 
 **Kubernetes 1.24: Stargazer**
 
+{{< figure src="/images/blog/2022-05-03-kubernetes-release-1.24/kubernetes-1.24.png" alt="" class="release-logo" >}}
+
 The theme for Kubernetes 1.24 is _Stargazer_.
 Generations of people have looked to the stars in awe and wonder, from ancient astronomers to the scientists who built the James Webb Space Telescope. The stars have inspired us, set our imagination alight, and guided us through long nights on difficult seas.
 With this release we gaze upwards, to what is possible when our community comes together. Kubernetes is the work of hundreds of contributors across the globe, and thousands of end-users supporting applications that serve millions. Every one is a star in our sky, helping us chart our course.
