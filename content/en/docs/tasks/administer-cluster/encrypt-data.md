@@ -138,16 +138,104 @@ read that resource will fail until it is deleted or a valid decryption key is pr
 
 ### Providers
 
-{{< table caption="Providers for Kubernetes encryption at rest" >}}
-Name | Encryption | Strength | Speed | Key Length | Other Considerations
------|------------|----------|-------|------------|---------------------
-`identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
-`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
-`aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
-`aescbc` | AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding | Weak | Fast | 32-byte | Not recommended due to CBC's vulnerability to padding oracle attacks.
-`kms v1` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Slow (_compared to `kms v2`_) | 32-bytes |  Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS V1 provider](/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1).
-`kms v2` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-GCM, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Available in beta from `v1.27`. A new DEK is generated at startup and reused for encryption. The DEK is rotated when the KEK is rotated. [Configure the KMS V2 provider](/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2).
-{{< /table >}}
+The following table describes each available provider:
+
+<!-- localization note: if it makes sense to adapt this table to work for your localization,
+     please do that. Each sentence in the English original should have a direct equivalent in the adapted
+     layout, although this may not always be possible -->
+<table class="complex-layout">
+<caption style="display: none;">Providers for Kubernetes encryption at rest</caption>
+<thead>
+  <tr>
+  <th>Name</th>
+  <th>Encryption</th>
+  <th>Strength</th>
+  <th>Speed</th>
+  <th>Key length</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+  <th rowspan="2" scope="row"><tt>identity</tt></th>
+  <td><strong>None</strong></td>
+  <td>N/A</td>
+  <td>N/A</td>
+  <td>N/A</td>
+  </tr>
+  <tr>
+  <td colspan="4">Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written. Existing encrypted resources are <strong>not</strong> automatically overwritten with the plaintext data.
+   The <tt>identity</tt> provider is the default if you do not specify otherwise.</td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>aescbc</tt></th>
+  <td>AES-CBC with <a href="https://datatracker.ietf.org/doc/html/rfc2315">PKCS#7</a> padding</td>
+  <td>Weak</td>
+  <td>Fast</td>
+  <td>32-byte</td>
+  </tr>
+  <tr>
+  <td colspan="4">Not recommended due to CBC's vulnerability to padding oracle attacks. Key material accessible from control plane host.</td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>aesgcm</tt></th>
+  <td>AES-GCM with random nonce</td>
+  <td>Must be rotated every 200,000 writes</td>
+  <td>Fastest</td>
+  <td>16, 24, or 32-byte</td>
+  </tr>
+  <tr>
+  <td colspan="4">Not recommended for use except when an automated key rotation scheme is implemented. Key material accessible from control plane host.</td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>secretbox</tt></th>
+  <td>XSalsa20 and Poly1305</td>
+  <td>Strong</td>
+  <td>Faster</td>
+  <td>32-byte</td>
+  </tr>
+  <tr>
+  <td colspan="4">Uses relatively new encryption technologies that may not be considered acceptable in environments that require high levels of review. Key material accessible from control plane host.</td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>kms</tt> v1</th>
+  <td>Uses envelope encryption scheme with DEK per resource.</td>
+  <td>Strongest</td>
+  <td>Slow (<em>compared to <tt>kms</tt> version 2</em>)</td>
+  <td>32-bytes</td>
+  </tr>
+  <tr>
+  <td colspan="4">
+    Data is encrypted by data encryption keys (DEKs) using AES-GCM;
+    DEKs are encrypted by key encryption keys (KEKs) according to
+    configuration in Key Management Service (KMS).
+    Simple key rotation, with a new DEK generated for each encryption, and
+    KEK rotation controlled by the user.
+    <br />
+    Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1">configure the KMS V1 provider</a>.
+    </td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>kms</tt> v2 <em>(beta)</em></th>
+  <td>Uses envelope encryption scheme with DEK per API server.</td>
+  <td>Strongest</td>
+  <td>Fast</td>
+  <td>32-bytes</td>
+  </tr>
+  <tr>
+  <td colspan="4">
+    Data is encrypted by data encryption keys (DEKs) using AES-GCM; DEKs
+    are encrypted by key encryption keys (KEKs) according to configuration
+    in Key Management Service (KMS).
+    A new DEK is generated at API server startup, and is then reused for
+    encryption. The DEK is rotated whenever the KEK is rotated.
+    A good choice if using a third party tool for key management.
+    Available in beta from Kubernetes v1.27.
+    <br />
+    Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">configure the KMS V2 provider</a>.
+    </td>
+  </tr>
+</tbody>
+</table>
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
