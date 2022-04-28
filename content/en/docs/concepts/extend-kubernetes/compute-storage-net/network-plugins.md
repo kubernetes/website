@@ -14,8 +14,11 @@ weight: 10
 Kubernetes {{< skew currentVersion >}} supports [Container Network Interface](https://github.com/containernetworking/cni)
 (CNI) plugins for cluster networking. You must use a CNI plugin that is compatible with your cluster and that suits your needs. Different plugins are available (both open- and closed- source) in the wider Kubernetes ecosystem.
 
-You must use a CNI plugin that is compatible with the
-[v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) release of the CNI specification.
+You must use a CNI plugin that is compatible with the 
+[v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) or later
+releases of the CNI specification. The Kubernetes project recommends using a plugin that is
+compatible with the [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)
+CNI specification (plugins can be compatible with multiple spec versions).
 
 <!-- body -->
 
