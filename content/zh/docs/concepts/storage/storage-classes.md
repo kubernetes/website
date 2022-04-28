@@ -143,7 +143,7 @@ the specification. Some external provisioners are listed under the repository
  -->
 你不限于指定此处列出的 "内置" 制备器（其名称前缀为 "kubernetes.io" 并打包在 Kubernetes 中）。
 你还可以运行和指定外部制备器，这些独立的程序遵循由 Kubernetes 定义的
-[规范](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)。
+[规范](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)。
 外部供应商的作者完全可以自由决定他们的代码保存于何处、打包方式、运行方式、使用的插件（包括 Flex）等。
 代码仓库 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 包含一个用于为外部制备器编写功能实现的类库。你可以访问代码仓库
