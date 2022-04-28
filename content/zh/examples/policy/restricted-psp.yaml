@@ -3,6 +3,7 @@ kind: PodSecurityPolicy
 metadata:
   name: restricted
   annotations:
+    # docker/default 标识 seccomp 的配置文件，但它与 Docker 运行时没有特别关联
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
     apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
     apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
@@ -45,3 +46,4 @@ spec:
       - min: 1
         max: 65535
   readOnlyRootFilesystem: false
+
