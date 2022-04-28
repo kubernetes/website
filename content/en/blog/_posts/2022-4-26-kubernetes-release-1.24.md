@@ -16,7 +16,7 @@ This release consists of 46 enhancements: fifteen enhancements have graduated to
 ## Major Themes
 
 ### Dockershim Removed from kubelet
-After an initial deprecation in v1.20, the dockershim has been removed from the kubelet in favor of runtimes that comply with the Container Runtime Interface (CRI) designed for Kubernetes. From v1.24 and up, if you are currently relying on Docker Engine as your container runtime, you will need to either use one of the other supported runtimes (such as containerd or CRI-O) or use cri-dockerd. For more information about ensuring your cluster is ready for this removal, please see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/). 
+After an initial deprecation in Kubernetes 1.20, the dockershim has been removed from the kubelet in favor of runtimes that comply with the Container Runtime Interface (CRI) designed for Kubernetes. From Kubernetes 1.24 and up, if you are currently relying on Docker Engine as your container runtime, you will need to either use one of the other supported runtimes (such as containerd or CRI-O) or use cri-dockerd. For more information about ensuring your cluster is ready for this removal, please see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/). 
   
 ### CNI Version-Related Breaking Change
 Before you upgrade to Kubernetes 1.24, if you use a [Container Network Interface (CNI)](https://github.com/containernetworking/cni) network plugin that complies with CNI versions earlier than v1.0.0 and you plan to use any of the following container runtimes, you must specify the CNI version as described in [Declaring the CNI version of your plugin](TBD). Otherwise, your network will break. 
@@ -32,7 +32,8 @@ This issue applies to the following container runtimes:
 Kubernetes 1.24 offers beta support for publishing its APIs as [OpenAPI v3](https://github.com/kubernetes/enhancements/issues/2896). 
 
 ### Signing Release Artifacts
-[Release artifacts are signed](https://github.com/kubernetes/enhancements/issues/3031). 
+Release artifacts are [signed](https://github.com/kubernetes/enhancements/issues/3031)
+and there is experimental support for [verifying image signatures](/docs/tasks/administer-cluster/verify-signed-images/).
   
 ### Storage Capacity and Volume Expansion Are Generally Available
 [Storage capacity tracking](https://github.com/kubernetes/enhancements/issues/1472) supports exposing currently available storage capacity via CSIStorageCapacity objects and enhances scheduling of pods that use CSI volumes with late binding.
@@ -42,25 +43,29 @@ Kubernetes 1.24 offers beta support for publishing its APIs as [OpenAPI v3](http
 ### NonPreemptingPriority to Stable
 This feature adds [a new option to PriorityClasses](https://github.com/kubernetes/enhancements/issues/902), which can enable or disable pod preemption. 
 
-### In-Tree CSI Providers
-[Migrate the internals of the in-tree plugins](https://github.com/kubernetes/enhancements/issues/625) to call out to CSI Plugins while maintaining the original API. [Azure Disk](https://github.com/kubernetes/enhancements/issues/1490) and [OpenStack Cinder](https://github.com/kubernetes/enhancements/issues/1489) have both been migrated.
+### Storage plugin migration
+There is work under way to [migrate the internals of in-tree storage plugins](https://github.com/kubernetes/enhancements/issues/625) to call out to CSI Plugins,
+while maintaining the original API.
+The [Azure Disk](https://github.com/kubernetes/enhancements/issues/1490)
+and [OpenStack Cinder](https://github.com/kubernetes/enhancements/issues/1489) plugins
+have both been migrated.
 
 ### Graduations to Stable
 This release saw fifteen enhancements promoted to stable: 
 
 * [Container Storage Interface (CSI) Volume Expansion](https://github.com/kubernetes/enhancements/issues/284)
-* [PodOverhead](https://github.com/kubernetes/enhancements/issues/688): Account for resources tied to the pod sandbox, but not specific containers. 
+* [Pod Overhead](https://github.com/kubernetes/enhancements/issues/688): Account for resources tied to the pod sandbox, but not specific containers.
 * [Add non-preempting option to PriorityClasses](https://github.com/kubernetes/enhancements/issues/902)
 * [Storage Capacity Tracking](https://github.com/kubernetes/enhancements/issues/1472) 
 * [OpenStack Cinder In-Tree to CSI Driver Migration](https://github.com/kubernetes/enhancements/issues/1489)
 * [Azure Disk In-Tree to CSI Driver Migration](https://github.com/kubernetes/enhancements/issues/1490)
 * [Efficient Watch Resumption](https://github.com/kubernetes/enhancements/issues/1904): Watch can be efficiently resumed after kube-apiserver reboot. 
-* [Service Type=LoadBalancer Class](https://github.com/kubernetes/enhancements/issues/1959): Introduce a new Service annotation `service.kubernetes.io/load-balancer-class` that allows multiple implementations of Service Type=LoadBalancer in a cluster.
-* [Indexed Job Semantics in Job API](https://github.com/kubernetes/enhancements/issues/2214): Add a completion index to Pods of Jobs with fixed completion count. 
-* [batch/v1: Add Suspend Field to Jobs API](https://github.com/kubernetes/enhancements/issues/2232): Add a suspend field to the Jobs API to allow orchestrators to create jobs with more control over when pods are created.
-* [Pod Affinity NamespaceSelector](https://github.com/kubernetes/enhancements/issues/2249): Adds namespaceSelector to pod affinity/anti-affinity spec. 
+* [Service Type=LoadBalancer Class Field](https://github.com/kubernetes/enhancements/issues/1959): Introduce a new Service annotation `service.kubernetes.io/load-balancer-class` that allows multiple implementations of `type: LoadBalancer` Services in the same cluster.
+* [Indexed Job](https://github.com/kubernetes/enhancements/issues/2214): Add a completion index to Pods of Jobs with fixed completion count.
+* [Add Suspend Field to Jobs API](https://github.com/kubernetes/enhancements/issues/2232): Add a suspend field to the Jobs API to allow orchestrators to create jobs with more control over when pods are created.
+* [Pod Affinity NamespaceSelector](https://github.com/kubernetes/enhancements/issues/2249): Add a `namespaceSelector` field for to pod affinity/anti-affinity spec.
 * [Leader Migration for Controller Managers](https://github.com/kubernetes/enhancements/issues/2436): kube-controller-manager and cloud-controller-manager can apply new controller-to-controller-manager assignment in HA control plane without downtime.
-* [CSR Duration](https://github.com/kubernetes/enhancements/issues/2784): Extend the Certificates API with a mechanism to allow clients to request a specific duration for the issued certificate.
+* [CSR Duration](https://github.com/kubernetes/enhancements/issues/2784): Extend the CertificateSigningRequest API with a mechanism to allow clients to request a specific duration for the issued certificate.
 * [Beta APIs are off by Default](https://github.com/kubernetes/enhancements/issues/3136)
 * [Dockershim Removal](https://github.com/kubernetes/enhancements/issues/2221)
 
@@ -72,7 +77,7 @@ using an extra executable.
 Released as Alpha in Kubernetes 1.20, the [Kubelet Credential Provider](https://github.com/kubernetes/enhancements/issues/2133) has now graduated to Beta. This allows the kubelet to dynamically retrieve credentials for a container image registry using exec plugins, communicating through stdio using Kubernetes versioned APIs, rather than storing them statically on disk.
 
 ### Contextual Logging in Alpha
-Kubernetes v1.24 has introduced [contextual logging](https://github.com/kubernetes/enhancements/issues/3077) that enables the caller of a function to control all aspects of logging (output formatting, verbosity, additional values and names).
+Kubernetes 1.24 has introduced [contextual logging](https://github.com/kubernetes/enhancements/issues/3077) that enables the caller of a function to control all aspects of logging (output formatting, verbosity, additional values and names).
 
 ### Avoiding Collisions in IP allocation to Services
 Kubernetes 1.24 introduces a new Feature Gate `ServiceIPStaticSubrange` that allows users to [soft-reserve a range for static IP address assignments](https://github.com/kubernetes/enhancements/issues/3070). If you use the new feature (which you must manually enable), your cluster prefers automatic assignment from the remaining pool of Service IP addresses, reducing the risk of a collision.
@@ -107,7 +112,7 @@ You can also easily install 1.24 using [kubeadm](/docs/setup/independent/create-
 
 This release would not have been possible without the combined efforts of a committed individuals comprising the Kubernetes 1.24 release team. This team came together to deliver all of the components that go into each Kubernetes release, including code, documentation, release notes, and more. 
 
-Special thanks to James Laverack, our release lead, for guiding us through a successful release cycle, and to all of the members of the release team for the time and effort they put in to deliver the v1.24 release for the Kubernetes community. 
+Special thanks to James Laverack, our release lead, for guiding us through a successful release cycle, and to all of the members of the release team for the time and effort they put in to deliver the 1.24 release for the Kubernetes community. 
 
 ### Release Theme and Logo 
 
