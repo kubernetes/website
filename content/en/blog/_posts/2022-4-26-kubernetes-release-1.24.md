@@ -48,7 +48,11 @@ With Kubernetes 1.24, the [gRPC probes functionality](https://github.com/kuberne
 using an extra executable.
 
 ### Kubelet Credential Provider graduates to Beta
-Released as Alpha in Kubernetes 1.20, the [Kubelet Credential Provider](https://github.com/kubernetes/enhancements/issues/2133) has now graduated to Beta. This allows the kubelet to dynamically retrieve credentials for a container image registry using exec plugins, communicating through stdio using Kubernetes versioned APIs, rather than storing them statically on disk.
+Originally released as Alpha in Kubernetes 1.20, the kubelet's support for
+[image credential providers](/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/)
+has now graduated to Beta.
+This allows the kubelet to dynamically retrieve credentials for a container image registry
+using exec plugins, rather than storing credentials on the node's filesystem.
 
 ### Contextual Logging in Alpha
 Kubernetes 1.24 has introduced [contextual logging](https://github.com/kubernetes/enhancements/issues/3077) that enables the caller of a function to control all aspects of logging (output formatting, verbosity, additional values and names).
