@@ -54,7 +54,11 @@ Released as Alpha in Kubernetes 1.20, the [Kubelet Credential Provider](https://
 Kubernetes 1.24 has introduced [contextual logging](https://github.com/kubernetes/enhancements/issues/3077) that enables the caller of a function to control all aspects of logging (output formatting, verbosity, additional values and names).
 
 ### Avoiding Collisions in IP allocation to Services
-Kubernetes 1.24 introduces a new Feature Gate `ServiceIPStaticSubrange` that allows users to [soft-reserve a range for static IP address assignments](https://github.com/kubernetes/enhancements/issues/3070). If you use the new feature (which you must manually enable), your cluster prefers automatic assignment from the remaining pool of Service IP addresses, reducing the risk of a collision.
+Kubernetes 1.24 introduced a new opt-in feature that allows you to
+[soft-reserve a range for static IP address assignments](/docs/concepts/services-networking/service/#service-ip-static-sub-range)
+to Services.
+If you use the new feature (which you must manually enable), your cluster prefers automatic
+assignment from the remaining pool of Service IP addresses, reducing the risk of a collision.
   
 A Service `ClusterIP` can be assigned:
 
