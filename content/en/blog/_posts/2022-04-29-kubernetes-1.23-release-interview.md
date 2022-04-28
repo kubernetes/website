@@ -234,7 +234,7 @@ REY LEJANO: Aside from pod security policies, I really love [ephemeral container
 
 **CRAIG BOX: There's also been some interesting changes in the way that events are handled with kubectl.**
 
-REY LEJANO: Yeah. kubectl events has always had some issues, like how things weren't sorted. [kubectl events improved](https://github.com/kubernetes/enhancements/issues/1440) that so now you can do --watch, and it will also sort with the --watch option as well. That is something new. You can actually combine fields and custom columns. And also, you can list events in the timeline with doing the last N number of minutes. And you can also sort events using other criteria as well.
+REY LEJANO: Yeah. kubectl events has always had some issues, like how things weren't sorted. [kubectl events improved](https://github.com/kubernetes/enhancements/issues/1440) that so now you can do `--watch`, and it will also sort with the `--watch` option as well. That is something new. You can actually combine fields and custom columns. And also, you can list events in the timeline with doing the last N number of minutes. And you can also sort events using other criteria as well.
 
 **CRAIG BOX: You are a field engineer at SUSE. Are there any things that are coming in that your individual customers that you deal with are looking out for?**
 
@@ -310,7 +310,7 @@ REY LEJANO: I think we failed that review. [CHUCKLES]
 
 **CRAIG BOX: There's still time.**
 
-REY LEJANO: We are working on refactoring. We're going to refactor a little bit in December, and "--apply" again.
+REY LEJANO: We are working on refactoring. We're going to refactor a little bit in December, and `--apply` again.
 
 ---
 
