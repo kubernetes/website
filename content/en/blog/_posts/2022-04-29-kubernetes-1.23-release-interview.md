@@ -34,7 +34,7 @@ REY LEJANO: I think it was mostly from family, since I do have a family history 
 
 **CRAIG BOX: Now, of course, you're working in a more abstract tech field. What led you out of microbiology?**
 
-REY LEJANO: [CHUCKLES] Well, I've always been interested in tech. Taught myself a little programming when I was younger, before high school, did some web dev stuff. Just kind of got burnt out being in a lab. I was literally in the basement. I had a great opportunity to join a consultancy that specialized in [ITIL](https://en.wikipedia.org/wiki/ITIL). I actually started off with application performance management, went into monitoring, went into operation management and also ITIL, which is aligning your IT asset management and service managements with business services. Did that for a good number of years, actually.
+REY LEJANO: [CHUCKLES] Well, I've always been interested in tech. Taught myself a little programming when I was younger, before high school, did some web dev stuff. Just kind of got burnt out being in a lab. I was literally in the basement. I had a great opportunity to join a consultancy that specialized in [ITIL](https://www.axelos.com/certifications/itil-service-management/what-is-itil). I actually started off with application performance management, went into monitoring, went into operation management and also ITIL, which is aligning your IT asset management and service managements with business services. Did that for a good number of years, actually.
 
 **CRAIG BOX: It's very interesting, as people describe the things that they went through and perhaps the technologies that they worked on, you can pretty much pinpoint how old they might be. There's a lot of people who come into tech these days that have never heard of ITIL. They have no idea what it is. It's basically just SRE with more process.**
 
@@ -158,7 +158,7 @@ REY LEJANO: I think we'll be talking about IPv4 and IPv6 for many, many years to
 
 REY LEJANO: [LAUGHS] In my opinion, that's one of the big key features that went stable for 1.23.
 
-One of the other highlights of 1.23 is [pod security admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/) going to Beta. I know this feature is going to Beta, but I highlight this because as some people might know, PodSecurityPolicy, which was deprecated in 1.21, is targeted to be removed in 1.25. Pod security admission replaces pod security policy. It's an admission controller. It evaluates the pods against a predefined set of pod security standards to either admit or deny the pod for running.
+One of the other highlights of 1.23 is [pod security admission going to Beta](/blog/2021/12/09/pod-security-admission-beta/). I know this feature is going to Beta, but I highlight this because as some people might know, PodSecurityPolicy, which was deprecated in 1.21, is targeted to be removed in 1.25. Pod security admission replaces pod security policy. It's an admission controller. It evaluates the pods against a predefined set of pod security standards to either admit or deny the pod for running.
 
 There's three levels of pod security standards. Privileged, that's totally open. Baseline, known privileges escalations are minimized. Or Restricted, which is hardened. And you could set pod security standards either to run in three modes, which is enforce: reject any pods that are in violation; to audit: pods are allowed to be created, but the violations are recorded; or warn: it will send a warning message to the user, and the pod is allowed.
 
