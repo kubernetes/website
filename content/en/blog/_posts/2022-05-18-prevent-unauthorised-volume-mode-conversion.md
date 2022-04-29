@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Prevent unauthorised volume mode conversion'
-date: 2022-04-12
+date: 2022-05-18
 slug: prevent-unauthorised-volume-mode-conversion-alpha
 ---
 
@@ -53,8 +53,8 @@ To convert the volume mode, an authorised user must do the following:
 created PVC in the given namespace. 
 2. Identify the `VolumeSnapshotContent` bound to the above `VolumeSnapshot`.
 
-```yaml
-$ kubectl get volumesnapshot -n <namespace>
+```
+kubectl get volumesnapshot -n <namespace>
 ```
 
 3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/content/en/docs/reference/labels-annotations-taints/)
