@@ -61,8 +61,9 @@ Figure 1. SOCKS5 tutorial components
 
 ## Using ssh to create a SOCKS5 proxy
 
-This command starts a SOCKS5 proxy between your client machine and the remote server
-where the Kubernetes API is listening:
+This command starts a SOCKS5 proxy between your client machine and the intermediate
+host. The SOCKS5 proxy lets you connect via that immediate host to your cluster's API
+server (provided that the traffic is permitted).
 
 ```shell
 # The SSH tunnel continues running in the background after you run this
