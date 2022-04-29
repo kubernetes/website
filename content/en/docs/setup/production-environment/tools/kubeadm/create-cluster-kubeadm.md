@@ -336,6 +336,10 @@ The nodes are where your workloads (containers and Pods, etc) run. To add new no
   kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
 
+{{< note >}}
+On Windows you should specify the `--cri-socket` parameter in the `kubeadm join` command. The default path is "npipe:////./pipe/containerd-containerd" for containerd.
+{{< /note >}}
+
 If you do not have the token, you can get it by running the following command on the control-plane node:
 
 ```bash
