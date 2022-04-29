@@ -66,7 +66,7 @@ host. The SOCKS5 proxy lets you connect via that immediate host to your cluster'
 server (provided that the traffic is permitted).
 
 ```shell
-# The SSH tunnel continues running in the background after you run this
+# The SSH tunnel continues running in the foreground after you run this
 ssh -D 1080 -q -N username@kubernetes-jump-box.example
 ```
 
@@ -136,3 +136,13 @@ kubectl get pods
 NAMESPACE     NAME                                     READY   STATUS      RESTARTS   AGE
 kube-system   coredns-85cb69466-klwq8                  1/1     Running     0          5m46s
 ```
+
+## Clean up
+
+Stop the ssh port-forwarding process by pressing `CTRL+C` on the terminal where it is running.
+
+Type `unset https_proxy` in a terminal to stop forwarding http traffic through the proxy.
+
+## Further reading
+
+* [OpenSSH remote login client](https://man.openbsd.org/ssh)
