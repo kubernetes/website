@@ -55,8 +55,6 @@ created PVC in the given namespace.
 
 ```
 kubectl get volumesnapshot -n <namespace>
-NAME                   READYTOUSE   SOURCEPVC   SOURCESNAPSHOTCONTENT   RESTORESIZE   SNAPSHOTCLASS               SNAPSHOTCONTENT                                    CREATIONTIME   AGE
-new-snapshot-demo-v1   true         hpvc                                1Gi           csi-hostpath-snapclass-v1   snapcontent-ea59cb6d-1e05-4462-aeee-7e2e7d0d9707   8d             8d
 ```
 
 3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/content/en/docs/reference/labels-annotations-taints/)
