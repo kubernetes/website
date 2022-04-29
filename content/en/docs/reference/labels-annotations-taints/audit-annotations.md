@@ -11,7 +11,7 @@ namespace. These annotations apply to `Event` object from API group
 
 {{< note >}}
 The following annotations are not used within the Kubernetes API. When you
-[enable auditing](/docs/tasks/debug-application-cluster/audit/) in your cluster,
+[enable auditing](/docs/tasks/debug/debug-cluster/audit/) in your cluster,
 audit event data is written using `Event` from API group `audit.k8s.io`.
 The annotations apply to audit events. Audit events are different from objects in the
 [Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group
@@ -64,7 +64,7 @@ Example: `authorization.k8s.io/decision: "forbid"`
 
 This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
 
-See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
+See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
 ## authorization.k8s.io/reason
 
@@ -72,4 +72,4 @@ Example: `authorization.k8s.io/reason: "Human-readable reason for the decision"`
 
 This annotation gives reason for the [decision](#authorization-k8s-io-decision) in Kubernetes audit logs.
 
-See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
+See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.

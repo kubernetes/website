@@ -570,7 +570,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Docker Engine; no longer available. See
   [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) for
   an alternative.
-- `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
+- `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
 - `AffinityInAnnotations`: Enable setting
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
