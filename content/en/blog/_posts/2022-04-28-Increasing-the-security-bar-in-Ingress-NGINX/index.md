@@ -45,7 +45,7 @@ Linux containers (and underlying mechanisms such as kernel namespaces) work.
 You can read about cgroups in the Kubernetes glossary: [`cgroup`](https://kubernetes.io/docs/reference/glossary/?fundamental=true#term-cgroup) and learn more about cgroups interact with namespaces in the NGINX project article
 [What Are Namespaces and cgroups, and How Do They Work?](https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/).
 (As you read that, bear in mind that Linux kernel namespaces are a different thing from
-[Kubernetes namespaces](h/docs/concepts/overview/working-with-objects/namespaces/)).
+[Kubernetes namespaces](/docs/concepts/overview/working-with-objects/namespaces/)).
 
 ## Skip the talk, what do I need to use this new approach?
 
