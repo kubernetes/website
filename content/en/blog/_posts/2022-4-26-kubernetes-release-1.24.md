@@ -25,18 +25,18 @@ After an initial deprecation in Kubernetes 1.20, the dockershim has been removed
   
 ### OpenAPI v3
 
-Kubernetes 1.24 offers beta support for publishing its APIs as [OpenAPI v3](https://github.com/kubernetes/enhancements/issues/2896). 
+Kubernetes 1.24 offers beta support for publishing its APIs in the [OpenAPI v3 format](https://github.com/kubernetes/enhancements/issues/2896). 
 
 ### Signing Release Artifacts
 
-Release artifacts are [signed](https://github.com/kubernetes/enhancements/issues/3031)
+Release artifacts are [signed](https://github.com/kubernetes/enhancements/issues/3031) using [cosign](https://github.com/sigstore/cosign) signatures
 and there is experimental support for [verifying image signatures](/docs/tasks/administer-cluster/verify-signed-images/).
   
 ### Storage Capacity and Volume Expansion Are Generally Available
 
-[Storage capacity tracking](https://github.com/kubernetes/enhancements/issues/1472) supports exposing currently available storage capacity via CSIStorageCapacity objects and enhances scheduling of pods that use CSI volumes with late binding.
+[Storage capacity tracking](https://github.com/kubernetes/enhancements/issues/1472) supports exposing currently available storage capacity via [CSIStorageCapacity objects](https://kubernetes.io/docs/concepts/storage/storage-capacity/#api) and enhances scheduling of pods that use CSI volumes with late binding.
 
-[Volume expansion](https://github.com/kubernetes/enhancements/issues/284) add support for resizing existing persistent volumes. 
+[Volume expansion](https://github.com/kubernetes/enhancements/issues/284) adds support for resizing existing persistent volumes. 
 
 ### NonPreemptingPriority to Stable
 
