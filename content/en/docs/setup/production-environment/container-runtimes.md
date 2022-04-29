@@ -170,7 +170,7 @@ Use the following commands to install Containerd on your system:
    and follow the instructions there, up to the point where you have a valid
    configuration file, config.toml.
    On Linux, you can find this file under the path `/etc/containerd/config.toml`.
-   On Windows, you ocan find this file under the path `c:\Program File\containerd\config.toml`.
+   On Windows, you can find this file under the path `C:\Program Files\containerd\config.toml`.
 
 On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
 On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
