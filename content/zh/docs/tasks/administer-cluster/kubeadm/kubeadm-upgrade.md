@@ -18,12 +18,12 @@ min-kubernetes-server-version: 1.18
 This page explains how to upgrade a Kubernetes cluster created with kubeadm from version
 {{< skew currentVersionAddMinor -1 >}}.x to version {{< skew currentVersion >}}.x, and from version
 {{< skew currentVersion >}}.x to {{< skew currentVersion >}}.y (where `y > x`). Skipping MINOR versions
-when upgrading is unsupported.
+when upgrading is unsupported. For more details, please visit [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
 -->
 本页介绍如何将 `kubeadm` 创建的 Kubernetes 集群从 {{< skew currentVersionAddMinor -1 >}}.x 版本
 升级到 {{< skew currentVersion >}}.x 版本以及从 {{< skew currentVersion >}}.x
 升级到 {{< skew currentVersion >}}.y（其中 `y > x`）。略过次版本号的升级是
-不被支持的。
+不被支持的。更多详情请访问[版本倾斜政策](https://kubernetes.io/releases/version-skew-policy/)。
 
 <!--
 To see information about upgrading clusters created using older versions of kubeadm,
