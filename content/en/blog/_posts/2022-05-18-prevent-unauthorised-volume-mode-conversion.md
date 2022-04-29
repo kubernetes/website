@@ -55,13 +55,15 @@ created PVC in the given namespace.
 
 ```
 kubectl get volumesnapshot -n <namespace>
+NAME                   READYTOUSE   SOURCEPVC   SOURCESNAPSHOTCONTENT   RESTORESIZE   SNAPSHOTCLASS               SNAPSHOTCONTENT                                    CREATIONTIME   AGE
+new-snapshot-demo-v1   true         hpvc                                1Gi           csi-hostpath-snapclass-v1   snapcontent-ea59cb6d-1e05-4462-aeee-7e2e7d0d9707   8d             8d
 ```
 
 3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/content/en/docs/reference/labels-annotations-taints/)
 to the `VolumeSnapshotContent`. 
 
-4. This annotation can be added either via software or manually by the authorised
-user. The `VolumeSnapshotContent` must look like below after this change:
+4. This annotation can be added either via software or manually by the authorised 
+user. The `VolumeSnapshotContent` annotation must look like following manifest fragment:
 
 ```yaml
 kind: VolumeSnapshotContent 
@@ -71,9 +73,9 @@ metadata:
 ...
 ```
 
-NOTE: For pre-provisioned `VolumeSnapshotContents`, the user has an additional 
-step of setting `spec.SourceVolumeMode` field to either `Filesystem` or `Block`,
-depending on the volume from which this snapshot was taken.
+**Note**: For pre-provisioned `VolumeSnapshotContents`, you must take an extra
+step of setting `spec.sourceVolumeMode` field to either `Filesystem` or `Block`,
+depending on the mode of the volume from which this snapshot was taken.
 
 An example is shown below:
 
