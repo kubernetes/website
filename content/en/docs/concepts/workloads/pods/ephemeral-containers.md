@@ -70,5 +70,5 @@ you can view processes in other containers.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn how to [debug pods using ephemeral containers](/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container).
+* Learn how to [debug pods using ephemeral containers](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).
 
