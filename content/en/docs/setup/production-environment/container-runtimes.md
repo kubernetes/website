@@ -166,18 +166,14 @@ Use the following commands to install Containerd on your system:
 1. Install containerd:
 
    Visit
-   [Getting started with containerd](https://containerd.io/docs/getting-started/#starting-containerd)
+   [Getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
    and follow the instructions there, up to the point where you have a valid
-   configuration file (on Linux: `/etc/containerd/config.toml`).
+   configuration file, config.toml.
+   On Linux, you can find this file under the path `/etc/containerd/config.toml`.
+   On Windows, you ocan find this file under the path `c:\Program File\containerd\config.toml`.
 
-   If you are running Windows, you might want to exclude containerd from Windows Defender Scans
-   ```powershell
-   # If excluding containerd from Windows Defender scans, consider how else
-   # you will make sure that the executable is genuine.
-   Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
-   ```
-
-For containerd, the CRI socket is `/run/containerd/containerd.sock` by default.
+On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
+On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 
 #### Configuring the `systemd` cgroup driver {#containerd-systemd}
 
