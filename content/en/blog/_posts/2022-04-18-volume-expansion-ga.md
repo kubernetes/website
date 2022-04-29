@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Volume expansion now available as stable feature in Kubernetes 1.24"
-date: 2022-04-18
+date: 2022-05-05
 slug: volume-expansion-ga
 ---
 
