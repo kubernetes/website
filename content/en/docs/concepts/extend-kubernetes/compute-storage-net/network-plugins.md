@@ -24,7 +24,7 @@ CNI specification (plugins can be compatible with multiple spec versions).
 
 ## Installation
 
-The kubelet has a single default network plugin, and a default network common to the entire cluster.The CRI manages its own CNI plugins. There are two Kubelet command line parameters to keep in mind when using plugins:
+A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). The CRI manages its own CNI plugins. There are two Kubelet command line parameters to keep in mind when using plugins:
 
 * `cni-bin-dir`: Kubelet probes this directory for plugins on startup
 * `network-plugin`: The network plugin to use from `cni-bin-dir`.  It must match the name reported by a plugin probed from the plugin directory.  For CNI plugins, this is `cni`.
