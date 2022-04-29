@@ -90,8 +90,13 @@ to use a different file. Kubernetes use the contents from the specified file to
 populate the Container's status message on both success and failure.
 
 The termination message is intended to be brief final status, such as an assertion failure message.
-The kubelet truncates messages that are longer than 4096 bytes. The total message length across all
-containers will be limited to 12KiB. The default termination message path is `/dev/termination-log`.
+The kubelet truncates messages that are longer than 4096 bytes.
+
+The total message length across all containers will be limited to 12KiB, divided equally among each container.
+This means that if there are 12 containers (`initContainers` or `containers`), each has 1024 bytes of available termination message space.
+If there are 24 containers, each has 512 bytes, and so on.
+
+The default termination message path is `/dev/termination-log`.
 You cannot set the termination message path after a Pod is launched
 
 In the following example, the container writes termination messages to
