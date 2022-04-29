@@ -205,8 +205,8 @@ The name of the Endpoints object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 When you create an [Endpoints](docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-object for a Service, you set the name of the new Endpoints object to be the same as the
-name of the Service.
+object for a Service, you set the name of the new object to be the same as that
+of the Service.
 
 {{< note >}}
 The endpoint IPs _must not_ be: loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), or
