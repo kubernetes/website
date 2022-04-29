@@ -109,7 +109,7 @@ clusters:
 - cluster:
     certificate-authority-data: LRMEMMW2 # shortened for readability 
     server: https://localhost            # the "Kubernetes API" in the diagram above
-    proxy-url: socks5://localhost:1080   # the "SSH SOCKS5 proxy" in the diagram above
+    proxy-url: socks5://localhost:1080   # the "SSH SOCKS5 proxy" in the diagram above (DNS resolution over socks is built-in)
   name: default
 contexts:
 - context:
