@@ -17,7 +17,7 @@ This release consists of 46 enhancements: fifteen enhancements have graduated to
 
 ### Dockershim Removed from kubelet
 
-After an initial deprecation in Kubernetes 1.20, the dockershim has been removed from the kubelet in favor of runtimes that comply with the Container Runtime Interface (CRI) designed for Kubernetes. From Kubernetes 1.24 and up, if you are currently relying on Docker Engine as your container runtime, you will need to either use one of the other supported runtimes (such as containerd or CRI-O) or use cri-dockerd. For more information about ensuring your cluster is ready for this removal, please see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/). 
+After its deprecation in v1.20, the dockershim component has been removed from the kubelet. From v1.24 onwards, you will need to either use one of the other [supported runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) (such as containerd or CRI-O) or use cri-dockerd if you are relying on Docker Engine as your container runtime. For more information about ensuring your cluster is ready for this removal, please see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/). 
 
 ### Beta APIs Off by Default 
 
@@ -55,7 +55,7 @@ have both been migrated.
 With Kubernetes 1.24, the [gRPC probes functionality](https://github.com/kubernetes/enhancements/issues/2727) has entered beta and is available by default. You can now [configure startup, liveness, and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes) for your gRPC app natively within Kubernetes, without exposing an HTTP endpoint or
 using an extra executable.
 
-### Kubelet Credential Provider graduates to Beta
+### Kubelet Credential Provider Graduates to Beta
 
 Originally released as Alpha in Kubernetes 1.20, the kubelet's support for
 [image credential providers](/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/)
@@ -72,9 +72,8 @@ Kubernetes 1.24 has introduced [contextual logging](https://github.com/kubernete
 Kubernetes 1.24 introduced a new opt-in feature that allows you to
 [soft-reserve a range for static IP address assignments](/docs/concepts/services-networking/service/#service-ip-static-sub-range)
 to Services.
-If you use the new feature (which you must manually enable), your cluster prefers automatic
-assignment from the remaining pool of Service IP addresses, reducing the risk of a collision.
-  
+With the manual enablement of this feature, the cluster will prefer automatic assignment from the pool of Service IP addresses thereby reducing the risk of collision. 
+
 A Service `ClusterIP` can be assigned:
 
 * dynamically, which means the cluster will automatically pick a free IP within the configured Service IP range.
@@ -86,7 +85,7 @@ Service `ClusterIP` are unique, hence, trying to create a Service with a `Cluste
 
 Before you upgrade to Kubernetes 1.24, please verify that you are using/upgrading to a container runtime that has been tested to work correctly with this release.
 
-The following container runtimes have been tested with Kubernetes 1.24:
+For example, the following container runtimes are being prepared, or have already been prepared, for Kubernetes:
 
 * containerd v1.6.4 and later, v1.5.11 and later
 * CRI-O 1.24 and later
