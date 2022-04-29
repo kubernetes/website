@@ -23,14 +23,14 @@ After its deprecation in v1.20, the dockershim component has been removed from t
 
 [New beta APIs will not be enabled in clusters by default](https://github.com/kubernetes/enhancements/issues/3136). Existing beta APIs and new versions of existing beta APIs, will continue to be enabled by default.
   
-### OpenAPI v3
-
-Kubernetes 1.24 offers beta support for publishing its APIs in the [OpenAPI v3 format](https://github.com/kubernetes/enhancements/issues/2896). 
-
 ### Signing Release Artifacts
 
 Release artifacts are [signed](https://github.com/kubernetes/enhancements/issues/3031) using [cosign](https://github.com/sigstore/cosign) signatures
-and there is experimental support for [verifying image signatures](/docs/tasks/administer-cluster/verify-signed-images/).
+and there is experimental support for [verifying image signatures](/docs/tasks/administer-cluster/verify-signed-images/). Signing and verification of release artifacts is part of [increasing software supply chain security for the Kubernetes release process](https://github.com/kubernetes/enhancements/issues/3027). 
+
+### OpenAPI v3
+
+Kubernetes 1.24 offers beta support for publishing its APIs in the [OpenAPI v3 format](https://github.com/kubernetes/enhancements/issues/2896). 
   
 ### Storage Capacity and Volume Expansion Are Generally Available
 
