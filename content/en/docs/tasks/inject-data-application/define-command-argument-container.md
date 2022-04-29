@@ -114,5 +114,5 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 
 
 * Learn more about [configuring pods and containers](/docs/tasks/).
-* Learn more about [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
+* Learn more about [running commands in a container](/docs/tasks/debug/debug-application/get-shell-running-container/).
 * See [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
