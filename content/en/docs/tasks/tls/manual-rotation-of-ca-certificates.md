@@ -143,7 +143,7 @@ Configurations with a single API server will experience unavailability while the
 
    1. Validate the logs from control plane components, along with the kubelet and the
       kube-proxy are not throwing any tls errors, see
-      [looking at the logs](/docs/tasks/debug-application-cluster/debug-cluster/#looking-at-logs).
+      [looking at the logs](/docs/tasks/debug/debug-cluster/#looking-at-logs).
 
    1. Validate logs from any aggregated api servers and pods using in-cluster config.
 
