@@ -43,7 +43,7 @@ Windows 应用程序构成了许多组织中运行的服务和应用程序的很
 control plane and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 * It is important to note that creating and deploying services and workloads on Kubernetes
 behaves in much the same way for Linux and Windows containers.
-[Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical.
+[Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
 The example in the section below is provided to jumpstart your experience with Windows containers.
 -->
 ## 在你开始之前
@@ -278,7 +278,34 @@ with one of its main goals being that this approach should not break compatibili
 目前，用户需要将 Linux 和 Windows 工作负载运行在各自特定的操作系统的节点上，
 因而需要结合使用污点和节点选择算符。 这可能仅给 Windows 用户造成不便。
 推荐的方法概述如下，其主要目标之一是该方法不应破坏与现有 Linux 工作负载的兼容性。
+<!--
+If the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled, you can (and should) set `.spec.os.name` for a Pod to indicate the operating system
+that the containers in that Pod are designed for. For Pods that run Linux containers, set
+`.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
+to Windows.
 
+The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should
+use normal Kubernetes mechanisms for
+[assigning pods to nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
+to ensure that the control plane for your cluster places pods onto nodes that are running the
+appropriate operating system.
+ no effect on the scheduling of the Windows pods, so taints and tolerations and node selectors are still required
+ to ensure that the Windows pods land onto appropriate Windows nodes.
+ -->
+ {{< note >}}
+如果 `IdentifyPodOS` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)是启用的，
+你可以（并且应该）为 Pod 设置 `.spec.os.name` 以表明该 Pod
+中的容器所针对的操作系统。 对于运行 Linux 容器的 Pod，设置 
+`.spec.os.name` 为 `linux`。 对于运行 Windows 容器的 Pod，设置 `.spec.os.name`
+为 `Windows`。
+
+在将 Pod 分配给节点时，调度程序不使用 `.spec.os.name` 的值。你应该使用正常的 Kubernetes
+机制[将 Pod 分配给节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)，
+确保集群的控制平面将 Pod 放置到适合运行的操作系统。
+对 Windows Pod 的调度没有影响，因此仍然需要污点、容忍度以及节点选择器，
+以确保 Windows Pod 调度至合适的 Windows 节点。
+ {{< /note >}}
 <!--
 ### Ensuring OS-specific workloads land on the appropriate container host
 -->
