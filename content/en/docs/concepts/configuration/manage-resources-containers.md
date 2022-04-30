@@ -229,7 +229,7 @@ see the [Troubleshooting](#troubleshooting) section.
 The kubelet reports the resource usage of a Pod as part of the Pod
 [`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
 
-If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either
 from the [Metrics API](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)
 directly or from your monitoring tools.
