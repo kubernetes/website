@@ -210,12 +210,12 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 <!--
 ### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 -->
 ### 容器资源监控
 
-[容器资源监控](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+[容器资源监控](/zh/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。
 
 <!--
@@ -241,4 +241,3 @@ saving container logs to a central log store with search/browsing interface.
 * 进一步了解[控制器](/zh/docs/concepts/architecture/controller/)
 * 进一步了解 [kube-scheduler](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
-
