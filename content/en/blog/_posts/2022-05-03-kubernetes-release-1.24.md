@@ -152,7 +152,7 @@ You can also easily install 1.24 using [kubeadm](/docs/setup/independent/create-
 
 ### Release Team
 
-This release would not have been possible without the combined efforts of a committed individuals 
+This release would not have been possible without the combined efforts of committed individuals 
 comprising the Kubernetes 1.24 release team. This team came together to deliver all of the components 
 that go into each Kubernetes release, including code, documentation, release notes, and more. 
 
