@@ -1,12 +1,14 @@
 ---
 layout: blog
 title: "更新：弃用 Dockershim 的常见问题"
+linkTitle: "弃用 Dockershim 的常见问题"
 date: 2022-02-17
 slug: dockershim-faq
 ---
 <!-- 
 layout: blog
 title: "Updated: Dockershim Removal FAQ"
+linkTitle: "Dockershim Removal FAQ"
 date: 2022-02-17
 slug: dockershim-faq
 aliases: [ '/dockershim' ]
@@ -312,13 +314,13 @@ runtime where possible.
 <!--
 Another thing to look out for is anything expecting to run for system maintenance
 or nested inside a container when building images will no longer work. For the
-former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from docker cli to crictl](https://kubernetes.io/docs/tasks/debug-application-cluster/crictl/#mapping-from-docker-cli-to-crictl)) and for the
+former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from docker cli to crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl)) and for the
 latter you can use newer container build options like [img], [buildah],
 [kaniko], or [buildkit-cli-for-kubectl] that don’t require Docker.
 -->
 另外还有一个需要关注的点，那就是当创建镜像时，系统维护或嵌入容器方面的任务将无法工作。
 对于前者，可以用 [`crictl`](https://github.com/kubernetes-sigs/cri-tools) 工具作为临时替代方案
-(参阅[从 docker cli 到 crictl 的映射](/zh/docs/tasks/debug-application-cluster/crictl/#mapping-from-docker-cli-to-crictl))。
+(参阅[从 docker cli 到 crictl 的映射](/zh/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl))。
 对于后者，可以用新的容器创建选项，例如
 [img](https://github.com/genuinetools/img)、
 [buildah](https://github.com/containers/buildah)、
@@ -335,10 +337,10 @@ options are available as you migrate things over.
 
 <!--
 For instructions on how to use containerd and CRI-O with Kubernetes, see the
-Kubernetes documentation on [Container Runtimes]
+Kubernetes documentation on [Container Runtimes].
 -->
 有关如何在 Kubernetes 中使用 containerd 和 CRI-O 的说明，
-请参阅 [Kubernetes 相关文档](/docs/setup/production-environment/container-runtimes/)
+请参阅 [Kubernetes 相关文档](/docs/setup/production-environment/container-runtimes/)。
 
 <!--
 ### What if I have more questions?
@@ -354,12 +356,37 @@ to our end user community forum: https://discuss.kubernetes.io/.
 对于最终用户的问题，请把问题发到我们的最终用户社区的论坛：https://discuss.kubernetes.io/。
 
 <!--
+You can discuss the decision to remove dockershim via a dedicated
+[GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917).
+-->
+你可以通过专用 [GitHub 问题](https://github.com/kubernetes/kubernetes/issues/106917) 
+讨论删除 dockershim 的决定。
+
+<!--
 You can also check out the excellent blog post
 [Wait, Docker is deprecated in Kubernetes now?][dep] a more in-depth technical
 discussion of the changes.
 -->
 你也可以看看这篇优秀的博客文章：[等等，Docker 被 Kubernetes 弃用了?](https://dev.to/inductor/wait-docker-is-deprecated-in-kubernetes-now-what-do-i-do-e4m)
 对这些变化进行更深入的技术讨论。
+
+<!--
+### Is there any tooling that can help me find dockershim in use
+-->
+### 是否有任何工具可以帮助我找到正在使用的 dockershim
+
+<!--
+Yes! The [Detector for Docker Socket (DDS)][dds] is a kubectl plugin that you can
+install and then use to check your cluster. DDS can detect if active Kubernetes workloads
+are mounting the Docker Engine socket (`docker.sock`) as a volume.
+Find more details and usage patterns in the DDS project's [README][dds].
+-->
+是的！ [Docker Socket 检测器 (DDS)][dds] 是一个 kubectl 插件，
+你可以安装它用于检查你的集群。 DDS 可以检测运行中的 Kubernetes
+工作负载是否将 Docker 引擎套接字 (`docker.sock`) 作为卷挂载。
+在 DDS 项目的 [README][dds] 中查找更多详细信息和使用方法。
+
+[dds]: https://github.com/aws-containers/kubectl-detector-for-docker-socket
 
 <!--
 ### Can I have a hug?
