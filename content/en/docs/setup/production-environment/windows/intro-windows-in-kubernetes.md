@@ -609,7 +609,7 @@ None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-reso
 ### Node problem detector
 
 The node problem detector (see
-[Monitor Node Health](/docs/tasks/debug-application-cluster/monitor-node-health/))
+[Monitor Node Health](/docs/tasks/debug/debug-cluster/monitor-node-health/))
 is not compatible with Windows.
 
 ### Pause container
