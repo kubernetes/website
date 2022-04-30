@@ -36,11 +36,14 @@ IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
 
 ## Prerequisites
 
-The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack Kubernetes clusters:
+A version of Kubernetes that supports dual-stack networking. Dual-stack networking is generally available
+since Kubernetes v1.23, so if you are running Kubernetes v{{< skew currentVersion >}} then this
+feature is available to you.
+If you are not running Kubernetes v{{< skew currentVersion >}}, check the documentation for
+that version of Kubernetes. {{< version-check >}}
 
-   * Kubernetes v{{< skew currentVersion >}}.
-+    If you are not running Kubernetes v{{< skew currentVersion >}}, check the documentation for
-+    that version of Kubernetes. {{< version-check >}}
+Your cluster must also meet the following requirements:
+
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
    * A network plugin that supports dual-stack (such as Kubenet or Calico)
 
