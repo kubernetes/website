@@ -47,10 +47,9 @@ or by enforcement (the system prevents the container from ever exceeding the lim
 runtimes can have different ways to implement the same restrictions.
 
 {{< note >}}
-If a container specifies its own memory limit, but does not specify a memory request, Kubernetes
-automatically assigns a memory request that matches the limit. Similarly, if a container specifies its own
-CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
-the limit.
+If you specify a limit for a resource, but do not specify any request, and no admission-time
+mechanism has applied a default request for that resource, then Kubernetes copies the limit
+you specified and uses it as the requested value for the resource.
 {{< /note >}}
 
 ## Resource types
