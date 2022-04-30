@@ -173,8 +173,8 @@ alight, and guided us through long nights on difficult seas.
 With this release we gaze upwards, to what is possible when our community comes together. Kubernetes 
 is the work of hundreds of contributors across the globe, and thousands of end-users supporting 
 applications that serve millions. Every one is a star in our sky, helping us chart our course.
-The release logo is made by Britnee Laverack, and depicts a telescope set upon starry skies and the 
-Pleiades, often known in mythology as the “Seven Sisters”. The number seven is especially auspicious 
+The release logo is made by [Britnee Laverack](https://www.instagram.com/artsyfie/), and depicts a telescope set upon starry skies and the 
+[Pleiades](https://en.wikipedia.org/wiki/Pleiades), often known in mythology as the “Seven Sisters”. The number seven is especially auspicious 
 for the Kubernetes project, and is a reference back to our original “Project Seven” name.
 This release of Kubernetes is named for those that would look towards the night sky and wonder — for 
 all the stargazers out there. :sparkles:
