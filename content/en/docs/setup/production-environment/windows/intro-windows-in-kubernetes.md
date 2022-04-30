@@ -609,7 +609,7 @@ None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-reso
 ### Node problem detector
 
 The node problem detector (see
-[Monitor Node Health](/docs/tasks/debug-application-cluster/monitor-node-health/))
+[Monitor Node Health](/docs/tasks/debug/debug-cluster/monitor-node-health/))
 is not compatible with Windows.
 
 ### Pause container
@@ -705,7 +705,7 @@ Privileged containers are [not supported](#compatibility-v1-pod-spec-containers-
 ## Getting help and troubleshooting {#troubleshooting}
 
 Your main source of help for troubleshooting your Kubernetes cluster should start
-with the [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting/)
+with the [Troubleshooting](/docs/tasks/debug/debug-cluster/)
 page.
 
 Some additional, Windows-specific troubleshooting help is included

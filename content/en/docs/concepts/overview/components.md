@@ -114,7 +114,7 @@ Containers started by Kubernetes automatically include this DNS server in their 
 
 ### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 
 ### Cluster-level Logging
