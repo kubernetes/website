@@ -113,10 +113,10 @@ For example, the following container runtimes are being prepared, or have alread
 * CRI-O 1.24 and later
 
 Service issues exist for pod CNI network setup and tear down in containerd
-v1.6.0-v1.6.3 when the CNI plugins have not been upgraded and/or the CNI config
+v1.6.0–v1.6.3 when the CNI plugins have not been upgraded and/or the CNI config
 version is not declared in the CNI config files. The containerd team reports, "these issues are resolved in containerd v1.6.4."
 
-With containerd v1.6.0-v1.6.3, if you do not upgrade the CNI plugins and/or
+With containerd v1.6.0–v1.6.3, if you do not upgrade the CNI plugins and/or
 declare the CNI config version, you might encounter the following "Incompatible
 CNI versions" or "Failed to destroy network for sandbox" error conditions.
 
