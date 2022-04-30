@@ -13,7 +13,7 @@ Kubernetes' support for direct integration with Docker Engine is deprecated, and
 ## Telemetry and security agents
 
 Within a Kubernetes cluster there are a few different ways to run telemetry or security agents.
-Some agents have a direct  dependency on Docker Engine when they as DaemonSets or
+Some agents have a direct dependency on Docker Engine when they run as DaemonSets or
 directly on nodes.
 
 ### Why do some telemetry agents communicate with Docker Engine?
