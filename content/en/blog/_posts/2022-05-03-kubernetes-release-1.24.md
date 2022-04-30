@@ -139,6 +139,7 @@ This release saw fifteen enhancements promoted to stable:
 * [Pod Affinity NamespaceSelector](https://github.com/kubernetes/enhancements/issues/2249): Add a `namespaceSelector` field for to pod affinity/anti-affinity spec.
 * [Leader Migration for Controller Managers](https://github.com/kubernetes/enhancements/issues/2436): kube-controller-manager and cloud-controller-manager can apply new controller-to-controller-manager assignment in HA control plane without downtime.
 * [CSR Duration](https://github.com/kubernetes/enhancements/issues/2784): Extend the CertificateSigningRequest API with a mechanism to allow clients to request a specific duration for the issued certificate.
+* [Beta APIs are off by default](https://github.com/kubernetes/enhancements/issues/2784): Newly added beta APIs are not enabled by default.
 
 ### Major Changes
 
