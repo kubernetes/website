@@ -11,9 +11,9 @@ slug: kubernetes-1-24-release-announcement
 
 We are excited to announce the release of Kubernetes 1.24, the first release of 2022!
 
-This release consists of 46 enhancements: fifteen enhancements have graduated to stable, 
+This release consists of 46 enhancements: fourteen enhancements have graduated to stable, 
 fifteen enhancements are moving to beta, and thirteen enhancements are entering alpha. 
-Also, two features have been deprecated, and the [dockershim has been removed](/dockershim).     
+Also, two features have been deprecated and two features have been removed.     
 
 ## Major Themes
 
