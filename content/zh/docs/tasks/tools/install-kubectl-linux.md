@@ -162,7 +162,7 @@ Or use this for detailed view of version:
    
    或者使用如下命令来查看版本的详细信息：
    ```cmd
-   kubectl version --client --output=yaml    
+   kubectl version --client --output=yaml
    ```
 
 <!-- 
@@ -237,7 +237,7 @@ sudo yum install -y kubectl
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
 <!-- 
-If you are on Ubuntu or another Linux distribution that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Ubuntu or another Linux distribution that supports the [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
 -->
 如果你使用的 Ubuntu 或其他 Linux 发行版，内建支持
 [snap](https://snapcraft.io/docs/core/install) 包管理工具，

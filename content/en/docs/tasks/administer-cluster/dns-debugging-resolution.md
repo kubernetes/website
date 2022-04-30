@@ -176,7 +176,7 @@ The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
 
 If you have created the Service or in the case it should be created by default
 but it does not appear, see
-[debugging Services](/docs/tasks/debug-application-cluster/debug-service/) for
+[debugging Services](/docs/tasks/debug/debug-application/debug-service/) for
 more information.
 
 ### Are DNS endpoints exposed?
@@ -193,7 +193,7 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 ```
 
 If you do not see the endpoints, see the endpoints section in the
-[debugging Services](/docs/tasks/debug-application-cluster/debug-service/) documentation.
+[debugging Services](/docs/tasks/debug/debug-application/debug-service/) documentation.
 
 For additional Kubernetes DNS examples, see the
 [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)

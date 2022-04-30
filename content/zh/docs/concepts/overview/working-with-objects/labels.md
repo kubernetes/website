@@ -231,6 +231,7 @@ partition
 * The second example selects all resources with key equal to `tier` and values other than `frontend` and `backend`, and all resources with no labels with the `tier` key.
 * The third example selects all resources including a label with key `partition`; no values are checked.
 * The fourth example selects all resources without a label with key `partition`; no values are checked.
+
 Similarly the comma separator acts as an _AND_ operator. So filtering resources with a `partition` key (no matter the value) and with `environment` different than  `qa` can be achieved using `partition,environment notin (qa)`.
 -->
 
@@ -238,6 +239,7 @@ Similarly the comma separator acts as an _AND_ operator. So filtering resources 
 * 第二个示例选择了所有键等于 `tier` 并且值不等于 `frontend` 或者 `backend` 的资源，以及所有没有 `tier` 键标签的资源。
 * 第三个示例选择了所有包含了有 `partition` 标签的资源；没有校验它的值。
 * 第四个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
+
 类似地，逗号分隔符充当 _与_ 运算符。因此，使用 `partition` 键（无论为何值）和
 `environment` 不同于 `qa` 来过滤资源可以使用 `partition, environment notin（qa)` 来实现。
 

@@ -658,8 +658,7 @@ added. Capabilities listed in `RequiredDropCapabilities` must not be included in
 
 **DefaultAddCapabilities** - The capabilities which are added to containers by
 default, in addition to the runtime defaults. See the
-[Docker documentation](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)
-for the default list of capabilities when using the Docker runtime.
+the documentation for your container runtime for information on working with Linux capabilities.
 
 ### SELinux
 

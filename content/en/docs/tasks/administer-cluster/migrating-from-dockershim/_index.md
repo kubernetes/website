@@ -17,8 +17,9 @@ to understand the problem better.
 
 <!-- body -->
 
-If you use Docker via dockershim as your container runtime, the Kubernetes project
-recommends that you migrate to an alternative container runtime.
+Dockershim will be removed from Kubernetes following the release of v1.24.
+If you use Docker via dockershim as your container runtime, and wish to upgrade to v1.24,
+it is recommended that you either migrate to another runtime or find an alternative means to obtain Docker Engine support.
 If you're not sure whether you are using Docker,
 [find out what container runtime is used on a node](/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/).
 

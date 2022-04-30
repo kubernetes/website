@@ -69,7 +69,7 @@ The following methods exist for installing kubectl on Windows:
    Or use this for detailed view of version:
 
    ```cmd
-   kubectl version --client --output=yaml     
+   kubectl version --client --output=yaml
    ```
 
 {{< note >}}

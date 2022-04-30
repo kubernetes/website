@@ -15,6 +15,76 @@ This document serves both as a reference to the values and as a coordination poi
 
 ## Labels, annotations and taints used on API objects
 
+### app.kubernetes.io/component
+
+Example: `app.kubernetes.io/component=database`
+
+Used on: All Objects
+
+The component within the architecture.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/created-by
+
+Example: `app.kubernetes.io/created-by=controller-manager`
+
+Used on: All Objects
+
+The controller/user who created this resource.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/instance
+
+Example: `app.kubernetes.io/instance=mysql-abcxzy`
+
+Used on: All Objects
+
+A unique name identifying the instance of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/managed-by
+
+Example: `app.kubernetes.io/managed-by=helm`
+
+Used on: All Objects
+
+The tool being used to manage the operation of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/name
+
+Example: `app.kubernetes.io/name=mysql`
+
+Used on: All Objects
+
+The name of the application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/part-of
+
+Example: `app.kubernetes.io/part-of=wordpress`
+
+Used on: All Objects
+
+The name of a higher level application this one is part of.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/version
+
+Example: `app.kubernetes.io/version="5.7.21"`
+
+Used on: All Objects
+
+The current version of the application (e.g., a semantic version, revision hash, etc.).
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
 ### kubernetes.io/arch
 
 Example: `kubernetes.io/arch=amd64`
@@ -97,6 +167,44 @@ Used on: Pod
 
 This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
+
+### kubernetes.io/ingress-bandwidth
+
+{{< note >}}
+Ingress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+{{< /note >}}
+
+Example: `kubernetes.io/ingress-bandwidth: 10M`
+
+Used on: Pod
+
+You can apply quality-of-service traffic shaping to a pod and effectively limit its available bandwidth.
+Ingress traffic (to the pod) is handled by shaping queued packets to effectively handle data.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for specifying ingress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second.
+
+### kubernetes.io/egress-bandwidth
+
+{{< note >}}
+Egress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+{{< /note >}}
+
+Example: `kubernetes.io/egress-bandwidth: 10M`
+
+Used on: Pod
+
+Egress traffic (from the pod) is handled by policing, which simply drops packets in excess of the configured rate.
+The limits you place on a pod do not affect the bandwidth of other pods.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/egress-bandwidth` annotation. The unit used for specifying egress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second.
 
 ### beta.kubernetes.io/instance-type (deprecated)
 

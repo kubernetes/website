@@ -32,6 +32,18 @@ _拓扑感知提示_ 包含客户怎么使用服务端点的建议，从而实�
 
 例如，你可以在一个地域内路由流量，以降低通信成本，或提高网络性能。
 
+<!-- 
+The "topology-aware hints" feature is at Beta stage and it is **NOT** enabled
+by default. To try out this feature, you have to enable the `TopologyAwareHints`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+
+{{< note >}}
+“拓扑感知提示”特性处于 Beta 阶段，并且默认情况下**未**启用。 
+要试用此特性，你必须启用 `TopologyAwareHints`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+{{< /note >}}
+
 <!-- body -->
 
 <!-- 

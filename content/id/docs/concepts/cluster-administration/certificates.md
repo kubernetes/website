@@ -30,7 +30,7 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
 1. Hasilkan sertifikat dan kunci _server_.
     Argumen `--subject-alt-name` digunakan untuk mengatur alamat IP dan nama DNS yang dapat diakses
     oleh _server_ API. `MASTER_CLUSTER_IP` biasanya merupakan IP pertama dari CIDR _service cluster_
-    yang diset dengan argumen` --service-cluster-ip-range` untuk _server_ API dan
+    yang diset dengan argumen `--service-cluster-ip-range` untuk _server_ API dan
     komponen manajer pengontrol. Argumen `--days` digunakan untuk mengatur jumlah hari
     masa berlaku sertifikat.
     Sampel di bawah ini juga mengasumsikan bahwa kamu menggunakan `cluster.local` sebagai nama

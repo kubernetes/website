@@ -63,7 +63,7 @@ valid. For example, if you try to create a Node from the following JSON manifest
 1. 节点上的 `kubelet` 向控制面执行自注册；
 2. 你，或者别的什么人，手动添加一个 Node 对象。
 
-在你创建了 Node {{< glossary_tooltip text="object" term_id="object" >}}或者节点上的
+在你创建了 Node {{< glossary_tooltip text="对象" term_id="object" >}}或者节点上的
 `kubelet` 执行了自注册操作之后，控制面会检查新的 Node 对象是否合法。
 例如，如果你尝试使用下面的 JSON 对象来创建 Node 对象：
 
@@ -100,10 +100,9 @@ it becomes healthy.
 You, or a {{< glossary_tooltip term_id="controller" text="controller">}}, must explicitly
 delete the Node object to stop that health checking.
 -->
-Kubernetes 会一直保存着非法节点对应的对象，并持续检查该节点是否已经
-变得健康。
-你，或者某个{{< glossary_tooltip term_id="controller" text="控制器">}}必需显式地
-删除该 Node 对象以停止健康检查操作。
+Kubernetes 会一直保存着非法节点对应的对象，并持续检查该节点是否已经变得健康。
+你，或者某个{{< glossary_tooltip term_id="controller" text="控制器">}}必须显式地删除该
+Node 对象以停止健康检查操作。
 {{< /note >}}
 
 <!--
@@ -127,7 +126,7 @@ first and re-added after the update.
 -->
 ### 节点名称唯一性     {#node-name-uniqueness}
 
-节点的[名称](/docs/concepts/overview/working-with-objects/names#names)用来标识 Node 对象。
+节点的[名称](/zh/docs/concepts/overview/working-with-objects/names#names)用来标识 Node 对象。
 没有两个 Node 可以同时使用相同的名称。 Kubernetes 还假定名字相同的资源是同一个对象。
 就 Node 而言，隐式假定使用相同名称的实例会具有相同的状态（例如网络配置、根磁盘内容）
 和类似节点标签这类属性。这可能在节点被更改但其名称未变时导致系统状态不一致。
@@ -177,8 +176,8 @@ When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
 kubelets are only authorized to create/modify their own Node resource.
 -->
 启用[Node 鉴权模式](/zh/docs/reference/access-authn-authz/node/)和
-[NodeRestriction 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
-时，仅授权 `kubelet` 创建或修改其自己的节点资源。
+[NodeRestriction 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)时，
+仅授权 `kubelet` 创建或修改其自己的节点资源。
 
 {{< note >}}
 <!--
@@ -257,7 +256,7 @@ kubectl cordon $NODENAME
 See [Safely Drain a Node](/docs/tasks/administer-cluster/safely-drain-node/)
 for more details.
 -->
-更多细节参考[安全腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
+更多细节参考[安全地腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
 
 {{< note >}}
 <!--
@@ -285,10 +284,10 @@ A node's status contains the following information:
 
 一个节点的状态包含以下信息:
 
-* [地址](#addresses)
-* [状况](#condition)
-* [容量与可分配](#capacity)
-* [信息](#info)
+* [地址（Addresses）](#addresses)
+* [状况（Condition）](#condition)
+* [容量与可分配（Capacity）](#capacity)
+* [信息（Info）](#info)
 
 <!--
 You can use `kubectl` to view a Node's status and other details:
@@ -327,7 +326,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 -->
 ### 状况 {#condition}
 
-`conditions` 字段描述了所有 `Running` 节点的状态。状况的示例包括：
+`conditions` 字段描述了所有 `Running` 节点的状况。状况的示例包括：
 
 <!--
 {{< table caption = "Node conditions, and a description of when each condition applies." >}}
@@ -393,7 +392,7 @@ for all Pods assigned to that node. The default eviction timeout duration is
 如果 Ready 状况的 `status` 处于 `Unknown` 或者 `False` 状态的时间超过了
 `pod-eviction-timeout` 值（一个传递给
 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
-的参数），[节点控制器](#node-controller) 会对节点上的所有 Pod 触发
+的参数），[节点控制器](#node-controller)会对节点上的所有 Pod 触发
 {{< glossary_tooltip text="API-发起的驱逐" term_id="api-eviction" >}}。
 默认的逐出超时时长为 **5 分钟**。
 
@@ -417,7 +416,7 @@ all the Pod objects running on the node to be deleted from the API server, and f
 names.
 -->
 节点控制器在确认 Pod 在集群中已经停止运行前，不会强制删除它们。
-你可以看到这些可能在无法访问的节点上运行的 Pod 处于 `Terminating` 或者 `Unknown` 状态。
+你可以看到可能在这些无法访问的节点上运行的 Pod 处于 `Terminating` 或者 `Unknown` 状态。
 如果 kubernetes 不能基于下层基础设施推断出某节点是否已经永久离开了集群，
 集群管理员可能需要手动删除该节点对象。
 从 Kubernetes 删除节点对象将导致 API 服务器删除节点上所有运行的 Pod 对象并释放它们的名字。
@@ -480,7 +479,7 @@ the Kubernetes API.
 ### 信息（Info） {#info}
 
 Info 指的是节点的一般信息，如内核版本、Kubernetes 版本（`kubelet` 和 `kube-proxy` 版本）、
-容器运行时详细信息，以及 节点使用的操作系统。
+容器运行时详细信息，以及节点使用的操作系统。
 `kubelet` 从节点收集这些信息并将其发布到 Kubernetes API。
 
 <!--
@@ -492,6 +491,7 @@ availability of each node, and to take action when failures are detected.
 For nodes there are two forms of heartbeats:
 -->
 ## 心跳  {#heartbeats}
+
 Kubernetes 节点发送的心跳帮助你的集群确定每个节点的可用性，并在检测到故障时采取行动。
 
 对于节点，有两种形式的心跳:
@@ -504,7 +504,7 @@ Kubernetes 节点发送的心跳帮助你的集群确定每个节点的可用性
   Each Node has an associated Lease object.
 -->
 * 更新节点的 `.status`
-* `kube-node-lease` {{<glossary_tooltip term_id="namespace" text="命名空间">}}中的
+* `kube-node-lease` {{<glossary_tooltip term_id="namespace" text="名字空间">}}中的
   [Lease（租约）](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)对象。
   每个节点都有一个关联的 Lease 对象。
 
@@ -570,26 +570,29 @@ controller deletes the node from its list of nodes.
 The third is monitoring the nodes' health. The node controller is
 responsible for:
 
-- In the case that a node becomes unreachable, updating the NodeReady condition
-  of within the Node's `.status`. In this case the node controller sets the
-  NodeReady condition to `ConditionUnknown`.
+- In the case that a node becomes unreachable, updating the `Ready` condition
+  in the Node's `.status` field. In this case the node controller sets the
+  `Ready` condition to `Unknown`.
 - If a node remains unreachable: triggering
   [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/)
   for all of the Pods on the unreachable node. By default, the node controller
-  waits 5 minutes between marking the node as `ConditionUnknown` and submitting
+  waits 5 minutes between marking the node as `Unknown` and submitting
   the first eviction request.
 
-The node controller checks the state of each node every `-node-monitor-period` seconds.
+By default, the node controller checks the state of each node every 5 seconds.
+This period can be configured using the `--node-monitor-period` flag on the
+`kube-controller-manager` component.
 -->
 第三个是监控节点的健康状况。节点控制器负责：
 
-- 在节点不可达的情况下，在 Node 的 `.status` 中更新 NodeReady 状况。
+- 在节点不可达的情况下，在 Node 的 `.status` 中更新 `Ready` 状况。
   在这种情况下，节点控制器将 NodeReady 状况更新为 `Unknown` 。
 - 如果节点仍然无法访问：对于不可达节点上的所有 Pod 触发
-  [API-发起的逐出](/zh/docs/concepts/scheduling-eviction/api-eviction/)。
+  [API 发起的逐出](/zh/docs/concepts/scheduling-eviction/api-eviction/)操作。
   默认情况下，节点控制器在将节点标记为 `Unknown` 后等待 5 分钟提交第一个驱逐请求。
 
-节点控制器每隔 `--node-monitor-period` 秒检查每个节点的状态。
+默认情况下，节点控制器每 5 秒检查一次节点状态，可以使用 `kube-controller-manager`
+组件上的 `--node-monitor-period` 参数来配置周期。
 
 <!--
 ### Rate limits on eviction
@@ -606,11 +609,11 @@ from more than 1 node per 10 seconds.
 <!--
 The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
-are unhealthy (NodeReady condition is `ConditionUnknown` or `ConditionFalse`) at
+are unhealthy (the `Ready` condition is `Unknown` or `False`) at
 the same time:
 -->
 当一个可用区域（Availability Zone）中的节点变为不健康时，节点的驱逐行为将发生改变。
-节点控制器会同时检查可用区域中不健康（NodeReady 状况为 `Unknown` 或 `False`）
+节点控制器会同时检查可用区域中不健康（`Ready` 状况为 `Unknown` 或 `False`）
 的节点的百分比：
 
 <!--
@@ -713,7 +716,7 @@ If you want to explicitly reserve resources for non-Pod processes, follow this t
 -->
 ## 节点拓扑  {#node-topology}
 
-{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
+{{< feature-state state="beta" for_k8s_version="v1.18" >}}
 
 <!--
 If you have enabled the `TopologyManager`
@@ -766,11 +769,11 @@ enabled by default in 1.21.
 <!--
 Note that by default, both configuration options described below,
 `ShutdownGracePeriod` and `ShutdownGracePeriodCriticalPods` are set to zero,
-thus not activating Graceful node shutdown functionality.
+thus not activating the graceful node shutdown functionality.
 To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
 -->
-注意，默认情况下，下面描述的两个配置选项，`ShutdownGracePeriod` 和
-`ShutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活体面节点关闭功能。
+注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
+`shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活体面节点关闭功能。
 要激活此功能特性，这两个 kubelet 配置选项要适当配置，并设置为非零值。
 
 <!-- 
@@ -794,12 +797,12 @@ Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/
 节点体面关闭的特性对应两个
 [`KubeletConfiguration`](/zh/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
 
-* `ShutdownGracePeriod`：
+* `shutdownGracePeriod`：
   * 指定节点应延迟关闭的总持续时间。此时间是 Pod 体面终止的时间总和，不区分常规 Pod
     还是[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
-* `ShutdownGracePeriodCriticalPods`：
+* `shutdownGracePeriodCriticalPods`：
   * 在节点关闭期间指定用于终止[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
-    的持续时间。该值应小于 `ShutdownGracePeriod`。
+    的持续时间。该值应小于 `shutdownGracePeriod`。
 
 <!--  
 For example, if `ShutdownGracePeriod=30s`, and
@@ -808,7 +811,7 @@ For example, if `ShutdownGracePeriod=30s`, and
 for gracefully terminating normal pods, and the last 10 seconds would be
 reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 -->
-例如，如果设置了 `ShutdownGracePeriod=30s` 和 `ShutdownGracePeriodCriticalPods=10s`，
+例如，如果设置了 `shutdownGracePeriod=30s` 和 `shutdownGracePeriodCriticalPods=10s`，
 则 kubelet 将延迟 30 秒关闭节点。
 在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，
 而保留最后 10 秒用于终止[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
@@ -817,11 +820,6 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 When pods were evicted during the graceful node shutdown, they are marked as failed.
 Running `kubectl get pods` shows the status of the the evicted pods as `Shutdown`.
 And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
-
-```
-Reason:         Terminated
-Message:        Pod was terminated in response to imminent node shutdown.
-```
 -->
 {{< note >}}
 当 Pod 在正常节点关闭期间被驱逐时，它们会被标记为已经失败（Failed）。
@@ -970,8 +968,8 @@ containing the pod priority class values and their respective shutdown periods.
 -->
 如果此功能特性被启用，但没有提供配置数据，则不会出现排序操作。
 
-使用此功能特性需要启用 `GracefulNodeShutdownBasedOnPodPriority` 功能特性，
-并将 kubelet 配置中的 `ShutdownGracePeriodByPodPriority` 设置为期望的配置，
+使用此功能特性需要启用 `GracefulNodeShutdownBasedOnPodPriority` 特性门控，
+并将 kubelet 配置中的 `shutdownGracePeriodByPodPriority` 设置为期望的配置，
 其中包含 Pod 的优先级类数值以及对应的关闭期限。
 
 <!--
@@ -1005,8 +1003,7 @@ must be set to false.
 -->
 要在节点上启用交换内存，必须启用kubelet 的 `NodeSwap` 特性门控，
 同时使用 `--fail-swap-on` 命令行参数或者将 `failSwapOn`
-[配置](/zh/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-设置为 false。
+[配置](/zh/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)设置为 false。
 
 <!--
 A user can also optionally configure `memorySwap.swapBehavior` in order to
