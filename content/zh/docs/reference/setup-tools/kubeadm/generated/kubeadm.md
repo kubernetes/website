@@ -1,8 +1,11 @@
 
 <!-- 
+kubeadm: easily bootstrap a secure Kubernetes cluster
+
 ### Synopsis 
 -->
 
+kubeadm: 轻松创建一个安全的 Kubernetes 集群
 ### 摘要
 
 <!--
@@ -90,9 +93,9 @@ Example usage:
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for kubeadm
+<p>help for kubeadm</p>
 -->
-kubeadm 操作的帮助信息 
+<p>kubeadm 操作的帮助信息<p>
 </td>
 </tr>
 
@@ -102,9 +105,9 @@ kubeadm 操作的帮助信息
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<p>[实验] 指向 '真实' 宿主机根文件系统的路径。<p>
 </td>
 </tr>
 
