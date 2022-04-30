@@ -98,6 +98,10 @@ A Service `ClusterIP` can be assigned:
 
 Service `ClusterIP` are unique, hence, trying to create a Service with a `ClusterIP` that has already been allocated will return an error.
 
+### Dynamic Kubelet Configuration is Removed from the Kubelet
+
+After being deprecated in Kubernetes 1.22, Dynamic Kubelet Configuration has been removed from the kubelet. The feature will be removed from the API server in Kubernetes 1.26.
+
 ## CNI Version-Related Breaking Change
 
 Before you upgrade to Kubernetes 1.24, please verify that you are using/upgrading to a container 
