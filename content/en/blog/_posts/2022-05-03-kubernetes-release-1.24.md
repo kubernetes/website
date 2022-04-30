@@ -124,7 +124,7 @@ CNI versions" or "Failed to destroy network for sandbox" error conditions.
 
 ### Graduations to Stable
 
-This release saw fifteen enhancements promoted to stable: 
+This release saw fourteen enhancements promoted to stable: 
 
 * [Container Storage Interface (CSI) Volume Expansion](https://github.com/kubernetes/enhancements/issues/284)
 * [Pod Overhead](https://github.com/kubernetes/enhancements/issues/688): Account for resources tied to the pod sandbox, but not specific containers.
