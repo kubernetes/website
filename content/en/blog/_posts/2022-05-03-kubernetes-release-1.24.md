@@ -20,7 +20,7 @@ Also, two features have been deprecated, and the [dockershim has been removed](/
 ### Dockershim Removed from kubelet
 
 After its deprecation in v1.20, the dockershim component has been removed from the kubelet. 
-From v1.24 onwards, you will need to either use one of the other [supported runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) (such as containerd or CRI-O) 
+From v1.24 onwards, you will need to either use one of the other [supported runtimes](/docs/setup/production-environment/container-runtimes/) (such as containerd or CRI-O) 
 or use cri-dockerd if you are relying on Docker Engine as your container runtime. 
 For more information about ensuring your cluster is ready for this removal, please 
 see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/). 
