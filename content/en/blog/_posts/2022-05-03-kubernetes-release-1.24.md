@@ -44,7 +44,7 @@ Kubernetes 1.24 offers beta support for publishing its APIs in the [OpenAPI v3 f
 ### Storage Capacity and Volume Expansion Are Generally Available
 
 [Storage capacity tracking](https://github.com/kubernetes/enhancements/issues/1472) 
-supports exposing currently available storage capacity via [CSIStorageCapacity objects](https://kubernetes.io/docs/concepts/storage/storage-capacity/#api) 
+supports exposing currently available storage capacity via [CSIStorageCapacity objects](/docs/concepts/storage/storage-capacity/#api) 
 and enhances scheduling of pods that use CSI volumes with late binding.
 
 [Volume expansion](https://github.com/kubernetes/enhancements/issues/284) adds support 
