@@ -55,6 +55,8 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) extends Ingress with Custom Resources to bring API Management capabilities to Ingress. Tyk Operator works with the Open Source Tyk Gateway & Tyk Cloud control plane.
 * [Voyager](https://appscode.com/products/voyager) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
+* FortiADC [Ingress Controller for Kubernetes](https://github.com/fortinet/fortiadc-ingress) is based on API, which offers LB and Security functionality. ![image](https://user-images.githubusercontent.com/101046255/166139366-95d310b8-b0a3-4366-9efe-6c924dc73503.png)
+
 
 ## Using multiple Ingress controllers
 
