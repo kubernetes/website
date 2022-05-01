@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: constraints-cpu-demo-4
+  name: constraints-cpu-demo-3
 spec:
   containers:
-  - name: constraints-cpu-demo-4-ctr
+  - name: constraints-cpu-demo-3-ctr
     image: nginx
     resources:
       limits:
