@@ -1,17 +1,19 @@
 ---
-reviewers:
-- brendandburns
-- davidopp
+title: 监控、日志和调试
+description: 设置监控和日志记录以对集群进行故障排除或调试容器化应用程序。
+weight: 20
 content_type: concept
-title: 故障诊断
+no_list: true
 ---
-
-<!--
+<!-- 
+title: "Monitoring, Logging, and Debugging"
+description: Set up monitoring and logging to troubleshoot a cluster, or debug a containerized application.
+weight: 20
 reviewers:
 - brendandburns
 - davidopp
 content_type: concept
-title: Troubleshooting
+no_list: true
 -->
 
 <!-- overview -->
@@ -23,12 +25,14 @@ two sections:
 有时候事情会出错。本指南旨在解决这些问题。它包含两个部分：
 
 <!--
-   * [Troubleshooting your application](/docs/tasks/debug-application-cluster/debug-application/) - Useful for users who are deploying code into Kubernetes and wondering why it is not working.
-   * [Troubleshooting your cluster](/docs/tasks/debug-application-cluster/debug-cluster/) - Useful for cluster administrators and people whose Kubernetes cluster is unhappy.
+* [Debugging your application](/docs/tasks/debug/debug-application/) - Useful
+  for users who are deploying code into Kubernetes and wondering why it is not working.
+* [Debugging your cluster](/docs/tasks/debug/debug-cluster/) - Useful
+  for cluster administrators and people whose Kubernetes cluster is unhappy.
 -->
-* [应用排错](/zh/docs/tasks/debug-application-cluster/debug-application/) -
+* [应用排错](/zh/docs/tasks/debug/debug-application/) -
   针对部署代码到 Kubernetes 并想知道代码为什么不能正常运行的用户。
-* [集群排错](/zh/docs/tasks/debug-application-cluster/debug-cluster/) -
+* [集群排错](/zh/docs/tasks/debug/debug-cluster/) -
   针对集群管理员以及 Kubernetes 集群表现异常的用户。
 
 <!--
