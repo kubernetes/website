@@ -160,12 +160,12 @@ worker node, but it can't run on that machine. Again, the information from
 ### My pod is crashing or otherwise unhealthy 
 
 Once your pod has been scheduled, the methods described in [Debug Running Pods](
-/docs/tasks/debug-application-cluster/debug-running-pod/) are available for debugging.
+/docs/tasks/debug/debug-application/debug-running-pod/) are available for debugging.
 -->
 ### 我的 Pod 一直 Crashing 或者其他不健康状态
 
 一旦 Pod 已经被调度，就可以依据
-[调试运行中的 Pod](/zh/docs/tasks/debug-application-cluster/debug-running-pod/)
+[调试运行中的 Pod](/zh/docs/tasks/debug/debug-application/debug-running-pod/)
 展开进一步的调试工作。
 
 <!-- 
