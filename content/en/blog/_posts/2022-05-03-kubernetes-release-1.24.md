@@ -190,7 +190,7 @@ The release logo is made by [Britnee Laverack](https://www.instagram.com/artsyfi
 for the Kubernetes project, and is a reference back to our original “Project Seven” name.
 
 This release of Kubernetes is named for those that would look towards the night sky and wonder — for 
-all the stargazers out there. :sparkles:
+all the stargazers out there. ✨
    
 ### User Highlights
 
