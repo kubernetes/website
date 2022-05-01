@@ -1,10 +1,10 @@
 ---
-title: 在本地开发和调试服务
+title: 使用 telepresence 在本地开发和调试服务
 content_type: task
 ---
 
 <!--
-title: Developing and debugging services locally
+title: Developing and debugging services locally using telepresence
 content_type: task
 -->
 
