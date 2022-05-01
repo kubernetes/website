@@ -55,8 +55,8 @@ evergreen: true
 <!-- Note that as a new built-in command, `kubectl debug` takes priority over any kubectl plugin named “debug”. You must rename the affected plugin. -->
 请注意，作为新的内置命令，`kubectl debug` 优先于任何名为 “debug” 的 kubectl 插件。你必须重命名受影响的插件。
 
-<!-- Invocations using `kubectl alpha debug` are now deprecated and will be removed in a subsequent release. Update your scripts to use `kubectl debug`. For more information about `kubectl debug`, see [Debugging Running Pods](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/). -->
-`kubectl alpha debug` 现在不推荐使用，并将在后续版本中删除。更新你的脚本以使用 `kubectl debug`。 有关更多信息 `kubectl debug`，请参阅[调试正在运行的 Pod]((https://kubernetes.io/zh/docs/tasks/debug-application-cluster/debug-running-pod/)。
+<!-- Invocations using `kubectl alpha debug` are now deprecated and will be removed in a subsequent release. Update your scripts to use `kubectl debug`. For more information about `kubectl debug`, see [Debugging Running Pods](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/). -->
+`kubectl alpha debug` 现在不推荐使用，并将在后续版本中删除。更新你的脚本以使用 `kubectl debug`。 有关更多信息 `kubectl debug`，请参阅[调试正在运行的 Pod]((https://kubernetes.io/zh/docs/tasks/debug/debug-application/debug-running-pod/)。
 
 <!-- ### Beta: API Priority and Fairness -->
 ### 测试版：API 优先级和公平性 {#beta-api-priority-and-fairness)
