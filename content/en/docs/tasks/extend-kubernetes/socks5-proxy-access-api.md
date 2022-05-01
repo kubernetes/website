@@ -15,10 +15,8 @@ This is useful when the cluster you want to access does not expose its API direc
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-To follow this task you need an intermediate host (also known as a “jump box”). The task assumes that
-the intermediate host is separate from your Kubernetes cluster.
-You need SSH client software (the `ssh` tool), and an SSH server running on the intermediate host.
-You must be able to log in to the SSH server on the intermediate host.
+You need SSH client software (the `ssh` tool), and an SSH server running on the remote server.
+You must be able to log in to the SSH server on the remote server.
 
 <!-- steps -->
 
@@ -31,7 +29,7 @@ You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOC
 
 Figure 1 represents what you're going to achieve in this task.
 
-* You have a client compute from where you're going to create requests to talk to the Kubernetes API
+* You have a client computer from where you're going to create requests to talk to the Kubernetes API
 * The Kubernetes server/API is hosted on a remote server.
 * You will use SSH client and server software to create a secure SOCKS5 tunnel between the local and
   the remote server. The HTTPS traffic between the client and the Kubernetes API will flow over the SOCKS5
@@ -61,19 +59,18 @@ Figure 1. SOCKS5 tutorial components
 
 ## Using ssh to create a SOCKS5 proxy
 
-This command starts a SOCKS5 proxy between your client machine and the intermediate
-host. The SOCKS5 proxy lets you connect via that immediate host to your cluster's API
-server (provided that the traffic is permitted).
+This command starts a SOCKS5 proxy between your client machine and the remote server.
+The SOCKS5 proxy lets you connect to your cluster's API server.
 
 ```shell
 # The SSH tunnel continues running in the foreground after you run this
-ssh -D 1080 -q -N username@kubernetes-jump-box.example
+ssh -D 1080 -q -N username@kubernetes-remote-server.example
 ```
 
 * `-D 1080`: opens a SOCKS proxy on local port :1080.
 * `-q`: quiet mode. Causes most warning and diagnostic messages to be suppressed.
 * `-N`: Do not execute a remote command. Useful for just forwarding ports.
-* `username@kubernetes-jump-box.example`: the remote SSH server where the Kubernetes cluster is running.
+* `username@kubernetes-remote-server.example`: the remote SSH server where the Kubernetes cluster is running.
 
 ## Client configuration
 
@@ -91,9 +88,9 @@ you configured. For this to work, the tool must support SOCKS5 proxying.
 
 {{< note >}}
 In the URL https://localhost/api, `localhost` does not refer to your local client computer.
-Instead, it refers to the endpoint that the intermediate host (“jump box”) knows as `localhost`.
-The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the intermediate
-host resolves that locally (to an address that belongs to its loopback interface).
+Instead, it refers to the endpoint on the remote server knows as `localhost`.
+The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the remote server
+resolves that locally (to an address that belongs to its loopback interface).
 {{</ note >}}
 
 ```shell
