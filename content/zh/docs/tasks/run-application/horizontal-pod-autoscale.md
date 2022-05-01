@@ -148,12 +148,12 @@ The common use for HorizontalPodAutoscaler is to configure it to fetch metrics f
 (`metrics.k8s.io`, `custom.metrics.k8s.io`, or `external.metrics.k8s.io`).  The `metrics.k8s.io` API is
 usually provided by an add-on named Metrics Server, which needs to be launched separately.
 For more information about resource metrics, see
-[Metrics Server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server).
+[Metrics Server](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server).
 -->
 HorizontalPodAutoscaler 的常见用途是将其配置为从{{< glossary_tooltip text="聚合 API" term_id="aggregation-layer" >}}
 （`metrics.k8s.io`、`custom.metrics.k8s.io` 或 `external.metrics.k8s.io`）获取指标。
 `metrics.k8s.io` API 通常由名为 Metrics Server 的插件提供，需要单独启动。有关资源指标的更多信息，
-请参阅 [Metrics Server](/zh/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server)。
+请参阅 [Metrics Server](/zh/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server)。
 
 <!--
 [Support for metrics APIs](#support-for-metrics-apis) explains the stability guarantees and support status for these
