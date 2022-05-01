@@ -1,6 +1,7 @@
 ---
 content_type: task
 title: 节点健康监测
+weight: 20
 ---
 <!-- 
 title: Monitor Node Health
@@ -8,6 +9,7 @@ content_type: task
 reviewers:
 - Random-Liu
 - dchen1107
+weight: 20
 -->
 
 <!-- overview -->
