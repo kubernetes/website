@@ -91,7 +91,7 @@ you configured. For this to work, the tool must support SOCKS5 proxying.
 
 {{< note >}}
 In the URL https://localhost/api, `localhost` does not refer to your local client computer.
-Instead, it refers to the the endpoint that the intermediate host (“jump box”) knows as `localhost`.
+Instead, it refers to the endpoint that the intermediate host (“jump box”) knows as `localhost`.
 The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the intermediate
 host resolves that locally (to an address that belongs to its loopback interface).
 {{</ note >}}
