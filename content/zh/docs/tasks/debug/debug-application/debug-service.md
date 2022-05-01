@@ -1,6 +1,7 @@
 ---
 content_type: concept
 title: 调试 Service
+weight: 20
 ---
 
 <!--
@@ -9,6 +10,7 @@ reviewers:
 - bowei
 content_type: concept
 title: Debug Services
+weight: 20
 -->
 
 <!-- overview -->
@@ -636,7 +638,7 @@ they are running fine and not crashing.
 
 The "RESTARTS" column says that these pods are not crashing frequently or being
 restarted.  Frequent restarts could lead to intermittent connectivity issues.
-If the restart count is high, read more about how to [debug pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods).
+If the restart count is high, read more about how to [debug pods](/docs/tasks/debug/debug-application/debug-pods).
 
 Inside the Kubernetes system is a control loop which evaluates the selector of
 every Service and saves the results into a corresponding Endpoints object.
@@ -646,7 +648,7 @@ every Service and saves the results into a corresponding Endpoints object.
 "AGE" 列表明这些 Pod 已经启动一个小时了，这意味着它们运行良好，而未崩溃。
 
 "RESTARTS" 列表明 Pod 没有经常崩溃或重启。经常性崩溃可能导致间歇性连接问题。
-如果重启次数过大，通过[调试 pod](/zh/docs/tasks/debug-application-cluster/debug-application/#debugging-pods)
+如果重启次数过大，通过[调试 Pod](/zh/docs/tasks/debug/debug-application/debug-pods)
 了解相关技术。
 
 在 Kubernetes 系统中有一个控制回路，它评估每个 Service 的选择算符，并将结果保存到 Endpoints 对象中。
@@ -1091,7 +1093,7 @@ Service is not working.  Please let us know what is going on, so we can help
 investigate!
 
 Contact us on
-[Slack](/docs/tasks/debug-application-cluster/troubleshooting/#slack) or
+[Slack](/docs/tasks/debug/overview/#slack) or
 [Forum](https://discuss.kubernetes.io) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 -->
@@ -1102,7 +1104,7 @@ Contact us on
 然而 Service 还是没有正常工作。这种情况下，请告诉我们，以便我们可以帮助调查！
 
 通过
-[Slack](/zh/docs/tasks/debug-application-cluster/troubleshooting/#slack) 或者
+[Slack](/zh/docs/tasks/debug/overview/#slack) 或者
 [Forum](https://discuss.kubernetes.io) 或者
 [GitHub](https://github.com/kubernetes/kubernetes) 
 联系我们。
@@ -1110,7 +1112,6 @@ Contact us on
 ## {{% heading "whatsnext" %}}
 
 <!--
-Visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/)
-for more information.
+Visit [troubleshooting document](/docs/tasks/debug/overview/) for more information.
 -->
 访问[故障排查文档](/zh/docs/tasks/debug-application-cluster/troubleshooting/) 获取更多信息。

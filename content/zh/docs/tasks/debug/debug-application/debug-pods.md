@@ -1,10 +1,16 @@
 ---
-title: 应用故障排查
+title: 调试 Pod
 content_type: concept
+weight: 10
 ---
-<!--
-title: Troubleshoot Applications
+
+<!-- 
+reviewers:
+- mikedanese
+- thockin
+title: Debug Pods
 content_type: concept
+weight: 10
 -->
 
 <!-- overview -->
@@ -12,12 +18,12 @@ content_type: concept
 <!--
 This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.
 This is *not* a guide for people who want to debug their cluster.  For that you should check out
-[this guide](/docs/admin/cluster-troubleshooting).
+[this guide](/docs/tasks/debug/debug-cluster).
 -->
 
 本指南帮助用户调试那些部署到 Kubernetes 上后没有正常运行的应用。
-本指南 *并非* 指导用户如何调试集群。
-如果想调试集群的话，请参阅[这里](/zh/docs/tasks/debug-application-cluster/debug-cluster/)。
+本指南 **并非** 指导用户如何调试集群。
+如果想调试集群的话，请参阅[这里](/zh/docs/tasks/debug/debug-cluster)。
 
 
 <!-- body -->
@@ -34,18 +40,18 @@ your Service?
 -->
 ## 诊断问题   {#diagnosing-the-problem}
 
-故障排查的第一步是先给问题分类。问题是什么？是关于 Pods、Replication Controller 还是 Service？
+故障排查的第一步是先给问题分类。问题是什么？是关于 Pod、Replication Controller 还是 Service？
 
-* [调试 Pods](#debugging-pods)
-* [调试副本控制器](#debugging-replication-controllers)
-* [调试服务](#debugging-services)
+* [调试 Pod](#debugging-pods)
+* [调试 Replication Controller](#debugging-replication-controllers)
+* [调试 Service](#debugging-services)
 
 <!--
 ### Debugging Pods
 
 The first step in debugging a Pod is taking a look at it.  Check the current state of the Pod and recent events with the following command:
 -->
-### 调试 Pods   {#debugging-pods}
+### 调试 Pod   {#debugging-pods}
 
 调试 Pod 的第一步是查看 Pod 信息。用如下命令查看 Pod 的当前状态和最近的事件：
 
@@ -79,7 +85,8 @@ your pod.  Reasons include:
 
 <!--
 * **You don't have enough resources**:  You may have exhausted the supply of CPU or Memory in your cluster, in this case
-you need to delete Pods, adjust resource requests, or add new nodes to your cluster. See [Compute Resources document](/docs/user-guide/compute-resources/#my-pods-are-pending-with-event-message-failedscheduling) for more information.
+you need to delete Pods, adjust resource requests, or add new nodes to your cluster. See
+[Compute Resources document](/docs/concepts/configuration/manage-resources-containers/) for more information.
 
 * **You are using `hostPort`**:  When you bind a Pod to a `hostPort` there are a limited number of places that pod can be
 scheduled.  In most cases, `hostPort` is unnecessary, try using a Service object to expose your Pod.  If you do require
@@ -207,7 +214,7 @@ First, verify that there are endpoints for the service. For every Service object
 
 You can view this resource with:
 -->
-### 调试服务   {#debugging-services}
+### 调试 Service   {#debugging-services}
 
 服务支持在多个 Pod 间负载均衡。
 有一些常见的问题可以造成服务无法正常工作。
@@ -228,7 +235,7 @@ For example, if your Service is for an nginx container with 3 replicas, you woul
 IP addresses in the Service's endpoints.
 -->
 确保 Endpoints 与服务成员 Pod 个数一致。
-例如，如果你的 Service 用来运行 3 个副本的 nginx 容器，你应该会在服务的 Endpoints
+例如，如果你的 Service 用来运行 3 个副本的 nginx 容器，你应该会在 Service 的 Endpoints
 中看到 3 个不同的 IP 地址。
 
 <!--
@@ -273,22 +280,26 @@ Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 <!--
 #### Network traffic is not forwarded
 
-Please see [debugging service](/docs/tasks/debug-application-cluster/debug-service/) for more information.
+Please see [debugging service](/docs/tasks/debug/debug-applications/debug-service/) for more information.
 -->
 #### 网络流量未被转发
 
-请参阅[调试 service](/zh/docs/tasks/debug-application-cluster/debug-service/) 了解更多信息。
+请参阅[调试 Service](/zh/docs/tasks/debug/debug-applications/debug-service/) 了解更多信息。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-If none of the above solves your problem, follow the instructions in [Debugging Service document](/docs/user-guide/debugging-services) to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are actually serving; you have DNS working, iptables rules installed, and kube-proxy does not seem to be misbehaving.
+If none of the above solves your problem, follow the instructions in
+[Debugging Service document](/docs/tasks/debug/debug-applications/debug-service/)
+to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are
+actually serving; you have DNS working, iptables rules installed, and kube-proxy
+does not seem to be misbehaving.
 
-You may also visit [troubleshooting document](/docs/troubleshooting/) for more information.
+You may also visit [troubleshooting document](/docs/tasks/debug/overview/) for more information.
 -->
-如果上述方法都不能解决你的问题，请按照
-[调试服务文档](/zh/docs/tasks/debug-application-cluster/debug-service/)中的介绍，
+如果上述方法都不能解决你的问题，
+请按照[调试 Service 文档](/zh/docs/tasks/debug/debug-applications/debug-service/)中的介绍，
 确保你的 `Service` 处于 Running 态，有 `Endpoints` 被创建，`Pod` 真的在提供服务；
 DNS 服务已配置并正常工作，iptables 规则也以安装并且 `kube-proxy` 也没有异常行为。
 
-你也可以访问[故障排查文档](/zh/docs/tasks/debug-application-cluster/troubleshooting/ )来获取更多信息。
+你也可以访问[故障排查文档](/zh/docs/tasks/debug/overview/)来获取更多信息。

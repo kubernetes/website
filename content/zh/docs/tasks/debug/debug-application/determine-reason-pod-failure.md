@@ -17,10 +17,12 @@ termination message.
 本文介绍如何编写和读取容器的终止消息。
 
 <!--
-Termination messages provide a way for containers to write information about
-fatal events to a location where it can be easily retrieved and surfaced by
-tools like dashboards and monitoring software. In most cases, information that
-you put in a termination message should also be written to the general
+Termination messages provide a way for containers to write
+information about fatal events to a location where it can
+be easily retrieved and surfaced by tools like dashboards
+and monitoring software. In most cases, information that you
+put in a termination message should also be written to
+the general
 [Kubernetes logs](/docs/concepts/cluster-administration/logging/).
 -->
 终止消息为容器提供了一种方法，可以将有关致命事件的信息写入某个位置，
@@ -48,59 +50,58 @@ the container starts.
 
 {{< codenew file="debug/termination.yaml" >}}
 
-1. <!--Create a Pod based on the YAML configuration file:-->基于 YAML 配置文件创建 Pod：
+<!-- 1. Create a Pod based on the YAML configuration file: -->
+1. 基于 YAML 配置文件创建 Pod：
 
-   ```shell
-   kubectl create -f https://k8s.io/examples/debug/termination.yaml
-   ``` 
+        kubectl apply -f https://k8s.io/examples/debug/termination.yaml   
 
-   <!--In the YAML file, in the `command` and `args` fields, you can see that the
+   <!--
+   In the YAML file, in the `command` and `args` fields, you can see that the
    container sleeps for 10 seconds and then writes "Sleep expired" to
    the `/dev/termination-log` file. After the container writes
-   the "Sleep expired" message, it terminates.-->
+   the "Sleep expired" message, it terminates.
+   -->
    YAML 文件中，在 `command` 和 `args` 字段，你可以看到容器休眠 10 秒然后将 "Sleep expired"
    写入 `/dev/termination-log` 文件。
    容器写完 "Sleep expired" 消息后就终止了。
 
-1. <!--Display information about the Pod:-->显示 Pod 的信息：
+<!-- 1. Display information about the Pod: -->
+1. 显示 Pod 的信息：
 
-   ```shell
-   kubectl get pod termination-demo
-   ```
+        kubectl get pod termination-demo
 
    <!--Repeat the preceding command until the Pod is no longer running.-->
    重复前面的命令直到 Pod 不再运行。
 
-1. <!--Display detailed information about the Pod:-->
-   显示 Pod 的详细信息：
+<!-- 1. Display detailed information about the Pod: -->
+1. 显示 Pod 的详细信息：
 
-   ```shell
-   kubectl get pod --output=yaml
-   ```
+        kubectl get pod termination-demo --output=yaml
 
-   <!--The output includes the "Sleep expired" message:-->输出结果包含 "Sleep expired" 消息：
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   ...
-       lastState:
-         terminated:
-           containerID: ...
-           exitCode: 0
-           finishedAt: ...
-           message: |
-             Sleep expired
-           ...
-   ```
+   <!--The output includes the "Sleep expired" message:-->
+   输出结果包含 "Sleep expired" 消息：
 
-1. <!--Use a Go template to filter the output so that it includes only the termination message:-->
-   使用 Go 模板过滤输出结果，使其只含有终止消息：
+        apiVersion: v1
+        kind: Pod
+        ...
+            lastState:
+              terminated:
+                containerID: ...
+                exitCode: 0
+                finishedAt: ...
+                message: |
+                  Sleep expired
+                ...
 
-   ```shell
-   kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
-   ```
+<!-- 
+1. Use a Go template to filter the output so that it includes
+only the termination message:
+-->
+1. 使用 Go 模板过滤输出结果，使其只含有终止消息：
+
+        kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
    
-<!
+<!--
 If you are running a multi-container pod, you can use a Go template to include the container's name. By doing so, you can discover which of the containers is failing:
 -->
 如果你正在运行多容器 Pod，则可以使用 Go 模板来包含容器的名称。这样，你可以发现哪些容器出现故障:
