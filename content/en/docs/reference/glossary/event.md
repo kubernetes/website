@@ -21,5 +21,5 @@ or the continued existence of events with that reason.
 
 Events should be treated as informative, best-effort, supplemental data.
 
-In Kubernetes, [auditing](/docs/tasks/debug-application-cluster/audit/) generates a different kind of
+In Kubernetes, [auditing](/docs/tasks/debug/debug-cluster/audit/) generates a different kind of
 Event record (API group `audit.k8s.io`).

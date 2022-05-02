@@ -156,11 +156,11 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 
 <!--
 If you don't see a Service named `cassandra`, that means creation failed. Read
-[Debug Services](/docs/tasks/debug-application-cluster/debug-service/)
+[Debug Services](/docs/tasks/debug/debug-application/debug-service/)
 for help troubleshooting common issues.
 -->
 如果没有看到名为 `cassandra` 的服务，则表示创建失败。
-请阅读[调试服务](/zh/docs/tasks/debug-application-cluster/debug-service/)，以解决常见问题。
+请阅读[调试服务](/zh/docs/tasks/debug/debug-application/debug-service/)，以解决常见问题。
 
 <!--
 ## Using a StatefulSet to create a Cassandra ring

@@ -177,7 +177,7 @@ group_right() apiserver_request_total
 
 Metrics are a fast way to check whether deprecated APIs are being used, and at what rate,
 but they don't include enough information to identify particular clients or API objects.
-Starting in Kubernetes v1.19, [audit events](/docs/tasks/debug-application-cluster/audit/)
+Starting in Kubernetes v1.19, [audit events](/docs/tasks/debug/debug-cluster/audit/)
 for requests to deprecated APIs include an audit annotation of `"k8s.io/deprecated":"true"`.
 Administrators can use those audit events to identify specific clients or objects that need to be updated.
 

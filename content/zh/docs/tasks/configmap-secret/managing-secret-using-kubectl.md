@@ -184,6 +184,10 @@ Now you can decode the `password` data:
 现在你可以解码 `password` 的数据：
 
 ```shell
+# 这是一个用于文档说明的示例。
+# 如果你这样做，数据 'MWYyZDFlMmU2N2Rm' 可以存储在你的 shell 历史中。
+# 可以进入你电脑的人可以找到那个记住的命令并可以在你不知情的情况下 base-64 解码这个 Secret。
+# 通常最好将这些步骤结合起来，如页面后面所示。
 echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 
@@ -193,6 +197,21 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 1f2d1e2e67df
 ```
+
+<!--
+In order to avoid storing a secret encoded value in your shell history, you can
+run the following command:
+-->
+为了避免在 shell 历史记录中存储 Secret 的编码值，可以执行如下命令:
+
+```shell
+kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
+```
+
+<!--
+The output shall be similar as above.
+-->
+输出应与上述类似。
 
 <!-- ## Clean Up -->
 ## 清理    {#clean-up}

@@ -317,7 +317,7 @@ RequestResponse's including metadata and request / response bodies. While helpfu
 
 Each organization needs to evaluate their
 own threat model and build an audit policy that complements or helps troubleshooting incident response. Think
-about how someone would attack your organization and what audit trail could identify it. Review more advanced options for tuning audit logs in the official [audit logging documentation](/docs/tasks/debug-application-cluster/audit/#audit-policy).
+about how someone would attack your organization and what audit trail could identify it. Review more advanced options for tuning audit logs in the official [audit logging documentation](/docs/tasks/debug/debug-cluster/audit/#audit-policy).
 It's crucial to tune your audit logs to only include events that meet your threat model. A minimal audit policy that logs everything at `metadata` level can also be a good starting point. 
 
 Audit logging configurations can also be tested with

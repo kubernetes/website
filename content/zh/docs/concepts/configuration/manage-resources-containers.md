@@ -411,9 +411,9 @@ see the [Troubleshooting](#troubleshooting) section.
 The kubelet reports the resource usage of a Pod as part of the Pod
 [`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
 
-If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either
-from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
+from the [Metrics API](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)
 directly or from your monitoring tools.
 -->
 ## 监控计算和内存资源用量
@@ -422,8 +422,8 @@ kubelet 会将 Pod 的资源使用情况作为 Pod
 [`status`](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
 的一部分来报告的。
 
-如果为集群配置了可选的[监控工具](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/)，
-则可以直接从[指标 API](/zh/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api) 
+如果为集群配置了可选的[监控工具](/zh/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)，
+则可以直接从[指标 API](/zh/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api) 
 或者监控工具获得 Pod 的资源使用情况。
 
 <!--

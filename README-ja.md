@@ -4,6 +4,9 @@
 
 このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
 
+- [ドキュメントに貢献する](#contributing-to-the-docs)
+- [翻訳された`README.md`一覧](#localization-readmemds)
+
 # リポジトリの使い方
 
 Hugo(Extended version)を使用してWebサイトをローカルで実行することも、コンテナランタイムで実行することもできます。コンテナランタイムを使用することを強くお勧めします。これにより、本番Webサイトとのデプロイメントの一貫性が得られます。
@@ -56,6 +59,43 @@ make serve
 
 これで、Hugoのサーバーが1313番ポートを使って開始します。お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
 
+## API reference pagesをビルドする
+
+`content/en/docs/reference/kubernetes-api`に配置されているAPIリファレンスページは<https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>を使ってSwagger仕様書からビルドされています。
+
+新しいKubernetesリリースのためにリファレンスページをアップデートするには、次の手順を実行します:
+
+1. `api-ref-generator`サブモジュールをプルする:
+
+   ```bash
+   git submodule update --init --recursive --depth 1
+   ```
+
+2. Swagger仕様書を更新する:
+
+   ```bash
+   curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
+   ```
+
+3. 新しいリリースの変更を反映するため、`api-ref-assets/config/`で`toc.yaml`と`fields.yaml`を適用する。
+
+4. 次に、ページをビルドする:
+
+   ```bash
+   make api-reference
+   ```
+
+   コンテナイメージからサイトを作成・サーブする事でローカルで結果をテストすることができます:
+
+   ```bash
+   make container-image
+   make container-serve
+   ```
+
+   APIリファレンスを見るために、ブラウザで<http://localhost:1313/docs/reference/kubernetes-api/>を開いてください。
+
+5. 新しいコントラクトのすべての変更が設定ファイル`toc.yaml`と`fields.yaml`に反映されたら、新しく生成されたAPIリファレンスページとともにPull Requestを作成します。
+
 ## トラブルシューティング
 
 ### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
@@ -107,7 +147,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 - [Slack](https://kubernetes.slack.com/messages/kubernetes-docs-ja)
 - [メーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-## ドキュメントに貢献する
+## ドキュメントに貢献する {#contributing-to-the-docs}
 
 GitHubの画面右上にある**Fork**ボタンをクリックすると、お使いのGitHubアカウントに紐付いた本リポジトリのコピーが作成され、このコピーのことを*フォーク*と呼びます。フォークリポジトリの中ではお好きなように変更を加えていただいて構いません。加えた変更をこのリポジトリに追加したい任意のタイミングにて、フォークリポジトリからPull Reqeustを作成してください。
 
@@ -124,7 +164,15 @@ Kubernetesのドキュメントへの貢献に関する詳細については以�
 * [ドキュメントのスタイルガイド](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Kubernetesドキュメントの翻訳方法](https://kubernetes.io/docs/contribute/localization/)
 
-## 翻訳された`README.md`一覧
+### New Contributor Ambassadors
+
+コントリビュートする時に何か助けが必要なら、[New Contributor Ambassadors](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador)に聞いてみると良いでしょう。彼らはSIG Docsのapproverで、最初の数回のPull Requestを通して新しいコントリビューターを指導し助けることを責務としています。New Contributors Ambassadorsにコンタクトするには、[Kubernetes Slack](https://slack.k8s.io)が最適な場所です。現在のSIG DocsのNew Contributor Ambassadorは次の通りです:
+
+| 名前                       | Slack                      | GitHub                     |                   
+| -------------------------- | -------------------------- | -------------------------- |
+| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+
+## 翻訳された`README.md`一覧 {#localization-readmemds}
 
 | Language  | Language |
 |---|---|
