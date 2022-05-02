@@ -67,8 +67,6 @@ For control-plane nodes additional steps are performed:
 1. Generating control-plane component manifests, certificates and kubeconfig.
 
 1. Adding new local etcd member.
-
-1. Adding this node to the ClusterStatus of the kubeadm cluster.
 -->
 对于控制平面节点，执行额外的步骤：
 
@@ -77,8 +75,6 @@ For control-plane nodes additional steps are performed:
 1. 生成控制平面组件清单、证书和 kubeconfig。
 
 1. 添加新的本地 etcd 成员。
-
-1. 将此节点添加到 kubeadm 集群的 ClusterStatus。
 
 <!-- 
 ### Using join phases with kubeadm {#join-phases}
@@ -122,6 +118,13 @@ For example:
 ```shell
 sudo kubeadm join --skip-phases=preflight --config=config.yaml
 ```
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+<!--
+Alternatively, you can use the `skipPhases` field in `JoinConfiguration`.
+-->
+或者，你可以使用 `JoinConfiguration` 中的 `skipPhases` 字段。
 
 <!--
 ### Discovering what cluster CA to trust
@@ -523,11 +526,11 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 命令转换。
 
 <!--
-For more information on the fields and usage of the configuration you can navigate to our API reference
-page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
+For more information on the fields and usage of the configuration you can navigate to our
+[API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
 -->
-有关配置的字段和用法的更多信息，你可以导航到我们的 API 参考页
-并从[列表]中选择一个版本(https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories)。
+有关配置的字段和用法的更多信息，你可以导航到我们的
+[API 参考页](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 
 ## {{% heading "whatsnext" %}}

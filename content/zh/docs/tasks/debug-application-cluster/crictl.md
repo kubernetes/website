@@ -45,8 +45,8 @@ Kubernetes node. `crictl` and its source are hosted in the
 <!--
 ## Installing crictl
 
-You can download a compressed archive `crictl` from the cri-tools [release
-page](https://github.com/kubernetes-sigs/cri-tools/releases), for several
+You can download a compressed archive `crictl` from the cri-tools
+[release page](https://github.com/kubernetes-sigs/cri-tools/releases), for several
 different architectures. Download the version that corresponds to your version
 of Kubernetes. Extract it and move it to a location on your system path, such as
 `/usr/local/bin/`.
@@ -70,20 +70,21 @@ The `crictl` command has several subcommands and runtime flags. Use
 有关详细信息，请使用 `crictl help` 或 `crictl <subcommand> help` 获取帮助信息。
 
 <!--
-`crictl` connects to `unix:///var/run/dockershim.sock` by default. For other
-runtimes, you can set the endpoint in multiple different ways:
+You can set the endpoint for `crictl` by doing one of the following:
 -->
-`crictl` 默认连接到 `unix:///var/run/dockershim.sock`。
-对于其他的运行时，你可以用多种不同的方法设置端点：
+你可以用以下方法之一来为 `crictl` 设置端点：
 
 <!--
-- By setting flags `--runtime-endpoint` and `--image-endpoint`
-- By setting environment variables `CONTAINER_RUNTIME_ENDPOINT` and `IMAGE_SERVICE_ENDPOINT`
-- By setting the endpoint in the config file `--config=/etc/crictl.yaml`
+* Set the `--runtime-endpoint` and `--image-endpoint` flags.
+* Set the `CONTAINER_RUNTIME_ENDPOINT` and `IMAGE_SERVICE_ENDPOINT` environment
+  variables.
+* Set the endpoint in the configuration file `/etc/crictl.yaml`. To specify a
+  different file, use the `--config=PATH_TO_FILE` flag when you run `crictl`.
 -->
-- 通过设置参数 `--runtime-endpoint` 和 `--image-endpoint`
-- 通过设置环境变量 `CONTAINER_RUNTIME_ENDPOINT` 和 `IMAGE_SERVICE_ENDPOINT`
-- 通过在配置文件中设置端点 `--config=/etc/crictl.yaml`
+- 设置参数 `--runtime-endpoint` 和 `--image-endpoint`。
+- 设置环境变量 `CONTAINER_RUNTIME_ENDPOINT` 和 `IMAGE_SERVICE_ENDPOINT`。
+- 在配置文件 `--config=/etc/crictl.yaml` 中设置端点。
+  要设置不同的文件，可以在运行 `crictl` 时使用 `--config=PATH_TO_FILE` 标志。
 
 <!--
 You can also specify timeout values when connecting to the server and enable or
@@ -95,19 +96,25 @@ file or using the `--timeout` and `--debug` command-line flags.
 
 <!--
 To view or edit the current configuration, view or edit the contents of
-`/etc/crictl.yaml`.
+`/etc/crictl.yaml`. For example, the configuration when using the `containerd`
+container runtime would be similar to this:
 -->
 要查看或编辑当前配置，请查看或编辑 `/etc/crictl.yaml` 的内容。
+例如，使用 `containerd` 容器运行时的配置会类似于这样：
 
-```shell
-cat /etc/crictl.yaml
 ```
-```
-runtime-endpoint: unix:///var/run/dockershim.sock
-image-endpoint: unix:///var/run/dockershim.sock
+runtime-endpoint: unix:///var/run/containerd/containerd.sock
+image-endpoint: unix:///var/run/containerd/containerd.sock
 timeout: 10
 debug: true
 ```
+
+<!--
+To learn more about `crictl`, refer to the [`crictl`
+documentation](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md).
+-->
+要进一步了解 `crictl`，参阅
+[`crictl` 文档](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)。
 
 <!--
 ## Example crictl commands
@@ -140,7 +147,12 @@ List all pods:
 crictl pods
 ```
 
-```none
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```
 POD ID              CREATED              STATE               NAME                         NAMESPACE           ATTEMPT
 926f1b5a1d33a       About a minute ago   Ready               sh-84d7dcf559-4r2gq          default             0
 4dccb216c4adb       About a minute ago   Ready               nginx-65899c769f-wv2gp       default             0
@@ -157,7 +169,12 @@ List pods by name:
 crictl pods --name nginx-65899c769f-wv2gp
 ```
 
-```none
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
+```
 POD ID              CREATED             STATE               NAME                     NAMESPACE           ATTEMPT
 4dccb216c4adb       2 minutes ago       Ready               nginx-65899c769f-wv2gp   default             0
 ```
@@ -170,6 +187,12 @@ List pods by label:
 ```shell
 crictl pods --label run=nginx
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```none
 POD ID              CREATED             STATE               NAME                     NAMESPACE           ATTEMPT
 4dccb216c4adb       2 minutes ago       Ready               nginx-65899c769f-wv2gp   default             0
@@ -187,6 +210,12 @@ List all images:
 ```shell
 crictl images
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```none
 IMAGE                                     TAG                 IMAGE ID            SIZE
 busybox                                   latest              8c811b4aec35f       1.15MB
@@ -203,6 +232,12 @@ List images by repository:
 ```shell
 crictl images nginx
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```none
 IMAGE               TAG                 IMAGE ID            SIZE
 nginx               latest              cd5239a0906a6       109MB
@@ -216,6 +251,12 @@ Only list image IDs:
 ```shell
 crictl images -q
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```none
 sha256:8c811b4aec35f259572d0f79207bc0678df4c736eeec50bc9fec37ed936a472a
 sha256:e179bbfe5d238de6069f3b03fccbecc3fb4f2019af741bfff1233c4d7b2970c5
@@ -235,6 +276,12 @@ List all containers:
 ```shell
 crictl ps -a
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```none
 CONTAINER ID        IMAGE                                                                                                             CREATED             STATE               NAME                       ATTEMPT
 1f73f2d81bf98       busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47                                   7 minutes ago       Running             sh                         1
@@ -251,6 +298,12 @@ List running containers:
 ```shell
 crictl ps
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```none
 CONTAINER ID        IMAGE                                                                                                             CREATED             STATE               NAME                       ATTEMPT
 1f73f2d81bf98       busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47                                   6 minutes ago       Running             sh                         1
@@ -266,6 +319,12 @@ CONTAINER ID        IMAGE                                                       
 ```shell
 crictl exec -i -t 1f73f2d81bf98 ls
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```none
 bin   dev   etc   home  proc  root  sys   tmp   usr   var
 ```
@@ -282,6 +341,12 @@ Get all container logs:
 ```shell
 crictl logs 87d3992f84f74
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```none
 10.240.0.96 - - [06/Jun/2018:02:45:49 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
 10.240.0.96 - - [06/Jun/2018:02:45:50 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
@@ -296,6 +361,12 @@ Get only the latest `N` lines of logs:
 ```shell
 crictl logs --tail=1 87d3992f84f74
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```none
 10.240.0.96 - - [06/Jun/2018:02:45:51 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
 ```
@@ -312,8 +383,10 @@ deleted by the Kubelet.
 用 `crictl` 运行 Pod 沙盒对容器运行时排错很有帮助。
 在运行的 Kubernetes 集群中，沙盒会随机地被 kubelet 停止和删除。
 
-1. <!--Create a JSON file like the following:-->
-   编写下面的 JSON 文件：
+<!--
+1. Create a JSON file like the following:
+-->
+1. 编写下面的 JSON 文件：
 
    ```json
    {
@@ -329,14 +402,18 @@ deleted by the Kubelet.
    }
    ```
 
-2. <!--Use the `crictl runp` command to apply the JSON and run the sandbox.-->
-   使用 `crictl runp` 命令应用 JSON 文件并运行沙盒。
+<!--
+2. Use the `crictl runp` command to apply the JSON and run the sandbox.
+-->
+2. 使用 `crictl runp` 命令应用 JSON 文件并运行沙盒。
 
    ```shell
    crictl runp pod-config.json
    ```
 
-   <!--The ID of the sandbox is returned.-->
+   <!--
+   The ID of the sandbox is returned.
+   -->
    返回了沙盒的 ID。
 
 <!--
@@ -351,20 +428,29 @@ deleted by the Kubelet.
 用 `crictl` 创建容器对容器运行时排错很有帮助。
 在运行的 Kubernetes 集群中，沙盒会随机的被 kubelet 停止和删除。
 
-1. <!--Pull a busybox image-->
-   拉取 busybox 镜像
+<!--
+1. Pull a busybox image
+-->
+1. 拉取 busybox 镜像
 
-   ```bash
+   ```shell
    crictl pull busybox
+   ```
+   ```none
    Image is up to date for busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47
    ```
 
-2. <!--Create configs for the pod and the container:-->
-   创建 Pod 和容器的配置：
+<!--
+2. Create configs for the pod and the container:
+-->
+2. 创建 Pod 和容器的配置：
 
-   <!--**Pod config**:-->
+   <!--
+   **Pod config**:
+   -->
    **Pod 配置**：
-   ```yaml
+
+   ```json
    {
        "metadata": {
            "name": "nginx-sandbox",
@@ -378,9 +464,12 @@ deleted by the Kubelet.
    }
    ```
 
-   <!--**Container config**:-->
+   <!--
+   **Container config**:
+   -->
    **容器配置**：
-   ```yaml
+
+   ```json
    {
      "metadata": {
          "name": "busybox"
@@ -397,22 +486,31 @@ deleted by the Kubelet.
    }
    ```
 
-3. <!--Create the container, passing the ID of the previously-created pod, the
+<!--
+3. Create the container, passing the ID of the previously-created pod, the
    container config file, and the pod config file. The ID of the container is
-   returned.-->
-   创建容器，传递先前创建的 Pod 的 ID、容器配置文件和 Pod 配置文件。返回容器的 ID。
+   returned.
+-->
+3. 创建容器，传递先前创建的 Pod 的 ID、容器配置文件和 Pod 配置文件。返回容器的 ID。
 
    ```bash
    crictl create f84dd361f8dc51518ed291fbadd6db537b0496536c1d2d6c05ff943ce8c9a54f container-config.json pod-config.json
    ```
 
-4. <!--List all containers and verify that the newly-created container has its
-   state set to `Created`.-->
-   查询所有容器并确认新创建的容器状态为 `Created`。
+<!--
+4. List all containers and verify that the newly-created container has its
+   state set to `Created`.
+-->
+4. 查询所有容器并确认新创建的容器状态为 `Created`。
 
    ```bash
    crictl ps -a
    ```
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于这样：
+ 
    ```none
    CONTAINER ID        IMAGE               CREATED             STATE               NAME                ATTEMPT
    3e025dd50a72d       busybox             32 seconds ago      Created             busybox             0
@@ -430,7 +528,13 @@ To start a container, pass its ID to `crictl start`:
 ```shell
 crictl start 3e025dd50a72d956c4f14881fbb5b1080c9275674e95fb67f965f6478a957d60
 ```
-```none
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
+```
 3e025dd50a72d956c4f14881fbb5b1080c9275674e95fb67f965f6478a957d60
 ```
 
@@ -442,136 +546,23 @@ Check the container has its state set to `Running`.
 ```shell
 crictl ps
 ```
-```none
-CONTAINER ID        IMAGE               CREATED              STATE               NAME                ATTEMPT
-3e025dd50a72d       busybox             About a minute ago   Running             busybox             0
+
+<!--
+The output is similar to this:
+-->
+输出类似于这样：
+
 ```
-<!-- discussion -->
+CONTAINER ID   IMAGE    CREATED              STATE    NAME     ATTEMPT
+3e025dd50a72d  busybox  About a minute ago   Running  busybox  0
+```
+
+## {{% heading "whatsnext" %}}
 
 <!--
-See [kubernetes-sigs/cri-tools](https://github.com/kubernetes-sigs/cri-tools)
-for more information.
+* [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
+* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
 -->
-更多信息请参考 [kubernetes-sigs/cri-tools](https://github.com/kubernetes-sigs/cri-tools)。
+* [进一步了解 `crictl`](https://github.com/kubernetes-sigs/cri-tools).
+* [将 `docker` CLI 命令映射到 `crictl`](/zh/docs/reference/tools/map-crictl-dockercli/).
 
-<!--
-## Mapping from docker cli to crictl
--->
-## Docker CLI 和 crictl 的映射
-
-<!--
-The exact versions for below mapping table are for docker cli v1.40 and crictl v1.19.0. Please note that the list is not exhaustive. For example, it doesn't include experimental commands of docker cli.
--->
-以下的映射表格只适用于 Docker CLI v1.40 和 crictl v1.19.0 版本。
-请注意该表格并不详尽。例如，其中不包含 Docker CLI 的实验性命令。
-
-<!--
-{{< note >}}
-The output format of CRICTL is similar to Docker CLI, despite some missing columns for some CLI. Make sure to check output for the specific command if your script output parsing.
-{{< /note >}}
--->
-{{< note >}}
-尽管有些命令的输出缺少了一些数据列，CRICTL 的输出格式与 Docker CLI 是类似的。
-如果你的脚本程序需要解析命令的输出，请确认检查该特定命令的输出。
-{{< /note >}}
-
-<!--
-### Retrieve Debugging Information
-
-{{< table caption="mapping from docker cli to crictl - retrieve debugging information" >}}
--->
-### 获取调试信息
-
-{{< table caption="Docker CLI 和 crictl 的映射 - 获取调试信息" >}}
-<!--
-docker cli | crictl | Description | Unsupported Features
--- | -- | -- | --
-`attach` | `attach` | Attach to a running container | `--detach-keys`, `--sig-proxy`
-`exec` | `exec` | Run a command in a running container | `--privileged`, `--user`, `--detach-keys`
-`images` | `images` | List images |  
-`info` | `info` | Display system-wide information |  
-`inspect` | `inspect`, `inspecti` | Return low-level information on a container, image or task |  
-`logs` | `logs` | Fetch the logs of a container | `--details`
-`ps` | `ps` | List containers |  
-`stats` | `stats` | Display a live stream of container(s) resource usage statistics | Column: NET/BLOCK I/O, PIDs
-`version` | `version` | Show the runtime (Docker, ContainerD, or others) version information |  
-{{< /table >}}
--->
-docker cli | crictl | 描述 | 不支持的功能
--- | -- | -- | --
-`attach` | `attach` | 连接到一个运行中的容器 | `--detach-keys`, `--sig-proxy`
-`exec` | `exec` | 在运行中的容器里运行一个命令 | `--privileged`, `--user`, `--detach-keys`
-`images` | `images` | 列举镜像 |  
-`info` | `info` | 显示系统级的信息 |  
-`inspect` | `inspect`, `inspecti` | 返回容器、镜像或者任务的详细信息 |  
-`logs` | `logs` | 获取容器的日志 | `--details`
-`ps` | `ps` | 列举容器 |  
-`stats` | `stats` | 实时显示容器的资源使用统计信息 | 列：NET/BLOCK I/O, PIDs
-`version` | `version` | 显示运行时（Docker、ContainerD、或者其他) 的版本信息 |  
-{{< /table >}}
-
-<!--
-### Perform Changes
-
-{{< table caption="mapping from docker cli to crictl - perform changes" >}}
--->
-### 进行改动
-
-{{< table caption="Docker CLI 和 crictl 的映射 - 进行改动" >}}
-<!--
-docker cli | crictl | Description | Unsupported Features
--- | -- | -- | --
-`create` | `create` | Create a new container |  
-`kill` | `stop` (timeout = 0) | Kill one or more running container | `--signal`
-`pull` | `pull` | Pull an image or a repository from a registry | `--all-tags`, `--disable-content-trust`
-`rm` | `rm` | Remove one or more containers |  
-`rmi` | `rmi` | Remove one or more images |  
-`run` | `run` | Run a command in a new container |  
-`start` | `start` | Start one or more stopped containers | `--detach-keys`
-`stop` | `stop` | Stop one or more running containers |  
-`update` | `update` | Update configuration of one or more containers | `--restart`, `--blkio-weight` and some other resource limit not supported by CRI.
-{{< /table >}}
--->
-docker cli | crictl | 描述 | 不支持的功能
--- | -- | -- | --
-`create` | `create` | 创建一个新的容器 |  
-`kill` | `stop` (timeout=0) | 杀死一个或多个正在运行的容器 | `--signal`
-`pull` | `pull` | 从镜像仓库拉取镜像或者代码仓库 | `--all-tags`, `--disable-content-trust`
-`rm` | `rm` | 移除一个或多个容器 |  
-`rmi` | `rmi` | 移除一个或多个镜像 |  
-`run` | `run` | 在新容器里运行一个命令 |  
-`start` | `start` | 启动一个或多个停止的容器 | `--detach-keys`
-`stop` | `stop` | 停止一个或多个正运行的容器 |  
-`update` | `update` | 更新一个或多个容器的配置 | CRI 不支持 `--restart`、`--blkio-weight` 以及一些其他的资源限制选项。
-{{< /table >}}
-
-<!--
-### Supported only in crictl
-
-{{< table caption="mapping from docker cli to crictl - supported only in crictl" >}}
--->
-### 仅 crictl 支持
-
-{{< table caption="Docker CLI 和 crictl 的映射 - 仅 crictl 支持" >}}
-<!--
-crictl | Description
--- | --
-`imagefsinfo` | Return image filesystem info
-`inspectp` | Display the status of one or more pods
-`port-forward` | Forward local port to a pod
-`pods` | List pods
-`runp` | Run a new pod
-`rmp` | Remove one or more pods
-`stopp` | Stop one or more running pods
-{{< /table >}}
--->
-crictl | 描述
--- | --
-`imagefsinfo` | 返回镜像的文件系统信息
-`inspectp` | 显示一个或多个 Pod 的状态
-`port-forward` | 转发本地端口到 Pod 
-`pods` | 列举 Pod
-`runp` | 运行一个新的 Pod
-`rmp` | 移除一个或多个 Pod
-`stopp` | 停止一个或多个正运行的 Pod
-{{< /table >}}

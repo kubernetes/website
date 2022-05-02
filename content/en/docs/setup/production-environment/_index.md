@@ -197,7 +197,7 @@ are some virtualization platforms that can be scripted to spin up new nodes
 based on demand.
 - *Set up node health checks*: For important workloads, you want to make sure
 that the nodes and pods running on those nodes are healthy. Using the
-[Node Problem Detector](/docs/tasks/debug-application-cluster/monitor-node-health/)
+[Node Problem Detector](/docs/tasks/debug/debug-cluster/monitor-node-health/)
 daemon, you can ensure your nodes are healthy.
 
 ## Production user management
