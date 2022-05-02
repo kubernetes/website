@@ -134,7 +134,7 @@ This release saw fourteen enhancements promoted to stable:
 * [Azure Disk In-Tree to CSI Driver Migration](https://github.com/kubernetes/enhancements/issues/1490)
 * [Efficient Watch Resumption](https://github.com/kubernetes/enhancements/issues/1904): Watch can be efficiently resumed after kube-apiserver reboot. 
 * [Service Type=LoadBalancer Class Field](https://github.com/kubernetes/enhancements/issues/1959): Introduce a new Service annotation `service.kubernetes.io/load-balancer-class` that allows multiple implementations of `type: LoadBalancer` Services in the same cluster.
-* [Indexed Job](https://github.com/kubernetes/enhancements/issues/2214): Add a completion index to Pods of Jobs with fixed completion count.
+* [Indexed Job](https://github.com/kubernetes/enhancements/issues/2214): Add a completion index to Pods of Jobs with a fixed completion count.
 * [Add Suspend Field to Jobs API](https://github.com/kubernetes/enhancements/issues/2232): Add a suspend field to the Jobs API to allow orchestrators to create jobs with more control over when pods are created.
 * [Pod Affinity NamespaceSelector](https://github.com/kubernetes/enhancements/issues/2249): Add a `namespaceSelector` field for to pod affinity/anti-affinity spec.
 * [Leader Migration for Controller Managers](https://github.com/kubernetes/enhancements/issues/2436): kube-controller-manager and cloud-controller-manager can apply new controller-to-controller-manager assignment in HA control plane without downtime.
