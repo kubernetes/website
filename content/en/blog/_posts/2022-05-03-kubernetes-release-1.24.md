@@ -33,7 +33,7 @@ Existing beta APIs and new versions of existing beta APIs will continue to be en
 ### Signing Release Artifacts
 
 Release artifacts are [signed](https://github.com/kubernetes/enhancements/issues/3031) using [cosign](https://github.com/sigstore/cosign) 
-signatures
+signatures,
 and there is experimental support for [verifying image signatures](/docs/tasks/administer-cluster/verify-signed-images/). 
 Signing and verification of release artifacts is part of [increasing software supply chain security for the Kubernetes release process](https://github.com/kubernetes/enhancements/issues/3027). 
 
