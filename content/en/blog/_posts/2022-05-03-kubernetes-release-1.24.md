@@ -76,7 +76,7 @@ Originally released as Alpha in Kubernetes 1.20, the kubelet's support for
 [image credential providers](/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/)
 has now graduated to Beta.
 This allows the kubelet to dynamically retrieve credentials for a container image registry
-using exec plugins, rather than storing credentials on the node's filesystem.
+using exec plugins rather than storing credentials on the node's filesystem.
 
 ### Contextual Logging in Alpha
 
