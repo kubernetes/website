@@ -57,7 +57,7 @@ which can enable or disable pod preemption.
 
 ### Storage Plugin Migration
 
-There is work under way to [migrate the internals of in-tree storage plugins](https://github.com/kubernetes/enhancements/issues/625) to call out to CSI Plugins,
+Work is underway to [migrate the internals of in-tree storage plugins](https://github.com/kubernetes/enhancements/issues/625) to call out to CSI Plugins
 while maintaining the original API.
 The [Azure Disk](https://github.com/kubernetes/enhancements/issues/1490)
 and [OpenStack Cinder](https://github.com/kubernetes/enhancements/issues/1489) plugins
