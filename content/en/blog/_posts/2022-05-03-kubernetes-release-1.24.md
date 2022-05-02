@@ -28,7 +28,7 @@ see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/).
 ### Beta APIs Off by Default 
 
 [New beta APIs will not be enabled in clusters by default](https://github.com/kubernetes/enhancements/issues/3136). 
-Existing beta APIs and new versions of existing beta APIs, will continue to be enabled by default.
+Existing beta APIs and new versions of existing beta APIs will continue to be enabled by default.
   
 ### Signing Release Artifacts
 
