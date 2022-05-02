@@ -1,7 +1,7 @@
 # i18n strings for the Russian (main) site.
 
 [deprecation_warning]
-other = " документация больше не поддерживается. Версия, которую вы сейчас просматриваете, является статической. Актуальную документацию вы можете найти "
+other = " документация больше не поддерживается. Версия, которую вы сейчас просматриваете, является статичной. Актуальную документацию можно найти "
 
 [deprecation_file_warning]
 other = "Устаревшая"
@@ -40,7 +40,7 @@ other = "последняя версия."
 other = "Ваш сервер Kubernetes должен быть версии "
 
 [version_check_mustbeorlater]
-other = "Ваш сервер Kubernetes должен быть версии или позже, чем версия "
+other = "Ваш сервер Kubernetes должен быть не ниже версии "
 
 [version_check_tocheck]
 other = "Чтобы проверить версию, введите "
@@ -79,7 +79,7 @@ other = "Возможности Kubernetes"
 other = """Мы являемся проектом <a href="https://cncf.io/">CNCF</a></p>"""
 
 [main_kubeweekly_baseline]
-other = "Интересуетесь последними новостями Kubernetes? Зарегистрируйтесь в KubeWeekly."
+other = "Хотите получать последние новости Kubernetes? Зарегистрируйтесь в KubeWeekly."
 
 [main_kubernetes_past_link]
 other = "Посмотреть последние новости"
@@ -119,7 +119,7 @@ other = "Участники сообщества"
 other = "Пользователи"
 
 [docs_label_i_am]
-other = "Я ..."
+other = "Я..."
 
 # layouts > blog > pager
 
@@ -155,7 +155,7 @@ other = "Также известный как"
 other = "Нажмите на значок"
 
 [layouts_docs_glossary_click_details_after]
-other = "для получения более подробное объяснения по интересующему термину."
+other = "для получения более подробного объяснения по интересующему термину."
 
 # layouts > docs > search
 
@@ -198,4 +198,4 @@ other = "Календарь событий"
 other = "Поиск"
 
 [input_placeholder_email_address]
-other = "адрес электронной почты"
+other = "адрес эл. почты"
