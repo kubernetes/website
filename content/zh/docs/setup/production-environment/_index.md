@@ -401,12 +401,12 @@ based on demand.
 <!--
 - *Set up node health checks*: For important workloads, you want to make sure
 that the nodes and pods running on those nodes are healthy. Using the
-[Node Problem Detector](/docs/tasks/debug-application-cluster/monitor-node-health/)
+[Node Problem Detector](/docs/tasks/debug/debug-cluster/monitor-node-health/)
 daemon, you can ensure your nodes are healthy.
 -->
 - *安装节点健康检查*：对于重要的工作负载，你会希望确保节点以及在节点上
   运行的 Pod 处于健康状态。通过使用
-  [Node Problem Detector](/zh/docs/tasks/debug-application-cluster/monitor-node-health/)，
+  [Node Problem Detector](/zh/docs/tasks/debug/debug-cluster/monitor-node-health/)，
   你可以确保你的节点是健康的。
 
 <!--

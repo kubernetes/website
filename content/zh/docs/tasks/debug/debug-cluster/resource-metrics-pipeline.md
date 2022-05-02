@@ -1,6 +1,7 @@
 ---
 title: 资源指标管道
 content_type: concept
+weight: 15
 ---
 <!--
 reviewers:
@@ -8,6 +9,7 @@ reviewers:
 - piosz
 title: Resource metrics pipeline
 content_type: concept
+weight: 15
 -->
 
 <!-- overview -->

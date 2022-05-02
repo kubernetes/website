@@ -156,7 +156,7 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
   consecutive lists. **The HTML comment needs to be at the left margin.**
 - Bullet lists can have paragraphs or block elements within them.
 
-      Indent the content to be one tab stop beyond the text of the bullet
+      Indent the content to be the same as the first line of the bullet
       point. **This paragraph and the code block line up with the second `l` in
       `Bullet` above.**
 
@@ -669,12 +669,12 @@ HTML。
 ## Visualizations with Mermaid
 
 You can use [Mermaid JS](https://mermaidjs.github.io) visualizations.
-The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/master/layouts/partials/head.html)
+The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/main/layouts/partials/head.html)
 -->
 ## 使用 Mermaid 来可视化
 
 你可以使用 [Mermaid JS](https://mermaidjs.github.io) 来进行可视化展示。
-Mermaid JS 版本在 [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/master/layouts/partials/head.html)
+Mermaid JS 版本在 [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/main/layouts/partials/head.html)
 中设置。
 
 <!--
