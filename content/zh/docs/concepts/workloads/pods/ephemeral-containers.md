@@ -129,6 +129,6 @@ you can view processes in other containers.
 
 {{% heading "whatsnext" %}}
 <!--
-* Learn how to [debug pods using ephemeral containers](/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container).
+* Learn how to [debug pods using ephemeral containers](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).
 -->
-* 了解如何[使用临时调试容器来进行调试](/zh/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)
+* 了解如何[使用临时调试容器来进行调试](/zh/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)
