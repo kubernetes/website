@@ -67,7 +67,7 @@ have both been migrated.
 
 With Kubernetes 1.24, the [gRPC probes functionality](https://github.com/kubernetes/enhancements/issues/2727) 
 has entered beta and is available by default. You can now [configure startup, liveness, and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes) for your gRPC app 
-natively within Kubernetes, without exposing an HTTP endpoint or
+natively within Kubernetes without exposing an HTTP endpoint or
 using an extra executable.
 
 ### Kubelet Credential Provider Graduates to Beta
