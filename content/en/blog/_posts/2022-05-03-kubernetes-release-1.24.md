@@ -96,7 +96,7 @@ A Service `ClusterIP` can be assigned:
 * dynamically, which means the cluster will automatically pick a free IP within the configured Service IP range.
 * statically, which means the user will set one IP within the configured Service IP range.
 
-Service `ClusterIP` are unique, hence, trying to create a Service with a `ClusterIP` that has already been allocated will return an error.
+Service `ClusterIP` are unique; hence, trying to create a Service with a `ClusterIP` that has already been allocated will return an error.
 
 ### Dynamic Kubelet Configuration is Removed from the Kubelet
 
