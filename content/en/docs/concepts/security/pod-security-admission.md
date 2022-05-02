@@ -86,7 +86,7 @@ takes if a potential violation is detected:
 Mode | Description
 :---------|:------------
 **enforce** | Policy violations will cause the pod to be rejected.
-**audit** | Policy violations will trigger the addition of an audit annotation to the event recorded in the [audit log](/docs/tasks/debug-application-cluster/audit/), but are otherwise allowed.
+**audit** | Policy violations will trigger the addition of an audit annotation to the event recorded in the [audit log](/docs/tasks/debug/debug-cluster/audit/), but are otherwise allowed.
 **warn** | Policy violations will trigger a user-facing warning, but are otherwise allowed.
 {{< /table >}}
 

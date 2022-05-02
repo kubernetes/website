@@ -28,7 +28,7 @@ The Metrics API, and the metrics pipeline that it enables, only offers the minim
 CPU and memory metrics to enable automatic scaling using HPA and / or VPA.
 If you would like to provide a more complete set of metrics, you can complement
 the simpler Metrics API by deploying a second
-[metrics pipeline](/docs/tasks/debug-application-cluster/resource-usage-monitoring/#full-metrics-pipeline)
+[metrics pipeline](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/#full-metrics-pipeline)
 that uses the _Custom Metrics API_.
 {{< /note >}}
 
