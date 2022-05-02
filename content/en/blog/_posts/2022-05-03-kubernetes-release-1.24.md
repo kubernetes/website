@@ -13,7 +13,7 @@ We are excited to announce the release of Kubernetes 1.24, the first release of 
 
 This release consists of 46 enhancements: fourteen enhancements have graduated to stable, 
 fifteen enhancements are moving to beta, and thirteen enhancements are entering alpha. 
-Also, two features have been deprecated and two features have been removed.     
+Also, two features have been deprecated, and two features have been removed.     
 
 ## Major Themes
 
