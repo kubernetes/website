@@ -81,7 +81,7 @@ using exec plugins rather than storing credentials on the node's filesystem.
 ### Contextual Logging in Alpha
 
 Kubernetes 1.24 has introduced [contextual logging](https://github.com/kubernetes/enhancements/issues/3077) 
-that enables the caller of a function to control all aspects of logging (output formatting, verbosity, additional values and names).
+that enables the caller of a function to control all aspects of logging (output formatting, verbosity, additional values, and names).
 
 ### Avoiding Collisions in IP allocation to Services
 
