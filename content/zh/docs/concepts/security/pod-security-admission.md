@@ -159,7 +159,7 @@ Kubernetes 定义了一组{{< glossary_tooltip term_id="label" text="标签" >}}
 Mode | Description
 :---------|:------------
 **enforce** | Policy violations will cause the pod to be rejected.
-**audit** | Policy violations will trigger the addition of an audit annotation to the event recorded in the [audit log](/docs/tasks/debug-application-cluster/audit/), but are otherwise allowed.
+**audit** | Policy violations will trigger the addition of an audit annotation to the event recorded in the [audit log](/docs/tasks/debug/debug-cluster/audit/), but are otherwise allowed.
 **warn** | Policy violations will trigger a user-facing warning, but are otherwise allowed.
 {{< /table >}}
 -->
@@ -167,7 +167,7 @@ Mode | Description
 模式 | 描述
 :---------|:------------
 **enforce** | 策略违例会导致 Pod 被拒绝
-**audit** | 策略违例会触发[审计日志](/zh/docs/tasks/debug-application-cluster/audit/)中记录新事件时添加审计注解；但是 Pod 仍是被接受的。
+**audit** | 策略违例会触发[审计日志](/zh/docs/tasks/debug/debug-cluster/audit/)中记录新事件时添加审计注解；但是 Pod 仍是被接受的。
 **warn** | 策略违例会触发用户可见的警告信息，但是 Pod 仍是被接受的。
 {{< /table >}}
 
