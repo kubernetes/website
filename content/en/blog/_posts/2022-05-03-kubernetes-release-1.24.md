@@ -219,7 +219,7 @@ In the v1.24 release cycle, which [ran for 17 weeks](https://github.com/kubernet
 
 Join members of the Kubernetes 1.24 release team on Tue May 24, 2022 9:45am – 11am PT to learn about 
 the major features of this release, as well as deprecations and removals to help plan for upgrades. 
-For more information and registration, visit the [event page](https://community.cncf.io/events/#/list) 
+For more information and registration, visit the [event page](https://community.cncf.io/e/mck3kd/) 
 on the CNCF Online Programs site.
 
 ## Get Involved
