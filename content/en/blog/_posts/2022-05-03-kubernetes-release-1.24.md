@@ -127,7 +127,7 @@ CNI versions" or "Failed to destroy network for sandbox" error conditions.
 This release saw fourteen enhancements promoted to stable: 
 
 * [Container Storage Interface (CSI) Volume Expansion](https://github.com/kubernetes/enhancements/issues/284)
-* [Pod Overhead](https://github.com/kubernetes/enhancements/issues/688): Account for resources tied to the pod sandbox, but not specific containers.
+* [Pod Overhead](https://github.com/kubernetes/enhancements/issues/688): Account for resources tied to the pod sandbox but not specific containers.
 * [Add non-preempting option to PriorityClasses](https://github.com/kubernetes/enhancements/issues/902)
 * [Storage Capacity Tracking](https://github.com/kubernetes/enhancements/issues/1472) 
 * [OpenStack Cinder In-Tree to CSI Driver Migration](https://github.com/kubernetes/enhancements/issues/1489)
