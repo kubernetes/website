@@ -165,7 +165,7 @@ comprising the Kubernetes 1.24 release team. This team came together to deliver 
 that go into each Kubernetes release, including code, documentation, release notes, and more. 
 
 Special thanks to James Laverack, our release lead, for guiding us through a successful release cycle, 
-and to all of the members of the release team for the time and effort they put in to deliver the v1.24 
+and to all of the release team members for the time and effort they put in to deliver the v1.24 
 release for the Kubernetes community. 
 
 ### Release Theme and Logo 
