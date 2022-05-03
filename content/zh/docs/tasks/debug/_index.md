@@ -57,7 +57,7 @@ ways for you to get help from the Kubernetes community.
 -->
 如果上面的指南都没有回答你的问题，你可以采用很多其他方式从 Kubernetes 社区获得帮助。
 
-### Questions
+### 问题    {#questions}
 <!--
 The documentation on this site has been structured to provide answers to a wide
 range of questions. [Concepts](/docs/concepts/) explain the Kubernetes
