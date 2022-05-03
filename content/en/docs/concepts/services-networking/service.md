@@ -701,23 +701,25 @@ Specify the assigned IP address as loadBalancerIP. Ensure that you have updated 
 
 #### Load balancers with mixed protocol types
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 By default, for LoadBalancer type of Services, when there is more than one port defined, all
 ports must have the same protocol, and the protocol must be one which is supported
 by the cloud provider.
 
-If the feature gate `MixedProtocolLBService` is enabled for the kube-apiserver it is allowed to use different protocols when there is more than one port defined.
+The feature gate `MixedProtocolLBService` (enabled by default for the kube-apiserver as of v1.24) allows the use of
+different protocols for LoadBalancer type of Services, when there is more than one port defined.
 
 {{< note >}}
 
-The set of protocols that can be used for LoadBalancer type of Services is still defined by the cloud provider.
+The set of protocols that can be used for LoadBalancer type of Services is still defined by the cloud provider. If a
+cloud provider does not support mixed protocols they will provide only a single protocol.
 
 {{< /note >}}
 
 #### Disabling load balancer NodePort allocation {#load-balancer-nodeport-allocation}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 You can optionally disable node port allocation for a Service of `type=LoadBalancer`, by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
@@ -725,20 +727,12 @@ that route traffic directly to pods as opposed to using node ports. By default, 
 is `true` and type LoadBalancer Services will continue to allocate node ports. If `spec.allocateLoadBalancerNodePorts`
 is set to `false` on an existing Service with allocated node ports, those node ports will **not** be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
-Your cluster must have the `ServiceLBNodePortControl`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled to use this field.
-For Kubernetes v{{< skew currentVersion >}}, this feature gate is enabled by default,
-and you can use the `spec.allocateLoadBalancerNodePorts` field. For clusters running
-other versions of Kubernetes, check the documentation for that release.
 
 #### Specifying class of load balancer implementation {#load-balancer-class}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 `spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default.
-Your cluster must have the `ServiceLoadBalancerClass` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled to use this field. For Kubernetes v{{< skew currentVersion >}}, this feature gate is enabled by default. For clusters running
-other versions of Kubernetes, check the documentation for that release.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation if the cluster is configured with
 a cloud provider using the `--cloud-provider` component flag. 
@@ -1254,7 +1248,8 @@ someone else's choice.  That is an isolation failure.
 
 In order to allow you to choose a port number for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
-Service its own IP address.
+Service its own IP address from within the `service-cluster-ip-range`
+CIDR range that is configured for the API server.
 
 To ensure each Service receives a unique IP, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
@@ -1267,6 +1262,25 @@ map (needed to support migrating from older versions of Kubernetes that used
 in-memory locking). Kubernetes also uses controllers to check for invalid
 assignments (eg due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
+
+#### IP address ranges for `type: ClusterIP` Services {#service-ip-static-sub-range}
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+However, there is a problem with this `ClusterIP` allocation strategy, because a user
+can also [choose their own address for the service](#choosing-your-own-ip-address).
+This could result in a conflict if the internal allocator selects the same IP address
+for another Service.
+
+If you enable the `ServiceIPStaticSubrange`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the allocation strategy divides the `ClusterIP` range into two bands, based on
+the size of the configured `service-cluster-ip-range` by using the following formula
+`min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
+with a graduated step function between them_. Dynamic IP allocations will be preferentially
+chosen from the upper band, reducing risks of conflicts with the IPs
+assigned from the lower band.
+This allows users to use the lower band of the `service-cluster-ip-range` for their
+Services with static IPs assigned with a very low risk of running into conflicts.
 
 ### Service IP addresses {#ips-and-vips}
 

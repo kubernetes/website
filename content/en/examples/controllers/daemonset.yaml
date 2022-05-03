@@ -15,8 +15,11 @@ spec:
         name: fluentd-elasticsearch
     spec:
       tolerations:
-      # this toleration is to have the daemonset runnable on master nodes
-      # remove it if your masters can't run pods
+      # these tolerations are to have the daemonset runnable on control plane nodes
+      # remove them if your control plane nodes should not run pods
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
       - key: node-role.kubernetes.io/master
         operator: Exists
         effect: NoSchedule

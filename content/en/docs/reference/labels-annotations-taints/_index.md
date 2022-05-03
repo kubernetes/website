@@ -489,6 +489,21 @@ Example: `node.kubernetes.io/pid-pressure:NoSchedule`
 
 The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PIDs consumed by Kubernetes on a node to get the number of available PIDs that referred to as the `pid.available` metric. The metric is then compared to the corresponding threshold that can be set on the kubelet to determine if the node condition and taint should be added/removed.
 
+### node.kubernetes.io/out-of-service
+
+Example: `node.kubernetes.io/out-of-service:NoExecute`
+
+A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node. 
+
+{{< caution >}}
+Refer to
+[Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+for further details about when and how to use this taint.
+{{< /caution >}}
+
+
 ### node.cloudprovider.kubernetes.io/uninitialized
 
 Example: `node.cloudprovider.kubernetes.io/uninitialized:NoSchedule`
@@ -601,12 +616,93 @@ you through the steps you follow to apply a seccomp profile to a Pod or to one o
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
 
+### snapshot.storage.kubernetes.io/allowVolumeModeChange
+
+Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+
+Used on: VolumeSnapshotContent
+
+Value can either be `true` or `false`.
+This determines whether a user can modify the mode of the source volume when a
+{{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} is being
+created from a VolumeSnapshot.
+
+Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode) 
+and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
+
 ## Annotations used for audit
 
+<!-- sorted by annotation -->
 - [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
 - [`authorization.k8s.io/reason`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
+- [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
+- [`missing-san.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
 - [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
 - [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
 - [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 See more details on the [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/) page.
+
+## kubeadm
+
+### kubeadm.alpha.kubernetes.io/cri-socket
+
+Example: `kubeadm.alpha.kubernetes.io/cri-socket: unix:///run/containerd/container.sock`
+
+Used on: Node
+
+Annotation that kubeadm uses to preserve the CRI socket information given to kubeadm at `init`/`join` time for later use.
+kubeadm annotates the Node object with this information. The annotation remains "alpha", since ideally this should
+be a field in KubeletConfiguration instead.
+
+### kubeadm.kubernetes.io/etcd.advertise-client-urls
+
+Example: `kubeadm.kubernetes.io/etcd.advertise-client-urls: https://172.17.0.18:2379`
+
+Used on: Pod
+
+Annotation that kubeadm places on locally managed etcd pods to keep track of a list of URLs where etcd clients
+should connect to. This is used mainly for etcd cluster health check purposes.
+
+### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint
+
+Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+
+Used on: Pod
+
+Annotation that kubeadm places on locally managed kube-apiserver pods to keep track of the exposed advertise
+address/port endpoint for that API server instance.
+
+### kubeadm.kubernetes.io/component-config.hash
+
+Used on: ConfigMap
+
+Example: `kubeadm.kubernetes.io/component-config.hash: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae`
+
+Annotation that kubeadm places on ConfigMaps that it manages for configuring components. It contains a hash (SHA-256)
+used to determine if the user has applied settings different from the kubeadm defaults for a particular component.
+
+### node-role.kubernetes.io/control-plane
+
+Used on: Node
+
+Label that kubeadm applies on the control plane nodes that it manages.
+
+### node-role.kubernetes.io/control-plane
+
+Used on: Node
+
+Example: `node-role.kubernetes.io/control-plane:NoSchedule`
+
+Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+
+### node-role.kubernetes.io/master
+
+Used on: Node
+
+Example: `node-role.kubernetes.io/master:NoSchedule`
+
+Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+
+{{< note >}} Starting in v1.20, this taint is deprecated in favor of `node-role.kubernetes.io/control-plane`
+and will be removed in v1.25.{{< /note >}}

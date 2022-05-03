@@ -405,6 +405,7 @@
   - fields:
     - jobTemplate
     - schedule
+    - timeZone
     - concurrencyPolicy
     - startingDeadlineSeconds
     - suspend
