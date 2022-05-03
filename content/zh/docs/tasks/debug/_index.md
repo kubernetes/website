@@ -44,7 +44,7 @@ you're using.
 * [调试集群](/zh/docs/tasks/debug/debug-cluster/) -
   对于集群管理员和 Kubernetes 集群工作状况不理想的情况很有用。
 
-您还应该根据倪成的版本检查已知的问题 [release](https://github.com/kubernetes/kubernetes/releases)
+你还应该基于你所使用的[发行版本](https://github.com/kubernetes/kubernetes/releases)检查已知的问题 。
 
 
 <!-- body -->
