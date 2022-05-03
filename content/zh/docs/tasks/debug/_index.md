@@ -51,7 +51,7 @@ you're using.
 <!-- body -->
 
 
-## Getting help
+## 获得帮助   {#getting-help}
 <!--
 If your problem isn't answered by any of the guides above, there are variety of
 ways for you to get help from the Kubernetes community.
