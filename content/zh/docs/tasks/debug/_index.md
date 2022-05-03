@@ -13,7 +13,7 @@ no_list: true
 
 ---
 title: 监控、日志和调试
-description: 设置监视和日志记录，以排除集群故障，或调试容器化应用程序.
+description: 安装监视和日志机制，用以排查集群故障或调试容器化应用
 weight: 20
 reviewers:
 - brendandburns
