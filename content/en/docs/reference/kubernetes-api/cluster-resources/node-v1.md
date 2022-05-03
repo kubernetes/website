@@ -62,7 +62,7 @@ NodeSpec describes the attributes that a node is created with.
 
 - **configSource** (NodeConfigSource)
 
-  Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+  Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
 
   <a name="NodeConfigSource"></a>
   *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
@@ -121,10 +121,7 @@ NodeSpec describes the attributes that a node is created with.
 
     Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
     
-    Possible enum values:
-     - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-     - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-     - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
+    
 
   - **taints.key** (string), required
 
@@ -171,13 +168,6 @@ NodeStatus is information about the current status of a node.
   - **addresses.type** (string), required
 
     Node address type, one of Hostname, ExternalIP or InternalIP.
-    
-    Possible enum values:
-     - `"ExternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeExternalIP. The IP it resolves to may or may not be a listed NodeExternalIP address.
-     - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable from outside the cluster then an internal IP, though no specific semantics are defined. It may be a globally routable IP, though it is not required to be. External IPs may be assigned directly to an interface on the node, like a NodeInternalIP, or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP rather than being delivered directly (making the IP less efficient for node-to-node traffic than a NodeInternalIP).
-     - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a NodeAddress of this type, its exact syntax and semantics are not defined, and are not consistent between different clusters.
-     - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeInternalIP. The IP it resolves to may or may not be a listed NodeInternalIP address.
-     - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces. Every node should have at least one address of this type. An internal IP is normally expected to be reachable from every other node, but may not be visible to hosts outside the cluster. By default it is assumed that kube-apiserver can reach node internal IPs, though it is possible to configure clusters where this is not the case. NodeInternalIP is the default type of node IP, and does not necessarily imply that the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific semantics are assigned to the additional IPs.
 
 - **allocatable** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -203,13 +193,6 @@ NodeStatus is information about the current status of a node.
   - **conditions.type** (string), required
 
     Type of node condition.
-    
-    Possible enum values:
-     - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
-     - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
-     - `"NetworkUnavailable"` means that network for the node is not correctly configured.
-     - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
-     - `"Ready"` means kubelet is healthy and ready to accept pods.
 
   - **conditions.lastHeartbeatTime** (Time)
 
@@ -396,7 +379,7 @@ NodeStatus is information about the current status of a node.
 
   - **nodeInfo.containerRuntimeVersion** (string), required
 
-    ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+    ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
 
   - **nodeInfo.kernelVersion** (string), required
 
@@ -430,10 +413,7 @@ NodeStatus is information about the current status of a node.
 
   NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
   
-  Possible enum values:
-   - `"Pending"` means the node has been created/added by the system, but not configured.
-   - `"Running"` means the node has been configured and has Kubernetes components running.
-   - `"Terminated"` means the node has been removed from the cluster.
+  
 
 - **volumesAttached** ([]AttachedVolume)
 

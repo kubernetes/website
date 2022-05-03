@@ -43,7 +43,7 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
      Kubernetes versions, refer to the documentation for that version
      of Kubernetes.
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-   * A network plugin that supports dual-stack (such as Kubenet or Calico)
+   * A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking.
 
 ## Configure IPv4/IPv6 dual-stack
 

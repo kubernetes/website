@@ -73,3 +73,38 @@ Example: `authorization.k8s.io/reason: "Human-readable reason for the decision"`
 This annotation gives reason for the [decision](#authorization-k8s-io-decision) in Kubernetes audit logs.
 
 See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
+
+## missing-san.invalid-cert.kubernetes.io/$hostname
+
+Example: `missing-san.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "relies on a legacy Common Name field instead of the SAN extension for subject validation"`
+
+Used by Kubernetes version v1.24 and later
+
+This annotation indicates a webhook or aggregated API server
+is using an invalid certificate that is missing `subjectAltNames`.
+Support for these certificates was disabled by default in Kubernetes 1.19,
+and removed in Kubernetes 1.23.
+
+Requests to endpoints using these certificates will fail.
+Services using these certificates should replace them as soon as possible
+to avoid disruption when running in Kubernetes 1.23+ environments.
+
+There's more information about this in the Go documentation:
+[X.509 CommonName deprecation](https://go.dev/doc/go1.15#commonname).
+
+## insecure-sha1.invalid-cert.kubernetes.io/$hostname
+
+Example: `insecure-sha1.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "uses an insecure SHA-1 signature"`
+
+Used by Kubernetes version v1.24 and later
+
+This annotation indicates a webhook or aggregated API server
+is using an insecure certificate signed with a SHA-1 hash.
+Support for these insecure certificates is disabled by default in Kubernetes 1.24,
+and will be removed in a future release.
+
+Services using these certificates should replace them as soon as possible,
+to ensure connections are secured properly and to avoid disruption in future releases.
+
+There's more information about this in the Go documentation:
+[Rejecting SHA-1 certificates](https://go.dev/doc/go1.18#sha1).
