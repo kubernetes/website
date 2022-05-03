@@ -1,3 +1,11 @@
+---
+标题: "监控, 日志和调试"
+描述: 设置监视和日志机制，用以排除集群故障或调试容器化应用。
+weight: 20
+content_type: 概念
+no_list: 是
+---
+
 <!--
 ---
 title: "Monitoring, Logging, and Debugging"
@@ -10,18 +18,6 @@ content_type: concept
 no_list: true
 ---
 -->
-
----
-title: 监控、日志和调试
-description: 安装监视和日志机制，用以排查集群故障或调试容器化应用
-weight: 20
-reviewers:
-- brendandburns
-- davidopp
-content_type: concept
-no_list: true
----
-
 <!-- overview -->
 <!--
 Sometimes things go wrong. This guide is aimed at making them right. It has
@@ -36,28 +32,24 @@ You should also check the known issues for the [release](https://github.com/kube
 you're using.
 -->
 
+有时候会出问题。本指南旨在纠正这些错误。它有两部分:
 
-有时候会出问题。本指南旨在纠正这些错误。它有两个部分:
+* [调试应用程序](/docs/tasks/debug/debug-application/) 对于那些将代码部署到 Kubernetes 上并想知道为什么它不能正常工作的用户很有用。
+* [调试集群](/docs/tasks/debug/debug-cluster/) 对于集群管理员和 Kubernetes 集群工作状况不理想的情况很有用。
 
-* [调试应用程序](/zh/docs/tasks/debug/debug-application/) -
-  对于那些将代码部署到 Kubernetes 上并想知道为什么它不能正常工作的用户很有用。
-* [调试集群](/zh/docs/tasks/debug/debug-cluster/) -
-  对于集群管理员和 Kubernetes 集群工作状况不理想的情况很有用。
-
-你还应该基于你所使用的[发行版本](https://github.com/kubernetes/kubernetes/releases)检查已知的问题 。
-
+你还应该根据已发行的版本检查已知的问题 [release](https://github.com/kubernetes/kubernetes/releases)。
 
 <!-- body -->
 
-
-## 获得帮助   {#getting-help}
+## 获取帮助
 <!--
 If your problem isn't answered by any of the guides above, there are variety of
 ways for you to get help from the Kubernetes community.
 -->
+
 如果上面的指南都没有回答你的问题，你可以采用很多其他方式从 Kubernetes 社区获得帮助。
 
-### 问题    {#questions}
+### 问题 
 <!--
 The documentation on this site has been structured to provide answers to a wide
 range of questions. [Concepts](/docs/concepts/) explain the Kubernetes
@@ -70,20 +62,12 @@ detailed documentation on the [Kubernetes API](/docs/reference/generated/kuberne
 and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/).
 -->
 
-本网站上文档的架构组织是针对很多问题提供答案。
-[概念](/zh/docs/concepts/)节解释 Kubernetes 架构以及每个组件的工作原理，
-[设置](/zh/docs/setup/)提供了入门用的使用指南。
-[任务](/zh/docs/tasks/)部分展示如何完成常用任务，
-而[教程](/zh/docs/tutorials/)部分提供更为全面的演练说明，展示真实世界、特定于行业或端到端的场景。
-[参考](/zh/docs/reference/)部分提供有关
-[Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-和命令行接口（CLI）的参考文档，比如 [`kubectl`](/zh/docs/reference/kubectl/)。
+本网站上的文档已被结构化，以提供广泛的一系列问题答案。 [概念](/zh/docs/concepts/) 解释Kubernetes的架构以及每个组件的工作原理,  [设置](/zh/docs/setup/) 提供了入门的实用说明。  [任务](/zh/docs/tasks/)部分展示如何完成常用任务，而[教程](/zh/docs/tutorials/)部分提供更为全面的演练说明，展示真实世界、特定于行业或端到端的场景。[参考](/zh/docs/reference/)部分提供有关 [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 和命令行接口（CLI）的参考文档，比如 [`kubectl`](/zh/docs/reference/kubectl/)。
 
-## Help! My question isn't covered!  I need help now!
+## 请求帮助！我的问题没有在这里列出！
 
 ### Stack Overflow
 <!--
-
 Someone else from the community may have already asked a similar question or may
 be able to help with your problem. The Kubernetes team will also monitor
 [posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes).
@@ -92,12 +76,11 @@ and that you read through the guidance on [how to ask a new question](https://st
 before [asking a new one](https://stackoverflow.com/questions/ask?tags=kubernetes)!
 -->
 
-
 社区里的其他人可能已经问过类似的问题能帮你解决问题。Kubernetes团队也将进行监测
-[posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes).
-如果现在没有任何有用的问题, 请 [确认您的问题建立一个话题在 Stack Overflow](https://stackoverflow.com/help/on-topic)
-并且你应该通读一下指导 [怎样建立一个问题](https://stackoverflow.com/help/how-to-ask)**,
-之前 [建立一个新的问题](https://stackoverflow.com/questions/ask?tags=kubernetes)!
+[posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes)。
+如果现在没有有用的问题， 请 [建立一个话题在 Stack Overflow上](https://stackoverflow.com/help/on-topic)
+并且你应该通读一下指导 [怎样建立一个问题](https://stackoverflow.com/help/how-to-ask)，
+之前[建立一个新的问题](https://stackoverflow.com/questions/ask?tags=kubernetes)！
 
 ### Slack
 <!--
@@ -115,25 +98,21 @@ interest. For example, people new to Kubernetes may also want to join the
 There are also many country specific / local language channels. Feel free to join
 these channels for localized support and info:
 
-
 {{< table caption="Country / language specific Slack channels" >}}
 Country | Channels
 -->
 
-很多Kubernetes社区的人在Kubernetes Slack上闲逛 `#kubernetes-users` 频道.
-Slack 需要注册; 你可以 [发起一个请求](https://slack.kubernetes.io),
-并且注册已向每个人开放). 请随时来问任何问题.
-一旦注册, 进入 [Kubernetes 组织 in Slack](https://kubernetes.slack.com)
-你可以通过网页浏览器，也可以通过Slack自己的专用APP。
+很多Kubernetes社区的人在Kubernetes Slack上闲逛 `#kubernetes-users` 频道。
+Slack需要注册，并且Slack已向每个人开放注册，你可以[发起一个请求](https://slack.kubernetes.io),
+)。请随时来问问题。一旦注册, 你可以通过网页浏览器或者Slack自己的专用APP进入[Kubernetes 组织](https://kubernetes.slack.com)。
 
-一旦你注册了，浏览不断增长的各种主题的频道列表
-的兴趣。 比如, Kubernetes的新成员可能也想加入
-[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) 频道. 另一个例子是，开发人员应该加入
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) 频道.
 
-还有许多特定国家/当地语言的频道。欢迎加入这些本地化支持和信息的渠道:
+一旦你注册了，浏览你感兴趣的不断增长的各种主题频道。 比如, Kubernetes的新成员可能也想加入
+[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) 频道。另一个例子是，开发人员应该加入
+[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) 频道。
 
-{{< table caption="Country / language specific Slack channels" >}}
+还有许多特定国家/当地语言的频道。欢迎加入这些本地化支持和信息的渠道：
+
 国家 | 频道
 :---------|:------------
 中国 | [`#cn-users`](https://kubernetes.slack.com/messages/cn-users), [`#cn-events`](https://kubernetes.slack.com/messages/cn-events)
@@ -151,19 +130,13 @@ Slack 需要注册; 你可以 [发起一个请求](https://slack.kubernetes.io),
 西班牙 | [`#es-users`](https://kubernetes.slack.com/messages/es-users)
 瑞典 | [`#se-users`](https://kubernetes.slack.com/messages/se-users)
 土耳其 | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-events`](https://kubernetes.slack.com/messages/tr-events)
-{{< /table >}}
 
-### Forum
 <!--
+### Forum
 
 You're welcome to join the official Kubernetes Forum: [discuss.kubernetes.io](https://discuss.kubernetes.io).
--->
-
-欢迎您加入Kubernetes官方论坛:: [discuss.kubernetes.io](https://discuss.kubernetes.io).
 
 ### Bugs and feature requests
-
-<!--
 If you have what looks like a bug, or you would like to make a feature request,
 please use the [GitHub issue tracking system](https://github.com/kubernetes/kubernetes/issues).
 
@@ -178,14 +151,19 @@ problem, such as:
 * Steps to reproduce the problem
 -->
 
-如果您发现一个bug，或者你想要提出一个功能请求，
-请使用 [GitHub 问题跟踪系统](https://github.com/kubernetes/kubernetes/issues).
+### 论坛
 
-在您提交问题之前，请搜索现有问题，以查看您的问题是否已经存在。
+欢迎你加入Kubernetes官方论坛： [discuss.kubernetes.io](https://discuss.kubernetes.io)。
 
+### Bugs和特色功能请求
 
-如果提交bug，请包括如何重现问题的详细信息，例如:
+如果你发现一个bug，或者你想要提出一个特色功能请求，
+请使用 [GitHub 问题跟踪系统](https://github.com/kubernetes/kubernetes/issues)。
+
+在你提交问题之前，请搜索现有问题，以查看你的问题是否已经存在。
+
+如果提交bug，请包括如何重现问题的详细信息，例如：
 
 * Kubernetes 版本: `kubectl version`
-* 云提供商, OS版本, 网络配置,和容器运行时版本
+* 云提供商, OS发行版本, 网络配置,和容器运行时版本
 * 重现问题的步骤
