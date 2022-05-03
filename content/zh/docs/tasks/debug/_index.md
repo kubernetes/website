@@ -73,8 +73,9 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/
 本网站上文档的架构组织是针对很多问题提供答案。
 [概念](/zh/docs/concepts/)节解释 Kubernetes 架构以及每个组件的工作原理，
 [设置](/zh/docs/setup/)提供了入门用的使用指南。
-入门的实用说明。 [任务](/docs/tasks/) 展示如何
-完成常用任务，, 并且 [教程](/docs/tutorials/) 更全面的进入更真实世界、特定于行业或端到端的全面演练开发场景。[参考](/docs/reference/) 部分提供
+[任务](/zh/docs/tasks/)部分展示如何完成常用任务，
+而[教程](/zh/docs/tutorials/)部分提供更为全面的演练说明，展示真实世界、特定于行业或端到端的场景。
+[参考](/zh/docs/reference/)部分提供有关
 有关 [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 和command-line interfaces (CLIs), 比如 [`kubectl`](/docs/reference/kubectl/).
 
