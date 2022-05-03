@@ -37,8 +37,7 @@ you're using.
 -->
 
 
-有时候会出问题。本指南旨在纠正这些错误。它有
-两个部分:
+有时候会出问题。本指南旨在纠正这些错误。它有两个部分:
 
 * [调试应用程序](/docs/tasks/debug/debug-application/) - Useful
   对于那些将代码部署到Kubernetes并想知道为什么它不能正常工作的用户。
