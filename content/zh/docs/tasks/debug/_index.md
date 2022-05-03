@@ -42,8 +42,8 @@ you're using.
 
 * [调试应用程序](/docs/tasks/debug/debug-application/) - Useful
   对于那些将代码部署到Kubernetes并想知道为什么它不能正常工作的用户。
-* [调试集群](/docs/tasks/debug/debug-cluster/) - Useful
-  对于集群管理员和Kubernetes集群不满意的人来说。
+* [调试集群](/zh/docs/tasks/debug/debug-cluster/) -
+  对于集群管理员和 Kubernetes 集群工作状况不理想的情况很有用。
 
 您还应该根据倪成的版本检查已知的问题 [release](https://github.com/kubernetes/kubernetes/releases)
 
