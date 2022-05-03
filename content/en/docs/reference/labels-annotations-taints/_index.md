@@ -349,7 +349,7 @@ Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassN
 
 ### storageclass.kubernetes.io/is-default-class
 
-Example: `storageclass.kubernetes.io/is-default-class: true`
+Example: `storageclass.kubernetes.io/is-default-class: "true"`
 
 Used on: StorageClass
 
