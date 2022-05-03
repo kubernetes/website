@@ -1,13 +1,13 @@
 ---
 reviewers:
 - ridavid2002
-title: Introduction to Containerd
+title: Introduction to Container Runtimes
 content_type: concept
 ---
 
 <!-- overview -->
 
-This page walks you through the overall process of reviewing the containerd configuration file along with how to list the containerd containers.
+This page walks you through the overall process of analyzing the container runtime on your kubelet. We use containerd in this example because it is the most common container runtime used in Kubernetes. After the deprecation of Dockershim many users will find this page useful when looking for alternatives to the familar "docker" commands such as, `docker ps`, `docker images`, and so on.
 
 ## {{% heading "prerequisites" %}}
 
