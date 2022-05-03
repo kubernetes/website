@@ -94,7 +94,6 @@ The kubelet truncates messages that are longer than 4096 bytes.
 
 The total message length across all containers will be limited to 12KiB, divided equally among each container.
 For example, if there are 12 containers (`initContainers` or `containers`), each has 1024 bytes of available termination message space.
-If there are 24 containers, each has 512 bytes, and so on.
 
 The default termination message path is `/dev/termination-log`.
 You cannot set the termination message path after a Pod is launched
