@@ -70,7 +70,9 @@ detailed documentation on the [Kubernetes API](/docs/reference/generated/kuberne
 and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/).
 -->
 
-本网站上的文档已被结构化，以提供广泛的答案一系列的问题。 [Concepts](/docs/concepts/)解释Kubernetes的架构以及每个组件的工作原理,[设置](/docs/setup/) 提供了
+本网站上文档的架构组织是针对很多问题提供答案。
+[概念](/zh/docs/concepts/)节解释 Kubernetes 架构以及每个组件的工作原理，
+[设置](/zh/docs/setup/)提供了入门用的使用指南。
 入门的实用说明。 [任务](/docs/tasks/) 展示如何
 完成常用任务，, 并且 [教程](/docs/tutorials/) 更全面的进入更真实世界、特定于行业或端到端的全面演练开发场景。[参考](/docs/reference/) 部分提供
 有关 [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
