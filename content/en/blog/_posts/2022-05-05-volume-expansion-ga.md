@@ -1,12 +1,11 @@
 ---
 layout: blog
-title: "Volume expansion now available as stable feature in Kubernetes 1.24"
+title: "Kubernetes 1.24: Volume Expansion Now A Stable Feature"
 date: 2022-05-05
 slug: volume-expansion-ga
 ---
 
 **Author:** Hemant Kumar (Red Hat)
-
 
 Volume expansion was introduced as a alpha feature in Kubernetes 1.8 and it went beta in 1.11 and with Kubernetes 1.24 we are excited to announce general availability(GA)
 of volume expansion.
