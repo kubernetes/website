@@ -55,8 +55,7 @@ you're using.
 If your problem isn't answered by any of the guides above, there are variety of
 ways for you to get help from the Kubernetes community.
 -->
-
-如果上面的任何指南都没有回答你的问题，还有你可以各种各样的从Kubernetes社区获得帮助。
+如果上面的指南都没有回答你的问题，你可以采用很多其他方式从 Kubernetes 社区获得帮助。
 
 ### Questions
 <!--
