@@ -77,7 +77,7 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/
 而[教程](/zh/docs/tutorials/)部分提供更为全面的演练说明，展示真实世界、特定于行业或端到端的场景。
 [参考](/zh/docs/reference/)部分提供有关
 [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-和command-line interfaces (CLIs), 比如 [`kubectl`](/docs/reference/kubectl/).
+和命令行接口（CLI）的参考文档，比如 [`kubectl`](/zh/docs/reference/kubectl/)。
 
 ## Help! My question isn't covered!  I need help now!
 
