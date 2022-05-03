@@ -12,7 +12,7 @@ no_list: true
 -->
 
 ---
-title: "监控, 日志,  和调试"
+title: 监控、日志和调试
 description: 设置监视和日志记录，以排除集群故障，或调试容器化应用程序.
 weight: 20
 reviewers:
