@@ -1,7 +1,21 @@
 ---
-title: 调试StatefulSet
+title: 调试 StatefulSet
 content_type: task
+weight: 30
 ---
+<!-- 
+reviewers:
+- bprashanth
+- enisoc
+- erictune
+- foxish
+- janetkuo
+- kow3ns
+- smarterclayton
+title: Debug a StatefulSet
+content_type: task
+weight: 30
+-->
 
 <!-- overview -->
 <!--
@@ -40,18 +54,18 @@ If you find that any Pods listed are in `Unknown` or `Terminating` state for an 
 refer to the [Deleting StatefulSet Pods](/docs/tasks/run-application/delete-stateful-set/) task for
 instructions on how to deal with them.
 You can debug individual Pods in a StatefulSet using the
-[Debugging Pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/) guide.
+[Debugging Pods](/docs/tasks/debug/debug-application/debug-pods/) guide.
 -->
 如果你发现列出的任何 Pod 长时间处于 `Unknown` 或 `Terminating` 状态，请参阅
-[删除 StatefulSet Pods](/zh/docs/tasks/run-application/delete-stateful-set/)
+[删除 StatefulSet Pod](/zh/docs/tasks/run-application/delete-stateful-set/)
 了解如何处理它们的说明。
-你可以参考[调试 Pods](/zh/docs/tasks/debug-application-cluster/debug-pod-replication-controller/)
+你可以参考[调试 Pod](/zh/docs/tasks/debug/debug-application/debug-pods/)
 来调试 StatefulSet 中的各个 Pod。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-Learn more about [debugging an init-container](/docs/tasks/debug-application-cluster/debug-init-containers/).
+Learn more about [debugging an init-container](/docs/tasks/debug/debug-application/debug-init-containers/).
 -->
-* 进一步了解如何[调试 Init 容器](/zh/docs/tasks/debug-application-cluster/debug-init-containers/)
+* 进一步了解如何[调试 Init 容器](/zh/docs/tasks/debug/debug-application/debug-init-containers/)。
 
