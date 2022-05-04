@@ -708,7 +708,7 @@ pods        0     10
 -->
 ### 跨名字空间的 Pod 亲和性配额   {#cross-namespace-pod-affinity-quota}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 Operators can use `CrossNamespacePodAffinity` quota scope to limit which namespaces are allowed to
@@ -785,16 +785,6 @@ if the namespace where they are created have a resource quota object with
 硬性约束大于或等于使用 `namespaces` 和 `namespaceSelector` 字段的 Pods
 个数时，才可以在该名字空间中继续创建在其 Pod 亲和性规则中设置 `namespaces`
 或 `namespaceSelector` 的新 Pod。
-
-<!--
-This feature is beta and enabled by default. You can disable it using the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
--->
-此功能特性处于 Beta 阶段，默认被禁用。你可以通过为 kube-apiserver 和
-kube-scheduler 设置
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` 来启用此特性。
 
 <!--
 ## Requests compared to Limits {#requests-vs-limits}
