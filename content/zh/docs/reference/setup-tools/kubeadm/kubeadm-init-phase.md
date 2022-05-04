@@ -175,9 +175,9 @@ By default the certs and encryption key expire after two hours.
 ## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 
 <!--
-Use the following phase to label and taint the node with the `node-role.kubernetes.io/master=""` key-value pair.
+Use the following phase to label and taint the node as a control plane node.
 -->
-使用以下阶段来给具有 `node-role.kubernetes.io/master=""` 键值对的节点
+使用以下阶段来给作为控制平面的节点
 打标签（label）和记录污点（taint）。
 
 {{< tabs name="tab-mark-control-plane" >}}
