@@ -51,11 +51,11 @@ Kubernetes 假定普通用户是由一个与集群无关的服务通过以下方
 普通用户的信息无法通过 API 调用添加到集群中。
 
 <!--
-Even though normal user cannot be added via an API call, but any user that
-presents a valid certificate signed by the cluster’s certificate authority
+Even though a normal user cannot be added via an API call, any user that
+presents a valid certificate signed by the cluster's certificate authority
 (CA) is considered authenticated. In this configuration, Kubernetes determines
-the username from the common name field in the ‘subject’ of the cert (e.g.,
-“/CN=bob”). From there, the role based access control (RBAC) sub-system would
+the username from the common name field in the 'subject' of the cert (e.g.,
+"/CN=bob"). From there, the role based access control (RBAC) sub-system would
 determine whether the user is authorized to perform a specific operation on a
 resource. For more details, refer to the normal users topic in
 [certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
@@ -160,7 +160,7 @@ can be accomplished using an [authenticating proxy](#authenticating-proxy) or th
 <!--
 ### X509 Client Certs
 
-Client certificate authentication is enabled by passing the `-client-ca-file=SOMEFILE`
+Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
 option to API server. The referenced file must contain one or more certificate authorities
 to use to validate client certificates presented to the API server. If a client certificate
 is presented and verified, the common name of the subject is used as the user name for the
@@ -198,7 +198,7 @@ See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for ho
 <!--
 ### Static Token File
 
-The API server reads bearer tokens from a file when given the `-token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
+The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
 changed without restarting the API server.
 
 The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
@@ -395,7 +395,7 @@ kubectl create serviceaccount jenkins
 ```
 
 ```
-serviceaccount/jenkins created
+serviceaccount "jenkins" created
 ```
 
 <!--
@@ -829,7 +829,7 @@ current-context: webhook
 contexts:
 - context:
     cluster: name-of-remote-authn-service
-    user: name-of-api-sever
+    user: name-of-api-server
   name: webhook
 ```
 -->
@@ -857,116 +857,199 @@ current-context: webhook
 contexts:
 - context:
     cluster: name-of-remote-authn-service
-    user: name-of-api-sever
+    user: name-of-api-server
   name: webhook
 ```
 
 <!--
-When a client attempts to authenticate with the API server using a bearer token
-as discussed [above](#putting-a-bearer-token-in-a-request),
-the authentication webhook POSTs a JSON-serialized `authentication.k8s.io/v1beta1` `TokenReview` object containing the token
-to the remote service. Kubernetes will not challenge a request that lacks such a header.
+When a client attempts to authenticate with the API server using a bearer token as discussed [above](#putting-a-bearer-token-in-a-request),
+the authentication webhook POSTs a JSON-serialized `TokenReview` object containing the token to the remote service.
 -->
 当客户端尝试在 API 服务器上使用持有者令牌完成身份认证（
 如[前](#putting-a-bearer-token-in-a-request)所述）时，
 身份认证 Webhook 会用 POST 请求发送一个 JSON 序列化的对象到远程服务。
-该对象是 `authentication.k8s.io/v1beta1` 组的 `TokenReview` 对象，
+该对象是 `TokenReview` 对象，
 其中包含持有者令牌。
 Kubernetes 不会强制请求提供此 HTTP 头部。
 
 <!--
-Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
-as other Kubernetes API objects. Implementers should be aware of looser
-compatibility promises for beta objects and check the "apiVersion" field of the
-request to ensure correct deserialization. Additionally, the API server must
-enable the `authentication.k8s.io/v1beta1` API extensions group (`--runtime-config=authentication.k8s.io/v1beta1=true`).
-
-The POST body will be of the following format:
+Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/) as other Kubernetes API objects.
+Implementers should check the `apiVersion` field of the request to ensure correct deserialization,
+and **must** respond with a `TokenReview` object of the same version as the request.
 -->
 要注意的是，Webhook API 对象和其他 Kubernetes API 对象一样，也要受到同一
 [版本兼容规则](/zh/docs/concepts/overview/kubernetes-api/)约束。
-实现者要了解对 Beta 阶段对象的兼容性承诺，并检查请求的 `apiVersion` 字段，
-以确保数据结构能够正常反序列化解析。此外，API 服务器必须启用
-`authentication.k8s.io/v1beta1` API 扩展组
-（`--runtime-config=authentication.k8s.io/v1beta1=true`）。
+实现者应检查请求的 `apiVersion` 字段以确保正确的反序列化，
+并且**必须**以与请求相同版本的 `TokenReview` 对象进行响应。
 
-POST 请求的 Body 部分将是如下格式：
 
+{{< tabs name="TokenReview_request" >}}
+{{% tab name="authentication.k8s.io/v1" %}}
+{{< note >}}
 <!--
-```json
+The Kubernetes API server defaults to sending `authentication.k8s.io/v1beta1` token reviews for backwards compatibility.
+To opt into receiving `authentication.k8s.io/v1` token reviews, the API server must be started with `--authentication-token-webhook-version=v1`.
+-->
+Kubernetes API 服务器默认发送 `authentication.k8s.io/v1beta1` 令牌以实现向后兼容性。
+要选择接收 `authentication.k8s.io/v1` 令牌认证，API 服务器必须以 `--authentication-token-webhook-version=v1` 启动。
+{{< /note >}}
+
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "spec": {
+   # 发送到 API 服务器的不透明持有者令牌
+    "token": "014fbff9a07c...",
+   
+    # 提供令牌的服务器的受众标识符的可选列表。
+    # 受众感知令牌验证器（例如，OIDC 令牌验证器）
+    # 应验证令牌是否针对此列表中的至少一个受众，
+    # 并返回此列表与响应状态中令牌的有效受众的交集。
+    # 这确保了令牌对于向其提供给的服务器进行身份验证是有效的。
+    # 如果未提供受众，则应验证令牌以向 Kubernetes API 服务器进行身份验证。
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="authentication.k8s.io/v1beta1" %}}
+```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
   "kind": "TokenReview",
   "spec": {
-    "token": "(BEARERTOKEN)"
+    # 发送到 API 服务器的不透明匿名令牌
+    "token": "014fbff9a07c...",
+   
+    # 提供令牌的服务器的受众标识符的可选列表。
+    # 受众感知令牌验证器（例如，OIDC 令牌验证器）
+    # 应验证令牌是否针对此列表中的至少一个受众，
+    # 并返回此列表与响应状态中令牌的有效受众的交集。
+    # 这确保了令牌对于向其提供给的服务器进行身份验证是有效的。
+    # 如果未提供受众，则应验证令牌以向 Kubernetes API 服务器进行身份验证。
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
   }
 }
 ```
--->
-```json
-{
-  "apiVersion": "authentication.k8s.io/v1beta1",
-  "kind": "TokenReview",
-  "spec": {
-    "token": "<持有者令牌>"
-  }
-}
-```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
-The remote service is expected to fill the `status` field of
-the request to indicate the success of the login. The response body's `spec`
-field is ignored and may be omitted. A successful validation of the bearer
-token would return:
+The remote service is expected to fill the `status` field of the request to indicate the success of the login.
+The response body's `spec` field is ignored and may be omitted.
+The remote service must return a response using the same `TokenReview` API version that it received.
+A successful validation of the bearer token would return:
 -->
-远程服务应该会填充请求的 `status` 字段，以标明登录操作是否成功。
-响应的 Body 中的 `spec` 字段会被忽略，因此可以省略。
-如果持有者令牌验证成功，应该返回如下所示的响应：
+远程服务预计会填写请求的 `status` 字段以指示登录成功。
+响应正文的 `spec` 字段被忽略并且可以省略。
+远程服务必须使用它收到的相同 `TokenReview` API 版本返回响应。
+承载令牌的成功验证将返回：
 
-```json
+{{< tabs name="TokenReview_response_success" >}}
+{{% tab name="authentication.k8s.io/v1" %}}
+```yaml
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "TokenReview",
   "status": {
     "authenticated": true,
     "user": {
+      # 必要
       "username": "janedoe@example.com",
+      # 可选
       "uid": "42",
-      "groups": [
-        "developers",
-        "qa"
-      ],
+      # 可选的组成员身份
+      "groups": ["developers", "qa"],
+      # 认证者提供的可选附加信息。
+      # 此字段不可包含机密数据，因为这类数据可能被记录在日志或 API 对象中，
+      # 并且可能传递给 admission webhook。
       "extra": {
         "extrafield1": [
           "extravalue1",
           "extravalue2"
         ]
       }
-    }
+    },
+    # 验证器可以返回的、可选的用户感知令牌列表，
+    # 包含令牌对其有效的、包含于 `spec.audiences` 列表中的受众。
+    # 如果省略，则认为该令牌可用于对 Kubernetes API 服务器进行身份验证。
+    "audiences": ["https://myserver.example.com"]
   }
 }
 ```
+{{% /tab %}}
+{{% tab name="authentication.k8s.io/v1beta1" %}}
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": true,
+    "user": {
+      # 必要
+      "username": "janedoe@example.com",
+      # 可选
+      "uid": "42",
+      # 可选的组成员身份
+      "groups": ["developers", "qa"],
+      # 认证者提供的可选附加信息。
+      # 此字段不可包含机密数据，因为这类数据可能被记录在日志或 API 对象中，
+      # 并且可能传递给 admission webhook。
+      "extra": {
+        "extrafield1": [
+          "extravalue1",
+          "extravalue2"
+        ]
+      }
+    },
+    # 验证器可以返回的、可选的用户感知令牌列表，
+    # 包含令牌对其有效的、包含于 `spec.audiences` 列表中的受众。
+    # 如果省略，则认为该令牌可用于对 Kubernetes API 服务器进行身份验证。
+    "audiences": ["https://myserver.example.com"]
+  }
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 An unsuccessful request would return:
 -->
 而不成功的请求会返回：
 
-```json
+{{< tabs name="TokenReview_response_error" >}}
+{{% tab name="authentication.k8s.io/v1" %}}
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": false,
+    # 可选地包括有关身份验证失败原因的详细信息。
+    # 如果没有提供错误信息，API 将返回一个通用的 Unauthorized 消息。
+    # 当 authenticated=true 时，error 字段被忽略。
+    "error": "Credentials are expired"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="authentication.k8s.io/v1beta1" %}}
+```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
   "kind": "TokenReview",
   "status": {
-    "authenticated": false
+    "authenticated": false,
+    # 可选地包括有关身份验证失败原因的详细信息。
+    # 如果没有提供错误信息，API 将返回一个通用的 Unauthorized 消息。
+    # 当 authenticated=true 时，error 字段被忽略。
+    "error": "Credentials are expired"
   }
 }
 ```
-
-<!--
-HTTP status codes can be used to supply additional error context.
--->
-HTTP 状态码可用来提供进一步的错误语境信息。
-
+{{% /tab %}}
+{{< /tabs >}}
 <!--
 ### Authenticating Proxy
 
@@ -981,7 +1064,7 @@ API 服务器可以配置成从请求的头部字段值（如 `X-Remote-User`）
 <!--
 * `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the username.
 * `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested. Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
-* `-requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed. The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) and becomes the extra key, and the header value is the extra value.
+* `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed. The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) and becomes the extra key, and the header value is the extra value.
 -->
 * `--requestheader-username-headers` 必需字段，大小写不敏感。用来设置要获得用户身份所要检查的头部字段名称列表（有序）。第一个包含数值的字段会被用来提取用户名。
 * `--requestheader-group-headers` 可选字段，在 Kubernetes 1.6 版本以后支持，大小写不敏感。
@@ -1096,7 +1179,7 @@ passing the `--anonymous-auth=true` option to the API server.
 
 <!--
 In 1.6+, anonymous access is enabled by default if an authorization mode other than `AlwaysAllow`
-is used, and can be disabled by passing the `-anonymous-auth=false` option to the API server.
+is used, and can be disabled by passing the `--anonymous-auth=false` option to the API server.
 Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of the
 `system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
 that grant access to the `*` user or `*` group do not include anonymous users.
@@ -1196,12 +1279,11 @@ extra fields:
 
 ```http
 Impersonate-User: jane.doe@example.com
-Impersonate-Group: developers
-Impersonate-Group: admins
 Impersonate-Extra-dn: cn=jane,ou=engineers,dc=example,dc=com
 Impersonate-Extra-acme.com%2Fproject: some-project
 Impersonate-Extra-scopes: view
 Impersonate-Extra-scopes: development
+Impersonate-Uid: 06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b
 ```
 
 <!--
@@ -1842,6 +1924,7 @@ Certificates）。
 <!--
 Optionally, the response can include the expiry of the credential formatted as a
 [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp.
+
 Presence or absence of an expiry has the following impact:
 
 - If an expiry is included, the bearer token and TLS credentials are cached until
