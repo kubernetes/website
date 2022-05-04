@@ -120,12 +120,12 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 #### My pod is crashing or otherwise unhealthy
 
 Once your pod has been scheduled, the methods described in [Debug Running Pods](
-/docs/tasks/debug-application-cluster/debug-running-pod/) are available for debugging.
+/docs/tasks/debug/debug-application/debug-running-pod/) are available for debugging.
 -->
 #### Pod 处于 Crashing 或别的不健康状态
 
 一旦 Pod 被调度，就可以采用
-[调试运行中的 Pod](/zh/docs/tasks/debug-application-cluster/debug-running-pod/)
+[调试运行中的 Pod](/zh/docs/tasks/debug/debug-application/debug-running-pod/)
 中的方法来进一步调试。
 
 <!--

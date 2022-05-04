@@ -716,6 +716,8 @@ CustomResourceDefinition schemas using the `x-kubernetes-validations` extension.
 The Rule is scoped to the location of the `x-kubernetes-validations` extension in the schema.
 And `self` variable in the CEL expression is bound to the scoped value.
 
+All validation rules are scoped to the current object: no cross-object or stateful validation rules are supported.
+
 For example:
 
 ```yaml
@@ -994,7 +996,178 @@ Here is the declarations type mapping between OpenAPIv3 and CEL type:
 xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values), [OpenAPI
 types](https://swagger.io/specification/#data-types), [Kubernetes Structural Schemas](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
 
+#### Validation functions {#available-validation-functions}
 
+Functions available include:
+  - CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)
+  - CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
+  - CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
+  - Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
+
+#### Transition rules
+
+A rule that contains an expression referencing the identifier `oldSelf` is implicitly considered a
+_transition rule_. Transition rules allow schema authors to prevent certain transitions between two
+otherwise valid states. For example:
+
+```yaml
+type: string
+enum: ["low", "medium", "high"]
+x-kubernetes-validations:
+- rule: "!(self == 'high' && oldSelf == 'low') && !(self == 'low' && oldSelf == 'high')"
+  message: cannot transition directly between 'low' and 'high'
+```
+
+Unlike other rules, transition rules apply only to operations meeting the following criteria:
+
+- The operation updates an existing object. Transition rules never apply to create operations.
+
+- Both an old and a new value exist. It remains possible to check if a value has been added or
+  removed by placing a transition rule on the parent node. Transition rules are never applied to
+  custom resource creation. When placed on an optional field, a transition rule will not apply to
+  update operations that set or unset the field.
+
+- The path to the schema node being validated by a transition rule must resolve to a node that is
+  comparable between the old object and the new object. For example, list items and their
+  descendants (`spec.foo[10].bar`) can't necessarily be correlated between an existing object and a
+  later update to the same object.
+
+Errors will be generated on CRD writes if a schema node contains a transition rule that can never be
+applied, e.g. "*path*: update rule *rule* cannot be set on schema because the schema or its parent
+schema is not mergeable".
+
+Transition rules are only allowed on _correlatable portions_ of a schema.
+A portion of the schema is correlatable if all `array` parent schemas are of type `x-kubernetes-list-type=map`; any `set`or `atomic`array parent schemas make it impossible to unambiguously correlate a `self` with `oldSelf`.
+
+Here are some examples for transition rules:
+
+{{< table caption="Transition rules examples" >}}
+| Use Case                                                          | Rule
+| --------                                                          | --------
+| Immutability                                                      | `self.foo == oldSelf.foo`
+| Prevent modification/removal once assigned                        | `oldSelf != 'bar' \|\| self == 'bar'` or `!has(oldSelf.field) \|\| has(self.field)`
+| Append-only set                                                   | `self.all(element, element in oldSelf)`
+| If previous value was X, new value can only be A or B, not Y or Z | `oldSelf != 'X' \|\| self in ['A', 'B']`
+| Monotonic (non-decreasing) counters                               | `self >= oldSelf`
+{{< /table >}}
+
+#### Resource use by validation functions
+
+When you create or update a CustomResourceDefinition that uses validation rules,
+the API server checks the likely impact of running those validation rules. If a rule is
+estimated to be prohibitively expensive to execute, the API server rejects the create
+or update operation, and returns an error message.
+A similar system is used at runtime that observes the actions the interpreter takes. If the interpreter executes
+too many instructions, execution of the rule will be halted, and an error will result.
+Each CustomResourceDefinition is also allowed a certain amount of resources to finish executing all of 
+its validation rules. If the sum total of its rules are estimated at creation time to go over that limit, 
+then a validation error will also occur.
+
+You are unlikely to encounter issues with the resource budget for validation if you only
+specify rules that always take the same amount of time regardless of how large their input is.
+For example, a rule that asserts that `self.foo == 1` does not by itself have any
+risk of rejection on validation resource budget groups.
+But if `foo` is a string and you define a validation rule `self.foo.contains("someString")`, that rule takes
+longer to execute depending on how long `foo` is.
+Another example would be if `foo` were an array, and you specified a validation rule `self.foo.all(x, x > 5)`. The cost system always assumes the worst-case scenario if
+a limit on the length of `foo` is not given, and this will happen for anything that can be iterated
+over (lists, maps, etc.).
+
+Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and 
+`maxLength` for anything that will be processed in a validation rule in order to prevent validation errors during cost estimation. For example, given this schema with one rule:
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      items:
+        type: string
+      x-kubernetes-validations:
+        - rule: "self.all(x, x.contains('a string'))"
+```
+
+then the API server rejects this rule on validation budget grounds with error:
+```
+ spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden: 
+ CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and 
+ maxLength where arrays, maps, and strings are used)
+```
+
+The rejection happens because `self.all` implies calling `contains()` on every string in `foo`,
+which in turn will check the given string to see if it contains `'a string'`. Without limits, this is a very
+expensive rule.
+
+If you do not specify any validation limit, the estimated cost of this rule will exceed the per-rule cost limit. But if you
+add limits in the appropriate places, the rule will be allowed:
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      maxItems: 25
+      items:
+        type: string
+        maxLength: 10
+      x-kubernetes-validations:
+        - rule: "self.all(x, x.contains('a string'))"
+```
+
+The cost estimation system takes into account how many times the rule will be executed in addition to the
+estimated cost of the rule itself. For instance, the following rule will have the same estimated cost as the
+previous example (despite the rule now being defined on the individual array items):
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      maxItems: 25
+      items:
+        type: string
+        x-kubernetes-validations:
+          - rule: "self.contains('a string'))"
+        maxLength: 10
+```
+
+If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive 
+than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
+the following rule is allowed:
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      items:
+        type: integer
+    x-kubernetes-validations:
+      - rule: "self.all(x, x == 5)"
+```
+
+But the same rule on the following schema (with a nested array added) produces a validation error:
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      items:
+        type: array
+        items:
+          type: integer
+        x-kubernetes-validations:
+          - rule: "self.all(x, x == 5)"
+```
+
+This is because each item of `foo` is itself an array, and each subarray in turn calls `self.all`. Avoid nested
+lists and maps if possible where validation rules are used.
 
 ### Defaulting
 

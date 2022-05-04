@@ -39,7 +39,7 @@ Provision servers with the following [requirements](https://github.com/kubernete
 * The target servers are configured to allow **IPv4 forwarding**
 * **Your ssh key must be copied** to all the servers in your inventory
 * **Firewalls are not managed by kubespray**. You'll need to implement appropriate rules as needed. You should disable your firewall in order to avoid any issues during deployment
-* If kubespray is ran from a non-root user account, correct privilege escalation method should be configured in the target servers and the `ansible_become` flag or command parameters `--become` or `-b` should be specified
+* If kubespray is run from a non-root user account, correct privilege escalation method should be configured in the target servers and the `ansible_become` flag or command parameters `--become` or `-b` should be specified
 
 Kubespray provides the following utilities to help provision your environment:
 
