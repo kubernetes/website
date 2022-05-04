@@ -12,8 +12,8 @@ weight: 10
 <!-- Visão Geral -->
 
 Os arquivos em disco em um contêiner são efêmeros, o que apresenta alguns problemas para 
-aplicativos não triviais quando executados em contêineres. Um problema é a perda de arquivos 
-quando um contêiner cai. O kubelet reinicia o contêiner, mas em um estado limpo. Um segundo 
+aplicações não triviais quando executados em contêineres. Um problema é a perda de arquivos 
+quando um contêiner quebra. O kubelet reinicia o contêiner, mas em um estado limpo. Um segundo 
 problema ocorre ao compartilhar arquivos entre contêineres que são executados juntos em 
 um `Pod`. A abstração de {{< glossary_tooltip text="volume" term_id="volume" >}} 
 do Kubernetes resolve ambos os problemas. Sugere-se familiaridade com [Pods](/docs/concepts/workloads/pods/) .
@@ -29,9 +29,9 @@ O Kubernetes suporta muitos tipos de volumes. Um {{< glossary_tooltip term_id="p
 
 Em sua essência, um volume é um diretório, eventualmente com alguns dados dentro dele, que é acessível aos contêineres de um Pod. Como esse diretório vem a ser, o meio que o suporta e o conteúdo do mesmo são determinados pelo tipo particular de volume utilizado.
 
-Para utilizar um volume, especifique os volumes que serão disponibilizados para o Pod em `.spec.volumes` e declare onde montar esses volumes dentro dos contêineres em `.spec.containers[*].volumeMounts`. Um processo em um contêiner enxerga uma visualização do sistema de arquivos composta pelo do conteúdo inicial da {{< glossary_tooltip text="imagem do contêiner" term_id="image" >}} mais os volumes (se definidos) montados dentro do contêiner. O processo enxerga um sistema de arquivos raiz que inicialmente corresponde ao conteúdo da imagem do contêiner. Qualquer gravação dentro dessa hierarquia do sistema de arquivos, se permitida, afetará o que esse processo enxerga quando ele executa um acesso subseqüente ao sistema de arquivos. Os volumes são montados nos [caminhos especificados](#using-subpath) dentro da imagem. Para cada contêiner definido num Pod, você deve especificar independentemente onde montar cada volume utilizado pelo contêiner.
+Para utilizar um volume, especifique os volumes que serão disponibilizados para o Pod em `.spec.volumes` e declare onde montar esses volumes dentro dos contêineres em `.spec.containers[*].volumeMounts`. Um processo em um contêiner enxerga uma visualização do sistema de arquivos composta pelo do conteúdo inicial da {{< glossary_tooltip text="imagem do contêiner" term_id="image" >}} mais os volumes (se definidos) montados dentro do contêiner. O processo enxerga um sistema de arquivos raiz que inicialmente corresponde ao conteúdo da imagem do contêiner. Qualquer gravação dentro dessa hierarquia do sistema de arquivos, se permitida, afetará o que esse processo enxerga quando ele executa um acesso subseqüente ao sistema de arquivos. Os volumes são montados nos [caminhos especificados](#using-subpath) dentro da imagem. Para cada contêiner definido em um Pod, você deve especificar independentemente onde montar cada volume utilizado pelo contêiner.
 
-Volumes não podem ser montados dentro de outros volumes (mas você pode consultar [Utilizando subPath](#using-subpath) para um mecanismo relacionado). Além disso, um volume não pode conter uma hard link para qualquer coisa em um volume diferente.
+Volumes não podem ser montados dentro de outros volumes (mas você pode consultar [Utilizando subPath](#using-subpath) para um mecanismo relacionado). Além disso, um volume não pode conter uma hard link para qualquer outro dado em um volume diferente.
 
 ## Tipos de Volumes {#volume-types}
 
@@ -39,7 +39,7 @@ Kubernetes suporta vários tipos de volumes.
 
 ### awsElasticBlockStore {#awselasticblockstore}
 
-Um volume `awsElasticBlockStore` monta um [volume EBS](https://aws.amazon.com/ebs/) da Amazon Web Services (AWS) em seu pod. Ao contrário do `emptyDir` que é apagado quando um pod é removido, o conteúdo de um volume EBS é preservado e o volume é desmontado. Isto significa que um volume EBS pode ser alimentado previamente com dados e que os dados podem ser compartilhados entre Pods.
+Um volume `awsElasticBlockStore` monta um [volume EBS](https://aws.amazon.com/ebs/) da Amazon Web Services (AWS) em seu pod. Ao contrário do `emptyDir`que é apagado quando um pod é removido, o conteúdo de um volume EBS é preservado e o volume é desmontado. Isto significa que um volume EBS pode ser alimentado previamente com dados e que os dados podem ser compartilhados entre Pods.
 
 {{< note >}}
 Você precisa criar um volume EBS usando `aws ec2 create-volume` ou pela API da AWS antes que você consiga utilizá-lo. 
@@ -137,7 +137,7 @@ Para desabilitar o carregamento do plugin de armazenamento `azureFile` pelo gere
 
 ### cephfs
 
-Um volume `cephfs` permite que um volume CephFS existente seja montado no seu Pod. Ao contrário do `emptyDir` que é apagado quando um pod é removido, o conteúdo de um volume `cephfs` é preservado e o volume é simplesmente desmontado. Isto significa que um volume `cephfs` pode ser alimentado previamente com dados e que os dados podem ser compartilhados entre os Pods. O volume `cephfs` pode ser montado para escrita por vários pods simultaneamente.
+Um volume `cephfs` permite que um volume CephFS existente seja montado no seu Pod. Ao contrário do `emptyDir` que é apagado quando um pod é removido, o conteúdo de um volume `cephfs` é preservado e o volume é simplesmente desmontado. Isto significa que um volume `cephfs` pode ser alimentado previamente com dados e que os dados podem ser partilhados entre os Pods. O volume `cephfs` pode ser montado por vários gravadores simultaneamente.
 
 {{< note >}} Você deve ter seu próprio servidor Ceph funcionando com o compartilhamento acessível antes de poder utilizá-lo. {{< /note >}}
 
@@ -179,7 +179,7 @@ O recurso `CSIMigration` para o Cinder é ativado por padrão no Kubernetes 1.21
 
 ### configMap
 
-Um [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) oferece uma forma de injetar dados de configuração em Pods. Os dados armazenados em um ConfigMap podem ser referenciados em um volume de tipo `configMap` e depois consumidos por aplicações conteinerizadas executadas em um pod.
+Um [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) oferece uma forma de injetar dados de configuração em Pods. Os dados armazenados num ConfigMap podem ser referenciados num volume de tipo `configMap` e depois consumidos por aplicações conteinerizadas executadas num pod.
 
 Ao referenciar um ConfigMap, você informa o nome do ConfigMap no volume. Pode personalizar o caminho utilizado para uma entrada específica no ConfigMap. A seguinte configuração mostra como montar o `log-config` do ConfigMap num Pod chamado `configmap-pod`:
 
@@ -210,7 +210,7 @@ O ConfigMap `log-config` é montado como um volume e todos os conteúdos armazen
 
 * É preciso criar um [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) antes de usá-lo.
 
-* Um contêiner que utiliza ConfigMap através de um ponto de montagem com a propriedade [`subPath`](#using-subpath) não receberá atualizações deste ConfigMap.
+* Um contêiner que utiliza ConfigMap através de um ponto de montagem com a propriedade [`subPath`](#using-subpath) não recebe atualizações deste ConfigMap.
 
 * Os dados de texto são expostos como ficheiros utilizando a codificação de caracteres UTF-8. Para outras codificações de caracteres, use `binaryData`. {{< /note >}}
 
@@ -218,23 +218,23 @@ O ConfigMap `log-config` é montado como um volume e todos os conteúdos armazen
 
 Um volume `downwardAPI` disponibiliza dados da downward API para as aplicações. Ele monta um diretório e grava os dados solicitados em arquivos de texto sem formatação.
 
-{{< note >}} Um contêiner que utiliza downward API através de um ponto de montagem com a propriedade [`subPath`](#using-subpath) não receberá atualizações desta downward API. {{< /note >}}
+{{< note >}} Um contêiner que utiliza downward API através de um ponto de montagem com a propriedade [`subPath`](#using-subpath) não recebe atualizações desta downward API. {{< /note >}}
 
 Consulte [o exemplo de downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/) para obter mais detalhes.
 
 ### emptyDir {#emptydir}
 
-Um volume `emptyDir` é criado pela primeira vez quando um Pod é atribuído a um nó e existe enquanto esse Pod estiver sendo executado nesse nó. Como o nome diz, o volume `emptyDir` está inicialmente vazio. Todos os contêineres no Pod podem ler e gravar os mesmos arquivos no volume `emptyDir`, embora esse volume possa ser montado no mesmo caminho ou em caminhos diferentes em cada contêiner. Quando um Pod é removido de um nó por qualquer motivo, os dados no `emptyDir` são eliminados permanentemente.
+Um volume `emptyDir` é criado pela primeira vez quando um Pod é atribuído a um nó e existe enquanto esse Pod estiver a sendo executado nesse nó. Como o nome diz, o volume `emptyDir` está inicialmente vazio. Todos os contêineres no Pod podem ler e gravar os mesmos arquivos no volume `emptyDir`, embora esse volume possa ser montado no mesmo caminho ou em caminhos diferentes em cada contêiner. Quando um Pod é removido de um nó por qualquer motivo, os dados no `emptyDir` são eliminados permanentemente.
 
-{{< note >}} A falha de um contêiner *não* remove um Pod de um nó. Os dados em um volume `emptyDir` são mantidos em caso de falha do contêiner. {{< /note >}}
+{{< note >}} A falha de um contêiner *não* remove um Pod de um nó. Os dados num volume `emptyDir` são mantidos em caso de falha do contêiner. {{< /note >}}
 
 Alguns usos para um `emptyDir` são:
 
 * espaço temporário, como para uma merge sort baseado em disco
-* ponto de verificação de um processamento longo para recuperação de falhas
+* ponto de verificação de um processamento longo para recuperação de falhas.
 * manter arquivos que um contêiner gerenciador de conteúdo busca enquanto um contêiner de webserver entrega os dados
 
-Dependendo do seu ambiente, os volumes `emptyDir` são armazenados em qualquer mídia que componha o nó, como disco ou SSD, ou armazenamento de rede. No entanto, se você definir o campo `emptyDir.medium` como `"Memory"`, o Kubernetes monta um tmpfs (sistema de arquivos suportado em RAM) para você. Embora o tmpfs seja muito rápido, tenha atenção que, ao contrário dos discos, o tmpfs é limpo na reinicialização do nó e quaisquer arquivos que grave consomem o limite de memória do seu contêiner.
+Dependendo do seu ambiente, os volumes `emptyDir` são armazenados em qualquer media que componha o nó, como disco ou SSD, ou armazenamento de rede. No entanto, se você definir o campo `emptyDir.medium` como `"Memory"`, o Kubernetes monta um tmpfs (sistema de arquivos com suporte de RAM) para você. Embora o tmpfs seja muito rápido, tenha em atenção que, ao contrário dos discos, o tmpfs é limpo na reinicialização do nó e quaisquer arquivos que grave consomem o limite de memória do seu contêiner.
 
 {{< note >}} Se a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `SizeMemoryBackedVolumes` estiver habilitada, é possível especificar um tamanho para volumes mantidos em memória.  Se nenhum tamanho for especificado, os volumes mantidos em memória são dimensionados para 50% da memória em um host Linux. {{< /note>}}
 
