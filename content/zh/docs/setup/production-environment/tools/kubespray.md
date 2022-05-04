@@ -156,7 +156,7 @@ Kubespray 能够自定义部署的许多方面：
 * 证书生成方式
 
 <!--
-Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). If you are getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 -->
 可以修改[变量文件](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
 以进行 Kubespray 定制。
