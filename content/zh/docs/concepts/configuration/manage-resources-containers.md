@@ -92,15 +92,13 @@ runtimes can have different ways to implement the same restrictions.
 
 {{< note >}}
 <!--
-If a container specifies its own memory limit, but does not specify a memory request, Kubernetes
-automatically assigns a memory request that matches the limit. Similarly, if a container specifies its own
-CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
-the limit.
+If you specify a limit for a resource, but do not specify any request, and no admission-time
+mechanism has applied a default request for that resource, then Kubernetes copies the limit
+you specified and uses it as the requested value for the resource.
 -->
-如果某容器设置了自己的内存限制但未设置内存请求，Kubernetes
-自动为其设置与内存限制相匹配的请求值。类似的，如果某 Container 设置了
-CPU 限制值但未设置 CPU 请求值，则 Kubernetes 自动为其设置 CPU
-请求并使之与 CPU 限制值匹配。
+如果你为某个资源指定了限制，但不指定请求，
+并且没有应用准入时机制为该资源设置默认请求，
+然后 Kubernetes 复制你所指定的限制值，将其用作资源的请求值。
 {{< /note >}}
 
 <!--
