@@ -467,4 +467,5 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 -->
 * 阅读 [Secret](/zh/docs/concepts/configuration/secret/)。
 * 阅读[配置 Pod 使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 阅读 [修改 ConfigMap （或任何其他 Kubernetes 对象）](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 * 阅读 [Twelve-Factor 应用](https://12factor.net/zh_cn/)来了解将代码和配置分开的动机。
