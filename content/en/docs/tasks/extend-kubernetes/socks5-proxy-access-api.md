@@ -15,8 +15,8 @@ This is useful when the cluster you want to access does not expose its API direc
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-You need SSH client software (the `ssh` tool), and an SSH server running on the remote server.
-You must be able to log in to the SSH server on the remote server.
+You need SSH client software (the `ssh` tool), and an SSH service running on the remote server.
+You must be able to log in to the SSH service on the remote server.
 
 <!-- steps -->
 
@@ -29,7 +29,7 @@ You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOC
 
 Figure 1 represents what you're going to achieve in this task.
 
-* You have a client computer from where you're going to create requests to talk to the Kubernetes API
+* You have a client computer, referred to as local in the steps ahead, from where you're going to create requests to talk to the Kubernetes API.
 * The Kubernetes server/API is hosted on a remote server.
 * You will use SSH client and server software to create a secure SOCKS5 tunnel between the local and
   the remote server. The HTTPS traffic between the client and the Kubernetes API will flow over the SOCKS5
