@@ -324,14 +324,14 @@ to locate use of deprecated APIs.
 * Update custom integrations and controllers to call the non-deprecated APIs
 * Change YAML files to reference the non-deprecated APIs
 
-    You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
-    to automatically convert an existing object:
+  You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
+  to automatically convert an existing object:
     
-    `kubectl-convert -f <file> --output-version <group>/<version>`.
+  `kubectl-convert -f <file> --output-version <group>/<version>`.
 
-    For example, to convert an older Deployment to `apps/v1`, you can run:
+  For example, to convert an older Deployment to `apps/v1`, you can run:
     
-    `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
+  `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
 
-    Note that this may use non-ideal default values. To learn more about a specific
-    resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
+  Note that this may use non-ideal default values. To learn more about a specific
+  resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
