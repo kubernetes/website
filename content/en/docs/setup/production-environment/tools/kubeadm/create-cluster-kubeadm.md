@@ -112,10 +112,9 @@ for all control-plane nodes. Such an endpoint can be either a DNS name or an IP 
 be passed to `kubeadm init`. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
 a provider-specific value. See [Installing a Pod network add-on](#pod-network).
-1. (Optional) Since version 1.14, `kubeadm` tries to detect the container runtime on Linux
-by using a list of well known domain socket paths. To use different container runtime or
-if there are more than one installed on the provisioned node, specify the `--cri-socket`
-argument to `kubeadm init`. See
+1. (Optional) `kubeadm` tries to detect the container runtime by using a list of well
+known endpoints. To use different container runtime or if there are more than one installed
+on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
 with the default gateway to set the advertise address for this particular control-plane node's API server.
@@ -299,25 +298,29 @@ and ensure it is using a privileged kubeconfig such as the kubeadm managed `/etc
 
 ### Control plane node isolation
 
-By default, your cluster will not schedule Pods on the control-plane node for security
-reasons. If you want to be able to schedule Pods on the control-plane node, for example for a
-single-machine Kubernetes cluster for development, run:
+By default, your cluster will not schedule Pods on the control plane nodes for security
+reasons. If you want to be able to schedule Pods on the control plane nodes,
+for example for a single machine Kubernetes cluster, run:
 
 ```bash
-kubectl taint nodes --all node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/control-plane- node-role.kubernetes.io/master-
 ```
 
-With output looking something like:
+The output will look something like:
 
 ```
 node "test-01" untainted
-taint "node-role.kubernetes.io/master:" not found
-taint "node-role.kubernetes.io/master:" not found
+...
 ```
 
-This will remove the `node-role.kubernetes.io/master` taint from any nodes that
-have it, including the control-plane node, meaning that the scheduler will then be able
+This will remove the `node-role.kubernetes.io/control-plane` and
+`node-role.kubernetes.io/master` taints from any nodes that have them,
+including the control plane nodes, meaning that the scheduler will then be able
 to schedule Pods everywhere.
+
+{{< note >}}
+The `node-role.kubernetes.io/master` taint is deprecated and kubeadm will stop using it in version 1.25.
+{{< /note >}}
 
 ### Joining your nodes {#join-nodes}
 
