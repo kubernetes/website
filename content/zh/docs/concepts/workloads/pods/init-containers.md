@@ -556,7 +556,7 @@ Pod 不会被重启。这一行为适用于 Kubernetes v1.20 及更新版本。�
 
 <!--
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 -->
 * 阅读[创建包含 Init 容器的 Pod](/zh/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* 学习如何[调试 Init 容器](/zh/docs/tasks/debug-application-cluster/debug-init-containers/)
+* 学习如何[调试 Init 容器](/zh/docs/tasks/debug/debug-application/debug-init-containers/)
