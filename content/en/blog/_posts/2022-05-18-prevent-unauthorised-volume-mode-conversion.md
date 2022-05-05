@@ -57,7 +57,7 @@ created PVC in the given namespace.
 kubectl get volumesnapshot -n <namespace>
 ```
 
-3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/content/en/docs/reference/labels-annotations-taints/)
+3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/docs/reference/labels-annotations-taints/#snapshot-storage-kubernetes-io-allowvolumemodechange)
 to the `VolumeSnapshotContent`. 
 
 4. This annotation can be added either via software or manually by the authorised 
