@@ -54,7 +54,7 @@ created PVC in the given namespace.
 2. Identify the `VolumeSnapshotContent` bound to the above `VolumeSnapshot`.
 
 ```
-kubectl get volumesnapshot -n <namespace>
+   kubectl get volumesnapshot -n <namespace>
 ```
 
 3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/docs/reference/labels-annotations-taints/#snapshot-storage-kubernetes-io-allowvolumemodechange)
@@ -64,11 +64,11 @@ to the `VolumeSnapshotContent`.
 user. The `VolumeSnapshotContent` annotation must look like following manifest fragment:
 
 ```yaml
-kind: VolumeSnapshotContent 
-metadata: 
-  annotations: 
-    - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
-...
+   kind: VolumeSnapshotContent
+   metadata:
+     annotations:
+       - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
+   ...
 ```
 
 **Note**: For pre-provisioned `VolumeSnapshotContents`, you must take an extra
@@ -78,21 +78,21 @@ depending on the mode of the volume from which this snapshot was taken.
 An example is shown below:
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1
-kind: VolumeSnapshotContent
-metadata:
-  annotations:
-  - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
-  name: new-snapshot-content-test
-spec:
-  deletionPolicy: Delete
-  driver: hostpath.csi.k8s.io
-  source:
-    snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
-  sourceVolumeMode: Filesystem
-  volumeSnapshotRef:
-    name: new-snapshot-test
-    namespace: default
+   apiVersion: snapshot.storage.k8s.io/v1
+   kind: VolumeSnapshotContent
+   metadata:
+     annotations:
+     - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
+     name: new-snapshot-content-test
+   spec:
+     deletionPolicy: Delete
+     driver: hostpath.csi.k8s.io
+     source:
+       snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+     sourceVolumeMode: Filesystem
+     volumeSnapshotRef:
+       name: new-snapshot-test
+       namespace: default
 ```
 
 Repeat steps 1 to 3 for all `VolumeSnapshotContents` whose volume mode needs to be 
