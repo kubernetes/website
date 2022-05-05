@@ -66,7 +66,7 @@ It takes around 10s to complete.
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/job.yaml
 ```
-The output is similar to this:
+<!--The output is similar to this:-->
 输出类似于：
 
 ```
@@ -79,7 +79,7 @@ job.batch/pi created
 ```shell
 kubectl describe jobs/pi
 ```
-The output is similar to this:
+<!--The output is similar to this:-->
 输出类似于：
 
 ```
@@ -131,7 +131,7 @@ To list all the Pods that belong to a Job in a machine readable form, you can us
 pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
 echo $pods
 ```
-The output is similar to this:
+<!--The output is similar to this:-->
 输出类似于：
 
 ```
@@ -154,7 +154,6 @@ kubectl logs $pods
 ```
 
 <!--The output is similar to this:-->
-The output is similar to this:
 输出类似于：
 
 ```
@@ -972,7 +971,7 @@ Before deleting it, you make a note of what selector it uses:
 ```shell
 kubectl get job old -o yaml
 ```
-The output is similar to this:
+<!--The output is similar to this:-->
 输出类似于：
 
 ```yaml
