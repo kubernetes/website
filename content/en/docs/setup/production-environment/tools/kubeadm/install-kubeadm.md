@@ -74,7 +74,7 @@ need to be open in order for Kubernetes components to communicate with each othe
 nc 127.0.0.1 6443
 ```
 
-The pod network plugin you use (see below) may also require certain ports to be
+The pod network plugin you use may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 
