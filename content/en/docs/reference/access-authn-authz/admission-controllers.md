@@ -195,7 +195,7 @@ have access to the host PID namespace.
 
 The DenyEscalatingExec admission plugin is deprecated.
 
-Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
+Use of a policy-based admission plugin (like [`PodSecurity`](#podsecurity) or a custom admission plugin)
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
 is recommended instead.
 
@@ -208,7 +208,7 @@ This admission controller will intercept all requests to exec a command in a pod
 This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
 The DenyExecOnPrivileged admission plugin is deprecated.
 
-Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
+Use of a policy-based admission plugin (like [PodSecurity](#podsecurity) or a custom admission plugin)
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
 is recommended instead.
 
@@ -661,23 +661,16 @@ admission plugin, which allows preventing pods from running on specifically tain
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
-This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
-defined in the next section. This admission controller acts on creation and modification of the pod and
+This admission controller acts on creation and modification of the pod and
 determines if it should be admitted based on the requested security context and the 
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/).
 
 See the [Pod Security Admission documentation](/docs/concepts/security/pod-security-admission/)
 for more information.
 
-### PodSecurityPolicy {#podsecuritypolicy}
-
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
-
-This admission controller acts on creation and modification of the pod and determines if it should be admitted
-based on the requested security context and the available Pod Security Policies.
-
-See also the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation
-for more information.
+Versions of Kubernetes prior to 1.25 included an admission controller for
+the beta `PodSecurityPolicy` API; the Pod Security admission controller
+provides similar, but not identical, security enforcement.
 
 ### PodTolerationRestriction {#podtolerationrestriction}
 
