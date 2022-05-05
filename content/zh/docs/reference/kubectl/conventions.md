@@ -46,7 +46,7 @@ For a stable output in a script:
 <!--
 ## Subresources
 -->
-## 子资源
+## 子资源    {#subresources}
 
 <!--
 * You can use the `--subresource` alpha flag for kubectl commands like `get`, `patch`,
