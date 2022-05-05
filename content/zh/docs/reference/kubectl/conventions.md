@@ -58,9 +58,9 @@ reconciled by a controller to a different value.
 -->
 
 * 你可以将 `--subresource` alpha 标志用于 kubectl 命令，例如 `get`、`patch`、`edit` 和 `replace`
-来获取和更新所有支持子资源的资源的子资源。 目前，仅支持 `status` 和 `scale` 子资源。
+  来获取和更新所有支持子资源的资源的子资源。 目前，仅支持 `status` 和 `scale` 子资源。
 * 针对子资源的 API 协定与完整资源相同。在更新`status` 子资源到一个新值，请记住，
-子资源可能是潜在的由控制器调和为不同的值。
+  子资源可能是潜在的由控制器调和为不同的值。
 
 <!--
 ## Best Practices
