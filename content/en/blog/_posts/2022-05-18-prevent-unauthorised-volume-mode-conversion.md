@@ -43,9 +43,9 @@ It is upto the cluster administrator to provide these rights only to trusted use
 or applications, like backup vendors.
 
 If the alpha feature is [enabled](https://kubernetes-csi.github.io/docs/) in 
-`snapshot-controller` and `external-provisioner`, then unauthorised users will
-not be allowed to modify the volume mode of a PVC when it is being created from
-a `VolumeSnapshot`.
+`snapshot-controller`, `snapshot-validation-webhook` and `external-provisioner`,
+then unauthorised users will not be allowed to modify the volume mode of a PVC
+when it is being created from a `VolumeSnapshot`.
 
 To convert the volume mode, an authorised user must do the following:
 
@@ -98,8 +98,8 @@ spec:
 Repeat steps 1 to 3 for all `VolumeSnapshotContents` whose volume mode needs to be 
 converted during a backup or restore operation.
 
-If the above annotation is present on a `VolumeSnapshotContent` object, 
-Kubernetes will not prevent the volume mode from being converted.
+If the annotation shown in step 4 above is present on a `VolumeSnapshotContent`
+object, Kubernetes will not prevent the volume mode from being converted.
 Users should keep this in mind before they attempt to add the annotation 
 to any `VolumeSnapshotContent`. 
 
