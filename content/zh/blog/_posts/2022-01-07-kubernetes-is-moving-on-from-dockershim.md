@@ -22,13 +22,13 @@ to reaffirm our community values by supporting open source container runtimes,
 enabling a smaller kubelet, and increasing engineering velocity for teams using
 Kubernetes. If you [use Docker Engine as a container runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)
 for your Kubernetes cluster, get ready to migrate in 1.24! To check if you're
-affected, refer to [Check whether dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/).
+affected, refer to [Check whether dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/).
 -->
 Kubernetes 将在即将发布的 1.24 版本中移除 dockershim。我们很高兴能够通过支持开源容器运行时、支持更小的
 kubelet 以及为使用 Kubernetes 的团队提高工程速度来重申我们的社区价值。
 如果你[使用 Docker Engine 作为 Kubernetes 集群的容器运行时](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)，
 请准备好在 1.24 中迁移！要检查你是否受到影响，
-请参考[检查弃用 Dockershim 对你的影响](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)。
+请参考[检查移除 Dockershim 对你的影响](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)。
 
 <!--
 ## Why we’re moving away from dockershim
