@@ -1,7 +1,7 @@
 ---
-title: Kubelet CredentialProvider (v1alpha1)
+title: Kubelet CredentialProvider (v1beta1)
 content_type: tool-reference
-package: credentialprovider.kubelet.k8s.io/v1alpha1
+package: credentialprovider.kubelet.k8s.io/v1beta1
 auto_generated: true
 ---
 
@@ -9,12 +9,12 @@ auto_generated: true
 ## Resource Types 
 
 
-- [CredentialProviderRequest](#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderRequest)
-- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderResponse)
+- [CredentialProviderRequest](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderRequest)
+- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
   
     
 
-## `CredentialProviderRequest`     {#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderRequest}
+## `CredentialProviderRequest`     {#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderRequest}
     
 
 
@@ -27,7 +27,7 @@ prefer responding with the same apiVersion they were sent.</p>
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
     
-<tr><td><code>apiVersion</code><br/>string</td><td><code>credentialprovider.kubelet.k8s.io/v1alpha1</code></td></tr>
+<tr><td><code>apiVersion</code><br/>string</td><td><code>credentialprovider.kubelet.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>CredentialProviderRequest</code></td></tr>
     
   
@@ -43,7 +43,7 @@ to extract any information required to fetch credentials.</p>
 </tbody>
 </table>
 
-## `CredentialProviderResponse`     {#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderResponse}
+## `CredentialProviderResponse`     {#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse}
     
 
 
@@ -56,12 +56,12 @@ This response should be set to the same apiVersion as CredentialProviderRequest.
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
     
-<tr><td><code>apiVersion</code><br/>string</td><td><code>credentialprovider.kubelet.k8s.io/v1alpha1</code></td></tr>
+<tr><td><code>apiVersion</code><br/>string</td><td><code>credentialprovider.kubelet.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>CredentialProviderResponse</code></td></tr>
     
   
 <tr><td><code>cacheKeyType</code> <B>[Required]</B><br/>
-<a href="#credentialprovider-kubelet-k8s-io-v1alpha1-PluginCacheKeyType"><code>PluginCacheKeyType</code></a>
+<a href="#credentialprovider-kubelet-k8s-io-v1beta1-PluginCacheKeyType"><code>PluginCacheKeyType</code></a>
 </td>
 <td>
    <p>cacheKeyType indiciates the type of caching key to use based on the image provided
@@ -80,7 +80,7 @@ CredentialProviderConfig. If set to 0, the kubelet will not cache the provided A
 </td>
 </tr>
 <tr><td><code>auth</code><br/>
-<a href="#credentialprovider-kubelet-k8s-io-v1alpha1-AuthConfig"><code>map[string]k8s.io/kubelet/pkg/apis/credentialprovider/v1alpha1.AuthConfig</code></a>
+<a href="#credentialprovider-kubelet-k8s-io-v1beta1-AuthConfig"><code>map[string]k8s.io/kubelet/pkg/apis/credentialprovider/v1beta1.AuthConfig</code></a>
 </td>
 <td>
    <p>auth is a map containing authentication information passed into the kubelet.
@@ -118,12 +118,12 @@ stopping after the first successfully authenticated pull.</p>
 </tbody>
 </table>
 
-## `AuthConfig`     {#credentialprovider-kubelet-k8s-io-v1alpha1-AuthConfig}
+## `AuthConfig`     {#credentialprovider-kubelet-k8s-io-v1beta1-AuthConfig}
     
 
 **Appears in:**
 
-- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderResponse)
+- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
 
 
 <p>AuthConfig contains authentication information for a container registry.
@@ -155,13 +155,13 @@ An empty password is valid.</p>
 </tbody>
 </table>
 
-## `PluginCacheKeyType`     {#credentialprovider-kubelet-k8s-io-v1alpha1-PluginCacheKeyType}
+## `PluginCacheKeyType`     {#credentialprovider-kubelet-k8s-io-v1beta1-PluginCacheKeyType}
     
 (Alias of `string`)
 
 **Appears in:**
 
-- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderResponse)
+- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
 
 
 
