@@ -568,8 +568,6 @@ Here are some examples of device plugin implementations:
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for Intel GPU, FPGA and QuickAssist devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for hardware-assisted virtualization
-* The [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
-    * Requires [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0, which allows you to run GPU-enabled Docker containers.
 * The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
@@ -583,8 +581,6 @@ Here are some examples of device plugin implementations:
 * [AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes) 支持 Intel GPU、FPGA 和 QuickAssist 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins) 用于硬件辅助的虚拟化
-* The [NVIDIA GPU 设备插件](https://github.com/NVIDIA/k8s-device-plugin)
-* 需要 [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0，以允许运行 Docker 容器的时候启用 GPU。
 * [为 Container-Optimized OS 所提供的 NVIDIA GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 设备插件](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [SocketCAN 设备插件](https://github.com/collabora/k8s-socketcan)
