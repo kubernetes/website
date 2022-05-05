@@ -95,7 +95,7 @@ spec:
     namespace: default
 ```
 
-Repeat (1)-(3) for all `VolumeSnapshotContents` whose volume mode needs to be 
+Repeat steps 1 to 3 for all `VolumeSnapshotContents` whose volume mode needs to be 
 converted during a backup or restore operation.
 
 If the above annotation is present on a `VolumeSnapshotContent` object, 
