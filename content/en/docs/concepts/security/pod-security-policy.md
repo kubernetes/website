@@ -658,7 +658,7 @@ added. Capabilities listed in `RequiredDropCapabilities` must not be included in
 
 **DefaultAddCapabilities** - The capabilities which are added to containers by
 default, in addition to the runtime defaults. See the
-the documentation for your container runtime for information on working with Linux capabilities.
+documentation for your container runtime for information on working with Linux capabilities.
 
 ### SELinux
 
