@@ -9,12 +9,12 @@ aliases:
     - sftim
     - nate-double-u  
   sig-docs-bn-owners: # Admins for Bengali content
-    - mitul3737
     - Imtiaz1234
+    - mitul3737
     - rajibmitra
   sig-docs-bn-reviews: # PR reviews for Bengali content
-    - mitul3737
     - Imtiaz1234
+    - mitul3737
     - rajibmitra
   sig-docs-de-owners: # Admins for German content
     - bene2k1
