@@ -1493,7 +1493,7 @@ users:
       #
       # The API version returned by the plugin MUST match the version listed here.
       #
-      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1beta1),
       # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
       # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
       apiVersion: "client.authentication.k8s.io/v1"
@@ -1565,7 +1565,7 @@ users:
       #
       # 插件返回的 API 版本必需与这里列出的版本匹配。
       #
-      # 要与支持多个版本的工具（如 client.authentication.k8sio/v1alpha1）集成，
+      # 要与支持多个版本的工具（如 client.authentication.k8s.io/v1beta1）集成，
       # 可以设置一个环境变量或者向工具传递一个参数标明 exec 插件所期望的版本，
       # 或者从 KUBERNETES_EXEC_INFO 环境变量的 ExecCredential 对象中读取版本信息。
       apiVersion: "client.authentication.k8s.io/v1"
@@ -1636,7 +1636,7 @@ users:
       #
       # The API version returned by the plugin MUST match the version listed here.
       #
-      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1),
       # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
       # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
       apiVersion: "client.authentication.k8s.io/v1beta1"
@@ -1709,7 +1709,7 @@ users:
       #
       # 插件返回的 API 版本必需与这里列出的版本匹配。
       #
-      # 要与支持多个版本的工具（如 client.authentication.k8sio/v1alpha1）集成，
+      # 要与支持多个版本的工具（如 client.authentication.k8s.io/v1）集成，
       # 可以设置一个环境变量或者向工具传递一个参数标明 exec 插件所期望的版本，
       # 或者从 KUBERNETES_EXEC_INFO 环境变量的 ExecCredential 对象中读取版本信息。
       apiVersion: "client.authentication.k8s.io/v1"
