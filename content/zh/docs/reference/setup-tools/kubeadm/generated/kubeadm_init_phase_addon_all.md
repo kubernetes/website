@@ -8,12 +8,6 @@ To update the reference conent, please follow the
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
-<!--
-该文件是使用通用[生成器](https://github.com/kubernetes-sigs/reference-docs/) 从组件的 Go 源代码自动生成的。
-要了解如何生成参考文档，请阅读[参与参考文档](/docs/contribute/generate-ref-docs/)。
-要更新参考内容，请按照[贡献上游](/docs/contribute/generate-ref-docs/contribute-upstream/) 指导。
-你可以针对[参考文献](https://github.com/kubernetes-sigs/reference-docs/) 项目归档文档格式错误。
--->
 
 <!--
 Install all the addons
