@@ -54,11 +54,11 @@ ComponentStatus (和 ComponentStatusList) 保存集群验证信息。已弃用:�
  <a name="ComponentCondition"></a>
   *Information about the condition of a component.*
 -->
-  *补丁策略：合并在 `type` 健上*
+  **补丁策略：基于 `type` 健合并**
 
-  观察到的组件条件列表
+  观察到的组件状况列表
 
-  *有关组件条件的信息。*
+  *有关组件状况的信息。*
 <!--
   - **conditions.status** (string), required
 
@@ -66,7 +66,7 @@ ComponentStatus (和 ComponentStatusList) 保存集群验证信息。已弃用:�
 -->
   - **conditions.status** (string), 必需的
     
-    组件的条件状态。有效值为 "Healthy": "True", "False", or "Unknown"。
+    组件状况的状态。“Healthy” 有效值为: "True", "False", or "Unknown"。
 <!--
   - **conditions.type** (string), required
 
@@ -74,7 +74,7 @@ ComponentStatus (和 ComponentStatusList) 保存集群验证信息。已弃用:�
 -->
   - **conditions.type** (string), 必需的
 
-    组件的条件类型。 有效值为: "Healthy"
+    组件状况的类型。有效值为: "Healthy"
   - **conditions.error** (string)
 <!--
     Condition error code for a component. For example, a health check error code.
@@ -99,9 +99,7 @@ Status of all the conditions for the component as a list of ComponentStatus obje
 
 - **apiVersion**: v1
 
-
 - **kind**: ComponentStatusList
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 <!--
@@ -117,18 +115,7 @@ Status of all the conditions for the component as a list of ComponentStatus obje
 
   ComponentStatus 对象列表。
 
-
-
-
 ## Operations {#Operations}
-
-
-
-<hr>
-
-
-
-
 
 <!--
 ### `get` read the specified ComponentStatus
@@ -139,7 +126,7 @@ GET /api/v1/componentstatuses/{name}
 
 #### Parameters
 -->
-### `get` 读取指定的组件状态。
+### `get` 读取指定的 ComponentStatus。
 
 #### HTTP 请求
 
@@ -159,12 +146,12 @@ GET /api/v1/componentstatuses/{name}
 
 -->
 
-- **name** (*在路径内*): string, 必需的
+- **name** (**在路径内**): string, 必需的
 
   ComponentStatus 的名称。
 
 
-- **pretty** (*在查询时*): string
+- **pretty** (**查询字符串**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -189,7 +176,7 @@ GET /api/v1/componentstatuses/{name}
 
 GET /api/v1/componentstatuses
 -->
-### `list` 列出种类为 ComponentStatus 的对象
+### `list` 列出类别为 ComponentStatus 的对象
 
 #### HTTP 请求	
 
@@ -199,7 +186,7 @@ GET /api/v1/componentstatuses
 
 -->
 #### 参数
-
+<!--
 - **allowWatchBookmarks** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
@@ -208,8 +195,17 @@ GET /api/v1/componentstatuses
 - **continue** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+-->
+- **allowWatchBookmarks** (**查询字符串**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
+- **continue** (**查询字符串**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+<!--
 - **fieldSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
@@ -219,7 +215,17 @@ GET /api/v1/componentstatuses
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
+-->
+- **fieldSelector** (**查询字符串**): string
 
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+
+- **labelSelector** (**查询字符串**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+<!--
 - **limit** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
@@ -229,7 +235,17 @@ GET /api/v1/componentstatuses
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
+-->
+- **limit** (**查询字符串**): integer
 
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+
+- **pretty** (**查询字符串**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+<!--
 - **resourceVersion** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
@@ -239,7 +255,17 @@ GET /api/v1/componentstatuses
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+-->
+- **resourceVersion** (**查询字符串**): string
 
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+
+- **resourceVersionMatch** (**查询字符串**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -248,7 +274,16 @@ GET /api/v1/componentstatuses
 - **watch** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+-->
 
+- **timeoutSeconds** (**查询字符串**): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+
+- **watch** (**查询字符串**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
 #### Response
