@@ -7,13 +7,13 @@ slug: kubernetes-1-24-non-graceful-node-shutdown-alpha
 
 **Authors** Xing Yang and Yassine Tijani (VMware)
 
-Kubernetes v1.24 introduces alpha support for [Non-Graceful Node Shutdown](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2268-non-graceful-shutdown). This feature allows stateful workloads to failover to a different node after the original node is shutdown or in a non-recoverable state such as the hardware failure or broken OS.
+Kubernetes v1.24 introduces alpha support for [Non-Graceful Node Shutdown](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2268-non-graceful-shutdown). This feature allows stateful workloads to failover to a different node after the original node is shutdown or in a non-recoverable state such as hardware failure or broken OS.
 
 ## How is this different from Graceful Node Shutdown
 
 You might have heard about the [Graceful Node Shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown) capability of Kubernetes,
 and are wondering how the Non-Graceful Node Shutdown feature is different from that. Graceful Node Shutdown
-allows Kubernetes to detect when a node is shutting down cleanly, and handle that situation appropriately.
+allows Kubernetes to detect when a node is shutting down cleanly, and handles that situation appropriately.
 A Node Shutdown can be "graceful" only if the node shutdown action can be detected by the kubelet ahead
 of the actual shutdown. However, there are cases where a node shutdown action may not be detected by
 the kubelet. This could happen either because the shutdown command does not trigger the systemd inhibitor
@@ -23,15 +23,15 @@ locks mechanism that kubelet relies upon, or because of a configuration error
 Graceful node shutdown relies on Linux-specific support. The kubelet does not watch for upcoming
 shutdowns on Windows nodes (this may change in a future Kubernetes release).
 
-When a node is shutdown but without the kubelet detecting it, Pods on that node
-also shut down ungracefully. For stateless apps, that's often not a problem (a ReplicaSet adds a new Pod once
-the cluster detects that the affected node or Pod has failed). For stateful apps, the story is more complicated.
-If you use a StatefulSet and have a Pod from that StatefulSet on a node that fails uncleanly, that affected Pod
-will be marked as terminating; the StatefulSet cannot create a replacement Pod because the existing Pod
+When a node is shutdown but without the kubelet detecting it, pods on that node
+also shut down ungracefully. For stateless apps, that's often not a problem (a ReplicaSet adds a new pod once
+the cluster detects that the affected node or pod has failed). For stateful apps, the story is more complicated.
+If you use a StatefulSet and have a pod from that StatefulSet on a node that fails uncleanly, that affected pod
+will be marked as terminating; the StatefulSet cannot create a replacement pod because the pod
 still exists in the cluster.
 As a result, the application running on the StatefulSet may be degraded or even offline. If the original, shut
-down node comes up again, the kubelet on that original node reports in, deletes the existing Pods, and
-the control plane makes a replacement Pod for that StatefulSet on a different running node.
+down node comes up again, the kubelet on that original node reports in, deletes the existing pods, and
+the control plane makes a replacement pod for that StatefulSet on a different running node.
 If the original node has failed and does not come up, those stateful pods would be stuck in a
 terminating status on that failed node indefinitely.
 
@@ -54,7 +54,7 @@ taint following a shutdown that the kubelet did not detect and handle in advance
 can use that taint is when the node is in a non-recoverable state due to a hardware failure or a broken OS.
 The values you set for that taint can be `node.kubernetes.io/out-of-service=nodeshutdown: "NoExecute"`
 or `node.kubernetes.io/out-of-service=nodeshutdown:" NoSchedule"`.
-Provided you have enabled the feature gate as I mentioned earlier, setting the out-of-service taint on a Node
+Provided you have enabled the feature gate mentioned earlier, setting the out-of-service taint on a Node
 means that pods on the node will be deleted unless if there are matching tolerations on the pods.
 Persistent volumes attached to the shutdown node will be detached, and for StatefulSets, replacement pods will
 be created successfully on a different running node.
@@ -70,7 +70,7 @@ web-1   1/1     Running   0          10m    10.244.1.7   k8s-node-433-1639279804
 
 Note: Before applying the out-of-service taint, you **must** verify that a node is already in shutdown or power off state (not in the middle of restarting), either because the user intentionally shut it down or the node is down due to hardware failures, OS issues, etc.
 
-Once all the workload Pods that are linked to the out-of-service node are moved to a new running node, and the shutdown node has been recovered, you should remove
+Once all the workload pods that are linked to the out-of-service node are moved to a new running node, and the shutdown node has been recovered, you should remove
 that taint on the affected node after the node is recovered.
 If you know that the node will not return to service, you could instead delete the node from the cluster.
 
