@@ -1712,7 +1712,7 @@ users:
       # 要与支持多个版本的工具（如 client.authentication.k8s.io/v1）集成，
       # 可以设置一个环境变量或者向工具传递一个参数标明 exec 插件所期望的版本，
       # 或者从 KUBERNETES_EXEC_INFO 环境变量的 ExecCredential 对象中读取版本信息。
-      apiVersion: "client.authentication.k8s.io/v1"
+      apiVersion: "client.authentication.k8s.io/v1beta1"
 
       # 执行此插件时要设置的环境变量。可选字段。
       env:
