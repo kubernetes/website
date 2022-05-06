@@ -34,7 +34,7 @@ you're using.
 
 有时候会出问题。本指南旨在纠正这些错误。它有两部分:
 
-* [调试应用程序](/docs/tasks/debug/debug-application/) 对于那些将代码部署到 Kubernetes 上并想知道为什么它不能正常工作的用户很有用。
+* [调试应用程序](/docs/tasks/debug/debug-application/) - 用户想知道代码部署到 Kubernetes 为什么它不能正常工作是很有用的。
 * [调试集群](/docs/tasks/debug/debug-cluster/) 对于集群管理员和 Kubernetes 集群工作状况不理想的情况很有用。
 
 你还应该根据已发行的版本检查已知的问题 [release](https://github.com/kubernetes/kubernetes/releases)。
