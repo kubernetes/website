@@ -47,12 +47,12 @@ The Metrics API, and the metrics pipeline that it enables, only offers the minim
 CPU and memory metrics to enable automatic scaling using HPA and / or VPA.
 If you would like to provide a more complete set of metrics, you can complement
 the simpler Metrics API by deploying a second
-[metrics pipeline](/docs/tasks/debug-application-cluster/resource-usage-monitoring/#full-metrics-pipeline)
+[metrics pipeline](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/#full-metrics-pipeline)
 that uses the _Custom Metrics API_.
 -->
 Metrics API 及其启用的指标管道仅提供最少的 CPU 和内存指标，以启用使用 HPA 和/或 VPA 的自动扩展。
 如果你想提供更完整的指标集，你可以通过部署使用 _Custom Metrics API_ 的第二个
-[指标管道](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/#full-metrics-pipeline) 来作为简单的 Metrics API 的补充。
+[指标管道](/zh/docs/tasks/debug/debug-cluster/resource-usage-monitoring/#full-metrics-pipeline)来作为简单的 Metrics API 的补充。
 {{< /note >}}
 
 <!--

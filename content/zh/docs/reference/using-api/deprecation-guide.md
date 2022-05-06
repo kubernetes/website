@@ -34,6 +34,28 @@ deprecated API versions to newer and more stable API versions.
 -->
 ## 各发行版本中移除的 API  {#removed-apis-by-release}
 
+### v1.27
+
+<!--
+The **v1.27** release will stop serving the following deprecated API versions:
+-->
+**v1.27** 发行版本中将去除以下已弃用的 API 版本：
+
+#### CSIStorageCapacity {#csistoragecapacity-v127}
+
+<!--
+The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity will no longer be served in v1.27.
+
+* Migrate manifests and API clients to use the **storage.k8s.io/v1** API version, available since v1.24.
+* All existing persisted objects are accessible via the new API
+* No notable changes
+-->
+**storage.k8s.io/v1beta1** API版本的 CSIStorageCapacity 将不再在 v1.27 提供。
+
+* 自 v1.24 版本起，迁移清单和 API 客户端使用 **storage.k8s.io/v1** API 版本
+* 所有现有的持久化对象都可以通过新的 API 访问
+* 没有需要额外注意的变更
+
 ### v1.26
 
 <!--

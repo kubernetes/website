@@ -95,7 +95,7 @@ This may be caused by a number of problems. The most common are:
 configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
 and investigating each container by running `docker logs`. For other container runtime see
-[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 -->
 这可能是由许多问题引起的。最常见的是：
 
@@ -103,7 +103,7 @@ and investigating each container by running `docker logs`. For other container r
 - 容器运行时的 cgroup 驱动不同于 kubelet 使用的 cgroup 驱动。要了解如何正确配置 cgroup 驱动，
   请参阅[配置 cgroup 驱动](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
 - 控制平面上的 Docker 容器持续进入崩溃状态或（因其他原因）挂起。你可以运行 `docker ps` 命令来检查以及 `docker logs` 命令来检视每个容器的运行日志。
-  对于其他容器运行时，请参阅[使用 crictl 对 Kubernetes 节点进行调试](/zh/docs/tasks/debug-application-cluster/crictl/)。
+  对于其他容器运行时，请参阅[使用 crictl 对 Kubernetes 节点进行调试](/zh/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
 ## kubeadm blocks when removing managed containers
@@ -248,7 +248,7 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
 <!--
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -261,7 +261,7 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
 -->
 ## 无法通过其服务 IP 访问 Pod
 
-- 许多网络附加组件尚未启用 [hairpin 模式](/zh/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
+- 许多网络附加组件尚未启用 [hairpin 模式](/zh/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   该模式允许 Pod 通过其服务 IP 进行访问。这是与 [CNI](https://github.com/containernetworking/cni/issues/476) 有关的问题。
   请与网络附加组件提供商联系，以获取他们所提供的 hairpin 模式的最新状态。
 

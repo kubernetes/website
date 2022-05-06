@@ -17,14 +17,14 @@ namespace. These annotations apply to `Event` object from API group
 
 <!--
 The following annotations are not used within the Kubernetes API. When you
-[enable auditing](/docs/tasks/debug-application-cluster/audit/) in your cluster,
+[enable auditing](/docs/tasks/debug/debug-cluster/audit/) in your cluster,
 audit event data is written using `Event` from API group `audit.k8s.io`.
 The annotations apply to audit events. Audit events are different from objects in the
 [Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group
 `events.k8s.io`).
 -->
 {{< note >}}
-Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh/docs/tasks/debug-application-cluster/audit/)时，
+Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh/docs/tasks/debug/debug-cluster/audit/)时，
 审计事件数据将使用 API 组 `audit.k8s.io` 中的 `Event` 写入。
 注解适用于审计事件。审计事件不同于[事件 API ](/zh/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 （API 组 `events.k8s.io`）中的对象。
@@ -108,7 +108,7 @@ Example: `authorization.k8s.io/decision: "forbid"`
 
 This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
 
-See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
+See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 -->
 ## authorization.k8s.io/decision {#authorization-k8s-io-decision}
 
@@ -116,7 +116,7 @@ See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more informatio
 
 此注解在 Kubernetes 审计日志中表示请求是否获得授权。
 
-有关详细信息，请参阅[审计](/zh/docs/tasks/debug-application-cluster/audit/)。
+有关详细信息，请参阅[审计](/zh/docs/tasks/debug/debug-cluster/audit/)。
 
 <!--
 ## authorization.k8s.io/reason
@@ -125,7 +125,7 @@ Example: `authorization.k8s.io/reason: "Human-readable reason for the decision"`
 
 This annotation gives reason for the [decision](#authorization-k8s-io-decision) in Kubernetes audit logs.
 
-See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more information.
+See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 -->
 ## authorization.k8s.io/reason {#authorization-k8s-io-reason}
 
@@ -133,4 +133,4 @@ See [Auditing](/docs/tasks/debug-application-cluster/audit/) for more informatio
 
 此注解给出了 Kubernetes 审计日志中 [decision](#authorization-k8s-io-decision) 的原因。
 
-有关详细信息，请参阅[审计](/zh/docs/tasks/debug-application-cluster/audit/)。
+有关详细信息，请参阅[审计](/zh/docs/tasks/debug/debug-cluster/audit/)。

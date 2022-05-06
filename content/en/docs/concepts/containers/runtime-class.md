@@ -1,7 +1,7 @@
 ---
 reviewers:
-- tallclair
-- dchen1107
+  - tallclair
+  - dchen1107
 title: Runtime Class
 content_type: concept
 weight: 20
@@ -15,9 +15,6 @@ This page describes the RuntimeClass resource and runtime selection mechanism.
 
 RuntimeClass is a feature for selecting the container runtime configuration. The container runtime
 configuration is used to run a Pod's containers.
-
-
-
 
 <!-- body -->
 
@@ -62,12 +59,15 @@ The RuntimeClass resource currently only has 2 significant fields: the RuntimeCl
 (`metadata.name`) and the handler (`handler`). The object definition looks like this:
 
 ```yaml
-apiVersion: node.k8s.io/v1  # RuntimeClass is defined in the node.k8s.io API group
+# RuntimeClass is defined in the node.k8s.io API group
+apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
-  name: myclass  # The name the RuntimeClass will be referenced by
-  # RuntimeClass is a non-namespaced resource
-handler: myconfiguration  # The name of the corresponding CRI configuration
+  # The name the RuntimeClass will be referenced by.
+  # RuntimeClass is a non-namespaced resource.
+  name: myclass 
+# The name of the corresponding CRI configuration
+handler: myconfiguration 
 ```
 
 The name of a RuntimeClass object must be a valid
@@ -75,14 +75,14 @@ The name of a RuntimeClass object must be a valid
 
 {{< note >}}
 It is recommended that RuntimeClass write operations (create/update/patch/delete) be
-restricted to the cluster administrator. This is typically the default. See [Authorization
-Overview](/docs/reference/access-authn-authz/authorization/) for more details.
+restricted to the cluster administrator. This is typically the default. See
+[Authorization Overview](/docs/reference/access-authn-authz/authorization/) for more details.
 {{< /note >}}
 
 ## Usage
 
-Once RuntimeClasses are configured for the cluster, using them is very simple. Specify a
-`runtimeClassName` in the Pod spec. For example:
+Once RuntimeClasses are configured for the cluster, you can specify a
+`runtimeClassName` in the Pod spec to use it. For example:
 
 ```yaml
 apiVersion: v1
@@ -107,16 +107,6 @@ to the behavior when the RuntimeClass feature is disabled.
 
 For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/production-environment/container-runtimes/).
 
-#### dockershim
-
-{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
-
-Dockershim is deprecated as of Kubernetes v1.20, and will be removed in v1.24. For more information on the deprecation,
-see [dockershim deprecation](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
-
-RuntimeClasses with dockershim must set the runtime handler to `docker`. Dockershim does not support
-custom configurable runtime handlers.
-
 #### {{< glossary_tooltip term_id="containerd" >}}
 
 Runtime handlers are configured through containerd's configuration at
@@ -126,13 +116,14 @@ Runtime handlers are configured through containerd's configuration at
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
-See the containerd [CRI Plugin Config Guide](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) for more details.
+See containerd's [config documentation](https://github.com/containerd/cri/blob/master/docs/config.md)
+for more details:
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
 Runtime handlers are configured through CRI-O's configuration at `/etc/crio/crio.conf`. Valid
-handlers are configured under the [crio.runtime
-table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
+handlers are configured under the
+[crio.runtime table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
 
 ```
 [crio.runtime.runtimes.${HANDLER_NAME}]
@@ -160,27 +151,24 @@ can add `tolerations` to the RuntimeClass. As with the `nodeSelector`, the toler
 with the pod's tolerations in admission, effectively taking the union of the set of nodes tolerated
 by each.
 
-To learn more about configuring the node selector and tolerations, see [Assigning Pods to
-Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
+To learn more about configuring the node selector and tolerations, see
+[Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 
 ### Pod Overhead
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
 the cluster (including the scheduler) to account for it when making decisions about Pods and resources.
-To use Pod overhead, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled (it is on by default).
 
-Pod overhead is defined in RuntimeClass through the `overhead` fields. Through the use of these fields,
+Pod overhead is defined in RuntimeClass through the `overhead` field. Through the use of this field,
 you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
 are accounted for in Kubernetes.
 
-
 ## {{% heading "whatsnext" %}}
-
 
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - Read about the [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) concept
 - [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
+

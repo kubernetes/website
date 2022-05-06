@@ -144,7 +144,7 @@ as we may have a different controller as soon as it "knows" what to provide to t
 (we need some help here!!)
 
 Some other projects in Kubernetes already take this approach
-(like [KPNG](​​https://github.com/kubernetes-sigs/kpng), the proposed replacement for `kube-proxy`),
+(like [KPNG](https://github.com/kubernetes-sigs/kpng), the proposed replacement for `kube-proxy`),
 and we plan to align with them and get the same experience for Ingress-NGINX.
 
 ## Further reading

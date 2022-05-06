@@ -266,7 +266,9 @@ in the same order as Pod termination (from the largest ordinal to the smallest),
 each Pod one at a time.
 
 The Kubernetes control plane waits until an updated Pod is Running and Ready prior
-to updating its predecessor. If you have set `.spec.minReadySeconds` (see [Minimum Ready Seconds](#minimum-ready-seconds)), the control plane additionally waits that amount of time after the Pod turns ready, before moving on.
+to updating its predecessor. If you have set `.spec.minReadySeconds` (see
+[Minimum Ready Seconds](#minimum-ready-seconds)), the control plane additionally waits that
+amount of time after the Pod turns ready, before moving on.
 
 ### Partitioned rolling updates {#partitions}
 
@@ -279,6 +281,27 @@ StatefulSet's `.spec.updateStrategy.rollingUpdate.partition` is greater than its
 updates to its `.spec.template` will not be propagated to its Pods.
 In most cases you will not need to use a partition, but they are useful if you want to stage an
 update, roll out a canary, or perform a phased roll out.
+
+### Maximum unavailable Pods
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+You can control the maximum number of Pods that can be unavailable during an update
+by specifying the `.spec.updateStrategy.rollingUpdate.maxUnavailable` field.
+The value can be an absolute number (for example, `5`) or a percentage of desired
+Pods (for example, `10%`). Absolute number is calculated from the percentage value
+by rounding it up. This field cannot be 0. The default setting is 1.
+
+This field applies to all Pods in the range `0` to `replicas - 1`. If there is any
+unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
+`maxUnavailable`.
+
+{{< note >}}
+The `maxUnavailable` field is in Alpha stage and it is honored only by API servers
+that are running with the `MaxUnavailableStatefulSet`
+[feature gate](/docs/reference/commmand-line-tools-reference/feature-gates/)
+enabled.
+{{< /note >}}
 
 ### Forced rollback
 
