@@ -630,7 +630,8 @@ The value of the annotation is the name of the PodSecurityPolicy that was used f
 
 ### seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
 
-This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
+This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in a future release.
+please use the corresponding pod or container `securityContext.seccompProfile` field instead.
 To specify security settings for a Pod, include the `securityContext` field in the Pod specification.
 The [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) field within a Pod's `.spec` defines pod-level security attributes.
 When you [specify the security context for a Pod](/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod),
@@ -638,7 +639,8 @@ the settings you specify apply to all containers in that Pod.
 
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] (deprecated) {#container-seccomp-security-alpha-kubernetes-io}
 
-This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
+This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in a future release.
+please use the corresponding pod or container `securityContext.seccompProfile` field instead.
 The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/) takes
 you through the steps you follow to apply a seccomp profile to a Pod or to one of
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
