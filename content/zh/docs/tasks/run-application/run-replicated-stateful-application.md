@@ -849,14 +849,14 @@ kubectl delete pvc data-mysql-4
 
 <!--
 * Learn more about [scaling a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-* Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
+* Learn more about [debugging a StatefulSet](/docs/tasks/debug/debug-application/debug-statefulset/).
 * Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
 * Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 * Look in the [Helm Charts repository](https://artifacthub.io/)
   for other stateful application examples.
 -->
 * 进一步了解[为 StatefulSet 扩缩容](/zh/docs/tasks/run-application/scale-stateful-set/).
-* 进一步了解[调试 StatefulSet](/zh/docs/tasks/debug-application-cluster/debug-stateful-set/).
+* 进一步了解[调试 StatefulSet](/zh/docs/tasks/debug/debug-application/debug-statefulset/).
 * 进一步了解[删除 StatefulSet](/zh/docs/tasks/run-application/delete-stateful-set/).
 * 进一步了解[强制删除 StatefulSet Pods](/zh/docs/tasks/run-application/force-delete-stateful-set-pod/).
 * 在 [Helm Charts 仓库](https://artifacthub.io/)中查找其他有状态的应用程序示例。
