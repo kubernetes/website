@@ -253,9 +253,19 @@ due to a logical error in configuration etc.
 To do so, set `.spec.backoffLimit` to specify the number of retries before
 considering a Job as failed. The back-off limit is set by default to 6. Failed
 Pods associated with the Job are recreated by the Job controller with an
-exponential back-off delay (10s, 20s, 40s ...) capped at six minutes. The
-back-off count is reset when a Job's Pod is deleted or successful without any
-other Pods for the Job failing around that time.
+exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
+
+The number of retries is calculated in two ways:
+- The number of Pods with `.status.phase = "Failed"`.
+- When using `restartPolicy = "OnFailure"`, the number of retries in all the
+  containers of Pods with `.status.phase` equal to `Pending` or `Running`.
+
+If either of the calculations reaches the `.spec.backoffLimit`, the Job is
+considered failed.
+
+When the [`JobTrackingWithFinalizers`](#job-tracking-with-finalizers) feature is
+disabled, the number of failed Pods is only based on Pods that are still present
+in the API.
 
 {{< note >}}
 If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
@@ -405,7 +415,7 @@ The pattern names are also links to examples and more detailed description.
 | ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
 | [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
 | [Queue with Variable Pod Count]           |         ✓         |             ✓               |                     |
-| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          | 
+| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          |
 | [Job Template Expansion]                  |                   |                             |          ✓          |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
