@@ -4,10 +4,10 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ComponentStatus"
 content_type: "api_reference"
-description: "ComponentStatus (and ComponentStatusList) 保存集群验证信息。"
+description: "ComponentStatus (和 ComponentStatusList) 保存集群验证信息。"
 title: "组件状态"
 weight: 10
-auto_generated: true
+auto_generated: flase
 ---
 
 <!--
@@ -31,7 +31,7 @@ guide. You can file document formatting bugs against the
 <!--
 ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
 -->
-ComponentStatus (and ComponentStatusList) 保存集群验证信息。已弃用:此API在v1.19+版本已弃用
+ComponentStatus (和 ComponentStatusList) 保存集群验证信息。已弃用:此API在v1.19+版本已弃用
 <hr>
 
 - **apiVersion**: v1
@@ -159,12 +159,12 @@ GET /api/v1/componentstatuses/{name}
 
 -->
 
-- **name** (*in path*): string, 必需的
+- **name** (*在路径内*): string, 必需的
 
   ComponentStatus 的名称。
 
 
-- **pretty** (*in query*): string
+- **pretty** (*在查询时*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
