@@ -20,7 +20,7 @@ content_type: ধারণা
 
 * [কুবারনেটিস বেসিক](/docs/tutorials/kubernetes-basics/) হল একটি গভীর ইন্টারেক্টিভ টিউটোরিয়াল যা আপনাকে কুবারনেটিস সিস্টেম বুঝতে এবং কিছু মৌলিক কুবারনেটিস বৈশিষ্ট্যগুলি ব্যবহার করে দেখতে সাহায্য করে।
 
-* [কুবারনেটসের ভূমিকা (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
+* [কুবারনেটিসের ভূমিকা (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
 * [হ্যালো মিনিকুব](/docs/tutorials/hello-minikube/)
 
@@ -32,9 +32,9 @@ content_type: ধারণা
 
 ## স্টেটলেস অ্যাপ্লিকেশন
 
-* [একটি বহিরাগত আইপি ঠিকানা প্রকাশ কর একটি ক্লাস্টারে একটি অ্যাপ্লিকেশন অ্যাক্সেস করার জন্য ](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [একটি ক্লাস্টারে একটি অ্যাপ্লিকেশন অ্যাক্সেস করার জন্য একটি বহিরাগত আইপি ঠিকানা প্রকাশ করয ](/docs/tutorials/stateless-application/expose-external-ip-address/)
  
-* [উদাহরণ: Redis এর সাথে PHP গেস্টবুক অ্যাপ্লিকেশন স্থাপন করা](/docs/tutorials/stateless-application/guestbook/) 
+* [উদাহরণ: Redis এর সাথে PHP গেস্টবুক অ্যাপ্লিকেশন স্থাপন কর](/docs/tutorials/stateless-application/guestbook/) 
 
 ## স্টেটফুল অ্যাপ্লিকেশন
 
@@ -42,19 +42,19 @@ content_type: ধারণা
 
 * [উদাহরণ: ওয়ার্ডপ্রেস এবং স্থায়ী ভলিউম সহ MySQL](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
-* [উদাহরণ: স্টেটফুল সেটের সাথে ক্যাসান্দ্রা স্থাপন করা](/docs/tutorials/stateful-application/cassandra/)
+* [উদাহরণ: স্টেটফুল সেটের সাথে ক্যাসান্দ্রা স্থাপন কর](/docs/tutorials/stateful-application/cassandra/)
 
 * [জুকিপার চালাই, একটি সিপি ডিস্ট্রিবিউটেড সিস্টেম](/docs/tutorials/stateful-application/zookeeper/)
 
 ## ক্লাস্টার
 
-* [এপআরমর](/docs/tutorials/clusters/apparmor/)
+* [এপ্আর্মর ](/docs/tutorials/clusters/apparmor/)
 
 * [সেকোম্প](/docs/tutorials/clusters/seccomp/)
 
 ## সেবা
 
-* [উৎস আইপি ব্যবহার করে](/docs/tutorials/services/source-ip/)
+* [উৎস আইপি ব্যবহার  কর](/docs/tutorials/services/source-ip/)
 
 ## {{% heading "whatsnext" %}}
 
