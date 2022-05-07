@@ -81,19 +81,19 @@ ComponentStatus (和 ComponentStatusList) 保存集群验证信息。已弃用:�
     Condition error code for a component. For example, a health check error code.
   -->
 
-    组件的条件错误代码。 例如， 健康检查错误代码。
+    组件的状况错误代码。 例如，健康检查错误代码。
 
   - **conditions.message** (string)
   <!--
     Message about the condition for a component. For example, information about a health check.
   -->
-    关于组件条件的消息。例如，健康检查信息。
+    关于组件状况的消息。例如，健康检查信息。
 
 ## ComponentStatusList {#ComponentStatusList}
   <!--
 Status of all the conditions for the component as a list of ComponentStatus objects. Deprecated: This API is deprecated in v1.19+
   -->
-组件的所有条件的状态，作为 ComponentStatus 对象的列表。已弃用:此API在v1.19+版本已弃用。
+组件的所有状况的状态，以 ComponentStatus 对象的列表呈现。已弃用:此 API 在 v1.19+ 版本已弃用。
 <hr>
 
 - **apiVersion**: v1
@@ -104,7 +104,7 @@ Status of all the conditions for the component as a list of ComponentStatus obje
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
-  标准 metadata 列表。更多信息: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  标准列表的元数据。更多信息: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   <!--
 - **items** ([]<a href="{{< ref "../cluster-resources/component-status-v1#ComponentStatus" >}}">ComponentStatus</a>), required
 
