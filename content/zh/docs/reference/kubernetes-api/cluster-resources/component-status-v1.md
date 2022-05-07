@@ -67,7 +67,7 @@ ComponentStatus (和 ComponentStatusList) 保存集群验证信息。已弃用:�
   -->
   - **conditions.status** (string), 必需的
     
-    组件状况的状态。“Healthy” 有效值为: "True", "False", 或 "Unknown"。
+    组件状况的状态。“Healthy” 有效值为："True"、"False" 或 "Unknown"。
   <!--
   - **conditions.type** (string), required
 
