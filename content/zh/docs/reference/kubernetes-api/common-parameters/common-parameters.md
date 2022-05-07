@@ -86,6 +86,32 @@ A selector to restrict the list of returned objects by their fields. Defaults to
 根据返回对象的字段限制返回对象列表的选择器。默认为返回所有字段。
 <hr>
 
+## fieldValidation {#fieldValidation}
+
+<!--
+fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled.
+-->
+fieldValidation 指示服务器如何处理请求（POST/PUT/PATCH）中包含未知或重复字段的对象，
+前提是 `ServerSideFieldValidation` 特性门控也已启用。
+<!--
+Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled.
+-->
+有效值为：
+- Ignore：这将忽略从对象中默默删除的所有未知字段，并将忽略除解码器遇到的最后一个重复字段之外的所有字段。
+  这是在 v1.23 之前的默认行为，也是当 `ServerSideFieldValidation` 特性门控被禁用时的默认行为。
+<!--
+- Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled.
+-->
+- Warn：这将针对从对象中删除的各个未知字段以及所遇到的各个重复字段，分别通过标准警告响应头发出警告。
+  如果没有其他错误，请求仍然会成功，并且只会保留所有重复字段中的最后一个。
+  这是启用 `ServerSideFieldValidation` 特性门控时的默认值。
+<!--
+- Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
+-->
+- Strict：如果从对象中删除任何未知字段，或者存在任何重复字段，将使请求失败并返回 BadRequest 错误。
+
+<hr>
+
 ## force {#force}
 <!--
 Force is going to "force" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
