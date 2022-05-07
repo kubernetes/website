@@ -10,16 +10,6 @@ weight: 10
 auto_generated: flase
 ---
 
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
 
 `apiVersion: v1`
 
@@ -31,7 +21,7 @@ guide. You can file document formatting bugs against the
 <!--
 ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
 -->
-ComponentStatus (和 ComponentStatusList) 保存集群验证信息。已弃用:此API在v1.19+版本已弃用
+ComponentStatus (和 ComponentStatusList) 保存集群验证信息。已弃用：此 API 在 v1.19+ 版本已弃用
 <hr>
 
 - **apiVersion**: v1
