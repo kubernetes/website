@@ -1,3 +1,19 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+
+<!--
+Upload all configuration to a config map
+-->
+将所有配置上传到 ConfigMap
 
 <!-- 
 ### Synopsis
@@ -36,7 +52,9 @@ kubeadm init phase upload-config all [flags]
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
 </td>
 </tr>
@@ -49,7 +67,9 @@ kubeadm 配置文件的路径。
 <!--
 help for all
 -->
+<p>
 all 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -58,7 +78,9 @@ all 操作的帮助命令
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
+<p>
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
+</p>
 </td>
 </tr>
 <tr>
@@ -66,7 +88,9 @@ all 操作的帮助命令
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
+<p>
 与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+</p>
 </td>
 </tr>
 
@@ -94,10 +118,11 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-
