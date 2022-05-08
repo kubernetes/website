@@ -1,6 +1,6 @@
 ---
 content_type: ধারণা
-title: অবদান রাখো K8s ডকুমেনটেশন
+title: অবদান রাখো K8s ডকুমেনটেশনে
 linktitle: অবদান
 main_menu: true
 no_list: true
