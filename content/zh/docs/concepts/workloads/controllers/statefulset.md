@@ -477,7 +477,9 @@ in the same order as Pod termination (from the largest ordinal to the smallest),
 each Pod one at a time.
 
 The Kubernetes control plane waits until an updated Pod is Running and Ready prior
-to updating its predecessor. If you have set `.spec.minReadySeconds` (see [Minimum Ready Seconds](#minimum-ready-seconds)), the control plane additionally waits that amount of time after the Pod turns ready, before moving on.
+to updating its predecessor. If you have set `.spec.minReadySeconds` (see
+[Minimum Ready Seconds](#minimum-ready-seconds)), the control plane additionally waits that
+amount of time after the Pod turns ready, before moving on.
 -->
 ## 滚动更新 {#rolling-updates}
 
@@ -512,6 +514,47 @@ update, roll out a canary, or perform a phased roll out.
 `.spec.replicas`，对它的 `.spec.template` 的更新将不会传递到它的 Pod。
 在大多数情况下，你不需要使用分区，但如果你希望进行阶段更新、执行金丝雀或执行
 分阶段上线，则这些分区会非常有用。
+
+<!--
+### Maximum unavailable Pods
+-->
+### 最大不可用 Pod
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+<!--
+You can control the maximum number of Pods that can be unavailable during an update
+by specifying the `.spec.updateStrategy.rollingUpdate.maxUnavailable` field.
+The value can be an absolute number (for example, `5`) or a percentage of desired
+Pods (for example, `10%`). Absolute number is calculated from the percentage value
+by rounding it up. This field cannot be 0. The default setting is 1.
+-->
+你可以通过指定 `.spec.updateStrategy.rollingUpdate.maxUnavailable` 
+字段来控制更新期间不可用的 Pod 的最大数量。
+该值可以是绝对值（例如，“5”）或者是期望 Pod 个数的百分比（例如，`10%`）。
+绝对值是根据百分比值四舍五入计算的。
+该字段不能为 0。默认设置为 1。
+
+<!--
+This field applies to all Pods in the range `0` to `replicas - 1`. If there is any
+unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
+`maxUnavailable`.
+-->
+该字段适用于 `0` 到 `replicas - 1` 范围内的所有 Pod。
+如果在 `0` 到 `replicas - 1` 范围内存在不可用 Pod，这类 Pod 将被计入 `maxUnavailable` 值。
+
+<!--
+{{< note >}}
+The `maxUnavailable` field is in Alpha stage and it is honored only by API servers
+that are running with the `MaxUnavailableStatefulSet`
+[feature gate](/docs/reference/commmand-line-tools-reference/feature-gates/)
+enabled.
+{{< /note >}}
+-->
+{{< note >}}
+`maxUnavailable` 字段处于 Alpha 阶段，仅当 API 服务器启用了 `MaxUnavailableStatefulSet`
+[特性门控](/zh/docs/reference/commmand-line-tools-reference/feature-gates/)时才起作用。
+{{< /note >}}
 
 <!--
 ### Forced Rollback
