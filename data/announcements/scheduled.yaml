@@ -52,7 +52,7 @@ announcements:
 
 - name: Kubecon 2020 EU
   startTime: 2020-08-16T00:00:00 # Added in https://github.com/kubernetes/website/pull/23183
-  endTime: 2020-08-20T00:00:00 # Removed in https://github.com/kubernetes/website/pu23272ll/
+  endTime: 2020-08-20T00:00:00 # Removed in https://github.com/kubernetes/website/pull/23272ll
   style: "background: #3f0374"
   title: |
     <img src="images/kubecon_ad_eu_2020.png" style="float: right; height: 80px;" />
@@ -105,7 +105,7 @@ announcements:
     December 9 + 10, 2021.
 
 - name: Kubecon 2022 EU
-  startTime: 2022-05-09T00:00:00
+  startTime: 2022-05-09T00:00:00  #Added in https://github.com/kubernetes/website/pull/33562
   endTime: 2022-05-20T18:00:00
   style: "background: linear-gradient(90deg, rgb(253, 225, 203) 0%, rgb(236, 107, 67) 100%)"
   title: |
