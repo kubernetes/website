@@ -342,13 +342,13 @@ access to a subset of the keyspace is strongly recommended.
 <!--
 ### Enable audit logging
 
-The [audit logger](/docs/tasks/debug-application-cluster/audit/) is a beta feature that records actions taken by the
+The [audit logger](/docs/tasks/debug/debug-cluster/audit/) is a beta feature that records actions taken by the
 API for later analysis in the event of a compromise. It is recommended to enable audit logging
 and archive the audit file on a secure server.
 -->
 ### 启用审计日志
 
-[审计日志](/zh/docs/tasks/debug-application-cluster/audit/)是 Beta 特性，
+[审计日志](/zh/docs/tasks/debug/debug-cluster/audit/)是 Beta 特性，
 负责记录 API 操作以便在发生破坏时进行事后分析。
 建议启用审计日志，并将审计文件归档到安全服务器上。
 
