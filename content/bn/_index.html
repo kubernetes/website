@@ -1,0 +1,61 @@
+---
+title: "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
+abstract: "স্বয়ংক্রিয় ধারক স্থাপনা, স্কেলিং এবং ব্যবস্থাপনা"
+cid: home
+sitemap:
+  priority: 1.0
+---
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+[কুবারনেটিস]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}), K8s নামেও পরিচিত, কনটেইনারাইজড অ্যাপ্লিকেশনের স্বয়ংক্রিয় স্থাপনা, স্কেলিং এবং পরিচালনার জন্য একটি ওপেন-সোর্স সিস্টেম।
+
+এটি কন্টেইনারগুলিকে গোষ্ঠীভুক্ত করে যা সহজ ব্যবস্থাপনা এবং আবিষ্কারের জন্য লজিক্যাল ইউনিটে একটি অ্যাপ্লিকেশন তৈরি করে। কুবারনেটিস [Google-এ উৎপাদন কাজের লোড চালানোর 15 বছরের অভিজ্ঞতার](http://queue.acm.org/detail.cfm?id=2898444) দ্বারা উৎপাদন কাজ সর্বোত্তম-জাত ধারণা এবং অনুশীলনের মাধ্যমে পরিচালনা করে। 
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### বিশ্বব্যাপী স্কেল ক্ষমতা <!--Planet Scale-->
+
+Google সপ্তাহে বিলিয়ন কন্টেইনার চালানোর জন্য যে নীতিতে ডিজাইন প্রয়োগ করে, সেই একই নীতিতে কুবারনেটিস ডিজাইন করা হয়, ফলস্বরূপ  কুবারনেটিস ব্যবহারকারীরা অপস টিম না বাড়িয়ে স্কেল করতে পারে।
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+####  প্রয়োজন মোতাবেক বিকাশ ঘটানো <!--Never Outgrow--> 
+
+স্থানীয়ভাবে পরীক্ষা করা বা বিশ্বব্যাপী এন্টারপ্রাইজ চালানো, আপনার চাহিদাগুলি যতই জটিল হোক না কেন, কুবারনেটিস আপনার অ্যাপ্লিকেশনগুলিকে ধারাবাহিকভাবে এবং সহজে বিতরণ করার জন্য আপনাকে সাহায্য করে।
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### K8s যেকোনো এপ্লিকেশন এ রান করানো
+
+কুবারনেটিস হল এমন ওপেন সোর্স যা আপনাকে অন-প্রিমিসেস, হাইব্রিড বা পাবলিক ক্লাউড অবকাঠামোর সুবিধা নেওয়ার স্বাধীনতা দেয়, যাতে আপনি সহজেই কাজের চাপগুলি যেখানে আপনার কাছে গুরুত্বপূর্ণ সেখানে স্থানান্তর করতে পারেন।
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>150+ মাইক্রোসার্ভিস কুবারনেটিসে স্থানান্তরিত করার চ্যালেঞ্জসমূহ</h2>
+        <p> Sarah Wells এর মতে, Technical Director for Operations and Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">ভিডিও দেখুন</button>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2022/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccnceu22" button id="desktopKCButton">17-20 মে, 2022-এ KubeCon ইউরোপে যোগ দিন</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccncna22" button id="desktopKCButton">24-28 অক্টোবর, 2022-এ KubeCon উত্তর আমেরিকাতে যোগ দিন</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}
