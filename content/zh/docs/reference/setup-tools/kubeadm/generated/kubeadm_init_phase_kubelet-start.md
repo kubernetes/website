@@ -1,3 +1,19 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+
+<!--
+Write kubelet settings and (re)start the kubelet
+-->
+编写 kubelet 配置并（重新）启动 kubelet
 
 <!-- 
 ### Synopsis
@@ -51,7 +67,9 @@ kubeadm init phase kubelet-start --config config.yaml
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -63,7 +81,9 @@ kubeadm 配置文件的路径。
 <!--
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
+<p>
 连接到 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测该值；仅当安装了多个 CRI 或具有非标准 CRI 套接字时，才使用此选项。
+</p>
 </td>
 </tr>
 
@@ -75,7 +95,9 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <!--
 help for kubelet-start
 -->
+<p>
 kubelet-start 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -87,7 +109,9 @@ kubelet-start 操作的帮助命令
 <!--
 Specify the node name.
 -->
+<p>
 指定节点名称。
+</p>
 </td>
 </tr>
 
@@ -115,10 +139,11 @@ Specify the node name.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-
