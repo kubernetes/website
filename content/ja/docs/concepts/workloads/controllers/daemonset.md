@@ -80,7 +80,7 @@ selector](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)にマッチす
 
 ### デフォルトスケジューラーによってスケジューリングされる場合
 
-{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 DaemonSetは全ての利用可能なNodeが単一のPodのコピーを稼働させることを保証します。通常、Podが稼働するNodeはKubernetesスケジューラーによって選択されます。しかし、DaemonSetのPodは代わりにDaemonSetコントローラーによって作成され、スケジューリングされます。   
 下記の問題について説明します:

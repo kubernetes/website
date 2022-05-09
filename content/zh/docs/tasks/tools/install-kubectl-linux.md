@@ -162,7 +162,7 @@ Or use this for detailed view of version:
    
    或者使用如下命令来查看版本的详细信息：
    ```cmd
-   kubectl version --client --output=yaml    
+   kubectl version --client --output=yaml
    ```
 
 <!-- 

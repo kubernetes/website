@@ -16,11 +16,14 @@ weight: 20
 <!-- 
 The `dockershim` component of Kubernetes allows to use Docker as a Kubernetes's
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
-Kubernetes' built-in `dockershim` component was deprecated in release v1.20.
+Kubernetes' built-in `dockershim` component was
+[deprecated](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
+in release v1.20.
 -->
 Kubernetes 的 `dockershim` 组件使得你可以把 Docker 用作 Kubernetes 的
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}。
-在 Kubernetes v1.20 版本中，内建组件 `dockershim` 被弃用。
+在 Kubernetes v1.20 版本中，内建组件 `dockershim` 被[弃用](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)。
+
 
 <!-- 
 This page explains how your cluster could be using Docker as a container runtime,
@@ -171,3 +174,12 @@ by Kubernetes.
 但用 Docker 创建、下载的镜像，对于容器运行时和 Kubernetes，均不可见。
 为了在 Kubernetes 中使用，需要把镜像推送（push）到某镜像仓库。
 
+<!-- ## {{% heading "whatsnext" %}}
+
+- Read [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) to understand your next steps
+- Read the [dockershim deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article for more information. 
+-->
+## {{% heading "whatsnext" %}}
+
+- 阅读[从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)以了解你的下一步工作
+- 阅读[dockershim 弃用常见问题解答](/zh/blog/2020/12/02/dockershim-faq/)文章了解更多信息。

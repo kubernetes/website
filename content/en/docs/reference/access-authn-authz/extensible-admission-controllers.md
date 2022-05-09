@@ -1396,7 +1396,7 @@ monitoring mechanisms help cluster admins to answer questions like:
 Sometimes it's useful to know which mutating webhook mutated the object in a API request, and what change did the
 webhook apply.
 
-In v1.16+, kube-apiserver performs [auditing](/docs/tasks/debug-application-cluster/audit/) on each mutating webhook
+In v1.16+, kube-apiserver performs [auditing](/docs/tasks/debug/debug-cluster/audit/) on each mutating webhook
 invocation. Each invocation generates an auditing annotation
 capturing if a request object is mutated by the invocation, and optionally generates an annotation capturing the applied
 patch from the webhook admission response. The annotations are set in the audit event for given request on given stage of

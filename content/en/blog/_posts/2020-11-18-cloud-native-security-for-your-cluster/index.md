@@ -20,7 +20,7 @@ The paper attempts to _not_ focus on any specific [cloud native project](https:/
 When using Kubernetes as a workload orchestrator, some of the security controls this version of the whitepaper recommends are:
 * [Pod Security Policies](/docs/concepts/security/pod-security-policy/): Implement a single source of truth for “least privilege” workloads across the entire cluster
 * [Resource requests and limits](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits): Apply requests (soft constraint) and limits (hard constraint) for shared resources such as memory and CPU
-* [Audit log analysis](/docs/tasks/debug-application-cluster/audit/): Enable Kubernetes API auditing and filtering for security relevant events
+* [Audit log analysis](/docs/tasks/debug/debug-cluster/audit/): Enable Kubernetes API auditing and filtering for security relevant events
 * [Control plane authentication and certificate root of trust](/docs/concepts/architecture/control-plane-node-communication/): Enable mutual TLS authentication with a trusted CA for communication within the cluster
 * [Secrets management](/docs/concepts/configuration/secret/): Integrate with a built-in or external secrets store
 

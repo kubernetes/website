@@ -267,9 +267,9 @@ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 ```
 
 <!--
-For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
+For more information, see [Get a Shell to a Running Container](/docs/tasks/debug/debug-application/get-shell-running-container/).
 -->
-更多信息请查看[获取运行中容器的 Shell 环境](/zh/docs/tasks/debug-application-cluster/get-shell-running-container/)。
+更多信息请查看[获取运行中容器的 Shell 环境](/zh/docs/tasks/debug/debug-application/get-shell-running-container/)。
 
 ## docker logs
 

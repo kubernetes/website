@@ -1872,14 +1872,13 @@ webhook apply.
 Webhook 应用了哪些更改很有用。
 
 <!--
-In v1.16+, kube-apiserver performs [auditing](/docs/tasks/debug-application-cluster/audit/) on each mutating webhook
+In v1.16+, kube-apiserver performs [auditing](/docs/tasks/debug/debug-cluster/audit/) on each mutating webhook
 invocation. Each invocation generates an auditing annotation
 capturing if a request object is mutated by the invocation, and optionally generates an annotation capturing the applied
 patch from the webhook admission response. The annotations are set in the audit event for given request on given stage of
 its execution, which is then pre-processed according to a certain policy and written to a backend.
 -->
-在 v1.16+ 中，kube-apiserver 针对每个修改性质的 Webhook 调用执行
-[审计](/zh/docs/tasks/debug-application-cluster/audit/)操作。
+在 v1.16+ 中，kube-apiserver 针对每个修改性质的 Webhook 调用执行[审计](/zh/docs/tasks/debug/debug-cluster/audit/)操作。
 每个调用都会生成一个审计注解，记述请求对象是否发生改变，
 可选地还可以根据 webhook 的准入响应生成一个注解，记述所应用的修补。
 针对给定请求的给定执行阶段，注解被添加到审计事件中，

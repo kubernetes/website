@@ -534,7 +534,7 @@ imagePolicy:
   kubeConfigFile: /path/to/kubeconfig/for/backend
   # 以秒计的时长，控制批准请求的缓存时间
   allowTTL: 50
-  # 以秒计的时长，控制批准请求的缓存时间
+  # 以秒计的时长，控制拒绝请求的缓存时间
   denyTTL: 50
   # 以毫秒计的时长，控制重试间隔
   retryBackoff: 500
