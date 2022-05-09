@@ -881,6 +881,8 @@ RBD CSI 드라이버로의 마이그레이션을 시도하기 전에
   `adminSecretName` 값이 `adminId` 파라미터 값의 
   base64 값으로 패치되어야 하며, 아니면 이 단계를 건너뛸 수 있다.
 
+{{< /note >}}
+
 ### secret
 
 `secret` 볼륨은 암호와 같은 민감한 정보를 파드에 전달하는데
@@ -1196,10 +1198,10 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
 `csi` 볼륨은 세 가지 방법으로 파드에서 사용할 수 있다.
 
 * [퍼시스턴트볼륨클레임](#persistentvolumeclaim)에 대한 참조를 통해서
-* [일반 임시 볼륨](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)과 함께
-(알파 기능)
+* [일반 임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)과 함께
+  (알파 기능)
 * 드라이버가 지원하는 경우
-[CSI 임시 볼륨](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)과 함께 (베타 기능)
+  [CSI 임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)과 함께 (베타 기능)
 
 스토리지 관리자가 다음 필드를 사용해서 CSI 퍼시스턴트 볼륨을
 구성할 수 있다.
@@ -1262,11 +1264,11 @@ CSI 설정 변경 없이 평소와 같이
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-파드 명세 내에서 CSI 볼륨을 직접 구성할 수
-있다. 이 방식으로 지정된 볼륨은 임시 볼륨이며
-파드가 다시 시작할 때 지속되지 않는다. 자세한 내용은 [임시
-볼륨](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)을
-참고한다.
+파드 명세 내에서 CSI 볼륨을 직접 구성할 수 있다. 
+이 방식으로 지정된 볼륨은 임시 볼륨이며 
+파드가 다시 시작할 때 지속되지 않는다. 
+자세한 내용은 
+[임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)을 참고한다.
 
 CSI 드라이버의 개발 방법에 대한 더 자세한 정보는
 [쿠버네티스-csi 문서](https://kubernetes-csi.github.io/docs/)를 참조한다.
