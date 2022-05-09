@@ -37,7 +37,7 @@ cards:
   button_path: "/docs/setup"
 - name: tasks
   title: "কুবারনেটিস কীভাবে ব্যবহার করবেন তা শিখুন"
-  description: "সাধারণ কাজগুলি দেখুন এবং পদক্ষেপগুলির একটি সংক্ষিপ্ত ক্রম ব্যবহার করে কীভাবে সেগুলি সম্পাদন করা যায়।"
+  description: "সাধারণ কাজগুলি এবং পদক্ষেপগুলির একটি সংক্ষিপ্ত ক্রম ব্যবহার করে কীভাবে সেগুলি সম্পাদন করা যায়  দেখুন  ।"
   button: "কাজ দেখুন"
   button_path: "/docs/tasks"
 - name: training
@@ -52,7 +52,7 @@ cards:
   button_path: /docs/reference
 - name: contribute
   title: ডক্সে অবদান রাখুন
-  description: যে কেউ অবদান রাখতে পারেন, আপনি প্রকল্পে নতুন হোন বা আপনি দীর্ঘ সময় ধরে আছেন।
+  description: আপনি প্রকল্পে নতুন হোন বা আপনি দীর্ঘ সময় ধরে আছেন, যে কেউ অবদান রাখতে পারেন ।
   button: ডক্সে অবদান রাখুন
   button_path: /docs/contribute
 - name: release-notes
