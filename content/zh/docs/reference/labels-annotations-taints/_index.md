@@ -1008,6 +1008,30 @@ kubelet 检查 `/proc/sys/kernel/pid_max` 大小的 D 值和 Kubernetes 在 Node
 以获取可用 PID 数量，并将其作为 `pid.available` 指标值。
 然后该指标与在 kubelet 上设置的相应阈值进行比较，以确定是否应该添加/删除 Node 状况和污点。
 
+### node.kubernetes.io/out-of-service
+<!--
+Example: `node.kubernetes.io/out-of-service:NoExecute`
+A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node.
+-->
+例子：`node.kubernetes.io/out-of-service:NoExecute`
+
+用户可以手动将污点添加到节点，将其标记为停止服务。
+如果 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+并且一个节点被这个污点标记为停止服务，如果节点上的 Pod 没有对应的容忍度，
+这类 Pod 将被强制删除，并且，针对在节点上被终止 Pod 的卷分离操作将被立即执行。
+
+{{< caution >}}
+<!--
+Refer to
+[Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+for further details about when and how to use this taint.
+-->
+有关何时以及如何使用此污点的更多详细信息，请参阅[非正常节点关闭](/zh/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
+{{< /caution >}}
+
 <!--
 ### node.cloudprovider.kubernetes.io/uninitialized
 
@@ -1233,11 +1257,34 @@ based on setting `securityContext` within the Pod's `.spec`.
 seccomp 配置文件应用于 Pod 或其容器的步骤。
 该教程介绍了在 Kubernetes 中配置 seccomp 的支持机制，基于在 Pod 的 `.spec` 中设置 `securityContext`。
 
+### snapshot.storage.kubernetes.io/allowVolumeModeChange
+<!--
+Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+Used on: VolumeSnapshotContent
+-->
+例子：`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+
+用于：VolumeSnapshotContent
+
+<!--
+Value can either be `true` or `false`.
+This determines whether a user can modify the mode of the source volume when a
+{{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} is being created from a VolumeSnapshot.
+Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode) and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
+-->
+值可以是 `true` 或者 `false`。
+这决定了当从 VolumeSnapshot 创建 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
+时，用户是否可以修改源卷的模式。
+更多信息请参阅[转换快照的卷模式](/zh/docs/concepts/storage/volume-snapshots/#convert-volume-mode)和
+[Kubernetes CSI 开发者文档](https://kubernetes-csi.github.io/docs/)。
+
 <!--
 ## Annotations used for audit
 
 - [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
 - [`authorization.k8s.io/reason`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
+- [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
+- [`missing-san.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
 - [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
 - [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
 - [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
@@ -1248,8 +1295,124 @@ See more details on the [Audit Annotations](/docs/reference/labels-annotations-t
 
 - [`authorization.k8s.io/decision`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
 - [`authorization.k8s.io/reason`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
+- [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
+- [`missing-san.invalid-cert.kubernetes.io/$hostname`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
 - [`pod-security.kubernetes.io/audit-violations`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
 - [`pod-security.kubernetes.io/enforce-policy`](/zh/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
 - [`pod-security.kubernetes.io/exempt`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 在[审计注解](/zh/docs/reference/labels-annotations-taints/audit-annotations/)页面上查看更多详细信息。
+
+## kubeadm
+
+### kubeadm.alpha.kubernetes.io/cri-socket
+
+<!--
+Example: `kubeadm.alpha.kubernetes.io/cri-socket: unix:///run/containerd/container.sock`
+Used on: Node
+-->
+例子：`kubeadm.alpha.kubernetes.io/cri-socket: unix:///run/containerd/container.sock`
+
+用于：Node
+
+<!--
+Annotation that kubeadm uses to preserve the CRI socket information given to kubeadm at `init`/`join` time for later use.
+kubeadm annotates the Node object with this information. The annotation remains "alpha", since ideally this should be a field in KubeletConfiguration instead.
+-->
+kubeadm 用来保存 `init`/`join` 时提供给 kubeadm 以后使用的 CRI 套接字信息的注解。
+kubeadm 使用此信息为 Node 对象设置注解。
+此注解仍然是 “alpha” 阶段，因为理论上这应该是 KubeletConfiguration 中的一个字段。
+
+### kubeadm.kubernetes.io/etcd.advertise-client-urls
+
+<!--
+Example: `kubeadm.kubernetes.io/etcd.advertise-client-urls: https://172.17.0.18:2379`
+Used on: Pod
+-->
+例子：`kubeadm.kubernetes.io/etcd.advertise-client-urls: https://172.17.0.18:2379`
+
+用于：Pod
+
+<!--
+Annotation that kubeadm places on locally managed etcd pods to keep track of a list of URLs where etcd clients should connect to. This is used mainly for etcd cluster health check purposes.
+-->
+kubeadm 为本地管理的 etcd Pod 设置的注解，用来跟踪 etcd 客户端应连接到的 URL 列表。
+这主要用于 etcd 集群健康检查目的。
+
+### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint
+
+<!--
+Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+Used on: Pod
+-->
+例子：`kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+
+用于：Pod
+
+<!--
+Annotation that kubeadm places on locally managed kube-apiserver pods to keep track of the exposed advertise address/port endpoint for that API server instance.
+-->
+kubeadm 为本地管理的 kube-apiserver Pod 设置的注解，用以跟踪该 API 服务器实例的公开宣告地址/端口端点。
+
+### kubeadm.kubernetes.io/component-config.hash
+
+<!--
+Used on: ConfigMap
+Example: `kubeadm.kubernetes.io/component-config.hash: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae`
+-->
+例子：`kubeadm.kubernetes.io/component-config.hash: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae`
+
+用于：ConfigMap
+
+<!--
+Annotation that kubeadm places on ConfigMaps that it manages for configuring components. It contains a hash (SHA-256) used to determine if the user has applied settings different from the kubeadm defaults for a particular component.
+-->
+kubeadm 为它所管理的 ConfigMaps 设置的注解，用于配置组件。它包含一个哈希（SHA-256）值，
+用于确定用户是否应用了不同于特定组件的 kubeadm 默认设置的设置。
+
+### node-role.kubernetes.io/control-plane
+
+<!--
+Used on: Node
+
+Label that kubeadm applies on the control plane nodes that it manages.
+-->
+用于：Node
+
+kubeadm 在其管理的控制平面节点上应用的标签。
+
+### node-role.kubernetes.io/control-plane
+
+<!--
+Used on: Node
+
+Example: `node-role.kubernetes.io/control-plane:NoSchedule`
+-->
+例子：`node-role.kubernetes.io/control-plane:NoSchedule`
+
+用于：Node
+
+<!--
+Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+-->
+kubeadm 应用在控制平面节点上的污点，仅允许在其上调度关键工作负载。
+
+### node-role.kubernetes.io/master
+
+<!--
+Used on: Node
+
+Example: `node-role.kubernetes.io/master:NoSchedule`
+-->
+例子：`node-role.kubernetes.io/master:NoSchedule`
+
+用于：Node
+
+<!--
+Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+Starting in v1.20, this taint is deprecated in favor of `node-role.kubernetes.io/control-plane` and will be removed in v1.25.
+-->
+kubeadm 应用在控制平面节点上的污点，仅允许在其上调度关键工作负载。
+{{< note >}}
+从 v1.20 开始，此污点已弃用，并将在 v1.25 中将其删除，取而代之的是 `node-role.kubernetes.io/control-plane`。
+{{< /note >}}

@@ -391,10 +391,11 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
 - **clusterName** (string)
 
   <!-- 
-  The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
+  Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
+  The name in the go struct is changed to help clients detect accidental use.
   -->
-  对象所属的集群的名称。这用于区分不同集群中具有相同名称和命名空间的资源。
-  该字段现在没有在任何地方设置，如果在创建或更新请求中设置，apiserver 将忽略它。
+  已弃用：clusterName 是一个总是被系统清除并且从未使用过的遗留字段；它将在 1.25 中完全删除。
+  go 结构体中的对应字段名称已更改，以帮助客户端检测意外使用。
 
 
 
