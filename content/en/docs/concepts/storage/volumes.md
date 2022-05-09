@@ -1166,8 +1166,8 @@ CSI driver.
 A `csi` volume can be used in a Pod in three different ways:
 
 * through a reference to a [PersistentVolumeClaim](#persistentvolumeclaim)
-* with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
-* with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
+* with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
+* with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
 if the driver supports that (beta feature)
 
 The following fields are available to storage administrators to configure a CSI
@@ -1234,7 +1234,7 @@ You can set up your
 You can directly configure CSI volumes within the Pod
 specification. Volumes specified in this way are ephemeral and do not
 persist across pod restarts. See [Ephemeral
-Volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
+Volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
 for more information.
 
 For more information on how to develop a CSI driver, refer to the
