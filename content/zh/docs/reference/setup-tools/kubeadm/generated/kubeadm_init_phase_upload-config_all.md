@@ -50,7 +50,9 @@ kubeadm init phase upload-config all [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
+<p>
 Path to a kubeadm configuration file.
+</p>
 -->
 <p>
 kubeadm 配置文件的路径。
@@ -65,7 +67,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
+<p>
 help for all
+</p>
 -->
 <p>
 all 操作的帮助命令
@@ -86,7 +90,9 @@ all 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
+<p>
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+</p>
 -->
 <p>
 与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
@@ -116,7 +122,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
+<p>
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
+</p>
 -->
 <p>
 [实验] 到 '真实' 主机根文件系统的路径。
