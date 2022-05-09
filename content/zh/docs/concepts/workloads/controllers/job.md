@@ -66,7 +66,7 @@ It takes around 10s to complete.
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/job.yaml
 ```
-
+<!--The output is similar to this:-->
 输出类似于：
 
 ```
@@ -79,7 +79,7 @@ job.batch/pi created
 ```shell
 kubectl describe jobs/pi
 ```
-
+<!--The output is similar to this:-->
 输出类似于：
 
 ```
@@ -131,7 +131,7 @@ To list all the Pods that belong to a Job in a machine readable form, you can us
 pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
 echo $pods
 ```
-
+<!--The output is similar to this:-->
 输出类似于：
 
 ```
@@ -320,7 +320,7 @@ parallelism, for a variety of reasons:
 -->
 ### 完成模式   {#completion-mode}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 Jobs with _fixed completion count_ - that is, jobs that have non null
@@ -717,17 +717,8 @@ Here, `W` is the number of work items.
 
 ### 挂起 Job   {#suspending-a-job}
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-{{< note >}}
-<!--
-In Kubernetes version 1.21, this feature was in alpha, which required additional
-steps to enable this feature; make sure to read the [right documentation for the
-version of Kubernetes you're using](/docs/home/supported-doc-versions/).
--->
-该特性在 Kubernetes 1.21 版本中是 Alpha 阶段，启用该特性需要额外的步骤；
-请确保你正在阅读[与集群版本一致的文档](/zh/docs/home/supported-doc-versions/)。
-{{< /note >}}
 
 <!--
 When a Job is created, the Job controller will immediately begin creating Pods
@@ -807,7 +798,7 @@ Job 的 `status` 可以用来确定 Job 是否被挂起，或者曾经被挂起�
 kubectl get jobs/myjob -o yaml
 ```
 
-```json
+```yaml
 apiVersion: batch/v1
 kind: Job
 # .metadata and .spec omitted
@@ -980,7 +971,7 @@ Before deleting it, you make a note of what selector it uses:
 ```shell
 kubectl get job old -o yaml
 ```
-
+<!--The output is similar to this:-->
 输出类似于：
 
 ```yaml
@@ -1189,7 +1180,7 @@ object, but maintains complete control over what Pods are created and how work i
   object definition to understand the API for jobs.
 * Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
   can use to define a series of Jobs that will run based on a schedule, similar to
-  the Unix tool `cron`.
+  the UNIX tool `cron`.
 -->
 * 了解 [Pods](/zh/docs/concepts/workloads/pods)。
 * 了解运行 Job 的不同的方式：
@@ -1200,4 +1191,4 @@ object, but maintains complete control over what Pods are created and how work i
 * 跟随[自动清理完成的 Job](#clean-up-finished-jobs-automatically) 文中的链接，了解你的集群如何清理完成和失败的任务。
 * `Job` 是 Kubernetes REST API 的一部分。阅读 {{< api-reference page="workload-resources/job-v1" >}}
    对象定义理解关于该资源的 API。
-* 阅读 [`CronJob`](/zh/docs/concepts/workloads/controllers/cron-jobs/)，它允许你定义一系列定期运行的 Job，类似于 Unix 工具 `cron`。
+* 阅读 [`CronJob`](/zh/docs/concepts/workloads/controllers/cron-jobs/)，它允许你定义一系列定期运行的 Job，类似于 UNIX 工具 `cron`。
