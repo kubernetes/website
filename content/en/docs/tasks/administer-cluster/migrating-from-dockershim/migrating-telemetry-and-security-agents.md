@@ -83,10 +83,10 @@ Please contact the vendor to get up to date instructions for migrating from dock
 
 ## Migration from dockershim
 
-### ✅ [Aqua](https://www.aquasec.com)
+### [Aqua](https://www.aquasec.com)
 
 No changes are needed - everything should work seamlessly on the runtime switch
-### ✅ [Datadog](https://www.datadoghq.com/product/)
+### [Datadog](https://www.datadoghq.com/product/)
 
 How to migrate:
 [https://docs.datadoghq.com/agent/guide/docker-deprecation/](https://docs.datadoghq.com/agent/guide/docker-deprecation/)
@@ -96,7 +96,7 @@ The pod that accesses Docker Engine may have a name containing any of:
 - `datadog`
 - `dd-agent`
 
-### ✅ [Dynatrace](https://www.dynatrace.com/)
+### [Dynatrace](https://www.dynatrace.com/)
 
 How to migrate:
 [Migrating from Docker-only to generic container metrics in Dynatrace](https://community.dynatrace.com/t5/Best-practices/Migrating-from-Docker-only-to-generic-container-metrics-in/m-p/167030#M49)
@@ -110,7 +110,7 @@ CRI-O support announcement: [Get automated full-stack visibility into your CRI-O
 The pod accessing Docker may have name containing: 
 	- dynatrace-oneagent
 
-### ✅  [Falco](https://falco.org)
+### [Falco](https://falco.org)
 
 How to migrate:
 [Migrate Falco from dockershim](https://falco.org/docs/getting-started/deployment/#docker-deprecation-in-kubernetes)
@@ -118,16 +118,16 @@ Falco supports any CRI-compatible runtime (containerd is used in the default con
 The pod accessing Docker may have name containing: 
 		- falco
 
-### ✅   [Prisma Cloud](https://docs.paloaltonetworks.com/prisma/prisma-cloud.html) Compute
+### [Prisma Cloud Compute](https://docs.paloaltonetworks.com/prisma/prisma-cloud.html)
 
-Redeploy Defenders with a YAML file created with the `--cri` flag. This is a standard installation method, so documentation for this can be found here, under the "Install Prisma Cloud on a CRI (non-Docker) cluster" heading:
+Documentation for Prisma Cloud can be found here, under the "Install Prisma Cloud on a CRI (non-Docker) cluster" heading:
 [Install Prisma](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_kubernetes.html)
 The pod accessing Docker may be named like:
 	-	twistlock-defender-ds
 
-### ✅   [SignalFx (Splunk)](https://www.splunk.com/en_us/investor-relations/acquisitions/signalfx.html)
+### [SignalFx (Splunk)](https://www.splunk.com/en_us/investor-relations/acquisitions/signalfx.html)
 
-The SignalFx Smart Agent uses several different monitors for Kubernetes including kubernetes-cluster, kubelet-stats/kubelet-metrics, and docker-container-stats. The kubelet-stats monitor was previously deprecated by the vendor, in favor of kubelet-metrics. The docker-container-stats monitor is the one affected by dockershim removal. You should not use the `docker-container-stats` with container runtimes other than Docker Engine.
+The SignalFx Smart Agent (deprecated) uses several different monitors for Kubernetes including kubernetes-cluster, kubelet-stats/kubelet-metrics, and docker-container-stats. The kubelet-stats monitor was previously deprecated by the vendor, in favor of kubelet-metrics. The docker-container-stats monitor is the one affected by dockershim removal. You should not use the `docker-container-stats` with container runtimes other than Docker Engine.
 
 
 How to migrate from dockershim-dependant agent:
@@ -142,7 +142,7 @@ The pod accessing Docker may be named like:
  
   -  signalfx-agent
 
-### ❌ Yahoo Kubectl Flame
+### Yahoo Kubectl Flame
 
 Flame does not support container runtimes other than dockershim. See
 [https://github.com/yahoo/kubectl-flame/issues/51](https://github.com/yahoo/kubectl-flame/issues/51)
