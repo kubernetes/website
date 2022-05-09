@@ -174,7 +174,7 @@ The **authentication.k8s.io/v1beta1** API version of TokenReview is no longer se
 
 #### SubjectAccessReview resources {#subjectaccessreview-resources-v122}
 
-The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, and SubjectAccessReview is no longer served as of v1.22.
+The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, SubjectAccessReview, and SelfSubjectRulesReview is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **authorization.k8s.io/v1** API version, available since v1.6.
 * Notable changes:
