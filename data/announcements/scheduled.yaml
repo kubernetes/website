@@ -52,7 +52,7 @@ announcements:
 
 - name: Kubecon 2020 EU
   startTime: 2020-08-16T00:00:00 # Added in https://github.com/kubernetes/website/pull/23183
-  endTime: 2020-08-20T00:00:00 # Removed in https://github.com/kubernetes/website/pull/23272ll
+  endTime: 2020-08-20T00:00:00 # Removed in https://github.com/kubernetes/website/pull/23272
   style: "background: #3f0374"
   title: |
     <img src="images/kubecon_ad_eu_2020.png" style="float: right; height: 80px;" />
