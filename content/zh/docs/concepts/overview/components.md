@@ -33,7 +33,7 @@ a complete and working Kubernetes cluster.
 
 -->
 <!-- overview -->
-当你部署完 Kubernetes, 即拥有了一个完整的集群。
+当你部署完 Kubernetes，即拥有了一个完整的集群。
 {{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes">}}
 
 本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
@@ -49,7 +49,7 @@ The control plane's components make global decisions about the cluster (for exam
  -->
 ## 控制平面组件（Control Plane Components）    {#control-plane-components}
 
-控制平面的组件对集群做出全局决策(比如调度)，以及检测和响应集群事件（例如，当不满足部署的
+控制平面的组件对集群做出全局决策（比如调度），以及检测和响应集群事件（例如，当不满足部署的
 `replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
 
 <!--
@@ -62,7 +62,7 @@ for an example control plane setup that runs across multiple machines.
 控制平面组件可以在集群中的任何节点上运行。
 然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，
 并且不会在此计算机上运行用户容器。
-请参阅[使用 kubeadm 构建高可用性集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
+请参阅 [使用 kubeadm 构建高可用性集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
 中关于跨多机器控制平面设置的示例。
 
 ### kube-apiserver
@@ -90,12 +90,12 @@ Some types of these controllers are:
   * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
   * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
 -->
-这些控制器包括:
+这些控制器包括：
 
-* 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应
-* 任务控制器（Job controller）: 监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
-* 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)
-* 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌
+* 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应
+* 任务控制器（Job controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
+* 端点控制器（Endpoints Controller）：填充端点（Endpoints）对象（即加入 Service 与 Pod）
+* 服务帐户和令牌控制器（Service Account & Token Controllers）：为新的命名空间创建默认帐户和 API 访问令牌
 
 <!--
 ### cloud-controller-manager
@@ -128,9 +128,9 @@ The following controllers can have cloud provider dependencies:
 
 下面的控制器都包含对云平台驱动的依赖：
 
-  * 节点控制器（Node Controller）: 用于在节点终止响应后检查云提供商以确定节点是否已被删除
-  * 路由控制器（Route Controller）: 用于在底层云基础架构中设置路由
-  * 服务控制器（Service Controller）: 用于创建、更新和删除云提供商负载均衡器
+  * 节点控制器（Node Controller）：用于在节点终止响应后检查云提供商以确定节点是否已被删除
+  * 路由控制器（Route Controller）：用于在底层云基础架构中设置路由
+  * 服务控制器（Service Controller）：用于创建、更新和删除云提供商负载均衡器
 
 <!--
 ## Node Components
@@ -167,7 +167,7 @@ for addons belong within the `kube-system` namespace.
 ## 插件（Addons）    {#addons}
 
 插件使用 Kubernetes 资源（{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}、
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}}等）实现集群功能。
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}} 等）实现集群功能。
 因为这些插件提供集群级别的功能，插件中命名空间域的资源属于 `kube-system` 命名空间。
 
 <!--
@@ -189,7 +189,7 @@ Containers started by Kubernetes automatically include this DNS server in their 
 ### DNS   {#dns}
 
 尽管其他插件都并非严格意义上的必需组件，但几乎所有 Kubernetes 集群都应该
-有[集群 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)，
+有 [集群 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)，
 因为很多示例都需要 DNS 服务。
 
 集群 DNS 是一个 DNS 服务器，和环境中的其他 DNS 服务器一起工作，它为 Kubernetes 服务提供 DNS 记录。
@@ -237,7 +237,7 @@ saving container logs to a central log store with search/browsing interface.
 * Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
 -->
-* 进一步了解[节点](/zh/docs/concepts/architecture/nodes/)
-* 进一步了解[控制器](/zh/docs/concepts/architecture/controller/)
+* 进一步了解 [节点](/zh/docs/concepts/architecture/nodes/)
+* 进一步了解 [控制器](/zh/docs/concepts/architecture/controller/)
 * 进一步了解 [kube-scheduler](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
-* 阅读 etcd 官方[文档](https://etcd.io/docs/)
+* 阅读 etcd 官方 [文档](https://etcd.io/docs/)

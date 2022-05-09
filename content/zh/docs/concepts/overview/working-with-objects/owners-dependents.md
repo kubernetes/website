@@ -18,9 +18,9 @@ In Kubernetes, some objects are *owners* of other objects. For example, a
 of their owner. 
 -->
 
-在 Kubernetes 中，一些对象是其他对象的*属主（Owner）*。
+在 Kubernetes 中，一些对象是其他对象的 *属主（Owner）*。
 例如，{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} 是一组 Pod 的属主。
-具有属主的对象是属主的*附属（Dependent）* 。
+具有属主的对象是属主的 *附属（Dependent）*。
 
 <!--
 Ownership is different from the [labels and selectors](/docs/concepts/overview/working-with-objects/labels/)
@@ -31,7 +31,7 @@ to the labels, each `EndpointSlice` that is managed on behalf of a Service has
 an owner reference. Owner references help different parts of Kubernetes avoid
 interfering with objects they don’t control. 
 -->
-属主关系不同于一些资源使用的[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)机制。
+属主关系不同于一些资源使用的 [标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/) 机制。
 例如，有一个创建 `EndpointSlice` 对象的 Service，
 该 Service 使用标签来让控制平面确定，哪些 `EndpointSlice` 对象属于该 Service。
 除开标签，每个代表 Service 所管理的 `EndpointSlice` 都有一个属主引用。
@@ -56,7 +56,7 @@ automatically manage the relationships.
 Kubernetes 自动为一些对象的附属资源设置属主引用的值，
 这些对象包含 ReplicaSet、DaemonSet、Deployment、Job、CronJob、ReplicationController 等。
 你也可以通过改变这个字段的值，来手动配置这些关系。
-然而，你通常不需要这么做，你可以让 Kubernetes 自动管理附属关系。
+然而，通常不需要这么做，你可以让 Kubernetes 自动管理附属关系。
 
 <!--
 Dependent objects also have an `ownerReferences.blockOwnerDeletion` field that
@@ -74,7 +74,7 @@ prevents unauthorized users from delaying owner object deletion.
 -->
 附属对象还有一个 `ownerReferences.blockOwnerDeletion` 字段，该字段使用布尔值，
 用于控制特定的附属对象是否可以阻止垃圾收集删除其属主对象。
-如果{{<glossary_tooltip text="控制器" term_id="controller">}}（例如 Deployment 控制器）
+如果 {{<glossary_tooltip text="控制器" term_id="controller">}}（例如 Deployment 控制器）
 设置了 `metadata.ownerReferences` 字段的值，Kubernetes 会自动设置
 `blockOwnerDeletion` 的值为 `true`。
 你也可以手动设置 `blockOwnerDeletion` 字段的值，以控制哪些附属对象会阻止垃圾收集。
@@ -99,7 +99,7 @@ You can check for that kind of Event by running
 -->
 根据设计，kubernetes 不允许跨名字空间指定属主。
 名字空间范围的附属可以指定集群范围的或者名字空间范围的属主。
-名字空间范围的属主**必须**和该附属处于相同的名字空间。
+名字空间范围的属主 **必须** 和该附属处于相同的名字空间。
 如果名字空间范围的属主和附属不在相同的名字空间，那么该属主引用就会被认为是缺失的，
 并且当附属的所有属主引用都被确认不再存在之后，该附属就会被删除。
 
@@ -150,7 +150,7 @@ specify an orphan deletion policy, Kubernetes adds the `orphan` finalizer so
 that the controller ignores dependent resources after it deletes the owner
 object. 
 -->
-当你使用[前台或孤立级联删除](/zh/docs/concepts/architecture/garbage-collection/#cascading-deletion)时，
+当你使用 [前台或孤立级联删除](/zh/docs/concepts/architecture/garbage-collection/#cascading-deletion) 时，
 Kubernetes 也会向属主资源添加 Finalizer。
 在前台删除中，会添加 `foreground` Finalizer，这样控制器必须在删除了拥有 
 `ownerReferences.blockOwnerDeletion=true` 的附属资源后，才能删除属主对象。
@@ -165,5 +165,5 @@ Kubernetes 也会向属主资源添加 Finalizer。
 * Read the API reference for [object metadata](/docs/reference/kubernetes-api/common-definitions/object-meta/#System).
 -->
 * 了解更多关于 [Kubernetes Finalizer](/zh/docs/concepts/overview/working-with-objects/finalizers/)。
-* 了解关于[垃圾收集](/zh/docs/concepts/architecture/garbage-collection)。
-* 阅读[对象元数据](/docs/reference/kubernetes-api/common-definitions/object-meta/#System)的 API 参考文档。
+* 了解关于 [垃圾收集](/zh/docs/concepts/architecture/garbage-collection)。
+* 阅读 [对象元数据](/docs/reference/kubernetes-api/common-definitions/object-meta/#System) 的 API 参考文档。

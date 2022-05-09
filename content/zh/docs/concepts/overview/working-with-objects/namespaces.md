@@ -18,7 +18,7 @@ weight: 30
 <!--
 In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 -->
-在 Kubernetes 中，“名字空间（Namespace）”提供一种机制，将同一集群中的资源划分为相互隔离的组。
+在 Kubernetes 中，_名字空间（Namespace）_ 提供一种机制，将同一集群中的资源划分为相互隔离的组。
 同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
 名字空间作用域仅针对带有名字空间的对象，例如 Deployment、Service 等，
 这种作用域对集群访问的对象不适用，例如 StorageClass、Node、PersistentVolume 等。
@@ -49,7 +49,7 @@ resource can only be in one namespace.
 <!--
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 -->
-名字空间是在多个用户之间划分集群资源的一种方法（通过[资源配额](/zh/docs/concepts/policy/resource-quotas/)）。
+名字空间是在多个用户之间划分集群资源的一种方法（通过 [资源配额](/zh/docs/concepts/policy/resource-quotas/)）。
 
 <!--
 It is not necessary to use multiple namespaces to separate slightly different
@@ -58,7 +58,7 @@ resources, such as different versions of the same software: use
 resources within the same namespace.
 -->
 不必使用多个名字空间来分隔仅仅轻微不同的资源，例如同一软件的不同版本：
-应该使用{{< glossary_tooltip text="标签" term_id="label" >}}
+应该使用 {{< glossary_tooltip text="标签" term_id="label" >}}
 来区分同一名字空间中的不同资源。
 
 <!--
@@ -69,7 +69,7 @@ for namespaces](/docs/tasks/administer-cluster/namespaces/).
 -->
 ## 使用名字空间
 
-名字空间的创建和删除在[名字空间的管理指南文档](/zh/docs/tasks/administer-cluster/namespaces/)描述。
+名字空间的创建和删除在 [名字空间的管理指南文档](/zh/docs/tasks/administer-cluster/namespaces/) 描述。
 
 <!--
 Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kubernetes system namespaces.
@@ -117,8 +117,8 @@ Kubernetes 会创建四个初始名字空间：
       这个名字空间主要用于集群使用，以防某些资源在整个集群中应该是可见和可读的。
       这个名字空间的公共方面只是一种约定，而不是要求。
    * `kube-node-lease` 此名字空间用于与各个节点相关的
-     [租约（Lease）](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)对象。
-      节点租期允许 kubelet 发送[心跳](/zh/docs/concepts/architecture/nodes/#heartbeats)，由此控制面能够检测到节点故障。
+     [租约（Lease）](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) 对象。
+      节点租期允许 kubelet 发送 [心跳](/zh/docs/concepts/architecture/nodes/#heartbeats)，由此控制面能够检测到节点故障。
 
 <!--
 ### Setting the namespace for a request
@@ -150,7 +150,7 @@ context.
 
 ```shell
 kubectl config set-context --current --namespace=<名字空间名称>
-# 验证之
+# 验证
 kubectl config view | grep namespace:
 ```
 
@@ -161,7 +161,7 @@ When you create a [Service](/docs/user-guide/services), it creates a correspondi
 -->
 ## 名字空间和 DNS
 
-当你创建一个[服务](/zh/docs/concepts/services-networking/service/) 时，
+当你创建一个 [服务](/zh/docs/concepts/services-networking/service/) 时，
 Kubernetes 会创建一个相应的 [DNS 条目](/zh/docs/concepts/services-networking/dns-pod-service/)。
 
 <!--
@@ -190,7 +190,7 @@ namespaces can have short DNS names that overlap with public DNS records.
 Workloads from any namespace performing a DNS lookup without a [trailing dot](https://datatracker.ietf.org/doc/html/rfc1034#page-8) will
 be redirected to those services, taking precedence over public DNS.
 -->
-通过创建与[公共顶级域名](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
+通过创建与 [公共顶级域名](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 同名的名字空间，这些名字空间中的服务可以拥有与公共 DNS 记录重叠的、较短的 DNS 名称。
 所有名字空间中的负载在执行 DNS 查找时，如果查找的名称没有
 [尾部句点](https://datatracker.ietf.org/doc/html/rfc1034#page-8)，
@@ -264,5 +264,5 @@ Kubernetes 控制面会为所有名字空间设置一个不可变更的
 * Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
 * Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
 -->
-* 进一步了解[建立新的名字空间](/zh/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)。
-* 进一步了解[删除名字空间](/zh/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)。
+* 进一步了解 [建立新的名字空间](/zh/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)。
+* 进一步了解 [删除名字空间](/zh/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)。

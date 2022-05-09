@@ -37,7 +37,7 @@ Annotations, like labels, are key/value maps:
 标签可以用来选择对象和查找满足某些条件的对象集合。 相反，注解不用于标识和选择对象。
 注解中的元数据，可以很小，也可以很大，可以是结构化的，也可以是非结构化的，能够包含标签不允许的字符。
 
-注解和标签一样，是键/值对:
+注解和标签一样，是键/值对：
 
 ```json
 "metadata": {
@@ -60,7 +60,7 @@ Map 中的键和值必须是字符串。
 <!--
 Here are some examples of information that could be recorded in annotations:
 -->
-以下是一些例子，用来说明哪些信息可以使用注解来记录:
+以下是一些例子，用来说明哪些信息可以使用注解来记录：
 
 <!--
 * Fields managed by a declarative configuration layer. Attaching these fields
@@ -126,10 +126,10 @@ If the prefix is omitted, the annotation Key is presumed to be private to the us
 
 _注解（Annotations）_ 存储的形式是键/值对。有效的注解键分为两部分：
 可选的前缀和名称，以斜杠（`/`）分隔。 
-名称段是必需项，并且必须在63个字符以内，以字母数字字符（`[a-z0-9A-Z]`）开头和结尾，
+名称段是必需项，并且必须在 63 个字符以内，以字母数字字符（`[a-z0-9A-Z]`）开头和结尾，
 并允许使用破折号（`-`），下划线（`_`），点（`.`）和字母数字。 
-前缀是可选的。如果指定，则前缀必须是DNS子域：一系列由点（`.`）分隔的DNS标签，
-总计不超过253个字符，后跟斜杠（`/`）。
+前缀是可选的。如果指定，则前缀必须是 DNS 子域：一系列由点（`.`）分隔的 DNS 标签，
+总计不超过 253 个字符，后跟斜杠（`/`）。
 如果省略前缀，则假定注解键对用户是私有的。 由系统组件添加的注解
 （例如，`kube-scheduler`，`kube-controller-manager`，`kube-apiserver`，`kubectl`
 或其他第三方组件），必须为终端用户添加注解前缀。
@@ -139,7 +139,7 @@ The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core com
 
 For example, here's the configuration file for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
 -->
-`kubernetes.io/` 和 `k8s.io/` 前缀是为Kubernetes核心组件保留的。
+`kubernetes.io/` 和 `k8s.io/` 前缀是为 Kubernetes 核心组件保留的。
 
 例如，下面是一个 Pod 的配置文件，其注解中包含 `imageregistry: https://hub.docker.com/`：
 
@@ -163,5 +163,5 @@ spec:
 <!--
 * Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
 -->
-* 进一步了解[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)。
+* 进一步了解 [标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)。
 
