@@ -97,7 +97,7 @@ service: 192.168.0.2:80
 node and the destination is changed to pod IP, 10.0.1.2:80 
 - Server pod handles the packet and sends back a packet with destination 10.0.0.2
 - The packet is going back to the client node, conntrack recognizes the packet and rewrites the source
-address back to 192.169.0.2:80
+address back to 192.168.0.2:80
 - Client pod receives the response packet
 
 {{<figure width="100%"
