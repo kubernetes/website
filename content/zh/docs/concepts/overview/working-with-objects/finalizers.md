@@ -13,9 +13,9 @@ You can use finalizers to control {{<glossary_tooltip text="garbage collection" 
 of resources by alerting {{<glossary_tooltip text="controllers" term_id="controller">}} to perform specific cleanup tasks before
 deleting the target resource. 
 -->
-你可以通过使用 Finalizers 提醒{{<glossary_tooltip text="控制器" term_id="controller">}}
+你可以通过使用 Finalizers 提醒 {{<glossary_tooltip text="控制器" term_id="controller">}}
 在删除目标资源前执行特定的清理任务，
-来控制资源的{{<glossary_tooltip text="垃圾收集" term_id="garbage-collection">}}。
+来控制资源的 {{<glossary_tooltip text="垃圾收集" term_id="garbage-collection">}}。
 
 <!--
 Finalizers don't usually specify the code to execute. Instead, they are
@@ -98,10 +98,10 @@ any Pods in the cluster with the same label.
 -->
 ## 属主引用、标签和 Finalizers {#owners-labels-finalizers}
 
-与{{<glossary_tooltip text="标签" term_id="label">}}类似，
+与 {{<glossary_tooltip text="标签" term_id="label">}} 类似，
 [属主引用](/zh/concepts/overview/working-with-objects/owners-dependents/)
 描述了 Kubernetes 中对象之间的关系，但它们作用不同。
-当一个{{<glossary_tooltip text="控制器" term_id="controller">}}
+当一个 {{<glossary_tooltip text="控制器" term_id="controller">}}
 管理类似于 Pod 的对象时，它使用标签来跟踪相关对象组的变化。
 例如，当 {{<glossary_tooltip text="Job" term_id="job">}} 创建一个或多个 Pod 时，
 Job 控制器会给这些 Pod 应用上标签，并跟踪集群中的具有相同标签的 Pod 的变化。
@@ -121,7 +121,7 @@ longer than expected without being fully deleted. In these situations, you
 should check finalizers and owner references on the target owner and dependent
 objects to troubleshoot the cause. 
 -->
-Job 控制器还为这些 Pod 添加了*属主引用*，指向创建 Pod 的 Job。
+Job 控制器还为这些 Pod 添加了 *属主引用*，指向创建 Pod 的 Job。
 如果你在这些 Pod 运行的时候删除了 Job，
 Kubernetes 会使用属主引用（而不是标签）来确定集群中哪些 Pod 需要清理。
 
@@ -153,5 +153,5 @@ Finalizers 通常因为特殊原因被添加到资源上，所以强行删除它
 * Read [Using Finalizers to Control Deletion](/blog/2021/05/14/using-finalizers-to-control-deletion/)
   on the Kubernetes blog.
 -->
-* 在 Kubernetes 博客上阅读[使用 Finalizers 控制删除](/blog/2021/05/14/using-finalizers-to-control-deletion/)。
+* 在 Kubernetes 博客上阅读 [使用 Finalizers 控制删除](/blog/2021/05/14/using-finalizers-to-control-deletion/)。
 

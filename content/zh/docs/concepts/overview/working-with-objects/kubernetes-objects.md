@@ -55,7 +55,7 @@ Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernete
 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api)。
 比如，当使用 `kubectl` 命令行接口时，CLI 会执行必要的 Kubernetes API 调用，
 也可以在程序中使用
-[客户端库](/zh/docs/reference/using-api/client-libraries/)直接调用 Kubernetes API。
+[客户端库](/zh/docs/reference/using-api/client-libraries/) 直接调用 Kubernetes API。
 
 <!--
 ### Object Spec and Status
@@ -121,7 +121,7 @@ Here's an example `.yaml` file that shows the required fields and object spec fo
 
 创建 Kubernetes 对象时，必须提供对象的规约，用来描述该对象的期望状态，
 以及关于对象的一些基本信息（例如名称）。
-当使用 Kubernetes API 创建对象时（或者直接创建，或者基于`kubectl`），
+当使用 Kubernetes API 创建对象时（或者直接创建，或者基于 `kubectl`），
 API 请求必须在请求体中包含 JSON 格式的信息。
 **大多数情况下，需要在 .yaml 文件中为 `kubectl` 提供这些信息**。
 `kubectl` 在发起 API 请求时，将这些信息转换成 JSON 格式。
@@ -135,7 +135,7 @@ One way to create a Deployment using a `.yaml` file like the one above is to use
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) command
 in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 -->
-使用类似于上面的 `.yaml` 文件来创建 Deployment的一种方式是使用 `kubectl` 命令行接口（CLI）中的
+使用类似于上面的 `.yaml` 文件来创建 Deployment 的一种方式是使用 `kubectl` 命令行接口（CLI）中的
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 命令，
 将 `.yaml` 文件作为参数。下面是一个示例：
 
@@ -199,7 +199,7 @@ detail the structure of that `.status` field, and its content for each different
 另一个对象规约的例子是 StatefulSet API 中的
 [`spec` 字段](/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)。
 对于 StatefulSet 而言，其 `.spec` 字段设置了 StatefulSet 及其期望状态。
-在 StatefulSet 的 `.spec` 内，有一个为 Pod 对象提供的[模板](/zh/docs/concepts/workloads/pods/#pod-templates)。该模板描述了 StatefulSet 控制器为了满足 StatefulSet 规约而要创建的 Pod。
+在 StatefulSet 的 `.spec` 内，有一个为 Pod 对象提供的 [模板](/zh/docs/concepts/workloads/pods/#pod-templates)。该模板描述了 StatefulSet 控制器为了满足 StatefulSet 规约而要创建的 Pod。
 不同类型的对象可以由不同的 `.status` 信息。API 参考页面给出了 `.status` 字段的详细结构，
 以及针对不同类型 API 对象的具体内容。
 
@@ -211,6 +211,6 @@ detail the structure of that `.status` field, and its content for each different
 * [Using the Kubernetes API](/docs/reference/using-api/) explains some more API concepts.
 -->
 * 了解最重要的 Kubernetes 基本对象，例如 [Pod](/zh/docs/concepts/workloads/pods/)。
-* 了解 Kubernetes 中的[控制器](/zh/docs/concepts/architecture/controller/)。
+* 了解 Kubernetes 中的 [控制器](/zh/docs/concepts/architecture/controller/)。
 * [使用 Kubernetes API](/zh/docs/reference/using-api/) 一节解释了一些 API 概念。
 
