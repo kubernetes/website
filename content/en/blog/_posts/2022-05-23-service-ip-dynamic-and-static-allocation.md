@@ -25,12 +25,12 @@ _statically_
 : you specify an IP address of your choice, from within the configured IP range for Services.
 
 Across your whole cluster, every Service `ClusterIP` must be unique.
-Trying to create a Service with a `ClusterIP` that has already
+Trying to create a Service with a specific `ClusterIP` that has already
 been allocated will return an error.
 
 ## Why do you need to reserve Service Cluster IPs?
 
-Because you may want to have Services running in well-known IP addresses, so other components and
+Sometimes you may want to have Services running in well-known IP addresses, so other components and
 users in the cluster can use them.
 
 The best example is the DNS Service for the cluster. Some Kubernetes installers assign the 10th address from
@@ -77,7 +77,7 @@ allocation strategy for Services, reducing the risk of collision.
 The `ClusterIP` range will be divided, based on the formula `min(max(16, cidrSize / 16), 256)`,
 described as _never less than 16 or more than 256 with a graduated step between them_.
 
-Dynamically IP assignment will use the upper band by default, once this has been exhausted it will
+Dynamic IP assignment will use the upper band by default, once this has been exhausted it will
 use the lower range. This will allow users to use static allocations on the lower band with a low
 risk of collision.
 
@@ -132,6 +132,6 @@ pie showData
 
 The current SIG-Network [KEPs](https://github.com/orgs/kubernetes/projects/10) and [issues](https://github.com/kubernetes/kubernetes/issues?q=is%3Aopen+is%3Aissue+label%3Asig%2Fnetwork) on GitHub illustrate the SIG’s areas of emphasis.
 
-[SIG-Network meetings](https://github.com/kubernetes/community/tree/master/sig-network) are a friendly, welcoming venue for you to connect with the community and share your ideas.
+[SIG Network meetings](https://github.com/kubernetes/community/tree/master/sig-network) are a friendly, welcoming venue for you to connect with the community and share your ideas.
 Looking forward to hearing from you!
 
