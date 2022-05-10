@@ -44,6 +44,25 @@ For a stable output in a script:
 * 不要依赖上下文、首选项或其他隐式状态。
 
 <!--
+## Subresources
+-->
+## 子资源    {#subresources}
+
+<!--
+* You can use the `--subresource` alpha flag for kubectl commands like `get`, `patch`,
+`edit` and `replace` to fetch and update subresources for all resources that
+support them. Currently, only the `status` and `scale` subresources are supported.
+* The API contract against a subresource is identical to a full resource. While updating the
+`status` subresource to a new value, keep in mind that the subresource could be potentially
+reconciled by a controller to a different value.
+-->
+
+* 你可以将 `--subresource` alpha 标志用于 kubectl 命令，例如 `get`、`patch`、`edit` 和 `replace`
+  来获取和更新所有支持子资源的资源的子资源。 目前，仅支持 `status` 和 `scale` 子资源。
+* 针对子资源的 API 协定与完整资源相同。在更新`status` 子资源为一个新值时，请记住，
+  子资源可能是潜在的由控制器调和为不同的值。
+
+<!--
 ## Best Practices
 -->
 ## 最佳实践
@@ -69,58 +88,6 @@ For `kubectl run` to satisfy infrastructure as code:
 You can use the `--dry-run=client` flag to preview the object that would be sent to your cluster, without really submitting it.
 -->
 你可以使用 `--dry-run=client` 参数来预览而不真正提交即将下发到集群的对象实例：
-
-{{< note >}}
-<!--
-All `kubectl run` generators are deprecated.
-See the Kubernetes v1.17 documentation for a [list](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) of generators and how they were used.
--->
-所有的 `kubectl run` 生成器已弃用。
-查阅 Kubernetes v1.17 文档中的生成器[列表](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators)以及它们的用法。
-{{< /note >}}
-
-<!--
-#### Generators
--->
-#### 生成器
-<!--
-You can generate the following resources with a kubectl command, `kubectl create --dry-run=client -o yaml`:
-
-* `clusterrole`: Create a ClusterRole.
-* `clusterrolebinding`: Create a ClusterRoleBinding for a particular ClusterRole.
-* `configmap`: Create a ConfigMap from a local file, directory or literal value.
-* `cronjob`: Create a CronJob with the specified name.
-* `deployment`: Create a Deployment with the specified name.
-* `job`: Create a Job with the specified name.
-* `namespace`: Create a Namespace with the specified name.
-* `poddisruptionbudget`: Create a PodDisruptionBudget with the specified name.
-* `priorityclass`: Create a PriorityClass with the specified name.
-* `quota`: Create a Quota with the specified name.
-* `role`: Create a Role with single rule.
-* `rolebinding`: Create a RoleBinding for a particular Role or ClusterRole.
-* `secret`: Create a Secret using specified subcommand.
-* `service`: Create a Service using specified subcommand.
-* `serviceaccount`: Create a ServiceAccount with the specified name.
-
--->
-你可以使用 kubectl 命令生成以下资源， `kubectl create --dry-run=client -o yaml`：
-
-* `clusterrole`:         创建 ClusterRole。
-* `clusterrolebinding`:  为特定的 ClusterRole 创建 ClusterRoleBinding。
-* `configmap`:           使用本地文件、目录或文本值创建 Configmap。
-* `cronjob`:             使用指定的名称创建 Cronjob。
-* `deployment`:          使用指定的名称创建 Deployment。
-* `job`:                 使用指定的名称创建 Job。
-* `namespace`:           使用指定的名称创建名称空间。
-* `poddisruptionbudget`: 使用指定名称创建 Pod 干扰预算。
-* `priorityclass`:       使用指定的名称创建 Priorityclass。
-* `quota`:               使用指定的名称创建配额。
-* `role`:                使用单一规则创建角色。
-* `rolebinding`:         为特定角色或 ClusterRole 创建 RoleBinding。
-* `secret`:              使用指定的子命令创建 Secret。
-* `service`:             使用指定的子命令创建服务。
-* `serviceaccount`:      使用指定的名称创建服务帐户。
-
 
 ### `kubectl apply`
 

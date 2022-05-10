@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Install all the addons
+-->
+安装所有插件
 
 <!--
 ### Synopsis
@@ -36,7 +51,9 @@ kubeadm init phase addon all [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
+<p>
 API 服务器所公布的其正在监听的 IP 地址。如果未设置，则将使用默认网络接口。
+</p>
 </td>
 </tr>
 
@@ -53,7 +70,9 @@ API 服务器所公布的其正在监听的 IP 地址。如果未设置，则将
 <!--
 Port for the API Server to bind to.
 -->
+<p>
 API 服务器绑定的端口。
+</p>
 </td>
 </tr>
 
@@ -65,7 +84,9 @@ API 服务器绑定的端口。
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -77,7 +98,9 @@ kubeadm 配置文件的路径。
 <!--
 Specify a stable IP address or DNS name for the control plane.
 -->
+<p>
 为控制平面指定一个稳定的 IP 地址或 DNS 名称。
+</p>
 </td>
 </tr>
 
@@ -87,9 +110,12 @@ Specify a stable IP address or DNS name for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (BETA - default=true)
 -->
-一组键值对（key=value），描述了各种特征。选项包括：<br/>IPv6DualStack=true|false (ALPHA - 默认值=false)
+一组键值对（key=value），描述了各种特征。选项包括：
+<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
+<br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
+<br/>UnversionedKubeletConfigMap=true|false (BETA - 默认值=true)
 </td>
 </tr>
 
@@ -100,7 +126,10 @@ A set of key=value pairs that describe feature gates for various features. Optio
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 help for all
+-->
+<p>
 all 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -117,7 +146,9 @@ all 操作的帮助命令
 <!--
 Choose a container registry to pull control plane images from
 -->
+<p>
 选择用于拉取控制平面镜像的容器仓库
+</p>
 </td>
 </tr>
 
@@ -134,7 +165,9 @@ Choose a container registry to pull control plane images from
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
+<p>
 与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+</p>
 </td>
 </tr>
 
@@ -151,7 +184,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
+<p>
 为控制平面选择特定的 Kubernetes 版本。
+</p>
 </td>
 </tr>
 
@@ -163,7 +198,9 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
+<p>
 指定 Pod 网络的 IP 地址范围。如果已设置，控制平面将自动为每个节点分配 CIDR。
+</p>
 </td>
 </tr>
 
@@ -180,7 +217,9 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 <!--
 Use alternative range of IP address for service VIPs.
 -->
+<p>
 为服务 VIP 使用 IP 地址的其他范围。
+</p>
 </td>
 </tr>
 
@@ -195,9 +234,9 @@ Use alternative range of IP address for service VIPs.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Use alternative domain for services, e.g. "myorg.internal".
+Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 -->
-为服务使用其他域名，例如 "myorg.internal"。
+为服务使用其他域名，例如 &quot;myorg.internal&quot;。
 </td>
 </tr>
 
@@ -225,7 +264,9 @@ Use alternative domain for services, e.g. "myorg.internal".
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

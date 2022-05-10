@@ -208,7 +208,6 @@ you need is an existing `docker-compose.yml` file.
 - CLI
   - [`kompose convert`](#kompose-convert)
 - Documentation
-  - [Build and Push Docker Images](#build-and-push-docker-images)
   - [Alternative Conversions](#alternative-conversions)
   - [Labels](#labels)
   - [Restart](#restart)
@@ -325,55 +324,6 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 {{< note >}}
 If you are manually pushing the OpenShift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this OpenShift issue: https://github.com/openshift/origin/issues/4518 .
 {{< /note >}}
-
-
-
-## Build and Push Docker Images
-
-Kompose supports both building and pushing Docker images. When using the `build` key within your Docker Compose file, your image will:
-
-- Automatically be built with Docker using the `image` key specified within your file
-- Be pushed to the correct Docker repository using local credentials (located at `.docker/config`)
-
-Using an [example Docker Compose file](https://raw.githubusercontent.com/kubernetes/kompose/master/examples/buildconfig/docker-compose.yml):
-
-```yaml
-version: "2"
-
-services:
-    foo:
-        build: "./build"
-        image: docker.io/foo/bar
-```
-
-Using `kompose up` with a `build` key:
-
-```none
-kompose up
-INFO Build key detected. Attempting to build and push image 'docker.io/foo/bar'
-INFO Building image 'docker.io/foo/bar' from directory 'build'
-INFO Image 'docker.io/foo/bar' from directory 'build' built successfully
-INFO Pushing image 'foo/bar:latest' to registry 'docker.io'
-INFO Attempting authentication credentials 'https://index.docker.io/v1/
-INFO Successfully pushed image 'foo/bar:latest' to registry 'docker.io'
-INFO We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
-
-INFO Deploying application in "default" namespace
-INFO Successfully created Service: foo            
-INFO Successfully created Deployment: foo         
-
-Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
-```
-
-In order to disable the functionality, or choose to use BuildConfig generation (with OpenShift) `--build (local|build-config|none)` can be passed.
-
-```sh
-# Disable building/pushing Docker images
-kompose up --build none
-
-# Generate Build Config artifacts for OpenShift
-kompose up --provider openshift --build build-config
-```
 
 ## Alternative Conversions
 

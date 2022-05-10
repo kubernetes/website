@@ -18,7 +18,6 @@ This page shows how to access clusters using the Kubernetes API.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-
 <!-- steps -->
 
 <!--
@@ -56,11 +55,11 @@ kubectl config view
 
 <!--
 Many of the [examples](https://github.com/kubernetes/examples/tree/master/) provide an introduction to using
-kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/overview/).
+kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/).
 -->
 
 许多[样例](https://github.com/kubernetes/examples/tree/master/)
-提供了使用 kubectl 的介绍。完整文档请见 [kubectl 手册](/zh/docs/reference/kubectl/overview/)。
+提供了使用 kubectl 的介绍。完整文档请见 [kubectl 手册](/zh/docs/reference/kubectl/)。
 
 <!--
 ### Directly accessing the REST API
@@ -76,7 +75,7 @@ kubectl 处理对 API 服务器的定位和身份验证。如果你想通过 htt
 1. Run kubectl in proxy mode (recommended). This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert. No man-in-the-middle (MITM) attack is possible using this method.
  1. Alternatively, you can provide the location and credentials directly to the http client. This works with client code that is confused by proxies. To protect against man in the middle attacks, you'll need to import a root cert into your browser.
 -->
-1. 以代理模式运行 kubectl（推荐）。 
+1. 以代理模式运行 kubectl（推荐）。
    推荐使用此方法，因为它用存储的 apiserver 位置并使用自签名证书验证 API 服务器的标识。
    使用这种方法无法进行中间人（MITM）攻击。
 2. 另外，你可以直接为 HTTP 客户端提供位置和身份认证。
@@ -160,8 +159,25 @@ export CLUSTER_NAME="some_server_name"
 # 指向引用该集群名称的 API 服务器
 APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$CLUSTER_NAME\")].cluster.server}")
 
-# 获得令牌
-TOKEN=$(kubectl get secrets -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='default')].data.token}"|base64 -d)
+# 创建一个 secret 来保存默认服务账户的令牌
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+
+# 等待令牌控制器使用令牌填充 secret:
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+
+# 获取令牌
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
 
 # 使用令牌玩转 API
 curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
@@ -169,30 +185,6 @@ curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 
 <!-- The output is similar to this: -->
 输出类似如下：
-
-```json
-{
-  "kind": "APIVersions",
-  "versions": [
-    "v1"
-  ],
-  "serverAddressByClientCIDRs": [
-    {
-      "clientCIDR": "0.0.0.0/0",
-      "serverAddress": "10.0.1.149:443"
-    }
-  ]
-}
-```
-
-<!-- Using `jsonpath` approach: -->
-使用 `jsonpath` 方式：
-
-```shell
-APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
-curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
-```
 
 ```json
 {
@@ -236,12 +228,12 @@ describes how you can configure this as a cluster administrator.
 <!--
 ### Programmatic access to the API
 
-Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [Javascript](#javascript-client), and [Haskell](#haskell-client). There are other client libraries that are provided and maintained by their authors, not the Kubernetes team. See [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages and how they authenticate.
+Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [JavaScript](#javascript-client), and [Haskell](#haskell-client). There are other client libraries that are provided and maintained by their authors, not the Kubernetes team. See [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages and how they authenticate.
 -->
 ### 编程方式访问 API
 
 Kubernetes 官方支持 [Go](#go-client)、[Python](#python-client)、[Java](#java-client)、
-[dotnet](#dotnet-client)、[Javascript](#javascript-client) 和 [Haskell](#haskell-client)
+[dotnet](#dotnet-client)、[JavaScript](#javascript-client) 和 [Haskell](#haskell-client)
 语言的客户端库。还有一些其他客户端库由对应作者而非 Kubernetes 团队提供并维护。
 参考[客户端库](/zh/docs/reference/using-api/client-libraries/)了解如何使用其他语言
 来访问 API 以及如何执行身份认证。

@@ -69,7 +69,7 @@ The following methods exist for installing kubectl on macOS:
    Validate the kubectl binary against the checksum file:
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
+   echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
 
    If valid, the output is:
@@ -114,7 +114,7 @@ The following methods exist for installing kubectl on macOS:
    Or use this for detailed view of version:
 
    ```cmd
-   kubectl version --client --output=yaml    
+   kubectl version --client --output=yaml
    ```
 
 ### Install with Homebrew on macOS
@@ -124,7 +124,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 1. Run the installation command:
 
    ```bash
-   brew install kubectl 
+   brew install kubectl
    ```
 
    or
@@ -205,7 +205,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    Validate the kubectl-convert binary against the checksum file:
 
    ```bash
-   echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
+   echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
 
    If valid, the output is:

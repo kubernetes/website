@@ -1,0 +1,86 @@
+---
+title: Booking.com Case Study
+linkTitle: Booking.com
+case_study_styles: true
+cid: caseStudies
+logo: booking.com_featured_logo.png
+featured: true
+weight: 3
+quote: >
+  We realized that we needed to learn Kubernetes better in order to fully use the potential of it. At that point, we made the shift to build our own Kubernetes platform.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/booking/banner1.jpg
+heading_title_text: Booking.com
+use_gradient_overlay: true
+subheading: >
+  After Learning the Ropes with a Kubernetes Distribution, Booking.com Built a Platform of Its Own
+case_study_details:
+  - Company: Booking.com
+  - Location: Netherlands
+  - Industry: Travel
+---
+
+<h2>Challenge</h2>
+
+<p>In 2016, Booking.com migrated to an OpenShift platform, which gave product developers faster access to infrastructure. But because Kubernetes was abstracted away from the developers, the infrastructure team became a "knowledge bottleneck" when challenges arose. Trying to scale that support wasn't sustainable.</p>
+
+<h2>Solution</h2>
+
+<p>After a year operating OpenShift, the platform team decided to build its own vanilla Kubernetes platform—and ask developers to learn some Kubernetes in order to use it. "This is not a magical platform," says Ben Tyler, Principal Developer, B Platform Track. "We're not claiming that you can just use it with your eyes closed. Developers need to do some learning, and we're going to do everything we can to make sure they have access to that knowledge."</p>
+
+<h2>Impact</h2>
+
+<p>Despite the learning curve, there's been a great uptick in adoption of the new Kubernetes platform. Before containers, creating a new service could take a couple of days if the developers understood Puppet, or weeks if they didn't. On the new platform, it can take as few as 10 minutes. About 500 new services were built on the platform in the first 8 months.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/booking/banner2.jpg"
+  author="BEN TYLER, PRINCIPAL DEVELOPER, B PLATFORM TRACK AT BOOKING.COM"
+>}}
+"As our users learn Kubernetes and become more sophisticated Kubernetes users, they put pressure on us to provide a better, more native Kubernetes experience, which is great. It's a super healthy dynamic."
+{{< /case-studies/quote >}}
+
+​{{< case-studies/lead >}}
+Booking.com has a long history with Kubernetes: In 2015, a team at the travel platform prototyped a container platform based on Mesos and Marathon.
+{{< /case-studies/lead >}}
+
+<p>Impressed by what the technology offered, but in need of enterprise features at its scale—the site handles more than 1.5 million room-night reservations a day on average—the team decided to adopt an OpenShift platform.</p>
+
+<p>This platform, which was wrapped in a Heroku-style, high-level CLI interface, "was definitely popular with our product developers," says Ben Tyler, Principal Developer, B Platform Track. "We gave them faster access to infrastructure."</p>
+
+<p>But, he adds, "anytime something went slightly off the rails, developers didn't have any of the knowledge required to support themselves."</p>
+
+<p>And after a year of operating this platform, the infrastructure team found that it had become "a knowledge bottleneck," he says. "Most of the developers who used it did not know it was Kubernetes underneath. An application failure and a platform failure both looked like failures of that Heroku-style tool."</p>
+
+<p>Scaling the necessary support did not seem feasible or sustainable, so the platform team needed a new solution. The understanding of Kubernetes that they had gained operating the OpenShift platform gave them confidence to build a vanilla Kubernetes platform of their own and customize it to suit the company's needs.</p>
+
+{{< case-studies/quote author="EDUARD IACOBOAIA, SENIOR SYSTEM ADMINISTRATOR, B PLATFORM TRACK AT BOOKING.COM" >}}
+"For entering the landscape, OpenShift was definitely very helpful. It shows you what the technology can do, and it makes it easy for you to use it. After we spent some time on it, we realized that we needed to learn Kubernetes better in order to fully use the potential of it. At that point, we made the shift to build our own Kubernetes platform. We definitely benefit in the long term for taking that step and investing the time in gaining that knowledge."
+{{< /case-studies/quote >}}
+
+<p>"For entering the landscape, OpenShift was definitely very helpful," says Eduard Iacoboaia, Senior System Administrator, B Platform Track. "It shows you what the technology can do, and it makes it easy for you to use it. After we spent some time on it, we realized that we needed to learn Kubernetes better in order to fully use the potential of it. At that point, we made the shift to build our own Kubernetes platform. We definitely benefit in the long term for taking that step and investing the time in gaining that knowledge."</p>
+
+<p>Iacoboaia's team had customized a lot of OpenShift tools to make them work at Booking.com, and "those integrations points were kind of fragile," he says. "We spent much more time understanding all the components of Kubernetes, how they work, how they interact with each other." That research led the team to switch from OpenShift's built-in Ansible playbooks to Puppet deployments, which are used for the rest of Booking's infrastructure. The control plane was also moved from inside the cluster onto bare metal, as the company runs tens of thousands of bare-metal servers and a large infrastructure for running applications on bare metal. (Booking runs Kubernetes in multiple clusters in multiple data centers across the various regions where it has compute.) "We decided to keep it as simple as possible and to also use the tools that we know best," says Iacoboaia.</p>
+
+<p>The other big change was that product engineers would have to learn Kubernetes in order to onboard. "This is not a magical platform," says Tyler. "We're not claiming that you can just use it with your eyes closed. Developers need to do some learning, and we're going to do everything we can to make sure they have access to that knowledge." That includes trainings, blog posts, videos, and Udemy courses.</p>
+
+<p>Despite the learning curve, there's been a great uptick in adoption of the new Kubernetes platform. "I think the reason we've been able to strike this bargain successfully is that we're not asking them to learn a proprietary app system," says Tyler. "We're asking them to learn something that's open source, where the knowledge is transferable. They're investing in their own careers by learning Kubernetes."</p>
+
+<p>One clear sign that this strategy has been a success is that in the support channel, when users have questions, other product engineers are jumping in to respond. "I haven't seen that kind of community engagement around a particular platform product internally before," says Tyler. "It helps a lot that it's visibly an ecosystem standard outside of the company, so people feel value in investing in that knowledge and sharing it with others, which is really, really powerful."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/booking/banner3.jpg"
+  author="BEN TYLER, PRINCIPAL DEVELOPER, B PLATFORM TRACK AT BOOKING.COM"
+>}}
+"We have a tutorial. You follow the tutorial. Your code is running. Then, it's business-logic time. The time to gain access to resources is decreased enormously."
+{{< /case-studies/quote >}}
+
+<p>There's other quantifiable evidence too: Before containers, creating a new service could take a couple of days if the developers understood Puppet, or weeks if they didn't. On the new platform, it takes 10 minutes. "We have a tutorial. You follow the tutorial. Your code is running. Then, it's business-logic time," says Tyler. "The time to gain access to resources is decreased enormously." About 500 new services were built in the first 8 months on the platform, with hundreds of releases per day.</p>
+
+<p>The platform offers different "layers of contracts, so to speak," says Tyler. "At the very base, it's just Kubernetes. If you're a pro Kubernetes user, here's a Kubernetes API, just like you get from GKE or AKS. We're trying to be a provider on that same level. But our whole job inside the company is to be a bigger value add than just vanilla infrastructure, so we provide a set of base images for our main stacks, Perl and Java."</p>
+
+<p>And "as our users learn Kubernetes and become more sophisticated Kubernetes users, they put pressure on us to provide a better more native Kubernetes experience, which is great," says Tyler. "It's a super healthy dynamic."</p>
+
+<p>The platform also includes other CNCF technologies, such as Envoy, Helm, and Prometheus. Most of the critical service traffic for Booking.com is routed through Envoy, and Prometheus is used primarily to monitor infrastructure components. Helm is consumed as a packaging standard. The team also developed and open sourced Shipper, an extension for Kubernetes to add more complex rollout strategies and multi-cluster orchestration.</p>
+
+<p>To be sure, there have been internal discussions about the wisdom of building a Kubernetes platform from the ground up. "This is not really our core competency—Kubernetes and travel, they're kind of far apart, right?" says Tyler. "But we've made a couple of bets on CNCF components that have worked out really well for us. Envoy and Kubernetes, in particular, have been really beneficial to our organization. We were able to customize them, either because we could look at the source code or because they had extension points, and we were able to get value out of them very quickly without having to change any paradigms internally."</p>

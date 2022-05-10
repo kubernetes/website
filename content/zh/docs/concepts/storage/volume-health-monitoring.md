@@ -45,7 +45,7 @@ Kubernetes _卷健康监测_ 是 Kubernetes 容器存储接口（CSI）实现的
 <!--
 The External Health Monitor {{< glossary_tooltip text="controller" term_id="controller" >}} also watches for node failure events. You can enable node failure monitoring by setting the `enable-node-watcher` flag to true. When the external health monitor detects a node failure event, the controller reports an Event will be reported on the PVC to indicate that pods using this PVC are on a failed node.
 
-If a CSI Driver supports Volume Health Monitoring feature from the node side, an Event will be reported on every Pod using the PVC when an abnormal volume condition is detected on a CSI volume.
+If a CSI Driver supports Volume Health Monitoring feature from the node side, an Event will be reported on every Pod using the PVC when an abnormal volume condition is detected on a CSI volume. In addition, Volume Health information is exposed as Kubelet VolumeStats metrics. A new metric kubelet_volume_stats_health_status_abnormal is added. This metric includes two labels: `namespace` and `persistentvolumeclaim`. The count is either 1 or 0. 1 indicates the volume is unhealthy, 0 indicates volume is healthy. For more information, please check [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1432-volume-health-monitor#kubelet-metrics-changes).
 -->
 外部健康监测{{< glossary_tooltip text="控制器" term_id="controller" >}}也会监测节点失效事件。
 如果要启动节点失效监测功能，你可以设置标志 `enable-node-watcher` 为 `true`。
@@ -54,6 +54,10 @@ If a CSI Driver supports Volume Health Monitoring feature from the node side, an
 
 如果 CSI 驱动程序支持节点测的卷健康检测，那当在 CSI 卷上检测到异常卷时，
 会在使用该 PVC 的每个Pod 上触发一个事件。
+此外，卷运行状况信息作为 Kubelet VolumeStats 指标公开。
+添加了一个新的指标 kubelet_volume_stats_health_status_abnormal。
+该指标包括两个标签：`namespace` 和 `persistentvolumeclaim`。
+计数为 1 或 0。1 表示卷不正常，0 表示卷正常。更多信息请访问[KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1432-volume-health-monitor#kubelet-metrics-changes)。
 
 <!-- 
 You need to enable the `CSIVolumeHealth` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to use this feature from the node side.

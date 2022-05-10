@@ -6,9 +6,9 @@
 
 
 <!--
-Generate the certificate for serving etcd, and save them into etcd/server.cert and etcd/server.key files.
+Generate the certificate for serving etcd, and save them into etcd/server.crt and etcd/server.key files.
 -->
-生成用于提供 etcd 服务的证书，并将其保存到 etcd/server.cert 和 etcd/server.key 文件中。
+生成用于提供 etcd 服务的证书，并将其保存到 etcd/server.crt 和 etcd/server.key 文件中。
 
 <!--
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1
@@ -52,9 +52,9 @@ kubeadm init phase certs etcd-server [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-保存和存储证书的路径。
+<p>保存和存储证书的路径。<p>
 </td>
 </tr>
 
@@ -64,9 +64,9 @@ The path where to save and store the certificates.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。<p>
 </td>
 </tr>
 
@@ -76,9 +76,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for etcd-server
+<p>help for etcd-server</p>
 -->
-etcd-server 操作的帮助命令
+<p>etcd-server 操作的帮助命令<p>
 </td>
 </tr>
 
@@ -93,9 +93,9 @@ etcd-server 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面指定特定的 Kubernetes 版本。
+<p>为控制平面指定特定的 Kubernetes 版本。<p>
 </td>
 </tr>
 
@@ -122,9 +122,9 @@ Choose a specific Kubernetes version for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。<p>
 </td>
 </tr>
 

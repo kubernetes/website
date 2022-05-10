@@ -88,7 +88,7 @@ JobSpec describes how the job execution will look like.
   
   `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
   
-  This field is beta-level. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+  More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
 
 - **backoffLimit** (int32)
 
@@ -105,8 +105,6 @@ JobSpec describes how the job execution will look like.
 - **suspend** (boolean)
 
   Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
-  
-  This field is beta-level, gated by SuspendJob feature flag (enabled by default).
 
 ### Selector
 
@@ -175,11 +173,6 @@ JobStatus represents the current state of a Job.
   - **conditions.type** (string), required
 
     Type of job condition, Complete or Failed.
-    
-    Possible enum values:
-     - `"Complete"` means the job has completed its execution.
-     - `"Failed"` means the job has failed its execution.
-     - `"Suspended"` means the job has been suspended.
 
   - **conditions.lastProbeTime** (Time)
 
@@ -236,7 +229,7 @@ JobStatus represents the current state of a Job.
 
   The number of pods which have a Ready condition.
   
-  This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+  This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
 
 
 

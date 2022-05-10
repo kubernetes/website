@@ -162,9 +162,9 @@ In secondo luogo, decidi quanti cluster dovrebbero essere disponibili allo stess
 il numero che può essere non disponibile `U`. Se non sei sicuro, allora 1 è una buona scelta.
 
 Se è possibile bilanciare il carico per indirizzare il traffico verso qualsiasi regione in caso di guasto di un cluster, allora
-avete bisogno almeno dei grossi `R` o` U + 1`. Se non lo è (ad esempio, vuoi garantire una bassa latenza per tutti
+avete bisogno almeno dei grossi `R` o `U + 1`. Se non lo è (ad esempio, vuoi garantire una bassa latenza per tutti
 utenti in caso di guasto di un cluster), quindi è necessario disporre di cluster `R * (U + 1)`
-(`U + 1` in ciascuna delle regioni` R`). In ogni caso, prova a mettere ciascun cluster in una zona diversa.
+(`U + 1` in ciascuna delle regioni `R`). In ogni caso, prova a mettere ciascun cluster in una zona diversa.
 
 Infine, se uno qualsiasi dei tuoi cluster richiederebbe più del numero massimo consigliato di nodi per un cluster Kubernetes, allora
 potresti aver bisogno di più cluster. Kubernetes v1.3 supporta cluster di dimensioni fino a 1000 nodi. Supporta Kubernetes v1.8

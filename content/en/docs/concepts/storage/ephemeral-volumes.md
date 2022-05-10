@@ -107,7 +107,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/data"
         name: my-csi-inline-vol
@@ -125,8 +125,19 @@ driver. These attributes are specific to each driver and not
 standardized. See the documentation of each CSI driver for further
 instructions.
 
-As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
-[`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
+### CSI driver restrictions
+
+CSI ephemeral volumes allow users to provide `volumeAttributes`
+directly to the CSI driver as part of the Pod spec. A CSI driver
+allowing `volumeAttributes` that are typically restricted to
+administrators is NOT suitable for use in an inline ephemeral volume.
+For example, parameters that are normally defined in the StorageClass
+should not be exposed to users through the use of inline ephemeral volumes.
+
+Cluster administrators who need to restrict the CSI drivers that are
+allowed to be used as inline volumes within a Pod spec may do so by:
+- Removing `Ephemeral` from `volumeLifecycleModes` in the CSIDriver spec, which prevents the driver from being used as an inline ephemeral volume.
+- Using an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/) to restrict how this driver is used.
 
 ### Generic ephemeral volumes
 
@@ -158,7 +169,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/scratch"
         name: scratch-volume
@@ -240,15 +251,8 @@ same namespace, so that these conflicts can't occur.
 Enabling the GenericEphemeralVolume feature allows users to create
 PVCs indirectly if they can create Pods, even if they do not have
 permission to create PVCs directly. Cluster administrators must be
-aware of this. If this does not fit their security model, they have
-two choices:
-- Use a [Pod Security
-  Policy](/docs/concepts/policy/pod-security-policy/) where the
-  `volumes` list does not contain the `ephemeral` volume type
-  (deprecated in Kubernetes 1.21).
-- Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  which rejects objects like Pods that have a generic ephemeral
-  volume.
+aware of this. If this does not fit their security model, they should
+use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/) that rejects objects like Pods that have a generic ephemeral volume.
 
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so
 even if users are allowed to use this new mechanism, they cannot use

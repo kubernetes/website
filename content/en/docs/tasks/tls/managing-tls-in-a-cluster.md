@@ -47,7 +47,7 @@ some extra application configuration. You will need to add the CA certificate
 bundle to the list of CA certificates that the TLS client or server trusts. For
 example, you would do this with a golang TLS config by parsing the certificate
 chain and adding the parsed certificates to the `RootCAs` field in the
-[`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
+[`tls.Config`](https://pkg.go.dev/crypto/tls#Config) struct.
 
 {{< note >}}
 Even though the custom CA certificate may be included in the filesystem (in the
@@ -308,7 +308,7 @@ kubectl create secret tls server --cert server.crt --key server-key.pem
 secret/server created
 ```
 
-Finally, you can populate `ca.pem` into a {< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
+Finally, you can populate `ca.pem` into a {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
 and use it as the trust root to verify the serving certificate:
 
 ```shell

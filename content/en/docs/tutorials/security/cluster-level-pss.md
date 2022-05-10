@@ -12,7 +12,7 @@ Pod Security admission (PSA) is enabled by default in v1.23 and later, as it has
 [graduated to beta](/blog/2021/12/09/pod-security-admission-beta/).
 Pod Security
 is an admission controller that carries out checks against the Kubernetes
-[Pod Security Standards](docs/concepts/security/pod-security-standards/) when new pods are
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/) when new pods are
 created. This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.

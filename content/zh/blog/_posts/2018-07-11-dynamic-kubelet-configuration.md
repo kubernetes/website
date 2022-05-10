@@ -17,6 +17,11 @@ date: 2018-07-11
 **作者**: Michael Taufen (Google)
 
 <!--
+**Editor’s note: The feature has been removed in the version 1.24 after deprecation in 1.22.**
+-->
+**编者注：在 1.22 版本弃用后，该功能已在 1.24 版本中删除。**
+
+<!--
 **Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/) on what’s new in Kubernetes 1.11**
 -->
 **编者注：这篇文章是[一系列深度文章](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/) 的一部分，这个系列介绍了 Kubernetes 1.11 中的新增功能**

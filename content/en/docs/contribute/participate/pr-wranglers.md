@@ -87,3 +87,17 @@ To close a pull request, leave a `/close` comment on the PR.
 The [`fejta-bot`](https://github.com/fejta-bot) bot marks issues as stale after 90 days of inactivity. After 30 more days it marks issues as rotten and closes them.  PR wranglers should close issues after 14-30 days of inactivity.
 
 {{< /note >}}
+
+## PR Wrangler shadow program
+
+In late 2021, SIG Docs introduced the PR Wrangler Shadow Program. The program was introduced to help new contributors understand the PR wrangling process.
+
+### Become a shadow
+
+- If you are interested in shadowing as a PR wrangler, please visit the [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers) to see the PR wrangling schedule for this year and sign up.
+
+- Kubernetes org members can edit the [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers) and sign up to shadow an existing PR Wrangler for a week.
+
+- Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs) for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to Brad Topol (`@bradtopol`) or one of the [SIG Docs co-chairs/leads](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
+
+- Once you've signed up to shadow a PR Wrangler, introduce yourself to the PR Wrangler on the [Kubernetes Slack](slack.k8s.io).

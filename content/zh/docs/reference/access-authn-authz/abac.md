@@ -52,13 +52,13 @@ properties:
       - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user. `system:authenticated` matches all authenticated requests. `system:unauthenticated` matches all unauthenticated requests.
     - Resource-matching properties:
       - `apiGroup`, type string; an API group.
-        - Ex: `extensions`
+        - Ex: `apps`, `networking.k8s.io`
         - Wildcard: `*` matches all API groups.
       - `namespace`, type string; a namespace.
         - Ex: `kube-system`
         - Wildcard: `*` matches all resource requests.
       - `resource`, type string; a resource type
-        - Ex: `pods`
+        - Ex: `pods`, `deployments`
         - Wildcard: `*` matches all resource requests.
     - Non-resource-matching properties:
       - `nonResourcePath`, type string; non-resource request paths.
@@ -86,13 +86,13 @@ properties:
       - `group`，字符串类型；如果指定 `group`，它必须与经过身份验证的用户的一个组匹配，`system:authenticated`匹配所有经过身份验证的请求。`system:unauthenticated`匹配所有未经过身份验证的请求。
   - 资源匹配属性：
     - `apiGroup`，字符串类型；一个 API 组。
-      - 例： `extensions`
+      - 例： `apps`, `networking.k8s.io`
       - 通配符：`*`匹配所有 API 组。
     - `namespace`，字符串类型；一个命名空间。
       - 例如：`kube-system`
       - 通配符：`*`匹配所有资源请求。
     - `resource`，字符串类型；资源类型。
-      - 例：`pods`
+      - 例：`pods`, `deployments`
       - 通配符：`*`匹配所有资源请求。
   - 非资源匹配属性：
     - `nonResourcePath`，字符串类型；非资源请求路径。

@@ -35,7 +35,7 @@ template.
 -->
 ## ReplicaSet 的工作原理 {#how-a-replicaset-works}
 
-RepicaSet 是通过一组字段来定义的，包括一个用来识别可获得的 Pod
+ReplicaSet 是通过一组字段来定义的，包括一个用来识别可获得的 Pod
 的集合的选择算符、一个用来标明应该维护的副本个数的数值、一个用来指定应该创建新 Pod
 以满足副本个数条件时要使用的 Pod 模板等等。
 每个 ReplicaSet 都通过根据需要创建和 删除 Pod 以使得副本个数达到期望值，
@@ -346,8 +346,6 @@ pod2             1/1     Running   0          36s
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.
 For ReplicaSets, the `kind` is always a ReplicaSet.
-In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the current version and is enabled by default. The API version `apps/v1beta2` is deprecated.
-Refer to the first lines of the `frontend.yaml` example for guidance.
 
 The name of a ReplicaSet object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -358,9 +356,6 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 
 与所有其他 Kubernetes API 对象一样，ReplicaSet 也需要 `apiVersion`、`kind`、和 `metadata` 字段。
 对于 ReplicaSets 而言，其 `kind` 始终是 ReplicaSet。
-在 Kubernetes 1.9 中，ReplicaSet 上的 API 版本 `apps/v1` 是其当前版本，且被
-默认启用。API 版本 `apps/v1beta2` 已被废弃。
-参考 `frontend.yaml` 示例的第一行。
 
 ReplicaSet 对象的名称必须是合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。

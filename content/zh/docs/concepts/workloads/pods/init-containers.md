@@ -183,7 +183,7 @@ Here are some ideas for how to use init containers:
 * 等待一个 Service 完成创建，通过类似如下 shell 命令：
 
   ```shell
-  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; exit 1
+  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
   ```
 
 * 注册这个 Pod 到远程服务器，通过在命令中调用 API，类似如下：
@@ -556,7 +556,7 @@ Pod 不会被重启。这一行为适用于 Kubernetes v1.20 及更新版本。�
 
 <!--
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 -->
 * 阅读[创建包含 Init 容器的 Pod](/zh/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* 学习如何[调试 Init 容器](/zh/docs/tasks/debug-application-cluster/debug-init-containers/)
+* 学习如何[调试 Init 容器](/zh/docs/tasks/debug/debug-application/debug-init-containers/)

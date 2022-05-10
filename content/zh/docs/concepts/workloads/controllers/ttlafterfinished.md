@@ -1,65 +1,54 @@
 ---
-title: 已完成资源的 TTL 控制器
+title: 已完成 Job 的自动清理
 content_type: concept
 weight: 70
 ---
 <!--
-title: TTL Controller for Finished Resources
+title: Automatic Clean-up for Finished Jobs
 content_type: concept
 weight: 70
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 <!--
-The TTL controller provides a TTL mechanism to limit the lifetime of resource
-objects that have finished execution. TTL controller only handles
-{{< glossary_tooltip text="Jobs" term_id="job" >}} for now,
-and may be expanded to handle other resources that will finish execution,
-such as Pods and custom resources.
+TTL-after-finished {{<glossary_tooltip text="controller" term_id="controller">}} provides a 
+TTL (time to live) mechanism to limit the lifetime of resource objects that 
+have finished execution. TTL controller only handles 
+{{< glossary_tooltip text="Jobs" term_id="job" >}}.
 -->
-TTL 控制器提供了一种 TTL 机制来限制已完成执行的资源对象的生命周期。
-TTL 控制器目前只处理 {{< glossary_tooltip text="Job" term_id="job" >}}，
-可能以后会扩展以处理将完成执行的其他资源，例如 Pod 和自定义资源。
+TTL-after-finished {{<glossary_tooltip text="控制器" term_id="controller">}} 提供了一种 TTL 机制来限制已完成执行的资源对象的生命周期。
+TTL 控制器目前只处理 {{< glossary_tooltip text="Job" term_id="job" >}}。
 
-<!--
-This feature is currently beta and enabled by default, and can be disabled via 
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`TTLAfterFinished` in both kube-apiserver and kube-controller-manager.
--->
-此功能目前是 Beta 版而自动启用，并且可以通过 `kube-apiserver` 和
-`kube-controller-manager` 上的
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-`TTLAfterFinished` 禁用。
 
 <!-- body -->
 
 <!--
-## TTL Controller
+## TTL-after-finished Controller
 
-The TTL controller only supports Jobs for now. A cluster operator can use this feature to clean
+The TTL-after-finished controller is only supported for Jobs. A cluster operator can use this feature to clean
 up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
 `.spec.ttlSecondsAfterFinished` field of a Job, as in this
 [example](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
 -->
-## TTL 控制器
+## TTL-after-finished 控制器
 
-TTL 控制器现在只支持 Job。集群操作员可以通过指定 Job 的 `.spec.ttlSecondsAfterFinished`
+TTL-after-finished 控制器只支持 Job。集群操作员可以通过指定 Job 的 `.spec.ttlSecondsAfterFinished`
 字段来自动清理已结束的作业（`Complete` 或 `Failed`），如
 [示例](/zh/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 所示。
 
 <!--
-The TTL controller will assume that a resource is eligible to be cleaned up
-TTL seconds after the resource has finished, in other words, when the TTL has expired. When the
-TTL controller cleans up a resource, it will delete it cascadingly, i.e. delete
-its dependent objects together with it. Note that when the resource is deleted,
+The TTL-after-finished controller will assume that a job is eligible to be cleaned up
+TTL seconds after the job has finished, in other words, when the TTL has expired. When the
+TTL-after-finished controller cleans up a job, it will delete it cascadingly, that is to say it will delete
+its dependent objects together with it. Note that when the job is deleted,
 its lifecycle guarantees, such as finalizers, will be honored.
 -->
-TTL 控制器假设资源能在执行完成后的 TTL 秒内被清理，也就是当 TTL 过期后。
-当 TTL 控制器清理资源时，它将做级联删除操作，即删除资源对象的同时也删除其依赖对象。
+TTL-after-finished 控制器假设作业能在执行完成后的 TTL 秒内被清理，也就是当 TTL 过期后。
+当 TTL 控制器清理作业时，它将做级联删除操作，即删除资源对象的同时也删除其依赖对象。
 注意，当资源被删除时，由该资源的生命周期保证其终结器（Finalizers）等被执行。
 
 <!--
@@ -69,24 +58,24 @@ The TTL seconds can be set at any time. Here are some examples for setting the
 可以随时设置 TTL 秒。以下是设置 Job 的 `.spec.ttlSecondsAfterFinished` 字段的一些示例：
 
 <!--
-* Specify this field in the resource manifest, so that a Job can be cleaned up
+* Specify this field in the job manifest, so that a Job can be cleaned up
   automatically some time after it finishes.
-* Set this field of existing, already finished resources, to adopt this new feature.
+* Set this field of existing, already finished jobs, to adopt this new feature.
 * Use a
   [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-  to set this field dynamically at resource creation time. Cluster administrators can
-  use this to enforce a TTL policy for finished resources.
+  to set this field dynamically at job creation time. Cluster administrators can
+  use this to enforce a TTL policy for finished jobs.
 * Use a
   [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-  to set this field dynamically after the resource has finished, and choose
-  different TTL values based on resource status, labels, etc.
+  to set this field dynamically after the job has finished, and choose
+  different TTL values based on job status, labels, etc.
 -->
-* 在资源清单（manifest）中指定此字段，以便 Job 在完成后的某个时间被自动清除。
-* 将此字段设置为现有的、已完成的资源，以采用此新功能。
-* 在创建资源时使用 [mutating admission webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-  动态设置该字段。集群管理员可以使用它对完成的资源强制执行 TTL 策略。
+* 在作业清单（manifest）中指定此字段，以便 Job 在完成后的某个时间被自动清除。
+* 将此字段设置为现有的、已完成的作业，以采用此新功能。
+* 在创建作业时使用 [mutating admission webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+  动态设置该字段。集群管理员可以使用它对完成的作业强制执行 TTL 策略。
 * 使用 [mutating admission webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-  在资源完成后动态设置该字段，并根据资源状态、标签等选择不同的 TTL 值。
+  在作业完成后动态设置该字段，并根据作业状态、标签等选择不同的 TTL 值。
 
 <!--
 ## Caveat
@@ -94,16 +83,16 @@ The TTL seconds can be set at any time. Here are some examples for setting the
 ### Updating TTL Seconds
 
 Note that the TTL period, e.g. `.spec.ttlSecondsAfterFinished` field of Jobs,
-can be modified after the resource is created or has finished. However, once the
+can be modified after the job is created or has finished. However, once the
 Job becomes eligible to be deleted (when the TTL has expired), the system won't
 guarantee that the Jobs will be kept, even if an update to extend the TTL
 returns a successful API response.
 -->
 ## 警告
 
-### 更新 TTL 秒
+### 更新 TTL 秒数
 
-请注意，在创建资源或已经执行结束后，仍可以修改其 TTL 周期，例如 Job 的
+请注意，在创建 Job 或已经执行结束后，仍可以修改其 TTL 周期，例如 Job 的
 `.spec.ttlSecondsAfterFinished` 字段。
 但是一旦 Job 变为可被删除状态（当其 TTL 已过期时），即使您通过 API 增加其 TTL
 时长得到了成功的响应，系统也不保证 Job 将被保留。
@@ -111,25 +100,21 @@ returns a successful API response.
 <!--
 ### Time Skew
 
-Because TTL controller uses timestamps stored in the Kubernetes resources to
+Because TTL-after-finished controller uses timestamps stored in the Kubernetes resources to
 determine whether the TTL has expired or not, this feature is sensitive to time
-skew in the cluster, which may cause TTL controller to clean up resource objects
+skew in the cluster, which may cause TTL-after-finished controller to clean up resource objects
 at the wrong time.
 -->
 ### 时间偏差  {#time-skew}
 
-由于 TTL 控制器使用存储在 Kubernetes 资源中的时间戳来确定 TTL 是否已过期，
-因此该功能对集群中的时间偏差很敏感，这可能导致 TTL 控制器在错误的时间清理资源对象。
+由于 TTL-after-finished 控制器使用存储在 Kubernetes 资源中的时间戳来确定 TTL 是否已过期，
+因此该功能对集群中的时间偏差很敏感，这可能导致 TTL-after-finished 控制器在错误的时间清理资源对象。
 
 <!--
-In Kubernetes, it's required to run NTP on all nodes
-(see [#6159](https://github.com/kubernetes/kubernetes/issues/6159#issuecomment-93844058))
-to avoid time skew. Clocks aren't always correct, but the difference should be
+Clocks aren't always correct, but the difference should be
 very small. Please be aware of this risk when setting a non-zero TTL.
 -->
-在 Kubernetes 中，需要在所有节点上运行 NTP（参见
-[#6159](https://github.com/kubernetes/kubernetes/issues/6159#issuecomment-93844058)）
-以避免时间偏差。时钟并不总是如此正确，但差异应该很小。
+时钟并不总是如此正确，但差异应该很小。
 设置非零 TTL 时请注意避免这种风险。
 
 ## {{% heading "whatsnext" %}}

@@ -106,10 +106,9 @@ SRV 레코드는 노멀 서비스 또는
 
 `172-17-0-3.default.pod.cluster.local`.
 
-서비스에 의해 노출된 디플로이먼트(Deployment)나 데몬셋(DaemonSet)에 의해 생성된
-모든 파드는 다음과 같은 DNS 주소를 갖는다.
+서비스에 의해 노출된 모든 파드는 다음과 같은 DNS 주소를 갖는다.
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 ### 파드의 hostname 및 subdomain 필드
 

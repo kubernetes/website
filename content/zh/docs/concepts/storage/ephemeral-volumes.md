@@ -33,7 +33,7 @@ services are often limited by memory size and can move infrequently
 used data into storage that is slower than memory with little impact
 on overall performance.
 -->
-有些应用程序需要额外的存储，但并不关心数据在重启后仍然可用，既是否被持久地保存。
+有些应用程序需要额外的存储，但并不关心数据在重启后仍然可用。
 例如，缓存服务经常受限于内存大小，将不常用的数据转移到比内存慢、但对总体性能的影响很小的存储中。
 
 <!--
@@ -55,7 +55,7 @@ _临时卷_ 就是为此类用例设计的。因为卷会遵从 Pod 的生命周
 Ephemeral volumes are specified _inline_ in the Pod spec, which
 simplifies application deployment and management.
 -->
-临时卷在 Pod 规范中以 _内联_ 方式定义，这简化了应用程序的部署和管理。
+临时卷在 Pod 规约中以 _内联_ 方式定义，这简化了应用程序的部署和管理。
 
 <!--
 ### Types of ephemeral volumes
@@ -131,6 +131,7 @@ is managed by kubelet, or injecting different data.
 ### CSI ephemeral volumes
 -->
 ### CSI 临时卷 {#csi-ephemeral-volumes}
+
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 <!--
@@ -142,12 +143,12 @@ The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/drivers.
 shows which drivers support ephemeral volumes.
 -->
 
-该特性需要启用参数 `CSIInlineVolume` 
+该特性需要启用参数 `CSIInlineVolume`
 [特性门控（feature gate）](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 该参数从 Kubernetes 1.16 开始默认启用。
 
 {{< note >}}
-只有一部分 CSI 驱动程序支持 CSI 临时卷。Kubernetes CSI 
+只有一部分 CSI 驱动程序支持 CSI 临时卷。Kubernetes CSI
 [驱动程序列表](https://kubernetes-csi.github.io/docs/drivers.html)
 显示了支持临时卷的驱动程序。
 {{< /note >}}
@@ -170,7 +171,7 @@ Here's an example manifest for a Pod that uses CSI ephemeral storage:
 从概念上讲，CSI 临时卷类似于 `configMap`、`downwardAPI` 和 `secret` 类型的卷：
 其存储在每个节点本地管理，并在将 Pod 调度到节点后与其他本地资源一起创建。
 在这个阶段，Kubernetes 没有重新调度 Pods 的概念。卷创建不太可能失败，否则 Pod 启动将会受阻。
-特别是，这些卷 *不* 支持[感知存储容量的 Pod 调度](/zh/docs/concepts/storage/storage-capacity/)。
+特别是，这些卷 **不** 支持[感知存储容量的 Pod 调度](/zh/docs/concepts/storage/storage-capacity/)。
 它们目前也没包括在 Pod 的存储资源使用限制中，因为 kubelet 只能对它自己管理的存储强制执行。
 
 下面是使用 CSI 临时存储的 Pod 的示例清单：
@@ -183,7 +184,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/data"
         name: my-csi-inline-vol
@@ -202,32 +203,51 @@ driver. These attributes are specific to each driver and not
 standardized. See the documentation of each CSI driver for further
 instructions.
 
-As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
-[`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
 -->
+
 `volumeAttributes` 决定驱动程序准备什么样的卷。这些属性特定于每个驱动程序，且没有实现标准化。
 有关进一步的说明，请参阅每个 CSI 驱动程序的文档。
 
-作为一个集群管理员，你可以使用 
-[PodSecurityPolicy](/zh/docs/concepts/policy/pod-security-policy/) 
+<!--
+### CSI driver restrictions
+
+CSI ephemeral volumes allow users to provide `volumeAttributes`
+directly to the CSI driver as part of the Pod spec. A CSI driver
+allowing `volumeAttributes` that are typically restricted to
+administrators is NOT suitable for use in an inline ephemeral volume.
+For example, parameters that are normally defined in the StorageClass
+should not be exposed to users through the use of inline ephemeral volumes.
+-->
+
+### CSI 驱动程序限制 {#csi-driver-restrictions}
+
+CSI 临时卷允许用户直接向 CSI 驱动程序提供 `volumeAttributes`，它会作为 Pod 规约的一部分。
+允许 `volumeAttributes` 的 CSI 驱动程序通常仅限于管理员使用，不适合在内联临时卷中使用。
+例如，通常在 StorageClass 中定义的参数不应通过使用内联临时卷向用户公开。
+
+作为一个集群管理员，你可以使用
+[PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/)
 来控制在 Pod 中可以使用哪些 CSI 驱动程序，
 具体则是通过 [`allowedCSIDrivers` 字段](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy)
 指定。
+
+<!--
+Cluster administrators who need to restrict the CSI drivers that are
+allowed to be used as inline volumes within a Pod spec may do so by:
+- Removing `Ephemeral` from `volumeLifecycleModes` in the CSIDriver spec, which prevents the driver from being used as an inline ephemeral volume.
+- Using an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/) to restrict how this driver is used.
+-->
+如果集群管理员需要限制 CSI 驱动程序在 Pod 规约中被作为内联卷使用，可以这样做：
+- 从 CSIDriver 规约的 `volumeLifecycleModes` 中删除 `Ephemeral`，这可以防止驱动程序被用作内联临时卷。
+- 使用[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  来限制如何使用此驱动程序。
 
 <!--
 ### Generic ephemeral volumes
 -->
 ### 通用临时卷 {#generic-ephemeral-volumes}
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
-
-<!--
-This feature requires the `GenericEphemeralVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled. Because this is a beta feature, it is enabled by default.
--->
-这个特性需要启用 `GenericEphemeralVolume` 
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-因为这是一个 beta 特性，默认情况下启用。
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 <!--
 Generic ephemeral volumes are similar to `emptyDir` volumes in the
@@ -252,7 +272,7 @@ Example:
 在最初制备完毕时一般为空。不过通用临时卷也有一些额外的功能特性：
 
 - 存储可以是本地的，也可以是网络连接的。
-- 卷可以有固定的大小，pod不能超量使用。
+- 卷可以有固定的大小，Pod 不能超量使用。
 - 卷可能有一些初始数据，这取决于驱动程序和参数。
 - 当驱动程序支持，卷上的典型操作将被支持，包括
   （[快照](/zh/docs/concepts/storage/volume-snapshots/)、
@@ -270,7 +290,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/scratch"
         name: scratch-volume
@@ -320,8 +340,8 @@ because then the scheduler is free to choose a suitable node for
 the Pod. With immediate binding, the scheduler is forced to select a node that has
 access to the volume once it is available.
 -->
-如上设置将触发卷的绑定与/或准备操作，相应动作或者在 
-{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} 
+如上设置将触发卷的绑定与/或准备操作，相应动作或者在
+{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
 使用即时卷绑定时立即执行，
 或者当 Pod 被暂时性调度到某节点时执行 (`WaitForFirstConsumer` 卷绑定模式)。
 对于常见的临时卷，建议采用后者，这样调度器就可以自由地为 Pod 选择合适的节点。
@@ -334,7 +354,7 @@ that provide that ephemeral storage. When the Pod is deleted,
 the Kubernetes garbage collector deletes the PVC, which then usually
 triggers deletion of the volume because the default reclaim policy of
 storage classes is to delete volumes. You can create quasi-ephemeral local storage
-using a StorageClass with a reclaim policy of `retain`: the storage outlives the Pod, 
+using a StorageClass with a reclaim policy of `retain`: the storage outlives the Pod,
 and in this case you need to ensure that volume clean up happens separately.
 -->
 就[资源所有权](/zh/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)而言，
@@ -410,30 +430,14 @@ same namespace, so that these conflicts can't occur.
 Enabling the GenericEphemeralVolume feature allows users to create
 PVCs indirectly if they can create Pods, even if they do not have
 permission to create PVCs directly. Cluster administrators must be
-aware of this. If this does not fit their security model, they have
-two choices:
+aware of this. If this does not fit their security model, they should
+use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/) that rejects objects like Pods that have a generic ephemeral volume.
 -->
 启用 GenericEphemeralVolume 特性会导致那些没有 PVCs 创建权限的用户，
 在创建 Pods 时，被允许间接的创建 PVCs。
 集群管理员必须意识到这一点。
-如果这不符合他们的安全模型，他们有如下选择：
-
-<!--
-- Explicitly disable the feature through the feature gate.
-- Use a [Pod Security
-  Policy](/docs/concepts/policy/pod-security-policy/) where the
-  `volumes` list does not contain the `ephemeral` volume type
-  (deprecated in Kubernetes 1.21).
-- Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  which rejects objects like Pods that have a generic ephemeral
-  volume.
--->
-- 通过特性门控显式禁用该特性。
-- 当 `volumes` 列表不包含 `ephemeral` 卷类型时，使用
-  [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)。
-  （这一方式在 Kubernetes 1.21 版本已经弃用）
-- 使用一个[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  拒绝包含通用临时卷的 Pods。
+如果这不符合他们的安全模型，他们应该使用一个[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+拒绝包含通用临时卷的 Pods。
 
 <!--
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so
@@ -473,11 +477,8 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 
 - For more information on the design, see the
 [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
-- For more information on further development of this feature, see the [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698).
 -->
 ### 通用临时卷 {#generic-ephemeral-volumes}
 
 - 有关设计的更多信息，参阅
   [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md)。
-- 关于本特性下一步开发的更多信息，参阅
-  [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698)。

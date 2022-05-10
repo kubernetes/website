@@ -59,7 +59,7 @@ and restarts it.
 When the container starts, it executes this command:
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 For the first 30 seconds of the container's life, there is a `/tmp/healthy` file.
@@ -81,13 +81,13 @@ kubectl describe pod liveness-exec
 The output indicates that no liveness probes have failed yet:
 
 ```
-FirstSeen    LastSeen    Count   From            SubobjectPath           Type        Reason      Message
---------- --------    -----   ----            -------------           --------    ------      -------
-24s       24s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
+Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  11s   default-scheduler  Successfully assigned default/liveness-exec to node01
+  Normal  Pulling    9s    kubelet, node01    Pulling image "k8s.gcr.io/busybox"
+  Normal  Pulled     7s    kubelet, node01    Successfully pulled image "k8s.gcr.io/busybox"
+  Normal  Created    7s    kubelet, node01    Created container liveness
+  Normal  Started    7s    kubelet, node01    Started container liveness
 ```
 
 After 35 seconds, view the Pod events again:
@@ -100,14 +100,15 @@ At the bottom of the output, there are messages indicating that the liveness
 probes have failed, and the containers have been killed and recreated.
 
 ```
-FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
---------- --------    -----   ----            -------------           --------    ------      -------
-37s       37s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
-2s        2s      1   {kubelet worker0}   spec.containers{liveness}   Warning     Unhealthy   Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  57s                default-scheduler  Successfully assigned default/liveness-exec to node01
+  Normal   Pulling    55s                kubelet, node01    Pulling image "k8s.gcr.io/busybox"
+  Normal   Pulled     53s                kubelet, node01    Successfully pulled image "k8s.gcr.io/busybox"
+  Normal   Created    53s                kubelet, node01    Created container liveness
+  Normal   Started    53s                kubelet, node01    Started container liveness
+  Warning  Unhealthy  10s (x3 over 20s)  kubelet, node01    Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
+  Normal   Killing    10s                kubelet, node01    Container liveness failed liveness probe, will be restarted
 ```
 
 Wait another 30 seconds, and verify that the container has been restarted:
@@ -222,7 +223,7 @@ kubectl describe pod goproxy
 
 ## Define a gRPC liveness probe
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
 kubelet can be configured to use it for application liveness checks.
@@ -232,7 +233,7 @@ in order to configure checks that rely on gRPC.
 
 Here is an example manifest:
 
-{{< codenew file="pods/probe/grpc-liveness.yaml">}}
+{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
 
 To use a gRPC probe, `port` must be configured. If the health endpoint is configured
 on a non-default service, you must also specify the `service`.

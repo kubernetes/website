@@ -142,7 +142,7 @@ IP 地址、网络包过滤、目标健康检查等云基础设施组件集成�
 <!--
 ## Authorization
 
-This section breaks down the access that the cloud controller managers requires
+This section breaks down the access that the cloud controller manager requires
 on various API objects, in order to perform its operations.
 -->
 ## 鉴权   {#authorization}

@@ -126,7 +126,6 @@ of provisioning.
 2. [Token authentication file](#token-authentication-file)
 
 Bootstrap tokens are a simpler and more easily managed method to authenticate kubelets, and do not require any additional flags when starting kube-apiserver.
-Using bootstrap tokens is currently __beta__ as of Kubernetes version 1.12.
 
 Whichever method you choose, the requirement is that the kubelet be able to authenticate as a user with the rights to:
 

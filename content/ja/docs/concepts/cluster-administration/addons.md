@@ -21,7 +21,6 @@ content_type: concept
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install)はFlannelとCalicoをあわせたもので、ネットワークとネットワークポリシーを提供します。
 * [Cilium](https://github.com/cilium/cilium)は、L3のネットワークとネットワークポリシーのプラグインで、HTTP/API/L7のポリシーを透過的に強制できます。ルーティングとoverlay/encapsulationモードの両方をサポートしており、他のCNIプラグイン上で機能できます。
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)は、KubernetesをCalico、Canal、Flannel、Romana、Weaveなど選択したCNIプラグインをシームレスに接続できるようにするプラグインです。
-* [Contiv](https://contiv.github.io)は、さまざまなユースケースと豊富なポリシーフレームワーク向けに設定可能なネットワーク(BGPを使用したネイティブのL3、vxlanを使用したオーバーレイ、古典的なL2、Cisco-SDN/ACI)を提供します。Contivプロジェクトは完全に[オープンソース](https://github.com/contiv)です。[インストーラ](https://github.com/contiv/install)はkubeadmとkubeadm以外の両方をベースとしたインストールオプションがあります。
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)は、[Tungsten Fabric](https://tungsten.io)をベースにしている、オープンソースでマルチクラウドに対応したネットワーク仮想化およびポリシー管理プラットフォームです。ContrailおよびTungsten Fabricは、Kubernetes、OpenShift、OpenStack、Mesosなどのオーケストレーションシステムと統合されており、仮想マシン、コンテナ/Pod、ベアメタルのワークロードに隔離モードを提供します。
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)は、Kubernetesで使用できるオーバーレイネットワークプロバイダーです。
 * [Knitter](https://github.com/ZTE/Knitter/)は、1つのKubernetes Podで複数のネットワークインターフェイスをサポートするためのプラグインです。
@@ -30,7 +29,7 @@ content_type: concept
 * [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin)は、クラウドネイティブベースのService function chaining(SFC)、Multiple OVNオーバーレイネットワーク、動的なサブネットの作成、動的な仮想ネットワークの作成、VLANプロバイダーネットワーク、Directプロバイダーネットワークを提供し、他のMulti-networkプラグインと付け替え可能なOVNベースのCNIコントローラープラグインです。
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in(NCP)は、VMware NSX-TとKubernetesなどのコンテナオーケストレーター間のインテグレーションを提供します。また、NSX-Tと、Pivotal Container Service(PKS)とOpenShiftなどのコンテナベースのCaaS/PaaSプラットフォームとのインテグレーションも提供します。
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)は、Kubernetes Podと非Kubernetes環境間で可視化とセキュリティモニタリングを使用してポリシーベースのネットワークを提供するSDNプラットフォームです。
-* [Romana](https://romana.io)は、[NetworkPolicy API](/ja/docs/concepts/services-networking/network-policies/)もサポートするPodネットワーク向けのL3のネットワークソリューションです。Kubeadmアドオンのインストールの詳細は[こちら](https://github.com/romana/romana/tree/master/containerize)で確認できます。
+* [Romana](https://github.com/romana/romana)は、[NetworkPolicy API](/ja/docs/concepts/services-networking/network-policies/)もサポートするPodネットワーク向けのL3のネットワークソリューションです。Kubeadmアドオンのインストールの詳細は[こちら](https://github.com/romana/romana/tree/master/containerize)で確認できます。
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)は、ネットワークパーティションの両面で機能し、外部データベースを必要とせずに、ネットワークとネットワークポリシーを提供します。
 
 ## サービスディスカバリ

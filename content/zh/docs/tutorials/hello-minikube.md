@@ -244,10 +244,10 @@ Pod runs a Container based on the provided Docker image.
 
 <!--
 For more information about `kubectl`commands, see the
-[kubectl overview](/docs/user-guide/kubectl-overview/).
+[kubectl overview](/docs/reference/kubectl/).
 -->
 {{< note >}}
-有关 `kubectl` 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/reference/kubectl/overview/)。
+有关 `kubectl` 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/reference/kubectl/)。
 {{< /note >}}
 
 <!--

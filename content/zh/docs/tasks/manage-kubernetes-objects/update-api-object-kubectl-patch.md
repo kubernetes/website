@@ -254,7 +254,7 @@ Patch your Deployment:
 对 Deployment 执行 patch 操作：
 
 ```
-kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
+kubectl patch deployment patch-demo --patch-file patch-file-tolerations.yaml"
 ```
 
 <!--
@@ -283,13 +283,11 @@ containers:
   name: patch-demo-ctr
   ...
 ```
-```shell
-
-
+```yaml
 tolerations:
-      - effect: NoSchedule
-        key: disktype
-        value: ssd
+  - effect: NoSchedule
+    key: disktype
+    value: ssd
 ```
 
 <!--
@@ -368,7 +366,7 @@ In your patch command, set `type` to `merge`:
 在 patch 命令中，将 `type` 设置为 `merge`：
 
 ```shell
-kubectl patch deployment patch-demo --type merge --patch "$(cat patch-file-2.yaml)"
+kubectl patch deployment patch-demo --type merge --patch-file patch-file-2.yaml
 ```
 
 <!--
@@ -450,14 +448,9 @@ spec:
 <!-- Patch your Deployment: -->
 修补你的 Deployment:
 
-{{< tabs name="kubectl_retainkeys_example" >}}
-{{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment retainkeys-demo --type merge --patch "$(cat patch-file-no-retainkeys.yaml)"
-{{< /tab >}}
-{{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment retainkeys-demo --type merge --patch $(Get-Content patch-file-no-retainkeys.yaml -Raw)
-{{< /tab >}}}
-{{< /tabs >}}
+```shell
+kubectl patch deployment patch-demo --patch-file patch-file.yaml
+```
 
 <!--
 In the output, you can see that it is not possible to set `type` as `Recreate` when a value is defined for `spec.strategy.rollingUpdate`:
@@ -497,14 +490,9 @@ Patch your Deployment again with this new patch:
 
 使用新的 patch 重新修补 Deployment：
 
-{{< tabs name="kubectl_retainkeys2_example" >}}
-{{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment retainkeys-demo --type merge --patch "$(cat patch-file-retainkeys.yaml)"
-{{< /tab >}}
-{{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment retainkeys-demo --type merge --patch $(Get-Content patch-file-retainkeys.yaml -Raw)
-{{< /tab >}}}
-{{< /tabs >}}
+```shell
+kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no-retainkeys.yaml
+```
 
 <!-- Examine the content of the Deployment: -->
 检查 Deployment 的内容：
@@ -625,10 +613,10 @@ The following commands are equivalent:
 以下命令是等价的：
 
 ```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
+kubectl patch deployment patch-demo --patch-file patch-file.yaml
 kubectl patch deployment patch-demo --patch 'spec:\n template:\n  spec:\n   containers:\n   - name: patch-demo-ctr-2\n     image: redis'
 
-kubectl patch deployment patch-demo --patch "$(cat patch-file.json)"
+kubectl patch deployment patch-demo --patch-file patch-file.json
 kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"containers": [{"name": "patch-demo-ctr-2","image": "redis"}]}}}}'
 ```
 
@@ -680,7 +668,4 @@ Strategic merge patch is not supported for custom resources.
 * [使用指令式命令管理 Kubernetes 对象](/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [使用配置文件执行 Kubernetes 对象的指令式管理](/zh/docs/tasks/manage-kubernetes-objects/imperative-config)
 * [使用配置文件对 Kubernetes 对象进行声明式管理](/zh/docs/tasks/manage-kubernetes-objects/declarative-config/)
-
-
-
 

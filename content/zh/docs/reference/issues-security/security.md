@@ -35,11 +35,6 @@ Join the [kubernetes-security-announce](https://groups.google.com/forum/#!forum/
 加入 [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce) 组，以获取关于安全性和主要 API 公告的电子邮件。
 
 <!--
-You can also subscribe to an RSS feed of the above using [this link](https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss_v2_0.xml?num=50).
--->
-你也可以使用[此链接](https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss_v2_0.xml?num=50) 订阅上述的 RSS 反馈。
-
-<!--
 ## Report a Vulnerability
 -->
 ## 报告一个漏洞
@@ -57,14 +52,18 @@ To make a report, please email the private [security@kubernetes.io](mailto:secur
 详细信息电子邮件到[security@kubernetes.io](mailto:security@kubernetes.io)列表。
 
 <!--
-You can also email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md).
+You can also email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://github.com/kubernetes/kubernetes/blob/master/.github/ISSUE_TEMPLATE/bug-report.yaml).
+
 -->
-你还可以通过电子邮件向私有 [security@kubernetes.io](mailto:security@kubernetes.io) 列表发送电子邮件，邮件中应该包含[所有 Kubernetes 错误报告](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)所需的详细信息。
+你还可以通过电子邮件向私有 [security@kubernetes.io](mailto:security@kubernetes.io)
+列表发送电子邮件，邮件中应该包含
+[所有 Kubernetes 错误报告](https://github.com/kubernetes/kubernetes/blob/master/.github/ISSUE_TEMPLATE/bug-report.yaml)
+所需的详细信息。
 <!--
-You may encrypt your email to this list using the GPG keys of the [Product Security Committee members](https://git.k8s.io/security/README.md#product-security-committee-psc). Encryption using GPG is NOT required to make a disclosure.
+You may encrypt your email to this list using the GPG keys of the [Security Response Committee members](https://git.k8s.io/security/README.md#product-security-committee-psc). Encryption using GPG is NOT required to make a disclosure.
 -->
-你可以使用[产品安全团队成员](https://git.k8s.io/security/README.md#product-security-committee-psc) 
-的 GPG 密钥加密你的电子邮件到此列表。使用 GPG 加密不需要公开。
+你可以使用[安全响应委员会成员](https://git.k8s.io/security/README.md#product-security-committee-psc)的
+GPG 密钥加密你的发往邮件列表的邮件。揭示问题时不需要使用 GPG 来加密。
 
 <!--
 ### When Should I Report a Vulnerability?
@@ -102,14 +101,14 @@ You may encrypt your email to this list using the GPG keys of the [Product Secur
 ## 安全漏洞响应
 
 <!--
-Each report is acknowledged and analyzed by Product Security Team members within 3 working days. This will set off the [Security Release Process](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#disclosures).
+Each report is acknowledged and analyzed by Security Response Committee members within 3 working days. This will set off the [Security Release Process](https://git.k8s.io/security/security-release-process.md#disclosures).
 -->
-每个报告在 3 个工作日内由产品安全团队成员确认和分析。这将启动[安全发布过程](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#disclosures)。
+每个报告在 3 个工作日内由安全响应委员会成员确认和分析。这将启动[安全发布过程](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#disclosures)。
 
 <!--
 Any vulnerability information shared with Product Security Team stays within Kubernetes project and will not be disseminated to other projects unless it is necessary to get the issue fixed.
 -->
-与产品安全团队共享的任何漏洞信息都保留在 Kubernetes 项目中，除非有必要修复该问题，否则不会传播到其他项目。
+与安全响应委员会共享的任何漏洞信息都保留在 Kubernetes 项目中，除非有必要修复该问题，否则不会传播到其他项目。
 
 <!--
 As the security issue moves from triage, to identified fix, to release planning we will keep the reporter updated.
@@ -122,9 +121,10 @@ As the security issue moves from triage, to identified fix, to release planning 
 ## 公开披露时间
 
 <!--
-A public disclosure date is negotiated by the Kubernetes product security team and the bug submitter. We prefer to fully disclose the bug as soon as possible once a user mitigation is available.
+A public disclosure date is negotiated by the Kubernetes Security Response Committee and the bug submitter. We prefer to fully disclose the bug as soon as possible once a user mitigation is available.
 -->
-公开披露日期由 Kubernetes 产品安全团队和 bug 提交者协商。我们倾向于在用户缓解措施可用时尽快完全披露该 bug。
+公开披露日期由 Kubernetes 安全响应委员会和 bug 提交者协商。
+我们倾向于在能够为用户提供缓解措施之后尽快完全披露该 bug。
 
 <!--
 It is reasonable to delay disclosure when the bug or the fix is not yet fully understood, the solution is not well-tested, or for vendor coordination.

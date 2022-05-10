@@ -182,8 +182,7 @@ static-web   1/1     Running   0               2m
 ```
 
 {{< note >}}
-Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See
-[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
+Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See [Pod Security admission](/docs/concepts/security/pod-security-admission) and [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/).
 {{< /note >}}
 
 {{< glossary_tooltip term_id="label" text="Labels" >}} from the static Pod are

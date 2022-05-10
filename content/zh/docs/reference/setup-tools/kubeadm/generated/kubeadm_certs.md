@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Commands related to handling kubernetes certificates
+-->
+处理 Kubernetes 证书的相关命令
 
 <!--
 ### Synopsis
@@ -7,7 +22,7 @@
 <!--
 Commands related to handling kubernetes certificates
 -->
-与处理 kubernetes 证书相关的命令
+处理 Kubernetes 证书相关的命令
 
 <!--
 ### Options
@@ -25,8 +40,8 @@ Commands related to handling kubernetes certificates
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<!-- td></td><td style="line-height: 130%; word-wrap: break-word;">help for certs</td -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><!-- help for certs-->certs 命令的帮助</td>
+<!-- td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for certs</p></td -->
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><!-- help for certs--><p>certs 命令的帮助</p></td>
 </tr>
 
 </tbody>
@@ -48,8 +63,8 @@ Commands related to handling kubernetes certificates
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<!-- td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
+<!-- td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td -->
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[实验] 到'真实'主机根文件系统的路径。</p></td>
 </tr>
 
 </tbody>

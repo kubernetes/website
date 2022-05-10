@@ -200,10 +200,10 @@ kubectl diff -f ./my-manifest.yaml
 
 # Nodeから返されるすべてのキーをピリオド区切りの階層表記で生成します。
 # 複雑にネストされたJSON構造をもつキーを指定したい時に便利です
-kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get nodes -o json | jq -c 'paths|join(".")'
 
 # Pod等から返されるすべてのキーをピリオド区切り階層表記で生成します。
-kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get pods -o json | jq -c 'paths|join(".")'
 ```
 
 ## リソースのアップデート

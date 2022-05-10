@@ -153,7 +153,7 @@ Prow 命令。
 {{< table caption="Prow commands for reviewing" >}}
 Prow Command | Role Restrictions | Description
 :------------|:------------------|:-----------
-`/lgtm` | Anyone, but triggers automation if a Reviewer or Approver uses it | Signals that you've finished reviewing a PR and are satisfied with the changes.
+`/lgtm` | Organization members | Signals that you've finished reviewing a PR and are satisfied with the changes.
 `/approve` | Approvers | Approves a PR for merging.
 `/assign` | Reviewers or Approvers | Assigns a person to review or approve a PR
 `/close` | Reviewers or Approvers | Closes an issue or PR.
@@ -167,7 +167,7 @@ of commands you can use in a PR.
 {{< table caption="评阅用 Prow 命令" >}}
 Prow 命令 | 角色限制 | 描述
 :------------|:------------------|:-----------
-`/lgtm` | 任何人均可使用，但只有评阅人和批准人使用此命令的时候才会触发自动化操作 | 用来表明你已经完成 PR 的评阅并对其所作变更表示满意
+`/lgtm` | 组织成员 | 用来表明你已经完成 PR 的评阅并对其所作变更表示满意
 `/approve` | 批准人 | 批准某 PR 可以合并
 `/assign` |评阅人或批准人 | 指派某人来评阅或批准某 PR
 `/close` | 评阅人或批准人 | 关闭 Issue 或 PR
@@ -233,7 +233,7 @@ finds issues that might need triage.
   `priority/important-longterm` | Do this within 6 months.
   `priority/backlog` | Deferrable indefinitely. Do when resources are available.
   `priority/awaiting-more-evidence` | Placeholder for a potentially good issue so it doesn't get lost.
-  `help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md) for more information.
+  `help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://kubernetes.dev/docs/guide/help-wanted/) for more information.
 
   At your discretion, take ownership of an issue and submit a PR for it
   (especially if it's quick or relates to work you're already doing).
@@ -252,7 +252,7 @@ the [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/k
   `priority/important-longterm` | 应在 6 个月内处理
   `priority/backlog` | 可无限期地推迟，可在人手充足时处理
   `priority/awaiting-more-evidence` | 占位符，标示 Issue 可能是一个不错的 Issue，避免该 Issue 被忽略或遗忘
-  `help` or `good first issue` | 适合对 Kubernetes 或 SIG Docs 经验较少的贡献者来处理。更多信息可参考[需要帮助和入门候选 Issue 标签](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md)。
+  `help` or `good first issue` | 适合对 Kubernetes 或 SIG Docs 经验较少的贡献者来处理。更多信息可参考[需要帮助和入门候选 Issue 标签](https://kubernetes.dev/docs/guide/help-wanted/)。
   {{< /table >}}
 
    基于你自己的判断，你可以选择某 Issue 来处理，为之发起 PR

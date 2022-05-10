@@ -318,10 +318,10 @@ If set, any request presenting a client certificate signed by one of the authori
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path to the cloud provider configuration file. Empty string for no configuration file. (DEPRECATED: will be removed in 1.23, in favor of removing cloud providers code from Kubelet.)
+The path to the cloud provider configuration file. Empty string for no configuration file. (DEPRECATED: will be removed in  1.24 or later, in favor of removing cloud providers code from Kubelet.)
 -->
 云驱动配置文件的路径。空字符串表示没有配置文件。
-已弃用：将在 1.23 版本中移除，以便于从 kubelet 中去除云驱动代码。
+已弃用：将在 1.24 或更高版本中移除，以便于从 kubelet 中去除云驱动代码。
 </td>
 </tr>
 
@@ -331,11 +331,11 @@ The path to the cloud provider configuration file. Empty string for no configura
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The provider for cloud services. Set to empty string for running with no cloud provider. If set, the cloud provider determines the name of the node (consult cloud provider documentation to determine if and how the hostname is used). (DEPRECATED: will be removed in 1.23, in favor of removing cloud provider code from Kubelet.)
+The provider for cloud services. Set to empty string for running with no cloud provider. If set, the cloud provider determines the name of the node (consult cloud provider documentation to determine if and how the hostname is used). (DEPRECATED: will be removed in 1.24 or later, in favor of removing cloud provider code from Kubelet.)
 -->
 云服务的提供者。设置为空字符串表示在没有云驱动的情况下运行。
 如果设置了此标志，则云驱动负责确定节点的名称（参考云提供商文档以确定是否以及如何使用主机名）。
-已弃用：将在 1.23 版本中移除，以便于从 kubelet 中去除云驱动代码。
+已弃用：将在 1.24 或更高版本中移除，以便于从 kubelet 中去除云驱动代码。
 </td>
 </tr>
 
@@ -574,14 +574,17 @@ Use this for the <code>docker</code> endpoint to communicate with. This docker-s
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The Kubelet will use this directory for checkpointing downloaded configurations and tracking configuration health. The Kubelet will create this directory if it does not already exist. The path may be absolute or relative; relative paths start at the Kubelet's current working directory. Providing this flag enables dynamic Kubelet configuration. The <code>DynamicKubeletConfig</code> feature gate must be enabled to pass this flag; this gate currently defaults to <code>true</code> because the feature is beta.
+The Kubelet will use this directory for checkpointing downloaded configurations and tracking configuration health. The Kubelet will create this directory if it does not already exist. The path may be absolute or relative; relative paths start at the Kubelet's current working directory. Providing this flag enables dynamic Kubelet configuration. The <code>DynamicKubeletConfig</code> feature gate must be enabled to pass this flag. (DEPRECATED: Feature DynamicKubeletConfig is deprecated in 1.22 and will not move to GA. It is planned to be removed from Kubernetes in the version 1.24 or later. Please use alternative ways to update kubelet configuration.)
 -->
 kubelet 使用此目录来保存所下载的配置，跟踪配置运行状况。
 如果目录不存在，则 kubelet 创建该目录。此路径可以是绝对路径，也可以是相对路径。
 相对路径从 kubelet 的当前工作目录计算。
 设置此参数将启用动态 kubelet 配置。必须启用 <code>DynamicKubeletConfig</code>
-特性门控之后才能设置此标志；由于此特性为 beta 阶段，对应的特性门控当前默认为
-<code>true</code>。
+特性门控之后才能设置此标志。
+(已弃用：DynamicKubeletConfig 功能在 1.22 中已弃用，不会移至 GA。 
+计划在 1.24 或更高版本中从 Kubernetes 中移除。 
+请使用其他方式来更新 kubelet 配置。)
+
 </td>
 </tr>
 
@@ -781,12 +784,12 @@ Whether kubelet should exit upon lock-file contention.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-When set to <code>true</code>, Hard eviction thresholds will be ignored while calculating node allocatable. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (DEPRECATED: will be removed in 1.23)
+When set to <code>true</code>, Hard eviction thresholds will be ignored while calculating node allocatable. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (DEPRECATED: will be removed in 1.24 or later)
 -->
 设置为 <code>true</code> 表示在计算节点可分配资源数量时忽略硬性逐出阈值设置。
 参考<a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/">
 相关文档</a>。
-已启用：将在 1.23 版本中移除。
+已启用：将在 1.24 或更高版本中移除。
 </td>
 </tr>
 
@@ -808,11 +811,11 @@ When set to <code>true</code>, Hard eviction thresholds will be ignored while ca
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[Experimental] if set to <code>true</code>, the kubelet will check the underlying node for required components (binaries, etc.) before performing the mount (DEPRECATED: will be removed in 1.23, in favor of using CSI.)
+[Experimental] if set to <code>true</code>, the kubelet will check the underlying node for required components (binaries, etc.) before performing the mount (DEPRECATED: will be removed in 1.24 or later, in favor of using CSI.)
 -->
 [实验性特性] 设置为 <code>true</code> 表示 kubelet 在进行挂载卷操作之前要
 在本节点上检查所需的组件（如可执行文件等）是否存在。
-已弃用：将在 1.23 版本中移除，以便使用 CSI。
+已弃用：将在 1.24 或更高版本中移除，以便使用 CSI。
 </td>
 </tr>
 
@@ -822,11 +825,11 @@ When set to <code>true</code>, Hard eviction thresholds will be ignored while ca
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If enabled, the kubelet will integrate with the kernel memcg notification to determine if memory eviction thresholds are crossed rather than polling. This flag will be removed in 1.23. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+If enabled, the kubelet will integrate with the kernel memcg notification to determine if memory eviction thresholds are crossed rather than polling. This flag will be removed in 1.24 or later. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置为 true 表示 kubelet 将会集成内核的 memcg 通知机制而不是使用轮询机制来
 判断是否达到了内存驱逐阈值。
-此标志将在 1.23 版本移除。
+此标志将在 1.24 或更高版本移除。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
@@ -853,10 +856,10 @@ If enabled, the kubelet will integrate with the kernel memcg notification to det
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[Experimental] Path of mounter binary. Leave empty to use the default <code>mount</code>. (DEPRECATED: will be removed in 1.23, in favor of using CSI.)
+[Experimental] Path of mounter binary. Leave empty to use the default <code>mount</code>. (DEPRECATED: will be removed in 1.24 or later, in favor of using CSI.)
 -->
 [实验性特性] 卷挂载器（mounter）的可执行文件的路径。设置为空表示使用默认挂载器 <code>mount</code>。
-已弃用：将在 1.23 版本移除以支持 CSI。
+已弃用：将在 1.24 或更高版本移除以支持 CSI。
 </td>
 </tr>
 
@@ -2216,10 +2219,10 @@ Timeout of all runtime requests except long running request - <code>pull</code>,
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Alpha feature&gt; Directory path for seccomp profiles. (DEPRECATED: will be removed in 1.23, in favor of using the <code><root-dir>/seccomp</code> directory)
+&lt;Warning: Alpha feature&gt; Directory path for seccomp profiles. (DEPRECATED: will be removed in 1.24 or later, in favor of using the <code><root-dir>/seccomp</code> directory)
 -->
 &lt;警告：alpha 特性&gt; seccomp 配置文件目录。
-已弃用：将在 1.23 版本中移除，以使用 <code>&lt;root-dir&gt;/seccomp</code> 目录。
+已弃用：将在 1.23 或更高版本中移除，以使用 <code>&lt;root-dir&gt;/seccomp</code> 目录。
 </td>
 </tr>
 

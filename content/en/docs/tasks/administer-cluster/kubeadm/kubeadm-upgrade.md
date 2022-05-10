@@ -11,7 +11,7 @@ weight: 20
 This page explains how to upgrade a Kubernetes cluster created with kubeadm from version
 {{< skew currentVersionAddMinor -1 >}}.x to version {{< skew currentVersion >}}.x, and from version
 {{< skew currentVersion >}}.x to {{< skew currentVersion >}}.y (where `y > x`). Skipping MINOR versions
-when upgrading is unsupported.
+when upgrading is unsupported. For more details, please visit [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
 
 To see information about upgrading clusters created using older versions of kubeadm,
 please refer to following pages instead:
@@ -43,7 +43,12 @@ first drain the node (or nodes) that you are upgrading. In the case of control p
 they could be running CoreDNS Pods or other critical workloads. For more information see
 [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
-- To verify that the kubelet service has successfully restarted after the kubelet has been upgraded, you can execute `systemctl status kubelet`  or view the service logs with `journalctl -xeu kubelet`.
+- To verify that the kubelet service has successfully restarted after the kubelet has been upgraded,
+you can execute `systemctl status kubelet`  or view the service logs with `journalctl -xeu kubelet`.
+- Usage of the `--config` flag of `kubeadm upgrade` with
+[kubeadm configuration API types](/docs/reference/config-api/kubeadm-config.v1beta3)
+with the purpose of reconfiguring the cluster is not recommended and can have unexpected results. Follow the steps in
+[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure) instead.
 
 <!-- steps -->
 

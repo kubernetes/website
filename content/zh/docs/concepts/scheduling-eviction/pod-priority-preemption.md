@@ -175,7 +175,7 @@ description: "此优先级类应仅用于 XYZ 服务 Pod。"
 <!--  
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Pods with `preemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
@@ -195,7 +195,7 @@ high-priority pods.
 -->
 ## 非抢占式 PriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 配置了 `preemptionPolicy: Never` 的 Pod 将被放置在调度队列中较低优先级 Pod 之前，
 但它们不能抢占其他 Pod。等待调度的非抢占式 Pod 将留在调度队列中，直到有足够的可用资源，
@@ -328,9 +328,10 @@ resources reserved for Pod P and also gives users information about preemptions
 in their clusters.
 
 Please note that Pod P is not necessarily scheduled to the "nominated Node".
+The scheduler always tries the "nominated Node" before iterating over any other nodes.
 After victim Pods are preempted, they get their graceful termination period. If
 another node becomes available while scheduler is waiting for the victim Pods to
-terminate, scheduler will use the other node to schedule Pod P. As a result
+terminate, scheduler may use the other node to schedule Pod P. As a result
 `nominatedNodeName` and `nodeName` of Pod spec are not always the same. Also, if
 scheduler preempts Pods on Node N, but then a higher priority Pod than Pod P
 arrives, scheduler may give Node N to the new higher priority Pod. In such a
@@ -344,9 +345,10 @@ Pod P 状态的 `nominatedNodeName` 字段被设置为节点 N 的名称。
 该字段帮助调度程序跟踪为 Pod P 保留的资源，并为用户提供有关其集群中抢占的信息。
 
 请注意，Pod P 不一定会调度到“被提名的节点（Nominated Node）”。
+调度程序总是在迭代任何其他节点之前尝试“指定节点”。
 在 Pod 因抢占而牺牲时，它们将获得体面终止期。
 如果调度程序正在等待牺牲者 Pod 终止时另一个节点变得可用，
-则调度程序将使用另一个节点来调度 Pod P。
+则调度程序可以使用另一个节点来调度 Pod P。
 因此，Pod 规约中的 `nominatedNodeName` 和 `nodeName` 并不总是相同。
 此外，如果调度程序抢占节点 N 上的 Pod，但随后比 Pod P 更高优先级的 Pod 到达，
 则调度程序可能会将节点 N 分配给新的更高优先级的 Pod。

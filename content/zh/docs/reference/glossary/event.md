@@ -48,9 +48,9 @@ Events should be treated as informative, best-effort, supplemental data.
 事件应该被视为一种告知性质的、尽力而为的、补充性质的数据。
 
 <!--
-In Kubernetes, [auditing](/docs/tasks/debug-application-cluster/audit/) generates a different kind of
+In Kubernetes, [auditing](/docs/tasks/debug/debug-cluster/audit/) generates a different kind of
 Event record (API group `audit.k8s.io`).
 -->
-在 Kubernetes 中，[审计](/zh/docs/tasks/debug-application-cluster/audit/)
+在 Kubernetes 中，[审计](/zh/docs/tasks/debug/debug-cluster/audit/)
 机制会生成一种不同种类的 Event 记录（API 组为 `audit.k8s.io`）。
 

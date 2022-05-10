@@ -13,11 +13,11 @@ auto_generated: true
 -->
 
 <!--
-Package v1 is the v1 version of the API.
+<p>Package v1 is the v1 version of the API.</p>
 
 ## Resource Types 
 -->
-此 API 的版本是 v1。
+<p>此 API 的版本是 v1。</p>
 
 ## 资源类型   {#resource-types}
 
@@ -26,9 +26,9 @@ Package v1 is the v1 version of the API.
 ## `WebhookAdmission`     {#apiserver-config-k8s-io-v1-WebhookAdmission}
 
 <!--
-WebhookAdmission provides configuration for the webhook admission controller.
+<p>WebhookAdmission provides configuration for the webhook admission controller.</p>
 -->
-WebhookAdmission 为 Webhook 准入控制器提供配置信息。
+<p>WebhookAdmission 为 Webhook 准入控制器提供配置信息。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -42,8 +42,8 @@ WebhookAdmission 为 Webhook 准入控制器提供配置信息。
 <code>string</code>
 </td>
 <td>
-   <!--KubeConfigFile is the path to the kubeconfig file.-->
-   字段 kubeConfigFile 包含指向 kubeconfig 文件的路径。
+   <!--<p>KubeConfigFile is the path to the kubeconfig file.</p>-->
+   <p>字段 kubeConfigFile 包含指向 kubeconfig 文件的路径。</p>
 </td>
 </tr>
     

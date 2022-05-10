@@ -40,6 +40,8 @@ You need to have these tools installed:
   - [Golang](https://golang.org/doc/install) version 1.13+
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
+  - [make](https://www.gnu.org/software/make/)
+  - [gcc compiler/linker](https://gcc.gnu.org/)
 -->
 - 你需要安装以下工具：
 
@@ -47,6 +49,8 @@ You need to have these tools installed:
   - [Golang](https://golang.org/doc/install) 的 1.13 版本或更高
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
+  - [make](https://www.gnu.org/software/make/)
+  - [gcc compiler/linker](https://gcc.gnu.org/)
 
 <!--
 - Your $GOPATH environment variable must be set, and the location of `etcd`
@@ -237,8 +241,9 @@ hack/update-generated-protobuf.sh
 On branch master
 ...
     modified:   api/openapi-spec/swagger.json
+    modified:   api/openapi-spec/v3/apis__apps__v1_openapi.json
+    modified:   pkg/generated/openapi/zz_generated.openapi.go
     modified:   staging/src/k8s.io/api/apps/v1/generated.proto
-    modified:   staging/src/k8s.io/api/apps/v1/types.go
     modified:   staging/src/k8s.io/api/apps/v1/types_swagger_doc_generated.go
 ```
 

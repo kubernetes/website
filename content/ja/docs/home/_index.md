@@ -59,7 +59,7 @@ cards:
   title: "K8sリリースノート"
   description: "もしKubernetesをインストールする、また最新バージョンにアップグレードする場合、最新のリリースノートを参照してください。"
   button: "Kubernetesをダウンロードする"
-  button_path: "/docs/setup/release/notes"
+  button_path: "/releases/download"
 - name: about
   title: ドキュメントについて
   description: このWebサイトには、Kubernetesの最新バージョンと過去4世代のドキュメントが含まれています。
