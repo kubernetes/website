@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Manage bootstrap tokens
+-->
+管理引导令牌
 
 <!--
 ### Synopsis
@@ -78,7 +93,9 @@ kubeadm token [flags]
 <!--
 Whether to enable dry-run mode or not
 -->
+<p>
 是否启用 `dry-run` 模式
+</p>
 </td>
 </tr>
 
@@ -93,7 +110,9 @@ Whether to enable dry-run mode or not
 <!--
 help for token
 -->
+<p>
 token 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -113,7 +132,9 @@ token 操作的帮助命令
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
+<p>
 与集群通信时使用的 kubeconfig 文件。如果未设置，则搜索一组标准位置以查找现有 kubeconfig 文件。
+</p>
 </td>
 </tr>
 
@@ -140,10 +161,11 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 指向 '真实' 宿主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-
