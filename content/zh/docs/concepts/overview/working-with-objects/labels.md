@@ -40,7 +40,7 @@ and CLIs. Non-identifying information should be recorded using
 [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 -->
 标签能够支持高效的查询和监听操作，对于用户界面和命令行是很理想的。
-应使用 [注解](/zh/docs/concepts/overview/working-with-objects/annotations/) 记录非识别信息。
+应使用[注解](/zh/docs/concepts/overview/working-with-objects/annotations/)记录非识别信息。
 
 <!-- body -->
 
@@ -72,7 +72,7 @@ Example labels:
 <!--
 These are examples of [commonly used labels](/docs/concepts/overview/working-with-objects/common-labels/); you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
 -->
-有一些 [常用标签](/zh/docs/concepts/overview/working-with-objects/common-labels/) 的例子；你可以任意制定自己的约定。
+有一些[常用标签](/zh/docs/concepts/overview/working-with-objects/common-labels/)的例子；你可以任意制定自己的约定。
 请记住，标签的 Key 对于给定对象必须是唯一的。
 
 <!--
@@ -96,7 +96,7 @@ _标签_ 是键值对。有效的标签键有两个段：可选的前缀和名�
 向最终用户对象添加标签的自动系统组件（例如 `kube-scheduler`、`kube-controller-manager`、
 `kube-apiserver`、`kubectl` 或其他第三方自动化工具）必须指定前缀。
 
-`kubernetes.io/` 和 `k8s.io/` 前缀是为 Kubernetes 核心组件 [保留的](/zh/docs/reference/labels-annotations-taints/)。
+`kubernetes.io/` 和 `k8s.io/` 前缀是为 Kubernetes 核心组件[保留的](/zh/docs/reference/labels-annotations-taints/)。
 
 <!--
 Valid label value:
@@ -118,7 +118,7 @@ Unlike [names and UIDs](/docs/user-guide/identifiers), labels do not provide uni
 -->
 ## 标签选择算符   {#label-selectors}
 
-与 [名称和 UID](/zh/docs/concepts/overview/working-with-objects/names/) 不同，
+与[名称和 UID](/zh/docs/concepts/overview/working-with-objects/names/) 不同，
 标签不支持唯一性。通常，我们希望许多对象携带相同的标签。
 
 <!--
@@ -400,5 +400,5 @@ See the documentation on [node selection](/docs/concepts/configuration/assign-po
 #### 选择节点集
 
 通过标签进行选择的一个用例是确定节点集，方便 Pod 调度。
-有关更多信息，请参阅 [选择节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/) 文档。
+有关更多信息，请参阅[选择节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)文档。
 

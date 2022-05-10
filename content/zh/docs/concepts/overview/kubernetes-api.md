@@ -44,7 +44,7 @@ Consider using one of the [client libraries](/docs/reference/using-api/client-li
 if you are writing an application using the Kubernetes API.
 -->
 如果你正在编写程序来访问 Kubernetes API，可以考虑使用
-[客户端库](/zh/docs/reference/using-api/client-libraries/) 之一。
+[客户端库](/zh/docs/reference/using-api/client-libraries/)之一。
 
 <!-- body -->
 
@@ -157,7 +157,7 @@ for the kube-apiserver component.
 Kubernetes v1.23 提供将其 API 以 OpenAPI v3 形式发布的初始支持；这一功能特性处于 Alpha
 状态，默认被禁用。
 你可以通过为 kube-apiserver 组件启用 `OpenAPIV3`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/) 来启用此
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)来启用此
 Alpha 特性。
 
 <!--
@@ -260,7 +260,7 @@ Refer to [API versions reference](/docs/reference/using-api/#api-versioning)
 for more details on the API version level definitions.
 -->
 关于 API 版本分级的定义细节，请参阅
-[API 版本参考](/zh/docs/reference/using-api/#api-versioning) 页面。
+[API 版本参考](/zh/docs/reference/using-api/#api-versioning)页面。
 
 <!--
 ## API Extension
@@ -277,7 +277,7 @@ The Kubernetes API can be extended in one of two ways:
 1. You can also extend the Kubernetes API by implementing an
    [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 -->
-1. 你可以使用 [自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+1. 你可以使用[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
    来以声明式方式定义 API 服务器如何提供你所选择的资源 API。 
 1. 你也可以选择实现自己的
    [聚合层](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
@@ -298,9 +298,9 @@ The Kubernetes API can be extended in one of two ways:
 - 了解如何通过添加你自己的
   [CustomResourceDefinition](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
   来扩展 Kubernetes API。
-- [控制 Kubernetes API 访问](/zh/docs/concepts/security/controlling-access/) 页面描述了集群如何针对
+- [控制 Kubernetes API 访问](/zh/docs/concepts/security/controlling-access/)页面描述了集群如何针对
   API 访问管理身份认证和鉴权。
-- 通过阅读 [API 参考](/zh/docs/reference/kubernetes-api/) 了解 API 端点、资源类型以及示例。
+- 通过阅读 [API 参考](/zh/docs/reference/kubernetes-api/)了解 API 端点、资源类型以及示例。
 - 阅读 [API 变更（英文）](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)
   以了解什么是兼容性的变更以及如何变更 API。
 
