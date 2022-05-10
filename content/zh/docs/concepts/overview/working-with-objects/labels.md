@@ -236,7 +236,7 @@ Similarly the comma separator acts as an _AND_ operator. So filtering resources 
 -->
 
 * 第一个示例选择了所有键等于 `environment` 并且值等于 `production` 或者 `qa` 的资源。
-* 第二个示例选择了所有键等于 `tier` 并且值不等于 `frontend` 或者 `backend` 的资源，以及所有没有 `tier` 键标签的资源。
+* 第二个示例选择了所有键等于 `tier` 并且值不等于 `frontend` 和 `backend` 的资源，以及所有没有 `tier` 键标签的资源。
 * 第三个示例选择了所有包含了有 `partition` 标签的资源；没有校验它的值。
 * 第四个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
 
