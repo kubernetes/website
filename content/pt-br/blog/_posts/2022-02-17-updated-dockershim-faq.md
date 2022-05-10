@@ -15,7 +15,7 @@ como parte do lançamento do Kubernetes v1.20. Para obter mais detalhes sobre
 o que isso significa, confira a postagem do blog
 [Não entre em pânico: Kubernetes e Docker](/pt-br/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
 
-Além disso, você pode ler [verifique se a remoção do dockershim afeta você](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+Além disso, você pode ler [verifique se a remoção do dockershim afeta você](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
 para determinar qual impacto a remoção do _dockershim_ teria para você
 ou para sua organização.
 
