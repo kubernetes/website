@@ -1555,8 +1555,8 @@ Mask size for IPv6 node cidr in dual-stack cluster. Default is 64.
 <!--
 Number of nodes per second on which pods are deleted in case of node failure when a zone is healthy (see --unhealthy-zone-threshold for definition of healthy/unhealthy). Zone refers to entire cluster in non-multizone clusters.
 -->
-当某区域变得不健康，节点失效时，每秒钟可以从此标志所设定的节点
-个数上删除 Pods。请参阅 <code>--unhealthy-zone-threshold</code> 
+当某区域健康时，在节点故障的情况下每秒删除 Pods 的节点数。
+请参阅 <code>--unhealthy-zone-threshold</code>
 以了解“健康”的判定标准。这里的区域（zone）在集群并不跨多个区域时
 指的是整个集群。
 </td>
