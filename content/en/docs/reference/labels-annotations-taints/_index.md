@@ -223,7 +223,7 @@ Example: `kubernetes.io/service-account.name: "sa-name"`
 Used on: Secret
 
 This annotation records the {{< glossary_tooltip term_id="name" text="name">}} of the
-ServiceAccount that the token (stored in the Secret) represents.
+ServiceAccount that the token (stored in the Secret of type `kubernetes.io/service-account-token`) represents.
 
 ### kubernetes.io/service-account.uid
 
@@ -232,7 +232,7 @@ Example: `kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800d
 Used on: Secret
 
 This annotation records the {{< glossary_tooltip term_id="uid" text="unique ID" >}} of the
-ServiceAccount that the token (stored in the Secret) represents.
+ServiceAccount that the token (stored in the Secret of type `kubernetes.io/service-account-token`) represents.
 
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
