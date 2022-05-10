@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Upload certificates to kubeadm-certs
+-->
+将证书上传到 kubeadm-certs
 
 <!-- 
 ### Synopsis
@@ -33,7 +48,9 @@ kubeadm init phase upload-certs [flags]
 <!--
 Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.
 -->
+<p>
 用于加密 kubeadm-certs Secret 中的控制平面证书的密钥。
+</p>
 </td>
 </tr>
 
@@ -45,7 +62,9 @@ Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -57,7 +76,9 @@ kubeadm 配置文件的路径。
 <!--
 help for upload-certs
 -->
+<p>
 upload-certs 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -68,8 +89,10 @@ upload-certs 操作的帮助命令
 <tr>
 <!-- td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td -->
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 用来与集群通信的 kubeconfig 文件。
 如果此标志未设置，则可以在一组标准的位置搜索现有的 kubeconfig 文件。
+</p>
 </td>
 </tr>
 
@@ -81,7 +104,9 @@ upload-certs 操作的帮助命令
 <!--
 Don't print the key used to encrypt the control-plane certificates.
 -->
+<p>
 不要打印输出用于加密控制平面证书的密钥。
+</p>
 </td>
 </tr>
 
@@ -93,7 +118,9 @@ Don't print the key used to encrypt the control-plane certificates.
 <!--
 Upload control-plane certificates to the kubeadm-certs Secret.
 -->
+<p>
 将控制平面证书上传到 kubeadm-certs Secret。
+</p>
 </td>
 </tr>
 
@@ -120,10 +147,11 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-
