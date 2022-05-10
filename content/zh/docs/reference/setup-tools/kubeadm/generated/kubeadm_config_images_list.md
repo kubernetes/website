@@ -16,16 +16,21 @@ guide. You can file document formatting bugs against the
 -->
 
 <!--
+
+<!--
+Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
+-->
+打印 kubeadm 要使用的镜像列表。配置文件用于自定义镜像或镜像存储库
+
 ### Synopsis
 -->
 
 ### 概要
 
 <!--
-Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized.
+Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
 -->
-
-打印 kubeadm 要使用的镜像列表。配置文件用于自定义任何镜像或镜像存储库。
+打印 kubeadm 要使用的镜像列表。配置文件用于自定义镜像或镜像存储库
 
 ```
 kubeadm config images list [flags]
@@ -63,6 +68,19 @@ If true, ignore any errors in templates when a field or map key is missing in th
 </tr>
 
 <tr>
+<td colspan="2">--config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to a kubeadm configuration file.
+-->
+<p>
+kubeadm 配置文件的路径。
+</p>
+</td>
+</tr>
+<tr>
 <td colspan="2">
 <!-- -o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text" -->
 -o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："text"
@@ -79,19 +97,6 @@ Output format. One of: text|json|yaml|go-template|go-template-file|template|temp
 </td>
 </tr>
 
-<tr>
-<td colspan="2">--config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Path to a kubeadm configuration file.
--->
-<p>
-kubeadm 配置文件的路径。
-</p>
-</td>
-</tr>
 
 <tr>
 <td colspan="2">--feature-gates string</td>
@@ -99,13 +104,13 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (BETA - default=true)
 -->
 <p>
 一组键值对（key=value），用于描述各种特征。选项是：
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认=false)
-<br/>UnversionedKubeletConfigMap=true|false (ALPHA - 默认=false)
+<br/>UnversionedKubeletConfigMap=true|false (BETA - 默认=true)
 </p>
 </td>
 </tr>
@@ -184,7 +189,6 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
