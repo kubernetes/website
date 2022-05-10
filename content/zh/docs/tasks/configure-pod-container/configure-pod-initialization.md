@@ -135,7 +135,7 @@ The output shows that nginx is serving the web page that was written by the init
 [communicating between Containers running in the same Pod](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
 * Learn more about [Init Containers](/docs/concepts/workloads/pods/init-containers/).
 * Learn more about [Volumes](/docs/concepts/storage/volumes/).
-* Learn more about [Debugging Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Learn more about [Debugging Init Containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 -->
 
 * 进一步了解[同一 Pod 中的容器间的通信](/zh/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/)。
