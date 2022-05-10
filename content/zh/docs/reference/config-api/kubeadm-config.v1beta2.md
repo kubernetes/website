@@ -445,7 +445,7 @@ node only (e.g. the node IP).</p>
 </td>
 <td>
    <!--
-   <p><code>etcd</code> holds the configuration for etcd.</p>
+   <p><code>etcd</code> holds configuration for etcd.</p>
    -->
    <p><code>etcd</code> 中包含 etcd 服务的配置。</p>
 </td>
@@ -633,7 +633,7 @@ ConfigMap 中，之后在新的控制面实例添加到集群或者现有控制�
 <tr><td><code>kind</code><br/>string</td><td><code>ClusterStatus</code></td></tr>
   
 <tr><td><code>apiEndpoints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#kubeadm-k8s-io-v1beta2-APIEndpoint"><code>map[string]APIEndpoint</code></a>
+<a href="#kubeadm-k8s-io-v1beta2-APIEndpoint"><code>map[string]github.com/tengqm/kubeconfig/config/kubeadm/v1beta2.APIEndpoint</code></a>
 </td>
 <td>
    <!--
@@ -693,7 +693,7 @@ This information IS NOT uploaded to the kubeadm cluster ConfigMap, partly becaus
 <td>
    <!--
    <p><code>localAPIEndpoint</code> represents the endpoint of the API server instance that's deployed on this control plane node.
-In HA setups, this differs from <code>ClusterConfiguration.controlPlaneEndpoint</code> in the sense that <code>controlPlaneEndpoint</code>
+In HA setups, this differs from <code>ClusterConfiguration.controlPlaneEndpoint</code> in the sense that ControlPlaneEndpoint
 is the global endpoint for the cluster, which then load-balances the requests to each individual API server. This
 configuration object lets you customize what IP/DNS name and port the local API server advertises it's accessible
 on. By default, kubeadm tries to auto-detect the IP of the default interface and use that, but in case that process
@@ -831,7 +831,7 @@ APIEndpoint 结构包含某节点上部署的 API 服务器的配置元素。
    <p><code>bindPort</code> sets the secure port for the API Server to bind to.
 Defaults to 6443.</p>
    -->
-   <code>bindPort</code> 设置 API 服务器要绑定到的安全端口。默认值为 6443。
+   <p><code>bindPort</code> 设置 API 服务器要绑定到的安全端口。默认值为 6443。</p>
 </td>
 </tr>
 </tbody>
@@ -848,7 +848,7 @@ Defaults to 6443.</p>
 
 <p>
 <!--
-APIServer holds settings necessary for API server deployments in the cluster
+APIServer holds settings necessary for API server deployments in the cluster.
 -->
 APIServer 包含集群中 API 服务器部署所必需的设置。
 </p>
@@ -860,8 +860,17 @@ APIServer 包含集群中 API 服务器部署所必需的设置。
 <tr><td><code>ControlPlaneComponent</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeadm-k8s-io-v1beta2-ControlPlaneComponent"><code>ControlPlaneComponent</code></a>
 </td>
-<td>（<code>ControlPlaneComponent</code> 结构的字段被嵌入到此类型中）
-   <span class="text-muted">无描述</span>
+<td>
+<!--
+(Members of <code>ControlPlaneComponent</code> are embedded into this type.)
+-->
+（<code>ControlPlaneComponent</code> 结构的字段被嵌入到此类型中）
+   <span class="text-muted">
+   <!--
+   No description provided.
+   -->
+   无描述
+   </span>
 </tr>
 <tr><td><code>certSANs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>[]string</code>
@@ -875,7 +884,7 @@ signing certificate.</p>
 </td>
 </tr>
 <tr><td><code>timeoutForControlPlane</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    <!--
@@ -926,12 +935,12 @@ for, so other administrators can know its purpose.</p-->
 </td>
 </tr>
 <tr><td><code>ttl</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <!--p><code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
+   <!--p><code>ttl</code> defines the time to live for this token. Defaults to '24h'.
 <code>expires</code> and <code>ttl</code> are mutually exclusive.</p-->
-   <p><code>ttl</code> 定义此令牌的声明周期。默认为 <code>24h</code>。
+   <p><code>ttl</code> 定义此令牌的声明周期。默认为 '24h'。
 <code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
 </td>
 </tr>
@@ -1006,10 +1015,10 @@ BootstrapTokenDiscovery 用来设置基于引导令牌的服务发现选项。
 <td>
 <p>
    <!--
-   <code>apiServerEndpoint</p> is an IP or domain name to the API server from which
+   <code>apiServerEndpoint</code> is an IP or domain name to the API server from which
 information will be fetched.
    -->
-   <code>apiServerEndpoint</p> 为 API 服务器的 IP 地址或者域名，从该端点可以获得集群信息。
+   <code>apiServerEndpoint</code> 为 API 服务器的 IP 地址或者域名，从该端点可以获得集群信息。
 </p>
 </td>
 </tr>
@@ -1022,14 +1031,13 @@ information will be fetched.
    <code>caCertHashes</code> specifies a set of public key pins to verify when token-based discovery
 is used. The root CA found during discovery must match one of these values.
 Specifying an empty set disables root CA pinning, which can be unsafe.
-Each hash is specified as &quot;&lt;type&gt;:&lt;value&gt;&quot;, where the only currently supported type is
-&quot;sha256&quot;. This is a hex-encoded SHA-256 hash of the Subject Public Key Info (SPKI)
+Each hash is specified as &quot;<\!-- raw HTML omitted -->:<!-- raw HTML omitted --\>&quot;, where the only currently supported type is &quot;sha256&quot;. This is a hex-encoded SHA-256 hash of the Subject Public Key Info (SPKI)
 object in DER-encoded ASN.1. These hashes can be calculated using, for example, OpenSSL.
    -->
    <code>caCertHashes</code> 设置一组在基于令牌来发现服务时要验证的公钥指纹。
 发现过程中获得的根 CA 必须与这里的数值之一匹配。
 设置为空集合意味着禁用根 CA 指纹，因而可能是不安全的。
-每个哈希值的形式为 "&lt;type&gt;:&lt;value&gt;"，当前唯一支持的 type 为
+每个哈希值的形式为 &quot;:&quot;，当前唯一支持的 type 为
 &quot;sha256&quot;。
 哈希值为主体公钥信息（Subject Public Key Info，SPKI）对象的 SHA-256
 哈希值（十六进制编码），形式为 DER 编码的 ASN.1。
@@ -1046,9 +1054,9 @@ object in DER-encoded ASN.1. These hashes can be calculated using, for example, 
 <code>caCertHashes</code>. This can weaken the security of kubeadm since other nodes can
 impersonate the control-plane.</p>
    -->
-   <code>unsafeSkipCAVerification</code> 允许在使用基于令牌的服务发现时不使用
+   <p><code>unsafeSkipCAVerification</code> 允许在使用基于令牌的服务发现时不使用
 <code>caCertHashes</code> 来执行 CA 验证。这会弱化 kubeadm 的安全性，
-因为其他节点可以伪装成控制面。
+因为其他节点可以伪装成控制面。</p>
 </td>
 </tr>
 </tbody>
@@ -1063,11 +1071,11 @@ impersonate the control-plane.</p>
 
 - [BootstrapToken](#kubeadm-k8s-io-v1beta2-BootstrapToken)
 
-<!--p>BootstrapTokenString is a token of the format <code>abcdef.abcdef0123456789</code> that is used
+<!--p>BootstrapTokenString is a token of the format abcdef.abcdef0123456789 that is used
 for both validation of the practically of the API server from a joining node's point
 of view and as an authentication method for the node in the bootstrap phase of
 &quot;kubeadm join&quot;. This token is and should be short-lived.</p-->
-<p>BootstrapTokenString 形式为 <code>abcdef.abcdef0123456789</code> 的一个令牌，
+<p>BootstrapTokenString 形式为 'abcdef.abcdef0123456789' 的一个令牌，
 用来从加入集群的节点角度验证 API 服务器的身份，或者 &quot;kubeadm join&quot;
 在节点启动引导是作为一种身份认证方法。
 此令牌的生命期是短暂的，并且应该如此。</p>
@@ -1120,7 +1128,7 @@ ControlPlaneComponent 中包含对集群中所有控制面组件都适用的设�
 <td>
 <p>
    <!--
-   <code>extraArgs</code> is an extra set of flags to pass to the control plane component.
+   <code>extraArgs</code> is an extra set of flags to pass to a control plane component.
 A key in this map is the flag name as it appears on the command line except
 without leading dash(es).
    -->
@@ -1135,9 +1143,10 @@ without leading dash(es).
 <td>
 <p>
    <!--
-   <code>extraVolumes</code> is an extra set of host volumes, mounted to the control plane component.
+   <code>extraVolumes</code> is an extra set of host volumes mounted to the control plane
+   component.
    -->
-   <code>extraVolumes</code> 是一组额外的主机卷，需要挂载到控制面组件中。
+   <code>extraVolumes</code> 是一组额外被挂载到控制面组件中的主机卷。
 </p>
 </td>
 </tr>
@@ -1178,7 +1187,9 @@ DNS 结构定义要在集群中使用的 DNS 插件。
 <tr><td><code>ImageMeta</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeadm-k8s-io-v1beta2-ImageMeta"><code>ImageMeta</code></a>
 </td>
-<td>（<code>ImageMeta</code> 的成员被内嵌到此类型中）。
+<td>
+<!--(Members of <code>ImageMeta</code> are embedded into this type.)-->
+（<code>ImageMeta</code> 的成员被内嵌到此类型中）。
 <p>
    <!--
    <code>imageMeta</code> allows to customize the image used for the DNS component.
@@ -1276,7 +1287,7 @@ does not contain any other authentication information
 </td>
 </tr>
 <tr><td><code>timeout</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
 <p>
@@ -1368,7 +1379,7 @@ kubeadm 不清楚证书文件的存放位置，因此必须单独提供证书信
 </td>
 <td>
    <!--
-   <p><code>endpoints</code> contains the list of etcd members.</p>
+   <p><code>endpoints</code> of etcd members.</p>
    -->
    <p><code>endpoints</code> 包含一组 etcd 成员的列表。</p>
 </td>
@@ -1469,8 +1480,8 @@ file from which to load cluster information.</p>
 <code>string</code>
 </td>
 <td>
-   <!--p><code>name</code> is the name of the volume inside the Pod template.</p-->
-   <p><code>name</code> 为卷在 Pod 模板中的名称。</p>
+   <!--p><code>name</code> of the volume inside the Pod template.</p-->
+   <p><code>name</code> 字段为卷在 Pod 模板中的名称。</p>
 </td>
 </tr>
 <tr><td><code>hostPath</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1485,8 +1496,8 @@ file from which to load cluster information.</p>
 <code>string</code>
 </td>
 <td>
-   <!--p><code>mountPath</code> is the path inside the Pod where <code>hostPath</code> will be mounted.</p-->
-   <p><code>mountPath</code> 是 <code>hostPath</code> 在 Pod 内挂载的路径。</p>
+   <!--p><code>mountPath</code>is the path inside the Pod where hostPath volume will be mounted.</p-->
+   <p><code>mountPath</code> 是 hostPath 在 Pod 内挂载的路径。</p>
 </td>
 </tr>
 <tr><td><code>readOnly</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1501,8 +1512,8 @@ file from which to load cluster information.</p>
 <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
-   <!--p><code>pathType</code> is the type of the <code>hostPath</code>.</p-->
-   <p><code>pathType</code> 是 <code>hostPath</code> 的类型。</p>
+   <!--p><code>pathType</code> is the type of the HostPath.</p-->
+   <p><code>pathType</code> 是 hostPath 的类型。</p>
 </td>
 </tr>
 </tbody>
@@ -1533,7 +1544,7 @@ originated from the Kubernetes/Kubernetes release process</p-->
 </td>
 <td>
    <!--p><code>imageRepository</code> sets the container registry to pull images from.
-If not set, the <code>imageRepository</code> defined in ClusterConfiguration will be used instead.</p-->
+If not set, the <code>imageRepository</code> defined in ClusterConfiguration will be used.</p-->
    <p><code>imageRepository</code> 设置镜像拉取所用的容器仓库。
 若未设置，则使用 ClusterConfiguration 中的 <code>imageRepository</code>。</p>
 </td>
@@ -1542,9 +1553,9 @@ If not set, the <code>imageRepository</code> defined in ClusterConfiguration wil
 <code>string</code>
 </td>
 <td>
-   <!--p><code>imageTag</code> allows to specify a tag for the image.
-In case this value is set, kubeadm does not change automatically the version of
-the above components during upgrades.</p-->
+   <!--p><code>imageTag</code> allows for specifying a tag for the image.
+In case this value is set, kubeadm does not change automatically the
+version of the above components during upgrades.</p-->
    <p><code>imageTag</code> 允许用户设置镜像的标签。
 如果设置了此字段，则 kubeadm 不再在集群升级时自动更改组件的版本。</p>
 </td>
@@ -1617,7 +1628,11 @@ Secret 中的证书的秘钥。对应的加密秘钥在 InitConfiguration 结构
 <tr><td><code>ImageMeta</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeadm-k8s-io-v1beta2-ImageMeta"><code>ImageMeta</code></a>
 </td>
-<td>（<code>ImageMeta</code> 结构的字段被嵌入到此类型中。）
+<td>
+<!--
+(Members of <code>ImageMeta</code> are embedded into this type.)
+-->
+（<code>ImageMeta</code> 结构的字段被嵌入到此类型中。）
    <!--
    <p>ImageMeta allows to customize the container used for etcd.</p>
    -->
@@ -1642,11 +1657,11 @@ Defaults to &quot;/var/lib/etcd&quot;.</p>
 <td>
    <!--
    <p><code>extraArgs</code> are extra arguments provided to the etcd binary when run
-inside a static Pod. A key in this map is the flag name as it appears on the
+inside a static pod. A key in this map is the flag name as it appears on the
 command line except without leading dash(es).</p>
    -->
    <p><code>extraArgs</code> 是为 etcd 可执行文件提供的额外参数，用于在静态
-Pod 中运行 etcd。映射中的每一个键对应命令行上的一个标志参数，只是去掉了前置的连字符。</p>
+pod 中运行 etcd。映射中的每一个键对应命令行上的一个标志参数，只是去掉了前置的连字符。</p>
 </td>
 </tr>
 <tr><td><code>serverCertSANs</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1654,7 +1669,7 @@ Pod 中运行 etcd。映射中的每一个键对应命令行上的一个标志�
 </td>
 <td>
    <!--
-   <p><code>serverCertSANs</code> sets extra Subject Alternative Names (SANs) for the etcd
+   <p>code>serverCertSANs</code> sets extra Subject Alternative Names (SANs) for the etcd
 server signing certificate.</p>
    -->
    <p><code>serverCertSANs</code> 为 etcd 服务器的签名证书设置额外的主体替代名
@@ -1699,9 +1714,9 @@ signing certificate.</p>
 </td>
 <td>
    <!--
-   <p><code>serviceSubnet</code> is the subnet used by Kubernetes Services. Defaults to &quot;10.96.0.0/12&quot;.</p>
+   <p><code>serviceSubnet</code> is the subnet used by kubernetes Services. Defaults to &quot;10.96.0.0/12&quot;.</p>
    -->
-   <p><code>serviceSubnet</code> 是 Kubernetes 服务所使用的的子网。
+   <p><code>serviceSubnet</code> 是 kubernetes 服务所使用的的子网。
 默认值为 &quot;10.96.0.0/12&quot;。</p>
 </td>
 </tr>
@@ -1717,8 +1732,8 @@ signing certificate.</p>
 <code>string</code>
 </td>
 <td>
-   <!--p><code>dnsDomain</code> is the DNS domain used by Kubernetes Services. Defaults to &quot;cluster.local&quot;.</p-->
-   <p><code>dnsDomain</code> 是 Kubernetes 服务所使用的的 DNS 域名。
+   <!--p><code>dnsDomain</code> is the DNS domain used by kubernetes Services. Defaults to &quot;cluster.local&quot;.</p-->
+   <p><code>dnsDomain</code> 是 kubernetes 服务所使用的的 DNS 域名。
 默认值为 &quot;cluster.local&quot;。</p>
 </td>
 </tr>
@@ -1751,13 +1766,13 @@ node to the cluster, either via &quot;kubeadm init&quot; or &quot;kubeadm join&q
 </td>
 <td>
    <!--
-   <p><code>name</code> is the <code>.metadata.name</code> field of the Node API object that will be created in this
+   <p><code>name</code> is the <code>.Metadata.Name</code> field of the Node API object that will be created in this
 <code>kubeadm init</code> or <code>kubeadm join</code> operation.
 This field is also used in the <code>CommonName</code> field of the kubelet's client certificate to
 the API server.
 Defaults to the hostname of the node if not provided.</p>
    -->
-   <p><code>name</code> 是 Node API 对象的 <code>.metadata.name</code> 字段值；
+   <p><code>name</code> 是 Node API 对象的 <code>.Metadata.Name</code> 字段值；
 该 API 对象会在此 <code>kubeadm init</code> 或 <code>kubeadm join</code> 操作期间创建。
 在提交给 API 服务器的 kubelet 客户端证书中，此字段也用作其 <code>CommonName</code>。
 如果未指定则默认为节点的主机名。</p>
@@ -1768,7 +1783,7 @@ Defaults to the hostname of the node if not provided.</p>
 </td>
 <td>
    <!--
-   <p><code>criSocket</code> is used to retrieve container runtime info.
+   <p><code>criSocket<code> is used to retrieve container runtime information.
 This information will be annotated to the Node API object, for later re-use</p>
    -->
    <p><code>criSocket</code> 用来读取容器运行时的信息。
@@ -1780,15 +1795,15 @@ This information will be annotated to the Node API object, for later re-use</p>
 </td>
 <td>
    <!--
-   <p><code>tains</code> specifies the taints the Node API object should be registered with.
+   <p><code>taints</code> specifies the taints the Node API object should be registered with.
 If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted to
-<code>taints: [&quot;node-role.kubernetes.io/master:&quot;&quot;]</code>.
-If you don't want to taint your control-plane node, set this field to an empty slice,
+<code>'node-role.kubernetes.io/master=&quot;&quot;'</code>.
+If you don't want to taint your control-plane node, set this field to an empty list,
 i.e. <code>taints: []</code> in the YAML file. This field is solely used for Node registration.</p>
    -->
    <p><code>tains</code> 设定 Node API 对象被注册时要附带的污点。
 若未设置此字段（即字段值为 null）, 在 <code>kubeadm init</code> 期间，节点与控制面之间的通信。
-默认值为污点默认设置为 <code>taints: [&quot;node-role.kubernetes.io/master:&quot;&quot;]</code>。
+默认值为污点默认设置为 <code>taints: ['node-role.kubernetes.io/master:&quot;&quot;']</code>。
 如果你不希望为控制面节点设置污点，可以在 YAML 中将此字段设置为空的列表，即
 <code>taints: []</code>。 此字段仅用在 Node 注册期间。</p>
 </td>
