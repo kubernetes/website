@@ -233,6 +233,7 @@ spec:
   driver: hostpath.csi.k8s.io
   source:
     volumeHandle: ee0cfb94-f8d4-11e9-b2d8-0242ac110002
+  sourceVolumeMode: Filesystem
   volumeSnapshotClassName: csi-hostpath-snapclass
   volumeSnapshotRef:
     name: new-snapshot-test
@@ -259,6 +260,7 @@ spec:
   driver: hostpath.csi.k8s.io
   source:
     snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+  sourceVolumeMode: Filesystem
   volumeSnapshotRef:
     name: new-snapshot-test
     namespace: default
@@ -267,6 +269,73 @@ spec:
 `snapshotHandle` is the unique identifier of the volume snapshot created on the storage backend. This field is required for the pre-provisioned snapshots. It specifies the CSI snapshot id on the storage system that this `VolumeSnapshotContent` represents.
 -->
 `snapshotHandle` 是存储后端创建卷的唯一标识符。对于预设置快照，这个字段是必须的。它指定此 `VolumeSnapshotContent` 表示的存储系统上的 CSI 快照 id。
+
+<!--
+`sourceVolumeMode` is the mode of the volume whose snapshot is taken. The value 
+of the `sourceVolumeMode` field can be either `Filesystem` or `Block`. If the 
+source volume mode is not specified, Kubernetes treats the snapshot as if the 
+source volume's mode is unknown.
+-->
+`sourceVolumeMode` 是创建快照的卷的模式。`sourceVolumeMode` 字段的值可以是
+`Filesystem` 或 `Block`。如果没有指定源卷模式，Kubernetes 会将快照视为未知的源卷模式。
+
+<!--
+## Converting the volume mode of a Snapshot {#convert-volume-mode}
+
+If the `VolumeSnapshots` API installed on your cluster supports the `sourceVolumeMode`
+field, then the API has the capability to prevent unauthorized users from converting
+the mode of a volume.
+
+To check if your cluster has capability for this feature, run the following command:
+-->
+## 转换快照的卷模式 {#convert-volume-mode}
+
+如果在你的集群上安装的 `VolumeSnapshots` API 支持 `sourceVolumeMode`
+字段，则该 API 可以防止未经授权的用户转换卷的模式。
+
+要检查你的集群是否具有此特性的能力，可以运行如下命令：
+
+```yaml
+$ kubectl get crd volumesnapshotcontent -o yaml
+```
+
+<!--
+If you want to allow users to create a `PersistentVolumeClaim` from an existing
+`VolumeSnapshot`, but with a different volume mode than the source, the annotation
+`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`needs to be added to
+the `VolumeSnapshotContent` that corresponds to the `VolumeSnapshot`.
+-->
+如果你希望允许用户从现有的 `VolumeSnapshot` 创建 `PersistentVolumeClaim`，
+但是使用与源卷不同的卷模式，则需要添加注解
+`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+到对应 `VolumeSnapshot` 的 `VolumeSnapshotContent` 中。
+<!--
+For pre-provisioned snapshots, `Spec.SourceVolumeMode` needs to be populated
+by the cluster administrator.
+
+An example `VolumeSnapshotContent` resource with this feature enabled would look like:
+-->
+对于预配置的快照，`Spec.SourceVolumeMode` 需要由集群管理员填充。
+
+启用此特性的 `VolumeSnapshotContent` 资源示例如下所示：
+
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: new-snapshot-content-test
+  annotations:
+    - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
+spec:
+  deletionPolicy: Delete
+  driver: hostpath.csi.k8s.io
+  source:
+    snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+  sourceVolumeMode: Filesystem
+  volumeSnapshotRef:
+    name: new-snapshot-test
+    namespace: default
+```
 
 <!--
 ## Provisioning Volumes from Snapshots
