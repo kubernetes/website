@@ -179,7 +179,7 @@ curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools
 .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
 ```
 
-[Install `crictl` from the cri-tools package](https://github.com/kubernetes-sigs/cri-tools)
+Install `crictl` from the [cri-tools project](https://github.com/kubernetes-sigs/cri-tools)
 which is required so that kubeadm can talk to the CRI endpoint.
 
 #### Run `kubeadm` to join the node
