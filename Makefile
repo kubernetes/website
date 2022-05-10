@@ -91,7 +91,7 @@ docker-internal-linkcheck:
 
 container-internal-linkcheck: link-checker-image-pull
 	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture --environment test
-	$(CONTAINER_ENGINE) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest
+	(CONTAINER_ENGINE) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest
 
 clean-api-reference: ## Clean all directories in API reference directory, preserve _index.md
 	rm -rf content/en/docs/reference/kubernetes-api/*/
