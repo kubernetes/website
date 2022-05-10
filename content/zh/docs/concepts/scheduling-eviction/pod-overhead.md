@@ -18,17 +18,17 @@ weight: 30
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 When you run a Pod on a Node, the Pod itself takes an amount of system resources. These
 resources are additional to the resources needed to run the container(s) inside the Pod.
-_Pod Overhead_ is a feature for accounting for the resources consumed by the Pod infrastructure
-on top of the container requests & limits.
+In Kubernetes, _Pod Overhead_ is a way to account for the resources consumed by the Pod
+infrastructure on top of the container requests & limits.
 -->
 
 在节点上运行 Pod 时，Pod 本身占用大量系统资源。这些是运行 Pod 内容器所需资源之外的资源。
-_POD 开销_ 是一个特性，用于计算 Pod 基础设施在容器请求和限制之上消耗的资源。
+在 Kubernetes 中，_POD 开销_ 是一种方法，用于计算 Pod 基础设施在容器请求和限制之上消耗的资源。
 
 <!-- body -->
 
@@ -53,17 +53,14 @@ the Pod cgroup, and when carrying out Pod eviction ranking.
 类似地，kubelet 将在确定 Pod cgroups 的大小和执行 Pod 驱逐排序时也会考虑 Pod 开销。
 
 <!--
-## Enabling Pod Overhead {#set-up}
+## Configuring Pod overhead {#set-up}
 -->
-## 启用 Pod 开销 {#set-up}
+## 配置 Pod 开销 {#set-up}
 
 <!--
-You need to make sure that the `PodOverhead`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (it is on by default as of 1.18)
-across your cluster, and a `RuntimeClass` is utilized which defines the `overhead` field.
+You need to make sure a `RuntimeClass` is utilized which defines the `overhead` field.
 -->
-你需要确保在集群中启用了 `PodOverhead` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-（在 1.18 默认是开启的），以及一个定义了 `overhead` 字段的 `RuntimeClass`。
+你需要确保使用一个定义了 `overhead` 字段的 `RuntimeClass`。
 
 <!--
 ## Usage example
@@ -71,25 +68,24 @@ across your cluster, and a `RuntimeClass` is utilized which defines the `overhea
 ## 使用示例
 
 <!--
-To use the PodOverhead feature, you need a RuntimeClass that defines the `overhead` field. As
-an example, you could use the following RuntimeClass definition with a virtualizing container runtime
-that uses around 120MiB per Pod for the virtual machine and the guest OS:
+To work with Pod overhead, you need a RuntimeClass that defines the `overhead` field. As
+an example, you could use the following RuntimeClass definition with a virtualization container
+runtime that uses around 120MiB per Pod for the virtual machine and the guest OS:
 -->
-要使用 PodOverhead 特性，需要一个定义了 `overhead` 字段的 RuntimeClass。
+要使用 Pod 开销，你需要一个定义了 `overhead` 字段的 RuntimeClass。
 作为例子，下面的 RuntimeClass 定义中包含一个虚拟化所用的容器运行时，
 RuntimeClass 如下，其中每个 Pod 大约使用 120MiB 用来运行虚拟机和寄宿操作系统：
 
 ```yaml
----
-kind: RuntimeClass
 apiVersion: node.k8s.io/v1
+kind: RuntimeClass
 metadata:
-    name: kata-fc
+  name: kata-fc
 handler: kata-fc
 overhead:
-    podFixed:
-        memory: "120Mi"
-        cpu: "250m"
+  podFixed:
+    memory: "120Mi"
+    cpu: "250m"
 ```
 
 <!--
@@ -141,8 +137,7 @@ RuntimeClass 中定义的 `overhead`。如果 PodSpec 中已定义该字段，�
 <!--
 After the RuntimeClass admission controller, you can check the updated PodSpec:
 -->
-在 RuntimeClass 准入控制器之后，可以检验一下已更新的 PodSpec:
-
+在 RuntimeClass 准入控制器进行修改后，你可以查看更新后的 PodSpec：
 ```bash
 kubectl get pod test-pod -o jsonpath='{.spec.overhead}'
 ```
@@ -171,8 +166,10 @@ requests and the overhead, then looks for a node that has 2.25 CPU and 320 MiB o
 然后寻找具备 2.25 CPU 和 320 MiB 内存可用的节点。
 
 <!--
-Once a Pod is scheduled to a node, the kubelet on that node creates a new {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}
-for the Pod. It is within this pod that the underlying container runtime will create containers. -->
+Once a Pod is scheduled to a node, the kubelet on that node creates a new {{< glossary_tooltip
+text="cgroup" term_id="cgroup" >}} for the Pod. It is within this pod that the underlying
+container runtime will create containers.
+-->
 一旦 Pod 被调度到了某个节点， 该节点上的 kubelet 将为该 Pod 新建一个 
 {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}。 底层容器运行时将在这个
 Pod 中创建容器。
@@ -189,8 +186,8 @@ Burstable QoS），kubelet 会为与该资源（CPU 的 `cpu.cfs_quota_us` 以�
 相关的 Pod cgroup 设定一个上限。该上限基于 PodSpec 中定义的容器限制总量与 `overhead` 之和。
 
 <!--
-For CPU, if the Pod is Guaranteed or Burstable QoS, the kubelet will set `cpu.shares` based on the sum of container
-requests plus the `overhead` defined in the PodSpec.
+For CPU, if the Pod is Guaranteed or Burstable QoS, the kubelet will set `cpu.shares` based on the
+sum of container requests plus the `overhead` defined in the PodSpec.
 -->
 对于 CPU，如果 Pod 的 QoS 是 Guaranteed 或者 Burstable，kubelet 会基于容器请求总量与
 PodSpec 中定义的 `overhead` 之和设置 `cpu.shares`。
@@ -199,6 +196,7 @@ PodSpec 中定义的 `overhead` 之和设置 `cpu.shares`。
 Looking at our example, verify the container requests for the workload:
 -->
 请看这个例子，验证工作负载的容器请求：
+
 ```bash
 kubectl get pod test-pod -o jsonpath='{.spec.containers[*].resources.limits}'
 ```
@@ -207,6 +205,7 @@ kubectl get pod test-pod -o jsonpath='{.spec.containers[*].resources.limits}'
 The total container requests are 2000m CPU and 200MiB of memory:
 -->
 容器请求总计 2000m CPU 和 200MiB 内存：
+
 ```
 map[cpu: 500m memory:100Mi] map[cpu:1500m memory:100Mi]
 ```
@@ -215,18 +214,19 @@ map[cpu: 500m memory:100Mi] map[cpu:1500m memory:100Mi]
 Check this against what is observed by the node:
  -->
 对照从节点观察到的情况来检查一下：
+
 ```bash
 kubectl describe node | grep test-pod -B2
 ```
 
 <!--
-The output shows 2250m CPU and 320MiB of memory are requested, which includes PodOverhead:
- -->
-该输出显示请求了 2250m CPU 以及 320MiB 内存，包含了 PodOverhead 在内：
+The output shows requests for 2250m CPU, and for 320MiB of memory. The requests include Pod overhead:
+-->
+该输出显示请求了 2250m CPU 以及 320MiB 内存。请求包含了 Pod 开销在内：
 ```
-  Namespace                   Name                CPU Requests  CPU Limits   Memory Requests  Memory Limits  AGE
-  ---------                   ----                ------------  ----------   ---------------  -------------  ---
-  default                     test-pod            2250m (56%)   2250m (56%)  320Mi (1%)       320Mi (1%)     36m
+  Namespace    Name       CPU Requests  CPU Limits   Memory Requests  Memory Limits  AGE
+  ---------    ----       ------------  ----------   ---------------  -------------  ---
+  default      test-pod   2250m (56%)   2250m (56%)  320Mi (1%)       320Mi (1%)     36m
 ```
 
 <!--
@@ -235,9 +235,10 @@ The output shows 2250m CPU and 320MiB of memory are requested, which includes Po
 ## 验证 Pod cgroup 限制
 
 <!--
-Check the Pod's memory cgroups on the node where the workload is running. In the following example, [`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)
+Check the Pod's memory cgroups on the node where the workload is running. In the following example,
+[`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)
 is used on the node, which provides a CLI for CRI-compatible container runtimes. This is an
-advanced example to show PodOverhead behavior, and it is not expected that users should need to check
+advanced example to show Pod overhead behavior, and it is not expected that users should need to check
 cgroups directly on the node.
 
 First, on the particular node, determine the Pod identifier:
@@ -245,7 +246,7 @@ First, on the particular node, determine the Pod identifier:
 在工作负载所运行的节点上检查 Pod 的内存 cgroups。在接下来的例子中，
 将在该节点上使用具备 CRI 兼容的容器运行时命令行工具
 [`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)。
-这是一个显示 PodOverhead 行为的高级示例， 预计用户不需要直接在节点上检查 cgroups。
+这是一个显示 Pod 开销行为的高级示例， 预计用户不需要直接在节点上检查 cgroups。
 首先在特定的节点上确定该 Pod 的标识符：
 
 <!--
@@ -275,13 +276,15 @@ sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 The resulting cgroup path includes the Pod's `pause` container. The Pod level cgroup is one directory above.
 -->
 执行结果的 cgroup 路径中包含了该 Pod 的 `pause` 容器。Pod 级别的 cgroup 在即上一层目录。
+
 ```
-        "cgroupsPath": "/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/7ccf55aee35dd16aca4189c952d83487297f3cd760f1bbf09620e206e7d0c27a"
+  "cgroupsPath": "/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/7ccf55aee35dd16aca4189c952d83487297f3cd760f1bbf09620e206e7d0c27a"
 ```
 
 <!--
-In this specific case, the pod cgroup path is `kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2`. Verify the Pod level cgroup setting for memory:
- -->
+In this specific case, the pod cgroup path is `kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2`.
+Verify the Pod level cgroup setting for memory:
+-->
 在这个例子中，该 Pod 的 cgroup 路径是 `kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2`。
 验证内存的 Pod 级别 cgroup 设置：
 
@@ -300,6 +303,7 @@ In this specific case, the pod cgroup path is `kubepods/podd7f4b509-cf94-4951-94
 This is 320 MiB, as expected:
 -->
 和预期的一样，这一数值为 320 MiB。
+
 ```
 335544320
 ```
@@ -310,14 +314,12 @@ This is 320 MiB, as expected:
 ### 可观察性
 
 <!--
-A `kube_pod_overhead` metric is available in [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)
-to help identify when PodOverhead is being utilized and to help observe stability of workloads
-running with a defined Overhead. This functionality is not available in the 1.9 release of
-kube-state-metrics, but is expected in a following release. Users will need to build kube-state-metrics
-from source in the meantime.
+Some `kube_pod_overhead_*` metrics are available in [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)
+to help identify when Pod overhead is being utilized and to help observe stability of workloads
+running with a defined overhead.
 -->
 在 [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) 中可以通过
-`kube_pod_overhead` 指标来协助确定何时使用 PodOverhead
+`kube_pod_overhead_*` 指标来协助确定何时使用 Pod 开销，
 以及协助观察以一个既定开销运行的工作负载的稳定性。
 该特性在 kube-state-metrics 的 1.9 发行版本中不可用，不过预计将在后续版本中发布。
 在此之前，用户需要从源代码构建 kube-state-metrics。
@@ -325,9 +327,9 @@ from source in the meantime.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* [RuntimeClass](/docs/concepts/containers/runtime-class/)
-* [PodOverhead Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
+* Learn more about [RuntimeClass](/docs/concepts/containers/runtime-class/)
+* Read the [PodOverhead Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
+  enhancement proposal for extra context
 -->
-
-* [RuntimeClass](/zh/docs/concepts/containers/runtime-class/)
-* [PodOverhead 设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
+* 学习更多关于 [RuntimeClass](/zh/docs/concepts/containers/runtime-class/) 的信息
+* 阅读 [PodOverhead 设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)增强建议以获取更多上下文
