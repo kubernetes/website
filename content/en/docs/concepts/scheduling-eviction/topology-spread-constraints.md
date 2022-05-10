@@ -406,12 +406,6 @@ Similarly, Kubernetes also respects `spec.nodeSelector`.
 
 {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
-The scheduler doesn't have prior knowledge of all the zones or other topology domains
-that a cluster has. They are determined from the existing nodes in the cluster. This
-could lead to a problem in autoscaled clusters, when a node pool (or node group) is
-scaled to zero nodes and the user is expecting them to scale up, because, in this case,
-those topology domains won't be considered until there is at least one node in them.
-
 ## Implicit conventions
 
 There are some implicit conventions worth noting here:
@@ -557,6 +551,16 @@ section of the enhancement proposal about Pod topology spread constraints.
   to rebalance the Pods distribution.
 - Pods matched on tainted nodes are respected.
   See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921).
+- The scheduler doesn't have prior knowledge of all the zones or other topology
+  domains that a cluster has. They are determined from the existing nodes in the
+  cluster. This could lead to a problem in autoscaled clusters, when a node pool (or
+  node group) is scaled to zero nodes, and you're expecting the cluster to scale up,
+  because, in this case, those topology domains won't be considered until there is
+  at least one node in them.  
+  You can work around this by using an cluster autoscaling tool that is aware of
+  Pod topology spread constraints and is also aware of the overall set of topology
+  domains.
+
 
 ## {{% heading "whatsnext" %}}
 
