@@ -63,7 +63,7 @@ These labels can include
 
 If your cluster spans multiple zones or regions, you can use node labels
 in conjunction with
-[Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+[Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 to control how Pods are spread across your cluster among fault domains:
 regions, zones, and even specific nodes.
 These hints enable the

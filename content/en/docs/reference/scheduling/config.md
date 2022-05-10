@@ -123,7 +123,7 @@ extension points:
   and [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
   Extension points: `filter`, `score`.
 - `PodTopologySpread`: Implements
-  [Pod topology spread](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+  [Pod topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
   Extension points: `preFilter`, `filter`, `preScore`, `score`.
 - `NodeUnschedulable`: Filters out nodes that have `.spec.unschedulable` set to
   true.
