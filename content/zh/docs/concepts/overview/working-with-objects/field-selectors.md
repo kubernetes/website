@@ -31,7 +31,7 @@ kubectl get pods --field-selector status.phase=Running
 Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the following `kubectl` queries equivalent:
 -->
 {{< note >}}
-字段选择器本质上是资源 *过滤器（Filters）*。默认情况下，字段选择器/过滤器是未被应用的，
+字段选择器本质上是资源“过滤器（Filters）”。默认情况下，字段选择器/过滤器是未被应用的，
 这意味着指定类型的所有资源都会被筛选出来。
 这使得以下的两个 `kubectl` 查询是等价的：
 
@@ -81,7 +81,7 @@ As with [label](/docs/concepts/overview/working-with-objects/labels) and other s
 -->
 ## 链式选择器   {#chained-selectors}
 
-同 [标签](/zh/docs/concepts/overview/working-with-objects/labels/) 和其他选择器一样，
+同[标签](/zh/docs/concepts/overview/working-with-objects/labels/)和其他选择器一样，
 字段选择器可以通过使用逗号分隔的列表组成一个选择链。
 下面这个 `kubectl` 命令将筛选 `status.phase` 字段不等于 `Running` 同时
 `spec.restartPolicy` 字段等于 `Always` 的所有 Pod：

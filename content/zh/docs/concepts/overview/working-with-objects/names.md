@@ -13,19 +13,19 @@ Every Kubernetes object also has a [_UID_](#uids) that is unique across your who
 For example, you can only have one Pod named `myapp-1234` within the same [namespace](/docs/concepts/overview/working-with-objects/namespaces/), but you can have one Pod and one Deployment that are each named `myapp-1234`.
 -->
 
-集群中的每一个对象都有一个 [_名称_](#names) 来标识在同类资源中的唯一性。
+集群中的每一个对象都有一个[_名称_](#names)来标识在同类资源中的唯一性。
 
 每个 Kubernetes 对象也有一个 [_UID_](#uids) 来标识在整个集群中的唯一性。
 
-比如，在同一个 [名字空间](/zh/docs/concepts/overview/working-with-objects/namespaces/)
+比如，在同一个[名字空间](/zh/docs/concepts/overview/working-with-objects/namespaces/)
 中有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
 
 <!--
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/user-guide/labels) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 -->
 对于用户提供的非唯一性的属性，Kubernetes 提供了
-[标签（Labels）](/zh/docs/concepts/working-with-objects/labels) 和
-[注解（Annotation）](/zh/docs/concepts/overview/working-with-objects/annotations/) 机制。
+[标签（Labels）](/zh/docs/concepts/working-with-objects/labels)和
+[注解（Annotation）](/zh/docs/concepts/overview/working-with-objects/annotations/)机制。
 
 <!-- body -->
 
@@ -69,7 +69,7 @@ This means the name must:
 DNS 子域名的定义可参见 [RFC 1123](https://tools.ietf.org/html/rfc1123)。
 这一要求意味着名称必须满足如下规则：
 
-- 不能超过253个字符
+- 不能超过 253 个字符
 - 只能包含小写字母、数字，以及 '-' 和 '.'
 - 必须以字母数字开头
 - 必须以字母数字结尾
@@ -174,6 +174,6 @@ UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) design document.
 -->
 * 进一步了解 Kubernetes [标签](/zh/docs/concepts/overview/working-with-objects/labels/)
-* 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) 的设计文档
+* 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)的设计文档
 
 
