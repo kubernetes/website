@@ -29,6 +29,7 @@ specific Pods:
   * [nodeSelector](#nodeselector) field matching against [node labels](#built-in-node-labels)
   * [Affinity and anti-affinity](#affinity-and-anti-affinity)
   * [nodeName](#nodename) field
+  * [Pod topology spread constraints](#pod-topology-spread-constraints)
 
 ## Node labels {#built-in-node-labels}
 
@@ -467,6 +468,16 @@ spec:
 ```
 
 The above Pod will only run on the node `kube-01`.
+
+## Pod topology spread constraints
+
+You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}}
+are spread across your cluster among failure-domains such as regions, zones, nodes, or among any other
+topology domains that you define. You might do this to improve performance, expected availability, or
+overall utilization.
+
+Read [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+to learn more about how these work.
 
 ## {{% heading "whatsnext" %}}
 
