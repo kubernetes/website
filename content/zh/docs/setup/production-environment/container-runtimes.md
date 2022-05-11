@@ -7,7 +7,7 @@ weight: 20
 reviewers:
 - vincepri
 - bart0sh
-title: Container runtimes
+title: Container Runtimes
 content_type: concept
 weight: 20
 -->
@@ -15,6 +15,8 @@ weight: 20
 <!-- overview -->
 
 <!-- 
+{{% dockershim-removal %}}
+
 You need to install a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 into each node in the cluster so that Pods can run there. This page outlines
@@ -24,24 +26,133 @@ what is involved and describes related tasks for setting up nodes.
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
 以使 Pod 可以运行在上面。本文概述了所涉及的内容并描述了与节点设置相关的任务。
 
-<!-- body -->
 
 <!-- 
-This page lists details for using several common container runtimes with
-Kubernetes, on Linux:
+Kubernetes {{< skew currentVersion >}} requires that you use a runtime that conforms with the {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI).
+
+See [CRI version support](#cri-versions) for more information.
+This page provides an outline of how to use several common container runtimes with Kubernetes.
  -->
-本文列出了在 Linux 上结合 Kubernetes 使用的几种通用容器运行时的详细信息： 
+
+Kubernetes {{< skew currentVersion >}} 要求你使用符合{{<glossary_tooltip term_id="cri" text="容器运行时接口">}} (CRI)的运行时。
+
+有关详细信息，请参阅 [CRI 版本支持](#cri-versions)。
+本页简要介绍在 Kubernetes 中几个常见的容器运行时的用法。
 
 - [containerd](#containerd)
 - [CRI-O](#cri-o)
-- [Docker](#docker)
+- [Docker Engine](#docker)
+- [Mirantis Container Runtime](#mcr)
 
 <!-- 
 {{< note >}}
-For other operating systems, look for documentation specific to your platform.
+Kubernetes releases before v1.24 included a direct integration with Docker Engine,
+using a component named _dockershim_. That special direct integration is no longer
+part of Kubernetes (this removal was
+[announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
+as part of the v1.20 release).
+You can read
+[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+to understand how this removal might
+affect you. To learn about migrating from using dockershim, see
+[Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
+
+If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
+check the documentation for that version.
 {{< /note >}}
+
  -->
-提示：对于其他操作系统，请查阅特定于你所使用平台的相关文档。
+ {{< note >}}
+提示：v1.24 之前的 Kubernetes 版本包括与 Docker Engine 的直接集成，使用名为 _dockershim_ 的组件。 
+这种特殊的直接整合不再是 Kubernetes 的一部分
+（这次删除被作为 v1.20 发行版本的一部分[宣布](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)）。
+你可以阅读[检查 Dockershim 弃用是否会影响你](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) 
+以了解此删除可能会如何影响你。 
+要了解如何使用 dockershim 进行迁移，请参阅[从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)。
+
+如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，检查该版本的文档。
+{{< /note >}}
+
+<!-- body -->
+<!-- 
+## Install and configure prerequisites
+
+The following steps apply common settings for Kubernetes nodes on Linux. 
+
+You can skip a particular setting if you're certain you don't need it.
+
+For more information, see [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) or the documentation for your specific container runtime.
+ -->
+
+## 安装和配置先决条件
+
+以下步骤将通用设置应用于 Linux 上的 Kubernetes 节点。
+
+如果你确定不需要某个特定设置，则可以跳过它。
+
+有关更多信息，请参阅[网络插件要求](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) 
+或特定容器运行时的文档。
+
+<!-- 
+### Forwarding IPv4 and letting iptables see bridged traffic
+
+Verify that the `br_netfilter` module is loaded by running `lsmod | grep br_netfilter`. 
+
+To load it explicitly, run `sudo modprobe br_netfilter`.
+
+In order for a Linux node's iptables to correctly view bridged traffic, verify that `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config. For example: 
+-->
+
+### 转发 IPv4 并让 iptables 看到桥接流量
+
+通过运行 `lsmod | grep br_netfilter` 来验证 `br_netfilter` 模块是否已加载。
+
+若要显式加载此模块，请运行 `sudo modprobe br_netfilter`。
+
+为了让 Linux 节点的 iptables 能够正确查看桥接流量，请确认 `sysctl` 配置中的
+`net.bridge.bridge-nf-call-iptables` 设置为 1。 例如：
+
+<!-- 
+```bash
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# sysctl params required by setup, params persist across reboots
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+``` 
+-->
+
+```bash
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# 设置所需的 sysctl 参数，参数在重新启动后保持不变
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+# 应用 sysctl 参数而不重新启动
+sudo sysctl --system
+```
 
 <!--
 ## Cgroup drivers
@@ -49,7 +160,7 @@ For other operating systems, look for documentation specific to your platform.
 ## Cgroup 驱动程序
 
 <!--
-Control groups are used to constrain resources that are allocated to processes.
+On Linux, {{< glossary_tooltip text="control groups" term_id="cgroup" >}} are used to constrain resources that are allocated to processes.
 
 When [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is chosen as the init
 system for a Linux distribution, the init process generates and consumes a root control group
@@ -58,10 +169,10 @@ Systemd has a tight integration with cgroups and allocates a cgroup per systemd 
 to configure your container runtime and the kubelet to use `cgroupfs`. Using `cgroupfs` alongside
 systemd means that there will be two different cgroup managers.
 -->
-控制组用来约束分配给进程的资源。
+在 Linux 上，{{<glossary_tooltip text="控制组（CGroup）" term_id="cgroup" >}}用于限制分配给进程的资源。
 
 当某个 Linux 系统发行版使用 [systemd](https://www.freedesktop.org/wiki/Software/systemd/)
-作为其初始化系统时，初始化进程会生成并使用一个 root 控制组 (`cgroup`), 并充当 cgroup 管理器。
+作为其初始化系统时，初始化进程会生成并使用一个 root 控制组（`cgroup`），并充当 cgroup 管理器。
 Systemd 与 cgroup 集成紧密，并将为每个 systemd 单元分配一个 cgroup。
 你也可以配置容器运行时和 kubelet 使用 `cgroupfs`。
 连同 systemd 一起使用 `cgroupfs` 意味着将有两个不同的 cgroup 管理器。
@@ -107,12 +218,13 @@ configuration, or reinstall it using automation.
 或者使用自动化方案来重新安装。
 
 <!--
-## Cgroup v2
+### Cgroup version 2 {#cgroup-v2}
 
 Cgroup v2 is the next version of the cgroup Linux API.  Differently than cgroup v1, there is a single
 hierarchy instead of a different one for each controller.
 -->
-## Cgroup v2
+### Cgroup v2 {#cgroup-v2}
+
 Cgroup v2 是 cgroup Linux API 的下一个版本。与 cgroup v1 不同的是，
 Cgroup v2 只有一个层次结构，而不是每个控制器有一个不同的层次结构。
 
@@ -143,22 +255,36 @@ Kubernetes 仅支持使用同一 cgroup 版本来管理所有控制器。
 如果 systemd 默认不使用 cgroup v2，你可以通过在内核命令行中添加 
 `systemd.unified_cgroup_hierarchy=1` 来配置系统去使用它。
 
+<!-- 
 ```shell
-# dnf install -y grubby && \
+# This example is for a Linux OS that uses the DNF package manager
+# Your system might use a different method for setting the command line
+# that the Linux kernel uses.
+sudo dnf install -y grubby && \
+  sudo grubby \
+  --update-kernel=ALL \
+  --args="systemd.unified_cgroup_hierarchy=1"
+``` 
+-->
+
+```shell
+# 此示例适用于使用 DNF 包管理器的 Linux 操作系统
+# 你的系统可能使用不同的方法来设置 Linux 内核使用的命令行。
+sudo dnf install -y grubby && \
   sudo grubby \
   --update-kernel=ALL \
   --args="systemd.unified_cgroup_hierarchy=1"
 ```
 
 <!--
-To apply the configuration, it is necessary to reboot the node.
+If you change the command line for the kernel, you must reboot the node before your change takes effect.
 
 There should not be any noticeable difference in the user experience when switching to cgroup v2, unless
 users are accessing the cgroup file system directly, either on the node or from within the containers.
 
 In order to use it, cgroup v2 must be supported by the CRI runtime as well.
 -->
-要应用配置，必须重新启动节点。
+如果更改内核的命令行，则必须重新启动节点才能使更改生效。
 
 切换到 cgroup v2 时，用户体验不应有任何明显差异，
 除非用户直接在节点上或在容器内访问 cgroup 文件系统。
@@ -170,11 +296,23 @@ In order to use it, cgroup v2 must be supported by the CRI runtime as well.
 ### 将 kubeadm 托管的集群迁移到 `systemd` 驱动
 
 <!-- 
-Follow this [Migration guide](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
-if you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters.
+If you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters, follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+
+## CRI version support {#cri-versions}
+
+Your container runtime must support at least v1alpha2 of the container runtime interface.
+
+Kubernetes {{< skew currentVersion >}}  defaults to using v1 of the CRI API.If a container runtime does not support the v1 API, the kubelet falls back to using the (deprecated) v1alpha2 API instead.
 -->
-如果你想迁移到现有 kubeadm 托管集群中的 `systemd` cgroup 驱动程序，
-遵循此[迁移指南](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)。
+如果你希望将现有的由 kubeadm 管理的集群迁移到 `systemd` cgroup 驱动程序，
+请按照[配置 cgroup 驱动程序](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
+
+## CRI 版本支持 {#cri-versions}
+
+你的容器运行时必须至少支持容器运行时接口的 v1alpha2。
+
+Kubernetes {{< skew currentVersion >}} 默认使用 v1 的 CRI API。如果容器运行时不支持 v1 API，
+则 kubelet 会回退到使用（已弃用的）v1alpha2 API。
 
 <!-- 
 ## Container runtimes
@@ -186,131 +324,43 @@ if you wish to migrate to the `systemd` cgroup driver in existing kubeadm manage
 ### containerd
 
 <!--
-This section contains the necessary steps to use containerd as CRI runtime.
+This section outlines the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
 
-Install and configure prerequisites:
 -->
-本节包含使用 containerd 作为 CRI 运行时的必要步骤。
+本节概述了使用 containerd 作为 CRI 运行时的必要步骤。
 
 使用以下命令在系统上安装 Containerd：
 
-安装和配置的先决条件：
+<!-- 
+Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
+ -->
 
-```shell
-cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-overlay
-br_netfilter
-EOF
+按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md) 的说明进行操作。 
+创建有效的配置文件 `config.toml` 后返回此步骤。
 
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# 设置必需的 sysctl 参数，这些参数在重新启动后仍然存在。
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-# 应用 sysctl 参数而无需重新启动
-sudo sysctl --system
-```
-
-<!--
-Install containerd:
--->
-安装 containerd:
-
-{{< tabs name="tab-cri-containerd-installation" >}}
+{{< tabs name="Finding your config.toml file" >}}
 {{% tab name="Linux" %}}
-
-<!--
-1. Install the `containerd.io` package from the official Docker repositories.
-   Instructions for setting up the Docker repository for your respective Linux distribution and
-   installing the `containerd.io` package can be found at
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
--->
-1. 从官方Docker仓库安装 `containerd.io` 软件包。可以在
-   [安装 Docker 引擎](https://docs.docker.com/engine/install/#server)
-   中找到有关为各自的 Linux 发行版设置 Docker 存储库和安装 `containerd.io`
-   软件包的说明。
-
-<!--
-2. Configure containerd:
--->
-2. 配置 containerd：
-
-   ```shell
-   sudo mkdir -p /etc/containerd
-   containerd config default | sudo tee /etc/containerd/config.toml
-   ```
-
-<!--
-3. Restart containerd:
--->
-3. 重新启动 containerd:
-
-   ```shell
-   sudo systemctl restart containerd
-   ```
-
+<!-- You can find this file under the path `/etc/containerd/config.toml`. -->
+你可以在路径 `/etc/containerd/config.toml` 下找到此文件。
 {{% /tab %}}
-{{% tab name="Windows (PowerShell)" %}}
-
-<!--
-Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`),
-and then run the following commands:
--->
-启动 Powershell 会话，将 `$Version` 设置为所需的版本（例如：`$Version=1.4.3`），
-然后运行以下命令：
-
-<!--
-1. Download containerd:
--->
-1. 下载 containerd：
-
-   ```powershell
-   curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
-   tar.exe xvf .\containerd-windows-amd64.tar.gz
-   ```
-<!--
-2. Extract and configure:
--->
-2. 提取并配置：
-
-   ```powershell
-   Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
-   cd $Env:ProgramFiles\containerd\
-   .\containerd.exe config default | Out-File config.toml -Encoding ascii
-
-   # 检查配置。根据你的配置，可能需要调整：
-   # - sandbox_image (Kubernetes pause 镜像)
-   # - cni bin_dir 和 conf_dir 位置
-   Get-Content config.toml
-
-   # (可选 - 不过强烈建议) 禁止 Windows Defender 扫描 containerd
-   Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
-   ```
-<!--
-3. Start containerd:
--->
-3. 启动 containerd:
-
-   ```powershell
-   .\containerd.exe --register-service
-   Start-Service containerd
-   ```
-
-{{% /tab %}}
+{{< tab name="Windows" >}}
+<!-- You can find this file under the path `C:\Program Files\containerd\config.toml`. -->
+你可以在路径 `C:\Program Files\containerd\config.toml` 下找到此文件。
+{{< /tab >}}
 {{< /tabs >}}
 
 <!-- 
-#### Using the `systemd` cgroup driver {#containerd-systemd}
---> 
+On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
+On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 
-#### 使用 `systemd` cgroup 驱动程序 {#containerd-systemd}
+#### Configuring the `systemd` cgroup driver {#containerd-systemd}
+--> 
+在 Linux 上，containerd 的默认 CRI 套接字是 `/run/containerd/containerd.sock`。
+在 Windows 上，默认 CRI 端点是 `npipe://./pipe/containerd-containerd`。
+
+#### 配置 `systemd` cgroup 驱动程序 {#containerd-systemd}
 
 <!-- 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
@@ -325,9 +375,9 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
 ```
 
 <!--
-If you apply this change make sure to restart containerd again:
+If you apply this change, make sure to restart containerd:
 -->
-如果您应用此更改，请确保再次重新启动 containerd：
+如果你应用此更改，请确保重新启动 containerd：
 
 ```shell
 sudo systemctl restart containerd
@@ -345,274 +395,26 @@ When using kubeadm, manually configure the
 <!--
 This section contains the necessary steps to install CRI-O as a container runtime.
 
-Use the following commands to install CRI-O on your system:
 -->
 本节包含安装 CRI-O 作为容器运行时的必要步骤。
 
-使用以下命令在系统中安装 CRI-O：
-
-{{< note >}}
-<!--
-The CRI-O major and minor versions must match the Kubernetes major and minor versions.
-For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes).
+<!-- 
+To install CRI-O, follow [CRI-O Install Instructions](https://github.com/cri-o/cri-o/blob/main/install.md#readme).
 -->
-CRI-O 的主要以及次要版本必须与 Kubernetes 的主要和次要版本相匹配。
-更多信息请查阅
-[CRI-O 兼容性列表](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes)。
-{{< /note >}}
+
+要安装 CRI-O，请按照 [CRI-O 安装说明](https://github.com/cri-o/cri-o/blob/main/install.md#readme)执行操作。
+
+<!-- #### cgroup driver -->
+
+#### cgroup 驱动程序
 
 <!--
-Install and configure prerequisites:
+ CRI-O uses the systemd cgroup driver per default, which is likely to work fine for you. To switch to the `cgroupfs` cgroup driver, either edit `/etc/crio/crio.conf` or place a drop-in configuration in `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example: 
 -->
-安装并配置前置环境：
 
-```shell
+CRI-O 默认使用 systemd cgroup 驱动程序，这对你来说可能工作得很好。要切换到 `cgroupfs` cgroup 驱动程序，
+请编辑 `/etc/crio/crio.conf` 或在 `/etc/crio/crio.conf.d/02-cgroup-manager.conf` 中放置一个插入式配置 ，例如：
 
-# 创建 .conf 文件以在启动时加载模块
-cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# 配置 sysctl 参数，这些配置在重启之后仍然起作用
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-sudo sysctl --system
-```
-
-{{< tabs name="tab-cri-cri-o-installation" >}}
-{{% tab name="Debian" %}}
-
-<!-- 
-To install CRI-O on the following operating systems, set the environment variable `OS`
-to the appropriate value from the following table:
-
-| Operating system | `$OS`             |
-| ---------------- | ----------------- |
-| Debian Unstable  | `Debian_Unstable` |
-| Debian Testing   | `Debian_Testing`  |
-
-<br />
-Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
-You can pin your installation to a specific release.
-To install version 1.20.0, set `VERSION=1.20:1.20.0`.
-<br />
-
-Then run
--->
-在下列操作系统上安装 CRI-O, 使用下表中合适的值设置环境变量 `OS`:
-
-| 操作系统          | `$OS`             |
-| ---------------- | ----------------- |
-| Debian Unstable  | `Debian_Unstable` |
-| Debian Testing   | `Debian_Testing`  |
-
-<br />
-然后，将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
-例如，如果你要安装 CRI-O 1.20, 请设置 `VERSION=1.20`.
-你也可以安装一个特定的发行版本。
-例如要安装 1.20.0 版本，设置 `VERSION=1.20.0:1.20.0`.
-<br />
-
-然后执行
-
-```shell
-cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
-EOF
-cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
-deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
-EOF
-
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
-
-sudo apt-get update
-sudo apt-get install cri-o cri-o-runc
-```
-
-{{% /tab %}}
-
-{{% tab name="Ubuntu" %}}
-
-<!-- 
-To install on the following operating systems, set the environment variable `OS`
-to the appropriate field in the following table:
-
-| Operating system | `$OS`             |
-| ---------------- | ----------------- |
-| Ubuntu 20.04     | `xUbuntu_20.04`   |
-| Ubuntu 19.10     | `xUbuntu_19.10`   |
-| Ubuntu 19.04     | `xUbuntu_19.04`   |
-| Ubuntu 18.04     | `xUbuntu_18.04`   |
-
-<br />
-Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
-You can pin your installation to a specific release.
-To install version 1.20.0, set `VERSION=1.20:1.20.0`.
-<br />
-
-Then run
--->
-在下列操作系统上安装 CRI-O, 使用下表中合适的值设置环境变量 `OS`:
-
-| 操作系统          | `$OS`             |
-| ---------------- | ----------------- |
-| Ubuntu 20.04     | `xUbuntu_20.04`   |
-| Ubuntu 19.10     | `xUbuntu_19.10`   |
-| Ubuntu 19.04     | `xUbuntu_19.04`   |
-| Ubuntu 18.04     | `xUbuntu_18.04`   |
-
-<br />
-然后，将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
-例如，如果你要安装 CRI-O 1.20, 请设置 `VERSION=1.20`.
-你也可以安装一个特定的发行版本。
-例如要安装 1.20.0 版本，设置 `VERSION=1.20:1.20.0`.
-<br />
-
-然后执行
-
-```shell
-cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
-EOF
-cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
-deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
-EOF
-
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers-cri-o.gpg add -
-
-sudo apt-get update
-sudo apt-get install cri-o cri-o-runc
-```
- 
-{{% /tab %}}
-
-{{% tab name="CentOS" %}}
-
-<!-- 
-To install on the following operating systems, set the environment variable `OS`
-to the appropriate field in the following table:
-
-| Operating system | `$OS`             |
-| ---------------- | ----------------- |
-| Centos 8         | `CentOS_8`        |
-| Centos 8 Stream  | `CentOS_8_Stream` |
-| Centos 7         | `CentOS_7`        |
-
-<br />
-Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
-You can pin your installation to a specific release.
-To install version 1.20.0, set `VERSION=1.20:1.20.0`.
-<br />
-
-Then run
--->
-在下列操作系统上安装 CRI-O, 使用下表中合适的值设置环境变量 `OS`:
-
-| 操作系统          | `$OS`             |
-| ---------------- | ----------------- |
-| Centos 8         | `CentOS_8`        |
-| Centos 8 Stream  | `CentOS_8_Stream` |
-| Centos 7         | `CentOS_7`        |
-
-<br />
-然后，将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
-例如，如果你要安装 CRI-O 1.20, 请设置 `VERSION=1.20`.
-你也可以安装一个特定的发行版本。
-例如要安装 1.20.0 版本，设置 `VERSION=1.20:1.20.0`.
-<br />
-
-然后执行
-
-```shell
-sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
-sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
-sudo yum install cri-o
-```
-
-{{% /tab %}}
-
-{{% tab name="openSUSE Tumbleweed" %}}
-
-```shell
-sudo zypper install cri-o
-```
-{{% /tab %}}
-{{% tab name="Fedora" %}}
-
-<!-- 
-Set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.20, `VERSION=1.20`.
-
-You can find available versions with:
-```shell
-sudo dnf module list cri-o
-```
-CRI-O does not support pinning to specific releases on Fedora.
-
-Then run
--->
-将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
-例如，如果要安装 CRI-O 1.20，请设置 `VERSION=1.20`。
-你可以用下列命令查找可用的版本：
-
-```shell
-sudo dnf module list cri-o
-```
-
-CRI-O 不支持在 Fedora 上固定到特定的版本。
-
-然后执行
-
-```shell
-sudo dnf module enable cri-o:$VERSION
-sudo dnf install cri-o --now
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-<!-- 
-Start CRI-O:
--->
-启动 CRI-O：
-
-```shell
-sudo systemctl daemon-reload
-sudo systemctl enable crio --now
-```
-
-<!--
-Refer to the [CRI-O installation guide](https://github.com/cri-o/cri-o/blob/master/install.md)
-for more information.
- -->
-参阅[CRI-O 安装指南](https://github.com/cri-o/cri-o/blob/master/install.md)
-了解进一步的详细信息。
-
-<!--
-#### cgroup driver
-
-CRI-O uses the systemd cgroup driver per default. To switch to the `cgroupfs`
-cgroup driver, either edit `/etc/crio/crio.conf` or place a drop-in
-configuration in `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example:
--->
-#### cgroup 驱动
-
-默认情况下，CRI-O 使用 systemd cgroup 驱动程序。要切换到 `cgroupfs`
-驱动程序，或者编辑 `/ etc / crio / crio.conf` 或放置一个插件
-在 `/etc/crio/crio.conf.d/02-cgroup-manager.conf` 中的配置，例如：
 
 ```toml
 [crio.runtime]
@@ -620,77 +422,79 @@ conmon_cgroup = "pod"
 cgroup_manager = "cgroupfs"
 ```
 
-<!-- 
-Please also note the changed `conmon_cgroup`, which has to be set to the value
-`pod` when using CRI-O with `cgroupfs`. It is generally necessary to keep the
-cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
-in sync.
- -->
-另请注意更改后的 `conmon_cgroup`，将 CRI-O 与 `cgroupfs` 一起使用时，
-必须将其设置为 `pod`。通常有必要保持 kubelet 的 cgroup 驱动程序配置
-（通常透过 kubeadm 完成）和 CRI-O 一致。
-
-### Docker
-
 <!--
-1. On each of your nodes, install the Docker for your Linux distribution as per
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
-   You can find the latest validated version of Docker in this
-   [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
- -->
-1. 在每个节点上，根据[安装 Docker 引擎](https://docs.docker.com/engine/install/#server)
-   为你的 Linux 发行版安装 Docker。
-   你可以在此文件中找到最新的经过验证的 Docker 版本
-   [依赖关系](https://git.k8s.io/kubernetes/build/dependencies.yaml)。
-
-<!--
-2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
- -->
-2. 配置 Docker 守护程序，尤其是使用 systemd 来管理容器的 cgroup。
-
-   ```shell
-   sudo mkdir /etc/docker
-   cat <<EOF | sudo tee /etc/docker/daemon.json
-   {
-     "exec-opts": ["native.cgroupdriver=systemd"],
-     "log-driver": "json-file",
-     "log-opts": {
-       "max-size": "100m"
-     },
-     "storage-driver": "overlay2"
-   }
-   EOF
-   ```
-
-   {{< note >}}
-   <!--
-   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher,
-   or RHEL or CentOS using version 3.10.0-514 and above.
-   -->
-   对于运行 Linux 内核版本 4.0 或更高版本，或使用 3.10.0-51 及更高版本的 RHEL
-   或 CentOS 的系统，`overlay2`是首选的存储驱动程序。
-   {{< /note >}}
-
-<!--
-3. Restart Docker and enable on boot:
+ You should also note the changed `conmon_cgroup`, which has to be set to the value `pod` when using CRI-O with `cgroupfs`. It is generally necessary to keep the cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O in sync.
 -->
-3. 重新启动 Docker 并在启动时启用：
 
-   ```shell
-   sudo systemctl enable docker
-   sudo systemctl daemon-reload
-   sudo systemctl restart docker
-   ```
+你还应该注意到 `conmon_cgroup` 被更改，当使用 CRI-O 和 `cgroupfs` 时，必须将其设置为值 `pod`。
+通常需要保持 kubelet 的 cgroup 驱动配置（通常通过 kubeadm 完成）和 CRI-O 同步。
+
+<!-- 
+For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
+
+### Docker Engine {#docker}
+
+-->
+对于 CRI-O，CRI 套接字默认为 `/var/run/crio/crio.sock`。
+
+### Docker Engine {#docker}
+
+<!-- 
+{{< note >}}
+These instructions assume that you are using the [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) adapter to integrate
+Docker Engine with Kubernetes.
+{{< /note >}} 
+-->
 
 {{< note >}}
-<!--
-For more information refer to
-  - [Configure the Docker daemon](https://docs.docker.com/config/daemon/)
-  - [Control Docker with systemd](https://docs.docker.com/config/daemon/systemd/)
--->
-有关更多信息，请参阅
+以下操作假设你使用 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) 适配器来将
+Docker Engine 与 Kubernetes 集成。
+{{< /note >}} 
 
-- [配置 Docker 守护程序](https://docs.docker.com/config/daemon/)
-- [使用 systemd 控制 Docker](https://docs.docker.com/config/daemon/systemd/)
-{{< /note >}}
+<!--
+ 1. On each of your nodes, install Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server). 
+ -->
+
+1. 在你的每个节点上，遵循[安装 Docker 引擎](https://docs.docker.com/engine/install/#server)指南为你的
+   Linux 发行版安装 Docker。
+
+<!-- 
+2. Install [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd), following the instructions in that source code repository.
+-->
+2. 按照源代码仓库中的说明安装 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
+
+
+<!--
+For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
+ 
+### Mirantis Container Runtime {#mcr}
+-->
+对于 `cri-dockerd`，默认情况下，CRI 套接字是 `/run/cri-dockerd.sock`。
+ 
+### Mirantis 容器运行时 {#mcr}
+
+<!--
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially available container runtime that was formerly known as Docker Enterprise Edition.
+You can use Mirantis Container Runtime with Kubernetes using the open source [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) component, included with MCR.
+-->
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) 是一种商用容器运行时，以前称为 Docker 企业版。
+你可以使用 MCR 中包含的开源 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) 组件将 Mirantis Container Runtime 与 Kubernetes 一起使用。
+
+<!--
+To learn more about how to install Mirantis Container Runtime, visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html). 
+-->
+要了解有关如何安装 Mirantis Container Runtime 的更多信息，请访问 [MCR 部署指南](https://docs.mirantis.com/mcr/20.10/install.html)。
+<!-- 
+Check the systemd unit named `cri-docker.socket` to find out the path to the CRI socket.
+-->
+检查名为 `cri-docker.socket` 的 systemd 单元以找出 CRI 套接字的路径。
+
+## {{% heading "whatsnext" %}}
+
+<!-- 
+As well as a container runtime, your cluster will need a working [network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+-->
+
+除了容器运行时，你的集群还需要有效的[网络插件](/zh/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)。
+
 
