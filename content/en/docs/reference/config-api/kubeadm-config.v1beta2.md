@@ -348,7 +348,7 @@ could be used for assigning a stable DNS to the control plane.</li>
 <code>string</code>
 </td>
 <td>
-   <p><code>mageRepository</code> sets the container registry to pull images from.
+   <p><code>imageRepository</code> sets the container registry to pull images from.
 If empty, <code>k8s.gcr.io</code> will be used by default; in case of kubernetes version is
 a CI build (kubernetes version starts with <code>ci/</code>) <code>gcr.io/k8s-staging-ci-images</code>
 is used as a default for control plane components and for kube-proxy, while
@@ -876,7 +876,7 @@ cluster information.
 </td>
 <td>
    <p><code>tlsBootstrapToken</code> is a token used for TLS bootstrapping.
-If <code>bootstrapToken</code> is set, this field is defaulted to <code>.bootstrapToken.token, but can be overridden. If </code>file` is set, this field <strong>must be set</strong> in case the KubeConfigFile does not
+If <code>bootstrapToken</code> is set, this field is defaulted to <code>.bootstrapToken.token</code>, but can be overridden. If <code>file</code> is set, this field <strong>must be set</strong> in case the KubeConfigFile does not
 contain any other authentication information.</p>
 </td>
 </tr>
@@ -1080,7 +1080,7 @@ originated from the Kubernetes/Kubernetes release process</p>
 <code>string</code>
 </td>
 <td>
-   <p><code>mageRepository</code> sets the container registry to pull images from.
+   <p><code>imageRepository</code> sets the container registry to pull images from.
 If not set, the <code>imageRepository</code> defined in ClusterConfiguration will be used.</p>
 </td>
 </tr>
@@ -1267,7 +1267,7 @@ Defaults to the hostname of the node if not provided.</p>
 <code>string</code>
 </td>
 <td>
-   <p>`criSocket is used to retrieve container runtime information. This information will
+   <p><code>criSocket<code> is used to retrieve container runtime information. This information will
 be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
