@@ -86,6 +86,7 @@ in time within that interval when the job should start.
 -->
 ## CronJob
 
+
 CronJob 用于执行周期性的动作，例如备份、报告生成等。
 这些任务中的每一个都应该配置为周期性重复的（例如：每天/每周/每月一次）；
 你可以定义任务开始执行的时间间隔。
@@ -149,6 +150,39 @@ For example, the line below states that the task must be started every Friday at
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 -->
 要生成 CronJob 时间表表达式，你还可以使用 [crontab.guru](https://crontab.guru/) 之类的 Web 工具。
+
+<!-- 
+## Time zones
+For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
+Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
+timezone).
+
+When you have the feature enabled, you can set `spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) name. For example, setting
+`spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
+
+A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
+-->
+
+## 时区 {#time-zones}
+对于没有指定时区的 CronJob，kube-controller-manager 基于本地时区解释排期表（Schedule）。
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+如果启用了 `CronJobTimeZone` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+你可以为 CronJob 指定一个时区（如果你没有启用该特性门控，或者你使用的是不支持试验性时区功能的
+Kubernetes 版本，集群中所有 CronJob 的时区都是未指定的）。
+
+启用该特性后，你可以将 `spec.timeZone`
+设置为有效[时区](https://zh.wikipedia.org/zh-hant/%E6%97%B6%E5%8C%BA%E4%BF%A1%E6%81%AF%E6%95%B0%E6%8D%AE%E5%BA%93s)名称。 
+例如，设置 `spec.timeZone: "Etc/UTC"` 指示 Kubernetes 采用 UTC 来解释排期表。
+
+Go 标准库中的时区数据库包含在二进制文件中，并用作备用数据库，以防系统上没有可用的外部数据库。
+
 
 <!--
 ## CronJob Limitations
