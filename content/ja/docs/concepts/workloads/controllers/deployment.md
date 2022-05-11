@@ -68,11 +68,6 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
   ```
 
-  {{< note >}}
-  実行したコマンドを`kubernetes.io/change-cause`というアノテーションに記録するために`--record`フラグを指定できます。
-  これは将来的な問題の調査のために有効です。例えば、各Deploymentのリビジョンにおいて実行されたコマンドを見るときに便利です。
-  {{< /note >}}
-
 
 2. Deploymentが作成されたことを確認するために、`kubectl get deployments`を実行してください。
 
@@ -158,12 +153,12 @@ Deploymentを更新するには以下のステップに従ってください。
 1. nginxのPodで、`nginx:1.14.2`イメージの代わりに`nginx:1.16.1`を使うように更新します。
 
     ```shell
-    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
     または単に次のコマンドを使用します。
 
     ```shell
-    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
     ```
 
     実行結果は以下のとおりです。
@@ -317,7 +312,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
 * `nginx:1.16.1`の代わりに`nginx:1.161`というイメージに更新して、Deploymentの更新中にタイプミスをしたと仮定します。
 
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.161
     ```
 
     実行結果は以下のとおりです。
@@ -431,15 +426,14 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     ```
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
-    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
-    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
+    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161
     ```
 
     `CHANGE-CAUSE`はリビジョンの作成時にDeploymentの`kubernetes.io/change-cause`アノテーションからリビジョンにコピーされます。以下の方法により`CHANGE-CAUSE`メッセージを指定できます。
 
     * `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`の実行によりアノテーションを追加します。
-    * リソースの変更時に`kubectl`コマンドの内容を記録するために`--record`フラグを追加します。
     * リソースのマニフェストを手動で編集します。
 
 2. 各リビジョンの詳細を確認するためには以下のコマンドを実行してください。
@@ -452,7 +446,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
               pod-template-hash=1159050644
-      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
       Containers:
        nginx:
         Image:      nginx:1.16.1
@@ -512,7 +506,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
     Labels:                 app=nginx
     Annotations:            deployment.kubernetes.io/revision=4
-                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     Selector:               app=nginx
     Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
     StrategyType:           RollingUpdate
