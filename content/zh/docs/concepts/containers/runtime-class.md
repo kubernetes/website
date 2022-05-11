@@ -159,13 +159,13 @@ spec:
 This will instruct the kubelet to use the named RuntimeClass to run this pod. If the named
 RuntimeClass does not exist, or the CRI cannot run the corresponding handler, the pod will enter the
 `Failed` terminal [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase). Look for a
-corresponding [event](/docs/tasks/debug-application-cluster/debug-application-introspection/) for an
+corresponding [event](/docs/tasks/debug/debug-application/debug-running-pod/) for an
 error message.
 -->
 这一设置会告诉 kubelet 使用所指的 RuntimeClass 来运行该 pod。
 如果所指的 RuntimeClass 不存在或者 CRI 无法运行相应的 handler，
 那么 pod 将会进入 `Failed` 终止[阶段](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
-你可以查看相应的[事件](/zh/docs/tasks/debug-application-cluster/debug-application-introspection/)，
+你可以查看相应的[事件](/zh/docs/tasks/debug/debug-application/debug-running-pod/)，
 获取执行过程中的错误信息。
 
 <!--
