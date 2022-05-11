@@ -255,7 +255,7 @@ during leader election cycles.</p>
 <code>string</code>
 </td>
 <td>
-   <p>resourceName indicates the namespace of resource object that will be used to lock
+   <p>resourceNamespace indicates the namespace of resource object that will be used to lock
 during leader election cycles.</p>
 </td>
 </tr>
