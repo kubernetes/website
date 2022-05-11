@@ -25,12 +25,12 @@
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/apparmor/     /docs/tutorials/clusters/apparmor/ 301
-/docs/admin/audit/     /docs/tasks/debug-application-cluster/audit/ 301
+/docs/admin/audit/     /docs/tasks/debug/debug-cluster/audit/ 301
 /docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
 /docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
 /docs/admin/cluster-management/     /docs/tasks/administer-cluster/ 302
 /id/docs/admin/cluster-management/     /id/docs/tasks/administer-cluster/ 302
-/docs/admin/cluster-troubleshooting/     /docs/tasks/debug-application-cluster/debug-cluster/ 301
+/docs/admin/cluster-troubleshooting/     /docs/tasks/debug/debug-cluster/ 301
 /docs/admin/daemons/     /docs/concepts/workloads/controllers/daemonset/ 301
 /docs/admin/disruptions/     /docs/concepts/workloads/pods/disruptions/ 301
 /docs/admin/dns/     /docs/concepts/services-networking/dns-pod-service/ 301
@@ -56,7 +56,7 @@
 /docs/admin/node-allocatable.md     /docs/tasks/administer-cluster/reserve-compute-resources/ 301
 /docs/admin/node-conformance.md     /docs/admin/node-conformance/ 301
 /docs/admin/node-conformance/       /docs/setup/best-practices/node-conformance/ 301
-/docs/admin/node-problem/     /docs/tasks/debug-application-cluster/monitor-node-health/ 301
+/docs/admin/node-problem/     /docs/tasks/debug/debug-cluster/monitor-node-health/ 301
 /docs/admin/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/admin/rescheduler/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
 /docs/admin/resourcequota/*     /docs/concepts/policy/resource-quotas/ 301
@@ -82,7 +82,7 @@
 /docs/concepts/containers/overview/     /docs/concepts/containers/ 301
 /docs/concepts/cluster-administration/cluster-administration-overview/     /docs/concepts/cluster-administration/ 301
 /docs/concepts/cluster-administration/access-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
-/docs/concepts/cluster-administration/audit/     /docs/tasks/debug-application-cluster/audit/ 301
+/docs/concepts/cluster-administration/audit/     /docs/tasks/debug/debug-cluster/audit/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
 /docs/concepts/cluster-administration/cluster-management/     /docs/tasks/administer-cluster/ 302
 /docs/concepts/cluster-administration/configure-etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
@@ -93,7 +93,7 @@
 /docs/concepts/cluster-administration/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
 /docs/concepts/cluster-administration/network-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/ 301
 /docs/concepts/cluster-administration/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
-/docs/concepts/cluster-administration/resource-usage-monitoring /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
+/docs/concepts/cluster-administration/resource-usage-monitoring /docs/tasks/debug/debug-cluster/resource-usage-monitoring/ 301
 /docs/concepts/cluster-administration/monitoring/ /docs/concepts/cluster-administration/system-metrics/ 301
 /docs/concepts/cluster-administration/controller-metrics/ /docs/concepts/cluster-administration/system-metrics/ 301
 /docs/concepts/cluster-administration/sysctl-cluster/ /docs/tasks/administer-cluster/sysctl-cluster/ 301
@@ -301,15 +301,14 @@
 /docs/tasks/configure-pod-container/projected-volume/     /docs/tasks/configure-pod-container/configure-projected-volume-storage/ 301
 /docs/tasks/configure-pod-container/romana-network-policy/     /docs/tasks/administer-cluster/romana-network-policy/ 301
 /docs/tasks/configure-pod-container/weave-network-policy/     /docs/tasks/administer-cluster/weave-network-policy/ 301
-/docs/tasks/debug-application-cluster/sematext-logging-monitoring/     https://sematext.com/kubernetes/ 301
 /docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/job/ 301
 /id/docs/tasks/job/work-queue-1/     /id/docs/concepts/workloads/controllers/job/ 301
 /docs/tasks/setup-konnectivity/setup-konnectivity/   /docs/tasks/extend-kubernetes/setup-konnectivity/ 301
-/docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
+/docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug/debug-application/get-shell-running-container/ 301
 /docs/tasks/kubectl/install/     /docs/tasks/tools/ 301
 /docs/tasks/tools/install-kubectl/     /docs/tasks/tools/ 301
 /docs/tasks/kubectl/list-all-running-container-images/     /docs/tasks/access-application-cluster/list-all-running-container-images/ 301
-/docs/tasks/manage-stateful-set/debugging-a-statefulset/     /docs/tasks/debug-application-cluster/debug-stateful-set/ 301
+/docs/tasks/manage-stateful-set/debugging-a-statefulset/     /docs/tasks/debug/debug-application/debug-statefulset/ 301
 /docs/tasks/manage-stateful-set/delete-pods/     /docs/tasks/run-application/delete-stateful-set/ 301
 /docs/tasks/manage-stateful-set/deleting-a-statefulset/     /docs/tasks/run-application/delete-stateful-set/ 301
 /docs/tasks/manage-stateful-set/scale-stateful-set/     /docs/tasks/run-application/scale-stateful-set/ 301
@@ -318,14 +317,33 @@
 /docs/tasks/stateful-sets/deleting-pods/     /docs/tasks/run-application/force-delete-stateful-set-pod/ 301
 /ja/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
 /id/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
-/docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug-application-cluster/debug-init-containers/ 301
+/docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug/debug-application/debug-init-containers/ 301
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
+
+/docs/tasks/debug-application-cluster/troubleshooting/     /docs/tasks/debug/ 301
+/docs/tasks/debug-application-cluster/     /docs/tasks/debug/ 301
+/docs/tasks/debug-application-cluster/debug-init-containers/     /docs/tasks/debug/debug-application/debug-init-containers/ 301
+/docs/tasks/debug-application-cluster/debug-application/     /docs/tasks/debug/debug-application/debug-pods/ 301
+/docs/tasks/debug-application-cluster/debug-pod-replication-controller/     /docs/tasks/debug/debug-application/debug-pods/ 301
+/docs/tasks/debug-application-cluster/debug-application-introspection/     /docs/tasks/debug/debug-application/debug-running-pod/ 301
+/docs/tasks/debug-application-cluster/debug-running-pod/     /docs/tasks/debug/debug-application/debug-running-pod/ 301
+/docs/tasks/debug-application-cluster/debug-service/     /docs/tasks/debug/debug-application/debug-service/ 301
+/docs/tasks/debug-application-cluster/debug-stateful-set/     /docs/tasks/debug/debug-application/debug-statefulset/ 301
+/docs/tasks/debug-application-cluster/determine-reason-pod-failure/     /docs/tasks/debug/debug-application/determine-reason-pod-failure/ 301
+/docs/tasks/debug-application-cluster/get-shell-running-container/     /docs/tasks/debug/debug-application/get-shell-running-container/ 301
+/docs/tasks/debug-application-cluster/debug-cluster/     /docs/tasks/debug/debug-cluster/ 301
+/docs/tasks/debug-application-cluster/audit/     /docs/tasks/debug/debug-cluster/audit/ 301
+/docs/tasks/debug-application-cluster/crictl/     /docs/tasks/debug/debug-cluster/crictl/ 301
+/docs/tasks/debug-application-cluster/local-debugging/     /docs/tasks/debug/debug-cluster/local-debugging/ 301
+/docs/tasks/debug-application-cluster/monitor-node-health/     /docs/tasks/debug/debug-cluster/monitor-node-health/ 301
+/docs/tasks/debug-application-cluster/resource-metrics-pipeline/     /docs/tasks/debug/debug-cluster/resource-metrics-pipeline/ 301
+/docs/tasks/debug-application-cluster/resource-usage-monitoring/     /docs/tasks/debug/debug-cluster/resource-usage-monitoring/ 301
 
 /docs/templatedemos/*     /docs/home/contribute/page-templates/ 301
 /docs/tools/     /docs/reference/tools/ 301
 /docs/tools/kompose/user-guide/     /docs/tasks/configure-pod-container/translate-compose-kubernetes/ 301
 /docs/tools/kompose/     /docs/tasks/configure-pod-container/translate-compose-kubernetes/ 301
-/docs/troubleshooting/     /docs/tasks/debug-application-cluster/troubleshooting/ 301
+/docs/troubleshooting/     /docs/tasks/debug/ 301
 
 /docs/tutorials/clusters/multiple-schedulers/     /docs/tasks/administer-cluster/configure-multiple-schedulers/ 301
 /docs/tutorials/connecting-apps/connecting-frontend-backend/     /docs/tasks/access-application-cluster/connecting-frontend-backend/ 301
@@ -364,7 +382,7 @@
 /docs/user-guide/accessing-the-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/user-guide/add-entries-to-pod-etc-hosts-with-host-aliases/     /docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/ 301
 /docs/user-guide/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
-/docs/user-guide/application-troubleshooting/     /docs/tasks/debug-application-cluster/debug-application/ 301
+/docs/user-guide/application-troubleshooting/     /docs/tasks/debug/debug-application/debug-pods/ 301
 /docs/user-guide/compute-resources/     /docs/concepts/configuration/manage-compute-resources-container/ 301
 /docs/user-guide/config-best-practices/     /docs/concepts/configuration/overview/ 301
 /docs/user-guide/configmap/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
@@ -376,8 +394,8 @@
 /docs/user-guide/container-environment/     /docs/concepts/containers/container-lifecycle-hooks/ 301
 /docs/user-guide/containers/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/user-guide/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
-/docs/user-guide/debugging-pods-and-replication-controllers/     /docs/tasks/debug-application-cluster/debug-pod-replication-controller/ 301
-/docs/user-guide/debugging-services/     /docs/tasks/debug-application-cluster/debug-service/ 301
+/docs/user-guide/debugging-pods-and-replication-controllers/     /docs/tasks/debug/debug-application/debug-pods/ 301
+/docs/user-guide/debugging-services/     /docs/tasks/debug/debug-application/debug-service/ 301
 /docs/user-guide/deploying-applications/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/user-guide/deployments/     /docs/concepts/workloads/controllers/deployment/ 301
 /docs/user-guide/docker-cli-to-kubectl/     /docs/reference/kubectl/docker-cli-to-kubectl/
@@ -396,7 +414,7 @@
 /docs/user-guide/images/     /docs/concepts/containers/images/ 301
 /docs/user-guide/ingress/     /docs/concepts/services-networking/ingress/ 301
 /docs/user-guide/ingress.md     /docs/concepts/services-networking/ingress/ 301
-/docs/user-guide/introspection-and-debugging/     /docs/tasks/debug-application-cluster/debug-application-introspection/ 301
+/docs/user-guide/introspection-and-debugging/     /docs/tasks/debug/debug-application/debug-running-pod/ 301
 /docs/user-guide/jsonpath/     /docs/reference/kubectl/jsonpath/
 /docs/user-guide/jobs/     /docs/concepts/workloads/controllers/job/ 301
 /id/docs/user-guide/jobs/     /id/docs/concepts/workloads/controllers/job/ 301
@@ -416,7 +434,7 @@
 /docs/user-guide/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/user-guide/logging/overview/     /docs/concepts/cluster-administration/logging/ 301
 /docs/user-guide/managing-deployments/     /docs/concepts/cluster-administration/manage-deployment/ 301
-/docs/user-guide/monitoring/     /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
+/docs/user-guide/monitoring/     /docs/tasks/debug/debug-cluster/resource-usage-monitoring/ 301
 /docs/user-guide/namespaces/     /docs/concepts/overview/working-with-objects/namespaces/ 301
 /docs/user-guide/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
 /docs/user-guide/node-selection/     /docs/concepts/scheduling-eviction/assign-pod-node/ 301
