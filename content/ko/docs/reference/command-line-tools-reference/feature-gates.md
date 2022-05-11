@@ -809,7 +809,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
 - `GenericEphemeralVolume`: 일반 볼륨의 모든 기능을 지원하는 임시, 인라인
   볼륨을 활성화한다(타사 스토리지 공급 업체, 스토리지 용량 추적, 스냅샷으로부터 복원
   등에서 제공할 수 있음).
-  [임시 볼륨](/docs/concepts/storage/ephemeral-volumes/)을 참고한다.
+  [임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/)을 참고한다.
 - `GracefulNodeShutdown` : kubelet에서 정상 종료를 지원한다.
   시스템 종료 중에 kubelet은 종료 이벤트를 감지하고 노드에서 실행 중인
   파드를 정상적으로 종료하려고 시도한다. 자세한 내용은
@@ -1064,7 +1064,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
   서비스 어카운트 토큰을 파드에 주입할 수 있다.
 - `TopologyAwareHints`: 엔드포인트슬라이스(EndpointSlices)에서 토폴로지 힌트 기반
   토폴로지-어웨어 라우팅을 활성화한다. 자세한 내용은
-  [토폴로지 어웨어 힌트](/docs/concepts/services-networking/topology-aware-hints/)
+  [토폴로지 인지 힌트](/ko/docs/concepts/services-networking/topology-aware-hints/)
   를 참고한다.
 - `TopologyManager`: 쿠버네티스의 다른 컴포넌트에 대한 세분화된 하드웨어 리소스
   할당을 조정하는 메커니즘을 활성화한다.
