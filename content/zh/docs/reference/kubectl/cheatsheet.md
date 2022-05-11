@@ -79,6 +79,7 @@ detailed config file information.
 -->
 ##  Kubectl 上下文和配置
 
+
 设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。
 查看[使用 kubeconfig 跨集群授权访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 文档获取配置文件详细信息。
