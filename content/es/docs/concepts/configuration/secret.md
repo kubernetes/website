@@ -862,7 +862,7 @@ tu debes usar `ls -la` para verlos al enumerar los contenidos del directorio.
 
 ### Caso de uso: Secret visible para un contenedor en un pod
 
-Considere un programa que necesita manejar solicitudes HTTP, hacer una lógicca empresarial compleja y luego firmar algunos mensajes con un HMAC. Debido a que tiene una lógica de aplicación compleja, puede haber una vulnerabilidad de lectura remota de archivos inadvertida en el servidor, lo que podría exponer la clave privada a un atacante.
+Considere un programa que necesita manejar solicitudes HTTP, hacer una lógica empresarial compleja y luego firmar algunos mensajes con un HMAC. Debido a que tiene una lógica de aplicación compleja, puede haber una vulnerabilidad de lectura remota de archivos inadvertida en el servidor, lo que podría exponer la clave privada a un atacante.
 
 Esto podría dividirse en dos procesos en dos contenedores: un contenedor de frontend que maneja la interacción del usuario y la lógica empresarial. pero que no puede ver la clave privada; y un contenedor de firmante que puede ver la clave privada, y responde a solicitudes de firma simples del frontend (ejemplo, a través de redes de localhost).
 
