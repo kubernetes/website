@@ -2,7 +2,7 @@
 title: Kubernetes 是什么？
 content_type: concept
 description: >
-  Kubernetes 是一个可移植的，可扩展的开源平台，用于管理容器化的工作负载和服务，方便了声明式配置和自动化。它拥有一个庞大且快速增长的生态系统。Kubernetes 的服务，支持和工具广泛可用。
+  Kubernetes 是一个可移植、可扩展的开源平台，用于管理容器化的工作负载和服务，方便进行声明式配置和自动化。Kubernetes 拥有一个庞大且快速增长的生态系统，其服务、支持和工具的使用范围广泛。
 weight: 10
 card:
   name: concepts
@@ -29,18 +29,17 @@ This page is an overview of Kubernetes.
 
 <!-- body -->
 <!--
-Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
+Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 -->
-Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。
-Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。
+Kubernetes 是一个可移植、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。
+Kubernetes 拥有一个庞大且快速增长的生态系统，其服务、支持和工具的使用范围广泛。
 
 <!--
 The name Kubernetes originates from Greek, meaning helmsman or pilot. K8s as an abbreviation results from counting the eight letters between the "K" and the "s". Google open-sourced the Kubernetes project in 2014. Kubernetes combines [over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running production workloads at scale with best-of-breed ideas and practices from the community.
 -->
 **Kubernetes** 这个名字源于希腊语，意为“舵手”或“飞行员”。k8s 这个缩写是因为 k 和 s 之间有八个字符的关系。
-Google 在 2014 年开源了 Kubernetes 项目。Kubernetes 建立在
-[Google 在大规模运行生产工作负载方面拥有十几年的经验](https://research.google/pubs/pub43438)
-的基础上，结合了社区中最好的想法和实践。
+Google 在 2014 年开源了 Kubernetes 项目。Kubernetes 建立在 
+[Google 大规模运行生产工作负载十几年经验](https://research.google/pubs/pub43438)的基础上，结合了社区中最优秀的想法和实践。
 
 <!--
 ## Going back in time
@@ -48,7 +47,7 @@ Let's take a look at why Kubernetes is so useful by going back in time.
 -->
 ## 时光回溯
 
-让我们回顾一下为什么 Kubernetes 如此有用。
+让我们回顾一下为何 Kubernetes 能够裨益四方。
 
 <!--
 ![Deployment evolution](/images/docs/Container_Evolution.svg)
@@ -237,9 +236,9 @@ Kubernetes：
   Kubernetes 旨在支持极其多种多样的工作负载，包括无状态、有状态和数据处理工作负载。
   如果应用程序可以在容器中运行，那么它应该可以在 Kubernetes 上很好地运行。
 * 不部署源代码，也不构建你的应用程序。
-  持续集成(CI)、交付和部署（CI/CD）工作流取决于组织的文化和偏好以及技术要求。
+  持续集成（CI）、交付和部署（CI/CD）工作流取决于组织的文化和偏好以及技术要求。
 * 不提供应用程序级别的服务作为内置服务，例如中间件（例如，消息中间件）、
-  数据处理框架（例如，Spark）、数据库（例如，mysql）、缓存、集群存储系统
+  数据处理框架（例如，Spark）、数据库（例如，MySQL）、缓存、集群存储系统
   （例如，Ceph）。这样的组件可以在 Kubernetes 上运行，并且/或者可以由运行在
   Kubernetes 上的应用程序通过可移植机制（例如，
   [开放服务代理](https://openservicebrokerapi.org/)）来访问。
@@ -268,4 +267,4 @@ Kubernetes：
 *   Ready to [Get Started](/docs/setup/)?
 -->
 * 查阅 [Kubernetes 组件](/zh/docs/concepts/overview/components/)
-* 开始 [Kubernetes 入门](/zh/docs/setup/)?
+* 开始 [Kubernetes 入门](/zh/docs/setup/)？

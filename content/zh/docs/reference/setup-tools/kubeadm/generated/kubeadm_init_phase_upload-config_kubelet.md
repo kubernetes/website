@@ -1,3 +1,7 @@
+<!--
+Upload the kubelet component config to a ConfigMap
+-->
+将 kubelet 组件配置上传到 ConfigMap
 
 <!--
 ### Synopsis
@@ -6,11 +10,10 @@
 ### 概要
 
 <!--
-Upload kubelet configuration extracted from the kubeadm InitConfiguration object to a ConfigMap of the form kubelet-config-1.X in the cluster, where X is the minor version of the current (API Server) Kubernetes version.
+Upload the kubelet configuration extracted from the kubeadm InitConfiguration object to a kubelet-config ConfigMap in the cluster
 -->
 
-将从 kubeadm InitConfiguration 对象提取的 kubelet 配置上传到集群中 kubelet-config-1.X 形式的
-ConfigMap，其中 X 是当前（API 服务器）Kubernetes 版本的次要版本。
+将从 kubeadm InitConfiguration 对象提取的 kubelet 配置上传到集群中的 kubelet-config ConfigMap
 
 ```
 kubeadm init phase upload-config kubelet [flags]
@@ -53,7 +56,9 @@ kubeadm init phase upload-config kubelet --config kubeadm.yaml
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!-- Path to a kubeadm configuration file.  -->
+<p>
 到 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -63,7 +68,9 @@ kubeadm init phase upload-config kubelet --config kubeadm.yaml
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!-- help for kubelet -->
+<p>
 kubelet 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -77,7 +84,9 @@ kubelet 操作的帮助命令
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
+<p>
 与集群通信时使用的 kubeconfig 文件。如果未设置该标签，则可以通过一组标准路径来寻找已有的 kubeconfig 文件。
+</p>
 </td>
 </tr>
 
@@ -105,7 +114,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

@@ -17,14 +17,14 @@ namespace. These annotations apply to `Event` object from API group
 
 <!--
 The following annotations are not used within the Kubernetes API. When you
-[enable auditing](/docs/tasks/debug-application-cluster/audit/) in your cluster,
+[enable auditing](/docs/tasks/debug/debug-cluster/audit/) in your cluster,
 audit event data is written using `Event` from API group `audit.k8s.io`.
 The annotations apply to audit events. Audit events are different from objects in the
 [Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group
 `events.k8s.io`).
 -->
 {{< note >}}
-Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh/docs/tasks/debug-application-cluster/audit/)时，
+Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh/docs/tasks/debug/debug-cluster/audit/)时，
 审计事件数据将使用 API 组 `audit.k8s.io` 中的 `Event` 写入。
 注解适用于审计事件。审计事件不同于[事件 API ](/zh/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 （API 组 `events.k8s.io`）中的对象。
@@ -88,7 +88,7 @@ that was transgressed as well as the specific policies on the fields that were
 violated from the PodSecurity enforcement.
 
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
-for more information
+for more information.
 -->
 ## pod-security.kubernetes.io/audit-violations {#pod-security-kubernetes-io-audit-violations}
 
@@ -100,3 +100,105 @@ PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
 PodSecurity 执行中违反的特定策略及对应字段。
 
 有关详细信息，请参阅 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
+
+<!--
+## authorization.k8s.io/decision
+
+Example: `authorization.k8s.io/decision: "forbid"`
+
+This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
+
+See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
+-->
+## authorization.k8s.io/decision {#authorization-k8s-io-decision}
+
+例子：`authorization.k8s.io/decision: "forbid"`
+
+此注解在 Kubernetes 审计日志中表示请求是否获得授权。
+
+有关详细信息，请参阅[审计](/zh/docs/tasks/debug/debug-cluster/audit/)。
+
+<!--
+## authorization.k8s.io/reason
+
+Example: `authorization.k8s.io/reason: "Human-readable reason for the decision"`
+
+This annotation gives reason for the [decision](#authorization-k8s-io-decision) in Kubernetes audit logs.
+
+See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
+-->
+## authorization.k8s.io/reason {#authorization-k8s-io-reason}
+
+例子：`authorization.k8s.io/reason: "Human-readable reason for the decision"`
+
+此注解给出了 Kubernetes 审计日志中 [decision](#authorization-k8s-io-decision) 的原因。
+
+有关详细信息，请参阅[审计](/zh/docs/tasks/debug/debug-cluster/audit/)。
+
+## missing-san.invalid-cert.kubernetes.io/$hostname
+
+<!--
+Example: `missing-san.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "relies on a legacy Common Name field instead of the SAN extension for subject validation"`
+
+Used by Kubernetes version v1.24 and later
+-->
+例子：`missing-san.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "relies on a legacy Common Name field instead of the SAN extension for subject validation"`
+
+由 Kubernetes v1.24 及更高版本使用
+
+<!--
+This annotation indicates a webhook or aggregated API server
+is using an invalid certificate that is missing `subjectAltNames`.
+Support for these certificates was disabled by default in Kubernetes 1.19,
+and removed in Kubernetes 1.23.
+-->
+此注解表示 webhook 或聚合 API 服务器正在使用缺少 `subjectAltNames` 的无效证书。
+Kubernetes 1.19 已经默认禁用，且 Kubernetes 1.23 已经移除对这些证书的支持。
+
+<!--
+Requests to endpoints using these certificates will fail.
+Services using these certificates should replace them as soon as possible
+to avoid disruption when running in Kubernetes 1.23+ environments.
+-->
+使用这些证书向端点发出的请求将失败。
+使用这些证书的服务应尽快替换它们，以避免在 Kubernetes 1.23+ 环境中运行时中断。
+
+<!--
+There's more information about this in the Go documentation:
+[X.509 CommonName deprecation](https://go.dev/doc/go1.15#commonname).
+-->
+Go 文档中有更多关于此的信息：
+[X.509 CommonName 弃用](https://go.dev/doc/go1.15#commonname)。
+
+## insecure-sha1.invalid-cert.kubernetes.io/$hostname
+
+<!--
+Example: `insecure-sha1.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "uses an insecure SHA-1 signature"`
+Used by Kubernetes version v1.24 and later
+-->
+
+例子：`insecure-sha1.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "uses an insecure SHA-1 signature"`
+
+由 Kubernetes v1.24 及更高版本使用
+
+<!--
+This annotation indicates a webhook or aggregated API server
+is using an insecure certificate signed with a SHA-1 hash.
+Support for these insecure certificates is disabled by default in Kubernetes 1.24,
+and will be removed in a future release.
+-->
+此注解表示 webhook 或聚合 API 服务器正在使用使用 SHA-1 签名的不安全证书。
+Kubernetes 1.24 已经默认禁用，并将在未来的版本中删除对这些证书的支持。
+
+<!--
+Services using these certificates should replace them as soon as possible,
+to ensure connections are secured properly and to avoid disruption in future releases.
+-->
+使用这些证书的服务应尽快替换它们，以确保正确保护连接并避免在未来版本中出现中断。
+
+<!--
+There's more information about this in the Go documentation:
+[Rejecting SHA-1 certificates](https://go.dev/doc/go1.18#sha1).
+-->
+Go 文档中有更多关于此的信息：
+[拒绝 SHA-1 证书](https://go.dev/doc/go1.18#sha1)。

@@ -35,7 +35,7 @@ Windows HostProcess 容器让你能够在 Windows 主机上运行容器化负载
 <!--
 Administrative tasks such as installation of security patches, event
 log collection, and more can be performed without requiring cluster operators to
-log onto each Window node. HostProcess containers can run as any user that is
+log onto each Windows node. HostProcess containers can run as any user that is
 available on the host or is in the domain of the host machine, allowing administrators
 to restrict resource access through user permissions. While neither filesystem or process
 isolation are supported, a new volume is created on the host upon starting the container

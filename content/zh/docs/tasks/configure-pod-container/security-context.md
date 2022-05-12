@@ -631,7 +631,7 @@ in the `securityContext` section of your Pod or Container manifest. The
 [SeccompProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
 >}}/#seccompprofile-v1-core) object consisting of `type` and `localhostProfile`.
 Valid options for `type` include `RuntimeDefault`, `Unconfined`, and
-`Localhost`. `localhostProfile` must only be set set if `type: Localhost`. It
+`Localhost`. `localhostProfile` must only be set if `type: Localhost`. It
 indicates the path of the pre-configured profile on the node, relative to the
 kubelet's configured Seccomp profile location (configured with the `-root-dir`
 flag).

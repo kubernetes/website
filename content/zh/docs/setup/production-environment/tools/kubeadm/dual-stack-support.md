@@ -81,10 +81,12 @@ kubeadm init --pod-network-cidr=10.244.0.0/16,2001:db8:42:0::/56 --service-cidr=
 ```
 
 <!--
-To make things clearer, here is an example kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) `kubeadm-config.yaml` for the primary dual-stack control plane node.
+To make things clearer, here is an example kubeadm 
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/) 
+`kubeadm-config.yaml` for the primary dual-stack control plane node.
 -->
 为了更便于理解，参看下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/docs/reference/config-api/kubeadm-config.v1beta3/)，
+[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)，
 该文件用于双协议栈控制面的主控制节点。
 
 ```yaml
@@ -138,14 +140,15 @@ The `--apiserver-advertise-address` flag does not support dual-stack.
 
 Before joining a node, make sure that the node has IPv6 routable network interface and allows IPv6 forwarding.
 
-Here is an example kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) `kubeadm-config.yaml` for joining a worker node to the cluster.
+Here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+`kubeadm-config.yaml` for joining a worker node to the cluster.
 -->
 ### 向双协议栈集群添加节点   {#join-a-node-to-dual-stack-cluster}
 
 在添加节点之前，请确保该节点具有 IPv6 可路由的网络接口并且启用了 IPv6 转发。
 
 下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/docs/reference/config-api/kubeadm-config.v1beta3/)
+[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)
 示例用于向集群中添加工作节点。
 
 ```yaml
@@ -164,10 +167,11 @@ nodeRegistration:
 ```
 
 <!--
-Also, here is an example kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) `kubeadm-config.yaml` for joining another control plane node to the cluster.
+Also, here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+`kubeadm-config.yaml` for joining another control plane node to the cluster.
 -->
 下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/docs/reference/config-api/kubeadm-config.v1beta3/)
+[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)
 示例用于向集群中添加另一个控制面节点。
 
 ```yaml
@@ -215,12 +219,13 @@ You can deploy a single-stack cluster that has the dual-stack networking feature
 {{< /note >}}
 
 <!--
-To make things more clear, here is an example kubeadm [configuration file](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3) `kubeadm-config.yaml` for the single-stack control plane node.
+To make things more clear, here is an example kubeadm
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+`kubeadm-config.yaml` for the single-stack control plane node.
 -->
 为了更便于理解，参看下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/docs/reference/config-api/kubeadm-config.v1beta3/)示例，
+[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)示例，
 该文件用于单协议栈控制面节点。
-
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3

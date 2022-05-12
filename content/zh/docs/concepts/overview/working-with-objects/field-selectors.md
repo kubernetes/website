@@ -10,7 +10,7 @@ weight: 60
 <!--
 _Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some example field selector queries:
 -->
-_字段选择器（Field selectors_）允许你根据一个或多个资源字段的值
+“字段选择器（Field selectors）”允许你根据一个或多个资源字段的值
 [筛选 Kubernetes 资源](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects)。
 下面是一些使用字段选择器查询的例子：
 
@@ -31,7 +31,7 @@ kubectl get pods --field-selector status.phase=Running
 Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the following `kubectl` queries equivalent:
 -->
 {{< note >}}
-字段选择器本质上是资源*过滤器（Filters）*。默认情况下，字段选择器/过滤器是未被应用的，
+字段选择器本质上是资源“过滤器（Filters）”。默认情况下，字段选择器/过滤器是未被应用的，
 这意味着指定类型的所有资源都会被筛选出来。
 这使得以下的两个 `kubectl` 查询是等价的：
 
@@ -67,7 +67,7 @@ You can use the `=`, `==`, and `!=` operators with field selectors (`=` and `==`
 -->
 ## 支持的操作符   {#supported-operators}
 
-你可在字段选择器中使用 `=`、`==`和 `!=` （`=` 和 `==` 的意义是相同的）操作符。
+你可在字段选择器中使用 `=`、`==` 和 `!=` （`=` 和 `==` 的意义是相同的）操作符。
 例如，下面这个 `kubectl` 命令将筛选所有不属于 `default` 命名空间的 Kubernetes 服务：
 
 ```shell

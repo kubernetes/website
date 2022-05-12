@@ -905,7 +905,7 @@ users:
       #
       # The API version returned by the plugin MUST match the version listed here.
       #
-      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1beta1),
       # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
       # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
       apiVersion: "client.authentication.k8s.io/v1"
@@ -978,7 +978,7 @@ users:
       #
       # The API version returned by the plugin MUST match the version listed here.
       #
-      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1),
       # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
       # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
       apiVersion: "client.authentication.k8s.io/v1beta1"

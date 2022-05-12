@@ -67,7 +67,7 @@ The `spec` of a static Pod cannot refer to other API objects
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-This page assumes you're using {{< glossary_tooltip term_id="docker" >}} to run Pods,
+This page assumes you're using {{< glossary_tooltip term_id="cri-o" >}} to run Pods,
 and that your nodes are running the Fedora operating system.
 Instructions for other distributions or Kubernetes installations may vary.
 -->
@@ -273,7 +273,7 @@ already be running.
 You can view running containers (including static Pods) by running (on the node):
 ```shell
 # Run this command on the node where kubelet is running
-docker ps
+crictl ps
 ```
 
 The output might be something like:
@@ -287,7 +287,7 @@ The output might be something like:
 
 ```shell
 # 在 kubelet 运行的节点上执行以下命令
-docker ps
+crictl ps
 ```
 
 <!--
@@ -295,10 +295,19 @@ The output might be something like:
 -->
 输出可能会像这样：
 
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+129fd7d382018   docker.io/library/nginx@sha256:...    11 minutes ago    Running    web     0          34533c6729106
 ```
-CONTAINER ID IMAGE         COMMAND  CREATED        STATUS         PORTS     NAMES
-f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes             k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
-```
+
+<!--
+`crictl` outputs the image URI and SHA-256 checksum. `NAME` will look more like:
+`docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`.
+-->
+{{< note >}}
+`crictl` 会输出镜像 URI 和 SHA-256 校验和。 `NAME` 看起来像：
+`docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`。
+{{< /note >}}
 
 <!--
 You can see the mirror Pod on the API server:
@@ -310,17 +319,17 @@ kubectl get pods
 ```
 
 ```
-NAME                       READY     STATUS    RESTARTS   AGE
-static-web-my-node1        1/1       Running   0          2m
+NAME         READY   STATUS    RESTARTS        AGE
+static-web   1/1     Running   0               2m
 ```
 
 <!--
 Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See
-[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
+[Pod Security admission](/docs/concepts/security/pod-security-admission) and [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/).
 -->
 {{< note >}}
 要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。如果没有，创建请求会被 API 服务拒绝。
-可以看[Pod安全策略](/zh/docs/concepts/policy/pod-security-policy/)。
+可以看 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission/)和 [Pod 安全策略](/zh/docs/concepts/security/pod-security-policy/)。
 {{< /note >}}
 
 <!--
@@ -338,10 +347,10 @@ the kubelet _doesn't_ remove the static Pod:
 如果你用 `kubectl` 从 API 服务上删除镜像 Pod，kubelet _不会_ 移除静态 Pod：
 
 ```shell
-kubectl delete pod static-web-my-node1
+kubectl delete pod static-web
 ```
 ```
-pod "static-web-my-node1" deleted
+pod "static-web" deleted
 ```
 
 <!--
@@ -354,37 +363,36 @@ kubectl get pods
 ```
 
 ```
-NAME                       READY     STATUS    RESTARTS   AGE
-static-web-my-node1        1/1       Running   0          12s
+NAME         READY   STATUS    RESTARTS   AGE
+static-web   1/1     Running   0          4s
 ```
 
 <!--
-Back on your node where the kubelet is running, you can try to stop the Docker
-container manually.
+Back on your node where the kubelet is running, you can try to stop the container manually.
 You'll see that, after a time, the kubelet will notice and will restart the Pod
 automatically:
 
 ```shell
 # Run these commands on the node where the kubelet is running
-docker stop f6d05272b57e # replace with the ID of your container
+crictl stop 129fd7d382018 # replace with the ID of your container
 sleep 20
-docker ps
+crictl ps
 ```
 -->
-回到 kubelet 运行的节点上，可以手工停止 Docker 容器。
+回到 kubelet 运行的节点上，你可以手动停止容器。
 可以看到过了一段时间后 kubelet 会发现容器停止了并且会自动重启 Pod：
 
 ```shell
 # 在 kubelet 运行的节点上执行以下命令
 # 把 ID 换为你的容器的 ID
-docker stop f6d05272b57e
+crictl stop 129fd7d382018
 sleep 20
-docker ps
+crictl ps
 ```
 
-```
-CONTAINER ID        IMAGE         COMMAND                CREATED       ...
-5b920cbaf8b1        nginx:latest  "nginx -g 'daemon of   2 seconds ago ...
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+89db4553e1eeb   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
 
 <!--
@@ -398,11 +406,11 @@ The running kubelet periodically scans the configured directory (`/etc/kubelet.d
 #
 mv /etc/kubelet.d/static-web.yaml /tmp
 sleep 20
-docker ps
+crictl ps
 # You see that no nginx container is running
 mv /tmp/static-web.yaml  /etc/kubelet.d/
 sleep 20
-docker ps
+crictl ps
 ```
 -->
 ## 动态增加和删除静态 pod
@@ -415,16 +423,17 @@ docker ps
 # 在 kubelet 运行的节点上执行以下命令
 mv /etc/kubelet.d/static-web.yaml /tmp
 sleep 20
-docker ps
+crictl ps
 # 可以看到没有 nginx 容器在运行
 mv /tmp/static-web.yaml  /etc/kubelet.d/
 sleep 20
-docker ps
+crictl ps
 ```
 
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
-CONTAINER ID        IMAGE         COMMAND                CREATED           ...
-e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
-```
+
 
 

@@ -89,7 +89,15 @@ For non-resource requests, this is the lower-cased HTTP method.</p>
 <code>[]string</code>
 </td>
 <td>
-   <p>Source IPs, from where the request originated and intermediate proxies.</p>
+   <p>Source IPs, from where the request originated and intermediate proxies.
+The source IPs are listed from (in order):</p>
+<ol>
+<li>X-Forwarded-For request header IPs</li>
+<li>X-Real-Ip header, if not present in the X-Forwarded-For list</li>
+<li>The remote address for the connection, if it doesn't match the last
+IP in the list up to here (X-Forwarded-For or X-Real-Ip).
+Note: All but the last IP can be arbitrarily set by the client.</li>
+</ol>
 </td>
 </tr>
 <tr><td><code>userAgent</code><br/>

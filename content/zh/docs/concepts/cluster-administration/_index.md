@@ -98,7 +98,7 @@ Before choosing a guide, here are some considerations:
 * [Authorization](/docs/reference/access-authn-authz/authorization/) is separate from authentication, and controls how HTTP calls are handled.
 * [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
 * [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
-* [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
+* [Auditing](/docs/tasks/debug/debug-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 -->
 ## 保护集群  {#securing-a-cluster}
 
@@ -116,7 +116,7 @@ Before choosing a guide, here are some considerations:
   阐述了在认证和授权之后拦截到 Kubernetes API 服务的请求的插件。
 * [在 Kubernetes 集群中使用 Sysctls](/zh/docs/tasks/administer-cluster/sysctl-cluster/)
   描述了管理员如何使用 `sysctl` 命令行工具来设置内核参数。
-* [审计](/zh/docs/tasks/debug-application-cluster/audit/)
+* [审计](/zh/docs/tasks/debug/debug-cluster/audit/)
   描述了如何与 Kubernetes 的审计日志交互。
 
 <!--

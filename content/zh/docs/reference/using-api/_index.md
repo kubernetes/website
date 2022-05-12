@@ -191,6 +191,7 @@ part is omitted, it is treated as if `=true` is specified. For example:
 
  - to disable `batch/v1`, set `--runtime-config=batch/v1=false`
  - to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
+ - to enable a specific version of an API, such as `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities` 
 -->
 ## 启用或禁用 API 组   {#enabling-or-disabling}
 资源和 API 组是在默认情况下被启用的。
@@ -200,6 +201,8 @@ part is omitted, it is treated as if `=true` is specified. For example:
 例如：
  - 禁用 `batch/v1`， 对应参数设置 `--runtime-config=batch/v1=false`
  - 启用 `batch/v2alpha1`， 对应参数设置 `--runtime-config=batch/v2alpha1`
+ - 要启用特定版本的 API，如 `storage.k8s.io/v1beta1/csistoragecapacities`，可以设置
+   `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`
 
 <!--
 When you enable or disable groups or resources, you need to restart the API

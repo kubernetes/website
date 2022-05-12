@@ -111,7 +111,8 @@ different Kubernetes components.
 | `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | |
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | |
+| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
+| `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
@@ -485,6 +486,7 @@ different Kubernetes components.
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | 1.21 |
 | `ServerSideApply` | `true` | GA | 1.22 | - |
+| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | - |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | 1.19 |
 | `ServiceAccountIssuerDiscovery` | `true` | Beta | 1.20 | 1.20 |
 | `ServiceAccountIssuerDiscovery` | `true` | GA | 1.21 | - |
@@ -678,7 +680,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Docker Engine; no longer available. See
   [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) for
   an alternative.
-- `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
+- `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
 - `AffinityInAnnotations`: Enable setting
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
@@ -691,7 +693,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 -->
 - `Accelerators`：使用 Docker Engine 时启用 Nvidia GPU 支持。这一特性不再提供。
   关于替代方案，请参阅[设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)。
-- `AdvancedAuditing`：启用[高级审计功能](/zh/docs/tasks/debug-application-cluster/audit/#advanced-audit)。
+- `AdvancedAuditing`：启用[高级审计功能](/zh/docs/tasks/debug/debug-cluster/audit/#advanced-audit)。
 - `AffinityInAnnotations`：启用 [Pod 亲和或反亲和](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)。
 - `AllowExtTrafficLocalEndpoints`：启用服务用于将外部请求路由到节点本地终端。
 - `AllowInsecureBackendProxy`：允许用户在执行 Pod 日志访问请求时跳过 TLS 验证。

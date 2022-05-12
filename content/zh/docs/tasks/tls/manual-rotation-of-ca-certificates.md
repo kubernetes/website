@@ -260,7 +260,7 @@ Configurations with a single API server will experience unavailability while the
 
    1. Validate the logs from control plane components, along with the kubelet and the
       kube-proxy are not throwing any tls errors, see
-      [looking at the logs](/docs/tasks/debug-application-cluster/debug-cluster/#looking-at-logs).
+       [looking at the logs](/docs/tasks/debug/debug-cluster/#looking-at-logs).
 
    1. Validate logs from any aggregated api servers and pods using in-cluster config.
 -->
@@ -268,7 +268,7 @@ Configurations with a single API server will experience unavailability while the
 
     1. 验证控制面组件的日志，以及 `kubelet` 和 `kube-proxy` 的日志，确保其中没有
        抛出 TLS 错误，参阅
-       [查看日志](/zh/docs/tasks/debug-application-cluster/debug-cluster/#looking-at-logs).
+       [查看日志](/zh/docs/tasks/debug/debug-cluster/#looking-at-logs).
 
     2. 验证被聚合的 API 服务器的日志，以及所有使用集群内配置的 Pod 的日志。
 

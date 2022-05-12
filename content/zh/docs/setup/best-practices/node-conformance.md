@@ -64,8 +64,6 @@ To run the node conformance test, perform the following steps:
     Because the test framework starts a local control plane to test the kubelet,
     use `http://localhost:8080` as the URL of the API server.
     There are some other kubelet command line parameters you may want to use:
-  * `--pod-cidr`: If you are using `kubenet`, you should specify an arbitrary CIDR
-    to Kubelet, for example `--pod-cidr=10.180.0.0/24`.
   * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
     remove the flag to run the test.
 -->
@@ -73,8 +71,6 @@ To run the node conformance test, perform the following steps:
    由于测试框架启动了本地控制平面来测试 kubelet， 因此使用 `http://localhost:8080` 
    作为API 服务器的 URL。
    一些其他的 kubelet 命令行参数可能会被用到：
-   * `--pod-cidr`： 如果使用 `kubenet`， 需要为 Kubelet 任意指定一个 CIDR， 
-     例如 `--pod-cidr=10.180.0.0/24`。
    * `--cloud-provider`： 如果使用 `--cloud-provider=gce`，需要移除这个参数
      来运行测试。
 

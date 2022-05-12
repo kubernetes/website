@@ -50,7 +50,7 @@ kube-apiserver --authorization-mode=Example,RBAC --<其他选项> --<其他选�
 The RBAC API declares four kinds of Kubernetes object: _Role_, _ClusterRole_,
 _RoleBinding_ and _ClusterRoleBinding_. You can
 [describe objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
-or amend them, using tools such as `kubectl,` just like any other Kubernetes object.
+or amend them, using tools such as `kubectl`, just like any other Kubernetes object.
 
 -->
 ## API 对象  {#api-overview}
@@ -574,23 +574,23 @@ rules:
 
 <!--
 Allow reading/writing Deployments (at the HTTP level: objects with `"deployments"`
-in the resource part of their URL) in both the `"extensions"` and `"apps"` API groups:
+in the resource part of their URL) in the `"apps"` API groups:
 -->
-允许读/写在 "extensions" 和 "apps" API 组中的 Deployment（在 HTTP 层面，对应
+允许读/写在 `"apps"` API 组中的 Deployment（在 HTTP 层面，对应
 URL 中资源部分为 "deployments"）：
 
 ```yaml
 rules:
-- apiGroups: ["extensions", "apps"]
+- apiGroups: ["apps"]
   resources: ["deployments"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ```
 
 <!--
 Allow reading Pods in the core API group, as well as reading or writing Job
-resources in the `"batch"` or `"extensions"` API groups:
+resources in the `"batch"` API group:
 -->
-允许读取核心 API 组中的 "pods" 和读/写 `"batch"` 或 `"extensions"` API 组中的
+允许读取核心 API 组中的 "pods" 和读/写 `"batch"` API 组中的
 "jobs"：
 
 ```yaml
@@ -598,7 +598,7 @@ rules:
 - apiGroups: [""]
   resources: ["pods"]
   verbs: ["get", "list", "watch"]
-- apiGroups: ["batch", "extensions"]
+- apiGroups: ["batch"]
   resources: ["jobs"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ```
@@ -758,28 +758,15 @@ subjects:
 ```
 
 <!--
-For all service accounts in the "qa" group in any namespace:
+For all service accounts in the "qa" namespace:
 -->
-对于任何名称空间中的 "qa" 组中所有的服务账户：
+对于 "qa" 名称空间中的所有服务账户：
 
 ```yaml
 subjects:
 - kind: Group
   name: system:serviceaccounts:qa
   apiGroup: rbac.authorization.k8s.io
-```
-
-<!-- 
-For all service accounts in the "dev" group in the "development" namespace:
--->
-对于 "development" 名称空间中 "dev" 组中的所有服务帐户：
-
-```yaml
-subjects:
-- kind: Group
-  name: system:serviceaccounts:dev
-  apiGroup: rbac.authorization.k8s.io
-  namespace: development
 ```
 
 <!--

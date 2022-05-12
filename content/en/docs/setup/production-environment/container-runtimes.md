@@ -8,11 +8,12 @@ weight: 20
 ---
 <!-- overview -->
 
+{{% dockershim-removal %}}
+
 You need to install a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 into each node in the cluster so that Pods can run there. This page outlines
 what is involved and describes related tasks for setting up nodes.
-
 
 Kubernetes {{< skew currentVersion >}} requires that you use a runtime that
 conforms with the
@@ -45,6 +46,41 @@ check the documentation for that version.
 
 
 <!-- body -->
+## Install and configure prerequisites
+
+The following steps apply common settings for Kubernetes nodes on Linux. 
+
+You can skip a particular setting if you're certain you don't need it.
+
+For more information, see [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) or the documentation for your specific container runtime.
+
+### Forwarding IPv4 and letting iptables see bridged traffic
+
+Verify that the `br_netfilter` module is loaded by running `lsmod | grep br_netfilter`. 
+
+To load it explicitly, run `sudo modprobe br_netfilter`.
+
+In order for a Linux node's iptables to correctly view bridged traffic, verify that `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config. For example:
+
+```bash
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# sysctl params required by setup, params persist across reboots
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+```
 
 ## Cgroup drivers
 
@@ -138,45 +174,21 @@ This section outlines the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
 
-1. Install and configure prerequisites:
 
-   (these instructions apply to Linux nodes only)
 
-   ```shell
-   cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-   overlay
-   br_netfilter
-   EOF
+Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
 
-   sudo modprobe overlay
-   sudo modprobe br_netfilter
+{{< tabs name="Finding your config.toml file" >}}
+{{% tab name="Linux" %}}
+You can find this file under the path `/etc/containerd/config.toml`.
+{{% /tab %}}
+{{< tab name="Windows" >}}
+You can find this file under the path `C:\Program Files\containerd\config.toml`.
+{{< /tab >}}
+{{< /tabs >}}
 
-   # Setup required sysctl params, these persist across reboots.
-   cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-   net.bridge.bridge-nf-call-iptables  = 1
-   net.ipv4.ip_forward                 = 1
-   net.bridge.bridge-nf-call-ip6tables = 1
-   EOF
-
-   # Apply sysctl params without reboot
-   sudo sysctl --system
-   ```
-
-1. Install containerd:
-
-   Visit
-   [Getting started with containerd](https://containerd.io/docs/getting-started/#starting-containerd)
-   and follow the instructions there, up to the point where you have a valid
-   configuration file (on Linux: `/etc/containerd/config.toml`).
-
-   If you are running Windows, you might want to exclude containerd from Windows Defender Scans
-   ```powershell
-   # If excluding containerd from Windows Defender scans, consider how else
-   # you will make sure that the executable is genuine.
-   Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
-   ```
-
-For containerd, the CRI socket is `/run/containerd/containerd.sock` by default.
+On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
+On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 
 #### Configuring the `systemd` cgroup driver {#containerd-systemd}
 
