@@ -1,3 +1,19 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+
+<!--
+Prepare the machine for serving a control plane
+-->
+准备为控制平面服务的机器
 
 <!--
 ### Synopsis
@@ -50,7 +66,9 @@ kubeadm join phase control-plane-prepare all
 <!--
 help for control-plane-prepare
 -->
+<p>
 control-plane-prepare 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -78,10 +96,11 @@ control-plane-prepare 操作的帮助命令
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 指向 '真实' 宿主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-
