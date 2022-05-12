@@ -112,6 +112,7 @@ Operator.
 
 * [Charmed Operator Framework](https://juju.is/)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+* [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
