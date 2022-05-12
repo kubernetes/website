@@ -236,9 +236,9 @@ Kubernetes：
   Kubernetes 旨在支持极其多种多样的工作负载，包括无状态、有状态和数据处理工作负载。
   如果应用程序可以在容器中运行，那么它应该可以在 Kubernetes 上很好地运行。
 * 不部署源代码，也不构建你的应用程序。
-  持续集成(CI)、交付和部署（CI/CD）工作流取决于组织的文化和偏好以及技术要求。
+  持续集成（CI）、交付和部署（CI/CD）工作流取决于组织的文化和偏好以及技术要求。
 * 不提供应用程序级别的服务作为内置服务，例如中间件（例如，消息中间件）、
-  数据处理框架（例如，Spark）、数据库（例如，mysql）、缓存、集群存储系统
+  数据处理框架（例如，Spark）、数据库（例如，MySQL）、缓存、集群存储系统
   （例如，Ceph）。这样的组件可以在 Kubernetes 上运行，并且/或者可以由运行在
   Kubernetes 上的应用程序通过可移植机制（例如，
   [开放服务代理](https://openservicebrokerapi.org/)）来访问。
@@ -267,4 +267,4 @@ Kubernetes：
 *   Ready to [Get Started](/docs/setup/)?
 -->
 * 查阅 [Kubernetes 组件](/zh/docs/concepts/overview/components/)
-* 开始 [Kubernetes 入门](/zh/docs/setup/)?
+* 开始 [Kubernetes 入门](/zh/docs/setup/)？
