@@ -466,15 +466,13 @@ Do not leave your WordPress installation on this page. If another user finds it,
 
 
 <!--
-* Learn more about [Introspection and Debugging](/docs/tasks/debug/debug-application)
+* Learn more about [Introspection and Debugging](/docs/tasks/debug/debug-application/debug-running-pod/)
 * Learn more about [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 * Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Learn how to [Get a Shell to a Container](/docs/tasks/debug/debug-application/get-shell-running-container/)
 -->
 
-* 了解更多关于 [Introspection and Debugging](/zh/docs/tasks/debug/debug-application)
-* 了解更多关于 [Jobs](/zh/docs/concepts/workloads/controllers/jobs-run-to-completion/)
-* 了解更多关于 [Port Forwarding](/zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* 了解如何 [Get a Shell to a Container](/zh/docs/tasks/debug/debug-application/get-shell-running-container/)
-
-
+* 进一步了解[自省与调试](/zh/docs/tasks/debug/debug-application/debug-running-pod/)
+* 进一步了解 [Job](/zh/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* 进一步了解[端口转发](/zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* 了解如何[获得容器的 Shell](/zh/docs/tasks/debug/debug-application/get-shell-running-container/)
