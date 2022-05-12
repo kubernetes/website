@@ -75,7 +75,7 @@ telemetry agents on the node, make sure to check with the vendor of the agent wh
 
 ### Telemetry and security agent vendors
 
-This section is intended to collect information about various telemetry and security agents that may have dependency on containers runtime. Support matrix section outlines the supported runtimes and Migration from dockershim section is designed to help users transition from dockershim to other container runtimes.
+This section is intended to collect information about various telemetry and security agents that may have a dependency on container runtimes. The Support matrix section outlines the supported runtimes and the Migration from dockershim section is designed to help users transition from dockershim to other container runtimes.
 
 We keep the work in progress version of migration instructions for various telemetry and security agent vendors
 in [Google doc](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#).
