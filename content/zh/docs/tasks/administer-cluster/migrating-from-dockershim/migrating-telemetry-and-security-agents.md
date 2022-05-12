@@ -14,19 +14,11 @@ weight: 70
 <!-- overview -->
 
 <!-- 
-With Kubernetes 1.20 dockershim was deprecated. From the
-[Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/)
-you might already know that most apps do not have a direct dependency on runtime hosting
-containers. However, there are still a lot of telemetry and security agents
-that has a dependency on docker to collect containers metadata, logs and
-metrics. This document aggregates information on how to detect tese
-dependencies and links on how to migrate these agents to use generic tools or
-alternative runtimes.
+Kubernetes' support for direct integration with Docker Engine is deprecated, and will be removed. Most apps do not have a direct dependency on runtime hosting containers. However, there are still a lot of telemetry and monitoring agents that has a dependency on docker to collect containers metadata, logs and metrics. This document aggregates information on how to detect these dependencies and links on how to migrate these agents to use generic tools or alternative runtimes.
 -->
-在 Kubernetes 1.20 版本中，dockershim 被弃用。
-在博文[弃用 Dockershim 常见问题](/zh/blog/2020/12/02/dockershim-faq/)中，
-你大概已经了解到，大多数应用并没有直接通过运行时来托管容器。
-但是，仍然有大量的遥测和安全代理依赖 docker 来收集容器元数据、日志和指标。
+Kubernetes 对与 Docker Engine 直接集成的支持已被弃用并将被删除。
+大多数应用程序不直接依赖于托管容器的运行时。但是，仍然有大量的遥测和监控代理依赖
+docker 来收集容器元数据、日志和指标。
 本文汇总了一些信息和链接：信息用于阐述如何探查这些依赖，链接用于解释如何迁移这些代理去使用通用的工具或其他容器运行。
 
 <!-- 
@@ -35,51 +27,59 @@ alternative runtimes.
 ## 遥测和安全代理 {#telemetry-and-security-agents}
 
 <!-- 
-There are a few ways agents may run on Kubernetes cluster. Agents may run on
-nodes directly or as DaemonSets.
+Within a Kubernetes cluster there are a few different ways to run telemetry or security agents.
+Some agents have a direct dependency on Docker Engine when they run as DaemonSets or
+directly on nodes.
 -->
-为了让代理运行在 Kubernetes 集群中，我们有几种办法。
-代理既可以直接在节点上运行，也可以作为守护进程运行。
+在 Kubernetes 集群中，有几种不同的方式来运行遥测或安全代理。
+一些代理在以 DaemonSet 的形式运行或直接在节点上运行时，直接依赖于 Docker Engine。
 
 <!-- 
-### Why do telemetry agents rely on Docker?
+###  Why do some telemetry agents communicate with Docker Engine?
 -->
-### 为什么遥测代理依赖于 Docker？ {#why-do-telemetry-agents-relyon-docker}
+### 为什么有些遥测代理会与 Docker Engine 通信？
 
 <!-- 
-Historically, Kubernetes was built on top of Docker. Kubernetes is managing
-networking and scheduling, Docker was placing and operating containers on a
-node. So you can get scheduling-related metadata like a pod name from Kubernetes
-and containers state information from Docker. Over time more runtimes were
-created to manage containers. Also there are projects and Kubernetes features
-that generalize container status information extraction across many runtimes.
+Historically, Kubernetes was written to work specifically with Docker Engine.
+Kubernetes took care of networking and scheduling, relying on Docker Engine for launching
+and running containers (within Pods) on a node. Some information that is relevant to telemetry,
+such as a pod name, is only available from Kubernetes components. Other data, such as container
+metrics, is not the responsibility of the container runtime. Early telemetry agents needed to query the
+container runtime **and** Kubernetes to report an accurate picture. Over time, Kubernetes gained
+the ability to support multiple runtimes, and now supports any runtime that is compatible with
+the container runtime interface.
+
 -->
-因为历史原因，Kubernetes 建立在 Docker 之上。
-Kubernetes 管理网络和调度，Docker 则在具体的节点上定位并操作容器。
-所以，你可以从 Kubernetes 取得调度相关的元数据，比如 Pod 名称；从 Docker 取得容器状态信息。
-后来，人们开发了更多的运行时来管理容器。
-同时一些项目和 Kubernetes 特性也不断涌现，支持跨多个运行时收集容器状态信息。
+从历史上看，Kubernetes 是专门为与 Docker Engine 一起工作而编写的。
+Kubernetes 负责网络和调度，依靠 Docker Engine
+在节点上启动并运行容器（在 Pod 内）。一些与遥测相关的信息，例如 pod 名称，
+只能从 Kubernetes 组件中获得。其他数据，例如容器指标，不是容器运行时的责任。
+早期遥测代理需要查询容器运行时**和** Kubernetes 以报告准确的信息。
+随着时间的推移，Kubernetes 获得了支持多种运行时的能力，现在支持任何兼容容器运行时接口的运行时。
 
 <!-- 
-Some agents are tied specifically to the Docker tool. The agents may run
-commands like [`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/)
+Some telemetry agents rely specifically on Docker Engine tooling. For example, an agent
+might run a command such as
+[`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/)
 or [`docker top`](https://docs.docker.com/engine/reference/commandline/top/) to list
-containers and processes or [docker logs](https://docs.docker.com/engine/reference/commandline/logs/)
-to subscribe on docker logs. With the deprecating of Docker as a container runtime,
+containers and processes or [`docker logs`](https://docs.docker.com/engine/reference/commandline/logs/)
++to receive streamed logs. If nodes in your existing cluster use
++Docker Engine, and you switch to a different container runtime,
 these commands will not work any longer.
 -->
-一些代理和 Docker 工具紧密绑定。此类代理可以这样运行命令，比如用
+一些代理和 Docker 工具紧密绑定。比如代理会用到
 [`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/)
 或 [`docker top`](https://docs.docker.com/engine/reference/commandline/top/)
 这类命令来列出容器和进程，用
-[docker logs](https://docs.docker.com/engine/reference/commandline/logs/)
+[`docker logs`](https://docs.docker.com/engine/reference/commandline/logs/)
 订阅 Docker 的日志。
-但随着 Docker 作为容器运行时被弃用，这些命令将不再工作。
+如果现有集群中的节点使用 Docker Engine，在你切换到其它容器运行时的时候，
+这些命令将不再起作用。
 
 <!-- 
-### Identify DaemonSets that depend on Docker {#identify-docker-dependency }
+### Identify DaemonSets that depend on Docker Engine {#identify-docker-dependency}
 -->
-### 识别依赖于 Docker 的 DaemonSet {#identify-docker-dependency}
+### 识别依赖于 Docker Engine 的 DaemonSet {#identify-docker-dependency}
 
 <!-- 
 If a pod wants to make calls to the `dockerd` running on the node, the pod must either:
@@ -104,10 +104,10 @@ For example: on COS images, Docker exposes its Unix domain socket at
 <!-- 
 Here's a sample shell script to find Pods that have a mount directly mapping the
 Docker socket. This script outputs the namespace and name of the pod. You can
-remove the grep `/var/run/docker.sock` to review other mounts.
+remove the `grep '/var/run/docker.sock'` to review other mounts.
 -->
 下面是一个 shell 示例脚本，用于查找包含直接映射 Docker 套接字的挂载点的 Pod。
-你也可以删掉 grep `/var/run/docker.sock` 这一代码片段以查看其它挂载信息。
+你也可以删掉 `grep '/var/run/docker.sock'` 这一代码片段以查看其它挂载信息。
 
 ```bash
 kubectl get pods --all-namespaces \
