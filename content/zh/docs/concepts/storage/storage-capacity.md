@@ -10,58 +10,66 @@ Storage capacity is limited and may vary depending on the node on
 which a pod runs: network-attached storage might not be accessible by
 all nodes, or storage is local to a node to begin with.
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 This page describes how Kubernetes keeps track of storage capacity and
-how the scheduler uses that information to schedule Pods onto nodes
+how the scheduler uses that information to [schedule Pods](/docs/concepts/scheduling-eviction/) onto nodes
 that have access to enough storage capacity for the remaining missing
 volumes. Without storage capacity tracking, the scheduler may choose a
 node that doesn't have enough capacity to provision a volume and
 multiple scheduling retries will be needed.
-
-Tracking storage capacity is supported for {{< glossary_tooltip
-text="Container Storage Interface" term_id="csi" >}} (CSI) drivers and
-[needs to be enabled](#enabling-storage-capacity-tracking) when installing a CSI driver.
 -->
 存储容量是有限的，并且会因为运行 Pod 的节点不同而变化：
 网络存储可能并非所有节点都能够访问，或者对于某个节点存储是本地的。
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 本页面描述了 Kubernetes 如何跟踪存储容量以及调度程序如何为了余下的尚未挂载的卷使用该信息将
-Pod 调度到能够访问到足够存储容量的节点上。
+[Pod 调度](/zh/docs/concepts/scheduling-eviction/)到能够访问到足够存储容量的节点上。
 如果没有跟踪存储容量，调度程序可能会选择一个没有足够容量来提供卷的节点，并且需要多次调度重试。
 
-{{< glossary_tooltip text="容器存储接口" term_id="csi" >}}（CSI）驱动程序支持跟踪存储容量，
-并且在安装 CSI 驱动程序时[需要启用](#enabling-storage-capacity-tracking)该功能。
+## {{% heading "prerequisites" %}}
+
+<!--
+Kubernetes v{{< skew currentVersion >}} includes cluster-level API support for
+storage capacity tracking. To use this you must also be using a CSI driver that
+supports capacity tracking. Consult the documentation for the CSI drivers that
+you use to find out whether this support is available and, if so, how to use
+it. If you are not running Kubernetes v{{< skew currentVersion >}}, check the
+documentation for that version of Kubernetes.
+-->
+Kubernetes v{{< skew currentVersion >}} 包含了对存储容量跟踪的集群级 API 支持。
+要使用它，你还必须使用支持容量跟踪的 CSI 驱动程序。请查阅你使用的 CSI 驱动程序的文档，
+以了解此支持是否可用，如果可用，该如何使用它。如果你运行的不是
+Kubernetes v{{< skew currentVersion >}}，请查看对应版本的 Kubernetes 文档。
 
 <!-- body -->
 <!--
 ## API
 
 There are two API extensions for this feature:
-- CSIStorageCapacity objects:
+- [CSIStorageCapacity](/docs/reference/kubernetes-api/config-and-storage-resources/csi-storage-capacity-v1/) objects:
   these get produced by a CSI driver in the namespace
   where the driver is installed. Each object contains capacity
   information for one storage class and defines which nodes have
   access to that storage.
-- [The `CSIDriverSpec.StorageCapacity` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io):
+- [The `CSIDriverSpec.StorageCapacity` field](/docs/reference/kubernetes-api/config-and-storage-resources/csi-driver-v1/#CSIDriverSpec):
   when set to `true`, the Kubernetes scheduler will consider storage
   capacity for volumes that use the CSI driver.
 -->
 ## API
 
 这个特性有两个 API 扩展接口：
-- CSIStorageCapacity 对象：这些对象由 CSI 驱动程序在安装驱动程序的命名空间中产生。
+- [CSIStorageCapacity](/docs/reference/kubernetes-api/config-and-storage-resources/csi-storage-capacity-v1/) 对象：这些对象由
+  CSI 驱动程序在安装驱动程序的命名空间中产生。
   每个对象都包含一个存储类的容量信息，并定义哪些节点可以访问该存储。
-- [`CSIDriverSpec.StorageCapacity` 字段](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io)：
+- [`CSIDriverSpec.StorageCapacity` 字段](/docs/reference/kubernetes-api/config-and-storage-resources/csi-driver-v1/#CSIDriverSpec)：
   设置为 true 时，Kubernetes 调度程序将考虑使用 CSI 驱动程序的卷的存储容量。
 
 <!--
 ## Scheduling
 
 Storage capacity information is used by the Kubernetes scheduler if:
-- the `CSIStorageCapacity` feature gate is true,
 - a Pod uses a volume that has not been created yet,
 - that volume uses a {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} which references a CSI driver and
   uses `WaitForFirstConsumer` [volume binding
@@ -90,7 +98,6 @@ significant resources there.
 ## 调度
 
 如果有以下情况，存储容量信息将会被 Kubernetes 调度程序使用：
-- `CSIStorageCapacity` 特性门控被设置为 true，
 - Pod 使用的卷还没有被创建，
 - 卷使用引用了 CSI 驱动的 {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}，
 并且使用了 `WaitForFirstConsumer` [卷绑定模式](/zh/docs/concepts/storage/storage-classes/#volume-binding-mode)，
@@ -140,9 +147,7 @@ multiple volumes: one volume might have been created already in a
 topology segment which then does not have enough capacity left for
 another volume. Manual intervention is necessary to recover from this,
 for example by increasing capacity or deleting the volume that was
-already created. [Further
-work](https://github.com/kubernetes/enhancements/pull/1703) is needed
-to handle this automatically.
+already created.
 -->
 ## 限制
 
@@ -151,32 +156,12 @@ to handle this automatically.
 
 当 Pod 使用多个卷时，调度可能会永久失败：一个卷可能已经在拓扑段中创建，而该卷又没有足够的容量来创建另一个卷，
 要想从中恢复，必须要进行手动干预，比如通过增加存储容量或者删除已经创建的卷。
-需要[进一步工作](https://github.com/kubernetes/enhancements/pull/1703)来自动处理此问题。
-
-<!--
-## Enabling storage capacity tracking
-
-Storage capacity tracking is a beta feature and enabled by default in 
-a Kubernetes cluster since Kubernetes 1.21. In addition to having the
-feature enabled in the cluster, a CSI driver also has to support
-it. Please refer to the driver's documentation for details.
--->
-## 开启存储容量跟踪
-
-存储容量跟踪是一个 Beta 特性，从 Kubernetes 1.21 版本起在 Kubernetes 集群
-中默认被启用。除了在集群中启用此功能特性之外，还要求 CSI 驱动支持此特性。
-请参阅驱动的文档了解详细信息。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
- - For more information on the design, see the
+- For more information on the design, see the
 [Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md).
-- For more information on further development of this feature, see the [enhancement tracking issue #1472](https://github.com/kubernetes/enhancements/issues/1472).
-- Learn about [Kubernetes Scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 -->
 - 想要获得更多该设计的信息，查看
   [Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md)。
-- 有关此功能的下一步开发信息，查看
-  [enhancement tracking issue #1472](https://github.com/kubernetes/enhancements/issues/1472)。
-- 学习 [Kubernetes 调度器](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)。
