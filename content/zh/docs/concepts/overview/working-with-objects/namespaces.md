@@ -150,7 +150,7 @@ context.
 
 ```shell
 kubectl config set-context --current --namespace=<名字空间名称>
-# 验证之
+# 验证
 kubectl config view | grep namespace:
 ```
 
@@ -161,7 +161,7 @@ When you create a [Service](/docs/user-guide/services), it creates a correspondi
 -->
 ## 名字空间和 DNS
 
-当你创建一个[服务](/zh/docs/concepts/services-networking/service/) 时，
+当你创建一个[服务](/zh/docs/concepts/services-networking/service/)时，
 Kubernetes 会创建一个相应的 [DNS 条目](/zh/docs/concepts/services-networking/dns-pod-service/)。
 
 <!--
@@ -224,7 +224,7 @@ persistentVolumes, are not in any namespace.
 -->
 大多数 kubernetes 资源（例如 Pod、Service、副本控制器等）都位于某些名字空间中。
 但是名字空间资源本身并不在名字空间中。而且底层资源，例如
-[节点](/zh/docs/concepts/architecture/nodes/) 和持久化卷不属于任何名字空间。
+[节点](/zh/docs/concepts/architecture/nodes/)和持久化卷不属于任何名字空间。
 
 <!--
 To see which Kubernetes resources are and aren't in a namespace:
