@@ -13,9 +13,16 @@ min-kubernetes-server-version: v1.22
 -->
 
 <!--
-Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards).
+Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards).The three policies
+[privileged](/docs/concepts/security/pod-security-standards/#privileged), [baseline](/docs/concepts/security/pod-security-standards/#baseline)
+and [restricted](/docs/concepts/security/pod-security-standards/#restricted) broadly cover the security spectrum
+and are implemented by the [Pod Security](/docs/concepts/security/pod-security-admission/)
 -->
-你可以通过为名字空间设置标签来强制实施 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)。
+[特权（privileged）](/zh/docs/concepts/security/pod-security-standards/#privileged)、
+[基线（baseline）](/zh/docs/concepts/security/pod-security-standards/#baseline)和
+[受限（restricted）](/zh/docs/concepts/security/pod-security-standards/#restricted) 
+这三种策略涵盖了广泛安全范围，并由 [Pod 安全](/zh/docs/concepts/security/pod-security-admission/)
+ {{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}实现。
 
 ## {{% heading "prerequisites" %}}
 
