@@ -169,8 +169,38 @@ kubectl delete serviceaccount/build-robot
 
 ## Manually create an API token for a ServiceAccount
 
+Suppose you have an existing service account named "build-robot" as mentioned earlier.
+
+You can get a time-limited API token for that ServiceAccount using `kubectl`:
+
+```shell
+kubectl create token admin-user
+```
+
+The output from that command is a token that you can use to authenticate as that
+ServiceAccount. You can request a specific token duration using the `--duration`
+command line argument to `kubectl create token` (the actual duration of the issued
+token might be shorter, or could even be longer).
+
+{{< note >}}
+Versions of Kubernetes before v1.22 automatically created long term credentials for
+accessing the Kubernetes API. This older mechanism was based on creating token Secrets
+that could then be mounted into running Pods.
+In more recent versions, including Kubernetes v{{< skew currentVersion >}}, API credentials
+are obtained directly by using the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API,
+and are mounted into Pods using a [projected volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume).
+The tokens obtained using this method have bounded lifetimes, and are automatically
+invalidated when the Pod they are mounted into is deleted.
+
+You can still manually create a service account token Secret; for example, if you need a token that never expires.
+However, using the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+subresource to obtain a token to access the API is recommended instead.
+{{< /note >}}
+
+### Manually create a long-lived API token for a ServiceAccount
+
 If you want to obtain an API token for a ServiceAccount, you create a new Secret
-with a special annotation, `kubernetes.io/service-account.name`
+with a special annotation, `kubernetes.io/service-account.name`.
 
 ```shell
 kubectl apply -f - <<EOF
@@ -224,6 +254,9 @@ Take care not to display the contents of a `kubernetes.io/service-account-token`
 Secret somewhere that your terminal / computer screen could be seen by an
 onlooker.
 {{< /note >}}
+
+When you delete a ServiceAccount that has an associated Secret, the Kubernetes
+control plane automatically cleans up the long-lived token from that Secret.
 
 ## Add ImagePullSecrets to a service account
 
