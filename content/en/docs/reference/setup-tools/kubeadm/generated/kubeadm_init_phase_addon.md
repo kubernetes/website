@@ -60,6 +60,3 @@ kubeadm init phase addon [flags]
 
 </tbody>
 </table>
-
-
-
