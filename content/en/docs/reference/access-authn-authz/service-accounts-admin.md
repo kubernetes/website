@@ -11,13 +11,29 @@ weight: 50
 
 <!-- overview -->
 
-This is a Cluster Administrator guide to service accounts. You should be familiar with
-[configuring Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/).
+A _ServiceAccount_ provides an identity for processes that run in a Pod.
 
-Support for authorization and user accounts is planned but incomplete. Sometimes
-incomplete features are referred to in order to better describe service accounts.
+A process inside a Pod can use the identity of its associated service account to
+authenticate to the cluster's API server.
+
+For an introduction to service accounts, read [configure service accounts](/docs/tasks/configure-pod-container/configure-service-account/).
+
+This task guide explains some of the concepts behind ServiceAccounts. The
+guide also explains how to add and remove tokens from ServiceAccounts.
 
 <!-- body -->
+
+## {{% heading "prerequisites" %}}
+
+{{< include "task-tutorial-prereqs.md" >}}
+
+To be able to follow these steps exactly, ensure you have a namespace named
+`examplens`.
+If you don't, create one by running:
+
+```shell
+kubectl create namespace examplens
+```
 
 ## User accounts versus service accounts
 
@@ -27,7 +43,7 @@ for a number of reasons:
 - User accounts are for humans. Service accounts are for processes, which run
   in pods.
 - User accounts are intended to be global. Names must be unique across all
-  namespaces of a cluster. Service accounts are namespaced.
+  namespaces of a cluster. In Kubernetes, service accounts are namespaced.
 - Typically, a cluster's user accounts might be synced from a corporate
   database, where new user account creation requires special privileges and is
   tied to complex business processes. Service account creation is intended to be
@@ -38,82 +54,213 @@ for a number of reasons:
   accounts for components of that system. Because service accounts can be created
   without many constraints and have namespaced names, such config is portable.
 
-## Service account automation
-
-Three separate components cooperate to implement the automation around service accounts:
-
-- A `ServiceAccount` admission controller
-- A Token controller
-- A `ServiceAccount` controller
-
-### ServiceAccount Admission Controller
+## ServiceAccount admission controller
 
 The modification of pods is implemented via a plugin
 called an [Admission Controller](/docs/reference/access-authn-authz/admission-controllers/).
 It is part of the API server.
-It acts synchronously to modify pods as they are created or updated. When this plugin is active
-(and it is by default on most distributions), then it does the following when a pod is created or modified:
+This admission controller acts synchronously to modify pods as they are created.
+When this plugin is active (and it is by default on most distributions), then
+it does the following when a Pod is created:
 
-1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
-1. It ensures that the `ServiceAccount` referenced by the pod exists, and otherwise rejects it.
-1. It adds a `volume` to the pod which contains a token for API access if neither the
-   ServiceAccount `automountServiceAccountToken` nor the Pod's `automountServiceAccountToken`
-   is set to `false`.
-1. It adds a `volumeSource` to each container of the pod mounted at
-   `/var/run/secrets/kubernetes.io/serviceaccount`, if the previous step has created a volume
-   for the ServiceAccount token.
-1. If the pod does not contain any `imagePullSecrets`, then `imagePullSecrets` of the
-   `ServiceAccount` are added to the pod.
+1. If the pod does not have a `.spec.serviceAccountName` set, the admission controller sets the name of the
+   ServiceAccount for this incoming Pod to `default`.
+1. The admission controller ensures that the ServiceAccount referenced by the incoming Pod exists. If there
+   is no ServiceAccount with a matching name, the admission controller rejects the incoming Pod. That check
+   applies even for the `default` ServiceAccount.
+1. Provided that neither the ServiceAccount's `automountServiceAccountToken` field nor the
+   Pod's `automountServiceAccountToken` field is set to `false`:
+   - the admission controller mutates the incoming Pod, adding an extra
+     {{< glossary_tooltip text="volume" term_id="volume" >}} that contains
+     a token for API access.
+   - the admission controller adds a `volumeMount` to each container in the Pod,
+     skipping any containers that already have a volume mount defined for the path
+     `/var/run/secrets/kubernetes.io/serviceaccount`.
+     For Linux containers, that volume is mounted at `/var/run/secrets/kubernetes.io/serviceaccount`;
+     on Windows nodes, the mount is at the equivalent path.
+1. If the spec of the incoming Pod does already contain any `imagePullSecrets`, then the
+   admission controller adds `imagePullSecrets`, copying them from the `ServiceAccount`.
 
-#### Bound Service Account Token Volume
+### Bound service account token volume mechanism {#bound-service-account-token-volume}
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-The ServiceAccount admission controller will add the following projected volume instead of a
-Secret-based volume for the non-expiring service account token created by the Token controller.
+The Kubernetes control plane (specifically, the ServiceAccount admission controller)
+adds a projected volume to Pods, and the kubelet ensures that this volume contains a token
+that lets containers authenticate as the right ServiceAccount.
+
+(This mechanism superseded an earlier mechanism that added a volume based on a Secret,
+where the Secret represented the ServiceAccount for the Pod but did not expire.)
+
+Here's an example of how that looks for a launched Pod:
 
 ```yaml
-- name: kube-api-access-<random-suffix>
-  projected:
-    defaultMode: 420 # 0644
-    sources:
-      - serviceAccountToken:
-          expirationSeconds: 3607
-          path: token
-      - configMap:
-          items:
-            - key: ca.crt
-              path: ca.crt
-          name: kube-root-ca.crt
-      - downwardAPI:
-          items:
-            - fieldRef:
-                apiVersion: v1
-                fieldPath: metadata.namespace
-              path: namespace
+...
+  - name: kube-api-access-<random-suffix>
+    projected:
+      defaultMode: 420 # decimal equivalent of octal 0644
+      sources:
+        - serviceAccountToken:
+            expirationSeconds: 3597
+            path: token
+        - configMap:
+            items:
+              - key: ca.crt
+                path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace
 ```
 
-This projected volume consists of three sources:
+That manifest snippet defines a projected volume that combines information from three sources:
 
-1. A `serviceAccountToken` acquired from kube-apiserver via TokenRequest API. It will expire
-   after 1 hour by default or when the pod is deleted. It is bound to the pod and it has
-   its audience set to match the audience of the `kube-apiserver`.
-1. A `configMap` containing a CA bundle used for verifying connections to the kube-apiserver.
-1. A `downwardAPI` that references the namespace of the pod.
+1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver
+   The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
+   either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
+   The token is bound to the specific Pod and has the kube-apiserver as its audience.
+1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
+   certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
+   or an accidentally misconfigured peer).
+1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace container the Pod available
+   to application code running inside the Pod.
 
-See more details about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+Any container within the Pod that mounts this volume can access the above information.
 
-### Token Controller
+## Create additional API tokens {#create-token}
 
-TokenController runs as part of `kube-controller-manager`. It acts asynchronously. It:
+The control plane ensures that a Secret with an API token exists for each
+ServiceAccount. To create additional API tokens for a ServiceAccount, create a
+Secret of type `kubernetes.io/service-account-token` with an annotation
+referencing the ServiceAccount, and the control plane will update that Secret with a
+generated token.
 
-- watches ServiceAccount creation and creates a corresponding
+Here is a sample manifest for such a Secret:
+
+{{< codenew file="secret/serviceaccount/mysecretname.yaml" >}}
+
+To create a Secret based on this example, run:
+```shell
+kubectl -n examplens create -f https://k8s.io/examples/secret/serviceaccount/mysecretname.yaml
+```
+
+To see the details for that Secret, run:
+
+```shell
+kubectl -n examplens describe secret mysecretname
+```
+
+The output is similar to:
+```
+Name:           mysecretname
+Namespace:      examplens
+Labels:         <none>
+Annotations:    kubernetes.io/service-account.name=myserviceaccount
+                kubernetes.io/service-account.uid=8a85c4c4-8483-11e9-bc42-526af7764f64
+
+Type:   kubernetes.io/service-account-token
+
+Data
+====
+ca.crt:         1362 bytes
+namespace:      9 bytes
+token:          ...
+```
+
+If you launch a new Pod into the `examplens` namespace, it can use the `myserviceaccount`
+service-account-token Secret that you just created.
+
+## Delete/invalidate a ServiceAccount token {#delete-token}
+
+If you know the name of the Secret that contains the token you want to remove:
+
+```shell
+kubectl delete secret name-of-secret
+```
+
+Otherwise, first find the Secret for the ServiceAccount.
+
+```shell
+# This assumes that you already have a namespace named 'examplens'
+kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
+```
+The output is similar to:
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"ServiceAccount","metadata":{"annotations":{},"name":"example-automated-thing","namespace":"examplens"}}
+  creationTimestamp: "2019-07-21T07:07:07Z"
+  name: example-automated-thing
+  namespace: examplens
+  resourceVersion: "777"
+  selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
+  uid: f23fd170-66f2-4697-b049-e1e266b7f835
+secrets:
+- name: example-automated-thing-token-zyxwv
+```
+Then, delete the Secret you now know the name of:
+```shell
+kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
+```
+
+The control plane spots that the ServiceAccount is missing its Secret,
+and creates a replacement:
+
+```shell
+kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
+```
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"ServiceAccount","metadata":{"annotations":{},"name":"example-automated-thing","namespace":"examplens"}}
+  creationTimestamp: "2019-07-21T07:07:07Z"
+  name: example-automated-thing
+  namespace: examplens
+  resourceVersion: "1026"
+  selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
+  uid: f23fd170-66f2-4697-b049-e1e266b7f835
+secrets:
+- name: example-automated-thing-token-4rdrh
+```
+
+You can see that there is now a new associated Secret with a different name. The
+old Secret is no longer valid.
+
+## Clean up
+
+If you created a namespace `examplens` to experiment with, you can remove it:
+```shell
+kubectl delete namespace examplens
+```
+
+## Control plane details
+
+### ServiceAccount controller
+
+A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
+ensures a ServiceAccount named "default" exists in every active namespace.
+
+### Token controller
+
+The service account token controller runs as part of `kube-controller-manager`.
+This controller acts asynchronously. It:
+
+- watches for ServiceAccount creation and creates a corresponding
   ServiceAccount token Secret to allow API access.
-- watches ServiceAccount deletion and deletes all corresponding ServiceAccount
+- watches for ServiceAccount deletion and deletes all corresponding ServiceAccount
   token Secrets.
-- watches ServiceAccount token Secret addition, and ensures the referenced
+- watches for ServiceAccount token Secret addition, and ensures the referenced
   ServiceAccount exists, and adds a token to the Secret if needed.
-- watches Secret deletion and removes a reference from the corresponding
+- watches for Secret deletion and removes a reference from the corresponding
   ServiceAccount if needed.
 
 You must pass a service account private key file to the token controller in
@@ -123,39 +270,6 @@ Similarly, you must pass the corresponding public key to the `kube-apiserver`
 using the `--service-account-key-file` flag. The public key will be used to
 verify the tokens during authentication.
 
-#### To create additional API tokens
+## {{% heading "whatsnext" %}}
 
-A controller loop ensures a Secret with an API token exists for each
-ServiceAccount. To create additional API tokens for a ServiceAccount, create a
-Secret of type `kubernetes.io/service-account-token` with an annotation
-referencing the ServiceAccount, and the controller will update it with a
-generated token:
-
-Below is a sample configuration for such a Secret:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecretname
-  annotations:
-    kubernetes.io/service-account.name: myserviceaccount
-type: kubernetes.io/service-account-token
-```
-
-```shell
-kubectl create -f ./secret.yaml
-kubectl describe secret mysecretname
-```
-
-#### To delete/invalidate a ServiceAccount token Secret
-
-```shell
-kubectl delete secret mysecretname
-```
-
-### ServiceAccount controller
-
-A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
-ensures a ServiceAccount named "default" exists in every active namespace.
-
+- Read more details about [projected volumes](/docs/concepts/storage/projected-volumes/).
