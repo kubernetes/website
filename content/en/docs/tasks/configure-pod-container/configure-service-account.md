@@ -8,41 +8,62 @@ content_type: task
 weight: 90
 ---
 
-<!-- overview -->
-A service account provides an identity for processes that run in a Pod.
+Kubernetes offers two distinct ways for clients that run within your
+cluster, or that otherwise have a relationship to your cluster's
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+to authenticate to the
+{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}.
 
-{{< note >}}
-This document is a user introduction to Service Accounts and describes how service accounts behave in a cluster set up
-as recommended by the Kubernetes project. Your cluster administrator may have
-customized the behavior in your cluster, in which case this documentation may
-not apply.
-{{< /note >}}
+A _service account_ provides an identity for processes that run in a Pod,
+and maps to a ServiceAccount object. When you authenticate to the API
+server, you identify yourself as a particular _user_. Kubernetes recognises
+the concept of a user, however, Kubernetes itself does **not** have a User
+API.
 
-When you (a human) access the cluster (for example, using `kubectl`), you are
-authenticated by the apiserver as a particular User Account (currently this is
-usually `admin`, unless your cluster administrator has customized your cluster). Processes in containers inside pods can also contact the apiserver.
-When they do, they are authenticated as a particular Service Account (for example, `default`).
+This task guide is about ServiceAccounts, which do exist in the Kubernetes
+API. The guide shows you some ways to configure ServiceAccounts for Pods.
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 <!-- steps -->
 
-## Use the Default Service Account to access the API server
+## Use the default service account to access the API server
 
-When you create a pod, if you do not specify a service account, it is
-automatically assigned the `default` service account in the same namespace.
-If you get the raw json or yaml for a pod you have created (for example, `kubectl get pods/<podname> -o yaml`),
-you can see the `spec.serviceAccountName` field has been
-[automatically set](/docs/concepts/overview/working-with-objects/object-management/).
+When Pods contact the API server, Pods authenticate as a particular
+ServiceAccount (for example, `default`). There is always at least one
+ServiceAccount in each {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 
-You can access the API from inside a pod using automatically mounted service account credentials, as described in
-[Accessing the Cluster](/docs/tasks/access-application-cluster/access-cluster).
-The API permissions of the service account depend on the
-[authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
+Every Kubernetes namespace contains at least one ServiceAccount: the default
+ServiceAccount for that namespace, named `default`.
+If you do not specify a ServiceAccount when you create a Pod, Kubernetes
+automatically assigns the ServiceAccount named `default` in that namespace.
 
+You can fetch the details for a Pod you have created. For example:
+```shell
+kubectl get pods/<podname> -o yaml
+```
+
+In the output, you see a field `spec.serviceAccountName`.
+Kubernetes [automatically](/docs/user-guide/working-with-resources/#resources-are-automatically-modified)
+sets that value if you don't specify it when you create a Pod.
+
+An application running inside a Pod can access the Kubernetes API using
+automatically mounted service account credentials. See [accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod) to learn more.
+
+When a Pod authenticates as a ServiceAccount, its level of access depends on the
+[authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules)
+in use.
+
+### Opt out of API credential automounting
+
+If you don't want the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
+to automatically mount a ServiceAccount's API credentials, you can opt out of
+the default behavior.
 You can opt out of automounting API credentials on `/var/run/secrets/kubernetes.io/serviceaccount/token` for a service account by setting `automountServiceAccountToken: false` on the ServiceAccount:
+
+For example:
 
 ```yaml
 apiVersion: v1
@@ -53,8 +74,7 @@ automountServiceAccountToken: false
 ...
 ```
 
-In version 1.6+, you can also opt out of automounting API credentials for a particular pod:
-
+You can also opt out of automounting API credentials for a particular Pod:
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -66,12 +86,16 @@ spec:
   ...
 ```
 
-The pod spec takes precedence over the service account if both specify a `automountServiceAccountToken` value.
+If both the ServiceAccount and the Pod's `.spec` specify a value for
+`automountServiceAccountToken`, the Pod spec takes precedence.
 
-## Use Multiple Service Accounts
+## Use more than one ServiceAccount {#use-multiple-service-accounts}
 
-Every namespace has a default service account resource called `default`.
-You can list this and any other serviceAccount resources in the namespace with this command:
+Every namespace has at least one ServiceAccount: the default ServiceAccount
+resource, called `default`.
+You can list all ServiceAccount resources in your
+[current namespace](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference)
+with:
 
 ```shell
 kubectl get serviceaccounts
@@ -110,38 +134,43 @@ The output is similar to this:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  creationTimestamp: 2015-06-16T00:12:59Z
+  creationTimestamp: 2019-06-16T00:12:34Z
   name: build-robot
   namespace: default
   resourceVersion: "272500"
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
 ```
 
-You may use authorization plugins to [set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
+You can use authorization plugins to
+[set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
 To use a non-default service account, set the `spec.serviceAccountName`
-field of a pod to the name of the service account you wish to use.
+field of a Pod to the name of the ServiceAccount you wish to use.
 
-The service account has to exist at the time the pod is created, or it will be rejected.
-
-You cannot update the service account of an already created pod.
+You can only set the `serviceAccountName` field when creating a Pod, or in a
+template for a new Pod. You cannot update the `.spec.serviceAccountName` field
+of a Pod that already exists.
 
 {{< note >}}
-The `spec.serviceAccount` field is a deprecated alias for `spec.serviceAccountName`.
+The `.spec.serviceAccount` field is a deprecated alias for `.spec.serviceAccountName`.
 If you want to remove the fields from a workload resource, set both fields to empty explicitly
 on the [pod template](/docs/concepts/workloads/pods#pod-templates).
 {{< /note >}}
 
-You can clean up the service account from this example like this:
+
+### Cleanup {#cleanup-use-multiple-service-accounts}
+
+If you tried creating `build-robot` ServiceAccount from the example above,
+you can clean it up by running:
 
 ```shell
 kubectl delete serviceaccount/build-robot
 ```
 
-## Manually create a service account API token
+## Manually create an API token for a ServiceAccount
 
-Suppose we have an existing service account named "build-robot" as mentioned above, and we create
-a new secret manually.
+If you want to obtain an API token for a ServiceAccount, you create a new Secret
+with a special annotation, `kubernetes.io/service-account.name`
 
 ```shell
 kubectl apply -f - <<EOF
@@ -155,9 +184,16 @@ type: kubernetes.io/service-account-token
 EOF
 ```
 
-Now you can confirm that the newly built secret is populated with an API token for the "build-robot" service account.
+If you view the Secret using:
+```shell
+kubectl get secret/build-robot-secret -o yaml
+```
 
-Any tokens for non-existent service accounts will be cleaned up by the token controller.
+you can see that the Secret now contains an API token for the "build-robot" ServiceAccount.
+
+Because of the annotation you set, the control plane automatically generates a token for that
+ServiceAccounts, and stores them into the associated Secret. The control plane also cleans up
+tokens for deleted ServiceAccounts.
 
 ```shell
 kubectl describe secrets/build-robot-secret
@@ -183,11 +219,16 @@ token:          ...
 
 {{< note >}}
 The content of `token` is elided here.
+
+Take care not to display the contents of a `kubernetes.io/service-account-token`
+Secret somewhere that your terminal / computer screen could be seen by an
+onlooker.
 {{< /note >}}
 
 ## Add ImagePullSecrets to a service account
 
-### Create an imagePullSecret
+First, [create an imagePullSecret](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+Next, verify it has been created. For example:
 
 - Create an imagePullSecret, as described in [Specifying ImagePullSecrets on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
@@ -211,41 +252,44 @@ The content of `token` is elided here.
 
 ### Add image pull secret to service account
 
-Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
+Next, modify the default service account for the namespace to use this Secret as an imagePullSecret.
 
 
 ```shell
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
 ```
 
-You can instead use `kubectl edit`, or manually edit the YAML manifests as shown below:
+You can achieve the same outcome by editing the object manually:
 
 ```shell
-kubectl get serviceaccounts default -o yaml > ./sa.yaml
+kubectl edit serviceaccount/default
 ```
 
 The output of the `sa.yaml` file is similar to this:
+
+Your selected text editor will open with a configuration looking something like this:
 
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  creationTimestamp: 2015-08-07T22:02:39Z
+  creationTimestamp: 2021-07-07T22:02:39Z
   name: default
   namespace: default
   resourceVersion: "243024"
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
 ```
 
-Using your editor of choice (for example `vi`), open the `sa.yaml` file, delete line with key `resourceVersion`, add lines with `imagePullSecrets:` and save.
+Using your editor, delete the line with key `resourceVersion`, add lines for `imagePullSecrets:` and save it.
+Leave the `uid` value set the same as you found it.
 
-The output of the `sa.yaml` file is similar to this:
+After you made those changes, the edited ServiceAccount looks something like this:
 
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  creationTimestamp: 2015-08-07T22:02:39Z
+  creationTimestamp: 2021-07-07T22:02:39Z
   name: default
   namespace: default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
@@ -253,13 +297,7 @@ imagePullSecrets:
 - name: myregistrykey
 ```
 
-Finally replace the serviceaccount with the new updated `sa.yaml` file
-
-```shell
-kubectl replace serviceaccount default -f ./sa.yaml
-```
-
-### Verify imagePullSecrets was added to pod spec
+### Verify that imagePullSecrets are set for new Pods
 
 Now, when a new Pod is created in the current namespace and using the default ServiceAccount, the new Pod has its  `spec.imagePullSecrets` field set automatically:
 
@@ -274,12 +312,7 @@ The output is:
 myregistrykey
 ```
 
-<!--## Adding Secrets to a service account.
-
-TODO: Test and explain how to use additional non-K8s secrets with an existing service account.
--->
-
-## Service Account Token Volume Projection
+## ServiceAccount token volume projection
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -287,31 +320,31 @@ TODO: Test and explain how to use additional non-K8s secrets with an existing se
 To enable and use token request projection, you must specify each of the following
 command line arguments to `kube-apiserver`:
 
-* `--service-account-issuer`
-
-     It can be used as the Identifier of the service account token issuer. You can specify the `--service-account-issuer` argument multiple times, this can be useful to enable a non-disruptive change of the issuer. When this flag is specified multiple times, the first is used to generate tokens and all are used to determine which issuers are accepted. You must be running Kubernetes v1.22 or later to be able to specify `--service-account-issuer` multiple times.
-* `--service-account-key-file`
-
-     File containing PEM-encoded x509 RSA or ECDSA private or public keys, used to verify ServiceAccount tokens. The specified file can contain multiple keys, and the flag can be specified multiple times with different files. If specified multiple times, tokens signed by any of the specified keys are considered valid by the Kubernetes API server.
-* `--service-account-signing-key-file`
-
-     Path to the file that contains the current private key of the service account token issuer. The issuer signs issued ID tokens with this private key.
-* `--api-audiences` (can be omitted)
-
-     The service account token authenticator validates that tokens used against the API are bound to at least one of these audiences. If `api-audiences` is specified multiple times, tokens for any of the specified audiences are considered valid by the Kubernetes API server. If the `--service-account-issuer` flag is configured and this flag is not, this field defaults to a single element list containing the issuer URL.
+`--service-account-issuer`
+: defines the Identifier of the service account token issuer. You can specify the `--service-account-issuer` argument multiple times, this can be useful to enable a non-disruptive change of the issuer. When this flag is specified multiple times, the first is used to generate tokens and all are used to determine which issuers are accepted. You must be running Kubernetes v1.22 or later to be able to specify `--service-account-issuer` multiple times.
+`--service-account-key-file`
+: specifies the path to a file containing PEM-encoded X.509 private or public keys (RSA or ECDSA), used to verify ServiceAccount tokens. The specified file can contain multiple keys, and the flag can be specified multiple times with different files. If specified multiple times, tokens signed by any of the specified keys are considered valid by the Kubernetes API server.
+`--service-account-signing-key-file`
+: specifies the path to a file that contains the current private key of the service account token issuer. The issuer signs issued ID tokens with this private key.
+`--api-audiences` (can be omitted)
+: defines audiences for ServiceAccount tokens. The service account token authenticator validates that tokens used against the API are bound to at least one of these audiences. If `api-audiences` is specified multiple times, tokens for any of the specified audiences are considered valid by the Kubernetes API server. If you specify the `--service-account-issuer` command line argument but you don't set `--api-audiences`, the control plane defaults to a single element audience list that contains only the issuer URL.
 
 {{< /note >}}
 
-The kubelet can also project a service account token into a Pod. You can
+The kubelet can also project a ServiceAccount token into a Pod. You can
 specify desired properties of the token, such as the audience and the validity
-duration. These properties are not configurable on the default service account
-token. The service account token will also become invalid against the API when
-the Pod or the ServiceAccount is deleted.
+duration. These properties are _not_ configurable on the default ServiceAccount
+token. The token will also become invalid against the API when either the Pod
+or the ServiceAccount is deleted.
 
-This behavior is configured on a PodSpec using a ProjectedVolume type called
-[ServiceAccountToken](/docs/concepts/storage/volumes/#projected). To provide a
-pod with a token with an audience of "vault" and a validity duration of two
-hours, you would configure the following in your PodSpec:
+You can configure this behavior for the `spec` of a Pod using a
+[projected volume](/docs/concepts/storage/volumes/#projected) type called
+`ServiceAccountToken`.
+
+### Launch a Pod using service account token projection
+
+To provide a Pod with a token with an audience of `vault` and a validity duration
+of two hours, you could define a Pod manifest that is similar to:
 
 {{< codenew file="pods/pod-projected-svc-token.yaml" >}}
 
@@ -321,19 +354,24 @@ Create the Pod:
 kubectl create -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
 ```
 
-The kubelet will request and store the token on behalf of the pod, make the
-token available to the pod at a configurable file path, and refresh the token as it approaches expiration.
-The kubelet proactively rotates the token if it is older than 80% of its total TTL, or if the token is older than 24 hours.
+The kubelet will: request and store the token on behalf of the Pod; make
+the token available to the Pod at a configurable file path; and refresh
+the token as it approaches expiration. The kubelet proactively requests rotation
+for the token if it is older than 80% of its total time-to-live (TTL),
+or if the token is older than 24 hours.
 
-The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most use cases.
+The application is responsible for reloading the token when it rotates. It's
+often good enough for the application to load the token on a schedule
+(for example: once every 5 minutes), without tracking the actual expiry time.
 
-## Service Account Issuer Discovery
+### Service account issuer discovery
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-The Service Account Issuer Discovery feature is enabled when the Service Account
-Token Projection feature is enabled, as described
-[above](#service-account-token-volume-projection).
+If you have enabled [token projection](#service-account-token-volume-projection)
+for ServiceAccounts in your cluster, then you can also make use of the discovery
+feature. Kubernetes provides a way for clients to federate as an _identity provider_,
+so that one or more external systems can act as a _relying party_.
 
 {{< note >}}
 The issuer URL must comply with the
@@ -341,27 +379,16 @@ The issuer URL must comply with the
 practice, this means it must use the `https` scheme, and should serve an OpenID
 provider configuration at `{service-account-issuer}/.well-known/openid-configuration`.
 
-If the URL does not comply, the `ServiceAccountIssuerDiscovery` endpoints will
-not be registered, even if the feature is enabled.
+If the URL does not comply, ServiceAccount issuer discovery endpoints are not
+registered or accessible.
 {{< /note >}}
 
-The Service Account Issuer Discovery feature enables federation of Kubernetes
-service account tokens issued by a cluster (the _identity provider_) with
-external systems (_relying parties_).
-
-When enabled, the Kubernetes API server provides an OpenID Provider
-Configuration document at `/.well-known/openid-configuration` and the associated
-JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
-is sometimes referred to as the _discovery document_.
-
-Clusters include a default RBAC ClusterRole called
-`system:service-account-issuer-discovery`. A default RBAC ClusterRoleBinding
-assigns this role to the `system:serviceaccounts` group, which all service
-accounts implicitly belong to. This allows pods running on the cluster to access
-the service account discovery document via their mounted service account token.
-Administrators may, additionally, choose to bind the role to
-`system:authenticated` or `system:unauthenticated` depending on their security
-requirements and which external systems they intend to federate with.
+When enabled, the Kubernetes API server publishes an OpenID Provider
+Configuration document via HTTP. The configuration document is published at
+`/.well-known/openid-configuration`.
+The OpenID Provider Configuration is sometimes referred to as the _discovery document_.
+The Kubernetes API server publishes the related
+JSON Web Key Set (JWKS), also via HTTP, at `/openid/v1/jwks`.
 
 {{< note >}}
 The responses served at `/.well-known/openid-configuration` and
@@ -370,6 +397,15 @@ compliant. Those documents contain only the parameters necessary to perform
 validation of Kubernetes service account tokens.
 {{< /note >}}
 
+Clusters that use {{< glossary_tooltip text="RBAC" term_id="rbac">}} include a
+default ClusterRole called `system:service-account-issuer-discovery`.
+A default ClusterRoleBinding assigns this role to the `system:serviceaccounts` group,
+which all ServiceAccounts implicitly belong to.
+This allows pods running on the cluster to access the service account discovery document
+via their mounted service account token. Administrators may, additionally, choose to
+bind the role to `system:authenticated` or `system:unauthenticated` depending on their
+security requirements and which external systems they intend to federate with.
+
 The JWKS response contains public keys that a relying party can use to validate
 the Kubernetes service account tokens. Relying parties first query for the
 OpenID Provider Configuration, and use the `jwks_uri` field in the response to
@@ -377,7 +413,7 @@ find the JWKS.
 
 In many cases, Kubernetes API servers are not available on the public internet,
 but public endpoints that serve cached responses from the API server can be made
-available by users or service providers. In these cases, it is possible to
+available by users or by service providers. In these cases, it is possible to
 override the `jwks_uri` in the OpenID Provider Configuration so that it points
 to the public endpoint, rather than the API server's address, by passing the
 `--service-account-jwks-uri` flag to the API server. Like the issuer URL, the
@@ -388,6 +424,13 @@ JWKS URI is required to use the `https` scheme.
 
 See also:
 
-- [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
-- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
-- [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
+* Read the [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
+* Read about [Authorization in Kubernetes](/docs/reference/access-authn-authz/authorization/)
+* Read about [Secrets](/docs/concepts/configuration/secret/)
+  * or learn to [distribute credentials securely using Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/)
+  * but also bear in mind that using Secrets for authenticating as a ServiceAccount
+    is deprecated. The recommended alternative is
+    [ServiceAccount token volume projection](#service-account-token-volume-projection).
+* Read about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+* For background on OIDC discovery, read the [ServiceAccount signing key retrieval](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery) Kubernetes Enhancement Proposal
+* Read the [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
