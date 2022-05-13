@@ -984,6 +984,8 @@ kubectl delete serviceaccount only-list-secrets-sa
 kubectl delete role only-list-secrets-role --verb=list --resource=secrets
 kubectl delete rolebinding only-list-secrets-default-ns --role=only-list-secrets-role --serviceaccount=default:only-list-secrets-sa
 kubectl delete secret abc
+# Kill backgrounded kubectl proxy
+kill "%$(jobs | grep "kubectl proxy" | cut -d [ -f 2| cut -d ] -f 1)"
 
 ```
 
