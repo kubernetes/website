@@ -1212,7 +1212,7 @@ The priority admission controller uses the `priorityClassName` field and populat
 value of the priority.
 If the priority class is not found, the Pod is rejected.
 -->
-### 优先级 {#priority}
+### Priority {#priority}
 
 优先级准入控制器使用 `priorityClassName` 字段并用整型值填充优先级。
 如果找不到优先级，则拒绝 Pod。
