@@ -116,6 +116,3 @@ kubeadm init phase kubeconfig all [flags]
 
 </tbody>
 </table>
-
-
-
