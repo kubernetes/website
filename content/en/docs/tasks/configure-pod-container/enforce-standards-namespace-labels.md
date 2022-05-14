@@ -9,7 +9,7 @@ min-kubernetes-server-version: v1.22
 
 Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards). The three policies
 [privileged](/docs/concepts/security/pod-security-standards/#privileged), [baseline](/docs/concepts/security/pod-security-standards/#baseline)
-and [restricted](https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted) broadly cover the security spectrum
+and [restricted](/docs/concepts/security/pod-security-standards/#restricted) broadly cover the security spectrum
 and are implemented by the [Pod Security](/docs/concepts/security/pod-security-admission/) {{< glossary_tooltip
 text="admission controller" term_id="admission-controller" >}}.
 
