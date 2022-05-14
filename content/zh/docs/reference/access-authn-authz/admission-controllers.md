@@ -1308,7 +1308,7 @@ for more information.
 -->
 ### RuntimeClass {#runtimeclass}
 
-+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 如果你开启 `PodOverhead`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/),
