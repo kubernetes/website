@@ -2,6 +2,8 @@
 title: 为命名空间配置默认的 CPU 请求和限制
 content_type: task
 weight: 20
+description: >-
+  为命名空间定义默认的 CPU 资源限制，在该命名空间中每个新建的 Pod 都会被配置上 CPU 资源限制。
 ---
 
 <!--
@@ -12,20 +14,44 @@ weight: 20
 
 <!-- overview -->
 <!--
-This page shows how to configure default CPU requests and limits for a namespace.
-A Kubernetes cluster can be divided into namespaces. If a Container is created in a namespace
-that has a default CPU limit, and the Container does not specify its own CPU limit, then
-the Container is assigned the default CPU limit. Kubernetes assigns a default CPU request
-under certain conditions that are explained later in this topic.
+This page shows how to configure default CPU requests and limits for a
+{{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+
+A Kubernetes cluster can be divided into namespaces. If you create a Pod within a
+namespace that has a default CPU
+[limit](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits), and any container in that Pod does not specify
+its own CPU limit, then the
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}} assigns the default
+CPU limit to that container.
+
+Kubernetes assigns a default CPU
+[request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits),
+but only under certain conditions that are explained later in this page.
+
 -->
-本章介绍怎样为命名空间配置默认的 CPU 请求和限制。
-一个 Kubernetes 集群可被划分为多个命名空间。如果在配置了 CPU 限制的命名空间创建容器，
-并且该容器没有声明自己的 CPU 限制，那么这个容器会被指定默认的 CPU 限制。
-Kubernetes 在一些特定情况还会指定 CPU 请求，本文后续章节将会对其进行解释。
+本章介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}配置默认的 CPU 请求和限制。
+
+一个 Kubernetes 集群可被划分为多个命名空间。
+如果你在具有默认 CPU[限制](/zh/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+的命名空间内创建一个 Pod，并且这个 Pod 中任何容器都没有声明自己的 CPU 限制，
+那么{{< glossary_tooltip text="控制面" term_id="control-plane" >}}会为容器设定默认的 CPU 限制。
+
+Kubernetes 在一些特定情况还可以设置默认的 CPU 请求，本文后续章节将会对其进行解释。
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+<!--
+You must have access to create namespaces in your cluster.
+
+If you're not already familiar with what Kubernetes means by 1.0 CPU,
+read [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu).
+-->
+在你的集群里你必须要有创建命名空间的权限。
+
+如果你还不熟悉 Kubernetes 中 1.0 CPU 的含义，
+请阅读 [CPU 的含义](/zh/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)。
 
 <!-- steps -->
 
@@ -46,12 +72,13 @@ kubectl create namespace default-cpu-example
 <!--
 ## Create a LimitRange and a Pod
 
-Here's the configuration file for a LimitRange object. The configuration specifies
-a default CPU request and a default CPU limit.
+Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}.
+The manifest specifies a default CPU request and a default CPU limit.
 -->
 ## 创建 LimitRange 和 Pod
 
-这里给出了 LimitRange 对象的配置文件。该配置声明了一个默认的 CPU 请求和一个默认的 CPU 限制。
+以下为 {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} 的示例清单。
+清单中声明了默认 CPU 请求和默认 CPU 限制。
 
 {{< codenew file="admin/resource/cpu-defaults.yaml" >}}
 
@@ -65,18 +92,19 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults.yaml --name
 ```
 
 <!--
-Now if a Container is created in the default-cpu-example namespace, and the
-Container does not specify its own values for CPU request and CPU limit,
-the Container is given a default CPU request of 0.5 and a default
+Now if you create a Pod in the default-cpu-example namespace, and any container
+in that Pod does not specify its own values for CPU request and CPU limit,
+then the control plane applies default values: a CPU request of 0.5 and a default
 CPU limit of 1.
 
-Here's the configuration file for a Pod that has one Container. The Container
+Here's a manifest for a Pod that has one container. The container
 does not specify a CPU request and limit.
 -->
-现在如果在 default-cpu-example 命名空间创建一个容器，该容器没有声明自己的 CPU 请求和限制时，
-将会给它指定默认的 CPU 请求0.5和默认的 CPU 限制值1.
+现在如果你在 default-cpu-example 命名空间中创建一个 Pod，
+并且该 Pod 中所有容器都没有声明自己的 CPU 请求和 CPU 限制，
+控制面会将 CPU 的默认请求值 0.5 和默认限制值 1 应用到 Pod 上。
 
-这里给出了包含一个容器的 Pod 的配置文件。该容器没有声明 CPU 请求和限制。
+以下为只包含一个容器的 Pod 的清单。该容器没有声明 CPU 请求和限制。
 
 {{< codenew file="admin/resource/cpu-defaults-pod.yaml" >}}
 
@@ -99,10 +127,12 @@ kubectl get pod default-cpu-demo --output=yaml --namespace=default-cpu-example
 ```
 
 <!--
-The output shows that the Pod's Container has a CPU request of 500 millicpus and
-a CPU limit of 1 cpu. These are the default values specified by the LimitRange.
+The output shows that the Pod's only container has a CPU request of 500m `cpu`
+(which you can read as “500 millicpu”), and a CPU limit of 1 `cpu`.
+These are the default values specified by the LimitRange.
 -->
-输出显示该 Pod 的容器有一个500 millicpus的 CPU 请求和一个1 cpu的 CPU 限制。这些是 LimitRange 声明的默认值。
+输出显示该 Pod 的唯一的容器有 500m `cpu` 的 CPU 请求和 1 `cpu` 的 CPU 限制。
+这些是 LimitRange 声明的默认值。
 
 ```shell
 containers:
@@ -117,14 +147,14 @@ containers:
 ```
 
 <!--
-## What if you specify a Container's limit, but not its request?
+## What if you specify a container's limit, but not its request?
 
-Here's the configuration file for a Pod that has one Container. The Container
+Here's a manifest for a Pod that has one container. The container
 specifies a CPU limit, but not a request:
 -->
 ## 你只声明容器的限制，而不声明请求会怎么样？
 
-这是包含一个容器的 Pod 的配置文件。该容器声明了 CPU 限制，而没有声明 CPU 请求。
+以下为只包含一个容器的 Pod 的清单。该容器声明了 CPU 限制，而没有声明 CPU 请求。
 
 {{< codenew file="admin/resource/cpu-defaults-pod-2.yaml" >}}
 
@@ -138,9 +168,10 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml 
 ```
 
 <!--
-View the Pod specification:
+View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
+of the Pod that you created:
 -->
-查看 Pod 的声明：
+查看你所创建的 Pod 的[规约](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)：
 
 ```
 kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
@@ -148,9 +179,9 @@ kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
 
 <!--
 The output shows that the Container's CPU request is set to match its CPU limit.
-Notice that the Container was not assigned the default CPU request value of 0.5 cpu.
+Notice that the container was not assigned the default CPU request value of 0.5 `cpu`:
 -->
-输出显示该容器的 CPU 请求和 CPU 限制设置相同。注意该容器没有被指定默认的 CPU 请求值0.5 cpu。
+输出显示该容器的 CPU 请求和 CPU 限制设置相同。注意该容器没有被指定默认的 CPU 请求值 0.5 `cpu`：
 
 ```
 resources:
@@ -161,14 +192,14 @@ resources:
 ```
 
 <!--
-## What if you specify a Container's request, but not its limit?
+## What if you specify a container's request, but not its limit?
 
-Here's the configuration file for a Pod that has one Container. The Container
+Here's an example manifest for a Pod that has one container. The container
 specifies a CPU request, but not a limit:
 -->
 ## 你只声明容器的请求，而不声明它的限制会怎么样？
 
-这里给出了包含一个容器的 Pod 的配置文件。该容器声明了 CPU 请求，而没有声明 CPU 限制。
+这里给出了包含一个容器的 Pod 的示例清单。该容器声明了 CPU 请求，而没有声明 CPU 限制。
 
 {{< codenew file="admin/resource/cpu-defaults-pod-3.yaml" >}}
 
@@ -182,21 +213,22 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml 
 ```
 
 <!--
-View the Pod specification:
+View the specification of the Pod that you created:
 -->
-查看 Pod 的规约：
+查看所你创建的 Pod 的规约:
 
 ```
 kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
 ```
 
 <!--
-The output shows that the Container's CPU request is set to the value specified in the
-Container's configuration file. The Container's CPU limit is set to 1 cpu, which is the
-default CPU limit for the namespace.
+The output shows that the container's CPU request is set to the value you specified at
+the time you created the Pod (in other words: it matches the manifest).
+However, the same container's CPU limit is set to 1 `cpu`, which is the default CPU limit
+for that namespace.
 -->
-结果显示该容器的 CPU 请求被设置为容器配置文件中声明的数值。
-容器的CPU限制被设置为 1 CPU，即该命名空间的默认 CPU 限制值。
+输出显示你所创建的 Pod 中，容器的 CPU 请求为 Pod 清单中声明的值。
+然而同一容器的 CPU 限制被设置为 1 `cpu`，此值是该命名空间的默认 CPU 限制值。
 
 ```
 resources:
@@ -209,27 +241,41 @@ resources:
 <!--
 ## Motivation for default CPU limits and requests
 
-If your namespace has a
-[resource quota](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/),
+If your namespace has a CPU {{< glossary_tooltip text="resource quota" term_id="resource-quota" >}}
+configured,
 it is helpful to have a default value in place for CPU limit.
-Here are two of the restrictions that a resource quota imposes on a namespace:
+Here are two of the restrictions that a CPU resource quota imposes on a namespace:
 
-* Every Container that runs in the namespace must have its own CPU limit.
-* The total amount of CPU used by all Containers in the namespace must not exceed a specified limit.
+* For every Pod that runs in the namespace, each of its containers must have a CPU limit.
+* CPU request apply a resource reservation on the node where the Pod in question is scheduled.
+  The total amount of CPU that is reserved for use by all Pods in the namespace must not
+  exceed a specified limit.
 
-If a Container does not specify its own CPU limit, it is given the default limit, and then
-it can be allowed to run in a namespace that is restricted by a quota.
 -->
 ## 默认 CPU 限制和请求的动机
 
-如果你的命名空间有一个
-[资源配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)，
-那么有一个默认的 CPU 限制是有帮助的。这里有资源配额强加给命名空间的两条限制：
+如果你的命名空间设置了 CPU {{< glossary_tooltip text="资源配额" term_id="resource-quota" >}}，
+为 CPU 限制设置一个默认值会很有帮助。
+以下是 CPU 资源配额对命名空间的施加的两条限制：
 
-* 命名空间中运行的每个容器必须有自己的 CPU 限制。
-* 命名空间中所有容器使用的 CPU 总和不能超过一个声明值。
+* 命名空间中运行的每个 Pod 中的容器都必须有 CPU 限制。
 
-如果容器没有声明自己的 CPU 限制，将会给它一个默认限制，这样它就能被允许运行在一个有配额限制的命名空间中。
+* CPU 限制用来在 Pod 被调度到的节点上执行资源预留。
+
+预留给命名空间中所有 Pod 使用的 CPU 总量不能超过规定的限制。
+
+<!--
+When you add a LimitRange:
+
+If any Pod in that namespace that includes a container does not specify its own CPU limit,
+the control plane applies the default CPU limit to that container, and the Pod can be
+allowed to run in a namespace that is restricted by a CPU ResourceQuota.
+-->
+当你添加 LimitRange 时：
+
+如果该命名空间中的任何 Pod 的容器未指定 CPU 限制，
+控制面将默认 CPU 限制应用于该容器，
+这样 Pod 可以在受到 CPU ResourceQuota 限制的命名空间中运行。
 
 <!--
 ## Clean up
