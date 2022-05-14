@@ -273,7 +273,7 @@ latter you can use newer container build options like [img], [buildah],
 -->
 另外还有一个需要关注的点，那就是当创建镜像时，系统维护或嵌入容器方面的任务将无法工作。
 对于前者，可以用 [`crictl`](https://github.com/kubernetes-sigs/cri-tools) 工具作为临时替代方案
-(参见 [从 docker 命令映射到 crictl](/zh/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl))；
+(参见[从 docker 命令映射到 crictl](/zh/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl))；
 对于后者，可以用新的容器创建选项，比如
 [img](https://github.com/genuinetools/img)、
 [buildah](https://github.com/containers/buildah)、
