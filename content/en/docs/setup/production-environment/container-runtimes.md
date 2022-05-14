@@ -210,6 +210,18 @@ sudo systemctl restart containerd
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 
+#### Overriding the sandbox (pause) image {#override-pause-image-containerd}
+
+In your [containerd config](https://github.com/containerd/cri/blob/master/docs/config.md) you can overwrite the
+sandbox image by setting the following config:
+
+```toml
+[plugins."io.containerd.grpc.v1.cri"]
+  sandbox_image = "k8s.gcr.io/pause:3.2"
+```
+
+You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
+
 ### CRI-O
 
 This section contains the necessary steps to install CRI-O as a container runtime.
@@ -236,6 +248,19 @@ in sync.
 
 For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
 
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-o}
+
+In your [CRI-O config](https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.5.md) you can set the following
+config value:
+
+```toml
+[crio.image]
+pause_image="registry.k8s.io/pause:3.6"
+```
+
+This config option supports live configuration reload to apply this change: `systemctl reload crio` or by sending
+`SIGHUP` to the `crio` process.
+
 ### Docker Engine {#docker}
 
 {{< note >}}
@@ -252,6 +277,12 @@ Docker Engine with Kubernetes.
 
 For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd}
+
+To overwrite the sandbox (pause) image the `cri-dockerd` adapter
+[accepts a flag](https://github.com/Mirantis/cri-dockerd)
+you can configure this. The command line argument to use is `--pod-infra-container-image`.
+
 ### Mirantis Container Runtime {#mcr}
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially
@@ -265,6 +296,12 @@ visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html).
 
 Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
 socket.
+
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd-mcr}
+
+To overwrite the sandbox (pause) image the `cri-dockerd` adapter
+[accepts a flag](https://github.com/Mirantis/cri-dockerd)
+you can configure this. The command line argument to use is `--pod-infra-container-image`.
 
 ## {{% heading "whatsnext" %}}
 
