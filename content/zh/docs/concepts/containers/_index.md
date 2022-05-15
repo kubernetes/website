@@ -15,15 +15,11 @@ run it.
 Containers decouple applications from underlying host infrastructure.
 This makes deployment easier in different cloud or OS environments.
 -->
-
 每个运行的容器都是可重复的；
-包含依赖环境在内的标准，意味着无论您在哪里运行它，您都会得到相同的行为。
+包含依赖环境在内的标准，意味着无论你在哪里运行它都会得到相同的行为。
 
 容器将应用程序从底层的主机设施中解耦。
 这使得在不同的云或 OS 环境中部署更加容易。
-
-
-
 
 <!-- body -->
 <!--
