@@ -108,7 +108,8 @@ and investigating each container by running `docker logs`. For other container r
 <!--
 ## kubeadm blocks when removing managed containers
 
-The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
+The following could happen if the container runtime halts and does not remove
+any Kubernetes-managed containers:
 
 ```shell
 sudo kubeadm reset
@@ -122,22 +123,13 @@ sudo kubeadm reset
 (block)
 ```
 
-A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
-
-```shell
-sudo systemctl restart docker.service
-sudo kubeadm reset
-```
-
-Inspecting the logs for docker may also be useful:
-
-```shell
-journalctl -ul docker
-```
+A possible solution is to restart the container runtime and then re-run `kubeadm reset`.
+You can also use `crictl` to debug the state of the container runtime. See
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
 -->
 ## 当删除托管容器时 kubeadm 阻塞
 
-如果 Docker 停止并且不删除 Kubernetes 所管理的所有容器，可能发生以下情况：
+如果容器运行时停止并且未删除 Kubernetes 管理的所有容器，则可能会发生以下情况：
 
 ```shell
 sudo kubeadm reset
@@ -151,18 +143,8 @@ sudo kubeadm reset
 (block)
 ```
 
-一个可行的解决方案是重新启动 Docker 服务，然后重新运行 `kubeadm reset`：
-
-```shell
-sudo systemctl restart docker.service
-sudo kubeadm reset
-```
-
-检查 docker 的日志也可能有用：
-
-```shell
-journalctl -ul docker
-```
+一个可行的解决方案是重新启动容器运行时，然后重新运行 `kubeadm reset`：
+你还可以使用 `crictl` 来调试容器运行时的状态。 看[使用 crictl 调试 Kubernetes 节点](/zh/docs/tasks/debug-application-cluster/crictl/)。
 
 <!--
 ## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
@@ -177,10 +159,6 @@ Right after `kubeadm init` there should not be any pods in these states.
   it's very likely that the Pod Network add-on that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
-- If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
-  when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
-  MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
-  The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 -->
 ## Pods 处于 `RunContainerError`、`CrashLoopBackOff` 或者 `Error` 状态
 
@@ -195,12 +173,6 @@ Right after `kubeadm init` there should not be any pods in these states.
   那很可能是你安装的网络插件由于某种原因无法工作。你或许需要授予它更多的
   RBAC 特权或使用较新的版本。请在 Pod Network 提供商的问题跟踪器中提交问题，
   然后在此处分类问题。
-
-- 如果你安装的 Docker 版本早于 1.12.1，请在使用 `systemd` 来启动 `dockerd` 和重启 `docker` 时，
-  删除 `MountFlags=slave` 选项。
-  你可以在 `/usr/lib/systemd/system/docker.service` 中看到 MountFlags。
-  MountFlags 可能会干扰 Kubernetes 挂载的卷， 并使 Pods 处于 `CrashLoopBackOff` 状态。
-  当 Kubernetes 不能找到 `var/run/secrets/kubernetes.io/serviceaccount` 文件时会发生错误。
 
 <!--
 ## `coredns` is stuck in the `Pending` state
@@ -642,7 +614,7 @@ A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on 
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
 ```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
@@ -663,7 +635,7 @@ proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 而不管它们的条件如何，将其与其他节点保持隔离，直到它们的初始保护条件消除：
 
 ```shell
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 此问题的跟踪[在这里](https://github.com/kubernetes/kubeadm/issues/1027)。
