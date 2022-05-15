@@ -17,7 +17,8 @@ authentication mechanisms. The `kubectl` command-line tool uses kubeconfig files
 find the information it needs to choose a cluster and communicate with the API server
 of a cluster.
 -->
-使用 kubeconfig 文件来组织有关集群、用户、命名空间和身份认证机制的信息。`kubectl` 命令行工具使用 kubeconfig 文件来查找选择集群所需的信息，并与集群的 API 服务器进行通信。
+使用 kubeconfig 文件来组织有关集群、用户、命名空间和身份认证机制的信息。
+`kubectl` 命令行工具使用 kubeconfig 文件来查找选择集群所需的信息，并与集群的 API 服务器进行通信。
 
 <!--
 {{< note >}}
@@ -27,7 +28,8 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 -->
 {{< note >}}
-用于配置集群访问的文件称为 *kubeconfig 文件*。这是引用配置文件的通用方法。这并不意味着有一个名为 `kubeconfig` 的文件
+用于配置集群访问的文件称为“kubeconfig 文件”。
+这是引用配置文件的通用方法，并不意味着有一个名为 `kubeconfig` 的文件
 {{< /note >}}
 
 <!--
@@ -48,7 +50,7 @@ variable or by setting the
 [`-kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag.
 -->
 默认情况下，`kubectl` 在 `$HOME/.kube` 目录下查找名为 `config` 的文件。
-您可以通过设置 `KUBECONFIG` 环境变量或者设置
+你可以通过设置 `KUBECONFIG` 环境变量或者设置
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/)参数来指定其他 kubeconfig 文件。
 
 <!--
@@ -69,7 +71,7 @@ For step-by-step instructions on creating and specifying kubeconfig files, see
 Suppose you have several clusters, and your users and components authenticate
 in a variety of ways. For example:
 -->
-假设您有多个集群，并且您的用户和组件以多种方式进行身份认证。比如：
+假设你有多个集群，并且你的用户和组件以多种方式进行身份认证。比如：
 
 <!--
 - A running kubelet might authenticate using certificates.
@@ -85,7 +87,7 @@ With kubeconfig files, you can organize your clusters, users, and namespaces.
 You can also define contexts to quickly and easily switch between
 clusters and namespaces.
 -->
-使用 kubeconfig 文件，您可以组织集群、用户和命名空间。您还可以定义上下文，以便在集群和命名空间之间快速轻松地切换。
+使用 kubeconfig 文件，你可以组织集群、用户和命名空间。你还可以定义上下文，以便在集群和命名空间之间快速轻松地切换。
 
 <!--
 ## Context
@@ -98,7 +100,9 @@ under a convenient name. Each context has three parameters: cluster, namespace, 
 By default, the `kubectl` command-line tool uses parameters from
 the *current context* to communicate with the cluster.
 -->
-通过 kubeconfig 文件中的 *context* 元素，使用简便的名称来对访问参数进行分组。每个上下文都有三个参数：cluster、namespace 和 user。默认情况下，`kubectl` 命令行工具使用 *当前上下文* 中的参数与集群进行通信。
+通过 kubeconfig 文件中的 *context* 元素，使用简便的名称来对访问参数进行分组。
+每个 context 都有三个参数：cluster、namespace 和 user。
+默认情况下，`kubectl` 命令行工具使用 **当前上下文** 中的参数与集群进行通信。
 
 <!--
 To choose the current context:
