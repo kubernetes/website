@@ -27,7 +27,7 @@ the general
 -->
 终止消息为容器提供了一种方法，可以将有关致命事件的信息写入某个位置，
 在该位置可以通过仪表板和监控软件等工具轻松检索和显示致命事件。
-在大多数情况下，您放入终止消息中的信息也应该写入
+在大多数情况下，你放入终止消息中的信息也应该写入
 [常规 Kubernetes 日志](/zh/docs/concepts/cluster-administration/logging/)。
 
 ## {{% heading "prerequisites" %}}
@@ -45,7 +45,7 @@ the container starts.
 -->
 ## 读写终止消息
 
-在本练习中，您将创建运行一个容器的 Pod。
+在本练习中，你将创建运行一个容器的 Pod。
 配置文件指定在容器启动时要运行的命令。
 
 {{< codenew file="debug/termination.yaml" >}}
@@ -123,7 +123,7 @@ populate the Container's status message on both success and failure.
 
 Kubernetes 从容器的 `terminationMessagePath` 字段中指定的终止消息文件中检索终止消息，
 默认值为 `/dev/termination-log`。
-通过定制这个字段，您可以告诉 Kubernetes 使用不同的文件。
+通过定制这个字段，你可以告诉 Kubernetes 使用不同的文件。
 Kubernetes 使用指定文件中的内容在成功和失败时填充容器的状态消息。
 
 <!--
@@ -153,7 +153,6 @@ to use the last chunk of container log output if the termination message file
 is empty and the container exited with an error. The log output is limited to
 2048 bytes or 80 lines, whichever is smaller.
 -->
-
 此外，用户可以设置容器的 `terminationMessagePolicy` 字段，以便进一步自定义。
 此字段默认为 "`File`"，这意味着仅从终止消息文件中检索终止消息。
 通过将 `terminationMessagePolicy` 设置为 "`FallbackToLogsOnError`"，你就可以告诉 Kubernetes，在容器因错误退出时，如果终止消息文件为空，则使用容器日志输出的最后一块作为终止消息。
