@@ -50,7 +50,8 @@ The Code layer benefits from strong base (Cloud, Cluster, Container) security la
 You cannot safeguard against poor security standards in the base layers by addressing
 security at the Code level.
 -->
-云原生安全模型的每一层都是基于下一个最外层，代码层受益于强大的基础安全层（云、集群、容器）。你无法通过在代码层解决安全问题来为基础层中糟糕的安全标准提供保护。
+云原生安全模型的每一层都是基于下一个最外层，代码层受益于强大的基础安全层（云、集群、容器）。
+你无法通过在代码层解决安全问题来为基础层中糟糕的安全标准提供保护。
 
 ## 云
 
@@ -76,7 +77,7 @@ Here are links to some of the popular cloud providers' security documentation:
 -->
 ### 云提供商安全性
 
-如果您是在您自己的硬件或者其他不同的云提供商上运行 Kubernetes 集群，
+如果你是在你自己的硬件或者其他不同的云提供商上运行 Kubernetes 集群，
 请查阅相关文档来获取最好的安全实践。
 
 下面是一些比较流行的云提供商的安全性文档链接：
@@ -174,10 +175,10 @@ Quality of Service (and Cluster resource management) | https://kubernetes.io/doc
 Network Policies | https://kubernetes.io/docs/concepts/services-networking/network-policies/
 TLS for Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
 -->
-### 集群中的组件（您的应用） {#cluster-applications}
+### 集群中的组件（你的应用） {#cluster-applications}
 
-根据您的应用程序的受攻击面，您可能需要关注安全性的特定面，比如：
-如果您正在运行中的一个服务（A 服务）在其他资源链中很重要，并且所运行的另一工作负载（服务 B）
+根据你的应用程序的受攻击面，你可能需要关注安全性的特定面，比如：
+如果你正在运行中的一个服务（A 服务）在其他资源链中很重要，并且所运行的另一工作负载（服务 B）
 容易受到资源枯竭的攻击，则如果你不限制服务 B 的资源的话，损害服务 A 的风险就会很高。
 下表列出了安全性关注的领域和建议，用以保护 Kubernetes 中运行的工作负载：
 
@@ -210,7 +211,7 @@ Use container runtime with stronger isolation | Select [container runtime classe
 
 容器关注领域                   | 建议           |
 ------------------------------ | -------------- |
-容器漏洞扫描和操作系统依赖安全性 | 作为镜像构建的一部分，您应该扫描您的容器里的已知漏洞。
+容器漏洞扫描和操作系统依赖安全性 | 作为镜像构建的一部分，你应该扫描你的容器里的已知漏洞。
 镜像签名和执行 | 对容器镜像进行签名，以维护对容器内容的信任。
 禁止特权用户 | 构建容器时，请查阅文档以了解如何在具有最低操作系统特权级别的容器内部创建用户，以实现容器的目标。
 使用带有较强隔离能力的容器运行时 | 选择提供较强隔离能力的[容器运行时类](/zh/docs/concepts/containers/runtime-class/)。
@@ -223,7 +224,7 @@ are recommendations to protect application code:
 -->
 ## 代码
 
-应用程序代码是您最能够控制的主要攻击面之一，虽然保护应用程序代码不在 Kubernetes 安全主题范围内，但以下是保护应用程序代码的建议：
+应用程序代码是你最能够控制的主要攻击面之一，虽然保护应用程序代码不在 Kubernetes 安全主题范围内，但以下是保护应用程序代码的建议：
 
 <!--
 ### Code security
@@ -246,11 +247,11 @@ Dynamic probing attacks | There are a few automated tools that you can run again
 
 代码关注领域 | 建议 |
 -------------------------| -------------- |
-仅通过 TLS 访问 | 如果您的代码需要通过 TCP 通信，请提前与客户端执行 TLS 握手。除少数情况外，请加密传输中的所有内容。更进一步，加密服务之间的网络流量是一个好主意。这可以通过被称为双向 TLS 或 [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication) 的过程来完成，该过程对两个证书持有服务之间的通信执行双向验证。 |
+仅通过 TLS 访问 | 如果你的代码需要通过 TCP 通信，请提前与客户端执行 TLS 握手。除少数情况外，请加密传输中的所有内容。更进一步，加密服务之间的网络流量是一个好主意。这可以通过被称为双向 TLS 或 [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication) 的过程来完成，该过程对两个证书持有服务之间的通信执行双向验证。 |
 限制通信端口范围 | 此建议可能有点不言自明，但是在任何可能的情况下，你都只应公开服务上对于通信或度量收集绝对必要的端口。|
 第三方依赖性安全 | 最好定期扫描应用程序的第三方库以了解已知的安全漏洞。每种编程语言都有一个自动执行此检查的工具。 |
 静态代码分析 | 大多数语言都提供给了一种方法，来分析代码段中是否存在潜在的不安全的编码实践。只要有可能，你都应该使用自动工具执行检查，该工具可以扫描代码库以查找常见的安全错误，一些工具可以在以下连接中找到：https://owasp.org/www-community/Source_Code_Analysis_Tools |
-动态探测攻击 | 您可以对服务运行一些自动化工具，来尝试一些众所周知的服务攻击。这些攻击包括 SQL 注入、CSRF 和 XSS。[OWASP Zed Attack](https://owasp.org/www-project-zap/) 代理工具是最受欢迎的动态分析工具之一。 |
+动态探测攻击 | 你可以对服务运行一些自动化工具，来尝试一些众所周知的服务攻击。这些攻击包括 SQL 注入、CSRF 和 XSS。[OWASP Zed Attack](https://owasp.org/www-project-zap/) 代理工具是最受欢迎的动态分析工具之一。 |
 
 {{< /table >}}
 
@@ -273,7 +274,7 @@ Learn about related Kubernetes security topics:
 * [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
 * [Pod 的网络策略](/zh/docs/concepts/services-networking/network-policies/)
 * [控制对 Kubernetes API 的访问](/zh/docs/concepts/security/controlling-access/)
-* [保护您的集群](/zh/docs/tasks/administer-cluster/securing-a-cluster/)
+* [保护你的集群](/zh/docs/tasks/administer-cluster/securing-a-cluster/)
 * 为控制面[加密通信中的数据](/zh/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [加密静止状态的数据](/zh/docs/tasks/administer-cluster/encrypt-data/)
 * [Kubernetes 中的 Secret](/zh/docs/concepts/configuration/secret/)
