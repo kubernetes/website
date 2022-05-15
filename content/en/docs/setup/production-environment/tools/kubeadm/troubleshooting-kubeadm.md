@@ -114,7 +114,7 @@ sudo kubeadm reset
 
 A possible solution is to restart the container runtime and then re-run `kubeadm reset`.
 You can also use `crictl` to debug the state of the container runtime. See
-[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
 
