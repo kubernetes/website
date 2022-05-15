@@ -9,7 +9,6 @@ content_type: concept
 ---
 
 <!--
----
 reviewers:
 - erictune
 - lavalamp
@@ -18,7 +17,6 @@ reviewers:
 title: Using ABAC Authorization
 content_type: concept
 weight: 80
----
 -->
 
 <!-- overview -->
@@ -26,7 +24,8 @@ weight: 80
 <!--
 Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
 -->
-基于属性的访问控制（Attribute-based access control - ABAC）定义了访问控制范例，其中通过使用将属性组合在一起的策略来向用户授予访问权限。
+基于属性的访问控制（Attribute-based access control - ABAC）定义了访问控制范例，
+其中通过使用将属性组合在一起的策略来向用户授予访问权限。
 
 
 
@@ -68,7 +67,6 @@ properties:
           - `/foo/*` matches all subpaths of `/foo/`.
     - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list, and watch operations, Non-resource-matching policy only applies to get operation.
 -->
-
 ## 策略文件格式
 
 基于 `ABAC` 模式，可以这样指定策略文件 `--authorization-policy-file=SOME_FILENAME`。
@@ -83,7 +81,8 @@ properties:
   - `spec` 配置为具有以下映射的属性：
     - 主体匹配属性：
       - `user`，字符串类型；来自 `--token-auth-file` 的用户字符串，如果你指定 `user`，它必须与验证用户的用户名匹配。
-      - `group`，字符串类型；如果指定 `group`，它必须与经过身份验证的用户的一个组匹配，`system:authenticated`匹配所有经过身份验证的请求。`system:unauthenticated`匹配所有未经过身份验证的请求。
+      - `group`，字符串类型；如果指定 `group`，它必须与经过身份验证的用户的一个组匹配，`system:authenticated` 匹配所有经过身份验证的请求。
+        `system:unauthenticated` 匹配所有未经过身份验证的请求。
   - 资源匹配属性：
     - `apiGroup`，字符串类型；一个 API 组。
       - 例： `apps`, `networking.k8s.io`
@@ -154,10 +153,7 @@ resource, and nonResourcePath properties set to `"*"`.
 
 要允许任何经过身份验证的用户执行某些操作，请将策略组属性设置为 `"system:authenticated"`。
 
-要允许任何未经身份验证的用户执行某些操作，请将策略组属性设置为 `"system:authentication"`。
-
-要允许用户执行任何操作，请使用 apiGroup，命名空间，
-资源和 nonResourcePath 属性设置为 `"*"` 的策略。
+要允许任何未经身份验证的用户执行某些操作，请将策略组属性设置为 `"system:unauthenticated"`。
 
 要允许用户执行任何操作，请使用设置为 `"*"` 的 apiGroup，namespace，resource 和 nonResourcePath 属性编写策略。
 
@@ -181,9 +177,10 @@ up the verbosity:
     kubectl --v=8 version
 -->
 
-## Kubectl
+## kubectl
 
-Kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类型，并使用位于 `/openapi/v2` 的模式信息来验证通过创建/更新操作发送到 API 的对象。
+kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类型，
+并使用位于 `/openapi/v2` 的模式信息来验证通过创建/更新操作发送到 API 的对象。
 
 当使用 ABAC 鉴权时，这些特殊资源必须显式地通过策略中的 `nonResourcePath` 属性暴露出来（参见下面的 [示例](#examples)）：
 
@@ -191,7 +188,7 @@ Kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类�
 * `/version` 通过 `kubectl version` 检索服务器版本。
 * `/swaggerapi/*` 用于创建 / 更新操作。
 
-要检查涉及到特定 kubectl 操作的 HTTP 调用，您可以调整详细程度：
+要检查涉及到特定 kubectl 操作的 HTTP 调用，你可以调整详细程度：
     kubectl --v=8 version
 
 <!--
@@ -213,7 +210,6 @@ Kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类�
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}
     ```
  -->
-
 ## 例子 {#examples}
 
 1. Alice 可以对所有资源做任何事情：
@@ -221,12 +217,12 @@ Kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类�
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "alice", "namespace": "*", "resource": "*", "apiGroup": "*"}}
     ```
-2. Kubelet 可以读取任何 pod：
+2. kubelet 可以读取任何 pod：
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "pods", "readonly": true}}
     ```
-3. Kubelet 可以读写事件：
+3. kubelet 可以读写事件：
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}
@@ -245,8 +241,8 @@ Kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类�
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"group": "system:unauthenticated", "readonly": true, "nonResourcePath": "*"}}
     ```
 -->
-
 4. Bob 可以在命名空间 `projectCaribou` 中读取 pod：
+
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "bob", "namespace": "projectCaribou", "resource": "pods", "readonly": true}}
     ```
@@ -269,7 +265,6 @@ system:serviceaccount:<namespace>:<serviceaccountname>
 ```
 
 -->
-
 [完整文件示例](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## 服务帐户的快速说明
