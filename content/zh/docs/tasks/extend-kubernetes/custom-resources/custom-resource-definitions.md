@@ -546,7 +546,7 @@ resource definitions to:
 * 裁剪未启用。
 * 可以存储任意数据。
 
-为了与 `apiextensions.k8s.io/v1` 兼容，将你的自定义资源定义更新为：
+为了与 `apiextensions.k8s.io/v1` 兼容，将你的定制资源定义更新为：
 
 1. 使用结构化的 OpenAPI 模式。
 2. `spec.preserveUnknownFields` 设置为 `false`。
@@ -902,15 +902,16 @@ Kubernetes 会最终删除该资源，
 ### Validation
 
 Custom resources are validated via
-[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject)
-and you can add additional validation using
+[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject),
+by x-kubernetes-validations when the [Validation Rules feature](#validation-rules) is enabled, and you
+can add additional validation using
 [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 -->
 ### 合法性检查    {#validation}
 
 定制资源是通过
 [OpenAPI v3 模式定义](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject)
-来执行合法性检查的，
+来执行合法性检查的，当启用[验证规则特性](#validation-rules)时，通过 `x-kubernetes-validations` 验证，
 你可以通过使用[准入控制 Webhook](/zh/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 来添加额外的合法性检查逻辑。
 
@@ -948,6 +949,16 @@ Additionally, the following restrictions are applied to the schema:
 - 字段 `uniqueItems` 不可设置为 `true`
 - 字段 `additionalProperties` 不可设置为 `false`
 - 字段 `additionalProperties` 与 `properties` 互斥，不可同时使用
+
+<!--
+The `x-kubernetes-validations` extension can be used to validate custom resources using [Common
+Expression Language (CEL)](https://github.com/google/cel-spec) expressions when the [Validation
+rules](#validation-rules) feature is enabled and the CustomResourceDefinition schema is a
+[structural schema](#specifying-a-structural-schema).
+-->
+当[验证规则特性](#validation-rules)被启用并且 CustomResourceDefinition
+模式是一个[结构化的模式定义](#specifying-a-structural-schema)时，
+`x-kubernetes-validations` 扩展可以使用[通用表达式语言(CEL)](https://github.com/google/cel-spec)表达式来验证定制资源。
 
 <!--
 The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
@@ -1112,6 +1123,780 @@ And create it:
 kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
+<!--
+## Validation rules
+-->
+## 验证规则
+
+{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+
+<!--
+Validation rules are in alpha since 1.23 and validate custom resources when the
+`CustomResourceValidationExpressions` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+This feature is only available if the schema is a
+[structural schema](#specifying-a-structural-schema).
+-->
+验证规则从 1.23 开始处于 Alpha 状态，
+当 `CustomResourceValidationExpressions` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)被启用时，
+验证定制资源。这个功能只有在模式是[结构化的模式](#specifying-a-structural-schema)时才可用。
+
+<!--
+Validation rules use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
+to validate custom resource values. Validation rules are included in
+CustomResourceDefinition schemas using the `x-kubernetes-validations` extension.
+-->
+验证规则使用[通用表达式语言（CEL）](https://github.com/google/cel-spec)来验证定制资源的值。
+验证规则使用 `x-kubernetes-validations` 扩展包含在 `CustomResourceDefinition` 模式定义中。
+
+<!--
+The Rule is scoped to the location of the `x-kubernetes-validations` extension in the schema.
+And `self` variable in the CEL expression is bound to the scoped value.
+-->
+规则的作用域是模式定义中 `x-kubernetes-validations` 扩展所在的位置。
+CEL 表达式中的 `self` 变量被绑定到限定作用域的取值。
+
+<!--
+All validation rules are scoped to the current object: no cross-object or stateful validation rules are supported.
+-->
+所有验证规则都是针对当前对象的：不支持跨对象或有状态的验证规则。
+
+<!--
+For example:
+-->
+例如:
+
+```yaml
+    ...
+    openAPIV3Schema:
+      type: object
+      properties:
+        spec:
+          type: object
+          x-kubernetes-validations:
+            - rule: "self.minReplicas <= self.replicas"
+              message: "replicas should be greater than or equal to minReplicas."
+            - rule: "self.replicas <= self.maxReplicas"
+              message: "replicas should be smaller than or equal to maxReplicas."
+          properties:
+            ...
+            minReplicas:
+              type: integer
+            replicas:
+              type: integer
+            maxReplicas:
+              type: integer
+          required:
+            - minReplicas
+            - replicas
+            - maxReplicas
+```
+
+<!--
+will reject a request to create this custom resource:
+-->
+将拒绝创建这个定制资源的请求:
+
+```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
+metadata:
+  name: my-new-cron-object
+spec:
+  minReplicas: 0
+  replicas: 20
+  maxReplicas: 10
+```
+<!--
+with the response:
+-->
+
+返回响应为：
+
+```
+The CronTab "my-new-cron-object" is invalid:
+* spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: replicas should be smaller than or equal to maxReplicas.
+```
+
+<!--
+`x-kubernetes-validations` could have multiple rules.
+
+The `rule` under `x-kubernetes-validations` represents the expression which will be evaluated by CEL.
+
+The `message` represents the message displayed when validation fails. If message is unset, the above response would be:
+-->
+`x-kubernetes-validations` 可以有多条规则。 
+
+`x-kubernetes-validations` 下的 `rule` 代表将由 CEL 评估的表达式。
+
+`message` 代表验证失败时显示的信息。如果消息没有设置，上述响应将是：
+```
+The CronTab "my-new-cron-object" is invalid:
+* spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: failed rule: self.replicas <= self.maxReplicas
+```
+
+<!--
+Validation rules are compiled when CRDs are created/updated.
+The request of CRDs create/update will fail if compilation of validation rules fail.
+Compilation process includes type checking as well.
+-->
+当 CRD 被创建/更新时，验证规则被编译。
+如果验证规则的编译失败，CRD 的创建/更新请求将失败。
+编译过程也包括类型检查。
+
+<!--
+The compilation failure:
+- `no_matching_overload`: this function has no overload for the types of the arguments.
+
+   e.g. Rule like `self == true` against a field of integer type will get error:
+  ```
+  Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
+  ```
+
+- `no_such_field`: does not contain the desired field.
+
+   e.g. Rule like `self.nonExistingField > 0` against a non-existing field will return the error:
+  ```
+  Invalid value: apiextensions.ValidationRule{Rule:"self.nonExistingField > 0", Message:""}: compilation failed: ERROR: \<input>:1:5: undefined field 'nonExistingField'
+  ```
+
+- `invalid argument`: invalid argument to macros.
+
+  e.g. Rule like `has(self)` will return error:
+  ```
+  Invalid value: apiextensions.ValidationRule{Rule:"has(self)", Message:""}: compilation failed: ERROR: <input>:1:4: invalid argument to has() macro
+  ```
+-->
+编译失败：
+- `no_matching_overload`：此函数没有参数类型的重载。
+
+  例如，像 `self == true` 这样的规则对一个整数类型的字段将得到错误：
+  ```
+  Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
+  ```
+
+- `no_such_field`：不包含所需的字段。
+  例如，针对一个不存在的字段，像 `self.nonExistingField > 0` 这样的规则将返回错误：
+  ```
+  Invalid value: apiextensions.ValidationRule{Rule:"self.nonExistingField > 0", Message:""}: compilation failed: ERROR: \<input>:1:5: undefined field 'nonExistingField'
+  ```
+
+- `invalid argument`：对宏的无效参数。
+  例如，像 `has(self)` 这样的规则将返回错误：
+  ```
+  Invalid value: apiextensions.ValidationRule{Rule:"has(self)", Message:""}: compilation failed: ERROR: <input>:1:4: invalid argument to has() macro
+  ```
+
+
+<!--
+Validation Rules Examples:
+
+| Rule                                                                             | Purpose                                                                           |
+| ----------------                                                                 | ------------                                                                      |
+| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`         | Validate that the three fields defining replicas are ordered appropriately        |
+| `'Available' in self.stateCounts`                                                | Validate that an entry with the 'Available' key exists in a map                   |
+| `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
+| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | Validate the value of a map for a specific key, if it is in the map               |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `has(self.expired) && self.created + self.ttl < self.expired`                    | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
+| `self.health.startsWith('ok')`                                                   | Validate a 'health' string field has the prefix 'ok'                              |
+| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
+| `type(self) == string ? self == '100%' : self == 1000`                           | Validate an int-or-string field for both the the int and string cases             |
+| `self.metadata.name.startsWith(self.prefix)`                                     | Validate that an object's name has the prefix of another field value              |
+| `self.set1.all(e, !(e in self.set2))`                                            | Validate that two listSets are disjoint                                           |
+| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
+
+Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
+-->
+验证规则例子：
+
+| 规则                                                                             | 目的                                                                             |
+| ----------------                                                                 | ------------                                                                     |
+| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`         | 验证定义副本数的三个字段大小顺序是否正确                                             |
+| `'Available' in self.stateCounts`                                                | 验证 map 中是否存在键名为 `Available`的条目                                   |
+| `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | 验证两个 list 之一是非空的，但不是二者都非空                                   |
+| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | 如果某个特定的 key 在 map 中，验证 map 中这个 key 的 value |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | 验证一个 listMap 中主键 'name' 为 'MY_ENV' 'value' 的表项，检查其取值 'value'             |
+| `has(self.expired) && self.created + self.ttl < self.expired`    | 验证 'Expired' 日期是否晚于 'Create' 日期加上 'ttl' 持续时间                   |
+| `self.health.startsWith('ok')`                                                   | 验证 'health' 字符串字段有前缀 'ok'             |
+| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | 验证 key 为 'x' 的 listMap 项的 'foo' 属性是否小于 10                             |
+| `type(self) == string ? self == '100%' : self == 1000`                           | 在 int 型和 string 型两种情况下验证 int-or-string 字段                           |
+| `self.metadata.name.startsWith(self.prefix)`                                     | 验证对象的名称是否具有另一个字段值的前缀                                         |
+| `self.set1.all(e, !(e in self.set2))`                                            | 验证两个 listSet 是否不相交                                                      |
+| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | 验证 'details' map 是由 'names' listSet 的项目所决定的。                         |
+
+参考：[CEL 中支持的求值](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
+
+
+<!--
+- If the Rule is scoped to the root of a resource, it may make field selection into any fields
+  declared in the OpenAPIv3 schema of the CRD as well as `apiVersion`, `kind`, `metadata.name` and
+  `metadata.generateName`. This includes selection of fields in both the `spec` and `status` in the
+  same expression:
+-->
+- 如果规则的作用域是某资源的根，则它可以对 CRD 的 OpenAPIv3 模式表达式中声明的任何字段进行字段选择，
+  以及 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
+  这包括在同一表达式中对 `spec` 和 `status` 的字段进行选择：
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        x-kubernetes-validations:
+          - rule: "self.status.availableReplicas >= self.spec.minReplicas"
+        properties:
+            spec:
+              type: object
+              properties:
+                minReplicas:
+                  type: integer
+                ...
+            status:
+              type: object
+              properties:
+                availableReplicas:
+                  type: integer
+  ```
+
+<!--
+- If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable
+  via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as
+  absent fields in CEL expressions.
+-->
+- 如果规则的作用域是具有属性的对象，那么可以通过 `self.field` 对该对象的可访问属性进行字段选择，
+  而字段存在与否可以通过 `has(self.field)` 来检查。
+  在 CEL 表达式中，Null 值的字段被视为不存在的字段。
+
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            x-kubernetes-validations:
+              - rule: "has(self.foo)"
+            properties:
+              ...
+              foo:
+                type: integer
+  ```
+
+<!--
+- If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map
+  are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map
+  are accessible via CEL macros and functions such as `self.all(...)`.
+-->
+- 如果规则的作用域是一个带有 additionalProperties 的对象（即map），那么 map 的值
+  可以通过 `self[mapKey]` 访问，map 的包含性可以通过 `mapKey in self` 检查，
+  map 中的所有条目可以通过 CEL 宏和函数如 `self.all(...)` 访问。
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            x-kubernetes-validations:
+              - rule: "self['xyz'].foo > 0"
+            additionalProperties:
+              ...
+              type: object
+              properties:
+                foo:
+                  type: integer
+  ```
+
+<!--
+- If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and
+  functions.
+-->
+- 如果规则的作用域是 array，则 array 的元素可以通过 `self[i]` 访问，也可以通过宏和函数访问。
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        properties:
+          ...
+          foo:
+            type: array
+            x-kubernetes-validations:
+              - rule: "size(self) == 1"
+            items:
+              type: string
+  ```
+
+<!--
+- If the Rule is scoped to a scalar, `self` is bound to the scalar value.
+-->
+- 如果规则的作用域为标量，则 `self` 将绑定到标量值。
+  ```yaml
+      ...
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              ...
+              foo:
+                type: integer
+                x-kubernetes-validations:
+                - rule: "self > 0"
+  ```
+<!--
+Examples:
+
+|type of the field rule scoped to    | Rule example             |
+| -----------------------| -----------------------|
+| root object            | `self.status.actual <= self.spec.maxDesired`|
+| map of objects         | `self.components['Widget'].priority < 10`|
+| list of integers       | `self.values.all(value, value >= 0 && value < 100)`|
+| string                 | `self.startsWith('kube')`|
+-->
+例子：
+
+| 规则作用域字段类型     | 规则示例             |
+| -----------------------| -----------------------|
+| 根对象            | `self.status.actual <= self.spec.maxDesired`|
+| 对象映射         | `self.components['Widget'].priority < 10`|
+| 整数列表       | `self.values.all(value, value >= 0 && value < 100)`|
+| 字符串                 | `self.startsWith('kube')`|
+
+
+<!--
+The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the
+object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+-->
+`apiVersion`、`kind``metadata.name` 和 `metadata.generateName` 始终可以从对象的根目录和任何
+带有 `x-kubernetes-embedded-resource` 注解的对象访问。
+其他元数据属性都不可访问。
+
+<!--
+Unknown data preserved in custom resources via `x-kubernetes-preserve-unknown-fields` is not accessible in CEL
+  expressions. This includes:
+  - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields.
+  - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
+    - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+    - An array where the items schema is of an "unknown type"
+    - An object where the additionalProperties schema is of an "unknown type"
+-->
+通过 `x-kubernetes-preserve-unknown-fields` 保存在定制资源中的未知数据在 CEL 表达中无法访问。
+这包括：
+  - 使用 `x-kubernetes-preserve-unknown-fields` 的对象模式保留的未知字段值。
+  - 属性模式为"未知类型（Unknown Type）"的对象属性。一个"未知类型"被递归定义为：
+    - 一个没有类型的模式，`x-kubernetes-preserve-unknown-fields` 设置为 true。
+    - 一个数组，其中项目模式为"未知类型"
+    - 一个 additionalProperties 模式为"未知类型"的对象
+
+
+<!--
+Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
+Accessible property names are escaped according to the following rules when accessed in the expression:
+-->
+只有 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 形式的属性名是可访问的。
+当在表达式中访问时，可访问的属性名称会根据以下规则进行转义：
+
+<!--
+| ----------------------- | -----------------------|
+| `__underscores__`       | `__`                  |
+| `__dot__`               | `.`                   |
+|`__dash__`               | `-`                   |
+| `__slash__`             | `/`                   |
+| `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
+-->
+| 转义序列                | 属性名称等效为        |
+| ----------------------- | ----------------------|
+| `__underscores__`       | `__`                  |
+| `__dot__`               | `.`                   |
+|`__dash__`               | `-`                   |
+| `__slash__`             | `/`                   |
+| `__{keyword}__`         | [CEL 保留关键字](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
+
+<!--
+Note: CEL RESERVED keyword needs to match the exact property name to be escaped (e.g. int in the word sprint would not be escaped).
+-->
+注意：CEL 保留关键字需要与要转义的确切属性名匹配(例如，单词 `sprint` 中的 `int` 不会转义)。
+
+<!--
+Examples on escaping:
+-->
+转义的例子：
+
+<!--
+|property name    | rule with escaped property name     |
+| ----------------| -----------------------             |
+| namespace       | `self.__namespace__ > 0`            |
+| x-prop          | `self.x__dash__prop > 0`            |
+| redact__d       | `self.redact__underscores__d > 0`   |
+| string          | `self.startsWith('kube')`           |
+-->
+|属性名           | 转义属性名规则                      |
+| ----------------| -----------------------             |
+| namespace       | `self.__namespace__ > 0`            |
+| x-prop          | `self.x__dash__prop > 0`            |
+| redact__d       | `self.redact__underscores__d > 0`   |
+| string          | `self.startsWith('kube')`           |
+
+
+<!--
+Equality on arrays with `x-kubernetes-list-type` of `set` or `map` ignores element order, i.e. [1, 2] == [2, 1].
+Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+ - `set`: `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+      non-intersecting elements in `Y` are appended, retaining their partial order.
+ - `map`: `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+   are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+   non-intersecting keys are appended, retaining their partial order.
+-->
+`set` 或 `map` 的 `x-Kubernetes-list-type` 的数组的等值比较会忽略元素顺序，即[1，2] == [2，1]。
+使用 `x-kubernetes-list-type` 对数组进行串联时，使用 List 类型的语义：
+- `set`：`X + Y` 执行一个并集操作，其中 `X` 中所有元素的数组位置被保留，
+  `Y` 中不相交的元素被追加，保留其部分顺序。
+- `map`：`X + Y`执行合并，其中 `X` 中所有键的数组位置被保留，
+  但当 `X` 和 `Y` 的键集相交时，其值被 `Y` 中的值覆盖。
+  `Y` 中键值不相交的元素被附加，保留其部分顺序。
+
+
+<!--
+Here is the declarations type mapping between OpenAPIv3 and CEL type:
+-->
+以下是 OpenAPIV3 和 CEL 类型之间的声明类型映射：
+
+<!--
+| OpenAPIv3 type                                     | CEL type                                                                                                                     |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 'object' with Properties                           | object / "message type"                                                                                                      |
+| 'object' with AdditionalProperties                 | map                                                                                                                          |
+| 'object' with x-kubernetes-embedded-type           | object / "message type", 'apiVersion', 'kind', 'metadata.name' and 'metadata.generateName' are implicitly included in schema |
+| 'object' with x-kubernetes-preserve-unknown-fields | object / "message type", unknown fields are NOT accessible in CEL expression                                                 |
+| x-kubernetes-int-or-string                         | dynamic object that is either an int or a string, `type(value)` can be used to check the type                                |
+| 'array                                             | list                                                                                                                         |
+| 'array' with x-kubernetes-list-type=map            | list with map based Equality & unique key guarantees                                                                         |
+| 'array' with x-kubernetes-list-type=set            | list with set based Equality & unique entry guarantees                                                                       |
+| 'boolean'                                          | boolean                                                                                                                      |
+| 'number' (all formats)                             | double                                                                                                                       |
+| 'integer' (all formats)                            | int (64)                                                                                                                     |
+| 'null'                                             | null_type                                                                                                                    |
+| 'string'                                           | string                                                                                                                       |
+| 'string' with format=byte (base64 encoded)         | bytes                                                                                                                        |
+| 'string' with format=date                          | timestamp (google.protobuf.Timestamp)                                                                                        |
+| 'string' with format=datetime                      | timestamp (google.protobuf.Timestamp)                                                                                        |
+| 'string' with format=duration                      | duration (google.protobuf.Duration)                                                                                          |
+-->
+| OpenAPIv3 类型                                     | CEL 类型                                                                                                                     |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 带有 Properties 的对象                           | 对象 / "消息类型"                                                                                                      |
+| 带有 AdditionalProperties 的对象                 | map                                                                                                                          |
+| 带有 x-kubernetes-embedded-type 的对象           | 对象 / "消息类型"，'apiVersion'、'kind'、'metadata.name' 和 'metadata.generateName' 都隐式包含在模式中 |
+| 带有 x-kubernetes-preserve-unknown-fields 的对象 | 对象 / "消息类型"，未知字段无法从 CEL 表达式中访问                                                 |
+| x-kubernetes-int-or-string                         | 可能是整数或字符串的动态对象，可以用 `type(value)` 来检查类型                                |
+| 数组                                            | list                                                                                                                         |
+| 带有 x-kubernetes-list-type=map 的数组           | 列表，基于集合等值和唯一键名保证的 map 组成                                                                          |
+| 带有 x-kubernetes-list-type=set 的数组            | 列表，基于集合等值和唯一键名保证的 set 组成                                                                        |
+| 布尔值                                          | boolean                                                                                                                      |
+| 数字 (各种格式)                             | double                                                                                                                       |
+| 整数 (各种格式)                            | int (64)                                                                                                                     |
+| 'null'                                             | null_type                                                                                                                    |
+| 字符串                                           | string                                                                                                                       |
+| 带有 format=byte （base64 编码）字符串         | bytes                                                                                                                        |
+| 带有 format=date 字符串                          | timestamp (google.protobuf.Timestamp)                                                                                        |
+| 带有 format=datetime 字符串                      | timestamp (google.protobuf.Timestamp)                                                                                        |
+| 带有 format=duration 字符串                      | duration (google.protobuf.Duration)                                                                                          |
+
+<!--
+xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values), [OpenAPI
+types](https://swagger.io/specification/#data-types), [Kubernetes Structural Schemas](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
+-->
+参考：[CEL 类型](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values)，
+[OpenAPI 类型](https://swagger.io/specification/#data-types)，
+[Kubernetes 结构化模式](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)。
+
+<!--
+#### Validation functions {#available-validation-functions}
+-->
+#### 验证函数   {#available-validation-functions}
+
+<!--
+Functions available include:
+  - CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)
+  - CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
+  - CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
+  - Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
+-->
+可用的函数包括：
+  - CEL 标准函数，在[标准定义列表](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)中定义
+  - CEL 标准[宏](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
+  - CEL [扩展字符串函数库](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
+  - Kubernetes [CEL 扩展库](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
+
+<!--
+#### Transition rules
+-->
+#### 转换规则
+
+<!--
+A rule that contains an expression referencing the identifier `oldSelf` is implicitly considered a
+_transition rule_. Transition rules allow schema authors to prevent certain transitions between two
+otherwise valid states. For example:
+-->
+包含引用标识符 `oldSself` 的表达式的规则被隐式视为“转换规则（Transition Rule）”。
+转换规则允许模式作者阻止两个原本有效的状态之间的某些转换。例如：
+
+```yaml
+type: string
+enum: ["low", "medium", "high"]
+x-kubernetes-validations:
+- rule: "!(self == 'high' && oldSelf == 'low') && !(self == 'low' && oldSelf == 'high')"
+  message: cannot transition directly between 'low' and 'high'
+```
+
+<!--
+Unlike other rules, transition rules apply only to operations meeting the following criteria:
+-->
+与其他规则不同，转换规则仅适用于满足以下条件的操作：
+
+<!--
+- The operation updates an existing object. Transition rules never apply to create operations.
+-->
+- 更新现有对象的操作。转换规则从不适用于创建操作。
+
+<!--
+- Both an old and a new value exist. It remains possible to check if a value has been added or
+  removed by placing a transition rule on the parent node. Transition rules are never applied to
+  custom resource creation. When placed on an optional field, a transition rule will not apply to
+  update operations that set or unset the field.
+-->
+- 旧的值和新的值都存在。仍然可以通过在父节点上放置转换规则来检查值是否已被添加或移除。
+  转换规则从不应用于定制资源创建。当被放置在可选字段上时，转换规则将不适用于设置或取消设置该字段的更新操作。
+
+<!--
+- The path to the schema node being validated by a transition rule must resolve to a node that is
+  comparable between the old object and the new object. For example, list items and their
+  descendants (`spec.foo[10].bar`) can't necessarily be correlated between an existing object and a
+  later update to the same object.
+-->
+- 被转换规则验证的模式节点的路径必须解析到一个在旧对象和新对象之间具有可比性的节点。
+  例如，列表项和它们的后代（`spec.foo[10].bar`）不一定能在现有对象和后来对同一对象的更新之间产生关联。
+
+<!--
+Errors will be generated on CRD writes if a schema node contains a transition rule that can never be
+applied, e.g. "*path*: update rule *rule* cannot be set on schema because the schema or its parent
+schema is not mergeable".
+-->
+如果一个模式节点包含一个永远不能应用的转换规则，在 CRD 写入时将会产生错误，例如：
+"*path*: update rule *rule* cannot be set on schema because the schema or its parent
+schema is not mergeable"。
+
+<!--
+Transition rules are only allowed on _correlatable portions_ of a schema.
+A portion of the schema is correlatable if all `array` parent schemas are of type `x-kubernetes-list-type=map`; any `set`or `atomic`array parent schemas make it impossible to unambiguously correlate a `self` with `oldSelf`.
+-->
+转换规则只允许在模式的“可关联部分（Correlatable Portions）”中使用。
+如果所有 `array` 父模式都是 `x-kubernetes-list-type=map`类型的，那么该模式的一部分就是可关联的；
+任何 `set` 或者 `atomic` 数组父模式都不支持确定性地将 `self` 与 `oldSelf` 关联起来。
+
+<!--
+Here are some examples for transition rules:
+-->
+这是一些转换规则的例子：
+
+<!--
+{{< table caption="Transition rules examples" >}}
+| Use Case                                                          | Rule
+| --------                                                          | --------
+| Immutability                                                      | `self.foo == oldSelf.foo`
+| Prevent modification/removal once assigned                        | `oldSelf != 'bar' \|\| self == 'bar'` or `!has(oldSelf.field) \|\| has(self.field)`
+| Append-only set                                                   | `self.all(element, element in oldSelf)`
+| If previous value was X, new value can only be A or B, not Y or Z | `oldSelf != 'X' \|\| self in ['A', 'B']`
+| Monotonic (non-decreasing) counters                               | `self >= oldSelf`
+{{< /table >}}
+-->
+{{< table caption="转换规则样例" >}}
+| 用例                                                 | 规则
+| --------                                             | --------
+| 不可变                                               | `self.foo == oldSelf.foo`
+| 赋值后禁止修改/删除                                  | `oldSelf != 'bar' \|\| self == 'bar'` or `!has(oldSelf.field) \|\| has(self.field)`
+| 仅附加的 set                                         | `self.all(element, element in oldSelf)`
+| 如果之前的值为 X，则新值只能为 A 或 B，不能为 Y 或 Z | `oldSelf != 'X' \|\| self in ['A', 'B']`
+| 单调（非递减）计数器                                   | `self >= oldSelf`
+{{< /table >}}
+
+<!--
+#### Resource use by validation functions
+-->
+#### 验证函数的资源使用
+
+<!--
+When you create or update a CustomResourceDefinition that uses validation rules,
+the API server checks the likely impact of running those validation rules. If a rule is
+estimated to be prohibitively expensive to execute, the API server rejects the create
+or update operation, and returns an error message.
+-->
+当你创建或更新一个使用验证规则的 CustomResourceDefinition 时，
+API 服务器会检查运行这些验证规则可能产生的影响。
+如果一个规则的执行成本过高，API 服务器会拒绝创建或更新操作，并返回一个错误信息。
+<!--
+A similar system is used at runtime that observes the actions the interpreter takes. If the interpreter executes
+too many instructions, execution of the rule will be halted, and an error will result.
+-->
+运行时也使用类似的系统来观察解释器的行动。如果解释器执行了太多的指令，规则的执行将被停止，并且会产生一个错误。
+<!--
+Each CustomResourceDefinition is also allowed a certain amount of resources to finish executing all of
+its validation rules. If the sum total of its rules are estimated at creation time to go over that limit,
+then a validation error will also occur.
+-->
+每个 CustomResourceDefinition 也被允许有一定数量的资源来完成其所有验证规则的执行。
+如果在创建时估计其规则的总和超过了这个限制，那么也会发生验证错误。
+
+<!--
+You are unlikely to encounter issues with the resource budget for validation if you only
+specify rules that always take the same amount of time regardless of how large their input is.
+-->
+如果你只指定那些无论输入量有多大都要花费相同时间的规则，你不太可能遇到验证的资源预算问题。
+<!--
+For example, a rule that asserts that `self.foo == 1` does not by itself have any
+risk of rejection on validation resource budget groups.
+-->
+例如，一个断言 `self.foo == 1` 的规则本身不存在因为资源预算组验证而导致被拒绝的风险。
+<!--
+But if `foo` is a string and you define a validation rule `self.foo.contains("someString")`, that rule takes
+longer to execute depending on how long `foo` is.
+-->
+但是，如果 `foo` 是一个字符串，而你定义了一个验证规则 `self.foo.contains("someString")`，
+这个规则需要更长的时间来执行，取决于 `foo` 有多长。
+<!--
+Another example would be if `foo` were an array, and you specified a validation rule `self.foo.all(x, x > 5)`. The cost system always assumes the worst-case scenario if
+a limit on the length of `foo` is not given, and this will happen for anything that can be iterated
+over (lists, maps, etc.).
+-->
+另一个例子是如果 `foo` 是一个数组，而你指定了验证规则 `self.foo.all(x, x > 5)`。
+如果没有给出 `foo` 的长度限制，成本系统总是假设最坏的情况，这将发生在任何可以被迭代的事物上（list、map 等）。
+
+<!--
+Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and
+`maxLength` for anything that will be processed in a validation rule in order to prevent validation errors during cost estimation. For example, given this schema with one rule:
+-->
+因此，通过 `maxItems`，`maxProperties` 和 `maxLength` 进行限制被认为是最佳实践，
+以在验证规则中处理任何内容，以防止在成本估算期间验证错误。例如，给定具有一个规则的模式：
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      items:
+        type: string
+      x-kubernetes-validations:
+        - rule: "self.all(x, x.contains('a string'))"
+```
+
+<!--
+then the API server rejects this rule on validation budget grounds with error:
+-->
+API 服务器以验证预算为由拒绝该规则，并显示错误：
+```
+ spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden:
+ CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and
+ maxLength where arrays, maps, and strings are used)
+```
+
+<!--
+The rejection happens because `self.all` implies calling `contains()` on every string in `foo`,
+which in turn will check the given string to see if it contains `'a string'`. Without limits, this is a very
+expensive rule.
+-->
+这个拒绝会发生是因为 `self.all` 意味着对 `foo` 中的每一个字符串调用 `contains()`，
+而这又会检查给定的字符串是否包含 `'a string'`。如果没有限制，这是一个非常昂贵的规则。
+
+<!--
+If you do not specify any validation limit, the estimated cost of this rule will exceed the per-rule cost limit. But if you
+add limits in the appropriate places, the rule will be allowed:
+-->
+如果你不指定任何验证限制，这个规则的估计成本将超过每条规则的成本限制。
+但如果你在适当的地方添加限制，该规则将被允许：
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      maxItems: 25
+      items:
+        type: string
+        maxLength: 10
+      x-kubernetes-validations:
+        - rule: "self.all(x, x.contains('a string'))"
+```
+
+<!--
+The cost estimation system takes into account how many times the rule will be executed in addition to the
+estimated cost of the rule itself. For instance, the following rule will have the same estimated cost as the
+previous example (despite the rule now being defined on the individual array items):
+-->
+成本评估系统除了考虑规则本身的估计成本外，还考虑到规则将被执行的次数。
+例如，下面这个规则的估计成本与前面的例子相同（尽管该规则现在被定义在单个数组项上）：
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      maxItems: 25
+      items:
+        type: string
+        x-kubernetes-validations:
+          - rule: "self.contains('a string'))"
+        maxLength: 10
+```
+
+<!--
+If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive
+than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
+the following rule is allowed:
+-->
+如果在一个列表内部的一个列表有一个使用 `self.all` 的验证规则，那就会比具有相同规则的非嵌套列表的成本高得多。
+一个在非嵌套列表中被允许的规则可能需要在两个嵌套列表中设置较低的限制才能被允许。
+例如，即使没有设置限制，下面的规则也是允许的：
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      items:
+        type: integer
+    x-kubernetes-validations:
+      - rule: "self.all(x, x == 5)"
+```
+
+<!--
+But the same rule on the following schema (with a nested array added) produces a validation error:
+-->
+但是同样的规则在下面的模式中（添加了一个嵌套数组）产生了一个验证错误：
+
+```yaml
+openAPIV3Schema:
+  type: object
+  properties:
+    foo:
+      type: array
+      items:
+        type: array
+        items:
+          type: integer
+        x-kubernetes-validations:
+          - rule: "self.all(x, x == 5)"
+```
+
+<!--
+This is because each item of `foo` is itself an array, and each subarray in turn calls `self.all`. Avoid nested
+lists and maps if possible where validation rules are used.
+-->
+这是因为 `foo` 的每一项本身就是一个数组，而每一个子数组依次调用 `self.all`。
+在使用验证规则的地方，尽可能避免嵌套的列表和字典。
 
 <!--
 ### Defaulting
@@ -1298,7 +2083,7 @@ with `foo` pruned and defaulted because the field is non-nullable, `bar` maintai
 
 CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
 
-The [kubectl](/docs/reference/kubectl/overview) command-line tool consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
+The [kubectl](/docs/reference/kubectl/) command-line tool consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
 -->
 ### 以 OpenAPI v2 形式发布合法性检查模式      {#publish-validation-schema-in-openapi-v2}
 
@@ -1308,9 +2093,7 @@ CustomResourceDefinition 的[结构化的](#specifying-a-structural-schema)、
 [OpenAPI v2 规约](/zh/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
 的一部分发布出来。
 
-[kubectl](/zh/docs/reference/kubectl/overview) 命令行工具会基于所发布的模式定义来执行
-客户端的合法性检查（`kubectl create` 和 `kubectl apply`），为定制资源的模式定义
-提供解释（`kubectl explain`）。
+[kubectl](/zh/docs/reference/kubectl/) 命令行工具会基于所发布的模式定义来执行客户端的合法性检查（`kubectl create` 和 `kubectl apply`），为定制资源的模式定义提供解释（`kubectl explain`）。
 所发布的模式还可被用于其他目的，例如生成客户端或者生成文档。
 
 <!--
