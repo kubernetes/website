@@ -78,13 +78,13 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
      Kubernetes versions, refer to the documentation for that version
      of Kubernetes.
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-   * A network plugin that supports dual-stack (such as Kubenet or Calico)
+   * A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking
 -->
 * Kubernetes 1.20 版本或更高版本，有关更早 Kubernetes 版本的使用双栈服务的信息，
   请参考对应版本的 Kubernetes 文档。
 * 提供商支持双协议栈网络（云提供商或其他提供商必须能够为 Kubernetes
   节点提供可路由的 IPv4/IPv6 网络接口）
-* 支持双协议栈的网络插件（如 Kubenet 或 Calico）
+* 支持双协议栈的[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 
 <!--
 ## Configure IPv4/IPv6 dual-stack
