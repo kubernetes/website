@@ -1,10 +1,27 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Run all kubelet-finalize phases
+-->
+运行 kubelet-finalize 的所有阶段
 
 <!-- ### Synopsis -->
 ### 概要
 
 
-<!-- Run all kubelet-finalize phases -->
-运行所有 kubelet-finalize 阶段
+<!--
+Run all kubelet-finalize phases
+-->
+运行 kubelet-finalize 的所有阶段
 
 ```
 kubeadm init phase kubelet-finalize all [flags]
@@ -40,7 +57,7 @@ kubeadm init phase kubelet-finalize all [flags]
 </tr>
 <tr>
 <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save and store the certificates.</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;">保存和存储证书的路径。</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>保存和存储证书的路径。</p></td>
 </tr>
 
 <tr>
@@ -48,7 +65,7 @@ kubeadm init phase kubelet-finalize all [flags]
 </tr>
 <tr>
 <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件的路径。</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>kubeadm 配置文件的路径。</p></td>
 </tr>
 
 <tr>
@@ -56,7 +73,7 @@ kubeadm init phase kubelet-finalize all [flags]
 </tr>
 <tr>
 <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">help for all</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;">all 操作的帮助命令</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>all 操作的帮助命令</p></td>
 </tr>
 
 </tbody>
@@ -79,11 +96,8 @@ kubeadm init phase kubelet-finalize all [flags]
 </tr>
 <tr>
 <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[实验] 到'真实'主机根文件系统的路径。</p></td>
 </tr>
 
 </tbody>
 </table>
-
-
-

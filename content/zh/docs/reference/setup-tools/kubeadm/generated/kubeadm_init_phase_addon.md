@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Install required addons for passing conformance tests
+-->
+安装必要的插件以通过一致性测试
 
 <!--
 ### Synopsis
@@ -36,7 +51,9 @@ kubeadm init phase addon [flags]
 <!--
 help for addon
 -->
+<p>
 addon 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -64,10 +81,11 @@ addon 操作的帮助命令
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-
