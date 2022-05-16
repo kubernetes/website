@@ -19,7 +19,7 @@ reviewers:
 <!--
 You can use the Kubernetes command line tool `kubectl` to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a Docker sub-command and describe the equivalent `kubectl` command.
 -->
-您可以使用 Kubernetes 命令行工具 `kubectl` 与 API 服务器进行交互。如果您熟悉 Docker 命令行工具，则使用 kubectl 非常简单。但是，Docker 命令和 kubectl 命令之间有一些区别。以下显示了 Docker 子命令，并描述了等效的 `kubectl` 命令。
+你可以使用 Kubernetes 命令行工具 `kubectl` 与 API 服务器进行交互。如果你熟悉 Docker 命令行工具，则使用 kubectl 非常简单。但是，Docker 命令和 kubectl 命令之间有一些区别。以下显示了 Docker 子命令，并描述了等效的 `kubectl` 命令。
 
 
 <!-- body -->
@@ -74,7 +74,7 @@ deployment.apps/nginx-app env updated
 <!--
 `kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
 -->
-`kubectl` 命令打印创建或突变资源的类型和名称，然后可以在后续命令中使用。部署后，您可以公开新服务。
+`kubectl` 命令打印创建或突变资源的类型和名称，然后可以在后续命令中使用。部署后，你可以公开新服务。
 {{< /note >}}
 
 <!--
@@ -99,7 +99,7 @@ By using kubectl, you can create a [Deployment](/docs/concepts/workloads/control
 <!--
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
 -->
-默认情况下镜像会在后台运行，与 `docker run -d ...` 类似，如果您想在前台运行，使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 在前台运行 Pod:
+默认情况下镜像会在后台运行，与 `docker run -d ...` 类似，如果你想在前台运行，使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 在前台运行 Pod:
 
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
@@ -115,8 +115,8 @@ To detach from the container, you can type the escape sequence Ctrl+P followed b
 Because the kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
 To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
 -->
-因为我们使用 Deployment 启动了容器，如果您终止连接到的进程（例如 `ctrl-c`），容器将会重启，这跟 `docker run -it` 不同。
-如果想销毁该 Deployment（和它的 pod），您需要运行 `kubectl delete deployment <name>`。
+因为我们使用 Deployment 启动了容器，如果你终止连接到的进程（例如 `ctrl-c`），容器将会重启，这跟 `docker run -it` 不同。
+如果想销毁该 Deployment（和它的 pod），你需要运行 `kubectl delete deployment <name>`。
 
 ## docker ps
 
@@ -401,7 +401,7 @@ When you use kubectl, you don't delete the pod directly.You have to first delete
 <!--
 There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 -->
-在 kubectl 中没有对 `docker login` 的直接模拟。如果您有兴趣在私有镜像仓库中使用 Kubernetes，请参阅[使用私有镜像仓库](/zh/docs/concepts/containers/images/#using-a-private-registry)。
+在 kubectl 中没有对 `docker login` 的直接模拟。如果你有兴趣在私有镜像仓库中使用 Kubernetes，请参阅[使用私有镜像仓库](/zh/docs/concepts/containers/images/#using-a-private-registry)。
 
 ## docker version
 

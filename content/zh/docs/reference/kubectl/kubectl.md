@@ -220,7 +220,7 @@ kubectl [flags]
       <!--
       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
       -->
-      设置为 true，则表示不会检查服务器证书的有效性。这样会导致您的 HTTPS 连接不安全。
+      设置为 true，则表示不会检查服务器证书的有效性。这样会导致你的 HTTPS 连接不安全。
       </td>
     </tr>
     <tr>

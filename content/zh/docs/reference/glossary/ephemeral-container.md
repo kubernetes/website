@@ -4,12 +4,12 @@ id: ephemeral-container
 date: 2019-08-26
 full_link: /zh/docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
-  您可以在 Pod 中临时运行的一种容器类型
+  你可以在 Pod 中临时运行的一种容器类型
 aka:
 tags:
 - fundamental
 ---
-  您可以在 {{< glossary_tooltip term_id="pod" >}} 中临时运行的一种 {{< glossary_tooltip term_id="container" >}} 类型。
+  你可以在 {{< glossary_tooltip term_id="pod" >}} 中临时运行的一种 {{< glossary_tooltip term_id="container" >}} 类型。
 
 <!--
 ---

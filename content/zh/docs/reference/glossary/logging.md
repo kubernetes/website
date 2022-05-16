@@ -36,4 +36,4 @@ tags:
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. 
 -->
 
-应用程序和系统日志可以帮助您了解集群内部发生的情况。日志对于调试问题和监视集群活动非常有用。
+应用程序和系统日志可以帮助你了解集群内部发生的情况。日志对于调试问题和监视集群活动非常有用。

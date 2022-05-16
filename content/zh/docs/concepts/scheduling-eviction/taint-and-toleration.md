@@ -272,7 +272,7 @@ onto nodes labeled with `dedicated=groupName`.
   然后给这组用户的 Pod 添加一个相对应的 toleration（通过编写一个自定义的
   [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)，很容易就能做到）。
   拥有上述容忍度的 Pod 就能够被分配到上述专用节点，同时也能够被分配到集群中的其它节点。
-  如果你希望这些 Pod 只能被分配到上述专用节点，那么您还需要给这些专用节点另外添加一个和上述
+  如果你希望这些 Pod 只能被分配到上述专用节点，那么你还需要给这些专用节点另外添加一个和上述
   污点类似的 label （例如：`dedicated=groupName`），同时 还要在上述准入控制器中给 Pod
   增加节点亲和性要求上述 Pod 只能被分配到添加了 `dedicated=groupName` 标签的节点上。
 

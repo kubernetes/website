@@ -135,7 +135,7 @@ container.
 -->
 ## 在配置中使用环境变量
 
-您在 Pod 的配置中定义的环境变量可以在配置的其他地方使用，
+你在 Pod 的配置中定义的环境变量可以在配置的其他地方使用，
 例如可用在为 Pod 的容器设置的命令和参数中。
 在下面的示例配置中，环境变量 `GREETING` ，`HONORIFIC` 和 `NAME` 分别设置为 `Warm greetings to` ，
 `The Most Honorable` 和 `Kubernetes`。然后这些环境变量在传递给容器 `env-print-demo` 的 CLI 参数中使用。
