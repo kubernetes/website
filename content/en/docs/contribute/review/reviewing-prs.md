@@ -95,7 +95,7 @@ Figure 1. Review process steps.
     1. Click on the `+` symbol  beside the line you want to comment on.
     2. Fill in any comments you have about the line and click either **Add single comment** (if you have only one comment to make) or  **Start a review** (if you have multiple comments to make).
     3. When finished, click **Review changes** at the top of the page. Here, you can add
-       add a summary of your review (and leave some positive comments for the contributor!),
+      a summary of your review (and leave some positive comments for the contributor!),
       approve the PR, comment or request changes as needed. New contributors should always
       choose **Comment**.
 
