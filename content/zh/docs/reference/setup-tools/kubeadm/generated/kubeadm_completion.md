@@ -61,7 +61,7 @@ If bash-completion is not installed on Linux, please install the 'bash-completio
 via your distribution's package manager.
 -->
 
-如果在 Linux 上没有安装 bash-completion，请通过您的发行版的包管理器安装 `bash-completion` 软件包。
+如果在 Linux 上没有安装 bash-completion，请通过你的发行版的包管理器安装 `bash-completion` 软件包。
 
 <!--
 Note for zsh users: [1] zsh completions are only supported in versions of zsh &gt;= 5.2
