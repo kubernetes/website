@@ -39,7 +39,7 @@ There are a few setup requirements for getting the aggregation layer working in 
 Reusing the same CA for different client types can negatively impact the cluster's ability to function. For more information, see [CA Reusage and Conflicts](#ca-reusage-and-conflicts).
 -->
 {{< caution >}}
-对不同的客户端类型重复使用相同的 CA 会对群集的功能产生负面影响。
+对不同的客户端类型重复使用相同的 CA 会对集群的功能产生负面影响。
 有关更多信息，请参见 [CA 重用和冲突](#ca-reusage-and-conflicts)。
 {{< /caution >}}
 
@@ -233,7 +233,7 @@ Kubernetes apiserver 使用它的标准认证和授权配置来对用户认证�
 
 有关对 Kubernetes 集群认证的概述，请参见
 [对集群认证](/zh/docs/reference/access-authn-authz/authentication/)。
-有关对Kubernetes群集资源的访问鉴权的概述，请参见
+有关对Kubernetes集群资源的访问鉴权的概述，请参见
 [鉴权概述](/zh/docs/reference/access-authn-authz/authorization/)。
 
 到目前为止，所有内容都是标准的 Kubernetes API 请求，认证与鉴权。

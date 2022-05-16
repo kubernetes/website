@@ -271,7 +271,7 @@ With this toolset DANM is able to provide multiple separated network interfaces,
 它由以下几个组件构成：
 
 * 能够配置具有高级功能的 IPVLAN 接口的 CNI 插件
-* 一个内置的 IPAM 模块，能够管理多个、群集内的、不连续的 L3 网络，并按请求提供动态、静态或无 IP 分配方案
+* 一个内置的 IPAM 模块，能够管理多个、集群内的、不连续的 L3 网络，并按请求提供动态、静态或无 IP 分配方案
 * CNI 元插件能够通过自己的 CNI 或通过将任务授权给其他任何流行的 CNI 解决方案（例如 SRI-OV 或 Flannel）来实现将多个网络接口连接到容器
 * Kubernetes 控制器能够集中管理所有 Kubernetes 主机的 VxLAN 和 VLAN 接口
 * 另一个 Kubernetes 控制器扩展了 Kubernetes 的基于服务的服务发现概念，以在 Pod 的所有网络接口上工作

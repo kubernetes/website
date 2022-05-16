@@ -545,7 +545,7 @@ Kubernetes Executor是另一种Airflow功能，允许动态分配任务已解决
 
 
 
-最后，我们在您的群集上创建完整的Airflow部署。这包括Airflow配置，postgres后端，webserver +调度程序以及之间的所有必要服务。需要注意的一点是，提供的角色绑定是集群管理员，因此如果您没有该集群的权限级别，可以在scripts / ci / kubernetes / kube / airflow.yaml中进行修改。
+最后，我们在您的集群上创建完整的Airflow部署。这包括Airflow配置，postgres后端，webserver +调度程序以及之间的所有必要服务。需要注意的一点是，提供的角色绑定是集群管理员，因此如果您没有该集群的权限级别，可以在scripts / ci / kubernetes / kube / airflow.yaml中进行修改。
 
 
 

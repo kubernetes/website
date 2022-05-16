@@ -99,7 +99,7 @@ By using kubectl, you can create a [Deployment](/docs/concepts/workloads/control
 在 kubectl 命令中，我们创建了一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)，
 这将保证有 N 个运行 nginx 的 Pod(N 代表 spec 中声明的 replica 数，默认为 1)。
 我们还创建了一个 [service](/zh/docs/concepts/services-networking/service/)，其选择器与容器标签匹配。
-查看[使用服务访问群集中的应用程序](/zh/docs/tasks/access-application-cluster/service-access-application-cluster) 获取更多信息。
+查看[使用服务访问集群中的应用程序](/zh/docs/tasks/access-application-cluster/service-access-application-cluster) 获取更多信息。
 
 <!--
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
