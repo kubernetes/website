@@ -28,7 +28,7 @@ external IP address.
 * Configure `kubectl` to communicate with your Kubernetes API server. For instructions, see the
   documentation for your cloud provider.
 -->
- * 安装 [kubectl](/zh/docs/tasks/tools/).
+ * 安装 [kubectl](/zh/docs/tasks/tools/)。
  * 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 集群。
    本教程创建了一个[外部负载均衡器](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，
    需要云供应商。
@@ -50,7 +50,6 @@ external IP address.
 <!--
 ## Creating a service for an application running in five pods
 -->
-
 ## 为一个在五个 pod 中运行的应用程序创建服务
 
 <!--
@@ -133,7 +132,7 @@ external IP address.
    {{< /note >}}
    -->
    提示：`type=LoadBalancer` 服务由外部云服务提供商提供支持，本例中不包含此部分，
-   详细信息请参考[此页](/docs/concepts/services-networking/service/#loadbalancer)
+   详细信息请参考[此页](/zh/docs/concepts/services-networking/service/#loadbalancer)
 
    <!--
    {{< note >}}
@@ -179,7 +178,7 @@ external IP address.
    -->
    记下服务公开的外部 IP 地址（`LoadBalancer Ingress`)。
    在本例中，外部 IP 地址是 104.198.205.71。还要注意 `Port` 和 `NodePort` 的值。
-   在本例中，`Port` 是 8080，`NodePort` 是32377。
+   在本例中，`Port` 是 8080，`NodePort` 是 32377。
 
 <!--
 1. In the preceding output, you can see that the service has several endpoints:
@@ -187,10 +186,10 @@ external IP address.
    addresses of the pods that are running the Hello World application. To
    verify these are pod addresses, enter this command:
 -->
-7. 在前面的输出中，您可以看到服务有几个端点：
+7. 在前面的输出中，你可以看到服务有几个端点：
    10.0.0.6:8080、10.0.1.6:8080、10.0.1.7:8080 和另外两个，
-   这些都是正在运行 Hello World 应用程序的 pod 的内部地址。
-   要验证这些是 pod 地址，请输入以下命令：
+   这些都是正在运行 Hello World 应用程序的 Pod 的内部地址。
+   要验证这些是 Pod 地址，请输入以下命令：
 
    ```shell
    kubectl get pods --output=wide
@@ -226,9 +225,9 @@ external IP address.
    If you are using minikube, typing `minikube service my-service` will
    automatically open the Hello World application in a browser.
    -->
-   其中 `<external-ip>` 是您的服务的外部 IP 地址（`LoadBalancer Ingress`），
-   `<port>` 是您的服务描述中的 `port` 的值。
-   如果您正在使用 minikube，输入 `minikube service my-service` 将在浏览器中自动打开 Hello World 应用程序。
+   其中 `<external-ip>` 是你的服务的外部 IP 地址（`LoadBalancer Ingress`），
+   `<port>` 是你的服务描述中的 `port` 的值。
+   如果你正在使用 minikube，输入 `minikube service my-service` 将在浏览器中自动打开 Hello World 应用程序。
 
    <!--
    The response to a successful request is a hello message:
@@ -244,7 +243,7 @@ external IP address.
 <!--
 To delete the Service, enter this command:
 -->
-要删除服务，请输入以下命令：
+要删除 Service，请输入以下命令：
 
 ```shell
 kubectl delete services my-service

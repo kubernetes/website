@@ -114,7 +114,7 @@ If you would like to uninstall Service Catalog from your Kubernetes cluster usin
 -->
 ## 卸载服务目录
 
-如果您想使用 `sc` 工具从 Kubernetes 集群卸载服务目录，请运行：
+如果你想使用 `sc` 工具从 Kubernetes 集群卸载服务目录，请运行：
 
 ```shell
 sc uninstall

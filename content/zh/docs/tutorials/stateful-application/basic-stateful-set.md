@@ -129,7 +129,7 @@ In the second terminal, use
 Headless Service and StatefulSet defined in `web.yaml`.
 -->
 
-在另一个终端中，使用 [`kubectl apply`](/zh/docs/reference/generated/kubectl/kubectl-commands/#apply)来创建定义在 `web.yaml` 中的 Headless Service 和 StatefulSet。
+在另一个终端中，使用 [`kubectl apply`](/zh/docs/reference/generated/kubectl/kubectl-commands/#apply) 来创建定义在 `web.yaml` 中的 Headless Service 和 StatefulSet。
 
 ```shell
 kubectl apply -f web.yaml
@@ -1691,7 +1691,7 @@ StatefulSet 启动了两个新的 Pod，而且在启动第二个之前并没有�
 
 ## {{% heading "cleanup" %}}
 
-您应该打开两个终端，准备在清理过程中运行 `kubectl` 命令。
+你应该打开两个终端，准备在清理过程中运行 `kubectl` 命令。
 
 ```shell
 kubectl delete sts web

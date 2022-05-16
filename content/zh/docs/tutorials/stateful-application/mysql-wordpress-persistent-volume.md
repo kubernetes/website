@@ -48,7 +48,7 @@ This tutorial shows you how to deploy a WordPress site and a MySQL database usin
  The files provided in this tutorial are using GA Deployment APIs and are specific to kubernetes version 1.9 and later. If you wish to use this tutorial with an earlier version of Kubernetes, please update the API version appropriately, or reference earlier versions of this tutorial.
 -->
 
-本教程中提供的文件使用 GA Deployment API，并且特定于 kubernetes 1.9 或更高版本。如果您希望将本教程与 Kubernetes 的早期版本一起使用，请相应地更新 API 版本，或参考本教程的早期版本。
+本教程中提供的文件使用 GA Deployment API，并且特定于 kubernetes 1.9 或更高版本。如果你希望将本教程与 Kubernetes 的早期版本一起使用，请相应地更新 API 版本，或参考本教程的早期版本。
 {{< /note >}}
 
 
@@ -126,7 +126,7 @@ MySQL 和 Wordpress 都需要一个 PersistentVolume 来存储数据。他们的
 In local clusters, the default StorageClass uses the `hostPath` provisioner.  `hostPath` volumes are only suitable for development and testing. With `hostPath` volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and does not move between nodes. If a Pod dies and gets scheduled to another node in the cluster, or the node is rebooted, the data is lost.
 -->
 
-在本地群集中，默认的 StorageClass 使用`hostPath`供应器。 `hostPath`卷仅适用于开发和测试。使用 `hostPath` 卷，您的数据位于 Pod 调度到的节点上的`/tmp`中，并且不会在节点之间移动。如果 Pod 死亡并被调度到群集中的另一个节点，或者该节点重新启动，则数据将丢失。
+在本地群集中，默认的 StorageClass 使用`hostPath`供应器。 `hostPath`卷仅适用于开发和测试。使用 `hostPath` 卷，你的数据位于 Pod 调度到的节点上的`/tmp`中，并且不会在节点之间移动。如果 Pod 死亡并被调度到群集中的另一个节点，或者该节点重新启动，则数据将丢失。
 {{< /warning >}}
 
 {{< note >}}
@@ -161,9 +161,9 @@ A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piec
 Add a Secret generator in `kustomization.yaml` from the following command. You will need to replace `YOUR_PASSWORD` with the password you want to use.
 -->
 
-A [Secret](/zh/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。从 1.14 开始，`kubectl`支持使用 kustomization 文件管理 Kubernetes 对象。您可以通过`kustomization.yaml`中的生成器创建一个 Secret。
+A [Secret](/zh/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。从 1.14 开始，`kubectl`支持使用 kustomization 文件管理 Kubernetes 对象。你可以通过`kustomization.yaml`中的生成器创建一个 Secret。
 
-通过以下命令在`kustomization.yaml`中添加一个 Secret 生成器。您需要用您要使用的密码替换`YOUR_PASSWORD`。
+通过以下命令在`kustomization.yaml`中添加一个 Secret 生成器。你需要用你要使用的密码替换`YOUR_PASSWORD`。
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -344,12 +344,12 @@ Now you can verify that all objects exist.
 -->
 
 
-`kustomization.yaml`包含用于部署 WordPress 网站的所有资源以及 MySQL 数据库。您可以通过以下方式应用目录
+`kustomization.yaml`包含用于部署 WordPress 网站的所有资源以及 MySQL 数据库。你可以通过以下方式应用目录
 ```shell
 kubectl apply -k ./
 ```
 
-现在，您可以验证所有对象是否存在。
+现在，你可以验证所有对象是否存在。
 
 1. 通过运行以下命令验证 Secret 是否存在：
 
@@ -428,9 +428,9 @@ kubectl apply -k ./
       http://1.2.3.4:32406
       ```
 
-6. 复制 IP 地址，然后将页面加载到浏览器中来查看您的站点。
+6. 复制 IP 地址，然后将页面加载到浏览器中来查看你的站点。
 
-      您应该看到类似于以下屏幕截图的 WordPress 设置页面。
+      你应该看到类似于以下屏幕截图的 WordPress 设置页面。
 
       ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
@@ -440,7 +440,7 @@ kubectl apply -k ./
 <!--
 Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve malicious content. <br/><br/>Either install WordPress by creating a username and password or delete your instance.
 -->
-不要在此页面上保留 WordPress 安装。如果其他用户找到了它，他们可以在您的实例上建立一个网站并使用它来提供恶意内容。<br/><br/>通过创建用户名和密码来安装 WordPress 或删除您的实例。
+不要在此页面上保留 WordPress 安装。如果其他用户找到了它，他们可以在你的实例上建立一个网站并使用它来提供恶意内容。<br/><br/>通过创建用户名和密码来安装 WordPress 或删除你的实例。
 
 {{< /warning >}}
 
@@ -454,7 +454,7 @@ Do not leave your WordPress installation on this page. If another user finds it,
       ```
 -->
 
-1. 运行一下命令删除您的 Secret，Deployments，Services and PersistentVolumeClaims：
+1. 运行一下命令删除你的 Secret，Deployments，Services and PersistentVolumeClaims：
 
       ```shell
       kubectl delete -k ./

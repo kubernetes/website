@@ -19,7 +19,7 @@ weight: 21 # just after persistent volumes
 <!--
 This document describes _projected volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 -->
-本文档描述 Kubernet 中的*投射卷（Projected Volumes）*。
+本文档描述 Kubernetes 中的*投射卷（Projected Volumes）*。
 建议先熟悉[卷](/zh/docs/concepts/storage/volumes/)概念。
 
 <!-- body -->
@@ -49,10 +49,10 @@ Currently, the following types of volume sources can be projected:
 
 <!--
 All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
+see the [all-in-one volume](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md) design document.
 -->
 所有的卷源都要求处于 Pod 所在的同一个名字空间内。进一步的详细信息，可参考
-[一体化卷设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)。
+[一体化卷](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md)设计文档。
 
 <!--
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
@@ -140,11 +140,9 @@ volume mount will not receive updates for those volume sources.
 ## 与 SecurityContext 间的关系    {#securitycontext-interactions}
 
 <!--
-The [proposal for file permission handling in projected service account volume](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#token-volume-projection)
-enhancement introduced the projected files having the the correct owner
-permissions set.
+The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the the correct owner permissions set.
 -->
-[关于在投射的服务账号卷中处理文件访问权限的提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#token-volume-projection)
+关于在投射的服务账号卷中处理文件访问权限的[提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal)
 介绍了如何使得所投射的文件具有合适的属主访问权限。
 
 ### Linux

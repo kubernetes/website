@@ -147,7 +147,7 @@ Events:
 <!--
 Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.).
 -->
-在这里，您可以看到有关容器和 Pod 的配置信息（标签、资源需求等），
+在这里，你可以看到有关容器和 Pod 的配置信息（标签、资源需求等），
 以及有关容器和 Pod 的状态信息（状态、就绪、重启计数、事件等） 。
 
 <!--
