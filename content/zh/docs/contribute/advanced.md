@@ -23,7 +23,7 @@ client and other tools for some of these tasks.
 
 如果你已经了解如何[贡献新内容](/zh/docs/contribute/new-content/overview/)和
 [评阅他人工作](/zh/docs/contribute/review/reviewing-prs/)，并准备了解更多贡献的途径，
-请阅读此文。您需要使用 Git 命令行工具和其他工具做这些工作。
+请阅读此文。你需要使用 Git 命令行工具和其他工具做这些工作。
 
 <!-- body -->
 
