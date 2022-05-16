@@ -3,24 +3,26 @@ layout: blog
 title: "别慌: Kubernetes 和 Docker"
 date: 2020-12-02
 slug: dont-panic-kubernetes-and-docker
+evergreen: true
 ---
 <!-- 
 layout: blog
 title: "Don't Panic: Kubernetes and Docker"
 date: 2020-12-02
 slug: dont-panic-kubernetes-and-docker
+evergreen: true
 -->
 
 **作者：** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
 
 <!--
-_Update: Kubernetes support for Docker via `dockershim` is now deprecated.
-For more information, read the [deprecation notice](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation).
+**Update:** _Kubernetes support for Docker via `dockershim` is now removed.
+For more information, read the [removal FAQ](/dockershim).
 You can also discuss the deprecation via a dedicated [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)._
 -->
-_更新：Kubernetes 通过 `dockershim` 对 Docker 的支持现已弃用。
-有关更多信息，请阅读[弃用通知](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)。
-你还可以通过专门的 [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917) 讨论弃用。_
+**更新**：Kubernetes 通过 `dockershim` 对 Docker 的支持现已移除。
+有关更多信息，请阅读[移除 FAQ](/zh/dockershim)。
+你还可以通过专门的 [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917) 讨论弃用。
 
 <!-- 
 Kubernetes is [deprecating
@@ -58,16 +60,15 @@ build` can still run in your Kubernetes cluster.
 Docker 仍然是构建容器的利器，使用命令 `docker build` 构建的镜像在 Kubernetes 集群中仍然可以运行。
 
 <!-- 
-If you’re using a managed Kubernetes service like GKE, EKS, or AKS (which [defaults to containerd](https://github.com/Azure/AKS/releases/tag/2020-11-16)) you will need to
+If you’re using a managed Kubernetes service like AKS, EkS or GKE, you will need to
 make sure your worker nodes are using a supported container runtime before
 Docker support is removed in a future version of Kubernetes. If you have node
 customizations you may need to update them based on your environment and runtime
 requirements. Please work with your service provider to ensure proper upgrade
 testing and planning. 
 -->
-如果你正在使用 GKE、EKS、或 AKS 
-([默认使用 containerd](https://github.com/Azure/AKS/releases/tag/2020-11-16))  
-这类托管 Kubernetes 服务，你需要在 Kubernetes 后续版本移除对 Docker 支持之前，
+如果你正在使用 GKE、EKS、或 AKS 这类托管 Kubernetes 服务，
+你需要在 Kubernetes 后续版本移除对 Docker 支持之前，
 确认工作节点使用了被支持的容器运行时。
 如果你的节点被定制过，你可能需要根据你自己的环境和运行时需求更新它们。
 请与你的服务供应商协作，确保做出适当的升级测试和计划。
@@ -75,15 +76,15 @@ testing and planning.
 <!-- 
 If you’re rolling your own clusters, you will also need to make changes to avoid
 your clusters breaking. At v1.20, you will get a deprecation warning for Docker.
-When Docker runtime support is removed in a future release (currently planned
-for the 1.22 release in late 2021) of Kubernetes it will no longer be supported
+When Docker runtime support is removed in a future release (<del>currently planned
+for the 1.22 release in late 2021</del>) of Kubernetes it will no longer be supported
 and you will need to switch to one of the other compliant container runtimes,
 like containerd or CRI-O. Just make sure that the runtime you choose supports
 the docker daemon configurations you currently use (e.g. logging).
 -->
 如果你正在运营你自己的集群，那还应该做些工作，以避免集群中断。
 在 v1.20 版中，你仅会得到一个 Docker 的弃用警告。
-当对 Docker 运行时的支持在 Kubernetes 某个后续发行版（目前的计划是 2021 年晚些时候的 1.22 版）中被移除时，
+当对 Docker 运行时的支持在 Kubernetes 某个后续发行版（<del>目前的计划是 2021 年晚些时候的 1.22 版</del>）中被移除时，
 你需要切换到 containerd 或 CRI-O 等兼容的容器运行时。
 只要确保你选择的运行时支持你当前使用的 Docker 守护进程配置（例如 logging）。
 
