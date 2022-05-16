@@ -109,7 +109,7 @@ Network access to API Server (Control plane) | All access to the Kubernetes cont
 Network access to Nodes (nodes) | Nodes should be configured to _only_ accept connections (via network access control lists) from the control plane on the specified ports, and accept connections for services in Kubernetes of type NodePort and LoadBalancer. If possible, these nodes should not be exposed on the public internet entirely.
 Kubernetes access to Cloud Provider API | Each cloud provider needs to grant a different set of permissions to the Kubernetes control plane and nodes. It is best to provide the cluster with cloud provider access that follows the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) for the resources it needs to administer. The [Kops documentation](https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles) provides information about IAM policies and roles.
 Access to etcd | Access to etcd (the datastore of Kubernetes) should be limited to the control plane only. Depending on your configuration, you should attempt to use etcd over TLS. More information can be found in the [etcd documentation](https://github.com/etcd-io/etcd/tree/master/Documentation).
-etcd Encryption | Wherever possible it's a good practice to encrypt all drives at rest, and since etcd holds the state of the entire cluster (including Secrets) its disk should especially be encrypted at rest.
+etcd Encryption | Wherever possible it's a good practice to encrypt all storage at rest, and since etcd holds the state of the entire cluster (including Secrets) its disk should especially be encrypted at rest.
 
 {{< /table >}}
 -->
@@ -119,13 +119,13 @@ etcd Encryption | Wherever possible it's a good practice to encrypt all drives a
 
 {{< table caption="基础设施安全" >}}
 
-Kubetnetes 基础架构关注领域 | 建议 |
+Kubernetes 基础架构关注领域 | 建议 |
 --------------------------------------------- | -------------- |
 通过网络访问 API 服务（控制平面）|所有对 Kubernetes 控制平面的访问不允许在 Internet 上公开，同时应由网络访问控制列表控制，该列表包含管理集群所需的 IP 地址集。|
 通过网络访问 Node（节点）| 节点应配置为 _仅能_ 从控制平面上通过指定端口来接受（通过网络访问控制列表）连接，以及接受 NodePort 和 LoadBalancer 类型的 Kubernetes 服务连接。如果可能的话，这些节点不应完全暴露在公共互联网上。|
 Kubernetes 访问云提供商的 API | 每个云提供商都需要向 Kubernetes 控制平面和节点授予不同的权限集。为集群提供云提供商访问权限时，最好遵循对需要管理的资源的[最小特权原则](https://en.wikipedia.org/wiki/Principle_of_least_privilege)。[Kops 文档](https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles)提供有关 IAM 策略和角色的信息。|
 访问 etcd | 对 etcd（Kubernetes 的数据存储）的访问应仅限于控制平面。根据配置情况，你应该尝试通过 TLS 来使用 etcd。更多信息可以在 [etcd 文档](https://github.com/etcd-io/etcd/tree/master/Documentation)中找到。|
-etcd 加密 | 在所有可能的情况下，最好对所有驱动器进行静态数据加密，并且由于 etcd 拥有整个集群的状态（包括机密信息），因此其磁盘更应该进行静态数据加密。|
+etcd 加密 | 在所有可能的情况下，最好对所有存储进行静态数据加密，并且由于 etcd 拥有整个集群的状态（包括机密信息），因此其磁盘更应该进行静态数据加密。|
 
 {{< /table >}}
 
