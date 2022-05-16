@@ -21,7 +21,7 @@ Windows applications constitute a large portion of the services and applications
 This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
 -->
 Windows 应用程序构成了许多组织中运行的服务和应用程序的很大一部分。
-本指南将引导您完成在 Kubernetes 中配置和部署 Windows 容器的步骤。
+本指南将引导你完成在 Kubernetes 中配置和部署 Windows 容器的步骤。
 
 <!-- body -->
 
@@ -34,7 +34,7 @@ Windows 应用程序构成了许多组织中运行的服务和应用程序的很
 ## 目标
 
 * 配置一个示例 deployment 以在 Windows 节点上运行 Windows 容器
-* （可选）使用组托管服务帐户（GMSA）为您的 Pod 配置 Active Directory 身份
+* （可选）使用组托管服务帐户（GMSA）为你的 Pod 配置 Active Directory 身份
 
 <!--
 ## Before you begin
@@ -64,7 +64,7 @@ Create a service spec named `win-webserver.yaml` with the contents below:
 -->
 ## 入门：部署 Windows 容器
 
-要在 Kubernetes 上部署 Windows 容器，您必须首先创建一个示例应用程序。
+要在 Kubernetes 上部署 Windows 容器，你必须首先创建一个示例应用程序。
 下面的示例 YAML  文件创建了一个简单的 Web 服务器应用程序。
 创建一个名为  `win-webserver.yaml`  的服务规约，其内容如下：
 
@@ -169,7 +169,7 @@ the container port 80 is exposed directly to the service.
 
    * Windows 节点上每个 Pod 有两个容器，使用  `docker ps` 
    * Linux 控制平面节点列出两个 Pod，使用  `kubectl get pods` 
-   * 跨网络的节点到 Pod 通信，从 Linux 控制平面节点 `curl` 您的 pod IPs 的端口80，以检查 Web 服务器响应
+   * 跨网络的节点到 Pod 通信，从 Linux 控制平面节点 `curl` 你的 pod IPs 的端口80，以检查 Web 服务器响应
    * Pod 到 Pod 的通信，使用 docker exec 或 kubectl exec 在 Pod 之间
      （以及跨主机，如果你有多个 Windows 节点）进行 ping 操作
    * 服务到 Pod 的通信，从 Linux 控制平面节点和各个 Pod 中 `curl` 虚拟服务 IP
@@ -348,7 +348,7 @@ it could easily be modified to automatically add a taint when running on Windows
 -->
 但是，我们了解到，在许多情况下，用户都有既存的大量的 Linux 容器部署，以及一个现成的配置生态系统，
 例如社区 Helm charts，以及程序化 Pod 生成案例，例如 Operators。
-在这些情况下，您可能会不愿意更改配置添加 nodeSelector。替代方法是使用污点。
+在这些情况下，你可能会不愿意更改配置添加 nodeSelector。替代方法是使用污点。
 由于 kubelet 可以在注册期间设置污点，因此可以轻松修改它，使其仅在 Windows 上运行时自动添加污点。
 
 <!--
@@ -393,7 +393,7 @@ Kubernetes 1.17 automatically adds a new label `node.kubernetes.io/windows-build
 If you're running an older version, then it's recommended to add this label manually to Windows nodes.
 -->
 Kubernetes 1.17 自动添加了一个新标签 `node.kubernetes.io/windows-build` 来简化此操作。 
-如果您运行的是旧版本，则建议手动将此标签添加到 Windows 节点。
+如果你运行的是旧版本，则建议手动将此标签添加到 Windows 节点。
 
 <!--
 This label reflects the Windows major, minor, and build number that need to match for compatibility.
