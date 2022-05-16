@@ -64,7 +64,7 @@ on general patterns for running stateful applications in Kubernetes.
   [服务](/zh/docs/concepts/services-networking/service/) 与
   [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * 熟悉 MySQL 会有所帮助，但是本教程旨在介绍对其他系统应该有用的常规模式。
-* 您正在使用默认命名空间或不包含任何冲突对象的另一个命名空间。
+* 你正在使用默认命名空间或不包含任何冲突对象的另一个命名空间。
 
 ## {{% heading "objectives" %}}
 
