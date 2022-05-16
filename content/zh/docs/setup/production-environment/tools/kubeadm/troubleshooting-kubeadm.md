@@ -37,7 +37,6 @@ If your problem is not listed below, please follow the following steps:
 或者在 [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes) 上提问。
 请加入相关标签，例如 `#kubernetes` 和 `#kubeadm`，这样其他人可以帮助你。
 
-
 <!-- body -->
 
 <!--
@@ -108,7 +107,8 @@ and investigating each container by running `docker logs`. For other container r
 <!--
 ## kubeadm blocks when removing managed containers
 
-The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
+The following could happen if the container runtime halts and does not remove
+any Kubernetes-managed containers:
 
 ```shell
 sudo kubeadm reset
@@ -122,22 +122,13 @@ sudo kubeadm reset
 (block)
 ```
 
-A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
-
-```shell
-sudo systemctl restart docker.service
-sudo kubeadm reset
-```
-
-Inspecting the logs for docker may also be useful:
-
-```shell
-journalctl -ul docker
-```
+A possible solution is to restart the container runtime and then re-run `kubeadm reset`.
+You can also use `crictl` to debug the state of the container runtime. See
+[Debugging Kubernetes nodes with crictl](/zh/docs/tasks/debug-application-cluster/crictl/).
 -->
 ## 当删除托管容器时 kubeadm 阻塞
 
-如果 Docker 停止并且不删除 Kubernetes 所管理的所有容器，可能发生以下情况：
+如果容器运行时停止并且未删除 Kubernetes 所管理的容器，可能发生以下情况：
 
 ```shell
 sudo kubeadm reset
@@ -152,17 +143,8 @@ sudo kubeadm reset
 ```
 
 一个可行的解决方案是重新启动 Docker 服务，然后重新运行 `kubeadm reset`：
-
-```shell
-sudo systemctl restart docker.service
-sudo kubeadm reset
-```
-
-检查 docker 的日志也可能有用：
-
-```shell
-journalctl -ul docker
-```
+你也可以使用 `crictl` 来调试容器运行时的状态。
+参见[使用 CRICTL 调试 Kubernetes 节点](/zh/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
 ## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
@@ -177,10 +159,6 @@ Right after `kubeadm init` there should not be any pods in these states.
   it's very likely that the Pod Network add-on that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
-- If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
-  when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
-  MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
-  The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 -->
 ## Pods 处于 `RunContainerError`、`CrashLoopBackOff` 或者 `Error` 状态
 
@@ -446,7 +424,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   private network. The `kubeletExtraArgs` section of the kubeadm
   [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
   can be used for this.
-  
+
   Then restart `kubelet`:
 
   ```sh
@@ -477,7 +455,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
   解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 Digital Ocean 时，可以是公网IP（分配给 `eth0`的），
   或者是私网IP（分配给 `eth1` 的）。私网 IP 是可选的。
-  [kubadm `NodeRegistrationOptions` 结构](/zh/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions) 
+  [kubadm `NodeRegistrationOptions` 结构](/zh/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
   的 `KubeletExtraArgs` 部分被用来处理这种情况。
 
   然后重启 `kubelet`：
@@ -565,7 +543,7 @@ yum install docker-ce-18.06.1.ce-3.el7.x86_64
 
 如果你遇到以下错误：
 
-```
+```console
 rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:247: starting container process caused "process_linux.go:110: decoding init error from pipe caused \"read parent: connection reset by peer\""
 ```
 
@@ -642,7 +620,7 @@ A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on 
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
 ```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
@@ -654,7 +632,7 @@ The tracking issue for this problem is [here](https://github.com/kubernetes/kube
 
 在 kube-proxy Pod 中可以看到以下错误：
 
-```
+```console
 server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
 proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 ```
@@ -663,7 +641,7 @@ proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 而不管它们的条件如何，将其与其他节点保持隔离，直到它们的初始保护条件消除：
 
 ```shell
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 此问题的跟踪[在这里](https://github.com/kubernetes/kubeadm/issues/1027)。
@@ -681,7 +659,7 @@ for the feature to work.
 ## 节点上的 `/usr` 被以只读方式挂载 {#usr-mounted-read-only}
 
 在类似 Fedora CoreOS 或者 Flatcar Container Linux 这类 Linux 发行版本中，
-目录 `/usr` 是以只读文件系统的形式挂载的。 
+目录 `/usr` 是以只读文件系统的形式挂载的。
 在支持 [FlexVolume](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md)时，
 类似 kubelet 和 kube-controller-manager 这类 Kubernetes 组件使用默认路径
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
@@ -789,7 +767,7 @@ on the side of the metrics-server:
 kubeadm 为 kubelet 部署的是自签名的服务证书。这可能会导致 metrics-server
 端报告下面的错误信息：
 
-```
+```console
 x509: certificate signed by unknown authority
 x509: certificate is valid for IP-foo not IP-bar
 ```
@@ -804,4 +782,3 @@ Also see [How to run the metrics-server securely](https://github.com/kubernetes-
 以进一步了解如何在 kubeadm 集群中配置 kubelet 使用正确签名了的服务证书。
 
 另请参阅[How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely)。
-
