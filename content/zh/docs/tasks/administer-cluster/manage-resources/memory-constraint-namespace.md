@@ -48,7 +48,7 @@ isolated from the rest of your cluster.
 -->
 ## 创建命名空间
 
-创建一个命名空间，以便在此练习中创建的资源与群集的其余资源隔离。
+创建一个命名空间，以便在此练习中创建的资源与集群的其余资源隔离。
 
 ```shell
 kubectl create namespace constraints-mem-example

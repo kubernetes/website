@@ -78,7 +78,7 @@ Successfully running cloud-controller-manager requires some changes to your clus
 <!--
 Keep in mind that setting up your cluster to use cloud controller manager will change your cluster behaviour in a few ways:
 -->
-请记住，设置群集使用云管理控制器将用多种方式更改群集行为：
+请记住，设置集群使用云管理控制器将用多种方式更改集群行为：
 
 <!--
 * kubelets specifying `--cloud-provider=external` will add a taint `node.cloudprovider.kubernetes.io/uninitialized` with an effect `NoSchedule` during initialization. This marks the node as needing a second initialization from an external controller before it can be scheduled work. Note that in the event that cloud controller manager is not available, new nodes in the cluster will be left unschedulable. The taint is important since the scheduler may require cloud specific information about nodes such as their region or type (high cpu, gpu, high memory, spot instance, etc).

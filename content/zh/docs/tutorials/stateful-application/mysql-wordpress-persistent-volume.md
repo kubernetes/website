@@ -117,7 +117,7 @@ When a PersistentVolumeClaim is created, a PersistentVolume is dynamically provi
 
 MySQL 和 Wordpress 都需要一个 PersistentVolume 来存储数据。他们的 PersistentVolumeClaims 将在部署步骤中创建。
 
-许多群集环境都安装了默认的 StorageClass。如果在 PersistentVolumeClaim 中未指定 StorageClass，则使用群集的默认 StorageClass。
+许多集群环境都安装了默认的 StorageClass。如果在 PersistentVolumeClaim 中未指定 StorageClass，则使用集群的默认 StorageClass。
 
 创建 PersistentVolumeClaim 时，将根据 StorageClass 配置动态设置 PersistentVolume。
 
@@ -126,7 +126,7 @@ MySQL 和 Wordpress 都需要一个 PersistentVolume 来存储数据。他们的
 In local clusters, the default StorageClass uses the `hostPath` provisioner.  `hostPath` volumes are only suitable for development and testing. With `hostPath` volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and does not move between nodes. If a Pod dies and gets scheduled to another node in the cluster, or the node is rebooted, the data is lost.
 -->
 
-在本地群集中，默认的 StorageClass 使用`hostPath`供应器。 `hostPath`卷仅适用于开发和测试。使用 `hostPath` 卷，你的数据位于 Pod 调度到的节点上的`/tmp`中，并且不会在节点之间移动。如果 Pod 死亡并被调度到群集中的另一个节点，或者该节点重新启动，则数据将丢失。
+在本地集群中，默认的 StorageClass 使用`hostPath`供应器。 `hostPath`卷仅适用于开发和测试。使用 `hostPath` 卷，你的数据位于 Pod 调度到的节点上的`/tmp`中，并且不会在节点之间移动。如果 Pod 死亡并被调度到群集中的另一个节点，或者该节点重新启动，则数据将丢失。
 {{< /warning >}}
 
 {{< note >}}

@@ -163,7 +163,7 @@ Dynamic provisioning can be enabled on a cluster such that all claims are
 dynamically provisioned if no storage class is specified. A cluster administrator
 can enable this behavior by:
 -->
-可以在群集上启用动态卷供应，以便在未指定存储类的情况下动态设置所有声明。
+可以在集群上启用动态卷供应，以便在未指定存储类的情况下动态设置所有声明。
 集群管理员可以通过以下方式启用此行为：
 
 <!--
@@ -191,7 +191,7 @@ Note that there can be at most one *default* storage class on a cluster, or
 a `PersistentVolumeClaim` without `storageClassName` explicitly specified cannot
 be created.
 -->
-请注意，群集上最多只能有一个 *默认* 存储类，否则无法创建没有明确指定
+请注意，集群上最多只能有一个 *默认* 存储类，否则无法创建没有明确指定
 `storageClassName` 的 `PersistentVolumeClaim`。
 
 <!--

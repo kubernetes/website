@@ -367,7 +367,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 <!--
 1. Optional: Check the cluster health
 -->
-8. 可选：检查群集运行状况
+8. 可选：检查集群运行状况
 
    ```shell
    docker run --rm -it \
