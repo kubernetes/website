@@ -62,7 +62,7 @@ You can read more about bootstrap tokens here:
   /docs/admin/bootstrap-tokens/
 -->
 
-您可以在此处阅读有关引导令牌（bootstrap token）的更多信息：
+你可以在此处阅读有关引导令牌（bootstrap token）的更多信息：
   /docs/admin/bootstrap-tokens/
 
 ```
