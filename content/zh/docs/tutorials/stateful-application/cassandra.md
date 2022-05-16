@@ -423,7 +423,7 @@ By using environment variables you can change values that are inserted into `cas
 并且包含 OpenJDK 8。
 
 该映像包括来自 Apache Debian 存储库的标准 Cassandra 安装。
-通过使用环境变量，您可以更改插入到 `cassandra.yaml` 中的值。
+通过使用环境变量，你可以更改插入到 `cassandra.yaml` 中的值。
 
 | 环境变量                 | 默认值           |
 | ------------------------ |:---------------: |
