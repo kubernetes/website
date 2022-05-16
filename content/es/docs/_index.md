@@ -16,7 +16,7 @@ Como podrá comprobar, la mayor parte de la documentación aún está disponible
 
 <!-- body -->
 
-Si quiere participar, puede entrar al canal de Slack [#kubernets-docs-es](http://slack.kubernetes.io/) y formar parte del equipo detrás de la localización.
+Si quiere participar, puede entrar al canal de Slack [#kubernetes-docs-es](http://slack.kubernetes.io/) y formar parte del equipo detrás de la localización.
 
 También puede pasar por el canal para solicitar la traducción de alguna página en concreto o reportar algún error que se haya podido encontrar. ¡Cualquier aportación será bien recibida!
 
