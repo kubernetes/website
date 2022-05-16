@@ -114,7 +114,7 @@ Now, remember that pods in a StatefulSet of size _n_ must have ids in the range 
 Consider the cluster topology below:
 -->
 现在，请记住，规模为 _n_ 的 StatefulSet 中的 Pods 一定具有 `[0,n)` 范围内的 id。
-当把一个 StatefulSet 规模缩减了 _m_ 时，Kubernet 会移除 _m_ 个 Pod，从最高的序号开始，向最低的序号移动，
+当把一个 StatefulSet 规模缩减了 _m_ 时，Kubernetes 会移除 _m_ 个 Pod，从最高的序号开始，向最低的序号移动，
 [与它们被添加的顺序相反](/zh/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)。
 考虑一下下面的集群拓扑结构。
 

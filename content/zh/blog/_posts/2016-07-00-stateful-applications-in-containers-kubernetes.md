@@ -19,9 +19,11 @@ _Editor's note: today’s guest post is from Mark Balch, VP of Products at Diama
 _编者注： 今天的来宾帖子来自 Diamanti 产品副总裁 Mark Balch，他将分享有关他们对 Kubernetes 所做的贡献的更多信息。_ 
 
 <!--
-Congratulations to the Kubernetes community on another [value-packed release](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads). A focus on stateful applications and federated clusters are two reasons why I’m so excited about 1.3. Kubernetes support for stateful apps such as Cassandra, Kafka, and MongoDB is critical. Important services rely on databases, key value stores, message queues, and more. Additionally, relying on one data center or container cluster simply won’t work as apps grow to serve millions of users around the world. Cluster federation allows users to deploy apps across multiple clusters and data centers for scale and resiliency.  
+
+Congratulations to the Kubernetes community on another [value-packed release](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/). A focus on stateful applications and federated clusters are two reasons why I’m so excited about 1.3. Kubernetes support for stateful apps such as Cassandra, Kafka, and MongoDB is critical. Important services rely on databases, key value stores, message queues, and more. Additionally, relying on one data center or container cluster simply won’t work as apps grow to serve millions of users around the world. Cluster federation allows users to deploy apps across multiple clusters and data centers for scale and resiliency.
+
 -->
-祝贺 Kubernetes 社区发布了另一个[有价值的版本](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads)。
+祝贺 Kubernetes 社区发布了另一个[有价值的版本](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/)。
 专注于有状态应用程序和联邦集群是我对 1.3 如此兴奋的两个原因。
 Kubernetes 对有状态应用程序（例如 Cassandra、Kafka 和 MongoDB）的支持至关重要。
 重要服务依赖于数据库、键值存储、消息队列等。
@@ -40,7 +42,7 @@ Diamanti 正在加速在生产中使用有状态应用程序的容器-在这方�
 **应用程序不仅仅需要牛**  
 
 <!--
-Beyond stateless containers like web servers (so-called “cattle” because they are interchangeable), users are increasingly deploying stateful workloads with containers to benefit from “build once, run anywhere” and to improve bare metal efficiency/utilization. These “pets” (so-called because each requires special handling) bring new requirements including longer life cycle, configuration dependencies, stateful failover, and performance sensitivity. Container orchestration must address these needs to successfully deploy and scale apps. 
+Beyond stateless containers like web servers (so-called “cattle” because they are interchangeable), users are increasingly deploying stateful workloads with containers to benefit from “build once, run anywhere” and to improve bare metal efficiency/utilization. These “pets” (so-called because each requires special handling) bring new requirements including longer life cycle, configuration dependencies, stateful failover, and performance sensitivity. Container orchestration must address these needs to successfully deploy and scale apps.  
 -->
 除了诸如Web服务器之类的无状态容器（因为它们是可互换的，因此被称为“牛”）之外，用户越来越多地使用容器来部署有状态工作负载，以从“一次构建，随处运行”中受益并提高裸机效率/利用率。
 这些“宠物”（之所以称为“宠物”，是因为每个宠物都需要特殊的处理）带来了新的要求，包括更长的生命周期，配置依赖项，有状态故障转移以及性能敏感性。
@@ -56,10 +58,10 @@ Pet Set 还利用普遍存在的 DNS SRV 记录简化了服务发现，DNS SRV �
 <!--
 Diamanti’s [FlexVolume contribution](https://github.com/kubernetes/kubernetes/pull/13840) to Kubernetes enables stateful workloads by providing persistent volumes with low-latency storage and guaranteed performance, including enforced quality-of-service from container to media.  
 -->
-Diamanti 对 Kubernete s的 [FlexVolume 贡献](https://github.com/kubernetes/kubernetes/pull/13840) 通过为持久卷提供低延迟存储并保证性能来实现有状态工作负载，包括从容器到媒体的强制服务质量。
+Diamanti 对 Kubernetes 的 [FlexVolume 贡献](https://github.com/kubernetes/kubernetes/pull/13840) 通过为持久卷提供低延迟存储并保证性能来实现有状态工作负载，包括从容器到媒体的强制服务质量。
 
 <!--
-**A Federalist** 
+**A Federalist**  
 -->
 **联邦主义者** 
 
