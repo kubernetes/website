@@ -12,7 +12,7 @@ The volume populators feature is now two releases old and entering beta! The `An
 gate defaults to enabled in Kubernetes v1.24, which means that users can specify any custom resource
 as the data source of a PVC.
 
-An [earlier blog article](/blog/2021/08/30-volume-populators-redesigned/) detailed how the
+An [earlier blog article](/blog/2021/08/30/volume-populators-redesigned/) detailed how the
 volume populators feature works. In short, a cluster administrator can install a CRD and
 associated populator controller in the cluster, and any user who can create instances of 
 the CR can create pre-populated volumes by taking advantage of the populator.
