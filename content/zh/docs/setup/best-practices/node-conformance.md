@@ -81,7 +81,7 @@ To run the node conformance test, perform the following steps:
 2. 使用以下命令运行节点一致性测试：
 
    ```shell
-   # $CONFIG_DIR 是您 Kubelet 的 pod manifest 路径。
+   # $CONFIG_DIR 是你 Kubelet 的 pod manifest 路径。
    # $LOG_DIR 是测试的输出路径。
    sudo docker run -it --rm --privileged --net=host \
      -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
@@ -119,7 +119,7 @@ Kubernetes 也为其他硬件体系结构的系统提供了节点一致性测试
 <!--
 To run specific tests, overwrite the environment variable `FOCUS` with theregular expression of tests you want to run.
 -->
-要运行特定测试，请使用您希望运行的测试的特定表达式覆盖环境变量 `FOCUS`。
+要运行特定测试，请使用你希望运行的测试的特定表达式覆盖环境变量 `FOCUS`。
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
@@ -131,7 +131,7 @@ k8s.gcr.io/node-test:0.2
 <!--
 To skip specific tests, overwrite the environment variable `SKIP` with theregular expression of tests you want to skip.
 -->
-要跳过特定的测试，请使用您希望跳过的测试的常规表达式覆盖环境变量 `SKIP`。
+要跳过特定的测试，请使用你希望跳过的测试的常规表达式覆盖环境变量 `SKIP`。
 
 <!--
 ```shell
