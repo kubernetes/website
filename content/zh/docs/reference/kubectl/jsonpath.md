@@ -3,17 +3,15 @@ title: JSONPath 支持
 content_type: concept
 ---
 <!--
----
 title: JSONPath Support
 content_type: concept
----
 -->
 
 <!-- overview -->
 <!--
 Kubectl supports JSONPath template.
 -->
-Kubectl 支持 JSONPath 模板。
+kubectl 支持 JSONPath 模板。
 
 
 <!-- body -->
@@ -23,7 +21,8 @@ JSONPath template is composed of JSONPath expressions enclosed by curly braces {
 Kubectl uses JSONPath expressions to filter on specific fields in the JSON object and format the output.
 In addition to the original JSONPath template syntax, the following functions and syntax are valid:
 -->
-JSONPath 模板由 {} 包起来的 JSONPath 表达式组成。Kubectl 使用 JSONPath 表达式来过滤 JSON 对象中的特定字段并格式化输出。除了原始的 JSONPath 模板语法，以下函数和语法也是有效的:
+JSONPath 模板由 {} 包起来的 JSONPath 表达式组成。Kubectl 使用 JSONPath 表达式来过滤 JSON 对象中的特定字段并格式化输出。
+除了原始的 JSONPath 模板语法，以下函数和语法也是有效的:
 
 <!--
 1. Use double quotes to quote text inside JSONPath expressions.
@@ -140,8 +139,8 @@ kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.
 {{< /note >}}
 -->
 {{< note >}}
-在 Windows 上，对于任何包含空格的 JSONPath 模板，您必须使用双引号（不是上面 bash 所示的单引号）。
-反过来，这意味着您必须在模板中的所有文字周围使用单引号或转义的双引号。
+在 Windows 上，对于任何包含空格的 JSONPath 模板，你必须使用双引号（不是上面 bash 所示的单引号）。
+反过来，这意味着你必须在模板中的所有文字周围使用单引号或转义的双引号。
 例如:
 
 ```cmd
@@ -163,7 +162,7 @@ kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-
 ```
 -->
 {{< note >}}
-不支持 JSONPath 正则表达式。如需使用正则表达式进行匹配操作，您可以使用如 `jq` 之类的工具。
+不支持 JSONPath 正则表达式。如需使用正则表达式进行匹配操作，你可以使用如 `jq` 之类的工具。
 
 ```shell
 # kubectl 的 JSONpath 输出不支持正则表达式
