@@ -26,13 +26,12 @@ upcoming Kubernetes release, see
 To contribute new content pages or improve existing content pages, open a pull request (PR). Make sure you follow all the requirements in the [Before you begin](/docs/contribute/new-content/overview/#before-you-begin) section.
 -->
 {{< note >}}
-**代码开发者们**：如果你在为下一个 Kubernetes 发行版本中的某功能特性
-撰写文档，请参考[为新功能撰写文档](/zh/docs/contribute/new-content/new-features/)。
+**代码开发者们**：如果你在为下一个 Kubernetes 发行版本中的某功能特性撰写文档，
+请参考[为发行版本撰写功能特性文档](/zh/docs/contribute/new-content/new-features/)。
 {{< /note >}}
 
 要贡献新的内容页面或者改进已有内容页面，请发起拉取请求（PR）。
-请确保你满足了[开始之前](/zh/docs/contribute/new-content/overview/#before-you-begin)
-节中所列举的所有要求。
+请确保你满足了[开始之前](/zh/docs/contribute/new-content/#before-you-begin)一节中所列举的所有要求。
 
 <!--
 If your change is small, or you're unfamiliar with git, read [Changes using
@@ -45,16 +44,55 @@ learn how to make changes locally on your computer.
 [使用 GitHub 提交变更](#changes-using-github)以了解如何编辑页面。
 
 如果所提交的变更较大，请阅读[基于本地克隆副本开展工作](#fork-the-repo)以学习
-如何在你本地计算机上构造变更。
+如何在你本地计算机上进行修改。
 
 <!-- body -->
 
-<!--
+<!-- 
 ## Changes using GitHub
 
 If you're less experienced with git workflows, here's an easier method of
-opening a pull request.
+opening a pull request. The figure below outlines the steps and the details follow.
+-->
+## 使用 GitHub 提交变更 {#changes-using-github}
 
+如果你在 git 工作流方面欠缺经验，这里有一种发起拉取请求的更为简单的方法。
+下图勾勒了后续的步骤和细节。
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+A([fa:fa-user 新的<br>贡献者]) --- id1[(K8s/Website<br>GitHub)]
+subgraph tasks[使用 GitHub 提交变更]
+direction TB
+    0[ ] -.-
+    1[1. 编辑此页] --> 2[2. 使用 GitHub markdown<br>编辑器进行修改]
+    2 --> 3[3. 填写 Propose file change]
+
+end
+subgraph tasks2[ ]
+direction TB
+4[4. 选择 Propose file change] --> 5[5. 选择 Create pull request] --> 6[6. 填写 Open a pull request]
+6 --> 7[7. 选择 Create pull request] 
+end
+
+id1 --> tasks --> tasks2
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:1px,color:#fff;
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class A,1,2,3,4,5,6,7 grey
+class 0 spacewhite
+class tasks,tasks2 white
+class id1 k8s
+{{</ mermaid >}}
+
+***插图 - 使用 GitHub 发起一个 PR 的步骤***
+
+<!--
 1.  On the page where you see the issue, select the pencil icon at the top right.
     You can also scroll to the bottom of the page and select **Edit this page**.
 2.  Make your changes in the GitHub markdown editor.
@@ -62,19 +100,21 @@ opening a pull request.
     form. In the first field, give your commit message a title. In
     the second field, provide a description.
 -->
-## 使用 GitHub 提交变更 {#changes-using-github}
 
-如果你在 git 工作流方面欠缺经验，这里有一种发起拉取请求的更为简单的方法。
-
-1. 在你发现问题的网页，选择右上角的铅笔图标。你也可以滚动到页面底端，选择
-   **编辑此页面**。
+1. 在你发现问题的网页，选择右上角的铅笔图标。
+   你也可以滚动到页面底端，选择**编辑此页**。
 2. 在 GitHub 的 Markdown 编辑器中修改内容。
-3. 在编辑器的下方，填写 **建议文件变更** 表单。
+3. 在编辑器的下方，填写 **Propose file change** 表单。
    在第一个字段中，为你的提交消息取一个标题。
    在第二个字段中，为你的提交写一些描述文字。
-
+<!-- 
+    {{< note >}}
+    Do not use any [GitHub Keywords](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) in your commit message. You can add those to the pull request
+    description later.
+    {{< /note >}}
+-->
    {{< note >}}
-   不要在提交消息中使用 [GitHub 关键词](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+   不要在提交消息中使用 [GitHub 关键词](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)。
    你可以在后续的 PR 描述中使用这些关键词。
    {{< /note >}}
 <!--
@@ -91,13 +131,14 @@ opening a pull request.
     details the template text asks for, then delete the extra template text.
     - Leave the **Allow edits from maintainers** checkbox selected.
 -->
-4. 选择 **Propose File Change**.
-5. 选择 **Create pull request**.
-6. 在 **Open a pull request** 屏幕上填写表单：
+4. 选择 **Propose File Change**。
+5. 选择 **Create pull request**。
+6. 出现 **Open a pull request** 界面。填写表单：
 
     - **Subject** 字段默认为提交的概要信息。你可以根据需要修改它。
-    - **Body** 字段包含更为详细的提交消息，如果你之前有填写过的话，以及一些模板文字。
-      填写模板所要求的详细信息，之后删除多余的模板文字。
+    - **Body** 字段包含更为详细的提交消息，如果你之前有填写过的话，
+      以及一些模板文字。填写模板所要求的详细信息，
+      之后删除多余的模板文字。
     - 确保 **Allow edits from maintainers** 复选框被勾选。
 
    <!--
@@ -106,11 +147,11 @@ opening a pull request.
    -->
    {{< note >}}
    PR 描述信息是帮助 PR 评阅人了解你所提议的变更的重要途径。
-   更多信息请参考[发起一个 PR](#open-a-pr).
+   更多信息请参考[发起一个 PR](#open-a-pr)。
    {{< /note >}}
 
 <!-- 7.  Select **Create pull request**.  -->
-7. 选择 **Create pull request**.
+7. 选择 **Create pull request**。
 
 <!--
 ### Addressing feedback in GitHub
@@ -159,6 +200,8 @@ If you're more experienced with git, or if your changes are larger than a few li
 work from a local fork.
 
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your computer. You can also use a git UI application.
+
+The figure below shows the steps to follow when you work from a local fork. The details for each step follow.
 -->
 ## 基于本地克隆副本开展工作 {#work-from-a-local-fork}
 
@@ -167,6 +210,42 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 
 首先要确保你在本地计算机上安装了 [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)。
 你也可以使用 git 的带用户界面的应用。
+
+下图显示了基于本地克隆副本开展工作的步骤。
+每个步骤的细节如下。
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+1[派生 K8s/website<br>仓库] --> 2[创建本地克隆副本<br>并指定 upstream 仓库]
+subgraph changes[你的变更]
+direction TB
+S[ ] -.-
+3[创建一个分支<br>例如: my_new_branch] --> 3a[使用文本编辑器<br>进行修改] --> 4["使用 Hugo 在本地<br>预览你的变更<br>(localhost:1313)<br>或构建容器镜像"]
+end
+subgraph changes2[提交 / 推送]
+direction TB
+T[ ] -.-
+5[提交你的变更] --> 6[将提交推送到<br>origin/my_new_branch]
+end
+
+2 --> changes --> changes2
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:1px,color:#fff;
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class 1,2,3,3a,4,5,6 grey
+class S,T spacewhite
+class changes,changes2 white
+{{</ mermaid >}}
+
+<!-- 
+***Figure - Working from a local fork to make your changes***
+-->
+***插图 - 使用本地克隆副本进行修改***
 
 <!--
 ### Fork the kubernetes/website repository
@@ -182,14 +261,16 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 <!--
 ### Create a local clone and set the upstream
 
-3. In a terminal window, clone your fork:
+3. In a terminal window, clone your fork and update the [Docsy Hugo theme](https://github.com/google/docsy#readme):
 -->
 ### 创建一个本地克隆副本并指定 upstream 仓库
 
-3. 打开终端窗口，克隆你所派生的副本：
+3. 打开终端窗口，克隆你所派生的副本，并更新 [Docsy Hugo 主题](https://github.com/google/docsy#readme)：
 
     ```bash
     git clone git@github.com/<github_username>/website
+    cd website
+    git submodule update --init --recursive --depth 1
     ```
 
 <!--
@@ -236,7 +317,9 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
    这样可以确保你本地的仓库在开始工作前是最新的。
 
    <!--
+    {{< note >}}
     This workflow is different than the [Kubernetes Community GitHub Workflow](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md). You do not need to merge your local copy of `main` with `upstream/main` before pushing updates to your fork.
+    {{< /note >}}
    -->
     {{< note >}}
     此工作流程与 [Kubernetes 社区 GitHub 工作流](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md)有所不同。
@@ -262,12 +345,12 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 
 1. 决定你要基于哪个分支来开展工作：
 
-   - 针对已有内容的改进，请使用 `upstream/main`；
-   - 针对已有功能特性的新文档内容，请使用 `upstream/main`；
+   - 针对已有内容的改进，请使用 `upstream/main`。
+   - 针对已有功能特性的新文档内容，请使用 `upstream/main`。
    - 对于本地化内容，请基于本地化的约定。
-     可参考[对 Kubernetes 文档进行本地化](/zh/docs/contribute/localization/)了解详细信息。
+     可参考[本地化 Kubernetes 文档](/zh/docs/contribute/localization/)了解详细信息。
    - 对于在下一个 Kubernetes 版本中新功能特性的文档，使用独立的功能特性分支。
-     参考[为发行版本功能特性撰写文档](/zh/docs/contribute/new-content/new-features/)了解更多信息。
+     参考[为发行版本撰写功能特性文档](/zh/docs/contribute/new-content/new-features/)了解更多信息。
    - 对于很多 SIG Docs 共同参与的，需较长时间才完成的任务，例如内容的重构，
      请使用为该任务创建的特性分支。
 
@@ -276,7 +359,7 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 <!--
 2. Create a new branch based on the branch identified in step 1. This example assumes the base branch is `upstream/main`:
 -->
-2. 基于第一步中选定的分支，创建新分支。
+2. 基于第 1 步中选定的分支，创建新分支。
    下面的例子假定基础分支是 `upstream/main`：
 
     ```bash
@@ -285,11 +368,13 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 <!--
 3.  Make your changes using a text editor.
 -->
-3. 使用文本编辑器开始构造变更。
+
+3. 使用文本编辑器进行修改。
 
 <!--
 At any time, use the `git status` command to see what files you've changed.
 -->
+
 在任何时候，都可以使用 `git status` 命令查看你所改变了的文件列表。
 
 <!--
@@ -379,8 +464,8 @@ When you are ready to submit a pull request, commit your changes.
     ```
 
     {{< note >}}
-    不要在提交消息中使用任何 [GitHub 关键字](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)。
-    你可以在后面创建 PR 时使用这些关键字。
+    不要在提交消息中使用任何 [GitHub 关键词](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)。
+    你可以在后续的 PR 描述中使用这些关键词。
     {{< /note >}}
 <!--
 4. Push your local branch and its new commit to your remote fork:
@@ -404,29 +489,30 @@ You can either build the website's container image or run Hugo locally. Building
 -->
 ### 在本地预览你的变更 {#preview-locally}
 
-在推送变更或者发起 PR 之前在本地查看一下预览是个不错的注意。
+在推送变更或者发起 PR 之前在本地查看一下预览是个不错的主意。
 通过预览你可以发现构建错误或者 Markdown 格式问题。
 
-你可以构造网站的容器镜像或者在本地运行 Hugo。
-构造容器镜像的方式比较慢，不过能够显示 [Hugo 短代码（shortcodes）](/zh/docs/contribute/style/hugo-shortcodes/)，
+你可以构建网站的容器镜像或者在本地运行 Hugo。
+构建容器镜像的方式比较慢，不过能够显示 [Hugo 短代码（shortcodes）](/zh/docs/contribute/style/hugo-shortcodes/)，
 因此对于调试是很有用的。
 
 {{< tabs name="tab_with_hugo" >}}
 {{% tab name="在容器内执行 Hugo" %}}
 
 <!--
-The following commmand uses Docker as the default container engine.
-You can set up the `CONTAINER_ENGINE` to override this behavior.
+{{< note >}}
+The commands below use Docker as default container engine. Set the `CONTAINER_ENGINE` environment variable to override this behaviour.
+{{< /note >}}
 -->
 {{< note >}}
 下面的命令中使用 Docker 作为默认的容器引擎。
-如果需要重载这一行为，可以设置 `CONTAINER_ENGINE`。
+如果需要重载这一行为，可以设置 `CONTAINER_ENGINE` 环境变量。
 {{< /note >}}
 
 <!--
 1.  Build the image locally:
 -->
-1. 在本地构造镜像；
+1. 在本地构建镜像：
 
       ```bash
       # 使用 docker (默认)
@@ -441,7 +527,7 @@ You can set up the `CONTAINER_ENGINE` to override this behavior.
 <!--
 2. After building the `kubernetes-hugo` image locally, build and serve the site:
 -->
-2. 在本地构造了 `kubernetes-hugo` 镜像之后，可以构造并启动网站：
+2. 在本地构建了 `kubernetes-hugo` 镜像之后，可以构建并启动网站：
 
       ```bash
       # 使用 docker (默认)
@@ -473,24 +559,37 @@ Alternately, install and use the `hugo` command on your computer:
 
 <!--
 1.  Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml).
-2.  In a terminal, go to your Kubernetes website repository and start the Hugo server:
+2.  If you have not updated your website repository, the `website/themes/docsy` directory is empty.
+    The site cannot build without a local copy of the theme. To update the website theme, run:
+3.  In a terminal, go to your Kubernetes website repository and start the Hugo server:
 -->
 1. 安装 [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)
    文件中指定的 [Hugo](https://gohugo.io/getting-started/installing/) 版本。
 
-2. 启动一个终端窗口，进入 Kubernetes 网站仓库目录，启动 Hugo 服务器：
+2.  如果你尚未更新你的网站仓库，则 `website/themes/docsy` 目录是空的。
+    如果本地缺少主题的副本，则该站点无法构建。
+    要更新网站主题，运行以下命令：
+
+    ```bash
+    git submodule update --init --recursive --depth 1
+    ```
+
+3. 启动一个终端窗口，进入 Kubernetes 网站仓库目录，启动 Hugo 服务器：
 
       ```bash
       cd <path_to_your_repo>/website
       hugo server
       ```
 <!--
-3.  In your browser’s address bar, enter `https://localhost:1313`.
-4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
+4.  In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+    changes and rebuilds the site as needed.
+5.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
     or close the terminal window.
 -->
-3. 在浏览器的地址栏输入： `https://localhost:1313`。
-4. 要停止本地 Hugo 实例，返回到终端窗口并输入 `Ctrl+C` 或者关闭终端窗口。
+4. 在浏览器的地址栏输入： `https://localhost:1313`。
+   Hugo 会监测文件的变更并根据需要重新构建网站。
+5. 要停止本地 Hugo 实例，返回到终端窗口并输入 `Ctrl+C` 或者关闭终端窗口。
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -498,6 +597,42 @@ Alternately, install and use the `hugo` command on your computer:
 ### Open a pull request from your fork to kubernetes/website {#open-a-pr}
 -->
 ### 从你的克隆副本向 kubernetes/website 发起拉取请求（PR） {#open-a-pr}
+
+<!-- 
+The figure below shows the steps to open a PR from your fork to the K8s/website. The details follow.
+-->
+下图显示了从你的克隆副本向 K8s/website 发起 PR 的步骤。
+详细信息如下。
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+subgraph first[ ]
+direction TB
+1[1. 前往 K8s/website 仓库] --> 2[2. 选择 New Pull Request]
+2 --> 3[3. 选择 compare across forks]
+3 --> 4[4. 从 head repository 下拉菜单<br>选择你的克隆副本]
+end
+subgraph second [ ]
+direction TB
+5[5. 从 compare 下拉菜单<br>选择你的分支] --> 6[6. 选择 Create Pull Request]
+6 --> 7[7. 为你的 PR<br>添加一个描述]
+7 --> 8[8. 选择 Create pull request]
+end
+
+first --> second
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+class 1,2,3,4,5,6,7,8 grey
+class first,second white
+{{</ mermaid >}}
+<!-- 
+***Figure - Steps to open a PR from your fork to the K8s/website***
+-->
+***插图 - 从你的克隆副本向 K8s/website 发起一个 PR 的步骤***
 
 <!--
 1. In a web browser, go to the [`kubernetes/website`](https://github.com/kubernetes/website/) repository.
@@ -527,10 +662,10 @@ Alternately, install and use the `hugo` command on your computer:
       - 如果存在一个相关联的 GitHub Issue，可以在描述中包含 `Fixes #12345` 或
         `Closes #12345`。GitHub 的自动化设施能够在当前 PR 被合并时自动关闭所提及
         的 Issue。如果有其他相关联的 PR，也可以添加对它们的链接。
-      - 如果你尤其希望获得某方面的建议，可以在描述中包含你希望评阅人思考的问题。
+      - 如果你特别希望获得某方面的建议，可以在描述中包含你希望评阅人思考的问题。
 8. 点击 **Create pull request** 按钮。
 
-   祝贺你! 你的拉取请求现在出现在 [Pull Requests](https://github.com/kubernetes/website/pulls) 列表中了！
+   祝贺你！你的拉取请求现在出现在 [Pull Requests](https://github.com/kubernetes/website/pulls) 列表中了！
 
 <!--
 After opening a PR, GitHub runs automated tests and tries to deploy a preview using [Netlify](https://www.netlify.com/).
@@ -577,11 +712,12 @@ GitHub 也会自动为 PR 分派一些标签，以帮助评阅人。
 3. Use `git push origin <my_new_branch>` to push your changes and re-run the Netlify tests.
 -->
 2. 如果有必要，更新你的提交消息；
-3. 使用 `git push origin <my_new_branch>` 来推送你的变更，重新出发 Netlify 测试。
+3. 使用 `git push origin <my_new_branch>` 来推送你的变更，重新触发 Netlify 测试。
 
    <!--
-   If you use `git commit -m` instead of amending, you must
-   [squash your commits](#squashing-commits) before merging.
+    {{< note >}}
+      If you use `git commit -m` instead of amending, you must [squash your commits](#squashing-commits) before merging.
+    {{< /note >}}
    -->
    {{< note >}}
    如果你使用 `git commit -m` 而不是增补参数，在 PR 最终合并之前你必须
@@ -626,7 +762,7 @@ For more information, see [Git Branching - Basic Branching and Merging](https://
 {{< note >}}
 要了解更多信息，可参考
 [Git 分支管理 - 基本分支和合并](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging#_basic_merge_conflicts)、
-[高级合并](https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging)、
+[高级合并](https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging)，
 或者在 `#sig-docs` Slack 频道寻求帮助。
 {{< /note >}}
 
@@ -730,7 +866,9 @@ If another contributor commits changes to the same file in another PR, it can cr
 ### 压缩（Squashing）提交 {#squashing-commits}
 
 <!--
+{{< note >}}
 For more information, see [Git Tools - Rewriting History](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History), or ask in the `#sig-docs` Slack channel for help.
+{{< /note >}}
 -->
 {{< note >}}
 要了解更多信息，可参看
@@ -793,7 +931,9 @@ If your PR has multiple commits, you must squash them into a single commit befor
     就重设基线操作本身，我们关注 `squash` 和 `pick` 选项。
 
     <!--
+    {{< note >}}
     For more information, see [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode).
+    {{< /note >}}
     -->
     {{< note >}}
     进一步的详细信息可参考 [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode)。
@@ -866,12 +1006,14 @@ Most repositories use issue and PR templates. Have a look through some open
 issues and PRs to get a feel for that team's processes. Make sure to fill out
 the templates with as much detail as possible when you file issues or PRs.
 -->
-每个仓库有其自己的流程和过程。在登记 Issue 或者发起 PR 之前，记得阅读仓库的
-`README.md`、`CONTRIBUTING.md` 和 `code-of-conduct.md` 文件，如果有的话。
+每个仓库有其自己的流程和过程。在登记 Issue 或者发起 PR 之前，
+记得阅读仓库可能存在的 `README.md`、`CONTRIBUTING.md` 和
+`code-of-conduct.md` 文件。
 
-大多数仓库都有自己的 Issue 和 PR 模版。通过查看一些待解决的 Issues 和
-PR，也可以添加对它们的链接。你可以多少了解该团队的流程。
-在登记 Issue 或提出 PR 时，务必尽量填充所给的模版，多提供详细信息。
+大多数仓库都有自己的 Issue 和 PR 模板。
+通过查看一些待解决的 Issue 和 PR，
+你可以大致了解协作的流程。
+在登记 Issue 或提出 PR 时，务必尽量填充所给的模板，多提供详细信息。
 
 ## {{% heading "whatsnext" %}}
 

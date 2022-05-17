@@ -29,13 +29,13 @@ Don’t miss these great speaker sessions at the conference:
 不要错过这些优质的演讲：
 
 <!--
-* “Kubernetes Hardware Hacks: Exploring the Kubernetes API Through Knobs, Faders, and Sliders” by Ian Lewis and Brian Dorsey, Developer Advocate, Google -* [http://sched.co/6Bl3](http://sched.co/6Bl3)
+* “Kubernetes Hardware Hacks: Exploring the Kubernetes API Through Knobs, Faders, and Sliders” by Ian Lewis and Brian Dorsey, Developer Advocate, Google -* [http://sched.co/6Bl3](http://sched.co/6Bl3)  
 
 * “rktnetes: what's new with container runtimes and Kubernetes” by Jonathan Boulle, Developer and Team Lead at CoreOS -* [http://sched.co/6BY7](http://sched.co/6BY7)
 
 * “Kubernetes Documentation: Contributing, fixing issues, collecting bounties” by John Mulhausen, Lead Technical Writer, Google -* [http://sched.co/6BUP](http://sched.co/6BUP)&nbsp;
 * “[What is OpenStack's role in a Kubernetes world?](https://kubeconeurope2016.sched.org/event/6BYC/what-is-openstacks-role-in-a-kubernetes-world?iframe=yes&w=i:0;&sidebar=yes&bg=no#?iframe=yes&w=i:100;&sidebar=yes&bg=no)” By Thierry Carrez, Director of Engineering, OpenStack Foundation -* http://sched.co/6BYC
-* “A Practical Guide to Container Scheduling” by Mandy Waite, Developer Advocate, Google -* [http://sched.co/6BZa](http://sched.co/6BZa)
+* “A Practical Guide to Container Scheduling” by Mandy Waite, Developer Advocate, Google -* [http://sched.co/6BZa](http://sched.co/6BZa)  
 
 * “[Kubernetes in Production in The New York Times newsroom](https://kubeconeurope2016.sched.org/event/67f2/kubernetes-in-production-in-the-new-york-times-newsroom?iframe=yes&w=i:0;&sidebar=yes&bg=no#?iframe=yes&w=i:100;&sidebar=yes&bg=no)” Eric Lewis, Web Developer, New York Times -* [http://sched.co/67f2](http://sched.co/67f2)
 * “[Creating an Advanced Load Balancing Solution for Kubernetes with NGINX](https://kubeconeurope2016.sched.org/event/6Bc9/creating-an-advanced-load-balancing-solution-for-kubernetes-with-nginx?iframe=yes&w=i:0;&sidebar=yes&bg=no#?iframe=yes&w=i:100;&sidebar=yes&bg=no)” by Andrew Hutchings, Technical Product Manager, NGINX -* http://sched.co/6Bc9
@@ -60,15 +60,15 @@ Get your KubeCon EU [tickets here](https://ti.to/kubecon/kubecon-eu-2016).
 [在这里](https://ti.to/kubecon/kubecon-eu-2016)获取您的 KubeCon EU 门票。
 
 <!--
-Venue Location: CodeNode * 10 South Pl, London, United Kingdom
-Accommodations: [hotels](https://skillsmatter.com/contact-us#hotels)
-Website: [kubecon.io](https://www.kubecon.io/)
+Venue Location: CodeNode * 10 South Pl, London, United Kingdom  
+Accommodations: [hotels](https://skillsmatter.com/contact-us#hotels)   
+Website: [kubecon.io](https://www.kubecon.io/)   
 Twitter: [@KubeConio](https://twitter.com/kubeconio) #KubeCon
-Google is a proud Diamond sponsor of KubeCon EU 2016. Come to London next month, March 10th & 11th, and visit booth #13 to learn all about Kubernetes, Google Container Engine (GKE) and Google Cloud Platform!
+Google is a proud Diamond sponsor of KubeCon EU 2016. Come to London next month, March 10th & 11th, and visit booth #13 to learn all about Kubernetes, Google Container Engine (GKE) and Google Cloud Platform!  
 -->
-会场地址：CodeNode * 英国伦敦南广场 10 号
-酒店住宿：[酒店](https://skillsmatter.com/contact-us)
-网站：[kubecon.io] (https://www.kubecon.io/)
+会场地址：CodeNode * 英国伦敦南广场 10 号  
+酒店住宿：[酒店](https://skillsmatter.com/contact-us)  
+网站：[kubecon.io] (https://www.kubecon.io/)  
 推特：[@KubeConio] (https://twitter.com/kubeconio)
 谷歌是 KubeCon EU 2016 的钻石赞助商。下个月 3 月 10 - 11 号来伦敦，参观 13 号展位，了解 Kubernetes，Google Container Engine（GKE），Google Cloud Platform 的所有信息!
 
@@ -78,6 +78,6 @@ _KubeCon is organized by KubeAcademy, LLC, a community-driven group of developer
 -* Sarah Novotny, Kubernetes Community Manager, Google
 -->
 
-_KubeCon 是由 KubeAcademy、LLC 组织的，这是一个由社区驱动的开发者团体，专注于开发人员的教育和 kubernet.com 的推广
+_KubeCon 是由 KubeAcademy、LLC 组织的，这是一个由社区驱动的开发者团体，专注于开发人员的教育和 kubernetes 的推广
 -* Sarah Novotny, 谷歌的 Kubernetes 社区经理
 

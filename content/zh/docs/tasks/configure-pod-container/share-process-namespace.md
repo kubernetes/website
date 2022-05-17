@@ -34,7 +34,7 @@ You can use this feature to configure cooperating containers, such as a log
 handler sidecar container, or to troubleshoot container images that don't
 include debugging utilities like a shell.
 -->
-您可以使用此功能来配置协作容器，比如日志处理 sidecar 容器，或者对那些不包含诸如 shell 等调试实用工具的镜像进行故障排查。
+你可以使用此功能来配置协作容器，比如日志处理 sidecar 容器，或者对那些不包含诸如 shell 等调试实用工具的镜像进行故障排查。
 
 
 
@@ -110,7 +110,7 @@ Process Namespace Sharing is enabled using the `ShareProcessNamespace` field of
 You can signal processes in other containers. For example, send `SIGHUP` to
 nginx to restart the worker process. This requires the `SYS_PTRACE` capability.
 -->
-您可以在其他容器中对进程发出信号。例如，发送 `SIGHUP` 到 nginx 以重启工作进程。这需要 `SYS_PTRACE` 功能。
+你可以在其他容器中对进程发出信号。例如，发送 `SIGHUP` 到 nginx 以重启工作进程。这需要 `SYS_PTRACE` 功能。
 
 ```
 / # kill -HUP 8

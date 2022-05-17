@@ -1,4 +1,20 @@
 <!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
+-->
+尽最大努力还原通过 'kubeadm init' 或者 'kubeadm join' 操作对主机所作的更改
+
+<!--
 ### Synopsis
 -->
 
@@ -7,8 +23,7 @@
 <!--
 Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
 -->
-
-尽最大努力还原通过 'kubeadm init' 或者 'kubeadm join' 操作对主机所做的更改
+尽最大努力还原通过 'kubeadm init' 或者 'kubeadm join' 操作对主机所作的更改
 
 <!--
 The "reset" command executes the following phases:
@@ -53,7 +68,9 @@ kubeadm reset [flags]
 <!--
 The path to the directory where the certificates are stored. If specified, clean this directory.
 -->
+<p>
 存储证书的目录路径。如果已指定，则需要清空此目录。
+</p>
 </td>
 </tr>
 
@@ -99,7 +116,7 @@ Don't apply any changes; just output what would be done.
 Reset the node without prompting for confirmation.
 -->
 在不提示确认的情况下重置节点。
-<p>
+</p>
 </td>
 </tr>
 
@@ -113,7 +130,7 @@ Reset the node without prompting for confirmation.
 help for reset
 -->
 reset 操作的帮助命令
-<p>
+</p>
 </td>
 </tr>
 
@@ -127,7 +144,7 @@ reset 操作的帮助命令
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
 错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
-<p>
+</p>
 </td>
 </tr>
 
@@ -138,7 +155,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
-<p>
+</p>
 </td>
 </tr>
 <tr>
@@ -148,7 +165,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
 与集群通信时使用的 kubeconfig 文件。如果未设置该标志，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
-<p>
+</p>
 </td>
 </tr>
 
@@ -160,7 +177,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <p>
 <!-- List of phases to be skipped -->
 要跳过的阶段列表
-<p>
+</p>
 </td>
 </tr>
 
@@ -192,10 +209,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
 [实验] 指向 '真实' 宿主机根文件系统的路径。
-<p>
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-

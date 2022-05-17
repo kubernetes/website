@@ -28,8 +28,8 @@ min-kubernetes-server-version: v1.14
 <!--
 This tutorial shows you how to build and deploy a simple _(not production ready)_, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
 -->
-本教程向您展示如何使用 Kubernetes 和 [Docker](https://www.docker.com/) 构建和部署
-一个简单的 _(非面向生产的)_ 多层 web 应用程序。本例由以下组件组成：
+本教程向你展示如何使用 Kubernetes 和 [Docker](https://www.docker.com/)
+构建和部署一个简单的**(非面向生产的)**多层 web 应用程序。本例由以下组件组成：
 
 <!--
 * A single-instance [Redis](https://www.redis.io/) to store guestbook entries
@@ -74,7 +74,6 @@ The guestbook application uses Redis to store its data.
 <!--
 ### Creating the Redis Deployment
 -->
-
 ### 创建 Redis Deployment
 
 <!--
@@ -326,7 +325,7 @@ Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis 跟�
    
    ```shell
    kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
-      ```
+   ```
 
 <!--
 1. Query the list of Pods to verify that the three frontend replicas are running:
@@ -423,7 +422,6 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 <!--
 ### Viewing the Frontend Service via `kubectl port-forward`
 -->
-
 ### 通过 `kubectl port-forward` 查看前端服务
 
 <!--

@@ -25,14 +25,13 @@ on the deprecation of Docker as a container runtime for Kubernetes kubelets, and
 what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
 
-Also, you can read [check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to check whether it does.
+Also, you can read [check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) to check whether it does.
 -->
 本文回顾了自 Kubernetes v1.20 版宣布弃用 Dockershim 以来所引发的一些常见问题。
 关于 Kubernetes kubelets 从容器运行时的角度弃用 Docker 的细节以及这些细节背后的含义，请参考博文
 [别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
 
-此外，你可以阅读 [检查 Dockershim 弃用是否影响你](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-以检查它是否会影响你。
+此外，你可以阅读[检查 Dockershim 移除是否影响你](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)以检查它是否会影响你。
 
 <!-- 
 ### Why is dockershim being deprecated?
@@ -267,14 +266,15 @@ runtime where possible.
 <!-- 
 Another thing to look out for is anything expecting to run for system maintenance
 or nested inside a container when building images will no longer work. For the
-former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from docker cli to crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl)) and for the
+former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from dockercli to crictl](/docs/reference/tools/map-crictl-dockercli/)) and for the
 latter you can use newer container build options like [img], [buildah],
 [kaniko], or [buildkit-cli-for-kubectl] that don’t require Docker.
 -->
 另外还有一个需要关注的点，那就是当创建镜像时，系统维护或嵌入容器方面的任务将无法工作。
 对于前者，可以用 [`crictl`](https://github.com/kubernetes-sigs/cri-tools) 工具作为临时替代方案
-(参见 [从 docker 命令映射到 crictl](https://kubernetes.io/zh/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl))；
+(参见[从 docker 命令映射到 crictl](/zh/docs/reference/tools/map-crictl-dockercli/))；
 对于后者，可以用新的容器创建选项，比如
+[cr](https://github.com/kubernetes-sigs/cri-tools)、
 [img](https://github.com/genuinetools/img)、
 [buildah](https://github.com/containers/buildah)、
 [kaniko](https://github.com/GoogleContainerTools/kaniko)、或 

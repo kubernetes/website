@@ -26,8 +26,6 @@ Kubernetes 需要 PKI 证书才能进行基于 TLS 的身份验证。如果你�
 则会自动生成集群所需的证书。你还可以生成自己的证书。
 例如，不将私钥存储在 API 服务器上，可以让私钥更加安全。此页面说明了集群必需的证书。
 
-
-
 <!-- body -->
 
 <!--
@@ -41,6 +39,8 @@ Kubernetes 需要 PKI 才能执行以下操作：
 
 <!--
 * Client certificates for the kubelet to authenticate to the API server
+* Kubelet [server certificates](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#client-and-serving-certificates)
+  for the API server to talk to the kubelets
 * Server certificate for the API server endpoint
 * Client certificates for administrators of the cluster to authenticate to the API server
 * Client certificates for the API server to talk to the kubelets
@@ -50,6 +50,8 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * Client and server certificates for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 -->
 * Kubelet 的客户端证书，用于 API 服务器身份验证
+* Kubelet [服务端证书](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#client-and-serving-certificates)，
+  用于 API 服务器与 Kubelet 的会话
 * API 服务器端点的证书
 * 集群管理员的客户端证书，用于 API 服务器身份认证
 * API 服务器的客户端证书，用于和 Kubelet 的会话
@@ -75,20 +77,25 @@ etcd 还实现了双向 TLS 来对客户端和对其他对等节点进行身份�
 <!--
 ## Where certificates are stored
 
-If you install Kubernetes with kubeadm, certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory.
+If you install Kubernetes with kubeadm, most certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory, with the exception of user account certificates which kubeadm places in `/etc/kubernetes`.
 -->
 ## 证书存放的位置
 
-如果你是通过 kubeadm 安装的 Kubernetes，所有证书都存放在 `/etc/kubernetes/pki` 目录下。本文所有相关的路径都是基于该路径的相对路径。
+假如通过 kubeadm 安装 Kubernetes，大多数证书都存储在 `/etc/kubernetes/pki`。
+本文档中的所有路径都是相对于该目录的，但用户账户证书除外，kubeadm 将其放在 `/etc/kubernetes` 中。
 
 <!--
 ## Configure certificates manually
 
-If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways.
+If you don't want kubeadm to generate the required certificates, you can create them using a single root CA or by providing all certificates. See [Certificates](/docs/tasks/administer-cluster/certificates/) for details on creating your own certificate authority.
+See [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/) for more on managing certificates.
 -->
 ## 手动配置证书
 
-如果你不想通过 kubeadm 生成这些必需的证书，你可以通过下面两种方式之一来手动创建他们。
+如果你不想通过 kubeadm 生成这些必需的证书，你可以使用一个单一的根 CA
+来创建这些证书或者直接提供所有证书。
+参见[证书](/zh/docs/tasks/administer-cluster/certificates/)以进一步了解创建自己的证书机构。
+关于管理证书的更多信息，请参见[使用 kubeadm 进行证书管理](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
 
 <!--
 ### Single root CA
@@ -121,6 +128,20 @@ On top of the above CAs, it is also necessary to get a public/private key pair f
 上面的 CA 之外，还需要获取用于服务账户管理的密钥对，也就是 `sa.key` 和 `sa.pub`。
 
 <!--
+The following example illustrates the CA key and certificate files shown in the previous table:
+-->
+下面的例子说明了上表中所示的 CA 密钥和证书文件。
+
+```console
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+```
+
+<!--
 ### All certificates
 
 If you don't wish to copy the CA private keys to your cluster, you can generate all certificates yourself.
@@ -135,7 +156,7 @@ Required certificates:
 
 | 默认 CN                    | 父级 CA                 | O (位于 Subject 中) | 类型                                   | 主机 (SAN)                                 |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`                        |
+| kube-etcd                     | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
 | kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
@@ -147,14 +168,14 @@ Required certificates:
 [1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/) the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-where `kind` maps to one or more of the [x509 key usage](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) types:
+where `kind` maps to one or more of the [x509 key usage](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage) types:
 -->
 [1]: 用来连接到集群的不同 IP 或 DNS 名
 （就像 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 为负载均衡所使用的固定
 IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
 `kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
 
-其中，`kind` 对应一种或多种类型的 [x509 密钥用途](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)：
+其中，`kind` 对应一种或多种类型的 [x509 密钥用途](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage)：
 
 <!--
 | kind   | Key usage                                                                       |
@@ -166,7 +187,6 @@ IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`�
 |--------|---------------------------------------------------------------------------------|
 | server | 数字签名、密钥加密、服务端认证                                                       |
 | client | 数字签名、密钥加密、客户端认证                                                       |
-
 
 {{< note >}}
 <!--
@@ -227,6 +247,37 @@ Same considerations apply for the service account key pair:
 |                              | sa.pub                      | kube-apiserver          | --service-account-key-file                  |
 
 <!--
+The following example illustrates the file paths [from the previous tables](/docs/setup/best-practices/certificates/#certificate-paths) you need to provide if you are generating all of your own keys and certificates:
+-->
+下面的例子展示了自行生成所有密钥和证书时所需要提供的文件路径。
+这些路径基于[前面的表格](/zh/docs/setup/best-practices/certificates/#certificate-paths)。
+
+```console
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/apiserver-etcd-client.key
+/etc/kubernetes/pki/apiserver-etcd-client.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/apiserver.key
+/etc/kubernetes/pki/apiserver.crt
+/etc/kubernetes/pki/apiserver-kubelet-client.key
+/etc/kubernetes/pki/apiserver-kubelet-client.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-client.key
+/etc/kubernetes/pki/front-proxy-client.crt
+/etc/kubernetes/pki/etcd/server.key
+/etc/kubernetes/pki/etcd/server.crt
+/etc/kubernetes/pki/etcd/peer.key
+/etc/kubernetes/pki/etcd/peer.crt
+/etc/kubernetes/pki/etcd/healthcheck-client.key
+/etc/kubernetes/pki/etcd/healthcheck-client.crt
+/etc/kubernetes/pki/sa.key
+/etc/kubernetes/pki/sa.pub
+```
+
+<!--
 ## Configure certificates for user accounts
 
 You must manually configure these administrator account and service accounts:
@@ -285,3 +336,14 @@ These files are used as follows:
 | controller-manager.conf | kube-controller-manager | 必需添加到 `manifests/kube-controller-manager.yaml` 清单中               |
 | scheduler.conf          | kube-scheduler          | 必需添加到 `manifests/kube-scheduler.yaml` 清单中                        |
 
+<!--
+The following files illustrate full paths to the files listed in the previous table:
+-->
+下面是前表中所列文件的完整路径。
+
+```console
+/etc/kubernetes/admin.conf
+/etc/kubernetes/kubelet.conf
+/etc/kubernetes/controller-manager.conf
+/etc/kubernetes/scheduler.conf
+```

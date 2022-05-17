@@ -11,6 +11,7 @@ This page shows how to connect to services running on the Kubernetes cluster.
 
 ## {{% heading "prerequisites" %}}
 
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!-- steps -->
@@ -141,7 +142,7 @@ at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-l
 See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.
 -->
 {{< note >}}
-请参阅[使用 Kubernets API 访问集群](/zh/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api)
+请参阅[使用 Kubernetes API 访问集群](/zh/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api)
 了解如何传递凭据或如何使用 `kubectl proxy`。
 {{< /note >}}
 
@@ -189,47 +190,47 @@ URL 的 `<service_name>` 段支持的格式为：
 
 * 如要访问 Elasticsearch 服务末端 `_search?q=user:kimchy`，你可以使用：
 
-  ```
-  http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
-  ```
+    ```
+    http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
+    ```
 
 <!--
 * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:
 -->
 * 如要访问 Elasticsearch 集群健康信息`_cluster/health?pretty=true`，你会使用：
 
-  ```
-  https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true`
-  ```
+    ```
+    https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true`
+    ```
 
-  <!--
-  The health information is similar to this:
-  -->
-  健康信息与下面的例子类似：
+    <!--
+    The health information is similar to this:
+    -->
+    健康信息与下面的例子类似：
 
-  ```json
-  {
-    "cluster_name" : "kubernetes_logging",
-    "status" : "yellow",
-    "timed_out" : false,
-    "number_of_nodes" : 1,
-    "number_of_data_nodes" : 1,
-    "active_primary_shards" : 5,
-    "active_shards" : 5,
-    "relocating_shards" : 0,
-    "initializing_shards" : 0,
-    "unassigned_shards" : 5
-  }
-  ```
+    ```json
+    {
+      "cluster_name" : "kubernetes_logging",
+      "status" : "yellow",
+      "timed_out" : false,
+      "number_of_nodes" : 1,
+      "number_of_data_nodes" : 1,
+      "active_primary_shards" : 5,
+      "active_shards" : 5,
+      "relocating_shards" : 0,
+      "initializing_shards" : 0,
+      "unassigned_shards" : 5
+    }
+    ```
 
 <!--
 * To access the *https* Elasticsearch service health information `_cluster/health?pretty=true`, you would use:
 -->
 * 要访问 *https* Elasticsearch 服务健康信息 `_cluster/health?pretty=true`，你会使用：
 
-  ```
-  https://104.197.5.247/api/v1/namespaces/kube-system/services/https:elasticsearch-logging/proxy/_cluster/health?pretty=true
-  ```
+    ```
+    https://104.197.5.247/api/v1/namespaces/kube-system/services/https:elasticsearch-logging/proxy/_cluster/health?pretty=true
+    ```
 
 <!--
 #### Using web browsers to access services running on the cluster
@@ -241,12 +242,12 @@ You may be able to put an apiserver proxy URL into the address bar of a browser.
 你或许能够将 API 服务器代理的 URL 放入浏览器的地址栏，然而：
 
 <!--
-- Web browsers cannot usually pass tokens, so you may need to use basic (password) auth. Apiserver can be configured to accept basic auth,
+  - Web browsers cannot usually pass tokens, so you may need to use basic (password) auth. Apiserver can be configured to accept basic auth,
     but your cluster may not be configured to accept basic auth.
-- Some web apps may not work, particularly those with client side javascript that construct URLs in a
+  - Some web apps may not work, particularly those with client side javascript that construct URLs in a
     way that is unaware of the proxy path prefix.
 -->
-- Web 服务器通常不能传递令牌，所以你可能需要使用基本（密码）认证。
-  API 服务器可以配置为接受基本认证，但你的集群可能并没有这样配置。
-- 某些 Web 应用可能无法工作，特别是那些使用客户端 Javascript 构造 URL 的
-  应用，所构造的 URL 可能并不支持代理路径前缀。
+  - Web 服务器通常不能传递令牌，所以你可能需要使用基本（密码）认证。
+    API 服务器可以配置为接受基本认证，但你的集群可能并没有这样配置。
+  - 某些 Web 应用可能无法工作，特别是那些使用客户端 Javascript 构造 URL 的
+    应用，所构造的 URL 可能并不支持代理路径前缀。

@@ -1,3 +1,19 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+
+<!--
+Renew the certificate for serving the Kubernetes API
+-->
+续订用于提供 Kubernetes API 的证书
 
 <!--
 ### Synopsis
@@ -12,7 +28,6 @@ Renew the certificate for serving the Kubernetes API.
 <!--
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
 -->
-
 无论证书的到期日期如何，续订都会无条件地进行；SAN 等额外属性将基于现有文件/证书，因此无需重新提供它们。
 
 <!--
@@ -22,7 +37,7 @@ Renewal by default tries to use the certificate authority in the local PKI manag
 可以使用 K8s 证书 API 进行证书更新，或者作为最后一个选择来生成 CSR 请求。
 
 <!--
-After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
+After renewal, in order to make changes effective, is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 -->
 续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，以防文件在其他地方使用。
 
@@ -55,7 +70,9 @@ kubeadm certs renew apiserver [flags]
 <!--
 The path where to save the certificates.
 -->
+<p>
 保存证书的路径。
+</p>
 </td>
 </tr>
 
@@ -67,31 +84,9 @@ The path where to save the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"> 
-<!--
-The path to output the CSRs and private keys to
--->
-CSR 和私钥的输出路径
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-only</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Create CSRs instead of generating certificates
--->
-创建 CSR 而不是生成证书
+</p>
 </td>
 </tr>
 
@@ -103,37 +98,26 @@ Create CSRs instead of generating certificates
 <!--
 help for apiserver
 -->
+<p>
 apiserver 子操作的帮助命令
+</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">
-<!--
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
--->
+<td colspan="2"><!-- --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf" -->
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
--->
-与集群通信时使用的 kubeconfig 文件。
-如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
-</td>
-</tr>
 
 <tr>
-<td colspan="2">--use-api</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Use the Kubernetes certificate API to renew certificates
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><!--
+The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-使用 Kubernetes 证书 API 续订证书
+<p>
+与集群通信时使用的 kubeconfig 文件。
+如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+</p>
 </td>
 </tr>
 
@@ -143,7 +127,6 @@ Use the Kubernetes certificate API to renew certificates
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -161,10 +144,11 @@ Use the Kubernetes certificate API to renew certificates
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-

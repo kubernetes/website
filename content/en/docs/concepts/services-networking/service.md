@@ -447,7 +447,7 @@ server will return a 422 HTTP status code to indicate that there's a problem.
 
 You can set the `spec.externalTrafficPolicy` field to control how traffic from external sources is routed.
 Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route external traffic to all ready endpoints
-and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are no node-local
 endpoints, the kube-proxy does not forward any traffic for the relevant Service.
 
 {{< note >}}
