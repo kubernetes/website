@@ -23,7 +23,7 @@ acceptably. The kubelet provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
 directives.
 -->
-按照设计，Kubernetes 对 pod 执行相关的很多方面进行了抽象，使得用户不必关心。
+按照设计，Kubernetes 对 Pod 执行相关的很多方面进行了抽象，使得用户不必关心。
 然而，为了正常运行，有些工作负载要求在延迟和/或性能方面有更强的保证。
 为此，kubelet 提供方法来实现更复杂的负载放置策略，同时保持抽象，避免显式的放置指令。
 
@@ -62,12 +62,16 @@ management policies to determine some placement preferences on the node.
 <!--
 ### Configuration
 
-The CPU Manager policy is set with the `-cpu-manager-policy` kubelet
-option. There are two supported policies:
+The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
+flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
+There are two supported policies:
 -->
 ### 配置
 
-CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy` 来指定。支持两种策略：
+CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
+或 [KubeletConfiguration](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
+中的 `cpuManagerPolicy` 字段来指定。
+支持两种策略：
 
 <!--
 * `none`: the default, which represents the existing scheduling behavior.
@@ -75,7 +79,7 @@ CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy` 来指定。支持�
   granted increased CPU affinity and exclusivity on the node.
 -->
 * `none`: 默认策略，表示现有的调度行为。
-* `static`: 允许为节点上具有某些资源特征的 pod 赋予增强的 CPU 亲和性和独占性。
+* `static`: 允许为节点上具有某些资源特征的 Pod 赋予增强的 CPU 亲和性和独占性。
 
 <!--
 The CPU manager periodically writes resource updates through the CRI in
@@ -91,9 +95,66 @@ CPU 管理器定期通过 CRI 写入资源更新，以保证内存中 CPU 分配
 <!--
 The behavior of the static policy can be fine-tuned using the `--cpu-manager-policy-options` flag.
 The flag takes a comma-separated list of `key=value` policy options.
+This feature can be disabled completely using the `CPUManagerPolicyOptions` feature gate.
 -->
 Static 策略的行为可以使用 `--cpu-manager-policy-options` 参数来微调。
 该参数采用一个逗号分隔的 `key=value` 策略选项列表。
+此特性可以通过 `CPUManagerPolicyOptions` 特性门控来完全禁用。
+
+<!--
+The policy options are split into two groups: alpha quality (hidden by default) and beta quality
+(visible by default). The groups are guarded respectively by the `CPUManagerPolicyAlphaOptions`
+and `CPUManagerPolicyBetaOptions` feature gates. Diverging from the Kubernetes standard, these
+feature gates guard groups of options, because it would have been too cumbersome to add a feature
+gate for each individual option.
+-->
+策略选项分为两组：alpha 质量（默认隐藏）和 beta 质量（默认可见）。
+这些组分别由 `CPUManagerPolicyAlphaOptions` 和 `CPUManagerPolicyBetaOptions` 特性门控来管控。
+不同于 Kubernetes 标准，这里是由这些特性门控来管控选项组，因为为每个单独选项都添加一个特性门控过于繁琐。
+
+<!--
+### Changing the CPU Manager Policy
+
+Since the CPU manger policy can only be applied when kubelet spawns new pods, simply changing from
+"none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
+policy on a node, perform the following steps:
+-->
+### 更改 CPU 管理器策略
+
+由于 CPU 管理器策略只能在 kubelet 生成新 Pod 时应用，所以简单地从 "none" 更改为 "static"
+将不会对现有的 Pod 起作用。
+因此，为了正确更改节点上的 CPU 管理器策略，请执行以下步骤：
+
+<!--
+1. [Drain](/docs/tasks/administer-cluster/safely-drain-node) the node.
+2. Stop kubelet.
+3. Remove the old CPU manager state file. The path to this file is
+`/var/lib/kubelet/cpu_manager_state` by default. This clears the state maintained by the
+CPUManager so that the cpu-sets set up by the new policy won’t conflict with it.
+4. Edit the kubelet configuration to change the CPU manager policy to the desired value.
+5. Start kubelet.
+-->
+1. [腾空](/zh/docs/tasks/administer-cluster/safely-drain-node)节点。
+2. 停止 kubelet。
+3. 删除旧的 CPU 管理器状态文件。该文件的路径默认为 `/var/lib/kubelet/cpu_manager_state`。
+   这将清除 CPUManager 维护的状态，以便新策略设置的 cpu-sets 不会与之冲突。
+4. 编辑 kubelet 配置以将 CPU 管理器策略更改为所需的值。
+5. 启动 kubelet。
+
+<!--
+Repeat this process for every node that needs its CPU manager policy changed. Skipping this
+process will result in kubelet crashlooping with the following error:
+
+```
+could not restore state from checkpoint: configured policy "static" differs from state checkpoint policy "none", please drain this node and delete the CPU manager checkpoint file "/var/lib/kubelet/cpu_manager_state" before restarting Kubelet
+```
+-->
+对需要更改其 CPU 管理器策略的每个节点重复此过程。
+跳过此过程将导致 kubelet crashlooping 并出现以下错误：
+
+```
+could not restore state from checkpoint: configured policy "static" differs from state checkpoint policy "none", please drain this node and delete the CPU manager checkpoint file "/var/lib/kubelet/cpu_manager_state" before restarting Kubelet
+```
 
 <!--
 ### None policy
@@ -108,8 +169,8 @@ are enforced using CFS quota.
 ### none 策略
 
 `none` 策略显式地启用现有的默认 CPU 亲和方案，不提供操作系统调度器默认行为之外的亲和性策略。
-通过 CFS 配额来实现 [Guaranteed pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
-和 [Burstable pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+通过 CFS 配额来实现 [Guaranteed Pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+和 [Burstable Pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
 的 CPU 使用限制。
 
 <!--
@@ -159,11 +220,16 @@ CPU `requests` also run on CPUs in the shared pool. Only containers that are
 both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 --->
-该策略管理一个共享 CPU 资源池，最初，该资源池包含节点上所有的 CPU 资源。可用
-的独占性 CPU 资源数量等于节点的 CPU 总量减去通过 `--kube-reserved` 或 `--system-reserved` 参数保留的 CPU 。从1.17版本开始，CPU保留列表可以通过 kublet 的 '--reserved-cpus' 参数显式地设置。
-通过 '--reserved-cpus' 指定的显式CPU列表优先于使用 '--kube-reserved' 和 '--system-reserved' 参数指定的保留CPU。 通过这些参数预留的 CPU 是以整数方式，按物理内
-核 ID 升序从初始共享池获取的。 共享池是 `BestEffort` 和 `Burstable` pod 运行
-的 CPU 集合。`Guaranteed` pod 中的容器，如果声明了非整数值的 CPU `requests` ，也将运行在共享池的 CPU 上。只有 `Guaranteed` pod 中，指定了整数型 CPU `requests` 的容器，才会被分配独占 CPU 资源。
+此策略管理一个 CPU 共享池，该共享池最初包含节点上所有的 CPU 资源。
+可独占性 CPU 资源数量等于节点的 CPU 总量减去通过 kubelet `--kube-reserved` 或 `--system-reserved`
+参数保留的 CPU 资源。
+从 1.17 版本开始，可以通过 kubelet `--reserved-cpus` 参数显式地指定 CPU 预留列表。
+由 `--reserved-cpus` 指定的显式 CPU 列表优先于由 `--kube-reserved` 和 `--system-reserved`
+指定的 CPU 预留。
+通过这些参数预留的 CPU 是以整数方式，按物理核心 ID 升序从初始共享池获取的。
+共享池是 `BestEffort` 和 `Burstable` Pod 运行的 CPU 集合。
+`Guaranteed` Pod 中的容器，如果声明了非整数值的 CPU `requests`，也将运行在共享池的 CPU 上。
+只有 `Guaranteed` Pod 中，指定了整数型 CPU `requests` 的容器，才会被分配独占 CPU 资源。
 
 <!--
 The kubelet requires a CPU reservation greater than zero be made
@@ -249,7 +315,7 @@ spec:
 This pod runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits`. It runs in the shared pool.
 -->
-该 pod 属于 `Burstable` QoS 类型，因为其资源 `requests` 不等于 `limits`。
+该 Pod 属于 `Burstable` QoS 类型，因为其资源 `requests` 不等于 `limits`。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -322,19 +388,35 @@ equal to one. The `nginx` container is granted 2 exclusive CPUs.
 <!--
 #### Static policy options
 
-If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
-You can enable this option by adding `full-pcups-only=true` to the CPUManager policy options.
+You can toggle groups of options on and off based upon their maturity level
+using the following feature gates:
+* `CPUManagerPolicyBetaOptions` default enabled. Disable to hide beta-level options.
+* `CPUManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
+You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
+
+The following policy options exist for the static `CPUManager` policy:
+* `full-pcpus-only` (beta, visible by default)
+* `distribute-cpus-across-numa` (alpha, hidden by default)
 -->
 #### Static 策略选项
 
-如果使用 `full-pcpus-only` 策略选项，static 策略总是会分配完整的物理核心。
-你可以通过在 CPUManager 策略选项里加上 `full-pcups-only=true` 来启用该选项。
+你可以使用以下特性门控根据成熟度级别打开或关闭选项组：
+* `CPUManagerPolicyBetaOptions` 默认启用。禁用以隐藏 beta 级选项。
+* `CPUManagerPolicyAlphaOptions` 默认禁用。启用以显示 alpha 级选项。
+你仍然必须使用 `CPUManagerPolicyOptions` kubelet 选项启用每个选项。
+
+静态 `CPUManager` 策略存在以下策略选项：
+* `full-pcpus-only`（beta，默认可见）
+* `distribute-cpus-across-numa`（alpha，默认隐藏）
+
 <!--
+If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
 By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.
 On SMT enabled systems, the policy can allocate individual virtual cores, which correspond to hardware threads.
 This can lead to different containers sharing the same physical cores; this behaviour in turn contributes
 to the [noisy neighbours problem](https://en.wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors).
 -->
+如果使用 `full-pcpus-only` 策略选项，static 策略总是会分配完整的物理核心。
 默认情况下，如果不使用该选项，static 策略会使用拓扑感知最适合的分配方法来分配 CPU。
 在启用了 SMT 的系统上，此策略所分配是与硬件线程对应的、独立的虚拟核。
 这会导致不同的容器共享相同的物理核心，该行为进而会导致
@@ -344,5 +426,47 @@ With the option enabled, the pod will be admitted by the kubelet only if the CPU
 can be fulfilled by allocating full physical cores.
 If the pod does not pass the admission, it will be put in Failed state with the message `SMTAlignmentError`.
 -->
-启用该选项之后，只有当一个 Pod 里所有容器的 CPU 请求都能够分配到完整的物理核心时，kubelet 才会接受该 Pod。
+启用该选项之后，只有当一个 Pod 里所有容器的 CPU 请求都能够分配到完整的物理核心时，
+kubelet 才会接受该 Pod。
 如果 Pod 没有被准入，它会被置于 Failed 状态，错误消息是 `SMTAlignmentError`。
+
+<!--
+If the `distribute-cpus-across-numa` policy option is specified, the static
+policy will evenly distribute CPUs across NUMA nodes in cases where more than
+one NUMA node is required to satisfy the allocation.
+By default, the `CPUManager` will pack CPUs onto one NUMA node until it is
+filled, with any remaining CPUs simply spilling over to the next NUMA node.
+This can cause undesired bottlenecks in parallel code relying on barriers (and
+similar synchronization primitives), as this type of code tends to run only as
+fast as its slowest worker (which is slowed down by the fact that fewer CPUs
+are available on at least one NUMA node).
+By distributing CPUs evenly across NUMA nodes, application developers can more
+easily ensure that no single worker suffers from NUMA effects more than any
+other, improving the overall performance of these types of applications.
+-->
+如果使用 `distribute-cpus-across-numa` 策略选项，
+在需要多个 NUMA 节点来满足分配的情况下，
+static 策略会在 NUMA 节点上平均分配 CPU。
+默认情况下，`CPUManager` 会将 CPU 分配到一个 NUMA 节点上，直到它被填满，
+剩余的 CPU 会简单地溢出到下一个 NUMA 节点。
+这会导致依赖于同步屏障（以及类似的同步原语）的并行代码出现不期望的瓶颈，
+因为此类代码的运行速度往往取决于最慢的工作线程
+（由于至少一个 NUMA 节点存在可用 CPU 较少的情况，因此速度变慢）。
+通过在 NUMA 节点上平均分配 CPU，
+应用程序开发人员可以更轻松地确保没有某个工作线程单独受到 NUMA 影响，
+从而提高这些类型应用程序的整体性能。
+
+<!--
+The `full-pcpus-only` option can be enabled by adding `full-pcups-only=true` to
+the CPUManager policy options.
+Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
+`distribute-cpus-across-numa=true` to the CPUManager policy options.
+When both are set, they are "additive" in the sense that CPUs will be
+distributed across NUMA nodes in chunks of full-pcpus rather than individual
+cores.
+-->
+可以通过将 `full-pcups-only=true` 添加到 CPUManager 策略选项来启用 `full-pcpus-only` 选项。
+同样地，可以通过将 `distribute-cpus-across-numa=true`
+添加到 CPUManager 策略选项来启用 `distribute-cpus-across-numa` 选项。
+当两者都设置时，它们是“累加的”，因为 CPU 将分布在 NUMA 节点的 full-pcpus 块中，
+而不是单个核心。
