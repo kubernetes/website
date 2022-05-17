@@ -40,7 +40,7 @@ and CLIs. Non-identifying information should be recorded using
 [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 -->
 标签能够支持高效的查询和监听操作，对于用户界面和命令行是很理想的。
-应使用[注解](/zh/docs/concepts/overview/working-with-objects/annotations/) 记录非识别信息。
+应使用[注解](/zh/docs/concepts/overview/working-with-objects/annotations/)记录非识别信息。
 
 <!-- body -->
 
@@ -72,7 +72,7 @@ Example labels:
 <!--
 These are examples of [commonly used labels](/docs/concepts/overview/working-with-objects/common-labels/); you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
 -->
-有一些[常用标签](/zh/docs/concepts/overview/working-with-objects/common-labels/)的例子; 你可以任意制定自己的约定。
+有一些[常用标签](/zh/docs/concepts/overview/working-with-objects/common-labels/)的例子；你可以任意制定自己的约定。
 请记住，标签的 Key 对于给定对象必须是唯一的。
 
 <!--
@@ -109,7 +109,7 @@ Valid label value:
 
 * 必须为 63 个字符或更少（可以为空）
 * 除非标签值为空，必须以字母数字字符（`[a-z0-9A-Z]`）开头和结尾
-* 包含破折号（`-`）、下划线（`_`）、点（`.`）和字母或数字。
+* 包含破折号（`-`）、下划线（`_`）、点（`.`）和字母或数字
 
 <!--
 ## Label selectors
@@ -168,7 +168,7 @@ Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _eq
 
 _基于等值_ 或 _基于不等值_ 的需求允许按标签键和值进行过滤。
 匹配对象必须满足所有指定的标签约束，尽管它们也可能具有其他标签。
-可接受的运算符有`=`、`==` 和 `!=` 三种。 
+可接受的运算符有 `=`、`==` 和 `!=` 三种。 
 前两个表示 _相等_（并且只是同义词），而后者表示 _不相等_。例如：
 
 ```
@@ -217,7 +217,7 @@ _Set-based_ label requirements allow filtering keys according to a set of values
 ### _基于集合_ 的需求
 
 _基于集合_ 的标签需求允许你通过一组值来过滤键。
-支持三种操作符：`in`、`notin` 和 `exists` (只可以用在键标识符上)。例如：
+支持三种操作符：`in`、`notin` 和 `exists`（只可以用在键标识符上）。例如：
 
 ```
 environment in (production, qa)
@@ -241,13 +241,13 @@ Similarly the comma separator acts as an _AND_ operator. So filtering resources 
 * 第四个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
 
 类似地，逗号分隔符充当 _与_ 运算符。因此，使用 `partition` 键（无论为何值）和
-`environment` 不同于 `qa` 来过滤资源可以使用 `partition, environment notin（qa)` 来实现。
+`environment` 不同于 `qa` 来过滤资源可以使用 `partition, environment notin (qa)` 来实现。
 
 <!--
 The _set-based_ label selector is a general form of equality since `environment=production` is equivalent to `environment in (production)`; similarly for `!=` and `notin`.
 -->
 _基于集合_ 的标签选择算符是相等标签选择算符的一般形式，因为 `environment=production`
-等同于 `environment in（production）`；`!=` 和 `notin` 也是类似的。
+等同于 `environment in (production)`；`!=` 和 `notin` 也是类似的。
 
 <!--
 _Set-based_ requirements can be mixed with _equality-based_ requirements. For example: `partition in (customerA, customerB),environment!=qa`.
@@ -270,8 +270,8 @@ LIST 和 WATCH 操作可以使用查询参数指定标签选择算符过滤一�
 * _equality-based_ requirements: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
 * _set-based_ requirements: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
 -->
-* _基于等值_ 的需求: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
-* _基于集合_ 的需求: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
+* _基于等值_ 的需求：`?labelSelector=environment%3Dproduction,tier%3Dfrontend`
+* _基于集合_ 的需求：`?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
 
 <!--
 Both label selector styles can be used to list or watch resources via a REST client. For example, targeting `apiserver` with `kubectl` and using _equality-based_ one may write:
@@ -354,7 +354,7 @@ selector:
 <!---
 this selector (respectively in `json` or `yaml` format) is equivalent to `component=redis` or `component in (redis)`.
 -->
-这个选择算符(分别在 `json` 或者 `yaml` 格式中) 等价于 `component=redis` 或 `component in (redis)` 。
+这个选择算符（分别在 `json` 或者 `yaml` 格式中）等价于 `component=redis` 或 `component in (redis)`。
 
 <!--
 #### Resources that support set-based requirements
@@ -366,7 +366,7 @@ Newer resources, such as [`Job`](/docs/concepts/jobs/run-to-completion-finite-wo
 比较新的资源，例如 [`Job`](/zh/docs/concepts/workloads/controllers/job/)、
 [`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/)、
 [`Replica Set`](/zh/docs/concepts/workloads/controllers/replicaset/) 和
-[`DaemonSet`](/zh/docs/concepts/workloads/controllers/daemonset/) ，
+[`DaemonSet`](/zh/docs/concepts/workloads/controllers/daemonset/)，
 也支持 _基于集合的_ 需求。
 
 ```yaml
@@ -383,7 +383,7 @@ selector:
 -->
 
 `matchLabels` 是由 `{key,value}` 对组成的映射。
-`matchLabels` 映射中的单个 `{key,value }` 等同于 `matchExpressions` 的元素，
+`matchLabels` 映射中的单个 `{key,value}` 等同于 `matchExpressions` 的元素，
 其 `key` 字段为 "key"，`operator` 为 "In"，而 `values` 数组仅包含 "value"。
 `matchExpressions` 是 Pod 选择算符需求的列表。
 有效的运算符包括 `In`、`NotIn`、`Exists` 和 `DoesNotExist`。

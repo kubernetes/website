@@ -1107,7 +1107,7 @@ parameters:
 * `location`：Azure 存储帐户位置。默认为空。
 * `storageAccount`：Azure 存储帐户名称。
   如果提供存储帐户，它必须位于与集群相同的资源组中，并且 `location`
-  是被忽略的。如果未提供存储帐户，则会在与群集相同的资源组中创建新的存储帐户。
+  是被忽略的。如果未提供存储帐户，则会在与集群相同的资源组中创建新的存储帐户。
 
 <!--
 #### Azure Disk Storage Class (starting from v1.7.2) {#azure-disk-storage-class}

@@ -36,7 +36,7 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 -->
 使用多个名字空间是可选的。
 
-此示例演示了如何使用 Kubernetes 名字空间细分群集。
+此示例演示了如何使用 Kubernetes 名字空间细分集群。
 
 ## {{% heading "prerequisites" %}}
 

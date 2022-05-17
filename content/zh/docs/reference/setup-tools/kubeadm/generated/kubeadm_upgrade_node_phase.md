@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Use this command to invoke single phase of the node workflow
+-->
+使用此命令调用 node 工作流的某个阶段
 
 <!--
 ### Synopsis
@@ -32,7 +47,9 @@ Use this command to invoke single phase of the node workflow
 <!--
 help for phase
 -->
+<p>
 phase 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -59,7 +76,9 @@ phase 操作的帮助命令
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 指向 '真实' 宿主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

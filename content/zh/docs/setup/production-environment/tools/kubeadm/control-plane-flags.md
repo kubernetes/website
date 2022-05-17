@@ -109,7 +109,7 @@ on different nodes you can use [patches](#patches).
 -->
 `ClusterConfiguration` 对象目前在 kubeadm 集群中是全局的。
 这意味着你添加的任何标志都将应用于同一组件在不同节点上的所有实例。
-要在不同节点上为每个组件应用单独的配置，您可以使用[补丁](#patches)。
+要在不同节点上为每个组件应用单独的配置，你可以使用[补丁](#patches)。
 {{< /note >}}
 
 {{< note >}}

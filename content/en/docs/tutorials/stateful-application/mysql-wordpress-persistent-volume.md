@@ -236,7 +236,7 @@ Do not leave your WordPress installation on this page. If another user finds it,
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about [Introspection and Debugging](/docs/tasks/debug/debug-application)
+* Learn more about [Introspection and Debugging](/docs/tasks/debug/debug-application/debug-running-pod/)
 * Learn more about [Jobs](/docs/concepts/workloads/controllers/job/)
 * Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Learn how to [Get a Shell to a Container](/docs/tasks/debug/debug-application/get-shell-running-container/)

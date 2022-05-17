@@ -88,9 +88,9 @@ Details on how the AOS system works can be accessed here: https://www.apstra.com
 さらに、このCNIは[ネットワークポリシーの適用のためにCalico](https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/calico.html)と一緒に実行できます。AWS VPC CNIプロジェクトは、[GitHubのドキュメント](https://github.com/aws/amazon-vpc-cni-k8s)とともにオープンソースで公開されています。
 
 ### Azure CNI for Kubernetes
-[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
+[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview)は、Kubernetes PodをAzure仮想ネットワーク(VNetとも呼ばれます)と統合する[オープンソース](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md)プラグインで、VMと同等のネットワーク パフォーマンスを提供します。Pod は、ExpressRouteまたはサイト間VPN経由でピアリングされたVNetおよびオンプレミスに接続でき、これらのネットワークから直接アクセスすることもできます。Podは、サービスエンドポイントまたはプライベートリンクによって保護されているストレージやSQLなどのAzureサービスにアクセスできます。VNetセキュリティポリシーとルーティングを使用して、Podトラフィックをフィルター処理できます。プラグインは、Kubernetesノードのネットワークインターフェイスで事前に構成されたセカンダリIPのプールを利用して、VNet IPをPodに割り当てます。
 
-Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
+Azure CNIは、[Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni)でネイティブに利用できます。
 
 
 ### Big Cloud Fabric from Big Switch Networks

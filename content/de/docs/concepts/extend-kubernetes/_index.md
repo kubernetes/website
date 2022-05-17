@@ -1,4 +1,4 @@
 ---
-title: "Kubernets erweitern"
+title: "Kubernetes erweitern"
 weight: 110
 ---

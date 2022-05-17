@@ -72,7 +72,7 @@ go get -u kubernetes-incubator/reference-docs
 <!-- 
 If you don't already have the kubernetes/website repository, get it now: 
 -->
-如果您还没有获取过 `kubernetes/website` 仓库，现在获取之：
+如果你还没有获取过 `kubernetes/website` 仓库，现在获取之：
 
 ```shell
 git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
@@ -242,7 +242,7 @@ For example, update the following variables:
 * 设置 `K8S_ROOT` 为 `<k8s-base>`。
 * 设置 `K8S_WEBROOT` 为 `<web-base>`。
 * 设置 `K8S_RELEASE` 为要构建文档的版本。
-  例如，如果您想为 Kubernetes {{< skew prevMinorVersion >}} 构建文档，
+  例如，如果你想为 Kubernetes {{< skew prevMinorVersion >}} 构建文档，
   请将 `K8S_RELEASE` 设置为 {{< skew prevMinorVersion >}}。
 
 例如：

@@ -197,7 +197,7 @@ the DNS add-on may not be deployed by default in your current environment and yo
 will have to deploy it manually.
 -->
 如果你发现没有 CoreDNS Pod 在运行，或者该 Pod 的状态是 failed 或者 completed，
-那可能这个 DNS 插件在您当前的环境里并没有成功部署，你将需要手动去部署它。
+那可能这个 DNS 插件在你当前的环境里并没有成功部署，你将需要手动去部署它。
 
 <!--
 ### Check for Errors in the DNS pod
@@ -262,11 +262,11 @@ The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
 <!--
 If you have created the Service or in the case it should be created by default
 but it does not appear, see
-[debugging Services](/docs/tasks/debug-application-cluster/debug-service/) for
+[debugging Services](/docs/tasks/debug/debug-application/debug-service/) for
 more information.
 -->
 如果你已经创建了 DNS 服务，或者该服务应该是默认自动创建的但是它并没有出现，
-请阅读[调试服务](/zh/docs/tasks/debug-application-cluster/debug-service/)
+请阅读[调试服务](/zh/docs/tasks/debug/debug-application/debug-service/)
 来获取更多信息。
 
 <!--
@@ -290,14 +290,14 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 
 <!--
 If you do not see the endpoints, see endpoints section in the
-[debugging services](/docs/tasks/debug-application-cluster/debug-service/) documentation.
+[debugging services](/docs/tasks/debug/debug-application/debug-service/) documentation.
 
 For additional Kubernetes DNS examples, see the
 [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
 in the Kubernetes GitHub repository.
 -->
 如果你没看到对应的端点，请阅读
-[调试服务](/zh/docs/tasks/debug-application-cluster/debug-service/)的端点部分。
+[调试服务](/zh/docs/tasks/debug/debug-application/debug-service/)的端点部分。
 
 若需要了解更多的 Kubernetes DNS 例子，请在 Kubernetes GitHub 仓库里查看
 [cluster-dns 示例](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)。 
@@ -375,6 +375,74 @@ linux/amd64, go1.10.3, 2e322f6
 172.17.0.18:41675 - [07/Sep/2018:15:29:11 +0000] 59925 "A IN kubernetes.default.svc.cluster.local. udp 54 false 512" NOERROR qr,aa,rd,ra 106 0.000066649s
 
 ```
+<!--
+### Does CoreDNS have sufficient permissions?
+
+CoreDNS must be able to list {{< glossary_tooltip text="service"
+term_id="service" >}} and {{< glossary_tooltip text="endpoint"
+term_id="endpoint" >}} related resources to properly resolve service names.
+
+Sample error message:
+-->
+### CoreDNS 是否有足够的权限？
+
+CoreDNS 必须能够列出 {{< glossary_tooltip text="service" term_id="service" >}} 和
+{{< glossary_tooltip text="endpoint" term_id="endpoint" >}} 相关的资源来正确解析服务名称。
+
+示例错误消息：
+```
+2022-03-18T07:12:15.699431183Z [INFO] 10.96.144.227:52299 - 3686 "A IN serverproxy.contoso.net.cluster.local. udp 52 false 512" SERVFAIL qr,aa,rd 145 0.000091221s
+```
+
+<!--
+First, get the current ClusterRole of `system:coredns`:
+-->
+首先，获取当前的 ClusterRole `system:coredns`：
+
+```shell
+kubectl describe clusterrole system:coredns -n kube-system
+```
+
+<!--
+Expected output:
+-->
+预期输出：
+```
+PolicyRule:
+  Resources                        Non-Resource URLs  Resource Names  Verbs
+  ---------                        -----------------  --------------  -----
+  nodes                            []                 []              [get]
+  endpoints                        []                 []              [list watch]
+  namespaces                       []                 []              [list watch]
+  pods                             []                 []              [list watch]
+  services                         []                 []              [list watch]
+  endpointslices.discovery.k8s.io  []                 []              [list watch]
+```
+
+<!--
+If any permissions are missing, edit the ClusterRole to add them:
+-->
+如果缺少任何权限，请编辑 ClusterRole 来添加它们：
+
+```shell
+kubectl edit clusterrole system:coredns -n kube-system
+```
+
+<!--
+Example insertion of EndpointSlices permissions:
+-->
+EndpointSlices 权限的插入示例：
+```
+...
+- apiGroups:
+  - discovery.k8s.io
+  resources:
+  - endpointslices
+  verbs:
+  - list
+  - watch
+...
+```
 
 <!--
 ### Are you in the right namespace for the service?
@@ -386,9 +454,6 @@ If the namespace of the pod and service differ, the DNS query must include
 the namespace of the service.
 
 This query is limited to the pod's namespace:
-```shell
-kubectl exec -i -t dnsutils -- nslookup <service-name>
-```
 -->
 ### 你的服务在正确的命名空间中吗？
 
@@ -403,9 +468,6 @@ kubectl exec -i -t dnsutils -- nslookup <service-name>
 
 <!--
 This query specifies the namespace:
-```shell
-kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
-```
 -->
 指定命名空间的查询：
 ```shell

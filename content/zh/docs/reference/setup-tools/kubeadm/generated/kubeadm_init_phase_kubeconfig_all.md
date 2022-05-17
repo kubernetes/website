@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Generate all kubeconfig files
+-->
+生成所有 kubeconfig 文件
 
 <!-- 
 ### Synopsis
@@ -8,7 +23,6 @@
 <!--
 Generate all kubeconfig files
 -->
-
 生成所有 kubeconfig 文件
 
 ```
@@ -36,7 +50,9 @@ kubeadm init phase kubeconfig all [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
+<p>
 API 服务器所公布的其正在监听的 IP 地址。如果没有设置，将使用默认的网络接口。
+</p>
 </td>
 </tr>
 
@@ -53,7 +69,9 @@ API 服务器所公布的其正在监听的 IP 地址。如果没有设置，将
 <!--
 Port for the API Server to bind to.
 -->
+<p>
 要绑定到 API 服务器的端口。
+</p>
 </td>
 </tr>
 
@@ -70,7 +88,9 @@ Port for the API Server to bind to.
 <!--
 The path where to save and store the certificates.
 -->
+<p>
 保存和存储证书的路径。
+</p>
 </td>
 </tr>
 
@@ -82,7 +102,9 @@ The path where to save and store the certificates.
 <!--
 Path to kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -94,7 +116,9 @@ kubeadm 配置文件的路径。
 <!--
 Specify a stable IP address or DNS name for the control plane.
 -->
+<p>
 为控制平面指定一个稳定的 IP 地址或 DNS 名称。
+</p>
 </td>
 </tr>
 
@@ -106,7 +130,9 @@ Specify a stable IP address or DNS name for the control plane.
 <!--
 help for all
 -->
+<p>
 all 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -123,7 +149,9 @@ all 操作的帮助命令
 <!--
 The path where to save the kubeconfig file.
 -->
+<p>
 kubeconfig 文件的保存路径。
+</p>
 </td>
 </tr>
 
@@ -140,7 +168,9 @@ kubeconfig 文件的保存路径。
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
+<p>
 为控制平面指定特定的 Kubernetes 版本。
+</p>
 </td>
 </tr>
 
@@ -152,7 +182,9 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 Specify the node name.
 -->
+<p>
 指定节点名称。
+</p>
 </td>
 </tr>
 
@@ -162,7 +194,6 @@ Specify the node name.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -180,10 +211,11 @@ Specify the node name.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-

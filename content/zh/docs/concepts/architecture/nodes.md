@@ -753,7 +753,7 @@ The graceful node shutdown feature depends on systemd since it takes advantage o
 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to
 delay the node shutdown with a given duration.
 -->
-体面节点关闭特性依赖于 systemd，因为它要利用
+节点体面关闭特性依赖于 systemd，因为它要利用
 [systemd 抑制器锁](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)机制，
 在给定的期限内延迟节点关闭。
 
@@ -762,7 +762,7 @@ Graceful node shutdown is controlled with the `GracefulNodeShutdown`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) which is
 enabled by default in 1.21.
 -->
-体面节点关闭特性受 `GracefulNodeShutdown`
+节点体面关闭特性受 `GracefulNodeShutdown`
 [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)控制，
 在 1.21 版本中是默认启用的。
 
@@ -773,7 +773,7 @@ thus not activating the graceful node shutdown functionality.
 To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
 -->
 注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
-`shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活体面节点关闭功能。
+`shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭功能。
 要激活此功能特性，这两个 kubelet 配置选项要适当配置，并设置为非零值。
 
 <!-- 
@@ -833,9 +833,97 @@ Message:        Pod was terminated in response to imminent node shutdown.
 {{< /note >}}
 
 <!--
+## Non Graceful node shutdown {#non-graceful-node-shutdown}
+-->
+## 节点非体面关闭 {#non-graceful-node-shutdown}
+
+{{< feature-state state="alpha" for_k8s_version="v1.24" >}}
+
+<!--
+A node shutdown action may not be detected by kubelet's Node Shutdown Mananger, 
+either because the command does not trigger the inhibitor locks mechanism used by 
+kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
+ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
+section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
+-->
+节点关闭的操作可能无法被 kubelet 的节点关闭管理器检测到，
+是因为该命令不会触发 kubelet 所使用的抑制锁定机制，或者是因为用户错误的原因，
+即 ShutdownGracePeriod 和 ShutdownGracePeriodCriticalPod 配置不正确。
+请参考以上[节点体面关闭](#graceful-node-shutdown)部分了解更多详细信息。
+
+<!--
+When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
+that are part of a StatefulSet will be stuck in terminating status on 
+the shutdown node and cannot move to a new running node. This is because kubelet on 
+the shutdown node is not available to delete the pods so the StatefulSet cannot 
+create a new pod with the same name. If there are volumes used by the pods, the 
+VolumeAttachments will not be deleted from the original shutdown node so the volumes 
+used by these pods cannot be attached to a new running node. As a result, the 
+application running on the StatefulSet cannot function properly. If the original 
+shutdown node comes up, the pods will be deleted by kubelet and new pods will be 
+created on a different running node. If the original shutdown node does not come up,  
+these pods will be stuck in terminating status on the shutdown node forever.
+-->
+当某节点关闭但 kubelet 的节点关闭管理器未检测到这一事件时，
+在那个已关闭节点上、属于 StatefulSet 的 Pod 将停滞于终止状态，并且不能移动到新的运行节点上。
+这是因为已关闭节点上的 kubelet 已不存在，亦无法删除 Pod，
+因此 StatefulSet 无法创建同名的新 Pod。
+如果 Pod 使用了卷，则 VolumeAttachments 不会从原来的已关闭节点上删除，
+因此这些 Pod 所使用的卷也无法挂接到新的运行节点上。
+所以，那些以 StatefulSet 形式运行的应用无法正常工作。
+如果原来的已关闭节点被恢复，kubelet 将删除 Pod，新的 Pod 将被在不同的运行节点上创建。
+如果原来的已关闭节点没有被恢复，那些在已关闭节点上的 Pod 将永远滞留在终止状态。
+
+<!--
+To mitigate the above situation, a  user can manually add the taint `node 
+kubernetes.io/out-of-service` with either `NoExecute` or `NoSchedule` effect to 
+a Node marking it out-of-service. 
+If the `NodeOutOfServiceVolumeDetach`  [feature gate](/docs/reference/
+command-line-tools-reference/feature-gates/) is enabled on
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the 
+pods on the node will be forcefully deleted if there are no matching tolerations on
+it and volume detach operations for the pods terminating on the node will happen
+immediately. This allows the Pods on the out-of-service node to recover quickly on a
+different node. 
+-->
+为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
+`node kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
+如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach` 
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+并且节点被通过污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，
+那么这样的 Pod 将被强制删除，并且该在节点上被终止的 Pod 将立即进行卷分离操作。
+这样就允许那些在无法提供服务节点上的 Pod 能在其他节点上快速恢复。
+
+<!--
+During a non-graceful shutdown, Pods are terminated in the two phases:
+
+1. Force delete the Pods that do not have matching `out-of-service` tolerations.
+2. Immediately perform detach volume operation for such pods. 
+-->
+在非体面关闭期间，Pod 分两个阶段终止：
+1. 强制删除没有匹配的 `out-of-service` 容忍度的 Pod。
+2. 立即对此类 Pod 执行分离卷操作。
+
+<!--
+{{< note >}}
+- Before adding the taint `node.kubernetes.io/out-of-service` , it should be verified
+that the node is already in shutdown or power off state (not in the middle of
+restarting).
+- The user is required to manually remove the out-of-service taint after the pods are
+moved to a new node and the user has checked that the shutdown node has been
+recovered since the user was the one who originally added the taint.
+{{< /note >}}
+-->
+{{< note >}}
+- 在添加 `node.kubernetes.io/out-of-service` 污点之前，应该验证节点已经处于关闭或断电状态（而不是在重新启动中）。
+- 将 Pod 移动到新节点后，用户需要手动移除停止服务的污点，并且用户要检查关闭节点是否已恢复，因为该用户是最初添加污点的用户。
+{{< /note >}}
+
+
+<!--
 ### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
 -->
-### 基于 Pod 优先级的体面节点关闭    {#pod-priority-graceful-node-shutdown}
+### 基于 Pod 优先级的节点体面关闭    {#pod-priority-graceful-node-shutdown}
 
 {{< feature-state state="alpha" for_k8s_version="v1.23" >}}
 
@@ -847,11 +935,11 @@ allows cluster administers to explicitly define the ordering of pods
 during graceful node shutdown based on
 [priority classes](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
 -->
-为了在体面节点关闭期间提供更多的灵活性，尤其是处理关闭期间的 Pod 排序问题，
-体面节点关闭机制能够关注 Pod 的 PriorityClass 设置，前提是你已经在集群中启用了此功能特性。
+为了在节点体面关闭期间提供更多的灵活性，尤其是处理关闭期间的 Pod 排序问题，
+节点体面关闭机制能够关注 Pod 的 PriorityClass 设置，前提是你已经在集群中启用了此功能特性。
 此功能特性允许集群管理员基于 Pod
 的[优先级类（Priority Class）](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
-显式地定义体面节点关闭期间 Pod 的处理顺序。
+显式地定义节点体面关闭期间 Pod 的处理顺序。
 
 <!--
 The [Graceful Node Shutdown](#graceful-node-shutdown) feature, as described
@@ -860,7 +948,7 @@ pods. If additional flexibility is needed to explicitly define the ordering of
 pods during shutdown in a more granular way, pod priority based graceful
 shutdown can be used.
 -->
-前文所述的[体面节点关闭](#graceful-node-shutdown)特性能够分两个阶段关闭 Pod，
+前文所述的[节点体面关闭](#graceful-node-shutdown)特性能够分两个阶段关闭 Pod，
 首先关闭的是非关键的 Pod，之后再处理关键 Pod。
 如果需要显式地以更细粒度定义关闭期间 Pod 的处理顺序，需要一定的灵活度，
 这时可以使用基于 Pod 优先级的体面关闭机制。
@@ -871,7 +959,7 @@ graceful node shutdown in multiple phases, each phase shutting down a
 particular priority class of pods. The kubelet can be configured with the exact
 phases and shutdown time per phase.
 -->
-当体面节点关闭能够处理 Pod 优先级时，体面节点关闭的处理可以分为多个阶段，
+当节点体面关闭能够处理 Pod 优先级时，节点体面关闭的处理可以分为多个阶段，
 每个阶段关闭特定优先级类的 Pod。kubelet 可以被配置为按确切的阶段处理 Pod，
 且每个阶段可以独立设置关闭时间。
 
@@ -961,16 +1049,32 @@ kubelet 会直接跳到下一个优先级数值范围进行处理。
 If this feature is enabled and no configuration is provided, then no ordering
 action will be taken.
 
-Using this feature, requires enabling the
-`GracefulNodeShutdownBasedOnPodPriority` feature gate, and setting the kubelet
-config's `ShutdownGracePeriodByPodPriority` to the desired configuration
-containing the pod priority class values and their respective shutdown periods.
+Using this feature requires enabling the `GracefulNodeShutdownBasedOnPodPriority`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+, and setting `ShutdownGracePeriodByPodPriority` in the
+[kubelet config](/docs/reference/config-api/kubelet-config.v1beta1/)
+to the desired configuration containing the pod priority class values and
+their respective shutdown periods.
 -->
 如果此功能特性被启用，但没有提供配置数据，则不会出现排序操作。
 
-使用此功能特性需要启用 `GracefulNodeShutdownBasedOnPodPriority` 特性门控，
-并将 kubelet 配置中的 `shutdownGracePeriodByPodPriority` 设置为期望的配置，
+使用此功能特性需要启用 `GracefulNodeShutdownBasedOnPodPriority` 
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+并将 [kubelet 配置](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
+中的 `shutdownGracePeriodByPodPriority` 设置为期望的配置，
 其中包含 Pod 的优先级类数值以及对应的关闭期限。
+
+<!-- 
+{{< note >}}
+The ability to take Pod priority into account during graceful node shutdown was introduced
+as an Alpha feature in Kubernetes v1.23. In Kubernetes {{< skew currentVersion >}}
+the feature is Beta and is enabled by default.
+{{< /note >}} 
+-->
+{{< note >}}
+在节点体面关闭期间考虑 Pod 优先级的能力是作为 Kubernetes v1.23 中的 Alpha 功能引入的。
+在 Kubernetes {{< skew currentVersion >}} 中该功能是 Beta 版，默认启用。
+{{< /note >}} 
 
 <!--
 Metrics `graceful_shutdown_start_time_seconds` and `graceful_shutdown_end_time_seconds`

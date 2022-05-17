@@ -74,6 +74,3 @@ kubeadm init phase upload-config all [flags]
 
 </tbody>
 </table>
-
-
-

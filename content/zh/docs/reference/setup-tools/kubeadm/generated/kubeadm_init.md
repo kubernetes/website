@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Run this command in order to set up the Kubernetes control plane
+-->
+运行此命令以安装 Kubernetes 控制平面。
 
 <!--
 ### Synopsis 
@@ -81,7 +96,9 @@ kubeadm init [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
+<p>
 API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认网络接口。
+</p>
 </td>
 </tr>
 
@@ -98,19 +115,23 @@ API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使
 <!--
 Port for the API Server to bind to.
 -->
+<p>
 API 服务器绑定的端口。
+</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--apiserver-cert-extra-sans stringSlice</td>
+<td colspan="2">--apiserver-cert-extra-sans strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Optional extra Subject Alternative Names (SANs) to use for the API Server serving certificate. Can be both IP addresses and DNS names.
 -->
+<p>
 用于 API Server 服务证书的可选附加主题备用名称（SAN）。可以是 IP 地址和 DNS 名称。
+</p>
 </td>
 </tr>
 
@@ -127,7 +148,9 @@ Optional extra Subject Alternative Names (SANs) to use for the API Server servin
 <!--
 The path where to save and store the certificates.
 -->
+<p>
 保存和存储证书的路径。
+</p>
 </td>
 </tr>
 
@@ -139,7 +162,9 @@ The path where to save and store the certificates.
 <!--
 Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.
 -->
+<p>
 用于加密 kubeadm-certs Secret 中的控制平面证书的密钥。
+</p>
 </td>
 </tr>
 
@@ -151,7 +176,9 @@ Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -163,7 +190,9 @@ kubeadm 配置文件的路径。
 <!--
 Specify a stable IP address or DNS name for the control plane.
 -->
+<p>
 为控制平面指定一个稳定的 IP 地址或 DNS 名称。
+</p>
 </td>
 </tr>
 
@@ -175,7 +204,9 @@ Specify a stable IP address or DNS name for the control plane.
 <!--
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
+<p>
 要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
+</p>
 </td>
 </tr>
 
@@ -187,23 +218,9 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <!--
 Don't apply any changes; just output what would be done.
 -->
+<p>
 不要应用任何更改；只是输出将要执行的操作。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--experimental-patches string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--  
-Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
--->
-包含名为 "target[suffix][+patchtype].extension" 的文件的目录路径。
-例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
-"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
-默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
-"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
+</p>
 </td>
 </tr>
 
@@ -213,9 +230,12 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (BETA - default=true)
 -->
-一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>IPv6DualStack=true|false (ALPHA - default=false)
+一组用来描述各种功能特性的键值（key=value）对。选项是：
+<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
+<br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
+<br/>UnversionedKubeletConfigMap=true|false (BETA - 默认值=true)
 </td>
 </tr>
 
@@ -227,19 +247,23 @@ A set of key=value pairs that describe feature gates for various features. Optio
 <!--
 help for init
 -->
+<p>
 init 操作的帮助命令
+</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--ignore-preflight-errors stringSlice</td>
+<td colspan="2">--ignore-preflight-errors strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
+<p>
 错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
+</p>
 </td>
 </tr>
 
@@ -256,7 +280,9 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 Choose a container registry to pull control plane images from
 -->
+<p>
 选择用于拉取控制平面镜像的容器仓库
+</p>
 </td>
 </tr>
 
@@ -273,7 +299,9 @@ Choose a container registry to pull control plane images from
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
+<p>
 为控制平面选择一个特定的 Kubernetes 版本。
+</p>
 </td>
 </tr>
 
@@ -285,7 +313,30 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 Specify the node name.
 -->
+<p>
 指定节点的名称。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--patches string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
+-->
+<p>
+它包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
+例如，&quot;kube-apiserver0+merge.yaml&quot;或仅仅是 &quot;etcd.json&quot;。
+&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot; 之一。
+&quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
+并且它们与 kubectl 支持的补丁格式相同。
+默认的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
+&quot;extension&quot; 必须是&quot;json&quot; 或&quot;yaml&quot;。
+&quot;suffix&quot; 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
+</p>
 </td>
 </tr>
 
@@ -297,7 +348,9 @@ Specify the node name.
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
+<p>
 指明 pod 网络可以使用的 IP 地址段。如果设置了这个参数，控制平面将会为每一个节点自动分配 CIDRs。
+</p>
 </td>
 </tr>
 
@@ -314,7 +367,9 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 <!--
 Use alternative range of IP address for service VIPs.
 -->
+<p>
 为服务的虚拟 IP 地址另外指定 IP 地址段
+</p>
 </td>
 </tr>
 
@@ -329,9 +384,9 @@ Use alternative range of IP address for service VIPs.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Use alternative domain for services, e.g. "myorg.internal".
+Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 -->
-为服务另外指定域名，例如："myorg.internal"。
+为服务另外指定域名，例如：&quot;myorg.internal&quot;。
 </td>
 </tr>
 
@@ -343,19 +398,23 @@ Use alternative domain for services, e.g. "myorg.internal".
 <!--
 Don't print the key used to encrypt the control-plane certificates.
 -->
+<p>
 不要打印用于加密控制平面证书的密钥。
+</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--skip-phases stringSlice</td>
+<td colspan="2">--skip-phases strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 List of phases to be skipped
 -->
+<p>
 要跳过的阶段列表
+</p>
 </td>
 </tr>
 
@@ -367,7 +426,9 @@ List of phases to be skipped
 <!--
 Skip printing of the default bootstrap token generated by 'kubeadm init'.
 -->
+<p>
 跳过打印 'kubeadm init' 生成的默认引导令牌。
+</p>
 </td>
 </tr>
 
@@ -377,9 +438,11 @@ Skip printing of the default bootstrap token generated by 'kubeadm init'.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The token to use for establishing bidirectional trust between nodes and control-plane nodes. The format is [a-z0-9]{6}\.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef
+The token to use for establishing bidirectional trust between nodes and control-plane nodes. The format is [a-z0-9]{6}.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef
 -->
-这个令牌用于建立控制平面节点与工作节点间的双向通信。格式为 [a-z0-9]{6}\.[a-z0-9]{16} - 示例：abcdef.0123456789abcdef
+<p>
+这个令牌用于建立控制平面节点与工作节点间的双向通信。格式为 [a-z0-9]{6}.[a-z0-9]{16} - 示例：abcdef.0123456789abcdef
+</p>
 </td>
 </tr>
 
@@ -396,7 +459,9 @@ The token to use for establishing bidirectional trust between nodes and control-
 <!--
 The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire
 -->
+<p>
 令牌被自动删除之前的持续时间（例如 1 s，2 m，3 h）。如果设置为 '0'，则令牌将永不过期
+</p>
 </td>
 </tr>
 
@@ -408,7 +473,9 @@ The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set
 <!--
 Upload control-plane certificates to the kubeadm-certs Secret.
 -->
+<p>
 将控制平面证书上传到 kubeadm-certs Secret。
+</p>
 </td>
 </tr>
 
@@ -436,7 +503,9 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

@@ -74,18 +74,14 @@ ListMeta describes metadata that synthetic resources must have, including lists 
   更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency。
 
 <!--
-- **selfLink** (string)
-
-  selfLink is a URL representing this object. Populated by the system. Read-only.
-  
-  DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
+  Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
 -->
 
 - **selfLink** (string)
   
   selfLink 表示此对象的 URL，由系统填充，只读。
   
-  已弃用。 Kubernetes 将在 1.20 版本中停止传播该字段，并计划在 1.21 版本中删除该字段。
+  已弃用：selfLink 是一个遗留的只读字段，不再由系统填充。
 
 
 

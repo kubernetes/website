@@ -12,20 +12,22 @@ slug: developing-on-kubernetes
 ---
 -->
 
-<!--**Authors**:-->
+<!--
+**Authors**: [Michael Hausenblas](https://twitter.com/mhausenblas) (Red Hat), [Ilya Dmitrichenko](https://twitter.com/errordeveloper) (Weaveworks)
+-->
 **作者**： [Michael Hausenblas](https://twitter.com/mhausenblas) (Red Hat), [Ilya Dmitrichenko](https://twitter.com/errordeveloper) (Weaveworks)
 
 <!-- 
-How do you develop a Kubernetes app? That is, how do you write and test an app that is supposed to run on Kubernetes? This article focuses on the challenges, tools and methods you might want to be aware of to successfully write Kubernetes apps alone or in a team setting. 
+How do you develop a Kubernetes app? That is, how do you write and test an app that is supposed to run on Kubernetes? This article focuses on the challenges, tools and methods you might want to be aware of to successfully write Kubernetes apps alone or in a team setting.
 -->
 
-您将如何开发一个 Kubernates 应用？也就是说，您如何编写并测试一个要在 Kubernates 上运行的应用程序？本文将重点介绍在独自开发或者团队协作中，您可能希望了解到的为了成功编写 Kubernetes 应用程序而需面临的挑战，工具和方法。
+您将如何开发一个 Kubernetes 应用？也就是说，您如何编写并测试一个要在 Kubernetes 上运行的应用程序？本文将重点介绍在独自开发或者团队协作中，您可能希望了解到的为了成功编写 Kubernetes 应用程序而需面临的挑战，工具和方法。
 
 <!--
 We’re assuming you are a developer, you have a favorite programming language, editor/IDE, and a testing framework available. The overarching goal is to introduce minimal changes to your current workflow when developing the app for Kubernetes. For example, if you’re a Node.js developer and are used to a hot-reload setup—that is, on save in your editor the running app gets automagically updated—then dealing with containers and container images, with container registries, Kubernetes deployments, triggers, and more can not only be overwhelming but really take all the fun out if it.
 -->
 
-我们假定您是一位开发人员，有您钟爱的编程语言，编辑器/IDE（集成开发环境），以及可用的测试框架。在针对 Kubernates 开发应用时，最重要的目标是减少对当前工作流程的影响，改变越少越好，尽量做到最小。举个例子，如果您是 Node.js 开发人员，习惯于那种热重载的环境 - 也就是说您在编辑器里一做保存，正在运行的程序就会自动更新 - 那么跟容器、容器镜像或者镜像仓库打交道，又或是跟 Kubernetes 部署、triggers 以及更多头疼东西打交道，不仅会让人难以招架也真的会让开发过程完全失去乐趣。
+我们假定您是一位开发人员，有您钟爱的编程语言，编辑器/IDE（集成开发环境），以及可用的测试框架。在针对 Kubernetes 开发应用时，最重要的目标是减少对当前工作流程的影响，改变越少越好，尽量做到最小。举个例子，如果您是 Node.js 开发人员，习惯于那种热重载的环境 - 也就是说您在编辑器里一做保存，正在运行的程序就会自动更新 - 那么跟容器、容器镜像或者镜像仓库打交道，又或是跟 Kubernetes 部署、triggers 以及更多头疼东西打交道，不仅会让人难以招架也真的会让开发过程完全失去乐趣。
 
 <!--
 In the following, we’ll first discuss the overall development setup, then review tools of the trade, and last but not least do a hands-on walkthrough of three exemplary tools that allow for iterative, local app development against Kubernetes.
@@ -48,10 +50,10 @@ As a developer you want to think about where the Kubernetes cluster you’re dev
 ![Dev Modes](/images/blog/2018-05-01-developing-on-kubernetes/dok-devmodes_preview.png)
 
 <!--
-A number of tools support pure offline development including Minikube, Docker for Mac/Windows, Minishift, and the ones we discuss in detail below. Sometimes, for example, in a microservices setup where certain microservices already run in the cluster, a proxied setup (forwarding traffic into and from the cluster) is preferable and Telepresence is an example tool in this category. The live mode essentially means you’re building and/or deploying against a remote cluster and, finally, the pure online mode means both your development environment and the cluster are remote, as this is the case with, for example, [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) or [Cloud 9](https://github.com/errordeveloper/k9c). Let’s now have a closer look at the basics of offline development: running Kubernetes locally.
+A number of tools support pure offline development including Minikube, Docker for Mac/Windows, Minishift, and the ones we discuss in detail below. Sometimes, for example, in a microservices setup where certain microservices already run in the cluster, a proxied setup (forwarding traffic into and from the cluster) is preferable and Telepresence is an example tool in this category. The live mode essentially means you’re building and/or deploying against a remote cluster and, finally, the pure online mode means both your development environment and the cluster are remote, as this is the case with, for example, [Eclipse Che](https://www.eclipse.org/che/docs/che-7/introduction-to-eclipse-che/) or [Cloud 9](https://github.com/errordeveloper/k9c). Let’s now have a closer look at the basics of offline development: running Kubernetes locally.
 -->
 
-许多工具支持纯 offline 开发，包括 Minikube、Docker（Mac 版/Windows 版）、Minishift 以及下文中我们将详细讨论的几种。有时，比如说在一个微服务系统中，已经有若干微服务在运行，proxied 模式（通过转发把数据流传进传出集群）就非常合适，Telepresence 就是此类工具的一个实例。live 模式，本质上是您基于一个远程集群进行构建和部署。最后，纯 online 模式意味着您的开发环境和运行集群都是远程的，典型的例子是 [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) 或者 [Cloud 9](https://github.com/errordeveloper/k9c)。现在让我们仔细看看离线开发的基础：在本地运行 Kubernetes。
+许多工具支持纯 offline 开发，包括 Minikube、Docker（Mac 版/Windows 版）、Minishift 以及下文中我们将详细讨论的几种。有时，比如说在一个微服务系统中，已经有若干微服务在运行，proxied 模式（通过转发把数据流传进传出集群）就非常合适，Telepresence 就是此类工具的一个实例。live 模式，本质上是您基于一个远程集群进行构建和部署。最后，纯 online 模式意味着您的开发环境和运行集群都是远程的，典型的例子是 [Eclipse Che](https://www.eclipse.org/che/docs/che-7/introduction-to-eclipse-che/) 或者 [Cloud 9](https://github.com/errordeveloper/k9c)。现在让我们仔细看看离线开发的基础：在本地运行 Kubernetes。
 
 <!--
 [Minikube](/docs/getting-started-guides/minikube/) is a popular choice for those who prefer to run Kubernetes in a local VM. More recently Docker for [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) and [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) started shipping Kubernetes as an experimental package (in the “edge” channel). Some reasons why you may want to prefer using Minikube over the Docker desktop option are:
@@ -157,7 +159,7 @@ Implications:
 * Deploying to production is up to the user, Draft authors recommend their other project – Brigade
 * Can be used instead of Skaffold, and along the side of Squash
 -->
-* 它允许开发人员使用本地或者远程的 Kubernates 集群
+* 它允许开发人员使用本地或者远程的 Kubernetes 集群
 * 如何部署到生产环境取决于用户， Draft 的作者推荐了他们的另一个项目 - Brigade
 * 可以代替 Skaffold， 并且可以和 Squash 一起使用
 
@@ -255,7 +257,7 @@ More info:
 更多信息：
 
 * [Squash: A Debugger for Kubernetes Apps](https://www.youtube.com/watch?v=5TrV3qzXlgI)
-* [Getting Started Guide](https://github.com/solo-io/squash/blob/master/docs/getting-started.md)
+* [Getting Started Guide](https://squash.solo.io/overview/)
 
 ### Telepresence
 
@@ -397,10 +399,10 @@ Note that for the target Kubernetes cluster we’ve been using Minikube locally,
 请注意，我们一直使用 Minikube 的本地 Kubernetes 集群，但是您也可以使用 ksync 和 Skaffold 的远程集群跟随练习。
 
 <!--
-### Walkthrough: ksync
+## Walkthrough: ksync
 -->
 
-### 实践演练：ksync
+## 实践演练：ksync
 
 <!--
 As a preparation, install [ksync](https://vapor-ware.github.io/ksync/#installation) and then carry out the following steps to prepare the development setup:
@@ -502,11 +504,11 @@ $ kubectl -n=dok apply -f stock-gen/app.yaml
 $ kubectl -n=dok apply -f stock-con/app.yaml
 ```
 <!--
-Once both deployments are created and the pods are running, we forward the `stock-con` service for local consumption (in a separate terminal session):
+Once both deployments are created and the pods are running, we forward the `stock-con` service for local consumption (in a separate terminal session) and check the response of the `healthz` endpoint:
 -->
 
 
-一旦两个部署建好并且 pod 开始运行，我们转发 `stock-con` 服务以供本地读取（另开一个终端窗口）：
+一旦两个部署建好并且 pod 开始运行，我们转发 `stock-con` 服务以供本地读取（另开一个终端窗口）并检查 `healthz` 端点的响应：
 
 ```
 $ kubectl get -n dok po --selector=app=stock-con  \

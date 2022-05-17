@@ -12,37 +12,40 @@ weight: 10
 
 <!-- overview -->
 
-<!--
-Network plugins in Kubernetes come in a few flavors:
-
-* CNI plugins: adhere to the [Container Network Interface](https://github.com/containernetworking/cni) (CNI) specification, designed for interoperability.
-  * Kubernetes follows the [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) release of the CNI specification.
-* Kubenet plugin: implements basic `cbr0` using the `bridge` and `host-local` CNI plugins
+<!-- 
+Kubernetes {{< skew currentVersion >}} supports [Container Network Interface](https://github.com/containernetworking/cni)
+(CNI) plugins for cluster networking. You must use a CNI plugin that is compatible with your cluster and that suits your needs. Different plugins are available (both open- and closed- source) in the wider Kubernetes ecosystem. 
 -->
-Kubernetes中的网络插件有几种类型：
+Kubernetes {{< skew currentVersion >}} 支持[容器网络接口](https://github.com/containernetworking/cni) (CNI) 集群网络插件。
+你必须使用和你的集群相兼容并且满足你的需求的 CNI 插件。
+在更广泛的 Kubernetes 生态系统中你可以使用不同的插件（开源和闭源）。
 
-* CNI 插件：遵守[容器网络接口（Container Network Interface，CNI）](https://github.com/containernetworking/cni)
-  规范，其设计上偏重互操作性。
-  * Kubernetes 遵从 CNI 规范的
-    [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md)
-    版本。
-* Kubenet 插件：使用 `bridge` 和 `host-local` CNI 插件实现了基本的 `cbr0`。
+<!-- 
+You must use a CNI plugin that is compatible with the 
+[v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) or later
+releases of the CNI specification. The Kubernetes project recommends using a plugin that is
+compatible with the [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)
+CNI specification (plugins can be compatible with multiple spec versions). 
+-->
+你必须使用与 [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md)
+或更高版本的 CNI 规范相符合的 CNI 插件。
+Kubernetes 推荐使用一个兼容 [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)
+CNI 规范的插件（插件可以兼容多个规范版本）。
 
 <!-- body -->
 
 <!--
 ## Installation
 
-The kubelet has a single default network plugin, and a default network common to the entire cluster. It probes for plugins when it starts up, remembers what it finds, and executes the selected plugin at appropriate times in the pod lifecycle (this is only true for Docker, as CRI manages its own CNI plugins). There are two Kubelet command line parameters to keep in mind when using plugins:
+A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). The CRI manages its own CNI plugins. There are two Kubelet command line parameters to keep in mind when using plugins:
 
 * `cni-bin-dir`: Kubelet probes this directory for plugins on startup
 * `network-plugin`: The network plugin to use from `cni-bin-dir`.  It must match the name reported by a plugin probed from the plugin directory.  For CNI plugins, this is "cni".
 -->
 ## 安装
 
-kubelet 有一个单独的默认网络插件，以及一个对整个集群通用的默认网络。
-它在启动时探测插件，记住找到的内容，并在 Pod 生命周期的适当时间执行
-所选插件（这仅适用于 Docker，因为 CRI 管理自己的 CNI 插件）。
+CNI 插件需要实现 [Kubernetes 网络模型](/zh/docs/concepts/services-networking/#the-kubernetes-network-model)。
+CRI 管理它自己的 CNI 插件。
 在使用插件时，需要记住两个 kubelet 命令行参数：
 
 * `cni-bin-dir`： kubelet 在启动时探测这个目录中的插件
@@ -213,88 +216,16 @@ metadata:
     kubernetes.io/egress-bandwidth: 1M
 ...
 ```
-
-<!--
-### kubenet
-
-Kubenet is a very basic, simple network plugin, on Linux only.  It does not, of itself, implement more advanced features like cross-node networking or network policy.  It is typically used together with a cloud provider that sets up routing rules for communication between nodes, or in single-node environments.
-
-Kubenet creates a Linux bridge named `cbr0` and creates a veth pair for each pod with the host end of each pair connected to `cbr0`.  The pod end of the pair is assigned an IP address allocated from a range assigned to the node either through configuration or by the controller-manager.  `cbr0` is assigned an MTU matching the smallest MTU of an enabled normal interface on the host.
-
-The plugin requires a few things:
-
-* The standard CNI `bridge`, `lo` and `host-local` plugins are required, at minimum version 0.2.0. Kubenet will first search for them in `/opt/cni/bin`. Specify `cni-bin-dir` to supply additional search path. The first found match will take effect.
-* Kubelet must be run with the `--network-plugin=kubenet` argument to enable the plugin
-* Kubelet should also be run with the `--non-masquerade-cidr=<clusterCidr>` argument to ensure traffic to IPs outside this range will use IP masquerade.
-* The node must be assigned an IP subnet through either the `--pod-cidr` kubelet command-line option or the `--allocate-node-cidrs=true -cluster-cidr=<cidr>` controller-manager command-line options.
--->
-### kubenet
-
-Kubenet 是一个非常基本的、简单的网络插件，仅适用于 Linux。
-它本身并不实现更高级的功能，如跨节点网络或网络策略。
-它通常与云驱动一起使用，云驱动为节点间或单节点环境中的通信设置路由规则。
-
-Kubenet 创建名为 `cbr0` 的网桥，并为每个 pod 创建了一个 veth 对，
-每个 Pod 的主机端都连接到 `cbr0`。
-这个 veth 对的 Pod 端会被分配一个 IP 地址，该 IP 地址隶属于节点所被分配的 IP
-地址范围内。节点的 IP 地址范围则通过配置或控制器管理器来设置。
-`cbr0` 被分配一个 MTU，该 MTU 匹配主机上已启用的正常接口的最小 MTU。
-
-使用此插件还需要一些其他条件：
-
-* 需要标准的 CNI `bridge`、`lo` 以及 `host-local` 插件，最低版本是0.2.0。
-  kubenet 首先在 `/opt/cni/bin` 中搜索它们。 指定 `cni-bin-dir` 以提供
-  其它搜索路径。首次找到的匹配将生效。
-* Kubelet 必须和 `--network-plugin=kubenet` 参数一起运行，才能启用该插件。
-* Kubelet 还应该和 `--non-masquerade-cidr=<clusterCidr>` 参数一起运行，
-  以确保超出此范围的 IP 流量将使用 IP 伪装。
-* 节点必须被分配一个 IP 子网，通过kubelet 命令行的 `--pod-cidr` 选项或
-  控制器管理器的命令行选项 `--allocate-node-cidrs=true --cluster-cidr=<cidr>`
-  来设置。
-
-<!--
-### Customizing the MTU (with kubenet)
-
-The MTU should always be configured correctly to get the best networking performance.  Network plugins will usually try
-to infer a sensible MTU, but sometimes the logic will not result in an optimal MTU.  For example, if the
-Docker bridge or another interface has a small MTU, kubenet will currently select that MTU.  Or if you are
-using IPSEC encapsulation, the MTU must be reduced, and this calculation is out-of-scope for
-most network plugins.
-
-Where needed, you can specify the MTU explicitly with the `network-plugin-mtu` kubelet option.  For example,
-on AWS the `eth0` MTU is typically 9001, so you might specify `--network-plugin-mtu=9001`.  If you're using IPSEC you
-might reduce it to allow for encapsulation overhead e.g. `--network-plugin-mtu=8873`.
-
-This option is provided to the network-plugin; currently **only kubenet supports `network-plugin-mtu`**.
--->
-### 自定义 MTU（使用 kubenet）
-
-要获得最佳的网络性能，必须确保 MTU 的取值配置正确。
-网络插件通常会尝试推断出一个合理的 MTU，但有时候这个逻辑不会产生一个最优的 MTU。
-例如，如果 Docker 网桥或其他接口有一个小的 MTU, kubenet 当前将选择该 MTU。
-或者如果你正在使用 IPSEC 封装，则必须减少 MTU，并且这种计算超出了大多数网络插件的能力范围。
-
-如果需要，你可以使用 `network-plugin-mtu` kubelet 选项显式的指定 MTU。
-例如：在 AWS 上 `eth0` MTU 通常是 9001，因此你可以指定 `--network-plugin-mtu=9001`。
-如果你正在使用 IPSEC ，你可以减少它以允许封装开销，例如 `--network-plugin-mtu=8873`。
-
-此选项会传递给网络插件； 当前 **仅 kubenet 支持 `network-plugin-mtu`**。
-
 <!--
 ## Usage Summary
 
 * `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `--cni-bin-dir` (default `/opt/cni/bin`) and CNI plugin configuration located in `--cni-conf-dir` (default `/etc/cni/net.d`).
-* `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge`, `lo` and `host-local` plugins placed in `/opt/cni/bin` or `cni-bin-dir`.
-* `--network-plugin-mtu=9001` specifies the MTU to use, currently only used by the `kubenet` network plugin.
 -->
 ## 用法总结
 
 * `--network-plugin=cni` 用来表明我们要使用 `cni` 网络插件，实际的 CNI 插件
   可执行文件位于 `--cni-bin-dir`（默认是 `/opt/cni/bin`）下， CNI 插件配置位于
   `--cni-conf-dir`（默认是 `/etc/cni/net.d`）下。
-* `--network-plugin=kubenet` 用来表明我们要使用 `kubenet` 网络插件，CNI `bridge`，`lo`
-  和 `host-local` 插件位于 `/opt/cni/bin` 或 `cni-bin-dir` 中。
-* `--network-plugin-mtu=9001` 指定了我们使用的 MTU，当前仅被 `kubenet` 网络插件使用。
 
 ## {{% heading "whatsnext" %}}
 

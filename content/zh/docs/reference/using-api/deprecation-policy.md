@@ -435,7 +435,7 @@ Widget 资源会 X+8 发布版本之前（含 X+8）一直存在并可用。
 Starting in Kubernetes v1.19, making an API request to a deprecated REST API endpoint:
 
 1. Returns a `Warning` header (as defined in [RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)) in the API response.
-2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug-application-cluster/audit/) recorded for the request.
+2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug/debug-cluster/audit/) recorded for the request.
 3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver`
    process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
    to the `apiserver_request_total` metric, and a `removed_release` label that indicates the
@@ -450,7 +450,7 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
 
 1. API 响应中会包含一个 `Warning` 头部字段（如 [RFC7234 5.5 节](https://tools.ietf.org/html/rfc7234#section-5.5)所定义）；
 2. 该请求会导致对应的 
-   [审计事件](/zh/docs/tasks/debug-application-cluster/audit/)
+   [审计事件](/zh/docs/tasks/debug/debug-cluster/audit/)
    中会增加一个注解 `"k8s.io/deprecated":"true"`。
 3. `kube-apiserver` 进程的 `apiserver_requested_deprecated_apis` 度量值会被
    设置为 `1`。

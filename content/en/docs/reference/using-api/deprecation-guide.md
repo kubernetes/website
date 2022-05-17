@@ -20,6 +20,18 @@ deprecated API versions to newer and more stable API versions.
 
 ## Removed APIs by release
 
+### v1.27
+
+The **v1.27** release will stop serving the following deprecated API versions:
+
+#### CSIStorageCapacity {#csistoragecapacity-v127}
+
+The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity will no longer be served in v1.27.
+
+* Migrate manifests and API clients to use the **storage.k8s.io/v1** API version, available since v1.24.
+* All existing persisted objects are accessible via the new API
+* No notable changes
+
 ### v1.26
 
 The **v1.26** release will stop serving the following deprecated API versions:
@@ -162,7 +174,7 @@ The **authentication.k8s.io/v1beta1** API version of TokenReview is no longer se
 
 #### SubjectAccessReview resources {#subjectaccessreview-resources-v122}
 
-The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, and SubjectAccessReview is no longer served as of v1.22.
+The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, SubjectAccessReview, and SelfSubjectRulesReview is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **authorization.k8s.io/v1** API version, available since v1.6.
 * Notable changes:
@@ -324,14 +336,14 @@ to locate use of deprecated APIs.
 * Update custom integrations and controllers to call the non-deprecated APIs
 * Change YAML files to reference the non-deprecated APIs
 
-    You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
-    to automatically convert an existing object:
+  You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
+  to automatically convert an existing object:
     
-    `kubectl-convert -f <file> --output-version <group>/<version>`.
+  `kubectl-convert -f <file> --output-version <group>/<version>`.
 
-    For example, to convert an older Deployment to `apps/v1`, you can run:
+  For example, to convert an older Deployment to `apps/v1`, you can run:
     
-    `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
+  `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
 
-    Note that this may use non-ideal default values. To learn more about a specific
-    resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
+  Note that this may use non-ideal default values. To learn more about a specific
+  resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).

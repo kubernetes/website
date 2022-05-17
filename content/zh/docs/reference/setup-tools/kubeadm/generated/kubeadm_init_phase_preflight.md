@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Run pre-flight checks
+-->
+运行启动检查
 
 <!-- 
 ### Synopsis
@@ -27,7 +42,7 @@ kubeadm init phase preflight [flags]
 
 ```
 # 使用配置文件对 kubeadm init 进行启动检查。
-kubeadm init phase preflight --config kubeadm-config.yml
+kubeadm init phase preflight --config kubeadm-config.yaml
 ```
 
 <!-- 
@@ -51,7 +66,9 @@ kubeadm init phase preflight --config kubeadm-config.yml
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -63,19 +80,23 @@ kubeadm 配置文件的路径。
 <!--
 help for preflight
 -->
+<p>
 preflight 操作的帮助命令
+</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--ignore-preflight-errors stringSlice</td>
+<td colspan="2">--ignore-preflight-errors strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
+<p>
 错误将显示为警告的检查列表：例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
+</p>
 </td>
 </tr>
 
@@ -103,10 +124,11 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-

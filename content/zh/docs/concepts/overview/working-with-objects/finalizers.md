@@ -121,7 +121,7 @@ longer than expected without being fully deleted. In these situations, you
 should check finalizers and owner references on the target owner and dependent
 objects to troubleshoot the cause. 
 -->
-Job 控制器还为这些 Pod 添加了*属主引用*，指向创建 Pod 的 Job。
+Job 控制器还为这些 Pod 添加了“属主引用”，指向创建 Pod 的 Job。
 如果你在这些 Pod 运行的时候删除了 Job，
 Kubernetes 会使用属主引用（而不是标签）来确定集群中哪些 Pod 需要清理。
 

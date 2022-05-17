@@ -21,7 +21,7 @@ Windows applications constitute a large portion of the services and applications
 This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
 -->
 Windows 应用程序构成了许多组织中运行的服务和应用程序的很大一部分。
-本指南将引导您完成在 Kubernetes 中配置和部署 Windows 容器的步骤。
+本指南将引导你完成在 Kubernetes 中配置和部署 Windows 容器的步骤。
 
 <!-- body -->
 
@@ -34,7 +34,7 @@ Windows 应用程序构成了许多组织中运行的服务和应用程序的很
 ## 目标
 
 * 配置一个示例 deployment 以在 Windows 节点上运行 Windows 容器
-* （可选）使用组托管服务帐户（GMSA）为您的 Pod 配置 Active Directory 身份
+* （可选）使用组托管服务帐户（GMSA）为你的 Pod 配置 Active Directory 身份
 
 <!--
 ## Before you begin
@@ -64,7 +64,7 @@ Create a service spec named `win-webserver.yaml` with the contents below:
 -->
 ## 入门：部署 Windows 容器
 
-要在 Kubernetes 上部署 Windows 容器，您必须首先创建一个示例应用程序。
+要在 Kubernetes 上部署 Windows 容器，你必须首先创建一个示例应用程序。
 下面的示例 YAML  文件创建了一个简单的 Web 服务器应用程序。
 创建一个名为  `win-webserver.yaml`  的服务规约，其内容如下：
 
@@ -169,7 +169,7 @@ the container port 80 is exposed directly to the service.
 
    * Windows 节点上每个 Pod 有两个容器，使用  `docker ps` 
    * Linux 控制平面节点列出两个 Pod，使用  `kubectl get pods` 
-   * 跨网络的节点到 Pod 通信，从 Linux 控制平面节点 `curl` 您的 pod IPs 的端口80，以检查 Web 服务器响应
+   * 跨网络的节点到 Pod 通信，从 Linux 控制平面节点 `curl` 你的 pod IPs 的端口80，以检查 Web 服务器响应
    * Pod 到 Pod 的通信，使用 docker exec 或 kubectl exec 在 Pod 之间
      （以及跨主机，如果你有多个 Windows 节点）进行 ping 操作
    * 服务到 Pod 的通信，从 Linux 控制平面节点和各个 Pod 中 `curl` 虚拟服务 IP
@@ -285,27 +285,35 @@ that the containers in that Pod are designed for. For Pods that run Linux contai
 `.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
 to Windows.
 
+{{< note >}}
+Starting from 1.24, the `IdentifyPodOS` feature is in Beta stage and defaults to be enabled.
+{{< /note >}}
+
 The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should
 use normal Kubernetes mechanisms for
 [assigning pods to nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
 to ensure that the control plane for your cluster places pods onto nodes that are running the
 appropriate operating system.
- no effect on the scheduling of the Windows pods, so taints and tolerations and node selectors are still required
+The `.spec.os.name` value has no effect on the scheduling of the Windows pods,
+so taints and tolerations and node selectors are still required
  to ensure that the Windows pods land onto appropriate Windows nodes.
  -->
- {{< note >}}
 如果 `IdentifyPodOS` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)是启用的，
 你可以（并且应该）为 Pod 设置 `.spec.os.name` 以表明该 Pod
 中的容器所针对的操作系统。 对于运行 Linux 容器的 Pod，设置 
 `.spec.os.name` 为 `linux`。 对于运行 Windows 容器的 Pod，设置 `.spec.os.name`
 为 `Windows`。
 
+{{< note >}}
+从 1.24 开始，`IdentifyPodOS` 功能处于 Beta 阶段，默认启用。
+{{< /note >}}
+
 在将 Pod 分配给节点时，调度程序不使用 `.spec.os.name` 的值。你应该使用正常的 Kubernetes
 机制[将 Pod 分配给节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)，
 确保集群的控制平面将 Pod 放置到适合运行的操作系统。
-对 Windows Pod 的调度没有影响，因此仍然需要污点、容忍度以及节点选择器，
+`.spec.os.name` 值对 Windows Pod 的调度没有影响，因此仍然需要污点、容忍度以及节点选择器，
 以确保 Windows Pod 调度至合适的 Windows 节点。
- {{< /note >}}
+
 <!--
 ### Ensuring OS-specific workloads land on the appropriate container host
 -->
@@ -340,7 +348,7 @@ it could easily be modified to automatically add a taint when running on Windows
 -->
 但是，我们了解到，在许多情况下，用户都有既存的大量的 Linux 容器部署，以及一个现成的配置生态系统，
 例如社区 Helm charts，以及程序化 Pod 生成案例，例如 Operators。
-在这些情况下，您可能会不愿意更改配置添加 nodeSelector。替代方法是使用污点。
+在这些情况下，你可能会不愿意更改配置添加 nodeSelector。替代方法是使用污点。
 由于 kubelet 可以在注册期间设置污点，因此可以轻松修改它，使其仅在 Windows 上运行时自动添加污点。
 
 <!--
@@ -385,7 +393,7 @@ Kubernetes 1.17 automatically adds a new label `node.kubernetes.io/windows-build
 If you're running an older version, then it's recommended to add this label manually to Windows nodes.
 -->
 Kubernetes 1.17 自动添加了一个新标签 `node.kubernetes.io/windows-build` 来简化此操作。 
-如果您运行的是旧版本，则建议手动将此标签添加到 Windows 节点。
+如果你运行的是旧版本，则建议手动将此标签添加到 Windows 节点。
 
 <!--
 This label reflects the Windows major, minor, and build number that need to match for compatibility.
