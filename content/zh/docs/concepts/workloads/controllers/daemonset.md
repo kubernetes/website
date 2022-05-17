@@ -242,7 +242,7 @@ taken into account before selecting the target host). The DaemonSet controller o
 performs these operations when creating or modifying DaemonSet pods, and no
 changes are made to the `spec.template` of the DaemonSet.
 -->
-`ScheduleDaemonSetPods` 允许您使用默认调度器而不是 DaemonSet 控制器来调度 DaemonSets，
+`ScheduleDaemonSetPods` 允许你使用默认调度器而不是 DaemonSet 控制器来调度 DaemonSets，
 方法是将 `NodeAffinity` 条件而不是 `.spec.nodeName` 条件添加到 DaemonSet Pods。
 默认调度器接下来将 Pod 绑定到目标主机。
 如果 DaemonSet Pod 的节点亲和性配置已存在，则被替换
@@ -352,7 +352,7 @@ them according to its `updateStrategy`.
 
 You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 -->
-您可以删除一个 DaemonSet。如果使用 `kubectl` 并指定 `--cascade=orphan` 选项，
+你可以删除一个 DaemonSet。如果使用 `kubectl` 并指定 `--cascade=orphan` 选项，
 则 Pod 将被保留在节点上。接下来如果创建使用相同选择算符的新 DaemonSet，
 新的 DaemonSet 会收养已有的 Pod。
 如果有 Pod 需要被替换，DaemonSet 会根据其 `updateStrategy` 来替换。

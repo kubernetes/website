@@ -371,7 +371,7 @@ Lars Kellogg-Stedman.
 
 如果你具有一个“哑”的L2网络，例如“裸机”环境中的简单交换机，则应该能够执行与上述 GCE 设置类似的操作。
 请注意，这些说明仅是非常简单的尝试过-似乎可行，但尚未经过全面测试。
-如果您使用此技术并完善了流程，请告诉我们。
+如果你使用此技术并完善了流程，请告诉我们。
 
 根据 Lars Kellogg-Stedman 的这份非常不错的“Linux 网桥设备”
 [使用说明](https://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/)来进行操作。
