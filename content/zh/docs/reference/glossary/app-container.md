@@ -42,6 +42,6 @@ once the application container has started.
 If a pod doesn't have any init containers configured, all the containers in that pod are app containers.
 -->
 
-初始化容器使您可以分离对于{{< glossary_tooltip text="工作负载" term_id="workload" >}}
+初始化容器使你可以分离对于{{< glossary_tooltip text="工作负载" term_id="workload" >}}
 整体而言很重要的初始化细节，并且一旦应用容器启动，它不需要继续运行。
 如果 pod 没有配置任何初始化容器，则该 pod 中的所有容器都是应用程序容器。
