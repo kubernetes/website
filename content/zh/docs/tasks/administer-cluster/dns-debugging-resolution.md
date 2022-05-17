@@ -197,7 +197,7 @@ the DNS add-on may not be deployed by default in your current environment and yo
 will have to deploy it manually.
 -->
 如果你发现没有 CoreDNS Pod 在运行，或者该 Pod 的状态是 failed 或者 completed，
-那可能这个 DNS 插件在您当前的环境里并没有成功部署，你将需要手动去部署它。
+那可能这个 DNS 插件在你当前的环境里并没有成功部署，你将需要手动去部署它。
 
 <!--
 ### Check for Errors in the DNS pod
