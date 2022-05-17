@@ -791,7 +791,7 @@ However, if you want to deprovision your cluster more cleanly, you should
 first [drain the node](/docs/reference/generated/kubectl/kubectl-commands#drain)
 and make sure that the node is empty, then deconfigure the node.
 -->
-但是，如果要更干净地取消配置群集，
+但是，如果要更干净地取消配置集群，
 则应首先[清空节点](/docs/reference/generated/kubectl/kubectl-commands#drain)并确保该节点为空，
 然后取消配置该节点。
 

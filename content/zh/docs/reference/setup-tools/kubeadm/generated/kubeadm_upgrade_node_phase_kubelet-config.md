@@ -11,7 +11,7 @@ Upgrade the kubelet configuration for this node
 Download the kubelet configuration from the kubelet-config ConfigMap stored in the cluster
 -->
 
-从群集中 ConfigMap kubelet-config 下载 kubelet 配置
+从集群中 ConfigMap kubelet-config 下载 kubelet 配置
 
 ```
 kubeadm upgrade node phase kubelet-config [flags]

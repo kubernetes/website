@@ -122,7 +122,7 @@ your configuration file:
 配置文件描述了集群、用户名和上下文。`config-demo` 文件中含有描述两个集群、
 两个用户和三个上下文的框架。
 
-进入 `config-exercise` 目录。输入以下命令，将群集详细信息添加到配置文件中：
+进入 `config-exercise` 目录。输入以下命令，将集群详细信息添加到配置文件中：
 
 ```shell
 kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file

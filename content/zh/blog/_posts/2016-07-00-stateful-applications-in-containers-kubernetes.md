@@ -85,7 +85,7 @@ It’s easy to imagine powerful multi-cluster use cases with cross-cluster feder
 很容易想象在将来的版本中具有跨集群联邦服务的强大多集群用例。
 一个示例是根据治理，安全性和性能要求调度容器。
 Diamanti 的调度程序扩展是在考虑了这一概念的基础上开发的。
-我们的[第一个实现](https://github.com/kubernetes/kubernetes/pull/13580)使 Kubernetes 调度程序意识到每个群集节点本地的网络和存储资源。
+我们的[第一个实现](https://github.com/kubernetes/kubernetes/pull/13580)使 Kubernetes 调度程序意识到每个集群节点本地的网络和存储资源。
 将来，类似的概念可以应用于跨集群联邦服务的更广泛的放置控件。
 
 <!--

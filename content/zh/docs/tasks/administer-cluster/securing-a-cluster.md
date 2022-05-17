@@ -249,7 +249,7 @@ prevent cross talk, or advanced networking policy.
 在很多集群上，节点端口和负载均衡服务也可控制用户的应用程序是否在集群之外可见。
 
 此外也可能存在一些基于插件或基于环境的网络规则，能够提供额外的保护能力。
-例如各节点上的防火墙、物理隔离群集节点以防止串扰或者高级的网络策略等。
+例如各节点上的防火墙、物理隔离集群节点以防止串扰或者高级的网络策略等。
 
 <!--
 ### Restricting cloud metadata API access
@@ -334,7 +334,7 @@ access to a subset of the keyspace is strongly recommended.
 
 {{< caution >}}
 允许集群中其它组件对整个主键空间（keyspace）拥有读或写权限去访问 etcd 实例，
-相当于授予这些组件群集管理员的访问权限。
+相当于授予这些组件集群管理员的访问权限。
 对于非主控组件，强烈推荐使用不同的 etcd 实例，或者使用 etcd 的访问控制列表
 来限制这些组件只能读或写主键空间的一个子集。
 {{< /caution >}}
