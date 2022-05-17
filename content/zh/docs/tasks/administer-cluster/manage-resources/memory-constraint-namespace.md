@@ -107,8 +107,8 @@ file for the LimitRange, they were created automatically.
 Now whenever you define a Pod within the constraints-mem-example namespace, Kubernetes
 performs these steps:
 
-* If any container in that Pod does not specify its own memory request and limit, assign
-the default memory request and limit to that container.
+* If any container in that Pod does not specify its own memory request and limit, 
+the control plane assig nthe default memory request and limit to that container.
 
 * Verify that every container in that Pod requests at least 500 MiB of memory.
 
@@ -121,7 +121,7 @@ minimum and maximum memory constraints imposed by the LimitRange.
 -->
 现在，每当在 constraints-mem-example 命名空间中创建 Pod 时，Kubernetes 就会执行下面的步骤：
 
-* 如果 Pod 中的任何容器未声明自己的内存请求和限制，将为该容器设置默认的内存请求和限制。
+* 如果 Pod 中的任何容器未声明自己的内存请求和限制，控制面将为该容器设置默认的内存请求和限制。
 
 * 确保该 Pod 中的每个容器的内存请求至少 500 MiB。
 
