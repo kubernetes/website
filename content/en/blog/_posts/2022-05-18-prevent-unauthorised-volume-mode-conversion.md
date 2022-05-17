@@ -53,9 +53,9 @@ To convert the volume mode, an authorised user must do the following:
 created PVC in the given namespace. 
 2. Identify the `VolumeSnapshotContent` bound to the above `VolumeSnapshot`.
 
-```
-   kubectl get volumesnapshot -n <namespace>
-```
+  ```shell
+  kubectl get volumesnapshot -n <namespace>
+  ```
 
 3. Add the annotation [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/docs/reference/labels-annotations-taints/#snapshot-storage-kubernetes-io-allowvolumemodechange)
 to the `VolumeSnapshotContent`. 
@@ -63,13 +63,13 @@ to the `VolumeSnapshotContent`.
 4. This annotation can be added either via software or manually by the authorised 
 user. The `VolumeSnapshotContent` annotation must look like following manifest fragment:
 
-```yaml
-   kind: VolumeSnapshotContent
-   metadata:
-     annotations:
-       - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
-   ...
-```
+  ```yaml
+  kind: VolumeSnapshotContent
+  metadata:
+    annotations:
+      - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
+  ...
+  ```
 
 **Note**: For pre-provisioned `VolumeSnapshotContents`, you must take an extra
 step of setting `spec.sourceVolumeMode` field to either `Filesystem` or `Block`,
@@ -77,7 +77,7 @@ depending on the mode of the volume from which this snapshot was taken.
 
 An example is shown below:
 
-```yaml
+   ```yaml
    apiVersion: snapshot.storage.k8s.io/v1
    kind: VolumeSnapshotContent
    metadata:
@@ -93,7 +93,7 @@ An example is shown below:
      volumeSnapshotRef:
        name: new-snapshot-test
        namespace: default
-```
+   ```
 
 Repeat steps 1 to 3 for all `VolumeSnapshotContents` whose volume mode needs to be 
 converted during a backup or restore operation.
@@ -112,5 +112,6 @@ what you think!
 We hope this feature causes no disruption to existing workflows while preventing
 malicious users from exploiting security vulnerabilities in their clusters. 
 
-For any issues, create a thread in the #sig-storage slack channel or an issue
-in the CSI external-snapshotter [repository](https://github.com/kubernetes-csi/external-snapshotter).
+For any queries or issues, join [Kubernetes on Slack](https://slack.k8s.io/) and
+create a thread in the #sig-storage channel. Alternately, create an issue in the
+CSI external-snapshotter [repository](https://github.com/kubernetes-csi/external-snapshotter).
