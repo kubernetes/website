@@ -2,36 +2,53 @@
 title: 为命名空间配置 CPU 最小和最大约束
 content_type: task
 weight: 40
+description: >-
+  为命名空间定义一个有效的 CPU 资源限制范围，使得在该命名空间中所有新建 Pod 的 CPU 资源是在你所设置的范围内。
 ---
 
 <!--
 title: Configure Minimum and Maximum CPU Constraints for a Namespace
 content_type: task
 weight: 40
+description: >-
+  Define a range of valid CPU resource limits for a namespace, so that every new Pod
+  in that namespace falls within the range you configure.
 -->
 
 <!-- overview -->
 
 <!--
-This page shows how to set minimum and maximum values for the CPU resources used by Containers
-and Pods in a namespace. You specify minimum and maximum CPU values in a
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
+This page shows how to set minimum and maximum values for the CPU resources used by containers
+and Pods in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. You specify minimum
+and maximum CPU values in a
+[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 -->
-本页介绍如何为命名空间中容器和 Pod 使用的 CPU 资源设置最小和最大值。
+本页介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}中的容器和 Pod
+设置其所使用的 CPU 资源的最小和最大值。
 你可以通过
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
-对象声明 CPU 的最小和最大值. 如果 Pod 不能满足 LimitRange 的限制，它就不能在命名空间中创建。
+[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+对象声明 CPU 的最小和最大值.
+如果 Pod 不能满足 LimitRange 的限制，就无法在该命名空间中被创建。
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} 
 
 <!--
-Your cluster must have at least 1 CPU available for use to run the task examples.
+You must have access to create namespaces in your cluster.
+
+Each node in your cluster must have at least 1.0 CPU available for Pods.
+See [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
+to learn what Kubernetes means by “1 CPU”.
 -->
-你的集群中每个节点至少要有 1 个 CPU 可用才能运行本任务示例。
+在你的集群里你必须要有创建命名空间的权限。
+
+集群中的每个节点都必须至少有 1.0 个 CPU 可供 Pod 使用。
+
+请阅读 [CPU 的含义](/zh/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
+理解 "1 CPU" 在 Kubernetes 中的含义。
 
 <!-- steps -->
 
@@ -52,11 +69,11 @@ kubectl create namespace constraints-cpu-example
 <!--
 ## Create a LimitRange and a Pod
 
-Here's the configuration file for a LimitRange:
+Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}:
 -->
 ## 创建 LimitRange 和 Pod
 
-这里给出了 LimitRange 的配置文件：
+以下为 {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} 的示例清单：
 
 {{< codenew file="admin/resource/cpu-constraints.yaml" >}}
 
@@ -100,24 +117,25 @@ limits:
 ```
 
 <!--
-Now whenever a Container is created in the constraints-cpu-example namespace, Kubernetes
-performs these steps:
+Now whenever you create a Pod in the constraints-cpu-example namespace (or some other client
+of the Kubernetes API creates an equivalent Pod), Kubernetes performs these steps:
 
-* If the Container does not specify its own CPU request and limit, assign the default
-CPU request and limit to the Container.
+* If any container in that Pod does not specify its own CPU request and limit, the control plane
+  assigns the default CPU request and limit to that container.
 
-* Verify that the Container specifies a CPU request that is greater than or equal to 200 millicpu.
+* Verify that every container in that Pod specifies a CPU request that is greater than or equal to 200 millicpu.
 
-* Verify that the Container specifies a CPU limit that is less than or equal to 800 millicpu.
+* Verify that every container in that Pod specifies a CPU limit that is less than or equal to 800 millicpu.
 -->
 
-现在不管什么时候在 constraints-cpu-example 命名空间中创建容器，Kubernetes 都会执行下面这些步骤：
+现在，每当你在 constraints-mem-example 命名空间中创建 Pod 时，或者某些其他的
+Kubernetes API 客户端创建了等价的 Pod 时，Kubernetes 就会执行下面的步骤：
 
-* 如果容器没有声明自己的 CPU 请求和限制，将为容器指定默认 CPU 请求和限制。
+* 如果 Pod 中的任何容器未声明自己的 CPU 请求和限制，控制面将为该容器设置默认的 CPU 请求和限制。
 
-* 核查容器声明的 CPU 请求确保其大于或者等于 200 millicpu。
+* 确保该 Pod 中的每个容器的 CPU 请求至少 200 millicpu。
 
-* 核查容器声明的 CPU 限制确保其小于或者等于 800 millicpu。
+* 确保该 Pod 中每个容器 CPU 请求不大于 800 millicpu。
 
 <!--
 When creating a `LimitRange` object, you can specify limits on huge-pages
@@ -130,12 +148,12 @@ on these resources, the two values must be the same.
 {{< /note >}}
 
 <!--
-Here's the configuration file for a Pod that has one Container. The Container manifest
+Here's a manifest for a Pod that has one container. The container manifest
 specifies a CPU request of 500 millicpu and a CPU limit of 800 millicpu. These satisfy the
 minimum and maximum CPU constraints imposed by the LimitRange.
 -->
-这里给出了包含一个容器的 Pod 的配置文件。
-该容器声明了 500 millicpu 的 CPU 请求和 800 millicpu 的 CPU 限制。
+以下为某个仅包含一个容器的 Pod 的清单。
+该容器声明了 CPU 请求 500 millicpu 和 CPU 限制 800 millicpu 。
 这些参数满足了 LimitRange 对象规定的 CPU 最小和最大限制。
 
 {{< codenew file="admin/resource/cpu-constraints-pod.yaml" >}}
@@ -143,16 +161,16 @@ minimum and maximum CPU constraints imposed by the LimitRange.
 <!--
 Create the Pod:
 -->
-创建Pod：
+创建 Pod：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod.yaml --namespace=constraints-cpu-example
 ```
 
 <!--
-Verify that the Pod's Container is running:
+Verify that the Pod is running and that its container is healthy:
 -->
-确认一下 Pod 中的容器在运行：
+确认 Pod 正在运行，并且其容器处于健康状态：
 
 ```shell
 kubectl get pod constraints-cpu-demo --namespace=constraints-cpu-example
@@ -168,10 +186,10 @@ kubectl get pod constraints-cpu-demo --output=yaml --namespace=constraints-cpu-e
 ```
 
 <!--
-The output shows that the Container has a CPU request of 500 millicpu and CPU limit
+The output shows that the Pod's only container has a CPU request of 500 millicpu and CPU limit
 of 800 millicpu. These satisfy the constraints imposed by the LimitRange.
 -->
-输出结果表明容器的 CPU 请求为 500 millicpu，CPU 限制为 800 millicpu。
+输出结果显示该 Pod 的容器的 CPU 请求为 500 millicpu，CPU 限制为 800 millicpu。
 这些参数满足 LimitRange 规定的限制范围。
 
 ```yaml
@@ -214,10 +232,11 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-2.ya
 ```
 
 <!--
-The output shows that the Pod does not get created, because the Container specifies a CPU limit that is
-too large:
+The output shows that the Pod does not get created, because it defines an unacceptable container.
+That container is not acceptable because it specifies a CPU limit that is too large:
 -->
-输出结果表明 Pod 没有创建成功，因为容器声明的 CPU 限制太大了：
+输出结果表明 Pod 没有创建成功，因为其中定义了一个无法被接受的容器。
+该容器之所以无法被接受是因为其中设定了过高的 CPU 限制值：
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-2.yaml":
@@ -227,12 +246,12 @@ pods "constraints-cpu-demo-2" is forbidden: maximum cpu usage per Container is 8
 <!--
 ## Attempt to create a Pod that does not meet the minimum CPU request
 
-Here's the configuration file for a Pod that has one Container. The Container specifies a
+Here's a manifest for a Pod that has one container. The container specifies a
 CPU request of 100 millicpu and a CPU limit of 800 millicpu.
 -->
 ## 尝试创建一个不满足最小 CPU 请求的 Pod
 
-这里给出了包含一个容器的 Pod 的配置文件。该容器声明了100 millicpu的 CPU 请求和800 millicpu的 CPU 限制。
+以下为某个只有一个容器的 Pod 的清单。该容器声明了 CPU 请求 100 millicpu 和 CPU 限制 800 millicpu。
 
 {{< codenew file="admin/resource/cpu-constraints-pod-3.yaml" >}}
 
@@ -246,10 +265,12 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-3.ya
 ```
 
 <!--
-The output shows that the Pod does not get created, because the Container specifies a CPU
-request that is too small:
+The output shows that the Pod does not get created, because it defines an unacceptable container.
+That container is not acceptable because it specifies a CPU request that is lower than the
+enforced minimum:
 -->
-输出结果显示 Pod 没有创建成功，因为容器声明的 CPU 请求太小了：
+输出结果显示 Pod 没有创建成功，因为其中定义了一个无法被接受的容器。
+该容器无法被接受的原因是其中所设置的 CPU 请求小于最小值的限制：
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-3.yaml":
@@ -259,12 +280,12 @@ pods "constraints-cpu-demo-4" is forbidden: minimum cpu usage per Container is 2
 <!--
 ## Create a Pod that does not specify any CPU request or limit
 
-Here's the configuration file for a Pod that has one Container. The Container does not
-specify a CPU request, and it does not specify a CPU limit.
+Here's a manifest for a Pod that has one container. The container does not
+specify a CPU request, nor does it specify a CPU limit.
 -->
 ## 创建一个没有声明 CPU 请求和 CPU 限制的 Pod
 
-这里给出了包含一个容器的 Pod 的配置文件。该容器没有设定 CPU 请求和 CPU 限制。
+以下为一个只有一个容器的 Pod 的清单。该容器没有声明 CPU 请求，也没有声明 CPU 限制。
 
 {{< codenew file="admin/resource/cpu-constraints-pod-4.yaml" >}}
 
@@ -287,11 +308,14 @@ kubectl get pod constraints-cpu-demo-4 --namespace=constraints-cpu-example --out
 ```
 
 <!--
-The output shows that the Pod's Container has a CPU request of 800 millicpu and a CPU limit of 800 millicpu.
-How did the Container get those values?
+The output shows that the Pod's single container has a CPU request of 800 millicpu and a
+CPU limit of 800 millicpu.
+How did that container get those values?
 -->
-输出结果显示 Pod 的容器有个 800 millicpu 的 CPU 请求和 800 millicpu 的 CPU 限制。
-容器是怎样得到那些值的呢？
+输出结果显示 Pod 的唯一容器的 CPU 请求为 800 millicpu，CPU 限制为 800 millicpu。
+
+容器是怎样获得这些数值的呢？
+
 
 ```yaml
 resources:
@@ -302,26 +326,27 @@ resources:
 ```
 
 <!--
-Because your Container did not specify its own CPU request and limit, it was given the
-[default CPU request and limit](/docs/tasks/administer-cluster/cpu-default-namespace/)
-from the LimitRange.
+Because that container did not specify its own CPU request and limit, the control plane
+applied the
+[default CPU request and limit](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+from the LimitRange for this namespace.
 -->
-因为你的 Container 没有声明自己的 CPU 请求和限制，LimitRange 给它指定了
-[默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+因为这一容器没有声明自己的 CPU 请求和限制，
+控制面会根据命名空间中配置 LimitRange
+设置[默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
 
 <!--
-At this point, your Container might be running or it might not be running. Recall that a prerequisite
-for this task is that your Nodes have at least 1 CPU. If each of your Nodes has only
-1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request
-of 800 millicpu. If you happen to be using Nodes with 2 CPU, then you probably have
-enough CPU to accommodate the 800 millicpu request.
+At this point, your Pod might be running or it might not be running. Recall that a prerequisite for
+this task is that your Nodes must have at least 1 CPU available for use. If each of your Nodes has only 1 CPU,
+then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu. 
+If you happen to be using Nodes with 2 CPU, then you probably have enough CPU to accommodate the 800 millicpu request.
 
 Delete your Pod:
 -->
-此时，你的容器可能运行也可能没有运行。
-回想一下，本任务的先决条件是你的节点要有 1 个 CPU。
-如果你的每个节点仅有 1 个 CPU，那么可能没有任何一个节点可以满足 800 millicpu 的 CPU 请求。
-如果你在用的节点恰好有两个 CPU，那么你才可能有足够的 CPU 来满足 800 millicpu 的请求。
+此时，你的 Pod 可能已经运行起来也可能没有运行起来。
+回想一下我们本次任务的先决条件是你的每个节点都至少有 1 CPU。
+如果你的每个节点都只有 1 CPU，那将没有一个节点拥有足够的可分配 CPU 来满足 800 millicpu 的请求。
+如果你在用的节点恰好有 2 CPU，那么有可能有足够的 CPU 来满足 800 millicpu 的请求。
 
 ```
 kubectl delete pod constraints-cpu-demo-4 --namespace=constraints-cpu-example
