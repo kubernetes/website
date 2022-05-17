@@ -509,7 +509,7 @@ Once a Pod network has been installed, you can confirm that it is working by
 checking that the CoreDNS Pod is `Running` in the output of `kubectl get pods --all-namespaces`.
 And once the CoreDNS Pod is up and running, you can continue by joining your nodes.
 -->
-安装 Pod 网络后，您可以通过在 `kubectl get pods --all-namespaces` 输出中检查 CoreDNS Pod 是否 `Running` 来确认其是否正常运行。
+安装 Pod 网络后，你可以通过在 `kubectl get pods --all-namespaces` 输出中检查 CoreDNS Pod 是否 `Running` 来确认其是否正常运行。
 一旦 CoreDNS Pod 启用并运行，你就可以继续加入节点。
 
 <!--
@@ -517,7 +517,7 @@ If your network is not working or CoreDNS is not in the `Running` state, check o
 [troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
 for `kubeadm`.
 -->
-如果您的网络无法正常工作或 CoreDNS 不在“运行中”状态，请查看 `kubeadm` 的
+如果你的网络无法正常工作或 CoreDNS 不在“运行中”状态，请查看 `kubeadm` 的
 [故障排除指南](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
 <!--
