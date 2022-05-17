@@ -63,7 +63,7 @@ The login process creates or updates a `config.json` file that holds an authoriz
 
 View the `config.json` file:
 -->
-当出现提示时，输入您的 Docker ID 和登录凭证（访问令牌、
+当出现提示时，输入你的 Docker ID 和登录凭证（访问令牌、
 或 Docker ID 的密码）。
 
 登录过程会创建或更新保存有授权令牌的 `config.json` 文件。
