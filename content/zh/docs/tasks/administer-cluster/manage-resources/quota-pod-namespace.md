@@ -2,24 +2,39 @@
 title: 配置命名空间下 Pod 配额
 content_type: task
 weight: 60
+description: >-
+  限制在命名空间中创建的 Pod 数量。
 ---
+
+<!--
+title: Configure a Pod Quota for a Namespace
+content_type: task
+weight: 60
+description: >-
+  Restrict how many Pods you can create within a namespace.
+-->
 
 <!-- overview -->
 
 <!--
 This page shows how to set a quota for the total number of Pods that can run
-in a namespace. You specify quotas in a
-[ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
+in a {{< glossary_tooltip text="Namespace" term_id="namespace" >}}. You specify quotas in a
+[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
 object.
 -->
-本文主要描述如何配置一个命名空间下可运行的 Pod 个数配额。
-你可以使用
-[ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
+本文主要介绍如何在{{< glossary_tooltip text="命名空间" term_id="namespace" >}}中设置可运行 Pod 总数的配额。
+你可以通过使用
+[ResourceQuota](/zh/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
 对象来配置配额。
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+<!--
+You must have access to create namespaces in your cluster.
+-->
+在你的集群里你必须要有创建命名空间的权限。
 
 <!-- steps -->
 
@@ -40,11 +55,11 @@ kubectl create namespace quota-pod-example
 <!--
 ## Create a ResourceQuota
 
-Here is the configuration file for a ResourceQuota object:
+Here is an example manifest for a ResourceQuota:
 -->
 ## 创建 ResourceQuota
 
-下面是一个 ResourceQuota 的配置文件：
+下面是 ResourceQuota 的示例清单：
 
 {{< codenew file="admin/resource/quota-pod.yaml" >}}
 
@@ -83,18 +98,20 @@ status:
 ```
 
 <!--
-Here is the configuration file for a Deployment:
+Here is an example manifest for a {{< glossary_tooltip term_id="deployment" >}}:
 -->
-下面是一个 Deployment 的配置文件：
+下面是一个 {{< glossary_tooltip term_id="deployment" >}} 的示例清单：
 
 {{< codenew file="admin/resource/quota-pod-deployment.yaml" >}}
 
 <!--
-In the configuration file, `replicas: 3` tells Kubernetes to attempt to create three Pods, all running the same application.
+In that manifest, `replicas: 3` tells Kubernetes to attempt to create three new Pods, all
+running the same application.
 
 Create the Deployment:
 -->
-在配置文件中，`replicas: 3` 告诉 Kubernetes 尝试创建三个 Pods，且运行相同的应用。
+在清单中，`replicas: 3` 告诉 Kubernetes 尝试创建三个 Pods，
+且运行相同的应用。
 
 创建这个 Deployment：
 
@@ -113,7 +130,7 @@ kubectl get deployment pod-quota-demo --namespace=quota-pod-example --output=yam
 
 <!--
 The output shows that even though the Deployment specifies three replicas, only two
-Pods were created because of the quota.
+Pods were created because of the quota you defined earlier:
 -->
 从输出的信息我们可以看到，尽管尝试创建三个 Pod，但是由于配额的限制，只有两个 Pod 能被成功创建。
 
@@ -125,10 +142,23 @@ spec:
 status:
   availableReplicas: 2
 ...
-lastUpdateTime: 2017-07-07T20:57:05Z
+lastUpdateTime: 2021-04-02T20:57:05Z
     message: 'unable to create pods: pods "pod-quota-demo-1650323038-" is forbidden:
       exceeded quota: pod-demo, requested: pods=1, used: pods=2, limited: pods=2'
 ```
+
+<!--
+### Choice of resource
+
+In this task you have defined a ResourceQuota that limited the total number of Pods, but
+you could also limit the total number of other kinds of object. For example, you
+might decide to limit how many {{< glossary_tooltip text="CronJobs" term_id="cronjob" >}}
+that can live in a single namespace.
+-->
+### 资源的选择
+在此任务中，你定义了一个限制 Pod 总数的 ResourceQuota，
+你也可以限制其他类型对象的总数。例如，
+你可以限制在一个命名空间中可以创建的 {{< glossary_tooltip text="CronJobs" term_id="cronjob" >}} 的数量。
 
 <!--
 ## Clean up
