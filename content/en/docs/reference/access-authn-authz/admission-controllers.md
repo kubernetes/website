@@ -356,19 +356,21 @@ users:
 For additional HTTP configuration, refer to the
 [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation.
 
-#### Request Payloads
+#### Request payloads
 
 When faced with an admission decision, the API Server POSTs a JSON serialized
 `imagepolicy.k8s.io/v1alpha1` `ImageReview` object describing the action.
 This object contains fields describing the containers being admitted, as well as
 any pod annotations that match `*.image-policy.k8s.io/*`.
 
-Note that webhook API objects are subject to the same versioning compatibility rules
+{{ note }}
+The webhook API objects are subject to the same versioning compatibility rules
 as other Kubernetes API objects. Implementers should be aware of looser compatibility
-promises for alpha objects and check the "apiVersion" field of the request to
+promises for alpha objects and check the `apiVersion` field of the request to
 ensure correct deserialization.
 Additionally, the API Server must enable the `imagepolicy.k8s.io/v1alpha1` API extensions
 group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
+{{ /note }}
 
 An example request body:
 
@@ -420,8 +422,8 @@ To disallow access, the service would return:
 }
 ```
 
-For further documentation refer to the `imagepolicy.v1alpha1` API objects and
-`plugin/pkg/admission/imagepolicy/admission.go`.
+For further documentation refer to the
+[`imagepolicy.v1alpha1` API](/docs/reference/config-api/imagepolicy.v1alpha1/).
 
 #### Extending with Annotations
 
@@ -432,9 +434,9 @@ accept different information.
 
 Examples of information you might put here are:
 
- * request to "break glass" to override a policy, in case of emergency.
- * a ticket number from a ticket system that documents the break-glass request
- * provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
+* request to "break glass" to override a policy, in case of emergency.
+* a ticket number from a ticket system that documents the break-glass request
+* provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
 
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way.
 
@@ -469,8 +471,7 @@ webhooks or validating admission controllers will permit the request to finish.
 
 If you disable the MutatingAdmissionWebhook, you must also disable the
 `MutatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1`
-group/version via the `--runtime-config` flag (both are on by default in
-versions >= 1.9).
+group/version via the `--runtime-config` flag, both are on by default.
 
 #### Use caution when authoring and installing mutating webhooks
 
@@ -599,7 +600,7 @@ Starting from 1.11, this admission controller is disabled by default.
 This admission controller defaults and limits what node selectors may be used within a namespace
 by reading a namespace annotation and a global configuration.
 
-#### Configuration File Format
+#### Configuration file format
 
 `PodNodeSelector` uses a configuration file to set options for the behavior of the backend.
 Note that the configuration file format will move to a versioned file in a future release.
@@ -649,9 +650,7 @@ This admission controller has the following behavior:
 3. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts
    result in rejection.
 4. Evaluate the pod's node selector against the namespace-specific allowed selector defined the
-   plugin configuration file.
-
-Conflicts result in rejection.
+   plugin configuration file. Conflicts result in rejection.
 
 {{< note >}}
 PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction
