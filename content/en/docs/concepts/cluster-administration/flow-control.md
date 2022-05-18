@@ -331,7 +331,7 @@ Thus, in a situation with a mixture of servers of different versions
 there may be thrashing as long as different servers have different
 opinions of the proper content of these objects.
 
-Each `kube-apiserver` makes an inital maintenance pass over the
+Each `kube-apiserver` makes an initial maintenance pass over the
 mandatory and suggested configuration objects, and after that does
 periodic maintenance (once per minute) of those objects.
 

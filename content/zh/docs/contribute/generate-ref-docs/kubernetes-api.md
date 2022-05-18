@@ -31,9 +31,9 @@ Kubernetes API 参考文档是从
 构建的，
 且使用[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) 生成代码。
 
-如果您在生成的文档中发现错误，则需要[在上游修复](/zh/docs/contribute/generate-ref-docs/contribute-upstream/)。
+如果你在生成的文档中发现错误，则需要[在上游修复](/zh/docs/contribute/generate-ref-docs/contribute-upstream/)。
 
-如果您只需要从 [OpenAPI](https://github.com/OAI/OpenAPI-Specification) 规范中重新生成参考文档，请继续阅读此页。
+如果你只需要从 [OpenAPI](https://github.com/OAI/OpenAPI-Specification) 规范中重新生成参考文档，请继续阅读此页。
 
 ## {{% heading "prerequisites" %}}
 
@@ -135,7 +135,7 @@ Go to `<rdocs-base>`, and open the `Makefile` for editing:
 * 设置 `K8S_ROOT` 为 `<k8s-base>`.
 * 设置 `K8S_WEBROOT` 为 `<web-base>`.
 * 设置 `K8S_RELEASE` 为要构建的文档的版本。
-  例如，如果您想为 Kubernetes 1.17.0 构建文档，请将 `K8S_RELEASE` 设置为 1.17.0。
+  例如，如果你想为 Kubernetes 1.17.0 构建文档，请将 `K8S_RELEASE` 设置为 1.17.0。
 
 <!-- 
 For example: 
@@ -307,7 +307,7 @@ to monitor your pull request until it has been merged.
 -->
 基于你所生成的更改[创建 PR](/zh/docs/contribute/new-content/open-a-pr/)，
 提交到 [kubernetes/website](https://github.com/kubernetes/website) 仓库。
-监视您提交的 PR，并根据需要回复 reviewer 的评论。继续监视您的 PR，直到合并为止。
+监视你提交的 PR，并根据需要回复 reviewer 的评论。继续监视你的 PR，直到合并为止。
 
 ## {{% heading "whatsnext" %}}
 

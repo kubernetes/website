@@ -64,7 +64,7 @@ client libraries:
 -->
 ## 官方支持的客户端库
 
-如果您需要通过编程语言调用 Kubernetes API，您可以使用
+如果你需要通过编程语言调用 Kubernetes API，你可以使用
 [客户端库](/zh/docs/reference/using-api/client-libraries/)。以下是官方支持的客户端库：
 
 - [Kubernetes Go 语言客户端库](https://github.com/kubernetes/client-go/)
@@ -140,6 +140,7 @@ operator to use or manage a cluster.
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
   [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
 * [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
+* [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/)
 * [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) and
   [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
@@ -160,6 +161,7 @@ operator to use or manage a cluster.
 * [kubelet 配置 (v1alpha1)](/zh/docs/reference/config-api/kubelet-config.v1alpha1/) 和
   [kubelet 配置 (v1beta1)](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
 * [kubelet 凭据驱动 (v1alpha1)](/zh/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
+* [kubelet 凭据驱动 (v1beta1)](/zh/docs/reference/config-api/kubelet-credentialprovider.v1beta1/)
 * [kube-scheduler 配置 (v1beta2)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2/) 和
   [kube-scheduler 配置 (v1beta3)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * [kube-proxy 配置 (v1alpha1)](/zh/docs/reference/config-api/kube-proxy-config.v1alpha1/)

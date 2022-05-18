@@ -46,7 +46,7 @@ Here is the configuration file for the Pod:
 
 ## 为 Pod 配置 projected 卷
 
-本练习中，您将从本地文件来创建包含有用户名和密码的 Secret。然后创建运行一个容器的 Pod，
+本练习中，你将从本地文件来创建包含有用户名和密码的 Secret。然后创建运行一个容器的 Pod，
 该 Pod 使用[`projected`](/zh/docs/concepts/storage/volumes/#projected) 卷将 Secret 挂载到相同的路径下。
 
 下面是 Pod 的配置文件：

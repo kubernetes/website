@@ -345,7 +345,7 @@ This file specifies the default locations for all of the files managed by kubead
 作了增强：
 
 {{< note >}}
-下面的内容只是一个例子。 如果您不想使用包管理器，
+下面的内容只是一个例子。 如果你不想使用包管理器，
 请遵循[没有包管理器](/zh/docs/setup/productionenvironment/tools/kubeadm/install-kubeadm/#k8s-install-2))
 部分中叙述的指南。
 {{< /note >}}

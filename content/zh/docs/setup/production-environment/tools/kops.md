@@ -204,7 +204,7 @@ no longer get your clusters confused, you can share clusters with your colleague
 and you can reach them without relying on remembering an IP address.
 -->
 kops 对集群名称有明显的要求：它应该是有效的 DNS 名称。这样一来，你就不会再使集群混乱，
-可以与同事明确共享集群，并且无需依赖记住 IP 地址即可访问群集。
+可以与同事明确共享集群，并且无需依赖记住 IP 地址即可访问集群。
 
 <!--
 You can, and probably should, use subdomains to divide your clusters.  As our example we will use
