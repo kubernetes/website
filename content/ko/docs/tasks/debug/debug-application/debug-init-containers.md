@@ -1,6 +1,15 @@
 ---
+
+
+
+
+
+
+
+
 title: 초기화 컨테이너(Init Containers) 디버그하기
 content_type: task
+weight: 40
 ---
 
 <!-- overview -->
