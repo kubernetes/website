@@ -256,22 +256,21 @@ For more details, see the [`azureDisk` volume plugin](https://github.com/kuberne
 -->
 #### azureDisk 的 CSI 迁移  {#azuredisk-csi-migration}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 The `CSIMigration` feature for `azureDisk`, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `disk.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
-Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
-features must be enabled.
+Storage Interface (CSI) Driver. In order to use this feature, the
+[Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
+must be installed on the cluster and the `CSIMigration` features must be enabled.
 -->
 
 启用 `azureDisk` 的 `CSIMigration` 功能后，所有插件操作从现有的树内插件重定向到
 `disk.csi.azure.com` 容器存储接口（CSI）驱动程序。
 为了使用此功能，必须在集群中安装
 [Azure 磁盘 CSI 驱动程序](https://github.com/kubernetes-sigs/azuredisk-csi-driver)，
-并且 `CSIMigration` 和 `CSIMigrationAzureDisk` 功能必须被启用。
+并且 `CSIMigration` 功能必须被启用。
 
 <!--
 #### azureDisk CSI migration complete
@@ -322,7 +321,8 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFi
 必须被启用。
 
 <!--
-Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
+Azure File CSI driver does not support using same volume with different fsgroups. If
+Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
 -->
 Azure 文件 CSI 驱动尚不支持为同一卷设置不同的 fsgroup。
 如果 AzureFile CSI 迁移被启用，用不同的 fsgroup 来使用同一卷也是不被支持的。
@@ -413,20 +413,20 @@ spec:
 -->
 #### OpenStack CSI 迁移
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
-The `CSIMigration` feature for Cinder is enabled by default in Kubernetes 1.21.
+The `CSIMigration` feature for Cinder is enabled by default since Kubernetes 1.21.
 It redirects all plugin operations from the existing in-tree plugin to the
 `cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
 [OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster.
-You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
-If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
-for all aspects of Cinder volume storage management.
+
+To disable the in-tree Cinder plugin from being loaded by the controller manager
+and the kubelet, you can enable the `InTreePluginOpenStackUnregister`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-Cinder 的 `CSIMigration` 功能在 Kubernetes 1.21 版本中是默认被启用的。
+Cinder 的 `CSIMigration` 功能从 Kubernetes 1.21 版本开始默认被启用。
 此特性会将插件的所有操作从现有的树内插件重定向到
 `cinder.csi.openstack.org` 容器存储接口（CSI）驱动程序。
 为了使用此功能，必须在集群中安装
@@ -434,8 +434,9 @@ Cinder 的 `CSIMigration` 功能在 Kubernetes 1.21 版本中是默认被启用�
 你可以通过设置 `CSIMigrationOpenStack`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
 为 `false` 来禁止 Cinder CSI 迁移。
-如果你禁用了 `CSIMigrationOpenStack` 功能特性，则树内的 Cinder 卷插件
-会负责 Cinder 卷存储管理的方方面面。
+
+要禁止控制器管理器和 kubelet 加载树内 Cinder 插件，
+你可以启用 `InTreePluginOpenStackUnregister` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 
 ### configMap
 
@@ -1601,15 +1602,15 @@ For more information about StorageOS, dynamic provisioning, and PersistentVolume
 关于 StorageOS 的进一步信息、动态供应和持久卷申领等等，请参考
 [StorageOS 示例](https://github.com/kubernetes/examples/blob/master/volumes/storageos)。
 
-### vsphereVolume {#vspherevolume}
-
 <!--
-You must configure the Kubernetes vSphere Cloud Provider. For cloudprovider
-configuration, refer to the [vSphere Getting Started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
+### vsphereVolume (deprecated) {#vspherevolume}
+
+We recommend to use vSphere CSI out-of-tree driver instead.
 -->
+### vsphereVolume (已弃用) {#vspherevolume}
+
 {{< note >}}
-你必须配置 Kubernetes 的 vSphere 云驱动。云驱动的配置方法请参考
-[vSphere 使用指南](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)。
+我们建议改用 vSphere CSI out-of-tree 驱动程序。
 {{< /note >}}
 
 <!--
@@ -1619,68 +1620,6 @@ of a volume are preserved when it is unmounted. It supports both VMFS and VSAN d
 `vsphereVolume` 用来将 vSphere VMDK 卷挂载到你的 Pod 中。
 在卸载卷时，卷的内容会被保留。
 vSphereVolume 卷类型支持 VMFS 和 VSAN 数据仓库。
-
-<!--
-You must create VMDK using one of the following methods before using with Pod.
--->
-{{< caution >}}
-在挂载到 Pod 之前，你必须用下列方式之一创建 VMDK。
-{{< /caution >}}
-
-<!--
-#### Creating a VMDK volume {#creating-vmdk-volume}
-
-Choose one of the following methods to create a VMDK.
--->
-#### 创建 VMDK 卷  {#creating-vmdk-volume}
-
-选择下列方式之一创建 VMDK。
-
-{{< tabs name="tabs_volumes" >}}
-{{% tab name="使用 vmkfstools 创建" %}}
-
-首先 ssh 到 ESX，然后使用下面的命令来创建 VMDK：
-
-```shell
-vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
-```
-{{% /tab %}}
-{{% tab name="使用 vmware-vdiskmanager 创建" %}}
-
-使用下面的命令创建 VMDK：
-
-```shell
-vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
-```
-{{% /tab %}}
-
-{{< /tabs >}}
-
-
-<!--
-#### vSphere VMDK configuration example {#vsphere-vmdk-configuration}
--->
-#### vSphere VMDK 配置示例    {#vsphere-vmdk-configuration}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-vmdk
-spec:
-  containers:
-  - image: k8s.gcr.io/test-webserver
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-vmdk
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # 此 VMDK 卷必须已经存在
-    vsphereVolume:
-      volumePath: "[DatastoreName] volumes/myDisk"
-      fsType: ext4
-```
 
 <!--
 For more information, see the [vSphere volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) examples.
@@ -1701,6 +1640,8 @@ from the existing in-tree plugin to the `csi.vsphere.vmware.com` {{< glossary_to
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+You can find additional advice on how to migrate in VMware's
+documentation page [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 -->
 当 `vsphereVolume` 的 `CSIMigration` 特性被启用时，所有插件操作都被从树内插件重定向到
 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。
@@ -1708,12 +1649,20 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere
 [vSphere CSI 驱动](https://github.com/kubernetes-sigs/vsphere-csi-driver)，并启用
 `CSIMigration` 和 `CSIMigrationvSphere`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+你可以在 VMware 的文档页面 [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)
+中找到有关如何迁移的其他建议。
 
 <!--
-This also requires minimum vSphere vCenter/ESXi Version to be 7.0u1 and minimum HW Version to be VM version 15.
+Kubernetes v{{< skew currentVersion >}} requires that you are using vSphere 7.0u2 or later
+in order to migrate to the out-of-tree CSI driver.
+If you are running a version of Kubernetes other than v{{< skew currentVersion >}}, consult
+the documentation for that version of Kubernetes.
+If you are running Kubernetes v{{< skew currentVersion >}} and an older version of vSphere,
+consider upgrading to at least vSphere 7.0u2.
 -->
-此特性还要求 vSphere vCenter/ESXi 的版本至少为 7.0u1，且 HW 版本至少为
-VM version 15。
+Kubernetes v{{< skew currentVersion >}} 要求你使用 vSphere 7.0u2 或更高版本才能迁移到树外 CSI 驱动程序。
+如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，请查阅该 Kubernetes 版本的文档。
+如果你正在运行 Kubernetes v{{< skew currentVersion >}} 和旧版本的 vSphere，请考虑至少升级到 vSphere 7.0u2。
 
 {{< note >}}
 <!--
@@ -1984,7 +1933,6 @@ A `csi` volume can be used in a Pod in three different ways:
 
 * through a reference to a [PersistentVolumeClaim](#persistentvolumeclaim)
 * with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
-(alpha feature)
 * with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
 if the driver supports that (beta feature)
 -->
@@ -1995,7 +1943,6 @@ if the driver supports that (beta feature)
 
 * 通过 PersistentVolumeClaim(#persistentvolumeclaim) 对象引用
 * 使用[一般性的临时卷](/zh/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
-  （Alpha 特性）
 * 使用 [CSI 临时卷](/zh/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)，
   前提是驱动支持这种用法（Beta 特性）
 
