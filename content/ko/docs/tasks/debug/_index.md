@@ -1,9 +1,12 @@
 ---
+title: "모니터링, 로깅, 및 디버깅"
+description: 클러스터를 트러블슈팅할 수 있도록 모니터링과 로깅을 설정하거나, 컨테이너화된 애플리케이션을 디버깅한다.
+weight: 20
 
 
 
 content_type: concept
-title: 트러블슈팅하기
+no_list: true
 ---
 
 <!-- overview -->
@@ -11,9 +14,9 @@ title: 트러블슈팅하기
 때때로 문제가 발생할 수 있다. 이 가이드는 이러한 상황을 해결하기 위해 작성되었다. 문제 해결에는
 다음 두 가지를 참고해 볼 수 있다.
 
-* [애플리케이션 트러블슈팅하기](/docs/tasks/debug-application-cluster/debug-application/) - 쿠버네티스에
+* [애플리케이션 디버깅하기](/ko/docs/tasks/debug/debug-application/) - 쿠버네티스에
   코드를 배포하였지만 제대로 동작하지 않는 사용자들에게 유용한 가이드이다.
-* [클러스터 트러블슈팅하기](/ko/docs/tasks/debug-application-cluster/debug-cluster/) - 쿠버네티스 클러스터에
+* [클러스터 디버깅하기](/ko/docs/tasks/debug/debug-cluster/) - 쿠버네티스 클러스터에
   문제를 겪고 있는 클러스터 관리자 혹은 기분이 나쁜 사람들에게 유용한 가이드이다.
 
 여러분이 현재 사용중인 릴리스에 대한 알려진 이슈들을 다음의 [릴리스](https://github.com/kubernetes/kubernetes/releases)
@@ -45,8 +48,9 @@ title: 트러블슈팅하기
 여러분들이 겪고 있는 문제와 동일한 문제에 대한 도움을 위해 커뮤니티의 다른 사람들이 이미
 질문을 올렸을 수 있다. 쿠버네티스 팀은
 [쿠버네티스 태그가 등록된 글](https://stackoverflow.com/questions/tagged/kubernetes)들을 모니터링하고 있다.
-발생한 문제와 도움이 되는 질문이 없다면,
-[새로운 질문](https://stackoverflow.com/questions/ask?tags=kubernetes)을 올려라!
+발생한 문제에 도움이 되는 기존 질문이 없다면,
+**[해당 질문이 스택 오버플로우에 적합한지](https://stackoverflow.com/help/on-topic)와 [새로운 질문을 올리는 방법](https://stackoverflow.com/help/how-to-ask)에 대한 가이드를 읽은 뒤에** 
+[새로운 질문](https://stackoverflow.com/questions/ask?tags=kubernetes)을 올리자!
 
 ### 슬랙
 
@@ -102,6 +106,3 @@ Turkey(터키) | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), 
 * 쿠버네티스 버전: `kubectl version`
 * 클라우드 프로바이더, OS 배포판, 네트워크 구성, 및 도커 버전
 * 문제를 재현하기 위한 절차
-
-
-
