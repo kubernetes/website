@@ -133,11 +133,15 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 ```
 
 <!--
-By default, in GCE/Google Kubernetes Engine starting with Kubernetes version 1.7.0, if network policy is enabled or you are using a cluster CIDR not in the 10.0.0.0/8 range, the ip-masq-agent will run in your cluster.  If you are running in another environment, you can add the ip-masq-agent [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) to your cluster:
+By default, in GCE/Google Kubernetes Engine, if network policy is enabled or 
+you are using a cluster CIDR not in the 10.0.0.0/8 range, the `ip-masq-agent`
+will run in your cluster.  If you are running in another environment,
+you can add the ip-masq-agent [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 
+to your cluster:
 -->
-默认情况下，从 Kubernetes 1.7.0 版本开始的 GCE/Google Kubernetes Engine 中，
+默认情况下，GCE/Google Kubernetes Engine 中，
 如果启用了网络策略，或者你使用的集群 CIDR 不在 10.0.0.0/8 范围内，
-则 ip-masq-agent 将在你的集群中运行。
+则 `ip-masq-agent` 将在你的集群中运行。
 如果你在其他环境中运行，则可以将 ip-masq-agent 
 [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/) 添加到你的集群：
 
@@ -180,12 +184,12 @@ In most cases, the default set of rules should be sufficient; however, if this i
 
 {{< note >}}
 <!--
-It is important that the file is called config since, by default, that will be used as the key for lookup by the ip-masq-agent:
+It is important that the file is called config since, by default, that will be used as the key for lookup by the `ip-masq-agent`:
 -->
-重要的是，该文件之所以被称为 config，因为默认情况下，该文件将被用作
-ip-masq-agent 查找的主键：
+重要的是，该文件之所以被称为 config，因为默认情况下，
+该文件将被用作 `ip-masq-agent` 查找的主键：
 
-```
+```yaml
 nonMasqueradeCIDRs:
   - 10.0.0.0/8
 resyncInterval: 60s
@@ -197,20 +201,23 @@ Run the following command to add the config map to your cluster:
 -->
 运行以下命令将配置映射添加到你的集群：
 
-```
+```shell
 kubectl create configmap ip-masq-agent --from-file=config --namespace=kube-system
 ```
 
 <!--
-This will update a file located at */etc/config/ip-masq-agent* which is periodically checked every *resyncInterval* and applied to the cluster node.
+This will update a file located at */etc/config/ip-masq-agent* which is periodically checked every `resyncInterval` and applied to the cluster node.
 After the resync interval has expired, you should see the iptables rules reflect your changes:
 -->
-这将更新位于 */etc/config/ip-masq-agent* 的一个文件，该文件以 *resyncInterval* 
+这将更新位于 */etc/config/ip-masq-agent* 的一个文件，该文件以 `resyncInterval`
 为周期定期检查并应用于集群节点。
 重新同步间隔到期后，你应该看到你的更改在 iptables 规则中体现：
 
-```
+```shell
 iptables -t nat -L IP-MASQ-AGENT
+```
+
+```none
 Chain IP-MASQ-AGENT (1 references)
 target     prot opt source               destination
 RETURN     all  --  anywhere             169.254.0.0/16       /* ip-masq-agent: cluster-local traffic should not be subject to MASQUERADE */ ADDRTYPE match dst-type !LOCAL
@@ -219,13 +226,13 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 ```
 
 <!--
-By default, the link local range (169.254.0.0/16) is also handled by the ip-masq agent, which sets up the appropriate iptables rules.  To have the ip-masq-agent ignore link local, you can set *masqLinkLocal*  to true in the config map.
+By default, the link local range (169.254.0.0/16) is also handled by the ip-masq agent, which sets up the appropriate iptables rules.  To have the ip-masq-agent ignore link local, you can set `masqLinkLocal` to true in the ConfigMap.
 -->
 默认情况下，本地链路范围 (169.254.0.0/16) 也由 ip-masq agent 处理，
 该代理设置适当的 iptables 规则。 要使 ip-masq-agent 忽略本地链路，
-可以在配置映射中将 *masqLinkLocal* 设置为 true。
+可以在 ConfigMap 中将 `masqLinkLocal` 设置为 true。
 
-```
+```yaml
 nonMasqueradeCIDRs:
   - 10.0.0.0/8
 resyncInterval: 60s
