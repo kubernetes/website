@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate the certificate for the API server to connect to kubelet 
+-->
+生成供 API 服务器连接 kubelet 的证书
 
 <!-- 
 ### Synopsis
@@ -6,10 +21,9 @@
 ### 概要
 
 <!--
-Generate the certificate for the API server to connect to kubelet, and save them into apiserver-kubelet-client.cert and apiserver-kubelet-client.key files.
+Generate the certificate for the API server to connect to kubelet, and save them into apiserver-kubelet-client.crt and apiserver-kubelet-client.key files.
 -->
-
-生成供 API 服务器连接 kubelet 的证书，并将其保存到 apiserver-kubelet-client.cert 和 apiserver-kubelet-client.key 文件中。
+生成供 API 服务器连接 kubelet 的证书，并将其保存到 apiserver-kubelet-client.crt 和 apiserver-kubelet-client.key 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
@@ -51,9 +65,9 @@ kubeadm init phase certs apiserver-kubelet-client [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-存储证书的路径。
+<p>存储证书的路径。</p>
 </td>
 </tr>
 
@@ -63,9 +77,9 @@ The path where to save and store the certificates.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件路径。
+<p>kubeadm 配置文件路径。</p>
 </td>
 </tr>
 
@@ -75,9 +89,9 @@ kubeadm 配置文件路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for apiserver-kubelet-client
+<p>help for apiserver-kubelet-client</p>
 -->
-apiserver-kubelet-client 操作的帮助命令
+<p>apiserver-kubelet-client 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -92,9 +106,9 @@ apiserver-kubelet-client 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面指定特定的 Kubernetes 版本。
+<p>为控制平面指定特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -120,9 +134,9 @@ Choose a specific Kubernetes version for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 指向宿主机上的 '实际' 根文件系统的路径。
+<p>[实验] 指向宿主机上的 '实际' 根文件系统的路径。</p>
 </td>
 </tr>
 
