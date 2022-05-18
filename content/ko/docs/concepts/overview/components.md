@@ -114,7 +114,7 @@ kube-controller-manager와 마찬가지로 cloud-controller-manager는 논리적
 
 ### 컨테이너 리소스 모니터링
 
-[컨테이너 리소스 모니터링](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)은
+[컨테이너 리소스 모니터링](/ko/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)은
 중앙 데이터베이스 내의 컨테이너들에 대한 포괄적인 시계열 매트릭스를 기록하고 그 데이터를 열람하기 위한 UI를 제공해 준다.
 
 ### 클러스터-레벨 로깅

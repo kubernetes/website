@@ -997,8 +997,8 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 ## 도움 받기 및 트러블슈팅 {#troubleshooting}
 
 쿠버네티스 클러스터 트러블슈팅을 위한 기본
-도움말은 이
-[섹션](/ko/docs/tasks/debug-application-cluster/troubleshooting/)에서 먼저 찾아야 한다. 이
+도움말은 
+[이 섹션](/ko/docs/tasks/debug/debug-cluster/)에서 먼저 찾아야 한다. 이
 섹션에는 몇 가지 추가 윈도우 관련 트러블슈팅 도움말이 포함되어 있다.
 로그는 쿠버네티스에서 트러블슈팅하는데 중요한 요소이다. 다른
 기여자로부터 트러블슈팅 지원을 구할 때마다 이를 포함해야
