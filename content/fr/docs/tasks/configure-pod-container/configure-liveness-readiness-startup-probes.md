@@ -37,7 +37,7 @@ Le champ `periodSeconds` spécifie que le Kubelet doit effectuer un check de liv
 Au démarrage, le conteneur exécute cette commande :
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 Pour les 30 premières secondes de la vie du conteneur, il y a un fichier `/tmp/healthy`.
