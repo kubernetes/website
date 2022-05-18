@@ -1,5 +1,5 @@
 ---
-title: Managing Kubernetes Objects Using Imperative Commands
+title: Imperative Management of Kubernetes Objects Using Commands
 content_type: task
 weight: 30
 ---
