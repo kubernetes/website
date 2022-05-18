@@ -97,7 +97,7 @@ spec:
 이것은 kubelet이 지명된 런타임클래스를 사용하여 해당 파드를 실행하도록 지시할 것이다.
 만약 지명된 런타임클래스가 없거나, CRI가 상응하는 핸들러를 실행할 수 없는 경우, 파드는
 `Failed` 터미널 [단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계-phase)로 들어간다.
-에러 메시지에 상응하는 [이벤트](/docs/tasks/debug-application-cluster/debug-application-introspection/)를
+에러 메시지에 상응하는 [이벤트](/ko/docs/tasks/debug/debug-application/debug-running-pod/)를
 확인한다.
 
 만약 명시된 `runtimeClassName`가 없다면, 기본 런타임 핸들러가 사용되며,
