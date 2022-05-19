@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Mark a node as a control-plane 
+-->
+将节点标记为控制平面节点
 
 <!--
 ### Synopsis
@@ -9,7 +24,7 @@
 Mark a node as a control-plane
 -->
 
-将 Node 节点标记为控制平面节点
+将节点标记为控制平面节点
 
 ```
 kubeadm join phase control-plane-join mark-control-plane [flags]
@@ -34,9 +49,9 @@ kubeadm join phase control-plane-join mark-control-plane [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm configuration file.
+<p>Path to kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -46,9 +61,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Create a new control plane instance on this node
+<p>Create a new control plane instance on this node</p>
 -->
-在此节点上创建一个新的控制平面实例
+<p>在此节点上创建一个新的控制平面实例</p>
 </td>
 </tr>
 
@@ -58,9 +73,9 @@ Create a new control plane instance on this node
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for mark-control-plane
+<p>help for mark-control-plane</p>
 -->
-mark-control-plane 操作的帮助命令
+<p>mark-control-plane 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -70,9 +85,9 @@ mark-control-plane 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specify the node name.
+<p>Specify the node name.</p>
 -->
-指定节点的名称
+<p>指定节点的名称。</p>
 </td>
 </tr>
 
@@ -98,9 +113,9 @@ Specify the node name.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 
