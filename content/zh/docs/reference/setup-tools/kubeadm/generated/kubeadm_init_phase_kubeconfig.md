@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file 
+-->
+生成所有建立控制平面和管理员（admin）所需的 kubeconfig 文件
 
 <!-- 
 ### Synopsis
@@ -34,9 +49,9 @@ kubeadm init phase kubeconfig [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for kubeconfig
+<p>help for kubeconfig</p>
 -->
-kubeconfig 操作的帮助命令
+<p>kubeconfig 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -62,9 +77,9 @@ kubeconfig 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 
