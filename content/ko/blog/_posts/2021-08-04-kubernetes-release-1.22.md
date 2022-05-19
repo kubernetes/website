@@ -3,6 +3,7 @@ layout: blog
 title: '쿠버네티스 1.22: 새로운 정점에 도달(Reaching New Peaks)'
 date: 2021-08-04
 slug: kubernetes-1-22-release-announcement
+evergreen: true
 ---
 
 **저자:** [쿠버네티스 1.22 릴리스 팀](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.22/release-team.md)
