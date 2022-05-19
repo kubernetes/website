@@ -143,7 +143,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">criSocket</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/run/dockershim.sock&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">taints</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">key</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;kubeadmNode&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;master&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;someValue&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">effect</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;NoSchedule&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">kubeletExtraArgs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">v</span>:<span style="color:#bbb"> </span><span style="color:#099">4</span><span style="color:#bbb">
@@ -876,7 +876,9 @@ cluster information.
 </td>
 <td>
    <p><code>tlsBootstrapToken</code> is a token used for TLS bootstrapping.
-If <code>bootstrapToken</code> is set, this field is defaulted to <code>.bootstrapToken.token</code>, but can be overridden. If <code>file</code> is set, this field <strong>must be set</strong> in case the KubeConfigFile does not
+If <code>bootstrapToken</code> is set, this field is defaulted to <code>.bootstrapToken.token</code>,
+but can be overridden.
+If <code>file</code> is set, this field <strong>must be set</strong> in case the KubeConfigFile does not
 contain any other authentication information.</p>
 </td>
 </tr>
@@ -1267,7 +1269,7 @@ Defaults to the hostname of the node if not provided.</p>
 <code>string</code>
 </td>
 <td>
-   <p><code>criSocket<code> is used to retrieve container runtime information. This information will
+   <p><code>criSocket</code> is used to retrieve container runtime information. This information will
 be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
@@ -1276,9 +1278,9 @@ be annotated to the Node API object, for later re-use.</p>
 </td>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
-If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted to
-<code>'node-role.kubernetes.io/master=&quot;&quot;'</code>. If you don't want to taint your control-plane node,
-set this field to an empty list, i.e. <code>taints: []</code> in the YAML file. This field is
+If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted with
+a control-plane taint for control-plane nodes. If you don't want to taint your control-plane
+node, set this field to an empty list, i.e. <code>taints: []</code>, in the YAML file. This field is
 solely used for Node registration.</p>
 </td>
 </tr>
