@@ -493,9 +493,9 @@ The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PID
 
 Example: `node.kubernetes.io/out-of-service:NoExecute`
 
-A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach` 
+A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
-`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node. 
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node.
 
 {{< caution >}}
 Refer to
@@ -627,7 +627,7 @@ This determines whether a user can modify the mode of the source volume when a
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} is being
 created from a VolumeSnapshot.
 
-Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode) 
+Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode)
 and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
 
 ## Annotations used for audit
@@ -695,14 +695,3 @@ Used on: Node
 Example: `node-role.kubernetes.io/control-plane:NoSchedule`
 
 Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
-
-### node-role.kubernetes.io/master
-
-Used on: Node
-
-Example: `node-role.kubernetes.io/master:NoSchedule`
-
-Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
-
-{{< note >}} Starting in v1.20, this taint is deprecated in favor of `node-role.kubernetes.io/control-plane`
-and will be removed in v1.25.{{< /note >}}
