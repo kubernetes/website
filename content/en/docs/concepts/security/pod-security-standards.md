@@ -29,9 +29,8 @@ This guide outlines the requirements of each policy.
 **The _Privileged_ policy is purposely-open, and entirely unrestricted.** This type of policy is
 typically aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
-The Privileged policy is defined by an absence of restrictions. For allow-by-default enforcement
-mechanisms (such as gatekeeper), the Privileged policy may be an absence of applied constraints
-rather than an instantiated profile. In contrast, for a deny-by-default mechanism (such as Pod
+The Privileged policy is defined by an absence of restrictions. Allow-by-default
+mechanisms (such as gatekeeper) may be Privileged by default. In contrast, for a deny-by-default mechanism (such as Pod
 Security Policy) the Privileged policy should disable all restrictions.
 
 ### Baseline
