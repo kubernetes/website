@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Mark a node as a control-plane 
+-->
+标记节点为控制平面节点
 
 <!--
 ### Synopsis
@@ -26,7 +41,7 @@ kubeadm init phase mark-control-plane [flags]
 
 ```
 # 将控制平面标签和污点应用于当前节点，其功能等效于 kubeadm init执行的操作。
-kubeadm init phase mark-control-plane --config config.yml
+kubeadm init phase mark-control-plane --config config.yaml
 
 # 将控制平面标签和污点应用于特定节点
 kubeadm init phase mark-control-plane --node-name myNode
@@ -51,9 +66,9 @@ kubeadm init phase mark-control-plane --node-name myNode
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -63,9 +78,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for mark-control-plane
+<p>help for mark-control-plane</p>
 -->
-mark-control-plane 操作的帮助命令
+<p>mark-control-plane 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -75,9 +90,9 @@ mark-control-plane 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specify the node name.
+<p>Specify the node name.</p>
 -->
-指定节点名称。
+<p>指定节点名称。</p>
 </td>
 </tr>
 
@@ -103,9 +118,9 @@ Specify the node name.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 
