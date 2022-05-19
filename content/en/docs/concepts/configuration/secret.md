@@ -199,11 +199,15 @@ If you want to access data from a Secret in a Pod, one way to do that is to
 have Kubernetes make the value of that Secret be available as a file inside
 the filesystem of one or more of the Pod's containers.
 
+{{< caution >}}
+Secrets cannot be edited within a Pod.
+{{< /caution >}}
+
 To configure that, you:
 
 1. Create a secret or use an existing one. Multiple Pods can reference the same secret.
 1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name the volume anything, and have a `.spec.volumes[].secret.secretName` field equal to the name of the Secret object.
-1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the secret. Specify `.spec.containers[].volumeMounts[].readOnly = true` and `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the secrets to appear.
+1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the secret. Specify `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the secrets to appear.
 1. Modify your image or command line so that the program looks for files in that directory. Each key in the secret `data` map becomes the filename under `mountPath`.
 
 This is an example of a Pod that mounts a Secret named `mysecret` in a volume:
@@ -220,7 +224,6 @@ spec:
     volumeMounts:
     - name: foo
       mountPath: "/etc/foo"
-      readOnly: true
   volumes:
   - name: foo
     secret:
@@ -266,7 +269,6 @@ spec:
     volumeMounts:
     - name: foo
       mountPath: "/etc/foo"
-      readOnly: true
   volumes:
   - name: foo
     secret:
@@ -617,7 +619,6 @@ spec:
     image: mySshImage
     volumeMounts:
     - name: secret-volume
-      readOnly: true
       mountPath: "/etc/secret-volume"
 ```
 
@@ -697,7 +698,6 @@ items:
       image: myClientImage
       volumeMounts:
       - name: secret-volume
-        readOnly: true
         mountPath: "/etc/secret-volume"
 - kind: Pod
   apiVersion: v1
@@ -715,7 +715,6 @@ items:
       image: myClientImage
       volumeMounts:
       - name: secret-volume
-        readOnly: true
         mountPath: "/etc/secret-volume"
 EOF
 ```
@@ -799,7 +798,6 @@ spec:
     - "/etc/secret-volume"
     volumeMounts:
     - name: secret-volume
-      readOnly: true
       mountPath: "/etc/secret-volume"
 ```
 
