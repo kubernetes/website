@@ -32,7 +32,7 @@ typically aimed at system- and infrastructure-level workloads managed by privile
 The Privileged policy is defined by an absence of restrictions. For allow-by-default enforcement
 mechanisms (such as gatekeeper), the Privileged policy may be an absence of applied constraints
 rather than an instantiated profile. In contrast, for a deny-by-default mechanism (such as Pod
-Security Policy) the Privileged policy should enable all controls (disable all restrictions).
+Security Policy) the Privileged policy should disable all restrictions.
 
 ### Baseline
 
