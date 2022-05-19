@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate the static Pod manifest file for a local, single-node local etcd instance 
+-->
+为本地单节点 etcd 实例生成静态 Pod 清单文件
 
 <!--
 ### Synopsis
@@ -59,8 +74,10 @@ kubeadm init phase etcd local --config config.yaml
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- The path where to save and store the certificates.  -->
-存储证书的路径。
+<!-- 
+<p>The path where to save and store the certificates.</p>  
+-->
+<p>存储证书的路径。</p>
 </td>
 </tr>
 
@@ -69,24 +86,10 @@ kubeadm init phase etcd local --config config.yaml
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- Path to a kubeadm configuration file.  -->
-kubeadm 配置文件的路径。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--experimental-patches string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--  
-Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
+<!-- 
+<p>Path to a kubeadm configuration file.</p>  
 -->
-包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
-例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
-"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
-默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
-"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -95,8 +98,10 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- help for local -->
-local 操作的帮助命令
+<!-- 
+<p>help for local</p> 
+-->
+<p>local 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -110,8 +115,26 @@ local 操作的帮助命令
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- Choose a container registry to pull control plane images from -->
-选择要从中拉取控制平面镜像的容器仓库
+<!-- 
+<p>Choose a container registry to pull control plane images from</p> 
+-->
+<p>选择要从中拉取控制平面镜像的容器仓库</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--patches string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+<p>Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.</p>
+-->
+<p>包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
+例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
+默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
+"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。</p>
 </td>
 </tr>
 
@@ -136,8 +159,10 @@ local 操作的帮助命令
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- [EXPERIMENTAL] The path to the 'real' host root filesystem.  -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<!-- 
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>  
+-->
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 
