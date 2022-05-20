@@ -1346,8 +1346,6 @@ This table explains the behavior of **list** requests with various combinations 
 | `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_ | Invalid               | Invalid                                   | Exact                                  |
 | `resourceVersionMatch=NotOlderThan` | _limit unset_                 | Invalid               | Any                                       | Not older than                         |
 | `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid               | Any                                       | Not older than                         |
-
-{{< /table >}}
 -->
 
 {{< table caption="list 操作的 resourceVersionMatch 与分页参数" >}}
