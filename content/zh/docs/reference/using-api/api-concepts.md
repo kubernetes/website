@@ -1066,8 +1066,6 @@ string, working as an enum, and the only accepted values are:
 `All`
 : Every stage runs as normal, except for the final storage stage where side effects
   are prevented.
-
-For example:
 -->
 ### 发起试运行请求  {#make-a-dry-run-request}
 
@@ -1140,11 +1138,11 @@ generated fields may differ.
 Some values of an object are typically generated before the object is persisted. It is important not to rely upon the values of these fields set by a dry-run request, since these values will likely be different in dry-run mode from when the real request is made. Some of these fields are:
 
 * `name`: if `generateName` is set, `name` will have a unique random name
-* `creationTimestamp`/`deletionTimestamp`: records the time of creation/deletion
-* `UID`: uniquely identifies the object and is randomly generated (non-deterministic)
+* `creationTimestamp` / `deletionTimestamp`: records the time of creation/deletion
+* `UID`: [uniquely identifies](/docs/concepts/overview/working-with-objects/names/#uids) the object and is randomly generated (non-deterministic)
 * `resourceVersion`: tracks the persisted version of the object
 * Any field set by a mutating admission controller
-* For the `Service` resource: Ports or IPs that kube-apiserver assigns to v1.Service objects
+* For the `Service` resource: Ports or IP addresses that the kube-apiserver assigns to Service objects
 -->
 ### 生成值  {#generated-values}
 
@@ -1153,11 +1151,12 @@ Some values of an object are typically generated before the object is persisted.
 值很可能不同。这类字段有：
 
 * `name`：如果设置了 `generateName` 字段，则 `name` 会获得一个唯一的随机名称
-* `creationTimestamp`/`deletionTimestamp`：记录对象的创建/删除时间
-* `UID`：唯一性标识对象，取值随机生成（非确定性）
+* `creationTimestamp` / `deletionTimestamp`：记录对象的创建/删除时间
+* `UID`：[唯一标识](/zh/docs/concepts/overview/working-with-objects/names/#uids)对象，
+  取值随机生成（非确定性）
 * `resourceVersion`： 跟踪对象的持久化（存储）版本
 * 变更性准入控制器所设置的字段
-* 对于 `Service` 资源：`kube-apiserver` 为 `v1.Service` 对象分配的端口和 IP
+* 对于 `Service` 资源：`kube-apiserver` 为 `Service` 对象分配的端口和 IP 地址
 
 <!--
 ### Dry-run authorization
@@ -1338,8 +1337,6 @@ This table explains the behavior of **list** requests with various combinations 
 
 下表解释了具有各种 `resourceVersion` 和 `resourceVersionMatch` 组合的 **list** 请求的行为：
 <!--
-{{</* table caption="resourceVersionMatch and paging parameters for list" */>}}
-
 | resourceVersionMatch param            | paging params                 | resourceVersion not set | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
 |---------------------------------------|-------------------------------|-----------------------|-------------------------------------------|----------------------------------------|
 | _unset_            | _limit unset_                   | Most Recent           | Any                                       | Not older than                         |
@@ -1350,11 +1347,7 @@ This table explains the behavior of **list** requests with various combinations 
 | `resourceVersionMatch=NotOlderThan` | _limit unset_                 | Invalid               | Any                                       | Not older than                         |
 | `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid               | Any                                       | Not older than                         |
 
-{{</* /table */>}}
-
-**Footnotes:**
-
-[1] If the server does not honor the `resourceVersionMatch` parameter, it is treated as if it is unset.
+{{< /table >}}
 -->
 
 {{< table caption="list 操作的 resourceVersionMatch 与分页参数" >}}
