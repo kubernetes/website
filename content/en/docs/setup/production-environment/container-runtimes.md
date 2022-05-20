@@ -200,6 +200,7 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+If containerd installed with apt/yum then `cri` is disable by default. Remove `cri` from `disabled_plugins` list in `/etc/containerd/config.toml`
 
 If you apply this change, make sure to restart containerd:
 
