@@ -19,21 +19,21 @@ Ben Swartzlander (NetApp)
 Ben Swartzlander (NetApp)
 
 <!--
-The volume populators feature is now two releases old and entering beta! The `AnyVolumeDataSouce` feature
+The volume populators feature is now two releases old and entering beta! The `AnyVolumeDataSource` feature
 gate defaults to enabled in Kubernetes v1.24, which means that users can specify any custom resource
 as the data source of a PVC.
 -->
 卷填充器功能现在已经经历两个发行版本并进入 Beta 阶段！
-在 Kubernetes v1.24 中 `AnyVolumeDataSouce` 特性门控默认被启用。
+在 Kubernetes v1.24 中 `AnyVolumeDataSource` 特性门控默认被启用。
 这意味着用户可以指定任何自定义资源作为 PVC 的数据源。
 
 <!--
-An [earlier blog article](/blog/2021/08/30-volume-populators-redesigned/) detailed how the
+An [earlier blog article](/blog/2021/08/30/volume-populators-redesigned/) detailed how the
 volume populators feature works. In short, a cluster administrator can install a CRD and
 associated populator controller in the cluster, and any user who can create instances of 
 the CR can create pre-populated volumes by taking advantage of the populator.
 -->
-[之前的一篇博客](/blog/2021/08/30-volume-populators-alpha/)详细介绍了卷填充器功能的工作原理。
+[之前的一篇博客](/blog/2021/08/30/volume-populators-redesigned/)详细介绍了卷填充器功能的工作原理。
 简而言之，集群管理员可以在集群中安装 CRD 和相关的填充器控制器，
 任何可以创建 CR 实例的用户都可以利用填充器创建预填充卷。
 
