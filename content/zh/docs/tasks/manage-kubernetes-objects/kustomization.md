@@ -1271,7 +1271,7 @@ deployment.apps "dev-my-nginx" deleted
 | vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19)                       | 每个条目用来从某资源的字段来析取文字                            |
 | images                | [][Image](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/image.go#L8)                    | 每个条目都用来更改镜像的名称、标记与/或摘要，不必生成补丁 |
 | configurations        | []string                                                                                                     | 列表中每个条目都应能解析为一个包含 [Kustomize 转换器配置](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) 的文件 |
-| crds                  | []string                                                                                                     | 列表中每个条目都赢能够解析为 Kubernetes 类别的 OpenAPI 定义文件 |
+| crds                  | []string                                                                                                     | 列表中每个条目都应能够解析为 Kubernetes 类别的 OpenAPI 定义文件 |
 
 ## {{% heading "whatsnext" %}}
 
