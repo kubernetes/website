@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Renew the certificate the apiserver uses to access etcd 
+-->
+续订 apiserver 用于访问 etcd 的证书
 
 <!-- 
 ### Synopsis
@@ -49,8 +64,10 @@ kubeadm certs renew apiserver-etcd-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- The path where to save and store the certificates.  -->
-存储证书的路径。
+<!-- 
+<p>The path where to save and store the certificates.</p>
+-->
+<p>存储证书的路径。</p>
 </td>
 </tr>
 
@@ -59,28 +76,10 @@ kubeadm certs renew apiserver-etcd-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- Path to a kubeadm configuration file.  -->
-kubeadm 配置文件的路径。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- The path to output the CSRs and private keys to -->
-输出 CSR 和私钥的路径
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-only</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- Create CSRs instead of generating certificates -->
-创建 CSR 而不是生成证书
+<!-- 
+<p>Path to a kubeadm configuration file.</p>  
+-->
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -89,8 +88,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- help for apiserver-etcd-client -->
-apiserver-etcd-client 操作的帮助命令
+<!-- 
+<p>help for apiserver-etcd-client</p>
+-->
+<p>apiserver-etcd-client 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -105,20 +106,10 @@ apiserver-etcd-client 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+<p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-与集群通信时使用的 kubeconfig 文件。
-如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--use-api</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- Use the Kubernetes certificate API to renew certificates -->
-使用 Kubernetes 证书 API 续订证书
+<p>与集群通信时使用的 kubeconfig 文件。
+如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</p>
 </td>
 </tr>
 
@@ -144,8 +135,10 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- [EXPERIMENTAL] The path to the 'real' host root filesystem.  -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<!-- 
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+-->
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 
