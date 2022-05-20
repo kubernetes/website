@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "Binding"
 content_type: "api_reference"
-description: "Binding 即将一个对象与另一个对象联系起来;例如，一个 pod 被调度程序绑定到一个节点。"
+description: "Binding 将一个对象与另一个对象联系起来; 例如，一个 Pod 被调度程序绑定到一个节点。"
 title: "Binding"
 weight: 9
 auto_generated: true
@@ -30,7 +30,7 @@ guide. You can file document formatting bugs against the
 <!--
 Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
 -->
-Binding 即将一个对象与另一个对象联系起来;例如，一个 pod 被调度程序绑定到一个节点。1.7已弃用，请使用 pods 的 bindings 子资源。
+Binding 将一个对象与另一个对象联系起来; 例如，一个 Pod 被调度程序绑定到一个节点。1.7 已弃用，请使用 Pod 的 Binding 子资源。
 <hr>
 
 - **apiVersion**: v1
@@ -47,7 +47,7 @@ Binding 即将一个对象与另一个对象联系起来;例如，一个 pod 被
 
   The target object that you want to bind to the standard object.
 -->
-  标准对象的元数据 更多信息: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准对象的元数据, 更多信息: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **target** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>), 必需的
 
@@ -66,7 +66,7 @@ POST /api/v1/namespaces/{namespace}/bindings
 
 #### Parameters
 -->
-### `创建` 创建一个 Binding
+### `create` 创建一个 Binding
 
 #### HTTP 请求
 
@@ -150,7 +150,7 @@ POST /api/v1/namespaces/{namespace}/bindings
 
 POST /api/v1/namespaces/{namespace}/pods/{name}/binding
 -->
-### `create` 创建Pod的绑定
+### `create` 创建 Pod 的绑定
 
 #### HTTP 请求
 
