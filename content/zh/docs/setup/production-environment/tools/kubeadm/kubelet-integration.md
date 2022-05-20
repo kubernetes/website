@@ -223,7 +223,7 @@ If the reload and restart are successful, the normal `kubeadm init` workflow con
 ### 当使用 `kubeadm init`时的工作流程
 
 当调用 `kubeadm init` 时，kubelet 的配置会被写入磁盘 `/var/lib/kubelet/config.yaml`，
-并上传到集群 `kubee-system` 命名空间的 `kubelet-config` ConfigMap。
+并上传到集群 `kube-system` 命名空间的 `kubelet-config` ConfigMap。
 kubelet 配置信息也被写入 `/etc/kubernetes/kubelet.conf`，其中包含集群内所有 kubelet 的基线配置。
 此配置文件指向允许 kubelet 与 API 服务器通信的客户端证书。
 这解决了[将集群级配置传播到每个 kubelet](#propagating-cluster-level-configuration-to-each-kubelet) 的需求。
