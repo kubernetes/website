@@ -87,14 +87,14 @@ When you set the `https_proxy` variable, tools such as `curl` route HTTPS traffi
 you configured. For this to work, the tool must support SOCKS5 proxying.
 
 {{< note >}}
-In the URL https://localhost/api, `localhost` does not refer to your local client computer.
+In the URL https://localhost:6443/api, `localhost` does not refer to your local client computer.
 Instead, it refers to the endpoint on the remote server knows as `localhost`.
 The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the remote server
 resolves that locally (to an address that belongs to its loopback interface).
 {{</ note >}}
 
 ```shell
-curl -k -v https://localhost/api
+curl -k -v https://localhost:6443/api
 ```
 
 To use the official Kubernetes client `kubectl` with a proxy, set the `proxy-url` element
@@ -105,7 +105,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: LRMEMMW2 # shortened for readability 
-    server: https://localhost            # the "Kubernetes API" in the diagram above
+    server: https://<API_SERVER_IP_ADRESS>:6443  # the "Kubernetes API" server, i.e. IP adress of kubernetes-remote-server.example
     proxy-url: socks5://localhost:1080   # the "SSH SOCKS5 proxy" in the diagram above (DNS resolution over socks is built-in)
   name: default
 contexts:
