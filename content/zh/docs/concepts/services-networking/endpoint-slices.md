@@ -52,11 +52,11 @@ significant amounts of network traffic and processing when Endpoints changed.
 EndpointSlices help you mitigate those issues as well as provide an extensible
 platform for additional features such as topological routing.
 -->
-由于任一服务的所有网络端点都保存在同一个 Endpoints 资源中，这类资源可能变得
-非常巨大，而这一变化会影响到 Kubernetes 组件（比如主控组件）的性能，并
-在 Endpoints 变化时产生大量的网络流量和额外的处理。
-EndpointSlice 能够帮助你缓解这一问题，还能为一些诸如拓扑路由这类的额外
-功能提供一个可扩展的平台。
+由于任一 Service 的所有网络端点都保存在同一个 Endpoints 资源中，
+这类资源可能变得非常巨大，而这一变化会影响到 Kubernetes
+组件（比如主控组件）的性能，并在 Endpoints 变化时产生大量的网络流量和额外的处理。
+EndpointSlice 能够帮助你缓解这一问题，
+还能为一些诸如拓扑路由这类的额外功能提供一个可扩展的平台。
 
 <!--
 ## Endpoint Slice resources {#endpointslice-resource}
@@ -78,13 +78,13 @@ Kubernetes Service.
 
 在 Kubernetes 中，`EndpointSlice` 包含对一组网络端点的引用。
 指定选择器后控制面会自动为设置了 {{< glossary_tooltip text="选择算符" term_id="selector" >}}
-的 Kubernetes 服务创建 EndpointSlice。
-这些 EndpointSlice 将包含对与服务选择算符匹配的所有 Pod 的引用。
-EndpointSlice 通过唯一的协议、端口号和服务名称将网络端点组织在一起。
+的 Kubernetes Service 创建 EndpointSlice。
+这些 EndpointSlice 将包含对与 Service 选择算符匹配的所有 Pod 的引用。
+EndpointSlice 通过唯一的协议、端口号和 Service 名称将网络端点组织在一起。
 EndpointSlice 的名称必须是合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
-例如，下面是 Kubernetes 服务 `example` 的 EndpointSlice 资源示例。
+例如，下面是 Kubernetes Service `example` 的 EndpointSlice 资源示例。
 
 ```yaml
 apiVersion: discovery.k8s.io/v1
@@ -174,8 +174,8 @@ Services will always have the `ready` condition set to `true`.
 处于运行中的 Pod，它的 `Ready` 状况被设置为 `True`，应该将此 EndpointSlice 状况也设置为 `true`。
 出于兼容性原因，当 Pod 处于终止过程中，`ready` 永远不会为 `true`。
 消费者应参考 `serving` 状况来检查处于终止中的 Pod 的就绪情况。
-该规则的唯一例外是将 `spec.publishNotReadyAddresses` 设置为 `true` 的服务。
-这些服务（Service）的端点将始终将 `ready` 状况设置为 `true`。
+该规则的唯一例外是将 `spec.publishNotReadyAddresses` 设置为 `true` 的 Service。
+这些 Service 的端点将始终将 `ready` 状况设置为 `true`。
 
 <!--
 #### Serving
@@ -252,8 +252,8 @@ EndpointSlice 中的每个端点都可以包含一定的拓扑信息。
 In the v1 API, the per endpoint `topology` was effectively removed in favor of
 the dedicated fields `nodeName` and `zone`.
 -->
-在 v1 API 中，逐个端点设置的 `topology` 实际上被去除，以鼓励使用专用
-的字段 `nodeName` 和 `zone`。
+在 v1 API 中，逐个端点设置的 `topology` 实际上被去除，
+以鼓励使用专用的字段 `nodeName` 和 `zone`。
 
 <!--
 Setting arbitrary topology fields on the `endpoint` field of an `EndpointSlice`
@@ -263,11 +263,11 @@ These fields are automatically translated between API versions. For example, the
 value of the `"topology.kubernetes.io/zone"` key in the `topology` field in
 the v1beta1 API is accessible as the `zone` field in the v1 API.
 -->
-对 `EndpointSlice` 对象的 `endpoint` 字段设置任意的拓扑结构信息这一操作已被
-废弃，不再被 v1 API 所支持。取而代之的是 v1 API 所支持的 `nodeName` 和 `zone`
+对 `EndpointSlice` 对象的 `endpoint` 字段设置任意的拓扑结构信息这一操作已被废弃，
+不再被 v1 API 所支持。取而代之的是 v1 API 所支持的 `nodeName` 和 `zone`
 这些独立的字段。这些字段可以在不同的 API 版本之间自动完成转译。
-例如，v1beta1 API 中 `topology` 字段的 `topology.kubernetes.io/zone` 取值可以
-在 v1 API 中通过 `zone` 字段访问。
+例如，v1beta1 API 中 `topology` 字段的 `topology.kubernetes.io/zone`
+取值可以在 v1 API 中通过 `zone` 字段访问。
 {{< /note >}}
 
 <!--
@@ -283,8 +283,8 @@ entities or controllers managing additional sets of EndpointSlices.
 
 通常，控制面（尤其是端点切片的 {{< glossary_tooltip text="控制器" term_id="controller" >}}）
 会创建和管理 EndpointSlice 对象。EndpointSlice 对象还有一些其他使用场景，
-例如作为服务网格（Service Mesh）的实现。这些场景都会导致有其他实体
-或者控制器负责管理额外的 EndpointSlice 集合。
+例如作为服务网格（Service Mesh）的实现。
+这些场景都会导致有其他实体或者控制器负责管理额外的 EndpointSlice 集合。
 
 <!--
 To ensure that multiple entities can manage EndpointSlices without interfering
@@ -299,8 +299,8 @@ EndpointSlices should also set a unique value for this label.
 为了确保多个实体可以管理 EndpointSlice 而且不会相互产生干扰，Kubernetes 定义了
 {{< glossary_tooltip term_id="label" text="标签" >}}
 `endpointslice.kubernetes.io/managed-by`，用来标明哪个实体在管理某个
-EndpointSlice。端点切片控制器会在自己所管理的所有 EndpointSlice 上将该标签值设置
-为 `endpointslice-controller.k8s.io`。
+EndpointSlice。端点切片控制器会在自己所管理的所有 EndpointSlice 上将该标签值设置为
+`endpointslice-controller.k8s.io`。
 管理 EndpointSlice 的其他实体也应该为此标签设置一个唯一值。
 
 <!--
@@ -313,10 +313,10 @@ label that enables simple lookups of all EndpointSlices belonging to a Service.
 -->
 ### 属主关系   {#ownership}
 
-在大多数场合下，EndpointSlice 都由某个 Service 所有，（因为）该端点切片正是
-为该服务跟踪记录其端点。这一属主关系是通过为每个 EndpointSlice 设置一个
-属主（owner）引用，同时设置 `kubernetes.io/service-name` 标签来标明的，
-目的是方便查找隶属于某服务的所有 EndpointSlice。
+在大多数场合下，EndpointSlice 都由某个 Service 所有，
+（因为）该端点切片正是为该服务跟踪记录其端点。这一属主关系是通过为每个 EndpointSlice
+设置一个属主（owner）引用，同时设置 `kubernetes.io/service-name` 标签来标明的，
+目的是方便查找隶属于某 Service 的所有 EndpointSlice。
 
 <!--
 ### EndpointSlice mirroring
@@ -328,8 +328,8 @@ resources to corresponding EndpointSlices.
 -->
 ### EndpointSlice 镜像    {#endpointslice-mirroring}
 
-在某些场合，应用会创建定制的 Endpoints 资源。为了保证这些应用不需要并发
-的更改 Endpoints 和 EndpointSlice 资源，集群的控制面将大多数 Endpoints
+在某些场合，应用会创建定制的 Endpoints 资源。为了保证这些应用不需要并发的更改
+Endpoints 和 EndpointSlice 资源，集群的控制面将大多数 Endpoints
 映射到对应的 EndpointSlice 之上。
 
 <!--
@@ -372,8 +372,8 @@ with Endpoints.
 ### EndpointSlices 的分布问题  {#distribution-of-endpointslices}
 
 每个 EndpointSlice 都有一组端口值，适用于资源内的所有端点。
-当为服务使用命名端口时，Pod 可能会就同一命名端口获得不同的端口号，因而需要
-不同的 EndpointSlice。这有点像 Endpoints 用来对子网进行分组的逻辑。
+当为 Service 使用命名端口时，Pod 可能会就同一命名端口获得不同的端口号，
+因而需要不同的 EndpointSlice。这有点像 Endpoints 用来对子网进行分组的逻辑。
 
 <!--
 The control plane tries to fill EndpointSlices as full as possible, but does not
@@ -386,11 +386,10 @@ actively rebalance them. The logic is fairly straightforward:
 3. If there's still new endpoints left to add, try to fit them into a previously
    unchanged slice and/or create new ones.
 -->
-控制面尝试尽量将 EndpointSlice 填满，不过不会主动地在若干 EndpointSlice 之间
-执行再平衡操作。这里的逻辑也是相对直接的：
+控制面尝试尽量将 EndpointSlice 填满，不过不会主动地在若干 EndpointSlice
+之间执行再平衡操作。这里的逻辑也是相对直接的：
 
-1. 列举所有现有的 EndpointSlices，移除那些不再需要的端点并更新那些已经
-   变化的端点。
+1. 列举所有现有的 EndpointSlices，移除那些不再需要的端点并更新那些已经变化的端点。
 2. 列举所有在第一步中被更改过的 EndpointSlices，用新增加的端点将其填满。
 3. 如果还有新的端点未被添加进去，尝试将这些端点添加到之前未更改的切片中，
    或者创建新切片。
@@ -403,11 +402,11 @@ this approach will create a new EndpointSlice instead of filling up the 2
 existing EndpointSlices. In other words, a single EndpointSlice creation is
 preferrable to multiple EndpointSlice updates.
 -->
-这里比较重要的是，与在 EndpointSlice 之间完成最佳的分布相比，第三步中更看重
-限制 EndpointSlice 更新的操作次数。例如，如果有 10 个端点待添加，有两个
-EndpointSlice 中各有 5 个空位，上述方法会创建一个新的 EndpointSlice 而不是
-将现有的两个 EndpointSlice 都填满。换言之，与执行多个 EndpointSlice 更新操作
-相比较，方法会优先考虑执行一个 EndpointSlice 创建操作。
+这里比较重要的是，与在 EndpointSlice 之间完成最佳的分布相比，第三步中更看重限制
+EndpointSlice 更新的操作次数。例如，如果有 10 个端点待添加，有两个 EndpointSlice
+中各有 5 个空位，上述方法会创建一个新的 EndpointSlice 而不是将现有的两个
+EndpointSlice 都填满。换言之，与执行多个 EndpointSlice 更新操作相比较，
+方法会优先考虑执行一个 EndpointSlice 创建操作。
 
 <!--
 With kube-proxy running on each Node and watching EndpointSlices, every change
@@ -416,10 +415,10 @@ every Node in the cluster. This approach is intended to limit the number of
 changes that need to be sent to every Node, even if it may result with multiple
 EndpointSlices that are not full.
 -->
-由于 kube-proxy 在每个节点上运行并监视 EndpointSlice 状态，EndpointSlice 的
-每次变更都变得相对代价较高，因为这些状态变化要传递到集群中每个节点上。
-这一方法尝试限制要发送到所有节点上的变更消息个数，即使这样做可能会导致有
-多个 EndpointSlice 没有被填满。
+由于 kube-proxy 在每个节点上运行并监视 EndpointSlice 状态，EndpointSlice
+的每次变更都变得相对代价较高，因为这些状态变化要传递到集群中每个节点上。
+这一方法尝试限制要发送到所有节点上的变更消息个数，即使这样做可能会导致有多个
+EndpointSlice 没有被填满。
 
 <!--
 In practice, this less than ideal distribution should be rare. Most changes
@@ -429,11 +428,11 @@ necessary soon anyway. Rolling updates of Deployments also provide a natural
 repacking of EndpointSlices with all Pods and their corresponding endpoints
 getting replaced.
 -->
-在实践中，上面这种并非最理想的分布是很少出现的。大多数被 EndpointSlice 控制器
-处理的变更都是足够小的，可以添加到某已有 EndpointSlice 中去的。并且，假使无法
-添加到已有的切片中，不管怎样都会快就会需要一个新的 EndpointSlice 对象。
-Deployment 的滚动更新为重新为 EndpointSlice 打包提供了一个自然的机会，所有
-Pod 及其对应的端点在这一期间都会被替换掉。
+在实践中，上面这种并非最理想的分布是很少出现的。大多数被 EndpointSlice
+控制器处理的变更都是足够小的，可以添加到某已有 EndpointSlice 中去的。
+并且，假使无法添加到已有的切片中，不管怎样都会快就会需要一个新的
+EndpointSlice 对象。Deployment 的滚动更新为重新为 EndpointSlice
+打包提供了一个自然的机会，所有 Pod 及其对应的端点在这一期间都会被替换掉。
 
 <!--
 ### Duplicate endpoints
@@ -460,5 +459,5 @@ implementation in `kube-proxy`.
 <!--
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
-* 阅读[使用服务连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
+* 阅读[使用 Service 连接到应用](/zh/docs/concepts/services-networking/connect-applications-service/)
 
