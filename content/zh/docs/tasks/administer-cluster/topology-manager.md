@@ -33,7 +33,7 @@ In order to extract the best performance, optimizations related to CPU isolation
 但是，在 Kubernetes 中，这些优化由各自独立的组件集合来处理。
 
 <!--
-_Topology Manager_ is a Kubelet component that aims to co-ordinate the set of components that are responsible for these optimizations.
+_Topology Manager_ is a Kubelet component that aims to coordinate the set of components that are responsible for these optimizations.
 -->
 _拓扑管理器（Topology Manager）_ 是一个 kubelet 的一部分，旨在协调负责这些优化的一组组件。
 
