@@ -1,6 +1,5 @@
 ---
 title: Manual Rotation of CA Certificates
-min-kubernetes-server-version: v1.13
 content_type: task
 ---
 
@@ -10,7 +9,7 @@ This page shows how to manually rotate the certificate authority (CA) certificat
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 
 - For more information about authentication in Kubernetes, see [Authenticating](/docs/reference/access-authn-authz/authentication).
