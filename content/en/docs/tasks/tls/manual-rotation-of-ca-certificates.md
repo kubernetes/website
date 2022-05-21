@@ -12,8 +12,10 @@ This page shows how to manually rotate the certificate authority (CA) certificat
 {{< include "task-tutorial-prereqs.md" >}}
 
 
-- For more information about authentication in Kubernetes, see [Authenticating](/docs/reference/access-authn-authz/authentication).
-- For more information about best practices for CA certificates, see [Single root CA](/docs/setup/best-practices/certificates/#single-root-ca).
+- For more information about authentication in Kubernetes, see
+  [Authenticating](/docs/reference/access-authn-authz/authentication).
+- For more information about best practices for CA certificates, see
+  [Single root CA](/docs/setup/best-practices/certificates/#single-root-ca).
 
 <!-- steps -->
 
@@ -23,20 +25,20 @@ This page shows how to manually rotate the certificate authority (CA) certificat
 Make sure to back up your certificate directory along with configuration files and any other necessary files.
 
 This approach assumes operation of the Kubernetes control plane in a HA configuration with multiple API servers.
-Graceful termination of the API server is also assumed so clients can cleanly disconnect from one API server and reconnect to another.
+Graceful termination of the API server is also assumed so clients can cleanly disconnect from one API server and
+reconnect to another.
 
 Configurations with a single API server will experience unavailability while the API server is being restarted.
 {{< /caution >}}
 
-1. Distribute the new CA certificates and private keys
-   (ex: `ca.crt`, `ca.key`, `front-proxy-ca.crt`, and `front-proxy-ca.key`)
-   to all your control plane nodes in the Kubernetes certificates directory.
+1. Distribute the new CA certificates and private keys (for example: `ca.crt`, `ca.key`, `front-proxy-ca.crt`,
+   and `front-proxy-ca.key`) to all your control plane nodes in the Kubernetes certificates directory.
 
+1. Update the `--root-ca-file` flag for the {{< glossary_tooltip term_id="kube-controller-manager" >}} to include
+   both old and new CA, then restart the kube-controller-manager.
 
-1. Update {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}'s `--root-ca-file` to
-   include both old and new CA. Then restart the kube-controller-manager.
-
-   Any {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}} created after this point will get Secrets that include both old and new CAs.
+   Any {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}} created after this point will get
+   Secrets that include both old and new CAs.
 
    {{< note >}}
    The files specified by the kube-controller-manager flags `--client-ca-file` and `--cluster-signing-cert-file`
@@ -51,7 +53,8 @@ Configurations with a single API server will experience unavailability while the
 
 1. Update all Secrets that hold service account tokens to include both old and new CA certificates.
 
-   If any Pods are started before new CA is used by API servers, the new Pods get this update and will trust both old and new CAs.
+    If any Pods are started before new CA is used by API servers, the new Pods get this update and will trust both
+    old and new CAs.
 
    ```shell
    base64_encoded_ca="$(base64 -w0 <path to file containing both old and new CAs>)"
@@ -70,11 +73,13 @@ Configurations with a single API server will experience unavailability while the
 
    * Make sure CoreDNS, kube-proxy and other Pods using in-cluster configurations are working as expected.
 
-1. Append the both old and new CA to the file against `--client-ca-file` and `--kubelet-certificate-authority` flag in the `kube-apiserver` configuration.
+1. Append the both old and new CA to the file against `--client-ca-file` and `--kubelet-certificate-authority`
+   flag in the `kube-apiserver` configuration.
 
 1. Append the both old and new CA to the file against `--client-ca-file` flag in the `kube-scheduler` configuration.
 
-1. Update certificates for user authentication by replacing the content of `client-certificate-data` and `client-key-data` respectively.
+1. Update certificates for user accounts by replacing the content of `client-certificate-data` and `client-key-data`
+   respectively.
 
    For information about creating certificates for individual user accounts, see
    [Configure certificates for user accounts](/docs/setup/best-practices/certificates/#configure-certificates-for-user-accounts).
@@ -82,7 +87,8 @@ Configurations with a single API server will experience unavailability while the
    Additionally, update the `certificate-authority-data` section in the kubeconfig files,
    respectively with Base64-encoded old and new certificate authority data
 
-1. Update the `--root-ca-file` flag for the {{< glossary_tooltip term_id="cloud-controller-manager" >}} to include both old and new CA, then restart the cloud-controller-manager.
+1. Update the `--root-ca-file` flag for the {{< glossary_tooltip term_id="cloud-controller-manager" >}} to include
+   both old and new CA, then restart the cloud-controller-manager.
 
    {{< note >}}
    If your cluster does not have a cloud-controller-manager, you can skip this step.
@@ -140,7 +146,8 @@ Configurations with a single API server will experience unavailability while the
 
         Depending on how you use StatefulSets you may also need to perform similar rolling replacement.
 
-1. If your cluster is using bootstrap tokens to join nodes, update the ConfigMap `cluster-info` in the `kube-public` namespace with new CA.
+1. If your cluster is using bootstrap tokens to join nodes, update the ConfigMap `cluster-info` in the `kube-public`
+   namespace with new CA.
 
    ```shell
    base64_encoded_ca="$(base64 -w0 /etc/kubernetes/pki/ca.crt)"
@@ -165,9 +172,11 @@ Configurations with a single API server will experience unavailability while the
       * All pods using an in-cluster kubeconfig will eventually need to be restarted to pick up the new Secret,
         so that no Pods are relying on the old cluster CA.
 
-   1. Restart the control plane components by removing the old CA from the kubeconfig files and the files against `--client-ca-file`, `--root-ca-file` flags resp.
+   1. Restart the control plane components by removing the old CA from the kubeconfig files and the files against
+      `--client-ca-file`, `--root-ca-file` flags resp.
 
    1. On each node, restart the kubelet by removing the old CA from file against the `clientCAFile` flag
       and from the kubelet kubeconfig file. You should carry this out as a rolling update.
 
-      If your cluster lets you make this change, you can also roll it out by replacing nodes rather than reconfiguring them.
+      If your cluster lets you make this change, you can also roll it out by replacing nodes rather than
+      reconfiguring them.
