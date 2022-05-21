@@ -200,6 +200,14 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+{{< note >}}
+If you installed containerd from a package (for example, RPM or `.deb`), you may find
+that the CRI integration plugin is disabled by default.
+
+You need CRI support enabled to use containerd with Kubernetes. Make sure that `cri`
+is not included in the`disabled_plugins` list within `/etc/containerd/config.toml`;
+if you made changes to that file, also restart `containerd`.
+{{< /note >}}
 
 If you apply this change, make sure to restart containerd:
 
