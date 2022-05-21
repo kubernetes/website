@@ -24,7 +24,9 @@ CNI specification (plugins can be compatible with multiple spec versions).
 
 ## Installation
 
-A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). The CRI manages its own CNI plugins, meaning the Kubelet isn't involved in installing or managing the plugins. Plugins are installed according to their own documentation.
+A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). 
+The CRI manages its own CNI plugins, with Kubelet no longer managing the plugins since the [dockershim was removed in v1.24](https://github.com/kubernetes/kubernetes/pull/106907). 
+CNI plugins are installed according to their own documentation.
 
 ## Network Plugin Requirements
 
