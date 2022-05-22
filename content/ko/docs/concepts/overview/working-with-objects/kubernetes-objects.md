@@ -63,7 +63,7 @@ spec과 status간의 차이에 대응한다.
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 커맨드를 이용하는 것이다. 다음 예시와 같다.
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 ```
 
 그 출력 내용은 다음과 유사하다.
@@ -83,13 +83,21 @@ deployment.apps/nginx-deployment created
 
 오브젝트 `spec`에 대한 정확한 포맷은 모든 쿠버네티스 오브젝트마다 다르고, 그 오브젝트 특유의 중첩된 필드를 포함한다. [쿠버네티스 API 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 는 쿠버네티스를 이용하여 생성할 수 있는 오브젝트에 대한 모든 spec 포맷을 살펴볼 수 있도록 해준다.
 
-예를 들어, API 내 파드에 대한 상세 정보는 [`spec` 필드](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)에 대한 레퍼런스에서,
-디플로이먼트에 대한 상세 정보는 [`spec` 필드](/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec)에 대한 레퍼런스에서 확인할 수 있다.
-해당 API 레퍼런스 페이지에서 PodSpec과 DeploymentSpec에 대해 언급된 내용을 볼 수 있다. 이 이름들은 쿠버네티스가 API를 구현하는데 사용한 Go 언어 코드 구현의 세부 내용이다.
-
+예를 들어, 파드 API 레퍼런스를 보려면 
+[`spec` 필드](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)를 참조한다. 
+각 파드에 대해, `.spec` 필드는 파드 및 파드의 원하는 상태(desired state)를 
+기술한다(예: 파드의 각 컨테이너에 대한 컨테이너 이미지). 
+오브젝트 상세에 대한 또 다른 예시는 스테이트풀셋 API의 
+[`spec` 필드](/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)이다. 
+스테이트풀셋의 경우, `.spec` 필드는 스테이트풀셋 및 스테이트풀셋의 원하는 상태(desired state)를 기술한다. 
+스테이트풀셋의 `.spec`에는 파드 오브젝트에 대한 
+[템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이 존재한다. 
+이 템플릿은 스테이트풀셋 명세를 만족시키기 위해 
+스테이트풀셋 컨트롤러가 생성할 파드에 대한 상세 사항을 설명한다.
+서로 다른 종류의 오브젝트는 서로 다른 `.status`를 가질 수 있다. 
+다시 한번 말하자면, 각 API 레퍼런스 페이지는 각 오브젝트 타입에 대해 해당 `.status` 필드의 구조와 내용에 대해 소개한다. 
 
 ## {{% heading "whatsnext" %}}
-
 
 * [파드](/ko/docs/concepts/workloads/pods/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
 * 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 배운다.

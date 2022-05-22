@@ -344,12 +344,11 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 다음은 장치 플러그인 구현의 예이다.
 
 * [AMD GPU 장치 플러그인](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-* 인텔 GPU, FPGA 및 QuickAssist 장치용 [인텔 장치 플러그인](https://github.com/intel/intel-device-plugins-for-kubernetes)
+* 인텔 GPU, FPGA, QAT, VPU, SGX, DSA, DLB 및 IAA 장치용 [인텔 장치 플러그인](https://github.com/intel/intel-device-plugins-for-kubernetes)
 * 하드웨어 지원 가상화를 위한 [KubeVirt 장치 플러그인](https://github.com/kubevirt/kubernetes-device-plugins)
-* [NVIDIA GPU 장치 플러그인](https://github.com/NVIDIA/k8s-device-plugin)
-    * GPU를 지원하는 Docker 컨테이너를 실행할 수 있는 [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0이 필요하다.
 * [컨테이너에 최적화된 OS를 위한 NVIDIA GPU 장치 플러그인](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 장치 플러그인](https://github.com/hustcat/k8s-rdma-device-plugin)
+* [SocketCAN 장치 플러그인](https://github.com/collabora/k8s-socketcan)
 * [Solarflare 장치 플러그인](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [SR-IOV 네트워크 장치 플러그인](https://github.com/intel/sriov-network-device-plugin)
 * Xilinx FPGA 장치용 [Xilinx FPGA 장치 플러그인](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin)
