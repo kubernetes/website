@@ -1,6 +1,6 @@
 ---
-标题: 验证单一容器镜像
-内容类型: task
+title: 验证已簽章容器镜像
+content_type: task
 min-kubernetes-server-version: v1.24
 ---
 <!--
