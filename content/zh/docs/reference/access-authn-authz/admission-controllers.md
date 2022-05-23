@@ -167,7 +167,7 @@ In the current version, the default ones are:
 在目前版本中，它们是：
 
 ```shell
-CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
+CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
 ```
 
 <!--
@@ -437,8 +437,7 @@ plugins:
   path: eventconfig.yaml
 ...
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
+
 ```yaml
 # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
@@ -448,8 +447,6 @@ plugins:
   path: eventconfig.yaml
 ...
 ```
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 There are four types of limits that can be specified in the configuration:
@@ -487,11 +484,11 @@ limits:
 ```
 
 <!--
-See the [EventRateLimit proposal](https://git.k8s.io/community/contributors/design-proposals/api-machinery/admission_control_event_rate_limit.md)
+See the [EventRateLimit Config API (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 for more details.
 -->
 详情请参见
-[事件速率限制提案](https://git.k8s.io/community/contributors/design-proposals/api-machinery/admission_control_event_rate_limit.md)。
+[EventRateLimit 配置文档（v1alpha1）](/zh/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)。
 
 ### ExtendedResourceToleration {#extendedresourcetoleration}
 
@@ -548,8 +545,6 @@ Reference the ImagePolicyWebhook configuration file from the file provided to th
 从文件中引用 ImagePolicyWebhook 的配置文件，并将其提供给 API 服务器命令标志
 `--admission-control-config-file`：
 
-{{< tabs name="imagepolicywebhook_example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -558,27 +553,12 @@ plugins:
   path: imagepolicyconfig.yaml
 ...
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# v1.17 中已废弃以鼓励使用 apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ImagePolicyWebhook
-  path: imagepolicyconfig.yaml
-...
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 Alternatively, you can embed the configuration directly in the file:
 -->
 或者，你也可以直接将配置嵌入到文件中：
 
-{{< tabs name="imagepolicywebhook_example2" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -592,24 +572,6 @@ plugins:
       retryBackoff: 500
       defaultAllow: true
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# v1.17 中已废弃以鼓励使用 apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ImagePolicyWebhook
-  configuration:
-    imagePolicy:
-      kubeConfigFile: <kubeconfig 文件路径>
-      allowTTL: 50
-      denyTTL: 50
-      retryBackoff: 500
-      defaultAllow: true
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 The ImagePolicyWebhook config file must reference a
@@ -623,9 +585,9 @@ ImagePolicyWebhook 的配置文件必须引用
 要求后端使用 TLS 进行通信。
 
 <!--
-The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
+The kubeconfig file's `cluster` field must point to the remote service, and the `user` field must contain the returned authorizer.
 -->
-kubeconfig 文件的 cluster 字段需要指向远端服务，user 字段需要包含已返回的授权者。
+kubeconfig 文件的 `cluster` 字段需要指向远端服务，user 字段需要包含已返回的授权者。
 
 <!--
 ```yaml
@@ -683,7 +645,7 @@ When faced with an admission decision, the API Server POSTs a JSON serialized `i
 Pod 注解。
 
 <!--
-Note that webhook API objects are subject to the same versioning compatibility rules as other Kubernetes API objects. Implementers should be aware of looser compatibility promises for alpha objects and check the "apiVersion" field of the request to ensure correct deserialization. Additionally, the API Server must enable the imagepolicy.k8s.io/v1alpha1 API extensions group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
+Note that webhook API objects are subject to the same versioning compatibility rules as other Kubernetes API objects. Implementers should be aware of looser compatibility promises for alpha objects and check the "apiVersion" field of the request to ensure correct deserialization. Additionally, the API Server must enable the `imagepolicy.k8s.io/v1alpha1` API extensions group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 -->
 注意，Webhook API 对象与其他 Kubernetes API 对象一样受制于相同的版本控制兼容性规则。
 实现者应该知道对 alpha 对象的更宽松的兼容性，并检查请求的 "apiVersion" 字段，
@@ -718,10 +680,10 @@ An example request body:
 ```
 
 <!--
-The remote service is expected to fill the `ImageReviewStatus` field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
+The remote service is expected to fill the `ImageReviewStatus` field of the request and respond to either allow or disallow access. The response body's `spec` field is ignored and may be omitted. A permissive response would return:
 -->
 远程服务将填充请求的 `ImageReviewStatus` 字段，并返回允许或不允许访问的响应。
-响应体的 "spec" 字段会被忽略，并且可以省略。一个允许访问应答会返回：
+响应体的 `spec` 字段会被忽略，并且可以省略。一个允许访问应答会返回：
 
 ```json
 {
@@ -782,10 +744,9 @@ Examples of information you might put here are:
 * 向策略服务器提供一个提示，用于提供镜像的 imageID，以方便它进行查找。
 
 <!--
-In any case, the annotations are provided by the user and are not validated by Kubernetes in any way. In the future, if an annotation is determined to be widely useful, it may be promoted to a named field of `ImageReviewSpec`.
+In any case, the annotations are provided by the user and are not validated by Kubernetes in any way.
 -->
 在任何情况下，注解都是由用户提供的，并不会被 Kubernetes 以任何方式进行验证。
-在将来，如果一个注解确定将被广泛使用，它可能会被提升为 ImageReviewSpec 的一个命名字段。
 
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 
@@ -800,11 +761,12 @@ This admission controller denies any pod that defines `AntiAffinity` topology ke
 ### LimitRanger {#limitranger}
 
 <!--
-This admission controller will observe the incoming request and ensure that it does not violate any of the constraints
-enumerated in the `LimitRange` object in a `Namespace`.  If you are using `LimitRange` objects in
-your Kubernetes deployment, you MUST use this admission controller to enforce those constraints. LimitRanger can also
-be used to apply default resource requests to Pods that don't specify any; currently, the default LimitRanger
-applies a 0.1 CPU requirement to all Pods in the `default` namespace.
+This admission controller will observe the incoming request and ensure that it does not violate
+any of the constraints enumerated in the `LimitRange` object in a `Namespace`.  If you are using
+`LimitRange` objects in your Kubernetes deployment, you MUST use this admission controller to
+enforce those constraints. LimitRanger can also be used to apply default resource requests to Pods
+that don't specify any; currently, the default LimitRanger applies a 0.1 CPU requirement to all
+Pods in the `default` namespace.
 -->
 该准入控制器会观察传入的请求，并确保它不会违反 `Namespace` 中 `LimitRange`
 对象枚举的任何约束。
@@ -815,11 +777,12 @@ LimitRanger 还可以用于将默认资源请求应用到没有指定任何内�
 0.1 CPU 的需求。
 
 <!--
-See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
-and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
+See the [LimitRange API reference](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+and the [example of LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+for more details.
 -->
 请查看
-[limitRange 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
+[limitRange 设计文档](/zh/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 和 [LimitRange 例子](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 以了解更多细节。
 
@@ -903,9 +866,10 @@ If the namespace referenced from a request doesn't exist, the request is rejecte
 ### NamespaceLifecycle {#namespacelifecycle}
 
 <!--
-This admission controller enforces that a `Namespace` that is undergoing termination cannot have new objects created in it,
-and ensures that requests in a non-existent `Namespace` are rejected. This admission controller also prevents deletion of
-three system reserved namespaces `default`, `kube-system`, `kube-public`.
+This admission controller enforces that a `Namespace` that is undergoing termination cannot have
+new objects created in it, and ensures that requests in a non-existent `Namespace` are rejected.
+This admission controller also prevents deletion of three system reserved namespaces `default`,
+`kube-system`, `kube-public`.
 -->
 该准入控制器禁止在一个正在被终止的 `Namespace` 中创建新对象，并确保
 使用不存在的 `Namespace` 的请求被拒绝。
@@ -913,8 +877,9 @@ three system reserved namespaces `default`, `kube-system`, `kube-public`.
 `kube-system` 和 `kube-public`。
 
 <!--
-A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services, etc.) in that
-namespace.  In order to enforce integrity of that process, we strongly recommend running this admission controller.
+A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services,
+etc.) in that namespace.  In order to enforce integrity of that process, we strongly recommend
+running this admission controller.
 -->
 删除 `Namespace` 会触发删除该名字空间中所有对象（Pod、Service 等）的一系列操作。
 为了确保这个过程的完整性，我们强烈建议启用这个准入控制器。
@@ -932,16 +897,15 @@ Such kubelets will only be allowed to modify their own `Node` API object, and on
 这样，kubelet 只可修改自己的 `Node` API 对象，只能修改绑定到节点本身的 Pod 对象。
 
 <!--
-In Kubernetes 1.11+, kubelets are not allowed to update or remove taints from their `Node` API object.
+kubelets are not allowed to update or remove taints from their `Node` API object.
 
-In Kubernetes 1.13+, the `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
+The `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
 and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.io/` prefixes as follows:
 -->
-在 Kubernetes 1.11+ 的版本中，不允许 kubelet 从 `Node` API 对象中更新或删除污点。
+不允许 kubelet 在 `Node` API 对象上更新或删除污点。
 
-在 Kubernetes 1.13+ 的版本中，`NodeRestriction` 准入插件可防止 kubelet 删除
-`Node` API 对象，并对 `kubernetes.io/` 或 `k8s.io/` 前缀标签的 kubelet
-强制进行如下修改：
+`NodeRestriction` 准入插件可防止 kubelet 删除`Node` API 对象，
+并对 `kubernetes.io/` 或 `k8s.io/` 前缀标签的 kubelet 强制进行如下修改：
 
 <!--
 * **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
@@ -992,30 +956,20 @@ subresource of the referenced *owner* can change it.
 
 ### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
 
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
+
 <!--
 This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
 -->
 该准入控制器检查传入的 `PersistentVolumeClaim` 调整大小请求，对其执行额外的验证操作。
 
-{{< note >}}
 <!--
-Support for volume resizing is available as a beta feature. As a cluster administrator,
-you must ensure that the feature gate `ExpandPersistentVolumes` is set
-to `true` to enable resizing.
--->
-对调整卷大小的支持是一种 Beta 特性。作为集群管理员，你必须确保特性门控 `ExpandPersistentVolumes`
-设置为 `true` 才能启用调整大小。
-{{< /note >}}
-
-<!--
-After enabling the `ExpandPersistentVolumes` feature gate, enabling the `PersistentVolumeClaimResize` admission
-controller is recommended, too. This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
+Enabling the `PersistentVolumeClaimResize` admission controller is recommended. This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
  explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
 
 For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
 -->
-启用 `ExpandPersistentVolumes` 特性门控之后，建议将 `PersistentVolumeClaimResize`
-准入控制器也启用。除非 PVC 的 `StorageClass` 明确地将 `allowVolumeExpansion` 设置为
+建议启用 `PersistentVolumeClaimResize` 准入控制器。除非 PVC 的 `StorageClass` 明确地将 `allowVolumeExpansion` 设置为
 `true` 来显式启用调整大小。否则，默认情况下该准入控制器会阻止所有对 PVC 大小的调整。
 
 例如：由以下 `StorageClass` 创建的所有 `PersistentVolumeClaim` 都支持卷容量扩充：
@@ -1099,8 +1053,6 @@ Reference the `PodNodeSelector` configuration file from the file provided to the
 基于提供给 API 服务器命令行标志 `--admission-control-config-file` 的文件名，
 从文件中引用 `PodNodeSelector` 配置文件：
 
-{{< tabs name="podnodeselector_example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -1109,19 +1061,6 @@ plugins:
   path: podnodeselector.yaml
 ...
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# 在 v1.17 中废弃，以鼓励使用 apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: PodNodeSelector
-  path: podnodeselector.yaml
-...
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 #### Configuration Annotation Format
@@ -1283,11 +1222,12 @@ objects in your Kubernetes deployment, you MUST use this admission controller to
 执行配额限制。
 
 <!--
-See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
+See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
 请查看
-[resourceQuota 设计文档](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md)和 [Resource Quota 例子](/zh/docs/concepts/policy/resource-quotas/)
-了解更多细节。
+[resourceQuota API 参考](/zh/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+和 [Resource Quota 例子](/zh/docs/concepts/policy/resource-quotas/)了解更多细节。
 
 
 <!--
@@ -1295,9 +1235,13 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-If you enable the `PodOverhead` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), and define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) configured, this admission controller checks incoming
-Pods. When enabled, this admission controller rejects any Pod create requests that have the overhead already set.
-For Pods that have a  RuntimeClass is configured and selected in their `.spec`, this admission controller sets `.spec.overhead` in the Pod based on the value defined in the corresponding RuntimeClass.
+If you define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
+configured, this admission controller checks incoming Pods.
+When enabled, this admission controller rejects any Pod create requests
+that have the overhead already set.
+For Pods that have a RuntimeClass configured and selected in their `.spec`,
+this admission controller sets `.spec.overhead` in the Pod based on the value
+defined in the corresponding RuntimeClass.
 
 {{< note >}}
 The `.spec.overhead` field for Pod and the `.overhead` field for RuntimeClass are both in beta. If you do not enable the `PodOverhead` feature gate, all Pods are treated as if `.spec.overhead` is unset.
@@ -1310,9 +1254,7 @@ for more information.
 
 +{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-如果你开启 `PodOverhead`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/),
-并且通过 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
+如果你通过 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
 配置来定义一个 RuntimeClass，这个准入控制器会检查新的 Pod。
 当启用的时候，这个准入控制器会拒绝任何 overhead 字段已经设置的 Pod。
 对于配置了 RuntimeClass 并在其 `.spec` 中选定 RuntimeClass 的 Pod，
@@ -1438,11 +1380,3 @@ Yes. The recommended admission controllers are enabled by default (shown [here](
 （请查看[这里](/zh/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此，你无需显式指定它们。
 你可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
-
-{{< note >}}
-<!--
-`--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
--->
-`--admission-control` 在 1.10 中已废弃，由 `--enable-admission-plugins` 取代。
-{{< /note >}}
-
