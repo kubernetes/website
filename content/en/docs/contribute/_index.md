@@ -12,6 +12,11 @@ card:
 ---
 
 <!-- overview -->
+Kubernetes which is an open-source system for automating deployment, scaling, and management of containerized applications
+was accepted to CNCF(Cloud Native Computing Foundation) on March 16, 2016 and is at the Graduated project maturity level.
+For more information about CNCF Projects,Refer the below link: 
+ 
+https://contribute.cncf.io/contributors/projects/#kubernetes
 
 *Kubernetes welcomes improvements from all contributors, new and experienced!*
 
