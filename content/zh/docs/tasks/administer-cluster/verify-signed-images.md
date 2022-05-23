@@ -102,7 +102,7 @@ do
 done < "$input"
 ```
 
-当你验证一个镜像，在你的Pod清单通过指定该镜像的摘要作为例子： `registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`
+当你验证一个镜像，在你的 Pod 清单通过指定该镜像的雜湊值，像是此範例：`registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`
 .
 
 需要更多信息，请参考[镜像拉取策略](/zh/docs/concepts/containers/images/#image-pull-policy)章节。
