@@ -50,7 +50,7 @@ in `KEYLESS` mode. To learn more about keyless signing, please refer to
 . {{< /note >}}
 -->
 
-## 验证镜像签名
+## 验证镜像签名 {#verifying-image-signatures}
 
 完整的镜像签名列表请参见链接 [Releases](/releases/download/).
 
