@@ -67,7 +67,7 @@ What might an Operator look like in more detail? Here's an example:
 6. The operator also manages regular database backups. For each SampleDB
    resource, the operator determines when to create a Pod that can connect
    to the database and take backups. These Pods would rely on a ConfigMap
-   and / or a Secret that has database connection details and credentials.
+   and/or a Secret that has database connection details and credentials.
 7. Because the Operator aims to provide robust automation for the resource
    it manages, there would be additional supporting code. For this example,
    code checks to see if the database is running an old version and, if so,
