@@ -54,7 +54,7 @@ in `KEYLESS` mode. To learn more about keyless signing, please refer to
 
 完整的镜像签名列表请参见链接 [Releases](/releases/download/).
 
-我们从这个列表中选择一个镜像并使用’ cosign verify ‘命令来验证它的签名：
+我们从这个列表中选择一个镜像，并使用 `cosign verify` 命令来验证它的签名：
 
 
 ```shell
