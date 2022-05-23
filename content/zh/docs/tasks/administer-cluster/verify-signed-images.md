@@ -121,11 +121,11 @@ resources:
 -->
 ## 使用准入控制器验证镜像
 
-有一些无控制平面镜像 (
-例如[conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md))
-, 在部署时签名也可以使用
+有一些非控制平面镜像（例如
+[conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md)
+），在部署时签名也可以使用
 [cosigned](https://docs.sigstore.dev/cosign/kubernetes/#cosigned-admission-controller)
-控制器进行验证。 要使用 “cosigned”，下面有一些有帮助的资源：
+控制器进行验证。如要使用 “cosigned”，下面是一些有帮助的资源：
 
 * [安装](https://github.com/sigstore/helm-charts/tree/main/charts/cosigned)
 * [配置选项](https://github.com/sigstore/cosign/tree/main/config)
