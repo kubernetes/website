@@ -14,6 +14,8 @@ weight: 10
 Kubernetes {{< skew currentVersion >}} supports [Container Network Interface](https://github.com/containernetworking/cni)
 (CNI) plugins for cluster networking. You must use a CNI plugin that is compatible with your cluster and that suits your needs. Different plugins are available (both open- and closed- source) in the wider Kubernetes ecosystem.
 
+A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). 
+
 You must use a CNI plugin that is compatible with the 
 [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) or later
 releases of the CNI specification. The Kubernetes project recommends using a plugin that is
@@ -24,9 +26,20 @@ CNI specification (plugins can be compatible with multiple spec versions).
 
 ## Installation
 
-A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). 
-The CRI manages its own CNI plugins, with Kubelet no longer managing the plugins since the [dockershim was removed in v1.24](https://github.com/kubernetes/kubernetes/pull/106907). 
-CNI plugins are installed according to their own documentation.
+The Container Runtime manages its own CNI plugins.
+
+{{< note >}}
+Prior to Kubernetes 1.24, the CNI plugin was managed by the Kubelet using the `cni-bin-dir` and `network-plugin` command line parameters.
+These were both removed in Kubernetes 1.24, with management of the CNI no longer in scope of the Kubelet.
+
+See [Troubleshooting CNI plugin-related errors](https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/) if you are facing issues following the removal of dockershim.
+{{< /note >}}
+
+For specific information about how a Container Runtime manages the CNI plugins, see the documentation for that Container Runtime, for example:
+- [containerd](https://github.com/containerd/containerd/blob/main/script/setup/install-cni)
+- [CRI-O](https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md)
+
+For specific information about how to install and manage a CNI plugin, see the documentation for that plugin.
 
 ## Network Plugin Requirements
 
