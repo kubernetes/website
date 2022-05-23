@@ -120,7 +120,7 @@ kubectl patch statefulsets <statefulset 名称> -p '{"spec":{"replicas":<new-rep
 -->
 ## 故障排查  {#troubleshooting}
 
-### 缩容操作无法正常工作
+### 扩缩容操作无法正常工作
 
 <!--
 You cannot scale down a StatefulSet when any of the stateful Pods it manages is unhealthy. Scaling down only takes place
@@ -128,8 +128,8 @@ after those stateful Pods become running and ready.
 
 If spec.replicas > 1, Kubernetes cannot determine the reason for an unhealthy Pod. It might be the result of a permanent fault or of a transient fault. A transient fault can be caused by a restart required by upgrading or maintenance.
 -->
-当 Stateful 所管理的任何 Pod 不健康时，你不能对该 StatefulSet 执行缩容操作。
-仅当 StatefulSet 的所有 Pod 都处于运行状态和 Ready 状况后才可缩容.
+当 Stateful 所管理的任何 Pod 不健康时，你不能对该 StatefulSet 执行扩缩容操作。
+仅当 StatefulSet 的所有 Pod 都处于运行状态和 Ready 状况后才可扩缩容.
 
 如果 `spec.replicas` 大于 1，Kubernetes 无法判定 Pod 不健康的原因。
 Pod 不健康可能是由于永久性故障造成也可能是瞬态故障。
