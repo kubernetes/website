@@ -25,7 +25,7 @@ You will need to have the following tools installed:
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (often provided by your operating system)
 -->
-这些说明适用于 Kubernetes 1.24。如果您想要检查不同版本完整的 Kubernetes 组件，请查看该 Kubernetes 版本的文档。
+这些说明适用于 Kubernetes 1.24。如果你想要检查不同版本完整的 Kubernetes 组件，请查看该 Kubernetes 版本的文档。
 你需要安装以下工具:
 - `cosign` ([安装指导](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (通常由你的操作系统提供)
@@ -62,8 +62,7 @@ COSIGN_EXPERIMENTAL=1 cosign verify k8s.gcr.io/kube-apiserver-amd64:v1.24.0
 ```
 
 {{< note >}}
-`COSIGN_EXPERIMENTAL=1` is used to allow verification of images signed
-in `KEYLESS` mode. To learn more about keyless signing, please refer to
+`COSIGN_EXPERIMENTAL=1` 用于在 `KEYLESS` 模式对已签名的镜像进行验证。 想获取更多`KEYLESS`， 请参考
 [Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)
 . {{< /note >}}
 <!--
@@ -102,7 +101,7 @@ do
 done < "$input"
 ```
 
-当你验证一个镜像，在你的 Pod 清单通过指定该镜像的雜湊值，像是此範例：`registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`
+当你验证一个镜像，在你的 Pod 清单通过指定该镜像的杂凑值，像是此范例：`registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`
 .
 
 需要更多信息，请参考[镜像拉取策略](/zh/docs/concepts/containers/images/#image-pull-policy)章节。
