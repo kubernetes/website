@@ -1,5 +1,5 @@
 ---
-title: 验证已簽章容器镜像
+title: 验证已签名容器镜像
 content_type: task
 min-kubernetes-server-version: v1.24
 ---
@@ -25,7 +25,7 @@ You will need to have the following tools installed:
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (often provided by your operating system)
 -->
-这些说明适用于 Kubernetes 1.24。如果你想要检查不同版本完整的 Kubernetes 组件，请查看该 Kubernetes 版本的文档。
+这些说明适用于 {{< skew currentVersion >}}。如果你想要检查不同版本完整的 Kubernetes 组件，请查看该 Kubernetes 版本的文档。
 你需要安装以下工具:
 - `cosign` ([安装指导](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (通常由你的操作系统提供)
