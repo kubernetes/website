@@ -1,8 +1,8 @@
-标题: "监控, 日志和调试"
-描述: 设置监视和日志机制，用以排除集群故障或调试容器化应用。
+title: "监控, 日志和调试"
+description: 设置监视和日志机制，用以排除集群故障或调试容器化应用。
 weight: 20
-content_type: 概念
-no_list: 是
+content_type: concept
+no_list: true
 
 <!-- 
 ---
@@ -31,7 +31,6 @@ you're using.
 
 <!-- body -->
 -->
-
 有时候会出问题。本指南旨在纠正这些错误。它有两部分:
 
 * [应用排错](/zh/docs/tasks/debug/debug-application/) -针对部署代码到 Kubernetes 并想知道代码为什么不能正常运行的用户。
@@ -56,7 +55,6 @@ development scenarios. The [Reference](/docs/reference/) section provides
 detailed documentation on the [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/).
 -->
-
 ## 获取帮助 {#getting-help}
 
 如果上面的指南都没有回答你的问题，你可以通过多种方式从 Kubernetes 社区获得帮助。
@@ -145,7 +143,7 @@ Turkey | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-ev
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) 频道。另一个例子是，开发人员应该加入
 [`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) 频道。
 
-还有许多特定国家/当地语言的频道。欢迎加入这些本地化支持和信息的渠道：
+还有许多特定国家/当地语言的频道。欢迎加入这些本地化支持和信息的频道：
 
 国家 | 频道
 :---------|:------------
@@ -155,7 +153,7 @@ Turkey | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-ev
 德国 | [`#de-users`](https://kubernetes.slack.com/messages/de-users), [`#de-events`](https://kubernetes.slack.com/messages/de-events)
 印度 | [`#in-users`](https://kubernetes.slack.com/messages/in-users), [`#in-events`](https://kubernetes.slack.com/messages/in-events)
 意大利 | [`#it-users`](https://kubernetes.slack.com/messages/it-users), [`#it-events`](https://kubernetes.slack.com/messages/it-events)
-日报 | [`#jp-users`](https://kubernetes.slack.com/messages/jp-users), [`#jp-events`](https://kubernetes.slack.com/messages/jp-events)
+日本 | [`#jp-users`](https://kubernetes.slack.com/messages/jp-users), [`#jp-events`](https://kubernetes.slack.com/messages/jp-events)
 韩国 | [`#kr-users`](https://kubernetes.slack.com/messages/kr-users)
 荷兰| [`#nl-users`](https://kubernetes.slack.com/messages/nl-users)
 挪威 | [`#norw-users`](https://kubernetes.slack.com/messages/norw-users)
