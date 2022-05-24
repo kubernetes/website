@@ -123,7 +123,7 @@ resources:
 
 有一些非控制平面镜像（例如
 [conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md)
-），在部署时签名也可以使用
+），也可以在部署时使用
 [cosigned](https://docs.sigstore.dev/cosign/kubernetes/#cosigned-admission-controller)
 控制器进行验证。如要使用 “cosigned”，下面是一些有帮助的资源：
 
