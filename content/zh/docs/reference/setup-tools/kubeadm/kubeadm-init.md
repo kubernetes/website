@@ -207,6 +207,13 @@ What this example would do is write the manifest files for the control plane and
 这允许你修改文件，然后使用 `--skip-phases` 跳过这些阶段。
 通过调用最后一个命令，你将使用自定义清单文件创建一个控制平面节点。
 
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+<!-- 
+Alternatively, you can use the `skipPhases` field under `InitConfiguration`. 
+-->
+或者，你可以使用 `InitConfiguration` 下的 `skipPhases` 字段。
+
 <!--
 ### Using kubeadm init with a configuration file {#config-file}
 -->
@@ -239,8 +246,8 @@ The default configuration can be printed out using the
 If your configuration is not using the latest version it is **recommended** that you migrate using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-For more information on the fields and usage of the configuration you can navigate to our API reference
-page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories).
+For more information on the fields and usage of the configuration you can navigate to our
+[API reference page](/docs/reference/config-api/kubeadm-config.v1beta3/).
 -->
 可以使用 [kubeadm config print](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令打印出默认配置。
@@ -249,10 +256,119 @@ page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd
 **推荐**使用 [kubeadm config migrate](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令进行迁移。
 
-有关配置的字段和用法的更多信息，
-你可以访问 API 参考页面并从
-[列表](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories)
-中选择一个版本。
+关于配置的字段和用法的更多信息，你可以访问 [API 参考页面](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)。
+
+<!-- 
+### Using kubeadm init with feature gates {#feature-gates} 
+-->
+### 使用 kubeadm init 时设置特性门控 {#feature-gates} 
+
+<!-- 
+Kubeadm supports a set of feature gates that are unique to kubeadm and can only be applied
+during cluster creation with `kubeadm init`. These features can control the behavior
+of the cluster. Feature gates are removed after a feature graduates to GA. 
+-->
+Kubeadm 支持一组独有的特性门控，只能在 `kubeadm init` 创建集群期间使用。
+这些特性可以控制集群的行为。特性门控会在毕业到 GA 后被移除。
+
+<!-- 
+To pass a feature gate you can either use the `--feature-gates` flag for
+`kubeadm init`, or you can add items into the `featureGates` field when you pass
+a [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
+using `--config`. 
+-->
+你可以使用 `--feature-gates` 标志来为 `kubeadm init` 设置特性门控，
+或者你可以在用 `--config` 传递[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
+时添加条目到 `featureGates` 字段中去。
+
+<!-- 
+Passing [feature gates for core Kubernetes components](/docs/reference/command-line-tools-reference/feature-gates)
+directly to kubeadm is not supported. Instead, it is possible to pass them by
+[Customizing components with the kubeadm API](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/). 
+-->
+直接传递 [Kubernetes 核心组件的特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)给 kubeadm 是不支持的。
+相反，可以通过[使用 kubeadm API 的自定义组件](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)来传递。
+
+<!-- 
+List of feature gates: 
+-->
+特性门控的列表：
+
+{{< table caption="kubeadm feature gates" >}}
+特性 | 默认值 | Alpha | Beta
+:-------|:--------|:------|:-----
+`PublicKeysECDSA` | `false` | 1.19 | -
+`RootlessControlPlane` | `false` | 1.22 | -
+`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23
+{{< /table >}}
+
+<!-- 
+Once a feature gate goes GA it is removed from this list as its value becomes locked to `true` by default. 
+-->
+{{< note >}}
+一旦特性门控变成了 GA，那它将会从这个列表中移除，因为它的值会被默认锁定为 `true` 。
+{{< /note >}}
+
+<!-- 
+Feature gate descriptions: 
+-->
+特性门控的描述：
+
+<!-- 
+`PublicKeysECDSA`
+: Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
+Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
+switch between the RSA and ECDSA algorithms on the fly or during upgrades. 
+-->
+`PublicKeysECDSA`
+: 可用于创建集群时使用 ECDSA 证书而不是默认 RSA 算法。
+支持用 `kubeadm certs renew` 更新现有 ECDSA 证书，
+但你不能在集群运行期间或升级期间切换 RSA 和 ECDSA 算法。
+
+<!-- 
+`RootlessControlPlane`
+: Setting this flag configures the kubeadm deployed control plane component static Pod containers
+for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
+If the flag is not set, those components run as root. You can change the value of this feature gate before
+you upgrade to a newer version of Kubernetes. 
+-->
+`RootlessControlPlane`
+: 设置此标志来配置 kubeadm 所部署的控制平面组件中的静态 Pod 容器 
+`kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd` 以非 root 用户身份运行。
+如果未设置该标志，则这些组件以 root 身份运行。
+你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
+
+<!-- 
+`UnversionedKubeletConfigMap`
+: This flag controls the name of the {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} where kubeadm stores
+kubelet configuration data. With this flag not specified or set to `true`, the ConfigMap is named `kubelet-config`.
+If you set this flag to `false`, the name of the ConfigMap includes the major and minor version for Kubernetes
+(for example: `kubelet-config-{{< skew currentVersion >}}`). Kubeadm ensures that RBAC rules for reading and writing
+that ConfigMap are appropriate for the value you set. When kubeadm writes this ConfigMap (during `kubeadm init`
+or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
+(during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
+if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap. 
+-->
+`UnversionedKubeletConfigMap`
+: 此标志控制 kubeadm 存储 kubelet 配置数据的 {{<glossary_tooltip text="ConfigMap" term_id="configmap" >}} 的名称。
+在未指定此标志或设置为 `true` 的情况下，此 ConfigMap 被命名为 `kubelet-config`。
+如果将此标志设置为 `false`，则此 ConfigMap 的名称会包括 Kubernetes 的主要版本和次要版本（例如：`kubelet-config-{{< skew currentVersion >}}`）。 
+Kubeadm 会确保用于读写 ConfigMap 的 RBAC 规则适合你设置的值。
+当 kubeadm 写入此 ConfigMap 时（在 `kubeadm init` 或 `kubeadm upgrade apply` 期间），
+kubeadm 根据 `UnversionedKubeletConfigMap` 的设置值来执行操作。
+当读取此 ConfigMap 时（在 `kubeadm join`、`kubeadm reset`、`kubeadm upgrade ...` 期间），
+kubeadm 尝试首先使用无版本（后缀）的 ConfigMap 名称；
+如果不成功，kubeadm 将回退到使用该 ConfigMap 的旧（带版本号的）名称。
+
+<!-- 
+Setting `UnversionedKubeletConfigMap` to `false` is supported but **deprecated**. 
+-->
+{{< note >}}
+设置 `UnversionedKubeletConfigMap` 为 `false` 是被支持的特性，但该特性**已被弃用**。
+{{< /note >}}
+
+
+
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}
@@ -286,6 +402,37 @@ For information about passing flags to control plane components see:
 [控制平面命令行参数](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 
 <!--
+### Running kubeadm without an Internet connection {#without-internet-connection}
+-->
+### 在没有互联网连接的情况下运行 kubeadm {#without-internet-connection}
+
+<!--
+For running kubeadm without an internet connection you have to pre-pull the required control-plane images.
+-->
+要在没有互联网连接的情况下运行 kubeadm，你必须提前拉取所需的控制平面镜像。
+
+<!--
+You can list and pull the images using the `kubeadm config images` sub-command:
+-->
+你可以使用 `kubeadm config images` 子命令列出并拉取镜像：
+
+```shell
+kubeadm config images list
+kubeadm config images pull
+```
+
+<!-- 
+You can pass `--config` to the above commands with a [kubeadm configuration file](#config-file)
+to control the `kubernetesVersion` and `imageRepository` fields. 
+-->
+你可以通过 `--config` 把 [kubeadm 配置文件](#config-file) 传递给上述命令来控制 `kubernetesVersion` 和 `imageRepository` 字段。
+
+<!-- 
+All default `k8s.gcr.io` images that kubeadm requires support multiple architectures. 
+-->
+kubeadm 需要的所有默认 `k8s.gcr.io` 镜像都支持多种硬件体系结构。
+
+<!--
 ### Using custom images {#custom-images}
 -->
 ### 使用自定义的镜像 {#custom-images}
@@ -306,23 +453,44 @@ You can override this behavior by using [kubeadm with a configuration file](#con
 <!--
 Allowed customization are:
 
+* To provide `kubernetesVersion` which affects the version of the images.
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
-* To set `useHyperKubeImage` to `true` to use the HyperKube image.
-* To provide a specific `imageRepository` and `imageTag` for etcd or DNS add-on.
+* To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
 -->
 允许的自定义功能有：
 
+* 提供影响镜像版本的 `kubernetesVersion`。 
 * 使用其他的 `imageRepository` 来代替 `k8s.gcr.io`。
-* 将 `useHyperKubeImage` 设置为 `true`，使用 HyperKube 镜像。
-* 为 etcd 或 DNS 附件提供特定的 `imageRepository` 和 `imageTag`。
+* 为 etcd 或 CoreDNS 提供特定的 `imageRepository` 和 `imageTag`。
 
-<!--
-Please note that the configuration field `kubernetesVersion` or the command line flag
-`-kubernetes-version` affect the version of the images.
+<!-- 
+`imageRepository` may differ for backwards compatibility reasons. For example,
+one image might have a subpath at `k8s.gcr.io/subpath/image`, but be defaulted
+to `my.customrepository.io/image` when using a custom repository. 
 -->
-请注意配置文件中的配置项 `kubernetesVersion` 或者命令行参数 `--kubernetes-version`
-会影响到镜像的版本。
+由于向后兼容的原因，`imageRepository` 可能会有所不同。
+例如，某镜像的子路径可能是 `k8s.gcr.io/subpath/image`，
+但使用自定义仓库时默认为 `my.customrepository.io/image`。
+
+<!-- 
+To ensure you push the images to your custom repository in paths that kubeadm
+can consume, you must:
+-->
+确保将镜像推送到 kubeadm 可以使用的自定义仓库的路径中，你必须：
+
+<!-- 
+* Pull images from the defaults paths at `k8s.gcr.io` using `kubeadm config images {list|pull}`.
+* Push images to the paths from `kubeadm config images list --config=config.yaml`,
+where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
+for etcd and CoreDNS.
+* Pass the same `config.yaml` to `kubeadm init`. 
+-->
+* 使用 `kubeadm config images {list|pull}` 从 `k8s.gcr.io` 的默认路径中拉取镜像。
+* 将镜像推送到 `kubeadm config images list --config=config.yaml` 的路径，
+其中 `config.yaml` 包含自定义的 `imageRepository` 和/或用于 etcd 和 CoreDNS 的 `imageTag`。 
+* 将相同的 `config.yaml` 传递给 `kubeadm init`。
+
 
 <!--
 ### Uploading control-plane certificates to the cluster
@@ -424,32 +592,6 @@ value to the kubelet.
 此标识将合适的
 [`--hostname-override`](/zh/docs/reference/command-line-tools-reference/kubelet/#options)
 值传递给 kubelet。
-
-<!--
-### Running kubeadm without an internet connection
--->
-### 在没有互联网连接的情况下运行 kubeadm
-
-<!--
-For running kubeadm without an internet connection you have to pre-pull the required control-plane images.
--->
-要在没有互联网连接的情况下运行 kubeadm，你必须提前拉取所需的控制平面镜像。
-
-<!--
-You can list and pull the images using the `kubeadm config images` sub-command:
--->
-你可以使用 `kubeadm config images` 子命令列出并拉取镜像：
-
-```shell
-kubeadm config images list
-kubeadm config images pull
-```
-
-<!--
-All images that kubeadm requires such as `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` support multiple architectures.
--->
-kubeadm 需要的所有镜像，例如 `k8s.gcr.io/kube-*`、`k8s.gcr.io/etcd` 和 `k8s.gcr.io/pause`
-都支持多种架构。
 
 <!--
 ### Automating kubeadm
