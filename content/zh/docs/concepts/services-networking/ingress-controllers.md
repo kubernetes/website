@@ -159,7 +159,8 @@ Ideally, all ingress controllers should fulfill this specification, but the vari
 controllers operate slightly differently.
 -->
 如果你不为 Ingress 指定 IngressClass，并且你的集群中只有一个 IngressClass 被标记为默认，那么
-Kubernetes 会[应用](/zh/docs/concepts/services-networking/ingress/#default-ingress-class)此集群的默认
+Kubernetes 会将此集群的默认 IngressClass
+[应用](/zh/docs/concepts/services-networking/ingress/#default-ingress-class)到 Ingress 上。
 IngressClass。
 你可以通过将
 [`ingressclass.kubernetes.io/is-default-class` 注解](/zh/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)
