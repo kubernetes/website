@@ -26,7 +26,7 @@ CNI specification (plugins can be compatible with multiple spec versions).
 
 ## Installation
 
-A Container Runtime, in the networking context, is a daemon on a node configured to provide CRI Services for kubelet. In particular the Container Runtime must be configured to load the CNI plugins required to implement the Kubernetes network model.
+A Container Runtime, in the networking context, is a daemon on a node configured to provide CRI Services for kubelet. In particular, the Container Runtime must be configured to load the CNI plugins required to implement the Kubernetes network model.
 
 {{< note >}}
 Prior to Kubernetes 1.24, the CNI plugins could also be managed by the Kubelet using the `cni-bin-dir` and `network-plugin` command line parameters.
