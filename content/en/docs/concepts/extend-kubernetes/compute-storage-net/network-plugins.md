@@ -44,13 +44,17 @@ For specific information about how to install and manage a CNI plugin, see the d
 
 ## Network Plugin Requirements
 
-The plugin may also need specific support for kube-proxy.  The iptables proxy obviously depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.  For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.  If the plugin does not use a Linux bridge, but uses something like Open vSwitch or some other mechanism instead, it should ensure container traffic is appropriately routed for the proxy.
+For plugin developers and users who regularly build or deploy Kubernetes, the plugin may also need specific configuration to support kube-proxy.
+The iptables proxy depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.
+For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.
+If the plugin does not use a Linux bridge, but uses something like Open vSwitch or some other mechanism instead, it should ensure container traffic is appropriately routed for the proxy.
 
 By default, if no kubelet network plugin is specified, the `noop` plugin is used, which sets `net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like Docker with a bridge) work correctly with the iptables proxy.
 
 ### Loopback CNI
 
-In addition to the CNI plugin installed on the nodes, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
+In addition to the CNI plugin installed on the nodes for implementing the Kubernetes Network Model, Kubernetes also requires the Container Runtimes to provide a loopback interface `lo`, which is used for each sandbox (pod sandboxes, vm sandboxes, ...).
+Implementing the loopback interface can be accomplished by re-using the [`the CNI loopback plugin.`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) or by developing your own code to achieve this (see [this example from CRI-O](https://github.com/cri-o/ocicni/blob/release-1.24/pkg/ocicni/util_linux.go#L91)).
 
 ### Support hostPort
 
