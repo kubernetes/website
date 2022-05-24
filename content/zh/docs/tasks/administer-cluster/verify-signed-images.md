@@ -119,7 +119,7 @@ resources:
 * [Installation](https://github.com/sigstore/helm-charts/tree/main/charts/cosigned)
 * [Configuration Options](https://github.com/sigstore/cosign/tree/main/config)
 -->
-## 使用准入控制器验证镜像
+## 使用准入控制器验证镜像签名
 
 有一些非控制平面镜像（例如
 [conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md)
