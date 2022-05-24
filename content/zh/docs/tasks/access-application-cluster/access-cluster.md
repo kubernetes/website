@@ -404,7 +404,7 @@ There are several different proxies you may encounter when using Kubernetes:
    - 添加身份验证头部
 
 <!--
-1.  The [apiserver proxy](#discovering-builtin-services):
+1.  The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
@@ -414,7 +414,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
 -->
-2. [apiserver 代理](#discovering-builtin-services)：
+2. [apiserver 代理](/zh/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services)：
 
    - 内置于 apiserver 中
    - 将集群外部的用户连接到集群 IP，否则这些 IP 可能无法访问
