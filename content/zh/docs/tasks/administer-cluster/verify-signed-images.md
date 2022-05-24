@@ -25,7 +25,7 @@ You will need to have the following tools installed:
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (often provided by your operating system)
 -->
-这些说明适用于 {{< skew currentVersion >}}。如果你想要检查其他版本的 Kubernetes 组件的完整性，
+这些说明适用于 Kubernetes {{< skew currentVersion >}}。如果你想要检查其他版本的 Kubernetes 组件的完整性，
 请查看对应 Kubernetes 版本的文档。
 你需要安装以下工具:
 - `cosign` ([安装指南](https://docs.sigstore.dev/cosign/installation/))
