@@ -766,7 +766,7 @@ We strongly recommend using this admission controller if you intend to make use 
 The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection`
 finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV).
 In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed
-from the PVC or PV by PVC or PV Protection Controller. 
+from the PVC or PV by PVC or PV Protection Controller.
 Refer to the
 [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)
 for more detailed information.
