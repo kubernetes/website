@@ -30,7 +30,7 @@ A Container Runtime, in the networking context, is a daemon on a node configured
 
 {{< note >}}
 Prior to Kubernetes 1.24, the CNI plugins could also be managed by the Kubelet using the `cni-bin-dir` and `network-plugin` command line parameters.
-These were both removed in Kubernetes 1.24, with management of the CNI no longer in scope of the Kubelet.
+These command line parameters were removed in Kubernetes 1.24, with management of the CNI no longer in scope for Kubelet.
 
 See [Troubleshooting CNI plugin-related errors](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)
 if you are facing issues following the removal of dockershim.
