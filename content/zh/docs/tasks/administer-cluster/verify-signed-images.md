@@ -53,7 +53,7 @@ in `KEYLESS` mode. To learn more about keyless signing, please refer to
 
 ## 验证镜像签名 {#verifying-image-signatures}
 
-完整的镜像签名列表请参见链接 [Releases](/releases/download/).
+完整的镜像签名列表请参见[发行版本](/releases/download/)。
 
 我们从这个列表中选择一个镜像，并使用 `cosign verify` 命令来验证它的签名：
 
