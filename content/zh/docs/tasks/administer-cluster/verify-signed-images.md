@@ -91,7 +91,7 @@ section.
 -->
 ### 验证所有控制平面组件镜像
 
-验证所有控制平面组件镜像，请运行以下命令：
+验证所有已签名的控制平面组件镜像，请运行以下命令：
 
 ```shell
 curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: k8s.gcr.io/' | awk '{print $2}' > images.txt
