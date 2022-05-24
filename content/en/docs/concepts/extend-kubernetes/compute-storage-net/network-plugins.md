@@ -40,7 +40,7 @@ For specific information about how a Container Runtime manages the CNI plugins, 
 - [containerd](https://github.com/containerd/containerd/blob/main/script/setup/install-cni)
 - [CRI-O](https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md)
 
-For specific information about how to install and manage a CNI plugin, see the documentation for that plugin.
+For specific information about how to install and manage a CNI plugin, see the documentation for that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
 
 ## Network Plugin Requirements
 
