@@ -167,14 +167,11 @@ using the (deprecated) v1alpha2 API instead.
 
 {{% thirdparty-content %}}
 
-
 ### containerd
 
 This section outlines the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
-
-
 
 Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
 
