@@ -64,8 +64,8 @@ COSIGN_EXPERIMENTAL=1 cosign verify k8s.gcr.io/kube-apiserver-amd64:v1.24.0
 
 {{< note >}}
 `COSIGN_EXPERIMENTAL=1` 用于对以 `KEYLESS` 模式签名的镜像进行验证。想要进一步了解 `KEYLESS`，请参考
-[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)
-. {{< /note >}}
+[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)。
+{{< /note >}}
 <!--
 ### Verifying images for all control plane components
 
