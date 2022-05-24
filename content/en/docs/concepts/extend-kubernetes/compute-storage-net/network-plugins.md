@@ -141,8 +141,4 @@ metadata:
 ...
 ```
 
-## Usage Summary
-
-Once the Kubelet is installed and communicating with the Kubernetes API Server, a CNI plugin can be installed using the instructions for that plugin.
-
 ## {{% heading "whatsnext" %}}
