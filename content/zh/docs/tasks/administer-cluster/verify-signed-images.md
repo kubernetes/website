@@ -101,7 +101,8 @@ do
 done < "$input"
 ```
 
-当你验证一个镜像，在你的 Pod 清单通过指定该镜像的杂凑值，像是此范例：`registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`
+当你完成某个镜像的验证时，可以在你的 Pod 清单通过摘要值来指定该镜像，例如：
+`registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
 .
 
 需要更多信息，请参考[镜像拉取策略](/zh/docs/concepts/containers/images/#image-pull-policy)章节。
