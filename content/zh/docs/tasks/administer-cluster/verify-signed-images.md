@@ -126,7 +126,7 @@ resources:
 [conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md)
 ），也可以在部署时使用
 [cosigned](https://docs.sigstore.dev/cosign/kubernetes/#cosigned-admission-controller)
-控制器进行验证。如要使用 “cosigned”，下面是一些有帮助的资源：
+控制器验证其签名。如要使用 “cosigned”，下面是一些有用的资源：
 
 * [安装](https://github.com/sigstore/helm-charts/tree/main/charts/cosigned)
 * [配置选项](https://github.com/sigstore/cosign/tree/main/config)
