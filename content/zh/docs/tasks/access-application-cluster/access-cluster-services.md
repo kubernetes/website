@@ -118,23 +118,23 @@ The output is similar to this:
 输出类似于：
 
 ```
-Kubernetes master is running at https://104.197.5.247
-elasticsearch-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
-kibana-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kibana-logging/proxy
-kube-dns is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kube-dns/proxy
-grafana is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
-heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
+Kubernetes master is running at https://192.0.2.1
+elasticsearch-logging is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
+kibana-logging is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/kibana-logging/proxy
+kube-dns is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/kube-dns/proxy
+grafana is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 ```
 
 <!--
 This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
-at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed, or through a kubectl proxy at, for example:
+at `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed, or through a kubectl proxy at, for example:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 -->
 这一输出显示了用 proxy 动词访问每个服务时可用的 URL。例如，此集群
 （使用 Elasticsearch）启用了集群层面的日志。如果提供合适的凭据，可以通过
-`https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`
+`https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`
 访问，或通过一个 `kubectl proxy` 来访问：
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`。
 
@@ -191,7 +191,7 @@ URL 的 `<service_name>` 段支持的格式为：
 * 如要访问 Elasticsearch 服务末端 `_search?q=user:kimchy`，你可以使用：
 
     ```
-    http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
+    http://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
     ```
 
 <!--
@@ -200,7 +200,7 @@ URL 的 `<service_name>` 段支持的格式为：
 * 如要访问 Elasticsearch 集群健康信息`_cluster/health?pretty=true`，你会使用：
 
     ```
-    https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true`
+    https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
     ```
 
     <!--
@@ -229,7 +229,7 @@ URL 的 `<service_name>` 段支持的格式为：
 * 要访问 *https* Elasticsearch 服务健康信息 `_cluster/health?pretty=true`，你会使用：
 
     ```
-    https://104.197.5.247/api/v1/namespaces/kube-system/services/https:elasticsearch-logging/proxy/_cluster/health?pretty=true
+    https://192.0.2.1/api/v1/namespaces/kube-system/services/https:elasticsearch-logging:/proxy/_cluster/health?pretty=true
     ```
 
 <!--
