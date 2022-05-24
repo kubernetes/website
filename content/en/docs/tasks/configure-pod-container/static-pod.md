@@ -117,7 +117,7 @@ To use this approach:
 
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 
-    ```yaml
+    ``yaml
     apiVersion: v1
     kind: Pod
     metadata:
