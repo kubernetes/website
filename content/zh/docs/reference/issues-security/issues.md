@@ -1,6 +1,7 @@
 ---
 title: Kubernetes 问题追踪
 weight: 10
+aliases: [/zh/cve/, /zh/cves/]
 ---
 
 <!--
@@ -29,6 +30,6 @@ Work on Kubernetes code and public issues are tracked using [GitHub Issues](http
 <!--
 Security-related announcements are sent to the [kubernetes-security-announce@googlegroups.com](https://groups.google.com/forum/#!forum/kubernetes-security-announce) mailing list.
 -->
-与安全性相关的公告请发送到
+与安全性相关的公告将发送到
 [kubernetes-security-announce@googlegroups.com](https://groups.google.com/forum/#!forum/kubernetes-security-announce)
 邮件列表。
