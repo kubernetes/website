@@ -166,13 +166,8 @@ Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并
 - Kubernetes system requirements:
   - if running on linux:
     - [error] if Kernel is older than the minimum required version
-    - [error] if required cgroups subsystem aren't in set up
-  - if using docker:
-    - [warning/error] if Docker service does not exist, if it is disabled, if it is not active.
-    - [error] if Docker endpoint does not exist or does not work
-    - [warning] if docker version is not in the list of validated docker versions
-  - If using other cri engine:
-    - [error] if crictl socket does not answer
+    - [error] if required cgroups subsystem aren't set up
+- [error] if the CRI endpoint does not answer
 -->
 - [警告] 如果要使用的 Kubernetes 版本（由 `--kubernetes-version` 标志指定）比 kubeadm CLI
   版本至少高一个小版本。
@@ -180,12 +175,7 @@ Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并
   - 如果在 linux上运行：
     - [错误] 如果内核早于最低要求的版本
     - [错误] 如果未设置所需的 cgroups 子系统
-  - 如果使用 docker：
-    - [警告/错误] 如果 Docker 服务不存在、被禁用或未激活。
-    - [错误] 如果 Docker 端点不存在或不起作用
-    - [警告] 如果 docker 版本不在经过验证的 docker 版本列表中
-  - 如果使用其他 cri 引擎：
-    - [错误] 如果 crictl 套接字未应答
+- [错误] 如果 CRI 端点未应答
 <!--  
 - [error] if user is not root
 - [error] if the machine hostname is not a valid DNS subdomain
@@ -745,18 +735,20 @@ As soon as the control plane is available, kubeadm executes following actions:
 一旦控制平面可用，kubeadm 将执行以下操作：
 
 <!-- 
-- Labels the node as control-plane with `node-role.kubernetes.io/master=""`
-- Taints the node with `node-role.kubernetes.io/master:NoSchedule`
+- Labels the node as control-plane with `node-role.kubernetes.io/control-plane=""`
+- Taints the node with `node-role.kubernetes.io/master:NoSchedule` and `node-role.kubernetes.io/control-plane:NoSchedule`
 -->
-- 给节点打上 `node-role.kubernetes.io/master=""` 标签，标记其为控制平面
-- 给节点打上 `node-role.kubernetes.io/master:NoSchedule` 污点
+- 给节点打上 `node-role.kubernetes.io/control-plane=""` 标签，标记其为控制平面
+- 给节点打上 `node-role.kubernetes.io/master:NoSchedule` 和 `node-role.kubernetes.io/control-plane:NoSchedule` 污点
 
 <!-- Please note that: -->
 请注意：
 
 <!-- 
+1. The `node-role.kubernetes.io/master` taint is deprecated and will be removed in kubeadm version 1.25
 1. Mark control-plane phase can be invoked individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command
 -->
+1. `node-role.kubernetes.io/master` 污点是已废弃的，将会在 kubeadm 1.25 版本中移除
 1. 可以使用 [`kubeadm init phase mark-control-plane`](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) 
   命令单独触发控制平面标记
 
@@ -1026,14 +1018,12 @@ cluster startup problems.
 
 <!--  
 1. `kubeadm join` preflight checks are basically a subset `kubeadm init` preflight checks
-1. Starting from 1.9, kubeadm provides better support for CRI-generic functionality; in that case, docker specific controls
-   are skipped or replaced by similar controls for crictl.
+1. Starting from 1.24, kubeadm uses crictl to communicate to all known CRI endpoints.
 1. Starting from 1.9, kubeadm provides support for joining nodes running on Windows; in that case, linux specific controls are skipped.
 1. In any case the user can skip specific preflight checks (or eventually all preflight checks) with the `--ignore-preflight-errors` option.
 -->
 1. `kubeadm join` 预检基本上是 `kubeadm init` 预检的一个子集
-2. 从 1.9 开始，kubeadm 为 CRI 通用的功能提供了更好的支持；在这种情况下，
-   Docker 特定的控制参数将跳过或替换为 crictl 中与之相似的控制参数。
+2. 从 1.24 开始，kubeadm 使用 crictl 与所有已知的 CRI 端点进行通信。
 3. 从 1.9 开始，kubeadm 支持加入在 Windows 上运行的节点；在这种情况下，
    将跳过 Linux 特定的控制参数。
 4. 在任何情况下，用户都可以通过 `--ignore-preflight-errors` 选项跳过
