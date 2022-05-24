@@ -31,7 +31,7 @@ Windows 应用程序构成了许多组织中运行的服务和应用程序的很
 * Configure an example deployment to run Windows containers on the Windows node
 * (Optional) Configure an Active Directory Identity for your Pod using Group Managed Service Accounts (GMSA)
 -->
-## 目标
+## 目标 {#objectives}
 
 * 配置一个示例 deployment 以在 Windows 节点上运行 Windows 容器
 * （可选）使用组托管服务帐户（GMSA）为你的 Pod 配置 Active Directory 身份
@@ -46,13 +46,13 @@ behaves in much the same way for Linux and Windows containers.
 [Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
 The example in the section below is provided to jumpstart your experience with Windows containers.
 -->
-## 在你开始之前
+## 在你开始之前 {#before-you-begin}
 
 * 创建一个 Kubernetes 集群，其中包括一个控制平面和
   [运行 Windows 服务器的工作节点](/zh/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 * 重要的是要注意，对于 Linux 和 Windows 容器，在 Kubernetes 
   上创建和部署服务和工作负载的行为几乎相同。
-  与集群接口的 [kubectl 命令](/zh/docs/reference/kubectl/overview/)相同。
+  与集群接口的 [kubectl 命令](/zh/docs/reference/kubectl/)相同。
   提供以下部分中的示例只是为了快速启动  Windows 容器的使用体验。
 
 <!--
@@ -62,7 +62,7 @@ To deploy a Windows container on Kubernetes, you must first create an example ap
 The example YAML file below creates a simple webserver application.
 Create a service spec named `win-webserver.yaml` with the contents below:
 -->
-## 入门：部署 Windows 容器
+## 入门：部署 Windows 容器 {#getting-started-deploying-a-windows-container}
 
 要在 Kubernetes 上部署 Windows 容器，你必须首先创建一个示例应用程序。
 下面的示例 YAML  文件创建了一个简单的 Web 服务器应用程序。
@@ -163,13 +163,13 @@ the container port 80 is exposed directly to the service.
    kubectl get pods -o wide -w
    ```
 
-   正确部署服务后，两个 Pod 都标记为“Ready”。要退出 watch 命令，请按 Ctrl + C。
+   正确部署服务后，两个 Pod 都标记为 “Ready”。要退出 watch 命令，请按 Ctrl + C。
 
 1. 检查部署是否成功。验证：
 
    * Windows 节点上每个 Pod 有两个容器，使用  `docker ps` 
    * Linux 控制平面节点列出两个 Pod，使用  `kubectl get pods` 
-   * 跨网络的节点到 Pod 通信，从 Linux 控制平面节点 `curl` 你的 pod IPs 的端口80，以检查 Web 服务器响应
+   * 跨网络的节点到 Pod 通信，从 Linux 控制平面节点 `curl` 你的 pod IPs 的端口 80，以检查 Web 服务器响应
    * Pod 到 Pod 的通信，使用 docker exec 或 kubectl exec 在 Pod 之间
      （以及跨主机，如果你有多个 Windows 节点）进行 ping 操作
    * 服务到 Pod 的通信，从 Linux 控制平面节点和各个 Pod 中 `curl` 虚拟服务 IP
@@ -194,7 +194,7 @@ Only Windows pods are able to access service IPs.
 -->
 ## 可观测性  {#observability}
 
-### 抓取来自工作负载的日志
+### 抓取来自工作负载的日志 {#capturing-logs-from-workloads}
 
 <!--
 Logs are an important element of observability; they enable users to gain insights
@@ -238,7 +238,7 @@ with different usernames than the image defaults.
 The way this is achieved is a bit different from the way it is done for Linux containers.
 Learn more about it [here](/docs/tasks/configure-pod-container/configure-runasusername/).
 -->
-## 使用可配置的容器用户名
+## 使用可配置的容器用户名 {#using-configurable-container-usernames}
 
 从 Kubernetes v1.16 开始，可以为 Windows  容器配置与其镜像默认值不同的用户名
 来运行其入口点和进程。
@@ -255,7 +255,7 @@ simplified service principal name (SPN) management, and the ability to delegate 
 Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA.
 Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa/).
 -->
-## 使用组托管服务帐户管理工作负载身份
+## 使用组托管服务帐户管理工作负载身份 {#managing-workload-identity-with-group-managed-service-accounts}
 
 从 Kubernetes v1.14 开始，可以将 Windows 容器工作负载配置为使用组托管服务帐户（GMSA）。
 组托管服务帐户是 Active Directory 帐户的一种特定类型，它提供自动密码管理，
@@ -267,7 +267,7 @@ Windows 容器配置和使用 GMSA 的更多信息。
 <!--
 ## Taints and Tolerations
 -->
-## 污点和容忍度
+## 污点和容忍度 {#taints-and-tolerations}
 
 <!--
 Users today need to use some combination of taints and node selectors in order to
@@ -276,7 +276,7 @@ This likely imposes a burden only on Windows users. The recommended approach is 
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 -->
 目前，用户需要将 Linux 和 Windows 工作负载运行在各自特定的操作系统的节点上，
-因而需要结合使用污点和节点选择算符。 这可能仅给 Windows 用户造成不便。
+因而需要结合使用污点和节点选择算符。这可能仅给 Windows 用户造成不便。
 推荐的方法概述如下，其主要目标之一是该方法不应破坏与现有 Linux 工作负载的兼容性。
 <!--
 If the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
@@ -294,14 +294,15 @@ use normal Kubernetes mechanisms for
 [assigning pods to nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
 to ensure that the control plane for your cluster places pods onto nodes that are running the
 appropriate operating system.
+
 The `.spec.os.name` value has no effect on the scheduling of the Windows pods,
 so taints and tolerations and node selectors are still required
  to ensure that the Windows pods land onto appropriate Windows nodes.
  -->
 如果 `IdentifyPodOS` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)是启用的，
 你可以（并且应该）为 Pod 设置 `.spec.os.name` 以表明该 Pod
-中的容器所针对的操作系统。 对于运行 Linux 容器的 Pod，设置 
-`.spec.os.name` 为 `linux`。 对于运行 Windows 容器的 Pod，设置 `.spec.os.name`
+中的容器所针对的操作系统。对于运行 Linux 容器的 Pod，设置 
+`.spec.os.name` 为 `linux`。对于运行 Windows 容器的 Pod，设置 `.spec.os.name`
 为 `Windows`。
 
 {{< note >}}
@@ -317,7 +318,7 @@ so taints and tolerations and node selectors are still required
 <!--
 ### Ensuring OS-specific workloads land on the appropriate container host
 -->
-### 确保特定操作系统的工作负载落在适当的容器主机上
+### 确保特定操作系统的工作负载落在适当的容器主机上 {#ensuring-os-specific-workloads-land-on-the-appropriate-container-host}
 
 <!--
 Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations.
@@ -366,19 +367,19 @@ it would need both the nodeSelector and the appropriate matching toleration to c
 
 ```yaml
 nodeSelector:
-  kubernetes.io/os: windows
-  node.kubernetes.io/windows-build: '10.0.17763'
+    kubernetes.io/os: windows
+    node.kubernetes.io/windows-build: '10.0.17763'
 tolerations:
-  - key: "os"
-    operator: "Equal"
-    value: "windows"
-    effect: "NoSchedule"
+    - key: "os"
+      operator: "Equal"
+      value: "windows"
+      effect: "NoSchedule"
 ```
 
 <!--
 ### Handling multiple Windows versions in the same cluster
 -->
-### 处理同一集群中的多个 Windows 版本
+### 处理同一集群中的多个 Windows 版本 {#handling-multiple-windows-versions-in-the-same-cluster}
 
 <!--
 The Windows Server version used by each pod must match that of the node. If you want to use multiple Windows
@@ -392,7 +393,7 @@ nodeSelector。
 Kubernetes 1.17 automatically adds a new label `node.kubernetes.io/windows-build` to simplify this.
 If you're running an older version, then it's recommended to add this label manually to Windows nodes.
 -->
-Kubernetes 1.17 自动添加了一个新标签 `node.kubernetes.io/windows-build` 来简化此操作。 
+Kubernetes 1.17 自动添加了一个新标签 `node.kubernetes.io/windows-build` 来简化此操作。
 如果你运行的是旧版本，则建议手动将此标签添加到 Windows 节点。
 
 <!--
@@ -412,7 +413,7 @@ Windows Server 版本使用的值。
 <!--
 ### Simplifying with RuntimeClass
 -->
-### 使用 RuntimeClass 简化
+### 使用 RuntimeClass 简化 {#simplifying-with-runtimeclass}
 
 <!--
 [RuntimeClass] can be used to simplify the process of using taints and tolerations.
@@ -503,3 +504,5 @@ spec:
   selector:
     app: iis-2019
 ```
+
+[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
