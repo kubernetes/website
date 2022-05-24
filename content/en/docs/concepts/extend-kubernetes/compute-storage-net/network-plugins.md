@@ -32,7 +32,8 @@ The Container Runtime manages its own CNI plugins.
 Prior to Kubernetes 1.24, the CNI plugin was managed by the Kubelet using the `cni-bin-dir` and `network-plugin` command line parameters.
 These were both removed in Kubernetes 1.24, with management of the CNI no longer in scope of the Kubelet.
 
-See [Troubleshooting CNI plugin-related errors](https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/) if you are facing issues following the removal of dockershim.
+See [Troubleshooting CNI plugin-related errors](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)
+if you are facing issues following the removal of dockershim.
 {{< /note >}}
 
 For specific information about how a Container Runtime manages the CNI plugins, see the documentation for that Container Runtime, for example:
