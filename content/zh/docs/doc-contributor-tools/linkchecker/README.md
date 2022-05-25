@@ -106,7 +106,7 @@ To run the link checker:
 2. 执行如下命令：
 
   ```
-  make docker-internal-linkcheck
+  make container-internal-linkcheck
   ```
 
 <!-- 

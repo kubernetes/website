@@ -7,7 +7,7 @@ weight: 30
 
 
 <!-- overview -->
-이 튜토리얼은 쿠버네티스에서 [아파치 카산드라](http://cassandra.apache.org/)를 실행하는 방법을 소개한다.
+이 튜토리얼은 쿠버네티스에서 [아파치 카산드라](https://cassandra.apache.org/)를 실행하는 방법을 소개한다.
 데이터베이스인 카산드라는 데이터 내구성을 제공하기 위해 퍼시스턴트 스토리지가 필요하다(애플리케이션 _상태_).
 이 예제에서 사용자 지정 카산드라 시드 공급자는 카산드라가 클러스터에 가입할 때 카산드라가 인스턴스를 검색할 수 있도록 한다.
 
@@ -50,7 +50,7 @@ weight: 30
 ### 추가적인 Minikube 설정 요령
 
 {{< caution >}}
-[Minikube](https://minikube.sigs.k8s.io/docs/)는 1024MiB 메모리와 1개 CPU가 기본 설정이다.
+[Minikube](https://minikube.sigs.k8s.io/docs/)는 2048MB 메모리와 2개 CPU가 기본 설정이다.
 이 튜토리얼에서 Minikube를 기본 리소스 설정으로 실행하면 리소스 부족 오류가
 발생한다. 이런 오류를 피하려면 Minikube를 다음 설정으로 실행하자.
 
@@ -266,11 +266,11 @@ kubectl apply -f cassandra-statefulset.yaml
 
 이 튜토리얼의 *파드* 는 구글의 [컨테이너 레지스트리](https://cloud.google.com/container-registry/docs/)에
 [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 이미지를 이용한다.
-이 도커 이미지는 [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)에
+이 도커 이미지는 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)에
 기반하였고 OpenJDK 8을 포함한다.
 
 이 이미지는 아파치 데비안 리포의 표준 카산드라 설치본을 포함한다.
-환경변수를 이용하여 `cassandra.yaml`에 삽입된 값을 바꿀 수 있다.
+환경 변수를 이용하여 `cassandra.yaml`에 삽입된 값을 바꿀 수 있다.
 
 | 환경 변수       | 기본값  |
 | ------------- |:-------------: |
@@ -283,6 +283,6 @@ kubectl apply -f cassandra-statefulset.yaml
 ## {{% heading "whatsnext" %}}
 
 
-* 어떻게 [스테이트풀셋 스케일](/docs/tasks/run-application/scale-stateful-set/)하는지 살펴본다.
+* 어떻게 [스테이트풀셋 스케일](/ko/docs/tasks/run-application/scale-stateful-set/)하는지 살펴본다.
 * [*쿠버네티스시드제공자*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)에 대해 더 살펴본다.
 * 커스텀 [시드 제공자 설정](https://git.k8s.io/examples/cassandra/java/README.md)를 살펴본다.

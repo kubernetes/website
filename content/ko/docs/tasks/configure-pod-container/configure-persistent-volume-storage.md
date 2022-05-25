@@ -28,7 +28,7 @@ weight: 60
 * 사용자는 노드가 단 하나만 있는 쿠버네티스 클러스터가 필요하고,
 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 커맨드라인 툴이 사용자의 클러스터와 통신할 수 있도록 설정되어 있어야 한다. 만약 사용자가 
-아직 단일 노드 클러스터를 가지고 있지 않다면, [Minikube](/ko/docs/setup/learning-environment/minikube/)를 
+아직 단일 노드 클러스터를 가지고 있지 않다면, [Minikube](/ko/docs/tasks/tools/#minikube)를 
 사용하여 클러스터 하나를 생성할 수 있다.
 
 * [퍼시스턴트 볼륨](https://minikube.sigs.k8s.io/docs/)의 
@@ -96,11 +96,10 @@ hostPath 퍼시스턴트볼륨의 설정 파일은 아래와 같다.
 
 설정 파일에 클러스터 노드의 `/mnt/data` 에 볼륨이 있다고
 지정한다. 또한 설정에서 볼륨 크기를 10 기가바이트로 지정하고 단일 노드가
-읽기-쓰기 모드로 볼륨을 마운트할 수 있는 `ReadWriteOnce` 접근 모드를
-지정한다. 여기서는 
+읽기-쓰기 모드로 볼륨을 마운트할 수 있는 `ReadWriteOnce` 접근 모드를 지정한다. 여기서는 
 퍼시스턴트볼륨클레임의 [스토리지클래스 이름](/ko/docs/concepts/storage/persistent-volumes/#클래스)을 
 `manual` 로 정의하며, 퍼시스턴트볼륨클레임의 요청을 
-이 퍼시스턴트볼륨에 바인딩하는데 사용한다.
+이 퍼시스턴트볼륨에 바인딩하는 데 사용한다.
 
 퍼시스턴트볼륨을 생성한다.
 
@@ -237,8 +236,14 @@ sudo rmdir /mnt/data
 
 이제 사용자 노드에서 셸을 종료해도 된다.
 
+## 하나의 퍼시스턴트볼륨을 두 경로에 마운트하기
 
+{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
 
+하나의 퍼시스턴트볼륨을 nginx 컨테이너의 두 경로에 마운트할 수 있다.
+
+`/usr/share/nginx/html` - 정적 웹사이트 용
+`/etc/nginx/nginx.conf` - 기본 환경 설정 용
 
 <!-- discussion -->
 

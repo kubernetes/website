@@ -38,8 +38,8 @@ is authenticated and authorized.  The controllers consist of the
 `kube-apiserver` binary, and may only be configured by the cluster
 administrator. In that list, there are two special controllers:
 MutatingAdmissionWebhook and ValidatingAdmissionWebhook.  These execute the
-mutating and validating (respectively) [admission control
-webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+mutating and validating (respectively)
+[admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
 which are configured in the API.
 -->
 准入控制器是一段代码，它会在请求通过认证和授权之后、对象被持久化之前拦截到达 API
@@ -51,7 +51,9 @@ which are configured in the API.
 
 <!--
 Admission controllers may be "validating", "mutating", or both. Mutating
-controllers may modify the objects they admit; validating controllers may not.
+controllers may modify related objects to the requests they admit; validating controllers may not.
+
+Admission controllers limit requests to create, delete, modify objects or connect to proxy. They do not limit requests to read objects.
 
 The admission control process proceeds in two phases. In the first phase,
 mutating admission controllers are run. In the second phase, validating
@@ -62,7 +64,9 @@ If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
 -->
 准入控制器可以执行 “验证（Validating）” 和/或 “变更（Mutating）” 操作。
-变更（mutating）控制器可以修改被其接受的对象；验证（validating）控制器则不行。
+变更（mutating）控制器可以根据被其接受的请求修改相关对象；验证（validating）控制器则不行。
+
+准入控制器限制创建、删除、修改对象或连接到代理的请求，不限制读取对象的请求。
 
 准入控制过程分为两个阶段。第一阶段，运行变更准入控制器。第二阶段，运行验证准入控制器。
 再次提醒，某些控制器既是变更准入控制器又是验证准入控制器。
@@ -163,23 +167,31 @@ In the current version, the default ones are:
 在目前版本中，它们是：
 
 ```shell
-NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
+CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
 ```
 
 <!--
 ## What does each admission controller do?
-
-### AlwaysAdmit {#alwaysadmit} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-This admission controller allows all pods into the cluster. It is deprecated because its behavior is the same as if there were no admission controller at all.
 -->
 ## 每个准入控制器的作用是什么？
 
-### AlwaysAdmit {#alwaysadmit} 
+### AlwaysAdmit {#alwaysadmit}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
+<!--
+This admission controller allows all pods into the cluster. It is deprecated because its behavior is the same as if there were no admission controller at all.
+-->
 该准入控制器会允许所有的 pod 接入集群。已废弃，因为它的行为根本就和没有准入控制器一样。
+
+### AlwaysDeny {#alwaysdeny}
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+
+<!--
+Rejects all requests. AlwaysDeny is DEPRECATED as it has no real meaning.
+-->
+拒绝所有的请求。由于它没有实际意义，已废弃。
 
 ### AlwaysPullImages {#alwayspullimages}
 
@@ -187,7 +199,7 @@ This admission controller allows all pods into the cluster. It is deprecated bec
 This admission controller modifies every new Pod to force the image pull policy to Always. This is useful in a
 multitenant cluster so that users can be assured that their private images can only be used by those
 who have the credentials to pull them. Without this admission controller, once an image has been pulled to a
-node, any pod from any user can use it simply by knowing the image's name (assuming the Pod is
+node, any pod from any user can use it by knowing the image's name (assuming the Pod is
 scheduled onto the right node), without any authorization check against the image. When this admission controller
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
@@ -198,29 +210,20 @@ required.
 的名称（假设 Pod 被调度到正确的节点上）来使用它，而不需要对镜像进行任何授权检查。
 当启用这个准入控制器时，总是在启动容器之前拉取镜像，这意味着需要有效的凭证。
 
-### AlwaysDeny {#alwaysdeny} 
-
-{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-<!--
-Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
--->
-拒绝所有的请求。由于没有实际意义，已废弃。
-
 ### CertificateApproval
 
 <!--
-This admission controller observes requests to 'approve' CertificateSigningRequest resources
-and performs additional authorization checks to ensure the approving user has permission 
-to approve certificate requests with the spec.signerName requested on the CertificateSigningRequest resource.
+This admission controller observes requests to 'approve' CertificateSigningRequest resources and performs additional
+authorization checks to ensure the approving user has permission to `approve` certificate requests with the
+`spec.signerName` requested on the CertificateSigningRequest resource.
 -->
 
 此准入控制器获取“审批” CertificateSigningRequest 资源的请求并执行额外的授权检查，
 以确保审批请求的用户有权限审批 `spec.signerName` 请求 CertificateSigningRequest 资源的证书请求。
 
 <!--
-See Certificate Signing Requests for more information on the permissions required 
-to perform different actions on CertificateSigningRequest resources.
+See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
+information on the permissions required to perform different actions on CertificateSigningRequest resources.
 -->
 
 有关对证书签名请求资源执行不同操作所需权限的详细信息，
@@ -229,30 +232,61 @@ to perform different actions on CertificateSigningRequest resources.
 ### CertificateSigning
 
 <!--
-This admission controller observes updates to the status.certificate field of CertificateSigningRequest resources 
-and performs an additional authorization checks to ensure the signing user has permission 
-to sign certificate requests with the spec.signerName requested on the CertificateSigningRequest resource.
+This admission controller observes updates to the `status.certificate` field of CertificateSigningRequest resources
+and performs an additional authorization checks to ensure the signing user has permission to `sign` certificate
+requests with the `spec.signerName` requested on the CertificateSigningRequest resource.
 -->
 此准入控制器获取 CertificateSigningRequest 资源的 `status.certificate` 字段更新请求并执行额外的授权检查，
 以确保签发证书的用户有权限为 `spec.signerName` 请求 CertificateSigningRequest 资源的证书请求`签发`证书。
 
 <!--
-See Certificate Signing Requests for more information on the permissions required 
-to perform different actions on CertificateSigningRequest resources.
+See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
+information on the permissions required to perform different actions on CertificateSigningRequest resources.
 -->
 有关对证书签名请求资源执行不同操作所需权限的详细信息，
 请参阅[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)
 
-### CertificateSubjectRestrictions 
+### CertificateSubjectRestrictions {#certificatesubjectrestrictions}
 
 <!--
-This admission controller observes creation of CertificateSigningRequest resources 
-that have a spec.signerName of kubernetes.io/kube-apiserver-client. It rejects any request 
-that specifies a 'group' (or 'organization attribute') of system:masters.
+This admission controller observes creation of CertificateSigningRequest resources that have a `spec.signerName`
+of `kubernetes.io/kube-apiserver-client`. It rejects any request that specifies a 'group' (or 'organization attribute')
+of `system:masters`.
 -->
 此准入控制器获取具有 `kubernetes.io/kube-apiserver-client` 的 `spec.signerName` 的
 CertificateSigningRequest 资源创建请求，
 它拒绝任何包含了 `system:masters` 一个“组”（或者“组织”）的请求。
+
+### DefaultIngressClass {#defaultingressclass}
+
+<!--
+This admission controller observes creation of `Ingress` objects that do not request any specific
+ingress class and automatically adds a default ingress class to them.  This way, users that do not
+request any special ingress class do not need to care about them at all and they will get the
+default one.
+-->
+该准入控制器监测没有请求任何特定 Ingress 类的 `Ingress` 对象的创建，并自动向其添加默认 Ingress 类。
+这样，没有任何特殊 Ingress 类需求的用户根本不需要关心它们，它们将获得默认 Ingress 类。
+
+<!--
+This admission controller does not do anything when no default ingress class is configured. When more than one ingress
+class is marked as default, it rejects any creation of `Ingress` with an error and an administrator
+must revisit their `IngressClass` objects and mark only one as default (with the annotation
+"ingressclass.kubernetes.io/is-default-class").  This admission controller ignores any `Ingress`
+updates; it acts only on creation.
+-->
+当未配置默认 Ingress 类时，此准入控制器不执行任何操作。如果将多个 Ingress 类标记为默认 Ingress 类，
+它将拒绝任何创建 `Ingress` 的操作，并显示错误。
+要修复此错误，管理员必须重新检查其 `IngressClass` 对象，并仅将其中一个标记为默认（通过注解
+"ingressclass.kubernetes.io/is-default-class"）。
+此准入控制器会忽略所有 `Ingress` 更新操作，仅响应创建操作。
+
+<!--
+See the [ingress](/docs/concepts/services-networking/ingress/) documentation for more about ingress
+classes and how to mark one as default.
+-->
+关于 Ingress 类以及如何将 Ingress 类标记为默认的更多信息，请参见
+[ingress](/zh/docs/concepts/services-networking/ingress/)。
 
 ### DefaultStorageClass {#defaultstorageclass}
 
@@ -288,41 +322,20 @@ storage classes and how to mark a storage class as default.
 
 <!--
 This admission controller sets the default forgiveness toleration for pods to tolerate
-the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes,
-if the pods don't already have toleration for taints
-`node.kubernetes.io/not-ready:NoExecute` or
+the taints `notready:NoExecute` and `unreachable:NoExecute` based on the k8s-apiserver input parameters
+`default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` if the pods don't already 
+have toleration for taints `node.kubernetes.io/not-ready:NoExecute` or
 `node.kubernetes.io/unreachable:NoExecute`.
+The default value for `default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` is 5 minutes.
 -->
-该准入控制器为 Pod 设置默认的容忍度，在 5 分钟内容忍 `notready:NoExecute` 和
+该准入控制器基于 k8s-apiserver 输入参数 `default-not-ready-toleration-seconds` 和
+`default-unreachable-toleration-seconds` 为 Pod 设置默认的容忍度，以容忍 `notready:NoExecute` 和
 `unreachable:NoExecute` 污点。
 （如果 Pod 尚未容忍 `node.kubernetes.io/not-ready：NoExecute` 和
 `node.kubernetes.io/unreachable：NoExecute` 污点的话）
+`default-not-ready-toleration-seconds` 和 `default-unreachable-toleration-seconds` 的默认值是 5 分钟。
 
-### DenyExecOnPrivileged {#denyexeconprivileged} 
-
-{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-<!--
-This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
--->
-如果一个 pod 拥有一个特权容器，该准入控制器将拦截所有在该 pod 中执行 exec 命令的请求。
-
-<!--
-This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
-The DenyExecOnPrivileged admission plugin is deprecated and will be removed in v1.18.
--->
-此功能已合并至 [DenyEscalatingExec](#denyescalatingexec)。
-而 DenyExecOnPrivileged 准入插件已被废弃，并将在 v1.18 被移除。
-
-<!--
-Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
-which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
-is recommended instead.
--->
-建议使用基于策略的准入插件（例如 [PodSecurityPolicy](#podsecuritypolicy) 和自定义准入插件），
-该插件可以针对特定用户或名字空间，还可以防止创建权限过高的 Pod。
-
-### DenyEscalatingExec {#denyescalatingexec} 
+### DenyEscalatingExec {#denyescalatingexec}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
@@ -336,16 +349,63 @@ attach 命令。这包括在特权模式运行的 Pod，可以访问主机 IPC �
 和访问主机 PID 名字空间的 Pod 。
 
 <!--
-The DenyEscalatingExec admission plugin is deprecated and will be removed in v1.18.
+The DenyEscalatingExec admission plugin is deprecated.
 
 Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
 is recommended instead.
 -->
-DenyExecOnPrivileged 准入插件已被废弃，并将在 v1.18 被移除。
+DenyExecOnPrivileged 准入插件已被废弃。
 
 建议使用基于策略的准入插件（例如 [PodSecurityPolicy](#podsecuritypolicy) 和自定义准入插件），
 该插件可以针对特定用户或名字空间，还可以防止创建权限过高的 Pod。
+
+### DenyExecOnPrivileged {#denyexeconprivileged} 
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+
+<!--
+This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
+-->
+如果一个 pod 拥有一个特权容器，该准入控制器将拦截所有在该 pod 中执行 exec 命令的请求。
+
+<!--
+This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
+The DenyExecOnPrivileged admission plugin is deprecated.
+-->
+此功能已合并至 [DenyEscalatingExec](#denyescalatingexec)。
+而 DenyExecOnPrivileged 准入插件已被废弃。
+
+<!--
+Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
+which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
+is recommended instead.
+-->
+建议使用基于策略的准入插件（例如 [PodSecurityPolicy](#podsecuritypolicy) 和自定义准入插件），
+该插件可以针对特定用户或名字空间，还可以防止创建权限过高的 Pod。
+
+### DenyServiceExternalIPs
+
+<!--
+This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
+feature is very powerful (allows network traffic interception) and not well
+controlled by policy.  When enabled, users of the cluster may not create new
+Services which use `externalIPs` and may not add new values to `externalIPs` on
+existing `Service` objects.  Existing uses of `externalIPs` are not affected,
+and users may remove values from `externalIPs` on existing `Service` objects.
+-->
+该准入控制器拒绝 `Service` 字段 `externalIPs` 的所有新规使用。 此功能非常强大（允许网络流量拦截），
+并且无法很好地受策略控制。 启用后，群集用户将无法创建使用 `externalIPs` 的新服务，也无法在现有
+`Service` 对象上向 `externalIPs` 添加新值。 `externalIPs` 的现有使用不受影响，用户可以从现有
+`Service` 对象上的 `externalIPs` 中删除值。
+
+<!--
+Most users do not need this feature at all, and cluster admins should consider disabling it.
+Clusters that do need to use this feature should consider using some custom policy to manage usage
+of it.
+-->
+大多数用户根本不需要此功能，集群管理员应考虑将其禁用。
+确实需要使用此功能的集群应考虑使用一些自定义策略来管理其的使用。
 
 ### EventRateLimit {#eventratelimit} 
 
@@ -358,9 +418,9 @@ event requests. The cluster admin can specify event rate limits by:
 该准入控制器缓解了事件请求淹没 API 服务器的问题。集群管理员可以通过以下方式指定事件速率限制：
 
 <!--
- * Enabling the `EventRateLimit` admission controller;
- * Referencing an `EventRateLimit` configuration file from the file provided to the API
-   server's command line flag `--admission-control-config-file`:
+* Enabling the `EventRateLimit` admission controller;
+* Referencing an `EventRateLimit` configuration file from the file provided to the API
+  server's command line flag `--admission-control-config-file`:
 -->
 * 启用 `EventRateLimit` 准入控制器；
 * 从文件中引用 `EventRateLimit` 配置文件，并提供给 API 服务器命令的
@@ -376,8 +436,7 @@ plugins:
   path: eventconfig.yaml
 ...
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
+
 ```yaml
 # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
@@ -387,8 +446,6 @@ plugins:
   path: eventconfig.yaml
 ...
 ```
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 There are four types of limits that can be specified in the configuration:
@@ -426,18 +483,18 @@ limits:
 ```
 
 <!--
-See the [EventRateLimit proposal](https://git.k8s.io/community/contributors/design-proposals/api-machinery/admission_control_event_rate_limit.md)
+See the [EventRateLimit Config API (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 for more details.
 -->
 详情请参见
-[事件速率限制提案](https://git.k8s.io/community/contributors/design-proposals/api-machinery/admission_control_event_rate_limit.md)。
+[EventRateLimit 配置文档（v1alpha1）](/zh/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)。
 
 ### ExtendedResourceToleration {#extendedresourcetoleration}
 
 <!--
 This plug-in facilitates creation of dedicated nodes with extended resources.
 If operators want to create dedicated nodes with extended resources (like GPUs, FPGAs etc.), they are expected to
-[taint the node](/docs/concepts/configuration/taint-and-toleration/#example-use-cases) with the extended resource
+[taint the node](/docs/concepts/scheduling-eviction/taint-and-toleration/#example-use-cases) with the extended resource
 name as the key. This admission controller, if enabled, automatically
 adds tolerations for such taints to pods requesting extended resources, so users don't have to manually
 add these tolerations.
@@ -473,7 +530,7 @@ imagePolicy:
   kubeConfigFile: /path/to/kubeconfig/for/backend
   # 以秒计的时长，控制批准请求的缓存时间
   allowTTL: 50
-  # 以秒计的时长，控制批准请求的缓存时间
+  # 以秒计的时长，控制拒绝请求的缓存时间
   denyTTL: 50
   # 以毫秒计的时长，控制重试间隔
   retryBackoff: 500
@@ -487,8 +544,6 @@ Reference the ImagePolicyWebhook configuration file from the file provided to th
 从文件中引用 ImagePolicyWebhook 的配置文件，并将其提供给 API 服务器命令标志
 `--admission-control-config-file`：
 
-{{< tabs name="imagepolicywebhook_example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -497,27 +552,12 @@ plugins:
   path: imagepolicyconfig.yaml
 ...
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# v1.17 中已废弃以鼓励使用 apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ImagePolicyWebhook
-  path: imagepolicyconfig.yaml
-...
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 Alternatively, you can embed the configuration directly in the file:
 -->
 或者，你也可以直接将配置嵌入到文件中：
 
-{{< tabs name="imagepolicywebhook_example2" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -531,24 +571,6 @@ plugins:
       retryBackoff: 500
       defaultAllow: true
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# v1.17 中已废弃以鼓励使用 apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ImagePolicyWebhook
-  configuration:
-    imagePolicy:
-      kubeConfigFile: <kubeconfig 文件路径>
-      allowTTL: 50
-      denyTTL: 50
-      retryBackoff: 500
-      defaultAllow: true
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 The ImagePolicyWebhook config file must reference a
@@ -562,9 +584,10 @@ ImagePolicyWebhook 的配置文件必须引用
 要求后端使用 TLS 进行通信。
 
 <!--
-The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
+The kubeconfig file's `cluster` field must point to the remote service, and the `user` field
+must contain the returned authorizer.
 -->
-kubeconfig 文件的 cluster 字段需要指向远端服务，user 字段需要包含已返回的授权者。
+kubeconfig 文件的 `cluster` 字段需要指向远端服务，user 字段需要包含已返回的授权者。
 
 <!--
 ```yaml
@@ -609,12 +632,15 @@ For additional HTTP configuration, refer to the
 文档。
 
 <!--
-#### Request Payloads
+#### Request payloads
 -->
 #### 请求载荷
 
 <!--
-When faced with an admission decision, the API Server POSTs a JSON serialized `imagepolicy.k8s.io/v1alpha1` `ImageReview` object describing the action. This object contains fields describing the containers being admitted, as well as any pod annotations that match `*.image-policy.k8s.io/*`.
+When faced with an admission decision, the API Server POSTs a JSON serialized
+`imagepolicy.k8s.io/v1alpha1` `ImageReview` object describing the action.
+This object contains fields describing the containers being admitted, as well as
+any pod annotations that match `*.image-policy.k8s.io/*`.
 -->
 当面对一个准入决策时，API 服务器发送一个描述操作的 JSON 序列化的
 `imagepolicy.k8s.io/v1alpha1` `ImageReview` 对象。
@@ -622,13 +648,20 @@ When faced with an admission decision, the API Server POSTs a JSON serialized `i
 Pod 注解。
 
 <!--
-Note that webhook API objects are subject to the same versioning compatibility rules as other Kubernetes API objects. Implementers should be aware of looser compatibility promises for alpha objects and check the "apiVersion" field of the request to ensure correct deserialization. Additionally, the API Server must enable the imagepolicy.k8s.io/v1alpha1 API extensions group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
+The webhook API objects are subject to the same versioning compatibility rules
+as other Kubernetes API objects. Implementers should be aware of looser compatibility
+promises for alpha objects and check the `apiVersion` field of the request to
+ensure correct deserialization.
+Additionally, the API Server must enable the `imagepolicy.k8s.io/v1alpha1` API extensions
+group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 -->
+{{ note }}
 注意，Webhook API 对象与其他 Kubernetes API 对象一样受制于相同的版本控制兼容性规则。
 实现者应该知道对 alpha 对象的更宽松的兼容性，并检查请求的 "apiVersion" 字段，
 以确保正确的反序列化。
 此外，API 服务器必须启用 `imagepolicy.k8s.io/v1alpha1` API 扩展组
 （`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`）。
+{{ /note }}
 
 <!--
 An example request body:
@@ -657,10 +690,12 @@ An example request body:
 ```
 
 <!--
-The remote service is expected to fill the `ImageReviewStatus` field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
+The remote service is expected to fill the `ImageReviewStatus` field of the request and
+respond to either allow or disallow access. The response body's `spec` field is ignored and
+may be omitted. A permissive response would return:
 -->
 远程服务将填充请求的 `ImageReviewStatus` 字段，并返回允许或不允许访问的响应。
-响应体的 "spec" 字段会被忽略，并且可以省略。一个允许访问应答会返回：
+响应体的 `spec` 字段会被忽略，并且可以省略。一个允许访问应答会返回：
 
 ```json
 {
@@ -689,10 +724,10 @@ To disallow access, the service would return:
 ```
 
 <!--
-For further documentation refer to the `imagepolicy.v1alpha1` API objects and `plugin/pkg/admission/imagepolicy/admission.go`.
+For further documentation refer to the
+[`imagepolicy.v1alpha1` API](/docs/reference/config-api/imagepolicy.v1alpha1/).
 -->
-更多的文档，请参阅 `imagepolicy.v1alpha1` API 对象和
-`plugin/pkg/admission/imagepolicy/admission.go`。
+更多的文档，请参阅 [`imagepolicy.v1alpha1` API](/zh/docs/reference/config-api/imagepolicy.v1alpha1/)。
 
 <!--
 #### Extending with Annotations
@@ -700,7 +735,10 @@ For further documentation refer to the `imagepolicy.v1alpha1` API objects and `p
 #### 使用注解进行扩展
 
 <!--
-All annotations on a Pod that match `*.image-policy.k8s.io/*` are sent to the webhook. Sending annotations allows users who are aware of the image policy backend to send extra information to it, and for different backends implementations to accept different information.
+All annotations on a Pod that match `*.image-policy.k8s.io/*` are sent to the webhook.
+Sending annotations allows users who are aware of the image policy backend to
+send extra information to it, and for different backends implementations to
+accept different information.
 -->
 一个 Pod 中匹配 `*.image-policy.k8s.io/*` 的注解都会被发送给 Webhook。
 这样做使得了解后端镜像策略的用户可以向它发送额外的信息，并为不同的后端实现
@@ -712,19 +750,18 @@ Examples of information you might put here are:
 你可以在这里输入的信息有：
 
 <!--
- * request to "break glass" to override a policy, in case of emergency.
- * a ticket number from a ticket system that documents the break-glass request
- * provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
+* request to "break glass" to override a policy, in case of emergency.
+* a ticket number from a ticket system that documents the break-glass request
+* provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
 -->
 * 在紧急情况下，请求 "break glass" 覆盖一个策略。
 * 从一个记录了 break-glass 的请求的 ticket 系统得到的一个 ticket 号码。
 * 向策略服务器提供一个提示，用于提供镜像的 imageID，以方便它进行查找。
 
 <!--
-In any case, the annotations are provided by the user and are not validated by Kubernetes in any way. In the future, if an annotation is determined to be widely useful, it may be promoted to a named field of `ImageReviewSpec`.
+In any case, the annotations are provided by the user and are not validated by Kubernetes in any way.
 -->
 在任何情况下，注解都是由用户提供的，并不会被 Kubernetes 以任何方式进行验证。
-在将来，如果一个注解确定将被广泛使用，它可能会被提升为 ImageReviewSpec 的一个命名字段。
 
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 
@@ -739,11 +776,12 @@ This admission controller denies any pod that defines `AntiAffinity` topology ke
 ### LimitRanger {#limitranger}
 
 <!--
-This admission controller will observe the incoming request and ensure that it does not violate any of the constraints
-enumerated in the `LimitRange` object in a `Namespace`.  If you are using `LimitRange` objects in
-your Kubernetes deployment, you MUST use this admission controller to enforce those constraints. LimitRanger can also
-be used to apply default resource requests to Pods that don't specify any; currently, the default LimitRanger
-applies a 0.1 CPU requirement to all Pods in the `default` namespace.
+This admission controller will observe the incoming request and ensure that it does not violate
+any of the constraints enumerated in the `LimitRange` object in a `Namespace`.  If you are using
+`LimitRange` objects in your Kubernetes deployment, you MUST use this admission controller to
+enforce those constraints. LimitRanger can also be used to apply default resource requests to Pods
+that don't specify any; currently, the default LimitRanger applies a 0.1 CPU requirement to all
+Pods in the `default` namespace.
 -->
 该准入控制器会观察传入的请求，并确保它不会违反 `Namespace` 中 `LimitRange`
 对象枚举的任何约束。
@@ -754,17 +792,16 @@ LimitRanger 还可以用于将默认资源请求应用到没有指定任何内�
 0.1 CPU 的需求。
 
 <!--
-See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
-and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
+See the [LimitRange API reference](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+and the [example of LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+for more details.
 -->
 请查看
-[limitRange 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
+[limitRange 设计文档](/zh/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 和 [LimitRange 例子](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 以了解更多细节。
 
-### MutatingAdmissionWebhook {#mutatingadmissionwebhook} 
-
-{{< feature-state for_k8s_version="v1.13" state="beta" >}}
+### MutatingAdmissionWebhook {#mutatingadmissionwebhook}
 
 <!--
 This admission controller calls any mutating webhooks which match the request. Matching
@@ -787,13 +824,12 @@ webhooks or validating admission controllers will permit the request to finish.
 
 <!--
 If you disable the MutatingAdmissionWebhook, you must also disable the
-`MutatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1beta1`
-group/version via the `--runtime-config` flag (both are on by default in
-versions >= 1.9).
+`MutatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1`
+group/version via the `--runtime-config` flag, both are on by default.
 -->
 如果你禁用了 MutatingAdmissionWebhook，那么还必须使用 `--runtime-config` 标志禁止
-`admissionregistration.k8s.io/v1beta1` 组/版本中的 `MutatingWebhookConfiguration`
-对象（版本 >=1.9 时，这两个对象都是默认启用的）。
+`admissionregistration.k8s.io/v1` 组/版本中的 `MutatingWebhookConfiguration`，
+这两个对象都是默认启用的。
 
 <!--
 #### Use caution when authoring and installing mutating webhooks
@@ -801,24 +837,21 @@ versions >= 1.9).
 #### 谨慎编写和安装变更 webhook
 
 <!--
- * Users may be confused when the objects they try to create are different from
-   what they get back.
- * Built in control loops may break when the objects they try to create are
-   different when read back.
-   * Setting originally unset fields is less likely to cause problems than
-     overwriting fields set in the original request. Avoid doing the latter.
- * This is a beta feature. Future versions of Kubernetes may restrict the types of
-   mutations these webhooks can make.
- * Future changes to control loops for built-in resources or third-party resources
-   may break webhooks that work well today. Even when the webhook installation API
-   is finalized, not all possible webhook behaviors will be guaranteed to be supported
-   indefinitely.
+* Users may be confused when the objects they try to create are different from
+  what they get back.
+* Built in control loops may break when the objects they try to create are
+  different when read back.
+  * Setting originally unset fields is less likely to cause problems than
+    overwriting fields set in the original request. Avoid doing the latter.
+* Future changes to control loops for built-in resources or third-party resources
+  may break webhooks that work well today. Even when the webhook installation API
+  is finalized, not all possible webhook behaviors will be guaranteed to be supported
+  indefinitely.
 -->
 * 当用户尝试创建的对象与返回的对象不同时，用户可能会感到困惑。
 * 当它们回读的对象与尝试创建的对象不同，内建的控制环可能会出问题。
   * 与覆盖原始请求中设置的字段相比，使用原始请求未设置的字段会引起问题的可能性较小。
     应尽量避免前面那种方式。
-* 这是一个 beta 特性。Kubernetes 未来的版本可能会限制这些 Webhook 可以进行的变更类型。
 * 内建资源和第三方资源的控制回路未来可能会受到破坏性的更改，使现在运行良好的 Webhook
   无法再正常运行。即使完成了 Webhook API 安装，也不代表会为该 webhook 提供无限期的支持。
 
@@ -847,9 +880,10 @@ If the namespace referenced from a request doesn't exist, the request is rejecte
 ### NamespaceLifecycle {#namespacelifecycle}
 
 <!--
-This admission controller enforces that a `Namespace` that is undergoing termination cannot have new objects created in it,
-and ensures that requests in a non-existent `Namespace` are rejected. This admission controller also prevents deletion of
-three system reserved namespaces `default`, `kube-system`, `kube-public`.
+This admission controller enforces that a `Namespace` that is undergoing termination cannot have
+new objects created in it, and ensures that requests in a non-existent `Namespace` are rejected.
+This admission controller also prevents deletion of three system reserved namespaces `default`,
+`kube-system`, `kube-public`.
 -->
 该准入控制器禁止在一个正在被终止的 `Namespace` 中创建新对象，并确保
 使用不存在的 `Namespace` 的请求被拒绝。
@@ -857,8 +891,9 @@ three system reserved namespaces `default`, `kube-system`, `kube-public`.
 `kube-system` 和 `kube-public`。
 
 <!--
-A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services, etc.) in that
-namespace.  In order to enforce integrity of that process, we strongly recommend running this admission controller.
+A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services,
+etc.) in that namespace.  In order to enforce integrity of that process, we strongly recommend
+running this admission controller.
 -->
 删除 `Namespace` 会触发删除该名字空间中所有对象（Pod、Service 等）的一系列操作。
 为了确保这个过程的完整性，我们强烈建议启用这个准入控制器。
@@ -876,21 +911,20 @@ Such kubelets will only be allowed to modify their own `Node` API object, and on
 这样，kubelet 只可修改自己的 `Node` API 对象，只能修改绑定到节点本身的 Pod 对象。
 
 <!--
-In Kubernetes 1.11+, kubelets are not allowed to update or remove taints from their `Node` API object.
+kubelets are not allowed to update or remove taints from their `Node` API object.
 
-In Kubernetes 1.13+, the `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
+The `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
 and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.io/` prefixes as follows:
 -->
-在 Kubernetes 1.11+ 的版本中，不允许 kubelet 从 `Node` API 对象中更新或删除污点。
+不允许 kubelet 在 `Node` API 对象上更新或删除污点。
 
-在 Kubernetes 1.13+ 的版本中，`NodeRestriction` 准入插件可防止 kubelet 删除
-`Node` API 对象，并对 `kubernetes.io/` 或 `k8s.io/` 前缀标签的 kubelet
-强制进行如下修改：
+`NodeRestriction` 准入插件可防止 kubelet 删除`Node` API 对象，
+并对 `kubernetes.io/` 或 `k8s.io/` 前缀标签的 kubelet 强制进行如下修改：
 
 <!--
 * **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
-This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
-and kubelets will not be allowed to modify labels with that prefix.
+  This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
+  and kubelets will not be allowed to modify labels with that prefix.
 * **Allows** kubelets to add/remove/update these labels and label prefixes:
 -->
 * **防止** kubelet 添加/删除/更新带有 `node-restriction.kubernetes.io/` 前缀的标签。
@@ -912,7 +946,8 @@ and kubelets will not be allowed to modify labels with that prefix.
 <!--
 Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved, and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
 
-Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
+Future versions may add additional restrictions to ensure kubelets have the minimal set of
+permissions required to operate correctly.
 -->
 kubelet 保留 `kubernetes.io` 或 `k8s.io` 前缀的所有标签，并且将来可能会被
 `NodeRestriction` 准入插件允许或禁止。
@@ -934,165 +969,24 @@ subresource of the referenced *owner* can change it.
 以便只有对所引用的 **属主（owner）** 的 `finalizers` 子资源具有 “更新” 
 权限的用户才能对其进行更改。
 
-### PersistentVolumeLabel {#persistentvolumelabel} 
-
-{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-<!--
-This admission controller automatically attaches region or zone labels to PersistentVolumes
-as defined by the cloud provider (for example, GCE or AWS).
-It helps ensure the Pods and the PersistentVolumes mounted are in the same
-region and/or zone.
-If the admission controller doesn't support automatic labelling your PersistentVolumes, you
-may need to add the labels manually to prevent pods from mounting volumes from
-a different zone. PersistentVolumeLabel is DEPRECATED and labeling persistent volumes has been taken over by
-[cloud controller manager](/docs/tasks/administer-cluster/running-cloud-controller/).
-Starting from 1.11, this admission controller is disabled by default.
--->
-该准入控制器会自动将区（region）或区域（zone）标签附加到由云提供商（如 GCE、AWS）
-定义的 PersistentVolume。这有助于确保 Pod 和 PersistentVolume 位于相同的区或区域。
-如果准入控制器不支持为 PersistentVolumes 自动添加标签，那你可能需要手动添加标签，
-以防止 Pod 挂载其他区域的卷。
-PersistentVolumeLabel 已被废弃，标记持久卷已由
-[云管理控制器](/zh/docs/tasks/administer-cluster/running-cloud-controller/)接管。
-从 1.11 开始，默认情况下禁用此准入控制器。
-
-### PodNodeSelector {#podnodeselector}
-
-<!--
-This admission controller defaults and limits what node selectors may be used within a namespace by reading a namespace annotation and a global configuration.
--->
-该准入控制器通过读取名字空间注解和全局配置，来为名字空间中可以可以使用的节点选择器
-设置默认值并实施限制。
-
-<!--
-#### Configuration File Format
-
-`PodNodeSelector` uses a configuration file to set options for the behavior of the backend.
-Note that the configuration file format will move to a versioned file in a future release.
-This file may be json or yaml and has the following format:
--->
-#### 配置文件格式
-
-`PodNodeSelector` 使用配置文件来设置后端行为的选项。
-请注意，配置文件格式将在将来某个版本中改为版本化文件。
-该文件可以是 JSON 或 YAML，格式如下：
-
-```yaml
-podNodeSelectorPluginConfig:
- clusterDefaultNodeSelector: name-of-node-selector
- namespace1: name-of-node-selector
- namespace2: name-of-node-selector
-```
-
-<!--
-Reference the `PodNodeSelector` configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
--->
-基于提供给 API 服务器命令行标志 `--admission-control-config-file` 的文件名，
-从文件中引用 `PodNodeSelector` 配置文件：
-
-{{< tabs name="podnodeselector_example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
-```yaml
-apiVersion: apiserver.config.k8s.io/v1
-kind: AdmissionConfiguration
-plugins:
-- name: PodNodeSelector
-  path: podnodeselector.yaml
-...
-```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# 在 v1.17 中废弃，以鼓励使用 apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: PodNodeSelector
-  path: podnodeselector.yaml
-...
-```
-{{% /tab %}}
-{{< /tabs >}}
-
-<!--
-#### Configuration Annotation Format
-
-`PodNodeSelector` uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
--->
-#### 配置注解格式
-
-`PodNodeSelector` 使用键为 `scheduler.alpha.kubernetes.io/node-selector` 的注解
-为名字空间设置节点选择算符。
-
-```yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  annotations:
-    scheduler.alpha.kubernetes.io/node-selector: name-of-node-selector
-  name: namespace3
-```
-
-<!--
-#### Internal Behavior
-This admission controller has the following behavior:
--->
-#### 内部行为
-
-该准入控制器行为如下：
-
-<!--
-1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
-node selector.
-2. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
-plugin configuration file as the node selector.
-3. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
-4. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
-Conflicts result in rejection.
--->
-1. 如果 `Namespace` 的注解带有键 `scheduler.alpha.kubernetes.io/node-selector`，
-   则将其值用作节点选择算符。
-2. 如果名字空间缺少此类注解，则使用 `PodNodeSelector` 插件配置文件中定义的
-   `clusterDefaultNodeSelector` 作为节点选择算符。
-3. 评估 Pod 节点选择算符和名字空间节点选择算符是否存在冲突。存在冲突将导致拒绝。
-4. 评估 pod 节点选择算符和名字空间的白名单定义的插件配置文件是否存在冲突。
-   存在冲突将导致拒绝。
-
-{{< note >}}
-<!--
-PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction
-admission plugin, which allows preventing pods from running on specifically tainted nodes.
--->
-PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
-另请参阅 PodTolerationRestriction 准入插件，该插件可防止 Pod 在特定污点的节点上运行。
-{{< /note >}}
-
 ### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
 
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
+
 <!--
-This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
+This admission controller implements additional validations for checking incoming
+`PersistentVolumeClaim` resize requests.
 -->
 该准入控制器检查传入的 `PersistentVolumeClaim` 调整大小请求，对其执行额外的验证操作。
 
-{{< note >}}
 <!--
-Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
-to `true` to enable resizing.
--->
-对调整卷大小的支持是一种 Alpha 特性。管理员必须将特性门控 `ExpandPersistentVolumes`
-设置为 `true` 才能启用调整大小。
-{{< /note >}}
-
-<!--
-After enabling the `ExpandPersistentVolumes` feature gate, enabling the `PersistentVolumeClaimResize` admission
-controller is recommended, too. This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
+Enabling the `PersistentVolumeClaimResize` admission controller is recommended.
+This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
  explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
 
 For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
 -->
-启用 `ExpandPersistentVolumes` 特性门控之后，建议将 `PersistentVolumeClaimResize`
-准入控制器也启用。除非 PVC 的 `StorageClass` 明确地将 `allowVolumeExpansion` 设置为
+建议启用 `PersistentVolumeClaimResize` 准入控制器。除非 PVC 的 `StorageClass` 明确地将 `allowVolumeExpansion` 设置为
 `true` 来显式启用调整大小。否则，默认情况下该准入控制器会阻止所有对 PVC 大小的调整。
 
 例如：由以下 `StorageClass` 创建的所有 `PersistentVolumeClaim` 都支持卷容量扩充：
@@ -1117,7 +1011,154 @@ For more information about persistent volume claims, see [PersistentVolumeClaims
 关于持久化卷申领的更多信息，请参见
 [PersistentVolumeClaims](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
+### PersistentVolumeLabel {#persistentvolumelabel} 
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+
+<!--
+This admission controller automatically attaches region or zone labels to PersistentVolumes
+as defined by the cloud provider (for example, GCE or AWS).
+It helps ensure the Pods and the PersistentVolumes mounted are in the same
+region and/or zone.
+If the admission controller doesn't support automatic labelling your PersistentVolumes, you
+may need to add the labels manually to prevent pods from mounting volumes from
+a different zone. PersistentVolumeLabel is DEPRECATED and labeling persistent volumes has been taken over by
+the {{< glossary_tooltip text="cloud-controller-manager" term_id="cloud-controller-manager" >}}.
+Starting from 1.11, this admission controller is disabled by default.
+-->
+该准入控制器会自动将区（region）或区域（zone）标签附加到由云提供商（如 GCE、AWS）
+定义的 PersistentVolume。这有助于确保 Pod 和 PersistentVolume 位于相同的区或区域。
+如果准入控制器不支持为 PersistentVolumes 自动添加标签，那你可能需要手动添加标签，
+以防止 Pod 挂载其他区域的卷。
+PersistentVolumeLabel 已被废弃，标记持久卷已由
+{{< glossary_tooltip text="云管理控制器" term_id="cloud-controller-manager" >}}接管。
+从 1.11 开始，默认情况下禁用此准入控制器。
+
+### PodNodeSelector {#podnodeselector}
+
+{{< feature-state for_k8s_version="v1.5" state="alpha" >}}
+
+<!--
+This admission controller defaults and limits what node selectors may be used within a namespace
+by reading a namespace annotation and a global configuration.
+-->
+该准入控制器通过读取名字空间注解和全局配置，来为名字空间中可以使用的节点选择器
+设置默认值并实施限制。
+
+<!--
+#### Configuration file format
+
+`PodNodeSelector` uses a configuration file to set options for the behavior of the backend.
+Note that the configuration file format will move to a versioned file in a future release.
+This file may be json or yaml and has the following format:
+-->
+#### 配置文件格式
+
+`PodNodeSelector` 使用配置文件来设置后端行为的选项。
+请注意，配置文件格式将在将来某个版本中改为版本化文件。
+该文件可以是 JSON 或 YAML，格式如下：
+
+```yaml
+podNodeSelectorPluginConfig:
+ clusterDefaultNodeSelector: name-of-node-selector
+ namespace1: name-of-node-selector
+ namespace2: name-of-node-selector
+```
+
+<!--
+Reference the `PodNodeSelector` configuration file from the file provided to the API server's
+command line flag `--admission-control-config-file`:
+-->
+基于提供给 API 服务器命令行标志 `--admission-control-config-file` 的文件名，
+从文件中引用 `PodNodeSelector` 配置文件：
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: PodNodeSelector
+  path: podnodeselector.yaml
+...
+```
+
+<!--
+#### Configuration Annotation Format
+
+`PodNodeSelector` uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign
+node selectors to namespaces.
+-->
+#### 配置注解格式
+
+`PodNodeSelector` 使用键为 `scheduler.alpha.kubernetes.io/node-selector` 的注解
+为名字空间设置节点选择算符。
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    scheduler.alpha.kubernetes.io/node-selector: name-of-node-selector
+  name: namespace3
+```
+
+<!--
+#### Internal Behavior
+This admission controller has the following behavior:
+-->
+#### 内部行为
+
+该准入控制器行为如下：
+
+<!--
+1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`,
+   use its value as the node selector.
+2. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the
+   `PodNodeSelector` plugin configuration file as the node selector.
+3. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts
+   result in rejection.
+4. Evaluate the pod's node selector against the namespace-specific allowed selector defined the
+   plugin configuration file. Conflicts result in rejection.
+-->
+1. 如果 `Namespace` 的注解带有键 `scheduler.alpha.kubernetes.io/node-selector`，
+   则将其值用作节点选择算符。
+2. 如果名字空间缺少此类注解，则使用 `PodNodeSelector` 插件配置文件中定义的
+   `clusterDefaultNodeSelector` 作为节点选择算符。
+3. 评估 Pod 节点选择算符和名字空间节点选择算符是否存在冲突。存在冲突将导致拒绝。
+4. 评估 Pod 节点选择算符和特定于名字空间的被允许的选择算符所定义的插件配置文件是否存在冲突。
+   存在冲突将导致拒绝。
+
+{{< note >}}
+<!--
+PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction
+admission plugin, which allows preventing pods from running on specifically tainted nodes.
+-->
+PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
+另请参阅 PodTolerationRestriction 准入插件，该插件可防止 Pod 在特定污点的节点上运行。
+{{< /note >}}
+
+### PodSecurity {#podsecurity}
+
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+
+<!--
+This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
+defined in the next section. This admission controller acts on creation and modification of the pod and
+determines if it should be admitted based on the requested security context and the 
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/).
+
+See the [Pod Security Admission documentation](/docs/concepts/security/pod-security-admission/)
+for more information.
+-->
+这是下节已被废弃的 [PodSecurityPolicy](#podsecuritypolicy) 准入控制器的替代品。
+此准入控制器负责在创建和修改 Pod 时根据请求的安全上下文和
+[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
+来确定是否可以执行请求。
+
+更多信息请参阅 [Pod 安全性准入控制器](/zh/docs/concepts/security/pod-security-admission/)。
+
 ### PodSecurityPolicy {#podsecuritypolicy}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 <!--
 This admission controller acts on creation and modification of the pod and determines if it should be admitted
@@ -1127,17 +1168,19 @@ based on the requested security context and the available Pod Security Policies.
 安全策略确定是否可以执行请求。
 
 <!--
-See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-policy/)
+See also the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation
 for more information.
 -->
-查看 [Pod 安全策略文档](/zh/docs/concepts/policy/pod-security-policy/)
+查看 [Pod 安全策略文档](/zh/docs/concepts/security/pod-security-policy/)
 了解更多细节。
 
 ### PodTolerationRestriction {#podtolerationrestriction}
 
+{{< feature-state for_k8s_version="v1.7" state="alpha" >}}
+
 <!--
-The PodTolerationRestriction admission controller verifies any conflict between tolerations
-of a pod and the tolerations of its namespace.
+The PodTolerationRestriction admission controller verifies any conflict between tolerations of a
+pod and the tolerations of its namespace.
 It rejects the pod request if there is a conflict.
 It then merges the tolerations annotated on the namespace into the tolerations of the pod.
 The resulting tolerations are checked against a list of allowed tolerations annotated to the namespace.
@@ -1181,7 +1224,9 @@ metadata:
 <!--
 ### Priority {#priority}
 
-The priority admission controller uses the `priorityClassName` field and populates the integer value of the priority. If the priority class is not found, the Pod is rejected.
+The priority admission controller uses the `priorityClassName` field and populates the integer
+value of the priority.
+If the priority class is not found, the Pod is rejected.
 -->
 ### 优先级 {#priority}
 
@@ -1191,9 +1236,10 @@ The priority admission controller uses the `priorityClassName` field and populat
 ### ResourceQuota {#resourcequota}
 
 <!--
-This admission controller will observe the incoming request and ensure that it does not violate any of the constraints
-enumerated in the `ResourceQuota` object in a `Namespace`.  If you are using `ResourceQuota`
-objects in your Kubernetes deployment, you MUST use this admission controller to enforce quota constraints.
+This admission controller will observe the incoming request and ensure that it does not violate
+any of the constraints enumerated in the `ResourceQuota` object in a `Namespace`.  If you are
+using `ResourceQuota` objects in your Kubernetes deployment, you MUST use this admission
+controller to enforce quota constraints.
 -->
 该准入控制器会监测传入的请求，并确保它不违反任何一个 `Namespace` 中的 `ResourceQuota`
 对象中枚举出来的约束。
@@ -1201,11 +1247,12 @@ objects in your Kubernetes deployment, you MUST use this admission controller to
 执行配额限制。
 
 <!--
-See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
+See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
 请查看
-[resourceQuota 设计文档](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md)和 [Resource Quota 例子](/zh/docs/concepts/policy/resource-quotas/)
-了解更多细节。
+[resourceQuota API 参考](/zh/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+和 [Resource Quota 例子](/zh/docs/concepts/policy/resource-quotas/)了解更多细节。
 
 
 <!--
@@ -1213,13 +1260,13 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-If you enable the `PodOverhead` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), and define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) configured, this admission controller checks incoming
-Pods. When enabled, this admission controller rejects any Pod create requests that have the overhead already set.
-For Pods that have a  RuntimeClass is configured and selected in their `.spec`, this admission controller sets `.spec.overhead` in the Pod based on the value defined in the corresponding RuntimeClass.
-
-{{< note >}}
-The `.spec.overhead` field for Pod and the `.overhead` field for RuntimeClass are both in beta. If you do not enable the `PodOverhead` feature gate, all Pods are treated as if `.spec.overhead` is unset.
-{{< /note >}}
+If you define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
+configured, this admission controller checks incoming Pods.
+When enabled, this admission controller rejects any Pod create requests
+that have the overhead already set.
+For Pods that have a RuntimeClass configured and selected in their `.spec`,
+this admission controller sets `.spec.overhead` in the Pod based on the value
+defined in the corresponding RuntimeClass.
 
 See also [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 for more information.
@@ -1228,47 +1275,48 @@ for more information.
 
 +{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-如果你开启 `PodOverhead`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/),
-并且通过 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
+如果你通过 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
 配置来定义一个 RuntimeClass，这个准入控制器会检查新的 Pod。
 当启用的时候，这个准入控制器会拒绝任何 overhead 字段已经设置的 Pod。
 对于配置了 RuntimeClass 并在其 `.spec` 中选定 RuntimeClass 的 Pod，
 此准入控制器会根据相应 RuntimeClass 中定义的值为 Pod 设置 `.spec.overhead`。
-
-{{< note >}}
-Pod 的 `.spec.overhead` 字段和 RuntimeClass 的 `.overhead` 字段均为处于 beta 版本。
-如果你未启用 `PodOverhead` 特性门控，则所有 Pod 均被视为未设置 `.spec.overhead`。
-{{< /note >}}
 
 详情请参见 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)。
 
 ### SecurityContextDeny {#securitycontextdeny}
 
 <!--
-This admission controller will deny any pod that attempts to set certain escalating
+This admission controller will deny any Pod that attempts to set certain escalating
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 fields, as shown in the
 [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
 task.
-This should be enabled if a cluster doesn't utilize 
-[pod security policies](/docs/concepts/policy/pod-security-policy/)
-to restrict the set of values a security context can take.
+If you don't use [Pod Security admission](/docs/concepts/security/pod-security-admission/),
+[PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), nor any external enforcement mechanism,
+then you could use this admission controller to restrict the set of values a security context can take.
+
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for more context on restricting
+pod privileges.
 -->
 该准入控制器将拒绝任何试图设置特定提升
 [SecurityContext](/zh/docs/tasks/configure-pod-container/security-context/)
 字段的 Pod，正如任务
 [为 Pod 或 Container 配置安全上下文](/zh/docs/tasks/configure-pod-container/security-context/)
 中所展示的那样。
-如果集群没有使用 [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)
-来限制安全上下文所能获取的值集，那么应该启用这个功能。
+如果集群没有使用 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission/)、
+[PodSecurityPolicies](/zh/docs/concepts/security/pod-security-policy/)，
+也没有任何外部执行机制，那么你可以使用此准入控制器来限制安全上下文所能获取的值集。
+
+有关限制 Pod 权限的更多内容，请参阅 
+[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
 
 ### ServiceAccount {#serviceaccount}
 
 <!--
 This admission controller implements automation for
 [serviceAccounts](/docs/tasks/configure-pod-container/configure-service-account/).
-We strongly recommend using this admission controller if you intend to make use of Kubernetes `ServiceAccount` objects.
+We strongly recommend using this admission controller if you intend to make use of Kubernetes
+`ServiceAccount` objects.
 -->
 此准入控制器实现了
 [ServiceAccount](/zh/docs/tasks/configure-pod-container/configure-service-account/)
@@ -1278,7 +1326,13 @@ We strongly recommend using this admission controller if you intend to make use 
 ### StorageObjectInUseProtection
 
 <!--
-The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
+The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection`
+finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV).
+In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed
+from the PVC or PV by PVC or PV Protection Controller.
+Refer to the
+[Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)
+for more detailed information.
 -->
 `StorageObjectInUseProtection` 插件将 `kubernetes.io/pvc-protection` 或
 `kubernetes.io/pv-protection` finalizers 添加到新创建的持久化卷声明（PVC）
@@ -1288,12 +1342,15 @@ PVC/PV 不会被删除。
 有关更多详细信息，请参考
 [保护使用中的存储对象](/zh/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。
 
-### TaintNodesByCondition {#taintnodesbycondition} 
+### TaintNodesByCondition {#taintnodesbycondition}
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 <!--
-This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}} newly created Nodes as `NotReady` and `NoSchedule`. That tainting avoids a race condition that could cause Pods to be scheduled on new Nodes before their taints were updated to accurately reflect their reported conditions.
+This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}} newly created
+Nodes as `NotReady` and `NoSchedule`. That tainting avoids a race condition that could cause Pods
+to be scheduled on new Nodes before their taints were updated to accurately reflect their reported
+conditions.
 -->
 该准入控制器为新创建的节点添加 `NotReady` 和 `NoSchedule` 
 {{< glossary_tooltip text="污点" term_id="taint" >}}。
@@ -1301,8 +1358,6 @@ This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}}
 反映其所报告状况之前，就被调度到新节点上。
 
 ### ValidatingAdmissionWebhook {#validatingadmissionwebhook} 
-
-{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 <!--
 This admission controller calls any validating webhooks which match the request. Matching
@@ -1325,19 +1380,23 @@ webhooks or other validating admission controllers will permit the request to fi
 
 <!--
 If you disable the ValidatingAdmissionWebhook, you must also disable the
-`ValidatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1beta1`
+`ValidatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1`
 group/version via the `--runtime-config` flag (both are on by default in
 versions 1.9 and later).
 -->
 如果你禁用了 ValidatingAdmissionWebhook，还必须通过 `--runtime-config` 标志来禁用
-`admissionregistration.k8s.io/v1beta1` 组/版本中的  `ValidatingWebhookConfiguration`
+`admissionregistration.k8s.io/v1` 组/版本中的  `ValidatingWebhookConfiguration`
 对象（默认情况下在 1.9 版和更高版本中均处于启用状态）。
 
 
 <!--
 ## Is there a recommended set of admission controllers to use?
 
-Yes. The recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
+Yes. The recommended admission controllers are enabled by default
+(shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)),
+so you do not need to explicitly specify them.
+You can enable additional admission controllers beyond the default set using the
+`--enable-admission-plugins` flag (**order doesn't matter**).
 -->
 ## 有推荐的准入控制器吗？
 
@@ -1345,11 +1404,3 @@ Yes. The recommended admission controllers are enabled by default (shown [here](
 （请查看[这里](/zh/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此，你无需显式指定它们。
 你可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
-
-{{< note >}}
-<!--
-`--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
--->
-`--admission-control` 在 1.10 中已废弃，由 `--enable-admission-plugins` 取代。
-{{< /note >}}
-

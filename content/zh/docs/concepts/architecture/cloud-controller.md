@@ -1,11 +1,11 @@
 ---
-title: 云控制器管理器的基础概念
+title: 云控制器管理器
 content_type: concept
 weight: 40
 ---
 
 <!--
-title: Concepts Underlying the Cloud Controller Manager
+title: Cloud Controller Manager
 content_type: concept
 weight: 40
 -->
@@ -35,7 +35,7 @@ mechanism that allows different cloud providers to integrate their platforms wit
 <!--
 ## Design
 
-![Kubernetes components](/images/docs/components-of-kubernetes.png)
+![Kubernetes components](/images/docs/components-of-kubernetes.svg)
 
 The cloud controller manager runs in the control plane as a replicated set of processes
 (usually, these are containers in Pods). Each cloud-controller-manager implements
@@ -44,7 +44,7 @@ process.
 -->
 ## 设计  {#design}
 
-![Kubernetes 组件](/images/docs/components-of-kubernetes.png)
+![Kubernetes 组件](/images/docs/components-of-kubernetes.svg)
 
 云控制器管理器以一组多副本的进程集合的形式运行在控制面中，通常表现为 Pod
 中的容器。每个 `cloud-controller-manager` 在同一进程中实现多个
@@ -56,7 +56,7 @@ You can also run the cloud controller manager as a Kubernetes
 of the control plane.
 -->
 {{< note >}}
-你也可以以 Kubernetes {{< glossary_tooltip text="插件" term_id="addons" >}} 
+你也可以用 Kubernetes {{< glossary_tooltip text="插件" term_id="addons" >}} 
 的形式而不是控制面中的一部分来运行云控制器管理器。
 {{< /note >}}
 
@@ -72,18 +72,18 @@ The controllers inside the cloud controller manager include:
 <!--
 ### Node controller
 
-The node controller is responsible for creating {{< glossary_tooltip text="Node" term_id="node" >}} objects
+The node controller is responsible for updating {{< glossary_tooltip text="Node" term_id="node" >}} objects
 when new servers are created in your cloud infrastructure. The node controller obtains information about the
 hosts running inside your tenancy with the cloud provider. The node controller performs the following functions:
 -->
 ### 节点控制器   {#node-controller}
 
-节点控制器负责在云基础设施中创建了新服务器时为之 创建
+节点控制器负责在云基础设施中创建了新服务器时为之 更新
 {{< glossary_tooltip text="节点（Node）" term_id="node" >}}对象。
 节点控制器从云提供商获取当前租户中主机的信息。节点控制器执行以下功能：
 
 <!--
-1. Initialize a Node object for each server that the controller discovers through the cloud provider API.
+1. Update a Node object with the corresponding server's unique identifier obtained from the cloud provider API.
 2. Annotating and labelling the Node object with cloud-specific information, such as the region the node
    is deployed into and the resources (CPU, memory, etc) that it has available.
 3. Obtain the node's hostname and network addresses.
@@ -92,7 +92,7 @@ hosts running inside your tenancy with the cloud provider. The node controller p
    If the node has been deleted from the cloud, the controller deletes the Node object from your Kubernetes
    cluster.
 -->
-1. 针对控制器通过云平台驱动的 API 所发现的每个服务器初始化一个 Node 对象；
+1. 使用从云平台 API 获取的对应服务器的唯一标识符更新 Node 对象；
 2. 利用特定云平台的信息为 Node 对象添加注解和标签，例如节点所在的
    区域（Region）和所具有的资源（CPU、内存等等）；
 3. 获取节点的网络地址和主机名；
@@ -126,7 +126,7 @@ Route 控制器负责适当地配置云平台中的路由，以便 Kubernetes �
 <!--
 ### Service controller
 
-{< glossary_tooltip text="Services" term_id="service" >}} integrate with cloud
+{{< glossary_tooltip text="Services" term_id="service" >}} integrate with cloud
 infrastructure components such as managed load balancers, IP addresses, network
 packet filtering, and target health checking. The service controller interacts with your
 cloud provider's APIs to set up load balancers and other infrastructure components
@@ -142,7 +142,7 @@ IP 地址、网络包过滤、目标健康检查等云基础设施组件集成�
 <!--
 ## Authorization
 
-This section breaks down the access that the cloud controller managers requires
+This section breaks down the access that the cloud controller manager requires
 on various API objects, in order to perform its operations.
 -->
 ## 鉴权   {#authorization}
@@ -314,19 +314,23 @@ rules:
 [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 has instructions on running and managing the cloud controller manager.
 
+To upgrade a HA control plane to use the cloud controller manager, see [Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/).
+
 Want to know how to implement your own cloud controller manager, or extend an existing project?
 -->
 [云控制器管理器的管理](/zh/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 给出了运行和管理云控制器管理器的指南。
 
+要升级 HA 控制平面以使用云控制器管理器，请参见 [将复制的控制平面迁移以使用云控制器管理器](/zh/docs/tasks/administer-cluster/controller-manager-leader-migration/)
+
 想要了解如何实现自己的云控制器管理器，或者对现有项目进行扩展么？
 
 <!--
-The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the `CloudProvider` interface defined in [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62) from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
+The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the `CloudProvider` interface defined in [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69) from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
 -->
 云控制器管理器使用 Go 语言的接口，从而使得针对各种云平台的具体实现都可以接入。
 其中使用了在 [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)
-项目中 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62)
+项目中 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)
 文件所定义的 `CloudProvider` 接口。
 
 <!--

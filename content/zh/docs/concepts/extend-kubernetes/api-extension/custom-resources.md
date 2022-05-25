@@ -51,7 +51,7 @@ many core Kubernetes functions are now built using custom resources, making Kube
 Custom resources can appear and disappear in a running cluster through dynamic registration,
 and cluster admins can update custom resources independently of the cluster itself.
 Once a custom resource is installed, users can create and access its objects using
-[kubectl](/docs/reference/kubectl/overview/), just as they do for built-in resources like
+[kubectl](/docs/reference/kubectl/), just as they do for built-in resources like
 *Pods*.
 -->
 *定制资源（Custom Resource）* 是对 Kubernetes API 的扩展，不一定在默认的
@@ -61,13 +61,13 @@ Kubernetes 安装中就可用。定制资源所代表的是对特定 Kubernetes 
 
 定制资源可以通过动态注册的方式在运行中的集群内或出现或消失，集群管理员可以独立于集群
 更新定制资源。一旦某定制资源被安装，用户可以使用 
-[kubectl](/zh/docs/reference/kubectl/overview/)
+[kubectl](/docs/reference/kubectl/)
 来创建和访问其中的对象，就像他们为 *pods* 这种内置资源所做的一样。
 
 <!--
 ## Custom controllers
 
-On their own, custom resources simply let you store and retrieve structured data.
+On their own, custom resources let you store and retrieve structured data.
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 -->
@@ -93,13 +93,13 @@ desired state, and continually maintains this state.
 You can deploy and update a custom controller on a running cluster, independently
 of the cluster's lifecycle. Custom controllers can work with any kind of resource,
 but they are especially effective when combined with custom resources. The
-[Operator pattern](https://coreos.com/blog/introducing-operators.html) combines custom
+[Operator pattern](/docs/concepts/extend-kubernetes/operator/) combines custom
 resources and custom controllers. You can use custom controllers to encode domain knowledge
 for specific applications into an extension of the Kubernetes API.
 -->
 你可以在一个运行中的集群上部署和更新定制控制器，这类操作与集群的生命周期无关。
 定制控制器可以用于任何类别的资源，不过它们与定制资源结合起来时最为有效。
-[Operator 模式](https://coreos.com/blog/introducing-operators.html)就是将定制资源
+[Operator 模式](/zh/docs/concepts/extend-kubernetes/operator/)就是将定制资源
 与定制控制器相结合的。你可以使用定制控制器来将特定于某应用的领域知识组织
 起来，以编码的形式构造对 Kubernetes API 的扩展。
 
@@ -257,7 +257,7 @@ Kubernetes 提供了两种方式供你向集群中添加定制资源：
 <!--
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility is compromised.
 
-Aggregated APIs are subordinate API servers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
+Aggregated APIs are subordinate API servers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, the Kubernetes API is extended.
 
 CRDs allow users to create new types of resources without adding another API server. You do not need to understand API Aggregation to use CRDs.
 
@@ -316,20 +316,21 @@ CRD 使得你不必编写自己的 API 服务器来处理定制资源，不过�
 Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also generically handle custom resources through [CRDs](#customresourcedefinitions).
 
 The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
-implementations for your custom resources by writing and deploying your own standalone API server.
-The main API server delegates requests to you for the custom resources that you handle,
+implementations for your custom resources by writing and deploying your own API server.
+The main API server delegates requests to your API server for the custom resources that you handle,
 making them available to all of its clients.
+
 -->
 ## API 服务器聚合  {#api-server-aggregation}
 
-通常，Kubernetes API 中的每个都需要处理 REST 请求和管理对象持久性存储的代码。
+通常，Kubernetes API 中的每个资源都需要处理 REST 请求和管理对象持久性存储的代码。
 Kubernetes API 主服务器能够处理诸如 *pods* 和 *services* 这些内置资源，也可以
-按通用的方式通过 CRD {#customresourcedefinitions} 来处理定制资源。
+按通用的方式通过 [CRD](#customresourcedefinitions) 来处理定制资源。
 
 [聚合层（Aggregation Layer）](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-使得你可以通过编写和部署你自己的独立的 API 服务器来为定制资源提供特殊的实现。
-主 API 服务器将针对你要处理的定制资源的请求全部委托给你来处理，同时将这些资源
-提供给其所有客户。
+使得你可以通过编写和部署你自己的 API 服务器来为定制资源提供特殊的实现。
+主 API 服务器将针对你要处理的定制资源的请求全部委托给你自己的 API 服务器来处理，同时将这些资源
+提供给其所有客户端。
 
 <!--
 ## Choosing a method for adding custom resources

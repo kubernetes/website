@@ -31,18 +31,18 @@ Kubernetes tiene diferentes abstracciones que representan el estado de tu sistem
 
 Los objetos básicos de Kubernetes incluyen:
 
-* [Pod](/docs/concepts/workloads/pods/pod-overview/)
+* [Pod](/es/docs/concepts/workloads/pods/pod/)
 * [Service](/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Namespace](/es/docs/concepts/overview/working-with-objects/namespaces/)
 
 Además, Kubernetes contiene abstracciónes de nivel superior llamadas Controladores. Los Controladores se basan en los objetos básicos y proporcionan funcionalidades adicionales sobre ellos. Incluyen:
 
-* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-* [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
-* [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [ReplicaSet](/es/docs/concepts/workloads/controllers/replicaset/)
+* [Deployment](/es/docs/concepts/workloads/controllers/deployment/)
+* [StatefulSet](/es/docs/concepts/workloads/controllers/statefulset/)
+* [DaemonSet](/es/docs/concepts/workloads/controllers/daemonset/)
+* [Job](/es/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 
 ## Plano de Control de Kubernetes
@@ -64,15 +64,13 @@ En un clúster de Kubernetes, los nodos son las máquinas (máquinas virtuales, 
 #### Metadatos de los Objectos
 
 
-* [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
+* [Annotations](/es/docs/concepts/overview/working-with-objects/annotations/)
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-Si estás interesado en escribir una página sobre conceptos,
-revisa [Usando Templates de Páginas](/docs/home/contribute/page-templates/)
-para obtener información sobre el tipo de página conceptos y la plantilla conceptos.
+Si quieres empezar a contribuir a la documentación de Kubernetes accede a la página [Empieza a contribuir](/es/docs/contribute/start/).
 
 

@@ -8,8 +8,10 @@ card:
 ---
 
 <!-- overview -->
+Many applications rely on configuration which is used during either application initialization or runtime.
+Most of the times there is a requirement to adjust values assigned to configuration parameters.
+ConfigMaps is the kubernetes way to inject application pods with configuration data. 
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
-
 
 
 ## {{% heading "prerequisites" %}}
@@ -216,6 +218,7 @@ Use the option `--from-env-file` to create a ConfigMap from an env-file, for exa
 
 # Download the sample files into `configure-pod-container/configmap/` directory
 wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
+wget https://kubernetes.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
 
 # The env-file `game-env-file.properties` looks like below
 cat configure-pod-container/configmap/game-env-file.properties
@@ -253,17 +256,10 @@ data:
   lives: "3"
 ```
 
-{{< caution >}}
-When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used.
-{{< /caution >}}
-
-The behavior of passing `--from-env-file` multiple times is demonstrated by:
+Starting with Kubernetes v1.23, `kubectl` supports the `--from-env-file` argument to be
+specified multiple times to create a ConfigMap from multiple data sources.
 
 ```shell
-# Download the sample files into `configure-pod-container/configmap/` directory
-wget https://kubernetes.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
-
-# Create the configmap
 kubectl create configmap config-multi-env-files \
         --from-env-file=configure-pod-container/configmap/game-env-file.properties \
         --from-env-file=configure-pod-container/configmap/ui-env-file.properties
@@ -286,8 +282,11 @@ metadata:
   resourceVersion: "810136"
   uid: 252c4572-eb35-11e7-887b-42010a8002b8
 data:
+  allowed: '"true"'
   color: purple
+  enemies: aliens
   how: fairlyNice
+  lives: "3"
   textmode: "true"
 ```
 
@@ -624,9 +623,20 @@ Like before, all previous files in the `/etc/config/` directory will be deleted.
 You can project keys to specific paths and specific permissions on a per-file
 basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) user guide explains the syntax.
 
+### Optional References
+
+A ConfigMap reference may be marked "optional".  If the ConfigMap is non-existent, the mounted volume will be empty. If the ConfigMap exists, but the referenced
+key is non-existent the path will be absent beneath the mount point.
+
 ### Mounted ConfigMaps are updated automatically
 
-When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period (1 minute by default) + ttl of ConfigMaps cache (1 minute by default) in kubelet. You can trigger an immediate refresh by updating one of the pod's annotations.
+When a mounted ConfigMap is updated, the projected content is eventually updated too.  This applies in the case where an optionally referenced ConfigMap comes into
+existence after a pod has started.
+
+Kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, it uses its local TTL-based cache for getting the current value of the
+ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as
+kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet. You can trigger an immediate refresh by updating one of
+the pod's annotations.
 
 {{< note >}}
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.

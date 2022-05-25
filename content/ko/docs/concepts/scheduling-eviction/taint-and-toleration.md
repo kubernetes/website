@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 테인트(Taints)와 톨러레이션(Tolerations)
 content_type: concept
 weight: 40
@@ -199,16 +203,16 @@ tolerations:
  * `tolerationSeconds` 가 지정된 테인트를 용인하는 파드는 지정된
   시간 동안 바인딩된 상태로 유지된다.
 
-노드 컨트롤러는 특정 조건이 참일 때 자동으로
+노드 컨트롤러는 특정 컨디션이 참일 때 자동으로
 노드를 테인트시킨다. 다음은 빌트인 테인트이다.
 
  * `node.kubernetes.io/not-ready`: 노드가 준비되지 않았다. 이는 NodeCondition
    `Ready` 가 "`False`"로 됨에 해당한다.
  * `node.kubernetes.io/unreachable`: 노드가 노드 컨트롤러에서 도달할 수 없다. 이는
    NodeCondition `Ready` 가 "`Unknown`"로 됨에 해당한다.
- * `node.kubernetes.io/out-of-disk`: 노드에 디스크가 부족하다.
  * `node.kubernetes.io/memory-pressure`: 노드에 메모리 할당 압박이 있다.
  * `node.kubernetes.io/disk-pressure`: 노드에 디스크 할당 압박이 있다.
+ * `node.kubernetes.io/pid-pressure`: 노드에 PID 할당 압박이 있다.
  * `node.kubernetes.io/network-unavailable`: 노드의 네트워크를 사용할 수 없다.
  * `node.kubernetes.io/unschedulable`: 노드를 스케줄할 수 없다.
  * `node.cloudprovider.kubernetes.io/uninitialized`: "외부" 클라우드 공급자로
@@ -260,26 +264,39 @@ tolerations:
 
 이렇게 하면 이러한 문제로 인해 데몬셋 파드가 축출되지 않는다.
 
-## 컨디션별 노드 테인트하기
+## 컨디션(condition)을 기준으로 노드 테인트하기
 
-노드 라이프사이클 컨트롤러는 `NoSchedule` 이펙트가 있는 노드 컨디션에 해당하는
-테인트를 자동으로 생성한다.
-마찬가지로 스케줄러는 노드 컨디션을 확인하지 않는다. 대신 스케줄러는 테인트를 확인한다. 이렇게 하면 노드 컨디션이 노드에 스케줄된 내용에 영향을 미치지 않는다. 사용자는 적절한 파드 톨러레이션을 추가하여 노드의 일부 문제(노드 컨디션으로 표시)를 무시하도록 선택할 수 있다.
+컨트롤 플레인은 노드 {{<glossary_tooltip text="컨트롤러" term_id="controller">}}를 이용하여 
+[노드 컨디션](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions)에 대한 `NoSchedule` 효과를 사용하여 자동으로 테인트를 생성한다.
 
-쿠버네티스 1.8 버전부터 데몬셋 컨트롤러는 다음의 `NoSchedule` 톨러레이션을
+스케줄러는 스케줄링 결정을 내릴 때 노드 컨디션을 확인하는 것이 아니라 테인트를 확인한다. 
+이렇게 하면 노드 컨디션이 스케줄링에 직접적인 영향을 주지 않는다.
+예를 들어 `DiskPressure` 노드 컨디션이 활성화된 경우 
+컨트롤 플레인은 `node.kubernetes.io/disk-pressure` 테인트를 추가하고 영향을 받는 노드에 새 파드를 할당하지 않는다. 
+`MemoryPressure` 노드 컨디션이 활성화되면 
+컨트롤 플레인이 `node.kubernetes.io/memory-pressure` 테인트를 추가한다.
+
+새로 생성된 파드에 파드 톨러레이션을 추가하여 노드 컨디션을 무시하도록 할 수 있다. 
+또한 컨트롤 플레인은 `BestEffort` 이외의 
+{{< glossary_tooltip text="QoS 클래스" term_id="qos-class" >}}를 가지는 파드에 
+`node.kubernetes.io/memory-pressure` 톨러레이션을 추가한다. 
+이는 쿠버네티스가 `Guaranteed` 또는 `Burstable` QoS 클래스를 갖는 파드(메모리 요청이 설정되지 않은 파드 포함)를 
+마치 그 파드들이 메모리 압박에 대처 가능한 것처럼 다루는 반면, 
+새로운 `BestEffort` 파드는 영향을 받는 노드에 할당하지 않기 때문이다.
+
+데몬셋 컨트롤러는 다음의 `NoSchedule` 톨러레이션을
 모든 데몬에 자동으로 추가하여, 데몬셋이 중단되는 것을 방지한다.
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/out-of-disk` (*중요한 파드에만 해당*)
+  * `node.kubernetes.io/pid-pressure` (1.14 이상)
   * `node.kubernetes.io/unschedulable` (1.10 이상)
   * `node.kubernetes.io/network-unavailable` (*호스트 네트워크만 해당*)
 
 이러한 톨러레이션을 추가하면 이전 버전과의 호환성이 보장된다. 데몬셋에
 임의의 톨러레이션을 추가할 수도 있다.
 
-
 ## {{% heading "whatsnext" %}}
 
-* [리소스 부족 다루기](/docs/tasks/administer-cluster/out-of-resource/)와 어떻게 구성하는지에 대해 알아보기
-* [파드 우선순위](/ko/docs/concepts/configuration/pod-priority-preemption/)에 대해 알아보기
+* [노드-압박(node-pressure) 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)과 어떻게 구성하는지에 대해 알아보기
+* [파드 우선순위](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)에 대해 알아보기

@@ -39,11 +39,13 @@ on every resource object.
 | `app.kubernetes.io/version`         | The current version of the application (e.g., a semantic version, revision hash, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
-| `app.kubernetes.io/managed-by`  | The tool being used to manage the operation of an application | `helm` | string |
+| `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `helm` | string |
+| `app.kubernetes.io/created-by`      | The controller/user who created this resource | `controller-manager` | string |
 
-To illustrate these labels in action, consider the following StatefulSet object:
+To illustrate these labels in action, consider the following {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} object:
 
 ```yaml
+# This is an excerpt
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -54,6 +56,7 @@ metadata:
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
     app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/created-by: controller-manager
 ```
 
 ## Applications And Instances Of Applications
@@ -169,5 +172,4 @@ metadata:
 ```
 
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and WordPress, the broader application, are included.
-
 

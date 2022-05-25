@@ -45,7 +45,7 @@ no_list: true
 
 ## 클러스터 보안
 
-* [인증서 생성](/ko/docs/tasks/administer-cluster/certificates/)는 다른 툴 체인을 사용하여 인증서를 생성하는 단계를 설명한다.
+* [인증서 생성](/ko/docs/tasks/administer-cluster/certificates/)은 다른 툴 체인을 사용하여 인증서를 생성하는 단계를 설명한다.
 
 * [쿠버네티스 컨테이너 환경](/ko/docs/concepts/containers/container-environment/)은 쿠버네티스 노드에서 Kubelet으로 관리하는 컨테이너에 대한 환경을 설명한다.
 
@@ -57,7 +57,7 @@ no_list: true
 
 * [어드미션 컨트롤러 사용하기](/docs/reference/access-authn-authz/admission-controllers/)는 인증과 권한 부여 후 쿠버네티스 API 서버에 대한 요청을 가로채는 플러그인에 대해 설명한다.
 
-* [쿠버네티스 클러스터에서 Sysctls 사용하기](/docs/tasks/administer-cluster/sysctl-cluster/)는 관리자가 `sysctl` 커맨드라인 도구를 사용하여 커널 파라미터를 설정하는 방법에 대해 설명한다.
+* [쿠버네티스 클러스터에서 Sysctls 사용하기](/ko/docs/tasks/administer-cluster/sysctl-cluster/)는 관리자가 `sysctl` 커맨드라인 도구를 사용하여 커널 파라미터를 설정하는 방법에 대해 설명한다.
 
 * [감사(audit)](/docs/tasks/debug-application-cluster/audit/)는 쿠버네티스의 감사 로그를 다루는 방법에 대해 설명한다.
 

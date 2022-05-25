@@ -72,6 +72,8 @@ var kub = (function () {
         headlineWrapper = $('#headlineWrapper');
         HEADER_HEIGHT = header.outerHeight();
 
+        document.documentElement.classList.remove('no-js');
+
         resetTheView();
 
         window.addEventListener('resize', resetTheView);

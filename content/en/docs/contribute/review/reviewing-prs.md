@@ -36,7 +36,38 @@ Before you start a review:
 
 ## Review process
 
-In general, review pull requests for content and style in English.
+In general, review pull requests for content and style in English. Figure 1 outlines the steps for the review process. The details for each step follow.
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+    subgraph fourth[Start review]
+    direction TB
+    S[ ] -.-
+    M[add comments] --> N[review changes]
+    N --> O[new contributors should<br>choose Comment]
+    end
+    subgraph third[Select PR]
+    direction TB
+    T[ ] -.-
+    J[read description<br>and comments]--> K[preview changes in<br>Netlify preview build]
+    end
+ 
+  A[Review open PR list]--> B[Filter open PRs<br>by label]
+  B --> third --> fourth
+     
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class A,B,J,K,M,N,O grey
+class S,T spacewhite
+class third,fourth white
+{{</ mermaid >}}
+
+Figure 1. Review process steps.
 
 1.  Go to
     [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
@@ -54,13 +85,17 @@ In general, review pull requests for content and style in English.
     - Reading the PR description to understand the changes made, and read any linked issues
     - Reading any comments by other reviewers
     - Clicking the **Files changed** tab to see the files and lines changed
-    - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab and clicking the **deploy/netlify** line's **Details** link.
+    - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab.
+      Here's a screenshot (this shows GitHub's desktop site; if you're reviewing
+      on a tablet or smartphone device, the GitHub web UI is slightly different):
+      {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
+      To open the preview, click on the  **Details** link of the **deploy/netlify** line in the list of checks.
 
 4.  Go to the **Files changed** tab to start your review.
     1. Click on the `+` symbol  beside the line you want to comment on.
     2. Fill in any comments you have about the line and click either **Add single comment** (if you have only one comment to make) or  **Start a review** (if you have multiple comments to make).
     3. When finished, click **Review changes** at the top of the page. Here, you can add
-       add a summary of your review (and leave some positive comments for the contributor!),
+      a summary of your review (and leave some positive comments for the contributor!),
       approve the PR, comment or request changes as needed. New contributors should always
       choose **Comment**.
 

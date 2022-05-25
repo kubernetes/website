@@ -62,14 +62,14 @@ If your cluster was deployed using the `kubeadm` tool, refer to
 for detailed information on how to upgrade the cluster.
 
 Once you have upgraded the cluster, remember to
-[install the latest version of `kubectl`](/docs/tasks/tools/install-kubectl/).
+[install the latest version of `kubectl`](/docs/tasks/tools/).
 -->
 如果你的集群是使用 `kubeadm` 安装工具部署而来，
-那么升级群集的详细信息，请参阅
+那么升级集群的详细信息，请参阅
 [升级 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 
 升级集群之后，要记得
-[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/install-kubectl/).
+[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/).
 
 <!-- ### Manual deployments -->
 ### 手动部署 {#manual-deployments}
@@ -101,7 +101,7 @@ You should manually update the control plane following this sequence:
 
 <!-- 
 At this point you should
-[install the latest version of `kubectl`](/docs/tasks/tools/install-kubectl/).
+[install the latest version of `kubectl`](/docs/tasks/tools/).
 
 For each node in your cluster, [drain](/docs/tasks/administer-cluster/safely-drain-node/)
 that node and then either replace it with a new node that uses the {{< skew latestVersion >}}
@@ -109,9 +109,9 @@ kubelet, or upgrade the {{< skew latestVersion >}}
 kubelet on that node and bring the node back into service.
 -->
 现在，你应该
-[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/install-kubectl/).
+[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/).
 
-对于群集中的每个节点，
+对于集群中的每个节点，
 [排空](/zh/docs/tasks/administer-cluster/safely-drain-node/)
 节点，然后，或者用一个运行了 {{< skew latestVersion >}} kubelet 的新节点替换它；
 或者升级此节点的 kubelet，并使节点恢复服务。
@@ -132,7 +132,7 @@ up steps for maintenance.
 
 ## 升级后的任务 {#post-upgrade-tasks}
 
-### 切换群集的存储 API 版本 {#switch-your-clusters-storage-api-version}
+### 切换集群的存储 API 版本 {#switch-your-clusters-storage-api-version}
 
 <!-- 
 The objects that are serialized into etcd for a cluster's internal

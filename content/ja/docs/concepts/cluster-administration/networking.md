@@ -39,7 +39,7 @@ Kubernetesは、ネットワークの実装に次の基本的な要件を課し�
 
 このモデルは全体としてそれほど複雑ではないことに加え、KubernetesがVMからコンテナへのアプリへの移植を簡単にするという要望と基本的に互換性があります。ジョブがVMで実行されていた頃も、VMにはIPがあってプロジェクト内の他のVMと通信できました。これは同じ基本モデルです。
 
-KubernetesのIPアドレスは`Pod`スコープに存在します。`Pod`内のコンテナは、IPアドレスを含むネットワーク名前空間を共有します。これは、`Pod`内のコンテナがすべて`localhost`上の互いのポートに到達できることを意味します。また、`Pod`内のコンテナがポートの使用を調整する必要があることも意味しますが、これもVM内のプロセスと同じです。これのことを「IP-per-pod(Pod毎のIP)」モデルと呼びます。
+KubernetesのIPアドレスは`Pod`スコープに存在します。`Pod`内のコンテナは、IPアドレスとMACアドレスを含むネットワーク名前空間を共有します。これは、`Pod`内のコンテナがすべて`localhost`上の互いのポートに到達できることを意味します。また、`Pod`内のコンテナがポートの使用を調整する必要があることも意味しますが、これもVM内のプロセスと同じです。これのことを「IP-per-pod(Pod毎のIP)」モデルと呼びます。
 
 この実装方法は実際に使われているコンテナランタイムの詳細部分です。
 
@@ -50,6 +50,8 @@ KubernetesのIPアドレスは`Pod`スコープに存在します。`Pod`内の�
 このネットワークモデルを実装する方法はいくつかあります。このドキュメントは、こうした方法を網羅的にはカバーしませんが、いくつかの技術の紹介として、また出発点として役立つことを願っています。
 
 この一覧はアルファベット順にソートされており、順序は優先ステータスを意味するものではありません。
+
+{{% thirdparty-content %}}
 
 ### ACI
 
@@ -86,9 +88,9 @@ Details on how the AOS system works can be accessed here: https://www.apstra.com
 さらに、このCNIは[ネットワークポリシーの適用のためにCalico](https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/calico.html)と一緒に実行できます。AWS VPC CNIプロジェクトは、[GitHubのドキュメント](https://github.com/aws/amazon-vpc-cni-k8s)とともにオープンソースで公開されています。
 
 ### Azure CNI for Kubernetes
-[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
+[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview)は、Kubernetes PodをAzure仮想ネットワーク(VNetとも呼ばれます)と統合する[オープンソース](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md)プラグインで、VMと同等のネットワーク パフォーマンスを提供します。Pod は、ExpressRouteまたはサイト間VPN経由でピアリングされたVNetおよびオンプレミスに接続でき、これらのネットワークから直接アクセスすることもできます。Podは、サービスエンドポイントまたはプライベートリンクによって保護されているストレージやSQLなどのAzureサービスにアクセスできます。VNetセキュリティポリシーとルーティングを使用して、Podトラフィックをフィルター処理できます。プラグインは、Kubernetesノードのネットワークインターフェイスで事前に構成されたセカンダリIPのプールを利用して、VNet IPをPodに割り当てます。
 
-Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
+Azure CNIは、[Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni)でネイティブに利用できます。
 
 
 ### Big Cloud Fabric from Big Switch Networks
@@ -98,6 +100,10 @@ Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https:/
 With the help of the Big Cloud Fabric's virtual pod multi-tenant architecture, container orchestration systems such as Kubernetes, RedHat OpenShift, Mesosphere DC/OS & Docker Swarm will be natively integrated alongside with VM orchestration systems such as VMware, OpenStack & Nutanix. Customers will be able to securely inter-connect any number of these clusters and enable inter-tenant communication between them if needed.
 
 BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html). One of the BCF Kubernetes on-premises deployments (which includes Kubernetes, DC/OS & VMware running on multiple DCs across different geographic regions) is also referenced [here](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/).
+
+### Calico
+
+[Calico](https://docs.projectcalico.org/)は、コンテナ、仮想マシン、ホストベースのワークロードのためのオープンソースのネットワーク及びネットワークセキュリティのソリューションです。Calicoは、純粋なLinuxのeBPFデータプレーンや、Linuxの標準的なネットワークデータプレーン、WindowsのHNSデータプレーンを含む、複数のデータプレーンをサポートしています。Calicoは完全なネットワークスタックを提供していますが、[クラウドプロバイダーのCNI](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations)と組み合わせてネットワークポリシーを提供することもできます。
 
 ### Cilium
 
@@ -109,7 +115,7 @@ addressing, and it can be used in combination with other CNI plugins.
 
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/ja/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/ja/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](https://github.com/romana/romana), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 
@@ -129,9 +135,14 @@ tables to provide per-instance subnets to each host (which is limited to 50-100
 entries per VPC). In short, cni-ipvlan-vpc-k8s significantly reduces the
 network complexity required to deploy Kubernetes at scale within AWS.
 
+### Coil
+
+[Coil](https://github.com/cybozu-go/coil)は、容易に連携できるよう設計されていて、フレキシブルなEgressネットワークを提供することができるCNIプラグインです。
+Coilはベアメタルと比較して低いオーバーヘッドで操作することができ、また外部のネットワークへの任意のEgress NATゲートウェイを定義することができます。
+
 ### Contiv
 
-[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](https://contiv.io) is all open sourced.
+[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases.
 
 ### Contrail / Tungsten Fabric
 
@@ -232,7 +243,7 @@ Lars Kellogg-Stedman.
 
 ### Multus (a Multi Network plugin)
 
-[Multus](https://github.com/Intel-Corp/multus-cni) is a Multi CNI plugin to support the Multi Networking feature in Kubernetes using CRD based network objects in Kubernetes.
+Multus is a Multi CNI plugin to support the Multi Networking feature in Kubernetes using CRD based network objects in Kubernetes.
 
 Multus supports all [reference plugins](https://github.com/containernetworking/plugins) (eg. [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) that implement the CNI specification and 3rd party plugins (eg. [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). In addition to it, Multus supports [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) workloads in Kubernetes with both cloud native and NFV based applications in Kubernetes.
 
@@ -252,12 +263,6 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 
 The Nuage platform uses overlays to provide seamless policy-based networking between Kubernetes Pods and non-Kubernetes environments (VMs and bare metal servers). Nuage's policy abstraction model is designed with applications in mind and makes it easy to declare fine-grained policies for applications.The platform's real-time analytics engine enables visibility and security monitoring for Kubernetes applications.
 
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) is a somewhat more mature but also
-complicated way to build an overlay network.  This is endorsed by several of the
-"Big Shops" for networking.
-
 ### OVN (Open Virtual Networking)
 
 OVN is an opensource network virtualization solution developed by the
@@ -266,17 +271,9 @@ stateful ACLs, load-balancers etc to build different virtual networking
 topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 
-### Project Calico
-
-[Project Calico](https://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
-
-Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet, for both Linux (open source) and Windows (proprietary - available from [Tigera](https://www.tigera.io/essentials/)).  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
-
-Calico can also be run in policy enforcement mode in conjunction with other networking solutions such as Flannel, aka [canal](https://github.com/tigera/canal), or native GCE, AWS or Azure networking.
-
 ### Romana
 
-[Romana](https://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
+[Romana](https://github.com/romana/romana) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
 
 ### Weave Net from Weaveworks
 
@@ -287,9 +284,7 @@ or stand-alone.  In either version, it doesn't require any configuration or extr
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
 
-
 ## {{% heading "whatsnext" %}}
 
 
 ネットワークモデルの初期設計とその根拠、および将来の計画については、[ネットワーク設計ドキュメント](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)で詳細に説明されています。
-

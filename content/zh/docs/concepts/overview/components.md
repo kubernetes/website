@@ -26,22 +26,19 @@ card:
 When you deploy Kubernetes, you get a cluster.
 {{</* glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of" */>}}
 
-This document outlines the various components you need to have
+This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
-Here's the diagram of a Kubernetes cluster with all the components tied together.
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
 
-![Components of Kubernetes](/images/docs/components-of-kubernetes.svg)
 -->
 <!-- overview -->
-当你部署完 Kubernetes, 即拥有了一个完整的集群。
+当你部署完 Kubernetes，即拥有了一个完整的集群。
 {{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes">}}
 
 本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
 
-这张图表展示了包含所有相互关联组件的 Kubernetes 集群。
-
-![Kubernetes 组件](/images/docs/components-of-kubernetes.svg)
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes 的组件" caption="Kubernetes 集群的组件" class="diagram-large" >}}
 
 <!-- body -->
 
@@ -52,18 +49,21 @@ The control plane's components make global decisions about the cluster (for exam
  -->
 ## 控制平面组件（Control Plane Components）    {#control-plane-components}
 
-控制平面的组件对集群做出全局决策(比如调度)，以及检测和响应集群事件（例如，当不满足部署的 `replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
+控制平面的组件对集群做出全局决策（比如调度），以及检测和响应集群事件（例如，当不满足部署的
+`replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
 
 <!--
 Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
-[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
+[Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+for an example control plane setup that runs across multiple machines.
  -->
 控制平面组件可以在集群中的任何节点上运行。
-然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，并且不会在此计算机上运行用户容器。
-请参阅[构建高可用性集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
-中对于多主机 VM 的设置示例。
+然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，
+并且不会在此计算机上运行用户容器。
+请参阅[使用 kubeadm 构建高可用性集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
+中关于跨多机器控制平面设置的示例。
 
 ### kube-apiserver
 
@@ -82,20 +82,20 @@ the same machine, and do not run user containers on this machine. See
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
 <!--
-These controllers include:
+Some types of these controllers are:
 
   * Node controller: Responsible for noticing and responding when nodes go down.
-  * Replication controller: Responsible for maintaining the correct number of pods for every replication
-  controller object in the system.
+  * Job controller: Watches for Job objects that represent one-off tasks, then creates
+    Pods to run those tasks to completion.
   * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
   * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
 -->
-这些控制器包括:
+这些控制器包括：
 
-* 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应
-* 副本控制器（Replication Controller）: 负责为系统中的每个副本控制器对象维护正确数量的 Pod
-* 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)
-* 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌
+* 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应
+* 任务控制器（Job controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
+* 端点控制器（Endpoints Controller）：填充端点（Endpoints）对象（即加入 Service 与 Pod）
+* 服务帐户和令牌控制器（Service Account & Token Controllers）：为新的命名空间创建默认帐户和 API 访问令牌
 
 <!--
 ### cloud-controller-manager
@@ -128,9 +128,9 @@ The following controllers can have cloud provider dependencies:
 
 下面的控制器都包含对云平台驱动的依赖：
 
-  * 节点控制器（Node Controller）: 用于在节点终止响应后检查云提供商以确定节点是否已被删除
-  * 路由控制器（Route Controller）: 用于在底层云基础架构中设置路由
-  * 服务控制器（Service Controller）: 用于创建、更新和删除云提供商负载均衡器
+  * 节点控制器（Node Controller）：用于在节点终止响应后检查云提供商以确定节点是否已被删除
+  * 路由控制器（Route Controller）：用于在底层云基础架构中设置路由
+  * 服务控制器（Service Controller）：用于创建、更新和删除云提供商负载均衡器
 
 <!--
 ## Node Components
@@ -167,7 +167,7 @@ for addons belong within the `kube-system` namespace.
 ## 插件（Addons）    {#addons}
 
 插件使用 Kubernetes 资源（{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}、
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}}等）实现集群功能。
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}} 等）实现集群功能。
 因为这些插件提供集群级别的功能，插件中命名空间域的资源属于 `kube-system` 命名空间。
 
 <!--
@@ -203,18 +203,19 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 -->
 ### Web 界面（仪表盘）   
 
-[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/) 是Kubernetes 集群的通用的、基于 Web 的用户界面。
+[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/)
+是 Kubernetes 集群的通用的、基于 Web 的用户界面。
 它使用户可以管理集群中运行的应用程序以及集群本身并进行故障排除。
 
 <!--
 ### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 -->
 ### 容器资源监控
 
-[容器资源监控](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+[容器资源监控](/zh/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。
 
 <!--
@@ -240,4 +241,3 @@ saving container logs to a central log store with search/browsing interface.
 * 进一步了解[控制器](/zh/docs/concepts/architecture/controller/)
 * 进一步了解 [kube-scheduler](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
-

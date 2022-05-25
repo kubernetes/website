@@ -47,10 +47,10 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 
 동일한 마이크로서비스 또는 애플리케이션 티어(tier)와 관련된 리소스를 동일한 파일에 배치하고, 애플리케이션과 연관된 모든 파일을 동일한 디렉터리에 그룹화하는 것이 좋다. 애플리케이션의 티어가 DNS를 사용하여 서로 바인딩되면, 스택의 모든 컴포넌트를 함께 배포할 수 있다.
 
-URL을 구성 소스로 지정할 수도 있다. 이는 github에 체크인된 구성 파일에서 직접 배포하는 데 편리하다.
+URL을 구성 소스로 지정할 수도 있다. 이는 GitHub에 체크인된 구성 파일에서 직접 배포하는 데 편리하다.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/application/nginx/nginx-deployment.yaml
 ```
 
 ```shell
@@ -160,7 +160,7 @@ persistentvolumeclaim/my-pvc created
 
 지금까지 사용한 예는 모든 리소스에 최대 한 개의 레이블만 적용하는 것이었다. 세트를 서로 구별하기 위해 여러 레이블을 사용해야 하는 많은 시나리오가 있다.
 
-예를 들어, 애플리케이션마다 `app` 레이블에 다른 값을 사용하지만, [방명록 예제](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)와 같은 멀티-티어 애플리케이션은 각 티어를 추가로 구별해야 한다. 프론트엔드는 다음의 레이블을 가질 수 있다.
+예를 들어, 애플리케이션마다 `app` 레이블에 다른 값을 사용하지만, [방명록 예제](https://github.com/kubernetes/examples/tree/master/guestbook/)와 같은 멀티-티어 애플리케이션은 각 티어를 추가로 구별해야 한다. 프론트엔드는 다음의 레이블을 가질 수 있다.
 
 ```yaml
      labels:
@@ -278,7 +278,7 @@ pod/my-nginx-2035384211-u3t6x labeled
 ```
 
 먼저 "app=nginx" 레이블이 있는 모든 파드를 필터링한 다음, "tier=fe" 레이블을 지정한다.
-방금 레이블을 지정한 파드를 보려면, 다음을 실행한다.
+레이블을 지정한 파드를 보려면, 다음을 실행한다.
 
 ```shell
 kubectl get pods -l app=nginx -L tier
@@ -397,7 +397,7 @@ deployment.apps/my-nginx configured
 rm /tmp/nginx.yaml
 ```
 
-이를 통해 보다 중요한 변경을 더 쉽게 ​​수행할 수 있다. 참고로 `EDITOR` 또는 `KUBE_EDITOR` 환경 변수를 사용하여 편집기를 지정할 수 있다.
+이를 통해 보다 중요한 변경을 더 쉽게 수행할 수 있다. 참고로 `EDITOR` 또는 `KUBE_EDITOR` 환경 변수를 사용하여 편집기를 지정할 수 있다.
 
 더 자세한 내용은, [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) 문서를 참고하길 바란다.
 

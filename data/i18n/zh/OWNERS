@@ -1,0 +1,13 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Localized strings for Chinese.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-zh-reviews
+
+approvers:
+- sig-docs-zh-owners
+
+labels:
+- language/zh

@@ -122,6 +122,29 @@ spec:
 A(AAAA)レコードはPodの名前に対して作成されないため、`hostname`はPodのA(AAAA)レコードが作成されるために必須となります。`hostname`を持たないが`subdomain`を持つようなPodは、そのPodのIPアドレスを指し示すHeadless Service(`default-subdomain.my-namespace.svc.cluster.local`)に対するA(AAAA)レコードのみ作成します。
 {{< /note >}}
 
+### PodのsetHostnameAsFQDNフィールド
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+**前提条件**: {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}に対して`SetHostnameAsFQDN`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
+
+Podが完全修飾ドメイン名(FQDN)を持つように構成されている場合、そのホスト名は短いホスト名です。
+例えば、FQDNが`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`のPodがある場合、
+デフォルトではそのPod内の`hostname`コマンドは`busybox-1`を返し、`hostname --fqdn`コマンドはFQDNを返します。
+
+Podのspecで`setHostnameAsFQDN: true`を設定した場合、そのPodの名前空間に対してkubeletはPodのFQDNをホスト名に書き込みます。
+この場合、`hostname`と`hostname --fqdn`の両方がPodのFQDNを返します。
+
+{{< note >}}
+Linuxでは、カーネルのホスト名のフィールド(`struct utsname`の`nodename`フィールド)は64文字に制限されています。
+
+Podがこの機能を有効にしていて、そのFQDNが64文字より長い場合、Podは起動に失敗します。
+Podは`Pending`ステータス(`kubectl`でみられる`ContainerCreating`)のままになり、「Podのホスト名とクラスタードメインからFQDNを作成できなかった」や、「FQDN`long-FQDN`が長すぎる(64文字が最大, 70文字が要求された)」などのエラーイベントが生成されます。
+
+このシナリオのユーザー体験を向上させる1つの方法は、[admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)を作成して、ユーザーがDeploymentなどのトップレベルのオブジェクトを作成するときにFQDNのサイズを制御することです。
+{{< /note >}}
+
+
 ### PodのDNSポリシー
 
 DNSポリシーはPod毎に設定できます。現在のKubernetesでは次のようなPod固有のDNSポリシーをサポートしています。これらのポリシーはPod Specの`dnsPolicy`フィールドで指定されます。

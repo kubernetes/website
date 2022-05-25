@@ -17,7 +17,8 @@ authentication mechanisms. The `kubectl` command-line tool uses kubeconfig files
 find the information it needs to choose a cluster and communicate with the API server
 of a cluster.
 -->
-使用 kubeconfig 文件来组织有关集群、用户、命名空间和身份认证机制的信息。`kubectl` 命令行工具使用 kubeconfig 文件来查找选择集群所需的信息，并与集群的 API 服务器进行通信。
+使用 kubeconfig 文件来组织有关集群、用户、命名空间和身份认证机制的信息。
+`kubectl` 命令行工具使用 kubeconfig 文件来查找选择集群所需的信息，并与集群的 API 服务器进行通信。
 
 <!--
 {{< note >}}
@@ -27,8 +28,20 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 -->
 {{< note >}}
-用于配置集群访问的文件称为 *kubeconfig 文件*。这是引用配置文件的通用方法。这并不意味着有一个名为 `kubeconfig` 的文件
+用于配置集群访问的文件称为“kubeconfig 文件”。
+这是引用配置文件的通用方法，并不意味着有一个名为 `kubeconfig` 的文件
 {{< /note >}}
+
+<!--
+{{< warning >}}
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure.
+If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
+{{< /warning>}}
+-->
+{{< warning >}}
+只使用来源可靠的 kubeconfig 文件。使用特制的 kubeconfig 文件可能会导致恶意代码执行或文件暴露。
+如果必须使用不受信任的 kubeconfig 文件，请首先像检查 shell 脚本一样仔细检查它。
+{{< /warning>}}
 
 <!--
 By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
@@ -37,7 +50,7 @@ variable or by setting the
 [`-kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag.
 -->
 默认情况下，`kubectl` 在 `$HOME/.kube` 目录下查找名为 `config` 的文件。
-您可以通过设置 `KUBECONFIG` 环境变量或者设置
+你可以通过设置 `KUBECONFIG` 环境变量或者设置
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/)参数来指定其他 kubeconfig 文件。
 
 <!--
@@ -58,7 +71,7 @@ For step-by-step instructions on creating and specifying kubeconfig files, see
 Suppose you have several clusters, and your users and components authenticate
 in a variety of ways. For example:
 -->
-假设您有多个集群，并且您的用户和组件以多种方式进行身份认证。比如：
+假设你有多个集群，并且你的用户和组件以多种方式进行身份认证。比如：
 
 <!--
 - A running kubelet might authenticate using certificates.
@@ -74,7 +87,7 @@ With kubeconfig files, you can organize your clusters, users, and namespaces.
 You can also define contexts to quickly and easily switch between
 clusters and namespaces.
 -->
-使用 kubeconfig 文件，您可以组织集群、用户和命名空间。您还可以定义上下文，以便在集群和命名空间之间快速轻松地切换。
+使用 kubeconfig 文件，你可以组织集群、用户和命名空间。你还可以定义上下文，以便在集群和命名空间之间快速轻松地切换。
 
 <!--
 ## Context
@@ -85,15 +98,18 @@ clusters and namespaces.
 A *context* element in a kubeconfig file is used to group access parameters
 under a convenient name. Each context has three parameters: cluster, namespace, and user.
 By default, the `kubectl` command-line tool uses parameters from
-the *current context* to communicate with the cluster. 
+the *current context* to communicate with the cluster.
 -->
-通过 kubeconfig 文件中的 *context* 元素，使用简便的名称来对访问参数进行分组。每个上下文都有三个参数：cluster、namespace 和 user。默认情况下，`kubectl` 命令行工具使用 *当前上下文* 中的参数与集群进行通信。
+通过 kubeconfig 文件中的 *context* 元素，使用简便的名称来对访问参数进行分组。
+每个 context 都有三个参数：cluster、namespace 和 user。
+默认情况下，`kubectl` 命令行工具使用 **当前上下文** 中的参数与集群进行通信。
 
 <!--
 To choose the current context:
 -->
 选择当前上下文
-```
+
+```shell
 kubectl config use-context
 ```
 
@@ -164,7 +180,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
      Even if the second file has non-conflicting entries under `red-user`, discard them.
 -->
 1. 如果设置了 `--kubeconfig` 参数，则仅使用指定的文件。不进行合并。此参数只能使用一次。
-   
+
    否则，如果设置了 `KUBECONFIG` 环境变量，将它用作应合并的文件列表。根据以下规则合并 `KUBECONFIG` 环境变量中列出的文件：
 
    * 忽略空文件名。
@@ -269,6 +285,34 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 命令行上的文件引用是相对于当前工作目录的。
 在 `$HOME/.kube/config` 中，相对路径按相对路径存储，绝对路径按绝对路径存储。
 
+<!--
+## Proxy
+
+You can configure `kubectl` to use proxy by setting `proxy-url` in the kubeconfig file, like:
+-->
+## 代理
+
+你可以在 `kubeconfig` 文件中设置 `proxy-url` 来为 `kubectl` 使用代理，例如:
+
+```yaml
+apiVersion: v1
+kind: Config
+
+proxy-url: https://proxy.host:3128
+
+clusters:
+- cluster:
+  name: development
+
+users:
+- name: developer
+
+contexts:
+- context:
+  name: development
+
+```
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -277,4 +321,3 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 --->
 * [配置对多集群的访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
-

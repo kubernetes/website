@@ -15,7 +15,7 @@ Diese Seite ist eine Übersicht über Kubernetes.
 
 Kubernetes ist eine portable, erweiterbare Open-Source-Plattform zur Verwaltung von
 containerisierten Arbeitslasten und Services, die sowohl die deklarative Konfiguration als auch die Automatisierung erleichtert.
-Es hat einen großes, schnell wachsendes Ökosystem. Kubernetes Dienstleistungen, Support und Tools sind weit verbreitet.
+Es hat ein großes, schnell wachsendes Ökosystem. Kubernetes Dienstleistungen, Support und Tools sind weit verbreitet.
 
 Google hat das Kubernetes-Projekt 2014 als Open-Source-Projekt zur Verfügung gestellt. Kubernetes baut auf anderthalb Jahrzehnten
 Erfahrung auf, die Google mit der Ausführung von Produktions-Workloads in großem Maßstab hat, kombiniert mit den besten Ideen und Praktiken der Community.
@@ -50,7 +50,7 @@ für Managementtools zu bieten, den Status von Kontrollpunkten zu ermitteln.
 
 Darüber hinaus basiert die [Kubernetes-Steuerungsebene](/docs/concepts/overview/components/) auf den gleichen APIs,
 die Entwicklern und Anwendern zur Verfügung stehen. Benutzer können ihre eigenen Controller, wie z.B.
-[Scheduler](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md), mit
+[Scheduler](https://github.com/kubernetes/community/blob/master/contributors/devel/scheduler.md), mit
 ihren [eigenen APIs](/docs/concepts/api-extension/custom-resources/) schreiben, die von einem
 universellen [Kommandozeilen-Tool](/docs/user-guide/kubectl-overview/) angesprochen werden können.
 

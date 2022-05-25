@@ -10,7 +10,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
@@ -26,6 +26,16 @@ containers, the timezone set for the kube-controller-manager container determine
 that the cron job controller uses.
 {{< /caution >}}
 
+{{< caution >}}
+The [v1 CronJob API](/docs/reference/kubernetes-api/workload-resources/cron-job-v1/)
+does not officially support setting timezone as explained above.
+
+Setting variables such as `CRON_TZ` or `TZ` is not officially supported by the Kubernetes project.
+`CRON_TZ` or `TZ` is an implementation detail of the internal library being used
+for parsing and calculating the next Job creation time. Any usage of it is not
+recommended in a production cluster.
+{{< /caution >}}
+
 When creating the manifest for a CronJob resource, make sure the name you provide
 is a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 The name must be no longer than 52 characters. This is because the CronJob controller will automatically
@@ -36,9 +46,10 @@ maximum length of a Job name is no more than 63 characters.
 
 ## CronJob
 
-CronJobs are useful for creating periodic and recurring tasks, like running backups or
-sending emails. CronJobs can also schedule individual tasks for a specific time, such as
-scheduling a Job for when your cluster is likely to be idle.
+CronJobs are meant for performing regular scheduled actions such as backups,
+report generation, and so on. Each of those tasks should be configured to recur
+indefinitely (for example: once a day / week / month); you can define the point
+in time within that interval when the job should start.
 
 ### Example
 
@@ -58,7 +69,7 @@ takes you through this example in more detail).
 # │ │ │ ┌───────────── month (1 - 12)
 # │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
 # │ │ │ │ │                                   7 is also Sunday on some systems)
-# │ │ │ │ │
+# │ │ │ │ │                                   OR sun, mon, tue, wed, thu, fri, sat
 # │ │ │ │ │
 # * * * * *
 ```
@@ -79,6 +90,21 @@ For example, the line below states that the task must be started every Friday at
 `0 0 13 * 5`
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
+
+## Time zones
+For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
+Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
+timezone).
+
+When you have the feature enabled, you can set `spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) name. For example, setting
+`spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
+
+A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
 
 ## CronJob limitations {#cron-job-limitations}
 
@@ -116,20 +142,32 @@ be down for the same period as the previous example (`08:29:00` to `10:21:00`,) 
 The CronJob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 
-## New controller
+## Controller version {#new-controller}
 
-There's an alternative implementation of the CronJob controller, available as an alpha feature since Kubernetes 1.20. To select version 2 of the CronJob controller, pass the following [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+Starting with Kubernetes v1.21 the second version of the CronJob controller
+is the default implementation. To disable the default CronJob controller
+and use the original CronJob controller instead, one pass the `CronJobControllerV2`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}},
+and set this flag to `false`. For example:
 
 ```
---feature-gates="CronJobControllerV2=true"
+--feature-gates="CronJobControllerV2=false"
 ```
 
 
 ## {{% heading "whatsnext" %}}
 
-[Cron expression format](https://en.wikipedia.org/wiki/Cron)
-documents the format of CronJob `schedule` fields.
-
-For instructions on creating and working with cron jobs, and for an example of CronJob
-manifest, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
-
+* Learn about [Pods](/docs/concepts/workloads/pods/) and
+  [Jobs](/docs/concepts/workloads/controllers/job/), two concepts
+  that CronJobs rely upon.
+* Read about the [format](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)
+  of CronJob `.spec.schedule` fields.
+* For instructions on creating and working with CronJobs, and for an example
+  of a CronJob manifest,
+  see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
+* For instructions to clean up failed or completed jobs automatically,
+  see [Clean up Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
+* `CronJob` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
+  object definition to understand the API for Kubernetes cron jobs.

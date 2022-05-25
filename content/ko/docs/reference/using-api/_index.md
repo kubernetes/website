@@ -1,7 +1,8 @@
 ---
-title: 쿠버네티스 API 개요
+title: API 개요
 content_type: concept
 weight: 10
+no_list: true
 card:
   name: 레퍼런스
   weight: 50

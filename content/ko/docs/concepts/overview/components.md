@@ -1,4 +1,6 @@
 ---
+
+
 title: 쿠버네티스 컴포넌트
 content_type: concept
 description: >
@@ -17,11 +19,7 @@ card:
 이 문서는 완전히 작동하는 쿠버네티스 클러스터를 갖기 위해 필요한
 다양한 컴포넌트들에 대해 요약하고 정리한다.
 
-여기에 모든 컴포넌트가 함께 있는 쿠버네티스 클러스터 다이어그램이 있다.
-
-![쿠버네티스의 컴포넌트](/images/docs/components-of-kubernetes.svg)
-
-
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="쿠버네티스 구성 요소" caption="쿠버네티스 클러스터 구성 요소" class="diagram-large" >}}
 
 <!-- body -->
 ## 컨트롤 플레인 컴포넌트
@@ -30,8 +28,9 @@ card:
 
 컨트롤 플레인 컴포넌트는 클러스터 내 어떠한 머신에서든지 동작할 수 있다. 그러나
 간결성을 위하여, 구성 스크립트는 보통 동일 머신 상에 모든 컨트롤 플레인 컴포넌트를 구동시키고,
-사용자 컨테이너는 해당 머신 상에 동작시키지 않는다. 다중-마스터-VM 설치 예제를 보려면
-[고가용성 클러스터 구성하기](/docs/admin/high-availability/)를 확인해본다.
+사용자 컨테이너는 해당 머신 상에 동작시키지 않는다. 여러 VM에서
+실행되는 컨트롤 플레인 설정의 예제를 보려면
+[kubeadm을 사용하여 고가용성 클러스터 만들기](/docs/setup/production-environment/tools/kubeadm/high-availability/)를 확인해본다.
 
 ### kube-apiserver
 

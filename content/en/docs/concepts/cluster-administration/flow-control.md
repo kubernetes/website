@@ -26,6 +26,10 @@ fair queuing technique so that, for example, a poorly-behaved
 {{< glossary_tooltip text="controller" term_id="controller" >}} need not
 starve others (even at the same priority level).
 
+This feature is designed to work well with standard controllers, which
+use informers and react to failures of API requests with exponential
+back-off, and other clients that also work this way.
+
 {{< caution >}}
 Requests classified as "long-running" — primarily watches — are not
 subject to the API Priority and Fairness filter. This is also true for
@@ -33,28 +37,26 @@ the `--max-requests-inflight` flag without the API Priority and
 Fairness feature enabled.
 {{< /caution >}}
 
-
-
 <!-- body -->
 
 ## Enabling/Disabling API Priority and Fairness
 
 The API Priority and Fairness feature is controlled by a feature gate
-and is enabled by default.  See
-[Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/)
+and is enabled by default.  See [Feature
+Gates](/docs/reference/command-line-tools-reference/feature-gates/)
 for a general explanation of feature gates and how to enable and
 disable them.  The name of the feature gate for APF is
 "APIPriorityAndFairness".  This feature also involves an {{<
 glossary_tooltip term_id="api-group" text="API Group" >}} with: (a) a
-`v1alpha1` version, disabled by default, and (b) a `v1beta1`
-version,  enabled by default.  You can disable the feature
-gate and API group v1beta1 version by adding the following
+`v1alpha1` version, disabled by default, and (b) `v1beta1` and
+`v1beta2` versions, enabled by default.  You can disable the feature
+gate and API group beta versions by adding the following
 command-line flags to your `kube-apiserver` invocation:
 
 ```shell
 kube-apiserver \
 --feature-gates=APIPriorityAndFairness=false \
---runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=false \
+--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=false,flowcontrol.apiserver.k8s.io/v1beta2=false \
  # …and other flags as usual
 ```
 
@@ -65,6 +67,7 @@ The command-line flag `--enable-priority-and-fairness=false` will disable the
 API Priority and Fairness feature, even if other flags have enabled it.
 
 ## Concepts
+
 There are several distinct features involved in the API Priority and Fairness
 feature. Incoming requests are classified by attributes of the request using
 _FlowSchemas_, and assigned to priority levels. Priority levels add a degree of
@@ -75,12 +78,13 @@ each other, and allows for requests to be queued to prevent bursty traffic from
 causing failed requests when the average load is acceptably low.
 
 ### Priority Levels
-Without APF enabled, overall concurrency in
-the API server is limited by the `kube-apiserver` flags
-`--max-requests-inflight` and `--max-mutating-requests-inflight`. With APF
-enabled, the concurrency limits defined by these flags are summed and then the sum is divided up
-among a configurable set of _priority levels_. Each incoming request is assigned
-to a single priority level, and each priority level will only dispatch as many
+
+Without APF enabled, overall concurrency in the API server is limited by the
+`kube-apiserver` flags `--max-requests-inflight` and
+`--max-mutating-requests-inflight`. With APF enabled, the concurrency limits
+defined by these flags are summed and then the sum is divided up among a
+configurable set of _priority levels_. Each incoming request is assigned to a
+single priority level, and each priority level will only dispatch as many
 concurrent requests as its configuration allows.
 
 The default configuration, for example, includes separate priority levels for
@@ -90,6 +94,7 @@ requests cannot prevent leader election or actions by the built-in controllers
 from succeeding.
 
 ### Queuing
+
 Even within a priority level there may be a large number of distinct sources of
 traffic. In an overload situation, it is valuable to prevent one stream of
 requests from starving others (in particular, in the relatively common case of a
@@ -101,6 +106,8 @@ name of the matching FlowSchema plus a _flow distinguisher_ — which
 is either the requesting user, the target resource's namespace, or nothing — and the
 system attempts to give approximately equal weight to requests in different
 flows of the same priority level.
+To enable distinct handling of distinct instances, controllers that have
+many instances should authenticate with distinct usernames
 
 After classifying a request into a flow, the API Priority and Fairness
 feature then may assign the request to a queue.  This assignment uses
@@ -114,96 +121,26 @@ independent flows will all make progress when total traffic exceeds capacity),
 tolerance for bursty traffic, and the added latency induced by queuing.
 
 ### Exempt requests
+
 Some requests are considered sufficiently important that they are not subject to
 any of the limitations imposed by this feature. These exemptions prevent an
 improperly-configured flow control configuration from totally disabling an API
 server.
 
-## Defaults
-The Priority and Fairness feature ships with a suggested configuration that
-should suffice for experimentation; if your cluster is likely to
-experience heavy load then you should consider what configuration will work best. The suggested configuration groups requests into five priority
-classes:
-
-* The `system` priority level is for requests from the `system:nodes` group,
-  i.e. Kubelets, which must be able to contact the API server in order for
-  workloads to be able to schedule on them.
-
-* The `leader-election` priority level is for leader election requests from
-  built-in controllers (in particular, requests for `endpoints`, `configmaps`,
-  or `leases` coming from the `system:kube-controller-manager` or
-  `system:kube-scheduler` users and service accounts in the `kube-system`
-  namespace). These are important to isolate from other traffic because failures
-  in leader election cause their controllers to fail and restart, which in turn
-  causes more expensive traffic as the new controllers sync their informers.
-
-* The `workload-high` priority level is for other requests from built-in
-  controllers.
-
-* The `workload-low` priority level is for requests from any other service
-  account, which will typically include all requests from controllers running in
-  Pods.
-
-* The `global-default` priority level handles all other traffic, e.g.
-  interactive `kubectl` commands run by nonprivileged users.
-
-Additionally, there are two PriorityLevelConfigurations and two FlowSchemas that
-are built in and may not be overwritten:
-
-* The special `exempt` priority level is used for requests that are not subject
-  to flow control at all: they will always be dispatched immediately. The
-  special `exempt` FlowSchema classifies all requests from the `system:masters`
-  group into this priority level. You may define other FlowSchemas that direct
-  other requests to this priority level, if appropriate.
-
-* The special `catch-all` priority level is used in combination with the special
-  `catch-all` FlowSchema to make sure that every request gets some kind of
-  classification. Typically you should not rely on this catch-all configuration,
-  and should create your own catch-all FlowSchema and PriorityLevelConfiguration
-  (or use the `global-default` configuration that is installed by default) as
-  appropriate. To help catch configuration errors that miss classifying some
-  requests, the mandatory `catch-all` priority level only allows one concurrency
-  share and does not queue requests, making it relatively likely that traffic
-  that only matches the `catch-all` FlowSchema will be rejected with an HTTP 429
-  error.
-
-## Health check concurrency exemption
-
-The suggested configuration gives no special treatment to the health
-check requests on kube-apiservers from their local kubelets --- which
-tend to use the secured port but supply no credentials.  With the
-suggested config, these requests get assigned to the `global-default`
-FlowSchema and the corresponding `global-default` priority level,
-where other traffic can crowd them out.
-
-If you add the following additional FlowSchema, this exempts those
-requests from rate limiting.
-
-{{< caution >}}
-
-Making this change also allows any hostile party to then send
-health-check requests that match this FlowSchema, at any volume they
-like.  If you have a web traffic filter or similar external security
-mechanism to protect your cluster's API server from general internet
-traffic, you can configure rules to block any health check requests
-that originate from outside your cluster.
-
-{{< /caution >}}
-
-{{< codenew file="priority-and-fairness/health-for-strangers.yaml" >}}
-
 ## Resources
+
 The flow control API involves two kinds of resources.
-[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta1-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
 define the available isolation classes, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
-[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta1-flowcontrol-apiserver-k8s-io)
+[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
 are used to classify individual inbound requests, matching each to a
 single PriorityLevelConfiguration.  There is also a `v1alpha1` version
 of the same API group, and it has the same Kinds with the same syntax and
 semantics.
 
 ### PriorityLevelConfiguration
+
 A PriorityLevelConfiguration represents a single isolation class. Each
 PriorityLevelConfiguration has an independent limit on the number of outstanding
 requests, and limitations on the number of queued requests.
@@ -217,6 +154,7 @@ server by restarting `kube-apiserver` with a different value for
 `--max-requests-inflight` (or `--max-mutating-requests-inflight`), and all
 PriorityLevelConfigurations will see their maximum allowed concurrency go up (or
 down) by the same fraction.
+
 {{< caution >}}
 With the Priority and Fairness feature enabled, the total concurrency limit for
 the server is set to the sum of `--max-requests-inflight` and
@@ -235,8 +173,8 @@ above the threshold will be queued, with the shuffle sharding and fair queuing t
 to balance progress between request flows.
 
 The queuing configuration allows tuning the fair queuing algorithm for a
-priority level. Details of the algorithm can be read in the [enhancement
-proposal](#whats-next), but in short:
+priority level. Details of the algorithm can be read in the
+[enhancement proposal](#whats-next), but in short:
 
 * Increasing `queues` reduces the rate of collisions between different flows, at
   the cost of increased memory usage. A value of 1 here effectively disables the
@@ -249,15 +187,15 @@ proposal](#whats-next), but in short:
 * Changing `handSize` allows you to adjust the probability of collisions between
   different flows and the overall concurrency available to a single flow in an
   overload situation.
-    {{< note >}}
-    A larger `handSize` makes it less likely for two individual flows to collide
-    (and therefore for one to be able to starve the other), but more likely that
-    a small number of flows can dominate the apiserver. A larger `handSize` also
-    potentially increases the amount of latency that a single high-traffic flow
-    can cause. The maximum number of queued requests possible from a
-    single flow is `handSize * queueLengthLimit`.
-    {{< /note >}}
 
+  {{< note >}}
+  A larger `handSize` makes it less likely for two individual flows to collide
+  (and therefore for one to be able to starve the other), but more likely that
+  a small number of flows can dominate the apiserver. A larger `handSize` also
+  potentially increases the amount of latency that a single high-traffic flow
+  can cause. The maximum number of queued requests possible from a
+  single flow is `handSize * queueLengthLimit`.
+  {{< /note >}}
 
 Following is a table showing an interesting collection of shuffle
 sharding configurations, showing for each the probability that a
@@ -318,7 +256,155 @@ omitted entirely), in which case all requests matched by this FlowSchema will be
 considered part of a single flow. The correct choice for a given FlowSchema
 depends on the resource and your particular environment.
 
+## Defaults
+
+Each kube-apiserver maintains two sorts of APF configuration objects:
+mandatory and suggested.
+
+### Mandatory Configuration Objects
+
+The four mandatory configuration objects reflect fixed built-in
+guardrail behavior.  This is behavior that the servers have before
+those objects exist, and when those objects exist their specs reflect
+this behavior.  The four mandatory objects are as follows.
+
+* The mandatory `exempt` priority level is used for requests that are
+  not subject to flow control at all: they will always be dispatched
+  immediately. The mandatory `exempt` FlowSchema classifies all
+  requests from the `system:masters` group into this priority
+  level. You may define other FlowSchemas that direct other requests
+  to this priority level, if appropriate.
+
+* The mandatory `catch-all` priority level is used in combination with
+  the mandatory `catch-all` FlowSchema to make sure that every request
+  gets some kind of classification. Typically you should not rely on
+  this catch-all configuration, and should create your own catch-all
+  FlowSchema and PriorityLevelConfiguration (or use the suggested
+  `global-default` priority level that is installed by default) as
+  appropriate. Because it is not expected to be used normally, the
+  mandatory `catch-all` priority level has a very small concurrency
+  share and does not queue requests.
+
+### Suggested Configuration Objects
+
+The suggested FlowSchemas and PriorityLevelConfigurations constitute a
+reasonable default configuration.  You can modify these and/or create
+additional configuration objects if you want.  If your cluster is
+likely to experience heavy load then you should consider what
+configuration will work best.
+
+The suggested configuration groups requests into six priority levels:
+
+* The `node-high` priority level is for health updates from nodes.
+
+* The `system` priority level is for non-health requests from the
+  `system:nodes` group, i.e. Kubelets, which must be able to contact
+  the API server in order for workloads to be able to schedule on
+  them.
+
+* The `leader-election` priority level is for leader election requests from
+  built-in controllers (in particular, requests for `endpoints`, `configmaps`,
+  or `leases` coming from the `system:kube-controller-manager` or
+  `system:kube-scheduler` users and service accounts in the `kube-system`
+  namespace). These are important to isolate from other traffic because failures
+  in leader election cause their controllers to fail and restart, which in turn
+  causes more expensive traffic as the new controllers sync their informers.
+
+* The `workload-high` priority level is for other requests from built-in
+  controllers.
+
+* The `workload-low` priority level is for requests from any other service
+  account, which will typically include all requests from controllers running in
+  Pods.
+
+* The `global-default` priority level handles all other traffic, e.g.
+  interactive `kubectl` commands run by nonprivileged users.
+
+The suggested FlowSchemas serve to steer requests into the above
+priority levels, and are not enumerated here.
+
+### Maintenance of the Mandatory and Suggested Configuration Objects
+
+Each `kube-apiserver` independently maintains the mandatory and
+suggested configuration objects, using initial and periodic behavior.
+Thus, in a situation with a mixture of servers of different versions
+there may be thrashing as long as different servers have different
+opinions of the proper content of these objects.
+
+Each `kube-apiserver` makes an initial maintenance pass over the
+mandatory and suggested configuration objects, and after that does
+periodic maintenance (once per minute) of those objects.
+
+For the mandatory configuration objects, maintenance consists of
+ensuring that the object exists and, if it does, has the proper spec.
+The server refuses to allow a creation or update with a spec that is
+inconsistent with the server's guardrail behavior.
+
+Maintenance of suggested configuration objects is designed to allow
+their specs to be overridden.  Deletion, on the other hand, is not
+respected: maintenance will restore the object.  If you do not want a
+suggested configuration object then you need to keep it around but set
+its spec to have minimal consequences.  Maintenance of suggested
+objects is also designed to support automatic migration when a new
+version of the `kube-apiserver` is rolled out, albeit potentially with
+thrashing while there is a mixed population of servers.
+
+Maintenance of a suggested configuration object consists of creating
+it --- with the server's suggested spec --- if the object does not
+exist.  OTOH, if the object already exists, maintenance behavior
+depends on whether the `kube-apiservers` or the users control the
+object.  In the former case, the server ensures that the object's spec
+is what the server suggests; in the latter case, the spec is left
+alone.
+
+The question of who controls the object is answered by first looking
+for an annotation with key `apf.kubernetes.io/autoupdate-spec`.  If
+there is such an annotation and its value is `true` then the
+kube-apiservers control the object.  If there is such an annotation
+and its value is `false` then the users control the object.  If
+neither of those condtions holds then the `metadata.generation` of the
+object is consulted.  If that is 1 then the kube-apiservers control
+the object.  Otherwise the users control the object.  These rules were
+introduced in release 1.22 and their consideration of
+`metadata.generation` is for the sake of migration from the simpler
+earlier behavior.  Users who wish to control a suggested configuration
+object should set its `apf.kubernetes.io/autoupdate-spec` annotation
+to `false`.
+
+Maintenance of a mandatory or suggested configuration object also
+includes ensuring that it has an `apf.kubernetes.io/autoupdate-spec`
+annotation that accurately reflects whether the kube-apiservers
+control the object.
+
+Maintenance also includes deleting objects that are neither mandatory
+nor suggested but are annotated
+`apf.kubernetes.io/autoupdate-spec=true`.
+
+## Health check concurrency exemption
+
+The suggested configuration gives no special treatment to the health
+check requests on kube-apiservers from their local kubelets --- which
+tend to use the secured port but supply no credentials.  With the
+suggested config, these requests get assigned to the `global-default`
+FlowSchema and the corresponding `global-default` priority level,
+where other traffic can crowd them out.
+
+If you add the following additional FlowSchema, this exempts those
+requests from rate limiting.
+
+{{< caution >}}
+Making this change also allows any hostile party to then send
+health-check requests that match this FlowSchema, at any volume they
+like.  If you have a web traffic filter or similar external security
+mechanism to protect your cluster's API server from general internet
+traffic, you can configure rules to block any health check requests
+that originate from outside your cluster.
+{{< /caution >}}
+
+{{< codenew file="priority-and-fairness/health-for-strangers.yaml" >}}
+
 ## Diagnostics
+
 Every HTTP response from an API server with the priority and fairness feature
 enabled has two extra headers: `X-Kubernetes-PF-FlowSchema-UID` and
 `X-Kubernetes-PF-PriorityLevel-UID`, noting the flow schema that matched the request
@@ -356,13 +442,14 @@ poorly-behaved workloads that may be harming system health.
   matched the request), `priority_level` (indicating the one to which
   the request was assigned), and `reason`.  The `reason` label will be
   have one of the following values:
-    * `queue-full`, indicating that too many requests were already
-      queued,
-    * `concurrency-limit`, indicating that the
-      PriorityLevelConfiguration is configured to reject rather than
-      queue excess requests, or
-    * `time-out`, indicating that the request was still in the queue
-      when its queuing time limit expired.
+
+  * `queue-full`, indicating that too many requests were already
+    queued,
+  * `concurrency-limit`, indicating that the
+    PriorityLevelConfiguration is configured to reject rather than
+    queue excess requests, or
+  * `time-out`, indicating that the request was still in the queue
+    when its queuing time limit expired.
 
 * `apiserver_flowcontrol_dispatched_requests_total` is a counter
   vector (cumulative since server start) of requests that began
@@ -405,6 +492,10 @@ poorly-behaved workloads that may be harming system health.
   queue) requests, broken down by the labels `priority_level` and
   `flow_schema`.
 
+* `apiserver_flowcontrol_request_concurrency_in_use` is a gauge vector
+  holding the instantaneous number of occupied seats, broken down by
+  the labels `priority_level` and `flow_schema`.
+
 * `apiserver_flowcontrol_priority_level_request_count_samples` is a
   histogram vector of observations of the then-current number of
   requests broken down by the labels `phase` (which takes on the
@@ -427,17 +518,18 @@ poorly-behaved workloads that may be harming system health.
   histogram vector of queue lengths for the queues, broken down by
   the labels `priority_level` and `flow_schema`, as sampled by the
   enqueued requests.  Each request that gets queued contributes one
-  sample to its histogram, reporting the length of the queue just
+  sample to its histogram, reporting the length of the queue immediately
   after the request was added.  Note that this produces different
   statistics than an unbiased survey would.
-    {{< note >}}
-    An outlier value in a histogram here means it is likely that a single flow
-    (i.e., requests by one user or for one namespace, depending on
-    configuration) is flooding the API server, and being throttled. By contrast,
-    if one priority level's histogram shows that all queues for that priority
-    level are longer than those for other priority levels, it may be appropriate
-    to increase that PriorityLevelConfiguration's concurrency shares.
-    {{< /note >}}
+
+  {{< note >}}
+  An outlier value in a histogram here means it is likely that a single flow
+  (i.e., requests by one user or for one namespace, depending on
+  configuration) is flooding the API server, and being throttled. By contrast,
+  if one priority level's histogram shows that all queues for that priority
+  level are longer than those for other priority levels, it may be appropriate
+  to increase that PriorityLevelConfiguration's concurrency shares.
+  {{< /note >}}
 
 * `apiserver_flowcontrol_request_concurrency_limit` is a gauge vector
   holding the computed concurrency limit (based on the API server's
@@ -450,12 +542,13 @@ poorly-behaved workloads that may be harming system health.
   `priority_level` (indicating the one to which the request was
   assigned), and `execute` (indicating whether the request started
   executing).
-    {{< note >}}
-    Since each FlowSchema always assigns requests to a single
-    PriorityLevelConfiguration, you can add the histograms for all the
-    FlowSchemas for one priority level to get the effective histogram for
-    requests assigned to that priority level.
-    {{< /note >}}
+
+  {{< note >}}
+  Since each FlowSchema always assigns requests to a single
+  PriorityLevelConfiguration, you can add the histograms for all the
+  FlowSchemas for one priority level to get the effective histogram for
+  requests assigned to that priority level.
+  {{< /note >}}
 
 * `apiserver_flowcontrol_request_execution_seconds` is a histogram
   vector of how long requests took to actually execute, broken down by
@@ -465,14 +558,19 @@ poorly-behaved workloads that may be harming system health.
 
 ### Debug endpoints
 
-When you enable the API Priority and Fairness feature, the kube-apiserver serves the following additional paths at its HTTP[S] ports.
+When you enable the API Priority and Fairness feature, the `kube-apiserver`
+serves the following additional paths at its HTTP[S] ports.
 
-- `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of all the priority levels and the current state of each.  You can fetch like this:
+- `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of
+  all the priority levels and the current state of each.  You can fetch like this:
+
   ```shell
   kubectl get --raw /debug/api_priority_and_fairness/dump_priority_levels
   ```
+
   The output is similar to this:
-  ```
+
+  ```none
   PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests,
   workload-low,      0,            true,   false,       0,               0,
   global-default,    0,            true,   false,       0,               0,
@@ -483,12 +581,16 @@ When you enable the API Priority and Fairness feature, the kube-apiserver serves
   workload-high,     0,            true,   false,       0,               0,
   ```
 
-- `/debug/api_priority_and_fairness/dump_queues` - a listing of all the queues and their current state.  You can fetch like this:
+- `/debug/api_priority_and_fairness/dump_queues` - a listing of all the
+  queues and their current state.  You can fetch like this:
+
   ```shell
   kubectl get --raw /debug/api_priority_and_fairness/dump_queues
   ```
+
   The output is similar to this:
-  ```
+
+  ```none
   PriorityLevelName, Index,  PendingRequests, ExecutingRequests, VirtualStart,
   workload-high,     0,      0,               0,                 0.0000,
   workload-high,     1,      0,               0,                 0.0000,
@@ -498,25 +600,33 @@ When you enable the API Priority and Fairness feature, the kube-apiserver serves
   leader-election,   15,     0,               0,                 0.0000,
   ```
 
-- `/debug/api_priority_and_fairness/dump_requests` - a listing of all the requests that are currently waiting in a queue.  You can fetch like this:
+- `/debug/api_priority_and_fairness/dump_requests` - a listing of all the requests
+  that are currently waiting in a queue.  You can fetch like this:
+
   ```shell
   kubectl get --raw /debug/api_priority_and_fairness/dump_requests
   ```
+
   The output is similar to this:
-  ```
+
+  ```none
   PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,
   exempt,            <none>,         <none>,     <none>,              <none>,                <none>,
   system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:26:57.179170694Z,
   ```
   
-  In addition to the queued requests, the output includes one phantom line for each priority level that is exempt from limitation.
+  In addition to the queued requests, the output includes one phantom line
+  for each priority level that is exempt from limitation.
 
   You can get a more detailed listing with a command like this:
+
   ```shell
   kubectl get --raw '/debug/api_priority_and_fairness/dump_requests?includeRequestDetails=1'
   ```
+
   The output is similar to this:
-  ```
+
+  ```none
   PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,                     UserName,              Verb,   APIPath,                                                     Namespace, Name,   APIVersion, Resource, SubResource,
   system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
@@ -526,6 +636,6 @@ When you enable the API Priority and Fairness feature, the kube-apiserver serves
 
 
 For background information on design details for API priority and fairness, see
-the [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
+the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 
-or the feature's [slack channel](http://kubernetes.slack.com/messages/api-priority-and-fairness).
+or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).

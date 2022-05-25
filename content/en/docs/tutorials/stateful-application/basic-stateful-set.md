@@ -26,7 +26,7 @@ following Kubernetes concepts:
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 * The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
 
@@ -845,12 +845,12 @@ kubectl get pods -w -l app=nginx
 ```
 
 Use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) to delete the
-StatefulSet. Make sure to supply the `--cascade=false` parameter to the
+StatefulSet. Make sure to supply the `--cascade=orphan` parameter to the
 command. This parameter tells Kubernetes to only delete the StatefulSet, and to
 not delete any of its Pods.
 
 ```shell
-kubectl delete statefulset web --cascade=false
+kubectl delete statefulset web --cascade=orphan
 ```
 ```
 statefulset.apps "web" deleted
@@ -966,7 +966,7 @@ kubectl get pods -w -l app=nginx
 ```
 
 In another terminal, delete the StatefulSet again. This time, omit the
-`--cascade=false` parameter.
+`--cascade=orphan` parameter.
 
 ```shell
 kubectl delete statefulset web
@@ -1083,7 +1083,7 @@ above.
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and not to wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
-Pod.
+Pod. This option only affects the behavior for scaling operations. Updates are not affected.
 
 {{< codenew file="application/web/web-parallel.yaml" >}}
 

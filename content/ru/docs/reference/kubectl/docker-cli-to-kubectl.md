@@ -34,10 +34,18 @@ kubectl:
 
 ```shell
 # запустить под, в котором работает nginx
-kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
+kubectl create deployment --image=nginx nginx-app
 ```
 ```
 deployment "nginx-app" created
+```
+
+```shell
+# add env to nginx-app
+kubectl set env deployment/nginx-app  DOMAIN=cluster
+```
+```
+deployment.apps/nginx-app env updated
 ```
 
 {{< note >}}
@@ -62,7 +70,7 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 ```
 
 В отличие от `docker run ...`, если вы укажете `--attach`, то присоедините `stdin`, `stdout` and `stderr`. Нельзя проконтролировать, какие потоки прикрепляются (`docker -a ...`).
-Чтобы отсоединиться от контейнера воспользуетесь комбинацией клавиш Ctrl+P, а затем Ctrl+Q.
+Чтобы отсоединиться от контейнера, воспользуетесь комбинацией клавиш Ctrl+P, а затем Ctrl+Q.
 
 Так как команда kubectl run запускает развёртывание для контейнера, то оно начнет перезапускаться, если завершить прикрепленный процесс по нажатию Ctrl+C, в отличие от команды `docker run -it`.
 Для удаления объекта Deployment вместе с подами, необходимо выполнить команду `kubectl delete deployment <name>`.
@@ -260,7 +268,7 @@ nginx-app    1/1     1            1           2m
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 ```
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
@@ -274,7 +282,7 @@ deployment "nginx-app" deleted
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 # Return nothing
 ```
 

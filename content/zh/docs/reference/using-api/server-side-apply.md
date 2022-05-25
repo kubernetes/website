@@ -4,8 +4,7 @@ content_type: concept
 weight: 25
 min-kubernetes-server-version: 1.16
 ---
-<!-- 
----
+<!--
 title: Server-Side Apply
 reviewers:
 - smarterclayton
@@ -15,29 +14,28 @@ reviewers:
 content_type: concept
 weight: 25
 min-kubernetes-server-version: 1.16
----
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-<!-- 
+<!--
 ## Introduction
 
-Server Side Apply helps users and controllers manage their resources via
-declarative configurations. It allows them to create and/or modify their
+Server Side Apply helps users and controllers manage their resources through
+declarative configurations. Clients can create and/or modify their
 [objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
-declaratively, simply by sending their fully specified intent.
+declaratively by sending their fully specified intent.
 -->
 ## 简介 {#introduction}
 
 服务器端应用协助用户、控制器通过声明式配置的方式管理他们的资源。
-它发送完整描述的目标（A fully specified intent），
+客户端可以发送完整描述的目标（A fully specified intent），
 声明式地创建和/或修改
 [对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)。
 
-<!-- 
+<!--
 A fully specified intent is a partial object that only includes the fields and
 values for which the user has an opinion. That intent either creates a new
 object or is [combined](#merge-strategy), by the server, with the existing object.
@@ -50,7 +48,7 @@ The system supports multiple appliers collaborating on a single object.
 
 系统支持多个应用者（appliers）在同一个对象上开展协作。
 
-<!-- 
+<!--
 Changes to an object's fields are tracked through a "[field management](#field-management)"
 mechanism. When a field's value changes, ownership moves from its current
 manager to the manager making the change. When trying to apply an object,
@@ -67,7 +65,7 @@ transferred.
 冲突引发警告信号：此操作可能抹掉其他协作者的修改。
 冲突可以被刻意忽略，这种情况下，值将会被改写，所有权也会发生转移。
 
-<!-- 
+<!--
 If you remove a field from a configuration and apply the configuration, server
 side apply checks if there are any other field managers that also own the
 field.  If the field is not owned by any other field managers, it is either
@@ -79,19 +77,19 @@ same rule applies to associative list or map items.
 如果没有，那就从活动对象中删除该字段；如果有，那就重置为默认值。
 该规则同样适用于 list 或 map 项目。
 
-<!-- 
+<!--
 Server side apply is meant both as a replacement for the original `kubectl
 apply` and as a simpler mechanism for controllers to enact their changes.
 
 If you have Server Side Apply enabled, the control plane tracks managed fields
-for all newlly created objects.
+for all newly created objects.
 -->
 服务器端应用既是原有 `kubectl apply` 的替代品，
 也是控制器发布自身变化的一个简化机制。
 
 如果你启用了服务器端应用，控制平面就会跟踪被所有新创建对象管理的字段。
 
-<!-- 
+<!--
 ## Field Management
 
 Compared to the `last-applied` annotation managed by `kubectl`, Server Side
@@ -108,7 +106,7 @@ field in an object also becomes available.
 这就意味着，作为服务器端应用的一个副作用，
 关于用哪一个字段管理器负责管理对象中的哪个字段的这类信息，都要对外界开放了。
 
-<!-- 
+<!--
 For a user to manage a field, in the Server Side Apply sense, means that the
 user relies on and expects the value of the field not to change. The user who
 last made an assertion about the value of a field will be recorded as the
@@ -120,20 +118,20 @@ request (if not forced, see [Conflicts](#conflicts)).
 -->
 用户管理字段这件事，在服务器端应用的场景中，意味着用户依赖并期望字段的值不要改变。
 最后一次对字段值做出断言的用户将被记录到当前字段管理器。
-这可以通过发送 `POST`、 `PUT`、 
+这可以通过发送 `POST`、 `PUT`、
 或非应用（non-apply）方式的 `PATCH` 等命令来修改字段值的方式实现，
 或通过把字段放在配置文件中，然后发送到服务器端应用的服务端点的方式实现。
 当使用服务器端应用，尝试着去改变一个被其他人管理的字段，
 会导致请求被拒绝（在没有设置强制执行时，参见[冲突](#conflicts)）。
 
-<!-- 
+<!--
 When two or more appliers set a field to the same value, they share ownership of
 that field. Any subsequent attempt to change the value of the shared field, by any of
 the appliers, results in a conflict. Shared field owners may give up ownership
 of a field by removing it from their configuration.
 
 Field management is stored in a`managedFields` field that is part of an object's
-[`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta).
+[`metadata`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta).
 
 A simple example of an object created by Server Side Apply could look like this:
 -->
@@ -141,8 +139,9 @@ A simple example of an object created by Server Side Apply could look like this:
 后续任何改变共享字段值的尝试，不管由那个应用者发起，都会导致冲突。
 共享字段的所有者可以放弃字段的所有权，这只需从配置文件中删除该字段即可。
 
-字段管理的信息存储在 `managedFields` 字段中，该字段是对象的 
-[`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta)中的一部分。
+字段管理的信息存储在 `managedFields` 字段中，该字段是对象的
+[`metadata`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta)
+中的一部分。
 
 服务器端应用创建对象的简单示例如下：
 
@@ -170,7 +169,7 @@ data:
   key: some value
 ```
 
-<!-- 
+<!--
 The above object contains a single manager in `metadata.managedFields`. The
 manager consists of basic information about the managing entity itself, like
 operation type, API version, and the fields managed by it.
@@ -185,7 +184,7 @@ the user.
 该字段由 API 服务器管理，用户不应该改动它。
 {{< /note >}}
 
-<!-- 
+<!--
 Nevertheless it is possible to change `metadata.managedFields` through an
 `Update` operation. Doing so is highly discouraged, but might be a reasonable
 option to try if, for example, the `managedFields` get into an inconsistent
@@ -203,7 +202,7 @@ The format of the `managedFields` is described in the
 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#fieldsv1-v1-meta)
 文档中描述。
 
-<!-- 
+<!--
 ## Conflicts
 
 A conflict is a special status error that occurs when an `Apply` operation tries
@@ -218,7 +217,7 @@ this occurs, the applier has 3 options to resolve the conflicts:
 这可以防止一个应用者不小心覆盖掉其他用户设置的值。
 冲突发生时，应用者有三种办法来解决它：
 
-<!-- 
+<!--
 * **Overwrite value, become sole manager:** If overwriting the value was
   intentional (or if the applier is an automated process like a controller) the
   applier should set the `force` query parameter to true and make the request
@@ -250,7 +249,7 @@ this occurs, the applier has 3 options to resolve the conflicts:
   这样在不改变字段值的前提下，
   就实现了字段管理被应用者和所有声明了管理权的其他的字段管理器共享。
 
-<!-- 
+<!--
 ## Managers
 
 Managers identify distinct workflows that are modifying the object (especially
@@ -266,7 +265,7 @@ computed from the user-agent.
 虽然 kubectl 默认发往 `kubectl` 服务端点，但它则请求到应用的服务端点（apply endpoint）。
 对于其他的更新，它默认的是从用户代理计算得来。
 
-<!-- 
+<!--
 ## Apply and Update
 
 The two operation types considered by this feature are `Apply` (`PATCH` with
@@ -293,7 +292,7 @@ All JSON documents are valid YAML.
 所有的 JSON 文档 都是合法的 YAML。
 {{< /note >}}
 
-<!-- 
+<!--
 For instance, only the apply operation fails on conflicts while update does
 not. Also, apply operations are required to identify themselves by providing a
 `fieldManager` query parameter, while the query parameter is optional for update
@@ -336,7 +335,7 @@ data:
   key: new value
 ```
 
-<!-- 
+<!--
 In this example, a second operation was run as an `Update` by the manager called
 `kube-controller-manager`. The update changed a value in the data field which
 caused the field's management to change to the `kube-controller-manager`.
@@ -351,22 +350,21 @@ would have failed due to conflicting ownership.
 
 如果把 `update` 操作改为 `Apply`，那就会因为所有权冲突的原因，导致操作失败。
 
-<!-- 
+<!--
 ## Merge strategy
 
 The merging strategy, implemented with Server Side Apply, provides a generally
 more stable object lifecycle. Server Side Apply tries to merge fields based on
-the fact who manages them instead of overruling just based on values. This way
-it is intended to make it easier and more stable for multiple actors updating
-the same object by causing less unexpected interference.
+the actor who manages them instead of overruling based on values. This way
+multiple actors can update the same object without causing unexpected interference.
 -->
 ## 合并策略 {#merge-strategy}
 
 由服务器端应用实现的合并策略，提供了一个总体更稳定的对象生命周期。
-服务器端应用试图依据谁管理它们来合并字段，而不只是根据值来否决。
-这么做是为了多个参与者可以更简单、更稳定的更新同一个对象，且避免引起意外干扰。
+服务器端应用试图依据负责管理它们的主体来合并字段，而不是根据值来否决。
+这么做是为了多个主体可以更新同一个对象，且不会引起意外的相互干扰。
 
-<!-- 
+<!--
 When a user sends a "fully-specified intent" object to the Server Side Apply
 endpoint, the server merges it with the live object favoring the value in the
 applied config if it is specified in both places. If the set of items present in
@@ -383,11 +381,11 @@ merging, see
 关于合并时用来做决策的对象规格的更多信息，参见
 [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 
-<!-- 
+<!--
 A number of markers were added in Kubernetes 1.16 and 1.17, to allow API
 developers to describe the merge strategy supported by lists, maps, and
 structs. These markers can be applied to objects of the respective type,
-in Go files or in the OpenAPI schema definition of the 
+in Go files or in the OpenAPI schema definition of the
 [CRD](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io):
 -->
 Kubernetes 1.16 和 1.17 中添加了一些标记，
@@ -396,22 +394,120 @@ Kubernetes 1.16 和 1.17 中添加了一些标记，
 [CRD](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io)
 的 OpenAPI 的模式中定义：
 
-<!-- 
+<!--
 | Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
 |---|---|---|---|---|
-| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `atomic` and `set` apply to lists with scalar elements only. `map` applies to lists of nested types only. If configured as `atomic`, the entire list is replaced during merge; a single manager manages the list as a whole at any one time. If `set` or `map`, different managers can manage entries separately. | 1.16          |
-| `//+listMapKey` | `x-kubernetes-list-map-keys` | Slice of map keys that uniquely identify entries for example `["port", "protocol"]` | Only applicable when `+listType=map`. A slice of strings whose values in combination must uniquely identify list entries. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. | 1.16 |
+| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `set` applies to lists that include only scalar elements. These elements must be unique. `map` applies to lists of nested types only. The key values (see `listMapKey`) must be unique in the list. `atomic` can apply to any list. If configured as `atomic`, the entire list is replaced during merge. At any point in time, a single manager owns the list. If `set` or `map`, different managers can manage entries separately. | 1.16          |
+| `//+listMapKey` | `x-kubernetes-list-map-keys` | List of field names, e.g. `["port", "protocol"]` | Only applicable when `+listType=map`. A list of field names whose values uniquely identify entries in the list. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. The key fields must be scalars. | 1.16 |
 | `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields. | 1.17 |
 | `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.| 1.17 |
 -->
 | Golang 标记 | OpenAPI extension | 可接受的值 | 描述 | 引入版本 |
 |---|---|---|---|---|
-| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | 适用于 list。 `atomic` 和 `set` 适用于只包含标量元素的 list。 `map` 适用于只包含嵌套类型的 list。 如果配置为 `atomic`, 合并时整个列表会被替换掉; 任何时候，唯一的管理器都把列表作为一个整体来管理。如果是 `set` 或 `map` ，不同的管理器也可以分开管理条目。 | 1.16          |
-| `//+listMapKey` | `x-kubernetes-list-map-keys` | 用来唯一标识条目的 map keys 切片，例如 `["port", "protocol"]` | 仅当 `+listType=map` 时适用。组合值的字符串切片必须唯一标识列表中的条目。尽管有多个 key，`listMapKey` 是单数的，这是因为 key 需要在 Go 类型中单独的指定。 | 1.16 |
+| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | 适用于 list。`set` 适用于仅包含标量元素的列表。这些元素必须是不重复的。`map` 仅适用于包含嵌套类型的列表。列表中的键（参见 `listMapKey`）不可以重复。`atomic` 适用于任何类型的列表。如果配置为 `atomic`，则合并时整个列表会被替换掉。任何时候，只有一个管理器负责管理指定列表。如果配置为 `set` 或 `map`，不同的管理器也可以分开管理条目。 | 1.16          |
+| `//+listMapKey` | `x-kubernetes-list-map-keys` | 字段名称的列表，例如，`["port", "protocol"]` | 仅当 `+listType=map` 时适用。取值为字段名称的列表，这些字段值的组合能够唯一标识列表中的条目。尽管可以存在多个键，`listMapKey` 是单数的，这是因为键名需要在 Go 类型中各自独立指定。键字段必须是标量。 | 1.16 |
 | `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | 适用于 map。 `atomic` 指 map 只能被单个的管理器整个的替换。 `granular` 指 map 支持多个管理器各自更新自己的字段。 | 1.17 |
 | `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | 适用于 structs；否则就像 `//+mapType` 有相同的用法和 openapi 注释.| 1.17 |
 
-<!-- 
+<!--
+If `listType` is missing, the API server interprets a
+`patchMergeStrategy=merge` marker as a `listType=map` and the
+corresponding `patchMergeKey` marker as a `listMapKey`.
+
+The `atomic` list type is recursive.
+
+These markers are specified as comments and don't have to be repeated as
+field tags.
+-->
+若未指定 `listType`，API 服务器将 `patchMergeStrategy=merge` 标记解释为
+`listType=map` 并且视对应的 `patchMergeKey` 标记为 `listMapKey` 取值。
+
+`atomic` 列表类型是递归的。
+
+这些标记都是用源代码注释的方式给出的，不必作为字段标签（tag）再重复。
+
+<!--
+### Compatibility across topology changes
+-->
+### 拓扑变化时的兼容性  {#compatibility-across-toplogy-changes}
+
+<!--
+On rare occurences, a CRD or built-in type author may want to change the
+specific topology of a field in their resource without incrementing its
+version. Changing the topology of types, by upgrading the cluster or
+updating the CRD, has different consequences when updating existing
+objects. There are two categories of changes: when a field goes from
+`map`/`set`/`granular` to `atomic` and the other way around.
+-->
+在极少的情况下，CRD 或者内置类型的作者可能希望更改其资源中的某个字段的
+拓扑配置，同时又不提升版本号。
+通过升级集群或者更新 CRD 来更改类型的拓扑信息与更新现有对象的结果不同。
+变更的类型有两种：一种是将字段从 `map`/`set`/`granular` 更改为 `atomic`，
+另一种是做逆向改变。
+
+<!--
+When the `listType`, `mapType`, or `structType` changes from
+`map`/`set`/`granular` to `atomic`, the whole list, map or struct of
+existing objects will end-up being owned by actors who owned an element
+of these types. This means that any further change to these objects
+would cause a conflict.
+-->
+当 `listType`、`mapType` 或 `structType` 从 `map`/`set`/`granular` 改为
+`atomic` 时，现有对象的整个列表、映射或结构的属主都会变为这些类型的
+元素之一的属主。这意味着，对这些对象的进一步变更会引发冲突。
+
+<!--
+When a list, map, or struct changes from `atomic` to
+`map`/`set`/`granular`, the API server won't be able to infer the new
+ownership of these fields. Because of that, no conflict will be produced
+when objects have these fields updated. For that reason, it is not
+recommended to change a type from `atomic` to `map`/`set`/`granular`.
+
+Take for example, the custom resource:
+-->
+当一个列表、映射或结构从 `atomic` 改为 `map`/`set`/`granular` 之一
+时，API 服务器无法推导这些字段的新的属主。因此，当对象的这些字段
+再次被更新时不会引发冲突。出于这一原因，不建议将某类型从 `atomic` 改为
+`map`/`set`/`granular`。
+
+以下面的自定义资源为例：
+
+```yaml
+apiVersion: example.com/v1
+kind: Foo
+metadata:
+  name: foo-sample
+  managedFields:
+  - manager: manager-one
+    operation: Apply
+    apiVersion: example.com/v1
+    fields:
+      f:spec:
+        f:data: {}
+spec:
+  data:
+    key1: val1
+    key2: val2
+```
+
+<!--
+Before `spec.data` gets changed from `atomic` to `granular`,
+`manager-one` owns the field `spec.data`, and all the fields within it
+(`key1` and `key2`). When the CRD gets changed to make `spec.data`
+`granular`, `manager-one` continues to own the top-level field
+`spec.data` (meaning no other managers can delete the map called `data`
+without a conflict), but it no longer owns `key1` and `key2`, so another
+manager can then modify or delete those fields without conflict.
+-->
+在 `spec.data` 从 `atomic` 改为 `granular` 之前，`manager-one` 是
+`spec.data` 字段及其所包含字段（`key1` 和 `key2`）的属主。
+当对应的 CRD 被更改，使得 `spec.data` 变为 `granular` 拓扑时，
+`manager-one` 继续拥有顶层字段 `spec.data`（这意味着其他管理者想
+删除名为 `data` 的映射而不引起冲突是不可能的），但不再拥有
+`key1` 和 `key2`。因此，其他管理者可以在不引起冲突的情况下更改
+或删除这些字段。
+
+<!--
 ### Custom Resources
 
 By default, Server Side Apply treats custom resources as unstructured data. All
@@ -429,13 +525,13 @@ type.
 所有的键值（keys）就像 struct 的字段一样被处理，
 所有的 list 被认为是原子性的。
 
-如果自定义资源定义（Custom Resource Definition，CRD）定义了一个 
+如果自定义资源定义（Custom Resource Definition，CRD）定义了一个
 [模式](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io)，
 它包含类似以前“合并策略”章节中定义过的注解，
 这些注解将在合并此类型的对象时使用。
 
-<!-- 
-### Using Server-Side Apply in a controller
+<!--
+## Using Server-Side Apply in a controller
 
 As a developer of a controller, you can use server-side apply as a way to
 simplify the update logic of your controller. The main differences with a
@@ -450,7 +546,7 @@ read-modify-write and/or patch are the following:
 It is strongly recommended for controllers to always "force" conflicts, since they
 might not be able to resolve or act on these conflicts.
 -->
-### 在控制器中使用服务器端应用 {#using-server-side-apply-in-controller}
+## 在控制器中使用服务器端应用 {#using-server-side-apply-in-controller}
 
 控制器的开发人员可以把服务器端应用作为简化控制器的更新逻辑的方式。
 读-改-写 和/或 patch 的主要区别如下所示：
@@ -462,8 +558,8 @@ might not be able to resolve or act on these conflicts.
 
 强烈推荐：设置控制器在冲突时强制执行，这是因为冲突发生时，它们没有其他解决方案或措施。
 
-<!-- 
-### Transferring Ownership
+<!--
+## Transferring Ownership
 
 In addition to the concurrency controls provided by [conflict resolution](#conflicts),
 Server Side Apply provides ways to perform coordinated
@@ -476,7 +572,7 @@ resource and its accompanying controller.
 
 Say a user has defined deployment with `replicas` set to the desired value:
 -->
-### 转移所有权 {#transferring-ownership}
+## 转移所有权 {#transferring-ownership}
 
 除了通过[冲突解决方案](#conflicts)提供的并发控制，
 服务器端应用提供了一些协作方式来将字段所有权从用户转移到控制器。
@@ -490,7 +586,7 @@ Say a user has defined deployment with `replicas` set to the desired value:
 
 {{< codenew file="application/ssa/nginx-deployment.yaml" >}}
 
-<!-- 
+<!--
 And the user has created the deployment using server side apply like so:
 -->
 并且，用户使用服务器端应用，像这样创建 Deployment：
@@ -499,7 +595,7 @@ And the user has created the deployment using server side apply like so:
 kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment.yaml --server-side
 ```
 
-<!-- 
+<!--
 Then later, HPA is enabled for the deployment, e.g.:
 -->
 然后，为 Deployment 启用 HPA，例如：
@@ -508,7 +604,7 @@ Then later, HPA is enabled for the deployment, e.g.:
 kubectl autoscale deployment nginx-deployment --cpu-percent=50 --min=1 --max=10
 ```
 
-<!-- 
+<!--
 Now, the user would like to remove `replicas` from their configuration, so they
 don't accidentally fight with the HPA controller. However, there is a race: it
 might take some time before HPA feels the need to adjust `replicas`, and if
@@ -520,13 +616,13 @@ is not what the user wants to happen, even temporarily.
 然而，这里存在一个竟态：
 在 HPA 需要调整 `replicas` 之前会有一个时间窗口，
 如果在 HPA 写入字段成为所有者之前，用户删除了`replicas`，
-那 API 服务器就会把 `replicas` 的值设为1， 也就是默认值。
+那 API 服务器就会把 `replicas` 的值设为 1， 也就是默认值。
 这不是用户希望发生的事情，即使是暂时的。
 
-<!-- 
+<!--
 There are two solutions:
 
-- (easy) Leave `replicas` in the configuration; when HPA eventually writes to that
+- (basic) Leave `replicas` in the configuration; when HPA eventually writes to that
   field, the system gives the user a conflict over it. At that point, it is safe
   to remove from the configuration.
 
@@ -539,16 +635,16 @@ First, the user defines a new configuration containing only the `replicas` field
 -->
 这里有两个解决方案：
 
-- （容易） 把 `replicas` 留在配置文件中；当 HPA 最终写入那个字段，
+- （基本操作）把 `replicas` 留在配置文件中；当 HPA 最终写入那个字段，
   系统基于此事件告诉用户：冲突发生了。在这个时间点，可以安全的删除配置文件。
-- （高级）然而，如果用户不想等待，比如他们想为合作伙伴保持集群清晰，
+- （高级操作）然而，如果用户不想等待，比如他们想为合作伙伴保持集群清晰，
   那他们就可以执行以下步骤，安全的从配置文件中删除 `replicas`。
 
 首先，用户新定义一个只包含 `replicas` 字段的配置文件：
 
 {{< codenew file="application/ssa/nginx-deployment-replicas-only.yaml" >}}
 
-<!-- 
+<!--
 The user applies that configuration using the field manager name `handover-to-hpa`:
 -->
 用户使用名为 `handover-to-hpa` 的字段管理器，应用此配置文件。
@@ -559,21 +655,21 @@ kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment-replic
   --validate=false
 ```
 
-<!-- 
+<!--
 If the apply results in a conflict with the HPA controller, then do nothing. The
-conflict just indicates the controller has claimed the field earlier in the
+conflict indicates the controller has claimed the field earlier in the
 process than it sometimes does.
 
 At this point the user may remove the `replicas` field from their configuration.
 -->
 如果应用操作和 HPA 控制器产生冲突，那什么都不做。
-冲突只是表明控制器在更早的流程中已经对字段声明过所有权。
+冲突表明控制器在更早的流程中已经对字段声明过所有权。
 
 在此时间点，用户可以从配置文件中删除 `replicas` 。
 
 {{< codenew file="application/ssa/nginx-deployment-no-replicas.yaml" >}}
 
-<!-- 
+<!--
 Note that whenever the HPA controller sets the `replicas` field to a new value,
 the temporary field manager will no longer own any fields and will be
 automatically deleted. No clean up is required.
@@ -582,8 +678,8 @@ automatically deleted. No clean up is required.
 该临时字段管理器将不再拥有任何字段，会被自动删除。
 这里不需要执行清理工作。
 
-<!-- 
-## Transferring Ownership Between Users
+<!--
+### Transferring Ownership Between Users
 
 Users can transfer ownership of a field between each other by setting the field
 to the same value in both of their applied configs, causing them to share
@@ -591,14 +687,14 @@ ownership of the field. Once the users share ownership of the field, one of them
 can remove the field from their applied configuration to give up ownership and
 complete the transfer to the other user.
 -->
-## 在用户之间转移所有权 {#transferring-ownership-between-users}
+### 在用户之间转移所有权 {#transferring-ownership-between-users}
 
 通过在配置文件中把一个字段设置为相同的值，用户可以在他们之间转移字段的所有权，
 从而共享了字段的所有权。
 当用户共享了字段的所有权，任何一个用户可以从他的配置文件中删除该字段，
 并应用该变更，从而放弃所有权，并实现了所有权向其他用户的转移。
 
-<!-- 
+<!--
 ## Comparison with Client Side Apply
 
 A consequence of the conflict detection and resolution implemented by Server
@@ -631,7 +727,7 @@ case.
 
 另一个区别是使用客户端应用的应用者不能改变他们正在使用的 API 版本，但服务器端应用支持这个场景。
 
-<!-- 
+<!--
 ## Upgrading from client-side apply to server-side apply
 
 Client-side apply users who manage a resource with `kubectl apply` can start
@@ -645,7 +741,7 @@ using server-side apply with the following flag.
 ```shell
 kubectl apply --server-side [--dry-run=server]
 ```
-<!-- 
+<!--
 By default, field management of the object transfers from client-side apply to
 kubectl server-side apply without encountering conflicts.
 
@@ -683,7 +779,7 @@ manager for kubectl server-side apply is `kubectl`.
 kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 ```
 
-<!-- 
+<!--
 ## Downgrading from server-side apply to client-side apply
 
 If you manage a resource with `kubectl apply --server-side`,
@@ -714,7 +810,7 @@ manager for kubectl server-side apply is `kubectl`.
 kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 ```
 
-<!-- 
+<!--
 ## API Endpoint
 
 With the Server Side Apply feature enabled, the `PATCH` endpoint accepts the
@@ -731,7 +827,7 @@ have an opinion about.
 部分定义对象（partially specified objects）发送到此端点。
 当一个配置文件被应用时，它应该包含所有体现你意图的字段。
 
-<!-- 
+<!--
 ## Clearing ManagedFields
 
 It is possible to strip all managedFields from an object by overwriting them
@@ -742,9 +838,9 @@ with an empty entry. Two examples are:
 ## 清除 ManagedFields {#clearing-managedfields}
 
 可以从对象中剥离所有 managedField，
-实现方法是通过使用 `MergePatch`、 `StrategicMergePatch`、 
+实现方法是通过使用 `MergePatch`、 `StrategicMergePatch`、
 `JSONPatch`、 `Update`、以及所有的非应用方式的操作来覆盖它。
-这可以通过用空条目覆盖 managedFields 字段的方式实现。
+这可以通过用空条目覆盖 managedFields 字段的方式实现。以下是两个示例：
 
 ```console
 PATCH /api/v1/namespaces/default/configmaps/example-cm
@@ -760,10 +856,10 @@ Accept: application/json
 Data: [{"op": "replace", "path": "/metadata/managedFields", "value": [{}]}]
 ```
 
-<!-- 
+<!--
 This will overwrite the managedFields with a list containing a single empty
 entry that then results in the managedFields being stripped entirely from the
-object. Note that just setting the managedFields to an empty list will not
+object. Note that setting the managedFields to an empty list will not
 reset the field. This is on purpose, so managedFields never get stripped by
 clients not aware of the field.
 
@@ -772,16 +868,16 @@ than the managedFields, this will result in the managedFields being reset
 first and the other changes being processed afterwards. As a result the
 applier takes ownership of any fields updated in the same request.
 -->
-这一操作将用只包含一个空条目的 list 覆写 managedFields，
+这一操作将用只包含一个空条目的列表覆写 managedFields，
 来实现从对象中整个的去除 managedFields。
-注意，只把 managedFields 设置为空 list 并不会重置字段。
+注意，只把 managedFields 设置为空列表并不会重置字段。
 这么做是有目的的，所以 managedFields 将永远不会被与该字段无关的客户删除。
 
 在重置操作结合 managedFields 以外其他字段更改的场景中，
 将导致 managedFields 首先被重置，其他改变被押后处理。
 其结果是，应用者取得了同一个请求中所有字段的所有权。
 
-<!-- 
+<!--
 Server Side Apply does not correctly track ownership on
 sub-resources that don't receive the resource object type. If you are
 using Server Side Apply with such a sub-resource, the changed fields
@@ -792,19 +888,3 @@ won't be tracked.
 服务器端应用不能正确地跟踪其所有权。
 如果你对这样的子资源使用服务器端应用，变更的字段将不会被跟踪。
 {{< /caution >}}
-
-<!-- 
-## Disabling the feature
-
-Server Side Apply is a beta feature, so it is enabled by default. To turn this
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates) off,
-you need to include the `--feature-gates ServerSideApply=false` flag when
-starting `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all
-should have the same flag setting.
--->
-## 禁用此功能 {#disabling-the-feature}
-
-服务器端应用是一个 beta 版特性，默认启用。
-要关闭此[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)，
-你需要在启动 `kube-apiserver` 时包含参数 `--feature-gates ServerSideApply=false`。
-如果你有多个 `kube-apiserver` 副本，他们都应该有相同的标记设置。

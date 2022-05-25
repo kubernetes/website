@@ -1,5 +1,9 @@
 ---
-min-kubernetes-server-version: v1.20
+
+
+
+
+min-kubernetes-server-version: v1.23
 title: IPv4/IPv6 이중 스택 검증
 content_type: task
 ---
@@ -12,11 +16,14 @@ content_type: task
 
 
 * 이중 스택 네트워킹을 위한 제공자 지원 (클라우드 제공자 또는 기타 제공자들은 라우팅 가능한 IPv4/IPv6 네트워크 인터페이스를 제공하는 쿠버네티스 노드들을 제공해야 한다.)
-* 이중 스택을 지원하는 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)  (예. Kubenet 또는 Calico)
+* 이중 스택을 지원하는 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)  (예: Calico, Cilium 또는 Kubenet)
 * [이중 스택 활성화](/ko/docs/concepts/services-networking/dual-stack/) 클러스터
 
 {{< version-check >}}
 
+{{< note >}}
+v1.23 이전 버전에서도 검증을 수행할 수 있지만 GA 기능으로만 제공되며, v1.23부터 공식적으로 지원된다.
+{{< /note >}}
 
 
 <!-- steps -->
@@ -36,9 +43,10 @@ a00:100::/24
 ```
 단일 IPv4 블록과 단일 IPv6 블록이 할당되어야 한다.
 
-노드가 IPv4 및 IPv6 인터페이스를 가지고 있는지 검증한다. (노드 이름을 클러스터의 검증된 노드로 대체한다. 본 예제에서 노드 이름은 k8s-linuxpool1-34450317-0) 이다.
+노드가 IPv4 및 IPv6 인터페이스를 가지고 있는지 검증한다. 노드 이름을 클러스터의 검증된 노드로 대체한다. 본 예제에서 노드 이름은 `k8s-linuxpool1-34450317-0` 이다.
+
 ```shell
-kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s \n" .type .address}}{{end}}'
+kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s\n" .type .address}}{{end}}'
 ```
 ```
 Hostname: k8s-linuxpool1-34450317-0
@@ -48,9 +56,10 @@ InternalIP: 2001:1234:5678:9abc::5
 
 ### 파드 어드레싱 검증
 
-파드가 IPv4 및 IPv6 주소를 할당받았는지 검증한다. (파드 이름을 클러스터에서 검증된 파드로 대체한다. 본 예제에서 파드 이름은 pod01 이다.)
+파드가 IPv4 및 IPv6 주소를 할당받았는지 검증한다. 파드 이름을 클러스터에서 검증된 파드로 대체한다. 본 예제에서 파드 이름은 `pod01` 이다.
+
 ```shell
-kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s \n" .ip}}{{end}}'
+kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s\n" .ip}}{{end}}'
 ```
 ```
 10.244.1.4
@@ -68,6 +77,7 @@ a00:100::4
 ```
 
 다음 커맨드는 컨테이너 내 `MY_POD_IPS` 환경 변수의 값을 출력한다. 해당 값은 파드의 IPv4 및 IPv6 주소를 나타내는 쉼표로 구분된 목록이다.
+
 ```shell
 kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
@@ -225,3 +235,4 @@ kubectl get svc -l app=MyApp
 ```shell
 NAME         TYPE           CLUSTER-IP   EXTERNAL-IP        PORT(S)        AGE
 my-service   LoadBalancer   fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
+```

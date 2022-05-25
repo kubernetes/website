@@ -1,4 +1,0 @@
-Fitur ini berada di dalam tingkatan stabil, yang artinya:
-
-* Versi ini mengandung string `vX` dimana `X` merupakan bilangan bulat.
-* Fitur yang ada pada tingkatan ini akan selalu muncul di rilis berikutnya.

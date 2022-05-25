@@ -1,11 +1,11 @@
 ---
-title: 证书
+title: 手动生成证书
 content_type: task
 weight: 20
 ---
 <!-- 
 ---
-title: Certificates
+title: Generate Certificates Manually
 content_type: task
 weight: 20
 ---
@@ -170,11 +170,18 @@ manually through `easyrsa`, `openssl` or `cfssl`.
     <!-- 
     1.  Generate the server certificate using the ca.key, ca.crt and server.csr:
     -->
-1.  基于 ca.key、ca.key 和 server.csr 等三个文件生成服务端证书：
+1.  基于 ca.key、ca.crt 和 server.csr 等三个文件生成服务端证书：
 
         openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
         -CAcreateserial -out server.crt -days 10000 \
         -extensions v3_ext -extfile csr.conf
+
+    <!--
+    1.  View the certificate signing request:
+    -->
+1.  查看证书签名请求：
+
+        openssl req  -noout -text -in ./server.csr
 
     <!-- 
     1.  View the certificate:

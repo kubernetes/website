@@ -38,5 +38,5 @@ EndpoitSliceはベータ版の機能です。APIとEndpointSlice{{< glossary_too
 ## {{% heading "whatsnext" %}}
 
 
-* [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
+* [EndpointSlice](/ja/docs/concepts/services-networking/endpoint-slices/)を参照してください。
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を参照してください。

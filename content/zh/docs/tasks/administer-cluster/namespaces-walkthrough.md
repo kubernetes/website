@@ -36,7 +36,7 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 -->
 使用多个名字空间是可选的。
 
-此示例演示了如何使用 Kubernetes 名字空间细分群集。
+此示例演示了如何使用 Kubernetes 名字空间细分集群。
 
 ## {{% heading "prerequisites" %}}
 
@@ -68,7 +68,7 @@ This example assumes the following:
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
 Services, and Deployments used by the cluster.
 -->
-1. 理解默认名字空间
+## 理解默认名字空间
 
 默认情况下，Kubernetes 集群会在配置集群时实例化一个默认名字空间，用以存放集群所使用的默认
 Pod、Service 和 Deployment 集合。
@@ -345,17 +345,17 @@ Apply the manifest to create a Deployment
 应用清单文件来创建 Deployment。
 
 <!--
-We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
+We have created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that serves the hostname.
 -->
-我们刚刚创建了一个副本大小为 2 的 Deployment，该 Deployment 运行名为 `snowflake` 的 Pod，
+我们创建了一个副本大小为 2 的 Deployment，该 Deployment 运行名为 `snowflake` 的 Pod，
 其中包含一个仅提供主机名服务的基本容器。
 
 ```shell
 kubectl get deployment
 ```
 ```
-NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-snowflake   2         2         2            2           2m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+snowflake    2/2     2            2           2m
 ```
 
 ```shell
@@ -402,8 +402,8 @@ kubectl get deployment
 ```
 
 ```
-NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-cattle    5         5         5            5           10s
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+cattle       5/5     5            5           10s
 ```
 
 ```shell

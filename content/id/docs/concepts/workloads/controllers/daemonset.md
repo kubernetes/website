@@ -97,8 +97,8 @@ membuat Pod dengan nilai yang berbeda di sebuah Node untuk _testing_.
 
 Jika kamu menspesifikasikan `.spec.template.spec.nodeSelector`, maka _controller_ DaemonSet akan
 membuat Pod pada Node yang cocok dengan [selektor
-Node](/id/docs/concepts/configuration/assign-pod-node/). Demikian juga, jika kamu menspesifikasikan `.spec.template.spec.affinity`,
-maka _controller_ DaemonSet akan membuat Pod pada Node yang cocok dengan [Node affinity](/id/docs/concepts/configuration/assign-pod-node/).
+Node](/id/docs/concepts/scheduling-eviction/assign-pod-node/). Demikian juga, jika kamu menspesifikasikan `.spec.template.spec.affinity`,
+maka _controller_ DaemonSet akan membuat Pod pada Node yang cocok dengan [Node affinity](/id/docs/concepts/scheduling-eviction/assign-pod-node/).
 Jika kamu tidak menspesifikasikan sama sekali, maka _controller_ DaemonSet akan
 membuat Pod pada semua Node.
 
@@ -106,7 +106,7 @@ membuat Pod pada semua Node.
 
 ### Dijadwalkan oleh _default scheduler_
 
-{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 DaemonSet memastikan bahwa semua Node yang memenuhi syarat menjalankan salinan
 Pod. Normalnya, Node yang menjalankan Pod dipilih oleh _scheduler_ Kubernetes.

@@ -9,7 +9,7 @@ slug: autoscaling-in-kubernetes
 title: " Autoscaling in Kubernetes "
 date: 2017-11-17
 slug: autoscaling-in-kubernetes
-url: /blog/2017/11/Autoscaling-In-Kubernetes
+url: /zh/blog/2017/11/Autoscaling-In-Kubernetes
 ---
 -->
 

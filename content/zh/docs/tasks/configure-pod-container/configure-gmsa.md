@@ -22,13 +22,12 @@ This page shows how to configure [Group Managed Service Accounts](https://docs.m
 服务器将管理操作委派给其他管理员等能力。
 
 <!--
-In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope as Custom Resources. Windows Pods, as well as individual containers within a Pod, can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication) when interacting with other Windows services. As of v1.16, the Docker runtime supports GMSA for Windows workloads.
+In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope as Custom Resources. Windows Pods, as well as individual containers within a Pod, can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication) when interacting with other Windows services.
 -->
 在 Kubernetes 环境中，GMSA 凭据规约配置为 Kubernetes 集群范围的自定义资源
 （Custom Resources）形式。Windows Pod 以及各 Pod 中的每个容器可以配置为
 使用 GMSA 来完成基于域（Domain）的操作（例如，Kerberos 身份认证），以便
-与其他 Windows 服务相交互。自 Kubernetes 1.16 版本起，Docker 运行时为
-Windows 负载支持 GMSA。
+与其他 Windows 服务相交互。
 
 ## {{% heading "prerequisites" %}}
 
@@ -190,7 +189,7 @@ credspec:
 下面的 YAML 配置描述的是一个名为 `gmsa-WebApp1` 的 GMSA 凭据规约：
 
 ```yaml
-apiVersion: windows.k8s.io/v1alpha1
+apiVersion: windows.k8s.io/v1
 kind: GMSACredentialSpec
 metadata:
   name: gmsa-WebApp1  # 这是随意起的一个名字，将用作引用
@@ -381,6 +380,24 @@ As Pod specs with GMSA fields populated (as described above) are applied in a cl
 1. 容器运行时为每个 Windows 容器配置所指定的 GMSA 凭据规约，这样容器就可以以
    活动目录中该 GMSA 所代表的身份来执行操作，使用该身份来访问域中的服务。
 
+## 使用主机名或 FQDN 对网络共享进行身份验证 
+<!--
+If you are experiencing issues connecting to SMB shares from Pods using hostname or FQDN, but are able to access the shares via their IPv4 address then make sure the following registry key is set on the Windows nodes.
+-->
+如果你在使用主机名或 FQDN 从 Pod 连接到 SMB 共享时遇到问题，但能够通过其 IPv4 地址访问共享，
+请确保在 Windows 节点上设置了以下注册表项。
+
+```cmd
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1
+```
+
+<!--
+Running Pods will then need to be recreated to pick up the behavior changes.
+More information on how this registry key is used can be found [here](
+https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
+-->
+然后需要重新创建正在运行的 Pod 以使行为更改生效。
+有关如何使用此注册表项的更多信息，请参见[此处](https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)。
 <!--
 ## Troubleshooting
 
@@ -388,25 +405,24 @@ If you are having difficulties getting GMSA to work in your environment, there a
 -->
 ## 故障排查
 
-如果在你的环境中配置 GMSA 时遇到了困难，你可以采取若干步骤来排查可能
-的故障。
+如果在你的环境中配置 GMSA 时遇到了困难，你可以采取若干步骤来排查可能的故障。
 
 <!--
-First, make sure the credspec has been passed to the Pod.  To do this you will need to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.  In the example below the Pod did not get the credspec correctly:
+First, make sure the credspec has been passed to the Pod.  To do this you will need to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.
 -->
-首先，确保凭据规约已经被传递到 Pod。要实现这点，你需要先通过 `exec` 进入到
-你的 Pod 之一，检查 `nltest.exe /parentdomain` 命令的输出。
+首先，确保 credspec 已传递给 Pod。为此，你需要先运行 `exec` 进入到你的一个 Pod 中并检查 `nltest.exe /parentdomain` 命令的输出。
 在下面的例子中，Pod 未能正确地获得凭据规约：
 
-```shell
+```PowerShell
 kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
+```
 
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-PS C:\> nltest.exe /parentdomain
+<!--
+`nltest.exe /parentdomain` results in the following error:
+-->
+`nltest.exe /parentdomain` 导致以下错误：
+```output
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
-PS C:\>
 ```
 
 <!--
@@ -434,32 +450,37 @@ If the DNS and communication test passes, next you will need to check if the Pod
 安全通信通道。要执行这一检查，你需要再次通过 `exec` 进入到你的 Pod 中
 并执行 `nltest.exe /query` 命令。
 
-```shell
-PS C:\> nltest.exe /query
-I_NetLogonControl failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
+```PowerShell
+nltest.exe /query
 ```
 
 <!--
-This tells us that for some reason, the Pod was unable to logon to the domain using the account specified in the credspec.  You can try to repair the secure channel by running the `nltest.exe /sc_reset:domain.example` command.
+This tells us that for some reason, the Pod was unable to logon to the domain using the account specified in the credspec.  You can try to repair the secure channel by running the following:
 -->
-这一输出告诉我们，由于某些原因，Pod 无法使用凭据规约中的账号登录到域。
-你可以通过运行 `nltest.exe /sc_reset:domain.example` 命令尝试修复安全通道。
+这告诉我们，由于某种原因，Pod 无法使用 credspec 中指定的帐户登录到域。
+你可以尝试通过运行以下命令来修复安全通道：
 
-```shell
-PS C:\> nltest /sc_reset:domain.example
+```PowerShell
+nltest /sc_reset:domain.example
+```
+
+<!--
+If the command is successful you will see and output similar to this:
+-->
+如果命令成功，你将看到类似以下内容的输出：
+
+```
 Flags: 30 HAS_IP  HAS_TIMESERV
 Trusted DC Name \\dc10.domain.example
 Trusted DC Connection Status Status = 0 0x0 NERR_Success
 The command completed successfully
-PS C:\>
 ```
 
 <!--
-If the above command corrects the error, you can automate the step by adding the following lifecycle hook to your Pod spec.  If it did not correct the error, you will need to examine your credspec again and confirm that it is correct and complete.
+If the above corrects the error, you can automate the step by adding the following lifecycle hook to your Pod spec.  If it did not correct the error, you will need to examine your credspec again and confirm that it is correct and complete.
 -->
-如果上述命令修复了错误，你就可以通过向你的 Pod 规约添加生命周期回调来将此操作
-自动化。如果上述命令未能奏效，你就需要再次检查凭据规约，以确保其数据时正确的
-而且是完整的。
+如果以上命令修复了错误，你可以通过将以下生命周期回调添加到你的 Pod 规约中来自动执行该步骤。
+如果这些操作没有修复错误，你将需要再次检查你的 credspec 并确认它是正确和完整的。
 
 ```yaml
         image: registry.domain.example/iis-auth:1809v1
@@ -476,19 +497,4 @@ If you add the `lifecycle` section show above to your Pod spec, the Pod will exe
 如果你向你的 Pod 规约中添加如上所示的 `lifecycle` 节，则 Pod 会自动执行所
 列举的命令来重启 `netlogon` 服务，直到 `nltest.exe /query`
 命令返回时没有错误信息。
-
-<!--
-## GMSA limitations
-When using the [ContainerD runtime for Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#cri-containerd) accessing restricted network shares via the GMSA domain identity fails. The container will recieve the identity of and calls from `nltest.exe /query` will work.  It is recommended to use the [Docker EE runtime](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#docker-ee) if access to network shares is required.  The Windows Server team is working on resolving the issue in the Windows Kernel and will release a patch to resolve this issue in the future. Look for updates on the [Microsoft Windows Containers issue tracker](https://github.com/microsoft/Windows-Containers/issues/44).
--->
-## GMSA 的局限  {#gmsa-limitations}
-
-在使用 [Windows 版本的 ContainerD 运行时](/zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#cri-containerd)
-时，通过 GMSA 域身份标识访问受限制的网络共享资源时会出错。
-容器会收到身份标识且 `nltest.exe /query` 调用也能正常工作。
-当需要访问网络共享资源时，建议使用
-[Docker EE 运行时](/zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#docker-ee)。
-Windows Server 团队正在 Windows 内核中解决这一问题，并在将来发布解决此问题的补丁。
-你可以在 [Microsoft Windows Containers 问题跟踪列表](https://github.com/microsoft/Windows-Containers/issues/44)
-中查找这类更新。
 

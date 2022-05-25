@@ -29,9 +29,9 @@ Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-goog
 **先决条件**: [gcloud](https://cloud.google.com/sdk/docs/quickstarts)
 
 <!--
-1.  To launch a GKE cluster with Calico, just include the `--enable-network-policy` flag.
+1.  To launch a GKE cluster with Calico, include the `--enable-network-policy` flag.
 -->
-1.  启动一个带有 Calico 的 GKE 集群，只需加上参数 `--enable-network-policy`。
+1.  启动一个带有 Calico 的 GKE 集群，需要加上参数 `--enable-network-policy`。
 
     **语法**
     ```shell
@@ -73,6 +73,6 @@ To get a local single-host Calico cluster in fifteen minutes using kubeadm, refe
 <!--
 Once your cluster is running, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
 -->
-集群运行后，您可以按照[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
+集群运行后，你可以按照[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
 去尝试使用 Kubernetes NetworkPolicy。
 

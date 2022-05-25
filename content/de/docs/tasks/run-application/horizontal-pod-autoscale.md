@@ -100,7 +100,7 @@ Das auflisten der Autoskalierer geschieht über `kubectl get hpa` und eine detai
 Letzendlich können wir einen Autoskalierer mit `kubectl delete hpa` löschen.
 
 Zusätzlich gibt es einen speziellen Befehl `kubectl autoscale` zur einfachen Erstellung eines Horizontal Pod Autoscalers.
-Wenn du beispielsweise `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80` ausführst, wird ein Autoskalierer für den Replication Set *foo* erstellt, wobei die Ziel-CPU-Auslastung auf `80%` und die Anzahl der Replikate zwischen 2 und 5 gesetzt wird.
+Wenn du beispielsweise `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80` ausführst, wird ein Autoskalierer für den ReplicaSet *foo* erstellt, wobei die Ziel-CPU-Auslastung auf `80%` und die Anzahl der Replikate zwischen 2 und 5 gesetzt wird.
 Die Detaildokumentation von `kubectl autoscale` kann [hier](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) gefunden werden.
 
 ## Autoskalieren während rollierender Updates

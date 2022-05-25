@@ -40,6 +40,8 @@ application has to take ports as flags, the API servers have to know how to
 insert dynamic port numbers into configuration blocks, services have to know
 how to find each other, etc.  Rather than deal with this, Kubernetes takes a
 different approach.
+
+To learn about the Kubernetes networking model, see [here](/docs/concepts/services-networking/).
 -->
 Kubernetes 的宗旨就是在应用之间共享机器。
 通常来说，共享机器需要两个应用之间不能使用相同的端口，但是在多个应用开发者之间
@@ -49,80 +51,7 @@ Kubernetes 的宗旨就是在应用之间共享机器。
 而 API 服务器还需要知道如何将动态端口数值插入到配置模块中，服务也需要知道如何找到对方等等。
 与其去解决这些问题，Kubernetes 选择了其他不同的方法。
 
-<!--
-## The Kubernetes network model
-
-Every `Pod` gets its own IP address. This means you do not need to explicitly
-create links between `Pods` and you almost never need to deal with mapping
-container ports to host ports.  This creates a clean, backwards-compatible
-model where `Pods` can be treated much like VMs or physical hosts from the
-perspectives of port allocation, naming, service discovery, load balancing,
-application configuration, and migration.
-
-Kubernetes imposes the following fundamental requirements on any networking
-implementation (barring any intentional network segmentation policies):
-
-   * pods on a node can communicate with all pods on all nodes without NAT
-   * agents on a node (e.g. system daemons, kubelet) can communicate with all
-     pods on that node
-
-Note: For those platforms that support `Pods` running in the host network (e.g.
-Linux):
-
-   * pods in the host network of a node can communicate with all pods on all
-     nodes without NAT
--->
-## Kubernetes 网络模型   {#the-kubernetes-network-model}
-
-每一个 `Pod` 都有它自己的IP地址，这就意味着你不需要显式地在每个 `Pod` 之间创建链接，
-你几乎不需要处理容器端口到主机端口之间的映射。
-这将创建一个干净的、向后兼容的模型，在这个模型里，从端口分配、命名、服务发现、
-负载均衡、应用配置和迁移的角度来看，`Pod` 可以被视作虚拟机或者物理主机。
-
-Kubernetes 对所有网络设施的实施，都需要满足以下的基本要求（除非有设置一些特定的网络分段策略）：
-
-* 节点上的 Pod 可以不通过 NAT 和其他任何节点上的 Pod 通信
-* 节点上的代理（比如：系统守护进程、kubelet）可以和节点上的所有Pod通信
-
-备注：仅针对那些支持 `Pods` 在主机网络中运行的平台（比如：Linux）：
-
-* 那些运行在节点的主机网络里的 Pod 可以不通过 NAT 和所有节点上的 Pod 通信
-
-<!--
-This model is not only less complex overall, but it is principally compatible
-with the desire for Kubernetes to enable low-friction porting of apps from VMs
-to containers.  If your job previously ran in a VM, your VM had an IP and could
-talk to other VMs in your project.  This is the same basic model.
-
-Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
-share their network namespaces - including their IP address and MAC address.
-This means that containers within a `Pod` can all reach each other's ports on
-`localhost`. This also means that containers within a `Pod` must coordinate port
-usage, but this is no different from processes in a VM.  This is called the
--->
-这个模型不仅不复杂，而且还和 Kubernetes 的实现廉价的从虚拟机向容器迁移的初衷相兼容，
-如果你的工作开始是在虚拟机中运行的，你的虚拟机有一个 IP ，
-这样就可以和其他的虚拟机进行通信，这是基本相同的模型。
-
-Kubernetes 的 IP 地址存在于 `Pod` 范围内 - 容器共享它们的网络命名空间 - 包括它们的 IP 地址和 MAC 地址。
-这就意味着 `Pod` 内的容器都可以通过 `localhost` 到达各个端口。
-这也意味着 `Pod` 内的容器都需要相互协调端口的使用，但是这和虚拟机中的进程似乎没有什么不同，
-这也被称为“一个 Pod 一个 IP”模型。
-
-<!--
-How this is implemented is a detail of the particular container runtime in use.
-
-It is possible to request ports on the `Node` itself which forward to your `Pod`
-(called host ports), but this is a very niche operation. How that forwarding is
-implemented is also a detail of the container runtime. The `Pod` itself is
-blind to the existence or non-existence of host ports.
--->
-如何实现这一点是正在使用的容器运行时的特定信息。
-
-也可以在 `node` 本身通过端口去请求你的 `Pod`（称之为主机端口），
-但这是一个很特殊的操作。转发方式如何实现也是容器运行时的细节。
-`Pod` 自己并不知道这些主机端口是否存在。
-
+要了解 Kubernetes 网络模型，请参阅[此处](/zh/docs/concepts/services-networking/)。
 <!--
 ## How to implement the Kubernetes networking model
 
@@ -168,39 +97,6 @@ Open vSwitch 使 Antrea 能够以高性能和高效的方式实现 Kubernetes �
 借助 Open vSwitch 可编程的特性，Antrea 能够在 Open vSwitch 之上实现广泛的联网、安全功能和服务。
 
 <!--
-### AOS from Apstra
-
-[AOS](https://www.apstra.com/products/aos/) is an Intent-Based Networking system that creates and manages complex datacenter environments from a simple integrated platform.  AOS leverages a highly scalable distributed design to eliminate network outages while minimizing costs.
-
-The AOS Reference Design currently supports Layer-3 connected hosts that eliminate legacy Layer-2 switching problems.  These Layer-3 hosts can be Linux servers (Debian, Ubuntu, CentOS) that create BGP neighbor relationships directly with the top of rack switches (TORs).  AOS automates the routing adjacencies and then provides fine grained control over the route health injections (RHI) that are common in a Kubernetes deployment.
-
-AOS has a rich set of REST API endpoints that enable Kubernetes to quickly change the network policy based on application requirements.  Further enhancements will integrate the AOS Graph model used for the network design with the workload provisioning, enabling an end to end management system for both private and public clouds.
-
-AOS supports the use of common vendor equipment from manufacturers including Cisco, Arista, Dell, Mellanox, HPE, and a large number of white-box systems and open network operating systems like Microsoft SONiC, Dell OPX, and Cumulus Linux.
-
-Details on how the AOS system works can be accessed here: https://www.apstra.com/products/how-it-works/
--->
-### Apstra 的 AOS 
-
-[AOS](https://www.apstra.com/products/aos/) 是一个基于意图的网络系统，
-可以通过一个简单的集成平台创建和管理复杂的数据中心环境。
-AOS 利用高度可扩展的分布式设计来消除网络中断，同时将成本降至最低。
-
-AOS 参考设计当前支持三层连接的主机，这些主机消除了旧的两层连接的交换问题。
-这些三层连接的主机可以是 Linux（Debian、Ubuntu、CentOS）系统，
-它们直接在机架式交换机（TOR）的顶部创建 BGP 邻居关系。
-AOS 自动执行路由邻接，然后提供对 Kubernetes 部署中常见的路由运行状况注入（RHI）的精细控制。
-
-AOS 具有一组丰富的 REST API 端点，这些端点使 Kubernetes 能够根据应用程序需求快速更改网络策略。
-进一步的增强功能将用于网络设计的 AOS Graph 模型与工作负载供应集成在一起，
-从而为私有云和公共云提供端到端管理系统。
-
-AOS 支持使用包括 Cisco、Arista、Dell、Mellanox、HPE 在内的制造商提供的通用供应商设备，
-以及大量白盒系统和开放网络操作系统，例如 Microsoft SONiC、Dell OPX 和 Cumulus Linux。
-
-想要更详细地了解 AOS 系统是如何工作的可以点击这里：https://www.apstra.com/products/how-it-works/
-
-<!--
 ### AWS VPC CNI for Kubernetes
 
 The [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s) offers integrated AWS Virtual Private Cloud (VPC) networking for Kubernetes clusters. This CNI plugin offers high throughput and availability, low latency, and minimal network jitter. Additionally, users can apply existing AWS VPC networking and security best practices for building Kubernetes clusters. This includes the ability to use VPC flow logs, VPC routing policies, and security groups for network traffic isolation.
@@ -244,42 +140,16 @@ Azure CNI 可以在
 [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni) 中获得。
 
 <!--
-### Big Cloud Fabric from Big Switch Networks
-
-[Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) is a cloud native networking architecture, designed to run Kubernetes in private cloud/on-premises environments. Using unified physical & virtual SDN, Big Cloud Fabric tackles inherent container networking problems such as load balancing, visibility, troubleshooting, security policies & container traffic monitoring.
-
-With the help of the Big Cloud Fabric's virtual pod multi-tenant architecture, container orchestration systems such as Kubernetes, RedHat OpenShift, Mesosphere DC/OS & Docker Swarm will be natively integrated alongside with VM orchestration systems such as VMware, OpenStack & Nutanix. Customers will be able to securely inter-connect any number of these clusters and enable inter-tenant communication between them if needed.
-
-BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html). One of the BCF Kubernetes on-premises deployments (which includes Kubernetes, DC/OS & VMware running on multiple DCs across different geographic regions) is also referenced [here](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/).
--->
-### Big Switch Networks 的 Big Cloud Fabric
-
-[Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) 是一个基于云原生的网络架构，
-旨在在私有云或者本地环境中运行 Kubernetes。
-它使用统一的物理和虚拟 SDN，Big Cloud Fabric 解决了固有的容器网络问题，
-比如负载均衡、可见性、故障排除、安全策略和容器流量监控。
-
-在 Big Cloud Fabric 的虚拟 Pod 多租户架构的帮助下，容器编排系统
-（比如 Kubernetes、RedHat OpenShift、Mesosphere DC/OS 和 Docker Swarm）
-将与 VM 本地编排系统（比如 VMware、OpenStack 和 Nutanix）进行本地集成。
-客户将能够安全地互联任意数量的这些集群，并且在需要时启用他们之间的租户间通信。
-
-在最新的 [Magic Quadrant](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html) 上，
-BCF 被 Gartner 认为是非常有远见的。
-而 BCF 的一条关于 Kubernetes 的本地部署（其中包括 Kubernetes、DC/OS 和在不同地理区域的多个
-DC 上运行的 VMware）也在[这里](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)被引用。
-
-<!--
 ### Calico
 
-[Calico](https://docs.projectcalico.org/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
+[Calico](https://projectcalico.docs.tigera.io/about/about-calico/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
 -->
 ### Calico
 
-[Calico](https://docs.projectcalico.org/) 是一个开源的联网及网络安全方案，
+[Calico](https://projectcalico.docs.tigera.io/about/about-calico/) 是一个开源的联网及网络安全方案，
 用于基于容器、虚拟机和本地主机的工作负载。
 Calico 支持多个数据面，包括：纯 Linux eBPF 的数据面、标准的 Linux 联网数据面
-以及 Windwos HNS 数据面。Calico 在提供完整的联网堆栈的同时，还可与
+以及 Windows HNS 数据面。Calico 在提供完整的联网堆栈的同时，还可与
 [云驱动 CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) 联合使用，以保证网络策略实施。
 
 <!--
@@ -300,23 +170,22 @@ Cilium 支持 L7/HTTP，可以在 L3-L7 上通过使用与网络分离的基于�
 <!--
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](https://docs.projectcalico.org/), [Romana](https://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/cni-genie/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](https://projectcalico.docs.tigera.io/about/about-calico/), [Weave-net](https://www.weave.works/oss/net/).
 
-CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
+CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 -->
 ### 华为的 CNI-Genie
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) 是一个 CNI 插件，
+[CNI-Genie](https://github.com/cni-genie/CNI-Genie) 是一个 CNI 插件，
 可以让 Kubernetes 在运行时使用不同的[网络模型](#the-kubernetes-network-model)的
-[实现同时被访问](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)。
+[实现同时被访问](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)。
 这包括以
 [CNI 插件](https://github.com/containernetworking/cni#3rd-party-plugins)运行的任何实现，比如
 [Flannel](https://github.com/coreos/flannel#flannel)、
-[Calico](https://docs.projectcalico.org/)、
-[Romana](https://romana.io)、
-[Weave-net](https://www.weave.works/products/weave-net/)。
+[Calico](https://projectcalico.docs.tigera.io/about/about-calico/)、
+[Weave-net](https://www.weave.works/oss/net/)。
 
-CNI-Genie 还支持[将多个 IP 地址分配给 Pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multi-ip-addresses-per-pod)，
+CNI-Genie 还支持[将多个 IP 地址分配给 Pod](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod)，
 每个都来自不同的 CNI 插件。
 
 <!--
@@ -363,16 +232,13 @@ Coil operates with a low overhead compared to bare metal, and allows you to defi
 与裸机相比，Coil 的额外操作开销低，并允许针对外部网络的出站流量任意定义 NAT 网关。
 
 <!--
-### Contiv
+### Contiv-VPP
 
-[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](https://contiv.io) is all open sourced.
+[Contiv-VPP](https://contivpp.io/) is a user-space, performance-oriented network plugin for
+Kubernetes, using the [fd.io](https://fd.io/) data plane.
 -->
-### Contiv
-
-[Contiv](https://github.com/contiv/netplugin)
-为各种使用情况提供了一个可配置网络（使用了 BGP 的本地 L3，
-使用 vxlan 、经典 L2 或 Cisco-SDN/ACI 的覆盖网络）。
-[Contiv](https://contiv.io) 是完全开源的。
+### Contiv-VPP
+[Contiv-VPP](https://contivpp.io/) 是用于 Kubernetes 的用户空间、面向性能的网络插件，使用 [fd.io](https://fd.io/) 数据平面。
 
 <!--
 ### Contrail/Tungsten Fabric
@@ -405,7 +271,7 @@ With this toolset DANM is able to provide multiple separated network interfaces,
 它由以下几个组件构成：
 
 * 能够配置具有高级功能的 IPVLAN 接口的 CNI 插件
-* 一个内置的 IPAM 模块，能够管理多个、群集内的、不连续的 L3 网络，并按请求提供动态、静态或无 IP 分配方案
+* 一个内置的 IPAM 模块，能够管理多个、集群内的、不连续的 L3 网络，并按请求提供动态、静态或无 IP 分配方案
 * CNI 元插件能够通过自己的 CNI 或通过将任务授权给其他任何流行的 CNI 解决方案（例如 SRI-OV 或 Flannel）来实现将多个网络接口连接到容器
 * Kubernetes 控制器能够集中管理所有 Kubernetes 主机的 VxLAN 和 VLAN 接口
 * 另一个 Kubernetes 控制器扩展了 Kubernetes 的基于服务的服务发现概念，以在 Pod 的所有网络接口上工作
@@ -415,93 +281,25 @@ With this toolset DANM is able to provide multiple separated network interfaces,
 <!--
 ### Flannel
 
-[Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
+[Flannel](https://github.com/flannel-io/flannel#flannel) is a very simple overlay
 network that satisfies the Kubernetes requirements. Many
 people have reported success with Flannel and Kubernetes.
 -->
 ### Flannel
 
-[Flannel](https://github.com/coreos/flannel#flannel) 是一个非常简单的能够满足
+[Flannel](https://github.com/flannel-io/flannel#flannel) 是一个非常简单的能够满足
 Kubernetes 所需要的覆盖网络。已经有许多人报告了使用 Flannel 和 Kubernetes 的成功案例。
 
 <!--
-### Google Compute Engine (GCE)
+### Hybridnet
 
-For the Google Compute Engine cluster configuration scripts, [advanced
-routing](https://cloud.google.com/vpc/docs/routes) is used to
-assign each VM a subnet (default is `/24` - 254 IPs).  Any traffic bound for that
-subnet will be routed directly to the VM by the GCE network fabric.  This is in
-addition to the "main" IP address assigned to the VM, which is NAT'ed for
-outbound internet access.  A linux bridge (called `cbr0`) is configured to exist
-on that subnet, and is passed to docker's `-bridge` flag.
-
-Docker is started with:
-
-```shell
-DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
-```
-
-This bridge is created by Kubelet (controlled by the `--network-plugin=kubenet`
-flag) according to the `Node`'s `.spec.podCIDR`.
-
-Docker will now allocate IPs from the `cbr-cidr` block.  Containers can reach
-each other and `Nodes` over the `cbr0` bridge.  Those IPs are all routable
-within the GCE project network.
-
-GCE itself does not know anything about these IPs, though, so it will not NAT
-them for outbound internet traffic.  To achieve that an iptables rule is used
-to masquerade (aka SNAT - to make it seem as if packets came from the `Node`
-itself) traffic that is bound for IPs outside the GCE project network
-(10.0.0.0/8).
-
-```shell
-iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
-```
-
-Lastly IP forwarding is enabled in the kernel (so the kernel will process
-packets for bridged containers):
-
-```shell
-sysctl net.ipv4.ip_forward=1
-```
-
-The result of all this is that all `Pods` can reach each other and can egress
-traffic to the internet.
+[Hybridnet](https://github.com/alibaba/hybridnet) is an open source CNI plugin designed for hybrid clouds which provides both overlay and underlay networking for containers in one or more clusters. Overlay and underlay containers can run on the same node and have cluster-wide bidirectional network connectivity.
 -->
-### Google Compute Engine (GCE)
+### Hybridnet
 
-对于 Google Compute Engine 的集群配置脚本，
-[高级路由器](https://cloud.google.com/vpc/docs/routes) 用于为每个虚机分配一个子网（默认是 `/24` - 254个 IP），
-绑定到该子网的任何流量都将通过 GCE 网络结构直接路由到虚机。
-这是除了分配给虚机的“主” IP 地址之外的一个补充，该 IP 地址经过 NAT 转换以用于访问外网。
-Linux 网桥（称为“cbr0”）被配置为存在于该子网中，并被传递到 Docker 的 --bridge 参数上。
-
-Docker 会以这样的参数启动：
-
-```shell
-DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
-```
-
-这个网桥是由 Kubelet（由 `--network-plugin=kubenet` 参数控制）根据节点的 `.spec.podCIDR` 参数创建的。
-
-Docker 将会从 `cbr-cidr` 块分配 IP。
-容器之间可以通过 `cbr0` 网桥相互访问，也可以访问节点。
-这些 IP 都可以在 GCE 的网络中被路由。
-而 GCE 本身并不知道这些 IP，所以不会对访问外网的流量进行 NAT。
-为了实现此目的，使用了 `iptables` 规则来伪装（又称为 SNAT，使数据包看起来好像是来自“节点”本身），
-将通信绑定到 GCE 项目网络（10.0.0.0/8）之外的 IP。
-
-```shell
-iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
-```
-
-最后，在内核中启用了 IP 转发（因此内核将处理桥接容器的数据包）：
-
-```shell
-sysctl net.ipv4.ip_forward=1
-```
-
-所有这些的结果是所有 Pod 都可以互相访问，并且可以将流量发送到互联网。
+[Hybridnet](https://github.com/alibaba/hybridnet) 是一个为混合云设计的开源 CNI 插件，
+它为一个或多个集群中的容器提供覆盖和底层网络。 Overlay 和 underlay 容器可以在同一个节点上运行，
+并具有集群范围的双向网络连接。
 
 <!--
 ### Jaguar
@@ -573,7 +371,7 @@ Lars Kellogg-Stedman.
 
 如果你具有一个“哑”的L2网络，例如“裸机”环境中的简单交换机，则应该能够执行与上述 GCE 设置类似的操作。
 请注意，这些说明仅是非常简单的尝试过-似乎可行，但尚未经过全面测试。
-如果您使用此技术并完善了流程，请告诉我们。
+如果你使用此技术并完善了流程，请告诉我们。
 
 根据 Lars Kellogg-Stedman 的这份非常不错的“Linux 网桥设备”
 [使用说明](https://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/)来进行操作。
@@ -581,9 +379,9 @@ Lars Kellogg-Stedman.
 <!--
 ### Multus (a Multi Network plugin)
 
-[Multus](https://github.com/Intel-Corp/multus-cni) is a Multi CNI plugin to support the Multi Networking feature in Kubernetes using CRD based network objects in Kubernetes.
+Multus is a Multi CNI plugin to support the Multi Networking feature in Kubernetes using CRD based network objects in Kubernetes.
 
-Multus supports all [reference plugins](https://github.com/containernetworking/plugins) (eg. [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) that implement the CNI specification and 3rd party plugins (eg. [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). In addition to it, Multus supports [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) workloads in Kubernetes with both cloud native and NFV based applications in Kubernetes.
+Multus supports all [reference plugins](https://github.com/containernetworking/plugins) (eg. [Flannel](https://github.com/containernetworking/cni.dev/blob/main/content/plugins/v0.9/meta/flannel.md), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) that implement the CNI specification and 3rd party plugins (eg. [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). In addition to it, Multus supports [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) workloads in Kubernetes with both cloud native and NFV based applications in Kubernetes.
 -->
 ### Multus (a Multi Network plugin)
 
@@ -591,7 +389,7 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 使用 Kubernetes 中基于 CRD 的网络对象来支持实现 Kubernetes 多网络系统。
 
 Multus 支持所有[参考插件](https://github.com/containernetworking/plugins)（比如：
-[Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel)、
+[Flannel](https://github.com/containernetworking/cni.dev/blob/main/content/plugins/v0.9/meta/flannel.md)、
 [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp)、
 [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan) ）
 来实现 CNI 规范和第三方插件（比如：
@@ -623,28 +421,6 @@ NSX-T 可以为多云及多系统管理程序环境提供网络虚拟化，并�
 以及 NSX-T 与基于容器的 CaaS/PaaS 平台（例如 Pivotal Container Service（PKS）和 OpenShift）之间的集成。
 
 <!--
-### Nuage Networks VCS (Virtualized Cloud Services)
-
-[Nuage](https://www.nuagenetworks.net) provides a highly scalable policy-based Software-Defined Networking (SDN) platform. Nuage uses the open source Open vSwitch for the data plane along with a feature rich SDN Controller built on open standards.
-
-The Nuage platform uses overlays to provide seamless policy-based networking between Kubernetes Pods and non-Kubernetes environments (VMs and bare metal servers). Nuage's policy abstraction model is designed with applications in mind and makes it easy to declare fine-grained policies for applications.The platform's real-time analytics engine enables visibility and security monitoring for Kubernetes applications.
--->
-### Nuage Networks VCS (Virtualized Cloud Services)
-
-[Nuage](https://www.nuagenetworks.net) 提供了一个高度可扩展的基于策略的软件定义网络（SDN）平台。
-Nuage 使用开源的 Open vSwitch 作为数据平面，以及基于开放标准构建具有丰富功能的 SDN 控制器。
-
-Nuage 平台使用覆盖层在 Kubernetes Pod 和非 Kubernetes 环境（VM 和裸机服务器）之间提供基于策略的无缝联网。
-Nuage 的策略抽象模型在设计时就考虑到了应用程序，并且可以轻松声明应用程序的细粒度策略。
-该平台的实时分析引擎可为 Kubernetes 应用程序提供可见性和安全性监控。
-
-<!--
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) is a somewhat more mature but also
-complicated way to build an overlay network.  This is endorsed by several of the
-"Big Shops" for networking.
-
 ### OVN (Open Virtual Networking)
 
 OVN is an opensource network virtualization solution developed by the
@@ -653,11 +429,6 @@ stateful ACLs, load-balancers etc to build different virtual networking
 topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 -->
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) 是一个较为成熟的解决方案，但同时也增加了构建覆盖网络的复杂性。
-这也得到了几个网络系统的“大商店”的拥护。
-
 ### OVN (开放式虚拟网络)
 
 OVN 是一个由 Open vSwitch 社区开发的开源的网络虚拟化解决方案。
@@ -665,21 +436,9 @@ OVN 是一个由 Open vSwitch 社区开发的开源的网络虚拟化解决方�
 该项目有一个特定的Kubernetes插件和文档 [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)。
 
 <!--
-### Romana
-
-[Romana](https://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
--->
-### Romana
-
-[Romana](https://romana.io) 是一个开源网络和安全自动化解决方案。
-它可以让你在没有覆盖网络的情况下部署 Kubernetes。
-Romana 支持 Kubernetes [网络策略](/zh/docs/concepts/services-networking/network-policies/)，
-来提供跨网络命名空间的隔离。
-
-<!--
 ### Weave Net from Weaveworks
 
-[Weave Net](https://www.weave.works/products/weave-net/) is a
+[Weave Net](https://www.weave.works/oss/net/) is a
 resilient and simple to use network for Kubernetes and its hosted applications.
 Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)
 or stand-alone.  In either version, it doesn't require any configuration or extra code
@@ -687,7 +446,7 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 -->
 ### Weaveworks 的 Weave Net
 
-[Weave Net](https://www.weave.works/products/weave-net/) 是 Kubernetes 及其
+[Weave Net](https://www.weave.works/oss/net/) 是 Kubernetes 及其
 托管应用程序的弹性且易于使用的网络系统。
 Weave Net 可以作为 [CNI 插件](https://www.weave.works/docs/net/latest/cni-plugin/) 运行或者独立运行。
 在这两种运行方式里，都不需要任何配置或额外的代码即可运行，并且在两种情况下，

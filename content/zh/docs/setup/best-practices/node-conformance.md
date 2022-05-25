@@ -64,8 +64,6 @@ To run the node conformance test, perform the following steps:
     Because the test framework starts a local control plane to test the kubelet,
     use `http://localhost:8080` as the URL of the API server.
     There are some other kubelet command line parameters you may want to use:
-  * `--pod-cidr`: If you are using `kubenet`, you should specify an arbitrary CIDR
-    to Kubelet, for example `--pod-cidr=10.180.0.0/24`.
   * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
     remove the flag to run the test.
 -->
@@ -73,8 +71,6 @@ To run the node conformance test, perform the following steps:
    由于测试框架启动了本地控制平面来测试 kubelet， 因此使用 `http://localhost:8080` 
    作为API 服务器的 URL。
    一些其他的 kubelet 命令行参数可能会被用到：
-   * `--pod-cidr`： 如果使用 `kubenet`， 需要为 Kubelet 任意指定一个 CIDR， 
-     例如 `--pod-cidr=10.180.0.0/24`。
    * `--cloud-provider`： 如果使用 `--cloud-provider=gce`，需要移除这个参数
      来运行测试。
 
@@ -85,7 +81,7 @@ To run the node conformance test, perform the following steps:
 2. 使用以下命令运行节点一致性测试：
 
    ```shell
-   # $CONFIG_DIR 是您 Kubelet 的 pod manifest 路径。
+   # $CONFIG_DIR 是你 Kubelet 的 pod manifest 路径。
    # $LOG_DIR 是测试的输出路径。
    sudo docker run -it --rm --privileged --net=host \
      -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
@@ -123,7 +119,7 @@ Kubernetes 也为其他硬件体系结构的系统提供了节点一致性测试
 <!--
 To run specific tests, overwrite the environment variable `FOCUS` with theregular expression of tests you want to run.
 -->
-要运行特定测试，请使用您希望运行的测试的特定表达式覆盖环境变量 `FOCUS`。
+要运行特定测试，请使用你希望运行的测试的特定表达式覆盖环境变量 `FOCUS`。
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
@@ -135,7 +131,7 @@ k8s.gcr.io/node-test:0.2
 <!--
 To skip specific tests, overwrite the environment variable `SKIP` with theregular expression of tests you want to skip.
 -->
-要跳过特定的测试，请使用您希望跳过的测试的常规表达式覆盖环境变量 `SKIP`。
+要跳过特定的测试，请使用你希望跳过的测试的常规表达式覆盖环境变量 `SKIP`。
 
 <!--
 ```shell

@@ -19,9 +19,9 @@ It uses a tool called [`kops`](https://github.com/kubernetes/kops).
 本篇使用了一个名为 [`kops`](https://github.com/kubernetes/kops) 的工具。
 
 <!--
-kops is an opinionated provisioning system:
+kops is an automated provisioning system:
 -->
-kops 是一个自用的供应系统：
+kops 是一个自动化的制备系统：
 
 <!--
 * Fully automated installation
@@ -33,80 +33,170 @@ kops 是一个自用的供应系统：
 -->
 * 全自动安装流程
 * 使用 DNS 识别集群
-* 自我修复：一切都在自动扩展组中运行
+* 自我修复：一切都在自动扩缩组中运行
 * 支持多种操作系统（如 Debian、Ubuntu 16.04、CentOS、RHEL、Amazon Linux 和 CoreOS） - 参考 [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
 * 支持高可用 - 参考 [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/high_availability.md)
 * 可以直接提供或者生成 terraform 清单 - 参考 [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
-<!--
-If your opinions differ from these you may prefer to build your own cluster using [kubeadm](/docs/admin/kubeadm/) as
-a building block.  kops builds on the kubeadm work.
--->
-如果你有不同的观点，你可能更喜欢使用 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/)
-作为构建工具来构建自己的集群。kops 建立在 kubeadm 工作的基础上。
+## {{% heading "prerequisites" %}}
 
-<!-- body -->
+<!--
+* You must have [kubectl](/docs/tasks/tools/) installed.
+
+* You must [install](https://github.com/kubernetes/kops#installing) `kops` on a 64-bit (AMD64 and Intel 64) device architecture.
+
+* You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them. The IAM user will need [adequate permissions](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
+-->
+* 你必须安装 [kubectl](/zh/docs/tasks/tools/)。 
+* 你必须安装[安装](https://github.com/kubernetes/kops#installing) `kops`
+  到 64 位的（AMD64 和 Intel 64）设备架构上。
+* 你必须拥有一个 [AWS 账户](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)，
+  生成 [IAM 秘钥](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)
+  并[配置](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
+  该秘钥。IAM 用户需要[足够的权限许可](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user)。
+
+<!-- steps -->
 
 <!--
 ## Creating a cluster
 
 ### (1/5) Install kops
 
-#### Requirements
+#### Installation
 
-You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
+Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also convenient to build from source):
 -->
 ## 创建集群
 
 ### (1/5) 安装 kops
 
-#### 前提条件
-
-你必须安装 [kubectl](/zh/docs/tasks/tools/install-kubectl/) 才能使 kops 工作。
-
-<!--
-#### Installation
-
-Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also easy to build from source):
--->
 #### 安装
 
-从[下载页面](https://github.com/kubernetes/kops/releases)下载 kops（从源代码构建也很容易）：
+从[下载页面](https://github.com/kubernetes/kops/releases)下载 kops
+（从源代码构建也很方便）：
+
+{{< tabs name="kops_installation" >}}
+{{% tab name="macOS" %}}
 
 <!--
-On macOS:
-# you can also install using Homebrew
+Download the latest release with the command:
 -->
-在 macOS 上：
+使用下面的命令下载最新发布版本：
 
 ```shell
-curl -OL https://github.com/kubernetes/kops/releases/download/1.10.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
+```
+
+<!--
+To download a specific version, replace the following portion of the command with the specific kops version.
+-->
+要下载特定版本，使用特定的 kops 版本替换下面命令中的部分：
+
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+
+<!--
+For example, to download kops version v1.20.0 type:
+-->
+例如，要下载 kops v1.20.0，输入：
+
+```shell
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-darwin-amd64
+```
+
+<!--
+Make the kops binary executable.
+-->
+令 kops 二进制文件可执行：
+
+```shell
 chmod +x kops-darwin-amd64
-mv kops-darwin-amd64 /usr/local/bin/kops
-# 你也可以使用 Homebrew 安装 kops
+```
+
+<!--
+Move the kops binary in to your PATH.
+-->
+将 kops 二进制文件移到你的 PATH 下：
+
+```shell
+sudo mv kops-darwin-amd64 /usr/local/bin/kops
+```
+
+你也可以使用 [Homebrew](https://brew.sh/) 安装 kops：
+
+```shell
+brew update && brew install kops
+```
+{{% /tab %}}
+{{% tab name="Linux" %}}
+
+<!--
+Download the latest release with the command:
+-->
+使用命令下载最新发布版本：
+
+```shell
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+```
+
+<!--
+To download a specific version of kops, replace the following portion of the command with the specific kops version.
+-->
+要下载 kops 的特定版本，用特定的 kops 版本替换下面命令中的部分：
+
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+
+<!--
+For example, to download kops version v1.20.0 type:
+-->
+例如，要下载 kops v1.20 版本，输入：
+
+```shell
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-linux-amd64
+```
+
+<!--
+Make the kops binary executable
+-->
+令 kops 二进制文件可执行：
+
+```shell
+chmod +x kops-linux-amd64
+```
+
+<!--
+Move the kops binary in to your PATH.
+-->
+将 kops 二进制文件移到 PATH 下：
+
+
+```shell
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+你也可以使用 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
+来安装 kops：
+
+```shell
 brew update && brew install kops
 ```
 
-<!--
-On Linux:
--->
-在 Linux 上：
-
-```shell
-wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
-chmod +x kops-linux-amd64
-mv kops-linux-amd64 /usr/local/bin/kops
-```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 ### (2/5) Create a route53 domain for your cluster
 
-kops uses DNS for discovery, both inside the cluster and so that you can reach the kubernetes API server
+kops uses DNS for discovery, both inside the cluster and outside, so that you can reach the kubernetes API server
 from clients.
 -->
 ### (2/5) 为你的集群创建一个 route53 域名
 
-kops 在集群内部都使用 DNS 进行发现操作，因此你可以从客户端访问 kubernetes API 服务器。
+kops 在集群内部和外部都使用 DNS 进行发现操作，这样你可以从客户端访问
+kubernetes API 服务器。
 
 <!--
 kops has a strong opinion on the cluster name: it should be a valid DNS name.  By doing so you will
@@ -114,14 +204,14 @@ no longer get your clusters confused, you can share clusters with your colleague
 and you can reach them without relying on remembering an IP address.
 -->
 kops 对集群名称有明显的要求：它应该是有效的 DNS 名称。这样一来，你就不会再使集群混乱，
-可以与同事明确共享集群，并且无需依赖记住 IP 地址即可访问群集。
+可以与同事明确共享集群，并且无需依赖记住 IP 地址即可访问集群。
 
 <!--
 You can, and probably should, use subdomains to divide your clusters.  As our example we will use
 `useast1.dev.example.com`.  The API server endpoint will then be `api.useast1.dev.example.com`.
 -->
-你应该使用子域名来划分集群。作为示例，我们将使用域名 `useast1.dev.example.com`。
-然后，API 服务器端点域名将为 `api.useast1.dev.example.com`。
+你可以，或许应该使用子域名来划分集群。作为示例，我们将使用域名 `useast1.dev.example.com`。
+这样，API 服务器端点域名将为 `api.useast1.dev.example.com`。
 
 <!--
 A Route53 hosted zone can serve subdomains.  Your hosted zone could be `useast1.dev.example.com`,
@@ -154,10 +244,10 @@ records at your domain registrar (e.g. `example.com` would need to be configured
 例如，你需要在购买 `example.com` 的地方配置 `example.com`。
 
 <!--
-This step is easy to mess up (it is the #1 cause of problems!)  You can double-check that
+Verify your route53 domain setup (it is the #1 cause of problems!). You can double-check that
 your cluster is configured correctly if you have the dig tool by running:
 -->
-这一步很容易搞砸（这是问题的第一大原因！）
+检查你的 route53 域已经被正确设置（这是导致问题的最常见原因！）。
 如果你安装了 dig 工具，则可以通过运行以下步骤再次检查集群是否配置正确：
 
 ```shell
@@ -187,8 +277,10 @@ administer the same clusters - this is much easier than passing around kubecfg f
 to the S3 bucket will have administrative access to all your clusters, so you don't want to share it beyond
 the operations team.
 -->
-多个集群可以使用同一 S3 存储桶，并且你可以在管理同一集群的同事之间共享一个 S3 存储桶 - 这比传递 kubecfg 文件容易得多。
-但是有权访问 S3 存储桶的任何人都将拥有对所有集群的管理访问权限，因此你不想在运营团队之外共享它。
+多个集群可以使用同一 S3 存储桶，并且你可以在管理同一集群的同事之间共享一个
+S3 存储桶 - 这比传递 kubecfg 文件容易得多。
+但是有权访问 S3 存储桶的任何人都将拥有对所有集群的管理访问权限，
+因此你不想在运营团队之外共享它。
 
 <!--
 So typically you have one S3 bucket for each ops team (and often the name will correspond
@@ -200,7 +292,8 @@ to the name of the hosted zone above!)
 In our example, we chose `dev.example.com` as our hosted zone, so let's pick `clusters.dev.example.com` as
 the S3 bucket name.
 -->
-在我们的示例中，我们选择 `dev.example.com` 作为托管区域，因此让我们选择 `clusters.dev.example.com` 作为 S3 存储桶名称。
+在我们的示例中，我们选择 `dev.example.com` 作为托管区域，因此我们选择
+`clusters.dev.example.com` 作为 S3 存储桶名称。
 
 <!--
 * Export `AWS_PROFILE` (if you need to select a profile for the AWS CLI to work)
@@ -210,17 +303,18 @@ the S3 bucket name.
 -->
 * 导出 `AWS_PROFILE` 文件（如果你需要选择一个配置文件用来使 AWS CLI 正常工作）
 * 使用 `aws s3 mb s3://clusters.dev.example.com` 创建 S3 存储桶
-* 你可以进行 `export KOPS_STATE_STORE=s3://clusters.dev.example.com` 操作，然后 kops 将默认使用此位置。
+* 你可以进行 `export KOPS_STATE_STORE=s3://clusters.dev.example.com` 操作，
+  然后 kops 将默认使用此位置。
   我们建议将其放入你的 bash profile 文件或类似文件中。
 
 <!--
 ### (4/5) Build your cluster configuration
 
-Run "kops create cluster" to create your cluster configuration:
+Run `kops create cluster` to create your cluster configuration:
 -->
 ### (4/5) 建立你的集群配置
 
-运行 "kops create cluster" 以创建你的集群配置：
+运行 `kops create cluster` 以创建你的集群配置：
 
 `kops create cluster --zones=us-east-1c useast1.dev.example.com`
 
@@ -229,7 +323,8 @@ kops will create the configuration for your cluster.  Note that it _only_ create
 not actually create the cloud resources - you'll do that in the next step with a `kops update cluster`.  This
 give you an opportunity to review the configuration or change it.
 -->
-kops 将为你的集群创建配置。请注意，它_仅_创建配置，实际上并没有创建云资源 - 你将在下一步中使用 `kops update cluster` 进行配置。
+kops 将为你的集群创建配置。请注意，它_仅_创建配置，实际上并没有创建云资源 - 
+你将在下一步中使用 `kops update cluster` 进行配置。
 这使你有机会查看配置或进行更改。
 
 <!--
@@ -312,27 +407,16 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 * 删除集群：`kops delete cluster useast1.dev.example.com --yes`
 
-<!--
-## Feedback
--->
-## 反馈
-
-<!--
-* Slack Channel: [#kops-users](https://kubernetes.slack.com/messages/kops-users/)
-* [GitHub Issues](https://github.com/kubernetes/kops/issues)
--->
-* Slack 频道: [#kops-users](https://kubernetes.slack.com/messages/kops-users/)
-* [GitHub Issues](https://github.com/kubernetes/kops/issues)
-
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
 * Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
 * See the `kops` [docs](https://github.com/kubernetes/kops) section for tutorials, best practices and advanced configuration options.
 -->
 * 了解有关 Kubernetes 的[概念](/zh/docs/concepts/) 和
-  [`kubectl`](/zh/docs/reference/kubectl/overview/) 的更多信息。
+  [`kubectl`](/zh/docs/reference/kubectl/) 有关的更多信息。
 * 了解 `kops` [高级用法](https://github.com/kubernetes/kops)。
-* 请参阅 `kops` [文档](https://github.com/kubernetes/kops) 获取教程、最佳做法和高级配置选项。
+* 请参阅 `kops` [文档](https://github.com/kubernetes/kops) 获取教程、
+  最佳做法和高级配置选项。
 

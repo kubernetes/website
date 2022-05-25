@@ -57,7 +57,7 @@ kubectl describe pods ${POD_NAME}
   절대 스케줄 될 수 없다.
 
 	사용자는 `kubectl get nodes -o <format>` 명령으로 노드의
-	용량을 점검할 수 있다. 다음은 필요한 정보만을 추출하는 몇 가지
+	용량을 점검할 수 있다. 다음은 필요한 정보를 추출하는 몇 가지
 	명령의 예이다.
 
     ```shell
@@ -91,7 +91,7 @@ kubectl describe pods ${POD_NAME}
 
 ### 파드가 손상(crashing)되었거나 양호하지 않을(unhealthy) 경우
 
-일단 사용자의 파드가 스케줄 되면, [구동중인 파드 디버그하기](/docs/tasks/debug-application-cluster/debug-running-pod/)에
+일단 사용자의 파드가 스케줄 되면, [구동중인 파드 디버그하기](/ko/docs/tasks/debug-application-cluster/debug-running-pod/)에
 기술된 메서드를 디버깅에 사용할 수 있다.
 
 

@@ -103,7 +103,7 @@ spec:
     plural: crontabs
     # singular name to be used as an alias on the CLI and for display
     singular: crontab
-    # kind is normally the CamelCased singular type. Your resource manifests use this.
+    # kind is normally the PascalCased singular type. Your resource manifests use this.
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
@@ -146,7 +146,7 @@ spec:
     plural: crontabs
     # 名称的单数形式，作为命令行使用时和显示时的别名
     singular: crontab
-    # kind 通常是单数形式的驼峰编码（CamelCased）形式。你的资源清单会使用这一形式。
+    # kind 通常是单数形式的帕斯卡编码（PascalCased）形式。你的资源清单会使用这一形式。
     kind: CronTab
     # shortNames 允许你在命令行使用较短的字符串来匹配资源
     shortNames:
@@ -269,22 +269,26 @@ from the YAML you used to create it:
 
 ```yaml
 apiVersion: v1
-kind: List
 items:
 - apiVersion: stable.example.com/v1
   kind: CronTab
   metadata:
-    creationTimestamp: 2017-05-31T12:56:35Z
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"stable.example.com/v1","kind":"CronTab","metadata":{"annotations":{},"name":"my-new-cron-object","namespace":"default"},"spec":{"cronSpec":"* * * * */5","image":"my-awesome-cron-image"}}
+    creationTimestamp: "2021-06-20T07:35:27Z"
     generation: 1
     name: my-new-cron-object
     namespace: default
-    resourceVersion: "285"
-    uid: 9423255b-4600-11e7-af6a-28d2447dc82b
+    resourceVersion: "1326"
+    uid: 9aab1d66-628e-41bb-a422-57b8b3b1f5a9
   spec:
     cronSpec: '* * * * */5'
     image: my-awesome-cron-image
+kind: List
 metadata:
   resourceVersion: ""
+  selfLink: ""
 ```
 
 <!--
@@ -842,12 +846,12 @@ CustomResourceDefinition and migrating your objects from one version to another.
 
 <!--
 *Finalizers* allow controllers to implement asynchronous pre-delete hooks.
-Custom objects support finalizers just like built-in objects.
+Custom objects support finalizers similar to built-in objects.
 
 You can add a finalizer to a custom object like this:
 -->
 *Finalizer* 能够让控制器实现异步的删除前（Pre-delete）回调。
-定制对象和内置对象一样支持 Finalizer。
+与内置对象类似，定制对象也支持 Finalizer。
 
 你可以像下面一样为定制对象添加 Finalizer：
 

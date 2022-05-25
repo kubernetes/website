@@ -17,7 +17,7 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 
 すべてのコンポーネントが結び付けられたKubernetesクラスターの図を次に示します。
 
-![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.png)
+![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.svg)
 
 
 
@@ -88,7 +88,7 @@ kube-controller-managerを使用すると、cloud-controller-managerは複数の
 アドオンはクラスター機能を実装するためにKubernetesリソース({{< glossary_tooltip term_id="daemonset" >}}、{{< glossary_tooltip term_id="deployment" >}}など)を使用します。
 アドオンはクラスターレベルの機能を提供しているため、アドオンのリソースで名前空間が必要なものは`kube-system`名前空間に属します。
 
-いくつかのアドオンについて以下で説明します。より多くの利用可能なアドオンのリストは、[アドオン](/docs/concepts/cluster-administration/addons/) をご覧ください。
+いくつかのアドオンについて以下で説明します。より多くの利用可能なアドオンのリストは、[アドオン](/ja/docs/concepts/cluster-administration/addons/) をご覧ください。
 
 ### DNS
 
@@ -115,7 +115,7 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 ## {{% heading "whatsnext" %}}
 
 * [ノード](/ja/docs/concepts/architecture/nodes/)について学ぶ
-* [コントローラー](/docs/concepts/architecture/controller/)について学ぶ
+* [コントローラー](/ja/docs/concepts/architecture/controller/)について学ぶ
 * [kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)について学ぶ
 * etcdの公式 [ドキュメント](https://etcd.io/docs/)を読む
 

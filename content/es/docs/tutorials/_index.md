@@ -31,6 +31,8 @@ Antes de recorrer cada tutorial, recomendamos añadir un marcador a
 
 ## Configuración
 
+* [Ejemplo: Configurando un Microservicio en Java](/docs/tutorials/configuration/configure-java-microservice/)
+
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Aplicaciones Stateless
@@ -52,6 +54,8 @@ Antes de recorrer cada tutorial, recomendamos añadir un marcador a
 ## Clústers
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
+
+* [seccomp](/docs/tutorials/clusters/seccomp/)
 
 ## Servicios
 

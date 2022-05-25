@@ -172,7 +172,7 @@ by quotas:
 下面这些字符串可被用来标识那些能被配额限制的 API 资源：
 
 <table>
-<tr><th>String</th><th>API Object</th></tr>
+<tr><th>字符串</th><th>API 对象</th></tr>
 <tr><td>"pods"</td><td>Pod</td></tr>
 <tr><td>"services"</td><td>Service</td></tr>
 <tr><td>"replicationcontrollers"</td><td>ReplicationController</td></tr>
@@ -180,8 +180,8 @@ by quotas:
 <tr><td>"secrets"</td><td>Secret</td></tr>
 <tr><td>"configmaps"</td><td>ConfigMap</td></tr>
 <tr><td>"persistentvolumeclaims"</td><td>PersistentVolumeClaim</td></tr>
-<tr><td>"services.nodeports"</td><td>Service of type NodePort</td></tr>
-<tr><td>"services.loadbalancers"</td><td>Service of type LoadBalancer</td></tr>
+<tr><td>"services.nodeports"</td><td>NodePort 类型的 Service</td></tr>
+<tr><td>"services.loadbalancers"</td><td>LoadBalancer 类型的 Service</td></tr>
 </table>
 
 <!--

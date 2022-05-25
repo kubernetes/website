@@ -142,7 +142,7 @@ cd <web-base>/update-imported-docs
 ## Исправление ссылок
 
 Конфигурационный файл `release.yml` содержит инструкции по исправлению относительных ссылок
-Для исправления относительных ссылок в импортированных файлах, установите для свойство `gen-absolute-links` в значение `true`. В качестве примера можете посмотреть файл [`release.yml`](https://github.com/kubernetes/website/blob/master/update-imported-docs/release.yml).
+Для исправления относительных ссылок в импортированных файлах, установите для свойство `gen-absolute-links` в значение `true`. В качестве примера можете посмотреть файл [`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml).
 
 ## Внесение изменений в kubernetes/website
 
@@ -218,5 +218,3 @@ static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.w
 * [Генерация справочной документации для компонентов и инструментов Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Генерация справочной документации для команд kubectl](/ru/docs/contribute/generate-ref-docs/kubectl/)
 * [Генерация справочной документации для API Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-api/)
-
-

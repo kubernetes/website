@@ -16,7 +16,7 @@ content_type: task
 <!-- overview -->
 <!--
 This guide demonstrates how to install and write extensions for [kubectl](/docs/reference/kubectl/kubectl/). By thinking of core `kubectl` commands as essential building blocks for interacting with a Kubernetes cluster, a cluster administrator can think
-  of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
+of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
 -->
 本指南演示了如何为 [kubectl](/zh/docs/reference/kubectl/kubectl/) 安装和编写扩展。
 通过将核心 `kubectl` 命令看作与 Kubernetes 集群交互的基本构建块，
@@ -35,12 +35,12 @@ You need to have a working `kubectl` binary installed.
 <!--
 ## Installing kubectl plugins
 
-A plugin is nothing more than a standalone executable file, whose name begins with `kubectl-`. To install a plugin, simply move this executable file to anywhere on your PATH.
+A plugin is a standalone executable file, whose name begins with `kubectl-`. To install a plugin, move its executable file to anywhere on your `PATH`.
 -->
 ## 安装 kubectl 插件
 
-插件只不过是一个独立的可执行文件，名称以 `kubectl-` 开头。
-要安装插件，只需将此可执行文件移动到 PATH 中的任何位置。
+插件是一个独立的可执行文件，名称以 `kubectl-` 开头。
+要安装插件，将其可执行文件移动到 `PATH` 中的任何位置。
 
 <!--
 You can also discover and install kubectl plugins available in the open source
@@ -112,14 +112,14 @@ You can write a plugin in any programming language or script that allows you to 
 <!--
 There is no plugin installation or pre-loading required. Plugin executables receive
 the inherited environment from the `kubectl` binary.
-A plugin determines which command path it wishes to implement based on its name. For
-example, a plugin wanting to provide a new command `kubectl foo`, would simply be named
-`kubectl-foo`, and live somewhere in the user's PATH.
+A plugin determines which command path it wishes to implement based on its name.
+For example, a plugin named `kubectl-foo` provides a command `kubectl foo`. You must
+install the plugin executable somewhere in your `PATH`.
 -->
 不需要安装插件或预加载，插件可执行程序从 `kubectl` 二进制文件接收继承的环境，
 插件根据其名称确定它希望实现的命令路径。
-例如，一个插件想要提供一个新的命令 `kubectl foo`，它将被简单地命名为 `kubectl-foo`，
-并且位于用户 PATH 的某个位置。
+例如，名为 `kubectl-foo` 的插件提供了命令 `kubectl foo`。
+必须将插件的可执行文件安装在 `PATH` 中的某个位置。
 
 <!--
 ### Example plugin
@@ -152,11 +152,11 @@ echo "I am a plugin named kubectl-foo"
 ### 使用插件
 
 <!--
-To use the above plugin, simply make it executable:
+To use a plugin, make the plugin executable:
 -->
-要使用上面的插件，只需使其可执行：
+要使用某插件，先要使其可执行：
 
-```
+```shell
 sudo chmod +x ./kubectl-foo
 ```
 
@@ -165,7 +165,7 @@ and place it anywhere in your PATH:
 -->
 并将它放在你的 PATH 中的任何地方：
 
-```
+```shell
 sudo mv ./kubectl-foo /usr/local/bin
 ```
 
@@ -174,9 +174,10 @@ You may now invoke your plugin as a `kubectl` command:
 -->
 你现在可以调用你的插件作为 `kubectl` 命令：
 
-```
+```shell
 kubectl foo
 ```
+
 ```
 I am a plugin named kubectl-foo
 ```
@@ -186,9 +187,10 @@ All args and flags are passed as-is to the executable:
 -->
 所有参数和标记按原样传递给可执行文件：
 
-```
+```shell
 kubectl foo version
 ```
+
 ```
 1.0.0
 ```
@@ -202,6 +204,7 @@ All environment variables are also passed as-is to the executable:
 export KUBECONFIG=~/.kube/config
 kubectl foo config
 ```
+
 ```
 /home/<user>/.kube/config
 ```
@@ -209,6 +212,7 @@ kubectl foo config
 ```shell
 KUBECONFIG=/etc/kube/config kubectl foo config
 ```
+
 ```
 /etc/kube/config
 ```
@@ -584,7 +588,6 @@ installs easier.
 * In case of any questions, feel free to reach out to the [CLI SIG team](https://github.com/kubernetes/community/tree/master/sig-cli).
 * Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.
 -->
-
 * 查看 CLI 插件库示例，查看用 Go 编写的插件的[详细示例](https://github.com/kubernetes/sample-cli-plugin)
 * 如有任何问题，请随时联系 [SIG CLI ](https://github.com/kubernetes/community/tree/master/sig-cli)
 * 了解 [Krew](https://krew.dev/)，一个 kubectl 插件管理器。

@@ -34,8 +34,8 @@ Write operations:
 
 Auth-related operations:
 
-* read/write access to the certificationsigningrequests API for TLS bootstrapping
-* the ability to create tokenreviews and subjectaccessreviews for delegated authentication/authorization checks
+* read/write access to the [CertificateSigningRequests API](/docs/reference/access-authn-authz/certificate-signing-requests/) for TLS bootstrapping
+* the ability to create TokenReviews and SubjectAccessReviews for delegated authentication/authorization checks
 
 In future releases, the node authorizer may add or remove permissions to ensure kubelets
 have the minimal set of permissions required to operate correctly.

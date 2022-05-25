@@ -151,10 +151,11 @@ partition
 !partition
 ```
 
-最初の例では、キーが`environment`で、値が`production`か`qa`に等しいリソースを全て選択します。  
-第2の例では、キーが`tier`で、値が`frontend`と`backend`以外のもの、そして`tier`キーを持たないリソースを全て選択します。  
-第3の例では、`partition`というキーをもつラベルを全て選択し、値はチェックしません。  
-第4の例では、`partition`というキーを持たないラベルを全て選択し、値はチェックしません。  
+* 最初の例では、キーが`environment`で、値が`production`か`qa`に等しいリソースを全て選択します。  
+* 第2の例では、キーが`tier`で、値が`frontend`と`backend`以外のもの、そして`tier`キーを持たないリソースを全て選択します。  
+* 第3の例では、`partition`というキーをもつラベルを全て選択し、値はチェックしません。  
+* 第4の例では、`partition`というキーを持たないラベルを全て選択し、値はチェックしません。  
+
 同様に、コンマセパレーターは、_AND_ オペレーターと同様にふるまいます。そのため、`partition`と`environment`キーの値がともに`qa`でないラベルを選択するには、`partition,environment notin (qa)`と記述することで可能です。  
 *集合ベース* のラベルセレクターは、`environment=production`という記述が`environment in (production)`と等しいため、一般的な等価形式となります。 `!=`と`notin`も同様に等価となります。  
 
@@ -198,7 +199,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 ```
 
 ### APIオブジェクトに参照を設定する
-[`Service`](/ja/docs/concepts/services-networking/service/) と [`ReplicationController`](/docs/concepts/workloads/controllers/replicationcontroller/)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/ja/docs/concepts/workloads/pods/pod/)のような他のリソースのセットを指定するのにも使われます。  
+[`Service`](/ja/docs/concepts/services-networking/service/) と [`ReplicationController`](/docs/concepts/workloads/controllers/replicationcontroller/)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/ja/docs/concepts/workloads/pods/)のような他のリソースのセットを指定するのにも使われます。  
 
 #### ServiceとReplicationController
 `Service`が対象とするPodの集合は、ラベルセレクターによって定義されます。  

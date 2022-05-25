@@ -27,13 +27,15 @@ content_type: concept
 
 ## 구성
 
+* [예제: Java 마이크로서비스 구성하기](/ko/docs/tutorials/configuration/configure-java-microservice/)
+
 * [컨피그 맵을 사용해서 Redis 설정하기](/ko/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## 상태 유지를 하지 않는(stateless) 애플리케이션
 
 * [외부 IP 주소를 노출하여 클러스터의 애플리케이션에 접속하기](/ko/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [예시: MongoDB를 사용한 PHP 방명록 애플리케이션 배포하기](/ko/docs/tutorials/stateless-application/guestbook/)
+* [예시: Redis를 사용한 PHP 방명록 애플리케이션 배포하기](/ko/docs/tutorials/stateless-application/guestbook/)
 
 ## 상태 유지가 필요한(stateful) 애플리케이션
 
@@ -45,14 +47,16 @@ content_type: concept
 
 * [분산 시스템 코디네이터 ZooKeeper 실행하기](/ko/docs/tutorials/stateful-application/zookeeper/)
 
-## 클러스터
-
-* [AppArmor](/ko/docs/tutorials/clusters/apparmor/)
-
 ## 서비스
 
 * [소스 IP 주소 이용하기](/ko/docs/tutorials/services/source-ip/)
 
+## 보안
+
+* [파드 보안 표준을 클러스터 수준으로 적용하기](/docs/tutorials/security/cluster-level-pss/)
+* [파드 보안 표준을 네임스페이스 수준으로 적용하기](/docs/tutorials/security/ns-level-pss/)
+* [AppArmor](/ko/docs/tutorials/security/apparmor/)
+* [seccomp](/docs/tutorials/security/seccomp/)
 ## {{% heading "whatsnext" %}}
 
 튜토리얼을 작성하고 싶다면, 튜토리얼 페이지 유형에 대한 정보가 있는

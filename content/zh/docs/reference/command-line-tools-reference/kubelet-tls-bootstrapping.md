@@ -15,12 +15,12 @@ content_type: concept
 <!-- overview -->
 
 <!--
-In a Kubernetes cluster, the components on the worker nodes - kubelet and kube-proxy - need to communicate with Kubernetes master components, specifically kube-apiserver.
+In a Kubernetes cluster, the components on the worker nodes - kubelet and kube-proxy - need to communicate with Kubernetes control plane components, specifically kube-apiserver.
 In order to ensure that communication is kept private, not interfered with, and ensure that each component of the cluster is talking to another trusted component, we strongly
 recommend using client TLS certificates on nodes.
 -->
 在一个 Kubernetes 集群中，工作节点上的组件（kubelet 和 kube-proxy）需要与
-Kubernetes 主控组件通信，尤其是 kube-apiserver。
+Kubernetes 控制平面组件通信，尤其是 kube-apiserver。
 为了确保通信本身是私密的、不被干扰，并且确保集群的每个组件都在与另一个
 可信的组件通信，我们强烈建议使用节点上的客户端 TLS 证书。
 
@@ -89,7 +89,7 @@ Note that the above process depends upon:
 All of the following are responsibilities of whoever sets up and manages the cluster:
 
 1. Creating the CA key and certificate
-2. Distributing the CA certificate to the master nodes, where kube-apiserver is running
+2. Distributing the CA certificate to the control plane nodes, where kube-apiserver is running
 3. Creating a key and certificate for each kubelet; strongly recommended to have a unique one, with a unique CN, for each kubelet
 4. Signing the kubelet certificate using the CA key
 5. Distributing the kubelet key and signed certificate to the specific node on which the kubelet is running
@@ -100,7 +100,7 @@ a cluster.
 负责部署和管理集群的人有以下责任：
 
 1. 创建 CA 密钥和证书
-2. 将 CA 证书发布到 kube-apiserver 运行所在的主控节点上
+2. 将 CA 证书发布到 kube-apiserver 运行所在的控制平面节点上
 3. 为每个 kubelet 创建密钥和证书；强烈建议为每个 kubelet 使用独一无二的、
    CN 取值与众不同的密钥和证书
 4. 使用 CA 密钥对 kubelet 证书签名
@@ -191,21 +191,21 @@ In addition, you need your Kubernetes Certificate Authority (CA).
 ## Certificate Authority
 
 As without bootstrapping, you will need a Certificate Authority (CA) key and certificate. As without bootstrapping, these will be used
-to sign the kubelet certificate. As before, it is your responsibility to distribute them to master nodes.
+to sign the kubelet certificate. As before, it is your responsibility to distribute them to control plane nodes.
 -->
 ## 证书机构   {#certificate-authority}
 
 就像在没有启动引导的情况下，你会需要证书机构（CA）密钥和证书。
 这些数据会被用来对 kubelet 证书进行签名。
-如前所述，将证书机构密钥和证书发布到主控节点是你的责任。
+如前所述，将证书机构密钥和证书发布到控制平面节点是你的责任。
 
 <!--
-For the purposes of this document, we will assume these have been distributed to master nodes at `/var/lib/kubernetes/ca.pem` (certificate) and `/var/lib/kubernetes/ca-key.pem` (key).
+For the purposes of this document, we will assume these have been distributed to control plane nodes at `/var/lib/kubernetes/ca.pem` (certificate) and `/var/lib/kubernetes/ca-key.pem` (key).
 We will refer to these as "Kubernetes CA certificate and key".
 
 All Kubernetes components that use these certificates - kubelet, kube-apiserver, kube-controller-manager - assume the key and certificate to be PEM-encoded.
 -->
-就本文而言，我们假定这些数据被发布到主控节点上的
+就本文而言，我们假定这些数据被发布到控制平面节点上的
 `/var/lib/kubernetes/ca.pem`（证书）和
 `/var/lib/kubernetes/ca-key.pem`（密钥）文件中。
 我们将这两个文件称作“Kubernetes CA 证书和密钥”。
@@ -273,11 +273,9 @@ of provisioning.
 
 <!--
 Bootstrap tokens are a simpler and more easily managed method to authenticate kubelets, and do not require any additional flags when starting kube-apiserver.
-Using bootstrap tokens is currently __beta__ as of Kubernetes version 1.12.
 -->
 启动引导令牌是一种对 kubelet 进行身份认证的方法，相对简单且容易管理，
 且不需要在启动 kube-apiserver 时设置额外的标志。
-启动引导令牌从 Kubernetes 1.12 开始是一种 __Beta__ 功能特性。
 
 <!--
 Whichever method you choose, the requirement is that the kubelet be able to authenticate as a user with the rights to:
@@ -299,8 +297,7 @@ A kubelet authenticating using bootstrap tokens is authenticated as a user in th
 <!--
 As this feature matures, you
 should ensure tokens are bound to a Role Based Access Control (RBAC) policy
-which limits requests (using the [bootstrap
-token](/docs/reference/access-authn-authz/bootstrap-tokens/)) strictly to client
+which limits requests (using the [bootstrap token](/docs/reference/access-authn-authz/bootstrap-tokens/)) strictly to client
 requests related to certificate provisioning. With RBAC in place, scoping the
 tokens to a group allows for great flexibility. For example, you could disable a
 particular bootstrap group's access when you are done provisioning the nodes.
@@ -335,7 +332,7 @@ The process is two-fold:
 
 <!--
 From the kubelet's perspective, one token is like another and has no special meaning.
-From the kube-apiserver's perspective, however, the bootstrap token is special. Due to its `Type`, `namespace` and `name`, kube-apiserver recognizes it as a special token,
+From the kube-apiserver's perspective, however, the bootstrap token is special. Due to its `type`, `namespace` and `name`, kube-apiserver recognizes it as a special token,
 and grants anyone authenticating with that token special bootstrap rights, notably treating them as a member of the `system:bootstrappers` group. This fulfills a basic requirement
 for TLS bootstrapping.
 -->
@@ -354,14 +351,14 @@ If you want to use bootstrap tokens, you must enable it on kube-apiserver with t
 
 如果你希望使用启动引导令牌，你必须在 kube-apiserver 上使用下面的标志启用之：
 
-```
+```console
 --enable-bootstrap-token-auth=true
 ```
 
 <!--
 #### Token authentication file
 
-kube-apiserver has an ability to accept tokens as authentication.
+kube-apiserver has the ability to accept tokens as authentication.
 These tokens are arbitrary but should represent at least 128 bits of entropy derived
 from a secure random number generator (such as `/dev/urandom` on most modern Linux
 systems). There are multiple ways you can generate a token. For example:
@@ -373,7 +370,7 @@ kube-apiserver 能够将令牌视作身份认证依据。
 至少 128 位混沌数据。这里的随机数生成器可以是现代 Linux 系统上的
 `/dev/urandom`。生成令牌的方式有很多种。例如：
 
-```
+```shell
 head -c 16 /dev/urandom | od -An -t x | tr -d ' '
 ```
 
@@ -388,7 +385,7 @@ values can be anything and the quoted group name should be as depicted:
 令牌文件看起来是下面的例子这样，其中前面三个值可以是任何值，用引号括起来
 的组名称则只能用例子中给的值。
 
-```
+```console
 02b50b05283e98dd0fd71db496ef01e8,kubelet-bootstrap,10001,"system:bootstrappers"
 ```
 
@@ -406,9 +403,13 @@ further details.
 <!--
 ### Authorize kubelet to create CSR
 
-Now that the bootstrapping node is _authenticated_ as part of the `system:bootstrappers` group, it needs to be _authorized_ to create a certificate signing request (CSR) as well as retrieve it when done. Fortunately, Kubernetes ships with a `ClusterRole` with precisely these (and just these) permissions, `system:node-bootstrapper`.
+Now that the bootstrapping node is _authenticated_ as part of the
+`system:bootstrappers` group, it needs to be _authorized_ to create a
+certificate signing request (CSR) as well as retrieve it when done.
+Fortunately, Kubernetes ships with a `ClusterRole` with precisely these (and
+only these) permissions, `system:node-bootstrapper`.
 
-To do this, you just need to create a `ClusterRoleBinding` that binds the `system:bootstrappers` group to the cluster role `system:node-bootstrapper`.
+To do this, you only need to create a `ClusterRoleBinding` that binds the `system:bootstrappers` group to the cluster role `system:node-bootstrapper`.
 -->
 ### 授权 kubelet 创建 CSR    {#authorize-kubelet-to-create-csr}
 
@@ -420,7 +421,7 @@ To do this, you just need to create a `ClusterRoleBinding` that binds the `syste
 为了实现这一点，你只需要创建 `ClusterRoleBinding`，将 `system:bootstrappers`
 组绑定到集群角色 `system:node-bootstrapper`。
 
-```
+```yaml
 # 允许启动引导节点创建 CSR
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -472,12 +473,12 @@ In order for the controller-manager to sign certificates, it needs the following
 <!--
 ### Access to key and certificate
 
-As described earlier, you need to create a Kubernetes CA key and certificate, and distribute it to the master nodes.
+As described earlier, you need to create a Kubernetes CA key and certificate, and distribute it to the control plane nodes.
 These will be used by the controller-manager to sign the kubelet certificates.
 -->
 ### 访问密钥和证书   {#access-to-key-and-certificate}
 
-如前所述，你需要创建一个 Kubernetes CA 密钥和证书，并将其发布到主控节点。
+如前所述，你需要创建一个 Kubernetes CA 密钥和证书，并将其发布到控制平面节点。
 这些数据会被控制器管理器来对 kubelet 证书进行签名。
 
 <!--
@@ -495,7 +496,7 @@ kubelet 身份认证，很重要的一点是为控制器管理器所提供的 CA
 
 要将 Kubernetes CA 密钥和证书提供给 kube-controller-manager，可使用以下标志：
 
-```
+```shell
 --cluster-signing-cert-file="/etc/path/to/kubernetes/ca/ca.crt" --cluster-signing-key-file="/etc/path/to/kubernetes/ca/ca.key"
 ```
 
@@ -504,7 +505,7 @@ For example:
 -->
 例如：
 
-```
+```shell
 --cluster-signing-cert-file="/var/lib/kubernetes/ca.pem" --cluster-signing-key-file="/var/lib/kubernetes/ca-key.pem"
 ```
 
@@ -513,7 +514,7 @@ The validity duration of signed certificates can be configured with flag:
 -->
 所签名的证书的合法期限可以通过下面的标志来配置：
 
-```
+```shell
 --cluster-signing-duration
 ```
 
@@ -602,7 +603,7 @@ collection.
 -->
 作为 [kube-controller-manager](/zh/docs/reference/generated/kube-controller-manager/)
 的一部分的 `csrapproving` 控制器是自动被启用的。
-该控制器使用 [`SubjectAccessReview` API](/docs/reference/access-authn-authz/authorization/#checking-api-access)
+该控制器使用 [`SubjectAccessReview` API](/zh/docs/reference/access-authn-authz/authorization/#checking-api-access)
 来确定是否某给定用户被授权请求 CSR，之后基于鉴权结果执行批复操作。
 为了避免与其它批复组件发生冲突，内置的批复组件不会显式地拒绝任何 CSRs。
 该组件仅是忽略未被授权的请求。
@@ -611,11 +612,11 @@ collection.
 <!--
 ## kubelet configuration
 
-Finally, with the master nodes properly set up and all of the necessary authentication and authorization in place, we can configure the kubelet.
+Finally, with the control plane properly set up and all of the necessary authentication and authorization in place, we can configure the kubelet.
 -->
 ## kubelet 配置   {#kubelet-configuration}
 
-最后，当主控节点被正确配置并且所有必要的身份认证和鉴权机制都就绪时，
+最后，当控制平面节点被正确配置并且所有必要的身份认证和鉴权机制都就绪时，
 我们可以配置 kubelet。
 
 <!--
@@ -682,7 +683,7 @@ The important elements to note are:
 
 <!--
 The format of the token does not matter, as long as it matches what kube-apiserver expects. In the above example, we used a bootstrap token.
-As stated earlier, _any_ valid authentication method can be used, not just tokens.
+As stated earlier, _any_ valid authentication method can be used, not only tokens.
 
 Because the bootstrap `kubeconfig` _is_ a standard `kubeconfig`, you can use `kubectl` to generate it. To create the above example file:
 -->

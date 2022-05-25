@@ -22,7 +22,7 @@ Application logs can help you understand what is happening inside your applicati
 
 <!--
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution.
-For example, you may want access your application's logs if a container crashes; a pod gets evicted; or a node dies,
+For example, you may want to access your application's logs if a container crashes; a pod gets evicted; or a node dies,
 In a cluster, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_.
 -->
 但是，由容器引擎或运行时提供的原生功能通常不足以构成完整的日志记录方案。
@@ -94,10 +94,23 @@ The output is:
 ```
 
 <!--
-You can use `kubectl logs --previous` to retrieve logs from a previous instantiation of a container..If your pod has multiple containers, specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+You can use `kubectl logs --previous` to retrieve logs from a previous instantiation of a container.
+If your pod has multiple containers, specify which container's logs you want to access by
+appending a container name to the command, with a `-c` flag, like so:
 -->
 你可以使用命令 `kubectl logs --previous` 检索之前容器实例的日志。
 如果 Pod 中有多个容器，你应该为该命令附加容器名以访问对应容器的日志。
+详见 [`kubectl logs` 文档](/docs/reference/generated/kubectl/kubectl-commands#logs)。
+如果 Pod 有多个容器，你应该为该命令附加容器名以访问对应容器的日志，
+使用 `-c` 标志来指定要访问的容器的日志，如下所示：
+
+```console
+kubectl logs counter -c count
+```
+
+<!--
+See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+-->
 详见 [`kubectl logs` 文档](/docs/reference/generated/kubectl/kubectl-commands#logs)。
 
 <!--
@@ -151,11 +164,25 @@ Kubernetes 并不负责轮转日志，而是通过部署工具建立一个解决
 <!--
 As an example, you can find detailed information about how `kube-up.sh` sets
 up logging for COS image on GCP in the corresponding
-[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh).
+[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh).
 -->
 例如，你可以找到关于 `kube-up.sh` 为 GCP 环境的 COS 镜像设置日志的详细信息，
 脚本为
-[`configure-helper` 脚本](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)。
+[`configure-helper` 脚本](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)。
+
+<!--
+When using a **CRI container runtime**, the kubelet is responsible for rotating the logs and managing the logging directory structure. The kubelet
+sends this information to the CRI container runtime and the runtime writes the container logs to the given location. 
+The two kubelet parameters [`containerLogMaxSize` and `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+in [kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/)
+can be used to configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
+-->
+当使用某 *CRI 容器运行时* 时，kubelet 要负责对日志进行轮换，并
+管理日志目录的结构。kubelet 将此信息发送给 CRI 容器运行时，后者
+将容器日志写入到指定的位置。在 [kubelet 配置文件](/docs/tasks/administer-cluster/kubelet-config-file/)
+中的两个 kubelet 参数
+[`containerLogMaxSize` 和 `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+可以用来配置每个日志文件的最大长度和每个容器可以生成的日志文件个数上限。
 
 <!--
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
@@ -166,14 +193,15 @@ reads directly from the log file. The kubelet returns the content of the log fil
 节点上的 kubelet 处理该请求并直接读取日志文件，同时在响应中返回日志文件内容。
 
 <!--
-If an external system has performed the rotation,
+If an external system has performed the rotation or a CRI container runtime is used,
 only the contents of the latest log file will be available through
 `kubectl logs`. For example, if there's a 10MB file, `logrotate` performs
 the rotation and there are two files: one file that is 10MB in size and a second file that is empty.
 `kubectl logs` returns the latest log file which in this example is an empty response.
 -->
 {{< note >}}
-如果有外部系统执行日志轮转，那么 `kubectl logs` 仅可查询到最新的日志内容。
+如果有外部系统执行日志轮转或者使用了 CRI 容器运行时，那么 `kubectl logs` 
+仅可查询到最新的日志内容。
 比如，对于一个 10MB 大小的文件，通过 `logrotate` 执行轮转后生成两个文件，
 一个 10MB 大小，一个为空，`kubectl logs` 返回最新的日志文件，而该日志文件
 在这个例子中为空。
@@ -252,7 +280,7 @@ While Kubernetes does not provide a native solution for cluster-level logging, t
 <!--
 You can implement cluster-level logging by including a _node-level logging agent_ on each node. The logging agent is a dedicated tool that exposes logs or pushes logs to a backend. Commonly, the logging agent is a container that has access to a directory with log files from all of the application containers on that node.
 -->
-你可以通过在每个节点上使用 _节点级的日志记录代理_ 来实现群集级日志记录。
+你可以通过在每个节点上使用 _节点级的日志记录代理_ 来实现集群级日志记录。
 日志记录代理是一种用于暴露日志或将日志推送到后端的专用工具。
 通常，日志记录代理程序是一个容器，它可以访问包含该节点上所有应用程序容器的日志文件的目录。
 
@@ -265,7 +293,7 @@ Node-level logging creates only one agent per node, and doesn't require any chan
 节点级日志在每个节点上仅创建一个代理，不需要对节点上的应用做修改。
 
 <!--
-Containers write stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
+Containers write to stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
 -->
 容器向标准输出和标准错误输出写出数据，但在格式上并不统一。
 节点级代理

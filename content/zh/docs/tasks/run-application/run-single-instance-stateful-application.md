@@ -81,6 +81,11 @@ for a secure solution.
    kubectl describe deployment mysql
    ```
 
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
+
    ```
    Name:                 mysql
    Namespace:            default
@@ -126,6 +131,11 @@ for a secure solution.
    kubectl get pods -l app=mysql
    ```
 
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
+
    ```
    NAME                   READY     STATUS    RESTARTS   AGE
    mysql-63082529-2z3ki   1/1       Running   0          3m
@@ -137,6 +147,11 @@ for a secure solution.
    ```shell
    kubectl describe pvc mysql-pv-claim
    ```
+
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
 
    ```
    Name:         mysql-pv-claim

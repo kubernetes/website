@@ -119,7 +119,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 And hitting the `ClusterIP` from a pod in the same cluster:
 
 ```shell
-kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
 ```
 The output is similar to this:
 ```
@@ -164,7 +164,7 @@ The `client_address` is always the client pod's IP address, whether the client p
 ## Source IP for Services with `Type=NodePort`
 
 Packets sent to Services with
-[`Type=NodePort`](/docs/concepts/services-networking/service/#nodeport)
+[`Type=NodePort`](/docs/concepts/services-networking/service/#type-nodeport)
 are source NAT'd by default. You can test this by creating a `NodePort` Service:
 
 ```shell
@@ -425,7 +425,7 @@ the `service.spec.healthCheckNodePort` field on the Service.
 Delete the Services:
 
 ```shell
-kubectl delete svc -l run=source-ip-app
+kubectl delete svc -l app=source-ip-app
 ```
 
 Delete the Deployment, ReplicaSet and Pod:

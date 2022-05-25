@@ -134,7 +134,7 @@ de containerd en `/etc/containerd/config.toml`. Los `handlers` válidos se
 configuran en la sección de motores de ejecución:
 
 ```
-[plugins.cri.containerd.runtimes.${HANDLER_NAME}]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
 Véase la configuración de containerd para más detalles:

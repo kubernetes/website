@@ -70,8 +70,6 @@ Kubernetes1.8のように、ユーザーは`.spec.template`のラベルにマッ
 
 もし`spec.selector`が指定されたとき、`.spec.template.metadata.labels`とマッチしなければなりません。この2つの値がマッチしない設定をした場合、APIによってリジェクトされます。
 
-また、ユーザーは通常、別のDaemonSetやReplicaSetなどの別のワークロードリソースを使用する場合であっても直接であっても、このセレクターマッチするラベルを持つPodを作成すべきではありません。さもないと、DaemonSet {{<glossary_tooltip term_id = "controller">}}は、それらのPodが作成されたものとみなすためです。Kubernetesはこれを行うことを止めません。ユーザーがこれを行いたい1つのケースとしては、テスト用にノード上に異なる値を持つPodを手動で作成するような場合があります。
-
 ### 選択したNode上でPodを稼働させる
 
 もしユーザーが`.spec.template.spec.nodeSelector`を指定したとき、DaemonSetコントローラーは、その[node
@@ -82,7 +80,7 @@ selector](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)にマッチす
 
 ### デフォルトスケジューラーによってスケジューリングされる場合
 
-{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 DaemonSetは全ての利用可能なNodeが単一のPodのコピーを稼働させることを保証します。通常、Podが稼働するNodeはKubernetesスケジューラーによって選択されます。しかし、DaemonSetのPodは代わりにDaemonSetコントローラーによって作成され、スケジューリングされます。   
 下記の問題について説明します:
@@ -107,7 +105,7 @@ nodeAffinity:
 
 ### TaintsとTolerations
 
-DaemonSetのPodは[TaintsとTolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/)の設定を尊重します。下記のTolerationsは、関連する機能によって自動的にDaemonSetのPodに追加されます。
+DaemonSetのPodは[TaintsとTolerations](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)の設定を尊重します。下記のTolerationsは、関連する機能によって自動的にDaemonSetのPodに追加されます。
 
 | Toleration Key                           | Effect     | Version | Description |
 | ---------------------------------------- | ---------- | ------- | ----------- |
@@ -153,7 +151,7 @@ Node上で直接起動することにより(例: `init`、`upstartd`、`systemd`
 
 ### 静的Pod Pods
 
-Kubeletによって監視されているディレクトリに対してファイルを書き込むことによって、Podを作成することが可能です。これは[静的Pod](/docs/tasks/configure-pod-container/static-pod/)と呼ばれます。DaemonSetと違い、静的Podはkubectlや他のKubernetes APIクライアントで管理できません。静的PodはApiServerに依存しておらず、クラスターの自立起動時に最適です。また、静的Podは将来的には廃止される予定です。
+Kubeletによって監視されているディレクトリに対してファイルを書き込むことによって、Podを作成することが可能です。これは[静的Pod](/ja/docs/tasks/configure-pod-container/static-pod/)と呼ばれます。DaemonSetと違い、静的Podはkubectlや他のKubernetes APIクライアントで管理できません。静的PodはApiServerに依存しておらず、クラスターの自立起動時に最適です。また、静的Podは将来的には廃止される予定です。
 
 ### Deployment
 

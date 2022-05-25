@@ -20,7 +20,7 @@ Initコンテナは下記の項目をのぞいて、通常のコンテナと全�
 * Initコンテナは常に完了するまで稼働します。
 * 各Initコンテナは、次のInitコンテナが稼働する前に正常に完了しなくてはなりません。
 
-もしあるPodの単一のInitコンテナが失敗した場合、KubernetesはInitコンテナが成功するまで何度もそのPodを再起動します。しかし、もしそのPodの`restartPolicy`がNeverの場合、再起動されません。
+もしあるPodの単一のInitコンテナが失敗した場合、Kubeletは成功するまで何度もそのInitコンテナを再起動します。しかし、もしそのPodの`restartPolicy`がNeverで、そのPodの起動時にInitコンテナが失敗した場合、KubernetesはそのPod全体を失敗として扱います。
 
 PodにInitコンテナを指定するためには、Podの仕様にそのアプリケーションの`containers`配列と並べて、`initContainers`フィールドを[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)型のオブジェクトの配列として指定してください。
 Initコンテナのステータスは、`.status.initContainerStatuses`フィールドにコンテナのステータスの配列として返されます(`.status.containerStatuses`と同様)。

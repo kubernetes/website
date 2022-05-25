@@ -27,13 +27,15 @@ Before walking through each tutorial, you may want to bookmark the
 
 ## Configuration
 
+* [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
+
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Stateless Applications
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [Example: Deploying PHP Guestbook application with MongoDB](/docs/tutorials/stateless-application/guestbook/)
+* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
 
 ## Stateful Applications
 
@@ -45,14 +47,16 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
-## Clusters
-
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
-
 ## Services
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
+## Security
+
+* [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
+* [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
+* [AppArmor](/docs/tutorials/security/apparmor/)
+* [seccomp](/docs/tutorials/security/seccomp/)
 ## {{% heading "whatsnext" %}}
 
 If you would like to write a tutorial, see

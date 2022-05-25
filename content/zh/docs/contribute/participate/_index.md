@@ -136,14 +136,14 @@ Kubernetes 项目使用名为 prow 的自动化工具来自动处理 GitHub issu
 
 <!--
 These two plugins use the
-[OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) and
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES)
+[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) and
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
 files in the top level of the `kubernetes/website` GitHub repository to control
 how prow works within the repository.
 -->
 这两个插件使用位于 `kubernetes/website` 仓库顶层的
-[OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) 文件和
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES)
+[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) 文件和
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
 文件来控制 prow 在仓库范围的工作方式。 
 
 <!--

@@ -79,7 +79,7 @@ The most common prow commands reviewers and approvers use are:
 {{< table caption="Prow commands for reviewing" >}}
 Prow Command | Role Restrictions | Description
 :------------|:------------------|:-----------
-`/lgtm` | Anyone, but triggers automation if a Reviewer or Approver uses it | Signals that you've finished reviewing a PR and are satisfied with the changes.
+`/lgtm` | Organization members | Signals that you've finished reviewing a PR and are satisfied with the changes.
 `/approve` | Approvers | Approves a PR for merging.
 `/assign` | Reviewers or Approvers | Assigns a person to review or approve a PR
 `/close` | Reviewers or Approvers | Closes an issue or PR.
@@ -121,7 +121,7 @@ finds issues that might need triage.
   `priority/important-longterm` | Do this within 6 months.
   `priority/backlog` | Deferrable indefinitely. Do when resources are available.
   `priority/awaiting-more-evidence` | Placeholder for a potentially good issue so it doesn't get lost.
-  `help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md) for more information.
+  `help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://kubernetes.dev/docs/guide/help-wanted/) for more information.
 
   {{< /table >}}
 

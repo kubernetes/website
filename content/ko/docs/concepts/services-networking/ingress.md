@@ -1,4 +1,6 @@
 ---
+
+
 title: 인그레스(Ingress)
 content_type: concept
 weight: 40
@@ -24,7 +26,7 @@ weight: 40
 ## 인그레스란?
 
 [인그레스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)는 클러스터 외부에서 클러스터 내부
-{{< link text="서비스" url="/docs/concepts/services-networking/service/" >}}로 HTTP와 HTTPS 경로를 노출한다.
+{{< link text="서비스" url="/ko/docs/concepts/services-networking/service/" >}}로 HTTP와 HTTPS 경로를 노출한다.
 트래픽 라우팅은 인그레스 리소스에 정의된 규칙에 의해 컨트롤된다.
 
 다음은 인그레스가 모든 트래픽을 하나의 서비스로 보내는 간단한 예시이다.
@@ -49,7 +51,7 @@ graph LR;
 인그레스는 외부에서 서비스로 접속이 가능한 URL, 로드 밸런스 트래픽, SSL / TLS 종료 그리고 이름-기반의 가상 호스팅을 제공하도록 구성할 수 있다. [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 일반적으로 로드 밸런서를 사용해서 인그레스를 수행할 책임이 있으며, 트래픽을 처리하는데 도움이 되도록 에지 라우터 또는 추가 프런트 엔드를 구성할 수도 있다.
 
 인그레스는 임의의 포트 또는 프로토콜을 노출시키지 않는다. HTTP와 HTTPS 이외의 서비스를 인터넷에 노출하려면 보통
-[Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 또는
+[Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#type-nodeport) 또는
 [Service.Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer) 유형의 서비스를 사용한다.
 
 ## 전제 조건들
@@ -75,16 +77,25 @@ graph LR;
 다른 모든 쿠버네티스 리소스와 마찬가지로 인그레스에는 `apiVersion`, `kind`, 그리고 `metadata` 필드가 필요하다.
 인그레스 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
-설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
+설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
  인그레스는 종종 어노테이션을 이용해서 인그레스 컨트롤러에 따라 몇 가지 옵션을 구성하는데,
  그 예시는 [재작성-타겟 어노테이션](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)이다.
-다른 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 다른 어노테이션을 지원한다.
+서로 다른 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 서로 다른 어노테이션을 지원한다.
  지원되는 어노테이션을 확인하려면 선택한 인그레스 컨트롤러의 설명서를 검토한다.
 
 인그레스 [사양](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 에는 로드 밸런서 또는 프록시 서버를 구성하는데 필요한 모든 정보가 있다. 가장 중요한 것은,
 들어오는 요청과 일치하는 규칙 목록을 포함하는 것이다. 인그레스 리소스는 HTTP(S) 트래픽을
 지시하는 규칙만 지원한다.
+
+`ingressClassName`을 생략하려면, [기본 인그레스 클래스](#default-ingress-class)가 
+정의되어 있어야 한다.
+
+몇몇 인그레스 컨트롤러는 기본 `IngressClass`가 정의되어 있지 않아도 동작한다. 
+예를 들어, Ingress-NGINX 컨트롤러는 `--watch-ingress-without-class` 
+[플래그](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)를 이용하여 구성될 수 있다. 
+하지만 [아래](#default-ingress-class)에 나와 있는 것과 같이 기본 `IngressClass`를 명시하는 것을 
+[권장](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)한다.
 
 ### 인그레스 규칙
 
@@ -162,12 +173,12 @@ Events:       <none>
   요청은 _p_ 경로에 일치한다.
 
   {{< note >}} 경로의 마지막 요소가 요청 경로에 있는 마지막
-  요소의 하위 문자열인 경우에는 일치하지 않는다(예시: `/foo/bar` 와
-  `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다). {{< /note >}}
+  요소의 하위 문자열인 경우에는 일치하지 않는다(예시: `/foo/bar` 는
+  `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 와는 일치하지 않는다). {{< /note >}}
 
 ### 예제
 
-| 종류    | 경로                             | 요청 경로                       | 일치 여부                            |
+| 종류    | 경로                             | 요청 경로                       | 일치 여부                            |
 |--------|---------------------------------|-------------------------------|------------------------------------|
 | Prefix | `/`                             | (모든 경로)                     | 예                                  |
 | Exact  | `/foo`                          | `/foo`                        | 예                                  |
@@ -217,8 +228,98 @@ Events:       <none>
 
 {{< codenew file="service/networking/external-lb.yaml" >}}
 
-IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클래스에 대한
-추가 구성을 참조하는데 사용할 수 있다.
+인그레스클래스의 `.spec.parameters` 필드를 사용하여 
+해당 인그레스클래스와 연관있는 환경 설정을 제공하는 다른 리소스를 참조할 수 있다.
+
+사용 가능한 파라미터의 상세한 타입은 
+인그레스클래스의 `.spec.parameters` 필드에 명시한 인그레스 컨트롤러의 종류에 따라 다르다.
+
+### 인그레스클래스 범위
+
+인그레스 컨트롤러의 종류에 따라, 클러스터 범위로 설정한 파라미터의 사용이 가능할 수도 있고, 
+또는 한 네임스페이스에서만 사용 가능할 수도 있다.
+
+{{< tabs name="tabs_ingressclass_parameter_scope" >}}
+{{% tab name="클러스터" %}}
+인그레스클래스 파라미터의 기본 범위는 클러스터 범위이다.
+
+`.spec.parameters` 필드만 설정하고 `.spec.parameters.scope` 필드는 지정하지 않거나,
+`.spec.parameters.scope` 필드를 `Cluster`로 지정하면, 
+인그레스클래스는 클러스터 범위의 리소스를 참조한다.
+파라미터의 `kind`(+`apiGroup`)는 
+클러스터 범위의 API (커스텀 리소스일 수도 있음) 를 참조하며, 
+파라미터의 `name`은 
+해당 API에 대한 특정 클러스터 범위 리소스를 가리킨다.
+
+예시는 다음과 같다.
+```yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb-1
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    # 이 인그레스클래스에 대한 파라미터는 "external-config-1" 라는
+    # ClusterIngressParameter(API 그룹 k8s.example.net)에 기재되어 있다.
+    # 이 정의는 쿠버네티스가 
+    # 클러스터 범위의 파라미터 리소스를 검색하도록 한다.
+    scope: Cluster
+    apiGroup: k8s.example.net
+    kind: ClusterIngressParameter
+    name: external-config-1
+```
+{{% /tab %}}
+{{% tab name="네임스페이스" %}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
+
+`.spec.parameters` 필드를 설정하고 
+`.spec.parameters.scope` 필드를 `Namespace`로 지정하면, 
+인그레스클래스는 네임스페이스 범위의 리소스를 참조한다. 
+사용하고자 하는 파라미터가 속한 네임스페이스를 
+`.spec.parameters` 의 `namespace` 필드에 설정해야 한다.
+
+파라미터의 `kind`(+`apiGroup`)는 
+네임스페이스 범위의 API (예: 컨피그맵) 를 참조하며, 
+파라미터의 `name`은 
+`namespace`에 명시한 네임스페이스의 특정 리소스를 가리킨다.
+
+네임스페이스 범위의 파라미터를 이용하여, 
+클러스터 운영자가 워크로드에 사용되는 환경 설정(예: 로드 밸런서 설정, API 게이트웨이 정의)에 대한 제어를 위임할 수 있다.
+클러스터 범위의 파라미터를 사용했다면 다음 중 하나에 해당된다.
+
+- 다른 팀의 새로운 환경 설정 변경을 적용하려고 할 때마다 
+  클러스터 운영 팀이 매번 승인을 해야 한다. 또는,
+- 애플리케이션 팀이 클러스터 범위 파라미터 리소스를 변경할 수 있게 하는 
+  [RBAC](/docs/reference/access-authn-authz/rbac/) 롤, 바인딩 등의 특별 접근 제어를 
+  클러스터 운영자가 정의해야 한다.
+
+인그레스클래스 API 자신은 항상 클러스터 범위이다.
+
+네임스페이스 범위의 파라미터를 참조하는 인그레스클래스 예시가 
+다음과 같다.
+```yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb-2
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    # 이 인그레스클래스에 대한 파라미터는 
+    # "external-configuration" 환경 설정 네임스페이스에 있는
+    # "external-config" 라는 IngressParameter(API 그룹 k8s.example.com)에 기재되어 있다.
+    scope: Namespace
+    apiGroup: k8s.example.com
+    kind: IngressParameter
+    namespace: external-configuration
+    name: external-config
+```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ### 사용중단(Deprecated) 어노테이션
 
@@ -247,6 +348,14 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 기본값으로 표시하도록 해서 이 문제를 해결할 수 있다.
 {{< /caution >}}
 
+몇몇 인그레스 컨트롤러는 기본 `IngressClass`가 정의되어 있지 않아도 동작한다. 
+예를 들어, Ingress-NGINX 컨트롤러는 `--watch-ingress-without-class` 
+[플래그](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)를 이용하여 구성될 수 있다. 
+하지만 다음과 같이 기본 `IngressClass`를 명시하는 것을 
+[권장](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)한다.
+
+{{< codenew file="service/networking/default-ingressclass.yaml" >}}
+
 ## 인그레스 유형들
 
 ### 단일 서비스로 지원되는 인그레스 {#single-service-ingress}
@@ -257,7 +366,7 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
-만약 `kubectl apply -f` 를 사용해서 생성한다면 방금 추가한 인그레스의
+만약 `kubectl apply -f` 를 사용해서 생성한다면 추가한 인그레스의
 상태를 볼 수 있어야 한다.
 
 ```bash
@@ -376,9 +485,7 @@ graph LR;
 트래픽을 일치 시킬 수 있다.
 
 예를 들어, 다음 인그레스는 `first.bar.com`에 요청된 트래픽을
-`service1`로, `second.bar.com`는 `service2`로, 호스트 이름이 정의되지
-않은(즉, 요청 헤더가 표시 되지 않는) IP 주소로의 모든
-트래픽은 `service3`로 라우팅 한다.
+`service1`로, `second.bar.com`는 `service2`로, 그리고 요청 헤더가 `first.bar.com` 또는 `second.bar.com`에 해당되지 않는 모든 트래픽을 `service3`로 라우팅한다.
 
 {{< codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" >}}
 
@@ -545,12 +652,12 @@ Events:
 사용자는 인그레스 리소스를 직접적으로 포함하지 않는 여러가지 방법으로 서비스를 노출할 수 있다.
 
 * [Service.Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer) 사용.
-* [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 사용.
+* [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#type-nodeport) 사용.
 
 
 
 ## {{% heading "whatsnext" %}}
 
-* [인그레스 API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)에 대해 배우기
+* [인그레스](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API에 대해 배우기
 * [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers/)에 대해 배우기
-* [NGINX 컨트롤러로 Minikube에서 인그레스 구성하기](/docs/tasks/access-application-cluster/ingress-minikube/)
+* [NGINX 컨트롤러로 Minikube에서 인그레스 구성하기](/ko/docs/tasks/access-application-cluster/ingress-minikube/)

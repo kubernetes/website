@@ -1,5 +1,5 @@
 {{ $cover := .HasShortcode "blocks/cover" }}
-<nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }} flex-row td-navbar" data-auto-burger="primary">
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }} flex-column flex-md-row td-navbar" data-auto-burger="primary">
         <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}"></a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
 		
@@ -10,7 +10,7 @@
 			{{ with site.GetPage "section" . }}
 			<li class="nav-item mr-2 mb-lg-0">
 				{{ $active := eq .Section $.Section }}
-				<a class="nav-link{{if $active }} active{{end}}" href="{{ .RelPermalink }}" >{{ .Title }}</span></a>
+				<a class="nav-link{{if $active }} active{{end}}" href="{{ .RelPermalink }}" >{{ .Title }}</a>
 			</li>
 			{{ end }}
 			{{ end }}

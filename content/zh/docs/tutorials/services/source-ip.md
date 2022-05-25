@@ -35,7 +35,7 @@ Kubernetes 集群中运行的应用通过 Service 抽象来互相查找、通信
 你必须拥有一个正常工作的 Kubernetes 1.5 集群来运行此文档中的示例。该示例使用一个简单的 nginx webserver，通过一个HTTP消息头返回它接收到请求的源IP。你可以像下面这样创建它：
 
 ```console
-kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
 ```
 输出结果为
 ```
@@ -104,7 +104,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 从相同集群中的一个 pod 访问这个 `ClusterIP`：
 
 ```shell
-kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
 ```
 输出结果与以下结果类似：
 ```
@@ -153,7 +153,7 @@ command=GET
 ## Type=NodePort 类型 Services 的 Source IP
 
 
-从 Kubernetes 1.5 开始，发送给类型为 [Type=NodePort](/zh/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT。你可以通过创建一个 `NodePort` Service 来进行测试：
+从 Kubernetes 1.5 开始，发送给类型为 [Type=NodePort](/zh/docs/user-guide/services/#nodeport) Services 的数据包默认进行源地址 NAT。你可以通过创建一个 `NodePort` Service 来进行测试：
 
 ```console
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
@@ -387,7 +387,7 @@ __跨平台支持__
 删除服务：
 
 ```console
-$ kubectl delete svc -l run=source-ip-app
+$ kubectl delete svc -l app=source-ip-app
 ```
 
 

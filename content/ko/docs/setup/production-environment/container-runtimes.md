@@ -15,18 +15,25 @@ weight: 20
 
 <!-- body -->
 
+쿠버네티스 {{< skew currentVersion >}}에서는 
+{{< glossary_tooltip term_id="cri" text="컨테이너 런타임 인터페이스">}}(CRI) 요구사항을 만족하는 
+런타임을 사용해야 한다.
+
+더 자세한 정보는 [CRI 버전 지원](#cri-versions)을 참조한다.
+
 이 페이지에는 리눅스 환경의 쿠버네티스에서 여러 공통 컨테이너 런타임을 사용하는 방법에 대한
 세부 정보가 있다.
 
 - [containerd](#containerd)
 - [CRI-O](#cri-o)
-- [도커](#도커)
+- [도커 엔진](#docker)
+- [미란티스 컨테이너 런타임](#mcr)
 
 {{< note >}}
 다른 운영 체제의 경우, 해당 플랫폼과 관련된 문서를 찾아보자.
 {{< /note >}}
 
-## Cgroup 드라이버
+## cgroup 드라이버
 
 Control group은 프로세스에 할당된 리소스를 제한하는데 사용된다.
 
@@ -48,7 +55,7 @@ Systemd는 cgroup과의 긴밀한 통합을 통해 프로세스당 cgroup을 할
 시스템이 안정화된다. 도커에 대해 구성하려면, `native.cgroupdriver=systemd`를 설정한다.
 
 {{< caution >}}
-클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 강력하게 권장하지 *않는다*.
+클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 신중하게 수행해야 한다.
 하나의 cgroup 드라이버의 의미를 사용하여 kubelet이 파드를 생성해왔다면,
 컨테이너 런타임을 다른 cgroup 드라이버로 변경하는 것은 존재하는 기존 파드에 대해 파드 샌드박스 재생성을 시도할 때, 에러가 발생할 수 있다.
 kubelet을 재시작하는 것은 에러를 해결할 수 없을 것이다.
@@ -57,13 +64,65 @@ kubelet을 재시작하는 것은 에러를 해결할 수 없을 것이다.
 교체하거나, 자동화를 사용하여 다시 설치한다.
 {{< /caution >}}
 
+## cgroup v2
+
+cgroup v2는 cgroup Linux API의 다음 버전이다. 
+cgroup v1과는 다르게 각 컨트롤러마다 다른 계층 대신 단일 계층이 있다.
+
+새 버전은 cgroup v1에 비해 몇 가지 향상된 기능을 제공하며, 개선 사항 중 일부는 다음과 같다.
+
+- API를 더 쉽고 깔끔하게 사용할 수 있음
+- 컨테이너로의 안전한 하위 트리 위임
+- 압력 중지 정보와 같은 새로운 기능
+
+일부 컨트롤러는 cgroup v1에 의해 관리되고 다른 컨트롤러는 cgroup v2에 의해 관리되는 하이브리드 구성을 지원하더라도, 
+쿠버네티스는 모든 컨트롤러를 관리하기 위해 
+동일한 cgroup 버전만 지원한다.
+
+systemd가 기본적으로 cgroup v2를 사용하지 않는 경우, 커널 명령줄에 `systemd.unified_cgroup_hierarchy=1`을 
+추가하여 cgroup v2를 사용하도록 시스템을 구성할 수 있다.
+
+```shell
+# 이 예제는 리눅스 OS에서 DNF 패키지 관리자를 사용하는 경우에 대한 것이다.
+# 리눅스 커널이 사용하는 커맨드 라인을 설정하기 위해 
+# 사용자의 시스템이 다른 방법을 사용하고 있을 수도 있다.
+sudo dnf install -y grubby && \
+  sudo grubby \
+  --update-kernel=ALL \
+  --args="systemd.unified_cgroup_hierarchy=1"
+```
+
+커널이 사용하는 커맨드 라인을 업데이트하려면, 
+변경 사항을 적용하기 위해 노드를 재시작해야 한다.
+
+cgroup v2로 전환할 때 사용자가 노드 또는 컨테이너 내에서 
+cgroup 파일 시스템에 직접 접근하지 않는 한 사용자 경험에 현저한 차이가 없어야 한다.
+
+cgroup v2를 사용하려면 CRI 런타임에서도 cgroup v2를 지원해야 한다.
+
+### kubeadm으로 생성한 클러스터의 드라이버를 `systemd`로 변경하기
+
+kubeadm으로 생성한 클러스터의 cgroup 드라이버를 `systemd`로 변경하려면
+[변경 가이드](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)를 참고한다.
+
+## CRI 버전 지원 {#cri-versions}
+
+사용할 컨테이너 런타임이 적어도 CRI의 v1alpha2 이상을 지원해야 한다.
+
+쿠버네티스 {{< skew currentVersion >}} 버전에서는 기본적으로 CRI API 중 v1을 사용한다.
+컨테이너 런타임이 v1 API를 지원하지 않으면, 
+kubelet은 대신 (사용 중단된) v1alpha2 API를 사용하도록 설정된다.
+
 ## 컨테이너 런타임
 
 {{% thirdparty-content %}}
 
+
 ### containerd
 
-이 섹션에는 `containerd` 를 CRI 런타임으로 사용하는 데 필요한 단계가 포함되어 있다.
+이 섹션에는 containerd를 CRI 런타임으로 사용하는 데 필요한 단계가 포함되어 있다.
+
+다음 명령을 사용하여 시스템에 containerd를 설치한다.
 
 필수 구성 요소를 설치 및 구성한다.
 
@@ -90,170 +149,66 @@ sudo sysctl --system
 containerd를 설치한다.
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{% tab name="Ubuntu 16.04" %}}
+{{% tab name="Linux" %}}
 
-```shell
-# 도커의 공식 GPG 키 추가
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-# (containerd 설치)
-## 리포지터리 설정
-### HTTPS를 통해 리포지터리를 사용할 수 있도록 패키지 설치
-sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-```
+1. 공식 도커 리포지터리에서 `containerd.io` 패키지를 설치한다.
+각 리눅스 배포판에 대한 도커 리포지터리를 설정하고
+`containerd.io` 패키지를 설치하는 방법은
+[도커 엔진 설치](https://docs.docker.com/engine/install/#server)에서 찾을 수 있다.
 
-```shell
-## 도커의 공식 GPG 키 추가
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
+2. containerd 설정
 
-```shell
-## 도커 apt 리포지터리 추가
-sudo add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
-```
+   ```shell
+   sudo mkdir -p /etc/containerd
+   containerd config default | sudo tee /etc/containerd/config.toml
+   ```
 
-```shell
-## containerd 설치
-sudo apt-get update && sudo apt-get install -y containerd.io
-```
+3. containerd 재시작
 
-```shell
-# containerd 구성
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
+   ```shell
+   sudo systemctl restart containerd
+   ```
 
-```shell
-# containerd 재시작
-sudo systemctl restart containerd
-```
-{{% /tab %}}
-{{% tab name="Ubuntu 18.04/20.04" %}}
-
-```shell
-# (containerd 설치)
-sudo apt-get update && sudo apt-get install -y containerd
-```
-
-```shell
-# containerd 구성
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# containerd 재시작
-sudo systemctl restart containerd
-```
-{{% /tab %}}
-{{% tab name="Debian 9+" %}}
-
-```shell
-# (containerd 설치)
-## 리포지터리 설정
-### HTTPS를 통해 리포지터리를 사용할 수 있도록 패키지 설치
-sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-```
-
-```shell
-## 도커의 공식 GPG 키 추가
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
-
-```shell
-## 도커 apt 리포지터리 추가
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/debian \
-   $(lsb_release -cs) \
-   stable"
-```
-
-```shell
-## containerd 설치
-sudo apt-get update && sudo apt-get install -y containerd.io
-```
-
-```shell
-# 기본 containerd 구성 설정
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# containerd 재시작
-sudo systemctl restart containerd
-```
-{{% /tab %}}
-{{% tab name="CentOS/RHEL 7.4+" %}}
-
-```shell
-# (containerd 설치)
-## 리포지터리 설정
-### 필요한 패키지 설치
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-```
-
-```shell
-## 도커 리포지터리 추가
-sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-```
-
-```shell
-# containerd 설치
-sudo yum update -y && sudo yum install -y containerd.io
-```
-
-```shell
-## containerd 구성
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# containerd 재시작
-sudo systemctl restart containerd
-```
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
-<br />
-Powershell 세션을 띄우고, `$Version` 환경 변수를 원하는 버전으로 설정(예: `$Version=1.4.3`)한 뒤, 다음 명령어를 실행한다.
-<br />
+PowerShell 세션을 시작하고 `$Version`을 원하는 버전으로
+설정(예: `$Version:"1.4.3"`)한 후 다음 명령을 실행한다.
 
-```powershell
-# (containerd 설치)
-# containerd 다운로드
-curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
-tar.exe xvf .\containerd-windows-amd64.tar.gz
-```
+1. containerd 다운로드
 
-```powershell
-# 추출 및 구성
-Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
-cd $Env:ProgramFiles\containerd\
-.\containerd.exe config default | Out-File config.toml -Encoding ascii
+   ```powershell
+   curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
+   tar.exe xvf .\containerd-windows-amd64.tar.gz
+   ```
 
-# 구성을 검토한다. 설정에 따라 조정할 수 있다.
-# - sandbox_image (쿠버네티스 pause 이미지)
-# - cni bin_dir 및 conf_dir locations
-Get-Content config.toml
+2. 추출과 설정
 
-# (선택 사항이지만, 강력히 권장됨) containerd를 Windows Defender 검사 예외에 추가
-Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe" ```
+   ```powershell
+   Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
+   cd $Env:ProgramFiles\containerd\
+   .\containerd.exe config default | Out-File config.toml -Encoding ascii
 
-```powershell
-# containerd 시작
-.\containerd.exe --register-service
-Start-Service containerd
-```
+   # 설정을 검토한다. 설정에 따라 다음을 조정할 수 있다.
+   # - sandbox_image (쿠버네티스 일시중지 이미지)
+   # - cni bin 폴더와 conf 폴더 위치
+   Get-Content config.toml
+
+   # (선택사항 - 그러나 적극 권장함) Windows 디펜더 검사에서 containerd 제외
+   Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
+   ```
+
+3. containerd 실행
+
+   ```powershell
+   .\containerd.exe --register-service
+   Start-Service containerd
+   ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
-#### systemd {#containerd-systemd}
+#### `systemd` cgroup 드라이버의 사용 {#containerd-systemd}
 
 `/etc/containerd/config.toml` 의 `systemd` cgroup 드라이버를 `runc` 에서 사용하려면, 다음과 같이 설정한다.
 
@@ -264,8 +219,14 @@ Start-Service containerd
     SystemdCgroup = true
 ```
 
+이 변경 사항을 적용하는 경우 containerd를 재시작한다.
+
+```shell
+sudo systemctl restart containerd
+```
+
 kubeadm을 사용하는 경우,
-[kubelet용 cgroup 드라이버](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)를 수동으로 구성한다.
+[kubelet용 cgroup 드라이버](/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#컨트롤-플레인-노드에서-kubelet이-사용하는-cgroup-드라이버-구성)를 수동으로 구성한다.
 
 ### CRI-O
 
@@ -338,7 +299,8 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="Ubuntu" %}}
 
-다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 `OS` 를 아래의 표에서 적절한 필드로 설정한다.
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 `OS` 를
+아래의 표에서 적절한 필드로 설정한다.
 
 | 운영 체제          | `$OS`             |
 | ---------------- | ----------------- |
@@ -373,7 +335,8 @@ apt-get install cri-o cri-o-runc
 
 {{% tab name="CentOS" %}}
 
-다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 `OS` 를 아래의 표에서 적절한 필드로 설정한다.
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 `OS` 를
+아래의 표에서 적절한 필드로 설정한다.
 
 | 운영 체제          | `$OS`             |
 | ---------------- | ----------------- |
@@ -451,140 +414,28 @@ cgroup_manager = "cgroupfs"
 CRI-O의 cgroup 드라이버 구성을 동기화 상태로
 유지해야 한다.
 
-### 도커
+### 도커 엔진 {#docker}
 
-각 노드에 도커 CE를 설치한다.
+도커 엔진은 모든 것을 시작한 컨테이너 런타임이다. 
+이전에는 간단히 도커로 알려졌던 이 컨테이너 런타임은 다양한 형태로 사용할 수 있다.
+[도커 엔진 설치하기](https://docs.docker.com/engine/install/)에서 
+이 런타임 설치의 옵션들을 확인할 수 있다.
 
-쿠버네티스 릴리스 정보에서 해당 버전의 쿠버네티스와 호환되는
-도커 버전을 찾을 수 있다.
+도커 엔진은 쿠버네티스 {{< skew currentVersion >}}와 직접 호환되며, 이는 사용 중단된 `dockershim` 컴포넌트를 활용하기 때문에 가능하다. 
+더 많은 정보와 맥락을 보려면, [Dockershim 사용 중단 FAQ](/dockershim)를 참고한다.
 
-사용자의 시스템에서 다음의 명령을 이용해 도커를 설치한다.
+지원되는 {{< glossary_tooltip term_id="cri" text="컨테이너 런타임 인터페이스">}}(CRI)를 통해 
+쿠버네티스에서 도커 엔진을 사용할 수 있게 해 주는 
+써드파티 어댑터를 찾아볼 수도 있다.
 
-{{< tabs name="tab-cri-docker-installation" >}}
-{{% tab name="Ubuntu 16.04+" %}}
+다음 CRI 어댑터는 도커 엔진과 함께 동작하도록 설계되었다.
 
-```shell
-# (도커 CE 설치)
-## 리포지터리 설정
-### apt가 HTTPS로 리포지터리를 사용하는 것을 허용하기 위한 패키지 설치
-sudo apt-get update && sudo apt-get install -y \
-  apt-transport-https ca-certificates curl software-properties-common gnupg2
-```
+- 미란티스의 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)
 
-```shell
-# 도커 공식 GPG 키 추가:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
+### 미란티스 컨테이너 런타임 {#mcr}
 
-```shell
-# 도커 apt 리포지터리 추가:
-sudo add-apt-repository \
-  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) \
-  stable"
-```
+[미란티스 컨테이너 런타임](https://docs.mirantis.com/mcr/20.10/overview.html)(MCR)은 상용 컨테이너 런타임이며 
+이전에는 도커 엔터프라이즈 에디션으로 알려져 있었다.
 
-```shell
-# 도커 CE 설치
-sudo apt-get update && sudo apt-get install -y \
-  containerd.io=1.2.13-2 \
-  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
-```
-
-```shell
-## /etc/docker 생성
-sudo mkdir /etc/docker
-```
-
-```shell
-# 도커 데몬 설정
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
-```
-
-```shell
-# /etc/systemd/system/docker.service.d 생성
-sudo mkdir -p /etc/systemd/system/docker.service.d
-```
-
-```shell
-# 도커 재시작
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
-{{% /tab %}}
-{{% tab name="CentOS/RHEL 7.4+" %}}
-
-```shell
-# (도커 CE 설치)
-## 리포지터리 설정
-### 필요한 패키지 설치
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-```
-
-```shell
-## 도커 리포지터리 추가
-sudo yum-config-manager --add-repo \
-  https://download.docker.com/linux/centos/docker-ce.repo
-```
-
-```shell
-# 도커 CE 설치
-sudo yum update -y && sudo yum install -y \
-  containerd.io-1.2.13 \
-  docker-ce-19.03.11 \
-  docker-ce-cli-19.03.11
-```
-
-```shell
-## /etc/docker 생성
-sudo mkdir /etc/docker
-```
-
-```shell
-# 도커 데몬 설정
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2",
-  "storage-opts": [
-    "overlay2.override_kernel_check=true"
-  ]
-}
-EOF
-```
-
-```shell
-# /etc/systemd/system/docker.service.d 생성
-sudo mkdir -p /etc/systemd/system/docker.service.d
-```
-
-```shell
-# 도커 재시작
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
-{{% /tab %}}
-{{< /tabs >}}
-
-부팅 시 `docker` 서비스를 시작하려면, 다음 명령을 실행한다.
-
-```shell
-sudo systemctl enable docker
-```
-
-자세한 내용은 [공식 도커 설치 가이드](https://docs.docker.com/engine/installation/)를
-참조한다.
+오픈소스인 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) 컴포넌트를 이용하여 쿠버네티스에서 미란티스 컨테이너 런타임을 사용할 수 있으며, 
+이 컴포넌트는 MCR에 포함되어 있다.

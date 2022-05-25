@@ -5,6 +5,11 @@ weight: 30
 ---
 
 <!--
+reviewers:
+- jsafrane
+- saad-ali
+- thockin
+- msau42
 title: Storage Classes
 content_type: concept
 weight: 30
@@ -17,8 +22,9 @@ This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 -->
-本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉 [卷](/zh/docs/concepts/storage/volumes/) 和
-[持久卷](/zh/docs/concepts/storage/persistent-volumes) 的概念。
+本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉
+[卷](/zh/docs/concepts/storage/volumes/)和
+[持久卷](/zh/docs/concepts/storage/persistent-volumes)的概念。
 
 <!-- body -->
 
@@ -45,7 +51,7 @@ Each StorageClass contains the fields `provisioner`, `parameters`, and
 `reclaimPolicy`, which are used when a PersistentVolume belonging to the
 class needs to be dynamically provisioned.
 
- -->
+-->
 ## StorageClass 资源
 
 每个 StorageClass 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
@@ -61,12 +67,12 @@ StorageClass 对象的命名很重要，用户使用这个命名来请求生成�
 当创建 StorageClass 对象时，管理员设置 StorageClass 对象的命名和其他参数，一旦创建了对象就不能再对其更新。
 
 <!--
-Administrators can specify a default StorageClass just for PVCs that don't
+Administrators can specify a default StorageClass only for PVCs that don't
 request any particular class to bind to: see the
 [PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 for details.
  -->
-管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类 ：
+管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类：
 更多详情请参阅
 [PersistentVolumeClaim 章节](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
@@ -103,8 +109,8 @@ for provisioning PVs. This field must be specified.
 | 卷插件               | 内置制备器 |               配置例子                |
 |:---------------------|:----------:|:-------------------------------------:|
 | AWSElasticBlockStore |  &#x2713;  |          [AWS EBS](#aws-ebs)          |
-| AzureFile            |  &#x2713;  |       [Azure File](#azure-file)       |
-| AzureDisk            |  &#x2713;  |       [Azure Disk](#azure-disk)       |
+| AzureFile            |  &#x2713;  |       [Azure File](#azure-文件)       |
+| AzureDisk            |  &#x2713;  |       [Azure Disk](#azure-磁盘)       |
 | CephFS               |     -      |                   -                   |
 | Cinder               |  &#x2713;  | [OpenStack Cinder](#openstack-cinder) |
 | FC                   |     -      |                   -                   |
@@ -114,19 +120,19 @@ for provisioning PVs. This field must be specified.
 | Glusterfs            |  &#x2713;  |        [Glusterfs](#glusterfs)        |
 | iSCSI                |     -      |                   -                   |
 | Quobyte              |  &#x2713;  |          [Quobyte](#quobyte)          |
-| NFS                  |     -      |                   -                   |
+| NFS                  |     -      |              [NFS](#nfs)              |
 | RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
 | VsphereVolume        |  &#x2713;  |          [vSphere](#vsphere)          |
-| PortworxVolume       |  &#x2713;  |  [Portworx Volume](#portworx-volume)  |
+| PortworxVolume       |  &#x2713;  |  [Portworx Volume](#portworx-卷)  |
 | ScaleIO              |  &#x2713;  |          [ScaleIO](#scaleio)          |
 | StorageOS            |  &#x2713;  |        [StorageOS](#storageos)        |
-| Local                |     -      |            [Local](#local)            |
+| Local                |     -      |            [Local](#本地)            |
 
 <!--
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
-which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)
+which are independent programs that follow a [specification](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md))
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
 run, what volume plugin it uses (including Flex), etc. The repository
@@ -137,7 +143,7 @@ the specification. Some external provisioners are listed under the repository
  -->
 你不限于指定此处列出的 "内置" 制备器（其名称前缀为 "kubernetes.io" 并打包在 Kubernetes 中）。
 你还可以运行和指定外部制备器，这些独立的程序遵循由 Kubernetes 定义的
-[规范](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)。
+[规范](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)。
 外部供应商的作者完全可以自由决定他们的代码保存于何处、打包方式、运行方式、使用的插件（包括 Flex）等。
 代码仓库 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 包含一个用于为外部制备器编写功能实现的类库。你可以访问代码仓库
@@ -225,14 +231,14 @@ mount options specified in the `mountOptions` field of the class.
 
 If the volume plugin does not support mount options but mount options are
 specified, provisioning will fail. Mount options are not validated on either
-the class or PV, so mount of the PV will simply fail if one is invalid.
+the class or PV, If a mount option is invalid, the PV mount fails.
  -->
 ### 挂载选项
 
 由 StorageClass 动态创建的 PersistentVolume 将使用类中 `mountOptions` 字段指定的挂载选项。
 
-如果卷插件不支持挂载选项，却指定了该选项，则制备操作会失败。
-挂载选项在 StorageClass 和 PV 上都不会做验证，所以如果挂载选项无效，那么这个 PV 就会失败。
+如果卷插件不支持挂载选项，却指定了挂载选项，则制备操作会失败。
+挂载选项在 StorageClass 和 PV 上都不会做验证，如果其中一个挂载选项无效，那么这个 PV 挂载操作就会失败。
 
 <!--
 ### Volume Binding Mode
@@ -310,6 +316,43 @@ to see its supported topology keys and examples.
 动态配置和预先创建的 PV 也支持 [CSI卷](/zh/docs/concepts/storage/volumes/#csi)，
 但是你需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑键名和例子。
 
+{{< note >}}
+<!-- 
+   If you choose to use `WaitForFirstConsumer`, do not use `nodeName` in the Pod spec
+   to specify node affinity. If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
+
+   Instead, you can use node selector for hostname in this case as shown below.
+-->
+   如果你选择使用 `WaitForFirstConsumer`，请不要在 Pod 规约中使用 `nodeName` 来指定节点亲和性。
+   如果在这种情况下使用 `nodeName`，Pod 将会绕过调度程序，PVC 将停留在 `pending` 状态。
+   
+   相反，在这种情况下，你可以使用节点选择器作为主机名，如下所示
+
+{{< /note >}}
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: kube-01
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
+
 <!--
 ### Allowed Topologies
 -->
@@ -346,8 +389,8 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: failure-domain.beta.kubernetes.io/zone
     values:
-    - us-central1-a
-    - us-central1-b
+    - us-central-1a
+    - us-central-1b
 ```
 
 <!--
@@ -387,6 +430,7 @@ parameters:
 ```
 
 <!--
+* `type`: `io1`, `gp2`, `gp2`, `sc1`, `st1`. See
 * `type`: `io1`, `gp2`, `sc1`, `st1`. See
   [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
   for details. Default: `gp2`.
@@ -641,6 +685,41 @@ parameters:
   当动态制备持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>`
   的端点和无头服务。在 PVC 被删除时动态端点和无头服务会自动被删除。
 
+### NFS
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: example-nfs
+provisioner: example.com/external-nfs
+parameters:
+  server: nfs-server.example.com
+  path: /share
+  readOnly: "false"
+```
+
+<!-- 
+* `server`: Server is the hostname or IP address of the NFS server.
+* `path`: Path that is exported by the NFS server.
+* `readOnly`: A flag indicating whether the storage will be mounted as read only (default false).
+-->
+* `server`：NFS 服务器的主机名或 IP 地址。
+* `path`：NFS 服务器导出的路径。
+* `readOnly`：是否将存储挂载为只读的标志（默认为 false）。
+
+<!-- 
+Kubernetes doesn't include an internal NFS provisioner. You need to use an external provisioner to create a StorageClass for NFS.
+Here are some examples:
+* [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+* [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+-->
+Kubernetes 不包含内部 NFS 驱动。你需要使用外部驱动为 NFS 创建 StorageClass。
+这里有些例子：
+* [NFS Ganesha 服务器和外部驱动](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+* [NFS subdir 外部驱动](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+
+
 ### OpenStack Cinder
 
 ```yaml
@@ -677,14 +756,14 @@ OpenStack 的内部驱动已经被弃用。请使用
 <!--
 There are two types of provisioners for vSphere storage classes: 
 
-- [CSI provisioner](#csi-provisioner): `csi.vsphere.vmware.com`
+- [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
 In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#csi-migration-5).
 -->
 vSphere 存储类有两种制备器
 
-- [CSI 制备器](#csi-provisioner): `csi.vsphere.vmware.com`
+- [CSI 制备器](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP 制备器](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
 树内制备器已经被
@@ -696,19 +775,19 @@ vSphere 存储类有两种制备器
 <!--
 #### CSI Provisioner {#vsphere-provisioner-csi}
 
-The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For an example, refer to the [vSphere CSI repository](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml).
+The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For an example, refer to the [vSphere CSI repository](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml).
 -->
 #### CSI 制备器 {#vsphere-provisioner-csi}
 
 vSphere CSI StorageClass 制备器在 Tanzu Kubernetes 集群下运行。示例请参
-[vSphere CSI 仓库](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml)。
+[vSphere CSI 仓库](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)。
 
 <!--
 #### vCP Provisioner 
 
 The following examples use the VMware Cloud Provider (vCP) StorageClass provisioner.  
 -->
-#### vCP 制备器
+#### vCP 制备器 {#vcp-provisioner}
 
 以下示例使用 VMware Cloud Provider (vCP) StorageClass 调度器
 
@@ -906,6 +985,17 @@ parameters:
 
 ### Quobyte
 
+{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
+
+<!-- 
+The Quobyte in-tree storage plugin is deprecated, an 
+[example](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)
+`StorageClass` for the out-of-tree Quobyte plugin can be found at the Quobyte CSI repository.
+-->
+Quobyte 树内（in-tree）存储插件已弃用，
+你可以在 Quobyte CSI 仓库中找到用于树外（out-of-tree）Quobyte 插件的 `StorageClass`
+[示例](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)。
+
 ```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -928,20 +1018,19 @@ parameters:
   `"http(s)://api-server:7860"`
 * `registry`: Quobyte registry to use to mount the volume. You can specify the
   registry as ``<host>:<port>`` pair or if you want to specify multiple
-  registries you just have to put a comma between them e.q.
+  registries, put a comma between them.
   ``<host1>:<port>,<host2>:<port>,<host3>:<port>``.
   The host can be an IP address or if you have a working DNS you can also
   provide the DNS names.
 * `adminSecretNamespace`: The namespace for `adminSecretName`.
   Default is "default".
 -->
-* `quobyteAPIServer`：Quobyte API 服务器的格式是
-  `"http(s)://api-server:7860"`
-* `registry`：用于挂载卷的 Quobyte registry。你可以指定 registry 为 ``<host>:<port>``
-  或者如果你想指定多个 registry，你只需要在他们之间添加逗号，例如
-  ``<host1>:<port>,<host2>:<port>,<host3>:<port>``。
+* `quobyteAPIServer`：Quobyte API 服务器的格式是 `"http(s)://api-server:7860"`
+* `registry`：用于挂载卷的 Quobyte 仓库。你可以指定仓库为 `<host>:<port>`
+  或者如果你想指定多个 registry，在它们之间添加逗号，例如
+  `<host1>:<port>,<host2>:<port>,<host3>:<port>`。
   主机可以是一个 IP 地址，或者如果你有正在运行的 DNS，你也可以提供 DNS 名称。
-* `adminSecretNamespace`：`adminSecretName`的 namespace。
+* `adminSecretNamespace`：`adminSecretName` 的名字空间。
   默认值是 "default"。
 
 <!--
@@ -957,15 +1046,16 @@ parameters:
     ```
 -->
 
-* `adminSecretName`：保存关于 Quobyte 用户和密码的 secret，用于对 API 服务器进行身份验证。
-  提供的 secret 必须有值为 "kubernetes.io/quobyte" 的 type 参数 和 `user` 与 `password` 的键值，
+* `adminSecretName`：保存关于 Quobyte 用户和密码的 Secret，用于对 API 服务器进行身份验证。
+  提供的 secret 必须有值为 "kubernetes.io/quobyte" 的 type 参数和 `user`
+  与 `password` 的键值，
   例如以这种方式创建：
 
-    ```shell
-    kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
-      --namespace=kube-system
-    ```
+  ```shell
+  kubectl create secret generic quobyte-admin-secret \
+    --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
+    --namespace=kube-system
+  ```
 <!--
 * `user`: maps all access to this user. Default is "root".
 * `group`: maps all access to this group. Default is "nfsnobody".
@@ -978,10 +1068,10 @@ parameters:
 -->
 * `user`：对这个用户映射的所有访问权限。默认是 "root"。
 * `group`：对这个组映射的所有访问权限。默认是 "nfsnobody"。
-* `quobyteConfig`：使用指定的配置来创建卷。你可以创建一个新的配置，或者，可以修改 Web console 或
-  quobyte CLI 中现有的配置。默认是 "BASE"。
-* `quobyteTenant`：使用指定的租户 ID 创建/删除卷。这个 Quobyte 租户必须已经于 Quobyte。
-  默认是 "DEFAULT"。
+* `quobyteConfig`：使用指定的配置来创建卷。你可以创建一个新的配置，
+  或者，可以修改 Web 控制台或 quobyte CLI 中现有的配置。默认是 "BASE"。
+* `quobyteTenant`：使用指定的租户 ID 创建/删除卷。这个 Quobyte 租户必须
+  已经于 Quobyte 中存在。默认是 "DEFAULT"。
 
 <!--
 ### Azure Disk
@@ -1015,7 +1105,9 @@ parameters:
 -->
 * `skuName`：Azure 存储帐户 Sku 层。默认为空。
 * `location`：Azure 存储帐户位置。默认为空。
-* `storageAccount`：Azure 存储帐户名称。如果提供存储帐户，它必须位于与集群相同的资源组中，并且 `location` 是被忽略的。如果未提供存储帐户，则会在与群集相同的资源组中创建新的存储帐户。
+* `storageAccount`：Azure 存储帐户名称。
+  如果提供存储帐户，它必须位于与集群相同的资源组中，并且 `location`
+  是被忽略的。如果未提供存储帐户，则会在与集群相同的资源组中创建新的存储帐户。
 
 <!--
 #### Azure Disk Storage Class (starting from v1.7.2) {#azure-disk-storage-class}
@@ -1030,12 +1122,12 @@ metadata:
 provisioner: kubernetes.io/azure-disk
 parameters:
   storageaccounttype: Standard_LRS
-  kind: Shared
+  kind: managed
 ```
 
 <!--
 * `storageaccounttype`: Azure storage account Sku tier. Default is empty.
-* `kind`: Possible values are `shared` (default), `dedicated`, and `managed`.
+* `kind`: Possible values are `shared`, `dedicated`, and `managed` (default).
   When `kind` is `shared`, all unmanaged disks are created in a few shared
   storage accounts in the same resource group as the cluster. When `kind` is
   `dedicated`, a new dedicated storage account will be created for the new
@@ -1047,7 +1139,7 @@ parameters:
    placed in the same resource group as the current Kubernetes cluster.
 -->
 * `storageaccounttype`：Azure 存储帐户 Sku 层。默认为空。
-* `kind`：可能的值是 `shared`（默认）、`dedicated` 和 `managed`。
+* `kind`：可能的值是 `shared`、`dedicated` 和 `managed`（默认）。
   当 `kind` 的值是 `shared` 时，所有非托管磁盘都在集群的同一个资源组中的几个共享存储帐户中创建。
   当 `kind` 的值是 `dedicated` 时，将为在集群的同一个资源组中新的非托管磁盘创建新的专用存储帐户。
 * `resourceGroup`: 指定要创建 Azure 磁盘所属的资源组。必须是已存在的资源组名称。
@@ -1058,7 +1150,8 @@ parameters:
 - Managed VM can only attach managed disks and unmanaged VM can only attach
   unmanaged disks.
 -->
-- Premium VM 可以同时添加 Standard_LRS 和 Premium_LRS 磁盘，而 Standard 虚拟机只能添加 Standard_LRS 磁盘。
+- Premium VM 可以同时添加 Standard_LRS 和 Premium_LRS 磁盘，而 Standard
+  虚拟机只能添加 Standard_LRS 磁盘。
 - 托管虚拟机只能连接托管磁盘，非托管虚拟机只能连接非托管磁盘。
 
 <!--
@@ -1097,11 +1190,15 @@ parameters:
 * `skuName`：Azure 存储帐户 Sku 层。默认为空。
 * `location`：Azure 存储帐户位置。默认为空。
 * `storageAccount`：Azure 存储帐户名称。默认为空。
-  如果不提供存储帐户，会搜索所有与资源相关的存储帐户，以找到一个匹配 `skuName` 和 `location` 的账号。
+  如果不提供存储帐户，会搜索所有与资源相关的存储帐户，以找到一个匹配
+  `skuName` 和 `location` 的账号。
   如果提供存储帐户，它必须存在于与集群相同的资源组中，`skuName` 和 `location` 会被忽略。
-* `secretNamespace`：包含 Azure 存储帐户名称和密钥的密钥的名称空间。 默认值与 Pod 相同。
-* `secretName`：包含 Azure 存储帐户名称和密钥的密钥的名称。 默认值为 `azure-storage-account-<accountName>-secret`
-* `readOnly`：指示是否将存储安装为只读的标志。默认为 false，表示 读/写 挂载。 该设置也会影响VolumeMounts中的 `ReadOnly` 设置。
+* `secretNamespace`：包含 Azure 存储帐户名称和密钥的密钥的名称空间。
+  默认值与 Pod 相同。
+* `secretName`：包含 Azure 存储帐户名称和密钥的密钥的名称。
+  默认值为 `azure-storage-account-<accountName>-secret`
+* `readOnly`：指示是否将存储安装为只读的标志。默认为 false，表示"读/写"挂载。
+  该设置也会影响VolumeMounts中的 `ReadOnly` 设置。
 
 <!--
 During storage provisioning, a secret named by `secretName` is created for the
@@ -1197,7 +1294,7 @@ parameters:
   storagePool: sp1
   storageMode: ThinProvisioned
   secretRef: sio-secret
-  readOnly: false
+  readOnly: "false"
   fsType: xfs
 ```
 
@@ -1279,7 +1376,7 @@ parameters:
   通常存在的 `default` 池。
 * `description`：指定给动态创建的卷的描述。所有卷描述对于存储类而言都是相同的，
   但不同的 storage class 可以使用不同的描述，以区分不同的使用场景。
-  默认为 `Kubernetas volume`。
+  默认为 `Kubernetes volume`。
 * `fsType`：请求的默认文件系统类型。
   请注意，在 StorageOS 中用户定义的规则可以覆盖此值。默认为 `ext4`
 * `adminSecretNamespace`：API 配置 secret 所在的命名空间。
@@ -1305,7 +1402,7 @@ kubectl create secret generic storageos-secret \
 -->
 StorageOS Kubernetes 卷插件可以使 Secret 对象来指定用于访问 StorageOS API 的端点和凭据。
 只有当默认值已被更改时，这才是必须的。
-secret 必须使用 `kubernetes.io/storageos` 类型创建，如以下命令：
+Secret 必须使用 `kubernetes.io/storageos` 类型创建，如以下命令：
 
 ```shell
 kubectl create secret generic storageos-secret \

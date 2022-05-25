@@ -1,0 +1,20 @@
+apiVersion: apiserver.k8s.io/v1beta1
+kind: EgressSelectorConfiguration
+egressSelections:
+# 클러스터에 대한 송신(egress) 트래픽을 제어하기 위해 
+# "cluster"를 name으로 사용한다. 기타 지원되는 값은 "etcd" 및 "master"이다.
+- name: cluster
+  connection:
+    # API 서버와 Konnectivity 서버 간의 프로토콜을
+    # 제어한다. 지원되는 값은 "GRPC" 및 "HTTPConnect"이다. 두 모드 간에
+    # 최종 사용자가 볼 수 있는 차이점은 없다. 동일한 모드에서 작동하도록
+    # Konnectivity 서버를 설정해야 한다.
+    proxyProtocol: GRPC
+    transport:
+      # API 서버가 Konnectivity 서버와 통신하는 데 사용하는 
+      # transport를 제어한다. Konnectivity 서버가 API 서버와 동일한 시스템에 
+      # 있는 경우 UDS를 사용하는 것이 좋다. 동일한 UDS 소켓에서 
+      # 수신 대기하도록 Konnectivity 서버를 구성해야 한다. 
+      # 지원되는 다른 전송은 "tcp"이다. TCP 전송을 보호하려면 TLS 구성을 설정해야 한다.
+      uds:
+        udsName: /etc/kubernetes/konnectivity-server/konnectivity-server.socket

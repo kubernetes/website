@@ -59,16 +59,21 @@ No parameters are passed to the handler.
 `PreStop`
 
 <!--
-This hook is called immediately before a container is terminated due to an API request or management event such as liveness probe failure, preemption, resource contention and others. A call to the preStop hook fails if the container is already in terminated or completed state.
-It is blocking, meaning it is synchronous,
-so it must complete before the signal to stop the container can be sent.
-No parameters are passed to the handler.
+This hook is called immediately before a container is terminated due to an API request or management
+event such as a liveness/startup probe failure, preemption, resource contention and others. A call
+to the `PreStop` hook fails if the container is already in a terminated or completed state and the
+hook must complete before the TERM signal to stop the container can be sent. The Pod's termination
+grace period countdown begins before the `PreStop` hook is executed, so regardless of the outcome of
+the handler, the container will eventually terminate within the Pod's termination grace period. No
+parameters are passed to the handler.
 -->
-在容器因 API 请求或者管理事件（诸如存活态探针失败、资源抢占、资源竞争等）而被终止之前，
-此回调会被调用。
-如果容器已经处于终止或者完成状态，则对 preStop 回调的调用将失败。
-此调用是阻塞的，也是同步调用，因此必须在发出删除容器的信号之前完成。
-没有参数传递给处理程序。
+在容器因 API 请求或者管理事件（诸如存活态探针、启动探针失败、资源抢占、资源竞争等）
+而被终止之前，此回调会被调用。
+如果容器已经处于已终止或者已完成状态，则对 preStop 回调的调用将失败。
+在用来停止容器的 TERM 信号被发出之前，回调必须执行结束。
+Pod 的终止宽限周期在 `PreStop` 回调被执行之前即开始计数，所以无论
+回调函数的执行结果如何，容器最终都会在 Pod 的终止宽限期内被终止。
+没有参数会被传递给处理程序。
 
 <!--
 A more detailed description of the termination behavior can be found in
@@ -102,7 +107,7 @@ Resources consumed by the command are counted against the Container.
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
-the Kubernetes management system execute the handler according to the hook action,
+the Kubernetes management system executes the handler according to the hook action,
 `httpGet` and `tcpSocket` are executed by the kubelet process, and `exec` is executed in the container.
 -->
 ### 回调处理程序执行
@@ -124,6 +129,20 @@ the Container cannot reach a `running` state.
 <!--
 `PreStop` hooks are not executed asynchronously from the signal
 to stop the Container; the hook must complete its execution before
+the TERM signal can be sent.
+If a `PreStop` hook hangs during execution,
+the Pod's phase will be `Terminating` and remain there until the Pod is
+killed after its `terminationGracePeriodSeconds` expires.
+This grace period applies to the total time it takes for both
+the `PreStop` hook to execute and for the Container to stop normally.
+If, for example, `terminationGracePeriodSeconds` is 60, and the hook
+takes 55 seconds to complete, and the Container takes 10 seconds to stop
+normally after receiving the signal, then the Container will be killed
+before it can stop normally, since `terminationGracePeriodSeconds` is
+less than the total time (55+10) it takes for these two things to happen.
+
+`PreStop` hooks are not executed asynchronously from the signal
+to stop the Container; the hook must complete its execution before
 the signal can be sent.
 If a `PreStop` hook hangs during execution,
 the Pod's phase will be `Terminating` and remain there until the Pod is
@@ -139,13 +158,13 @@ less than the total time (55+10) it takes for these two things to happen.
 `PreStop` 回调并不会与停止容器的信号处理程序异步执行；回调必须在
 可以发送信号之前完成执行。
 如果 `PreStop` 回调在执行期间停滞不前，Pod 的阶段会变成 `Terminating`
-并且一致处于该状态，直到其 `terminationGracePeriodSeconds` 耗尽为止，
+并且一直处于该状态，直到其 `terminationGracePeriodSeconds` 耗尽为止，
 这时 Pod 会被杀死。
 这一宽限期是针对 `PreStop` 回调的执行时间及容器正常停止时间的总和而言的。
 例如，如果 `terminationGracePeriodSeconds` 是 60，回调函数花了 55 秒钟
 完成执行，而容器在收到信号之后花了 10 秒钟来正常结束，那么容器会在其
 能够正常结束之前即被杀死，因为 `terminationGracePeriodSeconds` 的值
-小于后面两件事情所花费的总时间（55 + 10）。
+小于后面两件事情所花费的总时间（55+10）。
 
 <!--
 If either a `PostStart` or `PreStop` hook fails,
@@ -195,30 +214,32 @@ The logs for a Hook handler are not exposed in Pod events.
 If a handler fails for some reason, it broadcasts an event.
 For `PostStart`, this is the `FailedPostStartHook` event,
 and for `PreStop`, this is the `FailedPreStopHook` event.
-You can see these events by running `kubectl describe pod <pod_name>`.
-Here is some example output of events from running this command:
+To generate a failed `FailedPreStopHook` event yourself, modify the [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) file to change the postStart command to "badcommand" and apply it.
+Here is some example output of the resulting events you see from running `kubectl describe pod lifecycle-demo`:
 -->
 ### 调试回调处理程序
 
 回调处理程序的日志不会在 Pod 事件中公开。
 如果处理程序由于某种原因失败，它将播放一个事件。
 对于 `PostStart`，这是 `FailedPostStartHook` 事件，对于 `PreStop`，这是 `FailedPreStopHook` 事件。
-您可以通过运行 `kubectl describe pod <pod_name>` 命令来查看这些事件。
-下面是运行这个命令的一些事件输出示例:
+要自己生成失败的 `FailedPreStopHook` 事件，请修改
+[lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml)
+文件将 postStart 命令更改为 ”badcommand“ 并应用它。
+以下是通过运行 `kubectl describe pod lifecycle-demo` 后你看到的一些结果事件的示例输出：
 
 ```
 Events:
-  FirstSeen    LastSeen    Count    From                            SubobjectPath        Type        Reason        Message
-  ---------    --------    -----    ----                            -------------        --------    ------        -------
-  1m        1m        1    {default-scheduler }                                Normal        Scheduled    Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
-  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Pulling        pulling image "test:1.0"
-  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Created        Created container with docker id 5c6a256a2567; Security:[seccomp=unconfined]
-  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Pulled        Successfully pulled image "test:1.0"
-  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Started        Started container with docker id 5c6a256a2567
-  38s        38s        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Killing        Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
-  37s        37s        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Killing        Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
-  38s        37s        2    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                Warning        FailedSync    Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
-  1m         22s         2     {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Warning        FailedPostStartHook
+  Type     Reason               Age              From               Message
+  ----     ------               ----             ----               -------
+  Normal   Scheduled            7s               default-scheduler  Successfully assigned default/lifecycle-demo to ip-XXX-XXX-XX-XX.us-east-2...
+  Normal   Pulled               6s               kubelet            Successfully pulled image "nginx" in 229.604315ms
+  Normal   Pulling              4s (x2 over 6s)  kubelet            Pulling image "nginx"
+  Normal   Created              4s (x2 over 5s)  kubelet            Created container lifecycle-demo-container
+  Normal   Started              4s (x2 over 5s)  kubelet            Started container lifecycle-demo-container
+  Warning  FailedPostStartHook  4s (x2 over 5s)  kubelet            Exec lifecycle hook ([badcommand]) for Container "lifecycle-demo-container" in Pod "lifecycle-demo_default(30229739-9651-4e5a-9a32-a8f1688862db)" failed - error: command 'badcommand' exited with 126: , message: "OCI runtime exec failed: exec failed: container_linux.go:380: starting container process caused: exec: \"badcommand\": executable file not found in $PATH: unknown\r\n"
+  Normal   Killing              4s (x2 over 5s)  kubelet            FailedPostStartHook
+  Normal   Pulled               4s               kubelet            Successfully pulled image "nginx" in 215.66395ms
+  Warning  BackOff              2s (x2 over 3s)  kubelet            Back-off restarting failed container
 ```
 
 ## {{% heading "whatsnext" %}}

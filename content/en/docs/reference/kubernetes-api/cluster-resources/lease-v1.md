@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "Lease defines a lease concept."
 title: "Lease"
 weight: 5
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: coordination.k8s.io/v1`
 
@@ -312,6 +324,11 @@ POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -364,6 +381,11 @@ PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -414,6 +436,11 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -429,6 +456,8 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 
 200 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): Created
 
 401: Unauthorized
 

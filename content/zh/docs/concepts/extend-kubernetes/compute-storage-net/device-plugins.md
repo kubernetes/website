@@ -63,7 +63,7 @@ and reports two healthy devices on a node, the node status is updated
 to advertise that the node has 2 "Foo" devices installed and available.
 -->
 设备插件可以通过此 gRPC 服务在 kubelet 进行注册。在注册期间，设备插件需要发送下面几样内容：
-  
+
 * 设备插件的 Unix 套接字。
 * 设备插件的 API 版本。
 * `ResourceName` 是需要公布的。这里 `ResourceName` 需要遵循
@@ -78,26 +78,29 @@ to advertise that the node has 2 "Foo" devices installed and available.
 "Foo" 设备并且是可用的。
 
 <!--
-Then, users can request devices in a
-[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-specification as they request other types of resources, with the following limitations:
-
+Then, users can request devices as part of a Pod specification
+(see [`container`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)).
+Requesting extended resources is similar to how you manage requests and limits for
+other resources, with the following differences:
 * Extended resources are only supported as integer resources and cannot be overcommitted.
-* Devices cannot be shared among Containers.
+* Devices cannot be shared between containers.
 -->
-然后用户需要请求其他类型的资源的时候，就可以在
-[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-规范请求这类设备，但是有以下的限制：
+然后，用户可以请求设备作为 Pod 规范的一部分，
+参见[Container](/zh/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)。
+请求扩展资源类似于管理请求和限制的方式，
+其他资源，有以下区别：
 
 * 扩展资源仅可作为整数资源使用，并且不能被过量使用
 * 设备不能在容器之间共享
+
+### 示例 {#example-pod}
 
 <!--
 Suppose a Kubernetes cluster is running a device plugin that advertises resource `hardware-vendor.example/foo`
 on certain nodes. Here is an example of a pod requesting this resource to run a demo workload:
 -->
 假设 Kubernetes 集群正在运行一个设备插件，该插件在一些节点上公布的资源为 `hardware-vendor.example/foo`。
-下面就是一个 Pod 示例，请求此资源以运行某演示负载：
+下面就是一个 Pod 示例，请求此资源以运行一个工作负载的示例：
 
 ```yaml
 ---
@@ -140,8 +143,12 @@ The general workflow of a device plugin includes the following steps:
   一个 gRPC 服务，该服务实现以下接口：
 
   <!--
+
   ```gRPC
   service DevicePlugin {
+        // GetDevicePluginOptions returns options to be communicated with Device Manager.
+        rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+
         // ListAndWatch returns a stream of List of Devices
         // Whenever a Device state change or a Device disappears, ListAndWatch
         // returns the new list
@@ -168,6 +175,9 @@ The general workflow of a device plugin includes the following steps:
   -->
   ```gRPC
   service DevicePlugin {
+        // GetDevicePluginOptions 返回与设备管理器沟通的选项。
+        rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+
         // ListAndWatch 返回 Device 列表构成的数据流。
         // 当 Device 状态发生变化或者 Device 消失时，ListAndWatch
         // 会返回新的列表。
@@ -323,12 +333,159 @@ for these devices:
 kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且还未这些设备提供了元数据：
 
 ```gRPC
-// PodResourcesLister is a service provided by the kubelet that provides information about the
-// node resources consumed by pods and containers on the node
+// PodResourcesLister 是一个由 kubelet 提供的服务，用来提供供节点上 
+// Pods 和容器使用的节点资源的信息
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
+    rpc GetAllocatableResources(AllocatableResourcesRequest) returns (AllocatableResourcesResponse) {}
 }
 ```
+
+### `List` gRPC 端点 {#grpc-endpoint-list}
+
+<!--
+The `List` endpoint provides information on resources of running pods, with details such as the
+id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
+the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains
+the information about memory and hugepages reserved for a container.
+-->
+这一 `List` 端点提供运行中 Pods 的资源信息，包括类似独占式分配的
+CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUMA 节点 ID。
+此外，对于基于 NUMA 的机器，它还会包含为容器保留的内存和大页的信息。
+
+```gRPC
+// ListPodResourcesResponse 是 List 函数的响应
+message ListPodResourcesResponse {
+    repeated PodResources pod_resources = 1;
+}
+
+// PodResources 包含关于分配给 Pod 的节点资源的信息
+message PodResources {
+    string name = 1;
+    string namespace = 2;
+    repeated ContainerResources containers = 3;
+}
+
+// ContainerResources 包含分配给容器的资源的信息
+message ContainerResources {
+    string name = 1;
+    repeated ContainerDevices devices = 2;
+    repeated int64 cpu_ids = 3;
+    repeated ContainerMemory memory = 4;
+}
+
+// ContainerMemory 包含分配给容器的内存和大页信息
+message ContainerMemory {
+    string memory_type = 1;
+    uint64 size = 2;
+    TopologyInfo topology = 3;
+}
+
+// Topology 描述资源的硬件拓扑结构
+message TopologyInfo {
+        repeated NUMANode nodes = 1;
+}
+
+// NUMA 代表的是 NUMA 节点
+message NUMANode {
+        int64 ID = 1;
+}
+
+// ContainerDevices 包含分配给容器的设备信息
+message ContainerDevices {
+    string resource_name = 1;
+    repeated string device_ids = 2;
+    TopologyInfo topology = 3;
+}
+```
+
+<!--
+{{< note >}}
+cpu_ids in the `ContainerResources` in the `List` endpoint correspond to exclusive CPUs allocated
+to a partilar container. If the goal is to evaluate CPUs that belong to the shared pool, the `List`
+endpoint needs to be used in conjunction with the `GetAllocatableResources` endpoint as explained
+below:
+1. Call `GetAllocatableResources` to get a list of all the allocatable CPUs
+2. Call `GetCpuIds` on all `ContainerResources` in the system
+3. Subtract out all of the CPUs from the `GetCpuIds` calls from the `GetAllocatableResources` call
+{{< /note >}}
+-->
+{{< note >}}
+`List` 端点中的 `ContainerResources` 中的 cpu_ids 对应于分配给某个容器的专属 CPU。
+如果要统计共享池中的 CPU，`List` 端点需要与 `GetAllocatableResources` 端点一起使用，如下所述:
+
+1. 调用 `GetAllocatableResources` 获取所有可用的 CPUs。
+2. 在系统中所有的 `ContainerResources` 上调用 `GetCpuIds`。
+3. 用 `GetAllocatableResources` 获取的 CPU 数减去 `GetCpuIds` 获取的 CPU 数。
+{{< /note >}}
+
+### `GetAllocatableResources` gRPC 端点 {#grpc-endpoint-getallocatableresources}
+
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+
+<!--
+GetAllocatableResources provides information on resources initially available on the worker node.
+It provides more information than kubelet exports to APIServer.
+-->
+端点 `GetAllocatableResources` 提供工作节点上原始可用的资源信息。
+此端点所提供的信息比导出给 API 服务器的信息更丰富。
+
+{{< note >}}
+<!--
+`GetAllocatableResources` should only be used to evaluate [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+resources on a node. If the goal is to evaluate free/unallocated resources it should be used in
+conjunction with the List() endpoint. The result obtained by `GetAllocatableResources` would remain
+the same unless the underlying resources exposed to kubelet change. This happens rarely but when
+it does (for example: hotplug/hotunplug, device health changes), client is expected to call
+`GetAlloctableResources` endpoint.
+However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
+update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
+-->
+`GetAllocatableResources` 应该仅被用于评估一个节点上的[可分配的](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+资源。如果目标是评估空闲/未分配的资源，此调用应该与 List() 端点一起使用。
+除非暴露给 kubelet 的底层资源发生变化 否则 `GetAllocatableResources` 得到的结果将保持不变。
+这种情况很少发生，但当发生时（例如：热插拔，设备健康状况改变），客户端应该调用 `GetAlloctableResources` 端点。
+然而，调用 `GetAllocatableResources` 端点在 cpu、内存被更新的情况下是不够的，
+Kubelet 需要重新启动以获取正确的资源容量和可分配的资源。
+{{< /note >}}
+
+
+```gRPC
+// AllocatableResourcesResponses 包含 kubelet 所了解到的所有设备的信息
+message AllocatableResourcesResponse {
+    repeated ContainerDevices devices = 1;
+    repeated int64 cpu_ids = 2;
+    repeated ContainerMemory memory = 3;
+}
+
+```
+
+<!--
+Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
+You can disable it by turning off the
+`KubeletPodResourcesGetAllocatable` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
+
+`--feature-gates=KubeletPodResourcesGetAllocatable=true`
+-->
+从 Kubernetes v1.23 开始，`GetAllocatableResources` 被默认启用。
+你可以通过关闭 `KubeletPodResourcesGetAllocatable`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/) 来禁用。
+
+在 Kubernetes v1.23 之前，要启用这一功能，`kubelet` 必须用以下标志启动：
+
+`--feature-gates=KubeletPodResourcesGetAllocatable=true`
+
+<!--
+`ContainerDevices` do expose the topology information declaring to which NUMA cells the device is affine.
+The NUMA cells are identified using a opaque integer ID, which value is consistent to what device
+plugins report [when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
+-->
+`ContainerDevices` 会向外提供各个设备所隶属的 NUMA 单元这类拓扑信息。
+NUMA 单元通过一个整数 ID 来标识，其取值与设备插件所报告的一致。
+[设备插件注册到 kubelet 时](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+会报告这类信息。
 
 <!--
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
@@ -338,7 +495,8 @@ agents must run in a privileged security context.  If a device monitoring agent 
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
-Support for the "PodResources service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+
+Support for the `PodResourcesLister service` requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 -->
 gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。
@@ -350,9 +508,9 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 中声明将 `/var/lib/kubelet/pod-resources` 目录以
 {{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到设备监控代理中。
 
-对“PodResources 服务”的支持要求启用 `KubeletPodResources`
+对“PodResourcesLister 服务”的支持要求启用 `KubeletPodResources`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20开始为 v1。
+从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20 开始为 v1。
 
 <!--
 ## Device Plugin integration with the Topology Manager
@@ -371,7 +529,7 @@ The Topology Manager is a Kubelet component that allows resources to be co-ordin
 
 ```gRPC
 message TopologyInfo {
-	repeated NUMANode nodes = 1;
+ repeated NUMANode nodes = 1;
 }
 
 message NUMANode {
@@ -410,8 +568,6 @@ Here are some examples of device plugin implementations:
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for Intel GPU, FPGA and QuickAssist devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for hardware-assisted virtualization
-* The [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
-    * Requires [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0, which allows you to run GPU-enabled Docker containers.
 * The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
@@ -421,14 +577,13 @@ Here are some examples of device plugin implementations:
 ## 设备插件示例 {#examples}
 
 下面是一些设备插件实现的示例：
- 
+
 * [AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes) 支持 Intel GPU、FPGA 和 QuickAssist 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins) 用于硬件辅助的虚拟化
-* The [NVIDIA GPU 设备插件](https://github.com/NVIDIA/k8s-device-plugin)
-    * 需要 [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0，以允许运行 Docker 容器的时候启用 GPU。
 * [为 Container-Optimized OS 所提供的 NVIDIA GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 设备插件](https://github.com/hustcat/k8s-rdma-device-plugin)
+* [SocketCAN 设备插件](https://github.com/collabora/k8s-socketcan)
 * [Solarflare 设备插件](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [SR-IOV 网络设备插件](https://github.com/intel/sriov-network-device-plugin)
 * [Xilinx FPGA 设备插件](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin)
@@ -438,12 +593,10 @@ Here are some examples of device plugin implementations:
 <!--
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
-* Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
-* Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
+* Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
+* Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
 -->
 * 查看[调度 GPU 资源](/zh/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
 * 查看在上如何[公布节点上的扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)
-* 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 
 * 学习[拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)
-
-
+* 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](/zh/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)

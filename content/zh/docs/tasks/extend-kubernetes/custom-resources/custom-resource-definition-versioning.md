@@ -131,7 +131,7 @@ after upgrading the objects to a new stored version.
 Removing an old version:
 
 1. Ensure all clients are fully migrated to the new version. The kube-apiserver
-   logs can reviewed to help identify any clients that are still accessing via
+   logs can be reviewed to help identify any clients that are still accessing via
    the old version.
 1. Set `served` to `false` for the old version in the `spec.versions` list. If
    any clients are still unexpectedly using the old version they may begin reporting
@@ -139,7 +139,7 @@ Removing an old version:
    If this occurs, switch back to using `served:true` on the old version, migrate the 
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
-    1. Verify that the `stored` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
+    1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
     1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
 1. Remove the old version from the CustomResourceDefinition `spec.versions` list.
 1. Drop conversion support for the old version in conversion webhooks.
@@ -156,7 +156,7 @@ Removing an old version:
 1. 确保已完成[将现有对象升级到新存储版本](#upgrade-existing-objects-to-a-new-stored-version)
    的步骤。
    1. 在 CustomResourceDefinition 的 `spec.versions` 列表中，确认新版本的
-      `stored` 已被设置为 `true`。
+      `storage` 已被设置为 `true`。
    2. 确认旧版本不在 CustomResourceDefinition `status.storedVersions` 中。
 1. 从 CustomResourceDefinition `spec.versions` 列表中删除旧版本。
 1. 在转换 Webhooks 中放弃对旧版本的转换支持。
@@ -302,7 +302,7 @@ spec:
     plural: crontabs
     # 名称的单数形式，用于在命令行接口和显示时作为其别名
     singular: crontab
-    # kind 通常是驼峰编码（CamelCased）的单数形式，用于资源清单中
+    # kind 通常是大驼峰编码（PascalCased）的单数形式，用于资源清单中
     kind: CronTab
     # shortNames 允许你在命令行接口中使用更短的字符串来匹配你的资源
     shortNames:
@@ -608,14 +608,14 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 A conversion webhook must not mutate anything inside of `metadata` of the converted object
 other than `labels` and `annotations`.
 Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request
-which caused the conversion. All other changes are just ignored.  
+which caused the conversion. All other changes are ignored. 
 -->
 #### 被允许的变更
 
 转换 Webhook 不可以更改被转换对象的 `metadata` 中除 `labels` 和 `annotations`
 之外的任何属性。
 尝试更改 `name`、`UID` 和 `namespace` 时都会导致引起转换的请求失败。
-所有其他变更只是被忽略而已。
+所有其他变更都被忽略。
 
 <!--
 ### Deploy the conversion webhook service
@@ -833,14 +833,13 @@ API 服务器一旦确定请求应发送到转换 Webhook，它需要知道如�
 The `host` should not refer to a service running in the cluster; use
 a service reference by specifying the `service` field instead.
 The host might be resolved via external DNS in some apiservers
-(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would 
+(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would
 be a layering violation). `host` may also be an IP address.
 
 Please note that using `localhost` or `127.0.0.1` as a `host` is
 risky unless you take great care to run this webhook on all hosts
 which run an apiserver which might need to make calls to this
-webhook. Such installs are likely to be non-portable, i.e., not easy
-to turn up in a new cluster.
+webhook. Such installations are likely to be non-portable or not readily run in a new cluster.
 -->
 url 以标准 URL 形式给出 Webhook 的位置（`scheme://host:port/path`）。
 `host` 不应引用集群中运行的服务，而应通过指定 `service` 字段来提供
@@ -851,8 +850,7 @@ url 以标准 URL 形式给出 Webhook 的位置（`scheme://host:port/path`）�
 
 请注意，除非你非常小心地在所有运行着可能调用 Webhook 的 API 服务器的
 主机上运行此 Webhook，否则将 `localhost` 或 `127.0.0.1` 用作 `host`
-是风险很大的。这样的安装很可能是不可移植的，即很难在新集群中启用。
-
+是风险很大的。这样的安装可能是不可移植的，或者不容易在一个新的集群中运行。
 <!--
 The scheme must be "https"; the URL must begin with "https://".
 
@@ -1246,8 +1244,8 @@ If conversion fails, a webhook should return a `response` stanza containing the 
 -->
 如果转换失败，则 Webhook 应该返回包含以下字段的 `response` 节：
 
-*`uid`，从发送到 Webhook 的 `request.uid` 复制而来
-*`result`，设置为 `{"status": "Failed"}`
+* `uid`，从发送到 Webhook 的 `request.uid` 复制而来
+* `result`，设置为 `{"status": "Failed"}`
 
 {{< warning >}}
 <!--
@@ -1386,8 +1384,8 @@ procedure.
 <!--
 *Option 1:* Use the Storage Version Migrator
 
-1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+1.  Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+2.  Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 -->
 
 *选项 1：* 使用存储版本迁移程序（Storage Version Migrator）
@@ -1411,13 +1409,29 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 2.  Write an upgrade procedure to list all existing objects and write them with
     the same content. This forces the backend to write objects in the current
     storage version, which is `v1`.
-3.  Update the CustomResourceDefinition `Status` by removing `v1beta1` from
-    `storedVersions` field.
+3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 -->
 1.  在 CustomResourceDefinition 文件中将 `v1` 设置为存储版本，并使用 kubectl 应用它。
     `storedVersions`现在是`v1beta1, v1`。
 2.  编写升级过程以列出所有现有对象并使用相同内容将其写回存储。
     这会强制后端使用当前存储版本（即 `v1`）写入对象。
-3.  通过从 `storedVersions` 字段中删除 `v1beta1` 来更新 CustomResourceDefinition
-    的`Status`。 
+3.  从 CustomResourceDefinition  的 `status.storedVersions` 字段中删除 `v1beta1`。
 
+<!--
+The `kubectl` tool currently cannot be used to edit or patch the `status` subresource on a CRD: see the [Kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource) for more details.
+
+The easier way to patch the status subresource from the CLI is directly interacting with the API server using the `curl` tool, in this example:
+-->
+{{< note >}}
+`kubectl` 工具目前不能用于编辑或修补 CRD 上的 `status` 子资源：请参阅
+[kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource)
+了解更多细节。
+
+从 CLI 给 `status` 子资源打补丁的更简单的方法是使用 `curl` 工具直接与 API 服务器交互，示例:
+```bash
+kubectl proxy &
+curl --header "Content-Type: application/json-patch+json" \
+  --request PATCH http://localhost:8001/apis/apiextensions.k8s.io/v1/customresourcedefinitions/<your CRD name here>/status \
+  --data '[{"op": "replace", "path": "/status/storedVersions", "value":["v1"]}]'
+```
+{{< /note >}}

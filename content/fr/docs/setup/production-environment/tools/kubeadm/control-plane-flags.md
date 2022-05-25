@@ -81,7 +81,7 @@ metadata:
   name: 1.13-sample
 scheduler:
   extraArgs:
-    address: 0.0.0.0
+    bind-address: 0.0.0.0
     config: /home/johndoe/schedconfig.yaml
     kubeconfig: /home/johndoe/kubeconfig.yaml
 ```

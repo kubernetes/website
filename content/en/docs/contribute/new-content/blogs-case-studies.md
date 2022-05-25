@@ -22,6 +22,34 @@ Most of the blog's content is about things happening in the core project, but we
 
 Anyone can write a blog post and submit it for review.
 
+### Submit a Post
+
+Blog posts should not be commercial in nature and should consist of original content that applies broadly to the Kubernetes community.
+Appropriate blog content includes:
+
+- New Kubernetes capabilities
+- Kubernetes projects updates
+- Updates from Special Interest Groups
+- Tutorials and walkthroughs
+- Thought leadership around Kubernetes
+- Kubernetes Partner OSS integration
+- **Original content only**
+
+Unsuitable content includes:
+
+- Vendor product pitches
+- Partner updates without an integration and customer story
+- Syndicated posts (language translations ok)
+
+To submit a blog post, follow these steps:
+
+1. [Sign the CLA](https://kubernetes.io/docs/contribute/start/#sign-the-cla) if you have not yet done so.
+1. Have a look at the Markdown format for existing blog posts in the [website repository](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts).
+1. Write out your blog post in a text editor of your choice.
+1. On the same link from step 2, click the Create new file button. Paste your content into the editor. Name the file to match the proposed title of the blog post, but don’t put the date in the file name. The blog reviewers will work with you on the final file name and the date the blog will be published.
+1. When you save the file, GitHub will walk you through the pull request process.
+1. A blog post reviewer will review your submission and work with you on feedback and final details. When the blog post is approved, the blog will be scheduled for publication.
+
 ### Guidelines and expectations
 
 - Blog posts should not be vendor pitches. 
@@ -38,9 +66,10 @@ Anyone can write a blog post and submit it for review.
   - The components of Kubernetes are purposely modular, so tools that use existing integration points like CNI and CSI are on topic. 
   - Posts about other CNCF projects may or may not be on topic. We recommend asking the blog team before submitting a draft.
     - Many CNCF projects have their own blog. These are often a better choice for posts. There are times of major feature or milestone for a CNCF project that users would be interested in reading on the Kubernetes blog.
+  - Blog posts about contributing to the Kubernetes project should be in the [Kubernetes Contributors site](https://kubernetes.dev)
 - Blog posts should be original content
-    - The official blog is not for repurposing existing content from a third party as new content.
-    - The [license](https://github.com/kubernetes/website/blob/master/LICENSE) for the blog does allow commercial use of the content for commercial purposes, just not the other way around. 
+  - The official blog is not for repurposing existing content from a third party as new content.
+  - The [license](https://github.com/kubernetes/website/blob/main/LICENSE) for the blog allows commercial use of the content for commercial purposes, but not the other way around.
 - Blog posts should aim to be future proof
   - Given the development velocity of the project, we want evergreen content that won't require updates to stay accurate for the reader. 
   - It can be a better choice to add a tutorial or update official documentation than to write a high level overview as a blog post.
@@ -56,7 +85,7 @@ The SIG Docs [blog subproject](https://github.com/kubernetes/community/tree/mast
 
 To submit a blog post follow these directions:
 
-- [Open a pull request](/docs/contribute/new-content/open-a-pr/#fork-the-repo) with a new blog post. New blog posts go under the [`content/en/blog/_posts`](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts) directory.
+- [Open a pull request](/docs/contribute/new-content/open-a-pr/#fork-the-repo) with a new blog post. New blog posts go under the [`content/en/blog/_posts`](https://github.com/kubernetes/website/tree/main/content/en/blog/_posts) directory.
 
 - Ensure that your blog post follows the correct naming conventions and the following frontmatter (metadata) information:
 
@@ -82,6 +111,15 @@ To submit a blog post follow these directions:
       - _initial commit_
       - _draft post_
   - The blog team will then review your PR and give you comments on things you might need to fix. After that the bot will merge your PR and your blog post will be published. 
+  - If the content of the blog post contains only content that is not expected to require updates to stay accurate for the reader, it can be marked as evergreen and exempted from the automatic warning about outdated content added to blog posts older than one year.
+    - To mark a blog post as evergreen, add this to the front matter:
+      
+      ```yaml
+      evergreen: true
+      ```
+    - Examples of content that should not be marked evergreen:
+      - **Tutorials** that only apply to specific releases or versions and not all future versions
+      - References to pre-GA APIs or features
 
 
 ## Submit a case study
@@ -90,6 +128,6 @@ Case studies highlight how organizations are using Kubernetes to solve
 real-world problems. The Kubernetes marketing team and members of the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} collaborate with you on all case studies.
 
 Have a look at the source for the
-[existing case studies](https://github.com/kubernetes/website/tree/master/content/en/case-studies).
+[existing case studies](https://github.com/kubernetes/website/tree/main/content/en/case-studies).
 
 Refer to the [case study guidelines](https://github.com/cncf/foundation/blob/master/case-study-guidelines.md) and submit your request as outlined in the guidelines.

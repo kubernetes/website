@@ -6,8 +6,20 @@ api_metadata:
 content_type: "api_reference"
 description: "ListMeta describes metadata that synthetic resources must have, including lists and various status objects."
 title: "ListMeta"
-weight: 8
+weight: 3
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 
 
@@ -32,9 +44,7 @@ ListMeta describes metadata that synthetic resources must have, including lists 
 
 - **selfLink** (string)
 
-  selfLink is a URL representing this object. Populated by the system. Read-only.
-  
-  DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
+  Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
 
 
 

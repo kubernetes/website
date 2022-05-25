@@ -70,7 +70,7 @@ controller on the controller manager.
 
 Each valid token is backed by a secret in the `kube-system` namespace.  You can
 find the full design doc
-[here](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
+[here](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
 
 Here is what the secret looks like.
 
@@ -167,7 +167,7 @@ data:
     users: []
 ```
 
-The `kubeconfig` member of the ConfigMap is a config file with just the cluster
+The `kubeconfig` member of the ConfigMap is a config file with only the cluster
 information filled out.  The key thing being communicated here is the
 `certificate-authority-data`.  This may be expanded in the future.
 

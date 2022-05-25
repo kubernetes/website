@@ -12,7 +12,9 @@ weight: 60
 Application logs can help you understand what is happening inside your application. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism. Likewise, container engines are designed to support logging. The easiest and most adopted logging method for containerized applications is writing to standard output and standard error streams.
 
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution.
-For example, you may want access your application's logs if a container crashes; a pod gets evicted; or a node dies.
+
+For example, you may want to access your application's logs if a container crashes, a pod gets evicted, or a node dies.
+
 In a cluster, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level logging_.
 
 <!-- body -->
@@ -55,7 +57,15 @@ The output is:
 ...
 ```
 
-You can use `kubectl logs --previous` to retrieve logs from a previous instantiation of a container. If your pod has multiple containers, specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+You can use `kubectl logs --previous` to retrieve logs from a previous instantiation of a container.
+If your pod has multiple containers, specify which container's logs you want to access by
+appending a container name to the command, with a `-c` flag, like so:
+
+```console
+kubectl logs counter -c count
+```
+
+See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
 
 ## Logging at the node level
 
@@ -81,14 +91,20 @@ rotate an application's logs automatically.
 
 As an example, you can find detailed information about how `kube-up.sh` sets
 up logging for COS image on GCP in the corresponding
-[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh).
+[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh).
+
+When using a **CRI container runtime**, the kubelet is responsible for rotating the logs and managing the logging directory structure.
+The kubelet sends this information to the CRI container runtime and the runtime writes the container logs to the given location.
+The two kubelet parameters [`containerLogMaxSize` and `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+in [kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/)
+can be used to configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file. The kubelet returns the content of the log file.
 
 {{< note >}}
-If an external system has performed the rotation,
+If an external system has performed the rotation or a CRI container runtime is used,
 only the contents of the latest log file will be available through
 `kubectl logs`. For example, if there's a 10MB file, `logrotate` performs
 the rotation and there are two files: one file that is 10MB in size and a second file that is empty.
@@ -135,7 +151,7 @@ as a `DaemonSet`.
 
 Node-level logging creates only one agent per node and doesn't require any changes to the applications running on the node.
 
-Containers write stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
+Containers write to stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
 
 ### Using a sidecar container with the logging agent {#sidecar-container-with-logging-agent}
 

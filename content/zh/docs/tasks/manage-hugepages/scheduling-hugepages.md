@@ -154,10 +154,6 @@ term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=false`)
    `proc/sys/vm/hugetlb_shm_group` 匹配的补充组下。
 - 通过 ResourceQuota 资源，可以使用 `hugepages-<size>` 标记控制每个命名空间下的巨页使用量，
   类似于使用 `cpu` 或 `memory` 来控制其他计算资源。
-- 多种尺寸的巨页的支持需要特性门控配置。它可以通过 `HugePageStorageMediumSize` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)在  {{<
-glossary_tooltip text="kubelet" term_id="kubelet" >}} 和 {{<
-glossary_tooltip text="kube-apiserver"
-term_id="kube-apiserver" >}} 中开启（`--feature-gates=HugePageStorageMediumSize=false`）。
 
 
 

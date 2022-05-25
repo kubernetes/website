@@ -187,7 +187,7 @@ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
+For more information, see [Get a Shell to a Running Container](/docs/tasks/debug/debug-application/get-shell-running-container/).
 
 ## docker logs
 
@@ -265,7 +265,7 @@ nginx-app    1/1     1            1           2m
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 ```
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
@@ -279,7 +279,7 @@ deployment "nginx-app" deleted
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 # Return nothing
 ```
 

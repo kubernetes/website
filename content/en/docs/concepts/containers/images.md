@@ -25,12 +25,11 @@ This page provides an outline of the container image concept.
 
 Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
-and possible a port number as well; for example: `fictional.registry.example:10443/imagename`.
+and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
-After the image name part you can add a _tag_ (as also using with commands such
-as `docker` and `podman`).
+After the image name part you can add a _tag_ (in the same way you would when using with commands like `docker` or `podman`).
 Tags let you identify different versions of the same series of images.
 
 Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
@@ -38,14 +37,6 @@ periods (`.`), and dashes (`-`).
 There are additional rules about where you can place the separator
 characters (`_`, `-`, and `.`) inside an image tag.  
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
-
-{{< caution >}}
-You should avoid using the `latest` tag when deploying containers in production,
-as it is harder to track which version of the image is running and more difficult
-to roll back to a working version.
-
-Instead, specify a meaningful tag such as `v1.42.0`.
-{{< /caution >}}
 
 ## Updating images
 
@@ -57,13 +48,68 @@ specified. This policy causes the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip pulling an
 image if it already exists.
 
-If you would like to always force a pull, you can do one of the following:
+### Image pull policy
 
-- set the `imagePullPolicy` of the container to `Always`.
-- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
-  Kubernetes will set the policy to `Always`.
-- omit the `imagePullPolicy` and the tag for the image to use.
-- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+The `imagePullPolicy` for a container and the tag of the image affect when the
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull (download) the specified image.
+
+Here's a list of the values you can set for `imagePullPolicy` and the effects
+these values have:
+
+`IfNotPresent`
+: the image is pulled only if it is not already present locally.
+
+`Always`
+: every time the kubelet launches a container, the kubelet queries the container
+  image registry to resolve the name to an image
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier). If the kubelet has a
+  container image with that exact digest cached locally, the kubelet uses its cached
+  image; otherwise, the kubelet pulls the image with the resolved digest,
+  and uses that image to launch the container.
+
+`Never`
+: the kubelet does not try fetching the image. If the image is somehow already present
+  locally, the kubelet attempts to start the container; otherwise, startup fails.
+  See [pre-pulled images](#pre-pulled-images) for more details.
+
+The caching semantics of the underlying image provider make even
+`imagePullPolicy: Always` efficient, as long as the registry is reliably accessible.
+Your container runtime can notice that the image layers already exist on the node
+so that they don't need to be downloaded again.
+
+{{< note >}}
+You should avoid using the `:latest` tag when deploying containers in production as
+it is harder to track which version of the image is running and more difficult to
+roll back properly.
+
+Instead, specify a meaningful tag such as `v1.42.0`.
+{{< /note >}}
+
+To make sure the Pod always uses the same version of a container image, you can specify
+the image's digest;
+replace `<image-name>:<tag>` with `<image-name>@<digest>`
+(for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
+
+When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image by digest fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
+
+There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
+that mutate Pods (and pod templates) when they are created, so that the
+running workload is defined based on an image digest rather than a tag.
+That might be useful if you want to make sure that all your workload is
+running the same code no matter what tag changes happen at the registry.
+
+#### Default image pull policy {#imagepullpolicy-defaulting}
+
+When you (or a controller) submit a new Pod to the API server, your cluster sets the
+`imagePullPolicy` field when specific conditions are met:
+
+- if you omit the `imagePullPolicy` field, and the tag for the container image is
+  `:latest`, `imagePullPolicy` is automatically set to `Always`;
+- if you omit the `imagePullPolicy` field, and you don't specify the tag for the
+  container image, `imagePullPolicy` is automatically set to `Always`;
+- if you omit the `imagePullPolicy` field, and you specify the tag for the
+  container image that isn't `:latest`, the `imagePullPolicy` is automatically set to
+  `IfNotPresent`.
 
 {{< note >}}
 The value of `imagePullPolicy` of the container is always set when the object is
@@ -75,7 +121,31 @@ For example, if you create a Deployment with an image whose tag is _not_
 the pull policy of any object after its initial creation.
 {{< /note >}}
 
-When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
+#### Required image pull
+
+If you would like to always force a pull, you can do one of the following:
+
+- Set the `imagePullPolicy` of the container to `Always`.
+- Omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
+  Kubernetes will set the policy to `Always` when you submit the Pod.
+- Omit the `imagePullPolicy` and the tag for the image to use;
+  Kubernetes will set the policy to `Always` when you submit the Pod.
+- Enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+
+
+### ImagePullBackOff
+
+When a kubelet starts creating containers for a Pod using a container runtime,
+it might be possible the container is in [Waiting](/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)
+state because of `ImagePullBackOff`.
+
+The status `ImagePullBackOff` means that a container could not start because Kubernetes
+could not pull a container image (for reasons such as invalid image name, or pulling
+from a private registry without `imagePullSecret`). The `BackOff` part indicates
+that Kubernetes will keep trying to pull the image, with an increasing back-off delay.
+
+Kubernetes raises the delay between each attempt until it reaches a compiled-in limit,
+which is 300 seconds (5 minutes).
 
 ## Multi-architecture images with image indexes
 
@@ -104,95 +174,79 @@ These options are explained in more detail below.
 
 ### Configuring nodes to authenticate to a private registry
 
-If you run Docker on your nodes, you can configure the Docker container
-runtime to authenticate to a private container registry.
+Specific instructions for setting credentials depends on the container runtime and registry you chose to use. You should refer to your solution's documentation for the most accurate information.
 
-This approach is suitable if you can control node configuration.
+For an example of configuring a private container image registry, see the
+[Pull an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry)
+task. That example uses a private registry in Docker Hub.
 
-{{< note >}}
-Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
-Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
-{{< /note >}}
+### Interpretation of config.json {#config-json}
 
+The interpretation of `config.json` varies between the original Docker
+implementation and the Kubernetes interpretation. In Docker, the `auths` keys
+can only specify root URLs, whereas Kubernetes allows glob URLs as well as
+prefix-matched paths. This means that a `config.json` like this is valid:
 
-Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
-in the search paths list below, kubelet uses it as the credential provider when pulling images.
-
-* `{--root-dir:-/var/lib/kubelet}/config.json`
-* `{cwd of kubelet}/config.json`
-* `${HOME}/.docker/config.json`
-* `/.docker/config.json`
-* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-* `{cwd of kubelet}/.dockercfg`
-* `${HOME}/.dockercfg`
-* `/.dockercfg`
-
-{{< note >}}
-You may have to set `HOME=/root` explicitly in the environment of the kubelet process.
-{{< /note >}}
-
-Here are the recommended steps to configuring your nodes to use a private registry.  In this
-example, run these on your desktop/laptop:
-
-   1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
-   1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
-   1. Get a list of your nodes; for example:
-      - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
-      - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
-   1. Copy your local `.docker/config.json` to one of the search paths list above.
-      - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
-
-{{< note >}}
-For production clusters, use a configuration management tool so that you can apply this
-setting to all the nodes where you need it.
-{{< /note >}}
-
-Verify by creating a Pod that uses a private image; for example:
-
-```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: private-image-test-1
-spec:
-  containers:
-    - name: uses-private-image
-      image: $PRIVATE_IMAGE_NAME
-      imagePullPolicy: Always
-      command: [ "echo", "SUCCESS" ]
-EOF
-```
-```
-pod/private-image-test-1 created
+```json
+{
+    "auths": {
+        "*my-registry.io/images": {
+            "auth": "…"
+        }
+    }
+}
 ```
 
-If everything is working, then, after a few moments, you can run:
+The root URL (`*my-registry.io`) is matched by using the following syntax:
 
-```shell
-kubectl logs private-image-test-1
 ```
-and see that the command outputs:
-```
-SUCCESS
+pattern:
+    { term }
+
+term:
+    '*'         matches any sequence of non-Separator characters
+    '?'         matches any single non-Separator character
+    '[' [ '^' ] { character-range } ']'
+                character class (must be non-empty)
+    c           matches character c (c != '*', '?', '\\', '[')
+    '\\' c      matches character c
+
+character-range:
+    c           matches character c (c != '\\', '-', ']')
+    '\\' c      matches character c
+    lo '-' hi   matches character c for lo <= c <= hi
 ```
 
-If you suspect that the command failed, you can run:
-```shell
-kubectl describe pods/private-image-test-1 | grep 'Failed'
-```
-In case of failure, the output is similar to:
-```
-  Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
+Image pull operations would now pass the credentials to the CRI container
+runtime for every valid pattern. For example the following container image names
+would match successfully:
+
+- `my-registry.io/images`
+- `my-registry.io/images/my-image`
+- `my-registry.io/images/another-image`
+- `sub.my-registry.io/images/my-image`
+- `a.sub.my-registry.io/images/my-image`
+
+The kubelet performs image pulls sequentially for every found credential. This
+means, that multiple entries in `config.json` are possible, too:
+
+```json
+{
+    "auths": {
+        "my-registry.io/images": {
+            "auth": "…"
+        },
+        "my-registry.io/images/subpath": {
+            "auth": "…"
+        }
+    }
+}
 ```
 
+If now a container specifies an image `my-registry.io/images/subpath/my-image`
+to be pulled, then the kubelet will try to download them from both
+authentication sources if one of them fails.
 
-You must ensure all nodes in the cluster have the same `.docker/config.json`.  Otherwise, pods will run on
-some nodes and fail to run on others.  For example, if you use node autoscaling, then each instance
-template needs to include the `.docker/config.json` or mount a drive that contains it.
-
-All pods will have read access to images in any private registry once private
-registry keys are added to the `.docker/config.json`.
 
 ### Pre-pulled images
 
@@ -224,6 +278,8 @@ Kubernetes supports specifying container image registry keys on a Pod.
 
 #### Creating a Secret with a Docker config
 
+You need to know the username, registry password and client email address for authenticating
+to the registry, as well as its hostname.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
@@ -288,14 +344,13 @@ There are a number of solutions for configuring private registries.  Here are so
 common use cases and suggested solutions.
 
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
-   - Use public images on the Docker hub.
+   - Use public images from a public registry
      - No configuration required.
      - Some cloud providers automatically cache or mirror public images, which improves availability and reduces the time to pull images.
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
-   - Use a hosted private [Docker registry](https://docs.docker.com/registry/).
-     - It may be hosted on the [Docker Hub](https://hub.docker.com/signup), or elsewhere.
-     - Manually configure .docker/config.json on each node as described above.
+   - Use a hosted private registry
+     - Manual configuration may be required on the nodes that need to access to private registry
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
    - Use a hosted container image registry service that controls image access
@@ -312,8 +367,9 @@ common use cases and suggested solutions.
 
 
 If you need access to multiple registries, you can create one secret for each registry.
-Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
 
 ## {{% heading "whatsnext" %}}
 
-* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
+* Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
+* Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).

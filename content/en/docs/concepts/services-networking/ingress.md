@@ -51,7 +51,7 @@ graph LR;
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
-uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) or
+uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport) or
 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
 
 ## Prerequisites
@@ -74,19 +74,28 @@ A minimal Ingress resource example:
 
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
-As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
+An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields.
 The name of an Ingress object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
  is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
-Different [Ingress controller](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
+Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 
 The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP(S) traffic.
+
+If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class)
+should be defined.
+
+There are some ingress controllers, that work without the definition of a
+default `IngressClass`. For example, the Ingress-NGINX controller can be
+configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
+default `IngressClass` as shown [below](#default-ingress-class).
 
 ### Ingress rules
 
@@ -109,8 +118,14 @@ match a path in the spec.
 
 ### DefaultBackend {#default-backend}
 
-An Ingress with no rules sends all traffic to a single default backend. The `defaultBackend` is conventionally a configuration option
-of the [Ingress controller](/docs/concepts/services-networking/ingress-controllers) and is not specified in your Ingress resources.
+An Ingress with no rules sends all traffic to a single default backend and `.spec.defaultBackend`
+is the backend that should handle requests in that case.
+The `defaultBackend` is conventionally a configuration option of the
+[Ingress controller](/docs/concepts/services-networking/ingress-controllers) and
+is not specified in your Ingress resources.
+If no `.spec.rules` are specified, `.spec.defaultBackend` must be specified.
+If `defaultBackend` is not set, the handling of requests that do not match any of the rules will be up to the
+ingress controller (consult the documentation for your ingress controller to find out how it handles this case).
 
 If none of the hosts or paths match the HTTP request in the Ingress objects, the traffic is
 routed to your default backend.
@@ -219,8 +234,98 @@ of the controller that should implement the class.
 
 {{< codenew file="service/networking/external-lb.yaml" >}}
 
-IngressClass resources contain an optional parameters field. This can be used to
-reference additional configuration for this class.
+The `.spec.parameters` field of an IngressClass lets you reference another
+resource that provides configuration related to that IngressClass.
+
+The specific type of parameters to use depends on the ingress controller
+that you specify in the `.spec.controller` field of the IngressClass.
+
+### IngressClass scope
+
+Depending on your ingress controller, you may be able to use parameters
+that you set cluster-wide, or just for one namespace.
+
+{{< tabs name="tabs_ingressclass_parameter_scope" >}}
+{{% tab name="Cluster" %}}
+The default scope for IngressClass parameters is cluster-wide.
+
+If you set the `.spec.parameters` field and don't set
+`.spec.parameters.scope`, or if you set `.spec.parameters.scope` to
+`Cluster`, then the IngressClass refers to a cluster-scoped resource.
+The `kind` (in combination the `apiGroup`) of the parameters
+refers to a cluster-scoped API (possibly a custom resource), and
+the `name` of the parameters identifies a specific cluster scoped
+resource for that API.
+
+For example:
+```yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb-1
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    # The parameters for this IngressClass are specified in a
+    # ClusterIngressParameter (API group k8s.example.net) named
+    # "external-config-1". This definition tells Kubernetes to
+    # look for a cluster-scoped parameter resource.
+    scope: Cluster
+    apiGroup: k8s.example.net
+    kind: ClusterIngressParameter
+    name: external-config-1
+```
+{{% /tab %}}
+{{% tab name="Namespaced" %}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
+
+If you set the `.spec.parameters` field and set
+`.spec.parameters.scope` to `Namespace`, then the IngressClass refers
+to a namespaced-scoped resource. You must also set the `namespace`
+field within `.spec.parameters` to the namespace that contains
+the parameters you want to use.
+
+The `kind` (in combination the `apiGroup`) of the parameters
+refers to a namespaced API (for example: ConfigMap), and
+the `name` of the parameters identifies a specific resource
+in the namespace you specified in `namespace`.
+
+Namespace-scoped parameters help the cluster operator delegate control over the
+configuration (for example: load balancer settings, API gateway definition)
+that is used for a workload. If you used a cluster-scoped parameter then either:
+
+- the cluster operator team needs to approve a different team's changes every
+  time there's a new configuration change being applied.
+- the cluster operator must define specific access controls, such as
+  [RBAC](/docs/reference/access-authn-authz/rbac/) roles and bindings, that let
+  the application team make changes to the cluster-scoped parameters resource.
+
+The IngressClass API itself is always cluster-scoped.
+
+Here is an example of an IngressClass that refers to parameters that are
+namespaced:
+```yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb-2
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    # The parameters for this IngressClass are specified in an
+    # IngressParameter (API group k8s.example.com) named "external-config",
+    # that's in the "external-configuration" namespace.
+    scope: Namespace
+    apiGroup: k8s.example.com
+    kind: IngressParameter
+    namespace: external-configuration
+    name: external-config
+```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Deprecated annotation
 
@@ -249,6 +354,14 @@ an `ingressClassName` specified. You can resolve this by ensuring that at most 1
 IngressClass is marked as default in your cluster.
 {{< /caution >}}
 
+There are some ingress controllers, that work without the definition of a
+default `IngressClass`. For example, the Ingress-NGINX controller can be
+configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
+default `IngressClass`:
+
+{{< codenew file="service/networking/default-ingressclass.yaml" >}}
+
 ## Types of Ingress
 
 ### Ingress backed by a single Service {#single-service-ingress}
@@ -260,7 +373,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
 If you create it using `kubectl apply -f` you should be able to view the state
-of the Ingress you just added:
+of the Ingress you added:
 
 ```bash
 kubectl get ingress test-ingress
@@ -378,9 +491,7 @@ web traffic to the IP address of your Ingress controller can be matched without 
 virtual host being required.
 
 For example, the following Ingress routes traffic
-requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic
-to the IP address without a hostname defined in request (that is, without a request header being
-presented) to `service3`.
+requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic whose request host header doesn't match `first.bar.com` and `second.bar.com` to `service3`.
 
 {{< codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" >}}
 
@@ -553,6 +664,6 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
+* Learn about the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
 * Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)

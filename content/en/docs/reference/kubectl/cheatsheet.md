@@ -5,6 +5,7 @@ reviewers:
 - krousey
 - clove
 content_type: concept
+weight: 10 # highlight it
 card:
   name: reference
   weight: 30
@@ -38,6 +39,11 @@ complete -F __start_kubectl k
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
 echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
+### A Note on --all-namespaces
+
+Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
+
+```kubectl -A```
 
 ## Kubectl context and configuration
 
@@ -49,7 +55,7 @@ detailed config file information.
 kubectl config view # Show Merged kubeconfig settings.
 
 # use multiple kubeconfig files at the same time and view merged config
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
@@ -58,7 +64,7 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
-kubectl config get-contexts                          # display list of contexts 
+kubectl config get-contexts                          # display list of contexts
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
@@ -73,6 +79,10 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
 
 kubectl config unset users.foo                       # delete user foo
+
+# short alias to set/show context/namespace (only works for bash and bash-compatible shells, current context to be set before using kn to set namespace) 
+alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
+alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
 ```
 
 ## Kubectl apply
@@ -92,10 +102,10 @@ kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 
 # create a Job which prints "Hello World"
-kubectl create job hello --image=busybox -- echo "Hello World" 
+kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
 
 # create a CronJob that prints "Hello World" every minute
-kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"    
+kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"
 
 kubectl explain pods                           # get the documentation for pod manifests
 
@@ -108,7 +118,7 @@ metadata:
 spec:
   containers:
   - name: busybox
-    image: busybox
+    image: busybox:1.28
     args:
     - sleep
     - "1000000"
@@ -120,7 +130,7 @@ metadata:
 spec:
   containers:
   - name: busybox
-    image: busybox
+    image: busybox:1.28
     args:
     - sleep
     - "1000"
@@ -173,8 +183,8 @@ kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
 
 # Get all worker nodes (use a selector to exclude results that have a label
-# named 'node-role.kubernetes.io/master')
-kubectl get node --selector='!node-role.kubernetes.io/master'
+# named 'node-role.kubernetes.io/control-plane')
+kubectl get node --selector='!node-role.kubernetes.io/control-plane'
 
 # Get all running pods in the namespace
 kubectl get pods --field-selector=status.phase=Running
@@ -212,24 +222,31 @@ kubectl diff -f ./my-manifest.yaml
 
 # Produce a period-delimited tree of all keys returned for nodes
 # Helpful when locating a key within a complex nested JSON structure
-kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get nodes -o json | jq -c 'paths|join(".")'
 
 # Produce a period-delimited tree of all keys returned for pods, etc
-kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get pods -o json | jq -c 'paths|join(".")'
+
+# Produce ENV for all pods, assuming you have a default container for the pods, default namespace and the `env` command is supported.
+# Helpful when running any supported command across all pods, not just `env`
+for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod -- env; done
+
+# Get a deployment's status subresource
+kubectl get deployment nginx-deployment --subresource=status
 ```
 
 ## Updating resources
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
-kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision 
+kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
 kubectl rollout restart deployment/frontend                      # Rolling restart of the "frontend" deployment
 
 
-cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into std
+cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
 kubectl replace --force -f ./pod.json
@@ -262,6 +279,9 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 
 # Add a new element to a positional array
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
+
+# Update a deployment's replicas count by patching it's scale subresource
+kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 ```
 
 ## Editing resources
@@ -285,10 +305,11 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multip
 ## Deleting resources
 
 ```bash
-kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
-kubectl delete pod,service baz foo                                        # Delete pods and services with same names "baz" and "foo"
-kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
-kubectl -n my-ns delete pod,svc --all                                      # Delete all pods and services in namespace my-ns,
+kubectl delete -f ./pod.json                                      # Delete a pod using the type and name specified in pod.json
+kubectl delete pod unwanted --now                                 # Delete a pod with no grace period
+kubectl delete pod,service baz foo                                # Delete pods and services with same names "baz" and "foo"
+kubectl delete pods,services -l name=myLabel                      # Delete pods and services with label name=myLabel
+kubectl -n my-ns delete pod,svc --all                             # Delete all pods and services in namespace my-ns,
 # Delete all pods matching the awk pattern1 or pattern2
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
@@ -305,20 +326,37 @@ kubectl logs my-pod -c my-container --previous      # dump pod container logs (s
 kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
-kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
-kubectl run nginx --image=nginx -n 
-mynamespace                                         # Run pod nginx in a specific namespace
+kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactive shell
+kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
 kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
 --dry-run=client -o yaml > pod.yaml
 
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
-kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case) 
+kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
 ```
+## Copy files and directories to and from containers
+
+```bash
+kubectl cp /tmp/foo_dir my-pod:/tmp/bar_dir            # Copy /tmp/foo_dir local directory to /tmp/bar_dir in a remote pod in the current namespace
+kubectl cp /tmp/foo my-pod:/tmp/bar -c my-container    # Copy /tmp/foo local file to /tmp/bar in a remote pod in a specific container
+kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar       # Copy /tmp/foo local file to /tmp/bar in a remote pod in namespace my-namespace
+kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # Copy /tmp/foo from a remote pod to /tmp/bar locally
+```
+{{< note >}}
+`kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present,`kubectl cp` will fail.
+For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using `kubectl exec`.
+{{< /note >}}
+
+```bash
+tar cf - /tmp/foo | kubectl exec -i -n my-namespace my-pod -- tar xf - -C /tmp/bar           # Copy /tmp/foo local file to /tmp/bar in a remote pod in namespace my-namespace
+kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar    # Copy /tmp/foo from a remote pod to /tmp/bar locally
+```
+
 
 ## Interacting with Deployments and Services
 ```bash
@@ -360,7 +398,7 @@ Other operations for exploring API resources:
 ```bash
 kubectl api-resources --namespaced=true      # All namespaced resources
 kubectl api-resources --namespaced=false     # All non-namespaced resources
-kubectl api-resources -o name                # All resources with simple output (just the resource name)
+kubectl api-resources -o name                # All resources with simple output (only the resource name)
 kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
 kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
 kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
@@ -387,6 +425,9 @@ Examples using `-o=custom-columns`:
 # All images running in a cluster
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 
+# All images running in namespace: default, grouped by Pod
+kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
+
  # All images excluding "k8s.gcr.io/coredns:1.6.2"
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
 
@@ -394,7 +435,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-More examples in the kubectl [reference documentation](/docs/reference/kubectl/overview/#custom-columns).
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
 
 ### Kubectl output verbosity and debugging
 
@@ -415,7 +456,7 @@ Verbosity | Description
 
 ## {{% heading "whatsnext" %}}
 
-* Read the [kubectl overview](/docs/reference/kubectl/overview/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
+* Read the [kubectl overview](/docs/reference/kubectl/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 

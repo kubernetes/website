@@ -16,14 +16,14 @@ min-kubernetes-server-version: 1.18
 
 <!--
 This page explains how to upgrade a Kubernetes cluster created with kubeadm from version
-{{< skew latestVersionAddMinor -1 >}}.x to version {{< skew latestVersion >}}.x, and from version
-{{< skew latestVersion >}}.x to {{< skew latestVersion >}}.y (where `y > x`). Skipping MINOR versions
-when upgrading is unsupported.
+{{< skew currentVersionAddMinor -1 >}}.x to version {{< skew currentVersion >}}.x, and from version
+{{< skew currentVersion >}}.x to {{< skew currentVersion >}}.y (where `y > x`). Skipping MINOR versions
+when upgrading is unsupported. For more details, please visit [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
 -->
-本页介绍如何将 `kubeadm` 创建的 Kubernetes 集群从 {{< skew latestVersionAddMinor -1 >}}.x 版本
-升级到 {{< skew latestVersion >}}.x 版本以及从 {{< skew latestVersion >}}.x
-升级到 {{< skew latestVersion >}}.y（其中 `y > x`）。略过次版本号的升级是
-不被支持的。
+本页介绍如何将 `kubeadm` 创建的 Kubernetes 集群从 {{< skew currentVersionAddMinor -1 >}}.x 版本
+升级到 {{< skew currentVersion >}}.x 版本以及从 {{< skew currentVersion >}}.x
+升级到 {{< skew currentVersion >}}.y（其中 `y > x`）。略过次版本号的升级是
+不被支持的。更多详情请访问[版本倾斜政策](https://kubernetes.io/releases/version-skew-policy/)。
 
 <!--
 To see information about upgrading clusters created using older versions of kubeadm,
@@ -32,17 +32,15 @@ please refer to following pages instead:
 要查看 kubeadm 创建的有关旧版本集群升级的信息，请参考以下页面：
 
 <!--
-- [Upgrading kubeadm cluster from 1.17 to 1.18](https://v1-18.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [Upgrading kubeadm cluster from 1.16 to 1.17](https://v1-17.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [Upgrading kubeadm cluster from 1.15 to 1.16](https://v1-16.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [Upgrading kubeadm cluster from 1.14 to 1.15](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15/)
-- [Upgrading kubeadm cluster from 1.13 to 1.14](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/)
+- [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -2 >}} to {{< skew currentVersionAddMinor -1 >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -3 >}} to {{< skew currentVersionAddMinor -2 >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -4 >}} to {{< skew currentVersionAddMinor -3 >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -5 >}} to {{< skew currentVersionAddMinor -4 >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 -->
-- [将 kubeadm 集群从 1.17 升级到 1.18](https://v1-18.docs.kubernetes.io/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [将 kubeadm 集群从 1.16 升级到 1.17](https://v1-17.docs.kubernetes.io/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [将 kubeadm 集群从 1.15 升级到 1.16](https://v1-16.docs.kubernetes.io/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [将 kubeadm 集群从 1.14 升级到 1.15](https://v1-15.docs.kubernetes.io/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15/)
-- [将 kubeadm 集群从 1.13 升级到 1.14](https://v1-15.docs.kubernetes.io/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/)
+- [将 kubeadm 集群从 {{< skew currentVersionAddMinor -2 >}} 升级到 {{< skew currentVersionAddMinor -1 >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [将 kubeadm 集群从 {{< skew currentVersionAddMinor -3 >}} 升级到 {{< skew currentVersionAddMinor -2 >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [将 kubeadm 集群从 {{< skew currentVersionAddMinor -4 >}} 升级到 {{< skew currentVersionAddMinor -3 >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [将 kubeadm 集群从 {{< skew currentVersionAddMinor -5 >}} 升级到 {{< skew currentVersionAddMinor -4 >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 
 <!--
 The upgrade workflow at high level is the following:
@@ -74,42 +72,66 @@ The upgrade workflow at high level is the following:
 <!--
 ### Additional information
 
-- [Draining nodes](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/) before kubelet MINOR version
-  upgrades is required. In the case of control plane nodes, they could be running CoreDNS Pods or other critical workloads.
+- The instructions below outline when to drain each node during the upgrade process.
+If you are performing a **minor** version upgrade for any kubelet, you **must**
+first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
+they could be running CoreDNS Pods or other critical workloads. For more information see
+[Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 -->
+
 ### 附加信息
 
-- 在对 kubelet 作次版本升级时需要[腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
-  对于控制面节点，其上可能运行着 CoreDNS Pods 或者其它非常重要的负载。
+- 下述说明了在升级过程中何时腾空每个节点。如果你正在对任何 kubelet 进行小版本升级，
+  你需要先腾空待升级的节点（或多个节点）。对于控制面节点，其上可能运行着 CoreDNS Pods
+  或者其它非常重要的负载。更多信息见[腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
 - 升级后，因为容器规约的哈希值已更改，所有容器都会被重新启动。
+
+<!--
+- To verify that the kubelet service has successfully restarted after the kubelet has been upgraded,
+you can execute `systemctl status kubelet`  or view the service logs with `journalctl -xeu kubelet`.
+- Usage of the `--config` flag of `kubeadm upgrade` with
+[kubeadm configuration API types](/docs/reference/config-api/kubeadm-config.v1beta3)
+with the purpose of reconfiguring the cluster is not recommended and can have unexpected results. Follow the steps in
+[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure) instead.
+-->
+
+- 要验证 kubelet 服务在升级后是否成功重启，可以执行 `systemctl status kubelet`
+  或 `journalctl -xeu kubelet` 查看服务日志。
+- 不建议使用 `kubeadm upgrade` 的 `--config 参数和 [kubeadm 配置 API 类型](/zh/docs/reference/config-api/kubeadm-config.v1beta3)
+  来重新配置集群，这样会产生意想不到的结果。请按照[重新配置 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)
+  中的步骤来进行。
 
 <!-- steps -->
 
 <!--
 ## Determine which version to upgrade to
 
-Find the latest stable {{< skew latestVersion >}} version using the OS package manager:
+Find the latest patch release for Kubernetes {{< skew currentVersion >}} using the OS package manager:
 -->
 ## 确定要升级到哪个版本
 
-使用操作系统的包管理器找到最新的稳定 {{< skew latestVersion >}}：
+使用操作系统的包管理器找到最新的补丁版本 Kubernetes {{< skew currentVersion >}}：
 
 {{< tabs name="k8s_install_versions" >}}
 {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
-```
+
+```shell
 apt update
-apt-cache policy kubeadm
-# 在列表中查找最新的 {{< skew latestVersion >}} 版本
-# 它看起来应该是 {{< skew latestVersion >}}.x-00，其中 x 是最新的补丁版本
+apt-cache madison kubeadm
+# 在列表中查找最新的 {{< skew currentVersion >}} 版本
+# 它看起来应该是 {{< skew currentVersion >}}.x-00，其中 x 是最新的补丁版本
 ```
+
 {{% /tab %}}
 {{% tab name="CentOS、RHEL 或 Fedora" %}}
-```
+
+```shell
 yum list --showduplicates kubeadm --disableexcludes=kubernetes
-# 在列表中查找最新的 {{< skew latestVersion >}} 版本
-# 它看起来应该是 {{< skew latestVersion >}}.x-0，其中 x 是最新的补丁版本
+# 在列表中查找最新的 {{< skew currentVersion >}} 版本
+# 它看起来应该是 {{< skew currentVersion >}}.x-0，其中 x 是最新的补丁版本
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -142,24 +164,24 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
 {{< tabs name="k8s_install_kubeadm_first_cp" >}}
 {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+
 ```shell
-# 用最新的补丁版本号替换 {{< skew latestVersion >}}.x-00 中的 x
+# 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-00 中的 x
 apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm={{< skew latestVersion >}}.x-00 && \
+apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
 apt-mark hold kubeadm
 -
-# 从 apt-get 1.1 版本起，你也可以使用下面的方法
-apt-get update && \
-apt-get install -y --allow-change-held-packages kubeadm={{< skew latestVersion >}}.x-00
-```
+
 {{% /tab %}}
 {{% tab name="CentOS、RHEL 或 Fedora" %}}
 ```shell
-# 用最新的补丁版本号替换 {{< skew latestVersion >}}.x-0 中的 x
-yum install -y kubeadm-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
+# 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-0 中的 x
+yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
+<br />
 
 <!--
 - Verify that the download works and has the expected version:
@@ -213,14 +235,14 @@ yum install -y kubeadm-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernet
 
   ```shell
   # replace x with the patch version you picked for this upgrade
-  sudo kubeadm upgrade apply v{{< skew latestVersion >}}.x
+  sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
   ```
 -->
 选择要升级到的目标版本，运行合适的命令。例如：
 
   ```shell
   # 将 x 替换为你为此次升级所选择的补丁版本号
-  sudo kubeadm upgrade apply v{{< skew latestVersion >}}.x
+  sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
   ```
 
   <!--
@@ -228,8 +250,8 @@ yum install -y kubeadm-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernet
   -->
   一旦该命令结束，你应该会看到：
 
-  ```
-  [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew latestVersion >}}.x". Enjoy!
+  ```console
+  [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew currentVersion >}}.x". Enjoy!
 
   [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
   ```
@@ -261,7 +283,7 @@ Same as the first control plane node but use:
 -->
 与第一个控制面节点相同，但是使用：
 
-```
+```shell
 sudo kubeadm upgrade node
 ```
 
@@ -270,7 +292,7 @@ instead of:
 -->
 而不是：
 
-```
+```shell
 sudo kubeadm upgrade apply
 ```
 
@@ -301,34 +323,33 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 <!--
 ### Upgrade kubelet and kubectl
 
--  Upgrade the kubelet and kubectl
+-  Upgrade the kubelet and kubectl:
 -->
 ### 升级 kubelet 和 kubectl
 
-- 升级 kubelet 和 kubectl
+- 升级 kubelet 和 kubectl：
 
   {{< tabs name="k8s_install_kubelet" >}}
   {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 
-  <pre>
-  # 用最新的补丁版本替换 {{< skew latestVersion >}}.x-00 中的 x
-  apt-mark unhold kubelet kubectl && \
-  apt-get update && apt-get install -y kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00 && \
-  apt-mark hold kubelet kubectl
-  - 
-  # 从 apt-get 的 1.1 版本开始，你也可以使用下面的方法：
-  apt-get update && \
-  apt-get install -y --allow-change-held-packages kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00
-  </pre>
+    ```shell
+    # 用最新的补丁版本替换 {{< skew currentVersion >}}.x-00 中的 x
+    apt-mark unhold kubelet kubectl && \
+    apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+    apt-mark hold kubelet kubectl
+    ```
+
   {{% /tab %}}
   {{% tab name="CentOS、RHEL 或 Fedora" %}}
- 
-  <pre> 
-  # 用最新的补丁版本号替换 {{< skew latestVersion >}}.x-00 中的 x
-  yum install -y kubelet-{{< skew latestVersion >}}.x-0 kubectl-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
-  </pre>
+
+    ```shell
+    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-00 中的 x
+    yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+    ```
+
   {{% /tab %}}
   {{< /tabs >}}
+<br />
 
 <!--
 - Restart the kubelet
@@ -382,24 +403,22 @@ without compromising the minimum required capacity for running your workloads.
 
   {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
   {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
-  
+
   ```shell
-  # 将 {{< skew latestVersion >}}.x-00 中的 x 替换为最新的补丁版本号
+  # 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本号
   apt-mark unhold kubeadm && \
-  apt-get update && apt-get install -y kubeadm={{< skew latestVersion >}}.x-00 && \
+  apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
   apt-mark hold kubeadm
-  - 
-  # 从 apt-get 的 1.1 版本开始，你也可以使用下面的方法：
-  apt-get update && \
-  apt-get install -y --allow-change-held-packages kubeadm={{< skew latestVersion >}}.x-00
   ```
+
   {{% /tab %}}
   {{% tab name="CentOS、RHEL 或 Fedora" %}}
-  
+
   ```shell
-  # 用最新的补丁版本替换 {{< skew latestVersion >}}.x-00 中的 x
-  yum install -y kubeadm-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
+  # 用最新的补丁版本替换 {{< skew currentVersion >}}.x-00 中的 x
+  yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
   ```
+
   {{% /tab %}}
   {{< /tabs >}}
 
@@ -447,26 +466,22 @@ without compromising the minimum required capacity for running your workloads.
 
   {{< tabs name="k8s_kubelet_and_kubectl" >}}
   {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
-  
+
   ```shell
-  # 将 {{< skew latestVersion >}}.x-00 中的 x 替换为最新的补丁版本
+  # 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本
   apt-mark unhold kubelet kubectl && \
-  apt-get update && apt-get install -y kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00 && \
+  apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
   apt-mark hold kubelet kubectl
-  
-  # 从 apt-get 的 1.1 版本开始，你也可以使用下面的方法：
-  
-  apt-get update && \
-  apt-get install -y --allow-change-held-packages kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00
   ```
-  
+
   {{% /tab %}}
   {{% tab name="CentOS, RHEL or Fedora" %}}
-  
+
   ```shell
-  # 将 {{< skew latestVersion >}}.x-0 x 替换为最新的补丁版本
-  yum install -y kubelet-{{< skew latestVersion >}}.x-0 kubectl-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
+  # 将 {{< skew currentVersion >}}.x-0 x 替换为最新的补丁版本
+  yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
   ```
+
   {{% /tab %}}
   {{< /tabs >}}
 
@@ -526,7 +541,7 @@ kubectl get nodes
 <!--
 The `STATUS` column should show `Ready` for all your nodes, and the version number should be updated.
 -->
-`STATUS` 应显示所有节点为 `Ready` 状态，并且版本号已经被更新。 
+`STATUS` 应显示所有节点为 `Ready` 状态，并且版本号已经被更新。
 
 <!--
 ## Recovering from a failure state
@@ -585,10 +600,10 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 - Makes sure the control plane images are available or available to pull to the machine.
 - Generates replacements and/or uses user supplied overwrites if component configs require version upgrades.
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
-- Applies the new `kube-dns` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
+- Applies the new `CoreDNS` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
 - Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
 -->
-## 工作原理
+## 工作原理   {#how-it-works}
 
 `kubeadm upgrade apply` 做了以下工作：
 
@@ -600,7 +615,7 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 - 确保控制面的镜像是可用的或可拉取到服务器上。
 - 如果组件配置要求版本升级，则生成替代配置与/或使用用户提供的覆盖版本配置。
 - 升级控制面组件或回滚（如果其中任何一个组件无法启动）。
-- 应用新的 `kube-dns` 和 `kube-proxy` 清单，并强制创建所有必需的 RBAC 规则。
+- 应用新的 `CoreDNS` 和 `kube-proxy` 清单，并强制创建所有必需的 RBAC 规则。
 - 如果旧文件在 180 天后过期，将创建 API 服务器的新证书和密钥文件并备份旧文件。
 
 <!--
@@ -626,6 +641,5 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 -->
 `kubeadm upgrade node` 在工作节点上完成以下工作：
 
-- 从集群取回 kubeadm `ClusterConfiguration`。 
+- 从集群取回 kubeadm `ClusterConfiguration`。
 - 为本节点升级 kubelet 配置。
-

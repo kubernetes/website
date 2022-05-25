@@ -16,7 +16,7 @@ kubectl에 대한 앨리어스가 있는 경우, 해당 앨리어스로 작업�
 
 ```zsh
 echo 'alias k=kubectl' >>~/.zshrc
-echo 'complete -F __start_kubectl k' >>~/.zshrc
+echo 'compdef __start_kubectl k' >>~/.zshrc
 ```
 
 셸을 다시 로드하면, kubectl 자동 완성 기능이 작동할 것이다.

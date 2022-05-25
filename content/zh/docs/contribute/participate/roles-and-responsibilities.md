@@ -80,7 +80,7 @@ Members can:
 - Use the `/lgtm` comment to add the LGTM (looks good to me) label to a pull request
 
     {{< note >}}
-    Using `/lgtm` triggers automation. If you want to provide non-binding approval, simply commenting "LGTM" works too!
+    Using `/lgtm` triggers automation. If you want to provide non-binding approval, commenting "LGTM" works too!
     {{< /note >}}
 - Use the `/hold` comment to block merging for a pull request
 - Use the `/assign` comment to assign a reviewer to a pull request
@@ -98,10 +98,11 @@ Members can:
 - 执行[任何人](#anyone)节区所列举操作
 - 使用 `/lgtm` 评论添加 LGTM (looks good to me（我觉得可以）) 标签到某个 PR
 
-    {{< note >}}
-    使用 `/lgtm` 会触发自动化机制。如果你希望提供不拘约束力的批准意见，
-    直接回复 "LGTM" 也是可以的。
-    {{< /note >}}
+  {{< note >}}
+  使用 `/lgtm` 会触发自动化机制。如果你希望提供非约束性的批准意见，
+  直接回复 "LGTM" 也是可以的。
+  {{< /note >}}
+
 - 利用 `/hold` 评论来阻止某个 PR 被合并
 - 使用 `/assign` 评论为某个 PR 指定评审人
 - 对 PR 提供非约束性的评审意见
@@ -145,7 +146,7 @@ After submitting at least 5 substantial pull requests and meeting the other [req
    {{< /note >}}
 
 2. 在 [`kubernetes/org`](https://github.com/kubernetes/org/) 仓库
-   使用 **Organization Membership Request** Issue 模版登记一个 Issue。
+   使用 **Organization Membership Request** Issue 模板登记一个 Issue。
 
 <!--
 3.  Let your sponsors know about the GitHub issue. You can either:
@@ -173,7 +174,7 @@ After submitting at least 5 substantial pull requests and meeting the other [req
    如果你的成员请求未被接受，你会收到一些反馈。
    当处理完反馈意见之后，可以再次发起申请。
 
-4. 在你的邮件账户中接受来自 Kubernetes GitHub 组织发出的成员邀请。
+4. 登录你的邮件账户，接受来自 Kubernetes GitHub 组织发出的成员邀请。
 
     {{< note >}}
     GitHub 会将邀请发送到你的账户中所设置的默认邮件地址。
@@ -206,7 +207,7 @@ You can be a SIG Docs reviewer, or a reviewer for docs in a specific subject are
 
 评审人可以：
 
-- 执行[任何人](#anyone)和[成员](#members)节所列举的操作
+- 执行[任何人](#anyone)和[成员](#members)节区所列举的操作
 - 评审 PR 并提供具约束性的反馈信息
 
     {{< note >}}
@@ -248,7 +249,7 @@ LGTM 代表的是 “Looks Good To Me （我觉得可以）”，用来标示某
 所有 PR 都需要来自某评审人的 `/lgtm` 评论和来自某批准人的 `/approve`
 评论。
 
-来自评审人的 `/lgtm` 评论是具有约束性的，会触发自动化设施添加 `lgtm` 标签。
+来自评审人的 `/lgtm` 评论是具有约束性的，会触发自动化引擎添加 `lgtm` 标签。
 
 <!--
 ### Becoming a reviewer
@@ -264,11 +265,11 @@ To apply:
 你可以成为一个 SIG Docs 评审人。
 来自其他 SIG 的评审人必须为 SIG Docs 单独申请评审人资格。
 
-申请过程如下：
+申请流程如下：
 
 <!--
 1. Open a pull request that adds your GitHub user name to a section of the
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) file
 in the `kubernetes/website` repository.
 
   {{< note >}}
@@ -281,8 +282,8 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 [@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
 -->
 1. 发起 PR，将你的 GitHub 用户名添加到 `kubernetes/website` 仓库中
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
-   文件的特定节。
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
+   文件的对应节区。
 
    {{< note >}}
    如果你不确定要添加到哪个位置，可以将自己添加到 `sig-docs-en-reviews`。
@@ -291,7 +292,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 2. 将 PR 指派给一个或多个 SIG Docs 批准人（`sig-docs-{language}-owners`
    下列举的用户名）。
 
-请求被批准之后，SIG Docs Leads 之一会将你添加到合适的 GitHub 团队。
+申请被批准之后，SIG Docs Leads 之一会将你添加到合适的 GitHub 团队。
 一旦添加完成， [@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)
 会在处理未来的 PR 时，将 PR 指派给你或者建议你来评审某 PR。
 
@@ -321,7 +322,7 @@ If the PR already has a `/lgtm`, or if the approver also comments with `/lgtm`, 
 批准人可以执行以下操作：
 
 - 执行列举在[任何人](#anyone)、[成员](#members)和[评审人](#reviewers)节区的操作
-- 通过使用 `/approve` 评论来批准、合并 PRs，发布贡献者所贡献的内容。
+- 通过使用 `/approve` 评论来批准、合并 PR，发布贡献者所贡献的内容。
 - 就样式指南给出改进建议
 - 对文档测试给出改进建议
 - 对 Kubernetes 网站或其他工具给出改进建议
@@ -355,7 +356,7 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
     不小心的合并可能会破坏整个站点。在执行合并操作时，务必小心。
     {{< /warning >}}
 
-- 确保所提议的变更满足[贡献指南](/zh/docs/contribute/style/content-guide/#contributing-content)要求
+- 确保所提议的变更满足[贡献指南](/zh/docs/contribute/style/content-guide/#contributing-content)要求。
 
     如果有问题或者疑惑，可以根据需要请他人帮助评审。
 
@@ -367,7 +368,7 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
 
 - 参与 [PR 管理者轮值排班](https://github.com/kubernetes/website/wiki/PR-Wranglers)
   执行时长为一周的 PR 管理。SIG Docs 期望所有批准人都参与到此轮值工作中。
-  更多细节可参见[做一周的 PR 管理者](/zh/docs/contribute/participate/pr-wranglers/)。
+  更多细节可参见 [PR 管理者](/zh/docs/contribute/participate/pr-wranglers/)。
 
 <!--
 ### Becoming an approver
@@ -377,12 +378,12 @@ When you meet the [requirements](https://github.com/kubernetes/community/blob/ma
 ### 成为批准人  {#becoming-an-approver}
 
 当你满足[一定条件](https://github.com/kubernetes/community/blob/master/community-membership.md#approver)时，可以成为一个 SIG Docs 批准人。
-来自其他 SIGs 的批准人也必须在 SIG Docs 独立申请批准人资格。
+来自其他 SIG 的批准人也必须在 SIG Docs 独立申请批准人资格。
 
 <!--
 To apply:
 
-1. Open a pull request adding yourself to a section of the [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file in the `kubernetes/website` repository.
+1. Open a pull request adding yourself to a section of the [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) file in the `kubernetes/website` repository.
 
     {{< note >}}
     If you aren't sure where to add yourself, add yourself to `sig-docs-en-owners`.
@@ -395,7 +396,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 申请流程如下：
 
 1. 发起一个 PR，将自己添加到 `kubernetes/website` 仓库中
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
    文件的对应节区。
 
    {{< note >}}
@@ -413,5 +414,5 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 <!--
 - Read about [PR wrangling](/docs/contribute/participating/pr-wranglers), a role all approvers take on rotation.
 -->
-- 阅读[管理 PR](/zh/docs/contribute/participate/pr-wranglers/)，了解所有批准人轮值的一个角色。
+- 阅读 [PR 管理者](/zh/docs/contribute/participate/pr-wranglers/)，了解所有批准人轮值的角色。
 

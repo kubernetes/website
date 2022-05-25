@@ -5,7 +5,7 @@
 
 title: 확장된 리소스를 위한 리소스 빈 패킹(bin packing)
 content_type: concept
-weight: 50
+weight: 80
 ---
 
 <!-- overview -->
@@ -26,7 +26,7 @@ kube-scheduler를 미세 조정할 수 있다.
 통해 사용자는 적절한 파라미터를 사용해서 확장된 리소스를 빈 팩으로 만들 수 있어
 대규모의 클러스터에서 부족한 리소스의 활용도가 향상된다.
 `RequestedToCapacityRatioResourceAllocation` 우선 순위 기능의
-동작은 `requestedToCapacityRatioArguments`라는
+동작은 `RequestedToCapacityRatioArgs`라는
 구성 옵션으로 제어할 수 있다. 이 인수는 `shape`와 `resources`
 두 개의 파라미터로 구성된다. `shape` 파라미터는 사용자가 `utilization`과
 `score` 값을 기반으로 최소 요청 또는 최대 요청된 대로 기능을
@@ -39,26 +39,28 @@ kube-scheduler를 미세 조정할 수 있다.
 설정하는 구성의 예시이다.
 
 ```yaml
-apiVersion: v1
-kind: Policy
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+profiles:
 # ...
-priorities:
-  # ...
-  - name: RequestedToCapacityRatioPriority
-    weight: 2
-    argument:
-      requestedToCapacityRatioArguments:
-        shape:
-          - utilization: 0
-            score: 0
-          - utilization: 100
-            score: 10
-        resources:
-          - name: intel.com/foo
-            weight: 3
-          - name: intel.com/bar
-            weight: 5
+  pluginConfig:
+  - name: RequestedToCapacityRatio
+    args: 
+      shape:
+      - utilization: 0
+        score: 10
+      - utilization: 100
+        score: 0
+      resources:
+      - name: intel.com/foo
+        weight: 3
+      - name: intel.com/bar
+        weight: 5
 ```
+
+kube-scheduler 플래그 `--config=/path/to/config/file` 을 사용하여 
+`KubeSchedulerConfiguration` 파일을 참조하면 구성이 스케줄러에
+전달된다.
 
 **이 기능은 기본적으로 비활성화되어 있다.**
 
@@ -91,9 +93,9 @@ shape:
 
 ``` yaml
 resources:
-  - name: CPU
+  - name: cpu
     weight: 1
-  - name: Memory
+  - name: memory
     weight: 1
 ```
 
@@ -103,9 +105,9 @@ resources:
 resources:
   - name: intel.com/foo
     weight: 5
-  - name: CPU
+  - name: cpu
     weight: 3
-  - name: Memory
+  - name: memory
     weight: 1
 ```
 
@@ -122,16 +124,16 @@ resources:
 
 ```
 intel.com/foo : 2
-Memory: 256MB
-CPU: 2
+memory: 256MB
+cpu: 2
 ```
 
 리소스의 가중치는 다음과 같다.
 
 ```
 intel.com/foo : 5
-Memory: 1
-CPU: 3
+memory: 1
+cpu: 3
 ```
 
 FunctionShapePoint {{0, 0}, {100, 10}}
@@ -141,13 +143,13 @@ FunctionShapePoint {{0, 0}, {100, 10}}
 ```
 Available:
   intel.com/foo: 4
-  Memory: 1 GB
-  CPU: 8
+  memory: 1 GB
+  cpu: 8
 
 Used:
   intel.com/foo: 1
-  Memory: 256MB
-  CPU: 1
+  memory: 256MB
+  cpu: 1
 ```
 
 노드 점수는 다음과 같다.
@@ -157,16 +159,16 @@ intel.com/foo  = resourceScoringFunction((2+1),4)
                = (100 - ((4-3)*100/4)
                = (100 - 25)
                = 75                       # requested + used = 75% * available
-               = rawScoringFunction(75)
-               = 7                        # floor(75/10)
+               = rawScoringFunction(75) 
+               = 7                        # floor(75/10) 
 
-Memory         = resourceScoringFunction((256+256),1024)
+memory         = resourceScoringFunction((256+256),1024)
                = (100 -((1024-512)*100/1024))
                = 50                       # requested + used = 50% * available
                = rawScoringFunction(50)
                = 5                        # floor(50/10)
 
-CPU            = resourceScoringFunction((2+1),8)
+cpu            = resourceScoringFunction((2+1),8)
                = (100 -((8-3)*100/8))
                = 37.5                     # requested + used = 37.5% * available
                = rawScoringFunction(37.5)
@@ -181,12 +183,12 @@ NodeScore   =  (7 * 5) + (5 * 1) + (3 * 3) / (5 + 1 + 3)
 ```
 Available:
   intel.com/foo: 8
-  Memory: 1GB
-  CPU: 8
+  memory: 1GB
+  cpu: 8
 Used:
   intel.com/foo: 2
-  Memory: 512MB
-  CPU: 6
+  memory: 512MB
+  cpu: 6
 ```
 
 노드 점수는 다음과 같다.
@@ -205,7 +207,7 @@ Memory         = resourceScoringFunction((256+512),1024)
                = rawScoringFunction(75)
                = 7
 
-CPU            = resourceScoringFunction((2+6),8)
+cpu            = resourceScoringFunction((2+6),8)
                = (100 -((8-8)*100/8))
                = 100
                = rawScoringFunction(100)

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 title: 볼륨
 content_type: concept
 weight: 10
@@ -13,7 +18,6 @@ weight: 10
 파일을 공유할 때 발생한다.
 쿠버네티스 {{< glossary_tooltip text="볼륨" term_id="volume" >}} 추상화는
 이러한 문제를 모두 해결한다.
-
 [파드](/ko/docs/concepts/workloads/pods/)에 대해 익숙해지는 것을 추천한다.
 
 <!-- body -->
@@ -29,24 +33,32 @@ weight: 10
 쿠버네티스는 다양한 유형의 볼륨을 지원한다. {{< glossary_tooltip term_id="pod" text="파드" >}}는
 여러 볼륨 유형을 동시에 사용할 수 있다.
 임시 볼륨 유형은 파드의 수명을 갖지만, 퍼시스턴트 볼륨은
-파드의 수명을 넘어 존재한다. 결과적으로, 볼륨은 파드 내에서
-실행되는 모든 컨테이너보다 오래 지속되며, 컨테이너를 다시 시작해도 데이터가 보존된다. 파드가
-더 이상 존재하지 않으면, 볼륨은 삭제된다.
+파드의 수명을 넘어 존재한다. 파드가 더 이상 존재하지 않으면, 쿠버네티스는 임시(ephemeral) 볼륨을 삭제하지만,
+퍼시스턴트(persistent) 볼륨은 삭제하지 않는다.
+볼륨의 종류와 상관없이, 파드 내의 컨테이너가 재시작되어도 데이터는 보존된다.
 
-기본적으로 볼륨은 디렉터리일 뿐이며, 일부 데이터가 있을 수 있으며, 파드
+기본적으로 볼륨은 디렉터리이며, 일부 데이터가 있을 수 있으며, 파드
 내 컨테이너에서 접근할 수 있다. 디렉터리의 생성 방식, 이를 지원하는
 매체와 내용은 사용된 특정 볼륨의 유형에 따라
 결정된다.
 
 볼륨을 사용하려면, `.spec.volumes` 에서 파드에 제공할 볼륨을 지정하고
 `.spec.containers[*].volumeMounts` 의 컨테이너에 해당 볼륨을 마운트할 위치를 선언한다.
+컨테이너의 프로세스는 
+{{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}}의 최초 내용물과 
+컨테이너 안에 마운트된 볼륨(정의된 경우에 한함)으로 구성된 파일시스템을 보게 된다.
+프로세스는 컨테이너 이미지의 최초 내용물에 해당되는 루트 파일시스템을 
+보게 된다.
+쓰기가 허용된 경우, 해당 파일시스템에 쓰기 작업을 하면 
+추후 파일시스템에 접근할 때 변경된 내용을 보게 될 것이다.
+볼륨은 이미지의 [특정 경로](#using-subpath)에 
+마운트된다.
+파드에 정의된 각 컨테이너에 대해, 
+컨테이너가 사용할 각 볼륨을 어디에 마운트할지 명시해야 한다.
 
-컨테이너의 프로세스는 도커 이미지와 볼륨으로 구성된 파일시스템
-뷰를 본다. [도커 이미지](https://docs.docker.com/userguide/dockerimages/)는
-파일시스템 계층의 루트에 있다. 볼륨은 이미지 내에 지정된 경로에
-마운트된다. 볼륨은 다른 볼륨에 마운트할 수 없거나 다른 볼륨에 대한 하드 링크를
-가질 수 없다. 파드 구성의 각 컨테이너는 각 볼륨을 마운트할 위치를 독립적으로
-지정해야 한다.
+볼륨은 다른 볼륨 안에 마운트될 수 없다 
+(하지만, [서브패스 사용](#using-subpath)에서 관련 메커니즘을 확인한다). 
+또한, 볼륨은 다른 볼륨에 있는 내용물을 가리키는 하드 링크를 포함할 수 없다.
 
 ## 볼륨 유형들 {#volume-types}
 
@@ -117,16 +129,17 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 베타 기능을 활성화해야 한다.
 
 #### AWS EBS CSI 마이그레이션 완료
+
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 `awsElasticBlockStore` 스토리지
-플러그인을 끄려면, `CSIMigrationAWSComplete` 플래그를 `true` 로 설정한다. 이 기능은 모든 워커 노드에서 `ebs.csi.aws.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버 설치를 필요로 한다.
+플러그인을 끄려면, `InTreePluginAWSUnregister` 플래그를 `true` 로 설정한다.
 
 ### azureDisk {#azuredisk}
 
 `azureDisk` 볼륨 유형은 Microsoft Azure [데이터 디스크](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers)를 파드에 마운트한다.
 
-더 자세한 내용은 [`azureDisk` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md)을 참고한다.
+더 자세한 내용은 [`azureDisk` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md)을 참고한다.
 
 #### azureDisk CSI 마이그레이션
 
@@ -144,18 +157,20 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 `azureFile` 볼륨 유형은 Microsoft Azure 파일 볼륨(SMB 2.1과 3.0)을 파드에
 마운트한다.
 
-더 자세한 내용은 [`azureFile` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md)을 참고한다.
+더 자세한 내용은 [`azureFile` 볼륨 플러그인](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md)을 참고한다.
 
 #### azureFile CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 `azureFile` 의 `CSIMigration` 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `file.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 파일 CSI
 드라이버](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationAzureFile`
-알파 기능을 활성화해야 한다.
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+
+Azure File CSI 드라이버는 동일한 볼륨을 다른 fsgroup에서 사용하는 것을 지원하지 않는다. Azurefile CSI 마이그레이션이 활성화된 경우, 다른 fsgroup에서 동일한 볼륨을 사용하는 것은 전혀 지원되지 않는다.
 
 ### cephfs
 
@@ -170,7 +185,7 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 내보내야 한다.
 {{< /note >}}
 
-더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/)를 참조한다.
+더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/)를 참조한다.
 
 ### cinder
 
@@ -204,14 +219,17 @@ spec:
 
 #### 오픈스택 CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-Cinder의 `CSIMigration` 기능이 활성화된 경우, 기존 트리 내 플러그인에서
-`cinder.csi.openstack.org` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [오픈스택 Cinder CSI
-드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)를
-설치하고 `CSIMigration` 과 `CSIMigrationOpenStack`
-베타 기능을 활성화해야 한다.
+Cinder의`CSIMigration` 기능은 Kubernetes 1.21에서 기본적으로 활성화됩니다.
+기존 트리 내 플러그인에서 `cinder.csi.openstack.org` 컨테이너 스토리지 인터페이스(CSI)
+드라이버로 모든 플러그인 작업을 수행한다.
+[오픈스택 Cinder CSI 드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)가
+클러스터에 설치되어 있어야 한다.
+`CSIMigrationOpenStack` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+`false` 로 설정하여 클러스터에 대한 Cinder CSI 마이그레이션을 비활성화할 수 있다.
+`CSIMigrationOpenStack` 기능을 비활성화하면, 트리 내 Cinder 볼륨 플러그인이
+Cinder 볼륨 스토리지 관리의 모든 측면을 담당한다.
 
 ### 컨피그맵(configMap) {#configmap}
 
@@ -252,7 +270,10 @@ spec:
 `path` 에서 파생된다.
 
 {{< note >}}
-* 컨피그맵을 [`subPath`](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 컨피그맵
+* [컨피그맵](/docs/tasks/configure-pod-container/configure-pod-configmap/)을 사용하기 위해서는
+  먼저 컨피그맵을 생성해야 한다.
+
+* 컨피그맵을 [`subPath`](#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 컨피그맵
 업데이트를 수신하지 않는다.
 
 * 텍스트 데이터는 UTF-8 문자 인코딩을 사용하는 파일로 노출된다. 다른 문자 인코딩의 경우, `binaryData` 를 사용한다.
@@ -264,11 +285,11 @@ spec:
 이것은 디렉터리를 마운트하고 요청된 데이터를 일반 텍스트 파일로 작성한다.
 
 {{< note >}}
-다운워드 API를 [`subPath`](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 다운워드 API
+다운워드 API를 [`subPath`](#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 다운워드 API
 업데이트를 수신하지 않는다.
 {{< /note >}}
 
-더 자세한 내용은 [다운워드 API 예시](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 참고한다.
+더 자세한 내용은 [다운워드 API 예시](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 참고한다.
 
 ### emptyDir {#emptydir}
 
@@ -335,7 +356,7 @@ targetWWN은 해당 WWN이 다중 경로 연결에서 온 것으로 예상한다
 쿠버네티스 호스트가 해당 LUN에 접근할 수 있다.
 {{< /note >}}
 
-더 자세한 내용은 [파이버 채널 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel)를 참고한다.
+더 자세한 내용은 [파이버 채널 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)를 참고한다.
 
 ### flocker (사용 중단됨(deprecated)){#flocker}
 
@@ -346,14 +367,14 @@ targetWWN은 해당 WWN이 다중 경로 연결에서 온 것으로 예상한다
 `flocker` 볼륨은 Flocker 데이터셋을 파드에 마운트할 수 있게 한다. 만약
 Flocker내에 데이터셋이 없는 경우, 먼저 Flocker
 CLI 또는 Flocker API를 사용해서 생성해야 한다. 만약 데이터셋이 이미 있다면
-Flocker는 파드가 스케줄 되어있는 노드에 다시 연결한다. 이는 필요에
+Flocker는 파드가 스케줄 되어 있는 노드에 다시 연결한다. 이는 필요에
 따라 파드 간에 데이터를 공유할 수 있다는 의미이다.
 
 {{< note >}}
 `flocker` 볼륨을 사용하기 위해서는 먼저 Flocker를 설치하고 실행한다.
 {{< /note >}}
 
-더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker)를 참조한다.
+더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker)를 참조한다.
 
 ### gcePersistentDisk
 
@@ -450,7 +471,8 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: failure-domain.beta.kubernetes.io/zone
+        # 1.21 이전 버전에서는 failure-domain.beta.kubernetes.io/zone 키를 사용해야 한다.
+        - key: topology.kubernetes.io/zone
           operator: In
           values:
           - us-central1-a
@@ -467,6 +489,13 @@ GCE PD의 `CSIMigration` 기능이 활성화된 경우 기존 인-트리 플러�
 드라이버](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationGCE`
 베타 기능을 활성화해야 한다.
+
+#### GCE CSI 마이그레이션 완료
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+컨트롤러 매니저와 kubelet이 `gcePersistentDisk` 스토리지 플러그인을 로드하는 것을 방지하려면, 
+`InTreePluginGCEUnregister` 플래그를 `true`로 설정한다.
 
 ### gitRepo (사용 중단됨) {#gitrepo}
 
@@ -513,9 +542,18 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데�
 사용하려면 먼저 GlusterFS를 설치하고 실행해야 한다.
 {{< /note >}}
 
-더 자세한 내용은 [GlusterFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs)를 본다.
+더 자세한 내용은 [GlusterFS 예시](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs)를 본다.
 
 ### hostPath {#hostpath}
+
+{{< warning >}}
+HostPath 볼륨에는 많은 보안 위험이 있으며, 가능하면 HostPath를 사용하지 않는 
+것이 좋다. HostPath 볼륨을 사용해야 하는 경우, 필요한 파일 또는 디렉터리로만 
+범위를 지정하고 ReadOnly로 마운트해야 한다.
+
+AdmissionPolicy를 사용하여 특정 디렉터리로의 HostPath 액세스를 제한하는 경우,
+`readOnly` 마운트를 사용하는 정책이 유효하려면 `volumeMounts` 가 반드시 지정되어야 한다.
+{{< /warning >}}
 
 `hostPath` 볼륨은 호스트 노드의 파일시스템에 있는 파일이나 디렉터리를
 파드에 마운트 한다. 이것은 대부분의 파드들이 필요한 것은 아니지만, 일부
@@ -533,13 +571,12 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데�
 
 필드가 `type` 에 지원되는 값은 다음과 같다.
 
-
 | 값 | 행동 |
 |:------|:---------|
 | | 빈 문자열 (기본값)은 이전 버전과의 호환성을 위한 것으로, hostPath 볼륨은 마운트 하기 전에 아무런 검사도 수행되지 않는다. |
 | `DirectoryOrCreate` | 만약 주어진 경로에 아무것도 없다면, 필요에 따라 Kubelet이 가지고 있는 동일한 그룹과 소유권, 권한을 0755로 설정한 빈 디렉터리를 생성한다. |
 | `Directory` | 주어진 경로에 디렉터리가 있어야 함 |
-| `FileOrCreate` | 만약 주어진 경로에 아무것도 없다면, 필요에 따라 Kubelet이 가지고 있는 동일한 그룹과 소유권, 권한을 0644로 설정한 빈 디렉터리를 생성한다. |
+| `FileOrCreate` | 만약 주어진 경로에 아무것도 없다면, 필요에 따라 Kubelet이 가지고 있는 동일한 그룹과 소유권, 권한을 0644로 설정한 빈 파일을 생성한다. |
 | `File` | 주어진 경로에 파일이 있어야 함 |
 | `Socket` | 주어진 경로에 UNIX 소캣이 있어야 함 |
 | `CharDevice` | 주어진 경로에 문자 디바이스가 있어야 함 |
@@ -547,6 +584,9 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데�
 
 다음과 같은 이유로 이 유형의 볼륨 사용시 주의해야 한다.
 
+* HostPath는 권한있는 시스템 자격 증명 (예 : Kubelet 용) 또는 권한있는 API 
+  (예 : 컨테이너 런타임 소켓)를 노출 할 수 있으며, 이는 컨테이너 이스케이프 또는 
+  클러스터의 다른 부분을 공격하는 데 사용될 수 있다.
 * 동일한 구성(파드템플릿으로 생성한 것과 같은)을
   가진 파드는 노드에 있는 파일이 다르기 때문에 노드마다 다르게 동작할 수 있다.
 * 기본 호스트에 생성된 파일 또는 디렉터리는 root만 쓸 수 있다.
@@ -630,7 +670,7 @@ iSCSI 특징은 여러 고객이 읽기 전용으로 마운트할 수
 iSCSI 볼륨은 읽기-쓰기 모드에서는 단일 고객만 마운트할 수 있다.
 동시 쓰기는 허용되지 않는다.
 
-더 자세한 내용은 [iSCSI 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi)를 본다.
+더 자세한 내용은 [iSCSI 예시](https://github.com/kubernetes/examples/tree/master/volumes/iscsi)를 본다.
 
 ### local
 
@@ -718,7 +758,7 @@ local [스토리지클래스(StorageClas)](/ko/docs/concepts/storage/storage-cla
 사용하려면 먼저 NFS 서버를 실행하고 공유를 내보내야 한다.
 {{< /note >}}
 
-더 자세한 내용은 [NFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs)를 본다.
+더 자세한 내용은 [NFS 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)를 본다.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -766,150 +806,16 @@ spec:
 있는지 확인한다.
 {{< /note >}}
 
-자세한 내용은 [Portworx 볼륨](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md) 예제를 참고한다.
+자세한 내용은 [Portworx 볼륨](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) 예제를 참고한다.
 
 ### projected
 
 `Projected` 볼륨은 여러 기존 볼륨 소스를 동일한 디렉터리에 매핑한다.
+더 자세한 사항은 [projected volumes](/docs/concepts/storage/projected-volumes/)를 참고한다.
 
-현재, 다음 유형의 볼륨 소스를 프로젝티드한다.
+### quobyte (사용 중단됨) {#quobyte}
 
-* [`secret`](#secret)
-* [`downwardAPI`](#downwardapi)
-* [`configMap`](#configmap)
-* `serviceAccountToken`
-
-모든 소스는 파드와 동일한 네임스페이스에 있어야 한다. 더 자세한 내용은
-[올인원 볼륨 디자인 문서](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md)를 본다.
-
-#### 시크릿, 다운워드 API 그리고 컨피그맵이 있는 구성 예시 {#example-configuration-secret-downwardapi-configmap}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: volume-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
-      readOnly: true
-  volumes:
-  - name: all-in-one
-    projected:
-      sources:
-      - secret:
-          name: mysecret
-          items:
-            - key: username
-              path: my-group/my-username
-      - downwardAPI:
-          items:
-            - path: "labels"
-              fieldRef:
-                fieldPath: metadata.labels
-            - path: "cpu_limit"
-              resourceFieldRef:
-                containerName: container-test
-                resource: limits.cpu
-      - configMap:
-          name: myconfigmap
-          items:
-            - key: config
-              path: my-group/my-config
-```
-
-#### 구성 예시: 기본값이 아닌 소유권 모드 설정의 시크릿 {#example-configuration-secrets-nondefault-permission-mode}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: volume-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
-      readOnly: true
-  volumes:
-  - name: all-in-one
-    projected:
-      sources:
-      - secret:
-          name: mysecret
-          items:
-            - key: username
-              path: my-group/my-username
-      - secret:
-          name: mysecret2
-          items:
-            - key: password
-              path: my-group/my-password
-              mode: 511
-```
-
-각각의 projected 볼륨 소스는 `source` 아래 사양 목록에 있다.
-파라미터는 두 가지 예외를 제외하고 거의 동일하다.
-
-* 시크릿의 경우 `secretName` 필드는 컨피그맵 이름과 일치하도록
-  `name` 으로 변경되었다.
-* `defaultMode` 는 각각의 볼륨 소스에 대해 projected 수준에서만
-  지정할 수 있다. 그러나 위에서 설명한 것처럼 각각의 개별 projection 에 대해 `mode`
-  를 명시적으로 설정할 수 있다.
-
-`TokenRequestProjection` 기능이 활성화 되면, 현재
-[서비스 어카운트](/docs/reference/access-authn-authz/authentication/#service-account-tokens)에
-대한 토큰을 파드의 지정된 경로에 주입할 수 있다. 예를 들면 다음과 같다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: sa-token-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: token-vol
-      mountPath: "/service-account"
-      readOnly: true
-  volumes:
-  - name: token-vol
-    projected:
-      sources:
-      - serviceAccountToken:
-          audience: api
-          expirationSeconds: 3600
-          path: token
-```
-
-예시 파드에 주입된 서비스 어카운트 토큰이 포함된 projected 볼륨이
-있다. 이 토큰은 파드의 컨테이너에서 쿠버네티스 API 서버에 접근하는데
-사용할 수 있다. `audience` 필드는 토큰에 의도하는 대상을
-포함한다. 토큰 수령은 토큰 대상에 지정된 식별자로 자신을 식별해야 하며,
-그렇지 않으면 토큰을 거부해야 한다. 이 필드는
-선택 사항이며 기본값은 API 서버의 식별자이다.
-
-`expirationSeconds` 는 서비스 어카운트 토큰의 예상 유효
-기간이다. 기본값은 1시간이며 최소 10분(600초)이어야 한다. 관리자는
-API 서버에 대해 `--service-account-max-token-expiration` 옵션을 지정해서
-최대 값을 제한할 수도 있다. `path` 필드는 projected 볼륨의 마운트 위치에 대한
-상대 경로를 지정한다.
-
-{{< note >}}
-projected 볼륨 소스를 [`subPath`](#subpath-사용하기) 볼륨으로 마운트해서 사용하는 컨테이너는 해당 볼륨 소스의 업데이트를 수신하지 않는다.
-{{< /note >}}
-
-### quobyte
-
-`quobyte` 볼륨을 사용하면 기존 [Quobyte](http://www.quobyte.com) 볼륨을
+`quobyte` 볼륨을 사용하면 기존 [Quobyte](https://www.quobyte.com) 볼륨을
 파드에 마운트할 수 있다.
 
 {{< note >}}
@@ -940,51 +846,40 @@ RBD의 특징은 여러 고객이 동시에 읽기 전용으로 마운트할 수
 RBD는 읽기-쓰기 모드에서 단일 고객만 마운트할 수 있다.
 동시 쓰기는 허용되지 않는다.
 
-더 자세한 내용은 [RBD 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd)를
+더 자세한 내용은 [RBD 예시](https://github.com/kubernetes/examples/tree/master/volumes/rbd)를
 참고한다.
 
-### scaleIO (사용 중단됨) {#scaleio}
+#### RBD CSI 마이그레이션 {#rbd-csi-migration}
 
-ScaleIO는 기존 하드웨어를 사용해서 확장 가능한 공유 블럭 네트워크 스토리지 클러스터를
-생성하는 소프트웨어 기반 스토리지 플랫폼이다. `scaleIO` 볼륨
-플러그인을 사용하면 배포된 파드가 기존 ScaleIO에 접근할 수
-있다. 퍼시스턴트 볼륨 클레임을 위해 새로운 볼륨을 동적으로 프로비저닝하는
-방법에 대한 자세한 내용은
-[ScaleIO 퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/#scaleio)을 참고한다.
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+`RBD`를 위한 `CSIMigration` 기능이 활성화되어 있으면, 
+사용 중이 트리 내(in-tree) 플러그인의 모든 플러그인 동작을 
+`rbd.csi.ceph.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 
+드라이버로 리다이렉트한다. 
+이 기능을 사용하려면, 클러스터에 
+[Ceph CSI 드라이버](https://github.com/ceph/ceph-csi)가 설치되어 있고 
+`CSIMigration`, `csiMigrationRBD` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
 
 {{< note >}}
-사용하기 위해선 먼저 기존에 ScaleIO 클러스터를 먼저 설정하고
-생성한 볼륨과 함께 실행해야 한다.
-{{< /note >}}
 
-다음의 예시는 ScaleIO를 사용하는 파드 구성이다.
+스토리지를 관리하는 쿠버네티스 클러스터 관리자는, 
+RBD CSI 드라이버로의 마이그레이션을 시도하기 전에 
+다음의 선행 사항을 완료해야 한다.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: pod-0
-spec:
-  containers:
-  - image: k8s.gcr.io/test-webserver
-    name: pod-0
-    volumeMounts:
-    - mountPath: /test-pd
-      name: vol-0
-  volumes:
-  - name: vol-0
-    scaleIO:
-      gateway: https://localhost:443/api
-      system: scaleio
-      protectionDomain: sd0
-      storagePool: sp1
-      volumeName: vol-0
-      secretRef:
-        name: sio-secret
-      fsType: xfs
-```
-
-더 자세한 내용은 [ScaleIO](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio) 예제를 참고한다.
+* 쿠버네티스 클러스터에 Ceph CSI 드라이버 (`rbd.csi.ceph.com`) v3.5.0 
+  이상을 설치해야 한다.
+* CSI 드라이버가 동작하기 위해 `clusterID` 필드가 필수이지만 
+  트리 내(in-tree) 스토리지클래스는 `monitors` 필드가 필수임을 감안하여, 
+  쿠버네티스 저장소 관리자는 monitors 값의 
+  해시(예: `#echo -n '<monitors_string>' | md5sum`) 
+  기반으로 clusterID를 CSI 컨피그맵 내에 만들고 
+  이 clusterID 환경 설정 아래에 monitors 필드를 유지해야 한다.
+* 또한, 트리 내(in-tree) 스토리지클래스의 
+  `adminId` 값이 `admin`이 아니면, 트리 내(in-tree) 스토리지클래스의 
+  `adminSecretName` 값이 `adminId` 파라미터 값의 
+  base64 값으로 패치되어야 하며, 아니면 이 단계를 건너뛸 수 있다.
 
 ### secret
 
@@ -999,13 +894,13 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 {{< /note >}}
 
 {{< note >}}
-시크릿을 [`subPath`](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 시크릿
+시크릿을 [`subPath`](#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 시크릿
 업데이트를 수신하지 못한다.
 {{< /note >}}
 
 더 자세한 내용은 [시크릿 구성하기](/ko/docs/concepts/configuration/secret/)를 참고한다.
 
-### storageOS {#storageos}
+### storageOS (사용 중단됨) {#storageos}
 
 `storageos` 볼륨을 사용하면 기존 [StorageOS](https://www.storageos.com)
 볼륨을 파드에 마운트할 수 있다.
@@ -1098,7 +993,6 @@ vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 
 {{< /tabs >}}
 
-
 #### vSphere VMDK 구성 예시 {#vsphere-vmdk-configuration}
 
 ```yaml
@@ -1128,8 +1022,7 @@ spec:
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 `vsphereVolume` 용 `CSIMigration` 기능이 활성화되면, 기존 인-트리 플러그인에서
-`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버로 모든 플러그인 작업을 리디렉션한다.
-이 기능을 사용하려면,
+`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버로 모든 플러그인 작업을 리디렉션한다. 이 기능을 사용하려면,
 [vSphere CSI 드라이버](https://github.com/kubernetes-sigs/vsphere-csi-driver)가
 클러스터에 설치되어야 하며 `CSIMigration` 및 `CSIMigrationvSphere`
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
@@ -1155,7 +1048,17 @@ vSphere CSI 드라이버에서 생성된 새 볼륨은 이러한 파라미터를
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-`vsphereVolume` 플러그인이 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 기능을 비활성화하려면, 이 기능 플래그를 `true` 로 설정해야 한다. 이를 위해서는 모든 워커 노드에 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버가 설치해야 한다.
+`vsphereVolume` 플러그인이 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 기능을 비활성화하려면, `InTreePluginvSphereUnregister` 기능 플래그를 `true` 로 설정해야 한다. 이를 위해서는 모든 워커 노드에 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버를 설치해야 한다.
+
+#### Portworx CSI 마이그레이션
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+Portworx를 위한 `CSIMigration` 기능이 쿠버네티스 1.23에 추가되었지만 
+알파 상태이기 때문에 기본적으로는 비활성화되어 있다. 
+이 기능은 사용 중이 트리 내(in-tree) 플러그인의 모든 플러그인 동작을 
+`pxd.portworx.com` CSI 드라이버로 리다이렉트한다. 
+이 기능을 사용하려면, 클러스터에 [Portworx CSI 드라이버](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)가 
+설치되어 있고, kube-controller-manager와 kubelet에 `CSIMigrationPortworx=true`로 설정해야 한다.
 
 ## subPath 사용하기 {#using-subpath}
 
@@ -1230,6 +1133,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
+      # 변수 확장에는 괄호를 사용한다(중괄호 아님).
       subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:
@@ -1252,8 +1156,7 @@ spec:
 ## 아웃-오브-트리(out-of-tree) 볼륨 플러그인
 
 아웃-오브-트리 볼륨 플러그인에는
-{{< glossary_tooltip text="컨테이너 스토리지 인터페이스" term_id="csi" >}}(CSI) 그리고
-FlexVolume이 포함된다. 이러한 플러그인을 사용하면 스토리지 벤더들은 플러그인 소스 코드를 쿠버네티스 리포지터리에
+{{< glossary_tooltip text="컨테이너 스토리지 인터페이스" term_id="csi" >}}(CSI) 그리고 FlexVolume(사용 중단됨)이 포함된다. 이러한 플러그인을 사용하면 스토리지 벤더들은 플러그인 소스 코드를 쿠버네티스 리포지터리에
 추가하지 않고도 사용자 정의 스토리지 플러그인을 만들 수 있다.
 
 이전에는 모든 볼륨 플러그인이 "인-트리(in-tree)"에 있었다. "인-트리" 플러그인은 쿠버네티스 핵심 바이너리와
@@ -1386,13 +1289,21 @@ CSI 드라이버로 전환할 때 기존 스토리지 클래스, 퍼시스턴트
 
 ### flexVolume
 
-FlexVolume은 버전 1.2(CSI 이전) 이후 쿠버네티스에 존재하는
-아웃-오브-트리 플러그인 인터페이스이다. 이것은 exec 기반 모델을 사용해서 드라이버에
-접속한다. FlexVolume 드라이버 바이너리 파일은 각각의 노드와 일부 경우에 컨트롤 플레인 노드의
-미리 정의된 볼륨 플러그인 경로에 설치해야 한다.
+{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
+
+FlexVolume은 스토리지 드라이버와 인터페이싱하기 위해 exec 기반 모델을 사용하는 아웃-오브-트리 플러그인 인터페이스이다. 
+FlexVolume 드라이버 바이너리 파일은 각 노드의 미리 정의된 볼륨 플러그인 경로에 설치되어야 하며, 
+일부 경우에는 컨트롤 플레인 노드에도 설치되어야 한다.
 
 파드는 `flexvolume` 인-트리 볼륨 플러그인을 통해 FlexVolume 드라이버와 상호 작용한다.
-더 자세한 내용은 [FlexVolume](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) 예제를 참고한다.
+더 자세한 내용은 FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 문서를 참고한다.
+
+{{< note >}}
+FlexVolume은 사용 중단되었다. 쿠버네티스에 외부 스토리지를 연결하려면 아웃-오브-트리 CSI 드라이버를 사용하는 것을 권장한다.
+
+FlexVolume 드라이버 메인테이너는 CSI 드라이버를 구현하고 사용자들이 FlexVolume 드라이버에서 CSI로 마이그레이트할 수 있도록 지원해야 한다.
+FlexVolume 사용자는 워크로드가 동등한 CSI 드라이버를 사용하도록 이전해야 한다.
+{{< /note >}}
 
 ## 마운트 전파(propagation)
 

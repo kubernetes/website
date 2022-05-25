@@ -35,7 +35,7 @@ template.
 -->
 ## ReplicaSet 的工作原理 {#how-a-replicaset-works}
 
-RepicaSet 是通过一组字段来定义的，包括一个用来识别可获得的 Pod
+ReplicaSet 是通过一组字段来定义的，包括一个用来识别可获得的 Pod
 的集合的选择算符、一个用来标明应该维护的副本个数的数值、一个用来指定应该创建新 Pod
 以满足副本个数条件时要使用的 Pod 模板等等。
 每个 ReplicaSet 都通过根据需要创建和 删除 Pod 以使得副本个数达到期望值，
@@ -345,9 +345,7 @@ pod2             1/1     Running   0          36s
 ## Writing a ReplicaSet Spec
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.
-For ReplicaSets, the kind is always just ReplicaSet.
-In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the current version and is enabled by default. The API version `apps/v1beta2` is deprecated.
-Refer to the first lines of the `frontend.yaml` example for guidance.
+For ReplicaSets, the `kind` is always a ReplicaSet.
 
 The name of a ReplicaSet object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -357,10 +355,7 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 ## 编写 ReplicaSet 的 spec
 
 与所有其他 Kubernetes API 对象一样，ReplicaSet 也需要 `apiVersion`、`kind`、和 `metadata` 字段。
-对于 ReplicaSets 而言，其 kind 始终是 ReplicaSet。
-在 Kubernetes 1.9 中，ReplicaSet 上的 API 版本 `apps/v1` 是其当前版本，且被
-默认启用。API 版本 `apps/v1beta2` 已被废弃。
-参考 `frontend.yaml` 示例的第一行。
+对于 ReplicaSets 而言，其 `kind` 始终是 ReplicaSet。
 
 ReplicaSet 对象的名称必须是合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
@@ -375,7 +370,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/#pod-temp
 required to have labels in place. In our `frontend.yaml` example we had one label: `tier: frontend`.
 Be careful not to overlap with the selectors of other controllers, lest they try to adopt this Pod.
 
-For the template's [restart policy](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy) field,
+For the template's [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) field,
 `.spec.template.spec.restartPolicy`, the only allowed value is `Always`, which is the default.
 -->
 ### Pod 模版
@@ -472,7 +467,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 <!--
 ### Deleting just a ReplicaSet
 
-You can delete a ReplicaSet without affecting any of its Pods using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=orphan` option.
+You can delete a ReplicaSet without affecting any of its Pods using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `-cascade=orphan` option.
 When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Orphan`.
 For example:
 -->
@@ -530,6 +525,102 @@ ensures that a desired number of pods with a matching label selector are availab
 
 通过更新 `.spec.replicas` 字段，ReplicaSet 可以被轻松的进行缩放。ReplicaSet
 控制器能确保匹配标签选择器的数量的 Pod 是可用的和可操作的。
+
+<!--
+When scaling down, the ReplicaSet controller chooses which pods to delete by sorting the available pods to
+prioritize scaling down pods based on the following general algorithm:
+-->
+在降低集合规模时，ReplicaSet 控制器通过对可用的 Pods 进行排序来优先选择
+要被删除的 Pods。其一般性算法如下：
+
+<!--
+ 1. Pending (and unschedulable) pods are scaled down first
+ 2. If `controller.kubernetes.io/pod-deletion-cost` annotation is set, then
+    the pod with the lower value will come first.
+ 3. Pods on nodes with more replicas come before pods on nodes with fewer replicas.
+ 4. If the pods' creation times differ, the pod that was created more recently
+    comes before the older pod (the creation times are bucketed on an integer log scale
+    when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+-->
+1. 首先选择剔除悬决（Pending，且不可调度）的 Pods
+2. 如果设置了 `controller.kubernetes.io/pod-deletion-cost` 注解，则注解值
+   较小的优先被裁减掉
+3. 所处节点上副本个数较多的 Pod 优先于所处节点上副本较少者
+4. 如果 Pod 的创建时间不同，最近创建的 Pod 优先于早前创建的 Pod 被裁减。
+   （当 `LogarithmicScaleDown` 这一
+   [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+   被启用时，创建时间是按整数幂级来分组的）。
+
+如果以上比较结果都相同，则随机选择。   
+
+<!--
+### Pod deletion cost 
+-->
+### Pod 删除开销   {#pod-deletion-cost}
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+<!--
+Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost) 
+annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
+-->
+通过使用 [`controller.kubernetes.io/pod-deletion-cost`](/zh/docs/reference/labels-annotations-taints/#pod-deletion-cost)
+注解，用户可以对 ReplicaSet 缩容时要先删除哪些 Pods 设置偏好。
+
+<!--
+The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
+deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
+cost are preferred to be deleted before pods with higher deletion cost. 
+-->
+此注解要设置到 Pod 上，取值范围为 [-2147483647, 2147483647]。
+所代表的的是删除同一 ReplicaSet 中其他 Pod 相比较而言的开销。
+删除开销较小的 Pods 比删除开销较高的 Pods 更容易被删除。
+
+<!--
+The implicit value for this annotation for pods that don't set it is 0; negative values are permitted.
+Invalid values will be rejected by the API server.
+-->
+Pods 如果未设置此注解，则隐含的设置值为 0。负值也是可接受的。
+如果注解值非法，API 服务器会拒绝对应的 Pod。
+
+<!--
+This feature is beta and enabled by default. You can disable it using the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDeletionCost` in both kube-apiserver and kube-controller-manager.
+-->
+此功能特性处于 Beta 阶段，默认被禁用。你可以通过为 kube-apiserver 和
+kube-controller-manager 设置
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDeletionCost` 来启用此功能。
+
+{{< note >}}
+<!--
+- This is honored on a best-effort basis, so it does not offer any guarantees on pod deletion order.
+- Users should avoid updating the annotation frequently, such as updating it based on a metric value,
+  because doing so will generate a significant number of pod updates on the apiserver.
+-->
+- 此机制实施时仅是尽力而为，并不能对 Pod 的删除顺序作出任何保证；
+- 用户应避免频繁更新注解值，例如根据某观测度量值来更新此注解值是应该避免的。
+  这样做会在 API 服务器上产生大量的 Pod 更新操作。 
+{{< /note >}}
+
+<!--
+#### Example Use Case
+
+The different pods of an application could have different utilization levels. On scale down, the application 
+may prefer to remove the pods with lower utilization. To avoid frequently updating the pods, the application
+should update `controller.kubernetes.io/pod-deletion-cost` once before issuing a scale down (setting the 
+annotation to a value proportional to pod utilization level). This works if the application itself controls
+the down scaling; for example, the driver pod of a Spark deployment.
+-->
+#### 使用场景示例
+
+同一应用的不同 Pods 可能其利用率是不同的。在对应用执行缩容操作时，可能
+希望移除利用率较低的 Pods。为了避免频繁更新 Pods，应用应该在执行缩容
+操作之前更新一次 `controller.kubernetes.io/pod-deletion-cost` 注解值
+（将注解值设置为一个与其 Pod 利用率对应的值）。
+如果应用自身控制器缩容操作时（例如 Spark 部署的驱动 Pod），这种机制
+是可以起作用的。
 
 <!--
 ### ReplicaSet as an Horizontal Pod Autoscaler Target
@@ -649,3 +740,22 @@ ReplicaSet 是 [ReplicationController](/zh/docs/concepts/workloads/controllers/r
 中讨论的基于集合的选择算符需求。
 因此，相比于 ReplicationController，应优先考虑 ReplicaSet。
 
+## {{% heading "whatsnext" %}}
+
+<!--
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Learn about [Deployments](/docs/concepts/workloads/controllers/deployment/).
+* [Run a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/),
+  which relies on ReplicaSets to work.
+* `ReplicaSet` is a top-level resource in the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/replica-set-v1" >}}
+  object definition to understand the API for replica sets.
+* Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
+  you can use it to manage application availability during disruptions.
+-->
+* 了解 [Pods](/zh/docs/concepts/workloads/pods)。
+* 了解 [Deployments](/zh/docs/concepts/workloads/controllers/deployment/)。
+* [使用 Deployment 运行一个无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)，它依赖于 ReplicaSet。
+* `ReplicaSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/replica-set-v1" >}}
+   对象定义理解关于该资源的 API。
+* 阅读[Pod 干扰预算（Disruption Budget）](/zh/docs/concepts/workloads/pods/disruptions/)，了解如何在干扰下运行高度可用的应用。

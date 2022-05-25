@@ -72,7 +72,7 @@ after upgrading the objects to a new stored version.
 Removing an old version:
 
 1. Ensure all clients are fully migrated to the new version. The kube-apiserver
-   logs can reviewed to help identify any clients that are still accessing via
+   logs can be reviewed to help identify any clients that are still accessing via
    the old version.
 1. Set `served` to `false` for the old version in the `spec.versions` list. If
    any clients are still unexpectedly using the old version they may begin reporting
@@ -80,7 +80,7 @@ Removing an old version:
    If this occurs, switch back to using `served:true` on the old version, migrate the 
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
-    1. Verify that the `stored` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
+    1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
     1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
 1. Remove the old version from the CustomResourceDefinition `spec.versions` list.
 1. Drop conversion support for the old version in conversion webhooks.
@@ -202,7 +202,7 @@ spec:
     plural: crontabs
     # singular name to be used as an alias on the CLI and for display
     singular: crontab
-    # kind is normally the CamelCased singular type. Your resource manifests use this.
+    # kind is normally the PascalCased singular type. Your resource manifests use this.
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
@@ -404,7 +404,7 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 A conversion webhook must not mutate anything inside of `metadata` of the converted object
 other than `labels` and `annotations`.
 Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request
-which caused the conversion. All other changes are just ignored.  
+which caused the conversion. All other changes are ignored.  
 
 ### Deploy the conversion webhook service
 
@@ -1038,8 +1038,8 @@ procedure.
 
 *Option 1:* Use the Storage Version Migrator
 
-1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+1.  Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+2.  Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 
 *Option 2:* Manually upgrade the existing objects to a new stored version
 
@@ -1050,6 +1050,16 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 2.  Write an upgrade procedure to list all existing objects and write them with
     the same content. This forces the backend to write objects in the current
     storage version, which is `v1`.
-2. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
+3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 
+{{< note >}}
+The `kubectl` tool currently cannot be used to edit or patch the `status` subresource on a CRD: see the [Kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource) for more details.
 
+The easier way to patch the status subresource from the CLI is directly interacting with the API server using the `curl` tool, in this example:
+```bash
+kubectl proxy &
+curl --header "Content-Type: application/json-patch+json" \
+  --request PATCH http://localhost:8001/apis/apiextensions.k8s.io/v1/customresourcedefinitions/<your CRD name here>/status \
+  --data '[{"op": "replace", "path": "/status/storedVersions", "value":["v1"]}]'
+```
+{{< /note >}}

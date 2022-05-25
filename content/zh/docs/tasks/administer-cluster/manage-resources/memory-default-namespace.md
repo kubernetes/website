@@ -2,35 +2,55 @@
 title: 为命名空间配置默认的内存请求和限制
 content_type: task
 weight: 10
+description: >-
+  为命名空间定义默认的内存资源限制，在该命名空间中每个新建的 Pod 都会被配置上内存资源限制。
 ---
 
 <!--
 title: Configure Default Memory Requests and Limits for a Namespace
 content_type: task
 weight: 10
+description: >-
+  Define a default memory resource limit for a namespace, so that every new Pod
+  in that namespace has a memory resource limit configured.
 -->
 
 <!-- overview -->
 
 <!--
-This page shows how to configure default memory requests and limits for a namespace.
-If a Container is created in a namespace that has a default memory limit, and the Container
-does not specify its own memory limit, then the Container is assigned the default memory limit.
+This page shows how to configure default memory requests and limits for a
+{{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+
+A Kubernetes cluster can be divided into namespaces. Once you have a namespace that
+has a default memory
+[limit](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits),
+and you then try to create a Pod with a container that does not specify its own memory
+limit, then the
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}} assigns the default
+memory limit to that container.
+
 Kubernetes assigns a default memory request under certain conditions that are explained later in this topic.
 -->
+本章介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}配置默认的内存请求和限制。
 
-本文介绍怎样给命名空间配置默认的内存请求和限制。
-如果在一个有默认内存限制的命名空间创建容器，该容器没有声明自己的内存限制时，
-将会被指定默认内存限制。
+一个 Kubernetes 集群可被划分为多个命名空间。
+如果你在具有默认内存[限制](/zh/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+的命名空间内尝试创建一个 Pod，并且这个 Pod 中的容器没有声明自己的内存资源限制，
+那么{{< glossary_tooltip text="控制面" term_id="control-plane" >}}会为该容器设定默认的内存限制。
+
 Kubernetes 还为某些情况指定了默认的内存请求，本章后面会进行介绍。
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 <!--
+You must have access to create namespaces in your cluster.
+
 Each node in your cluster must have at least 2 GiB of memory.
 -->
+在你的集群里你必须要有创建命名空间的权限。
+
 你的集群中的每个节点必须至少有 2 GiB 的内存。
 
 <!-- steps -->
@@ -52,12 +72,14 @@ kubectl create namespace default-mem-example
 <!--
 ## Create a LimitRange and a Pod
 
-Here's the configuration file for a LimitRange object. The configuration specifies
-a default memory request and a default memory limit.
+Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}.
+The manifest specifies a default memory
+request and a default memory limit.
 -->
 ## 创建 LimitRange 和 Pod
 
-这里给出了一个限制范围对象的配置文件。该配置声明了一个默认的内存请求和一个默认的内存限制。
+以下为 {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} 的示例清单。
+清单中声明了默认的内存请求和默认的内存限制。
 
 {{< codenew file="admin/resource/memory-defaults.yaml" >}}
 
@@ -71,19 +93,20 @@ kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults.yaml --n
 ```
 
 <!--
-Now if a Container is created in the default-mem-example namespace, and the
-Container does not specify its own values for memory request and memory limit,
-the Container is given a default memory request of 256 MiB and a default
-memory limit of 512 MiB.
+Now if you create a Pod in the default-mem-example namespace, and any container
+within that Pod does not specify its own values for memory request and memory limit,
+then the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+applies default values: a memory request of 256MiB and a memory limit of 512MiB.
 
-Here's the configuration file for a Pod that has one Container. The Container
+Here's an example manifest for a Pod that has one container. The container
 does not specify a memory request and limit.
 -->
-现在，如果在 default-mem-example 命名空间创建容器，并且该容器没有声明自己的内存请求和限制值，
-它将被指定默认的内存请求 256 MiB 和默认的内存限制 512 MiB。
+现在如果你在 default-mem-example 命名空间中创建一个 Pod，
+并且该 Pod 中所有容器都没有声明自己的内存请求和内存限制，
+{{< glossary_tooltip text="控制面" term_id="control-plane" >}}
+会将内存的默认请求值 256MiB 和默认限制值 512MiB 应用到 Pod 上。
 
-下面是具有一个容器的 Pod 的配置文件。
-容器未指定内存请求和限制。
+以下为只包含一个容器的 Pod 的清单。该容器没有声明内存请求和限制。
 
 {{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
 
@@ -106,7 +129,7 @@ kubectl get pod default-mem-demo --output=yaml --namespace=default-mem-example
 ```
 
 <!--
-The output shows that the Pod's Container has a memory request of 256 MiB and
+The output shows that the Pod's container has a memory request of 256 MiB and
 a memory limit of 512 MiB. These are the default values specified by the LimitRange.
 -->
 输出内容显示该 Pod 的容器有 256 MiB 的内存请求和 512 MiB 的内存限制。
@@ -134,14 +157,14 @@ kubectl delete pod default-mem-demo --namespace=default-mem-example
 ```
 
 <!--
-## What if you specify a Container's limit, but not its request?
+## What if you specify a container's limit, but not its request?
 
-Here's the configuration file for a Pod that has one Container. The Container
+Here's a manifest for a Pod that has one container. The container
 specifies a memory limit, but not a request:
 -->
 ## 声明容器的限制而不声明它的请求会怎么样？
 
-这里给出了包含一个容器的 Pod 的配置文件。该容器声明了内存限制，而没有声明内存请求：
+以下为只包含一个容器的 Pod 的清单。该容器声明了内存限制，而没有声明内存请求。
 
 {{< codenew file="admin/resource/memory-defaults-pod-2.yaml" >}}
 
@@ -164,8 +187,8 @@ kubectl get pod default-mem-demo-2 --output=yaml --namespace=default-mem-example
 ```
 
 <!--
-The output shows that the Container's memory request is set to match its memory limit.
-Notice that the Container was not assigned the default memory request value of 256Mi.
+The output shows that the container's memory request is set to match its memory limit.
+Notice that the container was not assigned the default memory request value of 256Mi.
 -->
 输出结果显示容器的内存请求被设置为它的内存限制相同的值。注意该容器没有被指定默认的内存请求值 256MiB。
 
@@ -178,15 +201,15 @@ resources:
 ```
 
 <!--
-## What if you specify a Container's request, but not its limit?
+## What if you specify a container's request, but not its limit?
 -->
 ## 声明容器的内存请求而不声明内存限制会怎么样？
 
 <!--
-Here's the configuration file for a Pod that has one Container. The Container
+Here's a manifest for a Pod that has one container. The container
 specifies a memory request, but not a limit:
 -->
-这里给出了一个包含一个容器的 Pod 的配置文件。该容器声明了内存请求，但没有内存限制：
+以下为只包含一个容器的 Pod 的清单。该容器声明了内存请求，但没有内存限制：
 
 {{< codenew file="admin/resource/memory-defaults-pod-3.yaml" >}}
 
@@ -209,12 +232,12 @@ kubectl get pod default-mem-demo-3 --output=yaml --namespace=default-mem-example
 ```
 
 <!--
-The output shows that the Container's memory request is set to the value specified in the
-Container's configuration file. The Container's memory limit is set to 512Mi, which is the
-default memory limit for the namespace.
+The output shows that the container's memory request is set to the value specified in the
+container's manifest. The container is limited to use no more than 512MiB of
+memory, which matches the default memory limit for the namespace.
 -->
-输出结果显示该容器的内存请求被设置为了容器配置文件中声明的数值。
-容器的内存限制被设置为 512MiB，即命名空间的默认内存限制。
+输出结果显示所创建的 Pod 中，容器的内存请求为 Pod 清单中声明的值。
+然而同一容器的内存限制被设置为 512MiB，此值是该命名空间的默认内存限制值。
 
 ```
 resources:
@@ -227,27 +250,45 @@ resources:
 <!--
 ## Motivation for default memory limits and requests
 
-If your namespace has a resource quota,
+If your namespace has a memory {{< glossary_tooltip text="resource quota" term_id="resource-quota" >}}
+configured,
 it is helpful to have a default value in place for memory limit.
-Here are two of the restrictions that a resource quota imposes on a namespace:
+Here are three of the restrictions that a resource quota imposes on a namespace:
+
+* For every Pod that runs in the namespace, the Pod and each of its containers must have a memory limit.
+  (If you specify a memory limit for every container in a Pod, Kubernetes can infer the Pod-level memory
+  limit by adding up the limits for its containers).
+* Memory limits apply a resource reservation on the node where the Pod in question is scheduled.
+  The total amount of memory reserved for all Pods in the namespace must not exceed a specified limit.
+* The total amount of memory actually used by all Pods in the namespace must also not exceed a specified limit.
 -->
 ## 设置默认内存限制和请求的动机
 
-如果你的命名空间有资源配额，那么默认内存限制是很有帮助的。
-下面是一个例子，通过资源配额为命名空间设置两项约束：
+如果你的命名空间设置了内存 {{< glossary_tooltip text="资源配额" term_id="resource-quota" >}}，
+那么为内存限制设置一个默认值会很有帮助。
+以下是内存资源配额对命名空间的施加的三条限制：
+
+* 命名空间中运行的每个 Pod 中的容器都必须有内存限制。
+  （如果为 Pod 中的每个容器声明了内存限制，
+  Kubernetes 可以通过将其容器的内存限制相加推断出 Pod 级别的内存限制）。
+
+* 内存限制用来在 Pod 被调度到的节点上执行资源预留。
+  预留给命名空间中所有 Pod 使用的内存总量不能超过规定的限制。
+
+* 命名空间中所有 Pod 实际使用的内存总量也不能超过规定的限制。
 
 <!--
-* Every Container that runs in the namespace must have its own memory limit.
-* The total amount of memory used by all Containers in the namespace must not exceed a specified limit.
--->
-* 运行在命名空间中的每个容器必须有自己的内存限制。
-* 命名空间中所有容器的内存使用量之和不能超过声明的限制值。
+When you add a LimitRange:
 
-<!--
-If a Container does not specify its own memory limit, it is given the default limit, and then
-it can be allowed to run in a namespace that is restricted by a quota.
+If any Pod in that namespace that includes a container does not specify its own memory limit,
+the control plane applies the default memory limit to that container, and the Pod can be
+allowed to run in a namespace that is restricted by a memory ResourceQuota.
 -->
-如果一个容器没有声明自己的内存限制，会被指定默认限制，然后它才会被允许在限定了配额的命名空间中运行。
+当你添加 LimitRange 时：
+
+如果该命名空间中的任何 Pod 的容器未指定内存限制，
+控制面将默认内存限制应用于该容器，
+这样 Pod 可以在受到内存 ResourceQuota 限制的命名空间中运行。
 
 <!--
 ## Clean up

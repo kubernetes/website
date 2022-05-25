@@ -43,11 +43,11 @@ dynamic provisioning of storage.
 如果是这样的话，你可以改变默认 StorageClass，或者完全禁用它以防止动态配置存储。
 
 <!--
-Simply deleting the default StorageClass may not work, as it may be re-created
+Deleting the default StorageClass may not work, as it may be re-created
 automatically by the addon manager running in your cluster. Please consult the docs for your installation
 for details about addon manager and how to disable individual addons.
 -->
-简单的删除默认 StorageClass 可能行不通，因为它可能会被你集群中的扩展管理器自动重建。
+删除默认 StorageClass 可能行不通，因为它可能会被你集群中的扩展管理器自动重建。
 请查阅你的安装文档中关于扩展管理器的细节，以及如何禁用单个扩展。
 
 
@@ -107,7 +107,7 @@ for details about addon manager and how to disable individual addons.
 3. 标记一个 StorageClass 为默认的：
 
    <!--
-   Similarly to the previous step, you need to add/set the annotation
+   Similar to the previous step, you need to add/set the annotation
    `storageclass.kubernetes.io/is-default-class=true`.
    -->
    和前面的步骤类似，你需要添加/设置注解 `storageclass.kubernetes.io/is-default-class=true`。

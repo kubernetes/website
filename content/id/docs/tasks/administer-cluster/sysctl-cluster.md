@@ -55,7 +55,8 @@ Sysctl berikut ini didukung dalam kelompok _safe_:
 - `kernel.shm_rmid_forced`,
 - `net.ipv4.ip_local_port_range`,
 - `net.ipv4.tcp_syncookies`,
-- `net.ipv4.ping_group_range` (sejak Kubernetes 1.18).
+- `net.ipv4.ping_group_range` (sejak Kubernetes 1.18),
+- `net.ipv4.ip_unprivileged_port_start` (sejak Kubernetes 1.22).
 
 {{< note >}}
 Contoh `net.ipv4.tcp_syncookies` bukan merupakan Namespace pada kernel Linux versi 4.4 atau lebih rendah.
@@ -156,7 +157,7 @@ Sangat disarankan untuk menggunakan Kubernetes [fitur _taints and toleration_](/
 Pod dengan sysctl _unsafe_ akan gagal diluncurkan pada sembarang Node yang belum
 mengaktifkan kedua sysctl _unsafe_ secara eksplisit. Seperti halnya sysctl _node-level_ sangat
 disarankan untuk menggunakan [fitur _taints and toleration_](/docs/reference/generated/kubectl/kubectl-commands/#taint) atau
-[pencemaran dalam Node](/docs/concepts/scheduling-eviction/taint-and-toleration/)
+[pencemaran dalam Node](/id/docs/concepts/scheduling-eviction/taint-and-toleration/)
 untuk Pod dalam Node yang tepat.
 
 ## PodSecurityPolicy

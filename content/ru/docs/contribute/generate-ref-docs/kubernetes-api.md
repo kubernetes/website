@@ -75,16 +75,16 @@ git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
 ### Настройка переменных для сборки
 
 * `K8S_ROOT` со значением `<k8s-base>`.
-* `WEB_ROOT` со значением  `<web-base>`.
+* `K8S_WEBROOT` со значением  `<web-base>`.
 * `K8S_RELEASE` со значением нужной версии документации.
-  Например, если вы хотите собрать документацию для Kubernetes версии 1.17, определите переменную окружения `K8S_RELEASE` со значением 1.17.
+  Например, если вы хотите собрать документацию для Kubernetes версии 1.17.0, определите переменную окружения `K8S_RELEASE` со значением 1.17.0.
 
 Примеры:
 
 ```shell
-export WEB_ROOT=$(GOPATH)/src/github.com/<your-username>/website
-export K8S_ROOT=$(GOPATH)/src/k8s.io/kubernetes
-export K8S_RELEASE=1.17
+export K8S_WEBROOT=${GOPATH}/src/github.com/<your-username>/website
+export K8S_ROOT=${GOPATH}/src/k8s.io/kubernetes
+export K8S_RELEASE=1.17.0
 ```
 
 ### Создание версионированной директории и получение Open API spec
@@ -113,8 +113,8 @@ make copyapi
 Убедитесь в том, что перечисленные ниже два файлы были сгенерированы:
 
 ```shell
-[ -e "<rdocs-base>/gen-apidocs/generators/build/index.html" ] && echo "index.html built" || echo "no index.html"
-[ -e "<rdocs-base>/gen-apidocs/generators/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
+[ -e "<rdocs-base>/gen-apidocs/build/index.html" ] && echo "index.html built" || echo "no index.html"
+[ -e "<rdocs-base>/gen-apidocs/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
 ```
 
 Перейдите в корень директории `<web-base>` и посмотрите, какие файлы были изменены:

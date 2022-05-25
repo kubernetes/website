@@ -71,7 +71,7 @@ In the 201 track, we will have a codebase walkthrough and local development and 
 For both tracks, you will have a chance to get your hands dirty and have some fun. Because not every contributor works with code, and not every contribution is technical, we will spend the beginning of the workshop learning how our project is structured and organized, where to
 find the right people, and where to get help when stuck.
 -->
-对于这两门课程，你将有机会亲自动手并体会到其中的乐趣。因为不是每个贡献者都使用代码，也不是每项贡献都包含技术性的，所以我们将在研讨会开始时学习如何构建和组织项目，以及如何进行找到合适的人，以及遇到困难时在哪里寻求帮助。
+对于这两门课程，你将有机会亲自动手并体会到其中的乐趣。因为不是每个贡献者都使用代码，也不是每项贡献都是技术性的，所以我们将在研讨会开始时学习如何构建和组织项目，以及如何进行找到合适的人，以及遇到困难时在哪里寻求帮助。
 
 <!--
 ## Mentoring Opportunities

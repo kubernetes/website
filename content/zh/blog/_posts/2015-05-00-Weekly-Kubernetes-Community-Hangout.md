@@ -9,7 +9,7 @@ slug: weekly-kubernetes-community-hangout
 title: " Weekly Kubernetes Community Hangout Notes - May 1 2015 "
 date: 2015-05-11
 slug: weekly-kubernetes-community-hangout
-url: /blog/2015/05/Weekly-Kubernetes-Community-Hangout
+url: /zh/blog/2015/05/Weekly-Kubernetes-Community-Hangout
 ---
 -->
 
@@ -104,7 +104,7 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
 
     *     * 可以使用 ServiceAccountToken 创建新的 service account。控制器将为它创建令牌。
 
-    * 可以创建一个带有 service account 的 pod, pod 将在 /var/run/secrets/kubernets.io/…
+    * 可以创建一个带有 service account 的 pod, pod 将在 /var/run/secrets/kubernetes.io/…
 
 <!--
 

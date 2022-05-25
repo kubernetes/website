@@ -46,7 +46,7 @@ Here is the configuration file for the Pod:
 
 ## 为 Pod 配置 projected 卷
 
-本练习中，您将从本地文件来创建包含有用户名和密码的 Secret。然后创建运行一个容器的 Pod，
+本练习中，你将从本地文件来创建包含有用户名和密码的 Secret。然后创建运行一个容器的 Pod，
 该 Pod 使用[`projected`](/zh/docs/concepts/storage/volumes/#projected) 卷将 Secret 挂载到相同的路径下。
 
 下面是 Pod 的配置文件：
@@ -59,7 +59,7 @@ Here is the configuration file for the Pod:
    ```shell
    # 创建包含用户名和密码的文件:
    echo -n "admin" > ./username.txt
-   echo -n "1f2d1e2e67df" > ./password.txt-->
+   echo -n "1f2d1e2e67df" > ./password.txt
 
    # 将上述文件引用到 Secret：
    kubectl create secret generic user --from-file=./username.txt
@@ -123,9 +123,9 @@ kubectl delete secret user pass
 
 <!--
 * Learn more about [`projected`](/docs/concepts/storage/volumes/#projected) volumes.
-* Read the [all-in-one volume](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md) design document.
+* Read the [all-in-one volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md) design document.
 -->
 
 * 进一步了解[`projected`](/zh/docs/concepts/storage/volumes/#projected) 卷。
-* 阅读[一体卷](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md)设计文档。
+* 阅读[一体卷](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)设计文档。
 

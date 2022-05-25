@@ -22,7 +22,7 @@ Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](h
     * Flatcar Container Linux by Kinvolk
 * 지속적인 통합 (CI) 테스트
 
-클러스터를 설치해 줄 도구로 유스케이스와 가장 잘 맞는 것을 고르고 싶다면, kubespray를 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), [kops](/ko/docs/setup/production-environment/tools/kops/)와 [비교한 글](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)을 읽어보자.
+클러스터를 설치해 줄 도구로 유스케이스와 가장 잘 맞는 것을 고르고 싶다면, kubespray를 [kubeadm](/ko/docs/reference/setup-tools/kubeadm/), [kops](/ko/docs/setup/production-environment/tools/kops/)와 [비교한 글](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)을 읽어보자.
 
 <!-- body -->
 
@@ -38,8 +38,8 @@ Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](h
 * 타겟 서버들은 docker 이미지를 풀(pull) 하기 위해 반드시 인터넷에 접속할 수 있어야 한다. 아니라면, 추가적인 설정을 해야 한다 ([오프라인 환경 확인하기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * 타겟 서버들의 **IPv4 포워딩**이 활성화되어야 한다
 * **SSH 키**가 인벤토리의 모든 서버들에 복사되어야 한다
-* **방화벽은 관리되지 않는다**. 사용자가 예전 방식대로 고유한 규칙을 구현해야 한다. 디플로이먼트 과정에서의 문제를 방지하려면 방화벽을 비활성화해야 한다
-* 만약 kubespray가 루트가 아닌 사용자 계정에서 실행되었다면, 타겟 서버에서 알맞은 권한 확대 방법이 설정되어야 한다. 그 뒤 `ansible_become` 플래그나 커맨드 파라미터들, `--become` 또는 `-b` 가 명시되어야 한다
+* **방화벽은 kubespray에 의해 관리되지 않는다**. 사용자는 필요에 따라 적절한 규칙을 구현해야 한다. 디플로이먼트 과정에서의 문제를 방지하려면 방화벽을 비활성화해야 한다
+* 만약 kubespray가 루트가 아닌 사용자 계정에서 실행되었다면, 타겟 서버에서 알맞은 권한 확대 방법이 설정되어야 하며, `ansible_become` 플래그나 커맨드 파라미터들, `--become` 또는 `-b` 가 명시되어야 한다
 
 Kubespray는 환경에 맞는 프로비저닝을 돕기 위해 아래와 같은 서비스를 제공한다:
 
@@ -50,7 +50,7 @@ Kubespray는 환경에 맞는 프로비저닝을 돕기 위해 아래와 같은 
 
 ### (2/5) 인벤토리 파일 구성하기
 
-서버들을 프로비저닝 한 후, [Ansible의 인벤토리 파일](https://docs.ansible.com/ansible/intro_inventory.html)을 만들어야 한다. 수동으로 만들 수도 있고, 동적인 인벤토리 스크립트를 통해 만들 수도 있다. 더 많이 알고싶다면 " [나만의 인벤토리 만들기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)" 글을 확인하자.
+서버들을 프로비저닝 한 후, [Ansible의 인벤토리 파일](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)을 만들어야 한다. 수동으로 만들 수도 있고, 동적인 인벤토리 스크립트를 통해 만들 수도 있다. 더 많이 알고싶다면 " [나만의 인벤토리 만들기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)" 글을 확인하자.
 
 ### (3/5) 클러스터 디플로이먼트 계획하기
 
@@ -68,7 +68,7 @@ Kubespray에서는 디플로이먼트의 많은 속성들을 사용자가 정의
   * {{< glossary_tooltip term_id="cri-o" >}}
 * 인증서 생성 방법
 
-Kubespray의 [변수 파일들](https://docs.ansible.com/ansible/playbooks_variables.html)을 사용자가 정의할 수 있다. 만약 Kubespray를 막 시작한 경우, kubespray의 기본 설정값을 이용해 클러스터를 배포하고 Kubernetes를 탐색하는 것이 좋다.
+Kubespray의 [변수 파일들](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)을 사용자가 정의할 수 있다. 만약 Kubespray를 처음 접하는 경우, kubespray의 기본 설정값을 이용해 클러스터를 배포하고 Kubernetes를 탐색하는 것이 좋다.
 
 ### (4/5) 클러스터 배포하기
 

@@ -111,7 +111,7 @@ Here's a summary of each level:
     特性默认开启。
   - 尽管一些特性会发生细节上的变化，但它们将会被长期支持。
 
-<!--
+  <!--
   - The schema and/or semantics of objects may change in incompatible ways in
     a subsequent beta or stable release. When this happens, migration
     instructions are provided. Schema changes may require deleting, editing, and
@@ -120,7 +120,7 @@ Here's a summary of each level:
   - The software is not recommended for production uses. Subsequent releases
     may introduce incompatible changes. If you have multiple clusters which
     can be upgraded independently, you may be able to relax this restriction.
--->
+  -->
   - 在随后的 Beta 版或稳定版中，对象的模式和（或）语义可能以不兼容的方式改变。
     当这种情况发生时，将提供迁移说明。
      模式更改可能需要删除、编辑和重建 API 对象。
@@ -130,10 +130,10 @@ Here's a summary of each level:
     后续发布版本可能会有不兼容的变动。
     如果你有多个集群可以独立升级，可以放宽这一限制。
 
-<!--
+  <!--
   Please try beta features and provide feedback. After the features exit beta, it
   may not be practical to make more changes.
--->
+  -->
   {{< note >}}
   请试用测试版特性时并提供反馈。特性完成 Beta 阶段测试后，
   就可能不会有太多的变更了。
@@ -191,6 +191,7 @@ part is omitted, it is treated as if `=true` is specified. For example:
 
  - to disable `batch/v1`, set `--runtime-config=batch/v1=false`
  - to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
+ - to enable a specific version of an API, such as `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities` 
 -->
 ## 启用或禁用 API 组   {#enabling-or-disabling}
 资源和 API 组是在默认情况下被启用的。
@@ -200,6 +201,8 @@ part is omitted, it is treated as if `=true` is specified. For example:
 例如：
  - 禁用 `batch/v1`， 对应参数设置 `--runtime-config=batch/v1=false`
  - 启用 `batch/v2alpha1`， 对应参数设置 `--runtime-config=batch/v2alpha1`
+ - 要启用特定版本的 API，如 `storage.k8s.io/v1beta1/csistoragecapacities`，可以设置
+   `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`
 
 <!--
 When you enable or disable groups or resources, you need to restart the API

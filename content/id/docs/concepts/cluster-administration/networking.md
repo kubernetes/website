@@ -139,7 +139,7 @@ DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
 
 Jembatan ini dibuat oleh Kubelet (dikontrol oleh _flag_ `--network-plugin=kubenet`) sesuai dengan `.spec.podCIDR` yang dimiliki oleh Node.
 
-Docker sekarang akan mengalokasikan IP dari blok `cbr-cidr`. Kontainer dapat menjangkau satu sama lain dan Node di atas jembatan` cbr0`. IP-IP tersebut semuanya dapat dirutekan dalam jaringan proyek GCE.
+Docker sekarang akan mengalokasikan IP dari blok `cbr-cidr`. Kontainer dapat menjangkau satu sama lain dan Node di atas jembatan `cbr0`. IP-IP tersebut semuanya dapat dirutekan dalam jaringan proyek GCE.
 
 GCE sendiri tidak tahu apa-apa tentang IP ini, jadi tidak akan NAT untuk lalu lintas internet keluar. Untuk mencapai itu aturan iptables digunakan untuk menyamar (alias SNAT - untuk membuatnya seolah-olah paket berasal dari lalu lintas `Node` itu sendiri) yang terikat untuk IP di luar jaringan proyek GCE (10.0.0.0/8).
 
@@ -194,10 +194,6 @@ Multus mendukung semua [plugin referensi](https://github.com/containernetworking
 [Nuage](http://www.nuagenetworks.net) menyediakan platform SDN (Software-Defined Networking) berbasis kebijakan yang sangat skalabel. Nuage menggunakan Open vSwitch _open source_ untuk data _plane_ bersama dengan SDN Controller yang kaya fitur yang dibangun pada standar terbuka.
 
 Platform Nuage menggunakan _overlay_ untuk menyediakan jaringan berbasis kebijakan yang mulus antara Kubernetes Pod-Pod dan lingkungan non-Kubernetes (VM dan server _bare metal_). Model abstraksi kebijakan Nuage dirancang dengan mempertimbangkan aplikasi dan membuatnya mudah untuk mendeklarasikan kebijakan berbutir halus untuk aplikasi. Mesin analisis _real-time_ platform memungkinkan pemantauan visibilitas dan keamanan untuk aplikasi Kubernetes.
-
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) adalah cara yang agak lebih dewasa tetapi juga rumit untuk membangun jaringan _overlay_. Ini didukung oleh beberapa "Toko Besar" untuk jaringan.
 
 ### OVN (Open Virtual Networking)
 

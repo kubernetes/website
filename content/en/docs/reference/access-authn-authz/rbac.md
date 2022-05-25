@@ -31,7 +31,7 @@ kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
 The RBAC API declares four kinds of Kubernetes object: _Role_, _ClusterRole_,
 _RoleBinding_ and _ClusterRoleBinding_. You can
 [describe objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
-or amend them, using tools such as `kubectl,` just like any other Kubernetes object.
+or amend them, using tools such as `kubectl`, just like any other Kubernetes object.
 
 {{< caution >}}
 These objects, by design, impose access restrictions. If you are making changes
@@ -86,7 +86,7 @@ Because ClusterRoles are cluster-scoped, you can also use them to grant access t
 * cluster-scoped resources (like {{< glossary_tooltip text="nodes" term_id="node" >}})
 * non-resource endpoints (like `/healthz`)
 * namespaced resources (like Pods), across all namespaces
-  
+
   For example: you can use a ClusterRole to allow a particular user to run
   `kubectl get pods --all-namespaces`
 
@@ -219,7 +219,7 @@ the role that is granted to those subjects.
 1. A binding to a different role is a fundamentally different binding.
 Requiring a binding to be deleted/recreated in order to change the `roleRef`
 ensures the full list of subjects in the binding is intended to be granted
-the new role (as opposed to enabling accidentally modifying just the roleRef
+the new role (as opposed to enabling or accidentally modifying only the roleRef
 without verifying all of the existing subjects should be given the new role's
 permissions).
 
@@ -279,8 +279,10 @@ rules:
 ```
 
 {{< note >}}
-You cannot restrict `create` or `deletecollection` requests by resourceName. For `create`, this
-limitation is because the object name is not known at authorization time.
+You cannot restrict `create` or `deletecollection` requests by their resource name.
+For `create`, this limitation is because the name of the new object may not be known at authorization time.
+If you restrict `list` or `watch` by resourceName, clients must include a `metadata.name` field selector in their `list` or `watch` request that matches the specified resourceName in order to be authorized.
+For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
 
@@ -333,7 +335,7 @@ as a cluster administrator, include rules for custom resources, such as those se
 or aggregated API servers, to extend the default roles.
 
 For example: the following ClusterRoles let the "admin" and "edit" default roles manage the custom resource
-named CronTab, whereas the "view" role can perform just read actions on CronTab resources.
+named CronTab, whereas the "view" role can perform only read actions on CronTab resources.
 You can assume that CronTab objects are named `"crontabs"` in URLs as seen by the API server.
 
 ```yaml
@@ -382,11 +384,11 @@ rules:
 ```
 
 Allow reading/writing Deployments (at the HTTP level: objects with `"deployments"`
-in the resource part of their URL) in both the `"extensions"` and `"apps"` API groups:
+in the resource part of their URL) in the `"apps"` API groups:
 
 ```yaml
 rules:
-- apiGroups: ["extensions", "apps"]
+- apiGroups: ["apps"]
   #
   # at the HTTP level, the name of the resource for accessing Deployment
   # objects is "deployments"
@@ -395,7 +397,7 @@ rules:
 ```
 
 Allow reading Pods in the core API group, as well as reading or writing Job
-resources in the `"batch"` or `"extensions"` API groups:
+resources in the `"batch"` API group:
 
 ```yaml
 rules:
@@ -405,7 +407,7 @@ rules:
   # objects is "pods"
   resources: ["pods"]
   verbs: ["get", "list", "watch"]
-- apiGroups: ["batch", "extensions"]
+- apiGroups: ["batch"]
   #
   # at the HTTP level, the name of the resource for accessing Job
   # objects is "jobs"
@@ -515,22 +517,13 @@ subjects:
   namespace: kube-system
 ```
 
-For all service accounts in the "qa" group in any namespace:
+For all service accounts in the "qa" namespace:
 
 ```yaml
 subjects:
 - kind: Group
   name: system:serviceaccounts:qa
   apiGroup: rbac.authorization.k8s.io
-```
-For all service accounts in the "dev" group in the "development" namespace:
-
-```yaml
-subjects:
-- kind: Group
-  name: system:serviceaccounts:dev
-  apiGroup: rbac.authorization.k8s.io
-  namespace: development
 ```
 
 For all service accounts in any namespace:
@@ -683,9 +676,13 @@ When used in a <b>RoleBinding</b>, it gives full control over every resource in 
 <td><b>admin</b></td>
 <td>None</td>
 <td>Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
+
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
 including the ability to create roles and role bindings within the namespace.
-This role does not allow write access to resource quota or to the namespace itself.</td>
+This role does not allow write access to resource quota or to the namespace itself.
+This role also does not allow write access to Endpoints in clusters created
+using Kubernetes v1.22+. More information is available in the
+["Write Access for Endpoints" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>edit</b></td>
@@ -695,7 +692,9 @@ This role does not allow write access to resource quota or to the namespace itse
 This role does not allow viewing or modifying roles or role bindings.
 However, this role allows accessing Secrets and running Pods as any ServiceAccount in
 the namespace, so it can be used to gain the API access levels of any ServiceAccount in
-the namespace.</td>
+the namespace. This role also does not allow write access to Endpoints in
+clusters created using Kubernetes v1.22+. More information is available in the
+["Write Access for Endpoints" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>view</b></td>
@@ -809,7 +808,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
 <td>None</td>
-<td>Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#provisioner">dynamic volume provisioners</a>.</td>
+<td>Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#dynamic">dynamic volume provisioners</a>.</td>
 </tr>
 <tr>
 <td><b>system:monitoring</b></td>
@@ -1184,6 +1183,24 @@ In order from most secure to least secure, the approaches are:
       --clusterrole=cluster-admin \
       --group=system:serviceaccounts
     ```
+
+## Write access for Endpoints
+
+Kubernetes clusters created before Kubernetes v1.22 include write access to
+Endpoints in the aggregated "edit" and "admin" roles. As a mitigation for
+[CVE-2021-25740](https://github.com/kubernetes/kubernetes/issues/103675), this
+access is not part of the aggregated roles in clusters that you create using
+Kubernetes v1.22 or later.
+
+Existing clusters that have been upgraded to Kubernetes v1.22 will not be
+subject to this change. The [CVE
+announcement](https://github.com/kubernetes/kubernetes/issues/103675) includes
+guidance for restricting this access in existing clusters.
+
+If you want new clusters to retain this level of access in the aggregated roles,
+you can create the following ClusterRole:
+
+{{< codenew file="access/endpoints-aggregated.yaml" >}}
 
 ## Upgrading from ABAC
 

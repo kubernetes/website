@@ -1,6 +1,4 @@
 ---
-approvers:
-- erictune
 title: Init 容器
 content_type: concept
 weight: 40
@@ -56,24 +54,30 @@ Init 容器与普通的容器非常像，除了如下两点：
 * 每个都必须在下一个启动之前成功完成。
 
 <!--
-If a Pod's init container fails, the kubelet repeatedly restarts that init container until it succeeds. 
+If a Pod's init container fails, the kubelet repeatedly restarts that init container until it succeeds.
 However, if the Pod has a `restartPolicy` of Never, and an init container fails during startup of that Pod, Kubernetes treats the overall Pod as failed.
 -->
 如果 Pod 的 Init 容器失败，kubelet 会不断地重启该 Init 容器直到该容器成功为止。
-然而，如果 Pod 对应的 `restartPolicy` 值为 "Never"，Kubernetes 不会重新启动 Pod。
+然而，如果 Pod 对应的 `restartPolicy` 值为 "Never"，并且 Pod 的 Init 容器失败，
+则 Kubernetes 会将整个 Pod 状态设置为失败。
 
 <!--
 To specify an init container for a Pod, add the `initContainers` field into
-the Pod specification, as an array of objects of type
-[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core),
-alongside the app `containers` array.
+the [Pod specification](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec),
+as an array of `container` items (similar to the app `containers` field and its contents).
+See [Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) in the
+API reference for more details.
+
 The status of the init containers is returned in `.status.initContainerStatuses`
 field as an array of the container statuses (similar to the `.status.containerStatuses`
 field).
 -->
-为 Pod 设置 Init 容器需要在 Pod 的 `spec` 中添加 `initContainers` 字段，
+为 Pod 设置 Init 容器需要在 [Pod 规约](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+中添加 `initContainers` 字段，
 该字段以 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 类型对象数组的形式组织，和应用的 `containers` 数组同级相邻。
+参阅 API 参考的[容器](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)章节了解详情。
+
 Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态数组的格式返回
 （类似 `status.containerStatuses` 字段）。
 
@@ -179,7 +183,7 @@ Here are some ideas for how to use init containers:
 * 等待一个 Service 完成创建，通过类似如下 shell 命令：
 
   ```shell
-  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; exit 1
+  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
   ```
 
 * 注册这个 Pod 到远程服务器，通过在命令中调用 API，类似如下：
@@ -393,10 +397,10 @@ myapp-pod   1/1       Running   0          9m
 
 <!--
 This simple example should provide some inspiration for you to create your own
-init containers. [What's next](#whats-next) contains a link to a more detailed example.
+init containers. [What's next](#what-s-next) contains a link to a more detailed example.
 -->
 这个简单例子应该能为你创建自己的 Init 容器提供一些启发。
-[接下来](#whats-next)节提供了更详细例子的链接。
+[接下来](#what-s-next)节提供了更详细例子的链接。
 
 <!--
 ## Detailed behavior
@@ -459,15 +463,21 @@ Init 容器具有应用容器的所有字段。然而 Kubernetes 禁止使用 `r
 Kubernetes 会在校验时强制执行此检查。
 
 <!--
-Use `activeDeadlineSeconds` on the Pod and `livenessProbe` on the container to
-prevent init containers from failing forever. The active deadline includes init
-containers.
+Use `activeDeadlineSeconds` on the Pod to prevent init containers from failing forever.
+The active deadline includes init containers.
+However it is recommended to use `activeDeadlineSeconds` only if teams deploy their application
+as a Job, because `activeDeadlineSeconds` has an effect even after initContainer finished.
+The Pod which is already running correctly would be killed by `activeDeadlineSeconds` if you set.
 
 The name of each app and init container in a Pod must be unique; a
 validation error is thrown for any container sharing a name with another.
 -->
 在 Pod 上使用 `activeDeadlineSeconds` 和在容器上使用 `livenessProbe` 可以避免
-Init 容器一直重复失败。`activeDeadlineSeconds` 时间包含了 Init 容器启动的时间。
+Init 容器一直重复失败。
+`activeDeadlineSeconds` 时间包含了 Init 容器启动的时间。
+但建议仅在团队将其应用程序部署为 Job 时才使用 `activeDeadlineSeconds`，
+因为 `activeDeadlineSeconds` 在 Init 容器结束后仍有效果。
+如果你设置了 `activeDeadlineSeconds`，已经在正常运行的 Pod 会被杀死。
 
 在 Pod 中的每个应用容器和 Init 容器的名称必须唯一；
 与任何其它容器共享同一个名称，会在校验时抛出错误。
@@ -479,7 +489,8 @@ Given the ordering and execution for init containers, the following rules
 for resource usage apply:
 
 * The highest of any particular resource request or limit defined on all init
-  containers is the *effective init request/limit*
+  containers is the *effective init request/limit*. If any resource has no
+  resource limit specified this is considered as the highest limit.
 * The Pod's *effective request/limit* for a resource is the higher of:
   * the sum of all app containers request/limit for a resource
   * the effective init request/limit for a resource
@@ -493,7 +504,8 @@ for resource usage apply:
 
 在给定的 Init 容器执行顺序下，资源使用适用于如下规则：
 
-* 所有 Init 容器上定义的任何特定资源的 limit 或 request 的最大值，作为 Pod *有效初始 request/limit*
+* 所有 Init 容器上定义的任何特定资源的 limit 或 request 的最大值，作为 Pod *有效初始 request/limit*。
+  如果任何资源没有指定资源限制，这被视为最高限制。
 * Pod 对资源的 *有效 limit/request* 是如下两者的较大者：
   * 所有应用容器对某个资源的 limit/request 之和
   * 对某个资源的有效初始 limit/request
@@ -514,9 +526,6 @@ Pod 级别的 cgroups 是基于有效 Pod 的请求和限制值，和调度器�
 A Pod can restart, causing re-execution of init containers, for the following
 reasons:
 
-* A user updates the Pod specification, causing the init container image to change.
-  Any changes to the init container image restarts the Pod. App container image
-  changes only restart the app container.
 * The Pod infrastructure container is restarted. This is uncommon and would
   have to be done by someone with root access to nodes.
 * All containers in a Pod are terminated while `restartPolicy` is set to Always,
@@ -527,21 +536,27 @@ reasons:
 
 Pod 重启会导致 Init 容器重新执行，主要有如下几个原因：
 
-* 用户更新 Pod 的规约导致 Init 容器镜像发生改变。Init 容器镜像的变更会引起 Pod 重启。
-  应用容器镜像的变更仅会重启应用容器。
-
 * Pod 的基础设施容器 (译者注：如 `pause` 容器) 被重启。这种情况不多见，
   必须由具备 root 权限访问节点的人员来完成。
 
 * 当 `restartPolicy` 设置为 "`Always`"，Pod 中所有容器会终止而强制重启。
   由于垃圾收集机制的原因，Init 容器的完成记录将会丢失。
 
+<!--
+The Pod will not be restarted when the init container image is changed, or the
+init container completion record has been lost due to garbage collection. This
+applies for Kubernetes v1.20 and later. If you are using an earlier version of
+Kubernetes, consult the documentation for the version you are using.
+-->
+当 Init 容器的镜像发生改变或者 Init 容器的完成记录因为垃圾收集等原因被丢失时，
+Pod 不会被重启。这一行为适用于 Kubernetes v1.20 及更新版本。如果你在使用较早
+版本的 Kubernetes，可查阅你所使用的版本对应的文档。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 -->
 * 阅读[创建包含 Init 容器的 Pod](/zh/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* 学习如何[调试 Init 容器](/zh/docs/tasks/debug-application-cluster/debug-init-containers/)
-
+* 学习如何[调试 Init 容器](/zh/docs/tasks/debug/debug-application/debug-init-containers/)

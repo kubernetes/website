@@ -2,14 +2,14 @@
 title: " Kubernetes 社区指导委员会选举结果 "
 date: 2017-10-05
 slug: kubernetes-community-steering-committee-election-results
-url: /blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
+url: /zh/blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
 ---
 <!--
 ---
 title: " Kubernetes Community Steering Committee Election Results "
 date: 2017-10-05
 slug: kubernetes-community-steering-committee-election-results
-url: /blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
+url: /zh/blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
 ---
 -->
 <!--

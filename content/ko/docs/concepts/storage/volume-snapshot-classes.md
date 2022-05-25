@@ -8,7 +8,7 @@
 
 title: 볼륨 스냅샷 클래스
 content_type: concept
-weight: 30
+weight: 41 # just after volume snapshots
 ---
 
 <!-- overview -->
@@ -38,6 +38,10 @@ weight: 30
 클래스를 요청할 수 있는 방법이다. 관리자는 볼륨스냅샷클래스 오브젝트를
 처음 생성할 때 클래스의 이름과 기타 파라미터를 설정하고, 오브젝트가
 생성된 이후에는 업데이트할 수 없다.
+
+{{< note >}}
+CRD의 설치는 쿠버네티스 배포판의 책임이다. 필요한 CRD가 존재하지 않는다면, 볼륨스냅샷클래스 생성이 실패할 것이다.
+{{< /note >}}
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1

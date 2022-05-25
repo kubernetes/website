@@ -35,8 +35,9 @@ warto rozważyć użycie jednej z [bibliotek klienckich](/docs/reference/using-a
 
 Pełną specyfikację API udokumentowano za pomocą [OpenAPI](https://www.openapis.org/).
 
-Serwer API Kubernetes API udostępnia specyfikację OpenAPI poprzez ścieżkę `/openapi/v2`.
-Aby wybrać format odpowiedzi, użyj nagłówków żądania zgodnie z tabelą:
+Serwer API Kubernetesa udostępnia specyfikację OpenAPI poprzez
+ścieżkę `/openapi/v2`. Aby wybrać format odpowiedzi,
+użyj nagłówków żądania zgodnie z tabelą:
 
 <table>
 <caption style="display:none">Dopuszczalne wartości nagłówka żądania dla zapytań OpenAPI v2</caption>
@@ -74,6 +75,55 @@ Protobuf, który jest przede wszystkim przeznaczony na potrzeby wewnętrznej kom
 Więcej szczegółów znajduje się w dokumencie [Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md).
 oraz w plikach *Interface Definition Language* (IDL) dla każdego ze schematów
 zamieszczonych w pakietach Go, które definiują obiekty API.
+
+### OpenAPI V3
+
+{{< feature-state state="alpha"  for_k8s_version="v1.23" >}}
+
+Kubernetes v1.23 umożliwia (na razie w we wczesnej wersji roboczej) publikowanie swojego API jako OpenAPI v3.
+Ta funkcjonalność jest w wersji _alfa_ i jest domyślnie wyłączona.
+Funkcjonalności w wersji _alfa_ można włączać poprzez
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) o nazwie `OpenAPIV3`
+składnika kube-apiserver.
+
+Po włączeniu tej funkcjonalności, serwer API Kubernetesa udostępnia
+zagregowaną specyfikację OpenAPI v3 dla odpowiednich grup i wersji poprzez ścieżkę
+`/openapi/v3/apis/<group>/<version>`. Tabela poniżej podaje dopuszczalne wartości
+nagłówków żądania.
+
+<table>
+  <caption style="display:none">Dopuszczalne wartości nagłówka żądania dla zapytań OpenAPI v3</caption>
+  <thead>
+     <tr>
+        <th>Nagłówek</th>
+        <th style="min-width: 50%;">Dopuszczalne wartości</th>
+        <th>Uwagi</th>
+     </tr>
+  </thead>
+  <tbody>
+     <tr>
+        <td><code>Accept-Encoding</code></td>
+        <td><code>gzip</code></td>
+        <td><em>pominięcie tego nagłówka jest dozwolone</em></td>
+     </tr>
+     <tr>
+        <td rowspan="3"><code>Accept</code></td>
+        <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
+        <td><em>głównie do celu komunikacji wewnątrz klastra</em></td>
+     </tr>
+     <tr>
+        <td><code>application/json</code></td>
+        <td><em>domyślne</em></td>
+     </tr>
+     <tr>
+        <td><code>*</code></td>
+        <td><em>udostępnia </em><code>application/json</code></td>
+     </tr>
+  </tbody>
+</table>
+
+Poprzez ścieżkę `/openapi/v3` można wyświetlić pełną listę
+dostępnych grup i wersji. Formatem odpowiedzi jest tylko JSON.
 
 ## Przechowywanie stanu
 

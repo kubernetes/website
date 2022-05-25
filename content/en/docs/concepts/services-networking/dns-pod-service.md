@@ -7,6 +7,7 @@ content_type: concept
 weight: 20
 ---
 <!-- overview -->
+
 Kubernetes creates DNS records for services and pods. You can contact
 services with consistent DNS names instead of IP addresses. 
 
@@ -38,7 +39,7 @@ namespace.
 
 DNS queries may be expanded using the pod's `/etc/resolv.conf`. Kubelet 
 sets this file for each pod. For example, a query for just `data` may be 
-expanded to `data.test.cluster.local`. The values of the `search` option 
+expanded to `data.test.svc.cluster.local`. The values of the `search` option 
 are used to expand queries. To learn more about DNS queries, see 
 [the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) 
 
@@ -49,7 +50,7 @@ options ndots:5
 ```
 
 In summary, a pod in the _test_ namespace can successfully resolve either 
-`data.prod` or `data.prod.cluster.local`.
+`data.prod` or `data.prod.svc.cluster.local`.
 
 ### DNS Records
 
@@ -105,10 +106,9 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 `172-17-0-3.default.pod.cluster.local`.
 
-Any pods created by a Deployment or DaemonSet exposed by a Service have the
-following DNS resolution available:
+Any pods exposed by a Service have the following DNS resolution available:
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 ### Pod's hostname and subdomain fields
 
@@ -196,7 +196,7 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 
 ### Pod's setHostnameAsFQDN field {#pod-sethostnameasfqdn-field}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 When a Pod is configured to have fully qualified domain name (FQDN), its hostname is the short hostname. For example, if you have a Pod with the fully qualified domain name `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`, then by default the `hostname` command inside that Pod returns `busybox-1` and  the `hostname --fqdn` command returns the FQDN.
 
@@ -216,13 +216,13 @@ following pod-specific DNS policies. These policies are specified in the
 
 - "`Default`": The Pod inherits the name resolution configuration from the node
   that the pods run on.
-  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)
+  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for more details.
 - "`ClusterFirst`": Any DNS query that does not match the configured cluster
   domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
   nameserver inherited from the node. Cluster administrators may have extra
   stub-domain and upstream DNS servers configured.
-  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)
+  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
   explicitly set its DNS policy "`ClusterFirstWithHostNet`".
@@ -260,6 +260,8 @@ spec:
 ```
 
 ### Pod's DNS Config {#pod-dns-config}
+
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 Pod's DNS Config allows users more control on the DNS settings for a Pod.
 
@@ -310,17 +312,16 @@ search default.svc.cluster-domain.example svc.cluster-domain.example cluster-dom
 options ndots:5
 ```
 
-### Feature availability
+#### Expanded DNS Configuration
 
-The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
+{{< feature-state for_k8s_version="1.22" state="alpha" >}}
 
-| k8s version | Feature support |
-| :---------: |:-----------:|
-| 1.14 | Stable |
-| 1.10 | Beta (on by default)|
-| 1.9 | Alpha |
+By default, for Pod's DNS Config, Kubernetes allows at most 6 search domains and
+a list of search domains of up to 256 characters.
 
-
+If the feature gate `ExpandedDNSConfig` is enabled for the kube-apiserver and
+the kubelet, it is allowed for Kubernetes to have at most 32 search domains and
+a list of search domains of up to 2048 characters.
 
 ## {{% heading "whatsnext" %}}
 

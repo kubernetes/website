@@ -49,7 +49,6 @@ Puedes correr una aplicación creando un `deployment` de Kubernetes, y puedes de
 
     El resultado es similar a esto:
 
-        user@computer:~/website$ kubectl describe deployment nginx-deployment
         Name:     nginx-deployment
         Namespace:    default
         CreationTimestamp:  Tue, 30 Aug 2016 18:11:37 -0700

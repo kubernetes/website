@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 title: 스토리지 클래스
 content_type: concept
 weight: 30
@@ -71,7 +76,7 @@ volumeBindingMode: Immediate
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
-| NFS                  | -                   | -                                    |
+| NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
 | VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
 | PortworxVolume       | &#x2713;            | [Portworx 볼륨](#portworx-볼륨)  |
@@ -149,9 +154,9 @@ CSI | 1.14 (alpha), 1.16 (beta)
 ### 볼륨 바인딩 모드
 
 `volumeBindingMode` 필드는 [볼륨 바인딩과 동적
-프로비저닝](/ko/docs/concepts/storage/persistent-volumes/#프로비저닝)의 시작 시기를 제어한다.
+프로비저닝](/ko/docs/concepts/storage/persistent-volumes/#프로비저닝)의 시작 시기를 제어한다. 설정되어 있지 않으면, `Immediate` 모드가 기본으로 사용된다.
 
-기본적으로, `Immediate` 모드는 퍼시스턴트볼륨클레임이 생성되면 볼륨
+`Immediate` 모드는 퍼시스턴트볼륨클레임이 생성되면 볼륨
 바인딩과 동적 프로비저닝이 즉시 발생하는 것을 나타낸다. 토폴로지 제약이
 있고 클러스터의 모든 노드에서 전역적으로 접근할 수 없는 스토리지
 백엔드의 경우, 파드의 스케줄링 요구 사항에 대한 지식 없이 퍼시스턴트볼륨이
@@ -182,6 +187,36 @@ CSI | 1.14 (alpha), 1.16 (beta)
 [CSI 볼륨](/ko/docs/concepts/storage/volumes/#csi)은 동적 프로비저닝과
 사전에 생성된 PV에서도 지원되지만, 지원되는 토폴로지 키와 예시를 보려면 해당
 CSI 드라이버에 대한 문서를 본다.
+
+{{< note >}}
+   `WaitForFirstConsumer`를 사용한다면, 노드 어피니티를 지정하기 위해서 파드 스펙에 `nodeName`을 사용하지는 않아야 한다.
+   만약 `nodeName`을 사용한다면, 스케줄러가 바이패스되고 PVC가 `pending` 상태로 있을 것이다.
+
+   대신, 아래와 같이 호스트네임을 이용하는 노드셀렉터를 사용할 수 있다.
+{{< /note >}}
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: kube-01
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
 
 ### 허용된 토폴로지
 
@@ -388,6 +423,29 @@ parameters:
     헤드리스 서비스를 자동으로 생성한다. 퍼시스턴트 볼륨 클레임을
     삭제하면 동적 엔드포인트와 서비스가 자동으로 삭제된다.
 
+### NFS
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: example-nfs
+provisioner: example.com/external-nfs
+parameters:
+  server: nfs-server.example.com
+  path: /share
+  readOnly: "false"
+```
+
+* `server`: NFS 서버의 호스트네임 또는 IP 주소.
+* `path`: NFS 서버가 익스포트(export)한 경로.
+* `readOnly`: 스토리지를 읽기 전용으로 마운트할지 나타내는 플래그(기본값: false).
+
+쿠버네티스에는 내장 NFS 프로비저너가 없다. NFS를 위한 스토리지클래스를 생성하려면 외부 프로비저너를 사용해야 한다.
+예시는 다음과 같다.
+* [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+* [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+
 ### OpenStack Cinder
 
 ```yaml
@@ -412,14 +470,14 @@ parameters:
 
 vSphere 스토리지 클래스에는 두 가지 유형의 프로비저닝 도구가 있다.
 
-- [CSI 프로비저닝 도구](#csi-프로비저닝-도구): `csi.vsphere.vmware.com`
+- [CSI 프로비저닝 도구](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP 프로비저닝 도구](#vcp-프로비저닝-도구): `kubernetes.io/vsphere-volume`
 
 인-트리 프로비저닝 도구는 [사용 중단](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)되었다. CSI 프로비저닝 도구에 대한 자세한 내용은 [쿠버네티스 vSphere CSI 드라이버](https://vsphere-csi-driver.sigs.k8s.io/) 및 [vSphereVolume CSI 마이그레이션](/ko/docs/concepts/storage/volumes/#csi-마이그레이션)을 참고한다.
 
 #### CSI 프로비저닝 도구 {#vsphere-provisioner-csi}
 
-vSphere CSI 스토리지클래스 프로비저닝 도구는 Tanzu 쿠버네티스 클러스터에서 작동한다. 예시는 [vSphere CSI 리포지터리](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml)를 참조한다.
+vSphere CSI 스토리지클래스 프로비저닝 도구는 Tanzu 쿠버네티스 클러스터에서 작동한다. 예시는 [vSphere CSI 리포지터리](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)를 참조한다.
 
 #### vCP 프로비저닝 도구
 
@@ -543,6 +601,12 @@ parameters:
 
 ### Quobyte
 
+{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
+
+Quobyte 인-트리 스토리지 플러그인은 사용 중단되었으며, 
+아웃-오브-트리 Quobyte 플러그인에 대한 [예제](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml) 
+`StorageClass`는 Quobyte CSI 저장소에서 찾을 수 있다.
+
 ```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -623,11 +687,11 @@ metadata:
 provisioner: kubernetes.io/azure-disk
 parameters:
   storageaccounttype: Standard_LRS
-  kind: Shared
+  kind: managed
 ```
 
 * `storageaccounttype`: Azure 스토리지 계정 Sku 계층. 기본값은 없음.
-* `kind`: 가능한 값은 `shared` (기본값), `dedicated`, 그리고 `managed` 이다.
+* `kind`: 가능한 값은 `shared`, `dedicated`, 그리고 `managed` (기본값) 이다.
   `kind` 가 `shared` 인 경우, 모든 비관리 디스크는 클러스터와
   동일한 리소스 그룹에 있는 몇 개의 공유 스토리지 계정에 생성된다. `kind` 가
   `dedicated` 인 경우, 클러스터와 동일한 리소스 그룹에서 새로운
@@ -733,7 +797,7 @@ parameters:
   storagePool: sp1
   storageMode: ThinProvisioned
   secretRef: sio-secret
-  readOnly: false
+  readOnly: "false"
   fsType: xfs
 ```
 

@@ -46,7 +46,7 @@ with the aim of sharing knowledge on Kubernetes cluster best practices.
    - lock-down the kubelet API
    - locking down access to the API for system components like the kube-proxy and CoreDNS
    - locking down what a Bootstrap Token can access
- - **Easy to use**: The user should not have to run anything more than a couple of commands:
+ - **User-friendly**: The user should not have to run anything more than a couple of commands:
    - `kubeadm init`
    - `export KUBECONFIG=/etc/kubernetes/admin.conf`
    - `kubectl apply -f <network-of-choice.yaml>`
@@ -63,7 +63,7 @@ with the aim of sharing knowledge on Kubernetes cluster best practices.
   - 锁定 kubelet API
   - 锁定对系统组件（例如 kube-proxy 和 CoreDNS）的 API 的访问
   - 锁定启动引导令牌（Bootstrap Token）可以访问的内容
-- **易用的**：用户只需要运行几个命令即可：
+- **用户友好**：用户只需要运行几个命令即可：
   - `kubeadm init`
   - `export KUBECONFIG=/etc/kubernetes/admin.conf`
   - `kubectl apply -f <所选网络.yaml>`
@@ -166,13 +166,8 @@ Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并
 - Kubernetes system requirements:
   - if running on linux:
     - [error] if Kernel is older than the minimum required version
-    - [error] if required cgroups subsystem aren't in set up
-  - if using docker:
-    - [warning/error] if Docker service does not exist, if it is disabled, if it is not active.
-    - [error] if Docker endpoint does not exist or does not work
-    - [warning] if docker version is not in the list of validated docker versions
-  - If using other cri engine:
-    - [error] if crictl socket does not answer
+    - [error] if required cgroups subsystem aren't set up
+- [error] if the CRI endpoint does not answer
 -->
 - [警告] 如果要使用的 Kubernetes 版本（由 `--kubernetes-version` 标志指定）比 kubeadm CLI
   版本至少高一个小版本。
@@ -180,12 +175,7 @@ Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并
   - 如果在 linux上运行：
     - [错误] 如果内核早于最低要求的版本
     - [错误] 如果未设置所需的 cgroups 子系统
-  - 如果使用 docker：
-    - [警告/错误] 如果 Docker 服务不存在、被禁用或未激活。
-    - [错误] 如果 Docker 端点不存在或不起作用
-    - [警告] 如果 docker 版本不在经过验证的 docker 版本列表中
-  - 如果使用其他 cri 引擎：
-    - [错误] 如果 crictl 套接字未应答
+- [错误] 如果 CRI 端点未应答
 <!--  
 - [error] if user is not root
 - [error] if the machine hostname is not a valid DNS subdomain
@@ -558,7 +548,7 @@ API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
     - `--requestheader-client-ca-file` to`front-proxy-ca.crt`
     - `--proxy-client-cert-file` to `front-proxy-client.crt`
     - `--proxy-client-key-file` to `front-proxy-client.key`
- - Other flags for securing the front proxy ([API Aggregation](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)) communications:
+ - Other flags for securing the front proxy ([API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)) communications:
     - `--requestheader-username-headers=X-Remote-User`
     - `--requestheader-group-headers=X-Remote-Group`
     - `--requestheader-extra-headers-prefix=X-Remote-Extra-`
@@ -580,7 +570,7 @@ API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
   - `--proxy-client-key-file` 设为 `front-proxy-client.key`
 
 - 其他用于保护前端代理（
-  [API 聚合层](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)）
+  [API 聚合层](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)）
   通信的标志:
 
   - `--requestheader-username-headers=X-Remote-User`
@@ -594,7 +584,7 @@ API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
 #### 控制器管理器  {#controller-manager}
 
 <!-- 
-The static Pod manifest for the controller-manager is affected by following parameters provided by the users: 
+The static Pod manifest for the controller manager is affected by following parameters provided by the users: 
 -->
 控制器管理器的静态 Pod 清单受用户提供的以下参数的影响:
 
@@ -683,45 +673,6 @@ a local etcd instance running in a Pod with following attributes:
    命令单独为本地 etcd 生成静态 Pod 清单
 
 <!--
-### Optional Dynamic Kubelet Configuration
--->
-### 可选的动态 Kubelet 配置  {#optional-dynamic-kubelet-configuration}
-
-<!--  
-To use this functionality call `kubeadm alpha kubelet config enable-dynamic`. It writes the kubelet init configuration
-into `/var/lib/kubelet/config/init/kubelet` file.
--->
-要使用这个功能，请执行 `kubeadm alpha kubelet config enable-dynamic`。
-它将 kubelet 的初始化配置写入 `/var/lib/kubelet/config/init/kubelet` 文件。
-
-<!--  
-The init configuration is used for starting the kubelet on this specific node, providing an alternative for the kubelet drop-in file;
-such configuration will be replaced by the kubelet base configuration as described in following steps.
-See [set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file) for additional info.
--->
-初始化配置用于在这个特定节点上启动 kubelet，从而为 kubelet 插件文件提供了
-一种替代方法。如以下步骤中所述，这种配置将由 kubelet 基本配置所替代。
-请参阅[通过配置文件设置 Kubelet 参数](/zh/docs/tasks/administer-cluster/kubelet-config-file)
-了解更多信息。
-
-<!-- Please note that: -->
-请注意：
-
-<!--  
-1. To make dynamic kubelet configuration work, flag `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` should be specified
-   in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
-2. The kubelet configuration can be changed by passing a `KubeletConfiguration` object to `kubeadm init` or `kubeadm join` by using
-   a configuration file `--config some-file.yaml`. The `KubeletConfiguration` object can be separated from other objects such
-   as `InitConfiguration` using the `---` separator. For more details have a look at the `kubeadm config print-default` command.
--->
-1. 要使动态 kubelet 配置生效，应在 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
-   中指定 `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` 标志。
-2. 通过使用配置文件 `--config some-file.yaml` 将 `KubeletConfiguration` 对象传递给
-   `kubeadm init` 或 `kubeadm join` 来更改 kubelet 配置。
-   可以使用 `---` 分隔符将 `KubeletConfiguration` 对象与其他对象（例如 `InitConfiguration`）
-   分开。更多的详细信息，请查看 `kubeadm config print-default` 命令。
-
-<!--
 ### Wait for the control plane to come up
 -->
 ### 等待控制平面启动  {#wait-for-the-control-plane-to-come-up}
@@ -742,30 +693,6 @@ After the control plane is up, kubeadm completes the tasks described in followin
 -->
 kubeadm 依靠 kubelet 拉取控制平面镜像并将其作为静态 Pod 正确运行。
 控制平面启动后，kubeadm 将完成以下段落中描述的任务。
-
-<!--
-### (optional) Write base kubelet configuration
--->
-### （可选）编写基本 kubelet 配置  {#write-base-kubelet-configuration}
-
-{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
-
-<!--
-If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
--->
-如果带 `--feature-gates=DynamicKubeletConfig` 参数调用 kubeadm，则 kubeadm：
-
-<!--  
-1. Write the kubelet base configuration into the `kubelet-base-config-v1.9` ConfigMap in the `kube-system` namespace
-2. Creates RBAC rules for granting read access to that ConfigMap to all bootstrap tokens and all kubelet instances
-   (that is `system:bootstrappers:kubeadm:default-node-token` and `system:nodes` groups)
-3. Enable the dynamic kubelet configuration feature for the initial control-plane node by pointing `Node.spec.configSource` to the newly-created ConfigMap
--->
-1. 将 kubelet 基本配置写入 `kube-system` 名字空间的 `kubelet-base-config-v1.9` ConfigMap 中。
-2. 创建 RBAC 规则，以授予对所有引导令牌和所有 kubelet 实例对该 ConfigMap 的读取访问权限
-  （即 `system:bootstrappers:kubeadm:default-node-token` 组和 `system:nodes` 组）
-3. 通过将 `Node.spec.configSource` 指向新创建的 ConfigMap，为初始控制平面节点启用动态
-   kubelet 配置功能。
 
 <!--
 ### Save the kubeadm ClusterConfiguration in a ConfigMap for later reference
@@ -808,18 +735,20 @@ As soon as the control plane is available, kubeadm executes following actions:
 一旦控制平面可用，kubeadm 将执行以下操作：
 
 <!-- 
-- Labels the node as control-plane with `node-role.kubernetes.io/master=""`
-- Taints the node with `node-role.kubernetes.io/master:NoSchedule`
+- Labels the node as control-plane with `node-role.kubernetes.io/control-plane=""`
+- Taints the node with `node-role.kubernetes.io/master:NoSchedule` and `node-role.kubernetes.io/control-plane:NoSchedule`
 -->
-- 给节点打上 `node-role.kubernetes.io/master=""` 标签，标记其为控制平面
-- 给节点打上 `node-role.kubernetes.io/master:NoSchedule` 污点
+- 给节点打上 `node-role.kubernetes.io/control-plane=""` 标签，标记其为控制平面
+- 给节点打上 `node-role.kubernetes.io/master:NoSchedule` 和 `node-role.kubernetes.io/control-plane:NoSchedule` 污点
 
 <!-- Please note that: -->
 请注意：
 
 <!-- 
+1. The `node-role.kubernetes.io/master` taint is deprecated and will be removed in kubeadm version 1.25
 1. Mark control-plane phase can be invoked individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command
 -->
+1. `node-role.kubernetes.io/master` 污点是已废弃的，将会在 kubeadm 1.25 版本中移除
 1. 可以使用 [`kubeadm init phase mark-control-plane`](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) 
   命令单独触发控制平面标记
 
@@ -1028,24 +957,28 @@ A ServiceAccount for `kube-proxy` is created in the `kube-system` namespace; the
 - `kube-proxy` 的 ServiceAccount 绑定了 `system:node-proxier` ClusterRole
   中的特权
 
-#### DNS  {#dns}
+#### DNS
 
 <!--  
-- In Kubernetes version 1.18 kube-dns usage with kubeadm is deprecated and will be removed in a future release
 - The CoreDNS service is named `kube-dns`. This is done to prevent any interruption
-in service when the user is switching the cluster DNS from kube-dns to CoreDNS or vice-versa
-the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
-- A ServiceAccount for CoreDNS/kube-dns is created in the `kube-system` namespace.
-- The `kube-dns` ServiceAccount is bound to the privileges in the `system:kube-dns` ClusterRole
+  in service when the user is switching the cluster DNS from kube-dns to CoreDNS,
+  the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
+- A ServiceAccount for CoreDNS is created in the `kube-system` namespace.
+- The `coredns` ServiceAccount is bound to the privileges in the `system:coredns` ClusterRole
 -->
-- 在 Kubernetes 1.18 版本中，通过 kubeadm 部署 kube-dns 这一操作已经弃用，
-  将在未来的版本中删除。
 - CoreDNS 服务的名称为 `kube-dns`。这样做是为了防止当用户将集群 DNS 从 kube-dns
-  切换到 CoreDNS 或者反过来时，出现服务中断。`--config` 方法在
+  切换到 CoreDNS 时出现服务中断。`--config` 方法在
   [这里](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
   有描述。
-- 在 `kube-system` 名字空间中创建 CoreDNS/kube-dns 的 ServiceAccount
-- `kube-dns` 的 ServiceAccount 绑定了 `system:kube-dns` ClusterRole 中的特权
+- 在 `kube-system` 名字空间中创建 CoreDNS 的 ServiceAccount
+- `coredns` 的 ServiceAccount 绑定了 `system:coredns` ClusterRole 中的特权
+
+<!--
+In Kubernetes version 1.21, support for using `kube-dns` with kubeadm was removed.
+You can use CoreDNS with kubeadm even when the related Service is named `kube-dns`.
+-->
+在 Kubernetes 1.21 版本中，kubeadm 对 `kube-dns` 的支持被移除。
+你可以在 kubeadm 使用 CoreDNS，即使相关的 Service 名字仍然是 `kube-dns`。
 
 <!--
 ## kubeadm join phases internal design
@@ -1085,14 +1018,12 @@ cluster startup problems.
 
 <!--  
 1. `kubeadm join` preflight checks are basically a subset `kubeadm init` preflight checks
-1. Starting from 1.9, kubeadm provides better support for CRI-generic functionality; in that case, docker specific controls
-   are skipped or replaced by similar controls for crictl.
+1. Starting from 1.24, kubeadm uses crictl to communicate to all known CRI endpoints.
 1. Starting from 1.9, kubeadm provides support for joining nodes running on Windows; in that case, linux specific controls are skipped.
 1. In any case the user can skip specific preflight checks (or eventually all preflight checks) with the `--ignore-preflight-errors` option.
 -->
 1. `kubeadm join` 预检基本上是 `kubeadm init` 预检的一个子集
-2. 从 1.9 开始，kubeadm 为 CRI 通用的功能提供了更好的支持；在这种情况下，
-   Docker 特定的控制参数将跳过或替换为 crictl 中与之相似的控制参数。
+2. 从 1.24 开始，kubeadm 使用 crictl 与所有已知的 CRI 端点进行通信。
 3. 从 1.9 开始，kubeadm 支持加入在 Windows 上运行的节点；在这种情况下，
    将跳过 Linux 特定的控制参数。
 4. 在任何情况下，用户都可以通过 `--ignore-preflight-errors` 选项跳过
@@ -1183,17 +1114,16 @@ when the connection with the cluster is established, kubeadm try to access the `
 ## TLS 引导  {#tls-boostrap}
 
 <!--  
-Once the cluster info are known, the file `bootstrap-kubelet.conf` is written, thus allowing kubelet to do TLS Bootstrapping
-(conversely until v.1.7 TLS bootstrapping were managed by kubeadm).
+Once the cluster info are known, the file `bootstrap-kubelet.conf` is written, thus allowing kubelet to do TLS Bootstrapping.
 -->
-知道集群信息后，将写入文件 `bootstrap-kubelet.conf`，从而允许 kubelet 执行
-TLS 引导（相反，在 v1.7 之前 TLS 引导都是由 kubeadm 管理）。
+知道集群信息后，kubeadm 将写入文件 `bootstrap-kubelet.conf`，从而允许 kubelet 执行
+TLS 引导。
 
 <!--  
-The TLS bootstrap mechanism uses the shared token to temporarily authenticate with the Kubernetes Master to submit a certificate
+The TLS bootstrap mechanism uses the shared token to temporarily authenticate with the Kubernetes API server to submit a certificate
 signing request (CSR) for a locally created key pair.
 -->
-TLS 引导机制使用共享令牌对 Kubernetes 主控节点进行临时身份验证，以便
+TLS 引导机制使用共享令牌对 Kubernetes API 服务器进行临时身份验证，以便
 为本地创建的密钥对提交证书签名请求（CSR）。
 
 <!--  
@@ -1209,7 +1139,7 @@ kubelet 加入集群，同时删除 `bootstrap-kubelet.conf`。
 <!--  
 - The temporary authentication is validated against the token saved during the `kubeadm init` process (or with additional tokens
   created with `kubeadm token`)
-- The temporary authentication resolve to a user member of  `system:bootstrappers:kubeadm:default-node-token` group which was granted
+- The temporary authentication resolve to a user member of `system:bootstrappers:kubeadm:default-node-token` group which was granted
   access to CSR api during the `kubeadm init` process
 - The automatic CSR approval is managed by the csrapprover controller, according with configuration done the `kubeadm init` process
 -->
@@ -1218,37 +1148,4 @@ kubelet 加入集群，同时删除 `bootstrap-kubelet.conf`。
 - 临时身份验证解析到 `system:bootstrappers:kubeadm:default-node-token` 组的一个用户成员，
   该成员在 `kubeadm init` 过程中被授予对 CSR API 的访问权
 - 根据 `kubeadm init` 过程的配置，自动 CSR 审批由 csrapprover 控制器管理
-
-<!--
-### (optional) Write init kubelet configuration
--->
-### （可选）编写 init kubelet 配置  {#write-init-kubelet-configuration}
-
-{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
-
-<!--
-If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
--->
-如果带 `--feature-gates=DynamicKubeletConfig` 参数调用 kubeadm，则 kubeadm：
-
-<!--  
-1. Read the kubelet base configuration from the `kubelet-base-config-v1.9` ConfigMap in the `kube-system` namespace  using the
-   Bootstrap Token credentials, and write it to disk as kubelet init configuration file  `/var/lib/kubelet/config/init/kubelet`
-2. As soon as kubelet starts with the Node's own credential (`/etc/kubernetes/kubelet.conf`), update current node configuration
-   specifying that the source for the node/kubelet configuration is the above ConfigMap.
--->
-1. 使用引导令牌凭证从 `kube-system` 名字空间中 ConfigMap `kubelet-base-config-v1.9`
-   中读取 kubelet 基本配置，
-   并将其作为 kubelet init 配置文件 `/var/lib/kubelet/config/init/kubelet` 写入磁盘。
-2. 一旦 kubelet 开始使用节点自己的凭据（`/etc/kubernetes/kubelet.conf`），
-   就更新当前节点配置，指定该节点或 kubelet 配置来自上述 ConfigMap。
-
-<!-- Please note that: -->
-请注意：
-
-<!-- 
-1. To make dynamic kubelet configuration work, flag `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` should be specified in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` 
--->
-1. 要使动态 kubelet 配置生效，应在 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
-   中指定 `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` 标志。
 

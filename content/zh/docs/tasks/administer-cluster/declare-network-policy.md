@@ -30,6 +30,7 @@ This document helps you get started using the Kubernetes [NetworkPolicy API](/do
 <!--
 Make sure you've configured a network provider with network policy support. There are a number of network providers that support NetworkPolicy, including:
 
+* [Antrea](/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
 * [Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
 * [Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
 * [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
@@ -38,6 +39,7 @@ Make sure you've configured a network provider with network policy support. Ther
 -->
 你首先需要有一个支持网络策略的 Kubernetes 集群。已经有许多支持 NetworkPolicy 的网络提供商，包括：
 
+* [Antrea](/zh/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
 * [Calico](/zh/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
 * [Cilium](/zh/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
 * [Kube-router](/zh/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
@@ -106,7 +108,7 @@ You should be able to access the new `nginx` service from other Pods. To access 
 要从 default 命名空间中的其它s Pod 来访问该服务。可以启动一个 busybox 容器：
 
 ```shell
-kubectl run busybox --rm -ti --image=busybox /bin/sh
+kubectl run busybox --rm -ti --image=busybox:1.28 /bin/sh
 ```
 
 <!--
@@ -178,7 +180,7 @@ When you attempt to access the `nginx` Service from a Pod without the correct la
 如果你尝试从没有设定正确标签的 Pod 中去访问 `nginx` 服务，请求将会超时：
 
 ```shell
-kubectl run busybox --rm -ti --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox:1.28 -- /bin/sh
 ```
 
 <!--
@@ -205,7 +207,7 @@ You can create a Pod with the correct labels to see that the request is allowed:
 创建一个拥有正确标签的 Pod，你将看到请求是被允许的：
 
 ```shell
-kubectl run busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --labels="access=true" --image=busybox:1.28 -- /bin/sh
 ```
 <!--
 In your shell, run the command:

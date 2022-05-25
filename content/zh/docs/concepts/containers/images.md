@@ -29,7 +29,7 @@ This page provides an outline of the container image concept.
 容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有
 良定（Well Defined）的假定。
 
-你通常会创建应用的容器镜像并将其推送到某仓库，然后在
+你通常会创建应用的容器镜像并将其推送到某仓库（Registry），然后在
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
 
 本页概要介绍容器镜像的概念。
@@ -41,12 +41,11 @@ This page provides an outline of the container image concept.
 
 Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
-and possible a port number as well; for example: `fictional.registry.example:10443/imagename`.
+and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
-After the image name part you can add a _tag_ (as also using with commands such
-as `docker` and `podman`).
+After the image name part you can add a _tag_ (in the same way you would when using with commands like `docker` or `podman`).
 Tags let you identify different versions of the same series of images.
 -->
 ## 镜像名称    {#image-names}
@@ -57,8 +56,7 @@ Tags let you identify different versions of the same series of images.
 
 如果你不指定仓库的主机名，Kubernetes 认为你在使用 Docker 公共仓库。
 
-在镜像名称之后，你可以添加一个 _标签（Tag）_ （就像在 `docker` 或 `podman`
-中也在用的那样）。
+在镜像名称之后，你可以添加一个标签（Tag）（与使用 `docker` 或 `podman` 等命令时的方式相同）。
 使用标签能让你辨识同一镜像序列中的不同版本。
 
 <!--
@@ -68,52 +66,216 @@ There are additional rules about where you can place the separator
 characters (`_`, `-`, and `.`) inside an image tag.  
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 -->
-镜像标签可以包含小写字母、大写字符、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
+镜像标签可以包含小写字母、大写字母、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
 关于在镜像标签中何处可以使用分隔字符（`_`、`-` 和 `.`）还有一些额外的规则。
 如果你不指定标签，Kubernetes 认为你想使用标签 `latest`。
 
 <!--
-You should avoid using the `latest` tag when deploying containers in production,
-as it is harder to track which version of the image is running and more difficult
-to roll back to a working version.
-
-Instead, specify a meaningful tag such as `v1.42.0`.
--->
-{{< caution >}}
-你要避免在生产环境中使用 `latest` 标签，因为这会使得跟踪所运行的镜像版本变得
-非常困难，同时也很难回滚到之前运行良好的版本。
-
-正确的做法恰恰相反，你应该指定一个有意义的标签，如 `v1.42.0`。
-{{< /caution >}}
-
-<!--
 ## Updating images
 
-The default pull policy is `IfNotPresent` which causes the
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip
-pulling an image if it already exists. If you would like to always force a pull,
-you can do one of the following:
-
-- set the `imagePullPolicy` of the container to `Always`.
-- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use.
-- omit the `imagePullPolicy` and the tag for the image to use.
-- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
-
-When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
+When you first create a {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
+{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}, Pod, or other
+object that includes a Pod template, then by default the pull policy of all
+containers in that pod will be set to `IfNotPresent` if it is not explicitly
+specified. This policy causes the
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip pulling an
+image if it already exists.
 -->
 ## 更新镜像  {#updating-images}
 
-默认的镜像拉取策略是 `IfNotPresent`：在镜像已经存在的情况下，
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 将不再去拉取镜像。
-如果希望强制总是拉取镜像，你可以执行以下操作之一：
+当你最初创建一个 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}、
+{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}、Pod
+或者其他包含 Pod 模板的对象时，如果没有显式设定的话，Pod 中所有容器的默认镜像
+拉取策略是 `IfNotPresent`。这一策略会使得
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
+在镜像已经存在的情况下直接略过拉取镜像的操作。
+
+<!--
+### Image pull policy
+
+The `imagePullPolicy` for a container and the tag of the image affect when the
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull (download) the specified image.
+
+Here's a list of the values you can set for `imagePullPolicy` and the effects
+these values have:
+-->
+### 镜像拉取策略   {#image-pull-policy}
+
+容器的 `imagePullPolicy` 和镜像的标签会影响 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 尝试拉取（下载）指定的镜像。
+
+以下列表包含了 `imagePullPolicy` 可以设置的值，以及这些值的效果：
+
+<!--
+`IfNotPresent`
+: the image is pulled only if it is not already present locally.
+
+`Always`
+: every time the kubelet launches a container, the kubelet queries the container
+  image registry to resolve the name to an image
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier). If the kubelet has a
+  container image with that exact digest cached locally, the kubelet uses its cached
+  image; otherwise, the kubelet pulls the image with the resolved digest,
+  and uses that image to launch the container.
+
+`Never`
+: the kubelet does not try fetching the image. If the image is somehow already present
+  locally, the kubelet attempts to start the container; otherwise, startup fails.
+  See [pre-pulled images](#pre-pulled-images) for more details.
+-->
+`IfNotPresent`
+: 只有当镜像在本地不存在时才会拉取。
+
+`Always`
+: 每当 kubelet 启动一个容器时，kubelet 会查询容器的镜像仓库，
+  将名称解析为一个镜像[摘要](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)。
+  如果 kubelet 有一个容器镜像，并且对应的摘要已在本地缓存，kubelet 就会使用其缓存的镜像；
+  否则，kubelet 就会使用解析后的摘要拉取镜像，并使用该镜像来启动容器。
+
+`Never`
+: Kubelet 不会尝试获取镜像。如果镜像已经以某种方式存在本地，
+  kubelet 会尝试启动容器；否则，会启动失败。
+  更多细节见[提前拉取镜像](#pre-pulled-images)。
+
+<!--
+The caching semantics of the underlying image provider make even
+`imagePullPolicy: Always` efficient, as long as the registry is reliably accessible.
+Your container runtime can notice that the image layers already exist on the node
+so that they don't need to be downloaded again.
+-->
+只要能够可靠地访问镜像仓库，底层镜像提供者的缓存语义甚至可以使 `imagePullPolicy: Always` 高效。
+你的容器运行时可以注意到节点上已经存在的镜像层，这样就不需要再次下载。
+
+<!--
+You should avoid using the `:latest` tag when deploying containers in production as
+it is harder to track which version of the image is running and more difficult to
+roll back properly.
+
+Instead, specify a meaningful tag such as `v1.42.0`.
+
+To make sure the Pod always uses the same version of a container image, you can specify
+the image's digest;
+replace `<image-name>:<tag>` with `<image-name>@<digest>`
+(for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
+-->
+{{< note >}}
+在生产环境中部署容器时，你应该避免使用 `:latest` 标签，因为这使得正在运行的镜像的版本难以追踪，并且难以正确地回滚。
+
+相反，应指定一个有意义的标签，如 `v1.42.0`。
+{{< /note >}}
+
+为了确保 Pod 总是使用相同版本的容器镜像，你可以指定镜像的摘要；
+将 `<image-name>:<tag>` 替换为 `<image-name>@<digest>`，例如 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
+
+<!--
+When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image by digest fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
+
+There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
+that mutate Pods (and pod templates) when they are created, so that the
+running workload is defined based on an image digest rather than a tag.
+That might be useful if you want to make sure that all your workload is
+running the same code no matter what tag changes happen at the registry.
+-->
+当使用镜像标签时，如果镜像仓库修改了代码所对应的镜像标签，可能会出现新旧代码混杂在 Pod 中运行的情况。
+镜像摘要唯一标识了镜像的特定版本，因此 Kubernetes 每次启动具有指定镜像名称和摘要的容器时，都会运行相同的代码。
+通过摘要指定镜像可固定你运行的代码，这样镜像仓库的变化就不会导致版本的混杂。
+
+有一些第三方的[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
+在创建 Pod（和 Pod 模板）时产生变更，这样运行的工作负载就是根据镜像摘要，而不是标签来定义的。
+无论镜像仓库上的标签发生什么变化，你都想确保你所有的工作负载都运行相同的代码，那么指定镜像摘要会很有用。
+
+<!-- 
+#### Default image pull policy {#imagepullpolicy-defaulting}
+
+When you (or a controller) submit a new Pod to the API server, your cluster sets the
+`imagePullPolicy` field when specific conditions are met:
+-->
+#### 默认镜像拉取策略    {#imagepullpolicy-defaulting}
+
+当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置 `imagePullPolicy `字段：
+
+<!--
+- if you omit the `imagePullPolicy` field, and the tag for the container image is
+  `:latest`, `imagePullPolicy` is automatically set to `Always`;
+- if you omit the `imagePullPolicy` field, and you don't specify the tag for the
+  container image, `imagePullPolicy` is automatically set to `Always`;
+- if you omit the `imagePullPolicy` field, and you specify the tag for the
+  container image that isn't `:latest`, the `imagePullPolicy` is automatically set to
+  `IfNotPresent`.
+-->
+- 如果你省略了 `imagePullPolicy` 字段，并且容器镜像的标签是 `:latest`，
+  `imagePullPolicy` 会自动设置为 `Always`。
+- 如果你省略了 `imagePullPolicy` 字段，并且没有指定容器镜像的标签，
+  `imagePullPolicy` 会自动设置为 `Always`。
+- 如果你省略了 `imagePullPolicy` 字段，并且为容器镜像指定了非 `:latest` 的标签，
+  `imagePullPolicy` 就会自动设置为 `IfNotPresent`。
+
+{{< note >}}
+<!--
+The value of `imagePullPolicy` of the container is always set when the object is
+first _created_, and is not updated if the image's tag later changes.
+
+For example, if you create a Deployment with an image whose tag is _not_
+`:latest`, and later update that Deployment's image to a `:latest` tag, the
+`imagePullPolicy` field will _not_ change to `Always`. You must manually change
+the pull policy of any object after its initial creation.
+-->
+容器的 `imagePullPolicy` 的值总是在对象初次 _创建_ 时设置的，如果后来镜像的标签发生变化，则不会更新。
+
+例如，如果你用一个 _非_ `:latest` 的镜像标签创建一个 Deployment，
+并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段 _不会_ 变成 `Always`。
+你必须手动更改已经创建的资源的拉取策略。
+{{< /note >}}
+
+<!--
+#### Required image pull
+
+If you would like to always force a pull, you can do one of the following:
+
+- Set the `imagePullPolicy` of the container to `Always`.
+- Omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
+  Kubernetes will set the policy to `Always` when you submit the Pod.
+- Omit the `imagePullPolicy` and the tag for the image to use;
+  Kubernetes will set the policy to `Always` when you submit the Pod.
+- Enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+-->
+#### 必要的镜像拉取   {#required-image-pull}
+
+如果你想总是强制执行拉取，你可以使用下述的一中方式：
 
 - 设置容器的 `imagePullPolicy` 为 `Always`。
-- 省略 `imagePullPolicy`，并使用 `:latest` 作为要使用的镜像的标签。
-- 省略 `imagePullPolicy` 和要使用的镜像标签。
-- 启用 [AlwaysPullImages](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
-  准入控制器（Admission Controller）。
+- 省略 `imagePullPolicy`，并使用 `:latest` 作为镜像标签；
+  当你提交 Pod 时，Kubernetes 会将策略设置为 `Always`。
+- 省略 `imagePullPolicy` 和镜像的标签；
+  当你提交 Pod 时，Kubernetes 会将策略设置为 `Always`。
+- 启用准入控制器 [AlwaysPullImages](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。
 
-如果 `imagePullPolicy` 未被定义为特定的值，也会被设置为 `Always`。
+
+<!--
+### ImagePullBackOff
+
+When a kubelet starts creating containers for a Pod using a container runtime,
+it might be possible the container is in [Waiting](/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)
+state because of `ImagePullBackOff`.
+-->
+### ImagePullBackOff
+
+当 kubelet 使用容器运行时创建 Pod 时，容器可能因为 `ImagePullBackOff` 导致状态为
+[Waiting](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)。
+
+<!--
+The status `ImagePullBackOff` means that a container could not start because Kubernetes
+could not pull a container image (for reasons such as invalid image name, or pulling
+from a private registry without `imagePullSecret`). The `BackOff` part indicates
+that Kubernetes will keep trying to pull the image, with an increasing back-off delay.
+
+Kubernetes raises the delay between each attempt until it reaches a compiled-in limit,
+which is 300 seconds (5 minutes).
+-->
+`ImagePullBackOff` 状态意味着容器无法启动，
+因为 Kubernetes 无法拉取容器镜像（原因包括无效的镜像名称，或从私有仓库拉取而没有 `imagePullSecret`）。
+ `BackOff` 部分表示 Kubernetes 将继续尝试拉取镜像，并增加回退延迟。
+
+Kubernetes 会增加每次尝试之间的延迟，直到达到编译限制，即 300 秒（5 分钟）。
 
 <!--
 ## Multi-architecture images with image indexes
@@ -182,17 +344,12 @@ These options are explained in more detail below.
 <!--
 ### Configuring nodes to authenticate to a private registry
 
-If you run Docker on your nodes, you can configure the Docker container
-runtime to authenticate to a private container registry.
-
-This approach is suitable if you can control node configuration.
+Specific instructions for setting credentials depends on the container runtime and registry you chose to use. You should refer to your solution's documentation for the most accurate information.
 -->
 ### 配置 Node 对私有仓库认证
 
-如果你在节点上运行的是 Docker，你可以配置 Docker
-容器运行时来向私有容器仓库认证身份。
-
-此方法适用于能够对节点进行配置的场合。
+设置凭据的具体说明取决于你选择使用的容器运行时和仓库。
+你应该参考解决方案的文档来获取最准确的信息。
 
 <!--
 Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
@@ -204,154 +361,123 @@ Kubernetes 默认仅支持 Docker 配置中的 `auths` 和 `HttpHeaders` 部分�
 {{< /note >}}
 
 <!--
-Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
-in the search paths list below, kubelet uses it as the credential provider when pulling images.
+For an example of configuring a private container image registry, see the
+[Pull an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry)
+task. That example uses a private registry in Docker Hub.
 -->
-Docker 将私有仓库的密钥保存在 `$HOME/.dockercfg` 或 `$HOME/.docker/config.json`
-文件中。如果你将相同的文件放在下面所列的搜索路径中，`kubelet` 会在拉取镜像时将其用作凭据
-数据来源：
+有关配置私有容器镜像仓库的示例，请参阅任务
+[从私有镜像库中提取图像](/zh/docs/tasks/configure-pod-container/pull-image-private-registry)。
+该示例使用 Docker Hub 中的私有注册表。
 
 <!--
-* `{--root-dir:-/var/lib/kubelet}/config.json`
-* `{cwd of kubelet}/config.json`
-* `${HOME}/.docker/config.json`
-* `/.docker/config.json`
-* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-* `{cwd of kubelet}/.dockercfg`
-* `${HOME}/.dockercfg`
-* `/.dockercfg`
+### Interpretation of config.json {#config-json}
 -->
-* `{--root-dir:-/var/lib/kubelet}/config.json`
-* `{kubelet 当前工作目录}/config.json`
-* `${HOME}/.docker/config.json`
-* `/.docker/config.json`
-* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-* `{kubelet 当前工作目录}/.dockercfg`
-* `${HOME}/.dockercfg`
-* `/.dockercfg`
+### config.json 说明 {#config-json}
 
 <!--
-You may have to set `HOME=/root` explicitly in the environment of the kubelet process.
+The interpretation of `config.json` varies between the original Docker
+implementation and the Kubernetes interpretation. In Docker, the `auths` keys
+can only specify root URLs, whereas Kubernetes allows glob URLs as well as
+prefix-matched paths. This means that a `config.json` like this is valid:
 -->
-{{< note >}}
-你可能不得不为 `kubelet` 进程显式地设置 `HOME=/root` 环境变量。
-{{< /note >}}
-
-<!--
-Here are the recommended steps to configuring your nodes to use a private registry.  In this
-example, run these on your desktop/laptop:
--->
-推荐采用如下步骤来配置节点以便访问私有仓库。以下示例中，在 PC 或笔记本电脑中操作：
-
-<!--
-1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
-1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
-1. Get a list of your nodes; for example:
-      - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
-      - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
-1. Copy your local `.docker/config.json` to one of the search paths list above.
-      - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
--->
-1. 针对你要使用的每组凭据，运行 `docker login [服务器]` 命令。这会更新
-   你本地环境中的 `$HOME/.docker/config.json` 文件。
-1. 在编辑器中打开查看 `$HOME/.docker/config.json` 文件，确保其中仅包含你要
-   使用的凭据信息。
-1. 获得节点列表；例如：
-
-   - 如果想要节点名称：`nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
-
-   - 如果想要节点 IP ，`nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
-
-1. 将本地的 `.docker/config.json` 拷贝到所有节点，放入如上所列的目录之一：
-   - 例如，可以试一下：`for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
-
-<!--
-For production clusters, use a configuration management tool so that you can apply this
-setting to all the nodes where you need it.
--->
-{{< note >}}
-对于产品环境的集群，可以使用配置管理工具来将这些设置应用到
-你所期望的节点上。
-{{< /note >}}
-
-<!--
-Verify by creating a Pod that uses a private image; for example:
--->
-创建使用私有镜像的 Pod 来验证。例如：
-
-```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: private-image-test-1
-spec:
-  containers:
-    - name: uses-private-image
-      image: $PRIVATE_IMAGE_NAME
-      imagePullPolicy: Always
-      command: [ "echo", "SUCCESS" ]
-EOF
-```
-
-输出类似于：
-
-```
-pod/private-image-test-1 created
+对于 `config.json` 的解释在原始 Docker 实现和 Kubernetes 的解释之间有所不同。
+在 Docker 中，`auths` 键只能指定根 URL ，而 Kubernetes 允许 glob URLs 以及
+前缀匹配的路径。这意味着，像这样的 `config.json` 是有效的：
+```json
+{
+    "auths": {
+        "*my-registry.io/images": {
+            "auth": "…"
+        }
+    }
+}
 ```
 
 <!--
-If everything is working, then, after a few moments, you can run:
+The root URL (`*my-registry.io`) is matched by using the following syntax:
 
-```shell
-kubectl logs private-image-test-1
 ```
-and see that the command outputs:
-```
-SUCCESS
+pattern:
+    { term }
+
+term:
+    '*'         matches any sequence of non-Separator characters
+    '?'         matches any single non-Separator character
+    '[' [ '^' ] { character-range } ']'
+                character class (must be non-empty)
+    c           matches character c (c != '*', '?', '\\', '[')
+    '\\' c      matches character c
+
+character-range:
+    c           matches character c (c != '\\', '-', ']')
+    '\\' c      matches character c
+    lo '-' hi   matches character c for lo <= c <= hi
 ```
 -->
-如果一切顺利，那么一段时间后你可以执行：
-```shell
-kubectl logs private-image-test-1
+使用以下语法匹配根 URL （`*my-registry.io`）：
 ```
-然后可以看到命令的输出：
-```
-SUCCESS
+pattern:
+    { term }
+
+term:
+    '*'         匹配任何无分隔符字符序列
+    '?'         匹配任意单个非分隔符
+    '[' [ '^' ] 字符范围
+                  字符集（必须非空）
+    c           匹配字符 c （c 不为 '*','?','\\','['）
+    '\\' c      匹配字符 c
+
+字符范围: 
+    c           匹配字符 c （c 不为 '\\','?','-',']'）
+    '\\' c      匹配字符 c
+    lo '-' hi   匹配字符范围在 lo 到 hi 之间字符
 ```
 
 <!--
-If you suspect that the command failed, you can run:
--->
-如果你怀疑命令失败了，你可以运行：
+Image pull operations would now pass the credentials to the CRI container
+runtime for every valid pattern. For example the following container image names
+would match successfully:
 
-```shell
-kubectl describe pods/private-image-test-1 | grep 'Failed'
+- `my-registry.io/images`
+- `my-registry.io/images/my-image`
+- `my-registry.io/images/another-image`
+- `sub.my-registry.io/images/my-image`
+- `a.sub.my-registry.io/images/my-image`
+-->
+现在镜像拉取操作会将每种有效模式的凭据都传递给 CRI 容器运行时。例如下面的容器镜像名称会匹配成功：
+
+- `my-registry.io/images`
+- `my-registry.io/images/my-image`
+- `my-registry.io/images/another-image`
+- `sub.my-registry.io/images/my-image`
+- `a.sub.my-registry.io/images/my-image`
+
+<!--
+The kubelet performs image pulls sequentially for every found credential. This
+means, that multiple entries in `config.json` are possible, too:
+-->
+kubelet 为每个找到的凭证的镜像按顺序拉取。 这意味着在 `config.json` 中可能有多项：
+
+```json
+{
+    "auths": {
+        "my-registry.io/images": {
+            "auth": "…"
+        },
+        "my-registry.io/images/subpath": {
+            "auth": "…"
+        }
+    }
+}
 ```
 
 <!--
-In case of failure, the output is similar to:
+If now a container specifies an image `my-registry.io/images/subpath/my-image`
+to be pulled, then the kubelet will try to download them from both
+authentication sources if one of them fails.
 -->
-如果命令确实失败，输出类似于：
-
-```
-  Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
-```
-
-<!--
-You must ensure all nodes in the cluster have the same `.docker/config.json`.  Otherwise, pods will run on
-some nodes and fail to run on others.  For example, if you use node autoscaling, then each instance
-template needs to include the `.docker/config.json` or mount a drive that contains it.
-
-All pods will have read access to images in any private registry once private
-registry keys are added to the `.docker/config.json`.
--->
-你必须确保集群中所有节点的 `.docker/config.json` 文件内容相同。
-否则，Pod 会能在一些节点上正常运行而无法在另一些节点上启动。
-例如，如果使用节点自动扩缩，那么每个实例模板都需要包含 `.docker/config.json`，
-或者挂载一个包含该文件的驱动器。
-
-在 `.docker/config.json` 中配置了私有仓库密钥后，所有 Pod 都将能读取私有仓库中的镜像。
+如果一个容器指定了要拉取的镜像 `my-registry.io/images/subpath/my-image`，
+并且其中一个失败，kubelet 将尝试从另一个身份验证源下载镜像。
 
 <!--
 ### Pre-pulled images
@@ -412,18 +538,17 @@ Kubernetes 支持在 Pod 中设置容器镜像仓库的密钥。
 <!--
 #### Creating a Secret with a Docker config
 
+You need to know the username, registry password and client email address for authenticating
+to the registry, as well as its hostname.
 Run the following command, substituting the appropriate uppercase values:
 -->
 #### 使用 Docker Config 创建 Secret   {#creating-a-secret-with-docker-config}
 
-运行以下命令，将大写字母代替为合适的值：
+你需要知道用于向仓库进行身份验证的用户名、密码和客户端电子邮件地址，以及它的主机名。
+运行以下命令，注意替换适当的大写值：
 
 ```shell
-kubectl create secret docker-registry <名称> \
-  --docker-server=DOCKER_REGISTRY_SERVER \
-  --docker-username=DOCKER_USER \
-  --docker-password=DOCKER_PASSWORD \
-  --docker-email=DOCKER_EMAIL
+kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
 <!--
@@ -587,7 +712,8 @@ Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
+* Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
 -->
-* 阅读 [OCI Image Manifest 规范](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
-
+* 阅读 [OCI Image Manifest 规范](https://github.com/opencontainers/image-spec/blob/master/manifest.md)。
+* 了解[容器镜像垃圾收集](/zh/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)。

@@ -59,8 +59,12 @@ kubectl create namespace qos-example
 
 For a Pod to be given a QoS class of Guaranteed:
 
-* Every Container, including init containers, in the Pod must have a memory limit and a memory request, and they must be the same.
-* Every Container, including init containers, in the Pod must have a CPU limit and a CPU request, and they must be the same.
+* Every Container in the Pod must have a memory limit and a memory request.
+* For every Container in the Pod, the memory limit must equal the memory request.
+* Every Container in the Pod must have a CPU limit and a CPU request.
+* For every Container in the Pod, the CPU limit must equal the CPU request.
+
+These restrictions apply to init containers and app containers equally.
 
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit and a
 memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU request, both equal to 700 milliCPU:
@@ -69,8 +73,12 @@ memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU r
 
 对于 QoS 类为 Guaranteed 的 Pod：
 
-* Pod 中的每个容器，包含初始化容器，必须指定内存请求和内存限制，并且两者要相等。
-* Pod 中的每个容器，包含初始化容器，必须指定 CPU 请求和 CPU 限制，并且两者要相等。
+* Pod 中的每个容器都必须指定内存限制和内存请求。
+* 对于 Pod 中的每个容器，内存限制必须等于内存请求。
+* Pod 中的每个容器都必须指定 CPU 限制和 CPU 请求。
+* 对于 Pod 中的每个容器，CPU 限制必须等于 CPU 请求。
+
+这些限制同样适用于初始化容器和应用程序容器。
 
 下面是包含一个容器的 Pod 配置文件。
 容器设置了内存请求和内存限制，值都是 200 MiB。
@@ -123,13 +131,13 @@ status:
   qosClass: Guaranteed
 ```
 
+{{< note >}}
 <!--
 If a Container specifies its own memory limit, but does not specify a memory request, Kubernetes
 automatically assigns a memory request that matches the limit. Similarly, if a Container specifies its own
 CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
 the limit.
 -->
-{{< note >}}
 如果容器指定了自己的内存限制，但没有指定内存请求，Kubernetes 会自动为它指定与内存限制匹配的内存请求。
 同样，如果容器指定了自己的 CPU 限制，但没有指定 CPU 请求，Kubernetes 会自动为它指定与 CPU 限制匹配的 CPU 请求。
 {{< /note >}}
@@ -150,7 +158,7 @@ kubectl delete pod qos-demo --namespace=qos-example
 A Pod is given a QoS class of Burstable if:
 
 * The Pod does not meet the criteria for QoS class Guaranteed.
-* At least one Container in the Pod has a memory or CPU request.
+* At least one Container in the Pod has a memory or CPU request or limit.
 
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit of 200 MiB
 and a memory request of 100 MiB.
@@ -160,7 +168,7 @@ and a memory request of 100 MiB.
 如果满足下面条件，将会指定 Pod 的 QoS 类为 Burstable：
 
 * Pod 不符合 Guaranteed QoS 类的标准。
-* Pod 中至少一个容器具有内存或 CPU 请求。
+* Pod 中至少一个容器具有内存或 CPU 的请求或限制。
 
 下面是包含一个容器的 Pod 配置文件。
 容器设置了内存限制 200 MiB 和内存请求 100 MiB。

@@ -17,8 +17,8 @@ weight: 60
 
 <!-- body -->
 
-클러스터-레벨 로깅은 로그를 저장하고, 분석하고, 쿼리하기 위해 별도의 백엔드가 필요하다. 쿠버네티스는
-로그 데이터를 위한 네이티브 스토리지 솔루션을 제공하지 않지만,
+클러스터-레벨 로깅은 로그를 저장, 분석, 쿼리하기 위해서는 별도의 백엔드가 필요하다. 쿠버네티스가
+로그 데이터를 위한 네이티브 스토리지 솔루션을 제공하지는 않지만,
 쿠버네티스에 통합될 수 있는 기존의 로깅 솔루션이 많이 있다.
 
 ## 쿠버네티스의 기본 로깅
@@ -80,15 +80,21 @@ kubectl logs counter
 로테이션하도록 컨테이너 런타임을 설정할 수도 있다.
 
 예를 들어, `kube-up.sh` 가 GCP의 COS 이미지 로깅을 설정하는 방법은
-[`configure-helper` 스크립트](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)를 통해
+[`configure-helper` 스크립트](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)를 통해
 자세히 알 수 있다.
+
+**CRI 컨테이너 런타임** 을 사용할 때, kubelet은 로그를 로테이션하고 로깅 디렉터리 구조를 관리한다.
+kubelet은 이 정보를 CRI 컨테이너 런타임에 전송하고 런타임은 컨테이너 로그를 지정된 위치에 기록한다.
+[kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/)에 있는
+두 개의 kubelet 파라미터 [`containerLogMaxSize` 및 `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)를
+사용하여 각 로그 파일의 최대 크기와 각 컨테이너에 허용되는 최대 파일 수를 각각 구성할 수 있다.
 
 기본 로깅 예제에서와 같이 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)를
 실행하면, 노드의 kubelet이 요청을 처리하고
 로그 파일에서 직접 읽는다. kubelet은 로그 파일의 내용을 반환한다.
 
 {{< note >}}
-만약, 일부 외부 시스템이 로테이션을 수행한 경우,
+만약, 일부 외부 시스템이 로테이션을 수행했거나 CRI 컨테이너 런타임이 사용된 경우,
 `kubectl logs` 를 통해 최신 로그 파일의 내용만
 사용할 수 있다. 예를 들어, 10MB 파일이 있으면, `logrotate` 가
 로테이션을 수행하고 두 개의 파일이 생긴다. (크기가 10MB인 파일 하나와 비어있는 파일)
@@ -130,7 +136,7 @@ systemd를 사용하지 않으면, kubelet과 컨테이너 런타임은 `/var/lo
 
 각 노드에 _노드-레벨 로깅 에이전트_ 를 포함시켜 클러스터-레벨 로깅을 구현할 수 있다. 로깅 에이전트는 로그를 노출하거나 로그를 백엔드로 푸시하는 전용 도구이다. 일반적으로, 로깅 에이전트는 해당 노드의 모든 애플리케이션 컨테이너에서 로그 파일이 있는 디렉터리에 접근할 수 있는 컨테이너이다.
 
-로깅 에이전트는 모든 노드에서 실행해야 하므로, 에이전트는
+로깅 에이전트는 모든 노드에서 실행되어야 하므로, 에이전트를
 `DaemonSet` 으로 동작시키는 것을 추천한다.
 
 노드-레벨 로깅은 노드별 하나의 에이전트만 생성하며, 노드에서 실행되는 애플리케이션에 대한 변경은 필요로 하지 않는다.
@@ -154,7 +160,7 @@ systemd를 사용하지 않으면, kubelet과 컨테이너 런타임은 `/var/lo
 각 사이드카 컨테이너는 자체 `stdout` 또는 `stderr` 스트림에 로그를 출력한다.
 
 이 방법을 사용하면 애플리케이션의 다른 부분에서 여러 로그 스트림을
-분리할 수 ​​있고, 이 중 일부는 `stdout` 또는 `stderr` 에
+분리할 수 있고, 이 중 일부는 `stdout` 또는 `stderr` 에
 작성하기 위한 지원이 부족할 수 있다. 로그를 리디렉션하는 로직은
 최소화되어 있기 때문에, 심각한 오버헤드가 아니다. 또한,
 `stdout` 및 `stderr` 가 kubelet에서 처리되므로, `kubectl logs` 와 같은
@@ -256,4 +262,4 @@ fluentd를 구성하는 것에 대한 자세한 내용은, [fluentd 문서](http
 
 ![애플리케이션에서 직접 로그 노출](/images/docs/user-guide/logging/logging-from-application.png)
 
-모든 애플리케이션에서 직접 로그를 노출하거나 푸시하는 클러스터-로깅은 쿠버네티스의 범위를 벗어난다.
+애플리케이션에서 직접 로그를 노출하거나 푸시하는 클러스터-로깅은 쿠버네티스의 범위를 벗어난다.

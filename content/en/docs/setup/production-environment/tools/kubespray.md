@@ -33,13 +33,13 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 
 Provision servers with the following [requirements](https://github.com/kubernetes-sigs/kubespray#requirements):
 
-* **Ansible v2.9 and python-netaddr is installed on the machine that will run Ansible commands**
+* **Ansible v2.9 and python-netaddr are installed on the machine that will run Ansible commands**
 * **Jinja 2.11 (or newer) is required to run the Ansible Playbooks**
 * The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * The target servers are configured to allow **IPv4 forwarding**
-* **Your ssh key must be copied** to all the servers part of your inventory
-* The **firewalls are not managed**, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall
-* If kubespray is ran from non-root user account, correct privilege escalation method should be configured in the target servers. Then the `ansible_become` flag or command parameters `--become` or `-b` should be specified
+* **Your ssh key must be copied** to all the servers in your inventory
+* **Firewalls are not managed by kubespray**. You'll need to implement appropriate rules as needed. You should disable your firewall in order to avoid any issues during deployment
+* If kubespray is run from a non-root user account, correct privilege escalation method should be configured in the target servers and the `ansible_become` flag or command parameters `--become` or `-b` should be specified
 
 Kubespray provides the following utilities to help provision your environment:
 
@@ -50,7 +50,7 @@ Kubespray provides the following utilities to help provision your environment:
 
 ### (2/5) Compose an inventory file
 
-After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
 
 ### (3/5) Plan your cluster deployment
 
@@ -68,7 +68,7 @@ Kubespray provides the ability to customize many aspects of the deployment:
   * {{< glossary_tooltip term_id="cri-o" >}}
 * Certificate generation methods
 
-Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). If you are getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 
 ### (4/5) Deploy a Cluster
 
@@ -85,7 +85,7 @@ Large deployments (100+ nodes) may require [specific adjustments](https://github
 
 ### (5/5) Verify the deployment
 
-Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md). Netchecker ensures the netchecker-agents pods can resolve DNS requests and ping each over within the default namespace. Those pods mimic similar behavior of the rest of the workloads and serve as cluster health indicators.
+Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md). Netchecker ensures the netchecker-agents pods can resolve DNS requests and ping each over within the default namespace. Those pods mimic similar behavior as the rest of the workloads and serve as cluster health indicators.
 
 ## Cluster operations
 

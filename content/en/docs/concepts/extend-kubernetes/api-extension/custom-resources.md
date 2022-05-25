@@ -26,7 +26,7 @@ many core Kubernetes functions are now built using custom resources, making Kube
 Custom resources can appear and disappear in a running cluster through dynamic registration,
 and cluster admins can update custom resources independently of the cluster itself.
 Once a custom resource is installed, users can create and access its objects using
-[kubectl](/docs/reference/kubectl/overview/), just as they do for built-in resources like
+[kubectl](/docs/reference/kubectl/), just as they do for built-in resources like
 *Pods*.
 
 ## Custom controllers
@@ -35,16 +35,16 @@ On their own, custom resources let you store and retrieve structured data.
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 
-A [declarative API](/docs/concepts/overview/kubernetes-api/)
-allows you to _declare_ or specify the desired state of your resource and tries to
-keep the current state of Kubernetes objects in sync with the desired state.
-The controller interprets the structured data as a record of the user's
-desired state, and continually maintains this state.
+The Kubernetes [declarative API](/docs/concepts/overview/kubernetes-api/)
+enforces a separation of responsibilities. You declare the desired state of
+your resource. The Kubernetes controller keeps the current state of Kubernetes
+objects in sync with your declared desired state. This is in contrast to an
+imperative API, where you *instruct* a server what to do.
 
 You can deploy and update a custom controller on a running cluster, independently
 of the cluster's lifecycle. Custom controllers can work with any kind of resource,
 but they are especially effective when combined with custom resources. The
-[Operator pattern](https://coreos.com/blog/introducing-operators.html) combines custom
+[Operator pattern](/docs/concepts/extend-kubernetes/operator/) combines custom
 resources and custom controllers. You can use custom controllers to encode domain knowledge
 for specific applications into an extension of the Kubernetes API.
 
@@ -148,8 +148,8 @@ and use a controller to handle events.
 Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also generically handle custom resources through [CRDs](#customresourcedefinitions).
 
 The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
-implementations for your custom resources by writing and deploying your own standalone API server.
-The main API server delegates requests to you for the custom resources that you handle,
+implementations for your custom resources by writing and deploying your own API server.
+The main API server delegates requests to your API server for the custom resources that you handle,
 making them available to all of its clients.
 
 ## Choosing a method for adding custom resources
@@ -167,7 +167,7 @@ CRDs are easier to create than Aggregated APIs.
 
 | CRDs                        | Aggregated API |
 | --------------------------- | -------------- |
-| Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. |
+| Do not require programming. Users can choose any language for a CRD controller. | Requires programming and building binary and image. |
 | No additional service to run; CRDs are handled by API server. | An additional service to create and that could fail. |
 | No ongoing support once the CRD is created. Any bug fixes are picked up as part of normal Kubernetes Master upgrades. | May need to periodically pickup bug fixes from upstream and rebuild and update the Aggregated API server. |
 | No need to handle multiple versions of your API; for example, when you control the client for this resource, you can upgrade it in sync with the API. | You need to handle multiple versions of your API; for example, when developing an extension to share with the world. |

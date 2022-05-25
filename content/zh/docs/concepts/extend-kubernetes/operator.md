@@ -54,9 +54,7 @@ built-in automation from the core of Kubernetes. You can use Kubernetes
 to automate deploying and running workloads, *and* you can automate how
 Kubernetes does that.
 
-Kubernetes' {{< glossary_tooltip text="controllers" term_id="controller" >}}
-concept lets you extend the cluster's behaviour without modifying the code
-of Kubernetes itself.
+Kubernetes' {{< glossary_tooltip text="operator pattern" term_id="operator-pattern" >}} concept lets you extend the cluster's behaviour without modifying the code of Kubernetes itself by linking {{< glossary_tooltip text="controllers" term_id="controller" >}} to one or more custom resources.
 Operators are clients of the Kubernetes API that act as controllers for
 a [Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 -->
@@ -65,10 +63,11 @@ a [Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resour
 Kubernetes 为自动化而生。无需任何修改，你即可以从 Kubernetes 核心中获得许多内置的自动化功能。
 你可以使用 Kubernetes 自动化部署和运行工作负载， *甚至* 可以自动化 Kubernetes 自身。
 
-Kubernetes {{< glossary_tooltip text="控制器" term_id="controller" >}} 
-使你无需修改 Kubernetes 自身的代码，即可以扩展集群的行为。
+Kubernetes 的 {{< glossary_tooltip text="Operator 模式" term_id="operator-pattern" >}}概念允许你在不修改
+Kubernetes 自身代码的情况下，通过为一个或多个自定义资源关联{{< glossary_tooltip text="控制器" term_id="controller" >}}
+来扩展集群的能力。
 Operator 是 Kubernetes API 的客户端，充当
-[定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 的控制器。
 
 <!--
@@ -98,8 +97,7 @@ Some of the things that you can use an operator to automate include:
 * 在没有内部成员选举程序的情况下，为分布式应用选择首领角色
 
 <!--
-What might an Operator look like in more detail? Here's an example in more
-detail:
+What might an Operator look like in more detail? Here's an example:
 
 1. A custom resource named SampleDB, that you can configure into the cluster.
 2. A Deployment that makes sure a Pod is running that contains the
@@ -124,7 +122,7 @@ detail:
    creates Job objects that upgrade it for you.
 -->
 
-想要更详细的了解 Operator？这儿有一个详细的示例：
+想要更详细的了解 Operator？下面是一个示例：
 
 1. 有一个名为 SampleDB 的自定义资源，你可以将其配置到集群中。
 2. 一个包含 Operator 控制器部分的 Deployment，用来确保 Pod 处于运行状态。
@@ -185,57 +183,72 @@ kubectl edit SampleDB/example-database # 手动修改某些配置
 
 <!--
 &hellip;and that's it! The Operator will take care of applying the changes as well as keeping the existing service in good shape.
-
-## Writing your own Operator {#writing-operator}
 -->
 可以了！Operator 会负责应用所作的更改并保持现有服务处于良好的状态。
+
+<!--
+## Writing your own Operator {#writing-operator}
+-->
 
 ## 编写你自己的 Operator {#writing-operator}
 
 <!--
 If there isn't an Operator in the ecosystem that implements the behavior you
-want, you can code your own. In [What's next](#what-s-next) you'll find a few
-links to libraries and tools you can use to write your own cloud native
-Operator.
+want, you can code your own.
 
 You also implement an Operator (that is, a Controller) using any language / runtime
 that can act as a [client for the Kubernetes API](/docs/reference/using-api/client-libraries/).
-
 -->
 
-如果生态系统中没可以实现你目标的 Operator，你可以自己编写代码。在
-[接下来](#what-s-next)一节中，你会找到编写自己的云原生 Operator
-需要的库和工具的链接。
+如果生态系统中没可以实现你目标的 Operator，你可以自己编写代码。
 
 你还可以使用任何支持 [Kubernetes API 客户端](/zh/docs/reference/using-api/client-libraries/)
 的语言或运行时来实现 Operator（即控制器）。
 
+<!--
+Following are a few libraries and tools you can use to write your own cloud native
+Operator.
+
+{{% thirdparty-content %}}
+
+* [Charmed Operator Framework](https://juju.is/)
+* [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+* [kubebuilder](https://book.kubebuilder.io/)
+* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
+* [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
+* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that 
+you implement yourself
+* [Operator Framework](https://operatorframework.io)
+* [shell-operator](https://github.com/flant/shell-operator)
+-->
+以下是一些库和工具，你可用于编写自己的云原生 Operator。
+
+{{% thirdparty-content %}}
+
+* [Charmed Operator Framework](https://juju.is/)
+* [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+* [kubebuilder](https://book.kubebuilder.io/)
+* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
+* [KUDO](https://kudo.dev/) (Kubernetes 通用声明式 Operator)
+* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)，可与 Webhooks 结合使用，以实现自己的功能。
+* [Operator Framework](https://operatorframework.io)
+* [shell-operator](https://github.com/flant/shell-operator)
+
 ## {{% heading "whatsnext" %}}
 
 <!--
+* Read the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [Operator White Paper](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md).
 * Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Find ready-made operators on [OperatorHub.io](https://operatorhub.io/) to suit your use case
-* Use existing tools to write your own operator, eg:
-  * using [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
-  * using [kubebuilder](https://book.kubebuilder.io/)
-  * using [Metacontroller](https://metacontroller.app/) along with WebHooks that
-    you implement yourself
-  * using the [Operator Framework](https://operatorframework.io)
 * [Publish](https://operatorhub.io/) your operator for other people to use
-* Read [CoreOS' original article](https://coreos.com/blog/introducing-operators.html) that introduced the Operator pattern
+* Read [CoreOS' original article](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html) that introduced the Operator pattern (this is an archived version of the original article).
 * Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building Operators
 -->
 
-* 详细了解[定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* 阅读 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [Operator 白皮书](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md)。
+* 详细了解 [定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 在 [OperatorHub.io](https://operatorhub.io/) 上找到现成的、适合你的 Operator
-* 借助已有的工具来编写你自己的 Operator，例如：
-  * [KUDO](https://kudo.dev/) (Kubernetes 通用声明式 Operator)
-  * [kubebuilder](https://book.kubebuilder.io/)
-  * [Metacontroller](https://metacontroller.app/)，可与 Webhook 结合使用，以实现自己的功能。
-  * [Operator Framework](https://operatorframework.io)
 * [发布](https://operatorhub.io/)你的 Operator，让别人也可以使用
-* 阅读 [CoreOS 原文](https://coreos.com/blog/introducing-operators.html)，其介绍了 Operator 介绍
+* 阅读 [CoreOS 原始文章](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html)，它介绍了 Operator 模式（这是一个存档版本的原始文章）。
 * 阅读这篇来自谷歌云的关于构建 Operator 最佳实践的
   [文章](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
-
-

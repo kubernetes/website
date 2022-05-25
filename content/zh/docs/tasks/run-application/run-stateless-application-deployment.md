@@ -1,6 +1,8 @@
 ---
-title: 使用Deployment运行一个无状态应用
+title: 使用 Deployment 运行一个无状态应用
+min-kubernetes-server-version: v1.9
 content_type: tutorial
+weight: 10
 ---
 
 <!-- overview -->
@@ -8,7 +10,7 @@ content_type: tutorial
 <!--
 This page shows how to run an application using a Kubernetes Deployment object.
 -->
-本文介绍通过Kubernetes Deployment对象如何去运行一个应用.
+本文介绍如何通过 Kubernetes Deployment 对象去运行一个应用.
 
 ## {{% heading "objectives" %}}
 
@@ -211,7 +213,7 @@ Delete the deployment by name:
 -->
 ## 删除 Deployment
 
-通过名称删除 Deployment：
+基于名称删除 Deployment：
 
 ```shell
 kubectl delete deployment nginx-deployment

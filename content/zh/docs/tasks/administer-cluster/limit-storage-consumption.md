@@ -10,9 +10,9 @@ content_type: task
 <!-- overview -->
 
 <!--
-This example demonstrates an easy way to limit the amount of storage consumed in a namespace.
+This example demonstrates how to limit the amount of storage consumed in a namespace
 -->
-此示例演示了一种限制名字空间中存储使用量的简便方法。
+此示例演示了如何限制一个名字空间中的存储使用量。
 
 <!--
 The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/),

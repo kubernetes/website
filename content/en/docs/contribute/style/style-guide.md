@@ -14,7 +14,7 @@ For additional information on creating new content for the Kubernetes
 documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/).
 
 Changes to the style guide are made by SIG Docs as a group. To propose a change
-or addition, [add it to the agenda](https://docs.google.com/document/d/1ddHwLK3kUMX1wVFIwlksjTk0MsqitBnWPe1LRa1Rx5A/edit) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
+or addition, [add it to the agenda](https://bit.ly/sig-docs-agenda) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
 discussion.
 
 <!-- body -->
@@ -30,7 +30,7 @@ glossary entries, tabs, and representing feature state.
 ## Language
 
 Kubernetes documentation has been translated into multiple languages
-(see [Localization READMEs](https://github.com/kubernetes/website/blob/master/README.md#localization-readmemds)).
+(see [Localization READMEs](https://github.com/kubernetes/website/blob/main/README.md#localization-readmemds)).
 
 The way of localizing the docs for a different language is described in [Localizing Kubernetes Documentation](/docs/contribute/localization/).
 
@@ -596,8 +596,8 @@ Do | Don't
 :--| :-----
 Include one command in ... | Include just one command in ...
 Run the container ... | Simply run the container ...
-You can easily remove ... | You can remove ...
-These simple steps ... | These steps ...
+You can remove ... | You can easily remove ...
+These steps ... | These simple steps ...
 {{< /table >}}
 
 ## {{% heading "whatsnext" %}}

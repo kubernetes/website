@@ -472,7 +472,7 @@ Jika kamu menggunakan alias untuk `kubectl`, kamu masih dapat menggunakan fitur 
 
 ```shell
 echo 'alias k=kubectl' >>~/.zshrc
-echo 'complete -F __start_kubectl k' >>~/.zshrc
+echo 'compdef __start_kubectl k' >>~/.zshrc
 ```
 
 Setelah memuat ulang terminal, penyelesaian otomatis dari `kubectl` seharusnya sudah dapat bekerja.

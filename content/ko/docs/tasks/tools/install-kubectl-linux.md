@@ -12,18 +12,16 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다.
-예를 들어, v1.2 클라이언트는 v1.1, v1.2 및 v1.3의 마스터와 함께 작동해야 한다.
-최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
+클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다. 예를 들어, v{{< skew currentVersion >}} 클라이언트는 v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersion >}}, v{{< skew currentVersionAddMinor 1 >}}의 컨트롤 플레인과 연동될 수 있다.
+호환되는 최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
 
 ## 리눅스에 kubectl 설치
 
 다음과 같은 방법으로 리눅스에 kubectl을 설치할 수 있다.
 
-- [리눅스에서 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-linux)
+- [리눅스에 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-linux)
 - [기본 패키지 관리 도구를 사용하여 설치](#install-using-native-package-management)
 - [다른 패키지 관리 도구를 사용하여 설치](#install-using-other-package-management)
-- [Google Cloud SDK를 사용하여 설치](#install-on-linux-as-part-of-the-google-cloud-sdk)
 
 ### 리눅스에서 curl을 사용하여 kubectl 바이너리 설치 {#install-kubectl-binary-with-curl-on-linux}
 
@@ -54,7 +52,7 @@ card:
    kubectl 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.
@@ -84,9 +82,10 @@ card:
    대상 시스템에 root 접근 권한을 가지고 있지 않더라도, `~/.local/bin` 디렉터리에 kubectl을 설치할 수 있다.
 
    ```bash
+   chmod +x kubectl
    mkdir -p ~/.local/bin/kubectl
    mv ./kubectl ~/.local/bin/kubectl
-   # 그리고 ~/.local/bin/kubectl을 $PATH에 추가
+   # 그리고 ~/.local/bin 을 $PATH의 앞부분 또는 뒷부분에 추가
    ```
 
    {{< /note >}}
@@ -100,15 +99,38 @@ card:
 ### 기본 패키지 관리 도구를 사용하여 설치 {#install-using-native-package-management}
 
 {{< tabs name="kubectl_install" >}}
-{{< tab name="Ubuntu, Debian 또는 HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubectl
-{{< /tab >}}
+{{% tab name="데비안 기반의 배포판" %}}
 
-{{< tab name="CentOS, RHEL 또는 Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+1. `apt` 패키지 색인을 업데이트하고 쿠버네티스 `apt` 리포지터리를 사용하는 데 필요한 패키지들을 설치한다.
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+2. 구글 클라우드 공개 사이닝 키를 다운로드한다.
+
+   ```shell
+   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
+
+3. 쿠버네티스 `apt` 리포지터리를 추가한다.
+
+   ```shell
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+4. 새 리포지터리의 `apt` 패키지 색인을 업데이트하고 kubectl을 설치한다.
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubectl
+   ```
+
+{{% /tab %}}
+
+{{< tab name="레드햇 기반의 배포판" codelang="bash" >}}
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -117,7 +139,7 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
-yum install -y kubectl
+sudo yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -129,7 +151,6 @@ yum install -y kubectl
 
 ```shell
 snap install kubectl --classic
-
 kubectl version --client
 ```
 
@@ -140,7 +161,6 @@ kubectl version --client
 
 ```shell
 brew install kubectl
-
 kubectl version --client
 ```
 
@@ -148,26 +168,78 @@ kubectl version --client
 
 {{< /tabs >}}
 
-### Google Cloud SDK를 사용하여 설치 {#install-on-linux-as-part-of-the-google-cloud-sdk}
-
-{{< include "included/install-kubectl-gcloud.md" >}}
-
 ## kubectl 구성 확인
 
 {{< include "included/verify-kubectl.md" >}}
 
-## 선택적 kubectl 구성
+## 선택적 kubectl 구성 및 플러그인
 
 ### 셸 자동 완성 활성화
 
-kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
+kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
 
-다음은 Bash 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
+다음은 Bash, Fish, 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
+
+### `kubectl convert` 플러그인 설치
+
+{{< include "included/kubectl-convert-overview.md" >}}
+
+1. 다음 명령으로 최신 릴리스를 다운로드한다.
+
+   ```bash
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
+   ```
+
+1. 바이너리를 검증한다. (선택 사항)
+
+   kubectl-convert 체크섬(checksum) 파일을 다운로드한다.
+
+   ```bash
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   ```
+
+   kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
+
+   ```bash
+   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   ```
+
+   검증이 성공한다면, 출력은 다음과 같다.
+
+   ```console
+   kubectl-convert: OK
+   ```
+
+   검증이 실패한다면, `sha256`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
+
+   ```bash
+   kubectl-convert: FAILED
+   sha256sum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   동일한 버전의 바이너리와 체크섬을 다운로드한다.
+   {{< /note >}}
+
+1. kubectl-convert 설치
+
+   ```bash
+   sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
+   ```
+
+1. 플러그인이 정상적으로 설치되었는지 확인한다.
+
+   ```shell
+   kubectl convert --help
+   ```
+
+   에러가 출력되지 않는다면, 플러그인이 정상적으로 설치된 것이다.
 
 ## {{% heading "whatsnext" %}}
 

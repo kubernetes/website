@@ -9,7 +9,7 @@ weight: 40
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-このページでは、[kubeadmで作られた](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)Windowsノードをアップグレードする方法について説明します。
+このページでは、[kubeadmで作られた](/ja/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)Windowsノードをアップグレードする方法について説明します。
 
 
 

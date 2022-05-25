@@ -4,21 +4,11 @@ content_type: concept
 weight: 40
 ---
 
-{{< feature-state for_k8s_version="v1.19" state="stable" >}}
-<!-- leave this shortcode in place until the note about EvenPodsSpread is
-obsolete -->
 
 <!-- overview -->
 
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 
-{{< note >}}
-In versions of Kubernetes before v1.19, you must enable the `EvenPodsSpread`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on
-the [API server](/docs/concepts/overview/components/#kube-apiserver) and the
-[scheduler](/docs/reference/generated/kube-scheduler/) in order to use Pod
-topology spread constraints.
-{{< /note >}}
 
 <!-- body -->
 
@@ -58,7 +48,7 @@ graph TB
     class zoneA,zoneB cluster;
 {{< /mermaid >}}
 
-Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/kubernetes-api/labels-annotations-taints/) that are created and populated automatically on most clusters.
+Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/labels-annotations-taints/) that are created and populated automatically on most clusters.
 
 ## Spread Constraints for Pods
 
@@ -82,19 +72,46 @@ spec:
 You can define one or multiple `topologySpreadConstraint` to instruct the kube-scheduler how to place each incoming Pod in relation to the existing Pods across your cluster. The fields are:
 
 - **maxSkew** describes the degree to which Pods may be unevenly distributed.
-  It's the maximum permitted difference between the number of matching Pods in
-  any two topology domains of a given topology type. It must be greater than
-  zero. Its semantics differs according to the value of `whenUnsatisfiable`:
+  It must be greater than zero. Its semantics differs according to the value of `whenUnsatisfiable`:
+
   - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
     permitted difference between the number of matching pods in the target
-    topology and the global minimum.
+    topology and the global minimum
+    (the minimum number of pods that match the label selector in a topology domain.
+    For example, if you have 3 zones with 0, 2 and 3 matching pods respectively,
+    The global minimum is 0).
   - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
     precedence to topologies that would help reduce the skew.
+
+- **minDomains** indicates a minimum number of eligible domains.
+  A domain is a particular instance of a topology. An eligible domain is a domain whose
+  nodes match the node selector.
+
+  - The value of `minDomains` must be greater than 0, when specified.
+  - When the number of eligible domains with match topology keys is less than `minDomains`,
+    Pod topology spread treats "global minimum" as 0, and then the calculation of `skew` is performed.
+    The "global minimum" is the minimum number of matching Pods in an eligible domain,
+    or zero if the number of eligible domains is less than `minDomains`.
+  - When the number of eligible domains with matching topology keys equals or is greater than 
+    `minDomains`, this value has no effect on scheduling.
+  - When `minDomains` is nil, the constraint behaves as if `minDomains` is 1.
+  - When `minDomains` is not nil, the value of `whenUnsatisfiable` must be "`DoNotSchedule`".
+
+  {{< note >}}
+  The `minDomains` field is an alpha field added in 1.24. You have to enable the
+  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in order to use it.
+  {{< /note >}}
+
 - **topologyKey** is the key of node labels. If two Nodes are labelled with this key and have identical values for that label, the scheduler treats both Nodes as being in the same topology. The scheduler tries to place a balanced number of Pods into each topology domain.
+
 - **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
   - `DoNotSchedule` (default) tells the scheduler not to schedule it.
   - `ScheduleAnyway` tells the scheduler to still schedule it while prioritizing nodes that minimize the skew.
+
 - **labelSelector** is used to find matching Pods. Pods that match this label selector are counted to determine the number of Pods in their corresponding topology domain. See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) for more details.
+
+When a Pod defines more than one `topologySpreadConstraint`, those constraints are ANDed: The kube-scheduler looks for a node for the incoming Pod that satisfies all the constraints.
 
 You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints`.
 
@@ -229,58 +246,64 @@ If you apply "two-constraints.yaml" to this cluster, you will notice "mypod" sta
 
 To overcome this situation, you can either increase the `maxSkew` or modify one of the constraints to use `whenUnsatisfiable: ScheduleAnyway`.
 
-### Conventions
+### Interaction With Node Affinity and Node Selectors
+
+The scheduler will skip the non-matching nodes from the skew calculations if the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined.
+
+### Example: TopologySpreadConstraints with NodeAffinity
+
+Suppose you have a 5-node cluster ranging from zoneA to zoneC:
+
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n1,n2,n3,n4,p1,p2,p3 k8s;
+class p4 plain;
+class zoneA,zoneB cluster;
+{{< /mermaid >}}
+
+{{<mermaid>}}
+graph BT
+    subgraph "zoneC"
+        n5(Node5)
+    end
+
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n5 k8s;
+class zoneC cluster;
+{{< /mermaid >}}
+
+and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
+
+{{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+
+The scheduler doesn't have prior knowledge of all the zones or other topology domains that a cluster has. They are determined from the existing nodes in the cluster. This could lead to a problem in autoscaled clusters, when a node pool (or node group) is scaled to zero nodes and the user is expecting them to scale up, because, in this case, those topology domains won't be considered until there is at least one node in them.
+
+### Other Noticeable Semantics
 
 There are some implicit conventions worth noting here:
 
 - Only the Pods holding the same namespace as the incoming Pod can be matching candidates.
 
-- Nodes without `topologySpreadConstraints[*].topologyKey` present will be bypassed. It implies that:
+- The scheduler will bypass the nodes without `topologySpreadConstraints[*].topologyKey` present. This implies that:
 
   1. the Pods located on those nodes do not impact `maxSkew` calculation - in the above example, suppose "node1" does not have label "zone", then the 2 Pods will be disregarded, hence the incoming Pod will be scheduled into "zoneA".
   2. the incoming Pod has no chances to be scheduled onto this kind of nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
 
 - Be aware of what will happen if the incomingPod's `topologySpreadConstraints[*].labelSelector` doesn't match its own labels. In the above example, if we remove the incoming Pod's labels, it can still be placed onto "zoneB" since the constraints are still satisfied. However, after the placement, the degree of imbalance of the cluster remains unchanged - it's still zoneA having 2 Pods which hold label {foo:bar}, and zoneB having 1 Pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload's `topologySpreadConstraints[*].labelSelector` to match its own labels.
-
-- If the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined, nodes not matching them will be bypassed.
-
-    Suppose you have a 5-node cluster ranging from zoneA to zoneC:
-
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneB"
-            p3(Pod) --> n3(Node3)
-            n4(Node4)
-        end
-        subgraph "zoneA"
-            p1(Pod) --> n1(Node1)
-            p2(Pod) --> n2(Node2)
-        end
-
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n1,n2,n3,n4,p1,p2,p3 k8s;
-    class p4 plain;
-    class zoneA,zoneB cluster;
-    {{< /mermaid >}}
-
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneC"
-            n5(Node5)
-        end
-
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n5 k8s;
-    class zoneC cluster;
-    {{< /mermaid >}}
-
-    and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
-
-    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
 ### Cluster-level default constraints
 
@@ -299,11 +322,12 @@ replication controllers, replica sets or stateful sets that the Pod belongs to.
 An example configuration might look like follows:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - pluginConfig:
+  - schedulerName: default-scheduler
+    pluginConfig:
       - name: PodTopologySpread
         args:
           defaultConstraints:
@@ -314,21 +338,17 @@ profiles:
 ```
 
 {{< note >}}
-The score produced by default scheduling constraints might conflict with the
-score produced by the
-[`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins).
-It is recommended that you disable this plugin in the scheduling profile when
-using default constraints for `PodTopologySpread`.
+[`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
+is disabled by default. It's recommended to use `PodTopologySpread` to achieve similar
+behavior.
 {{< /note >}}
 
-#### Internal default constraints
+#### Built-in default constraints {#internal-default-constraints}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-With the `DefaultPodTopologySpread` feature gate, enabled by default, the
-legacy `SelectorSpread` plugin is disabled.
-kube-scheduler uses the following default topology constraints for the
-`PodTopologySpread` plugin configuration:
+If you don't configure any cluster-level default constraints for pod topology spreading,
+then kube-scheduler acts as if you specified the following default topology constraints:
 
 ```yaml
 defaultConstraints:
@@ -341,15 +361,17 @@ defaultConstraints:
 ```
 
 Also, the legacy `SelectorSpread` plugin, which provides an equivalent behavior,
-is disabled.
+is disabled by default.
 
 {{< note >}}
+The `PodTopologySpread` plugin does not score the nodes that don't have
+the topology keys specified in the spreading constraints. This might result
+in a different default behavior compared to the legacy `SelectorSpread` plugin when
+using the default topology constraints.
+
 If your nodes are not expected to have **both** `kubernetes.io/hostname` and
 `topology.kubernetes.io/zone` labels set, define your own constraints
 instead of using the Kubernetes defaults.
-
-The `PodTopologySpread` plugin does not score the nodes that don't have
-the topology keys specified in the spreading constraints.
 {{< /note >}}
 
 If you don't want to use the default Pod spreading constraints for your cluster,
@@ -357,11 +379,12 @@ you can disable those defaults by setting `defaultingType` to `List` and leaving
 empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - pluginConfig:
+  - schedulerName: default-scheduler
+    pluginConfig:
       - name: PodTopologySpread
         args:
           defaultConstraints: []
@@ -387,7 +410,8 @@ for more details.
 
 ## Known Limitations
 
-- Scaling down a Deployment may result in imbalanced Pods distribution.
+- There's no guarantee that the constraints remain satisfied when Pods are removed. For example, scaling down a Deployment may result in imbalanced Pods distribution.
+You can use [Descheduler](https://github.com/kubernetes-sigs/descheduler) to rebalance the Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
 ## {{% heading "whatsnext" %}}

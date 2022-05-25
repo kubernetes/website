@@ -1,7 +1,9 @@
 ---
 title: 云原生安全概述
+description: >
+ 在云原生安全的背景下思考 Kubernetes 安全模型。
 content_type: concept
-weight: 10
+weight: 1
 ---
 
 <!-- overview -->
@@ -48,7 +50,8 @@ The Code layer benefits from strong base (Cloud, Cluster, Container) security la
 You cannot safeguard against poor security standards in the base layers by addressing
 security at the Code level.
 -->
-云原生安全模型的每一层都是基于下一个最外层，代码层受益于强大的基础安全层（云、集群、容器）。你无法通过在代码层解决安全问题来为基础层中糟糕的安全标准提供保护。
+云原生安全模型的每一层都是基于下一个最外层，代码层受益于强大的基础安全层（云、集群、容器）。
+你无法通过在代码层解决安全问题来为基础层中糟糕的安全标准提供保护。
 
 ## 云
 
@@ -74,7 +77,7 @@ Here are links to some of the popular cloud providers' security documentation:
 -->
 ### 云提供商安全性
 
-如果您是在您自己的硬件或者其他不通的云提供商上运行 Kubernetes 集群，
+如果你是在你自己的硬件或者其他不同的云提供商上运行 Kubernetes 集群，
 请查阅相关文档来获取最好的安全实践。
 
 下面是一些比较流行的云提供商的安全性文档链接：
@@ -88,6 +91,7 @@ Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
+Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
 VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
 
 {{< /table >}}
@@ -102,10 +106,10 @@ Suggestions for securing your infrastructure in a Kubernetes cluster:
 Area of Concern for Kubernetes Infrastructure | Recommendation |
 --------------------------------------------- | -------------- |
 Network access to API Server (Control plane) | All access to the Kubernetes control plane is not allowed publicly on the internet and is controlled by network access control lists restricted to the set of IP addresses needed to administer the cluster.|
-Network access to Nodes (nodes) | Nodes should be configured to _only_ accept connections (via network access control lists)from the control plane on the specified ports, and accept connections for services in Kubernetes of type NodePort and LoadBalancer. If possible, these nodes should not be exposed on the public internet entirely.
+Network access to Nodes (nodes) | Nodes should be configured to _only_ accept connections (via network access control lists) from the control plane on the specified ports, and accept connections for services in Kubernetes of type NodePort and LoadBalancer. If possible, these nodes should not be exposed on the public internet entirely.
 Kubernetes access to Cloud Provider API | Each cloud provider needs to grant a different set of permissions to the Kubernetes control plane and nodes. It is best to provide the cluster with cloud provider access that follows the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) for the resources it needs to administer. The [Kops documentation](https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles) provides information about IAM policies and roles.
 Access to etcd | Access to etcd (the datastore of Kubernetes) should be limited to the control plane only. Depending on your configuration, you should attempt to use etcd over TLS. More information can be found in the [etcd documentation](https://github.com/etcd-io/etcd/tree/master/Documentation).
-etcd Encryption | Wherever possible it's a good practice to encrypt all drives at rest, but since etcd holds the state of the entire cluster (including Secrets) its disk should especially be encrypted at rest.
+etcd Encryption | Wherever possible it's a good practice to encrypt all storage at rest, and since etcd holds the state of the entire cluster (including Secrets) its disk should especially be encrypted at rest.
 
 {{< /table >}}
 -->
@@ -115,13 +119,13 @@ etcd Encryption | Wherever possible it's a good practice to encrypt all drives a
 
 {{< table caption="基础设施安全" >}}
 
-Kubetnetes 基础架构关注领域 | 建议 |
+Kubernetes 基础架构关注领域 | 建议 |
 --------------------------------------------- | -------------- |
 通过网络访问 API 服务（控制平面）|所有对 Kubernetes 控制平面的访问不允许在 Internet 上公开，同时应由网络访问控制列表控制，该列表包含管理集群所需的 IP 地址集。|
 通过网络访问 Node（节点）| 节点应配置为 _仅能_ 从控制平面上通过指定端口来接受（通过网络访问控制列表）连接，以及接受 NodePort 和 LoadBalancer 类型的 Kubernetes 服务连接。如果可能的话，这些节点不应完全暴露在公共互联网上。|
 Kubernetes 访问云提供商的 API | 每个云提供商都需要向 Kubernetes 控制平面和节点授予不同的权限集。为集群提供云提供商访问权限时，最好遵循对需要管理的资源的[最小特权原则](https://en.wikipedia.org/wiki/Principle_of_least_privilege)。[Kops 文档](https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles)提供有关 IAM 策略和角色的信息。|
 访问 etcd | 对 etcd（Kubernetes 的数据存储）的访问应仅限于控制平面。根据配置情况，你应该尝试通过 TLS 来使用 etcd。更多信息可以在 [etcd 文档](https://github.com/etcd-io/etcd/tree/master/Documentation)中找到。|
-etcd 加密 | 在所有可能的情况下，最好对所有驱动器进行静态数据加密，但是由于 etcd 拥有整个集群的状态（包括机密信息），因此其磁盘更应该进行静态数据加密。|
+etcd 加密 | 在所有可能的情况下，最好对所有存储进行静态数据加密，并且由于 etcd 拥有整个集群的状态（包括机密信息），因此其磁盘更应该进行静态数据加密。|
 
 {{< /table >}}
 
@@ -157,33 +161,33 @@ good information practices, read and follow the advice about
 Depending on the attack surface of your application, you may want to focus on specific
 aspects of security. For example: If you are running a service (Service A) that is critical
 in a chain of other resources and a separate workload (Service B) which is
-vulnerable to a resource exhaustion attack then the risk of compromising Service A
+vulnerable to a resource exhaustion attack, then the risk of compromising Service A
 is high if you do not limit the resources of Service B. The following table lists
 areas of security concerns and recommendations for securing workloads running in Kubernetes:
 
 Area of Concern for Workload Security | Recommendation |
 ------------------------------ | --------------------- |
 RBAC Authorization (Access to the Kubernetes API) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/
-Authentication | https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/
+Authentication | https://kubernetes.io/docs/concepts/security/controlling-access/
 Application secrets management (and encrypting them in etcd at rest) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
-Pod Security Policies | https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+Ensuring that pods meet defined Pod Security Standards | https://kubernetes.io/docs/concepts/security/pod-security-standards/#policy-instantiation
 Quality of Service (and Cluster resource management) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/
 Network Policies | https://kubernetes.io/docs/concepts/services-networking/network-policies/
-TLS For Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+TLS for Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
 -->
-### 集群中的组件（您的应用） {#cluster-applications}
+### 集群中的组件（你的应用） {#cluster-applications}
 
-根据您的应用程序的受攻击面，您可能需要关注安全性的特定面，比如：
-如果您正在运行中的一个服务（A 服务）在其他资源链中很重要，并且所运行的另一工作负载（服务 B）
+根据你的应用程序的受攻击面，你可能需要关注安全性的特定面，比如：
+如果你正在运行中的一个服务（A 服务）在其他资源链中很重要，并且所运行的另一工作负载（服务 B）
 容易受到资源枯竭的攻击，则如果你不限制服务 B 的资源的话，损害服务 A 的风险就会很高。
 下表列出了安全性关注的领域和建议，用以保护 Kubernetes 中运行的工作负载：
 
-工作负载安全性关注领域 |  建议 |
+工作负载安全性关注领域         |  建议                 |
 ------------------------------ | --------------------- |
 RBAC 授权(访问 Kubernetes API) | https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/
-认证方式 | https://kubernetes.io/zh/docs/reference/access-authn-authz/controlling-access/
+认证方式 | https://kubernetes.io/zh/docs/concepts/security/controlling-access/
 应用程序 Secret 管理 (并在 etcd 中对其进行静态数据加密) | https://kubernetes.io/zh/docs/concepts/configuration/secret/ <br> https://kubernetes.io/zh/docs/tasks/administer-cluster/encrypt-data/
-Pod 安全策略 | https://kubernetes.io/zh/docs/concepts/policy/pod-security-policy/
+确保 Pod 符合定义的 Pod 安全标准 | https://kubernetes.io/zh/docs/concepts/security/pod-security-standards/#policy-instantiation
 服务质量（和集群资源管理）| https://kubernetes.io/zh/docs/tasks/configure-pod-container/quality-service-pod/
 网络策略 | https://kubernetes.io/zh/docs/concepts/services-networking/network-policies/
 Kubernetes Ingress 的 TLS 支持 | https://kubernetes.io/zh/docs/concepts/services-networking/ingress/#tls
@@ -199,6 +203,7 @@ Area of Concern for Containers | Recommendation |
 Container Vulnerability Scanning and OS Dependency Security | As part of an image build step, you should scan your containers for known vulnerabilities.
 Image Signing and Enforcement | Sign container images to maintain a system of trust for the content of your containers.
 Disallow privileged users | When constructing containers, consult your documentation for how to create users inside of the containers that have the least level of operating system privilege necessary in order to carry out the goal of the container.
+Use container runtime with stronger isolation | Select [container runtime classes](/docs/concepts/containers/runtime-class/) that provide stronger isolation
 -->
 ## 容器
 
@@ -206,10 +211,10 @@ Disallow privileged users | When constructing containers, consult your documenta
 
 容器关注领域                   | 建议           |
 ------------------------------ | -------------- |
-容器漏洞扫描和操作系统依赖安全性 | 作为镜像构建的一部分，您应该扫描您的容器里的已知漏洞。
+容器漏洞扫描和操作系统依赖安全性 | 作为镜像构建的一部分，你应该扫描你的容器里的已知漏洞。
 镜像签名和执行 | 对容器镜像进行签名，以维护对容器内容的信任。
 禁止特权用户 | 构建容器时，请查阅文档以了解如何在具有最低操作系统特权级别的容器内部创建用户，以实现容器的目标。
-
+使用带有较强隔离能力的容器运行时 | 选择提供较强隔离能力的[容器运行时类](/zh/docs/concepts/containers/runtime-class/)。
 <!--
 ## Code
 
@@ -219,7 +224,7 @@ are recommendations to protect application code:
 -->
 ## 代码
 
-应用程序代码是您最能够控制的主要攻击面之一，虽然保护应用程序代码不在 Kubernetes 安全主题范围内，但以下是保护应用程序代码的建议：
+应用程序代码是你最能够控制的主要攻击面之一，虽然保护应用程序代码不在 Kubernetes 安全主题范围内，但以下是保护应用程序代码的建议：
 
 <!--
 ### Code security
@@ -228,7 +233,7 @@ are recommendations to protect application code:
 
 Area of Concern for Code | Recommendation |
 -------------------------| -------------- |
-Access over TLS only | If your code needs to communicate by TCP, perform a TLS handshake with the client ahead of time. With the exception of a few cases, encrypt everything in transit. Going one step further, it's a good idea to encrypt network traffic between services. This can be done through a process known as mutual or [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication) which performs a two sided verification of communication between two certificate holding services. |
+Access over TLS only | If your code needs to communicate by TCP, perform a TLS handshake with the client ahead of time. With the exception of a few cases, encrypt everything in transit. Going one step further, it's a good idea to encrypt network traffic between services. This can be done through a process known as mutual TLS authentication or [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication) which performs a two sided verification of communication between two certificate holding services. |
 Limiting port ranges of communication | This recommendation may be a bit self-explanatory, but wherever possible you should only expose the ports on your service that are absolutely essential for communication or metric gathering. |
 3rd Party Dependency Security | It is a good practice to regularly scan your application's third party libraries for known security vulnerabilities. Each programming language has a tool for performing this check automatically. |
 Static Code Analysis | Most languages provide a way for a snippet of code to be analyzed for any potentially unsafe coding practices. Whenever possible you should perform checks using automated tooling that can scan codebases for common security errors. Some of the tools can be found at: https://owasp.org/www-community/Source_Code_Analysis_Tools |
@@ -242,11 +247,11 @@ Dynamic probing attacks | There are a few automated tools that you can run again
 
 代码关注领域 | 建议 |
 -------------------------| -------------- |
-仅通过 TLS 访问 | 如果您的代码需要通过 TCP 通信，请提前与客户端执行 TLS 握手。除少数情况外，请加密传输中的所有内容。更进一步，加密服务之间的网络流量是一个好主意。这可以通过被称为相互 LTS 或 [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication) 的过程来完成，该过程对两个证书持有服务之间的通信执行双向验证。 |
+仅通过 TLS 访问 | 如果你的代码需要通过 TCP 通信，请提前与客户端执行 TLS 握手。除少数情况外，请加密传输中的所有内容。更进一步，加密服务之间的网络流量是一个好主意。这可以通过被称为双向 TLS 或 [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication) 的过程来完成，该过程对两个证书持有服务之间的通信执行双向验证。 |
 限制通信端口范围 | 此建议可能有点不言自明，但是在任何可能的情况下，你都只应公开服务上对于通信或度量收集绝对必要的端口。|
 第三方依赖性安全 | 最好定期扫描应用程序的第三方库以了解已知的安全漏洞。每种编程语言都有一个自动执行此检查的工具。 |
 静态代码分析 | 大多数语言都提供给了一种方法，来分析代码段中是否存在潜在的不安全的编码实践。只要有可能，你都应该使用自动工具执行检查，该工具可以扫描代码库以查找常见的安全错误，一些工具可以在以下连接中找到：https://owasp.org/www-community/Source_Code_Analysis_Tools |
-动态探测攻击 | 您可以对服务运行一些自动化工具，来尝试一些众所周知的服务攻击。这些攻击包括 SQL 注入、CSRF 和 XSS。[OWASP Zed Attack](https://owasp.org/www-project-zap/) 代理工具是最受欢迎的动态分析工具之一。 |
+动态探测攻击 | 你可以对服务运行一些自动化工具，来尝试一些众所周知的服务攻击。这些攻击包括 SQL 注入、CSRF 和 XSS。[OWASP Zed Attack](https://owasp.org/www-project-zap/) 代理工具是最受欢迎的动态分析工具之一。 |
 
 {{< /table >}}
 
@@ -262,14 +267,16 @@ Learn about related Kubernetes security topics:
 * [Data encryption in transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
 * [Data encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
 * [Secrets in Kubernetes](/docs/concepts/configuration/secret/)
+* [Runtime class](/docs/concepts/containers/runtime-class)
 -->
 学习了解相关的 Kubernetes 安全主题：
 
 * [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
 * [Pod 的网络策略](/zh/docs/concepts/services-networking/network-policies/)
 * [控制对 Kubernetes API 的访问](/zh/docs/concepts/security/controlling-access/)
-* [保护您的集群](/zh/docs/tasks/administer-cluster/securing-a-cluster/)
+* [保护你的集群](/zh/docs/tasks/administer-cluster/securing-a-cluster/)
 * 为控制面[加密通信中的数据](/zh/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [加密静止状态的数据](/zh/docs/tasks/administer-cluster/encrypt-data/)
 * [Kubernetes 中的 Secret](/zh/docs/concepts/configuration/secret/)
+* [运行时类](/zh/docs/concepts/containers/runtime-class)
 

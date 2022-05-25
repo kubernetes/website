@@ -19,6 +19,16 @@ For a stable output in a script:
 * Fully-qualify the version. For example, `jobs.v1.batch/myjob`. This will ensure that kubectl does not use its default version that can change over time.
 * Don't rely on context, preferences, or other implicit states.
 
+## Subresources
+
+* You can use the `--subresource` alpha flag for kubectl commands like `get`, `patch`,
+`edit` and `replace` to fetch and update subresources for all resources that
+support them. Currently, only the `status` and `scale` subresources are supported.
+* The API contract against a subresource is identical to a full resource. While updating the
+`status` subresource to a new value, keep in mind that the subresource could be potentially
+reconciled by a controller to a different value.
+
+
 ## Best Practices
 
 ### `kubectl run`
@@ -30,29 +40,6 @@ For `kubectl run` to satisfy infrastructure as code:
 * Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
 
 You can use the `--dry-run=client` flag to preview the object that would be sent to your cluster, without really submitting it.
-
-{{< note >}}
-All `kubectl run` generators are deprecated. See the Kubernetes v1.17 documentation for a [list](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) of generators and how they were used.
-{{< /note >}}
-
-#### Generators
-You can generate the following resources with a kubectl command, `kubectl create --dry-run=client -o yaml`:
-
-* `clusterrole`: Create a ClusterRole.
-* `clusterrolebinding`: Create a ClusterRoleBinding for a particular ClusterRole.
-* `configmap`: Create a ConfigMap from a local file, directory or literal value.
-* `cronjob`: Create a CronJob with the specified name.
-* `deployment`: Create a Deployment with the specified name.
-* `job`: Create a Job with the specified name.
-* `namespace`: Create a Namespace with the specified name.
-* `poddisruptionbudget`: Create a PodDisruptionBudget with the specified name.
-* `priorityclass`: Create a PriorityClass with the specified name.
-* `quota`: Create a Quota with the specified name.
-* `role`: Create a Role with single rule.
-* `rolebinding`: Create a RoleBinding for a particular Role or ClusterRole.
-* `secret`: Create a Secret using specified subcommand.
-* `service`: Create a Service using specified subcommand.
-* `serviceaccount`: Create a ServiceAccount with the specified name.
 
 ### `kubectl apply`
 

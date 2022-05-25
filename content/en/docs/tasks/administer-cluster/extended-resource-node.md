@@ -54,7 +54,7 @@ Host: k8s-master:8080
 ```
 
 Note that Kubernetes does not need to know what a dongle is or what a dongle is for.
-The preceding PATCH request just tells Kubernetes that your Node has four things that
+The preceding PATCH request tells Kubernetes that your Node has four things that
 you call dongles.
 
 Start a proxy, so that you can easily send requests to the Kubernetes API server:

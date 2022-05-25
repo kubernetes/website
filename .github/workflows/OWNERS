@@ -3,6 +3,9 @@
 # When modifying this file, consider the security implications of
 # allowing listed reviewers / approvals to modify or remove any
 # configured GitHub Actions.
+#
+options:
+  no_parent_owners: true
 
 reviewers:
 - sig-docs-leads

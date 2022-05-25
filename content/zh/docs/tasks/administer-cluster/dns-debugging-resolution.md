@@ -30,6 +30,13 @@ kube-dns.
 <!--
 ### Create a simple Pod to use as a test environment
 
+{{< codenew file="admin/dns/dnsutils.yaml" >}}
+
+{{< note >}}
+This example creates a pod in the `default` namespace. DNS name resolution for 
+services depends on the namespace of the pod. For more information, review
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
+{{< /note >}}
 
 Use that manifest to create a Pod:
 
@@ -45,6 +52,11 @@ busybox   1/1       Running   0          <some-time>
 ### 创建一个简单的 Pod 作为测试环境
 
 {{< codenew file="admin/dns/dnsutils.yaml" >}}
+
+{{< note >}}
+此示例在 `default` 命名空间创建 pod。 服务的 DNS 名字解析取决于 pod 的命名空间。 详细信息请查阅
+[服务和 Pod 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
+{{< /note >}}
 
 使用上面的清单来创建一个 Pod：
 
@@ -97,13 +109,13 @@ If the `nslookup` command fails, check the following:
 ### Check the local DNS configuration first
 
 Take a look inside the resolv.conf file.
-(See [Inheriting DNS from the node](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node) and
+(See [Customizing DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers) and
 [Known issues](#known-issues) below for more information)
 -->
 ### 先检查本地的 DNS 配置
 
 查看 resolv.conf 文件的内容
-（阅读[从节点继承 DNS 配置](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
+（阅读[定制 DNS 服务](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
 后文的[已知问题](#known-issues) ，获取更多信息)
 
 ```shell
@@ -185,7 +197,7 @@ the DNS add-on may not be deployed by default in your current environment and yo
 will have to deploy it manually.
 -->
 如果你发现没有 CoreDNS Pod 在运行，或者该 Pod 的状态是 failed 或者 completed，
-那可能这个 DNS 插件在您当前的环境里并没有成功部署，你将需要手动去部署它。
+那可能这个 DNS 插件在你当前的环境里并没有成功部署，你将需要手动去部署它。
 
 <!--
 ### Check for Errors in the DNS pod
@@ -250,11 +262,11 @@ The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
 <!--
 If you have created the Service or in the case it should be created by default
 but it does not appear, see
-[debugging Services](/docs/tasks/debug-application-cluster/debug-service/) for
+[debugging Services](/docs/tasks/debug/debug-application/debug-service/) for
 more information.
 -->
 如果你已经创建了 DNS 服务，或者该服务应该是默认自动创建的但是它并没有出现，
-请阅读[调试服务](/zh/docs/tasks/debug-application-cluster/debug-service/)
+请阅读[调试服务](/zh/docs/tasks/debug/debug-application/debug-service/)
 来获取更多信息。
 
 <!--
@@ -278,14 +290,14 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 
 <!--
 If you do not see the endpoints, see endpoints section in the
-[debugging services](/docs/tasks/debug-application-cluster/debug-service/) documentation.
+[debugging services](/docs/tasks/debug/debug-application/debug-service/) documentation.
 
 For additional Kubernetes DNS examples, see the
 [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
 in the Kubernetes GitHub repository.
 -->
 如果你没看到对应的端点，请阅读
-[调试服务](/zh/docs/tasks/debug-application-cluster/debug-service/)的端点部分。
+[调试服务](/zh/docs/tasks/debug/debug-application/debug-service/)的端点部分。
 
 若需要了解更多的 Kubernetes DNS 例子，请在 Kubernetes GitHub 仓库里查看
 [cluster-dns 示例](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)。 
@@ -363,6 +375,111 @@ linux/amd64, go1.10.3, 2e322f6
 172.17.0.18:41675 - [07/Sep/2018:15:29:11 +0000] 59925 "A IN kubernetes.default.svc.cluster.local. udp 54 false 512" NOERROR qr,aa,rd,ra 106 0.000066649s
 
 ```
+<!--
+### Does CoreDNS have sufficient permissions?
+
+CoreDNS must be able to list {{< glossary_tooltip text="service"
+term_id="service" >}} and {{< glossary_tooltip text="endpoint"
+term_id="endpoint" >}} related resources to properly resolve service names.
+
+Sample error message:
+-->
+### CoreDNS 是否有足够的权限？
+
+CoreDNS 必须能够列出 {{< glossary_tooltip text="service" term_id="service" >}} 和
+{{< glossary_tooltip text="endpoint" term_id="endpoint" >}} 相关的资源来正确解析服务名称。
+
+示例错误消息：
+```
+2022-03-18T07:12:15.699431183Z [INFO] 10.96.144.227:52299 - 3686 "A IN serverproxy.contoso.net.cluster.local. udp 52 false 512" SERVFAIL qr,aa,rd 145 0.000091221s
+```
+
+<!--
+First, get the current ClusterRole of `system:coredns`:
+-->
+首先，获取当前的 ClusterRole `system:coredns`：
+
+```shell
+kubectl describe clusterrole system:coredns -n kube-system
+```
+
+<!--
+Expected output:
+-->
+预期输出：
+```
+PolicyRule:
+  Resources                        Non-Resource URLs  Resource Names  Verbs
+  ---------                        -----------------  --------------  -----
+  nodes                            []                 []              [get]
+  endpoints                        []                 []              [list watch]
+  namespaces                       []                 []              [list watch]
+  pods                             []                 []              [list watch]
+  services                         []                 []              [list watch]
+  endpointslices.discovery.k8s.io  []                 []              [list watch]
+```
+
+<!--
+If any permissions are missing, edit the ClusterRole to add them:
+-->
+如果缺少任何权限，请编辑 ClusterRole 来添加它们：
+
+```shell
+kubectl edit clusterrole system:coredns -n kube-system
+```
+
+<!--
+Example insertion of EndpointSlices permissions:
+-->
+EndpointSlices 权限的插入示例：
+```
+...
+- apiGroups:
+  - discovery.k8s.io
+  resources:
+  - endpointslices
+  verbs:
+  - list
+  - watch
+...
+```
+
+<!--
+### Are you in the right namespace for the service?
+
+DNS queries that don't specify a namespace are limited to the pod's 
+namespace. 
+
+If the namespace of the pod and service differ, the DNS query must include 
+the namespace of the service.
+
+This query is limited to the pod's namespace:
+-->
+### 你的服务在正确的命名空间中吗？
+
+未指定命名空间的 DNS 查询仅作用于 pod 所在的命名空间。
+
+如果 pod 和服务的命名空间不相同，则 DNS 查询必须指定服务所在的命名空间。
+
+该查询仅限于 pod 所在的名称空间：
+```shell
+kubectl exec -i -t dnsutils -- nslookup <service-name>
+```
+
+<!--
+This query specifies the namespace:
+-->
+指定命名空间的查询：
+```shell
+kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
+```
+
+<!--
+To learn more about name resolution, see 
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
+-->
+要进一步了解名字解析，请查看
+[服务和 Pod 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 
 <!--
 ## Known issues
@@ -416,6 +533,14 @@ Kubernetes 需要占用一个 `nameserver` 记录和三个`search`记录。
 要想修复 DNS `search` 记录个数限制问题，可以考虑升级你的 Linux 发行版本，或者
 升级 glibc 到一个不再受此困扰的版本。
 
+{{< note >}}
+<!--
+With [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration),
+Kubernetes allows more DNS `search` records.
+-->
+使用[扩展 DNS 设置](/zh/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration)，
+Kubernetes 允许更多的 `search` 记录。
+{{< /note >}}
 <!--
 If you are using Alpine version 3.3 or earlier as your base image, DNS may not
 work properly owing to a known issue with Alpine.

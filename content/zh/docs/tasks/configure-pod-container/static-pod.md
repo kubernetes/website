@@ -27,6 +27,7 @@ The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Po
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
+The Pod names will be suffixed with the node hostname with a leading hyphen.
 
 {{< note >}}
 If you are running clustered Kubernetes and are using static
@@ -40,19 +41,33 @@ instead.
 kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建一个
 {{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
 这意味着节点上运行的静态 Pod 对 API 服务来说是可见的，但是不能通过 API 服务器来控制。
+Pod 名称将把以连字符开头的节点主机名作为后缀。
 
 {{< note >}}
 如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，
 就可能需要考虑使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} 替代这种方式。
 {{< /note >}}
 
-## {{% heading "prerequisites" %}}
+<!--
+The `spec` of a static Pod cannot refer to other API objects
+(e.g., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
+{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
+-->
 
+{{< note >}}
+静态 Pod 的 `spec` 不能引用其他 API 对象
+（如：{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}、
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、
+{{< glossary_tooltip text="Secret" term_id="secret" >}} 等）。
+{{< /note >}}
+
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-This page assumes you're using {{< glossary_tooltip term_id="docker" >}} to run Pods,
+This page assumes you're using {{< glossary_tooltip term_id="cri-o" >}} to run Pods,
 and that your nodes are running the Fedora operating system.
 Instructions for other distributions or Kubernetes installations may vary.
 -->
@@ -76,7 +91,9 @@ You can configure a static Pod with either a [file system hosted configuration f
 <!--
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
-Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file), which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
+Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the
+[kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/),
+which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 
 For example, this is how to start a simple web server as a static Pod:
@@ -84,7 +101,7 @@ For example, this is how to start a simple web server as a static Pod:
 ### 文件系统上的静态 Pod 声明文件 {#configuration-files}
 
 声明文件是标准的 Pod 定义文件，以 JSON 或者 YAML 格式存储在指定目录。路径设置在
-[Kubelet 配置文件](/zh/docs/tasks/administer-cluster/kubelet-config-file/)
+[Kubelet 配置文件](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
 的 `staticPodPath: <目录>` 字段，kubelet 会定期的扫描这个文件夹下的 YAML/JSON
 文件来创建/删除静态 Pod。
 注意 kubelet 扫描目录的时候会忽略以点开头的文件。
@@ -148,12 +165,13 @@ For example, this is how to start a simple web server as a static Pod:
    ```
 
 <!--
-1. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
-    ```
-    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
-    ```
-    or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file).
+   ```
+   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
+   ```
+   or add the `staticPodPath: <the directory>` field in the
+   [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`。
 在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下行：
@@ -161,16 +179,16 @@ For example, this is how to start a simple web server as a static Pod:
    ```
    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
    ```
-   或者在 [Kubelet配置文件](/zh/docs/tasks/administer-cluster/kubelet-config-file/)
+   或者在 [Kubelet 配置文件](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
    中添加 `staticPodPath: <目录>`字段。
 
 <!--
-1. Restart the kubelet. On Fedora, you would run:
+4. Restart the kubelet. On Fedora, you would run:
 
-    ```shell
-    # Run this command on the node where the kubelet is running
-    systemctl restart kubelet
-    ```
+   ```shell
+   # Run this command on the node where the kubelet is running
+   systemctl restart kubelet
+   ```
 -->
 4. 重启 kubelet。Fedora 上使用下面的命令：
 
@@ -255,7 +273,7 @@ already be running.
 You can view running containers (including static Pods) by running (on the node):
 ```shell
 # Run this command on the node where kubelet is running
-docker ps
+crictl ps
 ```
 
 The output might be something like:
@@ -269,7 +287,7 @@ The output might be something like:
 
 ```shell
 # 在 kubelet 运行的节点上执行以下命令
-docker ps
+crictl ps
 ```
 
 <!--
@@ -277,10 +295,19 @@ The output might be something like:
 -->
 输出可能会像这样：
 
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+129fd7d382018   docker.io/library/nginx@sha256:...    11 minutes ago    Running    web     0          34533c6729106
 ```
-CONTAINER ID IMAGE         COMMAND  CREATED        STATUS         PORTS     NAMES
-f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes             k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
-```
+
+<!--
+`crictl` outputs the image URI and SHA-256 checksum. `NAME` will look more like:
+`docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`.
+-->
+{{< note >}}
+`crictl` 会输出镜像 URI 和 SHA-256 校验和。 `NAME` 看起来像：
+`docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`。
+{{< /note >}}
 
 <!--
 You can see the mirror Pod on the API server:
@@ -292,17 +319,17 @@ kubectl get pods
 ```
 
 ```
-NAME                       READY     STATUS    RESTARTS   AGE
-static-web-my-node1        1/1       Running   0          2m
+NAME         READY   STATUS    RESTARTS        AGE
+static-web   1/1     Running   0               2m
 ```
 
 <!--
 Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See
-[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
+[Pod Security admission](/docs/concepts/security/pod-security-admission) and [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/).
 -->
 {{< note >}}
 要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。如果没有，创建请求会被 API 服务拒绝。
-可以看[Pod安全策略](/zh/docs/concepts/policy/pod-security-policy/)。
+可以看 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission/)和 [Pod 安全策略](/zh/docs/concepts/security/pod-security-policy/)。
 {{< /note >}}
 
 <!--
@@ -320,10 +347,10 @@ the kubelet _doesn't_ remove the static Pod:
 如果你用 `kubectl` 从 API 服务上删除镜像 Pod，kubelet _不会_ 移除静态 Pod：
 
 ```shell
-kubectl delete pod static-web-my-node1
+kubectl delete pod static-web
 ```
 ```
-pod "static-web-my-node1" deleted
+pod "static-web" deleted
 ```
 
 <!--
@@ -336,37 +363,36 @@ kubectl get pods
 ```
 
 ```
-NAME                       READY     STATUS    RESTARTS   AGE
-static-web-my-node1        1/1       Running   0          12s
+NAME         READY   STATUS    RESTARTS   AGE
+static-web   1/1     Running   0          4s
 ```
 
 <!--
-Back on your node where the kubelet is running, you can try to stop the Docker
-container manually.
+Back on your node where the kubelet is running, you can try to stop the container manually.
 You'll see that, after a time, the kubelet will notice and will restart the Pod
 automatically:
 
 ```shell
 # Run these commands on the node where the kubelet is running
-docker stop f6d05272b57e # replace with the ID of your container
+crictl stop 129fd7d382018 # replace with the ID of your container
 sleep 20
-docker ps
+crictl ps
 ```
 -->
-回到 kubelet 运行的节点上，可以手工停止 Docker 容器。
+回到 kubelet 运行的节点上，你可以手动停止容器。
 可以看到过了一段时间后 kubelet 会发现容器停止了并且会自动重启 Pod：
 
 ```shell
 # 在 kubelet 运行的节点上执行以下命令
 # 把 ID 换为你的容器的 ID
-docker stop f6d05272b57e
+crictl stop 129fd7d382018
 sleep 20
-docker ps
+crictl ps
 ```
 
-```
-CONTAINER ID        IMAGE         COMMAND                CREATED       ...
-5b920cbaf8b1        nginx:latest  "nginx -g 'daemon of   2 seconds ago ...
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+89db4553e1eeb   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
 
 <!--
@@ -380,11 +406,11 @@ The running kubelet periodically scans the configured directory (`/etc/kubelet.d
 #
 mv /etc/kubelet.d/static-web.yaml /tmp
 sleep 20
-docker ps
+crictl ps
 # You see that no nginx container is running
 mv /tmp/static-web.yaml  /etc/kubelet.d/
 sleep 20
-docker ps
+crictl ps
 ```
 -->
 ## 动态增加和删除静态 pod
@@ -397,16 +423,17 @@ docker ps
 # 在 kubelet 运行的节点上执行以下命令
 mv /etc/kubelet.d/static-web.yaml /tmp
 sleep 20
-docker ps
+crictl ps
 # 可以看到没有 nginx 容器在运行
 mv /tmp/static-web.yaml  /etc/kubelet.d/
 sleep 20
-docker ps
+crictl ps
 ```
 
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
-CONTAINER ID        IMAGE         COMMAND                CREATED           ...
-e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
-```
+
 
 

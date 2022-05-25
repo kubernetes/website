@@ -13,9 +13,9 @@ obsolete -->
 사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 파드가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
 
 {{< note >}}
-v1.19 이전 버전의 쿠버네티스에서는 파드 토폴로지 분배 제약조건을 사용하려면
+v1.18 이전 버전의 쿠버네티스에서는 파드 토폴로지 분배 제약조건을 사용하려면
 [API 서버](/ko/docs/concepts/overview/components/#kube-apiserver)와
-[스케줄러](/docs/reference/generated/kube-scheduler/)에서
+[스케줄러](/docs/reference/command-line-tools-reference/kube-scheduler/)에서
 `EvenPodsSpread`[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 활성화해야 한다
 {{< /note >}}
@@ -58,7 +58,7 @@ graph TB
     class zoneA,zoneB cluster;
 {{< /mermaid >}}
 
-레이블을 수동으로 적용하는 대신에, 사용자는 대부분의 클러스터에서 자동으로 생성되고 채워지는 [잘-알려진 레이블](/docs/reference/kubernetes-api/labels-annotations-taints/)을 재사용할 수 있다.
+레이블을 수동으로 적용하는 대신에, 사용자는 대부분의 클러스터에서 자동으로 생성되고 채워지는 [잘 알려진 레이블](/ko/docs/reference/labels-annotations-taints/)을 재사용할 수 있다.
 
 ## 파드의 분배 제약 조건
 
@@ -82,12 +82,11 @@ spec:
 사용자는 하나 또는 다중 `topologySpreadConstraint` 를 정의해서 kube-scheduler 에게 클러스터에 걸쳐 있는 기존 파드와 시작하는 각각의 파드와 연관하여 배치하는 방법을 명령할 수 있다. 필드는 다음과 같다.
 
 - **maxSkew** 는 파드가 균등하지 않게 분산될 수 있는 정도를 나타낸다.
-  이것은 주어진 토폴로지 유형의 임의의 두 토폴로지 도메인에 일치하는
-  파드의 수 사이에서 허용되는 차이의 최댓값이다. 이것은 0보다는 커야
-  한다. 그 의미는 `whenUnsatisfiable` 의 값에 따라 다르다.
+  이것은 0보다는 커야 한다. 그 의미는 `whenUnsatisfiable` 의 값에 따라 다르다.
   - `whenUnsatisfiable` 이 "DoNotSchedule"과 같을 때, `maxSkew` 는
-    대상 토폴로지에서 일치하는 파드 수와 전역 최솟값 사이에
-    허용되는 최대 차이이다.
+    대상 토폴로지에서 일치하는 파드 수와 전역 최솟값
+    (토폴로지 도메인에서 레이블 셀렉터와 일치하는 최소 파드 수. 예를 들어 3개의 영역에 각각 0, 2, 3개의 일치하는 파드가 있으면, 전역 최솟값은 0) 
+    사이에 허용되는 최대 차이이다.
   - `whenUnsatisfiable` 이 "ScheduleAnyway"와 같으면, 스케줄러는
     왜곡을 줄이는데 도움이 되는 토폴로지에 더 높은 우선 순위를 부여한다.
 - **topologyKey** 는 노드 레이블의 키다. 만약 두 노드가 이 키로 레이블이 지정되고, 레이블이 동일한 값을 가진다면 스케줄러는 두 노드를 같은 토폴로지에 있는것으로 여기게 된다. 스케줄러는 각 토폴로지 도메인에 균형잡힌 수의 파드를 배치하려고 시도한다.
@@ -95,6 +94,8 @@ spec:
   - `DoNotSchedule` (기본값)은 스케줄러에 스케줄링을 하지 말라고 알려준다.
   - `ScheduleAnyway` 는 스케줄러에게 차이(skew)를 최소화하는 노드에 높은 우선 순위를 부여하면서, 스케줄링을 계속하도록 지시한다.
 - **labelSelector** 는 일치하는 파드를 찾는데 사용된다. 이 레이블 셀렉터와 일치하는 파드의 수를 계산하여 해당 토폴로지 도메인에 속할 파드의 수를 결정한다. 자세한 내용은 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)를 참조한다.
+
+파드에 2개 이상의 `topologySpreadConstraint`가 정의되어 있으면, 각 제약 조건은 AND로 연결된다 - kube-scheduler는 새로운 파드의 모든 제약 조건을 만족하는 노드를 찾는다.
 
 사용자는 `kubectl explain Pod.spec.topologySpreadConstraints` 를 실행해서 이 필드에 대한 자세한 내용을 알 수 있다.
 
@@ -229,7 +230,53 @@ graph BT
 
 이 상황을 극복하기 위해서는 사용자가 `maxSkew` 의 증가 또는 `whenUnsatisfiable: ScheduleAnyway` 를 사용하도록 제약 조건 중 하나를 수정할 수 있다.
 
-### 규칙
+### 노드 어피니티(Affinity) 및 노드 셀렉터(Selector)와의 상호 작용
+
+스케줄러는 신규 파드에 `spec.nodeSelector` 또는 `spec.affinity.nodeAffinity`가 정의되어 있는 경우, 부합하지 않는 노드들을 차이(skew) 계산에서 생략한다.
+
+### 예시: TopologySpreadConstraints와 노드 어피니티
+
+zoneA 에서 zoneC에 걸쳐있고, 5개의 노드를 가지는 클러스터가 있다고 가정한다.
+
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n1,n2,n3,n4,p1,p2,p3 k8s;
+class p4 plain;
+class zoneA,zoneB cluster;
+{{< /mermaid >}}
+
+{{<mermaid>}}
+graph BT
+    subgraph "zoneC"
+        n5(Node5)
+    end
+
+classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+class n5 k8s;
+class zoneC cluster;
+{{< /mermaid >}}
+
+그리고 알다시피 "zoneC"는 제외해야 한다. 이 경우에, "mypod"가 "zoneC"가 아닌 "zoneB"에 배치되도록 yaml을 다음과 같이 구성할 수 있다. 마찬가지로 `spec.nodeSelector` 도 존중된다.
+
+{{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+
+스케줄러는 클러스터에 있는 모든 영역(zone) 또는 다른 토폴로지 도메인에 대한 사전 지식이 없다. 스케줄링은 클러스터의 기존 노드에서 결정된다. 노드 풀(또는 노드 그룹)이 0개의 노드로 스케일(scale)되고 사용자는 노드가 확장될 것으로 예상하는 경우, 자동 스케일되는 클러스터에서 문제가 발생할 수 있다. 이러한 토폴로지 도메인은 스케줄링에서 해당 도메인에 노드가 하나 이상 있을 때까지 고려되지 않을 것이기 때문이다.
+
+### 기타 눈에 띄는 의미(semantics)
 
 여기에 주목할만한 몇 가지 암묵적인 규칙이 있다.
 
@@ -241,46 +288,6 @@ graph BT
   2. 신규 파드는 이런 종류의 노드에 스케줄 될 기회가 없다. - 위의 예시에서, 레이블로 `{zone-typo: zoneC}` 를 가지는 "node5"가 클러스터에 편입한다고 가정하면, 레이블 키에 "zone"이 없기 때문에 무시하게 된다.
 
 - 들어오는 파드의 `topologySpreadConstraints[*].labelSelector` 와 자체 레이블과 일치하지 않을 경우 어떻게 되는지 알고 있어야 한다. 위의 예시에서, 만약 들어오는 파드의 레이블을 제거하더라도 여전히 제약 조건이 충족하기 때문에 "zoneB"에 배치할 수 있다. 그러나, 배치 이후에도 클러스터의 불균형 정도는 변경되지 않는다. - 여전히 zoneA는 {foo:bar} 레이블을 가지고 있는 2개의 파드를 가지고 있고, zoneB 도 {foo:bar}를 레이블로 가지는 파드 1개를 가지고 있다. 따라서 만약 예상과 다르면, 워크로드의 `topologySpreadConstraints[*].labelSelector` 가 자체 레이블과 일치하도록 하는 것을 권장한다.
-
-- 만약 신규 파드에 `spec.nodeSelector` 또는 `spec.affinity.nodeAffinity` 가 정의되어 있으면, 일치하지 않는 노드는 무시하게 된다.
-
-    zoneA 에서 zoneC에 걸쳐있고, 5개의 노드를 가지는 클러스터가 있다고 가정한다.
-
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneB"
-            p3(Pod) --> n3(Node3)
-            n4(Node4)
-        end
-        subgraph "zoneA"
-            p1(Pod) --> n1(Node1)
-            p2(Pod) --> n2(Node2)
-        end
-
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n1,n2,n3,n4,p1,p2,p3 k8s;
-    class p4 plain;
-    class zoneA,zoneB cluster;
-    {{< /mermaid >}}
-
-    {{<mermaid>}}
-    graph BT
-        subgraph "zoneC"
-            n5(Node5)
-        end
-
-    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class n5 k8s;
-    class zoneC cluster;
-    {{< /mermaid >}}
-
-    그리고 알다시피 "zoneC"는 제외해야 한다. 이 경우에, "mypod"가 "zoneC"가 아닌 "zoneB"에 배치되도록 yaml을 다음과 같이 구성할 수 있다. 마찬가지로 `spec.nodeSelector` 도 존중된다.
-
-    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
 ### 클러스터 수준의 기본 제약 조건
 
@@ -344,12 +351,14 @@ defaultConstraints:
 비활성화된다.
 
 {{< note >}}
+`PodTopologySpread` 플러그인은 분배 제약 조건에 지정된 토폴로지 키가
+없는 노드에 점수를 매기지 않는다. 
+이로 인해 기본 토폴로지 제약을 사용하는 경우의 
+레거시 `SelectorSpread` 플러그인과는 기본 정책이 다를 수 있다.
+
 노드에 `kubernetes.io/hostname` 및 `topology.kubernetes.io/zone`
 레이블 세트 **둘 다**가 설정되지 않을 것으로 예상되는 경우, 쿠버네티스 기본값을 사용하는
 대신 자체 제약 조건을 정의한다.
-
-`PodTopologySpread` 플러그인은 분배 제약 조건에 지정된 토폴로지 키가
-없는 노드에 점수를 매기지 않는다.
 {{< /note >}}
 
 클러스터에 기본 파드 분배 제약 조건을 사용하지 않으려면,
@@ -387,7 +396,8 @@ profiles:
 
 ## 알려진 제한사항
 
-- 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형이 될 수 있다.
+- 파드가 제거된 이후에도 제약 조건이 계속 충족된다는 보장은 없다. 예를 들어 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형해질 수 있다.
+[Descheduler](https://github.com/kubernetes-sigs/descheduler)를 사용하여 파드 분포를 다시 균형있게 만들 수 있다.
 - 파드와 일치하는 테인트(taint)가 된 노드가 존중된다. [이슈 80921](https://github.com/kubernetes/kubernetes/issues/80921)을 본다.
 
 ## {{% heading "whatsnext" %}}

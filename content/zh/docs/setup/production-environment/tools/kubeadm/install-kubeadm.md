@@ -21,23 +21,16 @@ card:
 
 <!--
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
-For information how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 -->
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">本页面显示如何安装 `kubeadm` 工具箱。
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">本页面显示如何安装 `kubeadm` 工具箱。
 有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，请参见
 [使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 页面。
 
 ## {{% heading "prerequisites" %}}
 
 <!--
-* One or more machines running one of:
-  - Ubuntu 16.04+
-  - Debian 9+
-  - CentOS 7+
-  - Red Hat Enterprise Linux (RHEL) 7+
-  - Fedora 25+
-  - HypriotOS v1.0.1+
-  - Flatcar Container Linux (tested with 2512.3.0)
+* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more
 * Full network connectivity between all machines in the cluster (public or private network is fine)
@@ -45,21 +38,14 @@ For information how to create a cluster with kubeadm once you have performed thi
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
 -->
-* 一台或多台运行着下列系统的机器：
-  - Ubuntu 16.04+
-  - Debian 9+
-  - CentOS 7+
-  - Red Hat Enterprise Linux (RHEL) 7+
-  - Fedora 25+
-  - HypriotOS v1.0.1+
-  - Flatcar Container Linux （使用 2512.3.0 版本测试通过）
+* 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
+  发行版以及一些不提供包管理器的发行版提供通用的指令
 * 每台机器 2 GB 或更多的 RAM （如果少于这个数字将会影响你应用的运行内存)
 * 2 CPU 核或更多
 * 集群中的所有机器的网络彼此均能相互连接(公网和内网都可以)
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports) 了解更多详细信息。
 * 禁用交换分区。为了保证 kubelet 正常工作，你 **必须** 禁用交换分区。
-
 
 <!-- steps -->
 
@@ -128,146 +114,125 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 
 <!--
 ## Check required ports
-
-### Control-plane node(s)
-
-| Protocol   | Direction  | Port Range | Purpose                 | Used By                 |
-|------------|------------|------------|-------------------------|-------------------------|
-| TCP        | Inbound    | 6443*      | Kubernetes API server   | All                     |
-| TCP        | Inbound    | 2379-2380  | etcd server client API  | kube-apiserver, etcd    |
-| TCP        | Inbound    | 10250      | Kubelet API             | Self, Control plane     |
-| TCP        | Inbound    | 10251      | kube-scheduler          | Self                    |
-| TCP        | Inbound    | 10252      | kube-controller-manager | Self                    |
+These
+[required ports](/docs/reference/ports-and-protocols/)
+need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
 -->
+
 ## 检查所需端口{#check-required-ports}
 
-### 控制平面节点
+启用这些[必要的端口](/zh/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。可以使用 netcat 之类的工具来检查端口是否启用，例如：
 
-| 协议     | 方向   | 端口范围   | 作用                    | 使用者                       |
-|----------|--------|------------|-------------------------|------------------------------|
-| TCP      | 入站   | 6443       | Kubernetes API 服务器   | 所有组件                     |
-| TCP      | 入站   | 2379-2380  | etcd 服务器客户端 API   | kube-apiserver, etcd         |
-| TCP      | 入站   | 10250      | Kubelet API             | kubelet 自身、控制平面组件   |
-| TCP      | 入站   | 10251      | kube-scheduler          | kube-scheduler 自身          |
-| TCP      | 入站   | 10252      | kube-controller-manager | kube-controller-manager 自身 |
+```shell
+nc 127.0.0.1 6443
+```
 
 <!--
-### Worker node(s)
-
-| Protocol   | Direction  | Port Range  | Purpose             | Used By                 |
-|------------|------------|-------------|---------------------|-------------------------|
-| TCP        | Inbound    | 10250       | Kubelet API         | Self, Control plane     |
-| TCP        | Inbound    | 30000-32767 | NodePort Services** | All                     |
-
-** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
-
-Any port numbers marked with * are overridable, so you will need to ensure any
-custom ports you provide are also open.
-
-Although etcd ports are included in control-plane nodes, you can also host your own
-etcd cluster externally or on custom ports.
-
-The pod network plugin you use (see below) may also require certain ports to be
+The pod network plugin you use may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 -->
-### 工作节点
-
-| 协议 | 方向   | 端口范围    | 作用              | 使用者                      |
-|------|--------|-------------|-------------------|-----------------------------|
-| TCP  | 入站   | 10250       | Kubelet API       | kubelet 自身、控制平面组件  |
-| TCP  | 入站   | 30000-32767 | NodePort 服务†    | 所有组件                    |
-
-† [NodePort 服务](/zh/docs/concepts/services-networking/service/) 的默认端口范围。
-
-使用 * 标记的任意端口号都可以被覆盖，所以你需要保证所定制的端口是开放的。
-
-虽然控制平面节点已经包含了 etcd 的端口，你也可以使用自定义的外部 etcd 集群，或是指定自定义端口。
-
-你使用的 Pod 网络插件 (见下) 也可能需要某些特定端口开启。由于各个 Pod 网络插件都有所不同，
+你使用的 Pod 网络插件 (详见后续章节) 也可能需要开启某些特定端口。由于各个 Pod 网络插件的功能都有所不同，
 请参阅他们各自文档中对端口的要求。
 
 <!--
-## Installing runtime {#installing-runtime}
+## Installing a container runtime {#installing-runtime}
 
 To run containers in Pods, Kubernetes uses a
 {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}.
 -->
-## 安装 runtime{#installing-runtime}
+## 安装容器运行时{#installing-runtime}
 
 为了在 Pod 中运行容器，Kubernetes 使用
 {{< glossary_tooltip term_id="container-runtime" text="容器运行时（Container Runtime）" >}}。
 
-{{< tabs name="container-runtimes" >}}
-{{% tab name="Linux 节点" %}}
 <!--
 By default, Kubernetes uses the
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)
 to interface with your chosen container runtime.
 
 If you don't specify a runtime, kubeadm automatically tries to detect an installed
-container runtime by scanning through a list of well known Unix domain sockets.
-The following table lists container runtimes and their associated socket paths:
-
-| Runtime    | Domain Socket                   |
-|------------|---------------------------------|
-| Docker     | /var/run/docker.sock            |
-| containerd | /run/containerd/containerd.sock |
-| CRI-O      | /var/run/crio/crio.sock         |
+container runtime by scanning through a list of known endpoints.
 -->
 默认情况下，Kubernetes 使用
 {{< glossary_tooltip term_id="cri" text="容器运行时接口（Container Runtime Interface，CRI）" >}}
 来与你所选择的容器运行时交互。
 
-如果你不指定运行时，则 kubeadm 会自动尝试检测到系统上已经安装的运行时，
-方法是扫描一组众所周知的 Unix 域套接字。
-下面的表格列举了一些容器运行时及其对应的套接字路径：
-
-| 运行时     | 域套接字                         |
-|------------|----------------------------------|
-| Docker     | /var/run/docker.sock             |
-| containerd | /run/containerd/containerd.sock  |
-| CRI-O      | /var/run/crio/crio.sock          |
+如果你不指定运行时，kubeadm 会自动尝试通过扫描已知的端点列表来检测已安装的容器运行时。
 
 <!--
-<br />
-If both Docker and containerd are detected, Docker takes precedence. This is
-needed because Docker 18.09 ships with containerd and both are detectable even if you only
-installed Docker.
-If any other two or more runtimes are detected, kubeadm exits with an error.
-
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
+If multiple or no container runtimes are detected kubeadm will throw an error
+and will request that you specify which one you want to use.
 
 See [container runtimes](/docs/setup/production-environment/container-runtimes/)
 for more information.
 -->
-<br/>
-如果同时检测到 Docker 和 containerd，则优先选择 Docker。
-这是必然的，因为 Docker 18.09 附带了 containerd 并且两者都是可以检测到的，
-即使你仅安装了 Docker。
-如果检测到其他两个或多个运行时，kubeadm 输出错误信息并退出。
-
-kubelet 通过内置的 `dockershim` CRI 实现与 Docker 集成。
+如果检测到有多个或者没有容器运行时，kubeadm 将抛出一个错误并要求你指定一个想要使用的运行时。
 
 参阅[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
 以了解更多信息。
 
-{{% /tab %}}
-{{% tab name="其它操作系统" %}}
 <!--
-By default, kubeadm uses {{< glossary_tooltip term_id="docker" >}} as the container runtime.
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
-
-See [container runtimes](/docs/setup/production-environment/container-runtimes/)
-for more information.
+{{< note >}}
+Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
+which is a requirement for a container runtime to work with Kubernetes.
+For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+has to be installed. cri-dockerd is a project based on the legacy built-in
+Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 -->
-默认情况下， kubeadm 使用 {{< glossary_tooltip term_id="docker" >}} 作为容器运行时。
-kubelet 通过内置的 `dockershim` CRI 实现与 Docker 集成。
-参阅[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
-以了解更多信息。
 
-{{% /tab %}}
-{{< /tabs >}}
+{{< note >}}
+Docker Engine 没有实现 [CRI](/zh/docs/concepts/architecture/cri/)，而这是容器运行时在 Kubernetes 中工作所需要的。
+为此，必须安装一个额外的服务 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)。
+cri-dockerd 是一个基于传统的内置Docker引擎支持的项目，它在 1.24 版本从 kubelet 中[移除](/zh/dockershim)。
+{{< /note >}}
+
+<!--
+The tables below include the known endpoints for supported operating systems:
+
+{{< tabs name="container_runtime" >}}
+{{% tab name="Linux" %}}
+-->
+下面的表格包括被支持的操作系统的已知端点。
+
+{{< tabs name="container_runtime" >}}
+{{% tab name="Linux" %}}
+
+<!--
+{{< table >}}
+| Runtime                            | Path to Unix domain socket                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `unix:///var/run/containerd/containerd.sock` |
+| CRI-O                              | `unix:///var/run/crio/crio.sock`             |
+| Docker Engine (using cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
+{{< /table >}}
+-->
+{{< table >}}
+| 运行时                              | Unix 域套接字                                     |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `unix:///var/run/containerd/containerd.sock` |
+| CRI-O                              | `unix:///var/run/crio/crio.sock`             |
+| Docker Engine (使用 cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
+{{< /table >}}
+
+<!--
+{{% tab name="Windows" %}}
+
+{{< table >}}
+| Runtime                            | Path to Windows named pipe                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `npipe:////./pipe/containerd-containerd`     |
+| Docker Engine (using cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
+{{< /table >}}
+-->
+{{% tab name="Windows" %}}
+
+{{< table >}}
+| 运行时                              |  Windows 命名管道路径                         |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `npipe:////./pipe/containerd-containerd`     |
+| Docker Engine (使用 cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
+{{< /table >}}
 
 <!--
 ## Installing kubeadm, kubelet and kubectl
@@ -289,7 +254,7 @@ kubelet and the control plane is supported, but the kubelet version may never ex
 server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.
 
-For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/install-kubectl/).
+For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/).
 -->
 ## 安装 kubeadm、kubelet 和 kubectl
 
@@ -308,7 +273,7 @@ kubeadm **不能** 帮你安装或者管理 `kubelet` 或 `kubectl`，所以你�
 的版本不可以超过 API 服务器的版本。
 例如，1.7.0 版本的 kubelet 可以完全兼容 1.8.0 版本的 API 服务器，反之则不可以。
 
-有关安装 `kubectl` 的信息，请参阅[安装和设置 kubectl](/zh/docs/tasks/tools/install-kubectl/)文档。
+有关安装 `kubectl` 的信息，请参阅[安装和设置 kubectl](/zh/docs/tasks/tools/)文档。
 
 {{< warning >}}
 <!--
@@ -332,22 +297,50 @@ For more information on version skews, see:
 * Kubeadm 特定的[版本偏差策略](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
-{{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+{{% tab name="基于 Debian 的发行版" %}}
 
-```bash
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
-```
+<!--
+1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+-->
+1. 更新 `apt` 包索引并安装使用 Kubernetes `apt` 仓库所需要的包：
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+<!--
+2. Download the Google Cloud public signing key:
+-->
+2. 下载 Google Cloud 公开签名秘钥：
+
+   ```shell
+   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
+
+<!--
+3. Add the Kubernetes `apt` repository:
+-->
+3. 添加 Kubernetes `apt` 仓库：
+
+   ```shell
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+<!--
+4. Update `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
+-->
+4. 更新 `apt` 包索引，安装 kubelet、kubeadm 和 kubectl，并锁定其版本：
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+   ```
 
 {{% /tab %}}
 
-{{% tab name="CentOS、RHEL 或 Fedora" %}}
+{{% tab name="基于 Red Hat 的发行版" %}}
 
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
@@ -362,12 +355,12 @@ exclude=kubelet kubeadm kubectl
 EOF
 
 # 将 SELinux 设置为 permissive 模式（相当于将其禁用）
-setenforce 0
-sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+sudo setenforce 0
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
-yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-systemctl enable --now kubelet
+sudo systemctl enable --now kubelet
 ```
 
 <!--
@@ -378,6 +371,9 @@ systemctl enable --now kubelet
     You have to do this until SELinux support is improved in the kubelet.
 
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
+  - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
+    Type `uname -m` to see that value.
+    For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
 -->
 **请注意：**
 
@@ -387,11 +383,13 @@ systemctl enable --now kubelet
 
   你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
 
-- 你可以保持 SELinux 处于弃用状态，前提是你知道如何配置它，不过这也意味着有些
-  配置是 kubeadm 所不支持的。
+- 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定 kubeadm 不支持的部分配置
+- 如果由于该 Red Hat 的发行版无法解析 `basearch` 导致获取 `baseurl` 失败，请将 `\$basearch` 替换为你计算机的架构。
+  输入 `uname -m` 以查看该值。
+  例如，`x86_64` 的 `baseurl` URL 可以是：`https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`。
 
 {{% /tab %}}
-{{% tab name="Fedora CoreOS 或 Flatcar Container Linux" %}}
+{{% tab name="无包管理器的情况" %}}
 
 <!--
 Install CNI plugins (required for most pod network):
@@ -400,22 +398,23 @@ Install CNI plugins (required for most pod network):
 
 ```bash
 CNI_VERSION="v0.8.2"
-mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+ARCH="amd64"
+sudo mkdir -p /opt/cni/bin
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
 ```
 
 <!--
-Define the directory to download command files  
+Define the directory to download command files
 -->
 定义要下载命令文件的目录。
 
 {{< note >}}
 <!--
-The DOWNLOAD_DIR variable must be set to a writable directory.
-If you are running Flatcar Container Linux, set DOWNLOAD_DIR=/opt/bin.
+The `DOWNLOAD_DIR` variable must be set to a writable directory.
+If you are running Flatcar Container Linux, set `DOWNLOAD_DIR=/opt/bin`.
 -->
-DOWNLOAD_DIR 变量必须被设置为一个可写入的目录。
-如果你在运行 Flatcar Container Linux，可将 DOWNLOAD_DIR 设置为 /opt/bin。
+`DOWNLOAD_DIR` 变量必须被设置为一个可写入的目录。
+如果你在运行 Flatcar Container Linux，可将 `DOWNLOAD_DIR` 设置为 `/opt/bin`。
 {{< /note >}}
 
 ```bash
@@ -429,8 +428,9 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）
 
 ```bash
-CRICTL_VERSION="v1.17.0"
-curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
+CRICTL_VERSION="v1.22.0"
+ARCH="amd64"
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
 <!--
@@ -440,18 +440,15 @@ Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
-chmod +x {kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
+sudo chmod +x {kubeadm,kubelet,kubectl}
 
 RELEASE_VERSION="v0.4.0"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-
-curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service
-mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
 <!--
@@ -485,75 +482,36 @@ kubeadm to tell it what to do.
 kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 指令的死循环。
 
 <!--
-## Configure cgroup driver used by kubelet on control-plane node
+## Configure cgroup driver
 
-When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
-and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
-
-If you are using a different CRI, you must pass your `cgroupDriver` value to `kubeadm init`, like so:
+Both the container runtime and the kubelet have a property called
+["cgroup driver"](/docs/setup/production-environment/container-runtimes/), which is important
+for the management of cgroups on Linux machines.
 -->
-## 在控制平面节点上配置 kubelet 使用的 cgroup 驱动程序  {#configure-cgroup-driver-used-by-kubelet-on-contol-plane-node}
+## 配置 cgroup 驱动程序  {#configure-cgroup-driver}
 
-使用 Docker 时，kubeadm 会自动为其检测 cgroup 驱动并在运行时对
-`/var/lib/kubelet/kubeadm-flags.env` 文件进行配置。
+容器运行时和 kubelet 都具有名字为
+["cgroup driver"](/zh/docs/setup/production-environment/container-runtimes/)
+的属性，该属性对于在 Linux 机器上管理 CGroups 而言非常重要。
 
-如果你在使用不同的 CRI，你必须为 `kubeadm init` 传递 `cgroupDriver`
-值，像这样：
-
-```yaml
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-cgroupDriver: <value>
-```
-
+{{< warning >}}
 <!--
-For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
+Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
 
-Please mind, that you **only** have to do that if the cgroup driver of your CRI
-is not `cgroupfs`, because that is the default value in the kubelet already.
+See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) for more details.
 -->
-进一步的相关细节，可参阅
-[使用配置文件来执行 kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)。
+你需要确保容器运行时和 kubelet 所使用的是相同的 cgroup 驱动，否则 kubelet
+进程会失败。
 
-请注意，你只需要在你的 cgroup 驱动程序不是 `cgroupfs` 时这么做，
-因为它已经是 kubelet 中的默认值。
-
-{{< note >}}
-<!--
-Since `--cgroup-driver` flag has been deprecated by the kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env`
-or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead
-(stored in `/var/lib/kubelet/config.yaml` by default).
--->
-由于 kubelet 已经弃用了 `--cgroup-driver` 标志，如果你在配置文件
-`/var/lib/kubelet/kubeadm-flags.env` 或者 `/etc/default/kubelet`
-（对于 RPM 而言是 `/etc/sysconfig/kubelet`）包含此设置，请将其删除
-并使用 KubeletConfiguration 作为替代（默认存储于
-`/var/lib/kubelet/config.yaml` 文件中）。
-{{< /note >}}
-
-<!--
-Restarting the kubelet is required:
--->
-需要重新启动 kubelet：
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart kubelet
-```
-
-<!--
-The automatic detection of cgroup driver for other container runtimes
-like CRI-O and containerd is work in progress.
--->
-自动检测其他容器运行时（例如 CRI-O 和 containerd）的 cgroup 驱动的相关
-工作扔在进行中。
+相关细节可参见[配置 cgroup 驱动](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
+{{< /warning >}}
 
 <!--
 ## Troubleshooting
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 -->
-## 故障排查
+## 故障排查   {#troubleshooting}
 
 如果你在使用 kubeadm 时遇到困难，请参阅我们的
 [故障排查文档](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
@@ -564,4 +522,3 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 -->
 * [使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-

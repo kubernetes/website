@@ -28,10 +28,12 @@ weight: 40
   컨트롤러다.
 * [Apache APISIX 인그레스 컨트롤러](https://github.com/apache/apisix-ingress-controller)는 [Apache APISIX](https://github.com/apache/apisix) 기반의 인그레스 컨트롤러이다.
 * [Avi 쿠버네티스 오퍼레이터](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)는 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)을 사용하는 L4-L7 로드 밸런싱을 제공한다.
+* [BFE Ingress Controller](https://github.com/bfenetworks/ingress-bfe)는 [BFE](https://www.bfe-networks.net) 기반 인그레스 컨트롤러다.
 * [Citrix 인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller#readme)는
   Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.
 * [EnRoute](https://getenroute.io/)는 인그레스 컨트롤러로 실행할 수 있는 [Envoy](https://www.envoyproxy.io) 기반 API 게이트웨이다.
+* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)는 인그레스 컨트롤러로서 실행할 수 있는 [Easegress](https://megaease.com/easegress/) 기반 API 게이트웨이다.
 * F5 BIG-IP [쿠버네티스 용 컨테이너 인그레스 서비스](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)를
   이용하면 인그레스를 사용하여 F5 BIG-IP 가상 서버를 구성할 수 있다.
 * [Gloo](https://gloo.solo.io)는 API 게이트웨이 기능을 제공하는 [Envoy](https://www.envoyproxy.io) 기반의
@@ -75,4 +77,4 @@ weight: 40
 
 
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 자세히 알아보기.
-* [NGINX 컨트롤러로 Minikube에서 인그레스를 설정하기](/docs/tasks/access-application-cluster/ingress-minikube).
+* [NGINX 컨트롤러로 Minikube에서 인그레스를 설정하기](/ko/docs/tasks/access-application-cluster/ingress-minikube/).

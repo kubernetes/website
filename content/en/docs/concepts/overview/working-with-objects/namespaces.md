@@ -10,8 +10,7 @@ weight: 30
 
 <!-- overview -->
 
-Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-These virtual clusters are called namespaces.
+In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 
 <!-- body -->
 
@@ -28,9 +27,9 @@ resource can only be in one namespace.
 
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 
-It is not necessary to use multiple namespaces just to separate slightly different
+It is not necessary to use multiple namespaces to separate slightly different
 resources, such as different versions of the same software: use
-[labels](/docs/concepts/overview/working-with-objects/labels) to distinguish
+{{< glossary_tooltip text="labels" term_id="label" >}} to distinguish
 resources within the same namespace.
 
 ## Working with Namespaces
@@ -39,7 +38,7 @@ Creation and deletion of namespaces are described in the
 [Admin Guide documentation for namespaces](/docs/tasks/administer-cluster/namespaces).
 
 {{< note >}}
-    Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+    Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kubernetes system namespaces.
 {{< /note >}}
 
 ### Viewing namespaces
@@ -62,7 +61,10 @@ Kubernetes starts with four initial namespaces:
    * `default` The default namespace for objects with no other namespace
    * `kube-system` The namespace for objects created by the Kubernetes system
    * `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
-   * `kube-node-lease` This namespace for the lease objects associated with each node which improves the performance of the node heartbeats as the cluster scales.
+   * `kube-node-lease` This namespace holds [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
+      objects associated with each node. Node leases allow the kubelet to send
+      [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane
+      can detect node failure.
    
 ### Setting the namespace for a request
 
@@ -91,10 +93,28 @@ kubectl config view --minify | grep namespace:
 When you create a [Service](/docs/concepts/services-networking/service/),
 it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
-that if a container just uses `<service-name>`, it will resolve to the service which
+that if a container only uses `<service-name>`, it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
+
+As a result, all namespace names must be valid
+[RFC 1123 DNS labels](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
+
+{{< warning >}}
+By creating namespaces with the same name as [public top-level
+domains](https://data.iana.org/TLD/tlds-alpha-by-domain.txt), Services in these
+namespaces can have short DNS names that overlap with public DNS records.
+Workloads from any namespace performing a DNS lookup without a [trailing dot](https://datatracker.ietf.org/doc/html/rfc1034#page-8) will
+be redirected to those services, taking precedence over public DNS. 
+
+To mitigate this, limit privileges for creating namespaces to trusted users. If
+required, you could additionally configure third-party security controls, such
+as [admission
+webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/),
+to block creating any namespace with the name of [public
+TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
+{{< /warning >}}
 
 ## Not All Objects are in a Namespace
 
@@ -113,6 +133,16 @@ kubectl api-resources --namespaced=true
 # Not in a namespace
 kubectl api-resources --namespaced=false
 ```
+
+## Automatic labelling
+
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
+`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+The value of the label is the namespace name.
+
 
 ## {{% heading "whatsnext" %}}
 

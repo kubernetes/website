@@ -16,7 +16,7 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 
-[`kubectl`](/ko/docs/tasks/tools/install-kubectl/)를 설치한다.
+[`kubectl`](/ko/docs/tasks/tools/)를 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 

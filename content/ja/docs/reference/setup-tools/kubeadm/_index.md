@@ -8,7 +8,7 @@ card:
   weight: 40
 ---
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">kubeadmは、`kubeadm init`や`kubeadm join`などのコマンドを提供するツールで、Kubernetesクラスターを構築する上でのベストプラクティスを反映した「近道」を提供するものとして開発されました。
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">kubeadmは、`kubeadm init`や`kubeadm join`などのコマンドを提供するツールで、Kubernetesクラスターを構築する上でのベストプラクティスを反映した「近道」を提供するものとして開発されました。
 
 kubeadmは実用最小限のクラスターをセットアップするための処理を実行します。設計上、kubeadmはブートストラップのみを行い、マシンのプロビジョニングは行いません。同様に、Kubernetesダッシュボード、モニタリングソリューション、クラウド向けのアドオンなど、あれば便利でもなくても支障のない各種アドオンのインストールも範囲外です。
 

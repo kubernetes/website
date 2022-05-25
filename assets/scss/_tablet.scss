@@ -77,7 +77,6 @@ $feature-box-div-width: 45%;
       position: relative;
       clear: both;
       display: table;
-      height: 160px;
 
       .content {
         display: table-cell;
@@ -124,6 +123,7 @@ $feature-box-div-width: 45%;
           position: relative;
           display: block;
           float: none;
+          text-align: center;
           max-width: 100%;
           transform: none;
         }

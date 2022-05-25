@@ -10,7 +10,8 @@ card:
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">이 페이지에서는 `kubeadm` 툴박스를 설치하는 방법을 보여준다.
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
+이 페이지에서는 `kubeadm` 툴박스 설치 방법을 보여준다.
 이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm을 사용하여 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
 
 
@@ -31,6 +32,7 @@ card:
 <!-- steps -->
 
 ## MAC 주소 및 product_uuid가 모든 노드에 대해 고유한지 확인 {#verify-mac-address}
+
 * 사용자는 `ip link` 또는 `ifconfig -a` 명령을 사용하여 네트워크 인터페이스의 MAC 주소를 확인할 수 있다.
 * product_uuid는 `sudo cat /sys/class/dmi/id/product_uuid` 명령을 사용하여 확인할 수 있다.
 
@@ -65,31 +67,13 @@ sudo sysctl --system
 자세한 내용은 [네트워크 플러그인 요구 사항](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#네트워크-플러그인-요구-사항) 페이지를 참고한다.
 
 ## 필수 포트 확인 {#check-required-ports}
+[필수 포트들](/ko/docs/reference/ports-and-protocols/)은
+쿠버네티스 컴포넌트들이 서로 통신하기 위해서 열려 있어야
+한다. 다음과 같이 telnet 명령을 이용하여 포트가 열려 있는지 확인해 볼 수 있다.
 
-### 컨트롤 플레인 노드
-
-| 프로토콜   | 방향       | 포트 범위    | 목적                      | 사용자                     |
-|----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | 인바운드    | 6443*      | 쿠버네티스 API 서버         | 모두                       |
-| TCP      | 인바운드    | 2379-2380  | etcd 서버 클라이언트 API    | kube-apiserver, etcd      |
-| TCP      | 인바운드    | 10250      | kubelet API             | 자체, 컨트롤 플레인          |
-| TCP      | 인바운드    | 10251      | kube-scheduler          | 자체                      |
-| TCP      | 인바운드    | 10252      | kube-controller-manager | 자체                      |
-
-### 워커 노드
-
-| 프로토콜   | 방향       | 포트 범위      | 목적                   | 사용자                   |
-|----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | 인바운드    | 10250       | kubelet API           | 자체, 컨트롤 플레인        |
-| TCP      | 인바운드    | 30000-32767 | NodePort 서비스†        | 모두                     |
-
-† [NodePort 서비스](/ko/docs/concepts/services-networking/service/)의 기본 포트 범위.
-
-*로 표시된 모든 포트 번호는 재정의할 수 있으므로, 사용자 지정 포트도
-열려 있는지 확인해야 한다.
-
-etcd 포트가 컨트롤 플레인 노드에 포함되어 있지만, 외부 또는 사용자 지정 포트에서
-자체 etcd 클러스터를 호스팅할 수도 있다.
+```shell
+telnet 127.0.0.1 6443
+```
 
 사용자가 사용하는 파드 네트워크 플러그인(아래 참조)은 특정 포트를 열어야 할 수도
 있다. 이것은 각 파드 네트워크 플러그인마다 다르므로, 필요한 포트에 대한
@@ -159,7 +143,7 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 높을 수 없다. 예를 들어, 1.7.0 버전의 kubelet은 1.8.0 API 서버와 완전히 호환되어야 하지만,
 그 반대의 경우는 아니다.
 
-`kubectl` 설치에 대한 정보는 [kubectl 설치 및 설정](/ko/docs/tasks/tools/install-kubectl/)을 참고한다.
+`kubectl` 설치에 대한 정보는 [kubectl 설치 및 설정](/ko/docs/tasks/tools/)을 참고한다.
 
 {{< warning >}}
 이 지침은 모든 시스템 업그레이드에서 모든 쿠버네티스 패키지를 제외한다.
@@ -169,21 +153,39 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 
 버전 차이에 대한 자세한 내용은 다음을 참고한다.
 
-* 쿠버네티스 [버전 및 버전-차이 정책](/docs/setup/release/version-skew-policy/)
+* 쿠버네티스 [버전 및 버전-차이 정책](/ko/releases/version-skew-policy/)
 * Kubeadm 관련 [버전 차이 정책](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="데비안 기반 배포판" %}}
-```bash
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
-```
+
+1. `apt` 패키지 색인을 업데이트하고, 쿠버네티스 `apt` 리포지터리를 사용하는 데 필요한 패키지를 설치한다.
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+2. 구글 클라우드의 공개 사이닝 키를 다운로드 한다.
+
+   ```shell
+   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
+
+3. 쿠버네티스 `apt` 리포지터리를 추가한다.
+
+   ```shell
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+4. `apt` 패키지 색인을 업데이트하고, kubelet, kubeadm, kubectl을 설치하고 해당 버전을 고정한다.
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
 {{% /tab %}}
 {{% tab name="레드햇 기반 배포판" %}}
 ```bash
@@ -221,8 +223,9 @@ CNI 플러그인 설치(대부분의 파드 네트워크에 필요)
 
 ```bash
 CNI_VERSION="v0.8.2"
+ARCH="amd64"
 sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
 ```
 
 명령어 파일을 다운로드할 디렉터리 정의
@@ -240,16 +243,18 @@ sudo mkdir -p $DOWNLOAD_DIR
 crictl 설치(kubeadm / Kubelet 컨테이너 런타임 인터페이스(CRI)에 필요)
 
 ```bash
-CRICTL_VERSION="v1.17.0"
-curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
+CRICTL_VERSION="v1.22.0"
+ARCH="amd64"
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
 `kubeadm`, `kubelet`, `kubectl` 설치 및 `kubelet` systemd 서비스 추가
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
 
 RELEASE_VERSION="v0.4.0"
@@ -276,39 +281,22 @@ Flatcar Container Linux 배포판은 `/usr` 디렉터리를 읽기 전용 파일
 kubelet은 이제 kubeadm이 수행할 작업을 알려 줄 때까지 크래시루프(crashloop) 상태로
 기다려야 하므로 몇 초마다 다시 시작된다.
 
-## 컨트롤 플레인 노드에서 kubelet이 사용하는 cgroup 드라이버 구성
+## cgroup 드라이버 구성
 
-도커를 사용할 때, kubeadm은 kubelet 용 cgroup 드라이버를 자동으로 감지하여
-런타임 중에 `/var/lib/kubelet/config.yaml` 파일에 설정한다.
+컨테이너 런타임과 kubelet은 
+["cgroup 드라이버"](/ko/docs/setup/production-environment/container-runtimes/)라는 속성을 갖고 있으며, 
+cgroup 드라이버는 리눅스 머신의 cgroup 관리 측면에 있어서 중요하다.
 
-다른 CRI를 사용하는 경우, 다음과 같이 `cgroupDriver` 값을 `kubeadm init` 에 전달해야 한다.
-
-```yaml
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-cgroupDriver: <value>
-```
-
-자세한 내용은 [구성 파일과 함께 kubeadm init 사용](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)을 참고한다.
-
-`cgroupfs` 가 이미 kubelet의 기본값이기 때문에, 사용자의
-CRI cgroup 드라이버가 `cgroupfs` 가 아닌 **경우에만** 위와 같이 설정해야 한다.
-
-{{< note >}}
-`--cgroup-driver` 플래그가 kubelet에 의해 사용 중단되었으므로, `/var/lib/kubelet/kubeadm-flags.env`
-또는 `/etc/default/kubelet`(RPM에 대해서는 `/etc/sysconfig/kubelet`)에 있는 경우, 그것을 제거하고 대신 KubeletConfiguration을
-사용한다(기본적으로 `/var/lib/kubelet/config.yaml` 에 저장됨).
-{{< /note >}}
-
-CRI-O 및 containerd와 같은 다른 컨테이너 런타임에 대한 cgroup 드라이버의
-자동 감지에 대한 작업이 진행 중이다.
-
+{{< warning >}}
+컨테이너 런타임과 kubelet의 cgroup 드라이버를 일치시켜야 하며, 그렇지 않으면 kubelet 프로세스에 오류가 발생한다.
+ 
+더 자세한 사항은 [cgroup 드라이버 설정하기](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)를 참고한다.
+{{< /warning >}}
 
 ## 문제 해결
 
 kubeadm에 문제가 있는 경우, [문제 해결 문서](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)를 참고한다.
 
 ## {{% heading "whatsnext" %}}
-
 
 * [kubeadm을 사용하여 클러스터 생성](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)

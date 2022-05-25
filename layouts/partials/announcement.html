@@ -15,18 +15,18 @@
     {{- if or (eq .endTime nil ) (gt ( time .endTime ) now ) -}}
       {{- if not $announcementShown -}}
       {{- $announcementShown = true -}}
-  <section lang="en" id="announcement" style="background-color: #3371e3; color: #fff; {{ .style | safeCSS }}">
+  <div lang="en" id="announcement" style="background-color: #3371e3; color: #fff; {{ .style | safeCSS }}">
     <aside>
-      <div class="content announcement main-section" data-nosnippet>
+      <div class="announcement-main" data-nosnippet>
         {{ if .title }}
-        <h4 class="announcement">
+        <h4>
             {{ .title | markdownify }}
         </h4>
         {{ end }}
-        <p class="announcement">{{ .message | markdownify }}</p>
+        <p>{{ .message | markdownify }}</p>
       </div>
     </aside>
-  </section>
+  </div>
       {{- end -}}
       {{- end -}}
     {{- end -}}

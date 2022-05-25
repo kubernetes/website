@@ -10,7 +10,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 _크론잡은_ 반복 일정에 따라 {{< glossary_tooltip term_id="job" text="잡" >}}을 만든다.
 
@@ -26,6 +26,16 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 크론잡 컨트롤러가 사용하는 시간대로 결정한다.
 {{< /caution >}}
 
+{{< caution >}}
+[v1 CronJob API](/docs/reference/kubernetes-api/workload-resources/cron-job-v1/)은 
+위에서 설명한 타임존 설정을 공식적으로 지원하지는 않는다.
+
+`CRON_TZ` 또는 `TZ` 와 같은 변수를 설정하는 것은 쿠버네티스 프로젝트에서 공식적으로 지원하지는 않는다.
+`CRON_TZ` 또는 `TZ` 와 같은 변수를 설정하는 것은 
+크론탭을 파싱하고 다음 잡 생성 시간을 계산하는 내부 라이브러리의 구현 상세사항이다.
+프로덕션 클러스터에서는 사용을 권장하지 않는다.
+{{< /caution >}}
+
 크론잡 리소스에 대한 매니페스트를 생성할 때에는 제공하는 이름이
 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 이름은 52자 이하여야 한다. 이는 크론잡 컨트롤러는 제공된 잡 이름에
@@ -36,9 +46,10 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 
 ## 크론잡
 
-크론잡은 백업 실행 또는 이메일 전송과 같은 정기적이고 반복적인
-작업을 만드는데 유용하다. 또한 크론잡은 클러스터가 유휴 상태일 때 잡을
-스케줄링하는 것과 같이 특정 시간 동안의 개별 작업을 스케줄할 수 있다.
+크론잡은 백업, 리포트 생성 등의 정기적 작업을 수행하기 위해 사용된다. 
+각 작업은 무기한 반복되도록 구성해야 한다(예: 
+1일/1주/1달마다 1회). 
+작업을 시작해야 하는 해당 간격 내 특정 시점을 정의할 수 있다.
 
 ### 예시
 
@@ -71,6 +82,7 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 | @weekly 									| 매주 일요일 자정에 실행							                             | 0 0 * * 0 		|
 | @daily (or @midnight)			| 매일 자정에 실행 																             	| 0 0 * * * 		|
 | @hourly 									| 매시 0분에 시작                          								       | 0 * * * * 		|
+
 
 
 예를 들면, 다음은 해당 작업이 매주 금요일 자정에 시작되어야 하고, 매월 13일 자정에도 시작되어야 한다는 뜻이다.
@@ -115,19 +127,32 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 크론잡은 오직 그 일정에 맞는 잡 생성에 책임이 있고,
 잡은 그 잡이 대표하는 파드 관리에 책임이 있다.
 
-## 새 컨트롤러
+## 컨트롤러 버전 {#new-controller}
 
-쿠버네티스 1.20부터 알파 기능으로 사용할 수 있는 크론잡 컨트롤러의 대체 구현이 있다. 크론잡 컨트롤러의 버전 2를 선택하려면, 다음의 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 플래그를 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}에 전달한다.
+쿠버네티스 v1.21부터 크론잡 컨트롤러의 두 번째 버전이
+기본 구현이다. 기본 크론잡 컨트롤러를 비활성화하고
+대신 원래 크론잡 컨트롤러를 사용하려면, `CronJobControllerV2`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+플래그를 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}에 전달하고,
+이 플래그를 `false` 로 설정한다. 예를 들면, 다음과 같다.
 
 ```
---feature-gates="CronJobControllerV2=true"
+--feature-gates="CronJobControllerV2=false"
 ```
 
 
 ## {{% heading "whatsnext" %}}
 
-[크론 표현 포맷](https://ko.wikipedia.org/wiki/Cron)은
-크론잡 `schedule` 필드의 포맷을 문서화 한다.
-
-크론잡 생성과 작업에 대한 지침과 크론잡 매니페스트의
-예는 [크론잡으로 자동화된 작업 실행하기](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)를 참조한다.
+* 크론잡이 의존하고 있는 [파드](/ko/docs/concepts/workloads/pods/)와
+  [잡](/ko/docs/concepts/workloads/controllers/job/) 두 개념에
+  대해 배운다.
+* 크론잡 `.spec.schedule` 필드의 [형식](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)에
+  대해서 읽는다.
+* 크론잡을 생성하고 다루기 위한 지침 및
+  크론잡 매니페스트의 예제로
+  [크론잡으로 자동화된 작업 실행](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)를 읽는다.
+* 실패했거나 완료된 잡을 자동으로 정리하도록 하려면, 
+  [완료된 잡을 자동으로 정리](/ko/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)를 확인한다.
+* `CronJob`은 쿠버네티스 REST API의 일부이다.
+  {{< api-reference page="workload-resources/cron-job-v1" >}}
+  오브젝트 정의를 읽고 쿠버네티스 크론잡 API에 대해 이해한다.

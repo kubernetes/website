@@ -232,7 +232,7 @@ contexts:
 
 上記の設定ファイルは、`dev-ramp-up`というコンテキストを表します。
 
-## KUBECONFIG環境変数を設定する
+## KUBECONFIG環境変数を設定する {#set-the-kubeconfig-environment-variable}
 
 `KUBECONFIG`という環境変数が存在するかを確認してください。もし存在する場合は、後で復元できるようにバックアップしてください。例えば:
 
@@ -290,7 +290,7 @@ contexts:
   name: exp-scratch
 ```
 
-kubeconfigファイルに関するさらなる情報を参照するには、[kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を参照してください。
+kubeconfigファイルに関するさらなる情報を参照するには、[kubeconfigファイルを使ってクラスターへのアクセスを管理する](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を参照してください。
 
 ## $HOME/.kubeディレクトリの内容を確認する
 

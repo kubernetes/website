@@ -12,10 +12,7 @@ You can use the GCP [Service Catalog Installer](https://github.com/GoogleCloudPl
 tool to easily install or uninstall Service Catalog on your Kubernetes cluster, linking it to
 Google Cloud projects.
 
-Service Catalog itself can work with any kind of managed service, not just Google Cloud.
-
-
-
+Service Catalog can work with any kind of managed service, not only Google Cloud.
 
 ## {{% heading "prerequisites" %}}
 

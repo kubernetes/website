@@ -22,9 +22,9 @@ overview: >
   Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
 - name: concepts
-  title: "Understand the basics"
+  title: "Understand Kubernetes"
   description: "Learn about Kubernetes and its fundamental concepts."
-  button: "Learn Concepts"
+  button: "View Concepts"
   button_path: "/docs/concepts"
 - name: tutorials
   title: "Try Kubernetes"
@@ -60,7 +60,7 @@ cards:
   title: K8s Release Notes
   description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
   button: "Download Kubernetes"
-  button_path: "/docs/setup/release/notes"
+  button_path: "/releases/download"
 - name: about
   title: About the documentation
   description: This website contains documentation for the current and previous 4 versions of Kubernetes.

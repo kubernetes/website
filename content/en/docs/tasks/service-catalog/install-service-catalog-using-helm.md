@@ -33,7 +33,7 @@ Up to date information on this process can be found at the
 Once Helm is installed, add the *service-catalog* Helm repository to your local machine by executing the following command:
 
 ```shell
-helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
+helm repo add svc-cat https://kubernetes-sigs.github.io/service-catalog
 ```
 
 Check to make sure that it installed successfully by executing the following command:

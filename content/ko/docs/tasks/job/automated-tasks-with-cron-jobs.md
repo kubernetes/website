@@ -1,11 +1,17 @@
 ---
 title: 크론잡(CronJob)으로 자동화된 작업 실행
-min-kubernetes-server-version: v1.8
+min-kubernetes-server-version: v1.21
+
+
 content_type: task
 weight: 10
 ---
 
 <!-- overview -->
+
+쿠버네티스 버전 1.21에서 {{< glossary_tooltip text="크론잡" term_id="cronjob" >}}이 GA (General Availability)로 승격되었다.
+이전 버전의 쿠버네티스를 사용하고 있다면, 해당 쿠버네티스 버전의 문서를 참고하여 정확한 정보를 확인할 수 있다.
+이전 버전의 쿠버네티스는 `batch/v1` 크론잡 API를 지원하지 않는다.
 
 시간 기반의 스케줄에 따라 {{< glossary_tooltip text="크론잡" term_id="cronjob" >}}을 이용해서 {{< glossary_tooltip text="잡(Job)" term_id="job" >}}을 실행할 수 있다.
 이러한 자동화된 잡은 리눅스 또는 유닉스 시스템에서 [크론](https://ko.wikipedia.org/wiki/Cron) 작업처럼 실행된다.
@@ -121,12 +127,12 @@ kubectl delete cronjob hello
 ```
 
 크론 잡을 삭제하면 생성된 모든 잡과 파드가 제거되고 추가 잡 생성이 중지된다.
-[가비지(garbage) 수집](/ko/docs/concepts/workloads/controllers/garbage-collection/)에서 잡 제거에 대해 상세한 내용을 읽을 수 있다.
+[가비지(garbage) 수집](/ko/docs/concepts/architecture/garbage-collection/)에서 잡 제거에 대해 상세한 내용을 읽을 수 있다.
 
 ## 크론 잡 명세 작성
 
 다른 모든 쿠버네티스 구성과 마찬가지로, 크론 잡은 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다. 구성 파일
-작업에 대한 일반적인 정보는 [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)와
+작업에 대한 일반적인 정보는 [애플리케이션 배포](/ko/docs/tasks/run-application/run-stateless-application-deployment/)와
 [kubectl을 사용하여 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참고한다.
 
 크론 잡 구성에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
@@ -140,7 +146,7 @@ kubectl delete cronjob hello
 `.spec.schedule` 은 `.spec` 의 필수 필드이다.
 이는 해당 잡이 생성되고 실행되는 스케줄 시간으로 `0 * * * *` 또는 `@hourly` 와 같이 [크론](https://ko.wikipedia.org/wiki/Cron) 형식의 문자열을 받아들인다.
 
-이 형식은 확장된 `vixie cron` 스텝(step) 값도 포함한다. 이 내용은
+이 형식은 확장된 "Vixie cron" 스텝(step) 값도 포함한다. 이 내용은
 [FreeBSD 매뉴얼](https://www.freebsd.org/cgi/man.cgi?crontab%285%29)에 설명되어 있다.
 
 > 스텝 값은 범위(range)와 함께 사용할 수 있다. 범위 뒤에 `/<number>` 를
@@ -168,13 +174,11 @@ kubectl delete cronjob hello
 이러한 방식으로 기한을 맞추지 못한 잡은 실패한 작업으로 간주된다.
 이 필드를 지정하지 않으면, 잡에 기한이 없다.
 
-크론잡 컨트롤러는 크론 잡에 대해 얼마나 많은 스케줄이 누락되었는지를 계산한다. 누락된 스케줄이 100개를 초과 한다면, 크론 잡은 더이상 스케줄되지 않는다. `.spec.startingDeadlineSeconds` 이 설정되지 않았다면, 크론잡 컨트롤러는 `status.lastScheduleTime` 부터 지금까지 누락된 스케줄을 계산한다.
+`.spec.startingDeadlineSeconds` 필드가 (null이 아닌 값으로) 설정되어 있다면,
+크론잡 컨트롤러는 잡 생성 완료 예상 시각과 현재 시각의 차이를 측정하고,
+시각 차이가 설정한 값보다 커지면 잡 생성 동작을 스킵한다.
 
-예를 들어, 하나의 크론 잡이 1분마다 실행되도록 설정되어 있고, 크론잡의 `status.lastScheduleTime` 은 새벽 5:00시이지만, 지금은 오전 7:00시라고 가정하자. 즉 120개의 스케줄이 누락되었다는 것이고, 그래서 크론 잡은 더이상 스케줄되지 않는다.
-
-`.spec.startingDeadlineSeconds` 필드가 (null이 아닌) 값으로 설정되어 있다면, 크론잡 컨트롤러는 `.spec.startingDeadlineSeconds` 의 값으로부터 지금까지 얼마나 많은 잡이 누락되었는지를 계산한다.
-
-예를 들어, `200` 으로 설정되었다면, 지난 200초 동안 누락된 스케줄이 몇 번 발생했는지 계산한다. 이 경우, 지난 200초 동안 누락된 스케줄이 100개가 넘으면, 크론 잡이 더이상 스케줄되지 않는다.
+예를 들어, `200` 으로 설정되었다면, 잡 생성 완료 예상 시각으로부터 200초까지는 잡이 생성될 수 있다.
 
 ### 동시성 정책
 

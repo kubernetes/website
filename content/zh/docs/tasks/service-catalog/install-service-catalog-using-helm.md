@@ -27,7 +27,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
 * You must have a Kubernetes cluster with cluster DNS enabled.
     * If you are using a cloud-based Kubernetes cluster or {{< glossary_tooltip text="Minikube" term_id="minikube" >}}, you may already have cluster DNS enabled.
     * If you are using `hack/local-up-cluster.sh`, ensure that the `KUBE_ENABLE_CLUSTER_DNS` environment variable is set, then run the install script.
-* [Install and setup kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) v1.7 or higher. Make sure it is configured to connect to the Kubernetes cluster.
+* [Install and setup kubectl](/docs/tasks/tools/) v1.7 or higher. Make sure it is configured to connect to the Kubernetes cluster.
 * Install [Helm](http://helm.sh/) v2.7.0 or newer.
     * Follow the [Helm install instructions](https://github.com/kubernetes/helm/blob/master/docs/install.md).
     * If you already have an appropriate version of Helm installed, execute `helm init` to install Tiller, the server-side component of Helm.
@@ -37,7 +37,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
 * 你必须启用 Kubernetes 集群的 DNS 功能。
     * 如果使用基于云的 Kubernetes 集群或 {{< glossary_tooltip text="Minikube" term_id="minikube" >}}，则可能已经启用了集群 DNS。
     * 如果你正在使用 `hack/local-up-cluster.sh`，请确保设置了 `KUBE_ENABLE_CLUSTER_DNS` 环境变量，然后运行安装脚本。
-* [安装和设置 v1.7 或更高版本的 kubectl](/zh/docs/tasks/tools/install-kubectl/)，确保将其配置为连接到 Kubernetes 集群。
+* [安装和设置 v1.7 或更高版本的 kubectl](/zh/docs/tasks/tools/)，确保将其配置为连接到 Kubernetes 集群。
 * 安装 v2.7.0 或更高版本的 [Helm](https://helm.sh/)。
     * 遵照 [Helm 安装说明](https://helm.sh/docs/intro/install/)。
     * 如果已经安装了适当版本的 Helm，请执行 `helm init` 来安装 Helm 的服务器端组件 Tiller。
@@ -53,7 +53,7 @@ Once Helm is installed, add the *service-catalog* Helm repository to your local 
 安装 Helm 后，通过执行以下命令将 *service-catalog* Helm 存储库添加到本地计算机：
 
 ```shell
-helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
+helm repo add svc-cat https://kubernetes-sigs.github.io/service-catalog
 ```
 
 <!--

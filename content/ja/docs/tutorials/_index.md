@@ -24,19 +24,19 @@ content_type: concept
 
 ## 設定
 
-* [ConfigMapを用いたRedisの設定](/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [ConfigMapを用いたRedisの設定](/ja/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## ステートレスアプリケーション
 
 * [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/ja/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [例: Redisを使用したPHPゲストブックアプリケーションのデプロイ](/docs/tutorials/stateless-application/guestbook/)
+* [例: Redisを使用したPHPゲストブックアプリケーションのデプロイ](/ja/docs/tutorials/stateless-application/guestbook/)
 
 ## ステートフルアプリケーション
 
 * [StatefulSetの基本](/docs/tutorials/stateful-application/basic-stateful-set/)
 
-* [例: 永続ボリュームを使ったWordPressとMySQLのデプロイ](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [例: 永続ボリュームを使ったWordPressとMySQLのデプロイ](/ja/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
 * [例: Stateful Setsを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)
 
@@ -46,9 +46,11 @@ content_type: concept
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
+* [seccomp](/docs/tutorials/clusters/seccomp/)
+
 ## サービス
 
-* [Source IPを使う](/docs/tutorials/services/source-ip/)
+* [Source IPを使う](/ja/docs/tutorials/services/source-ip/)
 
 
 

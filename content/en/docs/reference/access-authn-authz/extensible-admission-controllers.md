@@ -57,7 +57,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### Write an admission webhook server
 
 Please refer to the implementation of the [admission webhook
-server](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `AdmissionReview` request sent by the apiservers, and sends back its decision
 as an `AdmissionReview` object in the same version it received.
@@ -67,7 +67,7 @@ See the [webhook request](#request) section for details on the data sent to webh
 See the [webhook response](#response) section for the data expected from webhooks.
 
 The example admission webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/config.go#L47-L48),
+[empty](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39),
 which defaults to `NoClientCert`. This means that the webhook server does not
 authenticate the identity of the clients, supposedly apiservers. If you need
 mutual TLS or other ways to authenticate the clients, see
@@ -79,7 +79,7 @@ The webhook server in the e2e test is deployed in the Kubernetes cluster, via
 the [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps).
 The test also creates a [service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 as the front-end of the webhook server. See
-[code](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/e2e/apimachinery/webhook.go#L301).
+[code](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748).
 
 You may also deploy your webhooks outside of the cluster. You will need to update
 your webhook configurations accordingly.
@@ -147,7 +147,7 @@ webhooks:
 {{< /tabs >}}
 
 The scope field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
-resources ("Namespaced") will match this rule. "*" means that there are no scope restrictions.
+resources ("Namespaced") will match this rule. "&lowast;" means that there are no scope restrictions.
 
 {{< note >}}
 When using `clientConfig.service`, the server cert must be valid for
@@ -225,7 +225,7 @@ plugins:
 {{< /tabs >}}
 
 For more information about `AdmissionConfiguration`, see the
-[AdmissionConfiguration schema](https://github.com/kubernetes/kubernetes/blob/v1.17.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1/types.go#L27).
+[AdmissionConfiguration (v1) reference](/docs/reference/config-api/apiserver-webhookadmission.v1/).
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
 
 * In the kubeConfig file, provide the credentials:
@@ -282,7 +282,7 @@ Of course you need to set up the webhook server to handle these authentications.
 
 ### Request
 
-Webhooks are sent a POST request, with `Content-Type: application/json`,
+Webhooks are sent as POST requests, with `Content-Type: application/json`,
 with an `AdmissionReview` API object in the `admission.k8s.io` API group
 serialized to JSON as the body.
 
@@ -1396,7 +1396,7 @@ monitoring mechanisms help cluster admins to answer questions like:
 Sometimes it's useful to know which mutating webhook mutated the object in a API request, and what change did the
 webhook apply.
 
-In v1.16+, kube-apiserver performs [auditing](/docs/tasks/debug-application-cluster/audit/) on each mutating webhook
+In v1.16+, kube-apiserver performs [auditing](/docs/tasks/debug/debug-cluster/audit/) on each mutating webhook
 invocation. Each invocation generates an auditing annotation
 capturing if a request object is mutated by the invocation, and optionally generates an annotation capturing the applied
 patch from the webhook admission response. The annotations are set in the audit event for given request on given stage of

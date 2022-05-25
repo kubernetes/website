@@ -35,7 +35,7 @@ Kubernetesには、デプロイ済みのコンテナ化されたアプリケー�
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/ja/docs/concepts/overview/working-with-objects/namespaces/)
 
-Kubernetesには、[コントローラー](/docs/concepts/architecture/controller/)に依存して基本オブジェクトを構築し、追加の機能と便利な機能を提供する高レベルの抽象化も含まれています。これらには以下のものを含みます:
+Kubernetesには、[コントローラー](/ja/docs/concepts/architecture/controller/)に依存して基本オブジェクトを構築し、追加の機能と便利な機能を提供する高レベルの抽象化も含まれています。これらには以下のものを含みます:
 
 * [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)
 * [DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)

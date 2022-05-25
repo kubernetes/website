@@ -232,7 +232,7 @@ Apply the manifest to create a Deployment
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/snowflake-deployment.yaml
 ```
-We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
+We have created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that serves the hostname.
 
 ```shell
 kubectl get deployment

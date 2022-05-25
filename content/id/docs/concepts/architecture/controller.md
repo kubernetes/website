@@ -60,7 +60,7 @@ Job adalah sumber daya dalam Kubernetes yang menjalankan a
 {{< glossary_tooltip term_id="pod" >}}, atau mungkin beberapa Pod sekaligus, 
 untuk melakukan sebuah pekerjaan dan kemudian berhenti.
 
-(Setelah [dijadwalkan](../../../../en/docs/concepts/scheduling/), objek Pod 
+(Setelah [dijadwalkan](../../../../en/docs/concepts/scheduling-eviction/), objek Pod 
 akan menjadi bagian dari keadaan yang diinginkan oleh kubelet).
 
 Ketika _controller job_ melihat tugas baru, maka _controller_ itu memastikan bahwa, 
@@ -102,9 +102,8 @@ yang diinginkannya melalui server API, dan kemudian berkomunikasi langsung
 dengan sistem eksternal untuk membawa keadaan saat ini mendekat keadaan yang 
 diinginkan.
 
-(Sebenarnya ada sebuah _controller_ yang melakukan penskalaan node secara 
-horizontal dalam klaster kamu. Silahkan lihat
-[_autoscaling_ klaster](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)).
+(Sebenarnya ada sebuah [_controller_](https://github.com/kubernetes/autoscaler/) yang melakukan penskalaan node secara 
+horizontal dalam klaster kamu.
 
 ## Status sekarang berbanding status yang diinginkan {#sekarang-banding-diinginkan}
 

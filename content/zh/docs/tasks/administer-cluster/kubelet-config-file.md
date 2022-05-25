@@ -12,15 +12,11 @@ content_type: task
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
 <!--
 A subset of the Kubelet's configuration parameters may be
 set via an on-disk config file, as a substitute for command-line flags.
-This functionality is considered beta in v1.10.
 --->
 通过保存在硬盘的配置文件设置 kubelet 的部分配置参数，这可以作为命令行参数的替代。
-此功能在 v1.10 中为 beta 版。
 
 <!--
 Providing parameters via a config file is the recommended approach because
@@ -28,27 +24,19 @@ it simplifies node deployment and configuration management.
 --->
 建议通过配置文件的方式提供参数，因为这样可以简化节点部署和配置管理。
 
-## {{% heading "prerequisites" %}}
-
-<!--
-- A v1.10 or higher Kubelet binary must be installed for beta functionality.
--->
-- 需要安装 1.10 或更高版本的 kubelet 可执行文件，才能使用此 beta 功能。
-
 <!-- steps -->
 
 <!--
 ## Create the config file
 
 The subset of the Kubelet's configuration that can be configured via a file
-is defined by the `KubeletConfiguration` struct
-[here (v1beta1)](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+is defined by the
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
+struct.
 -->
 ## 创建配置文件
 
-`KubeletConfiguration` 结构体定义了可以通过文件配置的 Kubelet 配置子集，
-该结构体在 [这里（v1beta1）](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)
-可以找到。 
+[`KubeletConfiguration`](/zh/docs/reference/config-api/kubelet-config.v1beta1/) 结构体定义了可以通过文件配置的 Kubelet 配置子集，
 
 <!--
 The configuration file must be a JSON or YAML representation of the parameters
@@ -60,37 +48,46 @@ Here is an example of what this file might look like:
 确保 kubelet 可以读取该文件。
 
 下面是一个 Kubelet 配置文件示例：
-
-```yaml
-kind: KubeletConfiguration
+```
 apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+address: "192.168.0.8",
+port: 20250,
+serializeImagePulls: false,
 evictionHard:
     memory.available:  "200Mi"
 ```
 
+
 <!--
-In the example, the Kubelet is configured to evict Pods when available memory drops below 200Mi.
+In the example, the Kubelet is configured to serve on IP address 192.168.0.8 and port 20250, pull images in parallel,
+and evict Pods when available memory drops below 200Mi.
 All other Kubelet configuration values are left at their built-in defaults, unless overridden
 by flags. Command line flags which target the same value as a config file will override that value.
-
-For a trick to generate a configuration file from a live node, see
-[Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet).
 -->
-在这个示例中, 当可用内存低于 200Mi 时, kubelet 将会开始驱逐 Pods。
+在这个示例中, Kubelet 被设置为在地址 192.168.0.8 端口 20250 上提供服务，以并行方式拖拽镜像，
+当可用内存低于 200Mi 时, kubelet 将会开始驱逐 Pods。
 没有声明的其余配置项都将使用默认值，除非使用命令行参数来重载。 
 命令行中的参数将会覆盖配置文件中的对应值。
 
-作为一个小技巧，你可以从活动节点生成配置文件，相关方法请查看
-[重新配置活动集群节点的 kubelet](/zh/docs/tasks/administer-cluster/reconfigure-kubelet)。
-
 <!--
 ## Start a Kubelet process configured via the config file
+
+{{< note >}}
+If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadmin init`.
+See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/) for details.
+{{< /note >}}
 
 Start the Kubelet with the `--config` flag set to the path of the Kubelet's config file.
 The Kubelet will then load its config from this file.
 --->
 
 ## 启动通过配置文件配置的 Kubelet 进程
+
+{{< note >}}
+如果你使用 kubeadm 初始化你的集群，在使用 `kubeadmin init` 创建你的集群的时候请使用 kubelet-config。
+更多细节请阅读[使用 kubeadm 配置 kubelet](/zh/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)
+{{< /note >}}
 
 启动 Kubelet 需要将 `--config` 参数设置为 Kubelet 配置文件的路径。Kubelet 将从此文件加载其配置。
 
@@ -121,17 +118,12 @@ In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 
 <!-- discussion -->
 
+## {{% heading "whatsnext" %}}
+
 <!--
-## Relationship to Dynamic Kubelet Config
-
-If you are using the [Dynamic Kubelet Configuration](/docs/tasks/administer-cluster/reconfigure-kubelet)
-feature, the combination of configuration provided via `--config` and any flags which override these values
-is considered the default "last known good" configuration by the automatic rollback mechanism.
+- Learn more about kubelet configuration by checking the
+  [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
+  reference.
 --->
-## 与动态 Kubelet 配置的关系
-
-如果你正在使用[动态 kubelet 配置](/zh/docs/tasks/administer-cluster/reconfigure-kubelet)特性，
-那么自动回滚机制将认为通过 `--config` 提供的配置与覆盖这些值的任何参数的组合是
- "最后已知正常（last known good）" 的配置。
-
-
+- 参阅 [`KubeletConfiguration`](/zh/docs/reference/config-api/kubelet-config.v1beta1/) 
+  进一步学习 kubelet 的配置。

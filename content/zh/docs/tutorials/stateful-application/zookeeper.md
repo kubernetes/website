@@ -215,7 +215,7 @@ The StatefulSet controller creates three Pods, and each Pod has a container with
 a [ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) server.
 -->
 StatefulSet 控制器创建 3 个 Pods，每个 Pod 包含一个
-[ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) 服务器。
+[ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) 服务容器。
 
 <!--
 ### Facilitating Leader Election
@@ -670,10 +670,10 @@ The `volumeMounts` section of the `StatefulSet`'s container `template` mounts th
 StatefulSet 的容器 `template` 中的 `volumeMounts` 一节使得
 PersistentVolumes 被挂载到 ZooKeeper 服务器的数据目录。
 
-```shell
+```yaml
 volumeMounts:
-        - name: datadir
-          mountPath: /var/lib/zookeeper
+- name: datadir
+  mountPath: /var/lib/zookeeper
 ```
 
 <!--
@@ -682,7 +682,7 @@ same `PersistentVolume` mounted to the ZooKeeper server's data directory.
 Even when the Pods are rescheduled, all the writes made to the ZooKeeper
 servers' WALs, and all their snapshots, remain durable.
 -->
-当 `zk` StatefulSet 中的一个 Pod 被（重新）调度时，它总是拥有相同的 PersistentVolume，
+当 `zk` `StatefulSet` 中的一个 Pod 被（重新）调度时，它总是拥有相同的 PersistentVolume，
 挂载到 ZooKeeper 服务器的数据目录。
 即使在 Pods 被重新调度时，所有对 ZooKeeper 服务器的 WALs 的写入和它们的
 全部快照都仍然是持久的。
@@ -981,6 +981,8 @@ statefulset rolling update complete 3 pods at revision zk-5db4499664...
 This terminates the Pods, one at a time, in reverse ordinal order, and recreates them with the new configuration. This ensures that quorum is maintained during a rolling update.
 
 Use the `kubectl rollout history` command to view a history or previous configurations.
+
+The output is similar to this:
 -->
 这项操作会逆序地依次终止每一个 Pod，并用新的配置重新创建。
 这样做确保了在滚动更新的过程中 quorum 依旧保持工作。
@@ -991,6 +993,8 @@ Use the `kubectl rollout history` command to view a history or previous configur
 kubectl rollout history sts/zk
 ```
 
+输出类似于：
+
 ```
 statefulsets "zk"
 REVISION
@@ -1000,12 +1004,16 @@ REVISION
 
 <!--
 Use the `kubectl rollout undo` command to roll back the modification.
+
+The output is similar to this:
 -->
 使用 `kubectl rollout undo` 命令撤销这次的改动。
 
 ```shell
 kubectl rollout undo sts/zk
 ```
+
+输出类似于：
 
 ```
 statefulset.apps/zk rolled back
@@ -1110,17 +1118,17 @@ The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
 许多场景下，一个系统进程可以是活动状态但不响应请求，或者是不健康状态。
 你应该使用存活性探针来通知 Kubernetes 你的应用进程处于不健康状态，需要被重启。
 
-`zk` StatefulSet 的 Pod 的 `template` 一节指定了一个存活探针。
+`zk` `StatefulSet` 的 Pod 的 `template` 一节指定了一个存活探针。
 
 ```yaml
- livenessProbe:
-   exec:
-     command:
-       - sh
-       - -c
-       - "zookeeper-ready 2181"
-   initialDelaySeconds: 15
-   timeoutSeconds: 5
+  livenessProbe:
+    exec:
+      command:
+      - sh
+      - -c
+      - "zookeeper-ready 2181"
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
 ```
 
 <!--
@@ -1154,7 +1162,7 @@ In another window, using the following command to delete the `zookeeper-ready` s
 在另一个窗口中，从 Pod `zk-0` 的文件系统中删除 `zookeeper-ready` 脚本。
 
 ```shell
-kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
+kubectl exec zk-0 -- rm /opt/zookeeper/bin/zookeeper-ready
 ```
 
 <!--
@@ -1249,7 +1257,7 @@ By default, Kubernetes may co-locate Pods in a `StatefulSet` on the same node.
 For the three server ensemble you created, if two servers are on the same node, and that node fails,
 the clients of your ZooKeeper service will experience an outage until at least one of the Pods can be rescheduled.
 -->
-默认情况下，Kubernetes 可以把 StatefulSet 的 Pods 部署在相同节点上。
+默认情况下，Kubernetes 可以把 `StatefulSet` 的 Pods 部署在相同节点上。
 对于你创建的 3 个服务器的 ensemble 来说，如果有两个服务器并存于
 相同的节点上并且该节点发生故障时，ZooKeeper 服务将中断，
 直至至少一个 Pods 被重新调度。
@@ -1268,7 +1276,7 @@ Use the command below to get the nodes for Pods in the `zk` `StatefulSet`.
 ZooKeeper 服务器为止。
 但是，如果希望你的服务在容忍节点故障时无停服时间，你应该设置 `podAntiAffinity`。
 
-获取 `zk` Stateful Set 中的 Pods 的节点。
+使用下面的命令获取 `zk` `StatefulSet` 中的 Pods 的节点。
 
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
@@ -1406,14 +1414,18 @@ kubernetes-node-i4c4
 <!--
 Use [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain) to cordon and
 drain the node on which the `zk-0` Pod is scheduled.
+
+The output is similar to this:
 -->
 
 使用 [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain)
 来隔离和腾空 `zk-0` Pod 调度所在的节点。
 
 ```shell
-kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
+
+输出类似于：
 
 ```
 node "kubernetes-node-pb41" cordoned
@@ -1449,14 +1461,19 @@ zk-0      1/1       Running   0         1m
 <!--
 Keep watching the `StatefulSet`'s Pods in the first terminal and drain the node on which
 `zk-1` is scheduled.
+
+The output is similar to this:
 -->
-在第一个终端中持续观察 StatefulSet 的 Pods 并腾空 `zk-1` 调度所在的节点。
+在第一个终端中持续观察 `StatefulSet` 的 Pods 并腾空 `zk-1` 调度所在的节点。
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
+输出类似于：
+
 ```
+kubernetes-node-ixsl" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-ixsl, kube-proxy-kubernetes-node-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
 node "kubernetes-node-ixsl" drained
@@ -1465,14 +1482,18 @@ node "kubernetes-node-ixsl" drained
 <!--
 The `zk-1` Pod cannot be scheduled because the `zk` `StatefulSet` contains a `PodAntiAffinity` rule preventing
 co-location of the Pods, and as only two nodes are schedulable, the Pod will remain in a Pending state.
+
+The output is similar to this:
 -->
 `zk-1` Pod 不能被调度，这是因为 `zk` `StatefulSet` 包含了一个防止 Pods
-共存的 PodAntiAffinity 规则，而且只有两个节点可用于调度，
+共存的 `PodAntiAffinity` 规则，而且只有两个节点可用于调度，
 这个 Pod 将保持在 Pending 状态。
 
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
+输出类似于：
 
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -1498,14 +1519,19 @@ zk-1      0/1       Pending             0          0s
 ```
 
 <!--
-Continue to watch the Pods of the stateful set, and drain the node on which
+Continue to watch the Pods of the StatefulSet, and drain the node on which
 `zk-2` is scheduled.
+
+The output is similar to this:
 -->
 继续观察 StatefulSet 中的 Pods 并腾空 `zk-2` 调度所在的节点。
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
+
+输出类似于：
+
 ```
 node "kubernetes-node-i4c4" cordoned
 
@@ -1522,7 +1548,7 @@ You cannot drain the third node because evicting `zk-2` would violate `zk-budget
 
 Use `zkCli.sh` to retrieve the value you entered during the sanity test from `zk-0`.
 -->
-使用 `CRTL-C` 终止 kubectl。
+使用 `CTRL-C` 终止 kubectl。
 
 你不能腾空第三个节点，因为驱逐 `zk-2` 将和 `zk-budget` 冲突。
 然而这个节点仍然处于隔离状态（Cordoned）。
@@ -1536,7 +1562,7 @@ kubectl exec zk-0 zkCli.sh get /hello
 <!--
 The service is still available because its `PodDisruptionBudget` is respected.
 -->
-由于遵守了 PodDisruptionBudget，服务仍然可用。
+由于遵守了 `PodDisruptionBudget`，服务仍然可用。
 
 ```
 WatchedEvent state:SyncConnected type:None path:null
@@ -1556,6 +1582,8 @@ numChildren = 0
 
 <!--
 Use [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#uncordon) to uncordon the first node.
+
+The output is similar to this:
 -->
 使用 [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#uncordon)
 来取消对第一个节点的隔离。
@@ -1564,18 +1592,24 @@ Use [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#unc
 kubectl uncordon kubernetes-node-pb41
 ```
 
+输出类似于：
+
 ```
 node "kubernetes-node-pb41" uncordoned
 ```
 
 <!--
 `zk-1` is rescheduled on this node. Wait until `zk-1` is Running and Ready.
+
+The output is similar to this:
 -->
 `zk-1` 被重新调度到了这个节点。等待 `zk-1` 变为 Running 和 Ready 状态。
 
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
+输出类似于：
 
 ```
 NAME      READY     STATUS             RESTARTS  AGE
@@ -1610,13 +1644,13 @@ Attempt to drain the node on which `zk-2` is scheduled.
 尝试腾空 `zk-2` 调度所在的节点。
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 <!--
-The output:
+The output is similar to this:
 -->
-输出：
+输出类似于：
 
 ```
 node "kubernetes-node-i4c4" already cordoned
@@ -1630,6 +1664,8 @@ node "kubernetes-node-i4c4" drained
 This time `kubectl drain` succeeds.
 
 Uncordon the second node to allow `zk-2` to be rescheduled.
+
+The output is similar to this:
 -->
 这次 `kubectl drain` 执行成功。
 
@@ -1638,6 +1674,8 @@ Uncordon the second node to allow `zk-2` to be rescheduled.
 ```shell
 kubectl uncordon kubernetes-node-ixsl
 ```
+
+输出类似于：
 
 ```
 node "kubernetes-node-ixsl" uncordoned

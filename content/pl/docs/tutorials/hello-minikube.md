@@ -43,10 +43,10 @@ W tym samouczku wykorzystamy obraz kontenera, który korzysta z NGINX, aby wyśw
     {{< kat-button >}}
 
     {{< note >}}
-    Jeśli masz minikube zainstalowane lokalnie, uruchom `minikube start`.
+    Jeśli masz minikube zainstalowane lokalnie, uruchom `minikube start`. Przed uruchomieniem `minikube dashboard`, otwórz okno nowego terminala, uruchom w nim `minikube dashboard` i przełącz się z powrotem do okna głównego terminala.
     {{< /note >}}
 
-2. Otwórz panel Kubernetes w przeglądarce:
+2. Otwórz panel Kubernetesa w przeglądarce:
 
     ```shell
     minikube dashboard
@@ -56,13 +56,35 @@ W tym samouczku wykorzystamy obraz kontenera, który korzysta z NGINX, aby wyśw
 
 4. Tylko w Katacoda: Wpisz `30000`i kliknij **Display Port**.
 
+{{< note >}}
+Polecenie `dashboard` uruchamia dodatek panelu i otwiera proxy w domyślnej przeglądarce.
+W panelu można tworzyć różne obiekty Kubernetesa, takie jak _Deployment_ czy _Serwis_.
+
+Jeśli pracujesz z uprawnieniami roota, skorzystaj z: [Otwieranie panelu poprzez URL](#otwieranie-panelu-poprzez-url).
+
+Panel jest domyślnie dostępny jedynie z wewnętrznej sieci Kubernetesa.
+Polecenie `dashboard` tworzy tymczasowe proxy, które udostępnia panel także poza tą wewnętrzną sieć.
+
+Aby zatrzymać proxy, wciśnij `Ctrl+C` i zakończ proces.
+Panel ciągle działa na klastrze Kubernetesa, nawet po przerwaniu działania proxy.
+Aby dostać się ponownie do panelu, trzeba stworzyć kolejne proxy poleceniem `dashboard`.
+{{< /note >}}
+
+## Otwieranie panelu poprzez URL
+
+Jeśli nie chcesz otwierać przeglądarki, uruchom panel z opcją `--url`, aby wyświetlić URL:
+
+```shell
+minikube dashboard --url
+```
+
 ## Stwórz Deployment
 
-[*Pod*](/docs/concepts/workloads/pods/) w Kubernetes to grupa jednego lub wielu kontenerów
-połączonych ze sobą na potrzeby administrowania i dostępu sieci. W tym samouczku Pod 
+[*Pod*](/docs/concepts/workloads/pods/) w Kubernetesie to grupa jednego lub wielu kontenerów
+połączonych ze sobą na potrzeby administrowania i dostępu sieci. W tym samouczku Pod
 zawiera tylko jeden kontener. [*Deployment*](/docs/concepts/workloads/controllers/deployment/)
-w Kubernetes monitoruje stan twojego Poda
-i restartuje należący do niego kontener, jeśli ten z jakichś powodów przestanie działać.
+w Kubernetesie monitoruje stan twojego Poda
+i restartuje należące do niego kontenery, jeśli z jakichś powodów przestaną działać.
 Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i skalowaniem Podów.
 
 1. Użyj polecenia `kubectl create` do stworzenia Deploymentu, który będzie zarządzał Podem. Pod uruchamia kontener
@@ -118,7 +140,7 @@ wykorzystując podany obraz Dockera.
 
 Domyślnie Pod jest dostępny tylko poprzez swój wewnętrzny adres IP
 wewnątrz klastra Kubernetes. Aby kontener `hello-node` był osiągalny spoza
-wirtualnej sieci Kubernetes, musisz najpierw udostępnić Pod
+wirtualnej sieci Kubernetesa, musisz najpierw udostępnić Pod
 jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes.
 
 1. Udostępnij Pod w Internecie przy pomocy polecenia `kubectl expose`:
@@ -205,10 +227,10 @@ Narzędzie minikube dysponuje zestawem wbudowanych {{< glossary_tooltip text="do
     Wynik powinien wyglądać podobnie do:
 
     ```
-    metrics-server was successfully enabled
+    The 'metrics-server' addon is enabled
     ```
 
-3. Sprawdź Pod i Serwis, który właśnie stworzyłeś:
+3. Sprawdź Pody i Serwisy, który właśnie stworzyłeś:
 
     ```shell
     kubectl get pod,svc -n kube-system

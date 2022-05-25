@@ -18,47 +18,10 @@ weight: 90
 请试用这些功能并给我们提供反馈！
 {{< /caution >}}
 
-## kubeadm alpha kubeconfig user {#cmd-phase-kubeconfig}
-
 <!--
-The `user` subcommand can be used for the creation of kubeconfig files for additional users.
+Currently there are no experimental commands under `kubeadm alpha`.
 -->
-使用子命令 `user` 为其他用户创建 kubeconfig 文件。
-
-{{< tabs name="tab-kubeconfig" >}}
-{{< tab name="kubeconfig" include="generated/kubeadm_alpha_kubeconfig.md" />}}
-{{< tab name="user" include="generated/kubeadm_alpha_kubeconfig_user.md" />}}
-{{< /tabs >}}
-
-## kubeadm alpha kubelet config {#cmd-phase-kubelet}
-
-<!--
-Use the following command to enable the DynamicKubeletConfiguration feature.
--->
-使用以下命令启用 DynamicKubeletConfiguration 功能。
-
-{{< tabs name="tab-kubelet" >}}
-{{< tab name="kubelet" include="generated/kubeadm_alpha_kubelet.md" />}}
-{{< tab name="enable-dynamic" include="generated/kubeadm_alpha_kubelet_config_enable-dynamic.md" />}}
-{{< /tabs >}}
-
-## kubeadm alpha selfhosting pivot {#cmd-selfhosting}
-
-<!--
-The subcommand `pivot` can be used to convert a static Pod-hosted control plane into a self-hosted one.
--->
-子命令 `pivot` 可用于将 Pod 托管的静态控制平面转换为自托管的控制平面。
-有关 `pivot` 更多信息，请参见
-[文档](/zh/docs/setup/production-environment/tools/kubeadm/self-hosting/)。
-
-<!--
-[Documentation](/docs/setup/production-environment/tools/kubeadm/self-hosting/)
--->
-
-{{< tabs name="selfhosting" >}}
-{{< tab name="selfhosting" include="generated/kubeadm_alpha_selfhosting.md" />}}
-{{< tab name="pivot" include="generated/kubeadm_alpha_selfhosting_pivot.md" />}}
-{{< /tabs >}}
+目前在 `kubeadm alpha` 之下没有试验性质的命令。
 
 ## {{% heading "whatsnext" %}}
 

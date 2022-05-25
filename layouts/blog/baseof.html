@@ -12,6 +12,7 @@
     <header>
       {{ partial "navbar.html" . }}
       {{ partial "announcement.html" . }}
+      {{ block "hero" . }}
       <section class="header-hero text-center text-white font-bold pb-4">
         <h1>
           {{ $sectionHeading := .Site.GetPage "section" .Section }}
@@ -20,6 +21,8 @@
           {{ end }}
         </h1>
       </section>
+         {{ block "hero-more" . }}{{ end }}
+      {{ end }}
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">

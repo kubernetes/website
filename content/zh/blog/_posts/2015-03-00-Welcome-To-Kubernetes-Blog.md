@@ -9,14 +9,14 @@ slug: welcome-to-kubernetes-blog
 title: Welcome to the Kubernetes Blog!
 date: 2015-03-20
 slug: welcome-to-kubernetes-blog
-url: /blog/2015/03/Welcome-To-Kubernetes-Blog
+url: /zh/blog/2015/03/Welcome-To-Kubernetes-Blog
 ---
 -->
 
 <!--
 Welcome to the new Kubernetes Blog. Follow this blog to learn about the Kubernetes Open Source project. We plan to post release notes, how-to articles, events, and maybe even some off topic fun here from time to time.
 -->
-欢迎来到新的 Kubernetes 博客。关注此博客，了解 Kubernetes 开源项目。我们计划不时发布发布说明，操作方法文章，活动，甚至一些非常有趣的话题。
+欢迎来到新的 Kubernetes 博客。关注此博客，了解 Kubernetes 开源项目。我们计划时不时的发布发布说明，操作方法文章，活动，甚至一些非常有趣的话题。
 
 <!--
 If you are using Kubernetes or contributing to the project and would like to do a guest post, [please let me know](mailto:kitm@google.com).
@@ -41,7 +41,7 @@ To start things off, here's a roundup of recent Kubernetes posts from other site
 -->
 
 - [使用 Vitess 和 Kubernetes 在云中扩展 MySQL](http://googlecloudplatform.blogspot.com/2015/03/scaling-MySQL-in-the-cloud-with-Vitess-and-Kubernetes.html)
-- [虚拟机上的容器群集](http://googlecloudplatform.blogspot.com/2015/02/container-clusters-on-vms.html)
+- [虚拟机上的容器集群](http://googlecloudplatform.blogspot.com/2015/02/container-clusters-on-vms.html)
 - [想知道的关于 kubernetes 的一切，却又不敢问](http://googlecloudplatform.blogspot.com/2015/01/everything-you-wanted-to-know-about-Kubernetes-but-were-afraid-to-ask.html)
 - [什么构成容器集群？](http://googlecloudplatform.blogspot.com/2015/01/what-makes-a-container-cluster.html)
 - [将 OpenStack 和 Kubernetes 与 Murano 集成](https://www.mirantis.com/blog/integrating-openstack-and-kubernetes-with-murano/)

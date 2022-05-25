@@ -124,7 +124,7 @@ kubectl delete replicaset my-repset --cascade=false
 
 ### Deploymentsに関する追記事項
 
-Kubernetes1.7以前では、Deploymentに対するカスケード削除において、作成されたReplicaSetだけでなく、それらのPodも削除するためには、ユーザーは`propagationPolicy: Foreground`と指定*しなくてはなりません* 。もしこのタイプの_propagationPolicy_ が使われなかった場合、そのReplicaSetは削除されますが、そのPodは削除されずみなしご状態になります。  
+Kubernetes1.7以前では、Deploymentに対するカスケード削除において、作成されたReplicaSetだけでなく、それらのPodも削除するためには、ユーザーは`propagationPolicy: Foreground`と指定*しなくてはなりません* 。もしこのタイプの*propagationPolicy*が使われなかった場合、そのReplicaSetは削除されますが、そのPodは削除されずみなしご状態になります。  
 さらなる詳細に関しては[kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613)を参照してください。
 
 ## 既知の問題について
