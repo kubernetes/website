@@ -355,11 +355,8 @@ spec:
 
 ### Version removal
 
-An API version can be removed if there is a newer API version served and stored in the API server for at least 3 Kubernetes releases.
-The older API version cannot be dropped from the CRD manifest until data has been migrated to the newer API version for all clusters that served the older version of the CRD and cleared the older version from status.storedVersions.
+An older API version cannot be dropped from a CustomResourceDefinition manifest until existing persisted data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
 
-{{< tabs name="CustomResourceDefinition_versioning_removal" >}}
-{{% tab name="apiextensions.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -373,12 +370,13 @@ spec:
   scope: Namespaced
   versions:
   - name: v1beta1
-    served: false
     # This indicates the v1beta1 version of the custom resource is no longer served.
     # API requests to this version receive a not found error in the server response.
+    served: false
     schema: ...
   - name: v1
     served: true
+    # The new served version should be set as the storage version
     storage: true
     schema: ...
 ```
