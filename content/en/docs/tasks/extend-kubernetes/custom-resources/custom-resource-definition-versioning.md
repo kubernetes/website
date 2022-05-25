@@ -353,6 +353,36 @@ spec:
 {{< /tabs >}}
 
 
+### Version removal
+
+An API version can be removed if there is a newer API version served and stored in the API server for at least 3 Kubernetes releases.
+The older API version cannot be dropped from the CRD manifest until data has been migrated to the newer API version for all clusters that served the older version of the CRD and cleared the older version from status.storedVersions.
+
+{{< tabs name="CustomResourceDefinition_versioning_removal" >}}
+{{% tab name="apiextensions.k8s.io/v1" %}}
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+  name: crontabs.example.com
+spec:
+  group: example.com
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    served: false
+    # This indicates the v1beta1 version of the custom resource is no longer served.
+    # API requests to this version receive a not found error in the server response.
+    schema: ...
+  - name: v1
+    served: true
+    storage: true
+    schema: ...
+```
+
 ## Webhook conversion
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
