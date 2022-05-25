@@ -292,7 +292,7 @@ https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">criSocket</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/run/dockershim.sock&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">taints</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">key</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;kubeadmNode&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;master&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;someValue&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">effect</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;NoSchedule&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">kubeletExtraArgs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">v</span>:<span style="color:#bbb"> </span><span style="color:#099">4</span><span style="color:#bbb">
@@ -1274,9 +1274,10 @@ cluster information.
 <p>
    <!--
    <code>tlsBootstrapToken</code> is a token used for TLS bootstrapping.
-If <code>bootstrapToken</code> is set, this field is defaulted to <code>.bootstrapToken.token</code>, but
-can be overridden. If <code>file<code> is set, this field &lowast;&lowast;must be set&lowast;&lowast; in case the KubeConfigFile
-does not contain any other authentication information
+If <code>bootstrapToken</code> is set, this field is defaulted to <code>.bootstrapToken.token</code>,
+but can be overridden.
+If <code>file</code> is set, this field <strong>must be set</strong> in case the KubeConfigFile does not
+contain any other authentication information.
    -->
    <code>tlsBootstrapToken</code> 是 TLS 启动引导过程中使用的令牌。
 如果设置了 <code>bootstrapToken</code>，则此字段默认值为 <code>.bootstrapToken.token</code>，
@@ -1783,29 +1784,28 @@ Defaults to the hostname of the node if not provided.</p>
 </td>
 <td>
    <!--
-   <p><code>criSocket<code> is used to retrieve container runtime information.
-This information will be annotated to the Node API object, for later re-use</p>
+   <p><code>criSocket</code> is used to retrieve container runtime information. This information will
+be annotated to the Node API object, for later re-use.</p>
    -->
    <p><code>criSocket</code> 用来读取容器运行时的信息。
-此信息会被以注解的方式添加到 Node API 对象至上，用于后续用途。</p>
+此信息会被以注解的方式添加到 Node API 对象之上，用于后续用途。</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
-   <!--
+<!--
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
-If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted to
-<code>'node-role.kubernetes.io/master=&quot;&quot;'</code>.
-If you don't want to taint your control-plane node, set this field to an empty list,
-i.e. <code>taints: []</code> in the YAML file. This field is solely used for Node registration.</p>
-   -->
+If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted with
+a control-plane taint for control-plane nodes. If you don't want to taint your control-plane
+node, set this field to an empty list, i.e. <code>taints: []</code>, in the YAML file. This field is
+solely used for Node registration.</p>
+-->
    <p><code>tains</code> 设定 Node API 对象被注册时要附带的污点。
-若未设置此字段（即字段值为 null）, 在 <code>kubeadm init</code> 期间，节点与控制面之间的通信。
-默认值为污点默认设置为 <code>taints: ['node-role.kubernetes.io/master:&quot;&quot;']</code>。
-如果你不希望为控制面节点设置污点，可以在 YAML 中将此字段设置为空的列表，即
-<code>taints: []</code>。 此字段仅用在 Node 注册期间。</p>
+若未设置此字段（即字段值为 null），在 <code>kubeadm init</code> 期间，默认为控制平面节点添加控制平面污点。
+如果你不想污染你的控制平面节点，可以将此字段设置为空列表（即 YAML 文件中的 <code>taints: []</code>），
+这个字段只用于节点注册。</p>
 </td>
 </tr>
 <tr><td><code>kubeletExtraArgs</code> <B><!--[Required]-->[必需]</B><br/>
