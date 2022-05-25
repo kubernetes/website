@@ -375,6 +375,97 @@ However, the particular path specified in the custom recycler Pod template in th
 正被回收的卷的路径。
 
 <!--
+### PersistentVolume deletion protection finalizer
+
+Finalizers can be added on a PersistentVolume to ensure that PersistentVolumes
+having `Delete` reclaim policy are deleted only after the backing storage are deleted.
+-->
+### PersistentVolume 删除保护 finalizer  {#persistentvolume-deletion-protection-finalizer}
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+可以在 PersistentVolume 上添加终结器（Finalizers），以确保只有在删除对应的存储后才删除具有
+`Delete` 回收策略的 PersistentVolume。
+
+<!--
+The newly introduced finalizers `kubernetes.io/pv-controller` and `external-provisioner.volume.kubernetes.io/finalizer`
+are only added to dynamically provisioned volumes.
+
+The finalizer `kubernetes.io/pv-controller` is added to in-tree plugin volumes. The following is an example
+-->
+新引入的 `kubernetes.io/pv-controller` 和 `external-provisioner.volume.kubernetes.io/finalizer`
+终结器仅会被添加到动态制备的卷上。
+
+终结器 `kubernetes.io/pv-controller` 会被添加到树内插件卷上。
+下面是一个例子：
+
+```shell
+kubectl describe pv pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Name:            pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Labels:          <none>
+Annotations:     kubernetes.io/createdby: vsphere-volume-dynamic-provisioner
+                 pv.kubernetes.io/bound-by-controller: yes
+                 pv.kubernetes.io/provisioned-by: kubernetes.io/vsphere-volume
+Finalizers:      [kubernetes.io/pv-protection kubernetes.io/pv-controller]
+StorageClass:    vcp-sc
+Status:          Bound
+Claim:           default/vcp-pvc-1
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        1Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:               vSphereVolume (a Persistent Disk resource in vSphere)
+    VolumePath:         [vsanDatastore] d49c4a62-166f-ce12-c464-020077ba5d46/kubernetes-dynamic-pvc-74a498d6-3929-47e8-8c02-078c1ece4d78.vmdk
+    FSType:             ext4
+    StoragePolicyName:  vSAN Default Storage Policy
+Events:                 <none>
+```
+
+<!--
+The finalizer `external-provisioner.volume.kubernetes.io/finalizer` is added for CSI volumes.
+The following is an example:
+-->
+终结器 `external-provisioner.volume.kubernetes.io/finalizer` 会被添加到 CSI 卷上。下面是一个例子：
+
+```shell
+Name:            pvc-2f0bab97-85a8-4552-8044-eb8be45cf48d
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: csi.vsphere.vmware.com
+Finalizers:      [kubernetes.io/pv-protection external-provisioner.volume.kubernetes.io/finalizer]
+StorageClass:    fast
+Status:          Bound
+Claim:           demo-app/nginx-logs
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        200Mi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:              CSI (a Container Storage Interface (CSI) volume source)
+    Driver:            csi.vsphere.vmware.com
+    FSType:            ext4
+    VolumeHandle:      44830fa8-79b4-406b-8b58-621ba25353fd
+    ReadOnly:          false
+    VolumeAttributes:      storage.kubernetes.io/csiProvisionerIdentity=1648442357185-8081-csi.vsphere.vmware.com
+                           type=vSphere CNS Block Volume
+Events:                <none>
+```
+
+<!--
+Enabling the `CSIMigration` feature for a specific in-tree volume plugin will remove
+the `kubernetes.io/pv-controller` finalizer, while adding the `external-provisioner.volume.kubernetes.io/finalizer`
+finalizer. Similarly, disabling `CSIMigration` will remove the `external-provisioner.volume.kubernetes.io/finalizer`
+finalizer, while adding the `kubernetes.io/pv-controller` finalizer.
+-->
+为特定的树内卷插件启用 `CSIMigration` 特性将删除 `kubernetes.io/pv-controller` 终结器，
+同时添加 `external-provisioner.volume.kubernetes.io/finalizer` 终结器。
+同样，禁用 `CSIMigration` 将删除 `external-provisioner.volume.kubernetes.io/finalizer` 终结器，
+同时添加 `kubernetes.io/pv-controller` 终结器。
+
+<!--
 ### Reserving a PersistentVolume
 
 The control plane can [bind PersistentVolumeClaims to matching PersistentVolumes](#binding) in the
@@ -550,19 +641,7 @@ FlexVolume 卷（于 Kubernetes v1.23 弃用）可以在 Pod 重启期间调整�
 -->
 #### 重设使用中 PVC 申领的大小    {#resizing-an-in-use-persistentvolumevlaim}
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
-
-<!--
-Expanding in-use PVCs is available as beta since Kubernetes 1.15, and as alpha since 1.11. The `ExpandInUsePersistentVolumes` feature must be enabled, which is the case automatically for many clusters for beta features. Refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
--->
-{{< note >}}
-Kubernetes 从 1.15 版本开始将调整使用中 PVC 申领大小这一能力作为 Beta
-特性支持；该特性在 1.11 版本以来处于 Alpha 阶段。
-`ExpandInUsePersistentVolumes` 特性必须被启用；在很多集群上，与此类似的
-Beta 阶段的特性是自动启用的。
-可参考[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-文档了解更多信息。
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
@@ -640,13 +719,13 @@ Recovery from failing PVC expansion by users is available as an alpha feature si
 -->
 {{< note >}}
 Kubernetes 从 1.23 版本开始将允许用户恢复失败的 PVC 扩展这一能力作为
-alpha 特性支持。 `RecoverVolumeExpansionFailure` 必须被启用以允许使用此功能。
+alpha 特性支持。 `RecoverVolumeExpansionFailure` 必须被启用以允许使用此特性。
 可参考[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
 文档了解更多信息。
 {{< /note >}}
 
 <!--
-If the feature gates `ExpandPersistentVolumes` and `RecoverVolumeExpansionFailure` are both
+If the feature gates `RecoverVolumeExpansionFailure` is
 enabled in your cluster, and expansion has failed for a PVC, you can retry expansion with a
 smaller size than the previously requested value. To request a new expansion attempt with a
 smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
@@ -655,8 +734,8 @@ This is useful if expansion to a higher value did not succeed because of capacit
 If that has happened, or you suspect that it might have, you can retry expansion by specifying a
 size that is within the capacity limits of underlying storage provider. You can monitor status of resize operation by watching `.status.resizeStatus` and events on the PVC.
 -->
-如果集群中的特性门控 `ExpandPersistentVolumes` 和 `RecoverVolumeExpansionFailure`
-都已启用，在 PVC 的扩展发生失败时，你可以使用比先前请求的值更小的尺寸来重试扩展。
+如果集群中的特性门控 `RecoverVolumeExpansionFailure`
+已启用，在 PVC 的扩展发生失败时，你可以使用比先前请求的值更小的尺寸来重试扩展。
 要使用一个更小的尺寸尝试请求新的扩展，请编辑该 PVC 的 `.spec.resources` 并选择
 一个比你之前所尝试的值更小的值。
 如果由于容量限制而无法成功扩展至更高的值，这将很有用。
@@ -1411,10 +1490,7 @@ spec:
 
 ## Volume populators and data sources
 
-Kubernetes supports custom volume populators; this alpha feature was introduced
-in Kubernetes 1.18. Kubernetes 1.22 reimplemented the mechanism with a redesigned API.
-Check that you are reading the version of the Kubernetes documentation that matches your
-cluster. {{% version-check %}}
+Kubernetes supports custom volume populators.
 To use custom volume populators, you must enable the `AnyVolumeDataSource`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for
 the kube-apiserver and kube-controller-manager.
@@ -1428,13 +1504,11 @@ gate enabled, use of the `dataSourceRef` is preferred over `dataSource`.
 
 ## 卷填充器（Populator）与数据源      {#volume-populators-and-data-sources}
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 {{< note >}}
-Kubernetes 支持自定义的卷填充器；Kubernetes 1.18 版本引入了这个 alpha 特性。
-Kubernetes 1.22 使用重新设计的 API 重新实现了该机制。
-确认你正在阅读与你的集群版本一致的 Kubernetes 文档。{{% version-check %}}
-要使用自定义的卷填充器，你必须为 kube-apiserver 和 kube-controller-manager 启用 `AnyVolumeDataSource`
+Kubernetes 支持自定义的卷填充器；要使用自定义的卷填充器，你必须为
+kube-apiserver 和 kube-controller-manager 启用 `AnyVolumeDataSource`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 {{< /note >}}
 
@@ -1630,7 +1704,7 @@ Volume snapshot feature was added to support CSI Volume Plugins only. For detail
 To enable support for restoring a volume from a volume snapshot data source, enable the
 `VolumeSnapshotDataSource` feature gate on the apiserver and controller-manager.
 -->
-卷快照（Volume Snapshot）功能的添加仅是为了支持 CSI 卷插件。
+卷快照（Volume Snapshot）特性的添加仅是为了支持 CSI 卷插件。
 有关细节可参阅[卷快照](/zh/docs/concepts/storage/volume-snapshots/)文档。
 
 要启用从卷快照数据源恢复数据卷的支持，可在 API 服务器和控制器管理器上启用
