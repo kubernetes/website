@@ -6,7 +6,7 @@ reviewers:
 - perithompson
 title:    Security For Windows Nodes
 content_type: concept
-weight: 75
+weight: 40
 ---
 
 <!-- overview -->
