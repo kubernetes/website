@@ -141,7 +141,6 @@ It might be better to try and see it for yourself. This is an alpha feature, and
 this help you achieve your stateful scenarios Did you find a bug or do you think the behavior as implemented is not intuitive or can
 break applications or catch them by surprise? Please [open an issue](https://github.com/kubernetes/kubernetes/issues) to let us know.
 
-Keep an eye on this space, for more blogs to dissect the behavior of this feature in the coming months.
 ## Further reading and next steps {#next-steps}
 - [Maximum unavailable Pods](/docs/concepts/workloads/controllers/statefulset/#maximum-unavailable-pods)
 - [KEP for MaxUnavailable for StatefulSet](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/961-maxunavailable-for-statefulset)
