@@ -121,7 +121,7 @@ CNI versions" or "Failed to destroy network for sandbox" error conditions.
 ## CSI Snapshot
 
 [VolumeSnapshot v1beta1 CRD has been removed](https://github.com/kubernetes/enhancements/issues/177). 
-Volume snapshot and restore functionality for Kubernetes and the Container Storage Interface (CSI), which provides standardized APIs design (CRDs) and adds PV snapshot/restore support for CSI volume drivers, entered beta in v1.20. VolumeSnapshot v1beta1 was deprecated in v1.21 and is now unsupported. Refer to [KEP-177: CSI Snapshot](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/177-volume-snapshot#kep-177-csi-snapshot) and [kubernetes-csi/external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter/releases/tag/v4.1.0) for more information.
+Volume snapshot and restore functionality for Kubernetes and the Container Storage Interface (CSI), which provides standardized APIs design (CRDs) and adds PV snapshot/restore support for CSI volume drivers, moved to GA in v1.20. VolumeSnapshot v1beta1 was deprecated in v1.20 and is now unsupported. Refer to [KEP-177: CSI Snapshot](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/177-volume-snapshot#kep-177-csi-snapshot) and [Volume Snapshot GA blog](https://kubernetes.io/blog/2020/12/10/kubernetes-1.20-volume-snapshot-moves-to-ga/) for more information.
 
 ## Other Updates
 
