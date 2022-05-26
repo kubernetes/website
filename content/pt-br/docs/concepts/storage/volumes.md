@@ -12,7 +12,7 @@ weight: 10
 <!-- Visão Geral -->
 
 Os arquivos em disco em um contêiner são efêmeros, o que apresenta alguns problemas para 
-aplicações não triviais quando executados em contêineres. Um problema é a perda de arquivos 
+aplicações não triviais quando executadas em contêineres. Um problema é a perda de arquivos 
 quando um contêiner quebra. O kubelet reinicia o contêiner, mas em um estado limpo. Um segundo 
 problema ocorre ao compartilhar arquivos entre contêineres que são executados juntos em 
 um `Pod`. A abstração de {{< glossary_tooltip text="volume" term_id="volume" >}} 
@@ -29,9 +29,9 @@ O Kubernetes suporta muitos tipos de volumes. Um {{< glossary_tooltip term_id="p
 
 Em sua essência, um volume é um diretório, eventualmente com alguns dados dentro dele, que é acessível aos contêineres de um Pod. Como esse diretório vem a ser, o meio que o suporta e o conteúdo do mesmo são determinados pelo tipo particular de volume utilizado.
 
-Para utilizar um volume, especifique os volumes que serão disponibilizados para o Pod em `.spec.volumes` e declare onde montar esses volumes dentro dos contêineres em `.spec.containers[*].volumeMounts`. Um processo em um contêiner enxerga uma visualização do sistema de arquivos composta pelo do conteúdo inicial da {{< glossary_tooltip text="imagem do contêiner" term_id="image" >}} mais os volumes (se definidos) montados dentro do contêiner. O processo enxerga um sistema de arquivos raiz que inicialmente corresponde ao conteúdo da imagem do contêiner. Qualquer gravação dentro dessa hierarquia do sistema de arquivos, se permitida, afetará o que esse processo enxerga quando ele executa um acesso subseqüente ao sistema de arquivos. Os volumes são montados nos [caminhos especificados](#using-subpath) dentro da imagem. Para cada contêiner definido em um Pod, você deve especificar independentemente onde montar cada volume utilizado pelo contêiner.
+Para utilizar um volume, especifique os volumes que serão disponibilizados para o Pod em `.spec.volumes` e declare onde montar esses volumes dentro dos contêineres em `.spec.containers[*].volumeMounts`. Um processo em um contêiner enxerga uma visualização do sistema de arquivos composta pelo do conteúdo inicial da {{< glossary_tooltip text="imagem do contêiner" term_id="image" >}} mais os volumes (se definidos) montados dentro do contêiner. O processo enxerga um sistema de arquivos raiz que inicialmente corresponde ao conteúdo da imagem do contêiner. Qualquer gravação dentro dessa hierarquia do sistema de arquivos, se permitida, afetará o que esse processo enxerga quando ele executa um acesso subsequente ao sistema de arquivos. Os volumes são montados nos [caminhos especificados](#using-subpath) dentro da imagem. Para cada contêiner definido em um Pod, você deve especificar independentemente onde montar cada volume utilizado pelo contêiner.
 
-Volumes não podem ser montados dentro de outros volumes (mas você pode consultar [Utilizando subPath](#using-subpath) para um mecanismo relacionado). Além disso, um volume não pode conter uma hard link para qualquer outro dado em um volume diferente.
+Volumes não podem ser montados dentro de outros volumes (mas você pode consultar [Utilizando subPath](#using-subpath) para um mecanismo relacionado). Além disso, um volume não pode conter um link físico para qualquer outro dado em um volume diferente.
 
 ## Tipos de Volumes {#volume-types}
 
@@ -77,7 +77,7 @@ spec:
       name: test-volume
   volumes:
   - name: test-volume
-    # This AWS EBS volume must already exist.
+    # Esse volume AWS EBS já deve existir.
     awsElasticBlockStore:
       volumeID: "<volume id>"
       fsType: ext4
@@ -107,7 +107,7 @@ Para obter mais detalhes, consulte [plugin de volume `azureDisk`](https://github
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-Quando o recurso `CSIMigration` para `azureDisk` está habilitado, todas as operações de plugin do tipo in-tree são redirecionadas para o Driver de Cointainer Storage Interface (CSI) `disk.csi.azure.com`. Para utilizar este recurso, o [Driver CSI Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) deve estar instalado no cluster e os recursos `CSIMigration` e `CSIMigrationAzureDisk` devem estar ativados.
+Quando o recurso `CSIMigration` para `azureDisk` está habilitado, todas as operações de plugin do tipo in-tree são redirecionadas para o Driver de Cointêiner Storage Interface (CSI) `disk.csi.azure.com`. Para utilizar este recurso, o [Driver CSI Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) deve estar instalado no cluster e os recursos `CSIMigration` e `CSIMigrationAzureDisk` devem estar ativados.
 
 #### Migração CSI azureDisk concluída
 
@@ -165,7 +165,7 @@ spec:
       name: test-volume
   volumes:
   - name: test-volume
-    # This OpenStack volume must already exist.
+    # Esse volume OpenStack já deve existir.
     cinder:
       volumeID: "<volume id>"
       fsType: ext4
@@ -314,7 +314,7 @@ spec:
       name: test-volume
   volumes:
   - name: test-volume
-    # This GCE PD must already exist.
+    # Esse Disco Persistente (PD) GCE já deve existir.
     gcePersistentDisk:
       pdName: my-data-disk
       fsType: ext4
@@ -353,7 +353,7 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        # failure-domain.beta.kubernetes.io/zone should be used prior to 1.21
+        # failure-domain.beta.kubernetes.io/zone deve ser usado para versões anteriores à 1.21
         - key: topology.kubernetes.io/zone
           operator: In
           values:
@@ -460,13 +460,13 @@ spec:
   volumes:
   - name: test-volume
     hostPath:
-      # directory location on host
+      # localização do diretório no host
       path: /data
-      # this field is optional
+      # este campo é opcional
       type: Directory
 ```
 
-{{< caution >}} O modo `FileOrCreate` não cria o diretório principal do arquivo. Se o diretório pai do arquivo montado não existir, o pod não será iniciado. Para garantir que esse modo funcione, você pode tentar montar diretórios e arquivos separadamente, como mostrado em [configuração`FileOrCreate`](#hostpath-fileorcreate-example). {{< /caution >}}
+{{< caution >}} O modo `FileOrCreate` não cria o diretório principal do arquivo. Se o diretório pai do arquivo montado não existir, o pod não será iniciado. Para garantir que esse modo funcione, você pode tentar montar diretórios e arquivos separadamente, como mostrado em [configuração `FileOrCreate`](#hostpath-fileorcreate-example). {{< /caution >}}
 
 #### Exemplo de configuração FileOrCreate do hostPath {#hostpath-fileorcreate-example}
 
@@ -487,7 +487,7 @@ spec:
   volumes:
   - name: mydir
     hostPath:
-      # Ensure the file directory is created.
+      # Certifique-se de que o diretório foi criado.
       path: /var/local/aaa
       type: DirectoryOrCreate
   - name: myfile
@@ -587,7 +587,7 @@ spec:
       name: pxvol
   volumes:
   - name: pxvol
-    # This Portworx volume must already exist.
+    # Este volume Portworx já deve existir.
     portworxVolume:
       volumeID: "pxvol"
       fsType: "<fs-type>"
@@ -680,7 +680,7 @@ spec:
   volumes:
     - name: redis-data
       storageos:
-        # The `redis-vol01` volume must already exist within StorageOS in the `default` namespace.
+        # O volume `redis-vol01` já deve existir dentro do StorageOS no namespace `default`.
         volumeName: redis-vol01
         fsType: ext4
 ```
@@ -838,7 +838,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
-      # The variable expansion uses round brackets (not curly brackets).
+      # A expansão de variáveis usa parênteses (não chaves).
       subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:
