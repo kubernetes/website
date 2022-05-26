@@ -458,6 +458,16 @@ of individual policies are not defined here.
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
 - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
 
+### Other
+
+{{% thirdparty-content %}}
+
+Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as: 
+- [Kubewarden](https://github.com/kubewarden)
+- [Kyverno](https://kyverno.io/policies/pod-security/)
+- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
+
+
 ## FAQ
 
 ### Why isn't there a profile between privileged and baseline?
@@ -480,14 +490,6 @@ Security profiles are control plane mechanisms to enforce specific settings in t
 as well as other related parameters outside the Security Context. As of July 2021, 
 [Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
 built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
-
-{{% thirdparty-content %}}
-
-Other alternatives for enforcing security profiles are being developed in the Kubernetes
-ecosystem, such as: 
-- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
-- [Kubewarden](https://github.com/kubewarden).
-- [Kyverno](https://kyverno.io/policies/pod-security/).
 
 ### What profiles should I apply to my Windows Pods?
 
