@@ -13,3 +13,5 @@ kubectl completion fish | source
 ```
 
 After reloading your shell, kubectl autocompletion should be working.
+
+Note: this requires kubectl 1.23 or later.
