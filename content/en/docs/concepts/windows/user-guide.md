@@ -158,18 +158,12 @@ schedule Linux and Windows workloads to their respective OS-specific nodes.
 The recommended approach is outlined below,
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 
-<<<<<<< HEAD:content/en/docs/setup/production-environment/windows/user-guide-windows-containers.md
-
-=======
-{{< note >}}
->>>>>>> Moving windows containers user guide out of /setup/production-environment/:content/en/docs/concepts/windows/user-guide.md
 If the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
 enabled, you can (and should) set `.spec.os.name` for a Pod to indicate the operating system
 that the containers in that Pod are designed for. For Pods that run Linux containers, set
 `.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
 to Windows.
 
-<<<<<<< HEAD:content/en/docs/setup/production-environment/windows/user-guide-windows-containers.md
 {{< note >}}
 Starting from 1.24, the `IdentifyPodOS` feature is in Beta stage and defaults to be enabled.
 {{< /note >}}
@@ -183,14 +177,6 @@ appropriate operating system.
 The `.spec.os.name` value has no effect on the scheduling of the Windows pods,
 so taints and tolerations and node selectors are still required
  to ensure that the Windows pods land onto appropriate Windows nodes.
-=======
-The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes.
-You should use normal Kubernetes mechanisms for
-[assigning pods to nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
-to ensure that the control plane for your cluster places pods onto nodes that are running the
-appropriate operating system.
-{{< /note >}}
->>>>>>> Moving windows containers user guide out of /setup/production-environment/:content/en/docs/concepts/windows/user-guide.md
 
 ### Ensuring OS-specific workloads land on the appropriate container host
 
