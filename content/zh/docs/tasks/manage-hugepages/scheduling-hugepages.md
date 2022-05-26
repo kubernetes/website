@@ -1,17 +1,14 @@
 ---
-reviewers:
-- derekwaynecarr
 title: 管理巨页（HugePages）
 content_type: task
 description: 将大页配置和管理为集群中的可调度资源。
 ---
 <!--
----
 reviewers:
 - derekwaynecarr
 title: Manage HugePages
 content_type: task
----
+description: Configure and manage huge pages as a schedulable resource in a cluster.
 --->
 
 <!-- overview -->
@@ -30,13 +27,13 @@ Kubernetes 支持在 Pod 应用中使用预先分配的巨页。本文描述了�
 
 <!--
 1. Kubernetes nodes must pre-allocate huge pages in order for the node to report
-   its huge page capacity. A node may only pre-allocate huge pages for a single
-   size.
+   its huge page capacity. A node can pre-allocate huge pages for multiple
+   sizes.
 
-The nodes will automatically discover and report all huge page resources as a
-schedulable resource.
+The nodes will automatically discover and report all huge page resources as
+schedulable resources.
 --->
-1. 为了使节点能够上报巨页容量，Kubernetes 节点必须预先分配巨页。每个节点只能预先分配一种特定规格的巨页。
+1. 为了使节点能够上报巨页容量，Kubernetes 节点必须预先分配巨页。每个节点能够预先分配多种规格的巨页。
 
 节点会自动发现全部巨页资源，并作为可供调度的资源进行上报。
 
@@ -59,9 +56,14 @@ A pod may consume multiple huge page sizes in a single pod spec. In this case it
 must use `medium: HugePages-<hugepagesize>` notation for all volume mounts.
 --->
 
-用户可以通过在容器级别的资源需求中使用资源名称 `hugepages-<size>` 来使用巨页，其中的 size 是特定节点上支持的以整数值表示的最小二进制单位。 例如，如果一个节点支持 2048KiB 和 1048576KiB 页面大小，它将公开可调度的资源 `hugepages-2Mi` 和 `hugepages-1Gi`。与 CPU 或内存不同，巨页不支持过量使用（overcommit）。注意，在请求巨页资源时，还必须请求内存或 CPU 资源。
+用户可以通过在容器级别的资源需求中使用资源名称 `hugepages-<size>`
+来使用巨页，其中的 size 是特定节点上支持的以整数值表示的最小二进制单位。
+例如，如果一个节点支持 2048KiB 和 1048576KiB 页面大小，它将公开可调度的资源
+`hugepages-2Mi` 和 `hugepages-1Gi`。与 CPU 或内存不同，巨页不支持过量使用（overcommit）。
+注意，在请求巨页资源时，还必须请求内存或 CPU 资源。
 
-同一 Pod 的 spec 中可能会消耗不同尺寸的巨页。在这种情况下，它必须对所有挂载卷使用 `medium: HugePages-<hugepagesize>` 标识。
+同一 Pod 的 spec 中可能会消耗不同尺寸的巨页。在这种情况下，它必须对所有挂载卷使用
+`medium: HugePages-<hugepagesize>` 标识。
 
 ```yaml
 apiVersion: v1
@@ -130,7 +132,7 @@ spec:
 <!--
 - Huge page requests must equal the limits. This is the default if limits are
   specified, but requests are not.
-- Huge pages are isolated at a container scope, so each container has own 
+- Huge pages are isolated at a container scope, so each container has own
   limit on their cgroup sandbox as requested in a container spec.
 - EmptyDir volumes backed by huge pages may not consume more huge page memory
   than the pod request.
@@ -139,12 +141,6 @@ spec:
 - Huge page usage in a namespace is controllable via ResourceQuota similar
   to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
   token.
-- Support of multiple sizes huge pages is feature gated. It can be
-  enabled with the `HugePageStorageMediumSize` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) on the {{<
-glossary_tooltip text="kubelet" term_id="kubelet" >}} and {{<
-glossary_tooltip text="kube-apiserver"
-term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=false`).
 --->
 
 - 巨页的资源请求值必须等于其限制值。该条件在指定了资源限制，而没有指定请求的情况下默认成立。
