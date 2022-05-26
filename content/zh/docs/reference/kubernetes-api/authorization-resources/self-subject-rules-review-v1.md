@@ -4,8 +4,22 @@ api_metadata:
   import: "k8s.io/api/authorization/v1"
   kind: "SelfSubjectRulesReview"
 content_type: "api_reference"
+description: "SelfSubjectRulesReview 枚举当前用户可以在某命名空间内执行的操作集合。"
+title: "SelfSubjectRulesReview"
+weight: 3
 ---
-
+<!--
+---
+api_metadata:
+  apiVersion: "authorization.k8s.io/v1"
+  import: "k8s.io/api/authorization/v1"
+  kind: "SelfSubjectRulesReview"
+content_type: "api_reference"
+description: "SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace."
+title: "SelfSubjectRulesReview"
+weight: 3
+---
+-->
 `apiVersion: authorization.k8s.io/v1`
 
 `import "k8s.io/api/authorization/v1"`
