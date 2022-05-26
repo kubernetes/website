@@ -22,8 +22,6 @@ content_type: task
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-
-
 <!-- steps -->
 
 <!--
@@ -77,7 +75,7 @@ Before deploying etcd in production, see
 
 ## Starting etcd clusters
 
-This section covers starting a single-node and multi-node etcd cluster. 
+This section covers starting a single-node and multi-node etcd cluster.
 -->
 ## 资源要求
 
@@ -104,7 +102,7 @@ Use a single-node etcd cluster only for testing purpose.
 2. Start the Kubernetes API server with the flag
    `--etcd-servers=$PRIVATE_IP:2379`.
 
-    Make sure `PRIVATE_IP` is set to your etcd client IP.
+   Make sure `PRIVATE_IP` is set to your etcd client IP.
 -->
 ### 单节点 etcd 集群
 
@@ -236,8 +234,8 @@ communication:
 
 ```
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
-  --cert=/etc/kubernetes/pki/etcd/client.crt \
-  --key=/etc/kubernetes/pki/etcd/client.key \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
   --cacert=/etc/kubernetes/pki/etcd/ca.crt \
   member list
 ```
@@ -253,8 +251,8 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
 
 ```
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
-  --cert=/etc/kubernetes/pki/etcd/client.crt \
-  --key=/etc/kubernetes/pki/etcd/client.key \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
   --cacert=/etc/kubernetes/pki/etcd/ca.crt \
   member list
 ```
@@ -274,7 +272,7 @@ access to clients with the certificate `k8sclient.cert`.
 
 Once etcd is configured correctly, only clients with valid certificates can
 access it. To give Kubernetes API servers the access, configure them with the
-flags `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` and
+flags `--etcd-certfile=k8sclient.cert`, `--etcd-keyfile=k8sclient.key` and
 `--etcd-cafile=ca.cert`.
 
 {{< note >}}
@@ -292,7 +290,7 @@ information, see the related issue
 指定参数 `--client-cert-auth=true` 和 `--trusted-ca-file=etcd.ca` 将限制对具有证书 `k8sclient.cert` 的客户端的访问。
 
 一旦正确配置了 etcd，只有具有有效证书的客户端才能访问它。要让 Kubernetes API 服务器访问，
-可以使用参数 `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` 和 `--etcd-cafile=ca.cert` 配置。
+可以使用参数 `--etcd-certfile=k8sclient.cert`, `--etcd-keyfile=k8sclient.key` 和 `--etcd-cafile=ca.cert` 配置。
 
 {{< note >}}
 Kubernetes 目前不支持 etcd 身份验证。
@@ -593,11 +591,15 @@ employed to recover the data of a failed cluster.
 
 Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
-[data directory]( https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+[data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
 Here is an example:
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
+```
+Another example for restoring using etcdctl options:
+```shell
+ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
 ```
 
 For more information and examples on restoring a cluster from a snapshot file, see
@@ -638,7 +640,7 @@ etcd 支持从 [major.minor](http://semver.org/) 或其他不同 patch 版本的
 还原操作用于恢复失败的集群的数据。
 
 在启动还原操作之前，必须有一个快照文件。它可以是来自以前备份操作的快照文件，
-也可以是来自剩余[数据目录]( https://etcd.io/docs/current/op-guide/configuration/#--data-dir)的快照文件。
+也可以是来自剩余[数据目录](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)的快照文件。
 例如：
 
 ```shell
@@ -646,7 +648,6 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
 ```
 
 恢复时也可以指定操作选项，例如：
-
 ```
 ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
 ```
@@ -674,8 +675,8 @@ ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
 {{< /note >}}
 
 <!--
-
 ## Upgrading etcd clusters
+
 
 For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
 
