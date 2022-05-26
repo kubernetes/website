@@ -176,4 +176,5 @@ One option for mitigation of this issue would be to use [resource quotas](/docs/
 to limit the quantity of objects which can be created.
 
 ## {{% heading "whatsnext" %}}
-* To learn more about **RBAC**, see [RBAC documentation](/docs/reference/access-authn-authz/rbac/).
+* To learn more about RBAC, see [RBAC documentation](/docs/reference/access-authn-authz/rbac/).
+* To learn more about Authorizing Policies via RBAC, see [Authorizing Policies](/docs/concepts/security/pod-security-policy/#via-rbac).
