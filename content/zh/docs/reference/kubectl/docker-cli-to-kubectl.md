@@ -1,23 +1,18 @@
 ---
 title: 适用于 Docker 用户的 kubectl
 content_type: concept
-reviewers:
-- brendandburns
-- thockin
 ---
 <!--
----
 title: kubectl for Docker Users
 content_type: concept
 reviewers:
 - brendandburns
 - thockin
----
 -->
 
 <!-- overview -->
 <!--
-You can use the Kubernetes command line tool `kubectl` to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a Docker sub-command and describe the equivalent `kubectl` command.
+You can use the Kubernetes command line tool `kubectl` to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the Docker commands and the kubectl commands. The following sections show a Docker sub-command and describe the equivalent `kubectl` command.
 -->
 你可以使用 Kubernetes 命令行工具 `kubectl` 与 API 服务器进行交互。如果你熟悉 Docker 命令行工具，
 则使用 kubectl 非常简单。但是，Docker 命令和 kubectl 命令之间有一些区别。以下显示了 Docker 子命令，
@@ -30,8 +25,12 @@ You can use the Kubernetes command line tool `kubectl` to interact with the API 
 <!--
 To run an nginx Deployment and expose the Deployment, see [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
 -->
-要运行 nginx 部署并将其暴露，请参见[kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-)
+要运行 nginx 部署并将其暴露，请参见 [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-)
+
+<!--
 docker:
+-->
+使用 docker 命令：
 
 ```shell
 docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
@@ -48,7 +47,10 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 55c103fa1296        nginx               "nginx -g 'daemon of…"   9 seconds ago       Up 9 seconds        0.0.0.0:80->80/tcp   nginx-app
 ```
 
+<!--
 kubectl:
+-->
+使用 kubectl 命令：
 
 <!--
 ```shell
@@ -97,7 +99,7 @@ service "nginx-http" exposed
 By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 -->
 在 kubectl 命令中，我们创建了一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)，
-这将保证有 N 个运行 nginx 的 Pod(N 代表 spec 中声明的 replica 数，默认为 1)。
+这将保证有 N 个运行 nginx 的 Pod（N 代表 spec 中声明的 replica 数，默认为 1）。
 我们还创建了一个 [service](/zh/docs/concepts/services-networking/service/)，其选择器与容器标签匹配。
 查看[使用服务访问集群中的应用程序](/zh/docs/tasks/access-application-cluster/service-access-application-cluster) 获取更多信息。
 
@@ -115,7 +117,7 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 Unlike `docker run ...`, if you specify `--attach`, then you attach `stdin`, `stdout` and `stderr`. You cannot control which streams are attached (`docker -a ...`).
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 -->
-与 `docker run ...` 不同的是，如果指定了 `--attach` ，我们将连接到 `stdin`，`stdout` 和 `stderr`，
+与 `docker run ...` 不同的是，如果指定了 `--attach`，我们将连接到 `stdin`，`stdout` 和 `stderr`，
 而不能控制具体连接到哪个输出流（`docker -a ...`）。要从容器中退出，可以输入 Ctrl + P，然后按 Ctrl + Q。
 
 <!--
@@ -123,7 +125,7 @@ Because the kubectl run command starts a Deployment for the container, the Deplo
 To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
 -->
 因为我们使用 Deployment 启动了容器，如果你终止连接到的进程（例如 `ctrl-c`），容器将会重启，
-这跟 `docker run -it` 不同。 如果想销毁该 Deployment（和它的 Pod），
+这跟 `docker run -it` 不同。如果想销毁该 Deployment（和它的 Pod），
 你需要运行 `kubectl delete deployment <name>`。
 
 ## docker ps
@@ -271,7 +273,7 @@ docker exec -ti 55c103fa1296 /bin/sh
 kubectl:
 
 ```shell
-kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
+kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
@@ -318,9 +320,9 @@ kubectl logs -f nginx-app-zibvs
 There is a slight difference between pods and containers; by default pods do not terminate if their processes exit. Instead the pods restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated, but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
 -->
 现在是时候提一下 Pod 和容器之间的细微差别了；默认情况下如果 Pod 中的进程退出 Pod 也不会终止，
-相反它将会重启该进程。这类似于 docker run 时的 `--restart=always` 选项， 这是主要差别。
-在 docker 中，进程的每个调用的输出都是被连接起来的，但是对于 kubernetes，每个调用都是分开的。
-要查看以前在 kubernetes 中执行的输出，请执行以下操作：
+相反它将会重启该进程。这类似于 docker run 时的 `--restart=always` 选项，这是主要差别。
+在 docker 中，进程的每个调用的输出都是被连接起来的，但是对于 Kubernetes，每个调用都是分开的。
+要查看以前在 Kubernetes 中执行的输出，请执行以下操作：
 
 ```shell
 kubectl logs --previous nginx-app-zibvs
@@ -403,7 +405,7 @@ kubectl get po -l app=nginx-app
 
 {{< note >}}
 <!--
-When you use kubectl, you don't delete the pod directly.You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
+When you use kubectl, you don't delete the pod directly. You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
 -->
 请注意，我们不直接删除 Pod。使用 kubectl 命令，我们要删除拥有该 Pod 的 Deployment。
 如果我们直接删除 Pod，Deployment 将会重新创建该 Pod。
@@ -501,10 +503,10 @@ kubectl:
 kubectl cluster-info
 ```
 ```
-Kubernetes master is running at https://108.59.85.141
-KubeDNS is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
-kubernetes-dashboard is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
-Grafana is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
-Heapster is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
-InfluxDB is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
+Kubernetes master is running at https://203.0.113.141
+KubeDNS is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
+kubernetes-dashboard is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
+Grafana is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+Heapster is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
+InfluxDB is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
