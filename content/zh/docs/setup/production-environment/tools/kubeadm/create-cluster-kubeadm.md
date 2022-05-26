@@ -49,10 +49,7 @@ as Ansible or Terraform.
 一组云服务器，Raspberry Pi 等。无论是部署到云还是本地，
 你都可以将 `kubeadm` 集成到预配置系统中，例如 Ansible 或 Terraform。
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 <!--
 To follow this guide, you need:
@@ -77,13 +74,12 @@ of Kubernetes that you want to use in your new cluster.
 -->
 你还需要使用可以在新集群中部署特定 Kubernetes 版本对应的 `kubeadm`。
 
-
 <!--
 [Kubernetes' version and version skew support policy](/docs/setup/release/version-skew-policy/#supported-versions) applies to `kubeadm` as well as to Kubernetes overall.
 Check that policy to learn about what versions of Kubernetes and `kubeadm`
 are supported. This page is written for Kubernetes {{< param "version" >}}.
 -->
-[Kubernetes 版本及版本倾斜支持策略](/zh/docs/setup/release/version-skew-policy/#supported-versions) 适用于 `kubeadm` 以及整个 Kubernetes。
+[Kubernetes 版本及版本偏差策略](/zh/docs/setup/release/version-skew-policy/#supported-versions) 适用于 `kubeadm` 以及整个 Kubernetes。
 查阅该策略以了解支持哪些版本的 Kubernetes 和 `kubeadm`。
 该页面是为 Kubernetes {{< param "version" >}} 编写的。
 
@@ -101,8 +97,6 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 {{< note >}}
 根据定义，在 `kubeadm alpha` 下的所有命令均在 alpha 级别上受支持。
 {{< /note >}}
-
-
 
 <!-- steps -->
 
@@ -125,14 +119,16 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 ## 操作指南
 
 <!--
-### Installing kubeadm on your hosts
+### Preparing the hosts
 -->
-### 在你的主机上安装 kubeadm
+### 主机准备
 
 <!--
-See ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+Install a {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}} and kubeadm on all the hosts.
+For detailed instructions and other prerequisites, see [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 -->
-查看 ["安装 kubeadm"](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
+在所有主机上安装 {{< glossary_tooltip term_id="container-runtime" text="容器运行时" >}} 和 kubeadm。
+详细说明和其他前提条件，请参见[安装 kubeadm](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
 
 <!--
 If you have already installed kubeadm, run `apt-get update &&
@@ -203,30 +199,31 @@ for all control-plane nodes. Such an endpoint can be either a DNS name or an IP 
 be passed to `kubeadm init`. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
 a provider-specific value. See [Installing a Pod network add-on](#pod-network).
-1. (Optional) Since version 1.14, `kubeadm` tries to detect the container runtime on Linux
-by using a list of well known domain socket paths. To use different container runtime or
-if there are more than one installed on the provisioned node, specify the `--cri-socket`
-argument to `kubeadm init`. See [Installing runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
+-->
+1. （推荐）如果计划将单个控制平面 kubeadm 集群升级成高可用，
+   你应该指定 `--control-plane-endpoint` 为所有控制平面节点设置共享端点。
+   端点可以是负载均衡器的 DNS 名称或 IP 地址。
+1. 选择一个 Pod 网络插件，并验证是否需要为 `kubeadm init` 传递参数。
+   根据你选择的第三方网络插件，你可能需要设置 `--pod-network-cidr` 的值。
+   请参阅[安装 Pod 网络附加组件](#pod-network)。
+
+<!--
+1. (Optional) `kubeadm` tries to detect the container runtime by using a list of well
+known endpoints. To use different container runtime or if there are more than one installed
+on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See [Installing runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
 with the default gateway to set the advertise address for this particular control-plane node's API server.
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
 -->
-1. （推荐）如果计划将单个控制平面 kubeadm 集群升级成高可用，
-你应该指定 `--control-plane-endpoint` 为所有控制平面节点设置共享端点。
-端点可以是负载均衡器的 DNS 名称或 IP 地址。
-1. 选择一个 Pod 网络插件，并验证是否需要为 `kubeadm init` 传递参数。
-根据你选择的第三方网络插件，你可能需要设置 `--pod-network-cidr` 的值。
-请参阅 [安装Pod网络附加组件](#pod-network)。
-1. （可选）从版本1.14开始，`kubeadm` 尝试使用一系列众所周知的域套接字路径来检测 Linux 上的容器运行时。
-要使用不同的容器运行时，
-或者如果在预配置的节点上安装了多个容器，请为 `kubeadm init` 指定 `--cri-socket` 参数。
-请参阅[安装运行时](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)。
+1. （可选）`kubeadm` 试图通过使用已知的端点列表来检测容器运行时。
+   使用不同的容器运行时或在预配置的节点上安装了多个容器运行时，请为 `kubeadm init` 指定 `--cri-socket` 参数。
+   请参阅[安装运行时](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)。
 1. （可选）除非另有说明，否则 `kubeadm` 使用与默认网关关联的网络接口来设置此控制平面节点 API server 的广播地址。
-要使用其他网络接口，请为 `kubeadm init` 设置 `--apiserver-advertise-address=<ip-address>` 参数。
-要部署使用 IPv6 地址的 Kubernetes 集群，
-必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=fd00::101`
+   要使用其他网络接口，请为 `kubeadm init` 设置 `--apiserver-advertise-address=<ip-address>` 参数。
+   要部署使用 IPv6 地址的 Kubernetes 集群，
+   必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=fd00::101`
 
 <!--
 To initialize the control-plane node run:
@@ -262,7 +259,7 @@ Here is an example mapping:
 -->
 这是一个示例映射：
 
-```
+```console
 192.168.0.102 cluster-endpoint
 ```
 
@@ -303,6 +300,13 @@ To customize control plane components, including optional IPv6 assignment to liv
 要自定义控制平面组件，包括可选的对控制平面组件和 etcd 服务器的活动探针提供 IPv6 支持，请参阅[自定义参数](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)。
 
 <!--
+To reconfigure a cluster that has already been created see
+[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
+-->
+要重新配置一个已经创建的集群，请参见
+[重新配置一个 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
+
+<!--
 To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
 -->
 要再次运行 `kubeadm init`，你必须首先[卸载集群](#tear-down)。
@@ -313,7 +317,6 @@ have container image support for this architecture.
 -->
 如果将具有不同架构的节点加入集群，
 请确保已部署的 DaemonSet 对这种体系结构具有容器镜像支持。
-
 
 <!--
 `kubeadm init` first runs a series of prechecks to ensure that the machine
@@ -352,7 +355,6 @@ also part of the `kubeadm init` output:
 要使非 root 用户可以运行 kubectl，请运行以下命令，
 它们也是 `kubeadm init` 输出的一部分：
 
-
 ```bash
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -373,13 +375,15 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
 `system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
 Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
-them a kubeconfig file using the `kubeadm kubeconfig user` command.
+them a kubeconfig file using the `kubeadm kubeconfig user` command. For more details see
+[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 -->
 kubeadm 对 `admin.conf` 中的证书进行签名时，将其配置为
 `Subject: O = system:masters, CN = kubernetes-admin`。
 `system:masters` 是一个例外的、超级用户组，可以绕过鉴权层（例如 RBAC）。
 不要将 `admin.conf` 文件与任何人共享，应该使用 `kubeadm kubeconfig user`
 命令为其他用户生成 kubeconfig 文件，完成对他们的定制授权。
+更多细节请参见[为其他用户生成 kubeconfig 文件](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)。
 {{< /warning >}}
 
 <!--
@@ -401,7 +405,6 @@ created, and deleted with the `kubeadm token` command. See the
 因为拥有此令牌的任何人都可以将经过身份验证的节点添加到你的集群中。
 可以使用 `kubeadm token` 命令列出，创建和删除这些令牌。
 请参阅 [kubeadm 参考指南](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/)。
-
 
 <!--
 ### Installing a Pod network add-on {#pod-network}
@@ -506,7 +509,7 @@ Once a Pod network has been installed, you can confirm that it is working by
 checking that the CoreDNS Pod is `Running` in the output of `kubectl get pods --all-namespaces`.
 And once the CoreDNS Pod is up and running, you can continue by joining your nodes.
 -->
-安装 Pod 网络后，您可以通过在 `kubectl get pods --all-namespaces` 输出中检查 CoreDNS Pod 是否 `Running` 来确认其是否正常运行。
+安装 Pod 网络后，你可以通过在 `kubectl get pods --all-namespaces` 输出中检查 CoreDNS Pod 是否 `Running` 来确认其是否正常运行。
 一旦 CoreDNS Pod 启用并运行，你就可以继续加入节点。
 
 <!--
@@ -514,9 +517,29 @@ If your network is not working or CoreDNS is not in the `Running` state, check o
 [troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
 for `kubeadm`.
 -->
-如果您的网络无法正常工作或 CoreDNS 不在“运行中”状态，请查看 `kubeadm` 的
+如果你的网络无法正常工作或 CoreDNS 不在“运行中”状态，请查看 `kubeadm` 的
 [故障排除指南](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
+<!--
+### Managed node labels
+-->
+
+### 托管节点标签   {#managed-node-labels}
+
+<!--
+By default, kubeadm enables the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+admission controller that restricts what labels can be self-applied by kubelets on node registration.
+The admission controller documentation covers what labels are permitted to be used with the kubelet `--node-labels` option.
+The `node-role.kubernetes.io/control-plane` label is such a restricted label and kubeadm manually applies it using
+a privileged client after a node has been created. To do that manually you can do the same by using `kubectl label`
+and ensure it is using a privileged kubeconfig such as the kubeadm managed `/etc/kubernetes/admin.conf`.
+-->
+默认情况下，kubeadm 启用 [NodeRestriction](/zh/docs/reference/access-authn-authz/admissiontrollers/#noderestriction)
+准入控制器来限制 kubelets 在节点注册时可以应用哪些标签。准入控制器文档描述 kubelet `--node-labels` 选项允许使用哪些标签。
+其中 `node-role.kubernetes.io/control-plane` 标签就是这样一个受限制的标签，
+kubeadm 在节点创建后使用特权客户端手动应用此标签。
+你可以使用一个有特权的 kubeconfig, 比如由 kubeadm 管理的 `/etc/kubernetes/admin.conf`，
+通过执行 `kubectl label` 来手动完成操作。
 
 <!--
 ### Control plane node isolation
@@ -524,36 +547,45 @@ for `kubeadm`.
 ### 控制平面节点隔离
 
 <!--
-By default, your cluster will not schedule Pods on the control-plane node for security
-reasons. If you want to be able to schedule Pods on the control-plane node, for example for a
-single-machine Kubernetes cluster for development, run:
+By default, your cluster will not schedule Pods on the control plane nodes for security
+reasons. If you want to be able to schedule Pods on the control plane nodes,
+for example for a single machine Kubernetes cluster, run:
 -->
 默认情况下，出于安全原因，你的集群不会在控制平面节点上调度 Pod。
-如果你希望能够在控制平面节点上调度 Pod，
-例如用于开发的单机 Kubernetes 集群，请运行：
+如果你希望能够在控制平面节点上调度 Pod，例如单机 Kubernetes 集群，请运行:
 
 ```bash
-kubectl taint nodes --all node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/control-plane- node-role.kubernetes.io/master-
 ```
 <!--
-With output looking something like:
+The output will look something like:
 -->
 输出看起来像：
 
-```
+```console
 node "test-01" untainted
-taint "node-role.kubernetes.io/master:" not found
-taint "node-role.kubernetes.io/master:" not found
 ```
 
 <!--
-This will remove the `node-role.kubernetes.io/master` taint from any nodes that
-have it, including the control-plane node, meaning that the scheduler will then be able
+This will remove the `node-role.kubernetes.io/control-plane` and
+`node-role.kubernetes.io/master` taints from any nodes that have them,
+including the control plane nodes, meaning that the scheduler will then be able
 to schedule Pods everywhere.
 -->
-这将从任何拥有 `node-role.kubernetes.io/master` taint 标记的节点中移除该标记，
+这将从任何拥有 `node-role.kubernetes.io/control-plane` 和
+`node-role.kubernetes.io/master` 污点的节点上移除该污点。
+
 包括控制平面节点，这意味着调度程序将能够在任何地方调度 Pods。
 
+<!--
+{{< note >}}
+The `node-role.kubernetes.io/master` taint is deprecated and kubeadm will stop using it in version 1.25.
+{{< /note >}}
+-->
+
+{{< note >}}
+`node-role.kubernetes.io/master` 污点已被废弃，kubeadm 将在 1.25 版本中停止使用它。
+{{< /note >}}
 
 <!--
 ### Joining your nodes {#join-nodes}
@@ -583,7 +615,6 @@ If you do not have the token, you can get it by running the following command on
 -->
 如果没有令牌，可以通过在控制平面节点上运行以下命令来获取令牌：
 
-
 ```bash
 kubeadm token list
 ```
@@ -607,7 +638,6 @@ you can create a new token by running the following command on the control-plane
 -->
 默认情况下，令牌会在24小时后过期。如果要在当前令牌过期后将节点加入集群，
 则可以通过在控制平面节点上运行以下命令来创建新令牌：
-
 
 ```bash
 kubeadm token create
@@ -652,7 +682,7 @@ The output should look something like:
 -->
 输出应类似于：
 
-```
+```console
 [preflight] Running pre-flight checks
 
 ... (log output of join workflow) ...
@@ -672,11 +702,10 @@ nodes` when run on the control-plane node.
 几秒钟后，当你在控制平面节点上执行 `kubectl get nodes`，你会注意到该节点出现在输出中。
 
 <!--
-As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run 
-on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods 
+As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run
+on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 -->
-
 {{< note >}}
 由于集群节点通常是按顺序初始化的，CoreDNS Pods 很可能都运行在第一个控制面节点上。
 为了提供更高的可用性，请在加入至少一个新节点后
@@ -762,10 +791,9 @@ However, if you want to deprovision your cluster more cleanly, you should
 first [drain the node](/docs/reference/generated/kubectl/kubectl-commands#drain)
 and make sure that the node is empty, then deconfigure the node.
 -->
-但是，如果要更干净地取消配置群集，
+但是，如果要更干净地取消配置集群，
 则应首先[清空节点](/docs/reference/generated/kubectl/kubectl-commands#drain)并确保该节点为空，
 然后取消配置该节点。
-
 
 <!--
 ### Remove the node
@@ -840,7 +868,6 @@ options.
 -->
 有关此子命令及其选项的更多信息，请参见[`kubeadm reset`](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)参考文档。
 
-
 <!-- discussion -->
 
 <!--
@@ -853,7 +880,7 @@ options.
 * <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   for details about upgrading your cluster using `kubeadm`.
 * Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm)
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/overview/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
 * See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
   of Pod network add-ons.
 * <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
@@ -867,7 +894,7 @@ options.
 * 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正常运行。
 * <a id="lifecycle"/>有关使用 kubeadm 升级集群的详细信息，请参阅[升级 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 * 在 [kubeadm 参考文档](/zh/docs/reference/setup-tools/kubeadm)中了解有关高级 `kubeadm` 用法的信息。
-* 了解有关 Kubernetes [概念](/zh/docs/concepts/)和 [`kubectl`](/zh/docs/reference/kubectl/overview/) 的更多信息。
+* 了解有关 Kubernetes [概念](/zh/docs/concepts/)和 [`kubectl`](/zh/docs/reference/kubectl/) 的更多信息。
 * 有关 Pod 网络附加组件的更多列表，请参见[集群网络](/zh/docs/concepts/cluster-administration/networking/)页面。
 * <a id="other-addons" />请参阅[附加组件列表](/zh/docs/concepts/cluster-administration/addons/)以探索其他附加组件，
   包括用于 Kubernetes 集群的日志记录，监视，网络策略，可视化和控制的工具。
@@ -899,35 +926,122 @@ options.
 * SIG 集群生命周期邮件列表:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 
-
 <!--
 ## Version skew policy {#version-skew-policy}
 -->
-## 版本倾斜政策 {#version-skew-policy}
+## 版本偏差策略 {#version-skew-policy}
 
 <!--
-The `kubeadm` tool of version v{{< skew latestVersion >}} may deploy clusters with a control plane of version v{{< skew latestVersion >}} or v{{< skew prevMinorVersion >}}.
-`kubeadm` v{{< skew latestVersion >}} can also upgrade an existing kubeadm-created cluster of version v{{< skew prevMinorVersion >}}.
+While kubeadm allows version skew against some components that it manages, it is recommended that you
+match the kubeadm version with the versions of the control plane components, kube-proxy and kubelet.
 -->
-版本 v{{< skew latestVersion >}} 的kubeadm 工具可以使用版本 v{{< skew latestVersion >}} 或 v{{< skew prevMinorVersion >}} 的控制平面部署集群。kubeadm v{{< skew latestVersion >}} 还可以升级现有的 kubeadm 创建的 v{{< skew prevMinorVersion >}} 版本的集群。
+虽然 kubeadm 允许所管理的组件有一定程度的版本偏差，
+但是建议你将 kubeadm 的版本与控制平面组件、kube-proxy 和 kubelet 的版本相匹配。
 
 <!--
-Due to that we can't see into the future, kubeadm CLI v{{< skew latestVersion >}} may or may not be able to deploy v{{< skew nextMinorVersion >}} clusters.
+### kubeadm's skew against the Kubernetes version
 -->
-由于我们不能预见未来，kubeadm CLI v{{< skew latestVersion >}} 可能会或可能无法部署 v{{< skew nextMinorVersion >}} 集群。
+
+### kubeadm 中的 Kubernetes 版本偏差
 
 <!--
-These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
+kubeadm can be used with Kubernetes components that are the same version as kubeadm
+or one version older. The Kubernetes version can be specified to kubeadm by using the
+`--kubernetes-version` flag of `kubeadm init` or the
+[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta3/)
+field when using `--config`. This option will control the versions
+of kube-apiserver, kube-controller-manager, kube-scheduler and kube-proxy.
 -->
-这些资源提供了有关 kubelet 与控制平面以及其他 Kubernetes 组件之间受支持的版本倾斜的更多信息：
+kubeadm 可以与 Kubernetes 组件一起使用，这些组件的版本与 kubeadm 相同，或者比它大一个版本。
+Kubernetes 版本可以通过使用 `--kubeadm init` 的 `--kubernetes-version` 标志或使用 `--config` 时的
+[`ClusterConfiguration.kubernetesVersion`](/zh/docs/reference/configapi/kubeadm-config.v1beta3/)
+字段指定给 kubeadm。
+这个选项将控制 kube-apiserver、kube-controller-manager、kube-scheduler 和 kube-proxy 的版本。
 
 <!--
-* Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+Example:
+* kubeadm is at {{< skew latestVersion >}}
+* `kubernetesVersion` must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
 -->
-* Kubernetes [版本和版本偏斜政策](/zh/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [安装指南](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+例子：
+* kubeadm 的版本为 {{< skew latestVersion >}}。
+* `kubernetesVersion` 必须为 {{< skew latestVersion >}} 或者 {{< skew prevMinorVersion >}}。
 
+<!--
+### kubeadm's skew against the kubelet
+-->
+### kubeadm 中 kubelet 的版本偏差
+
+<!--
+Similarly to the Kubernetes version, kubeadm can be used with a kubelet version that is the same
+version as kubeadm or one version older.
+-->
+与 Kubernetes 版本类似，kubeadm 可以使用与 kubeadm 相同版本的 kubelet，
+或者比 kubeadm 老一个版本的 kubelet。
+
+<!--
+Example:
+* kubeadm is at {{< skew latestVersion >}}
+* kubelet on the host must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+-->
+例子：
+* kubeadm 的版本为 {{< skew latestVersion >}}
+* 主机上的 kubelet 版本必须为 {{< skew latestVersion >}} 或者 {{< skew prevMinorVersion >}}
+
+<!--
+### kubeadm's skew against kubeadm
+-->
+### kubeadm 支持的 kubeadm 的版本偏差
+
+<!--
+There are certain limitations on how kubeadm commands can operate on existing nodes or whole clusters
+managed by kubeadm.
+-->
+kubeadm 命令在现有节点或由 kubeadm 管理的整个集群上的操作有一定限制。
+
+<!--
+If new nodes are joined to the cluster, the kubeadm binary used for `kubeadm join` must match
+the last version of kubeadm used to either create the cluster with `kubeadm init` or to upgrade
+the same node with `kubeadm upgrade`. Similar rules apply to the rest of the kubeadm commands
+with the exception of `kubeadm upgrade`.
+-->
+如果新的节点加入到集群中，用于 `kubeadm join` 的 kubeadm 二进制文件必须与用 `kubeadm init`
+创建集群或用 `kubeadm upgrade` 升级同一节点时所用的 kubeadm 版本一致。
+类似的规则适用于除了 `kubeadm upgrade` 以外的其他 kubeadm 命令。
+
+<!--
+Example for `kubeadm join`:
+* kubeadm version {{< skew latestVersion >}} was used to create a cluster with `kubeadm init`
+* Joining nodes must use a kubeadm binary that is at version {{< skew latestVersion >}}
+-->
+`kubeadm join` 的例子：
+* 使用 `kubeadm init` 创建集群时使用版本为 {{< skew latestVersion >}} 的 kubeadm。
+* 加入的节点必须使用版本为 {{< skew latestVersion >}} 的 kubeadm 二进制文件。
+
+<!--
+Nodes that are being upgraded must use a version of kubeadm that is the same MINOR
+version or one MINOR version newer than the version of kubeadm used for managing the
+node.
+-->
+对于正在升级的节点，所使用的的 kubeadm 必须与管理该节点的 kubeadm 具有相同的
+MINOR 版本或比后者新一个 MINOR 版本。
+
+<!--
+Example for `kubeadm upgrade`:
+* kubeadm version {{< skew prevMinorVersion >}} was used to create or upgrade the node
+* The version of kubeadm used for upgrading the node must be at {{< skew prevMinorVersion >}}
+or {{< skew latestVersion >}}
+-->
+`kubeadm upgrade`的例子:
+* 用于创建或升级节点的 kubeadm 版本为 {{< skew prevMinorVersion >}}。
+* 用于升级节点的 kubeadm 版本必须为 {{< skew prevMinorVersion >}} 或 {{< skew latestVersion >}}。
+
+<!--
+To learn more about the version skew between the different Kubernetes component see
+the [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
+-->
+要了解更多关于不同 Kubernetes 组件之间的版本偏差，请参见
+[版本偏差策略](https://kubernetes.io/releases/version-skew-policy/)。
 
 <!--
 ## Limitations {#limitations}
@@ -944,7 +1058,6 @@ The cluster created here has a single control-plane node, with a single etcd dat
 running on it. This means that if the control-plane node fails, your cluster may lose
 data and may need to be recreated from scratch.
 -->
-
 此处创建的集群具有单个控制平面节点，运行单个 etcd 数据库。
 这意味着如果控制平面节点发生故障，你的集群可能会丢失数据并且可能需要从头开始重新创建。
 
@@ -1001,5 +1114,4 @@ supports your chosen platform.
 <!--
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 -->
-
 如果你在使用 kubeadm 时遇到困难，请查阅我们的[故障排除文档](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。

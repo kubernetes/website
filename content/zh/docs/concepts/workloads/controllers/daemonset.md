@@ -136,9 +136,9 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workl
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
 a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
 
-As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the
-`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector
-defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created,
+You must specify a pod selector that matches the labels of the
+`.spec.template`.
+Also, once a DaemonSet is created,
 its `.spec.selector` can not be mutated. Mutating the pod selector can lead to the
 unintentional orphaning of Pods, and it was found to be confusing to users.
 -->
@@ -147,9 +147,7 @@ unintentional orphaning of Pods, and it was found to be confusing to users.
 `.spec.selector` 字段表示 Pod 选择算符，它与
 [Job](/zh/docs/concepts/workloads/controllers/job/) 的 `.spec.selector` 的作用是相同的。
 
-从 Kubernetes 1.8 开始，您必须指定与 `.spec.template` 的标签匹配的 Pod 选择算符。
-用户不指定 Pod 选择算符时，该字段不再有默认值。
-选择算符的默认值生成结果与 `kubectl apply` 不兼容。 
+你必须指定与 `.spec.template` 的标签匹配的 Pod 选择算符。
 此外，一旦创建了 DaemonSet，它的 `.spec.selector` 就不能修改。
 修改 Pod 选择算符可能导致 Pod 意外悬浮，并且这对用户来说是费解的。
 
@@ -175,11 +173,11 @@ When the two are specified the result is ANDed.
 当上述两个字段都指定时，结果会按逻辑与（AND）操作处理。
 
 <!--
-If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.
-Config with these not matching will be rejected by the API.
+The `.spec.selector` must match the `.spec.template.metadata.labels`.
+Config with these two not matching will be rejected by the API.
 -->
-如果指定了 `.spec.selector`，必须与 `.spec.template.metadata.labels` 相匹配。
-如果与后者不匹配，则 DeamonSet 会被 API 拒绝。
+`.spec.selector` 必须与 `.spec.template.metadata.labels` 相匹配。
+如果配置中这两个字段不匹配，则会被 API 拒绝。
 
 <!--
 ### Running Pods on Only Some Nodes
@@ -209,7 +207,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ### 通过默认调度器调度   {#scheduled-by-default-scheduler}
 
-{{< feature-state for_kubernetes_version="1.17" state="stable" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 <!--
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
@@ -244,7 +242,7 @@ taken into account before selecting the target host). The DaemonSet controller o
 performs these operations when creating or modifying DaemonSet pods, and no
 changes are made to the `spec.template` of the DaemonSet.
 -->
-`ScheduleDaemonSetPods` 允许您使用默认调度器而不是 DaemonSet 控制器来调度 DaemonSets，
+`ScheduleDaemonSetPods` 允许你使用默认调度器而不是 DaemonSet 控制器来调度 DaemonSets，
 方法是将 `NodeAffinity` 条件而不是 `.spec.nodeName` 条件添加到 DaemonSet Pods。
 默认调度器接下来将 Pod 绑定到目标主机。
 如果 DaemonSet Pod 的节点亲和性配置已存在，则被替换
@@ -354,7 +352,7 @@ them according to its `updateStrategy`.
 
 You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 -->
-您可以删除一个 DaemonSet。如果使用 `kubectl` 并指定 `--cascade=orphan` 选项，
+你可以删除一个 DaemonSet。如果使用 `kubectl` 并指定 `--cascade=orphan` 选项，
 则 Pod 将被保留在节点上。接下来如果创建使用相同选择算符的新 DaemonSet，
 新的 DaemonSet 会收养已有的 Pod。
 如果有 Pod 需要被替换，DaemonSet 会根据其 `updateStrategy` 来替换。

@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version 
+-->
+从文件中读取旧版本的 kubeadm 配置的 API 类型，并为新版本输出类似的配置对象
 
 <!--
 ### Synopsis
@@ -9,12 +24,11 @@
 This command lets you convert configuration objects of older versions to the latest supported version,
 locally in the CLI tool without ever touching anything in the cluster.
 In this version of kubeadm, the following API versions are supported:
-- kubeadm.k8s.io/v1beta2
+- kubeadm.k8s.io/v1beta3
 -->
 
 此命令允许您在 CLI 工具中将本地旧版本的配置对象转换为最新支持的版本，而无需变更集群中的任何内容。在此版本的 kubeadm 中，支持以下 API 版本：
-
-- kubeadm.k8s.io/v1beta2
+- kubeadm.k8s.io/v1beta3
 
 <!--
 Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1beta2", but read both types.
@@ -55,8 +69,10 @@ kubeadm config migrate [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- help for migrate -->
-migrate 操作的帮助信息
+<!-- 
+<p>help for migrate</p> 
+-->
+<p>migrate 操作的帮助信息</p>
 </td>
 </tr>
 
@@ -66,9 +82,9 @@ migrate 操作的帮助信息
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to the resulting equivalent kubeadm config file using the new API version. Optional, if not specified output will be sent to STDOUT.
+<p>Path to the resulting equivalent kubeadm config file using the new API version. Optional, if not specified output will be sent to STDOUT.</p>
 -->
-使用新的 API 版本生成的 kubeadm 配置文件的路径。这个路径是可选的。如果没有指定，输出将被写到 stdout。
+<p>使用新的 API 版本生成的 kubeadm 配置文件的路径。这个路径是可选的。如果没有指定，输出将被写到 stdout。</p>
 </td>
 </tr>
 
@@ -78,9 +94,9 @@ Path to the resulting equivalent kubeadm config file using the new API version. 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to the kubeadm config file that is using an old API version and should be converted. This flag is mandatory.
+<p>Path to the kubeadm config file that is using an old API version and should be converted. This flag is mandatory.</p>
 -->
-使用旧 API 版本且应转换的 kubeadm 配置文件的路径。此参数是必需的。
+<p>使用旧 API 版本且应转换的 kubeadm 配置文件的路径。此参数是必需的。</p>
 </td>
 </tr>
 
@@ -109,9 +125,9 @@ Path to the kubeadm config file that is using an old API version and should be c
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+<p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-用于和集群通信的 kubeconfig 文件。如果未设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
+<p>用于和集群通信的 kubeconfig 文件。如果未设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。</p>
 </td>
 </tr>
 
@@ -120,8 +136,10 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- [EXPERIMENTAL] The path to the 'real' host root filesystem.  -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<!-- 
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>  
+-->
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

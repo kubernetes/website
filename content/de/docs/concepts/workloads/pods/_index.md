@@ -248,7 +248,7 @@ einige Einschränkungen:
   Eintrag zur Liste `metadata.finalizers` hinzugefügt werden.
 - Pod-Updates dürfen keine Felder ändern, die Ausnahmen sind 
   `spec.containers[*].image`,
- `spec.initContainers[*].image`,` spec.activeDeadlineSeconds` oder
+ `spec.initContainers[*].image`, `spec.activeDeadlineSeconds` oder
  `spec.tolerations`. Für `spec.tolerations` kannnst du nur neue Einträge 
   hinzufügen.
 - Für `spec.activeDeadlineSeconds` sind nur zwei Änderungen erlaubt:

@@ -26,7 +26,7 @@ weight: 70
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 <!--
  IPv4/IPv6 dual-stack networking enables the allocation of both IPv4 and IPv6 addresses to {{< glossary_tooltip text="Pods" term_id="pod" >}} and {{< glossary_tooltip text="Services" term_id="service" >}}.
@@ -78,25 +78,19 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
      Kubernetes versions, refer to the documentation for that version
      of Kubernetes.
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-   * A network plugin that supports dual-stack (such as Kubenet or Calico)
+   * A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking
 -->
 * Kubernetes 1.20 版本或更高版本，有关更早 Kubernetes 版本的使用双栈服务的信息，
   请参考对应版本的 Kubernetes 文档。
 * 提供商支持双协议栈网络（云提供商或其他提供商必须能够为 Kubernetes
   节点提供可路由的 IPv4/IPv6 网络接口）
-* 支持双协议栈的网络插件（如 Kubenet 或 Calico）
+* 支持双协议栈的[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 
 <!--
 ## Configure IPv4/IPv6 dual-stack
 -->
 ## 配置 IPv4/IPv6 双协议栈
 
-<!--
-To use IPv4/IPv6 dual-stack, ensure the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for the relevant components of your cluster. (Starting in 1.21, IPv4/IPv6 dual-stack defaults to enabled.)
--->
-要使用 IPv4/IPv6 双协议栈，确保为集群的相关组件启用 `IPv6DualStack`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
-（从 1.21 版本开始，IPv4/IPv6 双协议栈默认是被启用的）。
 
 <!--
    * kube-apiserver:
@@ -107,6 +101,14 @@ To use IPv4/IPv6 dual-stack, ensure the `IPv6DualStack` [feature gate](/docs/ref
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
    * kube-proxy:
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+   * kubelet:
+      * when there is no `--cloud-provider` the administrator can pass a comma-separated pair
+        of IP addresses via `--node-ip` to manually configure dual-stack `.status.addresses`
+        for that Node.
+        If a Pod runs on that node in HostNetwork mode, the Pod reports these IP addresses in its
+        `.status.podIPs` field.
+        All `podIPs` in a node match the IP family preference defined by the
+        `.status.addresses` field for that Node.
 -->
 * kube-apiserver:
   * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
@@ -116,6 +118,11 @@ To use IPv4/IPv6 dual-stack, ensure the `IPv6DualStack` [feature gate](/docs/ref
   * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` 对于 IPv4 默认为 /24，对于 IPv6 默认为 /64
 * kube-proxy:
   * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+* kubelet:
+  * 当没有 `--cloud-provider` 时，管理员可以通过 `--node-ip` 来传递逗号分隔的 IP 地址，
+    为该节点手动配置双栈 `.status.addresses`。
+    如果 Pod 以 HostNetwork 模式在该节点上运行，则 Pod 会用 `.status.podIPs` 字段来报告它的 IP 地址。
+    一个节点中的所有 `podIP` 都会匹配该节点的由 `.status.addresses` 字段定义的 IP 组。
 
 {{< note >}}
 <!--
@@ -127,15 +134,6 @@ IPv4 CIDR 的一个例子：`10.244.0.0/16`（尽管你会提供你自己的地�
 
 IPv6 CIDR 的一个例子：`fdXY:IJKL:MNOP:15::/64`
 （这里演示的是格式而非有效地址 - 请看 [RFC 4193](https://tools.ietf.org/html/rfc4193)）。
-<!--
-Starting in 1.21, IPv4/IPv6 dual-stack defaults to enabled.
-You can disable it when necessary by specifying `--feature-gates="IPv6DualStack=false"`
-on the kube-apiserver, kube-controller-manager, kubelet, and kube-proxy command line.
--->
-从 1.21 开始 IPv4/IPv6 双协议栈默认为启用状态。
-你可以在必要的时候通过为 kube-apiserver、kube-controller-manager、kubelet
-和 kube-proxy 命令行设置 `--feature-gates="IPv6DualStack=false"` 来禁用
-此特性。
 {{< /note >}}
 
 <!--
@@ -161,7 +159,7 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 <!--
 * `SingleStack`: Single-stack service. The control plane allocates a cluster IP for the Service, using the first configured service cluster IP range.
 * `PreferDualStack`:
-  * Allocates IPv4 and IPv6 cluster IPs for the Service. (If the cluster has `--feature-gates="IPv6DualStack=false"`, this setting follows the same behavior as `SingleStack`.)
+  * Allocates IPv4 and IPv6 cluster IPs for the Service.
 * `RequireDualStack`: Allocates Service `.spec.ClusterIPs` from both IPv4 and IPv6 address ranges.
   * Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family of the first element in the `.spec.ipFamilies` array.
 -->
@@ -169,8 +167,6 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 * `SingleStack`：单栈服务。控制面使用第一个配置的服务集群 IP 范围为服务分配集群 IP。
 * `PreferDualStack`：
   * 为服务分配 IPv4 和 IPv6 集群 IP 地址。
-    （如果集群设置了 `--feature-gates="IPv6DualStack=false"`，则此设置的行为与
-    `SingleStack` 设置相同。）
 * `RequireDualStack`：从 IPv4 和 IPv6 的地址范围分配服务的 `.spec.ClusterIPs`
   * 从基于在 `.spec.ipFamilies` 数组中第一个元素的地址族的 `.spec.ClusterIPs`
     列表中选择 `.spec.ClusterIP` 
@@ -278,11 +274,10 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 #### 现有服务的双栈默认值
 
 <!--
-These examples demonstrate the default behavior when dual-stack is newly enabled on a cluster where Services already exist.  (Upgrading an existing cluster to 1.21 will enable dual-stack unless `--feature-gates="IPv6DualStack=false"` is set.)
+These examples demonstrate the default behavior when dual-stack is newly enabled on a cluster where Services already exist.  (Upgrading an existing cluster to 1.21 or beyond will enable dual-stack.)
 -->
 下面示例演示了在服务已经存在的集群上新启用双栈时的默认行为。
-（将现有集群升级到 1.21 会启用双协议栈支持，除非设置了
-`--feature-gates="IPv6DualStack=false"`）
+（将现有集群升级到 1.21 或者更高版本会启用双协议栈支持。）
 
 <!--
 1. When dual-stack is enabled on a cluster, existing Services (whether `IPv4` or `IPv6`) are configured by the control plane to set `.spec.ipFamilyPolicy` to `SingleStack` and set `.spec.ipFamilies` to the address family of the existing Service. The existing Service cluster IP will be stored in `.spec.ClusterIPs`.

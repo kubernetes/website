@@ -5,12 +5,14 @@ metadata:
   labels:
     app: mysql
 data:
-  master.cnf: |
-    # Apply this config only on the master.
+  primary.cnf: |
+    # Apply this config only on the primary.
     [mysqld]
     log-bin
-  slave.cnf: |
-    # Apply this config only on slaves.
+    datadir=/var/lib/mysql/mysql
+  replica.cnf: |
+    # Apply this config only on replicas.
     [mysqld]
     super-read-only
+    datadir=/var/lib/mysql/mysql
 

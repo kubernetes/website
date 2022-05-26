@@ -180,13 +180,10 @@ nodes before deleting the old nodes.
 ### 修改 kubelet 的 ConfigMap
 
 <!-- 
-- Find the kubelet ConfigMap name using `kubectl get cm -n kube-system | grep kubelet-config`.
-- Call `kubectl edit cm kubelet-config-x.yy -n kube-system` (replace `x.yy` with
-the Kubernetes version).
+- Call `kubectl edit cm kubelet-config -n kube-system`.
 - Either modify the existing `cgroupDriver` value or add a new field that looks like this:
 -->
-- 用命令 `kubectl get cm -n kube-system | grep kubelet-config` 找到 kubelet 的 ConfigMap 名称。
-- 运行 `kubectl edit cm kubelet-config-x.yy -n kube-system` （把 `x.yy` 替换为 Kubernetes 版本）。
+- 运行 `kubectl edit cm kubelet-config -n kube-system`。
 - 修改现有 `cgroupDriver` 的值，或者新增如下式样的字段：
 
   ```yaml

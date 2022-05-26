@@ -76,9 +76,9 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workl
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
 a [Job](/docs/concepts/workloads/controllers/job/).
 
-As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the
-`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector
-defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created,
+You must specify a pod selector that matches the labels of the
+`.spec.template`.
+Also, once a DaemonSet is created,
 its `.spec.selector` can not be mutated. Mutating the pod selector can lead to the
 unintentional orphaning of Pods, and it was found to be confusing to users.
 
@@ -91,8 +91,8 @@ The `.spec.selector` is an object consisting of two fields:
 
 When the two are specified the result is ANDed.
 
-If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.
-Config with these not matching will be rejected by the API.
+The `.spec.selector` must match the `.spec.template.metadata.labels`.
+Config with these two not matching will be rejected by the API.
 
 ### Running Pods on select Nodes
 
@@ -107,7 +107,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ### Scheduled by default scheduler
 
-{{< feature-state for_kubernetes_version="1.17" state="stable" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
 node that a Pod runs on is selected by the Kubernetes scheduler. However,

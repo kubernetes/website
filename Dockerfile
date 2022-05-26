@@ -27,16 +27,18 @@ RUN mkdir $HOME/src && \
 FROM golang:1.16-alpine
 
 RUN apk add --no-cache \
+    runuser \
     git \
     openssh-client \
     rsync \
     npm && \
     npm install -D autoprefixer postcss-cli
 
-RUN mkdir -p /usr/local/src && \
-    cd /usr/local/src && \
+RUN mkdir -p /var/hugo && \
     addgroup -Sg 1000 hugo && \
-    adduser -Sg hugo -u 1000 -h /src hugo
+    adduser -Sg hugo -u 1000 -h /var/hugo hugo && \
+    chown -R hugo: /var/hugo && \
+    runuser -u hugo -- git config --global --add safe.directory /src
 
 COPY --from=0 /go/bin/hugo /usr/local/bin/hugo
 

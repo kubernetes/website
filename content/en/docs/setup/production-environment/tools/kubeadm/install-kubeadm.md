@@ -15,7 +15,6 @@ This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
 
-
 ## {{% heading "prerequisites" %}}
 
 
@@ -46,83 +45,71 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
-## Letting iptables see bridged traffic
-
-Make sure that the `br_netfilter` module is loaded. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `sudo modprobe br_netfilter`.
-
-As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
-
-```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-br_netfilter
-EOF
-
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sudo sysctl --system
-```
-
-For more details please see the [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
-
 ## Check required ports
 These
 [required ports](/docs/reference/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other. You can use telnet to check if a port is open. For example:
+need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
 
 ```shell
-telnet 127.0.0.1 6443
+nc 127.0.0.1 6443
 ```
 
-The pod network plugin you use (see below) may also require certain ports to be
+The pod network plugin you use may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 
-## Installing runtime {#installing-runtime}
+## Installing a container runtime {#installing-runtime}
 
 To run containers in Pods, Kubernetes uses a
 {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}.
-
-{{< tabs name="container_runtime" >}}
-{{% tab name="Linux nodes" %}}
 
 By default, Kubernetes uses the
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)
 to interface with your chosen container runtime.
 
 If you don't specify a runtime, kubeadm automatically tries to detect an installed
-container runtime by scanning through a list of well known Unix domain sockets.
-The following table lists container runtimes and their associated socket paths:
+container runtime by scanning through a list of known endpoints.
 
-{{< table caption = "Container runtimes and their socket paths" >}}
-| Runtime    | Path to Unix domain socket        |
-|------------|-----------------------------------|
-| Docker     | `/var/run/dockershim.sock`        |
-| containerd | `/run/containerd/containerd.sock` |
-| CRI-O      | `/var/run/crio/crio.sock`         |
+If multiple or no container runtimes are detected kubeadm will throw an error
+and will request that you specify which one you want to use.
+
+See [container runtimes](/docs/setup/production-environment/container-runtimes/)
+for more information.
+
+{{< note >}}
+Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
+which is a requirement for a container runtime to work with Kubernetes.
+For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+has to be installed. cri-dockerd is a project based on the legacy built-in
+Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
+{{< /note >}}
+
+The tables below include the known endpoints for supported operating systems:
+
+{{< tabs name="container_runtime" >}}
+{{% tab name="Linux" %}}
+
+{{< table >}}
+| Runtime                            | Path to Unix domain socket                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `unix:///var/run/containerd/containerd.sock` |
+| CRI-O                              | `unix:///var/run/crio/crio.sock`             |
+| Docker Engine (using cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
 {{< /table >}}
 
-<br />
-If both Docker and containerd are detected, Docker takes precedence. This is
-needed because Docker 18.09 ships with containerd and both are detectable even if you only
-installed Docker.
-If any other two or more runtimes are detected, kubeadm exits with an error.
-
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
-
-See [container runtimes](/docs/setup/production-environment/container-runtimes/)
-for more information.
 {{% /tab %}}
-{{% tab name="other operating systems" %}}
-By default, kubeadm uses {{< glossary_tooltip term_id="docker" >}} as the container runtime.
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
 
-See [container runtimes](/docs/setup/production-environment/container-runtimes/)
-for more information.
+{{% tab name="Windows" %}}
+
+{{< table >}}
+| Runtime                            | Path to Windows named pipe                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `npipe:////./pipe/containerd-containerd`     |
+| Docker Engine (using cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
+{{< /table >}}
+
 {{% /tab %}}
 {{< /tabs >}}
-
 
 ## Installing kubeadm, kubelet and kubectl
 

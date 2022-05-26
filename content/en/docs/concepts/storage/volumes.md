@@ -143,14 +143,13 @@ For more details, see the [`azureDisk` volume plugin](https://github.com/kuberne
 
 #### azureDisk CSI migration
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 The `CSIMigration` feature for `azureDisk`, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `disk.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
-Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
-features must be enabled.
+Storage Interface (CSI) Driver. In order to use this feature, the
+[Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
+must be installed on the cluster and the `CSIMigration` feature must be enabled.
 
 #### azureDisk CSI migration complete
 
@@ -177,7 +176,8 @@ Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
 
-Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
+Azure File CSI driver does not support using same volume with different fsgroups. If
+`CSIMigrationAzureFile` is enabled, using same volume with different fsgroups won't be supported at all.
 
 #### azureFile CSI migration complete
 
@@ -233,17 +233,17 @@ spec:
 
 #### OpenStack CSI migration
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-The `CSIMigration` feature for Cinder is enabled by default in Kubernetes 1.21.
+The `CSIMigration` feature for Cinder is enabled by default since Kubernetes 1.21.
 It redirects all plugin operations from the existing in-tree plugin to the
 `cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
 [OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster.
-You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
-If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
-for all aspects of Cinder volume storage management.
+
+To disable the in-tree Cinder plugin from being loaded by the controller manager
+and the kubelet, you can enable the `InTreePluginOpenStackUnregister`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 ### configMap
 
@@ -969,65 +969,14 @@ spec:
 For more information about StorageOS, dynamic provisioning, and PersistentVolumeClaims, see the
 [StorageOS examples](https://github.com/kubernetes/examples/blob/master/volumes/storageos).
 
-### vsphereVolume {#vspherevolume}
+### vsphereVolume (deprecated) {#vspherevolume}
 
 {{< note >}}
-You must configure the Kubernetes vSphere Cloud Provider. For cloudprovider
-configuration, refer to the [vSphere Getting Started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
+We recommend to use vSphere CSI out-of-tree driver instead.
 {{< /note >}}
 
 A `vsphereVolume` is used to mount a vSphere VMDK volume into your Pod.  The contents
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
-
-{{< note >}}
-You must create vSphere VMDK volume using one of the following methods before using with a Pod.
-{{< /note >}}
-
-#### Creating a VMDK volume {#creating-vmdk-volume}
-
-Choose one of the following methods to create a VMDK.
-
-{{< tabs name="tabs_volumes" >}}
-{{% tab name="Create using vmkfstools" %}}
-First ssh into ESX, then use the following command to create a VMDK:
-
-```shell
-vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
-```
-
-{{% /tab %}}
-{{% tab name="Create using vmware-vdiskmanager" %}}
-Use the following command to create a VMDK:
-
-```shell
-vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
-```
-
-{{% /tab %}}
-
-{{< /tabs >}}
-
-#### vSphere VMDK configuration example {#vsphere-vmdk-configuration}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-vmdk
-spec:
-  containers:
-  - image: k8s.gcr.io/test-webserver
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-vmdk
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # This VMDK volume must already exist.
-    vsphereVolume:
-      volumePath: "[DatastoreName] volumes/myDisk"
-      fsType: ext4
-```
 
 For more information, see the [vSphere volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) examples.
 
@@ -1040,8 +989,15 @@ from the existing in-tree plugin to the `csi.vsphere.vmware.com` {{< glossary_to
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+You can find additional advice on how to migrate in VMware's
+documentation page [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 
-This also requires minimum vSphere vCenter/ESXi Version to be 7.0u1 and minimum HW Version to be VM version 15.
+Kubernetes v{{< skew currentVersion >}} requires that you are using vSphere 7.0u2 or later
+in order to migrate to the out-of-tree CSI driver.
+If you are running a version of Kubernetes other than v{{< skew currentVersion >}}, consult
+the documentation for that version of Kubernetes.
+If you are running Kubernetes v{{< skew currentVersion >}} and an older version of vSphere,
+consider upgrading to at least vSphere 7.0u2.
 
 {{< note >}}
 The following StorageClass parameters from the built-in `vsphereVolume` plugin are not supported by the vSphere CSI driver:
@@ -1211,7 +1167,6 @@ A `csi` volume can be used in a Pod in three different ways:
 
 * through a reference to a [PersistentVolumeClaim](#persistentvolumeclaim)
 * with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
-(alpha feature)
 * with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
 if the driver supports that (beta feature)
 

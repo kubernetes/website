@@ -120,7 +120,7 @@ your Pod spec.
 
 For example, consider the following Pod spec:
 
-{{<codenew file="pods/pod-with-node-affinity.yaml">}}
+{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
 In this example, the following rules apply:
 
@@ -167,7 +167,7 @@ scheduling decision for the Pod.
 
 For example, consider the following Pod spec: 
 
-{{<codenew file="pods/pod-with-affinity-anti-affinity.yaml">}}
+{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
 If there are two possible nodes that match the
 `requiredDuringSchedulingIgnoredDuringExecution` rule, one with the
@@ -326,18 +326,12 @@ If omitted or empty, `namespaces` defaults to the namespace of the Pod where the
 affinity/anti-affinity definition appears.
 
 #### Namespace selector
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 You can also select matching namespaces using `namespaceSelector`, which is a label query over the set of namespaces.
 The affinity term is applied to namespaces selected by both `namespaceSelector` and the `namespaces` field.
 Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and 
 null `namespaceSelector` matches the namespace of the Pod where the rule is defined.
-
-{{<note>}}
-This feature is beta and enabled by default. You can disable it via the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
-{{</note>}}
 
 #### More practical use-cases
 

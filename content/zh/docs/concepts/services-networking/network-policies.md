@@ -121,42 +121,7 @@ An example NetworkPolicy might look like this:
 
 下面是一个 NetworkPolicy 的示例:
 
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: test-network-policy
-  namespace: default
-spec:
-  podSelector:
-    matchLabels:
-      role: db
-  policyTypes:
-  - Ingress
-  - Egress
-  ingress:
-  - from:
-    - ipBlock:
-        cidr: 172.17.0.0/16
-        except:
-        - 172.17.1.0/24
-    - namespaceSelector:
-        matchLabels:
-          project: myproject
-    - podSelector:
-        matchLabels:
-          role: frontend
-    ports:
-    - protocol: TCP
-      port: 6379
-  egress:
-  - to:
-    - ipBlock:
-        cidr: 10.0.0.0/24
-    ports:
-    - protocol: TCP
-      port: 5978
-```
+{{< codenew file="service/networking/networkpolicy.yaml" >}}
 
 <!--
 POSTing this to the API server for your cluster will have no effect unless your chosen networking solution supports network policy.
@@ -235,7 +200,7 @@ See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-
    * IP 地址范围为 172.17.0.0–172.17.0.255 和 172.17.2.0–172.17.255.255
      （即，除了 172.17.1.0/24 之外的所有 172.17.0.0/16）
 
-3. （Egress 规则）允许从带有 "role=db" 标签的名字空间下的任何 Pod 到 CIDR
+3. （Egress 规则）允许 “default” 命名空间中任何带有标签 “role=db” 的 Pod 到 CIDR
    10.0.0.0/24 下 5978 TCP 端口的连接。
 
 参阅[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)演练

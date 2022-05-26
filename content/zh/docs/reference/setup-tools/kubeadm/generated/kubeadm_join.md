@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Run this on any machine you wish to join an existing cluster 
+-->
+在你希望加入现有集群的任何机器上运行它
 
 <!--
 ### Synopsis
@@ -98,7 +113,7 @@ control-plane-prepare  Prepare the machine for serving a control plane
 kubelet-start          Write kubelet settings, certificates and (re)start the kubelet
 control-plane-join     Join a machine as a control plane instance
   /etcd                  Add a new local etcd member
-  /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
+  /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap (DEPRECATED)
   /mark-control-plane    Mark a node as a control-plane
 ```
 
@@ -123,9 +138,9 @@ kubeadm join [api-server-endpoint] [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
+<p>If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
 -->
-如果该节点托管一个新的控制平面实例，则 API 服务器将公布其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
+<p>如果该节点托管一个新的控制平面实例，则 API 服务器将公布其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。</p>
 </td>
 </tr>
 
@@ -140,9 +155,9 @@ If the node should host a new control plane instance, the IP address the API Ser
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If the node should host a new control plane instance, the port for the API Server to bind to.
+<p>If the node should host a new control plane instance, the port for the API Server to bind to.</p>
 -->
-如果节点应该托管新的控制平面实例，则为 API 服务器要绑定的端口。
+<p>如果节点应该托管新的控制平面实例，则为 API 服务器要绑定的端口。</p>
 </td>
 </tr>
 
@@ -152,9 +167,9 @@ If the node should host a new control plane instance, the port for the API Serve
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Use this key to decrypt the certificate secrets uploaded by init.
+<p>Use this key to decrypt the certificate secrets uploaded by init.</p>
 -->
-使用此密钥可以解密由 init 上传的证书 secret。
+<p>使用此密钥可以解密由 init 上传的证书 secret。</p>
 </td>
 </tr>
 
@@ -164,9 +179,9 @@ Use this key to decrypt the certificate secrets uploaded by init.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm config file.
+<p>Path to kubeadm config file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -176,9 +191,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Create a new control plane instance on this node
+<p>Create a new control plane instance on this node</p>
 -->
-在此节点上创建一个新的控制平面实例
+<p>在此节点上创建一个新的控制平面实例</p>
 </td>
 </tr>
 
@@ -188,9 +203,9 @@ Create a new control plane instance on this node
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
+<p>Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</p>
 -->
-要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
+<p>要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。</p>
 </td>
 </tr>
 
@@ -200,9 +215,9 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-For file-based discovery, a file or URL from which to load cluster information.
+<p>For file-based discovery, a file or URL from which to load cluster information.</p>
 -->
-对于基于文件的发现，给出用于加载集群信息的文件或者 URL。
+<p>对于基于文件的发现，给出用于加载集群信息的文件或者 URL。</p>
 </td>
 </tr>
 
@@ -212,9 +227,9 @@ For file-based discovery, a file or URL from which to load cluster information.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-For token-based discovery, the token used to validate cluster information fetched from the API server.
+<p>For token-based discovery, the token used to validate cluster information fetched from the API server.</p>
 -->
-对于基于令牌的发现，该令牌用于验证从 API 服务器获取的集群信息。
+<p>对于基于令牌的发现，该令牌用于验证从 API 服务器获取的集群信息。</p>
 </td>
 </tr>
 
@@ -224,9 +239,9 @@ For token-based discovery, the token used to validate cluster information fetche
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").
+<p>For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").</p>
 -->
-对基于令牌的发现，验证根 CA 公钥是否与此哈希匹配 (格式: "&lt;type&gt;:&lt;value&gt;")。
+<p>对基于令牌的发现，验证根 CA 公钥是否与此哈希匹配 (格式: "&lt;type&gt;:&lt;value&gt;")。</p>
 </td>
 </tr>
 
@@ -236,26 +251,22 @@ For token-based discovery, validate that the root CA public key matches this has
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
+<p>For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.</p>
 -->
-对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。
+<p>对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--experimental-patches string</td>
+<td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--  
-Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- 
+Don't apply any changes; just output what would be done. 
 -->
-包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
-例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
-"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
-默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
-"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
-</td>
+不会应用任何改动，仅仅输出那些将变动的地方。
+</p></td>
 </tr>
 
 <tr>
@@ -264,21 +275,21 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for join
+<p>help for join</p>
 -->
-join 操作的帮助命令
+<p>join 操作的帮助命令</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--ignore-preflight-errors stringSlice</td>
+<td colspan="2">--ignore-preflight-errors strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
+<p>A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p>
 -->
-错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
+<p>错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。</p>
 </td>
 </tr>
 
@@ -288,21 +299,37 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specify the node name.
+<p>Specify the node name.</p>
 -->
-指定节点的名称
+<p>指定节点的名称</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--skip-phases stringSlice</td>
+<td colspan="2">--patches string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+<p>Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.</p>
+-->
+<p>包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
+例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
+默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
+"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--skip-phases strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-List of phases to be skipped
+<p>List of phases to be skipped</p>
 -->
-要跳过的阶段列表
+<p>要跳过的阶段列表</p>
 </td>
 </tr>
 
@@ -312,9 +339,9 @@ List of phases to be skipped
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specify the token used to temporarily authenticate with the Kubernetes Control Plane while joining the node.
+<p>Specify the token used to temporarily authenticate with the Kubernetes Control Plane while joining the node.</p>
 -->
-指定在加入节点时用于临时通过 Kubernetes 控制平面进行身份验证的令牌。
+<p>指定在加入节点时用于临时通过 Kubernetes 控制平面进行身份验证的令牌。</p>
 </td>
 </tr>
 
@@ -324,9 +351,9 @@ Specify the token used to temporarily authenticate with the Kubernetes Control P
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
+<p>Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.</p>
 -->
-如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。
+<p>如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。</p>
 </td>
 </tr>
 
@@ -353,9 +380,9 @@ Use this token for both discovery-token and tls-bootstrap-token when those value
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<p>[实验] 指向 '真实' 宿主机根文件系统的路径。</p>
 </td>
 </tr>
 

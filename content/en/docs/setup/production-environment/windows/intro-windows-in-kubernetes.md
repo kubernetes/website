@@ -42,76 +42,6 @@ This document uses the term *Windows containers* to mean Windows containers with
 process isolation. Kubernetes does not support running Windows containers with
 [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container).
 
-## Resource management
-
-On Linux nodes, {{< glossary_tooltip text="cgroups" term_id="cgroup" >}} are used
-as a pod boundary for resource control. Containers are created within that boundary
-for network, process and file system isolation. The Linux cgroup APIs can be used
-to gather CPU, I/O, and memory use statistics.
-
-In contrast, Windows uses a _job object_ per container with a system namespace filter
-to contain all processes in a container and provide logical isolation from the
-host.
-(Job objects are a Windows process isolation mechanism and are different from
-what Kubernetes refers to as a {{< glossary_tooltip term_id="job" text="Job" >}}).
-
-There is no way to run a Windows container without the namespace filtering in
-place. This means that system privileges cannot be asserted in the context of the
-host, and thus privileged containers are not available on Windows.
-Containers cannot assume an identity from the host because the Security Account Manager
-(SAM) is separate.
-
-#### Memory reservations {#resource-management-memory}
-
-Windows does not have an out-of-memory process killer as Linux does. Windows always
-treats all user-mode memory allocations as virtual, and pagefiles are mandatory
-(on Linux, the kubelet will by default not start with swap space enabled).
-
-Windows nodes do not overcommit memory for processes running in containers. The
-net effect is that Windows won't reach out of memory conditions the same way Linux
-does, and processes page to disk instead of being subject to out of memory (OOM)
-termination. If memory is over-provisioned and all physical memory is exhausted,
-then paging can slow down performance.
-
-You can place bounds on memory use for workloads using the kubelet
-parameters `--kubelet-reserve` and/or `--system-reserve`; these account
-for memory usage on the node (outside of containers), and reduce
-[NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
-As you deploy workloads, set resource limits on containers. This also subtracts from
-`NodeAllocatable` and prevents the scheduler from adding more pods once a node is full.
-
-{{< note >}}
-When you set memory resource limits for Windows containers, you should either set a
-limit and leave the memory request unspecified, or set the request equal to the limit.
-{{< /note >}}
-
-On Windows, good practice to avoid over-provisioning is to configure the kubelet
-with a system reserved memory of at least 2GiB to account for Windows, Kubernetes
-and container runtime overheads.
-
-#### CPU reservations {#resource-management-cpu}
-
-To account for CPU use by the operating system, the container runtime, and by
-Kubernetes host processes such as the kubelet, you can (and should) reserve a
-percentage of total CPU. You should determine this CPU reservation taking account of
-to the number of CPU cores available on the node. To decide on the CPU percentage to
-reserve, identify the maximum pod density for each node and monitor the CPU usage of
-the system services running there, then choose a value that meets your workload needs.
-
-You can place bounds on CPU usage for workloads using the
-kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to
-account for CPU usage on the node (outside of containers).
-This reduces `NodeAllocatable`.
-The cluster-wide scheduler then takes this reservation into account when determining
-pod placement.
-
-On Windows, the kubelet supports a command-line flag to set the priority of the
-kubelet process: `--windows-priorityclass`. This flag allows the kubelet process to get
-more CPU time slices when compared to other processes running on the Windows host.
-More information on the allowable values and their meaning is available at
-[Windows Priority Classes](https://docs.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities#priority-class).
-To ensure that running Pods do not starve the kubelet of CPU cycles, set this flag to `ABOVE_NORMAL_PRIORITY_CLASS` or above.
-
 ## Compatibility and limitations {#limitations}
 
 Some node features are only available if you use a specific
@@ -154,35 +84,43 @@ section refers to several key workload enablers and how they map to Windows.
   * Named pipe host mounts
   * Resource limits
   * OS field: 
-              {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
-               `.spec.os.name` should be set to `windows` to indicate that the current Pod uses Windows containers.
-               `IdentifyPodOS` feature gate needs to be enabled for this field to be recognized and used by control plane
-               components and kubelet.
-               {{< note >}}
-              If the `IdentifyPodOS` feature gate is enabled and you set the `.spec.os.name` field to `windows`, you must not set the following fields in the `.spec` of that Pod:
-               * `spec.hostPID`
-               * `spec.hostIPC`
-               * `spec.securityContext.seLinuxOptions`
-               * `spec.securityContext.seccompProfile`
-               * `spec.securityContext.fsGroup`
-               * `spec.securityContext.fsGroupChangePolicy`
-               * `spec.securityContext.sysctls`
-               * `spec.shareProcessNamespace`
-               * `spec.securityContext.runAsUser`
-               * `spec.securityContext.runAsGroup`
-               * `spec.securityContext.supplementalGroups`
-               * `spec.containers[*].securityContext.seLinuxOptions`
-               * `spec.containers[*].securityContext.seccompProfile`
-               * `spec.containers[*].securityContext.capabilities`
-               * `spec.containers[*].securityContext.readOnlyRootFilesystem`
-               * `spec.containers[*].securityContext.privileged`
-               * `spec.containers[*].securityContext.allowPrivilegeEscalation`
-               * `spec.containers[*].securityContext.procMount`
-               * `spec.containers[*].securityContext.runAsUser`
-               * `spec.containers[*].securityContext.runAsGroup`
 
-            Note: In this table, wildcards (*) indicate all elements in a list. For example, spec.containers[*].securityContext refers to the Security Context object for all defined containers. If not, Pod API validation would fail causing admission failures.
-            {{< /note >}}
+    The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
+    The `IdentifyPodOS` feature gate needs to be enabled for this field to be recognized and used by control plane
+    components and kubelet.
+
+    {{< note >}}
+    Starting from 1.24, the `IdentifyPodOS` feature gate is in Beta stage and defaults to be enabled.
+    {{< /note >}}
+
+    If the `IdentifyPodOS` feature gate is enabled and you set the `.spec.os.name` field to `windows`,
+    you must not set the following fields in the `.spec` of that Pod:
+
+    * `spec.hostPID`
+    * `spec.hostIPC`
+    * `spec.securityContext.seLinuxOptions`
+    * `spec.securityContext.seccompProfile`
+    * `spec.securityContext.fsGroup`
+    * `spec.securityContext.fsGroupChangePolicy`
+    * `spec.securityContext.sysctls`
+    * `spec.shareProcessNamespace`
+    * `spec.securityContext.runAsUser`
+    * `spec.securityContext.runAsGroup`
+    * `spec.securityContext.supplementalGroups`
+    * `spec.containers[*].securityContext.seLinuxOptions`
+    * `spec.containers[*].securityContext.seccompProfile`
+    * `spec.containers[*].securityContext.capabilities`
+    * `spec.containers[*].securityContext.readOnlyRootFilesystem`
+    * `spec.containers[*].securityContext.privileged`
+    * `spec.containers[*].securityContext.allowPrivilegeEscalation`
+    * `spec.containers[*].securityContext.procMount`
+    * `spec.containers[*].securityContext.runAsUser`
+    * `spec.containers[*].securityContext.runAsGroup`
+
+    In the above list, wildcards (`*`) indicate all elements in a list.
+    For example, `spec.containers[*].securityContext` refers to the SecurityContext object
+    for all containers. If any of these fields is specified, the Pod will
+    not be admited by the API server.
 
 * [Workload resources](/docs/concepts/workloads/controllers/) including:
   * ReplicaSet
@@ -490,7 +428,7 @@ For more details, refer to the deployment guide of the CSI plugin you wish to de
 
 The behavior of some kubelet command line options behave differently on Windows, as described below:
 
-* The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process (see [CPU resource management](#resource-management-cpu))
+* The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process (see [CPU resource management](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu))
 * The `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 * Eviction by using `--enforce-node-allocable` is not implemented
 * Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
@@ -609,7 +547,7 @@ None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-reso
 ### Node problem detector
 
 The node problem detector (see
-[Monitor Node Health](/docs/tasks/debug-application-cluster/monitor-node-health/))
+[Monitor Node Health](/docs/tasks/debug/debug-cluster/monitor-node-health/))
 is not compatible with Windows.
 
 ### Pause container
@@ -684,28 +622,10 @@ Windows Server SAC release
 
 The Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) also applies.
 
-## Security for Windows nodes {#security}
-
-On Windows, data from Secrets are written out in clear text onto the node's local
-storage (as compared to using tmpfs / in-memory filesystems on Linux). As a cluster
-operator, you should take both of the following additional measures:
-
-1. Use file ACLs to secure the Secrets' file location.
-1. Apply volume-level encryption using [BitLocker](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server).
-
-[RunAsUsername](/docs/tasks/configure-pod-container/configure-runasusername)
-can be specified for Windows Pods or containers to execute the container
-processes as a node-default user. This is roughly equivalent to
-[RunAsUser](/docs/concepts/security/pod-security-policy/#users-and-groups).
-
-Linux-specific pod security context privileges such as SELinux, AppArmor, Seccomp, or capabilities (POSIX capabilities), and others are not supported.
-
-Privileged containers are [not supported](#compatibility-v1-pod-spec-containers-securitycontext) on Windows.
-
 ## Getting help and troubleshooting {#troubleshooting}
 
 Your main source of help for troubleshooting your Kubernetes cluster should start
-with the [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting/)
+with the [Troubleshooting](/docs/tasks/debug/)
 page.
 
 Some additional, Windows-specific troubleshooting help is included

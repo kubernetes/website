@@ -21,14 +21,14 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 
 <!--
 * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-* A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack (such as Calico, Cilium or Kubenet)
+* A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking.
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 -->
 * 提供程序对双协议栈网络的支持 (云供应商或其他方式必须能够为 Kubernetes 节点
   提供可路由的 IPv4/IPv6 网络接口)
 * 一个能够支持[双协议栈](/zh/docs/concepts/services-networking/dual-stack/)的
-  [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)，
-  （如 Calico，Cilium 或 Kubenet）。 
+  [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
+  
 * [启用双协议栈](/zh/docs/concepts/services-networking/dual-stack/) 集群
 
 {{< version-check >}}

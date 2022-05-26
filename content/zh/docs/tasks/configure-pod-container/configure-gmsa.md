@@ -22,13 +22,12 @@ This page shows how to configure [Group Managed Service Accounts](https://docs.m
 服务器将管理操作委派给其他管理员等能力。
 
 <!--
-In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope as Custom Resources. Windows Pods, as well as individual containers within a Pod, can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication) when interacting with other Windows services. As of v1.16, the Docker runtime supports GMSA for Windows workloads.
+In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope as Custom Resources. Windows Pods, as well as individual containers within a Pod, can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication) when interacting with other Windows services.
 -->
 在 Kubernetes 环境中，GMSA 凭据规约配置为 Kubernetes 集群范围的自定义资源
 （Custom Resources）形式。Windows Pod 以及各 Pod 中的每个容器可以配置为
 使用 GMSA 来完成基于域（Domain）的操作（例如，Kerberos 身份认证），以便
-与其他 Windows 服务相交互。自 Kubernetes 1.16 版本起，Docker 运行时为
-Windows 负载支持 GMSA。
+与其他 Windows 服务相交互。
 
 ## {{% heading "prerequisites" %}}
 
@@ -190,7 +189,7 @@ credspec:
 下面的 YAML 配置描述的是一个名为 `gmsa-WebApp1` 的 GMSA 凭据规约：
 
 ```yaml
-apiVersion: windows.k8s.io/v1alpha1
+apiVersion: windows.k8s.io/v1
 kind: GMSACredentialSpec
 metadata:
   name: gmsa-WebApp1  # 这是随意起的一个名字，将用作引用
@@ -381,85 +380,24 @@ As Pod specs with GMSA fields populated (as described above) are applied in a cl
 1. 容器运行时为每个 Windows 容器配置所指定的 GMSA 凭据规约，这样容器就可以以
    活动目录中该 GMSA 所代表的身份来执行操作，使用该身份来访问域中的服务。
 
+## 使用主机名或 FQDN 对网络共享进行身份验证 
 <!--
-## Containerd 
-
-On Windows Server 2019, in order to use GMSA with containerd, you must be running OS Build 17763.1817 (or later) which can be installed using the patch [KB5000822](https://support.microsoft.com/en-us/topic/march-9-2021-kb5000822-os-build-17763-1817-2eb6197f-e3b1-4f42-ab51-84345e063564). 
-
-There is also a known issue with containerd that occurs when trying to connect to SMB shares from Pods. Once you have configured GMSA, the pod will be unable to connect to the share using the hostname or FQDN, but connecting to the share using an IP address works as expected. 
+If you are experiencing issues connecting to SMB shares from Pods using hostname or FQDN, but are able to access the shares via their IPv4 address then make sure the following registry key is set on the Windows nodes.
 -->
-## Containerd
-在 Windows Server 2019 上对 containerd 使用 GMSA，需要使用 Build 17763.1817（或更新的版本）， 
-你可以安装补丁 [KB5000822](https://support.microsoft.com/en-us/topic/march-9-2021-kb5000822-os-build-17763-1817-2eb6197f-e3b1-4f42-ab51-84345e063564)。
+如果你在使用主机名或 FQDN 从 Pod 连接到 SMB 共享时遇到问题，但能够通过其 IPv4 地址访问共享，
+请确保在 Windows 节点上设置了以下注册表项。
 
-containerd 场景从 Pod 连接 SMB 共享的时候有一个已知问题： 
-配置了 GMSA 以后，无法通过主机名或者 FQDN 访问 SMB共享，但是通过 IP 地址访问没有问题。
-
-```PowerShell
-ping adserver.ad.local
+```cmd
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1
 ```
 
 <!--
-and correctly resolves the hostname to an IPv4 address. The output is similar to:
+Running Pods will then need to be recreated to pick up the behavior changes.
+More information on how this registry key is used can be found [here](
+https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
 -->
-
-主机名可以被解析为 IPv4 地址，输出类似如下所示：
-
-```
-Pinging adserver.ad.local [192.168.111.18] with 32 bytes of data:
-Reply from 192.168.111.18: bytes=32 time=6ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-```
-
-<!--
-However, when attempting to browse the directory using the hostname
--->
-但是，当尝试使用主机名浏览目录时:
-
-```PowerShell
-cd \\adserver.ad.local\test
-```
-
-<!--
-you see an error that implies the target share doesn't exist:
--->
-你会看到一个错误，提示目标共享不存在:
-
-```
-cd : Cannot find path '\\adserver.ad.local\test' because it does not exist.
-At line:1 char:1
-+ cd \\adserver.ad.local\test
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : ObjectNotFound: (\\adserver.ad.local\test:String) [Set-Location], ItemNotFoundException
-    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
-```
-
-<!--
-but you notice that the error disappears if you browse to the share using its IPv4 address instead; for example:
--->
-但是你会注意到，如果你改为使用其 IPv4 地址浏览共享，错误就会消失；例如：
-
-```PowerShell
-cd \\192.168.111.18\test
-```
-
-<!--
-After you change into a directory within the share, you see a prompt similar to:
--->
-切换到共享中的目录后，你会看到类似于以下内容的提示：
-
-```
-Microsoft.PowerShell.Core\FileSystem::\\192.168.111.18\test>
-```
-
-<!--
-To correct the behaviour you must run the following on the node `reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1` to add the required registry key. This node change will only take effect in newly created pods, meaning you must now recreate any running pods which require access to SMB shares.
--->
-要解决问题，你需要在节点上运行以下命令以添加所需的注册表项
-`reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1`。
-此更改只会在新创建的 Pod 中生效，这意味着你必须重新创建任何需要访问 SMB 共享的正在运行的 Pod。
+然后需要重新创建正在运行的 Pod 以使行为更改生效。
+有关如何使用此注册表项的更多信息，请参见[此处](https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)。
 <!--
 ## Troubleshooting
 
@@ -483,7 +421,7 @@ kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
 `nltest.exe /parentdomain` results in the following error:
 -->
 `nltest.exe /parentdomain` 导致以下错误：
-```
+```output
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 

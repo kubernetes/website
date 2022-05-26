@@ -76,6 +76,10 @@ of CertificateAuthority, since CA data will always be passed to the plugin as by
 Cluster 中包含允许 exec 插件与 Kubernetes 集群进行通信身份认证时所需
 的信息。
 
+为了确保该结构体包含需要与 Kubernetes 集群进行通信的所有内容（就像通过 Kubeconfig 一样），
+除了证书授权之外，该字段应该映射到 "k8s.io/client-go/tools/clientcmd/api/v1".cluster，
+由于 CA 数据将始终以字节形式传递给插件。
+
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
@@ -167,7 +171,7 @@ clusters:
    只是针对不同集群会有一些细节上的差异，例如 audience。
    此字段使得特定于集群的配置可以直接使用集群信息来设置。
    不建议使用此字段来保存 Secret 数据，因为 exec 插件的主要优势之一是不需要在
-   kubeconfig 中保存 Secret 数据。
+   kubeconfig 中保存 Secret 数据。</p>
 </td>
 </tr>
 </tbody>
@@ -222,6 +226,7 @@ ExecCredentialSpec 保存传输组件所提供的特定于请求和运行时的�
 <!--
 **Appears in:**
 -->
+**出现在：**
 
 - [ExecCredential](#client-authentication-k8s-io-v1-ExecCredential)
 
@@ -235,7 +240,7 @@ itself should at least be protected via file permissions.
 <p>ExecCredentialStatus 中包含传输组件要使用的凭据。</p>
 <p>字段 token 和 clientKeyData 都是敏感字段。此数据只能在
 客户端与 exec 插件进程之间使用内存来传递。exec 插件本身至少
-应通过文件访问许可来实施保护。</p>》
+应通过文件访问许可来实施保护。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>

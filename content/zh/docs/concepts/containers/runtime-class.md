@@ -113,18 +113,21 @@ RuntimeClass 资源当前只有两个重要的字段：RuntimeClass 名 (`metada
 对象定义如下所示：
 
 ```yaml
-apiVersion: node.k8s.io/v1  # RuntimeClass 定义于 node.k8s.io API 组
+# RuntimeClass 定义于 node.k8s.io API 组
+apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
-  name: myclass  # 用来引用 RuntimeClass 的名字
+  # 用来引用 RuntimeClass 的名字
   # RuntimeClass 是一个集群层面的资源
-handler: myconfiguration  # 对应的 CRI 配置的名称
+  name: myclass  
+# 对应的 CRI 配置的名称
+handler: myconfiguration
 ```
 
 <!--
 It is recommended that RuntimeClass write operations (create/update/patch/delete) be
-restricted to the cluster administrator. This is typically the default. See [Authorization
-Overview](/docs/reference/access-authn-authz/authorization/) for more details.
+restricted to the cluster administrator. This is typically the default. See 
+[Authorization Overview](/docs/reference/access-authn-authz/authorization/) for more details.
 -->
 {{< note >}}
 建议将 RuntimeClass 写操作（create、update、patch 和 delete）限定于集群管理员使用。
@@ -134,13 +137,13 @@ Overview](/docs/reference/access-authn-authz/authorization/) for more details.
 <!--
 ## Usage
 
-Once RuntimeClasses are configured for the cluster, using them is very simple. Specify a
-`runtimeClassName` in the Pod spec. For example:
+Once RuntimeClasses are configured for the cluster, you can specify a
+`runtimeClassName` in the Pod spec to use it. For example:
 -->
 ## 使用说明  {#usage}
 
-一旦完成集群中 RuntimeClasses 的配置，使用起来非常方便。
-在 Pod spec 中指定 `runtimeClassName` 即可。例如:
+一旦完成集群中 RuntimeClasses 的配置，
+你可以在 Pod spec 中指定 `runtimeClassName` 来使用它。例如:
 
 ```yaml
 apiVersion: v1
@@ -156,13 +159,13 @@ spec:
 This will instruct the kubelet to use the named RuntimeClass to run this pod. If the named
 RuntimeClass does not exist, or the CRI cannot run the corresponding handler, the pod will enter the
 `Failed` terminal [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase). Look for a
-corresponding [event](/docs/tasks/debug-application-cluster/debug-application-introspection/) for an
+corresponding [event](/docs/tasks/debug/debug-application/debug-running-pod/) for an
 error message.
 -->
 这一设置会告诉 kubelet 使用所指的 RuntimeClass 来运行该 pod。
 如果所指的 RuntimeClass 不存在或者 CRI 无法运行相应的 handler，
 那么 pod 将会进入 `Failed` 终止[阶段](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
-你可以查看相应的[事件](/zh/docs/tasks/debug-application-cluster/debug-application-introspection/)，
+你可以查看相应的[事件](/zh/docs/tasks/debug/debug-application/debug-running-pod/)，
 获取执行过程中的错误信息。
 
 <!--
@@ -181,25 +184,7 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 关于如何安装 CRI 运行时，请查阅
 [CRI 安装](/zh/docs/setup/production-environment/container-runtimes/)。
 
-#### dockershim
-
-<!--
-{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
-
-Dockershim is deprecated as of Kubernetes v1.20, and will be removed in v1.24. For more information on the deprecation,
-see [dockershim deprecation](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
--->
-Dockershim 自 Kubernetes v1.20 起已弃用，并将在 v1.24 中删除。 
-有关弃用的更多信息查看 [dockershim 弃用](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)。
-
-<!--
-RuntimeClasses with dockershim must set the runtime handler to `docker`. Dockershim does not support
-custom configurable runtime handlers.
--->
-为 dockershim 设置 RuntimeClass 时，必须将运行时处理程序设置为 `docker`。
-Dockershim 不支持自定义的可配置的运行时处理程序。
-
-#### [containerd](https://containerd.io/)
+#### {{< glossary_tooltip term_id="containerd" >}}
 
 <!--
 Runtime handlers are configured through containerd's configuration at
@@ -213,11 +198,10 @@ handler 需要配置在 runtimes 块中：
 ```
 
 <!--
-See containerd's config documentation for more details:
-https://github.com/containerd/cri/blob/master/docs/config.md
+See containerd's [config documentation](https://github.com/containerd/cri/blob/master/docs/config.md)
+for more details:
 -->
-更详细信息，请查阅 containerd 配置文档：
-https://github.com/containerd/cri/blob/master/docs/config.md
+更详细信息，请查阅 containerd 的[配置指南](https://github.com/containerd/cri/blob/master/docs/config.md)
 
 #### [cri-o](https://cri-o.io/)
 
@@ -279,8 +263,8 @@ by each.
 与 `nodeSelector` 一样，tolerations 也在 admission 阶段与 pod 的 tolerations 合并，取二者的并集。
 
 <!--
-To learn more about configuring the node selector and tolerations, see [Assigning Pods to
-Nodes](/docs/concepts/configuration/assign-pod-node/).
+To learn more about configuring the node selector and tolerations, see 
+[Assigning Pods to Nodes](/docs/concepts/configuration/assign-pod-node/).
 -->
 更多有关 node selector 和 tolerations 的配置信息，请查阅 
 [将 Pod 分派到节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)。
@@ -290,26 +274,21 @@ Nodes](/docs/concepts/configuration/assign-pod-node/).
  -->
 ### Pod 开销   {#pod-overhead}
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
 the cluster (including the scheduler) to account for it when making decisions about Pods and resources.  
-To use Pod overhead, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled (it is on by default).
 -->
 你可以指定与运行 Pod 相关的 _开销_ 资源。声明开销即允许集群（包括调度器）在决策 Pod 和资源时将其考虑在内。
-若要使用 Pod 开销特性，你必须确保 PodOverhead
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-处于启用状态（默认为启用状态）。
 
 <!--
-Pod overhead is defined in RuntimeClass through the `Overhead` fields. Through the use of these fields,
+Pod overhead is defined in RuntimeClass through the `overhead` field. Through the use of this field,
 you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
 are accounted for in Kubernetes.
 -->
 Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。
-通过使用这些字段，你可以指定使用该 RuntimeClass 运行 Pod 时的开销并确保 Kubernetes 将这些开销计算在内。
+通过使用这个字段，你可以指定使用该 RuntimeClass 运行 Pod 时的开销并确保 Kubernetes 将这些开销计算在内。
 
 ## {{% heading "whatsnext" %}}
 

@@ -17,6 +17,11 @@ date: 2018-07-11
 **作者**: Michael Taufen (Google)
 
 <!--
+**Editor’s note: The feature has been removed in the version 1.24 after deprecation in 1.22.**
+-->
+**编者注：在 1.22 版本弃用后，该功能已在 1.24 版本中删除。**
+
+<!--
 **Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/) on what’s new in Kubernetes 1.11**
 -->
 **编者注：这篇文章是[一系列深度文章](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/) 的一部分，这个系列介绍了 Kubernetes 1.11 中的新增功能**
@@ -88,7 +93,7 @@ Dynamic Kubelet configuration provides the following core features:
 <!--
 To use the dynamic Kubelet configuration feature, a cluster administrator or service provider will first post a ConfigMap containing the desired configuration, then set each Node.Spec.ConfigSource.ConfigMap reference to refer to the new ConfigMap. Operators can update these references at their preferred rate, giving them the ability to perform controlled rollouts of new configurations.
 -->
-要使用动态 Kubelet 配置功能，群集管理员或服务提供商将首先发布包含所需配置的 ConfigMap，
+要使用动态 Kubelet 配置功能，集群管理员或服务提供商将首先发布包含所需配置的 ConfigMap，
 然后设置每个 Node.Spec.ConfigSource.ConfigMap 引用以指向新的 ConfigMap。
 运营商可以以他们喜欢的速率更新这些参考，从而使他们能够执行新配置的受控部署。
 

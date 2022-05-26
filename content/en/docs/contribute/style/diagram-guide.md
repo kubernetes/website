@@ -8,7 +8,7 @@ weight: 15
 <!--Overview-->
 
 This guide shows you how to create, edit and share diagrams using the Mermaid
-Javascript library. Mermaid.js allows you to generate diagrams using a simple
+JavaScript library. Mermaid.js allows you to generate diagrams using a simple
 markdown-like syntax inside Markdown files. You can also use Mermaid to
 generate `.svg` or `.png` image files that you can add to your documentation.
 

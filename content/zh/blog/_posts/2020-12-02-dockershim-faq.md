@@ -9,8 +9,12 @@ layout: blog
 title: "Dockershim Deprecation FAQ"
 date: 2020-12-02
 slug: dockershim-faq
-aliases: [ '/dockershim' ]
 -->
+
+<!--
+_**Update**: There is a [newer version](/blog/2022/02/17/dockershim-faq/) of this article available._
+-->
+_**更新**：本文有[较新版本](/zh/blog/2022/02/17/dockershim-faq/)。_
 
 <!-- 
 This document goes over some frequently asked questions regarding the Dockershim
@@ -18,10 +22,14 @@ deprecation announced as a part of the Kubernetes v1.20 release. For more detail
 on the deprecation of Docker as a container runtime for Kubernetes kubelets, and
 what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
+
+Also, you can read [check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) to check whether it does.
 -->
 本文回顾了自 Kubernetes v1.20 版宣布弃用 Dockershim 以来所引发的一些常见问题。
 关于 Kubernetes kubelets 从容器运行时的角度弃用 Docker 的细节以及这些细节背后的含义，请参考博文
 [别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
+
+此外，你可以阅读[检查 Dockershim 移除是否影响你](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)以检查它是否会影响你。
 
 <!-- 
 ### Why is dockershim being deprecated?
@@ -45,7 +53,7 @@ You can read more about the community discussion and planning in the
 -->
 Dockershim 向来都是一个临时解决方案（因此得名：shim）。
 你可以进一步阅读
-[移除 Kubernetes 增强方案 Dockershim][drkep]
+[移除 Dockershim 这一 Kubernetes 增强方案][drkep]
 以了解相关的社区讨论和计划。
 
 <!-- 
@@ -79,7 +87,7 @@ startup if using Docker as the runtime.
 <!-- 
 Given the impact of this change, we are using an extended deprecation timeline.
 It will not be removed before Kubernetes 1.22, meaning the earliest release without
-dockershim would be 1.23 in late 2021.
+dockershim would be 1.23 in late 2021. 
 _Update_: removal of dockershim is scheduled for Kubernetes v1.24, see 
 [Dockershim Removal Kubernetes Enhancement Proposal][drkep].
 We will be working closely with vendors and other ecosystem groups to ensure a smooth transition and will evaluate 
@@ -88,8 +96,25 @@ things as the situation evolves.
 考虑到此改变带来的影响，我们使用了一个加长的废弃时间表。
 在 Kubernetes 1.22 版之前，它不会被彻底移除；换句话说，dockershim 被移除的最早版本会是 2021 年底发布的 1.23 版。
 _更新_：dockershim 计划在 Kubernetes 1.24 版被移除，
-请参阅[移除 Kubernetes 增强方案 Dockershim][drkep]。
+请参阅[移除 Dockershim 这一 Kubernetes 增强方案][drkep]。
 我们将与供应商以及其他生态团队紧密合作，确保顺利过渡，并将依据事态的发展评估后续事项。
+
+
+<!--
+### Can I still use dockershim after it is removed from Kubernetes?
+-->
+### 从 Kubernetes 中移除后我还能使用 dockershim 吗？ {#can-i-still-use-dockershim-after-it-is-removed-from-kubernetes}
+
+<!--
+Update:
+Mirantis and Docker have [committed][mirantis] to maintaining the dockershim after
+it is removed from Kubernetes.
+-->
+更新：Mirantis 和 Docker [已承诺][mirantis]在 dockershim 从 Kubernetes
+中删除后对其进行维护。
+
+[mirantis]: https://www.mirantis.com/blog/mirantis-to-take-over-support-of-kubernetes-dockershim-2/
+
 
 <!-- 
 ### Will my existing Docker images still work?
@@ -153,11 +178,11 @@ related projects follow a similar pattern as well, demonstrating the stability a
 usability of other container runtimes. As an example, OpenShift 4.x has been
 using the [CRI-O] runtime in production since June 2019.
 -->
-此外，[kind](https://kind.sigs.k8s.io/) 项目使用 containerd 已经有年头了，
+此外，[kind] 项目使用 containerd 已经有年头了，
 并且在这个场景中，稳定性还明显得到提升。
 Kind 和 containerd 每天都会做多次协调，以验证对 Kubernetes 代码库的所有更改。
 其他相关项目也遵循同样的模式，从而展示了其他容器运行时的稳定性和可用性。
-例如，OpenShift 4.x 从 2019 年 6 月以来，就一直在生产环境中使用 [CRI-O](https://cri-o.io/) 运行时。
+例如，OpenShift 4.x 从 2019 年 6 月以来，就一直在生产环境中使用 [CRI-O] 运行时。
 
 <!-- 
 For other examples and references you can look at the adopters of containerd and
@@ -170,6 +195,11 @@ CRI-O, two container runtimes under the Cloud Native Computing Foundation ([CNCF
 
 - [containerd](https://github.com/containerd/containerd/blob/master/ADOPTERS.md)
 - [CRI-O](https://github.com/cri-o/cri-o/blob/master/ADOPTERS.md)
+
+[CRI-O]: https://cri-o.io/
+[kind]: https://kind.sigs.k8s.io/
+[CNCF]: https://cncf.io
+
 
 <!-- 
 ### People keep referencing OCI, what is that?
@@ -256,14 +286,15 @@ runtime where possible.
 <!-- 
 Another thing to look out for is anything expecting to run for system maintenance
 or nested inside a container when building images will no longer work. For the
-former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from docker cli to crictl](https://kubernetes.io/docs/tasks/debug-application-cluster/crictl/#mapping-from-docker-cli-to-crictl)) and for the
+former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from dockercli to crictl](/docs/reference/tools/map-crictl-dockercli/)) and for the
 latter you can use newer container build options like [img], [buildah],
 [kaniko], or [buildkit-cli-for-kubectl] that don’t require Docker.
 -->
 另外还有一个需要关注的点，那就是当创建镜像时，系统维护或嵌入容器方面的任务将无法工作。
 对于前者，可以用 [`crictl`](https://github.com/kubernetes-sigs/cri-tools) 工具作为临时替代方案
-(参见 [从 docker 命令映射到 crictl](https://kubernetes.io/zh/docs/tasks/debug-application-cluster/crictl/#mapping-from-docker-cli-to-crictl))；
+(参见[从 docker 命令映射到 crictl](/zh/docs/reference/tools/map-crictl-dockercli/))；
 对于后者，可以用新的容器创建选项，比如
+[cr](https://github.com/kubernetes-sigs/cri-tools)、
 [img](https://github.com/genuinetools/img)、
 [buildah](https://github.com/containers/buildah)、
 [kaniko](https://github.com/GoogleContainerTools/kaniko)、或 
@@ -289,7 +320,7 @@ Kubernetes documentation on [Container Runtimes]
 <!-- 
 ### What if I have more questions?
 -->
-### 我还有问题怎么办？{#what-if-I-have-more-question}
+### 我还有问题怎么办？{#what-if-I-have-more-questions}
 
 <!-- 
 If you use a vendor-supported Kubernetes distribution, you can ask them about
@@ -297,7 +328,7 @@ upgrade plans for their products. For end-user questions, please post them
 to our end user community forum: https://discuss.kubernetes.io/. 
 -->
 如果你使用了一个有供应商支持的 Kubernetes 发行版，你可以咨询供应商他们产品的升级计划。
-对于最终用户的问题，请把问题发到我们的最终用户社区的论坛：https://discuss.kubernetes.io/。
+对于最终用户的问题，请把问题发到我们的最终用户社区的[论坛](https://discuss.kubernetes.io/)。
 
 <!-- 
 You can also check out the excellent blog post

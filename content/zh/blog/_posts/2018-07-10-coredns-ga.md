@@ -143,7 +143,7 @@ can do beyond that specification.
 --->
 ## 一些特殊功能
 
-标准的 CoreDNS Kubernetes 配置旨在与以前的 kube-dns 在行为上向后兼容。但是，通过进行一些配置更改，CoreDNS 允许您修改 DNS 服务发现在群集中的工作方式。这些功能中的许多功能仍要符合 [Kubernetes DNS规范](https://github.com/kubernetes/dns/blob/master/docs/specification.md)；它们在增强了功能的同时保持向后兼容。由于 CoreDNS 并非 *仅* 用于 Kubernetes，而是通用的 DNS 服务器，因此您可以做很多超出该规范的事情。
+标准的 CoreDNS Kubernetes 配置旨在与以前的 kube-dns 在行为上向后兼容。但是，通过进行一些配置更改，CoreDNS 允许您修改 DNS 服务发现在集群中的工作方式。这些功能中的许多功能仍要符合 [Kubernetes DNS规范](https://github.com/kubernetes/dns/blob/master/docs/specification.md)；它们在增强了功能的同时保持向后兼容。由于 CoreDNS 并非 *仅* 用于 Kubernetes，而是通用的 DNS 服务器，因此您可以做很多超出该规范的事情。
 
 <!--
 ### Pods verified mode
