@@ -13,7 +13,7 @@ url: /zh/blog/2015/11/Kubernetes-1-1-Performance-Upgrades-Improved-Tooling-And-A
 ---
 -->
 <!--
-Since the Kubernetes 1.0 release in July, we’ve seen tremendous adoption by companies building distributed systems to manage their container clusters. We’re also been humbled by the rapid growth of the community who help make Kubernetes better everyday. We have seen commercial offerings such as Tectonic by CoreOS and RedHat Atomic Host emerge to deliver deployment and support of Kubernetes. And a growing ecosystem has added Kubernetes support including tool vendors such as Sysdig and Project Calico. 
+Since the Kubernetes 1.0 release in July, we’ve seen tremendous adoption by companies building distributed systems to manage their container clusters. We’re also been humbled by the rapid growth of the community who help make Kubernetes better everyday. We have seen commercial offerings such as Tectonic by CoreOS and RedHat Atomic Host emerge to deliver deployment and support of Kubernetes. And a growing ecosystem has added Kubernetes support including tool vendors such as Sysdig and Project Calico.  
 -->
 自从 Kubernetes 1.0 在七月发布以来，我们已经看到大量公司采用建立分布式系统来管理其容器集群。
 我们也对帮助 Kubernetes 社区变得更好，迅速发展的人感到钦佩。
@@ -90,7 +90,7 @@ Today, we’re also proud to mark the inaugural Kubernetes conference, [KubeCon]
 <!--
 We’d love to highlight just a few of the many partners making Kubernetes better:  
 -->
-我们想强调几个使 Kuberbetes 变得更好的众多合作伙伴中的几位：
+我们想强调几个使 Kubernetes 变得更好的众多合作伙伴中的几位：
 
 <!--
 > “We are betting our major product, Tectonic – which enables any company to deploy, manage and secure its containers anywhere – on Kubernetes because we believe it is the future of the data center. The release of Kubernetes 1.1 is another major milestone that will create more widespread adoption of distributed systems and containers, and puts us on a path that will inevitably lead to a whole new generation of products and services.” – Alex Polvi, CEO, CoreOS.

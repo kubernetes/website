@@ -1,17 +1,17 @@
-注意：这些测试是从 kubernetes 导入的代码实际上并不打算在存储库之外使用。
-这就导致了供应商依赖问题。因此，我们必须在 travis 配置这些行:
 <!--
-Note: These tests are importing code from kubernetes that isn't really
-meant to be used outside the repo. This causes vendoring problems. As
-a result, we have to work around those with these lines in the travis
-config:
+To run the tests for a localization, use the following command:
 -->
+要运行本地化测试，请使用以下命令:
 
 ```
-- rm $GOPATH/src/k8s.io/kubernetes/vendor/k8s.io/apimachinery
-- rm $GOPATH/src/k8s.io/kubernetes/vendor/k8s.io/apiserver
-- rm $GOPATH/src/k8s.io/kubernetes/vendor/k8s.io/client-go
-- cp -r $GOPATH/src/k8s.io/kubernetes/vendor/* $GOPATH/src/
-- rm -rf $GOPATH/src/k8s.io/kubernetes/vendor/*
-- cp -r $GOPATH/src/k8s.io/kubernetes/staging/src/* $GOPATH/src/
+go test k8s.io/website/content/<lang>/examples
+```
+
+<!--
+where `<lang>` is the two character representation of a language. For example:
+-->
+其中 `<lang>` 是用两个字符表示一种语言。例如:
+
+```
+go test k8s.io/website/content/en/examples
 ```

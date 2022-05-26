@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster 
+-->
+管理持久化在 ConfigMap 中的 kubeadm 集群的配置
 
 <!--
 ### Synopsis
@@ -41,8 +56,10 @@ kubeadm config [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- help for config -->
-config 操作的帮助命令
+<!-- 
+<p>help for config</p>
+-->
+<p>config 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -56,10 +73,11 @@ config 操作的帮助命令
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- The kubeconfig file to use when talking to the cluster.
-If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+<!-- 
+<p>The kubeconfig file to use when talking to the cluster.
+If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件
+<p>用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件
 </td>
 </tr>
 
@@ -84,8 +102,10 @@ If the flag is not set, a set of standard locations can be searched for an exist
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- [EXPERIMENTAL] The path to the 'real' host root filesystem.  -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<!-- 
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>  
+-->
+<p>[实验] 到 '真实' 主机根文件系统的路径。
 </td>
 </tr>
 

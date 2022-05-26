@@ -41,13 +41,13 @@ L'utilizzo di questi campi varia a seconda del provider cloud o della configuraz
 
 ### Condition
 
-l campo `conditions` descrive lo stato di tutti i nodi` Running`.
+l campo `conditions` descrive lo stato di tutti i nodi `Running`.
 
 
 | Condizione del nodo | Descrizione |
 | ---------------- | ------------- |
 | `OutOfDisk` | `True` se lo spazio disponibile sul nodo non è sufficiente per aggiungere nuovi pod, altrimenti` False` |
-| `Pronto` | `True` se il nodo è integro e pronto ad accettare i pod,` False` se il nodo non è integro e non accetta i pod e `Sconosciuto` se il controller del nodo non è stato ascoltato dal nodo nell'ultimo` nodo-monitor -grace-periodo` (il valore predefinito è 40 secondi) |
+| `Pronto` | `True` se il nodo è integro e pronto ad accettare i pod, `False` se il nodo non è integro e non accetta i pod e `Sconosciuto` se il controller del nodo non è stato ascoltato dal nodo nell'ultimo` nodo-monitor -grace-periodo` (il valore predefinito è 40 secondi) |
 | `MemoryPressure` | `Vero` se la pressione esiste sulla memoria del nodo, ovvero se la memoria del nodo è bassa; altrimenti `False` |
     | `PIDPressure` | `True` se la pressione esiste sui processi, ovvero se ci sono troppi processi sul nodo; altrimenti `False` |
 | `DiskPressure` | `True` se esiste una pressione sulla dimensione del disco, ovvero se la capacità del disco è bassa; altrimenti `False` |
@@ -64,12 +64,12 @@ La condizione del nodo è rappresentata come un oggetto JSON. Ad esempio, la seg
 ]
 ```
 
-Se lo stato della condizione Ready rimane `Unknown` o` False` per un tempo superiore a `pod-eviction-timeout`, viene passato un argomento al [gestore-kube-controller](/docs/admin/kube-controller-manager/) e tutti i pod sul nodo sono programmati per la cancellazione dal controller del nodo. La durata predefinita del timeout di sfratto è di ** cinque minuti **. In alcuni casi, quando il nodo non è raggiungibile, l'apiserver non è in grado di comunicare con kubelet sul nodo. La decisione di eliminare i pod non può essere comunicata al kubelet fino a quando non viene ristabilita la comunicazione con l'apiserver. Nel frattempo, i pod che sono programmati per la cancellazione possono continuare a funzionare sul nodo partizionato.
+Se lo stato della condizione Ready rimane `Unknown` o `False` per un tempo superiore a `pod-eviction-timeout`, viene passato un argomento al [gestore-kube-controller](/docs/admin/kube-controller-manager/) e tutti i pod sul nodo sono programmati per la cancellazione dal controller del nodo. La durata predefinita del timeout di sfratto è di ** cinque minuti **. In alcuni casi, quando il nodo non è raggiungibile, l'apiserver non è in grado di comunicare con kubelet sul nodo. La decisione di eliminare i pod non può essere comunicata al kubelet fino a quando non viene ristabilita la comunicazione con l'apiserver. Nel frattempo, i pod che sono programmati per la cancellazione possono continuare a funzionare sul nodo partizionato.
 
 Nelle versioni di Kubernetes precedenti alla 1.5, il controllore del nodo [forzerebbe la cancellazione](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)
 questi pod non raggiungibili dall'apiserver. Tuttavia, in 1.5 e versioni successive, il controller del nodo non impone l'eliminazione dei pod finché non lo è
 confermato che hanno smesso di funzionare nel cluster. Puoi vedere i pod che potrebbero essere in esecuzione su un nodo irraggiungibile
-lo stato `Terminating` o` Unknown`. Nei casi in cui Kubernetes non può dedurre dall'infrastruttura sottostante se ha un nodo
+lo stato `Terminating` o `Unknown`. Nei casi in cui Kubernetes non può dedurre dall'infrastruttura sottostante se ha un nodo
 lasciato permanentemente un cluster, potrebbe essere necessario che l'amministratore del cluster elimini manualmente l'oggetto nodo. Cancellare l'oggetto nodo da
 Kubernetes fa sì che tutti gli oggetti Pod in esecuzione sul nodo vengano eliminati dal server apis e libera i loro nomi.
 
@@ -227,7 +227,7 @@ Per l'autoregistrazione, il kubelet viene avviato con le seguenti opzioni:
   - `--kubeconfig` - Percorso delle credenziali per autenticarsi sull'apiserver.
   - `--cloud-provider` - Come parlare con un provider cloud per leggere i metadati su se stesso.
   - `--register-node` - Si registra automaticamente con il server API.
-  - `--register-with-taints` - Registra il nodo con la lista data di taints (separati da virgola` <chiave> = <valore>: <effetto> `). No-op se `register-node` è falso.
+  - `--register-with-taints` - Registra il nodo con la lista data di taints (separati da virgola `<chiave> = <valore>: <effetto>`). No-op se `register-node` è falso.
   - `--node-ip` - Indirizzo IP del nodo.
   - `--node-labels` - Etichette da aggiungere quando si registra il nodo nel cluster (vedere le restrizioni dell'etichetta applicate dal [plugin di accesso NodeRestriction](/docs/reference/access-authn-authz/admission-controller/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifica la frequenza con cui kubelet invia lo stato del nodo al master

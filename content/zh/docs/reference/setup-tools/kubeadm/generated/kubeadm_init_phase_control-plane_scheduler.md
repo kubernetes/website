@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generates the kube-scheduler static Pod manifest
+-->
+生成 kube-scheduler 静态 Pod 清单
 
 <!-- 
 ### Synopsis
@@ -36,9 +51,9 @@ kubeadm init phase control-plane scheduler [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-存储证书的路径。
+<p>存储证书的路径。</p>
 </td>
 </tr>
 
@@ -48,25 +63,21 @@ The path where to save and store the certificates.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--experimental-patches string</td>
+<td colspan="2">--dry-run</td>
 </tr>
-
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.-->
-包含名为 "target[suffix][+patchtype].extension" 的文件的目录。
-例如，"kube-apiserver0+merge.yaml" 或者 "etcd.json"。
-"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，分别与 kubectl
-所支持的 patch 格式相匹配。默认的 "patchtype" 是 "strategic"。
-"extension" 必须是 "json" 或 "yaml"。
-"suffix" 是一个可选的字符串，用来确定按字母顺序排序时首先应用哪些 patch。
+<!--
+<p>Don't apply any changes; just output what would be done.</p>
+-->
+<p>不应用任何变更；仅仅输出将会变更的内容</p>
 </td>
 </tr>
 
@@ -76,9 +87,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for scheduler
+<p>help for scheduler</p>
 -->
-scheduler 操作的帮助命令
+<p>scheduler 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -93,9 +104,9 @@ scheduler 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a container registry to pull control plane images from
+<p>Choose a container registry to pull control plane images from</p>
 -->
-选择要从中拉取控制平面镜像的容器仓库
+<p>选择要从中拉取控制平面镜像的容器仓库</p>
 </td>
 </tr>
 
@@ -110,22 +121,42 @@ Choose a container registry to pull control plane images from
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面选择特定的 Kubernetes 版本。
+<p>为控制平面选择特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--scheduler-extra-args mapStringString</td>
+<td colspan="2">--patches string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.-->
+包含名为 "target[suffix][+patchtype].extension" 的文件的目录。
+例如，"kube-apiserver0+merge.yaml" 或者 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，分别与 kubectl
+所支持的 patch 格式相匹配。默认的 "patchtype" 是 "strategic"。
+"extension" 必须是 "json" 或 "yaml"。
+"suffix" 是一个可选的字符串，用来确定按字母顺序排序时首先应用哪些 patch。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!-- 
+--scheduler-extra-args &lt;comma-separated 'key=value' pairs&gt; 
+-->
+--scheduler-extra-args &lt;逗号分隔的 'key=value' 键值对&gt;
+</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
+<p>A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</p>
 -->
-一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器
-或者覆盖其默认参数配置
+<p>一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器
+或者覆盖其默认参数配置</p>
 </td>
 </tr>
 
@@ -150,9 +181,9 @@ A set of extra flags to pass to the Scheduler or override default ones in form o
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

@@ -85,7 +85,7 @@ Kubernetes 资源模型期望 Pod 中的容器之间可以共享某些资源。
 The RuntimeClass resource is an important foundation for surfacing runtime properties to the control plane. For example, to implement scheduler support for clusters with heterogeneous nodes supporting different runtimes, we might add [NodeAffinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) terms to the RuntimeClass definition. Another area to address is managing the variable resource requirements to run pods of different runtimes. The [Pod Overhead proposal](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview) was an early take on this that aligns nicely with the RuntimeClass design, and may be pursued further.
 -->
 RuntimeClass 资源是将运行时属性显示到控制平面的重要基础。
-例如，要对具有支持不同运行时间的异构节点的群集实施调度程序支持，我们可以在 RuntimeClass 定义中添加
+例如，要对具有支持不同运行时间的异构节点的集群实施调度程序支持，我们可以在 RuntimeClass 定义中添加
 [NodeAffinity](/zh/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)条件。
 另一个需要解决的领域是管理可变资源需求以运行不同运行时的 Pod。
 [Pod Overhead 提案](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview)
@@ -107,7 +107,7 @@ Many other RuntimeClass extensions have also been proposed, and will be revisite
 - 提供运行时支持的可选功能，并更好地查看由不兼容功能导致的错误。
 - 自动运行时或功能发现，支持无需手动配置的调度决策。
 - 标准化或一致的 RuntimeClass 名称，用于定义一组具有相同名称的 RuntimeClass 的集群应支持的属性。
-- 动态注册附加的运行时，因此用户可以在不停机的情况下在现有群集上安装新的运行时。
+- 动态注册附加的运行时，因此用户可以在不停机的情况下在现有集群上安装新的运行时。
 - 根据 Pod 的要求“匹配”  RuntimeClass。
   例如，指定运行时属性并使系统与适当的 RuntimeClass 匹配，而不是通过名称显式分配 RuntimeClass。
 

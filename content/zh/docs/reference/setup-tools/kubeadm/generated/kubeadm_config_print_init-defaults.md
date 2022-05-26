@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Print default init configuration, that can be used for 'kubeadm init' 
+-->
+打印用于 'kubeadm init' 的默认 init 配置
 
 <!--
 ### Synopsis
@@ -11,11 +26,11 @@ This command prints objects such as the default init configuration that is used 
 此命令打印对象，例如用于 'kubeadm init' 的默认 init 配置对象。
 
 <!--
-Note that sensitive values like the Bootstrap Token fields are replaced with placeholder values like {"abcdef.0123456789abcdef" "" "nil" &lt;nil&gt; [] []} in order to pass validation but
+<p>Note that sensitive values like the Bootstrap Token fields are replaced with placeholder values like "abcdef.0123456789abcdef" in order to pass validation but
 not perform the real computation for creating a token.
 -->
 
-请注意，Bootstrap Token 字段之类的敏感值已替换为 {"abcdef.0123456789abcdef" "" "nil" &lt;nil&gt; [] []} 之类的占位符值以通过验证，但不执行创建令牌的实际计算。
+<p>请注意，Bootstrap Token 字段之类的敏感值已替换为 "abcdef.0123456789abcdef" 之类的占位符值以通过验证，但不执行创建令牌的实际计算。
 
 ```
 kubeadm config print init-defaults [flags]
@@ -35,14 +50,14 @@ kubeadm config print init-defaults [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--component-configs stringSlice</td>
+<td colspan="2">--component-configs strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A comma-separated list for component config API objects to print the default values for. Available values: [KubeProxyConfiguration KubeletConfiguration]. If this flag is not set, no component configs will be printed.
+<p>A comma-separated list for component config API objects to print the default values for. Available values: [KubeProxyConfiguration KubeletConfiguration]. If this flag is not set, no component configs will be printed.</p>
 -->
-组件配置 API 对象的逗号分隔列表，打印其默认值。可用值：[KubeProxyConfiguration KubeletConfiguration]。如果未设置此参数，则不会打印任何组件配置。
+<p>组件配置 API 对象的逗号分隔列表，打印其默认值。可用值：[KubeProxyConfiguration KubeletConfiguration]。如果未设置此参数，则不会打印任何组件配置。</p>
 </td>
 </tr>
 
@@ -52,9 +67,9 @@ A comma-separated list for component config API objects to print the default val
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for init-defaults
+<p>help for init-defaults</p>
 -->
-init-defaults 操作的帮助命令
+<p>init-defaults 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -85,9 +100,9 @@ init-defaults 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+<p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+<p>与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</p>
 </td>
 </tr>
 
@@ -97,9 +112,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

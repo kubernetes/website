@@ -192,6 +192,82 @@ I1025 00:15:15.525108       1 example.go:116] "Example" data="This is text with 
 second line.}
 ```
 
+<!-- 
+### Contextual Logging 
+-->
+### 上下文日志
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+<!-- 
+Contextual logging builds on top of structured logging. It is primarily about
+how developers use logging calls: code based on that concept is more flexible
+and supports additional use cases as described in the [Contextual Logging
+KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging). 
+-->
+上下文日志建立在结构化日志之上。
+它主要是关于开发人员如何使用日志记录调用：基于该概念的代码将更加灵活，
+并且支持在[结构化日志 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging) 
+中描述的额外用例。
+
+<!-- 
+If developers use additional functions like `WithValues` or `WithName` in
+their components, then log entries contain additional information that gets
+passed into functions by their caller. 
+-->
+如果开发人员在他们的组件中使用额外的函数，比如 `WithValues` 或 `WithName`，
+那么日志条目将会包含额外的信息，这些信息会被调用者传递给函数。
+
+<!-- 
+Currently this is gated behind the `StructuredLogging` feature gate and
+disabled by default. The infrastructure for this was added in 1.24 without
+modifying components. The
+[`component-base/logs/example`](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go)
+command demonstrates how to use the new logging calls and how a component
+behaves that supports contextual logging. 
+-->
+目前这一特性是由 `StructuredLogging` 特性门控所控制的，默认关闭。
+这个基础设施是在 1.24 中被添加的，并不需要修改组件。
+该 [`component-base/logs/example`](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go)
+命令演示了如何使用新的日志记录调用以及组件如何支持上下文日志记录。
+
+```console
+$ cd $GOPATH/src/k8s.io/kubernetes/staging/src/k8s.io/component-base/logs/example/cmd/
+$ go run . --help
+...
+      --feature-gates mapStringBool  A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
+                                     AllAlpha=true|false (ALPHA - default=false)
+                                     AllBeta=true|false (BETA - default=false)
+                                     ContextualLogging=true|false (ALPHA - default=false)
+$ go run . --feature-gates ContextualLogging=true
+...
+I0404 18:00:02.916429  451895 logger.go:94] "example/myname: runtime" foo="bar" duration="1m0s"
+I0404 18:00:02.916447  451895 logger.go:95] "example: another runtime" foo="bar" duration="1m0s"
+```
+
+<!-- 
+The `example` prefix and `foo="bar"` were added by the caller of the function
+which logs the `runtime` message and `duration="1m0s"` value, without having to
+modify that function.
+
+With contextual logging disable, `WithValues` and `WithName` do nothing and log
+calls go through the global klog logger. Therefore this additional information
+is not in the log output anymore: 
+-->
+`example` 前缀和 `foo="bar"` 会被函数的调用者添加上，
+不需修改该函数，它就会记录 `runtime` 消息和 `duration="1m0s"` 值。
+
+禁用上下文日志后，`WithValues` 和 `WithName` 什么都不会做，
+并且会通过调用全局的 klog 日志记录器记录日志。
+因此，这些附加信息不再出现在日志输出中：
+
+```console
+$ go run . --feature-gates ContextualLogging=false
+...
+I0404 18:03:31.171945  452150 logger.go:94] "runtime" duration="1m0s"
+I0404 18:03:31.171962  452150 logger.go:95] "another runtime" duration="1m0s"
+```
+
 <!--
 ### JSON log format
 -->
@@ -259,45 +335,6 @@ List of components currently supporting JSON format:
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
 <!--
-### Log sanitization
--->
-### 日志清洗    {#log-sanitization}
-
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
-
-{{<warning >}}
-<!--
-Log sanitization might incur significant computation overhead and therefore should not be enabled in production.
--->
-日志清洗（Log Sanitization）可能会导致大量的计算开销，因此不应在生产环境中启用。
-{{< /warning >}}
-
-<!--
-The `--experimental-logging-sanitization` flag enables the klog sanitization filter.
-If enabled all log arguments are inspected for fields tagged as sensitive data (e.g. passwords, keys, tokens) and logging of these fields will be prevented.
--->
-`--experimental-logging-sanitization` 参数可用来启用 klog 清洗过滤器。
-如果启用后，将检查所有日志参数中是否有标记为敏感数据的字段（比如：密码，密钥，令牌），
-并且将阻止这些字段的记录。
-
-<!--
-List of components currently supporting log sanitization:
--->
-当前支持日志清洗的组件列表：
-
-* kube-controller-manager
-* kube-apiserver
-* kube-scheduler
-* kubelet
-
-{{< note >}}
-<!--
-The Log sanitization filter does not prevent user workload logs from leaking sensitive data.
--->
-日志清洗过滤器不会阻止用户工作负载日志泄漏敏感数据。
-{{< /note >}}
-
-<!--
 ### Log verbosity level
 
 The `-v` flag controls log verbosity. Increasing the value increases the number of logged events. Decreasing the value decreases the number of logged events.
@@ -347,11 +384,13 @@ The `logrotate` tool rotates logs daily, or once the log size is greater than 10
 <!--
 * Read about the [Kubernetes Logging Architecture](/docs/concepts/cluster-administration/logging/)
 * Read about [Structured Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
+* Read about [Contextual Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * Read about [deprecation of klog flags](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 * Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
 -->
 * 阅读 [Kubernetes 日志架构](/zh/docs/concepts/cluster-administration/logging/)
 * 阅读[结构化日志提案（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
+* 阅读[上下文日志提案（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * 阅读 [klog 参数的废弃（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 * 阅读[日志严重级别约定（英文）](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
 

@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Renew the certificate embedded in the kubeconfig file for the controller manager to use 
+-->
+续订 kubeconfig 文件中嵌入的证书，以供控制器管理器（Controller Manager）使用。
 
 <!--
 ### Synopsis
@@ -52,9 +67,9 @@ kubeadm alpha renew controller-manager.conf [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path where to save the certificates.
+<p>The path where to save the certificates.</p>
 -->
-保存证书的路径。
+<p>保存证书的路径。</p>
 </td>
 </tr>
 
@@ -64,33 +79,9 @@ The path where to save the certificates.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path to output the CSRs and private keys to
--->
-CSR 和私钥的输出路径
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-only</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Create CSRs instead of generating certificates
--->
-创建 CSR 而不是生成证书
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -100,9 +91,9 @@ Create CSRs instead of generating certificates
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for controller-manager.conf
+<p>help for controller-manager.conf</p>
 -->
-controller-manager.conf 操作的帮助命令
+<p>controller-manager.conf 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -117,10 +108,10 @@ controller-manager.conf 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+<p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-与集群通信时使用的 kubeconfig 文件。
-如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+<p>与集群通信时使用的 kubeconfig 文件。
+如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</p>
 </td>
 </tr>
 
@@ -157,9 +148,9 @@ Use the Kubernetes certificate API to renew certificates
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

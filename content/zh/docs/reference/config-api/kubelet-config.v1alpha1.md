@@ -26,8 +26,6 @@ auto_generated: true
 -->
 **出现在：**
 
-- [LoggingConfiguration](#LoggingConfiguration)
-
 <!--
 FormatOptions contains options for the different logging formats.
 -->
@@ -41,8 +39,8 @@ FormatOptions 包含为不同类型日志格式提供的选项。
 <a href="#JSONOptions"><code>JSONOptions</code></a>
 </td>
 <td>
-   <!--[Experimental] JSON contains options for logging format "json".-->
-   [试验特性] <code>json</code> 中包含 "json" 日志格式的选项。
+   <!--[Experimental] JSON contains options for logging format &quot;json&quot;.-->
+   [试验特性] <code>json</code> 中包含 &quot;json&quot; 日志格式的选项。
 </td>
 </tr>
 </tbody>
@@ -58,9 +56,9 @@ FormatOptions 包含为不同类型日志格式提供的选项。
 - [FormatOptions](#FormatOptions)
 
 <!--
-JSONOptions contains options for logging format "json".
+JSONOptions contains options for logging format &quot;json&quot;.
 -->
-JSONOptions 包含用于 "json" 日志格式的选项。
+JSONOptions 包含用于 &quot;json&quot; 日志格式的选项。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -103,8 +101,6 @@ using split streams. The default is zero, which disables buffering.-->
 **Appears in:**
 -->
 **出现在：**
-
-- [LoggingConfiguration](#LoggingConfiguration)
 
 <!--
 VModuleConfiguration is a collection of individual file names or patterns
@@ -194,13 +190,15 @@ to provide credentials. Images are expected to contain the registry domain
 and URL path.
 Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '&lowast;.k8s.io' or 'k8s.&lowast;.io', and top-level-domains such as 'k8s.&lowast;'.
-Matching partial subdomains like 'app&lowast;.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so &lowast;.io does not match &lowast;.k8s.io.
+as subdomains like <code>*.k8s.io</code> or <code>k8s.*.io</code>, and top-level-domains such as <code>k8s.*</code>.
+Matching partial subdomains like <code>app*.k8s.io</code> is also supported. Each glob can only match
+a single subdomain segment, so <code>*.io</code> does not match <code>*.k8s.io</code>.
 A match exists between an image and a matchImage when all of the below are true:
-- Both contain the same number of domain parts and each part matches.
-- The URL path of an imageMatch must be a prefix of the target image URL path.
-- If the imageMatch contains a port, then the port must match in the image as well.
+<ul>
+<li>Both contain the same number of domain parts and each part matches.</li>
+<li>The URL path of an imageMatch must be a prefix of the target image URL path.</li>
+<li>If the imageMatch contains a port, then the port must match in the image as well.</li>
+</ul>
 Example values of matchImages:
   - 123456789.dkr.ecr.us-east-1.amazonaws.com
   - &lowast;.azurecr.io
@@ -213,9 +211,9 @@ Example values of matchImages:
 镜像应该包含镜像库域名和 URL 路径。</p>
 <p><code>matchImages</code> 中的每个条目都是一个模式字符串，其中可以包含端口号和路径。
 域名部分可以包含统配符，但端口或路径部分不可以。通配符可以用作子域名，例如
-'&lowast;.k8s.io' 或 'k8s.&lowast;.io'，以及顶级域名，如 'k8s.&lowast;'。</p>
-<p>对类似 'app&lowast;.k8s.io' 这类部分子域名的匹配也是支持的。
-每个通配符只能用来匹配一个子域名段，所以 '&lowast;.io' 不会匹配 '&lowast;.k8s.io'。</p>
+<code>*.k8s.io</code> 或 <code>k8s.*.io</code>，以及顶级域名，如 <code>k8s.*</code>。</p>
+<p>对类似 <code>app*.k8s.io</code> 这类部分子域名的匹配也是支持的。
+每个通配符只能用来匹配一个子域名段，所以 <code>*.io</code> 不会匹配 <code>*.k8s.io</code>。</p>
 <p>镜像与 <code>matchImages</code> 之间存在匹配时，以下条件都要满足：</p>
 <ul>
   <li>二者均包含相同个数的域名部分，并且每个域名部分都对应匹配；</li>
@@ -224,17 +222,17 @@ Example values of matchImages:
 </ul>
 <p><code>matchImages</code> 的一些示例如下：</p>
 <ul>
-  <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-  <li>&lowast;.azurecr.io</li>
-  <li>gcr.io</li>
-  <li>&lowast;.&lowast;.registry.io</li>
-  <li>registry.io:8080/path</li>
+<li><code>123456789.dkr.ecr.us-east-1.amazonaws.com</code></li>
+<li><code>*.azurecr.io</code></li>
+<li><code>gcr.io</code></li>
+<li><code>*.*.registry.io</code></li>
+<li><code>registry.io:8080/path</code></li>
 </ul>
 </td>
 </tr>
 
 <tr><td><code>defaultCacheDuration</code> <B>[必需]</B><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    <!--defaultCacheDuration is the default duration the plugin will cache credentials in-memory

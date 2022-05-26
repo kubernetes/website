@@ -14,7 +14,7 @@ spec:
     app: mysql
 ---
 # Client service for connecting to any MySQL instance for reads.
-# For writes, you must instead connect to the master: mysql-0.mysql.
+# For writes, you must instead connect to the primary: mysql-0.mysql.
 apiVersion: v1
 kind: Service
 metadata:
@@ -27,4 +27,3 @@ spec:
     port: 3306
   selector:
     app: mysql
-

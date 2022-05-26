@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Run reset pre-flight checks 
+-->
+运行重置启动前检查
 
 <!--
 ### Synopsis
@@ -34,9 +49,9 @@ kubeadm reset phase preflight [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Reset the node without prompting for confirmation.
+<p>Reset the node without prompting for confirmation.</p>
 -->
-在不提示确认的情况下重置节点。
+<p>在不提示确认的情况下重置节点。</p>
 </td>
 </tr>
 
@@ -46,21 +61,21 @@ Reset the node without prompting for confirmation.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for preflight
+<p>help for preflight</p>
 -->
-preflight 操作的帮助命令
+<p>preflight 操作的帮助命令</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--ignore-preflight-errors stringSlice</td>
+<td colspan="2">--ignore-preflight-errors strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
+<p>A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p>
 -->
-错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
+<p>错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。</p>
 </td>
 </tr>
 
@@ -86,9 +101,9 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<p>[实验] 指向 '真实' 宿主机根文件系统的路径。</p>
 </td>
 </tr>
 

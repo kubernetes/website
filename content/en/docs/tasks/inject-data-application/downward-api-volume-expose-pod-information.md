@@ -155,7 +155,7 @@ file for a Pod that has one Container:
 {{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
 
 In the configuration file, you can see that the Pod has a
-[`downwardAPI` volume](/concepts/storage/volumes/#downwardapi),
+[`downwardAPI` volume](/docs/concepts/storage/volumes/#downwardapi),
 and the Container mounts the volume at `/etc/podinfo`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a

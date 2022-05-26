@@ -17,8 +17,6 @@ weight: 30
 You can use Kubernetes to run a mixture of Linux and Windows nodes, so you can mix Pods that run on Linux on with Pods that run on Windows. This page shows how to register Windows nodes to your cluster.
 
 
-
-
 ## {{% heading "prerequisites" %}}
  {{< version-check >}}
 
@@ -136,7 +134,7 @@ in the `flannel-host-gw.yml` or `flannel-overlay.yml` file and specify your inte
 curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-overlay.yml | sed 's/Ethernet/Ethernet0 2/g' | kubectl apply -f -
 ```
     {{< /note >}}
-    
+
 
 
 ### Joining a Windows worker node
@@ -147,33 +145,7 @@ with elevated permissions (Administrator) on the Windows worker node.
 {{< /note >}}
 
 {{< tabs name="tab-windows-kubeadm-runtime-installation" >}}
-{{% tab name="Docker EE" %}}
 
-#### Install Docker EE
-
-Install the `Containers` feature
-
-```powershell
-Install-WindowsFeature -Name containers
-```
-
-Install Docker
-Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker).
-
-#### Install wins, kubelet, and kubeadm  
-
-```PowerShell
-curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
-.\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
-```
-
-#### Run `kubeadm` to join the node
-
-Use the command that was given to you when you ran `kubeadm init` on a control plane host.
-If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
-(on a control plane host) to generate a new token and join command.
-
-{{% /tab %}}
 {{% tab name="CRI-containerD" %}}
 
 #### Install containerD
@@ -191,9 +163,6 @@ To install a specific version of containerD specify the version with -ContainerD
 .\Install-Containerd.ps1 -ContainerDVersion 1.4.1
 ```
 
-{{< /note >}}
-
-{{< note >}}
 If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") on the Windows nodes, specify the name with `-netAdapterName`.
 
 ```powershell
@@ -210,17 +179,59 @@ curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools
 .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
 ```
 
+Install `crictl` from the [cri-tools project](https://github.com/kubernetes-sigs/cri-tools)
+which is required so that kubeadm can talk to the CRI endpoint.
+
 #### Run `kubeadm` to join the node
 
 Use the command that was given to you when you ran `kubeadm init` on a control plane host.
 If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
 (on a control plane host) to generate a new token and join command.
 
+{{% /tab %}}
+
+{{% tab name="Docker Engine" %}}
+
+#### Install Docker Engine
+
+Install the `Containers` feature
+
+```powershell
+Install-WindowsFeature -Name containers
+```
+
+Install Docker
+Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker).
+
+[Install cri-dockerd](https://github.com/Mirantis/cri-dockerd) which is required so that the kubelet
+can communicate with Docker on a CRI compatible endpoint.
+
 {{< note >}}
-If using **CRI-containerD** add `--cri-socket "npipe:////./pipe/containerd-containerd"` to the kubeadm call
+Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
+which is a requirement for a container runtime to work with Kubernetes.
+For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+has to be installed. cri-dockerd is a project based on the legacy built-in
+Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 {{< /note >}}
 
+Install `crictl` from the [cri-tools project](https://github.com/kubernetes-sigs/cri-tools)
+which is required so that kubeadm can talk to the CRI endpoint.
+
+#### Install wins, kubelet, and kubeadm
+
+```PowerShell
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
+.\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
+```
+
+#### Run `kubeadm` to join the node
+
+Use the command that was given to you when you ran `kubeadm init` on a control plane host.
+If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
+(on a control plane host) to generate a new token and join command.
+
 {{% /tab %}}
+
 {{< /tabs >}}
 
 ### Verifying your installation

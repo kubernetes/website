@@ -27,7 +27,7 @@ API or the `kube-*` components from the upstream code, see the following instruc
 - [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 - [Generating Reference Documentation for the Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 -->
-如果您仅想从上游代码重新生成 Kubernetes API 或 `kube-*` 组件的参考文档。请参考以下说明：
+如果你仅想从上游代码重新生成 Kubernetes API 或 `kube-*` 组件的参考文档。请参考以下说明：
 
 - [生成 Kubernetes API 的参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-api/)
 - [生成 Kubernetes 组件和工具的参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-components/)
@@ -40,6 +40,8 @@ You need to have these tools installed:
   - [Golang](https://golang.org/doc/install) version 1.13+
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
+  - [make](https://www.gnu.org/software/make/)
+  - [gcc compiler/linker](https://gcc.gnu.org/)
 -->
 - 你需要安装以下工具：
 
@@ -47,6 +49,8 @@ You need to have these tools installed:
   - [Golang](https://golang.org/doc/install) 的 1.13 版本或更高
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
+  - [make](https://www.gnu.org/software/make/)
+  - [gcc compiler/linker](https://gcc.gnu.org/)
 
 <!--
 - Your $GOPATH environment variable must be set, and the location of `etcd`
@@ -61,7 +65,7 @@ You need to have these tools installed:
   [Creating a Pull Request](https://help.github.com/articles/creating-a-pull-request/) and
   [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
 -->
-- 您需要知道如何创建对 GitHub 代码仓库的拉取请求（Pull Request）。
+- 你需要知道如何创建对 GitHub 代码仓库的拉取请求（Pull Request）。
   通常，这涉及创建代码仓库的派生副本。
   要获取更多的信息请参考[创建 PR](https://help.github.com/articles/creating-a-pull-request/) 和
   [GitHub 标准派生和 PR 工作流程](https://gist.github.com/Chaser324/ce0505fbed06b947d962)。
@@ -83,7 +87,7 @@ creating a patch to fix it in the upstream project.
 Kubernetes API 和 `kube-*` 组件（例如 `kube-apiserver`、`kube-controller-manager`）的参考文档
 是根据[上游 Kubernetes](https://github.com/kubernetes/kubernetes/) 中的源代码自动生成的。
 
-当您在生成的文档中看到错误时，您可能需要考虑创建一个 PR 用来在上游项目中对其进行修复。
+当你在生成的文档中看到错误时，你可能需要考虑创建一个 PR 用来在上游项目中对其进行修复。
 
 <!--
 ## Cloning the Kubernetes repository
@@ -92,7 +96,7 @@ If you don't already have the kubernetes/kubernetes repository, get it now:
 -->
 ## 克隆 Kubernetes 代码仓库
 
-如果您还没有 kubernetes/kubernetes 代码仓库，请参照下列命令获取：
+如果你还没有 kubernetes/kubernetes 代码仓库，请参照下列命令获取：
 
 ```shell
 mkdir $GOPATH/src
@@ -107,7 +111,7 @@ For example, if you followed the preceding step to get the repository, your
 base directory is `$GOPATH/src/github.com/kubernetes/kubernetes.`
 The remaining steps refer to your base directory as `<k8s-base>`.
 -->
-确定您的 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) 代码仓库克隆的根目录。
+确定你的 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) 代码仓库克隆的根目录。
 例如，如果按照前面的步骤获取代码仓库，则你的根目录为 `$GOPATH/src/github.com/kubernetes/kubernetes`。
 接下来其余步骤将你的根目录称为 `<k8s-base>`。
 
@@ -118,7 +122,7 @@ For example, if you followed the preceding step to get the repository, your
 base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
 The remaining steps refer to your base directory as `<rdocs-base>`.
 -->
-确定您的 [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
+确定你的 [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
 代码仓库克隆的根目录。
 例如，如果按照前面的步骤获取代码仓库，则你的根目录为
 `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`。
@@ -142,7 +146,7 @@ The documentation for the `kube-*` components is also generated from the upstrea
 source code. You must change the code related to the component
 you want to fix in order to fix the generated documentation.
 -->
-`kube-*` 组件的文档也是从上游源代码生成的。您必须更改与要修复的组件相关的代码，才能修复生成的文档。
+`kube-*` 组件的文档也是从上游源代码生成的。你必须更改与要修复的组件相关的代码，才能修复生成的文档。
 
 <!--
 ### Making changes to the upstream source code
@@ -164,7 +168,7 @@ and make sure it is up to date:
 -->
 以下在 Kubernetes 源代码中编辑注释的示例。
 
-在您本地的 kubernetes/kubernetes 代码仓库中，检出默认分支，并确保它是最新的：
+在你本地的 kubernetes/kubernetes 代码仓库中，检出默认分支，并确保它是最新的：
 
 ```shell
 cd <k8s-base>
@@ -196,7 +200,7 @@ git status
 The output shows that you are on the master branch, and that the `types.go`
 source file has been modified:
 -->
-输出显示您在 master 分支上，`types.go` 源文件已被修改：
+输出显示你在 master 分支上，`types.go` 源文件已被修改：
 
 ```shell
 On branch master
@@ -213,7 +217,7 @@ you will do a second commit. It is important to keep your changes separated into
 ### 提交已编辑的文件
 
 运行 `git add` 和 `git commit` 命令提交到目前为止所做的更改。
-在下一步中，您将进行第二次提交，将更改分成两个提交很重要。
+在下一步中，你将进行第二次提交，将更改分成两个提交很重要。
 
 <!--
 ### Generating the OpenAPI spec and related files
@@ -237,8 +241,9 @@ hack/update-generated-protobuf.sh
 On branch master
 ...
     modified:   api/openapi-spec/swagger.json
+    modified:   api/openapi-spec/v3/apis__apps__v1_openapi.json
+    modified:   pkg/generated/openapi/zz_generated.openapi.go
     modified:   staging/src/k8s.io/api/apps/v1/generated.proto
-    modified:   staging/src/k8s.io/api/apps/v1/types.go
     modified:   staging/src/k8s.io/api/apps/v1/types_swagger_doc_generated.go
 ```
 
@@ -249,7 +254,7 @@ This is important, because `swagger.json` is the input to the second stage of
 the doc generation process.
 -->
 查看 `api/openapi-spec/swagger.json` 的内容，以确保拼写错误已经被修正。
-例如，您可以运行 `git diff -a api/openapi-spec/swagger.json` 命令。
+例如，你可以运行 `git diff -a api/openapi-spec/swagger.json` 命令。
 这很重要，因为 `swagger.json` 是文档生成过程中第二阶段的输入。
 
 <!--
@@ -257,9 +262,9 @@ Run `git add` and `git commit` to commit your changes. Now you have two commits:
 one that contains the edited `types.go` file, and one that contains the generated OpenAPI spec
 and related files. Keep these two commits separate. That is, do not squash your commits.
 -->
-运行 `git add` 和 `git commit` 命令来提交您的更改。现在您有两个提交（commits）：
+运行 `git add` 和 `git commit` 命令来提交你的更改。现在你有两个提交（commits）：
 一种包含编辑的 `types.go` 文件，另一种包含生成的 OpenAPI 规范和相关文件。
-将这两个提交分开独立。也就是说，不要 squash 您的提交。
+将这两个提交分开独立。也就是说，不要 squash 你的提交。
 
 <!--
 Submit your changes as a
@@ -269,9 +274,9 @@ master branch of the
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it is merged.
 -->
-将您的更改作为 [PR](https://help.github.com/articles/creating-a-pull-request/) 
+将你的更改作为 [PR](https://help.github.com/articles/creating-a-pull-request/) 
 提交到 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) 代码仓库的 master 分支。
-关注您的 PR，并根据需要回复 reviewer 的评论。继续关注您的 PR，直到 PR 被合并为止。
+关注你的 PR，并根据需要回复 reviewer 的评论。继续关注你的 PR，直到 PR 被合并为止。
 
 <!--
 [PR 57758](https://github.com/kubernetes/kubernetes/pull/57758)
@@ -292,7 +297,7 @@ repository and in related repositories, such as
 -->
 {{< note >}}
 确定要更改的正确源文件可能很棘手。在前面的示例中，官方的源文件位于 `kubernetes/kubernetes`
-代码仓库的 `staging` 目录中。但是根据您的情况，`staging` 目录可能不是找到官方源文件的地方。
+代码仓库的 `staging` 目录中。但是根据你的情况，`staging` 目录可能不是找到官方源文件的地方。
 如果需要帮助，请阅读
 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes/tree/master/staging)
 代码仓库和相关代码仓库
@@ -325,7 +330,7 @@ commit into the release-{{< skew prevMinorVersion >}} branch. The idea is to che
 that edited `types.go`, but not the commit that has the results of running the scripts. For instructions, see
 [Propose a Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
 -->
-回想一下，您的 PR 有两个提交：一个用于编辑 `types.go`，一个用于由脚本生成的文件。
+回想一下，你的 PR 有两个提交：一个用于编辑 `types.go`，一个用于由脚本生成的文件。
 下一步是将你的第一次提交 cherrypick 到 release-{{< skew prevMinorVersion >}} 分支。
 这样做的原因是仅 cherrypick 编辑了 types.go 的提交，
 而不是具有脚本运行结果的提交。
@@ -361,7 +366,7 @@ Now add a commit to your cherry-pick pull request that has the recently generate
 and related files. Monitor your pull request until it gets merged into the
 release-{{< skew prevMinorVersion >}} branch.
 -->
-现在将提交添加到您的 Cherry-Pick PR 中，该 PR 中包含最新生成的 OpenAPI 规范和相关文件。
+现在将提交添加到你的 Cherry-Pick PR 中，该 PR 中包含最新生成的 OpenAPI 规范和相关文件。
 关注你的 PR，直到其合并到 release-{{< skew prevMinorVersion >}} 分支中为止。
 
 <!--
@@ -400,7 +405,7 @@ the API reference documentation.
 You are now ready to follow the [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/) guide to generate the
 [published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 -->
-现在，您可以按照
+现在，你可以按照
 [生成 Kubernetes API 的参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-api/)
 指南来生成
 [已发布的 Kubernetes API 参考文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。

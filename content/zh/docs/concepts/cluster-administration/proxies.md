@@ -59,7 +59,7 @@ There are several different proxies you may encounter when using Kubernetes:
 2. [apiserver proxy](/zh/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services)：
 
     - 是一个建立在 apiserver 内部的“堡垒”
-    - 将集群外部的用户与群集 IP 相连接，这些IP是无法通过其他方式访问的
+    - 将集群外部的用户与集群 IP 相连接，这些IP是无法通过其他方式访问的
     - 运行在 apiserver 进程内
     - 客户端到代理使用 HTTPS 协议 (如果配置 apiserver 使用 HTTP 协议，则使用 HTTP 协议)
     - 通过可用信息进行选择，代理到目的地可能使用 HTTP 或 HTTPS 协议

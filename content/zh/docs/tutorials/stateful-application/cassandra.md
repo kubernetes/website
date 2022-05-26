@@ -156,11 +156,11 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 
 <!--
 If you don't see a Service named `cassandra`, that means creation failed. Read
-[Debug Services](/docs/tasks/debug-application-cluster/debug-service/)
+[Debug Services](/docs/tasks/debug/debug-application/debug-service/)
 for help troubleshooting common issues.
 -->
 如果没有看到名为 `cassandra` 的服务，则表示创建失败。
-请阅读[调试服务](/zh/docs/tasks/debug-application-cluster/debug-service/)，以解决常见问题。
+请阅读[调试服务](/zh/docs/tasks/debug/debug-application/debug-service/)，以解决常见问题。
 
 <!--
 ## Using a StatefulSet to create a Cassandra ring
@@ -423,7 +423,7 @@ By using environment variables you can change values that are inserted into `cas
 并且包含 OpenJDK 8。
 
 该映像包括来自 Apache Debian 存储库的标准 Cassandra 安装。
-通过使用环境变量，您可以更改插入到 `cassandra.yaml` 中的值。
+通过使用环境变量，你可以更改插入到 `cassandra.yaml` 中的值。
 
 | 环境变量                 | 默认值           |
 | ------------------------ |:---------------: |

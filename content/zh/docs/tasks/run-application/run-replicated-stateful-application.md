@@ -64,7 +64,7 @@ on general patterns for running stateful applications in Kubernetes.
   [服务](/zh/docs/concepts/services-networking/service/) 与
   [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * 熟悉 MySQL 会有所帮助，但是本教程旨在介绍对其他系统应该有用的常规模式。
-* 您正在使用默认命名空间或不包含任何冲突对象的另一个命名空间。
+* 你正在使用默认命名空间或不包含任何冲突对象的另一个命名空间。
 
 ## {{% heading "objectives" %}}
 
@@ -530,7 +530,7 @@ kubectl get pod mysql-2
 <!--
 Look for `1/2` in the `READY` column: 
 -->
-在 `READY` 列中查找 ` 1/2` ：
+在 `READY` 列中查找 `1/2`：
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -849,14 +849,14 @@ kubectl delete pvc data-mysql-4
 
 <!--
 * Learn more about [scaling a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-* Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
+* Learn more about [debugging a StatefulSet](/docs/tasks/debug/debug-application/debug-statefulset/).
 * Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
 * Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 * Look in the [Helm Charts repository](https://artifacthub.io/)
   for other stateful application examples.
 -->
 * 进一步了解[为 StatefulSet 扩缩容](/zh/docs/tasks/run-application/scale-stateful-set/).
-* 进一步了解[调试 StatefulSet](/zh/docs/tasks/debug-application-cluster/debug-stateful-set/).
+* 进一步了解[调试 StatefulSet](/zh/docs/tasks/debug/debug-application/debug-statefulset/).
 * 进一步了解[删除 StatefulSet](/zh/docs/tasks/run-application/delete-stateful-set/).
 * 进一步了解[强制删除 StatefulSet Pods](/zh/docs/tasks/run-application/force-delete-stateful-set-pod/).
 * 在 [Helm Charts 仓库](https://artifacthub.io/)中查找其他有状态的应用程序示例。

@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Renew certificates for a Kubernetes cluster
+-->
+为 Kubernetes 集群更新证书
 
 <!--
 ### Synopsis
@@ -30,10 +45,12 @@ kubeadm certs renew [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for renew
 -->
 renew 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -58,10 +75,12 @@ renew 操作的帮助命令
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

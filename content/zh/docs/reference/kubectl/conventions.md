@@ -44,6 +44,25 @@ For a stable output in a script:
 * 不要依赖上下文、首选项或其他隐式状态。
 
 <!--
+## Subresources
+-->
+## 子资源    {#subresources}
+
+<!--
+* You can use the `--subresource` alpha flag for kubectl commands like `get`, `patch`,
+`edit` and `replace` to fetch and update subresources for all resources that
+support them. Currently, only the `status` and `scale` subresources are supported.
+* The API contract against a subresource is identical to a full resource. While updating the
+`status` subresource to a new value, keep in mind that the subresource could be potentially
+reconciled by a controller to a different value.
+-->
+
+* 你可以将 `--subresource` alpha 标志用于 kubectl 命令，例如 `get`、`patch`、`edit` 和 `replace`
+  来获取和更新所有支持子资源的资源的子资源。 目前，仅支持 `status` 和 `scale` 子资源。
+* 针对子资源的 API 协定与完整资源相同。在更新`status` 子资源为一个新值时，请记住，
+  子资源可能是潜在的由控制器调和为不同的值。
+
+<!--
 ## Best Practices
 -->
 ## 最佳实践
@@ -75,4 +94,4 @@ You can use the `--dry-run=client` flag to preview the object that would be sent
 <!--
 * You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
-* 您可以使用 `kubectl apply` 命令创建或更新资源。有关使用 kubectl apply 更新资源的详细信息，请参阅 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
+* 你可以使用 `kubectl apply` 命令创建或更新资源。有关使用 kubectl apply 更新资源的详细信息，请参阅 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。

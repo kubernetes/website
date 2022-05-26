@@ -18,8 +18,8 @@ slug: kubernetes-1-23-statefulset-pvc-auto-deletion
 
 <!--
 Kubernetes v1.23 introduced a new, alpha-level policy for
-[StatefulSets](docs/concepts/workloads/controllers/statefulset/) that controls the lifetime of
-[PersistentVolumeClaims](docs/concepts/storage/persistent-volumes/) (PVCs) generated from the
+[StatefulSets](/docs/concepts/workloads/controllers/statefulset/) that controls the lifetime of
+[PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/) (PVCs) generated from the
 StatefulSet spec template for cases when they should be deleted automatically when the StatefulSet
 is deleted or pods in the StatefulSet are scaled down.
 -->
@@ -165,7 +165,7 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
   
 <!--
   Visit the
-[documentation](docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies) to
+[documentation](/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies) to
 see all the details.
 -->
 查阅[文档](/zh/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies)

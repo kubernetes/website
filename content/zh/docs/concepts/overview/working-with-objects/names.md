@@ -13,12 +13,12 @@ Every Kubernetes object also has a [_UID_](#uids) that is unique across your who
 For example, you can only have one Pod named `myapp-1234` within the same [namespace](/docs/concepts/overview/working-with-objects/namespaces/), but you can have one Pod and one Deployment that are each named `myapp-1234`.
 -->
 
-集群中的每一个对象都有一个[_名称_](#names) 来标识在同类资源中的唯一性。
+集群中的每一个对象都有一个[_名称_](#names)来标识在同类资源中的唯一性。
 
-每个 Kubernetes 对象也有一个[_UID_](#uids) 来标识在整个集群中的唯一性。
+每个 Kubernetes 对象也有一个 [_UID_](#uids) 来标识在整个集群中的唯一性。
 
 比如，在同一个[名字空间](/zh/docs/concepts/overview/working-with-objects/namespaces/)
-中有一个名为 `myapp-1234` 的 Pod, 但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`.
+中有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
 
 <!--
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/user-guide/labels) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
@@ -69,10 +69,10 @@ This means the name must:
 DNS 子域名的定义可参见 [RFC 1123](https://tools.ietf.org/html/rfc1123)。
 这一要求意味着名称必须满足如下规则：
 
-- 不能超过253个字符
-- 只能包含小写字母、数字，以及'-' 和 '.'
-- 须以字母数字开头
-- 须以字母数字结尾
+- 不能超过 253 个字符
+- 只能包含小写字母、数字，以及 '-' 和 '.'
+- 必须以字母数字开头
+- 必须以字母数字结尾
 
 <!--
 ### DNS Label Names
@@ -93,8 +93,8 @@ This means the name must:
 
 - 最多 63 个字符
 - 只能包含小写字母、数字，以及 '-'
-- 须以字母数字开头
-- 须以字母数字结尾
+- 必须以字母数字开头
+- 必须以字母数字结尾
 
 
 <!--
@@ -116,8 +116,8 @@ This means the name must:
 
 - 最多 63 个字符
 - 只能包含小写字母、数字，以及 '-'
-- 须以字母开头
-- 须以字母数字结尾
+- 必须以字母开头
+- 必须以字母数字结尾
 
 <!--
 ### Path Segment Names
@@ -134,7 +134,7 @@ not contain "/" or "%".
 <!--
 Here’s an example manifest for a Pod named `nginx-demo`.
 -->
-下面是一个名为`nginx-demo`的 Pod 的配置清单：
+下面是一个名为 `nginx-demo` 的 Pod 的配置清单：
 
 ```yaml
 apiVersion: v1
@@ -165,7 +165,7 @@ Kubernetes UIDs are universally unique identifiers (also known as UUIDs).
 UUIDs are standardized as ISO/IEC 9834-8 and as ITU-T X.667.
 -->
 Kubernetes UIDs 是全局唯一标识符（也叫 UUIDs）。
-UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667.  
+UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 
 ## {{% heading "whatsnext" %}}
 

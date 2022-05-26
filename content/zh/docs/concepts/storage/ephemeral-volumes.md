@@ -55,7 +55,7 @@ _临时卷_ 就是为此类用例设计的。因为卷会遵从 Pod 的生命周
 Ephemeral volumes are specified _inline_ in the Pod spec, which
 simplifies application deployment and management.
 -->
-临时卷在 Pod 规范中以 _内联_ 方式定义，这简化了应用程序的部署和管理。
+临时卷在 Pod 规约中以 _内联_ 方式定义，这简化了应用程序的部署和管理。
 
 <!--
 ### Types of ephemeral volumes
@@ -211,13 +211,19 @@ instructions.
 <!--
 ### CSI driver restrictions
 
-As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
-[`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
+CSI ephemeral volumes allow users to provide `volumeAttributes`
+directly to the CSI driver as part of the Pod spec. A CSI driver
+allowing `volumeAttributes` that are typically restricted to
+administrators is NOT suitable for use in an inline ephemeral volume.
+For example, parameters that are normally defined in the StorageClass
+should not be exposed to users through the use of inline ephemeral volumes.
 -->
 
 ### CSI 驱动程序限制 {#csi-driver-restrictions}
 
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+CSI 临时卷允许用户直接向 CSI 驱动程序提供 `volumeAttributes`，它会作为 Pod 规约的一部分。
+允许 `volumeAttributes` 的 CSI 驱动程序通常仅限于管理员使用，不适合在内联临时卷中使用。
+例如，通常在 StorageClass 中定义的参数不应通过使用内联临时卷向用户公开。
 
 作为一个集群管理员，你可以使用
 [PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/)
@@ -226,28 +232,15 @@ As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/sec
 指定。
 
 <!--
-{{< note >}}
-PodSecurityPolicy is deprecated and will be removed in the Kubernetes v1.25 release.
-{{< /note >}}
+Cluster administrators who need to restrict the CSI drivers that are
+allowed to be used as inline volumes within a Pod spec may do so by:
+- Removing `Ephemeral` from `volumeLifecycleModes` in the CSIDriver spec, which prevents the driver from being used as an inline ephemeral volume.
+- Using an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/) to restrict how this driver is used.
 -->
-
-{{< note >}}
-PodSecurityPolicy 已弃用，并将在 Kubernetes v1.25 版本中移除。
-{{< /note >}}
-
-
-<!--
-{{< note >}}
-CSI ephemeral volumes are only supported by a subset of CSI drivers.
-The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/drivers.html)
-shows which drivers support ephemeral volumes.
-{{< /note >}}
--->
-
-{{< note >}}
-CSI 临时卷仅有 CSI 驱动程序的一个子集支持。
-Kubernetes CSI [驱动列表](https://kubernetes-csi.github.io/docs/drivers.html)显示了哪些驱动程序支持临时卷。
-{{< /note >}}
+如果集群管理员需要限制 CSI 驱动程序在 Pod 规约中被作为内联卷使用，可以这样做：
+- 从 CSIDriver 规约的 `volumeLifecycleModes` 中删除 `Ephemeral`，这可以防止驱动程序被用作内联临时卷。
+- 使用[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  来限制如何使用此驱动程序。
 
 <!--
 ### Generic ephemeral volumes
@@ -279,7 +272,7 @@ Example:
 在最初制备完毕时一般为空。不过通用临时卷也有一些额外的功能特性：
 
 - 存储可以是本地的，也可以是网络连接的。
-- 卷可以有固定的大小，pod不能超量使用。
+- 卷可以有固定的大小，Pod 不能超量使用。
 - 卷可能有一些初始数据，这取决于驱动程序和参数。
 - 当驱动程序支持，卷上的典型操作将被支持，包括
   （[快照](/zh/docs/concepts/storage/volume-snapshots/)、
@@ -437,29 +430,14 @@ same namespace, so that these conflicts can't occur.
 Enabling the GenericEphemeralVolume feature allows users to create
 PVCs indirectly if they can create Pods, even if they do not have
 permission to create PVCs directly. Cluster administrators must be
-aware of this. If this does not fit their security model, they have
-two choices:
+aware of this. If this does not fit their security model, they should
+use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/) that rejects objects like Pods that have a generic ephemeral volume.
 -->
 启用 GenericEphemeralVolume 特性会导致那些没有 PVCs 创建权限的用户，
 在创建 Pods 时，被允许间接的创建 PVCs。
 集群管理员必须意识到这一点。
-如果这不符合他们的安全模型，他们有如下选择：
-
-<!--
-- Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  that rejects objects like Pods that have a generic ephemeral
-  volume.
-- Use a [Pod Security
-  Policy](/docs/concepts/policy/pod-security-policy/) where the
-  `volumes` list does not contain the `ephemeral` volume type
-  (deprecated in Kubernetes 1.21).
--->
-- 通过特性门控显式禁用该特性。
-- 使用一个[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  拒绝包含通用临时卷的 Pods。
-- 当 `volumes` 列表不包含 `ephemeral` 卷类型时，使用
-  [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)。
-  （这一方式在 Kubernetes 1.21 版本已经弃用）
+如果这不符合他们的安全模型，他们应该使用一个[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+拒绝包含通用临时卷的 Pods。
 
 <!--
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so

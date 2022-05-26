@@ -47,9 +47,16 @@ kubeadm 目前不支持对 CoreDNS 部署进行定制。
 有关更多详细信息，请参阅[在 kubeadm 中使用 init phases](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
 {{< /note >}}
 
-<!-- body -->
+{{< note >}}
+<!--
+To reconfigure a cluster that has already been created see
+[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
+-->
 
-{{< feature-state for_k8s_version="1.12" state="stable" >}}
+要重新配置已创建的集群，请参阅[重新配置 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
+{{< /note >}}
+
+<!-- body -->
 
 <!--
 ## Customizing the control plane with flags in `ClusterConfiguration`
@@ -102,7 +109,7 @@ on different nodes you can use [patches](#patches).
 -->
 `ClusterConfiguration` 对象目前在 kubeadm 集群中是全局的。
 这意味着你添加的任何标志都将应用于同一组件在不同节点上的所有实例。
-要在不同节点上为每个组件应用单独的配置，您可以使用[补丁](#patches)。
+要在不同节点上为每个组件应用单独的配置，你可以使用[补丁](#patches)。
 {{< /note >}}
 
 {{< note >}}

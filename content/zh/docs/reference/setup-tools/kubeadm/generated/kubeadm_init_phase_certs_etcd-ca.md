@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Generate the self-signed CA to provision identities for etcd
+-->
+生成用于为 etcd 设置身份的自签名 CA
 
 <!--
 ### Synopsis
@@ -6,10 +21,10 @@
 ### 概要
 
 <!--
-Generate the self-signed CA to provision identities for etcd, and save them into etcd/ca.cert and etcd/ca.key files.
+Generate the self-signed CA to provision identities for etcd, and save them into etcd/ca.crt and etcd/ca.key files.
 -->
 
-生成用于为 etcd 设置身份的自签名 CA，并将其保存到 etcd/ca.cert 和 etcd/ca.key 文件中。
+生成用于为 etcd 设置身份的自签名 CA，并将其保存到 etcd/ca.crt 和 etcd/ca.key 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
@@ -53,7 +68,9 @@ kubeadm init phase certs etcd-ca [flags]
 <!--
 The path where to save and store the certificates.
 -->
+<p>
 证书的存储路径。
+</p>
 </td>
 </tr>
 
@@ -65,7 +82,9 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -77,7 +96,9 @@ kubeadm 配置文件的路径。
 <!--
 help for etcd-ca
 -->
+<p>
 etcd-ca 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -94,7 +115,9 @@ etcd-ca 操作的帮助命令
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
+<p>
 为控制平面选择特定的 Kubernetes 版本。
+</p>
 </td>
 </tr>
 
@@ -122,10 +145,11 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-

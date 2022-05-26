@@ -13,7 +13,14 @@ This repository contains the assets required to build the [Kubernetes website an
 我们非常高兴您想要参与贡献！
 
 <!--
-# Using this repository
+- [Contributing to the docs](#contributing-to-the-docs)
+- [Localization ReadMes](#localization-readmemds)
+-->
+- [为文档做贡献](#为文档做贡献)
+- [README.md 本地化](#readmemd-本地化)
+
+<!--
+## Using this repository
 
 You can run the website locally using Hugo (Extended version), or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
 -->
@@ -46,7 +53,7 @@ Before you start, install the dependencies. Clone the repository and navigate to
 -->
 开始前，先安装这些依赖。克隆本仓库并进入对应目录：
 
-```
+```bash
 git clone https://github.com/kubernetes/website.git
 cd website
 ```
@@ -57,7 +64,7 @@ The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/doc
 
 Kubernetes 网站使用的是 [Docsy Hugo 主题](https://github.com/google/docsy#readme)。 即使你打算在容器中运行网站，我们也强烈建议你通过运行以下命令来引入子模块和其他开发依赖项：
 
-```
+```bash
 # pull in the Docsy submodule
 git submodule update --init --recursive --depth 1
 ```
@@ -72,15 +79,23 @@ To build the site in a container, run the following to build the container image
 
 要在容器中构建网站，请通过以下命令来构建容器镜像并运行：
 
-```
+```bash
 make container-image
 make container-serve
 ```
 
 <!--
-Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
+If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) and [Windows](https://docs.docker.com/docker-for-windows/#resources)).
 -->
-启动浏览器，打开 http://localhost:1313 来查看网站。
+如果您看到错误，这可能意味着 hugo 容器没有足够的可用计算资源。
+要解决这个问题，请增加机器（[MacOSX](https://docs.docker.com/docker-for-mac/#resources)
+和 [Windows](https://docs.docker.com/docker-for-windows/#resources)）上
+Docker 允许的 CPU 和内存使用量。
+
+<!--
+Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
+-->
+启动浏览器，打开 <http://localhost:1313> 来查看网站。
 当你对源文件作出修改时，Hugo 会更新网站并强制浏览器执行刷新操作。
 
 <!--
@@ -104,18 +119,84 @@ make serve
 ```
 
 <!--
-This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
+This will start the local Hugo server on port 1313. Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 -->
 上述命令会在端口 1313 上启动本地 Hugo 服务器。
-启动浏览器，打开 http://localhost:1313 来查看网站。
+启动浏览器，打开 <http://localhost:1313> 来查看网站。
 当你对源文件作出修改时，Hugo 会更新网站并强制浏览器执行刷新操作。
 
 <!--
+## Building the API reference pages
+-->
+## 构建 API 参考页面
+
+<!--
+The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
+
+To update the reference pages for a new Kubernetes release follow these steps:
+-->
+位于 `content/en/docs/reference/kubernetes-api` 的 API 参考页面是根据 Swagger 规范构建的，使用 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>。
+
+要更新新 Kubernetes 版本的参考页面，请执行以下步骤：
+
+<!--
+1. Pull in the `api-ref-generator` submodule:
+-->
+1. 拉取 `api-ref-generator` 子模块：
+
+   ```bash
+   git submodule update --init --recursive --depth 1
+   ```
+
+<!--
+2. Update the Swagger specification:
+-->
+2. 更新 Swagger 规范：
+
+   ```bash
+   curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
+   ```
+
+<!--
+3. In `api-ref-assets/config/`, adapt the files `toc.yaml` and `fields.yaml` to reflect the changes of the new release.
+-->
+3. 在 `api-ref-assets/config/` 中，调整文件 `toc.yaml` 和 `fields.yaml` 以反映新版本的变化。
+
+<!--
+4. Next, build the pages:
+-->
+4. 接下来，构建页面：
+
+   ```bash
+   make api-reference
+   ```
+
+<!--
+   You can test the results locally by making and serving the site from a container image:
+-->
+   您可以通过从容器映像创建和提供站点来在本地测试结果：
+
+   ```bash
+   make container-image
+   make container-serve
+   ```
+
+<!--
+   In a web browser, go to <http://localhost:1313/docs/reference/kubernetes-api/> to view the API reference.
+-->
+   在 Web 浏览器中，打开 <http://localhost:1313/docs/reference/kubernetes-api/> 查看 API 参考。
+
+<!--
+5. When all changes of the new contract are reflected into the configuration files `toc.yaml` and `fields.yaml`, create a Pull Request with the newly generated API reference pages.
+-->
+5. 当所有新的更改都反映到配置文件 `toc.yaml` 和 `fields.yaml` 中时，使用新生成的 API 参考页面创建一个 Pull Request。
+
+<!--
 ## Troubleshooting
+
 ### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
 
 Hugo is shipped in two set of binaries for technical reasons. The current website runs based on the **Hugo Extended** version only. In the [release page](https://github.com/gohugoio/hugo/releases) look for archives with `extended` in the name. To confirm, run `hugo version` and look for the word `extended`.
-
 -->
 ## 故障排除
 
@@ -131,22 +212,28 @@ Hugo is shipped in two set of binaries for technical reasons. The current websit
 If you run `make serve` on macOS and receive the following error:
 
 -->
-### 对 macOs 上打开太多文件的故障排除
+### 对 macOS 上打开太多文件的故障排除
 
 如果在 macOS 上运行 `make serve` 收到以下错误：
 
-```
+```bash
 ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
 make: *** [serve] Error 1
 ```
 
+<!--
+Try checking the current limit for open files:
+-->
 试着查看一下当前打开文件数的限制：
 
 `launchctl limit maxfiles`
 
-然后运行以下命令（参考https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c）：
+<!--
+Then run the following commands (adapted from <https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c>):
+-->
+然后运行以下命令（参考 <https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c>）：
 
-```
+```shell
 #!/bin/sh
 
 # These are the original gist links, linking to my gists now.
@@ -165,6 +252,9 @@ sudo chown root:wheel /Library/LaunchDaemons/limit.maxproc.plist
 sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 ```
 
+<!--
+This works for Catalina as well as Mojave macOS.
+-->
 这适用于 Catalina 和 Mojave macOS。
 
 <!--
@@ -174,7 +264,8 @@ Learn more about SIG Docs Kubernetes community and meetings on the [community pa
 
 You can also reach the maintainers of this project at:
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs) [Get an invite for this Slack](https://slack.k8s.io/)
+- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+  - [Get an invite for this Slack](https://slack.k8s.io/)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 -->
 # 参与 SIG Docs 工作
@@ -184,20 +275,21 @@ You can also reach the maintainers of this project at:
 
 你也可以通过以下渠道联系本项目的维护人员：
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs) [加入Slack](https://slack.k8s.io/)
+- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+  - [获得此 Slack 的邀请](https://slack.k8s.io/)
 - [邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 <!--
 ## Contributing to the docs
 
-You can click the **Fork** button in the upper-right area of the screen to create a copy of this repository in your GitHub account. This copy is called a *fork*. Make any changes you want in your fork, and when you are ready to send those changes to us, go to your fork and create a new pull request to let us know about it.
+You can click the **Fork** button in the upper-right area of the screen to create a copy of this repository in your GitHub account. This copy is called a _fork_. Make any changes you want in your fork, and when you are ready to send those changes to us, go to your fork and create a new pull request to let us know about it.
 
-Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.  As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**
+Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback. As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**
 -->
 # 为文档做贡献
 
 你也可以点击屏幕右上方区域的 **Fork** 按钮，在你自己的 GitHub
-账号下创建本仓库的拷贝。此拷贝被称作 *fork*。
+账号下创建本仓库的拷贝。此拷贝被称作 _fork_。
 你可以在自己的拷贝中任意地修改文档，并在你已准备好将所作修改提交给我们时，
 在你自己的拷贝下创建一个拉取请求（Pull Request），以便让我们知道。
 
@@ -208,7 +300,7 @@ Once your pull request is created, a Kubernetes reviewer will take responsibilit
 <!--
 Also, note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one initially assigned to provide you feedback.
 
-Furthermore, in some cases, one of your reviewers might ask for a technical review from a Kubernetes tech reviewer when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
+Furthermore, in some cases, one of your reviewers might ask for a technical review from a Kubernetes tech reviewer when needed. Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
 -->
 还要提醒的一点，有时可能会有不止一个 Kubernetes 评审人为你提供反馈意见。
 有时候，某个评审人的意见和另一个最初被指派的评审人的意见不同。
@@ -220,17 +312,65 @@ Furthermore, in some cases, one of your reviewers might ask for a technical revi
 <!--
 For more information about contributing to the Kubernetes documentation, see:
 
-* [Contribute to Kubernetes docs](https://kubernetes.io/docs/contribute/)
-* [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
-* [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
-* [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+- [Contribute to Kubernetes docs](https://kubernetes.io/docs/contribute/)
+- [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
+- [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
+- [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
 -->
 有关为 Kubernetes 文档做出贡献的更多信息，请参阅：
 
-* [贡献 Kubernetes 文档](https://kubernetes.io/docs/contribute/)
-* [页面内容类型](https://kubernetes.io/docs/contribute/style/page-content-types/)
-* [文档风格指南](https://kubernetes.io/docs/contribute/style/style-guide/)
-* [本地化 Kubernetes 文档](https://kubernetes.io/docs/contribute/localization/)
+- [贡献 Kubernetes 文档](https://kubernetes.io/docs/contribute/)
+- [页面内容类型](https://kubernetes.io/docs/contribute/style/page-content-types/)
+- [文档风格指南](https://kubernetes.io/docs/contribute/style/style-guide/)
+- [本地化 Kubernetes 文档](https://kubernetes.io/docs/contribute/localization/)
+
+<!--
+### New contributor ambassadors
+-->
+### 新贡献者大使
+
+<!--
+If you need help at any point when contributing, the [New Contributor Ambassadors](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador) are a good point of contact. These are SIG Docs approvers whose responsibilities include mentoring new contributors and helping them through their first few pull requests. The best place to contact the New Contributors Ambassadors would be on the [Kubernetes Slack](https://slack.k8s.io/). Current New Contributors Ambassadors for SIG Docs:
+-->
+如果您在贡献时需要帮助，[新贡献者大使](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador)是一个很好的联系人。
+这些是 SIG Docs 批准者，其职责包括指导新贡献者并帮助他们完成最初的几个拉取请求。
+联系新贡献者大使的最佳地点是 [Kubernetes Slack](https://slack.k8s.io/)。
+SIG Docs 的当前新贡献者大使：
+
+<!--
+| Name                       | Slack                      | GitHub                     |                   
+| -------------------------- | -------------------------- | -------------------------- |
+| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+-->
+| 姓名                       | Slack                      | GitHub                     |                   
+| -------------------------- | -------------------------- | -------------------------- |
+| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+
+<!--
+## Localization `README.md`'s
+-->
+## `README.md` 本地化
+
+<!--
+| Language                   | Language                   |
+| -------------------------- | -------------------------- |
+| [Chinese](README-zh.md)    | [Korean](README-ko.md)     |
+| [French](README-fr.md)     | [Polish](README-pl.md)     |
+| [German](README-de.md)     | [Portuguese](README-pt.md) |
+| [Hindi](README-hi.md)      | [Russian](README-ru.md)    |
+| [Indonesian](README-id.md) | [Spanish](README-es.md)    |
+| [Italian](README-it.md)    | [Ukrainian](README-uk.md)  |
+| [Japanese](README-ja.md)   | [Vietnamese](README-vi.md) |
+-->
+| 语言                       | 语言                       |
+| -------------------------- | -------------------------- |
+| [中文](README-zh.md)       | [韩语](README-ko.md)       |
+| [法语](README-fr.md)       | [波兰语](README-pl.md)     |
+| [德语](README-de.md)       | [葡萄牙语](README-pt.md)   |
+| [印地语](README-hi.md)     | [俄语](README-ru.md)       |
+| [印尼语](README-id.md)     | [西班牙语](README-es.md)   |
+| [意大利语](README-it.md)   | [乌克兰语](README-uk.md)   |
+| [日语](README-ja.md)       | [越南语](README-vi.md)     |
 
 # 中文本地化
 
@@ -241,19 +381,19 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-zh)
 
 <!--
-### Code of conduct
+## Code of conduct
 
 Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md).
 -->
-# 行为准则
+## 行为准则
 
 参与 Kubernetes 社区受 [CNCF 行为准则](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) 约束。
 
 <!--
-## Thank you!
+## Thank you
 
 Kubernetes thrives on community participation, and we appreciate your contributions to our website and our documentation!
 -->
-# 感谢！
+## 感谢你
 
 Kubernetes 因为社区的参与而蓬勃发展，感谢您对我们网站和文档的贡献！

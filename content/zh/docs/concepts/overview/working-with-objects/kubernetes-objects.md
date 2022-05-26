@@ -121,7 +121,7 @@ Here's an example `.yaml` file that shows the required fields and object spec fo
 
 创建 Kubernetes 对象时，必须提供对象的规约，用来描述该对象的期望状态，
 以及关于对象的一些基本信息（例如名称）。
-当使用 Kubernetes API 创建对象时（或者直接创建，或者基于`kubectl`），
+当使用 Kubernetes API 创建对象时（或者直接创建，或者基于 `kubectl`），
 API 请求必须在请求体中包含 JSON 格式的信息。
 **大多数情况下，需要在 .yaml 文件中为 `kubectl` 提供这些信息**。
 `kubectl` 在发起 API 请求时，将这些信息转换成 JSON 格式。
@@ -135,7 +135,7 @@ One way to create a Deployment using a `.yaml` file like the one above is to use
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) command
 in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 -->
-使用类似于上面的 `.yaml` 文件来创建 Deployment的一种方式是使用 `kubectl` 命令行接口（CLI）中的
+使用类似于上面的 `.yaml` 文件来创建 Deployment 的一种方式是使用 `kubectl` 命令行接口（CLI）中的
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 命令，
 将 `.yaml` 文件作为参数。下面是一个示例：
 

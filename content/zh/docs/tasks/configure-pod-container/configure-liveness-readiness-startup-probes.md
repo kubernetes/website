@@ -91,7 +91,7 @@ kubelet 在容器内执行命令 `cat /tmp/healthy` 来进行探测。
 当容器启动时，执行如下的命令：
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 <!--
@@ -339,7 +339,8 @@ kubectl describe pod goproxy
 -->
 ## 定义 gRPC 活跃探测器
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+
 
 <!--
 If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
@@ -358,7 +359,7 @@ kubelet 可以配置为使用该协议来执行应用活跃性检查。
 
 下面是一个示例清单：
 
-{{< codenew file="pods/probe/grpc-liveness.yaml">}}
+{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
 
 <!--
 To use a gRPC probe, `port` must be configured. If the health endpoint is configured

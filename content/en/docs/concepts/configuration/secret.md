@@ -982,7 +982,7 @@ kubectl create secret docker-registry secret-tiger-docker \
 ```
 
 That command creates a Secret of type `kubernetes.io/dockerconfigjson`.
-If you dump the `.data.dockercfgjson` field from that new Secret and then
+If you dump the `.data.dockerconfigjson` field from that new Secret and then
 decode it from base64:
 
 ```shell
@@ -1291,7 +1291,7 @@ on that node.
 - When deploying applications that interact with the Secret API, you should
   limit access using
   [authorization policies](/docs/reference/access-authn-authz/authorization/) such as
-  [RBAC]( /docs/reference/access-authn-authz/rbac/).
+  [RBAC](/docs/reference/access-authn-authz/rbac/).
 - In the Kubernetes API, `watch` and `list` requests for Secrets within a namespace
   are extremely powerful capabilities. Avoid granting this access where feasible, since
   listing Secrets allows the clients to inspect the values of every Secret in that
@@ -1310,7 +1310,7 @@ have access to run a Pod that then exposes the Secret.
 - When deploying applications that interact with the Secret API, you should
   limit access using
   [authorization policies](/docs/reference/access-authn-authz/authorization/) such as
-  [RBAC]( /docs/reference/access-authn-authz/rbac/).
+  [RBAC](/docs/reference/access-authn-authz/rbac/).
 - In the API server, objects (including Secrets) are persisted into
   {{< glossary_tooltip term_id="etcd" >}}; therefore:
   - only allow cluster admistrators to access etcd (this includes read-only access);

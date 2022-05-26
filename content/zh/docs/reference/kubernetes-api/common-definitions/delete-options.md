@@ -4,8 +4,8 @@ api_metadata:
   import: "k8s.io/apimachinery/pkg/apis/meta/v1"
   kind: "DeleteOptions"
 content_type: "api_reference"
-description: "删除 API 对象时可能会提供删除选项。"
-title: "删除选项"
+description: "删除 API 对象时可以提供 DeleteOptions。"
+title: "DeleteOptions"
 weight: 1
 auto_generated: true
 ---
@@ -25,7 +25,7 @@ auto_generated: true
 `import "k8s.io/apimachinery/pkg/apis/meta/v1"`
 
 <!--DeleteOptions may be provided when deleting an API object.-->
-删除 API 对象时可能会提供 DeleteOptions。
+删除 API 对象时可以提供 DeleteOptions。
 
 <hr>
 
@@ -39,7 +39,7 @@ auto_generated: true
 
   `APIVersion` 定义对象表示的版本化模式。
   服务器应将已识别的模式转换为最新的内部值，并可能拒绝无法识别的值。
-  更多信息：https ://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 <!--
 - **dryRun** ([]string)
@@ -75,7 +75,7 @@ auto_generated: true
 
   `kind` 是一个字符串值，表示此对象代表的 REST 资源。
   服务器可以从客户端提交请求的端点推断出此值。此值无法更新，是驼峰的格式。
-  更多信息：https ://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 。
+  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 。
 
 <!--
 - **orphanDependents** (boolean)
@@ -119,7 +119,7 @@ auto_generated: true
 
   - **preconditions.uid** (string)
 
-    指定目标 UID.
+    指定目标 UID。
 
 <!--
 - **propagationPolicy** (string)

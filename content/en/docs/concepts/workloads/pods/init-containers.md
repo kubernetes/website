@@ -332,5 +332,5 @@ Kubernetes, consult the documentation for the version you are using.
 ## {{% heading "whatsnext" %}}
 
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 

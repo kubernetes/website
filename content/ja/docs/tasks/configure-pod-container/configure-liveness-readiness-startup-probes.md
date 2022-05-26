@@ -51,7 +51,7 @@ Probeの動作としては、kubeletは`cat /tmp/healthy`を対象のコンテ�
 このコンテナは、起動すると次のコマンドを実行します:
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 コンテナが起動してから初めの30秒間は`/tmp/healthy`ファイルがコンテナ内に存在します。

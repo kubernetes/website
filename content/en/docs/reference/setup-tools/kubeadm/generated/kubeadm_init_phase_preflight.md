@@ -81,6 +81,3 @@ kubeadm init phase preflight [flags]
 
 </tbody>
 </table>
-
-
-

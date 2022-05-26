@@ -280,7 +280,7 @@ While Kubernetes does not provide a native solution for cluster-level logging, t
 <!--
 You can implement cluster-level logging by including a _node-level logging agent_ on each node. The logging agent is a dedicated tool that exposes logs or pushes logs to a backend. Commonly, the logging agent is a container that has access to a directory with log files from all of the application containers on that node.
 -->
-你可以通过在每个节点上使用 _节点级的日志记录代理_ 来实现群集级日志记录。
+你可以通过在每个节点上使用 _节点级的日志记录代理_ 来实现集群级日志记录。
 日志记录代理是一种用于暴露日志或将日志推送到后端的专用工具。
 通常，日志记录代理程序是一个容器，它可以访问包含该节点上所有应用程序容器的日志文件的目录。
 

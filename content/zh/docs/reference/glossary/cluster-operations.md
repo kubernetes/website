@@ -38,5 +38,5 @@ scale the cluster; performing software upgrades; implementing security
 controls; adding or removing storage; configuring cluster networking;
 managing cluster-wide observability; and responding to events.
 -->															  
-群集操作工作的示例包括：部署新节点来扩容集群；执行软件升级；实施安全控制；
+集群操作工作的示例包括：部署新节点来扩容集群；执行软件升级；实施安全控制；
 添加或删除存储；配置集群网络；管理集群范围的可观测性；响应集群事件。

@@ -30,9 +30,9 @@ One or more forms of [authorization](/docs/reference/access-authn-authz/authoriz
 ## 节点到控制面
 
 Kubernetes 采用的是中心辐射型（Hub-and-Spoke）API 模式。
-所有从集群（或所运行的 Pods）发出的 API 调用都终止于 apiserver。
+所有从集群（或所运行的 Pods）发出的 API 调用都终止于 API 服务器。
 其它控制面组件都没有被设计为可暴露远程服务。
-apiserver 被配置为在一个安全的 HTTPS 端口（通常为 443）上监听远程连接请求，
+API 服务器被配置为在一个安全的 HTTPS 端口（通常为 443）上监听远程连接请求，
 并启用一种或多种形式的客户端[身份认证](/zh/docs/reference/access-authn-authz/authentication/)机制。
 一种或多种客户端[鉴权机制](/zh/docs/reference/access-authn-authz/authorization/)应该被启用，
 特别是在允许使用[匿名请求](/zh/docs/reference/access-authn-authz/authentication/#anonymous-requests)
@@ -41,7 +41,7 @@ apiserver 被配置为在一个安全的 HTTPS 端口（通常为 443）上监�
 <!--
 Nodes should be provisioned with the public root certificate for the cluster such that they can connect securely to the apiserver along with valid client credentials. A good approach is that the client credentials provided to the kubelet are in the form of a client certificate. See [kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for automated provisioning of kubelet client certificates.
 -->
-应该使用集群的公共根证书开通节点，这样它们就能够基于有效的客户端凭据安全地连接 apiserver。
+应该使用集群的公共根证书开通节点，这样它们就能够基于有效的客户端凭据安全地连接 API 服务器。
 一种好的方法是以客户端证书的形式将客户端凭据提供给 kubelet。
 请查看 [kubelet TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
 以了解如何自动提供 kubelet 客户端证书。
@@ -52,12 +52,12 @@ The `kubernetes` service (in `default` namespace) is configured with a virtual I
 
 The control plane components also communicate with the cluster apiserver over the secure port.
 -->
-想要连接到 apiserver 的 Pod 可以使用服务账号安全地进行连接。
+想要连接到 API 服务器的 Pod 可以使用服务账号安全地进行连接。
 当 Pod 被实例化时，Kubernetes 自动把公共根证书和一个有效的持有者令牌注入到 Pod 里。
 `kubernetes` 服务（位于 `default` 名字空间中）配置了一个虚拟 IP 地址，用于（通过 kube-proxy）转发
-请求到 apiserver 的 HTTPS 末端。
+请求到 API 服务器的 HTTPS 末端。
 
-控制面组件也通过安全端口与集群的 apiserver 通信。
+控制面组件也通过安全端口与集群的 API 服务器通信。
 
 <!--
 As a result, the default operating mode for connections from the nodes and pods running on the nodes to the control plane is secured by default and can run over untrusted and/or public networks.
@@ -72,9 +72,9 @@ There are two primary communication paths from the control plane (apiserver) to 
 -->
 ## 控制面到节点
 
-从控制面（apiserver）到节点有两种主要的通信路径。
-第一种是从 apiserver 到集群中每个节点上运行的 kubelet 进程。
-第二种是从 apiserver 通过它的代理功能连接到任何节点、Pod 或者服务。
+从控制面（API 服务器）到节点有两种主要的通信路径。
+第一种是从 API 服务器到集群中每个节点上运行的 kubelet 进程。
+第二种是从 API 服务器通过它的代理功能连接到任何节点、Pod 或者服务。
 
 <!--
 ### apiserver to kubelet
@@ -89,14 +89,14 @@ These connections terminate at the kubelet's HTTPS endpoint. By default, the api
 -->
 ### API 服务器到 kubelet
 
-从 apiserver 到 kubelet 的连接用于：
+从 API 服务器到 kubelet 的连接用于：
 
 * 获取 Pod 日志
 * 挂接（通过 kubectl）到运行中的 Pod
 * 提供 kubelet 的端口转发功能。
 
 这些连接终止于 kubelet 的 HTTPS 末端。
-默认情况下，apiserver 不检查 kubelet 的服务证书。这使得此类连接容易受到中间人攻击，
+默认情况下，API 服务器不检查 kubelet 的服务证书。这使得此类连接容易受到中间人攻击，
 在非受信网络或公开网络上运行也是 **不安全的**。
 
 <!--
@@ -107,10 +107,10 @@ untrusted or public network.
 
 Finally, [Kubelet authentication and/or authorization](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/) should be enabled to secure the kubelet API.
 -->
-为了对这个连接进行认证，使用 `--kubelet-certificate-authority` 标志给 apiserver 
-提供一个根证书包，用于 kubelet 的服务证书。
+为了对这个连接进行认证，使用 `--kubelet-certificate-authority` 标志给 API
+服务器提供一个根证书包，用于 kubelet 的服务证书。
 
-如果无法实现这点，又要求避免在非受信网络或公共网络上进行连接，可在 apiserver 和
+如果无法实现这点，又要求避免在非受信网络或公共网络上进行连接，可在 API 服务器和
 kubelet 之间使用 [SSH 隧道](#ssh-tunnels)。
 
 最后，应该启用
@@ -122,9 +122,9 @@ kubelet 之间使用 [SSH 隧道](#ssh-tunnels)。
 
 The connections from the apiserver to a node, pod, or service default to plain HTTP connections and are therefore neither authenticated nor encrypted. They can be run over a secure HTTPS connection by prefixing `https:` to the node, pod, or service name in the API URL, but they will not validate the certificate provided by the HTTPS endpoint nor provide client credentials so while the connection will be encrypted, it will not provide any guarantees of integrity. These connections **are not currently safe** to run over untrusted and/or public networks.
 -->
-### apiserver 到节点、Pod 和服务
+### API 服务器到节点、Pod 和服务
 
-从 apiserver 到节点、Pod 或服务的连接默认为纯 HTTP 方式，因此既没有认证，也没有加密。
+从 API 服务器到节点、Pod 或服务的连接默认为纯 HTTP 方式，因此既没有认证，也没有加密。
 这些连接可通过给 API URL 中的节点、Pod 或服务名称添加前缀 `https:` 来运行在安全的 HTTPS 连接上。
 不过这些连接既不会验证 HTTPS 末端提供的证书，也不会提供客户端证书。
 因此，虽然连接是加密的，仍无法提供任何完整性保证。
@@ -140,8 +140,8 @@ SSH tunnels are currently deprecated so you shouldn't opt to use them unless you
 -->
 ### SSH 隧道 {#ssh-tunnels}
 
-Kubernetes 支持使用 SSH 隧道来保护从控制面到节点的通信路径。在这种配置下，apiserver
-建立一个到集群中各节点的 SSH 隧道（连接到在 22 端口监听的 SSH 服务）
+Kubernetes 支持使用 SSH 隧道来保护从控制面到节点的通信路径。在这种配置下，API
+服务器建立一个到集群中各节点的 SSH 隧道（连接到在 22 端口监听的 SSH 服务）
 并通过这个隧道传输所有到 kubelet、节点、Pod 或服务的请求。
 这一隧道保证通信不会被暴露到集群节点所运行的网络之外。
 

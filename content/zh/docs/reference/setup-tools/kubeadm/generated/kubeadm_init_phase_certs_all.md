@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate all certificates 
+-->
+生成所有证书
 
 <!--
 ### Synopsis
@@ -8,7 +23,6 @@
 <!--
 Generate all certificates
 -->
-
 生成所有证书
 
 ```
@@ -34,21 +48,21 @@ kubeadm init phase certs all [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
+<p>The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
 -->
-API 服务器所公布的其正在监听的 IP 地址。如果未设置，将使用默认网络接口。
+<p>API 服务器所公布的其正在监听的 IP 地址。如果未设置，将使用默认网络接口。</p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--apiserver-cert-extra-sans stringSlice</td>
+<td colspan="2">--apiserver-cert-extra-sans strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Optional extra Subject Alternative Names (SANs) to use for the API Server serving certificate. Can be both IP addresses and DNS names.
+<p>Optional extra Subject Alternative Names (SANs) to use for the API Server serving certificate. Can be both IP addresses and DNS names.</p>
 -->
-用于 API 服务器服务证书的可选额外替代名称（SAN）。可以同时使用 IP 地址和 DNS 名称。
+<p>用于 API 服务器服务证书的可选额外替代名称（SAN）。可以同时使用 IP 地址和 DNS 名称。</p>
 </td>
 </tr>
 
@@ -63,9 +77,9 @@ Optional extra Subject Alternative Names (SANs) to use for the API Server servin
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-证书的存储路径。
+<p>证书的存储路径。</p>
 </td>
 </tr>
 
@@ -75,9 +89,9 @@ The path where to save and store the certificates.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -87,9 +101,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specify a stable IP address or DNS name for the control plane.
+<p>Specify a stable IP address or DNS name for the control plane.</p>
 -->
-为控制平面指定一个稳定的 IP 地址或 DNS 名称。
+<p>为控制平面指定一个稳定的 IP 地址或 DNS 名称。</p>
 </td>
 </tr>
 
@@ -99,9 +113,9 @@ Specify a stable IP address or DNS name for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for all
+<p>help for all</p>
 -->
-all 操作的帮助命令 
+<p>all 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -116,9 +130,9 @@ all 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面选择特定的 Kubernetes 版本。
+<p>为控制平面选择特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -133,9 +147,9 @@ Choose a specific Kubernetes version for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Use alternative range of IP address for service VIPs.
+<p>Use alternative range of IP address for service VIPs.</p>
 -->
-VIP 服务使用其它的 IP 地址范围。
+<p>VIP 服务使用其它的 IP 地址范围。</p>
 </td>
 </tr>
 
@@ -150,9 +164,9 @@ VIP 服务使用其它的 IP 地址范围。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Use alternative domain for services, e.g. "myorg.internal".
+<p>Use alternative domain for services, e.g. "myorg.internal".</p>
 -->
-服务使用其它的域名，例如："myorg.internal"。
+<p>服务使用其它的域名，例如："myorg.internal"。</p>
 </td>
 </tr>
 
@@ -178,9 +192,9 @@ Use alternative domain for services, e.g. "myorg.internal".
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 
