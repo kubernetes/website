@@ -1,17 +1,12 @@
 ---
 title: kubectl 的用法约定
-reviewers:
-- janetkuo
 content_type: concept
 ---
-
 <!--
----
 title: kubectl Usage Conventions
 reviewers:
 - janetkuo
 content_type: concept
----
 -->
 
 <!-- overview -->
@@ -26,7 +21,7 @@ Recommended usage conventions for `kubectl`.
 <!--
 ## Using `kubectl` in Reusable Scripts
 -->
-## 在可重用脚本中使用 `kubectl`
+## 在可重用脚本中使用 `kubectl` {#using-kubectl-in-reusable-scripts}
 
 <!--
 For a stable output in a script:
@@ -58,14 +53,14 @@ reconciled by a controller to a different value.
 -->
 
 * 你可以将 `--subresource` alpha 标志用于 kubectl 命令，例如 `get`、`patch`、`edit` 和 `replace`
-  来获取和更新所有支持子资源的资源的子资源。 目前，仅支持 `status` 和 `scale` 子资源。
-* 针对子资源的 API 协定与完整资源相同。在更新`status` 子资源为一个新值时，请记住，
+  来获取和更新所有支持子资源的资源的子资源。目前，仅支持 `status` 和 `scale` 子资源。
+* 针对子资源的 API 协定与完整资源相同。在更新 `status` 子资源为一个新值时，请记住，
   子资源可能是潜在的由控制器调和为不同的值。
 
 <!--
 ## Best Practices
 -->
-## 最佳实践
+## 最佳实践 {#best-practices}
 
 ### `kubectl run`
 
@@ -80,7 +75,8 @@ For `kubectl run` to satisfy infrastructure as code:
 * Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
 -->
 
-* 使用特定版本的标签标记镜像，不要将该标签移动到新版本。例如，使用 `:v1234`、`v1.2.3`、`r03062016-1-4`，而不是 `:latest`（有关详细信息，请参阅[配置的最佳实践](/zh/docs/concepts/configuration/overview/#container-images))。
+* 使用特定版本的标签标记镜像，不要将该标签改为新版本。例如使用 `:v1234`、`v1.2.3`、`r03062016-1-4`，
+  而不是 `:latest`（有关详细信息，请参阅[配置的最佳实践](/zh/docs/concepts/configuration/overview/#container-images))。
 * 使用基于版本控制的脚本来运行包含大量参数的镜像。
 * 对于无法通过 `kubectl run` 参数来表示的功能特性，使用基于源码控制的配置文件，以记录要使用的功能特性。
 
