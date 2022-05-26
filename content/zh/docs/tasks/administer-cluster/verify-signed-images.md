@@ -4,11 +4,9 @@ content_type: task
 min-kubernetes-server-version: v1.24
 ---
 <!--
----
 title: Verify Signed Container Images
 content_type: task
 min-kubernetes-server-version: v1.24
----
 -->
 <!-- overview -->
 
@@ -50,7 +48,6 @@ in `KEYLESS` mode. To learn more about keyless signing, please refer to
 [Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)
 . {{< /note >}}
 -->
-
 ## 验证镜像签名 {#verifying-image-signatures}
 
 完整的镜像签名列表请参见[发行版本](/releases/download/)。
@@ -69,23 +66,6 @@ COSIGN_EXPERIMENTAL=1 cosign verify k8s.gcr.io/kube-apiserver-amd64:v1.24.0
 ### Verifying images for all control plane components
 
 To verify all signed control plane images, please run this command:
-
-```shell
-curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: k8s.gcr.io/' | awk '{print $2}' > images.txt
-input=images.txt
-while IFS= read -r image
-do
-  COSIGN_EXPERIMENTAL=1 cosign verify "$image"
-done < "$input"
-```
-
-Once you have verified an image, specify that image by its digest in your Pod
-manifests as per this
-example: `registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`.
-
-For more information, please refer
-to [Image Pull Policy](/docs/concepts/containers/images/#image-pull-policy)
-section.
 -->
 ### 验证所有控制平面组件镜像
 
@@ -99,7 +79,15 @@ do
   COSIGN_EXPERIMENTAL=1 cosign verify "$image"
 done < "$input"
 ```
+<!--
+Once you have verified an image, specify that image by its digest in your Pod
+manifests as per this
+example: `registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`.
 
+For more information, please refer
+to [Image Pull Policy](/docs/concepts/containers/images/#image-pull-policy)
+section.
+-->
 当你完成某个镜像的验证时，可以在你的 Pod 清单通过摘要值来指定该镜像，例如：
 `registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
 
@@ -123,7 +111,7 @@ resources:
 [conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md)
 ），也可以在部署时使用
 [cosigned](https://docs.sigstore.dev/cosign/kubernetes/#cosigned-admission-controller)
-控制器验证其签名。如要使用 `cosigned`，下面是一些有用的资源：
+控制器验证其签名。如要使用 `cosigned`，下面是一些有帮助的资源：
 
 * [安装](https://github.com/sigstore/helm-charts/tree/main/charts/cosigned)
 * [配置选项](https://github.com/sigstore/cosign/tree/main/config)
