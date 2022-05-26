@@ -619,7 +619,7 @@ Uma caraterística do RBD é que ele pode ser montado como somente leitura por v
 
 Consulte o [exemplo RBD](https://github.com/kubernetes/examples/tree/master/volumes/rbd) para obter mais detalhes.
 
-#### A migração de CSI RBD {#rbd-csi-migration}
+#### Migração de CSI RBD {#rbd-csi-migration}
 
 {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
 
@@ -627,7 +627,7 @@ Quando o recurso `CSIMigration` do `RBD` está ativado, redireciona todas as ope
 
 {{< note >}}
 
-Como operador do cluster Kubernetes que administra o armazenamento, aqui estão os pré-requisitos que você deve preencher antes de tentar a migração para o driver CSI RBD:
+Como operador do cluster Kubernetes que administra o armazenamento, aqui estão os pré-requisitos que você deve atender antes de tentar a migração para o driver CSI RBD:
 
 * Você deve instalar o driver Ceph CSI (`rbd.csi.ceph.com`), v3.5.0 ou superior, no cluster Kubernetes.
 * Considerando que o campo `clusterID` é um parâmetro necessário para o driver CSI e sua operação , mas o campo in-tree StorageClass tem o parâmetro obrigatório `monitors`, um administrador de armazenamento Kubernetes precisa criar um clusterID baseado no hash dos monitores (ex.:`#echo -n '<monitors_string>' | md5sum`) no mapa de configuração do CSI e manter os monitores sob esta configuração de clusterID.
@@ -763,7 +763,7 @@ Isso também requer que a versão mínima do vSphere vCenter/ESXi seja 7.0u1 e a
 
 Os volumes existentes criados usando esses parâmetros serão migrados para o driver CSI do vSphere, mas novos volumes criados pelo driver de CSI do vSphere não estarão respeitando esses parâmetros. {{< /note >}}
 
-#### A migração do CSI do vSphere foi concluída {#vsphere-csi-migration-complete}
+#### Migração do CSI do vSphere foi concluída {#vsphere-csi-migration-complete}
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
@@ -888,9 +888,9 @@ Os seguintes campos estão disponíveis para administradores de armazenamento co
 * `readOnly`: Um valor booleano opcional que indica se o volume deve ser "ControllerPublished" (anexado) como somente leitura. O valor padrão é false. Este valor é passado para o driver CSI através do campo `readonly` em `ControllerPublishVolumeRequest`.
 * `fsType`: Se o `VolumeMode` do PV for `Filesystem` então este campo pode ser usado para especificar o sistema de arquivos que deve ser usado para montar o volume. Se o volume não tiver sido formatado e a formatação for suportada, este valor será utilizado para formatar o volume. Este valor é passado para o driver CSI através do campo `VolumeCapability` nas propriedades `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest` e `NodePublishVolumeRequest`.
 * `volumeAttributes`: Um mapa de valores do tipo string que especifica propriedades estáticas de um volume. Este mapa deve corresponder ao mapa retornado no campo `volume.attributes` do `CreateVolumeResponse` pelo driver CSI, conforme definido na [especificação CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume). O mapa é passado para o driver CSI através do campo `volume_context` nas propriedades `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, e `NodePublishVolumeRequest`.
-* `controllerPublishSecretRef`: Uma referência ao objeto secreto que contém informações confidenciais para passar ao driver CSI para completar as chamadas CSI `ControllerPublishVolume` e `ControllerUnpublishVolume`. Este campo é opcional e pode estar vazio se não for necessário nenhum segredo. Se o Secret contiver mais de um segredo, todos os segredos serão passados.
-* `nodeStageSecretRef`: Uma referência ao objeto secreto que contém informações confidenciais para passar ao driver de CSI para completar a chamada de CSI do `NodeStageVolume`. Este campo é opcional e pode estar vazio se não for necessário nenhum segredo. Se o Secret contiver mais de um segredo, todos os segredos serão passados.
-* `nodePublishSecretRef`: Uma referência ao objeto secreto que contém informações confidenciais para passar ao driver de CSI para completar a chamada de CSI do `NodePublishVolume`. Este campo é opcional e pode estar vazio se não for necessário nenhum segredo. Se o objeto secreto contiver mais de um segredo, todos os segredos serão passados.
+* `controllerPublishSecretRef`: Uma referência ao objeto Secret que contém informações confidenciais para passar ao driver CSI para completar as chamadas CSI `ControllerPublishVolume` e `ControllerUnpublishVolume`. Este campo é opcional e pode estar vazio se não for necessário nenhum segredo. Se o Secret contiver mais de um segredo, todos os segredos serão passados.
+* `nodeStageSecretRef`: Uma referência ao objeto Secret que contém informações confidenciais para passar ao driver de CSI para completar a chamada de CSI do `NodeStageVolume`. Este campo é opcional e pode estar vazio se não for necessário nenhum segredo. Se o Secret contiver mais de um segredo, todos os segredos serão passados.
+* `nodePublishSecretRef`: Uma referência ao objeto Secret que contém informações confidenciais para passar ao driver de CSI para completar a chamada de CSI do `NodePublishVolume`. Este campo é opcional e pode estar vazio se não for necessário nenhum segredo. Se o objeto Secret contiver mais de um segredo, todos os segredos serão passados.
 
 #### Suporte CSI para volume de bloco bruto
 
