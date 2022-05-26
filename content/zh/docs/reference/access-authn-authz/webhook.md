@@ -1,15 +1,9 @@
 ---
-reviewers:
-- erictune
-- lavalamp
-- deads2k
-- liggitt
 title: Webhook 模式
 content_type: concept
 weight: 95
 ---
 <!--
----
 reviewers:
 - erictune
 - lavalamp
@@ -18,7 +12,6 @@ reviewers:
 title: Webhook Mode
 content_type: concept
 weight: 95
----
 -->
 
 <!-- overview -->
@@ -38,7 +31,7 @@ service when determining user privileges.
 <!--
 ## Configuration File Format
 -->
-## 配置文件格式
+## 配置文件格式 {#configuration-file-format}
 
 <!--
 Mode `Webhook` requires a file for HTTP configuration, specify by the
@@ -51,7 +44,8 @@ The configuration file uses the [kubeconfig](/docs/tasks/access-application-clus
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service.
 -->
-配置文件的格式使用 [kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。在文件中，"users" 代表着 API 服务器的 webhook，而 "cluster" 代表着远程服务。
+配置文件的格式使用 [kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。
+在该文件中，“users” 代表着 API 服务器的 webhook，而 “cluster” 代表着远程服务。
 
 <!--
 A configuration example which uses HTTPS client auth:
@@ -122,7 +116,7 @@ contexts:
 <!--
 ## Request Payloads
 -->
-## 请求载荷
+## 请求载荷 {#request-payloads}
 
 <!--
 When faced with an authorization decision, the API Server POSTs a JSON-
@@ -131,7 +125,8 @@ action. This object contains fields describing the user attempting to make the
 request, and either details about the resource being accessed or requests
 attributes.
 -->
-在做认证决策时，API 服务器会 POST 一个 JSON 序列化的 `authorization.k8s.io/v1beta1` `SubjectAccessReview` 对象来描述这个动作。这个对象包含了描述用户请求的字段，同时也包含了需要被访问资源或请求特征的具体信息。
+在做认证决策时，API 服务器会 POST 一个 JSON 序列化的 `authorization.k8s.io/v1beta1` `SubjectAccessReview`
+对象来描述这个动作。这个对象包含了描述用户请求的字段，同时也包含了需要被访问资源或请求特征的具体信息。
 
 <!--
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
@@ -140,7 +135,9 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
 enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`).
 -->
-需要注意的是 webhook API 对象与其他 Kubernetes API 对象一样都同样都服从[版本兼容规则](/zh/docs/concepts/overview/kubernetes-api/)。实施人员应该了解 beta 对象的更宽松的兼容性承诺，同时确认请求的 "apiVersion" 字段能被正确地反序列化。此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
+需要注意的是 webhook API 对象与其他 Kubernetes API 对象一样都同样都遵从[版本兼容规则](/zh/docs/concepts/overview/kubernetes-api/)。
+实施人员应该了解 beta 对象的更宽松的兼容性承诺，同时确认请求的 "apiVersion" 字段能被正确地反序列化。
+此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
 
 <!--
 An example request body:
@@ -173,6 +170,7 @@ the request and respond to either allow or disallow access. The response body's
 `spec` field is ignored and may be omitted. A permissive response would return:
 -->
 期待远程服务填充请求的 `status` 字段并响应允许或禁止访问。响应主体的 `spec` 字段被忽略，可以省略。允许的响应将返回:
+
 ```json
 {
   "apiVersion": "authorization.k8s.io/v1beta1",
@@ -195,7 +193,8 @@ authorizers are configured, they are given a chance to allow the request.
 If there are no other authorizers, or none of them allow the request, the
 request is forbidden. The webhook would return:
 -->
-在大多数情况下，第一种方法是首选方法，它指示授权 webhook 不允许或对请求"无意见"，但是，如果配置了其他授权者，则可以给他们机会允许请求。如果没有其他授权者，或者没有一个授权者，则该请求被禁止。webhook 将返回:
+在大多数情况下，第一种方法是首选方法，它指示授权 webhook 不允许或对请求 “无意见”。
+但是，如果配置了其他授权者，则可以给他们机会允许请求。如果没有其他授权者，或者没有一个授权者，则该请求被禁止。webhook 将返回：
 
 ```json
 {
@@ -214,7 +213,7 @@ configured authorizers. This should only be used by webhooks that have
 detailed knowledge of the full authorizer configuration of the cluster.
 The webhook would return:
 -->
-第二种方法立即拒绝其他配置的授权者进行短路评估。仅应由对集群的完整授权者配置有详细了解的 webhook 使用。webhook 将返回:
+第二种方法立即拒绝其他配置的授权者进行短路评估。仅应由对集群的完整授权者配置有详细了解的 webhook 使用。webhook 将返回：
 
 ```json
 {
@@ -252,16 +251,16 @@ Access to non-resource paths are sent as:
 ```
 
 <!--
-Non-resource paths include: `/api`, `/apis`, `/metrics`, `/resetMetrics`,
-`/logs`, `/debug`, `/healthz`, `/swagger-ui/`, `/swaggerapi/`, `/ui`, and
+Non-resource paths include: `/api`, `/apis`, `/metrics`,
+`/logs`, `/debug`, `/healthz`, `/livez`, `/openapi/v2`, `/readyz`, and
 `/version.` Clients require access to `/api`, `/api/*`, `/apis`, `/apis/*`,
 and `/version` to discover what resources and versions are present on the server.
 Access to other non-resource paths can be disallowed without restricting access
 to the REST api.
 -->
-非资源类的路径包括：`/api`, `/apis`, `/metrics`, `/resetMetrics`,
-`/logs`, `/debug`, `/healthz`, `/swagger-ui/`, `/swaggerapi/`, `/ui`, 和
-`/version`。客户端需要访问 `/api`, `/api/*`, `/apis`, `/apis/*`, 和 `/version` 以便
+非资源类的路径包括：`/api`、`/apis`、`/metrics`、`/logs`、`/debug`、
+`/healthz`、`/livez`、`/openapi/v2`、`/readyz`、和 `/version`。
+客户端需要访问 `/api`、`/api/*`、`/apis`、`/apis/*` 和 `/version` 以便
 能发现服务器上有什么资源和版本。对于其他非资源类的路径访问在没有 REST API 访问限制的情况下拒绝。
 
 <!--
