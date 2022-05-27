@@ -1,12 +1,8 @@
 ---
-reviewers:
-- Random-Liu
-- feiskyer
-- mrunalp
 title: 使用 crictl 对 Kubernetes 节点进行调试
 content_type: task
+weight: 30
 ---
-
 <!--
 reviewers:
 - Random-Liu
@@ -14,6 +10,7 @@ reviewers:
 - mrunalp
 title: Debugging Kubernetes nodes with crictl
 content_type: task
+weight: 30
 -->
 
 <!-- overview -->
@@ -50,7 +47,7 @@ different architectures. Download the version that corresponds to your version
 of Kubernetes. Extract it and move it to a location on your system path, such as
 `/usr/local/bin/`.
 -->
-## 安装 crictl
+## 安装 crictl    {#installing-crictl}
 
 你可以从 cri-tools [发布页面](https://github.com/kubernetes-sigs/cri-tools/releases)
 下载一个压缩的 `crictl` 归档文件，用于几种不同的架构。
@@ -63,7 +60,7 @@ of Kubernetes. Extract it and move it to a location on your system path, such as
 The `crictl` command has several subcommands and runtime flags. Use
 `crictl help` or `crictl <subcommand> help` for more details.
 -->
-## 一般用法
+## 一般用法    {#general-usage}
 
 `crictl` 命令有几个子命令和运行时参数。
 有关详细信息，请使用 `crictl help` 或 `crictl <subcommand> help` 获取帮助信息。
@@ -120,7 +117,7 @@ documentation](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/cri
 
 The following examples show some `crictl` commands and example output.
 -->
-## crictl 命令示例
+## crictl 命令示例    {#example-crictl-commands}
 
 {{< warning >}}
 <!--
@@ -138,7 +135,7 @@ kubelet 最终将删除它们。
 
 List all pods:
 -->
-### 打印 Pod 清单
+### 打印 Pod 清单    {#list-pods}
 
 打印所有 Pod 的清单：
 
@@ -202,7 +199,7 @@ POD ID              CREATED             STATE               NAME                
 
 List all images:
 -->
-### 打印镜像清单
+### 打印镜像清单    {#list-containers}
 
 打印所有镜像清单：
 
@@ -268,7 +265,7 @@ sha256:cd5239a0906a6ccf0562354852fae04bc5b52d72a2aff9a871ddb6bd57553569
 
 List all containers:
 -->
-### 打印容器清单
+### 打印容器清单    {#list-containers}
 
 打印所有容器清单：
 
@@ -313,7 +310,7 @@ CONTAINER ID        IMAGE                                                       
 <!--
 ### Execute a command in a running container
 -->
-### 在正在运行的容器上执行命令
+### 在正在运行的容器上执行命令    {#execute-a-command-in-a-running-container}
 
 ```shell
 crictl exec -i -t 1f73f2d81bf98 ls
@@ -333,7 +330,7 @@ bin   dev   etc   home  proc  root  sys   tmp   usr   var
 
 Get all container logs:
 -->
-### 获取容器日志
+### 获取容器日志    {#get-a-container-s-logs}
 
 获取容器的所有日志：
 
@@ -377,7 +374,7 @@ Using `crictl` to run a pod sandbox is useful for debugging container runtimes.
 On a running Kubernetes cluster, the sandbox will eventually be stopped and
 deleted by the Kubelet.
 -->
-### 运行 Pod 沙盒
+### 运行 Pod 沙盒    {#run-a-pod-sandbox}
 
 用 `crictl` 运行 Pod 沙盒对容器运行时排错很有帮助。
 在运行的 Kubernetes 集群中，沙盒会随机地被 kubelet 停止和删除。
@@ -422,7 +419,7 @@ Using `crictl` to create a container is useful for debugging container runtimes.
 On a running Kubernetes cluster, the sandbox will eventually be stopped and
 deleted by the Kubelet.
 -->
-### 创建容器
+### 创建容器 {#create-a-container}
 
 用 `crictl` 创建容器对容器运行时排错很有帮助。
 在运行的 Kubernetes 集群中，沙盒会随机的被 kubelet 停止和删除。
@@ -471,13 +468,13 @@ deleted by the Kubelet.
    ```json
    {
      "metadata": {
-         "name": "busybox"
+       "name": "busybox"
      },
      "image":{
-         "image": "busybox"
+       "image": "busybox"
      },
      "command": [
-         "top"
+       "top"
      ],
      "log_path":"busybox.log",
      "linux": {
@@ -520,7 +517,7 @@ deleted by the Kubelet.
 
 To start a container, pass its ID to `crictl start`:
 -->
-### 启动容器
+### 启动容器 {#start-a-container}
 
 要启动容器，要将容器 ID 传给 `crictl start`：
 
@@ -562,5 +559,5 @@ CONTAINER ID   IMAGE    CREATED              STATE    NAME     ATTEMPT
 * [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
 * [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
 -->
-* [进一步了解 `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [将 `docker` CLI 命令映射到 `crictl`](/zh/docs/reference/tools/map-crictl-dockercli/).
+* [进一步了解 `crictl`](https://github.com/kubernetes-sigs/cri-tools)
+* [将 `docker` CLI 命令映射到 `crictl`](/zh/docs/reference/tools/map-crictl-dockercli/)
