@@ -78,7 +78,7 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
      Kubernetes versions, refer to the documentation for that version
      of Kubernetes.
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-   * A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking
+   * A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking.
 -->
 * Kubernetes 1.20 版本或更高版本，有关更早 Kubernetes 版本的使用双栈服务的信息，
   请参考对应版本的 Kubernetes 文档。
@@ -91,7 +91,10 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 -->
 ## 配置 IPv4/IPv6 双协议栈
 
-
+<!--
+To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
+-->
+如果配置 IPv4/IPv6 双栈，请分配双栈集群网络：
 <!--
    * kube-apiserver:
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
@@ -142,7 +145,7 @@ IPv6 CIDR 的一个例子：`fdXY:IJKL:MNOP:15::/64`
 ## 服务
 
 <!--
-You can create {{< glossary_tooltip text="Services" term_id="service" >}} which can use IPv4, IPv6, or both. 
+You can create {{< glossary_tooltip text="Services" term_id="service" >}} which can use IPv4, IPv6, or both.
 
 The address family of a Service defaults to the address family of the first service cluster IP range (configured via the `--service-cluster-ip-range` flag to the kube-apiserver).
 
@@ -195,7 +198,6 @@ You can set `.spec.ipFamilies` to any of the following array values:
 - `["IPv6"]`
 - `["IPv4","IPv6"]` (dual stack)
 - `["IPv6","IPv4"]` (dual stack)
-
 -->
 - `["IPv4"]`
 - `["IPv6"]`
@@ -224,14 +226,13 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 <!--
 1. This Service specification does not explicitly define `.spec.ipFamilyPolicy`. When you create this Service, Kubernetes assigns a cluster IP for the Service from the first configured `service-cluster-ip-range` and sets the `.spec.ipFamilyPolicy` to `SingleStack`. ([Services without selectors](/docs/concepts/services-networking/service/#services-without-selectors) and [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors will behave in this same way.)
 -->
-
 1. 此服务规约中没有显式设定 `.spec.ipFamilyPolicy`。当你创建此服务时，Kubernetes
    从所配置的第一个 `service-cluster-ip-range` 种为服务分配一个集群IP，并设置
    `.spec.ipFamilyPolicy` 为 `SingleStack`。
    （[无选择算符的服务](/zh/docs/concepts/services-networking/service/#services-without-selectors)
    和[无头服务](/zh/docs/concepts/services-networking/service/#headless-services)的行为方式
    与此相同。）
-   
+
    {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
 <!--
@@ -274,7 +275,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 #### 现有服务的双栈默认值
 
 <!--
-These examples demonstrate the default behavior when dual-stack is newly enabled on a cluster where Services already exist.  (Upgrading an existing cluster to 1.21 or beyond will enable dual-stack.)
+These examples demonstrate the default behavior when dual-stack is newly enabled on a cluster where Services already exist. (Upgrading an existing cluster to 1.21 or beyond will enable dual-stack.)
 -->
 下面示例演示了在服务已经存在的集群上新启用双栈时的默认行为。
 （将现有集群升级到 1.21 或者更高版本会启用双协议栈支持。）
@@ -296,7 +297,7 @@ These examples demonstrate the default behavior when dual-stack is newly enabled
    ```shell
    kubectl get svc my-service -o yaml
    ```
-   
+
    ```yaml
    apiVersion: v1
    kind: Service
@@ -341,7 +342,7 @@ These examples demonstrate the default behavior when dual-stack is newly enabled
    ```shell
    kubectl get svc my-service -o yaml
    ```
-   
+
    ```yaml
    apiVersion: v1
    kind: Service
@@ -361,7 +362,7 @@ These examples demonstrate the default behavior when dual-stack is newly enabled
        protocol: TCP
        targetPort: 80
      selector:
-       app: MyApp  
+       app: MyApp
    ```
 
 <!--
@@ -470,11 +471,41 @@ Ensure your {{< glossary_tooltip text="CNI" term_id="cni" >}} provider supports 
 确认你的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 驱动支持 IPv6。
 {{< /note >}}
 
+<!--
+## Windows support
+
+Kubernetes on Windows does not support single-stack "IPv6-only" networking. However,
+dual-stack IPv4/IPv6 networking for pods and nodes with single-family services
+is supported.
+
+You can use IPv4/IPv6 dual-stack networking with `l2bridge` networks.
+
+{{< note >}}
+Overlay (VXLAN) networks on Windows **do not** support dual-stack networking.
+{{< /note >}}
+
+You can read more about the different network modes for Windows within the
+[Networking on Windows](/docs/concepts/services-networking/windows-networking#network-modes) topic.
+-->
+## Windows 支持
+
+Windows 上的 Kubernetes 不支持单栈“仅 IPv6” 网络。 然而，
+对于 Pod 和节点而言，仅支持单栈形式服务的双栈 IPv4/IPv6 网络是被支持的。
+
+你可以使用 `l2bridge` 网络来实现 IPv4/IPv6 双栈联网。
+
+{{< note >}}
+Windows 上的 Overlay (VXLAN) 网络**不**支持双栈网络。
+{{< /note >}}
+
+关于 Windows 的不同网络模式，你可以进一步阅读
+[Windows 上的网络](/zh/docs/concepts/services-networking/windows-networking#network-modes)。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
-* [Enable dual-stack networking using kubeadm ](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
+* [Enable dual-stack networking using kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
 -->
 * [验证 IPv4/IPv6 双协议栈](/zh/docs/tasks/network/validate-dual-stack)网络
 * [使用 kubeadm 启用双协议栈网络](/zh/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
