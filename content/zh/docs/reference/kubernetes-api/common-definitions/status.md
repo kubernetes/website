@@ -10,7 +10,7 @@ weight: 12
 auto_generated: true
 ---
 
-<!-- 
+<!--
 api_metadata:
   apiVersion: ""
   import: "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -45,13 +45,13 @@ guide. You can file document formatting bugs against the
 
 - **apiVersion** (string)
 
-  <!-- 
+  <!--
   APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources 
   -->
 
   APIVersion 定义对象表示的版本化模式。
   服务器应将已识别的模式转换为最新的内部值，并可能拒绝无法识别的值。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **code** (int32)
 
@@ -60,7 +60,7 @@ guide. You can file document formatting bugs against the
 
 - **details** (StatusDetails)
 
-  <!--  
+  <!--
   Extended data associated with the reason.  Each reason may define its own extended details. 
   This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
   -->
@@ -68,7 +68,7 @@ guide. You can file document formatting bugs against the
   此字段是可选的，并且不保证返回的数据符合任何模式，除非由原因类型定义。
 
   <a name="StatusDetails"></a>
-  <!-- 
+  <!--
   *StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. 
   The Reason field of a Status object defines what attributes will be set. 
   Clients must ignore fields that do not match the defined type of each attribute, 
@@ -80,7 +80,7 @@ guide. You can file document formatting bugs against the
 
   - **details.causes** ([]StatusCause)
 
-    <!-- 
+    <!--
     The Causes array includes more details associated with the StatusReason failure. 
     Not all StatusReasons may provide detailed causes. 
     -->
@@ -88,14 +88,14 @@ guide. You can file document formatting bugs against the
     并非所有 StatusReasons 都可以提供详细的原因。
 
     <a name="StatusCause"></a>
-    <!-- 
+    <!--
     *StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.*
     -->
     *StatusCause 提供有关 api.Status 失败的更多信息，包括遇到多个错误的情况。*
 
     - **details.causes.field** (string)
 
-      <!-- 
+      <!--
       The field of the resource that has caused this error, as named by its JSON serialization. 
       May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  
       Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
@@ -104,7 +104,7 @@ guide. You can file document formatting bugs against the
       可能包括嵌套属性的点和后缀表示法。数组是从零开始索引的。
       由于字段有多个错误，字段可能会在一系列原因中出现多次。可选。
 
-      <!-- 
+      <!--
       Examples:
         "name" - the field "name" on the current resource
         "items[0].name" - the field "name" on the first array entry in "items"
@@ -130,14 +130,14 @@ guide. You can file document formatting bugs against the
 
   - **details.kind** (string)
 
-    <!-- 
+    <!--
     The kind attribute of the resource associated with the status StatusReason. 
     On some operations may differ from the requested resource Kind. 
     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     -->
     与状态 StatusReason 关联的资源的种类属性。
     在某些操作上可能与请求的资源种类不同。
-    更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   - **details.name** (string)
 
@@ -146,7 +146,7 @@ guide. You can file document formatting bugs against the
 
   - **details.retryAfterSeconds** (int32)
 
-    <!-- 
+    <!--
     If specified, the time in seconds before the operation should be retried. 
     Some errors may indicate the client must take an alternate action - 
     for those errors this field may indicate how long to wait before taking the alternate action.
@@ -156,16 +156,16 @@ guide. You can file document formatting bugs against the
 
   - **details.uid** (string)
 
-    <!-- 
+    <!--
     UID of the resource. (when there is a single resource which can be described). 
     More info: http://kubernetes.io/docs/user-guide/identifiers#uids 
     -->
     资源的 UID（当有单个可以描述的资源时）。
-    更多信息：http://kubernetes.io/docs/user-guide/identifiers#uids
+    更多信息： http://kubernetes.io/docs/user-guide/identifiers#uids
 
 - **kind** (string)
 
-  <!-- 
+  <!--
    Kind is a string value representing the REST resource this object represents. 
    Servers may infer this from the endpoint the client submits requests to. 
    Cannot be updated. In CamelCase.
@@ -174,7 +174,7 @@ guide. You can file document formatting bugs against the
   Kind 是一个字符串值，表示此对象表示的 REST 资源。
   服务器可以从客户端提交请求的端点推断出这一点。
   无法更新。驼峰式规则。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **message** (string)
 
@@ -185,12 +185,12 @@ guide. You can file document formatting bugs against the
 
   <!-- Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds -->
   标准列表元数据。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 
 - **reason** (string)
 
-  <!-- 
+  <!--
   A machine-readable description of why this operation is in the "Failure" status. 
   If this value is empty there is no information available. 
   A Reason clarifies an HTTP status code but does not override it.
@@ -201,8 +201,8 @@ guide. You can file document formatting bugs against the
 
 - **status** (string)
 
-  <!-- 
+  <!--
   Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
-  操作状态。“Success”或“Failure” 之一。 
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  操作状态。“Success”或“Failure” 之一。
+  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

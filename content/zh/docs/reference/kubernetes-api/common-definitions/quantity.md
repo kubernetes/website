@@ -68,7 +68,7 @@ The serialization format is:
 -->
 ```
 <quantity>        ::= <signedNumber><suffix>
-  (注意 <suffix> 可能为空, 例如 <decimalSI> 的 "" 情形。) </br>
+  (注意 <suffix> 可能为空，例如 <decimalSI> 的 "" 情形。) </br>
 <digit>           ::= 0 | 1 | ... | 9 </br>
 <digits>          ::= <digit> | <digit><digits> </br>
 <number>          ::= <digits> | <digits>.<digits> | <digits>. | .<digits> </br>
@@ -76,7 +76,7 @@ The serialization format is:
 <signedNumber>    ::= <number> | <sign><number> </br>
 <suffix>          ::= <binarySI> | <decimalExponent> | <decimalSI> </br>
 <binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei 
-  (国际单位制度；查阅：http://physics.nist.gov/cuu/Units/binary.html) </br>
+  (国际单位制度；查阅： http://physics.nist.gov/cuu/Units/binary.html)</br>
 <decimalSI>       ::= m | "" | k | M | G | T | P | E 
   (注意，1024 = 1ki 但 1000 = 1k；我没有选择大写。) </br>
 <decimalExponent> ::= "e" <signedNumber> | "E" <signedNumber> </br>
