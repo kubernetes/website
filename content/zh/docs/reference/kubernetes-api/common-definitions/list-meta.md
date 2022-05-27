@@ -71,7 +71,7 @@ ListMeta describes metadata that synthetic resources must have, including lists 
 
   标识该对象的服务器内部版本的字符串，客户端可以用该字段来确定对象何时被更改。
   该值对客户端是不透明的，并且应该原样传回给服务器。该值由系统填充，只读。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency。
+  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency 。
 
 <!--
   Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
