@@ -69,7 +69,7 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 # │ │ │ ┌───────────── 월 (1 - 12)
 # │ │ │ │ ┌───────────── 요일 (0 - 6) (일요일부터 토요일까지;
 # │ │ │ │ │                                   특정 시스템에서는 7도 일요일)
-# │ │ │ │ │
+# │ │ │ │ │                                   또는 sun, mon, tue, wed, thu, fri, sat
 # │ │ │ │ │
 # * * * * *
 ```
@@ -90,6 +90,21 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 `0 0 13 * 5`
 
 크론잡 스케줄 표현을 생성하기 위해서 [crontab.guru](https://crontab.guru/)와 같은 웹 도구를 사용할 수도 있다.
+
+## 타임 존
+크론잡에 타임 존이 명시되어 있지 않으면, kube-controller-manager는 로컬 타임 존을 기준으로 스케줄을 해석한다.
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+`CronJobTimeZone` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하면, 
+크론잡에 대해 타임 존을 명시할 수 있다(기능 게이트를 활성화하지 않거나, 
+타임 존에 대한 실험적 지원을 제공하지 않는 쿠버네티스 버전을 사용 중인 경우, 
+클러스터의 모든 크론잡은 타임 존이 명시되지 않은 것으로 동작한다).
+
+이 기능을 활성화하면, `spec.timeZone`을 유효한 [타임 존](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) 이름으로 지정할 수 있다. 
+예를 들어, `spec.timeZone: "Etc/UTC"`와 같이 설정하면 쿠버네티스는 협정 세계시를 기준으로 스케줄을 해석한다.
+
+Go 표준 라이브러리의 타임 존 데이터베이스가 바이너리로 인클루드되며, 시스템에서 외부 데이터베이스를 사용할 수 없을 때 폴백(fallback)으로 사용된다.
 
 ## 크론잡의 한계 {#cron-job-limitations}
 
