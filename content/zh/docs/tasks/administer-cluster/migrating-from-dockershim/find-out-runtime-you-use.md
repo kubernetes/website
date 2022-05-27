@@ -44,7 +44,7 @@ Install and configure `kubectl`. See [Install Tools](/docs/tasks/tools/#kubectl)
 
 Use `kubectl` to fetch and show node information:
 -->
-## 查明节点所使用的容器运行时
+## 查明节点所使用的容器运行时 {#find-out-the-container-runtime-used-on-a-node}
 
 使用 `kubectl` 来读取并显示节点信息：
 
@@ -60,7 +60,7 @@ For Docker Engine, the output is similar to this:
 -->
 输出如下面所示。`CONTAINER-RUNTIME` 列给出容器运行时及其版本。
 
-对于 Docker Engine，输出类似于： 
+对于 Docker Engine，输出类似于：
 ```none
 NAME         STATUS   VERSION    CONTAINER-RUNTIME
 node-1       Ready    v1.16.15   docker://19.3.1
@@ -82,7 +82,7 @@ For containerd, the output is similar to this:
 看下是否是使用的 dockershim，如何是 dockershim 则会受到在 Kubernetes 1.24 中移除 dockershim 的影响。
 反之则不会受到影响。
 
-对于 containerd，输出类似于这样： 
+对于 containerd，输出类似于这样：
 
 ```none
 # For containerd
@@ -94,7 +94,8 @@ node-3       Ready    v1.19.6   containerd://1.4.1
 
 <!--
 Find out more information about container runtimes
-on [Container Runtimes](/docs/setup/production-environment/container-runtimes/) page.
+on [Container Runtimes](/docs/setup/production-environment/container-runtimes/)
+page.
 -->
 你可以在[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
 页面找到与容器运行时相关的更多信息。
@@ -147,7 +148,7 @@ nodes.
     process manually.
 -->
 1. 查看 kubelet 进程的启动命令
-   
+
    ```
     tr \\0 ' ' < /proc/"$(pgrep kubelet)"/cmdline
    ```
@@ -172,15 +173,14 @@ nodes.
      或者如果集群使用的 Docker engine 和 dockershim socket，则输出结果中 `--container-runtime` 不是 `remote`,
    * 如果设置了 `--container-runtime-endpoint` 参数，查看套接字名称即可得知当前使用的运行时。
      如若套接字 `unix:///run/containerd/containerd.sock` 是 containerd 的端点。
-     
+
 <!--
-If you want to change the Container Runtime on a Node from Docker Engine to containerd,
-you can find out more information on [migrate to a different runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/),
+If you use Docker Engine with the dockershim, [migrate to a different runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/),
 or, if you want to continue using Docker Engine in v1.24 and later, migrate to a
 CRI-compatible adapter like [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).
 -->
-如果想将节点上的容器运行时从 Docker Engine 切换成 containerd，可在
-[Docker Engine 迁移到 containerd](zh/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/) 
+如果你通过 dockershim 来使用 Docker Engine，可在
+[迁移到不同的运行时](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)
 找到更多信息。或者，如果你想在 Kubernetes v1.24 及以后的版本仍使用 Docker Engine，
 可以安装 CRI 兼容的适配器实现，如 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
