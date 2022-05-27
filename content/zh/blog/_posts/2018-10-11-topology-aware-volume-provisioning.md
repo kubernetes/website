@@ -4,11 +4,9 @@ title: 'Kubernetes 中的拓扑感知数据卷供应'
 date: 2018-10-11
 ---
 <!--
----
 layout: blog
 title: 'Topology-Aware Volume Provisioning in Kubernetes'
 date: 2018-10-11
----
 -->
 
 <!--
@@ -19,7 +17,10 @@ date: 2018-10-11
 <!--
 The multi-zone cluster experience with persistent volumes is improving in Kubernetes 1.12 with the topology-aware dynamic provisioning beta feature. This feature allows Kubernetes to make intelligent decisions when dynamically provisioning volumes by getting scheduler input on the best place to provision a volume for a pod.  In multi-zone clusters, this means that volumes will get provisioned in an appropriate zone that can run your pod, allowing you to easily deploy and scale your stateful workloads across failure domains to provide high availability and fault tolerance.
 -->
-通过提供拓扑感知动态卷供应功能，具有持久卷的多区域集群体验在 Kubernetes 1.12 中得到了改进。此功能使得 Kubernetes 在动态供应卷时能做出明智的决策，方法是从调度器获得为 Pod 提供数据卷的最佳位置。在多区域集群环境，这意味着数据卷能够在满足你的 Pod 运行需要的合适的区域被供应，从而允许您跨故障域轻松部署和扩展有状态工作负载，从而提供高可用性和容错能力。
+通过提供拓扑感知动态卷供应功能，具有持久卷的多区域集群体验在 Kubernetes 1.12
+中得到了改进。此功能使得 Kubernetes 在动态供应卷时能做出明智的决策，方法是从调度器获得为
+Pod 提供数据卷的最佳位置。在多区域集群环境，这意味着数据卷能够在满足你的 Pod
+运行需要的合适的区域被供应，从而允许你跨故障域轻松部署和扩展有状态工作负载，从而提供高可用性和容错能力。
 
 <!--
 ## Previous challenges
@@ -29,7 +30,10 @@ The multi-zone cluster experience with persistent volumes is improving in Kubern
 <!--
 Before this feature, running stateful workloads with zonal persistent disks (such as AWS ElasticBlockStore, Azure Disk, GCE PersistentDisk) in multi-zone clusters had many challenges. Dynamic provisioning was handled independently from pod scheduling, which meant that as soon as you created a PersistentVolumeClaim (PVC), a volume would get provisioned. This meant that the provisioner had no knowledge of what pods were using the volume, and any pod constraints it had that could impact scheduling.
 -->
-在此功能被提供之前，在多区域集群中使用区域化的持久磁盘（例如 AWS ElasticBlockStore，Azure Disk，GCE PersistentDisk）运行有状态工作负载存在许多挑战。动态供应独立于 Pod 调度处理，这意味着只要您创建了一个 PersistentVolumeClaim（PVC），一个卷就会被供应。这也意味着供应者不知道哪些 Pod 正在使用该卷，也不清楚任何可能影响调度的 Pod 约束。
+在此功能被提供之前，在多区域集群中使用区域化的持久磁盘（例如 AWS ElasticBlockStore、
+Azure Disk、GCE PersistentDisk）运行有状态工作负载存在许多挑战。动态供应独立于 Pod
+调度处理，这意味着只要你创建了一个 PersistentVolumeClaim（PVC），一个卷就会被供应。
+这也意味着供应者不知道哪些 Pod 正在使用该卷，也不清楚任何可能影响调度的 Pod 约束。
 
 <!--
 This resulted in unschedulable pods because volumes were provisioned in zones that:
@@ -78,7 +82,7 @@ In 1.12, the following drivers support topology-aware dynamic provisioning:
 -->
 * AWS EBS
 * Azure Disk
-* GCE PD （包括 Regional PD）
+* GCE PD（包括 Regional PD）
 * CSI（alpha） - 目前只有 GCE PD CSI 驱动实现了拓扑支持
 
 <!--
@@ -91,13 +95,13 @@ While the initial set of supported plugins are all zonal-based, we designed this
 -->
 虽然最初支持的插件集都是基于区域的，但我们设计此功能时遵循 Kubernetes 跨环境可移植性的原则。
 拓扑规范是通用的，并使用类似于基于标签的规范，如 Pod nodeSelectors 和 nodeAffinity。
-该机制允许您定义自己的拓扑边界，例如内部部署集群中的机架，而无需修改调度程序以了解这些自定义拓扑。
+该机制允许你定义自己的拓扑边界，例如内部部署集群中的机架，而无需修改调度程序以了解这些自定义拓扑。
 
 <!--
 In addition, the topology information is abstracted away from the pod specification, so a pod does not need knowledge of the underlying storage system’s topology characteristics. This means that you can use the same pod specification across multiple clusters, environments, and storage systems.
 -->
 此外，拓扑信息是从 Pod 规范中抽象出来的，因此 Pod 不需要了解底层存储系统的拓扑特征。
-这意味着您可以在多个集群、环境和存储系统中使用相同的 Pod 规范。
+这意味着你可以在多个集群、环境和存储系统中使用相同的 Pod 规范。
 
 <!--
 ## Getting Started
@@ -107,7 +111,7 @@ In addition, the topology information is abstracted away from the pod specificat
 <!--
 To enable this feature, all you need to do is to create a StorageClass with `volumeBindingMode` set to `WaitForFirstConsumer`:
 -->
-要启用此功能，您需要做的就是创建一个将 `volumeBindingMode` 设置为 `WaitForFirstConsumer` 的 StorageClass：
+要启用此功能，你需要做的就是创建一个将 `volumeBindingMode` 设置为 `WaitForFirstConsumer` 的 StorageClass：
 
 ```
 kind: StorageClass
@@ -210,7 +214,7 @@ spec:
 <!--
 Afterwards, you can see that the volumes were provisioned in zones according to the policies set by the pod:
 -->
-之后，您可以看到根据 Pod 设置的策略在区域中配置卷：
+之后，你可以看到根据 Pod 设置的策略在区域中配置卷：
 
 ```
 $ kubectl get pv -o=jsonpath='{range .items[*]}{.spec.claimRef.name}{"\t"}{.metadata.labels.failure\-domain\.beta\.kubernetes\.io/zone}{"\n"}{end}'
@@ -228,12 +232,13 @@ logs-web-1      us-central1-a
 <!--
 Official documentation on the topology-aware dynamic provisioning feature is available here:https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode
 -->
-有关拓扑感知动态供应功能的官方文档可在此处获取：https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode
+有关拓扑感知动态供应功能的官方文档可在此处获取：
+https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode
 
 <!--
 Documentation for CSI drivers is available at https://kubernetes-csi.github.io/docs/
 -->
-有关 CSI 驱动程序的文档，请访问：https://kubernetes-csi.github.io/docs/
+有关 CSI 驱动程序的文档，请访问： https://kubernetes-csi.github.io/docs/
 
 <!--
 ## What’s next?
@@ -260,9 +265,16 @@ We are actively working on improving this feature to support:
 <!--
 If you have feedback for this feature or are interested in getting involved with the design and development, join the [Kubernetes Storage Special-Interest-Group](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG). We’re rapidly growing and always welcome new contributors.
 -->
-如果您对此功能有反馈意见或有兴趣参与设计和开发，请加入 [Kubernetes 存储特别兴趣小组](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。我们正在快速成长，并始终欢迎新的贡献者。
+如果你对此功能有反馈意见或有兴趣参与设计和开发，请加入
+[Kubernetes 存储特别兴趣小组](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。
+我们正在快速成长，并始终欢迎新的贡献者。
 
 <!--
 Special thanks to all the contributors that helped bring this feature to beta, including Cheng Xing ([verult](https://github.com/verult)), Chuqiang Li ([lichuqiang](https://github.com/lichuqiang)), David Zhu ([davidz627](https://github.com/davidz627)), Deep Debroy ([ddebroy](https://github.com/ddebroy)), Jan Šafránek ([jsafrane](https://github.com/jsafrane)), Jordan Liggitt ([liggitt](https://github.com/liggitt)), Michelle Au ([msau42](https://github.com/msau42)), Pengfei Ni ([feiskyer](https://github.com/feiskyer)), Saad Ali ([saad-ali](https://github.com/saad-ali)), Tim Hockin ([thockin](https://github.com/thockin)), and Yecheng Fu ([cofyc](https://github.com/cofyc)).
 -->
-特别感谢帮助推出此功能的所有贡献者，包括 Cheng Xing ([verult](https://github.com/verult))、Chuqiang Li ([lichuqiang](https://github.com/lichuqiang))、David Zhu ([davidz627](https://github.com/davidz627))、Deep Debroy ([ddebroy](https://github.com/ddebroy))、Jan Šafránek ([jsafrane](https://github.com/jsafrane))、Jordan Liggitt ([liggitt](https://github.com/liggitt))、Michelle Au ([msau42](https://github.com/msau42))、Pengfei Ni ([feiskyer](https://github.com/feiskyer))、Saad Ali ([saad-ali](https://github.com/saad-ali))、Tim Hockin ([thockin](https://github.com/thockin))，以及 Yecheng Fu ([cofyc](https://github.com/cofyc))。
+特别感谢帮助推出此功能的所有贡献者，包括 Cheng Xing ([verult](https://github.com/verult))、
+Chuqiang Li ([lichuqiang](https://github.com/lichuqiang))、David Zhu ([davidz627](https://github.com/davidz627))、
+Deep Debroy ([ddebroy](https://github.com/ddebroy))、Jan Šafránek ([jsafrane](https://github.com/jsafrane))、
+Jordan Liggitt ([liggitt](https://github.com/liggitt))、Michelle Au ([msau42](https://github.com/msau42))、
+Pengfei Ni ([feiskyer](https://github.com/feiskyer))、Saad Ali ([saad-ali](https://github.com/saad-ali))、
+Tim Hockin ([thockin](https://github.com/thockin))，以及 Yecheng Fu ([cofyc](https://github.com/cofyc))。
