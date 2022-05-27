@@ -258,5 +258,4 @@ You can read more about the different network modes for Windows within the
 
 
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
-* [Enable dual-stack networking using kubeadm
-](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
+* [Enable dual-stack networking using kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
