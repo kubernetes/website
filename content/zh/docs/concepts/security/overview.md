@@ -5,6 +5,15 @@ description: >
 content_type: concept
 weight: 1
 ---
+<!--
+reviewers:
+- zparnold
+title: Overview of Cloud Native Security
+description: >
+  A model for thinking about Kubernetes security in the context of Cloud Native security.
+content_type: concept
+weight: 1
+-->
 
 <!-- overview -->
 <!--
@@ -27,7 +36,7 @@ This container security model provides suggestions, not proven information secur
 You can think about security in layers. The 4C's of Cloud Native security are Cloud,
 Clusters, Containers, and Code.
 -->
-## 云原生安全的 4 个 C
+## 云原生安全的 4 个 C    {#the-4c-s-of-cloud-native-security}
 
 你可以分层去考虑安全性，云原生安全的 4 个 C 分别是云（Cloud）、集群（Cluster）、容器（Container）和代码（Code）。
 
@@ -53,7 +62,10 @@ security at the Code level.
 云原生安全模型的每一层都是基于下一个最外层，代码层受益于强大的基础安全层（云、集群、容器）。
 你无法通过在代码层解决安全问题来为基础层中糟糕的安全标准提供保护。
 
-## 云
+<!--
+## Cloud
+-->
+## 云    {#cloud}
 
 <!--
 In many ways, the Cloud (or co-located servers, or the corporate datacenter) is the
@@ -75,7 +87,7 @@ If you are running a Kubernetes cluster on your own hardware or a different clou
 consult your documentation for security best practices.
 Here are links to some of the popular cloud providers' security documentation:
 -->
-### 云提供商安全性
+### 云提供商安全性    {#cloud-provider-security}
 
 如果你是在你自己的硬件或者其他不同的云提供商上运行 Kubernetes 集群，
 请查阅相关文档来获取最好的安全实践。
@@ -137,7 +149,7 @@ There are two areas of concern for securing Kubernetes:
 * Securing the cluster components that are configurable
 * Securing the applications which run in the cluster
 -->
-## 集群
+## 集群    {#cluster}
 
 保护 Kubernetes 有两个方面需要注意：
 
@@ -205,7 +217,7 @@ Image Signing and Enforcement | Sign container images to maintain a system of tr
 Disallow privileged users | When constructing containers, consult your documentation for how to create users inside of the containers that have the least level of operating system privilege necessary in order to carry out the goal of the container.
 Use container runtime with stronger isolation | Select [container runtime classes](/docs/concepts/containers/runtime-class/) that provide stronger isolation
 -->
-## 容器
+## 容器    {#container}
 
 容器安全性不在本指南的探讨范围内。下面是一些探索此主题的建议和连接：
 
@@ -222,7 +234,7 @@ Application code is one of the primary attack surfaces over which you have the m
 While securing application code is outside of the Kubernetes security topic, here
 are recommendations to protect application code:
 -->
-## 代码
+## 代码    {#code}
 
 应用程序代码是你最能够控制的主要攻击面之一，虽然保护应用程序代码不在 Kubernetes 安全主题范围内，但以下是保护应用程序代码的建议：
 
@@ -241,7 +253,7 @@ Dynamic probing attacks | There are a few automated tools that you can run again
 
 {{< /table >}}
 -->
-### 代码安全性
+### 代码安全性    {#code-security}
 
 {{< table caption="代码安全" >}}
 
@@ -250,7 +262,7 @@ Dynamic probing attacks | There are a few automated tools that you can run again
 仅通过 TLS 访问 | 如果你的代码需要通过 TCP 通信，请提前与客户端执行 TLS 握手。除少数情况外，请加密传输中的所有内容。更进一步，加密服务之间的网络流量是一个好主意。这可以通过被称为双向 TLS 或 [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication) 的过程来完成，该过程对两个证书持有服务之间的通信执行双向验证。 |
 限制通信端口范围 | 此建议可能有点不言自明，但是在任何可能的情况下，你都只应公开服务上对于通信或度量收集绝对必要的端口。|
 第三方依赖性安全 | 最好定期扫描应用程序的第三方库以了解已知的安全漏洞。每种编程语言都有一个自动执行此检查的工具。 |
-静态代码分析 | 大多数语言都提供给了一种方法，来分析代码段中是否存在潜在的不安全的编码实践。只要有可能，你都应该使用自动工具执行检查，该工具可以扫描代码库以查找常见的安全错误，一些工具可以在以下连接中找到：https://owasp.org/www-community/Source_Code_Analysis_Tools |
+静态代码分析 | 大多数语言都提供给了一种方法，来分析代码段中是否存在潜在的不安全的编码实践。只要有可能，你都应该使用自动工具执行检查，该工具可以扫描代码库以查找常见的安全错误，一些工具可以在以下连接中找到： https://owasp.org/www-community/Source_Code_Analysis_Tools |
 动态探测攻击 | 你可以对服务运行一些自动化工具，来尝试一些众所周知的服务攻击。这些攻击包括 SQL 注入、CSRF 和 XSS。[OWASP Zed Attack](https://owasp.org/www-project-zap/) 代理工具是最受欢迎的动态分析工具之一。 |
 
 {{< /table >}}

@@ -438,7 +438,7 @@ If you are manually pushing the Openshift artifacts using ``oc create -f``, you 
 -->
 {{< note >}}
 如果使用 ``oc create -f`` 手动推送 Openshift 工件，则需要确保在构建配置工件之前推送
-imagestream 工件，以解决 Openshift 的这个问题：https://github.com/openshift/origin/issues/4518 。
+imagestream 工件，以解决 Openshift 的这个问题： https://github.com/openshift/origin/issues/4518 。
 {{< /note >}}
 
 <!--
