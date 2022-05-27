@@ -51,14 +51,14 @@ kubelet [flags]
 <td colspan="2">--address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address for the Kubelet to serve on (set to <code>0.0.0.0</code> or <code>::</code> for listening in all interfaces and IP families)  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/"> kubelet-config-file. </a>)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address for the Kubelet to serve on (set to <code>0.0.0.0</code> or <code>::</code> for listening in all interfaces and IP families)  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/"> kubelet-config-file </a> for more information.)</td>
 </tr>
 
 <tr>
 <td colspan="2">--allowed-unsafe-sysctls strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated whitelist of unsafe sysctls or unsafe sysctl patterns (ending in <code>&ast;</code>). Use these at your own risk. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/"> kubelet-config-file. </a>)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated whitelist of unsafe sysctls or unsafe sysctl patterns (ending in <code>&ast;</code>). Use these at your own risk. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/"> kubelet-config-file </a> for more information.)</td>
 </tr>
 
 <tr>
