@@ -32,7 +32,7 @@ TokenReview attempts to authenticate a token to a known user. Note: TokenReview 
 -->
 ## TokenReview {#TokenReview}
 
-TokenReview 尝试通过验证令牌来确认已知用户。 
+TokenReview 尝试通过验证令牌来确认已知用户。
 注意：TokenReview 请求可能会被 kube-apiserver 中的 webhook 令牌验证器插件缓存。
 
 <hr>
@@ -48,7 +48,7 @@ TokenReview 尝试通过验证令牌来确认已知用户。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  标准对象的元数据，更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准对象的元数据，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authentication-resources/token-review-v1#TokenReviewSpec" >}}">TokenReviewSpec</a>), required
 
@@ -104,10 +104,10 @@ TokenReviewStatus 是令牌认证请求的结果。
   <!--
   Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
   -->
-  audiences 是身份验证者选择的与 TokenReview 和令牌兼容的受众标识符。 标识符是 
-  TokenReviewSpec 受众和令牌受众的交集中的任何标识符。 设置 spec.audiences
+  audiences 是身份验证者选择的与 TokenReview 和令牌兼容的受众标识符。标识符是
+  TokenReviewSpec 受众和令牌受众的交集中的任何标识符。设置 spec.audiences
   字段的 TokenReview API 的客户端应验证在 status.audiences 字段中返回了兼容的受众标识符，
-  以确保 TokenReview 服务器能够识别受众。 如果 TokenReview 
+  以确保 TokenReview 服务器能够识别受众。如果 TokenReview
   返回一个空的 status.audience 字段，其中 status.authenticated 为 “true”，
   则该令牌对 Kubernetes API 服务器的受众有效。
 
@@ -148,7 +148,7 @@ TokenReviewStatus 是令牌认证请求的结果。
 
     <!--
     The names of groups this user is a part of.
-    -->  
+    -->
    此用户所属的组的名称。
 
   - **user.uid** (string)
@@ -168,7 +168,7 @@ TokenReviewStatus 是令牌认证请求的结果。
 <!--
 ## Operations {#Operations}
 -->
-## 操作 {#Operations} 
+## 操作 {#Operations}
 
 <hr>
 

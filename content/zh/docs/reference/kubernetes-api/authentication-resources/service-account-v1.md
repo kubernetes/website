@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ServiceAccount"
 content_type: "api_reference"
-description: "ServiceAccount 将以下内容绑定在一起：1. 用户可以理解的名称，也可能是外围系统理解的身份标识 2. 可以验证和授权的主体 3. 一组 secret 。"
+description: "ServiceAccount 将以下内容绑定在一起：1. 用户可以理解的名称，也可能是外围系统理解的身份标识 2. 可以验证和授权的主体 3. 一组 secret。"
 title: "ServiceAccount"
 weight: 1
 auto_generated: true
@@ -27,7 +27,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -76,20 +76,29 @@ ServiceAccount 将以下内容绑定在一起：
   <!--
   ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
   -->
-  imagePullSecrets 是对同一命名空间中 Secret 的引用列表，用于拉取引用此 ServiceAccount 的 Pod 中的任何镜像。 
-  imagePullSecrets 与 Secrets 不同，因为 Secrets 可以挂载在 Pod 中，但 imagePullSecrets 只能由 kubelet 访问。 
-  更多信息：https://kubernetes.io/zh/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+  imagePullSecrets 是对同一命名空间中 Secret 的引用列表，用于拉取引用此 ServiceAccount 的 Pod 中的任何镜像。
+  imagePullSecrets 与 Secrets 不同，因为 Secrets 可以挂载在 Pod 中，但 imagePullSecrets 只能由 kubelet 访问。
+  更多信息： https://kubernetes.io/zh/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
 
 - **secrets** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
-  
+
   <!--
   *Patch strategy: merge on key `name`*
-  
-  Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+
+  Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+  Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use
+  Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountabl
+  -secrets" annotation set to "true". This field should not be used to find auto-generated service accoun
+  token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or servic
+  account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
   -->
   **补丁策略：基于键 `name` 合并**
-  Secrets 是允许使用此 ServiceAccount 运行的 Pod 使用的 Secret 列表。 
-  更多信息：https://kubernetes.io/zh/docs/concepts/configuration/secret
+
+  Secrets 是允许使用此 ServiceAccount 运行的 pod 使用的同一命名空间中的秘密列表。
+  仅当此服务帐户的 “kubernetes.io/enforce-mountable-secrets” 注释设置为 “true” 时，Pod 才限于此列表。
+  此字段不应用于查找自动生成的服务帐户令牌机密以在 pod 之外使用。
+  相反，可以使用 TokenRequest API 直接请求令牌，或者可以手动创建服务帐户令牌 secret。
+  更多信息： https://kubernetes.io/docs/concepts/configuration/secret
 
 ## ServiceAccountList {#ServiceAccountList}
 
@@ -107,13 +116,13 @@ ServiceAccountList 是 ServiceAccount 对象的列表
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
-  
+
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
-  标准列表元数据, 更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  标准列表元数据, 更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-<!--  
+<!--
 - **items** ([]<a href="{{< ref "../authentication-resources/service-account-v1#ServiceAccount" >}}">ServiceAccount</a>), required
 -->
 - **items** ([]<a href="{{< ref "../authentication-resources/service-account-v1#ServiceAccount" >}}">ServiceAccount</a>), 必需
@@ -121,7 +130,7 @@ ServiceAccountList 是 ServiceAccount 对象的列表
   <!--
   List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
   -->
-  ServiceAccount 列表，更多信息：https://kubernetes.io/zh/docs/tasks/configure-pod-container/configure-service-account/
+  ServiceAccount 列表，更多信息： https://kubernetes.io/zh/docs/tasks/configure-pod-container/configure-service-account/
 
 <!--
 ## Operations {#Operations}
