@@ -562,8 +562,10 @@
 /docs/setup/on-premises-vm/ovirt/     /docs/setup/production-environment/on-premises-vm/ovirt/   301
 /docs/setup/windows/intro-windows-in-kubernetes/     /docs/setup/production-environment/windows/intro-windows-in-kubernetes/   301
 /docs/setup/windows/user-guide-windows-nodes/     /docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/   301
+/docs/setup/production-environment/windows/user-guide-windows-containers/     /docs/concepts/windows/user-guide/   301
 /docs/setup/production-environment/windows/user-guide-windows-nodes/     /docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/   301
 /docs/setup/windows/user-guide-windows-containers/     /docs/setup/production-environment/windows/user-guide-windows-containers/   301
+/docs/setup/production-environment/windows/intro-windows-in-kubernetes/     /docs/concepts/windows/intro/   301
 /docs/setup/multiple-zones/     /docs/setup/best-practices/multiple-zones/   301
 /docs/setup/cluster-large/     /docs/setup/best-practices/cluster-large/   301
 /docs/setup/node-conformance/     /docs/setup/best-practices/node-conformance/   301

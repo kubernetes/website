@@ -1240,6 +1240,20 @@ for more information.
 For more information on how to develop a CSI driver, refer to the
 [kubernetes-csi documentation](https://kubernetes-csi.github.io/docs/)
 
+#### Windows CSI proxy
+
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+
+CSI node plugins need to perform various privileged
+operations like scanning of disk devices and mounting of file systems. These operations
+differ for each host operating system. For Linux worker nodes, containerized CSI node
+node plugins are typically deployed as privileged containers. For Windows worker nodes,
+privileged operations for containerized CSI node plugins is supported using
+[csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
+stand-alone binary that needs to be pre-installed on each Windows node.
+
+For more details, refer to the deployment guide of the CSI plugin you wish to deploy.
+
 #### Migrating to CSI drivers from in-tree plugins
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
@@ -1256,6 +1270,14 @@ provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
 are listed in [Types of Volumes](#volume-types).
 
+The following in-tree plugins support persistent storage on Windows nodes:
+
+* [`awsElasticBlockStore`](#awselasticblockstore)
+* [`azureDisk`](#azuredisk)
+* [`azureFile`](#azurefile)
+* [`gcePersistentDisk`](#gcepersistentdisk)
+* [`vsphereVolume`](#vspherevolume)
+
 ### flexVolume
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
@@ -1266,6 +1288,12 @@ volume plugin path on each node and in some cases the control plane nodes as wel
 
 Pods interact with FlexVolume drivers through the `flexVolume` in-tree volume plugin.
 For more details, see the FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) document.
+
+The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
+deployed as PowerShell scripts on the host, support Windows nodes:
+
+* [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
+* [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
 
 {{< note >}}
 FlexVolume is deprecated. Using an out-of-tree CSI driver is the recommended way to integrate external storage with Kubernetes.
