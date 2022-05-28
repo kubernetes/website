@@ -14,6 +14,8 @@ weight: 10
 Kubernetes {{< skew currentVersion >}} supports [Container Network Interface](https://github.com/containernetworking/cni)
 (CNI) plugins for cluster networking. You must use a CNI plugin that is compatible with your cluster and that suits your needs. Different plugins are available (both open- and closed- source) in the wider Kubernetes ecosystem.
 
+A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). 
+
 You must use a CNI plugin that is compatible with the 
 [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) or later
 releases of the CNI specification. The Kubernetes project recommends using a plugin that is
@@ -24,26 +26,37 @@ CNI specification (plugins can be compatible with multiple spec versions).
 
 ## Installation
 
-A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). The CRI manages its own CNI plugins. There are two Kubelet command line parameters to keep in mind when using plugins:
+A Container Runtime, in the networking context, is a daemon on a node configured to provide CRI Services for kubelet. In particular, the Container Runtime must be configured to load the CNI plugins required to implement the Kubernetes network model.
 
-* `cni-bin-dir`: Kubelet probes this directory for plugins on startup
-* `network-plugin`: The network plugin to use from `cni-bin-dir`.  It must match the name reported by a plugin probed from the plugin directory.  For CNI plugins, this is `cni`.
+{{< note >}}
+Prior to Kubernetes 1.24, the CNI plugins could also be managed by the kubelet using the `cni-bin-dir` and `network-plugin` command-line parameters.
+These command-line parameters were removed in Kubernetes 1.24, with management of the CNI no longer in scope for kubelet.
+
+See [Troubleshooting CNI plugin-related errors](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)
+if you are facing issues following the removal of dockershim.
+{{< /note >}}
+
+For specific information about how a Container Runtime manages the CNI plugins, see the documentation for that Container Runtime, for example:
+- [containerd](https://github.com/containerd/containerd/blob/main/script/setup/install-cni)
+- [CRI-O](https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md)
+
+For specific information about how to install and manage a CNI plugin, see the documentation for that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
 
 ## Network Plugin Requirements
 
-Besides providing the [`NetworkPlugin` interface](https://github.com/kubernetes/kubernetes/tree/{{< param "fullversion" >}}/pkg/kubelet/dockershim/network/plugins.go) to configure and clean up pod networking, the plugin may also need specific support for kube-proxy.  The iptables proxy obviously depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.  For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.  If the plugin does not use a Linux bridge (but instead something like Open vSwitch or some other mechanism) it should ensure container traffic is appropriately routed for the proxy.
+For plugin developers and users who regularly build or deploy Kubernetes, the plugin may also need specific configuration to support kube-proxy.
+The iptables proxy depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.
+For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.
+If the plugin does not use a Linux bridge, but uses something like Open vSwitch or some other mechanism instead, it should ensure container traffic is appropriately routed for the proxy.
 
-By default if no kubelet network plugin is specified, the `noop` plugin is used, which sets `net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like Docker with a bridge) work correctly with the iptables proxy.
+By default, if no kubelet network plugin is specified, the `noop` plugin is used, which sets `net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like Docker with a bridge) work correctly with the iptables proxy.
 
-### CNI
+### Loopback CNI
 
-The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command-line option.  Kubelet reads a file from `--cni-conf-dir` (default `/etc/cni/net.d`) and uses the CNI configuration from that file to set up each pod's network.  The CNI configuration file must match the [CNI specification](https://github.com/containernetworking/cni/blob/master/SPEC.md#network-configuration), and any required CNI plugins referenced by the configuration must be present in `--cni-bin-dir` (default `/opt/cni/bin`).
+In addition to the CNI plugin installed on the nodes for implementing the Kubernetes network model, Kubernetes also requires the container runtimes to provide a loopback interface `lo`, which is used for each sandbox (pod sandboxes, vm sandboxes, ...).
+Implementing the loopback interface can be accomplished by re-using the [CNI loopback plugin.](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) or by developing your own code to achieve this (see [this example from CRI-O](https://github.com/cri-o/ocicni/blob/release-1.24/pkg/ocicni/util_linux.go#L91)).
 
-If there are multiple CNI configuration files in the directory, the kubelet uses the configuration file that comes first by name in lexicographic order.
-
-In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
-
-#### Support hostPort
+### Support hostPort
 
 The CNI networking plugin supports `hostPort`. You can use the official [portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
 plugin offered by the CNI plugin team or use your own plugin with portMapping functionality.
@@ -80,7 +93,7 @@ For example:
 }
 ```
 
-#### Support traffic shaping
+### Support traffic shaping
 
 **Experimental Feature**
 
@@ -131,9 +144,5 @@ metadata:
     kubernetes.io/egress-bandwidth: 1M
 ...
 ```
-
-## Usage Summary
-
-* `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `--cni-bin-dir` (default `/opt/cni/bin`) and CNI plugin configuration located in `--cni-conf-dir` (default `/etc/cni/net.d`).
 
 ## {{% heading "whatsnext" %}}
