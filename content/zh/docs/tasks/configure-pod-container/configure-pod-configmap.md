@@ -919,7 +919,7 @@ When the pod runs, the command `ls /etc/config/` produces the output below:
 -->
 Pod 运行时，命令 `ls /etc/config/` 产生下面的输出：
 
-```shell
+```
 SPECIAL_LEVEL
 SPECIAL_TYPE
 ```

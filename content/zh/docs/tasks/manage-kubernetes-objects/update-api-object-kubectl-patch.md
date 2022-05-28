@@ -458,7 +458,7 @@ In the output, you can see that it is not possible to set `type` as `Recreate` w
 在输出中，你可以看到，当 `spec.strategy.rollingUpdate` 已经拥有取值定义时，
 将其 `type` 设置为 `Recreate` 是不可能的。
 
-```shell
+```
 The Deployment "retainkeys-demo" is invalid: spec.strategy.rollingUpdate: Forbidden: may not be specified when strategy `type` is 'Recreate'
 ```
 
@@ -506,7 +506,7 @@ The output shows that the strategy object in the Deployment does not contain the
 -->
 输出显示 Deployment 中的 `strategy` 对象不再包含 `rollingUpdate` 键：
 
-```shell
+```yaml
 spec:
   strategy:
     type: Recreate

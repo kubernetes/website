@@ -118,7 +118,7 @@ You should see the following output:
 -->
 你应该可以看到以下输出：
 
-```shell
+```
 NAME        READY   STATUS    RESTARTS   AGE
 pod/redis   1/1     Running   0          8s
 

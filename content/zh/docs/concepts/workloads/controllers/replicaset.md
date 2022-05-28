@@ -288,7 +288,7 @@ The output shows that the new Pods are either already terminated, or in the proc
 -->
 输出显示新的 Pods 或者已经被终止，或者处于终止过程中：
 
-```shell
+```
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-b2zdv   1/1     Running       0          10m
 frontend-vcmts   1/1     Running       0          10m

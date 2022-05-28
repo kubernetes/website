@@ -260,7 +260,7 @@ The output shows that the Container was killed because it is out of memory (OOM)
 -->
 输出结果显示：由于内存溢出（OOM），容器已被杀掉：
 
-```shell
+```yaml
 lastState:
    terminated:
      containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
@@ -419,7 +419,7 @@ The output shows that the Container cannot be scheduled because of insufficient 
 -->
 输出结果显示：由于节点内存不足，该容器无法被调度：
 
-```shell
+```
 Events:
   ...  Reason            Message
        ------            -------
@@ -439,7 +439,7 @@ For example, the following represent approximately the same value:
 纯整数或定点整数：E、P、T、G、M、K、Ei、Pi、Ti、Gi、Mi、Ki。
 例如，下面是一些近似相同的值：
 
-```shell
+```
 128974848, 129e6, 129M , 123Mi
 ```
 
