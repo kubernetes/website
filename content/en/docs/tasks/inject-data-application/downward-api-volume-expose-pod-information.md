@@ -69,7 +69,7 @@ kubectl logs kubernetes-downwardapi-volume-example
 
 The output shows the contents of the `labels` file and the `annotations` file:
 
-```shell
+```
 cluster="test-cluster1"
 rack="rack-22"
 zone="us-est-coast"

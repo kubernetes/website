@@ -78,7 +78,7 @@ kubectl describe rs/frontend
 
 And you will see output similar to:
 
-```shell
+```
 Name:         frontend
 Namespace:    default
 Selector:     tier=frontend
@@ -130,7 +130,7 @@ kubectl get pods frontend-b2zdv -o yaml
 
 The output will look similar to this, with the frontend ReplicaSet's info set in the metadata's ownerReferences field:
 
-```shell
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -181,7 +181,7 @@ kubectl get pods
 
 The output shows that the new Pods are either already terminated, or in the process of being terminated:
 
-```shell
+```
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-b2zdv   1/1     Running       0          10m
 frontend-vcmts   1/1     Running       0          10m
@@ -210,7 +210,7 @@ kubectl get pods
 ```
 
 Will reveal in its output:
-```shell
+```
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-hmmj2   1/1     Running   0          9s
 pod1             1/1     Running   0          36s
