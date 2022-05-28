@@ -78,7 +78,7 @@ kubectl get pod/redis configmap/example-redis-config
 
 You should see the following output:
 
-```shell
+```
 NAME        READY   STATUS    RESTARTS   AGE
 pod/redis   1/1     Running   0          8s
 

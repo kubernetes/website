@@ -115,7 +115,7 @@ kubectl config --kubeconfig=config-demo view
 
 The output shows the two clusters, two users, and three contexts:
 
-```shell
+```yaml
 apiVersion: v1
 clusters:
 - cluster:
