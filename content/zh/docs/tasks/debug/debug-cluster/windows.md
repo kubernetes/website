@@ -1,0 +1,303 @@
+---
+title: Windows 调试小技巧
+content_type: concept
+---
+<!--
+---
+title: Windows debugging tips
+content_type: concept
+---
+-->
+<!-- overview -->
+
+<!-- body -->
+<!-- 
+## Node-level troubleshooting {#troubleshooting-node}
+
+1. My Pods are stuck at "Container Creating" or restarting over and over
+
+   Ensure that your pause image is compatible with your Windows OS version.
+   See [Pause container](/docs/setup/production-environment/windows/intro-windows-in-kubernetes#pause-container)
+   to see the latest / recommended pause image and/or get more information.
+
+   {{< note >}}
+   If using containerd as your container runtime the pause image is specified in the
+   `plugins.plugins.cri.sandbox_image` field of the of config.toml configration file.
+   {{< /note >}}
+-->
+## 工作节点级别排障 {#troubleshooting-node}
+
+1. 我的 Pod 都卡在 “Container Creating” 或者不断重启
+
+   确保你的 pause 镜像跟你的 Windows 版本兼容。
+   查看 [Pause container](zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes#pause-container)
+   使用最新或者建议的 pause 镜像并且获取更多信息。
+
+   {{< note >}}
+   如果你使用了 containerd 做你的容器 runtime ,pause 镜像在 config.toml 配置文件的
+   `plugins.plugins.cri.sandbox_image` 中指定。
+   {{< /note >}}
+<!-- 
+2. My pods show status as `ErrImgPull` or `ImagePullBackOff`
+
+   Ensure that your Pod is getting scheduled to a [compatable](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) Windows Node.
+
+   More information on how to specify a compatable node for your Pod can be found in [this guide](docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
+-->
+2. 我的 pod 状态显示 'ErrImgPull' 或者 ‘ImagePullBackOff’
+
+   保证你的 Pod 在 Windows 节点的兼容范围 [compatable](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) 。
+
+   关于如何为你的 Pod 指定一个兼容节点的更多信息可以查看这个指南。 [this guide](docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)
+<!-- 
+## Network troubleshooting {#troubleshooting-network}
+
+1. My Windows Pods do not have network connectivity
+
+   If you are using virtual machines, ensure that MAC spoofing is **enabled** on all
+   the VM network adapter(s).
+-->
+## 网络排障 {#troubleshooting-network}
+
+1. 我的 Windows Pod 没有网络连接
+
+   如果你使用的是虚拟机，请确保所有网卡的 MAC spoofing 都已启用。
+<!-- 
+2. My Windows Pods cannot ping external resources
+
+   Windows Pods do not have outbound rules programmed for the ICMP protocol. However,
+   TCP/UDP is supported. When trying to demonstrate connectivity to resources
+   outside of the cluster, substitute `ping <IP>` with corresponding
+   `curl <IP>` commands.
+
+   If you are still facing problems, most likely your network configuration in
+   [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf)
+   deserves some extra attention. You can always edit this static file. The
+   configuration update will apply to any new Kubernetes resources.
+
+   One of the Kubernetes networking requirements
+   (see [Kubernetes model](/docs/concepts/cluster-administration/networking/)) is
+   for cluster communication to occur without
+   NAT internally. To honor this requirement, there is an
+   [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20)
+   for all the communication where you do not want outbound NAT to occur. However,
+   this also means that you need to exclude the external IP you are trying to query
+   from the `ExceptionList`. Only then will the traffic originating from your Windows
+   pods be SNAT'ed correctly to receive a response from the outside world. In this
+   regard, your `ExceptionList` in `cni.conf` should look as follows:
+
+   ```conf
+   "ExceptionList": [
+                   "10.244.0.0/16",  # Cluster subnet
+                   "10.96.0.0/12",   # Service subnet
+                   "10.127.130.0/24" # Management (host) subnet
+               ]
+   ```
+-->
+2. 我的 Windows Pod 不能 ping 通外界资源
+
+   Windows Pod 没有为ICMP协议编写出站规则。 但是，TCP/UDP 是支持的。 当试图演示与集群外部资源的连接时,  可以把 `ping <IP>` 替换为 `curl <IP>` 命令。
+
+   如果你仍然面临问题， 最可能的是你需要额外关注
+   [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf)
+   的配置。你可以随时编辑这个静态文件。更新配置将应用于新的 Kubernetes 资源。
+
+   Kubernetes 的网络需求之一 (查看 [Kubernetes model](zh/docs/concepts/cluster-administration/networking/)) 是在内部不需要NAT的情况下进行集群通信。
+   为了遵守这一要求， 对于你不希望发生出站NAT的通信，这里有一个
+   [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) 。
+   然而，这也意味着你需要从 'ExceptionList' 中排除你试图查询的外部IP。只有这样，流量才会来自你的 Windows Pod 被正确地 SNAT 以接收来自外部环境的响应。 在这方面，你的 ' cni.conf ' 中的 ' ExceptionList ' 应该如下所示:
+
+   ```conf
+   "ExceptionList": [
+                   "10.244.0.0/16",  # Cluster subnet
+                   "10.96.0.0/12",   # Service subnet
+                   "10.127.130.0/24" # Management (host) subnet
+               ]
+   ```
+<!--  
+3. My Windows node cannot access `NodePort` type Services
+
+   Local NodePort access from the node itself fails. This is a known
+   limitation. NodePort access works from other nodes or external clients.
+
+4. vNICs and HNS endpoints of containers are being deleted
+
+   This issue can be caused when the `hostname-override` parameter is not passed to
+   [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/). To resolve
+   it, users need to pass the hostname to kube-proxy as follows:
+
+   ```powershell
+   C:\k\kube-proxy.exe --hostname-override=$(hostname)
+   ```
+-->
+3. 我的 Windows 节点无法访问 ' NodePort ' 类型服务
+
+   从节点本身访问本地 NodePort 失败，是一个已知的限制。 可以从其他节点或外部客户端正常访问 NodePort 。
+
+4. 容器的 vnic 和 HNS endpoints 正在被删除
+
+   这个问题可能是当' hostname-override '参数没有传递给 [kube-proxy] (/docs/reference/command-line-tools-reference/kube-proxy/)时引起的。想要解决这个问题，用户需要将主机名传递给 kube-proxy ，如下所示：
+
+   ```powershell
+   C:\k\kube-proxy.exe --hostname-override=$(hostname)
+   ```
+<!-- 
+5. My Windows node cannot access my services using the service IP
+
+   This is a known limitation of the networking stack on Windows. However, Windows Pods can access the Service IP.
+
+6. No network adapter is found when starting the kubelet
+
+   The Windows networking stack needs a virtual adapter for Kubernetes networking to work.
+   If the following commands return no results (in an admin shell),
+   virtual network creation — a necessary prerequisite for the kubelet to work — has failed:
+
+   ```powershell
+   Get-HnsNetwork | ? Name -ieq "cbr0"
+   Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
+   ```
+
+   Often it is worthwhile to modify the [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7) parameter of the start.ps1 script,
+   in cases where the host's network adapter isn't "Ethernet".
+   Otherwise, consult the output of the `start-kubelet.ps1` script to see if there are errors during virtual network creation.
+-->
+5. 我的 Windows 节点无法通过服务 IP 访问我的服务
+
+   这是 Windows 上网络栈的一个已知限制。 但是，Windows Pod 可以访问 Service IP。
+
+6. 启动 kubelet 时找不到网络适配器
+
+   Windows 网络栈需要一个虚拟适配器才能使 Kubernetes 网络工作。
+   如果以下命令没有返回结果(在管理员模式的 shell )，
+   创建虚拟网络失败了，这是使 kubelet 正常工作的一个必须条件：
+
+   ```powershell
+   Get-HnsNetwork | ? Name -ieq "cbr0"
+   Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
+   ```
+
+   如果主机的网络适配器不是 "Ethernet" ,通常有必要修改 start.ps1 脚本参数的 [接口名称](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7)。 否则，如果虚拟网络创建过程中有错误请参考 `start-kubelet.ps1` 脚本的输出日志。
+<!--    
+7. DNS resolution is not properly working
+
+   Check the DNS limitations for Windows in this [section](#dns-limitations).
+
+8. `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
+
+   This was implemented in Kubernetes 1.15 by including `wincat.exe` in the pause infrastructure container `mcr.microsoft.com/oss/kubernetes/pause:3.6`.
+   Be sure to use a supported version of Kubernetes.
+   If you would like to build your own pause infrastructure container be sure to include [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat).
+-->
+7. DNS 解析工作异常
+
+   在本节中 [section](#dns-limitations) 查看 Windows 系统的 DNS 限制 。
+
+8. `kubectl port-forward` 失败并且 "unable to do port forwarding: wincat not found"
+
+   这是在 Kubernetes 1.15 中通过包括 `wincat.exe` 在 pause 基础架构容器 `mcr.microsoft.com/oss/kubernetes/pause:3.6` 中实现的。
+   请确保使用 Kubernetes 支持的版本。如果你想构建自己的 pause 基础架构容器，请确保包含 [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat)。
+<!--   
+9. My Kubernetes installation is failing because my Windows Server node is behind a proxy
+
+   If you are behind a proxy, the following PowerShell environment variables must be defined:
+
+   ```PowerShell
+   [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
+   [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
+   ```
+-->
+9. 我的 Kubernetes 安装失败，因为我的 Windows 服务器节点使用了代理服务器
+
+   如果使用了代理服务器，必须要定义下面的 PowerShell 环境变量：
+
+   ```PowerShell
+   [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
+   [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
+   ```
+<!-- 
+### Flannel troubleshooting
+
+1. With Flannel, my nodes are having issues after rejoining a cluster
+
+   Whenever a previously deleted node is being re-joined to the cluster, flannelD
+   tries to assign a new pod subnet to the node. Users should remove the old pod
+   subnet configuration files in the following paths:
+
+   ```powershell
+   Remove-Item C:\k\SourceVip.json
+   Remove-Item C:\k\SourceVipRequest.json
+   ```
+-->
+
+1. 使用 Flannel 时，我的节点在重新加入集群后出现问题
+
+   当先前删除的节点重新加入集群时, flannelD 尝试为节点分配一个新的 pod 子网。 用户应该在以下路径中删除旧的pod子网配置文件：
+
+   ```powershell
+   Remove-Item C:\k\SourceVip.json
+   Remove-Item C:\k\SourceVipRequest.json
+   ```
+<!-- 
+2. Flanneld is stuck in "Waiting for the Network to be created"
+
+   There are numerous reports of this [issue](https://github.com/coreos/flannel/issues/1066);
+   most likely it is a timing issue for when the management IP of the flannel network is set.
+   A workaround is to relaunch `start.ps1` or relaunch it manually as follows:
+
+   ```powershell
+   [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")
+   C:\flannel\flanneld.exe --kubeconfig-file=c:\k\config --iface=<Windows_Worker_Node_IP> --ip-masq=1 --kube-subnet-mgr=1
+   ```
+-->
+2. Flanneld 卡在 "Waiting for the Network to be created"
+
+   关于这个问题有很多报告 [issue](https://github.com/coreos/flannel/issues/1066)；
+   很可能是设置 flannel 网络的管理IP的时机问题。
+   一个变通方法是重新启动 `start.ps1` 或手动通过以下方式解决：
+
+   ```powershell
+   [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")
+   C:\flannel\flanneld.exe --kubeconfig-file=c:\k\config --iface=<Windows_Worker_Node_IP> --ip-masq=1 --kube-subnet-mgr=1
+   ```
+<!-- 
+3. My Windows Pods cannot launch because of missing `/run/flannel/subnet.env`
+
+   This indicates that Flannel didn't launch correctly. You can either try
+   to restart `flanneld.exe` or you can copy the files over manually from
+   `/run/flannel/subnet.env` on the Kubernetes master to `C:\run\flannel\subnet.env`
+   on the Windows worker node and modify the `FLANNEL_SUBNET` row to a different
+   number. For example, if node subnet 10.244.4.1/24 is desired:
+
+   ```env
+   FLANNEL_NETWORK=10.244.0.0/16
+   FLANNEL_SUBNET=10.244.4.1/24
+   FLANNEL_MTU=1500
+   FLANNEL_IPMASQ=true
+   ```
+-->
+3. 我的 Windows Pod 无法启动，因为缺少 `/run/flannel/subnet.env`
+
+   这表明 Flannel 没有正确启动。 你可以尝试重启`flanneld.exe` 或者你可以从 Kubernetes master 的 `/run/flannel/subnet.env` 手动拷贝到 Windows worker node `C:\run\flannel\subnet.env` 并且修改 `FLANNEL_SUBNET` 那一行为不同数值。 例如，节点子网为 10.244.4.1/24：
+
+   ```env
+   FLANNEL_NETWORK=10.244.0.0/16
+   FLANNEL_SUBNET=10.244.4.1/24
+   FLANNEL_MTU=1500
+   FLANNEL_IPMASQ=true
+   ```
+<!-- 
+### Further investigation
+
+If these steps don't resolve your problem, you can get help running Windows containers on Windows nodes in Kubernetes through:
+
+* StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
+* Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
+* Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/sig-windows)
+-->
+### 进一步研究
+
+如果这些步骤都不能解决你的问题，在 Kubernetes 中使用 Windows 节点上运行 Windows 容器你可以通过以下方式获取帮助：
+
+* StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
+* Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
+* Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/sig-windows)
