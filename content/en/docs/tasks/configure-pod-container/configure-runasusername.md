@@ -57,7 +57,7 @@ echo $env:USERNAME
 
 The output should be:
 
-```shell
+```
 ContainerUser
 ```
 
@@ -97,7 +97,7 @@ echo $env:USERNAME
 
 The output should be:
 
-```shell
+```
 ContainerAdministrator
 ```
 
