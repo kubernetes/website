@@ -2102,11 +2102,38 @@ for more information.
 进一步的信息可参阅[临时卷](/zh/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)。
 
 <!--
-For more information on how to develop a CSI driver, refer to the [kubernetes-csi
-documentation](https://kubernetes-csi.github.io/docs/)
-
+For more information on how to develop a CSI driver, refer to the
+[kubernetes-csi documentation](https://kubernetes-csi.github.io/docs/)
 -->
 有关如何开发 CSI 驱动的更多信息，请参考 [kubernetes-csi 文档](https://kubernetes-csi.github.io/docs/)。
+
+<!--
+#### Windows CSI proxy
+-->
+#### Windows CSI 代理   {#windows-csi-proxy}
+
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+
+<!--
+CSI node plugins need to perform various privileged
+operations like scanning of disk devices and mounting of file systems. These operations
+differ for each host operating system. For Linux worker nodes, containerized CSI node
+node plugins are typically deployed as privileged containers. For Windows worker nodes,
+privileged operations for containerized CSI node plugins is supported using
+[csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
+stand-alone binary that needs to be pre-installed on each Windows node.
+-->
+CSI 节点插件需要执行多种特权操作，
+比如扫描磁盘设备和挂载文件系统之类的操作。
+这些操作因主机操作系统而异。对于 Linux 工作节点，CSI 节点插件通常部署为特权容器。
+对于 Windows 工作节点，CSI 节点插件的特权操作使用社区管理的
+[csi-proxy](https://github.com/kubernetes-csi/csi-proxy) 提供支持，
+需要预先在每个 Windows 节点上单独安装二进制文件。
+
+<!--
+For more details, refer to the deployment guide of the CSI plugin you wish to deploy.
+-->
+有关更多详细信息，请参阅你要部署的 CSI 插件的部署指南。
 
 <!--
 #### Migrating to CSI drivers from in-tree plugins
@@ -2137,6 +2164,17 @@ are listed in [Types of Volumes](#volume-types).
 上面的[卷类型](#volume-types)节列出了支持 `CSIMigration` 并已实现相应 CSI
 驱动程序的树内插件。
 
+<!--
+The following in-tree plugins support persistent storage on Windows nodes:
+-->
+Windows 节点上的持久存储支持以下 in-tree 插件 ：
+
+* [`awsElasticBlockStore`](#awselasticblockstore)
+* [`azureDisk`](#azuredisk)
+* [`azureFile`](#azurefile)
+* [`gcePersistentDisk`](#gcepersistentdisk)
+* [`vsphereVolume`](#vspherevolume)
+
 ### flexVolume
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
@@ -2155,6 +2193,17 @@ FlexVolume 是一个使用基于 exec 的模型来与驱动程序对接的树外
 
 Pod 通过 `flexvolume` 树内插件与 FlexVolume 驱动程序交互。
 更多详情请参考 FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 文档。
+
+<!--
+The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
+deployed as PowerShell scripts on the host, support Windows nodes:
+-->
+在主机上使用 PowerShell 脚本部署的如下 FlexVolume
+[插件](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)
+支持 Windows 节点：
+
+* [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
+* [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
 
 <!--
 FlexVolume is deprecated. Using an out-of-tree CSI driver is the recommended way to integrate external storage with Kubernetes.
