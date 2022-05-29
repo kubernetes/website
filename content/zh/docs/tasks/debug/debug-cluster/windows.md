@@ -98,7 +98,7 @@ content_type: concept
 
    Windows Pod 没有为 ICMP 协议编写出站规则，但 TCP/UDP 是支持的。当试图演示与集群外部资源的连接时，可以把 `ping <IP>` 替换为 `curl <IP>` 命令。
 
-   如果你仍然面临问题， 最可能的是你需要额外关注
+   如果你仍然遇到问题，很可能你需要额外关注
    [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf)
    的配置。你可以随时编辑这个静态文件。更新配置将应用于新的 Kubernetes 资源。
 
