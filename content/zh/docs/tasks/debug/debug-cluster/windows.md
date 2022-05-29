@@ -178,7 +178,9 @@ content_type: concept
    Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
    ```
 
-   如果主机的网络适配器不是 "Ethernet" ,通常有必要修改 start.ps1 脚本参数的 [接口名称](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7)。 否则，如果虚拟网络创建过程中有错误请参考 `start-kubelet.ps1` 脚本的输出日志。
+   如果主机的网络适配器不是 "Ethernet"，通常有必要修改 `start.ps1` 脚本的
+   [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7) 参数。
+   否则，如果虚拟网络创建过程出错，请检查 `start-kubelet.ps1` 脚本的输出。
 <!--    
 7. DNS resolution is not properly working
 
