@@ -165,7 +165,7 @@ content_type: concept
 -->
 5. 我的 Windows 节点无法通过服务 IP 访问我的服务
 
-   这是 Windows 上网络栈的一个已知限制。 但是，Windows Pod 可以访问 Service IP。
+   这是 Windows 上网络栈的一个已知限制。但是 Windows Pod 可以访问 Service IP。
 
 6. 启动 kubelet 时找不到网络适配器
 
