@@ -133,7 +133,7 @@ content_type: concept
 -->
 3. 我的 Windows 节点无法访问 `NodePort` 类型服务
 
-   从节点本身访问本地 NodePort 失败，是一个已知的限制。 可以从其他节点或外部客户端正常访问 NodePort 。
+   从节点本身访问本地 NodePort 失败，是一个已知的限制。你可以从其他节点或外部客户端正常访问 NodePort。
 
 4. 容器的 vnic 和 HNS endpoints 正在被删除
 
