@@ -259,7 +259,7 @@ content_type: concept
 2. Flanneld 卡在 "Waiting for the Network to be created"
 
    关于这个[问题](https://github.com/coreos/flannel/issues/1066)有很多报告 ；
-   很可能是设置 flannel 网络的管理IP的时机问题。
+   很可能是 flannel 网络管理 IP 的设置时机问题。
    一个变通方法是重新启动 `start.ps1` 或手动通过以下方式解决：
 
    ```powershell
