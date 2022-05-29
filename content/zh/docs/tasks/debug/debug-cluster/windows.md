@@ -298,7 +298,7 @@ If these steps don't resolve your problem, you can get help running Windows cont
 -->
 ### 进一步探查   {#further-investigation}
 
-如果这些步骤都不能解决你的问题，在 Kubernetes 中使用 Windows 节点上运行 Windows 容器你可以通过以下方式获取帮助：
+如果这些步骤都不能解决你的问题，你可以通过以下方式获得关于在 Kubernetes 中运行 Windows 容器的帮助：
 
 * StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
 * Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
