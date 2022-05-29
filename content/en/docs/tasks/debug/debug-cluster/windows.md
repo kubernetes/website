@@ -29,7 +29,7 @@ content_type: concept
 
    Ensure that your Pod is getting scheduled to a [compatable](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) Windows Node.
 
-   More information on how to specify a compatable node for your Pod can be found in [this guide](docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
+   More information on how to specify a compatable node for your Pod can be found in [this guide](/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
 
 ## Network troubleshooting {#troubleshooting-network}
 
@@ -99,7 +99,7 @@ content_type: concept
    Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
    ```
 
-   Often it is worthwhile to modify the [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7) parameter of the start.ps1 script,
+   Often it is worthwhile to modify the [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7) parameter of the `start.ps1` script,
    in cases where the host's network adapter isn't "Ethernet".
    Otherwise, consult the output of the `start-kubelet.ps1` script to see if there are errors during virtual network creation.
 
