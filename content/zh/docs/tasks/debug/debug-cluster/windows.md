@@ -296,7 +296,7 @@ If these steps don't resolve your problem, you can get help running Windows cont
 * Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
 * Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/sig-windows)
 -->
-### 进一步研究
+### 进一步探查   {#further-investigation}
 
 如果这些步骤都不能解决你的问题，在 Kubernetes 中使用 Windows 节点上运行 Windows 容器你可以通过以下方式获取帮助：
 
