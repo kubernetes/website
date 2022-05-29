@@ -264,7 +264,7 @@ content_type: concept
 
    ```powershell
    [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows 工作节点主机名>")
-   C:\flannel\flanneld.exe --kubeconfig-file=c:\k\config --iface=<Windows_Worker_Node_IP> --ip-masq=1 --kube-subnet-mgr=1
+   C:\flannel\flanneld.exe --kubeconfig-file=c:\k\config --iface=<Windows 工作节点 IP> --ip-masq=1 --kube-subnet-mgr=1
    ```
 <!-- 
 3. My Windows Pods cannot launch because of missing `/run/flannel/subnet.env`
