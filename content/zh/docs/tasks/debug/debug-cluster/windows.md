@@ -3,10 +3,8 @@ title: Windows 调试小技巧
 content_type: concept
 ---
 <!--
----
 title: Windows debugging tips
 content_type: concept
----
 -->
 <!-- overview -->
 
@@ -48,7 +46,8 @@ content_type: concept
 
    保证你的 Pod 被调度到[兼容的](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) Windows 节点上。
 
-   关于如何为你的 Pod 指定一个兼容节点的更多信息可以查看这个指南。[這份指南](/zh/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)
+   关于如何为你的 Pod 指定一个兼容节点，
+   的更多信息可以查看这个指可以查看[这个指南](/zhdocs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)以了解更多的信息。
 <!-- 
 ## Network troubleshooting {#troubleshooting-network}
 
@@ -106,7 +105,9 @@ content_type: concept
    是集群通信不需要内部的 NAT。
    为了遵守这一要求， 对于你不希望发生的出站 NAT 通信，这里有一个
    [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) 。
-   然而，这也意味着你需要从 `ExceptionList` 中排除你试图查询的外部 IP。只有这样，流量才会来自你的 Windows Pod 被正确地 SNAT 以接收来自外部环境的响应。 在这方面，你的 `cni.conf` 中的 `ExceptionList` 应该如下所示：
+   然而，这也意味着你需要从 `ExceptionList` 中去掉你试图查询的外部IP。
+   只有这样，来自你的 Windows Pod 的流量才会被正确地 SNAT 转换，以接收来自外部环境的响应。
+   就此而言，你的 `cni.conf` 中的 `ExceptionList` 应该如下所示：
 
    ```conf
    "ExceptionList": [
@@ -234,6 +235,7 @@ content_type: concept
    Remove-Item C:\k\SourceVipRequest.json
    ```
 -->
+## Flannel 故障排查 {#troubleshooting-network}
 
 1. 使用 Flannel 时，我的节点在重新加入集群后出现问题
 
