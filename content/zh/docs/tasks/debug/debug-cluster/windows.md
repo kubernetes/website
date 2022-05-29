@@ -256,7 +256,7 @@ content_type: concept
    一个变通方法是重新启动 `start.ps1` 或手动通过以下方式解决：
 
    ```powershell
-   [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")
+   [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows 工作节点主机名>")
    C:\flannel\flanneld.exe --kubeconfig-file=c:\k\config --iface=<Windows_Worker_Node_IP> --ip-masq=1 --kube-subnet-mgr=1
    ```
 <!-- 
