@@ -214,7 +214,7 @@ content_type: concept
 -->
 9. 我的 Kubernetes 安装失败，因为我的 Windows 服务器节点使用了代理服务器
 
-   如果使用了代理服务器，必须要定义下面的 PowerShell 环境变量：
+   如果使用了代理服务器，必须定义下面的 PowerShell 环境变量：
 
    ```PowerShell
    [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
