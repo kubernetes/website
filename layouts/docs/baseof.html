@@ -25,7 +25,7 @@
             {{ block "deprecated" . }}
               {{ partial "deprecation-warning.html" . }}
             {{ end }}
-            {{ if .HasShortcode "kat-button" }}
+            {{ if or ( .HasShortcode "kat-button" ) ( .HasShortcode "katacoda-tutorial" ) }}
             {{ block "katacoda-removal" . }}
               {{ partial "katacoda-removal.html" . }}
             {{ end }}
