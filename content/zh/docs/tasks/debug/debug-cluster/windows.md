@@ -260,7 +260,7 @@ content_type: concept
 
    关于这个[问题](https://github.com/coreos/flannel/issues/1066)有很多报告 ；
    很可能是 flannel 网络管理 IP 的设置时机问题。
-   一个变通方法是重新启动 `start.ps1` 或手动通过以下方式解决：
+   一个变通方法是重新启动 `start.ps1` 或按如下方式手动重启：
 
    ```powershell
    [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows 工作节点主机名>")
