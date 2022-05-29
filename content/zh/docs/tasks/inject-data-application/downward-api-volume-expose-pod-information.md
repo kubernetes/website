@@ -70,7 +70,7 @@ field should be stored in a file named `annotations`.
 `/etc/podinfo` 目录。
 
 查看 `downwardAPI` 下面的 `items` 数组。
-每个数组元素都是一个 
+每个数组元素都是一个
 [DownwardAPIVolumeFile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#downwardapivolumefile-v1-core)
 对象。
 第一个元素指示 Pod 的 `metadata.labels` 字段的值保存在名为 `labels` 的文件中。
@@ -112,7 +112,7 @@ kubectl logs kubernetes-downwardapi-volume-example
 ```
 
 <!--
-The output shows the contents of the labels file and the annotations file:
+The output shows the contents of the `labels` file and the `annotations` file:
 -->
 输出显示 `labels` 和 `annotations` 文件的内容：
 
@@ -158,7 +158,7 @@ zone="us-est-coast"
 <!--
 Similarly, view the `annotations` file:
 -->
-同样，查看`annotations`文件：
+同样，查看 `annotations` 文件：
 
 ```shell
 /# cat /etc/podinfo/annotations
@@ -167,7 +167,7 @@ Similarly, view the `annotations` file:
 <!--
 View the files in the `/etc/podinfo` directory:
 -->
-查看`/etc/podinfo`目录下的文件：
+查看 `/etc/podinfo` 目录下的文件：
 
 ```shell
 /# ls -laR /etc/podinfo
@@ -191,7 +191,7 @@ lrwxrwxrwx  ... Feb 6 21:47 ..data -> ..2982_06_02_21_47_53.299460680
 lrwxrwxrwx  ... Feb 6 21:47 annotations -> ..data/annotations
 lrwxrwxrwx  ... Feb 6 21:47 labels -> ..data/labels
 
-/etc/podinfo/..2982_06_02_21_47_53.299460680:
+/etc/..2982_06_02_21_47_53.299460680:
 total 8
 -rw-r--r--  ... Feb  6 21:47 annotations
 -rw-r--r--  ... Feb  6 21:47 labels
@@ -217,6 +217,9 @@ receive Downward API updates.
 Downward API，则该容器无法收到更新事件。
 {{< /note >}}
 
+<!--
+Exit the shell:
+-->
 退出 Shell：
 
 ```shell
@@ -277,7 +280,7 @@ Get a shell into the container that is running in your Pod:
 -->
 打开一个 Shell，进入 Pod 中运行的容器：
 
-```
+```shell
 kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 ```
 
@@ -408,7 +411,7 @@ basis. For more information, see
 ## 投射键名到指定路径并且指定文件权限   {#project-keys-to-specific-paths-and-file-permissions}
 
 你可以将键名投射到指定路径并且指定每个文件的访问权限。
-更多信息，请参阅[Secrets](/zh/docs/concepts/configuration/secret/).
+更多信息，请参阅 [Secret](/zh/docs/concepts/configuration/secret/)。
 
 <!--
 ## Motivation for the Downward API
