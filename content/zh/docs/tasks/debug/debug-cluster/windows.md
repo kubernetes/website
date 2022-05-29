@@ -277,7 +277,9 @@ content_type: concept
 -->
 3. 我的 Windows Pod 无法启动，因为缺少 `/run/flannel/subnet.env`
 
-   这表明 Flannel 没有正确启动。 你可以尝试重启`flanneld.exe` 或者你可以从 Kubernetes master 的 `/run/flannel/subnet.env` 手动拷贝到 Windows worker node `C:\run\flannel\subnet.env` 并且修改 `FLANNEL_SUBNET` 那一行为不同数值。 例如，节点子网为 10.244.4.1/24：
+   这表明 Flannel 没有正确启动。你可以尝试重启`flanneld.exe` 或者你可以将 Kubernetes 控制节点的
+   `/run/flannel/subnet.env` 文件手动拷贝到 Windows 工作节点上，放在 `C:\run\flannel\subnet.env`；
+   并且将 `FLANNEL_SUBNET` 行修改为不同取值。例如，如果期望节点子网为 10.244.4.1/24：
 
    ```env
    FLANNEL_NETWORK=10.244.0.0/16
