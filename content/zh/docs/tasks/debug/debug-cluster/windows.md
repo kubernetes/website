@@ -30,7 +30,7 @@ content_type: concept
 1. 我的 Pod 都卡在 “Container Creating” 或者不断重启
 
    确保你的 pause 镜像跟你的 Windows 版本兼容。
-   查看 [Pause container](zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes#pause-container)
+   查看 [Pause 容器](zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes#pause-container)
    使用最新或者建议的 pause 镜像并且获取更多信息。
 
    {{< note >}}
