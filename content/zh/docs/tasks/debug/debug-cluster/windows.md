@@ -171,7 +171,7 @@ content_type: concept
 
    Windows 网络栈需要一个虚拟适配器才能使 Kubernetes 网络工作。
    如果以下命令没有返回结果（在管理员模式的 shell 中），
-   创建虚拟网络失败了，这是使 kubelet 正常工作的一个必须条件：
+   则意味着创建虚拟网络失败，而虚拟网络的存在是 kubelet 正常工作前提：
 
    ```powershell
    Get-HnsNetwork | ? Name -ieq "cbr0"
