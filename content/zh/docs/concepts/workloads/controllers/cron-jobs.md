@@ -151,6 +151,36 @@ To generate CronJob schedule expressions, you can also use web tools like [cront
 要生成 CronJob 时间表表达式，你还可以使用 [crontab.guru](https://crontab.guru/) 之类的 Web 工具。
 
 <!--
+## Time zones
+For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
+-->
+## 时区  {#time-zones}
+对于没有指定时区的 CronJob，kube-controller-manager 会根据其本地时区来解释其排期表（schedule）。
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+<!--
+If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
+Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
+timezone).
+-->
+如果启用 `CronJobTimeZone` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+你可以为 CronJob 指定时区（如果你不启用该特性门控，或者如果你使用的 Kubernetes 版本不支持实验中的时区特性，
+则集群中的所有 CronJob 都属于未指定时区）。
+
+<!--
+When you have the feature enabled, you can set `spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) name. For example, setting
+`spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
+
+A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
+-->
+当你启用该特性时，你可以将 `spec.timeZone` 设置为有效的[时区](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)名称。
+例如，设置 `spec.timeZone: "Etc/UTC"` 表示 Kubernetes
+使用协调世界时（Coordinated Universal Time）进行解释排期表。
+
+Go 标准库中的时区数据库包含在二进制文件中，并用作备用数据库，以防系统上没有外部数据库可用。
+<!--
 ## CronJob Limitations
 
 A cron job creates a job object _about_ once per execution time of its schedule. We say "about" because there
