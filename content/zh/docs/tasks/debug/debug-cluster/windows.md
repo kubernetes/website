@@ -61,7 +61,7 @@ content_type: concept
 
 1. 我的 Windows Pod 没有网络连接
 
-   如果你使用的是虚拟机，请确保所有网卡的 MAC spoofing 都已启用。
+   如果你使用的是虚拟机，请确保所有 VM 网卡上都已启用 MAC spoofing。
 <!-- 
 2. My Windows Pods cannot ping external resources
 
