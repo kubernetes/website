@@ -302,9 +302,8 @@ the Pod onto a node that is in the same zone as one or more Pods with the label
 `topology.kubernetes.io/zone=R` label if there are other nodes in the
 same zone currently running Pods with the `Security=S2` Pod label.
 
-See the
-[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
-for many more examples of Pod affinity and anti-affinity.
+To get yourself more familiar with the examples of Pod affinity and anti-affinity
+Refer to this [link](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/podaffinity.md)
 
 You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the
 `operator` field for Pod affinity and anti-affinity.
