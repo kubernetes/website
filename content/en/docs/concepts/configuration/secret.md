@@ -247,6 +247,8 @@ You can still [manually create](/docs/tasks/configure-pod-container/configure-se
 a service account token Secret; for example, if you need a token that never expires.
 However, using the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
 subresource to obtain a token to access the API is recommended instead.
+You can use the [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
+command to obtain a token from the `TokenRequest` API.
 {{< /note >}}
 
 #### Projection of Secret keys to specific paths
@@ -886,15 +888,30 @@ In this case, `0` means you have created an empty Secret.
 ### Service account token Secrets
 
 A `kubernetes.io/service-account-token` type of Secret is used to store a
-token that identifies a
+token credential that identifies a
 {{< glossary_tooltip text="service account" term_id="service-account" >}}.
+
+Since 1.22, this type of Secret is no longer used to mount credentials into Pods,
+and obtaining tokens via the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API is recommended instead of using service account token Secret objects.
+Tokens obtained from the `TokenRequest` API are more secure than ones stored in Secret objects,
+because they have a bounded lifetime and are not readable by other API clients.
+You can use the [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
+command to obtain a token from the `TokenRequest` API.
+
+You should only create a service account token Secret object
+if you can't use the `TokenRequest` API to obtain a token,
+and the security exposure of persisting a non-expiring token credential
+in a readable API object is acceptable to you.
+
 When using this Secret type, you need to ensure that the
 `kubernetes.io/service-account.name` annotation is set to an existing
-service account name. A Kubernetes
-{{< glossary_tooltip text="controller" term_id="controller" >}} fills in some
-other fields such as the `kubernetes.io/service-account.uid` annotation, and the
-`token` key in the `data` field, which is set to contain an authentication
-token.
+service account name. If you are creating both the ServiceAccount and
+the Secret objects, you should create the ServiceAccount object first.
+
+After the Secret is created, a Kubernetes {{< glossary_tooltip text="controller" term_id="controller" >}}
+fills in some other fields such as the `kubernetes.io/service-account.uid` annotation, and the
+`token` key in the `data` field, which is populated with an authentication token.
 
 The following example configuration declares a service account token Secret:
 
@@ -911,20 +928,14 @@ data:
   extra: YmFyCg==
 ```
 
-When creating a `Pod`, Kubernetes automatically finds or creates a service account
-Secret and then automatically modifies your Pod to use this Secret. The service account
-token Secret contains credentials for accessing the Kubernetes API.
-
-The automatic creation and use of API credentials can be disabled or
-overridden if desired. However, if all you need to do is securely access the
-API server, this is the recommended workflow.
+After creating the Secret, wait for Kubernetes to populate the `token` key in the `data` field.
 
 See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
 documentation for more information on how service accounts work.  
 You can also check the `automountServiceAccountToken` field and the
 `serviceAccountName` field of the
 [`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-for information on referencing service account from Pods.
+for information on referencing service account credentials from within Pods.
 
 ### Docker config Secrets
 
