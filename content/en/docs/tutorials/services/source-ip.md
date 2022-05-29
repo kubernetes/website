@@ -206,19 +206,8 @@ Note that these are not the correct client IPs, they're cluster internal IPs. Th
 
 Visually:
 
-{{< mermaid >}}
-graph LR;
-  client(client)-->node2[Node 2];
-  node2-->client;
-  node2-. SNAT .->node1[Node 1];
-  node1-. SNAT .->node2;
-  node1-->endpoint(Endpoint);
+{{< figure src="/docs/images/tutor-service-nodePort-fig01.svg" alt="source IP nodeport figure 01" class="diagram-large" caption="Figure. Source IP Type=NodePort using SNAT" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
 
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
-  class client plain;
-{{</ mermaid >}}
 
 To avoid this, Kubernetes has a feature to
 [preserve the client source IP](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip).
@@ -262,20 +251,8 @@ This is what happens:
 
 Visually:
 
-{{< mermaid >}}
-graph TD;
-  client --> node1[Node 1];
-  client(client) --x node2[Node 2];
-  node1 --> endpoint(endpoint);
-  endpoint --> node1;
 
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
-  class client plain;
-{{</ mermaid >}}
-
-
+{{< figure src="/docs/images/tutor-service-nodePort-fig02.svg" alt="source IP nodeport figure 02" class="diagram-large" caption="Figure. Source IP Type=NodePort preserves client source IP address" link="" >}}
 
 ## Source IP for Services with `Type=LoadBalancer`
 
