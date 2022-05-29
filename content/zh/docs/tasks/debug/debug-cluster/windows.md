@@ -31,7 +31,7 @@ content_type: concept
 
    确保你的 pause 镜像跟你的 Windows 版本兼容。
    查看 [Pause 容器](zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes#pause-container)
-   使用最新或者建议的 pause 镜像并且获取更多信息。
+   以了解最新的或建议的 pause 镜像，或者了解更多信息。
 
    {{< note >}}
    如果你使用了 containerd 做你的容器 runtime ,pause 镜像在 config.toml 配置文件的
