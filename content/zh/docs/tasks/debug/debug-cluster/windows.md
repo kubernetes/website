@@ -34,7 +34,7 @@ content_type: concept
    以了解最新的或建议的 pause 镜像，或者了解更多信息。
 
    {{< note >}}
-   如果你使用了 containerd 做你的容器 runtime ,pause 镜像在 config.toml 配置文件的
+   如果你使用了 containerd 作为你的容器运行时，pause 镜像在 config.toml 配置文件的
    `plugins.plugins.cri.sandbox_image` 中指定。
    {{< /note >}}
 <!-- 
