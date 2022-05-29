@@ -131,7 +131,7 @@ content_type: concept
    C:\k\kube-proxy.exe --hostname-override=$(hostname)
    ```
 -->
-3. 我的 Windows 节点无法访问 ' NodePort ' 类型服务
+3. 我的 Windows 节点无法访问 `NodePort` 类型服务
 
    从节点本身访问本地 NodePort 失败，是一个已知的限制。 可以从其他节点或外部客户端正常访问 NodePort 。
 
