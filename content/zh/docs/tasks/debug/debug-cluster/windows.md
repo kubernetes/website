@@ -200,7 +200,8 @@ content_type: concept
 
    在 Kubernetes 1.15 中，pause 基础架构容器 `mcr.microsoft.com/oss/kubernetes/pause:3.6`
    中包含 `wincat.exe` 来实现端口转发。
-   请确保使用 Kubernetes 支持的版本。如果你想构建自己的 pause 基础架构容器，请确保包含 [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat)。
+   请确保使用 Kubernetes 的受支持版本。如果你想构建自己的 pause 基础架构容器，
+   请确保其中包含 [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat)。
 <!--   
 9. My Kubernetes installation is failing because my Windows Server node is behind a proxy
 
