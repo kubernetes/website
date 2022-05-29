@@ -237,7 +237,8 @@ content_type: concept
 
 1. 使用 Flannel 时，我的节点在重新加入集群后出现问题
 
-   当先前删除的节点重新加入集群时, flannelD 尝试为节点分配一个新的 pod 子网。 用户应该在以下路径中删除旧的pod子网配置文件：
+   当先前删除的节点重新加入集群时, flannelD 尝试为节点分配一个新的 Pod 子网。
+   用户应该在以下路径中删除旧的 Pod 子网配置文件：
 
    ```powershell
    Remove-Item C:\k\SourceVip.json
