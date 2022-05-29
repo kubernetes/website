@@ -46,7 +46,7 @@ content_type: concept
 -->
 2. 我的 pod 状态显示 'ErrImgPull' 或者 ‘ImagePullBackOff’
 
-   保证你的 Pod 在 Windows 节点的兼容范围 [compatable](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) 。
+   保证你的 Pod 被调度到[兼容的](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) Windows 节点上。
 
    关于如何为你的 Pod 指定一个兼容节点的更多信息可以查看这个指南。[這份指南](/zh/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)
 <!-- 
