@@ -102,7 +102,8 @@ content_type: concept
    [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf)
    的配置。你可以随时编辑这个静态文件。更新配置将应用于新的 Kubernetes 资源。
 
-   Kubernetes 的网络需求之一 (查看 [Kubernetes model](zh/docs/concepts/cluster-administration/networking/)) 是在内部不需要NAT的情况下进行集群通信。
+   Kubernetes 的网络需求之一 (查看 [Kubernetes 模型](/zh/docs/concepts/cluster-administration/networking/)) 
+   是集群通信不需要内部的 NAT。
    为了遵守这一要求， 对于你不希望发生出站NAT的通信，这里有一个
    [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) 。
    然而，这也意味着你需要从 `ExceptionList` 中排除你试图查询的外部 IP。只有这样，流量才会来自你的 Windows Pod 被正确地 SNAT 以接收来自外部环境的响应。 在这方面，你的 `cni.conf` 中的 `ExceptionList` 应该如下所示：
