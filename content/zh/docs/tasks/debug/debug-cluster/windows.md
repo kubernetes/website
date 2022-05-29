@@ -137,7 +137,8 @@ content_type: concept
 
 4. 容器的 vnic 和 HNS endpoints 正在被删除
 
-   这个问题可能是当' hostname-override '参数没有传递给 [kube-proxy] (/docs/reference/command-line-tools-reference/kube-proxy/)时引起的。想要解决这个问题，用户需要将主机名传递给 kube-proxy ，如下所示：
+   当 `hostname-override` 参数没有传递给 [kube-proxy](/zh/docs/reference/command-line-tools-reference/kube-proxy/)
+   时可能引发这一问题。想要解决这个问题，用户需要将主机名传递给 kube-proxy，如下所示：
 
    ```powershell
    C:\k\kube-proxy.exe --hostname-override=$(hostname)
