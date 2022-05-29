@@ -194,7 +194,7 @@ content_type: concept
 -->
 7. DNS 解析工作异常
 
-   在本节中 [section](#dns-limitations) 查看 Windows 系统的 DNS 限制 。
+   在[本节](#dns-limitations)中了解 Windows 系统上的 DNS 限制。
 
 8. `kubectl port-forward` 失败并且 "unable to do port forwarding: wincat not found"
 
