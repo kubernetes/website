@@ -688,7 +688,7 @@ csiMigrationRBD=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--kube-api-qps int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">QPS to use while talking with kubernetes API server. The number must be &gt;= 0. If 0 will use default QPS (5). Doesn't cover events and node heartbeat apis which rate limiting is controlled by a different set of flags. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See<a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">QPS to use while talking with kubernetes API server. The number must be &gt;= 0. If 0 will use default QPS (5). Doesn't cover events and node heartbeat apis which rate limiting is controlled by a different set of flags. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -765,7 +765,7 @@ csiMigrationRBD=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--log-json-info-buffer-size string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>'0'</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] In JSON format with split output streams, the info messages can be buffered for a while to increase performance. The default value of zero bytes disables buffering. The size can be specified as number of bytes (512), multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See<a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] In JSON format with split output streams, the info messages can be buffered for a while to increase performance. The default value of zero bytes disables buffering. The size can be specified as number of bytes (512), multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -1052,7 +1052,7 @@ csiMigrationRBD=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--reserved-memory string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A comma-separated list of memory reservations for NUMA nodes. (e.g. <code>--reserved-memory 0:memory=1Gi,hugepages-1M=2Gi --reserved-memory 1:memory=2Gi</code>). The total sum for each memory type should be equal to the sum of <code>--kube-reserved</code>, <code>--system-reserved</code> and <code>--eviction-threshold</code>. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/memory-manager/#reserved-memory-flag">here</a> for more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A comma-separated list of memory reservations for NUMA nodes. (e.g. <code>--reserved-memory 0:memory=1Gi,hugepages-1M=2Gi --reserved-memory 1:memory=2Gi</code>). The total sum for each memory type should be equal to the sum of <code>--kube-reserved</code>, <code>--system-reserved</code> and <code>--eviction-threshold</code>. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/memory-manager/#reserved-memory-flag">here</a> for more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
