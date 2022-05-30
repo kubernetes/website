@@ -1,10 +1,14 @@
 ---
-reviewers:
-- eparis
-- pmorie
 title: 使用 ConfigMap 来配置 Redis
 content_type: tutorial
 ---
+<!--
+reviewers:
+- eparis
+- pmorie
+title: Configuring Redis using a ConfigMap
+content_type: tutorial
+-->
 
 <!-- overview -->
 
@@ -118,7 +122,7 @@ You should see the following output:
 -->
 你应该可以看到以下输出：
 
-```shell
+```
 NAME        READY   STATUS    RESTARTS   AGE
 pod/redis   1/1     Running   0          8s
 
