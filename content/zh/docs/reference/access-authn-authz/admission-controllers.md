@@ -426,20 +426,8 @@ event requests. The cluster admin can specify event rate limits by:
 * 从文件中引用 `EventRateLimit` 配置文件，并提供给 API 服务器命令的
   `--admission-control-config-file` 标志：
 
-{{< tabs name="eventratelimit_example" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
-kind: AdmissionConfiguration
-plugins:
-- name: EventRateLimit
-  path: eventconfig.yaml
-...
-```
-
-```yaml
-# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
 - name: EventRateLimit
