@@ -9,7 +9,7 @@ weight: 50
 title: Update API Objects in Place Using kubectl patch
 description: Use kubectl patch to update Kubernetes API objects in place. Do a strategic merge patch or a JSON merge patch.
 content_type: task
-weight: 40
+weight: 50
 -->
 
 <!-- overview -->
@@ -34,7 +34,7 @@ in this task demonstrate a strategic merge patch and a JSON merge patch.
 Here's the configuration file for a Deployment that has two replicas. Each replica
 is a Pod that has one container:
 -->
-## 使用策略合并 patch 更新 Deployment
+## 使用策略合并 patch 更新 Deployment    {#use-a-strategic-merge-patch-to-update-a-deployment}
 
 下面是具有两个副本的 Deployment 的配置文件。每个副本是一个 Pod，有一个容器：
 
@@ -46,7 +46,7 @@ Create the Deployment:
 创建 Deployment：
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/deployment-patch.yaml
+kubectl apply -f https://k8s.io/examples/application/deployment-patch.yaml
 ```
 
 <!--
@@ -83,9 +83,9 @@ you want each Pod to have two containers: one that runs nginx and one that runs 
 此时，每个 Pod 都有一个运行 nginx 镜像的容器。现在假设你希望每个 Pod 有两个容器：一个运行 nginx，另一个运行 redis。
 
 <!--
-Create a file named `patch-file-containers.yaml` that has this content:
+Create a file named `patch-file.yaml` that has this content:
 -->
-创建一个名为 `patch-file-containers.yaml` 的文件。内容如下:
+创建一个名为 `patch-file.yaml` 的文件。内容如下:
 
 ```yaml
 spec:
@@ -102,7 +102,7 @@ Patch your Deployment:
 修补你的 Deployment：
 
 ```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
+kubectl patch deployment patch-demo --patch-file patch-file.yaml
 ```
 <!--
 View the patched Deployment:
@@ -185,10 +185,10 @@ Container to the list. In other words, the list in the patch was merged with the
 existing list. This is not always what happens when you use a strategic merge patch on a list.
 In some cases, the list is replaced, not merged.
 -->
-### 策略性合并类的 patch 的说明
+### 策略性合并类的 patch 的说明    {#notes-on-the-strategic-merge-patch}
 
-你在前面的练习中所做的 patch 称为`策略性合并 patch（Strategic Merge Patch)`。
-请注意，patch 没有替换`containers` 列表。相反，它向列表中添加了一个新 Container。换句话说，
+你在前面的练习中所做的 patch 称为 `策略性合并 patch（Strategic Merge Patch）`。
+请注意，patch 没有替换 `containers` 列表。相反，它向列表中添加了一个新 Container。换句话说，
 patch 中的列表与现有列表合并。当你在列表中使用策略性合并 patch 时，并不总是这样。
 在某些情况下，列表是替换的，而不是合并的。
 
@@ -295,7 +295,7 @@ Notice that the `tolerations` list in the PodSpec was replaced, not merged. This
 the Tolerations field of PodSpec does not have a `patchStrategy` key in its field tag. So the
 strategic merge patch uses the default patch strategy, which is `replace`.
 -->
-请注意，PodSpec 中的 `tolerations` 列表被替换，而不是合并。这是因为 PodSpec 的 `tolerations` 
+请注意，PodSpec 中的 `tolerations` 列表被替换，而不是合并。这是因为 PodSpec 的 `tolerations`
 的字段标签中没有 `patchStrategy` 键。所以策略合并 patch 操作使用默认的 patch 策略，也就是 `replace`。
 
 ```go
@@ -313,7 +313,7 @@ With a JSON merge patch, if you
 want to update a list, you have to specify the entire new list. And the new list completely
 replaces the existing list.
 -->
-## 使用 JSON 合并 patch 更新 Deployment
+## 使用 JSON 合并 patch 更新 Deployment    {#use-a-json-merge-patch-to-update-a-deployment}
 
 策略性合并 patch 不同于 [JSON 合并 patch](https://tools.ietf.org/html/rfc7386)。
 使用 JSON 合并 patch，如果你想更新列表，你必须指定整个新列表。新的列表完全取代现有的列表。
@@ -324,11 +324,15 @@ The `kubectl patch` command has a `type` parameter that you can set to one of th
 `kubectl patch` 命令有一个 `type` 参数，你可以将其设置为以下值之一:
 
 <table>
-  <!-- tr><th>Parameter value</th><th>Merge type</th></tr -->
+  <!--
+  <tr><th>Parameter value</th><th>Merge type</th></tr>
+  -->
   <tr><th>参数值</th><th>合并类型</th></tr>
   <tr><td>json</td><td><a href="https://tools.ietf.org/html/rfc6902">JSON Patch, RFC 6902</a></td></tr>
   <tr><td>merge</td><td><a href="https://tools.ietf.org/html/rfc7386">JSON Merge Patch, RFC 7386</a></td></tr>
-  <!-- tr><td>strategic</td><td>Strategic merge patch</td></tr -->
+  <!--
+  <tr><td>strategic</td><td>Strategic merge patch</td></tr>
+  -->
   <tr><td>strategic</td><td>策略合并 patch</td></tr>
 </table>
 
@@ -382,7 +386,7 @@ kubectl get deployment patch-demo --output yaml
 The `containers` list that you specified in the patch has only one Container.
 The output shows that your list of one Container replaced the existing `containers` list.
 -->
-patch 中指定的`containers`列表只有一个 Container。
+patch 中指定的 `containers` 列表只有一个 Container。
 输出显示你所给出的 Contaier 列表替换了现有的 `containers` 列表。
 
 ```yaml
@@ -406,7 +410,7 @@ kubectl get pods
 In the output, you can see that the existing Pods were terminated, and new Pods
 were created. The `1/1` indicates that each new Pod is running only one Container.
 -->
-在输出中，你可以看到已经终止了现有的 Pod，并创建了新的 Pod。`1/1` 表示每个新 Pod只运行一个容器。
+在输出中，你可以看到已经终止了现有的 Pod，并创建了新的 Pod。`1/1` 表示每个新 Pod 只运行一个容器。
 
 ```shell
 NAME                          READY     STATUS    RESTARTS   AGE
@@ -419,11 +423,13 @@ patch-demo-1307768864-c86dc   1/1       Running   0          1m
 
 Here's the configuration file for a Deployment that uses the `RollingUpdate` strategy:
 -->
-## 使用带 retainKeys 策略的策略合并 patch 更新 Deployment
+## 使用带 retainKeys 策略的策略合并 patch 更新 Deployment    {#use-strategic-merge-patch-to-update-a-deployment-using-the-retainkeys-strategy}
 
 {{< codenew file="application/deployment-retainkeys.yaml" >}}
 
-<!-- Create the deployment: -->
+<!--
+Create the deployment:
+-->
 创建 Deployment：
 
 ```shell
@@ -445,11 +451,13 @@ spec:
     type: Recreate
 ```
 
-<!-- Patch your Deployment: -->
+<!--
+Patch your Deployment:
+-->
 修补你的 Deployment:
 
 ```shell
-kubectl patch deployment patch-demo --patch-file patch-file.yaml
+kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no-retainkeys.yaml
 ```
 
 <!--
@@ -458,7 +466,7 @@ In the output, you can see that it is not possible to set `type` as `Recreate` w
 在输出中，你可以看到，当 `spec.strategy.rollingUpdate` 已经拥有取值定义时，
 将其 `type` 设置为 `Recreate` 是不可能的。
 
-```shell
+```
 The Deployment "retainkeys-demo" is invalid: spec.strategy.rollingUpdate: Forbidden: may not be specified when strategy `type` is 'Recreate'
 ```
 
@@ -491,10 +499,12 @@ Patch your Deployment again with this new patch:
 使用新的 patch 重新修补 Deployment：
 
 ```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no-retainkeys.yaml
+kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-retainkeys.yaml
 ```
 
-<!-- Examine the content of the Deployment: -->
+<!--
+Examine the content of the Deployment:
+-->
 检查 Deployment 的内容：
 
 ```shell
@@ -506,7 +516,7 @@ The output shows that the strategy object in the Deployment does not contain the
 -->
 输出显示 Deployment 中的 `strategy` 对象不再包含 `rollingUpdate` 键：
 
-```shell
+```yaml
 spec:
   strategy:
     type: Recreate
@@ -524,11 +534,11 @@ The patch you did in the preceding exercise is called a *strategic merge patch w
 - All of the missing fields will be cleared when patching.
 - All fields in the `$retainKeys` list must be a superset or the same as the fields present in the patch.
 -->
-### 关于使用 retainKeys 策略的策略合并 patch 操作的说明
+### 关于使用 retainKeys 策略的策略合并 patch 操作的说明    {#notes-on-the-strategic-merge-patch-using-the-retainkeys-strategy}
 
 在前文练习中所执行的称作 *带 `retainKeys` 策略的策略合并 patch（Strategic Merge
 Patch with retainKeys Strategy）*。
-这种方法引入了一种新的 `$retainKey` 指令，具有如下策略： 
+这种方法引入了一种新的 `$retainKey` 指令，具有如下策略：
 
 - 其中包含一个字符串列表；
 - 所有需要被保留的字段必须在 `$retainKeys` 列表中给出；
@@ -542,7 +552,7 @@ The `retainKeys` strategy does not work for all objects. It only works when the 
 策略 `retainKeys` 并不能对所有对象都起作用。它仅对那些 Kubernetes 源码中
 `patchStrategy` 字段标志值包含 `retainKeys` 的字段有用。
 例如 `DeploymentSpec` 结构的 `Strategy` 字段就包含了 `patchStrategy` 为
-`retainKeys` 的标志。 
+`retainKeys` 的标志。
 
 ```go
 type DeploymentSpec struct {
@@ -580,7 +590,7 @@ And you can see the `retainKeys` strategy in the
 The `kubectl patch` command takes YAML or JSON. It can take the patch as a file or
 directly on the command line.
 -->
-## kubectl patch 命令的其他形式
+## kubectl patch 命令的其他形式    {#alternate-forms-of-the-kubectl-patch-command}
 
 `kubectl patch` 命令使用 YAML 或 JSON。它可以接受以文件形式提供的补丁，也可以
 接受直接在命令行中给出的补丁。
@@ -633,16 +643,15 @@ create the Deployment object. Other commands for updating API objects include
 and
 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands/#apply).
 -->
-## 总结
+## 总结    {#summary}
 
 在本练习中，你使用 `kubectl patch` 更改了 Deployment 对象的当前配置。
 你没有更改最初用于创建 Deployment 对象的配置文件。
 用于更新 API 对象的其他命令包括
-[`kubectl annotate`](/docs/reference/generated/kubectl/kubectl-commands/#annotate)，
-[`kubectl edit`](/docs/reference/generated/kubectl/kubectl-commands/#edit)，
-[`kubectl replace`](/docs/reference/generated/kubectl/kubectl-commands/#replace)，
-[`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale)，
-和
+[`kubectl annotate`](/docs/reference/generated/kubectl/kubectl-commands/#annotate)、
+[`kubectl edit`](/docs/reference/generated/kubectl/kubectl-commands/#edit)、
+[`kubectl replace`](/docs/reference/generated/kubectl/kubectl-commands/#replace)、
+[`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale) 和
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)。
 
 
