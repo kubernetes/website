@@ -62,7 +62,7 @@ That's how Kubernetes comes to the rescue! Kubernetes provides you with a framew
 Kubernetes provides you with:
 
 * **Service discovery and load balancing**
-Kubernetes can expose a container using the DNS name or using their own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.
+Kubernetes can expose a container using the DNS name or using their own IP address.When there are multiple containers backing a service, Kubernetes is able to load balance and distribute the network traffic. Load balancing helps ensure that a workload can stay available even if one container stops working, or during deployments.
 * **Storage orchestration**
 Kubernetes allows you to automatically mount a storage system of your choice, such as local storages, public cloud providers, and more.
 * **Automated rollouts and rollbacks**
