@@ -571,10 +571,7 @@ a list of search domains of up to 2048 characters.
 
 <!--
 ## DNS resolution on Windows nodes {#dns-windows}
--->
-## Windows 节点上的 DNS 解析 {#dns-windows}
 
-<!--
 - ClusterFirstWithHostNet is not supported for pods that run on Windows nodes.
   Windows treats all names with a `.` as a FQDN and skips FQDN resolution.
 - On Windows, there are multiple DNS resolvers that can be used. As these come with
@@ -591,19 +588,21 @@ a list of search domains of up to 2048 characters.
   and `kubernetes`, but not the partially qualified names (`kubernetes.default` or
   `kubernetes.default.svc`).
 -->
+## Windows 节点上的 DNS 解析 {#dns-windows}
+
 - 在 Windows 节点上运行的 Pod 不支持 ClusterFirstWithHostNet。
-  Windows 将所有带有 `.` 的名字视为 FQDN 并跳过 FQDN 解析。
-- 在 Windows 上，可以使用多个 DNS 解析器。由于这些解析器的行为上略有不同，建议使用
+  Windows 将所有带有 `.` 的名称视为全限定域名（FQDN）并跳过全限定域名（FQDN）解析。
+- 在 Windows 上，可以使用的 DNS 解析器有很多。
+  由于这些解析器彼此之间会有轻微的行为差别，建议使用
   [`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname)
-  这个 PowerShell cmdlet 进行名字查询解析。
-- 在 Linux 上，你会有一个 DNS 后缀列表，在全限定域名解析失败之后会使用这里的后缀。
-  在 Windows 上，你只能有 1 个 DNS 后缀，即与 Pod 的命名空间关联的 DNS
-  后缀（例如：`mydns.svc.cluster.local`）。 Windows 可以解析能够使用此唯一后缀解析的
-  FQDN、服务与网络名字。
-  例如，在 `default` 命名空间中产生的某个 Pod 将具有 DNS 后缀 `default.svc.cluster.local`。
-  在 Windows Pod 中，你可以解析 `kubernetes.default.svc.cluster.local`
-  和 `kubernetes`，但无法解析部分限定名称（`kubernetes.default` 或
-  `kubernetes.default.svc`）。
+  powershell cmdlet 进行名称查询解析。
+- 在 Linux 上，有一个 DNS 后缀列表，当解析全名失败时可以使用。
+  在 Windows 上，你只能有一个 DNS 后缀，
+  即与该 Pod 的命名空间相关联的 DNS 后缀（例如：`mydns.svc.cluster.local`）。
+  Windows 可以解析全限定域名（FQDN），和使用了该 DNS 后缀的服务名称或者网络名称。
+  例如，在 `default` 命名空间中生成一个 Pod，该 Pod 会获得的 DNS 后缀为 `default.svc.cluster.local`。
+  在 Windows 的 Pod 中，你可以解析 `kubernetes.default.svc.cluster.local` 和 `kubernetes`，
+  但是不能解析部分限定名称（`kubernetes.default` 和 `kubernetes.default.svc`）。
 
 ## {{% heading "whatsnext" %}}
 
