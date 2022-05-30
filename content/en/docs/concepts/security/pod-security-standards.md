@@ -458,7 +458,7 @@ of individual policies are not defined here.
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
 - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
 
-## Alternatives
+### Alternatives
 
 {{% thirdparty-content %}}
 
