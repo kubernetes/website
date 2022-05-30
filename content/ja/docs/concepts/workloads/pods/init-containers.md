@@ -248,5 +248,5 @@ Podレベルのコントロールグループ(cgroups)は、スケジューラ�
 ## {{% heading "whatsnext" %}}
 
 * [Initコンテナを含むPodの作成](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)方法について学ぶ。
-* [Initコンテナのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)を行う方法について学ぶ。
+* [Initコンテナのデバッグ](/ja/docs/tasks/debug/debug-application/debug-init-containers/)を行う方法について学ぶ。
 
