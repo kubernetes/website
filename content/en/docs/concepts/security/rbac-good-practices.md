@@ -83,7 +83,7 @@ Within Kubernetes RBAC there are a number of privileges which, if granted, can a
 to escalate their privileges in the cluster or affect systems outside the cluster.
 
 This section is intended to provide visibility of the areas where cluster operators 
-should take care, to ensure that they do not inadvertantly allow for more access to clusters than intended.
+should take care, to ensure that they do not inadvertently allow for more access to clusters than intended.
 
 ### Listing secrets
 
