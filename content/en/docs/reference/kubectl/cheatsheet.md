@@ -280,7 +280,7 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 # Add a new element to a positional array
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 
-# Update a deployment's replicas count by patching it's scale subresource
+# Update a deployment's replica count by patching its scale subresource
 kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 ```
 

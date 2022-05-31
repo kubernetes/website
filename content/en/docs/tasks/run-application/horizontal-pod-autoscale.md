@@ -400,7 +400,7 @@ scaling in that direction.
 ### Stabilization window
 
 The stabilization window is used to restrict the [flapping](#flapping) of
-replicas count when the metrics used for scaling keep fluctuating. The autoscaling algorithm
+replica count when the metrics used for scaling keep fluctuating. The autoscaling algorithm
 uses this window to infer a previous desired state and avoid unwanted changes to workload
 scale.
 
