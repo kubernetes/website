@@ -2,6 +2,8 @@
 
 
 
+
+
 title: 쿠버네티스 대시보드를 배포하고 접속하기
 description: >-
   웹 UI(쿠버네티스 대시보드)를 배포하고 접속한다.
@@ -35,7 +37,7 @@ card:
 대시보드 UI는 기본으로 배포되지 않는다. 배포하려면 다음 커맨드를 실행한다.
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
 ```
 
 ## 대시보드 UI 접근
