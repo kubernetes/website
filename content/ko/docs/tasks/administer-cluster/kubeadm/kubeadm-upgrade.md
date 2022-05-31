@@ -8,10 +8,10 @@ weight: 20
 
 <!-- overview -->
 
-이 페이지는 kubeadm으로 생성된 쿠버네티스 클러스터를
-{{< skew currentVersionAddMinor -1 >}}.x 버전에서 {{< skew currentVersion >}}.x 버전으로,
-{{< skew currentVersion >}}.x 버전에서 {{< skew currentVersion >}}.y(여기서 `y > x`) 버전으로 업그레이드하는 방법을 설명한다.  업그레이드가 지원되지 않는 경우
-마이너 버전을 건너뛴다.
+이 페이지는 kubeadm으로 생성된 쿠버네티스 클러스터를 {{< skew currentVersionAddMinor -1 >}}.x 버전에서 {{< skew currentVersion >}}.x 버전으로, 
+{{< skew currentVersion >}}.x 버전에서 {{< skew currentVersion >}}.y(여기서 `y > x`) 버전으로 업그레이드하는 방법을 설명한다. 
+업그레이드가 지원되지 않는 경우 마이너 버전을 건너뛴다. 
+더 자세한 정보는 [버전 차이(skew) 정책](/ko/releases/version-skew-policy/)을 참고한다.
 
 이전 버전의 kubeadm을 사용하여 생성된 클러스터 업그레이드에 대한 정보를 보려면,
 이 페이지 대신 다음의 페이지들을 참고한다.
@@ -43,6 +43,12 @@ weight: 20
   컨트롤 플레인 노드의 경우, CoreDNS 파드 또는 다른 중요한 워크로드를 실행 중일 수 있다. 
   더 많은 정보는 [노드 드레인하기](/docs/tasks/administer-cluster/safely-drain-node/)를 참조한다.
 - 컨테이너 사양 해시 값이 변경되므로, 업그레이드 후 모든 컨테이너가 다시 시작된다.
+- kubelet이 업그레이드된 이후 kubelet 서비스가 성공적으로 재시작되었는지 확인하려면, 
+  `systemctl status kubelet` 명령을 실행하거나, `journalctl -xeu kubelet` 명령을 실행하여 서비스 로그를 확인할 수 있다.
+- 클러스터를 재구성하기 위해 `kubeadm upgrade` 시에 
+  [kubeadm 구성 API 종류](/docs/reference/config-api/kubeadm-config.v1beta3)를 명시하여 
+  `--config` 플래그를 사용하는 것은 추천하지 않으며 예상치 못한 결과를 초래할 수 있다. 
+  대신 [kubeadm 클러스터 재구성하기](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)를 참조한다.
 
 <!-- steps -->
 
