@@ -15,7 +15,7 @@ is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attrac
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
 hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 
-_Tolerations_ are applied to pods, and allow (but do not require) the pods to schedule
+_Tolerations_ are applied to pods, it does not guarantee that pod will get scheduled
 onto nodes with matching taints.
 
 Taints and tolerations work together to ensure that pods are not scheduled
@@ -27,6 +27,11 @@ marks that the node should not accept any pods that do not tolerate the taints.
 <!-- body -->
 
 ## Concepts
+
+Basic Syntax
+```shell
+kubectl taint nodes <node_name> <key>=<value>:<effect>
+```
 
 You add a taint to a node using [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint).
 For example,
