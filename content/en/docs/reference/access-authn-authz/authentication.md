@@ -856,6 +856,10 @@ rules:
   resourceNames: ["06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"]
 ```
 
+{{< note >}}
+Note that impersonation is not namespace scoped - i.e. it requires a `ClusterRole` and `ClusterRoleBinding`, and does not function with `Role` and `RoleBinding`.
+{{< /note >}}
+
 ## client-go credential plugins
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
