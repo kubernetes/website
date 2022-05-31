@@ -138,11 +138,11 @@ Note, keeping this monitor enabled with non-dockershim runtime will result in in
 
 Note, the set of collected metrics will change. Please review your alerting rules and dashboards.
 
-The pod accessing Docker may be named like:
+The Pod accessing Docker may be named like:
  
   -  signalfx-agent
 
 ### Yahoo Kubectl Flame
 
-Flame does not support container runtimes other than dockershim. See
+Flame does not support container runtimes other than Docker. See
 [https://github.com/yahoo/kubectl-flame/issues/51](https://github.com/yahoo/kubectl-flame/issues/51)
