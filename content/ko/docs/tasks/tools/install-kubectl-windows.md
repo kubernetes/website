@@ -38,13 +38,13 @@ card:
 
 1. 바이너리를 검증한다. (선택 사항)
 
-   kubectl 체크섬 파일을 다운로드한다.
+   `kubectl` 체크섬 파일을 다운로드한다.
 
    ```powershell
    curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
-   kubectl 바이너리를 체크섬 파일을 통해 검증한다.
+   `kubectl` 바이너리를 체크섬 파일을 통해 검증한다.
 
    - 커맨드 프롬프트를 사용하는 경우, `CertUtil` 의 출력과 다운로드한 체크섬 파일을 수동으로 비교한다.
 
@@ -59,12 +59,17 @@ card:
      $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
      ```
 
-1. kubectl 바이너리가 있는 폴더를 `PATH` 환경 변수의 앞부분 또는 뒷부분에 추가
+1. `kubectl` 바이너리가 있는 폴더를 `PATH` 환경 변수의 앞부분 또는 뒷부분에 추가
 
 1. `kubectl` 의 버전이 다운로드한 버전과 같은지 확인한다.
 
    ```cmd
    kubectl version --client
+   ```
+   또는 다음을 실행하여 버전에 대한 더 자세한 정보를 본다.
+
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 {{< note >}}
@@ -151,13 +156,13 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
 
 1. 바이너리를 검증한다. (선택 사항)
 
-   kubectl-convert 체크섬(checksum) 파일을 다운로드한다.
+   `kubectl-convert` 체크섬(checksum) 파일을 다운로드한다.
 
    ```powershell
    curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
-   kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
+   `kubectl-convert` 바이너리를 체크섬 파일을 통해 검증한다.
 
    - 커맨드 프롬프트를 사용하는 경우, `CertUtil` 의 출력과 다운로드한 체크섬 파일을 수동으로 비교한다.
 
@@ -172,7 +177,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
      $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```
 
-1. kubectl 바이너리가 있는 폴더를 `PATH` 환경 변수의 앞부분 또는 뒷부분에 추가
+1. `kubectl-convert` 바이너리가 있는 폴더를 `PATH` 환경 변수의 앞부분 또는 뒷부분에 추가
 
 1. 플러그인이 정상적으로 설치되었는지 확인한다.
 
