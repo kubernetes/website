@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "Namespace"
 content_type: "api_reference"
-description: "Namespace 为名字提供了一个作用域。"
+description: "Namespace 为名字提供作用域。"
 title: "Namespace"
 weight: 2
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 Namespace provides a scope for Names. Use of multiple namespaces is optional.
 -->
-Namespace 为 Names 提供了作用域。使用多个命名空间是可选的。
+Namespace 为名字提供作用域。使用多个命名空间是可选的。
 <hr>
 
 - **apiVersion**: v1
@@ -94,7 +94,7 @@ NamespaceStatus 表示 Namespace 的当前状态信息。
 
     Status of the condition, one of True, False, Unknown.
   -->
-  **NamespaceCondition 包含命名空间状态的细节。**
+  **NamespaceCondition 包含命名空间状态的详细信息。**
 
   - **conditions.status** (string)，必需
 
@@ -157,7 +157,7 @@ NamespaceList 是一个命名空间列表。
   <!--
   Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
   -->
-  items 是列表中的 Namespace 对象列表。更多信息：https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+  items 是列表中的 Namespace 对象列表。更多信息： https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
 
 <!--
 ## Operations {#Operations}
@@ -196,7 +196,9 @@ GET /api/v1/namespaces/{name}
   Namespace 的名称
 
 - **pretty** (**查询参数**)：string
- <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
 -->
