@@ -34,9 +34,9 @@ weight: 10
 데몬셋의 롤링 업데이트 기능을 사용하려면,
 `.spec.updateStrategy.type` 에 `RollingUpdate` 를 설정해야 한다.
 
-[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/ko/docs/concepts/workloads/controllers/deployment/#최대-불가max-unavailable)
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (기본값은 1),
-[`.spec.minReadySeconds`](/ko/docs/concepts/workloads/controllers/deployment/#최소-대기-시간초)
+[`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (기본값은 0),
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (베타 기능, 기본값은 0)를 
