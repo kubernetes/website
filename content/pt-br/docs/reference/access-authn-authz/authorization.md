@@ -44,13 +44,13 @@ O Kubernetes revisa somente os seguintes atributos de uma requisição de API:
  * **group** - A lista de nomes de grupos aos quais o usuário autenticado pertence.
  * **extra** - Um mapa de chaves de string arbitrárias para valores de string, fornecido pela camada de autenticação.
  * **API** - Indica se a solicitação é para um recurso de API.
- * **Request path** - Caminho para diversos endpoints sem recursos, como `/api` ou `/healthz`.
- * **API request verb** - Verbos da API como `get`, `list`, `create`, `update`, `patch`, `watch`, `delete` e `deletecollection` que são utilizados para solicitações de recursos. Para determinar o verbo de requisição para um endpoint de recurso de API , consulte [Determine o verbo da requisição](/pt-br/docs/reference/access-authn-authz/authorization/#determine-the-request-verb).
- * **HTTP request verb** - Métodos HTTP em letras minúsculas como `get`, `post`, `put` e `delete` que são utilizados para requisições que não são de recursos.
- * **Resource** - O identificador ou nome do recurso que está sendo acessado (somente para requisições de recursos) -- Para requisições de recursos usando os verbos `get`, `update`, `patch` e `delete`, deve-se fornecer o nome do recurso.
- * **Subresource** - O sub-recurso que está sendo acessado (somente para solicitações de recursos).
+ * **Caminho da requisição** - Caminho para diversos endpoints sem recursos, como `/api` ou `/healthz`.
+ * **Verbo de requisição de API** - Verbos da API como `get`, `list`, `create`, `update`, `patch`, `watch`, `delete` e `deletecollection` que são utilizados para solicitações de recursos. Para determinar o verbo de requisição para um endpoint de recurso de API , consulte [Determine o verbo da requisição](/pt-br/docs/reference/access-authn-authz/authorization/#determine-the-request-verb).
+ * **Verbo de requisição HTTP** - Métodos HTTP em letras minúsculas como `get`, `post`, `put` e `delete` que são utilizados para requisições que não são de recursos.
+ * **Recurso** - O identificador ou nome do recurso que está sendo acessado (somente para requisições de recursos) -- Para requisições de recursos usando os verbos `get`, `update`, `patch` e `delete`, deve-se fornecer o nome do recurso.
+ * **Subrecurso** - O sub-recurso que está sendo acessado (somente para solicitações de recursos).
  * **Namespace** - O namespace do objeto que está sendo acessado (somente para solicitações de recursos com namespace).
- * **API group** - O {{< glossary_tooltip text="API Group" term_id="api-group" >}} sendo acessado (somente para requisições de recursos). Uma string vazia designa o _core_ [API group](/pt-br/docs/reference/using-api/#api-groups).
+ * **Grupo de API** - O {{< glossary_tooltip text="API Group" term_id="api-group" >}} sendo acessado (somente para requisições de recursos). Uma string vazia designa o _core_ [Grupo de API](/pt-br/docs/reference/using-api/#api-groups).
 
 ## Determine o verbo da requisição {#determine-the-request-verb}
 
@@ -65,13 +65,13 @@ Para determinar o verbo de requisição para um endpoint de API de recurso, revi
 utilizado e se a requisição atua ou não em um recurso individual ou em uma
 coleção de recursos:
 
-HTTP verb | request verb
-----------|---------------
-POST      | create
-GET, HEAD | get (para recursos individuais), list (para coleções, includindo o conteúdo do objeto inteiro), watch (para assistir um recurso individual ou coleção de recursos)
-PUT       | update
-PATCH     | patch
-DELETE    | delete (para recursos individuais), deletecollection (para coleções)
+Verbo HTTP | Verbo de Requisição
+---------- |---------------
+POST       | create
+GET, HEAD  | get (para recursos individuais), list (para coleções, includindo o conteúdo do objeto inteiro), watch (para assistir um recurso individual ou coleção de recursos)
+PUT        | update
+PATCH      | patch
+DELETE     | delete (para recursos individuais), deletecollection (para coleções)
 
 Às vezes, o Kubernetes verifica a autorização para permissões adicionais utilizando verbos especializados. Por exemplo:
 
@@ -101,6 +101,7 @@ uma determinada ação e funciona independentemente do modo de autorização uti
 
 
 ```bash
+# "can-i create" = "posso criar"
 kubectl auth can-i create deployments --namespace dev
 ```
 
@@ -111,6 +112,7 @@ yes
 ```
 
 ```shell
+# "can-i create" = "posso criar"
 kubectl auth can-i create deployments --namespace prod
 ```
 
@@ -124,6 +126,8 @@ Os administradores podem combinar isso com [user impersonation](/pt-br/docsrefer
 para determinar qual ação outros usuários podem executar.
 
 ```bash
+# "can-i list" = "posso listar"
+
 kubectl auth can-i list secrets --namespace dev --as dave
 ```
 
@@ -137,6 +141,7 @@ Da mesma forma, para verificar se uma ServiceAccount chamada `dev-sa` no Namespa
 pode listar Pods no namespace `target`:
 
 ```bash
+# "can-i list" = "posso listar"
 kubectl auth can-i list pods \
 	--namespace target \
 	--as system:serviceaccount:dev:dev-sa
@@ -210,7 +215,7 @@ em ordem, então, um modulo anterior tem maior prioridade para permitir ou negar
 
 ## Escalonamento de privilégios através da criação ou edição da cargas de trabalho {#privilege-escalation-via-pod-creation}
 
-Usuários que podem criar ou editar pods em um namespace diretamente ou através de um [controlador](/pt-br/docsconcepts/architecture/controller/)
+Usuários que podem criar ou editar pods em um namespace diretamente ou através de um [controlador](/pt-br/docs/concepts/architecture/controller/)
 como, por exemplo, um operador e então poderiam escalar privilégios naquele namespace.
 
 {{< caution >}}
