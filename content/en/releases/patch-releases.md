@@ -109,7 +109,7 @@ End of Life for **1.23** is **2023-02-28**.
 | 1.23.6        | 2022-04-08           | 2022-04-13  |      |
 | 1.23.5        | 2022-03-11           | 2022-03-16  |      |
 | 1.23.4        | 2022-02-11           | 2022-02-16  |      |
-| 1.23.3        | 2022-01-24           | 2022-01-25  | [Out-of-Band Release](https://groups.google.com/u/2/a/kubernetes.io/g/dev/c/Xl1sm-CItaY) |
+| 1.23.3        | 2022-01-24           | 2022-01-25  | [Out-of-Band Release](https://groups.google.com/a/kubernetes.io/g/dev/c/Xl1sm-CItaY) |
 | 1.23.2        | 2022-01-14           | 2022-01-19  |      |
 | 1.23.1        | 2021-12-14           | 2021-12-16  |      |
 
