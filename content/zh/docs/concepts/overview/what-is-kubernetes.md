@@ -45,7 +45,7 @@ Google 在 2014 年开源了 Kubernetes 项目。Kubernetes 建立在
 ## Going back in time
 Let's take a look at why Kubernetes is so useful by going back in time.
 -->
-## 时光回溯
+## 时光回溯    {#going-back-in-time}
 
 让我们回顾一下为何 Kubernetes 能够裨益四方。
 
@@ -61,11 +61,11 @@ Early on, organizations ran applications on physical servers. There was no way t
 -->
 **传统部署时代：**
 
-早期，各个组织机构在物理服务器上运行应用程序。无法为物理服务器中的应用程序定义资源边界，这会导致资源分配问题。
+早期，各个组织机构在物理服务器上运行应用程序。无法为物理服务器中的应用程序定义资源限制，这会导致资源分配问题。
 例如，如果在物理服务器上运行多个应用程序，则可能会出现一个应用程序占用大部分资源的情况，
 结果可能导致其他应用程序的性能下降。
-一种解决方案是在不同的物理服务器上运行每个应用程序，但是由于资源利用不足而无法扩展，
-并且维护许多物理服务器的成本很高。
+一种解决方案是在不同的物理服务器上运行每个应用程序，但是当资源利用率不高时，这种方法可扩展性较差，
+而且维护许多物理服务器的成本很高。
 
 <!--
 **Virtualized deployment era:**
@@ -73,16 +73,16 @@ As a solution, virtualization was introduced. It allows you to run multiple Virt
 -->
 **虚拟化部署时代：**
 
-作为解决方案，引入了虚拟化。虚拟化技术允许你在单个物理服务器的 CPU 上运行多个虚拟机（VM）。
-虚拟化允许应用程序在 VM 之间隔离，并提供一定程度的安全，因为一个应用程序的信息
-不能被另一应用程序随意访问。
+因此，虚拟化技术被引入了。虚拟化技术允许你在单个物理服务器的 CPU 上运行多个虚拟机（VM）。
+虚拟化允许应用程序在 VM 之间隔离，并提供一定程度的安全性，
+因为一个应用程序的信息不能被另一应用程序随意访问。
 
 <!--
 Virtualization allows better utilization of resources in a physical server and allows better scalability because an application can be added or updated easily, reduces hardware costs, and much more.
 
 Each VM is a full machine running all the components, including its own operating system, on top of the virtualized hardware.
 -->
-虚拟化技术能够更好地利用物理服务器上的资源，并且因为可轻松地添加或更新应用程序
+虚拟化技术能够更好地利用物理服务器上的资源，并且因为可轻松地添加或更新应用程序，
 而可以实现更好的可伸缩性，降低硬件成本等等。
 
 每个 VM 是一台完整的计算机，在虚拟化硬件之上运行所有组件，包括其自己的操作系统。
@@ -93,7 +93,7 @@ Containers are similar to VMs, but they have relaxed isolation properties to sha
 -->
 **容器部署时代：**
 
-容器类似于 VM，但是它们具有被放宽的隔离属性，可以在应用程序之间共享操作系统（OS）。
+容器类似于 VM，但是它们具有更宽松的隔离属性，可以在应用程序之间共享操作系统（OS）。
 因此，容器被认为是轻量级的。容器与 VM 类似，具有自己的文件系统、CPU、内存、进程空间等。
 由于它们与基础架构分离，因此可以跨云和 OS 发行版本进行移植。
 
@@ -115,8 +115,8 @@ Containers are becoming popular because they have many benefits. Some of the con
 * Resource utilization: high efficiency and density.
 -->
 * 敏捷应用程序的创建和部署：与使用 VM 镜像相比，提高了容器镜像创建的简便性和效率。
-* 持续开发、集成和部署：通过快速简单的回滚（由于镜像不可变性），支持可靠且频繁的
-  容器镜像构建和部署。
+* 持续开发、集成和部署：通过快速简单的回滚（由于镜像不可变性），
+  支持可靠且频繁的容器镜像构建和部署。
 * 关注开发与运维的分离：在构建/发布时而不是在部署时创建应用程序容器镜像，
   从而将应用程序与基础架构分离。
 * 可观察性：不仅可以显示操作系统级别的信息和指标，还可以显示应用程序的运行状况和其他指标信号。
@@ -133,18 +133,18 @@ Containers are becoming popular because they have many benefits. Some of the con
 <!--
 ## Why you need Kubernetes and what can it do
 -->
-## 为什么需要 Kubernetes，它能做什么?
+## 为什么需要 Kubernetes，它能做什么？   {#why-you-need-kubernetes-and-what-can-it-do}
 
 <!--
 Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to start. Wouldn't it be easier if this behavior was handled by a system?
 -->
-容器是打包和运行应用程序的好方式。在生产环境中，你需要管理运行应用程序的容器，并确保不会停机。
-例如，如果一个容器发生故障，则需要启动另一个容器。如果系统处理此行为，会不会更容易？
+容器是打包和运行应用程序的好方式。在生产环境中，你需要管理运行着应用程序的容器，并确保不会停机。
+例如，如果一个容器发生故障，则需要启动另一个容器。如果此行为交由给系统处理，是不是会更容易一些？
 
 <!--
 That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework to run distributed systems resiliently. It takes care of your scaling requirements, failover, deployment patterns, and more. For example, Kubernetes can easily manage a canary deployment for your system.
 -->
-这就是 Kubernetes 来解决这些问题的方法！
+这就是 Kubernetes 要来做的事情！
 Kubernetes 为你提供了一个可弹性运行分布式系统的框架。
 Kubernetes 会满足你的扩展要求、故障转移、部署模式等。
 例如，Kubernetes 可以轻松管理系统的 Canary 部署。
@@ -160,7 +160,8 @@ Kubernetes can expose a container using the DNS name or using their own IP addre
 -->
 * **服务发现和负载均衡**
 
-  Kubernetes 可以使用 DNS 名称或自己的 IP 地址公开容器，如果进入容器的流量很大，
+  Kubernetes 可以使用 DNS 名称或自己的 IP 地址来公开容器。
+  如果进入容器的流量很大，
   Kubernetes 可以负载均衡并分配网络流量，从而使部署稳定。
 
 <!--
@@ -177,8 +178,9 @@ You can describe the desired state for your deployed containers using Kubernetes
 -->
 * **自动部署和回滚**
 
-  你可以使用 Kubernetes 描述已部署容器的所需状态，它可以以受控的速率将实际状态
-  更改为期望状态。例如，你可以自动化 Kubernetes 来为你的部署创建新容器，
+  你可以使用 Kubernetes 描述已部署容器的所需状态，
+  它可以以受控的速率将实际状态更改为期望状态。
+  例如，你可以自动化 Kubernetes 来为你的部署创建新容器，
   删除现有容器并将它们的所有资源用于新容器。
 
 <!--
@@ -188,7 +190,7 @@ Kubernetes allows you to specify how much CPU and memory (RAM) each container ne
 * **自动完成装箱计算**
 
   Kubernetes 允许你指定每个容器所需 CPU 和内存（RAM）。
-  当容器指定了资源请求时，Kubernetes 可以做出更好的决策来管理容器的资源。
+  当容器指定了资源请求时，Kubernetes 可以做出更好的决策来为容器分配资源。
 
 <!--
 * **Self-healing**
@@ -196,8 +198,8 @@ Kubernetes restarts containers that fail, replaces containers, kills containers 
 -->
 * **自我修复**
 
-  Kubernetes 重新启动失败的容器、替换容器、杀死不响应用户定义的
-  运行状况检查的容器，并且在准备好服务之前不将其通告给客户端。
+  Kubernetes 将重新启动失败的容器、替换容器、杀死不响应用户定义的运行状况检查的容器，
+  并且在准备好服务之前不将其通告给客户端。
 
 <!--
 * **Secret and configuration management**
@@ -211,7 +213,7 @@ Kubernetes lets you store and manage sensitive information, such as passwords, O
 <!--
 ## What Kubernetes is not
 -->
-## Kubernetes 不是什么
+## Kubernetes 不是什么   {#what-kubernetes-is-not}
 
 <!--
 Kubernetes is not a traditional, all-inclusive PaaS (Platform as a Service) system. Since Kubernetes operates at the container level rather than at the hardware level, it provides some generally applicable features common to PaaS offerings, such as deployment, scaling, load balancing, logging, and monitoring. However, Kubernetes is not monolithic, and these default solutions are optional and pluggable. Kubernetes provides the building blocks for building developer platforms, but preserves user choice and flexibility where it is important.
@@ -220,7 +222,7 @@ Kubernetes 不是传统的、包罗万象的 PaaS（平台即服务）系统。
 由于 Kubernetes 在容器级别而不是在硬件级别运行，它提供了 PaaS 产品共有的一些普遍适用的功能，
 例如部署、扩展、负载均衡、日志记录和监视。
 但是，Kubernetes 不是单体系统，默认解决方案都是可选和可插拔的。
-Kubernetes 提供了构建开发人员平台的基础，但是在重要的地方保留了用户的选择和灵活性。
+Kubernetes 为构建开发人员平台提供了基础，但是在重要的地方保留了用户的选择和灵活性。
 
 <!--
 Kubernetes:
@@ -237,9 +239,9 @@ Kubernetes：
   如果应用程序可以在容器中运行，那么它应该可以在 Kubernetes 上很好地运行。
 * 不部署源代码，也不构建你的应用程序。
   持续集成（CI）、交付和部署（CI/CD）工作流取决于组织的文化和偏好以及技术要求。
-* 不提供应用程序级别的服务作为内置服务，例如中间件（例如，消息中间件）、
-  数据处理框架（例如，Spark）、数据库（例如，MySQL）、缓存、集群存储系统
-  （例如，Ceph）。这样的组件可以在 Kubernetes 上运行，并且/或者可以由运行在
+* 不提供应用程序级别的服务作为内置服务，例如中间件（例如 消息中间件）、
+  数据处理框架（例如 Spark）、数据库（例如 MySQL）、缓存、集群存储系统
+  （例如 Ceph）。这样的组件可以在 Kubernetes 上运行，并且/或者可以由运行在
   Kubernetes 上的应用程序通过可移植机制（例如，
   [开放服务代理](https://openservicebrokerapi.org/)）来访问。
 <!--
@@ -250,7 +252,7 @@ Kubernetes：
 -->
 * 不要求日志记录、监视或警报解决方案。
   它提供了一些集成作为概念证明，并提供了收集和导出指标的机制。
-* 不提供或不要求配置语言/系统（例如 jsonnet），它提供了声明性 API，
+* 不提供也不要求配置语言、系统（例如 jsonnet），它提供了声明性 API，
   该声明性 API 可以由任意形式的声明性规范所构成。
 * 不提供也不采用任何全面的机器配置、维护、管理或自我修复系统。
 * 此外，Kubernetes 不仅仅是一个编排系统，实际上它消除了编排的需要。
@@ -267,4 +269,4 @@ Kubernetes：
 *   Ready to [Get Started](/docs/setup/)?
 -->
 * 查阅 [Kubernetes 组件](/zh/docs/concepts/overview/components/)
-* 开始 [Kubernetes 入门](/zh/docs/setup/)？
+* 开始 [Kubernetes 的建置](/zh/docs/setup/) 吧！
