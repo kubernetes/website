@@ -4,7 +4,7 @@ id: pod
 date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/pod-overview/
 short_description: >
-  Pod 表示您的集群上一组正在运行的容器。
+  Pod 表示你的集群上一组正在运行的容器。
 
 aka: 
 tags:

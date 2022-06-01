@@ -36,12 +36,20 @@ card:
 {{< note >}}
 To learn more about contributing to Kubernetes in general, see the
 [contributor documentation](https://www.kubernetes.dev/docs/).
+
+You can also read the
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+[page](https://contribute.cncf.io/contributors/projects/#kubernetes)
+about contributing to Kubernetes.
 {{< /note >}}
 -->
 {{< note >}}
 要了解有关为 Kubernetes 做出贡献的更多信息，请参阅
 [贡献者文档](https://www.kubernetes.dev/docs/)。
-{{< /note >}}
+
+你还可以阅读
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+关于为 Kubernetes 做贡献的[页面](https://contribute.cncf.io/contributors/projects/#kubernetes)。
 
 <!--
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).

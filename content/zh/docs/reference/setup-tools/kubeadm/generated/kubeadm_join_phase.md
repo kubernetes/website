@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Use this command to invoke single phase of the join workflow 
+-->
+使用此命令来调用 `join` 工作流程的某个阶段
 
 <!--
 ### Synopsis
@@ -29,8 +44,10 @@ Use this command to invoke single phase of the join workflow
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- help for phase -->
-phase 操作的帮助命令
+<!-- 
+<p>help for phase</p> 
+-->
+<p>phase 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -55,8 +72,10 @@ phase 操作的帮助命令
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- [EXPERIMENTAL] The path to the 'real' host root filesystem.  -->
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<!-- 
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>  
+-->
+<p>[实验] 指向 '真实' 宿主机根文件系统的路径。</p>
 </td>
 </tr>
 

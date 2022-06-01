@@ -52,7 +52,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   -->
   name 在命名空间内必须是唯一的。创建资源时需要，尽管某些资源可能允许客户端请求自动地生成适当的名称。
   名称主要用于创建幂等性和配置定义。无法更新。
-  更多信息：http://kubernetes.io/docs/user-guide/identifiers#names
+  更多信息： http://kubernetes.io/docs/user-guide/identifiers#names
 
 
 - **generateName** (string)
@@ -72,7 +72,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   如果指定了此字段并且生成的名称存在，则服务器将不会返回 409 ——相反，它将返回 201 Created 或 500，
   原因是 ServerTimeout 指示在分配的时间内找不到唯一名称，客户端应重试（可选，在 Retry-After 标头中指定的时间之后）。
   
-  仅在未指定 name 时应用。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
+  仅在未指定 name 时应用。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
 
 - **namespace** (string)
 
@@ -84,7 +84,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   namespace 定义了一个值空间，其中每个名称必须唯一。空命名空间相当于 “default” 命名空间，但 “default” 是规范表示。
   并非所有对象都需要限定在命名空间中——这些对象的此字段的值将为空。
   
-  必须是 DNS_LABEL。无法更新。更多信息：http://kubernetes.io/docs/user-guide/namespaces
+  必须是 DNS_LABEL。无法更新。更多信息： http://kubernetes.io/docs/user-guide/namespaces
 
 - **labels** (map[string]string)
 
@@ -92,7 +92,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
   -->
   可用于组织和分类（确定范围和选择）对象的字符串键和值的映射。
-  可以匹配 ReplicationControllers 和 Service 的选择器。更多信息：http://kubernetes.io/docs/user-guide/labels
+  可以匹配 ReplicationControllers 和 Service 的选择器。更多信息： http://kubernetes.io/docs/user-guide/labels
 
 - **annotations** (map[string]string)
 
@@ -100,7 +100,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
   -->
   annotations 是一个非结构化的键值映射，存储在资源中，可以由外部工具设置以存储和检索任意元数据。
-  它们不可查询，在修改对象时应保留。更多信息：http://kubernetes.io/docs/user-guide/annotations
+  它们不可查询，在修改对象时应保留。更多信息： http://kubernetes.io/docs/user-guide/annotations
 
 
 <!-- ### System {#System} -->
@@ -251,17 +251,17 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   - **ownerReferences.kind** (string)，<!-- required -->必选
 
     <!-- Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds -->
-    被引用资源的类别。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    被引用资源的类别。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   - **ownerReferences.name** (string)，<!-- required -->必选
 
     <!-- Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names -->
-    被引用资源的名称。更多信息：http://kubernetes.io/docs/user-guide/identifiers#names
+    被引用资源的名称。更多信息： http://kubernetes.io/docs/user-guide/identifiers#names
 
   - **ownerReferences.uid** (string)，<!-- required -->必选
 
     <!-- UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids -->
-    被引用资源的 uid。更多信息：http://kubernetes.io/docs/user-guide/identifiers#uids
+    被引用资源的 uid。更多信息： http://kubernetes.io/docs/user-guide/identifiers#uids
 
   - **ownerReferences.blockOwnerDeletion** (boolean)
 
@@ -293,7 +293,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   不能保证在单独的操作中按发生前的顺序设置。
   客户端不得设置此值。它以 RFC3339 形式表示，并采用 UTC。
   
-  由系统填充。只读。列表为空。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  由系统填充。只读。列表为空。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
   <a name="Time"></a>
   <!-- 
@@ -331,7 +331,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   此对象可能在此时间戳之后仍然存在，直到管理员或自动化进程可以确定资源已完全终止。
   如果未设置，则未请求优雅删除该对象。
   
-  请求优雅删除时由系统填充。只读。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  请求优雅删除时由系统填充。只读。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
   <a name="Time"></a>
   <!-- 
@@ -360,7 +360,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   它们可能仅对特定资源或一组资源有效。
   
   由系统填充。只读。客户端必须将值视为不透明。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 
 - **selfLink** (string)
 
@@ -382,7 +382,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   -->
   UID 是该对象在时间和空间上的唯一值。它通常由服务器在成功创建资源时生成，并且不允许使用 PUT 操作更改。
   
-  由系统填充。只读。更多信息：http://kubernetes.io/docs/user-guide/identifiers#uids
+  由系统填充。只读。更多信息： http://kubernetes.io/docs/user-guide/identifiers#uids
 
 <!-- ### Ignored {#Ignored} -->
 ### 忽略字段 {#Ignored}

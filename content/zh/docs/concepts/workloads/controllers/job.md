@@ -33,6 +33,9 @@ The Job object will start a new Pod if the first Pod fails or is deleted (for ex
 due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
+
+If you want to run a Job (either a single task, or several in parallel) on a schedule,
+see [CronJob](/docs/concepts/workloads/controllers/cron-jobs/).
 -->
 Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直到指定数量的 Pods 成功终止。
 随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。
@@ -46,7 +49,11 @@ Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直�
 
 你也可以使用 Job 以并行的方式运行多个 Pod。
 
+如果你想按某种排期表（Schedule）运行 Job（单个任务或多个并行任务），请参阅
+[CronJob](/docs/concepts/workloads/controllers/cron-jobs/)。
+
 <!-- body -->
+
 <!--
 ## Running an example Job
 
@@ -60,26 +67,36 @@ It takes around 10s to complete.
 
 {{< codenew file="controllers/job.yaml" >}}
 
-<!--You can run the example with this command:-->
+<!--
+You can run the example with this command:
+-->
 你可以使用下面的命令来运行此示例：
 
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/job.yaml
 ```
-<!--The output is similar to this:-->
+
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```
 job.batch/pi created
 ```
 
-<!-- Check on the status of the Job with `kubectl`: -->
+<!--
+Check on the status of the Job with `kubectl`:
+-->
 使用 `kubectl` 来检查 Job 的状态：
 
 ```shell
 kubectl describe jobs/pi
 ```
-<!--The output is similar to this:-->
+
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```
@@ -131,7 +148,10 @@ To list all the Pods that belong to a Job in a machine readable form, you can us
 pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
 echo $pods
 ```
-<!--The output is similar to this:-->
+
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```
@@ -139,7 +159,7 @@ pi-5rwd7
 ```
 
 <!--
-Here, the selector is the same as the selector for the Job.  The `-output=jsonpath` option specifies an expression
+Here, the selector is the same as the selector for the Job.  The `--output=jsonpath` option specifies an expression
 with the name from each Pod in the returned list.
 
 View the standard output of one of the pods:
@@ -153,12 +173,15 @@ View the standard output of one of the pods:
 kubectl logs $pods
 ```
 
-<!--The output is similar to this:-->
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```
 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632788659361533818279682303019520353018529689957736225994138912497217752834791315155748572424541506959508295331168617278558890750983817546374649393192550604009277016711390098488240128583616035637076601047101819429555961989467678374494482553797747268471040475346462080466842590694912933136770289891521047521620569660240580381501935112533824300355876402474964732639141992726042699227967823547816360093417216412199245863150302861829745557067498385054945885869269956909272107975093029553211653449872027559602364806654991198818347977535663698074265425278625518184175746728909777727938000816470600161452491921732172147723501414419735685481613611573525521334757418494684385233239073941433345477624168625189835694855620992192221842725502542568876717904946016534668049886272327917860857843838279679766814541009538837863609506800642251252051173929848960841284886269456042419652850222106611863067442786220391949450471237137869609563643719172874677646575739624138908658326459958133904780275901
 ```
+
 <!--
 ## Writing a Job spec
 
@@ -167,12 +190,12 @@ Its name must be a valid [DNS subdomain name](/docs/concepts/overview/working-wi
 
 A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 -->
-## 编写 Job 规约
+## 编写 Job 规约    {#writing-a-job-spec}
 
 与 Kubernetes 中其他资源的配置类似，Job 也需要 `apiVersion`、`kind` 和 `metadata` 字段。
 Job 的名字必须是合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
-Job 配置还需要一个[`.spec` 节](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
+Job 配置还需要一个 [`.spec` 节](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 ### Pod Template
@@ -186,7 +209,7 @@ labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
 
 Only a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Never` or `OnFailure` is allowed.
 -->
-### Pod 模版
+### Pod 模版    {#pod-template}
 
 Job 的 `.spec` 中只有 `.spec.template` 是必需的字段。
 
@@ -195,7 +218,7 @@ Job 的 `.spec` 中只有 `.spec.template` 是必需的字段。
 完全相同，只是其中不再需要 `apiVersion` 或 `kind` 字段。
 
 除了作为 Pod 所必需的字段之外，Job 中的 Pod 模版必需设置合适的标签
-（参见[Pod 选择算符](#pod-selector)）和合适的重启策略。
+（参见 [Pod 选择算符](#pod-selector)）和合适的重启策略。
 
 Job 中 Pod 的 [`RestartPolicy`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
 只能设置为 `Never` 或 `OnFailure` 之一。
@@ -219,6 +242,7 @@ There are three main types of task suitable to run as a Job:
 ### Job 的并行执行 {#parallel-jobs}
 
 适合以 Job 形式来运行的任务主要有三种：
+
 <!--
 1. Non-parallel Jobs
    - normally, only one Pod is started, unless the Pod fails.
@@ -298,7 +322,7 @@ parallelism, for a variety of reasons:
 <!--
 - For _fixed completion count_ Jobs, the actual number of pods running in parallel will not exceed the number of
   remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
-- For _work queue_ Jobs, no new Pods are started after any Pod has succeeded - remaining Pods are allowed to complete, however.
+- For _work queue_ Jobs, no new Pods are started after any Pod has succeeded -- remaining Pods are allowed to complete, however.
 - If the Job {{< glossary_tooltip term_id="controller" >}} has not had time to react.
 - If the Job controller failed to create Pods for any reason (lack of `ResourceQuota`, lack of permission, etc.),
   then there may be fewer pods than requested.
@@ -377,7 +401,7 @@ restarted locally, or else specify `.spec.template.spec.restartPolicy = "Never"`
 See [pod lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/#example-states) for more information on `restartPolicy`.
 -->
 
-## 处理 Pod 和容器失效
+## 处理 Pod 和容器失效    {#handling-pod-and-container-failures}
 
 Pod 中的容器可能因为多种不同原因失效，例如因为其中的进程退出时返回值非零，
 或者容器因为超出内存约束而被杀死等等。
@@ -430,7 +454,7 @@ exponential back-off delay (10s, 20s, 40s ...) capped at six minutes. The
 back-off count is reset when a Job's Pod is deleted or successful without any
 other Pods for the Job failing around that time.
 -->
-### Pod 回退失效策略
+### Pod 回退失效策略    {#pod-backoff-failure-policy}
 
 在有些情形下，你可能希望 Job 在经历若干次重试之后直接进入失败状态，因为这很
 可能意味着遇到了配置错误。
@@ -463,7 +487,7 @@ allows you to still view the logs of completed pods to check for errors, warning
 The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
 old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
 -->
-## Job 终止与清理
+## Job 终止与清理    {#clean-up-finished-jobs-automatically}
 
 Job 完成时不会再创建新的 Pod，不过已有的 Pod [通常](#pod-backoff-failure-policy)也不会被删除。
 保留这些 Pod 使得你可以查看已完成的 Pod 的日志输出，以便检查错误、警告
@@ -732,7 +756,7 @@ Job 被创建时，Job 控制器会马上开始执行 Pod 创建操作以满足 
 不过你可能想要暂时挂起 Job 执行，或启动处于挂起状态的job，
 并拥有一个自定义控制器以后再决定什么时候开始。
 
-<!-- 
+<!--
 To suspend a Job, you can update the `.spec.suspend` field of
 the Job to true; later, when you want to resume it again, update it to false.
 Creating a Job with `.spec.suspend` set to true will create it in the suspended
@@ -911,7 +935,7 @@ Job 的 Pod 模板中可以更新的字段是节点亲和性、节点选择器�
 
 
 <!--
-### Specifying your own Pod selector {#specifying-your-own-pod-selector}
+### Specifying your own Pod selector
 
 Normally, when you create a Job object, you do not specify `.spec.selector`.
 The system defaulting logic adds this field when the Job is created.
@@ -971,7 +995,10 @@ Before deleting it, you make a note of what selector it uses:
 ```shell
 kubectl get job old -o yaml
 ```
-<!--The output is similar to this:-->
+
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```yaml
@@ -999,7 +1026,7 @@ the selector that the system normally generates for you automatically.
 它们也会被名为 `new` 的 Job 所控制。
 
 你需要在新 Job 中设置 `manualSelector: true`，因为你并未使用系统通常自动为你
-生成的选择算符。 
+生成的选择算符。
 
 ```yaml
 kind: Job
@@ -1025,29 +1052,31 @@ mismatch.
 
 <!--
 ### Job tracking with finalizers
-
-In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-It is enabled by default.
-
-When enabled, the control plane tracks new Jobs using the behavior described
-below. Jobs created before the feature was enabled are unaffected. As a user,
-the only difference you would see is that the control plane tracking of Job
-completion is more accurate.
 -->
 ### 使用 Finalizer 追踪 Job   {#job-tracking-with-finalizers}
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
+<!--
+In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+It is enabled by default.
+-->
 要使用该行为，你必须为 [API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
 和[控制器管理器](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
 启用 `JobTrackingWithFinalizers`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 默认是启用的。
 
+<!--
+When enabled, the control plane tracks new Jobs using the behavior described
+below. Jobs created before the feature was enabled are unaffected. As a user,
+the only difference you would see is that the control plane tracking of Job
+completion is more accurate.
+-->
 启用后，控制面基于下述行为追踪新的 Job。在启用该特性之前创建的 Job 不受影响。
 作为用户，你会看到的唯一区别是控制面对 Job 完成情况的跟踪更加准确。
 {{< /note >}}
@@ -1117,7 +1146,7 @@ Job 会重新创建新的 Pod 来替代已终止的 Pod。
 <!--
 ### Replication Controller
 
-Jobs are complementary to [Replication Controllers](/docs/user-guide/replication-controller).
+Jobs are complementary to [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/).
 A Replication Controller manages Pods which are not expected to terminate (e.g. web servers), and a Job
 manages Pods that are expected to terminate (e.g. batch tasks).
 
@@ -1142,7 +1171,7 @@ Another pattern is for a single Job to create a Pod which then creates other Pod
 of custom controller for those Pods.  This allows the most flexibility, but may be somewhat
 complicated to get started with and offers less integration with Kubernetes.
 -->
-### 单个 Job 启动控制器 Pod
+### 单个 Job 启动控制器 Pod    {#single-job-starts-controller-pod}
 
 另一种模式是用唯一的 Job 来创建 Pod，而该 Pod 负责启动其他 Pod，因此扮演了一种
 后启动 Pod 的控制器的角色。

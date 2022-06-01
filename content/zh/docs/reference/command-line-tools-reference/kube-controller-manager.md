@@ -49,18 +49,6 @@ kube-controller-manager [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--add-dir-header</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-If true, adds the file directory to the header of the log messages
--->
-若为 true，将文件目录添加到日志消息的头部。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--allocate-node-cidrs</td>
 </tr>
 <tr>
@@ -73,7 +61,7 @@ Should CIDRs for Pods be allocated and set on the cloud provider.
 </tr>
 
 <tr>
-<td colspan="2">--allow-metric-labels stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：""</td>
+<td colspan="2">--allow-metric-labels stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[]</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -86,18 +74,6 @@ The map from metric-label to value allow-list of this label. The key's format is
 例如，<code>metric1,label1='v1,v2,v3', metric1,label2='v1,v2,v3'
 metric2,label='v1,v2,v3'</code>。
 </p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--alsologtostderr</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-log to standard error as well as files
--->
-在向文件输出日志的同时，也将日志写到标准输出。
 </td>
 </tr>
 
@@ -232,7 +208,7 @@ Path to the file containing Azure container registry configuration information.
 </tr>
 
 <tr>
-<td colspan="2">--bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：0.0.0.0</td>
+<td colspan="2">--bind-address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：0.0.0.0</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -512,6 +488,19 @@ The number of endpoint syncing operations that will be done concurrently. Larger
 </tr>
 
 <tr>
+<td colspan="2">--concurrent-ephemeralvolume-syncs int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：5</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The number of ephemeral volume syncing operations that will be done concurrently. Larger number = faster ephemeral volume updating, but more CPU (and network) load
+-->
+可以并发执行的 EphemeralVolume 同步操作个数。数值越大意味着更快的 EphemeralVolume 更新操作，
+同时也意味着更大的 CPU （和网络）压力。
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--concurrent-gc-syncs int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：20</td>
 </tr>
 <tr>
@@ -676,7 +665,7 @@ Interval between starting controller managers.
 </tr>
 
 <tr>
-<td colspan="2">--controllers strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：<code>[*]</code></td>
+<td colspan="2">--controllers strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：<code>*</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -688,18 +677,6 @@ A list of controllers to enable. '*' enables all on-by-default controllers, 'foo
 <code>-foo</code> 表示禁用名为 foo 的控制器。<br/>
 控制器的全集：attachdetach、bootstrapsigner、cloud-node-lifecycle、clusterrole-aggregation、cronjob、csrapproving、csrcleaner、csrsigning、daemonset、deployment、disruption、endpoint、endpointslice、endpointslicemirroring、ephemeral-volume、garbagecollector、horizontalpodautoscaling、job、namespace、nodeipam、nodelifecycle、persistentvolume-binder、persistentvolume-expander、podgc、pv-protection、pvc-protection、replicaset、replicationcontroller、resourcequota、root-ca-cert-publisher、route、service、serviceaccount、serviceaccount-token、statefulset、tokencleaner、ttl、ttl-after-finished<br/>
 默认禁用的控制器有：bootstrapsigner 和 tokencleaner。</td>
-</tr>
-
-<tr>
-<td colspan="2">--deployment-controller-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：30s</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Period for syncing the deployments.
--->
-Deployment 资源的同步周期。
-</td>
 </tr>
 
 <tr>
@@ -823,19 +800,6 @@ The length of endpoint slice updates batching period. Processing of pod changes 
 </tr>
 
 <tr>
-<td colspan="2">--experimental-logging-sanitization</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-[Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens).<br/>Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production.
--->
-[试验性功能] 当启用此标志时，被标记为敏感的字段（密码、密钥、令牌）不会被日志输出。<br/>
-运行时的日志清理操作可能会引入相当程度的计算开销，因此不应在生产环境中启用。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--external-cloud-volume-plugin string</td>
 </tr>
 <tr>
@@ -864,96 +828,99 @@ APIServerIdentity=true|false (ALPHA - default=false)<br/>
 APIServerTracing=true|false (ALPHA - default=false)<br/>
 AllAlpha=true|false (ALPHA - default=false)<br/>
 AllBeta=true|false (BETA - default=false)<br/>
-AnyVolumeDataSource=true|false (ALPHA - default=false)<br/>
+AnyVolumeDataSource=true|false (BETA - default=true)<br/>
 AppArmor=true|false (BETA - default=true)<br/>
 CPUManager=true|false (BETA - default=true)<br/>
-CPUManagerPolicyOptions=true|false (ALPHA - default=false)<br/>
+CPUManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
+CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
+CPUManagerPolicyOptions=true|false (BETA - default=true)<br/>
 CSIInlineVolume=true|false (BETA - default=true)<br/>
 CSIMigration=true|false (BETA - default=true)<br/>
-CSIMigrationAWS=true|false (BETA - default=false)<br/>
-CSIMigrationAzureDisk=true|false (BETA - default=false)<br/>
-CSIMigrationAzureFile=true|false (BETA - default=false)<br/>
-CSIMigrationGCE=true|false (BETA - default=false)<br/>
-CSIMigrationOpenStack=true|false (BETA - default=true)<br/>
+CSIMigrationAWS=true|false (BETA - default=true)<br/>
+CSIMigrationAzureFile=true|false (BETA - default=true)<br/>
+CSIMigrationGCE=true|false (BETA - default=true)<br/>
+CSIMigrationPortworx=true|false (ALPHA - default=false)<br/>
+CSIMigrationRBD=true|false (ALPHA - default=false)<br/>
 CSIMigrationvSphere=true|false (BETA - default=false)<br/>
-CSIStorageCapacity=true|false (BETA - default=true)<br/>
-CSIVolumeFSGroupPolicy=true|false (BETA - default=true)<br/>
 CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
-CSRDuration=true|false (BETA - default=true)<br/>
-ConfigurableFSGroupPolicy=true|false (BETA - default=true)<br/>
-ControllerManagerLeaderMigration=true|false (BETA - default=true)<br/>
+ContextualLogging=true|false (ALPHA - default=false)<br/>
+CronJobTimeZone=true|false (ALPHA - default=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
+CustomResourceValidationExpressions=true|false (ALPHA - default=false)<br/>
 DaemonSetUpdateSurge=true|false (BETA - default=true)<br/>
-DefaultPodTopologySpread=true|false (BETA - default=true)<br/>
-DelegateFSGroupToCSIDriver=true|false (ALPHA - default=false)<br/>
+DelegateFSGroupToCSIDriver=true|false (BETA - default=true)<br/>
 DevicePlugins=true|false (BETA - default=true)<br/>
 DisableAcceleratorUsageMetrics=true|false (BETA - default=true)<br/>
 DisableCloudProviders=true|false (ALPHA - default=false)<br/>
-DownwardAPIHugePages=true|false (BETA - default=false)<br/>
-EfficientWatchResumption=true|false (BETA - default=true)<br/>
+DisableKubeletCloudCredentialProviders=true|false (ALPHA - default=false)<br/>
+DownwardAPIHugePages=true|false (BETA - default=true)<br/>
 EndpointSliceTerminatingCondition=true|false (BETA - default=true)<br/>
-EphemeralContainers=true|false (ALPHA - default=false)<br/>
-ExpandCSIVolumes=true|false (BETA - default=true)<br/>
-ExpandInUsePersistentVolumes=true|false (BETA - default=true)<br/>
-ExpandPersistentVolumes=true|false (BETA - default=true)<br/>
+EphemeralContainers=true|false (BETA - default=true)<br/>
 ExpandedDNSConfig=true|false (ALPHA - default=false)<br/>
 ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>
-GenericEphemeralVolume=true|false (BETA - default=true)<br/>
+GRPCContainerProbe=true|false (BETA - default=true)<br/>
 GracefulNodeShutdown=true|false (BETA - default=true)<br/>
+GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - default=true)<br/>
 HPAContainerMetrics=true|false (ALPHA - default=false)<br/>
 HPAScaleToZero=true|false (ALPHA - default=false)<br/>
-IPv6DualStack=true|false (BETA - default=true)<br/>
+HonorPVReclaimPolicy=true|false (ALPHA - default=false)<br/>
+IdentifyPodOS=true|false (BETA - default=true)<br/>
 InTreePluginAWSUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginAzureDiskUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginAzureFileUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginGCEUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginOpenStackUnregister=true|false (ALPHA - default=false)<br/>
+InTreePluginPortworxUnregister=true|false (ALPHA - default=false)<br/>
+InTreePluginRBDUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginvSphereUnregister=true|false (ALPHA - default=false)<br/>
-IndexedJob=true|false (BETA - default=true)<br/>
-IngressClassNamespacedParams=true|false (BETA - default=true)<br/>
-JobTrackingWithFinalizers=true|false (ALPHA - default=false)<br/>
-KubeletCredentialProviders=true|false (ALPHA - default=false)<br/>
+JobMutableNodeSchedulingDirectives=true|false (BETA - default=true)<br/>
+JobReadyPods=true|false (BETA - default=true)<br/>
+JobTrackingWithFinalizers=true|false (BETA - default=false)<br/>
+KubeletCredentialProviders=true|false (BETA - default=true)<br/>
 KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>
 KubeletPodResources=true|false (BETA - default=true)<br/>
-KubeletPodResourcesGetAllocatable=true|false (ALPHA - default=false)<br/>
+KubeletPodResourcesGetAllocatable=true|false (BETA - default=true)<br/>
+LegacyServiceAccountTokenNoAutoGeneration=true|false (BETA - default=true)<br/>
 LocalStorageCapacityIsolation=true|false (BETA - default=true)<br/>
 LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>
 LogarithmicScaleDown=true|false (BETA - default=true)<br/>
+MaxUnavailableStatefulSet=true|false (ALPHA - default=false)<br/>
 MemoryManager=true|false (BETA - default=true)<br/>
 MemoryQoS=true|false (ALPHA - default=false)<br/>
-MixedProtocolLBService=true|false (ALPHA - default=false)<br/>
+MinDomainsInPodTopologySpread=true|false (ALPHA - default=false)<br/>
+MixedProtocolLBService=true|false (BETA - default=true)<br/>
 NetworkPolicyEndPort=true|false (BETA - default=true)<br/>
+NetworkPolicyStatus=true|false (ALPHA - default=false)<br/>
+NodeOutOfServiceVolumeDetach=true|false (ALPHA - default=false)<br/>
 NodeSwap=true|false (ALPHA - default=false)<br/>
-NonPreemptingPriority=true|false (BETA - default=true)<br/>
-PodAffinityNamespaceSelector=true|false (BETA - default=true)<br/>
+OpenAPIEnums=true|false (BETA - default=true)<br/>
+OpenAPIV3=true|false (BETA - default=true)<br/>
+PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>
 PodDeletionCost=true|false (BETA - default=true)<br/>
-PodOverhead=true|false (BETA - default=true)<br/>
-PodSecurity=true|false (ALPHA - default=false)<br/>
-PreferNominatedNode=true|false (BETA - default=true)<br/>
+PodSecurity=true|false (BETA - default=true)<br/>
 ProbeTerminationGracePeriod=true|false (BETA - default=false)<br/>
 ProcMountType=true|false (ALPHA - default=false)<br/>
 ProxyTerminatingEndpoints=true|false (ALPHA - default=false)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>
 ReadWriteOncePod=true|false (ALPHA - default=false)<br/>
+RecoverVolumeExpansionFailure=true|false (ALPHA - default=false)<br/>
 RemainingItemCount=true|false (BETA - default=true)<br/>
-RemoveSelfLink=true|false (BETA - default=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
 SeccompDefault=true|false (ALPHA - default=false)<br/>
+ServerSideFieldValidation=true|false (ALPHA - default=false)<br/>
+ServiceIPStaticSubrange=true|false (ALPHA - default=false)<br/>
 ServiceInternalTrafficPolicy=true|false (BETA - default=true)<br/>
-ServiceLBNodePortControl=true|false (BETA - default=true)<br/>
-ServiceLoadBalancerClass=true|false (BETA - default=true)<br/>
 SizeMemoryBackedVolumes=true|false (BETA - default=true)<br/>
-StatefulSetMinReadySeconds=true|false (ALPHA - default=false)<br/>
+StatefulSetAutoDeletePVC=true|false (ALPHA - default=false)<br/>
+StatefulSetMinReadySeconds=true|false (BETA - default=true)<br/>
 StorageVersionAPI=true|false (ALPHA - default=false)<br/>
 StorageVersionHash=true|false (BETA - default=true)<br/>
-SuspendJob=true|false (BETA - default=true)<br/>
-TTLAfterFinished=true|false (BETA - default=true)<br/>
-TopologyAwareHints=true|false (ALPHA - default=false)<br/>
+TopologyAwareHints=true|false (BETA - default=true)<br/>
 TopologyManager=true|false (BETA - default=true)<br/>
 VolumeCapacityPriority=true|false (ALPHA - default=false)<br/>
 WinDSR=true|false (ALPHA - default=false)<br/>
 WinOverlay=true|false (BETA - default=true)<br/>
-WindowsHostProcessContainers=true|false (ALPHA - default=false)
+WindowsHostProcessContainers=true|false (BETA - default=true)
 -->
 一组 key=value 对，用来描述测试性/试验性功能的特性门控（Feature Gate）。可选项有：
 APIListChunking=true|false (BETA - 默认值=true)<br/>
@@ -963,96 +930,99 @@ APIServerIdentity=true|false (ALPHA - 默认值=false)<br/>
 APIServerTracing=true|false (ALPHA - 默认值=false)<br/>
 AllAlpha=true|false (ALPHA - 默认值=false)<br/>
 AllBeta=true|false (BETA - 默认值=false)<br/>
-AnyVolumeDataSource=true|false (ALPHA - 默认值=false)<br/>
+AnyVolumeDataSource=true|false (BETA - 默认值=true)<br/>
 AppArmor=true|false (BETA - 默认值=true)<br/>
 CPUManager=true|false (BETA - 默认值=true)<br/>
-CPUManagerPolicyOptions=true|false (ALPHA - 默认值=false)<br/>
+CPUManagerPolicyAlphaOptions=true|false (ALPHA - 默认值=false)<br/>
+CPUManagerPolicyBetaOptions=true|false (BETA - 默认值=true)<br/>
+CPUManagerPolicyOptions=true|false (BETA - 默认值=true)<br/>
 CSIInlineVolume=true|false (BETA - 默认值=true)<br/>
 CSIMigration=true|false (BETA - 默认值=true)<br/>
-CSIMigrationAWS=true|false (BETA - 默认值=false)<br/>
-CSIMigrationAzureDisk=true|false (BETA - 默认值=false)<br/>
-CSIMigrationAzureFile=true|false (BETA - 默认值=false)<br/>
-CSIMigrationGCE=true|false (BETA - 默认值=false)<br/>
-CSIMigrationOpenStack=true|false (BETA - 默认值=true)<br/>
+CSIMigrationAWS=true|false (BETA - 默认值=true)<br/>
+CSIMigrationAzureFile=true|false (BETA - 默认值=true)<br/>
+CSIMigrationGCE=true|false (BETA - 默认值=true)<br/>
+CSIMigrationPortworx=true|false (ALPHA - 默认值=false)<br/>
+CSIMigrationRBD=true|false (ALPHA - 默认值=false)<br/>
 CSIMigrationvSphere=true|false (BETA - 默认值=false)<br/>
-CSIStorageCapacity=true|false (BETA - 默认值=true)<br/>
-CSIVolumeFSGroupPolicy=true|false (BETA - 默认值=true)<br/>
 CSIVolumeHealth=true|false (ALPHA - 默认值=false)<br/>
-CSRDuration=true|false (BETA - 默认值=true)<br/>
-ConfigurableFSGroupPolicy=true|false (BETA - 默认值=true)<br/>
-ControllerManagerLeaderMigration=true|false (BETA - 默认值=true)<br/>
+ContextualLogging=true|false (ALPHA - 默认值=false)<br/>
+CronJobTimeZone=true|false (ALPHA - 默认值=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值=false)<br/>
+CustomResourceValidationExpressions=true|false (ALPHA - 默认值=false)<br/>
 DaemonSetUpdateSurge=true|false (BETA - 默认值=true)<br/>
-默认值PodTopologySpread=true|false (BETA - 默认值=true)<br/>
-DelegateFSGroupToCSIDriver=true|false (ALPHA - 默认值=false)<br/>
+DelegateFSGroupToCSIDriver=true|false (BETA - 默认值=true)<br/>
 DevicePlugins=true|false (BETA - 默认值=true)<br/>
 DisableAcceleratorUsageMetrics=true|false (BETA - 默认值=true)<br/>
 DisableCloudProviders=true|false (ALPHA - 默认值=false)<br/>
-DownwardAPIHugePages=true|false (BETA - 默认值=false)<br/>
-EfficientWatchResumption=true|false (BETA - 默认值=true)<br/>
+DisableKubeletCloudCredentialProviders=true|false (ALPHA - 默认值=false)<br/>
+DownwardAPIHugePages=true|false (BETA - 默认值=true)<br/>
 EndpointSliceTerminatingCondition=true|false (BETA - 默认值=true)<br/>
-EphemeralContainers=true|false (ALPHA - 默认值=false)<br/>
-ExpandCSIVolumes=true|false (BETA - 默认值=true)<br/>
-ExpandInUsePersistentVolumes=true|false (BETA - 默认值=true)<br/>
-ExpandPersistentVolumes=true|false (BETA - 默认值=true)<br/>
+EphemeralContainers=true|false (BETA - 默认值=true)<br/>
 ExpandedDNSConfig=true|false (ALPHA - 默认值=false)<br/>
-ExperimentalHostUserNamespace默认值ing=true|false (BETA - 默认值=false)<br/>
-GenericEphemeralVolume=true|false (BETA - 默认值=true)<br/>
+ExperimentalHostUserNamespaceDefaulting=true|false (BETA - 默认值=false)<br/>
+GRPCContainerProbe=true|false (BETA - 默认值=true)<br/>
 GracefulNodeShutdown=true|false (BETA - 默认值=true)<br/>
+GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 默认值=true)<br/>
 HPAContainerMetrics=true|false (ALPHA - 默认值=false)<br/>
 HPAScaleToZero=true|false (ALPHA - 默认值=false)<br/>
-IPv6DualStack=true|false (BETA - 默认值=true)<br/>
+HonorPVReclaimPolicy=true|false (ALPHA - 默认值=false)<br/>
+IdentifyPodOS=true|false (BETA - 默认值=true)<br/>
 InTreePluginAWSUnregister=true|false (ALPHA - 默认值=false)<br/>
 InTreePluginAzureDiskUnregister=true|false (ALPHA - 默认值=false)<br/>
 InTreePluginAzureFileUnregister=true|false (ALPHA - 默认值=false)<br/>
 InTreePluginGCEUnregister=true|false (ALPHA - 默认值=false)<br/>
 InTreePluginOpenStackUnregister=true|false (ALPHA - 默认值=false)<br/>
+InTreePluginPortworxUnregister=true|false (ALPHA - 默认值=false)<br/>
+InTreePluginRBDUnregister=true|false (ALPHA - 默认值=false)<br/>
 InTreePluginvSphereUnregister=true|false (ALPHA - 默认值=false)<br/>
-IndexedJob=true|false (BETA - 默认值=true)<br/>
-IngressClassNamespacedParams=true|false (BETA - 默认值=true)<br/>
-JobTrackingWithFinalizers=true|false (ALPHA - 默认值=false)<br/>
-KubeletCredentialProviders=true|false (ALPHA - 默认值=false)<br/>
+JobMutableNodeSchedulingDirectives=true|false (BETA - 默认值=true)<br/>
+JobReadyPods=true|false (BETA - 默认值=true)<br/>
+JobTrackingWithFinalizers=true|false (BETA - 默认值=false)<br/>
+KubeletCredentialProviders=true|false (BETA - 默认值=true)<br/>
 KubeletInUserNamespace=true|false (ALPHA - 默认值=false)<br/>
 KubeletPodResources=true|false (BETA - 默认值=true)<br/>
-KubeletPodResourcesGetAllocatable=true|false (ALPHA - 默认值=false)<br/>
+KubeletPodResourcesGetAllocatable=true|false (BETA - 默认值=true)<br/>
+LegacyServiceAccountTokenNoAutoGeneration=true|false (BETA - 默认值=true)<br/>
 LocalStorageCapacityIsolation=true|false (BETA - 默认值=true)<br/>
 LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - 默认值=false)<br/>
 LogarithmicScaleDown=true|false (BETA - 默认值=true)<br/>
+MaxUnavailableStatefulSet=true|false (ALPHA - 默认值=false)<br/>
 MemoryManager=true|false (BETA - 默认值=true)<br/>
 MemoryQoS=true|false (ALPHA - 默认值=false)<br/>
-MixedProtocolLBService=true|false (ALPHA - 默认值=false)<br/>
+MinDomainsInPodTopologySpread=true|false (ALPHA - 默认值=false)<br/>
+MixedProtocolLBService=true|false (BETA - 默认值=true)<br/>
 NetworkPolicyEndPort=true|false (BETA - 默认值=true)<br/>
+NetworkPolicyStatus=true|false (ALPHA - 默认值=false)<br/>
+NodeOutOfServiceVolumeDetach=true|false (ALPHA - 默认值=false)<br/>
 NodeSwap=true|false (ALPHA - 默认值=false)<br/>
-NonPreemptingPriority=true|false (BETA - 默认值=true)<br/>
-PodAffinityNamespaceSelector=true|false (BETA - 默认值=true)<br/>
+OpenAPIEnums=true|false (BETA - 默认值=true)<br/>
+OpenAPIV3=true|false (BETA - 默认值=true)<br/>
+PodAndContainerStatsFromCRI=true|false (ALPHA - 默认值=false)<br/>
 PodDeletionCost=true|false (BETA - 默认值=true)<br/>
-PodOverhead=true|false (BETA - 默认值=true)<br/>
-PodSecurity=true|false (ALPHA - 默认值=false)<br/>
-PreferNominatedNode=true|false (BETA - 默认值=true)<br/>
+PodSecurity=true|false (BETA - 默认值=true)<br/>
 ProbeTerminationGracePeriod=true|false (BETA - 默认值=false)<br/>
 ProcMountType=true|false (ALPHA - 默认值=false)<br/>
 ProxyTerminatingEndpoints=true|false (ALPHA - 默认值=false)<br/>
 QOSReserved=true|false (ALPHA - 默认值=false)<br/>
 ReadWriteOncePod=true|false (ALPHA - 默认值=false)<br/>
+RecoverVolumeExpansionFailure=true|false (ALPHA - 默认值=false)<br/>
 RemainingItemCount=true|false (BETA - 默认值=true)<br/>
-RemoveSelfLink=true|false (BETA - 默认值=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - 默认值=true)<br/>
-Seccomp默认值=true|false (ALPHA - 默认值=false)<br/>
+SeccompDefault=true|false (ALPHA - 默认值=false)<br/>
+ServerSideFieldValidation=true|false (ALPHA - 默认值=false)<br/>
+ServiceIPStaticSubrange=true|false (ALPHA - 默认值=false)<br/>
 ServiceInternalTrafficPolicy=true|false (BETA - 默认值=true)<br/>
-ServiceLBNodePortControl=true|false (BETA - 默认值=true)<br/>
-ServiceLoadBalancerClass=true|false (BETA - 默认值=true)<br/>
 SizeMemoryBackedVolumes=true|false (BETA - 默认值=true)<br/>
-StatefulSetMinReadySeconds=true|false (ALPHA - 默认值=false)<br/>
+StatefulSetAutoDeletePVC=true|false (ALPHA - 默认值=false)<br/>
+StatefulSetMinReadySeconds=true|false (BETA - 默认值=true)<br/>
 StorageVersionAPI=true|false (ALPHA - 默认值=false)<br/>
 StorageVersionHash=true|false (BETA - 默认值=true)<br/>
-SuspendJob=true|false (BETA - 默认值=true)<br/>
-TTLAfterFinished=true|false (BETA - 默认值=true)<br/>
-TopologyAwareHints=true|false (ALPHA - 默认值=false)<br/>
+TopologyAwareHints=true|false (BETA - 默认值=true)<br/>
 TopologyManager=true|false (BETA - 默认值=true)<br/>
 VolumeCapacityPriority=true|false (ALPHA - 默认值=false)<br/>
 WinDSR=true|false (ALPHA - 默认值=false)<br/>
 WinOverlay=true|false (BETA - 默认值=true)<br/>
-WindowsHostProcessContainers=true|false (ALPHA - 默认值=false)
+WindowsHostProcessContainers=true|false (BETA - 默认值=true)
 </p>
 </td>
 </tr>
@@ -1181,7 +1151,7 @@ Content type of requests sent to apiserver.
 </tr>
 
 <tr>
-<td colspan="2">--kube-api-qps float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：20</td>
+<td colspan="2">--kube-api-qps float&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：20</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1267,10 +1237,10 @@ The interval between attempts by the acting master to renew a leadership slot be
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The type of resource object that is used for locking during leader election. Supported options are 'endpoints', 'configmaps', 'leases', 'endpointsleases' and 'configmapsleases'.
+The type of resource object that is used for locking during leader election. Supported options are 'leases', 'endpointsleases' and 'configmapsleases'.
 -->
-在领导者选举期间用于锁定的资源对象的类型。 支持的选项为 "endpoints"、
-"configmaps"、"leases"、"endpointsleases" 和 "configmapsleases"。
+在领导者选举期间用于锁定的资源对象的类型。 支持的选项为
+"leases"、"endpointsleases" 和 "configmapsleases"。
 </td>
 </tr>
 
@@ -1326,56 +1296,6 @@ Path to the config file for controller leader migration, or empty to use the val
 </p></td>
 </tr>
 
-
-<tr>
-<td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：<code>:0</code></td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-when logging hits line file:N, emit a stack trace
--->
-当执行到 <code>file:N</code> 所给的文件和代码行时，日志机制会生成一个调用栈快照。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--log-dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-If non-empty, write log files in this directory.
--->
-此标志为非空字符串时，日志文件会写入到所给的目录中。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--log-file string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-If non-empty, use this log file
--->
-此标志为非空字符串时，意味着日志会写入到所给的文件中。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1800</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Defines the maximum size a log file can grow to. Unit is megabytes. If the value is 0, the maximum file size is unlimited.
--->
-定义日志文件大小的上限。单位是兆字节（MB）。
-若此值为 0，则不对日志文件尺寸进行约束。
-</td>
-</tr>
-
 <tr>
 <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：5s</td>
 </tr>
@@ -1394,28 +1314,16 @@ Maximum number of seconds between log flushes
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Sets the log format. Permitted formats: "text".<br/>Non-default formats don't honor these flags: --add_dir_header, --alsologtostderr, --log_backtrace_at, --log_dir, --log_file, --log_file_max_size, --logtostderr, --one_output, --skip_headers, --skip_log_headers, --stderrthreshold, --vmodule, --log-flush-frequency.<br/>Non-default choices are currently alpha and subject to change without warning.
+Sets the log format. Permitted formats: &quot;text&quot;.<br/>Non-default formats don't honor these flags: --add-dir-header, --alsologtostderr, --log-backtrace-at, --log-dir, --log-file, --log-file-max-size, --logtostderr, --one-output, --skip-headers, --skip-log-headers, --stderrthreshold, --vmodule.<br/>Non-default choices are currently alpha and subject to change without warning.
 -->
-设置日志格式。允许的格式："text"。
+设置日志格式。允许的格式：&quot;text&quot;。
 <br/>非默认格式不支持以下标志：<code>--add-dir-header</code>、
-<code>--alsologtostderr</code>》、<code>--log-backtrace-at</code>、
+<code>--alsologtostderr</code>、<code>--log-backtrace-at</code>、
 <code>--log-dir</code>、<code>--log-file</code>、<code>--log-file-max-size</code>、
 <code>--logtostderr</code>、<code>--one-output</code>、<code>--skip-headers</code>、
 <code>--skip-log-headers</code>、<code>--stderrthreshold</code>、
-<code>--vmodule</code>、<code>--log-flush-frequency</code>。
+<code>--vmodule</code>。
 <br/>当前非默认选项为 Alpha 阶段，如有更改，恕不另行通知。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-log to standard error instead of files
--->
-将日志写出到标准错误输出（stderr）而不是写入到日志文件。
 </td>
 </tr>
 
@@ -1492,10 +1400,10 @@ EndpointSlice 更改的处理将延迟此持续时间，
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The maximum number of endpoints that will be added to an EndpointSlice by the EndpointSliceMirroring controller. More endpoints per slice will result in less endpoint slices, but larger resources.
+The maximum number of endpoints that will be added to an EndpointSlice by the EndpointSliceMirroring controller. More endpoints per slice will result in less endpoint slices, but larger resources. Defaults to 100.
 -->
 EndpointSliceMirroring 控制器将添加到 EndpointSlice 的最大端点数。
-每个分片的端点越多，端点分片越少，但资源越大。
+每个分片的端点越多，端点分片越少，但资源越大。默认为 100。
 </td>
 </tr>
 
@@ -1548,7 +1456,7 @@ Mask size for IPv6 node cidr in dual-stack cluster. Default is 64.
 </tr>
 
 <tr>
-<td colspan="2">--node-eviction-rate float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：0.1</td>
+<td colspan="2">--node-eviction-rate float&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：0.1</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1602,28 +1510,16 @@ Amount of time which we allow starting Node to be unresponsive before marking it
 </tr>
 
 <tr>
-<td colspan="2">--one-output</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-If true, only write logs to their native severity level (vs also writing to each lower severity level
--->
-如果此标志为 true，则仅将日志写入其自身的严重性级别（而不是同时写入更低的严重性级别中）。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--permit-address-sharing</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-If true, SO_REUSEADDR will be used when binding the port. This allows binding to wildcard IPs like 0.0.0.0 and specific IPs in parallel, and it avoids waiting for the kernel to release sockets in TIME_WAIT state.
+If true, SO_REUSEADDR will be used when binding the port. This allows binding to wildcard IPs like 0.0.0.0 and specific IPs in parallel, and it avoids waiting for the kernel to release sockets in TIME_WAIT state. [default=false]
 -->
 如果此标志为 true，则在绑定端口时使用 <code>SO_REUSEADDR</code>。
 这就意味着可以同时绑定到 <code>0.0.0.0</code> 和特定的 IP 地址，
-并且避免等待内核释放处于 <code>TIME_WAITE</code> 状态的套接字。
+并且避免等待内核释放处于 <code>TIME_WAITE</code> 状态的套接字。[默认值=false]。
 </p></td>
 </tr>
 
@@ -1637,7 +1533,7 @@ If true, SO_REUSEADDR will be used when binding the port. This allows binding to
 If true, SO_REUSEPORT will be used when binding the port, which allows more than one instance to bind on the same address and port. [default=false]
 -->
 如果为 true，则在绑定端口时将使用 <code>SO_REUSEPORT</code>，
-这允许多个实例在同一地址和端口上进行绑定。
+这允许多个实例在同一地址和端口上进行绑定。[默认值=false]。
 </td>
 </tr>
 
@@ -1722,7 +1618,7 @@ The file path to a pod definition used as a template for HostPath persistent vol
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The file path to a pod definition used as a template for HostPath persistent volume recycling. This is for development and testing only and will not work in a multi-node cluster.
+The file path to a pod definition used as a template for NFS persistent volume recycling
 -->
 对 NFS 卷执行回收利用时，用作模版的 Pod 定义文件所在路径。
 </td>
@@ -1759,7 +1655,8 @@ The period for syncing persistent volumes and persistent volume claims
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-List of client certificate common names to allow to provide usernames in headers specified by --requestheader-username-headers. If empty, any client certificate validated by the authorities in --requestheader-client-ca-file is allowed.-->
+List of client certificate common names to allow to provide usernames in headers specified by --requestheader-username-headers. If empty, any client certificate validated by the authorities in --requestheader-client-ca-file is allowed.
+-->
 标志值是客户端证书中的 Common Names 列表。其中所列的名称可以通过
 <code>--requestheader-username-headers</code> 所设置的 HTTP 头部来提供用户名。
 如果此标志值为空表，则被 <code>--requestheader-client-ca-file</code>
@@ -1922,42 +1819,6 @@ The previous version for which you want to show hidden metrics. Only the previou
 </tr>
 
 <tr>
-<td colspan="2">--skip-headers</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-If true, avoid header prefixes in the log messages
--->
-若此标志为 true，则在日志消息中避免写入头部前缀信息。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--skip-log-headers</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-If true, avoid headers when opening log files
--->
-若此标志为 true，则在写入日志文件时避免写入头部信息。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：2</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-logs at or above this threshold go to stderr
--->
-等于或大于此阈值的日志信息会被写入到标准错误输出（stderr）。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--terminated-pod-gc-threshold int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：12500</td>
 </tr>
 <tr>
@@ -1992,11 +1853,11 @@ File containing the default x509 Certificate for HTTPS. (CA cert, if any, concat
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used.<br/>Preferred values: TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384.<br/>Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_RC4_128_SHA.
+Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used.<br/>Preferred values: TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384.<br/>Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_RC4_128_SHA.
 -->
 供服务器使用的加密包的逗号分隔列表。若忽略此标志，则使用 Go 语言默认的加密包。<br/>
-可选值包括：TLS_AES_128_GCM_SHA256、TLS_AES_256_GCM_SHA384、TLS_CHACHA20_POLY1305_SHA256、TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256、TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256、TLS_RSA_WITH_3DES_EDE_CBC_SHA、TLS_RSA_WITH_AES_128_CBC_SHA、TLS_RSA_WITH_AES_128_GCM_SHA256、TLS_RSA_WITH_AES_256_CBC_SHA、TLS_RSA_WITH_AES_256_GCM_SHA384. 
-<br/>不安全的值: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256、TLS_ECDHE_ECDSA_WITH_RC4_128_SHA、TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256、TLS_ECDHE_RSA_WITH_RC4_128_SHA、TLS_RSA_WITH_AES_128_CBC_SHA256、TLS_RSA_WITH_RC4_128_SHA
+可选值包括：TLS_AES_128_GCM_SHA256、TLS_AES_256_GCM_SHA384、TLS_CHACHA20_POLY1305_SHA256、TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256、TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256、TLS_RSA_WITH_AES_128_CBC_SHA、TLS_RSA_WITH_AES_128_GCM_SHA256、TLS_RSA_WITH_AES_256_CBC_SHA、TLS_RSA_WITH_AES_256_GCM_SHA384。
+<br/>不安全的值: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256、TLS_ECDHE_ECDSA_WITH_RC4_128_SHA、TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256、TLS_ECDHE_RSA_WITH_RC4_128_SHA、TLS_RSA_WITH_3DES_EDE_CBC_SHA、TLS_RSA_WITH_AES_128_CBC_SHA256、TLS_RSA_WITH_RC4_128_SHA。
 </td>
 </tr>
 
@@ -2026,12 +1887,12 @@ File containing the default x509 private key matching --tls-cert-file.
 </tr>
 
 <tr>
-<td colspan="2">--tls-sni-cert-key namedCertKey&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[]</td>
+<td colspan="2">--tls-sni-cert-key string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A pair of x509 certificate and private key file paths, optionally suffixed with a list of domain patterns which are fully qualified domain names, possibly with prefixed wildcard segments. The domain patterns also allow IP addresses, but IPs should only be used if the apiserver has visibility to the IP address requested by a client. If no domain patterns are provided, the names of the certificate are extracted. Non-wildcard matches trump over wildcard matches, explicit domain patterns trump over extracted names. For multiple key/certificate pairs, use the --tls-sni-cert-key multiple times. Examples: "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com".
+A pair of x509 certificate and private key file paths, optionally suffixed with a list of domain patterns which are fully qualified domain names, possibly with prefixed wildcard segments. The domain patterns also allow IP addresses, but IPs should only be used if the apiserver has visibility to the IP address requested by a client. If no domain patterns are provided, the names of the certificate are extracted. Non-wildcard matches trump over wildcard matches, explicit domain patterns trump over extracted names. For multiple key/certificate pairs, use the --tls-sni-cert-key multiple times. Examples: &quot;example.crt,example.key&quot; or &quot;foo.crt,foo.key:*.foo.com,foo.com&quot;.
 -->
 X509 证书和私钥文件路径的耦对。作为可选项，可以添加域名模式的列表，
 其中每个域名模式都是可以带通配片段前缀的全限定域名（FQDN）。
@@ -2092,14 +1953,14 @@ Print version information and quit
 </tr>
 
 <tr>
-<td colspan="2">--vmodule &lt;<!--comma-separated 'pattern=N' settings-->逗号分隔的 'pattern=N' 配置值&gt;</td>
+<td colspan="2">--vmodule pattern=N,...</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Comma-separated list of pattern=N settings for file-filtered logging
+comma-separated list of pattern=N settings for file-filtered logging (only works for text log format)
 -->
-由逗号分隔的列表，每一项都是 pattern=N 格式，用来执行根据文件过滤的日志行为。
+由逗号分隔的列表，每一项都是 pattern=N 格式，用来执行根据文件过滤的日志行为（仅适用于 text 日志格式）。
 </td>
 </tr>
 

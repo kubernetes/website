@@ -82,7 +82,7 @@ kubectl get deployment patch-demo --output yaml
 
 The output shows that the PodSpec in the Deployment has two Containers:
 
-```shell
+```yaml
 containers:
 - image: redis
   imagePullPolicy: Always
@@ -309,7 +309,7 @@ kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no
 
 In the output, you can see that it is not possible to set `type` as `Recreate` when a value is defined for `spec.strategy.rollingUpdate`:
 
-```shell
+```
 The Deployment "retainkeys-demo" is invalid: spec.strategy.rollingUpdate: Forbidden: may not be specified when strategy `type` is 'Recreate'
 ```
 
@@ -341,7 +341,7 @@ kubectl get deployment retainkeys-demo --output yaml
 
 The output shows that the strategy object in the Deployment does not contain the `rollingUpdate` key anymore:
 
-```shell
+```yaml
 spec:
   strategy:
     type: Recreate

@@ -84,7 +84,7 @@ the host's default interface will be used.
 The map from metric-label to value allow-list of this label. The key's format is &lt;MetricName&gt;,&lt;LabelName&gt;. The value's format is &lt;allowed_value&gt;,&lt;allowed_value&gt;...e.g. metric1,label1='v1,v2,v3', metric1,label2='v1,v2,v3' metric2,label1='v1,v2,v3'.
 -->
 允许使用的指标标签到指标值的映射列表。键的格式为 &lt;MetricName&gt;,&lt;LabelName&gt;.
-值的格式为 &lt;allowed_value&gt;,&lt;allowed_value&gt;...。 
+值的格式为 &lt;allowed_value&gt;,&lt;allowed_value&gt;...。
 例如：<code>metric1,label1='v1,v2,v3', metric1,label2='v1,v2,v3' metric2,label1='v1,v2,v3'</code>。
 </p></td>
 </tr>
@@ -97,7 +97,7 @@ The map from metric-label to value allow-list of this label. The key's format is
 <!--
 If true, allow privileged containers. [default=false]
 -->
-如果为 true, 将允许特权容器。[默认值=false]
+如果为 true，将允许特权容器。[默认值=false]
 </td>
 </tr>
 
@@ -131,8 +131,8 @@ of these audiences. If the --service-account-issuer flag is configured
 and this flag is not, this field defaults to a single element list 
 containing the issuer URL.
 -->
-API 的标识符。 
-服务帐户令牌验证者将验证针对 API 使用的令牌是否已绑定到这些受众中的至少一个。 
+API 的标识符。
+服务帐户令牌验证者将验证针对 API 使用的令牌是否已绑定到这些受众中的至少一个。
 如果配置了 <code>--service-account-issuer</code> 标志，但未配置此标志，
 则此字段默认为包含发布者 URL 的单个元素列表。
 </td>
@@ -799,7 +799,7 @@ CORS 允许的来源清单，以逗号分隔。
 <!--
 Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
 -->
-对污点 NotReady:NoExecute 的容忍时长（以秒计）。 
+对污点 NotReady:NoExecute 的容忍时长（以秒计）。
 默认情况下这一容忍度会被添加到尚未具有此容忍度的每个 pod 中。
 </td>
 </tr>
@@ -833,7 +833,7 @@ that do not have a default watch size set.
 </tr>
 
 <tr>
-<td colspan="2">--delete-collection-workers int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值： 1</td>
+<td colspan="2">--delete-collection-workers int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1363,10 +1363,10 @@ Max is .02 (1/50 requests); .001 (1/1000) is a recommended starting point.
 -->
 为防止 HTTP/2 客户端卡在单个 API 服务器上，可启用随机关闭连接（GOAWAY）。
 客户端的其他运行中请求将不会受到影响，并且客户端将重新连接，
-可能会在再次通过负载平衡器后登陆到其他 API 服务器上。 
-此参数设置将发送 GOAWAY 的请求的比例。 
-具有单个 API 服务器或不使用负载平衡器的群集不应启用此功能。 
-最小值为0（关闭），最大值为 .02（1/50 请求）； 建议使用 .001（1/1000）。
+可能会在再次通过负载平衡器后登陆到其他 API 服务器上。
+此参数设置将发送 GOAWAY 的请求的比例。
+具有单个 API 服务器或不使用负载平衡器的集群不应启用此功能。
+最小值为0（关闭），最大值为 .02（1/50 请求）；建议使用 .001（1/1000）。
 </td>
 </tr>
 
@@ -1847,7 +1847,7 @@ open before timing it out. This is the default request timeout for
 requests but may be overridden by flags such as --min-request-timeout 
 for specific types of requests.
 -->
-可选字段，指示处理程序在超时之前必须保持打开请求的持续时间。 
+可选字段，指示处理程序在超时之前必须保持打开请求的持续时间。
 这是请求的默认请求超时，但对于特定类型的请求，可能会被
 <code>--min-request-timeout</code>等标志覆盖。
 </td>
@@ -2004,9 +2004,9 @@ and all are used to determine which issuers are accepted.
 颁发者将在已办法令牌的 "iss" 声明中检查此标识符。
 此值为字符串或 URI。
 如果根据 OpenID Discovery 1.0 规范检查此选项不是有效的 URI，则即使特性门控设置为 true，
-ServiceAccountIssuerDiscovery 功能也将保持禁用状态。 
-强烈建议该值符合 OpenID 规范：https://openid.net/specs/openid-connect-discovery-1_0.html。 
-实践中，这意味着 service-account-issuer 取值必须是 HTTPS URL。 
+ServiceAccountIssuerDiscovery 功能也将保持禁用状态。
+强烈建议该值符合 OpenID 规范： https://openid.net/specs/openid-connect-discovery-1_0.html 。
+实践中，这意味着 service-account-issuer 取值必须是 HTTPS URL。
 还强烈建议此 URL 能够在 {service-account-issuer}/.well-known/openid-configuration
 处提供 OpenID 发现文档。
 当此值被多次指定时，第一次的值用于生成令牌，所有的值用于确定接受哪些发行人。
@@ -2209,7 +2209,7 @@ List of directives for HSTS, comma separated. If this list is empty, then HSTS d
 -->
 为 HSTS 所设置的指令列表，用逗号分隔。
 如果此列表为空，则不会添加 HSTS 指令。
-例如： 'max-age=31536000,includeSubDomains,preload'
+例如：'max-age=31536000,includeSubDomains,preload'
 </p></td>
 </tr>
 
@@ -2280,7 +2280,7 @@ File containing the default x509 private key matching --tls-cert-file.
 </tr>
 
 <tr>
-<td colspan="2">--tls-sni-cert-key string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值： []</td>
+<td colspan="2">--tls-sni-cert-key string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[]</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">

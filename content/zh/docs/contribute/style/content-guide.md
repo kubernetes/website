@@ -15,19 +15,19 @@ weight: 10
 <!--
 This page contains guidelines for Kubernetes documentation.
 
-If you have questions about what's allowed, join the #sig-docs channel in 
-[Kubernetes Slack](http://slack.k8s.io/) and ask! 
+If you have questions about what's allowed, join the #sig-docs channel in
+[Kubernetes Slack](https://slack.k8s.io/) and ask!
 
-You can register for Kubernetes Slack at http://slack.k8s.io/. 
+You can register for Kubernetes Slack at https://slack.k8s.io/.
 
 For information on creating new content for the Kubernetes
 docs, follow the [style guide](/docs/contribute/style/style-guide).
 -->
 本页包含 Kubernetes 文档的一些指南。
 
-如果你不清楚哪些事情是可以做的，请加入到 
-[Kubernetes Slack](http://slack.k8s.io/) 的 `#sig-docs` 频道提问！
-你可以在 http://slack.k8s.io 注册到 Kubernetes Slack。
+如果你不清楚哪些事情是可以做的，请加入到
+[Kubernetes Slack](https://slack.k8s.io/) 的 `#sig-docs` 频道提问！
+你可以在 https://slack.k8s.io 注册到 Kubernetes Slack。
 
 关于为 Kubernetes 文档创建新内容的更多信息，可参考
 [样式指南](/zh/docs/contribute/style/style-guide)。
@@ -42,7 +42,7 @@ Source for the Kubernetes website, including the docs, resides in the
 
 Located in the `kubernetes/website/content/<language_code>/docs` folder, the
 majority of Kubernetes documentation is specific to the [Kubernetes
-project](https://github.com/kubernetes/kubernetes). 
+project](https://github.com/kubernetes/kubernetes).
 
 ## What's allowed
 
@@ -72,12 +72,12 @@ Kubernetes 网站（包括其文档）源代码位于
 ### Third party content
 
 Kubernetes documentation includes applied examples of projects in the Kubernetes project&mdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
-[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations. 
+[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations.
 
-Links to active content in the Kubernetes project are always allowed. 
+Links to active content in the Kubernetes project are always allowed.
 
-Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker), 
-[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/), and [logging](https://kubernetes.io/docs/concepts/cluster-administration/logging/).
+Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker),
+[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/), and [logging](/docs/concepts/cluster-administration/logging/).
 
 Docs can link to third-party open source software (OSS) outside the Kubernetes project only if it's necessary for Kubernetes to function.
 -->
@@ -94,7 +94,7 @@ Kubernetes 需要某些第三方内容才能正常工作。例如
 容器运行时（containerd、CRI-O、Docker），
 [联网策略](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 （CNI 插件），[Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers/)
-以及[日志](https://kubernetes.io/zh/docs/concepts/cluster-administration/logging/)等。
+以及[日志](/zh/docs/concepts/cluster-administration/logging/)等。
 
 只有对应的第三方开源软件（OSS）是运行 Kubernetes 所必需的，才可以在文档中包含
 指向这些 Kubernetes 项目之外的软件的链接。
@@ -109,7 +109,8 @@ Dual-sourced content requires double the effort (or more!) to maintain
 and grows stale more quickly.
 
 {{< note >}}
-If you're a maintainer for a Kubernetes project and need help hosting your own docs, 
+
+If you're a maintainer for a Kubernetes project and need help hosting your own docs,
 ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/messages/C1J0BPD2M/).
 {{< /note >}}
 -->
@@ -128,15 +129,13 @@ ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/mes
 <!--
 ### More information
 
-If you have questions about allowed content, join the [Kubernetes Slack](http://slack.k8s.io/) #sig-docs channel and ask!
+If you have questions about allowed content, join the [Kubernetes Slack](https://slack.k8s.io/) #sig-docs channel and ask!
 -->
 ### 更多信息  {#more-information}
 
-如果你对允许出现的内容有疑问，请加入到 [Kubernetes Slack](http://slack.k8s.io/)
+如果你对允许出现的内容有疑问，请加入到 [Kubernetes Slack](https://slack.k8s.io/)
 的 `#sig-docs` 频道提问！
 
 ## {{% heading "whatsnext" %}}
 
 * 阅读[样式指南](/zh/docs/contribute/style/style-guide)。
-
-

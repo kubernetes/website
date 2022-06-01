@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate the self-signed CA to provision identities for front proxy 
+-->
+生成自签名 CA 来提供前端代理的身份
 
 <!--
 ### Synopsis
@@ -51,9 +66,9 @@ kubeadm init phase certs front-proxy-ca [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-存储证书的路径。
+<p>存储证书的路径。</p>
 </td>
 </tr>
 
@@ -63,9 +78,9 @@ The path where to save and store the certificates.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -75,9 +90,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for front-proxy-ca
+<p>help for front-proxy-ca</p>
 -->
-front-proxy-ca 操作的帮助命令
+<p>front-proxy-ca 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -92,9 +107,9 @@ front-proxy-ca 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面选择特定的 Kubernetes 版本。
+<p>为控制平面选择特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -120,9 +135,9 @@ Choose a specific Kubernetes version for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

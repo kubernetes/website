@@ -11,11 +11,11 @@ weight: 20
 
 <!-- overview -->
 <!--
-SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilites/#approvers) take week-long shifts [managing pull requests](https://github.com/kubernetes/website/wiki/PR-Wranglers) for the repository.
+SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers) take week-long shifts [managing pull requests](https://github.com/kubernetes/website/wiki/PR-Wranglers) for the repository.
 
 This section covers the duties of a PR wrangler. For more information on giving good reviews, see [Reviewing changes](/docs/contribute/review/).
 -->
-SIG Docs 的[批准人（Approvers）](/zh/docs/contribute/participate/roles-and-responsibilites/#approvers)们每周轮流负责
+SIG Docs 的[批准人（Approvers）](/zh/docs/contribute/participate/roles-and-responsibilities/#approvers)们每周轮流负责
 [管理仓库的 PR](https://github.com/kubernetes/website/wiki/PR-Wranglers)。
 
 本节介绍 PR 管理者的职责。关于如何提供较好的评审意见，
@@ -206,7 +206,7 @@ In late 2021, SIG Docs introduced the PR Wrangler Shadow Program. The program wa
 
 - Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs) for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to Brad Topol (`@bradtopol`) or one of the [SIG Docs co-chairs/leads](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
 
-- Once you've signed up to shadow a PR Wrangler, introduce yourself to the PR Wrangler on the [Kubernetes Slack](slack.k8s.io).
+- Once you've signed up to shadow a PR Wrangler, introduce yourself to the PR Wrangler on the [Kubernetes Slack](https://slack.k8s.io).
 -->
 ### 成为一名影子
 
@@ -221,4 +221,4 @@ In late 2021, SIG Docs introduced the PR Wrangler Shadow Program. The program wa
   [SIG Docs 联席主席/主管](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)。
 
 - 注册成为一名 PR 管理者的影子时，
-  请你在 [Kubernetes Slack](slack.k8s.io) 向这名 PR 管理者做一次自我介绍。
+  请你在 [Kubernetes Slack](https://slack.k8s.io) 向这名 PR 管理者做一次自我介绍。

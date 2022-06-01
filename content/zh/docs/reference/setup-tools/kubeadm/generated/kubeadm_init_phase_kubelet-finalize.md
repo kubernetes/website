@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Updates settings relevant to the kubelet after TLS bootstrap 
+-->
+TLS 引导后更新与 kubelet 相关的设置
 
 <!-- ### Synopsis -->
 ### 概要
@@ -37,8 +52,8 @@ kubeadm init phase kubelet-finalize [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">help for kubelet-finalize</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;">kubelet-finalize 操作的帮助命令</td>
+<!-- <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubelet-finalize</p></td> -->
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>kubelet-finalize 操作的帮助命令</p></td>
 </tr>
 
 </tbody>
@@ -60,8 +75,8 @@ kubeadm init phase kubelet-finalize [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
+<!-- <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td> -->
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[实验] 到'真实'主机根文件系统的路径。</p></td>
 </tr>
 
 </tbody>

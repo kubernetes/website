@@ -44,7 +44,7 @@ Install and configure `kubectl`. See [Install Tools](/docs/tasks/tools/#kubectl)
 
 Use `kubectl` to fetch and show node information:
 -->
-## 查明节点所使用的容器运行时
+## 查明节点所使用的容器运行时 {#find-out-the-container-runtime-used-on-a-node}
 
 使用 `kubectl` 来读取并显示节点信息：
 
@@ -55,16 +55,34 @@ kubectl get nodes -o wide
 <!--
 The output is similar to the following. The column `CONTAINER-RUNTIME` outputs
 the runtime and its version.
+
+For Docker Engine, the output is similar to this:
 -->
 输出如下面所示。`CONTAINER-RUNTIME` 列给出容器运行时及其版本。
 
+对于 Docker Engine，输出类似于：
 ```none
-# For dockershim
 NAME         STATUS   VERSION    CONTAINER-RUNTIME
 node-1       Ready    v1.16.15   docker://19.3.1
 node-2       Ready    v1.16.15   docker://19.3.1
 node-3       Ready    v1.16.15   docker://19.3.1
 ```
+<!--
+If your runtime shows as Docker Engine, you still might not be affected by the
+removal of dockershim in Kubernetes 1.24. [Check the runtime
+endpoint](#which-endpoint) to see if you use dockershim. If you don't use
+dockershim, you aren't affected. 
+
+For containerd, the output is similar to this:
+-->
+
+如果你的容器运行时显示为 Docker Engine，你仍然可能不会被 1.24 中 dockershim 的移除所影响。
+通过[检查运行时端点](#which-endpoint)，可以查看你是否在使用 dockershim。
+如果你没有使用 dockershim，你就不会被影响。
+看下是否是使用的 dockershim，如何是 dockershim 则会受到在 Kubernetes 1.24 中移除 dockershim 的影响。
+反之则不会受到影响。
+
+对于 containerd，输出类似于这样：
 
 ```none
 # For containerd
@@ -76,8 +94,93 @@ node-3       Ready    v1.19.6   containerd://1.4.1
 
 <!--
 Find out more information about container runtimes
-on [Container Runtimes](/docs/setup/production-environment/container-runtimes/) page.
+on [Container Runtimes](/docs/setup/production-environment/container-runtimes/)
+page.
 -->
 你可以在[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
 页面找到与容器运行时相关的更多信息。
 
+<!--
+## Find out what container runtime endpoint you use {#which-endpoint}
+-->
+## 检查当前使用的运行时端点  {#which-endpoint}
+
+<!--
+The container runtime talks to the kubelet over a Unix socket using the [CRI
+protocol](/docs/concepts/architecture/cri/), which is based on the gRPC
+framework. The kubelet acts as a client, and the runtime acts as the server.
+In some cases, you might find it useful to know which socket your nodes use. For
+example, with the removal of dockershim in Kubernetes 1.24 and later, you might
+want to know whether you use Docker Engine with dockershim.
+-->
+
+容器运行时使用 Unix Socket 与 kubelet 通信，这一通信使用基于 gRPC 框架的
+[CRI 协议](/zh/docs/concepts/architecture/cri/)。kubelet 扮演客户端，运行时扮演服务器端。
+在某些情况下，你可能想知道你的节点使用的是哪个 socket。
+如若集群是 Kubernetes 1.24 及以后的版本，
+或许你想知道当前运行时是否是使用 dockershim 的 Docker Engine。
+
+<!--
+{{<note>}}
+If you currently use Docker Engine in your nodes with `cri-dockerd`, you aren't
+affected by the dockershim removal.
+{{</note>}}
+-->
+
+{{<note>}}
+如果你的节点在通过 `cri-dockerd` 使用 Docker Engine，
+那么集群不会受到 Kubernetes 移除 dockershim 的影响。
+{{</note>}}
+
+<!--
+You can check which socket you use by checking the kubelet configuration on your
+nodes.
+-->
+可以通过检查 kubelet 的参数得知当前使用的是哪个 socket。
+
+<!--
+1.  Read the starting commands for the kubelet process:
+
+    ```
+    tr \\0 ' ' < /proc/"$(pgrep kubelet)"/cmdline
+    ```
+    If you don't have `tr` or `pgrep`, check the command line for the kubelet
+    process manually.
+-->
+1. 查看 kubelet 进程的启动命令
+
+   ```
+    tr \\0 ' ' < /proc/"$(pgrep kubelet)"/cmdline
+   ```
+   如有节点上没有 `tr` 或者 `pgrep`，就需要手动检查 kubelet 的启动命令
+
+<!--
+1.  In the output, look for the `--container-runtime` flag and the
+    `--container-runtime-endpoint` flag.
+
+    *   If your nodes use Kubernetes v1.23 and earlier and these flags aren't
+        present or if the `--container-runtime` flag is not `remote`,
+        you use the dockershim socket with Docker Engine.
+    *   If the `--container-runtime-endpoint` flag is present, check the socket
+        name to find out which runtime you use. For example,
+        `unix:///run/containerd/containerd.sock` is the containerd endpoint.
+-->
+2. 在命令的输出中，查找 `--container-runtime` 和 `--container-runtime-endpoint` 标志。
+
+   * 如果 Kubernetes 集群版本是 v1.23 或者更早的版本，并且这两个参数不存在，
+      或者 `container-runtime` 标志值不是 `remote`，则你在通过 dockershim 套接字使用
+      Docker Engine。
+     或者如果集群使用的 Docker engine 和 dockershim socket，则输出结果中 `--container-runtime` 不是 `remote`,
+   * 如果设置了 `--container-runtime-endpoint` 参数，查看套接字名称即可得知当前使用的运行时。
+     如若套接字 `unix:///run/containerd/containerd.sock` 是 containerd 的端点。
+
+<!--
+If you use Docker Engine with the dockershim, [migrate to a different runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/),
+or, if you want to continue using Docker Engine in v1.24 and later, migrate to a
+CRI-compatible adapter like [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).
+-->
+如果你通过 dockershim 来使用 Docker Engine，可在
+[迁移到不同的运行时](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)
+找到更多信息。或者，如果你想在 Kubernetes v1.24 及以后的版本仍使用 Docker Engine，
+可以安装 CRI 兼容的适配器实现，如 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
+[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。

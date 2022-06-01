@@ -81,11 +81,11 @@ for detailed steps to install containerd.
 1. Install the `containerd.io` package from the official Docker repositories. 
    Instructions for setting up the Docker repository for your respective Linux distribution and
    installing the `containerd.io` package can be found at 
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
+   [Getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).
 -->
 1. 从官方的 Docker 仓库安装 `containerd.io` 包。关于为你所使用的 Linux 发行版来设置
    Docker 仓库，以及安装 `containerd.io` 包的详细说明，可参见
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server)。
+   [开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)。
 
 <!--
 1. Configure containerd:

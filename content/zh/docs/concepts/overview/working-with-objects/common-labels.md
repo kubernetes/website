@@ -15,7 +15,8 @@ You can visualize and manage Kubernetes objects with more tools than kubectl and
 the dashboard. A common set of labels allows tools to work interoperably, describing
 objects in a common manner that all tools can understand.
 -->
-除了 kubectl 和 dashboard 之外，您可以使用其他工具来可视化和管理 Kubernetes 对象。一组通用的标签可以让多个工具之间相互操作，用所有工具都能理解的通用方式描述对象。
+除了 kubectl 和 dashboard 之外，你可以使用其他工具来可视化和管理 Kubernetes 对象。
+一组通用的标签可以让多个工具之间相互操作，用所有工具都能理解的通用方式描述对象。
 
 <!--
 In addition to supporting tooling, the recommended labels describe applications
@@ -259,4 +260,4 @@ metadata:
 <!--
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and Wordpress, the broader application, are included.
 -->
-使用 MySQL `StatefulSet` 和 `Service`，您会注意到有关 MySQL 和 Wordpress 的信息，包括更广泛的应用程序。
+使用 MySQL `StatefulSet` 和 `Service`，你会注意到有关 MySQL 和 Wordpress 的信息，包括更广泛的应用程序。

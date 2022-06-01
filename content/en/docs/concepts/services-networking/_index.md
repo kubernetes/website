@@ -7,26 +7,25 @@ description: >
 
 ## The Kubernetes network model
 
-Every [`Pod`](/docs/concepts/workloads/pods/) gets its own IP address. 
+Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address. 
 This means you do not need to explicitly create links between `Pods` and you 
 almost never need to deal with mapping container ports to host ports.  
 This creates a clean, backwards-compatible model where `Pods` can be treated 
 much like VMs or physical hosts from the perspectives of port allocation, 
-naming, service discovery, [load balancing](/docs/concepts/services-networking/ingress/#load-balancing), application configuration, 
-and migration.
+naming, service discovery, [load balancing](/docs/concepts/services-networking/ingress/#load-balancing), 
+application configuration, and migration.
 
 Kubernetes imposes the following fundamental requirements on any networking
 implementation (barring any intentional network segmentation policies):
 
-   * pods on a [node](/docs/concepts/architecture/nodes/) can communicate with all pods on all nodes without NAT
+   * pods can communicate with all other pods on any other [node](/docs/concepts/architecture/nodes/) 
+     without NAT
    * agents on a node (e.g. system daemons, kubelet) can communicate with all
      pods on that node
 
 Note: For those platforms that support `Pods` running in the host network (e.g.
-Linux):
-
-   * pods in the host network of a node can communicate with all pods on all
-     nodes without NAT
+Linux), when pods are attached to the host network of a node they can still communicate 
+with all pods on all nodes without NAT.
 
 This model is not only less complex overall, but it is principally compatible
 with the desire for Kubernetes to enable low-friction porting of apps from VMs
