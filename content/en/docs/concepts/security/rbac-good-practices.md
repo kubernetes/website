@@ -37,13 +37,14 @@ some general rules that can be applied are :
    can avoid accidental modification of cluster resources.
  - Avoid adding users to the `system:masters` group. Any user who is a member of this group 
    bypasses all RBAC rights checks and will always have unrestricted superuser access, which cannot be 
-   revoked by removing Role Bindings or Cluster Role Bindings. As an aside, if a cluster is 
+   revoked by removing RoleBindings or ClusterRoleBindings. As an aside, if a cluster is 
    using an authorization webhook, membership of this group also bypasses that webhook (requests 
    from users who are members of that group are never sent to the webhook)
 
 ### Minimize distribution of privileged tokens
 
-Ideally, pods shouldn't be assigned service accounts granted powerful permissions (listed [here](#Kubernetes-RBAC---Privilege-Escalation-Risks)). 
+Ideally, pods shouldn't be assigned service accounts that have been granted powerful permissions (for example, any of the rights listed under
+[privilege escalation risks](#privilege-escalation-risks)). 
 In cases where a workload requires powerful permissions, consider the following practices:
 
  - Limit the number of nodes running powerful pods. Ensure that any DaemonSets you run
@@ -82,7 +83,7 @@ Within Kubernetes RBAC there are a number of privileges which, if granted, can a
 to escalate their privileges in the cluster or affect systems outside the cluster.
 
 This section is intended to provide visibility of the areas where cluster operators 
-should take care, to ensure that they do not inadvertantly allow for more access to clusters than intended.
+should take care, to ensure that they do not inadvertently allow for more access to clusters than intended.
 
 ### Listing secrets
 
@@ -173,3 +174,6 @@ are allowed limited access to a system.
 
 One option for mitigation of this issue would be to use [resource quotas](/docs/concepts/policy/resource-quotas/#object-count-quota)
 to limit the quantity of objects which can be created.
+
+## {{% heading "whatsnext" %}}
+* To learn more about RBAC, see the [RBAC documentation](/docs/reference/access-authn-authz/rbac/).

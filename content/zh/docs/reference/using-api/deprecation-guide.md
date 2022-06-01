@@ -373,14 +373,14 @@ The **authentication.k8s.io/v1beta1** API version of TokenReview is no longer se
 #### SubjectAccessReview resources {#subjectaccessreview-resources-v122}
 
 <!--
-The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, and SubjectAccessReview is no longer served as of v1.22.
+The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, SubjectAccessReview, and SelfSubjectRulesReview is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **authorization.k8s.io/v1** API version, available since v1.6.
 * Notable changes:
     * `spec.group` was renamed to `spec.groups` in v1 (fixes [#32709](https://github.com/kubernetes/kubernetes/issues/32709))
 -->
 **authorization.k8s.io/v1beta1** API 版本的 LocalSubjectAccessReview、
-SelfSubjectAccessReview、SubjectAccessReview 不在 v1.22 版本中继续提供。
+SelfSubjectAccessReview、SubjectAccessReview、SelfSubjectRulesReview 不在 v1.22 版本中继续提供。
 
 * 迁移清单和 API 客户端使用 **authorization.k8s.io/v1** API 版本，此 API 从
   v1.6 版本开始可用；
@@ -762,4 +762,3 @@ resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
 -->
 注意这种操作生成的结果中可能使用的默认值并不理想。
 要进一步了解某个特定资源，可查阅 Kubernetes [API 参考](/zh/docs/reference/kubernetes-api/)。
-

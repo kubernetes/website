@@ -1,17 +1,22 @@
 ---
-reviewers:
-- eparis
-- pmorie
 title: 使用 ConfigMap 来配置 Redis
 content_type: tutorial
 ---
+<!--
+reviewers:
+- eparis
+- pmorie
+title: Configuring Redis using a ConfigMap
+content_type: tutorial
+-->
 
 <!-- overview -->
 
 <!--
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.
+This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.
 -->
-这篇文档基于[使用 ConfigMap 来配置 Containers](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 这个任务，提供了一个使用 ConfigMap 来配置 Redis 的真实案例。
+这篇文档基于[配置 Pod 以使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
+这个任务，提供了一个使用 ConfigMap 来配置 Redis 的真实案例。
 
 
 
@@ -26,7 +31,7 @@ This page provides a real world example of how to configure Redis using a Config
 
 * 使用 Redis 配置的值创建一个 ConfigMap
 * 创建一个 Redis Pod，挂载并使用创建的 ConfigMap
-* 验证配置已经被正确应用。
+* 验证配置已经被正确应用
 
 
 
@@ -35,13 +40,14 @@ This page provides a real world example of how to configure Redis using a Config
 ## {{% heading "prerequisites" %}}
 
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
 <!--
 * The example shown on this page works with `kubectl` 1.14 and above.
-* Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Understand [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
-* 此页面上显示的示例适用于 `kubectl` 1.14和在其以上的版本。
-* 理解[使用ConfigMap来配置Containers](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 此页面上显示的示例适用于 `kubectl` 1.14 及以上的版本。
+* 理解[配置 Pod 以使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 
 
@@ -55,7 +61,7 @@ Follow the steps below to configure a Redis cache using data stored in a ConfigM
 
 First create a ConfigMap with an empty configuration block:
 -->
-## 真实世界的案例：使用 ConfigMap 来配置 Redis
+## 真实世界的案例：使用 ConfigMap 来配置 Redis    {#real-world-example-configuring-redis-using-a-configmap}
 
 按照下面的步骤，使用 ConfigMap 中的数据来配置 Redis 缓存。
 
@@ -79,7 +85,7 @@ Apply the ConfigMap created above, along with a Redis pod manifest:
 
 ```shell
 kubectl apply -f example-redis-config.yaml
-kubectl apply -f https://k8s.io/examples/pods/config/redis-pod.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/config/redis-pod.yaml
 ```
 
 <!--
@@ -100,12 +106,13 @@ ConfigMap above as `/redis-master/redis.conf` inside the Pod.
   ConfigMap 中的 `redis-config` 密钥公开在 `config` 卷上一个名为 `redis-config` 的文件中。
 * 然后 `config` 卷被 `spec.containers[0].volumeMounts[1]` 挂载在 `/redis-master`。
 
-这样做的最终效果是将上面 `example-redis-config` 配置中 `data.redis-config` 的数据作为 Pod 中的 `/redis-master/redis.conf` 公开。
+这样做的最终效果是将上面 `example-redis-config` 配置中 `data.redis-config`
+的数据作为 Pod 中的 `/redis-master/redis.conf` 公开。
 
 {{< codenew file="pods/config/redis-pod.yaml" >}}
 
-<!-- 
-Examine the created objects: 
+<!--
+Examine the created objects:
 -->
 检查创建的对象：
 
@@ -118,7 +125,7 @@ You should see the following output:
 -->
 你应该可以看到以下输出：
 
-```shell
+```
 NAME        READY   STATUS    RESTARTS   AGE
 pod/redis   1/1     Running   0          8s
 
@@ -127,7 +134,7 @@ configmap/example-redis-config   1      14s
 ```
 
 <!--
-Recall that we left `redis-config` key in the `example-redis-config` ConfigMap blank: 
+Recall that we left `redis-config` key in the `example-redis-config` ConfigMap blank:
 -->
 回顾一下，我们在 `example-redis-config` ConfigMap 保留了空的 `redis-config` 键：
 
@@ -298,7 +305,7 @@ values from associated ConfigMaps. Let's delete and recreate the Pod:
 
 ```shell
 kubectl delete pod redis
-kubectl apply -f https://k8s.io/examples/pods/config/redis-pod.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/config/redis-pod.yaml
 ```
 
 <!--
@@ -363,7 +370,7 @@ kubectl delete pod/redis configmap/example-redis-config
 <!--
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
-* 了解有关 [ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)的更多信息。
+* 了解有关 [ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 的更多信息。
 
 
 

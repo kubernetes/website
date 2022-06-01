@@ -1,10 +1,7 @@
 ---
 title: 使用 SC 安装服务目录
-reviewers:
-- chenopis
 content_type: task
 ---
-
 <!--
 title: Install Service Catalog using SC
 reviewers:
@@ -61,7 +58,7 @@ The installer runs on your local computer as a CLI tool named `sc`.
 
 Install using `go get`:
 -->
-## 在本地环境中安装 `sc`
+## 在本地环境中安装 `sc`    {#install-sc-in-your-local-environment}
 
 安装程序在你的本地计算机上以 CLI 工具的形式运行，名为 `sc`。
 
@@ -81,7 +78,7 @@ go get github.com/GoogleCloudPlatform/k8s-service-catalog/installer/cmd/sc
 
 First, verify that all dependencies have been installed. Run:
 -->
-## 在 Kubernetes 集群中安装服务目录
+## 在 Kubernetes 集群中安装服务目录    {#install-service-catalog-in-your-kubernetes-cluster}
 
 首先，检查是否已经安装了所有依赖项。运行：
 
@@ -112,7 +109,7 @@ sc install --etcd-backup-storageclass "standard"
 
 If you would like to uninstall Service Catalog from your Kubernetes cluster using the `sc` tool, run:
 -->
-## 卸载服务目录
+## 卸载服务目录    {#uninstall-service-catalog}
 
 如果你想使用 `sc` 工具从 Kubernetes 集群卸载服务目录，请运行：
 

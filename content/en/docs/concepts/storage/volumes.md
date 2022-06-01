@@ -64,7 +64,9 @@ a different volume.
 
 Kubernetes supports several types of volumes.
 
-### awsElasticBlockStore {#awselasticblockstore}
+### awsElasticBlockStore (deprecated) {#awselasticblockstore}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
 An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS)
 [EBS volume](https://aws.amazon.com/ebs/) into your pod. Unlike
@@ -135,7 +137,9 @@ beta features must be enabled.
 To disable the `awsElasticBlockStore` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
 
-### azureDisk {#azuredisk}
+### azureDisk (deprecated) {#azuredisk}
+
+{{< feature-state for_k8s_version="v1.19" state="deprecated" >}}
 
 The `azureDisk` volume type mounts a Microsoft Azure [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) into a pod.
 
@@ -158,7 +162,9 @@ must be installed on the cluster and the `CSIMigration` feature must be enabled.
 To disable the `azureDisk` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
 
-### azureFile {#azurefile}
+### azureFile (deprecated) {#azurefile}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
 into a pod.
@@ -201,7 +207,9 @@ You must have your own Ceph server running with the share exported before you ca
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 
-### cinder
+### cinder (deprecated) {#cinder}
+
+{{< feature-state for_k8s_version="v1.18" state="deprecated" >}}
 
 {{< note >}}
 Kubernetes must be configured with the OpenStack cloud provider.
@@ -390,7 +398,9 @@ You must have your own Flocker installation running before you can use it.
 
 See the [Flocker example](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) for more details.
 
-### gcePersistentDisk
+### gcePersistentDisk (deprecated) {#gcepersistentdisk}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
 A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE)
 [persistent disk](https://cloud.google.com/compute/docs/disks) (PD) into your Pod.
@@ -1240,6 +1250,20 @@ for more information.
 For more information on how to develop a CSI driver, refer to the
 [kubernetes-csi documentation](https://kubernetes-csi.github.io/docs/)
 
+#### Windows CSI proxy
+
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+
+CSI node plugins need to perform various privileged
+operations like scanning of disk devices and mounting of file systems. These operations
+differ for each host operating system. For Linux worker nodes, containerized CSI node
+node plugins are typically deployed as privileged containers. For Windows worker nodes,
+privileged operations for containerized CSI node plugins is supported using
+[csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
+stand-alone binary that needs to be pre-installed on each Windows node.
+
+For more details, refer to the deployment guide of the CSI plugin you wish to deploy.
+
 #### Migrating to CSI drivers from in-tree plugins
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
@@ -1256,6 +1280,14 @@ provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
 are listed in [Types of Volumes](#volume-types).
 
+The following in-tree plugins support persistent storage on Windows nodes:
+
+* [`awsElasticBlockStore`](#awselasticblockstore)
+* [`azureDisk`](#azuredisk)
+* [`azureFile`](#azurefile)
+* [`gcePersistentDisk`](#gcepersistentdisk)
+* [`vsphereVolume`](#vspherevolume)
+
 ### flexVolume
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
@@ -1266,6 +1298,12 @@ volume plugin path on each node and in some cases the control plane nodes as wel
 
 Pods interact with FlexVolume drivers through the `flexVolume` in-tree volume plugin.
 For more details, see the FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) document.
+
+The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
+deployed as PowerShell scripts on the host, support Windows nodes:
+
+* [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
+* [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
 
 {{< note >}}
 FlexVolume is deprecated. Using an out-of-tree CSI driver is the recommended way to integrate external storage with Kubernetes.

@@ -1,15 +1,14 @@
 ---
-reviewers:
-- cdrage
 title: 将 Docker Compose 文件转换为 Kubernetes 资源
 content_type: task
 weight: 200
 ---
-
 <!--
+reviewers:
+- cdrage
 title: Translate a Docker Compose File to Kubernetes Resources
 content_type: task
-weight: 170
+weight: 200
 -->
 
 <!-- overview -->
@@ -36,7 +35,7 @@ More information can be found on the Kompose website at [http://kompose.io](http
 
 We have multiple ways to install Kompose. Our preferred method is downloading the binary from the latest GitHub release.
 -->
-## 安装 Kompose
+## 安装 Kompose    {#install-kompose}
 
 我们有很多种方式安装 Kompose。首选方式是从最新的 GitHub 发布页面下载二进制文件。
 
@@ -132,7 +131,7 @@ brew install kompose
 <!--
 ## Use Kompose
 -->
-## 使用 Kompose
+## 使用 Kompose    {#use-kompose}
 
 <!--
 In a few steps, we'll take you from Docker Compose to Kubernetes. All
@@ -141,9 +140,10 @@ you need is an existing `docker-compose.yml` file.
 再需几步，我们就把你从 Docker Compose 带到 Kubernetes。
 你只需要一个现有的 `docker-compose.yml` 文件。
 
-1. <!--Go to the directory containing your `docker-compose.yml` file. If you don't
-   have one, test using this one.-->
-   进入 `docker-compose.yml` 文件所在的目录。如果没有，请使用下面这个进行测试。
+<!--
+1. Go to the directory containing your `docker-compose.yml` file. If you don't have one, test using this one.
+-->
+1. 进入 `docker-compose.yml` 文件所在的目录。如果没有，请使用下面这个进行测试。
 
    ```yaml
    version: "2"
@@ -174,10 +174,10 @@ you need is an existing `docker-compose.yml` file.
 
 <!--
 2. To convert the `docker-compose.yml` file to files that you can use with
-   `kubectl`, run `kompose convert` and then `kubectl create -f <output file>`.
+   `kubectl`, run `kompose convert` and then `kubectl apply -f <output file>`.
 -->
 2. 要将 `docker-compose.yml` 转换为 `kubectl` 可用的文件，请运行 `kompose convert`
-   命令进行转换，然后运行 `kubectl create -f <output file>` 进行创建。
+   命令进行转换，然后运行 `kubectl apply -f <output file>` 进行创建。
 
    ```shell
    kompose convert                           
@@ -318,7 +318,7 @@ Kompose 支持将 V1、V2 和 V3 版本的 Docker Compose 文件转换为 Kubern
 <!--
 ### Kubernetes `kompose convert` example
 -->
-### Kubernetes `kompose convert` 示例
+### Kubernetes `kompose convert` 示例    {#kubernetes-kompose-convert-example}
 
 ```shell
 kompose --file docker-voting.yml convert
@@ -390,7 +390,7 @@ When multiple docker-compose files are provided the configuration is merged. Any
 <!--
 ### OpenShift `kompose convert` example
 -->
-### OpenShift `kompose convert` 示例
+### OpenShift `kompose convert` 示例    {#openshift-kompose-convert-example}
 
 ```shell
 kompose --provider openshift --file docker-voting.yml convert
@@ -438,7 +438,7 @@ If you are manually pushing the Openshift artifacts using ``oc create -f``, you 
 -->
 {{< note >}}
 如果使用 ``oc create -f`` 手动推送 Openshift 工件，则需要确保在构建配置工件之前推送
-imagestream 工件，以解决 Openshift 的这个问题：https://github.com/openshift/origin/issues/4518 。
+imagestream 工件，以解决 Openshift 的这个问题： https://github.com/openshift/origin/issues/4518 。
 {{< /note >}}
 
 <!--
@@ -584,7 +584,7 @@ For example:
 
   - 如果使用 Kubernetes 驱动，会有一个 Ingress 资源被创建，并且假定
     已经配置了相应的 Ingress 控制器。
-  - 如果使用 OpenShift 驱动, 则会有一个 route 被创建。
+  - 如果使用 OpenShift 驱动，则会有一个 route 被创建。
 
   例如：
 
@@ -680,10 +680,10 @@ services:
 
 If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time.
 -->
-### 关于 Deployment Config 的提醒
+### 关于 Deployment Config 的提醒    {#warning-about-deployment-configurations}
 
-如果 Docker Compose 文件中为服务声明了卷，Deployment (Kubernetes) 或
-DeploymentConfig (OpenShift) 策略会从 "RollingUpdate" (默认) 变为 "Recreate"。
+如果 Docker Compose 文件中为服务声明了卷，Deployment（Kubernetes）或
+DeploymentConfig（OpenShift）策略会从 “RollingUpdate”（默认）变为 “Recreate”。
 这样做的目的是为了避免服务的多个实例同时访问卷。
 
 <!--
@@ -692,7 +692,7 @@ Please note that changing service name might break some `docker-compose` files.
 -->
 如果 Docker Compose 文件中的服务名包含 `_`（例如 `web_service`），
 那么将会被替换为 `-`，服务也相应的会重命名（例如 `web-service`）。
-Kompose 这样做的原因是 "Kubernetes" 不允许对象名称中包含 `_`。 
+Kompose 这样做的原因是 “Kubernetes” 不允许对象名称中包含 `_`。
 
 请注意，更改服务名称可能会破坏一些 `docker-compose` 文件。
 
@@ -711,4 +711,3 @@ Kompose 支持的 Docker Compose 版本包括：1、2 和 3。
 所有三个版本的兼容性列表请查看我们的
 [转换文档](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md)，
 文档中列出了所有不兼容的 Docker Compose 关键字。
-

@@ -41,4 +41,4 @@ environment variables, command-line arguments, or as configuration files in a
 A ConfigMap allows you to decouple environment-specific configuration from your {{< glossary_tooltip text="container images" term_id="image" >}}, so that your applications are easily portable.
 -->
 
-ConfigMap 将您的环境配置信息和 {{< glossary_tooltip text="容器镜像" term_id="image" >}} 解耦，便于应用配置的修改。
+ConfigMap 将你的环境配置信息和 {{< glossary_tooltip text="容器镜像" term_id="image" >}} 解耦，便于应用配置的修改。

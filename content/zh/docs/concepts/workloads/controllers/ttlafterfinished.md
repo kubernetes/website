@@ -94,7 +94,7 @@ returns a successful API response.
 
 请注意，在创建 Job 或已经执行结束后，仍可以修改其 TTL 周期，例如 Job 的
 `.spec.ttlSecondsAfterFinished` 字段。
-但是一旦 Job 变为可被删除状态（当其 TTL 已过期时），即使您通过 API 增加其 TTL
+但是一旦 Job 变为可被删除状态（当其 TTL 已过期时），即使你通过 API 增加其 TTL
 时长得到了成功的响应，系统也不保证 Job 将被保留。
 
 <!--

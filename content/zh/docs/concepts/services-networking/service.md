@@ -39,7 +39,7 @@ Kubernetes 为 Pods 提供自己的 IP 地址，并为一组 Pod 提供相同的
 ## Motivation
 
 Kubernetes {{< glossary_tooltip term_id="pod" text="Pods" >}} are created and destroyed
-to match the state of your cluster. Pods are nonpermanent resources.
+to match the desired state of your cluster. Pods are nonpermanent resources.
 If you use a {{< glossary_tooltip term_id="deployment" >}} to run your app,
 it can create and destroy Pods dynamically.
 
@@ -57,7 +57,7 @@ Enter _Services_.
 
 ## 动机
 
-创建和销毁 Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}} 以匹配集群状态。
+创建和销毁 Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}} 以匹配集群的期望状态。
 Pod 是非永久性资源。
 如果你使用 {{< glossary_tooltip term_id="deployment">}}
 来运行你的应用程序，则它可以动态创建和销毁 Pod。
@@ -189,13 +189,55 @@ field.
 
 <!--
 Port definitions in Pods have names, and you can reference these names in the
-`targetPort` attribute of a Service. This works even if there is a mixture
-of Pods in the Service using a single configured name, with the same network
-protocol available via different port numbers.
-This offers a lot of flexibility for deploying and evolving your Services.
-For example, you can change the port numbers that Pods expose in the next
-version of your backend software, without breaking clients.
+`targetPort` attribute of a Service. For example, we can bind the `targetPort`
+of the Service to the Pod port in the following way:
+-->
+Pod 中的端口定义是有名字的，你可以在 Service 的 `targetPort` 属性中引用这些名称。
+例如，我们可以通过以下方式将 Service 的 `targetPort` 绑定到 Pod 端口：
 
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app.kubernetes.io/name: proxy
+spec:
+  containers:
+  - name: nginx
+    image: nginx:11.14.2
+    ports:
+      - containerPort: 80
+        name: http-web-svc
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: proxy
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+```
+
+<!--
+This works even if there is a mixture of Pods in the Service using a single
+configured name, with the same network protocol available via different
+port numbers. This offers a lot of flexibility for deploying and evolving
+your Services. For example, you can change the port numbers that Pods expose
+in the next version of your backend software, without breaking clients.
+-->
+即使 Service 中使用同一配置名称混合使用多个 Pod，各 Pod 通过不同的端口号支持相同的网络协议，
+此功能也可以使用。这为 Service 的部署和演化提供了很大的灵活性。
+例如，你可以在新版本中更改 Pod 中后端软件公开的端口号，而不会破坏客户端。
+
+
+<!--
 The default protocol for Services is TCP; you can also use any other
 [supported protocol](#protocol-support).
 
@@ -203,10 +245,7 @@ As many Services need to expose more than one port, Kubernetes supports multiple
 port definitions on a Service object.
 Each port definition can have the same `protocol`, or a different one.
 -->
-Pod 中的端口定义是有名字的，你可以在服务的 `targetPort` 属性中引用这些名称。
-即使服务中使用单个配置的名称混合使用 Pod，并且通过不同的端口号提供相同的网络协议，此功能也可以使用。
-这为部署和发展服务提供了很大的灵活性。
-例如，你可以更改 Pods 在新版本的后端软件中公开的端口号，而不会破坏客户端。
+
 
 服务的默认协议是 TCP；你还可以使用任何其他[受支持的协议](#protocol-support)。
 
@@ -216,9 +255,9 @@ Pod 中的端口定义是有名字的，你可以在服务的 `targetPort` 属�
 <!--
 ### Services without selectors
 
-Services most commonly abstract access to Kubernetes Pods, but they can also
-abstract other kinds of backends.
-For example:
+Services most commonly abstract access to Kubernetes Pods thanks to the selector,
+but when used with a corresponding Endpoints object and without a selector, the Service can abstract other kinds of backends, 
+including ones that run outside the cluster. For example:
 
   * You want to have an external database cluster in production, but in your
     test environment you use your own databases.
@@ -232,8 +271,10 @@ For example:
 -->
 ### 没有选择算符的 Service   {#services-without-selectors}
 
-服务最常见的是抽象化对 Kubernetes Pod 的访问，但是它们也可以抽象化其他种类的后端。
-实例:
+由于选择器的存在，服务最常见的用法是为 Kubernetes Pod 的访问提供抽象，
+但是当与相应的 Endpoints 对象一起使用且没有选择器时，
+服务也可以为其他类型的后端提供抽象，包括在集群外运行的后端。
+例如：
 
   * 希望在生产环境中使用外部的数据库集群，但测试环境使用自己的数据库。
   * 希望服务指向另一个 {{< glossary_tooltip term_id="namespace" >}} 中或其它集群中的服务。
@@ -591,6 +632,14 @@ You can also set the maximum session sticky time by setting
 （默认值为 10800 秒，即 3 小时）。
 
 <!--
+On Windows, setting the maximum session sticky time for Services is not supported.
+-->
+{{< note >}}
+在 Windows 上，不支持为服务设置最大会话停留时间。
+{{< /note >}}
+
+
+<!--
 ## Multi-Port Services
 
 For some Services, you need to expose more than one port.
@@ -674,7 +723,7 @@ server will return a 422 HTTP status code to indicate that there's a problem.
 <!--
 You can set the `spec.externalTrafficPolicy` field to control how traffic from external sources is routed.
 Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route external traffic to all ready endpoints
-and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are no node-local
 endpoints, the kube-proxy does not forward any traffic for the relevant Service.
 -->
 
@@ -751,11 +800,7 @@ Kubernetes 支持两种基本的服务发现模式 —— 环境变量和 DNS。
 ### Environment variables
 
 When a Pod is run on a Node, the kubelet adds a set of environment variables
-for each active Service.  It supports both [Docker links
-compatible](https://docs.docker.com/userguide/dockerlinks/) variables (see
-[makeLinkVariables](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49))
-and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
-where the Service name is upper-cased and dashes are converted to underscores.
+for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables, where the Service name is upper-cased and dashes are converted to underscores. It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) that are compatible with Docker Engine's "_[legacy container links](https://docs.docker.com/network/links/)_" feature.
 
 For example, the Service `redis-master` which exposes TCP port 6379 and has been
 allocated cluster IP address 10.0.0.11, produces the following environment
@@ -764,10 +809,10 @@ variables:
 ### 环境变量   {#environment-variables}
 
 当 Pod 运行在 `Node` 上，kubelet 会为每个活跃的 Service 添加一组环境变量。
-它同时支持 [Docker links兼容](https://docs.docker.com/userguide/dockerlinks/) 变量
-（查看 [makeLinkVariables](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49)）、
-简单的 `{SVCNAME}_SERVICE_HOST` 和 `{SVCNAME}_SERVICE_PORT` 变量。
+kubelet 为 Pod 添加环境变量 `{SVCNAME}_SERVICE_HOST` 和 `{SVCNAME}_SERVICE_PORT`。
 这里 Service 的名称需大写，横线被转换成下划线。
+它还支持与 Docker Engine 的 "_[legacy container links](https://docs.docker.com/network/links/)_" 特性兼容的变量
+（参阅 [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) 。
 
 举个例子，一个名称为 `redis-master` 的 Service 暴露了 TCP 端口 6379，
 同时给它分配了 Cluster IP 地址 10.0.0.11，这个 Service 生成了如下环境变量：
@@ -1145,13 +1190,15 @@ securityGroupName。
 <!--
 #### Load balancers with mixed protocol types
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 By default, for LoadBalancer type of Services, when there is more than one port defined, all
 ports must have the same protocol, and the protocol must be one which is supported
 by the cloud provider.
 
-If the feature gate `MixedProtocolLBService` is enabled for the kube-apiserver it is allowed to use different protocols when there is more than one port defined.
+The feature gate `MixedProtocolLBService` (enabled by default for the kube-apiserver as of v1.24) allows the use of
+different protocols for LoadBalancer type of Services, when there is more than one port defined.
+
 -->
 #### 混合协议类型的负载均衡器
 
@@ -1160,14 +1207,16 @@ If the feature gate `MixedProtocolLBService` is enabled for the kube-apiserver i
 默认情况下，对于 LoadBalancer 类型的服务，当定义了多个端口时，所有
 端口必须具有相同的协议，并且该协议必须是受云提供商支持的协议。
 
-如果为 kube-apiserver 启用了 `MixedProtocolLBService` 特性门控，
-则当定义了多个端口时，允许使用不同的协议。
+当服务中定义了多个端口时，特性门控 `MixedProtocolLBService`（在 kube-apiserver 1.24 版本默认为启用）允许
+LoadBalancer 类型的服务使用不同的协议。
 
 <!--
-The set of protocols that can be used for LoadBalancer type of Services is still defined by the cloud provider.
+The set of protocols that can be used for LoadBalancer type of Services is still defined by the cloud provider. If a
+cloud provider does not support mixed protocols they will provide only a single protocol.
 -->
 {{< note >}}
 可用于 LoadBalancer 类型服务的协议集仍然由云提供商决定。
+如果云提供商不支持混合协议，他们将只提供单一协议。
 {{< /note >}}
 
 <!--
@@ -1175,36 +1224,34 @@ The set of protocols that can be used for LoadBalancer type of Services is still
 -->
 ### 禁用负载均衡器节点端口分配 {#load-balancer-nodeport-allocation}
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 Starting in v1.20, you can optionally disable node port allocation for a Service Type=LoadBalancer by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
 that route traffic directly to pods as opposed to using node ports. By default, `spec.allocateLoadBalancerNodePorts`
 is `true` and type LoadBalancer Services will continue to allocate node ports. If `spec.allocateLoadBalancerNodePorts`
-is set to `false` on an existing Service with allocated node ports, those node ports will NOT be de-allocated automatically.
+is set to `false` on an existing Service with allocated node ports, those node ports will **not** be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
-You must enable the `ServiceLBNodePortControl` feature gate to use this field.
 -->
-从 v1.20 版本开始， 你可以通过设置 `spec.allocateLoadBalancerNodePorts` 为 `false` 
+你可以通过设置 `spec.allocateLoadBalancerNodePorts` 为 `false` 
 对类型为 LoadBalancer 的服务禁用节点端口分配。
 这仅适用于直接将流量路由到 Pod 而不是使用节点端口的负载均衡器实现。
 默认情况下，`spec.allocateLoadBalancerNodePorts` 为 `true`，
 LoadBalancer 类型的服务继续分配节点端口。
 如果现有服务已被分配节点端口，将参数 `spec.allocateLoadBalancerNodePorts`
-设置为 `false` 时，这些服务上已分配置的节点端口不会被自动释放。
+设置为 `false` 时，这些服务上已分配置的节点端口**不会**被自动释放。
 你必须显式地在每个服务端口中删除 `nodePorts` 项以释放对应端口。
-你必须启用 `ServiceLBNodePortControl` 特性门控才能使用该字段。
 
 <!--
 #### Specifying class of load balancer implementation {#load-balancer-class}
 -->
 #### 设置负载均衡器实现的类别 {#load-balancer-class}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
-`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default. This feature is available from v1.21, you must enable the `ServiceLoadBalancerClass` feature gate to use this field in v1.21, and the feature gate is enabled by default from v1.22 onwards.
+`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation if the cluster is configured with
 a cloud provider using the `--cloud-provider` component flag. 
@@ -1216,8 +1263,6 @@ the cloud provider) will ignore Services that have this field set.
 Once set, it cannot be changed. 
 -->
 `spec.loadBalancerClass` 允许你不使用云提供商的默认负载均衡器实现，转而使用指定的负载均衡器实现。
-这个特性从 v1.21 版本开始可以使用，你在 v1.21 版本中使用这个字段必须启用 `ServiceLoadBalancerClass` 
-特性门控，这个特性门控从 v1.22 版本及以后默认打开。
 默认情况下，`.spec.loadBalancerClass` 的取值是 `nil`，如果集群使用 `--cloud-provider` 配置了云提供商，
 `LoadBalancer` 类型服务会使用云提供商的默认负载均衡器实现。
 如果设置了 `.spec.loadBalancerClass`，则假定存在某个与所指定的类相匹配的
@@ -1972,7 +2017,8 @@ someone else's choice.  That is an isolation failure.
 
 In order to allow you to choose a port number for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
-Service its own IP address.
+Service its own IP address from within the `service-cluster-ip-range`
+CIDR range that is configured for the API server.
 
 To ensure each Service receives a unique IP, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
@@ -1992,8 +2038,9 @@ Kubernetes 最主要的哲学之一，是用户不应该暴露那些能够导致
 对于 Service 资源的设计，这意味着如果用户的选择有可能与他人冲突，那就不要让用户自行选择端口号。
 这是一个隔离性的失败。
 
-为了使用户能够为他们的 Service 选择一个端口号，我们必须确保不能有2个 Service 发生冲突。
-Kubernetes 通过为每个 Service 分配它们自己的 IP 地址来实现。
+为了使用户能够为他们的 Service 选择一个端口号，我们必须确保不能有 2 个 Service 发生冲突。
+Kubernetes 通过在为 API 服务器配置的 `service-cluster-ip-range` CIDR
+范围内为每个服务分配自己的 IP 地址来实现。
 
 为了保证每个 Service 被分配到一个唯一的 IP，需要一个内部的分配器能够原子地更新
 {{< glossary_tooltip term_id="etcd" >}} 中的一个全局分配映射表，
@@ -2005,6 +2052,42 @@ Kubernetes 通过为每个 Service 分配它们自己的 IP 地址来实现。
 （需要支持从使用了内存锁的 Kubernetes 的旧版本迁移过来）。
 同时 Kubernetes 会通过控制器检查不合理的分配（如管理员干预导致的）
 以及清理已被分配但不再被任何 Service 使用的 IP 地址。
+
+<!--
+#### IP address ranges for `type: ClusterIP` Services {#service-ip-static-sub-range}
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+However, there is a problem with this `ClusterIP` allocation strategy, because a user
+can also [choose their own address for the service](#choosing-your-own-ip-address).
+This could result in a conflict if the internal allocator selects the same IP address
+for another Service.
+-->
+#### `type: ClusterIP` 服务的 IP 地址范围  {#service-ip-static-sub-range}
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+但是，这种 `ClusterIP` 分配策略存在一个问题，因为用户还可以[为服务选择自己的地址](#choosing-your-own-ip-address)。
+如果内部分配器为另一个服务选择相同的 IP 地址，这可能会导致冲突。
+
+<!--
+If you enable the `ServiceIPStaticSubrange`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the allocation strategy divides the `ClusterIP` range into two bands, based on
+the size of the configured `service-cluster-ip-range` by using the following formula
+`min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
+with a graduated step function between them_. Dynamic IP allocations will be preferentially
+chosen from the upper band, reducing risks of conflicts with the IPs
+assigned from the lower band.
+This allows users to use the lower band of the `service-cluster-ip-range` for their
+Services with static IPs assigned with a very low risk of running into conflicts.
+-->
+如果启用 `ServiceIPStaticSubrange`[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+分配策略根据配置的 `service-cluster-ip-range` 的大小，使用以下公式
+`min(max(16, cidrSize / 16), 256)` 进行划分，该公式可描述为
+“在不小于 16 且不大于 256 之间有一个步进量（Graduated Step）”，将
+`ClusterIP` 范围分成两段。动态 IP 分配将优先从上半段地址中选择，
+从而降低与下半段地址分配的 IP 冲突的风险。
+这允许用户将 `service-cluster-ip-range` 的下半段地址用于他们的服务，
+与所分配的静态 IP 的冲突风险非常低。
 
 <!--
 ### Service IP addresses {#ips-and-vips}

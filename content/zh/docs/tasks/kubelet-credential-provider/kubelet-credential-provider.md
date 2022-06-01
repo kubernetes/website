@@ -48,7 +48,7 @@ This guide demonstrates how to configure the kubelet's image credential provider
 
 <!-- 
 * The kubelet image credential provider is introduced in v1.20 as an alpha feature. As with other alpha features,
-a feature gate `KubeletCredentialProviders` must be enabled on only the kubelet for the feature to work.
+  a feature gate `KubeletCredentialProviders` must be enabled on only the kubelet for the feature to work.
 * A working implementation of a credential provider exec plugin. You can build your own plugin or use one provided by cloud providers.
 -->
 * kubelet 镜像凭证提供程序在 v1.20 版本作为 alpha 功能引入。
@@ -73,12 +73,14 @@ every node in your cluster and stored in a known directory. The directory will b
 ## Configuring the Kubelet
 
 In order to use this feature, the kubelet expects two flags to be set:
+
 * `--image-credential-provider-config` - the path to the credential provider plugin config file.
 * `--image-credential-provider-bin-dir` - the path to the directory where credential provider plugin binaries are located.
 -->
 ## 配置 kubelet  {#configuring-the-kubelet}
 
 为了使用这个特性，kubelet 需要设置以下两个标志：
+
 * `--image-credential-provider-config` —— 凭据提供程序插件配置文件的路径。
 * `--image-credential-provider-bin-dir` —— 凭据提供程序插件二进制文件所在目录的路径。
 
@@ -86,18 +88,19 @@ In order to use this feature, the kubelet expects two flags to be set:
 ### Configure a kubelet credential provider
 
 The configuration file passed into `--image-credential-provider-config` is read by the kubelet to determine which exec plugins
-should be invoked for which container images. Here's an example configuration file you may end up using if you are using the [ECR](https://aws.amazon.com/ecr/)-based plugin:
+should be invoked for which container images. Here's an example configuration file you may end up using if you are using the
+[ECR](https://aws.amazon.com/ecr/)-based plugin:
 -->
 ### 配置 kubelet 凭据提供程序  {#configure-a-kubelet-credential-provider}
 
-kubelet 会读取传入 `--image-credential-provider-config` 的配置文件文件，
+kubelet 会读取传入 `--image-credential-provider-config` 的配置文件，
 以确定应该为哪些容器镜像调用哪些 exec 插件。
-如果你正在使用基于 [ECR](https://aws.amazon.com/ecr/) 插件，
+如果你正在使用基于 [ECR](https://aws.amazon.com/ecr/) 的插件，
 这里有个样例配置文件你可能最终会使用到：
 
 ```yaml
-kind: CredentialProviderConfig
 apiVersion: kubelet.config.k8s.io/v1alpha1
+kind: CredentialProviderConfig
 # providers 是将由 kubelet 启用的凭证提供程序插件列表。
 # 多个提供程序可能与单个镜像匹配，在这种情况下，来自所有提供程序的凭据将返回到 kubelet。
 # 如果为单个镜像调用多个提供程序，则结果会合并。
@@ -130,11 +133,11 @@ providers:
     # - *.*.registry.io
     # - registry.io:8080/path
     matchImages:
-    - "*.dkr.ecr.*.amazonaws.com"
-    - "*.dkr.ecr.*.amazonaws.cn"
-    - "*.dkr.ecr-fips.*.amazonaws.com"
-    - "*.dkr.ecr.us-iso-east-1.c2s.ic.gov"
-    - "*.dkr.ecr.us-isob-east-1.sc2s.sgov.gov"
+      - "*.dkr.ecr.*.amazonaws.com"
+      - "*.dkr.ecr.*.amazonaws.cn"
+      - "*.dkr.ecr-fips.*.amazonaws.com"
+      - "*.dkr.ecr.us-iso-east-1.c2s.ic.gov"
+      - "*.dkr.ecr.us-isob-east-1.sc2s.sgov.gov"
     # defaultCacheDuration 是插件将在内存中缓存凭据的默认持续时间
     # 如果插件响应中未提供缓存持续时间。此字段是必需的。
     defaultCacheDuration: "12h"
@@ -145,30 +148,36 @@ providers:
     # 执行命令时传递给命令的参数。
     # +可选
     args:
-    - get-credentials
+      - get-credentials
     # env 定义了额外的环境变量以暴露给进程。
     # 这些与主机环境以及 client-go 用于将参数传递给插件的变量结合在一起。
     # +可选
     env:
-    - name: AWS_PROFILE
-      value: example_profile
+      - name: AWS_PROFILE
+        value: example_profile
 ```
 
 <!-- 
 The `providers` field is a list of enabled plugins used by the kubelet. Each entry has a few required fields:
-* `name`: the name of the plugin which MUST match the name of the executable binary that exists in the directory passed into `--image-credential-provider-bin-dir`.
-* `matchImages`: a list of strings used to match against images in order to determine if this provider should be invoked. More on this below.
-* `defaultCacheDuration`: the default duration the kubelet will cache credentials in-memory if a cache duration was not specified by the plugin.
-* `apiVersion`: the api version that the kubelet and the exec plugin will use when communicating.
 
-Each credential provider can also be given optional args and environment variables as well. Consult the plugin implementors to determine what set of arguments and environment variables are required for a given plugin.
+* `name`: the name of the plugin which MUST match the name of the executable binary that exists
+  in the directory passed into `--image-credential-provider-bin-dir`.
+* `matchImages`: a list of strings used to match against images in order to determine
+  if this provider should be invoked. More on this below.
+* `defaultCacheDuration`: the default duration the kubelet will cache credentials in-memory
+  if a cache duration was not specified by the plugin.
+* `apiVersion`: the API version that the kubelet and the exec plugin will use when communicating.
+
+Each credential provider can also be given optional args and environment variables as well.
+Consult the plugin implementors to determine what set of arguments and environment variables are required for a given plugin.
 -->
 `providers` 字段是 kubelet 使用的已启用插件列表。每个条目都有几个必填字段：
+
 * `name`：插件的名称，必须与传入`--image-credential-provider-bin-dir`
   的目录中存在的可执行二进制文件的名称相匹配。
-* `matchImages`：用于匹配图像以确定是否应调用此提供程序的字符串列表。更多相关信息如下。
+* `matchImages`：用于匹配镜像以确定是否应调用此提供程序的字符串列表。更多相关信息如下。
 * `defaultCacheDuration`：如果插件未指定缓存持续时间，kubelet 将在内存中缓存凭据的默认持续时间。
-* `apiVersion`：kubelet 和 exec 插件在通信时将使用的 api 版本。
+* `apiVersion`：kubelet 和 exec 插件在通信时将使用的 API 版本。
 
 每个凭证提供程序也可以被赋予可选的参数和环境变量。
 咨询插件实现者以确定给定插件需要哪些参数和环境变量集。
@@ -207,8 +216,20 @@ Some example values of `matchImages` patterns are:
 * 如果 imageMatch 包含端口，则该端口也必须在镜像中匹配。
 
 `matchImages` 模式的一些示例值：
+
 * `123456789.dkr.ecr.us-east-1.amazonaws.com`
 * `*.azurecr.io`
 * `gcr.io`
 * `*.*.registry.io`
 * `foo.registry.io:8080/path`
+
+## {{% heading "whatsnext" %}}
+
+<!--
+* Read the details about `CredentialProviderConfig` in the
+  [kubelet configuration API (v1alpha1) reference](/docs/reference/config-api/kubelet-config.v1alpha1/).
+* Read the [kubelet credential provider API reference (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/).
+-->
+* 阅读 [kubelet 配置 API (v1alpha1) 参考](/zh/docs/reference/config-api/kubelet-config.v1alpha1/)中有关 `CredentialProviderConfig` 的详细信息。
+* 阅读 [kubelet 凭据提供程序 API 参考 (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)。
+

@@ -58,7 +58,7 @@ The upgrade workflow at high level is the following:
 ## {{% heading "prerequisites" %}}
 
 <!--
-- Make sure you read the [release notes]({{< latest-release-notes >}}) carefully.
+- Make sure you read the [release notes](https://git.k8s.io/kubernetes/CHANGELOG) carefully.
 - The cluster should use a static control plane and etcd pods or external etcd.
 - Make sure to back up any important components, such as app-level state stored in a database.
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.

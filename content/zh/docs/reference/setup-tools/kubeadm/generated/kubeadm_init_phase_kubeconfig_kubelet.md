@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
+-->
+为 kubelet 生成一个 kubeconfig 文件，*仅仅*用于集群引导目的
 
 <!--
 ### Synopsis
@@ -39,9 +54,9 @@ kubeadm init phase kubeconfig kubelet [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
+<p>The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
 -->
-API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认的网络接口。
+<p>API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认的网络接口。</p>
 </td>
 </tr>
 
@@ -56,9 +71,9 @@ API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Port for the API Server to bind to.
+<p>Port for the API Server to bind to.</p>
 -->
-要绑定到 API 服务器的端口。
+<p>要绑定到 API 服务器的端口。</p>
 </td>
 </tr>
 
@@ -73,9 +88,9 @@ Port for the API Server to bind to.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-保存和存储证书的路径。
+<p>保存和存储证书的路径。</p>
 </td>
 </tr>
 
@@ -85,9 +100,9 @@ The path where to save and store the certificates.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm configuration file.
+<p>Path to kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -97,9 +112,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specify a stable IP address or DNS name for the control plane.
+<p>Specify a stable IP address or DNS name for the control plane.</p>
 -->
-为控制平面指定一个稳定的 IP 地址或 DNS 名称。
+<p>为控制平面指定一个稳定的 IP 地址或 DNS 名称。</p>
 </td>
 </tr>
 
@@ -109,9 +124,9 @@ Specify a stable IP address or DNS name for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for kubelet
+<p>help for kubelet</p>
 -->
-kubelet 操作的帮助命令
+<p>kubelet 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -126,9 +141,9 @@ kubelet 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path where to save the kubeconfig file.
+<p>The path where to save the kubeconfig file.</p>
 -->
-kubeconfig 文件的保存路径。
+<p>kubeconfig 文件的保存路径。</p>
 </td>
 </tr>
 
@@ -143,9 +158,9 @@ kubeconfig 文件的保存路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面选择特定的 Kubernetes 版本。
+<p>为控制平面选择特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -155,9 +170,9 @@ Choose a specific Kubernetes version for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specify the node name.
+<p>Specify the node name.</p>
 -->
-指定节点的名称。
+<p>指定节点的名称。</p>
 </td>
 </tr>
 
@@ -183,9 +198,9 @@ Specify the node name.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

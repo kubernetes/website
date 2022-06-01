@@ -44,7 +44,7 @@ for detailed steps to install containerd.
 1. Install the `containerd.io` package from the official Docker repositories. 
    Instructions for setting up the Docker repository for your respective Linux distribution and
    installing the `containerd.io` package can be found at 
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
+   [Getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).
 
 1. Configure containerd:
 

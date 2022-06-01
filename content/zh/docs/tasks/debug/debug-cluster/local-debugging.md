@@ -26,7 +26,7 @@ Kubernetes 应用程序通常由多个独立的服务组成，每个服务都在
 -->
 
 `telepresence` 是一个工具，用于简化本地开发和调试服务的过程，同时可以将服务代理到远程 Kubernetes 集群。
-`telepresence` 允许你使用使用自定义工具（例如：调试器 和 IDE）调式服务，
+`telepresence` 允许你使用使用自定义工具（例如：调试器 和 IDE）调试服务，
 并提供对 Configmap、Secret 和远程集群上运行的服务的完全访问。
 
 

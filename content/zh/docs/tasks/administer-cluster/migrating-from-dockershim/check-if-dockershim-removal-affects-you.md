@@ -1,5 +1,5 @@
 ---
-title: 检查弃用 Dockershim 对你的影响
+title: 检查弃用 Dockershim 是否对你有影响
 content_type: task 
 weight: 20
 ---
@@ -16,19 +16,18 @@ weight: 20
 <!-- 
 The `dockershim` component of Kubernetes allows to use Docker as a Kubernetes's
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
-Kubernetes' built-in `dockershim` component was
-[deprecated](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
-in release v1.20.
+Kubernetes' built-in `dockershim` component was removed in release v1.24.
 -->
+
 Kubernetes 的 `dockershim` 组件使得你可以把 Docker 用作 Kubernetes 的
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}。
-在 Kubernetes v1.20 版本中，内建组件 `dockershim` 被[弃用](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)。
+在 Kubernetes v1.24 版本中，内建组件 `dockershim` 被移除。
 
 
 <!-- 
 This page explains how your cluster could be using Docker as a container runtime,
 provides details on the role that `dockershim` plays when in use, and shows steps
-you can take to check whether any workloads could be affected by `dockershim` deprecation.
+you can take to check whether any workloads could be affected by `dockershim` removal.
 -->
 本页讲解你的集群把 Docker 用作容器运行时的运作机制，
 并提供使用 `dockershim` 时，它所扮演角色的详细信息，
@@ -67,6 +66,18 @@ dependency on Docker:
    - SSH to nodes to troubleshoot;
    - Node startup scripts;
    - Monitoring and security agents installed on nodes directly.
+-->
+1. 确认没有特权 Pod 执行 Docker 命令（如 `docker ps`）、重新启动 Docker
+   服务（如 `systemctl restart docker.service`）或修改 Docker 配置文件
+   `/etc/docker/daemon.json`。
+2. 检查 Docker 配置文件（如 `/etc/docker/daemon.json`）中容器镜像仓库的镜像（mirror）站点设置。
+   这些配置通常需要针对不同容器运行时来重新设置。
+3. 检查确保在 Kubernetes 基础设施之外的节点上运行的脚本和应用程序没有执行 Docker 命令。
+   可能的情况有：
+   - SSH 到节点排查故障；
+   - 节点启动脚本；
+   - 直接安装在节点上的监控和安全代理。
+<!--
 1. Third-party tools that perform above mentioned privileged operations. See
    [Migrating telemetry and security agents from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)
    for more information.
@@ -77,18 +88,8 @@ dependency on Docker:
    If you have such tooling configured, test the behavior on test
    cluster before migration.
 -->
-1. 确认没有特权 Pod 执行 Docker 命令（如 `docker ps`）、重新启动 Docker
-   服务（如 `systemctl restart docker.service`）或修改 Docker 配置文件
-   `/etc/docker/daemon.json`。
-2. 检查 Docker 配置文件（如 `/etc/docker/daemon.json`）中容器镜像仓库的镜像（mirror）站点设置。
-   这些配置通常需要针对不同容器运行时来重新设置。
-3. 检查确保在 Kubernetes 基础设施之外的节点上运行的脚本和应用程序没有执行 Docker 命令。
-   可能的情况如：
-   - SSH 到节点排查故障；
-   - 节点启动脚本；
-   - 直接安装在节点上的监控和安全代理。
-4. 检查执行上述特权操作的第三方工具。详细操作请参考
-   [从 dockershim 迁移遥测和安全代理](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)。
+4. 检查执行上述特权操作的第三方工具。
+   详细操作请参考[从 dockershim 迁移遥测和安全代理](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)。
 5. 确认没有对 dockershim 行为的间接依赖。这是一种极端情况，不太可能影响你的应用。
    一些工具很可能被配置为使用了 Docker 特性，比如，基于特定指标发警报，
    或者在故障排查指令的一个环节中搜索特定的日志信息。
@@ -106,7 +107,8 @@ and scheduling of Pods; on each node, the {{< glossary_tooltip text="kubelet" te
 uses the container runtime interface as an abstraction so that you can use any compatible
 container runtime.
  -->
-[容器运行时](/zh/docs/concepts/containers/#container-runtimes)是一个软件，用来运行组成 Kubernetes Pod 的容器。
+[容器运行时](/zh/docs/concepts/containers/#container-runtimes)是一个软件，
+用来运行组成 Kubernetes Pod 的容器。
 Kubernetes 负责编排和调度 Pod；在每一个节点上，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 使用抽象的容器运行时接口，所以你可以任意选用兼容的容器运行时。
 
@@ -119,8 +121,8 @@ adapter component, `dockershim`. The dockershim adapter allows the kubelet to in
 if Docker were a CRI compatible runtime.
  -->
 在早期版本中，Kubernetes 提供的兼容性支持一个容器运行时：Docker。
-在 Kubernetes 发展历史中，集群运营人员希望采用更多的容器运行时。
-于是 CRI 被设计出来满足这类灵活性需要 - 而 kubelet 亦开始支持 CRI。
+在 Kubernetes 后来的发展历史中，集群运营人员希望采用别的容器运行时。
+于是 CRI 被设计出来满足这类灵活性需求 - 而 kubelet 亦开始支持 CRI。
 然而，因为 Docker 在 CRI 规范创建之前就已经存在，Kubernetes 就创建了一个适配器组件 `dockershim`。
 dockershim 适配器允许 kubelet 与 Docker 交互，就好像 Docker 是一个 CRI 兼容的运行时一样。
 
@@ -140,7 +142,7 @@ now, since containers schedule directly with the container runtime, they are not
 So any Docker tooling or fancy UI you might have used
 before to check on these containers is no longer available.
  -->
-切换到容器运行时 Containerd 可以消除掉中间环节。
+切换到 Containerd 容器运行时可以消除掉中间环节。
 所有相同的容器都可由 Containerd 这类容器运行时来运行。
 但是现在，由于直接用容器运行时调度容器，它们对 Docker 是不可见的。
 因此，你以前用来检查这些容器的 Docker 工具或漂亮的 UI 都不再可用。
@@ -153,12 +155,12 @@ or execute something inside container using `docker exec`.
 你不能再使用 `docker ps` 或 `docker inspect` 命令来获取容器信息。
 由于你不能列出容器，因此你不能获取日志、停止容器，甚至不能通过 `docker exec` 在容器中执行命令。
 
+{{< note >}}
 <!-- 
 If you're running workloads via Kubernetes, the best way to stop a container is through
 the Kubernetes API rather than directly through the container runtime (this advice applies
 for all container runtimes, not only Docker).
  -->
-{{< note >}}
 如果你在用 Kubernetes 运行工作负载，最好通过 Kubernetes API 停止容器，
 而不是通过容器运行时来停止它们
 （此建议适用于所有容器运行时，不仅仅是针对 Docker）。
@@ -174,12 +176,13 @@ by Kubernetes.
 但用 Docker 创建、下载的镜像，对于容器运行时和 Kubernetes，均不可见。
 为了在 Kubernetes 中使用，需要把镜像推送（push）到某镜像仓库。
 
-<!-- ## {{% heading "whatsnext" %}}
+## {{% heading "whatsnext" %}}
 
+<!--
 - Read [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) to understand your next steps
 - Read the [dockershim deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article for more information. 
 -->
-## {{% heading "whatsnext" %}}
+- 阅读[从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)，
+  以了解你的下一步工作。
+- 阅读[dockershim 弃用常见问题解答](/zh/blog/2020/12/02/dockershim-faq/)文章，了解更多信息。
 
-- 阅读[从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)以了解你的下一步工作
-- 阅读[dockershim 弃用常见问题解答](/zh/blog/2020/12/02/dockershim-faq/)文章了解更多信息。

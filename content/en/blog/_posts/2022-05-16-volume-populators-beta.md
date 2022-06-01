@@ -8,7 +8,7 @@ slug: volume-populators-beta
 **Author:**
 Ben Swartzlander (NetApp)
 
-The volume populators feature is now two releases old and entering beta! The `AnyVolumeDataSouce` feature
+The volume populators feature is now two releases old and entering beta! The `AnyVolumeDataSource` feature
 gate defaults to enabled in Kubernetes v1.24, which means that users can specify any custom resource
 as the data source of a PVC.
 

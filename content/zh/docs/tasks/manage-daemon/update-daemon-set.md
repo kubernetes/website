@@ -12,6 +12,7 @@ content_type: task
 -->
 
 <!-- overview -->
+
 <!--
 This page shows how to perform a rolling update on a DaemonSet.
 -->
@@ -28,7 +29,7 @@ This page shows how to perform a rolling update on a DaemonSet.
 
 DaemonSet has two update strategy types:
 -->
-## DaemonSet 更新策略
+## DaemonSet 更新策略    {#daemonset-update-strategy}
 
 DaemonSet 有两种更新策略：
 
@@ -40,8 +41,8 @@ DaemonSet 有两种更新策略：
 * `RollingUpdate`: This is the default update strategy.  
   With `RollingUpdate` update strategy, after you update a
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
-  will be created automatically, in a controlled fashion.
-  At most one pod of the DaemonSet will be running on each node during the whole update process.
+  will be created automatically, in a controlled fashion. At most one pod of
+  the DaemonSet will be running on each node during the whole update process.
 -->
 
 * `OnDelete`: 使用 `OnDelete` 更新策略时，在更新 DaemonSet 模板后，只有当你手动删除老的
@@ -56,16 +57,16 @@ DaemonSet 有两种更新策略：
 To enable the rolling update feature of a DaemonSet, you must set its
 `.spec.updateStrategy.type` to `RollingUpdate`.
 -->
-## 执行滚动更新
+## 执行滚动更新    {#performing-a-rolling-update}
 
 要启用 DaemonSet 的滚动更新功能，必须设置 `.spec.updateStrategy.type` 为 `RollingUpdate`。
 
 <!--
-You may want to set 
+You may want to set
 [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) 
 (default to 1),
-[`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) 
-(default to 0) and 
+[`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
+(default to 0) and
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (a beta feature and defaults to 0) as well.
 
@@ -74,14 +75,14 @@ You may want to set
 [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 1)，
 [`.spec.minReadySeconds`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 0) 和
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
-（一种 Beta 阶段的特性，默认为 0）。 
+（一种 Beta 阶段的特性，默认为 0）。
 
 <!--
 ### Creating a DaemonSet with `RollingUpdate` update strategy
 
 This YAML file specifies a DaemonSet with an update strategy as 'RollingUpdate'
 -->
-### 创建带有 `RollingUpdate` 更新策略的 DaemonSet
+### 创建带有 `RollingUpdate` 更新策略的 DaemonSet    {#creating-a-daemonset-with-rollingupdate-update-strategy}
 
 下面的 YAML 包含一个 DaemonSet，其更新策略为 'RollingUpdate'：
 
@@ -113,7 +114,7 @@ kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml
 Check the update strategy of your DaemonSet, and make sure it's set to
 `RollingUpdate`:
 -->
-### 检查 DaemonSet 的滚动更新策略
+### 检查 DaemonSet 的滚动更新策略    {#checking-daemonset-rollingupdate-update-strategy}
 
 首先，检查 DaemonSet 的更新策略，确保已经将其设置为 `RollingUpdate`:
 
@@ -152,7 +153,7 @@ manifest accordingly.
 Any updates to a `RollingUpdate` DaemonSet `.spec.template` will trigger a rolling
 update. Let's update the DaemonSet by applying a new YAML file. This can be done with several different `kubectl` commands.
 -->
-### 更新 DaemonSet 模板
+### 更新 DaemonSet 模板    {#updating-a-daemonset-template}
 
 对 `RollingUpdate` DaemonSet 的 `.spec.template` 的任何更新都将触发滚动更新。
 这可以通过几个不同的 `kubectl` 命令来完成。
@@ -166,7 +167,7 @@ If you update DaemonSets using
 [configuration files](/docs/tasks/manage-kubernetes-objects/declarative-config/),
 use `kubectl apply`:
 -->
-#### 声明式命令
+#### 声明式命令    {#declarative-commands}
 
 如果你使用
 [配置文件](/zh/docs/tasks/manage-kubernetes-objects/declarative-config/)
@@ -180,14 +181,14 @@ kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset-update.ya
 #### Imperative commands
 
 If you update DaemonSets using
-[imperative commands](/docs/concepts/overview/object-management-kubectl/imperative-command/),
+[imperative commands](/docs/tasks/manage-kubernetes-objects/imperative-command/),
 use `kubectl edit`:
 -->
-#### 指令式命令
+#### 指令式命令    {#imperative-commands}
 
 如果你使用
 [指令式命令](/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
-来更新 DaemonSets，请使用`kubectl edit`：
+来更新 DaemonSets，请使用 `kubectl edit`：
 
 ```shell
 kubectl edit ds/fluentd-elasticsearch -n kube-system
@@ -199,21 +200,21 @@ kubectl edit ds/fluentd-elasticsearch -n kube-system
 If you only need to update the container image in the DaemonSet template, i.e.
 `.spec.template.spec.containers[*].image`, use `kubectl set image`:
 --->
-##### 只更新容器镜像
+##### 只更新容器镜像    {#updating-only-the-container-image}
 
-如果你只需要更新 DaemonSet 模板里的容器镜像，比如，`.spec.template.spec.containers[*].image`, 
-请使用 `kubectl set image`:
+如果你只需要更新 DaemonSet 模板里的容器镜像，比如 `.spec.template.spec.containers[*].image`，
+请使用 `kubectl set image`：
 
 ```shell
 kubectl set image ds/fluentd-elasticsearch fluentd-elasticsearch=quay.io/fluentd_elasticsearch/fluentd:v2.6.0 -n kube-system
 ```
 
 <!--
-### Step 4: Watching the rolling update status
+### Watching the rolling update status
 
 Finally, watch the rollout status of the latest DaemonSet rolling update:
 -->
-### 监视滚动更新状态
+### 监视滚动更新状态    {#watching-the-rolling-update-status}
 
 最后，观察 DaemonSet 最新滚动更新的进度：
 
@@ -235,9 +236,9 @@ daemonset "fluentd-elasticsearch" successfully rolled out
 
 ### DaemonSet rolling update is stuck
 -->
-## 故障排查
+## 故障排查    {#troubleshooting}
 
-### DaemonSet 滚动更新卡住
+### DaemonSet 滚动更新卡住    {#daemonset-rolling-update-is-stuck}
 
 <!--
 Sometimes, a DaemonSet rolling update may be stuck. Here are some possible
@@ -248,7 +249,7 @@ causes:
 有时，DaemonSet 滚动更新可能卡住，以下是一些可能的原因：
 
 
-#### 一些节点可用资源耗尽
+#### 一些节点可用资源耗尽    {#some-nodes-run-out-of-resources}
 
 <!--
 The rollout is stuck because new DaemonSet pods can't be scheduled on at least one
@@ -294,7 +295,7 @@ If the recent DaemonSet template update is broken, for example, the container is
 crash looping, or the container image doesn't exist (often due to a typo),
 DaemonSet rollout won't progress.
 -->
-#### 不完整的滚动更新
+#### 不完整的滚动更新    {#broken-rollout}
 
 如果最近的 DaemonSet 模板更新被破坏了，比如，容器处于崩溃循环状态或者容器镜像不存在
 （通常由于拼写错误），就会发生 DaemonSet 滚动更新中断。
@@ -312,7 +313,7 @@ If `.spec.minReadySeconds` is specified in the DaemonSet, clock skew between
 master and nodes will make DaemonSet unable to detect the right rollout
 progress.
 -->
-#### 时钟偏差
+#### 时钟偏差    {#clock-skew}
 
 如果在 DaemonSet 中指定了 `.spec.minReadySeconds`，主控节点和工作节点之间的时钟偏差会使
 DaemonSet 无法检测到正确的滚动更新进度。
@@ -322,7 +323,7 @@ DaemonSet 无法检测到正确的滚动更新进度。
 
 Delete DaemonSet from a namespace :
 -->
-## 清理
+## 清理    {#clean-up}
 
 从名字空间中删除 DaemonSet：
 

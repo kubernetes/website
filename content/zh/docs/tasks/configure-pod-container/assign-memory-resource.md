@@ -78,7 +78,7 @@ v1beta1.metrics.k8s.io
 Create a namespace so that the resources you create in this exercise are
 isolated from the rest of your cluster.
 -->
-## 创建命名空间
+## 创建命名空间    {#create-a-namespace}
 
 创建一个命名空间，以便将本练习中创建的资源与集群的其余部分隔离。
 
@@ -96,7 +96,7 @@ In this exercise, you create a Pod that has one Container. The Container has a m
 request of 100 MiB and a memory limit of 200 MiB. Here's the configuration file
 for the Pod:
 -->
-## 指定内存请求和限制
+## 指定内存请求和限制    {#specify-a-memory-request-and-a-memory-limit}
 
 要为容器指定内存请求，请在容器资源清单中包含 `resources：requests` 字段。
 同理，要指定内存限制，请包含 `resources：limits`。
@@ -196,7 +196,7 @@ its limit, the Container becomes a candidate for termination. If the Container c
 consume memory beyond its limit, the Container is terminated. If a terminated Container can be
 restarted, the kubelet restarts it, as with any other type of runtime failure.
 -->
-## 超过容器限制的内存
+## 超过容器限制的内存    {#exceed-a-container-s-memory-limit}
 
 当节点拥有足够的可用内存时，容器可以使用其请求的内存。
 但是，容器不允许使用超过其限制的内存。
@@ -260,7 +260,7 @@ The output shows that the Container was killed because it is out of memory (OOM)
 -->
 输出结果显示：由于内存溢出（OOM），容器已被杀掉：
 
-```shell
+```yaml
 lastState:
    terminated:
      containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
@@ -352,7 +352,7 @@ of a Pod as having a memory request and limit. The memory request for the Pod is
 sum of the memory requests for all the Containers in the Pod. Likewise, the memory
 limit for the Pod is the sum of the limits of all the Containers in the Pod.
 -->
-## 超过整个节点容量的内存
+## 超过整个节点容量的内存    {#specify-a-memory-request-that-is-too-big-for-your-nodes}
 
 内存请求和限制是与容器关联的，但将 Pod 视为具有内存请求和限制，也是很有用的。
 Pod 的内存请求是 Pod 中所有容器的内存请求之和。
@@ -419,7 +419,7 @@ The output shows that the Container cannot be scheduled because of insufficient 
 -->
 输出结果显示：由于节点内存不足，该容器无法被调度：
 
-```shell
+```
 Events:
   ...  Reason            Message
        ------            -------
@@ -433,14 +433,14 @@ The memory resource is measured in bytes. You can express memory as a plain inte
 fixed-point integer with one of these suffixes: E, P, T, G, M, K, Ei, Pi, Ti, Gi, Mi, Ki.
 For example, the following represent approximately the same value:
 -->
-## 内存单位
+## 内存单位    {#memory-units}
 
 内存资源的基本单位是字节（byte）。你可以使用这些后缀之一，将内存表示为
 纯整数或定点整数：E、P、T、G、M、K、Ei、Pi、Ti、Gi、Mi、Ki。
 例如，下面是一些近似相同的值：
 
-```shell
-128974848, 129e6, 129M , 123Mi
+```
+128974848, 129e6, 129M, 123Mi
 ```
 
 <!--
@@ -457,7 +457,7 @@ kubectl delete pod memory-demo-3 --namespace=mem-example
 
 If you do not specify a memory limit for a Container, one of the following situations applies:
 -->
-## 如果你没有指定内存限制
+## 如果你没有指定内存限制    {#if-you-do-not-specify-a-memory-limit}
 
 如果你没有为一个容器指定内存限制，则自动遵循以下情况之一：
 
@@ -486,7 +486,7 @@ cluster, you can make efficient use of the memory resources available on your cl
 Nodes. By keeping a Pod's memory request low, you give the Pod a good chance of being
 scheduled. By having a memory limit that is greater than the memory request, you accomplish two things:
 -->
-## 内存请求和限制的目的
+## 内存请求和限制的目的    {#motivation-for-memory-requests-and-limits}
 
 通过为集群中运行的容器配置内存请求和限制，你可以有效利用集群节点上可用的内存资源。
 通过将 Pod 的内存请求保持在较低水平，你可以更好地安排 Pod 调度。
@@ -504,7 +504,7 @@ scheduled. By having a memory limit that is greater than the memory request, you
 
 Delete your namespace. This deletes all the Pods that you created for this task:
 -->
-## 清理
+## 清理    {#clean-up}
 
 删除命名空间。下面的命令会删除你根据这个任务创建的所有 Pod：
 
@@ -521,7 +521,7 @@ kubectl delete namespace mem-example
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 -->
-### 应用开发者扩展阅读
+### 应用开发者扩展阅读    {#for-app-developers}
 
 * [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
@@ -545,7 +545,7 @@ kubectl delete namespace mem-example
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
-### 集群管理员扩展阅读
+### 集群管理员扩展阅读    {#for-cluster-administrators}
 
 * [为命名空间配置默认的内存请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 * [为命名空间配置默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)

@@ -179,6 +179,7 @@ aliases:
     - tanjunchen
     - tengqm
     - xichengliudui
+    - ydFu
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - edsoncelio
@@ -249,7 +250,6 @@ aliases:
     - cpanato # SIG Technical Lead
     - jeremyrickard # SIG Technical Lead
     - justaugustus # SIG Chair
-    - LappleApple # SIG Program Manager
     - puerco # SIG Technical Lead
     - saschagrunert # SIG Chair
   release-engineering-approvers:
