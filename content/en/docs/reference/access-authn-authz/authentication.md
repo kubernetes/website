@@ -857,7 +857,8 @@ rules:
 ```
 
 {{< note >}}
-Note that impersonation is not namespace scoped - i.e. it requires a `ClusterRole` and `ClusterRoleBinding`, and does not function with `Role` and `RoleBinding`.
+Note that impersonation is not namespace scoped. It requires a `ClusterRole` and `ClusterRoleBinding`,
+and does not function with `Role` and `RoleBinding`.
 {{< /note >}}
 
 ## client-go credential plugins
