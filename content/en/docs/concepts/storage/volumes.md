@@ -64,7 +64,9 @@ a different volume.
 
 Kubernetes supports several types of volumes.
 
-### awsElasticBlockStore {#awselasticblockstore}
+### awsElasticBlockStore (deprecated) {#awselasticblockstore}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
 An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS)
 [EBS volume](https://aws.amazon.com/ebs/) into your pod. Unlike
@@ -135,7 +137,9 @@ beta features must be enabled.
 To disable the `awsElasticBlockStore` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
 
-### azureDisk {#azuredisk}
+### azureDisk (deprecated) {#azuredisk}
+
+{{< feature-state for_k8s_version="v1.19" state="deprecated" >}}
 
 The `azureDisk` volume type mounts a Microsoft Azure [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) into a pod.
 
@@ -158,7 +162,9 @@ must be installed on the cluster and the `CSIMigration` feature must be enabled.
 To disable the `azureDisk` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
 
-### azureFile {#azurefile}
+### azureFile (deprecated) {#azurefile}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
 into a pod.
@@ -201,7 +207,9 @@ You must have your own Ceph server running with the share exported before you ca
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 
-### cinder
+### cinder (deprecated) {#cinder}
+
+{{< feature-state for_k8s_version="v1.18" state="deprecated" >}}
 
 {{< note >}}
 Kubernetes must be configured with the OpenStack cloud provider.
@@ -390,7 +398,9 @@ You must have your own Flocker installation running before you can use it.
 
 See the [Flocker example](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) for more details.
 
-### gcePersistentDisk
+### gcePersistentDisk (deprecated) {#gcepersistentdisk}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
 A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE)
 [persistent disk](https://cloud.google.com/compute/docs/disks) (PD) into your Pod.
