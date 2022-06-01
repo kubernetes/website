@@ -1,6 +1,6 @@
 ---
 title: Visão geral sobre autorização
-content_type: conceito
+content_type: concept
 weight: 60
 ---
 
