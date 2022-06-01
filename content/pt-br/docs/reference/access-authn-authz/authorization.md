@@ -12,7 +12,7 @@ criação de politicas utilizando módulos de autorização suportados.
 
 No Kubernetes, você deve estar autenticado (conectado) antes que sua requisição possa ser
 autorizada (permissão concedida para acesso). Para obter informações sobre autenticação,
-visite [Controlling Access to the Kubernetes API](/pt-br/docs/concepts/security/controlling-access/).
+visite [Controlando Acesso à API do Kubernetes](/pt-br/docs/concepts/security/controlling-access/).
 
 O Kubernetes espera atributos que são comuns a requisições de APIs REST. Isto significa
 que autorização no Kubernetes funciona com sistemas de controle de acesso a nível de organizações
