@@ -582,6 +582,7 @@ Modifications to these resources can result in non-functional clusters.
 
 At each start-up, the API server updates default cluster roles with any missing permissions,
 and updates default cluster role bindings with any missing subjects.
+It does not remove any extra permissions or subjects, it only adds back missing ones.
 This allows the cluster to repair accidental modifications, and helps to keep roles and role bindings
 up-to-date as permissions and subjects change in new Kubernetes releases.
 
@@ -602,7 +603,7 @@ kubectl get clusterroles system:discovery -o yaml
 ```
 
 {{< note >}}
-If you edit that ClusterRole, your changes will be overwritten on API server restart
+If you edit that ClusterRole, your changes may be overwritten on API server restart
 via [auto-reconciliation](#auto-reconciliation). To avoid that overwriting,
 either do not manually edit the role, or disable auto-reconciliation.
 {{< /note >}}
