@@ -215,7 +215,7 @@ como, por exemplo, um operador e então poderiam escalar privilégios naquele na
 
 {{< caution >}}
 Administradores de sistemas, tenham cuidado ao permitir acesso para criar ou editar cargas de trabalho.
-Detalhes de como estas permissões podem ser usadas de forma maliciosa podem ser encontradas em [caminhos para escalonamento](/pt-br/docsreference/access-authn-authz/authorization/#escalation-paths)
+Detalhes de como estas permissões podem ser usadas de forma maliciosa podem ser encontradas em [caminhos para escalonamento](#escalation-paths).
 
 {{< /caution >}}
 
