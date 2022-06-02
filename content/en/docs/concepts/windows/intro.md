@@ -51,7 +51,7 @@ including:
 
 * HugePages: not supported for Windows containers
 * Privileged containers: not supported for Windows containers.
-  [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod.md) offer similar functionality.
+  [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) offer similar functionality.
 * TerminationGracePeriod: requires containerD
 
 Not all features of shared namespaces are supported. See [API compatibility](#api)
@@ -79,7 +79,7 @@ section refers to several key workload abstractions and how they map to Windows.
 
   * Single or multiple containers per Pod with process isolation and volume sharing
   * Pod `status` fields
-  * Readiness, Liveness, and startup probes
+  * Readiness, liveness, and startup probes
   * postStart & preStop container lifecycle hooks
   * ConfigMap, Secrets: as environment variables or volumes
   * `emptyDir` volumes
@@ -156,8 +156,10 @@ Some kubelet command line options behave differently on Windows, as described be
 * Eviction by using `--enforce-node-allocable` is not implemented
 * Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
 * When running on a Windows node the kubelet does not have memory or CPU
-  restrictions. `--kube-reserved` and `--system-reserved` only subtract from `NodeAllocatable` and do not gaurentee resources.
-  See [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation) for more information.
+  restrictions. `--kube-reserved` and `--system-reserved` only subtract from `NodeAllocatable`
+  and do not guarantee resource provided for workloads.
+  See [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation)
+  for more information.
 * The `MemoryPressure` Condition is not implemented
 * The kubelet does not take OOM eviction actions
 
@@ -268,8 +270,8 @@ None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-reso
 
 The node problem detector (see
 [Monitor Node Health](/docs/tasks/debug/debug-cluster/monitor-node-health/))
-has prelimiary support for Windows.
-For more information visit the the project's [GitHub page](https://github.com/kubernetes/node-problem-detector#windows)
+has preliminary support for Windows.
+For more information, visit the project's [GitHub page](https://github.com/kubernetes/node-problem-detector#windows).
 
 ## Pause container
 
@@ -321,7 +323,8 @@ kernel patch.
 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is available as a container runtime for all Windows Server 2019 and later versions.
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
+is available as a container runtime for all Windows Server 2019 and later versions.
 
 See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
 
@@ -362,7 +365,7 @@ If you have what looks like a bug, or you would like to
 make a feature request, please follow the [SIG Windows contributing guide](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) to create a new issue.
 You should first search the list of issues in case it was
 reported previously and comment with your experience on the issue and add additional
-logs. SIG-Windows Slack is also a great avenue to get some initial support and
+logs. SIG Windows channel on the Kubernetes Slack is also a great avenue to get some initial support and
 troubleshooting ideas prior to creating a ticket.
 
 ## Deployment tools
@@ -376,7 +379,8 @@ The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also prov
 
 ## Windows distribution channels
 
-For a detailed explanation of Windows distribution channels see the [Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
+For a detailed explanation of Windows distribution channels see the
+[Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
 
 Information on the different Windows Server servicing channels
 including their support models can be found at

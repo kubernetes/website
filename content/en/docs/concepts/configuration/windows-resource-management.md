@@ -46,7 +46,7 @@ then paging can slow down performance.
 ## CPU management {#resource-management-cpu}
 
 Windows can limit the amount of CPU time allocated for different processes but cannot
-gaurentee a miniumum amount of CPU time.
+guarantee a minimum amount of CPU time.
 
 On Windows, the kubelet supports a command-line flag to set the
 [scheduling priority](https://docs.microsoft.com/windows/win32/procthread/scheduling-priorities) of the
@@ -56,12 +56,13 @@ More information on the allowable values and their meaning is available at
 [Windows Priority Classes](https://docs.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities#priority-class).
 To ensure that running Pods do not starve the kubelet of CPU cycles, set this flag to `ABOVE_NORMAL_PRIORITY_CLASS` or above.
 
-## Resource Reservation {$resource-reservation}
+## Resource reservation {#resource-reservation}
 
 To account for memory and CPU used by the operating system, the container runtime, and by
 Kubernetes host processes such as the kubelet, you can (and should) reserve
-memory and CPU resrouces with the  `--kube-reserved` and/or `--system-reserved` kubelet parameters.
-On Windows these values are only used to calculate the node's [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) resources.
+memory and CPU resources with the  `--kube-reserved` and/or `--system-reserved` kubelet flags.
+On Windows these values are only used to calculate the node's
+[allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) resources.
 
 {{< caution >}}
 As you deploy workloads, set resource memory and CPU limits on containers.
@@ -71,8 +72,8 @@ Scheduling pods without limits may over-provision the Windows nodes and in extre
 cases can cause the nodes to become unhealthy.
 {{< /caution >}}
 
-On Windows, good practice is to reserve at least 2GiB of memory.
+On Windows, a good practice is to reserve at least 2GiB of memory.
 
-To determine how much CPU to reservce,
+To determine how much CPU to reserve,
 identify the maximum pod density for each node and monitor the CPU usage of
 the system services running there, then choose a value that meets your workload needs.
