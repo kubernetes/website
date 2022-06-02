@@ -15,8 +15,7 @@ is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attrac
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
 hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 
-_Tolerations_ are applied to pods, it does not guarantee that pod will get scheduled
-onto nodes with matching taints.
+_Tolerations_ are applied to pods, if it matches the Taints in any node it is scheduled, but it does not guarantee as scheduler has other paramters to decide.
 
 Taints and tolerations work together to ensure that pods are not scheduled
 onto inappropriate nodes. One or more taints are applied to a node; this
