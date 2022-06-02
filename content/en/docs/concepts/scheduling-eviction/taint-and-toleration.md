@@ -27,11 +27,6 @@ marks that the node should not accept any pods that do not tolerate the taints.
 
 ## Concepts
 
-Basic Syntax
-```shell
-kubectl taint nodes <node_name> <key>=<value>:<effect>
-```
-
 You add a taint to a node using [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint).
 For example,
 
