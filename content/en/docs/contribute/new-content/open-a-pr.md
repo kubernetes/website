@@ -291,34 +291,24 @@ You can either build the website's container image or run Hugo locally. Building
 The commands below use Docker as default container engine. Set the `CONTAINER_ENGINE` environment variable to override this behaviour.
 {{< /note >}}
 
-1.  Build the image locally:
+1. Build the container image locally  
+   _You only need this step if you are testing a change to the Hugo tool itself_
+   ```bash
+   # Run this in a terminal (if required)
+   make container-image
+   ```
 
-      ```bash
-      # Use docker (default)
-      make container-image
+1. Start Hugo in a container:
 
-      ### OR ###
+   ```bash
+   # Run this in a terminal
+   make container-serve
+   ```
 
-      # Use podman
-      CONTAINER_ENGINE=podman make container-image
-      ```
-
-2. After building the `kubernetes-hugo` image locally, build and serve the site:
-
-      ```bash
-      # Use docker (default)
-      make container-serve
-
-      ### OR ###
-
-      # Use podman
-      CONTAINER_ENGINE=podman make container-serve
-      ```
-
-3.  In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+1.  In a web browser, navigate to `https://localhost:1313`. Hugo watches the
     changes and rebuilds the site as needed.
 
-4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
+1.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
     or close the terminal window.
 
 {{% /tab %}}
