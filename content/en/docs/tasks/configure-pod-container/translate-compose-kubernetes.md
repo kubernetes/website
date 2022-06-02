@@ -469,7 +469,7 @@ version: '2'
 services:
   pival:
     image: perl
-    command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+    command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(800)"]
     restart: "on-failure"
 ```
 
