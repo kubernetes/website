@@ -39,6 +39,7 @@ git submodule update --init --recursive --depth 1
 To build the site in a container, run the following:
 
 ```bash
+# You can set $CONTAINER_ENGINE to the name of any Docker-like container tool
 make container-serve
 ```
 
