@@ -291,7 +291,7 @@ Finally, add the same parameters into the API server start parameters.
     -->
 1.  创建一个 JSON 配置文件，用来为 API 服务器生成秘钥和证书，例如：`server-csr.json`。
     确认用你需要的值替换掉尖括号中的值。`MASTER_CLUSTER_IP` 是为 API 服务器 指定的服务集群 IP，就像前面小节描述的那样。
-    以下示例假定你的默认 DSN 域名为`cluster.local`。
+    以下示例假定你的默认 DNS 域名为`cluster.local`。
 
         {
           "CN": "kubernetes",
