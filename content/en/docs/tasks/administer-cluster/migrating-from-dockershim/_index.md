@@ -30,7 +30,7 @@ configuration.
 These tasks will help you to migrate:
 
 * [Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-* [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/)
+* [Migrate Docker Engine nodes from dockershim to cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)
 * [Migrating telemetry and security agents from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents/)
 
 
