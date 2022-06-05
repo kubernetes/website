@@ -22,7 +22,8 @@ It does not mean that there is a file named `kubeconfig`.
 
 
 {{< warning >}}
-Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig
+file could result in malicious code execution or file exposure.
 If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
 {{< /warning>}}
 
@@ -50,7 +51,7 @@ to the scratch cluster requires authentication by username and password.
 Create a directory named `config-exercise`. In your
 `config-exercise` directory, create a file named `config-demo` with this content:
 
-```shell
+```yaml
 apiVersion: v1
 kind: Config
 preferences: {}
@@ -271,7 +272,7 @@ For example:
 ### Linux
 
 ```shell
-export KUBECONFIG_SAVED=$KUBECONFIG
+export KUBECONFIG_SAVED="$KUBECONFIG"
 ```
 
 ### Windows PowerShell
@@ -290,7 +291,7 @@ Temporarily append two paths to your `KUBECONFIG` environment variable. For exam
 ### Linux
 
 ```shell
-export KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
+export KUBECONFIG="${KUBECONFIG}:config-demo:config-demo-2"
 ```
 
 ### Windows PowerShell
@@ -356,7 +357,7 @@ For example:
 ### Linux
 
 ```shell
-export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
+export KUBECONFIG="${KUBECONFIG}:${HOME}/.kube/config"
 ```
 
 ### Windows Powershell
@@ -379,7 +380,7 @@ Return your `KUBECONFIG` environment variable to its original value. For example
 ### Linux
 
 ```shell
-export KUBECONFIG=$KUBECONFIG_SAVED
+export KUBECONFIG="$KUBECONFIG_SAVED"
 ```
 
 ### Windows PowerShell
