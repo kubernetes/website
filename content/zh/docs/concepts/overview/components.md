@@ -141,7 +141,7 @@ Node components run on every node, maintaining running pods and providing the Ku
 -->
 ## Node 组件  {#node-components}
 
-节点组件在每个节点上运行，维护运行的 Pod 并提供 Kubernetes 运行环境。
+节点组件会在每个节点上运行，负责维护运行的 Pod 并提供 Kubernetes 运行环境。
 
 ### kubelet
 
@@ -203,11 +203,12 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 
 [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
 -->
-### Web 界面（仪表盘）   
+### Web 界面（仪表盘）   {#web-ui-dashboard}
 
 [Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/)
 是 Kubernetes 集群的通用的、基于 Web 的用户界面。
-它使用户可以管理集群中运行的应用程序以及集群本身并进行故障排除。
+它使用户可以管理集群中运行的应用程序以及集群本身，
+并进行故障排除。
 
 <!--
 ### Container Resource Monitoring
@@ -215,10 +216,11 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 [Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 -->
-### 容器资源监控
+### 容器资源监控   {#container-resource-monitoring}
 
 [容器资源监控](/zh/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
-将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。
+将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，
+并提供浏览这些数据的界面。
 
 <!--
 ### Cluster-level Logging
@@ -226,10 +228,11 @@ about containers in a central database, and provides a UI for browsing that data
 A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 -->
-### 集群层面日志
+### 集群层面日志   {#cluster-level-logging}
 
-[集群层面日志](/zh/docs/concepts/cluster-administration/logging/) 机制负责将容器的日志数据
-保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。
+[集群层面日志](/zh/docs/concepts/cluster-administration/logging/) 
+机制负责将容器的日志数据保存到一个集中的日志存储中，
+这种集中日志存储提供搜索和浏览接口。
 
 ## {{% heading "whatsnext" %}}
 
