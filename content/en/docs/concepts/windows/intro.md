@@ -50,7 +50,8 @@ Some node features are only available if you use a specific
 including:
 
 * HugePages: not supported for Windows containers
-* Privileged containers: not supported for Windows containers
+* Privileged containers: not supported for Windows containers.
+  [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) offer similar functionality.
 * TerminationGracePeriod: requires containerD
 
 Not all features of shared namespaces are supported. See [API compatibility](#api)
@@ -78,7 +79,7 @@ section refers to several key workload abstractions and how they map to Windows.
 
   * Single or multiple containers per Pod with process isolation and volume sharing
   * Pod `status` fields
-  * Readiness and Liveness probes
+  * Readiness, liveness, and startup probes
   * postStart & preStop container lifecycle hooks
   * ConfigMap, Secrets: as environment variables or volumes
   * `emptyDir` volumes
@@ -136,7 +137,7 @@ section refers to several key workload abstractions and how they map to Windows.
 Pods, workload resources, and Services are critical elements to managing Windows
 workloads on Kubernetes. However, on their own they are not enough to enable
 the proper lifecycle management of Windows workloads in a dynamic cloud native
-environment. Kubernetes also supports:
+environment.
 
 * `kubectl exec`
 * Pod and container metrics
@@ -150,14 +151,15 @@ Some kubelet command line options behave differently on Windows, as described be
 
 * The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process
   (see [CPU resource management](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu))
-* The `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update
+* The `--kube-reserved`, `--system-reserved` , and `--eviction-hard` flags update
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 * Eviction by using `--enforce-node-allocable` is not implemented
 * Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
-* A kubelet running on a Windows node does not have memory
-  restrictions. `--kubelet-reserve` and `--system-reserve` do not set limits on
-  kubelet or processes running on the host. This means kubelet or a process on the host
-  could cause memory resource starvation outside the node-allocatable and scheduler.
+* When running on a Windows node the kubelet does not have memory or CPU
+  restrictions. `--kube-reserved` and `--system-reserved` only subtract from `NodeAllocatable`
+  and do not guarantee resource provided for workloads.
+  See [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation)
+  for more information.
 * The `MemoryPressure` Condition is not implemented
 * The kubelet does not take OOM eviction actions
 
@@ -192,7 +194,7 @@ Container exit codes follow the same convention where 0 is success, and nonzero 
 The specific error codes may differ across Windows and Linux. However, exit codes
 passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
 
-##### Field compatibility for container specifications {#compatibility-v1-pod-spec-containers}
+#### Field compatibility for container specifications {#compatibility-v1-pod-spec-containers}
 
 The following list documents differences between how Pod container specifications
 work between Windows and Linux:
@@ -232,7 +234,7 @@ work between Windows and Linux:
    default value is `/dev/termination-log`, which does work because it does not
    exist on Windows by default.
 
-##### Field compatibility for Pod specifications {#compatibility-v1-pod}
+#### Field compatibility for Pod specifications {#compatibility-v1-pod}
 
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
@@ -260,17 +262,18 @@ The following list documents differences between how Pod specifications work bet
 * You cannot enable `mountPropagation` for volume mounts as this is not
   supported on Windows.
 
-##### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
+#### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
 
 None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
 
-### Node problem detector
+## Node problem detector
 
 The node problem detector (see
 [Monitor Node Health](/docs/tasks/debug/debug-cluster/monitor-node-health/))
-is not compatible with Windows.
+has preliminary support for Windows.
+For more information, visit the project's [GitHub page](https://github.com/kubernetes/node-problem-detector#windows).
 
-### Pause container
+## Pause container
 
 In a Kubernetes Pod, an infrastructure or “pause” container is first created
 to host the container. In Linux, the cgroups and namespaces that make up a pod
@@ -293,7 +296,7 @@ The Kubernetes project recommends using the Microsoft maintained image if you ar
 deploying to a production or production-like environment that requires signed
 binaries.
 
-### Container runtimes {#container-runtime}
+## Container runtimes {#container-runtime}
 
 You need to install a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
@@ -303,7 +306,7 @@ The following container runtimes work with Windows:
 
 {{% thirdparty-content %}}
 
-#### cri-containerd
+### ContainerD
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -318,9 +321,10 @@ when using GMSA with containerd to access Windows network shares, which requires
 kernel patch.
 {{< /note >}}
 
-#### Mirantis Container Runtime {#mcr}
+### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is available as a container runtime for all Windows Server 2019 and later versions.
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
+is available as a container runtime for all Windows Server 2019 and later versions.
 
 See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
 
@@ -361,12 +365,10 @@ If you have what looks like a bug, or you would like to
 make a feature request, please follow the [SIG Windows contributing guide](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) to create a new issue.
 You should first search the list of issues in case it was
 reported previously and comment with your experience on the issue and add additional
-logs. SIG-Windows Slack is also a great avenue to get some initial support and
+logs. SIG Windows channel on the Kubernetes Slack is also a great avenue to get some initial support and
 troubleshooting ideas prior to creating a ticket.
 
-## {{% heading "whatsnext" %}}
-
-### Deployment tools
+## Deployment tools
 
 The kubeadm tool helps you to deploy a Kubernetes cluster, providing the control
 plane to manage the cluster it, and nodes to run your workloads.
@@ -375,9 +377,10 @@ explains how to deploy Windows nodes to your cluster using kubeadm.
 
 The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also provides means to automate deployment of Windows nodes.
 
-### Windows distribution channels
+## Windows distribution channels
 
-For a detailed explanation of Windows distribution channels see the [Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
+For a detailed explanation of Windows distribution channels see the
+[Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
 
 Information on the different Windows Server servicing channels
 including their support models can be found at
