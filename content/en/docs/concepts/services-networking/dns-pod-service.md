@@ -49,7 +49,7 @@ search <namespace>.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```
 
-In summary, a Pod in the _test_ namespace can successfully resolve either 
+In summary, a Pod in the _prod_ namespace can successfully resolve either 
 `data.prod` or `data.prod.svc.cluster.local`.
 
 ### DNS Records
