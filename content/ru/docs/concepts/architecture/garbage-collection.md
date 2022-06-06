@@ -12,7 +12,7 @@ weight: 50
   * [Объекты без ссылок на владельца Objects](#owners-dependents)
   * [Не используемые контейнеры и образы контейнеров](#containers-images)
   * [Dynamically provisioned PersistentVolumes with a StorageClass reclaim policy of Delete](/docs/concepts/storage/persistent-volumes/#delete)
-  * [Устаревшие или просроченные запросы подписания сертификатов (CSR)](/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
+  * [Устаревшие или просроченные запросы подписания сертификатов (CSR)](/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
   * {{<glossary_tooltip text="Nodes" term_id="node">}} удалено в следующих сценариях:
     * В облаке, когда кластер использует [диспетчер облачных контроллеров](/docs/concepts/architecture/cloud-controller/)
     * Локально когда кластер использует дополнение, аналогичное диспетчер облачных контроллеров
