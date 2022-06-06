@@ -1,3 +1,7 @@
+<!--
+Install the CoreDNS addon to a Kubernetes cluster
+-->
+将 CoreDNS 插件安装到 Kubernetes 集群
 
 <!--
 ### Synopsis
@@ -34,9 +38,11 @@ kubeadm init phase addon coredns [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm config file.
+Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -46,9 +52,14 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (BETA - default=true)
 -->
-一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>IPv6DualStack=true|false (ALPHA - 默认值=false)
+<p>
+一组用来描述各种功能特性的键值（key=value）对。选项是：
+<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
+<br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
+<br/>UnversionedKubeletConfigMap=true|false (BETA - 默认值=true)
+</p>
 </td>
 </tr>
 
@@ -58,7 +69,9 @@ A set of key=value pairs that describe feature gates for various features. Optio
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!-- help for coredns -->
+<p>
 coredns 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -75,7 +88,9 @@ coredns 操作的帮助命令
 <!--
 Choose a container registry to pull control plane images from
 -->
+<p>
 选择用于拉取控制平面镜像的容器仓库
+</p>
 </td>
 </tr>
 
@@ -92,7 +107,9 @@ Choose a container registry to pull control plane images from
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
+<p>
 与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+</p>
 </td>
 </tr>
 
@@ -107,7 +124,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!-- Choose a specific Kubernetes version for the control plane.  -->
+<p>
 为控制平面选择特定的 Kubernetes 版本。
+</p>
 </td>
 </tr>
 
@@ -122,7 +141,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!-- Use alternative range of IP address for service VIPs.  -->
+<p>
 为服务 VIP 选择 IP 地址范围。
+</p>
 </td>
 </tr>
 
@@ -136,8 +157,10 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- Use alternative domain for services, e.g. "myorg.internal".  -->
-服务使用其它的域名，例如："myorg.internal"。
+<!-- Use alternative domain for services, e.g. &quot;myorg.internal&quot;.  -->
+<p>
+为服务使用其它域名，例如：&quot;myorg.internal&quot;。
+</p>
 </td>
 </tr>
 
@@ -167,7 +190,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

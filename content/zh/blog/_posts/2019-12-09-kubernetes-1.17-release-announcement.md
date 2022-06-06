@@ -3,6 +3,7 @@ layout: blog
 title: "Kubernetes 1.17：稳定"
 date: 2019-12-09T13：00：00-08：00
 slug: kubernetes-1-17-release-announcement
+evergreen: true
 ---
 
 <!-- ---
@@ -10,6 +11,7 @@ layout: blog
 title: "Kubernetes 1.17: Stability"
 date: 2019-12-09T13:00:00-08:00
 slug: kubernetes-1-17-release-announcement
+evergreen: true
 --- -->
 **作者:** [Kubernetes 1.17发布团队](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.17/release_team.md)
 
@@ -67,14 +69,14 @@ Standard labels are used by Kubernetes components to support some features. For 
 The labels are reaching general availability in this release. Kubernetes components have been updated to populate the GA and beta labels and to react to both. However, if you are using the beta labels in your pod specs for features such as node affinity, or in your custom controllers, we recommend that you start migrating them to the new GA labels. You can find the documentation for the new labels here:
 -->
 
-- [实例类型](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
-- [地区](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesioregion)
-- [区域](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
+- [实例类型](/zh/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)
+- [地区](/zh/docs/reference/labels-annotations-taints/#topologykubernetesioregion)
+- [区域](/zh/docs/reference/labels-annotations-taints/#topologykubernetesiozone)
 
 <!--
-- [node.kubernetes.io/instance-type](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
-- [topology.kubernetes.io/region](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesioregion)
-- [topology.kubernetes.io/zone](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
+- [node.kubernetes.io/instance-type](/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)
+- [topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion)
+- [topology.kubernetes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone)
 -->
 ## 卷快照进入公开测试版
 <!--
@@ -85,7 +87,9 @@ The labels are reaching general availability in this release. Kubernetes compone
 The Kubernetes Volume Snapshot feature is now beta in Kubernetes v1.17. It was introduced as alpha in Kubernetes v1.12, with a second alpha with breaking changes in Kubernetes v1.13.  This post summarizes the changes in the beta release.
 -->
 ### 卷快照是什么？
-<!-- ### What is a Volume Snapshot? -->
+<!--
+### What is a Volume Snapshot?
+-->
 许多的存储系统(如谷歌云持久化磁盘，亚马逊弹性块存储和许多的内部存储系统)支持为持久卷创建快照。快照代表卷在一个时间点的复制。它可用于配置新卷(使用快照数据提前填充)或恢复卷到一个之前的状态(用快照表示)。
 <!--
 Many storage systems (like Google Cloud Persistent Disks, Amazon Elastic Block Storage, and many on-premise storage systems) provide the ability to create a “snapshot” of a persistent volume. A snapshot represents a point-in-time copy of a volume. A snapshot can be used either to provision a new volume (pre-populated with the snapshot data) or to restore an existing volume to a previous state (represented by the snapshot).
@@ -99,7 +103,7 @@ Kubernetes卷插件系统已经提供了功能强大的抽象用于自动配置�
 The Kubernetes volume plugin system already provides a powerful abstraction that automates the provisioning, attaching, and mounting of block and file storage.
 -->
 
-支持所有这些特性是Kubernets负载可移植的目标：Kubernetes旨在分布式系统应用和底层集群之间创建一个抽象层,使得应用可以不感知其运行集群的具体信息并且部署也不需特定集群的知识。
+支持所有这些特性是Kubernetes负载可移植的目标：Kubernetes旨在分布式系统应用和底层集群之间创建一个抽象层,使得应用可以不感知其运行集群的具体信息并且部署也不需特定集群的知识。
 <!--
 Underpinning all these features is the Kubernetes goal of workload portability: Kubernetes aims to create an abstraction layer between distributed systems applications and underlying clusters so that applications can be agnostic to the specifics of the cluster they run on and application deployment requires no “cluster specific” knowledge.
 -->
@@ -143,7 +147,8 @@ Prior to CSI, Kubernetes provided a powerful volume plugin system. These volume 
 
 随着更多容器存储接口驱动变成生产环境可用，我们希望所有的Kubernetes用户从容器存储接口模型中获益。然而，我们不希望强制用户以破坏现有基本可用的存储接口的方式去改变负载和配置。道路很明确，我们将不得不用CSI替换树内插件接口。什么是容器存储接口迁移？
 <!--
- As more CSI Drivers were created and became production ready, we wanted all Kubernetes users to reap the benefits of the CSI model. However, we did not want to force users into making workload/configuration changes by breaking the existing generally available storage APIs. The way forward was clear - we would have to replace the backend of the “in-tree plugin” APIs with CSI.What is CSI migration?
+As more CSI Drivers were created and became production ready, we wanted all Kubernetes users to reap the benefits of the CSI model. However, we did not want to force users into making workload/configuration changes by breaking the existing generally available storage APIs. The way forward was clear - we would have to replace the backend of the “in-tree plugin” APIs with CSI.
+What is CSI migration?
 -->
 
 在容器存储接口迁移上所做的努力使得替换现有的树内存储插件，如`kubernetes.io/gce-pd`或`kubernetes.io/aws-ebs`，为相应的容器存储接口驱动成为可能。如果容器存储接口迁移正常工作，Kubernetes终端用户不会注意到任何差别。迁移过后，Kubernetes用户可以继续使用现有接口来依赖树内存储插件的功能。
@@ -163,7 +168,8 @@ The Kubernetes team has worked hard to ensure the stability of storage APIs and 
 
 你可以在这篇博客中阅读更多关于[容器存储接口迁移成为公开测试版](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/).
 <!--
-You can read more in the blog entry about [CSI migration going to beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/). -->
+You can read more in the blog entry about [CSI migration going to beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/).
+-->
 ## 其它更新
 <!--
 ## Other Updates
@@ -223,12 +229,11 @@ You can read more in the blog entry about [CSI migration going to beta](https://
 -->
 ### 可用性
 <!--
- ### Availability
+### Availability
 -->
 Kubernetes 1.17 可以[在GitHub下载](https://github.com/kubernetes/kubernetes/releases/tag/v1.17.0)。开始使用Kubernetes，看看这些[交互教学](https://kubernetes.io/docs/tutorials/)。你可以非常容易使用[kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)安装1.17。
 <!--
-Kubernetes 1.17 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.17.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/). You can also easily install 1.17 using
- [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
+Kubernetes 1.17 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.17.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/). You can also easily install 1.17 using [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
  -->
 ### 发布团队
 <!--

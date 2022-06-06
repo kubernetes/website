@@ -90,7 +90,7 @@ The common use for HorizontalPodAutoscaler is to configure it to fetch metrics f
 (`metrics.k8s.io`, `custom.metrics.k8s.io`, or `external.metrics.k8s.io`).  The `metrics.k8s.io` API is
 usually provided by an add-on named Metrics Server, which needs to be launched separately.
 For more information about resource metrics, see
-[Metrics Server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server).
+[Metrics Server](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server).
 
 [Support for metrics APIs](#support-for-metrics-apis) explains the stability guarantees and support status for these
 different APIs.
@@ -400,7 +400,7 @@ scaling in that direction.
 ### Stabilization window
 
 The stabilization window is used to restrict the [flapping](#flapping) of
-replicas count when the metrics used for scaling keep fluctuating. The autoscaling algorithm
+replica count when the metrics used for scaling keep fluctuating. The autoscaling algorithm
 uses this window to infer a previous desired state and avoid unwanted changes to workload
 scale.
 

@@ -308,7 +308,7 @@ local workstation to debug the database that is running in the Pod.
 ## 讨论  {#discussion}
 
 与本地 28015 端口建立的连接将转发到运行 MongoDB 服务器的 Pod 的 27017 端口。
-通过此连接，您可以使用本地工作站来调试在 Pod 中运行的数据库。
+通过此连接，你可以使用本地工作站来调试在 Pod 中运行的数据库。
 
 <!--
 `kubectl port-forward` is implemented for TCP ports only.

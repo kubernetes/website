@@ -34,7 +34,7 @@ object.
 Create a namespace so that the resources you create in this exercise are
 isolated from the rest of your cluster.
 -->
-## 创建命名空间
+## 创建命名空间    {#create-a-namespace}
 
 创建一个命名空间以便本例中创建的资源和集群中的其余部分相隔离。
 
@@ -47,7 +47,7 @@ kubectl create namespace quota-object-example
 
 Here is the configuration file for a ResourceQuota object:
 -->
-## 创建 ResourceQuota
+## 创建 ResourceQuota    {#create-a-resourcequota}
 
 下面是一个 ResourceQuota 对象的配置文件：
 
@@ -96,7 +96,7 @@ status:
 
 Here is the configuration file for a PersistentVolumeClaim object:
 -->
-## 创建 PersistentVolumeClaim
+## 创建 PersistentVolumeClaim    {#create-a-persistentvolumeclaim}
 
 下面是一个 PersistentVolumeClaim 对象的配置文件：
 
@@ -135,7 +135,7 @@ pvc-quota-demo   Pending
 
 Here is the configuration file for a second PersistentVolumeClaim:
 -->
-## 尝试创建第二个 PersistentVolumeClaim
+## 尝试创建第二个 PersistentVolumeClaim    {#attempt-to-create-a-second-persistentvolumeclaim}
 
 下面是第二个 PersistentVolumeClaim 的配置文件：
 
@@ -147,8 +147,9 @@ Attempt to create the second PersistentVolumeClaim:
 尝试创建第二个 PersistentVolumeClaim：
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-objects-pvc-2.yaml --namespace=quota-object-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-objects-pvc-2.yaml --namespace=quota-object-example
 ```
+
 <!--
 The output shows that the second PersistentVolumeClaim was not created,
 because it would have exceeded the quota for the namespace.
@@ -167,11 +168,14 @@ used: persistentvolumeclaims=1, limited: persistentvolumeclaims=1
 These are the strings used to identify API resources that can be constrained
 by quotas:
 -->
-## 说明
+## 说明    {#notes}
 
 下面这些字符串可被用来标识那些能被配额限制的 API 资源：
 
 <table>
+<!--
+<tr><th>String</th><th>API Object</th></tr>
+-->
 <tr><th>字符串</th><th>API 对象</th></tr>
 <tr><td>"pods"</td><td>Pod</td></tr>
 <tr><td>"services"</td><td>Service</td></tr>
@@ -180,7 +184,13 @@ by quotas:
 <tr><td>"secrets"</td><td>Secret</td></tr>
 <tr><td>"configmaps"</td><td>ConfigMap</td></tr>
 <tr><td>"persistentvolumeclaims"</td><td>PersistentVolumeClaim</td></tr>
+<!--
+<tr><td>"services.nodeports"</td><td>Service of type NodePort</td></tr>
+-->
 <tr><td>"services.nodeports"</td><td>NodePort 类型的 Service</td></tr>
+<!--
+<tr><td>"services.loadbalancers"</td><td>Service of type LoadBalancer</td></tr>
+-->
 <tr><td>"services.loadbalancers"</td><td>LoadBalancer 类型的 Service</td></tr>
 </table>
 
@@ -189,7 +199,7 @@ by quotas:
 
 Delete your namespace:
 -->
-## 清理
+## 清理    {#clean-up}
 
 删除你的命名空间：
 
@@ -202,20 +212,20 @@ kubectl delete namespace quota-object-example
 <!--
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 -->
 
-### 集群管理员参考
+### 集群管理员参考    {#for-cluster-administrators}
 
 * [为命名空间配置默认的内存请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 * [为命名空间配置默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
@@ -234,7 +244,7 @@ kubectl delete namespace quota-object-example
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 -->
 
-### 应用开发者参考
+### 应用开发者参考    {#for-app-developers}
 
 * [为容器和 Pod 分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)

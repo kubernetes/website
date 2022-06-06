@@ -145,29 +145,63 @@ Kubernetes 为 API 实现了一种基于 Protobuf 的序列化格式，主要用
 
 ### OpenAPI V3
 
-{{< feature-state state="alpha"  for_k8s_version="v1.23" >}}
+{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
 
 <!--
-Kubernetes v1.23 offers initial support for publishing its APIs as OpenAPI v3; this is an
-alpha feature that is disabled by default.
-You can enable the alpha feature by turning on the
+Kubernetes {{< param "version" >}} offers beta support for publishing its APIs as OpenAPI v3; this is a
+beta feature that is enabled by default.
+You can disable the beta feature by turning off the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
 for the kube-apiserver component.
 -->
-Kubernetes v1.23 提供将其 API 以 OpenAPI v3 形式发布的初始支持；这一功能特性处于 Alpha
-状态，默认被禁用。
-你可以通过为 kube-apiserver 组件启用 `OpenAPIV3`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)来启用此
-Alpha 特性。
+Kubernetes {{< param "version" >}} 提供将其 API 以 OpenAPI v3 形式发布的 beta 支持；
+这一功能特性处于 beta 状态，默认被开启。
+你可以通过为 kube-apiserver 组件关闭 `OpenAPIV3`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)来禁用此 beta 特性。
 
 <!--
-With the feature enabled, the Kubernetes API server serves an
-aggregated OpenAPI v3 spec per Kubernetes group version at the
-`/openapi/v3/apis/<group>/<version>` endpoint. Please refer to the
-table below for accepted request headers.
+A discovery endpoint `/openapi/v3` is provided to see a list of all
+group/versions available. This endpoint only returns JSON. These group/versions
+are provided in the following format:
 -->
-特性被启用时，Kubernetes API 服务器会在端点 `/openapi/v3/apis/<group>/<version>`
-提供按 Kubernetes 组版本聚合的 OpenAPI v3 规范。
+发现端点 `/openapi/v3` 被提供用来查看可用的所有组、版本列表。
+此列表仅返回 JSON。这些组、版本以下面的格式提供：
+```json
+{
+    "paths": {
+        ...
+        "api/v1": {
+            "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF"
+        },
+        "apis/admissionregistration.k8s.io/v1": {
+            "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597"
+        },
+        ...
+}
+```
+
+<!-- 
+The relative URLs are pointing to immutable OpenAPI descriptions, in
+order to improve client-side caching. The proper HTTP caching headers
+are also set by the API server for that purpose (`Expires` to 1 year in
+the future, and `Cache-Control` to `immutable`). When an obsolete URL is
+used, the API server returns a redirect to the newest URL. 
+-->
+为了改进客户端缓存，相对的 URL 会指向不可变的 OpenAPI 描述。
+为了此目的，API 服务器也会设置正确的 HTTP 缓存标头
+（`Expires` 为未来 1 年，和 `Cache-Control` 为 `immutable`）。
+当一个过时的 URL 被使用时，API 服务器会返回一个指向最新 URL 的重定向。
+
+<!-- 
+The Kubernetes API server publishes an OpenAPI v3 spec per Kubernetes
+group version at the `/openapi/v3/apis/<group>/<version>?hash=<hash>`
+endpoint.
+
+Refer to the table below for accepted request headers. 
+-->
+Kubernetes API 服务器会在端点 `/openapi/v3/apis/<group>/<version>?hash=<hash>`
+发布一个 Kubernetes 组版本的 OpenAPI v3 规范。
+
 请参阅下表了解可接受的请求头部。
 
 <table>
@@ -200,13 +234,6 @@ table below for accepted request headers.
      </tr>
   </tbody>
 </table>
-
-<!--
-A discovery endpoint `/openapi/v3` is provided to see a list of all
-group/versions available. This endpoint only returns JSON.
--->
-发现端点 `/openapi/v3` 被提供用来查看可用的所有组、版本列表。
-此列表仅返回 JSON。
 
 <!--
 ## API changes

@@ -721,9 +721,8 @@ That's it! The Deployment will declaratively update the deployed nginx applicati
 ## {{% heading "whatsnext" %}}
 
 <!--
-- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
+- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug/debug-application/debug-running-pod/)
 - [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)
  -->
-- 学习[如何使用 `kubectl` 观察和调试应用](/zh/docs/tasks/debug-application-cluster/debug-application-introspection/)
+- 学习[如何使用 `kubectl` 观察和调试应用](/zh/docs/tasks/debug/debug-application/debug-running-pod/)
 - 阅读[配置最佳实践和技巧](/zh/docs/concepts/configuration/overview/)
-

@@ -76,9 +76,9 @@ weight: 10
                 <h2>Node</h2>
                 <p>Sebuah Pod selalu berjalan dalam sebuah <b>Node</b>. Node merupakan sebuah mesin pekerja (<i>worker</i>) di Kubernetes dan mungkin merupakan mesin virtual ataupun fisik, tergantung dari klaster. Tiap Node dikelola oleh control plane. Satu Node dapat memiliki beberapa Pod, dan control plane Kubernetes yang otomatis menangani penjadwalan pod seluruh Node-Node dalam klaster. Penjadwalan otomatis oleh control plane memperhitungkan tersedianya sumber daya tiap Node.</p>
 
-                <p>Tiap Node Kuberbetes menjalankan setidaknya:</p>
+                <p>Tiap Node Kubernetes menjalankan setidaknya:</p>
                 <ul>
-                    <li>Kubelet, satu proses yang bertanggung jawab untuk berkomunikasi antara control plane Kuberneter dan Node; ini juga mengelola Pod-Pod dan kontainer-kontainer yang berjalan di sebuah mesin.</li>
+                    <li>Kubelet, satu proses yang bertanggung jawab untuk berkomunikasi antara control plane Kubernetes dan Node; ini juga mengelola Pod-Pod dan kontainer-kontainer yang berjalan di sebuah mesin.</li>
                     <li>Satu <i>container runtime</i>, seperti Docker, bertanggung jawab untuk menarik <i>image</i> kontainer dari register, membuka kontainer, dan menjalankan aplikasi.</li>
                 </ul>
 

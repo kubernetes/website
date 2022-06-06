@@ -122,7 +122,7 @@ id = "UA-00000000-0"
 
 [params]
 copyright_k8s = "The Kubernetes Authors"
-copyright_linux =  "Copyright © 2020 The Linux Foundation ®."
+copyright_linux = "Copyright © 2020 The Linux Foundation ®."
 
 # privacy_policy = "https://policies.google.com/privacy"
 
@@ -139,10 +139,10 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.23"
+latest = "v1.24"
 
-fullversion = "v1.23.0"
-version = "v1.23"
+fullversion = "v1.24.0"
+version = "v1.24"
 githubbranch = "main"
 docsbranch = "main"
 deprecated = false
@@ -155,10 +155,10 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 # GitHub repository link for editing a page and opening issues.
 github_repo = "https://github.com/kubernetes/website"
 
-#Searching
+# Searching
 k8s_search = true
 
-#The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
+# The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
 #gcs_engine_id = "011737558837375720776:fsdu1nryfng"
@@ -179,51 +179,53 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.23.0"
-version = "v1.23"
-githubbranch = "v1.23.0"
+fullversion = "v1.24.0"
+version = "v1.24"
+githubbranch = "v1.24.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.22.4"
+fullversion = "v1.23.6"
+version = "v1.23"
+githubbranch = "v1.23.6"
+docsbranch = "release-1.23"
+url = "https://v1-23.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.22.9"
 version = "v1.22"
-githubbranch = "v1.22.4"
+githubbranch = "v1.22.9"
 docsbranch = "release-1.22"
 url = "https://v1-22.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.21.7"
+fullversion = "v1.21.12"
 version = "v1.21"
-githubbranch = "v1.21.7"
+githubbranch = "v1.21.12"
 docsbranch = "release-1.21"
 url = "https://v1-21.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.20.13"
+fullversion = "v1.20.15"
 version = "v1.20"
-githubbranch = "v1.20.13"
+githubbranch = "v1.20.15"
 docsbranch = "release-1.20"
 url = "https://v1-20.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.19.16"
-version = "v1.19"
-githubbranch = "v1.19.16"
-docsbranch = "release-1.19"
-url = "https://v1-19.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
+# Show expand/collapse icon for sidebar sections.
+sidebar_menu_foldable = true
 # https://github.com/gohugoio/hugo/issues/8918#issuecomment-903314696
 sidebar_cache_limit = 1
-#  Set to true to disable breadcrumb navigation.
+# Set to true to disable breadcrumb navigation.
 breadcrumb_disable = false
-#  Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+# Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
 sidebar_search_disable = false
-#  Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+# Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
 navbar_logo = true
 # Set to true to disable the About link in the site footer
 footer_about_disable = false
@@ -244,50 +246,50 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 	name = "User mailing list"
 	url = "https://discuss.kubernetes.io"
 	icon = "fa fa-envelope"
-  desc = "Discussion and help from your fellow users"
+	desc = "Discussion and help from your fellow users"
 
 [[params.links.user]]
 	name = "Twitter"
 	url = "https://twitter.com/kubernetesio"
 	icon = "fab fa-twitter"
-  desc = "Follow us on Twitter to get the latest news!"
+	desc = "Follow us on Twitter to get the latest news!"
 
 [[params.links.user]]
 	name = "Calendar"
 	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
 	icon = "fas fa-calendar-alt"
-  desc = "Google Calendar for Kubernetes"
+	desc = "Google Calendar for Kubernetes"
 
 [[params.links.user]]
 	name = "Youtube"
 	url = "https://youtube.com/kubernetescommunity"
 	icon = "fab fa-youtube"
-  desc = "Youtube community videos"
+	desc = "Youtube community videos"
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name = "GitHub"
 	url = "https://github.com/kubernetes/kubernetes"
 	icon = "fab fa-github"
-  desc = "Development takes place here!"
+	desc = "Development takes place here!"
 
 [[params.links.developer]]
 	name = "Slack"
 	url = "https://slack.k8s.io"
 	icon = "fab fa-slack"
-  desc = "Chat with other project developers"
+	desc = "Chat with other project developers"
 
 [[params.links.developer]]
 	name = "Contribute"
 	url = "https://git.k8s.io/community/contributors/guide"
 	icon = "fas fa-edit"
-  desc = "Contribute to the Kubernetes website"
+	desc = "Contribute to the Kubernetes website"
 
 [[params.links.developer]]
 	name = "Stack Overflow"
 	url = "https://stackoverflow.com/questions/tagged/kubernetes"
 	icon = "fab fa-stack-overflow"
-  desc = "Practical questions and curated answers"
+	desc = "Practical questions and curated answers"
 
 # Language definitions.
 
@@ -295,7 +297,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [languages.en]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="English"
+languageName = "English"
 # Weight used for sorting.
 weight = 1
 languagedirection = "ltr"
@@ -342,7 +344,7 @@ language_alternatives = ["en"]
 [languages.fr]
 title = "Kubernetes"
 description = "Solution professionnelle d’orchestration de conteneurs"
-languageName ="Français (French)"
+languageName = "Français (French)"
 languageNameLatinScript = "Français"
 weight = 5
 contentDir = "content/fr"
@@ -370,7 +372,7 @@ language_alternatives = ["en"]
 [languages.no]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="Norsk (Norwegian)"
+languageName = "Norsk (Norwegian)"
 languageNameLatinScript = "Norsk"
 weight = 7
 contentDir = "content/no"
@@ -384,7 +386,7 @@ language_alternatives = ["en"]
 [languages.de]
 title = "Kubernetes"
 description = "Produktionsreife Container-Orchestrierung"
-languageName ="Deutsch (German)"
+languageName = "Deutsch (German)"
 languageNameLatinScript = "Deutsch"
 weight = 8
 contentDir = "content/de"
@@ -398,7 +400,7 @@ language_alternatives = ["en"]
 [languages.es]
 title = "Kubernetes"
 description = "Orquestación de contenedores para producción"
-languageName ="Español (Spanish)"
+languageName = "Español (Spanish)"
 languageNameLatinScript = "Español"
 weight = 9
 contentDir = "content/es"
@@ -412,9 +414,10 @@ language_alternatives = ["en"]
 [languages.pt-br]
 title = "Kubernetes"
 description = "Orquestração de contêineres em nível de produção"
-languageName ="Português (Portuguese)"
+languageName = "Português (Portuguese)"
 languageNameLatinScript = "Português"
-weight = 9
+weight = 10
+
 contentDir = "content/pt-br"
 languagedirection = "ltr"
 
@@ -428,7 +431,7 @@ title = "Kubernetes"
 description = "Orkestrasi Kontainer dengan Skala Produksi"
 languageName ="Bahasa Indonesia"
 languageNameLatinScript = "Bahasa Indonesia"
-weight = 10
+weight = 11
 contentDir = "content/id"
 languagedirection = "ltr"
 
@@ -442,7 +445,7 @@ title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
 languageName = "हिन्दी (Hindi)"
 languageNameLatinScript = "Hindi"
-weight = 11
+weight = 12
 contentDir = "content/hi"
 languagedirection = "ltr"
 
@@ -456,7 +459,7 @@ description = "Giải pháp điều phối container trong môi trường produc
 languageName = "Tiếng Việt (Vietnamese)"
 languageNameLatinScript = "Tiếng Việt"
 contentDir = "content/vi"
-weight = 12
+weight = 13
 languagedirection = "ltr"
 
 [languages.ru]
@@ -464,7 +467,7 @@ title = "Kubernetes"
 description = "Первоклассная оркестрация контейнеров"
 languageName = "Русский (Russian)"
 languageNameLatinScript = "Russian"
-weight = 12
+weight = 14
 contentDir = "content/ru"
 languagedirection = "ltr"
 
@@ -478,7 +481,7 @@ title = "Kubernetes"
 description = "Produkcyjny system zarządzania kontenerami"
 languageName = "Polski (Polish)"
 languageNameLatinScript = "Polski"
-weight = 13
+weight = 15
 contentDir = "content/pl"
 languagedirection = "ltr"
 
@@ -492,7 +495,7 @@ title = "Kubernetes"
 description = "Довершена система оркестрації контейнерів"
 languageName = "Українська (Ukrainian)"
 languageNameLatinScript = "Ukrainian"
-weight = 14
+weight = 16
 contentDir = "content/uk"
 languagedirection = "ltr"
 

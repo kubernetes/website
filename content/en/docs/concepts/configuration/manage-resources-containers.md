@@ -47,10 +47,9 @@ or by enforcement (the system prevents the container from ever exceeding the lim
 runtimes can have different ways to implement the same restrictions.
 
 {{< note >}}
-If a container specifies its own memory limit, but does not specify a memory request, Kubernetes
-automatically assigns a memory request that matches the limit. Similarly, if a container specifies its own
-CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
-the limit.
+If you specify a limit for a resource, but do not specify any request, and no admission-time
+mechanism has applied a default request for that resource, then Kubernetes copies the limit
+you specified and uses it as the requested value for the resource.
 {{< /note >}}
 
 ## Resource types
@@ -229,9 +228,9 @@ see the [Troubleshooting](#troubleshooting) section.
 The kubelet reports the resource usage of a Pod as part of the Pod
 [`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
 
-If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either
-from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-api)
+from the [Metrics API](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)
 directly or from your monitoring tools.
 
 ## Local ephemeral storage

@@ -88,9 +88,9 @@ Details on how the AOS system works can be accessed here: https://www.apstra.com
 さらに、このCNIは[ネットワークポリシーの適用のためにCalico](https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/calico.html)と一緒に実行できます。AWS VPC CNIプロジェクトは、[GitHubのドキュメント](https://github.com/aws/amazon-vpc-cni-k8s)とともにオープンソースで公開されています。
 
 ### Azure CNI for Kubernetes
-[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
+[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview)は、Kubernetes PodをAzure仮想ネットワーク(VNetとも呼ばれます)と統合する[オープンソース](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md)プラグインで、VMと同等のネットワーク パフォーマンスを提供します。Pod は、ExpressRouteまたはサイト間VPN経由でピアリングされたVNetおよびオンプレミスに接続でき、これらのネットワークから直接アクセスすることもできます。Podは、サービスエンドポイントまたはプライベートリンクによって保護されているストレージやSQLなどのAzureサービスにアクセスできます。VNetセキュリティポリシーとルーティングを使用して、Podトラフィックをフィルター処理できます。プラグインは、Kubernetesノードのネットワークインターフェイスで事前に構成されたセカンダリIPのプールを利用して、VNet IPをPodに割り当てます。
 
-Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
+Azure CNIは、[Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni)でネイティブに利用できます。
 
 
 ### Big Cloud Fabric from Big Switch Networks
@@ -115,7 +115,7 @@ addressing, and it can be used in combination with other CNI plugins.
 
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/ja/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/ja/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](https://github.com/romana/romana), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 
@@ -273,7 +273,7 @@ at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 
 ### Romana
 
-[Romana](https://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
+[Romana](https://github.com/romana/romana) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
 
 ### Weave Net from Weaveworks
 

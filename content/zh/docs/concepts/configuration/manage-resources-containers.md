@@ -92,15 +92,13 @@ runtimes can have different ways to implement the same restrictions.
 
 {{< note >}}
 <!--
-If a container specifies its own memory limit, but does not specify a memory request, Kubernetes
-automatically assigns a memory request that matches the limit. Similarly, if a container specifies its own
-CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
-the limit.
+If you specify a limit for a resource, but do not specify any request, and no admission-time
+mechanism has applied a default request for that resource, then Kubernetes copies the limit
+you specified and uses it as the requested value for the resource.
 -->
-如果某容器设置了自己的内存限制但未设置内存请求，Kubernetes
-自动为其设置与内存限制相匹配的请求值。类似的，如果某 Container 设置了
-CPU 限制值但未设置 CPU 请求值，则 Kubernetes 自动为其设置 CPU
-请求并使之与 CPU 限制值匹配。
+如果你为某个资源指定了限制，但不指定请求，
+并且没有应用准入时机制为该资源设置默认请求，
+然后 Kubernetes 复制你所指定的限制值，将其用作资源的请求值。
 {{< /note >}}
 
 <!--
@@ -411,9 +409,9 @@ see the [Troubleshooting](#troubleshooting) section.
 The kubelet reports the resource usage of a Pod as part of the Pod
 [`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
 
-If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either
-from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
+from the [Metrics API](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)
 directly or from your monitoring tools.
 -->
 ## 监控计算和内存资源用量
@@ -422,8 +420,8 @@ kubelet 会将 Pod 的资源使用情况作为 Pod
 [`status`](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
 的一部分来报告的。
 
-如果为集群配置了可选的[监控工具](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/)，
-则可以直接从[指标 API](/zh/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api) 
+如果为集群配置了可选的[监控工具](/zh/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)，
+则可以直接从[指标 API](/zh/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api) 
 或者监控工具获得 Pod 的资源使用情况。
 
 <!--

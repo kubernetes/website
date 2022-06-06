@@ -171,7 +171,7 @@ kubectl get pod memory-demo-2 --output=yaml --namespace=mem-example
 
 The output shows that the Container was killed because it is out of memory (OOM):
 
-```shell
+```yaml
 lastState:
    terminated:
      containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
@@ -278,7 +278,7 @@ kubectl describe pod memory-demo-3 --namespace=mem-example
 
 The output shows that the Container cannot be scheduled because of insufficient memory on the Nodes:
 
-```shell
+```
 Events:
   ...  Reason            Message
        ------            -------
@@ -291,8 +291,8 @@ The memory resource is measured in bytes. You can express memory as a plain inte
 fixed-point integer with one of these suffixes: E, P, T, G, M, K, Ei, Pi, Ti, Gi, Mi, Ki.
 For example, the following represent approximately the same value:
 
-```shell
-128974848, 129e6, 129M , 123Mi
+```
+128974848, 129e6, 129M, 123Mi
 ```
 
 Delete your Pod:

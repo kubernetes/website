@@ -45,8 +45,7 @@ and possibly a port number as well; for example: `fictional.registry.example:104
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
-After the image name part you can add a _tag_ (as also using with commands such
-as `docker` and `podman`).
+After the image name part you can add a _tag_ (in the same way you would when using with commands like `docker` or `podman`).
 Tags let you identify different versions of the same series of images.
 -->
 ## 镜像名称    {#image-names}
@@ -57,8 +56,7 @@ Tags let you identify different versions of the same series of images.
 
 如果你不指定仓库的主机名，Kubernetes 认为你在使用 Docker 公共仓库。
 
-在镜像名称之后，你可以添加一个 _标签（Tag）_ （就像在 `docker` 或 `podman`
-中也在用的那样）。
+在镜像名称之后，你可以添加一个标签（Tag）（与使用 `docker` 或 `podman` 等命令时的方式相同）。
 使用标签能让你辨识同一镜像序列中的不同版本。
 
 <!--
@@ -169,7 +167,7 @@ replace `<image-name>:<tag>` with `<image-name>@<digest>`
 将 `<image-name>:<tag>` 替换为 `<image-name>@<digest>`，例如 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
 
 <!--
-When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
+When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image by digest fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
 
 There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
 that mutate Pods (and pod templates) when they are created, so that the
@@ -179,7 +177,7 @@ running the same code no matter what tag changes happen at the registry.
 -->
 当使用镜像标签时，如果镜像仓库修改了代码所对应的镜像标签，可能会出现新旧代码混杂在 Pod 中运行的情况。
 镜像摘要唯一标识了镜像的特定版本，因此 Kubernetes 每次启动具有指定镜像名称和摘要的容器时，都会运行相同的代码。
-指定一个镜像可以固定你所运行的代码，这样镜像仓库的变化就不会导致版本的混杂。
+通过摘要指定镜像可固定你运行的代码，这样镜像仓库的变化就不会导致版本的混杂。
 
 有一些第三方的[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
 在创建 Pod（和 Pod 模板）时产生变更，这样运行的工作负载就是根据镜像摘要，而不是标签来定义的。
@@ -346,17 +344,12 @@ These options are explained in more detail below.
 <!--
 ### Configuring nodes to authenticate to a private registry
 
-If you run Docker on your nodes, you can configure the Docker container
-runtime to authenticate to a private container registry.
-
-This approach is suitable if you can control node configuration.
+Specific instructions for setting credentials depends on the container runtime and registry you chose to use. You should refer to your solution's documentation for the most accurate information.
 -->
 ### 配置 Node 对私有仓库认证
 
-如果你在节点上运行的是 Docker，你可以配置 Docker
-容器运行时来向私有容器仓库认证身份。
-
-此方法适用于能够对节点进行配置的场合。
+设置凭据的具体说明取决于你选择使用的容器运行时和仓库。
+你应该参考解决方案的文档来获取最准确的信息。
 
 <!--
 Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
@@ -368,154 +361,13 @@ Kubernetes 默认仅支持 Docker 配置中的 `auths` 和 `HttpHeaders` 部分�
 {{< /note >}}
 
 <!--
-Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
-in the search paths list below, kubelet uses it as the credential provider when pulling images.
+For an example of configuring a private container image registry, see the
+[Pull an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry)
+task. That example uses a private registry in Docker Hub.
 -->
-Docker 将私有仓库的密钥保存在 `$HOME/.dockercfg` 或 `$HOME/.docker/config.json`
-文件中。如果你将相同的文件放在下面所列的搜索路径中，`kubelet` 会在拉取镜像时将其用作凭据
-数据来源：
-
-<!--
-* `{--root-dir:-/var/lib/kubelet}/config.json`
-* `{cwd of kubelet}/config.json`
-* `${HOME}/.docker/config.json`
-* `/.docker/config.json`
-* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-* `{cwd of kubelet}/.dockercfg`
-* `${HOME}/.dockercfg`
-* `/.dockercfg`
--->
-* `{--root-dir:-/var/lib/kubelet}/config.json`
-* `{kubelet 当前工作目录}/config.json`
-* `${HOME}/.docker/config.json`
-* `/.docker/config.json`
-* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-* `{kubelet 当前工作目录}/.dockercfg`
-* `${HOME}/.dockercfg`
-* `/.dockercfg`
-
-<!--
-You may have to set `HOME=/root` explicitly in the environment of the kubelet process.
--->
-{{< note >}}
-你可能不得不为 `kubelet` 进程显式地设置 `HOME=/root` 环境变量。
-{{< /note >}}
-
-<!--
-Here are the recommended steps to configuring your nodes to use a private registry.  In this
-example, run these on your desktop/laptop:
--->
-推荐采用如下步骤来配置节点以便访问私有仓库。以下示例中，在 PC 或笔记本电脑中操作：
-
-<!--
-1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
-1. View `$HOME/.docker/config.json` in an editor to ensure it contains only the credentials you want to use.
-1. Get a list of your nodes; for example:
-      - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
-      - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
-1. Copy your local `.docker/config.json` to one of the search paths list above.
-      - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
--->
-1. 针对你要使用的每组凭据，运行 `docker login [服务器]` 命令。这会更新
-   你本地环境中的 `$HOME/.docker/config.json` 文件。
-1. 在编辑器中打开查看 `$HOME/.docker/config.json` 文件，确保其中仅包含你要
-   使用的凭据信息。
-1. 获得节点列表；例如：
-
-   - 如果想要节点名称：`nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
-
-   - 如果想要节点 IP ，`nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
-
-1. 将本地的 `.docker/config.json` 拷贝到所有节点，放入如上所列的目录之一：
-   - 例如，可以试一下：`for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
-
-<!--
-For production clusters, use a configuration management tool so that you can apply this
-setting to all the nodes where you need it.
--->
-{{< note >}}
-对于产品环境的集群，可以使用配置管理工具来将这些设置应用到
-你所期望的节点上。
-{{< /note >}}
-
-<!--
-Verify by creating a Pod that uses a private image; for example:
--->
-创建使用私有镜像的 Pod 来验证。例如：
-
-```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: private-image-test-1
-spec:
-  containers:
-    - name: uses-private-image
-      image: $PRIVATE_IMAGE_NAME
-      imagePullPolicy: Always
-      command: [ "echo", "SUCCESS" ]
-EOF
-```
-
-输出类似于：
-
-```
-pod/private-image-test-1 created
-```
-
-<!--
-If everything is working, then, after a few moments, you can run:
-
-```shell
-kubectl logs private-image-test-1
-```
-and see that the command outputs:
-```
-SUCCESS
-```
--->
-如果一切顺利，那么一段时间后你可以执行：
-```shell
-kubectl logs private-image-test-1
-```
-然后可以看到命令的输出：
-```
-SUCCESS
-```
-
-<!--
-If you suspect that the command failed, you can run:
--->
-如果你怀疑命令失败了，你可以运行：
-
-```shell
-kubectl describe pods/private-image-test-1 | grep 'Failed'
-```
-
-<!--
-In case of failure, the output is similar to:
--->
-如果命令确实失败，输出类似于：
-
-```
-  Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
-```
-
-<!--
-You must ensure all nodes in the cluster have the same `.docker/config.json`.  Otherwise, pods will run on
-some nodes and fail to run on others.  For example, if you use node autoscaling, then each instance
-template needs to include the `.docker/config.json` or mount a drive that contains it.
-
-All pods will have read access to images in any private registry once private
-registry keys are added to the `.docker/config.json`.
--->
-你必须确保集群中所有节点的 `.docker/config.json` 文件内容相同。
-否则，Pod 会能在一些节点上正常运行而无法在另一些节点上启动。
-例如，如果使用节点自动扩缩，那么每个实例模板都需要包含 `.docker/config.json`，
-或者挂载一个包含该文件的驱动器。
-
-在 `.docker/config.json` 中配置了私有仓库密钥后，所有 Pod 都将能读取私有仓库中的镜像。
+有关配置私有容器镜像仓库的示例，请参阅任务
+[从私有镜像库中提取图像](/zh/docs/tasks/configure-pod-container/pull-image-private-registry)。
+该示例使用 Docker Hub 中的私有注册表。
 
 <!--
 ### Interpretation of config.json {#config-json}
@@ -686,18 +538,17 @@ Kubernetes 支持在 Pod 中设置容器镜像仓库的密钥。
 <!--
 #### Creating a Secret with a Docker config
 
+You need to know the username, registry password and client email address for authenticating
+to the registry, as well as its hostname.
 Run the following command, substituting the appropriate uppercase values:
 -->
 #### 使用 Docker Config 创建 Secret   {#creating-a-secret-with-docker-config}
 
-运行以下命令，将大写字母代替为合适的值：
+你需要知道用于向仓库进行身份验证的用户名、密码和客户端电子邮件地址，以及它的主机名。
+运行以下命令，注意替换适当的大写值：
 
 ```shell
-kubectl create secret docker-registry <名称> \
-  --docker-server=DOCKER_REGISTRY_SERVER \
-  --docker-username=DOCKER_USER \
-  --docker-password=DOCKER_PASSWORD \
-  --docker-email=DOCKER_EMAIL
+kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
 <!--

@@ -310,7 +310,7 @@ For example, consider the following Pod spec:
 
 例如，考虑下面的 Pod 规约：
 
-{{<codenew file="pods/pod-with-affinity-anti-affinity.yaml">}}
+{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
 <!--
 If there are two possible nodes that match the
@@ -605,7 +605,7 @@ affinity/anti-affinity definition appears.
 -->
 #### 名字空间选择算符  {#namespace-selector}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 You can also select matching namespaces using `namespaceSelector`, which is a label query over the set of namespaces.
@@ -620,16 +620,6 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 注意，空的 `namespaceSelector`（`{}`）会匹配所有名字空间，而 null 或者空的
 `namespaces` 列表以及 null 值 `namespaceSelector` 意味着“当前 Pod 的名字空间”。
 
-{{< note >}}
-<!--
-This feature is beta and enabled by default. You can disable it via the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
--->
-此功能特性是 Beta 版本的，默认是被启用的。你可以通过针对 kube-apiserver 和
-kube-scheduler 设置[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` 来禁用此特性。
-{{< /note >}}
 
 <!--
 #### More practical use-cases

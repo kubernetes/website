@@ -193,6 +193,50 @@ An empty string slice is meant to select all network interfaces.</p>
    <p>DetectLocalMode determines mode to use for detecting local traffic, defaults to LocalModeClusterCIDR</p>
 </td>
 </tr>
+<tr><td><code>detectLocal</code> <B>[Required]</B><br/>
+<a href="#kubeproxy-config-k8s-io-v1alpha1-DetectLocalConfiguration"><code>DetectLocalConfiguration</code></a>
+</td>
+<td>
+   <p>DetectLocal contains optional configuration settings related to DetectLocalMode.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `DetectLocalConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-DetectLocalConfiguration}
+    
+
+**Appears in:**
+
+- [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
+
+
+<p>DetectLocalConfiguration contains optional settings related to DetectLocalMode option</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>bridgeInterface</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>BridgeInterface is a string argument which represents a single bridge interface name.
+Kube-proxy considers traffic as local if originating from this given bridge.
+This argument should be set if DetectLocalMode is set to LocalModeBridgeInterface.</p>
+</td>
+</tr>
+<tr><td><code>interfaceNamePrefix</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>InterfaceNamePrefix is a string argument which represents a single interface prefix name.
+Kube-proxy considers traffic as local if originating from one or more interfaces which match
+the given prefix. This argument should be set if DetectLocalMode is set to LocalModeInterfaceNamePrefix.</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -422,6 +466,22 @@ NAT when loadbalancing</p>
 <td>
    <p>enableDSR tells kube-proxy whether HNS policies should be created
 with DSR</p>
+</td>
+</tr>
+<tr><td><code>rootHnsEndpointName</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>RootHnsEndpointName is the name of hnsendpoint that is attached to
+l2bridge for root network namespace</p>
+</td>
+</tr>
+<tr><td><code>forwardHealthCheckVip</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>ForwardHealthCheckVip forwards service VIP for health check port on
+Windows</p>
 </td>
 </tr>
 </tbody>
@@ -747,8 +807,9 @@ default value of format is <code>text</code></p>
 <a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
 </td>
 <td>
-   <p>Maximum number of seconds between log flushes. Ignored if the
-selected logging backend writes log messages without buffering.</p>
+   <p>Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
+flushes.  Ignored if the selected logging backend writes log
+messages without buffering.</p>
 </td>
 </tr>
 <tr><td><code>verbosity</code> <B>[Required]</B><br/>
@@ -767,14 +828,6 @@ are always logged.</p>
 <td>
    <p>VModule overrides the verbosity threshold for individual files.
 Only supported for &quot;text&quot; log format.</p>
-</td>
-</tr>
-<tr><td><code>sanitization</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>[Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens).
-Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production.`)</p>
 </td>
 </tr>
 <tr><td><code>options</code> <B>[Required]</B><br/>

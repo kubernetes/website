@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
+Renew the certificate for liveness probes to healthcheck etcd
+-->
+续订存活态探针的证书，用于对 etcd 执行健康检查
 
 <!--
 ### Synopsis
@@ -21,7 +36,7 @@ Renewal by default tries to use the certificate authority in the local PKI manag
 也可以使用 K8s certificate API 进行证书续订，或者（作为最后一种选择）生成 CSR 请求。
 
 <!--
-After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
+After renewal, in order to make changes effective, is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 -->
 续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，以防证书文件在其他地方使用。
 
@@ -54,7 +69,9 @@ kubeadm certs renew etcd-healthcheck-client [flags]
 <!--
 The path where to save the certificates.
 -->
+<p>
 保存证书的路径。
+</p>
 </td>
 </tr>
 
@@ -66,33 +83,10 @@ The path where to save the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
+</p>
 </td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path to output the CSRs and private keys to
--->
-CSR 和私钥的输出路径
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-only</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Create CSRs instead of generating certificates
--->
-创建 CSR 而不是生成证书
-</td>
-</tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
@@ -102,7 +96,9 @@ Create CSRs instead of generating certificates
 <!--
 help for etcd-healthcheck-client
 -->
+<p>
 etcd-healthcheck-client 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -119,20 +115,10 @@ etcd-healthcheck-client 操作的帮助命令
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
+<p>
 与集群通信时使用的 kubeconfig 文件。
 如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--use-api</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Use the Kubernetes certificate API to renew certificates
--->
-使用 Kubernetes 证书 API 续订证书
+</p>
 </td>
 </tr>
 
@@ -159,10 +145,11 @@ Use the Kubernetes certificate API to renew certificates
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-

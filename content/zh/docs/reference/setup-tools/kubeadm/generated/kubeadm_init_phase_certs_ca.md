@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components 
+-->
+生成自签名的 Kubernetes CA 以便为其他 Kubernetes 组件提供身份标识
 
 <!--
 ### Synopsis
@@ -6,21 +21,18 @@
 ### 概要
 
 <!--
-Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components, and save them into ca.cert and ca.key files.
+Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components, and save them into ca.crt and ca.key files.
 -->
-
-生成自签名的 Kubernetes CA 以提供其他 Kubernetes 组件的身份，并将其保存到 ca.cert 和 ca.key 文件中。
+生成自签名的 Kubernetes CA 以便为其他 Kubernetes 组件提供身份标识，并将其保存到 ca.crt 和 ca.key 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
-
 如果两个文件都已存在，则 kubeadm 将跳过生成步骤，使用现有文件。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-
 Alpha 免责声明：此命令当前为 Alpha 功能。
 
 ```
@@ -51,9 +63,9 @@ kubeadm init phase certs ca [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-证书的存储路径。
+<p>证书的存储路径。</p>
 </td>
 </tr>
 
@@ -63,9 +75,9 @@ The path where to save and store the certificates.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -75,9 +87,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for ca
+<p>help for ca</p>
 -->
-ca 操作的帮助命令
+<p>ca 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -92,9 +104,9 @@ ca 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面选择特定的 Kubernetes 版本。
+<p>为控制平面选择特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -120,9 +132,9 @@ Choose a specific Kubernetes version for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </td>
 </tr>

@@ -54,13 +54,16 @@ PersistentVolumes 可以有多种回收策略，包括 "Retain"、"Recycle" 和 
    kubectl get pv
    ```
 
+   <!--
+   The output is similar to this:
+   -->
    输出类似于这样：
 
-   ```
-   NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                  REASON    AGE
-   pvc-b6efd8da-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim1                   10s
-   pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2                   6s
-   pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim3                   3s
+   ```none
+   NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM             STORAGECLASS     REASON    AGE
+   pvc-b6efd8da-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim1    manual                     10s
+   pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2    manual                     6s
+   pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim3    manual                     3s
    ```
 
    <!--
@@ -112,11 +115,11 @@ PersistentVolumes 可以有多种回收策略，包括 "Retain"、"Recycle" 和 
    -->
    输出类似于这样：
 
-   ```
-   NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                  REASON    AGE
-   pvc-b6efd8da-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim1                   40s
-   pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2                   36s
-   pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Retain          Bound     default/claim3                   33s
+   ```none
+   NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM             STORAGECLASS     REASON    AGE
+   pvc-b6efd8da-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim1    manual                     40s
+   pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2    manual                     36s
+   pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Retain          Bound     default/claim3    manual                     33s
    ```
 
    <!--
@@ -136,9 +139,17 @@ PersistentVolumes 可以有多种回收策略，包括 "Retain"、"Recycle" 和 
 * 进一步了解 [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
 * 进一步了解 [PersistentVolumeClaims](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 
-### 参考
+### 参考 {#reference}
 
-* [PersistentVolume](/docs/api-reference/{{< param "version" >}}/#persistentvolume-v1-core)
-* [PersistentVolumeClaim](/docs/api-reference/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
-* 参阅 [PersistentVolumeSpec](/docs/api-reference/{{< param "version" >}}/#persistentvolumeclaim-v1-core) 的 `persistentVolumeReclaimPolicy` 字段
+<!--
+* {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
+  * Pay attention to the `.spec.persistentVolumeReclaimPolicy`
+    [field](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)
+    of PersistentVolume.
+* {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
+-->
+* {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
+  * 注意 PersistentVolume 的 `.spec.persistentVolumeReclaimPolicy`
+    [字段](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)。
+* {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
 

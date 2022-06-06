@@ -9,7 +9,6 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
 Add a new local etcd member
 
 ### Synopsis

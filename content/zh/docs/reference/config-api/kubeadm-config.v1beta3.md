@@ -78,7 +78,7 @@ BootstrapToken&lowast; 结构。</li>
 <ul>
 <li>kubeadm v1.15.x 及更新的版本可以用来从 v1beta1 迁移到 v1beta2 版本；</li>
 <li>kubeadm v1.22.x 及更新的版本不再支持 v1beta1 和更老的 API，但可以用来
-从 v1beta2 迁移到 v1beta3。</li
+从 v1beta2 迁移到 v1beta3。</li>
 </ul>
 
 <!--
@@ -202,47 +202,52 @@ use it e.g. to customize the API server advertise address.</p>
 使用这个类型可以完成定制 API 服务器公告地址这类操作。</li>
 </ul>
 
-<pre><code>apiVersion: kubeadm.k8s.io/v1beta3
-kind: ClusterConfiguration
-networking:
-  ...
-etcd:
-  ...
-apiServer:
-  extraArgs:
-    ...
-  extraVolumes:
-    ...
-...
-</code></pre>
+<pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta3<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ClusterConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">networking</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">etcd</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiServer</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span><span style="color:#bbb"></span>...<span style="color:#bbb">
+</span></pre>
 
 <!--
 <p>The ClusterConfiguration type should be used to configure cluster-wide settings,
 including settings for:</p>
 <ul>
 <li>
-<p>Networking, that holds configuration for the networking topology of the cluster; use it e.g. to customize
+<p><code>networking</code> that holds configuration for the networking topology of the cluster; use it e.g. to customize
 Pod subnet or services subnet.</p>
 </li>
 -->
 <p>类型 `ClusterConfiguration` 用来定制集群范围的设置，具体包括以下设置：</p>
 
 <ul>
-<li><code>networking</code>：其中包含集群的网络拓扑配置。使用这一部分可以定制 Pod 的
-子网或者 Service 的子网。</li>
+<li><p><code>networking</code>：其中包含集群的网络拓扑配置。使用这一部分可以定制 Pod 的
+子网或者 Service 的子网。</p>
+</li>
 <!--
 <li>
-<p>Etcd configurations; use it e.g. to customize the local etcd or to configure the API server
+<p><code>etcd</code>: use it e.g. to customize the local etcd or to configure the API server
 for using an external etcd cluster.</p>
 </li>
 <li>
 <p>kube-apiserver, kube-scheduler, kube-controller-manager configurations; use it to customize control-plane
 components by adding customized setting or overriding kubeadm default settings.</p>
 -->
-<li><code>etcd</code>：etcd 数据库的配置。例如使用这个部分可以定制本地 etcd 或者配置 API 服务器
-使用一个外部的 etcd 集群。</li>
-<li><code>kube-apiserver</code>、<code>kube-scheduler</code>、<code>kube-controller-manager</code>
-配置：这些部分可以通过添加定制的设置或者重载 kubeadm 的默认设置来定制控制面组件。</li>
+<li>
+<p><code>etcd</code>：etcd 数据库的配置。例如使用这个部分可以定制本地 etcd 或者配置 API 服务器
+使用一个外部的 etcd 集群。</p>
+</li>
+<li>
+<p><code>kube-apiserver</code>、<code>kube-scheduler</code>、<code>kube-controller-manager</code>
+配置：这些部分可以通过添加定制的设置或者重载 kubeadm 的默认设置来定制控制面组件。</p>
+</li>
 </ul>
 
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeproxy.config.k8s.io/v1alpha1<span style="color:#bbb">
@@ -308,7 +313,7 @@ https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">criSocket</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/run/dockershim.sock&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">taints</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span>- <span style="color:#000;font-weight:bold">key</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;kubeadmNode&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;master&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;someValue&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">effect</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;NoSchedule&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">kubeletExtraArgs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">v</span>:<span style="color:#bbb"> </span><span style="color:#099">4</span><span style="color:#bbb">
@@ -471,9 +476,9 @@ node only (e.g. the node ip).</p>
 </td>
 <td>
    <!--
-   `networking` holds configuration for the networking topology of the cluster.
+   <p><code>networking</code> holds configuration for the networking topology of the cluster.</p>
    -->
-   <code>networking</code> 字段包含集群的网络拓扑配置。
+   <p><code>networking</code> 字段包含集群的网络拓扑配置。</p>
 </td>
 </tr>
 <tr><td><code>kubernetesVersion</code><br/>
@@ -495,8 +500,8 @@ node only (e.g. the node ip).</p>
 It can be a valid IP address or a RFC-1123 DNS subdomain, both with optional TCP port.
 In case the <code>controlPlaneEndpoint</code> is not specified, the <code>advertiseAddress</code> + <code>bindPort</code>
 are used; in case the <code>controlPlaneEndpoint</code> is specified but without a TCP port,
-the `bindPort` is used.
-Possible usages are:<p>
+the <code>bindPort</code> is used.
+Possible usages are:</p>
    -->
    <p><code>controlPlaneEndpoint</code> 为控制面设置一个稳定的 IP 地址或 DNS 名称。
 取值可以是一个合法的 IP 地址或者 RFC-1123 形式的 DNS 子域名，二者均可以带一个
@@ -768,7 +773,7 @@ Defaults to &quot;/etc/kubernetes/pki/ca.crt&quot;.
 </p>
 </td>
 </tr>
-<tr><td><code>discovery</code> <B><!--<!--[Required]-->[必需]-->[必需]</B><br/>
+<tr><td><code>discovery</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeadm-k8s-io-v1beta3-Discovery"><code>Discovery</code></a>
 </td>
 <td>
@@ -1032,7 +1037,7 @@ impersonate the control-plane.
 <!--
 ControlPlaneComponent holds settings common to control plane component of the cluster
 -->
-ControlPlaneComponent 中包含对集群中所有控制面组件都适用的设置。
+<p>ControlPlaneComponent 中包含对集群中所有控制面组件都适用的设置。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1080,16 +1085,20 @@ without leading dash(es).
 <!--
 DNS defines the DNS addon that should be used in the cluster
 -->
-DNS 结构定义要在集群中使用的 DNS 插件。
+<p>DNS 结构定义要在集群中使用的 DNS 插件。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-<tr><td><code>ImageMeta</code> <B><!--<!--[Required]-->[必需]-->[必需]</B><br/>
+<tr><td><code>ImageMeta</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeadm-k8s-io-v1beta3-ImageMeta"><code>ImageMeta</code></a>
 </td>
-<td>（<code>ImageMeta</code> 的成员被内嵌到此类型中）。
+<td>
+<!--
+(Members of <code>ImageMeta</code> are embedded into this type.)
+-->
+（<code>ImageMeta</code> 的成员被内嵌到此类型中）。
 <p>
    <!--
    <code>imageMeta</code> allows to customize the image used for the DNS component.
@@ -1113,7 +1122,7 @@ DNS 结构定义要在集群中使用的 DNS 插件。
 <!--
 Discovery specifies the options for the kubelet to use during the TLS Bootstrap process.
 -->
-Discovery 设置 TLS 启动引导过程中 kubelet 要使用的配置选项。
+<p>Discovery 设置 TLS 启动引导过程中 kubelet 要使用的配置选项。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1194,7 +1203,7 @@ does not contain any other authentication information
 <!--
 Etcd contains elements describing Etcd configuration.
 -->
-Etcd 包含用来描述 etcd 配置的元素。
+<p>Etcd 包含用来描述 etcd 配置的元素。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1244,14 +1253,15 @@ Etcd 包含用来描述 etcd 配置的元素。
 ExternalEtcd describes an external etcd cluster.
 Kubeadm has no knowledge of where certificate files live and they must be supplied.
 -->
-ExternalEtcd 描述外部 etcd 集群。
+<p>ExternalEtcd 描述外部 etcd 集群。
 kubeadm 不清楚证书文件的存放位置，因此必须单独提供证书信息。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-<tr><td><code>endpoints</code> <B><!--<!--[Required]-->[必需]-->[必需]</B><br/>
+<tr><td><code>endpoints</code> <B><!--[Required]-->[必需]</B><br/>
 <code>[]string</code>
 </td>
 <td>
@@ -1261,7 +1271,7 @@ kubeadm 不清楚证书文件的存放位置，因此必须单独提供证书信
    <p><code>endpoints</code> 包含一组 etcd 成员的列表。</p>
 </td>
 </tr>
-<tr><td><code>caFile</code> <B><!--<!--[Required]-->[必需]-->[必需]</B><br/>
+<tr><td><code>caFile</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -1498,7 +1508,11 @@ Secret 中的证书的秘钥。对应的加密秘钥在 InitConfiguration 结构
 <tr><td><code>ImageMeta</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeadm-k8s-io-v1beta3-ImageMeta"><code>ImageMeta</code></a>
 </td>
-<td>（<code>ImageMeta</code> 结构的字段被嵌入到此类型中。）
+<td>
+<!--
+(Members of <code>ImageMeta</code> are embedded into this type.)
+-->
+（<code>ImageMeta</code> 结构的字段被嵌入到此类型中。）
    <!--p>ImageMeta allows to customize the container used for etcd.</p-->
    <p>ImageMeta 允许用户为 etcd 定制要使用的容器。</p>
 </td>
@@ -1641,15 +1655,17 @@ This information will be annotated to the Node API object, for later re-use</p--
 <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
-   <!--p><code>tains</code> specifies the taints the Node API object should be registered with.
-If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted to
-<code>taints: [&quot;node-role.kubernetes.io/master:&quot;&quot;]</code>.
-If you don't want to taint your control-plane node, set this field to an empty slice,
-i.e. <code>taints: []</code> in the YAML file. This field is solely used for Node registration.</p-->
+<!--
+   <p><code>tains</code> specifies the taints the Node API object should be registered with.
+If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted
+with a control-plane taint for control-plane nodes.
+If you don't want to taint your control-plane node, set this field to an empty list,
+i.e. <code>taints: []</code> in the YAML file. This field is solely used for Node registration.</p>
+-->
    <p><code>tains</code> 设定 Node API 对象被注册时要附带的污点。
-若未设置此字段（即字段值为 null）, 在 <code>kubeadm init</code> 期间，节点与控制面之间的通信。默认值为污点默认设置为 <code>taints: [&quot;node-role.kubernetes.io/master:&quot;&quot;]</code>。
-如果你不希望为控制面节点设置污点，可以在 YAML 中将此字段设置为空的列表，即
-<code>taints: []</code>。 此字段仅用在 Node 注册期间。</p>
+若未设置此字段（即字段值为 null），在 <code>kubeadm init</code> 期间，默认为控制平面节点添加控制平面污点。
+如果你不想污染你的控制平面节点，可以将此字段设置为空列表（即 YAML 文件中的 <code>taints: []</code>），
+这个字段只用于节点注册。</p>
 </td>
 </tr>
 <tr><td><code>kubeletExtraArgs</code><br/>
@@ -1782,7 +1798,7 @@ for, so other administrators can know its purpose.</p-->
 </td>
 </tr>
 <tr><td><code>ttl</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    <!--p><code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
@@ -1796,7 +1812,7 @@ for, so other administrators can know its purpose.</p-->
 </td>
 <td>
    <!--p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
-dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.</p-->
+dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.</p>-->
    <p><code>expires</code> 设置此令牌过期的时间戳。默认为在运行时基于
 <code>ttl</code> 来决定。
 <code>expires</code> 和 <code>ttl</code> 是互斥的。</p>

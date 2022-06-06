@@ -33,10 +33,10 @@ a complete and working Kubernetes cluster.
 
 -->
 <!-- overview -->
-当你部署完 Kubernetes, 即拥有了一个完整的集群。
+当你部署完 Kubernetes，便拥有了一个完整的集群。
 {{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes">}}
 
-本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
+本文档概述了一个正常运行的 Kubernetes 集群所需的各种组件。
 
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes 的组件" caption="Kubernetes 集群的组件" class="diagram-large" >}}
 
@@ -49,8 +49,9 @@ The control plane's components make global decisions about the cluster (for exam
  -->
 ## 控制平面组件（Control Plane Components）    {#control-plane-components}
 
-控制平面的组件对集群做出全局决策(比如调度)，以及检测和响应集群事件（例如，当不满足部署的
-`replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
+控制平面组件会为集群做出全局决策，比如资源的调度。
+以及检测和响应集群事件，例如当不满足部署的 `replicas` 字段时，
+要启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
 
 <!--
 Control plane components can be run on any machine in the cluster. However,
@@ -90,12 +91,12 @@ Some types of these controllers are:
   * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
   * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
 -->
-这些控制器包括:
+这些控制器包括：
 
-* 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应
-* 任务控制器（Job controller）: 监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
-* 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)
-* 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌
+* 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应
+* 任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
+* 端点控制器（Endpoints Controller）：填充端点（Endpoints）对象（即加入 Service 与 Pod）
+* 服务帐户和令牌控制器（Service Account & Token Controllers）：为新的命名空间创建默认帐户和 API 访问令牌
 
 <!--
 ### cloud-controller-manager
@@ -118,19 +119,20 @@ The following controllers can have cloud provider dependencies:
 
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
-`cloud-controller-manager` 仅运行特定于云平台的控制回路。
-如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境，
-所部署的环境中不需要云控制器管理器。
+`cloud-controller-manager` 仅运行特定于云平台的控制器。
+因此如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境，
+所部署的集群不需要有云控制器管理器。
 
-与 `kube-controller-manager` 类似，`cloud-controller-manager` 将若干逻辑上独立的
-控制回路组合到同一个可执行文件中，供你以同一进程的方式运行。
+与 `kube-controller-manager` 类似，`cloud-controller-manager`
+将若干逻辑上独立的控制回路组合到同一个可执行文件中，
+供你以同一进程的方式运行。
 你可以对其执行水平扩容（运行不止一个副本）以提升性能或者增强容错能力。
 
 下面的控制器都包含对云平台驱动的依赖：
 
-  * 节点控制器（Node Controller）: 用于在节点终止响应后检查云提供商以确定节点是否已被删除
-  * 路由控制器（Route Controller）: 用于在底层云基础架构中设置路由
-  * 服务控制器（Service Controller）: 用于创建、更新和删除云提供商负载均衡器
+  * 节点控制器（Node Controller）：用于在节点终止响应后检查云提供商以确定节点是否已被删除
+  * 路由控制器（Route Controller）：用于在底层云基础架构中设置路由
+  * 服务控制器（Service Controller）：用于创建、更新和删除云提供商负载均衡器
 
 <!--
 ## Node Components
@@ -167,7 +169,7 @@ for addons belong within the `kube-system` namespace.
 ## 插件（Addons）    {#addons}
 
 插件使用 Kubernetes 资源（{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}、
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}}等）实现集群功能。
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}} 等）实现集群功能。
 因为这些插件提供集群级别的功能，插件中命名空间域的资源属于 `kube-system` 命名空间。
 
 <!--
@@ -210,12 +212,12 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 <!--
 ### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 -->
 ### 容器资源监控
 
-[容器资源监控](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+[容器资源监控](/zh/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。
 
 <!--
@@ -241,4 +243,3 @@ saving container logs to a central log store with search/browsing interface.
 * 进一步了解[控制器](/zh/docs/concepts/architecture/controller/)
 * 进一步了解 [kube-scheduler](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
-

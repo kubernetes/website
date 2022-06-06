@@ -175,6 +175,74 @@ spec:
 
 However, the particular path specified in the custom recycler Pod template in the `volumes` part is replaced with the particular path of the volume that is being recycled.
 
+### PersistentVolume deletion protection finalizer
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+Finalizers can be added on a PersistentVolume to ensure that PersistentVolumes
+having `Delete` reclaim policy are deleted only after the backing storage are deleted.
+
+The newly introduced finalizers `kubernetes.io/pv-controller` and `external-provisioner.volume.kubernetes.io/finalizer` 
+are only added to dynamically provisioned volumes.
+
+The finalizer `kubernetes.io/pv-controller` is added to in-tree plugin volumes. The following is an example
+
+```shell
+kubectl describe pv pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Name:            pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Labels:          <none>
+Annotations:     kubernetes.io/createdby: vsphere-volume-dynamic-provisioner
+                 pv.kubernetes.io/bound-by-controller: yes
+                 pv.kubernetes.io/provisioned-by: kubernetes.io/vsphere-volume
+Finalizers:      [kubernetes.io/pv-protection kubernetes.io/pv-controller]
+StorageClass:    vcp-sc
+Status:          Bound
+Claim:           default/vcp-pvc-1
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        1Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:               vSphereVolume (a Persistent Disk resource in vSphere)
+    VolumePath:         [vsanDatastore] d49c4a62-166f-ce12-c464-020077ba5d46/kubernetes-dynamic-pvc-74a498d6-3929-47e8-8c02-078c1ece4d78.vmdk
+    FSType:             ext4
+    StoragePolicyName:  vSAN Default Storage Policy
+Events:                 <none>
+```
+
+The finalizer `external-provisioner.volume.kubernetes.io/finalizer` is added for CSI volumes.
+The following is an example:
+```shell
+Name:            pvc-2f0bab97-85a8-4552-8044-eb8be45cf48d
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: csi.vsphere.vmware.com
+Finalizers:      [kubernetes.io/pv-protection external-provisioner.volume.kubernetes.io/finalizer]
+StorageClass:    fast
+Status:          Bound
+Claim:           demo-app/nginx-logs
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        200Mi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:              CSI (a Container Storage Interface (CSI) volume source)
+    Driver:            csi.vsphere.vmware.com
+    FSType:            ext4
+    VolumeHandle:      44830fa8-79b4-406b-8b58-621ba25353fd
+    ReadOnly:          false
+    VolumeAttributes:      storage.kubernetes.io/csiProvisionerIdentity=1648442357185-8081-csi.vsphere.vmware.com
+                           type=vSphere CNS Block Volume
+Events:                <none>
+```
+
+Enabling the `CSIMigration` feature for a specific in-tree volume plugin will remove
+the `kubernetes.io/pv-controller` finalizer, while adding the `external-provisioner.volume.kubernetes.io/finalizer`
+finalizer. Similarly, disabling `CSIMigration` will remove the `external-provisioner.volume.kubernetes.io/finalizer`
+finalizer, while adding the `kubernetes.io/pv-controller` finalizer.
+
 ### Reserving a PersistentVolume
 
 The control plane can [bind PersistentVolumeClaims to matching PersistentVolumes](#binding) in the
@@ -284,17 +352,12 @@ FlexVolumes (deprecated since Kubernetes v1.23) allow resize if the driver is co
 
 #### Resizing an in-use PersistentVolumeClaim
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
-
-{{< note >}}
-Expanding in-use PVCs is available as beta since Kubernetes 1.15, and as alpha since 1.11. The `ExpandInUsePersistentVolumes` feature must be enabled, which is the case automatically for many clusters for beta features. Refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
 Any in-use PVC automatically becomes available to its Pod as soon as its file system has been expanded.
 This feature has no effect on PVCs that are not in use by a Pod or deployment. You must create a Pod that
 uses the PVC before the expansion can complete.
-
 
 Similar to other volume types - FlexVolume volumes can also be expanded when in-use by a Pod.
 
@@ -329,7 +392,7 @@ If expanding underlying storage fails, the cluster administrator can manually re
 Recovery from failing PVC expansion by users is available as an alpha feature since Kubernetes 1.23. The `RecoverVolumeExpansionFailure` feature must be enabled for this feature to work. Refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
-If the feature gates `ExpandPersistentVolumes` and `RecoverVolumeExpansionFailure` are both
+If the feature gates `RecoverVolumeExpansionFailure` is
 enabled in your cluster, and expansion has failed for a PVC, you can retry expansion with a
 smaller size than the previously requested value. To request a new expansion attempt with a
 smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
@@ -476,6 +539,15 @@ In the CLI, the access modes are abbreviated to:
 * ROX - ReadOnlyMany
 * RWX - ReadWriteMany
 * RWOP - ReadWriteOncePod
+
+{{< note >}}
+Kubernetes uses volume access modes to match PersistentVolumeClaims and PersistentVolumes.
+In some cases, the volume access modes also constrain where the PersistentVolume can be mounted.
+Volume access modes do **not** enforce write protection once the storage has been mounted.
+Even if the access modes are specified as ReadWriteOnce, ReadOnlyMany, or ReadWriteMany, they don't set any constraints on the volume.
+For example, even if a PersistentVolume is created as ReadOnlyMany, it is no guarantee that it will be read-only.
+If the access modes are specified as ReadWriteOncePod, the volume is constrained and can be mounted on only a single Pod.
+{{< /note >}}
 
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
@@ -849,17 +921,12 @@ spec:
 
 ## Volume populators and data sources
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
-{{< note >}}
-Kubernetes supports custom volume populators; this alpha feature was introduced
-in Kubernetes 1.18. Kubernetes 1.22 reimplemented the mechanism with a redesigned API.
-Check that you are reading the version of the Kubernetes documentation that matches your
-cluster. {{% version-check %}}
+Kubernetes supports custom volume populators.
 To use custom volume populators, you must enable the `AnyVolumeDataSource`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for
 the kube-apiserver and kube-controller-manager.
-{{< /note >}}
 
 Volume populators take advantage of a PVC spec field called `dataSourceRef`. Unlike the
 `dataSource` field, which can only contain either a reference to another PersistentVolumeClaim
@@ -877,6 +944,7 @@ contents.
 
 There are two differences between the `dataSourceRef` field and the `dataSource` field that
 users should be aware of:
+
 * The `dataSource` field ignores invalid values (as if the field was blank) while the
   `dataSourceRef` field never ignores values and will cause an error if an invalid value is
   used. Invalid values are any core object (objects with no apiGroup) except for PVCs.

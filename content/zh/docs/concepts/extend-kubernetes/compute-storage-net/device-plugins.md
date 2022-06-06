@@ -40,7 +40,7 @@ The kubelet exports a `Registration` gRPC service:
 
 ```gRPC
 service Registration {
- rpc Register(RegisterRequest) returns (Empty) {}
+	rpc Register(RegisterRequest) returns (Empty) {}
 }
 ```
 
@@ -78,16 +78,17 @@ to advertise that the node has 2 "Foo" devices installed and available.
 "Foo" 设备并且是可用的。
 
 <!--
-Then, users can request devices in a
-[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-specification as they request other types of resources, with the following limitations:
-
+Then, users can request devices as part of a Pod specification
+(see [`container`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)).
+Requesting extended resources is similar to how you manage requests and limits for
+other resources, with the following differences:
 * Extended resources are only supported as integer resources and cannot be overcommitted.
-* Devices cannot be shared among Containers.
+* Devices cannot be shared between containers.
 -->
-然后用户需要请求其他类型的资源的时候，就可以在
-[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-规范请求这类设备，但是有以下的限制：
+然后，用户可以请求设备作为 Pod 规范的一部分，
+参见[Container](/zh/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)。
+请求扩展资源类似于管理请求和限制的方式，
+其他资源，有以下区别：
 
 * 扩展资源仅可作为整数资源使用，并且不能被过量使用
 * 设备不能在容器之间共享
@@ -423,7 +424,14 @@ below:
 {{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 <!--
+GetAllocatableResources provides information on resources initially available on the worker node.
+It provides more information than kubelet exports to APIServer.
+-->
+端点 `GetAllocatableResources` 提供工作节点上原始可用的资源信息。
+此端点所提供的信息比导出给 API 服务器的信息更丰富。
+
 {{< note >}}
+<!--
 `GetAllocatableResources` should only be used to evaluate [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 resources on a node. If the goal is to evaluate free/unallocated resources it should be used in
 conjunction with the List() endpoint. The result obtained by `GetAllocatableResources` would remain
@@ -432,9 +440,7 @@ it does (for example: hotplug/hotunplug, device health changes), client is expec
 `GetAlloctableResources` endpoint.
 However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
 update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
-{{< /note >}}
 -->
-{{< note >}}
 `GetAllocatableResources` 应该仅被用于评估一个节点上的[可分配的](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 资源。如果目标是评估空闲/未分配的资源，此调用应该与 List() 端点一起使用。
 除非暴露给 kubelet 的底层资源发生变化 否则 `GetAllocatableResources` 得到的结果将保持不变。
@@ -443,12 +449,6 @@ update and Kubelet needs to be restarted to reflect the correct resource capacit
 Kubelet 需要重新启动以获取正确的资源容量和可分配的资源。
 {{< /note >}}
 
-<!--
-GetAllocatableResources provides information on resources initially available on the worker node.
-It provides more information than kubelet exports to APIServer.
--->
-端点 `GetAllocatableResources` 提供最初在工作节点上可用的资源的信息。
-此端点所提供的信息比导出给 API 服务器的信息更丰富。
 
 ```gRPC
 // AllocatableResourcesResponses 包含 kubelet 所了解到的所有设备的信息
@@ -496,7 +496,7 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Support for the "PodResourcesLister service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+Support for the `PodResourcesLister service` requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 -->
 gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。
@@ -568,8 +568,6 @@ Here are some examples of device plugin implementations:
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for Intel GPU, FPGA and QuickAssist devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for hardware-assisted virtualization
-* The [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
-    * Requires [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0, which allows you to run GPU-enabled Docker containers.
 * The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
@@ -583,8 +581,6 @@ Here are some examples of device plugin implementations:
 * [AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes) 支持 Intel GPU、FPGA 和 QuickAssist 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins) 用于硬件辅助的虚拟化
-* The [NVIDIA GPU 设备插件](https://github.com/NVIDIA/k8s-device-plugin)
-* 需要 [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0，以允许运行 Docker 容器的时候启用 GPU。
 * [为 Container-Optimized OS 所提供的 NVIDIA GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 设备插件](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [SocketCAN 设备插件](https://github.com/collabora/k8s-socketcan)
@@ -597,10 +593,10 @@ Here are some examples of device plugin implementations:
 <!--
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
-* Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
-* Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
+* Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
+* Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
 -->
 * 查看[调度 GPU 资源](/zh/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
 * 查看在上如何[公布节点上的扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)
-* 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
 * 学习[拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)
+* 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](/zh/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)

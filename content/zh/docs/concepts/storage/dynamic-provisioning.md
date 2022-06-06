@@ -70,11 +70,15 @@ To enable dynamic provisioning, a cluster administrator needs to pre-create
 one or more StorageClass objects for users.
 StorageClass objects define which provisioner should be used and what parameters
 should be passed to that provisioner when dynamic provisioning is invoked.
+The name of a StorageClass object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 The following manifest creates a storage class "slow" which provisions standard
 disk-like persistent disks.
 -->
 要启用动态供应功能，集群管理员需要为用户预先创建一个或多个 `StorageClass` 对象。
 `StorageClass` 对象定义当动态供应被调用时，哪一个驱动将被使用和哪些参数将被传递给驱动。
+StorageClass 对象的名字必须是一个合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 以下清单创建了一个 `StorageClass` 存储类 "slow"，它提供类似标准磁盘的永久磁盘。
 
 ```yaml
@@ -159,7 +163,7 @@ Dynamic provisioning can be enabled on a cluster such that all claims are
 dynamically provisioned if no storage class is specified. A cluster administrator
 can enable this behavior by:
 -->
-可以在群集上启用动态卷供应，以便在未指定存储类的情况下动态设置所有声明。
+可以在集群上启用动态卷供应，以便在未指定存储类的情况下动态设置所有声明。
 集群管理员可以通过以下方式启用此行为：
 
 <!--
@@ -187,7 +191,7 @@ Note that there can be at most one *default* storage class on a cluster, or
 a `PersistentVolumeClaim` without `storageClassName` explicitly specified cannot
 be created.
 -->
-请注意，群集上最多只能有一个 *默认* 存储类，否则无法创建没有明确指定
+请注意，集群上最多只能有一个 *默认* 存储类，否则无法创建没有明确指定
 `storageClassName` 的 `PersistentVolumeClaim`。
 
 <!--

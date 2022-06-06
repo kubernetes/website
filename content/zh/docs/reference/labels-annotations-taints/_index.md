@@ -26,15 +26,151 @@ Kubernetes 将所有标签和注解保留在 kubernetes.io Namespace中。
 <!--
 ## Labels, annotations and taints used on API objects
 
+### app.kubernetes.io/component
+
+Example: `app.kubernetes.io/component=database`
+
+Used on: All Objects
+
+The component within the architecture.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+-->
+## API 对象上使用的标签、注解和污点
+
+### app.kubernetes.io/component
+
+例子: `app.kubernetes.io/component=database`
+
+用于: 所有对象
+
+架构中的组件。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/created-by
+
+Example: `app.kubernetes.io/created-by=controller-manager`
+
+Used on: All Objects
+
+The controller/user who created this resource.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/created-by
+
+示例：`app.kubernetes.io/created-by=controller-manager`
+
+用于：所有对象
+
+创建此资源的控制器/用户。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/instance
+
+Example: `app.kubernetes.io/instance=mysql-abcxzy`
+
+Used on: All Objects
+
+A unique name identifying the instance of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/instance
+
+示例：`app.kubernetes.io/instance=mysql-abcxzy`
+
+用于：所有对象
+
+标识应用实例的唯一名称。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/managed-by
+
+Example: `app.kubernetes.io/managed-by=helm`
+
+Used on: All Objects
+
+The tool being used to manage the operation of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/managed-by
+
+示例：`app.kubernetes.io/managed-by=helm`
+
+用于：所有对象
+
+用于管理应用操作的工具。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/name
+
+Example: `app.kubernetes.io/name=mysql`
+
+Used on: All Objects
+
+The name of the application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+
+### app.kubernetes.io/name
+
+示例：`app.kubernetes.io/name=mysql`
+
+用于：所有对象
+
+应用的名称。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/part-of
+
+Example: `app.kubernetes.io/part-of=wordpress`
+
+Used on: All Objects
+
+The name of a higher level application this one is part of.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/part-of
+
+示例：`app.kubernetes.io/part-of=wordpress`
+
+用于：所有对象
+
+此应用所属的更高级别应用的名称。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- ### app.kubernetes.io/version
+
+Example: `app.kubernetes.io/version="5.7.21"`
+
+Used on: All Objects
+
+The current version of the application (e.g., a semantic version, revision hash, etc.).
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels). -->
+### app.kubernetes.io/version
+
+示例：`app.kubernetes.io/version="5.7.21"`
+
+用于：所有对象
+
+应用的当前版本（例如，语义版本、修订哈希等）。
+
+[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+
+<!-- 
 ### kubernetes.io/arch
 
 Example: `kubernetes.io/arch=amd64`
 
 Used on: Node
 
-The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be handy if you are mixing arm and x86 nodes.
--->
-## API 对象上使用的标签、注解和污点
+The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be handy if you are mixing arm and x86 nodes. -->
 
 ### kubernetes.io/arch {#kubernetes-io-arch}
 
@@ -185,8 +321,6 @@ Used on: Pod
 
 This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
-
-### beta.kubernetes.io/instance-type (deprecated)
 -->
 ### controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
@@ -194,8 +328,85 @@ which allows users to influence ReplicaSet downscaling order. The annotation par
 
 用于：Pod
 
-该注解用于设置 [Pod 删除成本](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost) 允许用户影响 ReplicaSet 缩减顺序。注解解析为 `int32` 类型。
+该注解用于设置 [Pod 删除成本](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)允许用户影响 ReplicaSet 缩减顺序。注解解析为 `int32` 类型。
 
+<!-- 
+### kubernetes.io/ingress-bandwidth
+
+Ingress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+
+Example: `kubernetes.io/ingress-bandwidth: 10M`
+
+Used on: Pod
+
+You can apply quality-of-service traffic shaping to a pod and effectively limit its available bandwidth.
+Ingress traffic (to the pod) is handled by shaping queued packets to effectively handle data.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for specifying ingress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second. 
+-->
+
+### kubernetes.io/ingress-bandwidth
+
+{{< note >}}
+入站流量控制注解是一项实验性功能。
+如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
+并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
+{{< /note >}}
+
+示例：`kubernetes.io/ingress-bandwidth: 10M`
+
+用于：Pod
+
+你可以对 Pod 应用服务质量流量控制并有效限制其可用带宽。
+入站流量（到 Pod）通过控制排队的数据包来处理，以有效地处理数据。
+要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/ingress-bandwidth`
+注解指定数据流量速度。 用于指定入站的速率单位是每秒，
+作为[量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)。
+例如，`10M`表示每秒 10 兆比特。
+
+<!-- 
+### kubernetes.io/egress-bandwidth
+
+Egress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+
+Example: `kubernetes.io/egress-bandwidth: 10M`
+
+Used on: Pod
+
+Egress traffic (from the pod) is handled by policing, which simply drops packets in excess of the configured rate.
+The limits you place on a pod do not affect the bandwidth of other pods.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/egress-bandwidth` annotation. The unit used for specifying egress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second. 
+-->
+
+### kubernetes.io/egress-bandwidth
+
+{{< note >}}
+出站流量控制注解是一项实验性功能。
+如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
+并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
+{{< /note >}}
+
+示例：`kubernetes.io/egress-bandwidth: 10M`
+
+用于：Pod
+
+出站流量（来自 pod）由策略控制，策略只是丢弃超过配置速率的数据包。
+你为一个 Pod 所设置的限制不会影响其他 Pod 的带宽。
+要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/egress-bandwidth` 注解指定数据流量速度。
+用于指定出站的速率单位是每秒比特数，
+以[量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)的形式给出。
+例如，`10M` 表示每秒 10 兆比特。
+
+<!-- ### beta.kubernetes.io/instance-type (deprecated) -->
 ### beta.kubernetes.io/instance-type (已弃用) {#beta-kubernetes-io-instance-type}
 
 <!--
@@ -797,6 +1008,30 @@ kubelet 检查 `/proc/sys/kernel/pid_max` 大小的 D 值和 Kubernetes 在 Node
 以获取可用 PID 数量，并将其作为 `pid.available` 指标值。
 然后该指标与在 kubelet 上设置的相应阈值进行比较，以确定是否应该添加/删除 Node 状况和污点。
 
+### node.kubernetes.io/out-of-service
+<!--
+Example: `node.kubernetes.io/out-of-service:NoExecute`
+A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node.
+-->
+例子：`node.kubernetes.io/out-of-service:NoExecute`
+
+用户可以手动将污点添加到节点，将其标记为停止服务。
+如果 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+并且一个节点被这个污点标记为停止服务，如果节点上的 Pod 没有对应的容忍度，
+这类 Pod 将被强制删除，并且，针对在节点上被终止 Pod 的卷分离操作将被立即执行。
+
+{{< caution >}}
+<!--
+Refer to
+[Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+for further details about when and how to use this taint.
+-->
+有关何时以及如何使用此污点的更多详细信息，请参阅[非正常节点关闭](/zh/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
+{{< /caution >}}
+
 <!--
 ### node.cloudprovider.kubernetes.io/uninitialized
 
@@ -1010,7 +1245,7 @@ Pod 的 `.spec` 中的 [`securityContext`](/zh/docs/reference/kubernetes-api/wor
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
 
 This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
-The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/clusters/seccomp/) takes
+The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/) takes
 you through the steps you follow to apply a seccomp profile to a Pod or to one of
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
@@ -1018,23 +1253,166 @@ based on setting `securityContext` within the Pod's `.spec`.
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
 
 此注解自 Kubernetes v1.19 起已被弃用，将在 v1.25 中失效。
-教程[使用 seccomp 限制容器的系统调用](/zh/docs/tutorials/clusters/seccomp/)将引导你完成将
+教程[使用 seccomp 限制容器的系统调用](/zh/docs/tutorials/security/seccomp/)将引导你完成将
 seccomp 配置文件应用于 Pod 或其容器的步骤。
 该教程介绍了在 Kubernetes 中配置 seccomp 的支持机制，基于在 Pod 的 `.spec` 中设置 `securityContext`。
+
+### snapshot.storage.kubernetes.io/allowVolumeModeChange
+<!--
+Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+Used on: VolumeSnapshotContent
+-->
+例子：`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+
+用于：VolumeSnapshotContent
+
+<!--
+Value can either be `true` or `false`.
+This determines whether a user can modify the mode of the source volume when a
+{{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} is being created from a VolumeSnapshot.
+Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode) and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
+-->
+值可以是 `true` 或者 `false`。
+这决定了当从 VolumeSnapshot 创建 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
+时，用户是否可以修改源卷的模式。
+更多信息请参阅[转换快照的卷模式](/zh/docs/concepts/storage/volume-snapshots/#convert-volume-mode)和
+[Kubernetes CSI 开发者文档](https://kubernetes-csi.github.io/docs/)。
 
 <!--
 ## Annotations used for audit
 
-- [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
-- [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
+- [`authorization.k8s.io/reason`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
+- [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
+- [`missing-san.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
 - [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
+- [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 See more details on the [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/) page.
 -->
 ## 用于审计的注解    {#annonations-used-for-audit}
 
-- [`pod-security.kubernetes.io/exempt`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
-- [`pod-security.kubernetes.io/enforce-policy`](/zh/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`authorization.k8s.io/decision`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
+- [`authorization.k8s.io/reason`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
+- [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
+- [`missing-san.invalid-cert.kubernetes.io/$hostname`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
 - [`pod-security.kubernetes.io/audit-violations`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
+- [`pod-security.kubernetes.io/enforce-policy`](/zh/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/exempt`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 在[审计注解](/zh/docs/reference/labels-annotations-taints/audit-annotations/)页面上查看更多详细信息。
+
+## kubeadm
+
+### kubeadm.alpha.kubernetes.io/cri-socket
+
+<!--
+Example: `kubeadm.alpha.kubernetes.io/cri-socket: unix:///run/containerd/container.sock`
+Used on: Node
+-->
+例子：`kubeadm.alpha.kubernetes.io/cri-socket: unix:///run/containerd/container.sock`
+
+用于：Node
+
+<!--
+Annotation that kubeadm uses to preserve the CRI socket information given to kubeadm at `init`/`join` time for later use.
+kubeadm annotates the Node object with this information. The annotation remains "alpha", since ideally this should be a field in KubeletConfiguration instead.
+-->
+kubeadm 用来保存 `init`/`join` 时提供给 kubeadm 以后使用的 CRI 套接字信息的注解。
+kubeadm 使用此信息为 Node 对象设置注解。
+此注解仍然是 “alpha” 阶段，因为理论上这应该是 KubeletConfiguration 中的一个字段。
+
+### kubeadm.kubernetes.io/etcd.advertise-client-urls
+
+<!--
+Example: `kubeadm.kubernetes.io/etcd.advertise-client-urls: https://172.17.0.18:2379`
+Used on: Pod
+-->
+例子：`kubeadm.kubernetes.io/etcd.advertise-client-urls: https://172.17.0.18:2379`
+
+用于：Pod
+
+<!--
+Annotation that kubeadm places on locally managed etcd pods to keep track of a list of URLs where etcd clients should connect to. This is used mainly for etcd cluster health check purposes.
+-->
+kubeadm 为本地管理的 etcd Pod 设置的注解，用来跟踪 etcd 客户端应连接到的 URL 列表。
+这主要用于 etcd 集群健康检查目的。
+
+### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint
+
+<!--
+Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+Used on: Pod
+-->
+例子：`kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+
+用于：Pod
+
+<!--
+Annotation that kubeadm places on locally managed kube-apiserver pods to keep track of the exposed advertise address/port endpoint for that API server instance.
+-->
+kubeadm 为本地管理的 kube-apiserver Pod 设置的注解，用以跟踪该 API 服务器实例的公开宣告地址/端口端点。
+
+### kubeadm.kubernetes.io/component-config.hash
+
+<!--
+Used on: ConfigMap
+Example: `kubeadm.kubernetes.io/component-config.hash: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae`
+-->
+例子：`kubeadm.kubernetes.io/component-config.hash: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae`
+
+用于：ConfigMap
+
+<!--
+Annotation that kubeadm places on ConfigMaps that it manages for configuring components. It contains a hash (SHA-256) used to determine if the user has applied settings different from the kubeadm defaults for a particular component.
+-->
+kubeadm 为它所管理的 ConfigMaps 设置的注解，用于配置组件。它包含一个哈希（SHA-256）值，
+用于确定用户是否应用了不同于特定组件的 kubeadm 默认设置的设置。
+
+### node-role.kubernetes.io/control-plane
+
+<!--
+Used on: Node
+
+Label that kubeadm applies on the control plane nodes that it manages.
+-->
+用于：Node
+
+kubeadm 在其管理的控制平面节点上应用的标签。
+
+### node-role.kubernetes.io/control-plane
+
+<!--
+Used on: Node
+
+Example: `node-role.kubernetes.io/control-plane:NoSchedule`
+-->
+例子：`node-role.kubernetes.io/control-plane:NoSchedule`
+
+用于：Node
+
+<!--
+Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+-->
+kubeadm 应用在控制平面节点上的污点，仅允许在其上调度关键工作负载。
+
+### node-role.kubernetes.io/master
+
+<!--
+Used on: Node
+
+Example: `node-role.kubernetes.io/master:NoSchedule`
+-->
+例子：`node-role.kubernetes.io/master:NoSchedule`
+
+用于：Node
+
+<!--
+Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+Starting in v1.20, this taint is deprecated in favor of `node-role.kubernetes.io/control-plane` and will be removed in v1.25.
+-->
+kubeadm 应用在控制平面节点上的污点，仅允许在其上调度关键工作负载。
+{{< note >}}
+从 v1.20 开始，此污点已弃用，并将在 v1.25 中将其删除，取而代之的是 `node-role.kubernetes.io/control-plane`。
+{{< /note >}}
