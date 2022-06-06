@@ -15,11 +15,11 @@ weight: 20
 <!-- overview -->
 
 <!--
-Kubernetes creates DNS records for services and pods. You can contact
-services with consistent DNS names instead of IP addresses.
+Kubernetes creates DNS records for Services and Pods. You can contact
+Services with consistent DNS names instead of IP addresses.
 -->
-Kubernetes 为服务和 Pods 创建 DNS 记录。
-你可以使用一致的 DNS 名称而非 IP 地址来访问服务。
+Kubernetes 为 Service 和 Pod 创建 DNS 记录。
+你可以使用一致的 DNS 名称而非 IP 地址访问 Service。
 
 <!-- body -->
 
@@ -30,10 +30,10 @@ Kubernetes DNS schedules a DNS Pod and Service on the cluster, and configures
 the kubelets to tell individual containers to use the DNS Service's IP to
 resolve DNS names.
 -->
-## 介绍
+## 介绍 {#introduction}
 
-Kubernetes DNS 在集群上调度 DNS Pod 和服务，并配置 kubelet 以告知各个容器
-使用 DNS 服务的 IP 来解析 DNS 名称。
+Kubernetes DNS 除了在集群上调度 DNS Pod 和 Service，
+还配置 kubelet 以告知各个容器使用 DNS Service 的 IP 来解析 DNS 名称。
 
 <!--
 Every Service defined in the cluster (including the DNS server itself) is
@@ -41,29 +41,28 @@ assigned a DNS name. By default, a client Pod's DNS search list includes the
 Pod's own namespace and the cluster's default domain. 
 -->
 集群中定义的每个 Service （包括 DNS 服务器自身）都被赋予一个 DNS 名称。
-默认情况下，客户端 Pod 的 DNS 搜索列表会包含 Pod 自身的名字空间和集群
-的默认域。
+默认情况下，客户端 Pod 的 DNS 搜索列表会包含 Pod 自身的名字空间和集群的默认域。
 
 <!--
 ### Namespaces of Services 
 
-A DNS query may return different results based on the namespace of the pod making 
-it. DNS queries that don't specify a namespace are limited to the pod's 
-namespace. Access services in other namespaces by specifying it in the DNS query. 
+A DNS query may return different results based on the namespace of the Pod making 
+it. DNS queries that don't specify a namespace are limited to the Pod's 
+namespace. Access Services in other namespaces by specifying it in the DNS query. 
 
-For example, consider a pod in a `test` namespace. A `data` service is in 
+For example, consider a Pod in a `test` namespace. A `data` service is in 
 the `prod` namespace. 
 
-A query for `data` returns no results, because it uses the pod's `test` namespace. 
+A query for `data` returns no results, because it uses the Pod's `test` namespace. 
 
 A query for `data.prod` returns the intended result, because it specifies the 
 namespace. 
 -->
-### Service 的名字空间
+### Service 的名字空间 {#namespaces-of-services}
 
 DNS 查询可能因为执行查询的 Pod 所在的名字空间而返回不同的结果。
 不指定名字空间的 DNS 查询会被限制在 Pod 所在的名字空间内。
-要访问其他名字空间中的服务，需要在 DNS 查询中给出名字空间。
+要访问其他名字空间中的 Service，需要在 DNS 查询中指定名字空间。
 
 例如，假定名字空间 `test` 中存在一个 Pod，`prod` 名字空间中存在一个服务
 `data`。
@@ -73,8 +72,8 @@ Pod 查询 `data` 时没有返回结果，因为使用的是 Pod 的名字空间
 Pod 查询 `data.prod` 时则会返回预期的结果，因为查询中指定了名字空间。
 
 <!--
-DNS queries may be expanded using the pod's `/etc/resolv.conf`. Kubelet 
-sets this file for each pod. For example, a query for just `data` may be 
+DNS queries may be expanded using the Pod's `/etc/resolv.conf`. Kubelet 
+sets this file for each Pod. For example, a query for just `data` may be 
 expanded to `data.test.svc.cluster.local`. The values of the `search` option 
 are used to expand queries. To learn more about DNS queries, see 
 [the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) 
@@ -91,7 +90,7 @@ options ndots:5
 ```
 
 <!--
-In summary, a pod in the _test_ namespace can successfully resolve either 
+In summary, a Pod in the `test` namespace can successfully resolve either 
 `data.prod` or `data.prod.svc.cluster.local`.
 -->
 概括起来，名字空间 `test` 中的 Pod 可以成功地解析 `data.prod` 或者
@@ -116,7 +115,7 @@ considered implementation details and are subject to change without warning.
 For more up-to-date specification, see
 [Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 -->
-以下各节详细介绍了被支持的 DNS 记录类型和被支持的布局。
+以下各节详细介绍已支持的 DNS 记录类型和布局。
 其它布局、名称或者查询即使碰巧可以工作，也应视为实现细节，
 将来很可能被更改而且不会因此发出警告。
 有关最新规范请查看
@@ -128,29 +127,29 @@ For more up-to-date specification, see
 ### A/AAAA records
 
 "Normal" (not headless) Services are assigned a DNS A or AAAA record,
-depending on the IP family of the service, for a name of the form
+depending on the IP family of the Service, for a name of the form
 `my-svc.my-namespace.svc.cluster-domain.example`.  This resolves to the cluster IP
 of the Service.
 
 "Headless" (without a cluster IP) Services are also assigned a DNS A or AAAA record,
-depending on the IP family of the service, for a name of the form
+depending on the IP family of the Service, for a name of the form
 `my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
-Services, this resolves to the set of IPs of the pods selected by the Service.
+Services, this resolves to the set of IPs of the Pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
 -->
-### 服务  {#services}
+### Services 
 
-#### A/AAAA 记录
+#### A/AAAA 记录 {#a-aaaa-records}
 
-“普通” 服务（除了无头服务）会以 `my-svc.my-namespace.svc.cluster-domain.example`
-这种名字的形式被分配一个 DNS A 或 AAAA 记录，取决于服务的 IP 协议族。
-该名称会解析成对应服务的集群 IP。
+“普通” Service（除了无头 Service）会以 `my-svc.my-namespace.svc.cluster-domain.example`
+这种名字的形式被分配一个 DNS A 或 AAAA 记录，取决于 Service 的 IP 协议族。
+该名称会解析成对应 Service 的集群 IP。
 
-“无头（Headless）” 服务（没有集群 IP）也会以
+“无头（Headless）” Service （没有集群 IP）也会以
 `my-svc.my-namespace.svc.cluster-domain.example` 这种名字的形式被指派一个 DNS A 或 AAAA 记录，
-具体取决于服务的 IP 协议族。
-与普通服务不同，这一记录会被解析成对应服务所选择的 Pod 集合的 IP。
+具体取决于 Service 的 IP 协议族。
+与普通 Service 不同，这一记录会被解析成对应 Service 所选择的 Pod IP 的集合。
 客户端要能够使用这组 IP，或者使用标准的轮转策略从这组 IP 中进行选择。
 
 <!--
@@ -160,20 +159,21 @@ SRV Records are created for named ports that are part of normal or [Headless
 Services](/docs/concepts/services-networking/service/#headless-services).
 For each named port, the SRV record would have the form
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
-For a regular service, this resolves to the port number and the domain name:
+For a regular Service, this resolves to the port number and the domain name:
 `my-svc.my-namespace.svc.cluster-domain.example`.
-For a headless service, this resolves to multiple answers, one for each pod
-that is backing the service, and contains the port number and the domain name of the pod
+For a headless Service, this resolves to multiple answers, one for each Pod
+that is backing the Service, and contains the port number and the domain name of the Pod
 of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`.
 -->
 #### SRV 记录  {#srv-records}
 
-Kubernetes 会为命名端口创建 SRV 记录，这些端口是普通服务或
-[无头服务](/zh/docs/concepts/services-networking/service/#headless-services)的一部分。
-对每个命名端口，SRV 记录具有 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example` 这种形式。
-对普通服务，该记录会被解析成端口号和域名：`my-svc.my-namespace.svc.cluster-domain.example`。
-对无头服务，该记录会被解析成多个结果，服务对应的每个后端 Pod 各一个；
-其中包含 Pod 端口号和形为 `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`
+Kubernetes 根据普通 Service 或
+[Headless Service](/zh/docs/concepts/services-networking/service/#headless-services)
+中的命名端口创建 SRV 记录。每个命名端口，
+SRV 记录格式为 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`。
+普通 Service，该记录会被解析成端口号和域名：`my-svc.my-namespace.svc.cluster-domain.example`。
+无头 Service，该记录会被解析成多个结果，及该服务的每个后端 Pod 各一个 SRV 记录，
+其中包含 Pod 端口号和格式为 `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`
 的域名。
 
 ## Pods
@@ -181,20 +181,20 @@ Kubernetes 会为命名端口创建 SRV 记录，这些端口是普通服务或
 <!--
 ### A/AAAA records
 
-In general a pod has the following DNS resolution:
+In general a Pod has the following DNS resolution:
 
 `pod-ip-address.my-namespace.pod.cluster-domain.example`.
 
-For example, if a pod in the `default` namespace has the IP address 172.17.0.3,
+For example, if a Pod in the `default` namespace has the IP address 172.17.0.3,
 and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
 
 `172-17-0-3.default.pod.cluster.local`.
 
-Any pods exposed by a Service have the following DNS resolution available:
+Any Pods exposed by a Service have the following DNS resolution available:
 
 `pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 -->
-### A/AAAA 记录
+### A/AAAA 记录 {#a-aaaa-records}
 
 一般而言，Pod 会对应如下 DNS 名字解析：
 
@@ -212,11 +212,11 @@ Any pods exposed by a Service have the following DNS resolution available:
 <!--
 ### Pod's hostname and subdomain fields
 
-Currently when a pod is created, its hostname is the Pod's `metadata.name` value.
+Currently when a Pod is created, its hostname is the Pod's `metadata.name` value.
 
 The Pod spec has an optional `hostname` field, which can be used to specify the
 Pod's hostname. When specified, it takes precedence over the Pod's name to be
-the hostname of the pod. For example, given a Pod with `hostname` set to
+the hostname of the Pod. For example, given a Pod with `hostname` set to
 "`my-host`", the Pod will have its hostname set to "`my-host`".
 
 The Pod spec also has an optional `subdomain` field which can be used to specify
@@ -226,7 +226,7 @@ domain name (FQDN) "`foo.bar.my-namespace.svc.cluster-domain.example`".
 
 Example:
 -->
-### Pod 的 hostname 和 subdomain 字段
+### Pod 的 hostname 和 subdomain 字段 {#pod-s-hostname-and-subdomain-fields}
 
 当前，创建 Pod 时其主机名取自 Pod 的 `metadata.name` 值。
 
@@ -290,21 +290,21 @@ spec:
 ```
 
 <!--
-If there exists a headless service in the same namespace as the pod and with
+If there exists a headless Service in the same namespace as the Pod and with
 the same name as the subdomain, the cluster's DNS Server also returns an A or AAAA
 record for the Pod's fully qualified hostname.
 For example, given a Pod with the hostname set to "`busybox-1`" and the subdomain set to
 "`default-subdomain`", and a headless Service named "`default-subdomain`" in
-the same namespace, the pod will see its own FQDN as
+the same namespace, the Pod will see its own FQDN as
 "`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`". DNS serves an
-A or AAAA record at that name, pointing to the Pod's IP. Both pods "`busybox1`" and
+A or AAAA record at that name, pointing to the Pod's IP. Both Pods "`busybox1`" and
 "`busybox2`" can have their distinct A or AAAA records.
 -->
-如果某无头服务与某 Pod 在同一个名字空间中，且它们具有相同的子域名，
+如果某无头 Service 与某 Pod 在同一个名字空间中，且它们具有相同的子域名，
 集群的 DNS 服务器也会为该 Pod 的全限定主机名返回 A 记录或 AAAA 记录。
 例如，在同一个名字空间中，给定一个主机名为 “busybox-1”、
 子域名设置为 “default-subdomain” 的 Pod，和一个名称为 “`default-subdomain`”
-的无头服务，Pod 将看到自己的 FQDN 为
+的无头 Service，Pod 将看到自己的 FQDN 为
 "`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`"。
 DNS 会为此名字提供一个 A 记录或 AAAA 记录，指向该 Pod 的 IP。
 “`busybox1`” 和 “`busybox2`” 这两个 Pod 分别具有它们自己的 A 或 AAAA 记录。
@@ -318,16 +318,14 @@ Endpoints 对象可以为任何端点地址及其 IP 指定 `hostname`。
 <!--
 Because A or AAAA records are not created for Pod names, `hostname` is required for the Pod's A or AAAA
 record to be created. A Pod with no `hostname` but with `subdomain` will only create the
-A or AAAA record for the headless service (`default-subdomain.my-namespace.svc.cluster-domain.example`),
+A or AAAA record for the headless Service (`default-subdomain.my-namespace.svc.cluster-domain.example`),
 pointing to the Pod's IP address. Also, Pod needs to become ready in order to have a
 record unless `publishNotReadyAddresses=True` is set on the Service.
 -->
 {{< note >}}
-因为没有为 Pod 名称创建 A 记录或 AAAA 记录，所以要创建 Pod 的 A 记录
-或 AAAA 记录需要 `hostname`。
-
+由于不是为 Pod 名称创建 A 或 AAAA 记录的，因此 Pod 的 A 或 AAAA 需要 `hostname`。
 没有设置 `hostname` 但设置了 `subdomain` 的 Pod 只会为
-无头服务创建 A 或 AAAA 记录（`default-subdomain.my-namespace.svc.cluster-domain.example`）
+无头 Service 创建 A 或 AAAA 记录（`default-subdomain.my-namespace.svc.cluster-domain.example`）
 指向 Pod 的 IP 地址。
 另外，除非在服务上设置了 `publishNotReadyAddresses=True`，否则只有 Pod 进入就绪状态
 才会有与之对应的记录。
@@ -359,7 +357,7 @@ When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the P
 <!--
 In Linux, the hostname field of the kernel (the `nodename` field of `struct utsname`) is limited to 64 characters.
 
-If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
+If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from Pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
 -->
 在 Linux 中，内核的主机名字段（`struct utsname` 的 `nodename` 字段）限定
 最多 64 个字符。
@@ -367,7 +365,7 @@ If a Pod enables this feature and its FQDN is longer than 64 character, it will 
 如果 Pod 启用这一特性，而其 FQDN 超出 64 字符，Pod 的启动会失败。
 Pod 会一直出于 `Pending` 状态（通过 `kubectl` 所看到的 `ContainerCreating`），
 并产生错误事件，例如
-"Failed to construct FQDN from pod hostname and cluster domain, FQDN
+"Failed to construct FQDN from Pod hostname and cluster domain, FQDN
 `long-FQDN` is too long (64 characters is the max, 70 characters requested)."
 （无法基于 Pod 主机名和集群域名构造 FQDN，FQDN `long-FQDN` 过长，至多 64
 字符，请求字符数为 70）。
@@ -379,12 +377,12 @@ Pod 会一直出于 `Pending` 状态（通过 `kubectl` 所看到的 `ContainerC
 <!--
 ### Pod's DNS Policy
 
-DNS policies can be set on a per-pod basis. Currently Kubernetes supports the
-following pod-specific DNS policies. These policies are specified in the
+DNS policies can be set on a per-Pod basis. Currently Kubernetes supports the
+following Pod-specific DNS policies. These policies are specified in the
 `dnsPolicy` field of a Pod Spec.
 
 - "`Default`": The Pod inherits the name resolution configuration from the node
-  that the pods run on.
+  that the Pods run on.
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for more details.
 - "`ClusterFirst`": Any DNS query that does not match the configured cluster
@@ -572,7 +570,7 @@ a list of search domains of up to 2048 characters.
 <!--
 ## DNS resolution on Windows nodes {#dns-windows}
 
-- ClusterFirstWithHostNet is not supported for pods that run on Windows nodes.
+- ClusterFirstWithHostNet is not supported for Pods that run on Windows nodes.
   Windows treats all names with a `.` as a FQDN and skips FQDN resolution.
 - On Windows, there are multiple DNS resolvers that can be used. As these come with
   slightly different behaviors, using the
@@ -581,10 +579,10 @@ a list of search domains of up to 2048 characters.
 - On Linux, you have a DNS suffix list, which is used after resolution of a name as fully
   qualified has failed.
   On Windows, you can only have 1 DNS suffix, which is the DNS suffix associated with that
-  pod's namespace (example: `mydns.svc.cluster.local`). Windows can resolve FQDNs, services,
-  or network name which can be resolved with this single suffix. For example, a pod spawned
+  Pod's namespace (example: `mydns.svc.cluster.local`). Windows can resolve FQDNs, Services,
+  or network name which can be resolved with this single suffix. For example, a Pod spawned
   in the `default` namespace, will have the DNS suffix `default.svc.cluster.local`.
-  Inside a Windows pod, you can resolve both `kubernetes.default.svc.cluster.local`
+  Inside a Windows Pod, you can resolve both `kubernetes.default.svc.cluster.local`
   and `kubernetes`, but not the partially qualified names (`kubernetes.default` or
   `kubernetes.default.svc`).
 -->
@@ -599,7 +597,7 @@ a list of search domains of up to 2048 characters.
 - 在 Linux 上，有一个 DNS 后缀列表，当解析全名失败时可以使用。
   在 Windows 上，你只能有一个 DNS 后缀，
   即与该 Pod 的命名空间相关联的 DNS 后缀（例如：`mydns.svc.cluster.local`）。
-  Windows 可以解析全限定域名（FQDN），和使用了该 DNS 后缀的服务名称或者网络名称。
+  Windows 可以解析全限定域名（FQDN），和使用了该 DNS 后缀的 Services 或者网络名称。
   例如，在 `default` 命名空间中生成一个 Pod，该 Pod 会获得的 DNS 后缀为 `default.svc.cluster.local`。
   在 Windows 的 Pod 中，你可以解析 `kubernetes.default.svc.cluster.local` 和 `kubernetes`，
   但是不能解析部分限定名称（`kubernetes.default` 和 `kubernetes.default.svc`）。
