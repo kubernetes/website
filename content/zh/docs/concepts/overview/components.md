@@ -33,10 +33,10 @@ a complete and working Kubernetes cluster.
 
 -->
 <!-- overview -->
-当你部署完 Kubernetes，即拥有了一个完整的集群。
+当你部署完 Kubernetes，便拥有了一个完整的集群。
 {{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes">}}
 
-本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
+本文档概述了一个正常运行的 Kubernetes 集群所需的各种组件。
 
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes 的组件" caption="Kubernetes 集群的组件" class="diagram-large" >}}
 
@@ -49,8 +49,9 @@ The control plane's components make global decisions about the cluster (for exam
  -->
 ## 控制平面组件（Control Plane Components）    {#control-plane-components}
 
-控制平面的组件对集群做出全局决策（比如调度），以及检测和响应集群事件（例如，当不满足部署的
-`replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
+控制平面组件会为集群做出全局决策，比如资源的调度。
+以及检测和响应集群事件，例如当不满足部署的 `replicas` 字段时，
+要启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
 
 <!--
 Control plane components can be run on any machine in the cluster. However,
@@ -93,7 +94,7 @@ Some types of these controllers are:
 这些控制器包括：
 
 * 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应
-* 任务控制器（Job controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
+* 任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
 * 端点控制器（Endpoints Controller）：填充端点（Endpoints）对象（即加入 Service 与 Pod）
 * 服务帐户和令牌控制器（Service Account & Token Controllers）：为新的命名空间创建默认帐户和 API 访问令牌
 
@@ -118,12 +119,13 @@ The following controllers can have cloud provider dependencies:
 
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
-`cloud-controller-manager` 仅运行特定于云平台的控制回路。
-如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境，
-所部署的环境中不需要云控制器管理器。
+`cloud-controller-manager` 仅运行特定于云平台的控制器。
+因此如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境，
+所部署的集群不需要有云控制器管理器。
 
-与 `kube-controller-manager` 类似，`cloud-controller-manager` 将若干逻辑上独立的
-控制回路组合到同一个可执行文件中，供你以同一进程的方式运行。
+与 `kube-controller-manager` 类似，`cloud-controller-manager`
+将若干逻辑上独立的控制回路组合到同一个可执行文件中，
+供你以同一进程的方式运行。
 你可以对其执行水平扩容（运行不止一个副本）以提升性能或者增强容错能力。
 
 下面的控制器都包含对云平台驱动的依赖：
